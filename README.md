@@ -1,24 +1,34 @@
-# PiconHub server – Skylink 23.5°E TEST 5
+# PiconHub Server — Warder Evolution
 
-Toto je prvý kontrolovaný serverový balík pre PiconHub by Warder.
+Clean server structure for the new PiconHub plugin.
 
-Obsahuje 5 TEST piconov s reálnymi Service References z prijímača:
-- Markiza HD
-- TV JOJ HD
-- RTVS SPORT HD
-- Nova Sport 1 HD
-- TA3 HD
+## Canonical layout
 
-PNG sú zámerne označené PICONHUB TEST. Nie sú to finálne logá. Slúžia iba na overenie celého reťazca server -> manifest -> SHA-256 -> prijímač.
+```text
+picons/<satellite-position>/<provider>/<variant>/
+```
 
-## GitHub
-1. Vytvor verejný repozitár, napr. `piconhub-server`.
-2. Nahraj celý obsah tohto priečinka do koreňa repozitára.
-3. Pred uploadom alebo po lokálnom rozbalení spusti:
-   `python3 tools/configure_repo.py TVOJE_GITHUB_MENO piconhub-server`
-4. Výsledná adresa katalógu bude:
-   `https://raw.githubusercontent.com/TVOJE_GITHUB_MENO/piconhub-server/main/catalog.json`
+Where `<variant>` is one of:
 
-Pošli túto adresu do chatu. Následne sa vytvorí testovacie IPK, ktoré ju použije ako catalog_url.
+- `transparent`
+- `white`
+- `black`
 
-Dôležité: PiconHub má mať zapnuté zálohovanie existujúcich piconov počas testu.
+There is no intermediate `satellite` directory and no `Satellite 0` layer.
+
+## Server API
+
+- `api/catalog.json` — server catalog data
+- `api/latest_added.json` — latest added picons
+- `api/news.json` — PiconHub news feed
+- `api/schema.json` — structure/API version
+
+## Plugin updates
+
+Plugin release payloads are stored separately under `plugin/releases/` and are independent of the picon database.
+
+The Enigma2 plugin keeps its own plugin version separate from the database version.
+
+## Project
+
+PiconHub by Warder
