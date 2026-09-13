@@ -21,6 +21,7 @@ ROOT = Path(__file__).resolve().parents[1]
 PICONS = ROOT / "picons"
 MANIFESTS = ROOT / "manifests"
 VARIANTS = ("transparent", "white", "black")
+SCHEMA_VERSION = 2
 RAW_BASE = "https://raw.githubusercontent.com/PiconHub-Warder/piconhub-server/main"
 
 
@@ -54,7 +55,7 @@ def main() -> None:
 
     generated = datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
     index = {
-        "schema": 2,
+        "schema": SCHEMA_VERSION,
         "generated": generated,
         "layout": "manifests/{satellite}/{provider}/{variant}.json",
         "picon_layout": "picons/{satellite}/{provider}/{variant}/{file}",
@@ -87,7 +88,7 @@ def main() -> None:
                         "url": "%s/%s" % (RAW_BASE, rel),
                     })
                 payload = {
-                    "schema": 2,
+                    "schema": SCHEMA_VERSION,
                     "generated": generated,
                     "satellite": sat_dir.name,
                     "provider": provider_dir.name,
