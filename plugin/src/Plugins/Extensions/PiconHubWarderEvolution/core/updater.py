@@ -26,22 +26,26 @@ from .errors import IntegrityError, NetworkError
 from .http import download_atomic, fetch_json
 
 
-_VERSION_PART_RE = re.compile(r'(\d+|[A-Za-z]+)')
+_VERSION_RE = re.compile(r'^\s*(\d+(?:\.\d+)*)(?:[-_.]?([A-Za-z]+)(\d*)?)?\s*$')
+_PRE_RANK = {
+    'dev': 0,
+    'alpha': 10, 'a': 10,
+    'beta': 20, 'b': 20,
+    'rc': 30,
+}
 
 
 def _version_key(value):
-    """Compare mixed numeric/dev versions without plain string ordering."""
-    value = str(value or '').strip().lower()
-    parts = []
-    for token in _VERSION_PART_RE.findall(value):
-        if token.isdigit():
-            parts.append((1, int(token)))
-        else:
-            # Stable releases sort after prerelease labels at equal numeric base.
-            rank = {'dev': -30, 'alpha': -20, 'a': -20,
-                    'beta': -10, 'b': -10, 'rc': -5}.get(token, 0)
-            parts.append((0, rank, token))
-    return tuple(parts)
+    """Return a stable ordering where prereleases sort below final releases."""
+    text = str(value or '').strip().lower()
+    match = _VERSION_RE.match(text)
+    if not match:
+        return ((0,), -100, 0, text)
+    numbers = tuple(int(x) for x in match.group(1).split('.'))
+    label = (match.group(2) or '').lower()
+    serial = int(match.group(3) or 0)
+    rank = 100 if not label else _PRE_RANK.get(label, 40)
+    return (numbers, rank, serial, label)
 
 
 def is_newer(remote, local=PLUGIN_VERSION):
