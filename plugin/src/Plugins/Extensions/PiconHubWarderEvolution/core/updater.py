@@ -67,12 +67,18 @@ def check_for_update(timeout=15, retries=2):
     enabled = bool(manifest.get('enabled', False))
     remote = str(manifest.get('version') or '').strip()
     package_url = str(manifest.get('package_url') or '').strip()
+    package_parts = manifest.get('package_parts') or []
+    if not isinstance(package_parts, list):
+        raise NetworkError('Invalid package_parts in update manifest')
+    package_parts = [str(url or '').strip() for url in package_parts if str(url or '').strip()]
     result = {
         'enabled': enabled,
         'current_version': PLUGIN_VERSION,
         'version': remote,
         'available': False,
         'package_url': package_url,
+        'package_parts': package_parts,
+        'package_name': str(manifest.get('package_name') or '').strip(),
         'sha256': str(manifest.get('sha256') or '').strip().lower(),
         'size': manifest.get('size'),
         'notes': str(manifest.get('notes') or '').strip(),
@@ -80,7 +86,8 @@ def check_for_update(timeout=15, retries=2):
     }
     if not enabled or not remote:
         return result
-    if not _trusted_package_url(package_url):
+    urls = package_parts or [package_url]
+    if not urls or not all(_trusted_package_url(url) for url in urls):
         raise NetworkError('Update manifest contains an untrusted package URL')
     if not result['sha256'] or len(result['sha256']) != 64:
         raise IntegrityError('Update manifest is missing a valid SHA-256')
@@ -111,55 +118,71 @@ def _clean_update_dir():
         os.makedirs(UPDATE_TMP_DIR)
 
 
+def _decode_parts(urls, target, timeout, retries):
+    encoded = bytearray()
+    for index, url in enumerate(urls):
+        part = os.path.join(UPDATE_TMP_DIR, 'package.part%d' % (index + 1))
+        download_atomic(url, part, timeout=timeout, retries=retries)
+        with open(part, 'rb') as src:
+            encoded.extend(src.read().strip())
+        try:
+            os.remove(part)
+        except Exception:
+            pass
+    try:
+        decoded = base64.b64decode(bytes(encoded))
+        with open(target, 'wb') as out:
+            out.write(decoded)
+    except Exception as exc:
+        raise IntegrityError('Unable to decode plugin update package: %s' % exc)
+
+
 def download_update(info, timeout=30, retries=2):
     if not info or not info.get('available'):
         raise ValueError('No plugin update is available')
-    url = str(info.get('package_url') or '')
-    if not _trusted_package_url(url):
-        raise NetworkError('Untrusted plugin update package URL')
     _clean_update_dir()
-    filename = os.path.basename(urlparse(url).path)
-    if not filename:
-        raise NetworkError('Invalid plugin update package name')
-
-    encoded = filename.endswith('.b64')
-    package_name = filename[:-4] if encoded else filename
-    if not (package_name.endswith('.ipk') or package_name.endswith('.deb')):
-        raise NetworkError('Unsupported plugin update package type')
-
-    if encoded:
-        encoded_target = os.path.join(UPDATE_TMP_DIR, filename)
-        download_atomic(url, encoded_target, timeout=timeout, retries=retries)
-        target = os.path.join(UPDATE_TMP_DIR, package_name)
-        try:
-            with open(encoded_target, 'rb') as src:
-                raw = src.read()
-            decoded = base64.b64decode(raw)
-            with open(target, 'wb') as out:
-                out.write(decoded)
-            os.remove(encoded_target)
-        except Exception as exc:
-            try:
-                if os.path.exists(target):
-                    os.remove(target)
-            except Exception:
-                pass
-            raise IntegrityError('Unable to decode plugin update package: %s' % exc)
+    parts = info.get('package_parts') or []
+    if parts:
+        if not all(_trusted_package_url(url) for url in parts):
+            raise NetworkError('Untrusted plugin update package URL')
+        package_name = str(info.get('package_name') or '').strip()
+        if not (package_name.endswith('.ipk') or package_name.endswith('.deb')):
+            raise NetworkError('Invalid multipart package name')
+        target = os.path.join(UPDATE_TMP_DIR, os.path.basename(package_name))
+        _decode_parts(parts, target, timeout, retries)
     else:
-        target = os.path.join(UPDATE_TMP_DIR, filename)
-        download_atomic(url, target, timeout=timeout, retries=retries)
+        url = str(info.get('package_url') or '')
+        if not _trusted_package_url(url):
+            raise NetworkError('Untrusted plugin update package URL')
+        filename = os.path.basename(urlparse(url).path)
+        if not filename:
+            raise NetworkError('Invalid plugin update package name')
+        encoded = filename.endswith('.b64')
+        package_name = filename[:-4] if encoded else filename
+        if not (package_name.endswith('.ipk') or package_name.endswith('.deb')):
+            raise NetworkError('Unsupported plugin update package type')
+        target = os.path.join(UPDATE_TMP_DIR, package_name)
+        if encoded:
+            encoded_target = target + '.b64'
+            download_atomic(url, encoded_target, timeout=timeout, retries=retries)
+            try:
+                with open(encoded_target, 'rb') as src:
+                    decoded = base64.b64decode(src.read())
+                with open(target, 'wb') as out:
+                    out.write(decoded)
+                os.remove(encoded_target)
+            except Exception as exc:
+                raise IntegrityError('Unable to decode plugin update package: %s' % exc)
+        else:
+            download_atomic(url, target, timeout=timeout, retries=retries)
 
-    expected_size = info.get('size')
-    if expected_size is not None and os.path.getsize(target) != int(expected_size):
+    if os.path.getsize(target) != int(info.get('size')):
         try:
             os.remove(target)
         except Exception:
             pass
         raise IntegrityError('Plugin update size mismatch')
-
-    actual = _sha256(target)
-    expected = str(info.get('sha256') or '').lower()
-    if actual != expected:
+    if _sha256(target) != str(info.get('sha256') or '').lower():
         try:
             os.remove(target)
         except Exception:
@@ -175,8 +198,7 @@ def install_package(path):
     if not os.path.isfile(path):
         raise IOError('Update package not found: %s' % path)
     if path.endswith('.ipk'):
-        commands = [['opkg', 'install', '--force-reinstall', path],
-                    ['opkg', 'install', path]]
+        commands = [['opkg', 'install', '--force-reinstall', path], ['opkg', 'install', path]]
     elif path.endswith('.deb'):
         commands = [['dpkg', '-i', path]]
     else:
