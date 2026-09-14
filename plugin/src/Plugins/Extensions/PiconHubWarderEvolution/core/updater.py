@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import print_function
 
+import base64
 import hashlib
 import os
 import re
@@ -118,11 +119,44 @@ def download_update(info, timeout=30, retries=2):
         raise NetworkError('Untrusted plugin update package URL')
     _clean_update_dir()
     filename = os.path.basename(urlparse(url).path)
-    if not filename or not (filename.endswith('.ipk') or filename.endswith('.deb')):
+    if not filename:
+        raise NetworkError('Invalid plugin update package name')
+
+    encoded = filename.endswith('.b64')
+    package_name = filename[:-4] if encoded else filename
+    if not (package_name.endswith('.ipk') or package_name.endswith('.deb')):
         raise NetworkError('Unsupported plugin update package type')
-    target = os.path.join(UPDATE_TMP_DIR, filename)
-    download_atomic(url, target, expected_size=info.get('size'),
-                    timeout=timeout, retries=retries)
+
+    if encoded:
+        encoded_target = os.path.join(UPDATE_TMP_DIR, filename)
+        download_atomic(url, encoded_target, timeout=timeout, retries=retries)
+        target = os.path.join(UPDATE_TMP_DIR, package_name)
+        try:
+            with open(encoded_target, 'rb') as src:
+                raw = src.read()
+            decoded = base64.b64decode(raw)
+            with open(target, 'wb') as out:
+                out.write(decoded)
+            os.remove(encoded_target)
+        except Exception as exc:
+            try:
+                if os.path.exists(target):
+                    os.remove(target)
+            except Exception:
+                pass
+            raise IntegrityError('Unable to decode plugin update package: %s' % exc)
+    else:
+        target = os.path.join(UPDATE_TMP_DIR, filename)
+        download_atomic(url, target, timeout=timeout, retries=retries)
+
+    expected_size = info.get('size')
+    if expected_size is not None and os.path.getsize(target) != int(expected_size):
+        try:
+            os.remove(target)
+        except Exception:
+            pass
+        raise IntegrityError('Plugin update size mismatch')
+
     actual = _sha256(target)
     expected = str(info.get('sha256') or '').lower()
     if actual != expected:
