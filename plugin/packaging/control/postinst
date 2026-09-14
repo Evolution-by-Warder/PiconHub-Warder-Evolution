@@ -1,0 +1,13 @@
+#!/bin/sh
+PLUGIN_DIR="/usr/lib/enigma2/python/Plugins/Extensions/ChocholousekPicons"
+# Remove stale Enigma/Python bytecode so the freshly installed source is loaded.
+find "$PLUGIN_DIR" -maxdepth 1 \( -name '*.pyc' -o -name '*.pyo' \) -type f -delete 2>/dev/null || true
+rm -rf "$PLUGIN_DIR/__pycache__" 2>/dev/null || true
+echo "*********************************************************"
+echo "      PiconHub-Warder-Evolution - ver.5.0.240904.2        "
+echo "                Enigma2 plugin/extensions                "
+echo " https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution "
+echo "*********************************************************"
+echo " Successfully INSTALLED. You should restart Enigma2 now. "
+echo "*********************************************************"
+exit 0
