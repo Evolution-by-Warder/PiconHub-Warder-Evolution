@@ -18,6 +18,13 @@ REPOSITORY_RAW = 'https://raw.githubusercontent.com/%s/%s/%s' % (
 PICON_ROOT = 'picons'
 PLUGIN_ROOT = 'plugin'
 
+# Canonical Warder update channel. The plugin never contacts the legacy
+# Chocholousek/s3n0 update service.
+UPDATE_ROOT = REPOSITORY_RAW + '/plugin/update'
+UPDATE_MANIFEST_URL = UPDATE_ROOT + '/manifest.json'
+UPDATE_PACKAGE_ROOT = UPDATE_ROOT + '/packages'
+UPDATE_TMP_DIR = '/tmp/piconhub-warder-evolution-update'
+
 DEFAULT_TARGET_DIR = '/usr/share/enigma2/picon'
 DEFAULT_TIMEOUT = 15
 DEFAULT_RETRIES = 2
