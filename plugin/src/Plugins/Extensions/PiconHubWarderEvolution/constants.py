@@ -2,7 +2,7 @@
 
 PLUGIN_ID = 'PiconHubWarderEvolution'
 PLUGIN_NAME = 'PiconHub-Warder-Evolution'
-PLUGIN_VERSION = '0.1.0-dev'
+PLUGIN_VERSION = '0.1.1-dev'
 AUTHOR = 'Warder'
 UPSTREAM_PLUGIN_AUTHOR = 's3n0'
 UPSTREAM_PICON_AUTHOR = 'Chocholousek'
