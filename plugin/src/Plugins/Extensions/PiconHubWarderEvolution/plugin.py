@@ -22,6 +22,7 @@ from .constants import AUTHOR, PLUGIN_NAME, PLUGIN_VERSION
 from .core.catalog import RepositoryCatalog
 from .core.engine import PiconHubEngine
 from .core.settings import load as load_settings, save as save_settings
+from .core.updater import check_for_update, install_update
 
 
 def _choices(values):
@@ -43,12 +44,10 @@ class PiconHubConfigScreen(Screen, ConfigListScreen):
             <widget name="author_txt" position="0,60" size="1200,40" font="Regular;28" foregroundColor="yellow" transparent="1" halign="center" valign="center" />
             <widget name="status_txt" position="50,105" size="1100,42" font="Regular;25" foregroundColor="white" transparent="1" halign="center" valign="center" />
             <widget name="config" position="50,155" size="1100,525" font="Regular;30" itemHeight="42" scrollbarMode="showOnDemand" backgroundColor="#1F000000" enableWrapAround="1" />
-            <ePixmap pixmap="skin_default/buttons/red.png" position="25,735" size="30,46" transparent="1" alphatest="on" />
-            <ePixmap pixmap="skin_default/buttons/green.png" position="320,735" size="30,46" transparent="1" alphatest="on" />
-            <ePixmap pixmap="skin_default/buttons/yellow.png" position="650,735" size="30,46" transparent="1" alphatest="on" />
-            <widget name="red" position="65,735" size="240,46" font="Regular;30" transparent="1" valign="center" />
-            <widget name="green" position="360,735" size="280,46" font="Regular;30" transparent="1" valign="center" />
-            <widget name="yellow" position="690,735" size="460,46" font="Regular;30" transparent="1" valign="center" />
+            <widget name="red" position="45,735" size="225,46" font="Regular;28" foregroundColor="red" transparent="1" valign="center" />
+            <widget name="green" position="300,735" size="260,46" font="Regular;28" foregroundColor="green" transparent="1" valign="center" />
+            <widget name="yellow" position="590,735" size="260,46" font="Regular;28" foregroundColor="yellow" transparent="1" valign="center" />
+            <widget name="blue" position="880,735" size="270,46" font="Regular;28" foregroundColor="blue" transparent="1" valign="center" />
         </screen>'''
     else:
         skin = '''
@@ -57,9 +56,10 @@ class PiconHubConfigScreen(Screen, ConfigListScreen):
             <widget name="author_txt" position="0,45" size="850,32" font="Regular;21" foregroundColor="yellow" transparent="1" halign="center" valign="center" />
             <widget name="status_txt" position="35,80" size="780,32" font="Regular;20" foregroundColor="white" transparent="1" halign="center" valign="center" />
             <widget name="config" position="35,120" size="780,385" font="Regular;23" itemHeight="34" scrollbarMode="showOnDemand" backgroundColor="#1F000000" enableWrapAround="1" />
-            <widget name="red" position="35,535" size="190,40" font="Regular;23" foregroundColor="red" transparent="1" valign="center" />
-            <widget name="green" position="250,535" size="250,40" font="Regular;23" foregroundColor="green" transparent="1" valign="center" />
-            <widget name="yellow" position="520,535" size="295,40" font="Regular;23" foregroundColor="yellow" transparent="1" valign="center" />
+            <widget name="red" position="35,535" size="165,40" font="Regular;21" foregroundColor="red" transparent="1" valign="center" />
+            <widget name="green" position="210,535" size="205,40" font="Regular;21" foregroundColor="green" transparent="1" valign="center" />
+            <widget name="yellow" position="425,535" size="185,40" font="Regular;21" foregroundColor="yellow" transparent="1" valign="center" />
+            <widget name="blue" position="620,535" size="195,40" font="Regular;21" foregroundColor="blue" transparent="1" valign="center" />
         </screen>'''
 
     def __init__(self, session):
@@ -76,6 +76,7 @@ class PiconHubConfigScreen(Screen, ConfigListScreen):
         self['red'] = Label(_('Exit'))
         self['green'] = Label(_('Save + update'))
         self['yellow'] = Label(_('Refresh catalog'))
+        self['blue'] = Label(_('Plugin update'))
         self.target = ConfigText(default=self.data['target_dir'], fixed_size=False)
         self.mode = ConfigSelection(default=self.data['mode'], choices=[
             ('all', _('All picons from selected package')),
@@ -89,8 +90,8 @@ class PiconHubConfigScreen(Screen, ConfigListScreen):
         ConfigListScreen.__init__(self, [], session=session)
         self['actions'] = ActionMap(['OkCancelActions', 'ColorActions', 'DirectionActions'], {
             'cancel': self.close, 'red': self.close, 'green': self.saveAndUpdate,
-            'yellow': self.refreshCatalog, 'ok': self.keyOK,
-            'left': self.keyLeft, 'right': self.keyRight,
+            'yellow': self.refreshCatalog, 'blue': self.checkPluginUpdate,
+            'ok': self.keyOK, 'left': self.keyLeft, 'right': self.keyRight,
         }, -1)
         self._rebuild()
         self.onLayoutFinish.append(self.refreshCatalog)
@@ -113,12 +114,14 @@ class PiconHubConfigScreen(Screen, ConfigListScreen):
         self._job = result
         self._job_callback = callback
         self['status_txt'].setText(label)
+
         def run():
             try:
                 result.value = worker()
             except Exception as exc:
                 result.error = exc
             result.done = True
+
         thread = Thread(target=run)
         thread.daemon = True
         thread.start()
@@ -152,28 +155,33 @@ class PiconHubConfigScreen(Screen, ConfigListScreen):
             styles = self.catalog.styles(sat, provider) if sat and provider else []
             style = self.style.value if self.style.value in styles else (styles[0] if styles else '')
             return satellites, sat, providers, provider, styles, style
+
         def apply_result(result):
             satellites, sat, providers, provider, styles, style = result
             self.satellite.setChoices(_choices(satellites), default=sat)
             self.provider.setChoices(_choices(providers), default=provider)
             self.style.setChoices(_choices(styles), default=style)
             self._rebuild()
+
         self._startJob(_('Loading PiconHub catalog...'), worker, apply_result)
 
     def _refreshChildren(self):
         sat = self.satellite.value
         provider_current = self.provider.value
+
         def worker():
             providers = self.catalog.providers(sat) if sat else []
             provider = provider_current if provider_current in providers else (providers[0] if providers else '')
             styles = self.catalog.styles(sat, provider) if sat and provider else []
             style = self.style.value if self.style.value in styles else (styles[0] if styles else '')
             return providers, provider, styles, style
+
         def apply_result(result):
             providers, provider, styles, style = result
             self.provider.setChoices(_choices(providers), default=provider)
             self.style.setChoices(_choices(styles), default=style)
             self._rebuild()
+
         self._startJob(_('Loading providers/styles...'), worker, apply_result)
 
     def keyLeft(self):
@@ -200,13 +208,56 @@ class PiconHubConfigScreen(Screen, ConfigListScreen):
 
     def saveAndUpdate(self):
         data = save_settings(self._settings())
+
         def worker():
             engine = PiconHubEngine(data, catalog=self.catalog, timeout=20, retries=2)
             return engine.apply()
+
         def finished(plan):
             message = _('Update finished.\n\nSelected: %(selected_count)s\nDownloaded/updated: %(download_count)s\nUnchanged: %(unchanged_count)s\nRemoved: %(remove_count)s') % plan
             self.session.open(MessageBox, message, MessageBox.TYPE_INFO, timeout=15)
+
         self._startJob(_('Updating picons...'), worker, finished)
+
+    def checkPluginUpdate(self):
+        def finished(info):
+            if not info.get('enabled'):
+                self.session.open(MessageBox, _('Plugin update channel is currently disabled.'), MessageBox.TYPE_INFO, timeout=10)
+                return
+            if not info.get('available'):
+                self.session.open(MessageBox, _('You already have the newest plugin version (%s).') % PLUGIN_VERSION, MessageBox.TYPE_INFO, timeout=10)
+                return
+            text = _('New plugin version %(version)s is available.\nCurrent version: %(current_version)s') % info
+            if info.get('notes'):
+                text += '\n\n' + info['notes']
+            text += '\n\n' + _('Install this update now?')
+            self.session.openWithCallback(lambda answer: self._installPluginUpdate(info) if answer else None,
+                                          MessageBox, text, MessageBox.TYPE_YESNO)
+
+        self._startJob(_('Checking plugin update...'),
+                       lambda: check_for_update(timeout=15, retries=2), finished)
+
+    def _installPluginUpdate(self, info):
+        def installed(result):
+            text = _('Plugin update %(version)s was installed successfully.') % result
+            if result.get('restart_gui'):
+                text += '\n\n' + _('Restart Enigma2 GUI now?')
+                self.session.openWithCallback(self._restartGui, MessageBox, text, MessageBox.TYPE_YESNO)
+            else:
+                self.session.open(MessageBox, text, MessageBox.TYPE_INFO, timeout=12)
+
+        self._startJob(_('Downloading and installing plugin update...'),
+                       lambda: install_update(info, timeout=30, retries=2), installed)
+
+    def _restartGui(self, answer):
+        if not answer:
+            return
+        try:
+            from Screens.Standby import TryQuitMainloop
+            self.session.open(TryQuitMainloop, 3)
+        except Exception as exc:
+            self.session.open(MessageBox, _('Update installed. Please restart Enigma2 GUI manually.\n%s') % exc,
+                              MessageBox.TYPE_INFO, timeout=15)
 
 
 def pluginMenu(session, **kwargs):
