@@ -3,172 +3,200 @@
 Updated: 2026-09-15
 Purpose: durable recovery checkpoint so the project can be resumed exactly after loss of chat/context.
 
-## Current project state
+## CURRENT AUTHORITATIVE STATE — 2026-09-15 END OF DAY
 
-PiconHub Warder Evolution is **ACTIVE / IN DEVELOPMENT**. Current `main` contains the reorganized runtime picon catalog, completed guarded Vhannibal transparent import, authoritative BLACK/WHITE master templates, migration tooling, and the master quality plan.
+Active production branch: `warder-master-production`.
 
-## LOCKED — approved graphics and structure
+Phase 2 WEB RECOVERY + SOURCE QC #2 is approved at:
+`1ac32e7a81f9d5ff942dcb97df5604f25dc346b3`
 
-Existing approved PiconHub graphics, UI layout, element dimensions, coordinates/positions, panel composition, provider artwork, MASTER templates and established repository/runtime structure are **LOCKED**. ChatGPT, Work, automation or a future recovery session must NOT independently redesign, redraw, regenerate, resize, reposition, reorganize, rename, replace or otherwise "improve" them.
+Phase 3 CLEAN BLACK/WHITE MASTER REBUILD FROM ZERO is complete and safely pushed to GitHub at:
+`e9b503d76eae3c3c7d7763df4909039a55d3edb8`
 
-New work must adapt to the already approved graphics and structure — the approved graphics/structure must not be changed merely to accommodate new work. Any intentional change to approved graphics, layout, dimensions, coordinates, provider artwork or structural organization requires **Štefan's explicit approval first**. No inferred permission and no silent optimization.
+Phase 3 commit parent is exactly `1ac32e7a81f9d5ff942dcb97df5604f25dc346b3`.
 
-This LOCK does not prevent the separately planned QC of transparent picons or the approved future BLACK/WHITE production process; those operations must follow the exact QC/master rules documented below and in `docs/PICON-MASTER-QUALITY-PLAN.md` and must not be used as permission to redesign the PiconHub UI or repository architecture.
+`main` remains untouched at:
+`39066b7a6e86e2ba33c1cd0e66d45f68c2ee93e1`
+
+DO NOT merge `warder-master-production` into `main` yet. Phase 4 visual QC is still in progress and explicit Štefan approval is required before any merge.
+
+## LOCKED project separation
+
+This repository/project is **PiconHub Warder Evolution**, the modernization line based on the original Chocholousek Picons Enigma2 plugin by s3n0. Do not mix it with the separate independently developed futuristic PiconHub project. Warder Evolution graphics, GUI layout, approved visual identity, established structure and MASTER rules are locked. Preserve original s3n0/Chocholousek credits.
 
 ## Binding runtime architecture — NEVER CHANGE SILENTLY
-
-The runtime picon tree is exactly:
 
 `picons/<satellite-position>/<provider>/{transparent,white,black}/<service-reference>.png`
 
 Rules:
+- satellite position → provider → style
+- NO extra `satellite` directory
+- NO `Satellite 0`
+- NO style directories directly under satellite position
+- NO invented/generic provider
+- exact style directories: `transparent`, `white`, `black`
 
-- satellite position → provider → style,
-- NO extra `satellite` directory,
-- NO `Satellite 0`,
-- NO color/style directories directly under satellite position,
-- NO invented/generic provider merely to force an import,
-- current style directory names are exactly `transparent`, `white`, `black`.
+## Immutable MASTER templates
 
-This architecture is a hard project decision. Do not reintroduce old structures.
-
-## Completed catalog reorganization
-
-The catalog was reorganized to the binding architecture above. Historical cleanup also removed the invalid Satellite 0E package/duplicate Magio entry. Do not use old historical paths as evidence of current runtime structure.
-
-## Vhannibal import — completed guarded phase
-
-Merged to `main` in commit:
-
-`ac7fb19f1cf098d636e5ccdad0a065fbb92befbc`
-
-Authoritative import result:
-
-- source PNG: 13,903
-- added transparent picons: **4,601**
-- existing/preserved: **3,737**
-- skipped unknown position/namespace: **420**
-- skipped non-220×132: **117**
-- skipped missing provider: **5,028**
-- invalid filename: **0**
-
-The import added only safely classified transparent picons. It did NOT fabricate BLACK/WHITE variants and did NOT overwrite existing service references.
-
-Retained audit/import files:
-
-- `migration/vhannibal/import_vhannibal.py`
-- `migration/vhannibal/README.md`
-- `migration/vhannibal/import-report.tsv`
-- `migration/vhannibal/import-summary.txt`
-
-The one-time Vhannibal workflow was removed before merge. Do not restore it as permanent runtime infrastructure without a new explicit reason.
-
-### Unresolved Vhannibal sets
-
-Still NOT imported and must not be guessed:
-
-- 5,028 missing-provider picons,
-- 420 unknown `EEEE0000` namespace/position cases,
-- 117 non-220×132 cases.
-
-Future work may investigate these using reliable metadata. Do not put them under a generic `vhannibal` provider and do not invent position/provider mappings. Do not resize the 117 nonstandard files automatically unless a deliberate rule is later approved.
-
-## BLACK/WHITE MASTER templates — FINAL
-
-Authoritative templates on `main`:
-
+Never modify, recompress, regenerate, resize or recolor:
 - `templates/picons/black-sablona.png`
 - `templates/picons/white-sablona.png`
 
-Added in commit:
+Phase 3 verified SHA256:
+- BLACK MASTER: `61e69f7fc46e340453bf74ccd7af6ac9d8eba9f8e232884659e1ea99f6abf3fe`
+- WHITE MASTER: `c6ae4a808a65ffc8e6458336fccbfe4216de1e832ec0a9abf800907f2f783589`
 
-`292fcbaa98a20bb95263a1ad60a489676aa64f06`
+Binding quality plan: `docs/PICON-MASTER-QUALITY-PLAN.md`.
+V9 MASTER/component-mask visual rules are approved and frozen. Do not silently retune them.
 
-Both are 220×132 RGBA with alpha. These exact stored MASTER templates are FINAL and valid **as they are**. Do not repair, redraw, regenerate, recolor, deform or replace them with AI/approximate copies.
+## Phase 2 — WEB RECOVERY + SOURCE QC #2 — COMPLETE / APPROVED
 
-Original ZIP backups are stored in private Trezor:
+Commit: `1ac32e7a81f9d5ff942dcb97df5604f25dc346b3`
 
-- `backups/piconhub/master-templates/black-sablona.zip`
-- `backups/piconhub/master-templates/white-sablona.zip`
+Final transparent-source state:
+- checked transparent sources: 9,041
+- usable transparent sources: 9,041
+- SOURCE-PASS: 9,038
+- RECOVERED-PASS: 3
+- SOURCE-ERROR: 0
+- SOURCE-UNRESOLVED: 0
+- preserved Phase 1B rectangular-brand approvals: 279
 
-Trezor backup commit: `7c2b2e6dbdaf3c5c4c3430c76ae691cf6fffa927`.
+Recovered sources:
+1. PLAN B, 80.0E/orion-express, two service references. Old shared SHA256 `25d4857741b6329f8c3e813669f661c0b8ac9d248698470a42c98f2da1ba0efd`; recovered files shared SHA256 `a7ee7ce90ca89b38eb212849e972a7b4637afd0c7f0e0ce8c0a51009e5a49f1d`.
+2. Skylink service reference `1_0_1_1B03_3FE_1_C00000_0_0_0.png`, identified as TV5MONDE EUROPE. Old empty-alpha SHA256 `3a9d989efb79825210897109b53e212c017f727b2579901a1eba9455eaab8844`; recovered SHA256 `1da179c187414e4511167e93989389f2297a38c7af26d8a5a161cd94ef8be3a2`.
 
-ZIP SHA256:
+Exactly these three transparent files changed during Phase 2; the other 9,038 transparent files, both MASTERs and existing BLACK/WHITE were unchanged. `main` was untouched.
 
-- black: `27fc4712d600b97572b03e7403f22a5185ea3faac4bd39df430163a6aa951abc`
-- white: `4252701bd5142114e59849d06f20de42a248232f21e12eba5ba9080618c12080`
+## Phase 3 — CLEAN BLACK/WHITE MASTER REBUILD FROM ZERO — COMPLETE
 
-## New complete-catalog quality goal
+Final commit on `warder-master-production`:
+`e9b503d76eae3c3c7d7763df4909039a55d3edb8`
 
-The target is no longer merely to fill missing Vhannibal BLACK/WHITE variants. The intended next major phase is to bring the **complete PiconHub catalog** to a consistent Warder Evolution quality standard using the final MASTER templates.
+The Phase 3 Work session initially could not push because it lacked Git credentials. The exact local commit was preserved in a Git bundle, split into 8 parts, transferred to Štefan's Windows PC, reassembled byte-for-byte, verified, cloned locally and then fast-forward pushed to GitHub. No replacement commit, rebase, merge or force push was used.
 
-Detailed plan is in:
+Bundle recovery verification:
+- bundle size: 835,705,906 bytes
+- bundle SHA256: `4cd67176c3d3b5c6e05776b9bc4a06c3784a2c6f9eb9035729aec294754a872b`
+- `git bundle verify`: complete history / bundle okay
+- bundle head: `e9b503d76eae3c3c7d7763df4909039a55d3edb8 refs/heads/warder-master-production`
+- local HEAD after clone: `e9b503d76eae3c3c7d7763df4909039a55d3edb8`
+- parent: `1ac32e7a81f9d5ff942dcb97df5604f25dc346b3`
+- final GitHub push: fast-forward `1ac32e7a..e9b503d7` to `warder-master-production`
 
-`docs/PICON-MASTER-QUALITY-PLAN.md`
+Štefan's local recovery clone:
+`C:\Picony - phase3\PiconHub-Warder-Evolution`
 
-### Required pipeline
+Local reconstructed bundle:
+`C:\Picony - phase3\phase3-e9b503d.bundle`
 
-For each transparent source:
+Keep the bundle as a local safety backup until Phase 4 is completed. The split `.part-*` files and temporary `verify` repo are no longer required for GitHub safety, but deleting them is optional.
 
-1. QC transparent source first: dimensions, RGBA/alpha, edge quality, sharpness, blur/resize artifacts and damage.
-2. Do NOT sharpen everything. Apply only a gentle, controlled correction when QC proves it is needed; avoid halo/jagged edges/design changes.
-3. Analyze logo/text contrast separately against BLACK and WHITE master backgrounds.
-4. Prevent unreadable combinations such as white/light logo on WHITE or black/dark logo on BLACK.
-5. Preserve original brand colors/design whenever possible; never use a crude global rule such as blindly turning all white logos black.
-6. If contrast correction is necessary, use only a minimal pre-approved method. Ambiguous cases go to REVIEW, never to automatic guessing.
-7. Generate BLACK and WHITE using the exact final masters.
-8. Validate every result: 220×132, PNG/RGBA/alpha, correct position/provider/style path, identical service-reference filename, readable logo, clean edges, no unwanted design changes.
+### Phase 3 production results
 
-QC categories: PASS / AUTO-FIXED / REVIEW / ERROR-SKIP.
+Clean rebuild physically removed all 18,080 historical BLACK/WHITE outputs first. Historical BLACK/WHITE files were not used as inputs. New production used only the 9,041 approved transparent sources plus the two immutable MASTERs.
 
-## V8 / V9 checkpoint — 2026-09-15
+Results:
+- transparent sources: 9,041
+- BLACK: 9,041
+- WHITE: 9,041
+- total outputs: 18,082
+- output validation errors: 0
+- all outputs PNG/RGBA 220x132
+- changed transparent sources during rebuild: 0
+- changed MASTERs during rebuild: 0
 
-The component-mask visual development reached **V8**. The approved preview is `UKAZKA_LOG_V8_COMPONENT_MASK.png`; Štefan explicitly approved V8 with **„toto je už OK“**. V8 is therefore the current approved algorithm/rule baseline and must NOT be silently retuned while preparing the representative test set.
+Variant classification:
+- PASS: 1,603
+- AUTO-FIXED: 754
+- REVIEW: 15,725
+- ERROR-SKIP: 0
 
-Binding detailed rules are in `docs/PICON-MASTER-QUALITY-PLAN.md`; the rules checkpoint used for this phase is commit `c93714ad1c1ed570a4e95b770d4425664a0cdf1d`.
+Source classification:
+- PASS: 5
+- AUTO-FIXED: 335
+- REVIEW: 8,701
+- ERROR-SKIP: 0
 
-The immediate next task is **V9 — representative QC/sample test of the approved V8 logic on multiple real transparent picons from the repository**. V9 should present reviewable samples as `TRANSPARENT → BLACK → WHITE` and cover the representative visual categories required by the MASTER Quality Plan. Any case that cannot be safely separated/edited by the approved component-mask rules must be marked `REVIEW`, never guessed.
+Phase 3 reports:
+- `reports/warder-master-production/phase3-clean-rebuild/README.md`
+- `reports/warder-master-production/phase3-clean-rebuild/summary.json`
+- `reports/warder-master-production/phase3-clean-rebuild/catalog-audit.csv`
+- `reports/warder-master-production/phase3-clean-rebuild/catalog-audit.csv.gz`
+- `reports/warder-master-production/phase3-clean-rebuild/qc-samples.png`
 
-Work started on V9 on 2026-09-15. The repository tree at the rules checkpoint was inspected and real transparent picons were located, including `picons/0.8w/digi-hu/transparent/`. The immutable MASTER templates were also re-confirmed in the checkpoint. No MASTER template, V8 rule, runtime picon or repository architecture was modified during this inspection.
+Phase 3 REVIEW coverage:
+- `reports/warder-master-production/phase3-clean-rebuild/contact-sheets/`
+- REVIEW sheets: 158 (`all-review/review-001.jpg` through `review-158.jpg`)
+- REVIEW index: `contact-sheets/all-review-index.csv.gz`
+- REVIEW manifest: `contact-sheets/all-review-manifest.json`
+- all 15,725 REVIEW variants are covered exactly once without duplicates
+- recovered PLAN B + TV5MONDE sheet: `contact-sheets/recovered-plan-b-tv5monde.png`
 
-For local pixel-level V9 processing, Štefan downloaded and uploaded the current repository ZIP to the ChatGPT conversation as `PiconHub-Warder-Evolution-main.zip`. The processing runtime then repeatedly failed with an internal `TransportTimeoutError` before the ZIP could be unpacked/analyzed. This is the current pause point; it is **not** a failure of the repository ZIP and does not authorize changing the method or rules.
+## Phase 4 — VISUAL QC — IN PROGRESS
 
-### Exact resume point after the pause
+Do NOT regenerate anything merely to continue Phase 4. The Phase 3 outputs at `e9b503d...` are the objects under review.
 
-1. Use the already supplied `PiconHub-Warder-Evolution-main.zip` if it remains available; otherwise obtain the current repository ZIP again.
-2. Unpack/read it locally without modifying source PNGs or MASTER templates.
-3. Select a representative set of real `transparent` picons covering the MASTER-plan categories.
-4. Run the frozen V8 logic against BLACK and WHITE MASTERs and prepare the V9 visual review sheet `TRANSPARENT → BLACK → WHITE`.
-5. Classify ambiguous/unsafe component masks as `REVIEW`; do not guess or alter V8 to make a sample pass.
-6. Štefan visually approves/rejects V9 samples. Only after representative approval freeze the Warder Evolution MASTER standard.
-7. Then hand the large complete-catalog BLACK/WHITE rebuild to Work on a controlled working branch with QC/audit/report and approval before merge to `main`.
+Completed visual stress checks with Štefan + ChatGPT on 2026-09-15:
 
-## Before full batch — mandatory sample approval
+1. `largest-contrast-component-actions.jpg` — PASS.
+   Checked the largest contrast/component edits; no recurrence of the old fake-background PLAN B failure, no catastrophic whole-raster recoloring, shapes/composition preserved.
 
-Do not launch the whole catalog immediately. First prepare a representative test set containing at least light/white logo, dark/black logo, colored/multicolored logo, text wordmark, separated text/graphics, text in colored badge/box, adjacent components with antialias boundary, fine/small text, sharp and soft source, low contrast on WHITE and BLACK, wide and tall logo.
+2. `mixed-color-logo-stress.jpg` — PASS.
+   Checked mixed/chromatic brands. Colored identity components remain protected while appropriate monochrome/direct-on-MASTER elements adapt for contrast. V9 component-mask behavior visually consistent.
 
-Štefan + ChatGPT define and visually approve the rules/samples first. Only after approval are those rules frozen for the full production run.
+3. `rectangular-brand-stress.jpg` — PASS.
+   Legitimate rectangular tiles/badges/stripes remain integral brand components. No systematic confusion of legitimate rectangular branding with unwanted raster backgrounds.
 
-## Division of work for full production
+4. `recovered-plan-b-tv5monde.png` — PASS.
+   TV5MONDE EUROPE remains clean and readable on BLACK/WHITE. Both PLAN B service references use the recovered transparent brand correctly; red `plan_` block and blue `B` circle remain intact. This closes the original PLAN B source failure through recovery and final output.
 
-Chat/Štefan + ChatGPT define visual/QC rules, approve representative samples, decide ambiguous aesthetic cases and review final results. Work executes the large multi-stage operation over thousands of files using only frozen approved rules, validates outputs and creates the audit/report and controlled branch/PR. Work must NOT invent aesthetic rules and must NOT auto-approve REVIEW cases.
+5. `all-pass.png` — PASS.
+   All five PASS sources show `B:PASS 0px | W:PASS 0px`; original colors/forms are preserved with no unnecessary edits.
 
-## Git safety for the full catalog phase
+Current visual QC status: **5/5 prepared stress/control sheets PASS**.
 
-Do not perform the mass rewrite uncontrolled directly on `main`. Required approach: working branch → QC + generation → audit/report → verify counts/architecture → review samples and REVIEW cases → merge to `main` only after successful validation/approval. Transparent sources must not disappear.
+### EXACT RESUME TASK FOR NEXT SESSION
 
-## Future module — Orbit Watch / Satellite Change Monitor
+Continue Phase 4. Do NOT merge to `main` yet.
 
-After catalog normalization and the Warder Evolution quality standard are completed and approved, build the already planned regular automatic satellite-change monitoring system. Detection/preparation may be automatic but production `main` remains approval-gated. Orbit Watch must obey the locked architecture, MASTERs and QC rules and must not silently redesign or rewrite approved graphics. Private maintainer e-mail notifications are intended for actionable changes or monitoring failures; secrets/recipient configuration must never be committed publicly.
+The next task is analytical triage of the 15,725 REVIEW variants, not blind manual review of 158 sheets in sequence.
 
-## Chocholousek migration state
+Authoritative audit file:
+`reports/warder-master-production/phase3-clean-rebuild/catalog-audit.csv.gz`
 
-Chocholousek migration tooling/plans exist under `migration/chocholousek`, and backup material exists in private Trezor under `ChocholousekPicons/`. Keep migration/archive mechanics separate from runtime `picons/` and separate from Vhannibal unless an explicit future step connects them.
+Štefan also uploaded this exact file to the ChatGPT conversation at the end of 2026-09-15. An attempt to process the large compressed CSV in the runtime hit a technical `TransportTimeoutError`; this was a tooling/runtime timeout, not evidence of a bad audit file.
 
-## UI project state
+Next session:
+1. Load/analyze `catalog-audit.csv.gz` (prefer local/current upload or repository copy).
+2. Analyze all 15,725 REVIEW variants by audit reason, mask/action metrics and risk.
+3. Group/rank REVIEW cases to identify the highest-risk categories/candidates.
+4. Map selected candidates through `all-review-index.csv.gz` to their numbered REVIEW contact sheets.
+5. Visually inspect targeted high-risk REVIEW groups first.
+6. If systematic failures appear, STOP: no merge; determine correction under the frozen quality plan with explicit Štefan approval.
+7. If targeted REVIEW analysis is clean, decide how much additional sampling/full-sheet inspection is needed before Phase 4 approval.
+8. Only after explicit Štefan + ChatGPT Phase 4 approval may a merge of `warder-master-production` into `main` be considered.
 
-PiconHub UI is also still in development. The main design checkpoint is 1672×941. The `VYBERTE PROVIDERA` section has exactly 6 panels. Approved provider artwork exists for Skylink, Magio Sat, ANTIK Sat, freeSAT and Telly; their established order/coordinates must be preserved when continuing UI work. Do not redesign or reposition approved provider assets without explicit approval.
+REVIEW does not mean source recovery failure. Source QC is already complete with 9,041 usable sources and zero unresolved. REVIEW here is output visual/component-mask conservatism and must not be sent back to WEB RECOVERY unless new evidence proves a source defect.
+
+## Git safety / immutable decisions
+
+- Never silently change the approved runtime architecture.
+- Never modify the two MASTER templates.
+- Preserve all 9,041 approved transparent sources unless a future explicit source-QC correction is justified and approved.
+- V9 visual/component-mask rules are frozen.
+- Do not use old historical BLACK/WHITE as production authority; Phase 3 `e9b503d...` is the current clean rebuild under review.
+- `main` remains approval-gated and must not be merged before Phase 4 completion.
+- No force push, silent rebase or history rewrite of the Phase 3 checkpoint.
+
+## Separate plugin migration work — PAUSED
+
+The Warder Evolution plugin modernization/migration work remains separate on `plugin-warder-evolution-migration` and is paused until the picon catalog is finished. Do not mix plugin migration work with Phase 4 catalog QC.
+
+## Future module — Orbit Watch
+
+Orbit Watch / Satellite Change Monitor remains planned only after catalog normalization/rebuild is visually approved. Do not start it yet.
 
 ## Recovery rule
 
-If chat/context is lost: read this file and `docs/PICON-MASTER-QUALITY-PLAN.md` first, inspect current `main`, and continue from these checkpoints. Never infer architecture from obsolete history. Preserve all LOCKED graphics/layout/structure unless Štefan explicitly approves a change. The final MASTER templates are accepted exactly as stored. **Immediate resume task: V9 representative test from the uploaded/current repository ZIP using frozen V8, then Štefan approval; only afterward hand the complete-catalog rebuild to Work.** Orbit Watch remains the planned subsequent maintenance phase.
+If chat/context is lost, read this file and `docs/PICON-MASTER-QUALITY-PLAN.md`, inspect `warder-master-production` at/after `e9b503d76eae3c3c7d7763df4909039a55d3edb8`, and continue with the Phase 4 REVIEW audit triage above. Do not restart Phase 2 or Phase 3 and do not merge to `main` merely because the rebuild is technically complete.
