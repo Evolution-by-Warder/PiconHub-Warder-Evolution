@@ -2,6 +2,24 @@
 
 Modern continuation and evolution of the Chocholousek Picons ecosystem for Enigma2, maintained by **Warder**.
 
+## IMPORTANT: two separate PiconHub projects
+
+There are **two independent PiconHub development lines**. They must never be mixed together in code, graphics, package versions, checkpoints or development decisions.
+
+### 1. PiconHub — original Warder project
+
+This is Warder's independently developed PiconHub plugin with the **new futuristic PiconHub graphics/UI** and its own functionality. Its development history includes the `0.6.x` / `0.7.x` line (for example `0.7.0-dev3`).
+
+This project is **not** the s3n0/Chocholousek modernization line.
+
+### 2. PiconHub Warder Evolution — THIS repository
+
+This repository is the modernization/evolution line based on the original **Chocholousek Picons Enigma2 plugin by s3n0**, with the `5.0.240904.x` package line.
+
+For this line, the approved original graphics, GUI layout and established structure are **LOCKED**. Development may modernize code, compatibility, functionality, reliability, backend behavior and packaging, but must **not** independently redesign, replace, reposition or reorganize the locked graphics or structure.
+
+**Never use screenshots, graphics, package versions or UI decisions from the separate futuristic PiconHub project as the design authority for PiconHub Warder Evolution.**
+
 ## Project status
 
 This repository is the official home of **PiconHub Warder Evolution**.
