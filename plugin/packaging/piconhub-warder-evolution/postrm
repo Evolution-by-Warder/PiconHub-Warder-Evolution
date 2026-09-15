@@ -1,0 +1,6 @@
+#!/bin/sh
+# Never remove legacy ChocholousekPicons from the new package's postrm.
+# This prevents uninstall/upgrade of Warder Evolution from destroying the
+# user's fallback legacy installation before migration has been verified.
+set -e
+exit 0

@@ -1,0 +1,6 @@
+#!/bin/sh
+# Installation intentionally does not delete the legacy plugin directory.
+# Runtime migration must first copy/verify supported settings. Cleanup is a
+# separately gated operation after verified migration.
+set -e
+exit 0
