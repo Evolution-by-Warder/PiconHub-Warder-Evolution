@@ -21,30 +21,32 @@ Kontrolovať rozmery, PNG/RGBA/alfa, alfa hrany, ostrosť, resize artefakty a po
 ### 2. Veľkosť a umiestnenie
 Určiť skutočný bounding box viditeľného loga bez prázdnych transparentných okrajov. Logo proporcionálne prispôsobiť využiteľnej ploche podľa šírky AJ výšky, zachovať pomer strán, nedeformovať, široké limitovať šírkou, vysoké výškou, ponechať rozumný bezpečný odstup a vycentrovať. MASTER pozadie zostáva nedotknuté.
 
-### 3. Farba a čitateľnosť — konzervatívne pravidlo
-BLACK a WHITE sa posudzujú samostatne.
+### 3. Farba a čitateľnosť — text-aware pravidlo
+BLACK a WHITE sa posudzujú samostatne. Základom je zachovať originálne brand farby a grafické prvky všade, kde sú čitateľné.
 
-Základ je **zachovať originálne farby loga**. Automatika nesmie meniť logo len preto, že obsahuje tmavé alebo svetlé pixely. Pri farebných a viacfarebných logách sa originál ponechá, pokiaľ je logo ako značka rozpoznateľné a použiteľné na danom masteri.
+**Text a textové časti loga sa posudzujú samostatne z hľadiska čitateľnosti.** Ak text na konkrétnom masteri zaniká, jeho farba sa môže zmeniť na vhodnú kontrastnú farbu bez zmeny ostatných dobre čitateľných brand prvkov. Tmavý text na BLACK sa zmení na vhodnú svetlú farbu; veľmi svetlý text na WHITE sa zmení na vhodnú tmavú farbu. Mení sa celý logický textový prvok konzistentne, nie jednotlivé pixely alebo náhodné časti písmen.
 
-Zakázané sú lokálne kontrastné opravy jednotlivých pixelov, písmen, pásov alebo segmentov. Žiadne automatické obrysy, tiene, halo ani skladanie čiernych a bielych častí podľa pozadia.
+Príklad: pri TV DUGA+ zostáva farebná časť `DUGA+` zachovaná; ak tmavý text `TV` na BLACK zaniká, zmení sa iba celý textový prvok `TV` na svetlú kontrastnú farbu. Brand farby `DUGA+` sa kvôli tomu nemenia.
 
-**Celoplošná zmena farby je povolená iba ako jedna jednotná verzia CELÉHO loga.** Takáto celá svetlá verzia pre BLACK alebo celá tmavá verzia pre WHITE je vhodná najmä pri monochromatických logách a môže byť použitá aj pri jednoduchom viacfarebnom logu, ak výsledná silueta zachová kompletný tvar, text, symboly a vizuálnu identitu loga a výsledok je zreteľne lepší.
+Logá, ktorých podstatou je prevažne text — napríklad rádiové wordmarky/názvy staníc — sa môžu z hľadiska kontrastu považovať za textový celok. Ak takýto textový wordmark zaniká na BLACK, môže sa celý textový wordmark zmeniť na svetlú farbu; na WHITE analogicky na tmavú. Tvar, typografia, rozostupy a symboly, ktoré sú integrálnou súčasťou wordmarku, zostávajú zachované.
 
-Dôležité: samotná existencia jednej slabo kontrastnej farby **nie je dôvodom** prefarbiť celé viacfarebné logo. Agresívne automatické prefarbenie farebných log ako TV DUGA+ alebo NAB nie je dovolené. Ak pôvodné farebné logo zostáva rozpoznateľné, ponechá sa originál.
+Pri grafickom symbole/piktograme platí podobná zásada iba vtedy, keď je symbol sám o sebe jednofarebný alebo jednoznačne oddeliteľný a na pozadí zaniká: celý tento logický grafický prvok možno prefarbiť jednotne na vhodnú svetlú/tmavú farbu. Farebné brand prvky, ktoré sú dobre čitateľné, sa nemenia.
 
-Naopak, jednoduché logo typu RÁDIO SLOVAKIA INTERNATIONAL môže použiť jednotnú celú svetlú verziu na BLACK a jednotnú celú tmavú verziu na WHITE, ak sa tým zachová celý nápis/symbolika a výsledok je čitateľnejší. Rovnako monochromatické NOS môže mať celú svetlú/tmavú alternatívu podľa mastera.
+Zakázané sú pixelové/lokálne kontrastné opravy, rozbíjanie jedného písmena alebo symbolu na rôzne farby podľa pozadia, automatické obrysy, tiene, halo a agresívne celoplošné prefarbenie celého farebného loga len kvôli jednému problematickému prvku.
 
-Ak automatika nevie s vysokou istotou rozlíšiť, či jednotná celoplošná verzia zachová identitu a bude lepšia než originál, prípad ide do REVIEW. **REVIEW je preferovaný pred zbytočným prefarbením.**
+Monochromatické logo alebo jednoduchý textový wordmark môže mať celú svetlú verziu pre BLACK a celú tmavú verziu pre WHITE. NOS a RÁDIO SLOVAKIA INTERNATIONAL sú vzorové typy, kde je takáto jednotná textová/monochromatická alternatíva prípustná.
+
+Ak automatika nevie spoľahlivo rozlíšiť logické prvky (text vs. grafika), nevie určiť hranice celého textového prvku alebo by zmena mohla poškodiť identitu, prípad ide do REVIEW. REVIEW má prednosť pred chybnou automatickou úpravou.
 
 ### 4. Výroba
-Vytvoriť `black/<same-service-reference>.png` a `white/<same-service-reference>.png`. Zachovať správne logo, service reference, providera a satelitnú pozíciu. Povolené sú iba schválené operácie: QC, proporcionálne fit/centrovanie a v bezpečných prípadoch jednotná verzia celého loga.
+Vytvoriť `black/<same-service-reference>.png` a `white/<same-service-reference>.png`. Zachovať správne logo, service reference, providera a satelitnú pozíciu. Povolené sú iba schválené operácie: QC, proporcionálne fit/centrovanie a bezpečná kontrastná zmena celého logického textového alebo monochromatického grafického prvku.
 
 ### 5. Výstupná kontrola
-Overiť 220×132, PNG/RGBA/alfa, správnu cestu position → provider → style, service-reference, čitateľnosť, proporcionálnu veľkosť, centrovanie, čisté hrany, žiadne lokálne prefarbenie, zachovanie identity a kompletnosť variantov.
+Overiť 220×132, PNG/RGBA/alfa, správnu cestu position → provider → style, service-reference, čitateľnosť všetkých textových prvkov a symbolov, proporcionálnu veľkosť, centrovanie, čisté hrany, žiadne pixelové prefarbenie, zachovanie brand farieb dobre čitateľných prvkov, identitu loga a kompletnosť variantov.
 
 ## Triedenie QC
 1. PASS — originál bezpečne použitý.
-2. AUTO-FIXED — použitá presne schválená a auditovaná celková korekcia.
+2. AUTO-FIXED — použitá presne schválená a auditovaná zmena celého logického textového/monochromatického prvku.
 3. REVIEW — nejednoznačný vizuálny prípad; automatika ho nesmie hádať.
 4. ERROR/SKIP — technicky chybný alebo nespracovateľný.
 
@@ -57,7 +59,7 @@ Hromadnú výrobu nerobiť nekontrolovane na `main`: pracovná vetva → QC/gene
 Štefan + ChatGPT definujú a schvaľujú vizuálne pravidlá a reprezentatívne vzorky. Work neskôr vykoná hromadnú operáciu iba podľa zmrazených pravidiel; nesmie vymýšľať estetické pravidlá ani rozhodovať REVIEW prípady.
 
 ## Pred spustením celej databázy
-Schváliť reprezentatívnu testovaciu sadu: svetlé/tmavé monochromatické, farebné a viacfarebné logo, jemné písmo, ostrý a mäkký zdroj, nízky kontrast na BLACK/WHITE, široké a vysoké logo. Až potom zmraziť Warder Evolution master standard.
+Schváliť reprezentatívnu testovaciu sadu: svetlé/tmavé monochromatické, farebné a viacfarebné logo, textový wordmark, logo s oddeleným textom a grafikou, jemné písmo, ostrý a mäkký zdroj, nízky kontrast na BLACK/WHITE, široké a vysoké logo. Až potom zmraziť Warder Evolution master standard.
 
 ## Aktuálny Vhannibal checkpoint
 Guarded import pridal 4 601 transparentných piconov, bez výroby WHITE/BLACK a bez prepisovania existujúcich piconov. Skipped missing-provider, unknown-position a non-220×132 prípady sa nesmú svojvoľne zaradiť.
