@@ -179,6 +179,70 @@ Required approach:
 
 Transparent sources must not disappear. Existing BLACK/WHITE may be replaced by the new final-master standard only as part of the explicitly approved complete-catalog rebuild.
 
+## Future module — Orbit Watch / Satellite Change Monitor
+
+After the current catalog normalization and Warder Evolution picon quality standard are completed and approved, build a **regular automatic satellite-change monitoring system** so PiconHub can remain continuously current rather than depending only on occasional imported picon packs.
+
+### Intended operation
+
+The monitor should run automatically on a regular schedule (initial design target: daily; final cadence to be approved during implementation). It should read reliable satellite-service change sources such as KingOfSat, LyngSat and/or other verified metadata sources, preferably cross-checking important changes instead of trusting one source blindly.
+
+Each run should compare current orbital/service information with the current PiconHub catalog and detect at least:
+
+- NEW SERVICE / newly launched station,
+- RENAME / station-name change,
+- MOVED / frequency, transponder or service-reference change,
+- PROVIDER CHANGE,
+- REMOVED / service no longer present,
+- possible station-logo/branding change when reliably detectable.
+
+### Preparation phase — automatic, but NON-DESTRUCTIVE
+
+For detected changes, automation may gather metadata, locate or prepare candidate transparent artwork, generate proposed BLACK/WHITE variants using the approved Warder Evolution MASTER/QC rules, and place all proposed repository changes on a **working branch only**.
+
+It must prepare a human-readable approval report showing, where applicable:
+
+- satellite position,
+- provider,
+- station/service name,
+- detected change type,
+- old and new service reference / relevant tuning metadata,
+- source(s) used to establish the change,
+- current PiconHub state,
+- proposed action,
+- preview/candidate status for transparent, white and black picons,
+- confidence/verification status,
+- REVIEW reason for ambiguous cases.
+
+### Approval gate — BINDING SAFETY RULE
+
+**No detected orbital change may automatically modify production `main`.** Detection and preparation may be automatic; publication is approval-gated.
+
+Before production changes are applied, Štefan/maintainer must approve the proposed batch or individual changes. Uncertain/conflicting cases remain `REVIEW`. The system must never guess a provider, orbital position, service-reference mapping or visual identity merely to complete a batch.
+
+The monitor must not automatically delete old picons merely because an external source reports a removal. Removal/deprecation needs explicit approval and, where useful, a retention/migration decision.
+
+### Approved publication phase
+
+Only after approval should the system:
+
+1. place/update picons in the binding runtime architecture `position → provider → transparent/white/black`,
+2. preserve exact service-reference/path rules,
+3. update any affected PiconHub packages/catalog metadata,
+4. validate PNG dimensions/RGBA/alpha, references, provider/position paths and package consistency,
+5. produce a final audit of exactly what changed,
+6. create/complete the controlled PR/merge to `main` according to the approved Git workflow.
+
+The Orbit Watch system must obey all existing LOCKED graphics, repository architecture, MASTER-template and QC rules. It is a maintenance mechanism, **not permission to redesign PiconHub or silently rewrite approved graphics**.
+
+### Long-term history
+
+Keep a durable change history/report so PiconHub can later show useful orbital maintenance summaries such as `13.0E: +3 new, 2 renamed, 1 moved, 4 removed/deprecated`. This history should make changes auditable and help identify stale picons over time.
+
+### Implementation order
+
+Orbit Watch is a **planned future module / TODO**, not authorized for implementation yet. First finish the current complete-catalog normalization, representative sample approval and BLACK/WHITE quality rebuild. Then design exact data-source rules, confidence thresholds, report format, scheduling and approval workflow before enabling automatic monitoring.
+
 ## Chocholousek migration state
 
 Chocholousek migration tooling/plans exist under `migration/chocholousek`, and backup material exists in private Trezor under `ChocholousekPicons/`. Keep migration/archive mechanics separate from runtime `picons/` and separate from Vhannibal unless an explicit future step connects them.
@@ -189,4 +253,4 @@ PiconHub UI is also still in development. The main design checkpoint is 1672×94
 
 ## Recovery rule
 
-If chat/context is lost: read this file and `docs/PICON-MASTER-QUALITY-PLAN.md` first, inspect current `main`, and continue from these checkpoints. Never infer architecture from obsolete history. Preserve all LOCKED graphics/layout/structure unless Štefan explicitly approves a change. The final MASTER templates are accepted exactly as stored. The immediate next major task is representative QC/sample-rule approval, then the complete-catalog BLACK/WHITE quality rebuild through Work on a controlled branch.
+If chat/context is lost: read this file and `docs/PICON-MASTER-QUALITY-PLAN.md` first, inspect current `main`, and continue from these checkpoints. Never infer architecture from obsolete history. Preserve all LOCKED graphics/layout/structure unless Štefan explicitly approves a change. The final MASTER templates are accepted exactly as stored. The immediate next major task is representative QC/sample-rule approval, then the complete-catalog BLACK/WHITE quality rebuild through Work on a controlled branch. Orbit Watch remains the planned subsequent automatic maintenance phase after the catalog standard is completed.
