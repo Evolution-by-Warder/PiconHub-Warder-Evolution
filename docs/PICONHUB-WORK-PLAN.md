@@ -21,7 +21,8 @@ Next development work must be planned from the latest verified Project A source/
 
 Identity: modernization of the original s3n0/Chocholousek Picons Enigma2 plugin.
 Repository: `Evolution-by-Warder/PiconHub-Warder-Evolution`.
-Version family: `5.0.240904.x`.
+Historical version family: `5.0.240904.x`.
+Planned Warder Evolution version family: new independent numbering beginning with the migration generation; exact first version must be explicitly approved before release.
 
 Current work:
 1. Preserve LOCKED graphics, GUI layout and established structure.
@@ -33,10 +34,32 @@ Current work:
 
 Current production branch for the BLACK/WHITE rebuild: `warder-master-production`. Do not use that branch for unrelated plugin/UI development while the rebuild is active.
 
+### Persistent legacy migration compatibility — REQUIRED
+
+The migration from the original s3n0/Chocholousek installation is a long-term compatibility feature of PiconHub Warder Evolution, not a one-release installer workaround.
+
+Every future Warder Evolution release must retain a compatible migration path so that a user installing the current release months or years later can still migrate directly from an installed legacy `ChocholousekPicons` plugin without first installing an old Warder Evolution release.
+
+Required behavior:
+- detect a legacy `ChocholousekPicons` installation and its legacy configuration namespace; do not restrict detection only to `5.0.240904.6`;
+- read and preserve supported legacy user settings before any destructive operation;
+- translate/copy those settings into the current PiconHub Warder Evolution configuration format;
+- verify that migration completed successfully before removing any legacy package, directory, registration or configuration that is no longer required;
+- if migration or verification fails, keep the legacy plugin/configuration intact and report the failure; never sacrifice the working legacy installation to complete an upgrade;
+- migrate package/plugin identity as well as files: after a successful migration, the new PiconHub Warder Evolution package/Plugins/Addons identity must be authoritative and stale legacy package registration must not remain as a duplicate installed plugin;
+- preserve original s3n0/Chocholousek authorship and project credits after migration;
+- make migration idempotent: a system already migrated to Warder Evolution must not be destructively migrated again or have valid current settings overwritten merely because a later release runs the compatibility check;
+- keep the legacy migration code/path in future releases until an explicit project decision retires legacy compatibility; routine cleanup or refactoring must not silently remove it;
+- tests for future releases must include at least a legacy-install migration case, an already-migrated case, and a migration-failure/no-delete case.
+
+The migration implementation must be version-aware. Resetting Warder Evolution to a new version family must not rely on a naive numeric comparison that would classify the new generation as older than historical `5.0.240904.x` builds.
+
+Current dedicated plugin migration branch: `plugin-warder-evolution-migration`. It is separate from `warder-master-production` and must not interfere with the catalog rebuild.
+
 ## Shared operating rule
 
 At the start of every future PiconHub task, explicitly resolve the target line:
 - Project A = PiconHub / futuristic Warder UI / `0.6.x–0.7.x`;
-- Project B = PiconHub Warder Evolution / s3n0 modernization / `5.0.240904.x`.
+- Project B = PiconHub Warder Evolution / s3n0 modernization / historical `5.0.240904.x`, followed by its explicitly approved new independent version family.
 
 Do not mix artifacts, rules, versions or visual decisions between them. If a requested change could cross the boundary, obtain Štefan's explicit approval first.
