@@ -24,9 +24,7 @@ Zakázané:
 
 ## MASTER šablóny
 
-BLACK a WHITE master PNG sú autoritatívne zdroje pozadia. Pri hromadnej výrobe sa nesmú prekresľovať, regenerovať, deformovať ani farebne meniť. Pracovné kópie alebo AI aproximácie nie sú master.
-
-Pred hromadnou výrobou ešte vizuálne preveriť kvalitu samotných master šablón; zvlášť bol zaznamenaný podozrivý detail pravého dolného rohu BLACK šablóny. Kým nebude prípadná oprava výslovne schválená, platí uložený originál masteru.
+BLACK a WHITE master PNG sú autoritatívne zdroje pozadia. Pri hromadnej výrobe sa nesmú prekresľovať, regenerovať, deformovať ani farebne meniť. Pracovné kópie alebo AI aproximácie nie sú master. Uložené MASTER šablóny platia presne v aktuálnej podobe a pri výrobe sa používajú bez úprav.
 
 ## Výrobný/QC postup pre každý picon
 
