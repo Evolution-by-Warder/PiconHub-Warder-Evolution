@@ -1,174 +1,109 @@
 # PiconHub Warder Evolution — PROJECT CHECKPOINT
 
 Updated: 2026-09-15
-Purpose: durable recovery checkpoint so the project can be resumed exactly after loss of chat/context.
+Purpose: durable recovery checkpoint. This file applies ONLY to **PiconHub Warder Evolution**, not to the separate futuristic PiconHub project.
 
-## Current project state
+## FIRST: identify the project line
 
-PiconHub Warder Evolution is **ACTIVE / IN DEVELOPMENT**. Current `main` contains the reorganized runtime picon catalog, completed guarded Vhannibal transparent import, authoritative BLACK/WHITE master templates, migration tooling, and the master quality plan.
+There are two independent PiconHub projects. Binding separation is documented in `docs/PICONHUB-PROJECT-LINES.md`; current parallel work plan is in `docs/PICONHUB-WORK-PLAN.md`.
 
-## LOCKED — approved graphics and structure
+- **PiconHub — original Warder project**: independent plugin with the new futuristic UI; version family `0.6.x / 0.7.x`.
+- **PiconHub Warder Evolution — THIS repository**: modernization of the original s3n0/Chocholousek Picons Enigma2 plugin; version family `5.0.240904.x`.
 
-Existing approved PiconHub graphics, UI layout, element dimensions, coordinates/positions, panel composition, provider artwork, MASTER templates and established repository/runtime structure are **LOCKED**. ChatGPT, Work, automation or a future recovery session must NOT independently redesign, redraw, regenerate, resize, reposition, reorganize, rename, replace or otherwise "improve" them.
+Never mix their graphics, screenshots, UI/layout decisions, versions, packages, checkpoints or code assumptions. A screenshot/package from one line is not evidence for the other.
 
-New work must adapt to the already approved graphics and structure — the approved graphics/structure must not be changed merely to accommodate new work. Any intentional change to approved graphics, layout, dimensions, coordinates, provider artwork or structural organization requires **Štefan's explicit approval first**. No inferred permission and no silent optimization.
+## Current state — Warder Evolution
 
-This LOCK does not prevent the separately planned QC of transparent picons or the approved future BLACK/WHITE production process; those operations must follow the exact QC/master rules documented below and in `docs/PICON-MASTER-QUALITY-PLAN.md` and must not be used as permission to redesign the PiconHub UI or repository architecture.
+PiconHub Warder Evolution is ACTIVE / IN DEVELOPMENT. Current tested plugin baseline recorded in the repository README is `5.0.240904.6`.
 
-## Binding runtime architecture — NEVER CHANGE SILENTLY
+The complete-catalog BLACK/WHITE production phase is being handled on the controlled branch `warder-master-production`. Do not use that branch for unrelated plugin/UI work while production is active. No uncontrolled mass rewrite on `main`.
 
-The runtime picon tree is exactly:
+## V9 / MASTER quality standard — APPROVED AND FROZEN
+
+Štefan visually approved V9 on 2026-09-15. The Warder Evolution MASTER rules are frozen. The approved rules commit is:
+
+`1428a108c5a2d5cdd9725a35ca4cb2c43e703d6e`
+
+Binding detailed rules are in `docs/PICON-MASTER-QUALITY-PLAN.md`.
+
+Important V9 rule for mixed/colored logos: a white/very light logical text component directly on WHITE may be changed to dark/black only when a safe component mask isolates it; the reverse applies to dark text disappearing on BLACK. Protected colored components remain unchanged. If safe isolation cannot be guaranteed, classify REVIEW rather than guess.
+
+QC classes: PASS / AUTO-FIXED / REVIEW / ERROR-SKIP.
+
+## LOCKED — graphics and structure
+
+For **PiconHub Warder Evolution**, approved original graphics, GUI structure/layout, dimensions, positions, provider artwork, MASTER templates and established repository/runtime structure are LOCKED. New functionality must adapt to them. Do not redesign, redraw, regenerate, resize, reposition, reorganize, rename or replace them without Štefan's explicit approval.
+
+Do NOT import the futuristic UI, its provider-panel count, screenshots or layout decisions from the separate PiconHub project into Warder Evolution.
+
+## Binding runtime picon architecture
+
+Exactly:
 
 `picons/<satellite-position>/<provider>/{transparent,white,black}/<service-reference>.png`
 
-Rules:
+Hard rules:
+- satellite position → provider → style;
+- no extra `satellite` directory;
+- no `Satellite 0`;
+- no style directories directly under satellite position;
+- no invented/generic provider merely to force an import;
+- style names exactly `transparent`, `white`, `black`;
+- preserve service-reference filenames.
 
-- satellite position → provider → style,
-- NO extra `satellite` directory,
-- NO `Satellite 0`,
-- NO color/style directories directly under satellite position,
-- NO invented/generic provider merely to force an import,
-- current style directory names are exactly `transparent`, `white`, `black`.
+## MASTER templates — FINAL
 
-This architecture is a hard project decision. Do not reintroduce old structures.
-
-## Completed catalog reorganization
-
-The catalog was reorganized to the binding architecture above. Historical cleanup also removed the invalid Satellite 0E package/duplicate Magio entry. Do not use old historical paths as evidence of current runtime structure.
-
-## Vhannibal import — completed guarded phase
-
-Merged to `main` in commit:
-
-`ac7fb19f1cf098d636e5ccdad0a065fbb92befbc`
-
-Authoritative import result:
-
-- source PNG: 13,903
-- added transparent picons: **4,601**
-- existing/preserved: **3,737**
-- skipped unknown position/namespace: **420**
-- skipped non-220×132: **117**
-- skipped missing provider: **5,028**
-- invalid filename: **0**
-
-The import added only safely classified transparent picons. It did NOT fabricate BLACK/WHITE variants and did NOT overwrite existing service references.
-
-Retained audit/import files:
-
-- `migration/vhannibal/import_vhannibal.py`
-- `migration/vhannibal/README.md`
-- `migration/vhannibal/import-report.tsv`
-- `migration/vhannibal/import-summary.txt`
-
-The one-time Vhannibal workflow was removed before merge. Do not restore it as permanent runtime infrastructure without a new explicit reason.
-
-### Unresolved Vhannibal sets
-
-Still NOT imported and must not be guessed:
-
-- 5,028 missing-provider picons,
-- 420 unknown `EEEE0000` namespace/position cases,
-- 117 non-220×132 cases.
-
-Future work may investigate these using reliable metadata. Do not put them under a generic `vhannibal` provider and do not invent position/provider mappings. Do not resize the 117 nonstandard files automatically unless a deliberate rule is later approved.
-
-## BLACK/WHITE MASTER templates — FINAL
-
-Authoritative templates on `main`:
-
+Authoritative files:
 - `templates/picons/black-sablona.png`
 - `templates/picons/white-sablona.png`
 
-Added in commit:
+They are final 220×132 RGBA assets and must not be modified, regenerated, resized, recolored, redrawn or approximated.
 
-`292fcbaa98a20bb95263a1ad60a489676aa64f06`
-
-Both are 220×132 RGBA with alpha. These exact stored MASTER templates are FINAL and valid **as they are**. Do not repair, redraw, regenerate, recolor, deform or replace them with AI/approximate copies.
-
-Original ZIP backups are stored in private Trezor:
-
+Private Trezor backups:
 - `backups/piconhub/master-templates/black-sablona.zip`
 - `backups/piconhub/master-templates/white-sablona.zip`
 
-Trezor backup commit: `7c2b2e6dbdaf3c5c4c3430c76ae691cf6fffa927`.
+Trezor commit: `7c2b2e6dbdaf3c5c4c3430c76ae691cf6fffa927`.
 
 ZIP SHA256:
+- black `27fc4712d600b97572b03e7403f22a5185ea3faac4bd39df430163a6aa951abc`
+- white `4252701bd5142114e59849d06f20de42a248232f21e12eba5ba9080618c12080`
 
-- black: `27fc4712d600b97572b03e7403f22a5185ea3faac4bd39df430163a6aa951abc`
-- white: `4252701bd5142114e59849d06f20de42a248232f21e12eba5ba9080618c12080`
+## Vhannibal guarded import — completed
 
-## New complete-catalog quality goal
+Merged commit: `ac7fb19f1cf098d636e5ccdad0a065fbb92befbc`
 
-The target is no longer merely to fill missing Vhannibal BLACK/WHITE variants. The intended next major phase is to bring the **complete PiconHub catalog** to a consistent Warder Evolution quality standard using the final MASTER templates.
+Results:
+- source PNG 13,903
+- added transparent 4,601
+- existing/preserved 3,737
+- unknown position/namespace 420
+- non-220×132 117
+- missing provider 5,028
+- invalid filename 0
 
-Detailed plan is in:
+Unresolved sets must not be guessed. No generic `vhannibal` provider and no automatic resize of the 117 nonstandard files without an approved rule.
 
-`docs/PICON-MASTER-QUALITY-PLAN.md`
+Retained audit/import material is under `migration/vhannibal/`.
 
-### Required pipeline
+## Current work plan
 
-For each transparent source:
+Two PiconHub lines are developed separately and may proceed in parallel. The authoritative plan is `docs/PICONHUB-WORK-PLAN.md`.
 
-1. QC transparent source first: dimensions, RGBA/alpha, edge quality, sharpness, blur/resize artifacts and damage.
-2. Do NOT sharpen everything. Apply only a gentle, controlled correction when QC proves it is needed; avoid halo/jagged edges/design changes.
-3. Analyze logo/text contrast separately against BLACK and WHITE master backgrounds.
-4. Prevent unreadable combinations such as white/light logo on WHITE or black/dark logo on BLACK.
-5. Preserve original brand colors/design whenever possible; never use a crude global rule such as blindly turning all white logos black.
-6. If contrast correction is necessary, use only a minimal pre-approved method. Ambiguous cases go to REVIEW, never to automatic guessing.
-7. Generate BLACK and WHITE using the exact final masters.
-8. Validate every result: 220×132, PNG/RGBA/alpha, correct position/provider/style path, identical service-reference filename, readable logo, clean edges, no unwanted design changes.
+For Warder Evolution now:
+1. Work completes and audits BLACK/WHITE production on `warder-master-production` using only frozen V9 rules and original MASTERs.
+2. Review counts, architecture, QC results, samples and REVIEW cases before any merge to `main`.
+3. Continue s3n0 plugin modernization separately around the LOCKED graphics/structure; do not collide with the active production branch.
+4. After catalog normalization and approval, Orbit Watch / satellite-change monitoring remains the planned later module.
 
-QC categories: PASS / AUTO-FIXED / REVIEW / ERROR-SKIP.
-
-## V8 / V9 checkpoint — 2026-09-15
-
-The component-mask visual development reached **V8**. The approved preview is `UKAZKA_LOG_V8_COMPONENT_MASK.png`; Štefan explicitly approved V8 with **„toto je už OK“**. V8 is therefore the current approved algorithm/rule baseline and must NOT be silently retuned while preparing the representative test set.
-
-Binding detailed rules are in `docs/PICON-MASTER-QUALITY-PLAN.md`; the rules checkpoint used for this phase is commit `c93714ad1c1ed570a4e95b770d4425664a0cdf1d`.
-
-The immediate next task is **V9 — representative QC/sample test of the approved V8 logic on multiple real transparent picons from the repository**. V9 should present reviewable samples as `TRANSPARENT → BLACK → WHITE` and cover the representative visual categories required by the MASTER Quality Plan. Any case that cannot be safely separated/edited by the approved component-mask rules must be marked `REVIEW`, never guessed.
-
-Work started on V9 on 2026-09-15. The repository tree at the rules checkpoint was inspected and real transparent picons were located, including `picons/0.8w/digi-hu/transparent/`. The immutable MASTER templates were also re-confirmed in the checkpoint. No MASTER template, V8 rule, runtime picon or repository architecture was modified during this inspection.
-
-For local pixel-level V9 processing, Štefan downloaded and uploaded the current repository ZIP to the ChatGPT conversation as `PiconHub-Warder-Evolution-main.zip`. The processing runtime then repeatedly failed with an internal `TransportTimeoutError` before the ZIP could be unpacked/analyzed. This is the current pause point; it is **not** a failure of the repository ZIP and does not authorize changing the method or rules.
-
-### Exact resume point after the pause
-
-1. Use the already supplied `PiconHub-Warder-Evolution-main.zip` if it remains available; otherwise obtain the current repository ZIP again.
-2. Unpack/read it locally without modifying source PNGs or MASTER templates.
-3. Select a representative set of real `transparent` picons covering the MASTER-plan categories.
-4. Run the frozen V8 logic against BLACK and WHITE MASTERs and prepare the V9 visual review sheet `TRANSPARENT → BLACK → WHITE`.
-5. Classify ambiguous/unsafe component masks as `REVIEW`; do not guess or alter V8 to make a sample pass.
-6. Štefan visually approves/rejects V9 samples. Only after representative approval freeze the Warder Evolution MASTER standard.
-7. Then hand the large complete-catalog BLACK/WHITE rebuild to Work on a controlled working branch with QC/audit/report and approval before merge to `main`.
-
-## Before full batch — mandatory sample approval
-
-Do not launch the whole catalog immediately. First prepare a representative test set containing at least light/white logo, dark/black logo, colored/multicolored logo, text wordmark, separated text/graphics, text in colored badge/box, adjacent components with antialias boundary, fine/small text, sharp and soft source, low contrast on WHITE and BLACK, wide and tall logo.
-
-Štefan + ChatGPT define and visually approve the rules/samples first. Only after approval are those rules frozen for the full production run.
-
-## Division of work for full production
-
-Chat/Štefan + ChatGPT define visual/QC rules, approve representative samples, decide ambiguous aesthetic cases and review final results. Work executes the large multi-stage operation over thousands of files using only frozen approved rules, validates outputs and creates the audit/report and controlled branch/PR. Work must NOT invent aesthetic rules and must NOT auto-approve REVIEW cases.
-
-## Git safety for the full catalog phase
-
-Do not perform the mass rewrite uncontrolled directly on `main`. Required approach: working branch → QC + generation → audit/report → verify counts/architecture → review samples and REVIEW cases → merge to `main` only after successful validation/approval. Transparent sources must not disappear.
-
-## Future module — Orbit Watch / Satellite Change Monitor
-
-After catalog normalization and the Warder Evolution quality standard are completed and approved, build the already planned regular automatic satellite-change monitoring system. Detection/preparation may be automatic but production `main` remains approval-gated. Orbit Watch must obey the locked architecture, MASTERs and QC rules and must not silently redesign or rewrite approved graphics. Private maintainer e-mail notifications are intended for actionable changes or monitoring failures; secrets/recipient configuration must never be committed publicly.
-
-## Chocholousek migration state
-
-Chocholousek migration tooling/plans exist under `migration/chocholousek`, and backup material exists in private Trezor under `ChocholousekPicons/`. Keep migration/archive mechanics separate from runtime `picons/` and separate from Vhannibal unless an explicit future step connects them.
-
-## UI project state
-
-PiconHub UI is also still in development. The main design checkpoint is 1672×941. The `VYBERTE PROVIDERA` section has exactly 6 panels. Approved provider artwork exists for Skylink, Magio Sat, ANTIK Sat, freeSAT and Telly; their established order/coordinates must be preserved when continuing UI work. Do not redesign or reposition approved provider assets without explicit approval.
+For the separate original Warder PiconHub project, continue only from its own verified source/package/UI baseline. Its futuristic UI and `0.6.x / 0.7.x` artifacts stay in that project.
 
 ## Recovery rule
 
-If chat/context is lost: read this file and `docs/PICON-MASTER-QUALITY-PLAN.md` first, inspect current `main`, and continue from these checkpoints. Never infer architecture from obsolete history. Preserve all LOCKED graphics/layout/structure unless Štefan explicitly approves a change. The final MASTER templates are accepted exactly as stored. **Immediate resume task: V9 representative test from the uploaded/current repository ZIP using frozen V8, then Štefan approval; only afterward hand the complete-catalog rebuild to Work.** Orbit Watch remains the planned subsequent maintenance phase.
+After any context loss, read in this order:
+1. `docs/PICONHUB-PROJECT-LINES.md`
+2. `docs/PICONHUB-WORK-PLAN.md`
+3. this `docs/PROJECT-CHECKPOINT.md`
+4. `docs/PICON-MASTER-QUALITY-PLAN.md`
+
+First identify which PiconHub project is being discussed. Never infer one project's UI, versions or decisions from the other. For Warder Evolution preserve all LOCKED graphics/structure and frozen V9 MASTER rules unless Štefan explicitly approves a change.
