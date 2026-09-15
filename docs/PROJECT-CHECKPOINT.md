@@ -7,6 +7,14 @@ Purpose: durable recovery checkpoint so the project can be resumed exactly after
 
 PiconHub Warder Evolution is **ACTIVE / IN DEVELOPMENT**. Current `main` contains the reorganized runtime picon catalog, completed guarded Vhannibal transparent import, authoritative BLACK/WHITE master templates, migration tooling, and the master quality plan.
 
+## LOCKED — approved graphics and structure
+
+Existing approved PiconHub graphics, UI layout, element dimensions, coordinates/positions, panel composition, provider artwork, MASTER templates and established repository/runtime structure are **LOCKED**. ChatGPT, Work, automation or a future recovery session must NOT independently redesign, redraw, regenerate, resize, reposition, reorganize, rename, replace or otherwise "improve" them.
+
+New work must adapt to the already approved graphics and structure — the approved graphics/structure must not be changed merely to accommodate new work. Any intentional change to approved graphics, layout, dimensions, coordinates, provider artwork or structural organization requires **Štefan's explicit approval first**. No inferred permission and no silent optimization.
+
+This LOCK does not prevent the separately planned QC of transparent picons or the approved future BLACK/WHITE production process; those operations must follow the exact QC/master rules documented below and in `docs/PICON-MASTER-QUALITY-PLAN.md` and must not be used as permission to redesign the PiconHub UI or repository architecture.
+
 ## Binding runtime architecture — NEVER CHANGE SILENTLY
 
 The runtime picon tree is exactly:
@@ -181,4 +189,4 @@ PiconHub UI is also still in development. The main design checkpoint is 1672×94
 
 ## Recovery rule
 
-If chat/context is lost: read this file and `docs/PICON-MASTER-QUALITY-PLAN.md` first, inspect current `main`, and continue from these checkpoints. Never infer architecture from obsolete history. The final MASTER templates are accepted exactly as stored. The immediate next major task is representative QC/sample-rule approval, then the complete-catalog BLACK/WHITE quality rebuild through Work on a controlled branch.
+If chat/context is lost: read this file and `docs/PICON-MASTER-QUALITY-PLAN.md` first, inspect current `main`, and continue from these checkpoints. Never infer architecture from obsolete history. Preserve all LOCKED graphics/layout/structure unless Štefan explicitly approves a change. The final MASTER templates are accepted exactly as stored. The immediate next major task is representative QC/sample-rule approval, then the complete-catalog BLACK/WHITE quality rebuild through Work on a controlled branch.
