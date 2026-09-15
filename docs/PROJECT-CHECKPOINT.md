@@ -214,6 +214,27 @@ It must prepare a human-readable approval report showing, where applicable:
 - confidence/verification status,
 - REVIEW reason for ambiguous cases.
 
+### Private maintainer e-mail notifications
+
+Orbit Watch should privately notify the maintainer by e-mail when a scheduled check finds changes that require review/approval, or when the monitoring run itself fails and needs attention.
+
+Normal successful runs with **zero relevant changes should not send routine e-mail**, to avoid notification noise. Their successful status may simply be retained in the run/history log.
+
+A change notification should clearly identify itself as a scheduled **PiconHub Orbit Watch** check and should contain a concise summary such as:
+
+- date/time of the check,
+- affected satellite positions,
+- counts of NEW / RENAME / MOVED / PROVIDER CHANGE / REMOVED / REVIEW items,
+- number/status of candidate picons prepared,
+- link/reference to the detailed report and controlled working branch/PR,
+- explicit warning that nothing has been published to production `main` yet and maintainer approval is required.
+
+Suggested subject style: `PiconHub Orbit Watch — new changes waiting for review`.
+
+The maintainer's destination e-mail address and any mail-service/SMTP credentials must **never be committed to the public repository, README, source code, reports or generated artifacts**. During implementation, private recipient/configuration values and credentials must be stored using an appropriate private secret/configuration mechanism (for example repository/action secrets or an equivalent secure service configuration). Logs must not print or leak those secret values.
+
+E-mail is a notification channel only. Receiving or opening an e-mail must never count as approval. Production publication still requires the explicit approval gate defined below.
+
 ### Approval gate — BINDING SAFETY RULE
 
 **No detected orbital change may automatically modify production `main`.** Detection and preparation may be automatic; publication is approval-gated.
@@ -241,7 +262,7 @@ Keep a durable change history/report so PiconHub can later show useful orbital m
 
 ### Implementation order
 
-Orbit Watch is a **planned future module / TODO**, not authorized for implementation yet. First finish the current complete-catalog normalization, representative sample approval and BLACK/WHITE quality rebuild. Then design exact data-source rules, confidence thresholds, report format, scheduling and approval workflow before enabling automatic monitoring.
+Orbit Watch is a **planned future module / TODO**, not authorized for implementation yet. First finish the current complete-catalog normalization, representative sample approval and BLACK/WHITE quality rebuild. Then design exact data-source rules, confidence thresholds, report format, scheduling, private e-mail notification mechanism and approval workflow before enabling automatic monitoring.
 
 ## Chocholousek migration state
 
@@ -253,4 +274,4 @@ PiconHub UI is also still in development. The main design checkpoint is 1672×94
 
 ## Recovery rule
 
-If chat/context is lost: read this file and `docs/PICON-MASTER-QUALITY-PLAN.md` first, inspect current `main`, and continue from these checkpoints. Never infer architecture from obsolete history. Preserve all LOCKED graphics/layout/structure unless Štefan explicitly approves a change. The final MASTER templates are accepted exactly as stored. The immediate next major task is representative QC/sample-rule approval, then the complete-catalog BLACK/WHITE quality rebuild through Work on a controlled branch. Orbit Watch remains the planned subsequent automatic maintenance phase after the catalog standard is completed.
+If chat/context is lost: read this file and `docs/PICON-MASTER-QUALITY-PLAN.md` first, inspect current `main`, and continue from these checkpoints. Never infer architecture from obsolete history. Preserve all LOCKED graphics/layout/structure unless Štefan explicitly approves a change. The final MASTER templates are accepted exactly as stored. The immediate next major task is representative QC/sample-rule approval, then the complete-catalog BLACK/WHITE quality rebuild through Work on a controlled branch. Orbit Watch remains the planned subsequent automatic maintenance phase after the catalog standard is completed, including private maintainer e-mail notifications for actionable changes or monitoring failures.
