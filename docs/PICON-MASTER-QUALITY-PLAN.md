@@ -3,108 +3,64 @@
 Status: planning checkpoint — 2026-09-15
 
 ## Cieľ
-
-Zjednotiť kompletnú databázu PiconHub do nového Warder Evolution štandardu. Zdrojom loga je vždy príslušný `transparent` picon. BLACK a WHITE varianty sa vytvárajú výhradne pomocou schválených MASTER šablón:
-
-- `templates/picons/black-sablona.png`
-- `templates/picons/white-sablona.png`
-
-Originálne záložné ZIPy master šablón sú uložené v súkromnom repozitári Trezor pod `backups/piconhub/master-templates/`.
+Zjednotiť kompletnú databázu PiconHub do nového Warder Evolution štandardu. Zdrojom loga je vždy príslušný `transparent` picon. BLACK a WHITE varianty sa vytvárajú výhradne pomocou schválených MASTER šablón `templates/picons/black-sablona.png` a `templates/picons/white-sablona.png`. Originálne záložné ZIPy sú v súkromnom Trezore.
 
 ## Nemenná adresárová architektúra
-
 `picons/<satellite-position>/<provider>/{transparent,white,black}/<service-reference>.png`
 
-Zakázané:
-
-- žiadny extra adresár `satellite`,
-- žiadny `Satellite 0`,
-- žiadny vymyslený/generický provider,
-- nemení sa service-reference filename.
+Zakázané: extra `satellite`, `Satellite 0`, vymyslený/generický provider alebo zmena service-reference filename.
 
 ## MASTER šablóny
+BLACK a WHITE master PNG sú autoritatívne zdroje pozadia. Nesmú sa prekresľovať, regenerovať, deformovať, farebne meniť ani resizeovať. Používajú sa presne v schválenej podobe.
 
-BLACK a WHITE master PNG sú autoritatívne zdroje pozadia. Pri hromadnej výrobe sa nesmú prekresľovať, regenerovať, deformovať ani farebne meniť. Pracovné kópie alebo AI aproximácie nie sú master. Uložené MASTER šablóny platia presne v aktuálnej podobe a pri výrobe sa používajú bez úprav.
+## Výrobný/QC postup
 
-## Výrobný/QC postup pre každý picon
+### 1. Transparentný zdroj
+Kontrolovať rozmery, PNG/RGBA/alfa, alfa hrany, ostrosť, resize artefakty a poškodenie. Doostrenie iba pri preukázateľne mäkkom zdroji, jemne a auditovane. Transparentný originál sa svojvoľne nemení.
 
-### 1. Kontrola transparentného zdroja
+### 2. Veľkosť a umiestnenie
+Určiť skutočný bounding box viditeľného loga bez prázdnych transparentných okrajov. Logo proporcionálne prispôsobiť využiteľnej ploche podľa šírky AJ výšky, zachovať pomer strán, nedeformovať, široké limitovať šírkou, vysoké výškou, ponechať rozumný bezpečný odstup a vycentrovať. MASTER pozadie zostáva nedotknuté.
 
-Pred výrobou BLACK/WHITE skontrolovať rozmery, PNG/RGBA/alfa vlastnosti, čistotu alfa hrán, ostrosť loga a textu, rozmazanie alebo artefakty po starších resize operáciách a poškodené alebo nekvalitné zdroje.
+### 3. Farba a čitateľnosť — konzervatívne pravidlo
+BLACK a WHITE sa posudzujú samostatne.
 
-Doostrenie sa nesmie aplikovať plošne. Použiť ho iba vtedy, keď QC preukáže, že transparentný zdroj je skutočne príliš mäkký. Úprava musí byť jemná a nesmie vytvárať halo, zubaté hrany alebo meniť dizajn loga. Ak by sa mal meniť samotný transparentný originál, zmena musí byť auditovaná a vratná.
+Základ je **zachovať originálne farby loga**. Automatika nesmie meniť logo len preto, že obsahuje tmavé alebo svetlé pixely. Pri farebných a viacfarebných logách sa originál ponechá, pokiaľ je logo ako značka rozpoznateľné a použiteľné na danom masteri.
 
-### 2. Veľkosť a umiestnenie loga
+Zakázané sú lokálne kontrastné opravy jednotlivých pixelov, písmen, pásov alebo segmentov. Žiadne automatické obrysy, tiene, halo ani skladanie čiernych a bielych častí podľa pozadia.
 
-Pred vložením na BLACK/WHITE master určiť skutočný bounding box viditeľného loga; prázdny transparentný priestor okolo loga sa nepovažuje za jeho rozmer.
+**Celoplošná zmena farby je povolená iba ako jedna jednotná verzia CELÉHO loga.** Takáto celá svetlá verzia pre BLACK alebo celá tmavá verzia pre WHITE je vhodná najmä pri monochromatických logách a môže byť použitá aj pri jednoduchom viacfarebnom logu, ak výsledná silueta zachová kompletný tvar, text, symboly a vizuálnu identitu loga a výsledok je zreteľne lepší.
 
-Logo sa proporcionálne prispôsobí využiteľnej ploche master panela podľa šírky AJ výšky. Zachovať pôvodný pomer strán, nikdy logo nenaťahovať ani nedeformovať, široké logo limitovať šírkou, vysoké logo výškou, využiť plochu panela rozumne s bezpečným odstupom od okrajov a výsledné logo vycentrovať. MASTER pozadie samotné sa nikdy neresizuje ani nemení.
+Dôležité: samotná existencia jednej slabo kontrastnej farby **nie je dôvodom** prefarbiť celé viacfarebné logo. Agresívne automatické prefarbenie farebných log ako TV DUGA+ alebo NAB nie je dovolené. Ak pôvodné farebné logo zostáva rozpoznateľné, ponechá sa originál.
 
-Cieľom je konzistentná vizuálna veľkosť loga na paneli, nie mechanické vloženie pôvodného 220×132 plátna 1:1.
+Naopak, jednoduché logo typu RÁDIO SLOVAKIA INTERNATIONAL môže použiť jednotnú celú svetlú verziu na BLACK a jednotnú celú tmavú verziu na WHITE, ak sa tým zachová celý nápis/symbolika a výsledok je čitateľnejší. Rovnako monochromatické NOS môže mať celú svetlú/tmavú alternatívu podľa mastera.
 
-### 3. Farba a čitateľnosť loga
-
-BLACK a WHITE sa posudzujú samostatne voči konkrétnemu master pozadiu.
-
-Záväzné pravidlá:
-
-- ak je originálne logo na danom pozadí dobre čitateľné vo všetkých podstatných častiach, jeho pôvodné farby sa nemenia,
-- farebné a viacfarebné logá sa majú zachovať v originálnych farbách, iba ak žiadna podstatná časť loga na danom masteri vizuálne nezaniká,
-- nestačí priemerný kontrast celého loga: QC musí zachytiť aj podstatnú tmavú časť viacfarebného loga strácajúcu sa na BLACK a podstatnú svetlú časť strácajúcu sa na WHITE,
-- automatika NESMIE lokálne prefarbovať iba jednotlivé pixely, písmená alebo časti jedného loga podľa lokálneho kontrastu,
-- nesmie vzniknúť nekonzistentný výsledok typu časť jedného loga svojvoľne čierna a časť biela,
-- pri jednofarebnom/monochromatickom logu, ktoré na danom masteri zaniká, je dovolené zmeniť farbu CELÉHO loga jednotne na vhodnú kontrastnú farbu,
-- ak viacfarebné logo na konkrétnom masteri stratí podstatnú časť, originál sa na tomto masteri nepovažuje za PASS,
-- pri takom viacfarebnom logu sa môže použiť iba JEDNOTNÁ alternatívna verzia CELÉHO loga pre dané pozadie, ktorá zachová tvar, proporcie, text a všetky grafické prvky; nesmú sa opravovať iba jednotlivé problémové segmenty,
-- bezpečná automatická alternatíva môže byť napríklad celá svetlá verzia pre BLACK alebo celá tmavá verzia pre WHITE, ale iba vtedy, keď tým nevznikne strata významu alebo identity loga,
-- ak jednotnú alternatívnu verziu celého viacfarebného loga nemožno bezpečne odvodiť bez poškodenia identity, výsledok ide do REVIEW a automatika ho nesmie hádať,
-- žiadne automatické obrysy, tiene, halo alebo lokálne kontrastné efekty bez samostatného výslovného schválenia.
-
-Praktický QC princíp: hodnotí sa viditeľnosť všetkých podstatných častí loga, nie iba jeho priemerná farba. BLACK a WHITE môžu preto použiť odlišnú celkovú verziu toho istého loga, ale každá výsledná verzia musí byť vnútorne jednotná a nesmie byť poskladaná z lokálne kontrastne opravovaných častí.
+Ak automatika nevie s vysokou istotou rozlíšiť, či jednotná celoplošná verzia zachová identitu a bude lepšia než originál, prípad ide do REVIEW. **REVIEW je preferovaný pred zbytočným prefarbením.**
 
 ### 4. Výroba
-
-Pre schválené prípady vytvoriť `black/<same-service-reference>.png` a `white/<same-service-reference>.png`.
-
-Výsledok musí zachovať správne logo, service reference, providera a satelitnú pozíciu. Povolené zmeny loga sú iba tie, ktoré vyplývajú z vyššie schválených pravidiel veľkosti, centrovania, QC a jednotnej celkovej farebnej verzie pre daný master.
+Vytvoriť `black/<same-service-reference>.png` a `white/<same-service-reference>.png`. Zachovať správne logo, service reference, providera a satelitnú pozíciu. Povolené sú iba schválené operácie: QC, proporcionálne fit/centrovanie a v bezpečných prípadoch jednotná verzia celého loga.
 
 ### 5. Výstupná kontrola
+Overiť 220×132, PNG/RGBA/alfa, správnu cestu position → provider → style, service-reference, čitateľnosť, proporcionálnu veľkosť, centrovanie, čisté hrany, žiadne lokálne prefarbenie, zachovanie identity a kompletnosť variantov.
 
-Každý výsledok skontrolovať minimálne na presný rozmer 220×132, platný PNG/RGBA a alfa kanál, správnu cestu position → provider → style, zhodný service-reference filename, čitateľnosť všetkých podstatných častí loga na BLACK aj WHITE, správnu proporcionálnu veľkosť a centrovanie, ostré a čisté hrany bez halo/resize artefaktov, žiadne nechcené lokálne prefarbenie častí loga, zachovanie identity loga a žiadne chýbajúce alebo nadbytočné varianty.
+## Triedenie QC
+1. PASS — originál bezpečne použitý.
+2. AUTO-FIXED — použitá presne schválená a auditovaná celková korekcia.
+3. REVIEW — nejednoznačný vizuálny prípad; automatika ho nesmie hádať.
+4. ERROR/SKIP — technicky chybný alebo nespracovateľný.
 
-## Triedenie výsledkov QC
-
-Každý picon zaradiť do jednej z kategórií:
-
-1. PASS — bezproblémový, bezpečne vyrobený automaticky.
-2. AUTO-FIXED — použitá presne definovaná a auditovaná schválená celková korekcia.
-3. REVIEW — nejednoznačný alebo vizuálne problematický; nesmie byť automaticky schválený ani hádaný.
-4. ERROR/SKIP — technicky chybný alebo nespracovateľný; zapísať dôvod.
-
-Pre každý AUTO-FIXED/REVIEW/ERROR musí existovať auditný záznam s dôvodom.
+AUTO-FIXED/REVIEW/ERROR musia mať auditný dôvod.
 
 ## Bezpečnosť Git operácie
-
-Hromadnú výrobu nerobiť priamo nekontrolovane na `main`. Odporúčaný postup: vytvoriť pracovnú vetvu, vykonať QC a generovanie, vytvoriť audit/report, overiť počty a štruktúru, skontrolovať vzorky a všetky REVIEW prípady a až po úspešnej kontrole merge do `main`.
-
-Existujúce transparentné originály sa nesmú pri výrobe BLACK/WHITE stratiť. Pri plánovanej kompletnej obnove sa existujúce BLACK/WHITE môžu nahradiť novým master štandardom, ale až po schválení presných pravidiel a vzoriek.
+Hromadnú výrobu nerobiť nekontrolovane na `main`: pracovná vetva → QC/generovanie → audit/report → kontrola počtov/štruktúry → vzorky + REVIEW → až potom schválený merge. Transparentné originály sa nesmú stratiť. Existujúce BLACK/WHITE možno nahradiť až po schválení presných pravidiel a vzoriek.
 
 ## Rozdelenie práce
+Štefan + ChatGPT definujú a schvaľujú vizuálne pravidlá a reprezentatívne vzorky. Work neskôr vykoná hromadnú operáciu iba podľa zmrazených pravidiel; nesmie vymýšľať estetické pravidlá ani rozhodovať REVIEW prípady.
 
-Chat/Štefan + ChatGPT definujú vizuálne pravidlá, pripravia a schvália reprezentatívne vzorky, rozhodnú sporné estetické prípady a skontrolujú report a výsledok.
-
-Work vykoná hromadnú viacstupňovú operáciu nad celou databázou, QC transparentov, aplikuje iba vopred schválené automatické pravidlá, analýzu BLACK/WHITE čitateľnosti, výrobu, výstupnú validáciu a vytvorenie reportu a Git pracovnej vetvy/PR. Work nesmie samostatne vymýšľať estetické pravidlá ani automaticky rozhodovať REVIEW prípady.
-
-## Pred spustením celej databázy — checkpoint
-
-Najprv dokončiť a schváliť malú testovaciu sadu reprezentujúcu svetlé/biele monochromatické logo, tmavé/čierne monochromatické logo, farebné logo, viacfarebné brand logo, jemné alebo malé písmo, kvalitný ostrý transparent, mäkký/nekvalitný transparent, nízky kontrast na WHITE, nízky kontrast na BLACK, široké logo limitované šírkou a vysoké logo limitované výškou.
-
-Až keď budú tieto prípady vizuálne schválené, zmraziť pravidlá ako Warder Evolution master standard a pripraviť Work na kompletné spracovanie databázy.
+## Pred spustením celej databázy
+Schváliť reprezentatívnu testovaciu sadu: svetlé/tmavé monochromatické, farebné a viacfarebné logo, jemné písmo, ostrý a mäkký zdroj, nízky kontrast na BLACK/WHITE, široké a vysoké logo. Až potom zmraziť Warder Evolution master standard.
 
 ## Aktuálny Vhannibal checkpoint
-
-Vhannibal guarded import už pridal 4 601 transparentných piconov. Import nemenil existujúce picony a nevyrábal WHITE/BLACK. Skipped prípady z Vhannibal importu (missing provider, unknown namespace/position, non-220×132) sa nesmú kvôli tejto novej výrobnej fáze svojvoľne zaradiť alebo premapovať.
+Guarded import pridal 4 601 transparentných piconov, bez výroby WHITE/BLACK a bez prepisovania existujúcich piconov. Skipped missing-provider, unknown-position a non-220×132 prípady sa nesmú svojvoľne zaradiť.
 
 ## Zásada
-
-Kvalita a správnosť majú prednosť pred počtom automaticky spracovaných piconov. Keď automatika nevie bezpečne rozhodnúť, výsledok ide do REVIEW — nie do Git `main` ako odhad.
+Kvalita a správnosť majú prednosť pred počtom. Keď automatika nevie bezpečne rozhodnúť, výsledok ide do REVIEW — nie do Git `main` ako odhad.
