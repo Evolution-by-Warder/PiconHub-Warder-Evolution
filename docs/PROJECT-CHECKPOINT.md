@@ -106,10 +106,6 @@ Detailed plan is in:
 
 `docs/PICON-MASTER-QUALITY-PLAN.md`
 
-Current plan commit after confirming masters final:
-
-`1ef2f4e56b63a13e98f8eb3432f50b3f83b173bb`
-
 ### Required pipeline
 
 For each transparent source:
@@ -123,146 +119,47 @@ For each transparent source:
 7. Generate BLACK and WHITE using the exact final masters.
 8. Validate every result: 220×132, PNG/RGBA/alpha, correct position/provider/style path, identical service-reference filename, readable logo, clean edges, no unwanted design changes.
 
-QC categories:
+QC categories: PASS / AUTO-FIXED / REVIEW / ERROR-SKIP.
 
-- PASS
-- AUTO-FIXED (must be audited)
-- REVIEW (manual decision required)
-- ERROR/SKIP (reason required)
+## V8 / V9 checkpoint — 2026-09-15
+
+The component-mask visual development reached **V8**. The approved preview is `UKAZKA_LOG_V8_COMPONENT_MASK.png`; Štefan explicitly approved V8 with **„toto je už OK“**. V8 is therefore the current approved algorithm/rule baseline and must NOT be silently retuned while preparing the representative test set.
+
+Binding detailed rules are in `docs/PICON-MASTER-QUALITY-PLAN.md`; the rules checkpoint used for this phase is commit `c93714ad1c1ed570a4e95b770d4425664a0cdf1d`.
+
+The immediate next task is **V9 — representative QC/sample test of the approved V8 logic on multiple real transparent picons from the repository**. V9 should present reviewable samples as `TRANSPARENT → BLACK → WHITE` and cover the representative visual categories required by the MASTER Quality Plan. Any case that cannot be safely separated/edited by the approved component-mask rules must be marked `REVIEW`, never guessed.
+
+Work started on V9 on 2026-09-15. The repository tree at the rules checkpoint was inspected and real transparent picons were located, including `picons/0.8w/digi-hu/transparent/`. The immutable MASTER templates were also re-confirmed in the checkpoint. No MASTER template, V8 rule, runtime picon or repository architecture was modified during this inspection.
+
+For local pixel-level V9 processing, Štefan downloaded and uploaded the current repository ZIP to the ChatGPT conversation as `PiconHub-Warder-Evolution-main.zip`. The processing runtime then repeatedly failed with an internal `TransportTimeoutError` before the ZIP could be unpacked/analyzed. This is the current pause point; it is **not** a failure of the repository ZIP and does not authorize changing the method or rules.
+
+### Exact resume point after the pause
+
+1. Use the already supplied `PiconHub-Warder-Evolution-main.zip` if it remains available; otherwise obtain the current repository ZIP again.
+2. Unpack/read it locally without modifying source PNGs or MASTER templates.
+3. Select a representative set of real `transparent` picons covering the MASTER-plan categories.
+4. Run the frozen V8 logic against BLACK and WHITE MASTERs and prepare the V9 visual review sheet `TRANSPARENT → BLACK → WHITE`.
+5. Classify ambiguous/unsafe component masks as `REVIEW`; do not guess or alter V8 to make a sample pass.
+6. Štefan visually approves/rejects V9 samples. Only after representative approval freeze the Warder Evolution MASTER standard.
+7. Then hand the large complete-catalog BLACK/WHITE rebuild to Work on a controlled working branch with QC/audit/report and approval before merge to `main`.
 
 ## Before full batch — mandatory sample approval
 
-Do not launch the whole catalog immediately. First prepare a representative test set containing at least:
-
-- light/white logo,
-- dark/black logo,
-- colored logo,
-- fine/small text,
-- already sharp high-quality transparent,
-- soft/low-quality transparent suitable for controlled sharpening test,
-- low-contrast case on WHITE,
-- low-contrast case on BLACK.
+Do not launch the whole catalog immediately. First prepare a representative test set containing at least light/white logo, dark/black logo, colored/multicolored logo, text wordmark, separated text/graphics, text in colored badge/box, adjacent components with antialias boundary, fine/small text, sharp and soft source, low contrast on WHITE and BLACK, wide and tall logo.
 
 Štefan + ChatGPT define and visually approve the rules/samples first. Only after approval are those rules frozen for the full production run.
 
 ## Division of work for full production
 
-Chat/Štefan + ChatGPT:
-
-- define visual/QC rules,
-- approve representative samples,
-- decide ambiguous aesthetic cases,
-- review final reports/results.
-
-Work:
-
-- execute the large multi-stage operation over thousands of files,
-- perform QC using only approved rules,
-- generate BLACK/WHITE,
-- validate outputs,
-- create audit/report and working Git branch/PR.
-
-Work must NOT invent aesthetic rules and must NOT auto-approve REVIEW cases.
+Chat/Štefan + ChatGPT define visual/QC rules, approve representative samples, decide ambiguous aesthetic cases and review final results. Work executes the large multi-stage operation over thousands of files using only frozen approved rules, validates outputs and creates the audit/report and controlled branch/PR. Work must NOT invent aesthetic rules and must NOT auto-approve REVIEW cases.
 
 ## Git safety for the full catalog phase
 
-Do not perform the mass rewrite uncontrolled directly on `main`.
-
-Required approach:
-
-1. working branch,
-2. QC + generation,
-3. audit/report,
-4. verify counts and architecture,
-5. review samples and all REVIEW cases,
-6. merge to `main` only after successful validation/approval.
-
-Transparent sources must not disappear. Existing BLACK/WHITE may be replaced by the new final-master standard only as part of the explicitly approved complete-catalog rebuild.
+Do not perform the mass rewrite uncontrolled directly on `main`. Required approach: working branch → QC + generation → audit/report → verify counts/architecture → review samples and REVIEW cases → merge to `main` only after successful validation/approval. Transparent sources must not disappear.
 
 ## Future module — Orbit Watch / Satellite Change Monitor
 
-After the current catalog normalization and Warder Evolution picon quality standard are completed and approved, build a **regular automatic satellite-change monitoring system** so PiconHub can remain continuously current rather than depending only on occasional imported picon packs.
-
-### Intended operation
-
-The monitor should run automatically on a regular schedule (initial design target: daily; final cadence to be approved during implementation). It should read reliable satellite-service change sources such as KingOfSat, LyngSat and/or other verified metadata sources, preferably cross-checking important changes instead of trusting one source blindly.
-
-Each run should compare current orbital/service information with the current PiconHub catalog and detect at least:
-
-- NEW SERVICE / newly launched station,
-- RENAME / station-name change,
-- MOVED / frequency, transponder or service-reference change,
-- PROVIDER CHANGE,
-- REMOVED / service no longer present,
-- possible station-logo/branding change when reliably detectable.
-
-### Preparation phase — automatic, but NON-DESTRUCTIVE
-
-For detected changes, automation may gather metadata, locate or prepare candidate transparent artwork, generate proposed BLACK/WHITE variants using the approved Warder Evolution MASTER/QC rules, and place all proposed repository changes on a **working branch only**.
-
-It must prepare a human-readable approval report showing, where applicable:
-
-- satellite position,
-- provider,
-- station/service name,
-- detected change type,
-- old and new service reference / relevant tuning metadata,
-- source(s) used to establish the change,
-- current PiconHub state,
-- proposed action,
-- preview/candidate status for transparent, white and black picons,
-- confidence/verification status,
-- REVIEW reason for ambiguous cases.
-
-### Private maintainer e-mail notifications
-
-Orbit Watch should privately notify the maintainer by e-mail when a scheduled check finds changes that require review/approval, or when the monitoring run itself fails and needs attention.
-
-Normal successful runs with **zero relevant changes should not send routine e-mail**, to avoid notification noise. Their successful status may simply be retained in the run/history log.
-
-A change notification should clearly identify itself as a scheduled **PiconHub Orbit Watch** check and should contain a concise summary such as:
-
-- date/time of the check,
-- affected satellite positions,
-- counts of NEW / RENAME / MOVED / PROVIDER CHANGE / REMOVED / REVIEW items,
-- number/status of candidate picons prepared,
-- link/reference to the detailed report and controlled working branch/PR,
-- explicit warning that nothing has been published to production `main` yet and maintainer approval is required.
-
-Suggested subject style: `PiconHub Orbit Watch — new changes waiting for review`.
-
-The maintainer's destination e-mail address and any mail-service/SMTP credentials must **never be committed to the public repository, README, source code, reports or generated artifacts**. During implementation, private recipient/configuration values and credentials must be stored using an appropriate private secret/configuration mechanism (for example repository/action secrets or an equivalent secure service configuration). Logs must not print or leak those secret values.
-
-E-mail is a notification channel only. Receiving or opening an e-mail must never count as approval. Production publication still requires the explicit approval gate defined below.
-
-### Approval gate — BINDING SAFETY RULE
-
-**No detected orbital change may automatically modify production `main`.** Detection and preparation may be automatic; publication is approval-gated.
-
-Before production changes are applied, Štefan/maintainer must approve the proposed batch or individual changes. Uncertain/conflicting cases remain `REVIEW`. The system must never guess a provider, orbital position, service-reference mapping or visual identity merely to complete a batch.
-
-The monitor must not automatically delete old picons merely because an external source reports a removal. Removal/deprecation needs explicit approval and, where useful, a retention/migration decision.
-
-### Approved publication phase
-
-Only after approval should the system:
-
-1. place/update picons in the binding runtime architecture `position → provider → transparent/white/black`,
-2. preserve exact service-reference/path rules,
-3. update any affected PiconHub packages/catalog metadata,
-4. validate PNG dimensions/RGBA/alpha, references, provider/position paths and package consistency,
-5. produce a final audit of exactly what changed,
-6. create/complete the controlled PR/merge to `main` according to the approved Git workflow.
-
-The Orbit Watch system must obey all existing LOCKED graphics, repository architecture, MASTER-template and QC rules. It is a maintenance mechanism, **not permission to redesign PiconHub or silently rewrite approved graphics**.
-
-### Long-term history
-
-Keep a durable change history/report so PiconHub can later show useful orbital maintenance summaries such as `13.0E: +3 new, 2 renamed, 1 moved, 4 removed/deprecated`. This history should make changes auditable and help identify stale picons over time.
-
-### Implementation order
-
-Orbit Watch is a **planned future module / TODO**, not authorized for implementation yet. First finish the current complete-catalog normalization, representative sample approval and BLACK/WHITE quality rebuild. Then design exact data-source rules, confidence thresholds, report format, scheduling, private e-mail notification mechanism and approval workflow before enabling automatic monitoring.
+After catalog normalization and the Warder Evolution quality standard are completed and approved, build the already planned regular automatic satellite-change monitoring system. Detection/preparation may be automatic but production `main` remains approval-gated. Orbit Watch must obey the locked architecture, MASTERs and QC rules and must not silently redesign or rewrite approved graphics. Private maintainer e-mail notifications are intended for actionable changes or monitoring failures; secrets/recipient configuration must never be committed publicly.
 
 ## Chocholousek migration state
 
@@ -274,4 +171,4 @@ PiconHub UI is also still in development. The main design checkpoint is 1672×94
 
 ## Recovery rule
 
-If chat/context is lost: read this file and `docs/PICON-MASTER-QUALITY-PLAN.md` first, inspect current `main`, and continue from these checkpoints. Never infer architecture from obsolete history. Preserve all LOCKED graphics/layout/structure unless Štefan explicitly approves a change. The final MASTER templates are accepted exactly as stored. The immediate next major task is representative QC/sample-rule approval, then the complete-catalog BLACK/WHITE quality rebuild through Work on a controlled branch. Orbit Watch remains the planned subsequent automatic maintenance phase after the catalog standard is completed, including private maintainer e-mail notifications for actionable changes or monitoring failures.
+If chat/context is lost: read this file and `docs/PICON-MASTER-QUALITY-PLAN.md` first, inspect current `main`, and continue from these checkpoints. Never infer architecture from obsolete history. Preserve all LOCKED graphics/layout/structure unless Štefan explicitly approves a change. The final MASTER templates are accepted exactly as stored. **Immediate resume task: V9 representative test from the uploaded/current repository ZIP using frozen V8, then Štefan approval; only afterward hand the complete-catalog rebuild to Work.** Orbit Watch remains the planned subsequent maintenance phase.
