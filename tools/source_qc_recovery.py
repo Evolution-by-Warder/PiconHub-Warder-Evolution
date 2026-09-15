@@ -31,6 +31,9 @@ RECT_EDGE_REVIEW = 0.94
 RECT_CORNER_REVIEW = 0.75
 MIN_RECT_AREA = 0.08
 FULL_CANVAS_OPAQUE_REVIEW = 0.90
+VISIBLE_RECT_FILL_REVIEW = 0.98
+VISIBLE_RECT_EDGE_REVIEW = 0.95
+VISIBLE_RECT_CORNER_REVIEW = 0.75
 
 
 def sha256_file(path: Path) -> str:
@@ -52,6 +55,7 @@ def rectangular_background_signals(rgba: Image.Image) -> tuple[list[str], dict]:
     y0, y1 = int(ys.min()), int(ys.max()) + 1
     box = a[y0:y1, x0:x1]
     opaque = box >= OPAQUE
+    box_visible = box > NEAR_TRANSPARENT
     box_area = box.size
     canvas_area = a.size
     fill = float(np.mean(opaque))
@@ -62,6 +66,13 @@ def rectangular_background_signals(rgba: Image.Image) -> tuple[list[str], dict]:
     corners = np.array([opaque[0,0], opaque[0,-1], opaque[-1,0], opaque[-1,-1]], dtype=float)
     corner_fraction = float(np.mean(corners))
     canvas_opaque_fraction = float(np.mean(a >= OPAQUE))
+    visible_fill = float(np.mean(box_visible))
+    visible_edge = np.concatenate((box_visible[0, :], box_visible[-1, :],
+                                   box_visible[:, 0], box_visible[:, -1]))
+    visible_edge_fraction = float(np.mean(visible_edge)) if visible_edge.size else 0.0
+    visible_corners = np.array([box_visible[0,0], box_visible[0,-1],
+                                box_visible[-1,0], box_visible[-1,-1]], dtype=float)
+    visible_corner_fraction = float(np.mean(visible_corners))
 
     metrics = {
         "bbox": f"{x0},{y0},{x1},{y1}",
@@ -70,6 +81,9 @@ def rectangular_background_signals(rgba: Image.Image) -> tuple[list[str], dict]:
         "bbox_opaque_edge_fraction": round(edge_fraction, 6),
         "bbox_opaque_corner_fraction": round(corner_fraction, 6),
         "canvas_opaque_fraction": round(canvas_opaque_fraction, 6),
+        "bbox_visible_fill": round(visible_fill, 6),
+        "bbox_visible_edge_fraction": round(visible_edge_fraction, 6),
+        "bbox_visible_corner_fraction": round(visible_corner_fraction, 6),
     }
 
     reasons: list[str] = []
@@ -80,6 +94,14 @@ def rectangular_background_signals(rgba: Image.Image) -> tuple[list[str], dict]:
             and edge_fraction >= RECT_EDGE_REVIEW
             and corner_fraction >= RECT_CORNER_REVIEW):
         reasons.append("suspected opaque rectangular background in transparent source")
+    # Some raster backgrounds are uniformly semi-transparent rather than alpha
+    # 255. Their visible mask still forms a large, continuously filled rectangle
+    # with present edges and corners. Treat this conservatively as REVIEW; never
+    # infer that the rectangle is a legitimate logo badge automatically.
+    if (area_fraction >= MIN_RECT_AREA and visible_fill >= VISIBLE_RECT_FILL_REVIEW
+            and visible_edge_fraction >= VISIBLE_RECT_EDGE_REVIEW
+            and visible_corner_fraction >= VISIBLE_RECT_CORNER_REVIEW):
+        reasons.append("suspected rectangular raster background in transparent source")
     if canvas_opaque_fraction >= FULL_CANVAS_OPAQUE_REVIEW:
         reasons.append("source is almost fully opaque across the 220x132 canvas")
     return reasons, metrics
@@ -154,8 +176,12 @@ def main() -> int:
     duplicate_sha_groups = {k:v for k,v in sha_groups.items() if len(v) > 1}
 
     fields = sorted({k for r in rows for k in r.keys()})
+    # Keep the full-catalog CSV compact while preserving one auditable row per
+    # source. Detailed SHA/geometry/recovery fields are retained for every
+    # quarantined item in recovery-list.csv and for duplicates in the SHA JSON.
+    audit_fields = ["source", "source_status", "source_reason"]
     with (report_dir / "source-audit.csv").open("w", newline="", encoding="utf-8") as f:
-        w = csv.DictWriter(f, fieldnames=fields, lineterminator="\n")
+        w = csv.DictWriter(f, fieldnames=audit_fields, extrasaction="ignore", lineterminator="\n")
         w.writeheader(); w.writerows(rows)
 
     recovery = [r for r in rows if r["source_status"] != "PASS"]
