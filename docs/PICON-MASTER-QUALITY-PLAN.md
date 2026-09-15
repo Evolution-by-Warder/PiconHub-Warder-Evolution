@@ -42,31 +42,48 @@ Doostrenie sa nesmie aplikovať plošne. Použiť ho iba vtedy, keď QC preuká�
 
 Ak by sa mal meniť samotný transparentný originál, zmena musí byť auditovaná a vratná.
 
-### 2. Analýza kontrastu loga
+### 2. Veľkosť a umiestnenie loga
 
-BLACK a WHITE sa nesmú vyrábať slepým alpha-composite bez kontroly čitateľnosti.
+Pred vložením na BLACK/WHITE master určiť skutočný bounding box viditeľného loga; prázdny transparentný priestor okolo loga sa nepovažuje za jeho rozmer.
 
-Pred kompozíciou vyhodnotiť farbu/jas loga a textu voči konkrétnemu master pozadiu. Typické riziká:
+Logo sa proporcionálne prispôsobí využiteľnej ploche master panela podľa šírky AJ výšky:
 
-- biele alebo veľmi svetlé logo/písmo na WHITE,
-- čierne alebo veľmi tmavé logo/písmo na BLACK,
-- jemné tenké písmo strácajúce sa v odleskoch/ríme masteru,
-- viacfarebné logo, pri ktorom by globálne prefarbenie poškodilo identitu značky.
+- zachovať pôvodný pomer strán,
+- nikdy logo nenaťahovať ani nedeformovať,
+- široké logo limitovať šírkou, vysoké logo výškou,
+- využiť plochu panela rozumne s bezpečným odstupom od okrajov,
+- výsledné logo vycentrovať,
+- MASTER pozadie samotné sa nikdy neresizuje ani nemení.
 
-Cieľom je zachovať pôvodné firemné farby a vzhľad loga vždy, keď je to možné. Nepoužívať primitívne globálne pravidlo typu „biele logo prefarbi na čierne“.
+Cieľom je konzistentná vizuálna veľkosť loga na paneli, nie mechanické vloženie pôvodného 220×132 plátna 1:1.
 
-Ak je zásah nutný, použiť iba minimálnu kontrolovanú úpravu potrebnú pre čitateľnosť (napr. vhodná kontrastná verzia, jemný obrys/tieň alebo iné vopred schválené pravidlo). Nejednoznačné prípady automaticky NEHÁDAŤ — zaradiť ich do manuálnej kontroly.
+### 3. Farba a čitateľnosť loga
 
-### 3. Výroba
+BLACK a WHITE sa posudzujú samostatne voči konkrétnemu master pozadiu.
+
+Záväzné pravidlá:
+
+- ak je originálne logo na danom pozadí dobre čitateľné, jeho pôvodné farby sa nemenia,
+- farebné a viacfarebné logá sa majú zachovať v originálnych farbách vždy, keď sú ako celok dobre čitateľné,
+- automatika NESMIE lokálne prefarbovať iba jednotlivé pixely, písmená alebo časti jedného loga podľa lokálneho kontrastu,
+- nesmie vzniknúť nekonzistentný výsledok typu časť jedného pôvodne jednofarebného loga čierna a časť biela,
+- pri skutočne jednofarebnom/monochromatickom logu, ktoré na danom masteri zaniká (napr. biele na WHITE alebo tmavé na BLACK), je dovolené zmeniť farbu CELÉHO loga jednotne na vhodnú kontrastnú farbu,
+- pravidlo globálneho prefarbenia celého loga sa NESMIE automaticky aplikovať na viacfarebné logo; viacfarebné logo sa neposudzuje iba jedným priemerným číslom kontrastu,
+- ak viacfarebné logo nie je ako celok dostatočne čitateľné a neexistuje vopred schválené bezpečné pravidlo, ide do REVIEW,
+- žiadne automatické obrysy, tiene, halo alebo lokálne kontrastné efekty bez samostatného výslovného schválenia.
+
+Príklad záväznej logiky: monochromatické biele logo, ktoré zaniká na WHITE, môže byť celé prevedené do tmavej/čiernej verzie. Viacfarebné logo s čiernou, fialovou alebo inými brand farbami sa nesmie iba kvôli jednej slabo kontrastnej časti celé prefarbiť; ak je celkovo čitateľné, zachová sa originál, inak REVIEW.
+
+### 4. Výroba
 
 Pre schválené prípady vytvoriť:
 
 - `black/<same-service-reference>.png`
 - `white/<same-service-reference>.png`
 
-Výsledok musí zachovať správne logo, service reference, providera a satelitnú pozíciu. Transparentný zdroj sa pri samotnej kompozícii nesmie svojvoľne posúvať, meniť mierku, deformovať ani prekresľovať.
+Výsledok musí zachovať správne logo, service reference, providera a satelitnú pozíciu. Povolené zmeny loga sú iba tie, ktoré vyplývajú z vyššie schválených pravidiel veľkosti, centrovania, QC a celej monochromatickej farebnej verzie.
 
-### 4. Výstupná kontrola
+### 5. Výstupná kontrola
 
 Každý výsledok skontrolovať minimálne na:
 
@@ -75,8 +92,10 @@ Každý výsledok skontrolovať minimálne na:
 - správnu cestu position → provider → style,
 - zhodný service-reference filename,
 - čitateľnosť loga na BLACK aj WHITE,
+- správnu proporcionálnu veľkosť a centrovanie,
 - ostré a čisté hrany bez halo/resize artefaktov,
-- žiadne nechcené zmeny identity loga,
+- žiadne nechcené lokálne prefarbenie častí loga,
+- žiadne nechcené zmeny identity viacfarebného loga,
 - žiadne chýbajúce alebo nadbytočné varianty.
 
 ## Triedenie výsledkov QC
@@ -84,7 +103,7 @@ Každý výsledok skontrolovať minimálne na:
 Každý picon zaradiť do jednej z kategórií:
 
 1. PASS — bezproblémový, bezpečne vyrobený automaticky.
-2. AUTO-FIXED — použitá presne definovaná a auditovaná korekcia (napr. jemné doostrenie/kontrastné pravidlo).
+2. AUTO-FIXED — použitá presne definovaná a auditovaná korekcia (napr. schválené doostrenie alebo jednotná zmena celého monochromatického loga).
 3. REVIEW — nejednoznačný alebo vizuálne problematický; nesmie byť automaticky schválený ani hádaný.
 4. ERROR/SKIP — technicky chybný alebo nespracovateľný; zapísať dôvod.
 
@@ -117,25 +136,28 @@ Work:
 - vykonať hromadnú viacstupňovú operáciu nad celou databázou,
 - QC transparentov,
 - aplikovať iba vopred schválené automatické pravidlá,
-- analýza kontrastu BLACK/WHITE,
+- analýza BLACK/WHITE čitateľnosti,
 - výroba,
 - výstupná validácia,
 - vytvorenie reportu a Git pracovnej vetvy/PR.
 
 Work nesmie samostatne vymýšľať estetické pravidlá ani automaticky rozhodovať REVIEW prípady.
 
-## Pred spustením celej databázy — zajtrajší checkpoint
+## Pred spustením celej databázy — checkpoint
 
 Najprv dokončiť a schváliť malú testovaciu sadu reprezentujúcu aspoň:
 
-- svetlé/biele logo,
-- tmavé/čierne logo,
+- svetlé/biele monochromatické logo,
+- tmavé/čierne monochromatické logo,
 - farebné logo,
+- viacfarebné brand logo,
 - jemné alebo malé písmo,
 - kvalitný ostrý transparent,
 - mäkký/nekvalitný transparent vhodný na test kontrolovaného doostrenia,
 - prípad s nízkym kontrastom na WHITE,
-- prípad s nízkym kontrastom na BLACK.
+- prípad s nízkym kontrastom na BLACK,
+- široké logo limitované šírkou,
+- vysoké logo limitované výškou.
 
 Až keď budú tieto prípady vizuálne schválené, zmraziť pravidlá ako Warder Evolution master standard a pripraviť Work na kompletné spracovanie databázy.
 
