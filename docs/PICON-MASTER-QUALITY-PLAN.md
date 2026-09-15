@@ -42,6 +42,11 @@ Zakázané sú náhodné pixelové kontrastné opravy, rozbíjanie jedného pís
 
 Monochromatické logo alebo jednoduchý textový wordmark môže mať celú svetlú verziu pre BLACK a celú tmavú verziu pre WHITE. NOS a RÁDIO SLOVAKIA INTERNATIONAL sú vzorové typy takejto alternatívy.
 
+### 3b. V9 schválenie — zmiešané logo so svetlým textom
+Štefan vizuálne schválil princíp ukázaný vo V9 na vzorkách 5 a 6: ak zmiešané/farebné logo obsahuje **biely alebo veľmi svetlý text ležiaci priamo na WHITE MASTER pozadí**, tento text sa má zmeniť na **čierny/tmavý**, pokiaľ ho component-mask dokáže bezpečne oddeliť. Ostatné farebné brand prvky (napr. červený symbol, farebné `FM`, badge alebo grafika) musia zostať bez zmeny vrátane okrajov a antialias pixelov. Rovnaká zásada platí opačne pre tmavý text zanikajúci na BLACK MASTER: bezpečne oddelený text sa zmení na svetlý a ostatné farebné prvky zostanú nedotknuté.
+
+V9 vzorky 5 a 6 potvrdili aj QC zásadu: samotné zistenie „farebné logo“ nestačí na automatický PASS. Najprv sa musí posúdiť čitateľnosť jednotlivých logických komponentov na konkrétnom MASTER pozadí. Ak bezpečné oddelenie svetlého/tmavého textu nie je garantované, prípad zostáva REVIEW a automatika nesmie hádať.
+
 Ak automatika nevie spoľahlivo rozlíšiť komponenty alebo vytvoriť masku bez zásahu do susedného chráneného prvku, prípad ide do REVIEW. REVIEW má prednosť pred chybnou automatickou úpravou.
 
 ### 4. Výroba
