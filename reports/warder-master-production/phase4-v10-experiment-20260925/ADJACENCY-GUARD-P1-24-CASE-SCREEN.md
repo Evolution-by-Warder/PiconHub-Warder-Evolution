@@ -10,8 +10,10 @@ All 24 cases remained REVIEW. The unchanged PASS control stayed PASS with zero c
 
 - **#10085** — REVIEW, one two-tone component, 7,345 displayed pixels differ from the current output. The V10 test candidate makes several wordmark letters pale against the white background, reducing contrast compared with the current readable dark wordmark.
 - **#6019** — REVIEW, one two-tone component, 1,599 displayed pixels differ from current. The V10 test candidate turns only part of a four-part gray motif white and breaks its visual consistency.
+- **#6216** — REVIEW, five two-tone components, 1,498 displayed pixels differ from current. The V10 candidate changes the dot over the “i” to white, making it disappear against the white master.
+- **#14408** — REVIEW, four components touching protected chromatic artwork, 6,507 displayed pixels differ from current. The V10 test candidate leaves much of the large wordmark pale on white while other letters turn black.
 
-Both candidates are scratch-only and should remain unapplied. These spot checks show why the unresolved component guard must continue to hold the cases for review.
+All four scratch candidates reduce legibility or consistency against the current outputs. They remain unapplied. The guard correctly kept them in REVIEW.
 
 ## Audit and previews
 
