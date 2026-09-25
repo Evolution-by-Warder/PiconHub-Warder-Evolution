@@ -3,6 +3,21 @@
 Updated: 2026-09-15
 Purpose: durable recovery checkpoint so the project can be resumed exactly after loss of chat/context.
 
+## V10 approval and resume addendum — 2026-09-25
+
+This dated status supersedes older immediate-resume instructions in the historical checkpoint below. Its architecture, locked graphics, and MASTER rules remain binding.
+
+- Pass 9: 52/52 approved and closed; Batches 1–12 closed (per the 2026-09-17 approval record).
+- Batch 13: 12/12 visually approved on 2026-09-25.
+- Corrected WHITE outputs: #3021, #3032, #3072, #3096. Approved as displayed without further edits: #3009, #3010, #3011, #3027, #3028, #3029, #3030, #3031.
+- The four approved WHITE PNGs and their approval audit were applied to this test branch in commit `185f6be3499cf7bc147d20fee86a3ca624bab77d`.
+- No full-catalog rebuild or merge to `main` has been performed. `main` remains unchanged.
+- Do not repeat the visual review or regeneration of Batches 1–13. Continue the Phase 4 V10 workflow on the isolated test branch using the approved records and existing V10 test specification.
+
+Approval audit path: `reports/warder-master-production/phase4-v10-approved-batch13/APPROVAL-AUDIT.csv`.
+
+---
+
 ## Current project state
 
 PiconHub Warder Evolution is **ACTIVE / IN DEVELOPMENT**. Current `main` contains the reorganized runtime picon catalog, completed guarded Vhannibal transparent import, authoritative BLACK/WHITE master templates, migration tooling, and the master quality plan.
