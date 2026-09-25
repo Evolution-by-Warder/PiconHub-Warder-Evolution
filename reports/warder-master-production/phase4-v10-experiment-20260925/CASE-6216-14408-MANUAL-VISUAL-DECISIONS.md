@@ -12,4 +12,4 @@ Branch: `phase4-v10-component-mask-test`
 
 For #6216, the selected PNG is 220×132 RGBA. Candidate SHA256 is `1428dd0e3da0f968837a30cc05876b11d84c1d24d4feffe5b3b4eb16ff82766c`; Git blob SHA is `48a07d798e307a7e79fdd572d3f20c0288c2b569`. The regression audit recorded 9,743 changed source pixels, 1,498 pixels different from the current output, unchanged alpha, and unchanged protected chromatic pixels.
 
-The focused comparison is preserved as `CASE-6216-14408-MANUAL-VISUAL-DECISIONS.jpg`. The automatic classifier remains REVIEW for both cases. These are case-specific visual decisions; they do not approve V10 as an algorithm or a full-catalog rebuild.
+The focused #6216 comparison is preserved as `CASE-6216-14408-MANUAL-VISUAL-DECISIONS.jpg`; the focused #14408 comparison is preserved as `CASE-14408-MANUAL-VISUAL-DECISION.jpg`. The automatic classifier remains REVIEW for both cases. These are case-specific visual decisions; they do not approve V10 as an algorithm or a full-catalog rebuild.
