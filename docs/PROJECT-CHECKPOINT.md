@@ -12,6 +12,8 @@ This dated status supersedes older immediate-resume instructions in the historic
 - Corrected WHITE outputs: #3021, #3032, #3072, #3096. Approved as displayed without further edits: #3009, #3010, #3011, #3027, #3028, #3029, #3030, #3031.
 - The four approved WHITE PNGs and their approval audit were applied to this test branch in commit `185f6be3499cf7bc147d20fee86a3ca624bab77d`.
 - No full-catalog rebuild or merge to `main` has been performed. `main` remains unchanged.
+- User visual selection (2026-09-25): keep the middle-column CURRENT WHITE outputs for #14716, #3163, #3133, and the PASS control; reject the scratch prototype alternatives. No PNG changed. Full paths: `reports/warder-master-production/phase4-v10-experiment-20260925/USER-VISUAL-SELECTION.md`.
+- Next gate: continue isolated V10 regression work on the test branch; ambiguous or unsafe samples remain REVIEW. The failed component-mask prototype is not approved, and full-catalog rebuild still requires successful isolated regression evidence and an explicitly approved production path.
 - Do not repeat the visual review or regeneration of Batches 1–13. Continue the Phase 4 V10 workflow on the isolated test branch using the approved records and existing V10 test specification.
 
 Approval audit path: `reports/warder-master-production/phase4-v10-approved-batch13/APPROVAL-AUDIT.csv`.
