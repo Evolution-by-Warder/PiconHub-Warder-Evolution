@@ -20,8 +20,8 @@ This establishes a broader non-regression check for these fixtures only. No fixt
 
 ## Evidence and protected state
 
-The source and candidate hashes, exact counts, fit boxes and per-fixture assertions are in the v4 scratch audit:
-`/workspace/scratch/cb84afc29802/v10-regression-prototype/adjacency-guard-v4-bw-expanded/regression-audit.csv`.
+The source and candidate hashes, exact counts, fit boxes and per-fixture assertions are in the tracked audit CSV:
+`reports/warder-master-production/phase4-v10-experiment-20260925/ADJACENCY-GUARD-V4-BW-REGRESSION-AUDIT.csv`.
 
 Preview:
 `/workspace/scratch/cb84afc29802/v10-regression-prototype/adjacency-guard-v4-bw-expanded/v10-isolated-regression-preview.jpg`.
