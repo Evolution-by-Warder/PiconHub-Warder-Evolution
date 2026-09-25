@@ -18,4 +18,4 @@ Branch: `phase4-v10-component-mask-test`
 - Protected chromatic source pixels unchanged: yes
 - Automatic status: REVIEW (8 unsafe two-tone components); manually approved by the user's visual decision
 
-The duplicate destination #1009 has the same transparent source bytes and produces the same candidate bytes, but was not included in this approval and remains unchanged. No algorithm-wide approval or full-catalog rebuild is implied. The MASTER, generator, approved batches, and `main` are unchanged.
+The duplicate destination #1009 has the same transparent source bytes and produces the same candidate bytes. It was not included in this #407 approval and remained unchanged at that time; Štefan separately approved the #1009 destination on 2026-09-25, recorded in `CASE-1009-MANUAL-APPROVAL.md` and `.csv`. No algorithm-wide approval or full-catalog rebuild is implied. No algorithm-wide approval or full-catalog rebuild is implied. The MASTER, generator, approved batches, and `main` are unchanged.
