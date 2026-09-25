@@ -14,7 +14,7 @@ Expanded the v2 scratch guard test across unresolved mixed-logo WHITE cases, one
 | #12062 | BLACK | REVIEW | 43 | 0 | 0 |
 | PASS control | WHITE | PASS | 0 | 0 | 0 |
 
-Every final composite remained pixel-identical to its current output. Alpha and protected chromatic source pixels remained unchanged. The selected middle-column cases (#14716, #3163, #3133) are still exactly the outputs Štefan chose.
+Six of the seven composites remained pixel-identical to their current outputs. Case #12062 differed in 93 displayed pixels (115 source achromatic pixels recolored); its alpha and protected chromatic source pixels remained unchanged. The selected middle-column cases (#14716, #3163, #3133) are still exactly the outputs Štefan chose.
 
 This establishes a broader non-regression check for these fixtures only. No fixture became AUTO-FIXED, so this does not validate safe automatic recoloring or establish that a one-pixel neighborhood captures every logical mixed component. V10 remains unapproved for production. Continue isolated testing; ambiguous cases remain REVIEW.
 
