@@ -13,6 +13,7 @@ This dated status supersedes older immediate-resume instructions in the historic
 - The four approved WHITE PNGs and their approval audit were applied to this test branch in commit `185f6be3499cf7bc147d20fee86a3ca624bab77d`.
 - No full-catalog rebuild or merge to `main` has been performed. `main` remains unchanged.
 - User visual selection (2026-09-25): keep the middle-column CURRENT WHITE outputs for #14716, #3163, #3133, and the PASS control; reject the scratch prototype alternatives. No PNG changed. Full paths: `reports/warder-master-production/phase4-v10-experiment-20260925/USER-VISUAL-SELECTION.md`.
+- Scratch adjacency-guard-v2 regression (2026-09-25): #3163 and #3133 detected as unsafe and left REVIEW with 0 changed pixels; #14716 stayed REVIEW via V9 fallback; PASS control stayed PASS. All four composites were pixel-identical to the selected current WHITE outputs. This is limited fixture evidence, not V10 or production approval. Report: `reports/warder-master-production/phase4-v10-experiment-20260925/ADJACENCY-GUARD-V2-REGRESSION.md`.
 - Next gate: continue isolated V10 regression work on the test branch; ambiguous or unsafe samples remain REVIEW. The failed component-mask prototype is not approved, and full-catalog rebuild still requires successful isolated regression evidence and an explicitly approved production path.
 - Do not repeat the visual review or regeneration of Batches 1–13. Continue the Phase 4 V10 workflow on the isolated test branch using the approved records and existing V10 test specification.
 
