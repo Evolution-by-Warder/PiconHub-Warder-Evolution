@@ -3,7 +3,7 @@
 Date: 2026-09-25  
 Branch: `phase4-v10-component-mask-test`
 
-Štefan selected the **middle/current output** for #1856 and requested a specific correction to the **middle/current output** for #13015.
+Štefan selected the **middle/current output** for #1856 and requested the correction to the **middle/current output** for #13015. After reviewing the comparison, Štefan approved the **right-hand corrected WHITE candidate** for #13015 on 2026-09-25.
 
 | Case | Decision | Source SHA256 | Previous/current WHITE SHA256 | Result WHITE SHA256 | Git blob SHA | Automatic status |
 |---|---|---|---|---|---|---|
@@ -13,3 +13,6 @@ Branch: `phase4-v10-component-mask-test`
 For #13015, reconstruction from the original transparent source through the frozen V9 fit/render and exact WHITE MASTER was pixel-identical to the previous/current output before the manual edit. Only the two achromatic components identified as the second glyph (dot and stem; 997 source pixels) were recolored to black. The rendered output differs from previous in 994 pixels. Source alpha and all chromatic globe pixels were preserved. Final PNG is 220×132 RGBA.
 
 Focused evidence: `CASE-13015-MANUAL-CORRECTION.jpg` shows original/current/corrected output and a magnified detail; `CASE-1856-CURRENT-RETAINED.jpg` shows original/current/V10 candidate. No algorithm-wide approval or production rebuild is implied.
+
+
+Štefan's visual approval applies to this exact #13015 corrected WHITE PNG (SHA256 `38a7c762af0645529fbf9e61c5cfff3648950e28d8431ad03958aa792baf0f27`) only. Its automatic status remains REVIEW; no algorithm-wide or production rebuild approval is implied.
