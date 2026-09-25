@@ -13,7 +13,7 @@ All 24 cases remained REVIEW. The unchanged PASS control stayed PASS with zero c
 - **#6216** — REVIEW, five two-tone components, 1,498 displayed pixels differ from current. The V10 candidate changes the dot over the “i” to white, making it disappear against the white master.
 - **#14408** — REVIEW, four components touching protected chromatic artwork, 6,507 displayed pixels differ from current. The V10 test candidate leaves much of the large wordmark pale on white while other letters turn black.
 
-The user's later manual approvals for #10085 and #6019 supersede the initial visual assessment; both exact candidates are applied with case-level audit. #6216 and #14408 remain unapplied. The automatic classifier still reports REVIEW for #10085 and #6019; these are manual approvals of two exact outputs, not approval of the algorithm.
+The user's later manual approvals for #10085 and #6019 supersede the initial visual assessment; both exact candidates are applied with case-level audit. #6216 remains REVIEW automatically; Štefan selected the exact right-hand V10 candidate, which is manually approved and applied on the test branch. #14408 remains REVIEW automatically; Štefan selected the middle-column CURRENT output, so it is retained unchanged. This is case-level manual visual selection, not approval of the algorithm. The automatic classifier still reports REVIEW for #10085 and #6019; these are manual approvals of two exact outputs, not approval of the algorithm.
 
 ## Audit and previews
 
