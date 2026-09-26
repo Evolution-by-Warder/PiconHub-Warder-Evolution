@@ -84,6 +84,12 @@ def main() -> None:
     args = parser.parse_args()
     root = args.root.resolve()
     out = args.output_dir.resolve()
+    try:
+        out.relative_to((root / "picons").resolve())
+    except ValueError:
+        pass
+    else:
+        raise SystemExit("refusing to write experiment candidates inside the production picons tree")
     out.mkdir(parents=True, exist_ok=True)
     master = arr(root / "templates/picons/white-sablona.png")
     rows = []
