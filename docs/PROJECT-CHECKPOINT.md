@@ -3,6 +3,16 @@
 Updated: 2026-09-15
 Purpose: durable recovery checkpoint so the project can be resumed exactly after loss of chat/context.
 
+## Current status — 2026-09-26
+
+This dated status supersedes older immediate-resume instructions below where they conflict.
+
+- Current isolated branch: `phase4-v10-component-mask-test` at `b953b7a0852a39a9645f1289b32ed9f2fd864a1b`. `main` remains unchanged.
+- Case #1120 Comedy Central WHITE was visually approved by Štefan on 2026-09-26. The shown fresh V9 candidate was byte-identical to the current WHITE output (SHA256 `c91beb0a4a443272f51821b3c560119d78c35f4ca2314f4d59126419945d292a`); no picon bytes changed. The user approval is recorded in `reports/warder-master-production/phase4-v10-experiment-20260925/CASE-1120-MANUAL-APPROVAL.md`.
+- Case #14716 was already visually resolved on 2026-09-25: keep the middle-column CURRENT WHITE image, as recorded in `reports/warder-master-production/phase4-v10-experiment-20260925/USER-VISUAL-SELECTION.md`. Its automatic REVIEW status does not reopen the user's visual choice.
+- No user visual decision is pending for #1120 or #14716. Keep all previously approved cases closed.
+- Next: continue isolated V10 regression work from the current test branch. The component-mask scratch prototype remains rejected. Do not use it, change `main`, or run a full-catalog rebuild. New experiments must remain isolated and pass protected-component checks before visual review.
+
 ## V10 approval and resume addendum — 2026-09-25
 
 This dated status supersedes older immediate-resume instructions in the historical checkpoint below. Its architecture, locked graphics, and MASTER rules remain binding.
