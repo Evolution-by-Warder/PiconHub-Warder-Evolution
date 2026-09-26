@@ -11,6 +11,7 @@ This dated status supersedes older immediate-resume instructions below where the
 - Case #1120 Comedy Central WHITE was visually approved by Štefan on 2026-09-26. The shown fresh V9 candidate was byte-identical to the current WHITE output (SHA256 `c91beb0a4a443272f51821b3c560119d78c35f4ca2314f4d59126419945d292a`); no picon bytes changed. The user approval is recorded in `reports/warder-master-production/phase4-v10-experiment-20260925/CASE-1120-MANUAL-APPROVAL.md`.
 - Case #14716 was already visually resolved on 2026-09-25: keep the middle-column CURRENT WHITE image, as recorded in `reports/warder-master-production/phase4-v10-experiment-20260925/USER-VISUAL-SELECTION.md`. Its automatic REVIEW status does not reopen the user's visual choice.
 - No user visual decision is pending for #1120 or #14716. Keep all previously approved cases closed.
+- Targeted #12062 BLACK V9 check reproduced the current output exactly (SHA256 `c0970dba88586f9729e787ce188f049f9402e6595bd5d3f55f19f8894e29bfb5`), retained its green chromatic wordmark, and remained REVIEW. Exact result and limits: `reports/warder-master-production/phase4-v10-experiment-20260925/CASE-12062-V9-CHROMATIC-PROTECTION-CHECK.md`.
 - Next: continue isolated V10 regression work from the current test branch. The component-mask scratch prototype remains rejected. Do not use it, change `main`, or run a full-catalog rebuild. New experiments must remain isolated and pass protected-component checks before visual review.
 
 ## V10 approval and resume addendum — 2026-09-25
