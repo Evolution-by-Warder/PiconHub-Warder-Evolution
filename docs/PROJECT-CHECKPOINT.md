@@ -7,7 +7,7 @@ Purpose: durable recovery checkpoint so the project can be resumed exactly after
 
 This dated status supersedes older immediate-resume instructions below where they conflict.
 
-- Current isolated branch: `phase4-v10-component-mask-test` at `b953b7a0852a39a9645f1289b32ed9f2fd864a1b`. `main` remains unchanged.
+- Verified isolated branch base for this checkpoint update: `phase4-v10-component-mask-test` at `c3bd38104a86bfebb3ecbf1bfd896fb978373f18`. `main` remains unchanged.
 - Case #1120 Comedy Central WHITE was visually approved by Štefan on 2026-09-26. The shown fresh V9 candidate was byte-identical to the current WHITE output (SHA256 `c91beb0a4a443272f51821b3c560119d78c35f4ca2314f4d59126419945d292a`); no picon bytes changed. The user approval is recorded in `reports/warder-master-production/phase4-v10-experiment-20260925/CASE-1120-MANUAL-APPROVAL.md`.
 - Case #14716 was already visually resolved on 2026-09-25: keep the middle-column CURRENT WHITE image, as recorded in `reports/warder-master-production/phase4-v10-experiment-20260925/USER-VISUAL-SELECTION.md`. Its automatic REVIEW status does not reopen the user's visual choice.
 - No user visual decision is pending for #1120 or #14716. Keep all previously approved cases closed.
