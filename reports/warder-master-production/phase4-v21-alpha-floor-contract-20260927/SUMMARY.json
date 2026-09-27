@@ -1,0 +1,39 @@
+{
+  "experiment": "V21 — FROZEN ALPHA-FLOOR SEMANTICS / EDIT-MASK CONTRACT AUDIT",
+  "repository": "Evolution-by-Warder/PiconHub-Warder-Evolution",
+  "branch": "phase4-v10-component-mask-test",
+  "verified_start_head": "37d466f398b1fc1f518c68e50072fbdc9e36817f",
+  "phase3_checkpoint": "e9b503d76eae3c3c7d7763df4909039a55d3edb8",
+  "result": "A — frozen V9 whole-component edits include subthreshold visible pixels when a component is accepted; no separate per-pixel low-alpha ownership classifier exists in V9.",
+  "opaque_alpha_32_role": "classification/material sampling floor; not edit-mask cutoff",
+  "visible_alpha_condition": "> 0",
+  "component_connectivity": "8-connected",
+  "material_condition": ">= 32 when present; fallback to entire component if none",
+  "edit_mask": "entire alpha-visible connected component",
+  "protected_mask": "entire alpha-visible connected component in unsafe branch",
+  "alpha_1_31_global_exclusion": false,
+  "separate_low_alpha_ownership_classifier_in_v9": false,
+  "later_explicit_low_alpha_ownership_gate_first_commit": "6b336f74a6d717a39ac04084b2f4399f92842ccb",
+  "followup_ownership_diagnostic_commit": "34dbb53a8291419c1061f602710dc36d263cef19",
+  "p14700": {
+    "m0_pixels": 1224,
+    "prior_core_pixels": 1070,
+    "prior_tonal_attachment_pixels": 154,
+    "adjacent_visible_alpha_lt32_pixels": 300,
+    "m0_matches_full_v9_component_mask": false,
+    "production_status": "REVIEW unchanged",
+    "candidate_created": false
+  },
+  "changes": {
+    "production_picons": 0,
+    "generator": 0,
+    "templates": 0,
+    "masters": 0,
+    "transparent_sources": 0,
+    "candidate_pngs": 0,
+    "threshold_changes": 0,
+    "ownership_rule_changes": 0,
+    "main_changes": 0
+  },
+  "note": "Separate proof-of-ownership gate is later Phase 4; V9 assigns all visible alpha-connected members at component level."
+}

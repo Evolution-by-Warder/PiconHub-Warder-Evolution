@@ -1,0 +1,9 @@
+stage,source_ref,path,line_or_location,condition_or_operation,alpha_1_to_31_semantics
+fit,e9b503d76eae3c3c7d7763df4909039a55d3edb8,tools/rebuild_master_catalog.py,62-76,"A-channel bbox; crop; optional LANCZOS resize; RGBA canvas","Downstream alpha is fitted/resampled and may differ from raw source alpha."
+visible,e9b503d76eae3c3c7d7763df4909039a55d3edb8,tools/rebuild_master_catalog.py,112,"visible = alpha > 0","Included in visible mask."
+components,e9b503d76eae3c3c7d7763df4909039a55d3edb8,tools/rebuild_master_catalog.py,113,"ndimage.label(visible, structure=np.ones((3,3)))","Included in 8-connected label."
+material,e9b503d76eae3c3c7d7763df4909039a55d3edb8,tools/rebuild_master_catalog.py,122-124,"solid = component & (alpha >= OPAQUE_ALPHA); if empty: solid = component","Omitted from statistics if any >=32 sample exists; fallback includes all if none."
+classification,e9b503d76eae3c3c7d7763df4909039a55d3edb8,tools/rebuild_master_catalog.py,125-150,"Color/tone/contrast tests consume solid","No separate alpha<32 ownership test."
+protected,e9b503d76eae3c3c7d7763df4909039a55d3edb8,tools/rebuild_master_catalog.py,146,"protected |= component","Unsafe component protects all visible alpha 1–31 members too."
+edit,e9b503d76eae3c3c7d7763df4909039a55d3edb8,tools/rebuild_master_catalog.py,135-143,"Safe monochromatic component needing fix: work[..., :3][component] = target","Edit includes every connected visible alpha 1–31 member; alpha untouched."
+render,e9b503d76eae3c3c7d7763df4909039a55d3edb8,tools/rebuild_master_catalog.py,161,"Image.alpha_composite(master, logo)","Fitted alpha controls rendering."
