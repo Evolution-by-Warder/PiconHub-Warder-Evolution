@@ -1,0 +1,18 @@
+check,result,evidence
+branch_head_before_apply,6bcb44a382585060d2f14320b24410b9ae995d6f,verified on phase4-v10-component-mask-test
+candidate_sha256,fbc6fd6a6532d2f13fa3d1a1f39ea400f7ec260838c4070acacdab04194d9164,matches V24 SUMMARY.json
+comparison_right_panel,PASS,220x132 RGB bytes match approved candidate RGB exactly
+current_white_sha256_before,e2b1eaf5cdad1acf3b251c7d5173a7bf0066ca3ea1a6eff9a60bd8aa02c76916,exact output path from V15/V24 audit
+source_sha256,9fa6f6a84bb9e1a98802e638f94d0f693757697648d1167d1b9f3f31fb7724c3,unchanged
+white_master_template_sha256,c6ae4a808a65ffc8e6458336fccbfe4216de1e832ec0a9abf800907f2f783589,unchanged
+source_layer_alpha_equal,PASS,V24 fitted logo layer alpha is bit-identical after RGB-only recolor
+rendered_output_alpha_equal_current_white,PASS,approved MASTER-composited output alpha matches current WHITE
+rendered_output_alpha_equal_fitted_source,NOT_APPLICABLE,V24 PNG is MASTER-composited; source-layer alpha equality is the frozen invariant
+target_rgb,PASS,"(16,16,16), V9 WHITE target"
+component_scope,PASS,V9 components 4/12/13 only
+changed_rgb_pixels_outside_target_components,0,pixel diff vs current WHITE
+chromatic_component_1_changed_pixels,0,pixel diff vs current WHITE
+candidate_regenerated,NO,exact V24 artifact to be applied
+approval_ledger,PASS,existing APPROVAL-AUDIT.csv; row #14700 to append
+production_picon_files_changed,1,exactly the #14700 WHITE path
+black_transparent_master_other_picons_changed,0,narrow commit diff check
