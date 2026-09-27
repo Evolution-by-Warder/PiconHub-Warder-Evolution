@@ -1,0 +1,1817 @@
+{
+  "experiment": "Conservative subthreshold-fringe safety rule definition",
+  "branch": "phase4-v10-component-mask-test",
+  "verified_start_head": "47b3075a0bf495b2de6076fc4e4286ff01224124",
+  "master_sha256": "c6ae4a808a65ffc8e6458336fccbfe4216de1e832ec0a9abf800907f2f783589",
+  "rule": {
+    "status": "EXPERIMENTAL STRUCTURAL CANDIDATE; NOT PRODUCTION RULE",
+    "derived_using_class_P_only": true,
+    "used_14700_for_derivation": false,
+    "predicate": "For every direct core-supported alpha 1..31 perimeter pixel, sample the exact composited linear Rec.709 luminance sequence from nearest alpha>=32 confirmed core pixel outward through the untouched source pixels to the first source alpha=0 pixel (actual WHITE MASTER). Pass only when every sequence is nondecreasing and every ray reaches the MASTER. Any decrease or unresolved ray is REVIEW.",
+    "thresholds": "none; no pixel, arc-length, connected-component-size or luminance-difference cutoff",
+    "ownership": "No ownership is inferred for untouched pixels. This rule only tests the visible result of leaving them bit-identical.",
+    "caveats": [
+      "Exact monotonicity can reject natural master texture and ordinary AA fluctuation.",
+      "One isolated adverse pixel is REVIEW; it cannot be ignored as perceptually insignificant.",
+      "No separately validated criterion distinguishes a natural compositing step from a visually unacceptable light ring."
+    ]
+  },
+  "class_P": [
+    {
+      "case": "P-AB1",
+      "wordmark": "AB1",
+      "source_path": "picons/13.0e/ab-sat/transparent/1_0_1_5AC_170C_13F_820000_0_0_0.png",
+      "source_sha256": "dfb1c2a18121cb3ec226168538baded0ffc775daaa02724071e9960a75da5818",
+      "current_white_sha256": "c61fe19cf8609ee48704a629616f8f72ee6b586d1ccad82a7bdf6f54f9e3c4a2",
+      "confirmed_mask_pixels": 9779,
+      "subthreshold_perimeter_pixels": 715,
+      "prior_gates": "PASS",
+      "prior_gate_evidence": {
+        "complete_wordmark": true,
+        "group_count": 1,
+        "target_component_count": 4,
+        "exterior_context": true,
+        "two_tone_blocker": false,
+        "blocking_links": 0,
+        "chroma_core_contact": false,
+        "true_AA_contact": false,
+        "ambiguous_contact": false
+      },
+      "edge_profiles": {
+        "profile_samples_first_8": [
+          {
+            "x": 49,
+            "y": 27,
+            "support_xy": [
+              50,
+              27
+            ],
+            "normal_step": [
+              -1,
+              0
+            ],
+            "profile_xy": [
+              [
+                50,
+                27
+              ],
+              [
+                49,
+                27
+              ],
+              [
+                48,
+                27
+              ]
+            ],
+            "alpha_profile": [
+              40,
+              11
+            ],
+            "luminance_profile_linear_rec709_0_255": [
+              125.07677928627031,
+              180.36022258951448,
+              176.80535229741588
+            ],
+            "status": "LOCAL_REVERSAL"
+          },
+          {
+            "x": 76,
+            "y": 27,
+            "support_xy": [
+              75,
+              27
+            ],
+            "normal_step": [
+              1,
+              0
+            ],
+            "profile_xy": [
+              [
+                75,
+                27
+              ],
+              [
+                76,
+                27
+              ],
+              [
+                77,
+                27
+              ]
+            ],
+            "alpha_profile": [
+              49,
+              19
+            ],
+            "luminance_profile_linear_rec709_0_255": [
+              112.49128130226676,
+              180.36022258951448,
+              176.66575479490342
+            ],
+            "status": "LOCAL_REVERSAL"
+          },
+          {
+            "x": 97,
+            "y": 27,
+            "support_xy": [
+              98,
+              27
+            ],
+            "normal_step": [
+              -1,
+              0
+            ],
+            "profile_xy": [
+              [
+                98,
+                27
+              ],
+              [
+                97,
+                27
+              ],
+              [
+                96,
+                27
+              ]
+            ],
+            "alpha_profile": [
+              38,
+              10
+            ],
+            "luminance_profile_linear_rec709_0_255": [
+              122.20744732423952,
+              175.2083702379072,
+              171.7131426104535
+            ],
+            "status": "LOCAL_REVERSAL"
+          },
+          {
+            "x": 149,
+            "y": 27,
+            "support_xy": [
+              148,
+              27
+            ],
+            "normal_step": [
+              1,
+              0
+            ],
+            "profile_xy": [
+              [
+                148,
+                27
+              ],
+              [
+                149,
+                27
+              ],
+              [
+                150,
+                27
+              ],
+              [
+                151,
+                27
+              ]
+            ],
+            "alpha_profile": [
+              37,
+              21,
+              7
+            ],
+            "luminance_profile_linear_rec709_0_255": [
+              119.67606364417425,
+              173.38662840645597,
+              168.12346125856658,
+              168.12346125856658
+            ],
+            "status": "LOCAL_REVERSAL"
+          },
+          {
+            "x": 150,
+            "y": 27,
+            "support_xy": [
+              150,
+              28
+            ],
+            "normal_step": [
+              0,
+              -1
+            ],
+            "profile_xy": [
+              [
+                150,
+                28
+              ],
+              [
+                150,
+                27
+              ],
+              [
+                150,
+                26
+              ]
+            ],
+            "alpha_profile": [
+              178,
+              7
+            ],
+            "luminance_profile_linear_rec709_0_255": [
+              17.711518317431803,
+              168.12346125856658,
+              168.12346125856658
+            ],
+            "status": "MONOTONIC_NONDECREASING"
+          },
+          {
+            "x": 176,
+            "y": 27,
+            "support_xy": [
+              177,
+              27
+            ],
+            "normal_step": [
+              -1,
+              0
+            ],
+            "profile_xy": [
+              [
+                177,
+                27
+              ],
+              [
+                176,
+                27
+              ],
+              [
+                175,
+                27
+              ]
+            ],
+            "alpha_profile": [
+              46,
+              15
+            ],
+            "luminance_profile_linear_rec709_0_255": [
+              109.68981330462984,
+              169.41028054035414,
+              164.57795253502812
+            ],
+            "status": "LOCAL_REVERSAL"
+          },
+          {
+            "x": 194,
+            "y": 27,
+            "support_xy": [
+              193,
+              27
+            ],
+            "normal_step": [
+              1,
+              0
+            ],
+            "profile_xy": [
+              [
+                193,
+                27
+              ],
+              [
+                194,
+                27
+              ],
+              [
+                195,
+                27
+              ],
+              [
+                196,
+                27
+              ]
+            ],
+            "alpha_profile": [
+              58,
+              29,
+              5
+            ],
+            "luminance_profile_linear_rec709_0_255": [
+              93.64186283621721,
+              166.70901808243806,
+              155.90640537037342,
+              152.51426105525556
+            ],
+            "status": "LOCAL_REVERSAL"
+          },
+          {
+            "x": 195,
+            "y": 27,
+            "support_xy": [
+              195,
+              28
+            ],
+            "normal_step": [
+              0,
+              -1
+            ],
+            "profile_xy": [
+              [
+                195,
+                28
+              ],
+              [
+                195,
+                27
+              ],
+              [
+                195,
+                26
+              ]
+            ],
+            "alpha_profile": [
+              165,
+              5
+            ],
+            "luminance_profile_linear_rec709_0_255": [
+              21.409639819881676,
+              155.90640537037342,
+              157.1381417346608
+            ],
+            "status": "MONOTONIC_NONDECREASING"
+          }
+        ],
+        "perimeter_pixels": 715,
+        "profile_count": 715,
+        "monotonic_profiles": 169,
+        "reversal_pixels": 546,
+        "unresolved_pixels": 0,
+        "reversal_component_count_8conn": 251,
+        "largest_reversal_component_pixels_8conn": 74,
+        "reversal_cycle_component_count_4conn": 0,
+        "reversal_fraction_perimeter": 0.7636363636363637
+      },
+      "candidate_rule_result": "FRINGE-REVIEW",
+      "final_experimental_status": "EXPERIMENTAL-GATE-REVIEW",
+      "candidate_created": false,
+      "alpha_unchanged": true
+    },
+    {
+      "case": "P-MEGA",
+      "wordmark": "MEGA",
+      "source_path": "picons/19.2e/ses/transparent/1_0_1F_2BC5_40C_1_C00000_0_0_0.png",
+      "source_sha256": "182767bbdb35417df81f5da68cb3153f15088a2a6410a4da6be896b7bfb13b0c",
+      "current_white_sha256": "a70be5b7a5176b61b3e20a1d3d21de5be6e7c7412203867006c6d10ef1a1e653",
+      "confirmed_mask_pixels": 3624,
+      "subthreshold_perimeter_pixels": 620,
+      "prior_gates": "PASS",
+      "prior_gate_evidence": {
+        "complete_wordmark": true,
+        "group_count": 1,
+        "target_component_count": 1,
+        "exterior_context": true,
+        "two_tone_blocker": false,
+        "blocking_links": 0,
+        "chroma_core_contact": false,
+        "true_AA_contact": false,
+        "ambiguous_contact": false
+      },
+      "edge_profiles": {
+        "profile_samples_first_8": [
+          {
+            "x": 13,
+            "y": 52,
+            "status": "NO_DIRECT_CORE_SUPPORT",
+            "luma_profile": []
+          },
+          {
+            "x": 16,
+            "y": 52,
+            "support_xy": [
+              17,
+              52
+            ],
+            "normal_step": [
+              -1,
+              0
+            ],
+            "profile_xy": [
+              [
+                17,
+                52
+              ],
+              [
+                16,
+                52
+              ],
+              [
+                15,
+                52
+              ]
+            ],
+            "alpha_profile": [
+              36,
+              2
+            ],
+            "luminance_profile_linear_rec709_0_255": [
+              163.50930225593834,
+              226.81041873862407,
+              231.08246024244886
+            ],
+            "status": "MONOTONIC_NONDECREASING"
+          },
+          {
+            "x": 77,
+            "y": 52,
+            "support_xy": [
+              76,
+              52
+            ],
+            "normal_step": [
+              1,
+              0
+            ],
+            "profile_xy": [
+              [
+                76,
+                52
+              ],
+              [
+                77,
+                52
+              ],
+              [
+                78,
+                52
+              ]
+            ],
+            "alpha_profile": [
+              90,
+              19
+            ],
+            "luminance_profile_linear_rec709_0_255": [
+              68.26592565765449,
+              164.93945739387044,
+              163.72796068521583
+            ],
+            "status": "LOCAL_REVERSAL"
+          },
+          {
+            "x": 85,
+            "y": 52,
+            "status": "NO_DIRECT_CORE_SUPPORT",
+            "luma_profile": []
+          },
+          {
+            "x": 88,
+            "y": 52,
+            "support_xy": [
+              89,
+              52
+            ],
+            "normal_step": [
+              -1,
+              0
+            ],
+            "profile_xy": [
+              [
+                89,
+                52
+              ],
+              [
+                88,
+                52
+              ],
+              [
+                87,
+                52
+              ]
+            ],
+            "alpha_profile": [
+              48,
+              6
+            ],
+            "luminance_profile_linear_rec709_0_255": [
+              106.82516666539998,
+              164.57795253502812,
+              162.33171869897373
+            ],
+            "status": "LOCAL_REVERSAL"
+          },
+          {
+            "x": 122,
+            "y": 52,
+            "support_xy": [
+              121,
+              52
+            ],
+            "normal_step": [
+              1,
+              0
+            ],
+            "profile_xy": [
+              [
+                121,
+                52
+              ],
+              [
+                122,
+                52
+              ],
+              [
+                123,
+                52
+              ]
+            ],
+            "alpha_profile": [
+              174,
+              23
+            ],
+            "luminance_profile_linear_rec709_0_255": [
+              18.686689391527917,
+              162.55629031887815,
+              158.98989520252405
+            ],
+            "status": "LOCAL_REVERSAL"
+          },
+          {
+            "x": 129,
+            "y": 52,
+            "support_xy": [
+              130,
+              52
+            ],
+            "normal_step": [
+              -1,
+              0
+            ],
+            "profile_xy": [
+              [
+                130,
+                52
+              ],
+              [
+                129,
+                52
+              ],
+              [
+                128,
+                52
+              ]
+            ],
+            "alpha_profile": [
+              77,
+              20
+            ],
+            "luminance_profile_linear_rec709_0_255": [
+              76.7767836599969,
+              159.3421700546451,
+              157.6188252175612
+            ],
+            "status": "LOCAL_REVERSAL"
+          },
+          {
+            "x": 164,
+            "y": 52,
+            "support_xy": [
+              163,
+              52
+            ],
+            "normal_step": [
+              1,
+              0
+            ],
+            "profile_xy": [
+              [
+                163,
+                52
+              ],
+              [
+                164,
+                52
+              ],
+              [
+                165,
+                52
+              ]
+            ],
+            "alpha_profile": [
+              123,
+              8
+            ],
+            "luminance_profile_linear_rec709_0_255": [
+              42.476956406871665,
+              157.1381417346608,
+              153.85949331357259
+            ],
+            "status": "LOCAL_REVERSAL"
+          }
+        ],
+        "perimeter_pixels": 620,
+        "profile_count": 620,
+        "monotonic_profiles": 38,
+        "reversal_pixels": 198,
+        "unresolved_pixels": 384,
+        "reversal_component_count_8conn": 73,
+        "largest_reversal_component_pixels_8conn": 26,
+        "reversal_cycle_component_count_4conn": 0,
+        "reversal_fraction_perimeter": 0.3193548387096774
+      },
+      "candidate_rule_result": "FRINGE-REVIEW",
+      "final_experimental_status": "EXPERIMENTAL-GATE-REVIEW",
+      "candidate_created": false,
+      "alpha_unchanged": true
+    },
+    {
+      "case": "P-CNBC",
+      "wordmark": "CNBC",
+      "source_path": "picons/0.8w/freesat/transparent/1_0_1_7AAE_2CC_600_E080000_0_0_0.png",
+      "source_sha256": "c6ebf546fde312097cd50b88672a42392be7f9bf7357492b91b909a637dae4fe",
+      "current_white_sha256": "809f81635582537e82418fe7aa9a151cd2393cf606f9c5f5491ca8419f4c80fe",
+      "confirmed_mask_pixels": 6031,
+      "subthreshold_perimeter_pixels": 976,
+      "prior_gates": "PASS",
+      "prior_gate_evidence": {
+        "complete_wordmark": true,
+        "group_count": 1,
+        "target_component_count": 3,
+        "exterior_context": true,
+        "two_tone_blocker": false,
+        "blocking_links": 0,
+        "chroma_core_contact": false,
+        "true_AA_contact": false,
+        "ambiguous_contact": false
+      },
+      "edge_profiles": {
+        "profile_samples_first_8": [
+          {
+            "x": 31,
+            "y": 40,
+            "status": "NO_DIRECT_CORE_SUPPORT",
+            "luma_profile": []
+          },
+          {
+            "x": 32,
+            "y": 40,
+            "status": "NO_DIRECT_CORE_SUPPORT",
+            "luma_profile": []
+          },
+          {
+            "x": 33,
+            "y": 40,
+            "status": "NO_DIRECT_CORE_SUPPORT",
+            "luma_profile": []
+          },
+          {
+            "x": 34,
+            "y": 40,
+            "status": "NO_DIRECT_CORE_SUPPORT",
+            "luma_profile": []
+          },
+          {
+            "x": 35,
+            "y": 40,
+            "status": "NO_DIRECT_CORE_SUPPORT",
+            "luma_profile": []
+          },
+          {
+            "x": 36,
+            "y": 40,
+            "status": "NO_DIRECT_CORE_SUPPORT",
+            "luma_profile": []
+          },
+          {
+            "x": 37,
+            "y": 40,
+            "status": "NO_DIRECT_CORE_SUPPORT",
+            "luma_profile": []
+          },
+          {
+            "x": 38,
+            "y": 40,
+            "status": "NO_DIRECT_CORE_SUPPORT",
+            "luma_profile": []
+          }
+        ],
+        "perimeter_pixels": 976,
+        "profile_count": 976,
+        "monotonic_profiles": 74,
+        "reversal_pixels": 351,
+        "unresolved_pixels": 551,
+        "reversal_component_count_8conn": 159,
+        "largest_reversal_component_pixels_8conn": 17,
+        "reversal_cycle_component_count_4conn": 0,
+        "reversal_fraction_perimeter": 0.35963114754098363
+      },
+      "candidate_rule_result": "FRINGE-REVIEW",
+      "final_experimental_status": "EXPERIMENTAL-GATE-REVIEW",
+      "candidate_created": false,
+      "alpha_unchanged": true
+    },
+    {
+      "case": "P-MTA3",
+      "wordmark": "MTA3",
+      "source_path": "picons/13.0e/telespazio/transparent/1_0_1_315_1B58_13E_820000_0_0_0.png",
+      "source_sha256": "a7cf95b8f5a20bb8a814aff29ac40300f4c6a9decc72781cd931ba7e09675e05",
+      "current_white_sha256": "aea283eb81c82aecd162d327e505fd7165d846a3266090cfbc05108bab0eb3c4",
+      "confirmed_mask_pixels": 6972,
+      "subthreshold_perimeter_pixels": 328,
+      "prior_gates": "PASS",
+      "prior_gate_evidence": {
+        "complete_wordmark": true,
+        "group_count": 1,
+        "target_component_count": 2,
+        "exterior_context": true,
+        "two_tone_blocker": false,
+        "blocking_links": 0,
+        "chroma_core_contact": false,
+        "true_AA_contact": false,
+        "ambiguous_contact": false
+      },
+      "edge_profiles": {
+        "profile_samples_first_8": [
+          {
+            "x": 106,
+            "y": 31,
+            "support_xy": [
+              106,
+              32
+            ],
+            "normal_step": [
+              0,
+              -1
+            ],
+            "profile_xy": [
+              [
+                106,
+                32
+              ],
+              [
+                106,
+                31
+              ],
+              [
+                106,
+                30
+              ]
+            ],
+            "alpha_profile": [
+              74,
+              13
+            ],
+            "luminance_profile_linear_rec709_0_255": [
+              83.7271417042125,
+              172.08394530755834,
+              168.12346125856658
+            ],
+            "status": "LOCAL_REVERSAL"
+          },
+          {
+            "x": 107,
+            "y": 31,
+            "support_xy": [
+              107,
+              32
+            ],
+            "normal_step": [
+              0,
+              -1
+            ],
+            "profile_xy": [
+              [
+                107,
+                32
+              ],
+              [
+                107,
+                31
+              ],
+              [
+                107,
+                30
+              ]
+            ],
+            "alpha_profile": [
+              78,
+              23
+            ],
+            "luminance_profile_linear_rec709_0_255": [
+              79.52606898205406,
+              175.07040187197387,
+              167.7596382703168
+            ],
+            "status": "LOCAL_REVERSAL"
+          },
+          {
+            "x": 105,
+            "y": 33,
+            "support_xy": [
+              106,
+              33
+            ],
+            "normal_step": [
+              -1,
+              0
+            ],
+            "profile_xy": [
+              [
+                106,
+                33
+              ],
+              [
+                105,
+                33
+              ],
+              [
+                104,
+                33
+              ]
+            ],
+            "alpha_profile": [
+              179,
+              15
+            ],
+            "luminance_profile_linear_rec709_0_255": [
+              17.33255124367697,
+              171.7131426104535,
+              167.62410332955923
+            ],
+            "status": "LOCAL_REVERSAL"
+          },
+          {
+            "x": 104,
+            "y": 34,
+            "support_xy": [
+              105,
+              34
+            ],
+            "normal_step": [
+              -1,
+              0
+            ],
+            "profile_xy": [
+              [
+                105,
+                34
+              ],
+              [
+                104,
+                34
+              ],
+              [
+                103,
+                34
+              ]
+            ],
+            "alpha_profile": [
+              131,
+              8
+            ],
+            "luminance_profile_linear_rec709_0_255": [
+              40.27681344565764,
+              170.28124251185238,
+              168.12346125856658
+            ],
+            "status": "LOCAL_REVERSAL"
+          },
+          {
+            "x": 108,
+            "y": 34,
+            "support_xy": [
+              107,
+              34
+            ],
+            "normal_step": [
+              1,
+              0
+            ],
+            "profile_xy": [
+              [
+                107,
+                34
+              ],
+              [
+                108,
+                34
+              ],
+              [
+                109,
+                34
+              ]
+            ],
+            "alpha_profile": [
+              154,
+              3
+            ],
+            "luminance_profile_linear_rec709_0_255": [
+              27.659567004910297,
+              167.987926317809,
+              167.987926317809
+            ],
+            "status": "MONOTONIC_NONDECREASING"
+          },
+          {
+            "x": 102,
+            "y": 35,
+            "support_xy": [
+              103,
+              35
+            ],
+            "normal_step": [
+              -1,
+              0
+            ],
+            "profile_xy": [
+              [
+                103,
+                35
+              ],
+              [
+                102,
+                35
+              ],
+              [
+                101,
+                35
+              ]
+            ],
+            "alpha_profile": [
+              44,
+              4
+            ],
+            "luminance_profile_linear_rec709_0_255": [
+              112.49128130226676,
+              168.12346125856658,
+              167.62410332955923
+            ],
+            "status": "LOCAL_REVERSAL"
+          },
+          {
+            "x": 109,
+            "y": 35,
+            "support_xy": [
+              108,
+              35
+            ],
+            "normal_step": [
+              1,
+              0
+            ],
+            "profile_xy": [
+              [
+                108,
+                35
+              ],
+              [
+                109,
+                35
+              ],
+              [
+                110,
+                35
+              ]
+            ],
+            "alpha_profile": [
+              92,
+              4
+            ],
+            "luminance_profile_linear_rec709_0_255": [
+              66.38858990250435,
+              165.07418394810944,
+              164.93945739387044
+            ],
+            "status": "LOCAL_REVERSAL"
+          },
+          {
+            "x": 100,
+            "y": 36,
+            "support_xy": [
+              101,
+              36
+            ],
+            "normal_step": [
+              -1,
+              0
+            ],
+            "profile_xy": [
+              [
+                101,
+                36
+              ],
+              [
+                100,
+                36
+              ],
+              [
+                99,
+                36
+              ]
+            ],
+            "alpha_profile": [
+              75,
+              15
+            ],
+            "luminance_profile_linear_rec709_0_255": [
+              82.54430582722502,
+              171.7131426104535,
+              167.62410332955923
+            ],
+            "status": "LOCAL_REVERSAL"
+          }
+        ],
+        "perimeter_pixels": 328,
+        "profile_count": 328,
+        "monotonic_profiles": 55,
+        "reversal_pixels": 273,
+        "unresolved_pixels": 0,
+        "reversal_component_count_8conn": 167,
+        "largest_reversal_component_pixels_8conn": 10,
+        "reversal_cycle_component_count_4conn": 0,
+        "reversal_fraction_perimeter": 0.8323170731707317
+      },
+      "candidate_rule_result": "FRINGE-REVIEW",
+      "final_experimental_status": "EXPERIMENTAL-GATE-REVIEW",
+      "candidate_created": false,
+      "alpha_unchanged": true
+    },
+    {
+      "case": "P-NTV",
+      "wordmark": "Настоящее время",
+      "source_path": "picons/13.0e/vivacom/transparent/1_0_16_13B2_2710_D5_820000_0_0_0.png",
+      "source_sha256": "ea44900d5c1470ccd37912dadfbcbdedb5c3d24306722fc4385822e952395d0b",
+      "current_white_sha256": "2df2895e2bb988a2c9f358e3a912e4754ebab8ba738f3002f379bf466221d189",
+      "confirmed_mask_pixels": 4598,
+      "subthreshold_perimeter_pixels": 520,
+      "prior_gates": "PASS",
+      "prior_gate_evidence": {
+        "complete_wordmark": true,
+        "group_count": 1,
+        "target_component_count": 5,
+        "exterior_context": true,
+        "two_tone_blocker": false,
+        "blocking_links": 0,
+        "chroma_core_contact": false,
+        "true_AA_contact": false,
+        "ambiguous_contact": false
+      },
+      "edge_profiles": {
+        "profile_samples_first_8": [
+          {
+            "x": 39,
+            "y": 35,
+            "support_xy": [
+              40,
+              35
+            ],
+            "normal_step": [
+              -1,
+              0
+            ],
+            "profile_xy": [
+              [
+                40,
+                35
+              ],
+              [
+                39,
+                35
+              ],
+              [
+                38,
+                35
+              ]
+            ],
+            "alpha_profile": [
+              33,
+              11
+            ],
+            "luminance_profile_linear_rec709_0_255": [
+              132.83148539751656,
+              178.36781420803158,
+              177.0412316176732
+            ],
+            "status": "LOCAL_REVERSAL"
+          },
+          {
+            "x": 51,
+            "y": 35,
+            "support_xy": [
+              50,
+              35
+            ],
+            "normal_step": [
+              1,
+              0
+            ],
+            "profile_xy": [
+              [
+                50,
+                35
+              ],
+              [
+                51,
+                35
+              ],
+              [
+                52,
+                35
+              ],
+              [
+                53,
+                35
+              ]
+            ],
+            "alpha_profile": [
+              52,
+              26,
+              6
+            ],
+            "luminance_profile_linear_rec709_0_255": [
+              109.76421679947214,
+              184.58820954974783,
+              176.66575479490342,
+              173.5245967723893
+            ],
+            "status": "LOCAL_REVERSAL"
+          },
+          {
+            "x": 52,
+            "y": 35,
+            "support_xy": [
+              52,
+              36
+            ],
+            "normal_step": [
+              0,
+              -1
+            ],
+            "profile_xy": [
+              [
+                52,
+                36
+              ],
+              [
+                52,
+                35
+              ],
+              [
+                52,
+                34
+              ]
+            ],
+            "alpha_profile": [
+              173,
+              6
+            ],
+            "luminance_profile_linear_rec709_0_255": [
+              20.20696056300385,
+              176.66575479490342,
+              175.3471524891235
+            ],
+            "status": "LOCAL_REVERSAL"
+          },
+          {
+            "x": 35,
+            "y": 36,
+            "support_xy": [
+              36,
+              36
+            ],
+            "normal_step": [
+              -1,
+              0
+            ],
+            "profile_xy": [
+              [
+                36,
+                36
+              ],
+              [
+                35,
+                36
+              ],
+              [
+                34,
+                36
+              ]
+            ],
+            "alpha_profile": [
+              33,
+              3
+            ],
+            "luminance_profile_linear_rec709_0_255": [
+              134.39151002589838,
+              180.88162231158879,
+              182.60672592186225
+            ],
+            "status": "MONOTONIC_NONDECREASING"
+          },
+          {
+            "x": 55,
+            "y": 36,
+            "support_xy": [
+              54,
+              36
+            ],
+            "normal_step": [
+              1,
+              0
+            ],
+            "profile_xy": [
+              [
+                54,
+                36
+              ],
+              [
+                55,
+                36
+              ],
+              [
+                56,
+                36
+              ]
+            ],
+            "alpha_profile": [
+              67,
+              21
+            ],
+            "luminance_profile_linear_rec709_0_255": [
+              92.54113098035734,
+              180.74039022212057,
+              173.5245967723893
+            ],
+            "status": "LOCAL_REVERSAL"
+          },
+          {
+            "x": 33,
+            "y": 37,
+            "support_xy": [
+              34,
+              37
+            ],
+            "normal_step": [
+              -1,
+              0
+            ],
+            "profile_xy": [
+              [
+                34,
+                37
+              ],
+              [
+                33,
+                37
+              ],
+              [
+                32,
+                37
+              ]
+            ],
+            "alpha_profile": [
+              80,
+              18
+            ],
+            "luminance_profile_linear_rec709_0_255": [
+              83.02816381326811,
+              185.01436515723802,
+              182.60672592186225
+            ],
+            "status": "LOCAL_REVERSAL"
+          },
+          {
+            "x": 58,
+            "y": 37,
+            "support_xy": [
+              57,
+              37
+            ],
+            "normal_step": [
+              1,
+              0
+            ],
+            "profile_xy": [
+              [
+                57,
+                37
+              ],
+              [
+                58,
+                37
+              ],
+              [
+                59,
+                37
+              ]
+            ],
+            "alpha_profile": [
+              59,
+              9
+            ],
+            "luminance_profile_linear_rec709_0_255": [
+              100.20748651963011,
+              175.3471524891235,
+              173.15379407528445
+            ],
+            "status": "LOCAL_REVERSAL"
+          },
+          {
+            "x": 31,
+            "y": 38,
+            "support_xy": [
+              32,
+              38
+            ],
+            "normal_step": [
+              -1,
+              0
+            ],
+            "profile_xy": [
+              [
+                32,
+                38
+              ],
+              [
+                31,
+                38
+              ],
+              [
+                30,
+                38
+              ]
+            ],
+            "alpha_profile": [
+              100,
+              20
+            ],
+            "luminance_profile_linear_rec709_0_255": [
+              66.09773469473257,
+              187.73969534165738,
+              182.60672592186225
+            ],
+            "status": "LOCAL_REVERSAL"
+          }
+        ],
+        "perimeter_pixels": 520,
+        "profile_count": 520,
+        "monotonic_profiles": 54,
+        "reversal_pixels": 466,
+        "unresolved_pixels": 0,
+        "reversal_component_count_8conn": 202,
+        "largest_reversal_component_pixels_8conn": 19,
+        "reversal_cycle_component_count_4conn": 3,
+        "reversal_fraction_perimeter": 0.8961538461538462
+      },
+      "candidate_rule_result": "FRINGE-REVIEW",
+      "final_experimental_status": "EXPERIMENTAL-GATE-REVIEW",
+      "candidate_created": false,
+      "alpha_unchanged": true
+    }
+  ],
+  "class_N": [
+    {
+      "case": "#14607",
+      "source_path": "picons/80.0e/orion-express/transparent/1_0_1_2C8_CD_1_3200000_0_0_0.png",
+      "source_sha256": "edec07adb8a121d7c856271543549717aff4d253f0302fd2d83a909481b2d24c",
+      "current_white_path": "picons/80.0e/orion-express/white/1_0_1_2C8_CD_1_3200000_0_0_0.png",
+      "current_white_sha256": "06f73c2c4e1fb1e42aab61f23909fd4a9b43d8b86722f938102164a7c1928089",
+      "first_blocker": "BLOCKED: complete contrast-relevant wordmark/group not confirmed (frozen grouping incomplete)",
+      "fringe_gate": "NOT REACHED",
+      "fringe_result_cannot_override_prior_blocker": true,
+      "candidate": "none"
+    },
+    {
+      "case": "#14611",
+      "source_path": "picons/80.0e/orion-express/transparent/1_0_1_2CA_CD_1_3200000_0_0_0.png",
+      "source_sha256": "edec07adb8a121d7c856271543549717aff4d253f0302fd2d83a909481b2d24c",
+      "current_white_path": "picons/80.0e/orion-express/white/1_0_1_2CA_CD_1_3200000_0_0_0.png",
+      "current_white_sha256": "06f73c2c4e1fb1e42aab61f23909fd4a9b43d8b86722f938102164a7c1928089",
+      "first_blocker": "BLOCKED: complete contrast-relevant wordmark/group not confirmed (frozen grouping incomplete)",
+      "fringe_gate": "NOT REACHED",
+      "fringe_result_cannot_override_prior_blocker": true,
+      "candidate": "none"
+    },
+    {
+      "case": "#14593",
+      "source_path": "picons/80.0e/orion-express/transparent/1_0_1_2C1_CD_1_3200000_0_0_0.png",
+      "source_sha256": "209f5c2f8982690d35a068536ccedb82d50d801b93a6c59c8551defee3d96974",
+      "current_white_path": "picons/80.0e/orion-express/white/1_0_1_2C1_CD_1_3200000_0_0_0.png",
+      "current_white_sha256": "039c0210324e01d341546b9d5b37ff9b542168bc87dd2178343b83731f160b29",
+      "first_blocker": "BLOCKED: incomplete wordmark group; 14 blocked links; protected chroma/AA/ambiguous contacts",
+      "fringe_gate": "NOT REACHED",
+      "fringe_result_cannot_override_prior_blocker": true,
+      "candidate": "none"
+    },
+    {
+      "case": "#14597",
+      "source_path": "picons/80.0e/orion-express/transparent/1_0_1_2C3_CD_1_3200000_0_0_0.png",
+      "source_sha256": "053eeaf35c4c573014813df3ba0fd119710eb2847a82e2e5b3f53ce0d282453f",
+      "current_white_path": "picons/80.0e/orion-express/white/1_0_1_2C3_CD_1_3200000_0_0_0.png",
+      "current_white_sha256": "8d4e24eb6528ebd0b06f1cd0b5ba615c28e01106f380a062ce8ba761f5669686",
+      "first_blocker": "REVIEW: no confirmed editable target; gold/brand and badge ownership unresolved",
+      "fringe_gate": "NOT REACHED",
+      "fringe_result_cannot_override_prior_blocker": true,
+      "candidate": "none"
+    },
+    {
+      "case": "#10954",
+      "source_path": "picons/42.0e/demiroren-medya/transparent/1_0_2_2C57_3_42_1A40000_0_0_0.png",
+      "source_sha256": "1d8fcd1d99617b36556f4ee311f161199d1dc4fe18e2186585f14e8c943c8eb8",
+      "current_white_path": "picons/42.0e/demiroren-medya/white/1_0_2_2C57_3_42_1A40000_0_0_0.png",
+      "current_white_sha256": "5eae1fd980c99ce5af5a232cf5f90d7d10db45ed2509385fc1c1bf545febdd8b",
+      "first_blocker": "BLOCKED: complete safe edit mask not confirmed; all three contrast cores rejected at protected chromatic boundary",
+      "fringe_gate": "NOT REACHED",
+      "fringe_result_cannot_override_prior_blocker": true,
+      "candidate": "none"
+    },
+    {
+      "case": "#5136",
+      "source_path": "picons/19.2e/ard-ndr/transparent/1_0_A_28D6_40F_1_C00000_0_0_0.png",
+      "source_sha256": "1916a46febdc0d19776e5541282ddbfcb3f178225653a98def2f3844612a71fb",
+      "current_white_path": "picons/19.2e/ard-ndr/white/1_0_A_28D6_40F_1_C00000_0_0_0.png",
+      "current_white_sha256": "338566fb068198d417b62dedab8364ffe70b3e594f753228ac58694f2cf467a2",
+      "first_blocker": "BLOCKED: complete safe group/edit mask not confirmed; one of two principal cores rejected at protected boundary",
+      "fringe_gate": "NOT REACHED",
+      "fringe_result_cannot_override_prior_blocker": true,
+      "candidate": "none"
+    }
+  ],
+  "class_T": [
+    {
+      "case": "T-1-NEOSAT",
+      "source_path": "picons/1.9e/neosat/transparent/1_0_1_156_8_3_130000_0_0_0.png",
+      "source_sha256": "1523971ed39d47a0a855e03ae49afdad22d30114ee3ac8b1bb7a5fe6dc0b326e",
+      "current_white_path": "picons/1.9e/neosat/white/1_0_1_156_8_3_130000_0_0_0.png",
+      "current_white_sha256": "b836d855f5018c266c97f9d5cbbfaa7804f657811a3eb0238dba449c4ae30ed4",
+      "frozen_two_tone": true,
+      "topology_aware_two_tone": "two-tone",
+      "interior_pixels": 4089,
+      "interior_dark_count": 2173,
+      "interior_light_count": 1732,
+      "positive_control_validated": true,
+      "first_blocker": "BLOCKED: topology-aware genuine two-tone",
+      "fringe_gate": "NOT REACHED",
+      "fringe_result_cannot_override_prior_blocker": true,
+      "candidate": "none"
+    },
+    {
+      "case": "T-2-DEMIRÖREN",
+      "source_path": "picons/42.0e/demiroren-medya/transparent/1_0_19_77C_9_42_1A40000_0_0_0.png",
+      "source_sha256": "d7cf7fc812e195e1fa39282a05aad8ad78e19f0011386ac0dbdec2a28ea3aa38",
+      "current_white_path": "picons/42.0e/demiroren-medya/white/1_0_19_77C_9_42_1A40000_0_0_0.png",
+      "current_white_sha256": "fac5717269c588f15b6b6f6a13ddda27e1300e9cfaace56cb36bcd7ff141ac61",
+      "frozen_two_tone": true,
+      "topology_aware_two_tone": "two-tone",
+      "interior_pixels": 10157,
+      "interior_dark_count": 4887,
+      "interior_light_count": 4665,
+      "positive_control_validated": true,
+      "first_blocker": "BLOCKED: topology-aware genuine two-tone",
+      "fringe_gate": "NOT REACHED",
+      "fringe_result_cannot_override_prior_blocker": true,
+      "candidate": "none"
+    }
+  ],
+  "Digi_Slovakia": {
+    "case": "Digi Slovakia",
+    "source_sha256": "9511e45fbb54d433bac178437d0f4abb11248b68f675fa449f9c058ba2a3224b",
+    "current_white_sha256": "ef9f0d92c37e223216806fa8a5f2ab9e0316a11c70b91eb0263a383a6923f195",
+    "status": "PASS",
+    "changed_pixels": 0,
+    "candidate": "none",
+    "fringe_gate": "NOT REACHED; no target"
+  },
+  "counterexamples": [
+    {
+      "counterexample": "A_CONTINUOUS_BRIGHT_RING",
+      "geometry_source": "AB1 Class P fitted 220x132 source geometry",
+      "selection_method": "all confirmed-mask subthreshold perimeter samples",
+      "synthetic_perimeter_pixels": 715,
+      "perimeter_pixels": 715,
+      "synthetic_output_rgb": "224 on selected perimeter; synthetic rendered image only",
+      "synthetic_output_rgb_changed_pixels": 715,
+      "source_alpha_equal": true,
+      "render_alpha_equal_baseline": true,
+      "outward_profiles": 715,
+      "reversal_profiles": 691,
+      "unresolved_profiles": 0,
+      "8conn_reversal_components": 234,
+      "largest_8conn_reversal_component": 74,
+      "4conn_cycle_component_count": 0,
+      "proposed_rule": "REVIEW",
+      "candidate": "none",
+      "image_sha256": "4186624b19a2ea5223ee54b1eecdbf2119862048b98bbc5a1386a9a486bcc0ee"
+    },
+    {
+      "counterexample": "B_ISOLATED_EDGE_NOISE",
+      "geometry_source": "AB1 Class P fitted 220x132 source geometry",
+      "selection_method": "deterministic singleton 8-connected perimeter pixel",
+      "synthetic_perimeter_pixels": 1,
+      "perimeter_pixels": 715,
+      "synthetic_output_rgb": "224 on selected perimeter; synthetic rendered image only",
+      "synthetic_output_rgb_changed_pixels": 1,
+      "source_alpha_equal": true,
+      "render_alpha_equal_baseline": true,
+      "outward_profiles": 715,
+      "reversal_profiles": 546,
+      "unresolved_profiles": 0,
+      "8conn_reversal_components": 251,
+      "largest_8conn_reversal_component": 74,
+      "4conn_cycle_component_count": 0,
+      "proposed_rule": "REVIEW",
+      "candidate": "none",
+      "image_sha256": "5502353cca9aeb4e65e5b3df3e9a8047a5a8e97b46dc4a414f824a4c201292f3"
+    },
+    {
+      "counterexample": "C_SUSTAINED_PARTIAL_STROKE",
+      "geometry_source": "AB1 Class P fitted 220x132 source geometry",
+      "selection_method": "largest proper 8-connected perimeter component",
+      "synthetic_perimeter_pixels": 74,
+      "perimeter_pixels": 715,
+      "synthetic_output_rgb": "224 on selected perimeter; synthetic rendered image only",
+      "synthetic_output_rgb_changed_pixels": 74,
+      "source_alpha_equal": true,
+      "render_alpha_equal_baseline": true,
+      "outward_profiles": 715,
+      "reversal_profiles": 604,
+      "unresolved_profiles": 0,
+      "8conn_reversal_components": 243,
+      "largest_8conn_reversal_component": 74,
+      "4conn_cycle_component_count": 0,
+      "proposed_rule": "REVIEW",
+      "candidate": "none",
+      "image_sha256": "cfc5cc9540d9beb17ab809f9a001a0a753afb44636517e3857f0a305e79f1cad"
+    }
+  ],
+  "query_14700": {
+    "case": "#14700",
+    "source_path": "picons/80.0e/orion-express/transparent/1_0_1_32D_CE_1_3200000_0_0_0.png",
+    "source_sha256": "9fa6f6a84bb9e1a98802e638f94d0f693757697648d1167d1b9f3f31fb7724c3",
+    "current_white_sha256": "e2b1eaf5cdad1acf3b251c7d5173a7bf0066ca3ea1a6eff9a60bd8aa02c76916",
+    "m0_render_sha256": "581206f0088f40ace49afad5fdfd46377216fb06143588da926f0aa270311242",
+    "solid_core_pixels": 1070,
+    "M0_confirmed_group_pixels": 1224,
+    "perimeter_pixels_from_frozen_ownership_audit": 300,
+    "prior_gates": {
+      "complete_wordmark_group": "PASS",
+      "exterior_MASTER_context": "PASS",
+      "protected_chroma_intersection": "PASS (0)",
+      "true_chromatic_AA_intersection": "PASS (0)",
+      "ambiguous_protected_boundary_intersection": "PASS (0)",
+      "blocked_grouping_links": "PASS (0)",
+      "topology_aware_two_tone": "PASS (not-two-tone; interior 307, dark 0, light 307)",
+      "confirmed_edit_mask": "PASS independently safe, M0 strict 1,224 px",
+      "low_alpha_owner_summary": {
+        "total_low_alpha_perimeter": 300,
+        "safe_wordmark_ownership": 40,
+        "ambiguous": 259,
+        "protected_or_other": 1,
+        "categories": {
+          "AMBIGUOUS": 259,
+          "SAFE WORDMARK OWNERSHIP": 40,
+          "PROTECTED / OTHER": 1
+        },
+        "reason_counts": {
+          "local RGB continuity to preconfirmed wordmark fails frozen max-channel distance 18": 252,
+          "one-hop attachment to already-confirmed safe wordmark AA; frozen RGB/luma/alpha evidence passes; no chaining": 40,
+          "alpha does not attenuate away from direct confirmed support": 6,
+          "multiple directly adjacent confirmed glyph owners": 1,
+          "channel spread exceeds frozen V9 achromatic limit at subthreshold alpha; chromatic ownership is not proven, so REVIEW": 1
+        },
+        "per_confirmed_glyph_component": {
+          "7": {
+            "AMBIGUOUS": 48
+          },
+          "8": {
+            "AMBIGUOUS": 48,
+            "SAFE WORDMARK OWNERSHIP": 3,
+            "PROTECTED / OTHER": 1
+          },
+          "6": {
+            "AMBIGUOUS": 31,
+            "SAFE WORDMARK OWNERSHIP": 11
+          },
+          "9": {
+            "AMBIGUOUS": 39,
+            "SAFE WORDMARK OWNERSHIP": 6
+          },
+          "10": {
+            "AMBIGUOUS": 94,
+            "SAFE WORDMARK OWNERSHIP": 20
+          }
+        },
+        "ownership_complete": false,
+        "ownership_completeness_gate": "NO"
+      },
+      "one_protected_or_other_pixel": "channel-spread>18 ownership-unresolved; prior ownership audit states no perimeter pixel intersects frozen protected masks. It is not promoted to ownership and remains untouched."
+    },
+    "fringe_profiles": {
+      "profile_samples_first_8": [
+        {
+          "x": 85,
+          "y": 56,
+          "status": "NO_DIRECT_CORE_SUPPORT",
+          "luma_profile": []
+        },
+        {
+          "x": 86,
+          "y": 56,
+          "support_xy": [
+            87,
+            57
+          ],
+          "normal_step": [
+            -1,
+            -1
+          ],
+          "profile_xy": [
+            [
+              87,
+              57
+            ],
+            [
+              86,
+              56
+            ],
+            [
+              85,
+              55
+            ]
+          ],
+          "alpha_profile": [
+            64,
+            3
+          ],
+          "luminance_profile_linear_rec709_0_255": [
+            88.65026535861685,
+            160.94415000154225,
+            163.18090493280928
+          ],
+          "status": "MONOTONIC_NONDECREASING"
+        },
+        {
+          "x": 95,
+          "y": 56,
+          "support_xy": [
+            94,
+            57
+          ],
+          "normal_step": [
+            1,
+            -1
+          ],
+          "profile_xy": [
+            [
+              94,
+              57
+            ],
+            [
+              95,
+              56
+            ],
+            [
+              96,
+              55
+            ]
+          ],
+          "alpha_profile": [
+            66,
+            3
+          ],
+          "luminance_profile_linear_rec709_0_255": [
+            87.42723741068606,
+            160.94415000154225,
+            159.3421700546451
+          ],
+          "status": "LOCAL_REVERSAL"
+        },
+        {
+          "x": 96,
+          "y": 56,
+          "status": "NO_DIRECT_CORE_SUPPORT",
+          "luma_profile": []
+        },
+        {
+          "x": 104,
+          "y": 56,
+          "status": "NO_DIRECT_CORE_SUPPORT",
+          "luma_profile": []
+        },
+        {
+          "x": 105,
+          "y": 56,
+          "support_xy": [
+            106,
+            57
+          ],
+          "normal_step": [
+            -1,
+            -1
+          ],
+          "profile_xy": [
+            [
+              106,
+              57
+            ],
+            [
+              105,
+              56
+            ],
+            [
+              104,
+              55
+            ],
+            [
+              103,
+              54
+            ]
+          ],
+          "alpha_profile": [
+            66,
+            1,
+            1
+          ],
+          "luminance_profile_linear_rec709_0_255": [
+            85.34767851150164,
+            158.98989520252405,
+            157.26884718032773,
+            162.46483263420487
+          ],
+          "status": "LOCAL_REVERSAL"
+        },
+        {
+          "x": 117,
+          "y": 56,
+          "support_xy": [
+            116,
+            57
+          ],
+          "normal_step": [
+            1,
+            -1
+          ],
+          "profile_xy": [
+            [
+              116,
+              57
+            ],
+            [
+              117,
+              56
+            ],
+            [
+              118,
+              55
+            ]
+          ],
+          "alpha_profile": [
+            50,
+            3
+          ],
+          "luminance_profile_linear_rec709_0_255": [
+            101.53153617380673,
+            160.58957404791593,
+            158.8583883236924
+          ],
+          "status": "LOCAL_REVERSAL"
+        },
+        {
+          "x": 118,
+          "y": 56,
+          "status": "NO_DIRECT_CORE_SUPPORT",
+          "luma_profile": []
+        }
+      ],
+      "perimeter_pixels": 300,
+      "profile_count": 300,
+      "monotonic_profiles": 116,
+      "reversal_pixels": 89,
+      "unresolved_pixels": 95,
+      "reversal_component_count_8conn": 34,
+      "largest_reversal_component_pixels_8conn": 16,
+      "reversal_cycle_component_count_4conn": 0,
+      "reversal_fraction_perimeter": 0.2966666666666667
+    },
+    "fringe_gate": "EXPERIMENTAL-GATE-REVIEW",
+    "final_experimental_status": "EXPERIMENTAL-GATE-REVIEW",
+    "production_status": "REVIEW; no production rule or candidate",
+    "candidate": "none",
+    "editable_pixels": 0,
+    "changed_pixels": 0
+  },
+  "invariants": {
+    "production_picons_writes": 0,
+    "transparent_source_writes": 0,
+    "master_template_writes": 0,
+    "source_hashes_recorded": true,
+    "current_white_black_unchanged": true,
+    "all_synthetic_source_alpha_equal": true,
+    "all_synthetic_render_alpha_equal_baseline": true,
+    "protected_chroma_trueAA_ambiguous_masks_unchanged": true,
+    "14607_14611_duplicate_sha_equal": true,
+    "Digi_Slovakia_zero_changes": true,
+    "two_tone_controls_remain_two_tone": true,
+    "14599_touched": false,
+    "14700_candidate": "none",
+    "editable_pixels": 0
+  },
+  "outcome": "B — STRUCTURAL RULE TOO AMBIGUOUS"
+}
