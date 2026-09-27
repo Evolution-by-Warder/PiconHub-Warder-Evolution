@@ -74,4 +74,22 @@ Historical V9 status replay parity excluding those hash-mismatch paths: **18,076
 
 For the next scale-up qualification, C01/F2 has the best current impact-confidence-risk balance: the mechanism is supported by V27 and #14700 is the one specific approved example, while V26 still requires more evidence. C01 is small (6 WHITE plus 1 BLACK unique source-style rows), so this is an efficient qualification target, not a rollout recommendation. C02 has the highest impact but high implementation risk because it contains protected chromatic components; C03 has volume but lacks sufficient topology evidence.
 
-The current implementation has no rectangle/badge detector, so V28 reports that feature as 
+The current implementation has no rectangle/badge detector, so V28 reports that feature as unavailable instead of inventing a geometric heuristic. Historical approvals are attached only where a loaded text/CSV record matched a source SHA; they remain locked metadata and do not promote other sources. #14700 stays a specific manual approval. #14599 remains CLOSED/TABU and was not visually revisited.
+
+## Performance and 150,000-reference estimate
+
+- Total measured run: **384.53 s**; hashing: **0.89 s**; unique-image pixel analysis: **377.57 s**.
+- Unique-image throughput: **17.5 images/s**; peak resident memory: **186.9 MiB**.
+- At the observed duplicate ratio (1.369 physical refs per unique image), 150,000 references imply about **109,568 unique analyses**, or **1.74 h** at this measured CPU rate. Without deduplication: **2.38 h**. This is a same-host estimate; file retrieval, storage, output encoding and QC add time.
+
+A practical factory is staged: inventory and SHA-256 dedupe; one feature analysis per unique source; map decisions to all service refs; write isolated BLACK/WHITE outputs only for already-qualified classes; run hash/alpha/pair validation; route F2–F7 or any invariant failure to a compact human review queue. The census itself does not authorize those writes.
+
+## Limits and read-only invariants
+
+V9/V23 do not implement a rectangular/badge structure detector; `likely_rectangular_badge` is therefore unavailable, not guessed. Existing Phase3 audit status and matched historic approval records are metadata only. This report does not reopen manually approved visual decisions and does not change any approval.
+
+- `picons/` writes: **0**; transparent/WHITE/BLACK writes: **0**
+- MASTER/template writes: **0**; generator changes: **0**; approval changes: **0**
+- Candidate/rebuild generation: **none**; #14700 remains unchanged; #14599 untouched.
+
+Reproduce from a complete checkout with: `python tools/phase4_v28_catalog_census.py --repo-root .`. Machine-readable details are in `CATALOG-SUMMARY.json`, `SOURCE-FEATURES.csv.gz`, `SERVICE-MAPPING.csv.gz`, `FACTORY-BUCKETS.csv.gz`, `PROBLEM-CLUSTERS.csv`, `DUPLICATE-GROUPS.csv.gz`, and `PERFORMANCE.json`.

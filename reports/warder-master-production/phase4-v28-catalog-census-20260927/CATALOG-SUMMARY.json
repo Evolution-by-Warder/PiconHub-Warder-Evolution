@@ -409,3 +409,125 @@
       "cluster_name": "no action / V9 PASS",
       "style": "white",
       "unique_source_images": 199,
+      "physical_service_refs": 251,
+      "catalog_impact_percent_unique": 3.0133252574197456,
+      "catalog_impact_percent_physical": 2.776241566198429,
+      "duplicate_leverage": 1.2613065326633166,
+      "mechanism_experimentally_confirmed": "frozen V9 no-action",
+      "relative_implementation_risk": "low: existing frozen behavior",
+      "recommended_next_step": "leave under V9",
+      "approved_example_available": false,
+      "known_counterexample_or_limit": "no correction sought"
+    },
+    {
+      "cluster_id": "C07",
+      "cluster_name": "no action / V9 PASS",
+      "style": "black",
+      "unique_source_images": 1126,
+      "physical_service_refs": 1352,
+      "catalog_impact_percent_unique": 17.050272562083585,
+      "catalog_impact_percent_physical": 14.95409799800907,
+      "duplicate_leverage": 1.2007104795737122,
+      "mechanism_experimentally_confirmed": "frozen V9 no-action",
+      "relative_implementation_risk": "low: existing frozen behavior",
+      "recommended_next_step": "leave under V9",
+      "approved_example_available": false,
+      "known_counterexample_or_limit": "no correction sought"
+    },
+    {
+      "cluster_id": "C08",
+      "cluster_name": "data or geometry error",
+      "style": "white",
+      "unique_source_images": 2,
+      "physical_service_refs": 3,
+      "catalog_impact_percent_unique": 0.03028467595396729,
+      "catalog_impact_percent_physical": 0.03318217011392545,
+      "duplicate_leverage": 1.5,
+      "mechanism_experimentally_confirmed": "data-dependent",
+      "relative_implementation_risk": "case-dependent",
+      "recommended_next_step": "quarantine data errors",
+      "approved_example_available": false,
+      "known_counterexample_or_limit": "manual data repair required"
+    },
+    {
+      "cluster_id": "C08",
+      "cluster_name": "data or geometry error",
+      "style": "black",
+      "unique_source_images": 2,
+      "physical_service_refs": 3,
+      "catalog_impact_percent_unique": 0.03028467595396729,
+      "catalog_impact_percent_physical": 0.03318217011392545,
+      "duplicate_leverage": 1.5,
+      "mechanism_experimentally_confirmed": "data-dependent",
+      "relative_implementation_risk": "case-dependent",
+      "recommended_next_step": "quarantine data errors",
+      "approved_example_available": false,
+      "known_counterexample_or_limit": "manual data repair required"
+    }
+  ],
+  "performance": {
+    "total_wall_seconds": 384.5354202709932,
+    "hashing_seconds": 0.8888988589969813,
+    "unique_image_analysis_seconds": 377.56809321399487,
+    "physical_source_count": 9041,
+    "unique_image_count": 6604,
+    "images_per_second_unique_analysis": 17.49088474024483,
+    "physical_hashes_per_second": 10171.010918161954,
+    "estimated_hash_seconds_150000_physical_refs_at_measured_rate": 14.747796576656034,
+    "duplicate_ratio_physical_per_unique": 1.3690187764990915,
+    "unique_analyses_saved": 2437,
+    "projected_unique_analyses_for_150000_refs_at_same_duplicate_ratio": 109567.52571618183,
+    "estimated_seconds_150000_refs_deduplicated": 6264.264349308619,
+    "estimated_hours_150000_refs_deduplicated": 1.7400734303635053,
+    "estimated_seconds_150000_without_dedup": 8575.895515157363,
+    "peak_rss_bytes": 195948544,
+    "estimation_assumption": "same per-image complexity and same physical/unique duplicate ratio as this 9,041-reference repository snapshot; startup/network/IO overhead excluded"
+  },
+  "errors": [],
+  "historical_source_sha256_mismatches": [
+    {
+      "source_path": "picons/23.5e/skylink/transparent/1_0_1_1B03_3FE_1_C00000_0_0_0.png",
+      "current_source_sha256": "1da179c187414e4511167e93989389f2297a38c7af26d8a5a161cd94ef8be3a2",
+      "phase3_audit_source_sha256": "3a9d989efb79825210897109b53e212c017f727b2579901a1eba9455eaab8844",
+      "phase3_status": "ERROR-SKIP",
+      "note": "historical Phase 3 audit SHA differs from current source bytes; current image was analyzed as-is"
+    },
+    {
+      "source_path": "picons/80.0e/orion-express/transparent/1_0_1_198_CA_1_3200000_0_0_0.png",
+      "current_source_sha256": "a7ee7ce90ca89b38eb212849e972a7b4637afd0c7f0e0ce8c0a51009e5a49f1d",
+      "phase3_audit_source_sha256": "25d4857741b6329f8c3e813669f661c0b8ac9d248698470a42c98f2da1ba0efd",
+      "phase3_status": "AUTO-FIXED",
+      "note": "historical Phase 3 audit SHA differs from current source bytes; current image was analyzed as-is"
+    },
+    {
+      "source_path": "picons/80.0e/orion-express/transparent/1_0_1_353_D1_1_3200000_0_0_0.png",
+      "current_source_sha256": "a7ee7ce90ca89b38eb212849e972a7b4637afd0c7f0e0ce8c0a51009e5a49f1d",
+      "phase3_audit_source_sha256": "25d4857741b6329f8c3e813669f661c0b8ac9d248698470a42c98f2da1ba0efd",
+      "phase3_status": "AUTO-FIXED",
+      "note": "historical Phase 3 audit SHA differs from current source bytes; current image was analyzed as-is"
+    }
+  ],
+  "future_150k_manifest_or_plan_files_checked": [
+    "docs/PROJECT-CHECKPOINT.md",
+    "docs/PICON-MASTER-QUALITY-PLAN.md",
+    "docs/PHASE4-V10-COMPONENT-MASK-TEST.md",
+    "tracked file tree names"
+  ],
+  "rectangular_badge_feature_note": "Frozen V9/V23 contain no badge/rectangle detector. No new heuristic was introduced; flag recorded as detector unavailable.",
+  "read_only_invariants": {
+    "candidate_or_production_generation": false,
+    "picons_written": 0,
+    "transparent_written": 0,
+    "white_written": 0,
+    "black_written": 0,
+    "masters_templates_written": 0,
+    "generator_modified": false,
+    "approval_changed": false,
+    "14599_visual_case_reopened": false
+  },
+  "historical_v9_replay_parity_excluding_hash_mismatches": {
+    "checked_path_style_pairs": 18076,
+    "matching_path_style_pairs": 18076,
+    "mismatching_path_style_pairs": []
+  }
+}
