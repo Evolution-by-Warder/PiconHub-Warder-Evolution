@@ -1,0 +1,4014 @@
+{
+  "experiment": "Straight-alpha low-alpha raw RGB vs WHITE MASTER composited evidence; diagnostics only",
+  "branch": "phase4-v10-component-mask-test",
+  "verified_start_head": "4e84d3ddb370c89addb5b39258d5f718c8d7618a",
+  "master": {
+    "path": "templates/picons/white-sablona.png",
+    "sha256": "c6ae4a808a65ffc8e6458336fccbfe4216de1e832ec0a9abf800907f2f783589",
+    "hash_verified": true,
+    "size": [
+      220,
+      132
+    ],
+    "RGB_is_sampled_at_each_fitted_pixel_coordinate": true,
+    "RGBA_alpha_range": [
+      0,
+      255
+    ],
+    "sampled_target_master_alpha_histogram": {
+      "253": 299,
+      "254": 1
+    }
+  },
+  "inputs": {
+    "#14700_source_sha256": "9fa6f6a84bb9e1a98802e638f94d0f693757697648d1167d1b9f3f31fb7724c3",
+    "#14700_current_white_sha256": "e2b1eaf5cdad1acf3b251c7d5173a7bf0066ca3ea1a6eff9a60bd8aa02c76916",
+    "#14607_source_sha256": "edec07adb8a121d7c856271543549717aff4d253f0302fd2d83a909481b2d24c",
+    "#14607_current_white_sha256": "06f73c2c4e1fb1e42aab61f23909fd4a9b43d8b86722f938102164a7c1928089",
+    "ownership_pixel_rows": 300,
+    "negative_control_rows": 6,
+    "confirmed_wordmark_group_pixels": 1224
+  },
+  "frozen_ownership_evidence": {
+    "14700": {
+      "safe": 40,
+      "rgb_rejected": 252,
+      "other_ambiguous": 7,
+      "protected_or_other": 1,
+      "total": 300,
+      "ownership_complete": false,
+      "classifier_changed": false
+    },
+    "14607": {
+      "protected_low_alpha_pixels": 6,
+      "protected_proximity": 6,
+      "safe_ownership": 0
+    }
+  },
+  "compositing_model": "C_out = (alpha/255)*C_source + (1-alpha/255)*C_WHITE_MASTER_RGB; float64; no intermediate rounding. MASTER uses its actual RGB at each pixel coordinate, including non-255 textured values.",
+  "metrics": {
+    "raw_luminance": "sRGB inverse companding then linear Rec.709, scaled 0..255",
+    "composited_luminance": "same metric on floating RGB composite without early quantization",
+    "distance": "RGB L-infinity and L2 in 0..255 space",
+    "fixed_local_support": "nearest in 8-neighbor support set by squared pixel distance, then y,x; distributions also report minimum over all direct confirmed support pixels",
+    "premultiplied_RGB": "(alpha/255)*source RGB; magnitude and distance to same spatial-nearest support",
+    "hypothetical_dark_target": "diagnostic math only: target RGB 16,16,16 at unchanged source alpha, composited on same master RGB",
+    "alpha_bands": [
+      {
+        "range": "1-3",
+        "inclusive": [
+          1,
+          3
+        ]
+      },
+      {
+        "range": "4-7",
+        "inclusive": [
+          4,
+          7
+        ]
+      },
+      {
+        "range": "8-15",
+        "inclusive": [
+          8,
+          15
+        ]
+      },
+      {
+        "range": "16-23",
+        "inclusive": [
+          16,
+          23
+        ]
+      },
+      {
+        "range": "24-31",
+        "inclusive": [
+          24,
+          31
+        ]
+      }
+    ]
+  },
+  "category_distributions": {
+    "#14700 SAFE REFERENCE": {
+      "n": 40,
+      "metrics": {
+        "raw_distance_to_local_support_min_Linf": {
+          "n": 40,
+          "min": 0.0,
+          "median": 0.0,
+          "mean": 2.9,
+          "p75": 1.25,
+          "p90": 12.0,
+          "p95": 13.199999999999989,
+          "max": 17.0
+        },
+        "raw_distance_to_fixed_nearest_support_Linf": {
+          "n": 40,
+          "min": 0.0,
+          "median": 2.5,
+          "mean": 71.875,
+          "p75": 188.0,
+          "p90": 213.1,
+          "p95": 215.05,
+          "max": 233.0
+        },
+        "composited_distance_to_fixed_nearest_support_Linf": {
+          "n": 40,
+          "min": 0.7372549019607675,
+          "median": 6.4156862745098096,
+          "mean": 9.473431372549024,
+          "p75": 13.332352941176481,
+          "p90": 20.85647058823532,
+          "p95": 25.45568627450981,
+          "max": 48.29411764705881
+        },
+        "composited_distance_min_over_direct_support_Linf": {
+          "n": 40,
+          "min": 0.0,
+          "median": 2.543137254901964,
+          "mean": 3.770098039215687,
+          "p75": 5.937254901960799,
+          "p90": 7.827450980392164,
+          "p95": 8.661960784313758,
+          "max": 13.529411764705856
+        },
+        "composited_distance_min_over_direct_support_L2": {
+          "n": 40,
+          "min": 0.0,
+          "median": 3.349921910086299,
+          "mean": 5.634721475612359,
+          "p75": 9.322174437998818,
+          "p90": 12.638161200700264,
+          "p95": 14.449460703386162,
+          "max": 20.250300333351213
+        },
+        "composited_luminance_difference_to_fixed_support": {
+          "n": 40,
+          "min": 0.32644182976591196,
+          "median": 9.37850921455481,
+          "mean": 12.519441890004947,
+          "p75": 14.519567807982114,
+          "p90": 26.88567046707791,
+          "p95": 32.16473554531896,
+          "max": 75.72743570514008
+        },
+        "distance_reduction_fixed_support_Linf": {
+          "n": 40,
+          "min": -10.807843137254906,
+          "median": -0.9862745098039198,
+          "mean": 62.40156862745098,
+          "p75": 173.06666666666666,
+          "p90": 193.4776470588235,
+          "p95": 197.40372549019605,
+          "max": 199.48235294117646
+        },
+        "premultiplied_RGB_magnitude_l2": {
+          "n": 40,
+          "min": 0.0,
+          "median": 0.0,
+          "mean": 1.370357844811847,
+          "p75": 0.0,
+          "p90": 6.873864381410603,
+          "p95": 8.605235953368664,
+          "max": 13.6933899139563
+        },
+        "premultiplied_distance_to_fixed_support_L2": {
+          "n": 40,
+          "min": 0.0,
+          "median": 0.8558368696222688,
+          "mean": 81.11767506907333,
+          "p75": 224.17831717022358,
+          "p90": 249.6795609437108,
+          "p95": 258.6148834027468,
+          "max": 324.4368895040291
+        },
+        "hypothetical_dark_target_visible_RGB_delta_Linf": {
+          "n": 40,
+          "min": 0.06274509803921546,
+          "median": 0.470588235294116,
+          "mean": 0.9898039215686261,
+          "p75": 1.1450980392156822,
+          "p90": 2.5317647058823582,
+          "p95": 3.5815686274509733,
+          "max": 6.149019607843144
+        },
+        "hypothetical_dark_target_visible_RGB_delta_L2": {
+          "n": 40,
+          "min": 0.10867769772981152,
+          "median": 0.8150827329735864,
+          "mean": 1.7143906816877805,
+          "p75": 1.9833679835690603,
+          "p90": 4.38514510339792,
+          "p95": 6.203458833539814,
+          "max": 10.650414377521578
+        },
+        "hypothetical_dark_target_visible_luminance_delta": {
+          "n": 40,
+          "min": 0.10117034957931992,
+          "median": 0.7619644739382494,
+          "mean": 1.5173571853159342,
+          "p75": 1.6471778839783582,
+          "p90": 3.7172075649855207,
+          "p95": 5.448824350548955,
+          "max": 9.619392770166144
+        }
+      },
+      "alpha": {
+        "n": 40,
+        "min": 1.0,
+        "median": 7.5,
+        "mean": 11.175,
+        "p75": 19.0,
+        "p90": 24.0,
+        "p95": 28.0,
+        "max": 31.0
+      }
+    },
+    "#14700 RGB REJECTED": {
+      "n": 252,
+      "metrics": {
+        "raw_distance_to_local_support_min_Linf": {
+          "n": 252,
+          "min": 20.0,
+          "median": 194.0,
+          "mean": 172.1468253968254,
+          "p75": 216.0,
+          "p90": 255.0,
+          "p95": 255.0,
+          "max": 255.0
+        },
+        "raw_distance_to_fixed_nearest_support_Linf": {
+          "n": 252,
+          "min": 31.0,
+          "median": 208.0,
+          "mean": 184.7420634920635,
+          "p75": 217.0,
+          "p90": 255.0,
+          "p95": 255.0,
+          "max": 255.0
+        },
+        "composited_distance_to_fixed_nearest_support_Linf": {
+          "n": 252,
+          "min": 0.003921568627447414,
+          "median": 15.743137254901981,
+          "mean": 18.085714285714293,
+          "p75": 28.05490196078432,
+          "p90": 37.11999999999996,
+          "p95": 43.86882352941172,
+          "max": 72.07450980392159
+        },
+        "composited_distance_min_over_direct_support_Linf": {
+          "n": 252,
+          "min": 0.003921568627447414,
+          "median": 12.213725490196097,
+          "mean": 14.693588546529728,
+          "p75": 22.37254901960784,
+          "p90": 32.145882352941186,
+          "p95": 37.024705882352926,
+          "max": 51.823529411764696
+        },
+        "composited_distance_min_over_direct_support_L2": {
+          "n": 252,
+          "min": 0.006792356108107067,
+          "median": 16.75084944837357,
+          "mean": 20.86677875050249,
+          "p75": 30.477277675283283,
+          "p90": 46.87304368193605,
+          "p95": 57.1585355465261,
+          "max": 78.93692857472004
+        },
+        "composited_luminance_difference_to_fixed_support": {
+          "n": 252,
+          "min": 0.006821444637580498,
+          "median": 18.916099265864162,
+          "mean": 24.67948385400956,
+          "p75": 39.266822508095416,
+          "p90": 53.98969147184497,
+          "p95": 66.92877987948542,
+          "max": 106.87697865778586
+        },
+        "distance_reduction_fixed_support_Linf": {
+          "n": 252,
+          "min": 16.78823529411767,
+          "median": 182.71176470588236,
+          "mean": 166.6563492063492,
+          "p75": 196.20588235294116,
+          "p90": 246.26862745098038,
+          "p95": 251.5435294117647,
+          "max": 254.99607843137255
+        },
+        "premultiplied_RGB_magnitude_l2": {
+          "n": 252,
+          "min": 0.0,
+          "median": 1.7286546295148206,
+          "mean": 2.9286644957422405,
+          "p75": 5.191058155625547,
+          "p90": 8.558368696222688,
+          "p95": 10.310796572115905,
+          "max": 13.856406460551018
+        },
+        "premultiplied_distance_to_fixed_support_L2": {
+          "n": 252,
+          "min": 0.0,
+          "median": 246.20932420688888,
+          "mean": 166.03119843056342,
+          "p75": 271.4225500802052,
+          "p90": 316.6209253304232,
+          "p95": 354.8372598644945,
+          "max": 397.183023421922
+        },
+        "hypothetical_dark_target_visible_RGB_delta_Linf": {
+          "n": 252,
+          "min": 0.06274509803921546,
+          "median": 1.0980392156862706,
+          "mean": 1.6658730158730162,
+          "p75": 2.4666666666666828,
+          "p90": 3.623529411764707,
+          "p95": 4.538039215686293,
+          "max": 7.247058823529414
+        },
+        "hypothetical_dark_target_visible_RGB_delta_L2": {
+          "n": 252,
+          "min": 0.10867769772981152,
+          "median": 1.9018597102717019,
+          "mean": 2.885376702450058,
+          "p75": 4.272391992003234,
+          "p90": 6.27613704389664,
+          "p95": 7.860114488308655,
+          "max": 12.55227408779328
+        },
+        "hypothetical_dark_target_visible_luminance_delta": {
+          "n": 252,
+          "min": 0.10318769285390772,
+          "median": 1.7230819624281253,
+          "mean": 2.641551382602802,
+          "p75": 3.5846060843941885,
+          "p90": 5.7123080379691435,
+          "p95": 6.881236599978507,
+          "max": 12.084059216975902
+        }
+      },
+      "alpha": {
+        "n": 252,
+        "min": 1.0,
+        "median": 8.0,
+        "mean": 10.924603174603174,
+        "p75": 20.0,
+        "p90": 23.0,
+        "p95": 24.44999999999999,
+        "max": 30.0
+      }
+    },
+    "#14700 OTHER AMBIGUOUS": {
+      "n": 7,
+      "metrics": {
+        "raw_distance_to_local_support_min_Linf": {
+          "n": 7,
+          "min": 0.0,
+          "median": 0.0,
+          "mean": 0.0,
+          "p75": 0.0,
+          "p90": 0.0,
+          "p95": 0.0,
+          "max": 0.0
+        },
+        "raw_distance_to_fixed_nearest_support_Linf": {
+          "n": 7,
+          "min": 0.0,
+          "median": 0.0,
+          "mean": 12.142857142857142,
+          "p75": 0.0,
+          "p90": 34.00000000000003,
+          "p95": 59.49999999999994,
+          "max": 85.0
+        },
+        "composited_distance_to_fixed_nearest_support_Linf": {
+          "n": 7,
+          "min": 0.0,
+          "median": 1.1999999999999886,
+          "mean": 1.4106442577030773,
+          "p75": 1.6529411764705912,
+          "p90": 2.4031372549019645,
+          "p95": 2.964313725490199,
+          "max": 3.5254901960784366
+        },
+        "composited_distance_min_over_direct_support_Linf": {
+          "n": 7,
+          "min": 0.0,
+          "median": 0.9882352941176578,
+          "mean": 1.249859943977587,
+          "p75": 1.4274509803921518,
+          "p90": 2.2180392156862756,
+          "p95": 2.6403921568627444,
+          "max": 3.0627450980392155
+        },
+        "composited_distance_min_over_direct_support_L2": {
+          "n": 7,
+          "min": 0.0,
+          "median": 1.2355181869609966,
+          "mean": 1.6094737212585641,
+          "p75": 2.078349793978544,
+          "p90": 3.2522068337855656,
+          "p95": 3.6220190849746237,
+          "max": 3.9918313361636844
+        },
+        "composited_luminance_difference_to_fixed_support": {
+          "n": 7,
+          "min": 0.0,
+          "median": 1.54614146648899,
+          "mean": 1.7279492412229485,
+          "p75": 2.4600734890971694,
+          "p90": 3.2838854666948185,
+          "p95": 3.7804938453719092,
+          "max": 4.277102224049003
+        },
+        "distance_reduction_fixed_support_Linf": {
+          "n": 7,
+          "min": -3.5254901960784366,
+          "median": -0.9882352941176293,
+          "mean": 10.732212885154066,
+          "p75": -0.4274509803921518,
+          "p90": 33.33960784313728,
+          "p95": 58.34431372549014,
+          "max": 83.34901960784313
+        },
+        "premultiplied_RGB_magnitude_l2": {
+          "n": 7,
+          "min": 0.0,
+          "median": 0.0,
+          "mean": 0.7423074889580903,
+          "p75": 0.8660254037844386,
+          "p90": 2.424871130596429,
+          "p95": 2.94448637286709,
+          "max": 3.4641016151377544
+        },
+        "premultiplied_distance_to_fixed_support_L2": {
+          "n": 7,
+          "min": 0.0,
+          "median": 0.0,
+          "mean": 0.4948716593053935,
+          "p75": 0.8660254037844386,
+          "p90": 1.7320508075688772,
+          "p95": 1.7320508075688772,
+          "max": 1.7320508075688772
+        },
+        "hypothetical_dark_target_visible_RGB_delta_Linf": {
+          "n": 7,
+          "min": 0.06274509803921546,
+          "median": 0.1882352941176464,
+          "mean": 0.47338935574229674,
+          "p75": 0.5,
+          "p90": 1.23686274509804,
+          "p95": 1.5556862745098037,
+          "max": 1.874509803921569
+        },
+        "hypothetical_dark_target_visible_RGB_delta_L2": {
+          "n": 7,
+          "min": 0.10867769772981152,
+          "median": 0.3260330931894346,
+          "mean": 0.8199344159079558,
+          "p75": 0.8660254037844387,
+          "p90": 2.142309116498919,
+          "p95": 2.6945276680885235,
+          "max": 3.2467462196781316
+        },
+        "hypothetical_dark_target_visible_luminance_delta": {
+          "n": 7,
+          "min": 0.10575242617821345,
+          "median": 0.31009557071183735,
+          "mean": 0.7888580432814365,
+          "p75": 0.8288055735525859,
+          "p90": 2.0549928848176027,
+          "p95": 2.5886185233996275,
+          "max": 3.122244161981655
+        }
+      },
+      "alpha": {
+        "n": 7,
+        "min": 1.0,
+        "median": 2.0,
+        "mean": 2.142857142857143,
+        "p75": 3.0,
+        "p90": 3.0,
+        "p95": 3.0,
+        "max": 3.0
+      }
+    },
+    "#14700 PROTECTED / OTHER": {
+      "n": 1,
+      "metrics": {
+        "raw_distance_to_local_support_min_Linf": {
+          "n": 1,
+          "min": 195.0,
+          "median": 195.0,
+          "mean": 195.0,
+          "p75": 195.0,
+          "p90": 195.0,
+          "p95": 195.0,
+          "max": 195.0
+        },
+        "raw_distance_to_fixed_nearest_support_Linf": {
+          "n": 1,
+          "min": 195.0,
+          "median": 195.0,
+          "mean": 195.0,
+          "p75": 195.0,
+          "p90": 195.0,
+          "p95": 195.0,
+          "max": 195.0
+        },
+        "composited_distance_to_fixed_nearest_support_Linf": {
+          "n": 1,
+          "min": 8.705882352941217,
+          "median": 8.705882352941217,
+          "mean": 8.705882352941217,
+          "p75": 8.705882352941217,
+          "p90": 8.705882352941217,
+          "p95": 8.705882352941217,
+          "max": 8.705882352941217
+        },
+        "composited_distance_min_over_direct_support_Linf": {
+          "n": 1,
+          "min": 8.705882352941217,
+          "median": 8.705882352941217,
+          "mean": 8.705882352941217,
+          "p75": 8.705882352941217,
+          "p90": 8.705882352941217,
+          "p95": 8.705882352941217,
+          "max": 8.705882352941217
+        },
+        "composited_distance_min_over_direct_support_L2": {
+          "n": 1,
+          "min": 9.864859244036529,
+          "median": 9.864859244036529,
+          "mean": 9.864859244036529,
+          "p75": 9.864859244036529,
+          "p90": 9.864859244036529,
+          "p95": 9.864859244036529,
+          "max": 9.864859244036529
+        },
+        "composited_luminance_difference_to_fixed_support": {
+          "n": 1,
+          "min": 5.813574016283667,
+          "median": 5.813574016283667,
+          "mean": 5.813574016283667,
+          "p75": 5.813574016283667,
+          "p90": 5.813574016283667,
+          "p95": 5.813574016283667,
+          "max": 5.813574016283667
+        },
+        "distance_reduction_fixed_support_Linf": {
+          "n": 1,
+          "min": 186.29411764705878,
+          "median": 186.29411764705878,
+          "mean": 186.29411764705878,
+          "p75": 186.29411764705878,
+          "p90": 186.29411764705878,
+          "p95": 186.29411764705878,
+          "max": 186.29411764705878
+        },
+        "premultiplied_RGB_magnitude_l2": {
+          "n": 1,
+          "min": 1.397575755756941,
+          "median": 1.397575755756941,
+          "mean": 1.397575755756941,
+          "p75": 1.397575755756941,
+          "p90": 1.397575755756941,
+          "p95": 1.397575755756941,
+          "max": 1.397575755756941
+        },
+        "premultiplied_distance_to_fixed_support_L2": {
+          "n": 1,
+          "min": 184.34568212743997,
+          "median": 184.34568212743997,
+          "mean": 184.34568212743997,
+          "p75": 184.34568212743997,
+          "p90": 184.34568212743997,
+          "p95": 184.34568212743997,
+          "max": 184.34568212743997
+        },
+        "hypothetical_dark_target_visible_RGB_delta_Linf": {
+          "n": 1,
+          "min": 0.7372549019607959,
+          "median": 0.7372549019607959,
+          "mean": 0.7372549019607959,
+          "p75": 0.7372549019607959,
+          "p90": 0.7372549019607959,
+          "p95": 0.7372549019607959,
+          "max": 0.7372549019607959
+        },
+        "hypothetical_dark_target_visible_RGB_delta_L2": {
+          "n": 1,
+          "min": 1.0724181731850957,
+          "median": 1.0724181731850957,
+          "mean": 1.0724181731850957,
+          "p75": 1.0724181731850957,
+          "p90": 1.0724181731850957,
+          "p95": 1.0724181731850957,
+          "max": 1.0724181731850957
+        },
+        "hypothetical_dark_target_visible_luminance_delta": {
+          "n": 1,
+          "min": 0.8931894517597243,
+          "median": 0.8931894517597243,
+          "mean": 0.8931894517597243,
+          "p75": 0.8931894517597243,
+          "p90": 0.8931894517597243,
+          "p95": 0.8931894517597243,
+          "max": 0.8931894517597243
+        }
+      },
+      "alpha": {
+        "n": 1,
+        "min": 4.0,
+        "median": 4.0,
+        "mean": 4.0,
+        "p75": 4.0,
+        "p90": 4.0,
+        "p95": 4.0,
+        "max": 4.0
+      }
+    },
+    "#14607 PROTECTED NEGATIVE CONTROL": {
+      "n": 6,
+      "metrics": {
+        "raw_distance_to_local_support_min_Linf": {
+          "n": 6,
+          "min": 14.0,
+          "median": 88.0,
+          "mean": 110.33333333333333,
+          "p75": 173.75,
+          "p90": 211.5,
+          "p95": 221.75,
+          "max": 232.0
+        },
+        "raw_distance_to_fixed_nearest_support_Linf": {
+          "n": 6,
+          "min": 14.0,
+          "median": 88.0,
+          "mean": 110.33333333333333,
+          "p75": 173.75,
+          "p90": 211.5,
+          "p95": 221.75,
+          "max": 232.0
+        },
+        "composited_distance_to_fixed_nearest_support_Linf": {
+          "n": 6,
+          "min": 16.73333333333335,
+          "median": 28.350980392156856,
+          "mean": 29.330065359477143,
+          "p75": 36.08921568627453,
+          "p90": 39.08431372549023,
+          "p95": 39.45588235294122,
+          "max": 39.8274509803922
+        },
+        "composited_distance_min_over_direct_support_Linf": {
+          "n": 6,
+          "min": 16.73333333333335,
+          "median": 28.350980392156856,
+          "mean": 29.330065359477143,
+          "p75": 36.08921568627453,
+          "p90": 39.08431372549023,
+          "p95": 39.45588235294122,
+          "max": 39.8274509803922
+        },
+        "composited_distance_min_over_direct_support_L2": {
+          "n": 6,
+          "min": 28.755137748643886,
+          "median": 45.834767681420644,
+          "mean": 48.75569145223353,
+          "p75": 60.198567119221025,
+          "p90": 65.52185047974857,
+          "p95": 66.48394504223694,
+          "max": 67.4460396047253
+        },
+        "composited_luminance_difference_to_fixed_support": {
+          "n": 6,
+          "min": 28.567475025268664,
+          "median": 40.89624583518673,
+          "mean": 43.33028640806835,
+          "p75": 52.452759165609734,
+          "p90": 56.74772457269415,
+          "p95": 57.74238354324022,
+          "max": 58.73704251378629
+        },
+        "distance_reduction_fixed_support_Linf": {
+          "n": 6,
+          "min": -2.7333333333333485,
+          "median": 54.16274509803921,
+          "mean": 81.0032679738562,
+          "p75": 143.63823529411764,
+          "p90": 185.62745098039215,
+          "p95": 196.6254901960784,
+          "max": 207.62352941176468
+        },
+        "premultiplied_RGB_magnitude_l2": {
+          "n": 6,
+          "min": 0.9882352941176471,
+          "median": 1.8621038351569876,
+          "mean": 2.098583873401881,
+          "p75": 2.742156862745098,
+          "p90": 3.073504734205393,
+          "p95": 3.114178669935541,
+          "max": 3.1548526056656887
+        },
+        "premultiplied_distance_to_fixed_support_L2": {
+          "n": 6,
+          "min": 1.011764705882353,
+          "median": 3.548542512363027,
+          "mean": 6.790601037149588,
+          "p75": 11.314136519526034,
+          "p90": 14.68255205644997,
+          "p95": 15.09335999603043,
+          "max": 15.504167935610887
+        },
+        "hypothetical_dark_target_visible_RGB_delta_Linf": {
+          "n": 6,
+          "min": 0.7372549019607959,
+          "median": 1.339215686274514,
+          "mean": 1.587581699346411,
+          "p75": 2.3500000000000085,
+          "p90": 2.649019607843144,
+          "p95": 2.6970588235294173,
+          "max": 2.7450980392156907
+        },
+        "hypothetical_dark_target_visible_RGB_delta_L2": {
+          "n": 6,
+          "min": 0.8182463595761652,
+          "median": 1.700179354021551,
+          "mean": 1.850912992225141,
+          "p75": 2.41481049071127,
+          "p90": 2.740427585676068,
+          "p95": 2.7969319844072613,
+          "max": 2.8534363831384546
+        },
+        "hypothetical_dark_target_visible_luminance_delta": {
+          "n": 6,
+          "min": 0.0845001965479355,
+          "median": 0.7311888281058145,
+          "mean": 0.8056761883923874,
+          "p75": 1.387650928869057,
+          "p90": 1.5102180612143457,
+          "p95": 1.533367707230525,
+          "max": 1.5565173532467043
+        }
+      },
+      "alpha": {
+        "n": 6,
+        "min": 1.0,
+        "median": 4.0,
+        "mean": 3.8333333333333335,
+        "p75": 4.0,
+        "p90": 5.5,
+        "p95": 6.25,
+        "max": 7.0
+      }
+    }
+  },
+  "alpha_band_distributions": {
+    "1-3": {
+      "#14700 SAFE REFERENCE": {
+        "count": 11,
+        "metrics": {
+          "raw_distance_to_local_support_min_Linf": {
+            "n": 11,
+            "min": 0.0,
+            "median": 0.0,
+            "mean": 0.0,
+            "p75": 0.0,
+            "p90": 0.0,
+            "p95": 0.0,
+            "max": 0.0
+          },
+          "raw_distance_to_fixed_nearest_support_Linf": {
+            "n": 11,
+            "min": 0.0,
+            "median": 0.0,
+            "mean": 10.181818181818182,
+            "p75": 0.0,
+            "p90": 0.0,
+            "p95": 56.0,
+            "max": 112.0
+          },
+          "composited_distance_to_fixed_nearest_support_Linf": {
+            "n": 11,
+            "min": 0.9882352941176578,
+            "median": 1.7921568627450881,
+            "mean": 2.7379679144385007,
+            "p75": 2.184313725490199,
+            "p90": 7.5529411764705685,
+            "p95": 7.905882352941163,
+            "max": 8.258823529411757
+          },
+          "composited_distance_min_over_direct_support_Linf": {
+            "n": 11,
+            "min": 0.0,
+            "median": 0.9960784313725526,
+            "mean": 2.2481283422459883,
+            "p75": 1.8215686274509721,
+            "p90": 7.207843137254912,
+            "p95": 7.38039215686274,
+            "max": 7.5529411764705685
+          },
+          "composited_distance_min_over_direct_support_L2": {
+            "n": 11,
+            "min": 0.0,
+            "median": 1.408667626834382,
+            "mean": 3.1731794407552942,
+            "p75": 3.007493142802794,
+            "p90": 8.815786580965879,
+            "p95": 10.434937620853002,
+            "max": 12.054088660740128
+          },
+          "composited_luminance_difference_to_fixed_support": {
+            "n": 11,
+            "min": 0.3377594138945028,
+            "median": 2.5208977299427886,
+            "mean": 3.794880146475983,
+            "p75": 3.0136976171724257,
+            "p90": 10.721425343962068,
+            "p95": 11.6678229223659,
+            "max": 12.614220500769733
+          },
+          "distance_reduction_fixed_support_Linf": {
+            "n": 11,
+            "min": -7.5529411764705685,
+            "median": -1.7098039215686356,
+            "mean": 7.443850267379681,
+            "p75": -0.9960784313725526,
+            "p90": -0.9882352941176578,
+            "p95": 51.37647058823529,
+            "max": 103.74117647058824
+          },
+          "premultiplied_RGB_magnitude_l2": {
+            "n": 11,
+            "min": 0.0,
+            "median": 0.0,
+            "mean": 0.0,
+            "p75": 0.0,
+            "p90": 0.0,
+            "p95": 0.0,
+            "max": 0.0
+          },
+          "premultiplied_distance_to_fixed_support_L2": {
+            "n": 11,
+            "min": 0.0,
+            "median": 0.0,
+            "mean": 1.7289633729742804,
+            "p75": 0.0,
+            "p90": 0.0,
+            "p95": 9.509298551358542,
+            "max": 19.018597102717084
+          },
+          "hypothetical_dark_target_visible_RGB_delta_Linf": {
+            "n": 11,
+            "min": 0.06274509803921546,
+            "median": 0.06274509803921546,
+            "mean": 0.09696969696969662,
+            "p75": 0.12549019607843093,
+            "p90": 0.1882352941176464,
+            "p95": 0.1882352941176464,
+            "max": 0.1882352941176464
+          },
+          "hypothetical_dark_target_visible_RGB_delta_L2": {
+            "n": 11,
+            "min": 0.10867769772981152,
+            "median": 0.10867769772981152,
+            "mean": 0.16795644194607237,
+            "p75": 0.21735539545962304,
+            "p90": 0.3260330931894346,
+            "p95": 0.3260330931894346,
+            "max": 0.3260330931894346
+          },
+          "hypothetical_dark_target_visible_luminance_delta": {
+            "n": 11,
+            "min": 0.10117034957931992,
+            "median": 0.10930736198216096,
+            "mean": 0.16360422954688983,
+            "p75": 0.2106495859353288,
+            "p90": 0.3105174201136549,
+            "p95": 0.3173799488738638,
+            "max": 0.32424247763407266
+          }
+        }
+      },
+      "#14700 RGB REJECTED": {
+        "count": 77,
+        "metrics": {
+          "raw_distance_to_local_support_min_Linf": {
+            "n": 77,
+            "min": 20.0,
+            "median": 225.0,
+            "mean": 185.2987012987013,
+            "p75": 255.0,
+            "p90": 255.0,
+            "p95": 255.0,
+            "max": 255.0
+          },
+          "raw_distance_to_fixed_nearest_support_Linf": {
+            "n": 77,
+            "min": 58.0,
+            "median": 240.0,
+            "mean": 197.7792207792208,
+            "p75": 255.0,
+            "p90": 255.0,
+            "p95": 255.0,
+            "max": 255.0
+          },
+          "composited_distance_to_fixed_nearest_support_Linf": {
+            "n": 77,
+            "min": 0.003921568627447414,
+            "median": 5.494117647058829,
+            "mean": 10.40590781767253,
+            "p75": 10.960784313725497,
+            "p90": 35.82117647058822,
+            "p95": 37.195294117647066,
+            "max": 45.38039215686277
+          },
+          "composited_distance_min_over_direct_support_Linf": {
+            "n": 77,
+            "min": 0.003921568627447414,
+            "median": 3.470588235294116,
+            "mean": 6.948306595365424,
+            "p75": 8.996078431372553,
+            "p90": 16.309803921568637,
+            "p95": 31.261176470588246,
+            "max": 36.92941176470589
+          },
+          "composited_distance_min_over_direct_support_L2": {
+            "n": 77,
+            "min": 0.006792356108107067,
+            "median": 5.102141637463156,
+            "mean": 10.854145354616001,
+            "p75": 13.38909102793773,
+            "p90": 24.80495219751345,
+            "p95": 50.11703247343936,
+            "max": 61.44508586917433
+          },
+          "composited_luminance_difference_to_fixed_support": {
+            "n": 77,
+            "min": 0.006821444637580498,
+            "median": 7.657638835746525,
+            "mean": 14.518190003446868,
+            "p75": 16.07805617099811,
+            "p90": 47.191946879204416,
+            "p95": 54.54244574113185,
+            "max": 66.32639348713701
+          },
+          "distance_reduction_fixed_support_Linf": {
+            "n": 77,
+            "min": 48.87450980392157,
+            "median": 213.23921568627452,
+            "mean": 187.37331296154824,
+            "p75": 248.01960784313724,
+            "p90": 253.00392156862745,
+            "p95": 253.66117647058823,
+            "max": 254.99607843137255
+          },
+          "premultiplied_RGB_magnitude_l2": {
+            "n": 77,
+            "min": 0.0,
+            "median": 1.7320508075688772,
+            "mean": 2.5861234288513764,
+            "p75": 3.4641016151377544,
+            "p90": 5.196152422706632,
+            "p95": 5.196152422706632,
+            "max": 5.196152422706632
+          },
+          "premultiplied_distance_to_fixed_support_L2": {
+            "n": 77,
+            "min": 0.0,
+            "median": 3.4641016151377544,
+            "mean": 18.682154944323006,
+            "p75": 5.196152422706632,
+            "p90": 35.87994190549752,
+            "p95": 120.7300544080482,
+            "max": 300.58892720844347
+          },
+          "hypothetical_dark_target_visible_RGB_delta_Linf": {
+            "n": 77,
+            "min": 0.06274509803921546,
+            "median": 0.9372549019607845,
+            "mean": 1.4083524318818443,
+            "p75": 1.874509803921569,
+            "p90": 2.8117647058823536,
+            "p95": 2.8117647058823536,
+            "max": 2.8117647058823536
+          },
+          "hypothetical_dark_target_visible_RGB_delta_L2": {
+            "n": 77,
+            "min": 0.10867769772981152,
+            "median": 1.6233731098390658,
+            "mean": 2.439337966982541,
+            "p75": 3.2467462196781316,
+            "p90": 4.870119329517197,
+            "p95": 4.870119329517197,
+            "max": 4.870119329517197
+          },
+          "hypothetical_dark_target_visible_luminance_delta": {
+            "n": 77,
+            "min": 0.10318769285390772,
+            "median": 1.6350177372450219,
+            "mean": 2.34774774719689,
+            "p75": 3.210340249441117,
+            "p90": 4.671675536006848,
+            "p95": 4.835127954809565,
+            "max": 4.861363129979196
+          }
+        }
+      },
+      "#14700 OTHER AMBIGUOUS": {
+        "count": 7,
+        "metrics": {
+          "raw_distance_to_local_support_min_Linf": {
+            "n": 7,
+            "min": 0.0,
+            "median": 0.0,
+            "mean": 0.0,
+            "p75": 0.0,
+            "p90": 0.0,
+            "p95": 0.0,
+            "max": 0.0
+          },
+          "raw_distance_to_fixed_nearest_support_Linf": {
+            "n": 7,
+            "min": 0.0,
+            "median": 0.0,
+            "mean": 12.142857142857142,
+            "p75": 0.0,
+            "p90": 34.00000000000003,
+            "p95": 59.49999999999994,
+            "max": 85.0
+          },
+          "composited_distance_to_fixed_nearest_support_Linf": {
+            "n": 7,
+            "min": 0.0,
+            "median": 1.1999999999999886,
+            "mean": 1.4106442577030773,
+            "p75": 1.6529411764705912,
+            "p90": 2.4031372549019645,
+            "p95": 2.964313725490199,
+            "max": 3.5254901960784366
+          },
+          "composited_distance_min_over_direct_support_Linf": {
+            "n": 7,
+            "min": 0.0,
+            "median": 0.9882352941176578,
+            "mean": 1.249859943977587,
+            "p75": 1.4274509803921518,
+            "p90": 2.2180392156862756,
+            "p95": 2.6403921568627444,
+            "max": 3.0627450980392155
+          },
+          "composited_distance_min_over_direct_support_L2": {
+            "n": 7,
+            "min": 0.0,
+            "median": 1.2355181869609966,
+            "mean": 1.6094737212585641,
+            "p75": 2.078349793978544,
+            "p90": 3.2522068337855656,
+            "p95": 3.6220190849746237,
+            "max": 3.9918313361636844
+          },
+          "composited_luminance_difference_to_fixed_support": {
+            "n": 7,
+            "min": 0.0,
+            "median": 1.54614146648899,
+            "mean": 1.7279492412229485,
+            "p75": 2.4600734890971694,
+            "p90": 3.2838854666948185,
+            "p95": 3.7804938453719092,
+            "max": 4.277102224049003
+          },
+          "distance_reduction_fixed_support_Linf": {
+            "n": 7,
+            "min": -3.5254901960784366,
+            "median": -0.9882352941176293,
+            "mean": 10.732212885154066,
+            "p75": -0.4274509803921518,
+            "p90": 33.33960784313728,
+            "p95": 58.34431372549014,
+            "max": 83.34901960784313
+          },
+          "premultiplied_RGB_magnitude_l2": {
+            "n": 7,
+            "min": 0.0,
+            "median": 0.0,
+            "mean": 0.7423074889580903,
+            "p75": 0.8660254037844386,
+            "p90": 2.424871130596429,
+            "p95": 2.94448637286709,
+            "max": 3.4641016151377544
+          },
+          "premultiplied_distance_to_fixed_support_L2": {
+            "n": 7,
+            "min": 0.0,
+            "median": 0.0,
+            "mean": 0.4948716593053935,
+            "p75": 0.8660254037844386,
+            "p90": 1.7320508075688772,
+            "p95": 1.7320508075688772,
+            "max": 1.7320508075688772
+          },
+          "hypothetical_dark_target_visible_RGB_delta_Linf": {
+            "n": 7,
+            "min": 0.06274509803921546,
+            "median": 0.1882352941176464,
+            "mean": 0.47338935574229674,
+            "p75": 0.5,
+            "p90": 1.23686274509804,
+            "p95": 1.5556862745098037,
+            "max": 1.874509803921569
+          },
+          "hypothetical_dark_target_visible_RGB_delta_L2": {
+            "n": 7,
+            "min": 0.10867769772981152,
+            "median": 0.3260330931894346,
+            "mean": 0.8199344159079558,
+            "p75": 0.8660254037844387,
+            "p90": 2.142309116498919,
+            "p95": 2.6945276680885235,
+            "max": 3.2467462196781316
+          },
+          "hypothetical_dark_target_visible_luminance_delta": {
+            "n": 7,
+            "min": 0.10575242617821345,
+            "median": 0.31009557071183735,
+            "mean": 0.7888580432814365,
+            "p75": 0.8288055735525859,
+            "p90": 2.0549928848176027,
+            "p95": 2.5886185233996275,
+            "max": 3.122244161981655
+          }
+        }
+      },
+      "#14700 PROTECTED / OTHER": {
+        "count": 0,
+        "metrics": {
+          "raw_distance_to_local_support_min_Linf": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "raw_distance_to_fixed_nearest_support_Linf": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "composited_distance_to_fixed_nearest_support_Linf": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "composited_distance_min_over_direct_support_Linf": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "composited_distance_min_over_direct_support_L2": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "composited_luminance_difference_to_fixed_support": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "distance_reduction_fixed_support_Linf": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "premultiplied_RGB_magnitude_l2": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "premultiplied_distance_to_fixed_support_L2": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "hypothetical_dark_target_visible_RGB_delta_Linf": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "hypothetical_dark_target_visible_RGB_delta_L2": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "hypothetical_dark_target_visible_luminance_delta": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          }
+        }
+      },
+      "#14607 PROTECTED NEGATIVE CONTROL": {
+        "count": 2,
+        "metrics": {
+          "raw_distance_to_local_support_min_Linf": {
+            "n": 2,
+            "min": 14.0,
+            "median": 123.0,
+            "mean": 123.0,
+            "p75": 177.5,
+            "p90": 210.20000000000002,
+            "p95": 221.1,
+            "max": 232.0
+          },
+          "raw_distance_to_fixed_nearest_support_Linf": {
+            "n": 2,
+            "min": 14.0,
+            "median": 123.0,
+            "mean": 123.0,
+            "p75": 177.5,
+            "p90": 210.20000000000002,
+            "p95": 221.1,
+            "max": 232.0
+          },
+          "composited_distance_to_fixed_nearest_support_Linf": {
+            "n": 2,
+            "min": 16.73333333333335,
+            "median": 20.554901960784335,
+            "mean": 20.554901960784335,
+            "p75": 22.465686274509828,
+            "p90": 23.612156862745124,
+            "p95": 23.994313725490223,
+            "max": 24.37647058823532
+          },
+          "composited_distance_min_over_direct_support_Linf": {
+            "n": 2,
+            "min": 16.73333333333335,
+            "median": 20.554901960784335,
+            "mean": 20.554901960784335,
+            "p75": 22.465686274509828,
+            "p90": 23.612156862745124,
+            "p95": 23.994313725490223,
+            "max": 24.37647058823532
+          },
+          "composited_distance_min_over_direct_support_L2": {
+            "n": 2,
+            "min": 28.755137748643886,
+            "median": 34.910456195531374,
+            "mean": 34.910456195531374,
+            "p75": 37.98811541897511,
+            "p90": 39.83471095304136,
+            "p95": 40.45024279773011,
+            "max": 41.06577464241886
+          },
+          "composited_luminance_difference_to_fixed_support": {
+            "n": 2,
+            "min": 28.567475025268664,
+            "median": 32.34688881632419,
+            "mean": 32.34688881632419,
+            "p75": 34.23659571185195,
+            "p90": 35.370419849168606,
+            "p95": 35.74836122827416,
+            "max": 36.12630260737971
+          },
+          "distance_reduction_fixed_support_Linf": {
+            "n": 2,
+            "min": -2.7333333333333485,
+            "median": 102.44509803921567,
+            "mean": 102.44509803921567,
+            "p75": 155.03431372549016,
+            "p90": 186.58784313725488,
+            "p95": 197.10568627450976,
+            "max": 207.62352941176468
+          },
+          "premultiplied_RGB_magnitude_l2": {
+            "n": 2,
+            "min": 1.7320508075688772,
+            "median": 1.7320508075688772,
+            "mean": 1.7320508075688772,
+            "p75": 1.7320508075688772,
+            "p90": 1.7320508075688772,
+            "p95": 1.7320508075688772,
+            "max": 1.7320508075688772
+          },
+          "premultiplied_distance_to_fixed_support_L2": {
+            "n": 2,
+            "min": 3.423347478489075,
+            "median": 9.46375770704998,
+            "mean": 9.46375770704998,
+            "p75": 12.483962821330435,
+            "p90": 14.296085889898706,
+            "p95": 14.900126912754796,
+            "max": 15.504167935610887
+          },
+          "hypothetical_dark_target_visible_RGB_delta_Linf": {
+            "n": 2,
+            "min": 0.8117647058823536,
+            "median": 0.8745098039215691,
+            "mean": 0.8745098039215691,
+            "p75": 0.9058823529411768,
+            "p90": 0.9247058823529415,
+            "p95": 0.930980392156863,
+            "max": 0.9372549019607845
+          },
+          "hypothetical_dark_target_visible_RGB_delta_L2": {
+            "n": 2,
+            "min": 1.4060177143794428,
+            "median": 1.5146954121092544,
+            "mean": 1.5146954121092544,
+            "p75": 1.56903426097416,
+            "p90": 1.6016375702931036,
+            "p95": 1.6125053400660847,
+            "max": 1.6233731098390658
+          },
+          "hypothetical_dark_target_visible_luminance_delta": {
+            "n": 2,
+            "min": 1.463918769181987,
+            "median": 1.5102180612143457,
+            "mean": 1.5102180612143457,
+            "p75": 1.533367707230525,
+            "p90": 1.5472574948402325,
+            "p95": 1.5518874240434684,
+            "max": 1.5565173532467043
+          }
+        }
+      }
+    },
+    "4-7": {
+      "#14700 SAFE REFERENCE": {
+        "count": 9,
+        "metrics": {
+          "raw_distance_to_local_support_min_Linf": {
+            "n": 9,
+            "min": 0.0,
+            "median": 0.0,
+            "mean": 3.2222222222222223,
+            "p75": 0.0,
+            "p90": 13.0,
+            "p95": 14.999999999999998,
+            "max": 17.0
+          },
+          "raw_distance_to_fixed_nearest_support_Linf": {
+            "n": 9,
+            "min": 0.0,
+            "median": 194.0,
+            "mean": 153.22222222222223,
+            "p75": 210.0,
+            "p90": 213.6,
+            "p95": 214.8,
+            "max": 216.0
+          },
+          "composited_distance_to_fixed_nearest_support_Linf": {
+            "n": 9,
+            "min": 0.9843137254901819,
+            "median": 13.270588235294127,
+            "mean": 12.332897603485845,
+            "p75": 19.952941176470603,
+            "p90": 22.047843137254898,
+            "p95": 23.55529411764707,
+            "max": 25.062745098039244
+          },
+          "composited_distance_min_over_direct_support_Linf": {
+            "n": 9,
+            "min": 0.0,
+            "median": 2.4823529411764866,
+            "mean": 2.4339869281045785,
+            "p75": 3.5607843137254918,
+            "p90": 4.545098039215674,
+            "p95": 5.164705882352933,
+            "max": 5.784313725490193
+          },
+          "composited_distance_min_over_direct_support_L2": {
+            "n": 9,
+            "min": 0.0,
+            "median": 3.14845793833515,
+            "mean": 3.4857373782533023,
+            "p75": 5.107252609723844,
+            "p90": 6.603193738353719,
+            "p95": 7.961383361060607,
+            "max": 9.319572983767499
+          },
+          "composited_luminance_difference_to_fixed_support": {
+            "n": 9,
+            "min": 0.32644182976591196,
+            "median": 12.091475881937924,
+            "mean": 14.744808052053664,
+            "p75": 26.415762689332013,
+            "p90": 31.173833420380582,
+            "p95": 31.291819327559896,
+            "max": 31.40980523473921
+          },
+          "distance_reduction_fixed_support_Linf": {
+            "n": 9,
+            "min": -0.9843137254901819,
+            "median": 181.93725490196076,
+            "mean": 140.8893246187364,
+            "p75": 196.0470588235294,
+            "p90": 198.88941176470587,
+            "p95": 199.18588235294115,
+            "max": 199.48235294117646
+          },
+          "premultiplied_RGB_magnitude_l2": {
+            "n": 9,
+            "min": 0.0,
+            "median": 0.0,
+            "mean": 0.5773502691896257,
+            "p75": 0.0,
+            "p90": 2.078460969082653,
+            "p95": 2.771281292110203,
+            "max": 3.4641016151377544
+          },
+          "premultiplied_distance_to_fixed_support_L2": {
+            "n": 9,
+            "min": 0.0,
+            "median": 204.6179976622786,
+            "mean": 147.31393645249153,
+            "p75": 229.64956001530882,
+            "p90": 238.15902374755305,
+            "p95": 242.0551192111668,
+            "max": 245.95121467478057
+          },
+          "hypothetical_dark_target_visible_RGB_delta_Linf": {
+            "n": 9,
+            "min": 0.25098039215686185,
+            "median": 0.3764705882352928,
+            "mean": 0.5424836601307182,
+            "p75": 0.43921568627450824,
+            "p90": 0.8862745098039229,
+            "p95": 1.2862745098039223,
+            "max": 1.6862745098039227
+          },
+          "hypothetical_dark_target_visible_RGB_delta_L2": {
+            "n": 9,
+            "min": 0.4347107909192461,
+            "median": 0.6520661863788692,
+            "mean": 0.9396092616223309,
+            "p75": 0.7607438841086807,
+            "p90": 1.5350724804335953,
+            "p95": 2.2278928034611454,
+            "max": 2.920713126488697
+          },
+          "hypothetical_dark_target_visible_luminance_delta": {
+            "n": 9,
+            "min": 0.40929986996508205,
+            "median": 0.6265116891545119,
+            "mean": 0.8959420233245304,
+            "p75": 0.7368361557097955,
+            "p90": 1.506344009428699,
+            "p95": 2.200205458556047,
+            "max": 2.8940669076833956
+          }
+        }
+      },
+      "#14700 RGB REJECTED": {
+        "count": 36,
+        "metrics": {
+          "raw_distance_to_local_support_min_Linf": {
+            "n": 36,
+            "min": 34.0,
+            "median": 155.0,
+            "mean": 144.94444444444446,
+            "p75": 191.0,
+            "p90": 206.5,
+            "p95": 211.5,
+            "max": 215.0
+          },
+          "raw_distance_to_fixed_nearest_support_Linf": {
+            "n": 36,
+            "min": 34.0,
+            "median": 163.5,
+            "mean": 149.44444444444446,
+            "p75": 192.0,
+            "p90": 212.0,
+            "p95": 215.0,
+            "max": 230.0
+          },
+          "composited_distance_to_fixed_nearest_support_Linf": {
+            "n": 36,
+            "min": 0.46666666666664014,
+            "median": 6.709803921568621,
+            "mean": 9.435076252723317,
+            "p75": 14.023529411764699,
+            "p90": 19.90980392156864,
+            "p95": 24.903921568627432,
+            "max": 35.5450980392157
+          },
+          "composited_distance_min_over_direct_support_Linf": {
+            "n": 36,
+            "min": 0.46666666666664014,
+            "median": 5.958823529411774,
+            "mean": 8.548366013071899,
+            "p75": 13.439215686274515,
+            "p90": 16.97843137254904,
+            "p95": 21.599019607843154,
+            "max": 35.5450980392157
+          },
+          "composited_distance_min_over_direct_support_L2": {
+            "n": 36,
+            "min": 0.7364304944295366,
+            "median": 7.623260966580878,
+            "mean": 11.83225772855075,
+            "p75": 17.97704917128687,
+            "p90": 23.13105531528852,
+            "p95": 30.131798544979397,
+            "max": 57.269282239232325
+          },
+          "composited_luminance_difference_to_fixed_support": {
+            "n": 36,
+            "min": 0.2797307868966925,
+            "median": 6.646183316420263,
+            "mean": 11.672860693972003,
+            "p75": 17.570001210353624,
+            "p90": 24.929565881385713,
+            "p95": 33.75832822586554,
+            "max": 49.74161763547491
+          },
+          "distance_reduction_fixed_support_Linf": {
+            "n": 36,
+            "min": 32.305882352941154,
+            "median": 150.41960784313727,
+            "mean": 140.00936819172114,
+            "p75": 186.9362745098039,
+            "p90": 195.94901960784313,
+            "p95": 199.20392156862746,
+            "max": 202.14117647058825
+          },
+          "premultiplied_RGB_magnitude_l2": {
+            "n": 36,
+            "min": 0.0,
+            "median": 1.7320508075688772,
+            "mean": 2.497888958758646,
+            "p75": 5.1893600665985185,
+            "p90": 6.928203230275509,
+            "p95": 6.928203230275509,
+            "max": 6.928203230275509
+          },
+          "premultiplied_distance_to_fixed_support_L2": {
+            "n": 36,
+            "min": 0.0,
+            "median": 5.196152422706632,
+            "mean": 90.37811927588929,
+            "p75": 222.35456955519516,
+            "p90": 251.01418338608573,
+            "p95": 264.39246150830803,
+            "max": 302.0832455522284
+          },
+          "hypothetical_dark_target_visible_RGB_delta_Linf": {
+            "n": 36,
+            "min": 0.25098039215686185,
+            "median": 0.6862745098039227,
+            "mean": 1.3846405228758185,
+            "p75": 2.6862745098039227,
+            "p90": 3.654901960784315,
+            "p95": 3.6862745098039227,
+            "max": 3.749019607843138
+          },
+          "hypothetical_dark_target_visible_RGB_delta_L2": {
+            "n": 36,
+            "min": 0.4347107909192461,
+            "median": 1.1886623189198195,
+            "mean": 2.3982677358396542,
+            "p75": 4.652763934057574,
+            "p90": 6.330475892761546,
+            "p95": 6.384814741626451,
+            "max": 6.493492439356263
+          },
+          "hypothetical_dark_target_visible_luminance_delta": {
+            "n": 36,
+            "min": 0.40929986996508205,
+            "median": 1.1313860014097088,
+            "mean": 2.30489250325999,
+            "p75": 4.17967723901619,
+            "p90": 6.150124644807022,
+            "p95": 6.271713846976411,
+            "max": 6.335683190782731
+          }
+        }
+      },
+      "#14700 OTHER AMBIGUOUS": {
+        "count": 0,
+        "metrics": {
+          "raw_distance_to_local_support_min_Linf": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "raw_distance_to_fixed_nearest_support_Linf": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "composited_distance_to_fixed_nearest_support_Linf": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "composited_distance_min_over_direct_support_Linf": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "composited_distance_min_over_direct_support_L2": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "composited_luminance_difference_to_fixed_support": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "distance_reduction_fixed_support_Linf": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "premultiplied_RGB_magnitude_l2": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "premultiplied_distance_to_fixed_support_L2": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "hypothetical_dark_target_visible_RGB_delta_Linf": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "hypothetical_dark_target_visible_RGB_delta_L2": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "hypothetical_dark_target_visible_luminance_delta": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          }
+        }
+      },
+      "#14700 PROTECTED / OTHER": {
+        "count": 1,
+        "metrics": {
+          "raw_distance_to_local_support_min_Linf": {
+            "n": 1,
+            "min": 195.0,
+            "median": 195.0,
+            "mean": 195.0,
+            "p75": 195.0,
+            "p90": 195.0,
+            "p95": 195.0,
+            "max": 195.0
+          },
+          "raw_distance_to_fixed_nearest_support_Linf": {
+            "n": 1,
+            "min": 195.0,
+            "median": 195.0,
+            "mean": 195.0,
+            "p75": 195.0,
+            "p90": 195.0,
+            "p95": 195.0,
+            "max": 195.0
+          },
+          "composited_distance_to_fixed_nearest_support_Linf": {
+            "n": 1,
+            "min": 8.705882352941217,
+            "median": 8.705882352941217,
+            "mean": 8.705882352941217,
+            "p75": 8.705882352941217,
+            "p90": 8.705882352941217,
+            "p95": 8.705882352941217,
+            "max": 8.705882352941217
+          },
+          "composited_distance_min_over_direct_support_Linf": {
+            "n": 1,
+            "min": 8.705882352941217,
+            "median": 8.705882352941217,
+            "mean": 8.705882352941217,
+            "p75": 8.705882352941217,
+            "p90": 8.705882352941217,
+            "p95": 8.705882352941217,
+            "max": 8.705882352941217
+          },
+          "composited_distance_min_over_direct_support_L2": {
+            "n": 1,
+            "min": 9.864859244036529,
+            "median": 9.864859244036529,
+            "mean": 9.864859244036529,
+            "p75": 9.864859244036529,
+            "p90": 9.864859244036529,
+            "p95": 9.864859244036529,
+            "max": 9.864859244036529
+          },
+          "composited_luminance_difference_to_fixed_support": {
+            "n": 1,
+            "min": 5.813574016283667,
+            "median": 5.813574016283667,
+            "mean": 5.813574016283667,
+            "p75": 5.813574016283667,
+            "p90": 5.813574016283667,
+            "p95": 5.813574016283667,
+            "max": 5.813574016283667
+          },
+          "distance_reduction_fixed_support_Linf": {
+            "n": 1,
+            "min": 186.29411764705878,
+            "median": 186.29411764705878,
+            "mean": 186.29411764705878,
+            "p75": 186.29411764705878,
+            "p90": 186.29411764705878,
+            "p95": 186.29411764705878,
+            "max": 186.29411764705878
+          },
+          "premultiplied_RGB_magnitude_l2": {
+            "n": 1,
+            "min": 1.397575755756941,
+            "median": 1.397575755756941,
+            "mean": 1.397575755756941,
+            "p75": 1.397575755756941,
+            "p90": 1.397575755756941,
+            "p95": 1.397575755756941,
+            "max": 1.397575755756941
+          },
+          "premultiplied_distance_to_fixed_support_L2": {
+            "n": 1,
+            "min": 184.34568212743997,
+            "median": 184.34568212743997,
+            "mean": 184.34568212743997,
+            "p75": 184.34568212743997,
+            "p90": 184.34568212743997,
+            "p95": 184.34568212743997,
+            "max": 184.34568212743997
+          },
+          "hypothetical_dark_target_visible_RGB_delta_Linf": {
+            "n": 1,
+            "min": 0.7372549019607959,
+            "median": 0.7372549019607959,
+            "mean": 0.7372549019607959,
+            "p75": 0.7372549019607959,
+            "p90": 0.7372549019607959,
+            "p95": 0.7372549019607959,
+            "max": 0.7372549019607959
+          },
+          "hypothetical_dark_target_visible_RGB_delta_L2": {
+            "n": 1,
+            "min": 1.0724181731850957,
+            "median": 1.0724181731850957,
+            "mean": 1.0724181731850957,
+            "p75": 1.0724181731850957,
+            "p90": 1.0724181731850957,
+            "p95": 1.0724181731850957,
+            "max": 1.0724181731850957
+          },
+          "hypothetical_dark_target_visible_luminance_delta": {
+            "n": 1,
+            "min": 0.8931894517597243,
+            "median": 0.8931894517597243,
+            "mean": 0.8931894517597243,
+            "p75": 0.8931894517597243,
+            "p90": 0.8931894517597243,
+            "p95": 0.8931894517597243,
+            "max": 0.8931894517597243
+          }
+        }
+      },
+      "#14607 PROTECTED NEGATIVE CONTROL": {
+        "count": 4,
+        "metrics": {
+          "raw_distance_to_local_support_min_Linf": {
+            "n": 4,
+            "min": 49.0,
+            "median": 88.0,
+            "mean": 104.0,
+            "p75": 139.25,
+            "p90": 170.3,
+            "p95": 180.64999999999998,
+            "max": 191.0
+          },
+          "raw_distance_to_fixed_nearest_support_Linf": {
+            "n": 4,
+            "min": 49.0,
+            "median": 88.0,
+            "mean": 104.0,
+            "p75": 139.25,
+            "p90": 170.3,
+            "p95": 180.64999999999998,
+            "max": 191.0
+          },
+          "composited_distance_to_fixed_nearest_support_Linf": {
+            "n": 4,
+            "min": 27.368627450980398,
+            "median": 33.83725490196079,
+            "mean": 33.717647058823545,
+            "p75": 38.71274509803925,
+            "p90": 39.38156862745102,
+            "p95": 39.60450980392161,
+            "max": 39.8274509803922
+          },
+          "composited_distance_min_over_direct_support_Linf": {
+            "n": 4,
+            "min": 27.368627450980398,
+            "median": 33.83725490196079,
+            "mean": 33.717647058823545,
+            "p75": 38.71274509803925,
+            "p90": 39.38156862745102,
+            "p95": 39.60450980392161,
+            "max": 39.8274509803922
+          },
+          "composited_distance_min_over_direct_support_L2": {
+            "n": 4,
+            "min": 41.66825095027272,
+            "median": 56.799472883670205,
+            "mean": 55.67830908058461,
+            "p75": 64.5597559172602,
+            "p90": 66.29152612973927,
+            "p95": 66.86878286723228,
+            "max": 67.4460396047253
+          },
+          "composited_luminance_difference_to_fixed_support": {
+            "n": 4,
+            "min": 36.25667490274057,
+            "median": 50.147111699617454,
+            "mean": 48.82198520394044,
+            "p75": 55.753065602148084,
+            "p90": 57.54345174913101,
+            "p95": 58.14024713145865,
+            "max": 58.73704251378629
+          },
+          "distance_reduction_fixed_support_Linf": {
+            "n": 4,
+            "min": 9.1725490196078,
+            "median": 54.16274509803921,
+            "mean": 70.28235294117646,
+            "p75": 103.6519607843137,
+            "p90": 139.63960784313724,
+            "p95": 151.6354901960784,
+            "max": 163.6313725490196
+          },
+          "premultiplied_RGB_magnitude_l2": {
+            "n": 4,
+            "min": 0.9882352941176471,
+            "median": 2.492156862745098,
+            "mean": 2.281850406318383,
+            "p75": 3.0328307984752456,
+            "p90": 3.1060438827895114,
+            "p95": 3.1304482442276003,
+            "max": 3.1548526056656887
+          },
+          "premultiplied_distance_to_fixed_support_L2": {
+            "n": 4,
+            "min": 1.011764705882353,
+            "median": 3.4716949628130824,
+            "mean": 5.454022702199392,
+            "p75": 6.220537203999997,
+            "p90": 10.804776587973432,
+            "p95": 12.332856382631237,
+            "max": 13.860936177289052
+          },
+          "hypothetical_dark_target_visible_RGB_delta_Linf": {
+            "n": 4,
+            "min": 0.7372549019607959,
+            "median": 2.14705882352942,
+            "mean": 1.9441176470588317,
+            "p75": 2.6009803921568704,
+            "p90": 2.6874509803921627,
+            "p95": 2.7162745098039265,
+            "max": 2.7450980392156907
+          },
+          "hypothetical_dark_target_visible_RGB_delta_L2": {
+            "n": 4,
+            "min": 0.8182463595761652,
+            "median": 2.202202193208859,
+            "mean": 2.019021782283084,
+            "p75": 2.6839231869448748,
+            "p90": 2.7856311046610225,
+            "p95": 2.8195337438997385,
+            "max": 2.8534363831384546
+          },
+          "hypothetical_dark_target_visible_luminance_delta": {
+            "n": 4,
+            "min": 0.0845001965479355,
+            "median": 0.2851367017237152,
+            "mean": 0.45340525198140824,
+            "p75": 0.5173595381935883,
+            "p90": 0.9022522600355958,
+            "p95": 1.030549833982931,
+            "max": 1.158847407930267
+          }
+        }
+      }
+    },
+    "8-15": {
+      "#14700 SAFE REFERENCE": {
+        "count": 5,
+        "metrics": {
+          "raw_distance_to_local_support_min_Linf": {
+            "n": 5,
+            "min": 0.0,
+            "median": 0.0,
+            "mean": 0.0,
+            "p75": 0.0,
+            "p90": 0.0,
+            "p95": 0.0,
+            "max": 0.0
+          },
+          "raw_distance_to_fixed_nearest_support_Linf": {
+            "n": 5,
+            "min": 0.0,
+            "median": 201.0,
+            "mean": 126.0,
+            "p75": 214.0,
+            "p90": 214.6,
+            "p95": 214.8,
+            "max": 215.0
+          },
+          "composited_distance_to_fixed_nearest_support_Linf": {
+            "n": 5,
+            "min": 8.321568627450972,
+            "median": 15.117647058823536,
+            "mean": 14.092549019607862,
+            "p75": 17.666666666666686,
+            "p90": 19.551372549019636,
+            "p95": 20.179607843137283,
+            "max": 20.807843137254935
+          },
+          "composited_distance_min_over_direct_support_Linf": {
+            "n": 5,
+            "min": 1.5607843137254918,
+            "median": 7.772549019607851,
+            "mean": 5.883921568627454,
+            "p75": 8.321568627450972,
+            "p90": 8.458039215686295,
+            "p95": 8.503529411764736,
+            "max": 8.549019607843178
+          },
+          "composited_distance_min_over_direct_support_L2": {
+            "n": 5,
+            "min": 1.7734771125728388,
+            "median": 12.50065680704254,
+            "mean": 9.561300839516116,
+            "p75": 13.875700743619744,
+            "p90": 14.12587131181392,
+            "p95": 14.209261501211978,
+            "max": 14.292651690610038
+          },
+          "composited_luminance_difference_to_fixed_support": {
+            "n": 5,
+            "min": 12.970577593516055,
+            "median": 17.875751470999745,
+            "mean": 18.47602557328928,
+            "p75": 21.446540298620448,
+            "p90": 24.32254853548086,
+            "p95": 25.28121794776766,
+            "max": 26.239887360054468
+          },
+          "distance_reduction_fixed_support_Linf": {
+            "n": 5,
+            "min": -8.549019607843178,
+            "median": 185.88235294117646,
+            "mean": 111.90745098039216,
+            "p75": 193.19215686274507,
+            "p90": 195.67686274509802,
+            "p95": 196.50509803921565,
+            "max": 197.33333333333331
+          },
+          "premultiplied_RGB_magnitude_l2": {
+            "n": 5,
+            "min": 0.0,
+            "median": 0.0,
+            "mean": 0.0,
+            "p75": 0.0,
+            "p90": 0.0,
+            "p95": 0.0,
+            "max": 0.0
+          },
+          "premultiplied_distance_to_fixed_support_L2": {
+            "n": 5,
+            "min": 0.0,
+            "median": 232.09480821422954,
+            "mean": 148.08970881390198,
+            "p75": 252.79133728751953,
+            "p90": 254.45397405566433,
+            "p95": 255.0081863117126,
+            "max": 255.56239856776085
+          },
+          "hypothetical_dark_target_visible_RGB_delta_Linf": {
+            "n": 5,
+            "min": 0.5019607843137237,
+            "median": 0.6274509803921546,
+            "mean": 0.6650980392156839,
+            "p75": 0.7529411764705856,
+            "p90": 0.8282352941176441,
+            "p95": 0.8533333333333303,
+            "max": 0.8784313725490165
+          },
+          "hypothetical_dark_target_visible_RGB_delta_L2": {
+            "n": 5,
+            "min": 0.8694215818384922,
+            "median": 1.0867769772981153,
+            "mean": 1.1519835959360023,
+            "p75": 1.3041323727577383,
+            "p90": 1.434545610033512,
+            "p95": 1.4780166891254367,
+            "max": 1.5214877682173613
+          },
+          "hypothetical_dark_target_visible_luminance_delta": {
+            "n": 5,
+            "min": 0.7870927921667032,
+            "median": 0.9606784278471139,
+            "mean": 1.0708746532042484,
+            "p75": 1.240602296280116,
+            "p90": 1.3541815641990127,
+            "p95": 1.3920413201719781,
+            "max": 1.4299010761449438
+          }
+        }
+      },
+      "#14700 RGB REJECTED": {
+        "count": 51,
+        "metrics": {
+          "raw_distance_to_local_support_min_Linf": {
+            "n": 51,
+            "min": 27.0,
+            "median": 214.0,
+            "mean": 184.23529411764707,
+            "p75": 215.0,
+            "p90": 216.0,
+            "p95": 216.0,
+            "max": 216.0
+          },
+          "raw_distance_to_fixed_nearest_support_Linf": {
+            "n": 51,
+            "min": 31.0,
+            "median": 215.0,
+            "mean": 196.52941176470588,
+            "p75": 216.0,
+            "p90": 217.0,
+            "p95": 217.5,
+            "max": 222.0
+          },
+          "composited_distance_to_fixed_nearest_support_Linf": {
+            "n": 51,
+            "min": 1.427450980392166,
+            "median": 17.47843137254904,
+            "mean": 19.124413687043457,
+            "p75": 22.637254901960773,
+            "p90": 26.145098039215668,
+            "p95": 32.19411764705883,
+            "max": 38.00392156862745
+          },
+          "composited_distance_min_over_direct_support_Linf": {
+            "n": 51,
+            "min": 1.3921568627451109,
+            "median": 16.509803921568647,
+            "mean": 16.78677431757017,
+            "p75": 20.937254901960813,
+            "p90": 26.145098039215668,
+            "p95": 31.29607843137255,
+            "max": 37.59607843137255
+          },
+          "composited_distance_min_over_direct_support_L2": {
+            "n": 51,
+            "min": 1.5820504120740648,
+            "median": 20.445623346649615,
+            "mean": 22.166002215898462,
+            "p75": 27.205124243102844,
+            "p90": 35.80990844003456,
+            "p95": 45.2544354992102,
+            "max": 55.740125301504776
+          },
+          "composited_luminance_difference_to_fixed_support": {
+            "n": 51,
+            "min": 1.901022118439272,
+            "median": 21.095371977661785,
+            "mean": 24.127541876699578,
+            "p75": 29.826530555629816,
+            "p90": 35.71925548416226,
+            "p95": 44.61648597087322,
+            "max": 51.95487300665975
+          },
+          "distance_reduction_fixed_support_Linf": {
+            "n": 51,
+            "min": 16.78823529411767,
+            "median": 193.60784313725492,
+            "mean": 177.40499807766238,
+            "p75": 197.68039215686272,
+            "p90": 198.49019607843135,
+            "p95": 198.9019607843137,
+            "max": 199.45882352941175
+          },
+          "premultiplied_RGB_magnitude_l2": {
+            "n": 51,
+            "min": 0.0,
+            "median": 0.0,
+            "mean": 0.5748197835807208,
+            "p75": 0.0,
+            "p90": 0.0,
+            "p95": 3.423347478489075,
+            "max": 13.856406460551018
+          },
+          "premultiplied_distance_to_fixed_support_L2": {
+            "n": 51,
+            "min": 1.6845043148120846,
+            "median": 252.52867376332605,
+            "mean": 238.35267231777428,
+            "p75": 297.8312306285495,
+            "p90": 297.8312306285495,
+            "p95": 299.21007891849655,
+            "max": 300.0727081442269
+          },
+          "hypothetical_dark_target_visible_RGB_delta_Linf": {
+            "n": 51,
+            "min": 0.470588235294116,
+            "median": 0.5647058823529392,
+            "mean": 0.8473663975394058,
+            "p75": 0.8784313725490165,
+            "p90": 0.8784313725490165,
+            "p95": 1.3490196078431325,
+            "max": 7.247058823529414
+          },
+          "hypothetical_dark_target_visible_RGB_delta_L2": {
+            "n": 51,
+            "min": 0.8150827329735865,
+            "median": 0.9780992795683038,
+            "mean": 1.467681653164858,
+            "p75": 1.5214877682173613,
+            "p90": 1.5214877682173613,
+            "p95": 2.3365705011909474,
+            "max": 12.55227408779328
+          },
+          "hypothetical_dark_target_visible_luminance_delta": {
+            "n": 51,
+            "min": 0.7539204701126323,
+            "median": 0.8967685054178958,
+            "mean": 1.3720460754450072,
+            "p75": 1.3476901423466927,
+            "p90": 1.422286053949108,
+            "p95": 2.210932108281412,
+            "max": 12.084059216975902
+          }
+        }
+      },
+      "#14700 OTHER AMBIGUOUS": {
+        "count": 0,
+        "metrics": {
+          "raw_distance_to_local_support_min_Linf": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "raw_distance_to_fixed_nearest_support_Linf": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "composited_distance_to_fixed_nearest_support_Linf": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "composited_distance_min_over_direct_support_Linf": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "composited_distance_min_over_direct_support_L2": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "composited_luminance_difference_to_fixed_support": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "distance_reduction_fixed_support_Linf": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "premultiplied_RGB_magnitude_l2": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "premultiplied_distance_to_fixed_support_L2": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "hypothetical_dark_target_visible_RGB_delta_Linf": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "hypothetical_dark_target_visible_RGB_delta_L2": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "hypothetical_dark_target_visible_luminance_delta": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          }
+        }
+      },
+      "#14700 PROTECTED / OTHER": {
+        "count": 0,
+        "metrics": {
+          "raw_distance_to_local_support_min_Linf": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "raw_distance_to_fixed_nearest_support_Linf": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "composited_distance_to_fixed_nearest_support_Linf": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "composited_distance_min_over_direct_support_Linf": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "composited_distance_min_over_direct_support_L2": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "composited_luminance_difference_to_fixed_support": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "distance_reduction_fixed_support_Linf": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "premultiplied_RGB_magnitude_l2": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "premultiplied_distance_to_fixed_support_L2": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "hypothetical_dark_target_visible_RGB_delta_Linf": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "hypothetical_dark_target_visible_RGB_delta_L2": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "hypothetical_dark_target_visible_luminance_delta": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          }
+        }
+      },
+      "#14607 PROTECTED NEGATIVE CONTROL": {
+        "count": 0,
+        "metrics": {
+          "raw_distance_to_local_support_min_Linf": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "raw_distance_to_fixed_nearest_support_Linf": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "composited_distance_to_fixed_nearest_support_Linf": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "composited_distance_min_over_direct_support_Linf": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "composited_distance_min_over_direct_support_L2": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "composited_luminance_difference_to_fixed_support": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "distance_reduction_fixed_support_Linf": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "premultiplied_RGB_magnitude_l2": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "premultiplied_distance_to_fixed_support_L2": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "hypothetical_dark_target_visible_RGB_delta_Linf": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "hypothetical_dark_target_visible_RGB_delta_L2": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "hypothetical_dark_target_visible_luminance_delta": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          }
+        }
+      }
+    },
+    "16-23": {
+      "#14700 SAFE REFERENCE": {
+        "count": 10,
+        "metrics": {
+          "raw_distance_to_local_support_min_Linf": {
+            "n": 10,
+            "min": 0.0,
+            "median": 2.5,
+            "mean": 5.9,
+            "p75": 12.0,
+            "p90": 13.399999999999999,
+            "p95": 15.199999999999996,
+            "max": 17.0
+          },
+          "raw_distance_to_fixed_nearest_support_Linf": {
+            "n": 10,
+            "min": 0.0,
+            "median": 2.5,
+            "mean": 37.9,
+            "p75": 15.75,
+            "p90": 144.89999999999998,
+            "p95": 175.94999999999993,
+            "max": 207.0
+          },
+          "composited_distance_to_fixed_nearest_support_Linf": {
+            "n": 10,
+            "min": 1.5254901960784366,
+            "median": 6.1509803921568675,
+            "mean": 8.876862745098046,
+            "p75": 9.731372549019618,
+            "p90": 13.40039215686275,
+            "p95": 23.160980392156837,
+            "max": 32.92156862745097
+          },
+          "composited_distance_min_over_direct_support_Linf": {
+            "n": 10,
+            "min": 1.0352941176470836,
+            "median": 5.880392156862754,
+            "mean": 5.131372549019614,
+            "p75": 6.240196078431367,
+            "p90": 7.701960784313714,
+            "p95": 9.254901960784307,
+            "max": 10.807843137254906
+          },
+          "composited_distance_min_over_direct_support_L2": {
+            "n": 10,
+            "min": 1.7931820125419393,
+            "median": 8.717539254814891,
+            "mean": 7.696441567936446,
+            "p75": 10.01504754099709,
+            "p90": 11.143619674633406,
+            "p95": 14.28622581038305,
+            "max": 17.428831946132707
+          },
+          "composited_luminance_difference_to_fixed_support": {
+            "n": 10,
+            "min": 1.4180368982155898,
+            "median": 9.130993055185769,
+            "mean": 11.890615997738823,
+            "p75": 10.786049712728591,
+            "p90": 17.377205558625462,
+            "p95": 31.94280850248026,
+            "max": 46.50841144633512
+          },
+          "distance_reduction_fixed_support_Linf": {
+            "n": 10,
+            "min": -10.807843137254906,
+            "median": -1.6098039215686413,
+            "mean": 29.02313725490195,
+            "p75": 13.023529411764706,
+            "p90": 131.49960784313723,
+            "p95": 152.7890196078431,
+            "max": 174.07843137254903
+          },
+          "premultiplied_RGB_magnitude_l2": {
+            "n": 10,
+            "min": 0.0,
+            "median": 0.8388559793519856,
+            "mean": 2.5654729020343723,
+            "p75": 5.583316720869087,
+            "p90": 7.038239399226943,
+            "p95": 7.777926979400474,
+            "max": 8.517614559574008
+          },
+          "premultiplied_distance_to_fixed_support_L2": {
+            "n": 10,
+            "min": 0.0,
+            "median": 0.8558368696222688,
+            "mean": 57.366201982292026,
+            "p75": 4.296165238381628,
+            "p90": 255.25470483606327,
+            "p95": 285.93340005177294,
+            "max": 316.6120952674827
+          },
+          "hypothetical_dark_target_visible_RGB_delta_Linf": {
+            "n": 10,
+            "min": 0.22352941176470154,
+            "median": 1.0666666666666629,
+            "mean": 1.453725490196075,
+            "p75": 2.192156862745101,
+            "p90": 2.6831372549019643,
+            "p95": 3.110196078431371,
+            "max": 3.537254901960779
+          },
+          "hypothetical_dark_target_visible_RGB_delta_L2": {
+            "n": 10,
+            "min": 0.3871642981624474,
+            "median": 1.847520861406796,
+            "mean": 2.5179264092775737,
+            "p75": 3.796927064435309,
+            "p90": 4.647330049171088,
+            "p95": 5.387017629344611,
+            "max": 6.126705209518137
+          },
+          "hypothetical_dark_target_visible_luminance_delta": {
+            "n": 10,
+            "min": 0.34473586163926484,
+            "median": 1.5597963707431148,
+            "mean": 2.185311157495208,
+            "p75": 3.236708244193359,
+            "p90": 4.1108618156033705,
+            "p95": 4.746338110186747,
+            "max": 5.381814404770125
+          }
+        }
+      },
+      "#14700 RGB REJECTED": {
+        "count": 70,
+        "metrics": {
+          "raw_distance_to_local_support_min_Linf": {
+            "n": 70,
+            "min": 24.0,
+            "median": 197.5,
+            "mean": 171.9857142857143,
+            "p75": 216.0,
+            "p90": 222.0,
+            "p95": 240.55,
+            "max": 241.0
+          },
+          "raw_distance_to_fixed_nearest_support_Linf": {
+            "n": 70,
+            "min": 107.0,
+            "median": 207.0,
+            "mean": 184.61428571428573,
+            "p75": 216.0,
+            "p90": 231.8,
+            "p95": 241.0,
+            "max": 241.0
+          },
+          "composited_distance_to_fixed_nearest_support_Linf": {
+            "n": 70,
+            "min": 5.709803921568607,
+            "median": 27.890196078431373,
+            "mean": 25.729299719887962,
+            "p75": 31.995098039215677,
+            "p90": 49.75725490196077,
+            "p95": 50.898039215686254,
+            "max": 53.023529411764684
+          },
+          "composited_distance_min_over_direct_support_Linf": {
+            "n": 70,
+            "min": 0.8862745098039397,
+            "median": 25.933333333333323,
+            "mean": 22.727170868347347,
+            "p75": 30.559803921568637,
+            "p90": 33.176470588235325,
+            "p95": 49.94254901960784,
+            "max": 51.823529411764696
+          },
+          "composited_distance_min_over_direct_support_L2": {
+            "n": 70,
+            "min": 0.9011846618170942,
+            "median": 36.93190589495175,
+            "mean": 32.31694623400923,
+            "p75": 43.85756554180078,
+            "p90": 48.54483890513931,
+            "p95": 76.59233620665593,
+            "max": 78.93692857472004
+          },
+          "composited_luminance_difference_to_fixed_support": {
+            "n": 70,
+            "min": 1.3574750742135677,
+            "median": 38.86760369394241,
+            "mean": 35.67955981308302,
+            "p75": 45.26789820888941,
+            "p90": 80.58332562377845,
+            "p95": 82.33541526946149,
+            "max": 84.38500219774943
+          },
+          "distance_reduction_fixed_support_Linf": {
+            "n": 70,
+            "min": 86.88235294117646,
+            "median": 174.94901960784313,
+            "mean": 158.88498599439777,
+            "p75": 185.55980392156863,
+            "p90": 190.11843137254905,
+            "p95": 190.96392156862746,
+            "max": 195.32549019607842
+          },
+          "premultiplied_RGB_magnitude_l2": {
+            "n": 70,
+            "min": 0.0,
+            "median": 1.6301654659471785,
+            "mean": 3.8338968883951767,
+            "p75": 8.548180162060518,
+            "p90": 8.561764874276745,
+            "p95": 10.310796572115905,
+            "max": 13.81565232390234
+          },
+          "premultiplied_distance_to_fixed_support_L2": {
+            "n": 70,
+            "min": 181.84495772640776,
+            "median": 265.07509329717345,
+            "mean": 278.62911894420046,
+            "p75": 308.65315199780093,
+            "p90": 355.6878407218473,
+            "p95": 358.49376303010894,
+            "max": 371.752442153146
+          },
+          "hypothetical_dark_target_visible_RGB_delta_Linf": {
+            "n": 70,
+            "min": 0.14117647058822058,
+            "median": 1.4431372549019557,
+            "mean": 2.107394957983192,
+            "p75": 3.537254901960779,
+            "p90": 3.623529411764707,
+            "p95": 4.572549019607862,
+            "max": 6.847058823529409
+          },
+          "hypothetical_dark_target_visible_RGB_delta_L2": {
+            "n": 70,
+            "min": 0.24452481989205133,
+            "median": 2.4995870477856648,
+            "mean": 3.650115138841367,
+            "p75": 6.126705209518137,
+            "p90": 6.27613704389664,
+            "p95": 7.919887222060043,
+            "max": 11.85945376476572
+          },
+          "hypothetical_dark_target_visible_luminance_delta": {
+            "n": 70,
+            "min": 0.22448093034691396,
+            "median": 2.171472268772547,
+            "mean": 3.203730805707088,
+            "p75": 5.33823376731857,
+            "p90": 5.615858700184253,
+            "p95": 7.079408707622259,
+            "max": 11.29067765841532
+          }
+        }
+      },
+      "#14700 OTHER AMBIGUOUS": {
+        "count": 0,
+        "metrics": {
+          "raw_distance_to_local_support_min_Linf": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "raw_distance_to_fixed_nearest_support_Linf": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "composited_distance_to_fixed_nearest_support_Linf": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "composited_distance_min_over_direct_support_Linf": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "composited_distance_min_over_direct_support_L2": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "composited_luminance_difference_to_fixed_support": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "distance_reduction_fixed_support_Linf": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "premultiplied_RGB_magnitude_l2": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "premultiplied_distance_to_fixed_support_L2": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "hypothetical_dark_target_visible_RGB_delta_Linf": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "hypothetical_dark_target_visible_RGB_delta_L2": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "hypothetical_dark_target_visible_luminance_delta": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          }
+        }
+      },
+      "#14700 PROTECTED / OTHER": {
+        "count": 0,
+        "metrics": {
+          "raw_distance_to_local_support_min_Linf": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "raw_distance_to_fixed_nearest_support_Linf": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "composited_distance_to_fixed_nearest_support_Linf": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "composited_distance_min_over_direct_support_Linf": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "composited_distance_min_over_direct_support_L2": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "composited_luminance_difference_to_fixed_support": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "distance_reduction_fixed_support_Linf": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "premultiplied_RGB_magnitude_l2": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "premultiplied_distance_to_fixed_support_L2": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "hypothetical_dark_target_visible_RGB_delta_Linf": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "hypothetical_dark_target_visible_RGB_delta_L2": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "hypothetical_dark_target_visible_luminance_delta": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          }
+        }
+      },
+      "#14607 PROTECTED NEGATIVE CONTROL": {
+        "count": 0,
+        "metrics": {
+          "raw_distance_to_local_support_min_Linf": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "raw_distance_to_fixed_nearest_support_Linf": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "composited_distance_to_fixed_nearest_support_Linf": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "composited_distance_min_over_direct_support_Linf": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "composited_distance_min_over_direct_support_L2": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "composited_luminance_difference_to_fixed_support": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "distance_reduction_fixed_support_Linf": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "premultiplied_RGB_magnitude_l2": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "premultiplied_distance_to_fixed_support_L2": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "hypothetical_dark_target_visible_RGB_delta_Linf": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "hypothetical_dark_target_visible_RGB_delta_L2": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "hypothetical_dark_target_visible_luminance_delta": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          }
+        }
+      }
+    },
+    "24-31": {
+      "#14700 SAFE REFERENCE": {
+        "count": 5,
+        "metrics": {
+          "raw_distance_to_local_support_min_Linf": {
+            "n": 5,
+            "min": 0.0,
+            "median": 9.0,
+            "mean": 5.6,
+            "p75": 9.0,
+            "p90": 9.6,
+            "p95": 9.8,
+            "max": 10.0
+          },
+          "raw_distance_to_fixed_nearest_support_Linf": {
+            "n": 5,
+            "min": 0.0,
+            "median": 9.0,
+            "mean": 75.0,
+            "p75": 133.0,
+            "p90": 193.0,
+            "p95": 212.99999999999997,
+            "max": 233.0
+          },
+          "composited_distance_to_fixed_nearest_support_Linf": {
+            "n": 5,
+            "min": 0.7372549019607675,
+            "median": 11.611764705882337,
+            "mean": 15.718431372549015,
+            "p75": 14.678431372549056,
+            "p90": 34.84784313725491,
+            "p95": 41.570980392156855,
+            "max": 48.29411764705881
+          },
+          "composited_distance_min_over_direct_support_Linf": {
+            "n": 5,
+            "min": 0.7372549019607675,
+            "median": 3.270588235294099,
+            "mean": 4.687058823529401,
+            "p75": 3.4156862745098238,
+            "p90": 9.483921568627444,
+            "p95": 11.506666666666646,
+            "max": 13.529411764705856
+          },
+          "composited_distance_min_over_direct_support_L2": {
+            "n": 5,
+            "min": 1.0401032096186051,
+            "median": 4.399889901107563,
+            "mean": 6.868265778992281,
+            "p75": 5.43864594044451,
+            "p90": 14.325638576188531,
+            "p95": 17.28796945476987,
+            "max": 20.250300333351213
+          },
+          "composited_luminance_difference_to_fixed_support": {
+            "n": 5,
+            "min": 0.6356692098091798,
+            "median": 11.970767130930483,
+            "mean": 23.008886735328904,
+            "p75": 22.800830663695166,
+            "p90": 54.556793688562124,
+            "p95": 65.14211469685108,
+            "max": 75.72743570514008
+          },
+          "distance_reduction_fixed_support_Linf": {
+            "n": 5,
+            "min": -5.678431372549056,
+            "median": -0.7372549019607675,
+            "mean": 59.28156862745097,
+            "p75": 121.38823529411766,
+            "p90": 159.3788235294118,
+            "p95": 172.04235294117646,
+            "max": 184.7058823529412
+          },
+          "premultiplied_RGB_magnitude_l2": {
+            "n": 5,
+            "min": 0.0,
+            "median": 0.0,
+            "mean": 4.792686469884705,
+            "p75": 10.270042435467227,
+            "p90": 12.324050922560671,
+            "p95": 13.008720418258486,
+            "max": 13.6933899139563
+          },
+          "premultiplied_distance_to_fixed_support_L2": {
+            "n": 5,
+            "min": 0.0,
+            "median": 11.981716174711764,
+            "mean": 117.15048273907237,
+            "p75": 249.33380801662094,
+            "p90": 294.39565690906585,
+            "p95": 309.4162732065475,
+            "max": 324.4368895040291
+          },
+          "hypothetical_dark_target_visible_RGB_delta_Linf": {
+            "n": 5,
+            "min": 1.5058823529411711,
+            "median": 1.9450980392156794,
+            "mean": 3.156078431372549,
+            "p75": 4.423529411764719,
+            "p90": 5.458823529411774,
+            "p95": 5.803921568627459,
+            "max": 6.149019607843144
+          },
+          "hypothetical_dark_target_visible_RGB_delta_L2": {
+            "n": 5,
+            "min": 2.6082647455154766,
+            "median": 3.3690086296241573,
+            "mean": 5.46648819580954,
+            "p75": 7.661777689951762,
+            "p90": 9.454959702493651,
+            "p95": 10.052687040007614,
+            "max": 10.650414377521578
+          },
+          "hypothetical_dark_target_visible_luminance_delta": {
+            "n": 5,
+            "min": 2.2978811223335924,
+            "median": 2.6089676180812376,
+            "mean": 4.724735567345496,
+            "p75": 6.722013320346804,
+            "p90": 8.460440990238407,
+            "p95": 9.039916880202275,
+            "max": 9.619392770166144
+          }
+        }
+      },
+      "#14700 RGB REJECTED": {
+        "count": 18,
+        "metrics": {
+          "raw_distance_to_local_support_min_Linf": {
+            "n": 18,
+            "min": 22.0,
+            "median": 157.5,
+            "mean": 136.66666666666666,
+            "p75": 165.75,
+            "p90": 194.3,
+            "p95": 196.79999999999998,
+            "max": 207.0
+          },
+          "raw_distance_to_fixed_nearest_support_Linf": {
+            "n": 18,
+            "min": 42.0,
+            "median": 166.0,
+            "mean": 166.66666666666666,
+            "p75": 183.25,
+            "p90": 217.6,
+            "p95": 221.7,
+            "max": 237.0
+          },
+          "composited_distance_to_fixed_nearest_support_Linf": {
+            "n": 18,
+            "min": 6.847058823529409,
+            "median": 38.69215686274508,
+            "mean": 35.5714596949891,
+            "p75": 42.623529411764686,
+            "p90": 49.274117647058816,
+            "p95": 62.47784313725489,
+            "max": 72.07450980392159
+          },
+          "composited_distance_min_over_direct_support_Linf": {
+            "n": 18,
+            "min": 2.658823529411734,
+            "median": 19.866666666666674,
+            "mean": 22.94422657952068,
+            "p75": 36.00686274509801,
+            "p90": 40.972549019607825,
+            "p95": 41.58235294117644,
+            "max": 43.48235294117643
+          },
+          "composited_distance_min_over_direct_support_L2": {
+            "n": 18,
+            "min": 4.444194533535031,
+            "median": 29.01034592005263,
+            "mean": 33.5580791778833,
+            "p75": 53.84123396690231,
+            "p90": 61.1027620831255,
+            "p95": 61.69983966798908,
+            "max": 64.76795691531008
+          },
+          "composited_luminance_difference_to_fixed_support": {
+            "n": 18,
+            "min": 3.381940804293862,
+            "median": 57.41290677676977,
+            "mean": 52.94624962969552,
+            "p75": 67.0759835470387,
+            "p90": 77.86409109016024,
+            "p95": 100.13603372965184,
+            "max": 106.87697865778586
+          },
+          "distance_reduction_fixed_support_Linf": {
+            "n": 18,
+            "min": 29.796078431372536,
+            "median": 124.31372549019609,
+            "mean": 131.09520697167758,
+            "p75": 131.69803921568632,
+            "p90": 179.76705882352942,
+            "p95": 183.16588235294117,
+            "max": 184.50588235294117
+          },
+          "premultiplied_RGB_magnitude_l2": {
+            "n": 18,
+            "min": 0.0,
+            "median": 10.270042435467227,
+            "mean": 8.404408624438789,
+            "p75": 12.008885599144216,
+            "p90": 12.103978584657801,
+            "p95": 12.103978584657801,
+            "max": 12.103978584657801
+          },
+          "premultiplied_distance_to_fixed_support_L2": {
+            "n": 18,
+            "min": 6.84669495697815,
+            "median": 337.34236610944424,
+            "mean": 304.8721758642545,
+            "p75": 354.07416659783416,
+            "p90": 355.6049739773283,
+            "p95": 362.726759356685,
+            "max": 397.183023421922
+          },
+          "hypothetical_dark_target_visible_RGB_delta_Linf": {
+            "n": 18,
+            "min": 1.5058823529411711,
+            "median": 4.417647058823533,
+            "mean": 3.932026143790856,
+            "p75": 5.29411764705884,
+            "p90": 5.301960784313735,
+            "p95": 5.301960784313735,
+            "max": 5.301960784313735
+          },
+          "hypothetical_dark_target_visible_RGB_delta_L2": {
+            "n": 18,
+            "min": 2.6082647455154766,
+            "median": 7.651589155789576,
+            "mean": 6.810469057734889,
+            "p75": 9.169680745952908,
+            "p90": 9.183265458169123,
+            "p95": 9.183265458169123,
+            "max": 9.183265458169123
+          },
+          "hypothetical_dark_target_visible_luminance_delta": {
+            "n": 18,
+            "min": 2.058375898786082,
+            "median": 6.798268768974111,
+            "mean": 5.982374195399687,
+            "p75": 8.139477896582946,
+            "p90": 8.19698153478877,
+            "p95": 8.204963226721327,
+            "max": 8.208112396685493
+          }
+        }
+      },
+      "#14700 OTHER AMBIGUOUS": {
+        "count": 0,
+        "metrics": {
+          "raw_distance_to_local_support_min_Linf": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "raw_distance_to_fixed_nearest_support_Linf": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "composited_distance_to_fixed_nearest_support_Linf": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "composited_distance_min_over_direct_support_Linf": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "composited_distance_min_over_direct_support_L2": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "composited_luminance_difference_to_fixed_support": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "distance_reduction_fixed_support_Linf": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "premultiplied_RGB_magnitude_l2": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "premultiplied_distance_to_fixed_support_L2": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "hypothetical_dark_target_visible_RGB_delta_Linf": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "hypothetical_dark_target_visible_RGB_delta_L2": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "hypothetical_dark_target_visible_luminance_delta": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          }
+        }
+      },
+      "#14700 PROTECTED / OTHER": {
+        "count": 0,
+        "metrics": {
+          "raw_distance_to_local_support_min_Linf": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "raw_distance_to_fixed_nearest_support_Linf": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "composited_distance_to_fixed_nearest_support_Linf": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "composited_distance_min_over_direct_support_Linf": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "composited_distance_min_over_direct_support_L2": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "composited_luminance_difference_to_fixed_support": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "distance_reduction_fixed_support_Linf": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "premultiplied_RGB_magnitude_l2": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "premultiplied_distance_to_fixed_support_L2": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "hypothetical_dark_target_visible_RGB_delta_Linf": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "hypothetical_dark_target_visible_RGB_delta_L2": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "hypothetical_dark_target_visible_luminance_delta": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          }
+        }
+      },
+      "#14607 PROTECTED NEGATIVE CONTROL": {
+        "count": 0,
+        "metrics": {
+          "raw_distance_to_local_support_min_Linf": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "raw_distance_to_fixed_nearest_support_Linf": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "composited_distance_to_fixed_nearest_support_Linf": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "composited_distance_min_over_direct_support_Linf": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "composited_distance_min_over_direct_support_L2": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "composited_luminance_difference_to_fixed_support": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "distance_reduction_fixed_support_Linf": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "premultiplied_RGB_magnitude_l2": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "premultiplied_distance_to_fixed_support_L2": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "hypothetical_dark_target_visible_RGB_delta_Linf": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "hypothetical_dark_target_visible_RGB_delta_L2": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          },
+          "hypothetical_dark_target_visible_luminance_delta": {
+            "n": 0,
+            "min": null,
+            "median": null,
+            "mean": null,
+            "p75": null,
+            "p90": null,
+            "p95": null,
+            "max": null
+          }
+        }
+      }
+    }
+  },
+  "aa_gradient_paths": {
+    "definition": "Existing unique-owner direct support only; if support is a previously accepted tonal attachment, add its adjacent frozen solid-core parent. No new pixel is used as support and no ownership is propagated.",
+    "summary": {
+      "n_paths": 299,
+      "monotone_composited_luma": 240,
+      "not_monotone": 59,
+      "missing": 0
+    }
+  },
+  "source_fit_vs_current_WHITE_render": {
+    "comparison": "Diagnostic composite with actual MASTER RGB compared to CURRENT WHITE RGB; no writes",
+    "pixel_count_max_channel_delta_gt_1": 58,
+    "max_channel_delta": 4,
+    "median_channel_delta": 0.0,
+    "p95_channel_delta": 0.0
+  },
+  "negative_control": {
+    "case": "#14607",
+    "all_six_remain_protected": true,
+    "status_unchanged": true,
+    "category_counts": {
+      "PROTECTED NEGATIVE CONTROL": 6
+    }
+  },
+  "visualizations": {
+    "A": "diagnostics/14700-raw-vs-composited.jpg",
+    "B": "diagnostics/14700-population-classes.jpg",
+    "C": "diagnostics/14700-aa-edge-representatives.jpg",
+    "representative_pixels": [
+      {
+        "glyph_id": 6,
+        "x": 72,
+        "y": 63,
+        "alpha": 15,
+        "crop": [
+          67,
+          58,
+          78,
+          69
+        ],
+        "category": "AMBIGUOUS"
+      },
+      {
+        "glyph_id": 7,
+        "x": 83,
+        "y": 73,
+        "alpha": 12,
+        "crop": [
+          78,
+          68,
+          89,
+          79
+        ],
+        "category": "AMBIGUOUS"
+      },
+      {
+        "glyph_id": 8,
+        "x": 104,
+        "y": 72,
+        "alpha": 14,
+        "crop": [
+          99,
+          67,
+          110,
+          78
+        ],
+        "category": "AMBIGUOUS"
+      },
+      {
+        "glyph_id": 9,
+        "x": 138,
+        "y": 58,
+        "alpha": 16,
+        "crop": [
+          133,
+          53,
+          144,
+          64
+        ],
+        "category": "AMBIGUOUS"
+      },
+      {
+        "glyph_id": 10,
+        "x": 158,
+        "y": 60,
+        "alpha": 14,
+        "crop": [
+          153,
+          55,
+          164,
+          66
+        ],
+        "category": "AMBIGUOUS"
+      }
+    ]
+  },
+  "outcome": "MIXED — composited and premultiplied evidence are diagnostic only; frozen classifier and protected status unchanged; no candidate; #14700 remains REVIEW",
+  "invariants": {
+    "classifier_changed": false,
+    "thresholds_changed": false,
+    "protected_classes_changed": false,
+    "ownership_mask_changed": false,
+    "candidate_generated": false,
+    "production_png_writes": 0,
+    "source_or_master_modified": false
+  }
+}
