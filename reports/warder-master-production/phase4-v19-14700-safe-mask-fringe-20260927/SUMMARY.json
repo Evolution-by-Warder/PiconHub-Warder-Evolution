@@ -1,0 +1,4274 @@
+{
+  "experiment": "#14700 perceptual fringe significance / safe-mask completeness; one diagnostic M0 candidate only",
+  "branch": "phase4-v10-component-mask-test",
+  "verified_start_head": "80188b834ab771b2a98c89f95a25fcebb5728fbc",
+  "frozen_evidence": {
+    "m0_confirmed_pixels": 1224,
+    "m1_additional_safe_one_hop_pixels": 40,
+    "m1_total_pixels": 1264,
+    "ambiguous_pixels": 259,
+    "protected_or_other_pixels": 1,
+    "full_perimeter_reference_pixels": 300,
+    "full_reference_is_diagnostic_hypothesis_only": true
+  },
+  "frozen_target_rgb": [
+    16,
+    16,
+    16
+  ],
+  "hashes": {
+    "source": "9fa6f6a84bb9e1a98802e638f94d0f693757697648d1167d1b9f3f31fb7724c3",
+    "current_white": "e2b1eaf5cdad1acf3b251c7d5173a7bf0066ca3ea1a6eff9a60bd8aa02c76916",
+    "white_master": "c6ae4a808a65ffc8e6458336fccbfe4216de1e832ec0a9abf800907f2f783589",
+    "M0_candidate_png": "581206f0088f40ace49afad5fdfd46377216fb06143588da926f0aa270311242",
+    "M1_diagnostic_png": "58d206a5784fc41378ff47968ad0fe1f80e8af981541c3a080c4608873788784",
+    "full_perimeter_reference_png": "44ae10da6f8f4efae98e652aadd46c69ed5da8d028ea601755c1d6d57e8dd929",
+    "M0_mask": "dc4423fdc1889d7cb5e5b13d97d487d719d30394cf81b2964748dce85da889c3",
+    "M1_mask": "04bd206c09aa27e97339a4b59f3b02deccbbbf99b5940b51837e3286ee633998",
+    "full_perimeter_mask": "0e32ca7e7c0109518ef0610b9d20400f7748a9e32cc50d30316a5eb14d2bb759"
+  },
+  "mask_intersections_with_protected": {
+    "chromatic_core": {
+      "M0": 0,
+      "M1": 0,
+      "full_reference": 0
+    },
+    "confirmed_true_AA": {
+      "M0": 0,
+      "M1": 0,
+      "full_reference": 0
+    },
+    "ambiguous_boundary": {
+      "M0": 0,
+      "M1": 0,
+      "full_reference": 0
+    }
+  },
+  "alpha_and_source_layer_invariants": {
+    "M0": {
+      "alpha_equal_source_derived": true,
+      "changed_source_layer_pixels": 1223,
+      "expected_edit_mask_pixels": 1224,
+      "all_changed_pixels_inside_mask": true,
+      "every_mask_pixel_has_target_RGB": true,
+      "mask_pixels_already_at_target": 1
+    },
+    "M1": {
+      "alpha_equal_source_derived": true,
+      "changed_source_layer_pixels": 1263,
+      "expected_edit_mask_pixels": 1264,
+      "all_changed_pixels_inside_mask": true,
+      "every_mask_pixel_has_target_RGB": true,
+      "mask_pixels_already_at_target": 1
+    },
+    "full_reference": {
+      "alpha_equal_source_derived": true,
+      "changed_source_layer_pixels": 1523,
+      "expected_edit_mask_pixels": 1524,
+      "all_changed_pixels_inside_mask": true,
+      "every_mask_pixel_has_target_RGB": true,
+      "mask_pixels_already_at_target": 1
+    }
+  },
+  "variant_invariants": {
+    "M0_alpha_equal_current": true,
+    "M1_alpha_equal_current": true,
+    "full_reference_alpha_equal_current": true,
+    "ambiguous_and_other_untouched_in_M0": true,
+    "ambiguous_and_other_untouched_in_M1": true,
+    "M0_vs_reference_diff_confined_to_perimeter": true,
+    "M1_vs_reference_diff_confined_to_remaining_perimeter": true,
+    "production_picon_writes": 0,
+    "master_or_source_modified": false
+  },
+  "variant_pngs": {
+    "M0": {
+      "file": "candidate/DIAGNOSTIC-SAFE-MASK-ONLY-14700-WHITE.png",
+      "role": "the sole diagnostic candidate; not approved",
+      "sha256": "581206f0088f40ace49afad5fdfd46377216fb06143588da926f0aa270311242"
+    },
+    "M1": {
+      "file": "simulations/DIAGNOSTIC-EXTENSION-M1-14700-WHITE.png",
+      "role": "diagnostic extension only, not the M0 evidence class",
+      "sha256": "58d206a5784fc41378ff47968ad0fe1f80e8af981541c3a080c4608873788784"
+    },
+    "full_perimeter_reference": {
+      "file": "simulations/REFERENCE-FULL-LOW-ALPHA-RECOLOR-NOT-CANDIDATE-14700-WHITE.png",
+      "role": "hypothetical math reference only; not a safe mask or candidate",
+      "sha256": "44ae10da6f8f4efae98e652aadd46c69ed5da8d028ea601755c1d6d57e8dd929"
+    }
+  },
+  "comparisons": {
+    "M0 vs full reference": {
+      "comparison_pixel_count": 300,
+      "changed_visible_pixels": 269,
+      "rgb_delta_Linf": {
+        "n": 300,
+        "min": 0.0,
+        "mean": 1.8566666666666667,
+        "median": 1.0,
+        "p90": 4.0,
+        "p95": 5.0,
+        "max": 8.0
+      },
+      "rgb_delta_L2": {
+        "n": 300,
+        "min": 0.0,
+        "mean": 2.812379931447926,
+        "median": 1.7320508075688772,
+        "p90": 6.4031242374328485,
+        "p95": 7.578544633739017,
+        "max": 12.727922061357855
+      },
+      "luminance_delta_0_255_linear_Rec709": {
+        "n": 300,
+        "min": 0.0,
+        "mean": 2.46930943319412,
+        "median": 1.6530883083299557,
+        "p90": 6.071971721337206,
+        "p95": 7.178047244722907,
+        "max": 12.008915026978798
+      },
+      "max_RGB_delta": 8.0,
+      "mean_RGB_delta_Linf": 1.8566666666666667,
+      "median_RGB_delta_Linf": 1.0,
+      "p90_RGB_delta_Linf": 4.0,
+      "p95_RGB_delta_Linf": 5.0,
+      "max_luminance_delta": 12.008915026978798,
+      "mean_luminance_delta": 2.46930943319412
+    },
+    "M1 vs full reference": {
+      "comparison_pixel_count": 260,
+      "changed_visible_pixels": 241,
+      "rgb_delta_Linf": {
+        "n": 260,
+        "min": 0.0,
+        "mean": 1.95,
+        "median": 1.0,
+        "p90": 4.0,
+        "p95": 5.0,
+        "max": 8.0
+      },
+      "rgb_delta_L2": {
+        "n": 260,
+        "min": 0.0,
+        "mean": 2.9539691005602995,
+        "median": 1.7320508075688772,
+        "p90": 6.4031242374328485,
+        "p95": 8.12403840463596,
+        "max": 12.727922061357855
+      },
+      "luminance_delta_0_255_linear_Rec709": {
+        "n": 260,
+        "min": 0.0,
+        "mean": 2.5976504284888495,
+        "median": 1.7035328306480295,
+        "p90": 6.1198532697720145,
+        "p95": 7.332070643541975,
+        "max": 12.008915026978798
+      },
+      "max_RGB_delta": 8.0,
+      "mean_RGB_delta_Linf": 1.95,
+      "median_RGB_delta_Linf": 1.0,
+      "p90_RGB_delta_Linf": 4.0,
+      "p95_RGB_delta_Linf": 5.0,
+      "max_luminance_delta": 12.008915026978798,
+      "mean_luminance_delta": 2.5976504284888495
+    },
+    "M0 vs CURRENT WHITE": {
+      "comparison_pixel_count": 1224,
+      "changed_visible_pixels": 1178,
+      "rgb_delta_Linf": {
+        "n": 1224,
+        "min": 0.0,
+        "mean": 119.20179738562092,
+        "median": 133.5,
+        "p90": 239.0,
+        "p95": 239.0,
+        "max": 239.0
+      },
+      "rgb_delta_L2": {
+        "n": 1224,
+        "min": 0.0,
+        "mean": 206.05110029378577,
+        "median": 230.364204404361,
+        "p90": 413.96014300896167,
+        "p95": 413.96014300896167,
+        "max": 413.96014300896167
+      },
+      "luminance_delta_0_255_linear_Rec709": {
+        "n": 1224,
+        "min": 0.0,
+        "mean": 124.86024271960709,
+        "median": 130.7161380144953,
+        "p90": 253.6787132409037,
+        "p95": 253.6787132409037,
+        "max": 253.6787132409037
+      },
+      "max_RGB_delta": 239.0,
+      "mean_RGB_delta_Linf": 119.20179738562092,
+      "median_RGB_delta_Linf": 133.5,
+      "p90_RGB_delta_Linf": 239.0,
+      "p95_RGB_delta_Linf": 239.0,
+      "max_luminance_delta": 253.6787132409037,
+      "mean_luminance_delta": 124.86024271960709
+    },
+    "M1 vs CURRENT WHITE": {
+      "comparison_pixel_count": 1264,
+      "changed_visible_pixels": 1206,
+      "rgb_delta_Linf": {
+        "n": 1264,
+        "min": 0.0,
+        "mean": 115.46914556962025,
+        "median": 126.0,
+        "p90": 239.0,
+        "p95": 239.0,
+        "max": 239.0
+      },
+      "rgb_delta_L2": {
+        "n": 1264,
+        "min": 0.0,
+        "mean": 199.59037086462223,
+        "median": 217.66258291217625,
+        "p90": 413.96014300896167,
+        "p95": 413.96014300896167,
+        "max": 413.96014300896167
+      },
+      "luminance_delta_0_255_linear_Rec709": {
+        "n": 1264,
+        "min": 0.0,
+        "mean": 120.9607126640429,
+        "median": 128.37619041164373,
+        "p90": 253.6787132409037,
+        "p95": 253.6787132409037,
+        "max": 253.6787132409037
+      },
+      "max_RGB_delta": 239.0,
+      "mean_RGB_delta_Linf": 115.46914556962025,
+      "median_RGB_delta_Linf": 126.0,
+      "p90_RGB_delta_Linf": 239.0,
+      "p95_RGB_delta_Linf": 239.0,
+      "max_luminance_delta": 253.6787132409037,
+      "mean_luminance_delta": 120.9607126640429
+    }
+  },
+  "by_alpha_and_glyph": {
+    "M0_vs_reference": {
+      "alpha_bands": {
+        "1-3": {
+          "pixels": 95,
+          "comparison_pixel_count": 95,
+          "changed_visible_pixels": 77,
+          "rgb_delta_Linf": {
+            "n": 95,
+            "min": 0.0,
+            "mean": 1.3368421052631578,
+            "median": 1.0,
+            "p90": 3.0,
+            "p95": 3.0,
+            "max": 3.0
+          },
+          "rgb_delta_L2": {
+            "n": 95,
+            "min": 0.0,
+            "mean": 2.00359117788485,
+            "median": 1.7320508075688772,
+            "p90": 4.69041575982343,
+            "p95": 5.196152422706632,
+            "max": 5.196152422706632
+          },
+          "luminance_delta_0_255_linear_Rec709": {
+            "n": 95,
+            "min": 0.0,
+            "mean": 1.8110062066967307,
+            "median": 1.713221280352542,
+            "p90": 4.924867220984697,
+            "p95": 5.0377446311688345,
+            "max": 5.064478575045484
+          },
+          "max_RGB_delta": 3.0,
+          "mean_RGB_delta_Linf": 1.3368421052631578,
+          "median_RGB_delta_Linf": 1.0,
+          "p90_RGB_delta_Linf": 3.0,
+          "p95_RGB_delta_Linf": 3.0,
+          "max_luminance_delta": 5.064478575045484,
+          "mean_luminance_delta": 1.8110062066967307
+        },
+        "4-7": {
+          "pixels": 46,
+          "comparison_pixel_count": 46,
+          "changed_visible_pixels": 35,
+          "rgb_delta_Linf": {
+            "n": 46,
+            "min": 0.0,
+            "mean": 1.434782608695652,
+            "median": 1.0,
+            "p90": 4.0,
+            "p95": 4.0,
+            "max": 4.0
+          },
+          "rgb_delta_L2": {
+            "n": 46,
+            "min": 0.0,
+            "mean": 2.3174936866534437,
+            "median": 1.4142135623730951,
+            "p90": 6.4031242374328485,
+            "p95": 6.928203230275509,
+            "max": 6.928203230275509
+          },
+          "luminance_delta_0_255_linear_Rec709": {
+            "n": 46,
+            "min": 0.0,
+            "mean": 2.219995956245657,
+            "median": 1.4716246201298304,
+            "p90": 6.434350524991572,
+            "p95": 6.655866454863755,
+            "max": 6.871569082331121
+          },
+          "max_RGB_delta": 4.0,
+          "mean_RGB_delta_Linf": 1.434782608695652,
+          "median_RGB_delta_Linf": 1.0,
+          "p90_RGB_delta_Linf": 4.0,
+          "p95_RGB_delta_Linf": 4.0,
+          "max_luminance_delta": 6.871569082331121,
+          "mean_luminance_delta": 2.219995956245657
+        },
+        "8-15": {
+          "pixels": 56,
+          "comparison_pixel_count": 56,
+          "changed_visible_pixels": 56,
+          "rgb_delta_Linf": {
+            "n": 56,
+            "min": 1.0,
+            "mean": 1.2142857142857142,
+            "median": 1.0,
+            "p90": 1.0,
+            "p95": 2.0,
+            "max": 8.0
+          },
+          "rgb_delta_L2": {
+            "n": 56,
+            "min": 1.0,
+            "mean": 1.7114364799829054,
+            "median": 1.4142135623730951,
+            "p90": 1.7320508075688772,
+            "p95": 2.449489742783178,
+            "max": 12.727922061357855
+          },
+          "luminance_delta_0_255_linear_Rec709": {
+            "n": 56,
+            "min": 0.12041572837171088,
+            "mean": 1.3690430915767333,
+            "median": 1.3110015473561987,
+            "p90": 1.618845900793346,
+            "p95": 1.9651490175393178,
+            "max": 12.008915026978798
+          },
+          "max_RGB_delta": 8.0,
+          "mean_RGB_delta_Linf": 1.2142857142857142,
+          "median_RGB_delta_Linf": 1.0,
+          "p90_RGB_delta_Linf": 1.0,
+          "p95_RGB_delta_Linf": 2.0,
+          "max_luminance_delta": 12.008915026978798,
+          "mean_luminance_delta": 1.3690430915767333
+        },
+        "16-23": {
+          "pixels": 80,
+          "comparison_pixel_count": 80,
+          "changed_visible_pixels": 78,
+          "rgb_delta_Linf": {
+            "n": 80,
+            "min": 0.0,
+            "mean": 2.4625,
+            "median": 2.0,
+            "p90": 4.0,
+            "p95": 5.0,
+            "max": 7.0
+          },
+          "rgb_delta_L2": {
+            "n": 80,
+            "min": 0.0,
+            "mean": 3.6827555190469545,
+            "median": 2.449489742783178,
+            "p90": 6.4031242374328485,
+            "p95": 7.578544633739009,
+            "max": 12.12435565298214
+          },
+          "luminance_delta_0_255_linear_Rec709": {
+            "n": 80,
+            "min": 0.0,
+            "mean": 3.1614981992980766,
+            "median": 2.6768626851160775,
+            "p90": 6.071971721337206,
+            "p95": 6.710105051275658,
+            "max": 11.541663754666274
+          },
+          "max_RGB_delta": 7.0,
+          "mean_RGB_delta_Linf": 2.4625,
+          "median_RGB_delta_Linf": 2.0,
+          "p90_RGB_delta_Linf": 4.0,
+          "p95_RGB_delta_Linf": 5.0,
+          "max_luminance_delta": 11.541663754666274,
+          "mean_luminance_delta": 3.1614981992980766
+        },
+        "24-31": {
+          "pixels": 23,
+          "comparison_pixel_count": 23,
+          "changed_visible_pixels": 23,
+          "rgb_delta_Linf": {
+            "n": 23,
+            "min": 2.0,
+            "mean": 4.304347826086956,
+            "median": 5.0,
+            "p90": 6.0,
+            "p95": 6.0,
+            "max": 7.0
+          },
+          "rgb_delta_L2": {
+            "n": 23,
+            "min": 2.449489742783178,
+            "mean": 6.7959662411504125,
+            "median": 7.54983443527075,
+            "p90": 9.848857801796104,
+            "p95": 9.848857801796104,
+            "max": 11.0
+          },
+          "luminance_delta_0_255_linear_Rec709": {
+            "n": 23,
+            "min": 1.7918667804216852,
+            "mean": 5.958311185330574,
+            "median": 6.444396573147358,
+            "p90": 8.957864319624477,
+            "p95": 8.96429102011722,
+            "max": 10.497788848758347
+          },
+          "max_RGB_delta": 7.0,
+          "mean_RGB_delta_Linf": 4.304347826086956,
+          "median_RGB_delta_Linf": 5.0,
+          "p90_RGB_delta_Linf": 6.0,
+          "p95_RGB_delta_Linf": 6.0,
+          "max_luminance_delta": 10.497788848758347,
+          "mean_luminance_delta": 5.958311185330574
+        }
+      },
+      "glyphs": {
+        "6": {
+          "pixels": 42,
+          "comparison_pixel_count": 42,
+          "changed_visible_pixels": 37,
+          "rgb_delta_Linf": {
+            "n": 42,
+            "min": 0.0,
+            "mean": 1.5476190476190477,
+            "median": 1.0,
+            "p90": 3.0,
+            "p95": 4.0,
+            "max": 7.0
+          },
+          "rgb_delta_L2": {
+            "n": 42,
+            "min": 0.0,
+            "mean": 2.3750279250628417,
+            "median": 1.7320508075688772,
+            "p90": 4.69041575982343,
+            "p95": 6.374515620303469,
+            "max": 12.12435565298214
+          },
+          "luminance_delta_0_255_linear_Rec709": {
+            "n": 42,
+            "min": 0.0,
+            "mean": 2.257295752642648,
+            "median": 1.6138704302622955,
+            "p90": 5.061805180657819,
+            "p95": 6.428038900501421,
+            "max": 11.541663754666274
+          },
+          "max_RGB_delta": 7.0,
+          "mean_RGB_delta_Linf": 1.5476190476190477,
+          "median_RGB_delta_Linf": 1.0,
+          "p90_RGB_delta_Linf": 3.0,
+          "p95_RGB_delta_Linf": 4.0,
+          "max_luminance_delta": 11.541663754666274,
+          "mean_luminance_delta": 2.257295752642648
+        },
+        "7": {
+          "pixels": 47,
+          "comparison_pixel_count": 47,
+          "changed_visible_pixels": 46,
+          "rgb_delta_Linf": {
+            "n": 47,
+            "min": 0.0,
+            "mean": 2.574468085106383,
+            "median": 2.0,
+            "p90": 6.0,
+            "p95": 6.0,
+            "max": 6.0
+          },
+          "rgb_delta_L2": {
+            "n": 47,
+            "min": 0.0,
+            "mean": 3.9970091463002273,
+            "median": 2.449489742783178,
+            "p90": 9.273618495495704,
+            "p95": 9.676286009905981,
+            "max": 9.848857801796104
+          },
+          "luminance_delta_0_255_linear_Rec709": {
+            "n": 47,
+            "min": 0.0,
+            "mean": 3.7086285672780677,
+            "median": 1.8049986185310445,
+            "p90": 8.005199751257393,
+            "p95": 8.669834372509799,
+            "max": 8.964757707459299
+          },
+          "max_RGB_delta": 6.0,
+          "mean_RGB_delta_Linf": 2.574468085106383,
+          "median_RGB_delta_Linf": 2.0,
+          "p90_RGB_delta_Linf": 6.0,
+          "p95_RGB_delta_Linf": 6.0,
+          "max_luminance_delta": 8.964757707459299,
+          "mean_luminance_delta": 3.7086285672780677
+        },
+        "8": {
+          "pixels": 51,
+          "comparison_pixel_count": 51,
+          "changed_visible_pixels": 48,
+          "rgb_delta_Linf": {
+            "n": 51,
+            "min": 0.0,
+            "mean": 1.8823529411764706,
+            "median": 2.0,
+            "p90": 3.0,
+            "p95": 3.5,
+            "max": 8.0
+          },
+          "rgb_delta_L2": {
+            "n": 51,
+            "min": 0.0,
+            "mean": 2.827894079850068,
+            "median": 2.449489742783178,
+            "p90": 5.196152422706632,
+            "p95": 6.06217782649107,
+            "max": 12.727922061357855
+          },
+          "luminance_delta_0_255_linear_Rec709": {
+            "n": 51,
+            "min": 0.0,
+            "mean": 2.634260883346002,
+            "median": 2.6020063025541305,
+            "p90": 5.0377446311688345,
+            "p95": 5.686759254309081,
+            "max": 12.008915026978798
+          },
+          "max_RGB_delta": 8.0,
+          "mean_RGB_delta_Linf": 1.8823529411764706,
+          "median_RGB_delta_Linf": 2.0,
+          "p90_RGB_delta_Linf": 3.0,
+          "p95_RGB_delta_Linf": 3.5,
+          "max_luminance_delta": 12.008915026978798,
+          "mean_luminance_delta": 2.634260883346002
+        },
+        "9": {
+          "pixels": 45,
+          "comparison_pixel_count": 45,
+          "changed_visible_pixels": 39,
+          "rgb_delta_Linf": {
+            "n": 45,
+            "min": 0.0,
+            "mean": 1.1555555555555554,
+            "median": 1.0,
+            "p90": 2.0,
+            "p95": 2.0,
+            "max": 4.0
+          },
+          "rgb_delta_L2": {
+            "n": 45,
+            "min": 0.0,
+            "mean": 1.6139944171475864,
+            "median": 1.4142135623730951,
+            "p90": 3.0,
+            "p95": 3.371281292110202,
+            "max": 6.928203230275509
+          },
+          "luminance_delta_0_255_linear_Rec709": {
+            "n": 45,
+            "min": 0.0,
+            "mean": 1.3281423515244524,
+            "median": 1.4124844305126203,
+            "p90": 2.945200513164625,
+            "p95": 3.2030169226195704,
+            "max": 6.688298034528003
+          },
+          "max_RGB_delta": 4.0,
+          "mean_RGB_delta_Linf": 1.1555555555555554,
+          "median_RGB_delta_Linf": 1.0,
+          "p90_RGB_delta_Linf": 2.0,
+          "p95_RGB_delta_Linf": 2.0,
+          "max_luminance_delta": 6.688298034528003,
+          "mean_luminance_delta": 1.3281423515244524
+        },
+        "10": {
+          "pixels": 114,
+          "comparison_pixel_count": 114,
+          "changed_visible_pixels": 99,
+          "rgb_delta_Linf": {
+            "n": 114,
+            "min": 0.0,
+            "mean": 1.956140350877193,
+            "median": 2.0,
+            "p90": 4.0,
+            "p95": 4.0,
+            "max": 7.0
+          },
+          "rgb_delta_L2": {
+            "n": 114,
+            "min": 0.0,
+            "mean": 2.9758862268564283,
+            "median": 2.449489742783178,
+            "p90": 6.4031242374328485,
+            "p95": 6.928203230275509,
+            "max": 11.575836902790225
+          },
+          "luminance_delta_0_255_linear_Rec709": {
+            "n": 114,
+            "min": 0.0,
+            "mean": 2.4347996036485013,
+            "median": 1.6304249370259143,
+            "p90": 5.908308802110015,
+            "p95": 6.157694373733892,
+            "max": 10.403812358684775
+          },
+          "max_RGB_delta": 7.0,
+          "mean_RGB_delta_Linf": 1.956140350877193,
+          "median_RGB_delta_Linf": 2.0,
+          "p90_RGB_delta_Linf": 4.0,
+          "p95_RGB_delta_Linf": 4.0,
+          "max_luminance_delta": 10.403812358684775,
+          "mean_luminance_delta": 2.4347996036485013
+        },
+        "MULTI": {
+          "pixels": 1,
+          "comparison_pixel_count": 1,
+          "changed_visible_pixels": 0,
+          "rgb_delta_Linf": {
+            "n": 1,
+            "min": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "p90": 0.0,
+            "p95": 0.0,
+            "max": 0.0
+          },
+          "rgb_delta_L2": {
+            "n": 1,
+            "min": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "p90": 0.0,
+            "p95": 0.0,
+            "max": 0.0
+          },
+          "luminance_delta_0_255_linear_Rec709": {
+            "n": 1,
+            "min": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "p90": 0.0,
+            "p95": 0.0,
+            "max": 0.0
+          },
+          "max_RGB_delta": 0.0,
+          "mean_RGB_delta_Linf": 0.0,
+          "median_RGB_delta_Linf": 0.0,
+          "p90_RGB_delta_Linf": 0.0,
+          "p95_RGB_delta_Linf": 0.0,
+          "max_luminance_delta": 0.0,
+          "mean_luminance_delta": 0.0
+        }
+      }
+    },
+    "M1_vs_reference": {
+      "alpha_bands": {
+        "1-3": {
+          "pixels": 84,
+          "comparison_pixel_count": 84,
+          "changed_visible_pixels": 74,
+          "rgb_delta_Linf": {
+            "n": 84,
+            "min": 0.0,
+            "mean": 1.4761904761904763,
+            "median": 1.0,
+            "p90": 3.0,
+            "p95": 3.0,
+            "max": 3.0
+          },
+          "rgb_delta_L2": {
+            "n": 84,
+            "min": 0.0,
+            "mean": 2.2203896996942207,
+            "median": 1.7320508075688772,
+            "p90": 4.69041575982343,
+            "p95": 5.196152422706632,
+            "max": 5.196152422706632
+          },
+          "luminance_delta_0_255_linear_Rec709": {
+            "n": 84,
+            "min": 0.0,
+            "mean": 2.0096839600651717,
+            "median": 1.7315871397578348,
+            "p90": 4.95776999723102,
+            "p95": 5.0377446311688345,
+            "max": 5.064478575045484
+          },
+          "max_RGB_delta": 3.0,
+          "mean_RGB_delta_Linf": 1.4761904761904763,
+          "median_RGB_delta_Linf": 1.0,
+          "p90_RGB_delta_Linf": 3.0,
+          "p95_RGB_delta_Linf": 3.0,
+          "max_luminance_delta": 5.064478575045484,
+          "mean_luminance_delta": 2.0096839600651717
+        },
+        "4-7": {
+          "pixels": 37,
+          "comparison_pixel_count": 37,
+          "changed_visible_pixels": 29,
+          "rgb_delta_Linf": {
+            "n": 37,
+            "min": 0.0,
+            "mean": 1.5945945945945945,
+            "median": 1.0,
+            "p90": 4.0,
+            "p95": 4.0,
+            "max": 4.0
+          },
+          "rgb_delta_L2": {
+            "n": 37,
+            "min": 0.0,
+            "mean": 2.5990788236819595,
+            "median": 1.4142135623730951,
+            "p90": 6.613155834569912,
+            "p95": 6.928203230275509,
+            "max": 6.928203230275509
+          },
+          "luminance_delta_0_255_linear_Rec709": {
+            "n": 37,
+            "min": 0.0,
+            "mean": 2.4957650564332323,
+            "median": 1.539130309573295,
+            "p90": 6.484039001343348,
+            "p95": 6.714387943690599,
+            "max": 6.871569082331121
+          },
+          "max_RGB_delta": 4.0,
+          "mean_RGB_delta_Linf": 1.5945945945945945,
+          "median_RGB_delta_Linf": 1.0,
+          "p90_RGB_delta_Linf": 4.0,
+          "p95_RGB_delta_Linf": 4.0,
+          "max_luminance_delta": 6.871569082331121,
+          "mean_luminance_delta": 2.4957650564332323
+        },
+        "8-15": {
+          "pixels": 51,
+          "comparison_pixel_count": 51,
+          "changed_visible_pixels": 51,
+          "rgb_delta_Linf": {
+            "n": 51,
+            "min": 1.0,
+            "mean": 1.2352941176470589,
+            "median": 1.0,
+            "p90": 1.0,
+            "p95": 2.0,
+            "max": 8.0
+          },
+          "rgb_delta_L2": {
+            "n": 51,
+            "min": 1.0,
+            "mean": 1.7443554451280756,
+            "median": 1.4142135623730951,
+            "p90": 1.7320508075688772,
+            "p95": 2.449489742783178,
+            "max": 12.727922061357855
+          },
+          "luminance_delta_0_255_linear_Rec709": {
+            "n": 51,
+            "min": 0.1211986453993461,
+            "mean": 1.4067445736572164,
+            "median": 1.3110015473561987,
+            "p90": 1.615785031994875,
+            "p95": 1.970536270119652,
+            "max": 12.008915026978798
+          },
+          "max_RGB_delta": 8.0,
+          "mean_RGB_delta_Linf": 1.2352941176470589,
+          "median_RGB_delta_Linf": 1.0,
+          "p90_RGB_delta_Linf": 1.0,
+          "p95_RGB_delta_Linf": 2.0,
+          "max_luminance_delta": 12.008915026978798,
+          "mean_luminance_delta": 1.4067445736572164
+        },
+        "16-23": {
+          "pixels": 70,
+          "comparison_pixel_count": 70,
+          "changed_visible_pixels": 69,
+          "rgb_delta_Linf": {
+            "n": 70,
+            "min": 0.0,
+            "mean": 2.5714285714285716,
+            "median": 2.0,
+            "p90": 4.0,
+            "p95": 5.0,
+            "max": 7.0
+          },
+          "rgb_delta_L2": {
+            "n": 70,
+            "min": 0.0,
+            "mean": 3.8432300418260525,
+            "median": 2.724744871391589,
+            "p90": 6.455632136717115,
+            "p95": 7.865646618421614,
+            "max": 12.12435565298214
+          },
+          "luminance_delta_0_255_linear_Rec709": {
+            "n": 70,
+            "min": 0.0,
+            "mean": 3.308194698790131,
+            "median": 2.678873797710466,
+            "p90": 6.075246232022212,
+            "p95": 7.132027557864358,
+            "max": 11.541663754666274
+          },
+          "max_RGB_delta": 7.0,
+          "mean_RGB_delta_Linf": 2.5714285714285716,
+          "median_RGB_delta_Linf": 2.0,
+          "p90_RGB_delta_Linf": 4.0,
+          "p95_RGB_delta_Linf": 5.0,
+          "max_luminance_delta": 11.541663754666274,
+          "mean_luminance_delta": 3.308194698790131
+        },
+        "24-31": {
+          "pixels": 18,
+          "comparison_pixel_count": 18,
+          "changed_visible_pixels": 18,
+          "rgb_delta_Linf": {
+            "n": 18,
+            "min": 2.0,
+            "mean": 4.5,
+            "median": 5.0,
+            "p90": 6.0,
+            "p95": 6.0,
+            "max": 6.0
+          },
+          "rgb_delta_L2": {
+            "n": 18,
+            "min": 2.449489742783178,
+            "mean": 7.075838014765301,
+            "median": 7.836936419953355,
+            "p90": 9.848857801796104,
+            "p95": 9.848857801796104,
+            "max": 9.848857801796104
+          },
+          "luminance_delta_0_255_linear_Rec709": {
+            "n": 18,
+            "min": 1.7918667804216852,
+            "mean": 6.161930527876099,
+            "median": 6.886744740745556,
+            "p90": 8.952298033589393,
+            "p95": 8.960790865051628,
+            "max": 8.964757707459299
+          },
+          "max_RGB_delta": 6.0,
+          "mean_RGB_delta_Linf": 4.5,
+          "median_RGB_delta_Linf": 5.0,
+          "p90_RGB_delta_Linf": 6.0,
+          "p95_RGB_delta_Linf": 6.0,
+          "max_luminance_delta": 8.964757707459299,
+          "mean_luminance_delta": 6.161930527876099
+        }
+      },
+      "glyphs": {
+        "6": {
+          "pixels": 31,
+          "comparison_pixel_count": 31,
+          "changed_visible_pixels": 29,
+          "rgb_delta_Linf": {
+            "n": 31,
+            "min": 0.0,
+            "mean": 1.6129032258064515,
+            "median": 1.0,
+            "p90": 3.0,
+            "p95": 4.0,
+            "max": 7.0
+          },
+          "rgb_delta_L2": {
+            "n": 31,
+            "min": 0.0,
+            "mean": 2.483694919277989,
+            "median": 1.7320508075688772,
+            "p90": 4.69041575982343,
+            "p95": 6.117038066139075,
+            "max": 12.12435565298214
+          },
+          "luminance_delta_0_255_linear_Rec709": {
+            "n": 31,
+            "min": 0.0,
+            "mean": 2.394715756825354,
+            "median": 1.621906769591817,
+            "p90": 5.064478575045484,
+            "p95": 6.371234280090064,
+            "max": 11.541663754666274
+          },
+          "max_RGB_delta": 7.0,
+          "mean_RGB_delta_Linf": 1.6129032258064515,
+          "median_RGB_delta_Linf": 1.0,
+          "p90_RGB_delta_Linf": 3.0,
+          "p95_RGB_delta_Linf": 4.0,
+          "max_luminance_delta": 11.541663754666274,
+          "mean_luminance_delta": 2.394715756825354
+        },
+        "7": {
+          "pixels": 47,
+          "comparison_pixel_count": 47,
+          "changed_visible_pixels": 46,
+          "rgb_delta_Linf": {
+            "n": 47,
+            "min": 0.0,
+            "mean": 2.574468085106383,
+            "median": 2.0,
+            "p90": 6.0,
+            "p95": 6.0,
+            "max": 6.0
+          },
+          "rgb_delta_L2": {
+            "n": 47,
+            "min": 0.0,
+            "mean": 3.9970091463002273,
+            "median": 2.449489742783178,
+            "p90": 9.273618495495704,
+            "p95": 9.676286009905981,
+            "max": 9.848857801796104
+          },
+          "luminance_delta_0_255_linear_Rec709": {
+            "n": 47,
+            "min": 0.0,
+            "mean": 3.7086285672780677,
+            "median": 1.8049986185310445,
+            "p90": 8.005199751257393,
+            "p95": 8.669834372509799,
+            "max": 8.964757707459299
+          },
+          "max_RGB_delta": 6.0,
+          "mean_RGB_delta_Linf": 2.574468085106383,
+          "median_RGB_delta_Linf": 2.0,
+          "p90_RGB_delta_Linf": 6.0,
+          "p95_RGB_delta_Linf": 6.0,
+          "max_luminance_delta": 8.964757707459299,
+          "mean_luminance_delta": 3.7086285672780677
+        },
+        "8": {
+          "pixels": 48,
+          "comparison_pixel_count": 48,
+          "changed_visible_pixels": 45,
+          "rgb_delta_Linf": {
+            "n": 48,
+            "min": 0.0,
+            "mean": 1.8958333333333333,
+            "median": 2.0,
+            "p90": 3.0,
+            "p95": 3.6499999999999986,
+            "max": 8.0
+          },
+          "rgb_delta_L2": {
+            "n": 48,
+            "min": 0.0,
+            "mean": 2.860604306550677,
+            "median": 2.449489742783178,
+            "p90": 5.196152422706632,
+            "p95": 6.3219854476264,
+            "max": 12.727922061357855
+          },
+          "luminance_delta_0_255_linear_Rec709": {
+            "n": 48,
+            "min": 0.0,
+            "mean": 2.6718454352312064,
+            "median": 2.5940771147613475,
+            "p90": 5.0487126189107725,
+            "p95": 5.870495653509215,
+            "max": 12.008915026978798
+          },
+          "max_RGB_delta": 8.0,
+          "mean_RGB_delta_Linf": 1.8958333333333333,
+          "median_RGB_delta_Linf": 2.0,
+          "p90_RGB_delta_Linf": 3.0,
+          "p95_RGB_delta_Linf": 3.6499999999999986,
+          "max_luminance_delta": 12.008915026978798,
+          "mean_luminance_delta": 2.6718454352312064
+        },
+        "9": {
+          "pixels": 39,
+          "comparison_pixel_count": 39,
+          "changed_visible_pixels": 35,
+          "rgb_delta_Linf": {
+            "n": 39,
+            "min": 0.0,
+            "mean": 1.1538461538461537,
+            "median": 1.0,
+            "p90": 2.0,
+            "p95": 2.0,
+            "max": 4.0
+          },
+          "rgb_delta_L2": {
+            "n": 39,
+            "min": 0.0,
+            "mean": 1.5870840297677946,
+            "median": 1.4142135623730951,
+            "p90": 2.559591794226544,
+            "p95": 3.0,
+            "max": 6.928203230275509
+          },
+          "luminance_delta_0_255_linear_Rec709": {
+            "n": 39,
+            "min": 0.0,
+            "mean": 1.28993976862679,
+            "median": 1.3110015473561987,
+            "p90": 2.7091964458427276,
+            "p95": 3.066280739959146,
+            "max": 6.688298034528003
+          },
+          "max_RGB_delta": 4.0,
+          "mean_RGB_delta_Linf": 1.1538461538461537,
+          "median_RGB_delta_Linf": 1.0,
+          "p90_RGB_delta_Linf": 2.0,
+          "p95_RGB_delta_Linf": 2.0,
+          "max_luminance_delta": 6.688298034528003,
+          "mean_luminance_delta": 1.28993976862679
+        },
+        "10": {
+          "pixels": 94,
+          "comparison_pixel_count": 94,
+          "changed_visible_pixels": 86,
+          "rgb_delta_Linf": {
+            "n": 94,
+            "min": 0.0,
+            "mean": 2.127659574468085,
+            "median": 2.0,
+            "p90": 4.0,
+            "p95": 4.0,
+            "max": 7.0
+          },
+          "rgb_delta_L2": {
+            "n": 94,
+            "min": 0.0,
+            "mean": 3.233752232942269,
+            "median": 2.449489742783178,
+            "p90": 6.4031242374328485,
+            "p95": 6.928203230275509,
+            "max": 11.575836902790225
+          },
+          "luminance_delta_0_255_linear_Rec709": {
+            "n": 94,
+            "min": 0.0,
+            "mean": 2.641395195913863,
+            "median": 1.7148843887070626,
+            "p90": 6.050583099145979,
+            "p95": 6.157694373733892,
+            "max": 10.403812358684775
+          },
+          "max_RGB_delta": 7.0,
+          "mean_RGB_delta_Linf": 2.127659574468085,
+          "median_RGB_delta_Linf": 2.0,
+          "p90_RGB_delta_Linf": 4.0,
+          "p95_RGB_delta_Linf": 4.0,
+          "max_luminance_delta": 10.403812358684775,
+          "mean_luminance_delta": 2.641395195913863
+        },
+        "MULTI": {
+          "pixels": 1,
+          "comparison_pixel_count": 1,
+          "changed_visible_pixels": 0,
+          "rgb_delta_Linf": {
+            "n": 1,
+            "min": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "p90": 0.0,
+            "p95": 0.0,
+            "max": 0.0
+          },
+          "rgb_delta_L2": {
+            "n": 1,
+            "min": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "p90": 0.0,
+            "p95": 0.0,
+            "max": 0.0
+          },
+          "luminance_delta_0_255_linear_Rec709": {
+            "n": 1,
+            "min": 0.0,
+            "mean": 0.0,
+            "median": 0.0,
+            "p90": 0.0,
+            "p95": 0.0,
+            "max": 0.0
+          },
+          "max_RGB_delta": 0.0,
+          "mean_RGB_delta_Linf": 0.0,
+          "median_RGB_delta_Linf": 0.0,
+          "p90_RGB_delta_Linf": 0.0,
+          "p95_RGB_delta_Linf": 0.0,
+          "max_luminance_delta": 0.0,
+          "mean_luminance_delta": 0.0
+        }
+      }
+    }
+  },
+  "fringe_analysis": {
+    "M0": {
+      "untouched_perimeter_pixels": 300,
+      "structural_cluster_summary": {
+        "fringe_indicator_pixels": 48,
+        "8connected_component_count": 36,
+        "largest_component_pixels": 3,
+        "largest_8conn_segment_pixels": 3,
+        "singleton_components": 25,
+        "components": [
+          {
+            "id": 1,
+            "pixels": 2,
+            "bbox": [
+              85,
+              56,
+              87,
+              57
+            ],
+            "8conn_diameter_pixels": 2,
+            "owner_pixel_counts": {
+              "7": 2
+            },
+            "longest_8conn_segment_pixels": 2
+          },
+          {
+            "id": 2,
+            "pixels": 3,
+            "bbox": [
+              95,
+              56,
+              98,
+              58
+            ],
+            "8conn_diameter_pixels": 3,
+            "owner_pixel_counts": {
+              "7": 3
+            },
+            "longest_8conn_segment_pixels": 3
+          },
+          {
+            "id": 3,
+            "pixels": 2,
+            "bbox": [
+              117,
+              56,
+              119,
+              57
+            ],
+            "8conn_diameter_pixels": 2,
+            "owner_pixel_counts": {
+              "8": 2
+            },
+            "longest_8conn_segment_pixels": 2
+          },
+          {
+            "id": 4,
+            "pixels": 1,
+            "bbox": [
+              103,
+              57,
+              104,
+              58
+            ],
+            "8conn_diameter_pixels": 1,
+            "owner_pixel_counts": {
+              "8": 1
+            },
+            "longest_8conn_segment_pixels": 1
+          },
+          {
+            "id": 5,
+            "pixels": 1,
+            "bbox": [
+              111,
+              57,
+              112,
+              58
+            ],
+            "8conn_diameter_pixels": 1,
+            "owner_pixel_counts": {
+              "8": 1
+            },
+            "longest_8conn_segment_pixels": 1
+          },
+          {
+            "id": 6,
+            "pixels": 1,
+            "bbox": [
+              64,
+              58,
+              65,
+              59
+            ],
+            "8conn_diameter_pixels": 1,
+            "owner_pixel_counts": {
+              "6": 1
+            },
+            "longest_8conn_segment_pixels": 1
+          },
+          {
+            "id": 7,
+            "pixels": 2,
+            "bbox": [
+              76,
+              58,
+              78,
+              59
+            ],
+            "8conn_diameter_pixels": 2,
+            "owner_pixel_counts": {
+              "6": 2
+            },
+            "longest_8conn_segment_pixels": 2
+          },
+          {
+            "id": 8,
+            "pixels": 1,
+            "bbox": [
+              82,
+              58,
+              83,
+              59
+            ],
+            "8conn_diameter_pixels": 1,
+            "owner_pixel_counts": {
+              "7": 1
+            },
+            "longest_8conn_segment_pixels": 1
+          },
+          {
+            "id": 9,
+            "pixels": 2,
+            "bbox": [
+              69,
+              59,
+              70,
+              61
+            ],
+            "8conn_diameter_pixels": 2,
+            "owner_pixel_counts": {
+              "6": 2
+            },
+            "longest_8conn_segment_pixels": 2
+          },
+          {
+            "id": 10,
+            "pixels": 2,
+            "bbox": [
+              127,
+              61,
+              128,
+              63
+            ],
+            "8conn_diameter_pixels": 2,
+            "owner_pixel_counts": {
+              "9": 2
+            },
+            "longest_8conn_segment_pixels": 2
+          },
+          {
+            "id": 11,
+            "pixels": 1,
+            "bbox": [
+              109,
+              62,
+              110,
+              63
+            ],
+            "8conn_diameter_pixels": 1,
+            "owner_pixel_counts": {
+              "8": 1
+            },
+            "longest_8conn_segment_pixels": 1
+          },
+          {
+            "id": 12,
+            "pixels": 1,
+            "bbox": [
+              164,
+              62,
+              165,
+              63
+            ],
+            "8conn_diameter_pixels": 1,
+            "owner_pixel_counts": {
+              "10": 1
+            },
+            "longest_8conn_segment_pixels": 1
+          },
+          {
+            "id": 13,
+            "pixels": 2,
+            "bbox": [
+              200,
+              62,
+              201,
+              64
+            ],
+            "8conn_diameter_pixels": 2,
+            "owner_pixel_counts": {
+              "10": 2
+            },
+            "longest_8conn_segment_pixels": 2
+          },
+          {
+            "id": 14,
+            "pixels": 2,
+            "bbox": [
+              204,
+              62,
+              206,
+              64
+            ],
+            "8conn_diameter_pixels": 2,
+            "owner_pixel_counts": {
+              "10": 2
+            },
+            "longest_8conn_segment_pixels": 2
+          },
+          {
+            "id": 15,
+            "pixels": 1,
+            "bbox": [
+              129,
+              63,
+              130,
+              64
+            ],
+            "8conn_diameter_pixels": 1,
+            "owner_pixel_counts": {
+              "9": 1
+            },
+            "longest_8conn_segment_pixels": 1
+          },
+          {
+            "id": 16,
+            "pixels": 1,
+            "bbox": [
+              149,
+              63,
+              150,
+              64
+            ],
+            "8conn_diameter_pixels": 1,
+            "owner_pixel_counts": {
+              "10": 1
+            },
+            "longest_8conn_segment_pixels": 1
+          },
+          {
+            "id": 17,
+            "pixels": 1,
+            "bbox": [
+              104,
+              64,
+              105,
+              65
+            ],
+            "8conn_diameter_pixels": 1,
+            "owner_pixel_counts": {
+              "8": 1
+            },
+            "longest_8conn_segment_pixels": 1
+          },
+          {
+            "id": 18,
+            "pixels": 1,
+            "bbox": [
+              67,
+              67,
+              68,
+              68
+            ],
+            "8conn_diameter_pixels": 1,
+            "owner_pixel_counts": {
+              "6": 1
+            },
+            "longest_8conn_segment_pixels": 1
+          },
+          {
+            "id": 19,
+            "pixels": 1,
+            "bbox": [
+              73,
+              68,
+              74,
+              69
+            ],
+            "8conn_diameter_pixels": 1,
+            "owner_pixel_counts": {
+              "6": 1
+            },
+            "longest_8conn_segment_pixels": 1
+          },
+          {
+            "id": 20,
+            "pixels": 1,
+            "bbox": [
+              187,
+              68,
+              188,
+              69
+            ],
+            "8conn_diameter_pixels": 1,
+            "owner_pixel_counts": {
+              "10": 1
+            },
+            "longest_8conn_segment_pixels": 1
+          },
+          {
+            "id": 21,
+            "pixels": 1,
+            "bbox": [
+              174,
+              69,
+              175,
+              70
+            ],
+            "8conn_diameter_pixels": 1,
+            "owner_pixel_counts": {
+              "10": 1
+            },
+            "longest_8conn_segment_pixels": 1
+          },
+          {
+            "id": 22,
+            "pixels": 1,
+            "bbox": [
+              193,
+              69,
+              194,
+              70
+            ],
+            "8conn_diameter_pixels": 1,
+            "owner_pixel_counts": {
+              "10": 1
+            },
+            "longest_8conn_segment_pixels": 1
+          },
+          {
+            "id": 23,
+            "pixels": 1,
+            "bbox": [
+              198,
+              70,
+              199,
+              71
+            ],
+            "8conn_diameter_pixels": 1,
+            "owner_pixel_counts": {
+              "10": 1
+            },
+            "longest_8conn_segment_pixels": 1
+          },
+          {
+            "id": 24,
+            "pixels": 1,
+            "bbox": [
+              206,
+              70,
+              207,
+              71
+            ],
+            "8conn_diameter_pixels": 1,
+            "owner_pixel_counts": {
+              "10": 1
+            },
+            "longest_8conn_segment_pixels": 1
+          },
+          {
+            "id": 25,
+            "pixels": 1,
+            "bbox": [
+              138,
+              71,
+              139,
+              72
+            ],
+            "8conn_diameter_pixels": 1,
+            "owner_pixel_counts": {
+              "9": 1
+            },
+            "longest_8conn_segment_pixels": 1
+          },
+          {
+            "id": 26,
+            "pixels": 1,
+            "bbox": [
+              80,
+              72,
+              81,
+              73
+            ],
+            "8conn_diameter_pixels": 1,
+            "owner_pixel_counts": {
+              "6": 1
+            },
+            "longest_8conn_segment_pixels": 1
+          },
+          {
+            "id": 27,
+            "pixels": 1,
+            "bbox": [
+              135,
+              73,
+              136,
+              74
+            ],
+            "8conn_diameter_pixels": 1,
+            "owner_pixel_counts": {
+              "9": 1
+            },
+            "longest_8conn_segment_pixels": 1
+          },
+          {
+            "id": 28,
+            "pixels": 1,
+            "bbox": [
+              70,
+              74,
+              71,
+              75
+            ],
+            "8conn_diameter_pixels": 1,
+            "owner_pixel_counts": {
+              "6": 1
+            },
+            "longest_8conn_segment_pixels": 1
+          },
+          {
+            "id": 29,
+            "pixels": 2,
+            "bbox": [
+              75,
+              74,
+              77,
+              75
+            ],
+            "8conn_diameter_pixels": 2,
+            "owner_pixel_counts": {
+              "6": 2
+            },
+            "longest_8conn_segment_pixels": 2
+          },
+          {
+            "id": 30,
+            "pixels": 1,
+            "bbox": [
+              103,
+              74,
+              104,
+              75
+            ],
+            "8conn_diameter_pixels": 1,
+            "owner_pixel_counts": {
+              "8": 1
+            },
+            "longest_8conn_segment_pixels": 1
+          },
+          {
+            "id": 31,
+            "pixels": 1,
+            "bbox": [
+              119,
+              74,
+              120,
+              75
+            ],
+            "8conn_diameter_pixels": 1,
+            "owner_pixel_counts": {
+              "8": 1
+            },
+            "longest_8conn_segment_pixels": 1
+          },
+          {
+            "id": 32,
+            "pixels": 1,
+            "bbox": [
+              166,
+              74,
+              167,
+              75
+            ],
+            "8conn_diameter_pixels": 1,
+            "owner_pixel_counts": {
+              "10": 1
+            },
+            "longest_8conn_segment_pixels": 1
+          },
+          {
+            "id": 33,
+            "pixels": 1,
+            "bbox": [
+              179,
+              74,
+              180,
+              75
+            ],
+            "8conn_diameter_pixels": 1,
+            "owner_pixel_counts": {
+              "10": 1
+            },
+            "longest_8conn_segment_pixels": 1
+          },
+          {
+            "id": 34,
+            "pixels": 1,
+            "bbox": [
+              190,
+              74,
+              191,
+              75
+            ],
+            "8conn_diameter_pixels": 1,
+            "owner_pixel_counts": {
+              "10": 1
+            },
+            "longest_8conn_segment_pixels": 1
+          },
+          {
+            "id": 35,
+            "pixels": 2,
+            "bbox": [
+              194,
+              74,
+              196,
+              75
+            ],
+            "8conn_diameter_pixels": 2,
+            "owner_pixel_counts": {
+              "10": 2
+            },
+            "longest_8conn_segment_pixels": 2
+          },
+          {
+            "id": 36,
+            "pixels": 2,
+            "bbox": [
+              207,
+              74,
+              209,
+              75
+            ],
+            "8conn_diameter_pixels": 2,
+            "owner_pixel_counts": {
+              "10": 2
+            },
+            "longest_8conn_segment_pixels": 2
+          }
+        ],
+        "by_glyph": {
+          "7": 6,
+          "8": 8,
+          "6": 11,
+          "9": 5,
+          "10": 18
+        }
+      },
+      "changed_pixel_cluster_summary_vs_full_reference": {
+        "changed_visible_pixels": 269,
+        "8connected_component_count": 64,
+        "largest_component_pixels": 27,
+        "longest_8connected_segment_pixels": 27,
+        "singleton_components": 14,
+        "largest_components": [
+          {
+            "id": 22,
+            "pixels": 27,
+            "bbox": [
+              82,
+              62,
+              99,
+              74
+            ],
+            "8conn_diameter_pixels": 27
+          },
+          {
+            "id": 25,
+            "pixels": 16,
+            "bbox": [
+              101,
+              62,
+              107,
+              75
+            ],
+            "8conn_diameter_pixels": 14
+          },
+          {
+            "id": 26,
+            "pixels": 15,
+            "bbox": [
+              108,
+              62,
+              112,
+              74
+            ],
+            "8conn_diameter_pixels": 13
+          },
+          {
+            "id": 30,
+            "pixels": 15,
+            "bbox": [
+              163,
+              62,
+              167,
+              75
+            ],
+            "8conn_diameter_pixels": 13
+          },
+          {
+            "id": 57,
+            "pixels": 11,
+            "bbox": [
+              68,
+              73,
+              77,
+              75
+            ],
+            "8conn_diameter_pixels": 9
+          },
+          {
+            "id": 61,
+            "pixels": 10,
+            "bbox": [
+              182,
+              73,
+              191,
+              75
+            ],
+            "8conn_diameter_pixels": 9
+          },
+          {
+            "id": 11,
+            "pixels": 9,
+            "bbox": [
+              138,
+              58,
+              139,
+              67
+            ],
+            "8conn_diameter_pixels": 9
+          },
+          {
+            "id": 32,
+            "pixels": 8,
+            "bbox": [
+              200,
+              62,
+              206,
+              64
+            ],
+            "8conn_diameter_pixels": 6
+          },
+          {
+            "id": 15,
+            "pixels": 7,
+            "bbox": [
+              145,
+              60,
+              152,
+              61
+            ],
+            "8conn_diameter_pixels": 7
+          },
+          {
+            "id": 19,
+            "pixels": 7,
+            "bbox": [
+              198,
+              60,
+              205,
+              61
+            ],
+            "8conn_diameter_pixels": 7
+          }
+        ]
+      }
+    },
+    "M1": {
+      "untouched_perimeter_pixels": 260,
+      "structural_cluster_summary": {
+        "fringe_indicator_pixels": 41,
+        "8connected_component_count": 31,
+        "largest_component_pixels": 3,
+        "largest_8conn_segment_pixels": 3,
+        "singleton_components": 22,
+        "components": [
+          {
+            "id": 1,
+            "pixels": 2,
+            "bbox": [
+              85,
+              56,
+              87,
+              57
+            ],
+            "8conn_diameter_pixels": 2,
+            "owner_pixel_counts": {
+              "7": 2
+            },
+            "longest_8conn_segment_pixels": 2
+          },
+          {
+            "id": 2,
+            "pixels": 3,
+            "bbox": [
+              95,
+              56,
+              98,
+              58
+            ],
+            "8conn_diameter_pixels": 3,
+            "owner_pixel_counts": {
+              "7": 3
+            },
+            "longest_8conn_segment_pixels": 3
+          },
+          {
+            "id": 3,
+            "pixels": 2,
+            "bbox": [
+              117,
+              56,
+              119,
+              57
+            ],
+            "8conn_diameter_pixels": 2,
+            "owner_pixel_counts": {
+              "8": 2
+            },
+            "longest_8conn_segment_pixels": 2
+          },
+          {
+            "id": 4,
+            "pixels": 1,
+            "bbox": [
+              103,
+              57,
+              104,
+              58
+            ],
+            "8conn_diameter_pixels": 1,
+            "owner_pixel_counts": {
+              "8": 1
+            },
+            "longest_8conn_segment_pixels": 1
+          },
+          {
+            "id": 5,
+            "pixels": 1,
+            "bbox": [
+              111,
+              57,
+              112,
+              58
+            ],
+            "8conn_diameter_pixels": 1,
+            "owner_pixel_counts": {
+              "8": 1
+            },
+            "longest_8conn_segment_pixels": 1
+          },
+          {
+            "id": 6,
+            "pixels": 2,
+            "bbox": [
+              76,
+              58,
+              78,
+              60
+            ],
+            "8conn_diameter_pixels": 2,
+            "owner_pixel_counts": {
+              "6": 2
+            },
+            "longest_8conn_segment_pixels": 2
+          },
+          {
+            "id": 7,
+            "pixels": 1,
+            "bbox": [
+              82,
+              58,
+              83,
+              59
+            ],
+            "8conn_diameter_pixels": 1,
+            "owner_pixel_counts": {
+              "7": 1
+            },
+            "longest_8conn_segment_pixels": 1
+          },
+          {
+            "id": 8,
+            "pixels": 2,
+            "bbox": [
+              127,
+              61,
+              128,
+              63
+            ],
+            "8conn_diameter_pixels": 2,
+            "owner_pixel_counts": {
+              "9": 2
+            },
+            "longest_8conn_segment_pixels": 2
+          },
+          {
+            "id": 9,
+            "pixels": 2,
+            "bbox": [
+              200,
+              62,
+              202,
+              64
+            ],
+            "8conn_diameter_pixels": 2,
+            "owner_pixel_counts": {
+              "10": 2
+            },
+            "longest_8conn_segment_pixels": 2
+          },
+          {
+            "id": 10,
+            "pixels": 1,
+            "bbox": [
+              205,
+              62,
+              206,
+              63
+            ],
+            "8conn_diameter_pixels": 1,
+            "owner_pixel_counts": {
+              "10": 1
+            },
+            "longest_8conn_segment_pixels": 1
+          },
+          {
+            "id": 11,
+            "pixels": 1,
+            "bbox": [
+              72,
+              63,
+              73,
+              64
+            ],
+            "8conn_diameter_pixels": 1,
+            "owner_pixel_counts": {
+              "6": 1
+            },
+            "longest_8conn_segment_pixels": 1
+          },
+          {
+            "id": 12,
+            "pixels": 1,
+            "bbox": [
+              109,
+              63,
+              110,
+              64
+            ],
+            "8conn_diameter_pixels": 1,
+            "owner_pixel_counts": {
+              "8": 1
+            },
+            "longest_8conn_segment_pixels": 1
+          },
+          {
+            "id": 13,
+            "pixels": 1,
+            "bbox": [
+              157,
+              63,
+              158,
+              64
+            ],
+            "8conn_diameter_pixels": 1,
+            "owner_pixel_counts": {
+              "10": 1
+            },
+            "longest_8conn_segment_pixels": 1
+          },
+          {
+            "id": 14,
+            "pixels": 1,
+            "bbox": [
+              164,
+              63,
+              165,
+              64
+            ],
+            "8conn_diameter_pixels": 1,
+            "owner_pixel_counts": {
+              "10": 1
+            },
+            "longest_8conn_segment_pixels": 1
+          },
+          {
+            "id": 15,
+            "pixels": 1,
+            "bbox": [
+              104,
+              65,
+              105,
+              66
+            ],
+            "8conn_diameter_pixels": 1,
+            "owner_pixel_counts": {
+              "8": 1
+            },
+            "longest_8conn_segment_pixels": 1
+          },
+          {
+            "id": 16,
+            "pixels": 1,
+            "bbox": [
+              73,
+              68,
+              74,
+              69
+            ],
+            "8conn_diameter_pixels": 1,
+            "owner_pixel_counts": {
+              "6": 1
+            },
+            "longest_8conn_segment_pixels": 1
+          },
+          {
+            "id": 17,
+            "pixels": 1,
+            "bbox": [
+              187,
+              68,
+              188,
+              69
+            ],
+            "8conn_diameter_pixels": 1,
+            "owner_pixel_counts": {
+              "10": 1
+            },
+            "longest_8conn_segment_pixels": 1
+          },
+          {
+            "id": 18,
+            "pixels": 1,
+            "bbox": [
+              174,
+              69,
+              175,
+              70
+            ],
+            "8conn_diameter_pixels": 1,
+            "owner_pixel_counts": {
+              "10": 1
+            },
+            "longest_8conn_segment_pixels": 1
+          },
+          {
+            "id": 19,
+            "pixels": 1,
+            "bbox": [
+              193,
+              69,
+              194,
+              70
+            ],
+            "8conn_diameter_pixels": 1,
+            "owner_pixel_counts": {
+              "10": 1
+            },
+            "longest_8conn_segment_pixels": 1
+          },
+          {
+            "id": 20,
+            "pixels": 1,
+            "bbox": [
+              198,
+              70,
+              199,
+              71
+            ],
+            "8conn_diameter_pixels": 1,
+            "owner_pixel_counts": {
+              "10": 1
+            },
+            "longest_8conn_segment_pixels": 1
+          },
+          {
+            "id": 21,
+            "pixels": 1,
+            "bbox": [
+              138,
+              71,
+              139,
+              72
+            ],
+            "8conn_diameter_pixels": 1,
+            "owner_pixel_counts": {
+              "9": 1
+            },
+            "longest_8conn_segment_pixels": 1
+          },
+          {
+            "id": 22,
+            "pixels": 1,
+            "bbox": [
+              135,
+              73,
+              136,
+              74
+            ],
+            "8conn_diameter_pixels": 1,
+            "owner_pixel_counts": {
+              "9": 1
+            },
+            "longest_8conn_segment_pixels": 1
+          },
+          {
+            "id": 23,
+            "pixels": 1,
+            "bbox": [
+              70,
+              74,
+              71,
+              75
+            ],
+            "8conn_diameter_pixels": 1,
+            "owner_pixel_counts": {
+              "6": 1
+            },
+            "longest_8conn_segment_pixels": 1
+          },
+          {
+            "id": 24,
+            "pixels": 2,
+            "bbox": [
+              75,
+              74,
+              77,
+              75
+            ],
+            "8conn_diameter_pixels": 2,
+            "owner_pixel_counts": {
+              "6": 2
+            },
+            "longest_8conn_segment_pixels": 2
+          },
+          {
+            "id": 25,
+            "pixels": 1,
+            "bbox": [
+              103,
+              74,
+              104,
+              75
+            ],
+            "8conn_diameter_pixels": 1,
+            "owner_pixel_counts": {
+              "8": 1
+            },
+            "longest_8conn_segment_pixels": 1
+          },
+          {
+            "id": 26,
+            "pixels": 1,
+            "bbox": [
+              119,
+              74,
+              120,
+              75
+            ],
+            "8conn_diameter_pixels": 1,
+            "owner_pixel_counts": {
+              "8": 1
+            },
+            "longest_8conn_segment_pixels": 1
+          },
+          {
+            "id": 27,
+            "pixels": 1,
+            "bbox": [
+              166,
+              74,
+              167,
+              75
+            ],
+            "8conn_diameter_pixels": 1,
+            "owner_pixel_counts": {
+              "10": 1
+            },
+            "longest_8conn_segment_pixels": 1
+          },
+          {
+            "id": 28,
+            "pixels": 1,
+            "bbox": [
+              179,
+              74,
+              180,
+              75
+            ],
+            "8conn_diameter_pixels": 1,
+            "owner_pixel_counts": {
+              "10": 1
+            },
+            "longest_8conn_segment_pixels": 1
+          },
+          {
+            "id": 29,
+            "pixels": 1,
+            "bbox": [
+              190,
+              74,
+              191,
+              75
+            ],
+            "8conn_diameter_pixels": 1,
+            "owner_pixel_counts": {
+              "10": 1
+            },
+            "longest_8conn_segment_pixels": 1
+          },
+          {
+            "id": 30,
+            "pixels": 2,
+            "bbox": [
+              194,
+              74,
+              196,
+              75
+            ],
+            "8conn_diameter_pixels": 2,
+            "owner_pixel_counts": {
+              "10": 2
+            },
+            "longest_8conn_segment_pixels": 2
+          },
+          {
+            "id": 31,
+            "pixels": 2,
+            "bbox": [
+              207,
+              74,
+              209,
+              75
+            ],
+            "8conn_diameter_pixels": 2,
+            "owner_pixel_counts": {
+              "10": 2
+            },
+            "longest_8conn_segment_pixels": 2
+          }
+        ],
+        "by_glyph": {
+          "7": 6,
+          "8": 8,
+          "6": 7,
+          "9": 4,
+          "10": 16
+        }
+      },
+      "changed_pixel_cluster_summary_vs_full_reference": {
+        "changed_visible_pixels": 241,
+        "8connected_component_count": 64,
+        "largest_component_pixels": 27,
+        "longest_8connected_segment_pixels": 27,
+        "singleton_components": 15,
+        "largest_components": [
+          {
+            "id": 23,
+            "pixels": 27,
+            "bbox": [
+              82,
+              62,
+              99,
+              74
+            ],
+            "8conn_diameter_pixels": 27
+          },
+          {
+            "id": 27,
+            "pixels": 14,
+            "bbox": [
+              108,
+              62,
+              112,
+              74
+            ],
+            "8conn_diameter_pixels": 13
+          },
+          {
+            "id": 26,
+            "pixels": 11,
+            "bbox": [
+              104,
+              62,
+              107,
+              73
+            ],
+            "8conn_diameter_pixels": 11
+          },
+          {
+            "id": 30,
+            "pixels": 11,
+            "bbox": [
+              163,
+              62,
+              165,
+              73
+            ],
+            "8conn_diameter_pixels": 11
+          },
+          {
+            "id": 10,
+            "pixels": 9,
+            "bbox": [
+              138,
+              58,
+              139,
+              67
+            ],
+            "8conn_diameter_pixels": 9
+          },
+          {
+            "id": 55,
+            "pixels": 9,
+            "bbox": [
+              68,
+              73,
+              77,
+              75
+            ],
+            "8conn_diameter_pixels": 9
+          },
+          {
+            "id": 58,
+            "pixels": 9,
+            "bbox": [
+              182,
+              73,
+              191,
+              75
+            ],
+            "8conn_diameter_pixels": 9
+          },
+          {
+            "id": 15,
+            "pixels": 7,
+            "bbox": [
+              145,
+              60,
+              152,
+              61
+            ],
+            "8conn_diameter_pixels": 7
+          },
+          {
+            "id": 18,
+            "pixels": 7,
+            "bbox": [
+              198,
+              60,
+              205,
+              61
+            ],
+            "8conn_diameter_pixels": 7
+          },
+          {
+            "id": 29,
+            "pixels": 6,
+            "bbox": [
+              144,
+              62,
+              150,
+              64
+            ],
+            "8conn_diameter_pixels": 6
+          }
+        ]
+      }
+    },
+    "potential_fringe_definition": "Only structural flags: luminance outside the interval between recolored edge support and actual MASTER-at-pixel, local 8-neighbor luminance extremum, or sign reversal along support→pixel→MASTER. No perceptual cutoff or threshold fitted.",
+    "largest_difference_component_crop_xyxy": [
+      77,
+      57,
+      105,
+      80
+    ],
+    "edge_profiles_by_glyph": {
+      "M0": {
+        "6": {
+          "selected_xy": [
+            70,
+            74
+          ],
+          "ownership_class": "AMBIGUOUS",
+          "alpha": 3,
+          "profile_nodes": [
+            {
+              "kind": "recolored solid core",
+              "xy": [
+                69,
+                72
+              ],
+              "rgba_or_rgb": [
+                64,
+                66,
+                69,
+                254
+              ],
+              "source_rgba": [
+                219,
+                219,
+                219,
+                188
+              ],
+              "luminance_0_255": 13.811027449117521
+            },
+            {
+              "kind": "recolored confirmed edge support",
+              "xy": [
+                69,
+                73
+              ],
+              "rgba_or_rgb": [
+                194,
+                201,
+                210,
+                253
+              ],
+              "source_rgba": [
+                0,
+                0,
+                0,
+                9
+              ],
+              "luminance_0_255": 147.63420250389268
+            },
+            {
+              "kind": "untouched low-alpha perimeter",
+              "xy": [
+                70,
+                74
+              ],
+              "rgba_or_rgb": [
+                202,
+                210,
+                218,
+                253
+              ],
+              "source_rgba": [
+                255,
+                255,
+                255,
+                3
+              ],
+              "luminance_0_255": 162.46483263420487
+            },
+            {
+              "kind": "WHITE MASTER beneath perimeter",
+              "xy": [
+                70,
+                74
+              ],
+              "rgba_or_rgb": [
+                201,
+                209,
+                218,
+                253
+              ],
+              "source_rgba": [
+                255,
+                255,
+                255,
+                3
+              ],
+              "luminance_0_255": 160.85499769304735
+            }
+          ],
+          "luminance_steps": [
+            133.82317505477516,
+            14.830630130312187,
+            -1.6098349411575157
+          ],
+          "luminance_direction": [
+            "up",
+            "up",
+            "down"
+          ],
+          "structural_peak": true,
+          "row_metrics": {
+            "mode": "M0",
+            "x": 70,
+            "y": 74,
+            "owner_candidate_ids": [
+              6
+            ],
+            "owner_group": "6",
+            "ownership_class": "AMBIGUOUS",
+            "alpha": 3,
+            "source_RGBA": [
+              255,
+              255,
+              255,
+              3
+            ],
+            "current_composited_RGB": [
+              202,
+              210,
+              218
+            ],
+            "variant_untouched_pixel_RGB": [
+              202,
+              210,
+              218
+            ],
+            "full_reference_RGB": [
+              199,
+              207,
+              216
+            ],
+            "master_RGBA_at_xy": [
+              201,
+              209,
+              218
+            ],
+            "recolored_edge_support": [
+              {
+                "x": 69,
+                "y": 73,
+                "RGB": [
+                  194,
+                  201,
+                  210
+                ],
+                "luminance": 147.63420250389268
+              }
+            ],
+            "chosen_support_xy": [
+              69,
+              73
+            ],
+            "local_luminance": 162.46483263420487,
+            "support_luminance": 147.63420250389268,
+            "master_luminance": 160.85499769304735,
+            "luminance_difference_vs_recolored_support": 14.830630130312187,
+            "RGB_difference_vs_recolored_support_Linf": 9.0,
+            "RGB_difference_vs_recolored_support_L2": 14.45683229480096,
+            "luminance_difference_vs_master": 1.6098349411575157,
+            "support_to_pixel_luminance_step": 14.830630130312187,
+            "pixel_to_master_luminance_step": -1.6098349411575157,
+            "gradient_direction": {
+              "support_to_pixel": "up",
+              "pixel_to_master": "down"
+            },
+            "between_recolored_support_and_master_luminance": false,
+            "brightness_reversal": true,
+            "endpoint_brightness_peak": true,
+            "endpoint_brightness_valley": false,
+            "8neighbor_local_contrast_peak": true,
+            "8neighbor_local_contrast_valley": false,
+            "potential_fringe_structural_indicator": true,
+            "master_RGB_delta_Linf": 1.0,
+            "variant_pixel_equals_current": true,
+            "variant_pixel_equals_reference": false
+          }
+        },
+        "7": {
+          "selected_xy": [
+            86,
+            56
+          ],
+          "ownership_class": "AMBIGUOUS",
+          "alpha": 3,
+          "profile_nodes": [
+            {
+              "kind": "recolored solid core",
+              "xy": [
+                87,
+                57
+              ],
+              "rgba_or_rgb": [
+                154,
+                160,
+                166,
+                254
+              ],
+              "source_rgba": [
+                51,
+                51,
+                51,
+                64
+              ],
+              "luminance_0_255": 88.65026535861685
+            },
+            {
+              "kind": "recolored confirmed edge support",
+              "xy": [
+                86,
+                57
+              ],
+              "rgba_or_rgb": [
+                200,
+                207,
+                215,
+                253
+              ],
+              "source_rgba": [
+                0,
+                0,
+                0,
+                3
+              ],
+              "luminance_0_255": 157.6188252175612
+            },
+            {
+              "kind": "untouched low-alpha perimeter",
+              "xy": [
+                86,
+                56
+              ],
+              "rgba_or_rgb": [
+                202,
+                209,
+                216,
+                253
+              ],
+              "source_rgba": [
+                255,
+                255,
+                255,
+                3
+              ],
+              "luminance_0_255": 160.94415000154225
+            },
+            {
+              "kind": "WHITE MASTER beneath perimeter",
+              "xy": [
+                86,
+                56
+              ],
+              "rgba_or_rgb": [
+                201,
+                208,
+                216,
+                253
+              ],
+              "source_rgba": [
+                255,
+                255,
+                255,
+                3
+              ],
+              "luminance_0_255": 159.3421700546451
+            }
+          ],
+          "luminance_steps": [
+            68.96855985894436,
+            3.3253247839810456,
+            -1.6019799468971598
+          ],
+          "luminance_direction": [
+            "up",
+            "up",
+            "down"
+          ],
+          "structural_peak": true,
+          "row_metrics": {
+            "mode": "M0",
+            "x": 86,
+            "y": 56,
+            "owner_candidate_ids": [
+              7
+            ],
+            "owner_group": "7",
+            "ownership_class": "AMBIGUOUS",
+            "alpha": 3,
+            "source_RGBA": [
+              255,
+              255,
+              255,
+              3
+            ],
+            "current_composited_RGB": [
+              202,
+              209,
+              216
+            ],
+            "variant_untouched_pixel_RGB": [
+              202,
+              209,
+              216
+            ],
+            "full_reference_RGB": [
+              199,
+              206,
+              214
+            ],
+            "master_RGBA_at_xy": [
+              201,
+              208,
+              216
+            ],
+            "recolored_edge_support": [
+              {
+                "x": 86,
+                "y": 57,
+                "RGB": [
+                  200,
+                  207,
+                  215
+                ],
+                "luminance": 157.6188252175612
+              },
+              {
+                "x": 87,
+                "y": 57,
+                "RGB": [
+                  154,
+                  160,
+                  166
+                ],
+                "luminance": 88.65026535861685
+              }
+            ],
+            "chosen_support_xy": [
+              86,
+              57
+            ],
+            "local_luminance": 160.94415000154225,
+            "support_luminance": 157.6188252175612,
+            "master_luminance": 159.3421700546451,
+            "luminance_difference_vs_recolored_support": 3.3253247839810456,
+            "RGB_difference_vs_recolored_support_Linf": 2.0,
+            "RGB_difference_vs_recolored_support_L2": 3.0,
+            "luminance_difference_vs_master": 1.6019799468971598,
+            "support_to_pixel_luminance_step": 3.3253247839810456,
+            "pixel_to_master_luminance_step": -1.6019799468971598,
+            "gradient_direction": {
+              "support_to_pixel": "up",
+              "pixel_to_master": "down"
+            },
+            "between_recolored_support_and_master_luminance": false,
+            "brightness_reversal": true,
+            "endpoint_brightness_peak": true,
+            "endpoint_brightness_valley": false,
+            "8neighbor_local_contrast_peak": false,
+            "8neighbor_local_contrast_valley": false,
+            "potential_fringe_structural_indicator": true,
+            "master_RGB_delta_Linf": 1.0,
+            "variant_pixel_equals_current": true,
+            "variant_pixel_equals_reference": false
+          }
+        },
+        "8": {
+          "selected_xy": [
+            119,
+            74
+          ],
+          "ownership_class": "AMBIGUOUS",
+          "alpha": 3,
+          "profile_nodes": [
+            {
+              "kind": "recolored solid core",
+              "xy": [
+                119,
+                72
+              ],
+              "rgba_or_rgb": [
+                62,
+                64,
+                66,
+                254
+              ],
+              "source_rgba": [
+                228,
+                228,
+                228,
+                190
+              ],
+              "luminance_0_255": 12.96489421681867
+            },
+            {
+              "kind": "recolored confirmed edge support",
+              "xy": [
+                119,
+                73
+              ],
+              "rgba_or_rgb": [
+                193,
+                201,
+                207,
+                253
+              ],
+              "source_rgba": [
+                0,
+                0,
+                0,
+                6
+              ],
+              "luminance_0_255": 146.92013400307027
+            },
+            {
+              "kind": "untouched low-alpha perimeter",
+              "xy": [
+                119,
+                74
+              ],
+              "rgba_or_rgb": [
+                197,
+                205,
+                213,
+                253
+              ],
+              "source_rgba": [
+                255,
+                255,
+                255,
+                3
+              ],
+              "luminance_0_255": 153.85949331357259
+            },
+            {
+              "kind": "WHITE MASTER beneath perimeter",
+              "xy": [
+                119,
+                74
+              ],
+              "rgba_or_rgb": [
+                196,
+                204,
+                212,
+                253
+              ],
+              "source_rgba": [
+                255,
+                255,
+                255,
+                3
+              ],
+              "luminance_0_255": 152.17114762218307
+            }
+          ],
+          "luminance_steps": [
+            133.9552397862516,
+            6.9393593105023115,
+            -1.6883456913895145
+          ],
+          "luminance_direction": [
+            "up",
+            "up",
+            "down"
+          ],
+          "structural_peak": true,
+          "row_metrics": {
+            "mode": "M0",
+            "x": 119,
+            "y": 74,
+            "owner_candidate_ids": [
+              8
+            ],
+            "owner_group": "8",
+            "ownership_class": "AMBIGUOUS",
+            "alpha": 3,
+            "source_RGBA": [
+              255,
+              255,
+              255,
+              3
+            ],
+            "current_composited_RGB": [
+              197,
+              205,
+              213
+            ],
+            "variant_untouched_pixel_RGB": [
+              197,
+              205,
+              213
+            ],
+            "full_reference_RGB": [
+              194,
+              202,
+              210
+            ],
+            "master_RGBA_at_xy": [
+              196,
+              204,
+              212
+            ],
+            "recolored_edge_support": [
+              {
+                "x": 119,
+                "y": 73,
+                "RGB": [
+                  193,
+                  201,
+                  207
+                ],
+                "luminance": 146.92013400307027
+              },
+              {
+                "x": 118,
+                "y": 73,
+                "RGB": [
+                  193,
+                  201,
+                  210
+                ],
+                "luminance": 147.29791465670084
+              }
+            ],
+            "chosen_support_xy": [
+              119,
+              73
+            ],
+            "local_luminance": 153.85949331357259,
+            "support_luminance": 146.92013400307027,
+            "master_luminance": 152.17114762218307,
+            "luminance_difference_vs_recolored_support": 6.9393593105023115,
+            "RGB_difference_vs_recolored_support_Linf": 6.0,
+            "RGB_difference_vs_recolored_support_L2": 8.246211251235321,
+            "luminance_difference_vs_master": 1.6883456913895145,
+            "support_to_pixel_luminance_step": 6.9393593105023115,
+            "pixel_to_master_luminance_step": -1.6883456913895145,
+            "gradient_direction": {
+              "support_to_pixel": "up",
+              "pixel_to_master": "down"
+            },
+            "between_recolored_support_and_master_luminance": false,
+            "brightness_reversal": true,
+            "endpoint_brightness_peak": true,
+            "endpoint_brightness_valley": false,
+            "8neighbor_local_contrast_peak": false,
+            "8neighbor_local_contrast_valley": false,
+            "potential_fringe_structural_indicator": true,
+            "master_RGB_delta_Linf": 1.0,
+            "variant_pixel_equals_current": true,
+            "variant_pixel_equals_reference": false
+          }
+        },
+        "9": {
+          "selected_xy": [
+            135,
+            73
+          ],
+          "ownership_class": "AMBIGUOUS",
+          "alpha": 4,
+          "profile_nodes": [
+            {
+              "kind": "recolored confirmed edge support",
+              "xy": [
+                134,
+                72
+              ],
+              "rgba_or_rgb": [
+                141,
+                146,
+                152,
+                254
+              ],
+              "source_rgba": [
+                98,
+                98,
+                98,
+                78
+              ],
+              "luminance_0_255": 72.64309282642222
+            },
+            {
+              "kind": "untouched low-alpha perimeter",
+              "xy": [
+                135,
+                73
+              ],
+              "rgba_or_rgb": [
+                197,
+                205,
+                213,
+                253
+              ],
+              "source_rgba": [
+                255,
+                255,
+                255,
+                4
+              ],
+              "luminance_0_255": 153.85949331357259
+            },
+            {
+              "kind": "WHITE MASTER beneath perimeter",
+              "xy": [
+                135,
+                73
+              ],
+              "rgba_or_rgb": [
+                196,
+                204,
+                212,
+                253
+              ],
+              "source_rgba": [
+                255,
+                255,
+                255,
+                4
+              ],
+              "luminance_0_255": 152.17114762218307
+            }
+          ],
+          "luminance_steps": [
+            81.21640048715037,
+            -1.6883456913895145
+          ],
+          "luminance_direction": [
+            "up",
+            "down"
+          ],
+          "structural_peak": true,
+          "row_metrics": {
+            "mode": "M0",
+            "x": 135,
+            "y": 73,
+            "owner_candidate_ids": [
+              9
+            ],
+            "owner_group": "9",
+            "ownership_class": "AMBIGUOUS",
+            "alpha": 4,
+            "source_RGBA": [
+              255,
+              255,
+              255,
+              4
+            ],
+            "current_composited_RGB": [
+              197,
+              205,
+              213
+            ],
+            "variant_untouched_pixel_RGB": [
+              197,
+              205,
+              213
+            ],
+            "full_reference_RGB": [
+              193,
+              201,
+              209
+            ],
+            "master_RGBA_at_xy": [
+              196,
+              204,
+              212
+            ],
+            "recolored_edge_support": [
+              {
+                "x": 134,
+                "y": 72,
+                "RGB": [
+                  141,
+                  146,
+                  152
+                ],
+                "luminance": 72.64309282642222
+              }
+            ],
+            "chosen_support_xy": [
+              134,
+              72
+            ],
+            "local_luminance": 153.85949331357259,
+            "support_luminance": 72.64309282642222,
+            "master_luminance": 152.17114762218307,
+            "luminance_difference_vs_recolored_support": 81.21640048715037,
+            "RGB_difference_vs_recolored_support_Linf": 61.0,
+            "RGB_difference_vs_recolored_support_L2": 101.67595585978034,
+            "luminance_difference_vs_master": 1.6883456913895145,
+            "support_to_pixel_luminance_step": 81.21640048715037,
+            "pixel_to_master_luminance_step": -1.6883456913895145,
+            "gradient_direction": {
+              "support_to_pixel": "up",
+              "pixel_to_master": "down"
+            },
+            "between_recolored_support_and_master_luminance": false,
+            "brightness_reversal": true,
+            "endpoint_brightness_peak": true,
+            "endpoint_brightness_valley": false,
+            "8neighbor_local_contrast_peak": true,
+            "8neighbor_local_contrast_valley": false,
+            "potential_fringe_structural_indicator": true,
+            "master_RGB_delta_Linf": 1.0,
+            "variant_pixel_equals_current": true,
+            "variant_pixel_equals_reference": false
+          }
+        },
+        "10": {
+          "selected_xy": [
+            166,
+            74
+          ],
+          "ownership_class": "AMBIGUOUS",
+          "alpha": 3,
+          "profile_nodes": [
+            {
+              "kind": "recolored solid core",
+              "xy": [
+                166,
+                72
+              ],
+              "rgba_or_rgb": [
+                59,
+                60,
+                62,
+                255
+              ],
+              "source_rgba": [
+                212,
+                212,
+                212,
+                194
+              ],
+              "luminance_0_255": 11.498777807991523
+            },
+            {
+              "kind": "recolored confirmed edge support",
+              "xy": [
+                166,
+                73
+              ],
+              "rgba_or_rgb": [
+                187,
+                194,
+                202,
+                253
+              ],
+              "source_rgba": [
+                0,
+                0,
+                0,
+                10
+              ],
+              "luminance_0_255": 136.20222322947293
+            },
+            {
+              "kind": "untouched low-alpha perimeter",
+              "xy": [
+                166,
+                74
+              ],
+              "rgba_or_rgb": [
+                195,
+                203,
+                211,
+                253
+              ],
+              "source_rgba": [
+                255,
+                255,
+                255,
+                3
+              ],
+              "luminance_0_255": 150.49366276942803
+            },
+            {
+              "kind": "WHITE MASTER beneath perimeter",
+              "xy": [
+                166,
+                74
+              ],
+              "rgba_or_rgb": [
+                194,
+                202,
+                210,
+                253
+              ],
+              "source_rgba": [
+                255,
+                255,
+                255,
+                3
+              ],
+              "luminance_0_255": 148.82701869407873
+            }
+          ],
+          "luminance_steps": [
+            124.7034454214814,
+            14.291439539955093,
+            -1.6666440753492964
+          ],
+          "luminance_direction": [
+            "up",
+            "up",
+            "down"
+          ],
+          "structural_peak": true,
+          "row_metrics": {
+            "mode": "M0",
+            "x": 166,
+            "y": 74,
+            "owner_candidate_ids": [
+              10
+            ],
+            "owner_group": "10",
+            "ownership_class": "AMBIGUOUS",
+            "alpha": 3,
+            "source_RGBA": [
+              255,
+              255,
+              255,
+              3
+            ],
+            "current_composited_RGB": [
+              195,
+              203,
+              211
+            ],
+            "variant_untouched_pixel_RGB": [
+              195,
+              203,
+              211
+            ],
+            "full_reference_RGB": [
+              192,
+              200,
+              208
+            ],
+            "master_RGBA_at_xy": [
+              194,
+              202,
+              210
+            ],
+            "recolored_edge_support": [
+              {
+                "x": 166,
+                "y": 73,
+                "RGB": [
+                  187,
+                  194,
+                  202
+                ],
+                "luminance": 136.20222322947293
+              },
+              {
+                "x": 167,
+                "y": 73,
+                "RGB": [
+                  190,
+                  197,
+                  205
+                ],
+                "luminance": 140.98295224714016
+              }
+            ],
+            "chosen_support_xy": [
+              166,
+              73
+            ],
+            "local_luminance": 150.49366276942803,
+            "support_luminance": 136.20222322947293,
+            "master_luminance": 148.82701869407873,
+            "luminance_difference_vs_recolored_support": 14.291439539955093,
+            "RGB_difference_vs_recolored_support_Linf": 9.0,
+            "RGB_difference_vs_recolored_support_L2": 15.033296378372908,
+            "luminance_difference_vs_master": 1.6666440753492964,
+            "support_to_pixel_luminance_step": 14.291439539955093,
+            "pixel_to_master_luminance_step": -1.6666440753492964,
+            "gradient_direction": {
+              "support_to_pixel": "up",
+              "pixel_to_master": "down"
+            },
+            "between_recolored_support_and_master_luminance": false,
+            "brightness_reversal": true,
+            "endpoint_brightness_peak": true,
+            "endpoint_brightness_valley": false,
+            "8neighbor_local_contrast_peak": false,
+            "8neighbor_local_contrast_valley": false,
+            "potential_fringe_structural_indicator": true,
+            "master_RGB_delta_Linf": 1.0,
+            "variant_pixel_equals_current": true,
+            "variant_pixel_equals_reference": false
+          }
+        }
+      },
+      "M1": {
+        "6": {
+          "selected_xy": [
+            70,
+            74
+          ],
+          "ownership_class": "AMBIGUOUS",
+          "alpha": 3,
+          "profile_nodes": [
+            {
+              "kind": "recolored confirmed edge support",
+              "xy": [
+                70,
+                73
+              ],
+              "rgba_or_rgb": [
+                196,
+                204,
+                211,
+                253
+              ],
+              "source_rgba": [
+                0,
+                0,
+                0,
+                7
+              ],
+              "luminance_0_255": 152.04283805178753
+            },
+            {
+              "kind": "untouched low-alpha perimeter",
+              "xy": [
+                70,
+                74
+              ],
+              "rgba_or_rgb": [
+                202,
+                210,
+                218,
+                253
+              ],
+              "source_rgba": [
+                255,
+                255,
+                255,
+                3
+              ],
+              "luminance_0_255": 162.46483263420487
+            },
+            {
+              "kind": "WHITE MASTER beneath perimeter",
+              "xy": [
+                70,
+                74
+              ],
+              "rgba_or_rgb": [
+                201,
+                209,
+                218,
+                253
+              ],
+              "source_rgba": [
+                255,
+                255,
+                255,
+                3
+              ],
+              "luminance_0_255": 160.85499769304735
+            }
+          ],
+          "luminance_steps": [
+            10.42199458241734,
+            -1.6098349411575157
+          ],
+          "luminance_direction": [
+            "up",
+            "down"
+          ],
+          "structural_peak": true,
+          "row_metrics": {
+            "mode": "M1",
+            "x": 70,
+            "y": 74,
+            "owner_candidate_ids": [
+              6
+            ],
+            "owner_group": "6",
+            "ownership_class": "AMBIGUOUS",
+            "alpha": 3,
+            "source_RGBA": [
+              255,
+              255,
+              255,
+              3
+            ],
+            "current_composited_RGB": [
+              202,
+              210,
+              218
+            ],
+            "variant_untouched_pixel_RGB": [
+              202,
+              210,
+              218
+            ],
+            "full_reference_RGB": [
+              199,
+              207,
+              216
+            ],
+            "master_RGBA_at_xy": [
+              201,
+              209,
+              218
+            ],
+            "recolored_edge_support": [
+              {
+                "x": 70,
+                "y": 73,
+                "RGB": [
+                  196,
+                  204,
+                  211
+                ],
+                "luminance": 152.04283805178753
+              },
+              {
+                "x": 69,
+                "y": 73,
+                "RGB": [
+                  194,
+                  201,
+                  210
+                ],
+                "luminance": 147.63420250389268
+              }
+            ],
+            "chosen_support_xy": [
+              70,
+              73
+            ],
+            "local_luminance": 162.46483263420487,
+            "support_luminance": 152.04283805178753,
+            "master_luminance": 160.85499769304735,
+            "luminance_difference_vs_recolored_support": 10.42199458241734,
+            "RGB_difference_vs_recolored_support_Linf": 7.0,
+            "RGB_difference_vs_recolored_support_L2": 11.0,
+            "luminance_difference_vs_master": 1.6098349411575157,
+            "support_to_pixel_luminance_step": 10.42199458241734,
+            "pixel_to_master_luminance_step": -1.6098349411575157,
+            "gradient_direction": {
+              "support_to_pixel": "up",
+              "pixel_to_master": "down"
+            },
+            "between_recolored_support_and_master_luminance": false,
+            "brightness_reversal": true,
+            "endpoint_brightness_peak": true,
+            "endpoint_brightness_valley": false,
+            "8neighbor_local_contrast_peak": true,
+            "8neighbor_local_contrast_valley": false,
+            "potential_fringe_structural_indicator": true,
+            "master_RGB_delta_Linf": 1.0,
+            "variant_pixel_equals_current": true,
+            "variant_pixel_equals_reference": false
+          }
+        },
+        "7": {
+          "selected_xy": [
+            86,
+            56
+          ],
+          "ownership_class": "AMBIGUOUS",
+          "alpha": 3,
+          "profile_nodes": [
+            {
+              "kind": "recolored solid core",
+              "xy": [
+                87,
+                57
+              ],
+              "rgba_or_rgb": [
+                154,
+                160,
+                166,
+                254
+              ],
+              "source_rgba": [
+                51,
+                51,
+                51,
+                64
+              ],
+              "luminance_0_255": 88.65026535861685
+            },
+            {
+              "kind": "recolored confirmed edge support",
+              "xy": [
+                86,
+                57
+              ],
+              "rgba_or_rgb": [
+                200,
+                207,
+                215,
+                253
+              ],
+              "source_rgba": [
+                0,
+                0,
+                0,
+                3
+              ],
+              "luminance_0_255": 157.6188252175612
+            },
+            {
+              "kind": "untouched low-alpha perimeter",
+              "xy": [
+                86,
+                56
+              ],
+              "rgba_or_rgb": [
+                202,
+                209,
+                216,
+                253
+              ],
+              "source_rgba": [
+                255,
+                255,
+                255,
+                3
+              ],
+              "luminance_0_255": 160.94415000154225
+            },
+            {
+              "kind": "WHITE MASTER beneath perimeter",
+              "xy": [
+                86,
+                56
+              ],
+              "rgba_or_rgb": [
+                201,
+                208,
+                216,
+                253
+              ],
+              "source_rgba": [
+                255,
+                255,
+                255,
+                3
+              ],
+              "luminance_0_255": 159.3421700546451
+            }
+          ],
+          "luminance_steps": [
+            68.96855985894436,
+            3.3253247839810456,
+            -1.6019799468971598
+          ],
+          "luminance_direction": [
+            "up",
+            "up",
+            "down"
+          ],
+          "structural_peak": true,
+          "row_metrics": {
+            "mode": "M1",
+            "x": 86,
+            "y": 56,
+            "owner_candidate_ids": [
+              7
+            ],
+            "owner_group": "7",
+            "ownership_class": "AMBIGUOUS",
+            "alpha": 3,
+            "source_RGBA": [
+              255,
+              255,
+              255,
+              3
+            ],
+            "current_composited_RGB": [
+              202,
+              209,
+              216
+            ],
+            "variant_untouched_pixel_RGB": [
+              202,
+              209,
+              216
+            ],
+            "full_reference_RGB": [
+              199,
+              206,
+              214
+            ],
+            "master_RGBA_at_xy": [
+              201,
+              208,
+              216
+            ],
+            "recolored_edge_support": [
+              {
+                "x": 86,
+                "y": 57,
+                "RGB": [
+                  200,
+                  207,
+                  215
+                ],
+                "luminance": 157.6188252175612
+              },
+              {
+                "x": 87,
+                "y": 57,
+                "RGB": [
+                  154,
+                  160,
+                  166
+                ],
+                "luminance": 88.65026535861685
+              }
+            ],
+            "chosen_support_xy": [
+              86,
+              57
+            ],
+            "local_luminance": 160.94415000154225,
+            "support_luminance": 157.6188252175612,
+            "master_luminance": 159.3421700546451,
+            "luminance_difference_vs_recolored_support": 3.3253247839810456,
+            "RGB_difference_vs_recolored_support_Linf": 2.0,
+            "RGB_difference_vs_recolored_support_L2": 3.0,
+            "luminance_difference_vs_master": 1.6019799468971598,
+            "support_to_pixel_luminance_step": 3.3253247839810456,
+            "pixel_to_master_luminance_step": -1.6019799468971598,
+            "gradient_direction": {
+              "support_to_pixel": "up",
+              "pixel_to_master": "down"
+            },
+            "between_recolored_support_and_master_luminance": false,
+            "brightness_reversal": true,
+            "endpoint_brightness_peak": true,
+            "endpoint_brightness_valley": false,
+            "8neighbor_local_contrast_peak": false,
+            "8neighbor_local_contrast_valley": false,
+            "potential_fringe_structural_indicator": true,
+            "master_RGB_delta_Linf": 1.0,
+            "variant_pixel_equals_current": true,
+            "variant_pixel_equals_reference": false
+          }
+        },
+        "8": {
+          "selected_xy": [
+            119,
+            74
+          ],
+          "ownership_class": "AMBIGUOUS",
+          "alpha": 3,
+          "profile_nodes": [
+            {
+              "kind": "recolored solid core",
+              "xy": [
+                119,
+                72
+              ],
+              "rgba_or_rgb": [
+                62,
+                64,
+                66,
+                254
+              ],
+              "source_rgba": [
+                228,
+                228,
+                228,
+                190
+              ],
+              "luminance_0_255": 12.96489421681867
+            },
+            {
+              "kind": "recolored confirmed edge support",
+              "xy": [
+                119,
+                73
+              ],
+              "rgba_or_rgb": [
+                193,
+                201,
+                207,
+                253
+              ],
+              "source_rgba": [
+                0,
+                0,
+                0,
+                6
+              ],
+              "luminance_0_255": 146.92013400307027
+            },
+            {
+              "kind": "untouched low-alpha perimeter",
+              "xy": [
+                119,
+                74
+              ],
+              "rgba_or_rgb": [
+                197,
+                205,
+                213,
+                253
+              ],
+              "source_rgba": [
+                255,
+                255,
+                255,
+                3
+              ],
+              "luminance_0_255": 153.85949331357259
+            },
+            {
+              "kind": "WHITE MASTER beneath perimeter",
+              "xy": [
+                119,
+                74
+              ],
+              "rgba_or_rgb": [
+                196,
+                204,
+                212,
+                253
+              ],
+              "source_rgba": [
+                255,
+                255,
+                255,
+                3
+              ],
+              "luminance_0_255": 152.17114762218307
+            }
+          ],
+          "luminance_steps": [
+            133.9552397862516,
+            6.9393593105023115,
+            -1.6883456913895145
+          ],
+          "luminance_direction": [
+            "up",
+            "up",
+            "down"
+          ],
+          "structural_peak": true,
+          "row_metrics": {
+            "mode": "M1",
+            "x": 119,
+            "y": 74,
+            "owner_candidate_ids": [
+              8
+            ],
+            "owner_group": "8",
+            "ownership_class": "AMBIGUOUS",
+            "alpha": 3,
+            "source_RGBA": [
+              255,
+              255,
+              255,
+              3
+            ],
+            "current_composited_RGB": [
+              197,
+              205,
+              213
+            ],
+            "variant_untouched_pixel_RGB": [
+              197,
+              205,
+              213
+            ],
+            "full_reference_RGB": [
+              194,
+              202,
+              210
+            ],
+            "master_RGBA_at_xy": [
+              196,
+              204,
+              212
+            ],
+            "recolored_edge_support": [
+              {
+                "x": 119,
+                "y": 73,
+                "RGB": [
+                  193,
+                  201,
+                  207
+                ],
+                "luminance": 146.92013400307027
+              },
+              {
+                "x": 118,
+                "y": 73,
+                "RGB": [
+                  193,
+                  201,
+                  210
+                ],
+                "luminance": 147.29791465670084
+              }
+            ],
+            "chosen_support_xy": [
+              119,
+              73
+            ],
+            "local_luminance": 153.85949331357259,
+            "support_luminance": 146.92013400307027,
+            "master_luminance": 152.17114762218307,
+            "luminance_difference_vs_recolored_support": 6.9393593105023115,
+            "RGB_difference_vs_recolored_support_Linf": 6.0,
+            "RGB_difference_vs_recolored_support_L2": 8.246211251235321,
+            "luminance_difference_vs_master": 1.6883456913895145,
+            "support_to_pixel_luminance_step": 6.9393593105023115,
+            "pixel_to_master_luminance_step": -1.6883456913895145,
+            "gradient_direction": {
+              "support_to_pixel": "up",
+              "pixel_to_master": "down"
+            },
+            "between_recolored_support_and_master_luminance": false,
+            "brightness_reversal": true,
+            "endpoint_brightness_peak": true,
+            "endpoint_brightness_valley": false,
+            "8neighbor_local_contrast_peak": false,
+            "8neighbor_local_contrast_valley": false,
+            "potential_fringe_structural_indicator": true,
+            "master_RGB_delta_Linf": 1.0,
+            "variant_pixel_equals_current": true,
+            "variant_pixel_equals_reference": false
+          }
+        },
+        "9": {
+          "selected_xy": [
+            135,
+            73
+          ],
+          "ownership_class": "AMBIGUOUS",
+          "alpha": 4,
+          "profile_nodes": [
+            {
+              "kind": "recolored confirmed edge support",
+              "xy": [
+                134,
+                72
+              ],
+              "rgba_or_rgb": [
+                141,
+                146,
+                152,
+                254
+              ],
+              "source_rgba": [
+                98,
+                98,
+                98,
+                78
+              ],
+              "luminance_0_255": 72.64309282642222
+            },
+            {
+              "kind": "untouched low-alpha perimeter",
+              "xy": [
+                135,
+                73
+              ],
+              "rgba_or_rgb": [
+                197,
+                205,
+                213,
+                253
+              ],
+              "source_rgba": [
+                255,
+                255,
+                255,
+                4
+              ],
+              "luminance_0_255": 153.85949331357259
+            },
+            {
+              "kind": "WHITE MASTER beneath perimeter",
+              "xy": [
+                135,
+                73
+              ],
+              "rgba_or_rgb": [
+                196,
+                204,
+                212,
+                253
+              ],
+              "source_rgba": [
+                255,
+                255,
+                255,
+                4
+              ],
+              "luminance_0_255": 152.17114762218307
+            }
+          ],
+          "luminance_steps": [
+            81.21640048715037,
+            -1.6883456913895145
+          ],
+          "luminance_direction": [
+            "up",
+            "down"
+          ],
+          "structural_peak": true,
+          "row_metrics": {
+            "mode": "M1",
+            "x": 135,
+            "y": 73,
+            "owner_candidate_ids": [
+              9
+            ],
+            "owner_group": "9",
+            "ownership_class": "AMBIGUOUS",
+            "alpha": 4,
+            "source_RGBA": [
+              255,
+              255,
+              255,
+              4
+            ],
+            "current_composited_RGB": [
+              197,
+              205,
+              213
+            ],
+            "variant_untouched_pixel_RGB": [
+              197,
+              205,
+              213
+            ],
+            "full_reference_RGB": [
+              193,
+              201,
+              209
+            ],
+            "master_RGBA_at_xy": [
+              196,
+              204,
+              212
+            ],
+            "recolored_edge_support": [
+              {
+                "x": 134,
+                "y": 72,
+                "RGB": [
+                  141,
+                  146,
+                  152
+                ],
+                "luminance": 72.64309282642222
+              }
+            ],
+            "chosen_support_xy": [
+              134,
+              72
+            ],
+            "local_luminance": 153.85949331357259,
+            "support_luminance": 72.64309282642222,
+            "master_luminance": 152.17114762218307,
+            "luminance_difference_vs_recolored_support": 81.21640048715037,
+            "RGB_difference_vs_recolored_support_Linf": 61.0,
+            "RGB_difference_vs_recolored_support_L2": 101.67595585978034,
+            "luminance_difference_vs_master": 1.6883456913895145,
+            "support_to_pixel_luminance_step": 81.21640048715037,
+            "pixel_to_master_luminance_step": -1.6883456913895145,
+            "gradient_direction": {
+              "support_to_pixel": "up",
+              "pixel_to_master": "down"
+            },
+            "between_recolored_support_and_master_luminance": false,
+            "brightness_reversal": true,
+            "endpoint_brightness_peak": true,
+            "endpoint_brightness_valley": false,
+            "8neighbor_local_contrast_peak": true,
+            "8neighbor_local_contrast_valley": false,
+            "potential_fringe_structural_indicator": true,
+            "master_RGB_delta_Linf": 1.0,
+            "variant_pixel_equals_current": true,
+            "variant_pixel_equals_reference": false
+          }
+        },
+        "10": {
+          "selected_xy": [
+            166,
+            74
+          ],
+          "ownership_class": "AMBIGUOUS",
+          "alpha": 3,
+          "profile_nodes": [
+            {
+              "kind": "recolored solid core",
+              "xy": [
+                166,
+                72
+              ],
+              "rgba_or_rgb": [
+                59,
+                60,
+                62,
+                255
+              ],
+              "source_rgba": [
+                212,
+                212,
+                212,
+                194
+              ],
+              "luminance_0_255": 11.498777807991523
+            },
+            {
+              "kind": "recolored confirmed edge support",
+              "xy": [
+                166,
+                73
+              ],
+              "rgba_or_rgb": [
+                187,
+                194,
+                202,
+                253
+              ],
+              "source_rgba": [
+                0,
+                0,
+                0,
+                10
+              ],
+              "luminance_0_255": 136.20222322947293
+            },
+            {
+              "kind": "untouched low-alpha perimeter",
+              "xy": [
+                166,
+                74
+              ],
+              "rgba_or_rgb": [
+                195,
+                203,
+                211,
+                253
+              ],
+              "source_rgba": [
+                255,
+                255,
+                255,
+                3
+              ],
+              "luminance_0_255": 150.49366276942803
+            },
+            {
+              "kind": "WHITE MASTER beneath perimeter",
+              "xy": [
+                166,
+                74
+              ],
+              "rgba_or_rgb": [
+                194,
+                202,
+                210,
+                253
+              ],
+              "source_rgba": [
+                255,
+                255,
+                255,
+                3
+              ],
+              "luminance_0_255": 148.82701869407873
+            }
+          ],
+          "luminance_steps": [
+            124.7034454214814,
+            14.291439539955093,
+            -1.6666440753492964
+          ],
+          "luminance_direction": [
+            "up",
+            "up",
+            "down"
+          ],
+          "structural_peak": true,
+          "row_metrics": {
+            "mode": "M1",
+            "x": 166,
+            "y": 74,
+            "owner_candidate_ids": [
+              10
+            ],
+            "owner_group": "10",
+            "ownership_class": "AMBIGUOUS",
+            "alpha": 3,
+            "source_RGBA": [
+              255,
+              255,
+              255,
+              3
+            ],
+            "current_composited_RGB": [
+              195,
+              203,
+              211
+            ],
+            "variant_untouched_pixel_RGB": [
+              195,
+              203,
+              211
+            ],
+            "full_reference_RGB": [
+              192,
+              200,
+              208
+            ],
+            "master_RGBA_at_xy": [
+              194,
+              202,
+              210
+            ],
+            "recolored_edge_support": [
+              {
+                "x": 166,
+                "y": 73,
+                "RGB": [
+                  187,
+                  194,
+                  202
+                ],
+                "luminance": 136.20222322947293
+              },
+              {
+                "x": 165,
+                "y": 73,
+                "RGB": [
+                  191,
+                  198,
+                  206
+                ],
+                "luminance": 142.59794859527804
+              },
+              {
+                "x": 167,
+                "y": 73,
+                "RGB": [
+                  190,
+                  197,
+                  205
+                ],
+                "luminance": 140.98295224714016
+              }
+            ],
+            "chosen_support_xy": [
+              166,
+              73
+            ],
+            "local_luminance": 150.49366276942803,
+            "support_luminance": 136.20222322947293,
+            "master_luminance": 148.82701869407873,
+            "luminance_difference_vs_recolored_support": 14.291439539955093,
+            "RGB_difference_vs_recolored_support_Linf": 9.0,
+            "RGB_difference_vs_recolored_support_L2": 15.033296378372908,
+            "luminance_difference_vs_master": 1.6666440753492964,
+            "support_to_pixel_luminance_step": 14.291439539955093,
+            "pixel_to_master_luminance_step": -1.6666440753492964,
+            "gradient_direction": {
+              "support_to_pixel": "up",
+              "pixel_to_master": "down"
+            },
+            "between_recolored_support_and_master_luminance": false,
+            "brightness_reversal": true,
+            "endpoint_brightness_peak": true,
+            "endpoint_brightness_valley": false,
+            "8neighbor_local_contrast_peak": false,
+            "8neighbor_local_contrast_valley": false,
+            "potential_fringe_structural_indicator": true,
+            "master_RGB_delta_Linf": 1.0,
+            "variant_pixel_equals_current": true,
+            "variant_pixel_equals_reference": false
+          }
+        }
+      }
+    },
+    "worst_cluster": {
+      "id": 2,
+      "pixels": 3,
+      "bbox": [
+        95,
+        56,
+        98,
+        58
+      ],
+      "8conn_diameter_pixels": 3,
+      "owner_pixel_counts": {
+        "7": 3
+      },
+      "longest_8conn_segment_pixels": 3,
+      "mode": "M0"
+    }
+  },
+  "controls": {
+    "#14607": {
+      "frozen_safe_ownership": 0,
+      "protected_low_alpha_pixels": 6,
+      "protected_proximity": 6,
+      "new_mask_created": false,
+      "candidate_created": false,
+      "perceptual_result_cannot_override_protected_ownership": true
+    },
+    "#14593": {
+      "status": "REVIEW retained",
+      "complete_wordmark": false,
+      "protected_contact": true,
+      "blocked_grouping_links": 14,
+      "candidate": "none"
+    },
+    "#14597": {
+      "status": "cautious REVIEW retained; no target",
+      "candidate": "none"
+    },
+    "Digi Slovakia": {
+      "status": "PASS retained",
+      "changed_pixels": 0,
+      "candidate": "none"
+    },
+    "genuine_two_tone_positive_controls": [
+      {
+        "case": "positive-control-1",
+        "frozen_two_tone": true,
+        "topology_aware_two_tone": "two-tone",
+        "candidate": "none"
+      },
+      {
+        "case": "positive-control-2",
+        "frozen_two_tone": true,
+        "topology_aware_two_tone": "two-tone",
+        "candidate": "none"
+      }
+    ],
+    "#14599": {
+      "status": "CLOSED/TABU; not accessed, tested, or modified"
+    }
+  },
+  "current_white_alignment": {
+    "output_composite_vs_current_pixel_max_channel_delta": 239,
+    "pixels_with_any_composite_delta": 1241,
+    "candidate_variants_copy_CURRENT_outside_edit_masks": true
+  },
+  "diagnostic_category": "B — difference present but spatially localized/minor; edge delta components are short and low magnitude, with no full glyph-enclosing ring; awaiting human visual review",
+  "production_approval": false,
+  "candidate_approved": false
+}
