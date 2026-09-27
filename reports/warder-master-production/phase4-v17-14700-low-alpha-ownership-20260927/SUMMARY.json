@@ -1,0 +1,274 @@
+{
+  "experiment": "#14700 low-alpha perimeter ownership / AA attribution; no candidate",
+  "branch": "phase4-v10-component-mask-test",
+  "verified_start_head": "dcd5ca4d844ae49043547970376de1bd15b93d1b",
+  "input_hashes": {
+    "#14700_source": "9fa6f6a84bb9e1a98802e638f94d0f693757697648d1167d1b9f3f31fb7724c3",
+    "#14700_current_white": "e2b1eaf5cdad1acf3b251c7d5173a7bf0066ca3ea1a6eff9a60bd8aa02c76916",
+    "white_master": "c6ae4a808a65ffc8e6458336fccbfe4216de1e832ec0a9abf800907f2f783589"
+  },
+  "definition": {
+    "confirmed_wordmark": "Prior final gate solid achromatic group IDs [6,7,8,9,10] plus the already proven tonal attachments. Used only as fixed support; no new perimeter pixel is propagated or used to seed another.",
+    "low_alpha_perimeter": "Visible pixels with 0<alpha<32 in the 8-neighbor exterior ring of the unchanged confirmed group; exact count must equal prior final gate's 300.",
+    "safe_ownership": "Diagnostic attribution only: one direct confirmed glyph owner; direct support includes an already-confirmed safe tonal attachment; frozen V9 channel spread <=18 and local RGB max-channel distance <=18; alpha is attenuated relative to direct confirmed support; local luminance delta is within the median existing core-edge step; no protected pixel or protected neighborhood. No iteration, newly accepted support, nearest-only ownership, threshold change, edit mask, or recolor.",
+    "coordinates": "x/y are in the source-derived fitted 220x132 grid used by the existing output path. CSV also records inverse-mapped raw-source coordinate and raw source 3x3 RGBA neighborhood."
+  },
+  "population": {
+    "total_low_alpha_perimeter": 300,
+    "safe_wordmark_ownership": 40,
+    "ambiguous": 259,
+    "protected_or_other": 1,
+    "categories": {
+      "AMBIGUOUS": 259,
+      "SAFE WORDMARK OWNERSHIP": 40,
+      "PROTECTED / OTHER": 1
+    },
+    "reason_counts": {
+      "local RGB continuity to preconfirmed wordmark fails frozen max-channel distance 18": 252,
+      "one-hop attachment to already-confirmed safe wordmark AA; frozen RGB/luma/alpha evidence passes; no chaining": 40,
+      "alpha does not attenuate away from direct confirmed support": 6,
+      "multiple directly adjacent confirmed glyph owners": 1,
+      "channel spread exceeds frozen V9 achromatic limit at subthreshold alpha; chromatic ownership is not proven, so REVIEW": 1
+    },
+    "per_confirmed_glyph_component": {
+      "7": {
+        "AMBIGUOUS": 48
+      },
+      "8": {
+        "AMBIGUOUS": 48,
+        "SAFE WORDMARK OWNERSHIP": 3,
+        "PROTECTED / OTHER": 1
+      },
+      "6": {
+        "AMBIGUOUS": 31,
+        "SAFE WORDMARK OWNERSHIP": 11
+      },
+      "9": {
+        "AMBIGUOUS": 39,
+        "SAFE WORDMARK OWNERSHIP": 6
+      },
+      "10": {
+        "AMBIGUOUS": 94,
+        "SAFE WORDMARK OWNERSHIP": 20
+      }
+    },
+    "ownership_complete": false,
+    "ownership_completeness_gate": "NO"
+  },
+  "evidence_summary": {
+    "frozen_core_only_classifier_rejections_on_perimeter": {
+      "no_local_stroke_support": 95,
+      "tonal_discontinuity": 205,
+      "safe_acceptances": 0
+    },
+    "pixels_channel_spread_over_v9_limit": 1,
+    "direct_solid_core_neighbor_count_histogram": {
+      "0": 95,
+      "1": 18,
+      "2": 25,
+      "3": 159,
+      "5": 2,
+      "4": 1
+    },
+    "direct_protected_neighbor_pixels": 0,
+    "one_hop_attribution": {
+      "safe": 40,
+      "ambiguous": 259,
+      "other": 1,
+      "safe_supported_by_preconfirmed_tonal_attachment": 40,
+      "unique_glyph_owner_required": true,
+      "new_pixel_chaining": false,
+      "one_hop_direct_RGB_Linf_max": 18,
+      "one_hop_direct_luminance_threshold": "median luminance step between directly adjacent preconfirmed attachment and its frozen solid-core neighbor; no new threshold",
+      "alpha_attenuation": {
+        "AMBIGUOUS:False": 36,
+        "AMBIGUOUS:True": 223,
+        "SAFE WORDMARK OWNERSHIP:True": 40,
+        "PROTECTED / OTHER:True": 1
+      }
+    },
+    "nearest_local_core_RGB_Linf": {
+      "count": 205,
+      "min": 58,
+      "median": 201.0,
+      "max": 255,
+      "within_frozen_18": 0
+    },
+    "local_luminance_gradient_continuity": {
+      "evaluated_pixels": 300,
+      "pass": 93,
+      "fail": 207
+    },
+    "alpha_attenuation_from_preconfirmed_wordmark": {
+      "pixels_with_direct_confirmed_support": 300,
+      "attenuated": 264
+    }
+  },
+  "negative_and_stability_controls": {
+    "#14607/#14611": {
+      "source_path": "picons/80.0e/orion-express/transparent/1_0_1_2C8_CD_1_3200000_0_0_0.png",
+      "source_sha256": "edec07adb8a121d7c856271543549717aff4d253f0302fd2d83a909481b2d24c",
+      "current_white_sha256": "06f73c2c4e1fb1e42aab61f23909fd4a9b43d8b86722f938102164a7c1928089",
+      "duplicate_source_sha256_equal": true,
+      "duplicate_current_white_sha256_equal": true,
+      "duplicate_relationship": "#14611 byte-identical duplicate of #14607; only #14607 was analyzed",
+      "singleton_fragment_count_8connected": 29,
+      "near_singleton_visible_outside_core_pixels": 197,
+      "low_alpha_near_singleton_pixels": 6,
+      "safe_low_alpha_ownership": 0,
+      "low_alpha_rejected_by_protected_proximity": 6,
+      "result": "negative control PASS: safe low-alpha ownership remains 0",
+      "pixel_records": [
+        {
+          "x": 41,
+          "y": 48,
+          "alpha": 3,
+          "rgba": [
+            85,
+            85,
+            85,
+            3
+          ],
+          "solid_core_neighbor_component_count": 1,
+          "min_direct_core_rgb_linf": 14,
+          "protected_within_8_neighbors": true,
+          "frozen_tonal_classifier_safe": false,
+          "decision": "AMBIGUOUS/REVIEW"
+        },
+        {
+          "x": 131,
+          "y": 59,
+          "alpha": 4,
+          "rgba": [
+            0,
+            63,
+            191,
+            4
+          ],
+          "solid_core_neighbor_component_count": 1,
+          "min_direct_core_rgb_linf": 191,
+          "protected_within_8_neighbors": true,
+          "frozen_tonal_classifier_safe": false,
+          "decision": "AMBIGUOUS/REVIEW"
+        },
+        {
+          "x": 75,
+          "y": 60,
+          "alpha": 4,
+          "rgba": [
+            63,
+            0,
+            0,
+            4
+          ],
+          "solid_core_neighbor_component_count": 1,
+          "min_direct_core_rgb_linf": 49,
+          "protected_within_8_neighbors": true,
+          "frozen_tonal_classifier_safe": false,
+          "decision": "AMBIGUOUS/REVIEW"
+        },
+        {
+          "x": 75,
+          "y": 73,
+          "alpha": 4,
+          "rgba": [
+            127,
+            0,
+            0,
+            4
+          ],
+          "solid_core_neighbor_component_count": 1,
+          "min_direct_core_rgb_linf": 122,
+          "protected_within_8_neighbors": true,
+          "frozen_tonal_classifier_safe": false,
+          "decision": "AMBIGUOUS/REVIEW"
+        },
+        {
+          "x": 159,
+          "y": 73,
+          "alpha": 1,
+          "rgba": [
+            255,
+            255,
+            255,
+            1
+          ],
+          "solid_core_neighbor_component_count": 1,
+          "min_direct_core_rgb_linf": 232,
+          "protected_within_8_neighbors": true,
+          "frozen_tonal_classifier_safe": false,
+          "decision": "AMBIGUOUS/REVIEW"
+        },
+        {
+          "x": 39,
+          "y": 78,
+          "alpha": 7,
+          "rgba": [
+            109,
+            0,
+            0,
+            7
+          ],
+          "solid_core_neighbor_component_count": 1,
+          "min_direct_core_rgb_linf": 54,
+          "protected_within_8_neighbors": true,
+          "frozen_tonal_classifier_safe": false,
+          "decision": "AMBIGUOUS/REVIEW"
+        }
+      ]
+    },
+    "#14593": {
+      "status": "REVIEW retained",
+      "complete_wordmark": false,
+      "protected_contact": true,
+      "blocked_grouping_links": 14,
+      "candidate": "none"
+    },
+    "#14597": {
+      "status": "cautious REVIEW retained; no target",
+      "candidate": "none"
+    },
+    "Digi Slovakia": {
+      "status": "PASS retained",
+      "changed_pixels": 0,
+      "candidate": "none"
+    },
+    "genuine_two_tone_positive_controls": [
+      {
+        "case": "positive-control-1",
+        "frozen_two_tone": true,
+        "topology_aware_two_tone": "two-tone",
+        "candidate": "none"
+      },
+      {
+        "case": "positive-control-2",
+        "frozen_two_tone": true,
+        "topology_aware_two_tone": "two-tone",
+        "candidate": "none"
+      }
+    ]
+  },
+  "second_final_gate": {
+    "status": "NOT RUN — low-alpha ownership incomplete",
+    "candidate_generated": false
+  },
+  "candidate": {
+    "generated": false,
+    "editable_pixels": 0,
+    "changed_pixels": 0,
+    "candidate_vs_current_changed_pixels": 0,
+    "protected_intersections": {
+      "chromatic_core": 0,
+      "true_AA": 0,
+      "ambiguous_boundary": 0
+    }
+  },
+  "invariants": {
+    "source_unchanged": true,
+    "current_white_unchanged": true,
+    "master_unchanged": true,
+    "protected_masks_unchanged": true,
+    "production_picon_writes": 0,
+    "candidate_png_writes": 0
+  }
+}
