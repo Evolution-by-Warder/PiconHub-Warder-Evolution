@@ -234,3 +234,15 @@ This is a binding Warder project rule established by Štefan. Future Work sessio
 - Crosswalk recovery remains `CROSSWALK NOT FOUND`; the `128` historical unmapped approval records are preserved separately and remain unmapped.
 - All three failures identified in the bounded visual spot check (`H194`, `H535`, `I778`) are now human-approved and applied. No other picon was changed.
 - `main` remains untouched. Push has not been performed.
+
+
+## CURRENT FINAL PRODUCTION STATE — 2026-09-29
+
+- Authoritative production commit: `5c640168475223abc77dac2951f50c161f3c6bb7` on `warder-clean-production-20260929`.
+- FINAL VISUAL SPOT CHECK: **PASS AFTER 3 APPROVED REPAIRS**. Original sample: 31 picons; initial pass: 28; repaired: `H194`, `H535`, `I778`; final result: **31/31 PASS**; blocking visual defects remaining: **0**.
+- Exact corrections: **76 verified**; missing correction assets: `0`; correction hash mismatches: `0`.
+- Final production integrity at the authoritative production commit: TRANSPARENT `9041`, BLACK `9041`, WHITE `9041`, TOTAL `27123`; satellite positions `39`; providers `697`; missing variants `0`; orphans `0`; path collisions `0`; invalid PNG `0`.
+- Warder ID registry: `9041 ACTIVE`; duplicate Warder IDs `0`; duplicate technical identities `0`.
+- Immutable MASTER hashes remain BLACK `61e69f7fc46e340453bf74ccd7af6ac9d8eba9f8e232884659e1ea99f6abf3fe` and WHITE `c6ae4a808a65ffc8e6458336fccbfe4216de1e832ec0a9abf800907f2f783589`.
+- The `128` unmapped historical approvals remain separate historical evidence only. They were not mapped and do not create additional review cases.
+- `main` remains untouched. Production push is the next authorized step after this checkpoint commit.
