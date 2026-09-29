@@ -216,3 +216,19 @@ This rule is authoritative for all current and future Warder Evolution catalog p
 - Any future tooling or workflow that cannot preserve this identity rule must STOP rather than silently renumber, recycle, or substitute IDs.
 
 This is a binding Warder project rule established by Štefan. Future Work sessions must preserve it unless Štefan explicitly changes the rule.
+
+## CURRENT RECOVERY STATE — 2026-09-29
+
+- Production branch: `warder-clean-production-20260929`.
+- Current HEAD: `9fd8f91bd29910cdc14c3a2f750e9aacc9f70be9` (fast-forwarded from `5f3a952449fa13ababbd80ac919e71eef0770bd2`).
+- Approval recovery: `EXACT_RECOVERED 72/72`; `APPROVAL_CONFLICT 0`.
+- Case `#7191`: `EXACT_RECOVERED`.
+- Case `#14593` / Warder ID `I435`: `APPROVED_REPAIRED` by Štefan's explicit visual approval on 2026-09-29. Approved WHITE SHA256 `a669257611e49357b003735f78c705d3772769d1471ffcb1fe83587df3c2d430`; exact correction asset `reports/warder-master-production/approved-corrections/I435-WHITE-corrected-candidate.png`. The known-bad previous FINAL hash remains exclusion-only. Production WHITE is unchanged pending a separately authorized clean rebuild.
+- Case `#3678`: exact recovery asset preserved at `reports/warder-master-production/approved-corrections/V10-case-3678-FROM-ORIGINAL-ONLY-repair-v2.png` (SHA256 `3075f7065302d73990e0de4fecb02104dbd93fb024f2549743b5b709b9ce582c`).
+- Case `#7191` exact recovery asset preserved at `reports/warder-master-production/approved-corrections/V10-case-7191-APPROVED-RIGHT-CANDIDATE.png`.
+- Current authoritative approval manifest: `reports/authoritative-approval-manifest.csv`.
+- Permanent identity registry: `reports/warder-id-registry.csv`.
+- Crosswalk recovery: `CROSSWALK NOT FOUND`. There are `128` approved records still unmapped.
+- Identified human-review picons remaining: `0`; the human-resolution pass for identified Warder IDs is closed. The 128 historical unmapped approvals remain separate and unmapped.
+- `READY FOR CLEAN REBUILD: NO`.
+- The verified recovery overlay safety copy is retained outside the Git worktree at `/workspace/scratch/cb293170db8b/PiconHub-recovery-overlay-safety-copy-20260929`.
