@@ -200,3 +200,19 @@ Orbit Watch / Satellite Change Monitor remains planned only after catalog normal
 ## Recovery rule
 
 If chat/context is lost, read this file and `docs/PICON-MASTER-QUALITY-PLAN.md`, inspect `warder-master-production` at/after `e9b503d76eae3c3c7d7763df4909039a55d3edb8`, and continue with the Phase 4 REVIEW audit triage above. Do not restart Phase 2 or Phase 3 and do not merge to `main` merely because the rebuild is technically complete.
+
+## BINDING RULE — PERMANENT WARDER PICON IDENTITY
+
+This rule is authoritative for all current and future Warder Evolution catalog production and must not be bypassed, renumbered, reinterpreted, or replaced by temporary sheet numbering.
+
+- Every concrete picon receives exactly one permanent human-readable **Warder ID** (for example `A013`).
+- A Warder ID identifies that same concrete picon for its entire lifetime, independent of review-sheet position, sorting, provider/satellite changes, display name changes, filename/path changes, rebuilds, catalog updates, or future production revisions.
+- **Renumbering is forbidden.**
+- **ID recycling is forbidden.** If a picon is removed or retired, its Warder ID remains permanently reserved/retired and may never identify another picon.
+- Newly added picons receive new, previously unused Warder IDs only.
+- The authoritative ID registry/manifest must preserve the mapping between Warder ID and the picon's technical identity, production path/service reference, relevant BLACK/WHITE outputs and approval/hash records.
+- The same Warder ID must be used consistently in review sheets, corrections, approval manifests, validation, recovery documentation, and future catalog updates.
+- Review/contact-sheet labels are presentation metadata only. They must be rendered outside the picon image and must never alter a production PNG.
+- Any future tooling or workflow that cannot preserve this identity rule must STOP rather than silently renumber, recycle, or substitute IDs.
+
+This is a binding Warder project rule established by Štefan. Future Work sessions must preserve it unless Štefan explicitly changes the rule.
