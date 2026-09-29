@@ -217,18 +217,20 @@ This rule is authoritative for all current and future Warder Evolution catalog p
 
 This is a binding Warder project rule established by Štefan. Future Work sessions must preserve it unless Štefan explicitly changes the rule.
 
-## CURRENT RECOVERY STATE — 2026-09-29
+## CURRENT PRODUCTION STATE — 2026-09-29 BOUNDED WHITE REPAIRS
 
 - Production branch: `warder-clean-production-20260929`.
-- Current HEAD: `9fd8f91bd29910cdc14c3a2f750e9aacc9f70be9` (fast-forwarded from `5f3a952449fa13ababbd80ac919e71eef0770bd2`).
-- Approval recovery: `EXACT_RECOVERED 72/72`; `APPROVAL_CONFLICT 0`.
-- Case `#7191`: `EXACT_RECOVERED`.
-- Case `#14593` / Warder ID `I435`: `APPROVED_REPAIRED` by Štefan's explicit visual approval on 2026-09-29. Approved WHITE SHA256 `a669257611e49357b003735f78c705d3772769d1471ffcb1fe83587df3c2d430`; exact correction asset `reports/warder-master-production/approved-corrections/I435-WHITE-corrected-candidate.png`. The known-bad previous FINAL hash remains exclusion-only. Production WHITE is unchanged pending a separately authorized clean rebuild.
-- Case `#3678`: exact recovery asset preserved at `reports/warder-master-production/approved-corrections/V10-case-3678-FROM-ORIGINAL-ONLY-repair-v2.png` (SHA256 `3075f7065302d73990e0de4fecb02104dbd93fb024f2549743b5b709b9ce582c`).
-- Case `#7191` exact recovery asset preserved at `reports/warder-master-production/approved-corrections/V10-case-7191-APPROVED-RIGHT-CANDIDATE.png`.
-- Current authoritative approval manifest: `reports/authoritative-approval-manifest.csv`.
-- Permanent identity registry: `reports/warder-id-registry.csv`.
-- Crosswalk recovery: `CROSSWALK NOT FOUND`. There are `128` approved records still unmapped.
-- Identified human-review picons remaining: `0`; the human-resolution pass for identified Warder IDs is closed. The 128 historical unmapped approvals remain separate and unmapped.
-- `READY FOR CLEAN REBUILD: NO`.
-- The verified recovery overlay safety copy is retained outside the Git worktree at `/workspace/scratch/cb293170db8b/PiconHub-recovery-overlay-safety-copy-20260929`.
+- Bounded repair base commit: `f7fbee376152717f0b73aa6fd5ea1a4a7d10620c`; the current state is committed as its direct child.
+- Štefan explicitly approved the exact WHITE candidates for Warder IDs `H194`, `H535`, and `I778` on 2026-09-29. Each exact candidate PNG is preserved under `reports/warder-master-production/approved-corrections/` and applied byte-identically to its production WHITE path.
+  - `H194` — `picons/50.0e/turksat/white/1_0_1_1_1_FF01_1F4ABBE_0_0_0.png` — SHA256 `e7cc8873ccfaa7798f898b777ba15ce4c8bc1a5154f199ed49d9d20d1d3073e9` — asset `H194-WHITE-candidate.png`.
+  - `H535` — `picons/66.0e/connecto-tv/white/1_0_1_45_1_1_29430F9_0_0_0.png` — SHA256 `eef8a6b7e7ab2074f648d261a351bb0be5493cc96e9f19aabb32117da95838fa` — asset `H535-WHITE-candidate.png`.
+  - `I778` — `picons/9.0e/gold-tv/white/1_0_1_1A98_68E1_217C_5A0000_0_0_0.png` — SHA256 `83dac228b66b9c8af5dfc631466400743ab32253f445a0f8fea1c7371a30d221` — asset `I778-WHITE-candidate.png`.
+- The authoritative approval manifest records these human approvals and exact SHA256 values. Candidate provenance is explicit; no historical approval IDs were inferred.
+- Scope was limited to the three listed WHITE outputs and their exact correction assets. BLACK, TRANSPARENT, both MASTER files, registry and all other production PNGs are unchanged.
+- Catalog remains `TRANSPARENT 9041 / BLACK 9041 / WHITE 9041 = 27123`; 39 satellite positions, 697 providers, missing/orphan/collision counts `0/0/0`.
+- Warder ID registry remains `9041 ACTIVE`, duplicate Warder IDs `0`, duplicate technical identities `0`.
+- MASTER hashes remain BLACK `61e69f7fc46e340453bf74ccd7af6ac9d8eba9f8e232884659e1ea99f6abf3fe` and WHITE `c6ae4a808a65ffc8e6458336fccbfe4216de1e832ec0a9abf800907f2f783589`.
+- Prior approval recovery remains `EXACT_RECOVERED 72/72`, `APPROVAL_CONFLICT 0`; `#7191` remains `EXACT_RECOVERED`, `#3678` exact asset remains preserved, and `#14593 / I435` remains `APPROVED_REPAIRED` with exact SHA256 `a669257611e49357b003735f78c705d3772769d1471ffcb1fe83587df3c2d430`.
+- Crosswalk recovery remains `CROSSWALK NOT FOUND`; the `128` historical unmapped approval records are preserved separately and remain unmapped.
+- All three failures identified in the bounded visual spot check (`H194`, `H535`, `I778`) are now human-approved and applied. No other picon was changed.
+- `main` remains untouched. Push has not been performed.
