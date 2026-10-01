@@ -1,9 +1,23 @@
 # PiconHub Warder Evolution — PROJECT CHECKPOINT
 
-Updated: 2026-09-15
+Updated: 2026-10-01
 Purpose: durable recovery checkpoint so the project can be resumed exactly after loss of chat/context.
 
-## CURRENT AUTHORITATIVE STATE — 2026-09-15 END OF DAY
+## LATEST AUTHORITATIVE PRODUCTION STATE — 2026-10-01
+
+Active production branch: `warder-master-production`.
+
+Vhannibal Motor27 **APPROVED13** is frozen and integrated. The asset commit is `a345ec1e18e05fbc86002c42a7db9a1768687dad`, a direct child of the verified pre-integration commit `5f3a952449fa13ababbd80ac919e71eef0770bd2`. This checkpoint update follows the asset commit as a documentation-only child; use the live branch ref as the current HEAD.
+
+Approved source: `candidate-picons-295-WARDER-APPROVED13-CANDIDATE.zip`; SHA256 `701c0717edbe0e4bacc9a4c6ef552c6e1d56408c6975942e47ca4e2f7ce8f3af`. It contains 295 complete triplets / 885 PNG (transparent, black, white), all 220×132. Collision audit against the pre-integration production tree found 0 existing target paths. Post-commit verification against the production commit tree passed 885/885 SHA256. The Git tree is `c927f989752c02573c8d786dd649d071b1d47a11`.
+
+Evidence and project notes are committed under `migration/vhannibal/`: `APPROVED13.md`, `README.md`, `WARDER-Vhannibal-Motor27-APPROVED13-295-TRIPLETS.tsv`, `WARDER-Vhannibal-Motor27-APPROVED13-885-SHA256.tsv`, and `WARDER-Vhannibal-Motor27-APPROVED13-GIT-BLOB-MANIFEST.tsv`. The source archive remains in ChatGPT Library; no duplicate archive was added to Git.
+
+The PNG bytes were copied as approved; do not rerender, resize, recolor, recompress, or convert them. No new Warder IDs were assigned; existing permanent ID records remain unchanged.
+
+`main` remains TABU and was not modified by this integration or checkpoint work. Its observed HEAD at checkpoint update is `39066b7a6e86e2ba33c1cd0e66d45f68c2ee93e1`. No merge, force push, or rebase was used. This Motor27 approval does not change the separate Phase 4 / `main` merge gate described in the previous checkpoint.
+
+## PREVIOUS CHECKPOINT — 2026-09-15 END OF DAY
 
 Active production branch: `warder-master-production`.
 
