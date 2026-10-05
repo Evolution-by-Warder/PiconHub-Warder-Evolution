@@ -26,6 +26,26 @@ OpenATV material is not authoritative. A candidate is useful when it:
 - is demonstrably cleaner or higher quality than the current Warder artwork;
 - helps identify a service or artwork change that needs review.
 
+## Assimilation into PiconHub-Warder-Evolution
+
+All accepted external-source work is to be assimilated directly into the existing Warder system in this repository:
+
+https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution
+
+This repository remains the maintained production system for the picon project. External sources do **not** become separate parallel masters and do not create a second registry.
+
+Assimilation means:
+- external sources are imported only as candidate input;
+- candidates are matched against the existing Warder Master Registry;
+- existing Warder IDs are preserved;
+- accepted transparent artwork becomes or updates the Warder transparent master for that service;
+- Warder-owned black/white presentation variants are generated from the accepted transparent master using Warder rules;
+- provenance records which external source supplied the accepted candidate;
+- output and registry changes stay inside the controlled PiconHub-Warder-Evolution workflow;
+- Production is changed only after QC/review and an explicit controlled integration step.
+
+There must be no permanent `Vhannibal master`, `OpenATV master`, or other external-source master living beside Warder. After assimilation, **Warder is the maintained master** and the external source remains provenance/history only.
+
 ## Assimilation pipeline
 
 External transparent candidate -> identify/match service -> compare with current Warder transparent master -> classify (same/new/changed/better/problematic) -> automatic QC -> manual review only where required -> accepted Warder transparent master -> Warder-generated transparent/black/white outputs.
@@ -40,7 +60,7 @@ Rules:
 
 ## Next project task
 
-The next major PiconHub task is to start the **real multi-source audit and production pipeline** rather than further planning:
+The next major PiconHub task is to start the **real multi-source audit and production pipeline inside PiconHub-Warder-Evolution** rather than further planning:
 
 1. establish a clean current Warder baseline;
 2. ingest current external candidate data, beginning with current Vhannibal and OpenATV transparent sources;
@@ -49,7 +69,8 @@ The next major PiconHub task is to start the **real multi-source audit and produ
 5. run image/QC comparison;
 6. present only candidates requiring human visual judgement;
 7. immediately commit each approved batch with provenance and hashes;
-8. generate/maintain Warder presentation variants from the accepted transparent masters;
-9. integrate into Registry/Production only through the controlled Warder process.
+8. assimilate accepted transparent masters into the Warder-maintained set;
+9. generate/maintain Warder transparent/black/white outputs from those masters;
+10. integrate Registry/Production only through the controlled Warder process.
 
 Historical/lost Vhannibal working material must not be treated as trusted current input. New assimilation runs start from current upstream inputs and the current Warder baseline.
