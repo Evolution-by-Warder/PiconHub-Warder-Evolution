@@ -6,7 +6,7 @@ Diagnostic-only run against accepted checkpoint `2b200aed2d60d1ba1fc088c4bc0a620
 - Renderer: existing `tools/rebuild_master_catalog.py::classify_and_render`; optional diagnostics export only serializes values already measured in each connected-component pass. No thresholds, rules, templates, or decisions changed.
 - Reproduction command is in `tools/auxiliary_component_diagnostics.py`; it compares each in-memory PNG SHA/status/reason with the checkpoint's existing machine report and candidate PNGs and fails on any mismatch.
 - `component-diagnostics-NN.jsonl.gz` contains one UTF-8 JSONL row per identity with per-variant component diagnostics. `component-diagnostics-index.json` lists part checksums.
-- `family-diagnostic-summary.jsonl` maps each family to the component evidence without changing its existing REVIEW decision.
+- `family-diagnostic-summary.jsonl.gz` maps each family to the component evidence without changing its existing REVIEW decision.
 - `candidate-tree-sha-regression.json.gz` records expected and observed SHA256 for every existing checkpoint PNG.
 - `harmonic-evidence.json` contains all AUX-RF-0301 member/component evidence. `hellasat-regression.json` records the native placement regression.
 
