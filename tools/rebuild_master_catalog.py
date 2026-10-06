@@ -105,7 +105,71 @@ def master_rgb_under(master: np.ndarray, mask: np.ndarray) -> np.ndarray:
     return rendered[mask]
 
 
-def classify_and_render(source: Image.Image, master: Image.Image, style: str) -> VariantResult:
+def _append_component_diagnostic(
+    target: list[dict], idx: int, component: np.ndarray, solid: np.ndarray,
+    alpha: np.ndarray, rgb: np.ndarray, delta: np.ndarray,
+    achromatic_fraction: float, is_achromatic: bool, has_dark_and_light: bool,
+    contrast: np.ndarray, style: str, protected_component: bool,
+    safe_isolated: bool, recolour_eligible: bool,
+) -> None:
+    """Serialize measurements already computed by classify_and_render, without decisions."""
+    ys, xs = np.nonzero(component)
+    mask_bytes = np.packbits(component.reshape(-1), bitorder="big").tobytes()
+    low_count = int(np.count_nonzero(contrast < ACHROMATIC_CONTRAST_RATIO))
+    if has_dark_and_light:
+        component_class = "TWO_TONE_ACHROMATIC" if is_achromatic else "TWO_TONE_CHROMATIC"
+    else:
+        component_class = "ACHROMATIC" if is_achromatic else "CHROMATIC"
+    if protected_component and low_count:
+        if has_dark_and_light:
+            refusal = "two-tone component is protected by existing renderer rule"
+        else:
+            refusal = "chromatic component is protected by existing renderer rule"
+    elif recolour_eligible:
+        refusal = None
+    elif safe_isolated:
+        refusal = "no recolour required by existing contrast thresholds"
+    else:
+        refusal = "not eligible under existing achromatic single-tone isolation gate"
+    target.append({
+        "component_id": idx,
+        "bbox_xyxy_exclusive": [int(xs.min()), int(ys.min()), int(xs.max()) + 1, int(ys.max()) + 1],
+        "pixel_count": int(component.sum()),
+        "solid_alpha_pixel_count": int(solid.sum()),
+        "alpha_pixel_count": int(np.count_nonzero(alpha[component] > 0)),
+        "alpha_sum": int(alpha[component].astype(np.uint64).sum()),
+        "centroid_xy": [float(xs.mean()), float(ys.mean())],
+        "representative_rgb_median": [int(x) for x in np.median(rgb, axis=0)],
+        "representative_rgb_mean": [float(x) for x in np.mean(rgb, axis=0)],
+        "achromatic_fraction": achromatic_fraction,
+        "component_class": component_class,
+        "chromatic_fraction": float(1.0 - achromatic_fraction),
+        "dark_fraction_luma_le_64": float(np.mean(rel_luma(rgb.reshape((-1, 1, 3))).reshape(-1) * 255.0 <= 64.0)),
+        "light_fraction_luma_ge_192": float(np.mean(rel_luma(rgb.reshape((-1, 1, 3))).reshape(-1) * 255.0 >= 192.0)),
+        "low_contrast_pixel_count": low_count,
+        "low_contrast_percentage": 100.0 * low_count / max(1, int(contrast.size)),
+        "background_master_variant": style.upper(),
+        "protected_by_existing_rule": protected_component,
+        "touches_another_8_connected_component": False,
+        "touches_protected_or_chromatic_component": False,
+        "overlaps_another_8_connected_component": False,
+        "overlaps_another_component": False,
+        "component_relation_note": "8-connected labeling merges touching/overlapping visible masks; distinct labels therefore cannot touch or overlap. No separate semantic component mask exists",
+        "safely_isolated_under_existing_renderer_gate": safe_isolated,
+        "recolour_eligible_under_existing_renderer_gate": recolour_eligible,
+        "recolour_refusal_reason": refusal,
+        "mask_sha256": hashlib.sha256(mask_bytes).hexdigest(),
+        "mask_signature": f"{component.shape[1]}x{component.shape[0]}:{hashlib.sha256(mask_bytes).hexdigest()}",
+    })
+
+
+def classify_and_render(
+    source: Image.Image,
+    master: Image.Image,
+    style: str,
+    component_diagnostics: list[dict] | None = None,
+) -> VariantResult:
+    """Run the unchanged Warder classifier; optionally export its existing component evidence."""
     src = np.array(source, dtype=np.uint8)
     mst = np.array(master, dtype=np.uint8)
     alpha = src[..., 3]
@@ -141,12 +205,26 @@ def classify_and_render(source: Image.Image, master: Image.Image, style: str) ->
                 work[..., :3][component] = target
                 changed += int(component.sum())
                 fixed_components += 1
+            if component_diagnostics is not None:
+                _append_component_diagnostic(
+                    component_diagnostics, idx, component, solid, alpha, rgb, delta,
+                    achromatic_fraction, is_achromatic, has_dark_and_light,
+                    cr, style, protected_component=False, safe_isolated=True,
+                    recolour_eligible=needs_fix,
+                )
             continue
 
         protected |= component
         bg = master_rgb_under(mst, solid)
         cr = contrast_ratio(rgb.reshape((-1, 1, 3)), bg.reshape((-1, 1, 3))).reshape(-1)
         weak_fraction = float(np.mean(cr < ACHROMATIC_CONTRAST_RATIO))
+        if component_diagnostics is not None:
+            _append_component_diagnostic(
+                component_diagnostics, idx, component, solid, alpha, rgb, delta,
+                achromatic_fraction, is_achromatic, has_dark_and_light,
+                cr, style, protected_component=True, safe_isolated=False,
+                recolour_eligible=False,
+            )
         if weak_fraction >= MATERIAL_FRACTION:
             component_kind = "two-tone achromatic" if has_dark_and_light else "chromatic"
             review_reasons.append(
