@@ -1,0 +1,69 @@
+{
+  "source_checkpoint": "6ac15b98028ff344c1980cb4ea461a94d22894b1",
+  "engine_review_families": 903,
+  "policy_auto_fix_candidate_families": 0,
+  "human_review_families": 903,
+  "source_qc_families": 3,
+  "source_qc_identities": 4,
+  "source_unresolved_families": 320,
+  "source_unresolved_identities": 390,
+  "remaining_total_families": 1223,
+  "policy_classification": {
+    "SAFE ACHROMATIC/TEXT": {
+      "families": 0,
+      "identities": 0
+    },
+    "MONOCHROME WORDMARK": {
+      "families": 0,
+      "identities": 0
+    },
+    "SAFE SEPARABLE CHROMATIC+TEXT": {
+      "families": 0,
+      "identities": 0
+    },
+    "AMBIGUOUS MASK": {
+      "families": 249,
+      "identities": 281
+    },
+    "UNSAFE CHROMATIC": {
+      "families": 531,
+      "identities": 625
+    },
+    "UNSAFE CHROMATIC + AMBIGUOUS MASK": {
+      "families": 120,
+      "identities": 131
+    },
+    "SOURCE QC": {
+      "families": 3,
+      "identities": 4
+    },
+    "OTHER": {
+      "families": 0,
+      "identities": 0
+    }
+  },
+  "ambiguous_mask_including_overlap": {
+    "families": 369,
+    "identities": 412
+  },
+  "unsafe_chromatic_including_overlap": {
+    "families": 651,
+    "identities": 756
+  },
+  "decision_note": "Counts are reason-evidence classes. Chromatic+mask is reported separately to keep the disjoint breakdown additive; the overlap totals are given explicitly.",
+  "renderer_invoked": false,
+  "output_qc": "NOT_APPLICABLE_NO_CANDIDATES",
+  "unchanged": "No engine, thresholds, templates, images, family grouping, or status was changed.",
+  "harmonic_sentinel": {
+    "family_id": "AUX-RF-0301",
+    "decision": "HUMAN-REVIEW: UNSAFE CHROMATIC",
+    "member_count": 2,
+    "members": [
+      "provider-logo::HARMONIC - NT.png",
+      "provider-logo::HARMONIC.png"
+    ],
+    "black_reason": "chromatic component 2 has 76.4% materially low-contrast pixels on BLACK; chromatic component 3 has 100.0% materially low-contrast pixels on BLACK; chromatic component 4 has 100.0% materially low-contrast pixels on BLACK; chromatic component 5 has 100.0% materially low-contrast pixels on BLACK; chromatic component 6 has 100.0% materially low-contrast pixels on BLACK; chromatic component 7 has 100.0% materially low-contrast pixels on BLACK; chromatic component 8 has 100.0% materially low-contrast pixels on BLACK; chromatic component 9 has 100.0% materially low-contrast pixels on BLACK",
+    "white_reason": "chromatic component 1 has 100.0% materially low-contrast pixels on WHITE",
+    "mask_evidence": "The saved machine report contains connected-component type/index and low-contrast ratio, but no exported component-mask coordinates or semantic text/wordmark classification. The pinned renderer treats reported chromatic components as protected; no safe recolour target can be established."
+  }
+}
