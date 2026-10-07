@@ -1,0 +1,118 @@
+{
+  "add_assets": {
+    "piconProv-warder-safe-b": {
+      "classification": "WARDER_SAFE_APPROVED",
+      "filename": "provider-black-warder-safe-220x132.zip",
+      "root": "piconProv_220x132",
+      "sha256": "7b7499ca87529fd89859b3f10b8bd76ed8234a268f93c29e94fe3e23f075bb3d",
+      "size": 5736394,
+      "url": "https://raw.githubusercontent.com/Evolution-by-Warder/PiconHub-Warder-Evolution/7387e9e7310e9cd6eca2fc5abf56451c2e1b73a9/reports/warder-master-production/auxiliary-hybrid-runtime-candidate-2026-10-07/archives/provider-black-warder-safe-220x132.zip"
+    },
+    "piconProv-warder-safe-t": {
+      "classification": "WARDER_SAFE_APPROVED",
+      "filename": "provider-transparent-warder-safe-220x132.zip",
+      "root": "piconProv_220x132",
+      "sha256": "ffb5e4a8afd2ce8f5873f67883ecbb93ba892b9983eefc3e3e9b4c76ff1189fe",
+      "size": 1081152,
+      "url": "https://raw.githubusercontent.com/Evolution-by-Warder/PiconHub-Warder-Evolution/7387e9e7310e9cd6eca2fc5abf56451c2e1b73a9/reports/warder-master-production/auxiliary-hybrid-runtime-candidate-2026-10-07/archives/provider-transparent-warder-safe-220x132.zip"
+    },
+    "piconProv-warder-safe-w": {
+      "classification": "WARDER_SAFE_APPROVED",
+      "filename": "provider-white-warder-safe-220x132.zip",
+      "root": "piconProv_220x132",
+      "sha256": "5e95db06d006ef212d8d3e756ffa067fe18b0bbc5f2c8825cebaa8ba6222e4ae",
+      "size": 5752522,
+      "url": "https://raw.githubusercontent.com/Evolution-by-Warder/PiconHub-Warder-Evolution/7387e9e7310e9cd6eca2fc5abf56451c2e1b73a9/reports/warder-master-production/auxiliary-hybrid-runtime-candidate-2026-10-07/archives/provider-white-warder-safe-220x132.zip"
+    },
+    "piconSat-warder-safe-b": {
+      "classification": "WARDER_SAFE_APPROVED",
+      "filename": "satellite-black-warder-safe-220x132.zip",
+      "root": "piconSat_220x132",
+      "sha256": "0808057c83a060fff98aa0bf0f1d2c2cda5b49ea9574b44af3e1a47d9477ed0e",
+      "size": 36521,
+      "url": "https://raw.githubusercontent.com/Evolution-by-Warder/PiconHub-Warder-Evolution/7387e9e7310e9cd6eca2fc5abf56451c2e1b73a9/reports/warder-master-production/auxiliary-hybrid-runtime-candidate-2026-10-07/archives/satellite-black-warder-safe-220x132.zip"
+    },
+    "piconSat-warder-safe-t": {
+      "classification": "WARDER_SAFE_APPROVED",
+      "filename": "satellite-transparent-warder-safe-220x132.zip",
+      "root": "piconSat_220x132",
+      "sha256": "9d52030633e5b88af40ea1b806862cdd6ad866fb3453ea1993aac4e6fdf33abf",
+      "size": 8400,
+      "url": "https://raw.githubusercontent.com/Evolution-by-Warder/PiconHub-Warder-Evolution/7387e9e7310e9cd6eca2fc5abf56451c2e1b73a9/reports/warder-master-production/auxiliary-hybrid-runtime-candidate-2026-10-07/archives/satellite-transparent-warder-safe-220x132.zip"
+    },
+    "piconSat-warder-safe-w": {
+      "classification": "WARDER_SAFE_APPROVED",
+      "filename": "satellite-white-warder-safe-220x132.zip",
+      "root": "piconSat_220x132",
+      "sha256": "9d55e86a420bfce1e7ad25eee8e5fba823b796119efd1665ee45109af684166e",
+      "size": 36634,
+      "url": "https://raw.githubusercontent.com/Evolution-by-Warder/PiconHub-Warder-Evolution/7387e9e7310e9cd6eca2fc5abf56451c2e1b73a9/reports/warder-master-production/auxiliary-hybrid-runtime-candidate-2026-10-07/archives/satellite-white-warder-safe-220x132.zip"
+    }
+  },
+  "auxiliary_hybrid": {
+    "cleanup_policy": "No recursive deletion. Copy only regular listed PNG members. Keep unlisted base and priority files.",
+    "gui_labels": {
+      "black": "Čierne",
+      "transparent": "Transparentné",
+      "white": "Biele"
+    },
+    "required_source_policy": "Each URL must be bound to an exact publication descriptor (owner/repository/ref/root); redirects must remain inside that root; size/SHA mandatory.",
+    "selection_plan": {
+      "provider": {
+        "black": [
+          "piconProv-b",
+          "piconProv-warder-safe-b"
+        ],
+        "transparent": [
+          "piconProv-220",
+          "piconProv-warder-safe-t"
+        ],
+        "white": [
+          "piconProv-w",
+          "piconProv-warder-safe-w"
+        ]
+      },
+      "satellite": {
+        "black": [
+          "piconSat-b",
+          "piconSat-warder-safe-b"
+        ],
+        "transparent": [
+          "piconSat-220",
+          "piconSat-warder-safe-t"
+        ],
+        "white": [
+          "piconSat-w",
+          "piconSat-warder-safe-w"
+        ]
+      }
+    },
+    "show_size_selector": false,
+    "stage_order": [
+      "legacy_fallback",
+      "warder_safe_priority"
+    ],
+    "stop_if_fallback_stage_fails": true
+  },
+  "replace_assets": {
+    "piconProv-220": {
+      "classification": "LEGACY_FALLBACK_ONLY",
+      "filename": "provider-transparent-legacy-fallback.zip",
+      "root": "piconProv",
+      "sha256": "ee325732bb83ac36b25d16e5f3b65eb4312eb251528689cc6ae3d938ea5be7f0",
+      "size": 11462366,
+      "url": "https://raw.githubusercontent.com/Evolution-by-Warder/PiconHub-Warder-Evolution/7387e9e7310e9cd6eca2fc5abf56451c2e1b73a9/reports/warder-master-production/auxiliary-hybrid-runtime-candidate-2026-10-07/archives/provider-transparent-legacy-fallback.zip"
+    },
+    "piconSat-220": {
+      "classification": "LEGACY_FALLBACK_ONLY",
+      "filename": "satellite-transparent-legacy-fallback.zip",
+      "root": "piconSat",
+      "sha256": "c134ac5b7d9fdb2ba80b87e8a4b5671537ae634ef9b495b17e783b314394942a",
+      "size": 773004,
+      "url": "https://raw.githubusercontent.com/Evolution-by-Warder/PiconHub-Warder-Evolution/7387e9e7310e9cd6eca2fc5abf56451c2e1b73a9/reports/warder-master-production/auxiliary-hybrid-runtime-candidate-2026-10-07/archives/satellite-transparent-legacy-fallback.zip"
+    }
+  },
+  "runtime_gap": "The current downloader reads one assets[id] entry; this composite mapping is declarative until TEST202 implements two-stage auxiliary execution.",
+  "schema": 3,
+  "status": "candidate diff only; do not merge to main or use until composite executor and exact source validation are implemented"
+}

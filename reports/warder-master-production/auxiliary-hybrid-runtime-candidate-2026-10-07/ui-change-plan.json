@@ -1,0 +1,39 @@
+{
+  "status": "INCLUDED_IN_TEST202_PLAN; SOURCE_PATCH_NOT_APPLIED_IN_PREBUILD_CHECKPOINT",
+  "preserved_existing_9f41d0fa57a6986ce65094ae9a083cdaf29843c2": [
+    "truthful cprmFiles copy verification and source/destination SHA checks",
+    "regular PNG-only copying; symlinks skipped",
+    "stale destination cannot turn failed copy into success",
+    "result status prefixes/icons, including partial failures",
+    "completed result dialog uses Close; other dialogs retain Cancel",
+    "19 locale catalogs contain the existing Close translation"
+  ],
+  "test202_changes": [
+    {
+      "area": "result rows",
+      "change": "Keep one status icon on each per-position row; green only for successful rows with zero errors; red for errors/partial results. Keep Total and Failures icons consistent with their own runtime status."
+    },
+    {
+      "area": "completed result dialog",
+      "change": "Keep Close/Zatvoriť only for the completed result dialog. Do not rename Cancel globally."
+    },
+    {
+      "area": "resolution text",
+      "change": "Preserve the exact label 220 × 132 – Picony."
+    },
+    {
+      "area": "picon colour icon",
+      "change": "Enlarge only the centered inner picon/variant artwork by approximately 20–25%; keep outer blue frame, black background, layout position, and overall icon dimensions unchanged."
+    },
+    {
+      "area": "setup row",
+      "change": "Rename CESTY to CESTY KU KONFIGURAČNÝM SÚBOROM SKINU through gettext in all 19 supported catalogs."
+    },
+    {
+      "area": "auxiliary selectors",
+      "change": "Provider and Satellite each expose only Transparentné, Čierne, Biele. Do not show a size selector."
+    }
+  ],
+  "gettext_gate": "Run msgfmt --check against every one of the 19 catalogs after implementing new strings; not claimed PASS by this prebuild design checkpoint.",
+  "test202": "NOT BUILT"
+}
