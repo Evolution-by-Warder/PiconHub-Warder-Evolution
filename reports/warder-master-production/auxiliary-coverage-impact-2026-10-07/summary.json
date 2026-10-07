@@ -1,0 +1,146 @@
+{
+  "archives": {
+    "provider-black": {
+      "archive": "piconProv-black.zip",
+      "duplicate_filename_entries": [],
+      "png_count": 1297,
+      "sha256": "f693c2d70866a1b7161046a0e3fd74610b4785673e9ad11f2fa5cefbd6d1e13f",
+      "size_bytes": 11990269,
+      "url": "https://raw.githubusercontent.com/Evolution-by-Warder/FullHDGlass-Warder-Evolution/main/assets/warder/downloads/picons/providers/black/piconProv.zip",
+      "zip_crc": "PASS"
+    },
+    "provider-transparent": {
+      "archive": "piconProv-220x132.zip",
+      "duplicate_filename_entries": [],
+      "png_count": 1145,
+      "sha256": "93ef555cf09d49a72188c477949d948feaf6416a0fcff047600d36b3a96e4b8f",
+      "size_bytes": 11481399,
+      "url": "https://raw.githubusercontent.com/Evolution-by-Warder/FullHDGlass-Warder-Evolution/main/assets/warder/downloads/picons/providers/220x132/piconProv_220x132.zip",
+      "zip_crc": "PASS"
+    },
+    "provider-white": {
+      "archive": "piconProv-white.zip",
+      "duplicate_filename_entries": [],
+      "png_count": 1256,
+      "sha256": "ebff6f537720da39410741cb13abcce0be6a1f822264f516a291a2e70c889cff",
+      "size_bytes": 13974289,
+      "url": "https://raw.githubusercontent.com/Evolution-by-Warder/FullHDGlass-Warder-Evolution/main/assets/warder/downloads/picons/providers/white/piconProv.zip",
+      "zip_crc": "PASS"
+    },
+    "satellite-black": {
+      "archive": "piconSat-black.zip",
+      "duplicate_filename_entries": [],
+      "png_count": 269,
+      "sha256": "6458bdf32db1dddd21ecf8894864e130d5c5535fcfe7fe2681509ad7b0958d8a",
+      "size_bytes": 2244970,
+      "url": "https://raw.githubusercontent.com/Evolution-by-Warder/FullHDGlass-Warder-Evolution/main/assets/warder/downloads/picons/satellites/black/piconSat.zip",
+      "zip_crc": "PASS"
+    },
+    "satellite-transparent": {
+      "archive": "piconSat-220x132.zip",
+      "duplicate_filename_entries": [],
+      "png_count": 69,
+      "sha256": "4e8c7d8095aa2c79a30eb1b9af05f4107758a515a31246565da13a6f05da1d5d",
+      "size_bytes": 780076,
+      "url": "https://raw.githubusercontent.com/Evolution-by-Warder/FullHDGlass-Warder-Evolution/main/assets/warder/downloads/picons/satellites/220x132/piconSat_220x132.zip",
+      "zip_crc": "PASS"
+    },
+    "satellite-white": {
+      "archive": "piconSat-white.zip",
+      "duplicate_filename_entries": [],
+      "png_count": 269,
+      "sha256": "539cda4f3f599f5e3f2b6e6690a4625fc5c678bdfb46cb9b1b68622d28b08b2b",
+      "size_bytes": 2421870,
+      "url": "https://raw.githubusercontent.com/Evolution-by-Warder/FullHDGlass-Warder-Evolution/main/assets/warder/downloads/picons/satellites/white/piconSat.zip",
+      "zip_crc": "PASS"
+    }
+  },
+  "checkpoint": "a97acf919b93e4efaa1fc31766c55a634b487208",
+  "class_counts": {
+    "BLACK/WHITE-ONLY-CURRENT": 390,
+    "LEGACY-ONLY-IF-SAFE-TREE": 1431,
+    "NO-CURRENT-RUNTIME": 0,
+    "SAFE-REPLACED": 173,
+    "TRANSPARENT-ONLY-CURRENT": 1041
+  },
+  "current_source_branch": "main",
+  "current_source_repo": "Evolution-by-Warder/FullHDGlass-Warder-Evolution",
+  "hybrid_fallback_required": true,
+  "hybrid_proposal": {
+    "consumer_contract": "Preserve the existing 220-width lookup order: *_220x132 first, then base directory fallback. This report does not modify the consumer.",
+    "decision": "SAFE-ONLY MIGRATION NOT VIABLE; HYBRID FALLBACK REQUIRED",
+    "no_publish": true,
+    "provider": {
+      "legacy_fallback_directory": "piconProv/",
+      "priority_directory": "piconProv_220x132/",
+      "rule": "Place only approved Warder-safe 220x132 triad filenames in the priority directory. Keep existing legacy files in the base directory for identities absent from the safe priority set; do not relabel them Warder-approved."
+    },
+    "reason": "Safe-only replacement would remove 1431 of 1604 current runtime identities (89.2%); provider loss 1163/1335, satellite loss 268/269.",
+    "review_and_unresolved": "Keep REVIEW-BLOCKED and SOURCE-UNRESOLVED assets in existing legacy runtime storage only; never copy them into or mark them as approved in the Warder safe directory.",
+    "satellite": {
+      "legacy_fallback_directory": "piconSat/",
+      "priority_directory": "piconSat_220x132/",
+      "rule": "Place only approved Warder-safe 220x132 triad filenames in the priority directory. Keep existing legacy files in the base directory for identities absent from the safe priority set; do not relabel them Warder-approved."
+    },
+    "status": "PROPOSAL ONLY; NO CONSUMER OR PACKAGE CHANGES"
+  },
+  "production_changed": false,
+  "provider": {
+    "black_white_only_current_subclass": 190,
+    "current_runtime_identities": 1335,
+    "current_variant_identities": {
+      "black": 1297,
+      "transparent": 1145,
+      "white": 1256
+    },
+    "legacy_only_if_safe_tree": 1163,
+    "no_current_runtime": 0,
+    "safe_replaced_identities": 172,
+    "safe_variant_identities": {
+      "black": 172,
+      "transparent": 172,
+      "white": 172
+    },
+    "transparent_only_current_subclass": 973,
+    "variant_identities_missing_after_safe_only": {
+      "black": 1134,
+      "transparent": 973,
+      "white": 1093
+    },
+    "would_disappear_identities": 1163
+  },
+  "safe_only_migration_viable": false,
+  "satellite": {
+    "black_white_only_current_subclass": 200,
+    "current_runtime_identities": 269,
+    "current_variant_identities": {
+      "black": 269,
+      "transparent": 69,
+      "white": 269
+    },
+    "legacy_only_if_safe_tree": 268,
+    "no_current_runtime": 0,
+    "safe_replaced_identities": 1,
+    "safe_variant_identities": {
+      "black": 1,
+      "transparent": 1,
+      "white": 1
+    },
+    "transparent_only_current_subclass": 68,
+    "variant_identities_missing_after_safe_only": {
+      "black": 268,
+      "transparent": 68,
+      "white": 268
+    },
+    "would_disappear_identities": 268
+  },
+  "subclass_counts": {
+    "BLACK/WHITE-ONLY-CURRENT": 390,
+    "PUBLISHABLE-SAFE-TRIAD": 173,
+    "TRANSPARENT-ONLY-CURRENT": 1041
+  },
+  "test202": "NOT BUILT",
+  "total_current_runtime_identities": 1604,
+  "total_safe_replaced": 173,
+  "total_would_disappear": 1431
+}

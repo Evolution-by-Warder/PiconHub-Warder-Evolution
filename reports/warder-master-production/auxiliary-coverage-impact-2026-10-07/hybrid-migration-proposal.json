@@ -1,0 +1,18 @@
+{
+  "consumer_contract": "Preserve the existing 220-width lookup order: *_220x132 first, then base directory fallback. This report does not modify the consumer.",
+  "decision": "SAFE-ONLY MIGRATION NOT VIABLE; HYBRID FALLBACK REQUIRED",
+  "no_publish": true,
+  "provider": {
+    "legacy_fallback_directory": "piconProv/",
+    "priority_directory": "piconProv_220x132/",
+    "rule": "Place only approved Warder-safe 220x132 triad filenames in the priority directory. Keep existing legacy files in the base directory for identities absent from the safe priority set; do not relabel them Warder-approved."
+  },
+  "reason": "Safe-only replacement would remove 1431 of 1604 current runtime identities (89.2%); provider loss 1163/1335, satellite loss 268/269.",
+  "review_and_unresolved": "Keep REVIEW-BLOCKED and SOURCE-UNRESOLVED assets in existing legacy runtime storage only; never copy them into or mark them as approved in the Warder safe directory.",
+  "satellite": {
+    "legacy_fallback_directory": "piconSat/",
+    "priority_directory": "piconSat_220x132/",
+    "rule": "Place only approved Warder-safe 220x132 triad filenames in the priority directory. Keep existing legacy files in the base directory for identities absent from the safe priority set; do not relabel them Warder-approved."
+  },
+  "status": "PROPOSAL ONLY; NO CONSUMER OR PACKAGE CHANGES"
+}
