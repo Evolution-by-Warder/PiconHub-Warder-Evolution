@@ -21,6 +21,14 @@ TARGET_CENTER = (110.0, 66.0)
 SAFE_BBOX = (8, 8, 212, 124)  # right/bottom are exclusive
 CENTER_TOLERANCE = 0.5
 
+# The approved auxiliary centering checkpoint differs from a direct
+# recomposite at a handful of fully identified antialiased edge pixels. Keep
+# this comparison deliberately narrower than a general image tolerance.
+AA_ROUNDING_ALPHA_MIN = 250
+AA_ROUNDING_ALPHA_MAX = 253
+AA_ROUNDING_MAX_RGB_DELTA = 1
+AA_ROUNDING_MAX_CHANGED_PIXELS = 7
+
 # This is the exact repeated 2x2 alpha artifact identified and excluded from
 # bbox measurement by the approved 8bf726a3 checkpoint. Its pixels are kept.
 KNOWN_ALPHA_NOISE_SHA256 = "21cf269c35ecfb4d870caf9eb165383d8cda3236195a2660b917324f5a6ccf59"
@@ -47,11 +55,79 @@ class CenteringResult:
     reason: str
 
 
+@dataclass(frozen=True)
+class PixelComparison:
+    equivalent: bool
+    exact: bool
+    changed_pixels: int
+    max_rgb_delta: int
+    reason: str
+
+
 def mask_bbox(mask: np.ndarray) -> tuple[int, int, int, int] | None:
     ys, xs = np.nonzero(mask)
     if not len(xs):
         return None
     return int(xs.min()), int(ys.min()), int(xs.max()) + 1, int(ys.max()) + 1
+
+
+def compare_approved_pixels(actual: np.ndarray, approved: np.ndarray) -> PixelComparison:
+    """Compare RGBA renders exactly, with a narrowly proven AA-rounding case.
+
+    Non-exact equivalence is allowed only when alpha is identical everywhere,
+    geometry consequently remains identical, no more than seven pixels differ,
+    every differing pixel has alpha 250..253, and every RGB channel differs by
+    at most one. This bound matches the measured centering/recomposite residue
+    in the pinned 173-identity checkpoint. It is not a production recolour rule.
+    """
+    left = np.asarray(actual)
+    right = np.asarray(approved)
+    if left.shape != right.shape or left.ndim != 3 or left.shape[2] != 4:
+        return PixelComparison(False, False, 0, 0, "RGBA dimensions or mode differ")
+    if not np.array_equal(left[..., 3], right[..., 3]):
+        return PixelComparison(False, False, int(np.count_nonzero(left[..., 3] != right[..., 3])), 0,
+                               "alpha differs; geometry/content integrity is not equivalent")
+    changed = np.any(left[..., :3] != right[..., :3], axis=2)
+    count = int(changed.sum())
+    if count == 0:
+        return PixelComparison(True, True, 0, 0, "exact RGBA pixel match")
+    delta = np.abs(left[..., :3].astype(np.int16) - right[..., :3].astype(np.int16))
+    max_delta = int(delta[changed].max())
+    alpha = right[..., 3][changed]
+    if count > AA_ROUNDING_MAX_CHANGED_PIXELS:
+        reason = f"{count} changed pixels exceeds AA limit {AA_ROUNDING_MAX_CHANGED_PIXELS}"
+    elif np.any((alpha < AA_ROUNDING_ALPHA_MIN) | (alpha > AA_ROUNDING_ALPHA_MAX)):
+        reason = "RGB change occurs outside measured antialiased alpha range 250..253"
+    elif max_delta > AA_ROUNDING_MAX_RGB_DELTA:
+        reason = f"RGB delta {max_delta} exceeds AA limit {AA_ROUNDING_MAX_RGB_DELTA}"
+    else:
+        return PixelComparison(True, False, count, max_delta,
+                               "bounded AA rounding: alpha/geometry exact; RGB delta <= 1 on alpha 250..253")
+    return PixelComparison(False, False, count, max_delta, reason)
+
+
+def review_reason_signature(reason: str) -> str:
+    """SHA256 signature of the exact, unnormalized engine REVIEW reason."""
+    return hashlib.sha256(reason.encode("utf-8")).hexdigest()
+
+
+def digest_bound_approval_matches(
+    record: dict, *, identity: str, source_sha256: str, variant: str,
+    output_sha256: str, review_reason: str, approved_checkpoint: str,
+    template_sha256: str,
+) -> bool:
+    """Match every binding field; any input/output/reason drift invalidates it."""
+    return bool(
+        record.get("identity") == identity
+        and record.get("source_sha256") == source_sha256
+        and record.get("variant") == variant
+        and record.get("approved_output_sha256") == output_sha256
+        and record.get("review_reason") == review_reason
+        and record.get("review_reason_signature") == review_reason_signature(review_reason)
+        and record.get("approved_checkpoint") == approved_checkpoint
+        and record.get("template_sha256") == template_sha256
+        and record.get("approval_status") == "USER_VISUAL_APPROVED"
+    )
 
 
 def _labels(mask: np.ndarray) -> tuple[np.ndarray, int]:

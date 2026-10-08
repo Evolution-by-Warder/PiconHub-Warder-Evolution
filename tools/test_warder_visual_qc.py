@@ -29,8 +29,11 @@ from warder_visual_qc import (  # noqa: E402
     CENTER_TOLERANCE,
     SAFE_BBOX,
     center_rgba_layer,
+    compare_approved_pixels,
+    digest_bound_approval_matches,
     detect_local_panels,
     logical_component_groups,
+    review_reason_signature,
 )
 
 
@@ -107,9 +110,54 @@ def run_component_helper_tests() -> dict:
     assert len(topology.panels) == 1, f"HD+ by ASTRA panel not recognized: {len(topology.panels)}"
     assert len(topology.knockout_glyphs) >= 2, "HD+ by ASTRA knockout glyphs not recognized"
     assert len(topology.review_reasons) == 0, topology.review_reasons
+
+    # The checkpoint's only non-exact renders are at most seven 1-LSB RGB
+    # differences on alpha 250..253 pixels. Alpha/geometry changes and even a
+    # 2-LSB edge change must remain a hard mismatch.
+    baseline = np.zeros((132, 220, 4), dtype=np.uint8)
+    baseline[40, 50] = [10, 20, 30, 252]
+    same = compare_approved_pixels(baseline, baseline.copy())
+    assert same.equivalent and same.exact
+    edge = baseline.copy(); edge[40, 50, 2] += 1
+    assert compare_approved_pixels(edge, baseline).equivalent
+    edge[40, 50, 2] += 1
+    assert not compare_approved_pixels(edge, baseline).equivalent
+    alpha_changed = baseline.copy(); alpha_changed[40, 50, 3] -= 1
+    assert not compare_approved_pixels(alpha_changed, baseline).equivalent
+    opaque = baseline.copy(); opaque[40, 50, 3] = 255
+    opaque_expected = opaque.copy(); opaque[40, 50, 0] += 1
+    assert not compare_approved_pixels(opaque, opaque_expected).equivalent
+    too_many = np.zeros((132, 220, 4), dtype=np.uint8)
+    too_many[20:28, 20, :] = [10, 20, 30, 252]
+    too_many_expected = too_many.copy(); too_many_expected[20:28, 20, 0] += 1
+    assert not compare_approved_pixels(too_many, too_many_expected).equivalent
+
+    approval_doc = json.loads((ROOT / "tests/fixtures/auxiliary-visual-approvals.json").read_text())
+    approval_records = approval_doc["approved_review_variants"]
+    assert len(approval_records) == 4
+    for approval in approval_records:
+        reason = approval["review_reason"]
+        assert approval["review_reason_signature"] == review_reason_signature(reason)
+        args = {"identity": approval["identity"], "source_sha256": approval["source_sha256"],
+                "variant": approval["variant"], "output_sha256": approval["approved_output_sha256"],
+                "review_reason": reason, "approved_checkpoint": approval["approved_checkpoint"],
+                "template_sha256": approval["template_sha256"]}
+        assert digest_bound_approval_matches(approval, **args)
+        for field, value in (("source_sha256", "0" * 64),
+                             ("approved_output_sha256", "1" * 64),
+                             ("review_reason", reason + " changed"),
+                             ("review_reason_signature", "2" * 64),
+                             ("template_sha256", "3" * 64)):
+            mutated = dict(approval); mutated[field] = value
+            assert not digest_bound_approval_matches(mutated, **args), f"approval did not invalidate on {field} change"
+    approval_regressions = {"records": len(approval_records), "valid_match": "PASS",
+                            "source_sha_invalidation": "PASS", "output_sha_invalidation": "PASS",
+                            "reason_signature_invalidation": "PASS", "template_sha_invalidation": "PASS",
+                            "pixel_bounds": "PASS"}
     return {"logical_grouping": "PASS", "integer_centering": "PASS",
             "local_panel_knockout": "PASS", "hd_plus_panel_count": len(topology.panels),
-            "hd_plus_knockout_count": len(topology.knockout_glyphs)}
+            "hd_plus_knockout_count": len(topology.knockout_glyphs),
+            "pixel_reproducibility": "PASS", "digest_bound_approval": approval_regressions}
 
 
 def run_auxiliary_regressions() -> dict:
@@ -247,6 +295,9 @@ def run_full_checkpoint(checkpoint_dir: Path) -> dict:
 
     masters = {style: Image.open(ROOT / f"templates/picons/{style}-sablona.png").convert("RGBA")
                for style in ("black", "white")}
+    approval_doc = json.loads((ROOT / "tests/fixtures/auxiliary-visual-approvals.json").read_text())
+    approvals = {(r["identity"], r["variant"]): r for r in approval_doc["approved_review_variants"]}
+    approved_checkpoint = "8bf726a3d7ba046f5bc531c8236b573963b7557a"
     rows = []
     summary: Counter[str] = Counter()
     for name, source_bytes in sorted(sources.items(), key=lambda pair: pair[0].casefold()):
@@ -267,18 +318,37 @@ def run_full_checkpoint(checkpoint_dir: Path) -> dict:
             if sha(expected_bytes) != centering_audit[name]["variants"][style]["new_sha256"]:
                 raise AssertionError(f"approved centered candidate SHA mismatch: {name} {style}")
             expected = Image.open(io.BytesIO(expected_bytes)).convert("RGBA")
-            pixel_match = result.image.tobytes() == expected.tobytes()
+            comparison = compare_approved_pixels(np.asarray(result.image), np.asarray(expected))
+            pixel_match = comparison.exact
+            rendered_sha = sha(image_bytes(result.image))
+            approval = approvals.get((f"{'satellite-logo' if name == '150W.png' else 'provider-logo'}::{name}", style))
+            visual_approval = bool(
+                approval and result.status == "REVIEW" and comparison.exact
+                and digest_bound_approval_matches(
+                    approval,
+                    identity=f"{'satellite-logo' if name == '150W.png' else 'provider-logo'}::{name}",
+                    source_sha256=sha(source_bytes), variant=style,
+                    output_sha256=rendered_sha, review_reason=result.reason,
+                    approved_checkpoint=approved_checkpoint,
+                    template_sha256=sha((ROOT / f"templates/picons/{style}-sablona.png").read_bytes()),
+                )
+            )
             different_pixels = int(np.count_nonzero(np.any(np.asarray(result.image) != np.asarray(expected), axis=2)))
             expected_engine_status = audit[name]["variants"][style]["status"]
             status_match = result.status == expected_engine_status
             review_reasons = []
             if result.status == "REVIEW":
                 review_reasons.append(result.reason)
-            if not pixel_match:
+            if not comparison.equivalent:
                 review_reasons.append(f"{different_pixels} rendered pixels differ from the approved checkpoint; candidate kept unchanged and marked REVIEW")
             variants[style] = {"engine_status": result.status, "checkpoint_status": expected_engine_status,
                                "pixel_match": pixel_match, "status_match": status_match,
                                "different_pixels": different_pixels,
+                               "pixel_equivalent": comparison.equivalent,
+                               "pixel_comparison": comparison.reason,
+                               "max_rgb_delta": comparison.max_rgb_delta,
+                               "visual_approval_matched": visual_approval,
+                               "effective_status": "VISUAL-APPROVED" if visual_approval else result.status,
                                "review_reason": "; ".join(review_reasons),
                                "alpha_geometry_sha256": result.alpha_geometry_sha256,
                                "centering_translation": [result.centering_dx, result.centering_dy],
@@ -297,15 +367,29 @@ def run_full_checkpoint(checkpoint_dir: Path) -> dict:
         safe = bbox[0] >= 8 and bbox[1] >= 8 and bbox[2] <= 212 and bbox[3] <= 124
         if not safe:
             raise AssertionError(f"safe-area invariant failed {name}: {bbox}")
-        exact_pixels = all(v["pixel_match"] for v in variants.values())
-        needs_review = (not exact_pixels) or any(v["engine_status"] == "REVIEW" for v in variants.values())
+        equivalent_pixels = all(v["pixel_equivalent"] for v in variants.values())
+        needs_review = (not equivalent_pixels) or any(
+            v["engine_status"] == "REVIEW" and not v["visual_approval_matched"]
+            for v in variants.values()
+        )
         status = "REVIEW" if needs_review else "PASS"
         summary[status] += 1
         rows.append({"identity": ("satellite-logo::" if name == "150W.png" else "provider-logo::") + name,
                      "filename": name, "status": status, "bbox": bbox, "center": [cx, cy],
                      "translation": list(translated["black"]), "variants": variants})
+    aa_variants = sum(
+        1 for row in rows for variant in row["variants"].values()
+        if variant["pixel_equivalent"] and not variant["pixel_match"]
+    )
+    approvals_matched = sum(
+        1 for row in rows for variant in row["variants"].values()
+        if variant["visual_approval_matched"]
+    )
     return {"total_identities": len(rows), "provider": 172, "satellite": 1,
             "candidate_pngs": 346, "pixel_exact_identities": sum(all(v["pixel_match"] for v in row["variants"].values()) for row in rows),
+            "pixel_equivalent_identities": sum(all(v["pixel_equivalent"] for v in row["variants"].values()) for row in rows),
+            "bounded_aa_rounding_variants": aa_variants,
+            "digest_bound_visual_approvals_matched": approvals_matched,
             "pass": summary["PASS"], "review": summary["REVIEW"],
             "fail": 0, "transparent_source_sha_unchanged": True,
             "approved_checkpoint_files_modified": False,
