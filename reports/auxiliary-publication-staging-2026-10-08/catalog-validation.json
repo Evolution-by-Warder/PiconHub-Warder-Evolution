@@ -1,0 +1,89 @@
+{
+  "approved_candidate_checkpoint": "8bf726a3d7ba046f5bc531c8236b573963b7557a",
+  "approved_qc_checkpoint": "13dd00b5624c4b6659574cdddedd503edc18947",
+  "architecture_module_blob_sha": "515069b4e780aa08027036a32a6e56d0a384c179",
+  "architecture_test_blob_sha": "ad0d1cd93a4f00346811b90d3ad3e91372c98bca",
+  "architecture_tests": {
+    "command": "python3 tests/test_auxiliary_catalog.py",
+    "exit_code": 0,
+    "result": "15 passed"
+  },
+  "candidate_archives": {
+    "provider-black-centered.zip": {
+      "expected_sha256": "08290327a5a94733fbfcb52fb2cc956f4dadee9d9a20c198af77b89799d35035",
+      "sha256": "08290327a5a94733fbfcb52fb2cc956f4dadee9d9a20c198af77b89799d35035",
+      "size": 5949641
+    },
+    "provider-white-centered.zip": {
+      "expected_sha256": "cdb9d00e0db9d23e04bc5deefba3523296777f1908ce2eeb6d1d75460b89bf9b",
+      "sha256": "cdb9d00e0db9d23e04bc5deefba3523296777f1908ce2eeb6d1d75460b89bf9b",
+      "size": 5914324
+    },
+    "satellite-black-white-centered.zip": {
+      "expected_sha256": "736d82cadaffecea26ec12572394870e648363e2b00b1f1129c16aeef9c5d2d7",
+      "sha256": "736d82cadaffecea26ec12572394870e648363e2b00b1f1129c16aeef9c5d2d7",
+      "size": 77182
+    },
+    "transparent-sources.zip": {
+      "expected_sha256": "ed73471b2e9bdc63e811a73000072bbee0be2623fc5620e7df6a34562044eb9a",
+      "sha256": "ed73471b2e9bdc63e811a73000072bbee0be2623fc5620e7df6a34562044eb9a",
+      "size": 1117501
+    }
+  },
+  "channel_isolation": {
+    "basis": "This staging commit adds files only beneath auxiliary/ and reports/; no channel-renderer, channel-validation, registry, channel data, transparent-master or legacy-fallback path is modified.",
+    "channel_tree_changed_by_staging": false,
+    "evidence_path": "reports/warder-master-production/auxiliary-integration-2026-10-08/channel-parity.json",
+    "exact_matches": 18672,
+    "mismatches": 0,
+    "production_channel_pngs_in_baseline": 28008,
+    "required_black_white_outputs": 18672,
+    "source_identities": 9336,
+    "untested": 0
+  },
+  "channel_path_count": 28008,
+  "checks": {
+    "archive_pins_and_members": "PASS",
+    "asset_sha256_dimensions_rgba": "PASS",
+    "channel_namespace_collision": "PASS",
+    "lookup_all_variants": 346,
+    "manifest_validation": "PASS",
+    "pair_completeness": "PASS",
+    "satellite_no_orbital_inference": "PASS",
+    "unknown_and_cross_domain_clean_miss": "PASS",
+    "unsafe_paths_duplicates_symlinks_orphans": "PASS"
+  },
+  "counts": {
+    "black": 173,
+    "identities": 173,
+    "png": 346,
+    "provider": 172,
+    "satellite": 1,
+    "white": 173
+  },
+  "existing_production_integrated_regressions": [
+    {
+      "command": "python3 tools/test_auxiliary_ingress.py",
+      "exit_code": 0,
+      "result": "173 identities; 346 PNG; 173 PASS / 0 REVIEW / 0 FAIL; actual auxiliary ingress CLI PASS"
+    },
+    {
+      "command": "python3 tools/test_warder_visual_qc.py",
+      "exit_code": 0,
+      "result": "helper regressions PASS; channel regressions PASS"
+    }
+  ],
+  "manifest_sha256": "6631f646ed3d51a1e84317c9e3a45456b48c002781dc7338442e5c4d26b3a754",
+  "odesa_white_approval": "Explicit BOUNDED_AA_V1 digest-bound approval remains in the existing ingress regression; no approved PNG was re-rendered.",
+  "parent_architecture_commit": "76b6c92022ebb96e5f2261e1f46d86869a3d1ce3",
+  "parent_architecture_tree": "5ac3837bbdddeb403b876407cc1b716b0ce88f8b",
+  "png_sha256_manifest": "sha256-manifest.json",
+  "python_version": "3.12.14",
+  "staging_branch": "auxiliary-production-catalog-staging-20261008",
+  "status": "PASS",
+  "template_sha256": {
+    "black": "61e69f7fc46e340453bf74ccd7af6ac9d8eba9f8e232884659e1ea99f6abf3fe",
+    "white": "c6ae4a808a65ffc8e6458336fccbfe4216de1e832ec0a9abf800907f2f783589"
+  },
+  "transparent_source_commit": "db5eec9f1cdb7a4d587cb1bcdeebc6b3f0d51819"
+}
