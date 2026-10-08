@@ -1,0 +1,122 @@
+{
+  "staging_branch": "auxiliary-production-staging-20261008",
+  "parent_production_baseline": "b33644ada1ae61c1c0085ec753a20c48b1549e9",
+  "approved_qc_checkpoint": "13dd00b5624c4b6659574cdddedd503edc18947c",
+  "approved_candidate_checkpoint": "8bf726a3d7ba046f5bc531c8236b573963b7557a",
+  "channel_renderer": {
+    "production_blob_sha": "8bd6db6e343ccbfcb94c2724f559e35e1e4b33c3",
+    "staging_blob_sha": "8bd6db6e343ccbfcb94c2724f559e35e1e4b33c3",
+    "byte_identical": true,
+    "validate_source_and_service_reference_rules_changed": false
+  },
+  "changed_files": [
+    "reports/auxiliary-staging/README.md",
+    "reports/auxiliary-staging/channel-parity.json",
+    "reports/auxiliary-staging/helper-regression.json",
+    "reports/auxiliary-staging/ingress-run.json",
+    "reports/auxiliary-staging/input-lock.json",
+    "reports/auxiliary-staging/staging-integration-report.json",
+    "reports/warder-master-production/auxiliary-centering-2026-10-08/README.md",
+    "reports/warder-master-production/auxiliary-centering-2026-10-08/centering-audit.jsonl",
+    "reports/warder-master-production/auxiliary-centering-2026-10-08/provenance.json",
+    "reports/warder-master-production/auxiliary-centering-2026-10-08/provider-black-centered.zip",
+    "reports/warder-master-production/auxiliary-centering-2026-10-08/provider-white-centered.zip",
+    "reports/warder-master-production/auxiliary-centering-2026-10-08/satellite-black-white-centered.zip",
+    "reports/warder-master-production/auxiliary-centering-2026-10-08/sha256-manifest.jsonl",
+    "reports/warder-master-production/auxiliary-centering-2026-10-08/summary.json",
+    "reports/warder-master-production/auxiliary-proof-engine-candidates-2026-10-07/README.md",
+    "reports/warder-master-production/auxiliary-proof-engine-candidates-2026-10-07/bundle-manifest.json",
+    "reports/warder-master-production/auxiliary-proof-engine-candidates-2026-10-07/transparent-sources.zip",
+    "tests/fixtures/auxiliary-visual-approvals.json",
+    "tests/fixtures/channel-visual-qc-regressions.json",
+    "tests/fixtures/warder-visual-qc-regressions.zip",
+    "tools/auxiliary_ingress.py",
+    "tools/auxiliary_renderer.py",
+    "tools/compare_channel_staging_outputs.py",
+    "tools/test_auxiliary_ingress.py",
+    "tools/test_warder_visual_qc.py",
+    "tools/warder_visual_qc.py"
+  ],
+  "channel_parity": {
+    "baseline": "production baseline b33644ada1ae61c1c0085ec753a20c48b1549e9",
+    "staging": "auxiliary-production-staging-20261008",
+    "source_identities": 9336,
+    "source_inputs_identical": true,
+    "source_mismatch_count": 0,
+    "black_white_variants_required": 18672,
+    "baseline_outputs": 18672,
+    "staging_outputs": 18672,
+    "variants_compared": 18672,
+    "exact_matches": 18672,
+    "mismatches": [],
+    "mismatch_count": 0,
+    "untested_identities": [],
+    "result": "PASS"
+  },
+  "full_channel_rebuilds": {
+    "baseline": {
+      "transparent_sources": 9336,
+      "black_outputs": 9336,
+      "white_outputs": 9336,
+      "output_validation_errors": 0,
+      "source_bytes_changed": 0,
+      "master_bytes_changed": 0
+    },
+    "staging": {
+      "transparent_sources": 9336,
+      "black_outputs": 9336,
+      "white_outputs": 9336,
+      "output_validation_errors": 0,
+      "source_bytes_changed": 0,
+      "master_bytes_changed": 0
+    }
+  },
+  "auxiliary_end_to_end": {
+    "identities": 173,
+    "provider": 172,
+    "satellite": 1,
+    "candidate_pngs": 346,
+    "pass": 173,
+    "review": 0,
+    "fail": 0,
+    "digest_bound_approval_records": 18,
+    "digest_bound_approvals_matched": 16,
+    "raw_review_variants": 16,
+    "review_variants_approved": 16,
+    "transparent_sources_unchanged": true,
+    "legacy_fallback_touched": false
+  },
+  "pixel_comparison": {
+    "exact": 332,
+    "bounded_aa_equivalent": 14,
+    "all_346_exact_or_bounded_equivalent": true,
+    "odesa_layv_white_explicit_bounded_aa_approval": true
+  },
+  "source_and_archive_integrity": {
+    "source_pngs": 173,
+    "provider": 172,
+    "satellite": 1,
+    "candidate_pngs": 346,
+    "manifest_rows": 519,
+    "zip_integrity": "PASS",
+    "pinned_git_objects_and_sha256": "PASS",
+    "template_hashes": "PASS"
+  },
+  "regressions": {
+    "python_compile": "PASS",
+    "actual_auxiliary_cli": "PASS",
+    "auxiliary_identity_and_pixel_comparison": "PASS",
+    "digest_bound_active_review_approval": "PASS 16/16; 2 records correspond to raw PASS variants",
+    "approved_centering_and_master_integrity": "PASS",
+    "channel_fixture_regression": "PASS",
+    "auxiliary_helper_regression": "PASS",
+    "full_channel_parity": "PASS"
+  },
+  "legacy_fallback": "UNTOUCHED; the staging CLI has no fallback write/delete path",
+  "candidate_publication": "NOT DONE",
+  "runtime_consumption": "NOT DONE",
+  "remaining_blockers": [
+    "Production/shared-engine integration, candidate publication, and runtime consumption remain separate future steps. This branch is staging-only."
+  ],
+  "next_production_integration_phase": "GO for a separately reviewed integration phase; NOT authorization to publish or deploy"
+}
