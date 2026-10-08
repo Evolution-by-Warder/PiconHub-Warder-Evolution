@@ -23,6 +23,14 @@ import numpy as np
 from PIL import Image
 from scipy import ndimage
 
+from warder_visual_qc import (
+    center_rgba_layer,
+    detect_local_panels,
+    fit_geometry_mask,
+    logical_component_groups,
+    mask_bbox as warder_visual_bbox,
+)
+
 
 SIZE = (220, 132)
 SERVICE_REF = re.compile(r"^[0-9A-F]+(?:_[0-9A-F]+){9}\.png$")
@@ -56,6 +64,9 @@ class VariantResult:
     image: Image.Image
     changed_pixels: int
     protected_pixels: int
+    centering_dx: int = 0
+    centering_dy: int = 0
+    alpha_geometry_sha256: str = ""
 
 
 def fit_logo(source: Image.Image) -> tuple[Image.Image, float, tuple[int, int, int, int]]:
@@ -105,59 +116,173 @@ def master_rgb_under(master: np.ndarray, mask: np.ndarray) -> np.ndarray:
     return rendered[mask]
 
 
-def classify_and_render(source: Image.Image, master: Image.Image, style: str) -> VariantResult:
+def classify_and_render(
+    source: Image.Image,
+    master: Image.Image,
+    style: str,
+    *,
+    centering_mask: np.ndarray | None = None,
+) -> VariantResult:
+    """Render one style using the shared Warder component-aware policy.
+
+    Production contrast constants remain the policy authority. Local panel and
+    logical grouping evidence is supplied by ``warder_visual_qc``; only
+    achromatic masks are recoloured, and uncertain chromatic/two-tone cases
+    remain REVIEW. Final centering translates the RGBA artwork layer only.
+    """
     src = np.array(source, dtype=np.uint8)
     mst = np.array(master, dtype=np.uint8)
     alpha = src[..., 3]
     visible = alpha > 0
-    labels, count = ndimage.label(visible, structure=np.ones((3, 3), dtype=np.uint8))
+    solid = alpha >= OPAQUE_ALPHA
+    labels, _ = ndimage.label(visible, structure=np.ones((3, 3), dtype=np.uint8))
     work = src.copy()
     changed = 0
     protected = np.zeros(visible.shape, dtype=bool)
     review_reasons: list[str] = []
     fixed_components = 0
+    topology = detect_local_panels(src, achromatic_delta=ACHROMATIC_DELTA, luminance_fn=rel_luma)
+    review_reasons.extend(topology.review_reasons)
+    if len(topology.panels) > 1:
+        review_reasons.append("multiple local panel candidates require review")
+    local_masks: list[np.ndarray] = []
+    for panel in topology.panels:
+        hole = panel["mask"]
+        work[..., :3][hole] = np.asarray(panel["panel_fill_rgb"], dtype=np.uint8)
+        work[..., 3][hole] = 255
+        local_masks.append(hole)
+        protected |= labels == panel["enclosing_component_id"]
+        for component_id in panel["positive_components_inside"]:
+            protected |= labels == component_id
+    for glyph in topology.knockout_glyphs:
+        hole = glyph["mask"]
+        work[..., :3][hole] = np.asarray(glyph["ink_rgb"], dtype=np.uint8)
+        work[..., 3][hole] = 255
+        local_masks.append(hole)
 
-    for idx in range(1, count + 1):
-        component = labels == idx
-        solid = component & (alpha >= OPAQUE_ALPHA)
-        if not solid.any():
-            solid = component
-        rgb = src[..., :3][solid]
-        delta = rgb.max(axis=1).astype(np.int16) - rgb.min(axis=1).astype(np.int16)
-        achromatic_fraction = float(np.mean(delta <= ACHROMATIC_DELTA))
-        is_achromatic = achromatic_fraction >= ACHROMATIC_REQUIRED
-        luma = rel_luma(rgb.reshape((-1, 1, 3))).reshape(-1) * 255.0
-        has_dark_and_light = (
-            float(np.mean(luma <= 64.0)) >= TWO_TONE_FRACTION
-            and float(np.mean(luma >= 192.0)) >= TWO_TONE_FRACTION
-        )
+    local_union = np.logical_or.reduce(local_masks) if local_masks else np.zeros(visible.shape, dtype=bool)
+    changed_alpha = work[..., 3] != src[..., 3]
+    if np.any(changed_alpha & ~local_union):
+        review_reasons.append("alpha geometry changed outside a recognized local panel/knockout mask")
+    for panel in topology.panels:
+        panel_bg = np.asarray(panel["panel_fill_rgb"], dtype=np.uint8).reshape((1, 1, 3))
+        for component_id in panel["positive_components_inside"]:
+            foreground_mask = (labels == component_id) & solid
+            if not np.any(foreground_mask):
+                continue
+            foreground = src[..., :3][foreground_mask]
+            local_bg = np.broadcast_to(panel_bg, foreground.reshape((-1, 1, 3)).shape)
+            local_cr = contrast_ratio(foreground.reshape((-1, 1, 3)), local_bg).reshape(-1)
+            if float(np.mean(local_cr < ACHROMATIC_CONTRAST_RATIO)) >= MATERIAL_FRACTION:
+                review_reasons.append(f"local panel foreground {component_id} remains low-contrast against its panel")
+    for glyph in topology.knockout_glyphs:
+        frame_mask = (labels == glyph["enclosing_component_id"]) & solid
+        if np.any(frame_mask):
+            local_bg = np.median(src[..., :3][frame_mask], axis=0).astype(np.uint8).reshape((1, 1, 3))
+            ink = np.asarray(glyph["ink_rgb"], dtype=np.uint8).reshape((1, 1, 3))
+            local_cr = float(contrast_ratio(ink, local_bg)[0, 0])
+            if local_cr < ACHROMATIC_CONTRAST_RATIO:
+                review_reasons.append("local knockout glyph remains low-contrast against its enclosing panel")
 
-        if is_achromatic and not has_dark_and_light:
-            bg = master_rgb_under(mst, solid)
-            cr = contrast_ratio(rgb.reshape((-1, 1, 3)), bg.reshape((-1, 1, 3))).reshape(-1)
-            needs_fix = float(np.mean(cr < ACHROMATIC_CONTRAST_RATIO)) >= MATERIAL_FRACTION
-            if needs_fix:
-                target = RECOLOUR_BLACK if style == "white" else RECOLOUR_WHITE
-                work[..., :3][component] = target
-                changed += int(component.sum())
+    achromatic_delta = src[..., :3].astype(np.int16).max(axis=2) - src[..., :3].astype(np.int16).min(axis=2)
+    achromatic = visible & (achromatic_delta <= ACHROMATIC_DELTA)
+    grouped: list[dict] = []
+    adapted_groups: list[dict] = []
+    total_rgb = src[..., :3][visible]
+    total_delta = (total_rgb.max(axis=1).astype(int) - total_rgb.min(axis=1).astype(int)
+                   if len(total_rgb) else np.array([]))
+    pure_achromatic = bool(
+        len(total_delta)
+        and float(np.mean(total_delta <= ACHROMATIC_DELTA)) >= ACHROMATIC_REQUIRED
+        and not topology.panels
+    )
+    if pure_achromatic:
+        whole = visible & ~protected
+        samples = whole & solid
+        ratios = contrast_ratio(src[..., :3][samples].reshape((-1, 1, 3)), master_rgb_under(mst, samples).reshape((-1, 1, 3))) if samples.any() else np.array([])
+        weak = float(np.mean(ratios < ACHROMATIC_CONTRAST_RATIO)) if ratios.size else 0.0
+        group = {"logical_component": "whole achromatic artwork", "bbox_xyxy_exclusive": warder_visual_bbox(whole),
+                 "pixel_count": int(whole.sum()), "low_contrast_before_fraction": weak}
+        grouped.append(group)
+        if weak >= MATERIAL_FRACTION:
+            target = RECOLOUR_WHITE if style == "black" else RECOLOUR_BLACK
+            work[..., :3][whole] = target
+            changed += int(whole.sum())
+            fixed_components += 1
+            adapted_groups.append({**group, "target_rgb": target.astype(int).tolist()})
+        after = contrast_ratio(work[..., :3][samples].reshape((-1, 1, 3)), master_rgb_under(mst, samples).reshape((-1, 1, 3))) if samples.any() else np.array([])
+        group["post_render_contrast_pass"] = (float(np.mean(after < ACHROMATIC_CONTRAST_RATIO)) < MATERIAL_FRACTION) if after.size else True
+        if not group["post_render_contrast_pass"]:
+            review_reasons.append("whole achromatic artwork remains low-contrast after render")
+    else:
+        grouped_labels, grouped_count = ndimage.label(achromatic & solid, structure=np.ones((3, 3), dtype=np.uint8))
+        component_masks: list[np.ndarray] = []
+        component_meta: list[int] = []
+        for component_id in range(1, grouped_count + 1):
+            component = grouped_labels == component_id
+            if int(component.sum()) < 12 or np.any(component & protected) or any(np.any(component & mask) for mask in local_masks):
+                continue
+            component_masks.append(component)
+            component_meta.append(component_id)
+        for group_ids in logical_component_groups(component_masks):
+            group_mask = np.logical_or.reduce([component_masks[i] for i in group_ids])
+            samples = group_mask & solid
+            if not samples.any():
+                continue
+            ratios = contrast_ratio(src[..., :3][samples].reshape((-1, 1, 3)), master_rgb_under(mst, samples).reshape((-1, 1, 3)))
+            weak = float(np.mean(ratios < ACHROMATIC_CONTRAST_RATIO))
+            group = {"component_ids": [component_meta[i] for i in group_ids],
+                     "bbox_xyxy_exclusive": warder_visual_bbox(group_mask),
+                     "pixel_count": int(group_mask.sum()), "low_contrast_before_fraction": weak}
+            grouped.append(group)
+            if weak >= MATERIAL_FRACTION:
+                target = RECOLOUR_WHITE if style == "black" else RECOLOUR_BLACK
+                work[..., :3][group_mask] = target
+                changed += int(group_mask.sum())
                 fixed_components += 1
+                adapted_groups.append({**group, "target_rgb": target.astype(int).tolist()})
+            after = contrast_ratio(work[..., :3][samples].reshape((-1, 1, 3)), master_rgb_under(mst, samples).reshape((-1, 1, 3)))
+            group["post_render_contrast_pass"] = float(np.mean(after < ACHROMATIC_CONTRAST_RATIO)) < MATERIAL_FRACTION
+            if not group["post_render_contrast_pass"]:
+                review_reasons.append(f"logical achromatic group {group['component_ids']} remains low-contrast on {style.upper()}")
+
+    # Existing conservative chromatic/two-tone review remains active, while
+    # local panel text and panel surfaces are evaluated against their local
+    # field and therefore excluded from outer-master comparison.
+    labels_for_review, review_count = ndimage.label(visible, structure=np.ones((3, 3), dtype=np.uint8))
+    for component_id in range(1, review_count + 1):
+        component = (labels_for_review == component_id) & ~local_union
+        if np.any(component & protected):
             continue
-
+        component_solid = component & solid
+        if not component_solid.any():
+            continue
+        rgb = src[..., :3][component_solid]
+        delta = rgb.max(axis=1).astype(np.int16) - rgb.min(axis=1).astype(np.int16)
+        is_achromatic = float(np.mean(delta <= ACHROMATIC_DELTA)) >= ACHROMATIC_REQUIRED
+        luma = rel_luma(rgb.reshape((-1, 1, 3))).reshape(-1) * 255.0
+        two_tone = (float(np.mean(luma <= 64.0)) >= TWO_TONE_FRACTION
+                    and float(np.mean(luma >= 192.0)) >= TWO_TONE_FRACTION)
+        if is_achromatic and not two_tone:
+            continue
         protected |= component
-        bg = master_rgb_under(mst, solid)
-        cr = contrast_ratio(rgb.reshape((-1, 1, 3)), bg.reshape((-1, 1, 3))).reshape(-1)
-        weak_fraction = float(np.mean(cr < ACHROMATIC_CONTRAST_RATIO))
-        if weak_fraction >= MATERIAL_FRACTION:
-            component_kind = "two-tone achromatic" if has_dark_and_light else "chromatic"
-            review_reasons.append(
-                f"{component_kind} component {idx} has {weak_fraction:.1%} materially low-contrast pixels on {style.upper()}"
-            )
+        cr = contrast_ratio(rgb.reshape((-1, 1, 3)), master_rgb_under(mst, component_solid).reshape((-1, 1, 3))).reshape(-1)
+        weak = float(np.mean(cr < ACHROMATIC_CONTRAST_RATIO))
+        if weak >= MATERIAL_FRACTION:
+            kind = "two-tone achromatic" if two_tone else "chromatic"
+            review_reasons.append(f"{kind} component {component_id} has {weak:.1%} materially low-contrast pixels on {style.upper()}")
 
-    # Hard invariant: all protected brand-component RGBA pixels are untouched.
-    if protected.any() and not np.array_equal(work[protected], src[protected]):
-        raise RuntimeError("protected brand component changed")
+    chromatic = visible & solid & (achromatic_delta > ACHROMATIC_DELTA)
+    if local_masks:
+        chromatic &= ~local_union
+    if np.any(work[..., :3][chromatic] != src[..., :3][chromatic]):
+        raise RuntimeError("chromatic brand component changed")
 
     logo = Image.fromarray(work, "RGBA")
+    centered = center_rgba_layer(logo, geometry_mask=centering_mask)
+    if centered.reason:
+        review_reasons.append(centered.reason)
+    logo = centered.image
     result = Image.alpha_composite(master, logo)
     if review_reasons:
         status = "REVIEW"
@@ -168,7 +293,8 @@ def classify_and_render(source: Image.Image, master: Image.Image, style: str) ->
     else:
         status = "PASS"
         reason = "source components preserved; no approved contrast correction required"
-    return VariantResult(status, reason, result, changed, int(protected.sum()))
+    alpha_geometry_sha256 = hashlib.sha256(np.asarray(logo, dtype=np.uint8)[..., 3].tobytes()).hexdigest()
+    return VariantResult(status, reason, result, changed, int(protected.sum()), centered.dx, centered.dy, alpha_geometry_sha256)
 
 
 def overall_status(black: str, white: str) -> str:
@@ -332,15 +458,23 @@ def main() -> int:
             continue
 
         fitted, geometry_scale, source_bbox = fit_logo(rgba)
+        center_mask = fit_geometry_mask(rgba, source_bbox, geometry_scale)
         results = {}
         output_paths = {}
         for style in STYLES:
-            result = classify_and_render(fitted, masters[style], style)
+            result = classify_and_render(fitted, masters[style], style, centering_mask=center_mask)
             output = source_path.parent.parent / style / source_path.name
             output.parent.mkdir(parents=True, exist_ok=True)
             result.image.save(output, format="PNG")
             results[style] = result
             output_paths[style] = output.relative_to(root).as_posix()
+        if (results["black"].centering_dx, results["black"].centering_dy, results["black"].alpha_geometry_sha256) != (
+            results["white"].centering_dx, results["white"].centering_dy, results["white"].alpha_geometry_sha256
+        ):
+            for result in results.values():
+                result.status = "REVIEW"
+                result.reason += "; BLACK/WHITE rendered artwork geometry differs"
+        for result in results.values():
             variant_counts[result.status] += 1
         overall = overall_status(results["black"].status, results["white"].status)
         source_counts[overall] += 1
