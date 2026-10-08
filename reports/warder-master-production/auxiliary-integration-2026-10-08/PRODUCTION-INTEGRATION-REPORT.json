@@ -179,14 +179,165 @@
   },
   "clean_checkout_reproducibility": {
     "status": "PASS",
-    "tested_commit": "68002a21248002f61bc4225037da6d30518db53a",
-    "tests": [
-      "tools/test_auxiliary_ingress.py",
-      "tools/test_warder_visual_qc.py"
+    "checkout_method": "fresh GitHub clone; detached checkout of exact published integration commit",
+    "tested_commit": "e7aad45d98e616075b19681eafe47fdde154d2e1",
+    "tested_git_tree": "0008cd649352f57f66fd2541751850cd299f1d49",
+    "production_baseline_commit": "b33644ada1ae61c1c0085ec753a20c48b1549e9a",
+    "working_tree_clean_before_tests": true,
+    "working_tree_clean_after_tests": true,
+    "environment": {
+      "python": "3.12.14",
+      "platform": "Linux-6.18.44-x86_64-with-glibc2.39"
+    },
+    "commands": [
+      {
+        "command": "git clone --no-checkout https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution.git /tmp/piconhub-final-review",
+        "exit_code": 0
+      },
+      {
+        "command": "git checkout --detach e7aad45d98e616075b19681eafe47fdde154d2e1",
+        "exit_code": 0
+      },
+      {
+        "command": "python3 tools/auxiliary_ingress.py --report /tmp/auxiliary-ingress-final-e7aad45.json",
+        "exit_code": 0
+      },
+      {
+        "command": "python3 tools/test_auxiliary_ingress.py",
+        "exit_code": 0
+      },
+      {
+        "command": "python3 tools/test_warder_visual_qc.py",
+        "exit_code": 0
+      },
+      {
+        "command": "git worktree add --detach /tmp/piconhub-prod-baseline b33644ada1ae61c1c0085ec753a20c48b1549e9a",
+        "exit_code": 0
+      },
+      {
+        "command": "python3 tools/compare_channel_staging_outputs.py /tmp/piconhub-prod-baseline /tmp/piconhub-final-review --output /tmp/channel-parity-e7aad45.json --baseline-label b33644ada1ae61c1c0085ec753a20c48b1549e9a --staging-label e7aad45d98e616075b19681eafe47fdde154d2e1",
+        "exit_code": 0
+      },
+      {
+        "command": "git cat-file -e <production, staging, QC, candidate, artwork source pinned commits>^{commit}",
+        "exit_code": 0
+      },
+      {
+        "command": "git status --porcelain=v1",
+        "exit_code": 0,
+        "stdout": "empty after removal of test-generated untracked tools/__pycache__"
+      }
     ],
-    "working_tree_after_tests": "clean",
-    "actual_auxiliary_cli": "173 PASS / 0 REVIEW / 0 FAIL",
-    "tested_tree": "cea75575594f13b4e03f13bd354f2eebc36a9523"
+    "tests": [
+      {
+        "name": "actual auxiliary ingress CLI",
+        "exit_code": 0,
+        "counts": {
+          "identities": 173,
+          "provider": 172,
+          "satellite": 1,
+          "candidate_pngs": 346,
+          "pass": 173,
+          "review": 0,
+          "fail": 0
+        },
+        "transparent_sources_unchanged": true,
+        "legacy_fallback_touched": false
+      },
+      {
+        "name": "auxiliary ingress regression",
+        "command": "python3 tools/test_auxiliary_ingress.py",
+        "exit_code": 0,
+        "result": "173 PASS / 0 REVIEW / 0 FAIL",
+        "pixel_exact": 332,
+        "bounded_aa_equivalent": 14,
+        "digest_bound_approvals_applied": 16
+      },
+      {
+        "name": "shared visual QC and channel regression",
+        "command": "python3 tools/test_warder_visual_qc.py",
+        "exit_code": 0,
+        "result": "helper regressions PASS; channel regressions PASS"
+      },
+      {
+        "name": "full channel parity on this checkout",
+        "command": "python3 tools/compare_channel_staging_outputs.py /tmp/piconhub-prod-baseline /tmp/piconhub-final-review --output /tmp/channel-parity-e7aad45.json --baseline-label b33644ada1ae61c1c0085ec753a20c48b1549e9a --staging-label e7aad45d98e616075b19681eafe47fdde154d2e1",
+        "exit_code": 0,
+        "baseline": "b33644ada1ae61c1c0085ec753a20c48b1549e9a",
+        "tested_commit": "e7aad45d98e616075b19681eafe47fdde154d2e1",
+        "tested_git_tree": "0008cd649352f57f66fd2541751850cd299f1d49",
+        "source_identities": 9336,
+        "required_outputs": 18672,
+        "baseline_outputs": 18672,
+        "integration_outputs": 18672,
+        "exact_matches": 18672,
+        "mismatches": 0,
+        "untested": 0,
+        "result": "PASS"
+      }
+    ],
+    "integrity": {
+      "source_checkpoints": {
+        "production_baseline": "b33644ada1ae61c1c0085ec753a20c48b1549e9a",
+        "staging_integration": "d6156b4c2db32a7d491510c97d7fc58c7b5114b2",
+        "qc": "13dd00b5624c4b6659574cdddedd503edc18947c",
+        "candidate": "8bf726a3d7ba046f5bc531c8236b573963b7557a",
+        "artwork_source": "db5eec9f1cdb7a4d587cb1bcdeebc6b3f0d51819"
+      },
+      "all_pinned_commits_resolve_in_checkout": true,
+      "input_pins": {
+        "transparent_sources": {
+          "path": "reports/warder-master-production/auxiliary-proof-engine-candidates-2026-10-07/transparent-sources.zip",
+          "size": 1117501,
+          "sha256": "ed73471b2e9bdc63e811a73000072bbee0be2623fc5620e7df6a34562044eb9a",
+          "git_blob_sha": "204d2f97336327fba8a93d62549dbd3ea830421a",
+          "zip_integrity": "PASS"
+        },
+        "provider_black": {
+          "path": "reports/warder-master-production/auxiliary-centering-2026-10-08/provider-black-centered.zip",
+          "size": 5949641,
+          "sha256": "08290327a5a94733fbfcb52fb2cc956f4dadee9d9a20c198af77b89799d35035",
+          "git_blob_sha": "a7683738b5438871195b2e9f0f268b6606fa5d68",
+          "zip_integrity": "PASS"
+        },
+        "provider_white": {
+          "path": "reports/warder-master-production/auxiliary-centering-2026-10-08/provider-white-centered.zip",
+          "size": 5914324,
+          "sha256": "cdb9d00e0db9d23e04bc5deefba3523296777f1908ce2eeb6d1d75460b89bf9b",
+          "git_blob_sha": "38eb314d37f6b13e8ca3b67504c91fda6938c308",
+          "zip_integrity": "PASS"
+        },
+        "satellite_black_white": {
+          "path": "reports/warder-master-production/auxiliary-centering-2026-10-08/satellite-black-white-centered.zip",
+          "size": 77182,
+          "sha256": "736d82cadaffecea26ec12572394870e648363e2b00b1f1129c16aeef9c5d2d7",
+          "git_blob_sha": "297f1891eae13a5c297350bdf523a3d95655e4ae",
+          "zip_integrity": "PASS"
+        }
+      },
+      "png_manifest_rows_verified": 519,
+      "source_masters_verified": 173,
+      "variant_outputs_verified": 346,
+      "all_png_rgba_220x132": true,
+      "templates": {
+        "black": "61e69f7fc46e340453bf74ccd7af6ac9d8eba9f8e232884659e1ea99f6abf3fe",
+        "white": "c6ae4a808a65ffc8e6458336fccbfe4216de1e832ec0a9abf800907f2f783589"
+      }
+    },
+    "odesa_white_approval": {
+      "approval_status": "USER_VISUAL_APPROVED",
+      "policy": "EXACT_SHA256_PREFERRED_BOUNDED_AA_V1",
+      "identity": "provider-logo::ODESA LAYV.png",
+      "source_sha256": "f719dee6d51c67367f8523786a6ef3da56e3234a0943763da97b359bc67a5738",
+      "approved_output_sha256": "24a142d8ca81a87f4a4a2f3203c0767235f35c76c8916b3fbb242fb3da2eb9f7",
+      "rendered_output_sha256": "378760c3870fb0da3518304e8a86e0cf7360e93223739d02da8f816fe78e21b1",
+      "pixel_exact": false,
+      "pixel_equivalent": true,
+      "equivalence_reason": "bounded AA rounding: alpha/geometry exact; RGB delta <= 1 on alpha 250..253",
+      "visual_approval_applied_to_review": true,
+      "template_sha256": "c6ae4a808a65ffc8e6458336fccbfe4216de1e832ec0a9abf800907f2f783589"
+    },
+    "report_update_note": "This record describes tested commit e7aad45d98e616075b19681eafe47fdde154d2e1/tree 0008cd649352f57f66fd2541751850cd299f1d49. The subsequent commit is an evidence-only correction; it does not claim that its report-containing tree was tested. Only report/evidence JSON files are changed."
   },
   "non_changes": {
     "channel_renderer_and_validation_rules": "unchanged blob; focused and full parity PASS",
