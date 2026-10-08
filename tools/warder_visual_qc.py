@@ -9,6 +9,7 @@ It intentionally does not define contrast thresholds or recolour policy.
 from __future__ import annotations
 
 import hashlib
+import io
 import json
 from dataclasses import dataclass
 
@@ -29,6 +30,7 @@ AA_ROUNDING_ALPHA_MIN = 250
 AA_ROUNDING_ALPHA_MAX = 253
 AA_ROUNDING_MAX_RGB_DELTA = 1
 AA_ROUNDING_MAX_CHANGED_PIXELS = 7
+BOUNDED_AA_APPROVAL_POLICY = "EXACT_SHA256_PREFERRED_BOUNDED_AA_V1"
 
 # This is the exact repeated 2x2 alpha artifact identified and excluded from
 # bbox measurement by the approved 8bf726a3 checkpoint. Its pixels are kept.
@@ -122,13 +124,22 @@ def digest_bound_approval_matches(
     record: dict, *, identity: str, source_sha256: str, variant: str,
     output_sha256: str, review_reason: str, approved_checkpoint: str,
     template_sha256: str, candidate_renderer_provenance: dict,
+    checkpoint_output_sha256: str | None = None,
+    alpha_geometry_sha256: str | None = None,
+    current_output_png: bytes | None = None,
+    checkpoint_output_png: bytes | None = None,
 ) -> bool:
-    """Match every binding field; any input/output/reason drift invalidates it."""
-    return bool(
+    """Match an exact visual approval or its explicitly pinned bounded-AA class.
+
+    The checkpoint PNG SHA remains authoritative. A bounded-AA match is only
+    available to records that opt into the existing comparison limits, and it
+    requires both PNG byte streams so the comparator can verify alpha and RGB
+    pixels itself. No caller-provided equivalence flag is trusted.
+    """
+    bindings_match = bool(
         record.get("identity") == identity
         and record.get("source_sha256") == source_sha256
         and record.get("variant") == variant
-        and record.get("approved_output_sha256") == output_sha256
         and record.get("review_reason") == review_reason
         and record.get("review_reason_signature") == review_reason_signature(review_reason)
         and record.get("approved_checkpoint") == approved_checkpoint
@@ -139,6 +150,58 @@ def digest_bound_approval_matches(
         )
         and record.get("approval_status") == "USER_VISUAL_APPROVED"
     )
+    if not bindings_match:
+        return False
+
+    approved_sha = record.get("approved_output_sha256")
+    checkpoint_sha = checkpoint_output_sha256 or output_sha256
+    if not approved_sha or checkpoint_sha != approved_sha:
+        return False
+
+    policy = record.get("approval_pixel_policy", "EXACT_SHA256")
+    if policy not in {"EXACT_SHA256", BOUNDED_AA_APPROVAL_POLICY}:
+        return False
+
+    # Exact approved SHA is always preferred and remains sufficient for legacy
+    # exact-only records. If PNG bytes are supplied, verify them as well.
+    if output_sha256 == approved_sha:
+        if current_output_png is None and checkpoint_output_png is None:
+            return True
+        if current_output_png is None or checkpoint_output_png is None:
+            return False
+        if (hashlib.sha256(current_output_png).hexdigest() != output_sha256
+                or hashlib.sha256(checkpoint_output_png).hexdigest() != checkpoint_sha):
+            return False
+        try:
+            with Image.open(io.BytesIO(current_output_png)) as current_image:
+                current_rgba = np.asarray(current_image.convert("RGBA"))
+            with Image.open(io.BytesIO(checkpoint_output_png)) as approved_image:
+                approved_rgba = np.asarray(approved_image.convert("RGBA"))
+        except Exception:
+            return False
+        return compare_approved_pixels(current_rgba, approved_rgba).exact
+
+    # Only a specifically marked approval can accept an output whose SHA is
+    # different from the approved checkpoint. Verify the actual encoded PNGs,
+    # then bind unchanged alpha/geometry to the approved geometry digest.
+    if policy != BOUNDED_AA_APPROVAL_POLICY:
+        return False
+    if not alpha_geometry_sha256 or alpha_geometry_sha256 != record.get("approved_alpha_geometry_sha256"):
+        return False
+    if current_output_png is None or checkpoint_output_png is None:
+        return False
+    if (hashlib.sha256(current_output_png).hexdigest() != output_sha256
+            or hashlib.sha256(checkpoint_output_png).hexdigest() != checkpoint_sha):
+        return False
+    try:
+        with Image.open(io.BytesIO(current_output_png)) as current_image:
+            current_rgba = np.asarray(current_image.convert("RGBA"))
+        with Image.open(io.BytesIO(checkpoint_output_png)) as approved_image:
+            approved_rgba = np.asarray(approved_image.convert("RGBA"))
+    except Exception:
+        return False
+    comparison = compare_approved_pixels(current_rgba, approved_rgba)
+    return comparison.equivalent and not comparison.exact
 
 
 def _labels(mask: np.ndarray) -> tuple[np.ndarray, int]:

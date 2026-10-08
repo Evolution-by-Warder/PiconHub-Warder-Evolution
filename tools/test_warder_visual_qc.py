@@ -155,6 +155,7 @@ def run_component_helper_tests() -> dict:
         assert approval["review_reason_signature"] == review_reason_signature(reason)
         args = {"identity": approval["identity"], "source_sha256": approval["source_sha256"],
                 "variant": approval["variant"], "output_sha256": approval["approved_output_sha256"],
+                "checkpoint_output_sha256": approval["approved_output_sha256"],
                 "review_reason": reason, "approved_checkpoint": approval["approved_checkpoint"],
                 "template_sha256": approval["template_sha256"],
                 "candidate_renderer_provenance": APPROVED_CANDIDATE_PROVENANCE}
@@ -172,11 +173,68 @@ def run_component_helper_tests() -> dict:
                              ("approval_status", "REVOKED")):
             mutated = dict(approval); mutated[field] = value
             assert not digest_bound_approval_matches(mutated, **args), f"approval did not invalidate on {field} change"
+
+    odesa = next(r for r in approval_records
+                 if r["identity"] == "provider-logo::ODESA LAYV.png" and r["variant"] == "white")
+    if odesa.get("approval_pixel_policy") != "EXACT_SHA256_PREFERRED_BOUNDED_AA_V1":
+        raise AssertionError("ODESA WHITE is missing its explicit bounded-AA approval policy")
+    if odesa.get("approved_alpha_geometry_sha256") != "7f09be284da9d182be14fab0bf23a8ea17f1f1bb07107821af53371f86aee327":
+        raise AssertionError("ODESA WHITE approved alpha/geometry binding changed")
+
+    approved_pixels = np.zeros((132, 220, 4), dtype=np.uint8)
+    approved_pixels[66, 110] = [90, 100, 110, 252]
+    current_pixels = approved_pixels.copy()
+    current_pixels[66, 110, 2] += 1
+    approved_png = image_bytes(Image.fromarray(approved_pixels, "RGBA"))
+    current_png = image_bytes(Image.fromarray(current_pixels, "RGBA"))
+    odesa_test = dict(odesa)
+    odesa_test["approved_output_sha256"] = sha(approved_png)
+    bounded_args = {
+        "identity": odesa_test["identity"], "source_sha256": odesa_test["source_sha256"],
+        "variant": "white", "output_sha256": sha(current_png),
+        "checkpoint_output_sha256": odesa_test["approved_output_sha256"],
+        "review_reason": odesa_test["review_reason"], "approved_checkpoint": odesa_test["approved_checkpoint"],
+        "template_sha256": odesa_test["template_sha256"],
+        "candidate_renderer_provenance": APPROVED_CANDIDATE_PROVENANCE,
+        "alpha_geometry_sha256": odesa["approved_alpha_geometry_sha256"],
+        "current_output_png": current_png, "checkpoint_output_png": approved_png,
+    }
+    # Keep the exact checkpoint hash as the authority, while synthetic PNG
+    # bytes exercise the already bounded one-pixel/one-LSB comparison.
+    assert digest_bound_approval_matches(odesa_test, **bounded_args), "approved ODESA bounded-AA case was rejected"
+    too_large_pixels = approved_pixels.copy(); too_large_pixels[66, 110, 2] += 2
+    too_large_png = image_bytes(Image.fromarray(too_large_pixels, "RGBA"))
+    assert not digest_bound_approval_matches(odesa_test, **{**bounded_args,
+        "output_sha256": sha(too_large_png), "current_output_png": too_large_png}), "out-of-limit RGB delta was approved"
+    alpha_pixels = current_pixels.copy(); alpha_pixels[66, 110, 3] -= 1
+    alpha_png = image_bytes(Image.fromarray(alpha_pixels, "RGBA"))
+    assert not digest_bound_approval_matches(odesa_test, **{**bounded_args,
+        "output_sha256": sha(alpha_png), "current_output_png": alpha_png}), "alpha change was approved"
+    geometry_pixels = current_pixels.copy(); geometry_pixels[67, 110] = [90, 100, 110, 252]
+    geometry_png = image_bytes(Image.fromarray(geometry_pixels, "RGBA"))
+    assert not digest_bound_approval_matches(odesa_test, **{**bounded_args,
+        "output_sha256": sha(geometry_png), "current_output_png": geometry_png,
+        "alpha_geometry_sha256": "0" * 64}), "geometry change was approved"
+    for field, value in (("source_sha256", "0" * 64),
+                         ("review_reason", odesa["review_reason"] + " changed"),
+                         ("review_reason_signature", "0" * 64),
+                         ("template_sha256", "0" * 64),
+                         ("approved_checkpoint", "0" * 40),
+                         ("candidate_renderer_provenance", {"source_commit": "changed"}),
+                         ("approved_provenance_signature", "0" * 64),
+                         ("approved_alpha_geometry_sha256", "0" * 64),
+                         ("approval_pixel_policy", "EXACT_SHA256")):
+        mutated = dict(odesa_test); mutated[field] = value
+        assert not digest_bound_approval_matches(mutated, **bounded_args), f"bounded approval did not invalidate on {field} change"
+
     approval_regressions = {"records": len(approval_records), "valid_match": "PASS",
                             "source_sha_invalidation": "PASS", "output_sha_invalidation": "PASS",
                             "reason_signature_invalidation": "PASS", "template_sha_invalidation": "PASS",
                             "identity_variant_checkpoint_provenance_invalidation": "PASS",
-                            "pixel_bounds": "PASS"}
+                            "pixel_bounds": "PASS", "odesa_white_one_pixel_delta_1": "PASS",
+                            "out_of_limit_delta_review": "PASS", "alpha_change_review": "PASS",
+                            "geometry_change_review": "PASS",
+                            "source_reason_template_provenance_change_review": "PASS"}
     return {"logical_grouping": "PASS", "integer_centering": "PASS",
             "local_panel_knockout": "PASS", "hd_plus_panel_count": len(topology.panels),
             "hd_plus_knockout_count": len(topology.knockout_glyphs),
@@ -361,20 +419,26 @@ def run_full_checkpoint(checkpoint_dir: Path) -> dict:
             expected = Image.open(io.BytesIO(expected_bytes)).convert("RGBA")
             comparison = compare_approved_pixels(np.asarray(result.image), np.asarray(expected))
             pixel_match = comparison.exact
-            rendered_sha = sha(image_bytes(result.image))
+            rendered_png = image_bytes(result.image)
+            rendered_sha = sha(rendered_png)
             approval = approvals.get((f"{'satellite-logo' if name == '150W.png' else 'provider-logo'}::{name}", style))
             visual_approval = bool(
-                approval and result.status == "REVIEW" and comparison.exact
+                approval and result.status == "REVIEW"
                 and digest_bound_approval_matches(
                     approval,
                     identity=f"{'satellite-logo' if name == '150W.png' else 'provider-logo'}::{name}",
                     source_sha256=sha(source_bytes), variant=style,
                     output_sha256=rendered_sha, review_reason=result.reason,
                     approved_checkpoint=approved_checkpoint,
+                    checkpoint_output_sha256=sha(expected_bytes),
                     template_sha256=sha((ROOT / f"templates/picons/{style}-sablona.png").read_bytes()),
                     candidate_renderer_provenance=APPROVED_CANDIDATE_PROVENANCE,
+                    alpha_geometry_sha256=result.alpha_geometry_sha256,
+                    current_output_png=rendered_png, checkpoint_output_png=expected_bytes,
                 )
             )
+            approval_match_mode = ("EXACT_SHA256" if rendered_sha == sha(expected_bytes)
+                                   else "BOUNDED_AA_V1") if visual_approval else None
             different_pixels = int(np.count_nonzero(np.any(np.asarray(result.image) != np.asarray(expected), axis=2)))
             expected_engine_status = audit[name]["variants"][style]["status"]
             status_match = result.status == expected_engine_status
@@ -390,6 +454,7 @@ def run_full_checkpoint(checkpoint_dir: Path) -> dict:
                                "pixel_comparison": comparison.reason,
                                "max_rgb_delta": comparison.max_rgb_delta,
                                "visual_approval_matched": visual_approval,
+                               "visual_approval_mode": approval_match_mode,
                                "effective_status": "VISUAL-APPROVED" if visual_approval else result.status,
                                "review_reason": "; ".join(review_reasons),
                                "alpha_geometry_sha256": result.alpha_geometry_sha256,
@@ -427,11 +492,16 @@ def run_full_checkpoint(checkpoint_dir: Path) -> dict:
         1 for row in rows for variant in row["variants"].values()
         if variant["visual_approval_matched"]
     )
+    bounded_aa_approvals_matched = sum(
+        1 for row in rows for variant in row["variants"].values()
+        if variant["visual_approval_mode"] == "BOUNDED_AA_V1"
+    )
     return {"total_identities": len(rows), "provider": 172, "satellite": 1,
             "candidate_pngs": 346, "pixel_exact_identities": sum(all(v["pixel_match"] for v in row["variants"].values()) for row in rows),
             "pixel_equivalent_identities": sum(all(v["pixel_equivalent"] for v in row["variants"].values()) for row in rows),
             "bounded_aa_rounding_variants": aa_variants,
             "digest_bound_visual_approvals_matched": approvals_matched,
+            "bounded_aa_visual_approvals_matched": bounded_aa_approvals_matched,
             "digest_bound_visual_approval_records": len(approval_doc["approved_review_variants"]),
             "final_seven_variant_approvals": 14,
             "review_checkpoint_png_integrity": "PASS",
