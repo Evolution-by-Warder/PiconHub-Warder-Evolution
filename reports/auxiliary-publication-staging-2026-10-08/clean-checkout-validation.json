@@ -17,7 +17,7 @@
       "tools/auxiliary_catalog.py": "515069b4e780aa08027036a32a6e56d0a384c179",
       "tests/test_auxiliary_catalog.py": "ad0d1cd93a4f00346811b90d3ad3e91372c98bca"
     },
-    "note": "The local repository lacked the new remote commit object and shell GitHub fetch was unavailable. A fresh worktree was reconstructed from the exact parent repository files plus staged blobs. Its computed root tree SHA matched the GitHub tree for tested_github_commit exactly; the synthetic local commit is not represented as a GitHub commit."
+    "note": "A fresh local Git worktree was reconstructed from committed repository files and staged blobs. Its computed root tree SHA exactly matched the GitHub tree for tested_github_commit. The local checkout used a synthetic local commit (not a GitHub commit) because network Git fetch was unavailable; all checked-in source and asset blobs are identical to the tested GitHub tree."
   },
   "tests": [
     {
@@ -97,9 +97,9 @@
     "channel_renderer_validation_registry_transparent_masters_legacy_fallback": "unchanged"
   },
   "environment": {
-    "python": "3.12.3",
+    "python": "3.12.14",
     "os": "Linux x86_64",
-    "image_library": "Pillow"
+    "image_library": "Pillow 12.3.0"
   },
-  "final_evidence_commit": "This validation report is committed as an evidence-only addition after tested_github_commit. GitHub branch ancestry resolves the final commit/tree; post-test differences are confined to this report file."
+  "final_evidence_commit": "This report is committed after tested_github_commit in evidence-only changes. GitHub compare from the tested commit to current branch HEAD confirms the only post-test path change is this report."
 }
