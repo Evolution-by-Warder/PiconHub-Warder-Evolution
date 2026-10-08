@@ -9,6 +9,7 @@ It intentionally does not define contrast thresholds or recolour policy.
 from __future__ import annotations
 
 import hashlib
+import json
 from dataclasses import dataclass
 
 import numpy as np
@@ -111,10 +112,16 @@ def review_reason_signature(reason: str) -> str:
     return hashlib.sha256(reason.encode("utf-8")).hexdigest()
 
 
+def approval_provenance_signature(checkpoint: str, provenance: dict) -> str:
+    payload = json.dumps({"checkpoint": checkpoint, "provenance": provenance},
+                         sort_keys=True, separators=(",", ":"), ensure_ascii=False)
+    return hashlib.sha256(payload.encode("utf-8")).hexdigest()
+
+
 def digest_bound_approval_matches(
     record: dict, *, identity: str, source_sha256: str, variant: str,
     output_sha256: str, review_reason: str, approved_checkpoint: str,
-    template_sha256: str,
+    template_sha256: str, candidate_renderer_provenance: dict,
 ) -> bool:
     """Match every binding field; any input/output/reason drift invalidates it."""
     return bool(
@@ -126,6 +133,10 @@ def digest_bound_approval_matches(
         and record.get("review_reason_signature") == review_reason_signature(review_reason)
         and record.get("approved_checkpoint") == approved_checkpoint
         and record.get("template_sha256") == template_sha256
+        and record.get("candidate_renderer_provenance") == candidate_renderer_provenance
+        and record.get("approved_provenance_signature") == approval_provenance_signature(
+            approved_checkpoint, candidate_renderer_provenance
+        )
         and record.get("approval_status") == "USER_VISUAL_APPROVED"
     )
 

@@ -30,6 +30,7 @@ from warder_visual_qc import (  # noqa: E402
     SAFE_BBOX,
     center_rgba_layer,
     compare_approved_pixels,
+    approval_provenance_signature,
     digest_bound_approval_matches,
     detect_local_panels,
     logical_component_groups,
@@ -40,6 +41,11 @@ from warder_visual_qc import (  # noqa: E402
 MASTER_HASHES = {
     "black": "61e69f7fc46e340453bf74ccd7af6ac9d8eba9f8e232884659e1ea99f6abf3fe",
     "white": "c6ae4a808a65ffc8e6458336fccbfe4216de1e832ec0a9abf800907f2f783589",
+}
+APPROVED_CANDIDATE_PROVENANCE = {
+    "source_commit": "db5eec9f1cdb7a4d587cb1bcdeebc6b3f0d51819",
+    "renderer_sha256": "a66c7d8691c43648cb8650c194ad247c2159664262c590d7f2bdcd4c167e307a",
+    "centering_checkpoint_path": "reports/warder-master-production/auxiliary-centering-2026-10-08/",
 }
 REQUIRED_IDENTITIES = {
     "TV8.png", "7+ CHANNEL.png", "CCTV.png", "CBC.png", "BETA DIGITAL.png",
@@ -141,18 +147,26 @@ def run_component_helper_tests() -> dict:
         args = {"identity": approval["identity"], "source_sha256": approval["source_sha256"],
                 "variant": approval["variant"], "output_sha256": approval["approved_output_sha256"],
                 "review_reason": reason, "approved_checkpoint": approval["approved_checkpoint"],
-                "template_sha256": approval["template_sha256"]}
+                "template_sha256": approval["template_sha256"],
+                "candidate_renderer_provenance": APPROVED_CANDIDATE_PROVENANCE}
         assert digest_bound_approval_matches(approval, **args)
         for field, value in (("source_sha256", "0" * 64),
                              ("approved_output_sha256", "1" * 64),
                              ("review_reason", reason + " changed"),
                              ("review_reason_signature", "2" * 64),
-                             ("template_sha256", "3" * 64)):
+                             ("template_sha256", "3" * 64),
+                             ("identity", "provider-logo::changed.png"),
+                             ("variant", "black"),
+                             ("approved_checkpoint", "4" * 40),
+                             ("candidate_renderer_provenance", {"source_commit": "changed"}),
+                             ("approved_provenance_signature", "5" * 64),
+                             ("approval_status", "REVOKED")):
             mutated = dict(approval); mutated[field] = value
             assert not digest_bound_approval_matches(mutated, **args), f"approval did not invalidate on {field} change"
     approval_regressions = {"records": len(approval_records), "valid_match": "PASS",
                             "source_sha_invalidation": "PASS", "output_sha_invalidation": "PASS",
                             "reason_signature_invalidation": "PASS", "template_sha_invalidation": "PASS",
+                            "identity_variant_checkpoint_provenance_invalidation": "PASS",
                             "pixel_bounds": "PASS"}
     return {"logical_grouping": "PASS", "integer_centering": "PASS",
             "local_panel_knockout": "PASS", "hd_plus_panel_count": len(topology.panels),
@@ -331,6 +345,7 @@ def run_full_checkpoint(checkpoint_dir: Path) -> dict:
                     output_sha256=rendered_sha, review_reason=result.reason,
                     approved_checkpoint=approved_checkpoint,
                     template_sha256=sha((ROOT / f"templates/picons/{style}-sablona.png").read_bytes()),
+                    candidate_renderer_provenance=APPROVED_CANDIDATE_PROVENANCE,
                 )
             )
             different_pixels = int(np.count_nonzero(np.any(np.asarray(result.image) != np.asarray(expected), axis=2)))
