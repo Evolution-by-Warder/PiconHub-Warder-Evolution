@@ -140,7 +140,16 @@ def run_component_helper_tests() -> dict:
 
     approval_doc = json.loads((ROOT / "tests/fixtures/auxiliary-visual-approvals.json").read_text())
     approval_records = approval_doc["approved_review_variants"]
-    assert len(approval_records) == 4
+    assert len(approval_records) == 18
+    approval_keys = {(r["identity"], r["variant"]) for r in approval_records}
+    if len(approval_keys) != len(approval_records):
+        raise AssertionError("duplicate digest-bound approval identity/variant")
+    final_seven = {f"provider-logo::{name}" for name in (
+        "50 CANALE.png", "ART.png", "NCPLUS.png", "ODESA LAYV.png",
+        "RTTR OPIM TRENTO.png", "DOGUS.png", "SHURA TV.png",
+    )}
+    if not {(identity, variant) for identity in final_seven for variant in ("black", "white")} <= approval_keys:
+        raise AssertionError("final seven approvals do not cover both variants")
     for approval in approval_records:
         reason = approval["review_reason"]
         assert approval["review_reason_signature"] == review_reason_signature(reason)
@@ -156,7 +165,7 @@ def run_component_helper_tests() -> dict:
                              ("review_reason_signature", "2" * 64),
                              ("template_sha256", "3" * 64),
                              ("identity", "provider-logo::changed.png"),
-                             ("variant", "black"),
+                             ("variant", "white" if approval["variant"] == "black" else "black"),
                              ("approved_checkpoint", "4" * 40),
                              ("candidate_renderer_provenance", {"source_commit": "changed"}),
                              ("approved_provenance_signature", "5" * 64),
@@ -307,6 +316,24 @@ def run_full_checkpoint(checkpoint_dir: Path) -> dict:
     if (len(sources), len(black), len(white), len(satellite), len(audit), len(centering_audit)) != (173, 172, 172, 2, 173, 173):
         raise AssertionError("checkpoint identity/variant counts do not match accepted 173/346 scope")
 
+    # The final seven-review bundle must preserve all checkpoint assets byte-for-byte.
+    review_path = ROOT / "reports/auxiliary-qc-assimilation/final-7-review/review-manifest.json"
+    review_doc = json.loads(review_path.read_text())
+    expected_review_names = {"50 CANALE.png", "ART.png", "NCPLUS.png", "ODESA LAYV.png",
+                             "RTTR OPIM TRENTO.png", "DOGUS.png", "SHURA TV.png"}
+    if {r["filename"] for r in review_doc["items"]} != expected_review_names:
+        raise AssertionError("final review bundle identity set differs from the seven approved items")
+    for item in review_doc["items"]:
+        name = item["filename"]
+        approved_bytes = {"transparent": sources[name], "black": black[name], "white": white[name]}
+        for variant, expected_bytes in approved_bytes.items():
+            asset_path = ROOT / item["assets"][variant]["path"].replace("reports/auxiliary-qc-assimilation/final-7-review/", "reports/auxiliary-qc-assimilation/final-7-review/")
+            actual_bytes = asset_path.read_bytes()
+            if actual_bytes != expected_bytes or sha(actual_bytes) != item["assets"][variant]["sha256"]:
+                raise AssertionError(f"review bundle PNG changed from approved checkpoint: {name} {variant}")
+            if list(Image.open(io.BytesIO(actual_bytes)).size) != [220, 132]:
+                raise AssertionError(f"review bundle PNG dimensions changed: {name} {variant}")
+
     masters = {style: Image.open(ROOT / f"templates/picons/{style}-sablona.png").convert("RGBA")
                for style in ("black", "white")}
     approval_doc = json.loads((ROOT / "tests/fixtures/auxiliary-visual-approvals.json").read_text())
@@ -405,6 +432,10 @@ def run_full_checkpoint(checkpoint_dir: Path) -> dict:
             "pixel_equivalent_identities": sum(all(v["pixel_equivalent"] for v in row["variants"].values()) for row in rows),
             "bounded_aa_rounding_variants": aa_variants,
             "digest_bound_visual_approvals_matched": approvals_matched,
+            "digest_bound_visual_approval_records": len(approval_doc["approved_review_variants"]),
+            "final_seven_variant_approvals": 14,
+            "review_checkpoint_png_integrity": "PASS",
+            "review_checkpoint_pngs_verified": 21,
             "pass": summary["PASS"], "review": summary["REVIEW"],
             "fail": 0, "transparent_source_sha_unchanged": True,
             "approved_checkpoint_files_modified": False,
