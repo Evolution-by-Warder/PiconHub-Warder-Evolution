@@ -1,0 +1,104 @@
+{
+  "schema_version": 1,
+  "purpose": "Clean-tree reproducibility evidence for auxiliary publication staging; not production publication.",
+  "branch": "auxiliary-production-catalog-staging-20261008",
+  "tested_github_commit": "7b6a51221ac08b3456d36072446cfcf2514c6785",
+  "tested_github_tree": "d58f7f24199ff02a75e88e2b1122c9183263839a",
+  "parent_architecture_commit": "76b6c92022ebb96e5f2261e1f46d86869a3d1ce3",
+  "parent_architecture_tree": "5ac3837bbdddeb403b876407cc1b716b0ce88f8b",
+  "production_baseline": "f4d8e7054c1786a624537de8c795da25c5fc6899",
+  "clean_checkout_method": {
+    "description": "Fresh local Git worktree was reconstructed from committed repository files and staging payload. Reconstructed root Git tree SHA exactly equals the GitHub tree SHA for the tested staging commit.",
+    "local_synthetic_checkout_commit": "9bd76104c681a8e92fc059480ddf48ee186d2312",
+    "local_synthetic_commit_is_github_commit": false,
+    "exact_tree_match": true,
+    "clean_working_tree_after_tests": true,
+    "source_architecture_blobs_verified": {
+      "tools/auxiliary_catalog.py": "515069b4e780aa08027036a32a6e56d0a384c179",
+      "tests/test_auxiliary_catalog.py": "ad0d1cd93a4f00346811b90d3ad3e91372c98bca"
+    }
+  },
+  "tests": [
+    {
+      "command": "python3 tests/test_auxiliary_catalog.py",
+      "exit_code": 0,
+      "result": "15 passed"
+    },
+    {
+      "command": "python3 tools/test_auxiliary_ingress.py",
+      "exit_code": 0,
+      "result": "actual CLI PASS; 173 identities; 346 candidates; 173 PASS / 0 REVIEW / 0 FAIL; 332 exact pixels; 14 bounded-AA equivalents"
+    },
+    {
+      "command": "python3 tools/test_warder_visual_qc.py",
+      "exit_code": 0,
+      "result": "helper regressions PASS; channel regressions PASS"
+    },
+    {
+      "command": "inline Python: auxiliary_catalog.validate_publication(manifest, root, pinned archives, pinned archive SHA256, current picons paths); then validate 346 lookups and clean misses",
+      "exit_code": 0,
+      "result": "PASS"
+    }
+  ],
+  "catalog": {
+    "manifest_path": "reports/auxiliary-publication-staging-2026-10-08/auxiliary-catalog.json",
+    "manifest_sha256": "6631f646ed3d51a1e84317c9e3a45456b48c002781dc7338442e5c4d26b3a754",
+    "counts": {
+      "identities": 173,
+      "provider": 172,
+      "satellite": 1,
+      "png": 346,
+      "black": 173,
+      "white": 173
+    },
+    "lookup_results": {
+      "resolved": 346,
+      "unknown": "clean miss",
+      "provider_to_satellite": "clean miss",
+      "satellite_to_provider": "clean miss",
+      "satellite_150W_orbital_inference": "none"
+    },
+    "png_dimensions": "220x132 RGBA",
+    "approved_png_changes": 0,
+    "odesa_white": "explicit digest-bound BOUNDED_AA_V1 path preserved"
+  },
+  "candidate_archives": {
+    "transparent-sources.zip": {
+      "size": 1117501,
+      "sha256": "ed73471b2e9bdc63e811a73000072bbee0be2623fc5620e7df6a34562044eb9a",
+      "git_blob_sha": "204d2f97336327fba8a93d62549dbd3ea830421a"
+    },
+    "provider-black-centered.zip": {
+      "size": 5949641,
+      "sha256": "08290327a5a94733fbfcb52fb2cc956f4dadee9d9a20c198af77b89799d35035",
+      "git_blob_sha": "a7683738b5438871195b2e9f0f268b6606fa5d68"
+    },
+    "provider-white-centered.zip": {
+      "size": 5914324,
+      "sha256": "cdb9d00e0db9d23e04bc5deefba3523296777f1908ce2eeb6d1d75460b89bf9b",
+      "git_blob_sha": "38eb314d37f6b13e8ca3b67504c91fda6938c308"
+    },
+    "satellite-black-white-centered.zip": {
+      "size": 77182,
+      "sha256": "736d82cadaffecea26ec12572394870e648363e2b00b1f1129c16aeef9c5d2d7",
+      "git_blob_sha": "297f1891eae13a5c297350bdf523a3d95655e4ae"
+    }
+  },
+  "template_sha256": {
+    "black": "61e69f7fc46e340453bf74ccd7af6ac9d8eba9f8e232884659e1ea99f6abf3fe",
+    "white": "c6ae4a808a65ffc8e6458336fccbfe4216de1e832ec0a9abf800907f2f783589"
+  },
+  "channel_isolation": {
+    "staging_change_set": "349 additions only under auxiliary/ and reports/auxiliary-publication-staging-2026-10-08/; no modified/deleted paths",
+    "channel_pngs_in_test_tree": 28008,
+    "channel_identities": 9336,
+    "channel_output_parity": "18672/18672 exact black/white outputs; 0 mismatches; 0 untested (inherited pinned production parity evidence)",
+    "channel_renderer_validation_registry_transparent_masters_legacy_fallback": "unchanged"
+  },
+  "environment": {
+    "python": "3.12.3",
+    "os": "Linux x86_64",
+    "image_library": "Pillow"
+  },
+  "final_evidence_commit": "This file is evidence-only and will be added as a commit after tested_github_commit; production-relevant code, manifest, inputs, and 346 PNG remain unchanged."
+}
