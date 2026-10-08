@@ -330,6 +330,19 @@ def validate_manifest(
     return AuxiliaryCatalog(root=root, entries=indexed)
 
 
+def validate_publication(
+    manifest: Mapping[str, Any],
+    repository_root: Path,
+    *,
+    archives: Mapping[str, bytes],
+    archive_sha256_pins: Mapping[str, str],
+    channel_paths: Sequence[str] = (),
+) -> AuxiliaryCatalog:
+    """Single fail-closed gate: pinned candidate bundle plus staged asset tree."""
+    verify_candidate_archives(manifest, archives, archive_sha256_pins)
+    return validate_manifest(manifest, repository_root, channel_paths=channel_paths)
+
+
 def load_catalog(
     manifest_path: Path,
     repository_root: Path,

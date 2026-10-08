@@ -227,6 +227,23 @@ class AuxiliaryCatalogTests(unittest.TestCase):
         }
         pins = {name: hashlib.sha256(data).hexdigest() for name, data in archives.items()}
         catalog.verify_candidate_archives(manifest, archives, pins)
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            for kind, filename, black, white in (
+                ("provider-logo", "ACME.png", provider_black, provider_white),
+                ("satellite-logo", "150W.png", satellite_black, satellite_white),
+            ):
+                for variant, data in (("black", black), ("white", white)):
+                    path = root / catalog._expected_asset_path(kind, variant, filename)
+                    path.parent.mkdir(parents=True, exist_ok=True)
+                    path.write_bytes(data)
+            validated = catalog.validate_publication(
+                manifest, root, archives=archives, archive_sha256_pins=pins
+            )
+            self.assertEqual(
+                catalog.lookup_auxiliary(validated, "satellite-logo", "150W.png", "black"),
+                "auxiliary/satellite-logo/black/150W.png",
+            )
         bad_archives = dict(archives)
         bad_archives["provider-black-centered.zip"] = zip_bytes({"black/provider/OTHER.png": provider_black})
         bad_pins = dict(pins)

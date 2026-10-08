@@ -60,7 +60,9 @@ archives, caller-supplied immutable archive SHA pins, exact archive member
 sets, valid ZIP CRCs, safe paths, no symlinks, and exact per-member SHA256s.
 The expected members are derived from the namespaced manifest entries.
 
-validate_manifest() then verifies:
+validate_publication() is the single publication gate: it first verifies the
+candidate archives, then calls validate_manifest() on the staged root.
+validate_manifest() verifies:
 
 - unique case-insensitive identity keys and target paths
 - correct domain/filename identity binding
