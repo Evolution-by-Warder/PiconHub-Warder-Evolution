@@ -1,0 +1,178 @@
+{
+  "schema_version": 1,
+  "repository": "Evolution-by-Warder/PiconHub-Warder-Evolution",
+  "purpose": "Non-production Europe First integration candidate containing exactly five user-approved Provider picon pairs.",
+  "production_baseline": {
+    "branch": "warder-master-production",
+    "commit": "4e0e7233e93d4fc6afc5b22447730b3e8e5eaefd",
+    "tree": "62ea989a6fa3f38f4d4960619f0506b013cbdb44"
+  },
+  "staging": {
+    "branch": "warder-europe-first-phase1-approved5-20261009",
+    "asset_approval_checkpoint": "161b4e3956f666dd44b277cbae552afd5c49204a",
+    "catalog_checkpoint_reference": "161b4e3956f666dd44b277cbae552afd5c49204a",
+    "production_write": false,
+    "merge_or_release": false
+  },
+  "source_package": {
+    "filename": "PiconHub-Europe-Phase1-Review.zip",
+    "sha256": "44730735b69b46b58596ba1c509a4c0e3a21ffd52c82b91f77c32e66bfa637fb",
+    "size_bytes": 1280698,
+    "zip_crc": "PASS"
+  },
+  "user_approval": {
+    "status": "APPROVED 5/5",
+    "received": "2026-10-09",
+    "identities": [
+      "Skylink",
+      "freeSAT",
+      "Focus Sat",
+      "DigitAlb",
+      "Tring"
+    ]
+  },
+  "identity_and_catalog": {
+    "current_convention": "provider-logo::<filename>.png; the canonical auxiliary identity key is the registry key in the current repository contract.",
+    "separate_numeric_provider_id_or_alias_table": "not present in the current repository contract; no new parallel alias scheme was introduced.",
+    "collision_check": "All five candidate keys compared against the 172 existing auxiliary Provider filenames, case-insensitive keys, and normalized alphanumeric names; zero matches. Each identity has one BLACK and one WHITE path.",
+    "namespace_note": "Existing picons/<position>/<provider>/ channel collection folders are outside the auxiliary provider-logo identity namespace and were left untouched.",
+    "provider_count_before": 172,
+    "provider_additions": 5,
+    "provider_count_after": 177,
+    "satellite_count_preserved": 1,
+    "catalog_entries_after": 178
+  },
+  "preservation": {
+    "approved_png_bytes": "Copied directly from the pinned ZIP members; no decoding/re-encoding or pixel transformation during integration.",
+    "existing_auxiliary_provider_assets_changed": 0,
+    "existing_channel_picons_changed": 0,
+    "black_template_git_blob": "1dd0f479c3f3a2017377eb6bec33e948ffa0dda7",
+    "white_template_git_blob": "dd8d5860a5daec9a9cf0cd6c12b7f7c2c6428bc0",
+    "catalog_sha256": "a854508931a3273aaba0b49f42b07f7f76937cbb6a65aee8ecec6f99968e2e02"
+  },
+  "assets": [
+    {
+      "identity": "Skylink",
+      "catalog_key": "provider-logo::SKYLINK.png",
+      "black": {
+        "path": "auxiliary/provider-logo/black/SKYLINK.png",
+        "size_bytes": 33123,
+        "sha256": "ebdbb9d4f7eeb97936a0f85590eb152815a079d02eb2b06f0ce4f807d47595a4"
+      },
+      "white": {
+        "path": "auxiliary/provider-logo/white/SKYLINK.png",
+        "size_bytes": 33894,
+        "sha256": "13a162cdc9dce9c706ca1bda830b85502d0a15d94af676f6441836c8b34fdae7"
+      }
+    },
+    {
+      "identity": "freeSAT",
+      "catalog_key": "provider-logo::FREESAT.png",
+      "black": {
+        "path": "auxiliary/provider-logo/black/FREESAT.png",
+        "size_bytes": 39531,
+        "sha256": "844cd6c03fa8e78f68870c11aadb498024b9d07822ca0b9c458a8770f2c984dd"
+      },
+      "white": {
+        "path": "auxiliary/provider-logo/white/FREESAT.png",
+        "size_bytes": 40881,
+        "sha256": "ef9a1723165d9a06a58fa0760d2cb8fc946b74530428b8c6ac27c9e1d321daef"
+      }
+    },
+    {
+      "identity": "Focus Sat",
+      "catalog_key": "provider-logo::FOCUS_SAT.png",
+      "black": {
+        "path": "auxiliary/provider-logo/black/FOCUS_SAT.png",
+        "size_bytes": 33751,
+        "sha256": "9a24739ec7be182062ed693b2ab6e00f336b488c31409747438f79631ea2a7dd"
+      },
+      "white": {
+        "path": "auxiliary/provider-logo/white/FOCUS_SAT.png",
+        "size_bytes": 34640,
+        "sha256": "bfbb758a1c03e32cce653a5241946dcaeba79055ed7c5719d979a7f8a898ff80"
+      }
+    },
+    {
+      "identity": "DigitAlb",
+      "catalog_key": "provider-logo::DIGITALB.png",
+      "black": {
+        "path": "auxiliary/provider-logo/black/DIGITALB.png",
+        "size_bytes": 33009,
+        "sha256": "55a1a85cd992780cad7f2dee291e5cf57206b5e1a36c60450fdf8aed30a69fa5"
+      },
+      "white": {
+        "path": "auxiliary/provider-logo/white/DIGITALB.png",
+        "size_bytes": 33122,
+        "sha256": "5010e1de5a7a32d4a733f19f1d9a5e6dc4861a0e185d3d01e683501a34c51603"
+      }
+    },
+    {
+      "identity": "Tring",
+      "catalog_key": "provider-logo::TRING.png",
+      "black": {
+        "path": "auxiliary/provider-logo/black/TRING.png",
+        "size_bytes": 29796,
+        "sha256": "10b290e85018b1eddb6c54c2020e8ef98fdb483c8c977985c9d39d0bfd261d72"
+      },
+      "white": {
+        "path": "auxiliary/provider-logo/white/TRING.png",
+        "size_bytes": 29497,
+        "sha256": "7eb50a2b813c1f12307334d48a86069f71d342765d964c0dcad65c6c58a4bd2c"
+      }
+    }
+  ],
+  "added_or_changed_paths": [
+    "catalog/auxiliary-catalog.json",
+    "tests/test_europe_first_phase1_approved5.py",
+    "reports/warder-master-production/europe-first-phase1-approved5-2026-10-09/approved5-assets.json",
+    "reports/warder-master-production/europe-first-phase1-approved5-2026-10-09/INTEGRATION-REPORT.json",
+    "auxiliary/provider-logo/black/SKYLINK.png",
+    "auxiliary/provider-logo/white/SKYLINK.png",
+    "auxiliary/provider-logo/black/FREESAT.png",
+    "auxiliary/provider-logo/white/FREESAT.png",
+    "auxiliary/provider-logo/black/FOCUS_SAT.png",
+    "auxiliary/provider-logo/white/FOCUS_SAT.png",
+    "auxiliary/provider-logo/black/DIGITALB.png",
+    "auxiliary/provider-logo/white/DIGITALB.png",
+    "auxiliary/provider-logo/black/TRING.png",
+    "auxiliary/provider-logo/white/TRING.png"
+  ],
+  "test_results": [
+    {
+      "command": "python3 tests/test_europe_first_phase1_approved5.py",
+      "status": "PASS"
+    },
+    {
+      "command": "python3 tests/test_auxiliary_catalog.py",
+      "status": "PASS",
+      "tests": 15
+    },
+    {
+      "command": "python3 tools/test_auxiliary_ingress.py",
+      "status": "PASS",
+      "providers": 172,
+      "satellite": 1,
+      "candidate_pngs": 346,
+      "pass": 173,
+      "review": 0,
+      "fail": 0
+    },
+    {
+      "command": "python3 tools/test_warder_visual_qc.py",
+      "status": "PASS",
+      "helper_regressions": "PASS",
+      "auxiliary_regressions": 5,
+      "auxiliary_review": 5,
+      "channel_regressions": "PASS"
+    },
+    {
+      "check": "Full auxiliary catalog validation (all files in auxiliary tree; PNG dimensions/mode/hashes and pair completeness)",
+      "status": "PASS"
+    },
+    {
+      "check": "Original ZIP SHA256, CRC, per-asset SHA256, PNG format/RGBA/220x132, template blob IDs",
+      "status": "PASS"
+    }
+  ]
+}
