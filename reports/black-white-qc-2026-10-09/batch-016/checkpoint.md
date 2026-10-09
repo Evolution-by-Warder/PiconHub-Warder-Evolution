@@ -13,3 +13,4 @@
 Detailed paths, hashes and mask extents: `repair-manifest.csv`. Before/after visual comparison: `batch-016-before-after.jpg`.
 
 - Next contiguous review ID: 3501 (batch-017 covers IDs 3501–4100).
+- Pushed repair commit: `f305093c7918390a7b756ce662140f996b35e319`.
