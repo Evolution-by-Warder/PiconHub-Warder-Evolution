@@ -3,7 +3,7 @@
   "purpose": "Final gate evidence for the APPROVED5 staging remediation; no production integration, release, or deployment.",
   "repository": "Evolution-by-Warder/PiconHub-Warder-Evolution",
   "branch": "warder-europe-first-phase1-approved5-20261009",
-  "verified_code_commit": "27cbc44406a5e7d9f46e7e11178b9ba6f9d726c2",
+  "verified_code_commit": "ea15c551e05020a7fa02b5abcb7f5cd80a751eb4",
   "previous_staging_head": "0673cc93ae0d19b5028cd488a1a0f3ee3b22c7a5",
   "production_head": "4e0e7233e93d4fc6afc5b22447730b3e8e5eaefd",
   "gate_status": "CONDITIONAL PASS",
@@ -23,7 +23,9 @@
     "distinct_original_provenance_values": 2,
     "entries_restored_exactly": 173,
     "identity_path_source_hash_asset_hash_qc_and_provenance_fields_preserved": true,
-    "regression_test_added": true
+    "regression_test_added": true,
+    "regression_test_pins_source_catalog_sha256": "6631f646ed3d51a1e84317c9e3a45456b48c002781dc7338442e5c4d26b3a754",
+    "regression_test_git_blob_sha": "43c55601fa9d6fc23b271a4dd710cdea45b01327"
   },
   "approved_assets": {
     "source_archive": {
@@ -155,7 +157,8 @@
     "check_runs": 0,
     "status_contexts": 0,
     "result": "NOT AVAILABLE / NOT RUN",
-    "note": "GitHub combined status reports pending with zero contexts; no actual check is running or pending."
+    "note": "GitHub combined status reports pending with zero contexts; no actual check is running or pending.",
+    "checked_commit": "ea15c551e05020a7fa02b5abcb7f5cd80a751eb4"
   },
   "integration_boundary": {
     "catalog_registration": "The staging JSON catalog is validated by tools/auxiliary_catalog.py.",
@@ -174,5 +177,15 @@
     "There is no alias registry, so collision checks cover exact and normalized canonical names only.",
     "CI is unavailable because the repository has no applicable Actions workflow.",
     "Receiver runtime consumption remains a separate, unauthorized integration scope."
-  ]
+  ],
+  "remediation_commits": [
+    "27cbc44406a5e7d9f46e7e11178b9ba6f9d726c2",
+    "fcdde01a5823cbee7b8c7602c6224a4b4b51f2dd",
+    "ea15c551e05020a7fa02b5abcb7f5cd80a751eb4"
+  ],
+  "verified_file_sha256_after_remediation": {
+    "catalog/auxiliary-catalog.json": "f27187a207fee8b754f671e1688375328ad6738a1c809cfc39a1bf811e21bb7a",
+    "tests/test_europe_first_phase1_approved5.py": "7183cd75910e1a26841765ed92950f86b52621d0799508f463dec97570124654"
+  },
+  "report_note": "This evidence report is a follow-up commit after the verified code commit; final branch HEAD is available in the repository branch history."
 }
