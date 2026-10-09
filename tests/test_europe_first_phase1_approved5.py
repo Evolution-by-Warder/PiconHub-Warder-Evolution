@@ -18,6 +18,7 @@ import auxiliary_catalog as catalog  # noqa: E402
 EVIDENCE = ROOT / "reports/warder-master-production/europe-first-phase1-approved5-2026-10-09/approved5-assets.json"
 CATALOG = ROOT / "catalog/auxiliary-catalog.json"
 ORIGINAL_CATALOG = ROOT / "reports/auxiliary-production-integration-2026-10-08/auxiliary-catalog.json"
+ORIGINAL_CATALOG_SHA256 = "6631f646ed3d51a1e84317c9e3a45456b48c002781dc7338442e5c4d26b3a754"
 BASE_MANIFEST = ROOT / "reports/warder-master-production/auxiliary-centering-2026-10-08/sha256-manifest.jsonl"
 EXPECTED = {
     "Skylink": "SKYLINK.png",
@@ -62,7 +63,9 @@ def main() -> None:
 
     # Extending the catalog must retain the original identity and approval
     # provenance fields for every pre-existing approved identity.
-    original = json.loads(ORIGINAL_CATALOG.read_text(encoding="utf-8"))
+    original_bytes = ORIGINAL_CATALOG.read_bytes()
+    assert hashlib.sha256(original_bytes).hexdigest() == ORIGINAL_CATALOG_SHA256
+    original = json.loads(original_bytes)
     original_entries = {(row["kind"], row["filename"]): row for row in original["entries"]}
     staged_entries = loaded.entries
     assert len(original_entries) == 173
