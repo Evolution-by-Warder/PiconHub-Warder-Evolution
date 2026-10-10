@@ -17,6 +17,9 @@ def explain_review_backlog(queue):
     identity_examples = defaultdict(list)
     grouped_distinct_artworks = Counter()
     grouped_source_observations = 0
+    artwork_review_subcauses = Counter()
+    artwork_review_by_source = defaultdict(Counter)
+    artwork_review_examples = defaultdict(list)
     for item in items:
         state = item.get('decision', 'PENDING')
         states[state] += 1
@@ -43,6 +46,22 @@ def explain_review_backlog(queue):
                 })
             for origin in set(item.get('source_origins') or [item.get('source_origin') or 'unknown']):
                 identity_by_source[origin][reason] += 1
+        if item.get('workstream') == 'ARTWORK_REVIEW':
+            distinct = item.get('distinct_sha256') or len({e.get('sha256') for e in item.get('source_evidence', ()) if e.get('sha256')}) or (1 if item.get('sha256') else 0)
+            if distinct > 1:
+                cause = 'MULTIPLE_CANDIDATE_ARTWORKS_SAME_REFERENCE'
+            elif distinct == 1:
+                cause = 'SINGLE_CANDIDATE_ARTWORK_DIFFERS_FROM_MASTER'
+            else:
+                cause = 'MISSING_CANDIDATE_ARTWORK_EVIDENCE'
+            artwork_review_subcauses[cause] += 1
+            origins = set(item.get('source_origins') or [item.get('source_origin') or 'unknown'])
+            for origin in origins:
+                artwork_review_by_source[origin][cause] += 1
+            if len(artwork_review_examples[cause]) < 10:
+                artwork_review_examples[cause].append({'review_id': item.get('review_id'),
+                    'service_reference': item.get('candidate_identity'), 'distinct_artworks': distinct,
+                    'source_origins': sorted(origins), 'master_locations': len(item.get('master_locations') or [])})
         categories[item.get('category') or 'UNKNOWN'] += 1
         for reason in set(item.get('reasons') or ['UNSPECIFIED']):
             reasons[reason] += 1
@@ -71,6 +90,9 @@ def explain_review_backlog(queue):
         'decision_states': dict(sorted(states.items())),
         'pending_by_workstream': dict(sorted(workstreams.items())),
         'pending_by_category': dict(sorted(categories.items())),
+        'artwork_review_subcauses': dict(sorted(artwork_review_subcauses.items())),
+        'artwork_review_by_source': {origin: dict(sorted(causes.items())) for origin, causes in sorted(artwork_review_by_source.items())},
+        'artwork_review_examples': dict(sorted(artwork_review_examples.items())),
         'identity_verification_subcauses': dict(sorted(identity_subcauses.items())),
         'identity_verification_reasons': dict(sorted(identity_observations.items())),
         'identity_examples_by_reason': dict(sorted(identity_examples.items())),
