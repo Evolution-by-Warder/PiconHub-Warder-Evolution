@@ -163,7 +163,7 @@ def _compose_variant(rgba, background):
  canvas.alpha_composite(art)
  return canvas
 
-RENDER_REVISION = "contrast-balanced-safe-area-v3"
+RENDER_REVISION = "contrast-background-safe-v4"
 
 def render_png_task(args):
  # Independent process: Pillow decoding and PNG encoding use multiple CPU cores.
@@ -174,7 +174,10 @@ def render_png_task(args):
   with Image.open(path) as im:
    if not (1 <= im.width <= 4096 and 1 <= im.height <= 4096):
     raise ValueError('Neštandardné rozmery')
-   rgba=_fit_canvas(im.convert('RGBA'))
+   from artwork_preparation import extract_flat_edge_background
+   raw=im.convert('RGBA')
+   clean,extracted=extract_flat_edge_background(raw)
+   rgba=_fit_canvas(clean)
   dest=Path(output_dir)/sha[:2]/sha
   dest.mkdir(parents=True,exist_ok=True)
   created=0
@@ -194,7 +197,7 @@ def render_png_task(args):
       if existing.size == (220,132) and existing.mode == 'RGBA':
        continue
     except Exception: pass
-   render=_compose_variant(rgba,bgname)
+   render=_compose_variant(_fit_canvas(raw) if bgname=='transparent' else rgba,bgname)
    tmp=out.with_name(out.name+'.'+str(os.getpid())+'.partial')
    try:
     render.save(tmp,format='PNG',compress_level=3)
@@ -344,7 +347,10 @@ def repair_variant_task(args):
    im.load()
    if not (1<=im.width<=4096 and 1<=im.height<=4096):
     raise ValueError('Invalid source dimensions')
-   rgba=_fit_canvas(im.convert('RGBA'))
+   from artwork_preparation import extract_flat_edge_background
+   raw=im.convert('RGBA')
+   clean,extracted=extract_flat_edge_background(raw)
+   rgba=_fit_canvas(clean)
   # No re-render of approved-looking, otherwise intact variants.
   affected=set()
   for reason in reasons:
