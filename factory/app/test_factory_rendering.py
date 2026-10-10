@@ -73,6 +73,14 @@ class FactoryRenderingTests(unittest.TestCase):
         result = _contrast_variant_art(source, 'white')
         self.assertEqual(result.getpixel((70, 60))[:3], (30, 30, 30))
 
+    def test_large_standalone_white_word_darkens_on_white(self):
+        source = Image.new('RGBA', (220, 132), (0, 0, 0, 0))
+        for y in range(30, 80):
+            for x in range(30, 140):
+                source.putpixel((x, y), (255, 255, 255, 255))
+        result = _contrast_variant_art(source, 'white')
+        self.assertEqual(result.getpixel((70, 50))[:3], (30, 30, 30))
+
     def test_black_lettering_on_white_kept(self):
         source = Image.new('RGBA', (220, 132), (0, 0, 0, 0))
         for y in range(35, 75):
