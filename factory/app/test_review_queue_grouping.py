@@ -37,10 +37,21 @@ class CrossFeedReviewGroupingTests(unittest.TestCase):
         self.assertEqual(item['distinct_sha256'], 3)
         self.assertEqual(item['distinct_pixel_artworks'], 2)
         self.assertEqual(item['pixel_grouping'], 'VERIFIED_RGBA_GROUPS')
+        self.assertEqual(item['review_priority'], 'P2_COMPARE_DISTINCT_PIXEL_ARTWORKS')
         self.assertNotIn('pixel_equivalence', item)
         self.assertEqual(len(item['pixel_artwork_groups']), 2)
         self.assertEqual(result['consolidation']['pixel_duplicate_sha_observations'], 1)
         self.assertEqual(result['consolidation']['pixel_distinct_artworks_avoided'], 1)
+
+    def test_full_pixel_equivalence_prioritizes_master_comparison_not_approval(self):
+        rows = [{'classification': 'REVIEW', 'reason': 'EXISTING_SERVICE_DIFFERENT_ART',
+                 'service_reference': 'service-a', 'candidate_sha256': sha * 64,
+                 'candidate_source': sha + '.png'} for sha in ('a', 'b')]
+        result = build_review_queue({}, {}, [], rows, pixel_digests={'a' * 64: 'same', 'b' * 64: 'same'})
+        item = result['items'][0]
+        self.assertEqual(item['review_priority'], 'P1_VERIFY_SINGLE_PIXEL_ARTWORK_AGAINST_MASTER')
+        self.assertEqual(item['decision'], 'PENDING')
+        self.assertEqual(result['count'], 1)
 
     def test_missing_pixel_proof_never_claims_pixel_equivalence(self):
         rows = [{'classification': 'REVIEW', 'reason': 'EXISTING_SERVICE_DIFFERENT_ART',
@@ -48,6 +59,7 @@ class CrossFeedReviewGroupingTests(unittest.TestCase):
                  'candidate_source': sha + '.png'} for sha in ('a', 'b')]
         result = build_review_queue({}, {}, [], rows, pixel_digests={'a' * 64: 'pixel-x'})
         self.assertNotIn('pixel_equivalence', result['items'][0])
+        self.assertEqual(result['items'][0]['review_priority'], 'P3_COMPLETE_PIXEL_EVIDENCE')
         self.assertNotIn('pixel_artwork_groups', result['items'][0])
         self.assertEqual(result['consolidation']['pixel_distinct_artworks_avoided'], 0)
 
