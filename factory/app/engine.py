@@ -43,33 +43,63 @@ except ImportError:
  PIL_OK=False
 
 def _contrast_variant_art(rgba, background):
- """Only recolor overwhelmingly monochrome white/black logos on same-color backgrounds.
+ """Recolor isolated neutral lettering, preserving brand colors and source alpha.
 
- Transparent master art is never modified. Multicolor artwork remains unchanged.
+ Only near-neutral components are eligible. A light label enclosed in a colored
+ badge is deliberately excluded, as its immediate backdrop is not the template.
  """
  from PIL import Image
  if background not in ('white', 'black'):
   return rgba
+ width,height=rgba.size
  pixels=list(rgba.getdata())
- visible=[(r,g,b) for r,g,b,a in pixels if a>=128]
- if len(visible)<20:
+ mask=[]
+ for r,g,b,a in pixels:
+  neutral=max(r,g,b)-min(r,g,b)<=22
+  light=min(r,g,b)>=205
+  dark=max(r,g,b)<=72
+  mask.append(a>=96 and neutral and (light if background=='white' else dark))
+ if sum(mask)<12:
   return rgba
- if background=='white':
-  fraction=sum(min(rgb)>=238 for rgb in visible)/len(visible)
-  source_test=lambda r,g,b:min(r,g,b)>=238
-  replacement=(24,24,24)
- else:
-  fraction=sum(max(rgb)<=17 for rgb in visible)/len(visible)
-  source_test=lambda r,g,b:max(r,g,b)<=17
-  replacement=(240,240,240)
- if fraction<0.94:
+ seen=set()
+ changes=set()
+ for start in range(len(mask)):
+  if not mask[start] or start in seen:
+   continue
+  stack=[start]
+  seen.add(start)
+  component=[]
+  colored_neighbors=0
+  neighbors=0
+  while stack:
+   pos=stack.pop()
+   component.append(pos)
+   x,y=pos%width,pos//width
+   for nx,ny in ((x-1,y),(x+1,y),(x,y-1),(x,y+1)):
+    if not (0<=nx<width and 0<=ny<height):
+     continue
+    idx=ny*width+nx
+    if mask[idx] and idx not in seen:
+     seen.add(idx)
+     stack.append(idx)
+    elif not mask[idx]:
+     r,g,b,a=pixels[idx]
+     if a>=128:
+      neighbors+=1
+      if max(r,g,b)-min(r,g,b)>55:
+       colored_neighbors+=1
+  # Do not recolor lettering enclosed by a colored brand plate.
+  if len(component)>=12 and (not neighbors or colored_neighbors/neighbors<0.18):
+   changes.update(component)
+ if not changes:
   return rgba
- # Guard against colored details: only change near-achromatic artwork.
- if sum(max(rgb)-min(rgb)<=14 for rgb in visible)/len(visible)<0.98:
-  return rgba
+ result=list(pixels)
+ ink=(26,26,26) if background=='white' else (240,240,240)
+ for idx in changes:
+  r,g,b,a=pixels[idx]
+  result[idx]=(*ink,a)
  out=Image.new('RGBA',rgba.size)
- out.putdata([(*replacement,a) if a and source_test(r,g,b) else (r,g,b,a)
-              for r,g,b,a in pixels])
+ out.putdata(result)
  return out
 
 def _outlined_variant(rgba, background, radius=2):
@@ -139,31 +169,12 @@ def _compose_variant(rgba, background):
    raise ValueError('Nesprávne rozmery WARDER šablóny')
   canvas=source.convert('RGBA')
   canvas.putalpha(255)  # WARDER output variants must be opaque
- # Keep the WARDER plastic template and original artwork intact. When a
- # predominantly same-colour logo disappears on its matching background,
- # add a thin contrasting external stroke to the derivative only.
+ # Preserve already-legible brand colors; no unconditional stroke.
  art=_contrast_variant_art(rgba,background)
- if art.tobytes()==rgba.tobytes():
-  from PIL import ImageFilter, ImageChops
-  alpha=rgba.getchannel('A')
-  visible=[(r,g,b) for r,g,b,a in rgba.getdata() if a>=128]
-  if len(visible)>=20:
-   if background=='white':
-    invisible=sum(min(c)>=218 for c in visible)/len(visible)
-   else:
-    invisible=sum(max(c)<=38 for c in visible)/len(visible)
-   if invisible>=0.55:
-    candidate=_outlined_variant(rgba,background,radius=2)
-    trial=canvas.copy()
-    trial.alpha_composite(candidate)
-    if _has_contrast_outline(rgba,trial,background):
-     art=candidate
- if art.tobytes()==rgba.tobytes():
-  art=_selective_light_stroke(rgba,background)
  canvas.alpha_composite(art)
  return canvas
 
-RENDER_REVISION = "contrast-background-safe-v4"
+RENDER_REVISION = "selective-neutral-recolor-v5"
 
 def render_png_task(args):
  # Independent process: Pillow decoding and PNG encoding use multiple CPU cores.
