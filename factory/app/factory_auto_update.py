@@ -16,7 +16,7 @@ from factory_update_stage import stage_verified_zip, MAX_PACKAGE
 from factory_update_transaction import begin
 
 REPO = 'Evolution-by-Warder/PiconHub-Warder-Evolution'
-MANIFEST_URL = 'https://raw.githubusercontent.com/' + REPO + '/main/factory/update/manifest.json'
+MANIFEST_URL = 'https://raw.githubusercontent.com/' + REPO + '/factory-update-v0.2.0/factory/update/manifest.json'
 VERSION_FILE = '.factory-version.json'
 VERSION = re.compile(r'^factory-v(\d+)\.(\d+)\.(\d+)$')
 MAX_MANIFEST = 16384
