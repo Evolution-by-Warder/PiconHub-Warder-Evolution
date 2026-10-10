@@ -1110,6 +1110,16 @@ class Factory:
   review_path=REPORTS/('review-queue-'+run+'.json')
   review_queue=apply_decisions(build_review_queue(qa_issues,hashes,collisions,registry_matches), DATA/"review-decisions.json")
   save_review_queue(review_path,review_queue)
+  from qa_backlog_diagnostics import explain_review_backlog
+  backlog=explain_review_backlog(review_queue)
+  backlog_path=REPORTS/('qa-backlog-causes-'+run+'.json')
+  atomic_json(backlog_path,backlog)
+  stats['qa_backlog_causes']=backlog['pending_by_reason']
+  stats['qa_pending_by_workstream']=backlog['pending_by_workstream']
+  stats['qa_pending_review_tasks']=backlog['pending_review_tasks']
+  stats['qa_grouping_savings']=backlog['grouping_savings']
+  self.log('QA PREČO ZOSTÁVAJÚ: '+str(backlog['pending_by_reason'])+'; report: '+str(backlog_path))
+  self.log('QA ÚSPORA ZOSKUPENÍM: '+str(backlog['grouping_savings']))
   stats['review_queue_items']=review_queue['count']
   stats['review_workstreams']=review_queue.get('workstream_counts', {})
   self.log('QA pracovné fronty: '+', '.join(f'{name}={count}' for name,count in review_queue.get('workstream_counts', {}).items()))
