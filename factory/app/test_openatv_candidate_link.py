@@ -36,6 +36,16 @@ class OpenAtvNameCandidateTests(unittest.TestCase):
         groups = group_openatv_stations(rows)
         self.assertEqual(groups['station_names'], 2)
 
+    def test_unverified_existing_candidate_cannot_seed_another_alias(self):
+        rows=[
+            {'candidate_source':r'C:\\SOURCE-INGEST\\OPENATV8\\NOVA Sports 2.png',
+             'classification':'EVIDENCE_LINKED','candidate_service_reference':'1:0:1:2'},
+            {'candidate_source':r'C:\\SOURCE-INGEST\\OPENATV8\\nova-sports_2.png',
+             'classification':'UNMAPPED'}]
+        counts=attach_name_candidates(rows)
+        self.assertEqual(counts['candidate_linked_files'],0)
+        self.assertEqual(rows[1]['classification'],'UNMAPPED')
+
     def test_conflict_never_promotes(self):
         rows=[]
         for ref in ('1:0:1:2','1:0:1:3'):
