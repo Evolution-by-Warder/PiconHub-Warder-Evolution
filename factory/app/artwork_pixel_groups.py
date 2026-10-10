@@ -51,7 +51,10 @@ def master_artwork_pixel_digests(registry, master_root, cache_path):
         cache = {}
     result = defaultdict(set)
     base = root.resolve()
-    for ref, entries in (registry.get('services') or {}).items():
+    services = registry.get('services') or {}
+    if not isinstance(services, dict):
+        services = {}
+    for ref, entries in services.items():
         if not isinstance(entries, (list, tuple)):
             continue
         for entry in entries:
@@ -62,7 +65,7 @@ def master_artwork_pixel_digests(registry, master_root, cache_path):
                 if not path.is_relative_to(base) or not path.is_file():
                     continue
                 digest = _cached(path, cache)
-                if digest:
+                if isinstance(digest, str) and len(digest) == 64 and all(c in '0123456789abcdef' for c in digest):
                     result[ref].add(digest)
             except (OSError, ValueError, KeyError, TypeError):
                 continue
