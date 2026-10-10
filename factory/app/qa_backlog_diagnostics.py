@@ -16,6 +16,9 @@ def explain_review_backlog(queue):
     identity_unique_sha_distribution = Counter()
     identity_missing_sha_evidence = 0
     identity_repeated_sha_observations = 0
+    identity_provenance_distribution = Counter()
+    identity_cross_origin_tasks = 0
+    identity_unknown_origin_tasks = 0
     identity_by_source = defaultdict(Counter)
     unresolved_examples = defaultdict(list)
     identity_examples = defaultdict(list)
@@ -59,6 +62,43 @@ def explain_review_backlog(queue):
             identity_repeated_sha_observations += max(0, len(variant_hashes) - len(set(variant_hashes)))
             if len(variant_hashes) != len(variants):
                 identity_missing_sha_evidence += 1
+            from registry_triage import origin_of, _openatv_provenance
+            variant_origins = set()
+            provenance = set()
+            unknown_provenance = False
+            for variant in variants:
+                if not isinstance(variant, dict):
+                    unknown_provenance = True
+                    continue
+                sources = variant.get('sources') or []
+                if not isinstance(sources, (list, tuple)) or not sources:
+                    unknown_provenance = True
+                    continue
+                for source in sources:
+                    if not isinstance(source, str) or not source:
+                        unknown_provenance = True
+                        continue
+                    origin = origin_of(source)
+                    variant_origins.add(origin)
+                    if origin == 'openatv8':
+                        bucket = _openatv_provenance(source)
+                        if 'unknown' in bucket:
+                            unknown_provenance = True
+                        else:
+                            provenance.add('openatv8:' + ':'.join(bucket))
+                    elif origin == 'local-inbox':
+                        unknown_provenance = True
+                    else:
+                        provenance.add(origin)
+            if len(variant_origins) > 1:
+                identity_cross_origin_tasks += 1
+            if unknown_provenance or not provenance:
+                identity_unknown_origin_tasks += 1
+                identity_provenance_distribution['UNKNOWN_OR_INCOMPLETE_PROVENANCE'] += 1
+            elif len(provenance) > 1:
+                identity_provenance_distribution['MULTIPLE_VERIFIED_SOURCE_BUCKETS'] += 1
+            else:
+                identity_provenance_distribution['SINGLE_VERIFIED_SOURCE_BUCKET'] += 1
             identity_observations[reason] += 1
             if len(identity_examples[reason]) < 10:
                 identity_examples[reason].append({
@@ -168,6 +208,9 @@ def explain_review_backlog(queue):
         'artwork_review_examples': dict(sorted(artwork_review_examples.items())),
         'identity_verification_subcauses': dict(sorted(identity_subcauses.items())),
         'identity_variant_count_distribution': dict(sorted(identity_variant_distribution.items())),
+        'identity_provenance_distribution': dict(sorted(identity_provenance_distribution.items())),
+        'identity_cross_origin_tasks': identity_cross_origin_tasks,
+        'identity_unknown_origin_tasks': identity_unknown_origin_tasks,
         'identity_unique_sha_count_distribution': dict(sorted(identity_unique_sha_distribution.items())),
         'identity_tasks_missing_variant_sha_evidence': identity_missing_sha_evidence,
         'identity_repeated_sha_variant_observations': identity_repeated_sha_observations,
