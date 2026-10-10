@@ -4,6 +4,7 @@ Evidence is not a service identity and must never be written to the registry.
 """
 from collections import defaultdict, Counter
 from pathlib import PureWindowsPath
+from openatv_candidate_link import _station_key
 
 
 def summarize_openatv_name_evidence(matches, sample_limit=25):
@@ -16,7 +17,10 @@ def summarize_openatv_name_evidence(matches, sample_limit=25):
         if row.get('classification') != 'UNMAPPED':
             continue
         name = PureWindowsPath(source).name.casefold()
-        g = groups[name]
+        key = _station_key(name)
+        if key is None:
+            continue
+        g = groups[key]
         g['files'] += 1
         sha = row.get('candidate_sha256')
         if sha:
