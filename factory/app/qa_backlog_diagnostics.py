@@ -12,6 +12,10 @@ def explain_review_backlog(queue):
     grouped = 0
     identity_subcauses = Counter()
     identity_observations = Counter()
+    identity_variant_distribution = Counter()
+    identity_unique_sha_distribution = Counter()
+    identity_missing_sha_evidence = 0
+    identity_repeated_sha_observations = 0
     identity_by_source = defaultdict(Counter)
     unresolved_examples = defaultdict(list)
     identity_examples = defaultdict(list)
@@ -48,6 +52,13 @@ def explain_review_backlog(queue):
                 identity_subcauses['MASTER_PRESENT_REQUIRES_IDENTITY_REVIEW'] += 1
             else:
                 identity_subcauses['NO_MASTER_LOCATION_FOR_CANDIDATE'] += 1
+            variants = item.get('variants') or []
+            variant_hashes = [v.get('sha256') for v in variants if isinstance(v, dict) and isinstance(v.get('sha256'), str) and v.get('sha256')]
+            identity_variant_distribution[str(len(variants))] += 1
+            identity_unique_sha_distribution[str(len(set(variant_hashes)))] += 1
+            identity_repeated_sha_observations += max(0, len(variant_hashes) - len(set(variant_hashes)))
+            if len(variant_hashes) != len(variants):
+                identity_missing_sha_evidence += 1
             identity_observations[reason] += 1
             if len(identity_examples[reason]) < 10:
                 identity_examples[reason].append({
@@ -156,6 +167,10 @@ def explain_review_backlog(queue):
         'artwork_review_by_source': {origin: dict(sorted(causes.items())) for origin, causes in sorted(artwork_review_by_source.items())},
         'artwork_review_examples': dict(sorted(artwork_review_examples.items())),
         'identity_verification_subcauses': dict(sorted(identity_subcauses.items())),
+        'identity_variant_count_distribution': dict(sorted(identity_variant_distribution.items())),
+        'identity_unique_sha_count_distribution': dict(sorted(identity_unique_sha_distribution.items())),
+        'identity_tasks_missing_variant_sha_evidence': identity_missing_sha_evidence,
+        'identity_repeated_sha_variant_observations': identity_repeated_sha_observations,
         'identity_verification_reasons': dict(sorted(identity_observations.items())),
         'identity_examples_by_reason': dict(sorted(identity_examples.items())),
         'identity_reasons_by_source': {origin: dict(sorted(reasons.items())) for origin, reasons in sorted(identity_by_source.items())},
