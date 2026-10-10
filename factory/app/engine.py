@@ -79,6 +79,34 @@ def _contrast_variant_art(rgba, background):
   if size>=20 and right-left>=5 and bottom-top>=5:
    for y in range(top,bottom+1):
     protected[y*width+left:y*width+right+1]=bytes([1])*(right-left+1)
+ # A substantial opaque black logo plate is part of the source artwork.
+ # Protect its entire rectangle, including white/chrome letters inside it.
+ dark=[a>=240 and max(r,g,b)<=65 for r,g,b,a in pixels]
+ dark_seen=bytearray(width*height)
+ for start in range(len(pixels)):
+  if not dark[start] or dark_seen[start]:
+   continue
+  stack=[start]
+  dark_seen[start]=1
+  component=[]
+  left=right=start%width
+  top=bottom=start//width
+  while stack:
+   pos=stack.pop()
+   component.append(pos)
+   x,y=pos%width,pos//width
+   left=min(left,x);right=max(right,x)
+   top=min(top,y);bottom=max(bottom,y)
+   for nx,ny in ((x-1,y),(x+1,y),(x,y-1),(x,y+1)):
+    if 0<=nx<width and 0<=ny<height:
+     idx=ny*width+nx
+     if dark[idx] and not dark_seen[idx]:
+      dark_seen[idx]=1
+      stack.append(idx)
+  area=(right-left+1)*(bottom-top+1)
+  if len(component)>=180 and right-left>=18 and bottom-top>=9 and len(component)/area>=0.35:
+   for yy in range(top,bottom+1):
+    protected[yy*width+left:yy*width+right+1]=bytes([1])*(right-left+1)
  # Protect entire white plaques on BOTH templates.  Their black lettering and
  # white matte are one artwork element; changing either destroys the logo.
  white=[a>=240 and min(r,g,b)>=235 for r,g,b,a in pixels]
