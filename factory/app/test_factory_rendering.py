@@ -19,6 +19,19 @@ class FactoryRenderingTests(unittest.TestCase):
             self.assertEqual(result.getpixel((80, 55)), (0, 0, 0, 255))
             self.assertEqual(result.getpixel((45, 40)), (255, 255, 255, 255))
 
+    def test_black_logo_plate_with_white_text_preserved_on_both_templates(self):
+        source = Image.new('RGBA', (220, 132), (0, 0, 0, 0))
+        for y in range(50, 76):
+            for x in range(40, 165):
+                source.putpixel((x, y), (12, 12, 12, 255))
+        for y in range(56, 68):
+            for x in range(65, 130):
+                source.putpixel((x, y), (238, 238, 238, 255))
+        for bg in ('black', 'white'):
+            result = _contrast_variant_art(source, bg)
+            self.assertEqual(result.getpixel((50, 60)), (12, 12, 12, 255))
+            self.assertEqual(result.getpixel((85, 60)), (238, 238, 238, 255))
+
     def test_chrome_gradient_on_white_keeps_shading(self):
         source = Image.new('RGBA', (220, 132), (0, 0, 0, 0))
         shades = (75, 105, 135, 165, 195, 225, 245)
