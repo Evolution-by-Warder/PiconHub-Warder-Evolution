@@ -103,7 +103,18 @@ def _contrast_variant_art(rgba, background):
      if white[idx] and not visited[idx]:
       visited[idx]=1
       stack.append(idx)
+  # A white connected area is a plaque only when it encloses opaque
+  # non-white artwork (e.g. black lettering). A plain white word is ink.
+  enclosed_ink=False
   if size>=80 and right-left>=15 and bottom-top>=12:
+   for yy in range(top,bottom+1):
+    for xx in range(left,right+1):
+     rr,gg,bb,aa=pixels[yy*width+xx]
+     if aa>=128 and not white[yy*width+xx] and max(rr,gg,bb)<=185:
+      enclosed_ink=True
+      break
+    if enclosed_ink:break
+  if enclosed_ink:
    for y in range(top,bottom+1):
     protected[y*width+left:y*width+right+1]=bytes([1])*(right-left+1)
  result=list(pixels)
@@ -279,7 +290,7 @@ def _compose_variant(rgba, background):
  canvas.alpha_composite(art)
  return canvas
 
-RENDER_REVISION = "plate-aware-v14"
+RENDER_REVISION = "plate-aware-v15"
 
 def render_png_task(args):
  # Independent process: Pillow decoding and PNG encoding use multiple CPU cores.
