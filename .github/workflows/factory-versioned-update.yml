@@ -41,6 +41,10 @@ jobs:
           version=json.loads(Path('factory/app/.factory-version.json').read_text())['version']
           assert version == 'factory-v'+os.environ['VERSION'], (version,os.environ['VERSION'])
           PY
+      - name: Install tkinter for headless engine imports
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y python3-tk
       - name: Test and package Factory
         shell: bash
         env:
