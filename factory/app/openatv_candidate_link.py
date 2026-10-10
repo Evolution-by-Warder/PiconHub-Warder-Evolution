@@ -9,7 +9,10 @@ import re
 
 
 def _station_key(filename):
-    stem = PureWindowsPath(filename).stem.casefold()
+    path = PureWindowsPath(str(filename))
+    if path.suffix.casefold() != '.png':
+        return None
+    stem = path.stem.casefold()
     # SRP filename is a service identity, never a station-name alias.
     if re.fullmatch(r'[0-9a-f]+(?:_[0-9a-f]+){5,}', stem):
         return None
