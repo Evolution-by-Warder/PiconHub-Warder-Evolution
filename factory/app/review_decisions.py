@@ -33,6 +33,22 @@ def record_decision(ledger_path, item, decision, note, operator_confirmation):
     atomic_json(ledger_path, ledger)
     return ledger['decisions'][review_id]
 
+def _legacy_registry_decision(item, decisions):
+    """Recover a pre-reason-aware decision only with exact old evidence.
+
+    Never carry a decision between different reasons or grouped artwork sets.
+    """
+    if item.get('category') != 'REGISTRY_MATCH' or not item.get('sha256'):
+        return None
+    from review_queue import stable_review_id
+    legacy_id = stable_review_id('REGISTRY_MATCH', item.get('candidate_identity') or '', item['sha256'])
+    old_item = dict(item, review_id=legacy_id)
+    previous = decisions.get(legacy_id)
+    if previous and previous.get('evidence_hash') == evidence_hash(old_item):
+        return previous
+    return None
+
+
 def apply_decisions(queue, ledger_path):
     """Carry decisions across runs only when the reviewed evidence is identical."""
     ledger_path = Path(ledger_path)
@@ -45,7 +61,11 @@ def apply_decisions(queue, ledger_path):
     for item in queue['items']:
         item = dict(item)
         previous = ledger['decisions'].get(item['review_id'])
-        if previous and previous.get('evidence_hash') == evidence_hash(item) and previous.get('decision') in DECISIONS:
+        valid = bool(previous and previous.get('evidence_hash') == evidence_hash(item))
+        if not valid:
+            previous = _legacy_registry_decision(item, ledger['decisions'])
+            valid = previous is not None
+        if valid and previous.get('decision') in DECISIONS:
             item['decision'] = previous['decision']
             item['decision_note'] = previous.get('note', '')
         result['items'].append(item)
