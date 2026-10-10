@@ -57,7 +57,7 @@ class OpenAtvNameCandidateTests(unittest.TestCase):
              'candidate_sha256':'b'*64, 'classification':'UNMAPPED'}]
         attach_name_candidates(rows)
         report = summarize_openatv_name_evidence(rows)
-        self.assertEqual(report['total_exact_files'], 1)
+        self.assertEqual(report['exact_match_files'], 1)
 
     def test_conflict_never_promotes(self):
         rows=[]
