@@ -76,7 +76,8 @@ def attach_master_pixel_comparisons(queue, master_digests, candidate_digests):
             continue
         ref = item.get('candidate_identity')
         master = set(master_digests.get(ref) or ())
-        for unit in item.get('artwork_review_units') or ():
+        units = item.get('artwork_review_units') or ()
+        for unit in units:
             digest = unit.get('pixel_sha256')
             if not digest:
                 sha = unit.get('representative_sha256')
@@ -89,4 +90,11 @@ def attach_master_pixel_comparisons(queue, master_digests, candidate_digests):
                 status = 'NO_PIXEL_EXACT_SAME_SERVICE_MASTER'
             unit['master_pixel_comparison'] = status
             counts[status] += 1
+        statuses = [unit.get('master_pixel_comparison') for unit in units]
+        if statuses and all(status == 'PIXEL_EXACT_SAME_SERVICE_MASTER' for status in statuses):
+            item['master_pixel_evidence'] = 'ALL_REVIEW_UNITS_EXACT_SAME_SERVICE_MASTER'
+        elif statuses and any(status == 'NO_PIXEL_EXACT_SAME_SERVICE_MASTER' for status in statuses):
+            item['master_pixel_evidence'] = 'DIFFERENT_ARTWORK_PRESENT'
+        else:
+            item['master_pixel_evidence'] = 'INCOMPLETE_MASTER_PIXEL_EVIDENCE'
     return counts
