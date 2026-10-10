@@ -19,6 +19,8 @@ def explain_review_backlog(queue):
     grouped_source_observations = 0
     artwork_review_subcauses = Counter()
     artwork_pixel_groups = Counter()
+    artwork_pixel_triage = Counter()
+    artwork_pixel_examples = defaultdict(list)
     artwork_review_by_source = defaultdict(Counter)
     artwork_review_examples = defaultdict(list)
     for item in items:
@@ -63,6 +65,20 @@ def explain_review_backlog(queue):
             else:
                 cause = 'MISSING_CANDIDATE_ARTWORK_EVIDENCE'
             artwork_review_subcauses[cause] += 1
+            if item.get('pixel_equivalence') == 'EXACT_RGBA_IDENTICAL':
+                pixel_cause = 'ONE_VERIFIED_PIXEL_ARTWORK_REQUIRES_MASTER_REVIEW'
+            elif item.get('pixel_grouping') == 'VERIFIED_RGBA_GROUPS':
+                pixel_cause = 'MULTIPLE_VERIFIED_PIXEL_ARTWORKS_REQUIRE_COMPARISON'
+            else:
+                pixel_cause = 'PIXEL_EVIDENCE_INCOMPLETE_OR_UNAVAILABLE'
+            artwork_pixel_triage[pixel_cause] += 1
+            if len(artwork_pixel_examples[pixel_cause]) < 10:
+                artwork_pixel_examples[pixel_cause].append({
+                    'review_id': item.get('review_id'),
+                    'candidate_identity': item.get('candidate_identity'),
+                    'distinct_sha256': distinct,
+                    'distinct_pixel_artworks': item.get('distinct_pixel_artworks'),
+                })
             if item.get('distinct_pixel_artworks') is not None:
                 artwork_pixel_groups[str(item['distinct_pixel_artworks'])] += 1
             origins = set(item.get('source_origins') or [item.get('source_origin') or 'unknown'])
@@ -102,6 +118,8 @@ def explain_review_backlog(queue):
         'pending_by_category': dict(sorted(categories.items())),
         'artwork_review_subcauses': dict(sorted(artwork_review_subcauses.items())),
         'artwork_distinct_pixel_group_distribution': dict(sorted(artwork_pixel_groups.items())),
+        'artwork_pixel_triage': dict(sorted(artwork_pixel_triage.items())),
+        'artwork_pixel_triage_examples': dict(sorted(artwork_pixel_examples.items())),
         'artwork_review_by_source': {origin: dict(sorted(causes.items())) for origin, causes in sorted(artwork_review_by_source.items())},
         'artwork_review_examples': dict(sorted(artwork_review_examples.items())),
         'identity_verification_subcauses': dict(sorted(identity_subcauses.items())),
