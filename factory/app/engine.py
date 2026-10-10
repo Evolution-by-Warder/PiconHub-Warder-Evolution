@@ -104,7 +104,7 @@ def _contrast_variant_art(rgba, background):
       dark_seen[idx]=1
       stack.append(idx)
   area=(right-left+1)*(bottom-top+1)
-  if len(component)>=180 and right-left>=18 and bottom-top>=9 and len(component)/area>=0.35:
+  if len(component)>=180 and right-left>=18 and bottom-top>=9 and len(component)/area>=0.35 and any(\n      pixels[yy*width+xx][3]>=240 and min(pixels[yy*width+xx][:3])>=180\n      for yy in range(top,bottom+1) for xx in range(left,right+1)):
    for yy in range(top,bottom+1):
     protected[yy*width+left:yy*width+right+1]=bytes([1])*(right-left+1)
  # Protect entire white plaques on BOTH templates.  Their black lettering and
