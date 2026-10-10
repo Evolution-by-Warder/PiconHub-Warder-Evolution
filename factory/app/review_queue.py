@@ -12,6 +12,35 @@ def stable_review_id(kind: str, identity: str, sha: str) -> str:
     return 'WR-' + hashlib.sha256(token).hexdigest()[:16].upper()
 
 
+
+def _proven_openatv_style_only(collision):
+    """Suppress a redundant identity *task*, not its immutable collision audit.
+
+    Every observation must belong to a recognized OpenATV package; each
+    package/format/style bucket must have exactly one SHA. Other feeds,
+    unknown packages, or conflicting same-style art fail closed.
+    """
+    from registry_triage import _openatv_provenance, origin_of
+    buckets = {}
+    variants = collision.get('variants', ())
+    if len(variants) < 2:
+        return False
+    for variant in variants:
+        sha = variant.get('sha256')
+        sources = variant.get('sources', ())
+        if not sha or not sources:
+            return False
+        for source in sources:
+            if origin_of(source) != 'openatv8':
+                return False
+            bucket = _openatv_provenance(source)
+            if 'unknown' in bucket:
+                return False
+            previous = buckets.setdefault(bucket, sha)
+            if previous != sha:
+                return False
+    return len(buckets) > 1
+
 def build_review_queue(qa_issues: dict, originals: dict, collisions: list, registry_reviews=None) -> dict:
     """Never mark technical QA as semantic approval."""
     items = []
@@ -26,7 +55,11 @@ def build_review_queue(qa_issues: dict, originals: dict, collisions: list, regis
             'original': str(originals.get(sha, '')),
             'reasons': sorted(set(reasons)), 'decision': 'PENDING',
         })
+    style_only_suppressed = 0
     for collision in collisions:
+        if _proven_openatv_style_only(collision):
+            style_only_suppressed += 1
+            continue
         identity = collision['candidate_service_ref']
         hashes = sorted(v['sha256'] for v in collision['variants'])
         items.append({
@@ -116,6 +149,7 @@ def build_review_queue(qa_issues: dict, originals: dict, collisions: list, regis
                      'registry_sha_reviews_before_grouping': pre_group_registry_reviews,
                      'registry_review_tasks_after_grouping': registry_review_groups,
                      'review_tasks_avoided': max(0, pre_group_registry_reviews - registry_review_groups),
+                     'openatv_style_only_identity_tasks_avoided': style_only_suppressed,
                      'policy': 'EVIDENCE_GROUPING_ONLY; NO_AUTOMATIC_APPROVAL'}
     return {
         'workstream_counts': counts, 'consolidation': consolidation,
