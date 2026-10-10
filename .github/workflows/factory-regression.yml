@@ -1,0 +1,26 @@
+name: Factory regression (no release)
+on:
+  push:
+    branches: [factory-update-v0.2.0]
+    paths:
+      - 'factory/app/**'
+      - '.github/workflows/factory-regression.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  regression:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: factory-update-v0.2.0
+      - name: Install runtime dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y python3-tk
+          python -m pip install -r factory/app/requirements-runtime.txt
+      - name: Compile Python source
+        run: python -m compileall -q factory/app
+      - name: Run all Factory regression tests
+        run: cd factory/app && python -m unittest discover -p 'test_*.py' -v
