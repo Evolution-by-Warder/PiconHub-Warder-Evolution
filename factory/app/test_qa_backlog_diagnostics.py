@@ -3,6 +3,16 @@ from qa_backlog_diagnostics import explain_review_backlog
 
 
 class BacklogDiagnosticsTests(unittest.TestCase):
+    def test_verified_pixel_group_distribution_is_diagnostic_only(self):
+        report = explain_review_backlog({'items': [
+            {'decision': 'PENDING', 'workstream': 'ARTWORK_REVIEW',
+             'distinct_sha256': 3, 'distinct_pixel_artworks': 2},
+            {'decision': 'PENDING', 'workstream': 'ARTWORK_REVIEW',
+             'distinct_sha256': 2, 'distinct_pixel_artworks': 1},
+        ]})
+        self.assertEqual(report['artwork_distinct_pixel_group_distribution'], {'1': 1, '2': 1})
+        self.assertEqual(report['pending_review_tasks'], 2)
+
     def test_string_and_mixed_source_evidence_do_not_crash(self):
         queue = {'items': [
             {'decision': 'PENDING', 'workstream': 'ARTWORK_REVIEW',
