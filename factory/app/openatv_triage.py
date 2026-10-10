@@ -4,6 +4,7 @@ Never promote filename or visual similarity to a service identity.
 """
 from collections import defaultdict
 from pathlib import PureWindowsPath
+from openatv_candidate_link import _station_key
 
 
 def build_openatv_triage(rows):
@@ -17,7 +18,10 @@ def build_openatv_triage(rows):
         sha = row.get('candidate_sha256')
         if not name.endswith('.png') or not sha:
             continue
-        group = groups[name]
+        key = _station_key(name)
+        if key is None:
+            continue
+        group = groups[key]
         group['sources'] += 1
         art = group['artworks'][sha]
         art['copies'] += 1
