@@ -2,6 +2,7 @@ import unittest
 from pathlib import Path
 from PIL import Image
 from engine import _compose_variant, _contrast_variant_art, _adjust_low_contrast_color
+from artwork_preparation import extract_flat_edge_background
 
 
 class FactoryRenderingTests(unittest.TestCase):
@@ -89,6 +90,27 @@ class FactoryRenderingTests(unittest.TestCase):
         source.putpixel((45, 45), (255, 245, 20, 255))
         result = _adjust_low_contrast_color(source, 'white')
         self.assertNotEqual(result.getpixel((45, 45)), source.getpixel((45, 45)))
+
+    def test_edge_matte_removed_without_changing_logo(self):
+        source = Image.new('RGBA', (220, 132), (255, 255, 255, 255))
+        for y in range(35, 95):
+            for x in range(35, 180):
+                source.putpixel((x, y), (20, 90, 190, 255))
+        original = source.tobytes()
+        extracted, did_extract = extract_flat_edge_background(source)
+        self.assertTrue(did_extract)
+        self.assertEqual(extracted.getpixel((0, 0))[3], 0)
+        self.assertEqual(extracted.getpixel((70, 60)), (20, 90, 190, 255))
+        self.assertEqual(source.tobytes(), original)
+
+    def test_brand_colored_matte_not_removed(self):
+        source = Image.new('RGBA', (220, 132), (230, 20, 40, 255))
+        for y in range(35, 95):
+            for x in range(35, 180):
+                source.putpixel((x, y), (255, 255, 255, 255))
+        extracted, did_extract = extract_flat_edge_background(source)
+        self.assertFalse(did_extract)
+        self.assertEqual(extracted.tobytes(), source.tobytes())
 
     def test_legible_red_stays_red(self):
         source = Image.new('RGBA', (220, 132), (0, 0, 0, 0))
