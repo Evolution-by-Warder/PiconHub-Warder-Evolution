@@ -52,6 +52,8 @@ def master_artwork_pixel_digests(registry, master_root, cache_path):
     result = defaultdict(set)
     base = root.resolve()
     for ref, entries in (registry.get('services') or {}).items():
+        if not isinstance(entries, (list, tuple)):
+            continue
         for entry in entries:
             if not isinstance(entry, dict) or entry.get('style') != 'transparent':
                 continue
@@ -59,7 +61,9 @@ def master_artwork_pixel_digests(registry, master_root, cache_path):
                 path = (root / entry['path']).resolve(strict=True)
                 if not path.is_relative_to(base) or not path.is_file():
                     continue
-                result[ref].add(_cached(path, cache))
+                digest = _cached(path, cache)
+                if digest:
+                    result[ref].add(digest)
             except (OSError, ValueError, KeyError, TypeError):
                 continue
     atomic_json(cache_file, cache)
