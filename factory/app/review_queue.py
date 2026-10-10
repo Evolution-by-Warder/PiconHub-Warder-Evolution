@@ -127,7 +127,14 @@ def build_review_queue(qa_issues: dict, originals: dict, collisions: list, regis
         grouped.setdefault(key, []).append(item)
     for (identity, workstream, reasons), members in sorted(grouped.items()):
         if len(members) == 1:
-            items.append(members[0])
+            single = members[0]
+            digest = pixel_digests.get(single['sha256'])
+            if digest and workstream == 'ARTWORK_REVIEW':
+                single['distinct_pixel_artworks'] = 1
+                single['pixel_artwork_groups'] = [
+                    {'pixel_sha256': digest, 'candidate_sha256': [single['sha256']]}
+                ]
+            items.append(single)
             continue
         pixel_keys = {pixel_digests.get(member['sha256']) for member in members}
         pixel_equivalent = len(pixel_keys) == 1 and None not in pixel_keys
