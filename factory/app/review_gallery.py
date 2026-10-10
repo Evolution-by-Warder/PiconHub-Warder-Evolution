@@ -100,11 +100,13 @@ class ReviewGallery(ttk.Frame):
         if len(digests) > 1:
             ttk.Label(frame, text=f'{len(digests)} rozdielnych grafík: skontroluj každú pred rozhodnutím').pack(anchor='w')
         for artwork_index, digest in enumerate(digests or [None], 1):
+            triplet = ttk.Frame(previews)
+            triplet.pack(fill='x', pady=3)
             if len(digests) > 1:
                 ttk.Label(previews, text=f'Grafika {artwork_index}/{len(digests)} · SHA {digest[:12]}').pack(anchor='w')
             paths = variant_paths(self.output_dir, {'sha256': digest} if digest else item)
             for name, label in [('transparent', 'Transparent · referencia 🔒'), ('black', 'Čierny'), ('white', 'Biely')]:
-                cell = ttk.Frame(previews); cell.pack(side='left', fill='both', expand=True)
+                cell = ttk.Frame(triplet); cell.pack(side='left', fill='both', expand=True)
                 ttk.Label(cell, text=label).pack()
                 preview = ttk.Label(cell, text='Náhľad nedostupný', anchor='center')
                 preview.pack(fill='both', expand=True, pady=4)
@@ -171,6 +173,12 @@ class ReviewGallery(ttk.Frame):
         ttk.Button(frame, text='Uložiť požiadavku na opravu', command=save).pack(anchor='e', pady=3)
 
     def decide(self, item, decision, note):
+        digests = evidence_digests(item)
+        if len(digests) > 1 and decision == 'APPROVED_FOR_REVIEW':
+            if not messagebox.askyesno('Kontrola všetkých grafík',
+                    f'Úloha obsahuje {len(digests)} rôznych grafík. Skontroloval/a si všetky transparentné, čierne a biele varianty?',
+                    parent=self):
+                return
         if not messagebox.askyesno('Potvrdiť', f"{item['review_id']}\n{note[:160]}\n\nBez úprav PNG a bez publikovania.", parent=self):
             return
         try:
