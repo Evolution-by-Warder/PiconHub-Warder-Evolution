@@ -10,6 +10,7 @@ def explain_review_backlog(queue):
     source_origins = Counter()
     states = Counter()
     grouped = 0
+    unresolved_examples = defaultdict(list)
     for item in items:
         state = item.get('decision', 'PENDING')
         states[state] += 1
@@ -19,6 +20,14 @@ def explain_review_backlog(queue):
         categories[item.get('category') or 'UNKNOWN'] += 1
         for reason in set(item.get('reasons') or ['UNSPECIFIED']):
             reasons[reason] += 1
+            if len(unresolved_examples[reason]) < 5:
+                unresolved_examples[reason].append({
+                    'review_id': item.get('review_id'),
+                    'candidate_identity': item.get('candidate_identity'),
+                    'sha256': item.get('sha256'),
+                    'source_origin': item.get('source_origin'),
+                    'source_observations': item.get('source_observations', 1),
+                })
         for origin in set(item.get('source_origins') or [item.get('source_origin') or 'unknown']):
             source_origins[origin] += 1
         if item.get('source_observations', 0) > 1:
@@ -35,6 +44,7 @@ def explain_review_backlog(queue):
         'pending_by_category': dict(sorted(categories.items())),
         'pending_by_reason': dict(sorted(reasons.items(), key=lambda pair: (-pair[1], pair[0]))),
         'pending_by_source_origin': dict(sorted(source_origins.items())),
+        'pending_examples_by_reason': dict(sorted(unresolved_examples.items())),
         'pending_grouped_tasks': grouped,
         'grouping_savings': queue.get('consolidation', {}),
         'note': 'Reasons can overlap: sum of reason counts need not equal pending tasks.',
