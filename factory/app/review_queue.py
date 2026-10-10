@@ -69,19 +69,20 @@ def build_review_queue(qa_issues: dict, originals: dict, collisions: list, regis
             previous['source_evidence'] = sorted(sources)
         else:
             registry_items[review_id] = item
-    # OpenATV source files represent observations, not independent decisions.
-    # Consolidate review by verified service reference AND reason, while retaining
-    # every original SHA/source as evidence. Never consolidate unnamed candidates.
+    # Source files are observations, not independent decisions. Group identical
+    # service-reference/reason reviews across all source feeds, retaining each
+    # original SHA and source. This reduces review actions, NOT approval gates.
+    # Never group unidentified assets or different reasons/workstreams.
     grouped = {}
     for item in registry_items.values():
         source = item.get('original', '')
         identity = item.get('candidate_identity')
-        if item.get('source_origin') != 'openatv8' or not identity:
+        if not identity:
             items.append(item)
             continue
-        key = (identity, tuple(item['reasons']))
+        key = (identity, item['workstream'], tuple(item['reasons']))
         grouped.setdefault(key, []).append(item)
-    for (identity, reasons), members in sorted(grouped.items()):
+    for (identity, workstream, reasons), members in sorted(grouped.items()):
         if len(members) == 1:
             items.append(members[0])
             continue
@@ -91,10 +92,11 @@ def build_review_queue(qa_issues: dict, originals: dict, collisions: list, regis
                 evidence[(member['sha256'], source)] = {'sha256': member['sha256'], 'source': source}
         entries = [evidence[k] for k in sorted(evidence)]
         items.append({
-            'review_id': stable_review_id('OPENATV_REGISTRY_GROUP', identity, '|'.join(reasons)),
-            'category': 'REGISTRY_MATCH', 'workstream': members[0]['workstream'], 'candidate_identity': identity,
+            'review_id': stable_review_id('REGISTRY_EVIDENCE_GROUP', identity, workstream + '|' + '|'.join(reasons)),
+            'category': 'REGISTRY_MATCH', 'workstream': workstream, 'candidate_identity': identity,
             'sha256': None, 'original': members[0]['original'],
-            'source_origin': 'openatv8', 'reasons': list(reasons),
+            'source_origin': 'multiple' if len({m.get('source_origin') for m in members}) > 1 else members[0].get('source_origin'),
+            'source_origins': sorted({m.get('source_origin', '') for m in members}), 'reasons': list(reasons),
             'master_locations': [json.loads(v) for v in sorted({json.dumps(loc, sort_keys=True, ensure_ascii=False) for m in members for loc in m.get('master_locations', [])})],
             'source_evidence': entries,
             'source_observations': len(entries),
