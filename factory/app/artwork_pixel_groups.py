@@ -12,7 +12,7 @@ def candidate_pixel_digests(matches, output_root):
             and row.get('candidate_sha256')}
     result = {}
     root = Path(output_root)
-    for sha in sorted(shas):
+    for sha in sorted(shas, key=str):
         if not isinstance(sha, str) or len(sha) != 64 or any(c not in '0123456789abcdefABCDEF' for c in sha):
             continue
         path = root / sha[:2] / sha / 'transparent.png'
