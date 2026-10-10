@@ -137,7 +137,7 @@ class ReviewGallery(ttk.Frame):
                             im.thumbnail((165, 92))
                         photo = ImageTk.PhotoImage(im, master=self)
                         preview.configure(image=photo, text='')
-                        self.photos.append(photo)
+                        preview.image = photo
                     except (OSError, ImportError, ValueError):
                         pass
         show_artwork()
