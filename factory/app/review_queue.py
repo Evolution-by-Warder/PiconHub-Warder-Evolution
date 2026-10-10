@@ -203,7 +203,8 @@ def build_review_queue(qa_issues: dict, originals: dict, collisions: list, regis
     for item in items:
         if item.get('workstream') != 'ARTWORK_REVIEW':
             continue
-        if item.get('pixel_equivalence') == 'EXACT_RGBA_IDENTICAL':
+        if item.get('pixel_equivalence') == 'EXACT_RGBA_IDENTICAL' or (
+                item.get('distinct_pixel_artworks') == 1 and item.get('pixel_artwork_groups')):
             item['review_priority'] = 'P1_VERIFY_SINGLE_PIXEL_ARTWORK_AGAINST_MASTER'
         elif item.get('pixel_grouping') == 'VERIFIED_RGBA_GROUPS':
             item['review_priority'] = 'P2_COMPARE_DISTINCT_PIXEL_ARTWORKS'
