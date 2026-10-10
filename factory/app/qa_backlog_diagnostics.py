@@ -14,6 +14,9 @@ def explain_review_backlog(queue):
     identity_observations = Counter()
     identity_by_source = defaultdict(Counter)
     unresolved_examples = defaultdict(list)
+    identity_examples = defaultdict(list)
+    grouped_distinct_artworks = Counter()
+    grouped_source_observations = 0
     for item in items:
         state = item.get('decision', 'PENDING')
         states[state] += 1
@@ -31,6 +34,13 @@ def explain_review_backlog(queue):
             else:
                 identity_subcauses['NO_MASTER_LOCATION_FOR_CANDIDATE'] += 1
             identity_observations[reason] += 1
+            if len(identity_examples[reason]) < 10:
+                identity_examples[reason].append({
+                    'review_id': item.get('review_id'),
+                    'service_reference': item.get('candidate_identity'),
+                    'source': item.get('source_origin'),
+                    'master_locations': len(item.get('master_locations') or []),
+                })
             for origin in set(item.get('source_origins') or [item.get('source_origin') or 'unknown']):
                 identity_by_source[origin][reason] += 1
         categories[item.get('category') or 'UNKNOWN'] += 1
@@ -48,6 +58,9 @@ def explain_review_backlog(queue):
             source_origins[origin] += 1
         if item.get('source_observations', 0) > 1:
             grouped += 1
+            grouped_source_observations += item['source_observations']
+        if item.get('distinct_sha256', 0) > 1:
+            grouped_distinct_artworks[item['distinct_sha256']] += 1
     pending = states['PENDING']
     return {
         'schema': 1,
@@ -60,11 +73,14 @@ def explain_review_backlog(queue):
         'pending_by_category': dict(sorted(categories.items())),
         'identity_verification_subcauses': dict(sorted(identity_subcauses.items())),
         'identity_verification_reasons': dict(sorted(identity_observations.items())),
+        'identity_examples_by_reason': dict(sorted(identity_examples.items())),
         'identity_reasons_by_source': {origin: dict(sorted(reasons.items())) for origin, reasons in sorted(identity_by_source.items())},
         'pending_by_reason': dict(sorted(reasons.items(), key=lambda pair: (-pair[1], pair[0]))),
         'pending_by_source_origin': dict(sorted(source_origins.items())),
         'pending_examples_by_reason': dict(sorted(unresolved_examples.items())),
         'pending_grouped_tasks': grouped,
+        'pending_grouped_source_observations': grouped_source_observations,
+        'grouped_distinct_artwork_distribution': {str(n): count for n, count in sorted(grouped_distinct_artworks.items())},
         'grouping_savings': queue.get('consolidation', {}),
         'note': 'Reasons can overlap: sum of reason counts need not equal pending tasks.',
     }
