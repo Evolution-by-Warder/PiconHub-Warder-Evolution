@@ -12,6 +12,7 @@ def explain_review_backlog(queue):
     grouped = 0
     identity_subcauses = Counter()
     identity_observations = Counter()
+    identity_by_source = defaultdict(Counter)
     unresolved_examples = defaultdict(list)
     for item in items:
         state = item.get('decision', 'PENDING')
@@ -30,6 +31,8 @@ def explain_review_backlog(queue):
             else:
                 identity_subcauses['NO_MASTER_LOCATION_FOR_CANDIDATE'] += 1
             identity_observations[reason] += 1
+            for origin in set(item.get('source_origins') or [item.get('source_origin') or 'unknown']):
+                identity_by_source[origin][reason] += 1
         categories[item.get('category') or 'UNKNOWN'] += 1
         for reason in set(item.get('reasons') or ['UNSPECIFIED']):
             reasons[reason] += 1
@@ -57,6 +60,7 @@ def explain_review_backlog(queue):
         'pending_by_category': dict(sorted(categories.items())),
         'identity_verification_subcauses': dict(sorted(identity_subcauses.items())),
         'identity_verification_reasons': dict(sorted(identity_observations.items())),
+        'identity_reasons_by_source': {origin: dict(sorted(reasons.items())) for origin, reasons in sorted(identity_by_source.items())},
         'pending_by_reason': dict(sorted(reasons.items(), key=lambda pair: (-pair[1], pair[0]))),
         'pending_by_source_origin': dict(sorted(source_origins.items())),
         'pending_examples_by_reason': dict(sorted(unresolved_examples.items())),
