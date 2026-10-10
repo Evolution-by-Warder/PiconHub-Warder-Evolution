@@ -43,35 +43,57 @@ except ImportError:
  PIL_OK=False
 
 def _contrast_variant_art(rgba, background):
- """Recolor neutral ink only where it is not protected by a colored plate.
+ """Contrast neutral ink without recoloring lettering inside colored badges.
 
- Plate protection uses a short spatial neighborhood, not just immediately
- touching pixels: letter counters and anti-alias gaps must remain protected.
+ Connected chromatic plate regions protect their entire bounding rectangle,
+ including white counters and lettering separated from the colored pixels.
  """
- from PIL import Image, ImageFilter
+ from PIL import Image
  if background not in ('white', 'black'):
   return rgba
  width,height=rgba.size
  pixels=list(rgba.getdata())
- colored=Image.new('L',rgba.size)
- colored.putdata([255 if a>=96 and max(r,g,b)-min(r,g,b)>=55 else 0 for r,g,b,a in pixels])
- protected=list(colored.filter(ImageFilter.MaxFilter(9)).getdata())
- mask=[]
- for i,(r,g,b,a) in enumerate(pixels):
-  neutral=max(r,g,b)-min(r,g,b)<=35
-  low=(min(r,g,b)>=175) if background=='white' else (max(r,g,b)<=85)
-  mask.append(a>=96 and neutral and low and not protected[i])
- if not any(mask):
-  return rgba
- out=list(pixels)
+ colored=[a>=128 and max(r,g,b)-min(r,g,b)>=65 for r,g,b,a in pixels]
+ protected=bytearray(width*height)
+ seen=bytearray(width*height)
+ for start in range(len(pixels)):
+  if not colored[start] or seen[start]:
+   continue
+  seen[start]=1
+  stack=[start]
+  size=0
+  left=right=start%width
+  top=bottom=start//width
+  while stack:
+   pos=stack.pop()
+   size+=1
+   x,y=pos%width,pos//width
+   left=min(left,x);right=max(right,x)
+   top=min(top,y);bottom=max(bottom,y)
+   for nx,ny in ((x-1,y),(x+1,y),(x,y-1),(x,y+1)):
+    if 0<=nx<width and 0<=ny<height:
+     idx=ny*width+nx
+     if colored[idx] and not seen[idx]:
+      seen[idx]=1
+      stack.append(idx)
+  if size>=20 and right-left>=5 and bottom-top>=5:
+   for y in range(top,bottom+1):
+    protected[y*width+left:y*width+right+1]=b'\\x01'*(right-left+1)
+ result=list(pixels)
+ changed=False
  ink=(30,30,30) if background=='white' else (238,238,238)
- for i,eligible in enumerate(mask):
-  if eligible:
-   r,g,b,a=pixels[i]
-   out[i]=(*ink,a)
- result=Image.new('RGBA',rgba.size)
- result.putdata(out)
- return result
+ for i,(r,g,b,a) in enumerate(pixels):
+  if protected[i] or a<96 or max(r,g,b)-min(r,g,b)>35:
+   continue
+  low=(min(r,g,b)>=175) if background=='white' else (max(r,g,b)<=85)
+  if low:
+   result[i]=(*ink,a)
+   changed=True
+ if not changed:
+  return rgba
+ out=Image.new('RGBA',rgba.size)
+ out.putdata(result)
+ return out
 
 def _adjust_low_contrast_color(rgba, background):
  """Adjust bright/dark chromatic ink gently, retaining hue and transparency.
@@ -202,7 +224,7 @@ def _compose_variant(rgba, background):
  canvas.alpha_composite(art)
  return canvas
 
-RENDER_REVISION = "protected-neutral-v9"
+RENDER_REVISION = "plate-aware-v10"
 
 def render_png_task(args):
  # Independent process: Pillow decoding and PNG encoding use multiple CPU cores.
