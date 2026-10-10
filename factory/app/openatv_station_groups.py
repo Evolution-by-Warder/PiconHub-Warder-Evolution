@@ -1,6 +1,7 @@
 """Deterministic OpenATV station groups; never equate a filename with a service ID."""
 from collections import defaultdict
 from pathlib import PureWindowsPath
+from openatv_candidate_link import _station_key
 
 
 def group_openatv_stations(rows):
@@ -10,7 +11,10 @@ def group_openatv_stations(rows):
         parts = source.replace('/', '\\').lower().split('\\')
         if 'source-ingest' not in parts or 'openatv8' not in parts:
             continue
-        groups[PureWindowsPath(source).name.casefold()].append(row)
+        name = PureWindowsPath(source).name.casefold()
+        key = _station_key(name)
+        if key is not None:
+            groups[key].append(row)
     result = {'station_names': len(groups), 'files': sum(map(len, groups.values())),
               'linked_station_names': 0, 'unlinked_station_names': 0,
               'conflicting_station_names': 0, 'distinct_unlinked_artworks': 0,
