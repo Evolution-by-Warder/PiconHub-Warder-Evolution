@@ -1160,7 +1160,7 @@ class Factory:
                                                    pixel_digests=review_pixel_digests), DATA/"review-decisions.json")
   if PIL_OK and master_root.is_dir():
    from artwork_pixel_groups import master_artwork_pixel_digests, attach_master_pixel_comparisons
-   master_pixels=master_artwork_pixel_digests(registry,master_root,DATA/'master-artwork-pixel-cache.json')
+   master_pixels=master_artwork_pixel_digests(registry,master_root,DATA/'openatv-pixel-evidence-cache.json')
    master_comparisons=attach_master_pixel_comparisons(review_queue,master_pixels,review_pixel_digests)
    stats['master_artwork_pixel_comparisons']=master_comparisons
    self.log('QA Master RGBA zhody (len evidencia, bez schvalenia): '+str(master_comparisons))
