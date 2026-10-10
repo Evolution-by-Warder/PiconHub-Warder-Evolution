@@ -167,6 +167,30 @@ def build_review_queue(qa_issues: dict, originals: dict, collisions: list, regis
                 for digest in sorted(pixel_keys)
             ]
         items.append(grouped_item)
+    # Materialize one inspectable representative per proven RGBA artwork.
+    # The original task and every SHA remain pending and auditable.
+    for item in items:
+        if item.get('workstream') != 'ARTWORK_REVIEW':
+            continue
+        groups = item.get('pixel_artwork_groups')
+        if groups:
+            item['artwork_review_units'] = [
+                {'pixel_sha256': group['pixel_sha256'],
+                 'representative_sha256': group['candidate_sha256'][0],
+                 'duplicate_sha256': group['candidate_sha256'][1:],
+                 'sha_observations': len(group['candidate_sha256'])}
+                for group in groups
+            ]
+        elif item.get('sha256'):
+            item['artwork_review_units'] = [
+                {'representative_sha256': item['sha256'],
+                 'duplicate_sha256': [], 'sha_observations': 1,
+                 'pixel_verification': 'UNVERIFIED'}
+            ]
+        # Incomplete multi-SHA evidence cannot be deduplicated.
+        else:
+            item['artwork_review_units'] = []
+
     # Review priority is advisory: exact decoded-pixel duplicates can be
     # inspected first without changing decisions, IDs, or Master Registry.
     for item in items:
