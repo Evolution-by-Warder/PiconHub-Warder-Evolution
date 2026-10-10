@@ -20,6 +20,7 @@ def explain_review_backlog(queue):
     artwork_review_subcauses = Counter()
     artwork_pixel_groups = Counter()
     artwork_pixel_triage = Counter()
+    artwork_review_priorities = Counter()
     artwork_pixel_examples = defaultdict(list)
     artwork_review_by_source = defaultdict(Counter)
     artwork_review_examples = defaultdict(list)
@@ -72,6 +73,7 @@ def explain_review_backlog(queue):
             else:
                 pixel_cause = 'PIXEL_EVIDENCE_INCOMPLETE_OR_UNAVAILABLE'
             artwork_pixel_triage[pixel_cause] += 1
+            artwork_review_priorities[item.get('review_priority') or 'UNPRIORITIZED'] += 1
             if len(artwork_pixel_examples[pixel_cause]) < 10:
                 artwork_pixel_examples[pixel_cause].append({
                     'review_id': item.get('review_id'),
@@ -119,6 +121,7 @@ def explain_review_backlog(queue):
         'artwork_review_subcauses': dict(sorted(artwork_review_subcauses.items())),
         'artwork_distinct_pixel_group_distribution': dict(sorted(artwork_pixel_groups.items())),
         'artwork_pixel_triage': dict(sorted(artwork_pixel_triage.items())),
+        'artwork_review_priorities': dict(sorted(artwork_review_priorities.items())),
         'artwork_pixel_triage_examples': dict(sorted(artwork_pixel_examples.items())),
         'artwork_review_by_source': {origin: dict(sorted(causes.items())) for origin, causes in sorted(artwork_review_by_source.items())},
         'artwork_review_examples': dict(sorted(artwork_review_examples.items())),
