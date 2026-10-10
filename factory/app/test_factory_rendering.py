@@ -19,6 +19,20 @@ class FactoryRenderingTests(unittest.TestCase):
             self.assertEqual(result.getpixel((80, 55)), (0, 0, 0, 255))
             self.assertEqual(result.getpixel((45, 40)), (255, 255, 255, 255))
 
+    def test_chrome_gradient_on_white_keeps_shading(self):
+        source = Image.new('RGBA', (220, 132), (0, 0, 0, 0))
+        shades = (75, 105, 135, 165, 195, 225, 245)
+        for idx, gray in enumerate(shades):
+            for y in range(40, 55):
+                for x in range(35 + idx * 10, 43 + idx * 10):
+                    source.putpixel((x, y), (gray, gray, gray, 255))
+        result = _contrast_variant_art(source, 'white')
+        values = [result.getpixel((36 + idx * 10, 45))[0] for idx in range(len(shades))]
+        self.assertEqual(values, sorted(values))
+        self.assertGreater(len(set(values)), 4)
+        self.assertLess(values[-1], shades[-1])
+        self.assertEqual(source.getpixel((96, 45))[:3], (245, 245, 245))
+
     def test_gray_lettering_becomes_uniform_on_white(self):
         art = Image.new('RGBA', (220, 132), (0, 0, 0, 0))
         for x, gray in zip(range(30, 35), (140, 160, 190, 220, 245)):
