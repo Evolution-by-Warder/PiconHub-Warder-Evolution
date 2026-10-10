@@ -1158,6 +1158,12 @@ class Factory:
   review_pixel_digests=candidate_pixel_digests(registry_matches,OUTPUT)
   review_queue=apply_decisions(build_review_queue(qa_issues,hashes,collisions,registry_matches,
                                                    pixel_digests=review_pixel_digests), DATA/"review-decisions.json")
+  if PIL_OK and master_root.is_dir():
+   from artwork_pixel_groups import master_artwork_pixel_digests, attach_master_pixel_comparisons
+   master_pixels=master_artwork_pixel_digests(registry,master_root,DATA/'master-artwork-pixel-cache.json')
+   master_comparisons=attach_master_pixel_comparisons(review_queue,master_pixels,review_pixel_digests)
+   stats['master_artwork_pixel_comparisons']=master_comparisons
+   self.log('QA Master RGBA zhody (len evidencia, bez schvalenia): '+str(master_comparisons))
   save_review_queue(review_path,review_queue)
   from qa_backlog_diagnostics import explain_review_backlog
   backlog=explain_review_backlog(review_queue)
