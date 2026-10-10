@@ -14,7 +14,7 @@ def summarize_openatv_name_evidence(matches, sample_limit=25):
         parts = source.replace('/', '\\').lower().split('\\')
         if 'source-ingest' not in parts or 'openatv8' not in parts:
             continue
-        if row.get('classification') != 'UNMAPPED':
+        if row.get('classification') not in ('UNMAPPED', 'EVIDENCE_LINKED'):
             continue
         name = PureWindowsPath(source).name.casefold()
         key = _station_key(name)
