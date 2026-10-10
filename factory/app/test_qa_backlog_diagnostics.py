@@ -7,7 +7,7 @@ class BacklogDiagnosticsTests(unittest.TestCase):
         queue = {'consolidation': {'review_tasks_avoided': 5}, 'items': [
             {'decision': 'PENDING', 'workstream': 'ARTWORK_REVIEW',
              'category': 'REGISTRY_MATCH', 'reasons': ['EXISTING_SERVICE_DIFFERENT_ART'],
-             'source_origins': ['openatv8', 'vhannibal'], 'source_observations': 3},
+             'source_origins': ['openatv8', 'vhannibal'], 'source_observations': 3, 'distinct_sha256': 2},
             {'decision': 'PENDING', 'workstream': 'IDENTITY_VERIFICATION',
              'category': 'IDENTITY_COLLISION', 'reasons': ['UNVERIFIED_REGISTRY_ID']},
             {'decision': 'APPROVED_FOR_REVIEW', 'workstream': 'ARTWORK_REVIEW',
@@ -21,6 +21,9 @@ class BacklogDiagnosticsTests(unittest.TestCase):
         self.assertEqual(report['pending_by_source_origin']['openatv8'], 1)
         self.assertEqual(report['pending_by_source_origin']['vhannibal'], 1)
         self.assertEqual(report['pending_grouped_tasks'], 1)
+        self.assertEqual(report['pending_grouped_source_observations'], 3)
+        self.assertEqual(report['grouped_distinct_artwork_distribution']['2'], 1)
+        self.assertEqual(len(report['identity_examples_by_reason']['UNVERIFIED_REGISTRY_ID']), 1)
         self.assertEqual(report['identity_verification_subcauses']['SERVICE_REFERENCE_ARTWORK_COLLISION'], 1)
         self.assertEqual(report['identity_verification_reasons']['UNVERIFIED_REGISTRY_ID'], 1)
         self.assertEqual(report['identity_reasons_by_source']['unknown']['UNVERIFIED_REGISTRY_ID'], 1)
