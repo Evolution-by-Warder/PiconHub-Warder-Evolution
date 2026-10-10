@@ -17,9 +17,9 @@ def attach_crossname_artwork_candidates(rows):
             continue
         sha = row.get('candidate_sha256')
         name = PureWindowsPath(path).name.casefold()
-        if not sha or not name.endswith('.png'):
+        if not isinstance(sha, str) or not name.endswith('.png') or len(sha) != 64 or any(c not in '0123456789abcdef' for c in sha.casefold()):
             continue
-        group = sha_groups[sha]
+        group = sha_groups[sha.casefold()]
         group['names'].add(name)
         group['rows'].append(row)
         evidence = row.get('artwork_evidence') or {}
