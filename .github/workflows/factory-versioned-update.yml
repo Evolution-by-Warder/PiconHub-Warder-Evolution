@@ -1,5 +1,9 @@
 name: Factory versioned update
 on:
+  push:
+    branches: [factory-update-v0.2.0]
+    paths:
+      - 'factory/app/.factory-version.json'
   workflow_dispatch:
     inputs:
       version:
@@ -22,13 +26,15 @@ jobs:
       - name: Verify Factory-only source and version
         shell: bash
         env:
-          VERSION: ${{ inputs.version }}
+          VERSION: ${{ inputs.version || '0.2.4' }}
         run: |
           set -euo pipefail
           [[ "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]] || exit 1
           test -f factory/app/engine.py
           test -f factory/app/factory_launcher.py
           test -f factory/app/.factory-version.json
+          test -f factory/app/templates/picons/black-sablona.png
+          test -f factory/app/templates/picons/white-sablona.png
           python - <<'PY'
           import json,os
           from pathlib import Path
@@ -57,6 +63,8 @@ jobs:
           with zipfile.ZipFile(output) as archive:
               assert archive.testzip() is None
               assert 'engine.py' in archive.namelist()
+              assert 'templates/picons/black-sablona.png' in archive.namelist()
+              assert 'templates/picons/white-sablona.png' in archive.namelist()
           PY
       - name: Publish release and verify asset
         shell: bash
@@ -71,7 +79,7 @@ jobs:
             echo "Release already exists; refusing to overwrite it" >&2
             exit 1
           fi
-          gh release create "$tag" "$asset" --repo "$GITHUB_REPOSITORY" --prerelease --title "$tag" --notes "WARDER PICON FACTORY $tag"
+          gh release create "$tag" "$asset" --repo "$GITHUB_REPOSITORY" --target factory-update-v0.2.0 --prerelease --title "$tag" --notes "WARDER PICON FACTORY $tag"
           gh release download "$tag" --repo "$GITHUB_REPOSITORY" --pattern "$asset" --dir /tmp/verify
           cmp "$asset" "/tmp/verify/$asset"
       - name: Update manifest only after release verification
