@@ -47,7 +47,14 @@ def explain_review_backlog(queue):
             for origin in set(item.get('source_origins') or [item.get('source_origin') or 'unknown']):
                 identity_by_source[origin][reason] += 1
         if item.get('workstream') == 'ARTWORK_REVIEW':
-            distinct = item.get('distinct_sha256') or len({e.get('sha256') for e in item.get('source_evidence', ()) if e.get('sha256')}) or (1 if item.get('sha256') else 0)
+            evidence = item.get('source_evidence') or ()
+            if isinstance(evidence, dict):
+                evidence = evidence.values()
+            evidence_hashes = {
+                entry.get('sha256') for entry in evidence
+                if isinstance(entry, dict) and entry.get('sha256')
+            }
+            distinct = item.get('distinct_sha256') or len(evidence_hashes) or (1 if item.get('sha256') else 0)
             if distinct > 1:
                 cause = 'MULTIPLE_CANDIDATE_ARTWORKS_SAME_REFERENCE'
             elif distinct == 1:
