@@ -171,10 +171,30 @@ def _compose_variant(rgba, background):
   canvas.putalpha(255)  # WARDER output variants must be opaque
  # Preserve already-legible brand colors; no unconditional stroke.
  art=_contrast_variant_art(rgba,background)
+ # Last resort: outline only remaining neutral, low-contrast pixels.
+ # Never stroke all alpha or recolor brand-color regions.
+ if background in ('white','black'):
+  from PIL import Image, ImageFilter, ImageChops
+  px=list(art.getdata())
+  selected=[]
+  for r,g,b,a in px:
+   neutral=max(r,g,b)-min(r,g,b)<=22
+   low=(min(r,g,b)>=205) if background=='white' else (max(r,g,b)<=72)
+   selected.append(a if neutral and low else 0)
+  if sum(a>=128 for a in selected)>=12:
+   mask=Image.new('L',art.size)
+   mask.putdata(selected)
+   # One-pixel ring, excluding every original artwork pixel.
+   ring=ImageChops.subtract(mask.filter(ImageFilter.MaxFilter(3)),art.getchannel('A'))
+   if ring.getbbox():
+    stroke=Image.new('RGBA',art.size,(26,26,26,0) if background=='white' else (240,240,240,0))
+    stroke.putalpha(ring)
+    stroke.alpha_composite(art)
+    art=stroke
  canvas.alpha_composite(art)
  return canvas
 
-RENDER_REVISION = "selective-neutral-recolor-v5"
+RENDER_REVISION = "selective-recolor-local-outline-v6"
 
 def render_png_task(args):
  # Independent process: Pillow decoding and PNG encoding use multiple CPU cores.
