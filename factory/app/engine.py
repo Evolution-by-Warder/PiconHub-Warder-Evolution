@@ -110,7 +110,7 @@ def _selective_light_stroke(rgba, background):
             for r,g,b,a in pixels]
   ink=(24,24,24,0)
  else:
-  selected=[a if max(r,g,b)<=48 and max(r,g,b)-min(r,g,b)<=30 else 0
+  selected=[a if (0.2126*r+0.7152*g+0.0722*b)<=85 else 0
             for r,g,b,a in pixels]
   ink=(242,242,242,0)
  if sum(v>=128 for v in selected)<20:
@@ -163,7 +163,7 @@ def _compose_variant(rgba, background):
  canvas.alpha_composite(art)
  return canvas
 
-RENDER_REVISION = "contrast-selective-v2"
+RENDER_REVISION = "contrast-balanced-safe-area-v3"
 
 def render_png_task(args):
  # Independent process: Pillow decoding and PNG encoding use multiple CPU cores.
@@ -214,11 +214,23 @@ def render_png_task(args):
   return (False,0,str(e))
 
 def _fit_canvas(rgba):
- """Fit artwork proportionally in the canonical 220x132 transparent canvas."""
+ """Center visible artwork in the plastic template safe area without distortion.
+
+ Transparent input remains the reference artwork; derivative layout is based on
+ the actual non-transparent bounds rather than source-image whitespace.
+ """
  from PIL import Image
- art=rgba.copy()
- art.thumbnail((220,132),Image.Resampling.LANCZOS)
+ rgba=rgba.convert('RGBA')
+ bbox=rgba.getchannel('A').getbbox()
  canvas=Image.new('RGBA',(220,132),(0,0,0,0))
+ if bbox is None:
+  return canvas
+ art=rgba.crop(bbox)
+ safe_width,safe_height=196,108  # 12px horizontal and vertical padding
+ scale=min(safe_width/art.width,safe_height/art.height,1.0 if rgba.size==(220,132) else float('inf'))
+ size=(max(1,round(art.width*scale)),max(1,round(art.height*scale)))
+ if art.size!=size:
+  art=art.resize(size,Image.Resampling.LANCZOS)
  canvas.alpha_composite(art,((220-art.width)//2,(132-art.height)//2))
  return canvas
 
