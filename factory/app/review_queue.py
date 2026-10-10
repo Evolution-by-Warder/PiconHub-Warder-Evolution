@@ -167,6 +167,17 @@ def build_review_queue(qa_issues: dict, originals: dict, collisions: list, regis
                 for digest in sorted(pixel_keys)
             ]
         items.append(grouped_item)
+    # Review priority is advisory: exact decoded-pixel duplicates can be
+    # inspected first without changing decisions, IDs, or Master Registry.
+    for item in items:
+        if item.get('workstream') != 'ARTWORK_REVIEW':
+            continue
+        if item.get('pixel_equivalence') == 'EXACT_RGBA_IDENTICAL':
+            item['review_priority'] = 'P1_VERIFY_SINGLE_PIXEL_ARTWORK_AGAINST_MASTER'
+        elif item.get('pixel_grouping') == 'VERIFIED_RGBA_GROUPS':
+            item['review_priority'] = 'P2_COMPARE_DISTINCT_PIXEL_ARTWORKS'
+        else:
+            item['review_priority'] = 'P3_COMPLETE_PIXEL_EVIDENCE'
     counts = {lane: sum(item.get('workstream') == lane for item in items) for lane in ('IDENTITY_VERIFICATION', 'ARTWORK_REVIEW', 'TECHNICAL_QA')}
     registry_review_groups = sum(item.get('category') == 'REGISTRY_MATCH' for item in items)
     consolidation = {'registry_source_observations': registry_source_observations,
