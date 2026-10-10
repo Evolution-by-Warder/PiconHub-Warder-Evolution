@@ -76,6 +76,17 @@ class OpenAtvNameCandidateTests(unittest.TestCase):
         self.assertEqual(rows[1]['crossname_artwork_candidate']['possible_master_service_references'], ['1:0:1:2'])
         self.assertFalse(rows[1]['crossname_artwork_candidate']['identity_verified'])
 
+    def test_triage_sha_case_deduplicates(self):
+        rows = [
+            {'candidate_source':r'C:\\SOURCE-INGEST\\OPENATV8\\Station A.png',
+             'candidate_sha256':'A'*64},
+            {'candidate_source':r'C:\\SOURCE-INGEST\\OPENATV8\\station-a.png',
+             'candidate_sha256':'a'*64}]
+        result = build_openatv_triage(rows)
+        self.assertEqual(result['summary']['station_names'], 1)
+        self.assertEqual(result['summary']['distinct_station_artworks'], 1)
+        self.assertEqual(result['summary']['repeated_source_files'], 1)
+
     def test_crossname_invalid_hash_is_ignored(self):
         rows = [
             {'candidate_source':r'C:\\SOURCE-INGEST\\OPENATV8\\Station A.png',
