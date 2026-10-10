@@ -21,6 +21,8 @@ class BacklogDiagnosticsTests(unittest.TestCase):
         self.assertEqual(report['pending_by_source_origin']['openatv8'], 1)
         self.assertEqual(report['pending_by_source_origin']['vhannibal'], 1)
         self.assertEqual(report['pending_grouped_tasks'], 1)
+        self.assertEqual(report['identity_verification_subcauses']['SERVICE_REFERENCE_ARTWORK_COLLISION'], 1)
+        self.assertEqual(report['identity_verification_reasons']['UNVERIFIED_REGISTRY_ID'], 1)
         self.assertEqual(len(report['pending_examples_by_reason']['EXISTING_SERVICE_DIFFERENT_ART']), 1)
         self.assertEqual(len(report['pending_examples_by_reason']['UNVERIFIED_REGISTRY_ID']), 1)
         self.assertEqual(report['grouping_savings']['review_tasks_avoided'], 5)
