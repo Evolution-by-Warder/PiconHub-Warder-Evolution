@@ -23,7 +23,10 @@ def _cached(path, cache):
     key = str(path.resolve())
     old = cache.get(key)
     if isinstance(old, dict) and old.get('size') == stat.st_size and old.get('mtime_ns') == stat.st_mtime_ns:
-        return old.get('pixel_sha256')
+        digest = old.get('pixel_sha256')
+        if isinstance(digest, str) and len(digest) == 64 and all(c in '0123456789abcdef' for c in digest):
+            return digest
+        # A malformed cache record is not evidence; decode the PNG again.
     digest = _digest(path)
     cache[key] = {'size': stat.st_size, 'mtime_ns': stat.st_mtime_ns, 'pixel_sha256': digest}
     return digest
