@@ -16,6 +16,9 @@ class CrossFeedReviewGroupingTests(unittest.TestCase):
         ]
         result = build_review_queue({}, {}, [], rows)
         self.assertEqual(result['count'], 1)
+        self.assertEqual(result['consolidation']['registry_sha_reviews_before_grouping'], 2)
+        self.assertEqual(result['consolidation']['registry_review_tasks_after_grouping'], 1)
+        self.assertEqual(result['consolidation']['review_tasks_avoided'], 1)
         item = result['items'][0]
         self.assertEqual(item['distinct_sha256'], 2)
         self.assertEqual(item['source_observations'], 2)
