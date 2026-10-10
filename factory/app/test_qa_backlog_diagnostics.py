@@ -83,6 +83,24 @@ class BacklogDiagnosticsTests(unittest.TestCase):
         self.assertEqual(report['identity_tasks_missing_variant_sha_evidence'], 1)
         self.assertEqual(report['identity_repeated_sha_variant_observations'], 1)
 
+    def test_identity_provenance_keeps_unknown_source_unresolved(self):
+        queue = {'items': [
+            {'decision': 'PENDING', 'workstream': 'IDENTITY_VERIFICATION',
+             'category': 'IDENTITY_COLLISION', 'reasons': ['UNVERIFIED_REGISTRY_ID'],
+             'variants': [{'sha256': 'a', 'sources': ['source-ingest/originals/vhannibal/a.png']},
+                          {'sha256': 'b', 'sources': ['source-ingest/originals/vhannibal/b.png']}]},
+            {'decision': 'PENDING', 'workstream': 'IDENTITY_VERIFICATION',
+             'category': 'IDENTITY_COLLISION', 'reasons': ['UNVERIFIED_REGISTRY_ID'],
+             'variants': [{'sha256': 'c', 'sources': ['source-ingest/originals/vhannibal/c.png']},
+                          {'sha256': 'd', 'sources': ['unknown.png']}]},
+        ]}
+        report = explain_review_backlog(queue)
+        self.assertEqual(report['pending_review_tasks'], 2)
+        self.assertEqual(report['identity_provenance_distribution']['SINGLE_VERIFIED_SOURCE_BUCKET'], 1)
+        self.assertEqual(report['identity_provenance_distribution']['UNKNOWN_OR_INCOMPLETE_PROVENANCE'], 1)
+        self.assertEqual(report['identity_unknown_origin_tasks'], 1)
+        self.assertEqual(report['identity_cross_origin_tasks'], 1)
+
     def test_pending_causes_count_tasks_without_inventing_approvals(self):
         queue = {'consolidation': {'review_tasks_avoided': 5}, 'items': [
             {'decision': 'PENDING', 'workstream': 'ARTWORK_REVIEW',
