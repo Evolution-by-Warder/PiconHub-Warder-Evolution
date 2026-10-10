@@ -5,6 +5,17 @@ A name group with competing exact references is never linked.
 """
 from collections import defaultdict
 from pathlib import PureWindowsPath
+import re
+
+
+def _station_key(filename):
+    stem = PureWindowsPath(filename).stem.casefold()
+    # SRP filename is a service identity, never a station-name alias.
+    if re.fullmatch(r'[0-9a-f]+(?:_[0-9a-f]+){5,}', stem):
+        return None
+    # Normalize only typography, not channel numbers or HD/UHD qualifiers.
+    return ''.join(c for c in stem if c.isalnum()) or None
+
 
 
 def attach_name_candidates(matches):
@@ -15,8 +26,12 @@ def attach_name_candidates(matches):
         if 'source-ingest' not in parts or 'openatv8' not in parts or row.get('classification') not in ('UNMAPPED', 'EVIDENCE_LINKED'):
             continue
         name = PureWindowsPath(source).name.casefold()
-        group = groups[name]
+        key = _station_key(name)
+        if key is None:
+            continue
+        group = groups[key]
         group['rows'].append(row)
+        group.setdefault('filenames', set()).add(name)
         evidence = row.get('artwork_evidence') or {}
         if row.get('classification') == 'EVIDENCE_LINKED' and row.get('candidate_service_reference'):
             group['refs'].add(row['candidate_service_reference'])
@@ -38,7 +53,7 @@ def attach_name_candidates(matches):
         for row in group['rows']:
             row['name_group_candidate'] = {
                 'status': status, 'possible_master_service_references': refs,
-                'identity_verified': False, 'filename': name,
+                'identity_verified': False, 'filename': name, 'filenames': sorted(group['filenames']),
                 'evidence_type': 'MASTER_ARTWORK_EVIDENCE_WITHIN_SAME_OPENATV_FILENAME_GROUP',
             }
             if len(refs) == 1 and row.get('classification') == 'UNMAPPED':
