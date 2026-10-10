@@ -24,6 +24,10 @@ def extract_flat_edge_background(source):
     # Never auto-erase them; keep the original for artwork QA.
     if max(matte)-min(matte)>38:
         return im, False
+    # Near-black rectangular backgrounds are often integral brand panels.
+    # Their removal can fragment multicolour logos (e.g. ASFTV).
+    if max(matte)<65:
+        return im, False
     border = [px[x,0] for x in range(w)] + [px[x,h-1] for x in range(w)] + [px[0,y] for y in range(h)] + [px[w-1,y] for y in range(h)]
     if sum(c[3]>=250 and max(abs(c[k]-matte[k]) for k in range(3))<=10 for c in border)/len(border)<0.98:
         return im, False
