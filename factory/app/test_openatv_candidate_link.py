@@ -1,5 +1,7 @@
 import unittest
 from openatv_candidate_link import attach_name_candidates, _station_key
+from openatv_station_groups import group_openatv_stations
+from openatv_triage import build_openatv_triage
 
 
 class OpenAtvNameCandidateTests(unittest.TestCase):
@@ -19,6 +21,20 @@ class OpenAtvNameCandidateTests(unittest.TestCase):
         self.assertEqual(counts['candidate_linked_files'],2)
         self.assertEqual(b['candidate_service_reference'],'1:0:1:2')
         self.assertFalse(b['name_group_candidate']['identity_verified'])
+
+    def test_triage_groups_aliases_as_one_station(self):
+        rows = [
+            {'candidate_source':r'C:\\SOURCE-INGEST\\OPENATV8\\NOVA Sports 2.png',
+             'candidate_sha256':'a'*64, 'classification':'UNMAPPED'},
+            {'candidate_source':r'C:\\SOURCE-INGEST\\OPENATV8\\nova-sports_2.png',
+             'candidate_sha256':'a'*64, 'classification':'UNMAPPED'},
+            {'candidate_source':r'C:\\SOURCE-INGEST\\OPENATV8\\NOVA Sports 3.png',
+             'candidate_sha256':'b'*64, 'classification':'UNMAPPED'}]
+        triage = build_openatv_triage(rows)
+        self.assertEqual(triage['summary']['station_names'], 2)
+        self.assertEqual(triage['summary']['repeated_source_files'], 1)
+        groups = group_openatv_stations(rows)
+        self.assertEqual(groups['station_names'], 2)
 
     def test_conflict_never_promotes(self):
         rows=[]
