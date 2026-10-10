@@ -102,6 +102,43 @@ def _contrast_variant_art(rgba, background):
  out.putdata(result)
  return out
 
+def _adjust_low_contrast_color(rgba, background):
+ """Adjust bright/dark chromatic ink gently, retaining hue and transparency.
+
+ Exclude colored badge lettering and avoid touching already legible ink.
+ """
+ from PIL import Image, ImageColor
+ import colorsys
+ if background not in ('white','black'):
+  return rgba
+ pixels=list(rgba.getdata())
+ w,h=rgba.size
+ out=list(pixels)
+ changed=False
+ for i,(r,g,b,a) in enumerate(pixels):
+  if a<96 or max(r,g,b)-min(r,g,b)<35:
+   continue
+  h0,s,v=colorsys.rgb_to_hsv(r/255,g/255,b/255)
+  if s<0.32:
+   continue
+  luminance=(0.2126*r+0.7152*g+0.0722*b)/255
+  if background=='white':
+   if luminance<=0.58:
+    continue
+   target=min(v, v*0.58/max(luminance,0.01))
+  else:
+   if luminance>=0.32:
+    continue
+   target=min(1.0,v*0.40/max(luminance,0.03))
+  nr,ng,nb=colorsys.hsv_to_rgb(h0,s,target)
+  out[i]=(round(nr*255),round(ng*255),round(nb*255),a)
+  changed=True
+ if not changed:
+  return rgba
+ result=Image.new('RGBA',rgba.size)
+ result.putdata(out)
+ return result
+
 def _outlined_variant(rgba, background, radius=2):
  """Contrast stroke behind mixed-colour artwork; never changes source pixels."""
  from PIL import Image, ImageFilter, ImageChops
@@ -170,7 +207,7 @@ def _compose_variant(rgba, background):
   canvas=source.convert('RGBA')
   canvas.putalpha(255)  # WARDER output variants must be opaque
  # Preserve already-legible brand colors; no unconditional stroke.
- art=_contrast_variant_art(rgba,background)
+ art=_adjust_low_contrast_color(_contrast_variant_art(rgba,background),background)
  # Last resort: outline only remaining neutral, low-contrast pixels.
  # Never stroke all alpha or recolor brand-color regions.
  if background in ('white','black'):
@@ -194,7 +231,7 @@ def _compose_variant(rgba, background):
  canvas.alpha_composite(art)
  return canvas
 
-RENDER_REVISION = "selective-recolor-local-outline-v6"
+RENDER_REVISION = "chromatic-contrast-v7"
 
 def render_png_task(args):
  # Independent process: Pillow decoding and PNG encoding use multiple CPU cores.
