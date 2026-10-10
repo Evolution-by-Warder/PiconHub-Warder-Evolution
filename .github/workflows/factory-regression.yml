@@ -24,3 +24,28 @@ jobs:
         run: python -m compileall -q factory/app
       - name: Run all Factory regression tests
         run: cd factory/app && python -m unittest discover -p 'test_*.py' -v
+
+      - name: Package tested Factory for Windows (no release)
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from zipfile import ZIP_DEFLATED, ZipFile
+          root = Path('factory/app')
+          output = Path('warder-picon-factory-test-build.zip')
+          with ZipFile(output, 'w', ZIP_DEFLATED) as archive:
+              for file in sorted(root.rglob('*')):
+                  if file.is_file() and not any(part in ('__pycache__', '.pytest_cache') for part in file.parts):
+                      archive.write(file, file.relative_to(root))
+          with ZipFile(output) as archive:
+              assert archive.testzip() is None
+              for required in ('engine.py', 'factory_launcher.py', 'live_png_test.py',
+                               'templates/picons/black-sablona.png',
+                               'templates/picons/white-sablona.png'):
+                  assert required in archive.namelist(), required
+          PY
+      - name: Upload test build (not a GitHub Release)
+        uses: actions/upload-artifact@v4
+        with:
+          name: warder-picon-factory-test-build
+          path: warder-picon-factory-test-build.zip
+          retention-days: 7
