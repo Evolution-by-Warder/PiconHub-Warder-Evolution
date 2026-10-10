@@ -40,8 +40,10 @@ def attach_name_candidates(matches):
             group['refs'].add(row['candidate_service_reference'])
         if evidence.get('status') in ('EXACT_ARTWORK_SINGLE_MASTER_REF', 'EXACT_ARTWORK_MULTIPLE_MASTER_REFS', 'PIXEL_EXACT_SINGLE_MASTER_REF', 'PIXEL_EXACT_MULTIPLE_MASTER_REFS', 'TRIM_EXACT_SINGLE_MASTER_REF', 'TRIM_EXACT_MULTIPLE_MASTER_REFS', 'SCALE_EXACT_SINGLE_MASTER_REF', 'SCALE_EXACT_MULTIPLE_MASTER_REFS'):
             evidence_refs = evidence.get('possible_master_service_references') or []
-            group['refs'].update(evidence_refs)
-            group['exact_artwork_refs'].update(evidence_refs)
+            if isinstance(evidence_refs, (list, tuple, set)):
+                valid_refs = {ref for ref in evidence_refs if isinstance(ref, str) and ref.strip()}
+                group['refs'].update(valid_refs)
+                group['exact_artwork_refs'].update(valid_refs)
     counts = {'single_reference_names': 0, 'conflicting_names': 0, 'without_evidence_names': 0,
               'candidate_linked_files': 0, 'unlinked_files': 0}
     for name, group in groups.items():
