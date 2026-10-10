@@ -25,6 +25,31 @@ class CrossFeedReviewGroupingTests(unittest.TestCase):
         self.assertEqual(len(item['source_evidence']), 2)
         self.assertEqual(item['decision'], 'PENDING')
 
+    def test_pixel_identical_sha_variants_keep_pending_review_and_audit(self):
+        rows = [{'classification': 'REVIEW', 'reason': 'EXISTING_SERVICE_DIFFERENT_ART',
+                 'service_reference': 'service-a', 'candidate_sha256': sha * 64,
+                 'candidate_source': sha + '.png'} for sha in ('a', 'b', 'c')]
+        pixels = {'a' * 64: 'pixel-x', 'b' * 64: 'pixel-x', 'c' * 64: 'pixel-y'}
+        result = build_review_queue({}, {}, [], rows, pixel_digests=pixels)
+        self.assertEqual(result['count'], 1)
+        item = result['items'][0]
+        self.assertEqual(item['decision'], 'PENDING')
+        self.assertEqual(item['distinct_sha256'], 3)
+        self.assertEqual(item['distinct_pixel_artworks'], 2)
+        self.assertEqual(item['pixel_equivalence'], 'VERIFIED_RGBA_GROUPS')
+        self.assertEqual(len(item['pixel_artwork_groups']), 2)
+        self.assertEqual(result['consolidation']['pixel_duplicate_sha_observations'], 1)
+        self.assertEqual(result['consolidation']['pixel_distinct_artworks_avoided'], 1)
+
+    def test_missing_pixel_proof_never_claims_pixel_equivalence(self):
+        rows = [{'classification': 'REVIEW', 'reason': 'EXISTING_SERVICE_DIFFERENT_ART',
+                 'service_reference': 'service-a', 'candidate_sha256': sha * 64,
+                 'candidate_source': sha + '.png'} for sha in ('a', 'b')]
+        result = build_review_queue({}, {}, [], rows, pixel_digests={'a' * 64: 'pixel-x'})
+        self.assertNotIn('pixel_equivalence', result['items'][0])
+        self.assertNotIn('pixel_artwork_groups', result['items'][0])
+        self.assertEqual(result['consolidation']['pixel_distinct_artworks_avoided'], 0)
+
     def test_different_references_remain_separate(self):
         rows = [
             {'classification': 'REVIEW', 'reason': 'EXISTING_SERVICE_DIFFERENT_ART',
