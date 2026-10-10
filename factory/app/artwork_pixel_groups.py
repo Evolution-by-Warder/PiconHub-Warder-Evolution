@@ -24,7 +24,7 @@ def candidate_pixel_digests(matches, output_root):
                 rgba = image.convert('RGBA')
                 if rgba.size != (220, 132):
                     continue
-                result[sha] = hashlib.sha256(str(rgba.size).encode('ascii') + b'\\0' + rgba.tobytes()).hexdigest()
+                result[sha] = hashlib.sha256(str(rgba.size).encode('ascii') + b'\0' + rgba.tobytes()).hexdigest()
         except (OSError, ValueError):
             continue
     return result
