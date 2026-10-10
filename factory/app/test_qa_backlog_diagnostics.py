@@ -3,6 +3,20 @@ from qa_backlog_diagnostics import explain_review_backlog
 
 
 class BacklogDiagnosticsTests(unittest.TestCase):
+    def test_string_and_mixed_source_evidence_do_not_crash(self):
+        queue = {'items': [
+            {'decision': 'PENDING', 'workstream': 'ARTWORK_REVIEW',
+             'source_evidence': ['feed-a', {'sha256': 'abc'}, None, {'sha256': 'def'}]},
+            {'decision': 'PENDING', 'workstream': 'ARTWORK_REVIEW',
+             'source_evidence': {'feed': 'some-text', 'other': {'sha256': 'abc'}}},
+            {'decision': 'PENDING', 'workstream': 'ARTWORK_REVIEW',
+             'source_evidence': 'unstructured evidence', 'sha256': 'abc'},
+        ]}
+        report = explain_review_backlog(queue)
+        self.assertEqual(report['pending_review_tasks'], 3)
+        self.assertEqual(report['artwork_review_subcauses']['MULTIPLE_CANDIDATE_ARTWORKS_SAME_REFERENCE'], 1)
+        self.assertEqual(report['artwork_review_subcauses']['SINGLE_CANDIDATE_ARTWORK_DIFFERS_FROM_MASTER'], 2)
+
     def test_pending_causes_count_tasks_without_inventing_approvals(self):
         queue = {'consolidation': {'review_tasks_avoided': 5}, 'items': [
             {'decision': 'PENDING', 'workstream': 'ARTWORK_REVIEW',
