@@ -11,6 +11,10 @@ class OpenAtvNameCandidateTests(unittest.TestCase):
         self.assertNotEqual(_station_key('NOVA Sports 2.png'), _station_key('NOVA Sports 3.png'))
         self.assertNotEqual(_station_key('NOVA Sports HD.png'), _station_key('NOVA Sports.png'))
 
+    def test_non_png_file_not_treated_as_station(self):
+        self.assertIsNone(_station_key('NOVA Sports 2.json'))
+        self.assertIsNone(_station_key('NOVA Sports 2.txt'))
+
     def test_service_reference_not_treated_as_name(self):
         self.assertIsNone(_station_key('1_0_1_13C99_1BBC_13E_820000_0_0_0.png'))
 
