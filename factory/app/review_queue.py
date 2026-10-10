@@ -41,9 +41,10 @@ def _proven_openatv_style_only(collision):
                 return False
     return len(buckets) > 1
 
-def build_review_queue(qa_issues: dict, originals: dict, collisions: list, registry_reviews=None) -> dict:
+def build_review_queue(qa_issues: dict, originals: dict, collisions: list, registry_reviews=None, pixel_digests=None) -> dict:
     """Never mark technical QA as semantic approval."""
     items = []
+    pixel_digests = pixel_digests or {}
     for sha, reasons in sorted(qa_issues.items()):
         # Visual heuristics are retained in the QA audit but are not a mandatory
         # manual approval task unless there is an independently proven defect.
@@ -106,6 +107,8 @@ def build_review_queue(qa_issues: dict, originals: dict, collisions: list, regis
         else:
             registry_items[review_id] = item
     pre_group_registry_reviews = len(registry_items)
+    pixel_equivalent_groups = 0
+    pixel_equivalent_sha_observations = 0
     registry_source_observations = sum(len(item.get('source_evidence', [item['original']])) for item in registry_items.values())
     # Source files are observations, not independent decisions. Group identical
     # service-reference/reason reviews across all source feeds, retaining each
@@ -124,6 +127,11 @@ def build_review_queue(qa_issues: dict, originals: dict, collisions: list, regis
         if len(members) == 1:
             items.append(members[0])
             continue
+        pixel_keys = {pixel_digests.get(member['sha256']) for member in members}
+        pixel_equivalent = len(pixel_keys) == 1 and None not in pixel_keys
+        if pixel_equivalent:
+            pixel_equivalent_groups += 1
+            pixel_equivalent_sha_observations += len(members)
         evidence = {}
         for member in members:
             for source in member.get('source_evidence', [member['original']]):
@@ -139,6 +147,7 @@ def build_review_queue(qa_issues: dict, originals: dict, collisions: list, regis
             'source_evidence': entries,
             'source_observations': len(entries),
             'distinct_sha256': len({entry['sha256'] for entry in entries}),
+            'pixel_equivalence': 'EXACT_RGBA_IDENTICAL' if pixel_equivalent else 'UNVERIFIED_OR_DIFFERENT',
             'proposed_resolution': 'Kontrola celej referencie a všetkých grafických variantov; bez automatického schválenia.',
             'decision': 'PENDING',
         })
@@ -150,6 +159,8 @@ def build_review_queue(qa_issues: dict, originals: dict, collisions: list, regis
                      'registry_review_tasks_after_grouping': registry_review_groups,
                      'review_tasks_avoided': max(0, pre_group_registry_reviews - registry_review_groups),
                      'openatv_style_only_identity_tasks_avoided': style_only_suppressed,
+                     'pixel_equivalent_review_groups': pixel_equivalent_groups,
+                     'pixel_equivalent_sha_observations': pixel_equivalent_sha_observations,
                      'policy': 'EVIDENCE_GROUPING_ONLY; NO_AUTOMATIC_APPROVAL'}
     return {
         'workstream_counts': counts, 'consolidation': consolidation,
