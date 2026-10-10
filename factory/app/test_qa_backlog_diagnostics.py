@@ -3,6 +3,23 @@ from qa_backlog_diagnostics import explain_review_backlog
 
 
 class BacklogDiagnosticsTests(unittest.TestCase):
+    def test_artwork_pixel_triage_is_exhaustive_and_never_approves(self):
+        queue = {'items': [
+            {'decision': 'PENDING', 'workstream': 'ARTWORK_REVIEW',
+             'pixel_equivalence': 'EXACT_RGBA_IDENTICAL', 'distinct_pixel_artworks': 1},
+            {'decision': 'PENDING', 'workstream': 'ARTWORK_REVIEW',
+             'pixel_grouping': 'VERIFIED_RGBA_GROUPS', 'distinct_pixel_artworks': 2},
+            {'decision': 'PENDING', 'workstream': 'ARTWORK_REVIEW'},
+            {'decision': 'APPROVED', 'workstream': 'ARTWORK_REVIEW'},
+        ]}
+        report = explain_review_backlog(queue)
+        self.assertEqual(report['pending_review_tasks'], 3)
+        self.assertEqual(report['artwork_pixel_triage'], {
+            'MULTIPLE_VERIFIED_PIXEL_ARTWORKS_REQUIRE_COMPARISON': 1,
+            'ONE_VERIFIED_PIXEL_ARTWORK_REQUIRES_MASTER_REVIEW': 1,
+            'PIXEL_EVIDENCE_INCOMPLETE_OR_UNAVAILABLE': 1,
+        })
+
     def test_verified_pixel_group_distribution_is_diagnostic_only(self):
         report = explain_review_backlog({'items': [
             {'decision': 'PENDING', 'workstream': 'ARTWORK_REVIEW',
