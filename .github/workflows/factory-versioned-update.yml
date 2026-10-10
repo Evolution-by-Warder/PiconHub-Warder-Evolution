@@ -26,7 +26,7 @@ jobs:
       - name: Verify Factory-only source and version
         shell: bash
         env:
-          VERSION: ${{ inputs.version || '0.2.6' }}
+          VERSION: ${{ inputs.version || '0.2.7' }}
         run: |
           set -euo pipefail
           [[ "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]] || exit 1
@@ -48,7 +48,7 @@ jobs:
       - name: Test and package Factory
         shell: bash
         env:
-          VERSION: ${{ inputs.version || '0.2.6' }}
+          VERSION: ${{ inputs.version || '0.2.7' }}
         run: |
           set -euo pipefail
           python -m pip install -r factory/app/requirements-runtime.txt
@@ -57,7 +57,7 @@ jobs:
           import os,zipfile
           from pathlib import Path
           version=os.environ['VERSION']
-          assert version == '0.2.6', version
+          assert version == '0.2.7', version
           root=Path('factory/app')
           output=Path(f'warder-picon-factory-{version}.zip')
           with zipfile.ZipFile(output,'w',compression=zipfile.ZIP_DEFLATED) as archive:
@@ -75,7 +75,7 @@ jobs:
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
-          VERSION: ${{ inputs.version || '0.2.6' }}
+          VERSION: ${{ inputs.version || '0.2.7' }}
         run: |
           set -euo pipefail
           tag="factory-v$VERSION"
@@ -90,14 +90,14 @@ jobs:
       - name: Update manifest only after release verification
         shell: bash
         env:
-          VERSION: ${{ inputs.version || '0.2.6' }}
+          VERSION: ${{ inputs.version || '0.2.7' }}
         run: |
           set -euo pipefail
           python - <<'PY'
           import hashlib,json,os
           from pathlib import Path
           v=os.environ['VERSION']
-          assert v == '0.2.6', v
+          assert v == '0.2.7', v
           file=Path(f'warder-picon-factory-{v}.zip')
           manifest={'schema':1,'version':f'factory-v{v}','url':f'https://github.com/{os.environ["GITHUB_REPOSITORY"]}/releases/download/factory-v{v}/{file.name}','size':file.stat().st_size,'sha256':hashlib.sha256(file.read_bytes()).hexdigest()}
           path=Path('factory/update/manifest.json')
