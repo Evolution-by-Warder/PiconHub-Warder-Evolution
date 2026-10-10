@@ -109,6 +109,8 @@ def build_review_queue(qa_issues: dict, originals: dict, collisions: list, regis
     pre_group_registry_reviews = len(registry_items)
     pixel_equivalent_groups = 0
     pixel_equivalent_sha_observations = 0
+    pixel_duplicate_sha_observations = 0
+    pixel_distinct_artworks_avoided = 0
     registry_source_observations = sum(len(item.get('source_evidence', [item['original']])) for item in registry_items.values())
     # Source files are observations, not independent decisions. Group identical
     # service-reference/reason reviews across all source feeds, retaining each
@@ -129,6 +131,10 @@ def build_review_queue(qa_issues: dict, originals: dict, collisions: list, regis
             continue
         pixel_keys = {pixel_digests.get(member['sha256']) for member in members}
         pixel_equivalent = len(pixel_keys) == 1 and None not in pixel_keys
+        verified_pixel_keys = [pixel_digests.get(member['sha256']) for member in members if pixel_digests.get(member['sha256'])]
+        pixel_duplicate_sha_observations += len(verified_pixel_keys) - len(set(verified_pixel_keys))
+        if len(verified_pixel_keys) == len(members):
+            pixel_distinct_artworks_avoided += len(members) - len(pixel_keys)
         if pixel_equivalent:
             pixel_equivalent_groups += 1
             pixel_equivalent_sha_observations += len(members)
@@ -150,8 +156,13 @@ def build_review_queue(qa_issues: dict, originals: dict, collisions: list, regis
             'proposed_resolution': 'Kontrola celej referencie a všetkých grafických variantov; bez automatického schválenia.',
             'decision': 'PENDING',
         }
-        if pixel_equivalent:
-            grouped_item['pixel_equivalence'] = 'EXACT_RGBA_IDENTICAL'
+        if len(verified_pixel_keys) == len(members):
+            grouped_item['distinct_pixel_artworks'] = len(pixel_keys)
+            grouped_item['pixel_equivalence'] = 'EXACT_RGBA_IDENTICAL' if pixel_equivalent else 'VERIFIED_RGBA_GROUPS'
+            grouped_item['pixel_artwork_groups'] = [
+                {'pixel_sha256': digest, 'candidate_sha256': sorted(m['sha256'] for m in members if pixel_digests.get(m['sha256']) == digest)}
+                for digest in sorted(pixel_keys)
+            ]
         items.append(grouped_item)
     counts = {lane: sum(item.get('workstream') == lane for item in items) for lane in ('IDENTITY_VERIFICATION', 'ARTWORK_REVIEW', 'TECHNICAL_QA')}
     registry_review_groups = sum(item.get('category') == 'REGISTRY_MATCH' for item in items)
@@ -163,6 +174,8 @@ def build_review_queue(qa_issues: dict, originals: dict, collisions: list, regis
                      'openatv_style_only_identity_tasks_avoided': style_only_suppressed,
                      'pixel_equivalent_review_groups': pixel_equivalent_groups,
                      'pixel_equivalent_sha_observations': pixel_equivalent_sha_observations,
+                     'pixel_duplicate_sha_observations': pixel_duplicate_sha_observations,
+                     'pixel_distinct_artworks_avoided': pixel_distinct_artworks_avoided,
                      'policy': 'EVIDENCE_GROUPING_ONLY; NO_AUTOMATIC_APPROVAL'}
     return {
         'workstream_counts': counts, 'consolidation': consolidation,
