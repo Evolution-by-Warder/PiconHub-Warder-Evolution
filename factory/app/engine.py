@@ -124,34 +124,62 @@ def _contrast_variant_art(rgba, background):
  return out
 
 def _adjust_low_contrast_color(rgba, background):
- """Adjust bright/dark chromatic ink gently, retaining hue and transparency.
+ """Adjust only isolated low-contrast chromatic ink, never colored plates.
 
- Exclude colored badge lettering and avoid touching already legible ink.
+ Large connected color fields and their enclosed lettering are brand artwork;
+ recoloring individual pixels in those fields produces broken lettering.
  """
  from PIL import Image
  import colorsys
  if background not in ('white','black'):
   return rgba
- pixels=list(rgba.getdata())
  w,h=rgba.size
+ pixels=list(rgba.getdata())
+ chromatic=[a>=96 and max(r,g,b)-min(r,g,b)>=35 for r,g,b,a in pixels]
+ visited=bytearray(len(pixels))
+ protected=bytearray(len(pixels))
+ for start in range(len(pixels)):
+  if not chromatic[start] or visited[start]:
+   continue
+  stack=[start]
+  visited[start]=1
+  group=[]
+  left=right=start%w
+  top=bottom=start//w
+  while stack:
+   pos=stack.pop()
+   group.append(pos)
+   x,y=pos%w,pos//w
+   left=min(left,x);right=max(right,x)
+   top=min(top,y);bottom=max(bottom,y)
+   for nx,ny in ((x-1,y),(x+1,y),(x,y-1),(x,y+1)):
+    if 0<=nx<w and 0<=ny<h:
+     idx=ny*w+nx
+     if chromatic[idx] and not visited[idx]:
+      visited[idx]=1
+      stack.append(idx)
+  # Preserve substantial color plates, including lettering within their bounds.
+  if len(group)>=100 and right-left>=10 and bottom-top>=8:
+   for y in range(top,bottom+1):
+    protected[y*w+left:y*w+right+1]=bytes([1])*(right-left+1)
  out=list(pixels)
  changed=False
  for i,(r,g,b,a) in enumerate(pixels):
-  if a<96 or max(r,g,b)-min(r,g,b)<35:
+  if protected[i] or not chromatic[i]:
    continue
-  h0,s,v=colorsys.rgb_to_hsv(r/255,g/255,b/255)
-  if s<0.32:
+  hue,saturation,value=colorsys.rgb_to_hsv(r/255,g/255,b/255)
+  if saturation<0.32:
    continue
   luminance=(0.2126*r+0.7152*g+0.0722*b)/255
   if background=='white':
    if luminance<=0.70:
     continue
-   target=min(v, v*0.57/max(luminance,0.01))
+   target=min(value,value*0.57/max(luminance,0.01))
   else:
    if luminance>=0.18:
     continue
-   target=min(1.0,v*0.36/max(luminance,0.03))
-  nr,ng,nb=colorsys.hsv_to_rgb(h0,s,target)
+   target=min(1.0,value*0.36/max(luminance,0.03))
+  nr,ng,nb=colorsys.hsv_to_rgb(hue,saturation,target)
   out[i]=(round(nr*255),round(ng*255),round(nb*255),a)
   changed=True
  if not changed:
@@ -252,7 +280,7 @@ def _compose_variant(rgba, background):
  canvas.alpha_composite(art)
  return canvas
 
-RENDER_REVISION = "plate-aware-v12"
+RENDER_REVISION = "plate-aware-v13"
 
 def render_png_task(args):
  # Independent process: Pillow decoding and PNG encoding use multiple CPU cores.
