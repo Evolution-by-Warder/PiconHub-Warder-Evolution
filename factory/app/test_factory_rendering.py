@@ -45,6 +45,25 @@ class FactoryRenderingTests(unittest.TestCase):
         result = _contrast_variant_art(source, 'white')
         self.assertEqual(result.getpixel((70, 60))[:3], (30, 30, 30))
 
+    def test_black_lettering_on_white_kept(self):
+        source = Image.new('RGBA', (220, 132), (0, 0, 0, 0))
+        for y in range(35, 75):
+            for x in range(35, 135):
+                source.putpixel((x, y), (255, 255, 255, 255))
+        for y in range(45, 65):
+            for x in range(55, 95):
+                source.putpixel((x, y), (0, 0, 0, 255))
+        result = _contrast_variant_art(source, 'white')
+        self.assertEqual(result.getpixel((65, 55)), (0, 0, 0, 255))
+
+    def test_dark_lettering_on_black_lightens(self):
+        source = Image.new('RGBA', (220, 132), (0, 0, 0, 0))
+        for y in range(50, 65):
+            for x in range(45, 105):
+                source.putpixel((x, y), (25, 25, 25, 255))
+        result = _contrast_variant_art(source, 'black')
+        self.assertEqual(result.getpixel((70, 55))[:3], (238, 238, 238))
+
     def test_legible_red_stays_red(self):
         source = Image.new('RGBA', (220, 132), (0, 0, 0, 0))
         source.putpixel((50, 50), (190, 20, 30, 255))
