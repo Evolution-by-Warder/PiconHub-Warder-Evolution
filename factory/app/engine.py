@@ -107,7 +107,7 @@ def _adjust_low_contrast_color(rgba, background):
 
  Exclude colored badge lettering and avoid touching already legible ink.
  """
- from PIL import Image, ImageColor
+ from PIL import Image
  import colorsys
  if background not in ('white','black'):
   return rgba
@@ -123,13 +123,13 @@ def _adjust_low_contrast_color(rgba, background):
    continue
   luminance=(0.2126*r+0.7152*g+0.0722*b)/255
   if background=='white':
-   if luminance<=0.58:
+   if luminance<=0.70:
     continue
-   target=min(v, v*0.58/max(luminance,0.01))
+   target=min(v, v*0.57/max(luminance,0.01))
   else:
-   if luminance>=0.32:
+   if luminance>=0.18:
     continue
-   target=min(1.0,v*0.40/max(luminance,0.03))
+   target=min(1.0,v*0.36/max(luminance,0.03))
   nr,ng,nb=colorsys.hsv_to_rgb(h0,s,target)
   out[i]=(round(nr*255),round(ng*255),round(nb*255),a)
   changed=True
@@ -231,7 +231,7 @@ def _compose_variant(rgba, background):
  canvas.alpha_composite(art)
  return canvas
 
-RENDER_REVISION = "chromatic-contrast-v7"
+RENDER_REVISION = "chromatic-contrast-v8"
 
 def render_png_task(args):
  # Independent process: Pillow decoding and PNG encoding use multiple CPU cores.
