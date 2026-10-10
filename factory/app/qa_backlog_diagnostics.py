@@ -23,6 +23,9 @@ def explain_review_backlog(queue):
     artwork_review_priorities = Counter()
     artwork_review_units = 0
     artwork_duplicate_sha_inspections_avoided = 0
+    master_pixel_comparisons = Counter()
+    artwork_tasks_with_all_units_matching_master = 0
+    artwork_tasks_with_unavailable_master_evidence = 0
     artwork_pixel_examples = defaultdict(list)
     artwork_review_by_source = defaultdict(Counter)
     artwork_review_examples = defaultdict(list)
@@ -79,6 +82,12 @@ def explain_review_backlog(queue):
             artwork_review_priorities[item.get('review_priority') or 'UNPRIORITIZED'] += 1
             units = item.get('artwork_review_units') or []
             artwork_review_units += len(units)
+            statuses = [u.get('master_pixel_comparison', 'MASTER_PIXEL_EVIDENCE_UNAVAILABLE') for u in units]
+            master_pixel_comparisons.update(statuses)
+            if statuses and all(status == 'PIXEL_EXACT_SAME_SERVICE_MASTER' for status in statuses):
+                artwork_tasks_with_all_units_matching_master += 1
+            if not statuses or 'MASTER_PIXEL_EVIDENCE_UNAVAILABLE' in statuses:
+                artwork_tasks_with_unavailable_master_evidence += 1
             artwork_duplicate_sha_inspections_avoided += sum(len(unit.get('duplicate_sha256') or []) for unit in units)
             if len(artwork_pixel_examples[pixel_cause]) < 10:
                 artwork_pixel_examples[pixel_cause].append({
@@ -130,6 +139,9 @@ def explain_review_backlog(queue):
         'artwork_review_priorities': dict(sorted(artwork_review_priorities.items())),
         'verified_artwork_review_units': artwork_review_units,
         'duplicate_sha_inspections_avoided': artwork_duplicate_sha_inspections_avoided,
+        'master_pixel_comparison_units': dict(sorted(master_pixel_comparisons.items())),
+        'artwork_tasks_all_units_pixel_exact_master': artwork_tasks_with_all_units_matching_master,
+        'artwork_tasks_missing_master_pixel_evidence': artwork_tasks_with_unavailable_master_evidence,
         'artwork_pixel_triage_examples': dict(sorted(artwork_pixel_examples.items())),
         'artwork_review_by_source': {origin: dict(sorted(causes.items())) for origin, causes in sorted(artwork_review_by_source.items())},
         'artwork_review_examples': dict(sorted(artwork_review_examples.items())),
