@@ -1111,7 +1111,11 @@ class Factory:
    self.log(f'Vylúčené výstupné varianty: {len(exclusion["excluded_variant_paths"])}; manifest: {exclusion_path}')
   # Stable per-exception review IDs, independent of run timestamps.
   review_path=REPORTS/('review-queue-'+run+'.json')
-  review_queue=apply_decisions(build_review_queue(qa_issues,hashes,collisions,registry_matches), DATA/"review-decisions.json")
+  # Pixel equivalence is artwork evidence only; never a service identity approval.
+  from artwork_pixel_groups import candidate_pixel_digests
+  review_pixel_digests=candidate_pixel_digests(registry_matches,OUTPUT)
+  review_queue=apply_decisions(build_review_queue(qa_issues,hashes,collisions,registry_matches,
+                                                   pixel_digests=review_pixel_digests), DATA/"review-decisions.json")
   save_review_queue(review_path,review_queue)
   from qa_backlog_diagnostics import explain_review_backlog
   backlog=explain_review_backlog(review_queue)
