@@ -21,6 +21,13 @@ def variant_paths(output_dir, item):
     return {name: base / (name + '.png') for name in ('transparent', 'black', 'white')}
 
 
+def evidence_digests(item):
+    evidence = item.get('source_evidence') or item.get('variants') or []
+    values = [item.get('sha256')] + [entry.get('sha256') for entry in evidence if isinstance(entry, dict)]
+    return sorted({value.lower() for value in values if isinstance(value, str) and len(value) == 64
+                   and all(c in '0123456789abcdef' for c in value.lower())})
+
+
 class ReviewGallery(ttk.Frame):
     """Ten review entries per page, scrollable in the main window."""
     def __init__(self, parent, report_dir, ledger_path, output_dir):
@@ -89,23 +96,29 @@ class ReviewGallery(ttk.Frame):
         frame.pack(fill='x', padx=4, pady=4)
         ttk.Label(frame, text=', '.join(item.get('reasons', [])), wraplength=520).pack(anchor='w')
         previews = ttk.Frame(frame); previews.pack(fill='x')
-        paths = variant_paths(self.output_dir, item)
-        for name, label in [('transparent', 'Transparent · referencia 🔒'), ('black', 'Čierny'), ('white', 'Biely')]:
-            cell = ttk.Frame(previews); cell.pack(side='left', fill='both', expand=True)
-            ttk.Label(cell, text=label).pack()
-            preview = ttk.Label(cell, text='Náhľad nedostupný', anchor='center')
-            preview.pack(fill='both', expand=True, pady=4)
-            path = paths.get(name)
-            if path and path.is_file():
-                try:
-                    from PIL import Image, ImageTk
-                    with Image.open(path) as src:
-                        im = src.convert('RGBA'); im.thumbnail((165, 92))
-                    photo = ImageTk.PhotoImage(im, master=self)
-                    preview.configure(image=photo, text='')
-                    self.photos.append(photo)
-                except (OSError, ImportError, ValueError):
-                    pass
+        digests = evidence_digests(item)
+        if len(digests) > 1:
+            ttk.Label(frame, text=f'{len(digests)} rozdielnych grafík: skontroluj každú pred rozhodnutím').pack(anchor='w')
+        for artwork_index, digest in enumerate(digests or [None], 1):
+            if len(digests) > 1:
+                ttk.Label(previews, text=f'Grafika {artwork_index}/{len(digests)} · SHA {digest[:12]}').pack(anchor='w')
+            paths = variant_paths(self.output_dir, {'sha256': digest} if digest else item)
+            for name, label in [('transparent', 'Transparent · referencia 🔒'), ('black', 'Čierny'), ('white', 'Biely')]:
+                cell = ttk.Frame(previews); cell.pack(side='left', fill='both', expand=True)
+                ttk.Label(cell, text=label).pack()
+                preview = ttk.Label(cell, text='Náhľad nedostupný', anchor='center')
+                preview.pack(fill='both', expand=True, pady=4)
+                path = paths.get(name)
+                if path and path.is_file():
+                    try:
+                        from PIL import Image, ImageTk
+                        with Image.open(path) as src:
+                            im = src.convert('RGBA'); im.thumbnail((165, 92))
+                        photo = ImageTk.PhotoImage(im, master=self)
+                        preview.configure(image=photo, text='')
+                        self.photos.append(photo)
+                    except (OSError, ImportError, ValueError):
+                        pass
         controls = ttk.Frame(frame); controls.pack(fill='x')
         ttk.Button(controls, text='OK / Beriem', command=lambda i=item: self.decide(i, 'APPROVED_FOR_REVIEW', 'OK / Beriem')).pack(side='left', padx=2)
         final_button = ttk.Button(controls, text='Finalizovať QA', command=lambda i=item: self.finalize_qa(i))
