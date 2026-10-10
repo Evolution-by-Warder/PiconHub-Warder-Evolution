@@ -16,14 +16,14 @@ def build_openatv_triage(rows):
             continue
         name = PureWindowsPath(source).name.casefold()
         sha = row.get('candidate_sha256')
-        if not name.endswith('.png') or not sha:
+        if not name.endswith('.png') or not isinstance(sha, str) or len(sha) != 64 or any(c not in '0123456789abcdef' for c in sha.casefold()):
             continue
         key = _station_key(name)
         if key is None:
             continue
         group = groups[key]
         group['sources'] += 1
-        art = group['artworks'][sha]
+        art = group['artworks'][sha.casefold()]
         art['copies'] += 1
         evidence = row.get('artwork_evidence') or {}
         refs = set(evidence.get('possible_master_service_references') or [])
