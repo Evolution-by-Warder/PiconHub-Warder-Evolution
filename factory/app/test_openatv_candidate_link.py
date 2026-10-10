@@ -3,6 +3,7 @@ from openatv_candidate_link import attach_name_candidates, _station_key
 from openatv_station_groups import group_openatv_stations
 from openatv_triage import build_openatv_triage
 from openatv_name_evidence import summarize_openatv_name_evidence
+from openatv_crossname import attach_crossname_artwork_candidates
 
 
 class OpenAtvNameCandidateTests(unittest.TestCase):
@@ -62,6 +63,27 @@ class OpenAtvNameCandidateTests(unittest.TestCase):
         attach_name_candidates(rows)
         report = summarize_openatv_name_evidence(rows)
         self.assertEqual(report['exact_match_files'], 1)
+
+    def test_crossname_sha_case_is_normalized(self):
+        rows = [
+            {'candidate_source':r'C:\\SOURCE-INGEST\\OPENATV8\\Station A.png',
+             'candidate_sha256':'A'*64,
+             'artwork_evidence':{'possible_master_service_references':['1:0:1:2']}},
+            {'candidate_source':r'C:\\SOURCE-INGEST\\OPENATV8\\Station B.png',
+             'candidate_sha256':'a'*64}]
+        result = attach_crossname_artwork_candidates(rows)
+        self.assertEqual(result['shared_sha_across_names'], 1)
+        self.assertEqual(rows[1]['crossname_artwork_candidate']['possible_master_service_references'], ['1:0:1:2'])
+        self.assertFalse(rows[1]['crossname_artwork_candidate']['identity_verified'])
+
+    def test_crossname_invalid_hash_is_ignored(self):
+        rows = [
+            {'candidate_source':r'C:\\SOURCE-INGEST\\OPENATV8\\Station A.png',
+             'candidate_sha256':'not-a-sha'},
+            {'candidate_source':r'C:\\SOURCE-INGEST\\OPENATV8\\Station B.png',
+             'candidate_sha256':'not-a-sha'}]
+        result = attach_crossname_artwork_candidates(rows)
+        self.assertEqual(result['unique_sha'], 0)
 
     def test_conflict_never_promotes(self):
         rows=[]
