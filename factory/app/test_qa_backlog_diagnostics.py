@@ -101,6 +101,28 @@ class BacklogDiagnosticsTests(unittest.TestCase):
         self.assertEqual(report['identity_unknown_origin_tasks'], 1)
         self.assertEqual(report['identity_cross_origin_tasks'], 1)
 
+    def test_live_windows_paths_report_both_real_collision_origins(self):
+        queue = {'items': [{
+            'decision': 'PENDING', 'workstream': 'IDENTITY_VERIFICATION',
+            'category': 'IDENTITY_COLLISION', 'candidate_identity': '1_0_1_TEST',
+            'reasons': ['UNVERIFIED_REGISTRY_ID'],
+            'variants': [
+                {'sha256': 'a'*64, 'sources': [
+                    r'D:\\WARDER-PICON-FACTORY\\11-APP\\.factory-data\\source-ingest\\originals\\vhannibal\\archive\\logo.png']},
+                {'sha256': 'b'*64, 'sources': [
+                    r'D:\\WARDER-PICON-FACTORY\\11-APP\\.factory-data\\source-ingest\\originals\\openatv8\\bf8cb399d92f16682bb81639588894dbaed8f7bda7af3ecbc80cbc9a3b15e0ad\\picon\\logo.png']},
+            ],
+        }]}
+        report = explain_review_backlog(queue)
+        self.assertEqual(report['identity_cross_origin_tasks'], 1)
+        self.assertEqual(report['identity_reasons_by_source']['vhannibal']['UNVERIFIED_REGISTRY_ID'], 1)
+        self.assertEqual(report['identity_reasons_by_source']['openatv8']['UNVERIFIED_REGISTRY_ID'], 1)
+        self.assertEqual(report['pending_by_source_origin']['vhannibal'], 1)
+        self.assertEqual(report['pending_by_source_origin']['openatv8'], 1)
+        self.assertEqual(report['identity_examples_by_reason']['UNVERIFIED_REGISTRY_ID'][0]['source_origins'],
+                         ['openatv8', 'vhannibal'])
+        self.assertEqual(report['pending_review_tasks'], 1)
+
     def test_pending_causes_count_tasks_without_inventing_approvals(self):
         queue = {'consolidation': {'review_tasks_avoided': 5}, 'items': [
             {'decision': 'PENDING', 'workstream': 'ARTWORK_REVIEW',
