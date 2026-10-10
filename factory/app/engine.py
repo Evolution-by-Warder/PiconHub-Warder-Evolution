@@ -78,7 +78,7 @@ def _contrast_variant_art(rgba, background):
       stack.append(idx)
   if size>=20 and right-left>=5 and bottom-top>=5:
    for y in range(top,bottom+1):
-    protected[y*width+left:y*width+right+1]=b'\\x01'*(right-left+1)
+    protected[y*width+left:y*width+right+1]=bytes([1])*(right-left+1)
  result=list(pixels)
  changed=False
  ink=(30,30,30) if background=='white' else (238,238,238)
@@ -224,7 +224,7 @@ def _compose_variant(rgba, background):
  canvas.alpha_composite(art)
  return canvas
 
-RENDER_REVISION = "plate-aware-v10"
+RENDER_REVISION = "plate-aware-v11"
 
 def render_png_task(args):
  # Independent process: Pillow decoding and PNG encoding use multiple CPU cores.
