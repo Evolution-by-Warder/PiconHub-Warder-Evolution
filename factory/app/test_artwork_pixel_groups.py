@@ -2,7 +2,7 @@ import tempfile
 import unittest
 from pathlib import Path
 from PIL import Image
-from artwork_pixel_groups import candidate_pixel_digests
+from artwork_pixel_groups import candidate_pixel_digests, attach_master_pixel_comparisons
 from review_queue import build_review_queue
 
 
@@ -25,6 +25,21 @@ class PixelGroupingEvidenceTests(unittest.TestCase):
             self.assertEqual(queue['items'][0]['decision'],'PENDING')
             self.assertEqual(queue['items'][0]['pixel_equivalence'],'EXACT_RGBA_IDENTICAL')
             self.assertEqual(queue['consolidation']['pixel_equivalent_review_groups'],1)
+
+    def test_master_comparison_is_service_scoped_and_read_only(self):
+        queue = {'items': [
+            {'workstream': 'ARTWORK_REVIEW', 'decision': 'PENDING',
+             'candidate_identity': 'service-a', 'artwork_review_units': [
+                 {'pixel_sha256': 'same', 'representative_sha256': 'a'},
+                 {'pixel_sha256': 'other', 'representative_sha256': 'b'}]},
+            {'workstream': 'ARTWORK_REVIEW', 'decision': 'PENDING',
+             'candidate_identity': 'service-b', 'artwork_review_units': [
+                 {'pixel_sha256': 'same', 'representative_sha256': 'c'}]},
+        ]}
+        counts = attach_master_pixel_comparisons(queue, {'service-a': ['same'], 'service-b': ['different']}, {})
+        self.assertEqual(counts['PIXEL_EXACT_SAME_SERVICE_MASTER'], 1)
+        self.assertEqual(counts['NO_PIXEL_EXACT_SAME_SERVICE_MASTER'], 2)
+        self.assertTrue(all(item['decision'] == 'PENDING' for item in queue['items']))
 
     def test_invalid_sha_types_fail_closed(self):
         with tempfile.TemporaryDirectory() as folder:
