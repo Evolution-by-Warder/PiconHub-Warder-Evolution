@@ -1,0 +1,1 @@
+Factory artwork preparation batch: preserve original source, detect only opaque uniform edge-connected matte; avoid photographic/gradient backgrounds; render BLACK/WHITE derivatives from extracted artwork. Implementation is shipped in the next verified Factory package. Do not use this note as QA approval.
