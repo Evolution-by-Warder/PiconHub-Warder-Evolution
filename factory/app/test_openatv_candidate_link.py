@@ -2,6 +2,7 @@ import unittest
 from openatv_candidate_link import attach_name_candidates, _station_key
 from openatv_station_groups import group_openatv_stations
 from openatv_triage import build_openatv_triage
+from openatv_name_evidence import summarize_openatv_name_evidence
 
 
 class OpenAtvNameCandidateTests(unittest.TestCase):
@@ -45,6 +46,18 @@ class OpenAtvNameCandidateTests(unittest.TestCase):
         counts=attach_name_candidates(rows)
         self.assertEqual(counts['candidate_linked_files'],0)
         self.assertEqual(rows[1]['classification'],'UNMAPPED')
+
+    def test_exact_evidence_survives_candidate_linking(self):
+        rows = [
+            {'candidate_source':r'C:\\SOURCE-INGEST\\OPENATV8\\NOVA Sports 2.png',
+             'candidate_sha256':'a'*64, 'classification':'UNMAPPED',
+             'artwork_evidence':{'status':'EXACT_ARTWORK_SINGLE_MASTER_REF',
+                                 'possible_master_service_references':['1:0:1:2']}},
+            {'candidate_source':r'C:\\SOURCE-INGEST\\OPENATV8\\nova-sports_2.png',
+             'candidate_sha256':'b'*64, 'classification':'UNMAPPED'}]
+        attach_name_candidates(rows)
+        report = summarize_openatv_name_evidence(rows)
+        self.assertEqual(report['total_exact_files'], 1)
 
     def test_conflict_never_promotes(self):
         rows=[]
