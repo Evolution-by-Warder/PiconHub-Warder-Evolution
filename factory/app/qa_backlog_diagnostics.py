@@ -68,7 +68,8 @@ def explain_review_backlog(queue):
             else:
                 cause = 'MISSING_CANDIDATE_ARTWORK_EVIDENCE'
             artwork_review_subcauses[cause] += 1
-            if item.get('pixel_equivalence') == 'EXACT_RGBA_IDENTICAL':
+            if item.get('pixel_equivalence') == 'EXACT_RGBA_IDENTICAL' or (
+                    item.get('distinct_pixel_artworks') == 1 and item.get('pixel_artwork_groups')):
                 pixel_cause = 'ONE_VERIFIED_PIXEL_ARTWORK_REQUIRES_MASTER_REVIEW'
             elif item.get('pixel_grouping') == 'VERIFIED_RGBA_GROUPS':
                 pixel_cause = 'MULTIPLE_VERIFIED_PIXEL_ARTWORKS_REQUIRE_COMPARISON'
