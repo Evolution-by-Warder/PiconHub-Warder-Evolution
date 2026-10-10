@@ -44,6 +44,27 @@ class BacklogDiagnosticsTests(unittest.TestCase):
         self.assertEqual(report['artwork_review_subcauses']['MULTIPLE_CANDIDATE_ARTWORKS_SAME_REFERENCE'], 1)
         self.assertEqual(report['artwork_review_subcauses']['SINGLE_CANDIDATE_ARTWORK_DIFFERS_FROM_MASTER'], 2)
 
+    def test_master_exact_inspection_savings_are_not_approvals(self):
+        queue = {'items': [
+            {'decision': 'PENDING', 'workstream': 'ARTWORK_REVIEW',
+             'artwork_review_units': [
+                 {'master_pixel_comparison': 'PIXEL_EXACT_SAME_SERVICE_MASTER',
+                  'duplicate_sha256': ['b']},
+                 {'master_pixel_comparison': 'PIXEL_EXACT_SAME_SERVICE_MASTER',
+                  'duplicate_sha256': []}]},
+            {'decision': 'PENDING', 'workstream': 'ARTWORK_REVIEW',
+             'artwork_review_units': [
+                 {'master_pixel_comparison': 'NO_PIXEL_EXACT_SAME_SERVICE_MASTER',
+                  'duplicate_sha256': []}]},
+        ]}
+        report = explain_review_backlog(queue)
+        self.assertEqual(report['pending_review_tasks'], 2)
+        self.assertEqual(report['verified_artwork_review_units'], 3)
+        self.assertEqual(report['duplicate_sha_inspections_avoided'], 1)
+        self.assertEqual(report['artwork_tasks_all_units_pixel_exact_master'], 1)
+        self.assertEqual(report['master_pixel_comparison_units']['PIXEL_EXACT_SAME_SERVICE_MASTER'], 2)
+        self.assertEqual(report['master_pixel_comparison_units']['NO_PIXEL_EXACT_SAME_SERVICE_MASTER'], 1)
+
     def test_pending_causes_count_tasks_without_inventing_approvals(self):
         queue = {'consolidation': {'review_tasks_avoided': 5}, 'items': [
             {'decision': 'PENDING', 'workstream': 'ARTWORK_REVIEW',
