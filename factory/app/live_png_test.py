@@ -61,6 +61,7 @@ def build_live_test(report_path, output_path=None, limit=10):
         raise ValueError("No mixed OpenATV/Vhannibal collisions")
     results = []
     with ZipFile(output_path, "w", ZIP_DEFLATED) as out:
+        archived_png = set()
         for index, collision in enumerate(selected, 1):
             item = {"service_reference": collision.get("candidate_service_ref"),
                     "variants": [], "pixel_result": "UNDETERMINED"}
@@ -86,7 +87,9 @@ def build_live_test(report_path, output_path=None, limit=10):
                                 record.update(pixel)
                                 record["status"] = "VERIFIED"
                                 archive_name = f"cases/{index:02d}/variant-{variant_index:02d}-{actual[:16]}.png"
-                                out.writestr(archive_name, data)
+                                if archive_name not in archived_png:
+                                    out.writestr(archive_name, data)
+                                    archived_png.add(archive_name)
                                 record["archive_path"] = archive_name
                         except (OSError, ValueError, SyntaxError) as exc:
                             record["status"] = "DECODE_OR_READ_ERROR"
