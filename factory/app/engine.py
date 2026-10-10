@@ -43,64 +43,35 @@ except ImportError:
  PIL_OK=False
 
 def _contrast_variant_art(rgba, background):
- """Recolor isolated neutral lettering, preserving brand colors and source alpha.
+ """Recolor neutral ink only where it is not protected by a colored plate.
 
- Only near-neutral components are eligible. A light label enclosed in a colored
- badge is deliberately excluded, as its immediate backdrop is not the template.
+ Plate protection uses a short spatial neighborhood, not just immediately
+ touching pixels: letter counters and anti-alias gaps must remain protected.
  """
- from PIL import Image
+ from PIL import Image, ImageFilter
  if background not in ('white', 'black'):
   return rgba
  width,height=rgba.size
  pixels=list(rgba.getdata())
+ colored=Image.new('L',rgba.size)
+ colored.putdata([255 if a>=96 and max(r,g,b)-min(r,g,b)>=55 else 0 for r,g,b,a in pixels])
+ protected=list(colored.filter(ImageFilter.MaxFilter(9)).getdata())
  mask=[]
- for r,g,b,a in pixels:
-  neutral=max(r,g,b)-min(r,g,b)<=22
-  light=min(r,g,b)>=205
-  dark=max(r,g,b)<=72
-  mask.append(a>=96 and neutral and (light if background=='white' else dark))
- if sum(mask)<12:
+ for i,(r,g,b,a) in enumerate(pixels):
+  neutral=max(r,g,b)-min(r,g,b)<=35
+  low=(min(r,g,b)>=175) if background=='white' else (max(r,g,b)<=85)
+  mask.append(a>=96 and neutral and low and not protected[i])
+ if not any(mask):
   return rgba
- seen=set()
- changes=set()
- for start in range(len(mask)):
-  if not mask[start] or start in seen:
-   continue
-  stack=[start]
-  seen.add(start)
-  component=[]
-  colored_neighbors=0
-  neighbors=0
-  while stack:
-   pos=stack.pop()
-   component.append(pos)
-   x,y=pos%width,pos//width
-   for nx,ny in ((x-1,y),(x+1,y),(x,y-1),(x,y+1)):
-    if not (0<=nx<width and 0<=ny<height):
-     continue
-    idx=ny*width+nx
-    if mask[idx] and idx not in seen:
-     seen.add(idx)
-     stack.append(idx)
-    elif not mask[idx]:
-     r,g,b,a=pixels[idx]
-     if a>=128:
-      neighbors+=1
-      if max(r,g,b)-min(r,g,b)>55:
-       colored_neighbors+=1
-  # Do not recolor lettering enclosed by a colored brand plate.
-  if len(component)>=12 and (not neighbors or colored_neighbors/neighbors<0.18):
-   changes.update(component)
- if not changes:
-  return rgba
- result=list(pixels)
- ink=(26,26,26) if background=='white' else (240,240,240)
- for idx in changes:
-  r,g,b,a=pixels[idx]
-  result[idx]=(*ink,a)
- out=Image.new('RGBA',rgba.size)
- out.putdata(result)
- return out
+ out=list(pixels)
+ ink=(30,30,30) if background=='white' else (238,238,238)
+ for i,eligible in enumerate(mask):
+  if eligible:
+   r,g,b,a=pixels[i]
+   out[i]=(*ink,a)
+ result=Image.new('RGBA',rgba.size)
+ result.putdata(out)
+ return result
 
 def _adjust_low_contrast_color(rgba, background):
  """Adjust bright/dark chromatic ink gently, retaining hue and transparency.
@@ -231,7 +202,7 @@ def _compose_variant(rgba, background):
  canvas.alpha_composite(art)
  return canvas
 
-RENDER_REVISION = "chromatic-contrast-v8"
+RENDER_REVISION = "protected-neutral-v9"
 
 def render_png_task(args):
  # Independent process: Pillow decoding and PNG encoding use multiple CPU cores.
