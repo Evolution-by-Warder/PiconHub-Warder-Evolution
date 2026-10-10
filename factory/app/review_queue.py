@@ -52,12 +52,14 @@ def build_review_queue(qa_issues: dict, originals: dict, collisions: list, regis
             ix = parts.index('source-ingest')
             if ix + 2 < len(parts):
                 origin = parts[ix + 2]
-        review_id = stable_review_id('REGISTRY_MATCH', identity, sha)
+        reason = match.get('reason', 'REGISTRY_MATCH_REVIEW')
+        workstream = 'ARTWORK_REVIEW' if reason == 'EXISTING_SERVICE_DIFFERENT_ART' else 'IDENTITY_VERIFICATION'
+        review_id = stable_review_id('REGISTRY_MATCH', identity, sha + '|' + workstream + '|' + reason)
         item = {
             'review_id': review_id,
-            'category': 'REGISTRY_MATCH', 'workstream': 'ARTWORK_REVIEW' if match.get('reason') == 'EXISTING_SERVICE_DIFFERENT_ART' else 'IDENTITY_VERIFICATION', 'candidate_identity': identity or None,
+            'category': 'REGISTRY_MATCH', 'workstream': workstream, 'candidate_identity': identity or None,
             'sha256': sha, 'original': source, 'source_origin': origin,
-            'reasons': [match.get('reason', 'REGISTRY_MATCH_REVIEW')],
+            'reasons': [reason],
             'master_locations': match.get('master_locations', []),
             'proposed_resolution': 'Porovnať služobnú referenciu a varianty s Warder Master; bez automatického priradenia.',
             'decision': 'PENDING',
