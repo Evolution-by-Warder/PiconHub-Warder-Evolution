@@ -925,6 +925,21 @@ class Factory:
   os.replace(collision_tmp,collision_path)
   stats['identity_collisions']=len(collisions)
   self.log(f'Identita: {len(collisions)} konfliktných kandidátnych service-ref; report: {collision_path}')
+  # Real-data verification: use the actual PNG paths from this run, not synthetic examples.
+  # One bounded evidence archive per run; never mutate source files or Master Registry.
+  try:
+   from live_png_test import build_live_test
+   live_result=build_live_test(
+    collision_path, output_path=REPORTS/('warder-live-png-test-'+run+'.zip'), limit=10)
+   stats['live_png_test']=live_result['summary']
+   self.log('LIVE PNG TEST: '+str(live_result['cases'])+' reálnych kolízií; '+
+            str(live_result['summary'])+'; dôkazy: '+live_result['output'])
+  except ValueError as exc:
+   self.log('LIVE PNG TEST: bez vhodných kolízií alebo neplatný report: '+str(exc))
+  except Exception as exc:
+   stats['live_png_test_error']=type(exc).__name__+': '+str(exc)[:200]
+   self.log('LIVE PNG TEST NEÚSPEŠNÝ: '+stats['live_png_test_error'])
+
   registry_matches=[]
   for record in sorted(candidate_records,key=lambda item:(item['sha256'],item['source'])):
    registry_matches.append(classify_candidate(record['source'],record['sha256'],registry))
