@@ -137,7 +137,7 @@ def build_review_queue(qa_issues: dict, originals: dict, collisions: list, regis
             for source in member.get('source_evidence', [member['original']]):
                 evidence[(member['sha256'], source)] = {'sha256': member['sha256'], 'source': source}
         entries = [evidence[k] for k in sorted(evidence)]
-        items.append({
+        grouped_item = {
             'review_id': stable_review_id('REGISTRY_EVIDENCE_GROUP', identity, workstream + '|' + '|'.join(reasons)),
             'category': 'REGISTRY_MATCH', 'workstream': workstream, 'candidate_identity': identity,
             'sha256': None, 'original': members[0]['original'],
@@ -147,10 +147,12 @@ def build_review_queue(qa_issues: dict, originals: dict, collisions: list, regis
             'source_evidence': entries,
             'source_observations': len(entries),
             'distinct_sha256': len({entry['sha256'] for entry in entries}),
-            'pixel_equivalence': 'EXACT_RGBA_IDENTICAL' if pixel_equivalent else 'UNVERIFIED_OR_DIFFERENT',
             'proposed_resolution': 'Kontrola celej referencie a všetkých grafických variantov; bez automatického schválenia.',
             'decision': 'PENDING',
-        })
+        }
+        if pixel_equivalent:
+            grouped_item['pixel_equivalence'] = 'EXACT_RGBA_IDENTICAL'
+        items.append(grouped_item)
     counts = {lane: sum(item.get('workstream') == lane for item in items) for lane in ('IDENTITY_VERIFICATION', 'ARTWORK_REVIEW', 'TECHNICAL_QA')}
     registry_review_groups = sum(item.get('category') == 'REGISTRY_MATCH' for item in items)
     consolidation = {'registry_source_observations': registry_source_observations,
