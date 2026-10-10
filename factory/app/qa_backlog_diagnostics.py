@@ -17,6 +17,7 @@ def explain_review_backlog(queue):
     identity_missing_sha_evidence = 0
     identity_repeated_sha_observations = 0
     identity_provenance_distribution = Counter()
+    identity_origin_combinations = Counter()
     identity_cross_origin_tasks = 0
     identity_unknown_origin_tasks = 0
     identity_by_source = defaultdict(Counter)
@@ -90,6 +91,7 @@ def explain_review_backlog(queue):
                         unknown_provenance = True
                     else:
                         provenance.add(origin)
+            identity_origin_combinations['+'.join(sorted(variant_origins)) if variant_origins else 'unknown'] += 1
             if len(variant_origins) > 1:
                 identity_cross_origin_tasks += 1
             if unknown_provenance or not provenance:
@@ -214,6 +216,7 @@ def explain_review_backlog(queue):
         'identity_verification_subcauses': dict(sorted(identity_subcauses.items())),
         'identity_variant_count_distribution': dict(sorted(identity_variant_distribution.items())),
         'identity_provenance_distribution': dict(sorted(identity_provenance_distribution.items())),
+        'identity_origin_combinations': dict(sorted(identity_origin_combinations.items())),
         'identity_cross_origin_tasks': identity_cross_origin_tasks,
         'identity_unknown_origin_tasks': identity_unknown_origin_tasks,
         'identity_unique_sha_count_distribution': dict(sorted(identity_unique_sha_distribution.items())),
