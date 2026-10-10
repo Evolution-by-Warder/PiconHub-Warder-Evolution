@@ -186,9 +186,12 @@ def _adjust_low_contrast_color(rgba, background):
     continue
    target=min(value,value*0.57/max(luminance,0.01))
   else:
-   if luminance>=0.18:
+   # Dark blue lettering can be above 0.18 luminance yet disappear
+   # against the black template. Large chromatic brand plates remain
+   # protected by the connected-component mask above.
+   if luminance>=0.32:
     continue
-   target=min(1.0,value*0.36/max(luminance,0.03))
+   target=min(1.0,value*0.46/max(luminance,0.03))
   nr,ng,nb=colorsys.hsv_to_rgb(hue,saturation,target)
   out[i]=(round(nr*255),round(ng*255),round(nb*255),a)
   changed=True
@@ -290,7 +293,7 @@ def _compose_variant(rgba, background):
  canvas.alpha_composite(art)
  return canvas
 
-RENDER_REVISION = "plate-aware-v15"
+RENDER_REVISION = "plate-aware-v16"
 
 def render_png_task(args):
  # Independent process: Pillow decoding and PNG encoding use multiple CPU cores.
