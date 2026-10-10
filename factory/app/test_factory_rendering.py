@@ -33,6 +33,30 @@ class FactoryRenderingTests(unittest.TestCase):
         result = _contrast_variant_art(art, 'black')
         self.assertEqual({result.getpixel((x, 40))[:3] for x in range(30, 35)}, {(238, 238, 238)})
 
+    def test_black_text_on_white_plaque_preserved_on_black_template(self):
+        source = Image.new('RGBA', (220, 132), (0, 0, 0, 0))
+        for y in range(35, 90):
+            for x in range(35, 155):
+                source.putpixel((x, y), (255, 255, 255, 255))
+        for y in range(50, 68):
+            for x in range(60, 120):
+                source.putpixel((x, y), (15, 15, 15, 255))
+        result = _compose_variant(source, 'black')
+        self.assertEqual(result.getpixel((70, 55))[:3], (15, 15, 15))
+        self.assertEqual(result.getpixel((45, 45))[:3], (255, 255, 255))
+
+    def test_white_letters_inside_red_plate_preserved_in_composite(self):
+        source = Image.new('RGBA', (220, 132), (0, 0, 0, 0))
+        for y in range(45, 85):
+            for x in range(35, 150):
+                source.putpixel((x, y), (225, 12, 35, 255))
+        for y in range(55, 75):
+            for x in range(65, 105):
+                source.putpixel((x, y), (255, 255, 255, 255))
+        result = _compose_variant(source, 'white')
+        self.assertEqual(result.getpixel((75, 65))[:3], (255, 255, 255))
+        self.assertEqual(result.getpixel((45, 65))[:3], (225, 12, 35))
+
     def test_templates_present(self):
         root = Path(__file__).resolve().parent / 'templates' / 'picons'
         for name in ('black-sablona.png', 'white-sablona.png'):
