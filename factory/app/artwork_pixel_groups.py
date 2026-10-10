@@ -6,10 +6,13 @@ from PIL import Image
 
 def candidate_pixel_digests(matches, output_root):
     """Compare transparent 220x132 RGBA pixels, never infer service identity."""
-    shas = {row.get('candidate_sha256') for row in matches
-            if row.get('classification') == 'REVIEW'
-            and row.get('reason') == 'EXISTING_SERVICE_DIFFERENT_ART'
-            and row.get('candidate_sha256')}
+    shas = set()
+    for row in matches:
+        if not isinstance(row, dict) or row.get('classification') != 'REVIEW' or row.get('reason') != 'EXISTING_SERVICE_DIFFERENT_ART':
+            continue
+        sha = row.get('candidate_sha256')
+        if isinstance(sha, str) and len(sha) == 64 and all(c in '0123456789abcdefABCDEF' for c in sha):
+            shas.add(sha)
     result = {}
     root = Path(output_root)
     for sha in sorted(shas, key=str):
