@@ -100,7 +100,7 @@ class BacklogDiagnosticsTests(unittest.TestCase):
         self.assertEqual(report['identity_provenance_distribution']['UNKNOWN_OR_INCOMPLETE_PROVENANCE'], 1)
         self.assertEqual(report['identity_unknown_origin_tasks'], 1)
         self.assertEqual(report['identity_cross_origin_tasks'], 1)
-        self.assertEqual(report['identity_origin_combinations'], {'openatv8+vhannibal': 1, 'vhannibal': 1})
+        self.assertEqual(report['identity_origin_combinations'], {'local-inbox+vhannibal': 1, 'vhannibal': 1})
 
     def test_live_windows_paths_report_both_real_collision_origins(self):
         queue = {'items': [{
