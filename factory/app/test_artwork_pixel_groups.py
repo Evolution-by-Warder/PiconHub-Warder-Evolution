@@ -43,6 +43,24 @@ class PixelGroupingEvidenceTests(unittest.TestCase):
             self.assertEqual(first, {'ref-a': [expected]})
             self.assertIn(str(png.resolve()), json.loads(cache.read_text(encoding='utf-8')))
 
+    def test_corrupt_cached_digest_is_recomputed(self):
+        import json
+        from openatv_pixel_evidence import _digest
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            png = root / 'master.png'
+            Image.new('RGBA', (220, 132), (12, 34, 56, 255)).save(png)
+            stat = png.stat()
+            cache = root / 'pixel-cache.json'
+            cache.write_text(json.dumps({str(png.resolve()): {
+                'size': stat.st_size, 'mtime_ns': stat.st_mtime_ns,
+                'pixel_sha256': None}}), encoding='utf-8')
+            registry = {'services': {'ref': [{'style': 'transparent', 'path': 'master.png'}]}}
+            self.assertEqual(master_artwork_pixel_digests(registry, root, cache),
+                             {'ref': [_digest(png)]})
+            self.assertEqual(json.loads(cache.read_text(encoding='utf-8'))[str(png.resolve())]['pixel_sha256'],
+                             _digest(png))
+
     def test_master_comparison_is_service_scoped_and_read_only(self):
         queue = {'items': [
             {'workstream': 'ARTWORK_REVIEW', 'decision': 'PENDING',
