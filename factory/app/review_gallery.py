@@ -99,14 +99,32 @@ class ReviewGallery(ttk.Frame):
         digests = evidence_digests(item)
         if len(digests) > 1:
             ttk.Label(frame, text=f'{len(digests)} rozdielnych grafík: skontroluj každú pred rozhodnutím').pack(anchor='w')
-        for artwork_index, digest in enumerate(digests or [None], 1):
-            triplet = ttk.Frame(previews)
-            triplet.pack(fill='x', pady=3)
+        # Show one artwork triplet at a time to keep large evidence groups responsive.
+        # Explicit navigation prevents silently hiding alternative source graphics.
+        artwork_host = ttk.Frame(previews)
+        artwork_host.pack(fill='x')
+        if len(digests) > 1:
+            nav = ttk.Frame(frame)
+            nav.pack(fill='x')
+            position = tk.IntVar(value=0)
+            indicator = ttk.Label(nav)
+            indicator.pack(side='left')
+            def change_artwork(delta):
+                position.set((position.get() + delta) % len(digests))
+                show_artwork()
+            ttk.Button(nav, text='◀ Grafika', command=lambda: change_artwork(-1)).pack(side='left', padx=3)
+            ttk.Button(nav, text='Grafika ▶', command=lambda: change_artwork(1)).pack(side='left')
+        def show_artwork():
+            for child in artwork_host.winfo_children():
+                child.destroy()
+            index = position.get() if len(digests) > 1 else 0
+            digest = digests[index] if digests else None
             if len(digests) > 1:
-                ttk.Label(previews, text=f'Grafika {artwork_index}/{len(digests)} · SHA {digest[:12]}').pack(anchor='w')
+                indicator.configure(text=f'Grafika {index+1}/{len(digests)} · SHA {digest[:12]}')
             paths = variant_paths(self.output_dir, {'sha256': digest} if digest else item)
             for name, label in [('transparent', 'Transparent · referencia 🔒'), ('black', 'Čierny'), ('white', 'Biely')]:
-                cell = ttk.Frame(triplet); cell.pack(side='left', fill='both', expand=True)
+                cell = ttk.Frame(artwork_host)
+                cell.pack(side='left', fill='both', expand=True)
                 ttk.Label(cell, text=label).pack()
                 preview = ttk.Label(cell, text='Náhľad nedostupný', anchor='center')
                 preview.pack(fill='both', expand=True, pady=4)
@@ -115,12 +133,14 @@ class ReviewGallery(ttk.Frame):
                     try:
                         from PIL import Image, ImageTk
                         with Image.open(path) as src:
-                            im = src.convert('RGBA'); im.thumbnail((165, 92))
+                            im = src.convert('RGBA')
+                            im.thumbnail((165, 92))
                         photo = ImageTk.PhotoImage(im, master=self)
                         preview.configure(image=photo, text='')
                         self.photos.append(photo)
                     except (OSError, ImportError, ValueError):
                         pass
+        show_artwork()
         controls = ttk.Frame(frame); controls.pack(fill='x')
         ttk.Button(controls, text='OK / Beriem', command=lambda i=item: self.decide(i, 'APPROVED_FOR_REVIEW', 'OK / Beriem')).pack(side='left', padx=2)
         final_button = ttk.Button(controls, text='Finalizovať QA', command=lambda i=item: self.finalize_qa(i))
