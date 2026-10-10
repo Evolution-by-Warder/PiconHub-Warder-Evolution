@@ -67,6 +67,22 @@ class BacklogDiagnosticsTests(unittest.TestCase):
         self.assertEqual(report['artwork_units_verified_different_from_master'], 1)
         self.assertEqual(report['artwork_tasks_with_verified_master_difference'], 1)
 
+    def test_identity_variant_sha_multiplicity_does_not_approve_collisions(self):
+        queue = {'items': [
+            {'decision': 'PENDING', 'workstream': 'IDENTITY_VERIFICATION',
+             'category': 'IDENTITY_COLLISION', 'reasons': ['UNVERIFIED_REGISTRY_ID'],
+             'variants': [{'sha256': 'aaa'}, {'sha256': 'aaa'}, {'sha256': 'bbb'}]},
+            {'decision': 'PENDING', 'workstream': 'IDENTITY_VERIFICATION',
+             'category': 'IDENTITY_COLLISION', 'reasons': ['UNVERIFIED_REGISTRY_ID'],
+             'variants': [{'sha256': 'ccc'}, {'sources': ['unverified']}]},
+        ]}
+        report = explain_review_backlog(queue)
+        self.assertEqual(report['pending_review_tasks'], 2)
+        self.assertEqual(report['identity_variant_count_distribution'], {'2': 1, '3': 1})
+        self.assertEqual(report['identity_unique_sha_count_distribution'], {'1': 1, '2': 1})
+        self.assertEqual(report['identity_tasks_missing_variant_sha_evidence'], 1)
+        self.assertEqual(report['identity_repeated_sha_variant_observations'], 1)
+
     def test_pending_causes_count_tasks_without_inventing_approvals(self):
         queue = {'consolidation': {'review_tasks_avoided': 5}, 'items': [
             {'decision': 'PENDING', 'workstream': 'ARTWORK_REVIEW',
