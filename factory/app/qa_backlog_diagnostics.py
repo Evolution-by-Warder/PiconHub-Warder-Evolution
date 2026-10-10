@@ -27,6 +27,8 @@ def explain_review_backlog(queue):
     artwork_tasks_with_all_units_matching_master = 0
     artwork_tasks_with_unavailable_master_evidence = 0
     master_exact_visual_units_avoided = 0
+    artwork_units_requiring_master_comparison = 0
+    artwork_tasks_with_verified_master_difference = 0
     artwork_pixel_examples = defaultdict(list)
     artwork_review_by_source = defaultdict(Counter)
     artwork_review_examples = defaultdict(list)
@@ -86,6 +88,9 @@ def explain_review_backlog(queue):
             statuses = [u.get('master_pixel_comparison', 'MASTER_PIXEL_EVIDENCE_UNAVAILABLE') for u in units]
             master_pixel_comparisons.update(statuses)
             master_exact_visual_units_avoided += statuses.count('PIXEL_EXACT_SAME_SERVICE_MASTER')
+            artwork_units_requiring_master_comparison += statuses.count('NO_PIXEL_EXACT_SAME_SERVICE_MASTER')
+            if 'NO_PIXEL_EXACT_SAME_SERVICE_MASTER' in statuses:
+                artwork_tasks_with_verified_master_difference += 1
             if statuses and all(status == 'PIXEL_EXACT_SAME_SERVICE_MASTER' for status in statuses):
                 artwork_tasks_with_all_units_matching_master += 1
             if not statuses or 'MASTER_PIXEL_EVIDENCE_UNAVAILABLE' in statuses:
@@ -144,6 +149,8 @@ def explain_review_backlog(queue):
         'master_pixel_comparison_units': dict(sorted(master_pixel_comparisons.items())),
         'artwork_tasks_all_units_pixel_exact_master': artwork_tasks_with_all_units_matching_master,
         'master_exact_visual_units_avoided': master_exact_visual_units_avoided,
+        'artwork_units_verified_different_from_master': artwork_units_requiring_master_comparison,
+        'artwork_tasks_with_verified_master_difference': artwork_tasks_with_verified_master_difference,
         'artwork_tasks_missing_master_pixel_evidence': artwork_tasks_with_unavailable_master_evidence,
         'artwork_pixel_triage_examples': dict(sorted(artwork_pixel_examples.items())),
         'artwork_review_by_source': {origin: dict(sorted(causes.items())) for origin, causes in sorted(artwork_review_by_source.items())},
