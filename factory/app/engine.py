@@ -117,6 +117,13 @@ def _contrast_variant_art(rgba, background):
   if enclosed_ink:
    for y in range(top,bottom+1):
     protected[y*width+left:y*width+right+1]=bytes([1])*(right-left+1)
+ # Multi-tone neutral metallic ink is a gradient, not flat lettering.
+ # Preserve relative silver highlights and shadows on the white template.
+ gray_tones={round((r+g+b)/3/12)*12 for i,(r,g,b,a) in enumerate(pixels)
+             if a>=128 and not protected[i] and max(r,g,b)-min(r,g,b)<=22}
+ metallic=(background=='white' and len(gray_tones)>=5
+           and max(gray_tones)-min(gray_tones)>=65
+           and max(gray_tones)>=205)
  result=list(pixels)
  changed=False
  ink=(30,30,30) if background=='white' else (238,238,238)
@@ -124,7 +131,12 @@ def _contrast_variant_art(rgba, background):
   if protected[i] or a<96 or max(r,g,b)-min(r,g,b)>35:
    continue
   low=(min(r,g,b)>=135) if background=='white' else (max(r,g,b)<=145)
-  if low:
+  if metallic and background=='white':
+   # One monotone mapping for the entire neutral metallic gradient.
+   # Do not turn individual highlights into black patches.
+   result[i]=(round(r*0.58),round(g*0.58),round(b*0.58),a)
+   changed=True
+  elif low:
    result[i]=(*ink,a)
    changed=True
  if not changed:
@@ -293,7 +305,7 @@ def _compose_variant(rgba, background):
  canvas.alpha_composite(art)
  return canvas
 
-RENDER_REVISION = "plate-aware-v16"
+RENDER_REVISION = "plate-aware-v17"
 
 def render_png_task(args):
  # Independent process: Pillow decoding and PNG encoding use multiple CPU cores.
