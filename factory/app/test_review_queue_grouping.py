@@ -40,6 +40,8 @@ class CrossFeedReviewGroupingTests(unittest.TestCase):
         self.assertEqual(item['review_priority'], 'P2_COMPARE_DISTINCT_PIXEL_ARTWORKS')
         self.assertNotIn('pixel_equivalence', item)
         self.assertEqual(len(item['pixel_artwork_groups']), 2)
+        self.assertEqual(len(item['artwork_review_units']), 2)
+        self.assertEqual(sum(len(u['duplicate_sha256']) for u in item['artwork_review_units']), 1)
         self.assertEqual(result['consolidation']['pixel_duplicate_sha_observations'], 1)
         self.assertEqual(result['consolidation']['pixel_distinct_artworks_avoided'], 1)
 
@@ -51,6 +53,8 @@ class CrossFeedReviewGroupingTests(unittest.TestCase):
         item = result['items'][0]
         self.assertEqual(item['review_priority'], 'P1_VERIFY_SINGLE_PIXEL_ARTWORK_AGAINST_MASTER')
         self.assertEqual(item['decision'], 'PENDING')
+        self.assertEqual(len(item['artwork_review_units']), 1)
+        self.assertEqual(len(item['artwork_review_units'][0]['duplicate_sha256']), 1)
         self.assertEqual(result['count'], 1)
 
     def test_missing_pixel_proof_never_claims_pixel_equivalence(self):
