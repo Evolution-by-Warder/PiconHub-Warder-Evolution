@@ -2,7 +2,7 @@ import tempfile
 import unittest
 from pathlib import Path
 from PIL import Image
-from artwork_pixel_groups import candidate_pixel_digests, attach_master_pixel_comparisons
+from artwork_pixel_groups import candidate_pixel_digests, attach_master_pixel_comparisons, master_artwork_pixel_digests
 from review_queue import build_review_queue
 
 
@@ -25,6 +25,23 @@ class PixelGroupingEvidenceTests(unittest.TestCase):
             self.assertEqual(queue['items'][0]['decision'],'PENDING')
             self.assertEqual(queue['items'][0]['pixel_equivalence'],'EXACT_RGBA_IDENTICAL')
             self.assertEqual(queue['consolidation']['pixel_equivalent_review_groups'],1)
+
+    def test_master_pixel_index_reuses_existing_cache_and_is_service_scoped(self):
+        import json
+        from openatv_pixel_evidence import _digest
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            png = root / 'master.png'
+            Image.new('RGBA', (220, 132), (12, 34, 56, 255)).save(png)
+            cache = root / 'pixel-cache.json'
+            registry = {'services': {'ref-a': [{'style': 'transparent', 'path': 'master.png'}],
+                                     'ref-b': [{'style': 'black', 'path': 'master.png'}]}}
+            expected = _digest(png)
+            first = master_artwork_pixel_digests(registry, root, cache)
+            second = master_artwork_pixel_digests(registry, root, cache)
+            self.assertEqual(first, second)
+            self.assertEqual(first, {'ref-a': [expected]})
+            self.assertIn(str(png.resolve()), json.loads(cache.read_text(encoding='utf-8')))
 
     def test_master_comparison_is_service_scoped_and_read_only(self):
         queue = {'items': [
