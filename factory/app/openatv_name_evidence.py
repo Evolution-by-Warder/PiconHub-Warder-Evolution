@@ -23,15 +23,15 @@ def summarize_openatv_name_evidence(matches, sample_limit=25):
         g = groups[key]
         g['files'] += 1
         sha = row.get('candidate_sha256')
-        if sha:
-            g['hashes'].add(sha.lower())
+        if isinstance(sha, str) and len(sha) == 64 and all(c in '0123456789abcdef' for c in sha.casefold()):
+            g['hashes'].add(sha.casefold())
         evidence = row.get('artwork_evidence') or {}
         refs = evidence.get('possible_master_service_references') or []
         if evidence.get('status') == 'EXACT_ARTWORK_SINGLE_MASTER_REF' and len(refs) == 1:
             g['exact_files'] += 1
             g['exact_refs'].add(refs[0])
-            if sha:
-                g['exact_hashes'].add(sha.lower())
+            if isinstance(sha, str) and len(sha) == 64 and all(c in '0123456789abcdef' for c in sha.casefold()):
+                g['exact_hashes'].add(sha.casefold())
     categories = Counter()
     samples = []
     total_exact_files = 0
