@@ -79,6 +79,34 @@ def _contrast_variant_art(rgba, background):
   if size>=20 and right-left>=5 and bottom-top>=5:
    for y in range(top,bottom+1):
     protected[y*width+left:y*width+right+1]=bytes([1])*(right-left+1)
+ # Keep dark lettering inside an existing light plaque dark even on black templates.
+ # A substantial connected white panel is its own contrast background.
+ if background=='black':
+  white=[a>=240 and min(r,g,b)>=235 for r,g,b,a in pixels]
+  visited=bytearray(width*height)
+  for start in range(len(pixels)):
+   if not white[start] or visited[start]:
+    continue
+   visited[start]=1
+   stack=[start]
+   size=0
+   left=right=start%width
+   top=bottom=start//width
+   while stack:
+    pos=stack.pop()
+    size+=1
+    x,y=pos%width,pos//width
+    left=min(left,x);right=max(right,x)
+    top=min(top,y);bottom=max(bottom,y)
+    for nx,ny in ((x-1,y),(x+1,y),(x,y-1),(x,y+1)):
+     if 0<=nx<width and 0<=ny<height:
+      idx=ny*width+nx
+      if white[idx] and not visited[idx]:
+       visited[idx]=1
+       stack.append(idx)
+   if size>=80 and right-left>=15 and bottom-top>=12:
+    for y in range(top,bottom+1):
+     protected[y*width+left:y*width+right+1]=bytes([1])*(right-left+1)
  result=list(pixels)
  changed=False
  ink=(30,30,30) if background=='white' else (238,238,238)
@@ -224,7 +252,7 @@ def _compose_variant(rgba, background):
  canvas.alpha_composite(art)
  return canvas
 
-RENDER_REVISION = "plate-aware-v11"
+RENDER_REVISION = "plate-aware-v12"
 
 def render_png_task(args):
  # Independent process: Pillow decoding and PNG encoding use multiple CPU cores.
