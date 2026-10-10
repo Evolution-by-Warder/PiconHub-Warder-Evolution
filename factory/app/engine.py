@@ -1169,6 +1169,10 @@ class Factory:
   backlog=explain_review_backlog(review_queue)
   backlog_path=REPORTS/('qa-backlog-causes-'+run+'.json')
   atomic_json(backlog_path,backlog)
+  from review_batch import artwork_review_batch
+  batch_path=REPORTS/('artwork-review-batch-10-'+run+'.json')
+  atomic_json(batch_path,artwork_review_batch(review_queue,limit=10))
+  self.log('QA grafika: prvych 10 stabilnych kontrolnych ID (bez schvalenia): '+str(batch_path))
   stats['qa_backlog_causes']=backlog['pending_by_reason']
   stats['qa_pending_by_workstream']=backlog['pending_by_workstream']
   stats['qa_pending_review_tasks']=backlog['pending_review_tasks']
