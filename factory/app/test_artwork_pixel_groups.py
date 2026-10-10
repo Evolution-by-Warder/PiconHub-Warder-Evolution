@@ -26,6 +26,18 @@ class PixelGroupingEvidenceTests(unittest.TestCase):
             self.assertEqual(queue['items'][0]['pixel_equivalence'],'EXACT_RGBA_IDENTICAL')
             self.assertEqual(queue['consolidation']['pixel_equivalent_review_groups'],1)
 
+    def test_invalid_sha_types_fail_closed(self):
+        with tempfile.TemporaryDirectory() as folder:
+            matches = [
+                {'classification': 'REVIEW', 'reason': 'EXISTING_SERVICE_DIFFERENT_ART',
+                 'candidate_sha256': ['bad']},
+                {'classification': 'REVIEW', 'reason': 'EXISTING_SERVICE_DIFFERENT_ART',
+                 'candidate_sha256': 123},
+                {'classification': 'REVIEW', 'reason': 'EXISTING_SERVICE_DIFFERENT_ART',
+                 'candidate_sha256': 'not-a-sha'},
+            ]
+            self.assertEqual(candidate_pixel_digests(matches, Path(folder)), {})
+
     def test_distinct_pixels_not_mislabeled(self):
         matches=[{'classification':'REVIEW','reason':'EXISTING_SERVICE_DIFFERENT_ART',
                   'candidate_sha256':sha,'candidate_source':sha,'service_reference':'ref'} for sha in ('a'*64,'b'*64)]
