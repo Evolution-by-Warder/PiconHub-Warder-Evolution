@@ -57,6 +57,17 @@ class CrossFeedReviewGroupingTests(unittest.TestCase):
         self.assertEqual(len(item['artwork_review_units'][0]['duplicate_sha256']), 1)
         self.assertEqual(result['count'], 1)
 
+    def test_single_verified_artwork_has_one_review_unit(self):
+        rows = [{'classification': 'REVIEW', 'reason': 'EXISTING_SERVICE_DIFFERENT_ART',
+                 'service_reference': 'service-single', 'candidate_sha256': 'a' * 64,
+                 'candidate_source': 'a.png'}]
+        result = build_review_queue({}, {}, [], rows, pixel_digests={'a' * 64: 'pixel-a'})
+        item = result['items'][0]
+        self.assertEqual(item['distinct_pixel_artworks'], 1)
+        self.assertEqual(item['artwork_review_units'][0]['representative_sha256'], 'a' * 64)
+        self.assertEqual(item['review_priority'], 'P1_VERIFY_SINGLE_PIXEL_ARTWORK_AGAINST_MASTER')
+        self.assertEqual(item['decision'], 'PENDING')
+
     def test_missing_pixel_proof_never_claims_pixel_equivalence(self):
         rows = [{'classification': 'REVIEW', 'reason': 'EXISTING_SERVICE_DIFFERENT_ART',
                  'service_reference': 'service-a', 'candidate_sha256': sha * 64,
