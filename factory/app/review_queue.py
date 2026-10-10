@@ -67,9 +67,11 @@ def build_review_queue(qa_issues: dict, originals: dict, collisions: list, regis
             sources = set(previous.get('source_evidence', [previous['original']]))
             sources.add(source)
             previous['source_evidence'] = sorted(sources)
+            previous['source_origins'] = sorted(set(previous.get('source_origins', [previous['source_origin']])) | {origin})
         else:
             registry_items[review_id] = item
     pre_group_registry_reviews = len(registry_items)
+    registry_source_observations = sum(len(item.get('source_evidence', [item['original']])) for item in registry_items.values())
     # Source files are observations, not independent decisions. Group identical
     # service-reference/reason reviews across all source feeds, retaining each
     # original SHA and source. This reduces review actions, NOT approval gates.
@@ -96,8 +98,8 @@ def build_review_queue(qa_issues: dict, originals: dict, collisions: list, regis
             'review_id': stable_review_id('REGISTRY_EVIDENCE_GROUP', identity, workstream + '|' + '|'.join(reasons)),
             'category': 'REGISTRY_MATCH', 'workstream': workstream, 'candidate_identity': identity,
             'sha256': None, 'original': members[0]['original'],
-            'source_origin': 'multiple' if len({m.get('source_origin') for m in members}) > 1 else members[0].get('source_origin'),
-            'source_origins': sorted({m.get('source_origin', '') for m in members}), 'reasons': list(reasons),
+            'source_origin': 'multiple' if len({origin for m in members for origin in m.get('source_origins', [m.get('source_origin', '')])}) > 1 else members[0].get('source_origin'),
+            'source_origins': sorted({origin for m in members for origin in m.get('source_origins', [m.get('source_origin', '')])}), 'reasons': list(reasons),
             'master_locations': [json.loads(v) for v in sorted({json.dumps(loc, sort_keys=True, ensure_ascii=False) for m in members for loc in m.get('master_locations', [])})],
             'source_evidence': entries,
             'source_observations': len(entries),
@@ -107,7 +109,9 @@ def build_review_queue(qa_issues: dict, originals: dict, collisions: list, regis
         })
     counts = {lane: sum(item.get('workstream') == lane for item in items) for lane in ('IDENTITY_VERIFICATION', 'ARTWORK_REVIEW', 'TECHNICAL_QA')}
     registry_review_groups = sum(item.get('category') == 'REGISTRY_MATCH' for item in items)
-    consolidation = {'registry_sha_reviews_before_grouping': pre_group_registry_reviews,
+    consolidation = {'registry_source_observations': registry_source_observations,
+                     'registry_duplicate_file_observations': max(0, registry_source_observations - pre_group_registry_reviews),
+                     'registry_sha_reviews_before_grouping': pre_group_registry_reviews,
                      'registry_review_tasks_after_grouping': registry_review_groups,
                      'review_tasks_avoided': max(0, pre_group_registry_reviews - registry_review_groups),
                      'policy': 'EVIDENCE_GROUPING_ONLY; NO_AUTOMATIC_APPROVAL'}
