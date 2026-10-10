@@ -23,8 +23,9 @@ def group_openatv_stations(rows):
         refs = set()
         hashes = set()
         for item in items:
-            if item.get('candidate_sha256'):
-                hashes.add(item['candidate_sha256'])
+            sha = item.get('candidate_sha256')
+            if isinstance(sha, str) and len(sha) == 64 and all(c in '0123456789abcdef' for c in sha.casefold()):
+                hashes.add(sha.casefold())
             if item.get('classification') == 'EVIDENCE_LINKED':
                 ref = item.get('candidate_service_reference')
                 if ref:
