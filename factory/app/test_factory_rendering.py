@@ -181,6 +181,28 @@ class FactoryRenderingTests(unittest.TestCase):
         self.assertFalse(did_extract)
         self.assertEqual(extracted.tobytes(), source.tobytes())
 
+    def test_dark_blue_news_word_on_black_is_lifted(self):
+        source = Image.new('RGBA', (220, 132), (0, 0, 0, 0))
+        # Separate narrow glyphs, as in small News/International captions.
+        for x in range(50, 120, 12):
+            for yy in range(90, 97):
+                for xx in range(x, x + 4):
+                    source.putpixel((xx, yy), (16, 35, 135, 255))
+        result = _adjust_low_contrast_color(source, 'black')
+        before = source.getpixel((51, 92))
+        after = result.getpixel((51, 92))
+        self.assertGreater(0.2126 * after[0] + 0.7152 * after[1] + 0.0722 * after[2],
+                           0.2126 * before[0] + 0.7152 * before[1] + 0.0722 * before[2])
+        self.assertEqual(source.getpixel((51, 92)), before)
+
+    def test_large_blue_brand_symbol_remains_unchanged(self):
+        source = Image.new('RGBA', (220, 132), (0, 0, 0, 0))
+        for yy in range(25, 55):
+            for xx in range(35, 100):
+                source.putpixel((xx, yy), (16, 35, 135, 255))
+        result = _adjust_low_contrast_color(source, 'black')
+        self.assertEqual(result.tobytes(), source.tobytes())
+
     def test_legible_red_stays_red(self):
         source = Image.new('RGBA', (220, 132), (0, 0, 0, 0))
         source.putpixel((50, 50), (190, 20, 30, 255))
