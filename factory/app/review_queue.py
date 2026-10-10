@@ -158,7 +158,10 @@ def build_review_queue(qa_issues: dict, originals: dict, collisions: list, regis
         }
         if len(verified_pixel_keys) == len(members):
             grouped_item['distinct_pixel_artworks'] = len(pixel_keys)
-            grouped_item['pixel_equivalence'] = 'EXACT_RGBA_IDENTICAL' if pixel_equivalent else 'VERIFIED_RGBA_GROUPS'
+            if pixel_equivalent:
+                grouped_item['pixel_equivalence'] = 'EXACT_RGBA_IDENTICAL'
+            else:
+                grouped_item['pixel_grouping'] = 'VERIFIED_RGBA_GROUPS'
             grouped_item['pixel_artwork_groups'] = [
                 {'pixel_sha256': digest, 'candidate_sha256': sorted(m['sha256'] for m in members if pixel_digests.get(m['sha256']) == digest)}
                 for digest in sorted(pixel_keys)
