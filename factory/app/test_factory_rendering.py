@@ -6,6 +6,33 @@ from artwork_preparation import extract_flat_edge_background
 
 
 class FactoryRenderingTests(unittest.TestCase):
+    def test_white_plaque_keeps_black_letters_on_both_templates(self):
+        art = Image.new('RGBA', (220, 132), (0, 0, 0, 0))
+        for y in range(30, 90):
+            for x in range(40, 160):
+                art.putpixel((x, y), (255, 255, 255, 255))
+        for y in range(48, 65):
+            for x in range(65, 115):
+                art.putpixel((x, y), (0, 0, 0, 255))
+        for variant in ('white', 'black'):
+            result = _contrast_variant_art(art, variant)
+            self.assertEqual(result.getpixel((80, 55)), (0, 0, 0, 255))
+            self.assertEqual(result.getpixel((45, 40)), (255, 255, 255, 255))
+
+    def test_gray_lettering_becomes_uniform_on_white(self):
+        art = Image.new('RGBA', (220, 132), (0, 0, 0, 0))
+        for x, gray in zip(range(30, 35), (140, 160, 190, 220, 245)):
+            art.putpixel((x, 40), (gray, gray, gray, 255))
+        result = _contrast_variant_art(art, 'white')
+        self.assertEqual({result.getpixel((x, 40))[:3] for x in range(30, 35)}, {(30, 30, 30)})
+
+    def test_dark_lettering_becomes_uniform_on_black(self):
+        art = Image.new('RGBA', (220, 132), (0, 0, 0, 0))
+        for x, gray in zip(range(30, 35), (15, 40, 70, 110, 140)):
+            art.putpixel((x, 40), (gray, gray, gray, 255))
+        result = _contrast_variant_art(art, 'black')
+        self.assertEqual({result.getpixel((x, 40))[:3] for x in range(30, 35)}, {(238, 238, 238)})
+
     def test_templates_present(self):
         root = Path(__file__).resolve().parent / 'templates' / 'picons'
         for name in ('black-sablona.png', 'white-sablona.png'):
