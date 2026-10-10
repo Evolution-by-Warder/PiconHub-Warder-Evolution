@@ -76,6 +76,28 @@ class OpenAtvNameCandidateTests(unittest.TestCase):
         self.assertEqual(rows[1]['crossname_artwork_candidate']['possible_master_service_references'], ['1:0:1:2'])
         self.assertFalse(rows[1]['crossname_artwork_candidate']['identity_verified'])
 
+    def test_station_group_sha_case_deduplicates(self):
+        rows = [
+            {'candidate_source':r'C:\\SOURCE-INGEST\\OPENATV8\\Station A.png',
+             'candidate_sha256':'A'*64},
+            {'candidate_source':r'C:\\SOURCE-INGEST\\OPENATV8\\station-a.png',
+             'candidate_sha256':'a'*64}]
+        result = group_openatv_stations(rows)
+        self.assertEqual(result['station_names'], 1)
+        self.assertEqual(result['station_groups'][0]['distinct_sha256_count'], 1)
+
+    def test_name_evidence_ignores_invalid_hash(self):
+        rows = [
+            {'candidate_source':r'C:\\SOURCE-INGEST\\OPENATV8\\Station A.png',
+             'candidate_sha256':'not-a-hash',
+             'classification':'UNMAPPED'},
+            {'candidate_source':r'C:\\SOURCE-INGEST\\OPENATV8\\station-a.png',
+             'candidate_sha256':'A'*64,
+             'classification':'UNMAPPED'}]
+        result = summarize_openatv_name_evidence(rows)
+        self.assertEqual(result['distinct_names'], 1)
+        self.assertEqual(result['exact_match_files'], 0)
+
     def test_triage_sha_case_deduplicates(self):
         rows = [
             {'candidate_source':r'C:\\SOURCE-INGEST\\OPENATV8\\Station A.png',
