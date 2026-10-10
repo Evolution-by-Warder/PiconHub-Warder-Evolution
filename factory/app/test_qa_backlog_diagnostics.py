@@ -64,6 +64,8 @@ class BacklogDiagnosticsTests(unittest.TestCase):
         self.assertEqual(report['artwork_tasks_all_units_pixel_exact_master'], 1)
         self.assertEqual(report['master_pixel_comparison_units']['PIXEL_EXACT_SAME_SERVICE_MASTER'], 2)
         self.assertEqual(report['master_pixel_comparison_units']['NO_PIXEL_EXACT_SAME_SERVICE_MASTER'], 1)
+        self.assertEqual(report['artwork_units_verified_different_from_master'], 1)
+        self.assertEqual(report['artwork_tasks_with_verified_master_difference'], 1)
 
     def test_pending_causes_count_tasks_without_inventing_approvals(self):
         queue = {'consolidation': {'review_tasks_avoided': 5}, 'items': [
