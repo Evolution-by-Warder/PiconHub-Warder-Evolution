@@ -26,6 +26,25 @@ class FactoryRenderingTests(unittest.TestCase):
         result = _adjust_low_contrast_color(source, 'white')
         self.assertLess(sum(result.getpixel((50, 50))[:3]), sum(source.getpixel((50, 50))[:3]))
 
+    def test_white_lettering_on_red_plate_preserved(self):
+        source = Image.new('RGBA', (220, 132), (0, 0, 0, 0))
+        for y in range(45, 75):
+            for x in range(40, 130):
+                source.putpixel((x, y), (235, 10, 40, 255))
+        for y in range(52, 68):
+            for x in range(60, 85):
+                source.putpixel((x, y), (255, 255, 255, 255))
+        result = _contrast_variant_art(source, 'white')
+        self.assertEqual(result.getpixel((70, 60)), (255, 255, 255, 255))
+
+    def test_free_white_lettering_darkens(self):
+        source = Image.new('RGBA', (220, 132), (0, 0, 0, 0))
+        for y in range(52, 68):
+            for x in range(60, 85):
+                source.putpixel((x, y), (255, 255, 255, 255))
+        result = _contrast_variant_art(source, 'white')
+        self.assertEqual(result.getpixel((70, 60))[:3], (30, 30, 30))
+
     def test_legible_red_stays_red(self):
         source = Image.new('RGBA', (220, 132), (0, 0, 0, 0))
         source.putpixel((50, 50), (190, 20, 30, 255))
