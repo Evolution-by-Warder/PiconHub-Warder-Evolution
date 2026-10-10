@@ -162,6 +162,16 @@ class FactoryRenderingTests(unittest.TestCase):
         self.assertEqual(extracted.getpixel((70, 60)), (20, 90, 190, 255))
         self.assertEqual(source.tobytes(), original)
 
+    def test_dark_brand_panel_not_extracted(self):
+        source = Image.new('RGBA', (220, 132), (15, 17, 35, 255))
+        for y in range(45, 85):
+            for x in range(45, 175):
+                source.putpixel((x, y), (235, 235, 245, 255))
+        original = source.tobytes()
+        extracted, did_extract = extract_flat_edge_background(source)
+        self.assertFalse(did_extract)
+        self.assertEqual(extracted.tobytes(), original)
+
     def test_brand_colored_matte_not_removed(self):
         source = Image.new('RGBA', (220, 132), (230, 20, 40, 255))
         for y in range(35, 95):
