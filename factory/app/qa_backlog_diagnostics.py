@@ -104,10 +104,11 @@ def explain_review_backlog(queue):
                 identity_examples[reason].append({
                     'review_id': item.get('review_id'),
                     'service_reference': item.get('candidate_identity'),
-                    'source': item.get('source_origin'),
+                    'source': 'multiple' if len(variant_origins) > 1 else (next(iter(variant_origins)) if variant_origins else item.get('source_origin')),
+                    'source_origins': sorted(variant_origins),
                     'master_locations': len(item.get('master_locations') or []),
                 })
-            for origin in set(item.get('source_origins') or [item.get('source_origin') or 'unknown']):
+            for origin in (variant_origins or set(item.get('source_origins') or [item.get('source_origin') or 'unknown'])):
                 identity_by_source[origin][reason] += 1
         if item.get('workstream') == 'ARTWORK_REVIEW':
             evidence = item.get('source_evidence') or ()
@@ -174,7 +175,11 @@ def explain_review_backlog(queue):
                     'source_origin': item.get('source_origin'),
                     'source_observations': item.get('source_observations', 1),
                 })
-        for origin in set(item.get('source_origins') or [item.get('source_origin') or 'unknown']):
+        if item.get('category') == 'IDENTITY_COLLISION' and item.get('workstream') == 'IDENTITY_VERIFICATION':
+            pending_origins = variant_origins or set(item.get('source_origins') or [item.get('source_origin') or 'unknown'])
+        else:
+            pending_origins = set(item.get('source_origins') or [item.get('source_origin') or 'unknown'])
+        for origin in pending_origins:
             source_origins[origin] += 1
         if item.get('source_observations', 0) > 1:
             grouped += 1
