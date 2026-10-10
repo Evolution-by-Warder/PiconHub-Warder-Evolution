@@ -121,7 +121,7 @@ def _contrast_variant_art(rgba, background):
  # Preserve relative silver highlights and shadows on the white template.
  gray_tones={round((r+g+b)/3/12)*12 for i,(r,g,b,a) in enumerate(pixels)
              if a>=128 and not protected[i] and max(r,g,b)-min(r,g,b)<=22}
- metallic=(background=='white' and len(gray_tones)>=5
+ metallic=(background=='white' and sum(1 for i,(r,g,b,a) in enumerate(pixels) if a>=128 and not protected[i] and max(r,g,b)-min(r,g,b)<=22)>=100 and len(gray_tones)>=5
            and max(gray_tones)-min(gray_tones)>=65
            and max(gray_tones)>=205)
  result=list(pixels)
