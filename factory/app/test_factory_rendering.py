@@ -75,6 +75,21 @@ class FactoryRenderingTests(unittest.TestCase):
         result = _contrast_variant_art(source, 'black')
         self.assertEqual(result.getpixel((70, 55))[:3], (238, 238, 238))
 
+    def test_large_colored_plate_unchanged(self):
+        source = Image.new('RGBA', (220, 132), (0, 0, 0, 0))
+        for y in range(35, 85):
+            for x in range(30, 150):
+                source.putpixel((x, y), (250, 220, 20, 255))
+        original = source.tobytes()
+        result = _adjust_low_contrast_color(source, 'white')
+        self.assertEqual(result.tobytes(), original)
+
+    def test_small_chromatic_ink_adjusts(self):
+        source = Image.new('RGBA', (220, 132), (0, 0, 0, 0))
+        source.putpixel((45, 45), (255, 245, 20, 255))
+        result = _adjust_low_contrast_color(source, 'white')
+        self.assertNotEqual(result.getpixel((45, 45)), source.getpixel((45, 45)))
+
     def test_legible_red_stays_red(self):
         source = Image.new('RGBA', (220, 132), (0, 0, 0, 0))
         source.putpixel((50, 50), (190, 20, 30, 255))
