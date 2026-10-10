@@ -118,6 +118,18 @@ class OpenAtvNameCandidateTests(unittest.TestCase):
         result = attach_crossname_artwork_candidates(rows)
         self.assertEqual(result['unique_sha'], 0)
 
+    def test_malformed_evidence_does_not_link_alias(self):
+        rows = [
+            {'candidate_source':r'C:\\SOURCE-INGEST\\OPENATV8\\Station A.png',
+             'classification':'UNMAPPED',
+             'artwork_evidence':{'status':'EXACT_ARTWORK_SINGLE_MASTER_REF',
+                                 'possible_master_service_references':'1:0:1:2'}},
+            {'candidate_source':r'C:\\SOURCE-INGEST\\OPENATV8\\station-a.png',
+             'classification':'UNMAPPED'}]
+        counts = attach_name_candidates(rows)
+        self.assertEqual(counts['candidate_linked_files'], 0)
+        self.assertEqual(rows[1]['classification'], 'UNMAPPED')
+
     def test_conflict_never_promotes(self):
         rows=[]
         for ref in ('1:0:1:2','1:0:1:3'):
