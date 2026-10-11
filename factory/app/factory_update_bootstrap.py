@@ -21,7 +21,7 @@ def run(*, updater=attempt_update, reporter=print):
     except AlreadyRunning:
         reporter('FACTORY UPDATE: application already running; update deferred')
         return 'already_running'
-    except (OSError, ValueError) as exc:
+    except (OSError, ValueError, RuntimeError) as exc:
         reporter('FACTORY UPDATE: skipped (' + type(exc).__name__ + '); installed application preserved')
         return 'skipped'
 
