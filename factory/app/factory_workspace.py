@@ -8,7 +8,7 @@ import subprocess
 import threading
 from pathlib import Path
 import tkinter as tk
-from tkinter import ttk
+from tkinter import ttk, messagebox
 
 
 def _json(path):
@@ -25,13 +25,17 @@ def latest_json(folder: Path, prefix: str):
 
 
 def source_rows(ingest: Path, inbox: Path, source_manifest: Path, chocho_positions: Path | None = None,
-                master_snapshot: Path | None = None):
+                master_snapshot: Path | None = None, state_dir: Path | None = None,
+                legacy_state_dir: Path | None = None):
     """Describe source state from persisted checkpoints and actual local files."""
     rows = []
     for key, filename in (("Vhannibal", "vhannibal-state.json"),
                           ("OpenATV 8", "openatv8-state.json"),
                           ("Chocholousek", "chocholousek-state.json")):
-        path = Path(ingest) / filename
+        path = Path(state_dir or ingest) / filename
+        legacy = Path(legacy_state_dir) / filename if legacy_state_dir is not None else None
+        if not path.exists() and legacy is not None and legacy.is_file():
+            path = legacy
         state = _json(path)
         if not path.exists():
             status, details = "Ešte nesynchronizované", "Checkpoint zatiaľ neexistuje"
@@ -47,7 +51,10 @@ def source_rows(ingest: Path, inbox: Path, source_manifest: Path, chocho_positio
     positions = position_state.get("positions", [])
     rows.append(("Chocholousek · vybrané pozície", "Vybrané" if positions else "Čaká na výber",
                  ", ".join(str(value) for value in positions) if positions else "Vyber iba satelitné pozície, ktoré používaš", str(positions_file)))
-    snapshot_file = Path(master_snapshot) if master_snapshot else Path(ingest).parent / "master-current-paths.json"
+    snapshot_file = Path(master_snapshot) if master_snapshot else Path(state_dir or ingest) / "master-current-paths.json"
+    legacy_snapshot = Path(legacy_state_dir) / "master-current-paths.json" if legacy_state_dir is not None else None
+    if not snapshot_file.is_file() and legacy_snapshot is not None and legacy_snapshot.is_file():
+        snapshot_file = legacy_snapshot
     snapshot = _json(snapshot_file)
     snapshot_paths = snapshot.get("paths", [])
     rows.append(("Warder Master snapshot", "Dostupný" if snapshot_paths else "Zatiaľ nestiahnutý",
@@ -81,12 +88,13 @@ def latest_run_stats(reports: Path):
     return path, stats if isinstance(stats, dict) else {}
 
 
-def finalization_rows(report_dir: Path, ledger_path: Path):
+def finalization_rows(report_dir: Path, ledger_path: Path, legacy_ledger_path: Path | None = None):
     report_path, stats = latest_run_stats(report_dir)
     final = stats.get("new_candidate_finalization", {})
     final = final if isinstance(final, dict) else {}
-    ledger = _json(ledger_path).get("decisions", {})
-    ledger = ledger if isinstance(ledger, dict) else {}
+    from review_decisions import load_decisions
+    try:ledger = load_decisions(legacy_ledger_path, ledger_path)
+    except (OSError, ValueError, TypeError):ledger = {}
     finalized = [(review_id, row) for review_id, row in ledger.items()
                  if isinstance(row, dict) and row.get("decision") == "FINALIZED_LOCALLY"]
     rows = [("Posledný report", str(report_path or "Zatiaľ bez reportu")),
@@ -100,8 +108,9 @@ def finalization_rows(report_dir: Path, ledger_path: Path):
     return rows
 
 
-def latest_review_counts(reports: Path):
-    path = latest_json(reports, "review-queue-")
+def latest_review_counts(reports: Path, *fallback_dirs: Path):
+    from review_ui import latest_review
+    path = latest_review(reports, *fallback_dirs)
     data = _json(path) if path else {}
     lanes = data.get("workstream_counts", {})
     return path, {"total": int(data.get("count", len(data.get("items", [])))), **{
@@ -151,7 +160,7 @@ class FactoryWorkspace:
         self.root.after(15000, self._refresh_timer)
 
     def _page(self, title):
-        frame = ttk.Frame(self.notebook, padding=12)
+        frame = ttk.Frame(self.notebook, padding=18)
         self.notebook.add(frame, text=title)
         return frame
 
@@ -169,6 +178,16 @@ class FactoryWorkspace:
         ttk.Label(page, textvariable=self.app.counts_status, font=("Segoe UI", 10, "bold")).pack(anchor="w")
         self.summary = ttk.Label(page, text="Načítavam skutočný stav...")
         self.summary.pack(anchor="w", pady=8)
+        cards = ttk.Frame(page); cards.pack(fill="x", pady=(4, 12))
+        self.kpi_vars = {name: tk.StringVar(value="Načítavam…") for name in ("workspace", "sources", "queue", "final")}
+        labels = (("workspace", "Pracovný priestor"), ("sources", "Zdroje"),
+                  ("queue", "Fronta na kontrolu"), ("final", "Finálne lokálne PNG"))
+        for column, (key, title) in enumerate(labels):
+            card = ttk.LabelFrame(cards, text=title, padding=(14, 10))
+            card.grid(row=0, column=column, sticky="nsew", padx=(0 if column == 0 else 8, 0))
+            ttk.Label(card, textvariable=self.kpi_vars[key], font=("Segoe UI", 13, "bold"), wraplength=280).pack(anchor="w")
+            cards.columnconfigure(column, weight=1, uniform="dashboard-kpi")
+        self.kpi_vars["workspace"].set(str(self.paths["root"]))
         self.app.bar = ttk.Progressbar(page, mode="determinate")
         self.app.bar.pack(fill="x", pady=8)
         controls = ttk.Frame(page); controls.pack(fill="x", pady=6)
@@ -186,8 +205,10 @@ class FactoryWorkspace:
         for column, heading, width in headings:
             tree.heading(column, text=heading); tree.column(column, width=width, anchor="w")
         scroll = ttk.Scrollbar(page, orient="vertical", command=tree.yview)
-        tree.configure(yscrollcommand=scroll.set)
-        tree.pack(side="left", fill="both", expand=True); scroll.pack(side="right", fill="y")
+        horizontal = ttk.Scrollbar(page, orient="horizontal", command=tree.xview)
+        tree.configure(yscrollcommand=scroll.set, xscrollcommand=horizontal.set)
+        tree.pack(side="top", fill="both", expand=True); scroll.pack(side="right", fill="y")
+        horizontal.pack(side="bottom", fill="x")
         return page, tree
 
     def _build_sources(self):
@@ -237,19 +258,24 @@ class FactoryWorkspace:
 
     def _build_review(self):
         from review_gallery import ReviewGallery
-        self.gallery = ReviewGallery(self._page("Výnimky / schvaľovanie"), self.paths["reports"], self.paths["ledger"], self.paths["output"])
+        self.gallery = ReviewGallery(self._page("Výnimky / schvaľovanie"), self.paths["exceptions"], self.paths["ledger_path"], self.paths["output"], write_enabled=lambda: self.app.workspace_ready, legacy_report_dir=self.paths["reports"], legacy_ledger_path=self.paths["legacy_ledger"])
         # ttk.Notebook owns a frame; gallery fills it.
         self.gallery.pack(fill="both", expand=True)
 
     def _build_settings(self):
-        page, tree = self._tree_page("Nastavenia", ("key", "path"), (("key", "Úložisko", 210), ("path", "Aktuálna cesta", 850)))
-        for key, path in self.paths.items():
-            tree.insert("", "end", values=(key, str(path)))
+        from workspace_paths import DIRECTORIES
+        page, self.settings_tree = self._tree_page("Nastavenia", ("key", "status", "details", "path"),
+            (("key", "Kategória", 155), ("status", "Preflight", 135), ("details", "Inventár read-only", 360), ("path", "Pôvodná cesta", 610)))
         controls = ttk.Frame(page); controls.pack(fill="x", pady=5)
         self.path_choice = tk.StringVar(value="root")
-        ttk.Combobox(controls, textvariable=self.path_choice, state="readonly", values=tuple(self.paths), width=20).pack(side="left")
+        self.category_paths = {name: Path(self.paths["root"]) / name for name, _ in DIRECTORIES}
+        self.category_paths["root"] = Path(self.paths["root"])
+        ttk.Combobox(controls, textvariable=self.path_choice, state="readonly", values=tuple(self.category_paths), width=22).pack(side="left")
         ttk.Button(controls, text="Otvoriť vybraný priečinok", command=self.open_selected_folder).pack(side="left", padx=6)
-        ttk.Label(page, text="Cesty sú odvodené z WARDER_PICON_FACTORY_ROOT; zmena sa vykonáva nastavením pred spustením aplikácie.").pack(anchor="w")
+        ttk.Button(controls, text="Spustiť read-only preflight", command=self.app.run_preflight).pack(side="left", padx=6)
+        ttk.Label(page, text="Jediný povolený koreň je D:\\WARDER-PICON-FACTORY. Zápis sa odomkne až po kontrole všetkých 13 existujúcich kategórií; preflight nič nevytvára ani nemení.", wraplength=1200).pack(anchor="w", pady=8)
+        self.preflight_info = ttk.Label(page, text="Preflight ešte neukončený; všetky zápisy sú zablokované.", wraplength=1200)
+        self.preflight_info.pack(anchor="w", pady=4)
         positions = _json(self.paths["chocho_positions"]).get("positions", [])
         selection = ttk.LabelFrame(page, text="Chocholousek · aktívne satelitné pozície", padding=8)
         selection.pack(fill="x", pady=8)
@@ -279,7 +305,8 @@ class FactoryWorkspace:
         def worker():
             try:
                 rows = source_rows(self.paths["ingest"], self.paths["inbox"],
-                                   self.paths["manifest"], self.paths["chocho_positions"], self.paths["data"] / "master-current-paths.json")
+                                   self.paths["source_manifest"], self.paths["chocho_positions"],
+                                   self.paths["master_paths"], self.paths["state"], self.paths["app_data"])
                 self.app.emit("source_inventory_done", rows)
             except Exception as exc:
                 self.app.emit("source_inventory_error", type(exc).__name__ + ": " + str(exc)[:240])
@@ -291,6 +318,8 @@ class FactoryWorkspace:
         self.source_tree.delete(*self.source_tree.get_children())
         for row in rows:
             self.source_tree.insert("", "end", values=row)
+        if hasattr(self, "kpi_vars"):
+            self.kpi_vars["sources"].set(f"{len(rows)} zdrojových stavov · {sum('Dostupný' in row[1] for row in rows)} dostupných")
         self._update_summary()
 
     def source_inventory_error(self, error):
@@ -359,12 +388,17 @@ class FactoryWorkspace:
 
     def refresh_finalization(self):
         self.finalization_tree.delete(*self.finalization_tree.get_children())
-        rows = finalization_rows(self.paths["reports"], self.paths["ledger"])
+        rows = finalization_rows(self.paths["reports"], self.paths["ledger_path"], self.paths["legacy_ledger"])
         for key, value in rows[:self.MAX_TABLE_ROWS]: self.finalization_tree.insert("", "end", values=(key, value))
-        self.finalization_info.configure(text=f"Finálne úložisko: {self.paths['final']} · auditné rozhodnutia: {self.paths['ledger']}")
+        self.finalization_info.configure(text=f"Finálne úložisko: {self.paths['final']} · auditné rozhodnutia: {self.paths['ledger_path']}")
 
     def _open_path(self, path):
-        path = Path(path); path.mkdir(parents=True, exist_ok=True)
+        path = Path(path)
+        if not path.exists():
+            path = path.parent
+        if not path.is_dir():
+            messagebox.showinfo("Priečinok zatiaľ neexistuje", "Aplikácia nevytvorila pracovné priečinky pri otvorení. Spusť spracovanie v dostupnom pracovnom koreňi.", parent=self.root)
+            return
         if os.name == "nt": os.startfile(str(path))
         elif sys_platform() == "darwin": subprocess.Popen(["open", str(path)])
         else: subprocess.Popen(["xdg-open", str(path)])
@@ -372,18 +406,23 @@ class FactoryWorkspace:
     def refresh_all(self):
         self.app._refresh_production_counts()
         self.refresh_sources(); self.refresh_registry(); self.refresh_graphics(); self.refresh_qa(); self.gallery.reload(); self.refresh_finalization()
-        _, counts = latest_review_counts(self.paths["reports"])
+        _, counts = latest_review_counts(self.paths["exceptions"], self.paths["reports"])
         self.app.counts_status.set(f"Fronta: {counts['total']} · identita {counts['IDENTITY_VERIFICATION']} · grafika {counts['ARTWORK_REVIEW']} · technické QA {counts['TECHNICAL_QA']}")
         self._update_summary(counts["total"])
 
     def _update_summary(self, pending=None):
         if pending is None:
-            _, counts = latest_review_counts(self.paths["reports"])
+            _, counts = latest_review_counts(self.paths["exceptions"], self.paths["reports"])
             pending = counts["total"]
         self.summary.configure(text=f"Zdrojov/checkpointov: {len(self.source_tree.get_children())} · Registry kandidátov: {len(self.registry_tree.get_children())} · Výnimiek na ručné posúdenie: {pending}")
+        if hasattr(self, "kpi_vars"):
+            self.kpi_vars["queue"].set(f"{pending:,} čakajúcich položiek".replace(",", " "))
 
     def save_chocho_positions(self):
         from source_registry import atomic_json
+        if not self.app.workspace_ready:
+            messagebox.showwarning("Preflight required", "Nastavenie sa nezapíše, kým read-only preflight neprejde.", parent=self.root)
+            return
         raw = self.chocho_positions_var.get().strip()
         try:
             positions = parse_chocho_positions(raw)
@@ -395,13 +434,34 @@ class FactoryWorkspace:
         self.refresh_sources()
 
     def open_selected_folder(self):
-        path = Path(self.paths[self.path_choice.get()])
-        if path.suffix or (path.exists() and path.is_file()):
+        path = Path(self.category_paths[self.path_choice.get()])
+        if not path.exists():
             path = path.parent
-        path.mkdir(parents=True, exist_ok=True)
+        if not path.is_dir():
+            messagebox.showinfo("Priečinok zatiaľ neexistuje", "Priečinok sa nevytvoril, aby sa zachovala štruktúra existujúceho projektu.", parent=self.root)
+            return
         if os.name == "nt": os.startfile(str(path))
         elif sys_platform() == "darwin": subprocess.Popen(["open", str(path)])
         else: subprocess.Popen(["xdg-open", str(path)])
+
+    def show_preflight(self, result):
+        from workspace_paths import DIRECTORIES
+        self.settings_tree.delete(*self.settings_tree.get_children())
+        inventory = result.inventory
+        for name, purpose in DIRECTORIES:
+            stats = inventory.get(name, {})
+            if name in result.missing:
+                state, details = "CHÝBA", "Zápis zablokovaný"
+            elif result.unreadable:
+                state, details = "CHYBA ČÍTANIA", purpose
+            else:
+                state = "READ-ONLY OK" if result.ok else "PREVERENÉ"
+                details = f"{stats.get('files', 0)} súborov · {stats.get('png', 0)} PNG · {stats.get('archives', 0)} archívov · {stats.get('bytes', 0)} B"
+            self.settings_tree.insert("", "end", values=(name, state, details, str(Path(result.root) / name)))
+        self.preflight_info.configure(text=("ÚSPEŠNÝ PREFLIGHT · 13/13 kategórií · žiadne dáta nemenili" if result.ok else
+            "ZÁPIS ZABLOKOVANÝ · " + " | ".join(result.findings)))
+        self.kpi_vars["workspace"].set("13/13 kategórií overených" if result.ok else
+                                       f"Zápis blokovaný · {len(result.missing)} kategórií chýba")
 
     def _refresh_timer(self):
         if self.root.winfo_exists():

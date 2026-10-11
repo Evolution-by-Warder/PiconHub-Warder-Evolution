@@ -9,12 +9,16 @@ from pathlib import Path
 from unittest.mock import patch
 
 from factory_auto_update import attempt_update
+from workspace_paths import DIRECTORIES
 
 
 class FactoryUpdateSyntaxGuardTests(unittest.TestCase):
     def test_invalid_python_in_verified_release_preserves_existing_app(self):
         with tempfile.TemporaryDirectory() as folder:
-            app = Path(folder) / 'WARDER-PICON-FACTORY'
+            workspace = Path(folder) / 'WARDER-PICON-FACTORY'
+            for category, _purpose in DIRECTORIES:
+                (workspace / category).mkdir(parents=True, exist_ok=True)
+            app = workspace / '11-APP' / 'WARDER-PICON-FACTORY'
             app.mkdir()
             (app / 'engine.py').write_text('print("original")\n', encoding='utf-8')
             (app / '.factory-version.json').write_text('{"version":"factory-v0.2.20"}', encoding='utf-8')

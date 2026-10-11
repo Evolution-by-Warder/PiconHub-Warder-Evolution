@@ -35,15 +35,17 @@ def _hash(path):
     return digest.hexdigest()
 
 
-def ingest_current_sources(manifest, workspace, allowed_hosts, downloader=None, importer=None, notify=None):
+def ingest_current_sources(manifest, workspace, allowed_hosts, downloader=None, importer=None, notify=None,
+                           state_dir=None, originals_dir=None, legacy_state_dir=None):
     """Download changed archives, import safely, checkpoint each successful source.
 
     Archives are content addressed, so an older version cannot be silently overwritten.
     Failed downloads/imports leave source checkpoint untouched for retry.
     """
     workspace = Path(workspace)
-    state_path = workspace / 'source-state.json'
-    state = _read_state(state_path)
+    state_path = (Path(state_dir) if state_dir is not None else workspace) / 'source-state.json'
+    legacy_path = Path(legacy_state_dir) / state_path.name if legacy_state_dir is not None else None
+    state = _read_state(state_path if state_path.is_file() or legacy_path is None else legacy_path)
     plan = plan_downloads(manifest, state)
     downloader = downloader or stream_verified_archive
     importer = importer or import_png_zip
@@ -64,7 +66,8 @@ def ingest_current_sources(manifest, workspace, allowed_hosts, downloader=None, 
             raise SourceError('Archive not verified: ' + key)
         notify(key, 'importing')
         # Isolate sources even if ZIP basenames are identical.
-        outcome = importer(archive, workspace / 'originals' / key)
+        original_root = Path(originals_dir) if originals_dir is not None else workspace / 'originals'
+        outcome = importer(archive, original_root / key)
         state = commit_source_state(state_path, state, source, digest)
         results.append({'source': key, 'version': source['version'], 'sha256': digest,
                         'imported': outcome['imported'], 'skipped': outcome['skipped']})

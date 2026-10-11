@@ -95,11 +95,16 @@ def _get(url, limit, opener=None, headers=None):
         return payload
 
 
-def sync_vhannibal(workspace, opener=None, now=None):
+def sync_vhannibal(workspace, opener=None, now=None, state_dir=None, originals_dir=None,
+                   legacy_state_dir=None):
     """Check official page, fetch only when its current Motor row changes, import safely."""
     workspace = Path(workspace)
-    state_path = workspace / "vhannibal-state.json"
-    state = json.loads(state_path.read_text(encoding="utf-8")) if state_path.is_file() else {}
+    state_root = Path(state_dir) if state_dir is not None else workspace
+    state_root.mkdir(parents=True, exist_ok=True)
+    state_path = state_root / "vhannibal-state.json"
+    legacy_path = Path(legacy_state_dir) / state_path.name if legacy_state_dir is not None else None
+    read_path = state_path if state_path.is_file() else legacy_path
+    state = json.loads(read_path.read_text(encoding="utf-8")) if read_path is not None and read_path.is_file() else {}
     now = int(now if now is not None else time.time())
     page = _get(HOME, MAX_PAGE, opener).decode("utf-8", "replace")
     current = discover_motor_zip(page)
@@ -126,7 +131,8 @@ def sync_vhannibal(workspace, opener=None, now=None):
         corrupt = package.testzip()
     if corrupt:
         raise SourceError("Corrupt Vhannibal ZIP member: " + corrupt[:160])
-    imported = import_png_zip(archive, workspace / "originals" / "vhannibal")
+    originals_root = Path(originals_dir) if originals_dir is not None else workspace / "originals"
+    imported = import_png_zip(archive, originals_root / "vhannibal")
     new_state = {"schema": 1, "fingerprint": current["fingerprint"],
                  "archive_sha256": digest, "label": current["label"],
                  "source_url": current["url"], "checked_unix": now,

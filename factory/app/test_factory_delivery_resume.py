@@ -10,14 +10,17 @@ import os
 APP = Path(__file__).resolve().parent
 
 class DeliveryResumeTests(unittest.TestCase):
-    def test_startup_does_not_schedule_scan(self):
+    def test_startup_runs_read_only_preflight_and_does_not_schedule_scan(self):
         tree = ast.parse((APP / 'engine.py').read_text(encoding='utf-8'))
         app = next(node for node in tree.body if isinstance(node, ast.ClassDef) and node.name == 'App')
         init = next(node for node in app.body if isinstance(node, ast.FunctionDef) and node.name == '__init__')
-        calls = [node for node in ast.walk(init) if isinstance(node, ast.Call) and isinstance(node.func, ast.Attribute) and node.func.attr == 'after']
-        startup = [node for node in calls if len(node.args) > 1 and isinstance(node.args[0], ast.Constant) and node.args[0].value == 150]
-        self.assertEqual(len(startup), 1)
-        self.assertEqual(startup[0].args[1].attr, '_resume_pending_delivery')
+        self.assertTrue(any(isinstance(node, ast.Call) and isinstance(node.func, ast.Attribute)
+                            and node.func.attr == 'run_preflight' for node in ast.walk(init)))
+        self.assertFalse(any(isinstance(node, ast.Call) and isinstance(node.func, ast.Attribute)
+                             and node.func.attr == 'start' for node in ast.walk(init)))
+        run_preflight = next(node for node in app.body if isinstance(node, ast.FunctionDef) and node.name == 'run_preflight')
+        self.assertTrue(any(isinstance(node, ast.Call) and isinstance(node.func, ast.Name)
+                            and node.func.id == 'read_only_preflight' for node in ast.walk(run_preflight)))
 
     def test_launcher_never_calls_self_update(self):
         tree = ast.parse((APP / 'factory_launcher.py').read_text(encoding='utf-8'))

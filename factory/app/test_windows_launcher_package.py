@@ -25,12 +25,25 @@ class WindowsLauncherPackageTests(unittest.TestCase):
             self.assertEqual(image[offset:offset + 4], b'PK\x03\x04')
             self.assertEqual(result['executable_sha256'], hashlib.sha256(binary).hexdigest())
             self.assertIn(b'set "WARDER_VERSION=factory-v1.2.3"', image[:offset])
+            self.assertNotIn(b'%USERPROFILE%\\WARDER-PICONS', image[:offset])
+            self.assertIn(b'set "WARDER_PICON_FACTORY_ROOT=D:\\WARDER-PICON-FACTORY"', image[:offset])
+            self.assertIn(b'11-APP\\WARDER-PICON-FACTORY', image[:offset])
+            self.assertIn(b'09-LOGS', image[:offset])
             encoded = re.search(rb'-EncodedCommand ([A-Za-z0-9+/=]+)', image[:offset]).group(1)
             powershell = base64.b64decode(encoded).decode('utf-16le')
             self.assertIn('$env:WARDER_PAYLOAD_OFFSET', powershell)
             self.assertIn('Expand-Archive', powershell)
             self.assertIn('Factory executable SHA-256 mismatch', powershell)
             self.assertIn('[Security.Cryptography.SHA256]', powershell)
+            self.assertIn('Get-ChildItem -LiteralPath $path -Force -Recurse -ErrorAction Stop', powershell)
+            self.assertIn('read-only preflight failed. No workspace files were changed.'.lower(), powershell.lower())
+            self.assertIn('Root is unavailable', powershell)
+            for category in ("00-STATE", "01-SOURCES", "02-ORIGINALS", "03-REGISTRY", "04-WORK",
+                             "05-QA", "06-OUTPUT", "07-PUBLISH-STAGING", "08-REPORTS", "09-LOGS",
+                             "10-TOOLS", "11-APP", "12-ARCHIVE"):
+                self.assertIn(category, powershell)
+            self.assertIn('read-only preflight failed', powershell)
+            self.assertNotIn(b'%LOCALAPPDATA%', image[:offset])
             self.assertNotIn('Get-FileHash', powershell)
             payload_path = root / 'payload.zip'
             payload_path.write_bytes(image[offset:])

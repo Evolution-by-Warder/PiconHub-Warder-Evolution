@@ -31,7 +31,7 @@ class FactoryDiagnosticsSafety(unittest.TestCase):
         self.assertEqual(result['final_picons_on_disk']['transparent'],7)
         self.assertNotIn('private',json.dumps(result))
 
-    def test_confirmed_delivery_removes_only_sent_report(self):
+    def test_confirmed_delivery_records_receipt_and_preserves_every_report(self):
         with tempfile.TemporaryDirectory() as tmp:
             folder = Path(tmp)
             sent = folder / 'report-20261011-092600-123.json'
@@ -43,10 +43,11 @@ class FactoryDiagnosticsSafety(unittest.TestCase):
             with patch('factory_diagnostics_retry.upload_report', side_effect=upload):
                 result = retry_reports(folder, folder / 'delivered.json')
             self.assertEqual(len(result), 2)
-            self.assertFalse(sent.exists())
+            self.assertTrue(sent.exists())
             self.assertTrue(failed.exists())
+            self.assertIn(sent.name, json.loads((folder / 'delivered.json').read_text())['delivered'])
 
-    def test_old_receipt_cleans_leftover_without_resending(self):
+    def test_old_receipt_preserves_report_without_resending(self):
         with tempfile.TemporaryDirectory() as tmp:
             folder = Path(tmp)
             name = 'report-20261011-092600-123.json'
@@ -57,7 +58,7 @@ class FactoryDiagnosticsSafety(unittest.TestCase):
                 result = retry_reports(folder, state)
             self.assertEqual(result, [])
             upload.assert_not_called()
-            self.assertFalse((folder / name).exists())
+            self.assertTrue((folder / name).exists())
 
     def test_cleanup_preserves_reports_and_review_queues(self):
         with tempfile.TemporaryDirectory() as tmp:

@@ -1,7 +1,13 @@
-# WARDER Factory automatic updates
+# WARDER Factory updates
 
-The launcher checks `https://raw.githubusercontent.com/Evolution-by-Warder/PiconHub-Warder-Evolution/main/factory/update/manifest.json` at each startup. The manifest is **not yet published**. Until it is published, the installed Factory starts offline-safe.
+Application code lives under `D:\WARDER-PICON-FACTORY\11-APP\WARDER-PICON-FACTORY`.
+Every installer/update must pass the read-only preflight for all 13 categories
+before writing. Runtime data stay in their authoritative folders (`00-STATE`
+through `12-ARCHIVE`); no data migration is performed. Failed or superseded app
+versions are retained under `11-APP` for explicit operator recovery.
 
-Publish a Factory-only ZIP as a GitHub Release named `factory-vX.Y.Z`, with asset `warder-picon-factory-X.Y.Z.zip`. The ZIP root must directly contain `engine.py`, `factory_launcher.py`, `requirements-runtime.txt`, `.factory-version.json`, and the remaining application code. Calculate the ZIP SHA-256 and exact byte size, then commit the manifest to `factory/update/manifest.json` only after explicit user approval. Schema: `{"schema":1,"version":"factory-vX.Y.Z","url":"https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/download/factory-vX.Y.Z/warder-picon-factory-X.Y.Z.zip","size":123456,"sha256":"<64 hex>"}`.
-
-No GitHub write is performed by the launcher. Updates swap application code only, preserving `01-SOURCES`, `02-ORIGINALS`, `04-WORK`, `05-QA`, `06-OUTPUT`, `08-REPORTS`, the SQLite database and mutable state under `11-APP/.factory-data`, which are migrated from the previous application folder before any update is activated.
+The Windows one-file CMD verifies the executable SHA-256 and swaps only the
+application directory. It does not delete an older app folder or modify the
+workspace data categories. Installer diagnostics go to `09-LOGS` after the
+preflight passes. A public GitHub Release or production update manifest is a
+separate operation and is not performed by this workflow.

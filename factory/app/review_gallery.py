@@ -28,16 +28,13 @@ def evidence_digests(item):
                    and all(c in '0123456789abcdef' for c in value.lower())})
 
 
-def pending_items(items, ledger_path):
+def pending_items(items, ledger_path, legacy_ledger_path=None):
     """Drop only evidence-identical, terminal decisions from the visible queue."""
     visible = [item for item in items if item.get('decision', 'PENDING') == 'PENDING']
     ledger_path = Path(ledger_path)
-    if not ledger_path.exists():
-        return visible
-    import json
-    from review_decisions import evidence_hash
     try:
-        decisions = json.loads(ledger_path.read_text(encoding='utf-8')).get('decisions', {})
+        from review_decisions import evidence_hash, load_decisions
+        decisions = load_decisions(legacy_ledger_path, ledger_path)
         return [item for item in visible if not (
             item['review_id'] in decisions and
             decisions[item['review_id']].get('evidence_hash') == evidence_hash(item) and
@@ -49,11 +46,15 @@ def pending_items(items, ledger_path):
 
 class ReviewGallery(ttk.Frame):
     """Ten review entries per page, scrollable in the main window."""
-    def __init__(self, parent, report_dir, ledger_path, output_dir):
+    def __init__(self, parent, report_dir, ledger_path, output_dir, write_enabled=None,
+                 legacy_report_dir=None, legacy_ledger_path=None):
         super().__init__(parent)
         self.report_dir = Path(report_dir)
+        self.legacy_report_dir = Path(legacy_report_dir) if legacy_report_dir is not None else None
         self.ledger_path = Path(ledger_path)
+        self.legacy_ledger_path = Path(legacy_ledger_path) if legacy_ledger_path is not None else None
         self.output_dir = Path(output_dir)
+        self.write_enabled = write_enabled or (lambda: True)
         self.items = []
         self.page = 0
         self.photos = []
@@ -79,8 +80,9 @@ class ReviewGallery(ttk.Frame):
         self.reload()
 
     def reload(self):
-        path = latest_review(self.report_dir)
-        self.items = pending_items(load_review_queue(path)['items'], self.ledger_path) if path else []
+        path = latest_review(self.report_dir, *([self.legacy_report_dir] if self.legacy_report_dir else []))
+        self.items = pending_items(load_review_queue(path)['items'], self.ledger_path,
+                                   self.legacy_ledger_path) if path else []
         self.render()
 
     def reset_page(self):
@@ -164,6 +166,9 @@ class ReviewGallery(ttk.Frame):
         ttk.Button(controls, text='Preskočiť', command=lambda i=item: self.decide(i, 'DEFERRED', 'Preskočené')).pack(side='left', padx=2)
 
     def finalize_qa(self, item):
+        if not self.write_enabled():
+            messagebox.showwarning('Zápis zablokovaný', 'Read-only preflight musí úspešne overiť všetkých 13 adresárov.', parent=self)
+            return
         try:
             request = prepare_finalization(self.output_dir, item)
         except (FinalizationNotReady, ValueError, OSError) as exc:
@@ -187,6 +192,9 @@ class ReviewGallery(ttk.Frame):
         self.render()
 
     def repair(self, frame, item):
+        if not self.write_enabled():
+            messagebox.showwarning('Zápis zablokovaný', 'Read-only preflight musí úspešne overiť všetkých 13 adresárov.', parent=self)
+            return
         if getattr(frame, '_repair_open', False): return
         frame._repair_open = True
         options = ttk.Frame(frame); options.pack(fill='x', pady=5)
@@ -207,6 +215,9 @@ class ReviewGallery(ttk.Frame):
         ttk.Button(frame, text='Uložiť požiadavku na opravu', command=save).pack(anchor='e', pady=3)
 
     def decide(self, item, decision, note):
+        if not self.write_enabled():
+            messagebox.showwarning('Zápis zablokovaný', 'Read-only preflight musí úspešne overiť všetkých 13 adresárov.', parent=self)
+            return
         digests = evidence_digests(item)
         if len(digests) > 1 and decision == 'APPROVED_FOR_REVIEW':
             if not messagebox.askyesno('Kontrola všetkých grafík',

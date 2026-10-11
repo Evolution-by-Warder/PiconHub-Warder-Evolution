@@ -190,7 +190,8 @@ def _import_7z(archive, originals_root):
             shutil.rmtree(stage)
 
 
-def sync_chocholousek(workspace, opener=None, now=None, selected_positions=None):
+def sync_chocholousek(workspace, opener=None, now=None, selected_positions=None, state_dir=None,
+                       originals_dir=None, legacy_state_dir=None):
     """Weekly update check for explicitly selected active satellite positions.
 
     The provider asks users to download only positions they actively use and
@@ -204,8 +205,12 @@ def sync_chocholousek(workspace, opener=None, now=None, selected_positions=None)
     if not selected:
         return {"status": "selection_required", "source": "chocholousek",
                 "downloaded": 0, "imported_png": 0}
-    state_path = workspace / "chocholousek-state.json"
-    state = json.loads(state_path.read_text(encoding="utf-8")) if state_path.is_file() else {}
+    state_root = Path(state_dir) if state_dir is not None else workspace
+    state_root.mkdir(parents=True, exist_ok=True)
+    state_path = state_root / "chocholousek-state.json"
+    legacy_path = Path(legacy_state_dir) / state_path.name if legacy_state_dir is not None else None
+    read_path = state_path if state_path.is_file() else legacy_path
+    state = json.loads(read_path.read_text(encoding="utf-8")) if read_path is not None and read_path.is_file() else {}
     now = int(now if now is not None else time.time())
     last = int(state.get("checked_unix", 0) or 0)
     if last and now - last < MIN_CHECK_SECONDS and state.get("archives"):
@@ -240,7 +245,8 @@ def sync_chocholousek(workspace, opener=None, now=None, selected_positions=None)
             continue
         archive_path = workspace / "archives" / "chocholousek" / (item["permalink"] + "-" + filename)
         archive_hash = _download_7z(item["permalink"], archive_path, opener)
-        outcome = _import_7z(archive_path, workspace / "originals" / "chocholousek")
+        originals_root = Path(originals_dir) if originals_dir is not None else workspace / "originals"
+        outcome = _import_7z(archive_path, originals_root / "chocholousek")
         archives[filename] = {**item, "sha256": archive_hash,
                               "imported_png": outcome["imported"], "skipped_png": outcome["skipped"]}
         downloaded += 1

@@ -1,4 +1,4 @@
-"""Retry pending local run summaries without deleting source reports."""
+"""Retry local run summaries while preserving every report for user review."""
 import json
 from pathlib import Path
 from factory_diagnostics import upload_report
@@ -23,10 +23,6 @@ def retry_reports(report_dir, state_file, limit=5):
         if path.is_symlink() or not path.is_file():
             continue
         if path.name in delivered:
-            try:
-                path.unlink()
-            except OSError:
-                pass
             continue
         result = upload_report(path)
         results.append({'report': path.name, 'status': result['status']})
@@ -39,13 +35,4 @@ def retry_reports(report_dir, state_file, limit=5):
         temp = state_file.with_suffix('.json.tmp')
         temp.write_text(json.dumps({'schema': 2, 'delivered': sorted(delivered)}, indent=2), encoding='utf-8')
         temp.replace(state_file)
-        # Only the transmitted run summaries are disposable; retain every other report.
-        for item in results:
-            if item['status'] == 'sent':
-                confirmed = folder / item['report']
-                if confirmed.is_file() and not confirmed.is_symlink():
-                    try:
-                        confirmed.unlink()
-                    except OSError:
-                        pass
     return results

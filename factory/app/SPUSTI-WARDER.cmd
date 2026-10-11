@@ -1,8 +1,7 @@
 @echo off
 setlocal EnableExtensions
 cd /d "%~dp0"
-set "WARDER_PICON_FACTORY_ROOT=%WARDER_PICON_FACTORY_ROOT%"
-if not defined WARDER_PICON_FACTORY_ROOT set "WARDER_PICON_FACTORY_ROOT=%USERPROFILE%\WARDER-PICONS"
+set "WARDER_PICON_FACTORY_ROOT=D:\WARDER-PICON-FACTORY"
 set "PYTHON="
 where py >nul 2>nul
 if not errorlevel 1 (

@@ -12,19 +12,17 @@ from review_gallery import evidence_digests
 
 MAX_FILES = 300000
 
-def export_pending(report_dir, output_dir, destination, *, ledger_path=None):
+def export_pending(report_dir, output_dir, destination, *, ledger_path=None, legacy_report_dir=None,
+                   legacy_ledger_path=None):
     report_dir, output_dir, destination = map(Path, (report_dir, output_dir, destination))
-    review_path = latest_review(report_dir)
+    review_path = latest_review(report_dir, *([legacy_report_dir] if legacy_report_dir else []))
     if not review_path:
         raise FileNotFoundError('No review queue exists')
     queue = load_review_queue(review_path)
     pending = [item for item in queue['items'] if item.get('decision', 'PENDING') == 'PENDING']
-    if ledger_path and Path(ledger_path).is_file():
-        from review_decisions import evidence_hash
-        ledger = json.loads(Path(ledger_path).read_text(encoding='utf-8'))
-        if ledger.get('schema') != 1 or not isinstance(ledger.get('decisions'), dict):
-            raise ValueError('Invalid decision ledger')
-        decisions = ledger['decisions']
+    if ledger_path or legacy_ledger_path:
+        from review_decisions import evidence_hash, load_decisions
+        decisions = load_decisions(legacy_ledger_path, ledger_path)
         pending = [item for item in pending if not (
             item['review_id'] in decisions and
             decisions[item['review_id']].get('evidence_hash') == evidence_hash(item) and

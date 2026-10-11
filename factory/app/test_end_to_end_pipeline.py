@@ -18,6 +18,8 @@ from hardening import import_png_zip
 from master_registry import classify_candidate, index_master_tree
 from review_decisions import apply_decisions, record_decision
 from review_queue import build_review_queue
+from review_queue import save_review_queue
+from workspace_paths import DIRECTORIES, read_only_preflight, workspace_paths
 
 NEW_REF = '1_0_1_100_1_1_D72CF4_0_0_0'
 EXISTING_REF = '1_0_1_101_1_1_D72CF4_0_0_0'
@@ -38,8 +40,13 @@ def sha256(path):
 class EndToEndPipelineTests(unittest.TestCase):
     def test_zip_to_review_and_safe_local_finalization(self):
         with tempfile.TemporaryDirectory() as temp:
-            root = Path(temp)
-            inbox = root / 'local-inbox'
+            root = Path(temp) / 'WARDER-PICON-FACTORY'
+            for category, _purpose in DIRECTORIES:
+                (root / category).mkdir(parents=True, exist_ok=True)
+            paths = workspace_paths(root)
+            before = read_only_preflight(root)
+            self.assertTrue(before.ok, before.findings)
+            inbox = paths['inbox']
             inbox.mkdir()
             archive = inbox / 'fixture.zip'
             new_png = make_logo((210, 25, 40, 255))
@@ -47,11 +54,11 @@ class EndToEndPipelineTests(unittest.TestCase):
             master_png = make_logo((30, 150, 70, 255))
             with zipfile.ZipFile(archive, 'w', compression=zipfile.ZIP_DEFLATED) as bundle:
                 for ref, image in ((NEW_REF, new_png), (EXISTING_REF, changed_existing_png)):
-                    temp_png = root / (ref + '.png')
+                    temp_png = paths['tools'] / (ref + '.png')
                     image.save(temp_png, format='PNG')
                     bundle.write(temp_png, ref + '.png')
 
-            originals_root = root / 'originals'
+            originals_root = paths['originals']
             imported = import_png_zip(archive, originals_root)
             self.assertEqual(imported['imported'], 2)
             extracted_root = originals_root / sha256(archive)
@@ -60,7 +67,7 @@ class EndToEndPipelineTests(unittest.TestCase):
             source_hashes = {path.stem: sha256(path) for path in source_paths}
             original_bytes = {path: path.read_bytes() for path in source_paths}
 
-            master_root = root / 'master-snapshot'
+            master_root = paths['master_root'] / 'fixture-commit'
             master_path = master_root / 'picons' / '13.0e' / 'fixture' / 'transparent' / (EXISTING_REF + '.png')
             master_path.parent.mkdir(parents=True)
             master_png.save(master_path, format='PNG')
@@ -68,7 +75,7 @@ class EndToEndPipelineTests(unittest.TestCase):
             registry = index_master_tree(master_root)
             self.assertEqual(registry['service_count'], 1)
 
-            output_root = root / 'work'
+            output_root = paths['output']
             matches = []
             for path in source_paths:
                 sha = source_hashes[path.stem]
@@ -89,13 +96,17 @@ class EndToEndPipelineTests(unittest.TestCase):
             review_items = [item for item in queue['items'] if item['candidate_identity'] == EXISTING_REF]
             self.assertEqual(len(review_items), 1)
             self.assertEqual(review_items[0]['decision'], 'PENDING')
-            ledger_path = root / 'decisions.json'
+            queue_path = paths['exceptions'] / 'review-queue-synthetic.json'
+            save_review_queue(queue_path, queue)
+            from review_queue import load_review_queue
+            self.assertEqual(load_review_queue(queue_path)['count'], len(queue['items']))
+            ledger_path = paths['ledger_path']
             record_decision(ledger_path, review_items[0], 'DEFERRED', 'Artwork differs from Warder Master.', True)
             resumed = apply_decisions(queue, ledger_path)
             resumed_item = next(item for item in resumed['items'] if item['candidate_identity'] == EXISTING_REF)
             self.assertEqual(resumed_item['decision'], 'DEFERRED')
 
-            final_root = root / 'final'
+            final_root = paths['final']
             finalized = finalize_new_candidates(
                 matches, {}, output_root, final_root,
                 verified_shas=set(source_hashes.values()))
@@ -118,6 +129,7 @@ class EndToEndPipelineTests(unittest.TestCase):
                                             verified_shas=set(source_hashes.values()))
             self.assertEqual(again['copied'], 0)
             self.assertEqual(again['already_present'], 1)
+            self.assertTrue(read_only_preflight(root).ok)
 
 
 if __name__ == '__main__':

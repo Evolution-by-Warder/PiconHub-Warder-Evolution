@@ -109,9 +109,9 @@ class BacklogDiagnosticsTests(unittest.TestCase):
             'reasons': ['UNVERIFIED_REGISTRY_ID'],
             'variants': [
                 {'sha256': 'a'*64, 'sources': [
-                    r'D:\\WARDER-PICON-FACTORY\\11-APP\\.factory-data\\source-ingest\\originals\\vhannibal\\archive\\logo.png']},
+                    r'D:\\WARDER-PICON-FACTORY\\01-SOURCES\\source-ingest\\originals\\vhannibal\\archive\\logo.png']},
                 {'sha256': 'b'*64, 'sources': [
-                    r'D:\\WARDER-PICON-FACTORY\\11-APP\\.factory-data\\source-ingest\\originals\\openatv8\\bf8cb399d92f16682bb81639588894dbaed8f7bda7af3ecbc80cbc9a3b15e0ad\\picon\\logo.png']},
+                    r'D:\\WARDER-PICON-FACTORY\\01-SOURCES\\source-ingest\\originals\\openatv8\\bf8cb399d92f16682bb81639588894dbaed8f7bda7af3ecbc80cbc9a3b15e0ad\\picon\\logo.png']},
             ],
         }]}
         report = explain_review_backlog(queue)

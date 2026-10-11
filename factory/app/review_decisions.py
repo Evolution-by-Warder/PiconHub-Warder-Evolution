@@ -49,21 +49,34 @@ def _legacy_registry_decision(item, decisions):
     return None
 
 
-def apply_decisions(queue, ledger_path):
+def load_decisions(*ledger_paths):
+    """Read legacy ledgers first and canonical ledgers last; never rewrite either."""
+    decisions = {}
+    for raw_path in ledger_paths:
+        if raw_path is None:
+            continue
+        path = Path(raw_path)
+        if not path.is_file():
+            continue
+        ledger = json.loads(path.read_text(encoding='utf-8'))
+        if ledger.get('schema') != 1 or not isinstance(ledger.get('decisions'), dict):
+            raise ValueError('Invalid decision ledger: ' + str(path))
+        decisions.update(ledger['decisions'])
+    return decisions
+
+
+def apply_decisions(queue, ledger_path, *legacy_paths):
     """Carry decisions across runs only when the reviewed evidence is identical."""
-    ledger_path = Path(ledger_path)
-    if not ledger_path.exists():
+    decisions = load_decisions(*legacy_paths, ledger_path)
+    if not decisions:
         return queue
-    ledger = json.loads(ledger_path.read_text(encoding='utf-8'))
-    if ledger.get('schema') != 1 or not isinstance(ledger.get('decisions'), dict):
-        raise ValueError('Invalid decision ledger')
     result = {**queue, 'items': []}
     for item in queue['items']:
         item = dict(item)
-        previous = ledger['decisions'].get(item['review_id'])
+        previous = decisions.get(item['review_id'])
         valid = bool(previous and previous.get('evidence_hash') == evidence_hash(item))
         if not valid:
-            previous = _legacy_registry_decision(item, ledger['decisions'])
+            previous = _legacy_registry_decision(item, decisions)
             valid = previous is not None
         if valid and previous.get('decision') in DECISIONS:
             item['decision'] = previous['decision']

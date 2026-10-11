@@ -4,10 +4,14 @@ import json
 from pathlib import Path
 from final_qa_bridge import prepare_finalization, FinalizationNotReady
 from finalize_picons import finalize_triplet
+from workspace_paths import read_only_preflight
 
 
 def run_batch(root, evidence_file, *, commit=False):
     root = Path(root).resolve()
+    preflight = read_only_preflight(root)
+    if not preflight.ok:
+        raise PermissionError('Read-only workspace preflight failed; no batch output written: ' + '; '.join(preflight.findings[-2:]))
     work = root / '04-WORK' / 'PICONS'
     final = root / '06-OUTPUT' / 'PICONS'
     payload = json.loads(Path(evidence_file).read_text(encoding='utf-8'))

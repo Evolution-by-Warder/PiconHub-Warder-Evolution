@@ -40,16 +40,14 @@ def activate_staged(stage, app_dir, *, validate=None):
                     shutil.rmtree(sibling)
     except Exception as exc:
         if app.exists() and had_old:
-            shutil.rmtree(app)
+            failed = app.with_name(app.name + '.failed-' + uuid.uuid4().hex)
+            os.replace(app, failed)
         if had_old and previous.exists():
             os.replace(previous, app)
         raise ActivationError('Activation failed; previous version restored') from exc
-    # The previous version is retained until the launcher confirms startup.
+    # Preserve every previous application version for explicit inspection/rollback.
     return previous if had_old else None
 
 def confirm_started(previous):
-    """Call only after the new GUI has actually reported successful startup."""
-    if previous is not None:
-        previous = Path(previous)
-        if previous.is_dir() and '.previous-' in previous.name:
-            shutil.rmtree(previous)
+    """Acknowledge startup while retaining the prior version in 11-APP."""
+    return Path(previous) if previous is not None else None

@@ -1,68 +1,44 @@
 # WARDER PICON FACTORY
 
-Unified Windows desktop application built from the supplied WARDER PICON FACTORY source archive. The modular engine, Tkinter application, review queue, and source processors now run as one project. The v0.9/intermediate duplicate is retained only in the original source archive, not shipped as a second app.
+Unified Windows desktop application for source ingestion, identity matching, PNG processing, QA, manual review, and local finalization.
 
-## Windows target
+## Authoritative Windows workspace
 
-- Windows 11 x64
-- The one-click Windows launcher stores user data under `%USERPROFILE%\WARDER-PICONS`.
-- CPU and image processing: bounded parallel download and multi-process PNG work; worker count is capped at 24 to leave room for Windows.
-- The app creates its folder structure on first run. Existing source files and generated results are not deleted.
+The only production data root is `D:\WARDER-PICON-FACTORY`. The application and installer use these exact categories:
 
-## Included source feeds
+| Folder | Purpose |
+| --- | --- |
+| `00-STATE` | Checkpoints and run history |
+| `01-SOURCES` | Source inputs, manifests, downloaded archives, and ingest metadata |
+| `02-ORIGINALS` | Immutable original PNG files from local and remote sources |
+| `03-REGISTRY` | Warder Master snapshots and mappings |
+| `04-WORK` | Rendered working images |
+| `05-QA` | QA exceptions and manual decisions |
+| `06-OUTPUT` | Locally finalized results |
+| `07-PUBLISH-STAGING` | Draft publication preparation only |
+| `08-REPORTS` | Reports and statistics |
+| `09-LOGS` | Installer, runtime, and diagnostic logs |
+| `10-TOOLS` | Service tools |
+| `11-APP` | Engine, GUI, dependencies, updater, and app data |
+| `12-ARCHIVE` | Historical data |
 
-- **Vhannibal** — reads the current Motor picon entry from the official homepage and downloads only when the page entry changes.
-- **OpenATV 8** — reads the OE-Alliance picons-feed package index, verifies GitHub's blob hash, package SHA-256 and selects current 220x132 transparent SRP packages.
-- **Chocholousek** — reads the current official 220×132 download page, offers only its published satellite-position archives, honors the provider's weekly update limit, and downloads only positions explicitly selected in Settings. Empty selection performs no download.
-- **Warder Master** — read-only snapshot from `PiconHub-Warder-Evolution/warder-master-production`. Master assets are indexed and excluded from candidate rendering. No identities are assigned or changed.
+At startup, a read-only preflight inventories all 13 folders. It enables writes only when all are present and readable. A missing D: drive, missing category, unreadable directory, or unsafe reparse-point stops writes. The application does not create missing top-level folders, migrate data, or use another data root. The preflight does not modify existing files.
 
-These feeds are equal-priority candidates. The app retains provenance in separate source folders and checkpoints. Failed feeds do not discard successful source state. Source terms and restrictions apply; imported graphics stay local and the app does not republish source archives.
+The source tree contains a developer launcher. The one-file Windows CMD installs the executable under `11-APP\WARDER-PICON-FACTORY`; diagnostics go to `09-LOGS`. Updates preserve earlier app versions for manual recovery. The CMD is built after Windows tests and a native GUI smoke test and is uploaded as an Actions artifact, not published as a GitHub Release.
 
-## Windows one-click application
+## Data flow and safety
 
-The **Factory regression (no release)** workflow builds a standalone Windows
-GUI executable on `windows-latest`, launches it for a GUI startup smoke test,
-and packages that tested executable into one self-extracting
-`SPUSTI-WARDER-PICON-FACTORY.cmd` file. Download that single CMD artifact and
-double-click it; Python and runtime libraries are bundled in the executable.
-The launcher installs each application version into `%LOCALAPPDATA%` and
-keeps user data in `%USERPROFILE%\\WARDER-PICONS`. Updates use versioned app
-folders, verify SHA-256 before launch, and leave the user's Factory data in
-place. Startup and extraction errors are recorded under
-`%LOCALAPPDATA%\\WARDER-PICON-FACTORY\\launcher.log`.
+- Vhannibal, OpenATV 8, Chocholousek, and local ZIP inputs are archived under `01-SOURCES`; source checkpoints remain in `00-STATE`.
+- Original PNG files from local and remote sources are stored additively under `02-ORIGINALS`; the renderer writes 220 × 132 RGBA transparent, black, and white variants under `04-WORK`.
+- Read-only Master snapshots are stored additively under `03-REGISTRY\MASTER-SNAPSHOTS`; checkpoints are in `00-STATE`.
+- Review queues, conflicts, and manual decisions remain in `05-QA\EXCEPTIONS` and `05-QA\review-decisions.json`. Existing queue files under `08-REPORTS` remain readable as a legacy fallback and are never migrated or deleted. Only eligible NEW candidates pass local QA finalization to `06-OUTPUT`; existing targets are never overwritten.
+- Reports are stored under `08-REPORTS`; logs are stored under `09-LOGS`. The ChatGPT export is the separate file `D:\WARDER-PICONS-PENDING.zip` and is not a workspace root.
+- No automatic production publication is performed.
 
-The source-tree `SPUSTI-WARDER.cmd` remains a developer launcher. The one-file
-Windows CMD is generated only by the Windows build job after its tests and
-native GUI smoke test succeed. The job uploads it as a seven-day Actions
-artifact, not as a public release.
+## GUI
 
-## Source folders and safety
+The GUI provides Dashboard, Sources, Master Registry, Candidates, Graphics Engine, QA, Exceptions, Finalization, Settings, and Diagnostics. Settings displays the live, read-only 13-folder inventory and preflight result. The dashboard shows counts from the selected workspace; source inventory counting runs off the Tk event thread. Exceptions are reviewed in pages of ten with available image previews. The Windows UI uses Segoe UI, DPI-aware scaling, resizable tables, and horizontal/vertical scrolling.
 
-The engine creates its own source, original, work, report and output
-directories under `WARDER_PICON_FACTORY_ROOT`. Imported originals and
-Master Registry are not overwritten by this launcher. Review decisions
-and local NEW-CANDIDATES are not production publication approval.
+## Verification status
 
-## Integrated GUI
-
-The desktop window has Dashboard, Sources, Master Registry, Candidates, QA,
-Exceptions, Settings, and Diagnostics sections. Panels read actual run reports,
-checkpoints, review decisions, and local output. Exceptions are reviewed in
-pages of ten with previews of available variants. Large source-tree counting
-runs off the Tk event thread. A safe-stop action waits for the current bounded
-download or atomic operation, stops scheduling work, and skips local
-finalization of a cancelled run. Closing during a run offers the same safe
-stop-and-close behavior.
-
-## Verification
-
-- Python compile check and local Linux regression/integration suite: 143 tests passed, including the real 7z extractor using an isolated fixture archive.
-- Live Vhannibal Motor archive: SHA-256 verified; 13,961 PNGs imported into a temporary workspace; a real sample rendered to all three variants and passed QA.
-- Live OpenATV 8 SRP archive: feed SHA-256 verified; 30,047 PNGs imported into a temporary workspace; a real sample rendered to all three variants and passed QA.
-- Live Chocholousek public page: 49 current archive links discovered. No provider archive was downloaded because the user's active satellite positions are unknown; Settings requires an explicit selection. The 7z extractor, archive validation, and PNG import were exercised end-to-end with a generated archive fixture.
-- A persisted 5,877-item review queue loaded with all records intact. The user's historical queue and full production dataset were not available in this workspace.
-- Native Windows build and GUI smoke test require the Windows Actions run for the commit containing these changes; installation on the user's own PC is not observable here.
-
-## Safety boundaries
-
-The app does not push, merge, release, delete source originals, overwrite production assets, or reassign Warder IDs. Publication utilities only create draft manifests. Any later GitHub publication remains a separate operation requiring explicit authorization.
+Local and CI tests use synthetic workspaces, never user files. They verify the exact 13-folder mapping, read-only preflight, file hashes before and after inventory, import through render/QA/review/finalization, existing-file protection, and repeat-run behavior. This development environment cannot inspect the user's D: drive; only the app's on-device preflight can inventory it.

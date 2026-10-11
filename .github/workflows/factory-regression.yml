@@ -34,6 +34,43 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Create disposable synthetic D drive workspace
+        shell: pwsh
+        run: |
+          $root = 'D:\WARDER-PICON-FACTORY'
+          if (Test-Path -LiteralPath $root) { throw "Refusing to modify existing runner workspace: $root" }
+          New-Item -ItemType Directory -Path $root | Out-Null
+          foreach ($name in @('00-STATE','01-SOURCES','02-ORIGINALS','03-REGISTRY','04-WORK','05-QA','06-OUTPUT','07-PUBLISH-STAGING','08-REPORTS','09-LOGS','10-TOOLS','11-APP','12-ARCHIVE')) {
+            New-Item -ItemType Directory -Path (Join-Path $root $name) | Out-Null
+          }
+          Set-Content -LiteralPath (Join-Path $root '11-APP\.ci-synthetic-root') -Value 'Disposable GitHub Actions fixture'
+          $preserve = @(
+            @{ Path='00-STATE\vhannibal-state.json'; Content='{"status":"updated","imported_png":4}' },
+            @{ Path='01-SOURCES\LOCAL-INBOX\existing-source.zip'; Content='synthetic-archive' },
+            @{ Path='02-ORIGINALS\origin.png'; Content='immutable-original' },
+            @{ Path='03-REGISTRY\warder-master-registry.json'; Content='approved-registry' },
+            @{ Path='04-WORK\candidate.png'; Content='work-candidate' },
+            @{ Path='05-QA\review-decisions.json'; Content='{"schema":1,"decisions":{}}' },
+            @{ Path='06-OUTPUT\existing-approved.png'; Content='approved-output' },
+            @{ Path='11-APP\.factory-data\chocholousek-positions.json'; Content='{"schema":1,"positions":["13.0E"]}' },
+            @{ Path='12-ARCHIVE\history.dat'; Content='historical-data' }
+          )
+          $inventory = @()
+          foreach ($entry in $preserve) {
+            $file = Join-Path $root $entry.Path
+            New-Item -ItemType Directory -Path (Split-Path -Parent $file) -Force | Out-Null
+            Set-Content -LiteralPath $file -Value $entry.Content -NoNewline
+            $inventory += @{ Path=$entry.Path; Sha256=(Get-FileHash -Algorithm SHA256 -LiteralPath $file).Hash }
+          }
+          $oldApp = Join-Path $root '11-APP\WARDER-PICON-FACTORY'
+          New-Item -ItemType Directory -Path $oldApp | Out-Null
+          Set-Content -LiteralPath (Join-Path $oldApp 'preinstall-unknown-file.txt') -Value 'preserve prior app payload'
+          $inventory += @{ Path='11-APP\WARDER-PICON-FACTORY\preinstall-unknown-file.txt'; PreviousApp=$true; Sha256=(Get-FileHash -Algorithm SHA256 -LiteralPath (Join-Path $oldApp 'preinstall-unknown-file.txt')).Hash }
+          $inventory | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $env:RUNNER_TEMP 'factory-preserve-hashes.json')
+          $queue = @{ schema=1; count=0; items=@(); workstream_counts=@{IDENTITY_VERIFICATION=0; ARTWORK_REVIEW=0; TECHNICAL_QA=0} }
+          $queueDir = Join-Path $root '05-QA\EXCEPTIONS'
+          New-Item -ItemType Directory -Path $queueDir -Force | Out-Null
+          $queue | ConvertTo-Json -Depth 4 | Set-Content -LiteralPath (Join-Path $queueDir 'review-queue-ci.json')
       - name: Install Factory dependencies
         run: python -m pip install -r factory/app/requirements-runtime.txt
       - name: Install Windows executable packager
@@ -58,7 +95,6 @@ jobs:
         env:
           WARDER_GUI_SMOKE_TEST: "1"
           WARDER_GUI_SMOKE_READY_FILE: ${{ runner.temp }}\factory-gui-ready.txt
-          WARDER_PICON_FACTORY_ROOT: ${{ runner.temp }}\factory-gui-smoke
         run: |
           Remove-Item $env:WARDER_GUI_SMOKE_READY_FILE -Force -ErrorAction SilentlyContinue
           $proc = Start-Process -FilePath "dist/WARDER-PICON-FACTORY.exe" -PassThru
@@ -84,13 +120,12 @@ jobs:
         env:
           WARDER_GUI_SMOKE_TEST: "1"
           WARDER_GUI_SMOKE_READY_FILE: ${{ runner.temp }}\factory-cmd-ready.txt
-          WARDER_PICON_FACTORY_ROOT: ${{ runner.temp }}\factory-cmd-smoke
         run: |
           Remove-Item $env:WARDER_GUI_SMOKE_READY_FILE -Force -ErrorAction SilentlyContinue
           $launcher = Join-Path $env:GITHUB_WORKSPACE 'SPUSTI-WARDER-PICON-FACTORY.cmd'
           $proc = Start-Process -FilePath $env:ComSpec -ArgumentList @('/c', "`"$launcher`"") -PassThru -Wait
           if ($proc.ExitCode -ne 0) {
-            $log = Join-Path $env:LOCALAPPDATA 'WARDER-PICON-FACTORY\launcher.log'
+            $log = 'D:\WARDER-PICON-FACTORY\09-LOGS\installer.log'
             if (Test-Path $log) { Get-Content $log }
             throw "One-click CMD failed with exit code $($proc.ExitCode)"
           }
@@ -101,11 +136,31 @@ jobs:
           }
           if (-not $ready) { throw "One-click CMD did not install and launch the GUI" }
           $version = python -c "import json;print(json.load(open('factory/app/.factory-version.json'))['version'])"
-          $installed = Join-Path $env:LOCALAPPDATA "WARDER-PICON-FACTORY\app-$version\WARDER-PICON-FACTORY.exe"
+          $installed = 'D:\WARDER-PICON-FACTORY\11-APP\WARDER-PICON-FACTORY\WARDER-PICON-FACTORY.exe'
           if (-not (Test-Path $installed)) { throw "One-click CMD did not install the executable" }
+          $inventory = Get-Content (Join-Path $env:RUNNER_TEMP 'factory-preserve-hashes.json') | ConvertFrom-Json
+          foreach ($entry in $inventory) {
+            if ($entry.PreviousApp) { continue }
+            $file = Join-Path 'D:\WARDER-PICON-FACTORY' $entry.Path
+            if (-not (Test-Path -LiteralPath $file)) { throw "Installer removed existing data: $($entry.Path)" }
+            $actual = (Get-FileHash -Algorithm SHA256 -LiteralPath $file).Hash
+            if ($actual -ne $entry.Sha256) { throw "Installer modified existing data: $($entry.Path)" }
+          }
+          $oldCopy = Get-ChildItem 'D:\WARDER-PICON-FACTORY\11-APP' -Directory -Filter 'WARDER-PICON-FACTORY.previous-*' | Select-Object -First 1
+          if (-not $oldCopy -or -not (Test-Path (Join-Path $oldCopy.FullName 'preinstall-unknown-file.txt'))) { throw "Installer failed to retain the previous application directory" }
+          $oldFile = Join-Path $oldCopy.FullName 'preinstall-unknown-file.txt'
+          $expectedOld = ($inventory | Where-Object { $_.PreviousApp } | Select-Object -First 1).Sha256
+          if ((Get-FileHash -Algorithm SHA256 -LiteralPath $oldFile).Hash -ne $expectedOld) { throw "Installer modified unknown prior app data" }
       - name: Upload one-click Windows application (not a release)
         uses: actions/upload-artifact@v4
         with:
           name: WARDER-PICON-FACTORY-ONE-CLICK
           path: SPUSTI-WARDER-PICON-FACTORY.cmd
           retention-days: 7
+      - name: Remove disposable synthetic workspace
+        if: always()
+        shell: pwsh
+        run: |
+          $root = 'D:\WARDER-PICON-FACTORY'
+          $marker = Join-Path $root '11-APP\.ci-synthetic-root'
+          if (Test-Path -LiteralPath $marker) { Remove-Item -LiteralPath $root -Recurse -Force }

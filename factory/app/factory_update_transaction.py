@@ -8,6 +8,7 @@ import os
 from pathlib import Path
 import shutil
 import time
+import uuid
 
 from factory_update_activate import activate_staged, ActivationError
 
@@ -60,13 +61,13 @@ def resolve(app, *, gui_ready=False):
     if previous and (previous.parent != app.parent or not previous.name.startswith(app.name + '.previous-')):
         raise ActivationError('Unsafe rollback location')
     if gui_ready:
-        if previous and previous.is_dir():
-            shutil.rmtree(previous)
+        # Keep the superseded app build in 11-APP; only discard transaction metadata.
         state.unlink()
         return 'confirmed'
     if previous and previous.is_dir():
         if app.exists():
-            shutil.rmtree(app)
+            failed = app.with_name(app.name + '.failed-' + uuid.uuid4().hex)
+            os.replace(app, failed)
         os.replace(previous, app)
         state.unlink()
         return 'rolled_back'

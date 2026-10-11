@@ -14,14 +14,14 @@ BRANCH = 'factory-warder-development'
 MAX_PNG = 2 * 1024 * 1024
 PNG_SIGNATURE = b'\x89PNG\r\n\x1a\n'
 
-def upload_png_evidence(report_dir, *, opener=None, state_path=None, max_attempts=None):
+def upload_png_evidence(report_dir, *, opener=None, state_path=None, max_attempts=None, legacy_report_dir=None):
     """Send every eligible distinct referenced PNG; only successful responses count."""
     from review_ui import latest_review
     from review_queue import load_review_queue
     token = os.environ.get('WARDER_DIAGNOSTICS_TOKEN', '').strip()
     if not token:
         return {'status': 'not_configured', 'sent': 0, 'attempted': 0}
-    review_path = latest_review(Path(report_dir))
+    review_path = latest_review(Path(report_dir), *([legacy_report_dir] if legacy_report_dir else []))
     if not review_path:
         return {'status': 'no_review', 'sent': 0, 'attempted': 0}
     queue = load_review_queue(review_path)

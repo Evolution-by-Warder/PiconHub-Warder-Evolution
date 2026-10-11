@@ -6,20 +6,26 @@ from review_queue import load_review_queue
 from review_decisions import record_decision
 
 
-def latest_review(report_dir):
-    files = sorted(Path(report_dir).glob('review-queue-*.json'), reverse=True)
+def latest_review(report_dir, *fallback_dirs):
+    files = []
+    for folder in (report_dir, *fallback_dirs):
+        try:
+            files.extend(Path(folder).glob('review-queue-*.json'))
+        except OSError:
+            continue
+    files = sorted(files, key=lambda p: (p.stat().st_mtime_ns, p.name) if p.exists() else (0, p.name), reverse=True)
     return files[0] if files else None
 
 
 class ReviewWindow(tk.Toplevel):
-    def __init__(self, parent, report_dir, ledger_path, output_dir=None):
+    def __init__(self, parent, report_dir, ledger_path, output_dir=None, legacy_report_dir=None):
         super().__init__(parent)
         self.title('WARDER — výnimky vyžadujúce rozhodnutie')
         self.geometry('1280x800')
         self.ledger_path = Path(ledger_path)
         self.output_dir = Path(output_dir) if output_dir else None
         self._photos = []
-        path = latest_review(report_dir)
+        path = latest_review(report_dir, *([legacy_report_dir] if legacy_report_dir else []))
         self.items = load_review_queue(path)['items'] if path else []
         self.pending = [i for i in self.items if i.get('decision', 'PENDING') == 'PENDING']
         self.visible = list(self.pending)

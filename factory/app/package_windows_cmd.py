@@ -14,11 +14,38 @@ OFFSET_MARKER = 'set "WARDER_PAYLOAD_OFFSET=0000000000"'
 PS_MARKER = '__PS_INSTALL_CODE__'
 
 _INSTALL_SCRIPT = r'''$ErrorActionPreference='Stop'
+$workspace='D:\WARDER-PICON-FACTORY'
+$required=@('00-STATE','01-SOURCES','02-ORIGINALS','03-REGISTRY','04-WORK','05-QA','06-OUTPUT','07-PUBLISH-STAGING','08-REPORTS','09-LOGS','10-TOOLS','11-APP','12-ARCHIVE')
+$missing=@()
+if (-not (Test-Path -LiteralPath $workspace -PathType Container)) {
+  Write-Host ('WARDER read-only preflight failed. No workspace files were changed. Root is unavailable: '+$workspace)
+  exit 3
+}
+$rootItem=Get-Item -LiteralPath $workspace -Force
+if (($rootItem.Attributes -band [IO.FileAttributes]::ReparsePoint) -ne 0) {
+  Write-Host ('WARDER read-only preflight failed. No workspace files were changed. Root is a reparse point: '+$workspace)
+  exit 3
+}
+foreach($name in $required) {
+  $path=Join-Path $workspace $name
+  if (-not (Test-Path -LiteralPath $path -PathType Container)) { $missing += $name; continue }
+  $item=Get-Item -LiteralPath $path -Force
+  if (($item.Attributes -band [IO.FileAttributes]::ReparsePoint) -ne 0) { $missing += ($name+' (reparse point)') }
+  try {
+    Get-ChildItem -LiteralPath $path -Force -Recurse -ErrorAction Stop | ForEach-Object {
+      if (($_.Attributes -band [IO.FileAttributes]::ReparsePoint) -ne 0) { $missing += ($name+' contains reparse point '+$_.FullName) }
+    }
+  } catch { $missing += ($name+' (unreadable: '+$_.Exception.GetType().Name+')') }
+}
+if ($missing.Count -gt 0) {
+  Write-Host ('WARDER read-only preflight failed. No workspace files were changed. Missing or unsafe: '+($missing -join ', '))
+  exit 3
+}
 $root=$env:WARDER_APP_DIR
 $stage=$root+'.stage-'+[guid]::NewGuid().ToString('N')
 $zip=Join-Path $env:TEMP ('warder-factory-'+[guid]::NewGuid().ToString('N')+'.zip')
+$previous=$null
 try {
-  New-Item -ItemType Directory -Path (Split-Path -Parent $root) -Force | Out-Null
   New-Item -ItemType Directory -Path $stage -Force | Out-Null
   $src=[IO.File]::OpenRead($env:WARDER_CMD_FILE)
   try {
@@ -32,12 +59,15 @@ try {
   try { $actual=([BitConverter]::ToString($sha.ComputeHash([IO.File]::ReadAllBytes($new)))).Replace('-','').ToLowerInvariant() } finally { $sha.Dispose() }
   if ($actual -ne $env:WARDER_SHA256) { throw 'Factory executable SHA-256 mismatch' }
   if (Test-Path -LiteralPath $root) {
-    Move-Item -LiteralPath $root -Destination ($root+'.previous-'+[guid]::NewGuid().ToString('N'))
+    $previous=$root+'.previous-'+[guid]::NewGuid().ToString('N')
+    Move-Item -LiteralPath $root -Destination $previous
   }
   Move-Item -LiteralPath $stage -Destination $root
 } catch {
-  New-Item -ItemType Directory -Path $env:WARDER_LOG_DIR -Force | Out-Null
   [IO.File]::AppendAllText($env:WARDER_LOG,((Get-Date -Format o)+' '+$_.Exception.Message+[Environment]::NewLine))
+  if ($previous -and (Test-Path -LiteralPath $previous) -and -not (Test-Path -LiteralPath $root)) {
+    Move-Item -LiteralPath $previous -Destination $root
+  }
   exit 1
 } finally {
   if (Test-Path -LiteralPath $zip) { Remove-Item -LiteralPath $zip -Force }
@@ -56,25 +86,25 @@ set "WARDER_VERSION=__VERSION__"
 set "WARDER_SHA256=__SHA256__"
 set "WARDER_PAYLOAD_OFFSET=0000000000"
 set "WARDER_CMD_FILE=%~f0"
-set "WARDER_APP_DIR=%LOCALAPPDATA%\WARDER-PICON-FACTORY\app-%WARDER_VERSION%"
+set "WARDER_PICON_FACTORY_ROOT=D:\WARDER-PICON-FACTORY"
+set "WARDER_APP_DIR=%WARDER_PICON_FACTORY_ROOT%\11-APP\WARDER-PICON-FACTORY"
 set "WARDER_EXE=%WARDER_APP_DIR%\WARDER-PICON-FACTORY.exe"
-set "WARDER_LOG_DIR=%LOCALAPPDATA%\WARDER-PICON-FACTORY"
-set "WARDER_LOG=%WARDER_LOG_DIR%\launcher.log"
-set "WARDER_PICON_FACTORY_ROOT=%USERPROFILE%\WARDER-PICONS"
+set "WARDER_LOG_DIR=%WARDER_PICON_FACTORY_ROOT%\09-LOGS"
+set "WARDER_LOG=%WARDER_LOG_DIR%\installer.log"
 if not exist "%WARDER_EXE%" goto install
 for /f "usebackq delims=" %%H in (`certutil -hashfile "%WARDER_EXE%" SHA256 ^| findstr /r /v "^CertUtil ^SHA256 ^$"`) do set "WARDER_CURRENT_SHA=%%H"
 set "WARDER_CURRENT_SHA=%WARDER_CURRENT_SHA: =%"
 if /i "%WARDER_CURRENT_SHA%"=="%WARDER_SHA256%" goto launch
 :install
-if not exist "%WARDER_LOG_DIR%" mkdir "%WARDER_LOG_DIR%" >nul 2>&1
 powershell.exe -NoLogo -NoProfile -NonInteractive -ExecutionPolicy Bypass -WindowStyle Hidden -EncodedCommand __PS_INSTALL_CODE__
 if errorlevel 1 goto failed
 :launch
-if not exist "%WARDER_PICON_FACTORY_ROOT%" mkdir "%WARDER_PICON_FACTORY_ROOT%" >nul 2>&1
 start "" "%WARDER_EXE%"
 exit /b 0
 :failed
-echo WARDER PICON FACTORY could not start. See "%WARDER_LOG%".
+echo WARDER PICON FACTORY installer stopped. Read-only preflight must find the original D:\WARDER-PICON-FACTORY structure. No fallback root was created.
+if exist "%WARDER_LOG%" echo Installer diagnostic: "%WARDER_LOG%"
+pause
 exit /b 1
 exit /b 0
 :: WARDER-PICON-FACTORY-PAYLOAD

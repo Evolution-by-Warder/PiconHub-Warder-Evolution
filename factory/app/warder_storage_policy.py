@@ -7,11 +7,15 @@ import hashlib
 import os
 import shutil
 import tempfile
+from workspace_paths import verify_required_directories
 
 
 class StoragePolicy:
     def __init__(self, root):
         self.root = Path(root).resolve()
+        ok, findings = verify_required_directories(self.root)
+        if not ok:
+            raise PermissionError('Read-only workspace preflight failed; finalization is blocked: ' + '; '.join(findings))
         self.work = self.root / '04-WORK' / 'PICONS'
         self.final = self.root / '06-OUTPUT' / 'PICONS'
 

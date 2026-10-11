@@ -4,10 +4,12 @@ from pathlib import Path
 import subprocess
 import sys
 import tempfile
+from workspace_paths import resolve_root, workspace_paths, read_only_preflight
 
-ROOT = Path(os.environ.get('WARDER_PICON_FACTORY_ROOT', 'D:/WARDER-PICON-FACTORY' if os.name == 'nt' else str(Path.home() / 'WARDER-PICONS')))
-APP = ROOT / '11-APP' / 'WARDER-PICON-FACTORY'
-LOG = ROOT / '08-REPORTS' / 'factory-launch.log'
+ROOT = resolve_root()
+_PATHS = workspace_paths(ROOT)
+APP = _PATHS['app']
+LOG = _PATHS['logs'] / 'factory-launch.log'
 
 
 def app_command(app=APP, python=sys.executable):
@@ -22,7 +24,8 @@ def launch(app=APP, python=sys.executable, log=LOG, *, runner=subprocess.run):
     log = Path(log)
     log.parent.mkdir(parents=True, exist_ok=True)
     env = os.environ.copy()
-    env['WARDER_PICON_FACTORY_ROOT'] = str(ROOT)
+    if os.name != 'nt':
+        env['WARDER_PICON_FACTORY_ROOT'] = str(ROOT)
     with log.open('a', encoding='utf-8') as out:
         out.write('Launching Factory (no unverified update is installed)\n')
         out.flush()
@@ -38,7 +41,8 @@ def launch_with_recovery(app=APP, python=sys.executable, log=LOG, *, timeout=20)
     with tempfile.TemporaryDirectory(prefix='.factory-launch-', dir=log.parent) as temporary:
         marker = Path(temporary) / 'gui-ready'
         env = os.environ.copy()
-        env['WARDER_PICON_FACTORY_ROOT'] = str(ROOT)
+        if os.name != 'nt':
+            env['WARDER_PICON_FACTORY_ROOT'] = str(ROOT)
         env['WARDER_FACTORY_GUI_READY_FILE'] = str(marker)
         with log.open('a', encoding='utf-8') as out:
             if not (app / 'engine.py').is_file():
@@ -82,10 +86,12 @@ def launch_with_recovery(app=APP, python=sys.executable, log=LOG, *, timeout=20)
 
 def main():
     from factory_single_instance import exclusive_launcher, AlreadyRunning
+    preflight = read_only_preflight(ROOT)
+    if not preflight.ok:
+        print('WARDER FACTORY read-only preflight blocked writes: ' + '; '.join(preflight.findings), file=sys.stderr)
+        return 1
     try:
         with exclusive_launcher(ROOT / '11-APP' / '.factory-launch.lock'):
-            from factory_persistent_data import migrate
-            migrate(APP, ROOT / '11-APP' / '.factory-data')
             def log_update(message):
                 LOG.parent.mkdir(parents=True, exist_ok=True)
                 with LOG.open('a', encoding='utf-8') as stream:
