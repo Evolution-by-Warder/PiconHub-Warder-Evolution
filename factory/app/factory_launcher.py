@@ -4,7 +4,7 @@ from pathlib import Path
 import subprocess
 import sys
 import tempfile
-from workspace_paths import resolve_root, workspace_paths, read_only_preflight
+from workspace_paths import resolve_root, workspace_paths, verify_required_directories
 
 ROOT = resolve_root()
 _PATHS = workspace_paths(ROOT)
@@ -86,9 +86,9 @@ def launch_with_recovery(app=APP, python=sys.executable, log=LOG, *, timeout=20)
 
 def main():
     from factory_single_instance import exclusive_launcher, AlreadyRunning
-    preflight = read_only_preflight(ROOT)
-    if not preflight.ok:
-        print('WARDER FACTORY read-only preflight blocked writes: ' + '; '.join(preflight.findings), file=sys.stderr)
+    structure_ok, findings = verify_required_directories(ROOT)
+    if not structure_ok:
+        print('WARDER FACTORY read-only preflight blocked writes: ' + '; '.join(findings), file=sys.stderr)
         return 1
     try:
         with exclusive_launcher(ROOT / '11-APP' / '.factory-launch.lock'):
