@@ -3,6 +3,7 @@ setlocal EnableExtensions
 set "WARDER_PICON_FACTORY_ROOT=D:\WARDER-PICON-FACTORY"
 rem Run the batch interpreter from a stable path OUTSIDE the replaceable APP.
 if not "%WARDER_FACTORY_STABLE_BOOTSTRAP%"=="1" (
+  if not exist "%WARDER_PICON_FACTORY_ROOT%\11-APP" goto :failure
   copy /y "%~f0" "%WARDER_PICON_FACTORY_ROOT%\11-APP\FACTORY-STABLE-START.cmd" >nul
   if errorlevel 1 goto :failure
   set "WARDER_FACTORY_STABLE_BOOTSTRAP=1"
@@ -31,8 +32,8 @@ if not defined PYTHON (
   if errorlevel 1 goto :missing
   winget install --id Python.Python.3.12 --exact --source winget --accept-package-agreements --accept-source-agreements
   if errorlevel 1 goto :missing
-  set "PYTHON=%LOCALAPPDATA%\Programs\Python\Python312\python.exe"
   if not exist "%LOCALAPPDATA%\Programs\Python\Python312\python.exe" goto :missing
+  set "PYTHON=%LOCALAPPDATA%\Programs\Python\Python312\python.exe"
 )
 rem Keep the runtime OUTSIDE the versioned application folder so a full
 rem engine/module update cannot remove the Python interpreter mid-launch.
