@@ -46,3 +46,23 @@ class FinalizationTests(unittest.TestCase):
     def test_missing_qa_proof_is_blocked(self):
         result = finalize_new_candidates([self.row()], {}, self.work, self.final)
         self.assertEqual(result['copied'], 0)
+
+    def test_repeat_is_idempotent(self):
+        first = finalize_new_candidates([self.row()], {}, self.work, self.final, verified_shas={SHA})
+        second = finalize_new_candidates([self.row()], {}, self.work, self.final, verified_shas={SHA})
+        self.assertEqual(first['copied'], 3)
+        self.assertEqual(second['copied'], 0)
+        self.assertEqual(second['already_present'], 1)
+
+    def test_invalid_png_blocks_entire_trio(self):
+        source = self.work / SHA[:2] / SHA / 'white.png'
+        source.write_bytes(b'not a PNG')
+        result = finalize_new_candidates([self.row()], {}, self.work, self.final, verified_shas={SHA})
+        self.assertEqual(result['copied'], 0)
+        self.assertEqual(len(list(self.final.rglob('*.png'))), 0)
+
+    def test_existing_master_identity_is_blocked(self):
+        row = self.row()
+        row['classification'] = 'REVIEW'
+        result = finalize_new_candidates([row], {}, self.work, self.final, verified_shas={SHA})
+        self.assertEqual(result['copied'], 0)
