@@ -1386,7 +1386,12 @@ class App:
    from factory_diagnostics_retry import retry_reports
    results=retry_reports(REPORTS,DATA/'diagnostics-delivered.json',limit=5)
    sent=sum(item['status']=='sent' for item in results)
-   self.emit('diagnostics',f'odoslané {sent}/{len(results)}; neodoslané reporty zostávajú lokálne')
+   failures=[item['report']+': '+item['status'] for item in results if item['status']!='sent']
+   if not results:
+    message='žiadny nový report na odoslanie (alebo už potvrdené doručenie)'
+   else:
+    message=f'potvrdené odoslanie {sent}/{len(results)}; '+('; '.join(failures) if failures else 'všetky úspešne prijaté')
+   self.emit('diagnostics',message)
   except Exception:
    self.emit('diagnostics','failed; local report retained')
  def emit(self,k,v):self.events.put((k,v))
