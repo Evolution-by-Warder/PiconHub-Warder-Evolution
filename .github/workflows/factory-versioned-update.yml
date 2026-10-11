@@ -33,7 +33,7 @@ jobs:
           if [[ -z "$version" ]]; then
             version=$(python -c "import json; print(json.load(open('factory/app/.factory-version.json'))['version'].removeprefix('factory-v'))")
           fi
-          [[ "$version" =~ ^[0-9]+\\.[0-9]+\\.[0-9]+$ ]] || exit 1
+          [[ "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]] || exit 1
           echo "VERSION=$version" >> "$GITHUB_ENV"
       - name: Verify Factory-only source and version
         shell: bash
@@ -82,7 +82,6 @@ jobs:
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
-          VERSION: ${{ inputs.version }}
         run: |
           set -euo pipefail
           tag="factory-v$VERSION"
