@@ -42,6 +42,19 @@ class FactoryDiagnosticsSafety(unittest.TestCase):
             self.assertFalse(sent.exists())
             self.assertTrue(failed.exists())
 
+    def test_old_receipt_cleans_leftover_without_resending(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            folder = Path(tmp)
+            name = 'report-20261011-092600-123.json'
+            (folder / name).write_text('{}')
+            state = folder / 'delivered.json'
+            state.write_text(json.dumps({'schema': 2, 'delivered': [name]}))
+            with patch('factory_diagnostics_retry.upload_report') as upload:
+                result = retry_reports(folder, state)
+            self.assertEqual(result, [])
+            upload.assert_not_called()
+            self.assertFalse((folder / name).exists())
+
     def test_cleanup_preserves_reports_and_review_queues(self):
         with tempfile.TemporaryDirectory() as tmp:
             folder = Path(tmp)
