@@ -28,7 +28,13 @@ if not exist ".venv\Scripts\python.exe" (
 ".venv\Scripts\python.exe" -m pip install --disable-pip-version-check -r "requirements-runtime.txt"
 if errorlevel 1 goto :failure
 if "%WARDER_FACTORY_SETUP_ONLY%"=="1" exit /b 0
-".venv\Scripts\python.exe" "engine.py"
+rem Run the updater in a separate short-lived process BEFORE starting the GUI.
+rem This process exits before launcher starts, so no loaded app module is
+rem replaced in-place while Windows is executing it.
+".venv\Scripts\python.exe" -c "from factory_auto_update import attempt_update; from pathlib import Path; print('FACTORY UPDATE:', attempt_update(Path.cwd(), reporter=print))"
+rem A failed/offline update must not prevent launching the installed Factory.
+rem The launcher validates GUI readiness and rolls back a pending update.
+".venv\Scripts\python.exe" "factory_launcher.py"
 set "EXITCODE=%ERRORLEVEL%"
 if not "%EXITCODE%"=="0" pause
 exit /b %EXITCODE%
