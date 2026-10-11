@@ -122,8 +122,10 @@ def upload_png_evidence(report_dir, *, opener=None, state_path=None, max_attempt
                                 'User-Agent': 'Warder-Picon-Factory'})
                             with (opener or urllib.request.urlopen)(check, timeout=20) as response:
                                 remote_data = json.load(response)
-                            remote_bytes = base64.b64decode(remote_data.get('content', ''), validate=False)
-                            if hashlib.sha256(remote_bytes).hexdigest() == sha:
+                            # GitHub Contents API may omit base64 content for larger PNGs.
+                            # Its blob SHA is a verifiable digest of the exact file bytes.
+                            blob_sha = hashlib.sha1(b'blob ' + str(len(content)).encode('ascii') + b'\\0' + content).hexdigest()
+                            if remote_data.get('sha') == blob_sha:
                                 sent += 1
                                 delivered.add(sha)
                                 state_path.parent.mkdir(parents=True, exist_ok=True)
@@ -139,6 +141,8 @@ def upload_png_evidence(report_dir, *, opener=None, state_path=None, max_attempt
                         except (OSError, ValueError, KeyError, TypeError, urllib.error.HTTPError):
                             pass
                     errors.append('HTTP ' + str(exc.code))
+                    if exc.code == 422:
+                        stop_upload = True
                     # GitHub abuse/secondary limits and authentication failures
                     # must not trigger 20 identical write attempts each minute.
                     if exc.code in (401, 403, 429):
