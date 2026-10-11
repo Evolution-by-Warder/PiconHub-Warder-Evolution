@@ -8,6 +8,7 @@ import os
 import re
 import urllib.request
 import urllib.error
+import hashlib
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -63,6 +64,8 @@ def upload_report(report_path, *, opener=None):
                 return {'status': 'http_error', 'code': response.status}
         return {'status': 'sent', 'run': run}
     except urllib.error.HTTPError as exc:
+        if exc.code == 422:
+            return {'status': 'already_present_or_conflict', 'code': exc.code}
         return {'status': 'http_error', 'code': exc.code}
     except (OSError, ValueError):
         return {'status': 'offline_or_failed'}
