@@ -25,3 +25,8 @@ class TestStartup(unittest.TestCase):
     def test_python_version(self):
         script = Path(__file__).with_name('SPUSTI-WARDER.cmd').read_text()
         self.assertIn('sys.version_info[:2] == (3,12)', script)
+
+    def test_setup_only_failure_is_not_reported_as_success(self):
+        script = Path(__file__).with_name('SPUSTI-WARDER.cmd').read_text()
+        self.assertIn('if errorlevel 1 goto :failure', script)
+        self.assertNotIn('exit /b %ERRORLEVEL%', script)
