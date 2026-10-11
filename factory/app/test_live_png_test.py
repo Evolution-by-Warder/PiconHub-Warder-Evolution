@@ -34,7 +34,7 @@ class LivePngTest(unittest.TestCase):
                 details = json.loads(z.read('live-test-results.json'))
                 self.assertEqual(details['cases'][0]['pixel_result'], 'PIXEL_DIFFERENT')
             sources[0][0].write_bytes(b'not-a-png')
-            result = build_live_test(report)
+            result = build_live_test(report, output_path=root / 'mismatch-evidence.zip')
             self.assertEqual(result['summary'], {'UNDETERMINED': 1})
             with ZipFile(result['output']) as z:
                 details = json.loads(z.read('live-test-results.json'))
@@ -66,6 +66,26 @@ class LivePngTest(unittest.TestCase):
             with ZipFile(result['output']) as archive:
                 cases = json.loads(archive.read('live-test-results.json'))['cases']
             self.assertEqual([c['service_reference'] for c in cases], ['ref-0', 'ref-2'])
+
+
+    def test_existing_evidence_is_never_overwritten(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            variants = []
+            for name in ('openatv8', 'vhannibal'):
+                p = root / 'source-ingest' / 'originals' / name / 'logo.png'
+                p.parent.mkdir(parents=True, exist_ok=True)
+                Image.new('RGBA', (2, 2), (1, 2, 3, 255)).save(p)
+                variants.append({'sha256': hashlib.sha256(p.read_bytes()).hexdigest(),
+                                 'sources': [str(p)]})
+            report = root / 'identity-collisions-test.json'
+            report.write_text(json.dumps({'collisions': [{'variants': variants}]}),
+                              encoding='utf-8')
+            first = build_live_test(report)
+            original = Path(first['output']).read_bytes()
+            with self.assertRaises(FileExistsError):
+                build_live_test(report)
+            self.assertEqual(Path(first['output']).read_bytes(), original)
 
 
 if __name__ == '__main__':
