@@ -81,6 +81,24 @@ def build_live_test(report_path, output_path=None, limit=10):
                     break
         if len(selected) == limit:
             break
+    # Prefer remaining cases with new artwork before repeating known logos.
+    if len(selected) < limit:
+        for complexity in (4, 3, 2):
+            for index, (collision, hashes) in enumerate(eligible):
+                if len(collision.get("variants") or []) != complexity or index in chosen_indices:
+                    continue
+                all_hashes = frozenset(
+                    str(v.get("sha256") or "").lower()
+                    for v in collision.get("variants") or []
+                    if HEX.fullmatch(str(v.get("sha256") or "")))
+                if all_hashes and all_hashes.difference(seen_artwork):
+                    selected.append(collision)
+                    chosen_indices.add(index)
+                    seen_artwork.update(all_hashes)
+                    if len(selected) == limit:
+                        break
+            if len(selected) == limit:
+                break
     if len(selected) < limit:
         for index, (collision, hashes) in enumerate(eligible):
             if index not in chosen_indices:
