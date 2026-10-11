@@ -38,10 +38,35 @@ def upload_png_evidence(report_dir, *, opener=None, state_path=None):
     for item in queue.get('items', []):
         sources = [item.get('original')] + (item.get('source_evidence') or []) + (item.get('variants') or [])
         for entry in sources:
-            source = entry if isinstance(entry, str) else entry.get('source') if isinstance(entry, dict) else None
-            if not isinstance(source, str) or not source:
+            # Identity review variants commonly store their PNG paths under
+            # 'sources', not 'source'. Include all of them without a gallery cap.
+            if isinstance(entry, str):
+                paths = [entry]
+            elif isinstance(entry, dict):
+                paths = [entry.get('source')]
+                nested = entry.get('sources') or []
+                if isinstance(nested, (list, tuple)):
+                    paths.extend(nested)
+            else:
+                paths = []
+            for source in paths:
+                if not isinstance(source, str) or not source:
+                    continue
+                path = Path(source)
+                if path.suffix.lower() != '.png' or path.is_symlink() or not path.is_file():
+                    continue
+                try:
+                    content = path.read_bytes()
+                except OSError:
+                    continue
+                if not (8 <= len(content) <= MAX_PNG) or not content.startswith(PNG_SIGNATURE):
+                    continue
+                # Process this PNG through the existing upload path below.
+                yield_path = path
+                break
+            else:
                 continue
-            path = Path(source)
+            path = yield_path
             if path.suffix.lower() != '.png' or path.is_symlink() or not path.is_file():
                 continue
             try:
