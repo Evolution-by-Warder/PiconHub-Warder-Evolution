@@ -39,7 +39,7 @@ def export_pending(report_dir, output_dir, destination, *, ledger_path=None):
         sources = [item.get('original')] + (item.get('source_evidence') or []) + (item.get('variants') or [])
         for entry in sources:
             source = entry if isinstance(entry, str) else entry.get('source') if isinstance(entry, dict) else None
-            if source:
+            if isinstance(source, str) and source:
                 p = Path(source)
                 if p.is_file() and p.suffix.lower() == '.png' and not p.is_symlink():
                     candidates[str(p.resolve())] = p
