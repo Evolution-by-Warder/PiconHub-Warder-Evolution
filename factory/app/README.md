@@ -56,7 +56,7 @@ stop-and-close behavior.
 
 ## Verification
 
-- Python compile check and local Linux regression/integration suite: 142 tests passed, including the real 7z extractor using an isolated fixture archive.
+- Python compile check and local Linux regression/integration suite: 143 tests passed, including the real 7z extractor using an isolated fixture archive.
 - Live Vhannibal Motor archive: SHA-256 verified; 13,961 PNGs imported into a temporary workspace; a real sample rendered to all three variants and passed QA.
 - Live OpenATV 8 SRP archive: feed SHA-256 verified; 30,047 PNGs imported into a temporary workspace; a real sample rendered to all three variants and passed QA.
 - Live Chocholousek public page: 49 current archive links discovered. No provider archive was downloaded because the user's active satellite positions are unknown; Settings requires an explicit selection. The 7z extractor, archive validation, and PNG import were exercised end-to-end with a generated archive fixture.
