@@ -109,9 +109,12 @@ jobs:
           PY
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          cp factory/update/manifest.json /tmp/factory-release-manifest.json
+          git restore factory/update/manifest.json
           for attempt in 1 2 3 4 5; do
             git fetch origin factory-warder-development
             git checkout -B factory-manifest-write FETCH_HEAD
+            cp /tmp/factory-release-manifest.json factory/update/manifest.json
             git add factory/update/manifest.json
             if git diff --cached --quiet; then
               echo "Manifest already published"
