@@ -32,6 +32,8 @@ def export_pending(report_dir, output_dir, destination, *, ledger_path=None):
         raise ValueError('Export destination must not be a symlink')
     if destination.exists():
         raise FileExistsError('Export already exists: ' + str(destination))
+    if destination.parent.is_symlink():
+        raise ValueError('Export directory must not be a symlink')
     if not destination.parent.is_dir():
         raise FileNotFoundError('Destination disk is not available: ' + str(destination.parent))
     manifest = {'schema': 1, 'review_source': review_path.name,
