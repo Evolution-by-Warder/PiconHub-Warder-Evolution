@@ -7,7 +7,8 @@ if not "%WARDER_FACTORY_STABLE_BOOTSTRAP%"=="1" (
   if errorlevel 1 goto :failure
   set "WARDER_FACTORY_STABLE_BOOTSTRAP=1"
   call "%WARDER_PICON_FACTORY_ROOT%\11-APP\FACTORY-STABLE-START.cmd"
-  exit /b %ERRORLEVEL%
+  if errorlevel 1 exit /b 1
+  exit /b 0
 )
 cd /d "%WARDER_PICON_FACTORY_ROOT%\11-APP\WARDER-PICON-FACTORY"
 if errorlevel 1 goto :failure
