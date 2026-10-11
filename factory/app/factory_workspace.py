@@ -566,8 +566,11 @@ class FactoryWorkspace:
     def _refresh_timer(self):
         if self.root.winfo_exists():
             if not self.app.running and not self.app.export_running:
-                self.refresh_sources(); self.refresh_registry(); self.refresh_graphics(); self.refresh_qa(); self.gallery.reload(); self.refresh_finalization()
-                self._update_summary()
+                # A full source/registry/QA scan walks tens of thousands of files.
+                # Never repeat it every 15 seconds while the operator reviews.
+                # The explicit Obnoviť action and completed runs refresh all data.
+                _, counts = latest_review_counts(self.paths['exceptions'], self.paths['reports'])
+                self._update_summary(counts.get('total', 'bez reportu') if 'error' not in counts else 'CHYBA fronty')
             self.root.after(15000, self._refresh_timer)
 
 
