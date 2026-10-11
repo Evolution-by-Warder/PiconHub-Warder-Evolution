@@ -28,8 +28,10 @@ class PendingExportTests(unittest.TestCase):
     def test_deferred_review_stays_in_export(self):
         with TemporaryDirectory() as directory:
             root = Path(directory)
+            source = root / 'deferred.png'
+            source.write_bytes(b'deferred-evidence')
             item = {'review_id': 'WR-1234567890ABCDEF', 'decision': 'PENDING',
-                    'sha256': 'a' * 64, 'original': ''}
+                    'sha256': 'a' * 64, 'original': str(source)}
             ledger = root / 'decisions.json'
             with patch('review_decisions.evidence_hash', return_value='unchanged'):
                 ledger.write_text(json.dumps({'decisions': {item['review_id']: {
