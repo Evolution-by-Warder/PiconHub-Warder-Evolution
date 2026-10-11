@@ -24,7 +24,7 @@ def retry_reports(report_dir, state_file, limit=5):
             continue
         result = upload_report(path)
         results.append({'report': path.name, 'status': result['status']})
-        if result['status'] in ('sent', 'already_present_or_conflict'):
+        if result['status'] == 'sent':
             delivered.add(path.name)
         elif result['status'] in ('not_configured', 'invalid_configuration'):
             break
