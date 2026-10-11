@@ -5,6 +5,8 @@ uploads remain queued locally. Windows only: other systems use environment varia
 """
 import ctypes
 import os
+import shutil
+import subprocess
 from pathlib import Path
 
 class DATA_BLOB(ctypes.Structure):
@@ -33,6 +35,22 @@ def _transform(data, protect):
     finally:
         kernel.LocalFree(dst.pbData)
 
+def github_cli_token():
+    """Reuse persistent GitHub CLI login, if available, without saving a second token."""
+    gh = shutil.which('gh')
+    if not gh:
+        return ''
+    try:
+        result = subprocess.run([gh, 'auth', 'token', '--hostname', 'github.com'],
+                                capture_output=True, text=True, timeout=12, check=False)
+        if result.returncode == 0:
+            token = result.stdout.strip()
+            if token and not any(char.isspace() for char in token):
+                return token
+    except (OSError, subprocess.TimeoutExpired):
+        pass
+    return ''
+
 def load_token(path):
     configured = os.environ.get('WARDER_DIAGNOSTICS_TOKEN', '').strip()
     if configured:
@@ -40,7 +58,7 @@ def load_token(path):
     try:
         return _transform(Path(path).read_bytes(), False).decode('utf-8').strip()
     except (OSError, UnicodeError, ValueError):
-        return ''
+        return github_cli_token()
 
 def save_token(path, token):
     token = str(token).strip()
