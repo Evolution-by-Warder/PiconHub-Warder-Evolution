@@ -44,6 +44,10 @@ def cleanup_reports(folder, keep_runs=3):
         if run in retained:
             continue
         for path in paths:
+            # Never discard run summaries: they are the local retry source
+            # when optional private GitHub diagnostics delivery fails.
+            if path.name.startswith('report-'):
+                continue
             try:
                 path.unlink()
                 deleted += 1
