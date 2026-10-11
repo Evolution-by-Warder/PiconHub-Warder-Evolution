@@ -20,7 +20,13 @@ def retry_reports(report_dir, state_file, limit=5):
     for path in sorted(folder.glob('report-*.json'), reverse=True):
         if len(results) >= limit:
             break
-        if path.is_symlink() or not path.is_file() or path.name in delivered:
+        if path.is_symlink() or not path.is_file():
+            continue
+        if path.name in delivered:
+            try:
+                path.unlink()
+            except OSError:
+                pass
             continue
         result = upload_report(path)
         results.append({'report': path.name, 'status': result['status']})
