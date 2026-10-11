@@ -1493,6 +1493,12 @@ class App:
       seconds=int(time.monotonic()-self.started_at)
       self.output.insert('end',f'TRVANIE: {seconds//60} min {seconds%60} s\n')
      self._refresh_production_counts()
+     final=s.get('new_candidate_finalization',{})
+     self.output.insert('end','FINÁLNE NEW-CANDIDATES: '+str(final.get('copied',0))+
+       ' PNG zapísaných, '+str(final.get('already_present',0))+
+       ' existujúcich trojíc, '+str(final.get('conflicts',0))+
+       ' konfliktov, '+str(final.get('qa_blocked',0))+
+       ' zablokovaných QA, '+str(final.get('invalid',0))+' neplatných.\\n')
      threading.Thread(target=self._send_diagnostics,args=(path,),daemon=True).start()
      lanes=s.get('review_workstreams',{})
      self.counts_status.set('Čakajúce úlohy: '+str(s.get('review_queue_items','?'))+' | Identita: '+str(lanes.get('IDENTITY_VERIFICATION','?'))+' | Grafika: '+str(lanes.get('ARTWORK_REVIEW','?'))+' | Technické QA: '+str(lanes.get('TECHNICAL_QA','?')))
