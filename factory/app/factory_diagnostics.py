@@ -9,6 +9,7 @@ import os
 import re
 import urllib.request
 import urllib.error
+import base64
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -43,7 +44,6 @@ def upload_report(report_path, *, opener=None):
         return {'status': 'not_configured'}
     if not _ALLOWED.fullmatch(repo):
         return {'status': 'invalid_configuration'}
-    import base64
     report = json.loads(Path(report_path).read_text(encoding='utf-8'))
     payload = sanitized_summary(report)
     run = payload['run']
