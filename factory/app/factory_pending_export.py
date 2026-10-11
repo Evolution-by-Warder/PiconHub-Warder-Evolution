@@ -25,6 +25,8 @@ def export_pending(report_dir, output_dir, destination, *, ledger_path=None):
         pending = [item for item in pending if not (
             item['review_id'] in decisions and
             decisions[item['review_id']].get('evidence_hash') == evidence_hash(item))]
+    if destination.is_symlink():
+        raise ValueError('Export destination must not be a symlink')
     if destination.exists():
         raise FileExistsError('Export already exists: ' + str(destination))
     if not destination.parent.is_dir():
