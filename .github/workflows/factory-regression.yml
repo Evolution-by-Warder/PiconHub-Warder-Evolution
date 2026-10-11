@@ -166,6 +166,8 @@ jobs:
           $oldExeSha = (Get-FileHash -Algorithm SHA256 -LiteralPath $installed).Hash
           $oldProcess = Start-Process -FilePath $installed -ArgumentList '/c "ping 127.0.0.1 -n 40 > nul"' -PassThru -WindowStyle Hidden
           Start-Sleep -Milliseconds 500
+          # The first-install assertion leaves this marker behind; isolate the refusal assertion.
+          Remove-Item $env:WARDER_GUI_SMOKE_READY_FILE -Force -ErrorAction SilentlyContinue
           $env:WARDER_TEST_NO_PAUSE = '1'
           $blockedStdout = Join-Path $env:RUNNER_TEMP 'blocked-update-stdout.txt'
           $blockedStderr = Join-Path $env:RUNNER_TEMP 'blocked-update-stderr.txt'
