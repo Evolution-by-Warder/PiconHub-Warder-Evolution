@@ -86,7 +86,6 @@ def main():
         with exclusive_launcher(ROOT / '11-APP' / '.factory-launch.lock'):
             from factory_persistent_data import migrate
             migrate(APP, ROOT / '11-APP' / '.factory-data')
-            from factory_auto_update import attempt_update
             def log_update(message):
                 LOG.parent.mkdir(parents=True, exist_ok=True)
                 with LOG.open('a', encoding='utf-8') as stream:
