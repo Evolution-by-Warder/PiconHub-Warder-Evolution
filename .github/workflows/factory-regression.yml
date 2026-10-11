@@ -49,3 +49,20 @@ jobs:
           name: warder-picon-factory-test-build
           path: warder-picon-factory-test-build.zip
           retention-days: 7
+
+  windows-smoke:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: factory-warder-development
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install Factory dependencies
+        run: python -m pip install -r factory/app/requirements-runtime.txt
+      - name: Compile Windows Factory source
+        run: python -m compileall -q factory/app
+      - name: Run Factory tests on Windows
+        working-directory: factory/app
+        run: python -m unittest discover -p 'test_*.py' -v
