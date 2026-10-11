@@ -40,6 +40,10 @@ def finalize_new_candidates(matches, qa_issues, work_root, final_root, *, image_
         sha = next(iter(shas))
         if (ref, sha) not in eligible:
             continue
+        # A missing QA result is not a successful QA result.
+        if sha not in qa_issues:
+            result['qa_blocked'] += 1
+            continue
         if qa_issues.get(sha):
             result['qa_blocked'] += 1
             continue
