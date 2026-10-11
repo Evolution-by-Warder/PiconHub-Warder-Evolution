@@ -50,6 +50,8 @@ def export_pending(report_dir, output_dir, destination, *, ledger_path=None):
                     candidates[str(p.resolve())] = p
                 else:
                     manifest['missing'].append({'review_id': item['review_id'], 'variant': variant, 'sha256': sha})
+    if manifest['missing']:
+        raise FileNotFoundError('Export incomplete: %d missing referenced PNG files; original data untouched' % len(manifest['missing']))
     if len(candidates) > MAX_FILES:
         raise ValueError('Too many PNGs for one export')
     fd, temp_name = tempfile.mkstemp(prefix='.warder-pending-', suffix='.zip.tmp', dir=destination.parent)
@@ -68,7 +70,12 @@ def export_pending(report_dir, output_dir, destination, *, ledger_path=None):
         with zipfile.ZipFile(temp_name) as check:
             if check.testzip() is not None:
                 raise ValueError('ZIP integrity verification failed')
-        os.replace(temp_name, destination)
+        # Exclusive creation prevents replacing a ZIP created while the export ran.
+        with open(destination, 'xb') as final, open(temp_name, 'rb') as prepared:
+            import shutil
+            shutil.copyfileobj(prepared, final, length=1024 * 1024)
+            final.flush()
+            os.fsync(final.fileno())
     finally:
         if os.path.exists(temp_name):
             os.unlink(temp_name)
