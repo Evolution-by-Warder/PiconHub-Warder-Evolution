@@ -79,6 +79,26 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw "Unable to read Factory version" }
           python package_windows_cmd.py --exe dist/WARDER-PICON-FACTORY.exe --output ../../SPUSTI-WARDER-PICON-FACTORY.cmd --version $version
           if ($LASTEXITCODE -ne 0) { throw "Unable to build one-click CMD package" }
+      - name: Smoke-test single-CMD install and launch
+        shell: pwsh
+        env:
+          WARDER_GUI_SMOKE_TEST: "1"
+          WARDER_GUI_SMOKE_READY_FILE: ${{ runner.temp }}\factory-cmd-ready.txt
+          WARDER_PICON_FACTORY_ROOT: ${{ runner.temp }}\factory-cmd-smoke
+        run: |
+          Remove-Item $env:WARDER_GUI_SMOKE_READY_FILE -Force -ErrorAction SilentlyContinue
+          $launcher = Join-Path $env:GITHUB_WORKSPACE 'SPUSTI-WARDER-PICON-FACTORY.cmd'
+          $proc = Start-Process -FilePath $env:ComSpec -ArgumentList @('/c', "`"$launcher`"") -PassThru -Wait
+          if ($proc.ExitCode -ne 0) { throw "One-click CMD failed with exit code $($proc.ExitCode)" }
+          $ready = $false
+          for ($i = 0; $i -lt 120; $i++) {
+            if (Test-Path $env:WARDER_GUI_SMOKE_READY_FILE) { $ready = $true; break }
+            Start-Sleep -Milliseconds 500
+          }
+          if (-not $ready) { throw "One-click CMD did not install and launch the GUI" }
+          $version = python -c "import json;print(json.load(open('factory/app/.factory-version.json'))['version'])"
+          $installed = Join-Path $env:LOCALAPPDATA "WARDER-PICON-FACTORY\app-$version\WARDER-PICON-FACTORY.exe"
+          if (-not (Test-Path $installed)) { throw "One-click CMD did not install the executable" }
       - name: Upload one-click Windows application (not a release)
         uses: actions/upload-artifact@v4
         with:
