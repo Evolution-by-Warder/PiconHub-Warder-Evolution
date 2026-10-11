@@ -1768,6 +1768,9 @@ class App:
      self.status.set('Chyba spracovania');self.output.insert('end',v);self.running=False
      self._close_when_ready()
   except queue.Empty:pass
+  if pending_logs:
+   self.output.insert('end','\n'.join(pending_logs)+'\n')
+   self.output.see('end')
   self.root.after(100,self.poll)
 if __name__=='__main__':
  multiprocessing.freeze_support()
