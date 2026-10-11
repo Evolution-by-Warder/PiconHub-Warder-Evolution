@@ -33,7 +33,8 @@ if not exist "%WARDER_RUNTIME%\Scripts\python.exe" (
 )
 if "%WARDER_FACTORY_SETUP_ONLY%"=="1" (
   "%WARDER_RUNTIME%\Scripts\python.exe" -m pip install --disable-pip-version-check -r "requirements-runtime.txt"
-  exit /b %ERRORLEVEL%
+  if errorlevel 1 goto :failure
+  exit /b 0
 )
 rem The updater is a short-lived process with an exclusive Factory lock.
 "%WARDER_RUNTIME%\Scripts\python.exe" "factory_update_bootstrap.py"
