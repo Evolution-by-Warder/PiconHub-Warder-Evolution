@@ -1332,7 +1332,7 @@ class App:
   ttk.Label(frm,text='WARDER PICON FACTORY',font=('Segoe UI',20,'bold')).pack(anchor='w')
   ttk.Label(frm,text='Automatické lokálne spracovanie bez zásahu do originálov a GitHubu').pack(anchor='w',pady=(0,12))
   self.version_label=ttk.Label(frm,text='Nainštalovaná verzia: '+self.installed_version);self.version_label.pack(anchor='w')
-  self.production_label=ttk.Label(frm,text='Finálne uložené PNG: zisťujem...');self.production_label.pack(anchor='w')
+  self.production_label=ttk.Label(frm,text='Lokálne kandidátske PNG (nie publikované): zisťujem...');self.production_label.pack(anchor='w')
   self._refresh_production_counts()
   self.status=tk.StringVar(value='Pripravujem...');ttk.Label(frm,textvariable=self.status,font=('Segoe UI',11)).pack(anchor='w')
   self.counts_status=tk.StringVar(value='Čakajúce úlohy: načítavam report...')
@@ -1378,7 +1378,7 @@ class App:
    self.counts_status.set('Čakajúce úlohy: report nedostupný ('+type(exc).__name__+')')
  def _refresh_production_counts(self):
   counts=final_picon_counts(FINAL_PICONS)
-  self.production_label.configure(text='Finálne uložené PNG: '+str(counts['total'])+' (transparentné '+str(counts['transparent'])+', čierne '+str(counts['black'])+', biele '+str(counts['white'])+', ostatné '+str(counts['other'])+')')
+  self.production_label.configure(text='Lokálne kandidátske PNG (nie publikované): '+str(counts['total'])+' (transparentné '+str(counts['transparent'])+', čierne '+str(counts['black'])+', biele '+str(counts['white'])+', ostatné '+str(counts['other'])+')')
  def _signal_launcher_ready(self):
   marker = os.environ.get("WARDER_FACTORY_GUI_READY_FILE")
   if marker:
