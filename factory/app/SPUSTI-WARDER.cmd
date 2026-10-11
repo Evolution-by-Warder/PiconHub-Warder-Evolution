@@ -48,6 +48,9 @@ if "%WARDER_FACTORY_SETUP_ONLY%"=="1" (
 )
 rem The updater is a short-lived process with an exclusive Factory lock.
 "%WARDER_RUNTIME%\Scripts\python.exe" "factory_update_bootstrap.py"
+rem The updater may replace APP: re-enter the newly activated directory.
+cd /d "%WARDER_PICON_FACTORY_ROOT%\11-APP\WARDER-PICON-FACTORY"
+if errorlevel 1 goto :failure
 rem The release may contain NEW engine modules and NEW runtime dependencies.
 rem Install its requirements only after the update has been staged/activated.
 "%WARDER_RUNTIME%\Scripts\python.exe" -m pip install --disable-pip-version-check -r "requirements-runtime.txt"
