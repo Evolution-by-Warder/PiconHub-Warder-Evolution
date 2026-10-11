@@ -65,7 +65,9 @@ jobs:
           $oldApp = Join-Path $root '11-APP\WARDER-PICON-FACTORY'
           New-Item -ItemType Directory -Path $oldApp | Out-Null
           Set-Content -LiteralPath (Join-Path $oldApp 'preinstall-unknown-file.txt') -Value 'preserve prior app payload'
+          Set-Content -LiteralPath (Join-Path $oldApp 'engine.py') -Value '# synthetic Python source must remain in place' -NoNewline
           $inventory += @{ Path='11-APP\WARDER-PICON-FACTORY\preinstall-unknown-file.txt'; PreviousApp=$true; Sha256=(Get-FileHash -Algorithm SHA256 -LiteralPath (Join-Path $oldApp 'preinstall-unknown-file.txt')).Hash }
+          $inventory += @{ Path='11-APP\WARDER-PICON-FACTORY\engine.py'; PreviousApp=$true; Sha256=(Get-FileHash -Algorithm SHA256 -LiteralPath (Join-Path $oldApp 'engine.py')).Hash }
           Copy-Item -LiteralPath $env:ComSpec -Destination (Join-Path $oldApp 'WARDER-PICON-FACTORY.exe')
           Set-Content -LiteralPath (Join-Path $oldApp 'legacy-workspace-config.json') -Value '{"inbox":"C:\\Users\\PC\\WARDER-PICONS\\01-SOURCES\\LOCAL-INBOX","version":"factory-v1.0.0"}' -NoNewline
           $inventory += @{ Path='11-APP\WARDER-PICON-FACTORY\WARDER-PICON-FACTORY.exe'; PreviousApp=$true; Sha256=(Get-FileHash -Algorithm SHA256 -LiteralPath (Join-Path $oldApp 'WARDER-PICON-FACTORY.exe')).Hash }
@@ -139,6 +141,28 @@ jobs:
           Remove-Item $env:WARDER_GUI_SMOKE_READY_FILE -Force -ErrorAction SilentlyContinue
           $launcher = Join-Path $env:GITHUB_WORKSPACE 'SPUSTI-WARDER-PICON-FACTORY.cmd'
           $installed = 'D:\WARDER-PICON-FACTORY\11-APP\WARDER-PICON-FACTORY\WARDER-PICON-FACTORY.exe'
+          $appDir = Split-Path -Parent $installed
+          $oldExeFixture = Join-Path $env:RUNNER_TEMP 'old-factory-exe-fixture.exe'
+          Remove-Item $env:WARDER_GUI_SMOKE_READY_FILE -Force -ErrorAction SilentlyContinue
+          Move-Item -LiteralPath $installed -Destination $oldExeFixture
+          $firstInstall = Start-Process -FilePath $env:ComSpec -ArgumentList @('/c', "`"$launcher`"") -PassThru -Wait
+          if ($firstInstall.ExitCode -ne 0) { throw "First EXE installation failed with exit code $($firstInstall.ExitCode)" }
+          $ready = $false
+          for ($i = 0; $i -lt 120; $i++) {
+            if (Test-Path $env:WARDER_GUI_SMOKE_READY_FILE) { $ready = $true; break }
+            Start-Sleep -Milliseconds 500
+          }
+          if (-not $ready) { throw "First installation did not launch the packaged GUI" }
+          $firstIdentity = Get-Content $env:WARDER_GUI_SMOKE_READY_FILE -Raw | ConvertFrom-Json
+          if ($firstIdentity.build_commit -ne (git rev-parse HEAD).Trim() -or $firstIdentity.data_root -cne 'D:\WARDER-PICON-FACTORY') { throw "First installation launched an unexpected build or data root" }
+          Start-Sleep -Seconds 2
+          Get-CimInstance Win32_Process -Filter "Name='WARDER-PICON-FACTORY.exe'" | Where-Object { $_.ExecutablePath -ieq $installed } | ForEach-Object { Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue }
+          foreach ($entry in (Get-Content (Join-Path $env:RUNNER_TEMP 'factory-preserve-hashes.json') | ConvertFrom-Json | Where-Object { $_.PreviousApp -and $_.Path -notlike '*WARDER-PICON-FACTORY.exe' })) {
+            $preservedFile = Join-Path 'D:\WARDER-PICON-FACTORY' $entry.Path
+            if (-not (Test-Path -LiteralPath $preservedFile) -or (Get-FileHash -Algorithm SHA256 -LiteralPath $preservedFile).Hash -ne $entry.Sha256) { throw "First installation moved or modified existing Python/app data: $($entry.Path)" }
+          }
+          if (Get-ChildItem -LiteralPath $appDir -File -Filter 'WARDER-PICON-FACTORY.exe.previous-*' -ErrorAction SilentlyContinue) { throw "First installation created a rollback copy for an application that did not exist" }
+          Copy-Item -LiteralPath $oldExeFixture -Destination $installed -Force
           $oldExeSha = (Get-FileHash -Algorithm SHA256 -LiteralPath $installed).Hash
           $oldProcess = Start-Process -FilePath $installed -ArgumentList '/c "ping 127.0.0.1 -n 40 > nul"' -PassThru -WindowStyle Hidden
           Start-Sleep -Milliseconds 500
@@ -188,15 +212,13 @@ jobs:
             $actual = (Get-FileHash -Algorithm SHA256 -LiteralPath $file).Hash
             if ($actual -ne $entry.Sha256) { throw "Installer modified existing data: $($entry.Path)" }
           }
-          $oldCopy = Get-ChildItem 'D:\WARDER-PICON-FACTORY\11-APP' -Directory -Filter 'WARDER-PICON-FACTORY.previous-*' | Select-Object -First 1
-          if (-not $oldCopy -or -not (Test-Path (Join-Path $oldCopy.FullName 'preinstall-unknown-file.txt'))) { throw "Installer failed to retain the previous application directory" }
-          $oldFile = Join-Path $oldCopy.FullName 'preinstall-unknown-file.txt'
-          $expectedOld = ($inventory | Where-Object { $_.PreviousApp } | Select-Object -First 1).Sha256
-          foreach ($entry in ($inventory | Where-Object { $_.PreviousApp })) {
-            $priorFile = Join-Path 'D:\WARDER-PICON-FACTORY\11-APP' ($oldCopy.Name + '\' + (Split-Path $entry.Path -Leaf))
-            if (-not (Test-Path -LiteralPath $priorFile) -or (Get-FileHash -Algorithm SHA256 -LiteralPath $priorFile).Hash -ne $entry.Sha256) { throw "Installer did not preserve prior application data: $($entry.Path)" }
-          }
-          if ((Get-FileHash -Algorithm SHA256 -LiteralPath $oldFile).Hash -ne $expectedOld) { throw "Installer modified unknown prior app data" }
+           $oldExeEntry = $inventory | Where-Object { $_.PreviousApp -and $_.Path -like '*WARDER-PICON-FACTORY.exe' } | Select-Object -First 1
+           $oldExeBackup = Get-ChildItem 'D:\WARDER-PICON-FACTORY\11-APP\WARDER-PICON-FACTORY' -File -Filter 'WARDER-PICON-FACTORY.exe.previous-*' | Select-Object -First 1
+           if (-not $oldExeEntry -or -not $oldExeBackup -or (Get-FileHash -Algorithm SHA256 -LiteralPath $oldExeBackup.FullName).Hash -ne $oldExeEntry.Sha256) { throw "Installer failed to back up the existing executable" }
+           foreach ($entry in ($inventory | Where-Object { $_.PreviousApp -and $_.Path -notlike '*WARDER-PICON-FACTORY.exe' })) {
+             $preservedFile = Join-Path 'D:\WARDER-PICON-FACTORY' $entry.Path
+             if (-not (Test-Path -LiteralPath $preservedFile) -or (Get-FileHash -Algorithm SHA256 -LiteralPath $preservedFile).Hash -ne $entry.Sha256) { throw "Installer moved or modified existing Python/app data: $($entry.Path)" }
+           }
       - name: Smoke-test read-only user diagnostic
         shell: pwsh
         run: |

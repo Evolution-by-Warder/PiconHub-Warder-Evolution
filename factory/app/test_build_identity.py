@@ -37,6 +37,15 @@ class BuildIdentityTests(unittest.TestCase):
         self.assertIn('"data_root":str(ROOT)', engine)
         self.assertIn('"preflight":"ok"', engine)
 
+    def test_factory_release_line_is_monotonic_with_existing_manifest(self):
+        app_version = json.loads((Path(__file__).parent / ".factory-version.json").read_text(encoding="utf-8"))["version"]
+        manifest = json.loads((Path(__file__).parents[0] / "update" / "manifest.json").read_text(encoding="utf-8"))["version"]
+        def numbers(value):
+            return tuple(int(part) for part in value.removeprefix("factory-v").split("."))
+        self.assertEqual(numbers(manifest), (0, 2, 27))
+        self.assertEqual(numbers(app_version), (0, 2, 28))
+        self.assertGreater(numbers(app_version), numbers(manifest))
+
     def test_runtime_modules_do_not_contain_the_disallowed_c_root(self):
         app = Path(__file__).parent
         for name in ("workspace_paths.py", "factory_workspace.py", "engine.py", "factory_launcher.py", "package_windows_cmd.py"):

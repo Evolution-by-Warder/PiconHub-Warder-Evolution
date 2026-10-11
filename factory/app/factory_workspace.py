@@ -11,12 +11,24 @@ import tkinter as tk
 from tkinter import ttk, messagebox
 
 
+_JSON_ERROR = "__factory_load_error__"
+
+
 def _json(path):
+    """Read a JSON object and retain failures so GUI panels never invent zeroes."""
     try:
         value = json.loads(Path(path).read_text(encoding="utf-8"))
-        return value if isinstance(value, dict) else {}
-    except (OSError, ValueError, TypeError):
+        if not isinstance(value, dict):
+            return {_JSON_ERROR: "JSON root is not an object"}
+        return value
+    except FileNotFoundError:
         return {}
+    except (OSError, ValueError, TypeError) as exc:
+        return {_JSON_ERROR: f"{type(exc).__name__}: {exc}"}
+
+
+def _load_error(data):
+    return data.get(_JSON_ERROR) if isinstance(data, dict) else None
 
 
 def latest_json(folder: Path, prefix: str):
@@ -39,26 +51,37 @@ def source_rows(ingest: Path, inbox: Path, source_manifest: Path, chocho_positio
         state = _json(path)
         if not path.exists():
             status, details = "Ešte nesynchronizované", "Checkpoint zatiaľ neexistuje"
+        elif _load_error(state):
+            status, details = "CHYBA načítania", _load_error(state)
         else:
             status = str(state.get("status", "Checkpoint uložený"))
             details = ", ".join(f"{k}: {state[k]}" for k in ("version", "imported", "imported_png", "index_sha1") if k in state) or "Checkpoint je dostupný"
         rows.append((key, status, details, str(path)))
     manifest = _json(source_manifest)
-    rows.append(("Overené voliteľné zdroje", "Nakonfigurované" if manifest.get("sources") else "Nekonfigurované",
-                 f"{len(manifest.get('sources', []))} zdrojov v overenom manifeste" if manifest.get("sources") else "Bez manifestu sa žiadne URL nehádajú", str(source_manifest)))
+    if _load_error(manifest):
+        rows.append(("Overené voliteľné zdroje", "CHYBA načítania", _load_error(manifest), str(source_manifest)))
+    else:
+        rows.append(("Overené voliteľné zdroje", "Nakonfigurované" if manifest.get("sources") else "Nekonfigurované",
+                     f"{len(manifest.get('sources', []))} zdrojov v overenom manifeste" if manifest.get("sources") else "Bez manifestu sa žiadne URL nehádajú", str(source_manifest)))
     positions_file = Path(chocho_positions) if chocho_positions else Path(ingest) / "chocholousek-positions.json"
     position_state = _json(positions_file)
     positions = position_state.get("positions", [])
-    rows.append(("Chocholousek · vybrané pozície", "Vybrané" if positions else "Čaká na výber",
-                 ", ".join(str(value) for value in positions) if positions else "Vyber iba satelitné pozície, ktoré používaš", str(positions_file)))
+    if _load_error(position_state):
+        rows.append(("Chocholousek · vybrané pozície", "CHYBA načítania", _load_error(position_state), str(positions_file)))
+    else:
+        rows.append(("Chocholousek · vybrané pozície", "Vybrané" if positions else "Čaká na výber",
+                     ", ".join(str(value) for value in positions) if positions else "Vyber iba satelitné pozície, ktoré používaš", str(positions_file)))
     snapshot_file = Path(master_snapshot) if master_snapshot else Path(state_dir or ingest) / "master-current-paths.json"
     legacy_snapshot = Path(legacy_state_dir) / "master-current-paths.json" if legacy_state_dir is not None else None
     if not snapshot_file.is_file() and legacy_snapshot is not None and legacy_snapshot.is_file():
         snapshot_file = legacy_snapshot
     snapshot = _json(snapshot_file)
     snapshot_paths = snapshot.get("paths", [])
-    rows.append(("Warder Master snapshot", "Dostupný" if snapshot_paths else "Zatiaľ nestiahnutý",
-                 f"Commit {snapshot.get('commit', 'neznámy')} · {len(snapshot_paths)} schválených ciest" if snapshot_paths else "Predvolené je read-only porovnanie; snapshot vznikne pri spracovaní", str(snapshot_file)))
+    if _load_error(snapshot):
+        rows.append(("Warder Master snapshot", "CHYBA načítania", _load_error(snapshot), str(snapshot_file)))
+    else:
+        rows.append(("Warder Master snapshot", "Dostupný" if snapshot_paths else "Zatiaľ nestiahnutý",
+                     f"Commit {snapshot.get('commit', 'neznámy')} · {len(snapshot_paths)} schválených ciest" if snapshot_paths else "Predvolené je read-only porovnanie; snapshot vznikne pri spracovaní", str(snapshot_file)))
     local = Path(inbox)
     archives = sum(1 for _ in local.rglob("*.zip")) if local.is_dir() else 0
     pngs = sum(1 for _ in local.rglob("*.png")) if local.is_dir() else 0
@@ -70,6 +93,8 @@ def source_rows(ingest: Path, inbox: Path, source_manifest: Path, chocho_positio
 def latest_registry_items(reports: Path):
     path = latest_json(reports, "registry-matches-")
     data = _json(path) if path else {}
+    if _load_error(data):
+        return path, [{_JSON_ERROR: _load_error(data)}]
     return path, data.get("items", []) if isinstance(data.get("items", []), list) else []
 
 
@@ -84,17 +109,31 @@ def latest_master_registry(reports: Path):
 def latest_run_stats(reports: Path):
     path = latest_json(reports, "report-")
     data = _json(path) if path else {}
-    stats = data.get("stats", {})
+    if _load_error(data):
+        return path, {_JSON_ERROR: _load_error(data)}
+    stats = data.get("stats")
+    if path and not isinstance(stats, dict):
+        return path, {_JSON_ERROR: "Report has no valid stats object"}
     return path, stats if isinstance(stats, dict) else {}
 
 
 def finalization_rows(report_dir: Path, ledger_path: Path, legacy_ledger_path: Path | None = None):
     report_path, stats = latest_run_stats(report_dir)
+    if _load_error(stats):
+        error = "CHYBA načítania reportu: " + _load_error(stats)
+        return [("Posledný report", error), ("NEW kandidáti zapísaní", error),
+                ("Trojice už existovali", error), ("Konflikty chránené pred zápisom", error),
+                ("Zablokované QA", error), ("Neplatné kandidáty", error),
+                ("Ručné lokálne finalizácie", "Samostatný audit rozhodnutí môže byť dostupný")]
     final = stats.get("new_candidate_finalization", {})
     final = final if isinstance(final, dict) else {}
     from review_decisions import load_decisions
-    try:ledger = load_decisions(legacy_ledger_path, ledger_path)
-    except (OSError, ValueError, TypeError):ledger = {}
+    ledger_error = None
+    try:
+        ledger = load_decisions(legacy_ledger_path, ledger_path)
+    except (OSError, ValueError, TypeError) as exc:
+        ledger = {}
+        ledger_error = f"{type(exc).__name__}: {exc}"
     finalized = [(review_id, row) for review_id, row in ledger.items()
                  if isinstance(row, dict) and row.get("decision") == "FINALIZED_LOCALLY"]
     rows = [("Posledný report", str(report_path or "Zatiaľ bez reportu")),
@@ -103,7 +142,7 @@ def finalization_rows(report_dir: Path, ledger_path: Path, legacy_ledger_path: P
             ("Konflikty chránené pred zápisom", str(final.get("conflicts", 0))),
             ("Zablokované QA", str(final.get("qa_blocked", 0))),
             ("Neplatné kandidáty", str(final.get("invalid", 0))),
-            ("Ručné lokálne finalizácie", str(len(finalized)))]
+            ("Ručné lokálne finalizácie", "CHYBA načítania: " + ledger_error if ledger_error else str(len(finalized)))]
     rows.extend((f"Audit {review_id}", str(entry.get("note", ""))) for review_id, entry in sorted(finalized))
     return rows
 
@@ -111,7 +150,11 @@ def finalization_rows(report_dir: Path, ledger_path: Path, legacy_ledger_path: P
 def latest_review_counts(reports: Path, *fallback_dirs: Path):
     from review_ui import latest_review
     path = latest_review(reports, *fallback_dirs)
-    data = _json(path) if path else {}
+    if path is None:
+        return None, {"no_report": True}
+    data = _json(path)
+    if _load_error(data):
+        return path, {"error": _load_error(data)}
     lanes = data.get("workstream_counts", {})
     return path, {"total": int(data.get("count", len(data.get("items", [])))), **{
         key: int(lanes.get(key, 0)) for key in ("IDENTITY_VERIFICATION", "ARTWORK_REVIEW", "TECHNICAL_QA")}}
@@ -336,6 +379,10 @@ class FactoryWorkspace:
         query = self.registry_query.get().strip().casefold()
         for tree in (self.registry_tree, self.candidate_tree): tree.delete(*tree.get_children())
         registry_matches = []
+        if _load_error(registry) or (items and _load_error(items[0])):
+            error = _load_error(registry) or _load_error(items[0])
+            self.registry_info.configure(text=f"CHYBA načítania Registry/reportov: {error}")
+            return
         for ref, entries in services.items():
             locations = "; ".join(f"{entry.get('position', '?')} / {entry.get('provider', '?')} / {entry.get('style', '?')}" for entry in entries if isinstance(entry, dict))
             styles = ", ".join(sorted({str(entry.get('style', '?')) for entry in entries if isinstance(entry, dict)}))
@@ -369,6 +416,9 @@ class FactoryWorkspace:
         path = latest_json(self.paths["reports"], "report-")
         data = _json(path) if path else {}
         stats = data.get("stats", {})
+        if _load_error(data):
+            self.qa_info.configure(text="CHYBA načítania QA reportu: " + _load_error(data))
+            return
         if not stats:
             self.qa_info.configure(text="QA report zatiaľ nie je dostupný; po prvom behu sa načítajú jeho skutočné výsledky.")
             return
@@ -379,13 +429,17 @@ class FactoryWorkspace:
     def refresh_graphics(self):
         self.graphics_tree.delete(*self.graphics_tree.get_children())
         path, stats = latest_run_stats(self.paths["reports"])
-        rows = [("Posledný engine report", str(path or "Zatiaľ bez reportu")),
+        if _load_error(stats):
+            rows = [("Posledný engine report", "CHYBA načítania: " + _load_error(stats)),
+                    ("Stav spracovania", "Metriky nie sú dostupné")]
+        else:
+            rows = [("Posledný engine report", str(path or "Zatiaľ bez reportu")),
                 ("Stav spracovania", "Report z reálneho behu je dostupný" if path else "Zatiaľ nespustený"),
                 ("Rozmer", "220 × 132 RGBA PNG"),
                 ("Varianty", "transparent · black · white"),
                 ("Výstup", str(self.paths["output"]))]
-        rows.extend((str(key), json.dumps(value, ensure_ascii=False) if isinstance(value, (dict, list)) else str(value))
-                    for key, value in sorted(stats.items()))
+            rows.extend((str(key), json.dumps(value, ensure_ascii=False) if isinstance(value, (dict, list)) else str(value))
+                        for key, value in sorted(stats.items()))
         for key, value in rows[:self.MAX_TABLE_ROWS]: self.graphics_tree.insert("", "end", values=(key, value))
         self.graphics_info.configure(text=f"Report motora: {path or 'zatiaľ nevznikol'} · metriky {len(rows)} · renderer {'spustený v poslednom behu' if path else 'ešte nebol spustený'}")
 
@@ -410,16 +464,26 @@ class FactoryWorkspace:
         self.app._refresh_production_counts()
         self.refresh_sources(); self.refresh_registry(); self.refresh_graphics(); self.refresh_qa(); self.gallery.reload(); self.refresh_finalization()
         _, counts = latest_review_counts(self.paths["exceptions"], self.paths["reports"])
-        self.app.counts_status.set(f"Fronta: {counts['total']} · identita {counts['IDENTITY_VERIFICATION']} · grafika {counts['ARTWORK_REVIEW']} · technické QA {counts['TECHNICAL_QA']}")
-        self._update_summary(counts["total"])
+        if "error" in counts:
+            message = "CHYBA načítania fronty: " + counts["error"]
+            self.app.counts_status.set(message)
+            self._update_summary(message)
+        elif counts.get("no_report"):
+            self.app.counts_status.set("Fronta: zatiaľ bez uloženého reportu")
+            self._update_summary("bez uloženého reportu")
+        else:
+            self.app.counts_status.set(f"Fronta: {counts['total']} · identita {counts['IDENTITY_VERIFICATION']} · grafika {counts['ARTWORK_REVIEW']} · technické QA {counts['TECHNICAL_QA']}")
+            self._update_summary(counts["total"])
 
     def _update_summary(self, pending=None):
         if pending is None:
             _, counts = latest_review_counts(self.paths["exceptions"], self.paths["reports"])
-            pending = counts["total"]
+            pending = ("CHYBA načítania: " + counts["error"] if "error" in counts else
+                       "bez uloženého reportu" if counts.get("no_report") else counts["total"])
         self.summary.configure(text=f"Zdrojov/checkpointov: {len(self.source_tree.get_children())} · Registry kandidátov: {len(self.registry_tree.get_children())} · Výnimiek na ručné posúdenie: {pending}")
         if hasattr(self, "kpi_vars"):
-            self.kpi_vars["queue"].set(f"{pending:,} čakajúcich položiek".replace(",", " "))
+            self.kpi_vars["queue"].set((f"{pending:,} čakajúcich položiek".replace(",", " ")
+                                        if isinstance(pending, int) else str(pending)))
 
     def save_chocho_positions(self):
         from source_registry import atomic_json

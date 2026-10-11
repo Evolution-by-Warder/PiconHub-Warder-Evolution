@@ -103,6 +103,20 @@ class FactoryWorkspaceTests(unittest.TestCase):
         self.assertEqual(rows["Ručné lokálne finalizácie"], "1")
         self.assertEqual(rows["Audit WR-1234567890123456"], "local QA done")
 
+    def test_corrupt_json_is_reported_instead_of_displaying_false_zero_counts(self):
+        from factory_workspace import finalization_rows, latest_review_counts
+        reports = self.root / "reports"
+        reports.mkdir()
+        bad = reports / "review-queue-bad.json"
+        bad.write_text("{broken", encoding="utf-8")
+        path, counts = latest_review_counts(reports)
+        self.assertEqual(path, bad)
+        self.assertIn("error", counts)
+        self.assertNotIn("total", counts)
+        (reports / "report-bad.json").write_text("{broken", encoding="utf-8")
+        rows = dict(finalization_rows(reports, self.root / "missing-ledger.json"))
+        self.assertIn("CHYBA načítania", rows["NEW kandidáti zapísaní"])
+
     def test_5877_item_queue_loads_without_truncation(self):
         reports = self.root / "reports"
         reports.mkdir()

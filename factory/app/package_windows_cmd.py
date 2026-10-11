@@ -14,16 +14,29 @@ OFFSET_MARKER = 'set "WARDER_PAYLOAD_OFFSET=0000000000"'
 PS_MARKER = '__PS_INSTALL_CODE__'
 
 _INSTALL_SCRIPT = r'''$ErrorActionPreference='Stop'
+$script:LogPath=$env:WARDER_LOG
+function Write-InstallerLog([string]$message) {
+  $line=(Get-Date -Format o)+' '+$message+[Environment]::NewLine
+  foreach($candidate in @($script:LogPath,(Join-Path $env:TEMP 'WARDER-PICON-FACTORY-installer.log'))) {
+    if ([string]::IsNullOrWhiteSpace($candidate)) { continue }
+    try { [IO.File]::AppendAllText($candidate,$line); $script:LogPath=$candidate; return } catch {}
+  }
+}
+Write-InstallerLog 'Installer started'
 $workspace='D:\WARDER-PICON-FACTORY'
 $required=@('00-STATE','01-SOURCES','02-ORIGINALS','03-REGISTRY','04-WORK','05-QA','06-OUTPUT','07-PUBLISH-STAGING','08-REPORTS','09-LOGS','10-TOOLS','11-APP','12-ARCHIVE')
 $missing=@()
 if (-not (Test-Path -LiteralPath $workspace -PathType Container)) {
-  Write-Host ('WARDER read-only preflight failed. No workspace files were changed. Root is unavailable: '+$workspace)
+  $message='WARDER read-only preflight failed. No workspace files were changed. Root is unavailable: '+$workspace
+  Write-InstallerLog $message
+  Write-Host $message
   exit 3
 }
 $rootItem=Get-Item -LiteralPath $workspace -Force
 if (($rootItem.Attributes -band [IO.FileAttributes]::ReparsePoint) -ne 0) {
-  Write-Host ('WARDER read-only preflight failed. No workspace files were changed. Root is a reparse point: '+$workspace)
+  $message='WARDER read-only preflight failed. No workspace files were changed. Root is a reparse point: '+$workspace
+  Write-InstallerLog $message
+  Write-Host $message
   exit 3
 }
 foreach($name in $required) {
@@ -38,13 +51,17 @@ foreach($name in $required) {
   } catch { $missing += ($name+' (unreadable: '+$_.Exception.GetType().Name+')') }
 }
 if ($missing.Count -gt 0) {
-  Write-Host ('WARDER read-only preflight failed. No workspace files were changed. Missing or unsafe: '+($missing -join ', '))
+  $message='WARDER read-only preflight failed. No workspace files were changed. Missing or unsafe: '+($missing -join ', ')
+  Write-InstallerLog $message
+  Write-Host $message
   exit 3
 }
 $root=$env:WARDER_APP_DIR
 $stage=$root+'.stage-'+[guid]::NewGuid().ToString('N')
 $zip=Join-Path $env:TEMP ('warder-factory-'+[guid]::NewGuid().ToString('N')+'.zip')
-$previous=$null
+$installedExe=$null
+$previousExe=$null
+$newInstalled=$false
 function Get-Sha256File([string]$file) {
   $algorithm=[Security.Cryptography.SHA256]::Create()
   try { return ([BitConverter]::ToString($algorithm.ComputeHash([IO.File]::ReadAllBytes($file)))).Replace('-','').ToLowerInvariant() }
@@ -53,6 +70,7 @@ function Get-Sha256File([string]$file) {
 try {
   if (Test-Path -LiteralPath $root) {
     $appItem=Get-Item -LiteralPath $root -Force
+    if (-not $appItem.PSIsContainer) { throw 'Application path exists as a file; refusing replacement' }
     if (($appItem.Attributes -band [IO.FileAttributes]::ReparsePoint) -ne 0) { throw 'Installed application path is a reparse point; refusing replacement' }
     $installedExe=Join-Path $root 'WARDER-PICON-FACTORY.exe'
     if (Test-Path -LiteralPath $installedExe -PathType Leaf) {
@@ -80,27 +98,30 @@ try {
   } finally { $src.Dispose() }
   Expand-Archive -LiteralPath $zip -DestinationPath $stage -Force
   $new=Join-Path $stage 'WARDER-PICON-FACTORY.exe'
-  $sha=[Security.Cryptography.SHA256]::Create()
-  try { $actual=([BitConverter]::ToString($sha.ComputeHash([IO.File]::ReadAllBytes($new)))).Replace('-','').ToLowerInvariant() } finally { $sha.Dispose() }
-  if ($actual -ne $env:WARDER_SHA256) { throw 'Factory executable SHA-256 mismatch' }
-  if (Test-Path -LiteralPath $root) {
-    $previous=$root+'.previous-'+[guid]::NewGuid().ToString('N')
-    Move-Item -LiteralPath $root -Destination $previous
+  $actual=Get-Sha256File $new
+  if ($actual -ne $env:WARDER_SHA256.ToLowerInvariant()) { throw 'Factory executable SHA-256 mismatch' }
+  $metadata=Get-Content -LiteralPath (Join-Path $stage 'factory-payload.json') -Raw | ConvertFrom-Json
+  if ($metadata.version -ne $env:WARDER_VERSION -or $metadata.sha256 -ne $env:WARDER_SHA256.ToLowerInvariant() -or $metadata.executable -ne 'WARDER-PICON-FACTORY.exe') {
+    throw 'Factory payload identity does not match the verified launcher'
   }
-  Move-Item -LiteralPath $stage -Destination $root
-  $installed=Join-Path $root 'WARDER-PICON-FACTORY.exe'
-  $installedHash=Get-Sha256File $installed
+  if (-not (Test-Path -LiteralPath $root)) { New-Item -ItemType Directory -Path $root | Out-Null }
+  $installedExe=Join-Path $root 'WARDER-PICON-FACTORY.exe'
+  if (Test-Path -LiteralPath $installedExe -PathType Leaf) {
+    $previousExe=$installedExe+'.previous-'+[guid]::NewGuid().ToString('N')
+    Move-Item -LiteralPath $installedExe -Destination $previousExe
+  }
+  Move-Item -LiteralPath $new -Destination $installedExe
+  $newInstalled=$true
+  $installedHash=Get-Sha256File $installedExe
   if ($installedHash -ne $env:WARDER_SHA256.ToLowerInvariant()) { throw 'Installed Factory executable does not match the verified package' }
-  [IO.File]::AppendAllText($env:WARDER_LOG,((Get-Date -Format o)+' Installed version '+$env:WARDER_VERSION+' build '+$env:WARDER_BUILD_COMMIT+' SHA256 '+$installedHash+[Environment]::NewLine))
+  Write-InstallerLog ('Installed version '+$env:WARDER_VERSION+' build '+$env:WARDER_BUILD_COMMIT+' SHA256 '+$installedHash)
 } catch {
-  [IO.File]::AppendAllText($env:WARDER_LOG,((Get-Date -Format o)+' '+$_.Exception.Message+[Environment]::NewLine))
-  if ($previous -and (Test-Path -LiteralPath $previous)) {
-    if (Test-Path -LiteralPath $root) {
-      $failed=$root+'.failed-'+[guid]::NewGuid().ToString('N')
-      Move-Item -LiteralPath $root -Destination $failed
-    }
-    Move-Item -LiteralPath $previous -Destination $root
+  Write-InstallerLog ('INSTALLATION FAILED: '+$_.Exception.Message)
+  if ($newInstalled -and $installedExe -and (Test-Path -LiteralPath $installedExe)) {
+    $failedExe=$installedExe+'.failed-'+[guid]::NewGuid().ToString('N')
+    Move-Item -LiteralPath $installedExe -Destination $failedExe
   }
+  if ($previousExe -and (Test-Path -LiteralPath $previousExe)) { Move-Item -LiteralPath $previousExe -Destination $installedExe }
   exit 1
 } finally {
   if (Test-Path -LiteralPath $zip) { Remove-Item -LiteralPath $zip -Force }
@@ -125,6 +146,12 @@ set "WARDER_APP_DIR=%WARDER_PICON_FACTORY_ROOT%\11-APP\WARDER-PICON-FACTORY"
 set "WARDER_EXE=%WARDER_APP_DIR%\WARDER-PICON-FACTORY.exe"
 set "WARDER_LOG_DIR=%WARDER_PICON_FACTORY_ROOT%\09-LOGS"
 set "WARDER_LOG=%WARDER_LOG_DIR%\installer.log"
+set "WARDER_LOG_FALLBACK=%TEMP%\WARDER-PICON-FACTORY-installer.log"
+if exist "%WARDER_LOG_DIR%" (
+  >>"%WARDER_LOG%" echo [%date% %time%] Installer started
+  if errorlevel 1 set "WARDER_LOG=%WARDER_LOG_FALLBACK%"
+) else set "WARDER_LOG=%WARDER_LOG_FALLBACK%"
+>>"%WARDER_LOG%" echo [%date% %time%] Diagnostic log: %WARDER_LOG%
 if not exist "%WARDER_EXE%" goto install
 for /f "usebackq delims=" %%H in (`certutil -hashfile "%WARDER_EXE%" SHA256 ^| findstr /r /v "^CertUtil ^SHA256 ^$"`) do set "WARDER_CURRENT_SHA=%%H"
 set "WARDER_CURRENT_SHA=%WARDER_CURRENT_SHA: =%"
