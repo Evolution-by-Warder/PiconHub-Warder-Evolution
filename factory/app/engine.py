@@ -1320,7 +1320,7 @@ class App:
  def __init__(self):
   self.installed_version=installed_factory_version()
   self.root=tk.Tk();self.root.title('WARDER PICON FACTORY — '+self.installed_version);self.root.geometry('900x550')
-  self.events=queue.Queue();self.running=False;self.export_running=False
+  self.events=queue.Queue();self.running=False;self.export_running=False;self.started_at=None
   frm=ttk.Frame(self.root,padding=18);frm.pack(fill='both',expand=True)
   ttk.Label(frm,text='WARDER PICON FACTORY',font=('Segoe UI',20,'bold')).pack(anchor='w')
   ttk.Label(frm,text='Automatické lokálne spracovanie bez zásahu do originálov a GitHubu').pack(anchor='w',pady=(0,12))
@@ -1391,7 +1391,7 @@ class App:
  def emit(self,k,v):self.events.put((k,v))
  def start(self):
   if self.running or self.export_running:return
-  self.running=True;self.status.set('1/5 · Začínam synchronizáciu')
+  self.running=True;self.started_at=time.monotonic();self.status.set('1/5 · Začínam synchronizáciu')
   def worker():
    try:Factory(self.emit).scan()
    except Exception:self.emit('error',traceback.format_exc())
@@ -1406,6 +1406,9 @@ class App:
     elif k=='done':
      s,path=v;self.status.set('Hotovo · '+str(s['scanned'])+' PNG · QA opravené '+str(s.get('qa_repaired',0))+' · zostáva '+str(s.get('qa_review','?'))+' výnimiek.')
      self.output.insert('end','\nREPORT: '+path+'\n');self.running=False;self.gallery.reload()
+     if self.started_at is not None:
+      seconds=int(time.monotonic()-self.started_at)
+      self.output.insert('end',f'TRVANIE: {seconds//60} min {seconds%60} s\n')
      self._refresh_production_counts()
      threading.Thread(target=self._send_diagnostics,args=(path,),daemon=True).start()
      lanes=s.get('review_workstreams',{})
