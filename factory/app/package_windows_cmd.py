@@ -28,7 +28,8 @@ try {
   } finally { $src.Dispose() }
   Expand-Archive -LiteralPath $zip -DestinationPath $stage -Force
   $new=Join-Path $stage 'WARDER-PICON-FACTORY.exe'
-  $actual=(Get-FileHash -LiteralPath $new -Algorithm SHA256).Hash.ToLowerInvariant()
+  $sha=[Security.Cryptography.SHA256]::Create()
+  try { $actual=([BitConverter]::ToString($sha.ComputeHash([IO.File]::ReadAllBytes($new)))).Replace('-','').ToLowerInvariant() } finally { $sha.Dispose() }
   if ($actual -ne $env:WARDER_SHA256) { throw 'Factory executable SHA-256 mismatch' }
   if (Test-Path -LiteralPath $root) {
     Move-Item -LiteralPath $root -Destination ($root+'.previous-'+[guid]::NewGuid().ToString('N'))

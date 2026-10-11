@@ -30,6 +30,8 @@ class WindowsLauncherPackageTests(unittest.TestCase):
             self.assertIn('$env:WARDER_PAYLOAD_OFFSET', powershell)
             self.assertIn('Expand-Archive', powershell)
             self.assertIn('Factory executable SHA-256 mismatch', powershell)
+            self.assertIn('[Security.Cryptography.SHA256]', powershell)
+            self.assertNotIn('Get-FileHash', powershell)
             payload_path = root / 'payload.zip'
             payload_path.write_bytes(image[offset:])
             with zipfile.ZipFile(payload_path) as payload:
