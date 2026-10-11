@@ -54,3 +54,12 @@ class TestStartup(unittest.TestCase):
         marker = script.index('factory_update_bootstrap.py')
         self.assertIn('cd /d "%WARDER_PICON_FACTORY_ROOT%\\11-APP"', script[:marker])
         self.assertIn('WARDER-PICON-FACTORY\\factory_update_bootstrap.py', script)
+
+    def test_update_is_outside_app_working_directory(self):
+        script = Path(__file__).with_name('SPUSTI-WARDER.cmd').read_text()
+        update = script.index('factory_update_bootstrap.py')
+        self.assertIn('cd /d "%WARDER_PICON_FACTORY_ROOT%\\11-APP"', script[:update])
+
+    def test_installer_checks_external_directory(self):
+        script = Path(__file__).with_name('SPUSTI-WARDER.cmd').read_text()
+        self.assertIn('if not exist "%WARDER_PICON_FACTORY_ROOT%\\11-APP" goto :failure', script)
