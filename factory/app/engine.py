@@ -1329,7 +1329,7 @@ class App:
   self.production_label=ttk.Label(frm,text='Finálne uložené PNG: zisťujem...');self.production_label.pack(anchor='w')
   self._refresh_production_counts()
   self.status=tk.StringVar(value='Pripravujem...');ttk.Label(frm,textvariable=self.status,font=('Segoe UI',11)).pack(anchor='w')
-  self.counts_status=tk.StringVar(value='Čakajúce úlohy: zisťujem...')
+  self.counts_status=tk.StringVar(value='Čakajúce úlohy: načítavam report...')
   ttk.Label(frm,textvariable=self.counts_status,font=('Segoe UI',10,'bold')).pack(anchor='w')
   self.bar=ttk.Progressbar(frm,mode='determinate');self.bar.pack(fill='x',pady=12)
   self.work_area=ttk.Panedwindow(frm, orient='horizontal');self.work_area.pack(fill='both',expand=True)
@@ -1351,8 +1351,25 @@ class App:
    self.root.after(60000,self._scheduled_delivery)
   self.root.after(100,self.poll)
   self.root.after(250,self._signal_launcher_ready)
+  self.root.after(350,self._load_saved_review_counts)
   if os.environ.get("WARDER_GUI_SMOKE_TEST") == "1":
    self.root.after(200, self._signal_smoke_ready)
+ def _load_saved_review_counts(self):
+  try:
+   from review_ui import latest_review
+   from review_queue import load_review_queue
+   path=latest_review(REPORTS)
+   if path is None:
+    self.counts_status.set('Čakajúce úlohy: bez uloženého reportu')
+    return
+   data=load_review_queue(path)
+   lanes=data.get('workstream_counts',{})
+   self.counts_status.set('Čakajúce úlohy: '+str(data['count'])+
+    ' | Identita: '+str(lanes.get('IDENTITY_VERIFICATION',0))+
+    ' | Grafika: '+str(lanes.get('ARTWORK_REVIEW',0))+
+    ' | Technické QA: '+str(lanes.get('TECHNICAL_QA',0)))
+  except (OSError,ValueError,KeyError,TypeError) as exc:
+   self.counts_status.set('Čakajúce úlohy: report nedostupný ('+type(exc).__name__+')')
  def _refresh_production_counts(self):
   counts=final_picon_counts(FINAL_PICONS)
   self.production_label.configure(text='Finálne uložené PNG: '+str(counts['total'])+' (transparentné '+str(counts['transparent'])+', čierne '+str(counts['black'])+', biele '+str(counts['white'])+', ostatné '+str(counts['other'])+')')
