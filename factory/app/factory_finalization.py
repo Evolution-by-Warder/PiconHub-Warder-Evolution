@@ -9,7 +9,7 @@ import hashlib
 STYLES = ('transparent', 'black', 'white')
 
 
-def finalize_new_candidates(matches, qa_issues, work_root, final_root, *, image_class=None):
+def finalize_new_candidates(matches, qa_issues, work_root, final_root, *, verified_shas=None, image_class=None):
     """Copy only one-SHA NEW identities with three validated PNGs.
 
     Returns counters. Existing targets are never replaced, including when their
@@ -18,6 +18,7 @@ def finalize_new_candidates(matches, qa_issues, work_root, final_root, *, image_
     if image_class is None:
         from PIL import Image as image_class
     work_root, final_root = Path(work_root), Path(final_root)
+    verified_shas = set(verified_shas or ())
     by_ref = defaultdict(set)
     eligible = {}
     blocked = set()
@@ -41,7 +42,7 @@ def finalize_new_candidates(matches, qa_issues, work_root, final_root, *, image_
         if (ref, sha) not in eligible:
             continue
         # A missing QA result is not a successful QA result.
-        if sha not in qa_issues:
+        if sha not in verified_shas:
             result['qa_blocked'] += 1
             continue
         if qa_issues.get(sha):
