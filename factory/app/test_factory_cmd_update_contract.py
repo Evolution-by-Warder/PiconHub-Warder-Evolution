@@ -48,3 +48,9 @@ class TestStartup(unittest.TestCase):
         dependencies = script.index('-r "requirements-runtime.txt"', update)
         self.assertLess(update, reenter)
         self.assertLess(reenter, dependencies)
+
+    def test_updater_does_not_hold_app_as_working_directory(self):
+        script = Path(__file__).with_name('SPUSTI-WARDER.cmd').read_text()
+        marker = script.index('factory_update_bootstrap.py')
+        self.assertIn('cd /d "%WARDER_PICON_FACTORY_ROOT%\\11-APP"', script[:marker])
+        self.assertIn('WARDER-PICON-FACTORY\\factory_update_bootstrap.py', script)
