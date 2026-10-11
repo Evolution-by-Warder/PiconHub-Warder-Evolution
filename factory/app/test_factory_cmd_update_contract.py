@@ -40,3 +40,11 @@ class TestStartup(unittest.TestCase):
     def test_external_bootstrap_error_propagates(self):
         script = Path(__file__).with_name('SPUSTI-WARDER.cmd').read_text()
         self.assertIn('if errorlevel 1 exit /b 1', script)
+
+    def test_reenter_app_after_update(self):
+        script = Path(__file__).with_name('SPUSTI-WARDER.cmd').read_text()
+        update = script.index('"factory_update_bootstrap.py"')
+        reenter = script.index('cd /d "%WARDER_PICON_FACTORY_ROOT%', update)
+        dependencies = script.index('-r "requirements-runtime.txt"', update)
+        self.assertLess(update, reenter)
+        self.assertLess(reenter, dependencies)
