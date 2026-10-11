@@ -24,7 +24,7 @@ class FinalizationTests(unittest.TestCase):
         return dict(service_reference=REF, candidate_sha256=sha, classification='NEW')
 
     def test_three_variants(self):
-        result = finalize_new_candidates([self.row()], {}, self.work, self.final)
+        result = finalize_new_candidates([self.row()], {}, self.work, self.final, verified_shas={SHA})
         self.assertEqual(result['copied'], 3)
 
     def test_conflict(self):
