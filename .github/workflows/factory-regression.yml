@@ -1,7 +1,7 @@
 name: Factory regression (no release)
 on:
   push:
-    branches: [factory-update-v0.2.0]
+    branches: [factory-warder-development]
     paths:
       - 'factory/app/**'
       - '.github/workflows/factory-regression.yml'
@@ -14,7 +14,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: factory-update-v0.2.0
+          ref: factory-warder-development
       - name: Install runtime dependencies
         run: |
           sudo apt-get update -qq
