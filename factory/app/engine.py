@@ -1321,6 +1321,7 @@ class App:
   self.installed_version=installed_factory_version()
   self.root=tk.Tk();self.root.title('WARDER PICON FACTORY — '+self.installed_version);self.root.geometry('900x550')
   self.events=queue.Queue();self.running=False;self.export_running=False;self.started_at=None
+  self._delivery_lock=threading.Lock()
   frm=ttk.Frame(self.root,padding=18);frm.pack(fill='both',expand=True)
   ttk.Label(frm,text='WARDER PICON FACTORY',font=('Segoe UI',20,'bold')).pack(anchor='w')
   ttk.Label(frm,text='Automatické lokálne spracovanie bez zásahu do originálov a GitHubu').pack(anchor='w',pady=(0,12))
@@ -1345,7 +1346,7 @@ class App:
   ttk.Button(actions,text='GitHub prenos',command=self.configure_github).pack(side='left',padx=8)
   ttk.Label(frm,text=f'Zdrojové ZIP/PNG: {INBOX}  |  Rozpracované: {OUTPUT}  |  Finálne: {FINAL_PICONS}  |  Reporty: {REPORTS}').pack(anchor='w',pady=8)
   if os.environ.get("WARDER_GUI_SMOKE_TEST") != "1":
-   self.root.after(150,self.start)
+   self.root.after(150,self._resume_pending_delivery)
   self.root.after(100,self.poll)
   self.root.after(250,self._signal_launcher_ready)
   if os.environ.get("WARDER_GUI_SMOKE_TEST") == "1":
@@ -1410,25 +1411,34 @@ class App:
    except (OSError,subprocess.TimeoutExpired):
     self.emit('diagnostics','GitHub prihlásenie sa nepodarilo; dáta zostali lokálne.')
   threading.Thread(target=login_worker,daemon=True).start()
+ def _resume_pending_delivery(self):
+  # A restart must NOT rescan 162k PNG merely to retry GitHub delivery.
+  self.status.set('Pripravené · obnovujem čakajúce odosielanie bez skenovania')
+  threading.Thread(target=self._send_diagnostics,args=(None,),daemon=True).start()
  def _send_diagnostics(self,report_path):
+  if not self._delivery_lock.acquire(blocking=False):
+   self.emit('diagnostics','prenos už prebieha; druhý paralelný prenos nespúšťam')
+   return
   try:
    from factory_github_credentials import load_token
    token=load_token(DATA/'github-upload.dpapi')
-   if token:os.environ['WARDER_DIAGNOSTICS_TOKEN']=token
+   if not token:
+    self.emit('diagnostics','prihlásenie nedostupné; reporty a PNG ponechané lokálne')
+    return
+   os.environ['WARDER_DIAGNOSTICS_TOKEN']=token
    from factory_diagnostics_retry import retry_reports
    results=retry_reports(REPORTS,DATA/'diagnostics-delivered.json',limit=5)
    sent=sum(item['status']=='sent' for item in results)
    failures=[item['report']+': '+item['status'] for item in results if item['status']!='sent']
-   if not results:
-    message='žiadny nový report na odoslanie (alebo už potvrdené doručenie)'
-   else:
-    message=f'potvrdené odoslanie {sent}/{len(results)}; '+('; '.join(failures) if failures else 'všetky úspešne prijaté')
+   message=('potvrdené odoslanie '+str(sent)+'/'+str(len(results))+'; '+('; '.join(failures) if failures else 'všetky prijaté'))
    self.emit('diagnostics',message)
    from factory_png_evidence import upload_png_evidence
-   evidence=upload_png_evidence(REPORTS)
-   self.emit('diagnostics','PNG dôkazy: '+str(evidence['sent'])+'/'+str(evidence['attempted'])+'; stav '+evidence['status'])
-  except Exception:
-   self.emit('diagnostics','failed; local report retained')
+   evidence=upload_png_evidence(REPORTS,max_attempts=20)
+   self.emit('diagnostics','PNG dôkazy: '+str(evidence['sent'])+'/'+str(evidence['attempted'])+'; stav '+evidence['status']+'; zostávajúce sa odošlú pri ďalšom spustení')
+  except Exception as exc:
+   self.emit('diagnostics','prenos nedokončený ('+type(exc).__name__+'); lokálne dáta zachované')
+  finally:
+   self._delivery_lock.release()
  def emit(self,k,v):self.events.put((k,v))
  def start(self):
   if self.running or self.export_running:return
