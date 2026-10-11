@@ -154,6 +154,13 @@ def upload_png_evidence(report_dir, *, opener=None, state_path=None, max_attempt
                     errors.append(('HTTP ' + str(exc.code) + (' ' + detail.strip() if detail.strip() else ''))[:240])
                     if exc.code == 422:
                         stop_upload = True
+                        # Persist rejection across GUI retries. The exact reason is
+                        # shown to the operator, never retry 422 every 60 seconds.
+                        try:
+                            cooldown_path.write_text(json.dumps({'until': time.time() + 3600,
+                                'reason': errors[-1]}), encoding='utf-8')
+                        except OSError:
+                            pass
                     # GitHub abuse/secondary limits and authentication failures
                     # must not trigger 20 identical write attempts each minute.
                     if exc.code in (401, 403, 429):
