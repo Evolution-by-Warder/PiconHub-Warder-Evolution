@@ -630,11 +630,17 @@ class Factory:
    raise PermissionError('Read-only preflight neprešiel; zápis zablokovaný: '+ '; '.join(findings or preflight.findings[-2:]))
   for p in (APP,APP_DATA,INBOX,SOURCE_INGEST,ORIGINALS,REGISTRY,MASTER_ROOT,OUTPUT,FINAL_PICONS,EXCEPTIONS,REPORTS,LOGS):p.mkdir(parents=True,exist_ok=True)
   self.log_path=LOGS/('factory-'+datetime.now().strftime('%Y%m%d-%H%M%S')+'.log')
-  release=check_factory_release()
-  if release['status']=='available':
-   self.log('Nová Factory na GitHub Releases: '+release['version']+' (inštalácia zatiaľ vyžaduje overený inštalátor).')
-  elif release['status']=='offline_or_invalid':
-   self.log('Kontrola aktualizácie nedostupná; pokračujem lokálne.')
+  # Both source and packaged EXE consult the same signed-by-policy manifest
+  # authority. The EXE never attempts to install the Python-only ZIP in place.
+  from factory_auto_update import fetch, validate_manifest, version_tuple
+  try:
+   from factory_auto_update import MANIFEST_URL
+   current=version_tuple(installed_factory_version())
+   update=validate_manifest(json.loads(fetch(MANIFEST_URL)),current)
+   if update:
+    self.log('Overená novšia Factory: '+update['version']+'; samostatný EXE sa neprepisuje počas behu.')
+  except (OSError,ValueError,KeyError,TypeError) as exc:
+   self.log('Kontrola manifestu nedostupná ('+type(exc).__name__+'); pokračujem lokálne.')
   self.db=sqlite3.connect(str(DB))
   self.db.execute('CREATE TABLE IF NOT EXISTS files (path TEXT PRIMARY KEY, sha256 TEXT, size INTEGER, modified_ns INTEGER, status TEXT, last_run TEXT)')
   self.db.execute('CREATE TABLE IF NOT EXISTS runs (id TEXT PRIMARY KEY, scanned INTEGER, changed INTEGER, duplicates INTEGER, exceptions INTEGER, created INTEGER)')
