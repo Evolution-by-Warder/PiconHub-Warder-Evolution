@@ -60,28 +60,41 @@ def build_live_test(report_path, output_path=None, limit=10):
                 if any(_origin(p) == "vhannibal" for p in v.get("sources") or [])
                 and HEX.fullmatch(str(v.get("sha256") or "")))
             eligible.append((collision, vhannibal_hashes))
-    # A large feed may reuse one generic logo across many service references.
-    # Prefer distinct Vhannibal artwork first, then fill any remaining slots.
+    # Prioritize different collision complexity and distinct artwork from both feeds.
+    # Preserve source ordering within each complexity bucket for reproducibility.
     selected = []
-    used_hashes = set()
     chosen_indices = set()
-    for index, (collision, hashes) in enumerate(eligible):
-        if hashes and hashes.isdisjoint(used_hashes):
-            selected.append(collision)
-            chosen_indices.add(index)
-            used_hashes.update(hashes)
-            if len(selected) == limit:
-                break
+    seen_artwork = set()
+    for complexity in (4, 3, 2):
+        for index, (collision, hashes) in enumerate(eligible):
+            if len(collision.get("variants") or []) != complexity or index in chosen_indices:
+                continue
+            all_hashes = frozenset(
+                str(v.get("sha256") or "").lower()
+                for v in collision.get("variants") or []
+                if HEX.fullmatch(str(v.get("sha256") or "")))
+            if hashes and hashes.isdisjoint(seen_artwork) and all_hashes.isdisjoint(seen_artwork):
+                selected.append(collision)
+                chosen_indices.add(index)
+                seen_artwork.update(all_hashes)
+                if len(selected) == limit:
+                    break
+        if len(selected) == limit:
+            break
     if len(selected) < limit:
         for index, (collision, hashes) in enumerate(eligible):
             if index not in chosen_indices:
                 selected.append(collision)
+                chosen_indices.add(index)
                 if len(selected) == limit:
                     break
     if not selected:
         raise ValueError("No mixed OpenATV/Vhannibal collisions")
     results = []
-    with ZipFile(output_path, "w", ZIP_DEFLATED) as out:
+    # Do not silently replace an earlier real-data evidence pack.
+    if output_path.exists():
+        raise FileExistsError("Live PNG evidence archive already exists: " + str(output_path))
+    with ZipFile(output_path, "x", ZIP_DEFLATED) as out:
         archived_png = set()
         for index, collision in enumerate(selected, 1):
             item = {"service_reference": collision.get("candidate_service_ref"),
