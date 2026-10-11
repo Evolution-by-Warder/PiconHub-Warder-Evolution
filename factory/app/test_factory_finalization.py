@@ -120,3 +120,19 @@ class FinalizationTests(unittest.TestCase):
                                          self.work, self.final, verified_shas={'z' * 64})
         self.assertEqual(result['copied'], 0)
         self.assertEqual(result['invalid'], 1)
+
+    def test_unverified_sha_is_never_written(self):
+        result = finalize_new_candidates([self.row()], {}, self.work, self.final,
+                                         verified_shas=set())
+        self.assertEqual(result['copied'], 0)
+        self.assertEqual(result['qa_blocked'], 1)
+        self.assertFalse(self.final.exists())
+
+    def test_existing_mismatched_variant_is_preserved(self):
+        target = self.final / 'NEW-CANDIDATES' / 'white' / (REF + '.png')
+        target.parent.mkdir(parents=True)
+        target.write_bytes(b'protected')
+        result = finalize_new_candidates([self.row()], {}, self.work, self.final,
+                                         verified_shas={SHA})
+        self.assertEqual(result['conflicts'], 1)
+        self.assertEqual(target.read_bytes(), b'protected')
