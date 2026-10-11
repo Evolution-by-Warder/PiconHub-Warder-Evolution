@@ -15,13 +15,7 @@ if not defined PYTHON (
 if not defined PYTHON (
   echo Python 3.12 is required. Installing via winget...
   where winget >nul 2>nul
-  if errorlevel 1 goto :dependency_failure
-echo Factory dependencies could not be installed; rolling back a pending update.
-"%WARDER_RUNTIME%\Scripts\python.exe" -c "from factory_update_transaction import resolve; from workspace_paths import resolve_root,workspace_paths; print(resolve(workspace_paths(resolve_root())['app'],gui_ready=False))"
-echo Factory runtime setup failed; no original picons or registry were changed.
-pause
-exit /b 1
-:missing
+  if errorlevel 1 goto :missing
   winget install --id Python.Python.3.12 --exact --source winget --accept-package-agreements --accept-source-agreements
   if errorlevel 1 goto :missing
   set "PYTHON=%LOCALAPPDATA%\Programs\Python\Python312\python.exe"
@@ -48,6 +42,12 @@ if errorlevel 1 goto :dependency_failure
 set "EXITCODE=%ERRORLEVEL%"
 if not "%EXITCODE%"=="0" pause
 exit /b %EXITCODE%
+:dependency_failure
+echo Factory dependencies could not be installed; rolling back a pending update.
+"%WARDER_RUNTIME%\Scripts\python.exe" -c "from factory_update_transaction import resolve; from workspace_paths import resolve_root,workspace_paths; print(resolve(workspace_paths(resolve_root())['app'],gui_ready=False))"
+echo Factory runtime setup failed; no original picons or registry were changed.
+pause
+exit /b 1
 :missing
 echo Unable to install Python automatically. See README.md.
 pause
