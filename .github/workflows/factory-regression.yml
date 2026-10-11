@@ -79,8 +79,9 @@ jobs:
         run: .venv\Scripts\python.exe -c "import PIL, py7zr, tkinter; print('Windows runtime OK')"
 
       - name: Package Windows-tested source and launcher
-        shell: python
+        shell: bash
         run: |
+          python - <<'PY'
           from pathlib import Path
           from zipfile import ZipFile, ZIP_DEFLATED
           root = Path('factory/app')
@@ -93,6 +94,7 @@ jobs:
               assert archive.testzip() is None
               assert 'SPUSTI-WARDER.cmd' in archive.namelist()
               assert 'engine.py' in archive.namelist()
+          PY
       - name: Upload Windows-tested package (not a release)
         uses: actions/upload-artifact@v4
         with:
