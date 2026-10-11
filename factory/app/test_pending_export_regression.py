@@ -34,7 +34,7 @@ class PendingExportTests(unittest.TestCase):
                     'sha256': 'a' * 64, 'original': str(source)}
             ledger = root / 'decisions.json'
             with patch('review_decisions.evidence_hash', return_value='unchanged'):
-                ledger.write_text(json.dumps({'decisions': {item['review_id']: {
+                ledger.write_text(json.dumps({'schema': 1, 'decisions': {item['review_id']: {
                     'decision': 'DEFERRED', 'evidence_hash': 'unchanged'}}}))
                 with patch('factory_pending_export.latest_review', return_value=root / 'review.json'):
                     with patch('factory_pending_export.load_review_queue', return_value={'items': [item]}):
