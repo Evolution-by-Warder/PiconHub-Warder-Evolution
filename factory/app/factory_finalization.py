@@ -5,8 +5,6 @@ Never writes to the Warder Master repository or overwrites existing output.
 from collections import defaultdict
 from pathlib import Path
 import hashlib
-import os
-import tempfile
 
 STYLES = ('transparent', 'black', 'white')
 
@@ -76,13 +74,23 @@ def finalize_new_candidates(matches, qa_issues, work_root, final_root, *, image_
                 else:
                     result['conflicts'] += 1
                 continue
-            for target, src in zip(targets, sources):
-                target.parent.mkdir(parents=True, exist_ok=True)
-                # Exclusive creation prevents overwriting a concurrent result.
-                with src.open('rb') as incoming, target.open('xb') as outgoing:
-                    for block in iter(lambda: incoming.read(1024 * 1024), b''):
-                        outgoing.write(block)
-                result['copied'] += 1
+            created = []
+            try:
+                for target, src in zip(targets, sources):
+                    target.parent.mkdir(parents=True, exist_ok=True)
+                    # Exclusive creation refuses to overwrite existing output.
+                    with src.open('rb') as incoming, target.open('xb') as outgoing:
+                        created.append(target)
+                        for block in iter(lambda: incoming.read(1024 * 1024), b''):
+                            outgoing.write(block)
+                result['copied'] += len(created)
+            except OSError:
+                for target in reversed(created):
+                    try:
+                        target.unlink()
+                    except OSError:
+                        pass
+                raise
         except (OSError, ValueError, SyntaxError):
             result['invalid'] += 1
     return result
