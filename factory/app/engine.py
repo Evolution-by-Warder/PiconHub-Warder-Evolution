@@ -1347,6 +1347,7 @@ class App:
   ttk.Label(frm,text=f'Zdrojové ZIP/PNG: {INBOX}  |  Rozpracované: {OUTPUT}  |  Finálne: {FINAL_PICONS}  |  Reporty: {REPORTS}').pack(anchor='w',pady=8)
   if os.environ.get("WARDER_GUI_SMOKE_TEST") != "1":
    self.root.after(150,self._resume_pending_delivery)
+   self.root.after(60000,self._scheduled_delivery)
   self.root.after(100,self.poll)
   self.root.after(250,self._signal_launcher_ready)
   if os.environ.get("WARDER_GUI_SMOKE_TEST") == "1":
@@ -1411,6 +1412,12 @@ class App:
    except (OSError,subprocess.TimeoutExpired):
     self.emit('diagnostics','GitHub prihlásenie sa nepodarilo; dáta zostali lokálne.')
   threading.Thread(target=login_worker,daemon=True).start()
+ def _scheduled_delivery(self):
+  # Retry in small bounded batches while the GUI is open. A failed or slow
+  # request cannot block Tk, and the delivery lock prevents overlap.
+  if not self.running:
+   threading.Thread(target=self._send_diagnostics,args=(None,),daemon=True).start()
+  self.root.after(60000,self._scheduled_delivery)
  def _resume_pending_delivery(self):
   # A restart must NOT rescan 162k PNG merely to retry GitHub delivery.
   self.status.set('Pripravené · obnovujem čakajúce odosielanie bez skenovania')
