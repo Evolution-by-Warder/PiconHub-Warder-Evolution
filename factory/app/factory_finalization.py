@@ -67,6 +67,7 @@ def finalize_new_candidates(matches, qa_issues, work_root, final_root, *, verifi
                 with image_class.open(src) as image:
                     if image.size != (220, 132) or image.mode != 'RGBA':
                         raise ValueError('Invalid output PNG')
+                    image.load()
             result['eligible'] += 1
             # NEW-CANDIDATES is a local non-production deliverable, not an
             # approval or permission to publish into the Master Registry.
