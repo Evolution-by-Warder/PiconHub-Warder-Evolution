@@ -38,3 +38,15 @@ class FactoryUpdateContractTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+    def test_release_url_requires_exact_versioned_asset(self):
+        data = dict(self.manifest)
+        data["url"] += "?download=1"
+        with self.assertRaises(ValueError):
+            validate_manifest(data, (9, 0, 0))
+
+    def test_release_hash_rejects_uppercase_or_short_values(self):
+        for digest in ("A" * 64, "a" * 63):
+            with self.subTest(digest=digest):
+                with self.assertRaises(ValueError):
+                    validate_manifest(dict(self.manifest, sha256=digest), (9, 0, 0))
