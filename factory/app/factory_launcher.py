@@ -109,15 +109,13 @@ def main():
                 if previous:
                     log_update('Previous application found; manual inspection required before restoring')
                 return 1
-            # This launcher executes from inside APP. Replacing APP while this
-            # process imports modules from it can delete its own entrypoint on
-            # Windows. Refuse in-place activation until an external bootstrap
-            # owns the update transaction. Preserve the working installation.
-            log_update('Automatic in-place update disabled: external bootstrap required; Factory preserved')
+            # The update check runs in a separate bootstrap BEFORE this launcher
+            # starts (SPUSTI-WARDER.cmd). Do not modify APP from its own process.
+            # A successful update leaves a pending transaction which must be
+            # acknowledged by a real GUI heartbeat or rolled back.
             if pending.is_file():
+                log_update('Verified update pending; checking new GUI startup')
                 return launch_with_recovery()
-            # An ordinary, already-installed GUI must not be killed because its
-            # first scan takes longer than the update-specific readiness timeout.
             return launch()
     except (OSError, ValueError, AlreadyRunning) as exc:
         print('WARDER FACTORY launch failed:', exc, file=sys.stderr)
