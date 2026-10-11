@@ -36,9 +36,6 @@ class FactoryUpdateContractTests(unittest.TestCase):
         self.assertGreater(version_tuple("factory-v10.0.0"), version_tuple("factory-v9.99.99"))
 
 
-if __name__ == "__main__":
-    unittest.main()
-
     def test_release_url_requires_exact_versioned_asset(self):
         data = dict(self.manifest)
         data["url"] += "?download=1"
@@ -50,3 +47,7 @@ if __name__ == "__main__":
             with self.subTest(digest=digest):
                 with self.assertRaises(ValueError):
                     validate_manifest(dict(self.manifest, sha256=digest), (9, 0, 0))
+
+
+if __name__ == "__main__":
+    unittest.main()
