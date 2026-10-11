@@ -1,6 +1,9 @@
 name: Factory versioned update
 on:
-  # Publishing requires an explicit, user-approved manual dispatch.
+  push:
+    branches: [factory-warder-development]
+    paths:
+      - 'factory/app/.factory-version.json'
   workflow_dispatch:
     inputs:
       version:
@@ -20,10 +23,20 @@ jobs:
         with:
           ref: factory-warder-development
           fetch-depth: 0
-      - name: Verify Factory-only source and version
+      - name: Resolve release version
         shell: bash
         env:
-          VERSION: ${{ inputs.version }}
+          REQUESTED_VERSION: ${{ inputs.version }}
+        run: |
+          set -euo pipefail
+          version="${REQUESTED_VERSION:-}"
+          if [[ -z "$version" ]]; then
+            version=$(python -c "import json; print(json.load(open('factory/app/.factory-version.json'))['version'].removeprefix('factory-v'))")
+          fi
+          [[ "$version" =~ ^[0-9]+\\.[0-9]+\\.[0-9]+$ ]] || exit 1
+          echo "VERSION=$version" >> "$GITHUB_ENV"
+      - name: Verify Factory-only source and version
+        shell: bash
         run: |
           set -euo pipefail
           [[ "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]] || exit 1
@@ -44,8 +57,6 @@ jobs:
           sudo apt-get install -y python3-tk
       - name: Test and package Factory
         shell: bash
-        env:
-          VERSION: ${{ inputs.version }}
         run: |
           set -euo pipefail
           python -m pip install -r factory/app/requirements-runtime.txt
@@ -85,8 +96,6 @@ jobs:
           cmp "$asset" "/tmp/verify/$asset"
       - name: Update manifest only after release verification
         shell: bash
-        env:
-          VERSION: ${{ inputs.version }}
         run: |
           set -euo pipefail
           python - <<'PY'
