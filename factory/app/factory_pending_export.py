@@ -50,8 +50,10 @@ def export_pending(report_dir, output_dir, destination, *, ledger_path=None):
                     candidates[str(p.resolve())] = p
                 else:
                     manifest['missing'].append({'review_id': item['review_id'], 'variant': variant, 'sha256': sha})
-    if manifest['missing']:
-        raise FileNotFoundError('Export incomplete: %d missing referenced PNG files; original data untouched' % len(manifest['missing']))
+    # Missing previews are explicitly recorded in the manifest; they do not
+    # prevent export of available original evidence for manual investigation.
+    manifest['available_png'] = len(candidates)
+    manifest['missing_evidence_count'] = len(manifest['missing'])
     if len(candidates) > MAX_FILES:
         raise ValueError('Too many PNGs for one export')
     fd, temp_name = tempfile.mkstemp(prefix='.warder-pending-', suffix='.zip.tmp', dir=destination.parent)
