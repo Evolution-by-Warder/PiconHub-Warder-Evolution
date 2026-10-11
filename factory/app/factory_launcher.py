@@ -32,7 +32,7 @@ def launch(app=APP, python=sys.executable, log=LOG, *, runner=subprocess.run):
         return runner(cmd, cwd=str(app), env=env, stdout=out, stderr=subprocess.STDOUT).returncode
 
 
-def launch_with_recovery(app=APP, python=sys.executable, log=LOG, *, timeout=20):
+def launch_with_recovery(app=APP, python=sys.executable, log=LOG, *, timeout=90):
     """A new GUI must report ready before previous application is deleted."""
     from factory_update_transaction import resolve
     app = Path(app).resolve()
