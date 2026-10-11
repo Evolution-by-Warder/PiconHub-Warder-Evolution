@@ -105,3 +105,18 @@ class FinalizationTests(unittest.TestCase):
             source = self.work / SHA[:2] / SHA / (variant + '.png')
             target = self.final / 'NEW-CANDIDATES' / variant / (REF + '.png')
             self.assertEqual(target.read_bytes(), source.read_bytes())
+
+    def test_existing_partial_trio_is_not_completed_implicitly(self):
+        target = self.final / 'NEW-CANDIDATES' / 'white' / (REF + '.png')
+        target.parent.mkdir(parents=True)
+        target.write_bytes((self.work / SHA[:2] / SHA / 'white.png').read_bytes())
+        result = finalize_new_candidates([self.row()], {}, self.work, self.final, verified_shas={SHA})
+        self.assertEqual(result['copied'], 0)
+        self.assertEqual(result['conflicts'], 1)
+        self.assertFalse((self.final / 'NEW-CANDIDATES' / 'black' / (REF + '.png')).exists())
+
+    def test_bad_sha_is_rejected(self):
+        result = finalize_new_candidates([self.row('z' * 64)], {},
+                                         self.work, self.final, verified_shas={'z' * 64})
+        self.assertEqual(result['copied'], 0)
+        self.assertEqual(result['invalid'], 1)
