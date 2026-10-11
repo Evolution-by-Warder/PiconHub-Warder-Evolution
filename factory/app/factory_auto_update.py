@@ -106,6 +106,11 @@ def attempt_update(app, *, manifest_fetch=fetch, downloader=download_release, re
         if not structure_ok:
             raise PermissionError('Read-only workspace preflight failed: ' + '; '.join(findings))
         phase = 'manifest: ' + MANIFEST_URL
+        # An existing but unversioned application is NOT version 0: replacing it
+        # could silently downgrade a user's newer or locally modified build.
+        if (app / 'engine.py').is_file() and not (app / VERSION_FILE).is_file():
+            report('Update deferred: installed Factory version cannot be verified')
+            return 'unknown_installed_version'
         data = json.loads(manifest_fetch(MANIFEST_URL))
         info = validate_manifest(data, read_version(app))
         if info is None:
