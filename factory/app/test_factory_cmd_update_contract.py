@@ -63,3 +63,14 @@ class TestStartup(unittest.TestCase):
     def test_installer_checks_external_directory(self):
         script = Path(__file__).with_name('SPUSTI-WARDER.cmd').read_text()
         self.assertIn('if not exist "%WARDER_PICON_FACTORY_ROOT%\\11-APP" goto :failure', script)
+
+    def test_launcher_does_not_lock_app_during_rollback(self):
+        script = Path(__file__).with_name('SPUSTI-WARDER.cmd').read_text()
+        launcher = script.index('factory_launcher.py')
+        self.assertIn('cd /d "%WARDER_PICON_FACTORY_ROOT%\\11-APP"', script[script.index('factory_update_bootstrap.py'):launcher])
+        self.assertIn('WARDER-PICON-FACTORY\\factory_launcher.py', script)
+
+    def test_dependency_rollback_releases_app_directory(self):
+        script = Path(__file__).with_name('SPUSTI-WARDER.cmd').read_text()
+        block = script[script.index(':dependency_failure'):]
+        self.assertLess(block.index('cd /d "%WARDER_PICON_FACTORY_ROOT%\\11-APP"'), block.index('gui_ready=False'))
