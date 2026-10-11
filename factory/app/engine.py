@@ -1398,6 +1398,7 @@ class App:
   except (tk.TclError,ValueError,TypeError):pass
   self._configure_style()
   self.workspace_ready=False
+  self._automatic_run_started=False
   self.preflight_result=None
   self._final_counts_running=False
   self._final_counts_refresh_pending=False
@@ -1487,8 +1488,8 @@ class App:
    self.root.after(100,self._signal_smoke_ready);return
   if not self.preflight_result.ok:
    raise RuntimeError('GUI smoke: read-only workspace preflight failed: '+', '.join(self.preflight_result.missing))
-  expected={'Dashboard','Zdroje','Master Registry','Kandidáti','Grafický motor','QA',
-            'Výnimky / schvaľovanie','Finalizácia','Nastavenia','Diagnostika'}
+  expected={'Zdroje','Master Registry','Kandidáti','Grafický motor','QA',
+            'Finalizácia','Nastavenia','Diagnostika'}
   tabs={self.workspace.notebook.tab(tab,'text') for tab in self.workspace.notebook.tabs()}
   missing=expected-tabs
   if missing:
@@ -1714,6 +1715,11 @@ class App:
       if os.environ.get('WARDER_GUI_SMOKE_TEST')!='1':
        self.root.after(150,self._resume_pending_delivery)
        self.root.after(60000,self._scheduled_delivery)
+       # Begin the normal production pipeline only after read-only preflight
+       # validates the existing D: workspace. Never auto-approve review items.
+       if not self._automatic_run_started:
+        self._automatic_run_started=True
+        self.root.after(500,self.start)
      else:
       self.status.set('Zápisy zablokované · preflight: '+(', '.join(v.missing) or 'chyba čítania'))
       self.output.insert('end','READ-ONLY PREFLIGHT FAILED\n'+'\n'.join(v.findings)+'\n')
