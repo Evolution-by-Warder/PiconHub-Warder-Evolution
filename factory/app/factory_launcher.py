@@ -33,7 +33,6 @@ def launch_with_recovery(app=APP, python=sys.executable, log=LOG, *, timeout=20)
     """A new GUI must report ready before previous application is deleted."""
     from factory_update_transaction import resolve
     app = Path(app).resolve()
-    cmd = app_command(app, python)
     log = Path(log)
     log.parent.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(prefix='.factory-launch-', dir=log.parent) as temporary:
@@ -42,6 +41,14 @@ def launch_with_recovery(app=APP, python=sys.executable, log=LOG, *, timeout=20)
         env['WARDER_PICON_FACTORY_ROOT'] = str(ROOT)
         env['WARDER_FACTORY_GUI_READY_FILE'] = str(marker)
         with log.open('a', encoding='utf-8') as out:
+            if not (app / 'engine.py').is_file():
+                outcome = resolve(app, gui_ready=False)
+                out.write('Missing engine before launch; transaction: ' + outcome + '\n')
+                out.flush()
+                if outcome == 'rolled_back':
+                    return launch(app=app, python=python, log=log)
+                return 1
+            cmd = app_command(app, python)
             proc = subprocess.Popen(cmd, cwd=str(app), env=env, stdout=out, stderr=subprocess.STDOUT)
             import time
             deadline = time.monotonic() + timeout
@@ -90,6 +97,13 @@ def main():
                 # Never overwrite its rollback state with another update.
                 log_update('Pending update recovered by GUI readiness check')
                 return launch_with_recovery()
+            if not (APP / 'engine.py').is_file():
+                from factory_update_transaction import resolve
+                previous = sorted(APP.parent.glob(APP.name + '.previous-*'), reverse=True)
+                log_update('Factory engine missing; automatic update suspended; recovery candidates: ' + str(len(previous)))
+                if previous:
+                    log_update('Previous application found; manual inspection required before restoring')
+                return 1
             attempt_update(APP, reporter=log_update)
             if pending.is_file():
                 return launch_with_recovery()
