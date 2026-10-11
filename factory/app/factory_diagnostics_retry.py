@@ -11,9 +11,9 @@ def retry_reports(report_dir, state_file, limit=5):
         state = json.loads(state_file.read_text(encoding='utf-8'))
     except (OSError, ValueError):
         state = {}
-    if state.get('schema') != 2:
+    if state.get('schema') != 2 or not isinstance(state.get('delivered'), list):
         state = {}
-    delivered = set(state.get('delivered', []))
+    delivered = {name for name in state.get('delivered', []) if isinstance(name, str) and name.startswith('report-') and name.endswith('.json')}
     results = []
     if not folder.is_dir():
         return results
@@ -24,7 +24,7 @@ def retry_reports(report_dir, state_file, limit=5):
             continue
         result = upload_report(path)
         results.append({'report': path.name, 'status': result['status']})
-        if result['status'] == 'sent':
+        if result['status'] in ('sent', 'already_present_or_conflict'):
             delivered.add(path.name)
         elif result['status'] in ('not_configured', 'invalid_configuration'):
             break
