@@ -35,8 +35,9 @@ def upload_png_evidence(report_dir, *, opener=None, state_path=None, max_attempt
         delivered = set()
     seen = set()
     errors = []
+    stop_upload = False
     for item in queue.get('items', []):
-        if max_attempts is not None and attempted >= max_attempts:
+        if stop_upload or (max_attempts is not None and attempted >= max_attempts):
             break
         sources = [item.get('original')]
         for field in ('source_evidence', 'variants'):
@@ -52,7 +53,7 @@ def upload_png_evidence(report_dir, *, opener=None, state_path=None, max_attempt
                 if isinstance(nested, (list, tuple)):
                     paths.extend(nested)
         for source in paths:
-            if max_attempts is not None and attempted >= max_attempts:
+            if stop_upload or (max_attempts is not None and attempted >= max_attempts):
                 break
             if not isinstance(source, str) or not source:
                 continue
@@ -130,7 +131,11 @@ def upload_png_evidence(report_dir, *, opener=None, state_path=None, max_attempt
                         except (OSError, ValueError, KeyError, TypeError, urllib.error.HTTPError):
                             pass
                     errors.append('HTTP ' + str(exc.code))
+                    # GitHub abuse/secondary limits and authentication failures
+                    # must not trigger 20 identical write attempts each minute.
+                    if exc.code in (401, 403, 429):
+                        stop_upload = True
             except (OSError, ValueError) as exc:
                 errors.append(type(exc).__name__)
-    return {'status': 'sent' if sent == attempted and attempted else 'partial' if sent else 'failed' if attempted else 'already_delivered' if skipped else 'no_evidence',
+    return {'status': 'rate_limited_or_forbidden' if stop_upload else 'sent' if sent == attempted and attempted else 'partial' if sent else 'failed' if attempted else 'already_delivered' if skipped else 'no_evidence',
             'sent': sent, 'attempted': attempted, 'skipped': skipped, 'errors': errors[:5]}
