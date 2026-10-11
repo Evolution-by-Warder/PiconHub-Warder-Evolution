@@ -71,11 +71,19 @@ def export_pending(report_dir, output_dir, destination, *, ledger_path=None):
             if check.testzip() is not None:
                 raise ValueError('ZIP integrity verification failed')
         # Exclusive creation prevents replacing a ZIP created while the export ran.
-        with open(destination, 'xb') as final, open(temp_name, 'rb') as prepared:
-            import shutil
-            shutil.copyfileobj(prepared, final, length=1024 * 1024)
-            final.flush()
-            os.fsync(final.fileno())
+        created = False
+        try:
+            with open(destination, 'xb') as final:
+                created = True
+                with open(temp_name, 'rb') as prepared:
+                    import shutil
+                    shutil.copyfileobj(prepared, final, length=1024 * 1024)
+                final.flush()
+                os.fsync(final.fileno())
+        except Exception:
+            if created:
+                destination.unlink(missing_ok=True)
+            raise
     finally:
         if os.path.exists(temp_name):
             os.unlink(temp_name)
