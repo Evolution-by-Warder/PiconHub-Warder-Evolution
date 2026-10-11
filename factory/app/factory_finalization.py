@@ -48,12 +48,14 @@ def finalize_new_candidates(matches, qa_issues, work_root, final_root, *, verifi
         if qa_issues.get(sha):
             result['qa_blocked'] += 1
             continue
+        # The source is immutable by content hash; reject stale/mismatched
+        # source identities even when the rendered files still look valid.
+        if len(sha) != 64 or any(c not in '0123456789abcdef' for c in sha):
+            result['invalid'] += 1
+            continue
         if not (len(ref.split('_')) == 10 and all(
                 part and all(c in '0123456789abcdefABCDEF' for c in part)
                 for part in ref.split('_'))):
-            result['invalid'] += 1
-            continue
-        if len(sha) != 64 or any(c not in '0123456789abcdef' for c in sha):
             result['invalid'] += 1
             continue
         source_dir = work_root / sha[:2] / sha
