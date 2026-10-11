@@ -21,11 +21,14 @@ def export_pending(report_dir, output_dir, destination, *, ledger_path=None):
     pending = [item for item in queue['items'] if item.get('decision', 'PENDING') == 'PENDING']
     if ledger_path and Path(ledger_path).is_file():
         from review_decisions import evidence_hash
-        decisions = json.loads(Path(ledger_path).read_text(encoding='utf-8')).get('decisions', {})
+        ledger = json.loads(Path(ledger_path).read_text(encoding='utf-8'))
+        if ledger.get('schema') != 1 or not isinstance(ledger.get('decisions'), dict):
+            raise ValueError('Invalid decision ledger')
+        decisions = ledger['decisions']
         pending = [item for item in pending if not (
             item['review_id'] in decisions and
             decisions[item['review_id']].get('evidence_hash') == evidence_hash(item) and
-            decisions[item['review_id']].get('decision') != 'DEFERRED')]
+            decisions[item['review_id']].get('decision') in ('APPROVED_FOR_REVIEW', 'REJECTED'))]
     if not destination.name.lower().endswith('.zip'):
         raise ValueError('Export destination must be a ZIP file')
     if destination.is_symlink():
@@ -60,6 +63,8 @@ def export_pending(report_dir, output_dir, destination, *, ledger_path=None):
     # Missing previews are explicitly recorded in the manifest; they do not
     # prevent export of available original evidence for manual investigation.
     manifest['available_png'] = len(candidates)
+    if not pending:
+        raise ValueError('No pending review items to export')
     manifest['missing_evidence_count'] = len(manifest['missing'])
     if len(candidates) > MAX_FILES:
         raise ValueError('Too many PNGs for one export')
