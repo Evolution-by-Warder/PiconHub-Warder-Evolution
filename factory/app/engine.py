@@ -1199,7 +1199,7 @@ class Factory:
   self.log('QA pracovné fronty: '+', '.join(f'{name}={count}' for name,count in review_queue.get('workstream_counts', {}).items()))
   self.log(f'Výnimky na rozhodnutie: {review_queue["count"]}; vizuálne upozornenia sú evidované osobitne v QA reporte: {review_path}')
   # End-of-run read-only integrity gate: source content must still match its ID.
-  integrity=audit_artifacts(hashes,OUTPUT,source_hashes_verified=True)
+  integrity=audit_artifacts(hashes,OUTPUT,source_hashes_verified=False)
   integrity_path=REPORTS/('integrity-'+run+'.json')
   atomic_json(integrity_path,integrity)
   stats['integrity_issues']=integrity['issue_count']
