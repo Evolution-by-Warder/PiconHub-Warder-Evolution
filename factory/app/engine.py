@@ -1441,7 +1441,7 @@ class App:
    self.emit('diagnostics',message)
    from factory_png_evidence import upload_png_evidence
    evidence=upload_png_evidence(REPORTS,max_attempts=20)
-   self.emit('diagnostics','PNG dôkazy: '+str(evidence['sent'])+'/'+str(evidence['attempted'])+'; stav '+evidence['status']+'; zostávajúce sa odošlú pri ďalšom spustení')
+   self.emit('diagnostics','PNG dôkazy: '+str(evidence['sent'])+'/'+str(evidence['attempted'])+'; stav '+evidence['status']+'; chyby: '+', '.join(evidence.get('errors',[])[:3]))
   except Exception as exc:
    self.emit('diagnostics','prenos nedokončený ('+type(exc).__name__+'); lokálne dáta zachované')
   finally:
