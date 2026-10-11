@@ -17,8 +17,8 @@ def retry_reports(report_dir, state_file, limit=5):
     results = []
     if not folder.is_dir():
         return results
-    # Oldest-first prevents persistent upload failures from starving earlier runs.
-    for path in sorted(folder.glob('report-*.json')):
+    # Newest-first prioritizes the just-completed run for diagnostics.
+    for path in sorted(folder.glob('report-*.json'), reverse=True):
         if len(results) >= limit:
             break
         if path.is_symlink() or not path.is_file():
