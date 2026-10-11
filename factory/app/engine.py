@@ -1679,6 +1679,13 @@ class App:
      if self.started_at is not None:
       seconds=int(time.monotonic()-self.started_at)
       self.output.insert('end',f'TRVANIE: {seconds//60} min {seconds%60} s\n')
+     # Report counts are already verified by the completed scan; show them
+     # immediately while the independent on-disk recount runs in background.
+     disk=s.get('final_picons_on_disk') or {}
+     if isinstance(disk,dict) and 'total' in disk:
+      self.production_label.configure(text='Lokálne kandidátske PNG podľa reportu: '+str(disk['total'])+' (transparentné '+str(disk.get('transparent',0))+', čierne '+str(disk.get('black',0))+', biele '+str(disk.get('white',0))+') · overujem disk')
+      if hasattr(self.workspace,'kpi_vars'):
+       self.workspace.kpi_vars['final'].set(str(disk['total'])+' lokálnych kandidátskych PNG (neschválené)')
      self._refresh_production_counts()
      self.workspace.refresh_all()
      final=s.get('new_candidate_finalization',{})
@@ -1707,7 +1714,7 @@ class App:
      counts=v
      self.production_label.configure(text='Lokálne kandidátske PNG (nie publikované): '+str(counts['total'])+' (transparentné '+str(counts['transparent'])+', čierne '+str(counts['black'])+', biele '+str(counts['white'])+', ostatné '+str(counts['other'])+')')
      if hasattr(self,'workspace') and hasattr(self.workspace,'kpi_vars'):
-      self.workspace.kpi_vars['final'].set(f"{counts['total']:,} PNG schválených lokálne".replace(',',' '))
+      self.workspace.kpi_vars['final'].set(f"{counts['total']:,} lokálnych kandidátskych PNG (neschválené)".replace(',',' '))
      if self._final_counts_refresh_pending:self._refresh_production_counts()
     elif k=='final_counts_error':
      self._final_counts_running=False;self.final_counts_ready=True
