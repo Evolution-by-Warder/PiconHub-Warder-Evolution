@@ -39,6 +39,10 @@ class FinalizationTests(unittest.TestCase):
         target = self.final / 'NEW-CANDIDATES' / 'transparent' / (REF + '.png')
         target.parent.mkdir(parents=True)
         target.write_bytes(b'preserve')
-        result = finalize_new_candidates([self.row()], {}, self.work, self.final)
+        result = finalize_new_candidates([self.row()], {}, self.work, self.final, verified_shas={SHA})
         self.assertEqual(result['copied'], 0)
         self.assertEqual(target.read_bytes(), b'preserve')
+
+    def test_missing_qa_proof_is_blocked(self):
+        result = finalize_new_candidates([self.row()], {}, self.work, self.final)
+        self.assertEqual(result['copied'], 0)
