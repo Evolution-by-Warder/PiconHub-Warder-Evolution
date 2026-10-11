@@ -1209,7 +1209,8 @@ class Factory:
   from factory_finalization import finalize_new_candidates
   integrity_blocked={issue['sha256'] for issue in integrity['issues']}
   new_candidate_shas={row.get('candidate_sha256') for row in registry_matches if row.get('classification')=='NEW'}
-  verified_for_finalization={sha for sha in new_candidate_shas if sha in unique if sha not in qa_issues and sha not in integrity_blocked and _output_signature(sha) is not None and (sha in qa_targets or (current_signatures.get(sha) is not None and sha not in qa_targets))}
+  unique_shas=set(unique)
+  verified_for_finalization={sha for sha in new_candidate_shas if sha in unique_shas and sha not in qa_issues and sha not in integrity_blocked and _output_signature(sha) is not None and (sha in qa_targets or (current_signatures.get(sha) is not None and sha not in qa_targets))}
   finalized=finalize_new_candidates(registry_matches,qa_issues,OUTPUT,FINAL_PICONS,verified_shas=verified_for_finalization)
   stats['new_candidate_finalization']=finalized
   self.log('Lokálne finálne NEW-CANDIDATES: '+str(finalized))
