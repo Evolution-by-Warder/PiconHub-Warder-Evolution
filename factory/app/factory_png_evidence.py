@@ -88,6 +88,42 @@ def upload_png_evidence(report_dir, *, opener=None, state_path=None, max_attempt
                 # Content-addressed location avoids duplicate GitHub objects across runs.
                 remote = 'factory/temp/evidence/sha256/' + sha[:2] + '/' + sha + '.png'
                 url = 'https://api.github.com/repos/' + REPO + '/contents/' + remote
+                # Contents PUT creates new files only without a SHA. If the
+                # content-addressed object already exists, verify it first;
+                # otherwise GitHub rejects an overwrite without sha (HTTP 422).
+                blob_sha = hashlib.sha1(b'blob ' + str(len(content)).encode('ascii') + bytes([0]) + content).hexdigest()
+                try:
+                    check = urllib.request.Request(url + '?ref=' + BRANCH, headers={
+                        'Authorization': 'Bearer ' + token,
+                        'Accept': 'application/vnd.github+json',
+                        'User-Agent': 'Warder-Picon-Factory'})
+                    with (opener or urllib.request.urlopen)(check, timeout=20) as existing_response:
+                        existing = json.load(existing_response)
+                    if isinstance(existing, dict) and existing.get('sha') == blob_sha:
+                        sent += 1
+                        delivered.add(sha)
+                        state_path.parent.mkdir(parents=True, exist_ok=True)
+                        fd, temp = tempfile.mkstemp(prefix='.png-evidence-', suffix='.tmp', dir=state_path.parent)
+                        try:
+                            with os.fdopen(fd, 'w', encoding='utf-8') as output:
+                                json.dump({'schema': 1, 'sha256': sorted(delivered)}, output)
+                            os.replace(temp, state_path)
+                        finally:
+                            if os.path.exists(temp):
+                                os.unlink(temp)
+                        continue
+                    errors.append('Remote PNG SHA mismatch')
+                    stop_upload = True
+                    break
+                except urllib.error.HTTPError as preflight_error:
+                    if preflight_error.code != 404:
+                        errors.append('Preflight HTTP ' + str(preflight_error.code))
+                        stop_upload = True
+                        break
+                except (OSError, ValueError, TypeError):
+                    errors.append('Preflight failed')
+                    stop_upload = True
+                    break
                 body = json.dumps({'message': 'factory: diagnostic PNG evidence ' + sha[:12],
                                    'branch': BRANCH,
                                    'content': base64.b64encode(content).decode('ascii')}).encode('utf-8')
