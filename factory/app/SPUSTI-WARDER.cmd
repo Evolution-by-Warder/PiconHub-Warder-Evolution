@@ -10,7 +10,10 @@ if not errorlevel 1 (
 )
 if not defined PYTHON (
   where python >nul 2>nul
-  if not errorlevel 1 set "PYTHON=python"
+  if not errorlevel 1 (
+    python -c "import sys; assert sys.version_info[:2] == (3,12)" >nul 2>nul
+    if not errorlevel 1 set "PYTHON=python"
+  )
 )
 if not defined PYTHON (
   echo Python 3.12 is required. Installing via winget...
