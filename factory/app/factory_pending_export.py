@@ -24,7 +24,8 @@ def export_pending(report_dir, output_dir, destination, *, ledger_path=None):
         decisions = json.loads(Path(ledger_path).read_text(encoding='utf-8')).get('decisions', {})
         pending = [item for item in pending if not (
             item['review_id'] in decisions and
-            decisions[item['review_id']].get('evidence_hash') == evidence_hash(item))]
+            decisions[item['review_id']].get('evidence_hash') == evidence_hash(item) and
+            decisions[item['review_id']].get('decision') != 'DEFERRED')]
     if destination.is_symlink():
         raise ValueError('Export destination must not be a symlink')
     if destination.exists():
