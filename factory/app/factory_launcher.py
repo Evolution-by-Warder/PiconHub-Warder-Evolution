@@ -113,9 +113,6 @@ def main():
             # starts (SPUSTI-WARDER.cmd). Do not modify APP from its own process.
             # A successful update leaves a pending transaction which must be
             # acknowledged by a real GUI heartbeat or rolled back.
-            if pending.is_file():
-                log_update('Verified update pending; checking new GUI startup')
-                return launch_with_recovery()
             return launch()
     except (OSError, ValueError, AlreadyRunning) as exc:
         print('WARDER FACTORY launch failed:', exc, file=sys.stderr)
