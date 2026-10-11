@@ -11,6 +11,8 @@ def retry_reports(report_dir, state_file, limit=5):
         state = json.loads(state_file.read_text(encoding='utf-8'))
     except (OSError, ValueError):
         state = {}
+    if state.get('schema') != 2:
+        state = {}
     delivered = set(state.get('delivered', []))
     results = []
     if not folder.is_dir():
@@ -29,6 +31,6 @@ def retry_reports(report_dir, state_file, limit=5):
     if results:
         state_file.parent.mkdir(parents=True, exist_ok=True)
         temp = state_file.with_suffix('.json.tmp')
-        temp.write_text(json.dumps({'schema': 1, 'delivered': sorted(delivered)}, indent=2), encoding='utf-8')
+        temp.write_text(json.dumps({'schema': 2, 'delivered': sorted(delivered)}, indent=2), encoding='utf-8')
         temp.replace(state_file)
     return results
