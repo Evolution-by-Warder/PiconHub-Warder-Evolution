@@ -36,6 +36,14 @@ def upload_png_evidence(report_dir, *, opener=None, state_path=None, max_attempt
     seen = set()
     errors = []
     stop_upload = False
+    cooldown_path = state_path.with_name('png-evidence-cooldown.json')
+    import time
+    try:
+        cooldown = json.loads(cooldown_path.read_text(encoding='utf-8'))
+        if float(cooldown.get('until', 0)) > time.time():
+            return {'status': 'cooldown', 'sent': 0, 'attempted': 0, 'errors': [str(cooldown.get('reason', 'HTTP limit'))]}
+    except (OSError, ValueError, TypeError):
+        pass
     for item in queue.get('items', []):
         if stop_upload or (max_attempts is not None and attempted >= max_attempts):
             break
@@ -135,6 +143,10 @@ def upload_png_evidence(report_dir, *, opener=None, state_path=None, max_attempt
                     # must not trigger 20 identical write attempts each minute.
                     if exc.code in (401, 403, 429):
                         stop_upload = True
+                        try:
+                            cooldown_path.write_text(json.dumps({'until': time.time() + (3600 if exc.code in (403, 429) else 86400), 'reason': 'HTTP ' + str(exc.code)}), encoding='utf-8')
+                        except OSError:
+                            pass
             except (OSError, ValueError) as exc:
                 errors.append(type(exc).__name__)
     return {'status': 'rate_limited_or_forbidden' if stop_upload else 'sent' if sent == attempted and attempted else 'partial' if sent else 'failed' if attempted else 'already_delivered' if skipped else 'no_evidence',
