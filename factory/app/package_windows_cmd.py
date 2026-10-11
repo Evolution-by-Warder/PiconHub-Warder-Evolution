@@ -45,13 +45,18 @@ $root=$env:WARDER_APP_DIR
 $stage=$root+'.stage-'+[guid]::NewGuid().ToString('N')
 $zip=Join-Path $env:TEMP ('warder-factory-'+[guid]::NewGuid().ToString('N')+'.zip')
 $previous=$null
+function Get-Sha256File([string]$file) {
+  $algorithm=[Security.Cryptography.SHA256]::Create()
+  try { return ([BitConverter]::ToString($algorithm.ComputeHash([IO.File]::ReadAllBytes($file)))).Replace('-','').ToLowerInvariant() }
+  finally { $algorithm.Dispose() }
+}
 try {
   if (Test-Path -LiteralPath $root) {
     $appItem=Get-Item -LiteralPath $root -Force
     if (($appItem.Attributes -band [IO.FileAttributes]::ReparsePoint) -ne 0) { throw 'Installed application path is a reparse point; refusing replacement' }
     $installedExe=Join-Path $root 'WARDER-PICON-FACTORY.exe'
     if (Test-Path -LiteralPath $installedExe -PathType Leaf) {
-      $oldHash=(Get-FileHash -LiteralPath $installedExe -Algorithm SHA256).Hash.ToLowerInvariant()
+      $oldHash=Get-Sha256File $installedExe
       if ($oldHash -ne $env:WARDER_SHA256.ToLowerInvariant()) {
         $processes=@(Get-CimInstance Win32_Process -Filter "Name='WARDER-PICON-FACTORY.exe'" -ErrorAction Stop)
         foreach ($process in $processes) {
@@ -84,7 +89,7 @@ try {
   }
   Move-Item -LiteralPath $stage -Destination $root
   $installed=Join-Path $root 'WARDER-PICON-FACTORY.exe'
-  $installedHash=(Get-FileHash -LiteralPath $installed -Algorithm SHA256).Hash.ToLowerInvariant()
+  $installedHash=Get-Sha256File $installed
   if ($installedHash -ne $env:WARDER_SHA256.ToLowerInvariant()) { throw 'Installed Factory executable does not match the verified package' }
   [IO.File]::AppendAllText($env:WARDER_LOG,((Get-Date -Format o)+' Installed version '+$env:WARDER_VERSION+' build '+$env:WARDER_BUILD_COMMIT+' SHA256 '+$installedHash+[Environment]::NewLine))
 } catch {

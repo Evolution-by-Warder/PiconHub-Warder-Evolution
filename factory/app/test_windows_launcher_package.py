@@ -37,6 +37,8 @@ class WindowsLauncherPackageTests(unittest.TestCase):
             self.assertIn('Factory executable SHA-256 mismatch', powershell)
             self.assertIn('older installed Factory is still running', powershell)
             self.assertIn('Get-CimInstance Win32_Process', powershell)
+            self.assertIn('Get-Sha256File', powershell)
+            self.assertNotIn('Get-FileHash', powershell)
             self.assertIn('Installed Factory executable does not match the verified package', powershell)
             self.assertIn('WARDER_BUILD_COMMIT', powershell)
             self.assertIn('WARDER_INSTALLED_SHA', image[:offset].decode('ascii'))
@@ -52,7 +54,6 @@ class WindowsLauncherPackageTests(unittest.TestCase):
                 self.assertIn(category, powershell)
             self.assertIn('read-only preflight failed', powershell)
             self.assertNotIn(b'%LOCALAPPDATA%', image[:offset])
-            self.assertIn("Get-FileHash -LiteralPath $installedExe -Algorithm SHA256", powershell)
             payload_path = root / 'payload.zip'
             payload_path.write_bytes(image[offset:])
             with zipfile.ZipFile(payload_path) as payload:
