@@ -267,7 +267,7 @@ class FactoryWorkspace:
         self.app.output.configure(yscrollcommand=log_scroll.set)
         log_scroll.pack(side="right", fill="y")
         self.app.output.pack(side="left", fill="both", expand=True)
-        self.app.output.insert("end", "Factory pripravená. Čakám na bezpečný preflight.\\n")
+        self.app.output.insert("end", "Factory pripravená. Čakám na bezpečný preflight.\n")
 
     def _tree_page(self, title, columns, headings):
         page = self._page(title)
