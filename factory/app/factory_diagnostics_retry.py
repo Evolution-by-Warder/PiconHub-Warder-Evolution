@@ -33,4 +33,13 @@ def retry_reports(report_dir, state_file, limit=5):
         temp = state_file.with_suffix('.json.tmp')
         temp.write_text(json.dumps({'schema': 2, 'delivered': sorted(delivered)}, indent=2), encoding='utf-8')
         temp.replace(state_file)
+        # Only the transmitted run summaries are disposable; retain every other report.
+        for item in results:
+            if item['status'] == 'sent':
+                confirmed = folder / item['report']
+                if confirmed.is_file() and not confirmed.is_symlink():
+                    try:
+                        confirmed.unlink()
+                    except OSError:
+                        pass
     return results
