@@ -1663,7 +1663,8 @@ class App:
    if last is not None:
     idle=int(time.monotonic()-last)
     if idle>=30:
-     self.status.set('PRACUJE / ČAKÁ NA OPERÁCIU · bez nového priebehu '+str(idle)+' s · posledná fáza: '+str(self.status.get()).split(' · bez nového priebehu')[0])
+     stage=getattr(self,'_current_stage','spracovanie')
+     self.status.set('PRACUJE / ČAKÁ NA OPERÁCIU · bez nového priebehu '+str(idle)+' s · posledná fáza: '+str(stage))
   try:
    pending_logs=[]
    while True:
@@ -1678,7 +1679,10 @@ class App:
      self.output.insert('end','\n'.join(pending_logs)+'\n')
      self.output.see('end')
      pending_logs.clear()
-    if k=='stage':self.status.set(v)
+    if k=='stage':
+     self._current_stage=str(v)
+     self._last_progress_at=time.monotonic()
+     self.status.set(v)
     elif k=='progress':
      self.bar['maximum']=max(1,v[1]);self.bar['value']=v[0]
      self._last_progress_at=time.monotonic()
