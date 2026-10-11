@@ -9,6 +9,14 @@ import hashlib
 STYLES = ('transparent', 'black', 'white')
 
 
+def _digest(path):
+    checksum = hashlib.sha256()
+    with path.open('rb') as stream:
+        for block in iter(lambda: stream.read(1024 * 1024), b''):
+            checksum.update(block)
+    return checksum.digest()
+
+
 def finalize_new_candidates(matches, qa_issues, work_root, final_root, *, verified_shas=None, image_class=None):
     """Copy only one-SHA NEW identities with three validated PNGs.
 
@@ -75,8 +83,8 @@ def finalize_new_candidates(matches, qa_issues, work_root, final_root, *, verifi
                        for style in STYLES]
             if any(target.exists() for target in targets):
                 if all(target.is_file() and
-                       hashlib.sha256(target.read_bytes()).digest() ==
-                       hashlib.sha256(src.read_bytes()).digest()
+                       _digest(target) ==
+                       _digest(src)
                        for target, src in zip(targets, sources)):
                     result['already_present'] += 1
                 else:
@@ -92,7 +100,7 @@ def finalize_new_candidates(matches, qa_issues, work_root, final_root, *, verifi
                         for block in iter(lambda: incoming.read(1024 * 1024), b''):
                             outgoing.write(block)
                 for target, src in zip(targets, sources):
-                    if hashlib.sha256(target.read_bytes()).digest() != hashlib.sha256(src.read_bytes()).digest():
+                    if _digest(target) != _digest(src):
                         raise OSError('Copied PNG checksum mismatch')
                 result['copied'] += len(created)
             except OSError:
