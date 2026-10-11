@@ -1,7 +1,16 @@
 @echo off
 setlocal EnableExtensions
-cd /d "%~dp0"
 set "WARDER_PICON_FACTORY_ROOT=D:\WARDER-PICON-FACTORY"
+rem Run the batch interpreter from a stable path OUTSIDE the replaceable APP.
+if not "%WARDER_FACTORY_STABLE_BOOTSTRAP%"=="1" (
+  copy /y "%~f0" "%WARDER_PICON_FACTORY_ROOT%\11-APP\FACTORY-STABLE-START.cmd" >nul
+  if errorlevel 1 goto :failure
+  set "WARDER_FACTORY_STABLE_BOOTSTRAP=1"
+  call "%WARDER_PICON_FACTORY_ROOT%\11-APP\FACTORY-STABLE-START.cmd"
+  exit /b %ERRORLEVEL%
+)
+cd /d "%WARDER_PICON_FACTORY_ROOT%\11-APP\WARDER-PICON-FACTORY"
+if errorlevel 1 goto :failure
 set "PYTHON="
 where py >nul 2>nul
 if not errorlevel 1 (
