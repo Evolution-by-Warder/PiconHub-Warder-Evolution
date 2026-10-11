@@ -28,6 +28,7 @@ if not exist ".venv\Scripts\python.exe" (
 )
 ".venv\Scripts\python.exe" -m pip install --disable-pip-version-check -r "requirements-runtime.txt"
 if errorlevel 1 goto :failure
+if "%WARDER_FACTORY_SETUP_ONLY%"=="1" exit /b 0
 ".venv\Scripts\python.exe" "engine.py"
 set "EXITCODE=%ERRORLEVEL%"
 if not "%EXITCODE%"=="0" pause
