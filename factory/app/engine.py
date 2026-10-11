@@ -1204,6 +1204,12 @@ class Factory:
   atomic_json(integrity_path,integrity)
   stats['integrity_issues']=integrity['issue_count']
   self.log(f'Integrita: {integrity["checked"]} zdrojov, {integrity["issue_count"]} problémov; report: {integrity_path}')
+  # Only locally staged NEW identities with one unambiguous artwork and clean QA.
+  # No Master Registry writes or semantic approvals are performed.
+  from factory_finalization import finalize_new_candidates
+  finalized=finalize_new_candidates(registry_matches,qa_issues,OUTPUT,FINAL_PICONS)
+  stats['new_candidate_finalization']=finalized
+  self.log('Lokálne finálne NEW-CANDIDATES: '+str(finalized))
   self.db.execute('INSERT INTO runs VALUES (?,?,?,?,?,?)',(run,stats['scanned'],stats['changed'],stats['duplicates'],stats['exceptions'],stats['created']))
   self.db.commit()
   report=REPORTS/('report-'+run+'.json')
