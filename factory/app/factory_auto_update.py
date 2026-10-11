@@ -76,7 +76,9 @@ def download_release(info, destination, *, opener=None):
     with opener(req, timeout=30) as response, Path(destination).open('wb') as out:
         final = urlsplit(response.geturl())
         # GitHub's release asset CDN is allowed, arbitrary hosts are not.
-        if final.scheme != 'https' or final.hostname not in ('github.com', 'release-assets.githubusercontent.com'):
+        if final.scheme != 'https' or final.username or final.password or final.port not in (None, 443) or final.hostname not in ('github.com', 'release-assets.githubusercontent.com'):
+            raise ValueError('Untrusted asset redirect')
+        if final.hostname == 'github.com' and response.geturl() != info['url']:
             raise ValueError('Untrusted asset redirect')
         if 'text/html' in response.headers.get('Content-Type', '').lower():
             raise ValueError('HTML instead of release ZIP')
