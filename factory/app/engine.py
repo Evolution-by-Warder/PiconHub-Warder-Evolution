@@ -1665,10 +1665,20 @@ class App:
     if idle>=30:
      self.status.set('PRACUJE / ČAKÁ NA OPERÁCIU · bez nového priebehu '+str(idle)+' s · posledná fáza: '+str(self.status.get()).split(' · bez nového priebehu')[0])
   try:
+   pending_logs=[]
    while True:
     k,v=self.events.get_nowait()
+    if k=='log':
+     pending_logs.append(str(v))
+     if len(pending_logs)>=256:
+      self.output.insert('end','\n'.join(pending_logs)+'\n')
+      pending_logs.clear()
+     continue
+    if pending_logs:
+     self.output.insert('end','\n'.join(pending_logs)+'\n')
+     self.output.see('end')
+     pending_logs.clear()
     if k=='stage':self.status.set(v)
-    elif k=='log':self.output.insert('end',v+'\n');self.output.see('end')
     elif k=='progress':
      self.bar['maximum']=max(1,v[1]);self.bar['value']=v[0]
      self._last_progress_at=time.monotonic()
