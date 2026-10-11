@@ -65,6 +65,8 @@ def export_pending(report_dir, output_dir, destination, *, ledger_path=None):
     manifest['available_png'] = len(candidates)
     if not pending:
         raise ValueError('No pending review items to export')
+    if not candidates:
+        raise ValueError('No available PNG evidence for pending review items')
     manifest['missing_evidence_count'] = len(manifest['missing'])
     if len(candidates) > MAX_FILES:
         raise ValueError('Too many PNGs for one export')
