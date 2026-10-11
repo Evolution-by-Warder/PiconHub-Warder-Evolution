@@ -1402,6 +1402,18 @@ class App:
   if marker:
    Path(marker).write_text("GUI_READY\n", encoding="utf-8")
  def _signal_smoke_ready(self):
+  expected={'Dashboard','Zdroje','Master Registry','Kandidáti','Grafický motor','QA',
+            'Výnimky / schvaľovanie','Finalizácia','Nastavenia','Diagnostika'}
+  tabs={self.workspace.notebook.tab(tab,'text') for tab in self.workspace.notebook.tabs()}
+  missing=expected-tabs
+  if missing:
+   raise RuntimeError('GUI smoke: missing workspace panels: '+', '.join(sorted(missing)))
+  pending=list(self.root.winfo_children())
+  while pending:
+   widget=pending.pop()
+   pending.extend(widget.winfo_children())
+   if isinstance(widget,ttk.Button) and not widget.cget('command'):
+    raise RuntimeError('GUI smoke: button without action: '+str(widget))
   marker = os.environ.get("WARDER_GUI_SMOKE_READY_FILE")
   if marker:
    Path(marker).write_text("GUI_READY\n", encoding="utf-8")
