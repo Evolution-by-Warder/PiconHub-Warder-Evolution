@@ -91,6 +91,9 @@ def finalize_new_candidates(matches, qa_issues, work_root, final_root, *, verifi
                         created.append(target)
                         for block in iter(lambda: incoming.read(1024 * 1024), b''):
                             outgoing.write(block)
+                for target, src in zip(targets, sources):
+                    if hashlib.sha256(target.read_bytes()).digest() != hashlib.sha256(src.read_bytes()).digest():
+                        raise OSError('Copied PNG checksum mismatch')
                 result['copied'] += len(created)
             except OSError:
                 for target in reversed(created):
