@@ -32,11 +32,14 @@ def unmapped_filename_diagnostics(matches, sample_limit=12):
 
 
 def origin_of(source):
+    # Windows paths are case-insensitive; source labels must not depend on
+    # capitalization of D:\\ folders or source-ingest/originals.
     parts = Path(str(source).replace('\\', '/')).parts
-    if 'source-ingest' in parts:
-        i = parts.index('source-ingest')
-        if i + 2 < len(parts) and parts[i + 1] == 'originals':
-            return parts[i + 2]
+    folded = [part.casefold() for part in parts]
+    if 'source-ingest' in folded:
+        i = folded.index('source-ingest')
+        if i + 2 < len(parts) and folded[i + 1] == 'originals':
+            return folded[i + 2]
     return 'local-inbox'
 
 
