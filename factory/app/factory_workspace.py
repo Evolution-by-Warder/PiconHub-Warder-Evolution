@@ -170,6 +170,9 @@ class FactoryWorkspace:
         ttk.Label(page, text="Lokálne spracovanie; produkčný Master Registry a originály zostávajú chránené").pack(anchor="w", pady=(0, 10))
         self.app.version_label = ttk.Label(page, text="Nainštalovaná verzia: " + self.app.installed_version)
         self.app.version_label.pack(anchor="w")
+        self.app.runtime_identity = tk.StringVar(value="Build: načítavam · EXE: zisťujem · dátový koreň: " + str(self.paths["root"]) + " · preflight: čaká")
+        ttk.Label(page, textvariable=self.app.runtime_identity, wraplength=1380,
+                  justify="left", font=("Segoe UI", 10, "bold")).pack(anchor="w", pady=(2, 8))
         self.app.production_label = ttk.Label(page, text="Finálne lokálne PNG: zisťujem...")
         self.app.production_label.pack(anchor="w")
         self.app.status = tk.StringVar(value="Pripravené")
@@ -462,6 +465,18 @@ class FactoryWorkspace:
             "ZÁPIS ZABLOKOVANÝ · " + " | ".join(result.findings)))
         self.kpi_vars["workspace"].set("13/13 kategórií overených" if result.ok else
                                        f"Zápis blokovaný · {len(result.missing)} kategórií chýba")
+
+    def update_runtime_identity(self, result=None, error=None):
+        if error:
+            status = "CHYBA · zápis zablokovaný · " + error
+        elif result is None:
+            status = "preflight sa vykonáva · zápisy zablokované"
+        else:
+            status = "OK · zápisy povolené" if result.ok else "BLOKOVANÝ · zápisy zakázané"
+        self.app.runtime_identity.set(
+            f"Build commit: {self.app.build_commit} · Spustený EXE: {self.app.executable_path} · "
+            f"Dátový koreň: {result.root if result is not None else self.paths['root']} · Preflight: {status}"
+        )
 
     def _refresh_timer(self):
         if self.root.winfo_exists():

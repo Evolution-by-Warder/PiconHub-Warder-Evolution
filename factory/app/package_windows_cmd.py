@@ -46,6 +46,26 @@ $stage=$root+'.stage-'+[guid]::NewGuid().ToString('N')
 $zip=Join-Path $env:TEMP ('warder-factory-'+[guid]::NewGuid().ToString('N')+'.zip')
 $previous=$null
 try {
+  if (Test-Path -LiteralPath $root) {
+    $appItem=Get-Item -LiteralPath $root -Force
+    if (($appItem.Attributes -band [IO.FileAttributes]::ReparsePoint) -ne 0) { throw 'Installed application path is a reparse point; refusing replacement' }
+    $installedExe=Join-Path $root 'WARDER-PICON-FACTORY.exe'
+    if (Test-Path -LiteralPath $installedExe -PathType Leaf) {
+      $oldHash=(Get-FileHash -LiteralPath $installedExe -Algorithm SHA256).Hash.ToLowerInvariant()
+      if ($oldHash -ne $env:WARDER_SHA256.ToLowerInvariant()) {
+        $processes=@(Get-CimInstance Win32_Process -Filter "Name='WARDER-PICON-FACTORY.exe'" -ErrorAction Stop)
+        foreach ($process in $processes) {
+          $runningPath=$process.ExecutablePath
+          if ([string]::IsNullOrWhiteSpace($runningPath)) {
+            throw 'A running Factory process could not be identified safely. Close WARDER PICON FACTORY and retry; the installed app was not changed.'
+          }
+          if ([IO.Path]::GetFullPath($runningPath) -ieq [IO.Path]::GetFullPath($installedExe)) {
+            throw 'The older installed Factory is still running. Close its window and run this installer again; the installed app was not changed.'
+          }
+        }
+      }
+    }
+  }
   New-Item -ItemType Directory -Path $stage -Force | Out-Null
   $src=[IO.File]::OpenRead($env:WARDER_CMD_FILE)
   try {
@@ -63,9 +83,17 @@ try {
     Move-Item -LiteralPath $root -Destination $previous
   }
   Move-Item -LiteralPath $stage -Destination $root
+  $installed=Join-Path $root 'WARDER-PICON-FACTORY.exe'
+  $installedHash=(Get-FileHash -LiteralPath $installed -Algorithm SHA256).Hash.ToLowerInvariant()
+  if ($installedHash -ne $env:WARDER_SHA256.ToLowerInvariant()) { throw 'Installed Factory executable does not match the verified package' }
+  [IO.File]::AppendAllText($env:WARDER_LOG,((Get-Date -Format o)+' Installed version '+$env:WARDER_VERSION+' build '+$env:WARDER_BUILD_COMMIT+' SHA256 '+$installedHash+[Environment]::NewLine))
 } catch {
   [IO.File]::AppendAllText($env:WARDER_LOG,((Get-Date -Format o)+' '+$_.Exception.Message+[Environment]::NewLine))
-  if ($previous -and (Test-Path -LiteralPath $previous) -and -not (Test-Path -LiteralPath $root)) {
+  if ($previous -and (Test-Path -LiteralPath $previous)) {
+    if (Test-Path -LiteralPath $root) {
+      $failed=$root+'.failed-'+[guid]::NewGuid().ToString('N')
+      Move-Item -LiteralPath $root -Destination $failed
+    }
     Move-Item -LiteralPath $previous -Destination $root
   }
   exit 1
@@ -79,10 +107,11 @@ def _encoded_install_script() -> str:
     return base64.b64encode(_INSTALL_SCRIPT.encode('utf-16le')).decode('ascii')
 
 
-def _launcher(version: str, digest: str, offset: int) -> bytes:
+def _launcher(version: str, digest: str, commit: str, offset: int) -> bytes:
     text = r'''@echo off
 setlocal EnableExtensions
 set "WARDER_VERSION=__VERSION__"
+set "WARDER_BUILD_COMMIT=__COMMIT__"
 set "WARDER_SHA256=__SHA256__"
 set "WARDER_PAYLOAD_OFFSET=0000000000"
 set "WARDER_CMD_FILE=%~f0"
@@ -96,20 +125,25 @@ for /f "usebackq delims=" %%H in (`certutil -hashfile "%WARDER_EXE%" SHA256 ^| f
 set "WARDER_CURRENT_SHA=%WARDER_CURRENT_SHA: =%"
 if /i "%WARDER_CURRENT_SHA%"=="%WARDER_SHA256%" goto launch
 :install
-powershell.exe -NoLogo -NoProfile -NonInteractive -ExecutionPolicy Bypass -WindowStyle Hidden -EncodedCommand __PS_INSTALL_CODE__
+powershell.exe -NoLogo -NoProfile -NonInteractive -ExecutionPolicy Bypass -EncodedCommand __PS_INSTALL_CODE__
 if errorlevel 1 goto failed
+for /f "usebackq delims=" %%H in (`certutil -hashfile "%WARDER_EXE%" SHA256 ^| findstr /r /v "^CertUtil ^SHA256 ^$"`) do set "WARDER_INSTALLED_SHA=%%H"
+set "WARDER_INSTALLED_SHA=%WARDER_INSTALLED_SHA: =%"
+if /i not "%WARDER_INSTALLED_SHA%"=="%WARDER_SHA256%" goto failed
 :launch
-start "" "%WARDER_EXE%"
+start "" /D "%WARDER_APP_DIR%" "%WARDER_EXE%"
 exit /b 0
 :failed
-echo WARDER PICON FACTORY installer stopped. Read-only preflight must find the original D:\WARDER-PICON-FACTORY structure. No fallback root was created.
+echo WARDER PICON FACTORY update failed. The old executable was not launched by this installer.
+echo Check that the original D:\WARDER-PICON-FACTORY structure is complete and close any running Factory window before retrying.
 if exist "%WARDER_LOG%" echo Installer diagnostic: "%WARDER_LOG%"
-pause
+if not defined WARDER_TEST_NO_PAUSE pause
 exit /b 1
 exit /b 0
 :: WARDER-PICON-FACTORY-PAYLOAD
 '''
     text = (text.replace('__VERSION__', version).replace('__SHA256__', digest)
+            .replace('__COMMIT__', commit)
             .replace(PS_MARKER, _encoded_install_script()))
     if PS_MARKER in text:
         raise ValueError('PowerShell installation script was not embedded')
@@ -119,12 +153,14 @@ exit /b 0
     return text.replace('\n', '\r\n').encode('ascii')
 
 
-def build_launcher(exe_path, output_path, version):
+def build_launcher(exe_path, output_path, version, commit="nezistený"):
     exe_path, output_path = Path(exe_path), Path(output_path)
     if not exe_path.is_file() or exe_path.is_symlink():
         raise ValueError('Windows executable is missing or unsafe')
     if not isinstance(version, str) or not re.fullmatch(r'factory-v\d+\.\d+\.\d+', version):
         raise ValueError('Invalid Factory version')
+    if not isinstance(commit, str) or not re.fullmatch(r'[A-Za-z0-9._-]{1,80}', commit):
+        raise ValueError('Invalid build commit identifier')
     data = exe_path.read_bytes()
     if not data.startswith(b'MZ') or not data:
         raise ValueError('Input is not a Windows PE executable')
@@ -135,15 +171,15 @@ def build_launcher(exe_path, output_path, version):
         with zipfile.ZipFile(temporary_zip, 'w', zipfile.ZIP_DEFLATED) as archive:
             archive.writestr(EXE_NAME, data)
             archive.writestr('factory-payload.json', json.dumps(
-                {'version': version, 'executable': EXE_NAME, 'sha256': digest},
+                {'version': version, 'commit': commit, 'executable': EXE_NAME, 'sha256': digest},
                 sort_keys=True) + '\n')
         with zipfile.ZipFile(temporary_zip) as archive:
             if archive.testzip() is not None:
                 raise ValueError('Generated launcher payload is corrupt')
         # The fixed-width offset keeps the final prefix byte length stable.
-        prefix = _launcher(version, digest, 0)
+        prefix = _launcher(version, digest, commit, 0)
         offset = len(prefix)
-        launcher = _launcher(version, digest, offset)
+        launcher = _launcher(version, digest, commit, offset)
         if len(prefix) != len(launcher) or offset > 9_999_999_999:
             raise ValueError('Launcher payload offset is invalid')
         with output_path.open('wb') as stream:
@@ -162,8 +198,9 @@ def main():
     parser.add_argument('--exe', required=True)
     parser.add_argument('--output', required=True)
     parser.add_argument('--version', required=True)
+    parser.add_argument('--commit', default='nezistený')
     args = parser.parse_args()
-    print(json.dumps(build_launcher(args.exe, args.output, args.version), indent=2))
+    print(json.dumps(build_launcher(args.exe, args.output, args.version, args.commit), indent=2))
 
 
 if __name__ == '__main__':

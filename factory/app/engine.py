@@ -1388,6 +1388,9 @@ def final_picon_counts(folder):
 class App:
  def __init__(self):
   self.installed_version=installed_factory_version()
+  from factory_build_info import build_commit, executable_path
+  self.build_commit=build_commit()
+  self.executable_path=executable_path()
   self.root=tk.Tk();self.root.title('WARDER PICON FACTORY — '+self.installed_version);self.root.geometry('1480x930');self.root.minsize(1200,760)
   try:
    dpi=float(self.root.winfo_fpixels('1i'))
@@ -1506,7 +1509,12 @@ class App:
     raise RuntimeError('GUI smoke: button without action: '+str(widget))
   marker = os.environ.get("WARDER_GUI_SMOKE_READY_FILE")
   if marker:
-   Path(marker).write_text("GUI_READY\n", encoding="utf-8")
+   import json
+   payload={"status":"GUI_READY","build_commit":self.build_commit,
+            "executable_path":self.executable_path,"data_root":str(ROOT),
+            "preflight":"ok" if self.preflight_result and self.preflight_result.ok else "blocked",
+            "tabs":sorted(tabs)}
+   Path(marker).write_text(json.dumps(payload,ensure_ascii=False)+"\n", encoding="utf-8")
   if os.environ.get("WARDER_GUI_SMOKE_TEST") == "1":
    self.root.after(150, self.root.destroy)
  def open_review(self):
@@ -1700,6 +1708,7 @@ class App:
     elif k=='preflight_done':
      self.preflight_result=v;self.workspace_ready=bool(v.ok)
      self.workspace.show_preflight(v)
+     self.workspace.update_runtime_identity(v)
      if v.ok:
       self.status.set('Preflight úspešný · 13 kategórií prečítaných · zápisové operácie povolené')
       if os.environ.get('WARDER_GUI_SMOKE_TEST')!='1':
@@ -1711,6 +1720,7 @@ class App:
       self.output.see('end')
     elif k=='preflight_error':
      self.workspace_ready=False;self.preflight_result=None
+     self.workspace.update_runtime_identity(None,error=v)
      self.status.set('Preflight zlyhal · všetky zápisy zostávajú zablokované')
      self.output.insert('end','PREFLIGHT ERROR: '+v+'\n');self.output.see('end')
     elif k=='export_done':

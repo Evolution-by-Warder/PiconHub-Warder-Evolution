@@ -66,6 +66,10 @@ jobs:
           New-Item -ItemType Directory -Path $oldApp | Out-Null
           Set-Content -LiteralPath (Join-Path $oldApp 'preinstall-unknown-file.txt') -Value 'preserve prior app payload'
           $inventory += @{ Path='11-APP\WARDER-PICON-FACTORY\preinstall-unknown-file.txt'; PreviousApp=$true; Sha256=(Get-FileHash -Algorithm SHA256 -LiteralPath (Join-Path $oldApp 'preinstall-unknown-file.txt')).Hash }
+          Copy-Item -LiteralPath $env:ComSpec -Destination (Join-Path $oldApp 'WARDER-PICON-FACTORY.exe')
+          Set-Content -LiteralPath (Join-Path $oldApp 'legacy-workspace-config.json') -Value '{"inbox":"C:\\Users\\PC\\WARDER-PICONS\\01-SOURCES\\LOCAL-INBOX","version":"factory-v1.0.0"}' -NoNewline
+          $inventory += @{ Path='11-APP\WARDER-PICON-FACTORY\WARDER-PICON-FACTORY.exe'; PreviousApp=$true; Sha256=(Get-FileHash -Algorithm SHA256 -LiteralPath (Join-Path $oldApp 'WARDER-PICON-FACTORY.exe')).Hash }
+          $inventory += @{ Path='11-APP\WARDER-PICON-FACTORY\legacy-workspace-config.json'; PreviousApp=$true; Sha256=(Get-FileHash -Algorithm SHA256 -LiteralPath (Join-Path $oldApp 'legacy-workspace-config.json')).Hash }
           $inventory | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $env:RUNNER_TEMP 'factory-preserve-hashes.json')
           $queue = @{ schema=1; count=0; items=@(); workstream_counts=@{IDENTITY_VERIFICATION=0; ARTWORK_REVIEW=0; TECHNICAL_QA=0} }
           $queueDir = Join-Path $root '05-QA\EXCEPTIONS'
@@ -83,12 +87,17 @@ jobs:
 
       - name: Build standalone Windows GUI executable
         working-directory: factory/app
+        shell: pwsh
         run: >-
+          $commit = (git rev-parse HEAD).Trim();
+          @{commit=$commit; workflow_run=$env:GITHUB_RUN_ID} | ConvertTo-Json | Set-Content -LiteralPath .factory-build.json;
           python -m PyInstaller --noconfirm --clean --onefile --windowed
           --name WARDER-PICON-FACTORY
           --add-data ".factory-version.json;."
+          --add-data ".factory-build.json;."
           --add-data "templates;templates"
-          engine.py
+          engine.py;
+          if ($LASTEXITCODE -ne 0) { throw "Standalone build failed" }
       - name: Smoke-test packaged Windows GUI
         shell: pwsh
         working-directory: factory/app
@@ -105,6 +114,11 @@ jobs:
             Start-Sleep -Milliseconds 500
           }
           if (-not $ready) { if (-not $proc.HasExited) { Stop-Process -Id $proc.Id -Force }; throw "Packaged GUI did not signal startup" }
+          $identity = Get-Content $env:WARDER_GUI_SMOKE_READY_FILE -Raw | ConvertFrom-Json
+          $expectedExe = (Resolve-Path 'dist/WARDER-PICON-FACTORY.exe').Path
+          if ($identity.build_commit -ne (git rev-parse HEAD).Trim()) { throw "GUI reports wrong build commit: $($identity.build_commit)" }
+          if ($identity.executable_path -ine $expectedExe) { throw "GUI smoke ran a different executable: $($identity.executable_path)" }
+          if ($identity.data_root -cne 'D:\WARDER-PICON-FACTORY' -or $identity.preflight -ne 'ok') { throw "GUI smoke did not use the authoritative D: workspace" }
           $proc.WaitForExit(15000) | Out-Null
           if (-not $proc.HasExited) { Stop-Process -Id $proc.Id -Force; throw "Packaged GUI did not close after smoke test" }
           if ($proc.ExitCode -ne 0) { throw "Packaged GUI exit code $($proc.ExitCode)" }
@@ -113,7 +127,8 @@ jobs:
         run: |
           $version = python -c "import json;print(json.load(open('.factory-version.json'))['version'])"
           if ($LASTEXITCODE -ne 0) { throw "Unable to read Factory version" }
-          python package_windows_cmd.py --exe dist/WARDER-PICON-FACTORY.exe --output ../../SPUSTI-WARDER-PICON-FACTORY.cmd --version $version
+          $commit = (git rev-parse HEAD).Trim()
+          python package_windows_cmd.py --exe dist/WARDER-PICON-FACTORY.exe --output ../../SPUSTI-WARDER-PICON-FACTORY.cmd --version $version --commit $commit
           if ($LASTEXITCODE -ne 0) { throw "Unable to build one-click CMD package" }
       - name: Smoke-test single-CMD install and launch
         shell: pwsh
@@ -123,6 +138,20 @@ jobs:
         run: |
           Remove-Item $env:WARDER_GUI_SMOKE_READY_FILE -Force -ErrorAction SilentlyContinue
           $launcher = Join-Path $env:GITHUB_WORKSPACE 'SPUSTI-WARDER-PICON-FACTORY.cmd'
+          $installed = 'D:\WARDER-PICON-FACTORY\11-APP\WARDER-PICON-FACTORY\WARDER-PICON-FACTORY.exe'
+          $oldExeSha = (Get-FileHash -Algorithm SHA256 -LiteralPath $installed).Hash
+          $oldProcess = Start-Process -FilePath $installed -ArgumentList '/c "ping 127.0.0.1 -n 40 > nul"' -PassThru -WindowStyle Hidden
+          Start-Sleep -Milliseconds 500
+          $env:WARDER_TEST_NO_PAUSE = '1'
+          $blocked = Start-Process -FilePath $env:ComSpec -ArgumentList @('/c', "`"$launcher`"") -PassThru -Wait
+          Remove-Item Env:\WARDER_TEST_NO_PAUSE -ErrorAction SilentlyContinue
+          if ($blocked.ExitCode -eq 0) { Stop-Process -Id $oldProcess.Id -Force -ErrorAction SilentlyContinue; throw "Installer claimed success while the previous Factory executable was running" }
+          if (Test-Path -LiteralPath $env:WARDER_GUI_SMOKE_READY_FILE) { Stop-Process -Id $oldProcess.Id -Force -ErrorAction SilentlyContinue; throw "Installer launched an application after refusing the update" }
+          if (-not (Test-Path -LiteralPath $installed) -or (Get-FileHash -Algorithm SHA256 -LiteralPath $installed).Hash -ne $oldExeSha) { Stop-Process -Id $oldProcess.Id -Force -ErrorAction SilentlyContinue; throw "Blocked update changed the old executable" }
+          $installerLog = 'D:\WARDER-PICON-FACTORY\09-LOGS\installer.log'
+          if (-not (Test-Path -LiteralPath $installerLog) -or -not (Get-Content -LiteralPath $installerLog -Raw).Contains('older installed Factory is still running')) { Stop-Process -Id $oldProcess.Id -Force -ErrorAction SilentlyContinue; throw "Installer did not record the reason for refusing the update" }
+          Stop-Process -Id $oldProcess.Id -Force -ErrorAction SilentlyContinue
+          Start-Sleep -Milliseconds 250
           $proc = Start-Process -FilePath $env:ComSpec -ArgumentList @('/c', "`"$launcher`"") -PassThru -Wait
           if ($proc.ExitCode -ne 0) {
             $log = 'D:\WARDER-PICON-FACTORY\09-LOGS\installer.log'
@@ -135,9 +164,14 @@ jobs:
             Start-Sleep -Milliseconds 500
           }
           if (-not $ready) { throw "One-click CMD did not install and launch the GUI" }
+          $identity = Get-Content $env:WARDER_GUI_SMOKE_READY_FILE -Raw | ConvertFrom-Json
+          if ($identity.build_commit -ne (git rev-parse HEAD).Trim()) { throw "CMD launched a stale build: $($identity.build_commit)" }
+          if ($identity.executable_path -ine 'D:\WARDER-PICON-FACTORY\11-APP\WARDER-PICON-FACTORY\WARDER-PICON-FACTORY.exe') { throw "CMD launched an executable from an unexpected path: $($identity.executable_path)" }
+          if ($identity.data_root -cne 'D:\WARDER-PICON-FACTORY' -or $identity.preflight -ne 'ok') { throw "CMD-launched GUI did not use the authoritative D: workspace" }
           $version = python -c "import json;print(json.load(open('factory/app/.factory-version.json'))['version'])"
-          $installed = 'D:\WARDER-PICON-FACTORY\11-APP\WARDER-PICON-FACTORY\WARDER-PICON-FACTORY.exe'
           if (-not (Test-Path $installed)) { throw "One-click CMD did not install the executable" }
+          $expectedSha = (Get-FileHash -Algorithm SHA256 -LiteralPath 'factory/app/dist/WARDER-PICON-FACTORY.exe').Hash
+          if ((Get-FileHash -Algorithm SHA256 -LiteralPath $installed).Hash -ne $expectedSha) { throw "Installed EXE is not the EXE packaged in the CMD" }
           $inventory = Get-Content (Join-Path $env:RUNNER_TEMP 'factory-preserve-hashes.json') | ConvertFrom-Json
           foreach ($entry in $inventory) {
             if ($entry.PreviousApp) { continue }
@@ -150,7 +184,28 @@ jobs:
           if (-not $oldCopy -or -not (Test-Path (Join-Path $oldCopy.FullName 'preinstall-unknown-file.txt'))) { throw "Installer failed to retain the previous application directory" }
           $oldFile = Join-Path $oldCopy.FullName 'preinstall-unknown-file.txt'
           $expectedOld = ($inventory | Where-Object { $_.PreviousApp } | Select-Object -First 1).Sha256
+          foreach ($entry in ($inventory | Where-Object { $_.PreviousApp })) {
+            $priorFile = Join-Path 'D:\WARDER-PICON-FACTORY\11-APP' ($oldCopy.Name + '\' + (Split-Path $entry.Path -Leaf))
+            if (-not (Test-Path -LiteralPath $priorFile) -or (Get-FileHash -Algorithm SHA256 -LiteralPath $priorFile).Hash -ne $entry.Sha256) { throw "Installer did not preserve prior application data: $($entry.Path)" }
+          }
           if ((Get-FileHash -Algorithm SHA256 -LiteralPath $oldFile).Hash -ne $expectedOld) { throw "Installer modified unknown prior app data" }
+      - name: Smoke-test read-only user diagnostic
+        shell: pwsh
+        run: |
+          $before = Get-Content (Join-Path $env:RUNNER_TEMP 'factory-preserve-hashes.json') | ConvertFrom-Json
+          $env:WARDER_DIAG_NO_PAUSE = '1'
+          $diagnostic = Join-Path $env:GITHUB_WORKSPACE 'factory/app/DIAGNOSTIKA-WARDER-PICON-FACTORY.cmd'
+          & $env:ComSpec /c "`"$diagnostic`""
+          Remove-Item Env:\WARDER_DIAG_NO_PAUSE -ErrorAction SilentlyContinue
+          if ($LASTEXITCODE -ne 0) { throw "Read-only diagnostic script failed" }
+          $report = Get-ChildItem -LiteralPath $env:TEMP -File -Filter 'WARDER-PICON-FACTORY-diagnostic-*.txt' | Sort-Object LastWriteTime -Descending | Select-Object -First 1
+          if (-not $report) { throw "Read-only diagnostic did not save its report" }
+          $diagnosticText = Get-Content -LiteralPath $report.FullName -Raw
+          if (-not $diagnosticText.Contains('D:\WARDER-PICON-FACTORY') -or -not $diagnosticText.Contains('SHA256:')) { throw "Diagnostic report omits workspace or executable identity" }
+          foreach ($entry in ($before | Where-Object { -not $_.PreviousApp })) {
+            $file = Join-Path 'D:\WARDER-PICON-FACTORY' $entry.Path
+            if ((Get-FileHash -Algorithm SHA256 -LiteralPath $file).Hash -ne $entry.Sha256) { throw "Read-only diagnostic changed existing data: $($entry.Path)" }
+          }
       - name: Upload one-click Windows application (not a release)
         uses: actions/upload-artifact@v4
         with:
