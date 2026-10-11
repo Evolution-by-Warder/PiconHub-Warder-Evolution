@@ -140,7 +140,18 @@ def upload_png_evidence(report_dir, *, opener=None, state_path=None, max_attempt
                                 continue
                         except (OSError, ValueError, KeyError, TypeError, urllib.error.HTTPError):
                             pass
-                    errors.append('HTTP ' + str(exc.code))
+                    detail = ''
+                    if exc.code == 422:
+                        try:
+                            payload = json.loads(exc.read(8192).decode('utf-8', errors='replace'))
+                            if isinstance(payload, dict):
+                                detail = str(payload.get('message', ''))[:180]
+                                fields = payload.get('errors', [])
+                                if isinstance(fields, list):
+                                    detail += ' ' + '; '.join(str(x.get('code', '')) + ':' + str(x.get('field', '')) for x in fields[:3] if isinstance(x, dict))
+                        except (OSError, ValueError, TypeError):
+                            pass
+                    errors.append(('HTTP ' + str(exc.code) + (' ' + detail.strip() if detail.strip() else ''))[:240])
                     if exc.code == 422:
                         stop_upload = True
                     # GitHub abuse/secondary limits and authentication failures
@@ -153,5 +164,5 @@ def upload_png_evidence(report_dir, *, opener=None, state_path=None, max_attempt
                             pass
             except (OSError, ValueError) as exc:
                 errors.append(type(exc).__name__)
-    return {'status': 'rate_limited_or_forbidden' if stop_upload else 'sent' if sent == attempted and attempted else 'partial' if sent else 'failed' if attempted else 'already_delivered' if skipped else 'no_evidence',
+    return {'status': 'upload_rejected' if stop_upload and any(x.startswith('HTTP 422') for x in errors) else 'rate_limited_or_forbidden' if stop_upload else 'sent' if sent == attempted and attempted else 'partial' if sent else 'failed' if attempted else 'already_delivered' if skipped else 'no_evidence',
             'sent': sent, 'attempted': attempted, 'skipped': skipped, 'errors': errors[:5]}
