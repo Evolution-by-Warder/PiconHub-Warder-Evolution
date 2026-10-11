@@ -75,6 +75,8 @@ def export_pending(report_dir, output_dir, destination, *, ledger_path=None):
                 manifest['files'].append({'archive_path': name, 'sha256': digest.hexdigest(), 'source': str(p)})
             archive.writestr('manifest.json', json.dumps(manifest, ensure_ascii=False, indent=2))
         with zipfile.ZipFile(temp_name) as check:
+            if 'manifest.json' not in check.namelist():
+                raise ValueError('ZIP manifest missing')
             if check.testzip() is not None:
                 raise ValueError('ZIP integrity verification failed')
         # Exclusive creation prevents replacing a ZIP created while the export ran.
