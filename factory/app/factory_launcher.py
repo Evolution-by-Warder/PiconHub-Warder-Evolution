@@ -104,7 +104,11 @@ def main():
                 if previous:
                     log_update('Previous application found; manual inspection required before restoring')
                 return 1
-            attempt_update(APP, reporter=log_update)
+            # This launcher executes from inside APP. Replacing APP while this
+            # process imports modules from it can delete its own entrypoint on
+            # Windows. Refuse in-place activation until an external bootstrap
+            # owns the update transaction. Preserve the working installation.
+            log_update('Automatic in-place update disabled: external bootstrap required; Factory preserved')
             if pending.is_file():
                 return launch_with_recovery()
             # An ordinary, already-installed GUI must not be killed because its
