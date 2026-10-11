@@ -17,7 +17,7 @@ def retry_reports(report_dir, state_file, limit=5):
     results = []
     if not folder.is_dir():
         return results
-    for path in sorted(folder.glob('report-*.json')):
+    for path in sorted(folder.glob('report-*.json'), reverse=True):
         if len(results) >= limit:
             break
         if path.is_symlink() or not path.is_file() or path.name in delivered:
