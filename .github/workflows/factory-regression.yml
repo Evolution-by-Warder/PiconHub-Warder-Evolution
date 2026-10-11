@@ -143,13 +143,21 @@ jobs:
           $oldProcess = Start-Process -FilePath $installed -ArgumentList '/c "ping 127.0.0.1 -n 40 > nul"' -PassThru -WindowStyle Hidden
           Start-Sleep -Milliseconds 500
           $env:WARDER_TEST_NO_PAUSE = '1'
-          $blocked = Start-Process -FilePath $env:ComSpec -ArgumentList @('/c', "`"$launcher`"") -PassThru -Wait
+          $blockedStdout = Join-Path $env:RUNNER_TEMP 'blocked-update-stdout.txt'
+          $blockedStderr = Join-Path $env:RUNNER_TEMP 'blocked-update-stderr.txt'
+          $blocked = Start-Process -FilePath $env:ComSpec -ArgumentList @('/c', "`"$launcher`"") -PassThru -Wait -RedirectStandardOutput $blockedStdout -RedirectStandardError $blockedStderr
           Remove-Item Env:\WARDER_TEST_NO_PAUSE -ErrorAction SilentlyContinue
           if ($blocked.ExitCode -eq 0) { Stop-Process -Id $oldProcess.Id -Force -ErrorAction SilentlyContinue; throw "Installer claimed success while the previous Factory executable was running" }
           if (Test-Path -LiteralPath $env:WARDER_GUI_SMOKE_READY_FILE) { Stop-Process -Id $oldProcess.Id -Force -ErrorAction SilentlyContinue; throw "Installer launched an application after refusing the update" }
           if (-not (Test-Path -LiteralPath $installed) -or (Get-FileHash -Algorithm SHA256 -LiteralPath $installed).Hash -ne $oldExeSha) { Stop-Process -Id $oldProcess.Id -Force -ErrorAction SilentlyContinue; throw "Blocked update changed the old executable" }
           $installerLog = 'D:\WARDER-PICON-FACTORY\09-LOGS\installer.log'
-          if (-not (Test-Path -LiteralPath $installerLog) -or -not (Get-Content -LiteralPath $installerLog -Raw).Contains('older installed Factory is still running')) { Stop-Process -Id $oldProcess.Id -Force -ErrorAction SilentlyContinue; throw "Installer did not record the reason for refusing the update" }
+          if (-not (Test-Path -LiteralPath $installerLog) -or -not (Get-Content -LiteralPath $installerLog -Raw).Contains('older installed Factory is still running')) {
+            $logText = if (Test-Path -LiteralPath $installerLog) { Get-Content -LiteralPath $installerLog -Raw } else { '(no installer log)' }
+            $outText = if (Test-Path -LiteralPath $blockedStdout) { Get-Content -LiteralPath $blockedStdout -Raw } else { '(no stdout)' }
+            $errText = if (Test-Path -LiteralPath $blockedStderr) { Get-Content -LiteralPath $blockedStderr -Raw } else { '(no stderr)' }
+            Stop-Process -Id $oldProcess.Id -Force -ErrorAction SilentlyContinue
+            throw "Installer did not record a running-app refusal. Exit=$($blocked.ExitCode); log=$logText; stdout=$outText; stderr=$errText"
+          }
           Stop-Process -Id $oldProcess.Id -Force -ErrorAction SilentlyContinue
           Start-Sleep -Milliseconds 250
           $proc = Start-Process -FilePath $env:ComSpec -ArgumentList @('/c', "`"$launcher`"") -PassThru -Wait
