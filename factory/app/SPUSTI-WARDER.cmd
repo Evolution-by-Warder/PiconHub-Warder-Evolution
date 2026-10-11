@@ -57,13 +57,18 @@ rem The release may contain NEW engine modules and NEW runtime dependencies.
 rem Install its requirements only after the update has been staged/activated.
 "%WARDER_RUNTIME%\Scripts\python.exe" -m pip install --disable-pip-version-check -r "requirements-runtime.txt"
 if errorlevel 1 goto :dependency_failure
-"%WARDER_RUNTIME%\Scripts\python.exe" "factory_launcher.py"
+rem Do not keep APP as the launcher working directory: rollback must rename it.
+cd /d "%WARDER_PICON_FACTORY_ROOT%\11-APP"
+if errorlevel 1 goto :failure
+"%WARDER_RUNTIME%\Scripts\python.exe" "%WARDER_PICON_FACTORY_ROOT%\11-APP\WARDER-PICON-FACTORY\factory_launcher.py"
 set "EXITCODE=%ERRORLEVEL%"
 if not "%EXITCODE%"=="0" pause
 exit /b %EXITCODE%
 :dependency_failure
 echo Factory dependencies could not be installed; rolling back a pending update.
-"%WARDER_RUNTIME%\Scripts\python.exe" -c "from factory_update_transaction import resolve; from workspace_paths import resolve_root,workspace_paths; print(resolve(workspace_paths(resolve_root())['app'],gui_ready=False))"
+cd /d "%WARDER_PICON_FACTORY_ROOT%\11-APP"
+if errorlevel 1 goto :failure
+"%WARDER_RUNTIME%\Scripts\python.exe" -c "import sys; sys.path.insert(0, r'D:\WARDER-PICON-FACTORY\11-APP\WARDER-PICON-FACTORY'); from factory_update_transaction import resolve; from workspace_paths import resolve_root,workspace_paths; print(resolve(workspace_paths(resolve_root())['app'],gui_ready=False))"
 echo Factory runtime setup failed; no original picons or registry were changed.
 pause
 exit /b 1
