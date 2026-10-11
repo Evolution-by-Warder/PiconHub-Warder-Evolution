@@ -1658,12 +1658,21 @@ class App:
       except Exception:pass
   threading.Thread(target=worker,daemon=True).start()
  def poll(self):
+  if self.running:
+   last=getattr(self,'_last_progress_at',self.started_at)
+   if last is not None:
+    idle=int(time.monotonic()-last)
+    if idle>=30:
+     self.status.set('PRACUJE / ČAKÁ NA OPERÁCIU · bez nového priebehu '+str(idle)+' s · posledná fáza: '+str(self.status.get()).split(' · bez nového priebehu')[0])
   try:
    while True:
     k,v=self.events.get_nowait()
     if k=='stage':self.status.set(v)
     elif k=='log':self.output.insert('end',v+'\n');self.output.see('end')
-    elif k=='progress':self.bar['maximum']=max(1,v[1]);self.bar['value']=v[0]
+    elif k=='progress':
+     self.bar['maximum']=max(1,v[1]);self.bar['value']=v[0]
+     self._last_progress_at=time.monotonic()
+     self._last_progress=v
     elif k=='done':
      s,path=v;self.status.set('Hotovo · '+str(s['scanned'])+' PNG · QA opravené '+str(s.get('qa_repaired',0))+' · zostáva '+str(s.get('qa_review','?'))+' výnimiek.')
      self.output.insert('end','\nREPORT: '+path+'\n');self.running=False;self.gallery.reload()
