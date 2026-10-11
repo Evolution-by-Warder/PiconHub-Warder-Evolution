@@ -1383,16 +1383,33 @@ class App:
    except Exception as exc:self.emit('export_error',str(exc))
   threading.Thread(target=worker,daemon=True).start()
  def configure_github(self):
-  from tkinter import simpledialog, messagebox
-  token=simpledialog.askstring('GitHub prenos','Vlož GitHub fine-grained token s Contents: Read and write pre PiconHub-Warder-Evolution. Token sa uloží šifrovane pre tento Windows účet.',show='*',parent=self.root)
-  if token is None:return
-  try:
-   from factory_github_credentials import save_token
-   save_token(DATA/'github-upload.dpapi',token)
-   messagebox.showinfo('GitHub prenos','Prístup uložený šifrovane. Odosielam čakajúce reporty a PNG bez nového skenovania.',parent=self.root)
+  from tkinter import messagebox
+  from factory_github_credentials import load_token
+  if load_token(DATA/'github-upload.dpapi'):
+   messagebox.showinfo('GitHub prenos','Existujúce prihlásenie je dostupné. Odosielam čakajúce reporty bez nového skenovania.',parent=self.root)
    threading.Thread(target=self._send_diagnostics,args=(None,),daemon=True).start()
-  except (OSError,ValueError) as exc:
-   messagebox.showerror('GitHub prenos','Nepodarilo sa uložiť prístup: '+str(exc),parent=self.root)
+   return
+  import shutil,subprocess
+  gh=shutil.which('gh')
+  if not gh:
+   messagebox.showwarning('GitHub prenos','GitHub CLI (gh) nie je nainštalované. Automatické prihlásenie vyžaduje GitHub CLI; neodoslané dáta zostávajú lokálne.',parent=self.root)
+   return
+  if not messagebox.askyesno('GitHub prenos','Otvoriť jednorazové bezpečné prihlásenie cez GitHub CLI? GitHub si autorizáciu zapamätá pre ďalšie spustenia.',parent=self.root):
+   return
+  def login_worker():
+   try:
+    # gh handles the browser/device flow and stores the credential in its own
+    # credential manager. Never capture or log the access token.
+    creationflags=getattr(subprocess,'CREATE_NEW_CONSOLE',0)
+    result=subprocess.run([gh,'auth','login','--hostname','github.com','--web','--git-protocol','https','--scopes','repo'],
+                          timeout=300,creationflags=creationflags,check=False)
+    if result.returncode==0:
+     self.emit('diagnostics','GitHub prihlásenie dokončené; odosielam čakajúce dáta.')
+     self._send_diagnostics(None)
+    else:self.emit('diagnostics','GitHub prihlásenie nedokončené; dáta zostali lokálne.')
+   except (OSError,subprocess.TimeoutExpired):
+    self.emit('diagnostics','GitHub prihlásenie sa nepodarilo; dáta zostali lokálne.')
+  threading.Thread(target=login_worker,daemon=True).start()
  def _send_diagnostics(self,report_path):
   try:
    from factory_github_credentials import load_token
