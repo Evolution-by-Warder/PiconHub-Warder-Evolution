@@ -66,3 +66,20 @@ class FinalizationTests(unittest.TestCase):
         row['classification'] = 'REVIEW'
         result = finalize_new_candidates([row], {}, self.work, self.final, verified_shas={SHA})
         self.assertEqual(result['copied'], 0)
+
+    def test_invalid_reference_is_rejected(self):
+        row = self.row()
+        row['service_reference'] = 'invalid-service'
+        result = finalize_new_candidates([row], {}, self.work, self.final, verified_shas={SHA})
+        self.assertEqual(result['copied'], 0)
+
+    def test_missing_variant_is_rejected(self):
+        (self.work / SHA[:2] / SHA / 'black.png').unlink()
+        result = finalize_new_candidates([self.row()], {}, self.work, self.final, verified_shas={SHA})
+        self.assertEqual(result['copied'], 0)
+
+    def test_existing_matching_trio_is_reused(self):
+        finalize_new_candidates([self.row()], {}, self.work, self.final, verified_shas={SHA})
+        result = finalize_new_candidates([self.row()], {}, self.work, self.final, verified_shas={SHA})
+        self.assertEqual(result['already_present'], 1)
+        self.assertEqual(result['copied'], 0)
