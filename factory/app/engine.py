@@ -1342,6 +1342,7 @@ class App:
   ttk.Button(actions,text='Zobraziť iba nevyriešené výnimky',command=self.open_review).pack(side='left')
   ttk.Button(actions,text='Otvoriť priečinok reportov',command=self.open_reports).pack(side='left',padx=8)
   ttk.Button(actions,text='Zabaliť nespracované PNG na D:',command=self.export_pending).pack(side='left',padx=8)
+  ttk.Button(actions,text='GitHub prenos',command=self.configure_github).pack(side='left',padx=8)
   ttk.Label(frm,text=f'Zdrojové ZIP/PNG: {INBOX}  |  Rozpracované: {OUTPUT}  |  Finálne: {FINAL_PICONS}  |  Reporty: {REPORTS}').pack(anchor='w',pady=8)
   if os.environ.get("WARDER_GUI_SMOKE_TEST") != "1":
    self.root.after(150,self.start)
@@ -1381,8 +1382,22 @@ class App:
     self.emit('export_done',result)
    except Exception as exc:self.emit('export_error',str(exc))
   threading.Thread(target=worker,daemon=True).start()
+ def configure_github(self):
+  from tkinter import simpledialog, messagebox
+  token=simpledialog.askstring('GitHub prenos','Vlož GitHub fine-grained token s Contents: Read and write pre PiconHub-Warder-Evolution. Token sa uloží šifrovane pre tento Windows účet.',show='*',parent=self.root)
+  if token is None:return
+  try:
+   from factory_github_credentials import save_token
+   save_token(DATA/'github-upload.dpapi',token)
+   messagebox.showinfo('GitHub prenos','Prístup uložený šifrovane. Odosielam čakajúce reporty a PNG bez nového skenovania.',parent=self.root)
+   threading.Thread(target=self._send_diagnostics,args=(None,),daemon=True).start()
+  except (OSError,ValueError) as exc:
+   messagebox.showerror('GitHub prenos','Nepodarilo sa uložiť prístup: '+str(exc),parent=self.root)
  def _send_diagnostics(self,report_path):
   try:
+   from factory_github_credentials import load_token
+   token=load_token(DATA/'github-upload.dpapi')
+   if token:os.environ['WARDER_DIAGNOSTICS_TOKEN']=token
    from factory_diagnostics_retry import retry_reports
    results=retry_reports(REPORTS,DATA/'diagnostics-delivered.json',limit=5)
    sent=sum(item['status']=='sent' for item in results)
