@@ -38,7 +38,7 @@ jobs:
                       archive.write(file, file.relative_to(root))
           with ZipFile(output) as archive:
               assert archive.testzip() is None
-              for required in ('engine.py', 'factory_launcher.py', 'live_png_test.py',
+              for required in ('engine.py', 'factory_launcher.py', 'live_png_test.py', 'SPUSTI-WARDER.cmd',
                                'templates/picons/black-sablona.png',
                                'templates/picons/white-sablona.png'):
                   assert required in archive.namelist(), required
@@ -66,3 +66,14 @@ jobs:
       - name: Run Factory tests on Windows
         working-directory: factory/app
         run: python -m unittest discover -p 'test_*.py' -v
+
+      - name: Verify one-click Windows setup without launching GUI
+        shell: cmd
+        working-directory: factory/app
+        env:
+          WARDER_FACTORY_SETUP_ONLY: "1"
+        run: call SPUSTI-WARDER.cmd
+      - name: Check isolated runtime imports
+        shell: cmd
+        working-directory: factory/app
+        run: .venv\Scripts\python.exe -c "import PIL, py7zr, tkinter; print('Windows runtime OK')"
