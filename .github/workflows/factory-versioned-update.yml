@@ -109,6 +109,18 @@ jobs:
           PY
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git add factory/update/manifest.json
-          git commit -m "factory: publish update manifest v$VERSION"
-          git push origin HEAD:factory-warder-development
+          for attempt in 1 2 3 4 5; do
+            git fetch origin factory-warder-development
+            git checkout -B factory-manifest-write FETCH_HEAD
+            git add factory/update/manifest.json
+            if git diff --cached --quiet; then
+              echo "Manifest already published"
+              exit 0
+            fi
+            git commit -m "factory: publish update manifest v$VERSION"
+            if git push origin HEAD:factory-warder-development; then
+              exit 0
+            fi
+            echo "Concurrent Factory change; retrying manifest on latest branch"
+          done
+          exit 1
