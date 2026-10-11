@@ -15,7 +15,7 @@ from urllib.parse import urlsplit
 
 from factory_update_stage import stage_verified_zip, MAX_PACKAGE
 from factory_update_transaction import begin
-from workspace_paths import read_only_preflight
+from workspace_paths import verify_required_directories
 
 REPO = 'Evolution-by-Warder/PiconHub-Warder-Evolution'
 MANIFEST_URL = 'https://raw.githubusercontent.com/' + REPO + '/factory-warder-development/factory/update/manifest.json'
@@ -100,9 +100,9 @@ def attempt_update(app, *, manifest_fetch=fetch, downloader=download_release, re
     phase = 'preflight'
     try:
         workspace = app.parents[1]
-        preflight = read_only_preflight(workspace)
-        if not preflight.ok:
-            raise PermissionError('Read-only workspace preflight failed: ' + '; '.join(preflight.findings[-2:]))
+        structure_ok, findings = verify_required_directories(workspace)
+        if not structure_ok:
+            raise PermissionError('Read-only workspace preflight failed: ' + '; '.join(findings))
         phase = 'manifest: ' + MANIFEST_URL
         data = json.loads(manifest_fetch(MANIFEST_URL))
         info = validate_manifest(data, read_version(app))
