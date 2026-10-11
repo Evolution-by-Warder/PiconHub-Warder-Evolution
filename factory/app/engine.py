@@ -1207,7 +1207,9 @@ class Factory:
   # Only locally staged NEW identities with one unambiguous artwork and clean QA.
   # No Master Registry writes or semantic approvals are performed.
   from factory_finalization import finalize_new_candidates
-  finalized=finalize_new_candidates(registry_matches,qa_issues,OUTPUT,FINAL_PICONS,verified_shas={sha for sha in unique if sha not in qa_issues and sha not in {issue['sha256'] for issue in integrity['issues']} and _output_signature(sha) is not None and (sha in qa_targets or (current_signatures.get(sha) is not None and sha not in qa_targets))})
+  integrity_blocked={issue['sha256'] for issue in integrity['issues']}
+  verified_for_finalization={sha for sha in unique if sha not in qa_issues and sha not in integrity_blocked and _output_signature(sha) is not None and (sha in qa_targets or (current_signatures.get(sha) is not None and sha not in qa_targets))}
+  finalized=finalize_new_candidates(registry_matches,qa_issues,OUTPUT,FINAL_PICONS,verified_shas=verified_for_finalization)
   stats['new_candidate_finalization']=finalized
   self.log('Lokálne finálne NEW-CANDIDATES: '+str(finalized))
   self.db.execute('INSERT INTO runs VALUES (?,?,?,?,?,?)',(run,stats['scanned'],stats['changed'],stats['duplicates'],stats['exceptions'],stats['created']))
