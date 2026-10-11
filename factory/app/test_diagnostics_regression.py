@@ -27,6 +27,21 @@ class FactoryDiagnosticsSafety(unittest.TestCase):
         self.assertEqual(result['final_picons_on_disk']['transparent'],7)
         self.assertNotIn('private',json.dumps(result))
 
+    def test_confirmed_delivery_removes_only_sent_report(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            folder = Path(tmp)
+            sent = folder / 'report-20261011-092600-123.json'
+            failed = folder / 'report-20261011-092601-123.json'
+            sent.write_text('{}')
+            failed.write_text('{}')
+            def upload(path):
+                return {'status': 'sent' if path == sent else 'http_error'}
+            with patch('factory_diagnostics_retry.upload_report', side_effect=upload):
+                result = retry_reports(folder, folder / 'delivered.json')
+            self.assertEqual(len(result), 2)
+            self.assertFalse(sent.exists())
+            self.assertTrue(failed.exists())
+
     def test_cleanup_preserves_reports_and_review_queues(self):
         with tempfile.TemporaryDirectory() as tmp:
             folder = Path(tmp)
