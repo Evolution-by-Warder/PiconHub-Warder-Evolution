@@ -186,8 +186,15 @@ class FactoryWorkspace:
     MAX_TABLE_ROWS = 500
     def __init__(self, app, root, paths):
         self.app, self.root, self.paths = app, root, paths
+        # Preserve the diagnostic data models and background panels, but keep
+        # the everyday operator interface on one screen.
         self.notebook = ttk.Notebook(root)
-        self.notebook.pack(fill="both", expand=True)
+        self.workbench = ttk.Panedwindow(root, orient="horizontal")
+        self.workbench.pack(fill="both", expand=True)
+        self.operator_left = ttk.Frame(self.workbench)
+        self.operator_right = ttk.Frame(self.workbench)
+        self.workbench.add(self.operator_left, weight=1)
+        self.workbench.add(self.operator_right, weight=1)
         self._build_dashboard()
         self._build_sources()
         self._build_registry()
@@ -203,6 +210,13 @@ class FactoryWorkspace:
         self.root.after(15000, self._refresh_timer)
 
     def _page(self, title):
+        if title in ("Dashboard", "Výnimky / schvaľovanie"):
+            parent = self.operator_left if title == "Dashboard" else self.operator_right
+            frame = ttk.Frame(parent, padding=8)
+            frame.pack(fill="both", expand=True)
+            return frame
+        # Advanced data views remain available to the engine and tests, but
+        # are not ten distracting primary tabs in the operator workspace.
         frame = ttk.Frame(self.notebook, padding=18)
         self.notebook.add(frame, text=title)
         return frame
@@ -243,7 +257,15 @@ class FactoryWorkspace:
         ttk.Button(controls, text="Otvoriť reporty", command=self.app.open_reports).pack(side="left", padx=5)
         ttk.Button(controls, text="Exportovať čakajúce PNG", command=self.app.export_pending).pack(side="left", padx=5)
         ttk.Button(controls, text="GitHub diagnostika", command=self.app.configure_github).pack(side="left", padx=5)
-        ttk.Label(page, text=f"Inbox: {self.paths['inbox']}\nRozpracované: {self.paths['output']}\nFinálne: {self.paths['final']}", wraplength=1050).pack(anchor="w", pady=8)
+        ttk.Label(page, text=f"Inbox: {self.paths['inbox']} | Výstup: {self.paths['output']}", wraplength=650).pack(anchor="w", pady=4)
+        log_frame = ttk.LabelFrame(page, text="Živý priebeh spracovania")
+        log_frame.pack(fill="both", expand=True, pady=(5, 0))
+        self.app.output = tk.Text(log_frame, wrap="word", font=("Consolas", 9), height=12)
+        log_scroll = ttk.Scrollbar(log_frame, orient="vertical", command=self.app.output.yview)
+        self.app.output.configure(yscrollcommand=log_scroll.set)
+        log_scroll.pack(side="right", fill="y")
+        self.app.output.pack(side="left", fill="both", expand=True)
+        self.app.output.insert("end", "Factory pripravená. Čakám na bezpečný preflight.\\n")
 
     def _tree_page(self, title, columns, headings):
         page = self._page(title)
@@ -333,12 +355,9 @@ class FactoryWorkspace:
         self.chocho_selection_status.pack(anchor="w")
 
     def _build_diagnostics(self):
-        page = self._page("Diagnostika")
-        self.app.output = tk.Text(page, height=20, wrap="word", font=("Consolas", 10))
-        scroll = ttk.Scrollbar(page, orient="vertical", command=self.app.output.yview)
-        self.app.output.configure(yscrollcommand=scroll.set)
-        self.app.output.pack(side="left", fill="both", expand=True); scroll.pack(side="right", fill="y")
-        self.app.output.insert("end", "Diagnostika behu sa zobrazuje tu. Zdrojové logy a reporty sú uložené v nastavenom adresári.\n")
+        # The live log already occupies the left half of the single-screen
+        # operator view. Never replace its widget with a hidden notebook log.
+        self._page("Diagnostika")
 
     def refresh_sources(self):
         # Counting can walk a large imported tree. Keep all filesystem work
