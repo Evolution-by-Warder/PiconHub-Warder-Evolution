@@ -3,7 +3,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from factory_workspace import (candidate_status, latest_json, latest_master_registry, latest_registry_items,
+from factory_workspace import (candidate_status, finalization_rows, latest_json, latest_master_registry, latest_registry_items,
                                latest_review_counts, parse_chocho_positions, source_rows)
 from review_decisions import record_decision
 from review_gallery import pending_items
@@ -86,6 +86,22 @@ class FactoryWorkspaceTests(unittest.TestCase):
         self.assertEqual(pending_items([item], ledger), [])
         changed = dict(item, reasons=["new evidence"])
         self.assertEqual(pending_items([changed], ledger), [changed])
+
+    def test_finalization_panel_reads_engine_report_and_manual_audit(self):
+        reports = self.root / "reports"
+        reports.mkdir()
+        (reports / "report-20261011-120000.json").write_text(json.dumps({"stats": {
+            "new_candidate_finalization": {"copied": 2, "conflicts": 1, "qa_blocked": 3},
+            "scanned": 18}}), encoding="utf-8")
+        ledger = self.root / "decisions.json"
+        record_decision(ledger, {"review_id": "WR-1234567890123456", "sha256": "a" * 64},
+                        "FINALIZED_LOCALLY", "local QA done", operator_confirmation=True)
+        rows = dict(finalization_rows(reports, ledger))
+        self.assertEqual(rows["NEW kandidáti zapísaní"], "2")
+        self.assertEqual(rows["Konflikty chránené pred zápisom"], "1")
+        self.assertEqual(rows["Zablokované QA"], "3")
+        self.assertEqual(rows["Ručné lokálne finalizácie"], "1")
+        self.assertEqual(rows["Audit WR-1234567890123456"], "local QA done")
 
     def test_5877_item_queue_loads_without_truncation(self):
         reports = self.root / "reports"

@@ -74,6 +74,32 @@ def latest_master_registry(reports: Path):
     return path, data, services
 
 
+def latest_run_stats(reports: Path):
+    path = latest_json(reports, "report-")
+    data = _json(path) if path else {}
+    stats = data.get("stats", {})
+    return path, stats if isinstance(stats, dict) else {}
+
+
+def finalization_rows(report_dir: Path, ledger_path: Path):
+    report_path, stats = latest_run_stats(report_dir)
+    final = stats.get("new_candidate_finalization", {})
+    final = final if isinstance(final, dict) else {}
+    ledger = _json(ledger_path).get("decisions", {})
+    ledger = ledger if isinstance(ledger, dict) else {}
+    finalized = [(review_id, row) for review_id, row in ledger.items()
+                 if isinstance(row, dict) and row.get("decision") == "FINALIZED_LOCALLY"]
+    rows = [("Posledný report", str(report_path or "Zatiaľ bez reportu")),
+            ("NEW kandidáti zapísaní", str(final.get("copied", 0))),
+            ("Trojice už existovali", str(final.get("already_present", 0))),
+            ("Konflikty chránené pred zápisom", str(final.get("conflicts", 0))),
+            ("Zablokované QA", str(final.get("qa_blocked", 0))),
+            ("Neplatné kandidáty", str(final.get("invalid", 0))),
+            ("Ručné lokálne finalizácie", str(len(finalized)))]
+    rows.extend((f"Audit {review_id}", str(entry.get("note", ""))) for review_id, entry in sorted(finalized))
+    return rows
+
+
 def latest_review_counts(reports: Path):
     path = latest_json(reports, "review-queue-")
     data = _json(path) if path else {}
@@ -114,8 +140,10 @@ class FactoryWorkspace:
         self._build_sources()
         self._build_registry()
         self._build_candidates()
+        self._build_graphics()
         self._build_qa()
         self._build_review()
+        self._build_finalization()
         self._build_settings()
         self._build_diagnostics()
         self._source_refreshing = False
@@ -187,6 +215,25 @@ class FactoryWorkspace:
     def _build_qa(self):
         page, self.qa_tree = self._tree_page("QA", ("check", "value"), (("check", "Kontrola / metrika", 300), ("value", "Výsledok z posledného behu", 500)))
         self.qa_info = ttk.Label(page, text="Čaká sa na report spracovania."); self.qa_info.pack(anchor="w", pady=5)
+
+    def _build_graphics(self):
+        page, self.graphics_tree = self._tree_page("Grafický motor", ("metric", "value"),
+            (("metric", "Motor / výstup", 320), ("value", "Skutočný stav", 900)))
+        ttk.Label(page, text="Engine spracúva PNG do 220 × 132 RGBA; originál zostáva nedotknutý a tri varianty sa vytvárajú v pracovnom úložisku.").pack(anchor="w", pady=4)
+        actions = ttk.Frame(page); actions.pack(fill="x", pady=4)
+        ttk.Button(actions, text="Spustiť grafický motor", command=self.app.start).pack(side="left", padx=(0, 5))
+        ttk.Button(actions, text="Otvoriť pracovné výstupy", command=lambda: self._open_path(self.paths["output"])).pack(side="left", padx=5)
+        ttk.Button(actions, text="Obnoviť report motora", command=self.refresh_graphics).pack(side="left", padx=5)
+        self.graphics_info = ttk.Label(page, text="Čaká sa na report skutočného behu."); self.graphics_info.pack(anchor="w")
+
+    def _build_finalization(self):
+        page, self.finalization_tree = self._tree_page("Finalizácia", ("item", "value"),
+            (("item", "Lokálna finalizácia / audit", 350), ("value", "Výsledok", 900)))
+        ttk.Label(page, text="Výstup ostáva lokálny. Do finálneho priečinka sa zapisujú iba jednoznačné NEW kandidáty s čistým QA alebo položky schválené cez finálnu QA.").pack(anchor="w", pady=4)
+        actions = ttk.Frame(page); actions.pack(fill="x", pady=4)
+        ttk.Button(actions, text="Obnoviť finalizácie", command=self.refresh_finalization).pack(side="left", padx=(0, 5))
+        ttk.Button(actions, text="Otvoriť finálne PNG", command=lambda: self._open_path(self.paths["final"])).pack(side="left", padx=5)
+        self.finalization_info = ttk.Label(page, text="História sa načíta z reportu motora a auditného registra."); self.finalization_info.pack(anchor="w")
 
     def _build_review(self):
         from review_gallery import ReviewGallery
@@ -297,9 +344,34 @@ class FactoryWorkspace:
             self.qa_tree.insert("", "end", values=(str(key), json.dumps(value, ensure_ascii=False) if isinstance(value, (dict, list)) else str(value)))
         self.qa_info.configure(text=f"QA report: {path}")
 
+    def refresh_graphics(self):
+        self.graphics_tree.delete(*self.graphics_tree.get_children())
+        path, stats = latest_run_stats(self.paths["reports"])
+        rows = [("Posledný engine report", str(path or "Zatiaľ bez reportu")),
+                ("Stav spracovania", "Report z reálneho behu je dostupný" if path else "Zatiaľ nespustený"),
+                ("Rozmer", "220 × 132 RGBA PNG"),
+                ("Varianty", "transparent · black · white"),
+                ("Výstup", str(self.paths["output"]))]
+        rows.extend((str(key), json.dumps(value, ensure_ascii=False) if isinstance(value, (dict, list)) else str(value))
+                    for key, value in sorted(stats.items()))
+        for key, value in rows[:self.MAX_TABLE_ROWS]: self.graphics_tree.insert("", "end", values=(key, value))
+        self.graphics_info.configure(text=f"Report motora: {path or 'zatiaľ nevznikol'} · metriky {len(rows)} · renderer {'spustený v poslednom behu' if path else 'ešte nebol spustený'}")
+
+    def refresh_finalization(self):
+        self.finalization_tree.delete(*self.finalization_tree.get_children())
+        rows = finalization_rows(self.paths["reports"], self.paths["ledger"])
+        for key, value in rows[:self.MAX_TABLE_ROWS]: self.finalization_tree.insert("", "end", values=(key, value))
+        self.finalization_info.configure(text=f"Finálne úložisko: {self.paths['final']} · auditné rozhodnutia: {self.paths['ledger']}")
+
+    def _open_path(self, path):
+        path = Path(path); path.mkdir(parents=True, exist_ok=True)
+        if os.name == "nt": os.startfile(str(path))
+        elif sys_platform() == "darwin": subprocess.Popen(["open", str(path)])
+        else: subprocess.Popen(["xdg-open", str(path)])
+
     def refresh_all(self):
         self.app._refresh_production_counts()
-        self.refresh_sources(); self.refresh_registry(); self.refresh_qa(); self.gallery.reload()
+        self.refresh_sources(); self.refresh_registry(); self.refresh_graphics(); self.refresh_qa(); self.gallery.reload(); self.refresh_finalization()
         _, counts = latest_review_counts(self.paths["reports"])
         self.app.counts_status.set(f"Fronta: {counts['total']} · identita {counts['IDENTITY_VERIFICATION']} · grafika {counts['ARTWORK_REVIEW']} · technické QA {counts['TECHNICAL_QA']}")
         self._update_summary(counts["total"])
@@ -334,7 +406,7 @@ class FactoryWorkspace:
     def _refresh_timer(self):
         if self.root.winfo_exists():
             if not self.app.running and not self.app.export_running:
-                self.refresh_sources(); self.refresh_registry(); self.refresh_qa(); self.gallery.reload()
+                self.refresh_sources(); self.refresh_registry(); self.refresh_graphics(); self.refresh_qa(); self.gallery.reload(); self.refresh_finalization()
                 self._update_summary()
             self.root.after(15000, self._refresh_timer)
 
