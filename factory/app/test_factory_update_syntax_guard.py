@@ -23,6 +23,7 @@ class FactoryUpdateSyntaxGuardTests(unittest.TestCase):
                 archive.writestr('engine.py', 'def broken(:\n')
                 archive.writestr('factory_launcher.py', 'print("launcher")\n')
                 archive.writestr('requirements-runtime.txt', '')
+                archive.writestr('resource.dat', bytes(range(256)) * 8)
                 archive.writestr('.factory-version.json', '{"version":"factory-v0.2.21"}')
             blob = payload.getvalue()
             manifest = {
@@ -30,8 +31,13 @@ class FactoryUpdateSyntaxGuardTests(unittest.TestCase):
                 'url': 'https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/download/factory-v0.2.21/warder-picon-factory-0.2.21.zip',
                 'size': len(blob), 'sha256': hashlib.sha256(blob).hexdigest()
             }
-            # Manifest validation requires a release larger than 1 KiB.
-            self.assertLess(len(blob), 1024)
+            self.assertGreater(len(blob), 1024)
+            def download(info, destination):
+                Path(destination).write_bytes(blob)
+            result = attempt_update(app, manifest_fetch=lambda url: json.dumps(manifest).encode(), downloader=download)
+            self.assertEqual(result, 'skipped')
+            self.assertEqual((app / 'engine.py').read_text(encoding='utf-8'), 'print("original")\\n')
+            self.assertFalse((app.parent / '.factory-pending-update.json').exists())
 
 
 if __name__ == '__main__':
