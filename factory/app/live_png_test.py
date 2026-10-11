@@ -49,14 +49,35 @@ def build_live_test(report_path, output_path=None, limit=10):
     output_path = output_path.resolve()
     if output_path == report_path:
         raise ValueError("Output must not overwrite input")
-    selected = []
+    eligible = []
     for collision in report["collisions"]:
         variants = collision.get("variants") or []
         origins = {_origin(p) for v in variants for p in v.get("sources", [])}
         if "openatv8" in origins and "vhannibal" in origins:
+            vhannibal_hashes = frozenset(
+                str(v.get("sha256") or "").lower()
+                for v in variants
+                if any(_origin(p) == "vhannibal" for p in v.get("sources") or [])
+                and HEX.fullmatch(str(v.get("sha256") or "")))
+            eligible.append((collision, vhannibal_hashes))
+    # A large feed may reuse one generic logo across many service references.
+    # Prefer distinct Vhannibal artwork first, then fill any remaining slots.
+    selected = []
+    used_hashes = set()
+    chosen_indices = set()
+    for index, (collision, hashes) in enumerate(eligible):
+        if hashes and hashes.isdisjoint(used_hashes):
             selected.append(collision)
-            if len(selected) >= limit:
+            chosen_indices.add(index)
+            used_hashes.update(hashes)
+            if len(selected) == limit:
                 break
+    if len(selected) < limit:
+        for index, (collision, hashes) in enumerate(eligible):
+            if index not in chosen_indices:
+                selected.append(collision)
+                if len(selected) == limit:
+                    break
     if not selected:
         raise ValueError("No mixed OpenATV/Vhannibal collisions")
     results = []
