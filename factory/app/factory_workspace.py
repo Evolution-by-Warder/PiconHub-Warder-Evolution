@@ -1,0 +1,344 @@
+"""Tabbed, live-data workspace for the Warder Factory desktop application."""
+from __future__ import annotations
+
+import json
+import os
+import re
+import subprocess
+import threading
+from pathlib import Path
+import tkinter as tk
+from tkinter import ttk
+
+
+def _json(path):
+    try:
+        value = json.loads(Path(path).read_text(encoding="utf-8"))
+        return value if isinstance(value, dict) else {}
+    except (OSError, ValueError, TypeError):
+        return {}
+
+
+def latest_json(folder: Path, prefix: str):
+    files = sorted(Path(folder).glob(prefix + "*.json"), key=lambda p: (p.stat().st_mtime_ns, p.name))
+    return files[-1] if files else None
+
+
+def source_rows(ingest: Path, inbox: Path, source_manifest: Path, chocho_positions: Path | None = None,
+                master_snapshot: Path | None = None):
+    """Describe source state from persisted checkpoints and actual local files."""
+    rows = []
+    for key, filename in (("Vhannibal", "vhannibal-state.json"),
+                          ("OpenATV 8", "openatv8-state.json"),
+                          ("Chocholousek", "chocholousek-state.json")):
+        path = Path(ingest) / filename
+        state = _json(path)
+        if not path.exists():
+            status, details = "Ešte nesynchronizované", "Checkpoint zatiaľ neexistuje"
+        else:
+            status = str(state.get("status", "Checkpoint uložený"))
+            details = ", ".join(f"{k}: {state[k]}" for k in ("version", "imported", "imported_png", "index_sha1") if k in state) or "Checkpoint je dostupný"
+        rows.append((key, status, details, str(path)))
+    manifest = _json(source_manifest)
+    rows.append(("Overené voliteľné zdroje", "Nakonfigurované" if manifest.get("sources") else "Nekonfigurované",
+                 f"{len(manifest.get('sources', []))} zdrojov v overenom manifeste" if manifest.get("sources") else "Bez manifestu sa žiadne URL nehádajú", str(source_manifest)))
+    positions_file = Path(chocho_positions) if chocho_positions else Path(ingest) / "chocholousek-positions.json"
+    position_state = _json(positions_file)
+    positions = position_state.get("positions", [])
+    rows.append(("Chocholousek · vybrané pozície", "Vybrané" if positions else "Čaká na výber",
+                 ", ".join(str(value) for value in positions) if positions else "Vyber iba satelitné pozície, ktoré používaš", str(positions_file)))
+    snapshot_file = Path(master_snapshot) if master_snapshot else Path(ingest).parent / "master-current-paths.json"
+    snapshot = _json(snapshot_file)
+    snapshot_paths = snapshot.get("paths", [])
+    rows.append(("Warder Master snapshot", "Dostupný" if snapshot_paths else "Zatiaľ nestiahnutý",
+                 f"Commit {snapshot.get('commit', 'neznámy')} · {len(snapshot_paths)} schválených ciest" if snapshot_paths else "Predvolené je read-only porovnanie; snapshot vznikne pri spracovaní", str(snapshot_file)))
+    local = Path(inbox)
+    archives = sum(1 for _ in local.rglob("*.zip")) if local.is_dir() else 0
+    pngs = sum(1 for _ in local.rglob("*.png")) if local.is_dir() else 0
+    rows.append(("Lokálny inbox", "Dostupný" if local.is_dir() else "Zatiaľ nevytvorený",
+                 f"{archives} ZIP · {pngs} PNG", str(local)))
+    return rows
+
+
+def latest_registry_items(reports: Path):
+    path = latest_json(reports, "registry-matches-")
+    data = _json(path) if path else {}
+    return path, data.get("items", []) if isinstance(data.get("items", []), list) else []
+
+
+def latest_master_registry(reports: Path):
+    path = latest_json(reports, "warder-master-index-")
+    data = _json(path) if path else {}
+    services = data.get("services", {})
+    services = services if isinstance(services, dict) else {}
+    return path, data, services
+
+
+def latest_review_counts(reports: Path):
+    path = latest_json(reports, "review-queue-")
+    data = _json(path) if path else {}
+    lanes = data.get("workstream_counts", {})
+    return path, {"total": int(data.get("count", len(data.get("items", [])))), **{
+        key: int(lanes.get(key, 0)) for key in ("IDENTITY_VERIFICATION", "ARTWORK_REVIEW", "TECHNICAL_QA")}}
+
+
+def candidate_status(classification, reason="", has_master=False):
+    raw = str(classification).upper()
+    evidence = str(reason).casefold()
+    if raw == "NEW":
+        return "NEW"
+    if raw == "IDENTICAL":
+        return "EXISTING"
+    if raw == "REVIEW":
+        if any(word in evidence for word in ("conflict", "duplicate", "collision")):
+            return "CONFLICT"
+        return "EXISTING" if has_master else "AMBIGUOUS"
+    return "AMBIGUOUS"
+
+
+def parse_chocho_positions(raw: str):
+    positions = [value.strip().upper() for value in raw.split(",") if value.strip()]
+    if any(not re.fullmatch(r"\d{1,3}\.\d[EW]", value) for value in positions):
+        raise ValueError("Use satellite positions such as 13.0E or 5.0W")
+    return sorted(set(positions))
+
+
+class FactoryWorkspace:
+    """UI shell whose status panels read the application's real files/reports."""
+    MAX_TABLE_ROWS = 500
+    def __init__(self, app, root, paths):
+        self.app, self.root, self.paths = app, root, paths
+        self.notebook = ttk.Notebook(root)
+        self.notebook.pack(fill="both", expand=True)
+        self._build_dashboard()
+        self._build_sources()
+        self._build_registry()
+        self._build_candidates()
+        self._build_qa()
+        self._build_review()
+        self._build_settings()
+        self._build_diagnostics()
+        self._source_refreshing = False
+        self.refresh_all()
+        self.root.after(15000, self._refresh_timer)
+
+    def _page(self, title):
+        frame = ttk.Frame(self.notebook, padding=12)
+        self.notebook.add(frame, text=title)
+        return frame
+
+    def _build_dashboard(self):
+        page = self._page("Dashboard")
+        ttk.Label(page, text="WARDER PICON FACTORY", font=("Segoe UI", 20, "bold")).pack(anchor="w")
+        ttk.Label(page, text="Lokálne spracovanie; produkčný Master Registry a originály zostávajú chránené").pack(anchor="w", pady=(0, 10))
+        self.app.version_label = ttk.Label(page, text="Nainštalovaná verzia: " + self.app.installed_version)
+        self.app.version_label.pack(anchor="w")
+        self.app.production_label = ttk.Label(page, text="Finálne lokálne PNG: zisťujem...")
+        self.app.production_label.pack(anchor="w")
+        self.app.status = tk.StringVar(value="Pripravené")
+        ttk.Label(page, textvariable=self.app.status, font=("Segoe UI", 11)).pack(anchor="w", pady=(8, 0))
+        self.app.counts_status = tk.StringVar(value="Fronta: načítavam report")
+        ttk.Label(page, textvariable=self.app.counts_status, font=("Segoe UI", 10, "bold")).pack(anchor="w")
+        self.summary = ttk.Label(page, text="Načítavam skutočný stav...")
+        self.summary.pack(anchor="w", pady=8)
+        self.app.bar = ttk.Progressbar(page, mode="determinate")
+        self.app.bar.pack(fill="x", pady=8)
+        controls = ttk.Frame(page); controls.pack(fill="x", pady=6)
+        ttk.Button(controls, text="Spustiť spracovanie", command=self.app.start).pack(side="left", padx=(0, 5))
+        ttk.Button(controls, text="Zastaviť bezpečne", command=self.app.request_cancel).pack(side="left", padx=5)
+        ttk.Button(controls, text="Obnoviť údaje", command=self.refresh_all).pack(side="left", padx=5)
+        ttk.Button(controls, text="Otvoriť reporty", command=self.app.open_reports).pack(side="left", padx=5)
+        ttk.Button(controls, text="Exportovať čakajúce PNG", command=self.app.export_pending).pack(side="left", padx=5)
+        ttk.Button(controls, text="GitHub diagnostika", command=self.app.configure_github).pack(side="left", padx=5)
+        ttk.Label(page, text=f"Inbox: {self.paths['inbox']}\nRozpracované: {self.paths['output']}\nFinálne: {self.paths['final']}", wraplength=1050).pack(anchor="w", pady=8)
+
+    def _tree_page(self, title, columns, headings):
+        page = self._page(title)
+        tree = ttk.Treeview(page, columns=columns, show="headings")
+        for column, heading, width in headings:
+            tree.heading(column, text=heading); tree.column(column, width=width, anchor="w")
+        scroll = ttk.Scrollbar(page, orient="vertical", command=tree.yview)
+        tree.configure(yscrollcommand=scroll.set)
+        tree.pack(side="left", fill="both", expand=True); scroll.pack(side="right", fill="y")
+        return page, tree
+
+    def _build_sources(self):
+        page, self.source_tree = self._tree_page("Zdroje", ("name", "status", "details", "path"),
+            (("name", "Zdroj", 180), ("status", "Stav", 155), ("details", "Checkpoint / obsah", 410), ("path", "Súbor alebo priečinok", 460)))
+        ttk.Button(page, text="Obnoviť stav zdrojov", command=self.refresh_sources).pack(anchor="w", pady=5)
+
+    def _build_registry(self):
+        page = self._page("Master Registry")
+        bar = ttk.Frame(page); bar.pack(fill="x")
+        ttk.Label(bar, text="Filtrovať service reference / identitu:").pack(side="left")
+        self.registry_query = tk.StringVar(); entry = ttk.Entry(bar, textvariable=self.registry_query); entry.pack(side="left", fill="x", expand=True, padx=6)
+        self.registry_query.trace_add("write", lambda *_: self.refresh_registry())
+        self.registry_tree = ttk.Treeview(page, columns=("ref", "styles", "locations"), show="headings")
+        for col, title, width in (("ref", "Service reference", 250), ("styles", "Štýly v Master Registry", 230), ("locations", "Pozície / provideri / cesty", 700)):
+            self.registry_tree.heading(col, text=title); self.registry_tree.column(col, width=width, anchor="w")
+        self.registry_tree.pack(fill="both", expand=True, pady=6)
+        self.registry_info = ttk.Label(page, text="Read-only pohľad na posledný Warder Master index."); self.registry_info.pack(anchor="w")
+
+    def _build_candidates(self):
+        page, self.candidate_tree = self._tree_page("Kandidáti", ("type", "ref", "source", "reason"),
+            (("type", "Stav", 150), ("ref", "Service reference", 220), ("source", "Zdroj", 420), ("reason", "Dôvod", 440)))
+        ttk.Label(page, text="Kandidáti z posledného skutočného porovnania; táto obrazovka ich sama neschvaľuje.").pack(anchor="w", pady=5)
+
+    def _build_qa(self):
+        page, self.qa_tree = self._tree_page("QA", ("check", "value"), (("check", "Kontrola / metrika", 300), ("value", "Výsledok z posledného behu", 500)))
+        self.qa_info = ttk.Label(page, text="Čaká sa na report spracovania."); self.qa_info.pack(anchor="w", pady=5)
+
+    def _build_review(self):
+        from review_gallery import ReviewGallery
+        self.gallery = ReviewGallery(self._page("Výnimky / schvaľovanie"), self.paths["reports"], self.paths["ledger"], self.paths["output"])
+        # ttk.Notebook owns a frame; gallery fills it.
+        self.gallery.pack(fill="both", expand=True)
+
+    def _build_settings(self):
+        page, tree = self._tree_page("Nastavenia", ("key", "path"), (("key", "Úložisko", 210), ("path", "Aktuálna cesta", 850)))
+        for key, path in self.paths.items():
+            tree.insert("", "end", values=(key, str(path)))
+        controls = ttk.Frame(page); controls.pack(fill="x", pady=5)
+        self.path_choice = tk.StringVar(value="root")
+        ttk.Combobox(controls, textvariable=self.path_choice, state="readonly", values=tuple(self.paths), width=20).pack(side="left")
+        ttk.Button(controls, text="Otvoriť vybraný priečinok", command=self.open_selected_folder).pack(side="left", padx=6)
+        ttk.Label(page, text="Cesty sú odvodené z WARDER_PICON_FACTORY_ROOT; zmena sa vykonáva nastavením pred spustením aplikácie.").pack(anchor="w")
+        positions = _json(self.paths["chocho_positions"]).get("positions", [])
+        selection = ttk.LabelFrame(page, text="Chocholousek · aktívne satelitné pozície", padding=8)
+        selection.pack(fill="x", pady=8)
+        ttk.Label(selection, text="Zadaj iba pozície, ktoré používaš, napr. 13.0E, 19.2E. Prázdny výber znamená, že sa archívy nesťahujú.").pack(anchor="w")
+        self.chocho_positions_var = tk.StringVar(value=", ".join(positions))
+        ttk.Entry(selection, textvariable=self.chocho_positions_var).pack(fill="x", pady=5)
+        ttk.Button(selection, text="Uložiť výber pozícií", command=self.save_chocho_positions).pack(anchor="e")
+        self.chocho_selection_status = ttk.Label(selection, text=f"Konfigurácia: {self.paths['chocho_positions']}")
+        self.chocho_selection_status.pack(anchor="w")
+
+    def _build_diagnostics(self):
+        page = self._page("Diagnostika")
+        self.app.output = tk.Text(page, height=20, wrap="word", font=("Consolas", 10))
+        scroll = ttk.Scrollbar(page, orient="vertical", command=self.app.output.yview)
+        self.app.output.configure(yscrollcommand=scroll.set)
+        self.app.output.pack(side="left", fill="both", expand=True); scroll.pack(side="right", fill="y")
+        self.app.output.insert("end", "Diagnostika behu sa zobrazuje tu. Zdrojové logy a reporty sú uložené v nastavenom adresári.\n")
+
+    def refresh_sources(self):
+        # Counting can walk a large imported tree. Keep all filesystem work
+        # off the Tk thread and publish only the finished immutable rows.
+        if self._source_refreshing:
+            return
+        self._source_refreshing = True
+        self.app.emit("source_inventory", None)
+
+        def worker():
+            try:
+                rows = source_rows(self.paths["ingest"], self.paths["inbox"],
+                                   self.paths["manifest"], self.paths["chocho_positions"], self.paths["data"] / "master-current-paths.json")
+                self.app.emit("source_inventory_done", rows)
+            except Exception as exc:
+                self.app.emit("source_inventory_error", type(exc).__name__ + ": " + str(exc)[:240])
+
+        threading.Thread(target=worker, name="factory-source-inventory", daemon=True).start()
+
+    def show_sources(self, rows):
+        self._source_refreshing = False
+        self.source_tree.delete(*self.source_tree.get_children())
+        for row in rows:
+            self.source_tree.insert("", "end", values=row)
+        self._update_summary()
+
+    def source_inventory_error(self, error):
+        self._source_refreshing = False
+        self.source_tree.delete(*self.source_tree.get_children())
+        self.source_tree.insert("", "end", values=("Lokálny inventár", "Chyba", error, str(self.paths["inbox"])))
+
+    def refresh_registry(self):
+        path, registry, services = latest_master_registry(self.paths["reports"])
+        candidate_path, items = latest_registry_items(self.paths["reports"])
+        query = self.registry_query.get().strip().casefold()
+        for tree in (self.registry_tree, self.candidate_tree): tree.delete(*tree.get_children())
+        registry_matches = []
+        for ref, entries in services.items():
+            locations = "; ".join(f"{entry.get('position', '?')} / {entry.get('provider', '?')} / {entry.get('style', '?')}" for entry in entries if isinstance(entry, dict))
+            styles = ", ".join(sorted({str(entry.get('style', '?')) for entry in entries if isinstance(entry, dict)}))
+            if query and query not in " ".join((str(ref), styles, locations)).casefold(): continue
+            registry_matches.append((str(ref), styles, locations))
+        for row in registry_matches[:self.MAX_TABLE_ROWS]: self.registry_tree.insert("", "end", values=row)
+        matches = []
+        for item in items:
+            ref = str(item.get("service_reference") or item.get("candidate_identity") or "")
+            source = str(item.get("source") or item.get("candidate_source") or item.get("source_name") or "")
+            classification = str(item.get("classification") or item.get("status") or "UNKNOWN").upper()
+            reason = str(item.get("reason") or item.get("classification_reason") or "")
+            digest = str(item.get("candidate_sha256") or item.get("sha256") or "")
+            if query and query not in " ".join((ref, source, classification, reason, digest)).casefold(): continue
+            matches.append((ref, classification, source, digest, reason, bool(item.get("master_locations"))))
+        for ref, classification, source, digest, reason, has_master in matches[:self.MAX_TABLE_ROWS]:
+            self.candidate_tree.insert("", "end", values=(candidate_status(classification, reason, has_master), ref, source, reason))
+        collision_path = latest_json(self.paths["reports"], "identity-collisions-")
+        collision_data = _json(collision_path) if collision_path else {}
+        for conflict in collision_data.get("collisions", [])[:self.MAX_TABLE_ROWS]:
+            ref = str(conflict.get("candidate_service_ref", ""))
+            variants = conflict.get("variants", [])
+            reason = "Viac rozdielnych grafík pre rovnakú identitu; ručné rozhodnutie je povinné"
+            if query and query not in (ref + " CONFLICT " + reason).casefold():
+                continue
+            self.candidate_tree.insert("", "end", values=("CONFLICT", ref, f"{len(variants)} grafických variantov", reason))
+        self.registry_info.configure(text=f"Read-only Master: {path if path else 'index zatiaľ nevznikol'} · {registry.get('service_count', len(services))} služieb / {registry.get('asset_count', 0)} assetov · zobrazených {min(len(registry_matches), self.MAX_TABLE_ROWS)}. Kandidáti: {candidate_path or 'bez porovnania'} · {len(matches)} záznamov")
+
+    def refresh_qa(self):
+        self.qa_tree.delete(*self.qa_tree.get_children())
+        path = latest_json(self.paths["reports"], "report-")
+        data = _json(path) if path else {}
+        stats = data.get("stats", {})
+        if not stats:
+            self.qa_info.configure(text="QA report zatiaľ nie je dostupný; po prvom behu sa načítajú jeho skutočné výsledky.")
+            return
+        for key, value in sorted(stats.items()):
+            self.qa_tree.insert("", "end", values=(str(key), json.dumps(value, ensure_ascii=False) if isinstance(value, (dict, list)) else str(value)))
+        self.qa_info.configure(text=f"QA report: {path}")
+
+    def refresh_all(self):
+        self.app._refresh_production_counts()
+        self.refresh_sources(); self.refresh_registry(); self.refresh_qa(); self.gallery.reload()
+        _, counts = latest_review_counts(self.paths["reports"])
+        self.app.counts_status.set(f"Fronta: {counts['total']} · identita {counts['IDENTITY_VERIFICATION']} · grafika {counts['ARTWORK_REVIEW']} · technické QA {counts['TECHNICAL_QA']}")
+        self._update_summary(counts["total"])
+
+    def _update_summary(self, pending=None):
+        if pending is None:
+            _, counts = latest_review_counts(self.paths["reports"])
+            pending = counts["total"]
+        self.summary.configure(text=f"Zdrojov/checkpointov: {len(self.source_tree.get_children())} · Registry kandidátov: {len(self.registry_tree.get_children())} · Výnimiek na ručné posúdenie: {pending}")
+
+    def save_chocho_positions(self):
+        from source_registry import atomic_json
+        raw = self.chocho_positions_var.get().strip()
+        try:
+            positions = parse_chocho_positions(raw)
+        except ValueError:
+            self.chocho_selection_status.configure(text="Neplatný formát. Použi napr. 13.0E alebo 5.0W.")
+            return
+        atomic_json(self.paths["chocho_positions"], {"schema": 1, "positions": positions})
+        self.chocho_selection_status.configure(text=f"Uložené pozície: {', '.join(positions) if positions else 'žiadne'} · načíta sa pri ďalšom spustení synchronizácie")
+        self.refresh_sources()
+
+    def open_selected_folder(self):
+        path = Path(self.paths[self.path_choice.get()])
+        if path.suffix or (path.exists() and path.is_file()):
+            path = path.parent
+        path.mkdir(parents=True, exist_ok=True)
+        if os.name == "nt": os.startfile(str(path))
+        elif sys_platform() == "darwin": subprocess.Popen(["open", str(path)])
+        else: subprocess.Popen(["xdg-open", str(path)])
+
+    def _refresh_timer(self):
+        if self.root.winfo_exists():
+            if not self.app.running and not self.app.export_running:
+                self.refresh_sources(); self.refresh_registry(); self.refresh_qa(); self.gallery.reload()
+                self._update_summary()
+            self.root.after(15000, self._refresh_timer)
+
+
+def sys_platform():
+    import sys
+    return sys.platform

@@ -5,7 +5,7 @@ import json
 from pathlib import Path
 from source_registry import atomic_json
 
-DECISIONS = frozenset({'APPROVED_FOR_REVIEW', 'REJECTED', 'DEFERRED'})
+DECISIONS = frozenset({'APPROVED_FOR_REVIEW', 'REJECTED', 'DEFERRED', 'FINALIZED_LOCALLY'})
 
 def evidence_hash(item):
     """A decision is valid only for unchanged review evidence."""

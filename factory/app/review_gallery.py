@@ -28,6 +28,25 @@ def evidence_digests(item):
                    and all(c in '0123456789abcdef' for c in value.lower())})
 
 
+def pending_items(items, ledger_path):
+    """Drop only evidence-identical, terminal decisions from the visible queue."""
+    visible = [item for item in items if item.get('decision', 'PENDING') == 'PENDING']
+    ledger_path = Path(ledger_path)
+    if not ledger_path.exists():
+        return visible
+    import json
+    from review_decisions import evidence_hash
+    try:
+        decisions = json.loads(ledger_path.read_text(encoding='utf-8')).get('decisions', {})
+        return [item for item in visible if not (
+            item['review_id'] in decisions and
+            decisions[item['review_id']].get('evidence_hash') == evidence_hash(item) and
+            decisions[item['review_id']].get('decision') in
+            ('APPROVED_FOR_REVIEW', 'REJECTED', 'FINALIZED_LOCALLY'))]
+    except (ValueError, OSError, KeyError, TypeError):
+        return visible
+
+
 class ReviewGallery(ttk.Frame):
     """Ten review entries per page, scrollable in the main window."""
     def __init__(self, parent, report_dir, ledger_path, output_dir):
@@ -61,17 +80,7 @@ class ReviewGallery(ttk.Frame):
 
     def reload(self):
         path = latest_review(self.report_dir)
-        self.items = [x for x in load_review_queue(path)['items'] if x.get('decision', 'PENDING') == 'PENDING'] if path else []
-        # Respect decisions made in this session even before the next engine scan.
-        if self.ledger_path.exists():
-            import json
-            from review_decisions import evidence_hash
-            try:
-                decisions = json.loads(self.ledger_path.read_text(encoding='utf-8')).get('decisions', {})
-                self.items = [x for x in self.items if not (x['review_id'] in decisions and decisions[x['review_id']].get('evidence_hash') == evidence_hash(x) and
-                    decisions[x['review_id']].get('decision') in ('APPROVED_FOR_REVIEW', 'REJECTED'))]
-            except (ValueError, OSError, KeyError, TypeError):
-                pass
+        self.items = pending_items(load_review_queue(path)['items'], self.ledger_path) if path else []
         self.render()
 
     def reset_page(self):
@@ -144,6 +153,7 @@ class ReviewGallery(ttk.Frame):
         show_artwork()
         controls = ttk.Frame(frame); controls.pack(fill='x')
         ttk.Button(controls, text='OK / Beriem', command=lambda i=item: self.decide(i, 'APPROVED_FOR_REVIEW', 'OK / Beriem')).pack(side='left', padx=2)
+        ttk.Button(controls, text='Zamietnuť', command=lambda i=item: self.decide(i, 'REJECTED', 'Grafika alebo identita zamietnutá')).pack(side='left', padx=2)
         final_button = ttk.Button(controls, text='Finalizovať QA', command=lambda i=item: self.finalize_qa(i))
         final_button.pack(side='left', padx=2)
         try:
@@ -166,8 +176,11 @@ class ReviewGallery(ttk.Frame):
         try:
             from finalize_picons import finalize_triplet
             finalize_triplet(**request)
+            record_decision(self.ledger_path, item, 'FINALIZED_LOCALLY',
+                            'Lokálne finalizované po úspešnej finálnej QA; bez publikovania.',
+                            operator_confirmation=True)
         except (ValueError, OSError, PermissionError) as exc:
-            messagebox.showerror('Finalizácia zlyhala', str(exc), parent=self)
+            messagebox.showerror('Finalizácia alebo auditný zápis zlyhal', str(exc), parent=self)
             return
         messagebox.showinfo('Finálna QA', 'BLACK a WHITE sú uložené vo finálnom úložisku.', parent=self)
         self.items = [x for x in self.items if x['review_id'] != item['review_id']]

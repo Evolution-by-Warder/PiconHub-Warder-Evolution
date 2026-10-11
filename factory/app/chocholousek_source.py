@@ -21,12 +21,15 @@ from pathlib import Path, PurePosixPath
 from source_registry import atomic_json
 from source_inventory import SourceError
 
-INDEX_URL = "https://picon.cz/download/7337/"
+# This page is linked from the site's current public download directory. The
+# old /download/7337/ permalink now redirects to the home page.
+INDEX_URL = "https://picon.cz/download-picons/piconblack-220x132/"
 HOSTS = frozenset(("picon.cz", "www.picon.cz"))
 MIN_CHECK_SECONDS = 7 * 24 * 60 * 60
 MAX_INDEX_BYTES = 8_000_000
 MAX_ARCHIVE_BYTES = 450_000_000
 SAFE_NAME = re.compile(r"^[A-Za-z0-9_.() -]+\.7z$", re.IGNORECASE)
+ORBIT = re.compile(r"(?<![A-Za-z0-9])(?P<position>[0-9]{1,3}(?:\.[0-9])?[EW])(?=_by_chocholousek\.7z$)", re.IGNORECASE)
 MAGIC = b"7z\xbc\xaf'\x1c"
 
 
@@ -67,7 +70,11 @@ def _parse_html_archives(text):
         match = re.fullmatch(r"/download/(\d+)/?", parsed.path)
         if not match:
             continue
-        filename = label.strip()
+        # The current public page annotates archive names with download
+        # counters, e.g. ``name.7z (staženo 123×)``. Keep only the exact
+        # filename that is published in the link text.
+        match_name = re.search(r"([A-Za-z0-9_.() -]+\.7z)(?=\s|$)", label, re.IGNORECASE)
+        filename = match_name.group(1).strip() if match_name else ""
         if not SAFE_NAME.fullmatch(filename) or ".." in filename:
             continue
         found[filename] = {"permalink": match.group(1), "filename": filename}
@@ -183,9 +190,20 @@ def _import_7z(archive, originals_root):
             shutil.rmtree(stage)
 
 
-def sync_chocholousek(workspace, opener=None, now=None):
-    """Weekly conditional update check, then download only newly indexed archives."""
+def sync_chocholousek(workspace, opener=None, now=None, selected_positions=None):
+    """Weekly update check for explicitly selected active satellite positions.
+
+    The provider asks users to download only positions they actively use and
+    to update no more than weekly. An empty selection therefore performs no
+    request or download; callers must not infer positions from another feed.
+    """
     workspace = Path(workspace)
+    selected = {str(value).strip().upper() for value in (selected_positions or ())}
+    if any(not re.fullmatch(r"[0-9]{1,3}(?:\.[0-9])?[EW]", value) for value in selected):
+        raise SourceError("Invalid Chocholousek satellite position selection")
+    if not selected:
+        return {"status": "selection_required", "source": "chocholousek",
+                "downloaded": 0, "imported_png": 0}
     state_path = workspace / "chocholousek-state.json"
     state = json.loads(state_path.read_text(encoding="utf-8")) if state_path.is_file() else {}
     now = int(now if now is not None else time.time())
@@ -195,13 +213,24 @@ def sync_chocholousek(workspace, opener=None, now=None):
                 "archive_count": len(state["archives"]), "downloaded": 0}
     index_bytes = _request(INDEX_URL, MAX_INDEX_BYTES, opener)
     index_hash = hashlib.sha256(index_bytes).hexdigest()
-    if state.get("index_sha256") == index_hash:
+    discovered = parse_archive_index(index_bytes.decode("utf-8", "replace"))
+    entries = []
+    for item in discovered:
+        match = ORBIT.search(item["filename"])
+        if match and match.group("position").upper() in selected:
+            entries.append(item)
+    if not entries:
+        return {"status": "no_selected_positions", "source": "chocholousek",
+                "selected_positions": sorted(selected), "discovered_archives": len(discovered),
+                "downloaded": 0, "imported_png": 0}
+    previous = state.get("archives", {})
+    if state.get("index_sha256") == index_hash and all(
+            previous.get(item["filename"], {}).get("permalink") == item["permalink"]
+            for item in entries):
         state["checked_unix"] = now
         atomic_json(state_path, state)
         return {"status": "unchanged", "source": "chocholousek", "index_sha256": index_hash,
-                "archive_count": len(state.get("archives", {})), "downloaded": 0}
-    entries = parse_archive_index(index_bytes.decode("utf-8", "replace"))
-    previous = state.get("archives", {})
+                "archive_count": len(previous), "downloaded": 0}
     archives = dict(previous)
     downloaded = imported = 0
     for item in entries:

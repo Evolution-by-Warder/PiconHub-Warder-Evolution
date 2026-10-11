@@ -1,4 +1,4 @@
-import os, sys, sqlite3, hashlib, zipfile, shutil, threading, queue, json, time, traceback, urllib.request, urllib.error, tempfile, io
+import os, sys, sqlite3, hashlib, zipfile, shutil, threading, queue, json, time, traceback, urllib.request, urllib.error, tempfile, io, subprocess
 from pathlib import Path
 import tkinter as tk
 from tkinter import ttk
@@ -33,6 +33,11 @@ DB=DATA/'factory.sqlite3'
 SOURCE_STATE=DATA/'sources.json'
 SOURCE_MANIFEST=DATA/'source-manifest.json'
 SOURCE_INGEST=DATA/'source-ingest'
+# Cancellation is cooperative: downloads and atomic writes finish their
+# current bounded operation, while no new candidate work is scheduled.
+class ScanCancelled(Exception):
+ pass
+
 # Only a known official Warder repository is enabled. No unverified third-party endpoints.
 SOURCES=[('PiconHub-Warder-Evolution','https://api.github.com/repos/Evolution-by-Warder/PiconHub-Warder-Evolution/zipball/warder-master-production')]
 MAX_DOWNLOAD=450_000_000
@@ -611,8 +616,9 @@ def _legacy_ambiguous_cache_entry(entry):
   for reason in entry.get('issues',[]))
 
 class Factory:
- def __init__(self,emit):
+ def __init__(self,emit,cancel_event=None):
   self.emit=emit
+  self.cancel_event=cancel_event or threading.Event()
   for p in (APP,DATA,INBOX,ORIGINALS,OUTPUT,FINAL_PICONS,EXCEPTIONS,REPORTS):p.mkdir(parents=True,exist_ok=True)
   interrupted=cleanup_interrupted_renders(OUTPUT, min_age_seconds=86400)
   self.log(f'Upratovanie nedokončených renderov: {len(interrupted["deleted"])} starých dočasných súborov.')
@@ -632,6 +638,9 @@ class Factory:
   self.db.execute('CREATE TABLE IF NOT EXISTS runs (id TEXT PRIMARY KEY, scanned INTEGER, changed INTEGER, duplicates INTEGER, exceptions INTEGER, created INTEGER)')
   self.db.commit()
  def log(self,msg):self.emit('log',msg)
+ def check_cancelled(self):
+  if self.cancel_event.is_set():
+   raise ScanCancelled('Používateľ bezpečne zastavil beh Factory')
  def fetch_sources(self):
   # Bounded parallel download, pinned to one immutable production commit.
   from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -762,6 +771,7 @@ class Factory:
   run=datetime.now().strftime('%Y%m%d-%H%M%S-%f'); stats=dict(scanned=0,changed=0,duplicates=0,exceptions=0,created=0)
   self.log('Začínam spracovanie '+run)
   self.fetch_sources()
+  self.check_cancelled()
   if not hasattr(self,'master_paths'):
    try:
     saved=json.loads((DATA/'master-current-paths.json').read_text(encoding='utf-8'))
@@ -771,6 +781,7 @@ class Factory:
   if not PIL_OK:self.log('Pillow nie je dostupný: grafické varianty sa nevytvoria; iba inventarizácia.')
   # Safe, bounded, atomic import; originals never overwritten.
   for archive in sorted(INBOX.rglob('*.zip')):
+   self.check_cancelled()
    try:
     result=import_png_zip(archive,ORIGINALS)
     self.log(f'Archív {archive.name}: import {result["imported"]}, preskočené {result["skipped"]}')
@@ -780,6 +791,7 @@ class Factory:
   # The three requested peer sources are integrated into the same resumable
   # ingestion tree. Each source owns its checkpoint and failure isolation.
   self.sync_peer_sources(stats)
+  self.check_cancelled()
   # Optional verified current-source manifest connects the tested ingestion
   # modules to the same one-run pipeline. Missing source configuration is
   # reported as unavailable; no URLs or checksums are guessed.
@@ -835,6 +847,7 @@ class Factory:
   candidates=[]
   for base in (ORIGINALS,INBOX,SOURCE_INGEST/'originals'):
    for p in base.rglob('*'):
+    self.check_cancelled()
     if p.is_file() and p.suffix.lower()=='.png' and not is_master_path(p): candidates.append(p)
   total=len(candidates)
   self.log(f'Kontrola PNG: 0/{total}; Pillow: '+('dostupný' if PIL_OK else 'CHÝBA'))
@@ -868,6 +881,7 @@ class Factory:
      self.log(f'PNG: {completed}/{total}; varianty {stats["created"]}; výnimky {stats["exceptions"]}.')
   try:
    for p in candidates:
+    self.check_cancelled()
     stats['scanned']+=1
     try:
      st=p.stat();rel=str(p)
@@ -1054,6 +1068,7 @@ class Factory:
       pending_qa[fut]=sha
     enqueue()
     while pending_qa:
+     self.check_cancelled()
      done,_=wait(tuple(pending_qa),return_when=FIRST_COMPLETED)
      for fut in done:
       sha=pending_qa.pop(fut)
@@ -1206,6 +1221,7 @@ class Factory:
   self.log(f'Integrita: {integrity["checked"]} zdrojov, {integrity["issue_count"]} problémov; report: {integrity_path}')
   # Only locally staged NEW identities with one unambiguous artwork and clean QA.
   # No Master Registry writes or semantic approvals are performed.
+  self.check_cancelled()
   from factory_finalization import finalize_new_candidates
   integrity_blocked={issue['sha256'] for issue in integrity['issues']}
   new_candidate_shas={row.get('candidate_sha256') for row in registry_matches if row.get('classification')=='NEW'}
@@ -1293,9 +1309,17 @@ class Factory:
    self.log('OpenATV 8 nedostupný/bez zmeny checkpointu: '+str(exc)[:300])
   try:
    from chocholousek_source import sync_chocholousek
-   result=sync_chocholousek(workspace)
+   try:
+    choice=json.loads((DATA/'chocholousek-positions.json').read_text(encoding='utf-8'))
+    positions=choice.get('positions',[]) if isinstance(choice,dict) else []
+   except (OSError,ValueError,TypeError):
+    positions=[]
+   result=sync_chocholousek(workspace,selected_positions=positions)
    results['chocholousek']=result
-   self.log(f'Chocholousek: {result["status"]}; archívy {result.get("downloaded",0)}, import {result.get("imported_png",0)} PNG.')
+   if result['status']=='selection_required':
+    self.log('Chocholousek: zdroj je dostupný; vyber aktívne pozície v Nastaveniach (bez automatického odhadu).')
+   else:
+    self.log(f'Chocholousek: {result["status"]}; archívy {result.get("downloaded",0)}, import {result.get("imported_png",0)} PNG.')
   except Exception as exc:
    results['chocholousek']={'status':'unavailable','error':str(exc)[:300]}
    stats['source_errors']=stats.get('source_errors',0)+1
@@ -1335,33 +1359,17 @@ def final_picon_counts(folder):
 class App:
  def __init__(self):
   self.installed_version=installed_factory_version()
-  self.root=tk.Tk();self.root.title('WARDER PICON FACTORY — '+self.installed_version);self.root.geometry('900x550')
+  self.root=tk.Tk();self.root.title('WARDER PICON FACTORY — '+self.installed_version);self.root.geometry('1180x760')
   self.events=queue.Queue();self.running=False;self.export_running=False;self.started_at=None
+  self.cancel_event=threading.Event();self.close_requested=False
+  self.root.protocol('WM_DELETE_WINDOW',self.on_close)
   self._delivery_lock=threading.Lock()
-  frm=ttk.Frame(self.root,padding=18);frm.pack(fill='both',expand=True)
-  ttk.Label(frm,text='WARDER PICON FACTORY',font=('Segoe UI',20,'bold')).pack(anchor='w')
-  ttk.Label(frm,text='Automatické lokálne spracovanie bez zásahu do originálov a GitHubu').pack(anchor='w',pady=(0,12))
-  self.version_label=ttk.Label(frm,text='Nainštalovaná verzia: '+self.installed_version);self.version_label.pack(anchor='w')
-  self.production_label=ttk.Label(frm,text='Lokálne kandidátske PNG (nie publikované): zisťujem...');self.production_label.pack(anchor='w')
-  self._refresh_production_counts()
-  self.status=tk.StringVar(value='Pripravujem...');ttk.Label(frm,textvariable=self.status,font=('Segoe UI',11)).pack(anchor='w')
-  self.counts_status=tk.StringVar(value='Čakajúce úlohy: načítavam report...')
-  ttk.Label(frm,textvariable=self.counts_status,font=('Segoe UI',10,'bold')).pack(anchor='w')
-  self.bar=ttk.Progressbar(frm,mode='determinate');self.bar.pack(fill='x',pady=12)
-  self.work_area=ttk.Panedwindow(frm, orient='horizontal');self.work_area.pack(fill='both',expand=True)
-  log_panel=ttk.Frame(self.work_area)
-  self.output=tk.Text(log_panel,height=17,wrap='word',font=('Consolas',10));self.output.pack(fill='both',expand=True)
-  self.work_area.add(log_panel,weight=45)
-  from review_gallery import ReviewGallery
-  self.gallery=ReviewGallery(self.work_area, REPORTS, DATA/'review-decisions.json', OUTPUT)
-  self.work_area.add(self.gallery,weight=55)
-  actions=ttk.Frame(frm);actions.pack(fill='x')
-  ttk.Button(actions,text='Spustiť spracovanie PNG',command=self.start).pack(side='left',padx=(0,8))
-  ttk.Button(actions,text='Zobraziť iba nevyriešené výnimky',command=self.open_review).pack(side='left')
-  ttk.Button(actions,text='Otvoriť priečinok reportov',command=self.open_reports).pack(side='left',padx=8)
-  ttk.Button(actions,text='Zabaliť nespracované PNG na D:',command=self.export_pending).pack(side='left',padx=8)
-  ttk.Button(actions,text='GitHub prenos',command=self.configure_github).pack(side='left',padx=8)
-  ttk.Label(frm,text=f'Zdrojové ZIP/PNG: {INBOX}  |  Rozpracované: {OUTPUT}  |  Finálne: {FINAL_PICONS}  |  Reporty: {REPORTS}').pack(anchor='w',pady=8)
+  from factory_workspace import FactoryWorkspace
+  self.workspace=FactoryWorkspace(self,self.root,{
+   'root':ROOT,'inbox':INBOX,'originals':ORIGINALS,'output':OUTPUT,'final':FINAL_PICONS,
+   'exceptions':EXCEPTIONS,'reports':REPORTS,'data':DATA,'ingest':SOURCE_INGEST,
+   'manifest':SOURCE_MANIFEST,'ledger':DATA/'review-decisions.json',
+   'chocho_positions':DATA/'chocholousek-positions.json'})
   if os.environ.get("WARDER_GUI_SMOKE_TEST") != "1":
    self.root.after(150,self._resume_pending_delivery)
    self.root.after(60000,self._scheduled_delivery)
@@ -1403,7 +1411,10 @@ class App:
   from review_ui import ReviewWindow
   ReviewWindow(self.root, REPORTS, DATA/'review-decisions.json', OUTPUT)
  def open_reports(self):
+  REPORTS.mkdir(parents=True,exist_ok=True)
   if os.name=='nt':os.startfile(str(REPORTS))
+  elif sys.platform=='darwin':subprocess.Popen(['open',str(REPORTS)])
+  else:subprocess.Popen(['xdg-open',str(REPORTS)])
  def export_pending(self):
   from tkinter import messagebox
   target=Path('D:/WARDER-PICONS-PENDING.zip')
@@ -1420,6 +1431,27 @@ class App:
     self.emit('export_done',result)
    except Exception as exc:self.emit('export_error',str(exc))
   threading.Thread(target=worker,daemon=True).start()
+ def request_cancel(self):
+  if not self.running:
+   self.status.set('Žiadny spracovateľský beh nie je aktívny');return
+  self.cancel_event.set()
+  self.status.set('Zastavujem bezpečne · dokončujem aktuálne sťahovanie alebo atómový zápis')
+  self.emit('log','Požiadavka na zastavenie prijatá. Dokončí sa aktuálna bezpečná operácia; nič sa nefinalizuje čiastočne.')
+ def on_close(self):
+  if self.running or self.export_running:
+   from tkinter import messagebox
+   if not messagebox.askyesno('Bezpečné ukončenie',
+       'Prebieha spracovanie alebo export. Požiadať o bezpečné zastavenie a zavrieť okno po dokončení aktuálnej operácie?',parent=self.root):
+    return
+   self.close_requested=True
+   if self.running:self.request_cancel()
+   else:self.status.set('Export prebieha · aplikácia sa zavrie po jeho bezpečnom dokončení')
+   return
+  self.root.destroy()
+ def _close_when_ready(self):
+  if self.close_requested and not self.running and not self.export_running:
+   self.close_requested=False
+   self.root.after_idle(self.root.destroy)
  def configure_github(self):
   from tkinter import messagebox
   from factory_github_credentials import load_token
@@ -1486,10 +1518,18 @@ class App:
  def emit(self,k,v):self.events.put((k,v))
  def start(self):
   if self.running or self.export_running:return
+  self.cancel_event.clear();self.close_requested=False
   self.running=True;self.started_at=time.monotonic();self.status.set('1/5 · Začínam synchronizáciu')
   def worker():
-   try:Factory(self.emit).scan()
+   factory=None
+   try:
+    factory=Factory(self.emit,self.cancel_event);factory.scan()
+   except ScanCancelled as exc:self.emit('cancelled',str(exc))
    except Exception:self.emit('error',traceback.format_exc())
+   finally:
+    if factory is not None:
+     try:factory.db.close()
+     except Exception:pass
   threading.Thread(target=worker,daemon=True).start()
  def poll(self):
   try:
@@ -1505,6 +1545,7 @@ class App:
       seconds=int(time.monotonic()-self.started_at)
       self.output.insert('end',f'TRVANIE: {seconds//60} min {seconds%60} s\n')
      self._refresh_production_counts()
+     self.workspace.refresh_all()
      final=s.get('new_candidate_finalization',{})
      self.output.insert('end','FINÁLNE NEW-CANDIDATES: '+str(final.get('copied',0))+
        ' PNG zapísaných, '+str(final.get('already_present',0))+
@@ -1515,16 +1556,29 @@ class App:
      lanes=s.get('review_workstreams',{})
      self.counts_status.set('Čakajúce úlohy: '+str(s.get('review_queue_items','?'))+' | Identita: '+str(lanes.get('IDENTITY_VERIFICATION','?'))+' | Grafika: '+str(lanes.get('ARTWORK_REVIEW','?'))+' | Technické QA: '+str(lanes.get('TECHNICAL_QA','?')))
      self.output.insert('end','VERZIA: '+self.installed_version+' | Tento beh: '+str(s.get('changed',0))+' zmenených zdrojov, '+str(s.get('created',0))+' vytvorených záznamov, '+str(s.get('qa_repaired',0))+' QA opráv, '+str(s.get('review_queue_items',0))+' čaká na posúdenie.\n')
+     self._close_when_ready()
+    elif k=='cancelled':
+     self.running=False;self.status.set('Beh bezpečne zastavený · čiastočné výstupy zostali obnoviteľné')
+     self.output.insert('end','ZASTAVENÉ: '+v+'\n')
+     self._close_when_ready()
     elif k=='diagnostics':
      self.output.insert('end','GITHUB DIAGNOSTIKA: '+v+'\n')
+    elif k=='source_inventory_done':
+     self.workspace.show_sources(v)
+    elif k=='source_inventory_error':
+     self.workspace.source_inventory_error(v)
     elif k=='export_done':
      self.export_running=False
      self.status.set('Export dokončený: '+v['path'])
      self.output.insert('end','EXPORT: '+str(v)+'\n')
+     self._close_when_ready()
     elif k=='export_error':
      self.export_running=False
      self.status.set('Export zlyhal');self.output.insert('end','EXPORT CHYBA: '+v+'\n')
-    elif k=='error':self.status.set('Chyba spracovania');self.output.insert('end',v);self.running=False
+     self._close_when_ready()
+    elif k=='error':
+     self.status.set('Chyba spracovania');self.output.insert('end',v);self.running=False
+     self._close_when_ready()
   except queue.Empty:pass
   self.root.after(100,self.poll)
 if __name__=='__main__':
