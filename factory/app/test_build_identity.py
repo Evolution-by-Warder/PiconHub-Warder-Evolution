@@ -39,7 +39,7 @@ class BuildIdentityTests(unittest.TestCase):
 
     def test_factory_release_line_is_monotonic_with_existing_manifest(self):
         app_version = json.loads((Path(__file__).parent / ".factory-version.json").read_text(encoding="utf-8"))["version"]
-        manifest = json.loads((Path(__file__).parents[0] / "update" / "manifest.json").read_text(encoding="utf-8"))["version"]
+        manifest = json.loads((Path(__file__).parents[1] / "update" / "manifest.json").read_text(encoding="utf-8"))["version"]
         def numbers(value):
             return tuple(int(part) for part in value.removeprefix("factory-v").split("."))
         self.assertEqual(numbers(manifest), (0, 2, 27))
