@@ -1,9 +1,11 @@
-# Factory temp — diagnostické medzipriestory
+# Factory temp — diagnostické súhrny
 
-Tento adresár je v **verejnom** repozitári PiconHub-Warder-Evolution. Slúži len na dokumentáciu formátu a prípadné neosobné, ručne kontrolované ukážky.
+Tento adresár v existujúcom verejnom repozitári prijíma **iba anonymizované JSON súhrny** z WARDER PICON FACTORY. Zápis je povolený len do vetvy `factory-warder-development`, nie do `main` alebo `warder-master-production`.
 
-**Zakázané sem posielať automaticky:** skutočné reporty z počítača, cesty k súborom, názvy zdrojov, PNG, používateľské dáta, prístupové tokeny, kompletné logy a výpisy chýb.
+- Povolené: počty spracovaných súborov, QA úloh a chýb, verzia aplikácie a identifikátor behu.
+- Zakázané: PNG, pôvodné logy, absolútne cesty, názvy zdrojových súborov, identifikátory staníc, tokeny a osobné údaje.
+- Prístupový token zostáva výhradne na používateľskom počítači v konfigurácii aplikácie; nikdy sa nezapisuje do Git.
+- Po spracovaní možno súhrny odstrániť z aktuálnej vetvy. **História Git commitov ich môže naďalej obsahovať**, preto sa anonymizácia vykonáva pred prenosom.
+- Ak upload zlyhá, pôvodný report zostáva lokálne na opakovanie.
 
-Aplikácia ukladá skutočné pracovné reporty lokálne do `D:\WARDER-PICON-FACTORY\08-REPORTS\`. Prenos sanitizovaných JSON súhrnov je prípustný iba do samostatného **súkromného** diagnostického repozitára s overeným prístupom. Nikdy do produkčnej vetvy ani do tohto verejného `temp/`.
-
-Do Git repozitára sa nezapisujú dočasné súbory automaticky bez validácie. Pre prípadný prenos sa používajú anonymizované súhrny a evidencia doručenia.
+Lokálne reporty: `D:\WARDER-PICON-FACTORY\08-REPORTS\`.
