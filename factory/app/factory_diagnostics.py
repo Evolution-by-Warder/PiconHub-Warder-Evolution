@@ -1,14 +1,14 @@
 """Optional automatic GitHub diagnostics upload; never uploads PNG or credentials.
 
-Requires WARDER_DIAGNOSTICS_REPO=owner/private-repo and a token in
-WARDER_DIAGNOSTICS_TOKEN. No repository is created automatically.
+Uploads only allowlisted numerical summaries to factory/temp on the existing
+factory-warder-development branch. Requires WARDER_DIAGNOSTICS_TOKEN on the PC.
+Git deletion does not erase historical commits.
 """
 import json
 import os
 import re
 import urllib.request
 import urllib.error
-import hashlib
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -37,9 +37,9 @@ def sanitized_summary(report):
             'created_utc': datetime.now(timezone.utc).isoformat(), 'summary': summary}
 
 def upload_report(report_path, *, opener=None):
-    repo = os.environ.get('WARDER_DIAGNOSTICS_REPO', '').strip()
+    repo = 'Evolution-by-Warder/PiconHub-Warder-Evolution'
     token = os.environ.get('WARDER_DIAGNOSTICS_TOKEN', '').strip()
-    if not repo or not token:
+    if not token:
         return {'status': 'not_configured'}
     if not _ALLOWED.fullmatch(repo):
         return {'status': 'invalid_configuration'}
@@ -50,9 +50,10 @@ def upload_report(report_path, *, opener=None):
     if not re.fullmatch(r'\d{8}-\d{6}-\d+', run):
         return {'status': 'invalid_run'}
     body = json.dumps({'message': 'diagnostics: ' + run,
+                       'branch': 'factory-warder-development',
                        'content': base64.b64encode(json.dumps(payload, ensure_ascii=False).encode('utf-8')).decode('ascii')}).encode('utf-8')
     req = urllib.request.Request(
-        'https://api.github.com/repos/' + repo + '/contents/pending/' + run + '.json',
+        'https://api.github.com/repos/' + repo + '/contents/factory/temp/' + run + '.json',
         data=body, method='PUT',
         headers={'Authorization': 'Bearer ' + token,
                  'Accept': 'application/vnd.github+json',
