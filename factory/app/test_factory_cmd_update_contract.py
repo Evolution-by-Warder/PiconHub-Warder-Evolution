@@ -25,6 +25,25 @@ class CmdUpdateContractTests(unittest.TestCase):
         self.assertIn('resolve(workspace_paths(resolve_root())', self.script)
         self.assertIn('gui_ready=False', self.script)
 
+    def test_batch_labels_are_unique(self):
+        import re
+        labels = re.findall(r'^:([A-Za-z_]+)
+        self.assertNotIn('warder-master-production', self.script)
+        self.assertNotIn('git push', self.script)
+
+
+if __name__ == '__main__':
+    unittest.main()
+, self.script, re.MULTILINE)
+        self.assertEqual(len(labels), len(set(labels)))
+
+    def test_python_fallback_validates_version(self):
+        self.assertIn('python -c "import sys; assert sys.version_info[:2] == (3,12)"', self.script)
+
+    def test_dependency_failure_label_is_outside_install_block(self):
+        self.assertLess(self.script.index('if not defined PYTHON ('), self.script.index('rem Keep the runtime OUTSIDE'))
+        self.assertGreater(self.script.index(':dependency_failure'), self.script.index('"factory_launcher.py"'))
+
     def test_no_production_registry_paths_in_installer(self):
         self.assertNotIn('warder-master-production', self.script)
         self.assertNotIn('git push', self.script)
