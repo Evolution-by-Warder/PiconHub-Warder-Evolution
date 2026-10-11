@@ -1320,7 +1320,7 @@ class App:
  def __init__(self):
   self.installed_version=installed_factory_version()
   self.root=tk.Tk();self.root.title('WARDER PICON FACTORY — '+self.installed_version);self.root.geometry('900x550')
-  self.events=queue.Queue();self.running=False
+  self.events=queue.Queue();self.running=False;self.export_running=False
   frm=ttk.Frame(self.root,padding=18);frm.pack(fill='both',expand=True)
   ttk.Label(frm,text='WARDER PICON FACTORY',font=('Segoe UI',20,'bold')).pack(anchor='w')
   ttk.Label(frm,text='Automatické lokálne spracovanie bez zásahu do originálov a GitHubu').pack(anchor='w',pady=(0,12))
@@ -1368,10 +1368,11 @@ class App:
  def export_pending(self):
   from tkinter import messagebox
   target=Path('D:/WARDER-PICONS-PENDING.zip')
-  if self.running:
+  if self.running or self.export_running:
    messagebox.showwarning('Factory pracuje','Export je dostupný až po dokončení behu.',parent=self.root);return
   if target.exists():
    messagebox.showwarning('ZIP už existuje','Najskôr presuň alebo premenuj existujúci '+str(target),parent=self.root);return
+  self.export_running=True
   self.status.set('Balím čakajúce PNG na D: ...')
   def worker():
    try:
@@ -1382,7 +1383,7 @@ class App:
   threading.Thread(target=worker,daemon=True).start()
  def emit(self,k,v):self.events.put((k,v))
  def start(self):
-  if self.running:return
+  if self.running or self.export_running:return
   self.running=True;self.status.set('1/5 · Začínam synchronizáciu')
   def worker():
    try:Factory(self.emit).scan()
@@ -1403,9 +1404,11 @@ class App:
      self.counts_status.set('Čakajúce úlohy: '+str(s.get('review_queue_items','?'))+' | Identita: '+str(lanes.get('IDENTITY_VERIFICATION','?'))+' | Grafika: '+str(lanes.get('ARTWORK_REVIEW','?'))+' | Technické QA: '+str(lanes.get('TECHNICAL_QA','?')))
      self.output.insert('end','VERZIA: '+self.installed_version+' | Tento beh: '+str(s.get('changed',0))+' zmenených zdrojov, '+str(s.get('created',0))+' vytvorených záznamov, '+str(s.get('qa_repaired',0))+' QA opráv, '+str(s.get('review_queue_items',0))+' čaká na posúdenie.\n')
     elif k=='export_done':
+     self.export_running=False
      self.status.set('Export dokončený: '+v['path'])
      self.output.insert('end','EXPORT: '+str(v)+'\n')
     elif k=='export_error':
+     self.export_running=False
      self.status.set('Export zlyhal');self.output.insert('end','EXPORT CHYBA: '+v+'\n')
     elif k=='error':self.status.set('Chyba spracovania');self.output.insert('end',v);self.running=False
   except queue.Empty:pass
