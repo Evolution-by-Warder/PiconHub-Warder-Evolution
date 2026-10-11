@@ -124,7 +124,7 @@ def upload_png_evidence(report_dir, *, opener=None, state_path=None, max_attempt
                                 remote_data = json.load(response)
                             # GitHub Contents API may omit base64 content for larger PNGs.
                             # Its blob SHA is a verifiable digest of the exact file bytes.
-                            blob_sha = hashlib.sha1(b'blob ' + str(len(content)).encode('ascii') + b'\\0' + content).hexdigest()
+                            blob_sha = hashlib.sha1(b'blob ' + str(len(content)).encode('ascii') + bytes([0]) + content).hexdigest()
                             if remote_data.get('sha') == blob_sha:
                                 sent += 1
                                 delivered.add(sha)
