@@ -47,7 +47,9 @@ if "%WARDER_FACTORY_SETUP_ONLY%"=="1" (
   exit /b 0
 )
 rem The updater is a short-lived process with an exclusive Factory lock.
-"%WARDER_RUNTIME%\Scripts\python.exe" "factory_update_bootstrap.py"
+cd /d "%WARDER_PICON_FACTORY_ROOT%\11-APP"
+if errorlevel 1 goto :failure
+"%WARDER_RUNTIME%\Scripts\python.exe" "%WARDER_PICON_FACTORY_ROOT%\11-APP\WARDER-PICON-FACTORY\factory_update_bootstrap.py"
 rem The updater may replace APP: re-enter the newly activated directory.
 cd /d "%WARDER_PICON_FACTORY_ROOT%\11-APP\WARDER-PICON-FACTORY"
 if errorlevel 1 goto :failure
