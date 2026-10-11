@@ -25,31 +25,6 @@ jobs:
       - name: Run all Factory regression tests
         run: cd factory/app && python -m unittest discover -p 'test_*.py' -v
 
-      - name: Package tested Factory for Windows (no release)
-        run: |
-          python - <<'PY'
-          from pathlib import Path
-          from zipfile import ZIP_DEFLATED, ZipFile
-          root = Path('factory/app')
-          output = Path('warder-picon-factory-test-build.zip')
-          with ZipFile(output, 'w', ZIP_DEFLATED) as archive:
-              for file in sorted(root.rglob('*')):
-                  if file.is_file() and not any(part in ('__pycache__', '.pytest_cache') for part in file.parts):
-                      archive.write(file, file.relative_to(root))
-          with ZipFile(output) as archive:
-              assert archive.testzip() is None
-              for required in ('engine.py', 'factory_launcher.py', 'live_png_test.py', 'SPUSTI-WARDER.cmd',
-                               'templates/picons/black-sablona.png',
-                               'templates/picons/white-sablona.png'):
-                  assert required in archive.namelist(), required
-          PY
-      - name: Upload test build (not a GitHub Release)
-        uses: actions/upload-artifact@v4
-        with:
-          name: warder-picon-factory-test-build
-          path: warder-picon-factory-test-build.zip
-          retention-days: 7
-
   windows-smoke:
     runs-on: windows-latest
     steps:
@@ -61,43 +36,52 @@ jobs:
           python-version: '3.12'
       - name: Install Factory dependencies
         run: python -m pip install -r factory/app/requirements-runtime.txt
+      - name: Install Windows executable packager
+        run: python -m pip install "PyInstaller>=6,<7"
       - name: Compile Windows Factory source
         run: python -m compileall -q factory/app
       - name: Run Factory tests on Windows
         working-directory: factory/app
         run: python -m unittest discover -p 'test_*.py' -v
 
-      - name: Verify one-click Windows setup without launching GUI
-        shell: cmd
+      - name: Build standalone Windows GUI executable
+        working-directory: factory/app
+        run: >-
+          python -m PyInstaller --noconfirm --clean --onefile --windowed
+          --name WARDER-PICON-FACTORY
+          --add-data ".factory-version.json;."
+          --add-data "templates;templates"
+          engine.py
+      - name: Smoke-test packaged Windows GUI
+        shell: pwsh
         working-directory: factory/app
         env:
-          WARDER_FACTORY_SETUP_ONLY: "1"
-        run: call SPUSTI-WARDER.cmd
-      - name: Check isolated runtime imports
-        shell: cmd
-        working-directory: factory/app
-        run: .venv\Scripts\python.exe -c "import PIL, py7zr, tkinter; print('Windows runtime OK')"
-
-      - name: Package Windows-tested source and launcher
-        shell: bash
+          WARDER_GUI_SMOKE_TEST: "1"
+          WARDER_GUI_SMOKE_READY_FILE: ${{ runner.temp }}\factory-gui-ready.txt
+          WARDER_PICON_FACTORY_ROOT: ${{ runner.temp }}\factory-gui-smoke
         run: |
-          python - <<'PY'
-          from pathlib import Path
-          from zipfile import ZipFile, ZIP_DEFLATED
-          root = Path('factory/app')
-          output = Path('WARDER-PICON-FACTORY-WINDOWS-TEST.zip')
-          with ZipFile(output, 'w', ZIP_DEFLATED) as archive:
-              for path in sorted(root.rglob('*')):
-                  if path.is_file() and not any(part in ('.venv', '__pycache__', '.pytest_cache') for part in path.parts):
-                      archive.write(path, path.relative_to(root))
-          with ZipFile(output) as archive:
-              assert archive.testzip() is None
-              assert 'SPUSTI-WARDER.cmd' in archive.namelist()
-              assert 'engine.py' in archive.namelist()
-          PY
-      - name: Upload Windows-tested package (not a release)
+          Remove-Item $env:WARDER_GUI_SMOKE_READY_FILE -Force -ErrorAction SilentlyContinue
+          $proc = Start-Process -FilePath "dist/WARDER-PICON-FACTORY.exe" -PassThru
+          $ready = $false
+          for ($i = 0; $i -lt 90; $i++) {
+            if (Test-Path $env:WARDER_GUI_SMOKE_READY_FILE) { $ready = $true; break }
+            if ($proc.HasExited) { break }
+            Start-Sleep -Milliseconds 500
+          }
+          if (-not $ready) { if (-not $proc.HasExited) { Stop-Process -Id $proc.Id -Force }; throw "Packaged GUI did not signal startup" }
+          $proc.WaitForExit(15000) | Out-Null
+          if (-not $proc.HasExited) { Stop-Process -Id $proc.Id -Force; throw "Packaged GUI did not close after smoke test" }
+          if ($proc.ExitCode -ne 0) { throw "Packaged GUI exit code $($proc.ExitCode)" }
+      - name: Build single-file self-extracting CMD application
+        working-directory: factory/app
+        run: |
+          $version = python -c "import json;print(json.load(open('.factory-version.json'))['version'])"
+          if ($LASTEXITCODE -ne 0) { throw "Unable to read Factory version" }
+          python package_windows_cmd.py --exe dist/WARDER-PICON-FACTORY.exe --output ../../SPUSTI-WARDER-PICON-FACTORY.cmd --version $version
+          if ($LASTEXITCODE -ne 0) { throw "Unable to build one-click CMD package" }
+      - name: Upload one-click Windows application (not a release)
         uses: actions/upload-artifact@v4
         with:
-          name: WARDER-PICON-FACTORY-WINDOWS-TEST
-          path: WARDER-PICON-FACTORY-WINDOWS-TEST.zip
+          name: WARDER-PICON-FACTORY-ONE-CLICK
+          path: SPUSTI-WARDER-PICON-FACTORY.cmd
           retention-days: 7

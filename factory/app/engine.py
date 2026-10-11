@@ -1219,7 +1219,7 @@ class Factory:
   report=REPORTS/('report-'+run+'.json')
   stats['installed_factory_version']=installed_factory_version()
   stats['final_picons_on_disk']=final_picon_counts(FINAL_PICONS)
-  report.write_text(json.dumps({'run':run,'stats':stats,'pillow':PIL_OK,'master_commit':getattr(self,'master_commit',None),'note':'PiconHub production snapshot is read-only. Vhannibal and OpenATV 8 are checked and ingested; Chocholousek is disabled by user request. Optional additional feeds require a verified source-manifest.json. Identity matching uses exact service-reference filenames; no Warder IDs, production assets or GitHub content are changed.'},ensure_ascii=False,indent=2),encoding='utf-8')
+  report.write_text(json.dumps({'run':run,'stats':stats,'pillow':PIL_OK,'master_commit':getattr(self,'master_commit',None),'note':'PiconHub production snapshot is read-only. Vhannibal, OpenATV 8 and Chocholousek are checked as candidate sources. Optional additional feeds require a verified source-manifest.json. Identity matching uses exact service-reference filenames; no Warder IDs, production assets or GitHub content are changed.'},ensure_ascii=False,indent=2),encoding='utf-8')
   self.emit('done',(stats,str(report)))
 
  def sync_peer_sources(self,stats):
@@ -1291,9 +1291,15 @@ class Factory:
    results['openatv8']={'status':'unavailable','error':str(exc)[:300]}
    stats['source_errors']=stats.get('source_errors',0)+1
    self.log('OpenATV 8 nedostupný/bez zmeny checkpointu: '+str(exc)[:300])
-  # Chocholousek deliberately disabled by user request: no network probes or import.
-  results['chocholousek']={'status':'disabled_by_user','downloaded':0,'imported':0}
-  self.log('Chocholousek: vypnutý podľa zadania; bez kontroly siete a bez importu.')
+  try:
+   from chocholousek_source import sync_chocholousek
+   result=sync_chocholousek(workspace)
+   results['chocholousek']=result
+   self.log(f'Chocholousek: {result["status"]}; archívy {result.get("downloaded",0)}, import {result.get("imported_png",0)} PNG.')
+  except Exception as exc:
+   results['chocholousek']={'status':'unavailable','error':str(exc)[:300]}
+   stats['source_errors']=stats.get('source_errors',0)+1
+   self.log('Chocholousek nedostupný/bez zmeny checkpointu: '+str(exc)[:300])
   stats['peer_sources']=results
   stats['peer_source_imports']=sum(int(r.get('imported',r.get('imported_png',0)) or 0)
                                     for r in results.values() if isinstance(r,dict))
@@ -1391,6 +1397,8 @@ class App:
   marker = os.environ.get("WARDER_GUI_SMOKE_READY_FILE")
   if marker:
    Path(marker).write_text("GUI_READY\n", encoding="utf-8")
+  if os.environ.get("WARDER_GUI_SMOKE_TEST") == "1":
+   self.root.after(150, self.root.destroy)
  def open_review(self):
   from review_ui import ReviewWindow
   ReviewWindow(self.root, REPORTS, DATA/'review-decisions.json', OUTPUT)
@@ -1521,4 +1529,19 @@ class App:
   self.root.after(100,self.poll)
 if __name__=='__main__':
  multiprocessing.freeze_support()
- App().root.mainloop()
+ try:
+  App().root.mainloop()
+ except Exception:
+  detail=traceback.format_exc()
+  try:
+   startup_log=REPORTS/'factory-startup-error.log'
+   startup_log.parent.mkdir(parents=True,exist_ok=True)
+   startup_log.write_text(detail,encoding='utf-8')
+  except OSError:
+   pass
+  try:
+   from tkinter import messagebox
+   messagebox.showerror('WARDER PICON FACTORY','Aplikácia sa nepodarila spustiť. Diagnostika je uložená v:\n'+str(REPORTS/'factory-startup-error.log'))
+  except Exception:
+   pass
+  raise

@@ -18,22 +18,23 @@ Unified Windows desktop application built from the supplied WARDER PICON FACTORY
 
 These feeds are equal-priority candidates. The app retains provenance in separate source folders and checkpoints. Failed feeds do not discard successful source state. Source terms and restrictions apply; imported graphics stay local and the app does not republish source archives.
 
-## Windows one-click source delivery
+## Windows one-click application
 
-Download the **warder-picon-factory-test-build.zip** artifact from the
-**Factory regression (no release)** workflow, extract it into a persistent
-directory, and double-click **SPUSTI-WARDER.cmd**. The launcher creates a
-local `.venv`, installs the runtime dependencies and starts `engine.py`.
-If Python is missing it attempts to install Python 3.12 using `winget`.
-Internet access is required for first-time dependency installation. Existing
-data in `WARDER_PICON_FACTORY_ROOT` is not deleted. The default data root
-for this launcher is `%USERPROFILE%\\WARDER-PICONS`.
+The **Factory regression (no release)** workflow builds a standalone Windows
+GUI executable on `windows-latest`, launches it for a GUI startup smoke test,
+and packages that tested executable into one self-extracting
+`SPUSTI-WARDER-PICON-FACTORY.cmd` file. Download that single CMD artifact and
+double-click it; Python and runtime libraries are bundled in the executable.
+The launcher installs each application version into `%LOCALAPPDATA%` and
+keeps user data in `%USERPROFILE%\\WARDER-PICONS`. Updates use versioned app
+folders, verify SHA-256 before launch, and leave the user's Factory data in
+place. Startup and extraction errors are recorded under
+`%LOCALAPPDATA%\\WARDER-PICON-FACTORY\\launcher.log`.
 
-The Windows workflow runs the CMD setup in non-GUI mode and checks its
-imports; this is a **source-based Windows package**, not a compiled EXE.
-A real GUI launch, Windows installation on the user's PC, and a full dataset
-run still require separate verification. No public GitHub Release is made
-by the regression workflow.
+The source-tree `SPUSTI-WARDER.cmd` remains a developer launcher. The one-file
+Windows CMD is generated only by the Windows build job after its tests and
+native GUI smoke test succeed. The job uploads it as a seven-day Actions
+artifact, not as a public release.
 
 ## Source folders and safety
 
@@ -44,16 +45,23 @@ and local NEW-CANDIDATES are not production publication approval.
 
 ## Verification completed here
 
-- Python syntax compilation.
-- Unit and regression suite for source parsing, feed security, archive extraction limits, registry identity rules, source checkpoints, PNG variants and repairs, review decisions, and publication safety.
-- Local result: 88 tests passed.
+- Python 3.12 syntax compilation and unit/regression suite for source parsing,
+  feed security, archive extraction limits, registry identity rules, source
+  checkpoints, PNG variants and repairs, review decisions, publication safety,
+  retry-safe diagnostics delivery and the generated launcher container.
+- Local Linux result: 124 tests passed.
+- The Windows job builds the bundled executable and launches its GUI in a
+  short smoke test before producing the single-CMD artifact.
 
 ## Not verified here
 
 - Live app-originated source archive downloads; this runtime blocks direct outbound network access.
 - Chocholousek 7z extraction against a live archive; `py7zr` is included in the Windows dependency list but was not installed in this Linux environment.
 - Full real Warder production tree ingestion, because the supplied archive does not include the actual picon dataset or local runtime state.
-- Native Windows executable build, startup, Windows Defender/signing, and GUI display.
+- Native Windows executable build and GUI startup remain unverified until the
+  current Windows Actions job completes successfully. Windows Defender
+  reputation/signing and installation on the user's own PC are also separate
+  from CI verification.
 
 ## Safety boundaries
 

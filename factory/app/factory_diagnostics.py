@@ -7,9 +7,10 @@ Git deletion does not erase historical commits.
 import json
 import os
 import re
+import hashlib
+import base64
 import urllib.request
 import urllib.error
-import base64
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -45,8 +46,34 @@ def sanitized_summary(report):
                     and isinstance(v, int) and not isinstance(v, bool) and v >= 0}
             if safe:
                 summary[key] = safe
-    return {'schema': 1, 'run': str(report.get('run', ''))[:64],
-            'created_utc': datetime.now(timezone.utc).isoformat(), 'summary': summary}
+    run = str(report.get('run', ''))[:64]
+    created = report.get('created_utc')
+    if not isinstance(created, str):
+        try:
+            created = datetime.strptime(run, '%Y%m%d-%H%M%S-%f').replace(tzinfo=timezone.utc).isoformat()
+        except ValueError:
+            created = datetime.now(timezone.utc).isoformat()
+    return {'schema': 1, 'run': run, 'created_utc': created[:64], 'summary': summary}
+
+
+def _existing_report_matches(remote, expected, blob_sha):
+    if not isinstance(remote, dict):
+        return False
+    if remote.get('sha') == blob_sha:
+        return True
+    # Earlier Factory builds generated created_utc at send time, so a retry
+    # can have different bytes even though the run ID and allowlisted facts
+    # are identical. Accept only that exact semantic match; never overwrite.
+    try:
+        encoded = remote.get('content', '').replace('\n', '')
+        if remote.get('encoding') != 'base64' or not encoded:
+            return False
+        stored = json.loads(base64.b64decode(encoded, validate=True))
+        return all(stored.get(key) == expected.get(key)
+                   for key in ('schema', 'run', 'summary'))
+    except (ValueError, TypeError, json.JSONDecodeError):
+        return False
+
 
 def upload_report(report_path, *, opener=None):
     repo = 'Evolution-by-Warder/PiconHub-Warder-Evolution'
@@ -60,23 +87,46 @@ def upload_report(report_path, *, opener=None):
     run = payload['run']
     if not re.fullmatch(r'\d{8}-\d{6}-\d+', run):
         return {'status': 'invalid_run'}
-    body = json.dumps({'message': 'diagnostics: ' + run,
-                       'branch': 'factory-warder-development',
-                       'content': base64.b64encode(json.dumps(payload, ensure_ascii=False).encode('utf-8')).decode('ascii')}).encode('utf-8')
-    req = urllib.request.Request(
-        'https://api.github.com/repos/' + repo + '/contents/factory/temp/' + run + '.json',
-        data=body, method='PUT',
-        headers={'Authorization': 'Bearer ' + token,
-                 'Accept': 'application/vnd.github+json',
-                 'Content-Type': 'application/json',
-                 'User-Agent': 'Warder-Picon-Factory'})
+    content = json.dumps(payload, ensure_ascii=False, indent=2).encode('utf-8') + b'\n'
+    blob_sha = hashlib.sha1(b'blob ' + str(len(content)).encode('ascii') + b'\0' + content).hexdigest()
+    url = 'https://api.github.com/repos/' + repo + '/contents/factory/temp/' + run + '.json'
+    headers = {'Authorization': 'Bearer ' + token,
+               'Accept': 'application/vnd.github+json',
+               'User-Agent': 'Warder-Picon-Factory'}
+    # A lost response after a successful PUT must be safe to retry. GitHub's
+    # Contents API rejects a create-only PUT for an existing path with 422.
     try:
+        check = urllib.request.Request(url + '?ref=factory-warder-development', headers=headers)
+        try:
+            with (opener or urllib.request.urlopen)(check, timeout=15) as response:
+                remote = json.load(response)
+            if _existing_report_matches(remote, payload, blob_sha):
+                return {'status': 'sent', 'run': run, 'already_present': True}
+            return {'status': 'http_error', 'code': 422, 'detail': 'existing_report_sha_mismatch'}
+        except urllib.error.HTTPError as exc:
+            if exc.code != 404:
+                return {'status': 'http_error', 'code': exc.code}
+        body = json.dumps({'message': 'diagnostics: ' + run,
+                           'branch': 'factory-warder-development',
+                           'content': base64.b64encode(content).decode('ascii')}).encode('utf-8')
+        req = urllib.request.Request(url, data=body, method='PUT', headers={**headers,
+                 'Content-Type': 'application/json'})
         with (opener or urllib.request.urlopen)(req, timeout=15) as response:
             if response.status not in (200, 201):
                 return {'status': 'http_error', 'code': response.status}
         return {'status': 'sent', 'run': run}
     except urllib.error.HTTPError as exc:
-        # A 422 is not proof of delivery: retain locally and retry after repair.
+        # Resolve an upload/response race only when the remote bytes match.
+        if exc.code == 422:
+            try:
+                check = urllib.request.Request(url + '?ref=factory-warder-development', headers=headers)
+                with (opener or urllib.request.urlopen)(check, timeout=15) as response:
+                    remote = json.load(response)
+                if _existing_report_matches(remote, payload, blob_sha):
+                    return {'status': 'sent', 'run': run, 'already_present': True}
+                return {'status': 'http_error', 'code': 422, 'detail': 'existing_report_sha_mismatch'}
+            except (OSError, ValueError, TypeError, urllib.error.HTTPError):
+                pass
         return {'status': 'http_error', 'code': exc.code}
     except (OSError, ValueError):
         return {'status': 'offline_or_failed'}

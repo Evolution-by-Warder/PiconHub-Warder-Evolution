@@ -1,13 +1,13 @@
 name: Factory versioned update
 on:
-  push:
-    branches: [factory-warder-development]
-    paths:
-      - 'factory/app/.factory-version.json'
   workflow_dispatch:
     inputs:
       version:
         description: 'Version (e.g. 0.2.3)'
+        required: true
+        type: string
+      release_approval:
+        description: 'Type I APPROVE PUBLIC RELEASE only after explicit user approval'
         required: true
         type: string
 permissions:
@@ -27,12 +27,11 @@ jobs:
         shell: bash
         env:
           REQUESTED_VERSION: ${{ inputs.version }}
+          RELEASE_APPROVAL: ${{ inputs.release_approval }}
         run: |
           set -euo pipefail
+          [[ "$RELEASE_APPROVAL" == "I APPROVE PUBLIC RELEASE" ]] || { echo "Explicit public-release approval is required" >&2; exit 1; }
           version="${REQUESTED_VERSION:-}"
-          if [[ -z "$version" ]]; then
-            version=$(python -c "import json; print(json.load(open('factory/app/.factory-version.json'))['version'].removeprefix('factory-v'))")
-          fi
           [[ "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]] || exit 1
           echo "VERSION=$version" >> "$GITHUB_ENV"
       - name: Verify Factory-only source and version
