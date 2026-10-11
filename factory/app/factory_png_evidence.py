@@ -1,4 +1,4 @@
-"""Bounded PNG evidence delivery to Factory development branch; no production writes."""
+"""PNG evidence delivery independent of the 10-item manual review gallery."""
 import base64
 import hashlib
 import json
@@ -11,18 +11,15 @@ import urllib.request
 REPO = 'Evolution-by-Warder/PiconHub-Warder-Evolution'
 BRANCH = 'factory-warder-development'
 MAX_PNG = 2 * 1024 * 1024
-MAX_PER_RUN = 10
 PNG_SIGNATURE = b'\x89PNG\r\n\x1a\n'
 
-def upload_png_evidence(report_dir, *, opener=None, limit=MAX_PER_RUN):
-    """Send up to ten referenced review PNGs; only successful responses count."""
+def upload_png_evidence(report_dir, *, opener=None):
+    """Send every eligible distinct referenced PNG; only successful responses count."""
     from review_ui import latest_review
     from review_queue import load_review_queue
     token = os.environ.get('WARDER_DIAGNOSTICS_TOKEN', '').strip()
     if not token:
         return {'status': 'not_configured', 'sent': 0, 'attempted': 0}
-    if not isinstance(limit, int) or not 0 <= limit <= MAX_PER_RUN:
-        raise ValueError('Invalid upload limit')
     review_path = latest_review(Path(report_dir))
     if not review_path:
         return {'status': 'no_review', 'sent': 0, 'attempted': 0}
@@ -31,12 +28,8 @@ def upload_png_evidence(report_dir, *, opener=None, limit=MAX_PER_RUN):
     seen = set()
     errors = []
     for item in queue.get('items', []):
-        if attempted >= limit:
-            break
         sources = [item.get('original')] + (item.get('source_evidence') or []) + (item.get('variants') or [])
         for entry in sources:
-            if attempted >= limit:
-                break
             source = entry if isinstance(entry, str) else entry.get('source') if isinstance(entry, dict) else None
             if not isinstance(source, str) or not source:
                 continue
