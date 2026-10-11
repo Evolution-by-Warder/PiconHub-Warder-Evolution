@@ -1383,9 +1383,10 @@ class App:
   threading.Thread(target=worker,daemon=True).start()
  def _send_diagnostics(self,report_path):
   try:
-   from factory_diagnostics import upload_report
-   result=upload_report(report_path)
-   self.emit('diagnostics',result['status'])
+   from factory_diagnostics_retry import retry_reports
+   results=retry_reports(REPORTS,DATA/'diagnostics-delivered.json',limit=5)
+   sent=sum(item['status']=='sent' for item in results)
+   self.emit('diagnostics',f'odoslané {sent}/{len(results)}; neodoslané reporty zostávajú lokálne')
   except Exception:
    self.emit('diagnostics','failed; local report retained')
  def emit(self,k,v):self.events.put((k,v))
