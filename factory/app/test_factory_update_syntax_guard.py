@@ -36,7 +36,7 @@ class FactoryUpdateSyntaxGuardTests(unittest.TestCase):
                 Path(destination).write_bytes(blob)
             result = attempt_update(app, manifest_fetch=lambda url: json.dumps(manifest).encode(), downloader=download)
             self.assertEqual(result, 'skipped')
-            self.assertEqual((app / 'engine.py').read_text(encoding='utf-8'), 'print("original")\n')
+            self.assertEqual((app / 'engine.py').read_text(encoding='utf-8'), 'print("original")' + chr(10))
             self.assertFalse((app.parent / '.factory-pending-update.json').exists())
 
 
