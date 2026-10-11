@@ -1340,6 +1340,7 @@ class App:
   self.gallery=ReviewGallery(self.work_area, REPORTS, DATA/'review-decisions.json', OUTPUT)
   self.work_area.add(self.gallery,weight=55)
   actions=ttk.Frame(frm);actions.pack(fill='x')
+  ttk.Button(actions,text='Spustiť spracovanie PNG',command=self.start).pack(side='left',padx=(0,8))
   ttk.Button(actions,text='Zobraziť iba nevyriešené výnimky',command=self.open_review).pack(side='left')
   ttk.Button(actions,text='Otvoriť priečinok reportov',command=self.open_reports).pack(side='left',padx=8)
   ttk.Button(actions,text='Zabaliť nespracované PNG na D:',command=self.export_pending).pack(side='left',padx=8)
