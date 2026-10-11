@@ -2,6 +2,8 @@ import json
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
+from factory_diagnostics_retry import retry_reports
 
 from factory_diagnostics import sanitized_summary
 from report_housekeeping import cleanup_reports
