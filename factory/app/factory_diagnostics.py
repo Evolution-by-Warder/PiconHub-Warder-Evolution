@@ -34,6 +34,17 @@ def sanitized_summary(report):
                             if isinstance(k, str) and isinstance(v, int) and v >= 0}
         elif key == 'installed_factory_version' and isinstance(value, str):
             summary[key] = value[:60]
+    # Preserve aggregate decision evidence, never raw filenames, paths, PNG or tokens.
+    for key in ('qa_backlog_causes', 'openatv_identity_triage', 'artwork_evidence_counts',
+                'pixel_evidence_counts', 'normalized_evidence_counts', 'scaled_evidence_counts',
+                'review_queue_groups', 'final_picons_on_disk'):
+        value = stats.get(key)
+        if isinstance(value, dict):
+            safe = {k: v for k, v in value.items()
+                    if isinstance(k, str) and re.fullmatch(r'[A-Za-z0-9_ -]{1,60}', k)
+                    and isinstance(v, int) and not isinstance(v, bool) and v >= 0}
+            if safe:
+                summary[key] = safe
     return {'schema': 1, 'run': str(report.get('run', ''))[:64],
             'created_utc': datetime.now(timezone.utc).isoformat(), 'summary': summary}
 
@@ -65,8 +76,7 @@ def upload_report(report_path, *, opener=None):
                 return {'status': 'http_error', 'code': response.status}
         return {'status': 'sent', 'run': run}
     except urllib.error.HTTPError as exc:
-        if exc.code == 422:
-            return {'status': 'already_present_or_conflict', 'code': exc.code}
+        # A 422 is not proof of delivery: retain locally and retry after repair.
         return {'status': 'http_error', 'code': exc.code}
     except (OSError, ValueError):
         return {'status': 'offline_or_failed'}
