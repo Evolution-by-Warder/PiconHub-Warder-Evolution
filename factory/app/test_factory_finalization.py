@@ -83,3 +83,17 @@ class FinalizationTests(unittest.TestCase):
         result = finalize_new_candidates([self.row()], {}, self.work, self.final, verified_shas={SHA})
         self.assertEqual(result['already_present'], 1)
         self.assertEqual(result['copied'], 0)
+
+    def test_qa_findings_override_verified_status(self):
+        result = finalize_new_candidates([self.row()], {SHA: ['LOW_CONTRAST_WHITE']},
+                                         self.work, self.final, verified_shas={SHA})
+        self.assertEqual(result['copied'], 0)
+        self.assertEqual(result['qa_blocked'], 1)
+
+    def test_mixed_classification_is_never_finalized(self):
+        row = self.row()
+        review = dict(row, classification='REVIEW')
+        result = finalize_new_candidates([row, review], {},
+                                         self.work, self.final, verified_shas={SHA})
+        self.assertEqual(result['copied'], 0)
+        self.assertEqual(result['conflicts'], 1)
