@@ -14,7 +14,7 @@ BRANCH = 'factory-warder-development'
 MAX_PNG = 2 * 1024 * 1024
 PNG_SIGNATURE = b'\x89PNG\r\n\x1a\n'
 
-def upload_png_evidence(report_dir, *, opener=None, state_path=None):
+def upload_png_evidence(report_dir, *, opener=None, state_path=None, max_attempts=None):
     """Send every eligible distinct referenced PNG; only successful responses count."""
     from review_ui import latest_review
     from review_queue import load_review_queue
@@ -36,7 +36,12 @@ def upload_png_evidence(report_dir, *, opener=None, state_path=None):
     seen = set()
     errors = []
     for item in queue.get('items', []):
-        sources = [item.get('original')] + (item.get('source_evidence') or []) + (item.get('variants') or [])
+        if max_attempts is not None and attempted >= max_attempts:
+            break
+        sources = [item.get('original')]
+        for field in ('source_evidence', 'variants'):
+            value = item.get(field) or []
+            sources.extend(value if isinstance(value, (list, tuple)) else [value])
         paths = []
         for entry in sources:
             if isinstance(entry, str):
@@ -47,6 +52,8 @@ def upload_png_evidence(report_dir, *, opener=None, state_path=None):
                 if isinstance(nested, (list, tuple)):
                     paths.extend(nested)
         for source in paths:
+            if max_attempts is not None and attempted >= max_attempts:
+                break
             if not isinstance(source, str) or not source:
                 continue
             path = Path(source)
