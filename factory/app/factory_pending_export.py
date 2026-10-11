@@ -36,7 +36,7 @@ def export_pending(report_dir, output_dir, destination, *, ledger_path=None):
     # Export only existing referenced originals and derivatives; never guess paths.
     candidates = {}
     for item in pending:
-        sources = [item.get('original')] + item.get('source_evidence', []) + item.get('variants', [])
+        sources = [item.get('original')] + (item.get('source_evidence') or []) + (item.get('variants') or [])
         for entry in sources:
             source = entry if isinstance(entry, str) else entry.get('source') if isinstance(entry, dict) else None
             if source:
