@@ -68,7 +68,8 @@ class ReviewGallery(ttk.Frame):
             from review_decisions import evidence_hash
             try:
                 decisions = json.loads(self.ledger_path.read_text(encoding='utf-8')).get('decisions', {})
-                self.items = [x for x in self.items if not (x['review_id'] in decisions and decisions[x['review_id']].get('evidence_hash') == evidence_hash(x))]
+                self.items = [x for x in self.items if not (x['review_id'] in decisions and decisions[x['review_id']].get('evidence_hash') == evidence_hash(x) and
+                    decisions[x['review_id']].get('decision') in ('APPROVED_FOR_REVIEW', 'REJECTED'))]
             except (ValueError, OSError, KeyError, TypeError):
                 pass
         self.render()
