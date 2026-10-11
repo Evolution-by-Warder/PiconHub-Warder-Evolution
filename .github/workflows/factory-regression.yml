@@ -77,3 +77,25 @@ jobs:
         shell: cmd
         working-directory: factory/app
         run: .venv\Scripts\python.exe -c "import PIL, py7zr, tkinter; print('Windows runtime OK')"
+
+      - name: Package Windows-tested source and launcher
+        shell: python
+        run: |
+          from pathlib import Path
+          from zipfile import ZipFile, ZIP_DEFLATED
+          root = Path('factory/app')
+          output = Path('WARDER-PICON-FACTORY-WINDOWS-TEST.zip')
+          with ZipFile(output, 'w', ZIP_DEFLATED) as archive:
+              for path in sorted(root.rglob('*')):
+                  if path.is_file() and not any(part in ('.venv', '__pycache__', '.pytest_cache') for part in path.parts):
+                      archive.write(path, path.relative_to(root))
+          with ZipFile(output) as archive:
+              assert archive.testzip() is None
+              assert 'SPUSTI-WARDER.cmd' in archive.namelist()
+              assert 'engine.py' in archive.namelist()
+      - name: Upload Windows-tested package (not a release)
+        uses: actions/upload-artifact@v4
+        with:
+          name: WARDER-PICON-FACTORY-WINDOWS-TEST
+          path: WARDER-PICON-FACTORY-WINDOWS-TEST.zip
+          retention-days: 7
