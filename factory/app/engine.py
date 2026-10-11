@@ -1328,6 +1328,8 @@ class App:
   self.production_label=ttk.Label(frm,text='Finálne uložené PNG: zisťujem...');self.production_label.pack(anchor='w')
   self._refresh_production_counts()
   self.status=tk.StringVar(value='Pripravujem...');ttk.Label(frm,textvariable=self.status,font=('Segoe UI',11)).pack(anchor='w')
+  self.counts_status=tk.StringVar(value='Čakajúce úlohy: zisťujem...')
+  ttk.Label(frm,textvariable=self.counts_status,font=('Segoe UI',10,'bold')).pack(anchor='w')
   self.bar=ttk.Progressbar(frm,mode='determinate');self.bar.pack(fill='x',pady=12)
   self.work_area=ttk.Panedwindow(frm, orient='horizontal');self.work_area.pack(fill='both',expand=True)
   log_panel=ttk.Frame(self.work_area)
@@ -1339,6 +1341,7 @@ class App:
   actions=ttk.Frame(frm);actions.pack(fill='x')
   ttk.Button(actions,text='Zobraziť iba nevyriešené výnimky',command=self.open_review).pack(side='left')
   ttk.Button(actions,text='Otvoriť priečinok reportov',command=self.open_reports).pack(side='left',padx=8)
+  ttk.Button(actions,text='Zabaliť nespracované PNG na D:',command=self.export_pending).pack(side='left',padx=8)
   ttk.Label(frm,text=f'Zdrojové ZIP/PNG: {INBOX}  |  Rozpracované: {OUTPUT}  |  Finálne: {FINAL_PICONS}  |  Reporty: {REPORTS}').pack(anchor='w',pady=8)
   if os.environ.get("WARDER_GUI_SMOKE_TEST") != "1":
    self.root.after(150,self.start)
@@ -1362,6 +1365,21 @@ class App:
   ReviewWindow(self.root, REPORTS, DATA/'review-decisions.json', OUTPUT)
  def open_reports(self):
   if os.name=='nt':os.startfile(str(REPORTS))
+ def export_pending(self):
+  from tkinter import messagebox
+  target=Path('D:/WARDER-PICONS-PENDING.zip')
+  if self.running:
+   messagebox.showwarning('Factory pracuje','Export je dostupný až po dokončení behu.',parent=self.root);return
+  if target.exists():
+   messagebox.showwarning('ZIP už existuje','Najskôr presuň alebo premenuj existujúci '+str(target),parent=self.root);return
+  self.status.set('Balím čakajúce PNG na D: ...')
+  def worker():
+   try:
+    from factory_pending_export import export_pending
+    result=export_pending(REPORTS,OUTPUT,target,ledger_path=DATA/'review-decisions.json')
+    self.emit('export_done',result)
+   except Exception as exc:self.emit('export_error',str(exc))
+  threading.Thread(target=worker,daemon=True).start()
  def emit(self,k,v):self.events.put((k,v))
  def start(self):
   if self.running:return
@@ -1381,7 +1399,14 @@ class App:
      s,path=v;self.status.set('Hotovo · '+str(s['scanned'])+' PNG · QA opravené '+str(s.get('qa_repaired',0))+' · zostáva '+str(s.get('qa_review','?'))+' výnimiek.')
      self.output.insert('end','\nREPORT: '+path+'\n');self.running=False;self.gallery.reload()
      self._refresh_production_counts()
-     self.output.insert('end','VERZIA: '+self.installed_version+' | Tento beh: '+str(s.get('changed',0))+' zmenených zdrojov, '+str(s.get('created',0))+' vytvorených záznamov, '+str(s.get('qa_repaired',0))+' QA opráv, '+str(s.get('review_queue_items',0))+' čaká na posúdenie.\n')
+     lanes=s.get('review_workstreams',{})
+     self.counts_status.set('Čakajúce úlohy: '+str(s.get('review_queue_items','?'))+' | Identita: '+str(lanes.get('IDENTITY_VERIFICATION','?'))+' | Grafika: '+str(lanes.get('ARTWORK_REVIEW','?'))+' | Technické QA: '+str(lanes.get('TECHNICAL_QA','?')))
+     self.output.insert('end','VERZIA: +self.installed_version+' | Tento beh: '+str(s.get('changed',0))+' zmenených zdrojov, '+str(s.get('created',0))+' vytvorených záznamov, '+str(s.get('qa_repaired',0))+' QA opráv, '+str(s.get('review_queue_items',0))+' čaká na posúdenie.\n')
+    elif k=='export_done':
+     self.status.set('Export dokončený: '+v['path'])
+     self.output.insert('end','EXPORT: '+str(v)+'\\n')
+    elif k=='export_error':
+     self.status.set('Export zlyhal');self.output.insert('end','EXPORT CHYBA: '+v+'\\n')
     elif k=='error':self.status.set('Chyba spracovania');self.output.insert('end',v);self.running=False
   except queue.Empty:pass
   self.root.after(100,self.poll)
