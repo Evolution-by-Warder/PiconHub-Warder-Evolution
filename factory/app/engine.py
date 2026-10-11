@@ -1392,6 +1392,9 @@ class App:
    else:
     message=f'potvrdené odoslanie {sent}/{len(results)}; '+('; '.join(failures) if failures else 'všetky úspešne prijaté')
    self.emit('diagnostics',message)
+   from factory_png_evidence import upload_png_evidence
+   evidence=upload_png_evidence(REPORTS)
+   self.emit('diagnostics','PNG dôkazy: '+str(evidence['sent'])+'/'+str(evidence['attempted'])+'; stav '+evidence['status'])
   except Exception:
    self.emit('diagnostics','failed; local report retained')
  def emit(self,k,v):self.events.put((k,v))
