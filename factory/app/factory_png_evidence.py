@@ -102,6 +102,15 @@ def upload_png_evidence(report_dir, *, opener=None, state_path=None):
                             if hashlib.sha256(remote_bytes).hexdigest() == sha:
                                 sent += 1
                                 delivered.add(sha)
+                                state_path.parent.mkdir(parents=True, exist_ok=True)
+                                fd, temp = tempfile.mkstemp(prefix='.png-evidence-', suffix='.tmp', dir=state_path.parent)
+                                try:
+                                    with os.fdopen(fd, 'w', encoding='utf-8') as output:
+                                        json.dump({'schema': 1, 'sha256': sorted(delivered)}, output)
+                                    os.replace(temp, state_path)
+                                finally:
+                                    if os.path.exists(temp):
+                                        os.unlink(temp)
                                 continue
                         except (OSError, ValueError, KeyError, TypeError, urllib.error.HTTPError):
                             pass
