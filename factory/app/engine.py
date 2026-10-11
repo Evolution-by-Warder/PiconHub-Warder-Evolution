@@ -1401,12 +1401,12 @@ class App:
      self._refresh_production_counts()
      lanes=s.get('review_workstreams',{})
      self.counts_status.set('Čakajúce úlohy: '+str(s.get('review_queue_items','?'))+' | Identita: '+str(lanes.get('IDENTITY_VERIFICATION','?'))+' | Grafika: '+str(lanes.get('ARTWORK_REVIEW','?'))+' | Technické QA: '+str(lanes.get('TECHNICAL_QA','?')))
-     self.output.insert('end','VERZIA: +self.installed_version+' | Tento beh: '+str(s.get('changed',0))+' zmenených zdrojov, '+str(s.get('created',0))+' vytvorených záznamov, '+str(s.get('qa_repaired',0))+' QA opráv, '+str(s.get('review_queue_items',0))+' čaká na posúdenie.\n')
+     self.output.insert('end','VERZIA: '+self.installed_version+' | Tento beh: '+str(s.get('changed',0))+' zmenených zdrojov, '+str(s.get('created',0))+' vytvorených záznamov, '+str(s.get('qa_repaired',0))+' QA opráv, '+str(s.get('review_queue_items',0))+' čaká na posúdenie.\n')
     elif k=='export_done':
      self.status.set('Export dokončený: '+v['path'])
-     self.output.insert('end','EXPORT: '+str(v)+'\\n')
+     self.output.insert('end','EXPORT: '+str(v)+'\n')
     elif k=='export_error':
-     self.status.set('Export zlyhal');self.output.insert('end','EXPORT CHYBA: '+v+'\\n')
+     self.status.set('Export zlyhal');self.output.insert('end','EXPORT CHYBA: '+v+'\n')
     elif k=='error':self.status.set('Chyba spracovania');self.output.insert('end',v);self.running=False
   except queue.Empty:pass
   self.root.after(100,self.poll)
