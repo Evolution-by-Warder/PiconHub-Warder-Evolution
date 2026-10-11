@@ -37,6 +37,9 @@ def cleanup_reports(folder, keep_runs=3):
         match = _RUN.fullmatch(path.name)
         if match:
             groups.setdefault(match.group(2), []).append(path)
+    # Preserve every review queue: the latest queue may be required for manual
+    # decisions and exports even if a newer run is incomplete.
+    # Keep summary reports for diagnostics retry; clean only disposable audits.
     # Retain complete recent run groups; never remove current or unknown files.
     retained = set(sorted(groups, reverse=True)[:keep_runs])
     deleted = 0
@@ -46,7 +49,7 @@ def cleanup_reports(folder, keep_runs=3):
         for path in paths:
             # Never discard run summaries: they are the local retry source
             # when optional private GitHub diagnostics delivery fails.
-            if path.name.startswith('report-'):
+            if path.name.startswith(('report-', 'review-queue-')):
                 continue
             try:
                 path.unlink()
