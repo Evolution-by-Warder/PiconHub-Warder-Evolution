@@ -565,12 +565,16 @@ class FactoryWorkspace:
 
     def _refresh_timer(self):
         if self.root.winfo_exists():
+            # Refresh only the compact review queue count. Full directory scans
+            # are explicitly requested or performed after completed jobs.
             if not self.app.running and not self.app.export_running:
-                # A full source/registry/QA scan walks tens of thousands of files.
-                # Never repeat it every 15 seconds while the operator reviews.
-                # The explicit Obnoviť action and completed runs refresh all data.
-                _, counts = latest_review_counts(self.paths['exceptions'], self.paths['reports'])
-                self._update_summary(counts.get('total', 'bez reportu') if 'error' not in counts else 'CHYBA fronty')
+                _, counts = latest_review_counts(self.paths["exceptions"], self.paths["reports"])
+                if "error" in counts:
+                    self._update_summary("CHYBA načítania: " + counts["error"])
+                elif counts.get("no_report"):
+                    self._update_summary("bez uloženého reportu")
+                else:
+                    self._update_summary(counts["total"])
             self.root.after(15000, self._refresh_timer)
 
 
