@@ -14,7 +14,6 @@ from artifact_audit import audit_artifacts
 from empty_source_resolution import empty_source_report, build_empty_source_exclusion
 from qa_diagnostics import summarize
 from source_registry import atomic_json
-from factory_update import check_factory_release
 from master_registry import index_master_tree, classify_candidate, is_master_path
 from workspace_paths import resolve_root, workspace_paths, read_only_preflight, verify_required_directories
 
