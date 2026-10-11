@@ -97,3 +97,11 @@ class FinalizationTests(unittest.TestCase):
                                          self.work, self.final, verified_shas={SHA})
         self.assertEqual(result['copied'], 0)
         self.assertEqual(result['conflicts'], 1)
+
+    def test_copied_bytes_match_all_sources(self):
+        result = finalize_new_candidates([self.row()], {}, self.work, self.final, verified_shas={SHA})
+        self.assertEqual(result['copied'], 3)
+        for variant in ('transparent', 'black', 'white'):
+            source = self.work / SHA[:2] / SHA / (variant + '.png')
+            target = self.final / 'NEW-CANDIDATES' / variant / (REF + '.png')
+            self.assertEqual(target.read_bytes(), source.read_bytes())
