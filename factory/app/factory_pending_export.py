@@ -26,6 +26,8 @@ def export_pending(report_dir, output_dir, destination, *, ledger_path=None):
             item['review_id'] in decisions and
             decisions[item['review_id']].get('evidence_hash') == evidence_hash(item) and
             decisions[item['review_id']].get('decision') != 'DEFERRED')]
+    if not destination.name.lower().endswith('.zip'):
+        raise ValueError('Export destination must be a ZIP file')
     if destination.is_symlink():
         raise ValueError('Export destination must not be a symlink')
     if destination.exists():
