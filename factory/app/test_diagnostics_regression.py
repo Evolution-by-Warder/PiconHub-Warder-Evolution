@@ -20,6 +20,13 @@ class FactoryDiagnosticsSafety(unittest.TestCase):
         self.assertNotIn('DO_NOT_SEND', json.dumps(result))
         self.assertNotIn('private-file.png', json.dumps(result))
 
+    def test_aggregate_evidence_is_shared_without_identity_or_paths(self):
+        report={'run':'20261011-092600-123','stats':{'qa_backlog_causes':{'EXACT':12,'C:/private/path':9,'name.png':4},'final_picons_on_disk':{'transparent':7}}}
+        result=sanitized_summary(report)['summary']
+        self.assertEqual(result['qa_backlog_causes'],{'EXACT':12})
+        self.assertEqual(result['final_picons_on_disk']['transparent'],7)
+        self.assertNotIn('private',json.dumps(result))
+
     def test_cleanup_preserves_reports_and_review_queues(self):
         with tempfile.TemporaryDirectory() as tmp:
             folder = Path(tmp)
