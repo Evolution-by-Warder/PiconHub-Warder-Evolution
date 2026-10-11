@@ -18,24 +18,29 @@ Unified Windows desktop application built from the supplied WARDER PICON FACTORY
 
 These feeds are equal-priority candidates. The app retains provenance in separate source folders and checkpoints. Failed feeds do not discard successful source state. Source terms and restrictions apply; imported graphics stay local and the app does not republish source archives.
 
-## One-click runtime
+## Windows one-click source delivery
 
-After a Windows build has produced `WARDER-PICON-FACTORY.exe`, run `SPUSTI-WARDER.cmd`. The app automatically creates:
+Download the **warder-picon-factory-test-build.zip** artifact from the
+**Factory regression (no release)** workflow, extract it into a persistent
+directory, and double-click **SPUSTI-WARDER.cmd**. The launcher creates a
+local `.venv`, installs the runtime dependencies and starts `engine.py`.
+If Python is missing it attempts to install Python 3.12 using `winget`.
+Internet access is required for first-time dependency installation. Existing
+data in `WARDER_PICON_FACTORY_ROOT` is not deleted. The default data root
+for this launcher is `%USERPROFILE%\\WARDER-PICONS`.
 
-- `01-INBOX` — local ZIP/PNG input
-- `02-ORIGINALS` — immutable imported originals and read-only Warder snapshot
-- `06-OUTPUT` — transparent, black-background, and white-background PNG variants at 220x132
-- `07-EXCEPTIONS` — backups for safe deterministic repairs
-- `08-REPORTS` — run, registry, QA, integrity, and review reports
-- `10-TOOLS/WARDER-FACTORY` — SQLite cache, source checkpoints, and persisted review decisions
+The Windows workflow runs the CMD setup in non-GUI mode and checks its
+imports; this is a **source-based Windows package**, not a compiled EXE.
+A real GUI launch, Windows installation on the user's PC, and a full dataset
+run still require separate verification. No public GitHub Release is made
+by the regression workflow.
 
-Rerunning the app resumes from the source checkpoints, cached hashes, and generated-variant size/mtime signatures. Unchanged artwork skips rendering and image decoding. The review window shows original and generated previews when available. Human decisions are persisted and evidence changes make a decision stale. Approval is only for review/publication planning; it never publishes automatically.
+## Source folders and safety
 
-## Building the Windows executable
-
-A Windows 11 x64 build host is required. From this folder, run `BUILD-WINDOWS.ps1` once in PowerShell. It installs the packages listed in `requirements.txt`, builds a single-file GUI executable, and copies it next to `SPUSTI-WARDER.cmd`. End users do not need Python after the executable is built.
-
-This source delivery was prepared in a Linux environment without Windows, Wine, or PyInstaller. Therefore **the EXE is not included and Windows packaging/startup has not been tested here**. Do not treat the Windows build as verified until it is built and run on Windows 11.
+The engine creates its own source, original, work, report and output
+directories under `WARDER_PICON_FACTORY_ROOT`. Imported originals and
+Master Registry are not overwritten by this launcher. Review decisions
+and local NEW-CANDIDATES are not production publication approval.
 
 ## Verification completed here
 
