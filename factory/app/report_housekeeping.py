@@ -6,7 +6,8 @@ import re
 PREFIXES = (
     'warder-master-index', 'identity-collisions', 'registry-matches',
     'qa', 'empty-source', 'publication-exclusions', 'review-queue',
-    'integrity', 'report',
+    'integrity', 'report', 'qa-backlog-causes', 'artwork-review-batch-10',
+    'openatv-triage', 'openatv-identity-triage', 'warder-live-png-test',
 )
 # Run IDs: YYYYMMDD-HHMMSS-<numeric nonce>
 _RUN = re.compile(r'^(' + '|'.join(re.escape(p) for p in PREFIXES) +
@@ -36,7 +37,7 @@ def cleanup_reports(folder, keep_runs=3):
         match = _RUN.fullmatch(path.name)
         if match:
             groups.setdefault(match.group(2), []).append(path)
-    # Protect all reports belonging to the newest three run IDs.
+    # Retain complete recent run groups; never remove current or unknown files.
     retained = set(sorted(groups, reverse=True)[:keep_runs])
     deleted = 0
     for run, paths in groups.items():
