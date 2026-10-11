@@ -1,6 +1,8 @@
 """Validate the generated single-file Windows launcher structure."""
 import hashlib
+import base64
 import json
+import re
 import tempfile
 import unittest
 import zipfile
@@ -23,6 +25,11 @@ class WindowsLauncherPackageTests(unittest.TestCase):
             self.assertEqual(image[offset:offset + 4], b'PK\x03\x04')
             self.assertEqual(result['executable_sha256'], hashlib.sha256(binary).hexdigest())
             self.assertIn(b'set "WARDER_VERSION=factory-v1.2.3"', image[:offset])
+            encoded = re.search(rb'-EncodedCommand ([A-Za-z0-9+/=]+)', image[:offset]).group(1)
+            powershell = base64.b64decode(encoded).decode('utf-16le')
+            self.assertIn('$env:WARDER_PAYLOAD_OFFSET', powershell)
+            self.assertIn('Expand-Archive', powershell)
+            self.assertIn('Factory executable SHA-256 mismatch', powershell)
             payload_path = root / 'payload.zip'
             payload_path.write_bytes(image[offset:])
             with zipfile.ZipFile(payload_path) as payload:

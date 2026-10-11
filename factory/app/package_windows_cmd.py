@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import argparse
+import base64
 import hashlib
 import json
 from pathlib import Path
@@ -10,6 +11,41 @@ import zipfile
 
 EXE_NAME = 'WARDER-PICON-FACTORY.exe'
 OFFSET_MARKER = 'set "WARDER_PAYLOAD_OFFSET=0000000000"'
+PS_MARKER = '__PS_INSTALL_CODE__'
+
+_INSTALL_SCRIPT = r'''$ErrorActionPreference='Stop'
+$root=$env:WARDER_APP_DIR
+$stage=$root+'.stage-'+[guid]::NewGuid().ToString('N')
+$zip=Join-Path $env:TEMP ('warder-factory-'+[guid]::NewGuid().ToString('N')+'.zip')
+try {
+  New-Item -ItemType Directory -Path (Split-Path -Parent $root) -Force | Out-Null
+  New-Item -ItemType Directory -Path $stage -Force | Out-Null
+  $src=[IO.File]::OpenRead($env:WARDER_CMD_FILE)
+  try {
+    $src.Position=[long]$env:WARDER_PAYLOAD_OFFSET
+    $dst=[IO.File]::Create($zip)
+    try { $src.CopyTo($dst) } finally { $dst.Dispose() }
+  } finally { $src.Dispose() }
+  Expand-Archive -LiteralPath $zip -DestinationPath $stage -Force
+  $new=Join-Path $stage 'WARDER-PICON-FACTORY.exe'
+  $actual=(Get-FileHash -LiteralPath $new -Algorithm SHA256).Hash.ToLowerInvariant()
+  if ($actual -ne $env:WARDER_SHA256) { throw 'Factory executable SHA-256 mismatch' }
+  if (Test-Path -LiteralPath $root) {
+    Move-Item -LiteralPath $root -Destination ($root+'.previous-'+[guid]::NewGuid().ToString('N'))
+  }
+  Move-Item -LiteralPath $stage -Destination $root
+} catch {
+  New-Item -ItemType Directory -Path $env:WARDER_LOG_DIR -Force | Out-Null
+  [IO.File]::AppendAllText($env:WARDER_LOG,((Get-Date -Format o)+' '+$_.Exception.Message+[Environment]::NewLine))
+  exit 1
+} finally {
+  if (Test-Path -LiteralPath $zip) { Remove-Item -LiteralPath $zip -Force }
+  if (Test-Path -LiteralPath $stage) { Remove-Item -LiteralPath $stage -Recurse -Force }
+}'''
+
+
+def _encoded_install_script() -> str:
+    return base64.b64encode(_INSTALL_SCRIPT.encode('utf-16le')).decode('ascii')
 
 
 def _launcher(version: str, digest: str, offset: int) -> bytes:
@@ -30,7 +66,7 @@ set "WARDER_CURRENT_SHA=%WARDER_CURRENT_SHA: =%"
 if /i "%WARDER_CURRENT_SHA%"=="%WARDER_SHA256%" goto launch
 :install
 if not exist "%WARDER_LOG_DIR%" mkdir "%WARDER_LOG_DIR%" >nul 2>&1
-powershell.exe -NoLogo -NoProfile -NonInteractive -ExecutionPolicy Bypass -WindowStyle Hidden -Command "$ErrorActionPreference='Stop'; $root=$env:WARDER_APP_DIR; $stage=$root+'.stage-'+[guid]::NewGuid().ToString('N'); $zip=Join-Path $env:TEMP ('warder-factory-'+[guid]::NewGuid().ToString('N')+'.zip'); try { New-Item -ItemType Directory -Path (Split-Path -Parent $root) -Force | Out-Null; New-Item -ItemType Directory -Path $stage -Force | Out-Null; $src=[IO.File]::OpenRead($env:WARDER_CMD_FILE); try { $src.Position=[long]$env:WARDER_PAYLOAD_OFFSET; $dst=[IO.File]::Create($zip); try { $src.CopyTo($dst) } finally { $dst.Dispose() } } finally { $src.Dispose() }; Expand-Archive -LiteralPath $zip -DestinationPath $stage -Force; $new=Join-Path $stage 'WARDER-PICON-FACTORY.exe'; $actual=(Get-FileHash -LiteralPath $new -Algorithm SHA256).Hash.ToLowerInvariant(); if($actual -ne $env:WARDER_SHA256){ throw 'Factory executable SHA-256 mismatch' }; if(Test-Path -LiteralPath $root){ Move-Item -LiteralPath $root -Destination ($root+'.previous-'+[guid]::NewGuid().ToString('N')) }; Move-Item -LiteralPath $stage -Destination $root } catch { New-Item -ItemType Directory -Path $env:WARDER_LOG_DIR -Force | Out-Null; [IO.File]::AppendAllText($env:WARDER_LOG,((Get-Date -Format o)+' '+$_.Exception.Message+[Environment]::NewLine)); exit 1 } finally { if(Test-Path -LiteralPath $zip){ Remove-Item -LiteralPath $zip -Force }; if(Test-Path -LiteralPath $stage){ Remove-Item -LiteralPath $stage -Recurse -Force } }"
+powershell.exe -NoLogo -NoProfile -NonInteractive -ExecutionPolicy Bypass -WindowStyle Hidden -EncodedCommand __PS_INSTALL_CODE__
 if errorlevel 1 goto failed
 :launch
 if not exist "%WARDER_PICON_FACTORY_ROOT%" mkdir "%WARDER_PICON_FACTORY_ROOT%" >nul 2>&1
@@ -42,7 +78,10 @@ exit /b 1
 exit /b 0
 :: WARDER-PICON-FACTORY-PAYLOAD
 '''
-    text = text.replace('__VERSION__', version).replace('__SHA256__', digest)
+    text = (text.replace('__VERSION__', version).replace('__SHA256__', digest)
+            .replace(PS_MARKER, _encoded_install_script()))
+    if PS_MARKER in text:
+        raise ValueError('PowerShell installation script was not embedded')
     if text.count(OFFSET_MARKER) != 1:
         raise ValueError('Launcher offset marker is missing or duplicated')
     text = text.replace(OFFSET_MARKER, f'set "WARDER_PAYLOAD_OFFSET={offset:010d}"')
