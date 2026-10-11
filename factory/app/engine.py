@@ -1416,7 +1416,6 @@ class App:
   self.workspace=FactoryWorkspace(self,self.root,_WORKSPACE)
   self.status.set('Read-only preflight · kontrolujem 13 adresárov; zápisy zostávajú zablokované')
   self.root.after(100,self.poll)
-  self.root.after(250,self._signal_launcher_ready)
   self.root.after(350,self._load_saved_review_counts)
   self.run_preflight()
   if os.environ.get("WARDER_GUI_SMOKE_TEST") == "1":
@@ -1746,6 +1745,8 @@ class App:
      self.workspace.show_preflight(v)
      self.workspace.update_runtime_identity(v)
      if v.ok:
+      # Confirm a pending update only after the workspace preflight succeeds.
+      self._signal_launcher_ready()
       self.status.set('Preflight úspešný · 13 kategórií prečítaných · zápisové operácie povolené')
       if os.environ.get('WARDER_GUI_SMOKE_TEST')!='1':
        self.root.after(150,self._resume_pending_delivery)
