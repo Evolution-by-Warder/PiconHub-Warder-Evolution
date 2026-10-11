@@ -5,6 +5,7 @@ An absent/invalid/offline manifest means the installed app starts unchanged.
 """
 import hashlib
 import json
+import ast
 import re
 import shutil
 import tempfile
@@ -114,6 +115,15 @@ def attempt_update(app, *, manifest_fetch=fetch, downloader=download_release, re
             # Release ZIP is APP-ONLY, not a D:\ deployment bundle.
             if not (stage / 'engine.py').is_file() or not (stage / 'factory_launcher.py').is_file() or not (stage / 'requirements-runtime.txt').is_file():
                 raise ValueError('Release is not an application-only package')
+            # Validate every shipped Python module BEFORE replacing the running app.
+            # Syntax errors or truncated modules must never activate a release.
+            modules = list(stage.rglob('*.py'))
+            if not modules:
+                raise ValueError('Release contains no Python modules')
+            for module in modules:
+                if module.is_symlink():
+                    raise ValueError('Symlink in release Python modules')
+                ast.parse(module.read_bytes(), filename=str(module))
             embedded = json.loads((stage / VERSION_FILE).read_text(encoding='utf-8'))
             if embedded.get('version') != info['version']:
                 raise ValueError('Release version mismatch')
