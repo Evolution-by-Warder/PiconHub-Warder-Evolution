@@ -95,9 +95,11 @@ def attempt_update(app, *, manifest_fetch=fetch, downloader=download_release, re
     app = Path(app).resolve()
     def report(msg):
         if reporter: reporter(msg)
+    phase = 'preflight'
     try:
         if (app / 'factory.sqlite3').exists() and not (app.parent / '.factory-data' / 'factory.sqlite3').exists():
             raise ValueError('Database migration required before update')
+        phase = 'manifest: ' + MANIFEST_URL
         data = json.loads(manifest_fetch(MANIFEST_URL))
         info = validate_manifest(data, read_version(app))
         if info is None:
@@ -105,7 +107,9 @@ def attempt_update(app, *, manifest_fetch=fetch, downloader=download_release, re
         with tempfile.TemporaryDirectory(prefix='.factory-update-', dir=app.parent) as tmp:
             tmp = Path(tmp)
             package = tmp / 'release.zip'
+            phase = 'release: ' + info['url']
             downloader(info, package)
+            phase = 'verify-and-activate'
             stage = stage_verified_zip(package, info['sha256'], tmp / 'staging')
             # Release ZIP is APP-ONLY, not a D:\ deployment bundle.
             if not (stage / 'engine.py').is_file() or not (stage / 'factory_launcher.py').is_file() or not (stage / 'requirements-runtime.txt').is_file():
@@ -118,5 +122,5 @@ def attempt_update(app, *, manifest_fetch=fetch, downloader=download_release, re
         report('Factory update activated; awaiting GUI startup confirmation: ' + info['version'])
         return 'pending_gui_confirmation'
     except Exception as exc:
-        report('Update skipped; installed Factory preserved: ' + type(exc).__name__ + ': ' + str(exc))
+        report('Update skipped at ' + phase + '; installed Factory preserved: ' + type(exc).__name__ + ': ' + str(exc))
         return 'skipped'
