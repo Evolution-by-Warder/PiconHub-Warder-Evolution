@@ -1381,6 +1381,13 @@ class App:
     self.emit('export_done',result)
    except Exception as exc:self.emit('export_error',str(exc))
   threading.Thread(target=worker,daemon=True).start()
+ def _send_diagnostics(self,report_path):
+  try:
+   from factory_diagnostics import upload_report
+   result=upload_report(report_path)
+   self.emit('diagnostics',result['status'])
+  except Exception:
+   self.emit('diagnostics','failed; local report retained')
  def emit(self,k,v):self.events.put((k,v))
  def start(self):
   if self.running or self.export_running:return
@@ -1400,9 +1407,12 @@ class App:
      s,path=v;self.status.set('Hotovo · '+str(s['scanned'])+' PNG · QA opravené '+str(s.get('qa_repaired',0))+' · zostáva '+str(s.get('qa_review','?'))+' výnimiek.')
      self.output.insert('end','\nREPORT: '+path+'\n');self.running=False;self.gallery.reload()
      self._refresh_production_counts()
+     threading.Thread(target=self._send_diagnostics,args=(path,),daemon=True).start()
      lanes=s.get('review_workstreams',{})
      self.counts_status.set('Čakajúce úlohy: '+str(s.get('review_queue_items','?'))+' | Identita: '+str(lanes.get('IDENTITY_VERIFICATION','?'))+' | Grafika: '+str(lanes.get('ARTWORK_REVIEW','?'))+' | Technické QA: '+str(lanes.get('TECHNICAL_QA','?')))
      self.output.insert('end','VERZIA: '+self.installed_version+' | Tento beh: '+str(s.get('changed',0))+' zmenených zdrojov, '+str(s.get('created',0))+' vytvorených záznamov, '+str(s.get('qa_repaired',0))+' QA opráv, '+str(s.get('review_queue_items',0))+' čaká na posúdenie.\n')
+    elif k=='diagnostics':
+     self.output.insert('end','GITHUB DIAGNOSTIKA: '+v+'\n')
     elif k=='export_done':
      self.export_running=False
      self.status.set('Export dokončený: '+v['path'])
