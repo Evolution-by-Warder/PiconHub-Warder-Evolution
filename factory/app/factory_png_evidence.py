@@ -61,7 +61,8 @@ def upload_png_evidence(report_dir, *, opener=None, state_path=None):
                 run = review_path.stem.removeprefix('review-queue-')
                 if not re.fullmatch(r'[0-9]{8}-[0-9]{6}-[0-9]+', run):
                     return {'status': 'invalid_run', 'sent': sent, 'attempted': attempted}
-                remote = 'factory/temp/evidence/' + run + '/' + sha + '.png'
+                # Content-addressed location avoids duplicate GitHub objects across runs.
+                remote = 'factory/temp/evidence/sha256/' + sha[:2] + '/' + sha + '.png'
                 url = 'https://api.github.com/repos/' + REPO + '/contents/' + remote
                 body = json.dumps({'message': 'factory: diagnostic PNG evidence ' + sha[:12],
                                    'branch': BRANCH,
@@ -88,6 +89,22 @@ def upload_png_evidence(report_dir, *, opener=None, state_path=None):
                         else:
                             errors.append('HTTP ' + str(response.status))
                 except urllib.error.HTTPError as exc:
+                    if exc.code == 422:
+                        # A pre-existing file is accepted only if GitHub returns the same bytes.
+                        try:
+                            check = urllib.request.Request(url, headers={
+                                'Authorization': 'Bearer ' + token,
+                                'Accept': 'application/vnd.github+json',
+                                'User-Agent': 'Warder-Picon-Factory'})
+                            with (opener or urllib.request.urlopen)(check, timeout=20) as response:
+                                remote_data = json.load(response)
+                            remote_bytes = base64.b64decode(remote_data.get('content', ''), validate=False)
+                            if hashlib.sha256(remote_bytes).hexdigest() == sha:
+                                sent += 1
+                                delivered.add(sha)
+                                continue
+                        except (OSError, ValueError, KeyError, TypeError, urllib.error.HTTPError):
+                            pass
                     errors.append('HTTP ' + str(exc.code))
             except (OSError, ValueError) as exc:
                 errors.append(type(exc).__name__)
