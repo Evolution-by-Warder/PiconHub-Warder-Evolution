@@ -15,7 +15,7 @@ BRANCH = "factory-warder-development"
 MANIFEST_URL = "https://raw.githubusercontent.com/" + REPO + "/" + BRANCH + "/factory/update/windows-exe-manifest.json"
 MAX_MANIFEST = 16384
 MAX_EXE = 300 * 1024 * 1024
-VERSION = re.compile(r"^factory-v(\\d+)\\.(\\d+)\\.(\\d+)$")
+VERSION = re.compile(r"^factory-v(\d+)\.(\d+)\.(\d+)$")
 SHA = re.compile(r"^[0-9a-f]{64}$")
 
 
