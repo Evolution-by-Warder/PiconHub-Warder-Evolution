@@ -92,6 +92,7 @@ class ReviewWindow(tk.Toplevel):
     def next_page(self):
         self.page += 1
         self.refresh_list()
+        self._select_first()
 
     def refresh_list(self, _event=None):
         lane = self.lane.get()
@@ -131,12 +132,15 @@ class ReviewWindow(tk.Toplevel):
                 candidates.append((slot, path))
 
         add('original', item.get('original'))
-        for entry in item.get('source_evidence', []):
+        for variant in item.get('variants') or []:
+            if isinstance(variant, dict):
+                add('original', variant.get('source') or variant.get('path'))
+        for entry in item.get('source_evidence') or []:
             if isinstance(entry, dict):
                 add('original', entry.get('source'))
             elif isinstance(entry, str):
                 add('original', entry)
-        for entry in item.get('master_locations', []):
+        for entry in item.get('master_locations') or []:
             if isinstance(entry, str):
                 add('transparent', entry)
             elif isinstance(entry, dict):
@@ -147,8 +151,8 @@ class ReviewWindow(tk.Toplevel):
         if self.output_dir:
             hashes = [item.get('sha256')]
             hashes.extend(v.get('sha256') for v in item.get('variants', []) if isinstance(v, dict))
-            hashes.extend(v.get('sha256') for v in item.get('source_evidence', []) if isinstance(v, dict))
-            hashes.extend(v.get('representative_sha256') for v in item.get('artwork_review_units', []) if isinstance(v, dict))
+            hashes.extend(v.get('sha256') for v in item.get('source_evidence') or [] if isinstance(v, dict))
+            hashes.extend(v.get('representative_sha256') for v in item.get('artwork_review_units') or [] if isinstance(v, dict))
             for digest in dict.fromkeys(h for h in hashes if isinstance(h, str)):
                 if len(digest) != 64 or any(ch not in '0123456789abcdef' for ch in digest.lower()):
                     continue
@@ -189,5 +193,6 @@ class ReviewWindow(tk.Toplevel):
             messagebox.showerror('Zápis zlyhal', str(exc), parent=self); return
         self.pending = [entry for entry in self.pending if entry['review_id'] != item['review_id']]
         self.refresh_list()
+        self._select_first()
         self.note.delete(0, 'end')
         self.details.configure(state='normal'); self.details.delete('1.0','end'); self.details.configure(state='disabled')
