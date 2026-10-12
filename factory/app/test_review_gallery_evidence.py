@@ -46,6 +46,18 @@ class GalleryEvidenceTests(unittest.TestCase):
         self.assertEqual(source_candidates(item, first), ['first.png', 'first-original.png'])
         self.assertEqual(source_candidates(item, second), ['second.png', 'second-alt.png'])
 
+    def test_malformed_evidence_containers_do_not_crash(self):
+        digest = 'a' * 64
+        item = {'sha256': digest, 'source_evidence': {'sha256': digest}, 'variants': 'invalid'}
+        self.assertEqual(evidence_digests(item), [digest])
+        self.assertEqual(source_candidates(item, digest), [])
+
+    def test_tuple_evidence_containers_are_supported(self):
+        digest = 'b' * 64
+        item = {'source_evidence': ({'sha256': digest, 'source': 'original.png'},)}
+        self.assertEqual(evidence_digests(item), [digest])
+        self.assertEqual(source_candidates(item, digest), ['original.png'])
+
     def test_source_candidates_ignore_malformed_sources(self):
         digest = 'a' * 64
         item = {'source_evidence': [{'sha256': digest, 'sources': 'not-a-list.png'}]}
