@@ -51,6 +51,22 @@ class FactoryDiagnosticsSafety(unittest.TestCase):
         self.assertNotIn('private', json.dumps(result))
         self.assertNotIn('DO_NOT_SEND', json.dumps(result))
 
+    def test_anonymous_backlog_subcauses_are_allowed_without_paths(self):
+        report = {'run': '20261012-145556-764159', 'stats': {
+            'identity_verification_subcauses': {'SERVICE_REFERENCE_ARTWORK_COLLISION': 12133},
+            'identity_provenance_distribution': {'UNKNOWN_OR_INCOMPLETE_PROVENANCE': 7},
+            'artwork_pixel_triage': {'ONE_VERIFIED_PIXEL_ARTWORK_REQUIRES_MASTER_REVIEW': 5},
+            'master_pixel_comparison_units': {'NO_PIXEL_EXACT_SAME_SERVICE_MASTER': 4},
+            'artwork_backlog_unit_counts': {'identity_unknown_origin_tasks': 7},
+            'private/file.png': 'SECRET',
+        }}
+        result = sanitized_summary(report)['summary']
+        for key in ('identity_verification_subcauses', 'identity_provenance_distribution',
+                    'artwork_pixel_triage', 'master_pixel_comparison_units', 'artwork_backlog_unit_counts'):
+            self.assertIn(key, result)
+        self.assertNotIn('SECRET', json.dumps(result))
+        self.assertNotIn('private/file.png', json.dumps(result))
+
     def test_confirmed_delivery_records_receipt_and_preserves_every_report(self):
         with tempfile.TemporaryDirectory() as tmp:
             folder = Path(tmp)
