@@ -78,9 +78,16 @@ class ReviewWindow(tk.Toplevel):
         self.page = 0
         self.refresh_list()
 
+    def _select_first(self):
+        rows = self.tree.get_children()
+        if rows:
+            self.tree.selection_set(rows[0])
+            self.show_selected()
+
     def previous_page(self):
         self.page = max(0, self.page - 1)
         self.refresh_list()
+        self._select_first()
 
     def next_page(self):
         self.page += 1
