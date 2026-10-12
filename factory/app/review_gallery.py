@@ -118,6 +118,8 @@ class ReviewGallery(ttk.Frame):
         ttk.Label(frame, text=', '.join(item.get('reasons', [])), wraplength=520).pack(anchor='w')
         previews = ttk.Frame(frame); previews.pack(fill='x')
         digests = evidence_digests(item)
+        if item.get('workstream') == 'ARTWORK_REVIEW' and not digests:
+            ttk.Label(frame, text='Chýba SHA-256 grafiky: rozhodnutie vyžaduje doplnenie dôkazov.').pack(anchor='w')
         if len(digests) > 1:
             ttk.Label(frame, text=f'{len(digests)} rozdielnych grafík: skontroluj každú pred rozhodnutím').pack(anchor='w')
         # Show one artwork triplet at a time to keep large evidence groups responsive.
