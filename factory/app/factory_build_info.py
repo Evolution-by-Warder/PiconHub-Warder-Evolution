@@ -6,10 +6,16 @@ from pathlib import Path
 import sys
 
 
+def bundled_metadata_path(filename: str) -> Path:
+    """Locate PyInstaller one-file metadata in its extraction directory."""
+    if getattr(sys, "frozen", False):
+        return Path(getattr(sys, "_MEIPASS", Path(sys.executable).parent)) / filename
+    return Path(__file__).resolve().with_name(filename)
+
+
 def build_commit() -> str:
     try:
-        path = Path(__file__).with_name(".factory-build.json")
-        data = json.loads(path.read_text(encoding="utf-8"))
+        data = json.loads(bundled_metadata_path(".factory-build.json").read_text(encoding="utf-8"))
         value = data.get("commit", "")
         return value if isinstance(value, str) and value else "nezistený"
     except (OSError, ValueError, TypeError):
