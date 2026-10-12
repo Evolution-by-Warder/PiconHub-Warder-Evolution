@@ -4,7 +4,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from review_gallery import evidence_digests, variant_paths, matches_evidence_sha
+from review_gallery import evidence_digests, variant_paths, matches_evidence_sha, source_candidates
 
 
 class GalleryEvidenceTests(unittest.TestCase):
@@ -37,6 +37,14 @@ class GalleryEvidenceTests(unittest.TestCase):
             item = {'source_evidence': [{'sha256': '../../escape'}]}
             self.assertEqual(evidence_digests(item), [])
             self.assertEqual(variant_paths(folder, item), {})
+
+    def test_collision_source_candidates_are_digest_scoped(self):
+        first, second = 'a' * 64, 'b' * 64
+        item = {'sha256': first, 'original': 'first-original.png',
+                'source_evidence': [{'sha256': first, 'source': 'first.png'}],
+                'variants': [{'sha256': second, 'sources': ['second.png', 'second-alt.png']}]}
+        self.assertEqual(source_candidates(item, first), ['first.png', 'first-original.png'])
+        self.assertEqual(source_candidates(item, second), ['second.png', 'second-alt.png'])
 
     def test_original_source_requires_matching_sha(self):
         with tempfile.TemporaryDirectory() as folder:
