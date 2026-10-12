@@ -1174,6 +1174,7 @@ class Factory:
   stats['qa_checked']=qa_checked
   qa_triage=summarize(qa_issues)
   stats['qa_reasons']=qa_triage['reasons']
+  stats['qa_blocking_examples'] = sorted(qa_triage['blocking'])[:10]
   stats['qa_blocking']=qa_triage['blocking_count']
   stats['qa_visual_advisory']=qa_triage['advisory_count']
   stats['qa_cache_hits']=len(unique)-len(qa_targets)
