@@ -1645,8 +1645,11 @@ class App:
   now=datetime.now(timezone.utc)
   run=now.strftime('%Y%m%d-%H%M%S-%f')
   report=REPORTS / ('report-'+run+'.json')
+  duration=max(0,int(time.monotonic()-self.started_at)) if self.started_at is not None else 0
   payload={'run':run,'created_utc':now.isoformat(),
-           'stats':{'source_errors':1,'installed_factory_version':self.installed_version}}
+           'stats':{'source_errors':1,'processing_failure':1,
+                    'run_duration_seconds':duration,
+                    'installed_factory_version':self.installed_version}}
   REPORTS.mkdir(parents=True,exist_ok=True)
   atomic_json(report,payload)
   threading.Thread(target=self._send_diagnostics,args=(str(report),),daemon=True).start()
