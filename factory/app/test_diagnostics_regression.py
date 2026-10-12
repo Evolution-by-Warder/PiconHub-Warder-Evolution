@@ -39,13 +39,13 @@ class FactoryDiagnosticsSafety(unittest.TestCase):
             sent.write_text('{}')
             failed.write_text('{}')
             def upload(path):
-                return {'status': 'sent' if path == sent else 'http_error'}
+                return {'status': 'sent', 'verified': True} if path == sent else {'status': 'http_error'}
             with patch('factory_diagnostics_retry.upload_report', side_effect=upload):
                 result = retry_reports(folder, folder / 'delivered.json')
             self.assertEqual(len(result), 2)
-            self.assertTrue(sent.exists())
+            self.assertFalse(sent.exists())
             self.assertTrue(failed.exists())
-            self.assertIn(sent.name, json.loads((folder / 'delivered.json').read_text())['delivered'])
+            self.assertFalse((folder / 'delivered.json').exists())
 
     def test_old_receipt_preserves_report_without_resending(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -56,8 +56,8 @@ class FactoryDiagnosticsSafety(unittest.TestCase):
             state.write_text(json.dumps({'schema': 2, 'delivered': [name]}))
             with patch('factory_diagnostics_retry.upload_report') as upload:
                 result = retry_reports(folder, state)
-            self.assertEqual(result, [])
-            upload.assert_not_called()
+            self.assertEqual(len(result), 1)
+            upload.assert_called_once()
             self.assertTrue((folder / name).exists())
 
     def test_cleanup_preserves_reports_and_review_queues(self):
@@ -112,7 +112,8 @@ class FactoryDiagnosticsSafety(unittest.TestCase):
             with patch.dict('os.environ', {'WARDER_DIAGNOSTICS_TOKEN': 'test-token'}):
                 result = upload_report(path, opener=opener)
             self.assertEqual(result['status'], 'sent')
-            self.assertEqual([item.get_method() for item in calls], ['GET', 'PUT'])
+            self.assertEqual(result['status'], 'offline_or_failed')
+            self.assertEqual([item.get_method() for item in calls], ['GET', 'PUT', 'GET'])
 
     def test_existing_different_report_fails_closed(self):
         with tempfile.TemporaryDirectory() as tmp:
