@@ -39,7 +39,7 @@ def sanitized_summary(report):
     # Preserve aggregate decision evidence, never raw filenames, paths, PNG or tokens.
     for key in ('qa_backlog_causes', 'openatv_identity_triage', 'artwork_evidence_counts',
                 'pixel_evidence_counts', 'normalized_evidence_counts', 'scaled_evidence_counts',
-                'review_queue_groups', 'final_picons_on_disk',
+                'review_queue_groups', 'master_artwork_pixel_comparisons', 'final_picons_on_disk',
                 'new_candidate_finalization', 'qa_grouping_savings'):
         value = stats.get(key)
         if isinstance(value, dict):
