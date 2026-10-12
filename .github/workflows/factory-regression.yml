@@ -286,7 +286,12 @@ jobs:
           if ($LASTEXITCODE -eq 0) { throw 'Release exists: no overwrite' }
           gh release create $version $exe 'factory/app/dist/BUILD-IDENTITY.json' 'factory/app/dist/SPUSTI-WARDER-EXE.cmd' 'factory/app/dist/windows_exe_startup.py' 'factory/app/dist/windows_exe_update.py' --repo $env:GITHUB_REPOSITORY --target $env:GITHUB_SHA --title "WARDER PICON FACTORY $version" --notes "Windows tested executable with startup update support."
           if ($LASTEXITCODE -ne 0) { throw 'Release creation failed' }
-          $manifest = @{ schema=1; version=$version; commit=$env:GITHUB_SHA; url="https://github.com/$env:GITHUB_REPOSITORY/releases/download/$version/WARDER-PICON-FACTORY.exe"; size=$size; sha256=$hash } | ConvertTo-Json
+          $assets = @{}
+          foreach ($name in @('WARDER-PICON-FACTORY.exe','SPUSTI-WARDER-EXE.cmd','windows_exe_startup.py','windows_exe_update.py')) {
+            $file = Join-Path 'factory/app/dist' $name
+            $assets[$name] = @{ url="https://github.com/$env:GITHUB_REPOSITORY/releases/download/$version/$name"; size=(Get-Item $file).Length; sha256=(Get-FileHash -Algorithm SHA256 $file).Hash.ToLowerInvariant() }
+          }
+          $manifest = @{ schema=2; version=$version; commit=$env:GITHUB_SHA; assets=$assets } | ConvertTo-Json -Depth 5
           $encoded = [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes($manifest))
           $path = 'factory/update/windows-exe-manifest.json'
           gh api -X PUT "repos/$env:GITHUB_REPOSITORY/contents/$path" -f "message=factory: publish verified $version EXE" -f branch=factory-warder-development -f "content=$encoded"

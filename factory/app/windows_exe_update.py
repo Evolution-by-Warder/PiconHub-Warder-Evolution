@@ -131,3 +131,82 @@ def install_verified_exe(info, installed, *, downloader=download_verified):
         return previous
     finally:
         staged.unlink(missing_ok=True)
+
+# A complete approved distribution updates executable, launcher and update engine.
+COMPONENTS = ("WARDER-PICON-FACTORY.exe", "SPUSTI-WARDER-EXE.cmd",
+              "windows_exe_startup.py", "windows_exe_update.py")
+
+
+def validate_bundle_manifest(data, installed_version):
+    """Validate all component identities before any file is replaced."""
+    if not isinstance(data, dict) or data.get("schema") != 2:
+        raise ValueError("Invalid bundle schema")
+    tag = data.get("version")
+    if version(tag) <= version(installed_version):
+        return None
+    commit = data.get("commit")
+    if not isinstance(commit, str) or not re.fullmatch(r"[0-9a-f]{40}", commit):
+        raise ValueError("Invalid bundle commit")
+    assets = data.get("assets")
+    if not isinstance(assets, dict) or set(assets) != set(COMPONENTS):
+        raise ValueError("Incomplete bundle")
+    verified = {}
+    for name in COMPONENTS:
+        item = assets[name]
+        if not isinstance(item, dict):
+            raise ValueError("Invalid bundle asset")
+        expected = "https://github.com/" + REPO + "/releases/download/" + tag + "/" + name
+        size = item.get("size")
+        digest = item.get("sha256")
+        if (item.get("url") != expected or type(size) is not int or
+                not 0 < size <= MAX_EXE or not isinstance(digest, str) or
+                not SHA.fullmatch(digest)):
+            raise ValueError("Invalid bundle asset identity")
+        verified[name] = {"url": expected, "size": size, "sha256": digest}
+    return {"version": tag, "commit": commit, "assets": verified}
+
+
+def install_verified_bundle(bundle, app_dir, *, downloader=download_verified):
+    """Stage and verify every asset; commit as a unit with rollback on failure.
+
+    The currently executing CMD is staged as .pending and activated at next
+    launch. Other files are replaced only after all downloads pass integrity.
+    """
+    import os
+    import uuid
+    directory = Path(app_dir)
+    if not directory.is_dir() or directory.is_symlink():
+        raise ValueError("Unsafe application directory")
+    transaction = uuid.uuid4().hex
+    staged = {}
+    backups = {}
+    installed = []
+    try:
+        for name in COMPONENTS:
+            dest = directory / name
+            if dest.is_symlink():
+                raise ValueError("Unsafe component symlink")
+            stage = directory / (".warder-stage-" + transaction + "-" + name)
+            staged[name] = stage
+            downloader(bundle["assets"][name], stage)
+            if not stage.is_file():
+                raise ValueError("Missing verified component")
+        for name in COMPONENTS:
+            target = directory / (name + ".pending" if name.endswith(".cmd") else name)
+            backup = directory / (".warder-backup-" + transaction + "-" + name)
+            if target.exists():
+                os.replace(target, backup)
+                backups[name] = backup
+            os.replace(staged[name], target)
+            installed.append((name, target))
+        return backups
+    except BaseException:
+        for name, target in reversed(installed):
+            target.unlink(missing_ok=True)
+        for name, backup in backups.items():
+            target = directory / (name + ".pending" if name.endswith(".cmd") else name)
+            os.replace(backup, target)
+        raise
+    finally:
+        for stage in staged.values():
+            stage.unlink(missing_ok=True)

@@ -7,6 +7,9 @@ if not exist "%WARDER_EXE%" (
  echo Factory EXE missing: "%WARDER_EXE%"
  exit /b 2
 )
+if exist "%~dp0SPUSTI-WARDER-EXE.cmd.pending" (
+ powershell.exe -NoProfile -NonInteractive -Command "try { Move-Item -LiteralPath '%~dp0SPUSTI-WARDER-EXE.cmd.pending' -Destination '%~dp0SPUSTI-WARDER-EXE.cmd' -Force -ErrorAction Stop } catch { exit 1 }" >nul 2>nul
+)
 if exist "%WARDER_UPDATER%" (
  where py >nul 2>nul
  if not errorlevel 1 py -3 "%WARDER_UPDATER%"
