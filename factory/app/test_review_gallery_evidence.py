@@ -31,6 +31,12 @@ class GalleryEvidenceTests(unittest.TestCase):
             paths = variant_paths(folder, {'sha256': digest})
             self.assertEqual(paths['black'], Path(folder) / 'aa' / ('a' * 64) / 'black.png')
 
+    def test_malformed_source_digest_is_not_a_path(self):
+        with tempfile.TemporaryDirectory() as folder:
+            item = {'source_evidence': [{'sha256': '../../escape'}]}
+            self.assertEqual(evidence_digests(item), [])
+            self.assertEqual(variant_paths(folder, item), {})
+
     def test_bad_digest_never_resolves_an_output_path(self):
         with tempfile.TemporaryDirectory() as folder:
             self.assertEqual(variant_paths(folder, {"sha256": "../bad"}), {})
