@@ -14,7 +14,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: factory-warder-development
+          persist-credentials: false
       - name: Install runtime dependencies
         run: |
           sudo apt-get update -qq
@@ -30,7 +30,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: factory-warder-development
+          persist-credentials: false
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
