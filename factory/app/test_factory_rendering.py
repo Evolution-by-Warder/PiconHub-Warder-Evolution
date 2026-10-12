@@ -267,5 +267,41 @@ class FactoryRenderingTests(unittest.TestCase):
                 self.assertEqual(original.convert('RGBA').tobytes(), source.tobytes())
 
 
+    def test_repository_picons_repair_white_on_disposable_copy(self):
+        # Real committed artwork, never the production picon directory.
+        repo_root = Path(__file__).resolve().parents[2]
+        cases = (
+            'picons/9.0e/global/transparent/1_0_1_138C_50E1_217C_5A0000_0_0_0.png',
+            'picons/4.8e/slm/transparent/1_0_19_19A0_107B_55_300000_0_0_0.png',
+        )
+        for relative in cases:
+            with self.subTest(source=relative), tempfile.TemporaryDirectory() as temp:
+                source_path = repo_root / relative
+                self.assertTrue(source_path.is_file(), relative)
+                source_bytes = source_path.read_bytes()
+                sha = hashlib.sha256(source_bytes).hexdigest()
+                with Image.open(source_path) as image:
+                    art = image.convert('RGBA')
+                output = Path(temp) / 'output'
+                folder = output / sha[:2] / sha
+                folder.mkdir(parents=True)
+                _compose_variant(art, 'transparent').save(folder / 'transparent.png')
+                _compose_variant(art, 'black').save(folder / 'black.png')
+                _compose_variant(art, 'white').save(folder / 'white.png')
+                before = {name: (folder / (name + '.png')).read_bytes()
+                          for name in ('transparent', 'black')}
+                ok, changed, error = repair_variant_task(
+                    (str(source_path), str(output), sha, ['LOW_CONTRAST_WHITE'],
+                     str(Path(temp) / 'backups')))
+                self.assertTrue(ok, error)
+                self.assertEqual(changed, 1)
+                _, issues = qa_png_task((sha, str(output)))
+                self.assertNotIn('LOW_CONTRAST_WHITE', issues)
+                for name in ('transparent', 'black'):
+                    self.assertEqual((folder / (name + '.png')).read_bytes(),
+                                     before[name], name)
+                self.assertEqual(source_path.read_bytes(), source_bytes)
+
+
 if __name__ == '__main__':
     unittest.main()
