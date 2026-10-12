@@ -326,7 +326,7 @@ jobs:
             if (-not $remoteAsset -or $remoteAsset.size -ne $localSize -or $remoteAsset.digest -ne "sha256:$localHash") { throw "Published asset verification failed: $name" }
           }
 
-          $manifestResponse = gh api "repos/$env:GITHUB_REPOSITORY/contents/$path?ref=factory-warder-development"
+          $manifestResponse = gh api "repos/$env:GITHUB_REPOSITORY/contents/${path}?ref=factory-warder-development"
           if ($LASTEXITCODE -ne 0) { throw 'Unable to read back the published updater manifest' }
           $manifestRecord = $manifestResponse | ConvertFrom-Json
           $manifestText = [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String(($manifestRecord.content -replace '\s','')))
