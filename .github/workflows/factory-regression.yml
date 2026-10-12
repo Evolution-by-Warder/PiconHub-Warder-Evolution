@@ -238,6 +238,13 @@ jobs:
             $file = Join-Path 'D:\WARDER-PICON-FACTORY' $entry.Path
             if ((Get-FileHash -Algorithm SHA256 -LiteralPath $file).Hash -ne $entry.Sha256) { throw "Read-only diagnostic changed existing data: $($entry.Path)" }
           }
+      - name: Upload standalone Windows GUI EXE (not a release)
+        uses: actions/upload-artifact@v4
+        with:
+          name: WARDER-PICON-FACTORY-WINDOWS-EXE
+          path: factory/app/dist/WARDER-PICON-FACTORY.exe
+          if-no-files-found: error
+          retention-days: 7
       - name: Upload one-click Windows application (not a release)
         uses: actions/upload-artifact@v4
         with:
