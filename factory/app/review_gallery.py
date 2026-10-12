@@ -13,7 +13,6 @@ def variant_paths(output_dir, item):
     """Resolve generated derivatives by digest; transparent is reference only."""
     digest = item.get('sha256')
     if not digest:
-        evidence = (item.get('source_evidence') or []) + (item.get('variants') or [])
         digests = evidence_digests(item)
         digest = digests[0] if digests else ''
     if not isinstance(digest, str) or len(digest) != 64 or any(c not in '0123456789abcdef' for c in digest.lower()):
