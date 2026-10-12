@@ -131,10 +131,14 @@ def _category_counts(folder: Path):
         for current, directories, filenames in os.walk(folder, followlinks=False, onerror=walk_error):
             current_path = Path(current)
             # A link can point outside the workspace. Do not traverse it.
+            safe_directories = []
             for name in directories:
-                if _is_reparse_point(current_path / name):
-                    errors.append(f"UNSAFE_REPARSE: {current_path / name}")
-            directories[:] = [name for name in directories if not _is_reparse_point(current_path / name)]
+                candidate = current_path / name
+                if _is_reparse_point(candidate):
+                    errors.append(f"UNSAFE_REPARSE: {candidate}")
+                else:
+                    safe_directories.append(name)
+            directories[:] = safe_directories
             for name in filenames:
                 path = current_path / name
                 try:
