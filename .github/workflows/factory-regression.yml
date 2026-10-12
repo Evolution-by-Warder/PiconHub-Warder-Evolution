@@ -238,11 +238,26 @@ jobs:
             $file = Join-Path 'D:\WARDER-PICON-FACTORY' $entry.Path
             if ((Get-FileHash -Algorithm SHA256 -LiteralPath $file).Hash -ne $entry.Sha256) { throw "Read-only diagnostic changed existing data: $($entry.Path)" }
           }
+      - name: Record Windows EXE build identity
+        shell: pwsh
+        run: |
+          $exe = 'factory/app/dist/WARDER-PICON-FACTORY.exe'
+          if (-not (Test-Path -LiteralPath $exe -PathType Leaf)) { throw 'Windows GUI EXE is missing after build and smoke tests' }
+          $hash = (Get-FileHash -Algorithm SHA256 -LiteralPath $exe).Hash.ToLowerInvariant()
+          $size = (Get-Item -LiteralPath $exe).Length
+          $commit = (git rev-parse HEAD).Trim()
+          $version = (Get-Content 'factory/app/.factory-version.json' -Raw | ConvertFrom-Json).version
+          $identity = [ordered]@{ version=$version; commit=$commit; workflow_run=$env:GITHUB_RUN_ID; sha256=$hash; bytes=$size; filename='WARDER-PICON-FACTORY.exe'; smoke_test='passed' }
+          $identity | ConvertTo-Json | Set-Content -LiteralPath 'factory/app/dist/BUILD-IDENTITY.json' -Encoding utf8
+          "### WARDER PICON FACTORY Windows build" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append
+          "Version: $version; commit: $commit; SHA-256: $hash; bytes: $size" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append
       - name: Upload standalone Windows GUI EXE (not a release)
         uses: actions/upload-artifact@v4
         with:
           name: WARDER-PICON-FACTORY-WINDOWS-EXE
-          path: factory/app/dist/WARDER-PICON-FACTORY.exe
+          path: |
+            factory/app/dist/WARDER-PICON-FACTORY.exe
+            factory/app/dist/BUILD-IDENTITY.json
           if-no-files-found: error
           retention-days: 7
       - name: Upload one-click Windows application (not a release)
