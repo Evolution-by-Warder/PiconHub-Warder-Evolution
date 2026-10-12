@@ -148,7 +148,11 @@ class ReviewGallery(ttk.Frame):
             # The transparent source is immutable and may live outside generated output.
             evidence = (item.get('source_evidence') or []) + (item.get('variants') or [])
             if digest:
-                matching = [e.get('source') or e.get('path') or next(iter(e.get('sources') or []), None) for e in evidence if isinstance(e, dict) and str(e.get('sha256', '')).lower() == digest]
+                matching = []
+                for entry in evidence:
+                    if isinstance(entry, dict) and str(entry.get('sha256', '')).lower() == digest:
+                        matching.extend([entry.get('source'), entry.get('path')])
+                        matching.extend(x for x in (entry.get('sources') or []) if isinstance(x, str))
                 if str(item.get('sha256', '')).lower() == digest:
                     matching.append(item.get('original'))
                 for source in matching:
