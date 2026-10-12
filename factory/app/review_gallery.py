@@ -13,10 +13,11 @@ def variant_paths(output_dir, item):
     digest = item.get('sha256')
     if not digest:
         evidence = (item.get('source_evidence') or []) + (item.get('variants') or [])
-        digests = sorted({x.get('sha256', '') for x in evidence if isinstance(x, dict)})
+        digests = sorted({x.get('sha256', '') for x in evidence if isinstance(x, dict) and isinstance(x.get('sha256'), str)})
         digest = digests[0] if digests else ''
     if not isinstance(digest, str) or len(digest) != 64 or any(c not in '0123456789abcdef' for c in digest.lower()):
         return {}
+    digest = digest.lower()
     base = Path(output_dir) / digest[:2] / digest
     return {name: base / (name + '.png') for name in ('transparent', 'black', 'white')}
 
@@ -82,8 +83,13 @@ class ReviewGallery(ttk.Frame):
 
     def reload(self):
         path = latest_review(self.report_dir, *([self.legacy_report_dir] if self.legacy_report_dir else []))
-        self.items = pending_items(load_review_queue(path)['items'], self.ledger_path,
-                                   self.legacy_ledger_path) if path else []
+        try:
+            self.items = pending_items(load_review_queue(path)['items'], self.ledger_path,
+                                       self.legacy_ledger_path) if path else []
+            self.load_error = None
+        except (OSError, ValueError, KeyError, TypeError) as exc:
+            self.items = []
+            self.load_error = f'{type(exc).__name__}: {exc}'
         self.render()
 
     def reset_page(self):
@@ -99,7 +105,9 @@ class ReviewGallery(ttk.Frame):
         selected = [x for x in self.items if lane == 'ALL' or x.get('workstream') == lane]
         pages = max(1, (len(selected) + 9) // 10)
         self.page = min(max(0, self.page), pages - 1)
-        self.counter.configure(text=f'{self.page+1}/{pages} · čaká {len(selected)}')
+        self.counter.configure(text=f'{self.page+1}/{pages} · čaká {len(selected)}' if not self.load_error else 'CHYBA načítania fronty')
+        if self.load_error:
+            ttk.Label(self.content, text=self.load_error, foreground='red', wraplength=700).pack(anchor='w', padx=8, pady=8)
         for item in selected[self.page*10:(self.page+1)*10]:
             self.add_row(item)
         self.canvas.yview_moveto(0)
@@ -138,7 +146,7 @@ class ReviewGallery(ttk.Frame):
             # The transparent source is immutable and may live outside generated output.
             evidence = item.get('source_evidence') or []
             if digest:
-                matching = [e.get('source') for e in evidence if isinstance(e, dict) and e.get('sha256') == digest]
+                matching = [e.get('source') for e in evidence if isinstance(e, dict) and str(e.get('sha256', '')).lower() == digest]
                 if item.get('sha256') == digest:
                     matching.append(item.get('original'))
                 for source in matching:
@@ -174,6 +182,7 @@ class ReviewGallery(ttk.Frame):
                         photo = ImageTk.PhotoImage(im, master=self)
                         preview.configure(image=photo, text='')
                         preview.image = photo
+                        self.photos.append(photo)
                     except (OSError, ImportError, ValueError):
                         pass
         show_artwork()
