@@ -43,6 +43,18 @@ def matches_evidence_sha(path, digest):
         return False
 
 
+def source_candidates(item, digest):
+    """Enumerate original source candidates associated with an exact digest."""
+    values = []
+    for entry in (item.get('source_evidence') or []) + (item.get('variants') or []):
+        if isinstance(entry, dict) and str(entry.get('sha256', '')).lower() == digest:
+            values.extend([entry.get('source'), entry.get('path')])
+            values.extend(x for x in (entry.get('sources') or []) if isinstance(x, str))
+    if str(item.get('sha256', '')).lower() == digest:
+        values.append(item.get('original'))
+    return [value for value in values if isinstance(value, str)]
+
+
 def pending_items(items, ledger_path, legacy_ledger_path=None):
     """Drop only evidence-identical, terminal decisions from the visible queue."""
     visible = [item for item in items if item.get('decision', 'PENDING') == 'PENDING']
@@ -163,13 +175,7 @@ class ReviewGallery(ttk.Frame):
             # The transparent source is immutable and may live outside generated output.
             evidence = (item.get('source_evidence') or []) + (item.get('variants') or [])
             if digest:
-                matching = []
-                for entry in evidence:
-                    if isinstance(entry, dict) and str(entry.get('sha256', '')).lower() == digest:
-                        matching.extend([entry.get('source'), entry.get('path')])
-                        matching.extend(x for x in (entry.get('sources') or []) if isinstance(x, str))
-                if str(item.get('sha256', '')).lower() == digest:
-                    matching.append(item.get('original'))
+                matching = source_candidates(item, digest)
                 for source in matching:
                     if isinstance(source, str) and matches_evidence_sha(source, digest):
                         paths['transparent'] = Path(source)
