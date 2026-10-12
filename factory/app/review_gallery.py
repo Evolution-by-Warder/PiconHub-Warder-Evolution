@@ -59,7 +59,6 @@ class ReviewGallery(ttk.Frame):
         self.write_enabled = write_enabled or (lambda: True)
         self.items = []
         self.page = 0
-        self.photos = []
         toolbar = ttk.Frame(self); toolbar.pack(fill='x', pady=3)
         ttk.Label(toolbar, text='Schvaľovanie · 10 staníc / dávka', font=('Segoe UI', 10, 'bold')).pack(side='left')
         ttk.Button(toolbar, text='Obnoviť', command=self.reload).pack(side='right')
@@ -101,7 +100,6 @@ class ReviewGallery(ttk.Frame):
 
     def render(self):
         for child in self.content.winfo_children(): child.destroy()
-        self.photos.clear()
         lane = self.lane.get()
         selected = [x for x in self.items if lane == 'ALL' or x.get('workstream') == lane]
         pages = max(1, (len(selected) + 9) // 10)
