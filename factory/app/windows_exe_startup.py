@@ -16,9 +16,25 @@ def run(exe=EXE, metadata=VERSION_FILE):
     if not exe.is_file() or exe.is_symlink():
         return "NO_INSTALLED_EXE"
     try:
-        if not metadata.is_file():
-            return "NO_VERSION_METADATA"
-        installed = json.loads(metadata.read_text(encoding="utf-8"))
+        if metadata.is_file():
+            installed = json.loads(metadata.read_text(encoding="utf-8-sig"))
+        else:
+            identity = exe.parent / "BUILD-IDENTITY.json"
+            if not identity.is_file() or identity.is_symlink():
+                return "NO_VERSION_METADATA"
+            build = json.loads(identity.read_text(encoding="utf-8-sig"))
+            if (build.get("filename") != exe.name or
+                    build.get("bytes") != exe.stat().st_size or
+                    build.get("smoke_test") != "passed"):
+                return "NO_VERSION_METADATA"
+            import hashlib
+            digest = hashlib.sha256()
+            with exe.open("rb") as stream:
+                for chunk in iter(lambda: stream.read(1024 * 1024), b""):
+                    digest.update(chunk)
+            if digest.hexdigest() != build.get("sha256"):
+                return "NO_VERSION_METADATA"
+            installed = {"version": build["version"], "commit": build["commit"]}
         if not isinstance(installed, dict):
             return "NO_VERSION_METADATA"
         info = validate_bundle_manifest(read_manifest(), installed["version"])
