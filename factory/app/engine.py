@@ -1517,6 +1517,7 @@ class App:
   if marker:
    import json
    payload={"status":"GUI_READY","build_commit":self.build_commit,
+            "installed_version":self.installed_version,
             "executable_path":self.executable_path,"data_root":str(ROOT),
             "preflight":"ok" if self.preflight_result and self.preflight_result.ok else "blocked",
             "tabs":sorted(tabs)}
