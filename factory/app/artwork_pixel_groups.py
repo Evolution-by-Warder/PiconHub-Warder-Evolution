@@ -74,7 +74,7 @@ def master_artwork_pixel_digests(registry, master_root, cache_path):
 
 
 def attach_master_pixel_comparisons(queue, master_digests, candidate_digests):
-    """Annotate pending artwork tasks; do not change decisions or task counts."""
+    """Resolve only service-scoped exact Master RGBA matches; preserve audit items."""
     counts = {'PIXEL_EXACT_SAME_SERVICE_MASTER': 0,
               'NO_PIXEL_EXACT_SAME_SERVICE_MASTER': 0,
               'MASTER_PIXEL_EVIDENCE_UNAVAILABLE': 0}
@@ -100,6 +100,11 @@ def attach_master_pixel_comparisons(queue, master_digests, candidate_digests):
         statuses = [unit.get('master_pixel_comparison') for unit in units]
         if statuses and all(status == 'PIXEL_EXACT_SAME_SERVICE_MASTER' for status in statuses):
             item['master_pixel_evidence'] = 'ALL_REVIEW_UNITS_EXACT_SAME_SERVICE_MASTER'
+            # All candidate artworks are byte-decoded RGBA-identical to this
+            # service's Master: no human artwork decision is needed. This is
+            # not an approval, registry mutation, or publication.
+            item['decision'] = 'AUTO_RESOLVED_MASTER_PIXEL_IDENTICAL'
+            item['automatic_resolution'] = 'EXACT_RGBA_SAME_SERVICE_MASTER'
         elif statuses and any(status == 'NO_PIXEL_EXACT_SAME_SERVICE_MASTER' for status in statuses):
             item['master_pixel_evidence'] = 'DIFFERENT_ARTWORK_PRESENT'
         else:
