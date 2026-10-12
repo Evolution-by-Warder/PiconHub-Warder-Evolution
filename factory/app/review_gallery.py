@@ -147,7 +147,7 @@ class ReviewGallery(ttk.Frame):
             evidence = (item.get('source_evidence') or []) + (item.get('variants') or [])
             if digest:
                 matching = [e.get('source') or e.get('path') or next(iter(e.get('sources') or []), None) for e in evidence if isinstance(e, dict) and str(e.get('sha256', '')).lower() == digest]
-                if item.get('sha256') == digest:
+                if str(item.get('sha256', '')).lower() == digest:
                     matching.append(item.get('original'))
                 for source in matching:
                     if isinstance(source, str) and Path(source).is_file():
