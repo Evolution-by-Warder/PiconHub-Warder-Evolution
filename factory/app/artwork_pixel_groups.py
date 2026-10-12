@@ -103,8 +103,9 @@ def attach_master_pixel_comparisons(queue, master_digests, candidate_digests):
             # All candidate artworks are byte-decoded RGBA-identical to this
             # service's Master: no human artwork decision is needed. This is
             # not an approval, registry mutation, or publication.
-            item['decision'] = 'AUTO_RESOLVED_MASTER_PIXEL_IDENTICAL'
-            item['automatic_resolution'] = 'EXACT_RGBA_SAME_SERVICE_MASTER'
+            if item.get('decision') == 'PENDING':
+                item['decision'] = 'AUTO_RESOLVED_MASTER_PIXEL_IDENTICAL'
+                item['automatic_resolution'] = 'EXACT_RGBA_SAME_SERVICE_MASTER'
         elif statuses and any(status == 'NO_PIXEL_EXACT_SAME_SERVICE_MASTER' for status in statuses):
             item['master_pixel_evidence'] = 'DIFFERENT_ARTWORK_PRESENT'
         else:
