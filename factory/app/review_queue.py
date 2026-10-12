@@ -80,12 +80,11 @@ def build_review_queue(qa_issues: dict, originals: dict, collisions: list, regis
         identity = match.get('service_reference') or ''
         sha = match.get('candidate_sha256') or ''
         source = match.get('candidate_source', '')
-        origin = 'local inbox'
-        parts = tuple(source.replace('\\', '/').split('/'))
-        if 'source-ingest' in parts:
-            ix = parts.index('source-ingest')
-            if ix + 2 < len(parts):
-                origin = parts[ix + 2]
+        # Use the same case-insensitive provenance classifier as registry triage.
+        # Windows paths and SOURCE-INGEST capitalization must not turn a known
+        # feed into an anonymous local-inbox review.
+        from registry_triage import origin_of
+        origin = origin_of(source)
         reason = match.get('reason', 'REGISTRY_MATCH_REVIEW')
         workstream = 'ARTWORK_REVIEW' if reason == 'EXISTING_SERVICE_DIFFERENT_ART' else 'IDENTITY_VERIFICATION'
         review_id = stable_review_id('REGISTRY_MATCH', identity, sha + '|' + workstream + '|' + reason)
