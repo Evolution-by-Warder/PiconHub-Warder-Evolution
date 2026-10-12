@@ -18,7 +18,8 @@ _ALLOWED = re.compile(r'^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$')
 _ALLOWED_KEYS = ('scanned', 'changed', 'duplicates', 'exceptions', 'created',
                  'review_queue_items', 'review_workstreams', 'qa_blocking',
                  'qa_repaired', 'qa_pending_by_workstream', 'integrity_issues',
-                 'installed_factory_version', 'source_errors')
+                 'installed_factory_version', 'source_errors',
+                 'run_duration_seconds', 'processing_failure')
 
 def sanitized_summary(report):
     """Whitelist counters only: no file paths, PNG, service names or tokens."""
