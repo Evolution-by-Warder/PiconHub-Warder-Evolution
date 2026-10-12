@@ -12,7 +12,7 @@ def variant_paths(output_dir, item):
     """Resolve generated derivatives by digest; transparent is reference only."""
     digest = item.get('sha256')
     if not digest:
-        evidence = item.get('source_evidence') or item.get('variants') or []
+        evidence = (item.get('source_evidence') or []) + (item.get('variants') or [])
         digests = sorted({x.get('sha256', '') for x in evidence if isinstance(x, dict)})
         digest = digests[0] if digests else ''
     if not isinstance(digest, str) or len(digest) != 64 or any(c not in '0123456789abcdef' for c in digest.lower()):
@@ -22,7 +22,7 @@ def variant_paths(output_dir, item):
 
 
 def evidence_digests(item):
-    evidence = item.get('source_evidence') or item.get('variants') or []
+    evidence = (item.get('source_evidence') or []) + (item.get('variants') or [])
     values = [item.get('sha256')] + [entry.get('sha256') for entry in evidence if isinstance(entry, dict)]
     return sorted({value.lower() for value in values if isinstance(value, str) and len(value) == 64
                    and all(c in '0123456789abcdef' for c in value.lower())})
@@ -47,13 +47,14 @@ def pending_items(items, ledger_path, legacy_ledger_path=None):
 class ReviewGallery(ttk.Frame):
     """Ten review entries per page, scrollable in the main window."""
     def __init__(self, parent, report_dir, ledger_path, output_dir, write_enabled=None,
-                 legacy_report_dir=None, legacy_ledger_path=None):
+                 legacy_report_dir=None, legacy_ledger_path=None, master_root=None):
         super().__init__(parent)
         self.report_dir = Path(report_dir)
         self.legacy_report_dir = Path(legacy_report_dir) if legacy_report_dir is not None else None
         self.ledger_path = Path(ledger_path)
         self.legacy_ledger_path = Path(legacy_ledger_path) if legacy_ledger_path is not None else None
         self.output_dir = Path(output_dir)
+        self.master_root = Path(master_root) if master_root else None
         self.write_enabled = write_enabled or (lambda: True)
         self.items = []
         self.page = 0
@@ -134,6 +135,29 @@ class ReviewGallery(ttk.Frame):
             if len(digests) > 1:
                 indicator.configure(text=f'Grafika {index+1}/{len(digests)} · SHA {digest[:12]}')
             paths = variant_paths(self.output_dir, {'sha256': digest} if digest else item)
+            # The transparent source is immutable and may live outside generated output.
+            evidence = item.get('source_evidence') or []
+            if digest:
+                matching = [e.get('source') for e in evidence if isinstance(e, dict) and e.get('sha256') == digest]
+                if item.get('sha256') == digest:
+                    matching.append(item.get('original'))
+                for source in matching:
+                    if isinstance(source, str) and Path(source).is_file():
+                        paths['transparent'] = Path(source)
+                        break
+            if self.master_root:
+                for entry in item.get('master_locations') or []:
+                    if not isinstance(entry, dict):
+                        continue
+                    style, relative = entry.get('style'), entry.get('path')
+                    if style not in ('transparent', 'black', 'white') or not isinstance(relative, str):
+                        continue
+                    rel = Path(relative)
+                    if rel.is_absolute() or '..' in rel.parts:
+                        continue
+                    master_path = self.master_root / rel
+                    if master_path.is_file() and (not paths.get(style) or not paths[style].is_file()):
+                        paths[style] = master_path
             for name, label in [('transparent', 'Transparent · referencia 🔒'), ('black', 'Čierny'), ('white', 'Biely')]:
                 cell = ttk.Frame(artwork_host)
                 cell.pack(side='left', fill='both', expand=True)
