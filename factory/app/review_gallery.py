@@ -1,4 +1,5 @@
 """Embedded, read-only evidence gallery. Decisions never modify PNG or publish."""
+import hashlib
 import tkinter as tk
 from tkinter import ttk, messagebox
 from pathlib import Path
@@ -27,6 +28,20 @@ def evidence_digests(item):
     values = [item.get('sha256')] + [entry.get('sha256') for entry in evidence if isinstance(entry, dict)]
     return sorted({value.lower() for value in values if isinstance(value, str) and len(value) == 64
                    and all(c in '0123456789abcdef' for c in value.lower())})
+
+
+def matches_evidence_sha(path, digest):
+    """Never display a source PNG as evidence for a different digest."""
+    if not isinstance(digest, str) or len(digest) != 64:
+        return False
+    try:
+        h = hashlib.sha256()
+        with Path(path).open('rb') as stream:
+            for chunk in iter(lambda: stream.read(1024 * 1024), b''):
+                h.update(chunk)
+        return h.hexdigest() == digest.lower()
+    except (OSError, ValueError, TypeError):
+        return False
 
 
 def pending_items(items, ledger_path, legacy_ledger_path=None):
@@ -157,7 +172,7 @@ class ReviewGallery(ttk.Frame):
                 if str(item.get('sha256', '')).lower() == digest:
                     matching.append(item.get('original'))
                 for source in matching:
-                    if isinstance(source, str) and Path(source).is_file():
+                    if isinstance(source, str) and matches_evidence_sha(source, digest):
                         paths['transparent'] = Path(source)
                         break
             for name, label in [('transparent', 'Transparent · referencia 🔒'), ('black', 'Čierny'), ('white', 'Biely')]:
