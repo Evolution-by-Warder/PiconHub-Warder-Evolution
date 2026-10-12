@@ -11,6 +11,31 @@ EXE = ROOT / "11-APP" / "WARDER-PICON-FACTORY" / "WARDER-PICON-FACTORY.exe"
 VERSION_FILE = EXE.parent / ".factory-installed-version.json"
 
 
+def identify_legacy_exe(exe):
+    """Only trust an exact digest from an official GitHub release."""
+    import hashlib
+    import urllib.request
+    digest = hashlib.sha256(exe.read_bytes()).hexdigest()
+    url = "https://api.github.com/repos/Evolution-by-Warder/PiconHub-Warder-Evolution/releases?per_page=100"
+    request = urllib.request.Request(url, headers={"User-Agent": "WARDER-PICON-FACTORY"})
+    with urllib.request.urlopen(request, timeout=12) as response:
+        if response.geturl() != url:
+            raise ValueError("Unexpected catalog redirect")
+        catalog = json.loads(response.read(2097153))
+    if not isinstance(catalog, list):
+        raise ValueError("Invalid catalog")
+    for release in catalog:
+        tag = release.get("tag_name", "")
+        if not isinstance(tag, str) or not tag.startswith("factory-v"):
+            continue
+        for asset in release.get("assets", []):
+            if (asset.get("name") == exe.name and
+                    asset.get("size") == exe.stat().st_size and
+                    asset.get("digest") == "sha256:" + digest):
+                return {"version": tag, "commit": release.get("target_commitish", "")}
+    return None
+
+
 def run(exe=EXE, metadata=VERSION_FILE):
     exe, metadata = Path(exe), Path(metadata)
     if not exe.is_file() or exe.is_symlink():
@@ -21,20 +46,24 @@ def run(exe=EXE, metadata=VERSION_FILE):
         else:
             identity = exe.parent / "BUILD-IDENTITY.json"
             if not identity.is_file() or identity.is_symlink():
-                return "NO_VERSION_METADATA"
-            build = json.loads(identity.read_text(encoding="utf-8-sig"))
-            if (build.get("filename") != exe.name or
-                    build.get("bytes") != exe.stat().st_size or
-                    build.get("smoke_test") != "passed"):
-                return "NO_VERSION_METADATA"
-            import hashlib
-            digest = hashlib.sha256()
-            with exe.open("rb") as stream:
-                for chunk in iter(lambda: stream.read(1024 * 1024), b""):
-                    digest.update(chunk)
-            if digest.hexdigest() != build.get("sha256"):
-                return "NO_VERSION_METADATA"
-            installed = {"version": build["version"], "commit": build["commit"]}
+                installed = identify_legacy_exe(exe)
+                if installed is None:
+                    return "NO_VERSION_METADATA"
+                identity = None
+            if identity is not None:
+                build = json.loads(identity.read_text(encoding="utf-8-sig"))
+                if (build.get("filename") != exe.name or
+                        build.get("bytes") != exe.stat().st_size or
+                        build.get("smoke_test") != "passed"):
+                    return "NO_VERSION_METADATA"
+                import hashlib
+                digest = hashlib.sha256()
+                with exe.open("rb") as stream:
+                    for chunk in iter(lambda: stream.read(1024 * 1024), b""):
+                        digest.update(chunk)
+                if digest.hexdigest() != build.get("sha256"):
+                    return "NO_VERSION_METADATA"
+                installed = {"version": build["version"], "commit": build["commit"]}
         if not isinstance(installed, dict):
             return "NO_VERSION_METADATA"
         info = validate_bundle_manifest(read_manifest(), installed["version"])
