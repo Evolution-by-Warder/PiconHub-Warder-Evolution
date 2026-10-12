@@ -1451,7 +1451,7 @@ class App:
   self.workspace_ready=False
   self.status.set('Read-only preflight · inventarizujem existujúci workspace')
   def worker():
-   try:self.emit('preflight_done',read_only_preflight(ROOT))
+   try:self.emit('preflight_done',read_only_preflight(ROOT,progress=lambda current,total,name:self.emit('preflight_progress',(current,total,name))))
    except Exception as exc:self.emit('preflight_error',type(exc).__name__+': '+str(exc)[:300])
   threading.Thread(target=worker,name='factory-read-only-preflight',daemon=True).start()
  def _load_saved_review_counts(self):
@@ -1753,6 +1753,9 @@ class App:
      if hasattr(self,'workspace') and hasattr(self.workspace,'kpi_vars'):
       self.workspace.kpi_vars['final'].set('Počítanie zlyhalo · pozri Diagnostiku')
      if self._final_counts_refresh_pending:self._refresh_production_counts()
+    elif k=='preflight_progress':
+     current,total,name=v
+     self.status.set('Read-only preflight · '+str(current)+'/'+str(total)+' · '+name+' · kontrolujem súbory')
     elif k=='preflight_done':
      self.preflight_result=v;self.workspace_ready=bool(v.ok)
      self.workspace.show_preflight(v)
