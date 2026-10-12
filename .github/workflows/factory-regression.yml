@@ -312,6 +312,56 @@ jobs:
             gh api -X PUT "repos/$env:GITHUB_REPOSITORY/contents/$path" -f "message=factory: publish verified $version EXE" -f branch=factory-warder-development -f "content=$encoded"
           }
           if ($LASTEXITCODE -ne 0) { throw 'Manifest publishing failed' }
+
+          # Confirm the public release assets and the branch manifest before retiring the prior release.
+          $publishedJson = gh api "repos/$env:GITHUB_REPOSITORY/releases/tags/$version"
+          if ($LASTEXITCODE -ne 0) { throw 'Unable to read back the newly published release' }
+          $published = $publishedJson | ConvertFrom-Json
+          if ($published.tag_name -ne $version -or $published.target_commitish -ne $env:GITHUB_SHA) { throw 'Published release tag or commit does not match this build' }
+          $releaseFiles = @('WARDER-PICON-FACTORY.exe','WARDER-PICON-UPDATER.exe','BUILD-IDENTITY.json','SPUSTI-WARDER-EXE.cmd','windows_exe_startup.py','windows_exe_update.py')
+          foreach ($name in $releaseFiles) {
+            $localFile = Join-Path 'factory/app/dist' $name
+            if (-not (Test-Path -LiteralPath $localFile -PathType Leaf)) { throw "Release input is missing: $name" }
+            $remoteAsset = @($published.assets | Where-Object { $_.name -eq $name }) | Select-Object -First 1
+            $localSize = (Get-Item -LiteralPath $localFile).Length
+            $localHash = (Get-FileHash -Algorithm SHA256 -LiteralPath $localFile).Hash.ToLowerInvariant()
+            if (-not $remoteAsset -or $remoteAsset.size -ne $localSize -or $remoteAsset.digest -ne "sha256:$localHash") { throw "Published asset verification failed: $name" }
+          }
+
+          $manifestResponse = gh api "repos/$env:GITHUB_REPOSITORY/contents/$path?ref=factory-warder-development"
+          if ($LASTEXITCODE -ne 0) { throw 'Unable to read back the published updater manifest' }
+          $manifestRecord = $manifestResponse | ConvertFrom-Json
+          $manifestText = [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String(($manifestRecord.content -replace '\s','')))
+          $verifiedManifest = $manifestText | ConvertFrom-Json
+          if ($verifiedManifest.version -ne $version -or $verifiedManifest.commit -ne $env:GITHUB_SHA) { throw 'Published updater manifest identity mismatch' }
+          foreach ($name in @('WARDER-PICON-FACTORY.exe','WARDER-PICON-UPDATER.exe','SPUSTI-WARDER-EXE.cmd','windows_exe_startup.py','windows_exe_update.py')) {
+            $manifestAsset = $verifiedManifest.assets.PSObject.Properties[$name].Value
+            $releaseAsset = @($published.assets | Where-Object { $_.name -eq $name }) | Select-Object -First 1
+            if (-not $manifestAsset -or $manifestAsset.url -ne "https://github.com/$env:GITHUB_REPOSITORY/releases/download/$version/$name" -or $manifestAsset.size -ne $releaseAsset.size -or $manifestAsset.sha256 -ne ($releaseAsset.digest -replace '^sha256:','')) { throw "Updater manifest link or digest is wrong: $name" }
+          }
+
+          $oldVersion = 'factory-v0.2.33'
+          $oldCommit = 'd9d734d6816bce60d1c2ae985cb85effa08a529c'
+          if ($version -eq $oldVersion) { throw 'Refusing to retire a release using its own version' }
+          $oldReleaseJson = gh api "repos/$env:GITHUB_REPOSITORY/releases/tags/$oldVersion" 2>$null
+          if ($LASTEXITCODE -eq 0 -and $oldReleaseJson) {
+            $oldRelease = $oldReleaseJson | ConvertFrom-Json
+            if ($oldRelease.tag_name -ne $oldVersion -or $oldRelease.target_commitish -ne $oldCommit) { throw "Refusing to delete unexpected prior release target: $oldVersion" }
+            gh release delete $oldVersion --repo $env:GITHUB_REPOSITORY --yes --cleanup-tag
+            if ($LASTEXITCODE -ne 0) { throw "Unable to remove superseded release and tag: $oldVersion" }
+          } else {
+            $oldTagJson = gh api "repos/$env:GITHUB_REPOSITORY/git/ref/tags/$oldVersion" 2>$null
+            if ($LASTEXITCODE -eq 0 -and $oldTagJson) {
+              $oldTag = $oldTagJson | ConvertFrom-Json
+              if ($oldTag.object.sha -ne $oldCommit) { throw "Refusing to delete unexpected prior tag target: $oldVersion" }
+              gh api -X DELETE "repos/$env:GITHUB_REPOSITORY/git/refs/tags/$oldVersion"
+              if ($LASTEXITCODE -ne 0) { throw "Unable to remove superseded release tag: $oldVersion" }
+            }
+          }
+          $remainingRelease = gh api "repos/$env:GITHUB_REPOSITORY/releases/tags/$oldVersion" 2>$null
+          if ($LASTEXITCODE -eq 0 -and $remainingRelease) { throw "Superseded release still exists: $oldVersion" }
+          $remainingTag = gh api "repos/$env:GITHUB_REPOSITORY/git/ref/tags/$oldVersion" 2>$null
+          if ($LASTEXITCODE -eq 0 -and $remainingTag) { throw "Superseded release tag still exists: $oldVersion" }
       - name: Remove disposable synthetic workspace
         if: always()
         shell: pwsh
