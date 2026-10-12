@@ -13,7 +13,7 @@ def variant_paths(output_dir, item):
     digest = item.get('sha256')
     if not digest:
         evidence = (item.get('source_evidence') or []) + (item.get('variants') or [])
-        digests = sorted({x.get('sha256', '') for x in evidence if isinstance(x, dict) and isinstance(x.get('sha256'), str)})
+        digests = evidence_digests(item)
         digest = digests[0] if digests else ''
     if not isinstance(digest, str) or len(digest) != 64 or any(c not in '0123456789abcdef' for c in digest.lower()):
         return {}
