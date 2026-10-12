@@ -25,6 +25,12 @@ class GalleryEvidenceTests(unittest.TestCase):
             self.assertEqual(paths["black"], Path(folder) / digest[:2] / digest / "black.png")
             self.assertEqual(paths["white"], Path(folder) / digest[:2] / digest / "white.png")
 
+    def test_uppercase_digest_normalizes_output_path(self):
+        digest = 'A' * 64
+        with tempfile.TemporaryDirectory() as folder:
+            paths = variant_paths(folder, {'sha256': digest})
+            self.assertEqual(paths['black'], Path(folder) / 'aa' / ('a' * 64) / 'black.png')
+
     def test_bad_digest_never_resolves_an_output_path(self):
         with tempfile.TemporaryDirectory() as folder:
             self.assertEqual(variant_paths(folder, {"sha256": "../bad"}), {})
