@@ -254,6 +254,12 @@ class ReviewGallery(ttk.Frame):
                     f'Úloha obsahuje {len(digests)} rôznych grafík. Skontroloval/a si všetky transparentné, čierne a biele varianty?',
                     parent=self):
                 return
+        if decision == 'APPROVED_FOR_REVIEW' and item.get('workstream') == 'ARTWORK_REVIEW':
+            for digest in digests:
+                variants = variant_paths(self.output_dir, {'sha256': digest})
+                if not all(variants[name].is_file() for name in ('black', 'white')):
+                    messagebox.showwarning('Chýbajú varianty', 'Nie sú dostupné čierny aj biely variant pre každú grafiku. Schválenie je zablokované.', parent=self)
+                    return
         if not messagebox.askyesno('Potvrdiť', f"{item['review_id']}\n{note[:160]}\n\nBez úprav PNG a bez publikovania.", parent=self):
             return
         try:
