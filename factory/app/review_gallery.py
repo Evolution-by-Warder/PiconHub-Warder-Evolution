@@ -52,7 +52,7 @@ def source_candidates(item, digest):
             sources = entry.get('sources')
             if isinstance(sources, (list, tuple)):
                 values.extend(x for x in sources if isinstance(x, str))
-    if str(item.get('sha256', '')).lower() == digest:
+    if str(item.get('sha256', '')).lower() == str(digest).lower():
         values.append(item.get('original'))
     return [value for value in values if isinstance(value, str)]
 
