@@ -3,12 +3,16 @@ on:
   workflow_run:
     workflows: ["Factory regression (no release)"]
     types: [completed]
+  push:
+    branches: [factory-warder-development]
+    paths:
+      - ".github/workflows/factory-windows-release.yml"
 permissions:
   contents: write
   actions: read
 jobs:
   publish:
-    if: ${{ github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'factory-warder-development' }}
+    if: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'factory-warder-development' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
