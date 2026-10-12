@@ -140,6 +140,8 @@ class ReviewGallery(ttk.Frame):
         def show_artwork():
             for child in artwork_host.winfo_children():
                 child.destroy()
+            # Discard old images when browsing alternatives; keep only live Tk references.
+            artwork_host._photos = []
             index = position.get() if len(digests) > 1 else 0
             digest = digests[index] if digests else None
             if len(digests) > 1:
@@ -175,7 +177,7 @@ class ReviewGallery(ttk.Frame):
                         photo = ImageTk.PhotoImage(im, master=self)
                         preview.configure(image=photo, text='')
                         preview.image = photo
-                        self.photos.append(photo)
+                        artwork_host._photos.append(photo)
                     except (OSError, ImportError, ValueError):
                         pass
         show_artwork()
