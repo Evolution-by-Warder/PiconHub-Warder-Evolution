@@ -4,17 +4,26 @@ on:
     workflows: ["Factory regression (no release)"]
     types: [completed]
   workflow_dispatch:
+    inputs:
+      regression_run_id:
+        description: "Successful Windows regression run ID"
+        required: true
+        type: string
+      regression_commit:
+        description: "Exact commit SHA built by that run"
+        required: true
+        type: string
 permissions:
   contents: write
   actions: read
 jobs:
   publish:
-    if: ${{ github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'factory-warder-development' }}
+    if: ${{ github.event_name == 'workflow_dispatch' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'factory-warder-development') }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.workflow_run.head_sha }}
+          ref: ${{ github.event_name == 'workflow_dispatch' && inputs.regression_commit || github.event.workflow_run.head_sha }}
           persist-credentials: false
       - name: Verify approved release identity
         id: identity
@@ -24,11 +33,11 @@ jobs:
           version=$(python -c 'import json; print(json.load(open("factory/app/.factory-version.json"))["version"])')
           [[ "$version" =~ ^factory-v[0-9]+\.[0-9]+\.[0-9]+$ ]]
           echo "version=$version" >> "$GITHUB_OUTPUT"
-          echo "sha=${{ github.event.workflow_run.head_sha }}" >> "$GITHUB_OUTPUT"
+          echo "sha=${{ github.event_name == 'workflow_dispatch' && inputs.regression_commit || github.event.workflow_run.head_sha }}" >> "$GITHUB_OUTPUT"
       - name: Download exact successful Windows build
         env:
           GH_TOKEN: ${{ github.token }}
-          RUN_ID: ${{ github.event.workflow_run.id }}
+          RUN_ID: ${{ github.event_name == 'workflow_dispatch' && inputs.regression_run_id || github.event.workflow_run.id }}
         run: |
           set -euo pipefail
           mkdir -p dist
@@ -36,7 +45,7 @@ jobs:
       - name: Verify artifact before publishing
         shell: bash
         env:
-          EXPECTED_COMMIT: ${{ github.event.workflow_run.head_sha }}
+          EXPECTED_COMMIT: ${{ github.event_name == 'workflow_dispatch' && inputs.regression_commit || github.event.workflow_run.head_sha }}
           EXPECTED_VERSION: ${{ steps.identity.outputs.version }}
         run: |
           set -euo pipefail
@@ -61,7 +70,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           VERSION: ${{ steps.identity.outputs.version }}
-          SHA: ${{ github.event.workflow_run.head_sha }}
+          SHA: ${{ github.event_name == 'workflow_dispatch' && inputs.regression_commit || github.event.workflow_run.head_sha }}
         shell: bash
         run: |
           set -euo pipefail
