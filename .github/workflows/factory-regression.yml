@@ -305,12 +305,10 @@ jobs:
           $manifest = @{ schema=2; version=$version; commit=$env:GITHUB_SHA; assets=$assets } | ConvertTo-Json -Depth 5
           $encoded = [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes($manifest))
           $path = 'factory/update/windows-exe-manifest.json'
-          $existing = gh api "repos/$env:GITHUB_REPOSITORY/contents/$path?ref=factory-warder-development" --jq .sha 2>$null
-          if ($LASTEXITCODE -eq 0 -and $existing) {
-            gh api -X PUT "repos/$env:GITHUB_REPOSITORY/contents/$path" -f "message=factory: publish verified $version EXE" -f branch=factory-warder-development -f "content=$encoded" -f "sha=$existing"
-          } else {
-            gh api -X PUT "repos/$env:GITHUB_REPOSITORY/contents/$path" -f "message=factory: publish verified $version EXE" -f branch=factory-warder-development -f "content=$encoded"
-          }
+          $existing = (git rev-parse "HEAD:$path").Trim()
+          if ($LASTEXITCODE -ne 0 -or [string]::IsNullOrWhiteSpace($existing)) { throw 'Unable to identify the checked-out updater manifest blob' }
+          $request = @{ message="factory: publish verified $version EXE"; branch='factory-warder-development'; content=$encoded; sha=$existing } | ConvertTo-Json -Compress
+          $request | gh api -X PUT "repos/$env:GITHUB_REPOSITORY/contents/$path" --input -
           if ($LASTEXITCODE -ne 0) { throw 'Manifest publishing failed' }
 
           # Confirm the public release assets and the branch manifest before retiring the prior release.
