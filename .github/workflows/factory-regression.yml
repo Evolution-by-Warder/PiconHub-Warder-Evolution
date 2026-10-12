@@ -130,6 +130,7 @@ jobs:
           $version = python -c "import json;print(json.load(open('.factory-version.json'))['version'])"
           if ($LASTEXITCODE -ne 0) { throw "Unable to read Factory version" }
           $commit = (git rev-parse HEAD).Trim()
+          if ($commit -ne $env:GITHUB_SHA) { throw "Built commit $commit does not match workflow trigger $env:GITHUB_SHA" }
           python package_windows_cmd.py --exe dist/WARDER-PICON-FACTORY.exe --output ../../SPUSTI-WARDER-PICON-FACTORY.cmd --version $version --commit $commit
           if ($LASTEXITCODE -ne 0) { throw "Unable to build one-click CMD package" }
       - name: Smoke-test single-CMD install and launch
