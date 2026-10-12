@@ -545,14 +545,33 @@ def repair_variant_task(args):
    if name not in affected:continue
    render=_compose_variant(rgba,name)
    if name in ('white','black') and 'LOW_CONTRAST_'+name.upper() in reasons:
-    if _contrast_variant_art(rgba,name).tobytes()==rgba.tobytes():
-     for radius in (2,3,4):
-      candidate=_compose_variant(_outlined_variant(rgba,name,radius=radius),name)
-      if _has_contrast_outline(rgba,candidate,name):
-       render=candidate
-       break
+    # Do not mistake a partial recolor for proven legibility. Validate the
+    # composed candidate against the same source-alpha contrast criteria as QA.
+    source_pixels=list(rgba.getdata())
+    visible=[(r,g,b) for r,g,b,a in source_pixels if a>=128]
+    if len(visible)>=20:
+     if name=='white':
+      mostly_low=sum(min(rgb)>=238 for rgb in visible)/len(visible)>0.94
+      def still_low(candidate):
+       foreground=[rgb for rgb,(_,_,_,a) in zip(candidate.getdata(),source_pixels) if a>=128]
+       return (mostly_low and foreground
+               and sum(min(r,g,b)>=238 for r,g,b,a in foreground)/len(foreground)>0.94
+               and not _has_contrast_outline(rgba,candidate,'white'))
      else:
-      return False,0,'Contrast outline cannot be verified safely'
+      mostly_low=sum(max(rgb)<=17 for rgb in visible)/len(visible)>0.94
+      def still_low(candidate):
+       foreground=[rgb for rgb,(_,_,_,a) in zip(candidate.getdata(),source_pixels) if a>=128]
+       return (mostly_low and foreground
+               and sum(max(r,g,b)<=17 for r,g,b,a in foreground)/len(foreground)>0.94
+               and not _has_contrast_outline(rgba,candidate,'black'))
+     if still_low(render):
+      for radius in (2,3,4):
+       candidate=_compose_variant(_outlined_variant(rgba,name,radius=radius),name)
+       if not still_low(candidate) and _has_contrast_outline(rgba,candidate,name):
+        render=candidate
+        break
+      else:
+       return False,0,'Contrast repair failed output QA; original preserved'
    if render.size!=(220,132):
     return False,0,'Invalid prepared variant dimensions'
    prepared[name]=render
