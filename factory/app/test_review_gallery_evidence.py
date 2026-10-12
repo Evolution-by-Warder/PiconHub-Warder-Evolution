@@ -46,6 +46,16 @@ class GalleryEvidenceTests(unittest.TestCase):
         self.assertEqual(source_candidates(item, first), ['first.png', 'first-original.png'])
         self.assertEqual(source_candidates(item, second), ['second.png', 'second-alt.png'])
 
+    def test_source_candidates_ignore_malformed_sources(self):
+        digest = 'a' * 64
+        item = {'source_evidence': [{'sha256': digest, 'sources': 'not-a-list.png'}]}
+        self.assertEqual(source_candidates(item, digest), [])
+
+    def test_source_candidates_case_insensitive_digest(self):
+        digest = 'a' * 64
+        item = {'variants': [{'sha256': digest.upper(), 'sources': ['valid.png']}]}
+        self.assertEqual(source_candidates(item, digest), ['valid.png'])
+
     def test_original_source_requires_matching_sha(self):
         with tempfile.TemporaryDirectory() as folder:
             path = Path(folder) / 'source.png'
