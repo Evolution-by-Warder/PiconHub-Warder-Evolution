@@ -180,7 +180,7 @@ def verify_required_directories(root: Path):
     return True, ()
 
 
-def read_only_preflight(root: Path | None = None) -> PreflightResult:
+def read_only_preflight(root: Path | None = None, *, progress=None) -> PreflightResult:
     """Audit the 13 required directories without creating or changing anything."""
     root = Path(root) if root is not None else resolve_root()
     missing, unreadable, findings = [], [], []
@@ -196,6 +196,8 @@ def read_only_preflight(root: Path | None = None) -> PreflightResult:
     if not structure_ok:
         findings.extend(structure_findings)
     for name, purpose in DIRECTORIES:
+        if progress is not None:
+            progress(checked + 1, len(DIRECTORIES), name)
         folder = root / name
         checked += 1
         if not folder.is_dir() or _is_reparse_point(folder):
