@@ -172,6 +172,8 @@ class ReviewGallery(ttk.Frame):
             if len(digests) > 1:
                 indicator.configure(text=f'Grafika {index+1}/{len(digests)} · SHA {digest[:12]}')
             paths = variant_paths(self.output_dir, {'sha256': digest} if digest else item)
+            # Never present a generated transparent derivative as the original source.
+            paths.pop('transparent', None)
             # The transparent source is immutable and may live outside generated output.
             evidence = (item.get('source_evidence') or []) + (item.get('variants') or [])
             if digest:
