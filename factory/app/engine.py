@@ -1254,7 +1254,12 @@ class Factory:
   stats['qa_grouping_savings']=backlog['grouping_savings']
   self.log('QA PREČO ZOSTÁVAJÚ: '+str(backlog['pending_by_reason'])+'; report: '+str(backlog_path))
   self.log('QA ÚSPORA ZOSKUPENÍM: '+str(backlog['grouping_savings']))
-  stats['review_queue_items']=review_queue['count']
+  # User-facing review count is pending-only; retain full audit cardinality separately.
+  stats['review_queue_items']=backlog['pending_review_tasks']
+  stats['review_queue_audit_items']=review_queue['count']
+  stats['qa_auto_resolved_master_pixel_identical']=sum(
+   item.get('decision') == 'AUTO_RESOLVED_MASTER_PIXEL_IDENTICAL'
+   for item in review_queue['items'])
   stats['review_workstreams']=review_queue.get('workstream_counts', {})
   self.log('QA pracovné fronty: '+', '.join(f'{name}={count}' for name,count in review_queue.get('workstream_counts', {}).items()))
   self.log(f'Výnimky na rozhodnutie: {review_queue["count"]}; vizuálne upozornenia sú evidované osobitne v QA reporte: {review_path}')
