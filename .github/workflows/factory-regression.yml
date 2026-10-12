@@ -289,9 +289,9 @@ jobs:
           $hash = (Get-FileHash -Algorithm SHA256 $exe).Hash.ToLowerInvariant()
           $size = (Get-Item $exe).Length
           if ($hash -ne $identity.sha256 -or $size -ne $identity.bytes) { throw 'EXE integrity mismatch' }
-          gh release view $version -R $env:GITHUB_REPOSITORY 2>$null
-          if ($LASTEXITCODE -eq 0) { Write-Host "Release already exists; verifying manifest publication" }
-          if (-not (gh release view $version -R $env:GITHUB_REPOSITORY 2>$null)) { gh release create $version $exe 'factory/app/dist/WARDER-PICON-UPDATER.exe' 'factory/app/dist/BUILD-IDENTITY.json' 'factory/app/dist/SPUSTI-WARDER-EXE.cmd' 'factory/app/dist/windows_exe_startup.py' 'factory/app/dist/windows_exe_update.py' --repo $env:GITHUB_REPOSITORY --target $env:GITHUB_SHA --title "WARDER PICON FACTORY $version" --notes "Windows tested executable with startup update support." }
+          $release = gh release view $version -R $env:GITHUB_REPOSITORY --json targetCommitish 2>$null | ConvertFrom-Json
+          if ($release -and $release.targetCommitish -ne $env:GITHUB_SHA) { throw "Release $version belongs to $($release.targetCommitish), not $env:GITHUB_SHA; bump version before publishing" }
+          if (-not $release) { gh release create $version $exe 'factory/app/dist/WARDER-PICON-UPDATER.exe' 'factory/app/dist/BUILD-IDENTITY.json' 'factory/app/dist/SPUSTI-WARDER-EXE.cmd' 'factory/app/dist/windows_exe_startup.py' 'factory/app/dist/windows_exe_update.py' --repo $env:GITHUB_REPOSITORY --target $env:GITHUB_SHA --title "WARDER PICON FACTORY $version" --notes "Windows tested executable with startup update support." }
           if ($LASTEXITCODE -ne 0) { throw 'Release creation failed' }
           $assets = @{}
           foreach ($name in @('WARDER-PICON-FACTORY.exe','WARDER-PICON-UPDATER.exe','SPUSTI-WARDER-EXE.cmd','windows_exe_startup.py','windows_exe_update.py')) {
