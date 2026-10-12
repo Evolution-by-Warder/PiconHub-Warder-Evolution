@@ -101,3 +101,33 @@ def download_verified(info, target, *, opener=None):
     except BaseException:
         target.unlink(missing_ok=True)
         raise
+
+
+def install_verified_exe(info, installed, *, downloader=download_verified):
+    """Atomic same-volume replacement. Caller must ensure Factory is stopped.
+
+    Previous EXE is preserved until a later explicit cleanup. Never touch data.
+    """
+    import os
+    import uuid
+    installed = Path(installed).resolve()
+    if installed.name.lower() != "warder-picon-factory.exe":
+        raise ValueError("Unexpected executable target")
+    if not installed.is_file() or installed.is_symlink():
+        raise ValueError("Installed executable missing or unsafe")
+    parent = installed.parent
+    staged = parent / (".factory-download-" + uuid.uuid4().hex + ".exe")
+    previous = parent / (installed.name + ".previous-" + uuid.uuid4().hex)
+    try:
+        downloader(info, staged)
+        if not staged.is_file():
+            raise ValueError("Verified download missing")
+        os.replace(installed, previous)
+        try:
+            os.replace(staged, installed)
+        except BaseException:
+            os.replace(previous, installed)
+            raise
+        return previous
+    finally:
+        staged.unlink(missing_ok=True)
