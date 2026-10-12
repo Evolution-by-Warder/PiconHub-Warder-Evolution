@@ -23,7 +23,11 @@ def variant_paths(output_dir, item):
 
 
 def evidence_digests(item):
-    evidence = (item.get('source_evidence') or []) + (item.get('variants') or [])
+    evidence = []
+    for field in ('source_evidence', 'variants'):
+        entries = item.get(field)
+        if isinstance(entries, (list, tuple)):
+            evidence.extend(entries)
     values = [item.get('sha256')] + [entry.get('sha256') for entry in evidence if isinstance(entry, dict)]
     return sorted({value.lower() for value in values if isinstance(value, str) and len(value) == 64
                    and all(c in '0123456789abcdef' for c in value.lower())})
@@ -46,7 +50,12 @@ def matches_evidence_sha(path, digest):
 def source_candidates(item, digest):
     """Enumerate original source candidates associated with an exact digest."""
     values = []
-    for entry in (item.get('source_evidence') or []) + (item.get('variants') or []):
+    evidence = []
+    for field in ('source_evidence', 'variants'):
+        entries = item.get(field)
+        if isinstance(entries, (list, tuple)):
+            evidence.extend(entries)
+    for entry in evidence:
         if isinstance(entry, dict) and str(entry.get('sha256', '')).lower() == str(digest).lower():
             values.extend([entry.get('source'), entry.get('path')])
             sources = entry.get('sources')
