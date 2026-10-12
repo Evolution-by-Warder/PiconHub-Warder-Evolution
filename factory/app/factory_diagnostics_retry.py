@@ -1,39 +1,40 @@
-"""Retry local run summaries while preserving every report for user review."""
+"""Deliver diagnostic reports and remove local copies only after GitHub readback.
+
+Only report-*.json files are eligible. Failed or unverified uploads remain on disk.
+"""
 import json
 from pathlib import Path
 from factory_diagnostics import upload_report
+
 
 def retry_reports(report_dir, state_file, limit=5):
     folder, state_file = Path(report_dir), Path(state_file)
     if limit < 1:
         raise ValueError('limit must be positive')
-    try:
-        state = json.loads(state_file.read_text(encoding='utf-8'))
-    except (OSError, ValueError):
-        state = {}
-    if state.get('schema') != 2 or not isinstance(state.get('delivered'), list):
-        state = {}
-    delivered = {name for name in state.get('delivered', []) if isinstance(name, str) and name.startswith('report-') and name.endswith('.json')}
     results = []
     if not folder.is_dir():
         return results
-    # Newest-first prioritizes the just-completed run for diagnostics.
+    # Newest first; no deletion based solely on an old local delivered marker.
     for path in sorted(folder.glob('report-*.json'), reverse=True):
         if len(results) >= limit:
             break
         if path.is_symlink() or not path.is_file():
             continue
-        if path.name in delivered:
-            continue
-        result = upload_report(path)
-        results.append({'report': path.name, 'status': result['status']})
-        if result['status'] == 'sent':
-            delivered.add(path.name)
-        elif result['status'] in ('not_configured', 'invalid_configuration'):
+        try:
+            result = upload_report(path)
+        except (OSError, ValueError, KeyError, TypeError):
+            result = {'status': 'local_error'}
+        status = result.get('status', 'local_error')
+        if status == 'sent' and result.get('verified') is True:
+            try:
+                path.unlink()
+            except OSError:
+                status = 'verified_cleanup_failed'
+        elif status == 'sent':
+            status = 'verification_missing'
+        results.append({'report': path.name, 'status': status})
+        if status in ('not_configured', 'invalid_configuration'):
             break
-    if results:
-        state_file.parent.mkdir(parents=True, exist_ok=True)
-        temp = state_file.with_suffix('.json.tmp')
-        temp.write_text(json.dumps({'schema': 2, 'delivered': sorted(delivered)}, indent=2), encoding='utf-8')
-        temp.replace(state_file)
+    # No ever-growing delivery ledger: remote readback is the authority.
+    # Keep the old state file untouched for compatibility with existing installs.
     return results
