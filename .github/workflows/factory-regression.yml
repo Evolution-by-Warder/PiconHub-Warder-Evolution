@@ -119,6 +119,8 @@ jobs:
           $identity = Get-Content $env:WARDER_GUI_SMOKE_READY_FILE -Raw | ConvertFrom-Json
           $expectedExe = (Resolve-Path 'dist/WARDER-PICON-FACTORY.exe').Path
           if ($identity.build_commit -ne (git rev-parse HEAD).Trim()) { throw "GUI reports wrong build commit: $($identity.build_commit)" }
+          $expectedVersion = (Get-Content '.factory-version.json' -Raw | ConvertFrom-Json).version
+          if ($identity.installed_version -cne $expectedVersion) { throw "Packaged EXE reports wrong version: $($identity.installed_version), expected $expectedVersion" }
           if ($identity.executable_path -ine $expectedExe) { throw "GUI smoke ran a different executable: $($identity.executable_path)" }
           if ($identity.data_root -cne 'D:\WARDER-PICON-FACTORY' -or $identity.preflight -ne 'ok') { throw "GUI smoke did not use the authoritative D: workspace" }
           $proc.WaitForExit(15000) | Out-Null
