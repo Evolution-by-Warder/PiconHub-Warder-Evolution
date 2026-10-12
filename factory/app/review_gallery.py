@@ -166,8 +166,8 @@ class ReviewGallery(ttk.Frame):
                     if rel.is_absolute() or '..' in rel.parts:
                         continue
                     master_path = self.master_root / rel
-                    if master_path.is_file() and (not paths.get(style) or not paths[style].is_file()):
-                        paths[style] = master_path
+                    # Master snapshots are not candidate artwork: never substitute them.
+                    # A missing candidate preview must remain visibly missing.
             for name, label in [('transparent', 'Transparent · referencia 🔒'), ('black', 'Čierny'), ('white', 'Biely')]:
                 cell = ttk.Frame(artwork_host)
                 cell.pack(side='left', fill='both', expand=True)
