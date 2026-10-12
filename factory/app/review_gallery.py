@@ -276,6 +276,9 @@ class ReviewGallery(ttk.Frame):
                 return
         if decision == 'APPROVED_FOR_REVIEW' and item.get('workstream') == 'ARTWORK_REVIEW':
             for digest in digests:
+                if not any(matches_evidence_sha(path, digest) for path in source_candidates(item, digest)):
+                    messagebox.showwarning('Chýba originál', 'Pre jednu z grafík chýba overiteľný pôvodný PNG. Schválenie je zablokované.', parent=self)
+                    return
                 variants = variant_paths(self.output_dir, {'sha256': digest})
                 if not all(variants[name].is_file() for name in ('black', 'white')):
                     messagebox.showwarning('Chýbajú varianty', 'Nie sú dostupné čierny aj biely variant pre každú grafiku. Schválenie je zablokované.', parent=self)
