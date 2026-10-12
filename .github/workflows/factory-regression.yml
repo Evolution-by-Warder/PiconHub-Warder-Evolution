@@ -247,6 +247,7 @@ jobs:
           $hash = (Get-FileHash -Algorithm SHA256 -LiteralPath $exe).Hash.ToLowerInvariant()
           $size = (Get-Item -LiteralPath $exe).Length
           $commit = (git rev-parse HEAD).Trim()
+          if ($commit -ne $env:GITHUB_SHA) { throw "EXE identity mismatch: checked-out commit $commit differs from workflow trigger $env:GITHUB_SHA" }
           $version = (Get-Content 'factory/app/.factory-version.json' -Raw | ConvertFrom-Json).version
           $identity = [ordered]@{ version=$version; commit=$commit; workflow_run=$env:GITHUB_RUN_ID; sha256=$hash; bytes=$size; filename='WARDER-PICON-FACTORY.exe'; smoke_test='passed' }
           $identity | ConvertTo-Json | Set-Content -LiteralPath 'factory/app/dist/BUILD-IDENTITY.json' -Encoding utf8
