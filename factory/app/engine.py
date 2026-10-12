@@ -1637,6 +1637,18 @@ class App:
    self.emit('diagnostics','prenos nedokončený ('+type(exc).__name__+'); lokálne dáta zachované')
   finally:
    self._delivery_lock.release()
+ def _record_failed_run(self):
+  # A failed run must reach the same bounded, allowlisted GitHub telemetry
+  # pipeline as a successful scan. Never upload tracebacks or local paths.
+  from datetime import timezone
+  now=datetime.now(timezone.utc)
+  run=now.strftime('%Y%m%d-%H%M%S-%f')
+  report=REPORTS / ('report-'+run+'.json')
+  payload={'run':run,'created_utc':now.isoformat(),
+           'stats':{'source_errors':1,'installed_factory_version':self.installed_version}}
+  REPORTS.mkdir(parents=True,exist_ok=True)
+  atomic_json(report,payload)
+  threading.Thread(target=self._send_diagnostics,args=(str(report),),daemon=True).start()
  def emit(self,k,v):self.events.put((k,v))
  def start(self):
   if self.running or self.export_running:return
@@ -1776,6 +1788,9 @@ class App:
      self._close_when_ready()
     elif k=='error':
      self.status.set('Chyba spracovania');self.output.insert('end',v);self.running=False
+     try:self._record_failed_run()
+     except (OSError,ValueError,TypeError) as exc:
+      self.output.insert('end','\nDiagnostika chyby sa nedala uložiť: '+type(exc).__name__+'\n')
      self._close_when_ready()
   except queue.Empty:pass
   if pending_logs:
