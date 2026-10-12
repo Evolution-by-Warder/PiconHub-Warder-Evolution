@@ -76,7 +76,7 @@ class PixelGroupingEvidenceTests(unittest.TestCase):
         self.assertEqual(counts['NO_PIXEL_EXACT_SAME_SERVICE_MASTER'], 2)
         self.assertTrue(all(item['decision'] == 'PENDING' for item in queue['items']))
 
-    def test_master_exact_review_is_still_pending(self):
+    def test_master_exact_review_auto_resolves_without_approval(self):
         queue = {'items': [
             {'workstream': 'ARTWORK_REVIEW', 'decision': 'PENDING',
              'candidate_identity': 'service-a', 'artwork_review_units': [
@@ -86,7 +86,20 @@ class PixelGroupingEvidenceTests(unittest.TestCase):
         attach_master_pixel_comparisons(queue, {'service-a': ['same']}, {})
         item = queue['items'][0]
         self.assertEqual(item['master_pixel_evidence'], 'ALL_REVIEW_UNITS_EXACT_SAME_SERVICE_MASTER')
-        self.assertEqual(item['decision'], 'PENDING')
+        self.assertEqual(item['decision'], 'AUTO_RESOLVED_MASTER_PIXEL_IDENTICAL')
+        self.assertEqual(item['automatic_resolution'], 'EXACT_RGBA_SAME_SERVICE_MASTER')
+
+    def test_incomplete_or_different_master_evidence_stays_pending(self):
+        queue = {'items': [
+            {'workstream': 'ARTWORK_REVIEW', 'decision': 'PENDING',
+             'candidate_identity': 'service-a', 'artwork_review_units': [
+                 {'pixel_sha256': 'same'}, {'pixel_sha256': 'different'}]},
+            {'workstream': 'ARTWORK_REVIEW', 'decision': 'PENDING',
+             'candidate_identity': 'service-a', 'artwork_review_units': [
+                 {'pixel_sha256': 'same'}, {'representative_sha256': 'unknown'}]},
+        ]}
+        attach_master_pixel_comparisons(queue, {'service-a': ['same']}, {})
+        self.assertEqual([item['decision'] for item in queue['items']], ['PENDING', 'PENDING'])
 
     def test_invalid_sha_types_fail_closed(self):
         with tempfile.TemporaryDirectory() as folder:
