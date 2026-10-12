@@ -29,7 +29,7 @@ class ReviewWindow(tk.Toplevel):
         self.items = load_review_queue(path)['items'] if path else []
         self.pending = [i for i in self.items if i.get('decision', 'PENDING') == 'PENDING']
         self.visible = list(self.pending)
-        self.page_size = 200
+        self.page_size = 10
         self.page = 0
         self.selected = None
         frame = ttk.Frame(self, padding=12); frame.pack(fill='both', expand=True)
@@ -37,7 +37,7 @@ class ReviewWindow(tk.Toplevel):
                   font=('Segoe UI', 11, 'bold')).pack(anchor='w')
         filters = ttk.Frame(frame); filters.pack(fill='x', pady=5)
         ttk.Label(filters, text='Pracovná fronta:').pack(side='left')
-        self.lane = tk.StringVar(value='TECHNICAL_QA')
+        self.lane = tk.StringVar(value='ARTWORK_REVIEW')
         self.lane_filter = ttk.Combobox(filters, textvariable=self.lane, state='readonly', width=26, values=('TECHNICAL_QA', 'ARTWORK_REVIEW', 'IDENTITY_VERIFICATION', 'ALL'))
         self.lane_filter.pack(side='left', padx=8)
         self.lane_filter.bind('<<ComboboxSelected>>', self.change_lane)
@@ -49,7 +49,6 @@ class ReviewWindow(tk.Toplevel):
         self.tree = ttk.Treeview(frame, columns=columns, show='headings', height=13)
         for col, title, width in [('category','Kategória',170),('reasons','Dôvod',410),('identity','Identita / SHA',320)]:
             self.tree.heading(col, text=title); self.tree.column(col, width=width)
-        self.refresh_list()
         self.tree.pack(fill='both', expand=True, pady=8)
         self.tree.bind('<<TreeviewSelect>>', self.show_selected)
         preview = ttk.LabelFrame(frame, text='Originál a varianty', padding=6)
@@ -70,6 +69,10 @@ class ReviewWindow(tk.Toplevel):
         ttk.Button(actions, text='Zamietnuť', command=lambda:self.decide('REJECTED')).pack(side='left', padx=4)
         ttk.Button(actions, text='Schváliť iba na ďalšie posúdenie', command=lambda:self.decide('APPROVED_FOR_REVIEW')).pack(side='left', padx=4)
         ttk.Button(actions, text='Zavrieť', command=self.destroy).pack(side='right')
+        self.refresh_list()
+        if self.tree.get_children():
+            self.tree.selection_set(self.tree.get_children()[0])
+            self.show_selected()
 
     def change_lane(self, _event=None):
         self.page = 0
