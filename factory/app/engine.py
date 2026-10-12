@@ -1808,7 +1808,9 @@ if __name__=='__main__':
  except Exception:
   detail=traceback.format_exc()
   try:
-   if read_only_preflight(ROOT).ok:
+   # A startup crash must not trigger another potentially hours-long scan.
+   # Verify only the existing top-level layout before writing a local log.
+   if verify_required_directories(ROOT)[0]:
     startup_log=_WORKSPACE['startup_log']
     startup_log.parent.mkdir(parents=True,exist_ok=True)
     startup_log.write_text(detail,encoding='utf-8')
