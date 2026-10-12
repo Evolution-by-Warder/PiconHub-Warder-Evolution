@@ -48,6 +48,7 @@ def sanitized_summary(report):
                     and isinstance(v, int) and not isinstance(v, bool) and v >= 0}
             if safe:
                 summary[key] = safe
+    # Keep diagnostic summaries limited to approved aggregate fields.
     run = str(report.get('run', ''))[:64]
     created = report.get('created_utc')
     if not isinstance(created, str):
