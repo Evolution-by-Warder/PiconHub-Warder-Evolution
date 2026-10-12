@@ -8,7 +8,8 @@ if not exist "%WARDER_EXE%" (
  exit /b 2
 )
 if exist "%WARDER_UPDATER%" (
- py -3 "%WARDER_UPDATER%"
+ where py >nul 2>nul
+ if not errorlevel 1 py -3 "%WARDER_UPDATER%"
 )
 start "" /D "%WARDER_ROOT%\11-APP" "%WARDER_EXE%"
 exit /b 0
