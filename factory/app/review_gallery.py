@@ -254,6 +254,9 @@ class ReviewGallery(ttk.Frame):
             messagebox.showwarning('Zápis zablokovaný', 'Read-only preflight musí úspešne overiť všetkých 13 adresárov.', parent=self)
             return
         digests = evidence_digests(item)
+        if item.get('workstream') == 'ARTWORK_REVIEW' and not digests and decision == 'APPROVED_FOR_REVIEW':
+            messagebox.showwarning('Chýbajú grafické dôkazy', 'Bez overiteľného SHA-256 nemožno potvrdiť grafiku.', parent=self)
+            return
         if len(digests) > 1 and decision == 'APPROVED_FOR_REVIEW':
             if not messagebox.askyesno('Kontrola všetkých grafík',
                     f'Úloha obsahuje {len(digests)} rôznych grafík. Skontroloval/a si všetky transparentné, čierne a biele varianty?',
