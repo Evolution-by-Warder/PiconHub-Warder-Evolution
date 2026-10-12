@@ -8,6 +8,9 @@ on:
   workflow_dispatch:
 permissions:
   contents: write
+concurrency:
+  group: factory-windows-release-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   windows-smoke:
     runs-on: windows-latest
