@@ -134,7 +134,7 @@ def install_verified_exe(info, installed, *, downloader=download_verified):
         staged.unlink(missing_ok=True)
 
 # A complete approved distribution updates executable, launcher and update engine.
-COMPONENTS = ("WARDER-PICON-FACTORY.exe", "SPUSTI-WARDER-EXE.cmd",
+COMPONENTS = ("WARDER-PICON-FACTORY.exe", "WARDER-PICON-UPDATER.exe", "SPUSTI-WARDER-EXE.cmd",
               "windows_exe_startup.py", "windows_exe_update.py")
 
 
@@ -193,7 +193,7 @@ def install_verified_bundle(bundle, app_dir, *, downloader=download_verified):
             if not stage.is_file():
                 raise ValueError("Missing verified component")
         for name in COMPONENTS:
-            target = directory / (name + ".pending" if name.endswith(".cmd") else name)
+            target = directory / (name + ".pending" if name.endswith((".cmd", "UPDATER.exe")) else name)
             backup = directory / (".warder-backup-" + transaction + "-" + name)
             if target.exists():
                 os.replace(target, backup)

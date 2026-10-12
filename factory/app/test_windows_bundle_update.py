@@ -19,7 +19,7 @@ class BundleUpdateTests(unittest.TestCase):
             validate_bundle_manifest(manifest, "factory-v0.2.31")
 
     def test_valid_complete_bundle(self):
-        self.assertEqual(len(validate_bundle_manifest(self.bundle(), "factory-v0.2.31")["assets"]), 4)
+        self.assertEqual(len(validate_bundle_manifest(self.bundle(), "factory-v0.2.31")["assets"]), 5)
 
     def test_failed_download_never_changes_components(self):
         with tempfile.TemporaryDirectory() as tmp:
