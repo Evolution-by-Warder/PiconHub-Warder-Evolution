@@ -90,6 +90,7 @@ class ReviewGallery(ttk.Frame):
         except (OSError, ValueError, KeyError, TypeError) as exc:
             self.items = []
             self.load_error = f'{type(exc).__name__}: {exc}'
+        self.page = 0
         self.render()
 
     def reset_page(self):
