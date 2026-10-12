@@ -196,7 +196,15 @@ def build_review_queue(qa_issues: dict, originals: dict, collisions: list, regis
             ]
         # Incomplete multi-SHA evidence cannot be deduplicated.
         else:
-            item['artwork_review_units'] = []
+            # No decoded-pixel proof: retain one inspection unit per byte SHA.
+            # These are NOT equivalent or approved; every SHA stays pending.
+            hashes = sorted({e.get('sha256') for e in item.get('source_evidence', [])
+                             if isinstance(e, dict) and e.get('sha256')})
+            item['artwork_review_units'] = [
+                {'representative_sha256': sha, 'duplicate_sha256': [],
+                 'sha_observations': 1, 'pixel_verification': 'UNVERIFIED'}
+                for sha in hashes
+            ]
 
     # Review priority is advisory: exact decoded-pixel duplicates can be
     # inspected first without changing decisions, IDs, or Master Registry.
