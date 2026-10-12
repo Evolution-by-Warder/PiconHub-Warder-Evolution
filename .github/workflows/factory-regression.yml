@@ -308,7 +308,7 @@ jobs:
           $existing = (git rev-parse "HEAD:$path").Trim()
           if ($LASTEXITCODE -ne 0 -or [string]::IsNullOrWhiteSpace($existing)) { throw 'Unable to identify the checked-out updater manifest blob' }
           $request = @{ message="factory: publish verified $version EXE"; branch='factory-warder-development'; content=$encoded; sha=$existing } | ConvertTo-Json -Compress
-          $request | gh api -X PUT "repos/$env:GITHUB_REPOSITORY/contents/$path" --input -
+          $request | gh api -X PUT "repos/$env:GITHUB_REPOSITORY/contents/$path" --input - | Out-Null
           if ($LASTEXITCODE -ne 0) { throw 'Manifest publishing failed' }
 
           # Confirm the public release assets and the branch manifest before retiring the prior release.
@@ -338,28 +338,7 @@ jobs:
             if (-not $manifestAsset -or $manifestAsset.url -ne "https://github.com/$env:GITHUB_REPOSITORY/releases/download/$version/$name" -or $manifestAsset.size -ne $releaseAsset.size -or $manifestAsset.sha256 -ne ($releaseAsset.digest -replace '^sha256:','')) { throw "Updater manifest link or digest is wrong: $name" }
           }
 
-          $oldVersion = 'factory-v0.2.33'
-          $oldCommit = 'd9d734d6816bce60d1c2ae985cb85effa08a529c'
-          if ($version -eq $oldVersion) { throw 'Refusing to retire a release using its own version' }
-          $oldReleaseJson = gh api "repos/$env:GITHUB_REPOSITORY/releases/tags/$oldVersion" 2>$null
-          if ($LASTEXITCODE -eq 0 -and $oldReleaseJson) {
-            $oldRelease = $oldReleaseJson | ConvertFrom-Json
-            if ($oldRelease.tag_name -ne $oldVersion -or $oldRelease.target_commitish -ne $oldCommit) { throw "Refusing to delete unexpected prior release target: $oldVersion" }
-            gh release delete $oldVersion --repo $env:GITHUB_REPOSITORY --yes --cleanup-tag
-            if ($LASTEXITCODE -ne 0) { throw "Unable to remove superseded release and tag: $oldVersion" }
-          } else {
-            $oldTagJson = gh api "repos/$env:GITHUB_REPOSITORY/git/ref/tags/$oldVersion" 2>$null
-            if ($LASTEXITCODE -eq 0 -and $oldTagJson) {
-              $oldTag = $oldTagJson | ConvertFrom-Json
-              if ($oldTag.object.sha -ne $oldCommit) { throw "Refusing to delete unexpected prior tag target: $oldVersion" }
-              gh api -X DELETE "repos/$env:GITHUB_REPOSITORY/git/refs/tags/$oldVersion"
-              if ($LASTEXITCODE -ne 0) { throw "Unable to remove superseded release tag: $oldVersion" }
-            }
-          }
-          $remainingRelease = gh api "repos/$env:GITHUB_REPOSITORY/releases/tags/$oldVersion" 2>$null
-          if ($LASTEXITCODE -eq 0 -and $remainingRelease) { throw "Superseded release still exists: $oldVersion" }
-          $remainingTag = gh api "repos/$env:GITHUB_REPOSITORY/git/ref/tags/$oldVersion" 2>$null
-          if ($LASTEXITCODE -eq 0 -and $remainingTag) { throw "Superseded release tag still exists: $oldVersion" }
+          Write-Host 'Release assets and update manifest verified; old releases retained.'
       - name: Remove disposable synthetic workspace
         if: always()
         shell: pwsh
