@@ -151,13 +151,11 @@ class ReviewWindow(tk.Toplevel):
                 if style not in ('transparent', 'black', 'white'):
                     continue
                 relative = entry.get('path')
-                if relative and self.master_root:
-                    path = self.master_root / relative
-                    try:
-                        path.relative_to(self.master_root)
-                    except ValueError:
+                if isinstance(relative, str) and self.master_root:
+                    relative_path = Path(relative)
+                    if relative_path.is_absolute() or '..' in relative_path.parts:
                         continue
-                    add(style, path)
+                    add(style, self.master_root / relative_path)
                 for key in ('transparent', 'black', 'white'):
                     add(key, entry.get(key))
         if self.output_dir:
