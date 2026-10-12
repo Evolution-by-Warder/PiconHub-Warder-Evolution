@@ -65,6 +65,13 @@ class GalleryEvidenceTests(unittest.TestCase):
             self.assertFalse(matches_evidence_sha(path, '0' * 64))
             self.assertFalse(matches_evidence_sha(Path(folder) / 'missing.png', digest))
 
+    def test_invalid_sha_never_matches_existing_source(self):
+        with tempfile.TemporaryDirectory() as folder:
+            path = Path(folder) / 'source.png'
+            path.write_bytes(b'unchanged')
+            self.assertFalse(matches_evidence_sha(path, 'g' * 64))
+            self.assertFalse(matches_evidence_sha(path, '../wrong'))
+
     def test_bad_digest_never_resolves_an_output_path(self):
         with tempfile.TemporaryDirectory() as folder:
             self.assertEqual(variant_paths(folder, {"sha256": "../bad"}), {})
