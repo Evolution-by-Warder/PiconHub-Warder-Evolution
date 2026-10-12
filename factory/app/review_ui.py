@@ -111,36 +111,55 @@ class ReviewWindow(tk.Toplevel):
         self.details.configure(state='disabled')
 
     def _show_previews(self, item):
-        """Display review evidence only; previews never approve or modify an asset."""
-        if not self.output_dir:
-            return
+        """Render existing evidence; never create or approve picons."""
         candidates = []
-        original = item.get('original')
-        if original:
-            candidates.append(('original', Path(original)))
-        hashes = [item.get('sha256', '')]
-        hashes.extend(v.get('sha256', '') for v in item.get('variants', []) if isinstance(v, dict))
-        seen = set()
-        for digest in hashes:
-            if len(digest) != 64 or any(ch not in '0123456789abcdef' for ch in digest.lower()) or digest in seen:
-                continue
-            seen.add(digest)
-            folder = self.output_dir / digest[:2] / digest
-            for name in ('transparent', 'black', 'white'):
-                candidates.append((name, folder / (name + '.png')))
+        def add(slot, value):
+            if not value or not isinstance(value, (str, Path)):
+                return
+            path = Path(value)
+            if path.suffix.lower() == '.png':
+                candidates.append((slot, path))
+
+        add('original', item.get('original'))
+        for entry in item.get('source_evidence', []):
+            if isinstance(entry, dict):
+                add('original', entry.get('source'))
+            elif isinstance(entry, str):
+                add('original', entry)
+        for entry in item.get('master_locations', []):
+            if isinstance(entry, str):
+                add('transparent', entry)
+            elif isinstance(entry, dict):
+                for key in ('path', 'source', 'location', 'transparent'):
+                    add('transparent', entry.get(key))
+                for key in ('black', 'white'):
+                    add(key, entry.get(key))
+        if self.output_dir:
+            hashes = [item.get('sha256')]
+            hashes.extend(v.get('sha256') for v in item.get('variants', []) if isinstance(v, dict))
+            hashes.extend(v.get('sha256') for v in item.get('source_evidence', []) if isinstance(v, dict))
+            hashes.extend(v.get('representative_sha256') for v in item.get('artwork_review_units', []) if isinstance(v, dict))
+            for digest in dict.fromkeys(h for h in hashes if isinstance(h, str)):
+                if len(digest) != 64 or any(ch not in '0123456789abcdef' for ch in digest.lower()):
+                    continue
+                folder = self.output_dir / digest[:2] / digest
+                for name in ('transparent', 'black', 'white'):
+                    add(name, folder / (name + '.png'))
         try:
             from PIL import Image, ImageTk
         except ImportError:
             return
         used = set()
         for slot, path in candidates:
-            if slot not in self.preview_labels or slot in used or not path.is_file():
+            if slot in used or not path.is_file():
                 continue
             try:
                 with Image.open(path) as source:
-                    source.load(); image = source.convert('RGBA'); image.thumbnail((240, 125))
+                    source.load()
+                    image = source.convert('RGBA')
+                    image.thumbnail((240, 125))
                 photo = ImageTk.PhotoImage(image, master=self)
-            except Exception:
+            except (OSError, ValueError):
                 continue
             label = self.preview_labels[slot]
             label.configure(image=photo, text='')
