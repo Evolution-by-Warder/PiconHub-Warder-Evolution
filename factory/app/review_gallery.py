@@ -31,7 +31,7 @@ def evidence_digests(item):
 
 def matches_evidence_sha(path, digest):
     """Never display a source PNG as evidence for a different digest."""
-    if not isinstance(digest, str) or len(digest) != 64:
+    if not isinstance(digest, str) or len(digest) != 64 or any(c not in '0123456789abcdef' for c in digest.lower()):
         return False
     try:
         h = hashlib.sha256()
