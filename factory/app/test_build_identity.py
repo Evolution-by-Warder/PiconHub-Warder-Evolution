@@ -43,7 +43,7 @@ class BuildIdentityTests(unittest.TestCase):
         def numbers(value):
             return tuple(int(part) for part in value.removeprefix("factory-v").split("."))
         self.assertEqual(numbers(manifest), (0, 2, 27))
-        self.assertEqual(numbers(app_version), (0, 2, 28))
+        self.assertEqual(numbers(app_version), (0, 2, 30))
         self.assertGreater(numbers(app_version), numbers(manifest))
 
     def test_runtime_modules_do_not_contain_the_disallowed_c_root(self):
