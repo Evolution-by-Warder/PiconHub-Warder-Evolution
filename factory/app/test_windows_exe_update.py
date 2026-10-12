@@ -1,5 +1,5 @@
 import unittest
-from windows_exe_update import validate_manifest, version, REPO
+from windows_exe_update import validate_manifest, version, REPO, install_verified_exe
 
 
 def manifest(version_string="factory-v0.2.31"):
@@ -43,3 +43,29 @@ class WindowsUpdateContract(unittest.TestCase):
     def test_invalid_version(self):
         with self.assertRaises(ValueError):
             version("factory-v0.2.30-rc")
+
+    def test_atomic_install_preserves_previous(self):
+        import tempfile
+        from pathlib import Path
+        with tempfile.TemporaryDirectory() as directory:
+            exe = Path(directory) / "WARDER-PICON-FACTORY.exe"
+            exe.write_bytes(b"MZold")
+            def downloader(info, target):
+                target.write_bytes(b"MZnew")
+            previous = install_verified_exe(manifest(), exe, downloader=downloader)
+            self.assertEqual(exe.read_bytes(), b"MZnew")
+            self.assertEqual(previous.read_bytes(), b"MZold")
+
+    def test_failed_download_preserves_original(self):
+        import tempfile
+        from pathlib import Path
+        with tempfile.TemporaryDirectory() as directory:
+            exe = Path(directory) / "WARDER-PICON-FACTORY.exe"
+            exe.write_bytes(b"MZold")
+            def downloader(info, target):
+                target.write_bytes(b"partial")
+                raise ValueError("corrupt")
+            with self.assertRaises(ValueError):
+                install_verified_exe(manifest(), exe, downloader=downloader)
+            self.assertEqual(exe.read_bytes(), b"MZold")
+            self.assertFalse(list(Path(directory).glob(".factory-download-*")))
