@@ -1,7 +1,9 @@
 import unittest
+import tempfile
+import hashlib
 from pathlib import Path
 from PIL import Image
-from engine import _compose_variant, _contrast_variant_art, _adjust_low_contrast_color
+from engine import _compose_variant, _contrast_variant_art, _adjust_low_contrast_color, repair_variant_task, qa_png_task
 from artwork_preparation import extract_flat_edge_background
 
 
@@ -234,6 +236,35 @@ class FactoryRenderingTests(unittest.TestCase):
         source = Image.new('RGBA', (220, 132), (0, 0, 0, 0))
         source.putpixel((50, 50), (190, 20, 30, 255))
         self.assertEqual(_adjust_low_contrast_color(source, 'white').getpixel((50, 50)), source.getpixel((50, 50)))
+
+
+    def test_low_contrast_repair_checks_composed_white_output(self):
+        # Regression: repair must pass final PNG QA, not just change some pixels.
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            source = Image.new('RGBA', (220, 132), (0, 0, 0, 0))
+            for y in range(42, 75):
+                for x in range(55, 165):
+                    source.putpixel((x, y), (255, 255, 255, 255))
+            source_path = root / 'source.png'
+            source.save(source_path)
+            sha = hashlib.sha256(source_path.read_bytes()).hexdigest()
+            output = root / 'output'
+            folder = output / sha[:2] / sha
+            folder.mkdir(parents=True)
+            source.save(folder / 'transparent.png')
+            _compose_variant(source, 'black').save(folder / 'black.png')
+            # Deliberately leave white-on-white pixels to exercise repair.
+            _compose_variant(source, 'white').save(folder / 'white.png')
+            ok, changed, error = repair_variant_task(
+                (str(source_path), str(output), sha, ['LOW_CONTRAST_WHITE'],
+                 str(root / 'backups')))
+            self.assertTrue(ok, error)
+            self.assertEqual(changed, 1)
+            _, issues = qa_png_task((sha, str(output)))
+            self.assertNotIn('LOW_CONTRAST_WHITE', issues)
+            with Image.open(folder / 'transparent.png') as original:
+                self.assertEqual(original.convert('RGBA').tobytes(), source.tobytes())
 
 
 if __name__ == '__main__':
