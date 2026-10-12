@@ -19,7 +19,7 @@ class WindowsStartupTests(unittest.TestCase):
             exe = root / "WARDER-PICON-FACTORY.exe"
             exe.write_bytes(b"MZexisting")
             self.assertEqual(windows_exe_startup.run(exe, root / "version.json"),
-                             "SKIPPED_FileNotFoundError")
+                             "NO_VERSION_METADATA")
             self.assertEqual(exe.read_bytes(), b"MZexisting")
 
     def test_up_to_date_never_replaces_exe(self):

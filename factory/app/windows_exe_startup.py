@@ -16,6 +16,8 @@ def run(exe=EXE, metadata=VERSION_FILE):
     if not exe.is_file() or exe.is_symlink():
         return "NO_INSTALLED_EXE"
     try:
+        if not metadata.is_file():
+            return "NO_VERSION_METADATA"
         installed = json.loads(metadata.read_text(encoding="utf-8"))
         if not isinstance(installed, dict):
             return "NO_VERSION_METADATA"
@@ -31,8 +33,13 @@ def run(exe=EXE, metadata=VERSION_FILE):
                               encoding="utf-8")
             os.replace(staged, metadata)
         except Exception:
-            # Preserve new EXE and previous EXE, never delete a rollback copy.
-            return "UPDATED_METADATA_PENDING"
+            # Metadata failure must not leave an untracked new executable.
+            try:
+                os.replace(exe, exe.with_name(exe.name + ".failed-update"))
+                os.replace(previous, exe)
+            except OSError:
+                return "ROLLBACK_REQUIRED"
+            return "ROLLED_BACK_METADATA_FAILURE"
         return "UPDATED"
     except Exception as exc:
         return "SKIPPED_" + type(exc).__name__
