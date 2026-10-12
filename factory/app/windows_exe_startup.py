@@ -36,7 +36,7 @@ def identify_legacy_exe(exe):
     return None
 
 
-def run(exe=EXE, metadata=VERSION_FILE):
+def run(exe=EXE, metadata=VERSION_FILE, allow_legacy_migration=False):
     exe, metadata = Path(exe), Path(metadata)
     if not exe.is_file() or exe.is_symlink():
         return "NO_INSTALLED_EXE"
@@ -48,7 +48,9 @@ def run(exe=EXE, metadata=VERSION_FILE):
             if not identity.is_file() or identity.is_symlink():
                 installed = identify_legacy_exe(exe)
                 if installed is None:
-                    return "NO_VERSION_METADATA"
+                    if not allow_legacy_migration:
+                        return "NO_VERSION_METADATA"
+                    installed = {"version": "factory-v0.0.0", "commit": ""}
                 identity = None
             if identity is not None:
                 build = json.loads(identity.read_text(encoding="utf-8-sig"))
@@ -113,6 +115,12 @@ if __name__ == "__main__":
         sys.exit(0)
 
     result = run()
+    if result == "NO_VERSION_METADATA":
+        if dialog("Staršia Factory nemá overiteľnú verziu.\\n"
+                  "Pôvodné EXE bude zálohované a nahradené overeným vydaním.\\n"
+                  "Používateľské dáta a picony sa nemenia.\\n\\n"
+                  "Súhlasíte s migráciou?", 0x34) == 6:
+            result = run(allow_legacy_migration=True)
     messages = {
         "UPDATED": "Aktualizácia bola úspešne dokončená.",
         "UP_TO_DATE": "Aplikácia už má najnovšiu verziu.",
