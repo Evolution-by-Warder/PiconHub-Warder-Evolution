@@ -12,11 +12,16 @@ def exclusive_launcher(lock_path):
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open('a+b') as handle:
         # Lock byte zero, not the whole file; Windows msvcrt.locking requires a byte.
-        handle.seek(0)
-        if handle.read(1) == b'':
-            handle.write(b'\0')
-            handle.flush()
-        handle.seek(0)
+        try:
+            handle.seek(0)
+            if handle.read(1) == b'':
+                handle.write(b'\0')
+                handle.flush()
+            handle.seek(0)
+        except OSError as exc:
+            # Windows rejects reads of a byte locked by another process.
+            # Treat that contention exactly like a failed nonblocking lock.
+            raise AlreadyRunning('Factory is already running') from exc
         if os.name == 'nt':
             import msvcrt
             try:
