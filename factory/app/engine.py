@@ -1244,6 +1244,11 @@ class Factory:
   atomic_json(batch_path,artwork_review_batch(review_queue,limit=10))
   self.log('QA grafika: prvych 10 stabilnych kontrolnych ID (bez schvalenia): '+str(batch_path))
   stats['qa_backlog_causes']=backlog['pending_by_reason']
+  stats['identity_verification_subcauses']=backlog['identity_verification_subcauses']
+  stats['identity_provenance_distribution']=backlog['identity_provenance_distribution']
+  stats['artwork_pixel_triage']=backlog['artwork_pixel_triage']
+  stats['master_pixel_comparison_units']=backlog['master_pixel_comparison_units']
+  stats['artwork_backlog_unit_counts']={key:backlog[key] for key in ('artwork_tasks_all_units_pixel_exact_master','artwork_tasks_with_verified_master_difference','artwork_tasks_missing_master_pixel_evidence','artwork_units_verified_different_from_master','identity_cross_origin_tasks','identity_unknown_origin_tasks')}
   stats['qa_pending_by_workstream']=backlog['pending_by_workstream']
   stats['qa_pending_review_tasks']=backlog['pending_review_tasks']
   stats['qa_grouping_savings']=backlog['grouping_savings']
