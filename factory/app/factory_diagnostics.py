@@ -103,7 +103,7 @@ def upload_report(report_path, *, opener=None):
             with (opener or urllib.request.urlopen)(check, timeout=15) as response:
                 remote = json.load(response)
             if _existing_report_matches(remote, payload, blob_sha):
-                return {'status': 'sent', 'run': run, 'already_present': True}
+                return {'status': 'sent', 'run': run, 'already_present': True, 'verified': True}
             return {'status': 'http_error', 'code': 422, 'detail': 'existing_report_sha_mismatch'}
         except urllib.error.HTTPError as exc:
             if exc.code != 404:
@@ -116,7 +116,13 @@ def upload_report(report_path, *, opener=None):
         with (opener or urllib.request.urlopen)(req, timeout=15) as response:
             if response.status not in (200, 201):
                 return {'status': 'http_error', 'code': response.status}
-        return {'status': 'sent', 'run': run}
+        # A successful PUT is not enough: read the exact branch/path back before
+        # allowing the local copy to be removed.
+        with (opener or urllib.request.urlopen)(check, timeout=15) as response:
+            confirmed = json.load(response)
+        if not _existing_report_matches(confirmed, payload, blob_sha):
+            return {'status': 'verification_failed', 'run': run}
+        return {'status': 'sent', 'run': run, 'verified': True}
     except urllib.error.HTTPError as exc:
         # Resolve an upload/response race only when the remote bytes match.
         if exc.code == 422:
