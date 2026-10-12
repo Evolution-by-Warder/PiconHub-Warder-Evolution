@@ -7,7 +7,7 @@ on:
       - '.github/workflows/factory-regression.yml'
   workflow_dispatch:
 permissions:
-  contents: write
+  contents: read
 concurrency:
   group: factory-windows-release-${{ github.ref }}
   cancel-in-progress: true
@@ -278,67 +278,6 @@ jobs:
           name: WARDER-PICON-FACTORY-ONE-CLICK
           path: SPUSTI-WARDER-PICON-FACTORY.cmd
           retention-days: 7
-      - name: Publish verified Windows release
-        if: success()
-        shell: pwsh
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          $ErrorActionPreference = 'Stop'
-          $version = (Get-Content 'factory/app/.factory-version.json' -Raw | ConvertFrom-Json).version
-          $identity = Get-Content 'factory/app/dist/BUILD-IDENTITY.json' -Raw | ConvertFrom-Json
-          $exe = 'factory/app/dist/WARDER-PICON-FACTORY.exe'
-          if ($identity.version -ne $version -or $identity.commit -ne $env:GITHUB_SHA -or $identity.smoke_test -ne 'passed') { throw 'Build identity mismatch' }
-          $hash = (Get-FileHash -Algorithm SHA256 $exe).Hash.ToLowerInvariant()
-          $size = (Get-Item $exe).Length
-          if ($hash -ne $identity.sha256 -or $size -ne $identity.bytes) { throw 'EXE integrity mismatch' }
-          $releaseJson = gh release view $version -R $env:GITHUB_REPOSITORY --json targetCommitish 2>$null
-          $release = if ($LASTEXITCODE -eq 0 -and $releaseJson) { $releaseJson | ConvertFrom-Json } else { $null }
-          if ($release -and $release.targetCommitish -ne $env:GITHUB_SHA) { throw "Release $version belongs to $($release.targetCommitish), not $env:GITHUB_SHA; bump version before publishing" }
-          if (-not $release) { gh release create $version $exe 'factory/app/dist/WARDER-PICON-UPDATER.exe' 'factory/app/dist/BUILD-IDENTITY.json' 'factory/app/dist/SPUSTI-WARDER-EXE.cmd' 'factory/app/dist/windows_exe_startup.py' 'factory/app/dist/windows_exe_update.py' --repo $env:GITHUB_REPOSITORY --target $env:GITHUB_SHA --title "WARDER PICON FACTORY $version" --notes "Windows tested executable with startup update support." }
-          if ($LASTEXITCODE -ne 0) { throw 'Release creation failed' }
-          $assets = @{}
-          foreach ($name in @('WARDER-PICON-FACTORY.exe','WARDER-PICON-UPDATER.exe','SPUSTI-WARDER-EXE.cmd','windows_exe_startup.py','windows_exe_update.py')) {
-            $file = Join-Path 'factory/app/dist' $name
-            $assets[$name] = @{ url="https://github.com/$env:GITHUB_REPOSITORY/releases/download/$version/$name"; size=(Get-Item $file).Length; sha256=(Get-FileHash -Algorithm SHA256 $file).Hash.ToLowerInvariant() }
-          }
-          $manifest = @{ schema=2; version=$version; commit=$env:GITHUB_SHA; assets=$assets } | ConvertTo-Json -Depth 5
-          $encoded = [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes($manifest))
-          $path = 'factory/update/windows-exe-manifest.json'
-          $existing = (git rev-parse "HEAD:$path").Trim()
-          if ($LASTEXITCODE -ne 0 -or [string]::IsNullOrWhiteSpace($existing)) { throw 'Unable to identify the checked-out updater manifest blob' }
-          $request = @{ message="factory: publish verified $version EXE"; branch='factory-warder-development'; content=$encoded; sha=$existing } | ConvertTo-Json -Compress
-          $request | gh api -X PUT "repos/$env:GITHUB_REPOSITORY/contents/$path" --input - | Out-Null
-          if ($LASTEXITCODE -ne 0) { throw 'Manifest publishing failed' }
-
-          # Confirm the public release assets and the branch manifest before retiring the prior release.
-          $publishedJson = gh api "repos/$env:GITHUB_REPOSITORY/releases/tags/$version"
-          if ($LASTEXITCODE -ne 0) { throw 'Unable to read back the newly published release' }
-          $published = $publishedJson | ConvertFrom-Json
-          if ($published.tag_name -ne $version -or $published.target_commitish -ne $env:GITHUB_SHA) { throw 'Published release tag or commit does not match this build' }
-          $releaseFiles = @('WARDER-PICON-FACTORY.exe','WARDER-PICON-UPDATER.exe','BUILD-IDENTITY.json','SPUSTI-WARDER-EXE.cmd','windows_exe_startup.py','windows_exe_update.py')
-          foreach ($name in $releaseFiles) {
-            $localFile = Join-Path 'factory/app/dist' $name
-            if (-not (Test-Path -LiteralPath $localFile -PathType Leaf)) { throw "Release input is missing: $name" }
-            $remoteAsset = @($published.assets | Where-Object { $_.name -eq $name }) | Select-Object -First 1
-            $localSize = (Get-Item -LiteralPath $localFile).Length
-            $localHash = (Get-FileHash -Algorithm SHA256 -LiteralPath $localFile).Hash.ToLowerInvariant()
-            if (-not $remoteAsset -or $remoteAsset.size -ne $localSize -or $remoteAsset.digest -ne "sha256:$localHash") { throw "Published asset verification failed: $name" }
-          }
-
-          $manifestResponse = gh api "repos/$env:GITHUB_REPOSITORY/contents/${path}?ref=factory-warder-development"
-          if ($LASTEXITCODE -ne 0) { throw 'Unable to read back the published updater manifest' }
-          $manifestRecord = $manifestResponse | ConvertFrom-Json
-          $manifestText = [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String(($manifestRecord.content -replace '\s','')))
-          $verifiedManifest = $manifestText | ConvertFrom-Json
-          if ($verifiedManifest.version -ne $version -or $verifiedManifest.commit -ne $env:GITHUB_SHA) { throw 'Published updater manifest identity mismatch' }
-          foreach ($name in @('WARDER-PICON-FACTORY.exe','WARDER-PICON-UPDATER.exe','SPUSTI-WARDER-EXE.cmd','windows_exe_startup.py','windows_exe_update.py')) {
-            $manifestAsset = $verifiedManifest.assets.PSObject.Properties[$name].Value
-            $releaseAsset = @($published.assets | Where-Object { $_.name -eq $name }) | Select-Object -First 1
-            if (-not $manifestAsset -or $manifestAsset.url -ne "https://github.com/$env:GITHUB_REPOSITORY/releases/download/$version/$name" -or $manifestAsset.size -ne $releaseAsset.size -or $manifestAsset.sha256 -ne ($releaseAsset.digest -replace '^sha256:','')) { throw "Updater manifest link or digest is wrong: $name" }
-          }
-
-          Write-Host 'Release assets and update manifest verified; old releases retained.'
       - name: Remove disposable synthetic workspace
         if: always()
         shell: pwsh
