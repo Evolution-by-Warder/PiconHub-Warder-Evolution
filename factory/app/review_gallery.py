@@ -82,8 +82,8 @@ class ReviewGallery(ttk.Frame):
         self.reload()
 
     def reload(self):
-        path = latest_review(self.report_dir, *([self.legacy_report_dir] if self.legacy_report_dir else []))
         try:
+            path = latest_review(self.report_dir, *([self.legacy_report_dir] if self.legacy_report_dir else []))
             self.items = pending_items(load_review_queue(path)['items'], self.ledger_path,
                                        self.legacy_ledger_path) if path else []
             self.load_error = None
