@@ -3,6 +3,21 @@ from review_queue import build_review_queue
 
 
 class CrossFeedReviewGroupingTests(unittest.TestCase):
+    def test_windows_source_provenance_is_case_insensitive(self):
+        rows = [
+            {'classification': 'REVIEW', 'reason': 'EXISTING_SERVICE_DIFFERENT_ART',
+             'service_reference': 'service-a', 'candidate_sha256': 'a' * 64,
+             'candidate_source': r'D:\\SOURCE-INGEST\\ORIGINALS\\OpenATV8\\a.png'},
+            {'classification': 'REVIEW', 'reason': 'EXISTING_SERVICE_DIFFERENT_ART',
+             'service_reference': 'service-a', 'candidate_sha256': 'b' * 64,
+             'candidate_source': r'D:\\source-ingest\\originals\\OPENATV8\\b.png'},
+        ]
+        result = build_review_queue({}, {}, [], rows)
+        self.assertEqual(result['count'], 1)
+        self.assertEqual(result['items'][0]['source_origins'], ['openatv8'])
+        self.assertEqual(result['items'][0]['source_origin'], 'openatv8')
+
+
     def test_same_service_and_reason_across_feeds_is_one_review(self):
         rows = [
             {'classification': 'REVIEW', 'reason': 'EXISTING_SERVICE_DIFFERENT_ART',
