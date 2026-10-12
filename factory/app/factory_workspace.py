@@ -328,7 +328,7 @@ class FactoryWorkspace:
 
     def _build_review(self):
         from review_gallery import ReviewGallery
-        self.gallery = ReviewGallery(self._page("Výnimky / schvaľovanie"), self.paths["exceptions"], self.paths["ledger_path"], self.paths["output"], write_enabled=lambda: self.app.workspace_ready, legacy_report_dir=self.paths["reports"], legacy_ledger_path=self.paths["legacy_ledger"])
+        self.gallery = ReviewGallery(self._page("Výnimky / schvaľovanie"), self.paths["exceptions"], self.paths["ledger_path"], self.paths["output"], write_enabled=lambda: self.app.workspace_ready, legacy_report_dir=self.paths["reports"], legacy_ledger_path=self.paths["legacy_ledger"], master_root=self.paths["master_root"])
         # ttk.Notebook owns a frame; gallery fills it.
         self.gallery.pack(fill="both", expand=True)
 
