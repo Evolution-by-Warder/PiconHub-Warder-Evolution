@@ -1,0 +1,87 @@
+name: Factory Windows approved release
+on:
+  workflow_run:
+    workflows: ["Factory regression (no release)"]
+    types: [completed]
+permissions:
+  contents: write
+  actions: read
+jobs:
+  publish:
+    if: ${{ github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'factory-warder-development' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+          persist-credentials: false
+      - name: Verify approved release identity
+        id: identity
+        shell: bash
+        run: |
+          set -euo pipefail
+          version=$(python -c 'import json; print(json.load(open("factory/app/.factory-version.json"))["version"])')
+          [[ "$version" =~ ^factory-v[0-9]+\.[0-9]+\.[0-9]+$ ]]
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "sha=${{ github.event.workflow_run.head_sha }}" >> "$GITHUB_OUTPUT"
+      - name: Download exact successful Windows build
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_ID: ${{ github.event.workflow_run.id }}
+        run: |
+          set -euo pipefail
+          mkdir -p dist
+          gh run download "$RUN_ID" -R "$GITHUB_REPOSITORY" -n WARDER-PICON-FACTORY-WINDOWS-EXE -D dist
+      - name: Verify artifact before publishing
+        shell: bash
+        env:
+          EXPECTED_COMMIT: ${{ github.event.workflow_run.head_sha }}
+          EXPECTED_VERSION: ${{ steps.identity.outputs.version }}
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import hashlib,json,pathlib,os
+          root=pathlib.Path('dist')
+          info=json.loads((root/'BUILD-IDENTITY.json').read_text(encoding='utf-8-sig'))
+          exe=root/'WARDER-PICON-FACTORY.exe'
+          data=exe.read_bytes()
+          assert info['commit']==os.environ['EXPECTED_COMMIT']
+          assert info['version']==os.environ['EXPECTED_VERSION']
+          assert info['smoke_test']=='passed'
+          assert len(data)==info['bytes'] and data[:2]==b'MZ'
+          assert hashlib.sha256(data).hexdigest()==info['sha256']
+          assert 1024<len(data)<=300*1024*1024
+          manifest={'schema':1,'version':info['version'],'commit':info['commit'],
+                    'url':'https://github.com/'+os.environ['GITHUB_REPOSITORY']+'/releases/download/'+info['version']+'/WARDER-PICON-FACTORY.exe',
+                    'size':len(data),'sha256':info['sha256']}
+          pathlib.Path('windows-exe-manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
+          PY
+      - name: Publish verified EXE release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ steps.identity.outputs.version }}
+          SHA: ${{ github.event.workflow_run.head_sha }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if gh release view "$VERSION" -R "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            echo "Existing release: refusing to overwrite"; exit 1
+          fi
+          gh release create "$VERSION" dist/WARDER-PICON-FACTORY.exe dist/BUILD-IDENTITY.json dist/SPUSTI-WARDER-EXE.cmd dist/windows_exe_startup.py dist/windows_exe_update.py \
+            --repo "$GITHUB_REPOSITORY" --target "$SHA" --title "WARDER PICON FACTORY $VERSION" \
+            --notes "Windows EXE tested in GitHub Actions. The installed Factory workspace and originals are not part of this release."
+      - name: Publish approved manifest to development branch
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ steps.identity.outputs.version }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          encoded=$(base64 -w0 windows-exe-manifest.json)
+          path=factory/update/windows-exe-manifest.json
+          existing=$(gh api "repos/$GITHUB_REPOSITORY/contents/$path?ref=factory-warder-development" --jq .sha 2>/dev/null || true)
+          if [[ -n "$existing" ]]; then
+            gh api -X PUT "repos/$GITHUB_REPOSITORY/contents/$path" -f message="factory: publish approved $VERSION Windows EXE manifest" -f branch=factory-warder-development -f content="$encoded" -f sha="$existing" >/dev/null
+          else
+            gh api -X PUT "repos/$GITHUB_REPOSITORY/contents/$path" -f message="factory: publish approved $VERSION Windows EXE manifest" -f branch=factory-warder-development -f content="$encoded" >/dev/null
+          fi
