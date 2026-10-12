@@ -18,12 +18,13 @@ def latest_review(report_dir, *fallback_dirs):
 
 
 class ReviewWindow(tk.Toplevel):
-    def __init__(self, parent, report_dir, ledger_path, output_dir=None, legacy_report_dir=None):
+    def __init__(self, parent, report_dir, ledger_path, output_dir=None, legacy_report_dir=None, master_root=None):
         super().__init__(parent)
         self.title('WARDER — výnimky vyžadujúce rozhodnutie')
         self.geometry('1280x800')
         self.ledger_path = Path(ledger_path)
         self.output_dir = Path(output_dir) if output_dir else None
+        self.master_root = Path(master_root) if master_root else None
         self._photos = []
         path = latest_review(report_dir, *([legacy_report_dir] if legacy_report_dir else []))
         self.items = load_review_queue(path)['items'] if path else []
@@ -77,6 +78,7 @@ class ReviewWindow(tk.Toplevel):
     def change_lane(self, _event=None):
         self.page = 0
         self.refresh_list()
+        self._select_first()
 
     def _select_first(self):
         rows = self.tree.get_children()
@@ -142,11 +144,21 @@ class ReviewWindow(tk.Toplevel):
                 add('original', entry)
         for entry in item.get('master_locations') or []:
             if isinstance(entry, str):
-                add('transparent', entry)
+                if self.master_root:
+                    add('transparent', self.master_root / entry)
             elif isinstance(entry, dict):
-                for key in ('path', 'source', 'location', 'transparent'):
-                    add('transparent', entry.get(key))
-                for key in ('black', 'white'):
+                style = entry.get('style', 'transparent')
+                if style not in ('transparent', 'black', 'white'):
+                    continue
+                relative = entry.get('path')
+                if relative and self.master_root:
+                    path = self.master_root / relative
+                    try:
+                        path.relative_to(self.master_root)
+                    except ValueError:
+                        continue
+                    add(style, path)
+                for key in ('transparent', 'black', 'white'):
                     add(key, entry.get(key))
         if self.output_dir:
             hashes = [item.get('sha256')]
