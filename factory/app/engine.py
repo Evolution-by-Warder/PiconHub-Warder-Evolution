@@ -1364,7 +1364,8 @@ class Factory:
 
 def installed_factory_version(app_dir=None):
  """Read the installed build marker, never the latest GitHub version."""
- location = Path(app_dir) if app_dir is not None else Path(__file__).resolve().parent
+ from factory_build_info import bundled_metadata_path
+ location = Path(app_dir) if app_dir is not None else bundled_metadata_path('.factory-version.json').parent
  try:
   value = json.loads((location / '.factory-version.json').read_text(encoding='utf-8'))['version']
   import re
