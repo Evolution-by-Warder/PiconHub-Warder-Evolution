@@ -89,6 +89,22 @@ class PixelGroupingEvidenceTests(unittest.TestCase):
         self.assertEqual(item['decision'], 'AUTO_RESOLVED_MASTER_PIXEL_IDENTICAL')
         self.assertEqual(item['automatic_resolution'], 'EXACT_RGBA_SAME_SERVICE_MASTER')
 
+    def test_auto_resolution_updates_pending_workstream_count_without_losing_audit(self):
+        queue = {'count': 2, 'workstream_counts': {'ARTWORK_REVIEW': 2},
+                 'items': [
+                     {'workstream': 'ARTWORK_REVIEW', 'decision': 'PENDING',
+                      'candidate_identity': 'service-a',
+                      'artwork_review_units': [{'pixel_sha256': 'same'}]},
+                     {'workstream': 'ARTWORK_REVIEW', 'decision': 'PENDING',
+                      'candidate_identity': 'service-a',
+                      'artwork_review_units': [{'pixel_sha256': 'different'}]},
+                 ]}
+        attach_master_pixel_comparisons(queue, {'service-a': ['same']}, {})
+        self.assertEqual(queue['count'], 2)
+        self.assertEqual(len(queue['items']), 2)
+        self.assertEqual(queue['workstream_counts']['ARTWORK_REVIEW'], 1)
+        self.assertEqual(sum(item['decision'] == 'PENDING' for item in queue['items']), 1)
+
     def test_incomplete_or_different_master_evidence_stays_pending(self):
         queue = {'items': [
             {'workstream': 'ARTWORK_REVIEW', 'decision': 'PENDING',
