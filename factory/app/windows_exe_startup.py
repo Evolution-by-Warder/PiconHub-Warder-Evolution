@@ -7,8 +7,8 @@ from pathlib import Path
 from windows_exe_update import read_manifest, validate_bundle_manifest, install_verified_bundle
 
 ROOT = Path(r"D:\WARDER-PICON-FACTORY")
-EXE = ROOT / "11-APP" / "WARDER-PICON-FACTORY.exe"
-VERSION_FILE = ROOT / "11-APP" / ".factory-installed-version.json"
+EXE = ROOT / "11-APP" / "WARDER-PICON-FACTORY" / "WARDER-PICON-FACTORY.exe"
+VERSION_FILE = EXE.parent / ".factory-installed-version.json"
 
 
 def run(exe=EXE, metadata=VERSION_FILE):
