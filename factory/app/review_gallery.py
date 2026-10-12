@@ -49,7 +49,9 @@ def source_candidates(item, digest):
     for entry in (item.get('source_evidence') or []) + (item.get('variants') or []):
         if isinstance(entry, dict) and str(entry.get('sha256', '')).lower() == digest:
             values.extend([entry.get('source'), entry.get('path')])
-            values.extend(x for x in (entry.get('sources') or []) if isinstance(x, str))
+            sources = entry.get('sources')
+            if isinstance(sources, (list, tuple)):
+                values.extend(x for x in sources if isinstance(x, str))
     if str(item.get('sha256', '')).lower() == digest:
         values.append(item.get('original'))
     return [value for value in values if isinstance(value, str)]
