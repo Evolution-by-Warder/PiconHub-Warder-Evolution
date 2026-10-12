@@ -99,20 +99,27 @@ class FactoryDiagnosticsSafety(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / 'report-20261011-092600-123.json'
             path.write_text(json.dumps({'run': '20261011-092600-123', 'stats': {'scanned': 5}}))
+            payload = sanitized_summary(json.loads(path.read_text()))
+            content = json.dumps(payload, ensure_ascii=False, indent=2).encode('utf-8') + b'\n'
+            blob_sha = hashlib.sha1(b'blob ' + str(len(content)).encode('ascii') + b'\0' + content).hexdigest()
             class Response:
                 status = 201
+                def __init__(self, body=b''): self.body = body
                 def __enter__(self): return self
                 def __exit__(self, *args): pass
+                def read(self, *args): return self.body
             calls = []
             def opener(request, timeout):
                 calls.append(request)
                 if request.get_method() == 'GET':
-                    raise urllib.error.HTTPError(request.full_url, 404, 'missing', {}, io.BytesIO(b''))
+                    if len(calls) == 1:
+                        raise urllib.error.HTTPError(request.full_url, 404, 'missing', {}, io.BytesIO(b''))
+                    return Response(json.dumps({'sha': blob_sha}).encode())
                 return Response()
             with patch.dict('os.environ', {'WARDER_DIAGNOSTICS_TOKEN': 'test-token'}):
                 result = upload_report(path, opener=opener)
             self.assertEqual(result['status'], 'sent')
-            self.assertEqual(result['status'], 'offline_or_failed')
+            self.assertTrue(result['verified'])
             self.assertEqual([item.get_method() for item in calls], ['GET', 'PUT', 'GET'])
 
     def test_existing_different_report_fails_closed(self):
