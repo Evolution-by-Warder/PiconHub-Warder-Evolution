@@ -545,6 +545,12 @@ def repair_variant_task(args):
    if name not in affected:continue
    render=_compose_variant(rgba,name)
    if name in ('white','black') and 'LOW_CONTRAST_'+name.upper() in reasons:
+    # A low-contrast derivative must not cause edits to the source artwork.
+    # For white-on-white ink, keep the original RGB and add a dark outline
+    # outside its alpha; never replace the original white logo with black.
+    if name=='white':
+     outlined=_outlined_variant(rgba,'white',radius=2)
+     render=_compose_variant(outlined,'white')
     # Do not mistake a partial recolor for proven legibility. Validate the
     # composed candidate against the same source-alpha contrast criteria as QA.
     source_pixels=list(rgba.getdata())
