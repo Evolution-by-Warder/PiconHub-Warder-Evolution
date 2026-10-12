@@ -1525,7 +1525,7 @@ class App:
  def open_review(self):
   if not self.workspace_ready:return
   from review_ui import ReviewWindow
-  ReviewWindow(self.root, EXCEPTIONS, _WORKSPACE['ledger_path'], OUTPUT, legacy_report_dir=REPORTS)
+  ReviewWindow(self.root, EXCEPTIONS, _WORKSPACE['ledger_path'], OUTPUT, legacy_report_dir=REPORTS, master_root=MASTER_ROOT)
  def open_reports(self):
   if not self.workspace_ready:
    self.status.set('Reporty sa neotvárajú, kým read-only preflight neprejde');return
