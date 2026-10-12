@@ -47,7 +47,7 @@ def source_candidates(item, digest):
     """Enumerate original source candidates associated with an exact digest."""
     values = []
     for entry in (item.get('source_evidence') or []) + (item.get('variants') or []):
-        if isinstance(entry, dict) and str(entry.get('sha256', '')).lower() == digest:
+        if isinstance(entry, dict) and str(entry.get('sha256', '')).lower() == str(digest).lower():
             values.extend([entry.get('source'), entry.get('path')])
             sources = entry.get('sources')
             if isinstance(sources, (list, tuple)):
