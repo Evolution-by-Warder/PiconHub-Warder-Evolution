@@ -177,7 +177,6 @@ class ReviewGallery(ttk.Frame):
             # Never present a generated transparent derivative as the original source.
             paths.pop('transparent', None)
             # The transparent source is immutable and may live outside generated output.
-            evidence = (item.get('source_evidence') or []) + (item.get('variants') or [])
             if digest:
                 matching = source_candidates(item, digest)
                 for source in matching:
