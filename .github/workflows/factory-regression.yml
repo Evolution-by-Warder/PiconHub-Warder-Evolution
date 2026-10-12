@@ -285,3 +285,76 @@ jobs:
           $root = 'D:\WARDER-PICON-FACTORY'
           $marker = Join-Path $root '11-APP\.ci-synthetic-root'
           if (Test-Path -LiteralPath $marker) { Remove-Item -LiteralPath $root -Recurse -Force }
+
+  publish-approved-windows:
+    needs: windows-smoke
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/factory-warder-development' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      actions: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Download Windows artifacts from this exact successful run
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          mkdir -p dist
+          gh run download "$GITHUB_RUN_ID" -R "$GITHUB_REPOSITORY" -n WARDER-PICON-FACTORY-WINDOWS-EXE -D dist
+      - name: Verify full Windows package and generate schema-2 update manifest
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import hashlib,json,os,pathlib,re
+          root=pathlib.Path("dist")
+          identity=json.loads((root/"BUILD-IDENTITY.json").read_text(encoding="utf-8-sig"))
+          version=json.loads(pathlib.Path("factory/app/.factory-version.json").read_text())["version"]
+          assert re.fullmatch(r"factory-v\d+\.\d+\.\d+",version)
+          assert identity["version"]==version and identity["commit"]==os.environ["GITHUB_SHA"]
+          assert str(identity["workflow_run"])==os.environ["GITHUB_RUN_ID"]
+          assert identity["smoke_test"]=="passed"
+          names=["WARDER-PICON-FACTORY.exe","WARDER-PICON-UPDATER.exe","SPUSTI-WARDER-EXE.cmd","windows_exe_startup.py","windows_exe_update.py"]
+          assets={}
+          for name in names:
+              path=root/name
+              data=path.read_bytes()
+              assert len(data)>0
+              if name.endswith(".exe"): assert data[:2]==b"MZ" and len(data)>1024
+              assets[name]={"size":len(data),"sha256":hashlib.sha256(data).hexdigest(),"url":f"https://github.com/{os.environ['GITHUB_REPOSITORY']}/releases/download/{version}/{name}"}
+          exe=assets["WARDER-PICON-FACTORY.exe"]
+          assert exe["size"]==identity["bytes"] and exe["sha256"]==identity["sha256"]
+          manifest={"schema":2,"version":version,"commit":identity["commit"],"assets":assets}
+          pathlib.Path("windows-exe-manifest.json").write_text(json.dumps(manifest,indent=2)+"\n")
+          PY
+      - name: Publish verified immutable Windows release
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          version=$(python -c 'import json;print(json.load(open("windows-exe-manifest.json"))["version"])')
+          if gh release view "$version" -R "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            echo "Release already exists; refusing overwrite"; exit 1
+          fi
+          gh release create "$version" dist/WARDER-PICON-FACTORY.exe dist/WARDER-PICON-UPDATER.exe dist/BUILD-IDENTITY.json dist/SPUSTI-WARDER-EXE.cmd dist/windows_exe_startup.py dist/windows_exe_update.py \
+            --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --title "WARDER PICON FACTORY $version" \
+            --notes "Verified Windows GUI, updater and launcher from successful regression run $GITHUB_RUN_ID."
+      - name: Publish schema-2 manifest for in-app updater
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          version=$(python -c 'import json;print(json.load(open("windows-exe-manifest.json"))["version"])')
+          path=factory/update/windows-exe-manifest.json
+          encoded=$(base64 -w0 windows-exe-manifest.json)
+          existing=$(gh api "repos/$GITHUB_REPOSITORY/contents/$path?ref=factory-warder-development" --jq .sha 2>/dev/null || true)
+          if [[ -n "$existing" ]]; then
+            gh api -X PUT "repos/$GITHUB_REPOSITORY/contents/$path" -f message="factory: publish verified $version Windows update manifest" -f branch=factory-warder-development -f content="$encoded" -f sha="$existing" >/dev/null
+          else
+            gh api -X PUT "repos/$GITHUB_REPOSITORY/contents/$path" -f message="factory: publish verified $version Windows update manifest" -f branch=factory-warder-development -f content="$encoded" >/dev/null
+          fi
