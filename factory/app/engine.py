@@ -1626,7 +1626,13 @@ class App:
     return
    os.environ['WARDER_DIAGNOSTICS_TOKEN']=token
    from factory_diagnostics_retry import retry_reports
-   results=retry_reports(REPORTS,_WORKSPACE['diagnostics_cache'],limit=5)
+   results=[]
+   # Drain all pending reports in bounded batches, without rescanning PNG.
+   while True:
+    batch=retry_reports(REPORTS,_WORKSPACE['diagnostics_cache'],limit=5)
+    results.extend(batch)
+    if len(batch)<5 or any(item['status']!='sent' for item in batch):
+     break
    sent=sum(item['status']=='sent' for item in results)
    failures=[item['report']+': '+item['status'] for item in results if item['status']!='sent']
    message=('potvrdené odoslanie '+str(sent)+'/'+str(len(results))+'; '+('; '.join(failures) if failures else 'všetky prijaté'))
