@@ -31,6 +31,26 @@ class FactoryDiagnosticsSafety(unittest.TestCase):
         self.assertEqual(result['final_picons_on_disk']['transparent'],7)
         self.assertNotIn('private',json.dumps(result))
 
+    def test_master_pixel_counters_only_no_raw_identity(self):
+        report = {'run': '20261012-145556-764159', 'stats': {
+            'master_artwork_pixel_comparisons': {
+                'PIXEL_EXACT_SAME_SERVICE_MASTER': 12,
+                'NO_PIXEL_EXACT_SAME_SERVICE_MASTER': 34,
+                'MASTER_PIXEL_EVIDENCE_UNAVAILABLE': 5,
+                'C:/private/service.png': 99,
+                'negative': -1,
+            },
+            'master_artwork_pixel_raw': {'secret': 'DO_NOT_SEND'},
+        }}
+        result = sanitized_summary(report)['summary']
+        self.assertEqual(result['master_artwork_pixel_comparisons'], {
+            'PIXEL_EXACT_SAME_SERVICE_MASTER': 12,
+            'NO_PIXEL_EXACT_SAME_SERVICE_MASTER': 34,
+            'MASTER_PIXEL_EVIDENCE_UNAVAILABLE': 5,
+        })
+        self.assertNotIn('private', json.dumps(result))
+        self.assertNotIn('DO_NOT_SEND', json.dumps(result))
+
     def test_confirmed_delivery_records_receipt_and_preserves_every_report(self):
         with tempfile.TemporaryDirectory() as tmp:
             folder = Path(tmp)
