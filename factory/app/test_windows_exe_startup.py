@@ -30,7 +30,7 @@ class WindowsStartupTests(unittest.TestCase):
             meta = root / "version.json"
             meta.write_text('{"version":"factory-v0.2.31","commit":"abc"}')
             with patch.object(windows_exe_startup, "read_manifest",
-                              return_value={"schema":1,"version":"factory-v0.2.31",
-                                            "commit":"a"*40}):
+                              return_value={"schema":2,"version":"factory-v0.2.31",
+                                            "commit":"a"*40,"assets":{}}):
                 self.assertEqual(windows_exe_startup.run(exe, meta), "UP_TO_DATE")
             self.assertEqual(exe.read_bytes(), b"MZexisting")
