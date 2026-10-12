@@ -48,6 +48,12 @@ def sanitized_summary(report):
                     and isinstance(v, int) and not isinstance(v, bool) and v >= 0}
             if safe:
                 summary[key] = safe
+    examples = stats.get('qa_blocking_examples')
+    if isinstance(examples, list):
+        summary['qa_blocking_examples'] = [
+            value for value in examples[:10]
+            if isinstance(value, str) and re.fullmatch(r'[0-9a-f]{64}', value)
+        ]
     # Keep diagnostic summaries limited to approved aggregate fields.
     run = str(report.get('run', ''))[:64]
     created = report.get('created_utc')
