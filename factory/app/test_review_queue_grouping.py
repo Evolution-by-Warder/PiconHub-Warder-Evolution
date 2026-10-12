@@ -68,6 +68,23 @@ class CrossFeedReviewGroupingTests(unittest.TestCase):
         self.assertEqual(item['review_priority'], 'P1_VERIFY_SINGLE_PIXEL_ARTWORK_AGAINST_MASTER')
         self.assertEqual(item['decision'], 'PENDING')
 
+    def test_grouped_missing_pixel_evidence_keeps_every_sha_inspectable(self):
+        rows = [{'classification': 'REVIEW', 'reason': 'EXISTING_SERVICE_DIFFERENT_ART',
+                 'service_reference': 'service-a', 'candidate_sha256': sha * 64,
+                 'candidate_source': sha + '.png'} for sha in ('a', 'b', 'c')]
+        queue = build_review_queue({}, {}, [], rows, pixel_digests={'a' * 64: 'verified-a'})
+        self.assertEqual(queue['count'], 1)
+        item = queue['items'][0]
+        self.assertEqual(item['decision'], 'PENDING')
+        self.assertEqual(item['review_priority'], 'P3_COMPLETE_PIXEL_EVIDENCE')
+        self.assertEqual({unit['representative_sha256'] for unit in item['artwork_review_units']},
+                         {sha * 64 for sha in ('a', 'b', 'c')})
+        self.assertTrue(all(unit['pixel_verification'] == 'UNVERIFIED'
+                            for unit in item['artwork_review_units']))
+        self.assertTrue(all(not unit['duplicate_sha256']
+                            for unit in item['artwork_review_units']))
+        self.assertNotIn('pixel_equivalence', item)
+
     def test_missing_pixel_proof_never_claims_pixel_equivalence(self):
         rows = [{'classification': 'REVIEW', 'reason': 'EXISTING_SERVICE_DIFFERENT_ART',
                  'service_reference': 'service-a', 'candidate_sha256': sha * 64,
