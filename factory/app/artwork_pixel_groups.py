@@ -109,4 +109,11 @@ def attach_master_pixel_comparisons(queue, master_digests, candidate_digests):
             item['master_pixel_evidence'] = 'DIFFERENT_ARTWORK_PRESENT'
         else:
             item['master_pixel_evidence'] = 'INCOMPLETE_MASTER_PIXEL_EVIDENCE'
+    # Keep the queue's workstream summary aligned with the pending-only UI.
+    # The full item list/count remain intact for audit and historical review.
+    if isinstance(queue.get('workstream_counts'), dict):
+        for lane in queue['workstream_counts']:
+            queue['workstream_counts'][lane] = sum(
+                item.get('workstream') == lane and item.get('decision', 'PENDING') == 'PENDING'
+                for item in queue.get('items', ()))
     return counts
