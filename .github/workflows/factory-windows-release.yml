@@ -3,6 +3,7 @@ on:
   workflow_run:
     workflows: ["Factory regression (no release)"]
     types: [completed]
+  workflow_dispatch:
 permissions:
   contents: write
   actions: read
