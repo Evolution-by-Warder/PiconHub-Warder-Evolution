@@ -262,6 +262,7 @@ jobs:
             factory/app/dist/.factory-installed-version.json
           if-no-files-found: error
           retention-days: 7
+          include-hidden-files: true
       - name: Upload one-click Windows application (not a release)
         uses: actions/upload-artifact@v4
         with:

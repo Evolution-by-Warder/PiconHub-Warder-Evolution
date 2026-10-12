@@ -94,9 +94,10 @@ def download_verified(info, target, *, opener=None):
                 output.write(chunk)
         if total != info["size"] or digest.hexdigest() != info["sha256"]:
             raise ValueError("Executable integrity mismatch")
-        with target.open("rb") as stream:
-            if stream.read(2) != b"MZ":
-                raise ValueError("Not a Windows executable")
+        if info["url"].endswith(".exe"):
+            with target.open("rb") as stream:
+                if stream.read(2) != b"MZ":
+                    raise ValueError("Not a Windows executable")
         return target
     except BaseException:
         target.unlink(missing_ok=True)
