@@ -105,6 +105,20 @@ class PixelGroupingEvidenceTests(unittest.TestCase):
         self.assertEqual(queue['workstream_counts']['ARTWORK_REVIEW'], 1)
         self.assertEqual(sum(item['decision'] == 'PENDING' for item in queue['items']), 1)
 
+    def test_existing_human_decision_is_not_overwritten(self):
+        queue = {'items': [
+            {'workstream': 'ARTWORK_REVIEW', 'decision': 'REJECTED',
+             'candidate_identity': 'service-a',
+             'artwork_review_units': [{'pixel_sha256': 'same'}]},
+            {'workstream': 'ARTWORK_REVIEW', 'decision': 'FINALIZED_LOCALLY',
+             'candidate_identity': 'service-a',
+             'artwork_review_units': [{'pixel_sha256': 'same'}]},
+        ]}
+        attach_master_pixel_comparisons(queue, {'service-a': ['same']}, {})
+        self.assertEqual([item['decision'] for item in queue['items']],
+                         ['REJECTED', 'FINALIZED_LOCALLY'])
+        self.assertTrue(all('automatic_resolution' not in item for item in queue['items']))
+
     def test_incomplete_or_different_master_evidence_stays_pending(self):
         queue = {'items': [
             {'workstream': 'ARTWORK_REVIEW', 'decision': 'PENDING',
