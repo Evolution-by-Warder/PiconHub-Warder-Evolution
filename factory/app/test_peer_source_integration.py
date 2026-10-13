@@ -22,6 +22,7 @@ class PeerSourceIntegrationTests(unittest.TestCase):
                 source_roots.update(vhannibal=(Path(workspace), Path(kwargs['state_dir']), Path(kwargs['originals_dir']))) or
                 {'status': 'unchanged', 'imported': 0})
             openatv = types.ModuleType('openatv_feed')
+            openatv.verified_package_styles = lambda *_: {}
             openatv.discover_current = lambda: {'index_sha1': 'abc', 'packages': []}
             openatv.download_package = lambda *_: self.fail('no packages expected')
             openatv.naming_inventory = lambda packages: {
@@ -72,6 +73,7 @@ class PeerSourceIntegrationTests(unittest.TestCase):
             package = {'sha256': 'a' * 64, 'version': 'fixture-1'}
             family_data = {'srp': {'count': 1}, 'utf8snp': {'count': 0}}
             openatv = types.ModuleType('openatv_feed')
+            openatv.verified_package_styles = lambda *_: {}
             openatv.discover_current = lambda: {'index_sha1': 'fixture-index', 'packages': [package]}
             openatv.naming_inventory = lambda _packages: family_data
             def download(_package, target):
