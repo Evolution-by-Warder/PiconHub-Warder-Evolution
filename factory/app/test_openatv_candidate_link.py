@@ -6,6 +6,19 @@ from openatv_name_evidence import summarize_openatv_name_evidence
 from openatv_crossname import attach_crossname_artwork_candidates
 
 
+class OpenAtvFilenameTypesTests(unittest.TestCase):
+    def test_snp_is_valid_without_srp_identity(self):
+        from openatv_triage import classify_picon_filename, count_picon_filename_types
+        self.assertEqual(classify_picon_filename('105tv.png')['kind'], 'SNP')
+        self.assertEqual(classify_picon_filename('100procentnl.png')['kind'], 'SNP')
+        self.assertEqual(classify_picon_filename('1_0_1_2_3_4_5_6_7_8.png'),
+                         {'kind': 'SRP', 'key': '1_0_1_2_3_4_5_6_7_8'})
+        self.assertEqual(classify_picon_filename('not-a-picon.txt')['kind'], 'OTHER')
+        self.assertEqual(count_picon_filename_types(['105tv.png',
+                         '1_0_1_2_3_4_5_6_7_8.png', 'bad.txt']),
+                         {'SRP': 1, 'SNP': 1, 'OTHER': 1})
+
+
 class OpenAtvNameCandidateTests(unittest.TestCase):
     def test_name_typography_aliases(self):
         self.assertEqual(_station_key('NOVA Sports 2.png'), _station_key('nova-sports_2.PNG'))
