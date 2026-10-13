@@ -372,7 +372,7 @@ def render_png_task(args):
    expected=None
    if bgname!='transparent':
     template=Path(__file__).resolve().parent/'templates'/'picons'/(bgname+'-sablona.png')
-    expected=_template_sha256(name)
+    expected=_template_sha256(bgname)
    if out.exists() and (bgname=='transparent' or (revision_marker.is_file() and revision_marker.read_text(encoding='ascii').strip()==RENDER_REVISION)) and (expected is None or (signature.exists() and signature.read_text(encoding='ascii')==expected)):
     try:
      with Image.open(out) as existing:
