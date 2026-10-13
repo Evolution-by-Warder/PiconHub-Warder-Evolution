@@ -72,6 +72,8 @@ def new_reference_review_batches(triage, batch_size=10):
                 'status': 'PENDING_HUMAN_REVIEW',
                 'identity_approval': 'NONE',
                 'service_references': [row['service_reference'] for row in chunk],
+                'item_count': len(chunk),
+                'distinct_artwork_count': sum(len(row['artwork_sha256']) for row in chunk),
                 'items': chunk,
             })
     return {'schema': 1, 'authority': 'READ_ONLY_DIAGNOSTIC',
