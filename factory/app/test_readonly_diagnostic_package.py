@@ -14,6 +14,8 @@ class ReadOnlyDiagnosticPackageTests(unittest.TestCase):
                          "SHA256", "WARDER-PICON-FACTORY.previous-*", "WARDER_DIAG_OUT"):
             self.assertIn(expected, powershell)
         lowered = powershell.casefold()
+        self.assertIn("function get-sha256", lowered)
+        self.assertNotIn("get-filehash", lowered)
         for forbidden in ("remove-item", "move-item", "copy-item", "new-item", "set-content",
                           "stop-process", "start-process", "invoke-webrequest", "set-itemproperty"):
             self.assertNotIn(forbidden, lowered)
