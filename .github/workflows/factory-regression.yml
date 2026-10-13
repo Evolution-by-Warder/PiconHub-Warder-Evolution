@@ -120,7 +120,27 @@ jobs:
               if (-not (Test-Path -LiteralPath $file)) { throw "Missing EXE-rendered variant: $file" }
             }
             if ((Get-FileHash -Algorithm SHA256 -LiteralPath $source).Hash.ToLowerInvariant() -cne $originalSha) { throw "Packaged EXE modified the original source PNG" }
-            python -c "from PIL import Image; from pathlib import Path; p=Path(r'$folder'); names=('transparent','black','white'); images=[Image.open(p/(n+'.png')) for n in names]; assert all(im.format=='PNG' and im.size==(220,132) and im.mode=='RGBA' for im in images), 'wrong variant format or size'; assert images[0].getchannel('A').getbbox(), 'empty transparent variant'; assert all(im.getchannel('A').getextrema()==(255,255) for im in images[1:]), 'background plate not opaque'; [im.verify() for im in images]"
+            $env:WARDER_RENDER_CHECK_DIR = $folder
+            $verifyScript = @'
+import os
+from pathlib import Path
+from PIL import Image
+
+folder = Path(os.environ["WARDER_RENDER_CHECK_DIR"])
+for name in ("transparent", "black", "white"):
+    with Image.open(folder / f"{name}.png") as image:
+        assert image.format == "PNG" and image.size == (220, 132) and image.mode == "RGBA", "wrong variant format or size"
+        image.verify()
+with Image.open(folder / "transparent.png") as image:
+    assert image.getchannel("A").getbbox(), "empty transparent variant"
+for name in ("black", "white"):
+    with Image.open(folder / f"{name}.png") as image:
+        assert image.getchannel("A").getextrema() == (255, 255), "background plate not opaque"
+'@
+            python -c $verifyScript
+            $verifyExit = $LASTEXITCODE
+            Remove-Item Env:\WARDER_RENDER_CHECK_DIR -ErrorAction SilentlyContinue
+            if ($verifyExit -ne 0) { throw "EXE-rendered PNG failed size, alpha or decode validation" }
             if ($LASTEXITCODE -ne 0) { throw "EXE-rendered PNG failed size, alpha or decode validation" }
           } finally {
             Remove-Item Env:\WARDER_RENDER_SMOKE,Env:\WARDER_RENDER_SOURCE,Env:\WARDER_RENDER_TARGET,Env:\WARDER_RENDER_REPORT -ErrorAction SilentlyContinue
