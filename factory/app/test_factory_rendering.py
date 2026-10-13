@@ -195,6 +195,32 @@ class FactoryRenderingTests(unittest.TestCase):
                 self.assertIn('INVALID_SOURCE_SHA256', error)
             self.assertFalse(output.exists())
 
+    def test_engine_writes_complete_verified_triplet(self):
+        from engine import render_png_task, _output_signature_for_folder
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            source = root / 'real-render.png'
+            artwork = Image.new('RGBA', (220, 132), (0, 0, 0, 0))
+            for y in range(40, 90):
+                for x in range(55, 165):
+                    artwork.putpixel((x, y), (200, 20, 30, 255))
+            artwork.save(source)
+            source_bytes = source.read_bytes()
+            sha = hashlib.sha256(source_bytes).hexdigest()
+            output = root / 'output'
+            ok, created, error = render_png_task((str(source), str(output), sha))
+            self.assertTrue(ok, error)
+            self.assertEqual(created, 3)
+            folder = output / sha[:2] / sha
+            self.assertTrue(_output_signature_for_folder(folder))
+            self.assertEqual(source.read_bytes(), source_bytes)
+            for variant in ('transparent', 'black', 'white'):
+                with Image.open(folder / (variant + '.png')) as rendered:
+                    self.assertEqual(rendered.size, (220, 132))
+                    self.assertEqual(rendered.mode, 'RGBA')
+            (folder / 'white.render-revision').unlink()
+            self.assertIsNone(_output_signature_for_folder(folder))
+
     def test_templates_present(self):
         root = Path(__file__).resolve().parent / 'templates' / 'picons'
         for name in ('black-sablona.png', 'white-sablona.png'):
