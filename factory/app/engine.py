@@ -1086,6 +1086,13 @@ class Factory:
   self.log('OpenATV SRP identita bez duplicít: '+str(identity_triage['reference_status_counts'])+'; '+str(identity_triage['unique_service_references'])+' unikátnych referencií; report: '+str(identity_triage_path))
   self.log('OpenATV SRP rozdiely podľa formátu/štýlu (diagnostika, bez schválenia): '+str(identity_triage['style_diagnostic_counts']))
   self.log('OpenATV SRP rozhodovacie kategórie (bez automatického schválenia): '+str(identity_triage['actionable_identity_counts']))
+  from registry_triage import new_reference_artwork_triage
+  new_ref_triage=new_reference_artwork_triage(registry_matches)
+  new_ref_path=REPORTS/('new-reference-artwork-triage-'+run+'.json')
+  atomic_json(new_ref_path,new_ref_triage)
+  self.log('Nové SRP bez duplicit: '+str(new_ref_triage['single_artwork_references'])+
+           ' s jednou grafikou, '+str(new_ref_triage['conflicting_artwork_references'])+
+           ' s viacerými grafikami; iba diagnostika, bez schválenia: '+str(new_ref_path))
   match_breakdown=summarize_registry_matches(registry_matches)
   service_breakdown=service_reference_diagnostics(registry_matches)
   unmapped_evidence=unmapped_filename_diagnostics(registry_matches)
