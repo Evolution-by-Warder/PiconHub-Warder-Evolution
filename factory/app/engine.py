@@ -362,6 +362,10 @@ def render_png_task(args):
    raw=im.convert('RGBA')
    clean,extracted=extract_flat_edge_background(raw)
    rgba=_fit_canvas(clean)
+   # Empty source artwork cannot produce a usable picon triplet.
+   # Fail before creating or caching any apparently successful variants.
+   if raw.getchannel('A').getbbox() is None:
+    raise ValueError('FULLY_TRANSPARENT: source artwork contains no visible pixels')
   dest=Path(output_dir)/sha[:2]/sha
   dest.mkdir(parents=True,exist_ok=True)
   created=0
