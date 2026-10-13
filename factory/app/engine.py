@@ -940,6 +940,13 @@ class Factory:
       stats['reference_snapshot_skipped']=stats.get('reference_snapshot_skipped',0)+1
       continue
      candidates.append(p)
+  # SNP names are valid OpenATV picon assets, not failed SRP identities.
+  # Renderer processes both kinds by content hash; classification is
+  # reporting-only and never promotes a station name to a Warder ID.
+  from openatv_triage import count_picon_filename_types
+  filename_types=count_picon_filename_types(p.name for p in candidates)
+  stats['picon_filename_types']=filename_types
+  self.log('PNG názvy: SRP {SRP:,}; SNP {SNP:,}; ostatné {OTHER:,}; SNP zostávajú bez automatického priradenia ID.'.format(**filename_types))
   total=len(candidates)
   self.log(f'Kontrola PNG: 0/{total}; Pillow: '+('dostupný' if PIL_OK else 'CHÝBA'))
   self.emit('progress',(0,max(1,total)))
