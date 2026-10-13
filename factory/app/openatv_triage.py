@@ -93,7 +93,8 @@ def build_snp_render_inventory(records):
     for row in records:
         info = classify_picon_filename(row.get('source', ''))
         sha = row.get('sha256', '')
-        if info['kind'] == 'SNP' and isinstance(sha, str) and len(sha) == 64:
+        if (info['kind'] == 'SNP' and isinstance(sha, str) and len(sha) == 64
+                and all(c in '0123456789abcdef' for c in sha.lower())):
             groups[info['key']].add(sha.lower())
     stations = [{'snp_name': name, 'source_sha256': sorted(hashes),
                  'status': 'CONFLICT_REVIEW' if len(hashes) > 1 else 'PENDING_QA'}
