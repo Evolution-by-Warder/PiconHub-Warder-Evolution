@@ -347,6 +347,10 @@ class FactoryRenderingTests(unittest.TestCase):
         self.assertEqual(pages['review_batches'][0]['category'], 'CONFLICT')
         self.assertEqual(pages['review_batches'][0]['item_count'], 1)
         self.assertEqual(pages['review_batches'][0]['distinct_artwork_count'], 2)
+        self.assertEqual(pages['review_batches'][0]['items'][0]['review_item_id'], 'NEW-SRP-' + ref_b)
+        larger_pages = new_reference_review_batches(result, batch_size=10)
+        self.assertEqual({item['review_item_id'] for page in pages['review_batches'] for item in page['items']},
+                         {item['review_item_id'] for page in larger_pages['review_batches'] for item in page['items']})
         self.assertEqual(pages['review_batches'][0]['status'], 'PENDING_HUMAN_REVIEW')
         self.assertEqual(pages['review_batches'][0]['identity_approval'], 'NONE')
         self.assertEqual(sum(len(p['items']) for p in pages['review_batches']), result['new_references'])
