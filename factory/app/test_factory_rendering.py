@@ -8,6 +8,19 @@ from artwork_preparation import extract_flat_edge_background
 
 
 class FactoryRenderingTests(unittest.TestCase):
+    def test_batch_white_ink_preserves_original_pixels_and_adds_outline(self):
+        source = Image.new('RGBA', (220, 132), (0, 0, 0, 0))
+        for y in range(50, 75):
+            for x in range(60, 150):
+                source.putpixel((x, y), (255, 255, 255, 255))
+        original = source.tobytes()
+        result = _compose_variant(source, 'white')
+        self.assertEqual(source.tobytes(), original)
+        self.assertEqual(result.getpixel((80, 60))[:3], (255, 255, 255))
+        self.assertLess(max(result.getpixel((59, 60))[:3]), 90)
+        self.assertEqual(result.getpixel((60, 60))[:3], (255, 255, 255))
+        self.assertEqual(_compose_variant(source, 'transparent').tobytes(), original)
+
     def test_white_plaque_keeps_black_letters_on_both_templates(self):
         art = Image.new('RGBA', (220, 132), (0, 0, 0, 0))
         for y in range(30, 90):
