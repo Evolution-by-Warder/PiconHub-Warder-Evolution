@@ -250,6 +250,34 @@ class FactoryRenderingTests(unittest.TestCase):
             damaged.save(black)
             self.assertIsNone(_output_signature_for_folder(folder))
 
+    def test_render_repairs_corrupt_cached_alpha_without_touching_source(self):
+        from engine import render_png_task, _output_signature_for_folder
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            source = root / 'source.png'
+            art = Image.new('RGBA', (220, 132), (0, 0, 0, 0))
+            for y in range(35, 90):
+                for x in range(55, 170):
+                    art.putpixel((x, y), (210, 30, 30, 255))
+            art.save(source)
+            before = source.read_bytes()
+            sha = hashlib.sha256(before).hexdigest()
+            output = root / 'output'
+            ok, _, error = render_png_task((str(source), str(output), sha))
+            self.assertTrue(ok, error)
+            folder = output / sha[:2] / sha
+            Image.new('RGBA', (220, 132), (0, 0, 0, 0)).save(folder / 'transparent.png')
+            with Image.open(folder / 'white.png') as white:
+                broken = white.copy()
+            broken.putpixel((0, 0), (255, 255, 255, 0))
+            broken.save(folder / 'white.png')
+            self.assertIsNone(_output_signature_for_folder(folder))
+            ok, created, error = render_png_task((str(source), str(output), sha))
+            self.assertTrue(ok, error)
+            self.assertEqual(created, 2)
+            self.assertTrue(_output_signature_for_folder(folder))
+            self.assertEqual(source.read_bytes(), before)
+
     def test_templates_present(self):
         root = Path(__file__).resolve().parent / 'templates' / 'picons'
         for name in ('black-sablona.png', 'white-sablona.png'):
