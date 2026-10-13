@@ -99,6 +99,30 @@ class FactoryRenderingTests(unittest.TestCase):
         self.assertEqual(result.getpixel((75, 65))[:3], (255, 255, 255))
         self.assertEqual(result.getpixel((45, 65))[:3], (225, 12, 35))
 
+    def test_render_rebuilds_stale_transparent_even_when_valid_png(self):
+        from engine import render_png_task, RENDER_REVISION
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            source = Image.new('RGBA', (220, 132), (0, 0, 0, 0))
+            source.putpixel((100, 60), (255, 20, 40, 255))
+            original = root / 'source.png'
+            source.save(original)
+            sha = hashlib.sha256(original.read_bytes()).hexdigest()
+            output = root / 'output'
+            folder = output / sha[:2] / sha
+            folder.mkdir(parents=True)
+            stale = Image.new('RGBA', (220, 132), (5, 5, 5, 255))
+            stale.save(folder / 'transparent.png')
+            ok, created, error = render_png_task((str(original), str(output), sha))
+            self.assertTrue(ok, error)
+            self.assertEqual(created, 3)
+            with Image.open(folder / 'transparent.png') as image:
+                self.assertEqual(image.getpixel((100, 60)), (255, 20, 40, 255))
+            self.assertEqual((folder / 'transparent.render-revision').read_text(), RENDER_REVISION)
+            ok, created, error = render_png_task((str(original), str(output), sha))
+            self.assertTrue(ok, error)
+            self.assertEqual(created, 0)
+
     def test_templates_present(self):
         root = Path(__file__).resolve().parent / 'templates' / 'picons'
         for name in ('black-sablona.png', 'white-sablona.png'):
