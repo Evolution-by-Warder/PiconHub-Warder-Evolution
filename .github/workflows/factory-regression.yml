@@ -93,6 +93,35 @@ jobs:
           --add-data "templates;templates"
           engine.py;
           if ($LASTEXITCODE -ne 0) { throw "Standalone build failed" }
+      - name: Render PNG through the packaged Windows EXE
+        shell: pwsh
+        working-directory: factory/app
+        run: |
+          $source = Join-Path $env:RUNNER_TEMP 'factory-exe-input.png'
+          $output = Join-Path $env:RUNNER_TEMP 'factory-exe-output'
+          $report = Join-Path $env:RUNNER_TEMP 'factory-exe-render.json'
+          python -c "from PIL import Image; im=Image.new('RGBA',(220,132),(0,0,0,0)); im.paste((210,40,60,255),(50,35,170,95)); im.save(r'$source')"
+          if ($LASTEXITCODE -ne 0) { throw "Unable to create PNG fixture" }
+          $env:WARDER_RENDER_SMOKE = '1'
+          $env:WARDER_RENDER_SOURCE = $source
+          $env:WARDER_RENDER_TARGET = $output
+          $env:WARDER_RENDER_REPORT = $report
+          try {
+            $proc = Start-Process -FilePath 'dist/WARDER-PICON-FACTORY.exe' -PassThru -Wait
+            if ($proc.ExitCode -ne 0) { throw "Packaged EXE render failed: $($proc.ExitCode)" }
+            if (-not (Test-Path -LiteralPath $report)) { throw "Packaged EXE did not write render report" }
+            $result = Get-Content -LiteralPath $report -Raw | ConvertFrom-Json
+            if (-not $result.ok -or $result.count -ne 3) { throw "Packaged EXE failed to render all variants: $(Get-Content $report -Raw)" }
+            $folder = Join-Path (Join-Path $output $result.sha.Substring(0,2)) $result.sha
+            foreach ($name in @('transparent','black','white')) {
+              $file = Join-Path $folder "$name.png"
+              if (-not (Test-Path -LiteralPath $file)) { throw "Missing EXE-rendered variant: $file" }
+            }
+            python -c "from PIL import Image; from pathlib import Path; p=Path(r'$folder'); [(lambda im: (im.verify()))(Image.open(p/(n+'.png'))) for n in ('transparent','black','white')]"
+            if ($LASTEXITCODE -ne 0) { throw "EXE-rendered PNG decode failed" }
+          } finally {
+            Remove-Item Env:\WARDER_RENDER_SMOKE,Env:\WARDER_RENDER_SOURCE,Env:\WARDER_RENDER_TARGET,Env:\WARDER_RENDER_REPORT -ErrorAction SilentlyContinue
+          }
       - name: Smoke-test packaged Windows GUI
         shell: pwsh
         working-directory: factory/app
