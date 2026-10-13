@@ -102,6 +102,7 @@ jobs:
           $report = Join-Path $env:RUNNER_TEMP 'factory-exe-render.json'
           python -c "from PIL import Image; im=Image.new('RGBA',(220,132),(0,0,0,0)); im.paste((210,40,60,255),(50,35,170,95)); im.save(r'$source')"
           if ($LASTEXITCODE -ne 0) { throw "Unable to create PNG fixture" }
+          $originalSha = (Get-FileHash -Algorithm SHA256 -LiteralPath $source).Hash.ToLowerInvariant()
           $env:WARDER_RENDER_SMOKE = '1'
           $env:WARDER_RENDER_SOURCE = $source
           $env:WARDER_RENDER_TARGET = $output
@@ -118,8 +119,9 @@ jobs:
               $file = Join-Path $folder "$name.png"
               if (-not (Test-Path -LiteralPath $file)) { throw "Missing EXE-rendered variant: $file" }
             }
-            python -c "from PIL import Image; from pathlib import Path; p=Path(r'$folder'); [(lambda im: (im.verify()))(Image.open(p/(n+'.png'))) for n in ('transparent','black','white')]"
-            if ($LASTEXITCODE -ne 0) { throw "EXE-rendered PNG decode failed" }
+            if ((Get-FileHash -Algorithm SHA256 -LiteralPath $source).Hash.ToLowerInvariant() -cne $originalSha) { throw "Packaged EXE modified the original source PNG" }
+            python -c "from PIL import Image; from pathlib import Path; p=Path(r'$folder'); names=('transparent','black','white'); images=[Image.open(p/(n+'.png')) for n in names]; assert all(im.format=='PNG' and im.size==(220,132) and im.mode=='RGBA' for im in images), 'wrong variant format or size'; assert images[0].getchannel('A').getbbox(), 'empty transparent variant'; assert all(im.getchannel('A').getextrema()==(255,255) for im in images[1:]), 'background plate not opaque'; [im.verify() for im in images]"
+            if ($LASTEXITCODE -ne 0) { throw "EXE-rendered PNG failed size, alpha or decode validation" }
           } finally {
             Remove-Item Env:\WARDER_RENDER_SMOKE,Env:\WARDER_RENDER_SOURCE,Env:\WARDER_RENDER_TARGET,Env:\WARDER_RENDER_REPORT -ErrorAction SilentlyContinue
           }
