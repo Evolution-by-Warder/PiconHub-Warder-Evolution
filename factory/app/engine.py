@@ -1962,6 +1962,14 @@ class App:
   self.root.after(100,self.poll)
 if __name__=='__main__':
  multiprocessing.freeze_support()
+ if os.environ.get('WARDER_RENDER_SMOKE')=='1':
+  source=Path(os.environ['WARDER_RENDER_SOURCE'])
+  target=Path(os.environ['WARDER_RENDER_TARGET'])
+  sha=hashlib.sha256(source.read_bytes()).hexdigest()
+  ok,count,error=render_png_task((str(source),str(target),sha))
+  report={'ok':ok,'count':count,'error':error,'sha':sha}
+  Path(os.environ['WARDER_RENDER_REPORT']).write_text(json.dumps(report),encoding='utf-8')
+  sys.exit(0 if ok else 1)
  try:
   App().root.mainloop()
  except Exception:
