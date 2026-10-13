@@ -343,7 +343,6 @@ jobs:
           $marker = Join-Path $root '11-APP\.ci-synthetic-root'
           if (Test-Path -LiteralPath $marker) { Remove-Item -LiteralPath $root -Recurse -Force }
 
-) { throw "Diagnostic report omits workspace or valid executable SHA-256" }
           foreach ($entry in ($before | Where-Object { -not $_.PreviousApp })) {
             $file = Join-Path 'D:\WARDER-PICON-FACTORY' $entry.Path
             if ((Get-FileHash -Algorithm SHA256 -LiteralPath $file).Hash -ne $entry.Sha256) { throw "Read-only diagnostic changed existing data: $($entry.Path)" }
