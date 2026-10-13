@@ -10,6 +10,45 @@ import re
 
 _SRP = re.compile(r"^[0-9a-fA-F]+(?:_[0-9a-fA-F]+){9}$")
 
+
+def new_reference_artwork_triage(matches, sample_limit=20):
+    """Lossless NEW-reference buckets, without automatic identity approval.
+
+    Group by service reference across source feeds, not by source file count.
+    A reference with two distinct byte hashes is a conflict even if both
+    images look alike; visual equivalence requires separate evidence.
+    """
+    grouped = defaultdict(lambda: {'hashes': set(), 'sources': set(), 'origins': set()})
+    for item in matches:
+        if item.get('classification') != 'NEW':
+            continue
+        ref = item.get('service_reference')
+        sha = item.get('candidate_sha256')
+        if not ref or not _SRP.fullmatch(str(ref)) or not sha:
+            continue
+        source = str(item.get('candidate_source', ''))
+        cell = grouped[ref.upper()]
+        cell['hashes'].add(sha)
+        cell['sources'].add(source)
+        cell['origins'].add(origin_of(source))
+    single = []
+    conflicts = []
+    for ref, cell in sorted(grouped.items()):
+        record = {'service_reference': ref, 'artwork_sha256': sorted(cell['hashes']),
+                  'source_observations': len(cell['sources']),
+                  'source_origins': sorted(cell['origins'])}
+        (single if len(cell['hashes']) == 1 else conflicts).append(record)
+    return {'schema': 1, 'authority': 'READ_ONLY_DIAGNOSTIC',
+            'identity_approval': 'NONE',
+            'new_references': len(grouped),
+            'single_artwork_references': len(single),
+            'conflicting_artwork_references': len(conflicts),
+            'single_artwork': single,
+            'conflicting_artwork': conflicts,
+            'samples': {'single': single[:sample_limit],
+                        'conflicting': conflicts[:sample_limit]}}
+
+
 def unmapped_filename_diagnostics(matches, sample_limit=12):
     """Bounded, source-aware evidence for unmapped PNGs; never guess IDs."""
     groups = defaultdict(lambda: {"count": 0, "service_ref_like": 0, "utf8_names": 0, "other": 0, "samples": []})
