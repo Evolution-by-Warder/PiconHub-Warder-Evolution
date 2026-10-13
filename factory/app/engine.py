@@ -450,7 +450,7 @@ def _output_signature(sha):
    path=folder/(name+'.png')
    if not path.is_file():return None
    revision_marker=folder/(name+'.render-revision')
-   if name!='transparent' and (not revision_marker.is_file() or revision_marker.read_text(encoding='ascii').strip()!=RENDER_REVISION):return None
+   if not revision_marker.is_file() or revision_marker.read_text(encoding='ascii').strip()!=RENDER_REVISION:return None
    from PIL import Image as _Image
    with _Image.open(path) as _cached:
     _cached.verify()
