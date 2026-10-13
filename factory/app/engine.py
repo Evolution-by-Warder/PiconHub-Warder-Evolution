@@ -1092,7 +1092,8 @@ class Factory:
   atomic_json(new_ref_path,new_ref_triage)
   self.log('Nové SRP bez duplicit: '+str(new_ref_triage['single_artwork_references'])+
            ' s jednou grafikou, '+str(new_ref_triage['conflicting_artwork_references'])+
-           ' s viacerými grafikami; iba diagnostika, bez schválenia: '+str(new_ref_path))
+           ' s viacerými grafikami; '+str(new_ref_triage['source_evidence_count'])+
+           ' overiteľných SHA/zdroj dôkazov; iba diagnostika, bez schválenia: '+str(new_ref_path))
   match_breakdown=summarize_registry_matches(registry_matches)
   service_breakdown=service_reference_diagnostics(registry_matches)
   unmapped_evidence=unmapped_filename_diagnostics(registry_matches)
