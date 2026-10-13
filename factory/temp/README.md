@@ -1,11 +1,13 @@
-# Factory temp — diagnostické súhrny
+# Factory temp — anonymizované diagnostické súhrny a review evidence
 
-Tento adresár v existujúcom verejnom repozitári prijíma **iba anonymizované JSON súhrny** z WARDER PICON FACTORY. Zápis je povolený len do vetvy `factory-warder-development`, nie do `main` alebo `warder-master-production`.
+Tento adresár v existujúcom verejnom repozitári prijíma diagnostiku WARDER PICON FACTORY výhradne na vetve `factory-warder-development`. Vetvy `main` a `warder-master-production` sú zakázané.
 
-- Povolené: počty spracovaných súborov, QA úloh a chýb, verzia aplikácie a identifikátor behu.
-- Zakázané: PNG, pôvodné logy, absolútne cesty, názvy zdrojových súborov, identifikátory staníc, tokeny a osobné údaje.
-- Prístupový token zostáva výhradne na používateľskom počítači v konfigurácii aplikácie; nikdy sa nezapisuje do Git.
-- Po spracovaní možno súhrny odstrániť z aktuálnej vetvy. **História Git commitov ich môže naďalej obsahovať**, preto sa anonymizácia vykonáva pred prenosom.
-- Ak upload zlyhá, pôvodný report zostáva lokálne na opakovanie.
+Povolené sú allowlistované číselné súhrny a položkové review dôkazy bez obrazových súborov. Položkový export obsahuje stabilné review ID, SHA-256 a dekódované pixel fingerprinty; service reference a source-relative identifikátory sú pred odoslaním pseudonymizované. Bezpečné názvy služieb sa môžu uviesť ako štítky.
 
-Lokálne reporty: `D:\WARDER-PICON-FACTORY\08-REPORTS\`.
+Zakázané sú originálne alebo renderované PNG a iné obrazové payloady, absolútne lokálne cesty, názvy používateľských súborov, prihlasovacie údaje, tokeny a osobné údaje. Zdrojové cesty sú exportované iba ako stabilné hashe relatívnych identifikátorov.
+
+Veľké review reporty sa prenášajú ako gzip časti s manifestom. Každá časť a manifest sa po zápise načítajú späť a overia SHA-256. Pri chybe uploadu zostáva report lokálne na neskorší retry bez opätovného skenovania.
+
+Existujúce súbory v `evidence/` sú historické dôkazy; ich pôvod sa musí overiť samostatne. Nová automatická diagnostika PNG nenahráva.
+
+Prístupový token zostáva výhradne na používateľskom počítači v konfigurácii aplikácie; nikdy sa nezapisuje do Git. Odstránenie reportu z aktuálnej vetvy neodstráni historické Git commity.

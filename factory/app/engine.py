@@ -348,7 +348,7 @@ def _compose_variant(rgba, background):
  return canvas
 
 RENDER_REVISION = "plate-aware-v20-unified-clean-artwork"
-QA_SCHEMA = 6
+QA_SCHEMA = 7
 
 def render_png_task(args):
  # Independent process: Pillow decoding and PNG encoding use multiple CPU cores.
@@ -496,20 +496,28 @@ from functools import lru_cache
 def _cached_template_sha256(path,size,mtime_ns):
  return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
-def _file_content_signature(path):
- """Hash bytes once and bind the digest to a stable filesystem snapshot."""
- path=Path(path)
- before=path.stat()
- before_sig=(before.st_dev,before.st_ino,before.st_size,before.st_mtime_ns,before.st_ctime_ns)
+def _hash_file_bytes(path):
  checksum=hashlib.sha256()
- with path.open('rb') as stream:
+ with Path(path).open('rb') as stream:
   for block in iter(lambda:stream.read(1024*1024),b''):
    checksum.update(block)
+ return checksum.hexdigest()
+
+def _file_content_signature(path):
+ """Hash bytes; metadata-only changes are accepted only after a matching re-read."""
+ path=Path(path)
+ before=path.stat()
+ digest=_hash_file_bytes(path)
  after=path.stat()
+ before_sig=(before.st_dev,before.st_ino,before.st_size,before.st_mtime_ns,before.st_ctime_ns)
  after_sig=(after.st_dev,after.st_ino,after.st_size,after.st_mtime_ns,after.st_ctime_ns)
  if before_sig!=after_sig:
-  raise OSError('Output PNG changed while hashing')
- return {'sha256':checksum.hexdigest(),'stat':list(before_sig)}
+  verify_digest=_hash_file_bytes(path)
+  verified=path.stat()
+  if verify_digest!=digest or verified.st_size!=after.st_size:
+   raise OSError('Output PNG content changed while hashing')
+  after=verified
+ return {'sha256':digest,'stat':[after.st_dev,after.st_ino,after.st_size,after.st_mtime_ns,after.st_ctime_ns]}
 
 def _output_signature(sha):
  """Content signature for outputs tied to current templates and render rules.
@@ -539,14 +547,38 @@ def _output_signature(sha):
 
 
 def _qa_signature_unchanged(before, after):
- """Require identical non-empty content signatures across one QA pass."""
- return before is not None and after is not None and before == after
+ """Compare content hashes and render-rule fingerprints, not timestamp metadata."""
+ if not isinstance(before,dict) or not isinstance(after,dict):
+  return False
+ before_content={key:value.get('sha256') for key,value in before.items()
+                 if isinstance(value,dict) and isinstance(value.get('sha256'),str)}
+ after_content={key:value.get('sha256') for key,value in after.items()
+                if isinstance(value,dict) and isinstance(value.get('sha256'),str)}
+ before_rules={key:value for key,value in before.items() if key.endswith('_template_sha256')}
+ after_rules={key:value for key,value in after.items() if key.endswith('_template_sha256')}
+ required={'transparent','black','white'}
+ return (set(before_content)==required and set(after_content)==required and
+         before_content==after_content and before_rules==after_rules and
+         set(before_rules)=={'black_template_sha256','white_template_sha256'})
 
 def _qa_cache_entry_compatible(entry, current_signature, source_sha):
- """Reuse QA only for the same source content, output triplet, and rules."""
- return (isinstance(entry,dict) and current_signature is not None and
-         entry.get('source_sha256')==source_sha and
-         entry.get('signatures')==current_signature and
+ """Reuse QA only for identical PNG bytes and unchanged QA/template rules."""
+ if not isinstance(entry,dict) or current_signature is None:
+  return False
+ old=entry.get('signatures')
+ if not isinstance(old,dict):
+  return False
+ old_content={key:value.get('sha256') for key,value in old.items()
+              if isinstance(value,dict) and isinstance(value.get('sha256'),str)}
+ new_content={key:value.get('sha256') for key,value in current_signature.items()
+              if isinstance(value,dict) and isinstance(value.get('sha256'),str)}
+ old_rules={key:value for key,value in old.items() if key.endswith('_template_sha256')}
+ new_rules={key:value for key,value in current_signature.items() if key.endswith('_template_sha256')}
+ required={'transparent','black','white'}
+ return (entry.get('source_sha256')==source_sha and
+         set(old_content)==required and set(new_content)==required and
+         old_content==new_content and old_rules==new_rules and
+         set(old_rules)=={'black_template_sha256','white_template_sha256'} and
          entry.get('qa_schema')==QA_SCHEMA and isinstance(entry.get('issues',[]),list))
 
 def _record_repaired_sha(sha, repair_succeeded, remaining_issues, repaired_shas):
@@ -1465,6 +1497,23 @@ class Factory:
    master_comparisons=attach_master_pixel_comparisons(review_queue,master_pixels,review_pixel_digests)
    stats['master_artwork_pixel_comparisons']=master_comparisons
    self.log('QA Master RGBA zhody (len evidencia, bez schvalenia): '+str(master_comparisons))
+  from review_decision_groups import build_decision_groups, apply_group_decisions
+  review_queue=apply_group_decisions(review_queue,_WORKSPACE["ledger_path"])
+  group_report=build_decision_groups(review_queue)
+  review_queue["decision_groups"]=group_report["groups"]
+  review_queue["decision_group_summary"]=group_report["summary"]
+  stats["active_technical_items"]=group_report["summary"]["active_technical_items"]
+  stats["user_decision_groups"]=group_report["summary"]["user_decision_groups"]
+  stats["potential_decisions_saved"]=group_report["summary"]["potential_decisions_saved"]
+  from review_evidence_export import build_review_evidence_export
+  from artwork_pixel_groups import pixel_fingerprints_for_queue
+  evidence_pixels=pixel_fingerprints_for_queue(review_queue,OUTPUT)
+  evidence_report=build_review_evidence_export(review_queue,run,
+   pixel_evidence=evidence_pixels,
+   package_styles=getattr(self,'openatv_package_styles',{}))
+  evidence_path=REPORTS/('review-evidence-'+run+'.json')
+  atomic_json(evidence_path,evidence_report)
+  self.log('Položkový review dôkaz: '+str(evidence_path)+' · úlohy '+str(stats["active_technical_items"])+' · rozhodovacie skupiny '+str(stats["user_decision_groups"]))
   save_review_queue(review_path,review_queue)
   from qa_backlog_diagnostics import explain_review_backlog
   backlog=explain_review_backlog(review_queue)
@@ -1897,7 +1946,11 @@ class App:
     self.emit('diagnostics','prihlásenie nedostupné; reporty a PNG ponechané lokálne')
     return
    os.environ['WARDER_DIAGNOSTICS_TOKEN']=token
-   from factory_diagnostics_retry import retry_reports
+   from factory_diagnostics_retry import retry_reports, retry_review_evidence_exports
+   evidence_results=retry_review_evidence_exports(REPORTS,APP_DATA/'review-evidence-delivery.json',limit=5,token=token)
+   for delivered in evidence_results:
+    self.emit('diagnostics','review evidence '+delivered.get('report','')+': '+delivered.get('status','unknown')+
+              (' · skupiny '+str(delivered.get('groups')) if delivered.get('status')=='sent' else ''))
    results=[]
    # Drain all pending reports in bounded batches, without rescanning PNG.
    while True:

@@ -6,6 +6,7 @@ from pathlib import Path
 from review_ui import latest_review
 from review_queue import load_review_queue
 from review_decisions import record_decision
+from review_decision_groups import build_decision_groups, record_group_decision, apply_group_decisions
 from final_qa_bridge import prepare_finalization, FinalizationNotReady
 
 
@@ -120,11 +121,15 @@ class ReviewGallery(ttk.Frame):
     def reload(self):
         try:
             path = latest_review(self.report_dir, *([self.legacy_report_dir] if self.legacy_report_dir else []))
-            self.items = pending_items(load_review_queue(path)['items'], self.ledger_path,
+            loaded = load_review_queue(path) if path else {"items": []}
+            loaded = apply_group_decisions(loaded, self.ledger_path)
+            self.items = pending_items(loaded['items'], self.ledger_path,
                                        self.legacy_ledger_path) if path else []
+            self.groups = build_decision_groups({"items": self.items})["groups"]
             self.load_error = None
         except (OSError, ValueError, KeyError, TypeError) as exc:
             self.items = []
+            self.groups = []
             self.load_error = f'{type(exc).__name__}: {exc}'
         self.page = 0
         self.render()
@@ -138,15 +143,137 @@ class ReviewGallery(ttk.Frame):
     def render(self):
         for child in self.content.winfo_children(): child.destroy()
         lane = self.lane.get()
-        selected = [x for x in self.items if lane == 'ALL' or x.get('workstream') == lane]
+        by_id = {item.get('review_id'): item for item in self.items}
+        selected = [group for group in self.groups
+                    if lane == 'ALL' or any(by_id.get(member, {}).get('workstream') == lane
+                                            for member in group.get('member_review_ids', []))]
         pages = max(1, (len(selected) + 9) // 10)
         self.page = min(max(0, self.page), pages - 1)
-        self.counter.configure(text=f'{self.page+1}/{pages} · čaká {len(selected)}' if not self.load_error else 'CHYBA načítania fronty')
+        task_count = sum(group.get('review_tasks', 0) for group in selected)
+        self.counter.configure(text=f'{self.page+1}/{pages} · rozhodnutia {len(selected)} · položky {task_count}' if not self.load_error else 'CHYBA načítania fronty')
         if self.load_error:
             ttk.Label(self.content, text=self.load_error, foreground='red', wraplength=700).pack(anchor='w', padx=8, pady=8)
-        for item in selected[self.page*10:(self.page+1)*10]:
-            self.add_row(item)
+        for group in selected[self.page*10:(self.page+1)*10]:
+            members = [by_id[review_id] for review_id in group.get('member_review_ids', [])
+                       if review_id in by_id]
+            if len(members) == 1:
+                self.add_row(members[0])
+            elif members:
+                self.add_group(group, members)
         self.canvas.yview_moveto(0)
+
+    def add_group(self, group, members):
+        refs = sorted({str(item.get('candidate_identity') or 'bez identity') for item in members})
+        title = f"{group['decision_group_id']} · {group['scope']} · {len(members)} úloh · {len(refs)} služieb"
+        frame = ttk.LabelFrame(self.content, text=title, padding=6)
+        frame.pack(fill='x', padx=4, pady=4)
+        ttk.Label(frame, text=group.get('grouping_reason', ''), wraplength=720).pack(anchor='w')
+        ttk.Label(frame, text='Členovia: '+', '.join(group.get('member_review_ids', [])), wraplength=720).pack(anchor='w')
+        ttk.Label(frame, text='Služby: '+', '.join(refs[:30])+(' …' if len(refs)>30 else ''), wraplength=720).pack(anchor='w')
+        ttk.Label(frame, text='Kandidát pixel SHA: '+', '.join(group.get('common_candidate_pixel_sha256', []))+
+                  '\nMaster pixel SHA: '+', '.join(group.get('common_master_pixel_sha256', [])), wraplength=720).pack(anchor='w')
+        first = members[0]
+        ttk.Label(frame, text='Dôvody: '+', '.join(first.get('reasons', []))+
+                  ' · zdroje: '+', '.join(first.get('source_origins', [first.get('source_origin','unknown')])),
+                  wraplength=720).pack(anchor='w')
+        ttk.Label(frame, text='Master SHA: '+', '.join(sorted({str(entry.get('sha256')) for member in members
+                  for entry in member.get('master_locations', []) if isinstance(entry, dict) and entry.get('sha256')})),
+                  wraplength=720).pack(anchor='w')
+        preview = ttk.Frame(frame); preview.pack(fill='x', pady=4)
+        preview._photos = []
+        candidate_shas = sorted({unit.get('representative_sha256')
+                                 for member in members for unit in member.get('artwork_review_units', [])
+                                 if isinstance(unit, dict) and isinstance(unit.get('representative_sha256'), str)})
+        if not candidate_shas:
+            candidate_shas = sorted({sha for member in members for sha in evidence_digests(member)})
+        all_candidate_shas = sorted({sha for member in members for sha in evidence_digests(member)})
+        ttk.Label(frame, text='Kandidát byte SHA (všetky): '+', '.join(all_candidate_shas[:20])+
+                  (' …' if len(all_candidate_shas)>20 else ''), wraplength=720).pack(anchor='w')
+        def show_preview(path, label):
+            cell = ttk.Frame(preview); cell.pack(side='left', fill='both', expand=True, padx=2)
+            ttk.Label(cell, text=label).pack()
+            image_label = ttk.Label(cell, text='Náhľad nedostupný', anchor='center')
+            image_label.pack(fill='both', expand=True)
+            if path and Path(path).is_file():
+                try:
+                    from PIL import Image, ImageTk
+                    with Image.open(path) as source:
+                        image = source.convert('RGBA'); image.thumbnail((150, 84))
+                    photo = ImageTk.PhotoImage(image, master=self)
+                    image_label.configure(image=photo, text=''); image_label.image = photo
+                    preview._photos.append(photo)
+                except (OSError, ImportError, ValueError):
+                    pass
+        master_path = None
+        if self.master_root:
+            for entry in first.get('master_locations', []):
+                if not isinstance(entry, dict) or entry.get('style') != 'transparent':
+                    continue
+                relative = entry.get('path')
+                try:
+                    candidate = (self.master_root / relative).resolve(strict=True)
+                    if candidate.is_relative_to(self.master_root.resolve()) and candidate.is_file():
+                        master_path = candidate; break
+                except (OSError, TypeError, ValueError):
+                    continue
+        show_preview(master_path, 'Master · referencia')
+        for digest in candidate_shas[:4]:
+            source = next((Path(value) for member in members for value in source_candidates(member, digest)
+                           if matches_evidence_sha(value, digest)), None)
+            show_preview(source, 'Kandidát · '+digest[:12])
+            paths = variant_paths(self.output_dir, {'sha256': digest})
+            show_preview(paths.get('black'), 'Čierny · '+digest[:12])
+            show_preview(paths.get('white'), 'Biely · '+digest[:12])
+        if len(candidate_shas) > 4:
+            ttk.Label(frame, text=f'Ďalších {len(candidate_shas)-4} kandidátnych SHA je v detaile; nič sa neskrýva z rozhodovacieho rozsahu.',
+                      wraplength=720).pack(anchor='w')
+        controls = ttk.Frame(frame); controls.pack(fill='x')
+        for text, decision, note in (
+            ('OK / Beriem skupinu', 'APPROVED_FOR_REVIEW', 'Explicitné rozhodnutie pre zobrazenú skupinu'),
+            ('Zamietnuť skupinu', 'REJECTED', 'Explicitné zamietnutie zobrazenej skupiny'),
+            ('Preskočiť skupinu', 'DEFERRED', 'Skupina odložená na neskoršiu kontrolu'),
+        ):
+            ttk.Button(controls, text=text, command=lambda d=decision,n=note,g=group:self.decide_group(g,d,n)).pack(side='left', padx=2)
+
+    def decide_group(self, group, decision, note):
+        if not self.write_enabled():
+            messagebox.showwarning('Zápis zablokovaný', 'Read-only preflight musí úspešne overiť všetkých 13 adresárov.', parent=self)
+            return
+        fresh = build_decision_groups({"items": self.items})["groups"]
+        current = next((candidate for candidate in fresh
+                        if candidate.get('decision_group_id') == group.get('decision_group_id')), None)
+        if current is None or current.get('group_evidence_hash') != group.get('group_evidence_hash'):
+            messagebox.showwarning('Skupina sa zmenila', 'Dôkazy sa zmenili; načítaj aktuálnu frontu pred rozhodnutím.', parent=self)
+            self.reload()
+            return
+        ids = group.get('member_review_ids', [])
+        candidate_shas = sorted({unit.get('representative_sha256')
+                                 for item in self.items if item.get('review_id') in set(ids)
+                                 for unit in item.get('artwork_review_units', [])
+                                 if isinstance(unit, dict) and isinstance(unit.get('representative_sha256'), str)})
+        if not candidate_shas:
+            candidate_shas = sorted({sha for item in self.items if item.get('review_id') in set(ids)
+                                     for sha in evidence_digests(item)})
+        if len(candidate_shas) > 4:
+            messagebox.showwarning('Skupina vyžaduje detailnú kontrolu',
+                                   'Skupinové rozhodnutie je zablokované, pretože skupina obsahuje viac než štyri grafiky.',
+                                   parent=self)
+            return
+        if len(ids) < 2 or any(not any(item.get('review_id') == review_id for item in self.items) for review_id in ids):
+            messagebox.showwarning('Neplatný rozsah skupiny', 'Rozsah rozhodnutia už nie je totožný s aktívnou frontou.', parent=self)
+            return
+        summary = (f"{group['decision_group_id']}\n{len(ids)} úloh, {group.get('service_count', 0)} služieb"
+                   f"\nRozsah SHA-256 dôkazov: {group['group_evidence_hash']}\n\n{note}")
+        if not messagebox.askyesno('Potvrdiť skupinové rozhodnutie', summary, parent=self):
+            return
+        try:
+            record_group_decision(self.ledger_path, group, decision, note, operator_confirmation=True)
+        except (ValueError, OSError, PermissionError) as exc:
+            messagebox.showerror('Zápis zlyhal', str(exc), parent=self)
+            return
+        self.items = [item for item in self.items if item.get('review_id') not in set(ids)]
+        self.groups = build_decision_groups({"items": self.items})["groups"]
+        self.render()
 
     def add_row(self, item):
         frame = ttk.LabelFrame(self.content, text=f"{item['review_id']}  ·  {item.get('candidate_identity') or item.get('sha256') or 'Bez identity'}", padding=5)

@@ -83,8 +83,15 @@ def attach_master_pixel_comparisons(queue, master_digests, candidate_digests):
             continue
         ref = item.get('candidate_identity')
         master = set(master_digests.get(ref) or ())
+        master_bytes = sorted({entry.get('sha256').lower()
+                               for entry in item.get('master_locations', [])
+                               if isinstance(entry, dict) and entry.get('style') == 'transparent'
+                               and isinstance(entry.get('sha256'), str)
+                               and len(entry.get('sha256')) == 64})
         units = item.get('artwork_review_units') or ()
         for unit in units:
+            unit['master_pixel_sha256'] = sorted(master)
+            unit['master_sha256'] = master_bytes
             digest = unit.get('pixel_sha256')
             if not digest:
                 sha = unit.get('representative_sha256')
@@ -118,3 +125,47 @@ def attach_master_pixel_comparisons(queue, master_digests, candidate_digests):
                 item.get('workstream') == lane and item.get('decision', 'PENDING') == 'PENDING'
                 for item in queue.get('items', ()))
     return counts
+
+
+def pixel_fingerprints_for_queue(queue, output_root):
+    """Decode each unique rendered candidate once for item-level export."""
+    shas = set()
+    result = {}
+    for item in (queue or {}).get('items', ()):
+        if not isinstance(item, dict):
+            continue
+        for unit in item.get('artwork_review_units') or ():
+            if not isinstance(unit, dict) or not isinstance(unit.get('pixel_sha256'), str):
+                continue
+            pixel = unit['pixel_sha256'].lower()
+            for sha in [unit.get('representative_sha256')] + list(unit.get('duplicate_sha256') or []):
+                if isinstance(sha, str) and len(sha) == 64:
+                    result[sha.lower()] = pixel
+        values = [item.get('sha256')]
+        for field in ('source_evidence', 'variants'):
+            for entry in item.get(field) or ():
+                if isinstance(entry, dict):
+                    values.append(entry.get('sha256'))
+                    values.extend(entry.get('duplicate_sha256') or ())
+        for unit in item.get('artwork_review_units') or ():
+            if isinstance(unit, dict):
+                values.append(unit.get('representative_sha256'))
+                values.extend(unit.get('duplicate_sha256') or ())
+        shas.update(value.lower() for value in values
+                    if isinstance(value, str) and len(value) == 64
+                    and all(c in '0123456789abcdefABCDEF' for c in value)
+                    and value.lower() not in result)
+    root = Path(output_root)
+    for sha in sorted(shas):
+        path = root / sha[:2] / sha / 'transparent.png'
+        try:
+            with Image.open(path) as image:
+                rgba = image.convert('RGBA')
+                if rgba.size != (220, 132):
+                    continue
+                result[sha] = hashlib.sha256(
+                    str(rgba.size).encode('ascii') + b'\\0' + rgba.tobytes()
+                ).hexdigest()
+        except (OSError, ValueError):
+            continue
+    return result

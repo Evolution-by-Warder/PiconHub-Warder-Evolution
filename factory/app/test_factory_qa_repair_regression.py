@@ -39,24 +39,44 @@ class RepairAccountingTests(unittest.TestCase):
         self.assertFalse(engine._record_repaired_sha("still-bad", True, ["CORRUPT_BLACK"], repaired_shas))
         self.assertEqual(repaired_shas, set())
 
-    def test_output_mutation_during_qa_is_not_cacheable(self):
-        self.assertTrue(engine._qa_signature_unchanged("same", "same"))
-        self.assertFalse(engine._qa_signature_unchanged("before", "after"))
+    def test_output_signature_uses_content_not_timestamp_as_authority(self):
+        before = {"transparent": {"sha256": "pixels-a", "stat": [1, 2, 3, 4]},
+                  "black": {"sha256": "pixels-b", "stat": [1, 2, 3, 4]},
+                  "white": {"sha256": "pixels-c", "stat": [1, 2, 3, 4]},
+                  "black_template_sha256": "template-b", "white_template_sha256": "template-w"}
+        metadata_only = {"transparent": {"sha256": "pixels-a", "stat": [1, 2, 3, 99]},
+                         "black": {"sha256": "pixels-b", "stat": [1, 2, 3, 99]},
+                         "white": {"sha256": "pixels-c", "stat": [1, 2, 3, 99]},
+                         "black_template_sha256": "template-b", "white_template_sha256": "template-w"}
+        changed_bytes = dict(metadata_only, transparent={"sha256": "pixels-x", "stat": [1, 2, 3, 99]})
+        self.assertTrue(engine._qa_signature_unchanged(before, metadata_only))
+        self.assertFalse(engine._qa_signature_unchanged(before, changed_bytes))
         self.assertFalse(engine._qa_signature_unchanged(None, None))
 
-    def test_qa_cache_requires_matching_source_output_and_rules(self):
-        entry = {
-            "source_sha256": "sha-a",
-            "signatures": {"transparent": "sig-a"},
-            "qa_schema": engine.QA_SCHEMA,
-            "issues": [],
+    def test_qa_cache_requires_matching_source_output_rules_and_schema(self):
+        current = {
+            "transparent": {"sha256": "sig-a", "stat": [1, 2, 3, 4]},
+            "black": {"sha256": "sig-b", "stat": [1, 2, 3, 4]},
+            "white": {"sha256": "sig-c", "stat": [1, 2, 3, 4]},
+            "black_template_sha256": "template-a", "white_template_sha256": "template-w",
         }
-        self.assertTrue(engine._qa_cache_entry_compatible(entry, {"transparent": "sig-a"}, "sha-a"))
-        self.assertFalse(engine._qa_cache_entry_compatible(entry, {"transparent": "sig-b"}, "sha-a"))
-        self.assertFalse(engine._qa_cache_entry_compatible(entry, {"transparent": "sig-a"}, "sha-b"))
+        metadata_only = {
+            "transparent": {"sha256": "sig-a", "stat": [1, 2, 3, 99]},
+            "black": {"sha256": "sig-b", "stat": [1, 2, 3, 99]},
+            "white": {"sha256": "sig-c", "stat": [1, 2, 3, 99]},
+            "black_template_sha256": "template-a", "white_template_sha256": "template-w",
+        }
+        entry = {"source_sha256": "sha-a", "signatures": current,
+                 "qa_schema": engine.QA_SCHEMA, "issues": []}
+        self.assertTrue(engine._qa_cache_entry_compatible(entry, metadata_only, "sha-a"))
+        changed = dict(metadata_only, black_template_sha256="template-b")
+        self.assertFalse(engine._qa_cache_entry_compatible(entry, changed, "sha-a"))
+        self.assertFalse(engine._qa_cache_entry_compatible(entry, current, "sha-b"))
         old_rules = dict(entry, qa_schema=engine.QA_SCHEMA - 1)
-        self.assertFalse(engine._qa_cache_entry_compatible(old_rules, {"transparent": "sig-a"}, "sha-a"))
-        self.assertFalse(engine._qa_cache_entry_compatible(None, {"transparent": "sig-a"}, "sha-a"))
+        self.assertFalse(engine._qa_cache_entry_compatible(old_rules, current, "sha-a"))
+        changed["transparent"] = {"sha256": "corrupt", "stat": [1, 2, 3, 99]}
+        self.assertFalse(engine._qa_cache_entry_compatible(entry, changed, "sha-a"))
+        self.assertFalse(engine._qa_cache_entry_compatible(None, current, "sha-a"))
 
 
 class FailedRunGuiStateTests(unittest.TestCase):
