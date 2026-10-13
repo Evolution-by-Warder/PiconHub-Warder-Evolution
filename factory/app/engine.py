@@ -376,6 +376,15 @@ def render_png_task(args):
    if clean.getchannel('A').getbbox() is None:
     raise ValueError('EMPTY_AFTER_BACKGROUND_EXTRACTION: no visible artwork remains')
    rgba=_fit_canvas(clean)
+  # Validate both plates before touching the output cache. A missing or
+  # damaged plate must not leave a successful-looking transparent variant.
+  for plate_name in ('black','white'):
+   plate=Path(__file__).resolve().parent/'templates'/'picons'/(plate_name+'-sablona.png')
+   with Image.open(plate) as template_image:
+    template_image.verify()
+   with Image.open(plate) as template_image:
+    if template_image.size!=(220,132):
+     raise ValueError('INVALID_WARDER_TEMPLATE: '+plate_name)
   dest=Path(output_dir)/sha[:2]/sha
   dest.mkdir(parents=True,exist_ok=True)
   created=0
