@@ -67,8 +67,7 @@ def classify_picon_filename(filename):
     verified mapping to a service reference. Never synthesize a Warder ID.
     """
     import re
-    from pathlib import PurePath
-    name = str(filename).replace('\\\\', '/').rsplit('/', 1)[-1]
+    name = str(filename).replace('\\', '/').rsplit('/', 1)[-1]
     if not name.lower().endswith('.png'):
         return {'kind': 'OTHER', 'key': None}
     stem = name[:-4]
