@@ -406,7 +406,9 @@ def render_png_task(args):
        if (bgname=='transparent' and extrema[1]>0) or (bgname!='transparent' and extrema==(255,255)):
         continue
     except Exception: pass
-   render=_compose_variant(_fit_canvas(raw) if bgname=='transparent' else rgba,bgname)
+   # All three variants must use the same background-extracted artwork.
+   # Using raw input for transparent left the original opaque background intact.
+   render=_compose_variant(rgba,bgname)
    tmp=out.with_name(out.name+'.'+str(os.getpid())+'.partial')
    try:
     render.save(tmp,format='PNG',compress_level=3)
