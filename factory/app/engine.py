@@ -353,6 +353,15 @@ def render_png_task(args):
  # Independent process: Pillow decoding and PNG encoding use multiple CPU cores.
  path, output_dir, sha = args
  try:
+  # The content-addressed cache must never accept a mismatched or malformed key.
+  if not isinstance(sha,str) or len(sha)!=64 or any(c not in '0123456789abcdef' for c in sha):
+   raise ValueError('INVALID_SOURCE_SHA256')
+  digest=hashlib.sha256()
+  with open(path,'rb') as source:
+   for chunk in iter(lambda:source.read(1024*1024),b''):
+    digest.update(chunk)
+  if digest.hexdigest()!=sha:
+   raise ValueError('SOURCE_SHA256_MISMATCH')
   with Image.open(path) as im:
    im.verify()
   with Image.open(path) as im:
