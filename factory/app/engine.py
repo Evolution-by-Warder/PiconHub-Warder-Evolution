@@ -367,7 +367,7 @@ def render_png_task(args):
    expected=None
    if bgname!='transparent':
     template=Path(__file__).resolve().parent/'templates'/'picons'/(bgname+'-sablona.png')
-    expected=hashlib.sha256(template.read_bytes()).hexdigest()
+    expected=_template_sha256(name)
    if out.exists() and (bgname=='transparent' or (revision_marker.is_file() and revision_marker.read_text(encoding='ascii').strip()==RENDER_REVISION)) and (expected is None or (signature.exists() and signature.read_text(encoding='ascii')==expected)):
     try:
      with Image.open(out) as existing:
@@ -415,6 +415,22 @@ def _fit_canvas(rgba):
   art=art.resize(size,Image.Resampling.LANCZOS)
  canvas.alpha_composite(art,((220-art.width)//2,(132-art.height)//2))
  return canvas
+
+def _template_sha256(name):
+ """Cache immutable template bytes for the duration of a scan.
+
+ The template fingerprint is invalidated when the file metadata changes,
+ avoiding tens of thousands of redundant template reads during cache checks.
+ """
+ from functools import lru_cache
+ template=Path(__file__).resolve().parent/'templates'/'picons'/(name+'-sablona.png')
+ st=template.stat()
+ return _cached_template_sha256(str(template),st.st_size,st.st_mtime_ns)
+
+from functools import lru_cache
+@lru_cache(maxsize=12)
+def _cached_template_sha256(path,size,mtime_ns):
+ return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
 def _output_signature(sha):
  """Return cache signature only for outputs tied to CURRENT plastic templates.
