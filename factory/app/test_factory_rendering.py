@@ -335,6 +335,9 @@ class FactoryRenderingTests(unittest.TestCase):
         self.assertEqual(result['single_artwork_references'], 1)
         self.assertEqual(result['conflicting_artwork_references'], 1)
         self.assertEqual(result['identity_approval'], 'NONE')
+        self.assertEqual(len(result['source_evidence']), 4)
+        self.assertEqual({row['sha256'] for row in result['source_evidence']}, {'a'*64, 'b'*64, 'c'*64})
+        self.assertEqual(result['schema'], 2)
         self.assertEqual(result['single_artwork'][0]['source_observations'], 2)
         self.assertEqual(result['conflicting_artwork'][0]['artwork_sha256'], ['b'*64, 'c'*64])
 
