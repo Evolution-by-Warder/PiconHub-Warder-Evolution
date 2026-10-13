@@ -911,7 +911,14 @@ class Factory:
   for base in (ORIGINALS,INBOX,SOURCE_INGEST/'originals'):
    for p in base.rglob('*'):
     self.check_cancelled()
-    if p.is_file() and p.suffix.lower()=='.png' and not is_master_path(p): candidates.append(p)
+    if p.is_file() and p.suffix.lower()=='.png' and not is_master_path(p):
+     # A github-piconhub snapshot is a reference set, not incoming artwork.
+     # Never render its copies as new candidates or create false reviews.
+     relative=p.relative_to(base)
+     if 'github-piconhub' in (part.casefold() for part in relative.parts[:-1]):
+      stats['reference_snapshot_skipped']=stats.get('reference_snapshot_skipped',0)+1
+      continue
+     candidates.append(p)
   total=len(candidates)
   self.log(f'Kontrola PNG: 0/{total}; Pillow: '+('dostupný' if PIL_OK else 'CHÝBA'))
   self.emit('progress',(0,max(1,total)))
