@@ -460,7 +460,7 @@ def _output_signature(sha):
    if st.st_size<=0:return None
    if name!='transparent':
     template=Path(__file__).resolve().parent/'templates'/'picons'/(name+'-sablona.png')
-    expected=hashlib.sha256(template.read_bytes()).hexdigest()
+    expected=_template_sha256(name)
     marker=folder/(name+'.template-sha256')
     if not marker.is_file() or marker.read_text(encoding='ascii').strip()!=expected:
      return None
