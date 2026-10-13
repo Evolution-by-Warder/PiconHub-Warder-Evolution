@@ -1973,7 +1973,7 @@ if __name__=='__main__':
   _,issues=qa_png_task((sha,str(target))) if ok else (sha,['RENDER_FAILED'])
   report={'ok':ok,'count':count,'error':error,'sha':sha,'qa_issues':issues}
   Path(os.environ['WARDER_RENDER_REPORT']).write_text(json.dumps(report),encoding='utf-8')
-  sys.exit(0 if ok else 1)
+  sys.exit(0 if ok and not issues else 1)
  try:
   App().root.mainloop()
  except Exception:
