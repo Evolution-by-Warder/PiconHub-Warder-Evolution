@@ -537,6 +537,31 @@ def _output_signature(sha):
  except (OSError,UnicodeError,ValueError):
   return None
 
+
+def _qa_signature_unchanged(before, after):
+ """Require identical non-empty content signatures across one QA pass."""
+ return before is not None and after is not None and before == after
+
+def _qa_cache_entry_compatible(entry, current_signature, source_sha):
+ """Reuse QA only for the same source content, output triplet, and rules."""
+ return (isinstance(entry,dict) and current_signature is not None and
+         entry.get('source_sha256')==source_sha and
+         entry.get('signatures')==current_signature and
+         entry.get('qa_schema')==QA_SCHEMA and isinstance(entry.get('issues',[]),list))
+
+def _record_repaired_sha(sha, repair_succeeded, remaining_issues, repaired_shas):
+ """Track only repaired outputs that passed the immediate post-repair QA."""
+ if repair_succeeded and not remaining_issues:
+  repaired_shas.add(sha)
+  return True
+ return False
+
+def _refresh_repaired_signatures(repaired_shas, current_signatures, repaired_signatures):
+ """Refresh cache entries from successful QA evidence, never from a count."""
+ for repaired_sha in sorted(set(repaired_shas)):
+  current_signatures[repaired_sha] = repaired_signatures.get(repaired_sha)
+ return current_signatures
+
 def qa_png_task(args):
  """Read-only image QA. Never rewrites approved or existing variants."""
  sha, output_dir = args
@@ -1264,12 +1289,12 @@ class Factory:
                     if _legacy_ambiguous_cache_entry(entry)}
   if legacy_ambiguous:
    self.log(f'QA cache migrácia: znovu preverím {len(legacy_ambiguous)} starých nejednoznačných opráv.')
-  qa_issues={sha:list(entry.get('issues',[])) for sha,entry in output_cache.items()
-              if sha in hashes and sha not in legacy_ambiguous and current_signatures[sha] is not None and isinstance(entry,dict)
-              and entry.get('signatures')==current_signatures[sha] and entry.get('qa_schema')==QA_SCHEMA and entry.get('issues')}
-  qa_targets=[sha for sha in unique if sha in legacy_ambiguous or current_signatures[sha] is None or
-              output_cache.get(sha,{}).get('signatures')!=current_signatures[sha] or
-              output_cache.get(sha,{}).get('qa_schema')!=QA_SCHEMA]
+  valid_qa_cache_shas={sha for sha in unique
+                        if sha not in legacy_ambiguous and
+                        _qa_cache_entry_compatible(output_cache.get(sha),current_signatures.get(sha),sha)}
+  qa_issues={sha:list(output_cache[sha].get('issues',[])) for sha in valid_qa_cache_shas
+             if output_cache[sha].get('issues')}
+  qa_targets=[sha for sha in unique if sha not in valid_qa_cache_shas]
   qa_checked=0
   if not PIL_OK and qa_targets:
    raise RuntimeError('Pillow chýba: QA nemožno dokončiť ani bezpečne aktualizovať cache.')
@@ -1324,6 +1349,9 @@ class Factory:
   if refused_cache:
    self.log(f'QA: {len(refused_cache)} nezmenených viacfarebných logotypov bezpečne ponechaných bez opakovaného prefarbovania.')
   repaired=0
+  repaired_shas=set()
+  repaired_signatures={}
+  qa_changed_during_check=set()
   if repair_candidates and PIL_OK:
    self.emit('stage',f'5/5 · Bezpečne opravujem {len(repair_candidates)} sád')
    backup_root=EXCEPTIONS/'variant-backups'/run
@@ -1336,9 +1364,18 @@ class Factory:
      try: ok,changed,error=fut.result()
      except Exception as e:ok,changed,error=False,0,str(e)
      if ok:
+      repair_signature_before_qa=_output_signature(sha)
       _,remaining=qa_png_task((sha,str(OUTPUT)))
-      if not remaining:
-       del qa_issues[sha];repaired+=1
+      repair_signature_after_qa=_output_signature(sha)
+      if not _qa_signature_unchanged(repair_signature_before_qa,repair_signature_after_qa):
+       qa_changed_during_check.add(sha)
+       qa_issues[sha]=sorted(set(qa_issues.get(sha,[])+remaining+['QA_ERROR: OUTPUT_CHANGED_DURING_QA']))
+       current_signatures[sha]=repair_signature_after_qa
+      elif not remaining:
+       qa_issues.pop(sha,None)
+       if _record_repaired_sha(sha,True,remaining,repaired_shas):
+        repaired+=1
+        repaired_signatures[sha]=repair_signature_after_qa
       else:qa_issues[sha]=remaining
      else:
       # A complex multicolour logo is not corrupt: keep the original
@@ -1349,6 +1386,17 @@ class Factory:
        qa_issues[sha]=[r for r in qa_issues[sha] if r in ('LOW_CONTRAST_WHITE','LOW_CONTRAST_BLACK')]
       else:
        qa_issues[sha]=sorted(set(qa_issues[sha]+['AUTO_REPAIR_FAILED: '+error[:150]]))
+  # Detect output mutation between the pre-QA content hash and completed QA.
+  # Unstable entries stay blocked and are deliberately not reusable next run.
+  for checked_sha in qa_targets:
+   if checked_sha in repaired_shas or checked_sha in qa_changed_during_check:continue
+   signature_after_qa=_output_signature(checked_sha)
+   if not _qa_signature_unchanged(current_signatures.get(checked_sha),signature_after_qa):
+    qa_changed_during_check.add(checked_sha)
+    qa_issues[checked_sha]=sorted(set(qa_issues.get(checked_sha,[])+['QA_ERROR: OUTPUT_CHANGED_DURING_QA']))
+    current_signatures[checked_sha]=signature_after_qa
+  _refresh_repaired_signatures(repaired_shas,current_signatures,repaired_signatures)
+  stats['qa_changed_during_check']=len(qa_changed_during_check)
   stats['qa_repaired']=repaired
   stats['qa_checked']=qa_checked
   qa_triage=summarize(qa_issues)
@@ -1368,10 +1416,9 @@ class Factory:
   self.emit('stage',f'5/5 · QA ukončená · skutočné nálezy {len(qa_issues):,} · vytváram reporty')
   # Cache is a flat sha->record mapping in memory; persist it inside one envelope.
   # Do not nest 'items' in itself: that invalidates the next run's QA cache.
-  for repaired_sha in repaired:
-   current_signatures[repaired_sha]=_output_signature(repaired_sha)
+  # Successful repairs were already re-QA'd and their signatures refreshed above.
   atomic_json(output_cache_path,{'schema':1,'items':{
-      sha:{'signatures':current_signatures.get(sha),'qa_schema':QA_SCHEMA,'issues':qa_issues.get(sha,[]),
+      sha:{'signatures':None if sha in qa_changed_during_check else current_signatures.get(sha),'qa_schema':QA_SCHEMA,'issues':qa_issues.get(sha,[]),
            'source_sha256':sha,'contrast_repair_refused':sha in contrast_refused and
            bool(set(qa_issues.get(sha,[])) & {'LOW_CONTRAST_WHITE','LOW_CONTRAST_BLACK'})}
       for sha in unique}})
@@ -1860,7 +1907,10 @@ class App:
      break
    sent=sum(item['status']=='sent' for item in results)
    failures=[item['report']+': '+item['status'] for item in results if item['status']!='sent']
-   message=('potvrdené odoslanie '+str(sent)+'/'+str(len(results))+'; '+('; '.join(failures) if failures else 'všetky prijaté'))
+   if not results:
+    message='žiadne čakajúce reporty; nič nové sa neodoslalo'
+   else:
+    message=('potvrdené odoslanie '+str(sent)+'/'+str(len(results))+'; '+('; '.join(failures) if failures else 'všetky prijaté'))
    self.emit('diagnostics',message)
    from factory_png_evidence import upload_png_evidence
    evidence=upload_png_evidence(EXCEPTIONS,state_path=APP_DATA/'png-evidence-delivered.json',max_attempts=20,legacy_report_dir=REPORTS)
@@ -1886,6 +1936,17 @@ class App:
   atomic_json(report,payload)
   threading.Thread(target=self._send_diagnostics,args=(str(report),),daemon=True).start()
  def emit(self,k,v):self.events.put((k,v))
+ def _set_run_state(self,state,message):
+  colors={'running':'#805500','success':'#176b2c','failed':'#b00020','cancelled':'#805500'}
+  self.run_state=state
+  self.status.set(message)
+  label=getattr(self,'status_label',None)
+  if label is not None:
+   try:label.configure(foreground=colors.get(state,'#202020'))
+   except Exception:pass
+  if state=='failed' and hasattr(self,'bar'):
+   self.bar['maximum']=1;self.bar['value']=0
+
  def start(self):
   if self.running or self.export_running:return
   if not self.workspace_ready:
@@ -1894,7 +1955,8 @@ class App:
     'Read-only preflight nepotvrdil kompletnú pôvodnú štruktúru D:\\WARDER-PICON-FACTORY. Aplikácia nič nevytvorí, nepresunie ani neprepíše. Otvor Nastavenia → Preflight a pozri diagnostiku.',parent=self.root)
    return
   self.cancel_event.clear();self.close_requested=False
-  self.running=True;self.started_at=time.monotonic();self.status.set('1/5 · Začínam synchronizáciu')
+  self.running=True;self.started_at=time.monotonic();self._set_run_state('running','1/5 · Začínam synchronizáciu')
+  self.bar['maximum']=1;self.bar['value']=0
   def worker():
    factory=None
    try:
@@ -1940,7 +2002,7 @@ class App:
      self._last_progress_at=time.monotonic()
      self._last_progress=v
     elif k=='done':
-     s,path=v;self.status.set('Hotovo · '+str(s['scanned'])+' PNG · QA opravené '+str(s.get('qa_repaired',0))+' · zostáva '+str(s.get('qa_review','?'))+' výnimiek.')
+     s,path=v;self._set_run_state('success','Hotovo · '+str(s['scanned'])+' PNG · QA opravené '+str(s.get('qa_repaired',0))+' · zostáva '+str(s.get('qa_review','?'))+' výnimiek.')
      self.output.insert('end','\nREPORT: '+path+'\n');self.running=False;self.gallery.reload()
      if self.started_at is not None:
       seconds=int(time.monotonic()-self.started_at)
@@ -1966,7 +2028,7 @@ class App:
      self.output.insert('end','VERZIA: '+self.installed_version+' | Tento beh: '+str(s.get('changed',0))+' zmenených zdrojov, '+str(s.get('created',0))+' vytvorených záznamov, '+str(s.get('qa_repaired',0))+' QA opráv, '+str(s.get('review_queue_items',0))+' čaká na posúdenie.\n')
      self._close_when_ready()
     elif k=='cancelled':
-     self.running=False;self.status.set('Beh bezpečne zastavený · čiastočné výstupy zostali obnoviteľné')
+     self.running=False;self._set_run_state('cancelled','Beh bezpečne zastavený · čiastočné výstupy zostali obnoviteľné')
      self.output.insert('end','ZASTAVENÉ: '+v+'\n')
      self._close_when_ready()
     elif k=='diagnostics':
@@ -2026,7 +2088,7 @@ class App:
      self.status.set('Export zlyhal');self.output.insert('end','EXPORT CHYBA: '+v+'\n')
      self._close_when_ready()
     elif k=='error':
-     self.status.set('Chyba spracovania');self.output.insert('end',v);self.running=False
+     self._set_run_state('failed','ZLYHANIE · beh nebol dokončený · posledný platný report a fronta zachované');self.output.insert('end',v);self.running=False
      try:self._record_failed_run()
      except (OSError,ValueError,TypeError) as exc:
       self.output.insert('end','\nDiagnostika chyby sa nedala uložiť: '+type(exc).__name__+'\n')
