@@ -360,12 +360,13 @@ def render_png_task(args):
     raise ValueError('Neštandardné rozmery')
    from artwork_preparation import extract_flat_edge_background
    raw=im.convert('RGBA')
-   clean,extracted=extract_flat_edge_background(raw)
-   rgba=_fit_canvas(clean)
-   # Empty source artwork cannot produce a usable picon triplet.
-   # Fail before creating or caching any apparently successful variants.
+   # Reject empty artwork before creating a cache directory.
    if raw.getchannel('A').getbbox() is None:
     raise ValueError('FULLY_TRANSPARENT: source artwork contains no visible pixels')
+   clean,extracted=extract_flat_edge_background(raw)
+   if clean.getchannel('A').getbbox() is None:
+    raise ValueError('EMPTY_AFTER_BACKGROUND_EXTRACTION: no visible artwork remains')
+   rgba=_fit_canvas(clean)
   dest=Path(output_dir)/sha[:2]/sha
   dest.mkdir(parents=True,exist_ok=True)
   created=0
