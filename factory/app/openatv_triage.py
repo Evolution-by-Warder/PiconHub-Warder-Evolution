@@ -86,3 +86,19 @@ def count_picon_filename_types(paths):
         counts[classify_picon_filename(path)['kind']] += 1
     return counts
 
+
+def build_snp_render_inventory(records):
+    """Group SNP render inputs by name without assigning SRP identities."""
+    groups = defaultdict(set)
+    for row in records:
+        info = classify_picon_filename(row.get('source', ''))
+        sha = row.get('sha256', '')
+        if info['kind'] == 'SNP' and isinstance(sha, str) and len(sha) == 64:
+            groups[info['key']].add(sha.lower())
+    stations = [{'snp_name': name, 'source_sha256': sorted(hashes),
+                 'status': 'CONFLICT_REVIEW' if len(hashes) > 1 else 'PENDING_QA'}
+                for name, hashes in sorted(groups.items())]
+    return {'namespace': 'SNP', 'identity_verified': False,
+            'station_count': len(stations),
+            'conflicts': sum(len(row['source_sha256']) > 1 for row in stations),
+            'stations': stations}
