@@ -1027,6 +1027,15 @@ class Factory:
   self.db.commit()
   self.emit('progress',(completed,max(1,total)))
   self.emit('stage',f'4/5 · PNG {completed:,}/{total:,} · hotovo')
+  # Persist SNP artwork inventory separately from the SRP identity registry.
+  # Never promote station-name matches into verified service identities.
+  from openatv_triage import build_snp_render_inventory
+  snp_inventory=build_snp_render_inventory(candidate_records)
+  snp_report=REPORTS/('snp-render-inventory-'+run+'.json')
+  atomic_json(snp_report,snp_inventory)
+  stats['snp_station_count']=snp_inventory['station_count']
+  stats['snp_artwork_conflicts']=snp_inventory['conflicts']
+  self.log(f'SNP: {snp_inventory["station_count"]:,} názvov staníc; {snp_inventory["conflicts"]:,} konfliktov grafiky; report: {snp_report}')
   # Conservative identity audit: do not assume filenames are validated registry IDs.
   collisions=audit_collision_records(candidate_records)
   collision_path=REPORTS/('identity-collisions-'+run+'.json')
