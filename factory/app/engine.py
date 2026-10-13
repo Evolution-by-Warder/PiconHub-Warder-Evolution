@@ -402,7 +402,9 @@ def render_png_task(args):
       existing.verify()
      with Image.open(out) as existing:
       if existing.size == (220,132) and existing.mode == 'RGBA':
-       continue
+       extrema=existing.getchannel('A').getextrema()
+       if (bgname=='transparent' and extrema[1]>0) or (bgname!='transparent' and extrema==(255,255)):
+        continue
     except Exception: pass
    render=_compose_variant(_fit_canvas(raw) if bgname=='transparent' else rgba,bgname)
    tmp=out.with_name(out.name+'.'+str(os.getpid())+'.partial')
