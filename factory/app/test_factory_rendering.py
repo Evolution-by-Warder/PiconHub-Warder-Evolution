@@ -316,5 +316,28 @@ class FactoryRenderingTests(unittest.TestCase):
                 self.assertEqual(source_path.read_bytes(), source_bytes)
 
 
+    def test_new_reference_triage_deduplicates_sources_without_approval(self):
+        from registry_triage import new_reference_artwork_triage
+        ref_a = '1_0_1_2_3_4_5_6_7_8'
+        ref_b = '1_0_1_2_3_4_5_6_7_9'
+        def item(ref, sha, path, classification='NEW'):
+            return {'classification': classification, 'service_reference': ref,
+                    'candidate_sha256': sha, 'candidate_source': path}
+        matches = [
+            item(ref_a, 'a'*64, r'D:\\SOURCE-INGEST\\originals\\openatv8\\a.png'),
+            item(ref_a, 'a'*64, r'D:\\SOURCE-INGEST\\originals\\vhannibal\\b.png'),
+            item(ref_b, 'b'*64, r'D:\\SOURCE-INGEST\\originals\\openatv8\\c.png'),
+            item(ref_b, 'c'*64, r'D:\\SOURCE-INGEST\\originals\\vhannibal\\d.png'),
+            item(ref_a, 'd'*64, 'master.png', 'IDENTICAL'),
+        ]
+        result = new_reference_artwork_triage(matches)
+        self.assertEqual(result['new_references'], 2)
+        self.assertEqual(result['single_artwork_references'], 1)
+        self.assertEqual(result['conflicting_artwork_references'], 1)
+        self.assertEqual(result['identity_approval'], 'NONE')
+        self.assertEqual(result['single_artwork'][0]['source_observations'], 2)
+        self.assertEqual(result['conflicting_artwork'][0]['artwork_sha256'], ['b'*64, 'c'*64])
+
+
 if __name__ == '__main__':
     unittest.main()
