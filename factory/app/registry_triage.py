@@ -18,7 +18,7 @@ def new_reference_artwork_triage(matches, sample_limit=20):
     A reference with two distinct byte hashes is a conflict even if both
     images look alike; visual equivalence requires separate evidence.
     """
-    grouped = defaultdict(lambda: {'hashes': set(), 'sources': set(), 'origins': set()})
+    grouped = defaultdict(lambda: {'hashes': set(), 'sources': set(), 'origins': set(), 'evidence': set()})
     for item in matches:
         if item.get('classification') != 'NEW':
             continue
@@ -31,20 +31,25 @@ def new_reference_artwork_triage(matches, sample_limit=20):
         cell['hashes'].add(sha)
         cell['sources'].add(source)
         cell['origins'].add(origin_of(source))
+        cell['evidence'].add((sha, source))
     single = []
     conflicts = []
+    source_evidence = []
     for ref, cell in sorted(grouped.items()):
         record = {'service_reference': ref, 'artwork_sha256': sorted(cell['hashes']),
                   'source_observations': len(cell['sources']),
                   'source_origins': sorted(cell['origins'])}
         (single if len(cell['hashes']) == 1 else conflicts).append(record)
-    return {'schema': 1, 'authority': 'READ_ONLY_DIAGNOSTIC',
+        source_evidence.extend({'service_reference': ref, 'sha256': sha, 'source': source}
+                               for sha, source in sorted(cell['evidence']))
+    return {'schema': 2, 'authority': 'READ_ONLY_DIAGNOSTIC',
             'identity_approval': 'NONE',
             'new_references': len(grouped),
             'single_artwork_references': len(single),
             'conflicting_artwork_references': len(conflicts),
             'single_artwork': single,
             'conflicting_artwork': conflicts,
+            'source_evidence': source_evidence,
             'samples': {'single': single[:sample_limit],
                         'conflicting': conflicts[:sample_limit]}}
 
