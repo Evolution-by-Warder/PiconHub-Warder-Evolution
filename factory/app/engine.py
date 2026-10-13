@@ -171,7 +171,11 @@ def _contrast_variant_art(rgba, background):
   if metallic and background=='white':
    # One monotone mapping for the entire neutral metallic gradient.
    # Do not turn individual highlights into black patches.
-   result[i]=(round(r*0.58),round(g*0.58),round(b*0.58),a)
+   # Compress silver highlights while keeping existing dark chrome shadows.
+   # Avoid the earlier heavy 42% global darkening and preserve tone ordering.
+   def chrome_channel(v):
+    return round(v*(0.90 if v<=125 else 0.90-0.22*(v-125)/130))
+   result[i]=(chrome_channel(r),chrome_channel(g),chrome_channel(b),a)
    changed=True
   elif low:
    result[i]=(*ink,a)
