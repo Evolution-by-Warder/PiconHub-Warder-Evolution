@@ -347,7 +347,7 @@ def _compose_variant(rgba, background):
  canvas.alpha_composite(art)
  return canvas
 
-RENDER_REVISION = "plate-aware-v18-chrome-contrast"
+RENDER_REVISION = "plate-aware-v19-transparent-cache-integrity"
 
 def render_png_task(args):
  # Independent process: Pillow decoding and PNG encoding use multiple CPU cores.
@@ -373,7 +373,7 @@ def render_png_task(args):
    if bgname!='transparent':
     template=Path(__file__).resolve().parent/'templates'/'picons'/(bgname+'-sablona.png')
     expected=_template_sha256(bgname)
-   if out.exists() and (bgname=='transparent' or (revision_marker.is_file() and revision_marker.read_text(encoding='ascii').strip()==RENDER_REVISION)) and (expected is None or (signature.exists() and signature.read_text(encoding='ascii')==expected)):
+   if out.exists() and revision_marker.is_file() and revision_marker.read_text(encoding='ascii').strip()==RENDER_REVISION and (expected is None or (signature.exists() and signature.read_text(encoding='ascii')==expected)):
     try:
      with Image.open(out) as existing:
       existing.verify()
