@@ -352,6 +352,14 @@ class FactoryRenderingTests(unittest.TestCase):
         self.assertEqual(sum(len(p['items']) for p in pages['review_batches']), result['new_references'])
         with self.assertRaises(ValueError):
             new_reference_review_batches(result, batch_size=0)
+        invalid = [item(ref_a, 'not-a-sha', 'bad.png'),
+                   item(ref_a, 'A'*64, 'upper.png'),
+                   item(ref_a, 'a'*64, 'lower.png')]
+        canonical = new_reference_artwork_triage(invalid)
+        self.assertEqual(canonical['new_references'], 1)
+        self.assertEqual(canonical['single_artwork_references'], 1)
+        self.assertEqual(canonical['single_artwork'][0]['artwork_sha256'], ['a'*64])
+        self.assertEqual(canonical['source_evidence_count'], 2)
         self.assertEqual({row['source'] for row in result['source_evidence']}, {m['candidate_source'] for m in matches if m['classification'] == 'NEW'})
         self.assertEqual(result['single_artwork'][0]['source_origins'], ['openatv8', 'vhannibal'])
         self.assertEqual(result['single_artwork'][0]['source_observations'], 2)
