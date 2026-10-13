@@ -5,13 +5,13 @@ from pathlib import Path
 from unittest.mock import patch
 from PIL import Image
 from openatv_pixel_evidence import attach_pixel_evidence
-from registry_triage import origin_of, summarize_registry_matches
+from registry_triage import origin_of, summarize_registry_matches, _openatv_provenance, identity_level_triage, _openatv_provenance, identity_level_triage
 
 
 class WindowsSourceProvenanceTests(unittest.TestCase):
     def test_report_paths_under_originals_are_classified(self):
         self.assertEqual(origin_of(r'D:\WARDER-PICON-FACTORY\02-ORIGINALS\openatv8\schema-3\f044684c32c051eb692305411225715b0c362f0bcae05c70eb3d155c1932022e\picon\jsports1.png'), 'openatv8')
-        self.assertEqual(origin_of(r'D:\WARDER-PICON-FACTORY\02-ORIGINALS\vhannibal\d0c29c6bdbe7b7ff641443dba2257ec2902b835182d8fb1d24a392155aa28bb4\PICON Vhannibal Motor 11 ott 2026\1_0_1.png'), 'vhannibal')
+        self.assertEqual(origin_of(r'D:\WARDER-PICON-FACTORY\02-ORIGINALS\vhannibal\162117cf31343e0a153b4fd5297c6545b13a85833f1481d5d9e02fbcad9435de4\PICON Vhannibal Motor 11 ott 2026\1_0_1.png'), 'vhannibal')
         self.assertEqual(origin_of(r'D:\WARDER-PICON-FACTORY\02-ORIGINALS\archives\PiconHub-Warder-Evolution.zip\picons\1.png'), 'piconhub')
 
     def test_old_ingest_and_local_inbox_layouts_remain_supported(self):
@@ -43,6 +43,27 @@ class WindowsSourceProvenanceTests(unittest.TestCase):
             self.assertEqual(digest.call_count, 1)
             self.assertEqual(counts['NO_PIXEL_EXACT_MASTER_ARTWORK'], 2)
             self.assertTrue(all(row['artwork_evidence']['identity_verified'] is False for row in rows))
+
+    def test_schema3_requires_digest_in_verified_package_slot(self):
+        known='f044684c32c051eb692305411225715b0c362f0bcae05c70eb3d155c1932022e'
+        styles={known:('srp','dark')}
+        self.assertEqual(_openatv_provenance(rf'D:\\WARDER-PICON-FACTORY\\02-ORIGINALS\\openatv8\\schema-3\\{known}\\picon\\jsports1.png',styles),('srp','dark'))
+        self.assertEqual(_openatv_provenance(rf'D:\\WARDER-PICON-FACTORY\\02-ORIGINALS\\openatv8\\schema-3\\{known}x\\picon\\a.png',styles),('unknown','unknown'))
+        self.assertEqual(_openatv_provenance(rf'D:\\WARDER-PICON-FACTORY\\02-ORIGINALS\\openatv8\\picon\\{known}.png',styles),('unknown','unknown'))
+        self.assertEqual(_openatv_provenance(rf'D:\\WARDER-PICON-FACTORY\\02-ORIGINALS\\vhannibal\\schema-3\\{known}\\a.png',styles),('unknown','unknown'))
+
+    def test_style_provenance_is_diagnostic_not_identity_approval(self):
+        dark='f044684c32c051eb692305411225715b0c362f0bcae05c70eb3d155c1932022e'
+        light='162117cf31343e0a153b4fd5297c6545b13a85833f1481d5d9e02fbcad9435de'
+        styles={dark:('srp','dark'),light:('srp','light')}
+        ref='1_0_1_2_3_4_5_6_7_8'
+        rows=[
+            {'service_reference':ref,'candidate_sha256':'a'*64,'candidate_source':rf'D:\\WARDER-PICON-FACTORY\\02-ORIGINALS\\openatv8\\schema-3\\{dark}\\picon\\{ref}.png','classification':'REVIEW'},
+            {'service_reference':ref,'candidate_sha256':'b'*64,'candidate_source':rf'D:\\WARDER-PICON-FACTORY\\02-ORIGINALS\\openatv8\\schema-3\\{light}\\picon\\{ref}.png','classification':'REVIEW'},
+        ]
+        result=identity_level_triage(rows,package_styles=styles)
+        self.assertEqual(result['style_diagnostic_counts'].get('CROSS_STYLE_DIFFERENCE_ONLY'),1)
+        self.assertEqual(result['identity_approval'],'NONE')
 
     def test_source_counts_not_misclassified_as_local_inbox(self):
         rows = [{'candidate_source': r'D:\WARDER-PICON-FACTORY\02-ORIGINALS\OPENATV8\a.png', 'classification': 'REVIEW'},

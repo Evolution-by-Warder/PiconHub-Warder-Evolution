@@ -13,15 +13,17 @@ def stable_review_id(kind: str, identity: str, sha: str) -> str:
 
 
 
-def _proven_openatv_style_only(collision):
+def _proven_openatv_style_only(collision, package_styles=None):
     """Suppress a redundant identity *task*, not its immutable collision audit.
 
-    Every observation must belong to a recognized OpenATV package; each
-    package/format/style bucket must have exactly one SHA. Other feeds,
-    unknown packages, or conflicting same-style art fail closed.
+    Every observation must belong to a verified OpenATV package. Suppression
+    is limited to one format represented in exactly the two official styles;
+    multiple formats or multiple hashes within one style remain pending. Other
+    feeds and unknown packages fail closed.
     """
     from registry_triage import _openatv_provenance, origin_of
     buckets = {}
+    formats = set()
     variants = collision.get('variants', ())
     if len(variants) < 2:
         return False
@@ -33,15 +35,16 @@ def _proven_openatv_style_only(collision):
         for source in sources:
             if origin_of(source) != 'openatv8':
                 return False
-            bucket = _openatv_provenance(source)
+            bucket = _openatv_provenance(source, package_styles)
             if 'unknown' in bucket:
                 return False
+            formats.add(bucket[0])
             previous = buckets.setdefault(bucket, sha)
             if previous != sha:
                 return False
-    return len(buckets) > 1
+    return len(formats) == 1 and {bucket[1] for bucket in buckets} == {'dark', 'light'}
 
-def build_review_queue(qa_issues: dict, originals: dict, collisions: list, registry_reviews=None, pixel_digests=None) -> dict:
+def build_review_queue(qa_issues: dict, originals: dict, collisions: list, registry_reviews=None, pixel_digests=None, package_styles=None) -> dict:
     """Never mark technical QA as semantic approval."""
     items = []
     pixel_digests = pixel_digests or {}
@@ -57,9 +60,29 @@ def build_review_queue(qa_issues: dict, originals: dict, collisions: list, regis
             'reasons': sorted(set(reasons)), 'decision': 'PENDING',
         })
     style_only_suppressed = 0
+    suppressed_identity_reviews = []
     for collision in collisions:
-        if _proven_openatv_style_only(collision):
+        if _proven_openatv_style_only(collision, package_styles):
             style_only_suppressed += 1
+            identity = collision['candidate_service_ref']
+            hashes = sorted(v['sha256'] for v in collision['variants'])
+            from registry_triage import _openatv_provenance
+            provenance = [
+                {'sha256': variant.get('sha256'),
+                 'sources': [{'source': source,
+                              'format_style': list(_openatv_provenance(source, package_styles))}
+                             for source in variant.get('sources', [])]}
+                for variant in collision['variants']
+            ]
+            suppressed_identity_reviews.append({
+                'review_id': stable_review_id('IDENTITY_COLLISION', identity, '|'.join(hashes)),
+                'candidate_identity': identity,
+                'status': 'SUPPRESSED_REDUNDANT_IDENTITY_TASK',
+                'identity_approval': 'NONE',
+                'reason': 'VERIFIED_OPENATV_CROSS_STYLE_ONLY',
+                'variants': collision['variants'],
+                'verified_provenance': provenance,
+            })
             continue
         identity = collision['candidate_service_ref']
         hashes = sorted(v['sha256'] for v in collision['variants'])
@@ -225,6 +248,7 @@ def build_review_queue(qa_issues: dict, originals: dict, collisions: list, regis
                      'registry_review_tasks_after_grouping': registry_review_groups,
                      'review_tasks_avoided': max(0, pre_group_registry_reviews - registry_review_groups),
                      'openatv_style_only_identity_tasks_avoided': style_only_suppressed,
+                     'openatv_style_only_identity_evidence': suppressed_identity_reviews,
                      'pixel_equivalent_review_groups': pixel_equivalent_groups,
                      'pixel_equivalent_sha_observations': pixel_equivalent_sha_observations,
                      'pixel_duplicate_sha_observations': pixel_duplicate_sha_observations,
@@ -232,6 +256,7 @@ def build_review_queue(qa_issues: dict, originals: dict, collisions: list, regis
                      'policy': 'EVIDENCE_GROUPING_ONLY; NO_AUTOMATIC_APPROVAL'}
     return {
         'workstream_counts': counts, 'consolidation': consolidation,
+        'suppressed_identity_reviews': suppressed_identity_reviews,
         'schema': 1, 'policy': 'READ_ONLY_REVIEW; NO_AUTOMATIC_APPROVAL_OR_PUBLICATION',
         'count': len(items), 'items': sorted(items, key=lambda x: (x['category'], x['review_id']))
     }

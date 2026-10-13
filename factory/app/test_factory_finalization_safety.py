@@ -6,6 +6,10 @@ from pathlib import Path
 
 from PIL import Image
 from factory_finalization import finalize_new_candidates, STYLES
+from unittest.mock import patch
+import factory_finalization
+from unittest.mock import patch
+import factory_finalization
 
 
 class FinalizationSafetyTests(unittest.TestCase):
@@ -31,7 +35,28 @@ class FinalizationSafetyTests(unittest.TestCase):
             third = finalize_new_candidates(matches, {}, work, final, verified_shas={sha})
             self.assertEqual(third["copied"], 0)
             self.assertEqual(third["conflicts"], 1)
+            self.assertEqual(third["existing_target_conflicts"], 1)
+            self.assertEqual(third["existing_target_conflicts"], 1)
             self.assertEqual(protected.read_bytes(), b"protected local file")
+
+    def test_repeated_source_triplets_reuse_sha256_cache(self):
+        with tempfile.TemporaryDirectory() as temp:
+            base=Path(temp)
+            work,final=base/'work',base/'final'
+            sha=hashlib.sha256(b'one immutable source').hexdigest()
+            srcdir=work/sha[:2]/sha
+            srcdir.mkdir(parents=True)
+            for style in STYLES:
+                Image.new('RGBA',(220,132),(12,30,48,255)).save(srcdir/(style+'.png'))
+            refs=['_'.join(['1']*9+['2']), '_'.join(['1']*9+['3'])]
+            matches=[{'service_reference':ref,'candidate_sha256':sha,'classification':'NEW'} for ref in refs]
+            with patch('factory_finalization._digest',wraps=factory_finalization._digest) as digest:
+                result=finalize_new_candidates(matches,{},work,final,verified_shas={sha})
+            self.assertEqual(result['copied'],6)
+            self.assertEqual(result['source_digest_cache_misses'],3)
+            self.assertEqual(result['source_digest_cache_hits'],3)
+            self.assertEqual(result['candidates_ready_to_copy'],2)
+            self.assertEqual(digest.call_count,9)
 
     def test_missing_qa_is_not_approval(self):
         with tempfile.TemporaryDirectory() as temp:

@@ -905,7 +905,10 @@ class Factory:
   except Exception as e:
    self.log('ZDROJ NEDOSTUPNÝ: PiconHub ('+str(e)+')')
  def scan(self):
-  run=datetime.now().strftime('%Y%m%d-%H%M%S-%f'); stats=dict(scanned=0,changed=0,duplicates=0,exceptions=0,created=0)
+  run=datetime.now().strftime('%Y%m%d-%H%M%S-%f'); stats=dict(scanned=0,changed=0,duplicates=0,exceptions=0,created=0,sha_cache_hits=0,sha_cache_misses=0,render_cache_hits=0)
+  total_started=time.perf_counter(); phase_started=total_started
+  phase_timings={}
+  stats['phase_timings_seconds']=phase_timings
   self.log('Začínam spracovanie '+run)
   self.fetch_sources()
   self.check_cancelled()
@@ -930,6 +933,7 @@ class Factory:
     self.log('CHYBA archívu '+archive.name+': '+str(e))
   # The three requested peer sources are integrated into the same resumable
   # ingestion tree. Each source owns its checkpoint and failure isolation.
+  self.openatv_package_styles={}
   self.sync_peer_sources(stats)
   self.check_cancelled()
   # Optional verified current-source manifest connects the tested ingestion
@@ -956,6 +960,8 @@ class Factory:
   else:
    stats['external_source_archives']=0
    stats['external_source_error']='NOT_CONFIGURED'
+  phase_timings['source_fetch_and_sync_seconds']=round(time.perf_counter()-phase_started,3)
+  phase_started=time.perf_counter()
   # Build a read-only snapshot index from the exact production files downloaded
   # above. It is the identity baseline; master assets are never sent through
   # the candidate renderer.
@@ -979,6 +985,8 @@ class Factory:
   stats['master_registry_services']=registry['service_count']
   stats['master_registry_conflicts']=len(registry['conflicts'])
   self.log(f'WARDER MASTER: {registry["service_count"]:,} service references, {registry["asset_count"]:,} súborov, {len(registry["conflicts"]):,} konfliktných štýlov.')
+  phase_timings['master_registry_index_seconds']=round(time.perf_counter()-phase_started,3)
+  phase_started=time.perf_counter()
   self.emit('stage','4/5 · Overujem PNG a pripravujem varianty')
   hashes={}
   candidate_records=[]
@@ -1056,7 +1064,9 @@ class Factory:
      old=self.cached_file(('sha256','size','modified_ns','status'),rel)
      if old and old[1]==st.st_size and old[2]==st.st_mtime_ns:
       sha=old[0]
+      stats['sha_cache_hits']+=1
      else:
+      stats['sha_cache_misses']+=1
       h=hashlib.sha256()
       with open(p,'rb') as f:
        for chunk in iter(lambda:f.read(1048576),b''):h.update(chunk)
@@ -1071,6 +1081,7 @@ class Factory:
       cached=output_cache.get(sha,{})
       current_signature=_output_signature(sha)
       if current_signature is not None and cached.get('signatures')==current_signature:
+       stats['render_cache_hits']+=1
        queue_db_update((rel,sha,st.st_size,st.st_mtime_ns,'VARIANTS_UNREVIEWED',run))
        completed+=1
       elif pool:
@@ -1100,6 +1111,8 @@ class Factory:
   self.db.commit()
   self.emit('progress',(completed,max(1,total)))
   self.emit('stage',f'4/5 · PNG {completed:,}/{total:,} · hotovo')
+  phase_timings['scan_hash_render_seconds']=round(time.perf_counter()-phase_started,3)
+  phase_started=time.perf_counter()
   # Persist SNP artwork inventory separately from the SRP identity registry.
   # Never promote station-name matches into verified service identities.
   from openatv_triage import build_snp_render_inventory
@@ -1169,7 +1182,7 @@ class Factory:
   match_path=REPORTS/('registry-matches-'+run+'.json')
   from registry_triage import summarize_registry_matches, service_reference_diagnostics, unmapped_filename_diagnostics, unmapped_asset_inventory
   from registry_triage import identity_level_triage
-  identity_triage=identity_level_triage(registry_matches)
+  identity_triage=identity_level_triage(registry_matches,package_styles=getattr(self,'openatv_package_styles',{}))
   identity_triage_path=REPORTS/('openatv-identity-triage-'+run+'.json')
   atomic_json(identity_triage_path,identity_triage)
   self.log('OpenATV SRP identita bez duplicít: '+str(identity_triage['reference_status_counts'])+'; '+str(identity_triage['unique_service_references'])+' unikátnych referencií; report: '+str(identity_triage_path))
@@ -1229,6 +1242,8 @@ class Factory:
    self.log(f'  Identita {origin}: {counts["distinct_service_references"]:,} unikátnych service-ref; '
             f'{counts["service_references_with_multiple_artworks"]:,} referencií s viacerými grafikami; '
             f'{counts["unrecognized_filenames"]:,} nerozpoznaných názvov.')
+  phase_timings['registry_evidence_and_triage_seconds']=round(time.perf_counter()-phase_started,3)
+  phase_started=time.perf_counter()
   # Phase 5: read-only QA on UNIQUE content hashes. Does not alter production.
   self.emit('stage','5/5 · Automatická QA existujúcich variantov')
   unique=list(hashes)
@@ -1375,13 +1390,16 @@ class Factory:
   if empty_report['blocking_count']:
    self.log(f'Prázdne PNG: {empty_report["blocking_count"]} zdrojových sád zablokovaných pre publikovanie; report: {empty_report_path}')
    self.log(f'Vylúčené výstupné varianty: {len(exclusion["excluded_variant_paths"])}; manifest: {exclusion_path}')
+  phase_timings['qa_seconds']=round(time.perf_counter()-phase_started,3)
+  phase_started=time.perf_counter()
   # Stable per-exception review IDs, independent of run timestamps.
   review_path=EXCEPTIONS/('review-queue-'+run+'.json')
   # Pixel equivalence is artwork evidence only; never a service identity approval.
   from artwork_pixel_groups import candidate_pixel_digests
   review_pixel_digests=candidate_pixel_digests(registry_matches,OUTPUT)
   review_queue=apply_decisions(build_review_queue(qa_issues,hashes,collisions,registry_matches,
-                                                   pixel_digests=review_pixel_digests),
+                                                   pixel_digests=review_pixel_digests,
+                                                   package_styles=getattr(self,'openatv_package_styles',{})),
                                _WORKSPACE["ledger_path"],_WORKSPACE["legacy_ledger"])
   if PIL_OK and master_root.is_dir():
    from artwork_pixel_groups import master_artwork_pixel_digests, attach_master_pixel_comparisons
@@ -1411,19 +1429,25 @@ class Factory:
   self.log('QA ÚSPORA ZOSKUPENÍM: '+str(backlog['grouping_savings']))
   # User-facing review count is pending-only; retain full audit cardinality separately.
   stats['review_queue_items']=backlog['pending_review_tasks']
-  stats['review_queue_audit_items']=review_queue['count']
+  stats['review_queue_audit_items']=review_queue['count']+len(review_queue.get('suppressed_identity_reviews',[]))
+  stats['identity_reviews_suppressed']=len(review_queue.get('suppressed_identity_reviews',[]))
+  stats['openatv_style_only_identity_tasks_avoided']=review_queue.get('consolidation',{}).get('openatv_style_only_identity_tasks_avoided',0)
   stats['qa_auto_resolved_master_pixel_identical']=sum(
    item.get('decision') == 'AUTO_RESOLVED_MASTER_PIXEL_IDENTICAL'
    for item in review_queue['items'])
   stats['review_workstreams']=review_queue.get('workstream_counts', {})
   self.log('QA pracovné fronty: '+', '.join(f'{name}={count}' for name,count in review_queue.get('workstream_counts', {}).items()))
   self.log(f'Výnimky na rozhodnutie: {review_queue["count"]}; vizuálne upozornenia sú evidované osobitne v QA reporte: {review_path}')
+  phase_timings['review_queue_seconds']=round(time.perf_counter()-phase_started,3)
+  phase_started=time.perf_counter()
   # End-of-run read-only integrity gate: source content must still match its ID.
   integrity=audit_artifacts(hashes,OUTPUT,source_hashes_verified=False)
   integrity_path=REPORTS/('integrity-'+run+'.json')
   atomic_json(integrity_path,integrity)
   stats['integrity_issues']=integrity['issue_count']
   self.log(f'Integrita: {integrity["checked"]} zdrojov, {integrity["issue_count"]} problémov; report: {integrity_path}')
+  phase_timings['integrity_audit_seconds']=round(time.perf_counter()-phase_started,3)
+  phase_started=time.perf_counter()
   # Only locally staged NEW identities with one unambiguous artwork and clean QA.
   # No Master Registry writes or semantic approvals are performed.
   self.check_cancelled()
@@ -1434,12 +1458,15 @@ class Factory:
   verified_for_finalization={sha for sha in new_candidate_shas if sha in unique_shas and sha not in qa_issues and sha not in integrity_blocked and _output_signature(sha) is not None and (sha in qa_targets or (current_signatures.get(sha) is not None and sha not in qa_targets))}
   finalized=finalize_new_candidates(registry_matches,qa_issues,OUTPUT,FINAL_PICONS,verified_shas=verified_for_finalization)
   stats['new_candidate_finalization']=finalized
+  phase_timings['finalization_seconds']=round(time.perf_counter()-phase_started,3)
   self.log('Lokálne finálne NEW-CANDIDATES: '+str(finalized))
   self.db.execute('INSERT INTO runs VALUES (?,?,?,?,?,?)',(run,stats['scanned'],stats['changed'],stats['duplicates'],stats['exceptions'],stats['created']))
   self.db.commit()
   report=REPORTS/('report-'+run+'.json')
   stats['installed_factory_version']=installed_factory_version()
   stats['final_picons_on_disk']=final_picon_counts(FINAL_PICONS)
+  phase_timings['total_seconds']=round(time.perf_counter()-total_started,3)
+  self.log('Časy fáz (s): '+str(phase_timings))
   report.write_text(json.dumps({'run':run,'stats':stats,'pillow':PIL_OK,'master_commit':getattr(self,'master_commit',None),'note':'PiconHub production snapshot is read-only. Vhannibal, OpenATV 8 and Chocholousek are checked as candidate sources. Optional additional feeds require a verified source-manifest.json. Identity matching uses exact service-reference filenames; no Warder IDs, production assets or GitHub content are changed.'},ensure_ascii=False,indent=2),encoding='utf-8')
   self.emit('done',(stats,str(report)))
 
@@ -1448,6 +1475,20 @@ class Factory:
   workspace=SOURCE_INGEST
   workspace.mkdir(parents=True,exist_ok=True)
   results={}
+  # Recover provenance from the last verified package state before network I/O,
+  # so a temporary feed outage does not erase known source evidence.
+  try:
+   from openatv_feed import verified_package_styles
+   state_path=DATA/'openatv8-state.json'
+   legacy_state=APP_DATA/'openatv8-state.json'
+   prior_path=state_path if state_path.is_file() else legacy_state
+   prior=json.loads(prior_path.read_text(encoding='utf-8')) if prior_path.is_file() else {}
+   prior_packages=prior.get('packages',[]) if isinstance(prior,dict) else []
+   self.openatv_package_styles=verified_package_styles(
+    prior_packages,workspace/'archives'/'openatv8')
+  except (OSError,ValueError,TypeError):
+   self.openatv_package_styles={}
+  stats['openatv_verified_style_packages']=len(self.openatv_package_styles)
   self.emit('stage','3/5 · Kontrolujem Vhannibal a OpenATV 8')
   try:
    from vhannibal_source import sync_vhannibal
@@ -1465,6 +1506,7 @@ class Factory:
    legacy_state=APP_DATA/'openatv8-state.json'
    read_state=state_path if state_path.is_file() else legacy_state
    state=json.loads(read_state.read_text(encoding='utf-8')) if read_state.is_file() else {}
+   previous_packages=list(state.get('packages',[])) if isinstance(state,dict) else []
    current=discover_current()
    families=naming_inventory(current['packages'])
    # A matching feed index is not sufficient: previously skipped or absent SRP
@@ -1498,6 +1540,12 @@ class Factory:
     results['openatv8']={'status':'updated','index_sha1':current['index_sha1'],
                          'downloaded':downloaded,'imported':imported,'skipped':skipped,
                          'naming_families':families}
+   from openatv_feed import verified_package_styles
+   known_packages=previous_packages+list(current.get('packages',[]))
+   self.openatv_package_styles.update(verified_package_styles(
+    known_packages,workspace/'archives'/'openatv8'))
+   stats['openatv_verified_style_packages']=len(self.openatv_package_styles)
+   self.log('OpenATV proveniencia: hashom overené balíky s overiteľným formátom/štýlom '+str(stats['openatv_verified_style_packages'])+'.')
    r=results['openatv8'];self.log(f'OpenATV 8: {r["status"]}; balíky {r.get("downloaded",0)}, import {r.get("imported",0)}.')
    self.log(f'OpenATV formáty feedu: SRP {families["srp"]["count"]}, UTF8SNP {families["utf8snp"]["count"]}; SRP prítomnosť je overená podľa názvu balíka.')
    if not families['srp']['count']:

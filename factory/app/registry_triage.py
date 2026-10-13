@@ -271,12 +271,48 @@ _OPENATV_PACKAGE_STYLES = {
 
 
 def _openatv_provenance(source, package_styles=None):
-    mapping = _OPENATV_PACKAGE_STYLES if package_styles is None else package_styles
-    parts = [part.casefold() for part in str(source).replace('\\', '/').split('/')]
-    for part in parts:
-        if part in mapping:
-            return tuple(mapping[part])
-    return ('unknown', 'unknown')
+    """Use format/style only for a verified digest in a recognized archive slot.
+
+    Hashes in filenames or arbitrary directories are not provenance. The
+    digest must occupy the package folder created by the schema-3 importer,
+    or the older direct OpenATV package layout.
+    """
+    if origin_of(source) != 'openatv8':
+        return ('unknown', 'unknown')
+    parts = [part.casefold() for part in str(source).replace('\\', '/').split('/') if part]
+    digest = None
+    for index, part in enumerate(parts):
+        if part == 'schema-3' and index + 1 < len(parts):
+            candidate = parts[index + 1]
+            if _SHA256.fullmatch(candidate):
+                digest = candidate
+                break
+        if part == 'openatv8' and index + 1 < len(parts):
+            candidate = parts[index + 1]
+            if _SHA256.fullmatch(candidate):
+                digest = candidate
+                break
+        if part == 'archives' and index + 1 < len(parts):
+            candidate = parts[index + 1]
+            if candidate.endswith('.ipk'):
+                candidate = candidate[:-4]
+            if _SHA256.fullmatch(candidate):
+                digest = candidate
+                break
+    if digest is None:
+        return ('unknown', 'unknown')
+    mapping = dict(_OPENATV_PACKAGE_STYLES)
+    if package_styles is not None:
+        mapping.update({str(key).casefold(): tuple(value)
+                        for key, value in package_styles.items()
+                        if isinstance(value, (tuple, list)) and len(value) == 2})
+    value = mapping.get(digest)
+    if not value or len(value) != 2:
+        return ('unknown', 'unknown')
+    family, style = (str(value[0]).casefold(), str(value[1]).casefold())
+    if family not in ('srp', 'utf8snp') or style not in ('dark', 'light'):
+        return ('unknown', 'unknown')
+    return family, style
 
 
 def identity_level_triage(matches, origin='openatv8', sample_limit=20, package_styles=None):
@@ -365,7 +401,7 @@ def identity_level_triage(matches, origin='openatv8', sample_limit=20, package_s
             actionable['OTHER_UNRESOLVED'] += 1
     actionable['EXPECTED_CROSS_STYLE_NO_CONFLICT'] = style_status['CROSS_STYLE_DIFFERENCE_ONLY']
     return {
-        'schema': 2, 'origin': origin,
+        'schema': 2, 'origin': origin, 'identity_approval': 'NONE',
         'unique_service_references': len(refs),
         'reference_observations': sum(len(v['sources']) for v in refs.values()),
         'reference_status_counts': dict(sorted(status.items())),

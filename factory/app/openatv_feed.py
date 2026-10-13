@@ -220,3 +220,70 @@ def naming_inventory(packages):
     for package in packages:
         result[naming_family(package)].append(package['filename'])
     return {key: {'count': len(value), 'filenames': value} for key, value in result.items()}
+
+def verified_package_style(package):
+    """Read format/style from one exact official-feed package record."""
+    if not isinstance(package, dict):
+        return None
+    name, filename = package.get('name'), package.get('filename')
+    if not isinstance(name, str) or not isinstance(filename, str):
+        return None
+    name = name.strip()
+    filename = Path(filename).name
+    if (not name.startswith('enigma2-plugin-picons-') or
+            not filename.startswith(name + '_') or not filename.endswith('.ipk') or
+            '220x132' not in filename):
+        return None
+    family = naming_family(package)
+    if family not in ('srp', 'utf8snp'):
+        return None
+    styles = [style for style in ('dark', 'light')
+              if f'.{style}.on.transparent' in name.lower()]
+    return (family, styles[0]) if len(styles) == 1 else None
+
+
+def verified_package_styles(packages, archive_root):
+    """Map SHA to provenance after checking cached bytes against the feed digest."""
+    import hashlib
+    archive_root = Path(archive_root)
+    result, ambiguous, verified_archives = {}, set(), {}
+    for package in packages if isinstance(packages, (list, tuple)) else ():
+        if not isinstance(package, dict):
+            continue
+        digest = package.get('sha256')
+        if not isinstance(digest, str) or not SHA256.fullmatch(digest.lower()):
+            continue
+        digest = digest.lower()
+        provenance = verified_package_style(package)
+        if provenance is None or digest in ambiguous:
+            continue
+        archive = archive_root / (digest + '.ipk')
+        if digest in verified_archives:
+            if not verified_archives[digest]:
+                continue
+        else:
+            try:
+                root = archive_root.resolve(strict=True)
+                if archive.is_symlink():
+                    verified_archives[digest] = False
+                    continue
+                resolved = archive.resolve(strict=True)
+                if not resolved.is_relative_to(root) or not resolved.is_file():
+                    verified_archives[digest] = False
+                    continue
+                checksum = hashlib.sha256()
+                with resolved.open('rb') as stream:
+                    for block in iter(lambda: stream.read(1024 * 1024), b''):
+                        checksum.update(block)
+                verified_archives[digest] = checksum.hexdigest() == digest
+            except OSError:
+                verified_archives[digest] = False
+            if not verified_archives[digest]:
+                continue
+        previous = result.get(digest)
+        if previous is not None and previous != provenance:
+            result.pop(digest, None)
+            ambiguous.add(digest)
+        else:
+            result[digest] = provenance
+    return result

@@ -1,8 +1,50 @@
 import unittest
-from review_queue import build_review_queue
+from review_queue import build_review_queue, _proven_openatv_style_only, _proven_openatv_style_only
 
 
 class CrossFeedReviewGroupingTests(unittest.TestCase):
+    def test_verified_style_only_suppression_retains_all_evidence(self):
+        dark='f044684c32c051eb692305411225715b0c362f0bcae05c70eb3d155c1932022e'
+        light='162117cf31343e0a153b4fd5297c6545b13a85833f1481d5d9e02fbcad9435de'
+        styles={dark:('srp','dark'),light:('srp','light')}
+        collision={'candidate_service_ref':'1_0_1_2_3_4_5_6_7_8','variants':[
+            {'sha256':'a'*64,'sources':[rf'D:\\WARDER-PICON-FACTORY\\02-ORIGINALS\\openatv8\\schema-3\\{dark}\\picon\\a.png']},
+            {'sha256':'b'*64,'sources':[rf'D:\\WARDER-PICON-FACTORY\\02-ORIGINALS\\openatv8\\schema-3\\{light}\\picon\\a.png']},
+        ]}
+        self.assertTrue(_proven_openatv_style_only(collision,styles))
+        queue=build_review_queue({}, {}, [collision], package_styles=styles)
+        self.assertEqual(queue['count'],0)
+        self.assertEqual(queue['consolidation']['openatv_style_only_identity_tasks_avoided'],1)
+        evidence=queue['suppressed_identity_reviews'][0]
+        self.assertEqual(evidence['identity_approval'],'NONE')
+        self.assertEqual(len(evidence['variants']),2)
+        self.assertEqual(sum(len(v['sources']) for v in evidence['verified_provenance']),2)
+
+    def test_different_openatv_formats_are_not_suppressed(self):
+        dark='f044684c32c051eb692305411225715b0c362f0bcae05c70eb3d155c1932022e'
+        light='162117cf31343e0a153b4fd5297c6545b13a85833f1481d5d9e02fbcad9435de'
+        styles={dark:('srp','dark'),light:('utf8snp','light')}
+        collision={'candidate_service_ref':'1_0_1_2_3_4_5_6_7_8','variants':[
+            {'sha256':'a'*64,'sources':[rf'D:\\WARDER-PICON-FACTORY\\02-ORIGINALS\\openatv8\\schema-3\\{dark}\\picon\\a.png']},
+            {'sha256':'b'*64,'sources':[rf'D:\\WARDER-PICON-FACTORY\\02-ORIGINALS\\openatv8\\schema-3\\{light}\\picon\\a.png']},
+        ]}
+        queue=build_review_queue({}, {}, [collision], package_styles=styles)
+        self.assertEqual(queue['count'],1)
+        self.assertEqual(queue['items'][0]['decision'],'PENDING')
+        self.assertEqual(queue['consolidation']['openatv_style_only_identity_tasks_avoided'],0)
+
+    def test_unknown_provenance_keeps_collision_pending(self):
+        known='f044684c32c051eb692305411225715b0c362f0bcae05c70eb3d155c1932022e'
+        styles={known:('srp','dark')}
+        collision={'candidate_service_ref':'1_0_1_2_3_4_5_6_7_8','variants':[
+            {'sha256':'a'*64,'sources':[rf'D:\\WARDER-PICON-FACTORY\\02-ORIGINALS\\openatv8\\schema-3\\{known}\\picon\\a.png']},
+            {'sha256':'b'*64,'sources':[r'D:\\WARDER-PICON-FACTORY\\02-ORIGINALS\\openatv8\\schema-3\\'+'e'*64+r'\\picon\\b.png']},
+        ]}
+        queue=build_review_queue({}, {}, [collision], package_styles=styles)
+        self.assertEqual(queue['count'],1)
+        self.assertEqual(queue['items'][0]['decision'],'PENDING')
+        self.assertEqual(queue['consolidation']['openatv_style_only_identity_tasks_avoided'],0)
+
     def test_windows_source_provenance_is_case_insensitive(self):
         rows = [
             {'classification': 'REVIEW', 'reason': 'EXISTING_SERVICE_DIFFERENT_ART',
