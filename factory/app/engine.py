@@ -1090,6 +1090,11 @@ class Factory:
   new_ref_triage=new_reference_artwork_triage(registry_matches)
   new_ref_path=REPORTS/('new-reference-artwork-triage-'+run+'.json')
   atomic_json(new_ref_path,new_ref_triage)
+  from registry_triage import new_reference_review_batches
+  new_ref_batches=new_reference_review_batches(new_ref_triage)
+  new_ref_batches_path=REPORTS/('new-reference-review-batches-'+run+'.json')
+  atomic_json(new_ref_batches_path,new_ref_batches)
+  self.log('Nové SRP: '+str(new_ref_batches['conflict_batches'])+' konfliktných a '+str(new_ref_batches['single_batches'])+' jednoznačných skupín po 10 na ručnú kontrolu: '+str(new_ref_batches_path))
   self.log('Nové SRP bez duplicit: '+str(new_ref_triage['single_artwork_references'])+
            ' s jednou grafikou, '+str(new_ref_triage['conflicting_artwork_references'])+
            ' s viacerými grafikami; '+str(new_ref_triage['source_evidence_count'])+
