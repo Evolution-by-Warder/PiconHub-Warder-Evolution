@@ -512,6 +512,9 @@ def _output_signature(sha):
     _cached.verify()
    with _Image.open(path) as _cached:
     if _cached.size != (220,132) or _cached.mode != 'RGBA':return None
+    alpha_extrema=_cached.getchannel('A').getextrema()
+    if name=='transparent' and alpha_extrema[1]==0:return None
+    if name!='transparent' and alpha_extrema!=(255,255):return None
    st=path.stat()
    if st.st_size<=0:return None
    if name!='transparent':
