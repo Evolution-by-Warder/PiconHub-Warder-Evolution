@@ -59,3 +59,31 @@ def build_openatv_triage(rows):
     totals['repeated_source_files'] = totals['source_files'] - totals['distinct_station_artworks']
     return {'schema': 1, 'policy': 'READ_ONLY; NO_IDENTITY_ASSIGNED; NO_MASTER_WRITE',
             'summary': totals, 'stations': entries}
+
+def classify_picon_filename(filename):
+    """Distinguish service-reference picons from OpenATV service-name picons.
+
+    SNP is a valid renderable asset in its own namespace; it is not a
+    verified mapping to a service reference. Never synthesize a Warder ID.
+    """
+    import re
+    from pathlib import PurePath
+    name = str(filename).replace('\\\\', '/').rsplit('/', 1)[-1]
+    if not name.lower().endswith('.png'):
+        return {'kind': 'OTHER', 'key': None}
+    stem = name[:-4]
+    if re.fullmatch(r'[0-9a-fA-F]+(?:_[0-9a-fA-F]+){9}', stem):
+        return {'kind': 'SRP', 'key': stem.upper()}
+    key = _station_key(name)
+    if key:
+        return {'kind': 'SNP', 'key': key}
+    return {'kind': 'OTHER', 'key': None}
+
+
+def count_picon_filename_types(paths):
+    """Count both supported filename schemes without approving identity."""
+    counts = {'SRP': 0, 'SNP': 0, 'OTHER': 0}
+    for path in paths:
+        counts[classify_picon_filename(path)['kind']] += 1
+    return counts
+
