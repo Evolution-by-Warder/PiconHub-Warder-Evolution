@@ -278,6 +278,36 @@ class FactoryRenderingTests(unittest.TestCase):
             self.assertTrue(_output_signature_for_folder(folder))
             self.assertEqual(source.read_bytes(), before)
 
+    def test_scan_cache_invalidates_alpha_corruption(self):
+        from unittest.mock import patch
+        from engine import render_png_task, _output_signature
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            source = root / 'input.png'
+            art = Image.new('RGBA', (220, 132), (0, 0, 0, 0))
+            art.paste((220, 40, 50, 255), (50, 35, 170, 95))
+            art.save(source)
+            sha = hashlib.sha256(source.read_bytes()).hexdigest()
+            output = root / 'output'
+            ok, _, error = render_png_task((str(source), str(output), sha))
+            self.assertTrue(ok, error)
+            folder = output / sha[:2] / sha
+            with patch('engine.OUTPUT', output):
+                self.assertIsNotNone(_output_signature(sha))
+                Image.new('RGBA', (220, 132), (0, 0, 0, 0)).save(folder / 'transparent.png')
+                self.assertIsNone(_output_signature(sha))
+                ok, _, error = render_png_task((str(source), str(output), sha))
+                self.assertTrue(ok, error)
+                self.assertIsNotNone(_output_signature(sha))
+                with Image.open(folder / 'black.png') as original:
+                    damaged = original.copy()
+                damaged.putpixel((0, 0), (0, 0, 0, 0))
+                damaged.save(folder / 'black.png')
+                self.assertIsNone(_output_signature(sha))
+                ok, _, error = render_png_task((str(source), str(output), sha))
+                self.assertTrue(ok, error)
+                self.assertIsNotNone(_output_signature(sha))
+
     def test_templates_present(self):
         root = Path(__file__).resolve().parent / 'templates' / 'picons'
         for name in ('black-sablona.png', 'white-sablona.png'):
