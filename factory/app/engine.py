@@ -419,9 +419,34 @@ def render_png_task(args):
     created+=1
    finally:
     if tmp.exists():tmp.unlink()
+  # A render is successful only when all three files are readable,
+  # correctly sized, and the current render/template markers are present.
+  if _output_signature_for_folder(dest) is None:
+   raise ValueError('INCOMPLETE_RENDER_TRIPLET')
   return (True,created,'')
  except Exception as e:
   return (False,0,str(e))
+
+def _output_signature_for_folder(folder):
+ try:
+  for name in ('transparent','black','white'):
+   path=folder/(name+'.png')
+   marker=folder/(name+'.render-revision')
+   if not marker.is_file() or marker.read_text(encoding='ascii').strip()!=RENDER_REVISION:
+    return None
+   with Image.open(path) as im:
+    im.verify()
+   with Image.open(path) as im:
+    if im.size!=(220,132) or im.mode!='RGBA':
+     return None
+   if name!='transparent':
+    expected=_template_sha256(name)
+    signature=folder/(name+'.template-sha256')
+    if not signature.is_file() or signature.read_text(encoding='ascii').strip()!=expected:
+     return None
+  return True
+ except (OSError,UnicodeError,ValueError):
+  return None
 
 def _fit_canvas(rgba):
  """Center visible artwork in the plastic template safe area without distortion.
