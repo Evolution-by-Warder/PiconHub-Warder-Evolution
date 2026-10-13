@@ -112,6 +112,7 @@ jobs:
             if (-not (Test-Path -LiteralPath $report)) { throw "Packaged EXE did not write render report" }
             $result = Get-Content -LiteralPath $report -Raw | ConvertFrom-Json
             if (-not $result.ok -or $result.count -ne 3) { throw "Packaged EXE failed to render all variants: $(Get-Content $report -Raw)" }
+            if ($null -eq $result.qa_issues -or @($result.qa_issues).Count -ne 0) { throw "Packaged EXE PNG QA failed: $(Get-Content $report -Raw)" }
             $folder = Join-Path (Join-Path $output $result.sha.Substring(0,2)) $result.sha
             foreach ($name in @('transparent','black','white')) {
               $file = Join-Path $folder "$name.png"
