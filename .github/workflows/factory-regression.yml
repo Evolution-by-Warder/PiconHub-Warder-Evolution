@@ -280,7 +280,70 @@ jobs:
           $report = Get-ChildItem -LiteralPath $env:TEMP -File -Filter 'WARDER-PICON-FACTORY-diagnostic-*.txt' | Sort-Object LastWriteTime -Descending | Select-Object -First 1
           if (-not $report) { throw "Read-only diagnostic did not save its report" }
           $diagnosticText = Get-Content -LiteralPath $report.FullName -Raw
-          if (-not $diagnosticText.Contains('D:\WARDER-PICON-FACTORY') -or -not $diagnosticText.Contains('SHA256:')) { throw "Diagnostic report omits workspace or executable identity" }
+          if (-not $diagnosticText.Contains('D:\WARDER-PICON-FACTORY') -or $diagnosticText -notmatch '(?im)^SHA256:\s+[0-9a-f]{64}\s*
+          foreach ($entry in ($before | Where-Object { -not $_.PreviousApp })) {
+            $file = Join-Path 'D:\WARDER-PICON-FACTORY' $entry.Path
+            if ((Get-FileHash -Algorithm SHA256 -LiteralPath $file).Hash -ne $entry.Sha256) { throw "Read-only diagnostic changed existing data: $($entry.Path)" }
+          }
+      - name: Record Windows EXE build identity
+        shell: pwsh
+        run: |
+          $exe = 'factory/app/dist/WARDER-PICON-FACTORY.exe'
+          if (-not (Test-Path -LiteralPath $exe -PathType Leaf)) { throw 'Windows GUI EXE is missing after build and smoke tests' }
+          $hash = (Get-FileHash -Algorithm SHA256 -LiteralPath $exe).Hash.ToLowerInvariant()
+          $size = (Get-Item -LiteralPath $exe).Length
+          $commit = (git rev-parse HEAD).Trim()
+          if ($commit -ne $env:GITHUB_SHA) { throw "EXE identity mismatch: checked-out commit $commit differs from workflow trigger $env:GITHUB_SHA" }
+          $version = (Get-Content 'factory/app/.factory-version.json' -Raw | ConvertFrom-Json).version
+          $identity = [ordered]@{ version=$version; commit=$commit; workflow_run=$env:GITHUB_RUN_ID; sha256=$hash; bytes=$size; filename='WARDER-PICON-FACTORY.exe'; smoke_test='passed' }
+          $identity | ConvertTo-Json | Set-Content -LiteralPath 'factory/app/dist/BUILD-IDENTITY.json' -Encoding utf8
+          "### WARDER PICON FACTORY Windows build" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append
+          "Version: $version; commit: $commit; SHA-256: $hash; bytes: $size" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append
+      - name: Build standalone Python-free Windows updater
+        shell: pwsh
+        run: |
+          python -m PyInstaller --onefile --clean --noconfirm --name WARDER-PICON-UPDATER --distpath factory/app/dist --workpath factory/app/build-updater --specpath factory/app factory/app/windows_exe_startup.py
+          if (-not (Test-Path 'factory/app/dist/WARDER-PICON-UPDATER.exe')) { throw 'Updater EXE build missing' }
+      - name: Package Windows startup updater alongside tested EXE
+        shell: pwsh
+        run: |
+          $target = 'factory/app/dist'
+          Copy-Item 'factory/app/windows_exe_update.py' (Join-Path $target 'windows_exe_update.py')
+          Copy-Item 'factory/app/windows_exe_startup.py' (Join-Path $target 'windows_exe_startup.py')
+          Copy-Item 'factory/app/SPUSTI-WARDER-EXE.cmd' (Join-Path $target 'SPUSTI-WARDER-EXE.cmd')
+          $identity = Get-Content (Join-Path $target 'BUILD-IDENTITY.json') -Raw | ConvertFrom-Json
+          @{ version=$identity.version; commit=$identity.commit } | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $target '.factory-installed-version.json') -Encoding utf8
+          if (-not (Test-Path (Join-Path $target 'SPUSTI-WARDER-EXE.cmd'))) { throw 'Startup launcher missing' }
+      - name: Upload standalone Windows GUI EXE (not a release)
+        uses: actions/upload-artifact@v4
+        with:
+          name: WARDER-PICON-FACTORY-WINDOWS-EXE
+          path: |
+            factory/app/dist/WARDER-PICON-FACTORY.exe
+            factory/app/dist/WARDER-PICON-UPDATER.exe
+            factory/app/dist/BUILD-IDENTITY.json
+            factory/app/dist/windows_exe_update.py
+            factory/app/dist/windows_exe_startup.py
+            factory/app/dist/SPUSTI-WARDER-EXE.cmd
+            factory/app/dist/.factory-installed-version.json
+          if-no-files-found: error
+          retention-days: 7
+          include-hidden-files: true
+      - name: Upload one-click Windows application (not a release)
+        uses: actions/upload-artifact@v4
+        with:
+          name: WARDER-PICON-FACTORY-ONE-CLICK
+          path: SPUSTI-WARDER-PICON-FACTORY.cmd
+          retention-days: 7
+      - name: Remove disposable synthetic workspace
+        if: always()
+        shell: pwsh
+        run: |
+          $root = 'D:\WARDER-PICON-FACTORY'
+          $marker = Join-Path $root '11-APP\.ci-synthetic-root'
+          if (Test-Path -LiteralPath $marker) { Remove-Item -LiteralPath $root -Recurse -Force }
+
+) { throw "Diagnostic report omits workspace or valid executable SHA-256" }
           foreach ($entry in ($before | Where-Object { -not $_.PreviousApp })) {
             $file = Join-Path 'D:\WARDER-PICON-FACTORY' $entry.Path
             if ((Get-FileHash -Algorithm SHA256 -LiteralPath $file).Hash -ne $entry.Sha256) { throw "Read-only diagnostic changed existing data: $($entry.Path)" }

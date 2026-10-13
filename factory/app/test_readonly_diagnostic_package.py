@@ -16,6 +16,8 @@ class ReadOnlyDiagnosticPackageTests(unittest.TestCase):
         lowered = powershell.casefold()
         self.assertIn("function get-sha256", lowered)
         self.assertNotIn("get-filehash", lowered)
+        workflow = Path(__file__).resolve().parents[2] / ".github" / "workflows" / "factory-regression.yml"
+        self.assertIn("SHA256:\\s+[0-9a-f]{64}", workflow.read_text(encoding="utf-8"))
         for forbidden in ("remove-item", "move-item", "copy-item", "new-item", "set-content",
                           "stop-process", "start-process", "invoke-webrequest", "set-itemproperty"):
             self.assertNotIn(forbidden, lowered)
