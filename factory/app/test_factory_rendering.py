@@ -123,6 +123,20 @@ class FactoryRenderingTests(unittest.TestCase):
             self.assertTrue(ok, error)
             self.assertEqual(created, 0)
 
+    def test_engine_rejects_empty_alpha_source_without_outputs(self):
+        from engine import render_png_task
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            source = root / 'empty.png'
+            Image.new('RGBA', (220, 132), (0, 0, 0, 0)).save(source)
+            sha = hashlib.sha256(source.read_bytes()).hexdigest()
+            output = root / 'output'
+            ok, created, error = render_png_task((str(source), str(output), sha))
+            self.assertFalse(ok)
+            self.assertEqual(created, 0)
+            self.assertIn('FULLY_TRANSPARENT', error)
+            self.assertFalse((output / sha[:2] / sha).exists())
+
     def test_templates_present(self):
         root = Path(__file__).resolve().parent / 'templates' / 'picons'
         for name in ('black-sablona.png', 'white-sablona.png'):
