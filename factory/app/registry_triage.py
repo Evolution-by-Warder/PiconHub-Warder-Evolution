@@ -76,7 +76,7 @@ def new_reference_review_batches(triage, batch_size=10):
                 'service_references': [row['service_reference'] for row in chunk],
                 'item_count': len(chunk),
                 'distinct_artwork_count': sum(len(row['artwork_sha256']) for row in chunk),
-                'items': chunk,
+                'items': [dict(row, review_item_id='NEW-SRP-' + row['service_reference']) for row in chunk],
             })
     return {'schema': 1, 'authority': 'READ_ONLY_DIAGNOSTIC',
             'identity_approval': 'NONE', 'batch_size': batch_size,
