@@ -338,6 +338,8 @@ class FactoryRenderingTests(unittest.TestCase):
         self.assertEqual(len(result['source_evidence']), 4)
         self.assertEqual({row['sha256'] for row in result['source_evidence']}, {'a'*64, 'b'*64, 'c'*64})
         self.assertEqual(result['schema'], 2)
+        self.assertEqual({row['source'] for row in result['source_evidence']}, {m['candidate_source'] for m in matches if m['classification'] == 'NEW'})
+        self.assertEqual(result['single_artwork'][0]['source_origins'], ['openatv8', 'vhannibal'])
         self.assertEqual(result['single_artwork'][0]['source_observations'], 2)
         self.assertEqual(result['conflicting_artwork'][0]['artwork_sha256'], ['b'*64, 'c'*64])
 
