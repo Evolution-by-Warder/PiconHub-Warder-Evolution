@@ -168,6 +168,33 @@ class FactoryRenderingTests(unittest.TestCase):
             with patch('engine.OUTPUT', root):
                 self.assertIsNone(_output_signature(sha))
 
+    def test_engine_rejects_mismatched_content_hash(self):
+        from engine import render_png_task
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            source = root / 'art.png'
+            Image.new('RGBA', (220, 132), (200, 30, 30, 255)).save(source)
+            output = root / 'output'
+            ok, created, error = render_png_task((str(source), str(output), '0' * 64))
+            self.assertFalse(ok)
+            self.assertEqual(created, 0)
+            self.assertIn('SOURCE_SHA256_MISMATCH', error)
+            self.assertFalse(output.exists())
+
+    def test_engine_rejects_malformed_cache_key(self):
+        from engine import render_png_task
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            source = root / 'art.png'
+            Image.new('RGBA', (220, 132), (200, 30, 30, 255)).save(source)
+            output = root / 'output'
+            for bad_sha in ('../outside', 'G' * 64, 'a' * 63, ''):
+                ok, created, error = render_png_task((str(source), str(output), bad_sha))
+                self.assertFalse(ok)
+                self.assertEqual(created, 0)
+                self.assertIn('INVALID_SOURCE_SHA256', error)
+            self.assertFalse(output.exists())
+
     def test_templates_present(self):
         root = Path(__file__).resolve().parent / 'templates' / 'picons'
         for name in ('black-sablona.png', 'white-sablona.png'):
