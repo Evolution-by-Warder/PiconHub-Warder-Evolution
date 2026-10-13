@@ -59,15 +59,24 @@ def attach_pixel_evidence(matches, registry, master_root, cache_path):
                 master_index[digest].add(ref)
             except (OSError, ValueError, KeyError):
                 counts['master_read_failures'] += 1
+    from registry_triage import origin_of
+    candidate_pixels = {}
     for row in matches:
         source = str(row.get('candidate_source', ''))
-        parts = source.replace('\\', '/').lower().split('/')
-        if row.get('classification') != 'UNMAPPED' or 'openatv8' not in parts or 'source-ingest' not in parts:
+        if row.get('classification') != 'UNMAPPED' or origin_of(source) != 'openatv8':
             continue
         if (row.get('artwork_evidence') or {}).get('possible_master_service_references'):
             continue
         try:
-            refs = sorted(master_index.get(_cached(source, cache), ()))
+            source_sha = row.get('candidate_sha256')
+            if isinstance(source_sha, str) and len(source_sha) == 64 and all(c in '0123456789abcdef' for c in source_sha):
+                pixel_digest = candidate_pixels.get(source_sha)
+                if pixel_digest is None:
+                    pixel_digest = _cached(source, cache)
+                    candidate_pixels[source_sha] = pixel_digest
+            else:
+                pixel_digest = _cached(source, cache)
+            refs = sorted(master_index.get(pixel_digest, ()))
         except (OSError, ValueError):
             counts['candidate_read_failures'] += 1
             continue

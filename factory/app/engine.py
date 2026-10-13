@@ -1019,6 +1019,14 @@ class Factory:
   pool=ProcessPoolExecutor(max_workers=workers) if PIL_OK else None
   pending={}
   completed=0
+  pending_db_updates=[]
+  def flush_db_updates():
+   if pending_db_updates:
+    self.db.executemany('INSERT OR REPLACE INTO files VALUES (?,?,?,?,?,?)',pending_db_updates)
+    pending_db_updates.clear()
+  def queue_db_update(row):
+   pending_db_updates.append(row)
+   if len(pending_db_updates)>=500:flush_db_updates()
   def collect(done):
    nonlocal completed
    for fut in done:
@@ -1030,9 +1038,10 @@ class Factory:
     if not ok:
      stats['exceptions']+=1
      if stats['exceptions']<=30:self.log('Výnimka '+Path(rel).name+': '+error)
-    self.db.execute('INSERT OR REPLACE INTO files VALUES (?,?,?,?,?,?)',(rel,sha,st.st_size,st.st_mtime_ns,status,run))
+    queue_db_update((rel,sha,st.st_size,st.st_mtime_ns,status,run))
     completed+=1
    if completed%250< len(done) or completed==total:
+    flush_db_updates()
     self.db.commit()
     self.emit('progress',(completed,max(1,total)))
     self.emit('stage',f'4/5 · PNG {completed:,}/{total:,} · procesov {workers} · varianty {stats["created"]:,} · výnimky {stats["exceptions"]:,}')
@@ -1055,20 +1064,20 @@ class Factory:
      candidate_records.append({'sha256':sha,'source':str(p)})
      if sha in hashes:
       stats['duplicates']+=1
-      self.db.execute('INSERT OR REPLACE INTO files VALUES (?,?,?,?,?,?)',(rel,sha,st.st_size,st.st_mtime_ns,'DUPLICATE',run))
+      queue_db_update((rel,sha,st.st_size,st.st_mtime_ns,'DUPLICATE',run))
       completed+=1
      else:
       hashes[sha]=rel
       cached=output_cache.get(sha,{})
       current_signature=_output_signature(sha)
       if current_signature is not None and cached.get('signatures')==current_signature:
-       self.db.execute('INSERT OR REPLACE INTO files VALUES (?,?,?,?,?,?)',(rel,sha,st.st_size,st.st_mtime_ns,'VARIANTS_UNREVIEWED',run))
+       queue_db_update((rel,sha,st.st_size,st.st_mtime_ns,'VARIANTS_UNREVIEWED',run))
        completed+=1
       elif pool:
        fut=pool.submit(render_png_task,(rel,str(OUTPUT),sha))
        pending[fut]=(rel,sha,st)
       else:
-       self.db.execute('INSERT OR REPLACE INTO files VALUES (?,?,?,?,?,?)',(rel,sha,st.st_size,st.st_mtime_ns,'PILLOW_MISSING',run))
+       queue_db_update((rel,sha,st.st_size,st.st_mtime_ns,'PILLOW_MISSING',run))
        completed+=1
     except Exception as e:
      stats['exceptions']+=1;completed+=1
@@ -1077,6 +1086,7 @@ class Factory:
      done,_=wait(tuple(pending),return_when=FIRST_COMPLETED)
      collect(done)
     if completed%500==0:
+     flush_db_updates()
      self.db.commit()
      self.emit('progress',(completed,max(1,total)))
      self.emit('stage',f'4/5 · PNG {completed:,}/{total:,} · procesov {workers} · varianty {stats["created"]:,}')
@@ -1085,6 +1095,8 @@ class Factory:
     collect(done)
   finally:
    if pool:pool.shutdown(wait=True)
+   flush_db_updates()
+   self.db.commit()
   self.db.commit()
   self.emit('progress',(completed,max(1,total)))
   self.emit('stage',f'4/5 · PNG {completed:,}/{total:,} · hotovo')

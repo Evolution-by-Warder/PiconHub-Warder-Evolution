@@ -40,6 +40,32 @@ class DiagnosticsRetryTests(unittest.TestCase):
             self.assertEqual(result[0]["status"], "http_error")
             self.assertTrue(path.exists())
 
+    def test_transient_upload_retries_then_deletes_only_after_readback(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            reports = Path(tmp)
+            path = reports / "report-20261011-120001-1.json"
+            path.write_text("{}", encoding="utf-8")
+            sleeper = __import__('unittest.mock').mock.Mock()
+            with patch("factory_diagnostics_retry.upload_report", side_effect=[
+                    {"status": "http_error", "code": 503},
+                    {"status": "sent", "verified": True}]) as send:
+                result = retry_reports(reports, reports / "state.json", sleeper=sleeper)
+            self.assertEqual(result[0]["status"], "sent")
+            self.assertEqual(send.call_count, 2)
+            sleeper.assert_called_once_with(1)
+            self.assertFalse(path.exists())
+
+    def test_authentication_failure_is_not_retried_and_report_is_preserved(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            reports = Path(tmp)
+            path = reports / "report-20261011-120001-1.json"
+            path.write_text("{}", encoding="utf-8")
+            with patch("factory_diagnostics_retry.upload_report", return_value={"status": "http_error", "code": 401}) as send:
+                result = retry_reports(reports, reports / "state.json", sleeper=lambda _: None)
+            self.assertEqual(result[0]["status"], "http_error")
+            self.assertEqual(send.call_count, 1)
+            self.assertTrue(path.exists())
+
     def test_missing_token_does_not_delete_report(self):
         with tempfile.TemporaryDirectory() as tmp:
             reports = Path(tmp)

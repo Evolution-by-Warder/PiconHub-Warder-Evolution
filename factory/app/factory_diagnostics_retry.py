@@ -2,15 +2,25 @@
 
 Only report-*.json files are eligible. Failed or unverified uploads remain on disk.
 """
-import json
+import time
 from pathlib import Path
 from factory_diagnostics import upload_report
 
 
-def retry_reports(report_dir, state_file, limit=5):
+def _retryable(result):
+    status = result.get('status')
+    if status in ('offline_or_failed', 'verification_failed'):
+        return True
+    if status == 'http_error':
+        code = result.get('code')
+        return isinstance(code, int) and (code in (408, 429) or code >= 500)
+    return False
+
+
+def retry_reports(report_dir, state_file, limit=5, *, max_attempts=3, sleeper=time.sleep):
     folder, state_file = Path(report_dir), Path(state_file)
-    if limit < 1:
-        raise ValueError('limit must be positive')
+    if limit < 1 or max_attempts < 1:
+        raise ValueError('limit and max_attempts must be positive')
     results = []
     if not folder.is_dir():
         return results
@@ -20,10 +30,17 @@ def retry_reports(report_dir, state_file, limit=5):
             break
         if path.is_symlink() or not path.is_file():
             continue
-        try:
-            result = upload_report(path)
-        except (OSError, ValueError, KeyError, TypeError):
-            result = {'status': 'local_error'}
+        result = {'status': 'local_error'}
+        for attempt in range(max_attempts):
+            try:
+                result = upload_report(path)
+            except (OSError, ValueError, KeyError, TypeError):
+                result = {'status': 'local_error'}
+            if result.get('status') == 'sent' and result.get('verified') is True:
+                break
+            if attempt + 1 >= max_attempts or not _retryable(result):
+                break
+            sleeper(min(2 ** attempt, 5))
         status = result.get('status', 'local_error')
         if status == 'sent' and result.get('verified') is True:
             try:

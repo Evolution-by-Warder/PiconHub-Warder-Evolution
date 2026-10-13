@@ -151,15 +151,40 @@ def unmapped_filename_diagnostics(matches, sample_limit=12):
 
 
 def origin_of(source):
-    # Windows paths are case-insensitive; source labels must not depend on
-    # capitalization of D:\\ folders or source-ingest/originals.
-    parts = Path(str(source).replace('\\', '/')).parts
+    """Return a recognized source family, or ``unknown`` without guessing.
+
+    Windows archive paths can be recorded with either slash style and mixed
+    casing.  The Factory stores extracted archives under ``02-ORIGINALS``
+    and older ingestion runs under ``source-ingest/originals``.  Search only
+    directory components below those explicit roots so a filename containing
+    a provider name cannot establish provenance.
+    """
+    raw = str(source or '').replace('\\', '/')
+    parts = [part for part in raw.split('/') if part not in ('', '.')]
     folded = [part.casefold() for part in parts]
-    if 'source-ingest' in folded:
-        i = folded.index('source-ingest')
-        if i + 2 < len(parts) and folded[i + 1] == 'originals':
-            return folded[i + 2]
-    return 'local-inbox'
+    directories = folded[:-1] if len(folded) > 1 else folded
+    origins = []
+    for i, part in enumerate(directories):
+        if part == 'source-ingest' and i + 1 < len(directories) and directories[i + 1] == 'originals':
+            origins.extend(directories[i + 2:])
+        elif part == '02-originals':
+            origins.extend(directories[i + 1:])
+        elif part == '01-sources' and i + 1 < len(directories) and directories[i + 1] == 'local-inbox':
+            return 'local-inbox'
+        elif part == 'local-inbox':
+            return 'local-inbox'
+    # Archive folder names vary (e.g. schema-3/<sha>/, archived/<name>.zip/).
+    # Canonicalize known provider components only; unknown names stay unknown.
+    for item in origins:
+        token = re.sub(r'[^a-z0-9]+', '', item.casefold())
+        token = re.sub(r'(zip|7z|tar|gz|ipk)$', '', token)
+        if token in ('openatv', 'openatv8'):
+            return 'openatv8'
+        if token in ('vhannibal', 'vhannibalmotor'):
+            return 'vhannibal'
+        if token in ('piconhub', 'piconhubwarderevolution'):
+            return 'piconhub'
+    return 'unknown'
 
 
 def summarize_registry_matches(matches):
