@@ -137,6 +137,37 @@ class FactoryRenderingTests(unittest.TestCase):
             self.assertIn('FULLY_TRANSPARENT', error)
             self.assertFalse((output / sha[:2] / sha).exists())
 
+    def test_engine_rejects_empty_background_extraction(self):
+        from unittest.mock import patch
+        from engine import render_png_task
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            source = root / 'opaque.png'
+            Image.new('RGBA', (220, 132), (100, 110, 120, 255)).save(source)
+            sha = hashlib.sha256(source.read_bytes()).hexdigest()
+            output = root / 'output'
+            empty = Image.new('RGBA', (220, 132), (0, 0, 0, 0))
+            with patch('artwork_preparation.extract_flat_edge_background',
+                       return_value=(empty, True)):
+                ok, created, error = render_png_task((str(source), str(output), sha))
+            self.assertFalse(ok)
+            self.assertEqual(created, 0)
+            self.assertIn('EMPTY_AFTER_BACKGROUND_EXTRACTION', error)
+            self.assertFalse((output / sha[:2] / sha).exists())
+
+    def test_cache_rejects_stale_transparent_revision(self):
+        from unittest.mock import patch
+        from engine import _output_signature
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            sha = 'a' * 64
+            folder = root / sha[:2] / sha
+            folder.mkdir(parents=True)
+            for name in ('transparent', 'black', 'white'):
+                Image.new('RGBA', (220, 132), (1, 2, 3, 255)).save(folder / (name + '.png'))
+            with patch('engine.OUTPUT', root):
+                self.assertIsNone(_output_signature(sha))
+
     def test_templates_present(self):
         root = Path(__file__).resolve().parent / 'templates' / 'picons'
         for name in ('black-sablona.png', 'white-sablona.png'):
