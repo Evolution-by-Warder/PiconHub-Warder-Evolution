@@ -74,6 +74,12 @@ jobs:
         working-directory: factory/app
         run: python -m unittest discover -p 'test_*.py' -v
 
+      - name: Verify real PNG render triplets on Windows
+        working-directory: factory/app
+        shell: pwsh
+        run: |
+          python -m unittest test_factory_rendering.FactoryRenderingTests.test_engine_writes_complete_verified_triplet test_factory_rendering.FactoryRenderingTests.test_render_validator_rejects_invisible_or_translucent_variants test_factory_rendering.FactoryRenderingTests.test_render_repairs_corrupt_cached_alpha_without_touching_source -v
+          if ($LASTEXITCODE -ne 0) { throw "Factory render triplet regression failed on Windows" }
       - name: Build standalone Windows GUI executable
         working-directory: factory/app
         shell: pwsh
