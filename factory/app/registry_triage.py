@@ -9,6 +9,7 @@ from pathlib import Path
 import re
 
 _SRP = re.compile(r"^[0-9a-fA-F]+(?:_[0-9a-fA-F]+){9}$")
+_SHA256 = re.compile(r"^[0-9a-fA-F]{64}$")
 
 
 def new_reference_artwork_triage(matches, sample_limit=20):
@@ -24,10 +25,11 @@ def new_reference_artwork_triage(matches, sample_limit=20):
             continue
         ref = item.get('service_reference')
         sha = item.get('candidate_sha256')
-        if not ref or not _SRP.fullmatch(str(ref)) or not sha:
+        if not ref or not _SRP.fullmatch(str(ref)) or not isinstance(sha, str) or not _SHA256.fullmatch(sha):
             continue
         source = str(item.get('candidate_source', ''))
         cell = grouped[ref.upper()]
+        sha = sha.lower()
         cell['hashes'].add(sha)
         cell['sources'].add(source)
         cell['origins'].add(origin_of(source))
