@@ -87,10 +87,12 @@ def explain_review_backlog(queue):
                             unknown_provenance = True
                         else:
                             provenance.add('openatv8:' + ':'.join(bucket))
-                    elif origin == 'local-inbox':
-                        unknown_provenance = True
-                    else:
+                    elif origin in ('vhannibal', 'piconhub'):
                         provenance.add(origin)
+                    else:
+                        # Local inbox and unknown paths do not establish a
+                        # verified source family, even beside a known source.
+                        unknown_provenance = True
             identity_origin_combinations['+'.join(sorted(variant_origins)) if variant_origins else 'unknown'] += 1
             if len(variant_origins) > 1:
                 identity_cross_origin_tasks += 1
