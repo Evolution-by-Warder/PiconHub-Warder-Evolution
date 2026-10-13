@@ -56,6 +56,31 @@ def new_reference_artwork_triage(matches, sample_limit=20):
                         'conflicting': conflicts[:sample_limit]}}
 
 
+
+def new_reference_review_batches(triage, batch_size=10):
+    """Deterministic read-only review pages; never convert evidence into approval."""
+    if not isinstance(batch_size, int) or isinstance(batch_size, bool) or batch_size < 1:
+        raise ValueError('batch_size must be a positive integer')
+    pages = []
+    for kind, key in (('CONFLICT', 'conflicting_artwork'), ('SINGLE', 'single_artwork')):
+        records = sorted(triage.get(key, []), key=lambda row: row['service_reference'])
+        for offset in range(0, len(records), batch_size):
+            chunk = records[offset:offset + batch_size]
+            pages.append({
+                'review_id': 'NEW-' + kind + '-' + str(offset // batch_size + 1).zfill(5),
+                'category': kind,
+                'status': 'PENDING_HUMAN_REVIEW',
+                'identity_approval': 'NONE',
+                'service_references': [row['service_reference'] for row in chunk],
+                'items': chunk,
+            })
+    return {'schema': 1, 'authority': 'READ_ONLY_DIAGNOSTIC',
+            'identity_approval': 'NONE', 'batch_size': batch_size,
+            'review_batches': pages,
+            'conflict_batches': sum(page['category'] == 'CONFLICT' for page in pages),
+            'single_batches': sum(page['category'] == 'SINGLE' for page in pages)}
+
+
 def unmapped_filename_diagnostics(matches, sample_limit=12):
     """Bounded, source-aware evidence for unmapped PNGs; never guess IDs."""
     groups = defaultdict(lambda: {"count": 0, "service_ref_like": 0, "utf8_names": 0, "other": 0, "samples": []})
