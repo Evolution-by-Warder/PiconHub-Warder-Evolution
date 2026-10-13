@@ -340,6 +340,16 @@ class FactoryRenderingTests(unittest.TestCase):
         self.assertEqual(result['single_artwork'][0]['artwork_observations'], 2)
         self.assertEqual({row['sha256'] for row in result['source_evidence']}, {'a'*64, 'b'*64, 'c'*64})
         self.assertEqual(result['schema'], 2)
+        from registry_triage import new_reference_review_batches
+        pages = new_reference_review_batches(result, batch_size=1)
+        self.assertEqual(pages['conflict_batches'], 1)
+        self.assertEqual(pages['single_batches'], 1)
+        self.assertEqual(pages['review_batches'][0]['category'], 'CONFLICT')
+        self.assertEqual(pages['review_batches'][0]['status'], 'PENDING_HUMAN_REVIEW')
+        self.assertEqual(pages['review_batches'][0]['identity_approval'], 'NONE')
+        self.assertEqual(sum(len(p['items']) for p in pages['review_batches']), result['new_references'])
+        with self.assertRaises(ValueError):
+            new_reference_review_batches(result, batch_size=0)
         self.assertEqual({row['source'] for row in result['source_evidence']}, {m['candidate_source'] for m in matches if m['classification'] == 'NEW'})
         self.assertEqual(result['single_artwork'][0]['source_origins'], ['openatv8', 'vhannibal'])
         self.assertEqual(result['single_artwork'][0]['source_observations'], 2)
