@@ -1,8 +1,7 @@
 name: Factory Windows approved release
+# A regression build produces downloadable test EXE artifacts.
+# Publishing a public release requires an explicit manual dispatch.
 on:
-  workflow_run:
-    workflows: ["Factory regression (no release)"]
-    types: [completed]
   workflow_dispatch:
     inputs:
       regression_run_id:
