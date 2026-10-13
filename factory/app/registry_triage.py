@@ -38,6 +38,7 @@ def new_reference_artwork_triage(matches, sample_limit=20):
     for ref, cell in sorted(grouped.items()):
         record = {'service_reference': ref, 'artwork_sha256': sorted(cell['hashes']),
                   'source_observations': len(cell['sources']),
+                  'artwork_observations': len(cell['evidence']),
                   'source_origins': sorted(cell['origins'])}
         (single if len(cell['hashes']) == 1 else conflicts).append(record)
         source_evidence.extend({'service_reference': ref, 'sha256': sha, 'source': source}
@@ -47,6 +48,7 @@ def new_reference_artwork_triage(matches, sample_limit=20):
             'new_references': len(grouped),
             'single_artwork_references': len(single),
             'conflicting_artwork_references': len(conflicts),
+            'source_evidence_count': len(source_evidence),
             'single_artwork': single,
             'conflicting_artwork': conflicts,
             'source_evidence': source_evidence,
