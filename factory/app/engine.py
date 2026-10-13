@@ -439,6 +439,12 @@ def _output_signature_for_folder(folder):
    with Image.open(path) as im:
     if im.size!=(220,132) or im.mode!='RGBA':
      return None
+    alpha=im.getchannel('A')
+    if name=='transparent':
+     if alpha.getbbox() is None:
+      return None
+    elif alpha.getextrema()!=(255,255):
+     return None
    if name!='transparent':
     expected=_template_sha256(name)
     signature=folder/(name+'.template-sha256')
