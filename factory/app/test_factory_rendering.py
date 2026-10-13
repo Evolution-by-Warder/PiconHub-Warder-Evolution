@@ -221,6 +221,35 @@ class FactoryRenderingTests(unittest.TestCase):
             (folder / 'white.render-revision').unlink()
             self.assertIsNone(_output_signature_for_folder(folder))
 
+    def test_render_validator_rejects_invisible_or_translucent_variants(self):
+        from engine import render_png_task, _output_signature_for_folder
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            source = root / 'art.png'
+            image = Image.new('RGBA', (220, 132), (0, 0, 0, 0))
+            for y in range(42, 85):
+                for x in range(60, 150):
+                    image.putpixel((x, y), (225, 40, 20, 255))
+            image.save(source)
+            sha = hashlib.sha256(source.read_bytes()).hexdigest()
+            output = root / 'output'
+            ok, _, error = render_png_task((str(source), str(output), sha))
+            self.assertTrue(ok, error)
+            folder = output / sha[:2] / sha
+            self.assertTrue(_output_signature_for_folder(folder))
+            transparent = folder / 'transparent.png'
+            with Image.open(transparent) as original:
+                saved = original.copy()
+            Image.new('RGBA', (220, 132), (0, 0, 0, 0)).save(transparent)
+            self.assertIsNone(_output_signature_for_folder(folder))
+            saved.save(transparent)
+            black = folder / 'black.png'
+            with Image.open(black) as original:
+                damaged = original.copy()
+            damaged.putpixel((0, 0), (0, 0, 0, 0))
+            damaged.save(black)
+            self.assertIsNone(_output_signature_for_folder(folder))
+
     def test_templates_present(self):
         root = Path(__file__).resolve().parent / 'templates' / 'picons'
         for name in ('black-sablona.png', 'white-sablona.png'):
