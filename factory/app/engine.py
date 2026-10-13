@@ -318,16 +318,8 @@ def _compose_variant(rgba, background):
   canvas=source.convert('RGBA')
   canvas.putalpha(255)  # WARDER output variants must be opaque
  # Preserve already-legible brand colors; no unconditional stroke.
- # Predominantly white logos need a dark OUTSIDE outline on the white plate.
- # Keep every original opaque RGB pixel; never repaint white brand lettering.
- pixels=list(rgba.getdata())
- visible=[(r,g,b) for r,g,b,a in pixels if a>=128]
- preserve_white=(background=='white' and len(visible)>=20 and
-                 sum(min(rgb)>=238 for rgb in visible)/len(visible)>0.94)
- if preserve_white:
-  art=_outlined_variant(rgba,'white',radius=2)
- else:
-  art=_adjust_low_contrast_color(_contrast_variant_art(rgba,background),background)
+ # Apply established contrast rules; do not outline whole logos merely because they are pale.
+ art=_adjust_low_contrast_color(_contrast_variant_art(rgba,background),background)
  # Last resort: outline only remaining neutral, low-contrast pixels.
  # Never stroke all alpha or recolor brand-color regions.
  if background in ('white','black'):
@@ -575,7 +567,7 @@ def repair_variant_task(args):
     # outside its alpha; never replace the original white logo with black.
     if name=='white':
      outlined=_outlined_variant(rgba,'white',radius=2)
-     render=_compose_variant(rgba,'white')  # source-aware outline, no recoloring
+     render=_compose_variant(rgba,'white')  # normal selective contrast rules
     # Do not mistake a partial recolor for proven legibility. Validate the
     # composed candidate against the same source-alpha contrast criteria as QA.
     source_pixels=list(rgba.getdata())
