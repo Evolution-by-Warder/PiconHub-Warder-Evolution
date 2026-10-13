@@ -295,8 +295,10 @@ class FactoryRenderingTests(unittest.TestCase):
             folder = output / sha[:2] / sha
             with patch('engine.OUTPUT', output):
                 self.assertIsNotNone(_output_signature(sha))
+                before_bad=_output_signature(sha)
                 Image.new('RGBA', (220, 132), (0, 0, 0, 0)).save(folder / 'transparent.png')
-                self.assertIsNone(_output_signature(sha))
+                bad_signature=_output_signature(sha)
+                self.assertNotEqual(before_bad['transparent']['sha256'],bad_signature['transparent']['sha256'])
                 ok, _, error = render_png_task((str(source), str(output), sha))
                 self.assertTrue(ok, error)
                 self.assertIsNotNone(_output_signature(sha))
@@ -304,7 +306,8 @@ class FactoryRenderingTests(unittest.TestCase):
                     damaged = original.copy()
                 damaged.putpixel((0, 0), (0, 0, 0, 0))
                 damaged.save(folder / 'black.png')
-                self.assertIsNone(_output_signature(sha))
+                damaged_signature=_output_signature(sha)
+                self.assertNotEqual(bad_signature['black']['sha256'],damaged_signature['black']['sha256'])
                 ok, _, error = render_png_task((str(source), str(output), sha))
                 self.assertTrue(ok, error)
                 self.assertIsNotNone(_output_signature(sha))
@@ -578,6 +581,43 @@ class FactoryRenderingTests(unittest.TestCase):
         self.assertEqual(result['single_artwork'][0]['source_origins'], ['openatv8', 'vhannibal'])
         self.assertEqual(result['single_artwork'][0]['source_observations'], 2)
         self.assertEqual(result['conflicting_artwork'][0]['artwork_sha256'], ['b'*64, 'c'*64])
+
+    def test_output_signature_detects_content_change(self):
+        from unittest.mock import patch
+        from engine import _output_signature, RENDER_REVISION, _template_sha256
+        with tempfile.TemporaryDirectory() as temp:
+            root=Path(temp); sha='b'*64; folder=root/sha[:2]/sha; folder.mkdir(parents=True)
+            for name, color in (('transparent',(50,60,70,255)),('black',(20,20,20,255)),('white',(220,220,220,255))):
+                Image.new('RGBA',(220,132),color).save(folder/(name+'.png'))
+                (folder/(name+'.render-revision')).write_text(RENDER_REVISION,encoding='ascii')
+                if name!='transparent':
+                    (folder/(name+'.template-sha256')).write_text(_template_sha256(name),encoding='ascii')
+            with patch('engine.OUTPUT',root):
+                before=_output_signature(sha)
+                image_path=folder/'transparent.png'
+                old_stat=image_path.stat()
+                Image.new('RGBA',(220,132),(51,60,70,255)).save(image_path)
+                after_stat=image_path.stat()
+                after=_output_signature(sha)
+                self.assertNotEqual(before['transparent']['sha256'],after['transparent']['sha256'])
+                self.assertEqual(old_stat.st_size,after_stat.st_size)
+
+    def test_corrupt_png_signature_is_not_qa_success(self):
+        from unittest.mock import patch
+        from engine import _output_signature, qa_png_task, RENDER_REVISION, _template_sha256
+        with tempfile.TemporaryDirectory() as temp:
+            root=Path(temp); sha='c'*64; folder=root/sha[:2]/sha; folder.mkdir(parents=True)
+            for name in ('transparent','black','white'):
+                path=folder/(name+'.png')
+                Image.new('RGBA',(220,132),(50,60,70,255)).save(path)
+                (folder/(name+'.render-revision')).write_text(RENDER_REVISION,encoding='ascii')
+                if name!='transparent':
+                    (folder/(name+'.template-sha256')).write_text(_template_sha256(name),encoding='ascii')
+            (folder/'black.png').write_bytes(b'broken PNG')
+            with patch('engine.OUTPUT',root):
+                self.assertIsNotNone(_output_signature(sha))
+            _,issues=qa_png_task((sha,str(root)))
+            self.assertIn('CORRUPT_BLACK',issues)
 
 
 if __name__ == '__main__':

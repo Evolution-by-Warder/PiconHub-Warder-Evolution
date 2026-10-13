@@ -348,6 +348,7 @@ def _compose_variant(rgba, background):
  return canvas
 
 RENDER_REVISION = "plate-aware-v20-unified-clean-artwork"
+QA_SCHEMA = 6
 
 def render_png_task(args):
  # Independent process: Pillow decoding and PNG encoding use multiple CPU cores.
@@ -495,11 +496,26 @@ from functools import lru_cache
 def _cached_template_sha256(path,size,mtime_ns):
  return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
-def _output_signature(sha):
- """Return cache signature only for outputs tied to CURRENT plastic templates.
+def _file_content_signature(path):
+ """Hash bytes once and bind the digest to a stable filesystem snapshot."""
+ path=Path(path)
+ before=path.stat()
+ before_sig=(before.st_dev,before.st_ino,before.st_size,before.st_mtime_ns,before.st_ctime_ns)
+ checksum=hashlib.sha256()
+ with path.open('rb') as stream:
+  for block in iter(lambda:stream.read(1024*1024),b''):
+   checksum.update(block)
+ after=path.stat()
+ after_sig=(after.st_dev,after.st_ino,after.st_size,after.st_mtime_ns,after.st_ctime_ns)
+ if before_sig!=after_sig:
+  raise OSError('Output PNG changed while hashing')
+ return {'sha256':checksum.hexdigest(),'stat':list(before_sig)}
 
- An old flat render or missing signature must never count as an unchanged
- output, even when the source PNG itself has not changed.
+def _output_signature(sha):
+ """Content signature for outputs tied to current templates and render rules.
+
+ This deliberately hashes bytes without decoding. QA remains mandatory on a
+ new/changed signature; unchanged bytes can reuse only matching QA-rule results.
  """
  folder=OUTPUT/sha[:2]/sha
  result={}
@@ -509,24 +525,14 @@ def _output_signature(sha):
    if not path.is_file():return None
    revision_marker=folder/(name+'.render-revision')
    if not revision_marker.is_file() or revision_marker.read_text(encoding='ascii').strip()!=RENDER_REVISION:return None
-   from PIL import Image as _Image
-   with _Image.open(path) as _cached:
-    _cached.verify()
-   with _Image.open(path) as _cached:
-    if _cached.size != (220,132) or _cached.mode != 'RGBA':return None
-    alpha_extrema=_cached.getchannel('A').getextrema()
-    if name=='transparent' and alpha_extrema[1]==0:return None
-    if name!='transparent' and alpha_extrema!=(255,255):return None
-   st=path.stat()
-   if st.st_size<=0:return None
+   signature=_file_content_signature(path)
+   if signature['stat'][2]<=0:return None
+   result[name]=signature
    if name!='transparent':
-    template=Path(__file__).resolve().parent/'templates'/'picons'/(name+'-sablona.png')
     expected=_template_sha256(name)
     marker=folder/(name+'.template-sha256')
-    if not marker.is_file() or marker.read_text(encoding='ascii').strip()!=expected:
-     return None
+    if not marker.is_file() or marker.read_text(encoding='ascii').strip()!=expected:return None
     result[name+'_template_sha256']=expected
-   result[name]=[st.st_size,st.st_mtime_ns]
   return result
  except (OSError,UnicodeError,ValueError):
   return None
@@ -1026,6 +1032,7 @@ class Factory:
   # Parent process exclusively owns SQLite. Worker processes only decode/render PNG.
   pool=ProcessPoolExecutor(max_workers=workers) if PIL_OK else None
   pending={}
+  output_signature_cache={}
   completed=0
   pending_db_updates=[]
   def flush_db_updates():
@@ -1042,6 +1049,7 @@ class Factory:
     try: ok,created,error=fut.result()
     except Exception as e:ok,created,error=False,0,str(e)
     stats['created']+=created
+    if ok:output_signature_cache[sha]=_output_signature(sha)
     status='VARIANTS_UNREVIEWED' if ok else 'EXCEPTION'
     if not ok:
      stats['exceptions']+=1
@@ -1080,6 +1088,7 @@ class Factory:
       hashes[sha]=rel
       cached=output_cache.get(sha,{})
       current_signature=_output_signature(sha)
+      output_signature_cache[sha]=current_signature
       if current_signature is not None and cached.get('signatures')==current_signature:
        stats['render_cache_hits']+=1
        queue_db_update((rel,sha,st.st_size,st.st_mtime_ns,'VARIANTS_UNREVIEWED',run))
@@ -1247,7 +1256,7 @@ class Factory:
   # Phase 5: read-only QA on UNIQUE content hashes. Does not alter production.
   self.emit('stage','5/5 · Automatická QA existujúcich variantov')
   unique=list(hashes)
-  current_signatures={sha:_output_signature(sha) for sha in unique}
+  current_signatures={sha:(output_signature_cache.get(sha) or _output_signature(sha)) for sha in unique}
   # Legacy cache stored safe-recolor refusals as blocking repair failures.
   # Recheck only those affected images so the current QA can recover the
   # original contrast advisory; do not silently erase a cached finding.
@@ -1257,10 +1266,10 @@ class Factory:
    self.log(f'QA cache migrácia: znovu preverím {len(legacy_ambiguous)} starých nejednoznačných opráv.')
   qa_issues={sha:list(entry.get('issues',[])) for sha,entry in output_cache.items()
               if sha in hashes and sha not in legacy_ambiguous and current_signatures[sha] is not None and isinstance(entry,dict)
-              and entry.get('signatures')==current_signatures[sha] and entry.get('qa_schema') in (4,5) and entry.get('issues')}
+              and entry.get('signatures')==current_signatures[sha] and entry.get('qa_schema')==QA_SCHEMA and entry.get('issues')}
   qa_targets=[sha for sha in unique if sha in legacy_ambiguous or current_signatures[sha] is None or
               output_cache.get(sha,{}).get('signatures')!=current_signatures[sha] or
-              output_cache.get(sha,{}).get('qa_schema') not in (4,5)]
+              output_cache.get(sha,{}).get('qa_schema')!=QA_SCHEMA]
   qa_checked=0
   if not PIL_OK and qa_targets:
    raise RuntimeError('Pillow chýba: QA nemožno dokončiť ani bezpečne aktualizovať cache.')
@@ -1307,7 +1316,7 @@ class Factory:
                  if sha in hashes and isinstance(entry,dict)
                  and entry.get('contrast_repair_refused') is True
                  and entry.get('signatures')==current_signatures.get(sha)
-                 and entry.get('source_sha256')==sha and entry.get('qa_schema')==5}
+                 and entry.get('source_sha256')==sha and entry.get('qa_schema')==6}
   repair_candidates=[sha for sha,issues in qa_issues.items()
                      if set(issues).issubset(fixable) and sha in hashes
                      and sha not in refused_cache]
@@ -1359,8 +1368,10 @@ class Factory:
   self.emit('stage',f'5/5 · QA ukončená · skutočné nálezy {len(qa_issues):,} · vytváram reporty')
   # Cache is a flat sha->record mapping in memory; persist it inside one envelope.
   # Do not nest 'items' in itself: that invalidates the next run's QA cache.
+  for repaired_sha in repaired:
+   current_signatures[repaired_sha]=_output_signature(repaired_sha)
   atomic_json(output_cache_path,{'schema':1,'items':{
-      sha:{'signatures':_output_signature(sha),'qa_schema':5,'issues':qa_issues.get(sha,[]),
+      sha:{'signatures':current_signatures.get(sha),'qa_schema':QA_SCHEMA,'issues':qa_issues.get(sha,[]),
            'source_sha256':sha,'contrast_repair_refused':sha in contrast_refused and
            bool(set(qa_issues.get(sha,[])) & {'LOW_CONTRAST_WHITE','LOW_CONTRAST_BLACK'})}
       for sha in unique}})
@@ -1455,8 +1466,8 @@ class Factory:
   integrity_blocked={issue['sha256'] for issue in integrity['issues']}
   new_candidate_shas={row.get('candidate_sha256') for row in registry_matches if row.get('classification')=='NEW'}
   unique_shas=set(unique)
-  verified_for_finalization={sha for sha in new_candidate_shas if sha in unique_shas and sha not in qa_issues and sha not in integrity_blocked and _output_signature(sha) is not None and (sha in qa_targets or (current_signatures.get(sha) is not None and sha not in qa_targets))}
-  finalized=finalize_new_candidates(registry_matches,qa_issues,OUTPUT,FINAL_PICONS,verified_shas=verified_for_finalization)
+  verified_for_finalization={sha for sha in new_candidate_shas if sha in unique_shas and sha not in qa_issues and sha not in integrity_blocked and current_signatures.get(sha) is not None}
+  finalized=finalize_new_candidates(registry_matches,qa_issues,OUTPUT,FINAL_PICONS,verified_shas=verified_for_finalization,verified_signatures={sha:current_signatures[sha] for sha in verified_for_finalization})
   stats['new_candidate_finalization']=finalized
   phase_timings['finalization_seconds']=round(time.perf_counter()-phase_started,3)
   self.log('Lokálne finálne NEW-CANDIDATES: '+str(finalized))
