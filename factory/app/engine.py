@@ -347,7 +347,7 @@ def _compose_variant(rgba, background):
  canvas.alpha_composite(art)
  return canvas
 
-RENDER_REVISION = "plate-aware-v17"
+RENDER_REVISION = "plate-aware-v18-chrome-contrast"
 
 def render_png_task(args):
  # Independent process: Pillow decoding and PNG encoding use multiple CPU cores.
