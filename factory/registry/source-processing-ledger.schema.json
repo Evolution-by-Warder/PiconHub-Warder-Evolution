@@ -1,0 +1,194 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "properties": {
+    "active_source": {
+      "enum": [
+        "openatv8",
+        "vhannibal",
+        "chocholousek",
+        null
+      ]
+    },
+    "authority": {
+      "const": "Evolution-by-Warder/PiconHub-Warder-Evolution"
+    },
+    "branch": {
+      "const": "factory-warder-development"
+    },
+    "last_checkpoint": {
+      "type": "object"
+    },
+    "schema": {
+      "const": 1
+    },
+    "source_order": {
+      "const": [
+        "openatv8",
+        "vhannibal",
+        "chocholousek"
+      ]
+    },
+    "sources": {
+      "properties": {
+        "chocholousek": {
+          "properties": {
+            "content_manifest": {
+              "items": {
+                "properties": {
+                  "path": {
+                    "type": "string"
+                  },
+                  "png_count": {
+                    "minimum": 0,
+                    "type": "integer"
+                  },
+                  "sha256": {
+                    "pattern": "^[0-9a-f]{64}$",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "path",
+                  "sha256",
+                  "png_count"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "source_id": {
+              "const": "chocholousek"
+            },
+            "status": {
+              "enum": [
+                "NOT_CHECKED",
+                "UNCHANGED",
+                "DOWNLOADED",
+                "PROCESSING",
+                "AWAITING_APPROVAL",
+                "COMPLETED",
+                "FAILED"
+              ]
+            }
+          },
+          "required": [
+            "source_id",
+            "status"
+          ],
+          "type": "object"
+        },
+        "openatv8": {
+          "properties": {
+            "content_manifest": {
+              "items": {
+                "properties": {
+                  "path": {
+                    "type": "string"
+                  },
+                  "png_count": {
+                    "minimum": 0,
+                    "type": "integer"
+                  },
+                  "sha256": {
+                    "pattern": "^[0-9a-f]{64}$",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "path",
+                  "sha256",
+                  "png_count"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "source_id": {
+              "const": "openatv8"
+            },
+            "status": {
+              "enum": [
+                "NOT_CHECKED",
+                "UNCHANGED",
+                "DOWNLOADED",
+                "PROCESSING",
+                "AWAITING_APPROVAL",
+                "COMPLETED",
+                "FAILED"
+              ]
+            }
+          },
+          "required": [
+            "source_id",
+            "status"
+          ],
+          "type": "object"
+        },
+        "vhannibal": {
+          "properties": {
+            "content_manifest": {
+              "items": {
+                "properties": {
+                  "path": {
+                    "type": "string"
+                  },
+                  "png_count": {
+                    "minimum": 0,
+                    "type": "integer"
+                  },
+                  "sha256": {
+                    "pattern": "^[0-9a-f]{64}$",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "path",
+                  "sha256",
+                  "png_count"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "source_id": {
+              "const": "vhannibal"
+            },
+            "status": {
+              "enum": [
+                "NOT_CHECKED",
+                "UNCHANGED",
+                "DOWNLOADED",
+                "PROCESSING",
+                "AWAITING_APPROVAL",
+                "COMPLETED",
+                "FAILED"
+              ]
+            }
+          },
+          "required": [
+            "source_id",
+            "status"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "openatv8",
+        "vhannibal",
+        "chocholousek"
+      ],
+      "type": "object"
+    }
+  },
+  "required": [
+    "schema",
+    "authority",
+    "branch",
+    "source_order",
+    "active_source",
+    "sources",
+    "last_checkpoint"
+  ],
+  "title": "Warder Factory source processing ledger",
+  "type": "object"
+}

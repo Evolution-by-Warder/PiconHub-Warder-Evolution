@@ -2,7 +2,7 @@ import os, sys, sqlite3, hashlib, zipfile, shutil, threading, queue, json, time,
 from pathlib import Path
 import tkinter as tk
 from tkinter import ttk
-from datetime import datetime
+from datetime import datetime, timezone
 from concurrent.futures import ProcessPoolExecutor, wait, FIRST_COMPLETED
 import multiprocessing
 from collections import Counter
@@ -798,6 +798,7 @@ class Factory:
   if not preflight.ok or not structure_ok:
    raise PermissionError('Read-only preflight neprešiel; zápis zablokovaný: '+ '; '.join(findings or preflight.findings[-2:]))
   for p in (APP,APP_DATA,INBOX,SOURCE_INGEST,ORIGINALS,REGISTRY,MASTER_ROOT,OUTPUT,FINAL_PICONS,EXCEPTIONS,REPORTS,LOGS):p.mkdir(parents=True,exist_ok=True)
+  self.legacy_queue_migration={'status':'NOT_RUN'}
   self.log_path=LOGS/('factory-'+datetime.now().strftime('%Y%m%d-%H%M%S')+'.log')
   # Both source and packaged EXE consult the same signed-by-policy manifest
   # authority. The EXE never attempts to install the Python-only ZIP in place.
@@ -973,11 +974,28 @@ class Factory:
   phase_timings={}
   stats['phase_timings_seconds']=phase_timings
   self.log('Začínam spracovanie '+run)
+  from source_cycle import fetch_source_ledger, active_source
+  try:
+   source_head,source_ledger=fetch_source_ledger()
+   self.active_source=active_source(source_ledger)
+   stats['source_ledger_head']=source_head
+   stats['active_source']=self.active_source
+   self.log('Aktívny zdroj podľa Git ledgeru: '+str(self.active_source)+' · '+source_head[:12])
+  except Exception as exc:
+   self.active_source=None
+   stats['source_ledger_error']=type(exc).__name__+': '+str(exc)[:200]
+   stats['active_source']=None
+   self.log('Git source ledger nedostupný; zdrojové sťahovanie a kandidátske spracovanie fail-closed: '+stats['source_ledger_error'])
   from warder_identity_sync import sync_registry
   try:
    self.git_master_sync=sync_registry(_WORKSPACE['warder_identity_registry_cache'])
   except Exception as exc:
    self.git_master_sync={'status':'UNAVAILABLE','snapshot':None,'error':type(exc).__name__+': '+str(exc)[:200]}
+  master_snapshot=self.git_master_sync.get('snapshot')
+  if self.active_source and master_snapshot and master_snapshot.get('commit')!=stats.get('source_ledger_head'):
+   self.active_source=None
+   stats['source_ledger_error']='SOURCE_AND_MASTER_SNAPSHOT_COMMIT_MISMATCH'
+   self.log('Git source ledger a Warder Master majú rozdielny commit; kandidátske spracovanie fail-closed.')
   self.log('Git Warder Master: '+str(self.git_master_sync.get('status'))+
            (' · '+str(self.git_master_sync.get('error')) if self.git_master_sync.get('error') else ''))
   self.fetch_sources()
@@ -990,46 +1008,24 @@ class Factory:
     saved=json.loads(master_paths_file.read_text(encoding='utf-8'))
     self.master_paths=saved.get('paths',[]);self.master_commit=saved.get('commit')
    except (OSError,ValueError,AttributeError):self.master_paths=[]
-  self.emit('stage','3/5 · Importujem lokálne ZIP archívy')
-  if not PIL_OK:self.log('Pillow nie je dostupný: grafické varianty sa nevytvoria; iba inventarizácia.')
-  # Safe, bounded, atomic import; originals never overwritten.
-  for archive in sorted(INBOX.rglob('*.zip')):
-   self.check_cancelled()
-   try:
-    result=import_png_zip(archive,ORIGINALS)
-    self.log(f'Archív {archive.name}: import {result["imported"]}, preskočené {result["skipped"]}')
-   except Exception as e:
-    stats['exceptions']+=1
-    self.log('CHYBA archívu '+archive.name+': '+str(e))
-  # The three requested peer sources are integrated into the same resumable
-  # ingestion tree. Each source owns its checkpoint and failure isolation.
+  self.emit('stage','3/5 · Pripravujem iba zdroj OpenATV')
+  if not PIL_OK:self.log('Pillow nie je dostupný: varianty sa nevytvoria; iba inventarizácia.')
+  # Generic local ZIPs are deferred. The active source cycle is single-source
+  # OpenATV; arbitrary inbox archives must not mix sources into this run.
+  stats['deferred_inbox_archives']=sum(1 for p in INBOX.rglob('*') if p.is_file() and p.suffix.casefold() in {'.zip','.7z'})
+  stats['active_source']='openatv8'
+  # Only OpenATV is synchronized in this release. Vhannibal and Chocholousek
+  # remain untouched until the prior source reaches a closed ledger state.
   self.openatv_package_styles={}
   self.sync_peer_sources(stats)
   self.check_cancelled()
   # Optional verified current-source manifest connects the tested ingestion
   # modules to the same one-run pipeline. Missing source configuration is
   # reported as unavailable; no URLs or checksums are guessed.
-  if SOURCE_MANIFEST.is_file():
-   try:
-    from source_pipeline import ingest_current_sources
-    from source_inventory import validate_manifest
-    from urllib.parse import urlsplit
-    source_manifest=json.loads(SOURCE_MANIFEST.read_text(encoding='utf-8'))
-    verified_entries=validate_manifest(source_manifest)
-    allowed_hosts={urlsplit(item['url']).hostname for item in verified_entries}
-    source_result=ingest_current_sources(
-      source_manifest, SOURCE_INGEST, allowed_hosts,
-      notify=lambda key,state:self.log(f'{key}: {state}'), state_dir=DATA, originals_dir=ORIGINALS,
-      legacy_state_dir=APP_DATA)
-    stats['external_source_archives']=len(source_result['processed'])
-    stats['unchanged_sources']=source_result['unchanged']
-   except Exception as e:
-    stats['exceptions']+=1
-    stats['external_source_error']=str(e)[:300]
-    self.log('EXTERNÉ ZDROJE: manifest alebo synchronizácia zlyhali bezpečne: '+str(e))
-  else:
-   stats['external_source_archives']=0
-   stats['external_source_error']='NOT_CONFIGURED'
+  # Do not ingest optional source manifests until OpenATV is closed. The
+  # source ledger is the only authority for advancing this fixed sequence.
+  stats['external_source_archives']=0
+  stats['deferred_source_manifest']=bool(SOURCE_MANIFEST.is_file())
   phase_timings['source_fetch_and_sync_seconds']=round(time.perf_counter()-phase_started,3)
   phase_started=time.perf_counter()
   # Build a read-only snapshot index from the exact production files downloaded
@@ -1071,7 +1067,9 @@ class Factory:
    if not isinstance(output_cache,dict):output_cache={}
   except (OSError,ValueError,AttributeError):output_cache={}
   candidates=[]
-  for base in (ORIGINALS,INBOX,SOURCE_INGEST/'originals'):
+  active_root=self.active_source if self.active_source in {'openatv8','vhannibal','chocholousek'} else None
+  source_bases=((ORIGINALS/active_root,SOURCE_INGEST/'originals'/active_root) if active_root else ())
+  for base in source_bases:
    for p in base.rglob('*'):
     self.check_cancelled()
     if p.is_file() and p.suffix.lower()=='.png' and not is_master_path(p):
@@ -1639,16 +1637,114 @@ class Factory:
   stats['final_picons_on_disk']=final_picon_counts(FINAL_PICONS)
   phase_timings['total_seconds']=round(time.perf_counter()-total_started,3)
   self.log('Časy fáz (s): '+str(phase_timings))
-  report.write_text(json.dumps({'run':run,'stats':stats,'pillow':PIL_OK,'master_commit':getattr(self,'master_commit',None),'note':'PiconHub production snapshot is read-only. Vhannibal, OpenATV 8 and Chocholousek are checked as candidate sources. Optional additional feeds require a verified source-manifest.json. Identity matching uses exact service-reference filenames; no Warder IDs, production assets or GitHub content are changed.'},ensure_ascii=False,indent=2),encoding='utf-8')
+  report.write_text(json.dumps({'run':run,'stats':stats,'pillow':PIL_OK,'master_commit':getattr(self,'master_commit',None),'note':'Exactly one Git-ledger source is active per run in the fixed order OpenATV, Vhannibal, Chocholousek. Generic inbox archives are deferred. PiconHub production snapshot is read-only; no Warder IDs or approvals are inferred.'},ensure_ascii=False,indent=2),encoding='utf-8')
+  # Persist a source-relative PNG manifest and processing checkpoint to the
+  # development Git ledger when existing credentials are available. Missing
+  # credentials leave an explicit UNSAVED state and never block local QA.
+  source_id=self.active_source
+  if source_id in {'openatv8','vhannibal','chocholousek'}:
+   try:
+    from source_cycle import (build_source_manifest, fetch_source_ledger,
+                              commit_source_checkpoint, active_source)
+    from factory_github_credentials import load_master_write_token
+    source_root=ORIGINALS/source_id
+    ingest_root=SOURCE_INGEST/'originals'/source_id
+    manifest_root=DATA/'source-manifests'/source_id
+    manifest_blobs,manifest_summary=build_source_manifest(
+     candidate_records,source_id,[source_root,ingest_root],manifest_root)
+    source_head,source_ledger=fetch_source_ledger()
+    if source_head!=stats.get('source_ledger_head'):
+     raise RuntimeError('SOURCE_GIT_HEAD_CHANGED_DURING_SCAN')
+    if active_source(source_ledger)!=source_id:
+     raise RuntimeError('ACTIVE_SOURCE_CHANGED_DURING_SCAN')
+    source_result=stats.get('peer_sources',{}).get(source_id,{})
+    if source_result.get('status') in {'unavailable','selection_required'} or stats.get('exceptions'):
+     source_status='FAILED'
+    elif review_queue.get('count'):
+     source_status='AWAITING_APPROVAL'
+    else:
+     source_status='COMPLETED'
+    source_row=source_ledger['sources'][source_id]
+    checked_at=datetime.now(timezone.utc).isoformat(timespec='seconds').replace('+00:00','Z')
+    source_row.update({'status':source_status,'last_checked_utc':checked_at,
+     'source_release_id':source_result.get('index_sha1') or source_result.get('release_id') or manifest_summary['manifest_set_sha256'],
+     'archive_sha256':None,'package_archive_sha256s':sorted(manifest_summary['packages']),
+     'content_manifest_sha256':manifest_summary['manifest_set_sha256'],'content_manifest':[
+       {'path':'factory/registry/source-manifests/'+source_id+'/'+v['filename'],'sha256':v['manifest_sha256'],'png_count':v['png_count']}
+       for _,v in sorted(manifest_summary['packages'].items())],
+     'png_observations':manifest_summary['png_observations'],'new':stats.get('registry_new',0),
+     'changed':stats.get('registry_review',0),'identical':stats.get('registry_identical',0),
+     'invalid':stats.get('exceptions',0),'open_decisions':review_queue.get('count',0),
+     'qa_exceptions':stats.get('qa_review',0),'continuation_point':{'run':run,'stage':'awaiting_review' if source_status=='AWAITING_APPROVAL' else source_status.lower()}})
+    source_ledger['active_source']=active_source(source_ledger)
+    source_ledger['last_checkpoint']={'source_id':source_id,'run':run,'status':source_status,
+     'source_manifest_sha256':manifest_summary['manifest_set_sha256'],'master_commit':getattr(self,'master_commit',None)}
+    checkpoint={'schema':1,'run':run,'source_id':source_id,'source_status':source_status,
+     'source_release_id':source_row['source_release_id'],'source_content_manifest_sha256':manifest_summary['manifest_set_sha256'],
+     'master_commit':getattr(self,'master_commit',None),'png_observations':manifest_summary['png_observations'],
+     'review_items':review_queue.get('count',0),'qa_checked_pngs':stats.get('qa_checked',0),'qa_blocking':stats.get('qa_blocking',0),
+     'render_failures':stats.get('exceptions',0),'manifest_packages':manifest_summary['packages'],
+     'note':'Metadata only; no PNG bytes, user paths, approvals or Warder IDs.'}
+    checkpoint_name='factory/app/diagnostic-checkpoints/source-'+source_id+'-'+run+'.json'
+    files={'factory/registry/source-processing-ledger.json':(json.dumps(source_ledger,ensure_ascii=False,sort_keys=True,indent=2)+'\n').encode('utf-8'),
+     checkpoint_name:(json.dumps(checkpoint,ensure_ascii=False,sort_keys=True,indent=2)+'\n').encode('utf-8')}
+    files.update({'factory/registry/source-manifests/'+source_id+'/'+name:data for name,data in manifest_blobs.items()})
+    token=load_master_write_token(_WORKSPACE['github_master_credentials'])
+    git_result=commit_source_checkpoint(token,source_head,files)
+    stats['source_git_checkpoint']=git_result
+    self.log(source_id+' checkpoint uložený do Gitu: '+git_result['commit'])
+   except Exception as exc:
+    stats['source_git_checkpoint']={'status':'PENDING_UNSAVED','error':type(exc).__name__+': '+str(exc)[:240]}
+    self.log(source_id+' checkpoint nie je v Gite; lokálny beh pokračuje, stav UNSAVED: '+stats['source_git_checkpoint']['error'])
+  else:
+   stats['source_git_checkpoint']={'status':'NOT_ATTEMPTED','reason':'GIT_SOURCE_LEDGER_UNAVAILABLE'}
   self.emit('done',(stats,str(report)))
 
  def sync_peer_sources(self,stats):
-  """Discover and import current releases without ranking source artwork."""
+  """Synchronize only OpenATV; later sources wait for Git ledger closure."""
   workspace=SOURCE_INGEST
   workspace.mkdir(parents=True,exist_ok=True)
   results={}
-  # Recover provenance from the last verified package state before network I/O,
-  # so a temporary feed outage does not erase known source evidence.
+  active=getattr(self,'active_source',None)
+  if active not in {'openatv8','vhannibal','chocholousek'}:
+   stats['active_source']=None
+   stats['peer_sources']={'active':{'status':'deferred','reason':'GIT_SOURCE_LEDGER_UNAVAILABLE'}}
+   stats['peer_source_imports']=0
+   self.log('Zdrojová práca sa nespustila: chýba overený aktívny Git source checkpoint.')
+   return
+  if active=='vhannibal':
+   try:
+    from vhannibal_source import sync_vhannibal
+    result=sync_vhannibal(workspace,state_dir=DATA,originals_dir=ORIGINALS,legacy_state_dir=APP_DATA)
+    results['vhannibal']=result
+    if result.get('status')=='unavailable':stats['source_errors']=stats.get('source_errors',0)+1
+    self.log(f'Vhannibal: {result.get("status")}; import {result.get("imported",0)}, preskočené {result.get("skipped",0)}.')
+   except Exception as exc:
+    results['vhannibal']={'status':'unavailable','error':type(exc).__name__+': '+str(exc)[:240]}
+    stats['source_errors']=stats.get('source_errors',0)+1
+   results['openatv8']={'status':'deferred','reason':'SOURCE_ORDER'}
+   results['chocholousek']={'status':'deferred','reason':'ANOTHER_SOURCE_ACTIVE'}
+   stats.update({'active_source':active,'peer_sources':results,'peer_source_imports':int(results['vhannibal'].get('imported',0) or 0)})
+   return
+  if active=='chocholousek':
+   try:
+    from chocholousek_source import sync_chocholousek
+    try:
+     choice=json.loads(_WORKSPACE['chocho_positions'].read_text(encoding='utf-8'))
+     positions=choice.get('positions',[]) if isinstance(choice,dict) else []
+    except (OSError,ValueError,TypeError):positions=[]
+    result=sync_chocholousek(workspace,selected_positions=positions,state_dir=DATA,originals_dir=ORIGINALS,legacy_state_dir=APP_DATA)
+    results['chocholousek']=result
+    if result.get('status') in {'unavailable','selection_required'}:stats['source_errors']=stats.get('source_errors',0)+1
+    self.log('Chocholousek: '+str(result.get('status'))+'; import '+str(result.get('imported_png',0))+'.')
+   except Exception as exc:
+    results['chocholousek']={'status':'unavailable','error':type(exc).__name__+': '+str(exc)[:240]}
+    stats['source_errors']=stats.get('source_errors',0)+1
+   results['openatv8']={'status':'deferred','reason':'SOURCE_ORDER'}
+   results['vhannibal']={'status':'deferred','reason':'SOURCE_ORDER'}
+   stats.update({'active_source':active,'peer_sources':results,'peer_source_imports':int(results['chocholousek'].get('imported_png',0) or 0)})
+   return
+  self.emit('stage','3/5 · Kontrolujem iba OpenATV 8')
   try:
    from openatv_feed import verified_package_styles
    state_path=DATA/'openatv8-state.json'
@@ -1656,35 +1752,22 @@ class Factory:
    prior_path=state_path if state_path.is_file() else legacy_state
    prior=json.loads(prior_path.read_text(encoding='utf-8')) if prior_path.is_file() else {}
    prior_packages=prior.get('packages',[]) if isinstance(prior,dict) else []
-   self.openatv_package_styles=verified_package_styles(
-    prior_packages,workspace/'archives'/'openatv8')
+   self.openatv_package_styles=verified_package_styles(prior_packages,workspace/'archives'/'openatv8')
   except (OSError,ValueError,TypeError):
-   self.openatv_package_styles={}
+   prior_packages=[];self.openatv_package_styles={}
   stats['openatv_verified_style_packages']=len(self.openatv_package_styles)
-  self.emit('stage','3/5 · Kontrolujem Vhannibal a OpenATV 8')
   try:
-   from vhannibal_source import sync_vhannibal
-   result=sync_vhannibal(workspace,state_dir=DATA,originals_dir=ORIGINALS,legacy_state_dir=APP_DATA)
-   results['vhannibal']=result
-   self.log(f'Vhannibal: {result["status"]}; import {result.get("imported",0)}, preskočené {result.get("skipped",0)}.')
-  except Exception as exc:
-   results['vhannibal']={'status':'unavailable','error':str(exc)[:300]}
-   stats['source_errors']=stats.get('source_errors',0)+1
-   self.log('Vhannibal nedostupný/nezmenený checkpoint zachovaný: '+str(exc)[:300])
-  try:
-   from openatv_feed import discover_current,download_package,naming_inventory
+   from openatv_feed import discover_current,download_package,naming_inventory,verified_package_styles
    from ipk_import import import_png_ipk, IMPORT_SCHEMA
    state_path=DATA/'openatv8-state.json'
    legacy_state=APP_DATA/'openatv8-state.json'
    read_state=state_path if state_path.is_file() else legacy_state
    state=json.loads(read_state.read_text(encoding='utf-8')) if read_state.is_file() else {}
-   previous_packages=list(state.get('packages',[])) if isinstance(state,dict) else []
+   prior_packages=list(state.get('packages',[])) if isinstance(state,dict) else []
    current=discover_current()
    families=naming_inventory(current['packages'])
-   # A matching feed index is not sufficient: previously skipped or absent SRP
-   # archives must still be imported before the checkpoint is considered complete.
-   missing=[]
    schema_root=ORIGINALS/'openatv8'/('schema-'+str(IMPORT_SCHEMA))
+   missing=[]
    for package in current['packages']:
     archive=workspace/'archives'/'openatv8'/(package['sha256']+'.ipk')
     extracted=schema_root/package['sha256']
@@ -1699,11 +1782,9 @@ class Factory:
    else:
     imported=skipped=downloaded=0
     for package in current['packages']:
+     self.check_cancelled()
      archive=workspace/'archives'/'openatv8'/(package['sha256']+'.ipk')
-     if not archive.is_file():
-      download_package(package,archive)
-      downloaded+=1
-     extracted=schema_root/package['sha256']
+     if not archive.is_file():download_package(package,archive);downloaded+=1
      outcome=import_png_ipk(archive,schema_root)
      imported+=outcome['imported'];skipped+=outcome['skipped']
     state={'schema':2,'index_sha1':current['index_sha1'],'packages':current['packages'],
@@ -1712,41 +1793,22 @@ class Factory:
     results['openatv8']={'status':'updated','index_sha1':current['index_sha1'],
                          'downloaded':downloaded,'imported':imported,'skipped':skipped,
                          'naming_families':families}
-   from openatv_feed import verified_package_styles
-   known_packages=previous_packages+list(current.get('packages',[]))
-   self.openatv_package_styles.update(verified_package_styles(
-    known_packages,workspace/'archives'/'openatv8'))
+   known_packages=prior_packages+list(current.get('packages',[]))
+   self.openatv_package_styles.update(verified_package_styles(known_packages,workspace/'archives'/'openatv8'))
    stats['openatv_verified_style_packages']=len(self.openatv_package_styles)
-   self.log('OpenATV proveniencia: hashom overené balíky s overiteľným formátom/štýlom '+str(stats['openatv_verified_style_packages'])+'.')
-   r=results['openatv8'];self.log(f'OpenATV 8: {r["status"]}; balíky {r.get("downloaded",0)}, import {r.get("imported",0)}.')
-   self.log(f'OpenATV formáty feedu: SRP {families["srp"]["count"]}, UTF8SNP {families["utf8snp"]["count"]}; SRP prítomnosť je overená podľa názvu balíka.')
-   if not families['srp']['count']:
-    self.log('OpenATV UPOZORNENIE: feed neposkytol SRP balík; názvové PNG nemožno vydávať za SRP.')
+   row=results['openatv8']
+   self.log(f'OpenATV 8: {row["status"]}; release index {row.get("index_sha1","?")}; imported {row.get("imported",0)}, skipped {row.get("skipped",0)}.')
+   self.log(f'OpenATV naming evidence: SRP {families["srp"]["count"]}, UTF8SNP {families["utf8snp"]["count"]}.')
+   if not families['srp']['count']:self.log('OpenATV note: SRP package absent in verified feed; no SRP inference made.')
   except Exception as exc:
-   results['openatv8']={'status':'unavailable','error':str(exc)[:300]}
+   results['openatv8']={'status':'unavailable','error':type(exc).__name__+': '+str(exc)[:300]}
    stats['source_errors']=stats.get('source_errors',0)+1
-   self.log('OpenATV 8 nedostupný/bez zmeny checkpointu: '+str(exc)[:300])
-  try:
-   from chocholousek_source import sync_chocholousek
-   try:
-    choice=json.loads(_WORKSPACE['chocho_positions'].read_text(encoding='utf-8'))
-    positions=choice.get('positions',[]) if isinstance(choice,dict) else []
-   except (OSError,ValueError,TypeError):
-    positions=[]
-   result=sync_chocholousek(workspace,selected_positions=positions,state_dir=DATA,originals_dir=ORIGINALS,
-                            legacy_state_dir=APP_DATA)
-   results['chocholousek']=result
-   if result['status']=='selection_required':
-    self.log('Chocholousek: zdroj je dostupný; vyber aktívne pozície v Nastaveniach (bez automatického odhadu).')
-   else:
-    self.log(f'Chocholousek: {result["status"]}; archívy {result.get("downloaded",0)}, import {result.get("imported_png",0)} PNG.')
-  except Exception as exc:
-   results['chocholousek']={'status':'unavailable','error':str(exc)[:300]}
-   stats['source_errors']=stats.get('source_errors',0)+1
-   self.log('Chocholousek nedostupný/bez zmeny checkpointu: '+str(exc)[:300])
+   self.log('OpenATV unavailable; source checkpoint preserved: '+str(exc)[:300])
+  results['vhannibal']={'status':'deferred','reason':'OPENATV_NOT_CLOSED'}
+  results['chocholousek']={'status':'deferred','reason':'OPENATV_NOT_CLOSED'}
   stats['peer_sources']=results
-  stats['peer_source_imports']=sum(int(r.get('imported',r.get('imported_png',0)) or 0)
-                                    for r in results.values() if isinstance(r,dict))
+  stats['active_source']='openatv8'
+  stats['peer_source_imports']=int(results.get('openatv8',{}).get('imported',0) or 0)
 
 def installed_factory_version(app_dir=None):
  """Read the installed build marker, never the latest GitHub version."""
@@ -1838,12 +1900,19 @@ class App:
   self.workspace_ready=False
   self.status.set('Read-only preflight · inventarizujem existujúci workspace')
   def worker():
-   try:self.emit('preflight_done',read_only_preflight(ROOT,progress=lambda current,total,name:self.emit('preflight_progress',(current,total,name))))
+   try:
+    result=read_only_preflight(ROOT,progress=lambda current,total,name:self.emit('preflight_progress',(current,total,name)))
+    if result.ok:
+     from source_cycle import migrate_legacy_review_queue
+     self.legacy_queue_migration=migrate_legacy_review_queue(EXCEPTIONS,REPORTS,DATA)
+     self.emit('legacy_queue_migration',self.legacy_queue_migration)
+    self.emit('preflight_done',result)
    except Exception as exc:self.emit('preflight_error',type(exc).__name__+': '+str(exc)[:300])
   threading.Thread(target=worker,name='factory-read-only-preflight',daemon=True).start()
  def _saved_review_queue(self):
   """Return a validated saved queue path without scanning sources or opening PNGs."""
   try:
+   if getattr(self,'legacy_queue_migration',{}).get('status')!='COMPLETED':return None
    from review_ui import latest_review
    from review_queue import load_review_queue
    path=latest_review(EXCEPTIONS,REPORTS)
@@ -2234,6 +2303,12 @@ class App:
      if hasattr(self,'workspace') and hasattr(self.workspace,'kpi_vars'):
       self.workspace.kpi_vars['final'].set('Počítanie zlyhalo · pozri Diagnostiku')
      if self._final_counts_refresh_pending:self._refresh_production_counts()
+    elif k=='legacy_queue_migration':
+     if v.get('status')=='COMPLETED':
+      self.output.insert('end','Stará fronta 9 932: zrušená jednorazovou kontrolovanou migráciou; odstránené súbory '+str(v.get('deleted',0))+'.\n')
+      self.counts_status.set('Čakajúce úlohy: stará fronta zrušená · nový OpenATV cyklus')
+     else:
+      self.output.insert('end','Stará fronta nebola obnovená; migrácia je blokovaná: '+str(v.get('conflicts',v.get('reason','UNKNOWN')))+'\n')
     elif k=='preflight_progress':
      current,total,name=v
      self.status.set('Read-only preflight · '+str(current)+'/'+str(total)+' · '+name+' · kontrolujem súbory')
