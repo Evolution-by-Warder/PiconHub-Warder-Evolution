@@ -2079,7 +2079,7 @@ class App:
    results=[]
    # Drain all pending reports in bounded batches, without rescanning PNG.
    while True:
-    batch=retry_reports(REPORTS,APP_DATA/'diagnostics-retry-state.json',limit=5,force_retry=force_retry)
+    batch=retry_reports(REPORTS,_WORKSPACE['diagnostics_cache'],limit=5,force_retry=force_retry)
     results.extend(batch)
     if len(batch)<5 or any(item['status']!='sent' for item in batch):
      break

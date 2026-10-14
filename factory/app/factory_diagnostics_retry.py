@@ -60,9 +60,15 @@ def _write_state(path, state):
         raise
 
 
+def _retry_state_path(receipt_path):
+    receipt_path = Path(receipt_path)
+    return receipt_path.with_name(receipt_path.stem + '.retry-state.json')
+
+
 def retry_reports(report_dir, state_file, limit=5, *, max_attempts=3,
                   sleeper=time.sleep, force_retry=False):
-    folder, state_file = Path(report_dir), Path(state_file)
+    folder, receipt_path = Path(report_dir), Path(state_file)
+    state_file = _retry_state_path(receipt_path)
     if limit < 1 or max_attempts < 1:
         raise ValueError('limit and max_attempts must be positive')
     if not folder.is_dir():

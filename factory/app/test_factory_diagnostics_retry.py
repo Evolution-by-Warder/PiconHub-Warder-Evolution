@@ -106,7 +106,7 @@ class DiagnosticsRetryTests(unittest.TestCase):
             reports = Path(tmp) / "reports"; reports.mkdir()
             path = reports / "report-20261014-120001-1.json"
             path.write_text("{}", encoding="utf-8")
-            state = Path(tmp) / "retry.json"; state.write_text("{bad", encoding="utf-8")
+            state = Path(tmp) / "retry.json"; (Path(tmp) / "retry.retry-state.json").write_text("{bad", encoding="utf-8")
             with patch("factory_diagnostics_retry.upload_report") as send:
                 result = retry_reports(reports, state)
             self.assertEqual(result[0]["status"], "retry_state_invalid")
@@ -121,6 +121,24 @@ class DiagnosticsRetryTests(unittest.TestCase):
                    if isinstance(node, ast.ImportFrom) for alias in node.names}
         self.assertIn(("review_evidence_upload", "retry_review_evidence_exports"), imports)
         self.assertNotIn(("factory_diagnostics_retry", "retry_review_evidence_exports"), imports)
+
+
+    def test_legacy_receipt_is_preserved_and_retry_state_uses_sidecar(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            folder = Path(tmp) / "reports"; folder.mkdir()
+            report = folder / "report-20261014-120001-1.json"
+            report.write_text("{}", encoding="utf-8")
+            receipt = Path(tmp) / "delivered.json"
+            original = '{"schema":2,"delivered":["old.json"]}'
+            receipt.write_text(original, encoding="utf-8")
+            with patch("factory_diagnostics_retry.upload_report",
+                       return_value={"status": "http_error", "code": 401}) as send:
+                result = retry_reports(folder, receipt, sleeper=lambda _: None)
+            self.assertEqual(result[0]["status"], "http_error")
+            send.assert_called_once()
+            self.assertEqual(receipt.read_text(encoding="utf-8"), original)
+            self.assertTrue((Path(tmp) / "delivered.retry-state.json").is_file())
+            self.assertTrue(report.is_file())
 
 
 if __name__ == "__main__":
