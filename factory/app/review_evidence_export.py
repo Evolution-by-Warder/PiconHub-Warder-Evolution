@@ -288,6 +288,28 @@ def build_review_evidence_export(queue, run_id, *, pixel_evidence=None, package_
             if record["review_id"] in set(group.get("member_review_ids", []))
             and record["service_reference"]})
         })
+    covered_observations = []
+    for item in sorted((row for row in queue.get("covered_items", []) if isinstance(row, dict)),
+                       key=lambda row: str(row.get("review_id", ""))):
+        sources = _sources_for_item(item)
+        shas = sorted(_observed_sha_sources(item))
+        covered_observations.append({
+            "review_id": str(item.get("review_id") or ""),
+            "workstream": item.get("workstream", "ARTWORK_REVIEW"),
+            "service_reference": _opaque(item.get("candidate_identity") or "")
+                                 if item.get("candidate_identity") else None,
+            "coverage_status": "COVERED_BY_APPROVED_MASTER",
+            "coverage_reason": "EXPLICIT_APPROVAL_AND_MASTER_HASHES_MATCH",
+            "coverage_evidence_hash": item.get("coverage_evidence_hash"),
+            "master_coverage_evidence_hash": item.get("master_coverage_evidence_hash"),
+            "candidate_sha256": shas[0] if len(shas) == 1 else None,
+            "observed_candidate_sha256": shas,
+            "master_sha256": sorted({sha.lower() for entry in item.get("master_locations", [])
+                                      if isinstance(entry, dict) and entry.get("style") in ("transparent", "black", "white")
+                                      for sha in [entry.get("sha256")] if _sha(sha)}),
+            "source_families": sorted({origin_of(source) for source in sources}),
+            "source_relative_ids": sorted({_source_id(source, origin_of(source)) for source in sources}),
+        })
     return {
         "schema": 1,
         "run": str(run_id)[:64],
@@ -299,6 +321,8 @@ def build_review_evidence_export(queue, run_id, *, pixel_evidence=None, package_
         },
         "active_review_tasks": len(records),
         "decision_group_count": len(groups),
+        "covered_observation_count": len(covered_observations),
+        "covered_observations": covered_observations,
         "decision_groups": groups_export,
         "records": records,
     }

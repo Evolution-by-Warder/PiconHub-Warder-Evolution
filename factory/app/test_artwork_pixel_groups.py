@@ -76,7 +76,7 @@ class PixelGroupingEvidenceTests(unittest.TestCase):
         self.assertEqual(counts['NO_PIXEL_EXACT_SAME_SERVICE_MASTER'], 2)
         self.assertTrue(all(item['decision'] == 'PENDING' for item in queue['items']))
 
-    def test_master_exact_review_auto_resolves_without_approval(self):
+    def test_master_exact_pixels_are_evidence_not_approval(self):
         queue = {'items': [
             {'workstream': 'ARTWORK_REVIEW', 'decision': 'PENDING',
              'candidate_identity': 'service-a', 'artwork_review_units': [
@@ -86,10 +86,10 @@ class PixelGroupingEvidenceTests(unittest.TestCase):
         attach_master_pixel_comparisons(queue, {'service-a': ['same']}, {})
         item = queue['items'][0]
         self.assertEqual(item['master_pixel_evidence'], 'ALL_REVIEW_UNITS_EXACT_SAME_SERVICE_MASTER')
-        self.assertEqual(item['decision'], 'AUTO_RESOLVED_MASTER_PIXEL_IDENTICAL')
-        self.assertEqual(item['automatic_resolution'], 'EXACT_RGBA_SAME_SERVICE_MASTER')
+        self.assertEqual(item['decision'], 'PENDING')
+        self.assertNotIn('automatic_resolution', item)
 
-    def test_auto_resolution_updates_pending_workstream_count_without_losing_audit(self):
+    def test_pixel_match_does_not_reduce_pending_count_without_approval_evidence(self):
         queue = {'count': 2, 'workstream_counts': {'ARTWORK_REVIEW': 2},
                  'items': [
                      {'workstream': 'ARTWORK_REVIEW', 'decision': 'PENDING',
@@ -102,8 +102,8 @@ class PixelGroupingEvidenceTests(unittest.TestCase):
         attach_master_pixel_comparisons(queue, {'service-a': ['same']}, {})
         self.assertEqual(queue['count'], 2)
         self.assertEqual(len(queue['items']), 2)
-        self.assertEqual(queue['workstream_counts']['ARTWORK_REVIEW'], 1)
-        self.assertEqual(sum(item['decision'] == 'PENDING' for item in queue['items']), 1)
+        self.assertEqual(queue['workstream_counts']['ARTWORK_REVIEW'], 2)
+        self.assertEqual(sum(item['decision'] == 'PENDING' for item in queue['items']), 2)
 
     def test_existing_human_decision_is_not_overwritten(self):
         queue = {'items': [

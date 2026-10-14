@@ -86,6 +86,24 @@ class ReviewEvidenceTests(unittest.TestCase):
                             for row in report["records"]))
         self.assertEqual(report["decision_group_count"], 2)
 
+    def test_master_covered_observation_is_audited_without_private_paths(self):
+        row = review("WR-COVERED", "service-covered", "c" * 64)
+        row.update({"decision": "COVERED_BY_APPROVED_MASTER",
+                    "coverage_evidence_hash": "d" * 64,
+                    "master_coverage_evidence_hash": "e" * 64,
+                    "master_locations": [{"style": "transparent", "sha256": "f" * 64}]})
+        queue = {"items": [], "covered_items": [row], "decision_groups": []}
+        report = build_review_evidence_export(queue, "20261013-161546-118977")
+        self.assertEqual(report["active_review_tasks"], 0)
+        self.assertEqual(report["covered_observation_count"], 1)
+        item = report["covered_observations"][0]
+        self.assertEqual(item["review_id"], "WR-COVERED")
+        self.assertEqual(item["coverage_status"], "COVERED_BY_APPROVED_MASTER")
+        self.assertTrue(item["service_reference"].startswith("sha256:"))
+        self.assertNotIn("C:\\Users", json.dumps(report))
+        self.assertNotIn("secret-name", json.dumps(report))
+        _validate_no_private_payload(report)
+
     def test_pixel_fingerprint_ignores_png_compression_and_reports_corruption(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)

@@ -1044,6 +1044,9 @@ class Factory:
     stats['master_registry_error']=str(e)[:300]
     self.log('WARDER MASTER index zlyhal; kandidáti nebudú automaticky prepojení: '+str(e))
   registry_path=REPORTS/('warder-master-index-'+run+'.json')
+  master_commit=getattr(self,'master_commit',None)
+  if master_commit:
+   registry['master_commit']=master_commit
   atomic_json(registry_path,registry)
   stats['master_registry_services']=registry['service_count']
   stats['master_registry_conflicts']=len(registry['conflicts'])
@@ -1497,6 +1500,37 @@ class Factory:
    master_comparisons=attach_master_pixel_comparisons(review_queue,master_pixels,review_pixel_digests)
    stats['master_artwork_pixel_comparisons']=master_comparisons
    self.log('QA Master RGBA zhody (len evidencia, bez schvalenia): '+str(master_comparisons))
+  from master_coverage import build_master_coverage, coverage_diagnostic, load_approval_evidence, APPROVAL_FILE
+  approval_path=REGISTRY/APPROVAL_FILE
+  approval_manifest,approval_manifest_status=load_approval_evidence(approval_path)
+  candidate_refs={row.get('service_reference') for row in registry_matches
+                  if isinstance(row.get('service_reference'),str)}
+  candidate_refs.update(conflict.get('candidate_service_ref') for conflict in collisions
+                        if isinstance(conflict.get('candidate_service_ref'),str))
+  master_coverage=build_master_coverage(registry,approval_manifest,master_commit=master_commit,
+                                       candidate_refs=candidate_refs)
+  master_coverage_path=REPORTS/('master-coverage-'+run+'.json')
+  atomic_json(master_coverage_path,coverage_diagnostic(master_coverage,approval_manifest_status))
+  stats['master_coverage_statuses']=master_coverage['counts']
+  stats['master_coverage_manifest_status']=approval_manifest_status.get('status')
+  stats['master_coverage_report']=master_coverage_path.name
+  stats['master_coverage_approved_complete']=master_coverage['counts']['APPROVED_COMPLETE']
+  stats['master_coverage_approved_incomplete']=master_coverage['counts']['APPROVED_INCOMPLETE']
+  stats['master_coverage_known_unapproved']=master_coverage['counts']['KNOWN_UNAPPROVED']
+  stats['master_coverage_new']=master_coverage['counts']['NEW']
+  stats['master_coverage_ambiguous']=master_coverage['counts']['AMBIGUOUS']
+  self.log('MASTER-FIRST coverage: '+str(master_coverage['counts'])+
+           ' · approval manifest '+str(approval_manifest_status.get('status'))+
+           ' · diagnostika '+str(master_coverage_path))
+  from master_coverage import apply_master_first_coverage
+  review_queue=apply_master_first_coverage(review_queue,master_coverage)
+  coverage_summary=review_queue['master_coverage_summary']
+  stats['master_covered_artwork_tasks']=coverage_summary['covered_artwork_tasks_this_run']
+  stats['master_covered_artwork_audit_total']=coverage_summary['covered_artwork_tasks_audit_total']
+  stats['master_automatic_identity_approvals']=0
+  stats['master_first_review_tasks_remaining']=sum(
+   item.get('decision','PENDING')=='PENDING' for item in review_queue['items'])
+  self.log('MASTER-FIRST: '+str(coverage_summary)+' · aktívne položky '+str(stats['master_first_review_tasks_remaining']))
   from review_decision_groups import build_decision_groups, apply_group_decisions
   review_queue=apply_group_decisions(review_queue,_WORKSPACE["ledger_path"])
   group_report=build_decision_groups(review_queue)
@@ -1537,6 +1571,7 @@ class Factory:
   # User-facing review count is pending-only; retain full audit cardinality separately.
   stats['review_queue_items']=backlog['pending_review_tasks']
   stats['review_queue_audit_items']=review_queue['count']+len(review_queue.get('suppressed_identity_reviews',[]))
+  stats['review_queue_audit_items']+=len(review_queue.get('covered_items',[]))
   stats['identity_reviews_suppressed']=len(review_queue.get('suppressed_identity_reviews',[]))
   stats['openatv_style_only_identity_tasks_avoided']=review_queue.get('consolidation',{}).get('openatv_style_only_identity_tasks_avoided',0)
   stats['qa_auto_resolved_master_pixel_identical']=sum(

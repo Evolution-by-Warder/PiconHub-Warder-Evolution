@@ -81,7 +81,7 @@ def source_rows(ingest: Path, inbox: Path, source_manifest: Path, chocho_positio
         rows.append(("Warder Master snapshot", "CHYBA načítania", _load_error(snapshot), str(snapshot_file)))
     else:
         rows.append(("Warder Master snapshot", "Dostupný" if snapshot_paths else "Zatiaľ nestiahnutý",
-                     f"Commit {snapshot.get('commit', 'neznámy')} · {len(snapshot_paths)} schválených ciest" if snapshot_paths else "Predvolené je read-only porovnanie; snapshot vznikne pri spracovaní", str(snapshot_file)))
+                     f"Commit {snapshot.get('commit', 'neznámy')} · {len(snapshot_paths)} ciest v read-only snapshote; schválenie posudzuje samostatný coverage dôkaz" if snapshot_paths else "Predvolené je read-only porovnanie; snapshot vznikne pri spracovaní", str(snapshot_file)))
     local = Path(inbox)
     archives = sum(1 for _ in local.rglob("*.zip")) if local.is_dir() else 0
     pngs = sum(1 for _ in local.rglob("*.png")) if local.is_dir() else 0
@@ -104,6 +104,25 @@ def latest_master_registry(reports: Path):
     services = data.get("services", {})
     services = services if isinstance(services, dict) else {}
     return path, data, services
+
+
+def master_coverage_rows(master_services, coverage):
+    """Join exact service refs to read-only Master coverage for the Registry GUI."""
+    statuses = coverage.get("services", {}) if isinstance(coverage, dict) else {}
+    refs = sorted(set(master_services if isinstance(master_services, dict) else {}) | set(statuses))
+    rows = []
+    for ref in refs:
+        entries = (master_services or {}).get(ref, []) if isinstance(master_services, dict) else []
+        styles = sorted({str(entry.get("style", "?")) for entry in entries if isinstance(entry, dict)})
+        locations = "; ".join(f"{entry.get('position', '?')} / {entry.get('provider', '?')} / {entry.get('style', '?')}"
+                               for entry in entries if isinstance(entry, dict))
+        status = statuses.get(ref, {}) if isinstance(statuses, dict) else {}
+        label = str(status.get("status", "KNOWN_UNAPPROVED"))
+        missing = status.get("missing_styles") or []
+        if missing:
+            label += " · chýba " + ", ".join(map(str, missing))
+        rows.append((str(ref), label, ", ".join(styles) if styles else "—", locations or "—"))
+    return rows
 
 
 def latest_run_stats(reports: Path):
@@ -158,6 +177,18 @@ def latest_review_counts(reports: Path, *fallback_dirs: Path):
     lanes = data.get("workstream_counts", {})
     return path, {"total": int(data.get("count", len(data.get("items", [])))), **{
         key: int(lanes.get(key, 0)) for key in ("IDENTITY_VERIFICATION", "ARTWORK_REVIEW", "TECHNICAL_QA")}}
+
+
+def master_first_review_summary(active_counts, run_stats):
+    """Render separate technical-item and human-decision metrics without guesses."""
+    if not isinstance(active_counts, dict) or "total" not in active_counts:
+        return "Aktívne technické položky: nedostupné · skutočné rozhodnutia: nedostupné"
+    groups = run_stats.get("user_decision_groups") if isinstance(run_stats, dict) else None
+    covered = run_stats.get("master_covered_artwork_tasks") if isinstance(run_stats, dict) else None
+    groups_text = str(groups) if isinstance(groups, int) else "nezmerané"
+    covered_text = str(covered) if isinstance(covered, int) else "nezmerané"
+    return (f"Aktívne technické položky: {active_counts['total']} → skutočné rozhodnutia: {groups_text}"
+            f" · pokryté schváleným Masterom: {covered_text}")
 
 
 def candidate_status(classification, reason="", has_master=False):
@@ -293,8 +324,8 @@ class FactoryWorkspace:
         ttk.Label(bar, text="Filtrovať service reference / identitu:").pack(side="left")
         self.registry_query = tk.StringVar(); entry = ttk.Entry(bar, textvariable=self.registry_query); entry.pack(side="left", fill="x", expand=True, padx=6)
         self.registry_query.trace_add("write", lambda *_: self.refresh_registry())
-        self.registry_tree = ttk.Treeview(page, columns=("ref", "styles", "locations"), show="headings")
-        for col, title, width in (("ref", "Service reference", 250), ("styles", "Štýly v Master Registry", 230), ("locations", "Pozície / provideri / cesty", 700)):
+        self.registry_tree = ttk.Treeview(page, columns=("ref", "coverage", "styles", "locations"), show="headings")
+        for col, title, width in (("ref", "Service reference", 250), ("coverage", "Master-first coverage", 290), ("styles", "Štýly v Master Registry", 230), ("locations", "Pozície / provideri / cesty", 700)):
             self.registry_tree.heading(col, text=title); self.registry_tree.column(col, width=width, anchor="w")
         self.registry_tree.pack(fill="both", expand=True, pady=6)
         self.registry_info = ttk.Label(page, text="Read-only pohľad na posledný Warder Master index."); self.registry_info.pack(anchor="w")
@@ -397,6 +428,8 @@ class FactoryWorkspace:
 
     def refresh_registry(self):
         path, registry, services = latest_master_registry(self.paths["reports"])
+        coverage_path = latest_json(self.paths["reports"], "master-coverage-")
+        coverage = _json(coverage_path) if coverage_path else {}
         candidate_path, items = latest_registry_items(self.paths["reports"])
         query = self.registry_query.get().strip().casefold()
         for tree in (self.registry_tree, self.candidate_tree): tree.delete(*tree.get_children())
@@ -405,11 +438,12 @@ class FactoryWorkspace:
             error = _load_error(registry) or _load_error(items[0])
             self.registry_info.configure(text=f"CHYBA načítania Registry/reportov: {error}")
             return
-        for ref, entries in services.items():
-            locations = "; ".join(f"{entry.get('position', '?')} / {entry.get('provider', '?')} / {entry.get('style', '?')}" for entry in entries if isinstance(entry, dict))
-            styles = ", ".join(sorted({str(entry.get('style', '?')) for entry in entries if isinstance(entry, dict)}))
-            if query and query not in " ".join((str(ref), styles, locations)).casefold(): continue
-            registry_matches.append((str(ref), styles, locations))
+        if _load_error(coverage):
+            self.registry_info.configure(text="CHYBA načítania MASTER-first coverage: " + _load_error(coverage))
+            coverage = {}
+        for ref, status, styles, locations in master_coverage_rows(services, coverage):
+            if query and query not in " ".join((ref, status, styles, locations)).casefold(): continue
+            registry_matches.append((ref, status, styles, locations))
         for row in registry_matches[:self.MAX_TABLE_ROWS]: self.registry_tree.insert("", "end", values=row)
         matches = []
         for item in items:
@@ -431,7 +465,8 @@ class FactoryWorkspace:
             if query and query not in (ref + " CONFLICT " + reason).casefold():
                 continue
             self.candidate_tree.insert("", "end", values=("CONFLICT", ref, f"{len(variants)} grafických variantov", reason))
-        self.registry_info.configure(text=f"Read-only Master: {path if path else 'index zatiaľ nevznikol'} · {registry.get('service_count', len(services))} služieb / {registry.get('asset_count', 0)} assetov · zobrazených {min(len(registry_matches), self.MAX_TABLE_ROWS)}. Kandidáti: {candidate_path or 'bez porovnania'} · {len(matches)} záznamov")
+        statuses = coverage.get("counts", {}) if isinstance(coverage, dict) else {}
+        self.registry_info.configure(text=f"Read-only Master: {path if path else 'index zatiaľ nevznikol'} · coverage: {coverage_path or 'nezmerané'} · {statuses} · zobrazených {min(len(registry_matches), self.MAX_TABLE_ROWS)}. Kandidáti: {candidate_path or 'bez porovnania'} · {len(matches)} záznamov")
 
     def refresh_qa(self):
         self.qa_tree.delete(*self.qa_tree.get_children())
@@ -494,8 +529,10 @@ class FactoryWorkspace:
             self.app.counts_status.set("Fronta: zatiaľ bez uloženého reportu")
             self._update_summary("bez uloženého reportu")
         else:
-            self.app.counts_status.set(f"Fronta: {counts['total']} · identita {counts['IDENTITY_VERIFICATION']} · grafika {counts['ARTWORK_REVIEW']} · technické QA {counts['TECHNICAL_QA']}")
-            self._update_summary(counts["total"])
+            _run_path, run_stats = latest_run_stats(self.paths["reports"])
+            summary = master_first_review_summary(counts, run_stats)
+            self.app.counts_status.set(summary + f" · identita {counts['IDENTITY_VERIFICATION']} · grafika {counts['ARTWORK_REVIEW']} · technické QA {counts['TECHNICAL_QA']}")
+            self._update_summary(summary)
 
     def _update_summary(self, pending=None):
         if pending is None:

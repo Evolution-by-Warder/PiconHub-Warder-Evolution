@@ -4,7 +4,7 @@ import unittest
 from pathlib import Path
 
 from factory_workspace import (candidate_status, finalization_rows, latest_json, latest_master_registry, latest_registry_items,
-                               latest_review_counts, parse_chocho_positions, source_rows)
+                               latest_review_counts, master_coverage_rows, parse_chocho_positions, source_rows)
 from review_decisions import record_decision
 from review_gallery import pending_items
 from review_queue import save_review_queue
@@ -76,6 +76,19 @@ class FactoryWorkspaceTests(unittest.TestCase):
         report = reports / "report-20261011-120000.json"
         report.write_text(json.dumps({"stats": {"scanned": 12, "qa_repaired": 2}}), encoding="utf-8")
         self.assertEqual(latest_json(reports, "report-"), report)
+
+    def test_registry_panel_shows_coverage_and_missing_variants(self):
+        rows = master_coverage_rows(
+            {"APPROVED": [{"style": "transparent", "position": "13.0E", "provider": "p"}]},
+            {"services": {
+                "APPROVED": {"status": "APPROVED_INCOMPLETE", "missing_styles": ["black", "white"]},
+                "NEW": {"status": "NEW", "missing_styles": ["transparent", "black", "white"]},
+            }},
+        )
+        self.assertEqual(rows[0][0], "APPROVED")
+        self.assertEqual(rows[0][1], "APPROVED_INCOMPLETE · chýba black, white")
+        self.assertEqual(rows[1][0], "NEW")
+        self.assertEqual(rows[1][1], "NEW · chýba transparent, black, white")
 
     def test_finalized_local_decision_is_audited_and_hidden_on_reloads(self):
         item = {"review_id": "WR-1234567890123456", "candidate_identity": "service", "sha256": "a" * 64,
