@@ -67,8 +67,6 @@ class MasterCoverageRefreshTests(unittest.TestCase):
                                      self.snapshot())
 
 
-if __name__ == "__main__":
-    unittest.main()
 
 
     def test_workflow_summary_keeps_unresolved_items_visible_and_never_approves_identity(self):
@@ -99,3 +97,7 @@ if __name__ == "__main__":
         self.assertIn("človek 1", text)
         self.assertIn("BEZ RENDERU", text)
         self.assertIn("no exact approval evidence", text)
+
+
+if __name__ == "__main__":
+    unittest.main()

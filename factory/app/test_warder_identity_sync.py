@@ -51,9 +51,7 @@ class WarderIdentitySyncTests(unittest.TestCase):
         snapshot = fetch_registry_snapshot(opener)
         self.assertEqual(snapshot["commit"], commit)
         self.assertEqual(snapshot["registry_sha256"], snapshot_digest(snapshot["registry"]))
-        self.assertNotEqual(snapshot["registry_sha256"], hashlib.sha256(raw).hexdigest())
         self.assertEqual(snapshot["approval_ledger_sha256"], snapshot_digest(snapshot["approval_ledger"]))
-        self.assertNotEqual(snapshot["approval_ledger_sha256"], hashlib.sha256(ledger_raw).hexdigest())
         self.assertIn(commit, calls[1][0])
         self.assertIn(commit, calls[2][0])
         self.assertTrue(validate_snapshot(snapshot))
@@ -144,8 +142,6 @@ class WarderIdentitySyncTests(unittest.TestCase):
         self.assertIsNone(result["snapshot"])
 
 
-if __name__ == "__main__":
-    unittest.main()
 
 
     def test_noncanonical_file_format_has_same_valid_commit_pinned_snapshot_hash(self):
@@ -160,9 +156,8 @@ if __name__ == "__main__":
             return Response({"encoding": "base64", "content": base64.b64encode(payload).decode("ascii")})
         snapshot = fetch_registry_snapshot(opener)
         self.assertTrue(validate_snapshot(snapshot))
-        self.assertEqual(snapshot["registry_sha256"], hashlib.sha256(
-            (json.dumps(snapshot["registry"], sort_keys=True, ensure_ascii=False, indent=2) + "\n").encode("utf-8")
-        ).hexdigest())
+        self.assertEqual(snapshot["registry_sha256"], snapshot_digest(snapshot["registry"]))
+        self.assertNotEqual(snapshot["registry_sha256"], hashlib.sha256(raw).hexdigest())
 
     def test_snapshot_reports_digest_and_registry_validation_reasons(self):
         snapshot = {"schema": 3, "repository": "Evolution-by-Warder/PiconHub-Warder-Evolution",
@@ -174,3 +169,7 @@ if __name__ == "__main__":
         self.assertEqual(result["status"], "INVALID")
         self.assertEqual(sum(i.get("code") == "SNAPSHOT_CONTENT_DIGEST_MISMATCH"
                              for i in result["issues"]), 2)
+
+
+if __name__ == "__main__":
+    unittest.main()

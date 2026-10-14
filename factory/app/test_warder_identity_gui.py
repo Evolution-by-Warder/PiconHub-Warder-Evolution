@@ -20,7 +20,7 @@ class WarderIdentityGuiTests(unittest.TestCase):
             identity_confirmed=True)
         raw = (json.dumps(registry, ensure_ascii=False, sort_keys=True, indent=2) + "\n").encode()
         ledger_raw = (json.dumps(empty_approval_ledger(), ensure_ascii=False, sort_keys=True, indent=2) + "\n").encode()
-        snapshot = {"schema": 2, "repository": REPOSITORY, "branch": BRANCH,
+        snapshot = {"schema": 3, "repository": REPOSITORY, "branch": BRANCH,
                     "commit": "c" * 40, "registry_sha256": hashlib.sha256(raw).hexdigest(),
                     "approval_ledger_sha256": hashlib.sha256(ledger_raw).hexdigest(),
                     "registry": registry, "approval_ledger": empty_approval_ledger()}
