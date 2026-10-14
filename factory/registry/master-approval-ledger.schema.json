@@ -1,13 +1,48 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/blob/factory-warder-development/factory/registry/master-approval-ledger.schema.json",
-  "title": "Warder Master Approval Ledger",
+  "title": "Warder Master append-only decision ledger",
   "type": "object",
   "required": ["schema", "authority", "events"],
   "properties": {
     "schema": {"const": 1},
     "authority": {"const": "WARDER_MASTER_APPROVAL_LEDGER"},
-    "events": {"type": "array", "items": {"type": "object", "required": ["event_id", "event_type", "warder_id", "decision", "approval_id", "approved_at", "evidence_ref", "evidence_sha256", "review_evidence_sha256", "human_approved"], "allOf": [{"if": {"properties": {"decision": {"enum": ["ARTWORK_APPROVED", "IDENTITY_AND_ARTWORK_APPROVED"]}}}, "then": {"required": ["variants", "asset_paths", "qa_evidence_ref", "qa_evidence_sha256"]}}]}}
+    "events": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "title": "Human review decision; not a Master identity/artwork approval",
+            "type": "object",
+            "required": ["event_id", "event_type", "decision", "approval_id", "approved_at", "evidence_ref", "evidence_sha256", "review_evidence_sha256", "human_approved", "review_id", "decision_group_id", "group_evidence_sha256", "group_review_ids", "workstream", "batch_id"],
+            "properties": {
+              "event_type": {"const": "MASTER_REVIEW_DECISION"},
+              "decision": {"enum": ["APPROVED_FOR_REVIEW", "REJECTED", "DEFERRED", "FINALIZED_LOCALLY", "IDENTITY_AMBIGUOUS", "IDENTITY_CONFLICT"]},
+              "human_approved": {"const": true},
+              "evidence_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+              "review_evidence_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+              "group_evidence_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+              "workstream": {"enum": ["IDENTITY_VERIFICATION", "ARTWORK_REVIEW", "TECHNICAL_QA"]},
+              "group_review_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "pattern": "^WR-[0-9a-fA-F]{16}$"}}
+            },
+            "not": {"anyOf": [{"required": ["warder_id"]}, {"required": ["variants"]}, {"required": ["asset_paths"]}]}
+          },
+          {
+            "title": "Master authority approval or revocation",
+            "type": "object",
+            "required": ["event_id", "event_type", "warder_id", "decision", "approval_id", "approved_at", "evidence_ref", "evidence_sha256", "review_evidence_sha256", "human_approved"],
+            "properties": {
+              "event_type": {"const": "MASTER_APPROVAL"},
+              "decision": {"enum": ["IDENTITY_APPROVED", "ARTWORK_APPROVED", "IDENTITY_AND_ARTWORK_APPROVED", "APPROVAL_REVOKED"]},
+              "human_approved": {"const": true},
+              "evidence_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+              "review_evidence_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+            },
+            "allOf": [{"if": {"properties": {"decision": {"enum": ["ARTWORK_APPROVED", "IDENTITY_AND_ARTWORK_APPROVED"]}}}, "then": {"required": ["variants", "asset_paths", "qa_evidence_ref", "qa_evidence_sha256"]}}]
+          }
+        ]
+      }
+    }
   },
   "additionalProperties": false
 }

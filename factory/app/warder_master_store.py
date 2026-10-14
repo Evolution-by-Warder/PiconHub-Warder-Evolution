@@ -203,7 +203,8 @@ def build_confirmed_identity_with_artwork(registry, approval_ledger, identity, *
 
 
 def commit_master_transaction(*, token, expected_head, registry, approval_ledger,
-                              artwork_blobs=None, message="Update Warder Master",
+                              artwork_blobs=None, additional_json=None,
+                              message="Update Warder Master",
                               opener=urllib.request.urlopen):
     """Commit registry + ledger + new 220x132 assets as one CAS-guarded Git commit.
 
@@ -216,6 +217,12 @@ def commit_master_transaction(*, token, expected_head, registry, approval_ledger
     if not isinstance(expected_head, str) or len(expected_head) != 40:
         raise ValueError("A full expected development HEAD is required")
     assets = dict(artwork_blobs or {})
+    state_files = {}
+    state_file_base = {}
+    for path, value in dict(additional_json or {}).items():
+        if path not in {"factory/registry/project-progress.json"}:
+            raise ValueError("UNSAFE_ADDITIONAL_MASTER_PATH: " + str(path))
+        state_files[path] = _json_bytes(value)
     for path, content in assets.items():
         if not _safe_asset_path(path) or not isinstance(content, bytes):
             raise ValueError("UNSAFE_OR_INVALID_ARTWORK_BLOB")
@@ -225,6 +232,13 @@ def commit_master_transaction(*, token, expected_head, registry, approval_ledger
         raise RuntimeError("STALE_EXPECTED_HEAD: decision remains PENDING; refresh and revalidate")
     old_registry = json.loads(_content_at(token, REGISTRY_PATH, head, opener))
     old_ledger = json.loads(_content_at(token, LEDGER_PATH, head, opener))
+    for path in state_files:
+        try:
+            state_file_base[path] = _content_at(token, path, head, opener)
+        except RuntimeError as exc:
+            if "(404)" not in str(exc):
+                raise
+            state_file_base[path] = None
     transition = validate_store_transition(old_registry, old_ledger, registry, approval_ledger)
     if transition["status"] != "VALID":
         raise ValueError("MASTER_TRANSACTION_INVALID: " + json.dumps(transition["issues"], ensure_ascii=False))
@@ -260,7 +274,8 @@ def commit_master_transaction(*, token, expected_head, registry, approval_ledger
         else:
             raise ValueError("ARTWORK_PATH_ALREADY_EXISTS_IMMUTABLE: " + path)
     blobs = {}
-    payloads = {REGISTRY_PATH: _json_bytes(registry), LEDGER_PATH: _json_bytes(approval_ledger), **assets}
+    payloads = {REGISTRY_PATH: _json_bytes(registry), LEDGER_PATH: _json_bytes(approval_ledger),
+                **state_files, **assets}
     for path, content in payloads.items():
         response = _request(token, "POST", API + "/git/blobs", {
             "content": base64.b64encode(content).decode("ascii"), "encoding": "base64"}, opener=opener)
@@ -288,6 +303,15 @@ def commit_master_transaction(*, token, expected_head, registry, approval_ledger
     current = _request(token, "GET", API + "/branches/" + BRANCH, opener=opener)
     if current.get("commit", {}).get("sha") != head:
         raise RuntimeError("CONCURRENT_GIT_WRITE: branch unchanged by this transaction; decision remains PENDING")
+    for path, original in state_file_base.items():
+        try:
+            latest = _content_at(token, path, head, opener)
+        except RuntimeError as exc:
+            if "(404)" not in str(exc):
+                raise
+            latest = None
+        if latest != original:
+            raise RuntimeError("STALE_MASTER_STATE_FILE: " + path + "; decision remains PENDING")
     _request(token, "PATCH", API + "/git/refs/heads/" + BRANCH,
              {"sha": new_commit, "force": False}, opener=opener)
     # Read-after-write verification. Never claim success from a successful PATCH alone.
@@ -300,10 +324,11 @@ def commit_master_transaction(*, token, expected_head, registry, approval_ledger
     if readback_registry != registry or readback_ledger != approval_ledger:
         return {"status": "COMMITTED_UNVERIFIED", "commit": new_commit,
                 "error": "Registry or approval ledger readback mismatch"}
-    for path, data in assets.items():
+    for path, data in {**assets, **state_files}.items():
         if _content_at(token, path, new_commit, opener) != data:
+            label = "Artwork" if path in assets else "Master state"
             return {"status": "COMMITTED_UNVERIFIED", "commit": new_commit,
-                    "error": "Artwork readback mismatch: " + path}
+                    "error": label + " readback mismatch: " + path}
     return {"status": "COMMITTED_VERIFIED", "branch": BRANCH, "parent": head,
             "commit": new_commit, "paths": sorted(payloads),
             "identity_events_appended": transition["identity_events_appended"],

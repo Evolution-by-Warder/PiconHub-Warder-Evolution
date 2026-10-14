@@ -1910,6 +1910,47 @@ class App:
    Path(marker).write_text(json.dumps(payload,ensure_ascii=False)+"\n", encoding="utf-8")
   if os.environ.get("WARDER_GUI_SMOKE_TEST") == "1":
    self.root.after(150, self.root.destroy)
+ def fetch_git_review_ledger(self):
+  # Read-only Git refresh runs in the gallery worker and pins ledger + registry to one HEAD.
+  from warder_review_store import fetch_review_ledger
+  return fetch_review_ledger()
+ def write_git_review_batch(self,batch,expected_head,callback):
+  # Git writes run off the Tk thread. Local staging remains PENDING until the
+  # branch ref and read-after-write verification both succeed.
+  if not self.workspace_ready:
+   self.root.after(0,lambda:callback({'status':'PENDING','error':'Workspace preflight blocks Git decisions'}))
+   return
+  from factory_github_credentials import load_master_write_token
+  token=load_master_write_token(_WORKSPACE['github_credentials'])
+  if not token:
+   self.root.after(0,lambda:callback({'status':'PENDING','error':'No Master-write GitHub credential; staged locally'}))
+   return
+  def worker():
+   try:
+    from warder_review_store import commit_review_batch, commit_identity_approval, commit_artwork_approval
+    operation=batch.get('operation') if isinstance(batch,dict) else None
+    if isinstance(operation,dict) and operation.get('type')=='IDENTITY_APPROVAL':
+     result=commit_identity_approval(token,identity=operation.get('identity'),batch=batch,expected_head=expected_head)
+    elif isinstance(operation,dict) and operation.get('type')=='ARTWORK_APPROVAL':
+     import hashlib
+     blobs={}
+     for style,digest in operation.get('variant_sha256',{}).items():
+      source=OUTPUT/digest[:2]/digest/style
+      source=source.with_suffix('.png')
+      data=source.read_bytes()
+      if hashlib.sha256(data).hexdigest()!=digest:
+       raise ValueError('PENDING_ARTWORK_SHA256_MISMATCH: '+style)
+      blobs[style]=data
+     result=commit_artwork_approval(token,warder_id=operation.get('warder_id'),
+        variant_blobs=blobs,batch=batch,expected_head=expected_head,
+        official_rebrand_confirmed=operation.get('official_rebrand_confirmed') is True)
+    else:
+     result=commit_review_batch(token,batch,expected_head=expected_head)
+   except Exception as exc:
+    result={'status':'FAILED','error':type(exc).__name__+': '+str(exc)[:220]}
+   try:self.root.after(0,lambda:callback(result))
+   except Exception:pass
+  threading.Thread(target=worker,name='factory-master-review-git-write',daemon=True).start()
  def open_review(self):
   if not self.workspace_ready:return
   from review_ui import ReviewWindow

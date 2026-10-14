@@ -681,6 +681,39 @@ def validate_approval_ledger(ledger, registry):
     for event in events:
         if not isinstance(event, dict):
             issues.append({"code": "APPROVAL_EVENT_INVALID"}); continue
+        event_type = event.get("event_type")
+        if event_type == "MASTER_REVIEW_DECISION":
+            event_id = event.get("event_id")
+            body = {key: value for key, value in event.items() if key != "event_id"}
+            if not isinstance(event_id, str) or event_id != "RD-" + sha256_json(body)[:24] or event_id in seen:
+                issues.append({"code": "REVIEW_EVENT_ID_INVALID_OR_DUPLICATE", "event_id": event_id})
+            seen.add(event_id)
+            approval_id = event.get("approval_id")
+            if not isinstance(approval_id, str) or not approval_id.startswith("REVIEW-") or approval_id in seen_approval_ids:
+                issues.append({"code": "REVIEW_APPROVAL_ID_MISSING_OR_REUSED", "event_id": event_id})
+            if isinstance(approval_id, str):
+                seen_approval_ids.add(approval_id)
+            if event.get("decision") not in {"APPROVED_FOR_REVIEW", "REJECTED", "DEFERRED", "FINALIZED_LOCALLY", "IDENTITY_AMBIGUOUS", "IDENTITY_CONFLICT"}:
+                issues.append({"code": "INVALID_REVIEW_DECISION", "event_id": event_id})
+            for field in ("approved_at", "evidence_ref", "workstream", "batch_id", "decision_group_id"):
+                if not isinstance(event.get(field), str) or not event[field].strip():
+                    issues.append({"code": "REVIEW_EVIDENCE_FIELD_MISSING", "event_id": event_id, "field": field})
+            if event.get("workstream") not in {"IDENTITY_VERIFICATION", "ARTWORK_REVIEW", "TECHNICAL_QA"}:
+                issues.append({"code": "REVIEW_WORKSTREAM_INVALID", "event_id": event_id})
+            if not _valid_sha(event.get("evidence_sha256")) or not _valid_sha(event.get("review_evidence_sha256")) or not _valid_sha(event.get("group_evidence_sha256")):
+                issues.append({"code": "REVIEW_EVIDENCE_HASH_INVALID", "event_id": event_id})
+            members = event.get("group_review_ids")
+            if (not isinstance(members, list) or not members or
+                    any(not isinstance(value, str) or not re.fullmatch(r"WR-[0-9a-fA-F]{16}", value) for value in members) or
+                    len(set(members)) != len(members)):
+                issues.append({"code": "REVIEW_SCOPE_INVALID", "event_id": event_id})
+            if event.get("review_id") not in (members if isinstance(members, list) else []):
+                issues.append({"code": "REVIEW_EVENT_OUTSIDE_SCOPE", "event_id": event_id})
+            if event.get("human_approved") is not True:
+                issues.append({"code": "REVIEW_DECISION_NOT_HUMAN_CONFIRMED", "event_id": event_id})
+            if "warder_id" in event or "variants" in event or "asset_paths" in event:
+                issues.append({"code": "REVIEW_EVENT_CANNOT_ASSERT_MASTER_APPROVAL", "event_id": event_id})
+            continue
         event_id = event.get("event_id")
         body = {key: value for key, value in event.items() if key != "event_id"}
         if not isinstance(event_id, str) or event_id != "AP-" + sha256_json(body)[:24] or event_id in seen:

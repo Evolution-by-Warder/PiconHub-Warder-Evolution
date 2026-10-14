@@ -42,3 +42,38 @@ The GUI provides Dashboard, Sources, Master Registry, Candidates, Graphics Engin
 ## Verification status
 
 Local and CI tests use synthetic workspaces, never user files. They verify the exact 13-folder mapping, read-only preflight, file hashes before and after inventory, import through render/QA/review/finalization, existing-file protection, and repeat-run behavior. This development environment cannot inspect the user's D: drive; only the app's on-device preflight can inventory it.
+
+## Trvalé Git rozhodnutia a pokračovanie práce
+
+factory/registry/warder-identity-registry.json a
+factory/registry/master-approval-ledger.json sú autoritatívne na
+factory-warder-development. GUI review už neukladá konečné rozhodnutie iba do
+lokálneho review-decisions.json: každé potvrdenie sa pripraví ako PENDING dávka
+a uloží do jedného Git commitu po validácii, kontrole aktuálneho HEAD a
+read-after-write overení.
+
+APPROVED_FOR_REVIEW je auditný výsledok review, nie automatické schválenie
+Master identity ani artworku. Tlačidlo „Potvrdiť identitu + Warder ID“ vytvorí
+jedno nové sekvenčné ID iba po potvrdení povinných polí používateľom a v rovnakej
+transakcii uloží Registry, approval event aj review event. Tlačidlo pre artwork
+vyžaduje existujúce Warder ID, jeden presný review item, všetky tri PNG varianty
+a ich validáciu; nahratie artworku do Git je súčasťou toho istého commitu.
+Existujúci schválený artwork sa týmto tokom neprepisuje; rebranding zostáva
+blokovaný bez osobitného evidenčného toku.
+
+Pri nedostupnom tokene, sieti alebo konfliktnom HEAD dávka ostáva
+PENDING/UNSAVED v lokálnom staging súbore pending-master-review-batches.json;
+GUI ju nikdy neoznačí ako uloženú. Retry PENDING opakuje iba pripravené
+rozhodnutia, bez nového skenovania. Opakovaný submit s rovnakým review ID a
+dôkazom je idempotentný.
+
+factory/registry/project-progress.json je odvodený checkpoint ledgeru a
+Registry. Počet remaining je zámerne null, kým celý aktívny review queue nie
+je trvalo exportovaný do Gitu; používateľské dáta a PNG sa do diagnostiky ani
+do tohto súboru nepridávajú. Aktuálny commit obsahujúci checkpoint sa vždy
+určí z Git HEAD; last_commit v JSON je overený parent batch transakcie.
+
+Po čistej inštalácii Factory načíta review eventy a Registry z aktuálneho Git
+HEAD. Offline režim zobrazí stav ako neoverený; nič lokálne neprezentuje ako
+trvalo schválené. Vývojové zápisy vyžadujú samostatný GitHub write token s
+oprávnením na tento repozitár. Produkčná vetva sa nikdy nezapisuje.

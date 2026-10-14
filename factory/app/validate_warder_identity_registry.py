@@ -39,7 +39,7 @@ def _read_worktree_asset(path):
     return Path(*parsed.parts).read_bytes()
 
 
-def validate_files(registry_path, ledger_path, base_commit):
+def validate_files(registry_path, ledger_path, base_commit, progress_path="factory/registry/project-progress.json"):
     registry_path, ledger_path = Path(registry_path), Path(ledger_path)
     registry = json.loads(registry_path.read_text(encoding="utf-8"))
     ledger = json.loads(ledger_path.read_text(encoding="utf-8"))
@@ -47,12 +47,21 @@ def validate_files(registry_path, ledger_path, base_commit):
     base_ledger = _load_base(base_commit, ledger_path.as_posix(), empty_approval_ledger())
     transition = validate_store_transition(base_registry, base_ledger, registry, ledger)
     store = validate_master_store(registry, ledger, read_asset=_read_worktree_asset)
+    progress = None
+    if progress_path:
+        from warder_review_store import validate_progress
+        progress = json.loads(Path(progress_path).read_text(encoding="utf-8"))
+        progress_check = validate_progress(registry, ledger, progress)
+    else:
+        progress_check = {"status": "SKIPPED", "issues": []}
     issues = [{"scope": "transition", **item} for item in transition["issues"]]
     issues.extend({"scope": "current_store", **item} for item in store["issues"])
+    issues.extend({"scope": "progress", **item} for item in progress_check["issues"])
     return {"status": "VALID" if not issues else "INVALID",
             "identity_count": store["identity"]["record_count"],
             "approval_event_count": store["approval_ledger"]["event_count"],
-            "transition": transition, "store": store, "issues": issues}
+            "transition": transition, "store": store, "progress": progress_check,
+            "issues": issues}
 
 
 def main(argv=None):
@@ -60,9 +69,10 @@ def main(argv=None):
     parser.add_argument("--registry", default="factory/registry/warder-identity-registry.json")
     parser.add_argument("--ledger", default="factory/registry/master-approval-ledger.json")
     parser.add_argument("--base-commit", required=True)
+    parser.add_argument("--progress", default="factory/registry/project-progress.json")
     args = parser.parse_args(argv)
     try:
-        result = validate_files(args.registry, args.ledger, args.base_commit)
+        result = validate_files(args.registry, args.ledger, args.base_commit, args.progress)
     except (OSError, ValueError, json.JSONDecodeError, subprocess.SubprocessError) as exc:
         print(json.dumps({"status": "INVALID", "issues": [{"code": type(exc).__name__,
                                                                "detail": str(exc)}]}, indent=2))

@@ -5,7 +5,6 @@ from tkinter import ttk, messagebox
 from pathlib import Path
 from review_ui import latest_review
 from review_queue import load_review_queue
-from review_decisions import record_decision
 from review_decision_groups import build_decision_groups, record_group_decision, apply_group_decisions
 from final_qa_bridge import prepare_finalization, FinalizationNotReady
 
@@ -86,7 +85,8 @@ def pending_items(items, ledger_path, legacy_ledger_path=None):
 class ReviewGallery(ttk.Frame):
     """Ten review entries per page, scrollable in the main window."""
     def __init__(self, parent, report_dir, ledger_path, output_dir, write_enabled=None,
-                 legacy_report_dir=None, legacy_ledger_path=None, master_root=None):
+                 legacy_report_dir=None, legacy_ledger_path=None, master_root=None,
+                 git_decision_loader=None, git_decision_writer=None, pending_git_path=None):
         super().__init__(parent)
         self.report_dir = Path(report_dir)
         self.legacy_report_dir = Path(legacy_report_dir) if legacy_report_dir is not None else None
@@ -95,11 +95,29 @@ class ReviewGallery(ttk.Frame):
         self.output_dir = Path(output_dir)
         self.master_root = Path(master_root) if master_root else None
         self.write_enabled = write_enabled or (lambda: True)
+        self.git_decision_loader = git_decision_loader
+        self.git_decision_writer = git_decision_writer
+        self.pending_git_path = Path(pending_git_path) if pending_git_path else None
+        self.git_decision_events = []
+        self.git_registry = None
+        self.git_commit = None
+        self.git_sync_ready = False
+        self._git_syncing = False
+        self._git_sync_generation = 0
+        self._git_refresh_pending = False
+        self.selected_scopes = {}
         self.items = []
         self.page = 0
         toolbar = ttk.Frame(self); toolbar.pack(fill='x', pady=3)
-        ttk.Label(toolbar, text='Schvaľovanie · 10 staníc / dávka', font=('Segoe UI', 10, 'bold')).pack(side='left')
-        ttk.Button(toolbar, text='Obnoviť', command=self.reload).pack(side='right')
+        ttk.Label(toolbar, text='Schvaľovanie · 10 rozhodovacích skupín / dávka', font=('Segoe UI', 10, 'bold')).pack(side='left')
+        self.git_status = ttk.Label(toolbar, text='Git Master: synchronizujem…')
+        self.git_status.pack(side='left', padx=10)
+        self.batch_decision = tk.StringVar(value='APPROVED_FOR_REVIEW')
+        ttk.Combobox(toolbar, textvariable=self.batch_decision, state='readonly', width=23,
+                     values=('APPROVED_FOR_REVIEW', 'REJECTED', 'DEFERRED', 'IDENTITY_AMBIGUOUS', 'IDENTITY_CONFLICT')).pack(side='right', padx=3)
+        ttk.Button(toolbar, text='Uložiť vybrané do Gitu', command=self.submit_selected_batch).pack(side='right', padx=3)
+        ttk.Button(toolbar, text='Obnoviť', command=self.reload).pack(side='right', padx=3)
+        ttk.Button(toolbar, text='Retry PENDING', command=self.retry_pending_batches).pack(side='right', padx=3)
         nav = ttk.Frame(self); nav.pack(fill='x')
         self.lane = tk.StringVar(value='ARTWORK_REVIEW')
         filter_box = ttk.Combobox(nav, textvariable=self.lane, state='readonly', width=21,
@@ -122,9 +140,8 @@ class ReviewGallery(ttk.Frame):
         try:
             path = latest_review(self.report_dir, *([self.legacy_report_dir] if self.legacy_report_dir else []))
             loaded = load_review_queue(path) if path else {"items": []}
-            loaded = apply_group_decisions(loaded, self.ledger_path)
-            self.items = pending_items(loaded['items'], self.ledger_path,
-                                       self.legacy_ledger_path) if path else []
+            from warder_review_store import apply_git_review_decisions
+            self.items = apply_git_review_decisions(loaded.get('items', []), self.git_decision_events) if path else []
             self.groups = build_decision_groups({"items": self.items})["groups"]
             self.load_error = None
         except (OSError, ValueError, KeyError, TypeError) as exc:
@@ -133,6 +150,161 @@ class ReviewGallery(ttk.Frame):
             self.load_error = f'{type(exc).__name__}: {exc}'
         self.page = 0
         self.render()
+        self.refresh_git_state()
+
+    def refresh_git_state(self):
+        if self.git_decision_loader is None:
+            return
+        if self._git_syncing:
+            self._git_refresh_pending = True
+            return
+        self._git_syncing = True
+        self._git_sync_generation += 1
+        generation = self._git_sync_generation
+        self.git_status.configure(text='Git Master: synchronizujem…')
+        def worker():
+            try:
+                value = self.git_decision_loader()
+                self.after(0, lambda: self._git_sync_done(value, None, generation))
+            except Exception as exc:
+                detail = f'{type(exc).__name__}: {exc}'
+                self.after(0, lambda: self._git_sync_done(None, detail, generation))
+        import threading
+        threading.Thread(target=worker, name='factory-review-git-read', daemon=True).start()
+
+    def _git_sync_done(self, snapshot, error, generation):
+        if generation != self._git_sync_generation:
+            return
+        self._git_syncing = False
+        if self._git_refresh_pending:
+            self._git_refresh_pending = False
+            self.refresh_git_state()
+            return
+        if error or not isinstance(snapshot, dict):
+            self.git_sync_ready = False
+            self.git_status.configure(text='Git Master: offline / neoverené · rozhodnutia sa zobrazujú ako čakajúce')
+            return
+        self.git_sync_ready = True
+        self.git_commit = snapshot.get('commit')
+        self.git_registry = snapshot.get('registry')
+        self.git_decision_events = list(snapshot.get('events', []))
+        self.git_status.configure(text='Git Master: '+str(self.git_commit or 'HEAD neznámy')[:12])
+        try:
+            from warder_review_store import apply_git_review_decisions
+            path = latest_review(self.report_dir, *([self.legacy_report_dir] if self.legacy_report_dir else []))
+            loaded = load_review_queue(path) if path else {'items': []}
+            self.items = apply_git_review_decisions(loaded.get('items', []), self.git_decision_events)
+            self.groups = build_decision_groups({'items': self.items})['groups']
+            self.render()
+        except (OSError, ValueError, KeyError, TypeError) as exc:
+            self.load_error = f'{type(exc).__name__}: {exc}'
+            self.render()
+
+    def _scope(self, group):
+        members = [item for item in self.items if item.get('review_id') in group.get('member_review_ids', [])]
+        return {'decision_group_id': group.get('decision_group_id'),
+                'group_evidence_sha256': group.get('group_evidence_hash'),
+                'items': members}
+
+    def _selection_box(self, frame, group):
+        group_id = group.get('decision_group_id')
+        variable = self.selected_scopes.get(group_id)
+        if variable is None:
+            variable = tk.BooleanVar(value=False)
+            self.selected_scopes[group_id] = variable
+        ttk.Checkbutton(frame, text='Zahrnúť túto presnú skupinu do Git dávky',
+                        variable=variable).pack(anchor='w')
+
+    def submit_selected_batch(self):
+        from tkinter import messagebox
+        if not self.write_enabled():
+            messagebox.showwarning('Zápis zablokovaný', 'Read-only preflight musí úspešne overiť workspace.', parent=self)
+            return
+        scopes = [self._scope(group) for group in self.groups
+                  if self.selected_scopes.get(group.get('decision_group_id')) is not None
+                  and self.selected_scopes[group.get('decision_group_id')].get()]
+        if not scopes:
+            messagebox.showinfo('Git dávka', 'Vyber aspoň jednu zobrazenú rozhodovaciu skupinu.', parent=self)
+            return
+        if len(scopes) > 10:
+            messagebox.showwarning('Rozsah dávky', 'Jedna Git transakcia môže obsahovať najviac 10 skupín.', parent=self)
+            return
+        decision = self.batch_decision.get()
+        count = sum(len(scope['items']) for scope in scopes)
+        if not messagebox.askyesno('Potvrdiť Git dávku',
+                f'{len(scopes)} skupín, {count} položiek\nRozhodnutie: {decision}\n\n'
+                'Rozsah sa uloží append-only do vývojového Git Mastera. Toto samo osebe nevytvára ani neschvaľuje Warder ID.',
+                parent=self):
+            return
+        self._submit_scopes(scopes, decision)
+
+    def _submit_scopes(self, scopes, decision, operation=None):
+        if self.git_decision_writer is None or self.pending_git_path is None:
+            self.git_status.configure(text='FAILED · Git writer alebo staging cesta nie je nakonfigurovaná')
+            return
+        try:
+            from warder_review_store import build_review_batch, stage_pending_batch
+            batch = build_review_batch(scopes, decision)
+            if operation is not None:
+                batch['operation'] = operation
+            stage_pending_batch(self.pending_git_path, batch)
+        except (ValueError, OSError, TypeError, KeyError) as exc:
+            self.git_status.configure(text='FAILED · '+str(exc)[:120])
+            return
+        self.git_status.configure(text='PENDING → VALIDATING → COMMITTING…')
+        self.git_decision_writer(batch, self.git_commit, lambda result: self._git_write_done(batch, result))
+
+    def _git_write_done(self, batch, result):
+        status = result.get('status') if isinstance(result, dict) else 'FAILED'
+        if status in ('COMMITTED_VERIFIED', 'ALREADY_COMMITTED'):
+            try:
+                from warder_review_store import clear_pending_batch, apply_git_review_decisions
+                if self.pending_git_path:
+                    clear_pending_batch(self.pending_git_path, batch['batch_id'])
+                self.git_commit = result.get('commit', self.git_commit)
+                self._git_sync_generation += 1
+                self._git_syncing = False
+                self._git_refresh_pending = False
+                self.git_decision_events.extend(result.get('events', batch.get('events', [])))
+                path = latest_review(self.report_dir, *([self.legacy_report_dir] if self.legacy_report_dir else []))
+                loaded = load_review_queue(path) if path else {'items': []}
+                self.items = apply_git_review_decisions(loaded.get('items', []), self.git_decision_events)
+                self.groups = build_decision_groups({'items': self.items})['groups']
+                self.selected_scopes.clear()
+                suffix = (' · '+str(result.get('warder_id')) if result.get('warder_id') else '')
+                self.git_status.configure(text='SAVED TO GIT · '+str(self.git_commit or '')[:12]+suffix)
+                self.render()
+                self.refresh_git_state()
+            except (ValueError, OSError, TypeError, KeyError) as exc:
+                self.git_status.configure(text='COMMITTED · readback/reload issue: '+str(exc)[:100])
+            return
+        if status == 'PENDING':
+            self.git_status.configure(text='PENDING / UNSAVED · '+str(result.get('error', 'Git zapis čaká'))[:100])
+        elif status == 'CONFLICT':
+            self.git_status.configure(text='CONFLICT · refreshni Git Master a znovu potvrď dávku')
+        else:
+            self.git_status.configure(text='FAILED / UNSAVED · '+str(result.get('error', status))[:110])
+
+    def retry_pending_batches(self):
+        from tkinter import messagebox
+        if not self.pending_git_path:
+            return
+        try:
+            from warder_review_store import load_pending_batches
+            batches = load_pending_batches(self.pending_git_path)
+        except Exception as exc:
+            self.git_status.configure(text='FAILED · pending staging: '+str(exc)[:90])
+            return
+        if not batches:
+            self.git_status.configure(text='Git retry: nič PENDING')
+            return
+        if self.git_decision_writer is None:
+            self.git_status.configure(text='PENDING / UNSAVED · Git writer nedostupný')
+            return
+        self.git_status.configure(text='PENDING → VALIDATING → COMMITTING · '+str(len(batches))+' dávok')
+        for batch in batches:
+            self.git_decision_writer(batch, self.git_commit,
+                lambda result, current=batch: self._git_write_done(current, result))
 
     def reset_page(self):
         self.page = 0; self.render()
@@ -167,6 +339,7 @@ class ReviewGallery(ttk.Frame):
         title = f"{group['decision_group_id']} · {group['scope']} · {len(members)} úloh · {len(refs)} služieb"
         frame = ttk.LabelFrame(self.content, text=title, padding=6)
         frame.pack(fill='x', padx=4, pady=4)
+        self._selection_box(frame, group)
         ttk.Label(frame, text=group.get('grouping_reason', ''), wraplength=720).pack(anchor='w')
         ttk.Label(frame, text='Členovia: '+', '.join(group.get('member_review_ids', [])), wraplength=720).pack(anchor='w')
         ttk.Label(frame, text='Služby: '+', '.join(refs[:30])+(' …' if len(refs)>30 else ''), wraplength=720).pack(anchor='w')
@@ -234,6 +407,14 @@ class ReviewGallery(ttk.Frame):
             ('Preskočiť skupinu', 'DEFERRED', 'Skupina odložená na neskoršiu kontrolu'),
         ):
             ttk.Button(controls, text=text, command=lambda d=decision,n=note,g=group:self.decide_group(g,d,n)).pack(side='left', padx=2)
+        if first.get('workstream') == 'IDENTITY_VERIFICATION':
+            ttk.Button(controls, text='Označiť AMBIGUOUS',
+                       command=lambda g=group:self.decide_group(g,'IDENTITY_AMBIGUOUS','Ľudsky potvrdená nejednoznačná identita')).pack(side='left', padx=2)
+            ttk.Button(controls, text='Označiť CONFLICT',
+                       command=lambda g=group:self.decide_group(g,'IDENTITY_CONFLICT','Ľudsky potvrdená identitná kolízia')).pack(side='left', padx=2)
+            if len({str(member.get('candidate_identity') or '') for member in members}) == 1:
+                ttk.Button(controls, text='Potvrdiť identitu + Warder ID',
+                           command=lambda g=group:self.approve_identity_to_master(g)).pack(side='left', padx=2)
 
     def decide_group(self, group, decision, note):
         if not self.write_enabled():
@@ -278,6 +459,9 @@ class ReviewGallery(ttk.Frame):
     def add_row(self, item):
         frame = ttk.LabelFrame(self.content, text=f"{item['review_id']}  ·  {item.get('candidate_identity') or item.get('sha256') or 'Bez identity'}", padding=5)
         frame.pack(fill='x', padx=4, pady=4)
+        group = next((value for value in self.groups if item['review_id'] in value.get('member_review_ids', [])), None)
+        if group:
+            self._selection_box(frame, group)
         ttk.Label(frame, text=', '.join(item.get('reasons', [])), wraplength=520).pack(anchor='w')
         previews = ttk.Frame(frame); previews.pack(fill='x')
         digests = evidence_digests(item)
@@ -350,6 +534,111 @@ class ReviewGallery(ttk.Frame):
             final_button.configure(state='disabled')
         ttk.Button(controls, text='Opraviť', command=lambda i=item, f=frame: self.repair(f, i)).pack(side='left', padx=2)
         ttk.Button(controls, text='Preskočiť', command=lambda i=item: self.decide(i, 'DEFERRED', 'Preskočené')).pack(side='left', padx=2)
+        if item.get('workstream') == 'IDENTITY_VERIFICATION':
+            ttk.Button(controls, text='Označiť AMBIGUOUS',
+                       command=lambda i=item:self.decide(i,'IDENTITY_AMBIGUOUS','Ľudsky potvrdená nejednoznačná identita')).pack(side='left', padx=2)
+            ttk.Button(controls, text='Označiť CONFLICT',
+                       command=lambda i=item:self.decide(i,'IDENTITY_CONFLICT','Ľudsky potvrdená identitná kolízia')).pack(side='left', padx=2)
+            if group:
+                ttk.Button(controls, text='Potvrdiť identitu + Warder ID',
+                           command=lambda g=group:self.approve_identity_to_master(g)).pack(side='left', padx=2)
+        if item.get('workstream') == 'ARTWORK_REVIEW':
+            ttk.Button(controls, text='Schváliť triplet do Mastera',
+                       command=lambda i=item:self.approve_artwork_to_master(i)).pack(side='left', padx=2)
+
+    def approve_identity_to_master(self, group):
+        from tkinter import simpledialog
+        members = [item for item in self.items if item.get('review_id') in group.get('member_review_ids', [])]
+        if not members or any(item.get('workstream') != 'IDENTITY_VERIFICATION' for item in members):
+            self.git_status.configure(text='FAILED · nejde o identity review')
+            return
+        seed = str(members[0].get('candidate_identity') or '')
+        identity_key = simpledialog.askstring('Nová Warder identita', 'Trvalý identity_key (nie názov loga):', parent=self)
+        if not identity_key:
+            return
+        name = simpledialog.askstring('Nová Warder identita', 'Potvrdený názov stanice:', parent=self)
+        if not name:
+            return
+        service_ref = simpledialog.askstring('Nová Warder identita', 'Potvrdený service reference:', initialvalue=seed, parent=self)
+        if not service_ref:
+            return
+        operators = simpledialog.askstring('Väzby identity', 'Potvrdení provider/operatori, oddelení čiarkou (prázdne, ak neznáme):', parent=self)
+        satellites = simpledialog.askstring('Väzby identity', 'Potvrdené satelitné pozície, oddelené čiarkou (prázdne, ak neznáme):', parent=self)
+        if operators is None or satellites is None:
+            return
+        if not messagebox.askyesno('Potvrdiť identitu do Gitu',
+                f'{group.get("decision_group_id")}\n{len(members)} položiek\n{name}\n{service_ref}\n\n'
+                'Vytvorí sa ďalšie sekvenčné Warder ID. Toto rozhodnutie bude commitnuté do vývojovej vetvy.',
+                parent=self):
+            return
+        identity = {
+            'identity_key': identity_key.strip(), 'current_name': name.strip(),
+            'canonical_identity': {'identity_key': identity_key.strip()},
+            'service_references': [service_ref.strip()],
+            'operator_links': sorted({value.strip() for value in operators.split(',') if value.strip()}),
+            'satellite_positions': sorted({value.strip() for value in satellites.split(',') if value.strip()}),
+            'source_provenance': ['review:' + str(members[0]['review_id'])],
+            'first_seen': {'review_id': str(members[0]['review_id'])},
+        }
+        self._submit_scopes([self._scope(group)], 'APPROVED_FOR_REVIEW',
+                            {'type':'IDENTITY_APPROVAL','identity':identity})
+
+    def approve_artwork_to_master(self, item):
+        from tkinter import simpledialog
+        from warder_review_store import build_review_batch
+        if not self.git_sync_ready or not isinstance(self.git_registry, dict):
+            self.git_status.configure(text='PENDING · Git Registry nie je synchronizovaný')
+            return
+        digests = evidence_digests(item)
+        if len(digests) != 1:
+            messagebox.showwarning('Nejednoznačný artwork', 'Master approval vyžaduje presne jeden kandidátsky artwork.', parent=self)
+            return
+        digest = digests[0]
+        sources = [path for path in source_candidates(item, digest) if matches_evidence_sha(path, digest)]
+        if not sources:
+            messagebox.showwarning('Chýba pôvod', 'Nie je dostupný zdrojový PNG so zodpovedajúcim SHA-256.', parent=self)
+            return
+        paths = variant_paths(self.output_dir, {'sha256': digest})
+        if not all(paths.get(style) and paths[style].is_file() for style in ('transparent','black','white')):
+            messagebox.showwarning('Chýba triplet', 'Transparentný, čierny a biely variant musia byť dostupné pred Master approval.', parent=self)
+            return
+        warder_id = simpledialog.askstring('Warder Master', 'Zadaj existujúce Warder ID zo synchronizovaného Git Registry:', parent=self)
+        if not warder_id:
+            return
+        record = self.git_registry.get('records', {}).get(warder_id)
+        if not isinstance(record, dict):
+            messagebox.showwarning('Neznáme Warder ID', 'ID sa v aktuálnom Git Registry nenašlo; nič sa nezapísalo.', parent=self)
+            return
+        if record.get('artwork_current'):
+            messagebox.showwarning('Rebranding vyžaduje samostatný dôkaz',
+                'Schválený artwork sa nesmie prepísať. Tento tok vyžaduje samostatné overenie oficiálneho rebrandingu.', parent=self)
+            return
+        import hashlib
+        variant_sha = {}
+        for style in ('transparent','black','white'):
+            data = paths[style].read_bytes()
+            variant_sha[style] = hashlib.sha256(data).hexdigest()
+        group = next((value for value in self.groups if item['review_id'] in value.get('member_review_ids', [])), None)
+        if not group or len(group.get('member_review_ids', [])) != 1:
+            messagebox.showwarning('Rozsah approval', 'Artwork do Mastera sa schvaľuje iba pre jednu presnú review úlohu.', parent=self)
+            return
+        batch = build_review_batch([self._scope(group)], 'APPROVED_FOR_REVIEW')
+        batch['operation'] = {'type':'ARTWORK_APPROVAL','warder_id':warder_id,
+                              'variant_sha256':variant_sha,'official_rebrand_confirmed':False}
+        if not messagebox.askyesno('Potvrdiť artwork do Mastera',
+                f'{item["review_id"]}\n{warder_id}\nSHA {digest}\n\n'
+                'Uloží sa kompletný overený triplet, SHA a approval history do vývojového Gitu.',
+                parent=self):
+            return
+        try:
+            from warder_review_store import stage_pending_batch
+            stage_pending_batch(self.pending_git_path, batch)
+        except (ValueError, OSError, TypeError) as exc:
+            self.git_status.configure(text='FAILED · '+str(exc)[:100])
+            return
+        self.git_status.configure(text='PENDING → VALIDATING → COMMITTING…')
+        self.git_decision_writer(batch, self.git_commit,
+            lambda result:self._git_write_done(batch, result))
 
     def finalize_qa(self, item):
         if not self.write_enabled():
@@ -367,15 +656,14 @@ class ReviewGallery(ttk.Frame):
         try:
             from finalize_picons import finalize_triplet
             finalize_triplet(**request)
-            record_decision(self.ledger_path, item, 'FINALIZED_LOCALLY',
-                            'Lokálne finalizované po úspešnej finálnej QA; bez publikovania.',
-                            operator_confirmation=True)
         except (ValueError, OSError, PermissionError) as exc:
-            messagebox.showerror('Finalizácia alebo auditný zápis zlyhal', str(exc), parent=self)
+            messagebox.showerror('Finálna QA zlyhala', str(exc), parent=self)
             return
-        messagebox.showinfo('Finálna QA', 'BLACK a WHITE sú uložené vo finálnom úložisku.', parent=self)
-        self.items = [x for x in self.items if x['review_id'] != item['review_id']]
-        self.render()
+        group = next((value for value in self.groups if item['review_id'] in value.get('member_review_ids', [])), None)
+        if group:
+            self._submit_scopes([self._scope(group)], 'FINALIZED_LOCALLY')
+        else:
+            messagebox.showerror('Git zápis zablokovaný', 'Review skupina sa zmenila; lokálny výstup ostal zachovaný, rozhodnutie nie je uložené do Gitu.', parent=self)
 
     def repair(self, frame, item):
         if not self.write_enabled():
@@ -422,12 +710,11 @@ class ReviewGallery(ttk.Frame):
                 if not all(variants[name].is_file() for name in ('black', 'white')):
                     messagebox.showwarning('Chýbajú varianty', 'Nie sú dostupné čierny aj biely variant pre každú grafiku. Schválenie je zablokované.', parent=self)
                     return
-        if not messagebox.askyesno('Potvrdiť', f"{item['review_id']}\n{note[:160]}\n\nBez úprav PNG a bez publikovania.", parent=self):
+        if not messagebox.askyesno('Potvrdiť', f"{item['review_id']}\n{note[:160]}\n\nRozhodnutie sa uloží do vývojového Git Mastera. Bez úprav PNG a bez publikovania.", parent=self):
             return
-        try:
-            record_decision(self.ledger_path, item, decision, note[:2000], operator_confirmation=True)
-        except (ValueError, OSError, PermissionError) as exc:
-            messagebox.showerror('Zápis zlyhal', str(exc), parent=self)
+        group = next((value for value in self.groups if item['review_id'] in value.get('member_review_ids', [])), None)
+        if not group:
+            messagebox.showwarning('Skupina sa zmenila', 'Načítaj aktuálnu frontu pred rozhodnutím.', parent=self)
+            self.reload()
             return
-        self.items = [x for x in self.items if x['review_id'] != item['review_id']]
-        self.render()
+        self._submit_scopes([self._scope(group)], decision)

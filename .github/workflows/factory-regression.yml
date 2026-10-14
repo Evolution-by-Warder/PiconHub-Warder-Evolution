@@ -33,7 +33,7 @@ jobs:
       - name: Validate complete Git Warder Master and immutable history
         env:
           BASE_COMMIT: ${{ github.event.before || github.event.pull_request.base.sha || github.sha }}
-        run: python factory/app/validate_warder_identity_registry.py --registry factory/registry/warder-identity-registry.json --ledger factory/registry/master-approval-ledger.json --base-commit $env:BASE_COMMIT
+        run: python factory/app/validate_warder_identity_registry.py --registry factory/registry/warder-identity-registry.json --ledger factory/registry/master-approval-ledger.json --progress factory/registry/project-progress.json --base-commit $env:BASE_COMMIT
       - name: Verify fresh-clone Warder Master recovery
         shell: pwsh
         run: |
@@ -42,7 +42,7 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw 'Fresh clone failed' }
           $cloneHead = (git -C $clone rev-parse HEAD).Trim()
           if ($cloneHead -ne $env:GITHUB_SHA) { throw 'Fresh clone did not recover the tested commit' }
-          python (Join-Path $clone 'factory/app/validate_warder_identity_registry.py') --registry (Join-Path $clone 'factory/registry/warder-identity-registry.json') --ledger (Join-Path $clone 'factory/registry/master-approval-ledger.json') --base-commit $cloneHead
+          python (Join-Path $clone 'factory/app/validate_warder_identity_registry.py') --registry (Join-Path $clone 'factory/registry/warder-identity-registry.json') --ledger (Join-Path $clone 'factory/registry/master-approval-ledger.json') --progress (Join-Path $clone 'factory/registry/project-progress.json') --base-commit $cloneHead
           if ($LASTEXITCODE -ne 0) { throw 'Fresh clone Warder Master validation failed' }
       - name: Create disposable synthetic D drive workspace
         shell: pwsh
