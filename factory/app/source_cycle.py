@@ -239,7 +239,12 @@ def build_source_manifest(records: list[dict], source_id: str, source_roots: lis
         if root is None or source.suffix.casefold() != ".png":
             continue
         try:
-            rel = source.relative_to(root).as_posix()
+            # Resolve both sides before deriving the relative path.  On Windows,
+            # Path.resolve() may add a long-path prefix (\\?\) that is absent
+            # from the original source path; mixing the two forms silently drops
+            # the record from the manifest even though it passed the containment
+            # check above.
+            rel = resolved.relative_to(root).as_posix()
         except ValueError:
             continue
         if rel.startswith("/") or ".." in Path(rel).parts:
