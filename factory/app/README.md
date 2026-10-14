@@ -135,3 +135,8 @@ review report is available for independent replay. Current committed Git
 Registry and approval ledger are still empty, so no prior picon approval can
 be inferred from their presence. The new refresh report will measure actual
 coverage and decision groups on the user's saved queue.
+
+
+## v0.2.54 Windows verification
+
+Windows Actions run 38530825174 passed on commit 43cd1ed6fc781e7f5565be742e6df895f3938907. It ran 393 regression tests and 3 render tests, then passed packaged EXE/GUI smoke, updater build, one-click CMD install/launch, diagnostic smoke, and fresh-clone recovery. EXE SHA-256: 2d7687e47dddb6c193c71c3aaab18112b7905a88d5d774ab51da1ea26212498f. The Actions artifact ZIP digests and IDs are recorded in diagnostic-checkpoints/pc-run-20261014.json. This validates CI only; the reported 9,932-task PC queue still needs a no-render refresh on the user's Windows workspace.

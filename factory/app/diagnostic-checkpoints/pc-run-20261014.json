@@ -38,7 +38,7 @@
     "png_uploaded": false
   },
   "follow_up_v0_2_54": {
-    "verification": "SOURCE_CONFIRMED_AND_WINDOWS_CI_PENDING",
+    "verification": "WINDOWS_CI_SUCCESS_RUN_38530825174",
     "confirmed_root_cause": "fetch_master_snapshot stored SHA-256 of raw GitHub JSON bytes, while validate_snapshot recomputed SHA-256 over sorted, indented canonical JSON; GUI direct loader exposed the commit without calling the cache snapshot validator, so GUI commit display did not prove engine snapshot validation.",
     "fix": "Use one canonical JSON digest for online and cached snapshots; detail digest and master-store validation issues; GUI and engine share fetch_master_snapshot validation.",
     "refresh_ui_root_cause": "The success callback set its message and immediately called reload(), which replaced the visible status with a new Git synchronization message.",
@@ -58,6 +58,49 @@
     "master_registry_and_approval_ledger": "EMPTY_AS_OF_0e74617; no historical approvals inferred",
     "qa_hold": "ilsole24ore tv: FULLY_TRANSPARENT and OUTPUT_CHANGED_DURING_QA remain blocked for separate technical QA",
     "production_branch_modified": false,
-    "original_png_modified": false
+    "original_png_modified": false,
+    "windows_ci": {
+      "run_id": 38530825174,
+      "commit": "43cd1ed6fc781e7f5565be742e6df895f3938907",
+      "result": "SUCCESS",
+      "regression_tests": 393,
+      "render_tests": 3,
+      "checks": [
+        "Git Master validator",
+        "fresh clone recovery",
+        "PNG transparent/black/white",
+        "packaged EXE render and GUI smoke",
+        "one-click CMD install/launch",
+        "updater build",
+        "diagnostic smoke",
+        "artifact upload"
+      ],
+      "prior_attempts": [
+        {
+          "run_id": 38530307119,
+          "result": "FAIL",
+          "cause": "Three fixture expectation failures: GUI fixture used snapshot schema 2 and canonical fixture digest assertions incorrectly expected raw/canonical hashes to differ."
+        },
+        {
+          "run_id": 38530599996,
+          "result": "FAIL",
+          "cause": "One remaining test asserted raw and canonical SHA differ for canonical-formatted wrapped-base64 test content."
+        }
+      ]
+    },
+    "artifacts": {
+      "exe": {
+        "artifact_id": 11877657506,
+        "zip_sha256": "f0d55d9035bb5213c7ef2fc134843733b57559a458f313485c4f52e3dd08d599",
+        "exe_sha256": "2d7687e47dddb6c193c71c3aaab18112b7905a88d5d774ab51da1ea26212498f",
+        "version": "factory-v0.2.54",
+        "commit": "43cd1ed6fc781e7f5565be742e6df895f3938907"
+      },
+      "one_click": {
+        "artifact_id": 11877817160,
+        "zip_sha256": "8bf95f9e27dc7f20d5d6495646c6f0b6a95d6d3ee741f8feca4e77328eed3f42",
+        "commit": "43cd1ed6fc781e7f5565be742e6df895f3938907"
+      }
+    }
   }
 }
