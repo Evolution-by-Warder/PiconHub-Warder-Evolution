@@ -120,8 +120,8 @@ jobs:
           if (-not (Test-Path -LiteralPath $report) -or -not (Test-Path -LiteralPath $manifest)) { throw 'Packaged migration did not write its requested local outputs' }
           $result = Get-Content -LiteralPath $report -Raw | ConvertFrom-Json
           if ($result.counts.VERIFIED -ne 1 -or $result.counts.NO_EVIDENCE -ne 0) { throw "Unexpected migration result: $(Get-Content $report -Raw)" }
-          $manifestData = Get-Content -LiteralPath $manifest -Raw | ConvertFrom-Json
-          $entry = $manifestData.services[$ref]
+          $manifestData = Get-Content -LiteralPath $manifest -Raw | ConvertFrom-Json -AsHashtable
+          $entry = $manifestData['services'][$ref]
           if ($null -eq $entry -or $entry.identity_verified -ne $true -or $entry.artwork_approved -ne $true) { throw 'Local manifest omitted explicit approval evidence' }
       - name: Render PNG through the packaged Windows EXE
         shell: pwsh
