@@ -5,7 +5,7 @@ import io
 from PIL import Image
 
 from master_coverage import (build_master_coverage, apply_master_first_coverage,
-                             approval_evidence_from_git_master)
+                             approval_evidence_from_git_master, git_master_coverage_index)
 from warder_identity_registry import empty_approval_ledger, empty_registry, register_confirmed_identity
 from warder_master_store import build_identity_approval, build_artwork_approval
 from review_queue import build_review_queue, stable_review_id
@@ -158,6 +158,40 @@ class MasterCoverageTests(unittest.TestCase):
         self.assertEqual(outputs[0][0], [])
         self.assertEqual(len(outputs[0][1]), 1)
 
+    def test_git_registry_index_marks_known_without_artwork_unapproved(self):
+        from master_coverage import git_master_coverage_index
+        evidence = {"evidence_ref": "fixture:identity", "evidence_sha256": "a" * 64,
+                    "occurred_at": "2026-10-14T00:00:00Z"}
+        identities, wid = register_confirmed_identity(empty_registry(), {
+            "identity_key": "fixture:known-no-art", "current_name": "Known",
+            "service_references": [REF_A]}, evidence=evidence, identity_confirmed=True)
+        indexed, known, retired = git_master_coverage_index(identities)
+        result = build_master_coverage(indexed, None, master_commit=MASTER_COMMIT,
+                                       candidate_refs=(REF_A,), known_refs=known)
+        self.assertEqual(result["services"][REF_A]["status"], "KNOWN_UNAPPROVED")
+        self.assertNotIn(REF_A, retired)
+
+    def test_git_registry_index_fails_closed_on_reused_reference(self):
+        from master_coverage import git_master_coverage_index
+        evidence = {"evidence_ref": "fixture:identity", "evidence_sha256": "a" * 64,
+                    "occurred_at": "2026-10-14T00:00:00Z"}
+        two_identities = {"records": {
+            "WARDER-00000001": {"status": "active", "service_references": [REF_A],
+                                "historical_service_references": [], "artwork_current": {}},
+            "WARDER-00000002": {"status": "active", "service_references": [REF_A],
+                                "historical_service_references": [], "artwork_current": {}},
+        }}
+        indexed, known, _ = git_master_coverage_index(two_identities)
+        result = build_master_coverage(indexed, None, master_commit=MASTER_COMMIT,
+                                       candidate_refs=(REF_A,), known_refs=known)
+        self.assertEqual(result["services"][REF_A]["status"], "AMBIGUOUS")
+        self.assertEqual(result["services"][REF_A]["reason"], "MASTER_IDENTITY_OR_STYLE_CONFLICT")
+
+    def test_unavailable_git_master_is_ambiguous_not_new(self):
+        result = build_master_coverage({}, None, candidate_refs=(REF_A,), unavailable=True)
+        self.assertEqual(result["services"][REF_A]["status"], "AMBIGUOUS")
+        self.assertEqual(result["services"][REF_A]["reason"], "GIT_MASTER_UNAVAILABLE")
+
     def test_only_git_identity_and_artwork_approvals_cover_service(self):
         evidence = {"evidence_ref": "fixture:identity", "evidence_sha256": "a" * 64,
                     "occurred_at": "2026-10-14T00:00:00Z"}
@@ -183,11 +217,13 @@ class MasterCoverageTests(unittest.TestCase):
             review_evidence_sha256="e" * 64, variants=variants, asset_paths=paths,
             qa_evidence_ref="fixture:qa-review", qa_evidence_sha256="f" * 64,
             human_approved=True, qa_approved=True)
-        master_index = registry((REF_A,), variants)
+        master_index, known_refs, retired_refs = git_master_coverage_index(identities)
         git_evidence, status = approval_evidence_from_git_master(
             identities, ledger, master_commit=MASTER_COMMIT)
         self.assertEqual(status["status"], "GIT_LEDGER")
-        covered = build_master_coverage(master_index, git_evidence, master_commit=MASTER_COMMIT)
+        self.assertNotIn(REF_A, retired_refs)
+        covered = build_master_coverage(master_index, git_evidence, master_commit=MASTER_COMMIT,
+                                        known_refs=known_refs)
         self.assertEqual(covered["services"][REF_A]["status"], "APPROVED_COMPLETE")
 
     def test_artwork_approval_without_identity_approval_does_not_cover(self):

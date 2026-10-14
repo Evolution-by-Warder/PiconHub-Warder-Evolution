@@ -93,7 +93,7 @@ def approval_evidence_from_git_master(identity_registry, approval_ledger, *, mas
         "identity_approval_required": True, "artwork_sha_must_match_current_registry": True}
 
 
-def build_master_coverage(master_registry, approval_evidence=None, *, master_commit=None, candidate_refs=()):
+def build_master_coverage(master_registry, approval_evidence=None, *, master_commit=None, candidate_refs=(), known_refs=(), unavailable=False):
     """Classify every Master service; no PNG/reference alone can confer approval.
 
     Manifest format::
@@ -112,22 +112,33 @@ def build_master_coverage(master_registry, approval_evidence=None, *, master_com
     services = registry.get("services") if isinstance(registry.get("services"), dict) else {}
     conflicts = {row.get("service_reference") for row in registry.get("conflicts", [])
                  if isinstance(row, dict) and row.get("service_reference")}
+    known = {str(ref) for ref in known_refs if isinstance(ref, str) and ref}
     manifest = approval_evidence if isinstance(approval_evidence, dict) else None
     manifest_services = manifest.get("services", {}) if manifest else {}
     commit_matches = bool(manifest and master_commit and manifest.get("master_commit") == master_commit)
     result = {}
     refs = {str(ref) for ref in candidate_refs if isinstance(ref, str) and ref}
-    for ref in sorted(set(services) | set(manifest_services) | refs):
+    for ref in sorted(set(services) | set(manifest_services) | refs | known):
         entries = services.get(ref, [])
-        if not entries:
-            result[ref] = {"status": "NEW", "reason": "SERVICE_NOT_IN_MASTER",
-                           "covered_styles": [], "missing_styles": list(REQUIRED_STYLES),
-                           "approval_ref": None, "evidence_hash": _hash({"ref": ref, "status": "NEW"})}
-            continue
-        if ref in conflicts:
-            result[ref] = {"status": "AMBIGUOUS", "reason": "MASTER_HAS_STYLE_CONFLICT",
-                           "covered_styles": [], "missing_styles": list(REQUIRED_STYLES),
-                           "approval_ref": None, "evidence_hash": _hash({"ref": ref, "status": "AMBIGUOUS", "entries": entries})}
+        if unavailable:
+            status, reason, covered, approval_ref = "AMBIGUOUS", "GIT_MASTER_UNAVAILABLE", [], None
+        elif ref in conflicts:
+            status, reason, covered, approval_ref = "AMBIGUOUS", "MASTER_IDENTITY_OR_STYLE_CONFLICT", [], None
+        elif not entries:
+            status, reason, covered, approval_ref = (
+                ("KNOWN_UNAPPROVED", "KNOWN_IDENTITY_WITHOUT_CURRENT_ARTWORK", [], None)
+                if ref in known else
+                ("NEW", "SERVICE_NOT_IN_MASTER", [], None))
+        else:
+            status = reason = None
+            covered = []
+            approval_ref = None
+        if status is not None:
+            result[ref] = {"status": status, "reason": reason,
+                           "covered_styles": covered, "missing_styles": list(REQUIRED_STYLES),
+                           "approval_ref": approval_ref,
+                           "evidence_hash": _hash({"ref": ref, "status": status, "reason": reason,
+                                                  "entries": entries})}
             continue
         by_style = {}
         for entry in entries:
@@ -228,6 +239,53 @@ def apply_master_first_coverage(queue, coverage_index):
         "policy": "ONLY_EXPLICIT_APPROVED_COMPLETE; COVERED_ITEMS_RETAINED_IN_AUDIT",
     }
     return queue
+
+
+def git_master_coverage_index(identity_registry):
+    """Project the canonical Git Warder ID Registry into exact service/style evidence.
+
+    Current refs are known even before artwork is approved. Historical refs are
+    retained as conflicts so an old service alias cannot silently become a NEW
+    identity. Reused refs across different Warder IDs always fail closed.
+    """
+    services = {}
+    known_refs = set()
+    retired_refs = set()
+    owners = {}
+    conflicts = []
+    records = identity_registry.get("records", {}) if isinstance(identity_registry, dict) else {}
+    for wid, record in sorted(records.items()):
+        if not isinstance(record, dict):
+            continue
+        current = set(ref for ref in record.get("service_references", []) if isinstance(ref, str) and ref)
+        historical = set(ref for ref in record.get("historical_service_references", []) if isinstance(ref, str) and ref)
+        for ref in current | historical:
+            owners.setdefault(ref, set()).add(wid)
+            known_refs.add(ref)
+            if ref in historical and ref not in current:
+                retired_refs.add(ref)
+        if record.get("status") != "active":
+            retired_refs.update(current)
+            continue
+        artwork = record.get("artwork_current", {})
+        if not isinstance(artwork, dict):
+            artwork = {}
+        for ref in current:
+            rows = services.setdefault(ref, [])
+            for style, sha in sorted(artwork.items()):
+                if style in REQUIRED_STYLES and _sha(sha):
+                    rows.append({"style": style, "sha256": sha.lower(),
+                                 "warder_id": wid})
+    for ref, ids in owners.items():
+        if len(ids) > 1 or ref in retired_refs:
+            conflicts.append({"service_reference": ref, "reason":
+                              "SERVICE_REFERENCE_REUSED_OR_RETIRED",
+                              "warder_ids": sorted(ids)})
+    return services_wrapper(services, conflicts), known_refs, retired_refs
+
+
+def services_wrapper(services, conflicts):
+    return {"services": services, "conflicts": conflicts}
 
 
 def coverage_diagnostic(coverage_index, approval_manifest_status):
