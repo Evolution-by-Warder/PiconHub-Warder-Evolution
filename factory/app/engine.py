@@ -1840,6 +1840,20 @@ class App:
    try:self.emit('preflight_done',read_only_preflight(ROOT,progress=lambda current,total,name:self.emit('preflight_progress',(current,total,name))))
    except Exception as exc:self.emit('preflight_error',type(exc).__name__+': '+str(exc)[:300])
   threading.Thread(target=worker,name='factory-read-only-preflight',daemon=True).start()
+ def _saved_review_queue(self):
+  """Return a validated saved queue path without scanning sources or opening PNGs."""
+  try:
+   from review_ui import latest_review
+   from review_queue import load_review_queue
+   path=latest_review(EXCEPTIONS,REPORTS)
+   if path is None:return None
+   queue_data=load_review_queue(path)
+   items=queue_data.get('items')
+   if queue_data.get('schema')!=1 or not isinstance(items,list) or queue_data.get('count')!=len(items):
+    return None
+   return path
+  except (OSError,ValueError,KeyError,TypeError):
+   return None
  def _load_saved_review_counts(self):
   try:
    from review_ui import latest_review
@@ -2223,11 +2237,20 @@ class App:
       if os.environ.get('WARDER_GUI_SMOKE_TEST')!='1':
        self.root.after(150,self._resume_pending_delivery)
        self.root.after(60000,self._scheduled_delivery)
-       # Begin the normal production pipeline only after read-only preflight
-       # validates the existing D: workspace. Never auto-approve review items.
+       # A valid saved review queue is the recovery checkpoint. Restore it and
+       # refresh its commit-pinned Git classification without rescanning sources,
+       # decoding PNGs, or rendering. A full scan is reserved for first run or
+       # an absent/invalid queue report.
        if not self._automatic_run_started:
         self._automatic_run_started=True
-        self.root.after(500,self.start)
+        saved_queue=self._saved_review_queue()
+        if saved_queue is not None:
+         self.output.insert('end','Obnovujem uloženú review frontu bez plného scanu: '+Path(saved_queue).name+'\n')
+         self._load_saved_review_counts()
+         self.workspace.gallery.reload()
+        else:
+         self.output.insert('end','Platná uložená review fronta sa nenašla; spúšťam prvý/incrementálny scan.\n')
+         self.root.after(500,self.start)
      else:
       self.status.set('Zápisy zablokované · preflight: '+(', '.join(v.missing) or 'chyba čítania'))
       self.output.insert('end','READ-ONLY PREFLIGHT FAILED\n'+'\n'.join(v.findings)+'\n')

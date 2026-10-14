@@ -102,3 +102,36 @@ recomputed here. The reported transparent `ilsole24ore tv` technical QA item
 is explicitly preserved for separate investigation; a Master refresh cannot
 dismiss it. No registry, ledger, approval, Warder ID, source PNG, or production
 branch is altered by this recovery.
+
+
+## v0.2.54 — snapshot integrity, saved-queue recovery, and workflow states
+
+Git Master reads and cache validation now share the same canonical JSON SHA-256
+calculation (snapshot schema 3 invalidates the incompatible v0.2.53 cache). The Git commit pins the exact repository bytes; the snapshot
+content digest is computed over parsed canonical JSON so key order and GitHub
+Contents API formatting cannot create a false integrity failure. Snapshot
+validation reports field-specific digest or Registry/ledger issue codes. The
+GUI uses this same validated fetch path as the engine and remains fail-closed.
+
+At successful workspace preflight, a valid saved review queue is restored and
+refreshed against one commit-pinned Git snapshot. This avoids rerunning the
+full source scan/render when a queue already exists. A first run or an absent
+or invalid queue still starts normal processing. A refresh writes a new queue
+and coverage report without PNG access; previous reports are preserved. The
+GUI keeps the refresh result visible and reports source count → active count,
+exactly covered tasks, Git commit, elapsed time, and BEZ RENDERU. An unchanged
+queue explains that no exact service-reference plus approved artwork hash
+evidence matched.
+
+Each refreshed task receives a separate evidence-bound workflow status map:
+AUTO_RESOLVED_VERIFIED, READY_FOR_HUMAN_APPROVAL, AMBIGUOUS, CONFLICT,
+TECHNICAL_QA, BLOCKED_MISSING_EVIDENCE, or COMPLETED_GIT_CONFIRMED. This
+derived map is separate from evidence-hashed review items. No uncertain identity
+is approved automatically. The previously reported ilsole24ore tv transparent
+FULLY_TRANSPARENT / OUTPUT_CHANGED_DURING_QA finding remains in Technical QA.
+
+The 2026-10-14 PC task totals remain owner-reported until the PC-generated
+review report is available for independent replay. Current committed Git
+Registry and approval ledger are still empty, so no prior picon approval can
+be inferred from their presence. The new refresh report will measure actual
+coverage and decision groups on the user's saved queue.

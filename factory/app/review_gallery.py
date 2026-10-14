@@ -137,6 +137,8 @@ class ReviewGallery(ttk.Frame):
         ttk.Button(nav, text='▶', width=3, command=lambda: self.turn(1)).pack(side='left')
         ttk.Button(nav, text='Prepočítať MASTER-first bez renderu',
                    command=self.refresh_master_first).pack(side='left', padx=8)
+        self.refresh_status = ttk.Label(self, text='', anchor='w', wraplength=1350)
+        self.refresh_status.pack(fill='x', padx=6, pady=(2, 4))
         self.counter = ttk.Label(nav, text=''); self.counter.pack(side='left', padx=5)
         self.canvas = tk.Canvas(self, highlightthickness=0)
         scroll = ttk.Scrollbar(self, orient='vertical', command=self.canvas.yview)
@@ -260,16 +262,26 @@ class ReviewGallery(ttk.Frame):
         self._master_refresh_running = False
         if error:
             self.git_sync_ready = False
-            self.git_status.configure(text='Git Master refresh FAILED · ' + error)
+            self.refresh_status.configure(text='MASTER-first refresh FAILED · ' + error,
+                                          foreground='#b00020')
             return
         self.git_sync_ready = True
         self.git_commit = result.get('master_commit')
-        self.git_status.configure(
-            text='MASTER-first prepočítaný bez renderu · covered '
-                 + str(result.get('covered_items', 0)) + ' · aktívne '
-                 + str(result.get('active_items', 0)) + ' · commit '
-                 + str(self.git_commit or '')[:12])
-        self.reload()
+        from master_coverage_refresh import format_master_refresh_result
+        self.refresh_status.configure(text=format_master_refresh_result(result),
+                                      foreground='#176b2c')
+        try:
+            from warder_review_store import apply_git_review_decisions
+            loaded = load_review_queue(result['queue_path'])
+            self.items = apply_git_review_decisions(loaded.get('items', []), self.git_decision_events)
+            self.groups = build_decision_groups({'items': self.items})['groups']
+            self.load_error = None
+            self.page = 0
+            self.render()
+        except (OSError, ValueError, KeyError, TypeError) as exc:
+            self.refresh_status.configure(
+                text='MASTER-first report was saved, but GUI could not reload it: '
+                     + type(exc).__name__ + ': ' + str(exc), foreground='#b00020')
 
     def _scope(self, group):
         members = [item for item in self.items if item.get('review_id') in group.get('member_review_ids', [])]

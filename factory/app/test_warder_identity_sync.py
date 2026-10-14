@@ -30,6 +30,11 @@ class Response:
     def read(self): return json.dumps(self.value).encode()
 
 
+def snapshot_digest(value):
+    return hashlib.sha256((json.dumps(value, sort_keys=True, ensure_ascii=False, indent=2) + "\n")
+                          .encode("utf-8")).hexdigest()
+
+
 class WarderIdentitySyncTests(unittest.TestCase):
     def test_git_snapshot_is_commit_pinned_and_sha256_verified(self):
         raw = encoded_registry(empty_registry())
@@ -45,8 +50,10 @@ class WarderIdentitySyncTests(unittest.TestCase):
             return Response({"encoding": "base64", "content": base64.b64encode(payload).decode()})
         snapshot = fetch_registry_snapshot(opener)
         self.assertEqual(snapshot["commit"], commit)
-        self.assertEqual(snapshot["registry_sha256"], hashlib.sha256(raw).hexdigest())
-        self.assertEqual(snapshot["approval_ledger_sha256"], hashlib.sha256(ledger_raw).hexdigest())
+        self.assertEqual(snapshot["registry_sha256"], snapshot_digest(snapshot["registry"]))
+        self.assertNotEqual(snapshot["registry_sha256"], hashlib.sha256(raw).hexdigest())
+        self.assertEqual(snapshot["approval_ledger_sha256"], snapshot_digest(snapshot["approval_ledger"]))
+        self.assertNotEqual(snapshot["approval_ledger_sha256"], hashlib.sha256(ledger_raw).hexdigest())
         self.assertIn(commit, calls[1][0])
         self.assertIn(commit, calls[2][0])
         self.assertTrue(validate_snapshot(snapshot))
@@ -61,9 +68,9 @@ class WarderIdentitySyncTests(unittest.TestCase):
     def test_offline_uses_only_checksum_verified_cache(self):
         raw = encoded_registry(empty_registry())
         ledger_raw = encoded_ledger(empty_approval_ledger())
-        snapshot = {"schema": 2, "repository": REPOSITORY, "branch": BRANCH,
-                    "commit": "b" * 40, "registry_sha256": hashlib.sha256(raw).hexdigest(),
-                    "approval_ledger_sha256": hashlib.sha256(ledger_raw).hexdigest(),
+        snapshot = {"schema": 3, "repository": REPOSITORY, "branch": BRANCH,
+                    "commit": "b" * 40, "registry_sha256": snapshot_digest(empty_registry()),
+                    "approval_ledger_sha256": snapshot_digest(empty_approval_ledger()),
                     "registry": empty_registry(), "approval_ledger": empty_approval_ledger()}
         with tempfile.TemporaryDirectory() as temp:
             cache = Path(temp) / "registry-cache.json"
@@ -97,7 +104,8 @@ class WarderIdentitySyncTests(unittest.TestCase):
             return Response({"encoding": "base64", "content": wrapped(payload)})
         snapshot = fetch_registry_snapshot(opener)
         self.assertEqual(snapshot["commit"], commit)
-        self.assertEqual(snapshot["registry_sha256"], hashlib.sha256(raw).hexdigest())
+        self.assertEqual(snapshot["registry_sha256"], snapshot_digest(snapshot["registry"]))
+        self.assertNotEqual(snapshot["registry_sha256"], hashlib.sha256(raw).hexdigest())
         self.assertTrue(validate_snapshot(snapshot))
 
     def test_invalid_base64_keeps_precise_contents_api_diagnostic(self):
@@ -138,3 +146,31 @@ class WarderIdentitySyncTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+    def test_noncanonical_file_format_has_same_valid_commit_pinned_snapshot_hash(self):
+        registry_value = empty_registry()
+        raw = json.dumps(registry_value, ensure_ascii=False, indent=2).encode("utf-8")
+        ledger_raw = encoded_ledger(empty_approval_ledger())
+        commit = "e" * 40
+        def opener(request, timeout):
+            if "/branches/" in request.full_url:
+                return Response({"commit": {"sha": commit}})
+            payload = ledger_raw if APPROVAL_LEDGER_PATH in request.full_url else raw
+            return Response({"encoding": "base64", "content": base64.b64encode(payload).decode("ascii")})
+        snapshot = fetch_registry_snapshot(opener)
+        self.assertTrue(validate_snapshot(snapshot))
+        self.assertEqual(snapshot["registry_sha256"], hashlib.sha256(
+            (json.dumps(snapshot["registry"], sort_keys=True, ensure_ascii=False, indent=2) + "\n").encode("utf-8")
+        ).hexdigest())
+
+    def test_snapshot_reports_digest_and_registry_validation_reasons(self):
+        snapshot = {"schema": 3, "repository": "Evolution-by-Warder/PiconHub-Warder-Evolution",
+                    "branch": "factory-warder-development", "commit": "a" * 40,
+                    "registry": empty_registry(), "approval_ledger": empty_approval_ledger(),
+                    "registry_sha256": "0" * 64, "approval_ledger_sha256": "0" * 64}
+        from warder_identity_sync import validate_snapshot_detailed
+        result = validate_snapshot_detailed(snapshot)
+        self.assertEqual(result["status"], "INVALID")
+        self.assertEqual(sum(i.get("code") == "SNAPSHOT_CONTENT_DIGEST_MISMATCH"
+                             for i in result["issues"]), 2)

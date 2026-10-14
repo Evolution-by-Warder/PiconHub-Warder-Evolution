@@ -36,5 +36,28 @@
     "registry_or_ledger_modified": false,
     "identity_approvals_created": 0,
     "png_uploaded": false
+  },
+  "follow_up_v0_2_54": {
+    "verification": "SOURCE_CONFIRMED_AND_WINDOWS_CI_PENDING",
+    "confirmed_root_cause": "fetch_master_snapshot stored SHA-256 of raw GitHub JSON bytes, while validate_snapshot recomputed SHA-256 over sorted, indented canonical JSON; GUI direct loader exposed the commit without calling the cache snapshot validator, so GUI commit display did not prove engine snapshot validation.",
+    "fix": "Use one canonical JSON digest for online and cached snapshots; detail digest and master-store validation issues; GUI and engine share fetch_master_snapshot validation.",
+    "refresh_ui_root_cause": "The success callback set its message and immediately called reload(), which replaced the visible status with a new Git synchronization message.",
+    "fix_refresh": "Persistent separate refresh result shows source count to active count, covered tasks, Git commit, elapsed time and BEZ RENDERU; unchanged counts include evidence-based explanation.",
+    "startup_recovery": "If a valid saved review queue exists, restore it and refresh Git Master without a new full scan; first/invalid/missing queue still runs the scan.",
+    "task_statuses": "A derived per-review-ID status report is generated without changing evidence-hashed queue item bodies; no identity approvals are inferred.",
+    "user_reported_pc_results": {
+      "png": 162427,
+      "elapsed_seconds": 306.57,
+      "preflight_passed": "13/13",
+      "identity_tasks": 4054,
+      "artwork_tasks": 5877,
+      "technical_qa": 1,
+      "total_tasks": 9932
+    },
+    "real_pc_recount": "NOT_PERFORMED_REPORT_BYTES_NOT_AVAILABLE",
+    "master_registry_and_approval_ledger": "EMPTY_AS_OF_0e74617; no historical approvals inferred",
+    "qa_hold": "ilsole24ore tv: FULLY_TRANSPARENT and OUTPUT_CHANGED_DURING_QA remain blocked for separate technical QA",
+    "production_branch_modified": false,
+    "original_png_modified": false
   }
 }

@@ -1,7 +1,7 @@
 """No-scan MASTER-first refresh regressions."""
 import unittest
 
-from master_coverage_refresh import recalculate_master_first
+from master_coverage_refresh import (recalculate_master_first, format_master_refresh_result)
 from warder_identity_registry import empty_approval_ledger, empty_registry
 from review_queue import stable_review_id
 
@@ -69,3 +69,33 @@ class MasterCoverageRefreshTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+    def test_workflow_summary_keeps_unresolved_items_visible_and_never_approves_identity(self):
+        identity = row("IDENTITY_VERIFICATION")
+        identity["source_provenance"] = ["synthetic-openatv"]
+        artwork = row("ARTWORK_REVIEW")
+        technical = row("TECHNICAL_QA", "", "2" * 64, "FULLY_TRANSPARENT")
+        queue = {"schema": 1, "count": 3, "items": [identity, artwork, technical]}
+        result = recalculate_master_first(queue, self.snapshot())
+        workflow = result["queue"]["processing_workflow"]
+        self.assertEqual(workflow["counts"]["READY_FOR_HUMAN_APPROVAL"], 2)
+        self.assertEqual(workflow["counts"]["TECHNICAL_QA"], 1)
+        self.assertEqual(workflow["counts"]["AUTO_RESOLVED_VERIFIED"], 0)
+        self.assertEqual(workflow["automatic_identity_approvals"], 0)
+        self.assertEqual(len(workflow["task_statuses"]), 3)
+
+    def test_refresh_confirmation_explains_unchanged_front(self):
+        result = {"source_active_items": 9932, "active_items": 9932,
+                  "covered_this_refresh": 0, "master_commit": COMMIT,
+                  "elapsed_seconds": 1.25, "decision_groups": 1,
+                  "processing_workflow": {"unique_decision_groups": 1,
+                                          "counts": {"READY_FOR_HUMAN_APPROVAL": 1}},
+                  "unchanged_reason": "no exact approval evidence"}
+        text = format_master_refresh_result(result)
+        self.assertIn("9932 → 9932", text)
+        self.assertIn("0", text)
+        self.assertIn("skupiny 1", text)
+        self.assertIn("človek 1", text)
+        self.assertIn("BEZ RENDERU", text)
+        self.assertIn("no exact approval evidence", text)

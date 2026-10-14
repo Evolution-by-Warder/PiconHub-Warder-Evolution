@@ -59,22 +59,30 @@ def _read_json_at_commit(path, commit, opener, token):
     return value, raw
 
 
+def _snapshot_digest(value):
+    """Hash the canonical JSON representation so online and cached snapshots agree."""
+    encoded = (json.dumps(value, sort_keys=True, ensure_ascii=False, indent=2) + "\n").encode("utf-8")
+    return hashlib.sha256(encoded).hexdigest()
+
+
 def fetch_master_snapshot(opener=urllib.request.urlopen, token=""):
-    """Read registry and approval ledger from the same dev commit."""
+    """Read and validate one commit-pinned registry + ledger snapshot."""
     branch = _request_json(API + "/branches/" + BRANCH, opener, token)
     commit = branch.get("commit", {}).get("sha") if isinstance(branch, dict) else None
     if not isinstance(commit, str) or len(commit) != 40 or any(c not in "0123456789abcdef" for c in commit.lower()):
         raise ValueError("GitHub returned an invalid development branch commit")
-    registry, registry_raw = _read_json_at_commit(REGISTRY_PATH, commit, opener, token)
-    ledger, ledger_raw = _read_json_at_commit(APPROVAL_LEDGER_PATH, commit, opener, token)
-    checked = validate_master_store(registry, ledger)
-    if checked["status"] != "VALID":
-        raise ValueError("GitHub Warder Master failed validation: " + json.dumps(checked["issues"][:10]))
-    return {"schema": 2, "repository": REPOSITORY, "branch": BRANCH,
-            "commit": commit,
-            "registry_sha256": hashlib.sha256(registry_raw).hexdigest(),
-            "approval_ledger_sha256": hashlib.sha256(ledger_raw).hexdigest(),
-            "registry": registry, "approval_ledger": ledger}
+    registry, _registry_raw = _read_json_at_commit(REGISTRY_PATH, commit, opener, token)
+    ledger, _ledger_raw = _read_json_at_commit(APPROVAL_LEDGER_PATH, commit, opener, token)
+    snapshot = {"schema": 3, "repository": REPOSITORY, "branch": BRANCH,
+                "commit": commit,
+                "registry_sha256": _snapshot_digest(registry),
+                "approval_ledger_sha256": _snapshot_digest(ledger),
+                "registry": registry, "approval_ledger": ledger}
+    validation = validate_snapshot_detailed(snapshot)
+    if validation["status"] != "VALID":
+        raise ValueError("GitHub Warder Master snapshot failed validation: "
+                         + json.dumps(validation["issues"][:20], ensure_ascii=False, sort_keys=True))
+    return snapshot
 
 
 def fetch_registry_snapshot(opener=urllib.request.urlopen, token=""):
@@ -82,21 +90,37 @@ def fetch_registry_snapshot(opener=urllib.request.urlopen, token=""):
     return fetch_master_snapshot(opener, token)
 
 
-def validate_snapshot(snapshot):
-    if not isinstance(snapshot, dict) or snapshot.get("schema") != 2:
-        return False
-    if snapshot.get("repository") != REPOSITORY or snapshot.get("branch") != BRANCH:
-        return False
+def validate_snapshot_detailed(snapshot):
+    """Return precise validation failures for GUI, engine, and cache consumers."""
+    issues = []
+    if not isinstance(snapshot, dict):
+        return {"status": "INVALID", "issues": [{"code": "SNAPSHOT_NOT_OBJECT"}]}
+    if snapshot.get("schema") != 3:
+        issues.append({"code": "SNAPSHOT_SCHEMA_MISMATCH", "expected": 3,
+                       "actual": snapshot.get("schema")})
+    if snapshot.get("repository") != REPOSITORY:
+        issues.append({"code": "SNAPSHOT_REPOSITORY_MISMATCH"})
+    if snapshot.get("branch") != BRANCH:
+        issues.append({"code": "SNAPSHOT_BRANCH_MISMATCH"})
     commit = snapshot.get("commit")
     if not isinstance(commit, str) or len(commit) != 40 or any(c not in "0123456789abcdef" for c in commit.lower()):
-        return False
-    def digest(value):
-        return hashlib.sha256((json.dumps(value, sort_keys=True, ensure_ascii=False, indent=2) + "\n").encode("utf-8")).hexdigest()
-    if snapshot.get("registry_sha256") != digest(snapshot.get("registry")):
-        return False
-    if snapshot.get("approval_ledger_sha256") != digest(snapshot.get("approval_ledger")):
-        return False
-    return validate_master_store(snapshot.get("registry"), snapshot.get("approval_ledger"))["status"] == "VALID"
+        issues.append({"code": "SNAPSHOT_COMMIT_INVALID"})
+    for field, data_field in (("registry_sha256", "registry"),
+                              ("approval_ledger_sha256", "approval_ledger")):
+        try:
+            expected = _snapshot_digest(snapshot.get(data_field))
+        except (TypeError, ValueError):
+            expected = None
+        actual = snapshot.get(field)
+        if not isinstance(actual, str) or actual != expected:
+            issues.append({"code": "SNAPSHOT_CONTENT_DIGEST_MISMATCH", "field": field})
+    checked = validate_master_store(snapshot.get("registry"), snapshot.get("approval_ledger"))
+    issues.extend({"scope": "master_store", **issue} for issue in checked.get("issues", []))
+    return {"status": "VALID" if not issues else "INVALID", "issues": issues}
+
+
+def validate_snapshot(snapshot):
+    return validate_snapshot_detailed(snapshot)["status"] == "VALID"
 
 
 def _atomic_cache(path, snapshot):
@@ -130,8 +154,10 @@ def sync_registry(cache_path, fetcher=None, token=""):
     """Return Git Master state, or its checksum-verified full metadata cache offline."""
     try:
         snapshot = fetcher() if fetcher is not None else fetch_master_snapshot(token=token)
-        if not validate_snapshot(snapshot):
-            raise ValueError("Fetched Git Warder Master snapshot failed validation")
+        validation = validate_snapshot_detailed(snapshot)
+        if validation["status"] != "VALID":
+            raise ValueError("Fetched Git Warder Master snapshot failed validation: "
+                             + json.dumps(validation["issues"][:20], ensure_ascii=False, sort_keys=True))
         _atomic_cache(cache_path, snapshot)
         return {"status": "GIT_CURRENT", "snapshot": snapshot, "error": None}
     except Exception as exc:
