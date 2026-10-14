@@ -6,6 +6,7 @@ import gzip
 import json
 import re
 import base64
+import binascii
 import urllib.error
 import urllib.request
 from pathlib import Path
@@ -65,10 +66,23 @@ def fetch_source_ledger(*, opener=urllib.request.urlopen) -> tuple[str, dict]:
     item = _api_json("", "GET", _API + "/contents/" + _SOURCE_LEDGER + "?ref=" + head, opener=opener)
     if item.get("encoding") != "base64" or not isinstance(item.get("content"), str):
         raise ValueError("SOURCE_GIT_LEDGER_NOT_BASE64")
+    # GitHub's Contents API wraps large base64 bodies across multiple lines.
+    # Strip only ASCII whitespace before strict decoding so wrapped data is
+    # accepted without letting validate=False discard invalid characters.
+    encoded = item["content"]
+    if not isinstance(encoded, str):
+        raise ValueError("SOURCE_GIT_LEDGER_CONTENT_INVALID")
+    encoded = "".join(char for char in encoded if char not in " \t\r\n\v\f")
     try:
-        raw = base64.b64decode(item["content"], validate=True)
+        raw = base64.b64decode(encoded, validate=True)
+        expected_blob_sha = item.get("sha")
+        actual_blob_sha = hashlib.sha1(b"blob " + str(len(raw)).encode("ascii") + b"\0" + raw).hexdigest()
+        if not isinstance(expected_blob_sha, str) or not re.fullmatch(r"[0-9a-f]{40}", expected_blob_sha):
+            raise ValueError("SOURCE_GIT_LEDGER_BLOB_SHA_MISSING")
+        if actual_blob_sha != expected_blob_sha:
+            raise ValueError("SOURCE_GIT_LEDGER_BLOB_SHA_MISMATCH")
         ledger = json.loads(raw.decode("utf-8"))
-    except (ValueError, UnicodeDecodeError) as exc:
+    except (binascii.Error, ValueError, UnicodeDecodeError) as exc:
         raise ValueError("SOURCE_GIT_LEDGER_DECODE_FAILED: " + type(exc).__name__) from exc
     errors = validate_source_ledger(ledger)
     if errors:

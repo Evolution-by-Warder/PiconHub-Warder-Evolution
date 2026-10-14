@@ -1,3 +1,5 @@
+import base64
+import hashlib
 import json
 import tempfile
 import unittest
@@ -71,6 +73,52 @@ class SourceCycleTests(unittest.TestCase):
         self.assertIn("SOURCE_OWNER_DECISION_REQUIRED:vhannibal", cycle.validate_source_ledger({
             **ledger, "sources": {**ledger["sources"], "vhannibal": {"status": "PROCESSING"}}}))
         self.assertEqual(cycle.validate_source_ledger(ledger), [])
+
+    def test_github_line_wrapped_source_ledger_decodes_with_git_blob_verification(self):
+        repo = Path(__file__).resolve().parents[2]
+        raw = (repo / "factory" / "registry" / "source-processing-ledger.json").read_bytes()
+        head = "a" * 40
+        blob_sha = hashlib.sha1(b"blob " + str(len(raw)).encode("ascii") + b"\0" + raw).hexdigest()
+        encoded = base64.b64encode(raw).decode("ascii")
+        wrapped = "\n".join(encoded[index:index + 60] for index in range(0, len(encoded), 60)) + "\n"
+
+        class Response:
+            def __init__(self, payload):
+                self.payload = payload
+            def __enter__(self): return self
+            def __exit__(self, *_): return None
+            def read(self): return json.dumps(self.payload).encode("utf-8")
+
+        class Opener:
+            def __call__(self, request, timeout=20):
+                if request.full_url.endswith("/branches/" + cycle._BRANCH):
+                    return Response({"commit": {"sha": head}})
+                return Response({"encoding": "base64", "content": wrapped, "sha": blob_sha})
+
+        found_head, ledger = cycle.fetch_source_ledger(opener=Opener())
+        self.assertEqual(found_head, head)
+        self.assertEqual(ledger["sources"]["openatv8"]["status"], "AWAITING_APPROVAL")
+        self.assertEqual(cycle.active_source(ledger), "openatv8")
+
+    def test_github_source_ledger_wrong_git_blob_sha_fails_closed(self):
+        raw = b'{"schema": 1}'
+        head = "b" * 40
+
+        class Response:
+            def __init__(self, payload): self.payload = payload
+            def __enter__(self): return self
+            def __exit__(self, *_): return None
+            def read(self): return json.dumps(self.payload).encode("utf-8")
+
+        class Opener:
+            def __call__(self, request, timeout=20):
+                if request.full_url.endswith("/branches/" + cycle._BRANCH):
+                    return Response({"commit": {"sha": head}})
+                return Response({"encoding": "base64", "content": base64.b64encode(raw).decode("ascii"),
+                                 "sha": "0" * 40})
+
+        with self.assertRaisesRegex(ValueError, "SOURCE_GIT_LEDGER_DECODE_FAILED: ValueError"):
+            cycle.fetch_source_ledger(opener=Opener())
 
     def test_artwork_hash_never_merges_different_references(self):
         master = {"ref-a": [{"sha256": "same"}], "ref-b": [{"sha256": "master"}]}
