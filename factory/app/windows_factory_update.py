@@ -61,6 +61,12 @@ def _metadata(payload: Path, build: dict) -> dict:
     commit = build.get("commit")
     if not isinstance(commit, str) or not re.fullmatch(r"[0-9a-f]{40}", commit):
         raise UpdateError("Embedded build commit is invalid")
+    ancestors = build.get("ancestor_commits", [])
+    if (not isinstance(ancestors, list) or len(ancestors) > 10000
+            or any(not isinstance(item, str) or not re.fullmatch(r"[0-9a-f]{40}", item)
+                   for item in ancestors)
+            or len(set(ancestors)) != len(ancestors) or commit in ancestors):
+        raise UpdateError("Embedded build ancestry is invalid")
     digest = build.get("sha256")
     size = build.get("bytes")
     if (not isinstance(digest, str) or not re.fullmatch(r"[0-9a-f]{64}", digest)
@@ -73,7 +79,8 @@ def _metadata(payload: Path, build: dict) -> dict:
     with payload.open("rb") as stream:
         if stream.read(2) != b"MZ":
             raise UpdateError("Embedded payload is not a Windows executable")
-    return {"version": version, "commit": commit, "sha256": digest, "bytes": size}
+    return {"version": version, "commit": commit, "sha256": digest, "bytes": size,
+            "ancestor_commits": ancestors}
 
 
 def installed_version(executable: Path, marker: Path) -> str:
@@ -112,6 +119,37 @@ def installed_version(executable: Path, marker: Path) -> str:
         version_tuple(matches[0])
         return matches[0]
     raise UpdateError("Installed version cannot be verified; install marker is missing")
+
+
+def installed_build(executable: Path, marker: Path) -> dict:
+    """Return the installed version and verified Git commit when available."""
+    if marker.is_file() and not _is_reparse(marker):
+        try:
+            data = json.loads(marker.read_text(encoding="utf-8"))
+            version = data.get("version")
+            version_tuple(version)
+            commit = data.get("commit")
+            if commit is not None and (not isinstance(commit, str)
+                                       or not re.fullmatch(r"[0-9a-f]{40}", commit)):
+                raise UpdateError("Installed version marker commit is invalid")
+            digest = data.get("sha256")
+            size = data.get("bytes")
+            if digest is not None or size is not None:
+                if (not isinstance(digest, str) or not re.fullmatch(r"[0-9a-f]{64}", digest)
+                        or type(size) is not int or size != executable.stat().st_size
+                        or digest != sha256_file(executable)):
+                    raise UpdateError("Installed executable does not match its version marker")
+            else:
+                # A commit string alone is not evidence that the installed PE
+                # still corresponds to that build. Keep semver upgrades usable,
+                # but fail closed for equal-version commit comparisons.
+                commit = None
+            return {"version": version, "commit": commit}
+        except UpdateError:
+            raise
+        except (OSError, ValueError, TypeError, AttributeError) as exc:
+            raise UpdateError("Installed version marker is invalid; no files were changed") from exc
+    return {"version": installed_version(executable, marker), "commit": None}
 
 
 def validate_workspace(root: Path) -> tuple[Path, Path]:
@@ -196,11 +234,21 @@ def _install_update_locked(root: Path, payload: Path, build: dict, *, app_dir: P
         raise UpdateError("Close WARDER PICON FACTORY before updating; installed files were not changed")
     marker = app_dir / VERSION_FILE
     new = _metadata(Path(payload), build)
-    current = installed_version(executable, marker)
-    if version_tuple(new["version"]) <= version_tuple(current):
-        if new["version"] == current and new["sha256"] == sha256_file(executable):
-            return {"status": "ALREADY_CURRENT", "version": current}
-        raise UpdateError(f"Update {new['version']} is not newer than installed {current}")
+    installed = installed_build(executable, marker)
+    current = installed["version"]
+    version_order = (version_tuple(new["version"]) > version_tuple(current)) - (
+        version_tuple(new["version"]) < version_tuple(current))
+    if version_order < 0:
+        raise UpdateError(f"Update {new['version']} is older than installed {current}")
+    if version_order == 0:
+        installed_digest = sha256_file(executable)
+        if new["commit"] == installed["commit"] and new["sha256"] == installed_digest:
+            return {"status": "ALREADY_CURRENT", "version": current,
+                    "commit": new["commit"]}
+        if (not installed["commit"] or new["commit"] == installed["commit"]
+                or installed["commit"] not in new["ancestor_commits"]):
+            raise UpdateError(
+                f"Update {new['version']} is not a verified newer build than installed {current}")
 
     transaction = uuid.uuid4().hex
     stamp = str(int((now or time.time)()))
@@ -217,7 +265,8 @@ def _install_update_locked(root: Path, payload: Path, build: dict, *, app_dir: P
         shutil.copyfile(payload, staged_exe)
         if sha256_file(staged_exe) != new["sha256"]:
             raise UpdateError("Staged Factory executable failed SHA-256 verification")
-        staged_marker.write_text(json.dumps({"schema": 1, **new}, sort_keys=True) + "\n", encoding="utf-8")
+        marker_build = {key: new[key] for key in ("version", "commit", "sha256", "bytes")}
+        staged_marker.write_text(json.dumps({"schema": 1, **marker_build}, sort_keys=True) + "\n", encoding="utf-8")
         os.replace(staged_exe, executable)
         replaced = True
         os.replace(staged_marker, marker)

@@ -82,7 +82,9 @@ jobs:
           Set-Content -LiteralPath (Join-Path $oldApp 'legacy-workspace-config.json') -Value '{"inbox":"C:\\Users\\PC\\WARDER-PICONS\\01-SOURCES\\LOCAL-INBOX","version":"factory-v1.0.0"}' -NoNewline
           $inventory += @{ Path='11-APP\WARDER-PICON-FACTORY\WARDER-PICON-FACTORY.exe'; PreviousApp=$true; Sha256=(Get-FileHash -Algorithm SHA256 -LiteralPath (Join-Path $oldApp 'WARDER-PICON-FACTORY.exe')).Hash }
           $inventory += @{ Path='11-APP\WARDER-PICON-FACTORY\legacy-workspace-config.json'; PreviousApp=$true; Sha256=(Get-FileHash -Algorithm SHA256 -LiteralPath (Join-Path $oldApp 'legacy-workspace-config.json')).Hash }
-          Set-Content -LiteralPath (Join-Path $oldApp '.factory-installed-version.json') -Value '{"version":"factory-v0.2.59","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}' -NoNewline
+          $oldExe = Join-Path $oldApp 'WARDER-PICON-FACTORY.exe'
+          $oldBuild = @{ version='factory-v0.2.60'; commit='58f047f688b925f5c912a01c931f6790b67f2ed9'; sha256=(Get-FileHash -Algorithm SHA256 -LiteralPath $oldExe).Hash.ToLowerInvariant(); bytes=(Get-Item -LiteralPath $oldExe).Length }
+          $oldBuild | ConvertTo-Json -Compress | Set-Content -LiteralPath (Join-Path $oldApp '.factory-installed-version.json') -NoNewline
           $inventory | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $env:RUNNER_TEMP 'factory-preserve-hashes.json')
           $queue = @{ schema=1; count=0; items=@(); workstream_counts=@{IDENTITY_VERIFICATION=0; ARTWORK_REVIEW=0; TECHNICAL_QA=0} }
           $queueDir = Join-Path $root '05-QA\EXCEPTIONS'
@@ -358,8 +360,11 @@ jobs:
         working-directory: factory/app
         run: |
           $identity = Get-Content 'dist/BUILD-IDENTITY.json' -Raw | ConvertFrom-Json
-          $buildInfo = [ordered]@{ version=$identity.version; commit=$identity.commit; sha256=$identity.sha256; bytes=$identity.bytes }
-          $buildInfo | ConvertTo-Json | Set-Content -LiteralPath '.factory-update-build.json' -Encoding utf8
+          $history = @(git rev-list HEAD)
+          if ($LASTEXITCODE -ne 0 -or $history.Count -lt 2 -or $history[0] -ne $identity.commit) { throw 'Cannot verify Factory build commit ancestry' }
+          $ancestors = @($history | Select-Object -Skip 1)
+          $buildInfo = [ordered]@{ version=$identity.version; commit=$identity.commit; ancestor_commits=$ancestors; sha256=$identity.sha256; bytes=$identity.bytes }
+          $buildInfo | ConvertTo-Json -Depth 4 | Set-Content -LiteralPath '.factory-update-build.json' -Encoding utf8
           python -m PyInstaller --onefile --console --clean --noconfirm --name WARDER-PICON-FACTORY-UPDATE --distpath dist --workpath build-self-updater --specpath . --add-data "dist/WARDER-PICON-FACTORY.exe;payload" --add-data ".factory-update-build.json;." windows_factory_update.py
           if ($LASTEXITCODE -ne 0) { throw 'Standalone in-place updater build failed' }
           if (-not (Test-Path 'dist/WARDER-PICON-FACTORY-UPDATE.exe')) { throw 'Standalone updater EXE is missing' }
