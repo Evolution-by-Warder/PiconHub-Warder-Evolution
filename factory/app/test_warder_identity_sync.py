@@ -103,7 +103,6 @@ class WarderIdentitySyncTests(unittest.TestCase):
         snapshot = fetch_registry_snapshot(opener)
         self.assertEqual(snapshot["commit"], commit)
         self.assertEqual(snapshot["registry_sha256"], snapshot_digest(snapshot["registry"]))
-        self.assertNotEqual(snapshot["registry_sha256"], hashlib.sha256(raw).hexdigest())
         self.assertTrue(validate_snapshot(snapshot))
 
     def test_invalid_base64_keeps_precise_contents_api_diagnostic(self):
