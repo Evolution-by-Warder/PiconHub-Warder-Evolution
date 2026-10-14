@@ -355,13 +355,14 @@ jobs:
           "Version: $version; commit: $commit; SHA-256: $hash; bytes: $size" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append
       - name: Build one-file in-place Windows updater with embedded Factory
         shell: pwsh
+        working-directory: factory/app
         run: |
-          $identity = Get-Content 'factory/app/dist/BUILD-IDENTITY.json' -Raw | ConvertFrom-Json
+          $identity = Get-Content 'dist/BUILD-IDENTITY.json' -Raw | ConvertFrom-Json
           $buildInfo = [ordered]@{ version=$identity.version; commit=$identity.commit; sha256=$identity.sha256; bytes=$identity.bytes }
-          $buildInfo | ConvertTo-Json | Set-Content -LiteralPath 'factory/app/.factory-update-build.json' -Encoding utf8
-          python -m PyInstaller --onefile --console --clean --noconfirm --name WARDER-PICON-FACTORY-UPDATE --distpath factory/app/dist --workpath factory/app/build-self-updater --specpath factory/app --add-data "factory/app/dist/WARDER-PICON-FACTORY.exe;payload" --add-data "factory/app/.factory-update-build.json;." factory/app/windows_factory_update.py
+          $buildInfo | ConvertTo-Json | Set-Content -LiteralPath '.factory-update-build.json' -Encoding utf8
+          python -m PyInstaller --onefile --console --clean --noconfirm --name WARDER-PICON-FACTORY-UPDATE --distpath dist --workpath build-self-updater --specpath . --add-data "dist/WARDER-PICON-FACTORY.exe;payload" --add-data ".factory-update-build.json;." windows_factory_update.py
           if ($LASTEXITCODE -ne 0) { throw 'Standalone in-place updater build failed' }
-          if (-not (Test-Path 'factory/app/dist/WARDER-PICON-FACTORY-UPDATE.exe')) { throw 'Standalone updater EXE is missing' }
+          if (-not (Test-Path 'dist/WARDER-PICON-FACTORY-UPDATE.exe')) { throw 'Standalone updater EXE is missing' }
       - name: Test standalone updater on the disposable D drive workspace
         shell: pwsh
         env:
