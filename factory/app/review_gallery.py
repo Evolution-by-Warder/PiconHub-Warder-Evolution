@@ -6,7 +6,7 @@ from tkinter import ttk, messagebox
 from pathlib import Path
 from review_ui import latest_review
 from review_queue import load_review_queue
-from review_decision_groups import build_decision_groups, record_group_decision, apply_group_decisions
+from review_decision_groups import build_decision_groups
 from final_qa_bridge import prepare_finalization, FinalizationNotReady
 
 
@@ -530,14 +530,10 @@ class ReviewGallery(ttk.Frame):
                    f"\nRozsah SHA-256 dôkazov: {group['group_evidence_hash']}\n\n{note}")
         if not messagebox.askyesno('Potvrdiť skupinové rozhodnutie', summary, parent=self):
             return
-        try:
-            record_group_decision(self.ledger_path, group, decision, note, operator_confirmation=True)
-        except (ValueError, OSError, PermissionError) as exc:
-            messagebox.showerror('Zápis zlyhal', str(exc), parent=self)
-            return
-        self.items = [item for item in self.items if item.get('review_id') not in set(ids)]
-        self.groups = build_decision_groups({"items": self.items})["groups"]
-        self.render()
+        # Every visible group action must pass through the same Git transaction
+        # as the top-level batch action. Do not write the legacy local decision
+        # ledger or remove items until _git_write_done confirms commit + readback.
+        self._submit_scopes([self._scope(group)], decision)
 
     def add_row(self, item):
         frame = ttk.LabelFrame(self.content, text=f"{item['review_id']}  ·  {item.get('candidate_identity') or item.get('sha256') or 'Bez identity'}", padding=5)

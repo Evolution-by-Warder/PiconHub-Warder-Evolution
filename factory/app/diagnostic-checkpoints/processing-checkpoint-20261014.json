@@ -1,0 +1,50 @@
+{
+  "schema": 1,
+  "type": "WARDER_FACTORY_PROCESSING_CHECKPOINT",
+  "date": "2026-10-14",
+  "source_inventory_checkpoint": "factory/app/diagnostic-checkpoints/originals-and-queue-audit-20261014.json",
+  "source_inventory": {
+    "png_count": 190435,
+    "png_decode_errors": 0,
+    "piconhub_complete_source_triplets": 9336,
+    "unique_service_references": 33697,
+    "provider_path_labels": 583,
+    "satellite_path_labels": 39,
+    "archive_rescanned": false
+  },
+  "latest_windows_snapshot": {
+    "run_id": "20261014-092513-878919",
+    "png_processed": 162427,
+    "active_review_tasks": 9932,
+    "identity_tasks": 4054,
+    "artwork_tasks": 5877,
+    "technical_qa_tasks": 1,
+    "registry_records": 0,
+    "approval_events": 0
+  },
+  "identity_assessment": {
+    "verified_logical_identities_added": 0,
+    "warder_ids_created": 0,
+    "reason": "The archive and read-only Master snapshot expose service references, artwork/source hashes, and provider/satellite path labels but no authoritative station-name/service-list mapping or owner identity decision. A service reference is not a logical Warder identity."
+  },
+  "artwork_assessment": {
+    "source_complete_triplets": 9336,
+    "master_artwork_approvals_added": 0,
+    "reason": "Source triplet presence and successful image decoding do not establish owner approval."
+  },
+  "technical_qa": {
+    "ilsole24ore_tv_fully_transparent_source_files": 4,
+    "open_exception_count": 1,
+    "source_bytes_modified": false
+  },
+  "gui_git_review": {
+    "group_decisions_use_transactional_git_writer": true,
+    "local_group_decision_shortcut_removed": true,
+    "items_hidden_only_after_commit_readback": true
+  },
+  "registry_write": false,
+  "approval_ledger_write": false,
+  "production_branch_write": false,
+  "user_workspace_modified": false,
+  "continue_from": "Use v0.2.57 after Windows CI; verify Git read/write credential setup on PC. Identity and artwork reviews must remain PENDING until owner decisions."
+}
