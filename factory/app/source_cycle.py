@@ -316,6 +316,11 @@ def _queue_fingerprint(payload: dict) -> bool:
     return True
 
 
+def is_cancelled_legacy_review_queue(payload: dict) -> bool:
+    """Recognize the owner-cancelled queue so no UI can reload it on restart."""
+    return _queue_fingerprint(payload)
+
+
 def _sha256(path: Path) -> str:
     digest = hashlib.sha256()
     with path.open("rb") as stream:

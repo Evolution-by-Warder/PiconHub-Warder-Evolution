@@ -6,7 +6,7 @@ import re
 PREFIXES = (
     'warder-master-index', 'identity-collisions', 'registry-matches',
     'qa', 'empty-source', 'publication-exclusions', 'review-queue',
-    'integrity', 'report', 'qa-backlog-causes', 'artwork-review-batch-10',
+    'integrity', 'report', 'qa-backlog-causes',
     'openatv-triage', 'openatv-identity-triage', 'warder-live-png-test',
 )
 # Run IDs: YYYYMMDD-HHMMSS-<numeric nonce>

@@ -986,6 +986,12 @@ class Factory:
    stats['source_ledger_error']=type(exc).__name__+': '+str(exc)[:200]
    stats['active_source']=None
    self.log('Git source ledger nedostupný; zdrojové sťahovanie a kandidátske spracovanie fail-closed: '+stats['source_ledger_error'])
+  if self.active_source!='openatv8':
+   # Later feeds require a separate owner decision even after OpenATV closes.
+   # Never let a ledger transition silently start another source in this app.
+   self.active_source=None
+   stats['deferred_source']='OWNER_DECISION_REQUIRED'
+   self.log('OpenATV-only režim: ďalší zdroj sa bez rozhodnutia vlastníka nespustí.')
   from warder_identity_sync import sync_registry
   try:
    self.git_master_sync=sync_registry(_WORKSPACE['warder_identity_registry_cache'])
@@ -1013,7 +1019,7 @@ class Factory:
   # Generic local ZIPs are deferred. The active source cycle is single-source
   # OpenATV; arbitrary inbox archives must not mix sources into this run.
   stats['deferred_inbox_archives']=sum(1 for p in INBOX.rglob('*') if p.is_file() and p.suffix.casefold() in {'.zip','.7z'})
-  stats['active_source']='openatv8'
+  stats['active_source']=self.active_source
   # Only OpenATV is synchronized in this release. Vhannibal and Chocholousek
   # remain untouched until the prior source reaches a closed ledger state.
   self.openatv_package_styles={}
@@ -1067,7 +1073,7 @@ class Factory:
    if not isinstance(output_cache,dict):output_cache={}
   except (OSError,ValueError,AttributeError):output_cache={}
   candidates=[]
-  active_root=self.active_source if self.active_source in {'openatv8','vhannibal','chocholousek'} else None
+  active_root='openatv8' if self.active_source=='openatv8' else None
   source_bases=((ORIGINALS/active_root,SOURCE_INGEST/'originals'/active_root) if active_root else ())
   for base in source_bases:
    for p in base.rglob('*'):
@@ -1100,6 +1106,25 @@ class Factory:
   output_signature_cache={}
   completed=0
   pending_db_updates=[]
+  candidate_bundle=None
+  candidate_bundle_imported=0
+  candidate_bundle_present=0
+  candidate_bundle_errors=0
+  if self.active_source=='openatv8':
+   try:
+    from openatv_rendered_candidates import RenderedCandidateBundle
+    bundle_dir=SOURCE_INGEST
+    candidate_bundle=RenderedCandidateBundle.load(
+     bundle_dir,checkpoint_path=DATA/'openatv-rendered-candidates-checkpoint.json',
+     progress=lambda current,count,name:self.emit('stage',f'Overujem predpripravené OpenATV výstupy {current}/{count} · {name}'))
+    if candidate_bundle:
+     self.log('Predpripravené OpenATV triplety: manifesty a archívy overené · '+str(len(candidate_bundle.rows))+' artworkov; kontrolujem podľa zdrojového SHA bez rerenderovania.')
+    else:
+     self.log('Predpripravené OpenATV triplety v '+str(bundle_dir)+' sa nenašli; pokračujem bežným rendererom.')
+   except Exception as exc:
+    candidate_bundle_errors+=1
+    stats['candidate_bundle_error']=type(exc).__name__+': '+str(exc)[:200]
+    self.log('Predpripravený OpenATV bundle odmietnutý; bezpečne pokračujem rendererom: '+stats['candidate_bundle_error'])
   def flush_db_updates():
    if pending_db_updates:
     self.db.executemany('INSERT OR REPLACE INTO files VALUES (?,?,?,?,?,?)',pending_db_updates)
@@ -1158,6 +1183,29 @@ class Factory:
        stats['render_cache_hits']+=1
        queue_db_update((rel,sha,st.st_size,st.st_mtime_ns,'VARIANTS_UNREVIEWED',run))
        completed+=1
+      elif candidate_bundle:
+       try:
+        imported=candidate_bundle.install_triplet(sha,OUTPUT,render_revision=RENDER_REVISION,
+         template_sha256={'black':_template_sha256('black'),'white':_template_sha256('white')})
+       except Exception as exc:
+        imported='ERROR'
+        if candidate_bundle_errors<30:self.log('Import kandidáta '+sha[:12]+' zlyhal: '+type(exc).__name__+': '+str(exc)[:140])
+        candidate_bundle_errors+=1
+       if imported in {'IMPORTED','ALREADY_PRESENT'}:
+        candidate_bundle_imported+=int(imported=='IMPORTED')
+        candidate_bundle_present+=int(imported=='ALREADY_PRESENT')
+        output_signature_cache[sha]=_output_signature(sha)
+        queue_db_update((rel,sha,st.st_size,st.st_mtime_ns,'VARIANTS_UNREVIEWED',run))
+        completed+=1
+       elif pool:
+        if imported=='CONFLICT':
+         stats['exceptions']+=1
+         if stats['exceptions']<=30:self.log('Konflikt s existujúcim výstupom pre '+sha[:12]+'; súbory nemením, QA posúdi dostupný výstup.')
+        fut=pool.submit(render_png_task,(rel,str(OUTPUT),sha))
+        pending[fut]=(rel,sha,st)
+       else:
+        queue_db_update((rel,sha,st.st_size,st.st_mtime_ns,'PILLOW_MISSING',run))
+        completed+=1
       elif pool:
        fut=pool.submit(render_png_task,(rel,str(OUTPUT),sha))
        pending[fut]=(rel,sha,st)
@@ -1180,6 +1228,7 @@ class Factory:
     collect(done)
   finally:
    if pool:pool.shutdown(wait=True)
+   if candidate_bundle:candidate_bundle.close()
    flush_db_updates()
    self.db.commit()
   self.db.commit()
@@ -1266,11 +1315,6 @@ class Factory:
   new_ref_triage=new_reference_artwork_triage(registry_matches)
   new_ref_path=REPORTS/('new-reference-artwork-triage-'+run+'.json')
   atomic_json(new_ref_path,new_ref_triage)
-  from registry_triage import new_reference_review_batches
-  new_ref_batches=new_reference_review_batches(new_ref_triage)
-  new_ref_batches_path=REPORTS/('new-reference-review-batches-'+run+'.json')
-  atomic_json(new_ref_batches_path,new_ref_batches)
-  self.log('Nové SRP: '+str(new_ref_batches['conflict_batches'])+' konfliktných a '+str(new_ref_batches['single_batches'])+' jednoznačných skupín po 10 na ručnú kontrolu: '+str(new_ref_batches_path))
   self.log('Nové SRP bez duplicit: '+str(new_ref_triage['single_artwork_references'])+
            ' s jednou grafikou, '+str(new_ref_triage['conflicting_artwork_references'])+
            ' s viacerými grafikami; '+str(new_ref_triage['source_evidence_count'])+
@@ -1581,10 +1625,10 @@ class Factory:
   backlog=explain_review_backlog(review_queue)
   backlog_path=REPORTS/('qa-backlog-causes-'+run+'.json')
   atomic_json(backlog_path,backlog)
-  from review_batch import artwork_review_batch
-  batch_path=REPORTS/('artwork-review-batch-10-'+run+'.json')
-  atomic_json(batch_path,artwork_review_batch(review_queue,limit=10))
-  self.log('QA grafika: prvych 10 stabilnych kontrolnych ID (bez schvalenia): '+str(batch_path))
+  stats['cancelled_legacy_queue_created']=False
+  stats['openatv_candidate_triplets_imported']=candidate_bundle_imported
+  stats['openatv_candidate_triplets_already_present']=candidate_bundle_present
+  stats['openatv_candidate_bundle_errors']=candidate_bundle_errors
   stats['qa_backlog_causes']=backlog['pending_by_reason']
   stats['identity_verification_subcauses']=backlog['identity_verification_subcauses']
   stats['identity_provenance_distribution']=backlog['identity_provenance_distribution']
@@ -1706,43 +1750,13 @@ class Factory:
   workspace.mkdir(parents=True,exist_ok=True)
   results={}
   active=getattr(self,'active_source',None)
-  if active not in {'openatv8','vhannibal','chocholousek'}:
+  if active!='openatv8':
    stats['active_source']=None
-   stats['peer_sources']={'active':{'status':'deferred','reason':'GIT_SOURCE_LEDGER_UNAVAILABLE'}}
+   stats['peer_sources']={'openatv8':{'status':'deferred','reason':'OPENATV_NOT_AUTHORIZED_BY_GIT_LEDGER'},
+                          'vhannibal':{'status':'deferred','reason':'OWNER_DECISION_REQUIRED'},
+                          'chocholousek':{'status':'deferred','reason':'OWNER_DECISION_REQUIRED'}}
    stats['peer_source_imports']=0
-   self.log('Zdrojová práca sa nespustila: chýba overený aktívny Git source checkpoint.')
-   return
-  if active=='vhannibal':
-   try:
-    from vhannibal_source import sync_vhannibal
-    result=sync_vhannibal(workspace,state_dir=DATA,originals_dir=ORIGINALS,legacy_state_dir=APP_DATA)
-    results['vhannibal']=result
-    if result.get('status')=='unavailable':stats['source_errors']=stats.get('source_errors',0)+1
-    self.log(f'Vhannibal: {result.get("status")}; import {result.get("imported",0)}, preskočené {result.get("skipped",0)}.')
-   except Exception as exc:
-    results['vhannibal']={'status':'unavailable','error':type(exc).__name__+': '+str(exc)[:240]}
-    stats['source_errors']=stats.get('source_errors',0)+1
-   results['openatv8']={'status':'deferred','reason':'SOURCE_ORDER'}
-   results['chocholousek']={'status':'deferred','reason':'ANOTHER_SOURCE_ACTIVE'}
-   stats.update({'active_source':active,'peer_sources':results,'peer_source_imports':int(results['vhannibal'].get('imported',0) or 0)})
-   return
-  if active=='chocholousek':
-   try:
-    from chocholousek_source import sync_chocholousek
-    try:
-     choice=json.loads(_WORKSPACE['chocho_positions'].read_text(encoding='utf-8'))
-     positions=choice.get('positions',[]) if isinstance(choice,dict) else []
-    except (OSError,ValueError,TypeError):positions=[]
-    result=sync_chocholousek(workspace,selected_positions=positions,state_dir=DATA,originals_dir=ORIGINALS,legacy_state_dir=APP_DATA)
-    results['chocholousek']=result
-    if result.get('status') in {'unavailable','selection_required'}:stats['source_errors']=stats.get('source_errors',0)+1
-    self.log('Chocholousek: '+str(result.get('status'))+'; import '+str(result.get('imported_png',0))+'.')
-   except Exception as exc:
-    results['chocholousek']={'status':'unavailable','error':type(exc).__name__+': '+str(exc)[:240]}
-    stats['source_errors']=stats.get('source_errors',0)+1
-   results['openatv8']={'status':'deferred','reason':'SOURCE_ORDER'}
-   results['vhannibal']={'status':'deferred','reason':'SOURCE_ORDER'}
-   stats.update({'active_source':active,'peer_sources':results,'peer_source_imports':int(results['chocholousek'].get('imported_png',0) or 0)})
+   self.log('Zdrojová práca sa nespustila: OpenATV nie je aktívny v overenom Git source ledgeri; ostatné zdroje čakajú na rozhodnutie vlastníka.')
    return
   self.emit('stage','3/5 · Kontrolujem iba OpenATV 8')
   try:
@@ -1909,21 +1923,6 @@ class App:
     self.emit('preflight_done',result)
    except Exception as exc:self.emit('preflight_error',type(exc).__name__+': '+str(exc)[:300])
   threading.Thread(target=worker,name='factory-read-only-preflight',daemon=True).start()
- def _saved_review_queue(self):
-  """Return a validated saved queue path without scanning sources or opening PNGs."""
-  try:
-   if getattr(self,'legacy_queue_migration',{}).get('status')!='COMPLETED':return None
-   from review_ui import latest_review
-   from review_queue import load_review_queue
-   path=latest_review(EXCEPTIONS,REPORTS)
-   if path is None:return None
-   queue_data=load_review_queue(path)
-   items=queue_data.get('items')
-   if queue_data.get('schema')!=1 or not isinstance(items,list) or queue_data.get('count')!=len(items):
-    return None
-   return path
-  except (OSError,ValueError,KeyError,TypeError):
-   return None
  def _load_saved_review_counts(self):
   try:
    from review_ui import latest_review
@@ -2035,10 +2034,6 @@ class App:
    try:self.root.after(0,lambda:callback(result))
    except Exception:pass
   threading.Thread(target=worker,name='factory-master-review-git-write',daemon=True).start()
- def open_review(self):
-  if not self.workspace_ready:return
-  from review_ui import ReviewWindow
-  ReviewWindow(self.root, EXCEPTIONS, _WORKSPACE['ledger_path'], OUTPUT, legacy_report_dir=REPORTS, master_root=MASTER_ROOT)
  def open_reports(self):
   if not self.workspace_ready:
    self.status.set('Reporty sa neotvárajú, kým read-only preflight neprejde');return
@@ -2323,20 +2318,12 @@ class App:
       if os.environ.get('WARDER_GUI_SMOKE_TEST')!='1':
        self.root.after(150,self._resume_pending_delivery)
        self.root.after(60000,self._scheduled_delivery)
-       # A valid saved review queue is the recovery checkpoint. Restore it and
-       # refresh its commit-pinned Git classification without rescanning sources,
-       # decoding PNGs, or rendering. A full scan is reserved for first run or
-       # an absent/invalid queue report.
+       # Resume from content-addressed source/output checkpoints. Review queues
+       # are never a production checkpoint and the cancelled queue is ignored.
        if not self._automatic_run_started:
         self._automatic_run_started=True
-        saved_queue=self._saved_review_queue()
-        if saved_queue is not None:
-         self.output.insert('end','Obnovujem uloženú review frontu bez plného scanu: '+Path(saved_queue).name+'\n')
-         self._load_saved_review_counts()
-         self.workspace.gallery.reload()
-        else:
-         self.output.insert('end','Platná uložená review fronta sa nenašla; spúšťam prvý/incrementálny scan.\n')
-         self.root.after(500,self.start)
+        self.output.insert('end','Pokračujem v OpenATV podľa SHA checkpointov a uložených výstupov.\n')
+        self.root.after(500,self.start)
      else:
       self.status.set('Zápisy zablokované · preflight: '+(', '.join(v.missing) or 'chyba čítania'))
       self.output.insert('end','READ-ONLY PREFLIGHT FAILED\n'+'\n'.join(v.findings)+'\n')
@@ -2356,7 +2343,7 @@ class App:
      self.status.set('Export zlyhal');self.output.insert('end','EXPORT CHYBA: '+v+'\n')
      self._close_when_ready()
     elif k=='error':
-     self._set_run_state('failed','ZLYHANIE · beh nebol dokončený · posledný platný report a fronta zachované');self.output.insert('end',v);self.running=False
+     self._set_run_state('failed','ZLYHANIE · beh nebol dokončený · SHA checkpointy a dôkazy zachované');self.output.insert('end',v);self.running=False
      try:self._record_failed_run()
      except (OSError,ValueError,TypeError) as exc:
       self.output.insert('end','\nDiagnostika chyby sa nedala uložiť: '+type(exc).__name__+'\n')

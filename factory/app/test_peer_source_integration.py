@@ -79,7 +79,7 @@ class PeerSourceIntegrationTests(unittest.TestCase):
             self.assertEqual(stats['peer_sources']['openatv8']['imported'], 1)
 
 
-    def test_vhannibal_runs_only_after_git_ledger_selects_it(self):
+    def test_vhannibal_waits_for_separate_owner_decision_even_if_ledger_advances(self):
         with tempfile.TemporaryDirectory() as tmp:
             root=Path(tmp); data=root/'00-STATE'; originals=root/'02-ORIGINALS'; data.mkdir();originals.mkdir()
             calls=[]; module=types.ModuleType('vhannibal_source')
@@ -91,8 +91,9 @@ class PeerSourceIntegrationTests(unittest.TestCase):
                  patch.object(engine,'APP_DATA',root/'11-APP'/'data'), \
                  patch.dict('sys.modules',{'vhannibal_source':module}):
                 stats={};factory.sync_peer_sources(stats)
-            self.assertEqual(len(calls),1)
-            self.assertEqual(stats['active_source'],'vhannibal')
+            self.assertEqual(len(calls),0)
+            self.assertIsNone(stats['active_source'])
+            self.assertEqual(stats['peer_sources']['vhannibal']['reason'],'OWNER_DECISION_REQUIRED')
             self.assertEqual(stats['peer_sources']['openatv8']['status'],'deferred')
             self.assertEqual(stats['peer_sources']['chocholousek']['status'],'deferred')
 
