@@ -388,7 +388,8 @@ jobs:
           $installedVersion = (Get-Content 'D:\WARDER-PICON-FACTORY\11-APP\WARDER-PICON-FACTORY\.factory-installed-version.json' -Raw | ConvertFrom-Json).version
           if ($installedVersion -cne $expectedVersion) { throw 'Updater did not update the installed version marker' }
           $newHash = (Get-FileHash -Algorithm SHA256 -LiteralPath $installed).Hash
-          if ($newHash -eq $oldHash) { throw 'Standalone updater did not replace the old executable' }
+          $expectedHash = (Get-Content 'factory/app/dist/BUILD-IDENTITY.json' -Raw | ConvertFrom-Json).sha256
+          if ($newHash -ine $expectedHash) { throw 'Installed executable SHA-256 does not match the tested Factory payload' }
           $backups = Get-ChildItem (Split-Path -Parent $installed) -File -Filter 'WARDER-PICON-FACTORY.exe.previous-*'
           if (-not ($backups | Where-Object { (Get-FileHash -Algorithm SHA256 -LiteralPath $_.FullName).Hash -eq $oldHash })) { throw 'Updater did not retain a verified rollback copy' }
           $inventory = Get-Content (Join-Path $env:RUNNER_TEMP 'factory-preserve-hashes.json') | ConvertFrom-Json
