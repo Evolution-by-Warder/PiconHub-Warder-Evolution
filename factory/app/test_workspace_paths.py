@@ -150,7 +150,7 @@ class WorkspaceArchitectureTests(unittest.TestCase):
             path.write_bytes(content)
         hashes_before = {path: hashlib.sha256(path.read_bytes()).hexdigest() for path in files}
         names_before = {path.relative_to(root).as_posix() for path in root.rglob("*")}
-        result = read_only_preflight(root)
+        result = read_only_preflight(root, full_scan=True)
         self.assertTrue(result.ok, result.findings)
         self.assertEqual(result.checked, 13)
         self.assertEqual(result.inventory["01-SOURCES"]["archives"], 1)
@@ -168,8 +168,12 @@ class WorkspaceArchitectureTests(unittest.TestCase):
         paths["inbox"].mkdir()
         paths["inbox"].joinpath("local.zip").write_bytes(b"ZIP")
         paths["exceptions"].mkdir(parents=True, exist_ok=True)
+        items = [{"review_id": f"WR-{index:016X}", "category": "REGISTRY_MATCH",
+                  "workstream": ("IDENTITY_VERIFICATION" if index < 2 else "ARTWORK_REVIEW" if index < 6 else "TECHNICAL_QA"),
+                  "candidate_identity": f"ref-{index}", "reasons": ["fixture"], "decision": "PENDING"}
+                 for index in range(8)]
         paths["exceptions"].joinpath("review-queue-current.json").write_text(json.dumps({
-            "count": 8, "items": [{}] * 8,
+            "count": 8, "items": items,
             "workstream_counts": {"IDENTITY_VERIFICATION": 2, "ARTWORK_REVIEW": 4, "TECHNICAL_QA": 2},
         }), encoding="utf-8")
         rows = source_rows(paths["ingest"], paths["inbox"], paths["source_manifest"],
@@ -179,8 +183,22 @@ class WorkspaceArchitectureTests(unittest.TestCase):
         self.assertIn("imported_png: 21", rows[0][2])
         self.assertEqual(rows[-1][2], "1 ZIP · 0 PNG")
         self.assertEqual(counts, {"total": 8, "IDENTITY_VERIFICATION": 2,
-                                  "ARTWORK_REVIEW": 4, "TECHNICAL_QA": 2})
+                                  "ARTWORK_REVIEW": 4, "TECHNICAL_QA": 2,
+                                  "technical_items": 8})
         self.assertTrue(read_only_preflight(root).ok)
+
+    def test_startup_preflight_does_not_walk_large_nested_png_trees(self):
+        from unittest.mock import patch
+        root = synthetic_workspace(self.base / "WARDER-PICON-FACTORY")
+        nested = root / "02-ORIGINALS" / "package" / "picon"
+        nested.mkdir(parents=True)
+        for index in range(250):
+            (nested / f"{index}.png").write_bytes(b"png")
+        with patch("workspace_paths._category_counts", side_effect=AssertionError("recursive scan called")):
+            result = read_only_preflight(root)
+        self.assertTrue(result.ok, result.findings)
+        self.assertEqual(result.inventory["02-ORIGINALS"]["scan"], "STRUCTURE_ONLY")
+        self.assertEqual(result.inventory["02-ORIGINALS"]["png"], 0)
 
     def test_dashboard_reads_existing_app_checkpoints_without_moving_them(self):
         from factory_workspace import source_rows

@@ -1640,8 +1640,16 @@ class Factory:
   stats['qa_grouping_savings']=backlog['grouping_savings']
   self.log('QA PREČO ZOSTÁVAJÚ: '+str(backlog['pending_by_reason'])+'; report: '+str(backlog_path))
   self.log('QA ÚSPORA ZOSKUPENÍM: '+str(backlog['grouping_savings']))
-  # User-facing review count is pending-only; retain full audit cardinality separately.
-  stats['review_queue_items']=backlog['pending_review_tasks']
+  # User-facing review count is decision groups, not raw PNG/service rows.
+  group_lane_counts={"IDENTITY_VERIFICATION":0,"ARTWORK_REVIEW":0,"TECHNICAL_QA":0}
+  item_by_id={item.get('review_id'):item for item in review_queue.get('items',[])}
+  for group in group_report.get('groups',[]):
+   member=next((item_by_id.get(review_id) for review_id in group.get('member_review_ids',[])
+                if item_by_id.get(review_id)),None)
+   if member and member.get('workstream') in group_lane_counts:
+    group_lane_counts[member['workstream']]+=1
+  stats['review_queue_items']=group_report['summary']['user_decision_groups']
+  stats['review_queue_technical_items']=backlog['pending_review_tasks']
   stats['review_queue_audit_items']=review_queue['count']+len(review_queue.get('suppressed_identity_reviews',[]))
   stats['review_queue_audit_items']+=len(review_queue.get('covered_items',[]))
   stats['identity_reviews_suppressed']=len(review_queue.get('suppressed_identity_reviews',[]))
@@ -1649,9 +1657,10 @@ class Factory:
   stats['qa_auto_resolved_master_pixel_identical']=sum(
    item.get('decision') == 'AUTO_RESOLVED_MASTER_PIXEL_IDENTICAL'
    for item in review_queue['items'])
-  stats['review_workstreams']=review_queue.get('workstream_counts', {})
-  self.log('QA pracovné fronty: '+', '.join(f'{name}={count}' for name,count in review_queue.get('workstream_counts', {}).items()))
-  self.log(f'Výnimky na rozhodnutie: {review_queue["count"]}; vizuálne upozornenia sú evidované osobitne v QA reporte: {review_path}')
+  stats['review_workstreams']=group_lane_counts
+  stats['review_technical_workstreams']=review_queue.get('workstream_counts', {})
+  self.log('Rozhodovacie skupiny podľa typu: '+', '.join(f'{name}={count}' for name,count in group_lane_counts.items()))
+  self.log(f'Výnimky: {stats["review_queue_technical_items"]} technických riadkov v {stats["review_queue_items"]} skupinách; vizuálne upozornenia sú evidované osobitne v QA reporte: {review_path}')
   phase_timings['review_queue_seconds']=round(time.perf_counter()-phase_started,3)
   phase_started=time.perf_counter()
   # End-of-run read-only integrity gate: source content must still match its ID.
@@ -1912,7 +1921,7 @@ class App:
   if self.running or self.export_running:
    self.status.set('Preflight sa nedá obnoviť počas aktívneho zápisu');return
   self.workspace_ready=False
-  self.status.set('Read-only preflight · inventarizujem existujúci workspace')
+  self.status.set('Read-only preflight · overujem 13 priečinkov')
   def worker():
    try:
     result=read_only_preflight(ROOT,progress=lambda current,total,name:self.emit('preflight_progress',(current,total,name)))
@@ -1929,16 +1938,15 @@ class App:
    from review_queue import load_review_queue
    path=latest_review(EXCEPTIONS,REPORTS)
    if path is None:
-    self.counts_status.set('Čakajúce úlohy: bez uloženého reportu')
+    self.counts_status.set('Rozhodovacie skupiny: bez uloženého reportu')
     return
    data=load_review_queue(path)
-   lanes=data.get('workstream_counts',{})
-   self.counts_status.set('Čakajúce úlohy: '+str(data['count'])+
-    ' | Identita: '+str(lanes.get('IDENTITY_VERIFICATION',0))+
-    ' | Grafika: '+str(lanes.get('ARTWORK_REVIEW',0))+
-    ' | Technické QA: '+str(lanes.get('TECHNICAL_QA',0)))
+   from review_decision_groups import build_decision_groups
+   groups=build_decision_groups(data).get('summary',{})
+   self.counts_status.set('Rozhodovacie skupiny: '+str(groups.get('user_decision_groups',0))+
+    ' | technické výnimky: '+str(groups.get('active_technical_items',0)))
   except (OSError,ValueError,KeyError,TypeError) as exc:
-   self.counts_status.set('Čakajúce úlohy: report nedostupný ('+type(exc).__name__+')')
+   self.counts_status.set('Rozhodovacie skupiny: report nedostupný ('+type(exc).__name__+')')
  def _refresh_production_counts(self):
   if self._final_counts_running:
    self._final_counts_refresh_pending=True
@@ -2272,8 +2280,8 @@ class App:
        ' zablokovaných QA, '+str(final.get('invalid',0))+' neplatných.\n')
      threading.Thread(target=self._send_diagnostics,args=(path,),daemon=True).start()
      lanes=s.get('review_workstreams',{})
-     self.counts_status.set('Čakajúce úlohy: '+str(s.get('review_queue_items','?'))+' | Identita: '+str(lanes.get('IDENTITY_VERIFICATION','?'))+' | Grafika: '+str(lanes.get('ARTWORK_REVIEW','?'))+' | Technické QA: '+str(lanes.get('TECHNICAL_QA','?')))
-     self.output.insert('end','VERZIA: '+self.installed_version+' | Tento beh: '+str(s.get('changed',0))+' zmenených zdrojov, '+str(s.get('created',0))+' vytvorených záznamov, '+str(s.get('qa_repaired',0))+' QA opráv, '+str(s.get('review_queue_items',0))+' čaká na posúdenie.\n')
+     self.counts_status.set('Rozhodovacie skupiny: '+str(s.get('review_queue_items','?'))+' | Identita: '+str(lanes.get('IDENTITY_VERIFICATION','?'))+' | Grafika: '+str(lanes.get('ARTWORK_REVIEW','?'))+' | Technické QA: '+str(lanes.get('TECHNICAL_QA','?')))
+     self.output.insert('end','VERZIA: '+self.installed_version+' | Tento beh: '+str(s.get('changed',0))+' zmenených zdrojov, '+str(s.get('created',0))+' vytvorených záznamov, '+str(s.get('qa_repaired',0))+' QA opráv, '+str(s.get('review_queue_items',0))+' rozhodovacích skupín ('+str(s.get('review_queue_technical_items',0))+' technických výnimiek).\n')
      self._close_when_ready()
     elif k=='cancelled':
      self.running=False;self._set_run_state('cancelled','Beh bezpečne zastavený · čiastočné výstupy zostali obnoviteľné')
@@ -2299,14 +2307,15 @@ class App:
       self.workspace.kpi_vars['final'].set('Počítanie zlyhalo · pozri Diagnostiku')
      if self._final_counts_refresh_pending:self._refresh_production_counts()
     elif k=='legacy_queue_migration':
-     if v.get('status')=='COMPLETED':
-      self.output.insert('end','Stará fronta 9 932: zrušená jednorazovou kontrolovanou migráciou; odstránené súbory '+str(v.get('deleted',0))+'.\n')
-      self.counts_status.set('Čakajúce úlohy: stará fronta zrušená · nový OpenATV cyklus')
+     if v.get('status') in ('COMPLETED','NOT_FOUND'):
+      detail='odstránené súbory '+str(v.get('deleted',0)) if v.get('status')=='COMPLETED' else 'aktívne zrušené súbory sa nenašli'
+      self.output.insert('end','Staré review fronty: '+detail+'.\n')
+      self.counts_status.set('Staré fronty zrušené · OpenATV aktívny')
      else:
-      self.output.insert('end','Stará fronta nebola obnovená; migrácia je blokovaná: '+str(v.get('conflicts',v.get('reason','UNKNOWN')))+'\n')
+      self.output.insert('end','Staré review fronty sa neobnovia; migrácia je blokovaná: '+str(v.get('conflicts',v.get('reason','UNKNOWN')))+'\n')
     elif k=='preflight_progress':
      current,total,name=v
-     self.status.set('Read-only preflight · '+str(current)+'/'+str(total)+' · '+name+' · kontrolujem súbory')
+     self.status.set('Read-only preflight · '+str(current)+'/'+str(total)+' · '+name+' · kontrolujem štruktúru')
     elif k=='preflight_done':
      self.preflight_result=v;self.workspace_ready=bool(v.ok)
      self.workspace.show_preflight(v)

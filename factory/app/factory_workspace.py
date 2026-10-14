@@ -174,9 +174,18 @@ def latest_review_counts(reports: Path, *fallback_dirs: Path):
     data = _json(path)
     if _load_error(data):
         return path, {"error": _load_error(data)}
-    lanes = data.get("workstream_counts", {})
-    return path, {"total": int(data.get("count", len(data.get("items", [])))), **{
-        key: int(lanes.get(key, 0)) for key in ("IDENTITY_VERIFICATION", "ARTWORK_REVIEW", "TECHNICAL_QA")}}
+    from review_decision_groups import build_decision_groups
+    group_report = build_decision_groups(data)
+    summary = group_report.get("summary", {})
+    grouped = {"IDENTITY_VERIFICATION": 0, "ARTWORK_REVIEW": 0, "TECHNICAL_QA": 0}
+    by_id = {item.get("review_id"): item for item in data.get("items", []) if isinstance(item, dict)}
+    for group in group_report.get("groups", []):
+        member = next((by_id.get(review_id) for review_id in group.get("member_review_ids", [])
+                       if by_id.get(review_id)), None)
+        if member and member.get("workstream") in grouped:
+            grouped[member["workstream"]] += 1
+    return path, {"total": int(summary.get("user_decision_groups", 0)), **grouped,
+                  "technical_items": int(summary.get("active_technical_items", 0))}
 
 
 def master_first_review_summary(active_counts, run_stats):
@@ -264,7 +273,7 @@ class FactoryWorkspace:
         self.root.after(15000, self._refresh_timer)
 
     def _page(self, title):
-        if title in ("Dashboard", "Výnimky / schvaľovanie"):
+        if title in ("Dashboard", "Výnimky"):
             parent = self.operator_left if title == "Dashboard" else self.operator_right
             frame = ttk.Frame(parent, padding=8)
             frame.pack(fill="both", expand=True)
@@ -432,7 +441,7 @@ class FactoryWorkspace:
     def _build_review(self):
         from review_gallery import ReviewGallery
         pending_git_path = Path(self.paths["app_data"]) / "pending-master-review-batches.json"
-        self.gallery = ReviewGallery(self._page("Výnimky / schvaľovanie"), self.paths["exceptions"], self.paths["ledger_path"], self.paths["output"], write_enabled=lambda: self.app.workspace_ready, legacy_report_dir=self.paths["reports"], legacy_ledger_path=self.paths["legacy_ledger"], master_root=self.paths["master_root"], git_decision_loader=self.app.fetch_git_review_ledger, git_decision_writer=self.app.write_git_review_batch, pending_git_path=pending_git_path)
+        self.gallery = ReviewGallery(self._page("Výnimky"), self.paths["exceptions"], self.paths["ledger_path"], self.paths["output"], write_enabled=lambda: self.app.workspace_ready, legacy_report_dir=self.paths["reports"], legacy_ledger_path=self.paths["legacy_ledger"], master_root=self.paths["master_root"], git_decision_loader=self.app.fetch_git_review_ledger, git_decision_writer=self.app.write_git_review_batch, pending_git_path=pending_git_path)
         # ttk.Notebook owns a frame; gallery fills it.
         self.gallery.pack(fill="both", expand=True)
 
@@ -654,9 +663,12 @@ class FactoryWorkspace:
                 state, details = "CHYBA ČÍTANIA", purpose
             else:
                 state = "READ-ONLY OK" if result.ok else "PREVERENÉ"
-                details = f"{stats.get('files', 0)} súborov · {stats.get('png', 0)} PNG · {stats.get('archives', 0)} archívov · {stats.get('bytes', 0)} B"
+                if stats.get("scan") == "STRUCTURE_ONLY":
+                    details = f"Štruktúra a prístup overené · {stats.get('entries', 0)} priamych položiek · bez prehľadávania PNG"
+                else:
+                    details = f"{stats.get('files', 0)} súborov · {stats.get('png', 0)} PNG · {stats.get('archives', 0)} archívov · {stats.get('bytes', 0)} B"
             self.settings_tree.insert("", "end", values=(name, state, details, str(Path(result.root) / name)))
-        self.preflight_info.configure(text=("ÚSPEŠNÝ PREFLIGHT · 13/13 kategórií · žiadne dáta nemenili" if result.ok else
+        self.preflight_info.configure(text=("ÚSPEŠNÝ PREFLIGHT · 13/13 kategórií · rýchla kontrola bez prechádzania archívov a PNG · žiadne dáta nemenili" if result.ok else
             "ZÁPIS ZABLOKOVANÝ · " + " | ".join(result.findings)))
         self.kpi_vars["workspace"].set("13/13 kategórií overených" if result.ok else
                                        f"Zápis blokovaný · {len(result.missing)} kategórií chýba")

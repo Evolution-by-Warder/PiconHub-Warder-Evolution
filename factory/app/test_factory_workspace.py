@@ -53,7 +53,15 @@ class FactoryWorkspaceTests(unittest.TestCase):
         master_old.write_text(json.dumps({"services": {"OLD": []}}), encoding="utf-8")
         master_new.write_text(json.dumps({"service_count": 1, "asset_count": 3,
                                           "services": {"ABC": [{"position": "13.0E", "provider": "p", "style": "transparent"}]}}), encoding="utf-8")
-        (reports / "review-queue-a.json").write_text(json.dumps({"count": 4, "workstream_counts": {"ARTWORK_REVIEW": 3}}), encoding="utf-8")
+        review_items = [{"review_id": f"WR-{index:016X}", "workstream": "ARTWORK_REVIEW",
+                         "category": "REGISTRY_MATCH", "candidate_identity": f"ref-{index}",
+                         "reasons": ["EXISTING_SERVICE_DIFFERENT_ART"], "decision": "PENDING"}
+                        for index in range(3)] + [{"review_id": "WR-0000000000000004",
+                         "workstream": "IDENTITY_VERIFICATION", "category": "IDENTITY_COLLISION",
+                         "candidate_identity": "identity-4", "reasons": ["UNVERIFIED_REGISTRY_ID"],
+                         "decision": "PENDING"}]
+        (reports / "review-queue-a.json").write_text(json.dumps({"count": 4, "items": review_items,
+            "workstream_counts": {"ARTWORK_REVIEW": 3, "IDENTITY_VERIFICATION": 1}}), encoding="utf-8")
         path, items = latest_registry_items(reports)
         master_path, master, services = latest_master_registry(reports)
         _, counts = latest_review_counts(reports)

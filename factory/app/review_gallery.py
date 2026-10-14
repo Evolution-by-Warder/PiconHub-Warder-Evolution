@@ -91,8 +91,18 @@ def pending_items(items, ledger_path, legacy_ledger_path=None):
         return visible
 
 
+def groups_for_lane(groups, items, lane):
+    """Return every matching exception group; display never paginates by ten."""
+    if lane == 'ALL':
+        return list(groups)
+    by_id = {item.get('review_id'): item for item in items}
+    return [group for group in groups if any(
+        by_id.get(member, {}).get('workstream') == lane
+        for member in group.get('member_review_ids', []))]
+
+
 class ReviewGallery(ttk.Frame):
-    """Ten review entries per page, scrollable in the main window."""
+    """Evidence-bounded exception groups, scrollable in the main window."""
     def __init__(self, parent, report_dir, ledger_path, output_dir, write_enabled=None,
                  legacy_report_dir=None, legacy_ledger_path=None, master_root=None,
                  git_decision_loader=None, git_decision_writer=None, pending_git_path=None):
@@ -117,9 +127,8 @@ class ReviewGallery(ttk.Frame):
         self._master_refresh_running = False
         self.selected_scopes = {}
         self.items = []
-        self.page = 0
         toolbar = ttk.Frame(self); toolbar.pack(fill='x', pady=3)
-        ttk.Label(toolbar, text='Schvaľovanie · 10 rozhodovacích skupín / dávka', font=('Segoe UI', 10, 'bold')).pack(side='left')
+        ttk.Label(toolbar, text='Výnimky podľa identity a artworku', font=('Segoe UI', 10, 'bold')).pack(side='left')
         self.git_status = ttk.Label(toolbar, text='Git Master: synchronizujem…')
         self.git_status.pack(side='left', padx=10)
         self.batch_decision = tk.StringVar(value='APPROVED_FOR_REVIEW')
@@ -132,9 +141,7 @@ class ReviewGallery(ttk.Frame):
         self.lane = tk.StringVar(value='ARTWORK_REVIEW')
         filter_box = ttk.Combobox(nav, textvariable=self.lane, state='readonly', width=21,
                                   values=('ARTWORK_REVIEW', 'IDENTITY_VERIFICATION', 'TECHNICAL_QA', 'ALL'))
-        filter_box.pack(side='left'); filter_box.bind('<<ComboboxSelected>>', lambda _: self.reset_page())
-        ttk.Button(nav, text='◀', width=3, command=lambda: self.turn(-1)).pack(side='left', padx=3)
-        ttk.Button(nav, text='▶', width=3, command=lambda: self.turn(1)).pack(side='left')
+        filter_box.pack(side='left'); filter_box.bind('<<ComboboxSelected>>', lambda _: self.render())
         ttk.Button(nav, text='Prepočítať MASTER-first bez renderu',
                    command=self.refresh_master_first).pack(side='left', padx=8)
         self.refresh_status = ttk.Label(self, text='', anchor='w', wraplength=1350)
@@ -162,7 +169,6 @@ class ReviewGallery(ttk.Frame):
             self.items = []
             self.groups = []
             self.load_error = f'{type(exc).__name__}: {exc}'
-        self.page = 0
         self.render()
         self.refresh_git_state()
 
@@ -276,7 +282,6 @@ class ReviewGallery(ttk.Frame):
             self.items = apply_git_review_decisions(loaded.get('items', []), self.git_decision_events)
             self.groups = build_decision_groups({'items': self.items})['groups']
             self.load_error = None
-            self.page = 0
             self.render()
         except (OSError, ValueError, KeyError, TypeError) as exc:
             self.refresh_status.configure(
@@ -308,9 +313,6 @@ class ReviewGallery(ttk.Frame):
                   and self.selected_scopes[group.get('decision_group_id')].get()]
         if not scopes:
             messagebox.showinfo('Git dávka', 'Vyber aspoň jednu zobrazenú rozhodovaciu skupinu.', parent=self)
-            return
-        if len(scopes) > 10:
-            messagebox.showwarning('Rozsah dávky', 'Jedna Git transakcia môže obsahovať najviac 10 skupín.', parent=self)
             return
         decision = self.batch_decision.get()
         count = sum(len(scope['items']) for scope in scopes)
@@ -389,26 +391,16 @@ class ReviewGallery(ttk.Frame):
             self.git_decision_writer(batch, self.git_commit,
                 lambda result, current=batch: self._git_write_done(current, result))
 
-    def reset_page(self):
-        self.page = 0; self.render()
-
-    def turn(self, step):
-        self.page += step; self.render()
-
     def render(self):
         for child in self.content.winfo_children(): child.destroy()
         lane = self.lane.get()
         by_id = {item.get('review_id'): item for item in self.items}
-        selected = [group for group in self.groups
-                    if lane == 'ALL' or any(by_id.get(member, {}).get('workstream') == lane
-                                            for member in group.get('member_review_ids', []))]
-        pages = max(1, (len(selected) + 9) // 10)
-        self.page = min(max(0, self.page), pages - 1)
+        selected = groups_for_lane(self.groups, self.items, lane)
         task_count = sum(group.get('review_tasks', 0) for group in selected)
-        self.counter.configure(text=f'{self.page+1}/{pages} · rozhodnutia {len(selected)} · položky {task_count}' if not self.load_error else 'CHYBA načítania fronty')
+        self.counter.configure(text=f'Rozhodovacie skupiny {len(selected)} · technické výnimky {task_count}' if not self.load_error else 'CHYBA načítania výnimiek')
         if self.load_error:
             ttk.Label(self.content, text=self.load_error, foreground='red', wraplength=700).pack(anchor='w', padx=8, pady=8)
-        for group in selected[self.page*10:(self.page+1)*10]:
+        for group in selected:
             members = [by_id[review_id] for review_id in group.get('member_review_ids', [])
                        if review_id in by_id]
             if len(members) == 1:

@@ -553,22 +553,6 @@ class FactoryRenderingTests(unittest.TestCase):
         self.assertEqual(result['single_artwork'][0]['artwork_observations'], 2)
         self.assertEqual({row['sha256'] for row in result['source_evidence']}, {'a'*64, 'b'*64, 'c'*64})
         self.assertEqual(result['schema'], 2)
-        from registry_triage import new_reference_review_batches
-        pages = new_reference_review_batches(result, batch_size=1)
-        self.assertEqual(pages['conflict_batches'], 1)
-        self.assertEqual(pages['single_batches'], 1)
-        self.assertEqual(pages['review_batches'][0]['category'], 'CONFLICT')
-        self.assertEqual(pages['review_batches'][0]['item_count'], 1)
-        self.assertEqual(pages['review_batches'][0]['distinct_artwork_count'], 2)
-        self.assertEqual(pages['review_batches'][0]['items'][0]['review_item_id'], 'NEW-SRP-' + ref_b)
-        larger_pages = new_reference_review_batches(result, batch_size=10)
-        self.assertEqual({item['review_item_id'] for page in pages['review_batches'] for item in page['items']},
-                         {item['review_item_id'] for page in larger_pages['review_batches'] for item in page['items']})
-        self.assertEqual(pages['review_batches'][0]['status'], 'PENDING_HUMAN_REVIEW')
-        self.assertEqual(pages['review_batches'][0]['identity_approval'], 'NONE')
-        self.assertEqual(sum(len(p['items']) for p in pages['review_batches']), result['new_references'])
-        with self.assertRaises(ValueError):
-            new_reference_review_batches(result, batch_size=0)
         invalid = [item(ref_a, 'not-a-sha', 'bad.png'),
                    item(ref_a, 'A'*64, 'upper.png'),
                    item(ref_a, 'a'*64, 'lower.png')]

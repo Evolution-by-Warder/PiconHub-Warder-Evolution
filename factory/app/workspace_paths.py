@@ -188,8 +188,14 @@ def verify_required_directories(root: Path):
     return True, ()
 
 
-def read_only_preflight(root: Path | None = None, *, progress=None) -> PreflightResult:
-    """Audit the 13 required directories without creating or changing anything."""
+def read_only_preflight(root: Path | None = None, *, progress=None, full_scan=False) -> PreflightResult:
+    """Quickly verify workspace structure; optionally inventory every file.
+
+    GUI startup and write gates use the structure-only default. Recursively
+    walking Originals/Output before the app becomes usable made startup scale
+    with hundreds of thousands of PNG files. Full inventory is opt-in for an
+    explicit diagnostic operation.
+    """
     root = Path(root) if root is not None else resolve_root()
     missing, unreadable, findings = [], [], []
     inventory = {}
@@ -212,7 +218,25 @@ def read_only_preflight(root: Path | None = None, *, progress=None) -> Preflight
             missing.append(name)
             inventory[name] = {"files": 0, "bytes": 0, "png": 0, "archives": 0, "json": 0, "sqlite": 0}
             continue
-        counts, errors = _category_counts(folder)
+        if full_scan:
+            counts, errors = _category_counts(folder)
+        else:
+            counts = {"files": 0, "bytes": 0, "png": 0, "archives": 0, "json": 0, "sqlite": 0}
+            errors = []
+            try:
+                with os.scandir(folder) as entries:
+                    # One directory level is enough to verify access and catch
+                    # direct reparse points. Do not descend into production data.
+                    for entry in entries:
+                        counts["entries"] = counts.get("entries", 0) + 1
+                        try:
+                            if entry.is_symlink():
+                                errors.append(f"UNSAFE_REPARSE: {entry.path}")
+                        except OSError as exc:
+                            errors.append(f"{entry.path}: {type(exc).__name__}")
+            except OSError as exc:
+                errors.append(f"{folder}: {type(exc).__name__}: {exc}")
+        counts["scan"] = "FULL" if full_scan else "STRUCTURE_ONLY"
         inventory[name] = counts
         if errors:
             unreadable.extend(errors[:20])

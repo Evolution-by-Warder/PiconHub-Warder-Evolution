@@ -82,6 +82,7 @@ jobs:
           Set-Content -LiteralPath (Join-Path $oldApp 'legacy-workspace-config.json') -Value '{"inbox":"C:\\Users\\PC\\WARDER-PICONS\\01-SOURCES\\LOCAL-INBOX","version":"factory-v1.0.0"}' -NoNewline
           $inventory += @{ Path='11-APP\WARDER-PICON-FACTORY\WARDER-PICON-FACTORY.exe'; PreviousApp=$true; Sha256=(Get-FileHash -Algorithm SHA256 -LiteralPath (Join-Path $oldApp 'WARDER-PICON-FACTORY.exe')).Hash }
           $inventory += @{ Path='11-APP\WARDER-PICON-FACTORY\legacy-workspace-config.json'; PreviousApp=$true; Sha256=(Get-FileHash -Algorithm SHA256 -LiteralPath (Join-Path $oldApp 'legacy-workspace-config.json')).Hash }
+          Set-Content -LiteralPath (Join-Path $oldApp '.factory-installed-version.json') -Value '{"version":"factory-v0.2.59","commit":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}' -NoNewline
           $inventory | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $env:RUNNER_TEMP 'factory-preserve-hashes.json')
           $queue = @{ schema=1; count=0; items=@(); workstream_counts=@{IDENTITY_VERIFICATION=0; ARTWORK_REVIEW=0; TECHNICAL_QA=0} }
           $queueDir = Join-Path $root '05-QA\EXCEPTIONS'
@@ -352,11 +353,49 @@ jobs:
           $identity | ConvertTo-Json | Set-Content -LiteralPath 'factory/app/dist/BUILD-IDENTITY.json' -Encoding utf8
           "### WARDER PICON FACTORY Windows build" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append
           "Version: $version; commit: $commit; SHA-256: $hash; bytes: $size" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append
-      - name: Build standalone Python-free Windows updater
+      - name: Build one-file in-place Windows updater with embedded Factory
         shell: pwsh
         run: |
-          python -m PyInstaller --onefile --clean --noconfirm --name WARDER-PICON-UPDATER --distpath factory/app/dist --workpath factory/app/build-updater --specpath factory/app factory/app/windows_exe_startup.py
-          if (-not (Test-Path 'factory/app/dist/WARDER-PICON-UPDATER.exe')) { throw 'Updater EXE build missing' }
+          $identity = Get-Content 'factory/app/dist/BUILD-IDENTITY.json' -Raw | ConvertFrom-Json
+          $buildInfo = [ordered]@{ version=$identity.version; commit=$identity.commit; sha256=$identity.sha256; bytes=$identity.bytes }
+          $buildInfo | ConvertTo-Json | Set-Content -LiteralPath 'factory/app/.factory-update-build.json' -Encoding utf8
+          python -m PyInstaller --onefile --console --clean --noconfirm --name WARDER-PICON-FACTORY-UPDATE --distpath factory/app/dist --workpath factory/app/build-self-updater --specpath factory/app --add-data "factory/app/dist/WARDER-PICON-FACTORY.exe;payload" --add-data "factory/app/.factory-update-build.json;." factory/app/windows_factory_update.py
+          if ($LASTEXITCODE -ne 0) { throw 'Standalone in-place updater build failed' }
+          if (-not (Test-Path 'factory/app/dist/WARDER-PICON-FACTORY-UPDATE.exe')) { throw 'Standalone updater EXE is missing' }
+      - name: Test standalone updater on the disposable D drive workspace
+        shell: pwsh
+        env:
+          WARDER_GUI_SMOKE_TEST: "1"
+          WARDER_GUI_SMOKE_READY_FILE: ${{ runner.temp }}\factory-updater-gui-ready.json
+          WARDER_TEST_NO_PAUSE: "1"
+        run: |
+          $installed = 'D:\WARDER-PICON-FACTORY\11-APP\WARDER-PICON-FACTORY\WARDER-PICON-FACTORY.exe'
+          $oldHash = (Get-FileHash -Algorithm SHA256 -LiteralPath $installed).Hash
+          Remove-Item $env:WARDER_GUI_SMOKE_READY_FILE -Force -ErrorAction SilentlyContinue
+          $updater = Join-Path $env:GITHUB_WORKSPACE 'factory/app/dist/WARDER-PICON-FACTORY-UPDATE.exe'
+          $run = Start-Process -FilePath $updater -PassThru -Wait
+          if ($run.ExitCode -ne 0) { throw "Standalone updater failed: $($run.ExitCode)" }
+          $ready = $false
+          for ($i = 0; $i -lt 120; $i++) {
+            if (Test-Path $env:WARDER_GUI_SMOKE_READY_FILE) { $ready = $true; break }
+            Start-Sleep -Milliseconds 500
+          }
+          if (-not $ready) { throw 'Updater did not launch and smoke-test the installed Factory GUI' }
+          $gui = Get-Content $env:WARDER_GUI_SMOKE_READY_FILE -Raw | ConvertFrom-Json
+          $expectedVersion = (Get-Content 'factory/app/.factory-version.json' -Raw | ConvertFrom-Json).version
+          if ($gui.installed_version -cne $expectedVersion -or $gui.data_root -cne 'D:\WARDER-PICON-FACTORY' -or $gui.preflight -ne 'ok') { throw 'Updater launched an unexpected Factory version or workspace' }
+          $installedVersion = (Get-Content 'D:\WARDER-PICON-FACTORY\11-APP\WARDER-PICON-FACTORY\.factory-installed-version.json' -Raw | ConvertFrom-Json).version
+          if ($installedVersion -cne $expectedVersion) { throw 'Updater did not update the installed version marker' }
+          $newHash = (Get-FileHash -Algorithm SHA256 -LiteralPath $installed).Hash
+          if ($newHash -eq $oldHash) { throw 'Standalone updater did not replace the old executable' }
+          $backups = Get-ChildItem (Split-Path -Parent $installed) -File -Filter 'WARDER-PICON-FACTORY.exe.previous-*'
+          if (-not ($backups | Where-Object { (Get-FileHash -Algorithm SHA256 -LiteralPath $_.FullName).Hash -eq $oldHash })) { throw 'Updater did not retain a verified rollback copy' }
+          $inventory = Get-Content (Join-Path $env:RUNNER_TEMP 'factory-preserve-hashes.json') | ConvertFrom-Json
+          foreach ($entry in ($inventory | Where-Object { -not $_.PreviousApp -or $_.Path -like '*engine.py' -or $_.Path -like '*legacy-workspace-config.json' })) {
+            $file = Join-Path 'D:\WARDER-PICON-FACTORY' $entry.Path
+            if (-not (Test-Path -LiteralPath $file) -or (Get-FileHash -Algorithm SHA256 -LiteralPath $file).Hash -ne $entry.Sha256) { throw "Updater changed workspace/app data: $($entry.Path)" }
+          }
+          Get-CimInstance Win32_Process -Filter "Name='WARDER-PICON-FACTORY.exe'" | Where-Object { $_.ExecutablePath -ieq $installed } | ForEach-Object { Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue }
       - name: Package Windows startup updater alongside tested EXE
         shell: pwsh
         run: |
@@ -373,7 +412,6 @@ jobs:
           name: WARDER-PICON-FACTORY-WINDOWS-EXE
           path: |
             factory/app/dist/WARDER-PICON-FACTORY.exe
-            factory/app/dist/WARDER-PICON-UPDATER.exe
             factory/app/dist/BUILD-IDENTITY.json
             factory/app/dist/windows_exe_update.py
             factory/app/dist/windows_exe_startup.py
@@ -382,6 +420,13 @@ jobs:
           if-no-files-found: error
           retention-days: 7
           include-hidden-files: true
+      - name: Upload one-file Windows updater (not a release)
+        uses: actions/upload-artifact@v4
+        with:
+          name: WARDER-PICON-FACTORY-UPDATE-WINDOWS
+          path: factory/app/dist/WARDER-PICON-FACTORY-UPDATE.exe
+          if-no-files-found: error
+          retention-days: 7
       - name: Upload one-click Windows application (not a release)
         uses: actions/upload-artifact@v4
         with:

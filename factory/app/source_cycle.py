@@ -23,6 +23,13 @@ LEGACY_QUEUE_COUNTS = {
     "TECHNICAL_QA": 1,
 }
 LEGACY_QUEUE_TOTAL = sum(LEGACY_QUEUE_COUNTS.values())
+# Earlier Factory builds exposed the unsuppressed queue as 18,011 rows.  The
+# owner later cancelled its 9,932-row successor. Both fingerprints are retired
+# from active UI/recovery; reports and decision history remain untouched.
+RETIRED_QUEUE_FINGERPRINTS = (
+    (18011, {"IDENTITY_VERIFICATION": 12133, "ARTWORK_REVIEW": 5877, "TECHNICAL_QA": 1}),
+    (LEGACY_QUEUE_TOTAL, LEGACY_QUEUE_COUNTS),
+)
 _PACKAGE_ID = re.compile(r"^[0-9a-f]{64}$")
 _SERVICE_REF = re.compile(r"^[0-9a-fA-F]+(?:_[0-9a-fA-F]+){9}$")
 _REPOSITORY = "Evolution-by-Warder/PiconHub-Warder-Evolution"
@@ -150,13 +157,7 @@ def commit_source_checkpoint(token: str, expected_head: str, files: dict[str, by
 
 
 def active_source(ledger: dict) -> str:
-    """Return the first source not authoritatively closed, in fixed order."""
-    sources = ledger.get("sources", {}) if isinstance(ledger, dict) else {}
-    for source_id in SOURCE_ORDER:
-        row = sources.get(source_id, {}) if isinstance(sources, dict) else {}
-        status = row.get("status", "NOT_CHECKED") if isinstance(row, dict) else "NOT_CHECKED"
-        if status not in {"COMPLETED", "UNCHANGED"}:
-            return source_id
+    """Keep the Factory on OpenATV until a later owner-approved change."""
     return SOURCE_ORDER[0]
 
 
@@ -176,6 +177,8 @@ def validate_source_ledger(ledger: dict) -> list[str]:
             continue
         if row.get("status") not in SOURCE_STATUSES:
             errors.append("SOURCE_STATUS_INVALID:" + source_id)
+        if source_id != "openatv8" and row.get("status") != "NOT_CHECKED":
+            errors.append("SOURCE_OWNER_DECISION_REQUIRED:" + source_id)
     active = [key for key, row in sources.items()
               if isinstance(row, dict) and row.get("status") in {"PROCESSING", "AWAITING_APPROVAL"}]
     if len(active) > 1:
@@ -293,27 +296,31 @@ def build_openatv_manifest(records: list[dict], source_roots: list[str | Path],
 
 
 def _queue_fingerprint(payload: dict) -> bool:
-    if not isinstance(payload, dict) or payload.get("count") != LEGACY_QUEUE_TOTAL:
+    if not isinstance(payload, dict):
         return False
     items = payload.get("items")
-    if not isinstance(items, list) or len(items) != LEGACY_QUEUE_TOTAL:
+    if not isinstance(items, list):
         return False
-    counts = {key: 0 for key in LEGACY_QUEUE_COUNTS}
-    for item in items:
-        if not isinstance(item, dict):
-            return False
-        lane = item.get("workstream")
-        if lane not in counts:
-            lane = {"IDENTITY_COLLISION": "IDENTITY_VERIFICATION"}.get(item.get("category"))
-        if lane not in counts:
-            return False
-        counts[lane] += 1
-    if counts != LEGACY_QUEUE_COUNTS:
-        return False
-    recorded = payload.get("workstream_counts")
-    if isinstance(recorded, dict) and any(recorded.get(key) != count for key, count in LEGACY_QUEUE_COUNTS.items()):
-        return False
-    return True
+    for total, expected_counts in RETIRED_QUEUE_FINGERPRINTS:
+        if payload.get("count") != total or len(items) != total:
+            continue
+        counts = {key: 0 for key in expected_counts}
+        for item in items:
+            if not isinstance(item, dict):
+                break
+            lane = item.get("workstream")
+            if lane not in counts:
+                lane = {"IDENTITY_COLLISION": "IDENTITY_VERIFICATION"}.get(item.get("category"))
+            if lane not in counts:
+                break
+            counts[lane] += 1
+        else:
+            recorded = payload.get("workstream_counts")
+            if (counts == expected_counts and
+                    (not isinstance(recorded, dict) or
+                     all(recorded.get(key) == count for key, count in expected_counts.items()))):
+                return True
+    return False
 
 
 def is_cancelled_legacy_review_queue(payload: dict) -> bool:
@@ -331,13 +338,13 @@ def _sha256(path: Path) -> str:
 
 def migrate_legacy_review_queue(exceptions_dir: str | Path, reports_dir: str | Path,
                                 state_dir: str | Path) -> dict:
-    """Cancel only the exact known 9,932-item queue once; preserve all else.
+    """Cancel only exact owner-retired queue fingerprints; preserve all else.
 
     The migration plan pins filenames and SHA-256 before deletion. A crash can
     resume that plan, but a replaced/new queue is never deleted on retry.
     Reports, ledgers, registries, PNGs, and nonmatching queues are untouched.
     """
-    marker = Path(state_dir) / "migrations" / "cancel-legacy-review-queue-9932-v1.json"
+    marker = Path(state_dir) / "migrations" / "cancel-retired-review-queues-v2.json"
     marker.parent.mkdir(parents=True, exist_ok=True)
     if marker.is_file():
         try:
@@ -362,17 +369,18 @@ def migrate_legacy_review_queue(exceptions_dir: str | Path, reports_dir: str | P
                 try:
                     payload = json.loads(path.read_text(encoding="utf-8"))
                     if _queue_fingerprint(payload):
-                        plan.append({"root_id": root_id, "filename": path.name, "sha256": _sha256(path)})
+                        plan.append({"root_id": root_id, "filename": path.name, "sha256": _sha256(path),
+                                     "item_count": len(payload.get("items", []))})
                 except (OSError, ValueError, TypeError):
                     continue
-        prior = {"schema": 1, "migration": "cancel-legacy-review-queue-9932-v1",
+        prior = {"schema": 2, "migration": "cancel-retired-review-queues-v2",
                  "status": "PLANNED", "targets": plan, "deleted": 0, "conflicts": []}
         atomic_json(marker, prior)
 
     # Empty discovery is not completed cancellation; allow future rescans.
     if not plan:
         marker.unlink(missing_ok=True)
-        return {"schema": 1, "migration": "cancel-legacy-review-queue-9932-v1",
+        return {"schema": 2, "migration": "cancel-retired-review-queues-v2",
                 "status": "NOT_FOUND", "targets": [], "deleted": 0,
                 "discarded_legacy_items": 0, "conflicts": []}
 
@@ -396,9 +404,10 @@ def migrate_legacy_review_queue(exceptions_dir: str | Path, reports_dir: str | P
             deleted += 1
         except OSError as exc:
             conflicts.append(name + ":" + type(exc).__name__)
-    result = {"schema": 1, "migration": "cancel-legacy-review-queue-9932-v1",
+    result = {"schema": 2, "migration": "cancel-retired-review-queues-v2",
               "status": "BLOCKED" if conflicts else "COMPLETED", "targets": plan,
-              "deleted": deleted, "discarded_legacy_items": LEGACY_QUEUE_TOTAL if plan else 0,
+              "deleted": deleted, "discarded_legacy_items": sum(
+                  int(target.get("item_count", 0)) for target in plan),
               "conflicts": sorted(set(conflicts))}
     atomic_json(marker, result)
     return result

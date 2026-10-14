@@ -4,10 +4,16 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from review_gallery import evidence_digests, variant_paths, matches_evidence_sha, source_candidates
+from review_gallery import evidence_digests, variant_paths, matches_evidence_sha, source_candidates, groups_for_lane
 
 
 class GalleryEvidenceTests(unittest.TestCase):
+    def test_all_matching_groups_are_visible_without_ten_group_paging(self):
+        items = [{"review_id": f"WR-{index:016x}", "workstream": "ARTWORK_REVIEW"}
+                 for index in range(23)]
+        groups = [{"member_review_ids": [item["review_id"]]} for item in items]
+        self.assertEqual(len(groups_for_lane(groups, items, "ARTWORK_REVIEW")), 23)
+
     def test_grouped_evidence_and_variants_are_both_counted(self):
         first = "a" * 64
         second = "b" * 64

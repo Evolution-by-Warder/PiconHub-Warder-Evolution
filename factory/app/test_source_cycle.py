@@ -14,6 +14,15 @@ class SourceCycleTests(unittest.TestCase):
                  [{"workstream": "TECHNICAL_QA"}])
         return {"schema": 1, "count": 9932, "workstream_counts": dict(cycle.LEGACY_QUEUE_COUNTS), "items": items}
 
+    def make_raw_legacy(self):
+        items = ([{"workstream": "IDENTITY_VERIFICATION"}] * 12133 +
+                 [{"workstream": "ARTWORK_REVIEW"}] * 5877 +
+                 [{"workstream": "TECHNICAL_QA"}])
+        return {"schema": 1, "count": 18011,
+                "workstream_counts": {"IDENTITY_VERIFICATION": 12133,
+                                      "ARTWORK_REVIEW": 5877, "TECHNICAL_QA": 1},
+                "items": items}
+
     def test_only_exact_legacy_queue_is_removed_once(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp); exceptions = root / "05-QA" / "EXCEPTIONS"; reports = root / "08-REPORTS"; state = root / "00-STATE"
@@ -32,19 +41,35 @@ class SourceCycleTests(unittest.TestCase):
             root = Path(tmp); exceptions = root / "exceptions"; reports = root / "reports"; state = root / "state"
             exceptions.mkdir(); reports.mkdir()
             old = exceptions / "review-queue-old.json"; old.write_text(json.dumps(self.make_legacy()), encoding="utf-8")
-            marker = state / "migrations" / "cancel-legacy-review-queue-9932-v1.json"
+            marker = state / "migrations" / "cancel-retired-review-queues-v2.json"
             marker.parent.mkdir(parents=True)
-            marker.write_text(json.dumps({"schema": 1, "migration": "cancel-legacy-review-queue-9932-v1", "status": "PLANNED", "deleted": 0, "conflicts": [], "targets": [{"root_id": "exceptions", "filename": old.name, "sha256": "0" * 64}]}), encoding="utf-8")
+            marker.write_text(json.dumps({"schema": 2, "migration": "cancel-retired-review-queues-v2", "status": "PLANNED", "deleted": 0, "conflicts": [], "targets": [{"root_id": "exceptions", "filename": old.name, "sha256": "0" * 64}]}), encoding="utf-8")
             result = cycle.migrate_legacy_review_queue(exceptions, reports, state)
             self.assertEqual(result["status"], "BLOCKED"); self.assertTrue(old.exists())
 
-    def test_source_order_waits_for_openatv(self):
+    def test_raw_18011_queue_is_hidden_and_removed_without_touching_reports(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp); exceptions = root / "05-QA" / "EXCEPTIONS"; reports = root / "08-REPORTS"; state = root / "00-STATE"
+            exceptions.mkdir(parents=True); reports.mkdir(parents=True)
+            old = exceptions / "review-queue-20261011.json"
+            old.write_text(json.dumps(self.make_raw_legacy()), encoding="utf-8")
+            evidence = reports / "review-evidence-20261011.json"
+            evidence.write_text('{"history":"preserved"}', encoding="utf-8")
+            self.assertTrue(cycle.is_cancelled_legacy_review_queue(json.loads(old.read_text(encoding="utf-8"))))
+            result = cycle.migrate_legacy_review_queue(exceptions, reports, state)
+            self.assertEqual(result["status"], "COMPLETED")
+            self.assertFalse(old.exists())
+            self.assertTrue(evidence.exists())
+
+    def test_other_sources_remain_disabled_until_owner_decision(self):
         ledger = {"schema": 1, "source_order": list(cycle.SOURCE_ORDER), "sources": {
             "openatv8": {"status": "AWAITING_APPROVAL"}, "vhannibal": {"status": "NOT_CHECKED"},
             "chocholousek": {"status": "NOT_CHECKED"}}}
         self.assertEqual(cycle.active_source(ledger), "openatv8")
         ledger["sources"]["openatv8"]["status"] = "COMPLETED"
-        self.assertEqual(cycle.active_source(ledger), "vhannibal")
+        self.assertEqual(cycle.active_source(ledger), "openatv8")
+        self.assertIn("SOURCE_OWNER_DECISION_REQUIRED:vhannibal", cycle.validate_source_ledger({
+            **ledger, "sources": {**ledger["sources"], "vhannibal": {"status": "PROCESSING"}}}))
         self.assertEqual(cycle.validate_source_ledger(ledger), [])
 
     def test_artwork_hash_never_merges_different_references(self):

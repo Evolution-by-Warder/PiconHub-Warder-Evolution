@@ -23,6 +23,19 @@ class LegacyQueueUiTests(unittest.TestCase):
                                          "items": [{"review_id": "WR-0123456789ABCDEF"}]}), encoding="utf-8")
             self.assertEqual(latest_review(folder), valid)
 
+    def test_18011_legacy_queue_is_not_reloaded_after_restart(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            folder = Path(tmp)
+            old_items = ([{"workstream": "IDENTITY_VERIFICATION"}] * 12133 +
+                         [{"workstream": "ARTWORK_REVIEW"}] * 5877 +
+                         [{"workstream": "TECHNICAL_QA"}])
+            (folder / "review-queue-legacy-18011.json").write_text(json.dumps({
+                "schema": 1, "count": 18011,
+                "workstream_counts": {"IDENTITY_VERIFICATION": 12133,
+                                      "ARTWORK_REVIEW": 5877, "TECHNICAL_QA": 1},
+                "items": old_items}), encoding="utf-8")
+            self.assertIsNone(latest_review(folder))
+
 
 if __name__ == "__main__":
     unittest.main()
