@@ -46,6 +46,12 @@ conflicted Master style, missing approval reference, or invalid hash fails
 closed and keeps affected source candidates in review. A manifest populated
 with guesses is not a safe migration.
 
+For importing historical human approvals, use the read-only procedure in
+[`MASTER-APPROVAL-MIGRATION.md`](MASTER-APPROVAL-MIGRATION.md). It does not
+modify or replace an existing manifest and never treats review-stage decisions
+as Master approvals. Warder ID and logo-history rules are in
+[`WARDER-ID-AND-ARTWORK-HISTORY.md`](WARDER-ID-AND-ARTWORK-HISTORY.md).
+
 ## Filtering and audit
 
 Only pending `ARTWORK_REVIEW` tasks for an exact `APPROVED_COMPLETE` service can

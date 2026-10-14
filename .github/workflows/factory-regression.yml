@@ -93,6 +93,36 @@ jobs:
           --add-data "templates;templates"
           engine.py;
           if ($LASTEXITCODE -ne 0) { throw "Standalone build failed" }
+      - name: Smoke-test packaged local approval migration
+        shell: pwsh
+        working-directory: factory/app
+        run: |
+          $master = Join-Path $env:RUNNER_TEMP 'master-index-migration-smoke.json'
+          $approval = Join-Path $env:RUNNER_TEMP 'approval-migration-smoke.json'
+          $report = Join-Path $env:RUNNER_TEMP 'approval-migration-report.json'
+          $manifest = Join-Path $env:RUNNER_TEMP 'master-approval-evidence.json'
+          $ref = '1_0_1_100_1_1_D72CF4_0_0_0'
+          $service = @{ transparent=('1' * 64); black=('2' * 64); white=('3' * 64) }
+          $entries = @()
+          foreach ($style in @('transparent','black','white')) {
+            $entries += @{ style=$style; sha256=$service[$style] }
+          }
+          $services = @{}
+          $services[$ref] = $entries
+          @{ services=$services } | ConvertTo-Json -Depth 8 | Set-Content -Encoding utf8NoBOM -LiteralPath $master
+          @{ event_type='MASTER_ARTWORK_APPROVED'; service_reference=$ref; master_approved=$true;
+             identity_verified=$true; artwork_approved=$true; approval_ref='ci-approval-1';
+             master_commit=('a' * 40); variants=$service } | ConvertTo-Json -Depth 8 | Set-Content -Encoding utf8NoBOM -LiteralPath $approval
+          $proc = Start-Process -FilePath 'dist/WARDER-PICON-FACTORY.exe' -ArgumentList @(
+            '--migrate-master-approvals','--master-index',$master,'--master-commit',('a' * 40),
+            '--evidence',$approval,'--report',$report,'--write-manifest',$manifest) -PassThru -Wait
+          if ($proc.ExitCode -ne 0) { throw "Packaged approval migration failed: $($proc.ExitCode)" }
+          if (-not (Test-Path -LiteralPath $report) -or -not (Test-Path -LiteralPath $manifest)) { throw 'Packaged migration did not write its requested local outputs' }
+          $result = Get-Content -LiteralPath $report -Raw | ConvertFrom-Json
+          if ($result.counts.VERIFIED -ne 1 -or $result.counts.NO_EVIDENCE -ne 0) { throw "Unexpected migration result: $(Get-Content $report -Raw)" }
+          $manifestData = Get-Content -LiteralPath $manifest -Raw | ConvertFrom-Json
+          $entry = $manifestData.services[$ref]
+          if ($null -eq $entry -or $entry.identity_verified -ne $true -or $entry.artwork_approved -ne $true) { throw 'Local manifest omitted explicit approval evidence' }
       - name: Render PNG through the packaged Windows EXE
         shell: pwsh
         working-directory: factory/app
