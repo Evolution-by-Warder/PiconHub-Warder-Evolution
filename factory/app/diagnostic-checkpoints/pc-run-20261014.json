@@ -1,0 +1,40 @@
+{
+  "schema": 1,
+  "type": "FACTORY_DIAGNOSTIC_CHECKPOINT",
+  "date": "2026-10-14",
+  "source": "OWNER_REPORTED_PC_RUN",
+  "verification": "COUNTS_NOT_INDEPENDENTLY_RECOMPUTED_REPORT_NOT_PRESENT_IN_GIT",
+  "version": "factory-v0.2.52",
+  "reported": {
+    "png_scanned": 162427,
+    "elapsed_seconds": 306.57,
+    "preflight_passed": 13,
+    "preflight_total": 13,
+    "pending_decisions": 9932,
+    "identity": 4054,
+    "artwork": 5877,
+    "technical_qa": 1
+  },
+  "confirmed_code_cause": {
+    "component": "factory/app/warder_identity_sync.py",
+    "cause": "GitHub Contents API base64 response contains line-wrap whitespace; strict b64decode(validate=True) rejected it",
+    "exact_error": "Only base64 data is allowed",
+    "authentication_required_for_public_read": false
+  },
+  "recovery": {
+    "implemented": "strict base64 decoder strips ASCII whitespace; no-scan MASTER-first queue refresh implemented",
+    "master_first_recomputed_from_pc_queue": false,
+    "reason": "PC review report and workspace are not accessible from this session"
+  },
+  "preserved_exception": {
+    "review_id_or_service": "ilsole24ore tv",
+    "finding": "FULLY_TRANSPARENT / OUTPUT_CHANGED_DURING_QA",
+    "resolution": "PENDING_SEPARATE_QA_INVESTIGATION"
+  },
+  "safety": {
+    "production_branch_modified": false,
+    "registry_or_ledger_modified": false,
+    "identity_approvals_created": 0,
+    "png_uploaded": false
+  }
+}

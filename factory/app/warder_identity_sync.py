@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import base64
+import binascii
 import hashlib
 import json
 import os
@@ -35,10 +36,27 @@ def _request_json(url, opener=urllib.request.urlopen, token=""):
 
 def _read_json_at_commit(path, commit, opener, token):
     contents = _request_json(API + "/contents/" + path + "?ref=" + commit, opener, token)
-    if not isinstance(contents, dict) or contents.get("encoding") != "base64" or not isinstance(contents.get("content"), str):
-        raise ValueError("GitHub Master file response is not base64: " + path)
-    raw = base64.b64decode(contents["content"], validate=True)
-    return json.loads(raw.decode("utf-8")), raw
+    if not isinstance(contents, dict) or not isinstance(contents.get("content"), str):
+        raise ValueError("GitHub Contents API response is missing encoded content: " + path)
+    encoding = contents.get("encoding")
+    if encoding != "base64":
+        raise ValueError("GitHub Contents API encoding metadata mismatch (expected base64, got "
+                         + repr(encoding) + "): " + path)
+
+    # GitHub's Contents API line-wraps base64 content. Remove only ASCII
+    # whitespace before strict validation; do not use validate=False, which
+    # would silently ignore arbitrary non-base64 characters.
+    encoded = "".join(char for char in contents["content"] if char not in " \t\r\n\v\f")
+    try:
+        raw = base64.b64decode(encoded, validate=True)
+    except (binascii.Error, ValueError) as exc:
+        raise ValueError("GitHub Contents API base64 decode failed for " + path + ": " + str(exc)) from exc
+    try:
+        value = json.loads(raw.decode("utf-8"))
+    except (UnicodeDecodeError, json.JSONDecodeError) as exc:
+        raise ValueError("GitHub Contents API returned invalid UTF-8 JSON for " + path + ": "
+                         + type(exc).__name__ + ": " + str(exc)) from exc
+    return value, raw
 
 
 def fetch_master_snapshot(opener=urllib.request.urlopen, token=""):

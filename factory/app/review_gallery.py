@@ -1,5 +1,6 @@
 """Embedded, read-only evidence gallery. Decisions never modify PNG or publish."""
 import hashlib
+import re
 import tkinter as tk
 from tkinter import ttk, messagebox
 from pathlib import Path
@@ -7,6 +8,14 @@ from review_ui import latest_review
 from review_queue import load_review_queue
 from review_decision_groups import build_decision_groups, record_group_decision, apply_group_decisions
 from final_qa_bridge import prepare_finalization, FinalizationNotReady
+
+
+def format_git_sync_error(value):
+    """Show the actual safe failure reason without leaking credentials."""
+    text = re.sub(r"[\r\n\t]+", " ", str(value or "Unknown GitHub error")).strip()
+    text = re.sub(r"(?i)(authorization|bearer|token|password)(\s*[:=]\s*)[^ ,;]+",
+                  r"\1\2[redacted]", text)
+    return text[:180] or "Unknown GitHub error"
 
 
 def variant_paths(output_dir, item):
@@ -105,6 +114,7 @@ class ReviewGallery(ttk.Frame):
         self._git_syncing = False
         self._git_sync_generation = 0
         self._git_refresh_pending = False
+        self._master_refresh_running = False
         self.selected_scopes = {}
         self.items = []
         self.page = 0
@@ -125,6 +135,8 @@ class ReviewGallery(ttk.Frame):
         filter_box.pack(side='left'); filter_box.bind('<<ComboboxSelected>>', lambda _: self.reset_page())
         ttk.Button(nav, text='◀', width=3, command=lambda: self.turn(-1)).pack(side='left', padx=3)
         ttk.Button(nav, text='▶', width=3, command=lambda: self.turn(1)).pack(side='left')
+        ttk.Button(nav, text='Prepočítať MASTER-first bez renderu',
+                   command=self.refresh_master_first).pack(side='left', padx=8)
         self.counter = ttk.Label(nav, text=''); self.counter.pack(side='left', padx=5)
         self.canvas = tk.Canvas(self, highlightthickness=0)
         scroll = ttk.Scrollbar(self, orient='vertical', command=self.canvas.yview)
@@ -182,7 +194,8 @@ class ReviewGallery(ttk.Frame):
             return
         if error or not isinstance(snapshot, dict):
             self.git_sync_ready = False
-            self.git_status.configure(text='Git Master: offline / neoverené · rozhodnutia sa zobrazujú ako čakajúce')
+            detail = format_git_sync_error(error or "Git loader returned no snapshot")
+            self.git_status.configure(text='Git Master: UNAVAILABLE · ' + detail)
             return
         self.git_sync_ready = True
         self.git_commit = snapshot.get('commit')
@@ -196,9 +209,67 @@ class ReviewGallery(ttk.Frame):
             self.items = apply_git_review_decisions(loaded.get('items', []), self.git_decision_events)
             self.groups = build_decision_groups({'items': self.items})['groups']
             self.render()
+            self._maybe_refresh_master_first(snapshot)
         except (OSError, ValueError, KeyError, TypeError) as exc:
             self.load_error = f'{type(exc).__name__}: {exc}'
             self.render()
+
+    def _maybe_refresh_master_first(self, snapshot):
+        if self._master_refresh_running:
+            return
+        try:
+            path = latest_review(self.report_dir, *([self.legacy_report_dir] if self.legacy_report_dir else []))
+            loaded = load_review_queue(path) if path else None
+            marker = loaded.get('master_first_refresh', {}) if isinstance(loaded, dict) else {}
+            if path and marker.get('master_commit') != snapshot.get('commit'):
+                self._launch_master_first_refresh(snapshot)
+        except (OSError, ValueError, KeyError, TypeError):
+            return
+
+    def refresh_master_first(self):
+        """Explicitly retry a saved-queue refresh when the automatic attempt failed."""
+        self._launch_master_first_refresh(None)
+
+    def _launch_master_first_refresh(self, snapshot):
+        """Reclassify the saved queue against a fresh Git Master without scanning or rendering."""
+        if self._master_refresh_running:
+            return
+        if self.git_decision_loader is None:
+            self.git_status.configure(text='Git Master: UNAVAILABLE · loader nie je nakonfigurovaný')
+            return
+        self._master_refresh_running = True
+        self.git_status.configure(text='Git Master: obnovujem a prepočítavam uloženú frontu bez renderovania…')
+        def worker():
+            try:
+                current = snapshot if isinstance(snapshot, dict) else self.git_decision_loader()
+                source_path = latest_review(self.report_dir, *([self.legacy_report_dir] if self.legacy_report_dir else []))
+                if source_path is None:
+                    raise ValueError('Nie je dostupný uložený review queue report')
+                loaded = load_review_queue(source_path)
+                from master_coverage_refresh import recalculate_master_first, persist_master_first_refresh
+                result = recalculate_master_first(loaded, current)
+                saved = persist_master_first_refresh(self.report_dir, source_path, result)
+                self.after(0, lambda: self._master_first_refresh_done(saved, None))
+            except Exception as exc:
+                detail = format_git_sync_error(type(exc).__name__ + ': ' + str(exc))
+                self.after(0, lambda: self._master_first_refresh_done(None, detail))
+        import threading
+        threading.Thread(target=worker, name='factory-master-first-refresh', daemon=True).start()
+
+    def _master_first_refresh_done(self, result, error):
+        self._master_refresh_running = False
+        if error:
+            self.git_sync_ready = False
+            self.git_status.configure(text='Git Master refresh FAILED · ' + error)
+            return
+        self.git_sync_ready = True
+        self.git_commit = result.get('master_commit')
+        self.git_status.configure(
+            text='MASTER-first prepočítaný bez renderu · covered '
+                 + str(result.get('covered_items', 0)) + ' · aktívne '
+                 + str(result.get('active_items', 0)) + ' · commit '
+                 + str(self.git_commit or '')[:12])
+        self.reload()
 
     def _scope(self, group):
         members = [item for item in self.items if item.get('review_id') in group.get('member_review_ids', [])]

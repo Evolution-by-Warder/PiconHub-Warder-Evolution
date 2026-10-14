@@ -77,3 +77,28 @@ Po čistej inštalácii Factory načíta review eventy a Registry z aktuálneho 
 HEAD. Offline režim zobrazí stav ako neoverený; nič lokálne neprezentuje ako
 trvalo schválené. Vývojové zápisy vyžadujú samostatný GitHub write token s
 oprávnením na tento repozitár. Produkčná vetva sa nikdy nezapisuje.
+
+
+## Git Master diagnostic and no-render recovery (v0.2.53)
+
+The Git Contents API may return a valid base64 body with line-wrap whitespace.
+The reader strips only ASCII whitespace and then performs strict base64 validation;
+it never switches to permissive decoding. Network/HTTP/API response errors remain
+visible in the review GUI, and an unavailable or invalid snapshot remains
+fail-closed.
+
+When a previous run has produced a valid local review queue, **Prepočítať
+MASTER-first bez renderu** fetches a commit-pinned Git Master and reclassifies
+that saved queue. It does not scan sources, open PNGs, rerender, rewrite QA, or
+approve identities. It writes a new queue and coverage report; previous queue
+and audit files remain untouched. Only exact Git identity/artwork approvals
+whose hashes match the current Master can cover artwork items.
+
+The first PC run on 2026-10-14 was reported as 162,427 PNG / 306.57 seconds,
+preflight 13/13, and 9,932 pending decisions (4,054 identity, 5,877 artwork,
+one technical QA). The report bytes were not present in the development branch
+at recovery time, so those counts are owner-reported and not independently
+recomputed here. The reported transparent `ilsole24ore tv` technical QA item
+is explicitly preserved for separate investigation; a Master refresh cannot
+dismiss it. No registry, ledger, approval, Warder ID, source PNG, or production
+branch is altered by this recovery.
