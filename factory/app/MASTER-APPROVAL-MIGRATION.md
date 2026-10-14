@@ -7,6 +7,13 @@ current review ledger distinguishes `APPROVED_FOR_REVIEW` from final QA and
 Master approval; neither status by itself proves that an artwork was approved
 into the Master.
 
+This approval evidence is separate from the Git-authoritative Warder ID
+registry at `factory/registry/warder-identity-registry.json` and the Git
+approval ledger at `factory/registry/master-approval-ledger.json`. This local
+manifest is only a migration input. It cannot confer current approval, reduce
+the review queue, or become authority. Only an approval event committed and
+read back from Git can mark an identity or artwork approved.
+
 ## Evidence source status
 
 The current repository contains no Master approval archive or canonical Warder
@@ -56,6 +63,17 @@ python master_approval_migration.py `
 ```
 
 The manifest write is atomic, local-only, and refuses to replace an existing
-file. The operator must review it before Factory consumes it. It must not be
-uploaded to GitHub or included in diagnostics. Current Master/Registry files
-are never written by this migration.
+file. It remains pending historical evidence: the current Factory does not use
+it to filter review work. It must not be uploaded to GitHub or included in
+diagnostics. After provenance and scope are reviewed, an explicit human
+decision may be transformed into a Git approval event through
+`warder_master_store.py`.
+
+## Git approval transaction
+
+The Git-native API creates candidate identity registry, approval ledger, and
+any new approved PNG assets as one non-forced commit on
+`factory-warder-development`. It requires the full expected branch HEAD,
+validates append-only transitions and exact hashes, refuses existing artwork
+paths, and reads the new commit back. Until verified readback, the action must
+remain pending. A stale HEAD or write failure leaves the branch unchanged.

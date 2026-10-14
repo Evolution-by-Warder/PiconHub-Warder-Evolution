@@ -60,6 +60,23 @@ def load_token(path):
     except (OSError, UnicodeError, ValueError):
         return github_cli_token()
 
+def load_master_write_token(path):
+    """Read the distinct Master-write credential, never the diagnostics token."""
+    configured = os.environ.get('WARDER_MASTER_WRITE_TOKEN', '').strip()
+    if configured and not any(char.isspace() for char in configured):
+        return configured
+    try:
+        stored = _transform(Path(path).read_bytes(), False).decode('utf-8').strip()
+        if stored and not any(char.isspace() for char in stored):
+            return stored
+    except (OSError, UnicodeError, ValueError):
+        pass
+    return github_cli_token()
+
+def save_master_write_token(path, token):
+    """Persist an optional Master-write token using the same user-bound DPAPI."""
+    save_token(path, token)
+
 def save_token(path, token):
     token = str(token).strip()
     if not token or any(c.isspace() for c in token) or len(token) > 512:

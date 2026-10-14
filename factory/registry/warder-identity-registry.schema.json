@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/blob/factory-warder-development/factory/registry/warder-identity-registry.schema.json",
+  "title": "Warder Identity Registry",
+  "type": "object",
+  "required": ["schema", "authority", "id_format", "next_sequence", "issued_ids", "records", "history"],
+  "properties": {
+    "schema": {"const": 1},
+    "authority": {"const": "WARDER_ID"},
+    "id_format": {"const": "WARDER-{sequence:08d}"},
+    "next_sequence": {"type": "integer", "minimum": 1},
+    "issued_ids": {"type": "array", "uniqueItems": true, "items": {"type": "string", "pattern": "^WARDER-[0-9]{8}$"}},
+    "records": {"type": "object", "additionalProperties": {"type": "object", "required": ["warder_id", "identity_key", "canonical_identity", "current_name", "historical_names", "operator_links", "satellite_positions", "service_references", "historical_service_references", "artwork_current", "artwork_asset_paths", "artwork_history", "source_provenance", "approval_history_refs", "status", "created_at", "first_seen", "history_refs"]}},
+    "history": {"type": "array", "items": {"type": "object", "required": ["event_id", "event_type", "warder_id", "evidence_ref", "evidence_sha256", "occurred_at"]}}
+  },
+  "additionalProperties": false
+}

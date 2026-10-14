@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/blob/factory-warder-development/factory/registry/master-approval-ledger.schema.json",
+  "title": "Warder Master Approval Ledger",
+  "type": "object",
+  "required": ["schema", "authority", "events"],
+  "properties": {
+    "schema": {"const": 1},
+    "authority": {"const": "WARDER_MASTER_APPROVAL_LEDGER"},
+    "events": {"type": "array", "items": {"type": "object", "required": ["event_id", "event_type", "warder_id", "decision", "approval_id", "approved_at", "evidence_ref", "evidence_sha256", "review_evidence_sha256", "human_approved"], "allOf": [{"if": {"properties": {"decision": {"enum": ["ARTWORK_APPROVED", "IDENTITY_AND_ARTWORK_APPROVED"]}}}, "then": {"required": ["variants", "asset_paths", "qa_evidence_ref", "qa_evidence_sha256"]}}]}}
+  },
+  "additionalProperties": false
+}

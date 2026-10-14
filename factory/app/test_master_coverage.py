@@ -1,7 +1,13 @@
 """Regression tests for fail-closed MASTER-FIRST coverage filtering."""
 import unittest
+import hashlib
+import io
+from PIL import Image
 
-from master_coverage import build_master_coverage, apply_master_first_coverage
+from master_coverage import (build_master_coverage, apply_master_first_coverage,
+                             approval_evidence_from_git_master)
+from warder_identity_registry import empty_approval_ledger, empty_registry, register_confirmed_identity
+from warder_master_store import build_identity_approval, build_artwork_approval
 from review_queue import build_review_queue, stable_review_id
 
 REF_A = "1_0_1_100_1_1_D72CF4_0_0_0"
@@ -151,6 +157,63 @@ class MasterCoverageTests(unittest.TestCase):
         self.assertEqual(outputs[0], outputs[1])
         self.assertEqual(outputs[0][0], [])
         self.assertEqual(len(outputs[0][1]), 1)
+
+    def test_only_git_identity_and_artwork_approvals_cover_service(self):
+        evidence = {"evidence_ref": "fixture:identity", "evidence_sha256": "a" * 64,
+                    "occurred_at": "2026-10-14T00:00:00Z"}
+        identities, wid = register_confirmed_identity(empty_registry(), {
+            "identity_key": "fixture:service", "current_name": "Service",
+            "service_references": [REF_A]}, evidence=evidence, identity_confirmed=True)
+        ledger = empty_approval_ledger()
+        identities, ledger, _ = build_identity_approval(identities, ledger,
+            warder_id=wid, approval_id="identity-approve", approved_at=evidence["occurred_at"],
+            evidence_ref="fixture:identity-review", evidence_sha256="b" * 64,
+            review_evidence_sha256="c" * 64, human_approved=True)
+        variants, paths = {}, {}
+        for style, color in (("transparent", (20, 30, 40, 0)),
+                             ("black", (0, 0, 0, 255)),
+                             ("white", (255, 255, 255, 255))):
+            stream = io.BytesIO()
+            Image.new("RGBA", (220, 132), color).save(stream, format="PNG")
+            variants[style] = hashlib.sha256(stream.getvalue()).hexdigest()
+            paths[style] = f"factory/approved-picons/{wid}/v0001/{style}.png"
+        identities, ledger, _ = build_artwork_approval(identities, ledger,
+            warder_id=wid, approval_id="art-approve", approved_at=evidence["occurred_at"],
+            evidence_ref="fixture:art-review", evidence_sha256="d" * 64,
+            review_evidence_sha256="e" * 64, variants=variants, asset_paths=paths,
+            qa_evidence_ref="fixture:qa-review", qa_evidence_sha256="f" * 64,
+            human_approved=True, qa_approved=True)
+        master_index = registry((REF_A,), variants)
+        git_evidence, status = approval_evidence_from_git_master(
+            identities, ledger, master_commit=MASTER_COMMIT)
+        self.assertEqual(status["status"], "GIT_LEDGER")
+        covered = build_master_coverage(master_index, git_evidence, master_commit=MASTER_COMMIT)
+        self.assertEqual(covered["services"][REF_A]["status"], "APPROVED_COMPLETE")
+
+    def test_artwork_approval_without_identity_approval_does_not_cover(self):
+        evidence = {"evidence_ref": "fixture:identity", "evidence_sha256": "a" * 64,
+                    "occurred_at": "2026-10-14T00:00:00Z"}
+        identities, wid = register_confirmed_identity(empty_registry(), {
+            "identity_key": "fixture:service", "current_name": "Service",
+            "service_references": [REF_A]}, evidence=evidence, identity_confirmed=True)
+        ledger = empty_approval_ledger()
+        variants, paths = {}, {}
+        for style, color in (("transparent", (20, 30, 40, 0)),
+                             ("black", (0, 0, 0, 255)),
+                             ("white", (255, 255, 255, 255))):
+            stream = io.BytesIO()
+            Image.new("RGBA", (220, 132), color).save(stream, format="PNG")
+            variants[style] = hashlib.sha256(stream.getvalue()).hexdigest()
+            paths[style] = f"factory/approved-picons/{wid}/v0001/{style}.png"
+        identities, ledger, _ = build_artwork_approval(identities, ledger,
+            warder_id=wid, approval_id="art-only", approved_at=evidence["occurred_at"],
+            evidence_ref="fixture:art-review", evidence_sha256="d" * 64,
+            review_evidence_sha256="e" * 64, variants=variants, asset_paths=paths,
+            qa_evidence_ref="fixture:qa-review", qa_evidence_sha256="f" * 64,
+            human_approved=True, qa_approved=True)
+        git_evidence, _ = approval_evidence_from_git_master(identities, ledger,
+                                                            master_commit=MASTER_COMMIT)
+        self.assertEqual(git_evidence["services"], {})
 
 
 if __name__ == "__main__":

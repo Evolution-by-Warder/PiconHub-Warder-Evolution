@@ -191,6 +191,29 @@ def master_first_review_summary(active_counts, run_stats):
             f" · pokryté schváleným Masterom: {covered_text}")
 
 
+def load_warder_identity_rows(cache_path, approval_path=None):
+    """Load identity and approval status from the same verified Git commit."""
+    from warder_identity_sync import load_cached_snapshot
+    from warder_identity_registry import registry_rows
+    snapshot = load_cached_snapshot(cache_path)
+    if snapshot is None:
+        return None, [], "Git Warder ID Registry ešte nie je dostupný ani v overenej cache."
+    return snapshot, registry_rows(snapshot["registry"], snapshot["approval_ledger"]), None
+
+
+def identity_search_rows(rows, query):
+    query = str(query or "").strip().casefold()
+    if not query:
+        return list(rows)
+    matched = []
+    for row in rows:
+        searchable = " ".join((row["warder_id"], row["name"], row["status"], row["approval"],
+                               *row["service_references"], *row["operators"], *row["satellites"])).casefold()
+        if query in searchable:
+            matched.append(row)
+    return matched
+
+
 def candidate_status(classification, reason="", has_master=False):
     raw = str(classification).upper()
     evidence = str(reason).casefold()
@@ -291,6 +314,7 @@ class FactoryWorkspace:
         ttk.Button(second, text="Reporty", command=self.app.open_reports).pack(side="left", padx=2)
         ttk.Button(second, text="Export PNG", command=self.app.export_pending).pack(side="left", padx=2)
         ttk.Button(second, text="GitHub diagnostika", command=self.app.configure_github).pack(side="left", padx=2)
+        ttk.Button(second, text="Warder Identity", command=self.open_identity_view).pack(side="left", padx=2)
         ttk.Label(page, text=f"Inbox: {self.paths['inbox']} | Výstup: {self.paths['output']}", wraplength=650).pack(anchor="w", pady=4)
         log_frame = ttk.LabelFrame(page, text="Živý priebeh spracovania")
         log_frame.pack(fill="both", expand=True, pady=(5, 0))
@@ -329,6 +353,53 @@ class FactoryWorkspace:
             self.registry_tree.heading(col, text=title); self.registry_tree.column(col, width=width, anchor="w")
         self.registry_tree.pack(fill="both", expand=True, pady=6)
         self.registry_info = ttk.Label(page, text="Read-only pohľad na posledný Warder Master index."); self.registry_info.pack(anchor="w")
+
+    def open_identity_view(self):
+        """Show the Git authority through a read-only, searchable detail view."""
+        import tkinter as tk
+        snapshot, rows, error = load_warder_identity_rows(
+            self.paths["warder_identity_registry_cache"],
+            self.paths["master_approval_evidence"])
+        window = tk.Toplevel(self.root)
+        window.title("Warder Identity · Git authority")
+        window.geometry("1180x700")
+        bar = ttk.Frame(window, padding=8); bar.pack(fill="x")
+        ttk.Label(bar, text="Hľadať Warder ID / názov / service reference / providera:").pack(side="left")
+        query = tk.StringVar()
+        ttk.Entry(bar, textvariable=query, width=48).pack(side="left", fill="x", expand=True, padx=6)
+        commit = snapshot.get("commit", "") if snapshot else "nedostupný"
+        ttk.Label(window, text=("Git commit: " + commit + " · registry + approval ledger z jednej overenej revízie"
+                               if snapshot else error or "Registry nedostupný"),
+                  wraplength=1100).pack(anchor="w", padx=10)
+        tree = ttk.Treeview(window, columns=("id", "name", "status", "refs", "operators", "satellites", "approval"), show="headings")
+        for key, title, width in (("id", "Warder ID", 160), ("name", "Stanica", 190),
+                                  ("status", "Stav identity", 110), ("refs", "Aktuálne / historické references", 300),
+                                  ("operators", "Provideri", 150), ("satellites", "Pozície", 100),
+                                  ("approval", "Approval evidence", 150)):
+            tree.heading(key, text=title); tree.column(key, width=width, anchor="w")
+        tree.pack(fill="both", expand=True, padx=8, pady=5)
+        detail = tk.Text(window, height=8, wrap="word", state="disabled")
+        detail.pack(fill="x", padx=8, pady=(0, 8))
+        def render(*_):
+            tree.delete(*tree.get_children())
+            shown = identity_search_rows(rows, query.get())
+            for item in shown[:500]:
+                tree.insert("", "end", iid=item["warder_id"], values=(
+                    item["warder_id"], item["name"], item["status"],
+                    ", ".join(item["service_references"]), ", ".join(item["operators"]),
+                    ", ".join(item["satellites"]), item["approval"]))
+        def show_detail(_event=None):
+            selected = tree.selection()
+            item = next((row for row in rows if selected and row["warder_id"] == selected[0]), None)
+            detail.configure(state="normal"); detail.delete("1.0", "end")
+            if item:
+                detail.insert("end", json.dumps({"current artwork SHA-256": item["artwork_current"],
+                    "artwork history": item["artwork_history"], "history refs": item["history_refs"],
+                    "approval": item["approval"]}, ensure_ascii=False, indent=2))
+            detail.configure(state="disabled")
+        tree.bind("<<TreeviewSelect>>", show_detail)
+        query.trace_add("write", render)
+        render()
 
     def _build_candidates(self):
         page, self.candidate_tree = self._tree_page("Kandidáti", ("type", "ref", "source", "reason"),

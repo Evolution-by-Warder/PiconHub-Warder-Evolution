@@ -1,8 +1,8 @@
 """Fail-closed MASTER-FIRST coverage classification.
 
-Master file presence is not an approval signal. A service is considered covered
-only when a local, explicit approval-evidence manifest is bound to the exact
-Master commit and exact current variant SHA-256 values.
+Master file presence is not an approval signal. Production coverage is derived
+from the Git approval ledger plus exact current variant hashes. The local
+approval evidence file is only a migration input and is not consumed here.
 """
 from __future__ import annotations
 
@@ -37,6 +37,60 @@ def load_approval_evidence(path):
     if not isinstance(value, dict) or value.get("schema") != 1 or not isinstance(value.get("services"), dict):
         return None, {"status": "INVALID", "error": "Expected schema 1 and a services object"}
     return value, {"status": "AVAILABLE", "service_records": len(value["services"])}
+
+
+def approval_evidence_from_git_master(identity_registry, approval_ledger, *, master_commit):
+    """Adapt explicit Git approvals to the read-only coverage classifier.
+
+    The local migration file is deliberately not consulted. A service needs an
+    explicit identity approval and artwork approval (or one combined event),
+    both attached to one unambiguous Warder ID and matching current hashes.
+    """
+    from warder_identity_registry import validate_master_store
+    checked = validate_master_store(identity_registry, approval_ledger)
+    if checked["status"] != "VALID" or not isinstance(master_commit, str) or len(master_commit) != 40:
+        return None, {"status": "GIT_MASTER_INVALID_OR_UNAVAILABLE",
+                      "issues": checked.get("issues", [])[:10]}
+    events_by_id = {}
+    for event in approval_ledger.get("events", []):
+        events_by_id.setdefault(event.get("warder_id"), []).append(event)
+    services = {}
+    ambiguous = set()
+    for wid, record in identity_registry.get("records", {}).items():
+        if record.get("status") != "active":
+            continue
+        events = events_by_id.get(wid, [])
+        revoked = {event.get("revokes_event_id") for event in events
+                   if event.get("decision") == "APPROVAL_REVOKED"}
+        effective = [event for event in events if event.get("event_id") not in revoked and
+                     event.get("decision") != "APPROVAL_REVOKED"]
+        combined = [event for event in effective if event.get("decision") == "IDENTITY_AND_ARTWORK_APPROVED"]
+        identity_approved = any(event.get("decision") in {"IDENTITY_APPROVED", "IDENTITY_AND_ARTWORK_APPROVED"}
+                                for event in effective)
+        artwork_events = [event for event in effective if event.get("decision") in
+                          {"ARTWORK_APPROVED", "IDENTITY_AND_ARTWORK_APPROVED"}]
+        artwork = artwork_events[-1] if artwork_events else None
+        if combined:
+            identity_approved = True
+        if not identity_approved or not artwork:
+            continue
+        variants = artwork.get("variants", {})
+        current = record.get("artwork_current", {})
+        if any(variants.get(style) != current.get(style) for style in REQUIRED_STYLES):
+            continue
+        for ref in record.get("service_references", []):
+            if ref in services:
+                ambiguous.add(ref)
+            else:
+                services[ref] = {"identity_verified": True, "artwork_approved": True,
+                    "approval_ref": artwork.get("approval_id"),
+                    "evidence_sha256": artwork.get("evidence_sha256"),
+                    "variants": variants}
+    for ref in ambiguous:
+        services.pop(ref, None)
+    return {"schema": 1, "master_commit": master_commit, "services": services}, {
+        "status": "GIT_LEDGER", "service_records": len(services),
+        "identity_approval_required": True, "artwork_sha_must_match_current_registry": True}
 
 
 def build_master_coverage(master_registry, approval_evidence=None, *, master_commit=None, candidate_refs=()):
@@ -177,9 +231,10 @@ def apply_master_first_coverage(queue, coverage_index):
 
 
 def coverage_diagnostic(coverage_index, approval_manifest_status):
-    """Compact, local diagnostic and migration instructions; never writes Registry."""
+    """Compact diagnostic; says which Git evidence was actually used."""
     return {"schema": 1, "master_commit": coverage_index.get("master_commit"),
-            "approval_manifest": approval_manifest_status,
+            "approval_authority": approval_manifest_status,
+            "local_approval_file_is_migration_input_only": True,
             "counts": coverage_index.get("counts", {}),
             "service_count": coverage_index.get("service_count", 0),
             "services": coverage_index.get("services", {}),

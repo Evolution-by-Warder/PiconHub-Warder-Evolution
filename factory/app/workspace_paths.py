@@ -74,6 +74,9 @@ def workspace_paths(root: Path) -> dict[str, Path]:
         "inbox": sources / "LOCAL-INBOX",
         "originals": originals,
         "registry": registry,
+        "warder_identity_registry_cache": app_data / "warder-identity-registry-cache.json",
+        "warder_change_watch": registry / "warder-change-watch.jsonl",
+        "master_approval_evidence": registry / "master-approval-evidence.json",
         "master_root": registry / "MASTER-SNAPSHOTS",
         "work": work,
         "output": work / "PICONS",
@@ -104,6 +107,7 @@ def workspace_paths(root: Path) -> dict[str, Path]:
         "chocho_positions": app_data / "chocholousek-positions.json",
         "diagnostics_cache": app_data / "diagnostics-delivered.json",
         "github_credentials": app_data / "github-upload.dpapi",
+        "github_master_credentials": app_data / "github-master-write.dpapi",
         "startup_log": root / "09-LOGS" / "factory-startup-error.log",
     }
 

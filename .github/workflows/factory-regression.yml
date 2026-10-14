@@ -3,6 +3,14 @@ on:
   push:
     branches: [factory-warder-development]
     paths:
+      - 'factory/registry/**'
+      - 'factory/approved-picons/**'
+      - 'factory/app/**'
+      - '.github/workflows/factory-regression.yml'
+  pull_request:
+    paths:
+      - 'factory/registry/**'
+      - 'factory/approved-picons/**'
       - 'factory/app/**'
       - '.github/workflows/factory-regression.yml'
   workflow_dispatch:
@@ -18,9 +26,24 @@ jobs:
       - uses: actions/checkout@v4
         with:
           persist-credentials: false
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: '3.14'
+      - name: Validate complete Git Warder Master and immutable history
+        env:
+          BASE_COMMIT: ${{ github.event.before || github.event.pull_request.base.sha || github.sha }}
+        run: python factory/app/validate_warder_identity_registry.py --registry factory/registry/warder-identity-registry.json --ledger factory/registry/master-approval-ledger.json --base-commit $env:BASE_COMMIT
+      - name: Verify fresh-clone Warder Master recovery
+        shell: pwsh
+        run: |
+          $clone = Join-Path $env:RUNNER_TEMP 'warder-master-clean-clone'
+          git clone --no-hardlinks $env:GITHUB_WORKSPACE $clone
+          if ($LASTEXITCODE -ne 0) { throw 'Fresh clone failed' }
+          $cloneHead = (git -C $clone rev-parse HEAD).Trim()
+          if ($cloneHead -ne $env:GITHUB_SHA) { throw 'Fresh clone did not recover the tested commit' }
+          python (Join-Path $clone 'factory/app/validate_warder_identity_registry.py') --registry (Join-Path $clone 'factory/registry/warder-identity-registry.json') --ledger (Join-Path $clone 'factory/registry/master-approval-ledger.json') --base-commit $cloneHead
+          if ($LASTEXITCODE -ne 0) { throw 'Fresh clone Warder Master validation failed' }
       - name: Create disposable synthetic D drive workspace
         shell: pwsh
         run: |
