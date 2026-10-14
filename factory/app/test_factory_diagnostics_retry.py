@@ -77,5 +77,51 @@ class DiagnosticsRetryTests(unittest.TestCase):
             self.assertTrue(path.exists())
 
 
+    def test_offline_retry_budget_survives_scheduler_calls_and_manual_retry_resets(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            reports = Path(tmp) / "reports"; reports.mkdir()
+            path = reports / "report-20261014-120001-1.json"
+            path.write_text('{"run":"one"}', encoding="utf-8")
+            state = Path(tmp) / "retry.json"
+            with patch("factory_diagnostics_retry.upload_report",
+                       return_value={"status": "offline_or_failed"}) as send:
+                first = retry_reports(reports, state, max_attempts=2, sleeper=lambda _: None)
+                second = retry_reports(reports, state, max_attempts=2, sleeper=lambda _: None)
+                third = retry_reports(reports, state, max_attempts=2, sleeper=lambda _: None)
+            self.assertEqual(send.call_count, 2)
+            self.assertEqual(first[0]["status"], "offline_or_failed")
+            self.assertEqual(second[0]["status"], "retry_limit_reached")
+            self.assertEqual(third[0]["status"], "retry_limit_reached")
+            self.assertTrue(path.is_file())
+            with patch("factory_diagnostics_retry.upload_report",
+                       return_value={"status": "sent", "verified": True}) as send:
+                retried = retry_reports(reports, state, max_attempts=2,
+                                        force_retry=True, sleeper=lambda _: None)
+            self.assertEqual(send.call_count, 1)
+            self.assertEqual(retried[0]["status"], "sent")
+            self.assertFalse(path.exists())
+
+    def test_corrupt_retry_state_fails_closed_and_preserves_report(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            reports = Path(tmp) / "reports"; reports.mkdir()
+            path = reports / "report-20261014-120001-1.json"
+            path.write_text("{}", encoding="utf-8")
+            state = Path(tmp) / "retry.json"; state.write_text("{bad", encoding="utf-8")
+            with patch("factory_diagnostics_retry.upload_report") as send:
+                result = retry_reports(reports, state)
+            self.assertEqual(result[0]["status"], "retry_state_invalid")
+            send.assert_not_called()
+            self.assertTrue(path.exists())
+
+    def test_engine_import_contract_prevents_reported_importerror(self):
+        import ast
+        source = Path(__file__).with_name("engine.py").read_text(encoding="utf-8")
+        tree = ast.parse(source)
+        imports = {(node.module, alias.name) for node in ast.walk(tree)
+                   if isinstance(node, ast.ImportFrom) for alias in node.names}
+        self.assertIn(("review_evidence_upload", "retry_review_evidence_exports"), imports)
+        self.assertNotIn(("factory_diagnostics_retry", "retry_review_evidence_exports"), imports)
+
+
 if __name__ == "__main__":
     unittest.main()

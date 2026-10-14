@@ -1799,6 +1799,7 @@ class App:
   self.cancel_event=threading.Event();self.close_requested=False
   self.root.protocol('WM_DELETE_WINDOW',self.on_close)
   self._delivery_lock=threading.Lock()
+  self._diagnostics_auto_paused=False
   from factory_workspace import FactoryWorkspace
   self.workspace=FactoryWorkspace(self,self.root,_WORKSPACE)
   self.status.set('Read-only preflight · kontrolujem 13 adresárov; zápisy zostávajú zablokované')
@@ -2022,7 +2023,8 @@ class App:
    messagebox.showwarning('Preflight required','Diagnostika zostane lokálna, kým sa neoverí existujúca adresárová štruktúra.',parent=self.root);return
   if load_token(_WORKSPACE['github_credentials']):
    messagebox.showinfo('GitHub prenos','Existujúce prihlásenie je dostupné. Odosielam čakajúce reporty bez nového skenovania.',parent=self.root)
-   threading.Thread(target=self._send_diagnostics,args=(None,),daemon=True).start()
+   self._diagnostics_auto_paused=False
+   threading.Thread(target=self._send_diagnostics,args=(None,True),daemon=True).start()
    return
   import shutil,subprocess
   gh=shutil.which('gh')
@@ -2040,41 +2042,44 @@ class App:
                           timeout=300,creationflags=creationflags,check=False)
     if result.returncode==0:
      self.emit('diagnostics','GitHub prihlásenie dokončené; odosielam čakajúce dáta.')
-     self._send_diagnostics(None)
+     self._diagnostics_auto_paused=False
+     self._send_diagnostics(None,force_retry=True)
     else:self.emit('diagnostics','GitHub prihlásenie nedokončené; dáta zostali lokálne.')
    except (OSError,subprocess.TimeoutExpired):
     self.emit('diagnostics','GitHub prihlásenie sa nepodarilo; dáta zostali lokálne.')
   threading.Thread(target=login_worker,daemon=True).start()
  def _scheduled_delivery(self):
-  # Retry in small bounded batches while the GUI is open. A failed or slow
-  # request cannot block Tk, and the delivery lock prevents overlap.
-  if not self.running:
-   threading.Thread(target=self._send_diagnostics,args=(None,),daemon=True).start()
+  # Best-effort delivery pauses after a bounded failure; no endless polling.
+  if not self.running and not self._diagnostics_auto_paused:
+   threading.Thread(target=self._send_diagnostics,args=(None,False),daemon=True).start()
   self.root.after(60000,self._scheduled_delivery)
  def _resume_pending_delivery(self):
   # A restart must NOT rescan 162k PNG merely to retry GitHub delivery.
   self.status.set('Pripravené · obnovujem čakajúce odosielanie bez skenovania')
-  threading.Thread(target=self._send_diagnostics,args=(None,),daemon=True).start()
- def _send_diagnostics(self,report_path):
+  threading.Thread(target=self._send_diagnostics,args=(None,False),daemon=True).start()
+ def _send_diagnostics(self,report_path,force_retry=False):
   if not self._delivery_lock.acquire(blocking=False):
    self.emit('diagnostics','prenos už prebieha; druhý paralelný prenos nespúšťam')
    return
   try:
+   if force_retry:self._diagnostics_auto_paused=False
    from factory_github_credentials import load_token
    token=load_token(_WORKSPACE['github_credentials'])
    if not token:
-    self.emit('diagnostics','prihlásenie nedostupné; reporty a PNG ponechané lokálne')
+    self._diagnostics_auto_paused=True
+    self.emit('diagnostics','GitHub prihlásenie nie je dostupné; reporty zostali lokálne a automatické opakovanie je pozastavené')
     return
    os.environ['WARDER_DIAGNOSTICS_TOKEN']=token
-   from factory_diagnostics_retry import retry_reports, retry_review_evidence_exports
-   evidence_results=retry_review_evidence_exports(REPORTS,APP_DATA/'review-evidence-delivery.json',limit=5,token=token)
+   from factory_diagnostics_retry import retry_reports
+   from review_evidence_upload import retry_review_evidence_exports
+   evidence_results=retry_review_evidence_exports(REPORTS,APP_DATA/'review-evidence-delivery.json',limit=5,token=token,force_retry=force_retry)
    for delivered in evidence_results:
     self.emit('diagnostics','review evidence '+delivered.get('report','')+': '+delivered.get('status','unknown')+
               (' · skupiny '+str(delivered.get('groups')) if delivered.get('status')=='sent' else ''))
    results=[]
    # Drain all pending reports in bounded batches, without rescanning PNG.
    while True:
-    batch=retry_reports(REPORTS,_WORKSPACE['diagnostics_cache'],limit=5)
+    batch=retry_reports(REPORTS,APP_DATA/'diagnostics-retry-state.json',limit=5,force_retry=force_retry)
     results.extend(batch)
     if len(batch)<5 or any(item['status']!='sent' for item in batch):
      break
@@ -2085,12 +2090,18 @@ class App:
    else:
     message=('potvrdené odoslanie '+str(sent)+'/'+str(len(results))+'; '+('; '.join(failures) if failures else 'všetky prijaté'))
    self.emit('diagnostics',message)
+   if failures or any(item.get('status') not in ('sent','not_configured') for item in evidence_results):
+    self._diagnostics_auto_paused=True
    from factory_png_evidence import upload_png_evidence
    evidence=upload_png_evidence(EXCEPTIONS,state_path=APP_DATA/'png-evidence-delivered.json',max_attempts=20,legacy_report_dir=REPORTS)
    if evidence['attempted'] or evidence.get('errors'):
     self.emit('diagnostics','PNG dôkazy: '+str(evidence['sent'])+'/'+str(evidence['attempted'])+'; stav '+evidence['status']+'; chyby: '+', '.join(evidence.get('errors',[])[:3]))
+  except ImportError as exc:
+   self._diagnostics_auto_paused=True
+   self.emit('diagnostics','ImportError pri diagnostike: '+str(exc)[:180]+'; opakovanie pozastavené, lokálne dáta zachované')
   except Exception as exc:
-   self.emit('diagnostics','prenos nedokončený ('+type(exc).__name__+'); lokálne dáta zachované')
+   self._diagnostics_auto_paused=True
+   self.emit('diagnostics','prenos nedokončený ('+type(exc).__name__+'); lokálne dáta zachované, automatické opakovanie pozastavené')
   finally:
    self._delivery_lock.release()
  def _record_failed_run(self):

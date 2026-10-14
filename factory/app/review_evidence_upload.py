@@ -11,6 +11,8 @@ import hashlib
 import json
 import os
 import re
+import tempfile
+import time
 import urllib.error
 import urllib.request
 from pathlib import Path
@@ -153,34 +155,119 @@ def upload_review_evidence(report_path, *, token=None, opener=None, chunk_bytes=
     }
 
 
-def retry_review_evidence_exports(report_dir, state_path, *, limit=5, token=None, opener=None):
-    """Retry pending local exports without rescanning source images."""
-    folder = Path(report_dir)
-    state_file = Path(state_path)
+def _read_delivery_state(path):
+    if not path.exists():
+        return {"delivered": {}, "attempts": {}}
     try:
-        state = json.loads(state_file.read_text(encoding="utf-8"))
-        if not isinstance(state, dict):
-            state = {}
+        state = json.loads(path.read_text(encoding="utf-8"))
     except (OSError, ValueError):
-        state = {}
-    delivered = state.setdefault("delivered", {})
+        return None
+    if not isinstance(state, dict):
+        return None
+    delivered, attempts = state.setdefault("delivered", {}), state.setdefault("attempts", {})
+    if not isinstance(delivered, dict) or not isinstance(attempts, dict):
+        return None
+    if any(not isinstance(k, str) or not isinstance(v, int) or v < 0
+           for k, v in attempts.items()):
+        return None
+    return state
+
+
+def _write_delivery_state(path, state):
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = None
+    try:
+        with tempfile.NamedTemporaryFile("w", encoding="utf-8", dir=path.parent,
+                                         prefix=path.name + ".", suffix=".tmp",
+                                         delete=False) as stream:
+            temporary = Path(stream.name)
+            json.dump(state, stream, ensure_ascii=False, sort_keys=True)
+            stream.flush()
+            os.fsync(stream.fileno())
+        os.replace(temporary, path)
+    except OSError:
+        if temporary is not None:
+            try:
+                temporary.unlink()
+            except OSError:
+                pass
+        raise
+
+
+def retry_review_evidence_exports(report_dir, state_path, *, limit=5, token=None,
+                                  opener=None, max_attempts=3, force_retry=False,
+                                  sleeper=time.sleep):
+    """Retry local exports without rescanning; stop at a bounded retry budget."""
+    folder, state_file = Path(report_dir), Path(state_path)
+    if limit < 1 or max_attempts < 1:
+        raise ValueError("limit and max_attempts must be positive")
+    paths = [p for p in sorted(folder.glob("review-evidence-*.json"))
+             if not p.is_symlink() and p.is_file()] if folder.is_dir() else []
+    if not paths:
+        return []
+    configured_token = (token or os.environ.get("WARDER_DIAGNOSTICS_TOKEN", "")).strip()
+    if not configured_token:
+        return [{"report": p.name, "status": "not_configured"} for p in paths[:limit]]
+    state = _read_delivery_state(state_file)
+    if state is None:
+        return [{"report": p.name, "status": "retry_state_invalid"} for p in paths[:limit]]
+    delivered, attempts = state["delivered"], state["attempts"]
     results = []
-    for path in sorted(folder.glob("review-evidence-*.json")):
+    for path in paths:
         if len(results) >= limit:
             break
         run = path.stem.removeprefix("review-evidence-")
         if run in delivered:
             continue
         try:
-            result = upload_review_evidence(path, token=token, opener=opener)
-        except (OSError, ValueError, urllib.error.URLError, urllib.error.HTTPError) as exc:
-            result = {"status": "offline_or_failed", "detail": type(exc).__name__}
-        results.append({"report": path.name, **result})
-        if result.get("status") == "sent" and result.get("verified"):
-            delivered[run] = {"manifest_sha256": result["manifest_sha256"],
-                              "verified": True}
-            from source_registry import atomic_json
-            atomic_json(state_file, state)
+            before = hashlib.sha256(path.read_bytes()).hexdigest()
+        except OSError:
+            results.append({"report": path.name, "status": "local_read_error"})
+            continue
+        key = run + ":" + before
+        if force_retry:
+            attempts.pop(key, None)
+        count = attempts.get(key, 0)
+        if count >= max_attempts:
+            results.append({"report": path.name, "status": "retry_limit_reached",
+                            "attempts": count})
+            continue
+        result = {"status": "offline_or_failed"}
+        for attempt in range(count, max_attempts):
+            attempts[key] = attempt + 1
+            try:
+                _write_delivery_state(state_file, state)
+            except OSError:
+                result = {"status": "retry_state_write_failed"}
+                break
+            try:
+                result = upload_review_evidence(path, token=configured_token, opener=opener)
+            except (OSError, ValueError, urllib.error.URLError, urllib.error.HTTPError) as exc:
+                result = {"status": "offline_or_failed", "detail": type(exc).__name__}
+            if result.get("status") == "sent" and result.get("verified"):
+                try:
+                    after = hashlib.sha256(path.read_bytes()).hexdigest()
+                except OSError:
+                    result = {"status": "local_read_error"}
+                    break
+                if after != before:
+                    result = {"status": "changed_during_delivery"}
+                    attempts.pop(key, None)
+                    _write_delivery_state(state_file, state)
+                    break
+                delivered[run] = {"manifest_sha256": result["manifest_sha256"],
+                                  "verified": True}
+                attempts.pop(key, None)
+                _write_delivery_state(state_file, state)
+                break
+            if result.get("status") in ("not_configured", "invalid_run",
+                                        "invalid_configuration"):
+                break
+            if attempt + 1 >= max_attempts:
+                break
+            sleeper(min(2 ** attempt, 5))
+        results.append({"report": path.name, **result,
+                        "attempts": attempts.get(key, 0)})
         if result.get("status") not in ("sent", "not_configured"):
             break
     return results

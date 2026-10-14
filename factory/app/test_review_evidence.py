@@ -4,6 +4,7 @@ import hashlib
 import json
 import tempfile
 import unittest
+from unittest.mock import patch
 import urllib.error
 from pathlib import Path
 from urllib.parse import urlsplit
@@ -153,6 +154,35 @@ class ReviewEvidenceTests(unittest.TestCase):
             results = retry_review_evidence_exports(folder, folder / "state.json",
                 token="test-token", opener=offline, limit=1)
             self.assertEqual(results[0]["status"], "offline_or_failed")
+            self.assertTrue(path.is_file())
+
+
+    def test_review_evidence_retry_budget_is_bounded_and_manual_retry_works(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            folder = Path(tmp)
+            path = folder / "review-evidence-20261014-092513-878919.json"
+            path.write_text(json.dumps({"run": "20261014-092513-878919",
+                "active_review_tasks": 0, "decision_group_count": 0,
+                "privacy": {}, "records": []}), encoding="utf-8")
+            state = folder / "state.json"
+            def offline(*args, **kwargs):
+                raise urllib.error.URLError("offline")
+            with patch("review_evidence_upload.upload_review_evidence", side_effect=offline) as send:
+                first = retry_review_evidence_exports(folder, state, token="test-token",
+                    max_attempts=2, opener=offline, sleeper=lambda _: None)
+                second = retry_review_evidence_exports(folder, state, token="test-token",
+                    max_attempts=2, opener=offline, sleeper=lambda _: None)
+            self.assertEqual(send.call_count, 2)
+            self.assertEqual(first[0]["status"], "offline_or_failed")
+            self.assertEqual(second[0]["status"], "retry_limit_reached")
+            self.assertTrue(path.is_file())
+            with patch("review_evidence_upload.upload_review_evidence",
+                       return_value={"status": "sent", "verified": True,
+                                     "manifest_sha256": "a"*64}) as send:
+                retried = retry_review_evidence_exports(folder, state, token="test-token",
+                    max_attempts=2, force_retry=True)
+            self.assertEqual(send.call_count, 1)
+            self.assertEqual(retried[0]["status"], "sent")
             self.assertTrue(path.is_file())
 
 if __name__ == "__main__":
