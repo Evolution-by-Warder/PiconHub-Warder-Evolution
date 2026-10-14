@@ -377,6 +377,8 @@ jobs:
         run: |
           $installed = 'D:\WARDER-PICON-FACTORY\11-APP\WARDER-PICON-FACTORY\WARDER-PICON-FACTORY.exe'
           $oldHash = (Get-FileHash -Algorithm SHA256 -LiteralPath $installed).Hash
+          $oldBuild = @{ version='factory-v0.2.60'; commit='58f047f688b925f5c912a01c931f6790b67f2ed9'; sha256=$oldHash.ToLowerInvariant(); bytes=(Get-Item -LiteralPath $installed).Length }
+          $oldBuild | ConvertTo-Json -Compress | Set-Content -LiteralPath 'D:\WARDER-PICON-FACTORY\11-APP\WARDER-PICON-FACTORY\.factory-installed-version.json' -NoNewline
           Remove-Item $env:WARDER_GUI_SMOKE_READY_FILE -Force -ErrorAction SilentlyContinue
           $updater = Join-Path $env:GITHUB_WORKSPACE 'factory/app/dist/WARDER-PICON-FACTORY-UPDATE.exe'
           $updaterOut = Join-Path $env:RUNNER_TEMP 'factory-updater.stdout.txt'
