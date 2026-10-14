@@ -340,6 +340,9 @@ def migrate_legacy_review_queue(exceptions_dir: str | Path, reports_dir: str | P
             if prior.get("status") == "COMPLETED":
                 return prior
             plan = prior.get("targets", [])
+            if not plan:
+                marker.unlink()
+                return migrate_legacy_review_queue(exceptions_dir, reports_dir, state_dir)
         except (OSError, ValueError, TypeError):
             return {"status": "BLOCKED", "reason": "MIGRATION_MARKER_INVALID", "deleted": 0}
     else:
@@ -360,6 +363,13 @@ def migrate_legacy_review_queue(exceptions_dir: str | Path, reports_dir: str | P
         prior = {"schema": 1, "migration": "cancel-legacy-review-queue-9932-v1",
                  "status": "PLANNED", "targets": plan, "deleted": 0, "conflicts": []}
         atomic_json(marker, prior)
+
+    # Empty discovery is not completed cancellation; allow future rescans.
+    if not plan:
+        marker.unlink(missing_ok=True)
+        return {"schema": 1, "migration": "cancel-legacy-review-queue-9932-v1",
+                "status": "NOT_FOUND", "targets": [], "deleted": 0,
+                "discarded_legacy_items": 0, "conflicts": []}
 
     roots = {"exceptions": Path(exceptions_dir), "reports": Path(reports_dir)}
     deleted = int(prior.get("deleted", 0) or 0)
