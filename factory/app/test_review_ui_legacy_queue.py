@@ -23,6 +23,38 @@ class LegacyQueueUiTests(unittest.TestCase):
                                          "items": [{"review_id": "WR-0123456789ABCDEF"}]}), encoding="utf-8")
             self.assertEqual(latest_review(folder), valid)
 
+    def test_exception_queue_is_found_beside_reports(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            reports = root / "08-REPORTS"
+            reports.mkdir()
+            exceptions = root / "05-QA" / "EXCEPTIONS"
+            exceptions.mkdir(parents=True)
+            expected = exceptions / "review-queue-20261014-200109-555666.json"
+            expected.write_text(json.dumps({
+                "schema": 1, "count": 1,
+                "items": [{"review_id": "WR-0123456789ABCDEF"}]
+            }), encoding="utf-8")
+            self.assertEqual(latest_review(reports), expected)
+
+    def test_cancelled_exception_queue_stays_excluded(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            reports = root / "08-REPORTS"
+            reports.mkdir()
+            exceptions = root / "05-QA" / "EXCEPTIONS"
+            exceptions.mkdir(parents=True)
+            legacy = exceptions / "review-queue-legacy.json"
+            legacy.write_text(json.dumps({
+                "schema": 1, "count": 18011,
+                "workstream_counts": {"IDENTITY_VERIFICATION": 12133,
+                                      "ARTWORK_REVIEW": 5877, "TECHNICAL_QA": 1},
+                "items": ([{"workstream": "IDENTITY_VERIFICATION"}] * 12133 +
+                          [{"workstream": "ARTWORK_REVIEW"}] * 5877 +
+                          [{"workstream": "TECHNICAL_QA"}])
+            }), encoding="utf-8")
+            self.assertIsNone(latest_review(reports))
+
     def test_18011_legacy_queue_is_not_reloaded_after_restart(self):
         with tempfile.TemporaryDirectory() as tmp:
             folder = Path(tmp)
