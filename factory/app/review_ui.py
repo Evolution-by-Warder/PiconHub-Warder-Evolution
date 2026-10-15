@@ -7,7 +7,13 @@ def latest_review(report_dir, *fallback_dirs):
     files = []
     for folder in (report_dir, *fallback_dirs):
         try:
-            files.extend(Path(folder).glob('review-queue-*.json'))
+            root = Path(folder)
+            files.extend(root.glob('review-queue-*.json'))
+            # Current installations persist exceptions under 05-QA/EXCEPTIONS,
+            # while reports live in 08-REPORTS. Resolve both without moving data.
+            files.extend((root / 'EXCEPTIONS').glob('review-queue-*.json'))
+            if root.name.upper() == '08-REPORTS':
+                files.extend((root.parent / '05-QA' / 'EXCEPTIONS').glob('review-queue-*.json'))
         except OSError:
             continue
     eligible = []
