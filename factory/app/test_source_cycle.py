@@ -97,7 +97,7 @@ class SourceCycleTests(unittest.TestCase):
 
         found_head, ledger = cycle.fetch_source_ledger(opener=Opener())
         self.assertEqual(found_head, head)
-        self.assertEqual(ledger["sources"]["openatv8"]["status"], "AWAITING_APPROVAL")
+        self.assertEqual(ledger["sources"]["openatv8"]["status"], "FAILED")
         self.assertEqual(cycle.active_source(ledger), "openatv8")
 
     def test_github_source_ledger_wrong_git_blob_sha_fails_closed(self):
@@ -221,7 +221,7 @@ class SourceCycleTests(unittest.TestCase):
         ledger=json.loads((repo_root/'factory'/'registry'/'source-processing-ledger.json').read_text(encoding='utf-8'))
         self.assertEqual(cycle.validate_source_ledger(ledger),[])
         source=ledger['sources']['openatv8']
-        self.assertEqual(source['status'],'AWAITING_APPROVAL')
+        self.assertEqual(source['status'],'FAILED')
         self.assertEqual(source['png_observations'],148466)
         total=0
         for item in source['content_manifest']:
