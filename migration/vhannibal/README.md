@@ -31,3 +31,12 @@ filenames absent from the PiconHub baseline and adds only complete, QC-safe
 `transparent` / `black` / `white` triplets. Existing picons and plugin/GUI
 files remain untouched; every unresolved or REVIEW item stays out of the
 runtime tree and is retained in the incremental audit report.
+
+## Motor 18 October incremental pass — 2026-10-19
+
+The official 18 October picon archive and its matching Motor settings were
+compared against the already updated PiconHub `main`. The guarded delta is
+recorded under `migration/vhannibal/motor18oct-incremental/`: 174 new,
+unambiguous service references were added as complete transparent/black/white
+triplets. Existing picons were preserved, generic provider placeholders were
+rejected, and plugin/GUI/skin/template files remain untouched.
