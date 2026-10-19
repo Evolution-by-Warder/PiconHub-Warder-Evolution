@@ -41,3 +41,23 @@ orbital position from the Enigma2 namespace, and writes only
 `picons/<position>/<provider>/{transparent,white,black}/<service-reference>.png`.
 `summary.json` and the compressed 14,041-row audit contain the complete
 reproducibility record.
+
+## Complete post-import visual QC
+
+After the first random preview exposed a defective WHITE AXN conversion, all
+174 imported triplets were inspected side-by-side at full resolution. The
+review found 67 low-contrast WHITE files representing 23 unique artworks; all
+67 were rebuilt and visually rechecked. The remaining 107 WHITE files passed
+unchanged. All 174 BLACK files and all 174 transparent originals passed and
+remain byte-for-byte unchanged.
+
+Repairs are bound to exact source-RGBA digests. They use the auxiliary Warder
+V9 renderer from commit `76f2f4be11a30144ece35492dfb188a54bd747d4`
+(`b841585ca0441251f7e3e10108f1128c0aba69986c8fe2db17f435351723da30`)
+plus explicit protected masks for white brand elements located inside coloured
+panels (PRIVATE, Eurosport, MTV, FON MUSIC and Cartoon Network). No text or
+logo was painted over as an extra layer.
+
+`white-qc-repair.tsv` records every repaired destination and its before/after
+SHA256. `white-qc-summary.json` records the full-scope validation totals, and
+`repair_white_qc.py` is the digest-bound reproducibility tool.

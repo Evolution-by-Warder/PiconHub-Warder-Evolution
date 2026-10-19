@@ -40,3 +40,8 @@ recorded under `migration/vhannibal/motor18oct-incremental/`: 174 new,
 unambiguous service references were added as complete transparent/black/white
 triplets. Existing picons were preserved, generic provider placeholders were
 rejected, and plugin/GUI/skin/template files remain untouched.
+
+A subsequent full visual review of all 174 new triplets corrected 67 WHITE
+variants across 23 unique artworks. Transparent originals and BLACK variants
+were not changed. The exact repair manifest, validation summary and
+digest-bound repair tool are stored with the Motor 18 October audit.
