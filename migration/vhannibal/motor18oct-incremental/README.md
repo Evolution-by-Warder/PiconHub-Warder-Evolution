@@ -42,22 +42,55 @@ orbital position from the Enigma2 namespace, and writes only
 `summary.json` and the compressed 14,041-row audit contain the complete
 reproducibility record.
 
-## Complete post-import visual QC
+## First post-import visual QC (superseded for ghost/underlay acceptance)
 
-After the first random preview exposed a defective WHITE AXN conversion, all
-174 imported triplets were inspected side-by-side at full resolution. The
-review found 67 low-contrast WHITE files representing 23 unique artworks; all
-67 were rebuilt and visually rechecked. The remaining 107 WHITE files passed
-unchanged. All 174 BLACK files and all 174 transparent originals passed and
-remain byte-for-byte unchanged.
+After the first random preview exposed a defective WHITE AXN conversion, a
+first pass selected 67 low-contrast WHITE files representing 23 unique
+artworks. Its historical report is retained, but its acceptance wording is no
+longer authoritative: it wrote some candidates even though the raw Warder V9
+engine returned `REVIEW`, and a later enlarged preview exposed residual light
+artwork below the dark conversion.
 
-Repairs are bound to exact source-RGBA digests. They use the auxiliary Warder
+The first-pass repairs are bound to exact source-RGBA digests. They use the auxiliary Warder
 V9 renderer from commit `76f2f4be11a30144ece35492dfb188a54bd747d4`
 (`b841585ca0441251f7e3e10108f1128c0aba69986c8fe2db17f435351723da30`)
 plus explicit protected masks for white brand elements located inside coloured
-panels (PRIVATE, Eurosport, MTV, FON MUSIC and Cartoon Network). No text or
-logo was painted over as an extra layer.
+panels (PRIVATE, Eurosport, MTV, FON MUSIC and Cartoon Network).
 
 `white-qc-repair.tsv` records every repaired destination and its before/after
 SHA256. `white-qc-summary.json` records the full-scope validation totals, and
 `repair_white_qc.py` is the digest-bound reproducibility tool.
+
+## Engine ghost/underlay gate — authoritative final WHITE QC
+
+`scan_repair_white_ghosts.py` reruns the Warder engine and then scans all 174
+WHITE outputs for a split logical artwork: darkened pixels adjacent to
+unchanged light source pixels. A raw engine `REVIEW` is never promoted to PASS
+automatically. Every remaining visual signal must be either repaired and
+rescanned or bound to an exact source-RGBA digest with a recorded protected
+brand reason; an unresolved `VISUAL_REVIEW` is a hard failure.
+
+Final result:
+
+- 174/174 imported WHITE outputs scanned;
+- 92 `PASS`, 77 `PASS_PROTECTED`, 5 `PASS_REPAIRED`;
+- 0 unresolved `VISUAL_REVIEW`;
+- 5 defective delta WHITE outputs fixed: Asharq Bloomberg plus four OSN
+  wordmarks (`showcase classics`, `movies family`, `movies horror`,
+  `movies comedy`);
+- 12 catalog WHITE files repaired after including pixel-identical existing
+  identities;
+- transparent, BLACK, both MASTERs, plugin GUI and skin files unchanged.
+
+The repair changes source artwork pixels before compositing onto the immutable
+WHITE MASTER. It does not add a covering text layer. OSN masks are selected by
+complete neutral logical components seeded by the engine; the coloured `tv`
+mark is excluded by content rather than a coordinate rectangle. Asharq is an
+exact-digest-bound monochrome wordmark repair.
+
+Authoritative evidence:
+
+- `white-ghost-qc-repair.tsv` — all 12 before/after SHA256 records and raw
+  engine REVIEW reasons;
+- `white-ghost-qc-scan.tsv` — one final scanner row for every imported WHITE;
+- `white-ghost-qc-summary.json` — final counts and immutable-file assertions.
