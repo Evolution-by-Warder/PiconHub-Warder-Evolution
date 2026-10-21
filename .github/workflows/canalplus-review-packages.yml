@@ -1,0 +1,28 @@
+name: Build existing Canal+ SK/CZ review packages
+on:
+  push:
+    branches: [review/canalplus-fastscan-packages-20261021]
+    paths: ['migration/canalplus-fastscan-sk-cz-20261020/review-20261021/*.py', 'migration/canalplus-fastscan-sk-cz-20261020/review-20261021/audit.json', '.github/workflows/canalplus-review-packages.yml']
+permissions:
+  contents: write
+jobs:
+  bundle:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /picons/23.5e/canal-plus-sk/
+            /picons/23.5e/canal-plus-cz/
+            /migration/canalplus-provider-rebrand-20261022/prepared/
+            /migration/canalplus-fastscan-sk-cz-20261020/review-20261021/
+      - name: Bundle unchanged PNGs and validate both archives
+        run: python3 migration/canalplus-fastscan-sk-cz-20261020/review-20261021/build_packages.py
+      - name: Save review archives on the review branch only
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add --sparse migration/canalplus-fastscan-sk-cz-20261020/review-20261021/*.zip
+          git commit -m 'Store complete Canal+ SK/CZ review archives from unchanged PNGs'
+          git push origin HEAD:refs/heads/review/canalplus-fastscan-packages-20261021
