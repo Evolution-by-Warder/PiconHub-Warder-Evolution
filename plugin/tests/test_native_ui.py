@@ -104,9 +104,14 @@ class NativeControllerTests(unittest.TestCase):
             module=types.ModuleType(name)
             for key,value in values.items():setattr(module,key,value)
             modules[name]=module
-        with patch.dict(sys.modules,modules):cls.gui=importlib.import_module(namespace+".warder_gui")
+        with patch.dict(sys.modules,modules):
+            cls.gui=importlib.import_module(namespace+".warder_gui")
+            cls.i18n=sys.modules[namespace+".warder_i18n"]
 
     def setUp(self):
+        self.config.osd.language.value="sk_SK"
+        language_patch=patch.object(self.i18n,"language_code",lambda:self.config.osd.language.value.split("_")[0])
+        language_patch.start();self.addCleanup(language_patch.stop)
         profiles=[]
         for number in range(4):
             profiles.append(types.SimpleNamespace(allowed=Setting(number==1),method=Setting("sync_tv"),
@@ -207,6 +212,20 @@ class NativeControllerTests(unittest.TestCase):
         dialog["actions"]["red"]()
         self.assertIsNone(dialog.result)
 
+    def test_reopened_interface_translates_without_changing_selection_ids(self):
+        for code,label,white in (("en_GB","Satellites","White"),("de_DE","Satelliten","Weiß"),("pl_PL","Satelity","Białe"),("cs_CZ","Satelity","Bílé"),("hu_HU","Műholdak","Fehér"),("ru_RU","Спутники","Белый"),("fr_FR","Satellites","Blanc"),("it_IT","Satelliti","Bianco"),("es_ES","Satélites","Blanco")):
+            self.config.osd.language.value=code
+            main=self.gui.WarderMainScreen(self.session)
+            self.assertEqual(main["list"].values[0][0][0],"satellites")
+            self.assertEqual(main["list"].values[0][0][1],label)
+            main.choose("style","white")
+            self.assertIn(white,main["preview_caption"].text)
+            dialog=self.gui.ChoiceDialog(self.session,"Pozadie",self.gui.model.STYLES)
+            row=dialog["list"].values[1]
+            self.assertEqual(row[0][0],"white")
+            self.assertEqual(row[-1]["text"],white)
+            main.cleanup()
+
     def test_recent_worker_results_are_displayed_only_on_gui_tick(self):
         paths=self.gui.recent.bundled(ROOT)
         with patch.object(self.gui.recent,"load_recent",return_value=paths):
@@ -273,7 +292,7 @@ class NativeControllerTests(unittest.TestCase):
         with patch.object(self.gui.model,"clock_text",return_value=("Piatok","23. októbra 2026","10:48","10")):
             self.main.tick()
         self.assertEqual(self.main["seconds"].text,":10")
-        self.assertEqual(self.main["version"].text,"v"+(ROOT/"version.txt").read_text().strip())
+        self.assertEqual(self.main["version"].text,"Verzia: "+(ROOT/"version.txt").read_text().strip())
         self.main.clock_timer.start();self.main.cleanup()
         self.assertFalse(self.main.clock_timer.running)
 

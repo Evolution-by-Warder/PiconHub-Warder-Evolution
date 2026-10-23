@@ -65,6 +65,10 @@ def prefs(destination,mode=sync.UPDATE_MODE_INCREMENTAL):
 
 
 class MenuTests(unittest.TestCase):
+    def setUp(self):
+        language_patch=patch.object(sys.modules[layout.__package__+".warder_i18n"],"language_code",return_value="sk")
+        language_patch.start();self.addCleanup(language_patch.stop)
+
     def test_skin_choices_and_provider_identity(self):
         self.assertEqual(tuple(x for x,label in model.RESOLUTIONS),("50x30","220x132","400x240"))
         self.assertEqual(model.STYLES,(("transparent","Transparent"),("white","Biele"),("black","Čierne")))

@@ -1,4 +1,5 @@
 """Modern Warder screens around the retained Chocholousek configuration base."""
+from .warder_i18n import _, localize_skin
 import json
 import pathlib
 import queue
@@ -60,7 +61,7 @@ def option_entries(choices, selected, scale, multiple=False, icons=None):
             left = 157
         entry.append(MultiContentEntryText(pos=(round(left*scale),0),
                      size=(round((990-left)*scale),round(60*scale)), font=0,
-                     flags=RT_HALIGN_LEFT|RT_VALIGN_CENTER, text=label))
+                     flags=RT_HALIGN_LEFT|RT_VALIGN_CENTER, text=_(label)))
         result.append(entry)
     return result
 
@@ -72,18 +73,18 @@ class ChoiceDialog(Screen):
         Screen.__init__(self,session)
         self.warder_scale = min(width/1920.0,height/1080.0)
         self.state = model.PickerState(choices, current or () if multiple else (current,), multiple)
-        self["title"] = Label(title)
+        self["title"] = Label(_(title))
         self.icons = {}
         if multiple:
             for value,label in choices:
                 path = ROOT/"images/selectors"/(value+".png")
                 if path.is_file():
                     self.icons[value] = LoadPixmap(path=str(path))
-            self["hint_ok"] = Label("OK: vybrať")
-            self["hint_green"] = Label("Zelené: potvrdiť výber")
-            self["hint_red"] = Label("Červené: naspäť")
+            self["hint_ok"] = Label(_("OK: vybrať"))
+            self["hint_green"] = Label(_("Zelené: potvrdiť výber"))
+            self["hint_red"] = Label(_("Červené: naspäť"))
         else:
-            self["hint"] = Label("OK: potvrdiť • EXIT: bez zmeny")
+            self["hint"] = Label(_("OK: potvrdiť • EXIT: bez zmeny"))
         self["list"] = menu_component(self.warder_scale)
         self["actions"] = ActionMap(["OkCancelActions","ColorActions","DirectionActions"], {
             "ok": self.accept, "green": self.apply, "cancel": lambda:self.close(None),
@@ -125,8 +126,8 @@ class DirectoryDialog(ChoiceDialog):
         self.path = pathlib.Path(path)
         while not self.path.is_dir() and self.path != self.path.parent:
             self.path = self.path.parent
-        ChoiceDialog.__init__(self,session,"Priečinok: "+str(self.path),self.directory_choices())
-        self["hint"].setText("OK: otvoriť • Zelené: použiť tento priečinok • EXIT: späť")
+        ChoiceDialog.__init__(self,session,_("Priečinok: ")+str(self.path),self.directory_choices())
+        self["hint"].setText(_("OK: otvoriť • Zelené: použiť tento priečinok • EXIT: späť"))
 
     def directory_choices(self):
         try:
@@ -140,12 +141,12 @@ class DirectoryDialog(ChoiceDialog):
         if item:
             self.path = pathlib.Path(item[0][0])
             self.state = model.PickerState(self.directory_choices())
-            self["title"].setText("Priečinok: "+str(self.path))
+            self["title"].setText(_("Priečinok: ")+str(self.path))
             self.rebuild()
 
     def apply(self):
         if not model.sync.validate_destination(str(self.path)):
-            self.session.open(MessageBox,"Tento priečinok nie je platný cieľ pre picony.",type=MessageBox.TYPE_ERROR)
+            self.session.open(MessageBox,_("Tento priečinok nie je platný cieľ pre picony."),type=MessageBox.TYPE_ERROR)
             return
         self.close(str(self.path))
 
@@ -155,7 +156,7 @@ class TextDialog(Screen):
         width,height=desktop()
         self.skin=dialog_skin(width,height,8).replace('name="list"','name="list" font="Regular;%d"' % round(25*height/1080.0))
         Screen.__init__(self,session)
-        self["title"],self["hint"]=Label(title),Label("EXIT: späť • ↑↓: posun")
+        self["title"],self["hint"]=Label(_(title)),Label(_("EXIT: späť • ↑↓: posun"))
         self["list"]=ScrollLabel(text)
         self["actions"]=ActionMap(["OkCancelActions","DirectionActions"],{
             "ok":self.close,"cancel":self.close,"up":self["list"].pageUp,"down":self["list"].pageDown},-2)
@@ -170,10 +171,11 @@ class PiconJobScreen(Screen):
           <widget name="progress" position="%d,%d" size="%d,%d" borderWidth="2" />
           <widget name="hint" position="%d,%d" size="%d,%d" font="Regular;%d" />
         </screen>''' % tuple(round(v*scale) for v in (1100,540,35,40,1030,300,30,35,375,1030,35,35,450,1030,60,25))
+        self.skin=localize_skin(self.skin)
         Screen.__init__(self,session)
         self.preferences,self.done,self.started,self.closed=preferences,False,False,False
         self.events,self.cancel=queue.Queue(),threading.Event()
-        self["status"],self["hint"]=Label("Pripravujem aktualizáciu piconov…"),Label("EXIT: zrušiť prípravu • Modré: log")
+        self["status"],self["hint"]=Label(_("Pripravujem aktualizáciu piconov…")),Label(_("EXIT: zrušiť prípravu • Modré: log"))
         self["progress"]=ProgressBar()
         self["actions"]=ActionMap(["OkCancelActions","ColorActions"],{
             "ok":self.finish,"cancel":self.finish,"red":self.finish,"blue":self.show_log},-2)
@@ -214,26 +216,26 @@ class PiconJobScreen(Screen):
             if item[0]=="stage":
                 self["status"].setText(item[1]);self["progress"].hide()
             elif item[0]=="download":
-                self["status"].setText("Sťahujem %s • %d %%" % (item[1],int(item[2]*100/item[3])))
+                self["status"].setText(_("Sťahujem %s • %d %%") % (item[1],int(item[2]*100/item[3])))
                 self["progress"].show();self["progress"].setValue(int(item[2]*100/item[3]))
             elif item[0] in ("result","error"):
                 self.done=True
                 self["progress"].hide()
-                self["hint"].setText("OK alebo EXIT: späť • Modré: log")
+                self["hint"].setText(_("OK alebo EXIT: späť • Modré: log"))
                 if item[0]=="result":
-                    self["status"].setText("Dokončené.\n\nPridané: %d\nZmenené: %d\nOdstránené: %d" % (item[1]["added"],item[1]["changed"],item[1]["removed"]))
-                else:self["status"].setText("Aktualizácia sa nedokončila.\n\n"+item[1])
+                    self["status"].setText(_("Dokončené.\n\nPridané: %d\nZmenené: %d\nOdstránené: %d") % (item[1]["added"],item[1]["changed"],item[1]["removed"]))
+                else:self["status"].setText(_("Aktualizácia sa nedokončila.\n\n")+item[1])
                 self.timer.stop()
 
     def finish(self):
         if self.done:self.close()
         else:
-            self.cancel.set();self["hint"].setText("Čakám na bezpečné ukončenie…")
+            self.cancel.set();self["hint"].setText(_("Čakám na bezpečné ukončenie…"))
 
     def show_log(self):
         try:text=pathlib.Path("/tmp/piconhub-picons.log").read_text()[-24000:]
-        except OSError:text="Log zatiaľ nie je dostupný."
-        self.session.open(TextDialog,"Log aktualizácie",text)
+        except OSError:text=_("Log zatiaľ nie je dostupný.")
+        self.session.open(TextDialog,_("Log aktualizácie"),text)
 
     def cleanup(self):
         self.closed=True;self.cancel.set();self.timer.stop()
@@ -259,7 +261,7 @@ class WarderMainScreen(Screen):
         if value in (None,"no_satellites_was_selected","no_picons"):
             value="transparent"
         choices=list(model.STYLES)
-        if value not in dict(choices):choices.append((value,"Pôvodná voľba: "+str(value)))
+        if value not in dict(choices):choices.append((value,_("Pôvodná voľba: ")+str(value)))
         profile.background=ConfigSelection(default=value,choices=choices)
         profile.background.setValue(value)
         for name in ("day","date","clock","seconds","version","preview_caption","summary","status"):
@@ -289,7 +291,7 @@ class WarderMainScreen(Screen):
         self["background"].instance.setScale(1)
         self.tick();self.clock_timer.start(1000,False);self.refresh()
         self.show_recent(recent.bundled(ROOT))
-        self["status"].setText("Načítavam aktuálny katalóg balíkov…")
+        self["status"].setText(_("Načítavam aktuálny katalóg balíkov…"))
         threading.Thread(target=self.refresh_catalog,daemon=True).start()
         threading.Thread(target=self.refresh_recent,daemon=True).start()
 
@@ -313,15 +315,15 @@ class WarderMainScreen(Screen):
         if self.closed:return
         language=getattr(getattr(config,"osd",None),"language",None)
         day,date,clock,seconds=model.clock_text(language=language.value if language else "sk")
-        for name,value in (("day",day),("date",date),("clock",clock),("seconds",":"+seconds),("version","v"+installed_version())):
+        for name,value in (("day",day),("date",date),("clock",clock),("seconds",":"+seconds),("version",_("Verzia: %s") % installed_version())):
             self[name].setText(value)
         try:self.show_recent(self.recent_results.get_nowait())
         except queue.Empty:pass
         try:catalog,error=self.catalog_results.get_nowait()
         except queue.Empty:return
         if catalog:
-            self.catalog=catalog;self["status"].setText("Katalóg je aktuálny • %d balíkov" % len(catalog["packages"]))
-        else:self["status"].setText("Offline • zobrazený je priložený katalóg; picony sa nemenili.")
+            self.catalog=catalog;self["status"].setText(_("Katalóg je aktuálny • %d balíkov") % len(catalog["packages"]))
+        else:self["status"].setText(_("Offline • zobrazený je priložený katalóg; picony sa nemenili."))
 
     def refresh(self):
         profile=self.profile
@@ -330,11 +332,11 @@ class WarderMainScreen(Screen):
         satellites=", ".join(labels.get(s,s) for s in selections)
         if len(satellites)>42:satellites=satellites[:35]+"… (%d)" % len(selections)
         destination=self.selection["destination"]
-        rows=(("satellites","Satelity",satellites or "Vyber si…"),
-              ("resolution","Rozlíšenie",dict(model.RESOLUTIONS).get(self.selection["resolution"],"Vyber si…")),
-              ("style","Pozadie",dict(model.STYLES).get(self.selection["style"],"Vyber si…")),
-              ("method","Režim",dict(model.METHODS).get(self.selection["method"],"Vyber si…")),
-              ("destination","Priečinok",destination or "Vyber si…"))
+        rows=(("satellites",_("Satelity"),satellites or _("Vyber si…")),
+              ("resolution",_("Rozlíšenie"),dict(model.RESOLUTIONS).get(self.selection["resolution"],_("Vyber si…"))),
+              ("style",_("Pozadie"),dict(model.STYLES).get(self.selection["style"],_("Vyber si…"))),
+              ("method",_("Režim"),dict(model.METHODS).get(self.selection["method"],_("Vyber si…"))),
+              ("destination",_("Priečinok"),destination or _("Vyber si…")))
         entries=[]
         for number,(key,label,value) in enumerate(rows,1):
             scale=self.warder_scale
@@ -342,13 +344,13 @@ class WarderMainScreen(Screen):
                 MultiContentEntryText(pos=(0,round(12*scale)),size=(round(5*scale),round(76*scale)),font=0,text="",backcolor_sel=0x003ee8ff),
                 MultiContentEntryText(pos=(round(20*scale),0),size=(round(50*scale),round(100*scale)),font=2,flags=RT_HALIGN_LEFT|RT_VALIGN_CENTER,text="%02d" % number,color=0x003ee8ff,color_sel=0x00ffffff),
                 MultiContentEntryText(pos=(round(80*scale),0),size=(round(290*scale),round(100*scale)),font=0,flags=RT_HALIGN_LEFT|RT_VALIGN_CENTER,text=label,color=0x00b5d4ec,color_sel=0x00ffffff),
-                MultiContentEntryText(pos=(round(380*scale),0),size=(round(650*scale),round(100*scale)),font=1,flags=RT_HALIGN_LEFT|RT_VALIGN_CENTER,text=value,color=0x00ffffff,color_sel=0x00ffffff),
+                MultiContentEntryText(pos=(round(380*scale),0),size=(round(650*scale),round(100*scale)),font=1,flags=RT_HALIGN_LEFT|RT_VALIGN_CENTER,text=_(value),color=0x00ffffff,color_sel=0x00ffffff),
                 MultiContentEntryText(pos=(round(1060*scale),0),size=(round(40*scale),round(100*scale)),font=0,flags=RT_HALIGN_LEFT|RT_VALIGN_CENTER,text="›",color=0x003ee8ff,color_sel=0x00ffffff)])
         index=self["list"].getSelectionIndex()
         self["list"].setList(entries)
         self["list"].moveToIndex(max(index,0))
         complete=sum(bool(value) for value in self.selection.values())
-        self["summary"].setText("Vybrané: %d z 5\n%s" % (complete,"Pripravené na stiahnutie." if complete==5 else "Doplň svoj výber."))
+        self["summary"].setText(_("Vybrané: %d z 5\n%s") % (complete,_("Pripravené na stiahnutie.") if complete==5 else _("Doplň svoj výber.")))
         style=self.selection["style"]
         preview=ROOT/"images"/("preview-"+str(style)+".png")
         if style and self["preview"].instance and preview.is_file():
@@ -360,11 +362,11 @@ class WarderMainScreen(Screen):
             self["preview"].instance.move(ePoint(round((1320+(440-width)/2)*scale),round((465+(264-height)/2)*scale)))
             self["preview"].instance.setScale(1)
             self["preview"].instance.setPixmapFromFile(str(preview));self["preview"].show()
-            caption=(resolution.replace("x","×") if resolution else "Vyber si rozlíšenie…")
-            self["preview_caption"].setText(dict(model.STYLES)[style]+" • "+caption)
+            caption=(resolution.replace("x","×") if resolution else _("Vyber si rozlíšenie…"))
+            self["preview_caption"].setText(_(dict(model.STYLES)[style])+" • "+caption)
         else:
             self["preview"].hide();self["brand_logo"].show_logo()
-            self["preview_caption"].setText("PiconHub by Warder • Vyber si pozadie…")
+            self["preview_caption"].setText(_("PiconHub by Warder • Vyber si pozadie…"))
 
     def save(self):
         legacy.mainConfigScreen.cfgProfileSave(self,self.profile_id)
@@ -379,7 +381,7 @@ class WarderMainScreen(Screen):
             "resolution":(model.RESOLUTIONS,self.selection["resolution"]),
             "style":(model.STYLES,self.selection["style"]),
             "method":(model.METHODS,self.selection["method"]),
-            "destination":(tuple((p,label+" — "+p) for p,label in model.DESTINATIONS)+(("custom","Vlastný priečinok…"),),None)}[key]
+            "destination":(tuple((p,label+" — "+p) for p,label in model.DESTINATIONS)+(("custom",_("Vlastný priečinok…")),),None)}[key]
         self.session.openWithCallback(lambda value:self.choose(key,value),ChoiceDialog,row[0][1],choices,current)
 
     def choose(self,key,value):
@@ -400,8 +402,8 @@ class WarderMainScreen(Screen):
         style,resolution=self.selection["style"],self.selection["resolution"]
         family=model.sync.family_for_style(style) if style else None
         available={p["selector_id"] for p in self.catalog["packages"] if (not family or p.get("family")==family) and (not resolution or p.get("resolution")==resolution)}
-        choices=[(sid,label+(" • zatiaľ nedostupné" if sid not in available else "")) for sid,label in model.SATELLITES]
-        self.session.openWithCallback(self.satellites_chosen,ChoiceDialog,"Satelity a poskytovatelia",choices,self.selection["satellites"] or [],True)
+        choices=[(sid,label+(_(" • zatiaľ nedostupné") if sid not in available else "")) for sid,label in model.SATELLITES]
+        self.session.openWithCallback(self.satellites_chosen,ChoiceDialog,_("Satelity a poskytovatelia"),choices,self.selection["satellites"] or [],True)
 
     def satellites_chosen(self,values):
         if values is None:return
@@ -412,21 +414,21 @@ class WarderMainScreen(Screen):
 
     def update_picons(self):
         try:
-            missing=[name for key,name in (("satellites","Satelity"),("resolution","Rozlíšenie"),("style","Pozadie"),("method","Režim"),("destination","Priečinok")) if not self.selection[key]]
-            if missing:raise ValueError("Najprv vyber: "+", ".join(missing)+".")
+            missing=[name for key,name in (("satellites",_("Satelity")),("resolution",_("Rozlíšenie")),("style",_("Pozadie")),("method",_("Režim")),("destination",_("Priečinok"))) if not self.selection[key]]
+            if missing:raise ValueError(_("Najprv vyber: ")+", ".join(missing)+".")
             preferences=[model.profile_preferences(self.profile)]
         except ValueError as exc:
             self.session.open(MessageBox,str(exc),type=MessageBox.TYPE_ERROR);return
         if any(p["update_mode"]==model.sync.UPDATE_MODE_REPLACE_ALL for p in preferences):
             self.session.openWithCallback(lambda yes:self.session.open(PiconJobScreen,preferences) if yes else None,MessageBox,
-                                         "Úplné nahradenie odstráni staré kanálové picony vybraných pozícií. Pokračovať?",type=MessageBox.TYPE_YESNO,default=False)
+                                         _("Úplné nahradenie odstráni staré kanálové picony vybraných pozícií. Pokračovať?"),type=MessageBox.TYPE_YESNO,default=False)
         else:self.session.open(PiconJobScreen,preferences)
 
     def check_plugin_update(self):
         self.warderUpdateCheck.request(manual=True)
 
     def about(self):
-        self.session.open(TextDialog,"O projekte","PiconHub Warder Evolution\nVerzia "+installed_version()+"\n\nWarder Evolution\nFunkčný základ: Chocholousek Picons 5.0.240904 od s3n0.\nKatalóg a plánovanie piconov: FullHDGlass Warder Evolution.")
+        self.session.open(TextDialog,_("O projekte"),_("PiconHub Warder Evolution\nVerzia ")+installed_version()+_("\n\nWarder Evolution\nFunkčný základ: Chocholousek Picons 5.0.240904 od s3n0.\nKatalóg a plánovanie piconov: FullHDGlass Warder Evolution."))
 
     def exit(self):
         configfile.save();self.close()

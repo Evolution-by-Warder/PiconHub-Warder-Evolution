@@ -1,4 +1,5 @@
 """GUI-independent menu, profile and clock rules for the Warder interface."""
+from .warder_i18n import _
 import datetime
 import json
 import pathlib
@@ -53,13 +54,13 @@ def initial_selectors(profile):
 def profile_preferences(profile):
     selectors = initial_selectors(profile)
     if not selectors or any(selector not in dict(SATELLITES) for selector in selectors):
-        raise ValueError("Vyberte podporované satelity alebo poskytovateľov.")
+        raise ValueError(_("Vyberte podporované satelity alebo poskytovateľov."))
     if profile.resolution.value not in dict(RESOLUTIONS):
-        raise ValueError("Vyberte rozlíšenie 50×30, 220×132 alebo 400×240.")
+        raise ValueError(_("Vyberte rozlíšenie 50×30, 220×132 alebo 400×240."))
     if profile.background.value not in dict(STYLES):
-        raise ValueError("Vyberte pozadie Transparent, Biele alebo Čierne.")
+        raise ValueError(_("Vyberte pozadie Transparent, Biele alebo Čierne."))
     if profile.method.value not in METHOD_MAP:
-        raise ValueError("Vyberte režim aktualizácie.")
+        raise ValueError(_("Vyberte režim aktualizácie."))
     bindings = [sync.task_binding_for_package_selector(value) for value in selectors]
     preferences = sync.set_task_position_bindings(sync.default_preferences(), bindings)
     preferences.update(style=profile.background.value, resolution=profile.resolution.value,
@@ -77,9 +78,36 @@ def clock_text(now=None, language="sk"):
         "cs": (("Pondělí", "Úterý", "Středa", "Čtvrtek", "Pátek", "Sobota", "Neděle"),
                ("ledna", "února", "března", "dubna", "května", "června", "července", "srpna", "září", "října", "listopadu", "prosince")),
     }
-    names = languages.get(str(language).split("_")[0])
+    languages.update({
+        "en": (("Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"),
+               ("January","February","March","April","May","June","July","August","September","October","November","December")),
+        "de": (("Montag","Dienstag","Mittwoch","Donnerstag","Freitag","Samstag","Sonntag"),
+               ("Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember")),
+        "pl": (("Poniedziałek","Wtorek","Środa","Czwartek","Piątek","Sobota","Niedziela"),
+               ("stycznia","lutego","marca","kwietnia","maja","czerwca","lipca","sierpnia","września","października","listopada","grudnia")),
+    })
+    languages.update({
+        "hu": (("Hétfő","Kedd","Szerda","Csütörtök","Péntek","Szombat","Vasárnap"),
+               ("január","február","március","április","május","június","július","augusztus","szeptember","október","november","december")),
+        "ru": (("Понедельник","Вторник","Среда","Четверг","Пятница","Суббота","Воскресенье"),
+               ("января","февраля","марта","апреля","мая","июня","июля","августа","сентября","октября","ноября","декабря")),
+        "fr": (("Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi","Dimanche"),
+               ("janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre")),
+        "it": (("Lunedì","Martedì","Mercoledì","Giovedì","Venerdì","Sabato","Domenica"),
+               ("gennaio","febbraio","marzo","aprile","maggio","giugno","luglio","agosto","settembre","ottobre","novembre","dicembre")),
+        "es": (("Lunes","Martes","Miércoles","Jueves","Viernes","Sábado","Domingo"),
+               ("enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre")),
+    })
+    code = str(language).replace("-","_").split("_")[0]
+    names = languages.get(code,languages["en"])
     if names:
         day, date = names[0][now.weekday()], "%d. %s %d" % (now.day, names[1][now.month - 1], now.year)
     else:
         day, date = now.strftime("%A"), now.strftime("%d. %B %Y")
+    if code == "hu":
+        date = "%d. %s %d." % (now.year,names[1][now.month-1],now.day)
+    elif code in ("ru","fr","it"):
+        date = "%d %s %d" % (now.day,names[1][now.month-1],now.year)
+    elif code == "es":
+        date = "%d de %s de %d" % (now.day,names[1][now.month-1],now.year)
     return day, date, now.strftime("%H:%M"), now.strftime("%S")

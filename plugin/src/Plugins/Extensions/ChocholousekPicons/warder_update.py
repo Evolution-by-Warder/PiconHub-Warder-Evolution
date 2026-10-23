@@ -9,7 +9,7 @@ import ssl
 import subprocess
 import tarfile
 import tempfile
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from urllib.request import Request, urlopen
 
 REPOSITORY = "Evolution-by-Warder/PiconHub-Warder-Evolution"
@@ -42,6 +42,7 @@ class Release:
     sha256: str
     bytes: int
     notes: str = ""
+    notes_i18n: dict = field(default_factory=dict)
 
 
 def parse_release(payload, current_version):
@@ -78,9 +79,14 @@ def parse_release(payload, current_version):
         raise UpdateError("Invalid package size")
     if not isinstance(notes, str) or len(notes) > 8192:
         raise UpdateError("Invalid release notes")
+    translated_notes = item.get("notes_i18n", {})
+    if (not isinstance(translated_notes, dict) or len(translated_notes) > 32 or
+            any(not isinstance(k, str) or not re.fullmatch(r"[a-z]{2,3}", k) or
+                not isinstance(v, str) or len(v) > 8192 for k,v in translated_notes.items())):
+        raise UpdateError("Invalid translated release notes")
     if remote <= current:
         return None
-    return Release(item["version"], expected, digest, size, notes)
+    return Release(item["version"], expected, digest, size, notes, translated_notes)
 
 
 def _open(url, timeout=6):

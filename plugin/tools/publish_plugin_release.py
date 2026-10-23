@@ -73,6 +73,11 @@ def manifest(path, version, notes):
     release = {"version": version, "tag": "v" + version,
                "url": "https://github.com/" + REPO + "/releases/download/v" + version + "/" + expected_name,
                "sha256": hashlib.sha256(data).hexdigest(), "bytes": len(data), "notes": notes.strip()}
+    notes_path = ROOT / "update/RELEASE-NOTES.i18n.json"
+    if notes_path.is_file():
+        translated = json.loads(notes_path.read_text(encoding="utf-8"))
+        if translated.get("version") == version:
+            release["notes_i18n"] = translated["notes"]
     document = {"schema": 1, "product": "PiconHub Warder Evolution", "channel": "stable", "release": release}
     offered = updates.parse_release(json.dumps(document), "0.0.0")
     updates.validate_ipk(path, offered)

@@ -1,11 +1,5 @@
-Nový vzhľad PiconHub: vlastná ikona v zozname pluginov a vyššie priehľadné
-logo s kovovou lebkou a modrou žiarou, ktoré využíva výšku úvodného náhľadu.
-Po výbere pozadia sa naďalej zobrazí skutočný náhľad piconu.
+Ikona v zozname pluginov využíva celú šírku a má väčší nápis PICONHUB.
+Nové rozhranie automaticky používa jazyk systému. Podporované jazyky: slovenčina, čeština, angličtina, nemčina, poľština, maďarčina, ruština, francúzština, taliančina a španielčina.
+Po úspešnej aktualizácii sa GUI automaticky reštartuje o 3 sekundy.
 
-Výber satelitov obsahuje pôvodné ikony všetkých 53 satelitov a poskytovateľov
-zo skinu. Označené položky majú jasný zelený krúžok aj na aktívnom riadku.
-Legenda: OK: vybrať, Zelené: potvrdiť výber, Červené: naspäť.
-Červené a EXIT zatvoria ponuku bez uloženia zmien.
-
-Po úspešnej aktualizácii sa zobrazí iba informačná hláška a po 3 sekundách
-sa automaticky reštartuje GUI.
+Číslo verzie v hlavičke má preložený popis „Verzia:“.

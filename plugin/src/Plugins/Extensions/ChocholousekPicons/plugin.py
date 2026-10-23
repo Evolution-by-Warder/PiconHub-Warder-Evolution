@@ -1882,6 +1882,7 @@ def pluginMenu(session, **kwargs):              # starts when the plugin is open
     session.open(WarderMainScreen)
 
 def Plugins(**kwargs):
+    from .warder_i18n import translate
     if desktopX > 1900:
         plugin_logo = 'images/plugin_fhd.png'
     else:
@@ -1889,7 +1890,7 @@ def Plugins(**kwargs):
     return [ PluginDescriptor(
                 where = PluginDescriptor.WHERE_PLUGINMENU,
                 name = 'PiconHub Warder Evolution',
-                description = 'Warder Evolution interface based on Chocholousek Picons by s3n0',
+                description = translate('Warder Evolution interface based on Chocholousek Picons by s3n0'),
                 icon = plugin_logo,
                 needsRestart = False,
                 fnc = pluginMenu)  ]

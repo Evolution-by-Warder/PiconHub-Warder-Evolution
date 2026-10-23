@@ -152,6 +152,17 @@ class ReleaseTests(unittest.TestCase):
                                     lambda *a, **kw: types.SimpleNamespace(returncode=7, stdout="failed"))
 
 
+class TranslatedFeedTests(unittest.TestCase):
+    def test_translated_notes_are_optional_and_validated(self):
+        document=feed("0.1.2")
+        document["release"]["notes_i18n"]={"hu":"Magyar","ru":"Русский","en":"English"}
+        result=updates.parse_release(json.dumps(document),"0.1.1")
+        self.assertEqual(result.notes_i18n["ru"],"Русский")
+        for bad in ([],{"en":12},{"en":"x"*8193},{"../../tmp":"text"}):
+            document["release"]["notes_i18n"]=bad
+            with self.assertRaises(updates.UpdateError):updates.parse_release(json.dumps(document),"0.1.1")
+
+
 class Timer:
     def __init__(self):
         self.callback, self.running = [], False
@@ -176,8 +187,11 @@ class StartupTests(unittest.TestCase):
             modules[name] = module
         with patch.dict(sys.modules, modules):
             cls.ui = load_module("warder_update_test_runtime.warder_update_ui", RUNTIME / "warder_update_ui.py")
+            cls.i18n = sys.modules["warder_update_test_runtime.warder_i18n"]
 
     def setUp(self):
+        language_patch=patch.object(self.i18n,"language_code",return_value="sk")
+        language_patch.start();self.addCleanup(language_patch.stop)
         self.tasks, self.opened = [], []
         test = self
         class Worker:
@@ -248,6 +262,13 @@ class StartupTests(unittest.TestCase):
         check = self.make_check()
         check._answer(types.SimpleNamespace(version="0.1.1"), False)
         self.assertEqual(self.opened, [])
+
+    def test_release_notes_follow_language_with_english_fallback(self):
+        release=types.SimpleNamespace(notes="Default",notes_i18n={"de":"Deutsch","en":"English"})
+        with patch.object(self.ui,"language_code",return_value="de"):
+            self.assertEqual(self.ui.localized_notes(release),"Deutsch")
+        with patch.object(self.ui,"language_code",return_value="zz"):
+            self.assertEqual(self.ui.localized_notes(release),"English")
 
     def test_success_notice_restarts_gui_after_three_seconds_without_confirmation(self):
         import queue

@@ -1,4 +1,5 @@
 """Warder ZIP adapter: original profile modes, skin plans and staged installs."""
+from .warder_i18n import _
 import fcntl
 import hashlib
 import json
@@ -34,7 +35,7 @@ def digest(path):
 
 def network_open(url):
     if not sync.trusted_publication_url(url, "production"):
-        raise PiconError("Nedôveryhodný zdroj balíka.")
+        raise PiconError(_("Nedôveryhodný zdroj balíka."))
     return urlopen(Request(url, headers={"User-Agent": "PiconHub-Warder-Evolution", "Cache-Control": "no-cache"}),
                    timeout=15, context=ssl.create_default_context())
 
@@ -43,14 +44,14 @@ def fetch_manifest(opener=network_open):
     with opener(sync.RUNTIME_MANIFEST_URL) as response:
         raw = response.read(8*1024*1024+1)
     if len(raw) > 8*1024*1024:
-        raise PiconError("Katalóg prekročil povolenú veľkosť.")
+        raise PiconError(_("Katalóg prekročil povolenú veľkosť."))
     try:
         document = json.loads(raw)
     except (ValueError, UnicodeError) as exc:
-        raise PiconError("Neplatný katalóg piconov.") from exc
+        raise PiconError(_("Neplatný katalóg piconov.")) from exc
     errors = sync.validate_publication_manifest(document, sync.RUNTIME_MANIFEST_URL)
     if errors:
-        raise PiconError("Neplatný katalóg: " + "; ".join(map(str, errors[:3])))
+        raise PiconError(_("Neplatný katalóg: ") + "; ".join(map(str, errors[:3])))
     return document
 
 
@@ -59,7 +60,7 @@ class Stage:
         self.queue = queue
         self.target = pathlib.Path(queue["destination"])
         if not sync.destination_storage_available(str(self.target)):
-            raise PiconError("Cieľový priečinok alebo úložisko nie je dostupné.")
+            raise PiconError(_("Cieľový priečinok alebo úložisko nie je dostupné."))
         self.target.mkdir(parents=True, exist_ok=True)
         self.work = pathlib.Path(tempfile.mkdtemp(prefix=".piconhub-stage-", dir=str(self.target)))
         self.ready, self.backup = self.work/"ready", self.work/"backup"
@@ -83,12 +84,12 @@ class Stage:
                 errors.append(str(exc))
         if errors:
             self.keep = True
-            raise PiconError("Obnova potrebuje zásah; záloha zostáva v %s: %s" % (self.backup, errors[0]))
+            raise PiconError(_("Obnova potrebuje zásah; záloha zostáva v %s: %s") % (self.backup, errors[0]))
         self.moved, self.written = [], []
 
     def apply(self):
         if sync.validate_destination(str(self.target)) != str(self.target):
-            raise PiconError("Cieľový priečinok sa zmenil.")
+            raise PiconError(_("Cieľový priečinok sa zmenil."))
         existing = set()
         for path in self.target.iterdir():
             stem = sync.normalize_service_reference(path.stem)
@@ -98,7 +99,7 @@ class Stage:
         for name, checksum in self.hashes.items():
             path = self.target/name
             if path.is_symlink() or (path.exists() and not path.is_file()):
-                raise PiconError("Cieľ piconu nie je bežný súbor: " + name)
+                raise PiconError(_("Cieľ piconu nie je bežný súbor: ") + name)
             if not path.exists() or digest(path) != checksum:
                 writes.append(name)
         wanted = sync.wanted_picon_names(self.queue)
@@ -138,7 +139,7 @@ class PiconRunner:
 
     def check_cancel(self):
         if self.cancel.is_set():
-            raise Cancelled("Aktualizácia bola zrušená pred zápisom.")
+            raise Cancelled(_("Aktualizácia bola zrušená pred zápisom."))
 
     def download(self, job, path):
         total = hashlib.sha256()
@@ -156,15 +157,15 @@ class PiconRunner:
                         count += len(data)
                         size += len(data)
                         if size > part["bytes"] or count > job["bytes"]:
-                            raise PiconError("Stiahnutý balík prekročil veľkosť.")
+                            raise PiconError(_("Stiahnutý balík prekročil veľkosť."))
                         checksum.update(data)
                         total.update(data)
                         target.write(data)
                         self.event("download", job["selector_id"], count, job["bytes"])
                 if size != part["bytes"] or checksum.hexdigest() != part["sha256"]:
-                    raise PiconError("Nesúhlasí časť balíka " + job["selector_id"])
+                    raise PiconError(_("Nesúhlasí časť balíka ") + job["selector_id"])
         if count != job["bytes"] or total.hexdigest() != job["sha256"]:
-            raise PiconError("Nesúhlasí SHA256 balíka " + job["selector_id"])
+            raise PiconError(_("Nesúhlasí SHA256 balíka ") + job["selector_id"])
 
     def unpack(self, stage, archive_path, job):
         wanted = sync.wanted_picon_names(stage.queue)
@@ -172,11 +173,11 @@ class PiconRunner:
         with zipfile.ZipFile(archive_path) as archive:
             members = archive.infolist()
             if sum(info.file_size for info in members) > job["bytes"]*20 + 8*1024*1024:
-                raise PiconError("Neprimeraná veľkosť rozbaleného balíka.")
+                raise PiconError(_("Neprimeraná veľkosť rozbaleného balíka."))
             for info in members:
                 self.check_cancel()
                 if not sync.safe_archive_member(info.filename) or stat.S_ISLNK(info.external_attr >> 16):
-                    raise PiconError("Nebezpečná položka v ZIP archíve.")
+                    raise PiconError(_("Nebezpečná položka v ZIP archíve."))
                 if info.is_dir():
                     continue
                 filename = info.filename.replace("\\", "/").rsplit("/",1)[-1]
@@ -191,56 +192,56 @@ class PiconRunner:
                 if wanted is not None and name not in wanted:
                     continue
                 if info.file_size > 5*1024*1024:
-                    raise PiconError("Picon prekročil povolenú veľkosť.")
+                    raise PiconError(_("Picon prekročil povolenú veľkosť."))
                 data = archive.read(info)
                 if (len(data)<24 or not data.startswith(b"\x89PNG\r\n\x1a\n")
                         or data[12:16]!=b"IHDR"
                         or struct.unpack(">II",data[16:24])!=tuple(map(int,job["resolution"].split("x")))):
-                    raise PiconError("Neplatný PNG súbor v balíku.")
+                    raise PiconError(_("Neplatný PNG súbor v balíku."))
                 checksum = hashlib.sha256(data).hexdigest()
                 if name in stage.hashes and stage.hashes[name] != checksum:
-                    raise PiconError("Vybrané balíky obsahujú rozdielny picon: " + name)
+                    raise PiconError(_("Vybrané balíky obsahujú rozdielny picon: ") + name)
                 stage.hashes[name] = checksum
                 (stage.ready/name).write_bytes(data)
         if not native_count:
-            raise PiconError("Balík neobsahuje žiadne kanálové picony.")
+            raise PiconError(_("Balík neobsahuje žiadne kanálové picony."))
 
     def run(self, preferences):
         if not preferences:
-            raise PiconError("Nie je zapnutý žiadny profil.")
+            raise PiconError(_("Nie je zapnutý žiadny profil."))
         stages, applied = [], []
         with open(self.lock_path, "a") as lock:
             try:
                 fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
             except BlockingIOError as exc:
-                raise PiconError("Aktualizácia piconov už prebieha.") from exc
+                raise PiconError(_("Aktualizácia piconov už prebieha.")) from exc
             try:
-                self.event("stage", "Načítavam katalóg")
+                self.event("stage", _("Načítavam katalóg"))
                 document = fetch_manifest(self.opener)
                 for number,prefs in enumerate(preferences,1):
                     self.check_cancel()
                     queue = sync.build_runtime_queue(prefs, self.enigma2_dir, sync.runtime_publication())
                     if queue["mode"] in (sync.UPDATE_MODE_SYNC_TV, sync.UPDATE_MODE_SYNC_TV_RADIO) and not queue["services"]:
-                        raise PiconError("Vo vybraných TV/rádio bouquetoch nie sú služby vybraných pozícií.")
+                        raise PiconError(_("Vo vybraných TV/rádio bouquetoch nie sú služby vybraných pozícií."))
                     plan = sync.plan_runtime_packages(document, queue)
                     if plan["state"] != "ready":
-                        raise PiconError("Nie sú dostupné všetky vybrané balíky: " + ", ".join(plan.get("missing_selectors", [])))
+                        raise PiconError(_("Nie sú dostupné všetky vybrané balíky: ") + ", ".join(plan.get("missing_selectors", [])))
                     jobs = sync.build_download_jobs(document, plan)
                     if jobs["state"] != "ready" or not jobs["jobs"]:
-                        raise PiconError("Nie je pripravený platný plán sťahovania.")
+                        raise PiconError(_("Nie je pripravený platný plán sťahovania."))
                     stage = Stage(queue)
                     stages.append(stage)
                     if shutil.disk_usage(stage.target).free < sum(job["bytes"] for job in jobs["jobs"])*3 + 8*1024*1024:
-                        raise PiconError("Na cieľovom úložisku nie je dosť voľného miesta.")
+                        raise PiconError(_("Na cieľovom úložisku nie je dosť voľného miesta."))
                     for index,job in enumerate(jobs["jobs"],1):
-                        self.event("stage", "Profil %d • balík %d/%d • %s" % (number,index,len(jobs["jobs"]),job["selector_id"]))
+                        self.event("stage", _("Profil %d • balík %d/%d • %s") % (number,index,len(jobs["jobs"]),job["selector_id"]))
                         archive = stage.work/"package.zip"
                         self.download(job, archive)
-                        self.event("stage", "Overujem a rozbaľujem " + job["selector_id"])
+                        self.event("stage", _("Overujem a rozbaľujem ") + job["selector_id"])
                         self.unpack(stage, archive, job)
                         archive.unlink()
                 self.check_cancel()
-                self.event("stage", "Zapisujem overené picony; dokončenie už neprerušujte")
+                self.event("stage", _("Zapisujem overené picony; dokončenie už neprerušujte"))
                 total = {"added":0,"changed":0,"removed":0}
                 for stage in stages:
                     result = stage.apply()

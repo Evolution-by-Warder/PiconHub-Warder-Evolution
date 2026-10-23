@@ -1,4 +1,5 @@
 """Native Enigma2 XML layout, scaled from Full HD to the receiver desktop."""
+from .warder_i18n import _, localize_skin
 from xml.sax.saxutils import escape
 
 
@@ -22,7 +23,7 @@ def main_skin(width=1920, height=1080):
             label("clock",1398,32,190,85,62,align="center"),label("seconds",1590,58,66,54,38,color="#00ffffff",align="left"),label("version",1680,45,210,60,24,color="#003ee8ff",align="center"),
             '<eLabel %s backgroundColor="#0019c9ff" zPosition="3" />' % box(1392,35,2,80),
             '<eLabel %s backgroundColor="#0019c9ff" zPosition="3" />' % box(1664,35,2,80),
-            label(None,60,236,470,78,30,text="Posledné pridané\npicony",color="#009cf0ff")]
+            label(None,60,236,470,78,30,text=_("Posledné pridané\npicony"),color="#009cf0ff")]
     for number in range(6):
         x=590+number*210
         out += [fill(x,225,170,92,"#00314b65"),fill(x+1,226,168,90,"#18091b30"),
@@ -31,7 +32,7 @@ def main_skin(width=1920, height=1080):
     for y in (452,552,652,752):
         out.append(fill(145,y,1010,1,"#00314b65"))
     out += ['<widget name="list" %s transparent="1" scrollbarMode="showOnDemand" enableWrapAround="1" foregroundColor="#00ffffff" foregroundColorSelected="#00ffffff" backgroundColorSelected="#002a70ad" zPosition="3" />' % box(70,350,1120,500),
-            label(None,1280,350,550,60,36,text="Náhľad piconu"),
+            label(None,1280,350,550,60,36,text=_("Náhľad piconu")),
             fill(1280,425,540,2,"#003ee8ff"),
             fill(1298,445,484,304,"#00314b65"),fill(1300,447,480,300,"#00061729"),
             '<widget name="preview" %s alphatest="blend" zPosition="3" />' % box(1320,465,440,264),
@@ -39,11 +40,11 @@ def main_skin(width=1920, height=1080):
             label("preview_caption",1270,750,560,44,23,align="center"),
             label("summary",1280,805,550,70,25,color="#00b5d4ec"),
             fill(60,916,4,34,"#003ee8ff",3),label("status",80,910,1780,45,25,color="#009cf0ff"),
-            label(None,60,957,1800,38,22,text="↑↓: výber riadka • OK: otvoriť ponuku • Vyber všetkých päť položiek a stlač Stiahnuť.",color="#00b5d4ec")]
-    for x,color,title in ((60,"#00ff526a","Zatvoriť"),(520,"#0000ea9b","Stiahnuť"),(980,"#00ffdb52","Aktualizácia pluginu"),(1440,"#0045b9ff","O projekte")):
+            label(None,60,957,1800,38,22,text=_("↑↓: výber riadka • OK: otvoriť ponuku • Vyber všetkých päť položiek a stlač Stiahnuť."),color="#00b5d4ec")]
+    for x,color,title in ((60,"#00ff526a",_("Zatvoriť")),(520,"#0000ea9b",_("Stiahnuť")),(980,"#00ffdb52",_("Aktualizácia pluginu")),(1440,"#0045b9ff",_("O projekte"))):
         out += [fill(x,1010,420,60,"#0010243c"),fill(x,1010,420,3,color,3),
                 label(None,x+18,1018,40,45,32,text="●",color=color),label(None,x+72,1018,330,45,28,text=title)]
-    return "\n".join(out + ["</screen>"])
+    return localize_skin("\n".join(out + ["</screen>"]))
 
 
 def dialog_skin(width, height, rows=8, multiple=False):
@@ -65,4 +66,4 @@ def dialog_skin(width, height, rows=8, multiple=False):
             footer.append('<widget name="%s" position="%d,%d" size="%d,%d" font="Regular;%d" foregroundColor="%s" />' %
                           (name,round(x*scale),h-round(55*scale),round(wid*scale),round(45*scale),round(24*scale),color))
         skin = skin[:start] + "\n".join(footer) + skin[end:]
-    return skin
+    return localize_skin(skin)

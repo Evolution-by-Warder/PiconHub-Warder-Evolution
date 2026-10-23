@@ -1,4 +1,5 @@
 """Enigma2 startup hook: one background check for every new plugin screen."""
+from .warder_i18n import _, localize_skin, language_code
 
 import pathlib
 import queue
@@ -11,6 +12,11 @@ from Screens.Screen import Screen
 from enigma import eTimer
 
 from .warder_update import check_release, install_release
+
+
+def localized_notes(release):
+    notes = getattr(release, "notes_i18n", {})
+    return notes.get(language_code(), notes.get("en", release.notes))
 
 
 def installed_version():
@@ -70,16 +76,16 @@ class StartupUpdateCheck:
         if error:
             print("[PiconHub] Plugin update check failed: " + error)
             if self.manual:
-                self.screen.session.open(MessageBox, "Kontrola aktualizácie sa nepodarila.\n" + error,
+                self.screen.session.open(MessageBox, _("Kontrola aktualizácie sa nepodarila.\n") + error,
                                          type=MessageBox.TYPE_ERROR, timeout=10)
         elif release:
-            text = ("Dostupná je nová verzia PiconHub Warder Evolution.\n\n"
-                    "Nainštalovaná: %s\nNová verzia: %s\n\n%s\n\nNainštalovať aktualizáciu?"
-                    % (installed_version(), release.version, release.notes))
+            text = (_("Dostupná je nová verzia PiconHub Warder Evolution.\n\n"
+                    "Nainštalovaná: %s\nNová verzia: %s\n\n%s\n\nNainštalovať aktualizáciu?")
+                    % (installed_version(), release.version, localized_notes(release)))
             self.screen.session.openWithCallback(lambda answer: self._answer(release, answer),
                                                  MessageBox, text, type=MessageBox.TYPE_YESNO, default=False)
         elif self.manual:
-            self.screen.session.open(MessageBox, "Novšie vydanie pluginu nie je dostupné.",
+            self.screen.session.open(MessageBox, _("Novšie vydanie pluginu nie je dostupné."),
                                      type=MessageBox.TYPE_INFO, timeout=8)
 
     def _answer(self, release, accepted):
@@ -97,10 +103,11 @@ class PluginInstallScreen(Screen):
     </screen>'''
 
     def __init__(self, session, release):
+        self.skin = localize_skin(type(self).skin)
         Screen.__init__(self, session)
         self.release, self.started, self.done, self.closed = release, False, False, False
         self.results = queue.Queue()
-        self["status"] = Label("Sťahujem a overujem aktualizáciu pluginu.\nPočas inštalácie nevypínajte prijímač.")
+        self["status"] = Label(_("Sťahujem a overujem aktualizáciu pluginu.\nPočas inštalácie nevypínajte prijímač."))
         self["actions"] = ActionMap(["OkCancelActions"], {"ok": self.finish, "cancel": self.finish}, -2)
         self.timer = eTimer()
         self.connection = connect_timer(self.timer, self.poll)
@@ -129,11 +136,11 @@ class PluginInstallScreen(Screen):
         self.timer.stop()
         self.done = True
         if error:
-            self["status"].setText("Aktualizácia pluginu zlyhala.\n\n" + error + "\n\nOK alebo EXIT: späť.")
+            self["status"].setText(_("Aktualizácia pluginu zlyhala.\n\n") + error + _("\n\nOK alebo EXIT: späť."))
             return
-        self["status"].setText("Plugin bol aktualizovaný na verziu " + version + ".")
+        self["status"].setText(_("Plugin bol aktualizovaný na verziu ") + version + ".")
         self.session.openWithCallback(self.restart_after_notice, MessageBox,
-                                      "Plugin bol aktualizovaný na verziu %s.\nO 3 sekundy sa reštartuje GUI." % version,
+                                      _("Plugin bol aktualizovaný na verziu %s.\nO 3 sekundy sa reštartuje GUI.") % version,
                                       type=MessageBox.TYPE_INFO, timeout=3, enable_input=False)
 
     def restart_after_notice(self, *args):
