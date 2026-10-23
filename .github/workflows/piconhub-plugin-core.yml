@@ -1,0 +1,26 @@
+name: PiconHub plugin core
+
+on:
+  push:
+    branches: [plugin/futuristic-rebuild]
+    paths: [plugin/src/**, plugin/tests/**, plugin/tools/**, .github/workflows/piconhub-plugin-core.yml]
+  pull_request:
+    paths: [plugin/src/**, plugin/tests/**, plugin/tools/**, .github/workflows/piconhub-plugin-core.yml]
+
+permissions:
+  contents: read
+
+jobs:
+  core:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: plugin
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+      - name: Test package selection and download integrity
+        env:
+          PYTHONPATH: plugin/src
+        run: python3 -m unittest discover -s plugin/tests -v

@@ -39,3 +39,7 @@ The final external BACKUP-MANIFEST.json records final heads, sizes, SHA256 and o
 The earlier 4ac7dec8 bundle requires prerequisite commits and lacks the latest approved picons; it is not the current standalone recovery copy.
 
 This operation updates documentation only. Picons, MASTER templates, Factory code, migration records, provider data and plugin recovery assets are not modified. No new IPK is issued.
+
+## Rebuild development checkpoint — 2026-10-23
+
+Primary Trezor backup is complete. The new `plugin/futuristic-rebuild` branch now contains the catalog and download-integrity core; see `plugin/BUILD-STATUS.md`. Main remains at the backed-up state. The new plugin has no receiver-tested UI or IPK yet. The original recovered assets and production data remain unchanged.
