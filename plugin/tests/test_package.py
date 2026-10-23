@@ -23,6 +23,25 @@ def ar_members(data):
 
 
 class PackageTests(unittest.TestCase):
+    def test_upgrade_manifest_keeps_the_version_read_by_the_running_old_gui(self):
+        # Model opkg obsolete-file removal before unpack/postinst, where 0.1.7
+        # crashed. Only paths absent from the new manifest can be removed.
+        with tempfile.TemporaryDirectory() as folder:
+            folder=pathlib.Path(folder)
+            path,_=builder.build(folder/'package',source_revision='transition-test')
+            members=ar_members(path.read_bytes())
+            with tarfile.open(fileobj=io.BytesIO(members['data.tar.gz']),mode='r:gz') as payload:
+                new_names={n.removeprefix('./') for n in payload.getnames()}
+                legacy='usr/lib/enigma2/python/Plugins/Extensions/ChocholousekPicons/'
+                old_names=[legacy+'plugin.py',legacy+'version.txt']
+                for name in old_names:
+                    target=folder/name;target.parent.mkdir(parents=True,exist_ok=True)
+                    target.write_text('0.1.6' if name.endswith('version.txt') else '# old')
+                for name in old_names:
+                    if name not in new_names:(folder/name).unlink()
+                    self.assertEqual((folder/(legacy+'version.txt')).read_text(),'0.1.6')
+                self.assertFalse((folder/(legacy+'plugin.py')).exists())
+
     def test_build_is_repeatable_and_contains_complete_runtime(self):
         with tempfile.TemporaryDirectory() as folder:
             path,sha=builder.build(pathlib.Path(folder)/"a",source_revision="test-source")
@@ -48,7 +67,9 @@ class PackageTests(unittest.TestCase):
             with tarfile.open(fileobj=io.BytesIO(members["data.tar.gz"]),mode="r:gz") as payload:
                 names=payload.getnames()
                 self.assertEqual(builder.INSTALL_ROOT,"usr/lib/enigma2/python/Plugins/Extensions/WarderPiconHub")
-                self.assertFalse(any("/Extensions/ChocholousekPicons/" in name for name in names))
+                legacy="./usr/lib/enigma2/python/Plugins/Extensions/ChocholousekPicons/version.txt"
+                self.assertEqual([n for n in names if "/Extensions/ChocholousekPicons/" in n],[legacy])
+                self.assertEqual(payload.extractfile(legacy).read(),(builder.RUNTIME/"version.txt").read_bytes())
                 for name in ("plugin.py","warder_gui.py","warder_engine.py","warder_update.py","warder_recent.py","warder_brand.py","warder_i18n.py","warder_migrate.py","data/translations.json","images/recent/sources.json","images/warder-emblem.png","images/selectors/sources.json","images/selectors/CANALPLUS_CZ.png","images/warder-background.png","images/preview-white.png","data/skin-menu.json","data/channel-manifest.json"):
                     self.assertIn("./"+builder.INSTALL_ROOT+"/"+name,names)
                 recent=[name for name in names if "/images/recent/" in name and name.endswith(".png")]

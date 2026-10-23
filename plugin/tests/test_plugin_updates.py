@@ -205,6 +205,20 @@ class StartupTests(unittest.TestCase):
         self.screen = types.SimpleNamespace(onLayoutFinish=[], onClose=[], session=session)
         session.current_dialog = self.screen
 
+    def test_version_reader_survives_a_file_replacement_gap(self):
+        import tempfile
+        with tempfile.TemporaryDirectory() as folder:
+            path=pathlib.Path(folder)/"version.txt"
+            path.write_text("0.1.7\n")
+            with patch.object(self.ui,"_version_path",path):
+                self.assertEqual(self.ui.installed_version(),"0.1.7")
+                path.unlink()
+                self.assertEqual(self.ui.installed_version(),"0.1.7")
+                path.write_text("")
+                self.assertEqual(self.ui.installed_version(),"0.1.7")
+                path.write_text("0.1.8\n")
+                self.assertEqual(self.ui.installed_version(),"0.1.8")
+
     def make_check(self, check=lambda version: None):
         return self.ui.StartupUpdateCheck(self.screen, check=check, timer_factory=Timer, thread_factory=self.worker)
 

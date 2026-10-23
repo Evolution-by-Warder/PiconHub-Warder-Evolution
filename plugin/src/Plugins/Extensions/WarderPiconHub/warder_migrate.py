@@ -64,12 +64,23 @@ def migrate(extensions=DEFAULT_EXTENSIONS, state=DEFAULT_STATE):
         backups.mkdir(parents=True, exist_ok=True)
         destination = backups / (OLD_NAME + "-" + uuid.uuid4().hex)
         # Preserve unowned user files and caches outside plugin discovery.
-        shutil.move(str(legacy), str(destination))
+        if legacy.is_symlink():
+            shutil.move(str(legacy), str(destination))
+        else:
+            destination.mkdir()
+            # Keep version.txt reachable for the old GUI throughout postinst.
+            for child in list(legacy.iterdir()):
+                if child.name == "version.txt" and not child.is_symlink():
+                    shutil.copy2(str(child), str(destination / child.name))
+                else:
+                    shutil.move(str(child), str(destination / child.name))
         backup = str(destination)
     legacy.mkdir(parents=True, exist_ok=True)
     # The already-running old main screen still reads its version every second.
     # No Python launcher remains here, so Enigma2 cannot list a second plugin.
-    (legacy / "version.txt").write_text(version + "\n")
+    temporary_version = legacy / ".version-transition.tmp"
+    temporary_version.write_text(version + "\n")
+    temporary_version.replace(legacy / "version.txt")
     (legacy / MARKER).write_text(json.dumps({"product":PRODUCT,"compatibility":1,
                                            "version":version,"archived_to":backup,"gui_pid":running_gui_pid()}) + "\n")
     requested.unlink(missing_ok=True)

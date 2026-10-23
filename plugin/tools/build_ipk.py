@@ -69,6 +69,10 @@ def build(destination,source_revision=None):
     for path in sorted(RUNTIME.rglob("*")):
         if path.is_file() and not path.is_symlink() and "__pycache__" not in path.parts and path.suffix not in (".pyc",".pyo"):
             entries.append((INSTALL_ROOT+"/"+path.relative_to(RUNTIME).as_posix(),path.read_bytes(),0o644))
+    # Keep this path in the package manifest so opkg never removes it as an
+    # obsolete file while a pre-rename GUI is still reading it every second.
+    entries.append(("usr/lib/enigma2/python/Plugins/Extensions/ChocholousekPicons/version.txt",
+                    (version+"\n").encode(),0o644))
     source={"version":version,"source_revision":source_revision or revision(),"receiver_tested":False}
     entries.append((INSTALL_ROOT+"/build.json",(json.dumps(source,indent=2)+"\n").encode(),0o644))
     with tempfile.TemporaryDirectory() as temporary:

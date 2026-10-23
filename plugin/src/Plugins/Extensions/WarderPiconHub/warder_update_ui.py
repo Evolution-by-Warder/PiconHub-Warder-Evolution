@@ -20,8 +20,20 @@ def localized_notes(release):
     return notes.get(language_code(), notes.get("en", release.notes))
 
 
+_version_path = pathlib.Path(__file__).parent / "version.txt"
+_cached_version = _version_path.read_text().strip()
+
+
 def installed_version():
-    return (pathlib.Path(__file__).parent / "version.txt").read_text().strip()
+    global _cached_version
+    try:
+        value = _version_path.read_text().strip()
+        if value:
+            _cached_version = value
+    except OSError:
+        # opkg can replace files while the main screen clock is still running.
+        pass
+    return _cached_version
 
 
 def connect_timer(timer, callback):

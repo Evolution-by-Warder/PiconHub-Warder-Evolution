@@ -32,6 +32,25 @@ class RuntimeMigrationTests(unittest.TestCase):
         self.assertTrue(migration.cleanup_compatibility(self.extensions))
         self.assertFalse(self.old.exists());self.assertTrue((self.current/'plugin.py').exists())
 
+    def test_old_clock_can_read_during_every_migration_move_and_version_replace(self):
+        from unittest.mock import patch
+        self.old.mkdir();version=self.old/'version.txt';version.write_text('0.1.6\n')
+        (self.old/'plugin.py').write_text('# old')
+        move=migration.shutil.move
+        replace=pathlib.Path.replace
+        def observe_move(*args,**kwargs):
+            self.assertEqual(version.read_text().strip(),'0.1.6')
+            result=move(*args,**kwargs)
+            self.assertEqual(version.read_text().strip(),'0.1.6')
+            return result
+        def observe_replace(path,target):
+            self.assertEqual(version.read_text().strip(),'0.1.6')
+            result=replace(path,target)
+            self.assertEqual(version.read_text().strip(),'0.1.7')
+            return result
+        with patch.object(migration.shutil,'move',side_effect=observe_move), patch.object(pathlib.Path,'replace',observe_replace):
+            migration.migrate(self.extensions,self.state)
+
     def test_transition_marker_works_if_opkg_already_removed_the_old_directory(self):
         self.state.mkdir();(self.state/'legacy-transition-needed').touch()
         migration.migrate(self.extensions,self.state)
