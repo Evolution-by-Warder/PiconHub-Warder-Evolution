@@ -1,14 +1,18 @@
 # PiconHub Warder Evolution
 
-The new futuristic rebuild has started on `plugin/futuristic-rebuild` after the verified Trezor backup. See [BUILD-STATUS.md](BUILD-STATUS.md), ../docs/CURRENT-STATUS.md and ../docs/PICONHUB-WORK-PLAN.md.
+Current direction: retain the functional Chocholousek Picons base and give it a modern Warder interface. The owner clarified this direction on 2026-10-23, superseding the earlier plan for a new runtime from scratch.
 
-recovery/original-updater/ contains the exact historical 0.6.12.23 updater and two top-header graphics. These are genuine recovery inputs, not a complete runnable plugin. Preserve their bytes. New screen/function design and implementation are still pending.
+[Code review and interface proposal](design/CHOCHOL-WARDER-INTERFACE.md) records the actual upstream source, preserved behavior, screen mapping and required integration work. The proposal is not an implemented Enigma2 screen or a receiver-tested release.
 
-The first core batch lives in `src/PiconHubWarderEvolution`. It reads the real catalog, selects exact packages and verifies download integrity. It has no Enigma2 entry point or installable IPK yet.
+The historical migration branch contains a workspace skeleton, not a complete runtime. The reviewed original source is s3n0/e2plugins, ChocholousekPicons, version 5.0.240904. Preserve attribution and compatibility with the existing configuration and runtime directory.
+
+recovery/original-updater/ contains the genuine historical Warder 0.6.12.23 updater and two headers. Preserve their bytes.
+
+src/PiconHubWarderEvolution contains the separately implemented Warder catalog reader and integrity checks, available for future source-adapter integration. It does not replace the Chocholousek runtime or make the plugin installable yet.
 
 ```sh
 PYTHONPATH=plugin/src python3 -m unittest discover -s plugin/tests -v
 python3 plugin/tools/check_catalog.py --selector 235E --resolution 220x132 --style transparent
 ```
 
-Run these commands from the repository root. The inspector reads the live catalog unless `--file path/to/manifest.json` is supplied; it does not install anything.
+Run these commands from the repository root. The inspector reads the live catalog unless --file is supplied; it installs nothing. Main, production data, preserved branches and the verified Trezor backup remain unchanged.

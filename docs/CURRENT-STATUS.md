@@ -1,3 +1,5 @@
+> **Current owner decision, 2026-10-23:** modernize the Chocholousek functional base with the Warder interface. This supersedes the retired-line/from-scratch directions in the historical checkpoint below. The code review found that our historical migration runtime directory is a skeleton; original source was reviewed upstream at s3n0/e2plugins, version 5.0.240904. See [the current design proposal](../plugin/design/CHOCHOL-WARDER-INTERFACE.md). No modernized receiver runtime or IPK is claimed yet.
+
 # PiconHub Warder Evolution — current project state
 
 Updated: 2026-10-23 (Europe/Bratislava).

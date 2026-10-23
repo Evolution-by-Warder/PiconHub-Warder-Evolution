@@ -17,8 +17,10 @@ The inspected real catalog contains 468 packages and 53 distinct selector IDs. S
 
 Local validation: nine unit tests; all 468 selections checked against the real catalog; live manifest read; a real 45°W package downloaded with part and whole-archive SHA256 checked. CI results are separate evidence.
 
-## Next implementation
+## Current direction — owner clarification, 2026-10-23
 
-Agree on the new main screen and menu scope using the genuine recovered FHD/HD headers. Then integrate the catalog with Enigma2 screens, asynchronous transfer, ZIP validation, safe installation, settings and IPK packaging. Do not reuse the retired Chocholousek implementation as this plugin's runtime.
+Retain the functional Chocholousek base and modernize its interface as PiconHub Warder Evolution. This explicitly supersedes the preceding from-scratch runtime direction. The separately implemented catalog core remains available as a future Warder-source adapter.
+
+The original upstream 5.0.240904 source was statically reviewed. The historical migration branch is a workspace skeleton, not a complete preserved runtime. See design/CHOCHOL-WARDER-INTERFACE.md for exact source identity, the proposed four-screen interface and required integration changes. New Enigma2 screens, upstream import and receiver validation remain pending.
 
 This is a core development checkpoint, not an installable Enigma2 plugin or a receiver-tested release. No IPK has been published. Original recovered asset bytes and production picons remain unchanged.

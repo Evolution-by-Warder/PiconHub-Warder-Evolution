@@ -1,14 +1,13 @@
 # PiconHub Warder Evolution — current work plan
 
-Updated: 2026-10-23.
+Updated: 2026-10-23 after the owner's explicit direction to use Chocholousek as the functional base.
 
-1. Complete set `warder-backups-20261023` for the skin and picon repositories, capturing all refs/history/file bytes and verifying offline restoration.
-2. Store the primary archive in private Trezor and retain a separately delivered standalone copy, with sizes, SHA256, ref inventory and restore instructions.
-3. Preserve existing skin/runtime/picons, MASTER assets, Factory implementation and paused historical plugin workspaces.
-4. Begin the explicitly authorized new futuristic Enigma2 plugin under the name PiconHub Warder Evolution after the backups are verified and delivered.
-5. Reuse genuine recovered top headers; agree on the new main screen and functional scope before calling them implemented.
-6. Implement against the current real picon catalog and prepare an installable IPK. Distinguish code checks, packaging validation and physical receiver evidence.
+1. Completed: primary verified skin and picon backup in private Trezor, backup-20261023-verified. The extra Library copy timed out and remains unconfirmed.
+2. Completed: initial Warder catalog and integrity adapter; nine tests and CI passed.
+3. Completed: static review of the real upstream Chocholousek 5.0.240904 code. The historical migration workspace contains a skeleton and must not be described as the complete runtime.
+4. Current proposal: modern profile/settings panel with preview, satellite picker, directory picker and structured update screen. See ../plugin/design/CHOCHOL-WARDER-INTERFACE.md.
+5. Next: import the exact original source with attribution and retained configuration/runtime path; connect the modern interface to its functions.
+6. Then: improve error propagation and job events, integrate Warder catalog/ZIP as a separate source adapter and package a test IPK.
+7. Verify OpenATV receiver behavior separately from static/code/package checks.
 
-The earlier requirement to recover a complete original plugin before any new implementation is superseded by the user's explicit rebuild decision. It is still forbidden to claim a missing old runtime was recovered or to substitute a different project unnoticed.
-
-See CURRENT-STATUS.md for evidence and BACKUP-RESTORE.md for recovery. Do not delete paused branches or change protected production data during this task.
+The earlier from-scratch runtime plan is superseded. Preserve genuine recovered headers, old branches, Factory code, production data, MASTERs and existing IPKs. The UI proposal is not implemented or receiver-tested yet.
