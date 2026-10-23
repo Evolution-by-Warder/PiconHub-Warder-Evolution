@@ -1,0 +1,311 @@
+2.0.191109
+Solved problem with loading the saved configuration of satellites ... after restarting the set-top box, it was not possible to load saved configuration of satellites (thanks to @saragusa).
+Resolved issue with TV+RADIO updating method (thanks to @chocholousek).
+
+2.0.191110
+Solved a problem with slow internet connection - the timeout duration has been increased (thanks to @saragusa).
+
+2.0.191111
+Further code tuning for OE2.5 users - for ".deb" packages (thanks to @chocholousek).
+Finally fixed the problem with incorrect saving / loading of satellite selection settings.
+
+2.0.191115
+Added new method of updating picons - copying all picons, without deleting them all, just as an incremental update (files of different size and non-existent files will be copied to your disk).
+I added this method because many users are copying a huge number of picons for many satellites without syncing them.
+This method is faster than the first method (with removing all picons first and then copying all picons).
+
+2.0.191117
+In this released version already assumes and discards the background, if they do not exist for a specific selection of satellites. Unfortunately, not all picons Chocholousek prepares for all resolutions and for all backgrounds or vice versa for all satellites (by resolution or background).
+
+2.0.191118
+Patch for the incorrect plugin installation under OE2.5 Enigma (.deb installation packages), during online plugin update.
+
+2.0.191125
+Fixed detection of OE2.0 (OE-Alliance 4.?) vs OE2.5+ (Dreambox) when trying to install "p7zip" package from the Enigma feed.
+Move buttons and font size for FullHD SKIN buttons (only a slight distance).
+
+2.0.191126
+Added missing text in localization files. Translation of these missing texts from EN language into SK and CZ languages.
+
+2.0.191215
+Added German language.
+Increasing the proportions of the configuration window in FHD resolution (too large font for yellow button description in case of OE2.5 still does not want to be squeezed into one line).
+Other minor changes.
+
+2.0.200107
+Fixed bug with plugin crash in new DMM firmware after opening satellite configuration window. Thanks to @chocholousek.
+
+2.0.200125
+Fixed the process when upgrading a plugin package under OE 2.5+ (adding a line in the CONTROL shell-script). Thanks to @fly.tox .
+
+2.0.200126
+If the installation of the 7-zip archiver was successful, I will try again to download the preview picons (.7z file from the internet),
+because at the beginning of the config screen entry it wasn't possible to download the preview picons - because of the non-existent 7-zip archiver.
+
+2.0.200127
+Minor adjustment in unnecessary picons deletion algorithm - in case of method of synchronization of picons with userbouquet files (channel lists). Thanks to @chocholousek . 
+Not all unknown .png files have been deleted from the picon directory... after fixing the bug, all unknown files will be deleted correctly (for example as "sat.1.png"),
+since this is a method of synchronization and the algorithm only counts with png files named as SRC code.
+
+2.0.200221
+Added Turkish language.
+
+2.0.200311
+Fixed problem with importing non-existent "subprocess" module in older versions of Python - that is, in older Enigma2 (OpenPLi-4 / DM800 HD). Thanks to @Hitman222.
+
+2.0.200317
+Added indirect support for downloading additional third-party picons (for example, for some IPTV services) from a third-party online source.
+The picons must be located inside the archive in the root folder - i.e. without folders inside the archive. The archive format must be 7-zip.
+The configuration file is located here: "/etc/enigma2/3rd_party_picons.ini". Comments in a file are allowed only after the # character at the beginning of a line.
+If the file does not exist or the resource list in the file remains empty, it will be ignored. 
+
+Example of the file "/etc/enigma2/3rd_party_picons.ini":
+
+### Chocholousek picons, Enigma2 plugin, https://github.com/s3n0
+# http://example.com/files/picons.7z
+http://download.test.net/files/my_picons.7z
+
+2.0.200321
+Removed informative text during picon update - using sync methods. This is misleading information about preparing files for unpacking, and the information previously mentions unpacking.
+Minor changes in the source code.
+
+2.0.200323
+Fixed problems updating / downloading preview picons. Thanks to @Hitman222.
+
+2.0.200406
+Added Lithuanian language.
+
+2.0.200409
+Added Polish language.
+Improved algorithm for detecting chipset architecture aarch64 / arm64 (debugged on the Enigma core - OE 2.6), thx to @alexbore.
+Accepting sym-links to 7-zip executable file.
+Changed Enigma core detection method - instead of detecting the Enigma core version, only the type of core will be detected (used for skin modification and timer function).
+
+2.0.200410
+Added Russian language (by @FRAP).
+
+2.0.200411
+Updated Lithuanian language (by @Adga).
+Minor improvements (added a method for detecting dpkg and opkg package managers, reverting the previous Enigma core detection algorithm - again the detection of new cores is based on OE version numbers).
+Trying to run the plugin also on the old, complicated Enigma distribution and that is:
+- NewNigma2 (based on OpenDreambox) firmware / OE 2.0 core / opkg manager / Python 2.7.2 (deadly combination = big problems) / DM800SE set-top box ... but problems still persist with Thread and access to e2-configuration
+Detecting a new version of preview picons as well as detecting new Chocholousek content is triggered by the same algorithm as downloading picons, i.e. there is an improved algorithm for downloading files from drive.google (virus warning message and endless SSL issues).
+
+2.0.200412
+Fixed a problem on image DreamboxOS 4.3.2 / core OE 2.5 with a 7-zip archiver problem that did not extract files due to a malfunctioning wildcard convention "*.png". Thanks to @mjozef.
+
+2.0.200424
+Minor fixes for some SKINs (in NewNigma2 / OE2.0):
+- thanks to @alexbore, for renting a set-top box for remote debugging of the source code (DM800HDse with NewNigma2 / OE2.0)
+- determining the position of the nested widget via "center,center" does not work, therefore it's necessary to use the relative determination of the position "x,y"
+- removed the ability to scroll the list in the satellite configuration window, via the left / right buttons on the RCU, as the .pageUp() and .pageDown() methods for the ConfigList does not work in some Enigmas (SKINs)
+- fixed error "FATAL!: addTimer must be called from thread 3261 but is called from thread 3680" (probably a bug in some C-libraries in some Enigma distributions)
+Added "Cancel" button in the satellite configuration window (including improved control of changes made by the user).
+
+2.1.200427
+A directory browser has been added - for the purpose of selecting a user-defined picon folder. 
+- !!! please be careful when deleting and creating folders in the directory browser !
+- !!! you are responsible for any loss of important data, after accidentally deleting the directory !
+Minor changes in the source code.
+
+2.1.200504
+Improved Russian language (by @FRAP).
+Minor changes in the source code.
+
+2.1.200506
+Minor changes in the source code.
+Fixed a bug in the non-existent Python module "requests", when the plugin refused to load into the list in the Plugin-MENU:
+- it's a remnant of a function from previous source code
+- the "requests" module was used to test the alternate function
+Design:
+- the list of selected satellites in the configuration menu has changed to abbreviated text with the number of selected satellites together
+- added unicode circle character (emptied / filled) in the selection of satellite positions, for their better visibility
+Localization:
+- added missing dot in one sentence, in translation files
+- improved Russian language (by @FRAP)
+
+2.1.200524
+Fixed bug in case of Enigma2 TeamBlue, on Gigablue devices - thanks to @dejanf.
+- there is a variable PACKAGE_VERSION imported from the module 'enigma', but instead of three values (version: major, minor, patch) it provides only two values and I don't know why
+
+3.1.200720
+Changed file-hosting server for downloading picon archives, thanks to Ellano (https://ellano.sk): from https://drive.google.com -> to -> https://picon.cz
+Fixed a bug that caused the satellite selection window to open slowly.
+
+3.1.200926
+Added a new option to quickly restart the Enigma (GUI) after updating the picons.
+
+3.1.201103
+Added support for non-standard userbouquet files (lowercase) in Enigma, after using the DreamSet application:
+- unfortunately, DreamSet uploads userbouquet files with lowercase characters to the set-top box and therefore no matching service reference codes are found
+- the process of comparing service reference codes from userbouquet files will no longer be case sensitive
+
+4.0.210129
+Source code modified to support both versions of Python 2 and 3 at the same time.
+Fixed description for the plugin:
+- picons are supported mainly for satellite positions from Europe
+- other satellite positions are less supported ... such as satellites in Russia (not all satellites from Russia are supported)
+
+4.0.210130
+For the needs of OpenATV-6.5 alpha version (based on Python 3.8.x), ".py" files are inserted into the installation package instead of ".pyo" files.
+
+4.0.210214
+Add log output to the file "/tmp/chocholousek-picons.log", while updating picons.
+Added testing of the connection to the server, which contains picon packages, after testing the internet connection.
+Minor syntax modification according to PEP8 E251.
+Renaming some functions (source code) to make them clearer.
+
+4.0.210301
+Improved Lithuanian language from 2021-02-16 (thx to @Adga).
+Fixed a minor bug in the sorting of database files in a folder:
+- the error could theoretically cause the database update of available picons to be stuck
+- so sorting files by algorithm is now alphabetical, not by creation date
+Created and added a new bb-recipe to OpenATV feeds (thx to @Nicker):
+- https://github.com/nickersk/oe-alliance-core/commit/28b8f38765f77da37ac1297ae3d724713dad54b9
+- https://github.com/oe-alliance/oe-alliance-core/blob/4.4/meta-oe/recipes-distros/openatv/image/openatv-feeds.bb
+- https://github.com/oe-alliance/oe-alliance-core/blob/4.4/meta-oe/recipes-oe-alliance/enigma2-plugins/enigma2-plugin-extensions-chocholousek-picons.bb
+
+4.0.210302
+Added Greek language (by @MCelliotG).
+
+4.0.210427
+Fixed a minor bug in the list of picons loaded from local disk:
+- the list of file names on the local disk was created incorrectly, including SRN file names
+- the plugin only works with SRC file names, so deleting "unnecessary" SRN file names is undesirable
+- the plugin from this version or later will completely ignore files named as SRN
+- thx to @manuel06
+
+4.0.210428
+Fixed path to non-traditional picons directories:
+- the letter "s" was missing at the end of the "ZZPicon" and "XPicon" directory names
+- in the case of the "/media/hdd" and "/media/usb" subdirectories
+- thx to @steiff
+
+4.0.210429
+Fixed typo: "XPpicons" to "XPicons"
+Added OLED 96x64 picons for the front display of some devices.
+
+5.0.210501
+Added multiple configuration profiles:
+- since there has also been a change in the system file "/etc/enigma2/settings",
+  it is recommended to delete "chocholousekpicons" old configuration entries, for example using an online script:
+     wget -qO- --no-check-certificate "https://github.com/s3n0/e2plugins/raw/master/ChocholousekPicons/online-setup" | bash -s del-config
+The ability to check and save the plugin configuration is removed:
+- the plugin configuration is SAVED AUTOMATICALLY and immediately after each change
+- the red "Exit" button has been replaced by "Profile reset" for this purpose
+- the green button is used to exit the plugin
+New option to add default picon directories, for Enigma2 administrators and developers:
+- create a text file "/etc/enigma2/chocholousekpicons.cfg" (Unix/Linux newlines)
+- insert the configuration section [picon_dir] into the file and insert the required directories to the picons below it (one line = one directory)
+- note: this file will also be used instead of the original file "/etc/enigma2/3rd_party_picons.ini",
+  which was intended for downloading external archives 7z with picons (for example SRN picons) - only under configuration profile number 1 !!!,
+  just add a configuration section named [picon_url]
+- comments are allowed with a "#" sign at the beginning of the line
+- example file content:
+
+# /etc/enigma2/chocholousekpicons.cfg
+
+[picon_dir]
+### picon directories - for PurE2 needs:
+/media/ppmedia/picon
+/media/ppmedia/picon_50x30
+/data/picon_100x60
+### picon directories - for Ellano.sk needs:
+/usr/share/enigma2/hdg17_files/picon
+
+#[picon_url]
+#http://download.test.net/files/my_picons.7z
+#http://example.com/files/iptv-special-picons.7z
+
+5.0.210523
+Minor fix when displaying information (MessageBox) after running plugin update
+
+5.0.210602
+When downloading 7z archives with picons via VPN, there is always an error. From now on, this will be reported as a specific error.
+
+5.0.210701
+Fixed minor BUG:
+- after a 7zip archiver error occurred, the plugin algorithm continued to execute, despite the error
+
+5.0.210717
+Fixed minor BUGs:
+- added shell console output to LOGs - only in case of errors extracting 7zip archives
+- updated error code returned from the shell (divided by 256)
+- adjusted position of the preview picon (to the center of the configuration window)
+
+5.0.210820
+Minor corrections in Polish translation - thx to @lareq
+
+5.0.211019
+Added a simple function:
+- the 7-zip error "Can't allocate required memory!" may occur on some devices with 256MB or less of RAM installed
+- from now, free RAM is checked before downloading packages from the internet, then if possible, if necessary, some RAM (buffer / cache in Linux) will be freed - for the purpose of decompressing 7z packages
+
+5.0.211125
+Minor corrections in Polish translation - thx to @lareq
+
+5.0.220121
+Restoration of the old, albeit primitive, method for detecting the newer Enigma2 core (OE 2.2+):
+- this should solve constant problems on some new Enigma2 distributions
+- more precisely, this is a problem with changing the font type and size in the configuration menu (AttributeError: 'eListbox' object has no attribute 'setFont')
+
+5.0.220610
+Minor addition:
+- upon termination of support for any of the satellite positions, i.e. if the picon pack no longer exists, the satellite position will be automatically deleted from the user configuration
+- the user will be notified by a warning message box
+
+5.0.221027
+Patch for a small bug, when the algorithm crashes in OpenATV 7.0, after calling self['config'].getCurrent()[0] while this object does not exist yet (not yet created).
+Added Italian language (thanks to @spaeleus).
+
+5.0.221117
+Added "--force-downgrade" argument to OPKG:
+- since the upgrade from the github server has a higher priority, the argument is needed to install the version from github, instead of the enigma2-feed version
+- this applies if there is still an old version on the enigma2-feed or marked with the wrong git-version
+- plugin configuration in Enigma2 will not be changed (not deleted)
+
+5.0.221215
+Minor improvements:
+- added icons of the RCU control buttons (in the main plugin MENU and in the satellite selection MENU)
+- hiding SYNC-update methods in the case of SNP-picons (Service Name Picons - channel name = special shortened .PNG filename)
+- indicating the symbolic link in the file-browser
+
+5.0.221217
+BUG fix:
+- AttributeError: 'ConfigList' object has no attribute 'moveDown' (thanks to @Kouďas and @Chocholousek for the bug report)
+- Enigma2 distributions based on the "Dreambox" core, do not support .moveDown attribute
+- therefore, a different algorithm will be used for refreshing the available RCU buttons in the MENU
+
+5.0.230401
+Minor changes:
+- display of std-output, in the event of an error while testing the availability of the internet (using the "ping" command)
+- readability of the source code
+
+5.0.230403
+Fix for compiling "*.py" files:
+Due to problems between PY2 and PY3, in conjunction with the correct Enigma core version,
+the IPK / DEB installation packages will contain only "*.py" files and not "*.pyc|*.pyo" files.
+
+5.0.231225
+Minor changes:
+- improved detection of a possible error with VPN connection (using an internet gateway from a VPN connection)
+- changed plugin TAG in debug log output (from original "MYDEBUGLOGLINE" to "[ChocholousekPicons]")
+
+5.0.240626
+Minor improvement:
+- although the use of SNP picons is not very popular, due to their partial support in the plugin, it was necessary to change the search algorithm of all available satellite packages
+- picon designer @Chocholousek, will now be able to add some other SNP picon packs to the database (but they are still not primarily used in the plugin)
+
+5.0.240903
+Minor improvement:
+- in case of a problem receiving an HTML file instead of a 7zip file, the found HTML title from the file will be displayed
+- fixed wrong resolution, in case of alternate image "image_not_found.png"
+
+5.0.240904
+BUG fix:
+----
+File "/usr/lib/enigma2/python/Components/ScrollLabel.py", line 58, in setText
+TypeError: in method 'eLabel_setText', argument 2 of type 'std::string const &'
+----
+- this was a string conversion issue between C++ and Python, in Enigma2 - Gemini Project 4.2
+- thx to @Warder for the BUG report and for testing the BUG fix in Gemini

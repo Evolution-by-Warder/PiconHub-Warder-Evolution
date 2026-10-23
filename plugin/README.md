@@ -1,18 +1,18 @@
 # PiconHub Warder Evolution
 
-Current direction: retain the functional Chocholousek Picons base and give it a modern Warder interface. The owner clarified this direction on 2026-10-23, superseding the earlier plan for a new runtime from scratch.
+Functional base: Chocholousek Picons 5.0.240904 by s3n0, imported from upstream ref 84a40ed6b01f8dc7d49b632f886525b9c51773c7 into src/Plugins/Extensions/ChocholousekPicons. Attribution, the runtime directory and existing profile settings are retained. Exact provenance is recorded in UPSTREAM.json.
 
-[Code review and interface proposal](design/CHOCHOL-WARDER-INTERFACE.md) records the actual upstream source, preserved behavior, screen mapping and required integration work. The proposal is not an implemented Enigma2 screen or a receiver-tested release.
+The original four-screen runtime is now present in this development branch. The historical migration branch remains a skeleton; the new source was imported from upstream, not recovered from that skeleton. The modern Warder screen and picker design are still pending implementation.
 
-The historical migration branch contains a workspace skeleton, not a complete runtime. The reviewed original source is s3n0/e2plugins, ChocholousekPicons, version 5.0.240904. Preserve attribution and compatibility with the existing configuration and runtime directory.
+Implemented: an asynchronous plugin update check on every new main-screen launch, an update offer, verified IPK staging and user-confirmed installation. See [STARTUP-UPDATES.md](STARTUP-UPDATES.md). The development release feed has no offered IPK; no plugin release is being claimed as published. Receiver testing remains pending.
 
-recovery/original-updater/ contains the genuine historical Warder 0.6.12.23 updater and two headers. Preserve their bytes.
+The independent Warder catalog adapter remains in src/PiconHubWarderEvolution for later picon-source integration. It does not make the original engine consume Warder ZIP packages yet.
 
-src/PiconHubWarderEvolution contains the separately implemented Warder catalog reader and integrity checks, available for future source-adapter integration. It does not replace the Chocholousek runtime or make the plugin installable yet.
+recovery/original-updater contains the genuine historical Warder updater and headers. Their bytes remain preserved.
 
 ```sh
 PYTHONPATH=plugin/src python3 -m unittest discover -s plugin/tests -v
 python3 plugin/tools/check_catalog.py --selector 235E --resolution 220x132 --style transparent
 ```
 
-Run these commands from the repository root. The inspector reads the live catalog unless --file is supplied; it installs nothing. Main, production data, preserved branches and the verified Trezor backup remain unchanged.
+Run from the repository root. The catalog inspector installs nothing. The new plugin package itself is not yet built or published.

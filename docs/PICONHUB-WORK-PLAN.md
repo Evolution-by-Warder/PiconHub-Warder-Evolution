@@ -11,3 +11,10 @@ Updated: 2026-10-23 after the owner's explicit direction to use Chocholousek as 
 7. Verify OpenATV receiver behavior separately from static/code/package checks.
 
 The earlier from-scratch runtime plan is superseded. Preserve genuine recovered headers, old branches, Factory code, production data, MASTERs and existing IPKs. The UI proposal is not implemented or receiver-tested yet.
+
+## Implementation checkpoint — 2026-10-23
+
+- Imported the original upstream runtime and support assets into the new development branch, retaining author and technical path.
+- Connected an asynchronous check for newer Warder plugin releases on each main-screen launch. No daily scheduler, standby installer or picon auto-update was added; the owner's clarified requirement is per-launch checking of the plugin itself.
+- Added verified IPK staging and a user-confirmed install route. Stable feed currently offers no release.
+- Next: implement the agreed modern screen and OK-opened picker dialogs, using the same eligible choices as the skin, then packaging and physical OpenATV checks.

@@ -1,3 +1,5 @@
+> Current checkpoint — 2026-10-23: the original Chocholousek source has now been imported into this branch. Per-launch plugin update checking is connected to its real main screen. Modern Warder screens remain pending; no installable release or physical receiver result is claimed. See STARTUP-UPDATES.md. Earlier checkpoints below are historical.
+
 # PiconHub Warder Evolution — rebuild started
 
 Date: 2026-10-23. Working branch: `plugin/futuristic-rebuild`.

@@ -83,3 +83,13 @@ Vpravo od hodín zobrazovať aktuálnu nainštalovanú verziu PiconHub Warder Ev
 ## Odstránenie stredového sloganu — doplnenie používateľa
 
 Z hornej lišty odstrániť oba stredové riadky More channels. a A better TV experience. Oblasť ponechať ako čisté grafické pozadie bez náhradného textu. Logo PICONHUB by Warder, menší text pod logom, deň/dátum/čas a aktuálna verzia pluginu zostávajú. Ide o úpravu návrhu; pôvodné obnovovacie hlavičky zachovať bez prepísania.
+
+## Výberové okná a ponuky zo skinu — potvrdenie používateľa
+
+Každý riadok sa otvorí tlačidlom OK ako malé výberové okno. Satelity umožnia označiť viac položiek a potvrdiť výber zeleným tlačidlom. Rozlíšenie, pozadie a režim používajú jednotlivý výber; priečinok výber umiestnenia. EXIT zavrie rozpracovaný výber bez zmeny.
+
+Pozadie zatiaľ ponúka iba Transparent, Biele a Čierne. Spoločné ponuky vychádzajú z rovnakých dostupných možností a dostupnosti balíkov ako v našom skine; historické položky, ktoré skin neponúka, nepridávať automaticky do menu len preto, že existujú v katalógu.
+
+## Kontrola verzie pri každom otvorení — spresnenie používateľa
+
+Automatická aktualizácia znamená automaticky skontrolovať GitHub pri každom novom otvorení pluginu a pri novšom zverejnenom vydaní ponúknuť inštaláciu. Nejde o autoaktualizáciu piconov, denný plánovač ani tichú inštaláciu v pohotovostnom režime. Odmietnutie ponuky nič neinštaluje. Výpadok internetu neblokuje otvorenie pluginu. Súčasťou implementačnej dávky je tento hook v pôvodnej hlavnej obrazovke; moderné výberové okná a finálna hlavička ešte čakajú na implementáciu.

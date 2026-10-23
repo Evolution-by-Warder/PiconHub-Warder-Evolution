@@ -1,0 +1,266 @@
+import hashlib
+import importlib.util
+import io
+import json
+import pathlib
+import ssl
+import sys
+import tarfile
+import tempfile
+import types
+import unittest
+from unittest.mock import patch
+
+RUNTIME = pathlib.Path(__file__).parents[1] / "src/Plugins/Extensions/ChocholousekPicons"
+
+
+def load_module(name, path):
+    spec = importlib.util.spec_from_file_location(name, path)
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[name] = module
+    spec.loader.exec_module(module)
+    return module
+
+
+updates = load_module("warder_update_tests_core", RUNTIME / "warder_update.py")
+
+
+def feed(version="0.1.1"):
+    return {"schema": 1, "product": "PiconHub Warder Evolution", "channel": "stable",
+            "release": {"version": version, "tag": "v" + version,
+                        "url": "https://github.com/" + updates.REPOSITORY + "/releases/download/v" + version + "/" + updates.PACKAGE_ID + "_" + version + "_all.ipk",
+                        "sha256": "a" * 64, "bytes": 123, "notes": "Changes"}}
+
+
+def control_tar(package, version="0.1.1", architecture="all"):
+    out = io.BytesIO()
+    data = ("Package: %s\nVersion: %s\nArchitecture: %s\n" % (package, version, architecture)).encode()
+    with tarfile.open(fileobj=out, mode="w:gz") as archive:
+        info = tarfile.TarInfo("./control")
+        info.size = len(data)
+        archive.addfile(info, io.BytesIO(data))
+    return out.getvalue()
+
+
+def ipk(package=updates.PACKAGE_ID, version="0.1.1", architecture="all", outer_tar=False):
+    control = control_tar(package, version, architecture)
+    if outer_tar:
+        out = io.BytesIO()
+        with tarfile.open(fileobj=out, mode="w:gz") as archive:
+            info = tarfile.TarInfo("./control.tar.gz")
+            info.size = len(control)
+            archive.addfile(info, io.BytesIO(control))
+        return out.getvalue()
+    header = ("%-16s%-12s%-6s%-6s%-8s%-10s`\n" % ("control.tar.gz/", 0, 0, 0, "100644", len(control))).encode()
+    return b"!<arch>\n" + header + control + (b"\n" if len(control) % 2 else b"")
+
+
+class ReleaseTests(unittest.TestCase):
+    def test_numeric_versions_and_stable_after_development(self):
+        self.assertGreater(updates.version_key("1.0.10"), updates.version_key("1.0.9"))
+        self.assertGreater(updates.version_key("0.1.0"), updates.version_key("0.1.0-dev1"))
+        self.assertGreater(updates.version_key("1.0.0-rc2"), updates.version_key("1.0.0-beta9"))
+        for invalid in (None, "", "latest", "1.0.0; reboot", "1.0.0-unknown"):
+            with self.assertRaises(updates.UpdateError):
+                updates.version_key(invalid)
+
+    def test_only_new_releases_are_offered(self):
+        self.assertEqual(updates.parse_release(json.dumps(feed()), "0.1.0-dev1").version, "0.1.1")
+        self.assertIsNone(updates.parse_release(json.dumps(feed()), "0.1.1"))
+        self.assertIsNone(updates.parse_release(json.dumps(feed()), "0.1.2"))
+        empty = feed()
+        empty["release"] = None
+        self.assertIsNone(updates.parse_release(json.dumps(empty), "0.1.0-dev1"))
+
+    def test_foreign_urls_and_bad_release_records_rejected(self):
+        changes = [("url", "https://example.org/file.ipk"), ("tag", "other"),
+                   ("sha256", ""), ("bytes", True), ("bytes", updates.MAX_IPK_BYTES + 1),
+                   ("version", "0.2.0-dev1")]
+        for key, value in changes:
+            document = feed()
+            document["release"][key] = value
+            with self.assertRaises(updates.UpdateError):
+                updates.parse_release(json.dumps(document), "0.1.0-dev1")
+        for key, value in (("schema", True), ("product", "Other plugin"), ("channel", "development")):
+            document = feed()
+            document[key] = value
+            with self.assertRaises(updates.UpdateError):
+                updates.parse_release(json.dumps(document), "0.1.0-dev1")
+
+    def test_manifest_read_is_bounded(self):
+        self.assertEqual(updates.check_release("0.1.0", lambda url: io.BytesIO(json.dumps(feed()).encode())).version, "0.1.1")
+        with self.assertRaises(updates.UpdateError):
+            updates.check_release("0.1.0", lambda url: io.BytesIO(b"x" * 65537))
+
+    def test_https_context_remains_verified(self):
+        with patch.object(updates, "urlopen") as opener:
+            updates._open("https://github.com")
+            context = opener.call_args.kwargs["context"]
+            self.assertEqual(context.verify_mode, ssl.CERT_REQUIRED)
+            self.assertTrue(context.check_hostname)
+
+    def test_download_rejects_damage_truncation_and_oversize(self):
+        data = b"correct package"
+        release = updates.Release("0.1.1", "url", hashlib.sha256(data).hexdigest(), len(data))
+        for actual in (data[:-1], data + b"x", b"X" + data[1:]):
+            with tempfile.TemporaryDirectory() as folder:
+                path = pathlib.Path(folder) / "update.ipk"
+                with self.assertRaises(updates.UpdateError):
+                    updates.download_release(release, path, lambda *a, **kw: io.BytesIO(actual))
+                self.assertFalse(path.exists())
+
+    def test_existing_destination_is_not_deleted(self):
+        with tempfile.TemporaryDirectory() as folder:
+            path = pathlib.Path(folder) / "existing.ipk"
+            path.write_bytes(b"preserve")
+            with self.assertRaises(FileExistsError):
+                updates.download_release(updates.Release("0.1.1", "url", "a" * 64, 1), path)
+            self.assertEqual(path.read_bytes(), b"preserve")
+
+    def test_real_control_metadata_both_container_types(self):
+        release = updates.Release("0.1.1", "url", "a" * 64, 1)
+        for outer_tar in (False, True):
+            with tempfile.TemporaryDirectory() as folder:
+                path = pathlib.Path(folder) / "update.ipk"
+                path.write_bytes(ipk(outer_tar=outer_tar))
+                updates.validate_ipk(path, release)
+                for data in (ipk(package="other"), ipk(version="0.1.2"), ipk(architecture="aarch64"), b"broken"):
+                    path.write_bytes(data)
+                    with self.assertRaises(updates.UpdateError):
+                        updates.validate_ipk(path, release)
+
+    def test_installer_runs_only_after_integrity_and_identity_checks(self):
+        calls = []
+        def runner(command, **kwargs):
+            calls.append(command)
+            return types.SimpleNamespace(returncode=0, stdout="installed")
+        data = ipk()
+        release = updates.Release("0.1.1", "url", hashlib.sha256(data).hexdigest(), len(data))
+        self.assertEqual(updates.install_release(release, lambda *a, **kw: io.BytesIO(data), runner), "0.1.1")
+        self.assertEqual(calls[0][:2], ["opkg", "install"])
+        self.assertFalse(any("force" in arg or "reboot" in arg for arg in calls[0]))
+        bad = updates.Release("0.1.1", "url", "a" * 64, len(data))
+        with self.assertRaises(updates.UpdateError):
+            updates.install_release(bad, lambda *a, **kw: io.BytesIO(data), runner)
+        self.assertEqual(len(calls), 1)
+
+    def test_package_manager_failure_is_not_reported_as_success(self):
+        data = ipk()
+        release = updates.Release("0.1.1", "url", hashlib.sha256(data).hexdigest(), len(data))
+        with self.assertRaises(updates.UpdateError):
+            updates.install_release(release, lambda *a, **kw: io.BytesIO(data),
+                                    lambda *a, **kw: types.SimpleNamespace(returncode=7, stdout="failed"))
+
+
+class Timer:
+    def __init__(self):
+        self.callback, self.running = [], False
+    def start(self, *args):
+        self.running = True
+    def stop(self):
+        self.running = False
+
+
+class StartupTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        package = types.ModuleType("warder_update_test_runtime")
+        package.__path__ = [str(RUNTIME)]
+        modules = {"warder_update_test_runtime": package}
+        for name, attribute, value in (
+            ("Components.ActionMap", "ActionMap", object), ("Components.Label", "Label", object),
+            ("Screens.Screen", "Screen", object), ("enigma", "eTimer", Timer),
+            ("Screens.MessageBox", "MessageBox", types.SimpleNamespace(TYPE_INFO=0, TYPE_ERROR=1, TYPE_YESNO=2))):
+            module = types.ModuleType(name)
+            setattr(module, attribute, value)
+            modules[name] = module
+        with patch.dict(sys.modules, modules):
+            cls.ui = load_module("warder_update_test_runtime.warder_update_ui", RUNTIME / "warder_update_ui.py")
+
+    def setUp(self):
+        self.tasks, self.opened = [], []
+        test = self
+        class Worker:
+            def __init__(self, target, **kwargs):
+                self.target = target
+            def start(self):
+                test.tasks.append(self.target)
+        self.worker = Worker
+        session = types.SimpleNamespace(open=lambda *a, **kw: self.opened.append((a, kw)),
+                                        openWithCallback=lambda *a, **kw: self.opened.append((a, kw)))
+        self.screen = types.SimpleNamespace(onLayoutFinish=[], onClose=[], session=session)
+        session.current_dialog = self.screen
+
+    def make_check(self, check=lambda version: None):
+        return self.ui.StartupUpdateCheck(self.screen, check=check, timer_factory=Timer, thread_factory=self.worker)
+
+    def test_each_new_launch_checks_again_but_layout_refresh_does_not(self):
+        first = self.make_check()
+        first.start()
+        first.start()
+        self.assertEqual(len(self.tasks), 1)
+        first.stop()
+        second = self.make_check()
+        second.start()
+        self.assertEqual(len(self.tasks), 2)
+
+    def test_worker_cannot_open_gui_and_result_is_offered_on_gui_tick(self):
+        release = types.SimpleNamespace(version="0.1.1", notes="changes")
+        check = self.make_check(lambda version: release)
+        check.start()
+        self.tasks.pop()()
+        self.assertEqual(self.opened, [])
+        check.poll()
+        self.assertEqual(len(self.opened), 1)
+        self.assertEqual(self.opened[0][1]["type"], self.ui.MessageBox.TYPE_YESNO)
+
+    def test_offline_startup_is_silent_and_does_not_close_plugin(self):
+        def offline(version):
+            raise OSError("offline")
+        check = self.make_check(offline)
+        check.start()
+        self.tasks.pop()()
+        check.poll()
+        self.assertEqual(self.opened, [])
+        self.assertTrue(check.alive)
+
+    def test_closed_screen_discards_delayed_result(self):
+        check = self.make_check(lambda version: types.SimpleNamespace(version="0.1.1", notes=""))
+        check.start()
+        check.stop()
+        self.tasks.pop()()
+        check.poll()
+        self.assertEqual(self.opened, [])
+        self.assertFalse(check.timer.running)
+
+    def test_offer_waits_until_parent_screen_is_active(self):
+        check = self.make_check(lambda version: types.SimpleNamespace(version="0.1.1", notes=""))
+        check.start()
+        self.tasks.pop()()
+        self.screen.session.current_dialog = object()
+        check.poll()
+        self.assertEqual(self.opened, [])
+        self.screen.session.current_dialog = self.screen
+        check.poll()
+        self.assertEqual(len(self.opened), 1)
+
+    def test_declining_offer_never_starts_installer(self):
+        check = self.make_check()
+        check._answer(types.SimpleNamespace(version="0.1.1"), False)
+        self.assertEqual(self.opened, [])
+
+    def test_original_entrypoint_contains_the_hook_and_keeps_profiles(self):
+        import ast
+        source = (RUNTIME / "plugin.py").read_text()
+        tree = ast.parse(source)
+        screen = next(n for n in tree.body if isinstance(n, ast.ClassDef) and n.name == "mainConfigScreen")
+        constructor = next(n for n in screen.body if isinstance(n, ast.FunctionDef) and n.name == "__init__")
+        self.assertIn("self.warderUpdateCheck = StartupUpdateCheck(self)", ast.get_source_segment(source, constructor))
+        self.assertNotIn("_AUTO_CHECK_DONE", source)
+        self.assertNotIn("ssl._create_default_https_context =", source)
+        self.assertNotIn("def downNinstPlugin", source)
+        self.assertIn("ConfigSelectionNumber(1,3,1,default=1)", source)
+
+
+if __name__ == "__main__":
+    unittest.main()
