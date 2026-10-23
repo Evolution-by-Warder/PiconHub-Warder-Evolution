@@ -11,6 +11,7 @@ from Screens.MessageBox import MessageBox
 from Screens.Screen import Screen
 from enigma import eTimer
 
+from .warder_layout import dialog_skin
 from .warder_update import check_release, install_release
 
 
@@ -98,17 +99,18 @@ class StartupUpdateCheck:
 
 
 class PluginInstallScreen(Screen):
-    skin = '''<screen position="center,center" size="900,400" title="Aktualizácia PiconHub Warder Evolution">
-        <widget name="status" position="35,30" size="830,330" font="Regular;26" />
-    </screen>'''
-
     def __init__(self, session, release):
-        self.skin = localize_skin(type(self).skin)
+        from enigma import getDesktop
+        size = getDesktop(0).size()
+        self.skin = dialog_skin(size.width(),size.height(),5,kind="install",title="Aktualizácia PiconHub Warder Evolution")
         Screen.__init__(self, session)
         self.release, self.started, self.done, self.closed = release, False, False, False
         self.results = queue.Queue()
+        self["title"] = Label(_("Aktualizácia PiconHub Warder Evolution"))
+        self["hint_red"] = Label(_("Naspäť"))
+        self["hint_red"].hide()
         self["status"] = Label(_("Sťahujem a overujem aktualizáciu pluginu.\nPočas inštalácie nevypínajte prijímač."))
-        self["actions"] = ActionMap(["OkCancelActions"], {"ok": self.finish, "cancel": self.finish}, -2)
+        self["actions"] = ActionMap(["OkCancelActions","ColorActions"], {"ok": self.finish, "cancel": self.finish,"red": self.finish}, -2)
         self.timer = eTimer()
         self.connection = connect_timer(self.timer, self.poll)
         self.onLayoutFinish.append(self.start)
@@ -136,7 +138,8 @@ class PluginInstallScreen(Screen):
         self.timer.stop()
         self.done = True
         if error:
-            self["status"].setText(_("Aktualizácia pluginu zlyhala.\n\n") + error + _("\n\nOK alebo EXIT: späť."))
+            self["status"].setText(_("Aktualizácia pluginu zlyhala.\n\n") + error)
+            self["hint_red"].show()
             return
         self["status"].setText(_("Plugin bol aktualizovaný na verziu ") + version + ".")
         self.session.openWithCallback(self.restart_after_notice, MessageBox,

@@ -67,9 +67,9 @@ def option_entries(choices, selected, scale, multiple=False, icons=None):
 
 
 class ChoiceDialog(Screen):
-    def __init__(self, session, title, choices, current=None, multiple=False):
+    def __init__(self, session, title, choices, current=None, multiple=False, kind="choice"):
         width,height = desktop()
-        self.skin = dialog_skin(width,height,len(choices),multiple=multiple)
+        self.skin = dialog_skin(width,height,len(choices),multiple=multiple,kind=kind,title=title)
         Screen.__init__(self,session)
         self.warder_scale = min(width/1920.0,height/1080.0)
         self.state = model.PickerState(choices, current or () if multiple else (current,), multiple)
@@ -80,11 +80,13 @@ class ChoiceDialog(Screen):
                 path = ROOT/"images/selectors"/(value+".png")
                 if path.is_file():
                     self.icons[value] = LoadPixmap(path=str(path))
-            self["hint_ok"] = Label(_("OK: vybrať"))
-            self["hint_green"] = Label(_("Zelené: potvrdiť výber"))
-            self["hint_red"] = Label(_("Červené: naspäť"))
+            self["hint_ok"] = Label(_("Vybrať"))
+            self["hint_green"] = Label(_("Potvrdiť výber"))
+            self["hint_red"] = Label(_("Naspäť"))
         else:
-            self["hint"] = Label(_("OK: potvrdiť • EXIT: bez zmeny"))
+            self["hint_ok"] = Label(_("Vybrať"))
+            self["hint_red"] = Label(_("Naspäť"))
+            if kind=="directory":self["hint_green"] = Label(_("Potvrdiť výber"))
         self["list"] = menu_component(self.warder_scale)
         self["actions"] = ActionMap(["OkCancelActions","ColorActions","DirectionActions"], {
             "ok": self.accept, "green": self.apply, "cancel": lambda:self.close(None),
@@ -126,8 +128,9 @@ class DirectoryDialog(ChoiceDialog):
         self.path = pathlib.Path(path)
         while not self.path.is_dir() and self.path != self.path.parent:
             self.path = self.path.parent
-        ChoiceDialog.__init__(self,session,_("Priečinok: ")+str(self.path),self.directory_choices())
-        self["hint"].setText(_("OK: otvoriť • Zelené: použiť tento priečinok • EXIT: späť"))
+        ChoiceDialog.__init__(self,session,_("Priečinok: ")+str(self.path),self.directory_choices(),kind="directory")
+        self["hint_ok"].setText(_("Otvoriť"))
+        self["hint_green"].setText(_("Použiť priečinok"))
 
     def directory_choices(self):
         try:
@@ -154,28 +157,27 @@ class DirectoryDialog(ChoiceDialog):
 class TextDialog(Screen):
     def __init__(self,session,title,text):
         width,height=desktop()
-        self.skin=dialog_skin(width,height,8).replace('name="list"','name="list" font="Regular;%d"' % round(25*height/1080.0))
+        self.skin=dialog_skin(width,height,8,kind="text",title=title)
         Screen.__init__(self,session)
-        self["title"],self["hint"]=Label(_(title)),Label(_("EXIT: späť • ↑↓: posun"))
+        self["title"]=Label(_(title))
+        self["hint_red"]=Label(_("Naspäť"))
+        self["hint_scroll"]=Label(_("Posun"))
         self["list"]=ScrollLabel(text)
-        self["actions"]=ActionMap(["OkCancelActions","DirectionActions"],{
-            "ok":self.close,"cancel":self.close,"up":self["list"].pageUp,"down":self["list"].pageDown},-2)
+        self["actions"]=ActionMap(["OkCancelActions","ColorActions","DirectionActions"],{
+            "ok":self.close,"cancel":self.close,"red":self.close,"up":self["list"].pageUp,"down":self["list"].pageDown},-2)
 
 
 class PiconJobScreen(Screen):
     def __init__(self,session,preferences):
         width,height=desktop()
-        scale=min(width/1920.0,height/1080.0)
-        self.skin='''<screen position="center,center" size="%d,%d" title="Aktualizácia piconov" backgroundColor="#00102136">
-          <widget name="status" position="%d,%d" size="%d,%d" font="Regular;%d" />
-          <widget name="progress" position="%d,%d" size="%d,%d" borderWidth="2" />
-          <widget name="hint" position="%d,%d" size="%d,%d" font="Regular;%d" />
-        </screen>''' % tuple(round(v*scale) for v in (1100,540,35,40,1030,300,30,35,375,1030,35,35,450,1030,60,25))
-        self.skin=localize_skin(self.skin)
+        self.skin=dialog_skin(width,height,8,kind="progress",title="Aktualizácia piconov")
         Screen.__init__(self,session)
         self.preferences,self.done,self.started,self.closed=preferences,False,False,False
         self.events,self.cancel=queue.Queue(),threading.Event()
-        self["status"],self["hint"]=Label(_("Pripravujem aktualizáciu piconov…")),Label(_("EXIT: zrušiť prípravu • Modré: log"))
+        self["title"]=Label(_("Aktualizácia piconov"))
+        self["status"]=Label(_("Pripravujem aktualizáciu piconov…"))
+        self["hint_red"]=Label(_("Naspäť"))
+        self["hint_blue"]=Label(_("Log"))
         self["progress"]=ProgressBar()
         self["actions"]=ActionMap(["OkCancelActions","ColorActions"],{
             "ok":self.finish,"cancel":self.finish,"red":self.finish,"blue":self.show_log},-2)
@@ -221,7 +223,6 @@ class PiconJobScreen(Screen):
             elif item[0] in ("result","error"):
                 self.done=True
                 self["progress"].hide()
-                self["hint"].setText(_("OK alebo EXIT: späť • Modré: log"))
                 if item[0]=="result":
                     self["status"].setText(_("Dokončené.\n\nPridané: %d\nZmenené: %d\nOdstránené: %d") % (item[1]["added"],item[1]["changed"],item[1]["removed"]))
                 else:self["status"].setText(_("Aktualizácia sa nedokončila.\n\n")+item[1])
@@ -230,7 +231,7 @@ class PiconJobScreen(Screen):
     def finish(self):
         if self.done:self.close()
         else:
-            self.cancel.set();self["hint"].setText(_("Čakám na bezpečné ukončenie…"))
+            self.cancel.set();self["status"].setText(_("Čakám na bezpečné ukončenie…"))
 
     def show_log(self):
         try:text=pathlib.Path("/tmp/piconhub-picons.log").read_text()[-24000:]

@@ -48,23 +48,43 @@ def main_skin(width=1920, height=1080):
     return localize_skin("\n".join(out + ["</screen>"]))
 
 
-def dialog_skin(width, height, rows=8, multiple=False):
-    scale = min(width / 1920.0, height / 1080.0)
-    w, h = round(1050*scale), round((170+min(rows,8)*60)*scale)
-    skin = '''<screen position="center,center" size="%d,%d" title="Výber" backgroundColor="#00102136">
-      <widget name="title" position="%d,%d" size="%d,%d" font="Regular;%d" foregroundColor="#0019c9ff" />
-      <widget name="list" position="%d,%d" size="%d,%d" scrollbarMode="showOnDemand" enableWrapAround="1" foregroundColor="#00ffffff" foregroundColorSelected="#00ffffff" backgroundColorSelected="#002a70ad" />
-      <widget name="hint" position="%d,%d" size="%d,%d" font="Regular;%d" foregroundColor="#00ffffff" />
-    </screen>''' % (w,h,round(25*scale),round(15*scale),w-round(50*scale),round(50*scale),round(32*scale),
-                   round(20*scale),round(80*scale),w-round(40*scale),h-round(150*scale),
-                   round(25*scale),h-round(55*scale),w-round(50*scale),round(45*scale),round(24*scale))
+POPUP_BACKGROUND = "#00102136"
 
-    if multiple:
-        start = skin.index('      <widget name="hint"')
-        end = skin.index('\n', start)
-        footer = []
-        for name,x,wid,color in (("hint_ok",25,210,"#00ffffff"),("hint_green",245,440,"#0039ff59"),("hint_red",695,330,"#00ff526a")):
-            footer.append('<widget name="%s" position="%d,%d" size="%d,%d" font="Regular;%d" foregroundColor="%s" />' %
-                          (name,round(x*scale),h-round(55*scale),round(wid*scale),round(45*scale),round(24*scale),color))
-        skin = skin[:start] + "\n".join(footer) + skin[end:]
-    return localize_skin(skin)
+
+def dialog_skin(width, height, rows=8, multiple=False, kind="choice", title="Výber"):
+    """One opaque popup style, including every child text and list widget.
+
+    Explicit backgrounds prevent receiver skins from supplying translucent TV
+    backdrops to labels, ScrollLabel children or the unselected list rows.
+    """
+    scale = min(width / 1920.0, height / 1080.0)
+    w, h = 1050, 170 + min(rows,8)*60
+    def box(x,y,wide,high):
+        return 'position="%d,%d" size="%d,%d"' % tuple(round(v*scale) for v in (x,y,wide,high))
+    def widget(name,x,y,wide,high,font=24,color="#00ffffff",extra=""):
+        font_attr = 'font="Regular;%d"' % round(font*scale) if font is not None else ""
+        return '<widget name="%s" %s %s foregroundColor="%s" backgroundColor="%s" transparent="0" %s />' % (
+            name,box(x,y,wide,high),font_attr,color,POPUP_BACKGROUND,extra)
+    out=['<screen position="center,center" size="%d,%d" title="%s" flags="wfNoBorder" backgroundColor="%s">' %
+         (round(w*scale),round(h*scale),escape(_(title),{'"':'&quot;'}),POPUP_BACKGROUND),
+         widget("title",25,15,1000,50,32,"#0019c9ff"),
+         '<eLabel %s backgroundColor="#003ee8ff" />' % box(20,70,1010,2)]
+    for x,y,wide,high in ((0,0,w,2),(0,h-2,w,2),(0,2,2,h-4),(w-2,2,2,h-4)):
+        out.append('<eLabel %s backgroundColor="#003ee8ff" />' % box(x,y,wide,high))
+    if kind in ("progress","install"):
+        out.append(widget("status",25,85,1000,h-235 if kind=="progress" else h-160,28))
+        if kind=="progress":
+            out.append('<widget name="progress" %s foregroundColor="#003ee8ff" backgroundColor="%s" transparent="0" borderWidth="1" />' % (box(25,h-135,1000,26),POPUP_BACKGROUND))
+        footer=[("hint_red",25,490,"#00ff526a")]
+        if kind=="progress":footer.append(("hint_blue",535,490,"#0045b9ff"))
+    else:
+        out.append(widget("list",20,80,1010,h-150,25 if kind=="text" else None,
+                          extra='scrollbarMode="showOnDemand" enableWrapAround="1" foregroundColorSelected="#00ffffff" backgroundColorSelected="#002a70ad"'))
+        if kind=="text":
+            footer=[("hint_red",25,490,"#00ff526a"),("hint_scroll",535,490,"#00ffffff")]
+        elif multiple or kind=="directory":
+            footer=[("hint_ok",25,210,"#00ffffff"),("hint_green",245,440,"#0039ff59"),("hint_red",695,330,"#00ff526a")]
+        else:
+            footer=[("hint_ok",25,490,"#00ffffff"),("hint_red",535,490,"#00ff526a")]
+    out.extend(widget(name,x,h-55,wide,45,24,color) for name,x,wide,color in footer)
+    return localize_skin("\n".join(out+["</screen>"]))

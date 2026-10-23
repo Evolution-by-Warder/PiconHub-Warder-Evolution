@@ -275,7 +275,7 @@ class StartupTests(unittest.TestCase):
         opened=[]
         class Installer(dict):
             pass
-        installer=Installer(status=types.SimpleNamespace(setText=lambda text:None))
+        installer=Installer(status=types.SimpleNamespace(setText=lambda text:None),hint_red=types.SimpleNamespace(show=lambda:None))
         installer.closed=False;installer.done=False;installer.timer=Timer();installer.results=queue.Queue()
         installer.results.put(("0.1.1",None))
         installer.restart_after_notice=lambda *args:self.ui.PluginInstallScreen.restart_after_notice(installer,*args)
@@ -298,7 +298,7 @@ class StartupTests(unittest.TestCase):
         import queue
         class Installer(dict):
             pass
-        installer=Installer(status=types.SimpleNamespace(setText=lambda text:None))
+        installer=Installer(status=types.SimpleNamespace(setText=lambda text:None),hint_red=types.SimpleNamespace(show=lambda:None))
         installer.closed=False;installer.done=False;installer.timer=Timer();installer.results=queue.Queue()
         installer.results.put((None,"opkg failed"))
         installer.session=self.screen.session

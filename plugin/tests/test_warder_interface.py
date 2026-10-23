@@ -145,6 +145,23 @@ class MenuTests(unittest.TestCase):
                 x,y=map(int,item.get("position").split(","));w,h=map(int,item.get("size").split(","))
                 self.assertLessEqual(x+w,sw);self.assertLessEqual(y+h,sh)
 
+    def test_all_popup_kinds_have_one_opaque_background_and_bounded_widgets(self):
+        for width,height in ((1920,1080),(1280,720)):
+            for kind in ("choice","directory","text","progress","install"):
+                root=ET.fromstring(layout.dialog_skin(width,height,8,kind=kind))
+                sw,sh=map(int,root.get("size").split(","))
+                self.assertEqual(root.get("backgroundColor"),layout.POPUP_BACKGROUND)
+                self.assertEqual(root.get("flags"),"wfNoBorder")
+                for widget in root.findall("widget"):
+                    self.assertEqual(widget.get("backgroundColor"),layout.POPUP_BACKGROUND,(kind,widget.get("name")))
+                    self.assertEqual(widget.get("transparent"),"0")
+                    x,y=map(int,widget.get("position").split(","));w,h=map(int,widget.get("size").split(","))
+                    self.assertLessEqual(x+w,sw);self.assertLessEqual(y+h,sh)
+                fields={w.get("name"):w for w in root.findall("widget")}
+                self.assertEqual(fields["hint_red"].get("foregroundColor"),"#00ff526a")
+                if kind=="progress":
+                    self.assertEqual(fields["hint_blue"].get("foregroundColor"),"#0045b9ff")
+
 
 class EngineTests(unittest.TestCase):
     def setUp(self):

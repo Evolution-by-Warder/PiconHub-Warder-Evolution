@@ -204,9 +204,9 @@ class NativeControllerTests(unittest.TestCase):
         self.assertEqual(row[1]["color"],0x0039ff59)
         self.assertEqual(row[1]["color_sel"],0x0039ff59)
         self.assertIn("png",row[2])
-        self.assertEqual(dialog["hint_ok"].text,"OK: vybrať")
-        self.assertEqual(dialog["hint_green"].text,"Zelené: potvrdiť výber")
-        self.assertEqual(dialog["hint_red"].text,"Červené: naspäť")
+        self.assertEqual(dialog["hint_ok"].text,"Vybrať")
+        self.assertEqual(dialog["hint_green"].text,"Potvrdiť výber")
+        self.assertEqual(dialog["hint_red"].text,"Naspäť")
         dialog.accept()
         self.assertEqual(dialog["list"].values[0][1]["text"],"○")
         dialog["actions"]["red"]()
@@ -225,6 +225,32 @@ class NativeControllerTests(unittest.TestCase):
             self.assertEqual(row[0][0],"white")
             self.assertEqual(row[-1]["text"],white)
             main.cleanup()
+
+    def test_job_footer_is_colored_and_red_waits_for_safe_completion(self):
+        job=self.gui.PiconJobScreen(self.session,[])
+        self.assertEqual(job["hint_red"].text,"Naspäť")
+        self.assertEqual(job["hint_blue"].text,"Log")
+        with patch.object(job,"close") as close:
+            job["actions"]["red"]()
+            self.assertTrue(job.cancel.is_set());close.assert_not_called()
+            self.assertIn("bezpečné",job["status"].text)
+            job.events.put(("result",{"added":1,"changed":2,"removed":0}))
+            job.poll()
+            self.assertTrue(job.done)
+            self.assertIn("Dokončené",job["status"].text)
+            self.assertEqual(job["hint_red"].text,"Naspäť")
+            job["actions"]["blue"]()
+            self.assertIs(self.calls[-1][1][0],self.gui.TextDialog)
+            job["actions"]["red"]();close.assert_called_once()
+        job.cleanup()
+
+    def test_text_dialog_uses_red_to_return(self):
+        dialog=self.gui.TextDialog(self.session,"O projekte","PiconHub")
+        self.assertEqual(dialog["hint_red"].text,"Naspäť")
+        self.assertIn("red",dialog["actions"])
+        closed=[];dialog.onClose.append(lambda:closed.append(True))
+        dialog["actions"]["red"]()
+        self.assertEqual(closed,[True])
 
     def test_recent_worker_results_are_displayed_only_on_gui_tick(self):
         paths=self.gui.recent.bundled(ROOT)
