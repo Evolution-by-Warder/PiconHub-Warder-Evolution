@@ -1,63 +1,27 @@
 # PiconHub Warder Evolution
 
-Modern continuation and evolution of the Chocholousek Picons ecosystem for Enigma2, maintained by **Warder**.
+PiconHub Warder Evolution is Warder's original Enigma2 plugin with the approved futuristic PiconHub interface, together with the shared Warder picon database.
 
-> **STOP before development:** There are two independent PiconHub projects. Read `docs/PICONHUB-PROJECT-LINES.md` and `docs/PICONHUB-WORK-PLAN.md`. Do not mix their graphics, versions, packages, checkpoints or UI decisions.
+## Project decision — 2026-10-23
 
-## IMPORTANT: two separate PiconHub projects
+Štefan explicitly selected the original futuristic PiconHub (historical 0.6.x / 0.7.x), renamed it **PiconHub Warder Evolution**, and retired the separate s3n0/Chocholousek plugin modernization line (5.0.240904.x). Earlier documents assigning this name to that modernization line are superseded.
 
-### 1. PiconHub — original Warder project
+The retired plugin source workspace, packaging and test update payload have been removed from the active main tree. Historical Git commits remain historical evidence, not active releases.
 
-Warder's independently developed PiconHub plugin with the **new futuristic PiconHub graphics/UI** and its own functionality. Development/package family: `0.6.x / 0.7.x`.
+## Plugin recovery status
 
-This is NOT the s3n0/Chocholousek modernization line.
+The original 0.6.12.23 updater payload has been recovered byte-for-byte from commit `6f45821b44559b912cacf21e5bb01932d62766f6` into `plugin/recovery/original-updater/`. It is a partial update payload, not a complete runnable plugin. The historical 0.7.0-dev2 channel was unpublished; its checksum alone is not a recoverable IPK.
 
-### 2. PiconHub Warder Evolution — THIS repository
+The complete original runtime, entry point and approved main-screen assets must be recovered before a renamed runnable IPK can be built. Do not replace them with the retired plugin, Factory or FullHDGlass, and do not invent a new UI.
 
-Modernization/evolution based on the original **Chocholousek Picons Enigma2 plugin by s3n0**. Development/package family: `5.0.240904.x`.
+See [current identity](docs/PICONHUB-PROJECT-LINES.md), [work plan](docs/PICONHUB-WORK-PLAN.md) and [checkpoint](docs/PROJECT-CHECKPOINT.md).
 
-For this line, approved original graphics, GUI layout and established structure are **LOCKED**. Development may modernize code, compatibility, functionality, reliability, backend behavior and packaging, but must not independently redesign, replace, reposition or reorganize the locked graphics or structure.
+## Shared picon data
 
-Never use screenshots, graphics, provider-panel counts, package versions or UI decisions from the separate futuristic PiconHub project as authority for PiconHub Warder Evolution.
+The existing `picons/`, `templates/`, `migration/`, `factory/` and download consumers are preserved by this identity change. Provider and satellite picons are data, not the retired plugin.
 
-Binding separation: `docs/PICONHUB-PROJECT-LINES.md`  
-Parallel work plan: `docs/PICONHUB-WORK-PLAN.md`  
-Recovery checkpoint: `docs/PROJECT-CHECKPOINT.md`
-
-## Project status
-
-This repository is the official home of **PiconHub Warder Evolution**.
-
-Current work includes maintenance and modernization of the Enigma2 plugin, expansion/QC of the picon database, provider/satellite organization, BLACK/WHITE/transparent standardization, compatibility/backend improvements and controlled migrations.
-
-## Origins and credits
-
-**PiconHub Warder Evolution** is based on the original **Chocholousek Picons** Enigma2 plugin created by **s3n0**. The picon sets and original picon work are by **Chocholousek**.
-
-Full credit and thanks belong to **s3n0** for the original plugin and to **Chocholousek** for the original picon work. Warder Evolution continues, maintains and evolves their work and does not claim authorship of their original work.
-
-## Repository layout
-
-- `picons/` — PiconHub runtime picon database
-- `plugin/` — Enigma2 plugin source, packaging and update workspace
-- `migration/` — controlled migration/import tooling and audit material
-- `templates/` — approved project templates and master assets
-- `docs/` — project plans, quality rules and recovery checkpoints
-
-## Protected project rules
-
-Approved graphics, GUI structure, layout, dimensions, positions and runtime directory structure are **LOCKED** and may not be redesigned, rearranged, regenerated, renamed or "optimized" without explicit approval.
-
-Runtime picon structure:
+Runtime data layout remains:
 
 `picons/<satellite-position>/<provider>/{transparent,white,black}/<service-reference>.png`
 
-No extra `satellite`, no `Satellite 0`, and no invented provider merely to force an import.
-
-The authoritative BLACK and WHITE MASTER templates in `templates/picons/` are final as stored and must not be redrawn, regenerated, recolored, deformed or replaced by approximations.
-
-## Development
-
-Maintained and evolved by **Warder** as **PiconHub Warder Evolution**.
-
-Current tested plugin baseline: `5.0.240904.6`.
+The approved V9 rules and original BLACK/WHITE MASTER templates remain frozen. See `docs/PICON-MASTER-QUALITY-PLAN.md`. Existing third-party picon provenance and credits remain applicable to those assets; retiring a plugin does not change authorship of shared artwork.

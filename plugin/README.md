@@ -1,15 +1,13 @@
-# Plugin workspace
+# PiconHub Warder Evolution
 
-Canonical basis: `enigma2-plugin-extensions-chocholousek-picons_5.0.240904_all.ipk`.
+Warder's original futuristic Enigma2 plugin, formerly PiconHub 0.6.x / 0.7.x.
 
-The repository keeps the original Enigma2 runtime path `Plugins/Extensions/ChocholousekPicons` for compatibility. This path must not be renamed merely for branding.
+The Chocholousek modernization workspace has been removed by the user's explicit instruction on 2026-10-23.
 
-Current branded/fixed package generation: `5.0.240904.2`.
+## Recovered source
 
-## Layout
+`recovery/original-updater/` contains the original 0.6.12.23 update payload, restored byte-for-byte from commit 6f45821b44559b912cacf21e5bb01932d62766f6. These are historical recovery inputs, not an active self-update endpoint and not a complete plugin.
 
-- `src/Plugins/Extensions/ChocholousekPicons/` — runtime plugin tree.
-- `packaging/control/` — IPK control metadata and maintainer scripts.
-- `releases/` — location reserved for generated release packages/checksums.
+Complete runtime/IPK recovery is still required. Do not install these files alone, publish an IPK from them, or replace the missing approved UI with invented screens.
 
-Graphics and GUI structure are protected and must remain unchanged unless Warder explicitly authorizes otherwise.
+The new product name must be applied to the real runtime and package metadata once the complete baseline is recovered. Keep installation/configuration compatibility where appropriate.

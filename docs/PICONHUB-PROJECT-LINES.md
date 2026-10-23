@@ -1,49 +1,21 @@
-# PiconHub — two independent project lines
+# PiconHub Warder Evolution — current identity
 
-Updated: 2026-09-15
-Status: BINDING PROJECT SEPARATION RULE
+Updated: 2026-10-23
 
-## Purpose
+## Binding user decision
 
-The name PiconHub is used for two separate development projects. They are related by purpose, but they are NOT one code/UI/version line. Future ChatGPT, Work, automation and human maintenance must identify the project line before making technical or visual decisions.
+Štefan selected the original futuristic PiconHub and instructed: “Nas futuristicky - chocholouskov mozes celkom zmazat a nas premenuj na PiconHub Warder Evolution”.
 
-## Project A — PiconHub (original Warder project)
+**PiconHub Warder Evolution now means Warder's original futuristic Enigma2 plugin**, historically PiconHub 0.6.x / 0.7.x.
 
-This is Warder's independently developed PiconHub plugin with the new futuristic PiconHub graphics/UI and its own functionality.
+The former separate s3n0/Chocholousek modernization line (5.0.240904.x) is retired and its active workspace is removed. Do not revive it, use its entry point, package, screens or code baseline as a substitute for the original futuristic plugin.
 
-Known development/package line: `0.6.x` / `0.7.x` (including `0.7.0-dev3`).
+This explicitly supersedes the 2026-09-15 two-active-project naming rule and the earlier instruction to keep the futuristic plugin out of this repository.
 
-Rules:
-- this project owns the futuristic PiconHub UI and its UI decisions;
-- its screenshots, graphics, coordinates, package versions and implementation decisions belong only to this project;
-- it is NOT the s3n0/Chocholousek modernization line.
+## Preservation and compatibility
 
-## Project B — PiconHub Warder Evolution
+Preserve the original futuristic UI and its approved assets. Recover the complete source before changing runtime titles, menu registration, About/update labels and package metadata. The public product name is PiconHub Warder Evolution; retain old installation/configuration identifiers where needed for safe upgrade compatibility, rather than resetting user settings.
 
-Repository: `Evolution-by-Warder/PiconHub-Warder-Evolution`
+The shared picon database, V9 MASTER templates, Factory, provenance and FullHDGlass download data remain independent of the retired plugin and are preserved.
 
-This is the modernization/evolution of the original Chocholousek Picons Enigma2 plugin by s3n0, maintained as Warder Evolution.
-
-Known package line: `5.0.240904.x`.
-
-Rules:
-- approved original graphics, GUI layout, element positions and established structure are LOCKED;
-- modernization may improve code, compatibility, functionality, reliability, backend behavior and packaging;
-- modernization must adapt to the locked graphics/structure, never redesign them merely to fit new code;
-- original authorship/credits for s3n0 and Chocholousek remain preserved;
-- the runtime picon architecture remains `picons/<satellite-position>/<provider>/{transparent,white,black}/<service-reference>.png`.
-
-## Hard anti-mixing rule
-
-NEVER transfer or infer between Project A and Project B without Štefan's explicit approval:
-- UI/screenshots/graphics;
-- coordinates/layout decisions;
-- package/version numbering;
-- code baselines;
-- checkpoints/roadmaps;
-- provider-panel counts or artwork;
-- implementation assumptions.
-
-A screenshot or package from one line is not evidence for the other line.
-
-Before continuing any PiconHub task, first identify whether it belongs to **PiconHub (original Warder project)** or **PiconHub Warder Evolution (s3n0 modernization)**. If the line is not clear, do not guess.
+Historical branches and commits are not current authority. Do not rewrite Git history or modify the protected production-data branch merely to remove historical names.
