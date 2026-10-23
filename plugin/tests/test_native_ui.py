@@ -118,7 +118,7 @@ class NativeControllerTests(unittest.TestCase):
 
     def test_all_rows_open_a_picker_without_changing_settings(self):
         before=[p.method.value for p in self.config.plugins.chocholousekpicons]
-        for row in range(6):
+        for row in range(5):
             self.main["list"].moveToIndex(row);self.main.open_row()
             self.assertIs(self.calls[-1][1][0],self.gui.ChoiceDialog)
         self.assertEqual(self.saves,[])
@@ -128,11 +128,10 @@ class NativeControllerTests(unittest.TestCase):
         with patch.object(self.gui.threading,"Thread") as worker:
             self.main.applySkin()
         self.assertTrue(self.main.clock_timer.running)
-        self.assertEqual(len(self.main["list"].values),6)
+        self.assertEqual(len(self.main["list"].values),5)
         self.assertEqual(self.main.scale,((1920,1920),(1080,1080)))
         self.main.choose("style","white")
-        self.main.change_profile(1)
-        self.assertEqual(self.main.profile_id,2)
+        self.assertEqual(self.main.profile_id,1)
         worker.assert_called_once()
         self.main.cleanup()
 
@@ -154,13 +153,13 @@ class NativeControllerTests(unittest.TestCase):
             self.assertEqual(dialog.scale,((1920,1920),(1080,1080)))
 
     def test_cancelled_style_picker_saves_nothing(self):
-        self.main["list"].moveToIndex(3);self.main.open_row()
+        self.main["list"].moveToIndex(2);self.main.open_row()
         self.calls[-1][0](None)
         self.assertEqual(self.main.profile.background.value,"transparent")
         self.assertEqual(self.saves,[])
 
     def test_confirmed_style_changes_only_current_profile(self):
-        self.main["list"].moveToIndex(3);self.main.open_row()
+        self.main["list"].moveToIndex(2);self.main.open_row()
         callback,args,kwargs=self.calls[-1]
         self.assertEqual(args[2],self.gui.model.STYLES)
         callback("white")
@@ -201,11 +200,35 @@ class NativeControllerTests(unittest.TestCase):
         self.main.clock_timer.start();self.main.cleanup()
         self.assertFalse(self.main.clock_timer.running)
 
-    def test_profile_navigation_preserves_other_profiles(self):
-        self.main.select_profile(2);self.main.choose("method","all_inc")
-        self.main.select_profile(1)
-        self.assertEqual(self.main.profile.method.value,"sync_tv")
-        self.assertEqual(self.config.plugins.chocholousekpicons[2].method.value,"all_inc")
+    def test_saved_active_settings_are_retained_without_profile_controls(self):
+        self.config.plugins.chocholousekpicons_id.setValue(2)
+        settings=self.config.plugins.chocholousekpicons[2]
+        settings.background.setValue("black")
+        settings.picon_folder_user.setValue("/media/usb/picon")
+        self.main=self.gui.WarderMainScreen(self.session)
+        self.assertIs(self.main.profile,settings)
+        self.assertEqual(self.main.profile.background.value,"black")
+        self.assertEqual(self.main.profile.picon_folder_user.value,"/media/usb/picon")
+        self.main.choose("method","all_inc")
+        self.assertEqual(self.saves,[2])
+        self.assertEqual(self.config.plugins.chocholousekpicons[1].method.value,"sync_tv")
+        self.assertEqual([row[0][0] for row in self.main["list"].values],
+                         ["satellites","resolution","style","method","destination"])
+        for action in ("left","right","1","2","3"):
+            self.assertNotIn(action,self.main["actions"])
+        self.assertFalse(any(name.startswith("profile") for name in self.main.widgets))
+
+    def test_update_uses_only_visible_settings_even_if_old_profiles_are_enabled(self):
+        self.main.profile.allowed.setValue(False)
+        other=self.config.plugins.chocholousekpicons[2]
+        other.allowed.setValue(True);other.resolution.setValue("unsupported")
+        self.main.update_picons()
+        callback,args,kwargs=self.calls[-1]
+        self.assertIs(args[0],self.gui.PiconJobScreen)
+        self.assertEqual(len(args[1]),1)
+        self.assertEqual(args[1][0]["resolution"],"220x132")
+        self.assertFalse(self.main.profile.allowed.value)
+        self.assertTrue(other.allowed.value)
 
     def test_green_action_uses_the_warder_job_and_native_profiles(self):
         self.main.update_picons()

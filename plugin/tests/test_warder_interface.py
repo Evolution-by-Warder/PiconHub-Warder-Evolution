@@ -96,7 +96,9 @@ class MenuTests(unittest.TestCase):
         for width,height in ((1920,1080),(1280,720)):
             root=ET.fromstring(layout.main_skin(width,height))
             names={item.get("name") for item in root}
-            self.assertTrue({"day","date","clock","seconds","version","list","preview","profile1","profile2","profile3"}<=names)
+            self.assertTrue({"day","date","clock","seconds","version","list","preview"}<=names)
+            self.assertFalse({"profile1","profile2","profile3"}&names)
+            self.assertNotIn("profil",layout.main_skin(width,height).lower())
             fields={item.get("name"):item for item in root if item.get("name")}
             self.assertLess(int(fields["seconds"].get("font").split(";")[1]),int(fields["clock"].get("font").split(";")[1]))
             for item in root:

@@ -15,7 +15,6 @@ from Components.config import ConfigSelection, ConfigText, config, configfile
 from Screens.MessageBox import MessageBox
 from Screens.Screen import Screen
 from enigma import RT_HALIGN_LEFT, RT_VALIGN_CENTER, eListboxPythonMultiContent, eTimer, gFont, getDesktop
-from skin import parseColor
 
 from . import plugin as legacy
 from . import warder_model as model
@@ -223,26 +222,23 @@ class WarderMainScreen(Screen):
         self.layout_ready=False
         self.catalog=json.loads((ROOT/"data/channel-manifest.json").read_text())
         self.catalog_results=queue.Queue()
-        for number in (1,2,3):
-            profile=config.plugins.chocholousekpicons[number]
-            if not hasattr(profile,"warder_selectors"):
-                profile.warder_selectors=ConfigText(default="",fixed_size=False)
-            value=profile.background.value
-            if value in (None,"no_satellites_was_selected","no_picons"):
-                value="transparent"
-            choices=list(model.STYLES)
-            if value not in dict(choices):choices.append((value,"Pôvodná voľba: "+str(value)))
-            profile.background=ConfigSelection(default=value,choices=choices)
-            profile.background.setValue(value)
         self.profile_id=max(1,min(3,int(config.plugins.chocholousekpicons_id.getValue())))
-        for name in ("day","date","clock","seconds","version","profile1","profile2","profile3","preview_caption","summary","status"):
+        profile=self.profile
+        if not hasattr(profile,"warder_selectors"):
+            profile.warder_selectors=ConfigText(default="",fixed_size=False)
+        value=profile.background.value
+        if value in (None,"no_satellites_was_selected","no_picons"):
+            value="transparent"
+        choices=list(model.STYLES)
+        if value not in dict(choices):choices.append((value,"Pôvodná voľba: "+str(value)))
+        profile.background=ConfigSelection(default=value,choices=choices)
+        profile.background.setValue(value)
+        for name in ("day","date","clock","seconds","version","preview_caption","summary","status"):
             self[name]=Label("")
         self["background"],self["preview"]=Pixmap(),Pixmap()
-        self["list"]=menu_component(self.warder_scale,82,(32,30))
-        self["actions"]=ActionMap(["OkCancelActions","DirectionActions","ColorActions","NumberActions"],{
+        self["list"]=menu_component(self.warder_scale,100,(32,29,23))
+        self["actions"]=ActionMap(["OkCancelActions","DirectionActions","ColorActions"],{
             "up":self["list"].up,"down":self["list"].down,"ok":self.open_row,
-            "left":lambda:self.change_profile(-1),"right":lambda:self.change_profile(1),
-            "1":lambda:self.select_profile(1),"2":lambda:self.select_profile(2),"3":lambda:self.select_profile(3),
             "cancel":self.exit,"red":self.exit,"green":self.update_picons,"yellow":self.select_satellites,"blue":self.options},-2)
         self.clock_timer=eTimer();self.clock_connection=connect_timer(self.clock_timer,self.tick)
         self.warderUpdateCheck=StartupUpdateCheck(self)
@@ -284,40 +280,32 @@ class WarderMainScreen(Screen):
         selections=model.initial_selectors(profile)
         labels=dict(model.SATELLITES)
         satellites=", ".join(labels.get(s,s) for s in selections)
-        if len(satellites)>49:satellites=satellites[:46]+"… (%d)" % len(selections)
+        if len(satellites)>42:satellites=satellites[:35]+"… (%d)" % len(selections)
         destination=profile.picon_folder_user.value if profile.picon_folder.value=="user_defined" else profile.picon_folder.value
-        rows=(("enabled","Profil","Zapnutý" if profile.allowed.value else "Vypnutý"),
-              ("satellites","Satelity",satellites or "Vyberte satelity alebo poskytovateľov"),
+        rows=(("satellites","Satelity",satellites or "Vyberte satelity alebo poskytovateľov"),
               ("resolution","Rozlíšenie",dict(model.RESOLUTIONS).get(profile.resolution.value,profile.resolution.value)),
               ("style","Pozadie",dict(model.STYLES).get(profile.background.value,str(profile.background.value))),
               ("method","Režim",dict(model.METHODS).get(profile.method.value,profile.method.value)),
               ("destination","Priečinok",destination))
         entries=[]
-        for key,label,value in rows:
-            entries.append([(key,label,value),MultiContentEntryText(pos=(round(20*self.warder_scale),0),size=(round(330*self.warder_scale),round(82*self.warder_scale)),font=0,flags=RT_HALIGN_LEFT|RT_VALIGN_CENTER,text=label),
-                            MultiContentEntryText(pos=(round(365*self.warder_scale),0),size=(round(730*self.warder_scale),round(82*self.warder_scale)),font=1,flags=RT_HALIGN_LEFT|RT_VALIGN_CENTER,text=value+"  ›")])
+        for number,(key,label,value) in enumerate(rows,1):
+            scale=self.warder_scale
+            entries.append([(key,label,value),
+                MultiContentEntryText(pos=(0,round(12*scale)),size=(round(5*scale),round(76*scale)),font=0,text="",backcolor_sel=0x003ee8ff),
+                MultiContentEntryText(pos=(round(20*scale),0),size=(round(50*scale),round(100*scale)),font=2,flags=RT_HALIGN_LEFT|RT_VALIGN_CENTER,text="%02d" % number,color=0x003ee8ff,color_sel=0x00ffffff),
+                MultiContentEntryText(pos=(round(80*scale),0),size=(round(290*scale),round(100*scale)),font=0,flags=RT_HALIGN_LEFT|RT_VALIGN_CENTER,text=label,color=0x00b5d4ec,color_sel=0x00ffffff),
+                MultiContentEntryText(pos=(round(380*scale),0),size=(round(650*scale),round(100*scale)),font=1,flags=RT_HALIGN_LEFT|RT_VALIGN_CENTER,text=value,color=0x00ffffff,color_sel=0x00ffffff),
+                MultiContentEntryText(pos=(round(1060*scale),0),size=(round(40*scale),round(100*scale)),font=0,flags=RT_HALIGN_LEFT|RT_VALIGN_CENTER,text="›",color=0x003ee8ff,color_sel=0x00ffffff)])
         index=self["list"].getSelectionIndex()
         self["list"].setList(entries)
         self["list"].moveToIndex(max(index,0))
-        for number in (1,2,3):
-            self["profile%d" % number].setText("Profil %d" % number)
-            widget=self["profile%d" % number].instance
-            if widget:widget.setBackgroundColor(parseColor("#00245e89" if number==self.profile_id else "#00102136"))
-        self["summary"].setText("Zdroj: Warder\nProfil: %d z 3" % self.profile_id)
+        self["summary"].setText("Vybrané položky: %d\n%s • %s" % (len(selections),profile.resolution.value,dict(model.STYLES).get(profile.background.value,str(profile.background.value))))
         preview=ROOT/"images"/("preview-"+str(profile.background.value)+".png")
         if self["preview"].instance and preview.is_file():
             self["preview"].instance.setPixmapFromFile(str(preview));self["preview"].instance.setScale(1);self["preview"].show()
             self["preview_caption"].setText("Ukážka pozadia • 220×132")
         elif self["preview"].instance:
             self["preview"].hide();self["preview_caption"].setText("Náhľad nie je dostupný.")
-
-    def select_profile(self,number):
-        self.profile_id=number
-        config.plugins.chocholousekpicons_id.setValue(number)
-        config.plugins.chocholousekpicons_id.save();configfile.save();self.refresh()
-
-    def change_profile(self,delta):
-        self.select_profile((self.profile_id-1+delta)%3+1)
 
     def save(self):
         legacy.mainConfigScreen.cfgProfileSave(self,self.profile_id)
@@ -329,7 +317,6 @@ class WarderMainScreen(Screen):
         key=row[0][0]
         if key=="satellites":self.select_satellites();return
         choices,current={
-            "enabled":(((True,"Zapnutý"),(False,"Vypnutý")),self.profile.allowed.value),
             "resolution":(model.RESOLUTIONS,self.profile.resolution.value),
             "style":(model.STYLES,self.profile.background.value),
             "method":(model.METHODS,self.profile.method.value),
@@ -345,7 +332,7 @@ class WarderMainScreen(Screen):
                 return
             self.profile.picon_folder.setValue("user_defined");self.profile.picon_folder_user.setValue(value)
         else:
-            field={"enabled":"allowed","style":"background","resolution":"resolution","method":"method"}[key]
+            field={"style":"background","resolution":"resolution","method":"method"}[key]
             getattr(self.profile,field).setValue(value)
         self.save()
 
@@ -363,8 +350,7 @@ class WarderMainScreen(Screen):
 
     def update_picons(self):
         try:
-            preferences=[model.profile_preferences(config.plugins.chocholousekpicons[n]) for n in (1,2,3) if config.plugins.chocholousekpicons[n].allowed.value]
-            if not preferences:raise ValueError("Najprv zapnite aspoň jeden profil.")
+            preferences=[model.profile_preferences(self.profile)]
         except ValueError as exc:
             self.session.open(MessageBox,str(exc),type=MessageBox.TYPE_ERROR);return
         if any(p["update_mode"]==model.sync.UPDATE_MODE_REPLACE_ALL for p in preferences):
@@ -373,16 +359,16 @@ class WarderMainScreen(Screen):
         else:self.session.open(PiconJobScreen,preferences)
 
     def options(self):
-        self.session.openWithCallback(self.option_chosen,ChoiceDialog,"Možnosti",(("update","Skontrolovať aktualizáciu pluginu"),("reset","Obnoviť aktuálny profil"),("about","O projekte")))
+        self.session.openWithCallback(self.option_chosen,ChoiceDialog,"Možnosti",(("update","Skontrolovať aktualizáciu pluginu"),("reset","Obnoviť nastavenia"),("about","O projekte")))
 
     def option_chosen(self,value):
         if value=="update":self.warderUpdateCheck.request(manual=True)
-        elif value=="reset":self.session.openWithCallback(self.reset_profile,MessageBox,"Obnoviť aktuálny profil?",type=MessageBox.TYPE_YESNO,default=False)
+        elif value=="reset":self.session.openWithCallback(self.reset_settings,MessageBox,"Obnoviť nastavenia?",type=MessageBox.TYPE_YESNO,default=False)
         elif value=="about":self.session.open(TextDialog,"PiconHub Warder Evolution","Verzia "+installed_version()+"\n\nWarder Evolution\nFunkčný základ: Chocholousek Picons 5.0.240904 od s3n0.\nKatalóg a plánovanie piconov: FullHDGlass Warder Evolution.")
 
-    def reset_profile(self,accepted):
+    def reset_settings(self,accepted):
         if not accepted:return
-        self.profile.allowed.setValue(False);self.profile.method.setValue("sync_tv")
+        self.profile.method.setValue("sync_tv")
         self.profile.resolution.setValue("220x132");self.profile.background.setValue("transparent")
         self.profile.picon_folder.setValue(self.profile.picon_folder.default)
         self.satellites_chosen(["192E","235E"])
