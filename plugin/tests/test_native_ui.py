@@ -2,6 +2,7 @@
 import importlib
 import pathlib
 import sys
+import tempfile
 import types
 import unittest
 import xml.etree.ElementTree as ET
@@ -47,6 +48,10 @@ class Screen:
     def __init__(self,session):self.session,self.widgets,self.onLayoutFinish,self.onClose,self.result=session,{},[],[],None
     def __getitem__(self,key):return self.widgets[key]
     def __setitem__(self,key,value):self.widgets[key]=value
+    def applySkin(self):
+        # OpenATV Screen.applySkin owns scale and replaces it before callbacks.
+        self.scale=((1920,1920),(1080,1080))
+        for callback in self.onLayoutFinish:callback()
     def close(self,result=None):
         self.result=result
         for callback in self.onClose:callback()
@@ -118,6 +123,35 @@ class NativeControllerTests(unittest.TestCase):
             self.assertIs(self.calls[-1][1][0],self.gui.ChoiceDialog)
         self.assertEqual(self.saves,[])
         self.assertEqual([p.method.value for p in self.config.plugins.chocholousekpicons],before)
+
+    def test_main_opens_after_openatv_skin_sets_scale(self):
+        with patch.object(self.gui.threading,"Thread") as worker:
+            self.main.applySkin()
+        self.assertTrue(self.main.clock_timer.running)
+        self.assertEqual(len(self.main["list"].values),6)
+        self.assertEqual(self.main.scale,((1920,1920),(1080,1080)))
+        self.main.choose("style","white")
+        self.main.change_profile(1)
+        self.assertEqual(self.main.profile_id,2)
+        worker.assert_called_once()
+        self.main.cleanup()
+
+    def test_satellite_picker_rebuilds_after_openatv_skin_sets_scale(self):
+        dialog=self.gui.ChoiceDialog(self.session,"Satelity",self.gui.model.SATELLITES,["CANALPLUS_SK"],True)
+        dialog.applySkin()
+        index=next(i for i,x in enumerate(dialog.state.choices) if x[0]=="CANALPLUS_CZ")
+        dialog["list"].moveToIndex(index);dialog.accept();dialog.apply()
+        self.assertEqual(dialog.result,["CANALPLUS_SK","CANALPLUS_CZ"])
+        self.assertEqual(dialog.scale,((1920,1920),(1080,1080)))
+
+    def test_directory_picker_navigates_after_openatv_skin_sets_scale(self):
+        with tempfile.TemporaryDirectory() as folder:
+            child=pathlib.Path(folder)/"picons";child.mkdir()
+            dialog=self.gui.DirectoryDialog(self.session,folder)
+            dialog.applySkin()
+            dialog["list"].moveToIndex(1);dialog.accept()
+            self.assertEqual(dialog.path,child)
+            self.assertEqual(dialog.scale,((1920,1920),(1080,1080)))
 
     def test_cancelled_style_picker_saves_nothing(self):
         self.main["list"].moveToIndex(3);self.main.open_row()

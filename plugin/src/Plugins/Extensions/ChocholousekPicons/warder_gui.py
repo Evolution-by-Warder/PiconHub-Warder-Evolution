@@ -54,11 +54,11 @@ class ChoiceDialog(Screen):
         width,height = desktop()
         self.skin = dialog_skin(width,height,len(choices))
         Screen.__init__(self,session)
-        self.scale = min(width/1920.0,height/1080.0)
+        self.warder_scale = min(width/1920.0,height/1080.0)
         self.state = model.PickerState(choices, current or () if multiple else (current,), multiple)
         self["title"] = Label(title)
         self["hint"] = Label("OK: označiť • Zelené: potvrdiť • EXIT: bez zmeny" if multiple else "OK: potvrdiť • EXIT: bez zmeny")
-        self["list"] = menu_component(self.scale)
+        self["list"] = menu_component(self.warder_scale)
         self["actions"] = ActionMap(["OkCancelActions","ColorActions","DirectionActions"], {
             "ok": self.accept, "green": self.apply, "cancel": lambda:self.close(None),
             "red": lambda:self.close(None), "up":self["list"].up,"down":self["list"].down,
@@ -72,7 +72,7 @@ class ChoiceDialog(Screen):
         self["list"].moveToIndex(index)
 
     def rebuild(self):
-        self["list"].setList(option_entries(self.state.choices,self.state.selected,self.scale,self.state.multiple))
+        self["list"].setList(option_entries(self.state.choices,self.state.selected,self.warder_scale,self.state.multiple))
 
     def accept(self):
         entry = self["list"].getCurrent()
@@ -218,7 +218,7 @@ class WarderMainScreen(Screen):
         width,height=desktop()
         self.skin=main_skin(width,height)
         Screen.__init__(self,session)
-        self.scale=min(width/1920.0,height/1080.0)
+        self.warder_scale=min(width/1920.0,height/1080.0)
         self.closed=False
         self.layout_ready=False
         self.catalog=json.loads((ROOT/"data/channel-manifest.json").read_text())
@@ -238,7 +238,7 @@ class WarderMainScreen(Screen):
         for name in ("day","date","clock","version","profile1","profile2","profile3","preview_caption","summary","status"):
             self[name]=Label("")
         self["background"],self["preview"]=Pixmap(),Pixmap()
-        self["list"]=menu_component(self.scale,82,(32,30))
+        self["list"]=menu_component(self.warder_scale,82,(32,30))
         self["actions"]=ActionMap(["OkCancelActions","DirectionActions","ColorActions","NumberActions"],{
             "up":self["list"].up,"down":self["list"].down,"ok":self.open_row,
             "left":lambda:self.change_profile(-1),"right":lambda:self.change_profile(1),
@@ -294,8 +294,8 @@ class WarderMainScreen(Screen):
               ("destination","Priečinok",destination))
         entries=[]
         for key,label,value in rows:
-            entries.append([(key,label,value),MultiContentEntryText(pos=(round(20*self.scale),0),size=(round(330*self.scale),round(82*self.scale)),font=0,flags=RT_HALIGN_LEFT|RT_VALIGN_CENTER,text=label),
-                            MultiContentEntryText(pos=(round(365*self.scale),0),size=(round(730*self.scale),round(82*self.scale)),font=1,flags=RT_HALIGN_LEFT|RT_VALIGN_CENTER,text=value+"  ›")])
+            entries.append([(key,label,value),MultiContentEntryText(pos=(round(20*self.warder_scale),0),size=(round(330*self.warder_scale),round(82*self.warder_scale)),font=0,flags=RT_HALIGN_LEFT|RT_VALIGN_CENTER,text=label),
+                            MultiContentEntryText(pos=(round(365*self.warder_scale),0),size=(round(730*self.warder_scale),round(82*self.warder_scale)),font=1,flags=RT_HALIGN_LEFT|RT_VALIGN_CENTER,text=value+"  ›")])
         index=self["list"].getSelectionIndex()
         self["list"].setList(entries)
         self["list"].moveToIndex(max(index,0))
