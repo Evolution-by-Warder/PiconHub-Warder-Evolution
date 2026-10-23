@@ -79,3 +79,7 @@ Náhľad s údajmi Piatok, 23. októbra 2026, 10:48 je statická ilustrácia tej
 ## Verzia pluginu v hlavičke — doplnenie používateľa
 
 Vpravo od hodín zobrazovať aktuálnu nainštalovanú verziu PiconHub Warder Evolution, nie text ENIGMA2. Hodnotu čítať zo spoločného runtime údaja verzie použitého aj pri zostavení balíka; nesmie byť vypálená do pozadia ani predstavovať dostupnú online verziu. V návrhu sa používa vývojové označenie v0.1.0-dev1. Údaj o dostupnej aktualizácii zobrazovať osobitne v Možnostiach. Zatiaľ ide o návrh, živý widget nie je implementovaný.
+
+## Odstránenie stredového sloganu — doplnenie používateľa
+
+Z hornej lišty odstrániť oba stredové riadky More channels. a A better TV experience. Oblasť ponechať ako čisté grafické pozadie bez náhradného textu. Logo PICONHUB by Warder, menší text pod logom, deň/dátum/čas a aktuálna verzia pluginu zostávajú. Ide o úpravu návrhu; pôvodné obnovovacie hlavičky zachovať bez prepísania.
