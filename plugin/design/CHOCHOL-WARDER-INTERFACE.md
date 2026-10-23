@@ -67,3 +67,11 @@ Tieto body sú zistenia a návrhy, nie hotové opravy:
 5. Overiť profily, všetky režimy, satelity, vlastné cesty a chyby; potom reálne OpenATV testy.
 
 Žiadne produkčné picony, staré vetvy, MASTERy ani obnovovacie grafiky sa týmto návrhom nemenia.
+
+## Doplnenie hlavičky podľa používateľa — 23. októbra 2026
+
+Vpravo hore zobraziť deň v týždni, pod ním dátum a vedľa veľký digitálny čas HH:MM podľa dodaného logo.jpg. Texty oddeliť tenkými cyan zvislými čiarami; označenie ENIGMA2 ponechať napravo. Zachovať zvyšok navrhnutého rozhrania.
+
+V implementácii ide o živé textové widgety napojené na systémový čas a časové pásmo prijímača, nie o dátum a hodiny vypálené do podkladovej bitmapy. Hodnoty obnovovať počas otvorenia obrazovky vrátane zmeny dňa; rešpektovať jazyk Enigmy a nastavené letné/zimné časové pásmo. Použiť čas prijímača bez samostatnej internetovej synchronizácie z pluginu. Grafický podklad musí byť pod týmito widgetmi bez starého dátumu a času.
+
+Náhľad s údajmi Piatok, 23. októbra 2026, 10:48 je statická ilustrácia tejto požiadavky. Živé hodiny zatiaľ nie sú implementované ani overené na prijímači.
