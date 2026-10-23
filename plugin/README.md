@@ -1,14 +1,42 @@
 # PiconHub Warder Evolution
 
-Development version: **0.1.0-dev2**. Native modern interface and Warder picon adapter are implemented; physical receiver validation is pending. See [DEVELOPMENT-DEV2.md](DEVELOPMENT-DEV2.md) for behavior, provenance and test limits.
+**Produkčná verzia 0.1.13**, schválená používateľom 23. októbra 2026. Plugin slúži na sťahovanie a správu piconov v Enigma2.
 
-The functional base is Chocholousek Picons 5.0.240904 by s3n0. Original configuration keys and runtime directory are retained. Main opens WarderMainScreen; each row opens a picker with OK. The menu follows the skin, with three backgrounds and three resolutions. Profiles remain distinct. Date, clock and installed version are live widgets.
+[Produkčný zápis](PRODUCTION.md) · [Stav overenia](BUILD-STATUS.md) · [Strojový záznam vydania](production.json)
 
-The per-launch updater checks Warder plugin releases in the background and offers installation only when a newer published package exists. The development feed still offers no stable release. Picons are updated only when explicitly started by the user.
+## Používanie
+
+Šípkami vyber riadok a stlač OK. Vyber satelity alebo poskytovateľov, rozlíšenie, pozadie, režim a priečinok. Pri satelitoch OK označuje položky, zelené tlačidlo potvrdí výber a červené sa vráti bez zmeny.
+
+- Rozlíšenia: **50×30, 220×132, 400×240**.
+- Pozadia: **Transparent, Biele, Čierne**.
+- Ponuka zahŕňa 53 identifikátorov družíc/poskytovateľov; priložený katalóg obsahuje 468 balíkov.
+- Režimy: podľa TV bouquetov, podľa TV a rádia, doplnenie/aktualizácia všetkých, úplné nahradenie vybraných pozícií.
+- Profily sa v rozhraní nezobrazujú. Pri otvorení sú voľby neutrálne: „Vyber si…“.
+
+Červené **Zatvoriť**, zelené **Stiahnuť**, žlté **Aktualizácia pluginu**, modré **O projekte**. Sťahovanie aj spracovanie všetkých pozícií zostáva v jednom okne s históriou riadkov. Po úspešnom dokončení a návrate sa obnoví úvodný výber aj náhľad; pri chybe zostanú voľby pripravené na opakovanie.
+
+Textové okná používajú rovnaký nepriehľadný podklad. Šípky ↑/↓ posúvajú text, dlhší obsah má posuvník vpravo a dole je červené Naspäť. O projekte obsahuje poďakovanie s3n0 a Chocholousek aj zmeny nainštalovanej verzie dostupné bez internetu.
+
+## Inštalácia a aktualizácie
+
+[Stiahnuť IPK 0.1.13](https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/download/v0.1.13/enigma2-plugin-extensions-piconhub-warder-evolution_0.1.13_all.ipk).
+
+Po skopírovaní konkrétneho balíka do `/tmp`:
+
+```sh
+opkg install /tmp/enigma2-plugin-extensions-piconhub-warder-evolution_0.1.13_all.ipk
+```
+
+Plugin sa inštaluje do `/usr/lib/enigma2/python/Plugins/Extensions/WarderPiconHub/`. Existujúce nastavenia sa zachovávajú. Pri každom otvorení prebehne kontrola novšej verzie na pozadí. Inštaláciu používateľ potvrdí; dostupná je aj ručná kontrola žltým tlačidlom. Po úspešnej aktualizácii sa zobrazí jediné oznámenie a GUI sa po 3 sekundách reštartuje. Bez internetu zostane plugin použiteľný.
+
+Jazyky podľa systému: slovenčina, čeština, angličtina, nemčina, poľština, maďarčina, ruština, francúzština, taliančina a španielčina. Nepodporovaný jazyk používa angličtinu.
+
+## Zostavenie
 
 ```sh
 PYTHONPATH=plugin/src python3 -m unittest discover -s plugin/tests -v
 python3 plugin/tools/build_ipk.py --output plugin/build
 ```
 
-The package is a development artifact for testing, not a receiver-verified stable release. The original recovery headers, historical branches, production picons, skin sources and protected MASTER data are unchanged.
+Zdroj vychádza z práce s3n0 a Chocholousek. Pôvodné autorské údaje, gettext katalógy a konfiguračné kľúče zostávajú zachované. Podrobnosti o overení a obmedzeniach sú v produkčnom zápise.

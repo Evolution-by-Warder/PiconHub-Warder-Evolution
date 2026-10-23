@@ -1,3 +1,9 @@
+# Current production baseline — 2026-10-23
+
+The owner approved PiconHub Warder Evolution **0.1.13** for production. The authoritative current record is [plugin/PRODUCTION.md](../plugin/PRODUCTION.md), with [machine-readable release identity](../plugin/production.json) and [validation scope](../plugin/BUILD-STATUS.md). The approved native interface retains the functional work of s3n0 and Chocholousek and installs as WarderPiconHub.
+
+## Historical notes — superseded by the production record above
+
 > Current checkpoint — 2026-10-23: development 0.1.0-dev2 now implements the native Warder main screen, OK-opened pickers, live clock/version, original profiles and the live Warder ZIP adapter. A development IPK is built; physical receiver tests remain pending. This supersedes earlier UI-pending checkpoints below. See plugin/DEVELOPMENT-DEV2.md (or DEVELOPMENT-DEV2.md within plugin/).
 
 > Latest development checkpoint — 2026-10-23: Chocholousek 5.0.240904 source imported from upstream into plugin/futuristic-rebuild; per-launch Warder plugin update hook implemented. This supersedes any statement below that the new development branch still lacks an entry point. The historical migration branch remains a skeleton. Modern UI, Warder picon-source integration, packaging and receiver tests remain pending. See ../plugin/STARTUP-UPDATES.md.

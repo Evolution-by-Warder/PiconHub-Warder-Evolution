@@ -1,3 +1,9 @@
+# Current production baseline — 2026-10-23
+
+The owner approved PiconHub Warder Evolution **0.1.13** for production. The authoritative current record is [plugin/PRODUCTION.md](../plugin/PRODUCTION.md), with [machine-readable release identity](../plugin/production.json) and [validation scope](../plugin/BUILD-STATUS.md). The approved native interface retains the functional work of s3n0 and Chocholousek and installs as WarderPiconHub.
+
+## Historical notes — superseded by the production record above
+
 # PiconHub Warder Evolution — current work plan
 
 Updated: 2026-10-23 after the owner's explicit direction to use Chocholousek as the functional base.

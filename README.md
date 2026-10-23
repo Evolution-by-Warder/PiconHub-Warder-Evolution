@@ -4,11 +4,9 @@ Warder's original futuristic Enigma2 plugin and the shared Warder picon source d
 
 ## Current state — 2026-10-23
 
-The original futuristic PiconHub (historical 0.6.x / 0.7.x) is now named **PiconHub Warder Evolution**. The separate Chocholousek plugin modernization is retired as a development target. Historical and paused working branches remain preserved for recovery; do not erase them as part of the current backup operation.
+**PiconHub Warder Evolution 0.1.13** is the user-approved production baseline. The native Warder interface retains the functional work of s3n0 and Chocholousek. Runtime: `/usr/lib/enigma2/python/Plugins/Extensions/WarderPiconHub/`.
 
-The user authorized rebuilding the futuristic plugin after both existing projects are safely backed up. The recovered updater/top headers are genuine original assets, but are not a complete runnable plugin.
-
-Use [current state](docs/CURRENT-STATUS.md), [work plan](docs/PICONHUB-WORK-PLAN.md) and [backup/restore instructions](docs/BACKUP-RESTORE.md). Older two-line checkpoint text is retained as historical evidence and does not override the current project decision.
+Use the [plugin guide](plugin/README.md), [production record](plugin/PRODUCTION.md), [release manifest](plugin/production.json) and [validation status](plugin/BUILD-STATUS.md). They record the final behavior, automatic plugin updates, package identity, language support and precise receiver-test scope. Earlier rebuild plans are historical and do not override this baseline.
 
 ## Shared data
 
@@ -16,7 +14,7 @@ Use [current state](docs/CURRENT-STATUS.md), [work plan](docs/PICONHUB-WORK-PLAN
 - `templates/`: original frozen V9 BLACK/WHITE MASTER assets.
 - `migration/`: provenance, approval and migration evidence.
 - `factory/`: separate PC tooling, where present on the branch.
-- `plugin/`: original recovery inputs on main; historical legacy workspaces remain on paused branches.
+- `plugin/`: current Enigma2 plugin, build tools, production record and preserved recovery inputs.
 
 The live downloadable ZIP catalog and archive parts used by the skin are in **Evolution-by-Warder/FullHDGlass-Warder-Evolution**, backed up separately in the same set.
 

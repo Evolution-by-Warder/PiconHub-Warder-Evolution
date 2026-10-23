@@ -1,0 +1,32 @@
+name: PiconHub production baseline
+on:
+  push:
+    branches: [plugin/futuristic-rebuild]
+    paths:
+      - plugin/production.json
+      - .github/scripts/promote_piconhub.py
+      - .github/tests/test_piconhub_production.py
+      - .github/workflows/piconhub-production.yml
+permissions:
+  contents: read
+jobs:
+  promote:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            plugin
+            .github/scripts
+            .github/tests
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+      - name: Test immutable promotion checks
+        run: python3 -m unittest discover -s .github/tests -v
+      - name: Verify published bytes and mark plugin release as production
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python3 .github/scripts/promote_piconhub.py

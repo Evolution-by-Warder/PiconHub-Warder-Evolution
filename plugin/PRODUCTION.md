@@ -1,0 +1,62 @@
+# PiconHub Warder Evolution — ostrá prevádzka
+
+Zápis z 23. októbra 2026 na výslovný pokyn vlastníka projektu. Schválená produkčná základňa: **0.1.13**. Tento dokument nahrádza staré vývojové popisy; historické podklady zostávajú zachované.
+
+## Identita vydania
+
+- Balík: `enigma2-plugin-extensions-piconhub-warder-evolution_0.1.13_all.ipk`.
+- Tag: `v0.1.13`.
+- Zdrojový commit: `2e4bbd3427418fba605ebd9e9575c5c0dc599662`.
+- Veľkosť: **2 863 178 bajtov**.
+- SHA256: `9fa8d03c1936a107ef015a65c0027f0f647062876c3f02d76be6956eee5df3ed`.
+- Inštalačný priečinok: `/usr/lib/enigma2/python/Plugins/Extensions/WarderPiconHub/`.
+- [Vydanie a IPK](https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/tag/v0.1.13).
+
+Produkčné označenie nemení už vydané bajty IPK. Samostatný workflow pred zrušením označenia Pre-release overí verejne stiahnutý balík, jeho SHA256, veľkosť, zdrojový commit a súlad s [production.json](production.json). Repo obsahuje aj oddelený Factory projekt, preto propagácia pluginu nemení globálnu položku GitHub Latest.
+
+## Dohodnuté rozhranie
+
+- Schválené futuristické rozhranie, chrómová lebka z náhľadu vľavo hore bez jej spodného nápisu; samostatný veľký názov PICONHUB zostáva. Žiadne riadky „More channels / Better…“.
+- Dátum s preloženým dňom a mesiacom, živý čas s menšími bielymi sekundami a tyrkysová verzia v hlavičke.
+- Šesť posledných pridaných piconov v čiernom štýle; úvodné logo v náhľade, po výbere náhľad zodpovedá pozadiu a rozlíšeniu.
+- Päť riadkov: Satelity, Rozlíšenie, Pozadie, Režim, Priečinok. Vstup cez OK otvorí výberové okno; neutrálne hodnoty „Vyber si…“.
+- Rozlíšenia 50×30, 220×132 a 400×240; pozadia Transparent, Biele a Čierne. Menu družíc a poskytovateľov podľa skinu; poskytovatelia SK a CZ sa nezamieňajú.
+- Pri družiciach jasne zelené označenie a ikony. Päta: Vybrať s OK, zelené Potvrdiť výber, červené Naspäť; názvy neobsahujú prefix názvu farby.
+- Hlavná päta: červené Zatvoriť, zelené Stiahnuť, žlté Aktualizácia pluginu, modré O projekte.
+- Jednotné nepriehľadné textové okná: automatické zalamovanie, posuvník vpravo podľa potreby, šípky ↑/↓ a iba červené Naspäť. Pri aktívnom sťahovaní zostáva aj modré Log.
+- O projekte: „Plugin vychádza z práce s3n0 a Chocholousek.“ Pod tým prehľad zmien aktuálne nainštalovaného vydania, pribalený v IPK pre offline čítanie.
+
+## Sťahovanie a bezpečný zápis
+
+Jedno okno uchováva postupne pribúdajúce riadky sťahovania a spracovania každej pozície. Percentá aktualizujú aktuálny riadok a dokončené spracovanie má značku ✓. História sa dá posúvať šípkami a priebeh sleduje nové riadky, pokiaľ používateľ nečíta staršiu časť.
+
+Po úspechu a návrate sa všetkých päť volieb vráti na „Vyber si…“, kurzor na prvý riadok a náhľad na úvodné logo. Uložená konfigurácia sa tým nemaže. Pri chybe výber zostáva na opakovanie.
+
+ZIP časti aj celý balík sa kontrolujú podľa veľkosti a SHA256. Pred zápisom sa overujú PNG a rozlíšenie, dostupnosť úložiska a miesto. Cudzie orbitálne aliasy sa filtrujú pred kontrolou duplicít; 130E sa používateľovi zobrazuje ako 13.0E. Existujúce symbolické odkazy sa nahradia bez zmeny ich cieľových súborov a pri chybe sa obnovia. Skutočné adresáre na mieste PNG zostávajú chránené. Zápis má zálohu a rollback; neúspešná obnova ponechá zálohu na opravu.
+
+## Aktualizácia samotného pluginu
+
+Feed zostáva na existujúcej adrese:
+
+`https://raw.githubusercontent.com/Evolution-by-Warder/PiconHub-Warder-Evolution/plugin/futuristic-rebuild/plugin/update/stable.json`
+
+Pri každom otvorení plugin skontroluje GitHub na pozadí; novšiu verziu ponúkne na potvrdenie. Žlté tlačidlo vyvolá ručnú kontrolu. Bez siete sa normálne pokračuje. IPK sa pred inštaláciou overí. Po úspechu sa zobrazí jediné oznámenie, po 3 sekundách nasleduje reštart GUI.
+
+Balík zachováva starý `ChocholousekPicons/version.txt` počas prechodu, aby bežiace staršie hodiny pri výmene súborov nespadli. Staré zvyšky sa archivujú pod `/var/lib/warder-piconhub/previous-runtime/`; po novom importe GUI sa odstráni iba vlastný dočasný prechodový záznam. Druhá položka pluginu sa nevytvára. Pôvodné konfiguračné kľúče v `/etc/enigma2/settings` zostávajú kvôli kompatibilite; nie sú starou inštalačnou cestou.
+
+## Jazyky
+
+SK, CS, EN, DE, PL, HU, RU, FR, IT, ES. Výber podľa jazyka systému; neznámy jazyk má anglický fallback. Preložené sú dialógy, tlačidlá, dátumové názvy aj poznámky k vydaniu.
+
+## Skutočné overenie
+
+- **118 automatizovaných testov**, GitHub CI úspešné pre zdroj 0.1.13 (run 39995057378).
+- Používateľ dodal úspešný výsledok na prijímači pre 0.1.9: 13.0E, 16.0E, 19.2E a 23.5E; 0 pridaných, 218 zmenených, 753 odstránených. Ide o zaznamenaný výsledok konkrétneho výberu, nie očakávané počty pre každú inštaláciu.
+- Používateľ schválil výmenu lebky a následne zadal zápis pre ostrú prevádzku.
+- Úpravy po 0.1.9 vrátane resetu obrazovky, textov, offline poznámok a päty majú testy a CI. Kompletný nový beh 0.1.13 na prijímači zatiaľ potvrdený nie je. Produkčné schválenie nie je tvrdením o otestovaní všetkých image, zariadení alebo kombinácií balíkov.
+
+## Ďalšie vydania
+
+Schválenú grafiku a správanie zachovať. Existujúce verejné IPK, tagy a checksumy neprepisovať; pre funkčnú zmenu zvýšiť verziu. Udržiavať poznámky vo všetkých jazykoch a rovnakú verziu poznámok aj runtime. Zachovať aktuálnu aktualizačnú adresu a názov balíka. Pred novým produkčným povýšením aktualizovať production.json podľa overeného feedu a zdrojového commitu; produkčný workflow overí verejné bajty a označí konkrétny plugin release.
+
+Pôvodné recovery dáta, autorské údaje, historické vetvy, Factory a chránené MASTER picony sa týmto zápisom nemenia.
