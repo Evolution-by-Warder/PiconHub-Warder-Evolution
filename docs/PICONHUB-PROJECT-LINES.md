@@ -1,21 +1,13 @@
-# PiconHub Warder Evolution — current identity
+# PiconHub Warder Evolution — project identity
 
-Updated: 2026-10-23
+Updated: 2026-10-23.
 
-## Binding user decision
+Štefan explicitly selected Warder's original futuristic PiconHub (0.6.x / 0.7.x) and renamed it **PiconHub Warder Evolution**. The prior separate Chocholousek modernization line is retired as a development target. The old two-active-project naming rule is superseded.
 
-Štefan selected the original futuristic PiconHub and instructed: “Nas futuristicky - chocholouskov mozes celkom zmazat a nas premenuj na PiconHub Warder Evolution”.
+After checking available old sources/backups, the user authorized rebuilding the futuristic plugin from the beginning after the skin and picon projects are safely backed up. Do not treat missing complete old runtime source as a prerequisite to starting that newly authorized build.
 
-**PiconHub Warder Evolution now means Warder's original futuristic Enigma2 plugin**, historically PiconHub 0.6.x / 0.7.x.
+Retain recovered genuine header artwork. Prepare and approve the new screen/function design, then implement and receiver-test a real Enigma2 IPK. Do not pass a historical 0.1.x rewrite, Factory or the skin off as the original futuristic plugin.
 
-The former separate s3n0/Chocholousek modernization line (5.0.240904.x) is retired and its active workspace is removed. Do not revive it, use its entry point, package, screens or code baseline as a substitute for the original futuristic plugin.
+Further deletion of old working branches was paused by the user. This backup/documentation operation preserves them and their actual source files.
 
-This explicitly supersedes the 2026-09-15 two-active-project naming rule and the earlier instruction to keep the futuristic plugin out of this repository.
-
-## Preservation and compatibility
-
-Preserve the original futuristic UI and its approved assets. Recover the complete source before changing runtime titles, menu registration, About/update labels and package metadata. The public product name is PiconHub Warder Evolution; retain old installation/configuration identifiers where needed for safe upgrade compatibility, rather than resetting user settings.
-
-The shared picon database, V9 MASTER templates, Factory, provenance and FullHDGlass download data remain independent of the retired plugin and are preserved.
-
-Historical branches and commits are not current authority. Do not rewrite Git history or modify the protected production-data branch merely to remove historical names.
+For exact current evidence, scope and recovery see CURRENT-STATUS.md and BACKUP-RESTORE.md. Frozen shared picon V9/MASTER and provenance rules remain in force.

@@ -1,27 +1,25 @@
 # PiconHub Warder Evolution
 
-PiconHub Warder Evolution is Warder's original Enigma2 plugin with the approved futuristic PiconHub interface, together with the shared Warder picon database.
+Warder's original futuristic Enigma2 plugin and the shared Warder picon source database.
 
-## Project decision — 2026-10-23
+## Current state — 2026-10-23
 
-Štefan explicitly selected the original futuristic PiconHub (historical 0.6.x / 0.7.x), renamed it **PiconHub Warder Evolution**, and retired the separate s3n0/Chocholousek plugin modernization line (5.0.240904.x). Earlier documents assigning this name to that modernization line are superseded.
+The original futuristic PiconHub (historical 0.6.x / 0.7.x) is now named **PiconHub Warder Evolution**. The separate Chocholousek plugin modernization is retired as a development target. Historical and paused working branches remain preserved for recovery; do not erase them as part of the current backup operation.
 
-The retired plugin source workspace, packaging and test update payload have been removed from the active main tree. Historical Git commits remain historical evidence, not active releases.
+The user authorized rebuilding the futuristic plugin after both existing projects are safely backed up. The recovered updater/top headers are genuine original assets, but are not a complete runnable plugin.
 
-## Plugin recovery status
+Use [current state](docs/CURRENT-STATUS.md), [work plan](docs/PICONHUB-WORK-PLAN.md) and [backup/restore instructions](docs/BACKUP-RESTORE.md). Older two-line checkpoint text is retained as historical evidence and does not override the current project decision.
 
-The original 0.6.12.23 updater payload has been recovered byte-for-byte from commit `6f45821b44559b912cacf21e5bb01932d62766f6` into `plugin/recovery/original-updater/`. It is a partial update payload, not a complete runnable plugin. The historical 0.7.0-dev2 channel was unpublished; its checksum alone is not a recoverable IPK.
+## Shared data
 
-The complete original runtime, entry point and approved main-screen assets must be recovered before a renamed runnable IPK can be built. Do not replace them with the retired plugin, Factory or FullHDGlass, and do not invent a new UI.
+- `picons/`: source PNGs, organized by satellite, provider and transparent/white/black style.
+- `templates/`: original frozen V9 BLACK/WHITE MASTER assets.
+- `migration/`: provenance, approval and migration evidence.
+- `factory/`: separate PC tooling, where present on the branch.
+- `plugin/`: original recovery inputs on main; historical legacy workspaces remain on paused branches.
 
-See [current identity](docs/PICONHUB-PROJECT-LINES.md), [work plan](docs/PICONHUB-WORK-PLAN.md) and [checkpoint](docs/PROJECT-CHECKPOINT.md).
+The live downloadable ZIP catalog and archive parts used by the skin are in **Evolution-by-Warder/FullHDGlass-Warder-Evolution**, backed up separately in the same set.
 
-## Shared picon data
+Do not redesign approved artwork, renumber identities, invent service mappings or silently replace existing PNGs. Third-party picon artwork retains its original provenance and authorship. Retiring a plugin does not erase credits for reused artwork.
 
-The existing `picons/`, `templates/`, `migration/`, `factory/` and download consumers are preserved by this identity change. Provider and satellite picons are data, not the retired plugin.
-
-Runtime data layout remains:
-
-`picons/<satellite-position>/<provider>/{transparent,white,black}/<service-reference>.png`
-
-The approved V9 rules and original BLACK/WHITE MASTER templates remain frozen. See `docs/PICON-MASTER-QUALITY-PLAN.md`. Existing third-party picon provenance and credits remain applicable to those assets; retiring a plugin does not change authorship of shared artwork.
+Protected `warder-master-production` data is unchanged by this documentation operation.
