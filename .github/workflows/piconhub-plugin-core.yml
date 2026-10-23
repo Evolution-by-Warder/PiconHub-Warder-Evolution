@@ -35,3 +35,28 @@ jobs:
             plugin/build/*.ipk
             plugin/build/*.sha256
           retention-days: 90
+
+  publish:
+    needs: core
+    if: github.event_name == 'push' && github.ref == 'refs/heads/plugin/futuristic-rebuild'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    concurrency:
+      group: piconhub-plugin-release
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: plugin
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+      - uses: actions/download-artifact@v4
+        with:
+          name: PiconHub-Warder-Evolution-development
+          path: plugin/build
+      - name: Publish verified numbered plugin release and update feed
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python3 plugin/tools/publish_plugin_release.py --output plugin/build --revision "$GITHUB_SHA"

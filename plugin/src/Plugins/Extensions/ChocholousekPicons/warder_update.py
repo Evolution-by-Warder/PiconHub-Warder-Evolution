@@ -14,7 +14,8 @@ from urllib.request import Request, urlopen
 
 REPOSITORY = "Evolution-by-Warder/PiconHub-Warder-Evolution"
 PACKAGE_ID = "enigma2-plugin-extensions-piconhub-warder-evolution"
-# This development feed has no offered IPK. Switch to main for the first release.
+# Keep this feed address compatible with already-installed development builds.
+# CI advances it only after the public release IPK has been verified.
 FEED_URL = "https://raw.githubusercontent.com/" + REPOSITORY + "/plugin/futuristic-rebuild/plugin/update/stable.json"
 MAX_IPK_BYTES = 128 * 1024 * 1024
 

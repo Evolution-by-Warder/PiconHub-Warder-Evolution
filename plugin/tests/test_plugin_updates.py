@@ -249,6 +249,41 @@ class StartupTests(unittest.TestCase):
         check._answer(types.SimpleNamespace(version="0.1.1"), False)
         self.assertEqual(self.opened, [])
 
+    def test_success_notice_restarts_gui_after_three_seconds_without_confirmation(self):
+        import queue
+        opened=[]
+        class Installer(dict):
+            pass
+        installer=Installer(status=types.SimpleNamespace(setText=lambda text:None))
+        installer.closed=False;installer.done=False;installer.timer=Timer();installer.results=queue.Queue()
+        installer.results.put(("0.1.1",None))
+        installer.restart_after_notice=lambda *args:self.ui.PluginInstallScreen.restart_after_notice(installer,*args)
+        installer.session=types.SimpleNamespace(open=lambda *a,**kw:opened.append((a,kw)),openWithCallback=lambda *a,**kw:opened.append((a,kw)))
+        self.ui.PluginInstallScreen.poll(installer)
+        args,kwargs=opened.pop()
+        self.assertEqual(kwargs["timeout"],3)
+        self.assertFalse(kwargs["enable_input"])
+        self.assertEqual(kwargs["type"],self.ui.MessageBox.TYPE_INFO)
+        self.assertIn("3 sekundy",args[2])
+        self.assertEqual(opened,[])
+        standby=types.ModuleType("Screens.Standby");standby.TryQuitMainloop=object()
+        with patch.dict(sys.modules,{"Screens.Standby":standby}):args[0](True)
+        self.assertEqual(opened[0][0],(standby.TryQuitMainloop,3))
+        installer.closed=True;opened.clear()
+        args[0](True)
+        self.assertEqual(opened,[])
+
+    def test_failed_update_does_not_schedule_a_gui_restart(self):
+        import queue
+        class Installer(dict):
+            pass
+        installer=Installer(status=types.SimpleNamespace(setText=lambda text:None))
+        installer.closed=False;installer.done=False;installer.timer=Timer();installer.results=queue.Queue()
+        installer.results.put((None,"opkg failed"))
+        installer.session=self.screen.session
+        self.ui.PluginInstallScreen.poll(installer)
+        self.assertEqual(self.opened,[])
+
     def test_original_entrypoint_contains_the_hook_and_keeps_profiles(self):
         import ast
         source = (RUNTIME / "plugin.py").read_text()

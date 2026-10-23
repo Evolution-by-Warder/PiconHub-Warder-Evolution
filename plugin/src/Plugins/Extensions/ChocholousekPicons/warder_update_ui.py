@@ -132,16 +132,14 @@ class PluginInstallScreen(Screen):
             self["status"].setText("Aktualizácia pluginu zlyhala.\n\n" + error + "\n\nOK alebo EXIT: späť.")
             return
         self["status"].setText("Plugin bol aktualizovaný na verziu " + version + ".")
-        self.session.openWithCallback(self.restart_answer, MessageBox,
-                                      "Aktualizácia je nainštalovaná.\nReštartovať GUI pre načítanie novej verzie?",
-                                      type=MessageBox.TYPE_YESNO, default=False)
+        self.session.openWithCallback(self.restart_after_notice, MessageBox,
+                                      "Plugin bol aktualizovaný na verziu %s.\nO 3 sekundy sa reštartuje GUI." % version,
+                                      type=MessageBox.TYPE_INFO, timeout=3, enable_input=False)
 
-    def restart_answer(self, accepted):
-        if accepted and not self.closed:
+    def restart_after_notice(self, *args):
+        if not self.closed:
             from Screens.Standby import TryQuitMainloop
             self.session.open(TryQuitMainloop, 3)
-        elif not self.closed:
-            self.close()
 
     def finish(self):
         if self.done:
