@@ -80,11 +80,11 @@ class ChoiceDialog(Screen):
                 path = ROOT/"images/selectors"/(value+".png")
                 if path.is_file():
                     self.icons[value] = LoadPixmap(path=str(path))
-            self["hint_ok"] = Label(_("Vybrať"))
+            self["hint_ok"] = Label(_("Vybrať s OK"))
             self["hint_green"] = Label(_("Potvrdiť výber"))
             self["hint_red"] = Label(_("Naspäť"))
         else:
-            self["hint_ok"] = Label(_("Vybrať"))
+            self["hint_ok"] = Label(_("Vybrať s OK"))
             self["hint_red"] = Label(_("Naspäť"))
             if kind=="directory":self["hint_green"] = Label(_("Potvrdiť výber"))
         self["list"] = menu_component(self.warder_scale)

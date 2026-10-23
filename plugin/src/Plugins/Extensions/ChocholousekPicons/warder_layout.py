@@ -86,5 +86,9 @@ def dialog_skin(width, height, rows=8, multiple=False, kind="choice", title="Vý
             footer=[("hint_ok",25,210,"#00ffffff"),("hint_green",245,440,"#0039ff59"),("hint_red",695,330,"#00ff526a")]
         else:
             footer=[("hint_ok",25,490,"#00ffffff"),("hint_red",535,490,"#00ff526a")]
-    out.extend(widget(name,x,h-55,wide,45,24,color) for name,x,wide,color in footer)
+    # Equal footer slots keep the action centered in its own visual position.
+    slot_width = (1000 - 20*(len(footer)-1)) / len(footer)
+    out.extend(widget(name,25+index*(slot_width+20),h-55,slot_width,45,24,color,
+                      extra='halign="center" valign="center" noWrap="1"')
+               for index,(name,x,wide,color) in enumerate(footer))
     return localize_skin("\n".join(out+["</screen>"]))

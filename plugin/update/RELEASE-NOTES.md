@@ -1,3 +1,3 @@
-Jednotný vzhľad výberových okien, priebehu, logu, informácií o projekte a inštalácie pluginu: pevné tmavomodré pozadie, rovnaké nadpisy a tyrkysový rám.
-Legendy obsahujú iba názvy akcií: Naspäť červenou, Potvrdiť výber zelenou a Log modrou. Bez názvov farieb a predpôn tlačidiel.
-Červené počas sťahovania požiada o bezpečné ukončenie; okno sa zatvorí až po dokončení práce. Zachovaných je všetkých 10 jazykov.
+Vo všetkých výberových oknách je text „Vybrať s OK“.
+Spodné legendy sú vodorovne aj zvislo vycentrované v rovnako širokých poliach. Rovnaké zarovnanie používa výber satelitov, priečinkov, priebeh, log, informácie o projekte aj inštalácia pluginu.
+Preklady sú doplnené vo všetkých 10 jazykoch.

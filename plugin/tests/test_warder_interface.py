@@ -158,6 +158,12 @@ class MenuTests(unittest.TestCase):
                     x,y=map(int,widget.get("position").split(","));w,h=map(int,widget.get("size").split(","))
                     self.assertLessEqual(x+w,sw);self.assertLessEqual(y+h,sh)
                 fields={w.get("name"):w for w in root.findall("widget")}
+                hints=[w for name,w in fields.items() if name.startswith("hint_")]
+                self.assertEqual(len({w.get("size") for w in hints}),1)
+                for hint in hints:
+                    self.assertEqual(hint.get("halign"),"center")
+                    self.assertEqual(hint.get("valign"),"center")
+                    self.assertEqual(hint.get("noWrap"),"1")
                 self.assertEqual(fields["hint_red"].get("foregroundColor"),"#00ff526a")
                 if kind=="progress":
                     self.assertEqual(fields["hint_blue"].get("foregroundColor"),"#0045b9ff")

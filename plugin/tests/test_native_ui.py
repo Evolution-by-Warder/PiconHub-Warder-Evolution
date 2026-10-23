@@ -204,7 +204,7 @@ class NativeControllerTests(unittest.TestCase):
         self.assertEqual(row[1]["color"],0x0039ff59)
         self.assertEqual(row[1]["color_sel"],0x0039ff59)
         self.assertIn("png",row[2])
-        self.assertEqual(dialog["hint_ok"].text,"Vybrať")
+        self.assertEqual(dialog["hint_ok"].text,"Vybrať s OK")
         self.assertEqual(dialog["hint_green"].text,"Potvrdiť výber")
         self.assertEqual(dialog["hint_red"].text,"Naspäť")
         dialog.accept()
