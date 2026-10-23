@@ -1,3 +1,3 @@
-# PiconHub Warder Evolution 0.1.10
+# PiconHub Warder Evolution 0.1.11
 
-Po úspešnom stiahnutí a návrate sa všetky voľby vrátia na Vyber si…, kurzor na prvý riadok a náhľad na úvodné logo. Pri chybe zostáva výber pripravený na opakovanie. Čiernu lebku vľavo hore nahrádza chrómová lebka z náhľadu bez spodného nápisu.
+Upravený text v okne O projekte: Plugin vychádza z práce s3n0 a Chocholousek. Zmena je preložená do všetkých podporovaných jazykov.

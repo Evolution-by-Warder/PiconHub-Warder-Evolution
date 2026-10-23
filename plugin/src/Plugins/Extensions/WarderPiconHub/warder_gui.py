@@ -464,7 +464,7 @@ class WarderMainScreen(Screen):
         self.warderUpdateCheck.request(manual=True)
 
     def about(self):
-        self.session.open(TextDialog,_("O projekte"),_("PiconHub Warder Evolution\nVerzia ")+installed_version()+_("\n\nWarder Evolution\nFunkčný základ: Chocholousek Picons 5.0.240904 od s3n0.\nKatalóg a plánovanie piconov: FullHDGlass Warder Evolution."))
+        self.session.open(TextDialog,_("O projekte"),_("PiconHub Warder Evolution\nVerzia ")+installed_version()+_("\n\nWarder Evolution\nPlugin vychádza z práce s3n0 a Chocholousek.\nKatalóg a plánovanie piconov: FullHDGlass Warder Evolution."))
 
     def exit(self):
         configfile.save();self.close()
