@@ -7,14 +7,15 @@ import threading
 from Components.ActionMap import ActionMap
 from Components.Label import Label
 from Components.MenuList import MenuList
-from Components.MultiContent import MultiContentEntryText
+from Components.MultiContent import MultiContentEntryText, MultiContentEntryPixmapAlphaBlend
+from Tools.LoadPixmap import LoadPixmap
 from Components.Pixmap import Pixmap
 from Components.ProgressBar import ProgressBar
 from Components.ScrollLabel import ScrollLabel
 from Components.config import ConfigSelection, ConfigText, config, configfile
 from Screens.MessageBox import MessageBox
 from Screens.Screen import Screen
-from enigma import RT_HALIGN_LEFT, RT_VALIGN_CENTER, eListboxPythonMultiContent, eTimer, gFont, getDesktop, ePoint, eSize
+from enigma import BT_SCALE, RT_HALIGN_LEFT, RT_VALIGN_CENTER, eListboxPythonMultiContent, eTimer, gFont, getDesktop, ePoint, eSize
 
 from . import plugin as legacy
 from . import warder_model as model
@@ -40,25 +41,49 @@ def menu_component(scale, item_height=60, fonts=(28,)):
     return component
 
 
-def option_entries(choices, selected, scale, multiple=False):
+def option_entries(choices, selected, scale, multiple=False, icons=None):
     result = []
     for value,label in choices:
-        marker = ("● " if value in selected else "○ ") if multiple else ""
-        result.append([(value,label), MultiContentEntryText(pos=(round(16*scale),0),
-                       size=(round(980*scale),round(60*scale)), font=0,
-                       flags=RT_HALIGN_LEFT|RT_VALIGN_CENTER, text=marker+label)])
+        entry = [(value,label)]
+        left = 16
+        if multiple:
+            color = 0x0039ff59 if value in selected else 0x00b5d4ec
+            entry.append(MultiContentEntryText(pos=(round(16*scale),0),
+                         size=(round(42*scale),round(60*scale)), font=0,
+                         flags=RT_HALIGN_LEFT|RT_VALIGN_CENTER,
+                         text="●" if value in selected else "○", color=color, color_sel=color))
+            left = 64
+        icon = (icons or {}).get(value)
+        if icon is not None:
+            entry.append(MultiContentEntryPixmapAlphaBlend(pos=(round(64*scale),round(7*scale)),
+                         size=(round(75*scale),round(45*scale)), png=icon, flags=BT_SCALE))
+            left = 157
+        entry.append(MultiContentEntryText(pos=(round(left*scale),0),
+                     size=(round((990-left)*scale),round(60*scale)), font=0,
+                     flags=RT_HALIGN_LEFT|RT_VALIGN_CENTER, text=label))
+        result.append(entry)
     return result
 
 
 class ChoiceDialog(Screen):
     def __init__(self, session, title, choices, current=None, multiple=False):
         width,height = desktop()
-        self.skin = dialog_skin(width,height,len(choices))
+        self.skin = dialog_skin(width,height,len(choices),multiple=multiple)
         Screen.__init__(self,session)
         self.warder_scale = min(width/1920.0,height/1080.0)
         self.state = model.PickerState(choices, current or () if multiple else (current,), multiple)
         self["title"] = Label(title)
-        self["hint"] = Label("OK: označiť • Zelené: potvrdiť • EXIT: bez zmeny" if multiple else "OK: potvrdiť • EXIT: bez zmeny")
+        self.icons = {}
+        if multiple:
+            for value,label in choices:
+                path = ROOT/"images/selectors"/(value+".png")
+                if path.is_file():
+                    self.icons[value] = LoadPixmap(path=str(path))
+            self["hint_ok"] = Label("OK: vybrať")
+            self["hint_green"] = Label("Zelené: potvrdiť výber")
+            self["hint_red"] = Label("Červené: naspäť")
+        else:
+            self["hint"] = Label("OK: potvrdiť • EXIT: bez zmeny")
         self["list"] = menu_component(self.warder_scale)
         self["actions"] = ActionMap(["OkCancelActions","ColorActions","DirectionActions"], {
             "ok": self.accept, "green": self.apply, "cancel": lambda:self.close(None),
@@ -73,7 +98,7 @@ class ChoiceDialog(Screen):
         self["list"].moveToIndex(index)
 
     def rebuild(self):
-        self["list"].setList(option_entries(self.state.choices,self.state.selected,self.warder_scale,self.state.multiple))
+        self["list"].setList(option_entries(self.state.choices,self.state.selected,self.warder_scale,self.state.multiple,self.icons))
 
     def accept(self):
         entry = self["list"].getCurrent()
@@ -240,7 +265,7 @@ class WarderMainScreen(Screen):
         for name in ("day","date","clock","seconds","version","preview_caption","summary","status"):
             self[name]=Label("")
         self["background"],self["preview"]=Pixmap(),Pixmap()
-        self["brand_logo"]=BrandLogo(ROOT/"images/warder-background.png")
+        self["brand_logo"]=BrandLogo(ROOT/"images/warder-emblem.png")
         for number in range(recent.COUNT):
             self["recent%d" % number]=Pixmap()
         self["list"]=menu_component(self.warder_scale,100,(32,29,23))

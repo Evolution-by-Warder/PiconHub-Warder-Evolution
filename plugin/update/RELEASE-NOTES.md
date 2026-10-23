@@ -1,14 +1,11 @@
-Aktualizácia priamo z pluginu je aktívna.
+Nový vzhľad PiconHub: vlastná ikona v zozname pluginov a vyššie priehľadné
+logo s kovovou lebkou a modrou žiarou, ktoré využíva výšku úvodného náhľadu.
+Po výbere pozadia sa naďalej zobrazí skutočný náhľad piconu.
 
-Pri otvorení sa skontroluje nová verzia. Po potvrdení plugin stiahne a overí
-balík a nainštaluje ho. Po úspechu sa zobrazí hláška a za 3 sekundy sa GUI
-automaticky reštartuje, bez ďalšieho potvrdenia. Ručné kopírovanie IPK nie je potrebné.
+Výber satelitov obsahuje pôvodné ikony všetkých 53 satelitov a poskytovateľov
+zo skinu. Označené položky majú jasný zelený krúžok aj na aktívnom riadku.
+Legenda: OK: vybrať, Zelené: potvrdiť výber, Červené: naspäť.
+Červené a EXIT zatvoria ponuku bez uloženia zmien.
 
-Pri prvom prechode z dev8 ešte prebehne jeho pôvodné potvrdenie reštartu GUI.
-Automatický trojsekundový reštart sa použije pri ďalších aktualizáciách.
-
-Obsahuje všetky úpravy dev8: čierne picony v hornom páse, neutrálne voľby
-„Vyber si…“, úvodné logo a náhľad podľa pozadia a rozlíšenia, priame farebné
-tlačidlá, väčšie biele sekundy a tyrkysovú verziu v jednom riadku.
-
-Ide o prvé číslované skúšobné vydanie. Overovanie rozhrania na prijímači pokračuje.
+Po úspešnej aktualizácii sa zobrazí iba informačná hláška a po 3 sekundách
+sa automaticky reštartuje GUI.

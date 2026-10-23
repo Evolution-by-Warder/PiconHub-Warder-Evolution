@@ -124,6 +124,19 @@ class MenuTests(unittest.TestCase):
         labels={item.get("text") for item in root if item.get("text")}
         self.assertTrue({"Zatvoriť","Stiahnuť","Aktualizácia pluginu","O projekte"}<=labels)
 
+    def test_multiselect_footer_has_button_colors_and_fits_hd(self):
+        for width,height in ((1920,1080),(1280,720)):
+            root=ET.fromstring(layout.dialog_skin(width,height,53,multiple=True))
+            sw,sh=map(int,root.get("size").split(","))
+            fields={item.get("name"):item for item in root}
+            self.assertEqual(fields["hint_ok"].get("foregroundColor"),"#00ffffff")
+            self.assertEqual(fields["hint_green"].get("foregroundColor"),"#0039ff59")
+            self.assertEqual(fields["hint_red"].get("foregroundColor"),"#00ff526a")
+            self.assertNotIn("hint",fields)
+            for item in root:
+                x,y=map(int,item.get("position").split(","));w,h=map(int,item.get("size").split(","))
+                self.assertLessEqual(x+w,sw);self.assertLessEqual(y+h,sh)
+
 
 class EngineTests(unittest.TestCase):
     def setUp(self):

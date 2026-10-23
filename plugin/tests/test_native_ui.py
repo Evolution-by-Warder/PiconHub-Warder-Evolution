@@ -25,6 +25,7 @@ class Component:
     def setBackgroundColor(self,color):self.background=color
     def setPixmapFromFile(self,path):self.filename=path
     def setScale(self,value):pass
+    def setAlphatest(self,value):pass
     def resize(self,size):self.dimensions=size
     def move(self,point):self.location=point
     def size(self):return types.SimpleNamespace(width=lambda:440,height=lambda:264)
@@ -90,13 +91,13 @@ class NativeControllerTests(unittest.TestCase):
         startup.installed_version=lambda:(ROOT/"version.txt").read_text().strip()
         modules={namespace:package,namespace+".plugin":legacy,namespace+".warder_update_ui":startup}
         attrs={"Components.GUIComponent":{"GUIComponent":Component},"Components.ActionMap":{"ActionMap":Actions},"Components.Label":{"Label":Component},
-               "Components.MenuList":{"MenuList":Menu},"Components.MultiContent":{"MultiContentEntryText":lambda **kwargs:kwargs},
+               "Components.MenuList":{"MenuList":Menu},"Components.MultiContent":{"MultiContentEntryText":lambda **kwargs:kwargs,"MultiContentEntryPixmapAlphaBlend":lambda **kwargs:kwargs},"Tools.LoadPixmap":{"LoadPixmap":lambda **kwargs:kwargs},
                "Components.Pixmap":{"Pixmap":Component},"Components.ProgressBar":{"ProgressBar":Component},
                "Components.ScrollLabel":{"ScrollLabel":Component},
                "Components.config":{"ConfigSelection":Setting,"ConfigText":Setting,"config":cls.config,"configfile":cls.configfile},
                "Screens.MessageBox":{"MessageBox":types.SimpleNamespace(TYPE_INFO=0,TYPE_ERROR=1,TYPE_YESNO=2)},
                "Screens.Screen":{"Screen":Screen},"skin":{"parseColor":lambda x:x},
-               "enigma":{"ePixmap":Component,"eWidget":Component,"ePoint":lambda *v:v,"eSize":lambda *v:v,"eTimer":Timer,"gFont":lambda *a:a,"RT_HALIGN_LEFT":1,"RT_VALIGN_CENTER":2,
+               "enigma":{"BT_SCALE":1,"ePixmap":Component,"eWidget":Component,"ePoint":lambda *v:v,"eSize":lambda *v:v,"eTimer":Timer,"gFont":lambda *a:a,"RT_HALIGN_LEFT":1,"RT_VALIGN_CENTER":2,
                          "eListboxPythonMultiContent":object,
                          "getDesktop":lambda unused:types.SimpleNamespace(size=lambda:types.SimpleNamespace(width=lambda:1920,height=lambda:1080))}}
         for name,values in attrs.items():
@@ -128,7 +129,7 @@ class NativeControllerTests(unittest.TestCase):
         self.assertEqual([row[0][2] for row in self.main["list"].values],["Vyber si…"]*5)
         self.assertTrue(self.main["brand_logo"].visible)
         self.assertFalse(self.main["preview"].visible)
-        self.assertTrue(self.main["brand_logo"].picture.filename.endswith("warder-background.png"))
+        self.assertTrue(self.main["brand_logo"].picture.filename.endswith("warder-emblem.png"))
         self.main.update_picons()
         self.assertIs(self.calls[-1][1][0],self.gui.MessageBox)
         self.complete_selection()
@@ -188,6 +189,23 @@ class NativeControllerTests(unittest.TestCase):
         dialog["list"].moveToIndex(index);dialog.accept();dialog.apply()
         self.assertEqual(dialog.result,["CANALPLUS_SK","CANALPLUS_CZ"])
         self.assertEqual(dialog.scale,((1920,1920),(1080,1080)))
+
+    def test_satellite_icons_green_marks_and_colored_footer(self):
+        dialog=self.gui.ChoiceDialog(self.session,"Satelity",self.gui.model.SATELLITES,["FREESAT"],True)
+        self.assertEqual(len(dialog.icons),53)
+        row=dialog["list"].values[0]
+        self.assertEqual(row[0][0],"FREESAT")
+        self.assertEqual(row[1]["text"],"●")
+        self.assertEqual(row[1]["color"],0x0039ff59)
+        self.assertEqual(row[1]["color_sel"],0x0039ff59)
+        self.assertIn("png",row[2])
+        self.assertEqual(dialog["hint_ok"].text,"OK: vybrať")
+        self.assertEqual(dialog["hint_green"].text,"Zelené: potvrdiť výber")
+        self.assertEqual(dialog["hint_red"].text,"Červené: naspäť")
+        dialog.accept()
+        self.assertEqual(dialog["list"].values[0][1]["text"],"○")
+        dialog["actions"]["red"]()
+        self.assertIsNone(dialog.result)
 
     def test_recent_worker_results_are_displayed_only_on_gui_tick(self):
         paths=self.gui.recent.bundled(ROOT)

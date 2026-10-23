@@ -35,7 +35,7 @@ def main_skin(width=1920, height=1080):
             fill(1280,425,540,2,"#003ee8ff"),
             fill(1298,445,484,304,"#00314b65"),fill(1300,447,480,300,"#00061729"),
             '<widget name="preview" %s alphatest="blend" zPosition="3" />' % box(1320,465,440,264),
-            '<widget name="brand_logo" %s transparent="1" zPosition="4" />' % box(1320,465,440,264),
+            '<widget name="brand_logo" %s transparent="1" zPosition="4" />' % box(1305,450,470,294),
             label("preview_caption",1270,750,560,44,23,align="center"),
             label("summary",1280,805,550,70,25,color="#00b5d4ec"),
             fill(60,916,4,34,"#003ee8ff",3),label("status",80,910,1780,45,25,color="#009cf0ff"),
@@ -46,13 +46,23 @@ def main_skin(width=1920, height=1080):
     return "\n".join(out + ["</screen>"])
 
 
-def dialog_skin(width, height, rows=8):
+def dialog_skin(width, height, rows=8, multiple=False):
     scale = min(width / 1920.0, height / 1080.0)
     w, h = round(1050*scale), round((170+min(rows,8)*60)*scale)
-    return '''<screen position="center,center" size="%d,%d" title="Výber" backgroundColor="#00102136">
+    skin = '''<screen position="center,center" size="%d,%d" title="Výber" backgroundColor="#00102136">
       <widget name="title" position="%d,%d" size="%d,%d" font="Regular;%d" foregroundColor="#0019c9ff" />
       <widget name="list" position="%d,%d" size="%d,%d" scrollbarMode="showOnDemand" enableWrapAround="1" foregroundColor="#00ffffff" foregroundColorSelected="#00ffffff" backgroundColorSelected="#002a70ad" />
       <widget name="hint" position="%d,%d" size="%d,%d" font="Regular;%d" foregroundColor="#00ffffff" />
     </screen>''' % (w,h,round(25*scale),round(15*scale),w-round(50*scale),round(50*scale),round(32*scale),
                    round(20*scale),round(80*scale),w-round(40*scale),h-round(150*scale),
                    round(25*scale),h-round(55*scale),w-round(50*scale),round(45*scale),round(24*scale))
+
+    if multiple:
+        start = skin.index('      <widget name="hint"')
+        end = skin.index('\n', start)
+        footer = []
+        for name,x,wid,color in (("hint_ok",25,210,"#00ffffff"),("hint_green",245,440,"#0039ff59"),("hint_red",695,330,"#00ff526a")):
+            footer.append('<widget name="%s" position="%d,%d" size="%d,%d" font="Regular;%d" foregroundColor="%s" />' %
+                          (name,round(x*scale),h-round(55*scale),round(wid*scale),round(45*scale),round(24*scale),color))
+        skin = skin[:start] + "\n".join(footer) + skin[end:]
+    return skin
