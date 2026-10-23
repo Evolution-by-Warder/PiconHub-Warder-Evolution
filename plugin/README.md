@@ -1,18 +1,14 @@
 # PiconHub Warder Evolution
 
-Functional base: Chocholousek Picons 5.0.240904 by s3n0, imported from upstream ref 84a40ed6b01f8dc7d49b632f886525b9c51773c7 into src/Plugins/Extensions/ChocholousekPicons. Attribution, the runtime directory and existing profile settings are retained. Exact provenance is recorded in UPSTREAM.json.
+Development version: **0.1.0-dev2**. Native modern interface and Warder picon adapter are implemented; physical receiver validation is pending. See [DEVELOPMENT-DEV2.md](DEVELOPMENT-DEV2.md) for behavior, provenance and test limits.
 
-The original four-screen runtime is now present in this development branch. The historical migration branch remains a skeleton; the new source was imported from upstream, not recovered from that skeleton. The modern Warder screen and picker design are still pending implementation.
+The functional base is Chocholousek Picons 5.0.240904 by s3n0. Original configuration keys and runtime directory are retained. Main opens WarderMainScreen; each row opens a picker with OK. The menu follows the skin, with three backgrounds and three resolutions. Profiles remain distinct. Date, clock and installed version are live widgets.
 
-Implemented: an asynchronous plugin update check on every new main-screen launch, an update offer, verified IPK staging and user-confirmed installation. See [STARTUP-UPDATES.md](STARTUP-UPDATES.md). The development release feed has no offered IPK; no plugin release is being claimed as published. Receiver testing remains pending.
-
-The independent Warder catalog adapter remains in src/PiconHubWarderEvolution for later picon-source integration. It does not make the original engine consume Warder ZIP packages yet.
-
-recovery/original-updater contains the genuine historical Warder updater and headers. Their bytes remain preserved.
+The per-launch updater checks Warder plugin releases in the background and offers installation only when a newer published package exists. The development feed still offers no stable release. Picons are updated only when explicitly started by the user.
 
 ```sh
 PYTHONPATH=plugin/src python3 -m unittest discover -s plugin/tests -v
-python3 plugin/tools/check_catalog.py --selector 235E --resolution 220x132 --style transparent
+python3 plugin/tools/build_ipk.py --output plugin/build
 ```
 
-Run from the repository root. The catalog inspector installs nothing. The new plugin package itself is not yet built or published.
+The package is a development artifact for testing, not a receiver-verified stable release. The original recovery headers, historical branches, production picons, skin sources and protected MASTER data are unchanged.

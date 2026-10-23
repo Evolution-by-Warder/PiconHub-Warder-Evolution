@@ -1,3 +1,5 @@
+> Development 0.1.0-dev2 now uses the modern Warder screen with this same per-launch checker. A development IPK is built; the stable feed remains empty. Earlier UI/IPK-pending text below is historical. Physical receiver validation remains pending.
+
 # Kontrola aktualizácie samotného pluginu
 
 Stav: implementované v pracovnej vetve, nie otestované na fyzickom prijímači. Moderné obrazovky a inštalačné IPK ešte nie sú dokončené.

@@ -108,7 +108,11 @@ for id in range(0,4):
     
     p.picon_folder_user = ConfigText(default = '/', fixed_size = False)
     
-    p.method = methodsALL
+    p.method = ConfigSelection(default="sync_tv", choices=[
+        ("all", _("copy all: current will deleted")),
+        ("all_inc", _("copy all: incremental update")),
+        ("sync_tv", _("sync with TV userbouquets")),
+        ("sync_tv_radio", _("sync with TV+RADIO userbouquets"))])
     
     p.sats = ConfigText(default = '19.2E 23.5E', fixed_size = False)
     
@@ -1874,7 +1878,8 @@ def pluginMenu(session, **kwargs):              # starts when the plugin is open
     print('PLUGINSTARTDEBUGLOG - pluginMenu executed')
     global plugin_ver_local
     plugin_ver_local = open(PLUGIN_PATH + 'version.txt', 'r').read().strip()
-    session.open(mainConfigScreen)
+    from .warder_gui import WarderMainScreen
+    session.open(WarderMainScreen)
 
 def Plugins(**kwargs):
     if desktopX > 1900:

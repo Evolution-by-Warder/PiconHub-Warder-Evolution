@@ -1,3 +1,5 @@
+> Implementation checkpoint: the design and subsequent user refinements are implemented in development 0.1.0-dev2. The native controllers, XML layouts and package pass local checks; physical receiver validation is pending. Historical pending statements below describe earlier checkpoints. See ../DEVELOPMENT-DEV2.md.
+
 # Návrh rozhrania PiconHub Warder Evolution
 
 Dátum: 23. októbra 2026. Stav: návrh po statickom rozbore; obrazovky ešte nie sú implementované ani otestované na prijímači.

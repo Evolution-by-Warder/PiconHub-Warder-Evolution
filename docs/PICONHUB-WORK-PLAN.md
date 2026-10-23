@@ -18,3 +18,7 @@ The earlier from-scratch runtime plan is superseded. Preserve genuine recovered 
 - Connected an asynchronous check for newer Warder plugin releases on each main-screen launch. No daily scheduler, standby installer or picon auto-update was added; the owner's clarified requirement is per-launch checking of the plugin itself.
 - Added verified IPK staging and a user-confirmed install route. Stable feed currently offers no release.
 - Next: implement the agreed modern screen and OK-opened picker dialogs, using the same eligible choices as the skin, then packaging and physical OpenATV checks.
+
+## Development 0.1.0-dev2
+
+Implemented the agreed native interface, OK-opened pickers, same skin choices, live receiver clock/version and Warder ZIP adapter over preserved Chocholousek profiles. Built a development IPK and added package/artifact CI. Next required evidence is a real OpenATV receiver test; stable feed remains empty. Full details are in ../plugin/DEVELOPMENT-DEV2.md.

@@ -24,3 +24,14 @@ jobs:
         env:
           PYTHONPATH: plugin/src
         run: python3 -m unittest discover -s plugin/tests -v
+
+      - name: Build development IPK
+        run: python3 plugin/tools/build_ipk.py --output plugin/build --revision "$GITHUB_SHA"
+      - name: Preserve development package
+        uses: actions/upload-artifact@v4
+        with:
+          name: PiconHub-Warder-Evolution-development
+          path: |
+            plugin/build/*.ipk
+            plugin/build/*.sha256
+          retention-days: 90

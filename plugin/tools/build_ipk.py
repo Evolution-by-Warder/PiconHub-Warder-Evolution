@@ -1,0 +1,105 @@
+#!/usr/bin/env python3
+"""Build a deterministic development IPK from the Warder/Chocholousek runtime."""
+import argparse
+import gzip
+import hashlib
+import io
+import json
+import pathlib
+import subprocess
+import sys
+import tarfile
+import tempfile
+
+ROOT=pathlib.Path(__file__).resolve().parents[1]
+RUNTIME=ROOT/"src/Plugins/Extensions/ChocholousekPicons"
+PACKAGE="enigma2-plugin-extensions-piconhub-warder-evolution"
+INSTALL_ROOT="usr/lib/enigma2/python/Plugins/Extensions/ChocholousekPicons"
+
+
+def archive(entries):
+    raw=io.BytesIO()
+    with tarfile.open(fileobj=raw,mode="w",format=tarfile.GNU_FORMAT) as output:
+        directories=set()
+        for name,data,mode in sorted(entries):
+            for parent in reversed(pathlib.PurePosixPath(name).parents):
+                if str(parent)=="." or str(parent) in directories:continue
+                info=tarfile.TarInfo("./"+str(parent));info.type=tarfile.DIRTYPE;info.mode=0o755;info.mtime=0
+                output.addfile(info);directories.add(str(parent))
+            info=tarfile.TarInfo("./"+name);info.mode=mode;info.mtime=0;info.size=len(data)
+            output.addfile(info,io.BytesIO(data))
+    compressed=io.BytesIO()
+    with gzip.GzipFile(fileobj=compressed,mode="wb",filename="",mtime=0) as stream:
+        stream.write(raw.getvalue())
+    return compressed.getvalue()
+
+
+def ar(entries):
+    output=bytearray(b"!<arch>\n")
+    for name,data in entries:
+        output.extend(("%-16s%-12s%-6s%-6s%-8s%-10s`\n" % (name+"/",0,0,0,"100644",len(data))).encode())
+        output.extend(data)
+        if len(data)%2:output.extend(b"\n")
+    return bytes(output)
+
+
+def revision():
+    try:
+        value=subprocess.check_output(["git","rev-parse","HEAD"],cwd=ROOT,text=True).strip()
+        dirty=subprocess.check_output(["git","status","--porcelain"],cwd=ROOT,text=True).strip()
+        return value+("-dirty" if dirty else "")
+    except (OSError,subprocess.CalledProcessError):
+        return "unversioned-development-tree"
+
+
+def build(destination,source_revision=None):
+    version=(RUNTIME/"version.txt").read_text().strip()
+    metadata=json.loads((ROOT/"project.json").read_text())
+    if version!=metadata["development_version"]:raise ValueError("Package and runtime version differ")
+    control=("Package: %s\nVersion: %s\nArchitecture: all\nSection: extra\nPriority: optional\n"
+             "Maintainer: Warder Evolution\n"
+             "Depends: enigma2, python3-core, python3-compression, python3-crypt, python3-datetime, python3-fcntl, python3-gettext, python3-io, python3-json, python3-netclient, python3-threading, python3-xml\n"
+             "Conflicts: enigma2-plugin-extensions-chocholousek-picons\n"
+             "Replaces: enigma2-plugin-extensions-chocholousek-picons\n"
+             "Homepage: https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution\n"
+             "Description: PiconHub Warder Evolution development build, based on Chocholousek Picons by s3n0.\n") % (PACKAGE,version)
+    postinst='''#!/bin/sh
+if [ -z "$D" ]; then
+python3 - <<'PY'
+from pathlib import Path
+root=Path('/usr/lib/enigma2/python/Plugins/Extensions/ChocholousekPicons')
+for path in root.rglob('*.py[co]'):
+    if path.is_file() and not path.is_symlink():
+        path.unlink()
+PY
+fi
+exit 0
+'''
+    entries=[]
+    for path in sorted(RUNTIME.rglob("*")):
+        if path.is_file() and not path.is_symlink() and "__pycache__" not in path.parts and path.suffix not in (".pyc",".pyo"):
+            entries.append((INSTALL_ROOT+"/"+path.relative_to(RUNTIME).as_posix(),path.read_bytes(),0o644))
+    source={"version":version,"source_revision":source_revision or revision(),"receiver_tested":False}
+    entries.append((INSTALL_ROOT+"/build.json",(json.dumps(source,indent=2)+"\n").encode(),0o644))
+    with tempfile.TemporaryDirectory() as temporary:
+        for po in sorted((RUNTIME/"locale").rglob("*.po")):
+            mo=pathlib.Path(temporary)/"translation.mo"
+            subprocess.run([sys.executable,str(ROOT/"tools/msgfmt.py"),"-o",str(mo),str(po)],check=True,capture_output=True)
+            entries.append((INSTALL_ROOT+"/"+po.relative_to(RUNTIME).with_suffix(".mo").as_posix(),mo.read_bytes(),0o644))
+    data=ar((("debian-binary",b"2.0\n"),("control.tar.gz",archive((("control",control.encode(),0o644),("postinst",postinst.encode(),0o755)))),
+             ("data.tar.gz",archive(entries))))
+    destination=pathlib.Path(destination);destination.mkdir(parents=True,exist_ok=True)
+    path=destination/(PACKAGE+"_"+version+"_all.ipk");path.write_bytes(data)
+    checksum=hashlib.sha256(data).hexdigest()
+    path.with_suffix(path.suffix+".sha256").write_text(checksum+"  "+path.name+"\n")
+    return path,checksum
+
+
+if __name__=="__main__":
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--output",type=pathlib.Path,default=ROOT/"build")
+    parser.add_argument("--revision")
+    args=parser.parse_args()
+    path,checksum=build(args.output,args.revision)
+    print(path)
+    print("SHA256",checksum)
