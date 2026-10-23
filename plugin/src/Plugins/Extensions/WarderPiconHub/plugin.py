@@ -50,7 +50,7 @@ from enigma import ePicLoad, eActionMap, eTimer, eEnv, getDesktop
 desktopY = getDesktop(0).size().height()
 desktopX = getDesktop(0).size().width()
 ###########################################################################
-from Plugins.Extensions.ChocholousekPicons import _, PLUGIN_PATH            # from . import _, PLUGIN_PATH
+from . import _, PLUGIN_PATH            # from . import _, PLUGIN_PATH
 ###########################################################################
 
 config.plugins.chocholousekpicons_id = ConfigSelectionNumber(1,3,1,default=1)
@@ -1890,7 +1890,7 @@ def Plugins(**kwargs):
     return [ PluginDescriptor(
                 where = PluginDescriptor.WHERE_PLUGINMENU,
                 name = 'PiconHub Warder Evolution',
-                description = translate('Warder Evolution interface based on Chocholousek Picons by s3n0'),
+                description = translate('Sťahovanie a správa piconov'),
                 icon = plugin_logo,
                 needsRestart = False,
                 fnc = pluginMenu)  ]

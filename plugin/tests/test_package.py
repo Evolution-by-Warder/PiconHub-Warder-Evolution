@@ -41,10 +41,15 @@ class PackageTests(unittest.TestCase):
                 self.assertIn("python3-core", dependencies)
                 self.assertNotIn("python3-gettext", dependencies)
                 self.assertEqual(control.getmember("./postinst").mode,0o755)
+                self.assertEqual(control.getmember("./preinst").mode,0o755)
+                self.assertIn(b"legacy-transition-needed",control.extractfile("./preinst").read())
+                self.assertIn(b"WarderPiconHub/warder_migrate.py",control.extractfile("./postinst").read())
                 self.assertNotIn(b"reboot",control.extractfile("./postinst").read())
             with tarfile.open(fileobj=io.BytesIO(members["data.tar.gz"]),mode="r:gz") as payload:
                 names=payload.getnames()
-                for name in ("plugin.py","warder_gui.py","warder_engine.py","warder_update.py","warder_recent.py","warder_brand.py","warder_i18n.py","data/translations.json","images/recent/sources.json","images/warder-emblem.png","images/selectors/sources.json","images/selectors/CANALPLUS_CZ.png","images/warder-background.png","images/preview-white.png","data/skin-menu.json","data/channel-manifest.json"):
+                self.assertEqual(builder.INSTALL_ROOT,"usr/lib/enigma2/python/Plugins/Extensions/WarderPiconHub")
+                self.assertFalse(any("/Extensions/ChocholousekPicons/" in name for name in names))
+                for name in ("plugin.py","warder_gui.py","warder_engine.py","warder_update.py","warder_recent.py","warder_brand.py","warder_i18n.py","warder_migrate.py","data/translations.json","images/recent/sources.json","images/warder-emblem.png","images/selectors/sources.json","images/selectors/CANALPLUS_CZ.png","images/warder-background.png","images/preview-white.png","data/skin-menu.json","data/channel-manifest.json"):
                     self.assertIn("./"+builder.INSTALL_ROOT+"/"+name,names)
                 recent=[name for name in names if "/images/recent/" in name and name.endswith(".png")]
                 self.assertEqual(len(recent),6)

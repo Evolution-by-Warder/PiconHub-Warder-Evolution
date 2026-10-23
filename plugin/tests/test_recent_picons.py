@@ -6,7 +6,7 @@ import pathlib
 import tempfile
 import unittest
 
-ROOT=pathlib.Path(__file__).parents[1]/"src/Plugins/Extensions/ChocholousekPicons"
+ROOT=pathlib.Path(__file__).parents[1]/"src/Plugins/Extensions/WarderPiconHub"
 spec=importlib.util.spec_from_file_location("recent_test_module",ROOT/"warder_recent.py")
 recent=importlib.util.module_from_spec(spec);spec.loader.exec_module(recent)
 

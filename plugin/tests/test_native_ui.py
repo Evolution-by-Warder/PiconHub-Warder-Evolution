@@ -8,7 +8,7 @@ import unittest
 import xml.etree.ElementTree as ET
 from unittest.mock import patch
 
-ROOT=pathlib.Path(__file__).parents[1]/"src/Plugins/Extensions/ChocholousekPicons"
+ROOT=pathlib.Path(__file__).parents[1]/"src/Plugins/Extensions/WarderPiconHub"
 
 
 class Setting:

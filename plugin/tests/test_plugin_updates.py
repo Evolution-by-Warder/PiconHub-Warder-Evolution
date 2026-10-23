@@ -11,7 +11,7 @@ import types
 import unittest
 from unittest.mock import patch
 
-RUNTIME = pathlib.Path(__file__).parents[1] / "src/Plugins/Extensions/ChocholousekPicons"
+RUNTIME = pathlib.Path(__file__).parents[1] / "src/Plugins/Extensions/WarderPiconHub"
 
 
 def load_module(name, path):

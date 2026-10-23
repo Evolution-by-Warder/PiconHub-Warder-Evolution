@@ -12,9 +12,9 @@ import tarfile
 import tempfile
 
 ROOT=pathlib.Path(__file__).resolve().parents[1]
-RUNTIME=ROOT/"src/Plugins/Extensions/ChocholousekPicons"
+RUNTIME=ROOT/"src/Plugins/Extensions/WarderPiconHub"
 PACKAGE="enigma2-plugin-extensions-piconhub-warder-evolution"
-INSTALL_ROOT="usr/lib/enigma2/python/Plugins/Extensions/ChocholousekPicons"
+INSTALL_ROOT="usr/lib/enigma2/python/Plugins/Extensions/WarderPiconHub"
 
 
 def archive(entries):
@@ -62,19 +62,9 @@ def build(destination,source_revision=None):
              "Conflicts: enigma2-plugin-extensions-chocholousek-picons\n"
              "Replaces: enigma2-plugin-extensions-chocholousek-picons\n"
              "Homepage: https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution\n"
-             "Description: PiconHub Warder Evolution development build, based on Chocholousek Picons by s3n0.\n") % (PACKAGE,version)
-    postinst='''#!/bin/sh
-if [ -z "$D" ]; then
-python3 - <<'PY'
-from pathlib import Path
-root=Path('/usr/lib/enigma2/python/Plugins/Extensions/ChocholousekPicons')
-for path in root.rglob('*.py[co]'):
-    if path.is_file() and not path.is_symlink():
-        path.unlink()
-PY
-fi
-exit 0
-'''
+             "Description: Download and manage picons.\n") % (PACKAGE,version)
+    preinst='#!/bin/sh\nif [ -z "$D" ]; then\nold=/usr/lib/enigma2/python/Plugins/Extensions/ChocholousekPicons\nnew=/usr/lib/enigma2/python/Plugins/Extensions/WarderPiconHub\nif { [ -f "$old/version.txt" ] || [ -f "$old/plugin.py" ]; } && [ ! -f "$new/version.txt" ]; then\n    mkdir -p /var/lib/warder-piconhub || exit 1\n    touch /var/lib/warder-piconhub/legacy-transition-needed || exit 1\nfi\nfi\nexit 0\n'
+    postinst='#!/bin/sh\nif [ -z "$D" ]; then\n    python3 /usr/lib/enigma2/python/Plugins/Extensions/WarderPiconHub/warder_migrate.py || exit 1\nfi\nexit 0\n'
     entries=[]
     for path in sorted(RUNTIME.rglob("*")):
         if path.is_file() and not path.is_symlink() and "__pycache__" not in path.parts and path.suffix not in (".pyc",".pyo"):
@@ -86,7 +76,7 @@ exit 0
             mo=pathlib.Path(temporary)/"translation.mo"
             subprocess.run([sys.executable,str(ROOT/"tools/msgfmt.py"),"-o",str(mo),str(po)],check=True,capture_output=True)
             entries.append((INSTALL_ROOT+"/"+po.relative_to(RUNTIME).with_suffix(".mo").as_posix(),mo.read_bytes(),0o644))
-    data=ar((("debian-binary",b"2.0\n"),("control.tar.gz",archive((("control",control.encode(),0o644),("postinst",postinst.encode(),0o755)))),
+    data=ar((("debian-binary",b"2.0\n"),("control.tar.gz",archive((("control",control.encode(),0o644),("preinst",preinst.encode(),0o755),("postinst",postinst.encode(),0o755)))),
              ("data.tar.gz",archive(entries))))
     destination=pathlib.Path(destination);destination.mkdir(parents=True,exist_ok=True)
     path=destination/(PACKAGE+"_"+version+"_all.ipk");path.write_bytes(data)

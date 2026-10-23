@@ -9,7 +9,7 @@ import unittest
 from unittest.mock import patch
 import xml.etree.ElementTree as ET
 
-ROOT=pathlib.Path(__file__).parents[1]/'src/Plugins/Extensions/ChocholousekPicons'
+ROOT=pathlib.Path(__file__).parents[1]/'src/Plugins/Extensions/WarderPiconHub'
 package=types.ModuleType('warder_i18n_contracts');package.__path__=[str(ROOT)]
 sys.modules[package.__name__]=package
 i18n=importlib.import_module(package.__name__+'.warder_i18n')

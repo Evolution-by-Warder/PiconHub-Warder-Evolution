@@ -16,7 +16,7 @@ from urllib.parse import quote
 from urllib.request import Request, urlopen
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
-spec = importlib.util.spec_from_file_location("warder_release_core", ROOT / "src/Plugins/Extensions/ChocholousekPicons/warder_update.py")
+spec = importlib.util.spec_from_file_location("warder_release_core", ROOT / "src/Plugins/Extensions/WarderPiconHub/warder_update.py")
 updates = importlib.util.module_from_spec(spec)
 sys.modules[spec.name] = updates
 spec.loader.exec_module(updates)
@@ -151,7 +151,7 @@ if __name__ == "__main__":
     parser.add_argument("--output", type=pathlib.Path, default=ROOT / "build")
     parser.add_argument("--revision", required=True)
     args = parser.parse_args()
-    version = (ROOT / "src/Plugins/Extensions/ChocholousekPicons/version.txt").read_text().strip()
+    version = (ROOT / "src/Plugins/Extensions/WarderPiconHub/version.txt").read_text().strip()
     if updates.version_key(version)[4] != 4:
         print("Development package: release feed is unchanged.")
     else:

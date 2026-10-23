@@ -17,7 +17,7 @@ import zipfile
 import zlib
 from unittest.mock import patch
 
-ROOT=pathlib.Path(__file__).parents[1]/"src/Plugins/Extensions/ChocholousekPicons"
+ROOT=pathlib.Path(__file__).parents[1]/"src/Plugins/Extensions/WarderPiconHub"
 package=types.ModuleType("warder_interface_tests")
 package.__path__=[str(ROOT)]
 sys.modules[package.__name__]=package

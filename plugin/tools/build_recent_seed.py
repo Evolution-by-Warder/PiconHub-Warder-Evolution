@@ -6,7 +6,7 @@ import pathlib
 import subprocess
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
-TARGET = ROOT / "plugin/src/Plugins/Extensions/ChocholousekPicons/images/recent"
+TARGET = ROOT / "plugin/src/Plugins/Extensions/WarderPiconHub/images/recent"
 
 
 def build():
