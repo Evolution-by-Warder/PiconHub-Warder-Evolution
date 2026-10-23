@@ -25,6 +25,8 @@ class RecentTests(unittest.TestCase):
     def test_seed_is_six_distinct_exact_source_blobs(self):
         paths=recent.bundled(ROOT)
         self.assertEqual(len(paths),6)
+        metadata=json.loads((ROOT/"images/recent/sources.json").read_text())
+        self.assertTrue(all("/black/" in entry["source_path"] for entry in metadata["items"]))
         self.assertEqual(len({p.stem for p in paths}),6)
         for p in paths:recent.verify_png(p.read_bytes(),p.stem)
 
@@ -45,10 +47,16 @@ class RecentTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as folder:
             self.assertEqual(recent.load_recent(ROOT,folder,offline),recent.bundled(ROOT))
 
+    def test_previous_transparent_cache_is_never_displayed_in_black_strip(self):
+        with tempfile.TemporaryDirectory() as folder:
+            (pathlib.Path(folder)/"manifest.json").write_text(json.dumps({"style":"transparent","items":[],"checked_at":10000}))
+            self.assertEqual(recent.cached(pathlib.Path(folder)),([],0))
+            self.assertTrue(str(recent.CACHE).endswith("/recent-black"))
+
     def test_modified_files_foreign_paths_and_duplicates_are_not_new_additions(self):
         urls,images,files,commit=self.fixtures()
         invalid=[dict(files[0],status="modified"),dict(files[0],filename="../../foreign.png"),
-                 dict(files[0],filename=files[0]["filename"].replace("/transparent/","/white/"))]
+                 dict(files[0],filename=files[0]["filename"].replace("/black/","/white/"))]
         urls[recent.API+"/commits/"+commit+"?per_page=100"]=json.dumps({"files":invalid+[files[0]]+files}).encode()
         result=recent.discover(lambda url:io.BytesIO(urls[url]))
         self.assertEqual([sha for sha,data in result],[sha for sha,data in images])

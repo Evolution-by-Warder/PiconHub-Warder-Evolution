@@ -18,10 +18,10 @@ def main_skin(width=1920, height=1080):
         out += [fill(x-4,y-4,w+8,h+8,"#00305670",1),
                 fill(x,y,w,h,"#003ee8ff",1),fill(x+2,y+2,w-4,h-4,"#18091b30"),
                 fill(x+2,y+2,100,4,"#00a4f4ff",3)]
-    out += [label("day",1250,32,230,42,26,align="right"),label("date",1160,76,320,40,25,align="right"),
-            label("clock",1498,32,190,85,62,align="center"),label("seconds",1690,64,56,48,32,color="#003ee8ff",align="left"),label("version",1770,45,140,60,24,align="center"),
-            '<eLabel %s backgroundColor="#0019c9ff" zPosition="3" />' % box(1492,35,2,80),
-            '<eLabel %s backgroundColor="#0019c9ff" zPosition="3" />' % box(1752,35,2,80),
+    out += [label("day",1150,32,230,42,26,align="right"),label("date",1060,76,320,40,25,align="right"),
+            label("clock",1398,32,190,85,62,align="center"),label("seconds",1590,58,66,54,38,color="#00ffffff",align="left"),label("version",1680,45,210,60,24,color="#003ee8ff",align="center"),
+            '<eLabel %s backgroundColor="#0019c9ff" zPosition="3" />' % box(1392,35,2,80),
+            '<eLabel %s backgroundColor="#0019c9ff" zPosition="3" />' % box(1664,35,2,80),
             label(None,60,236,470,78,30,text="Posledné pridané\npicony",color="#009cf0ff")]
     for number in range(6):
         x=590+number*210
@@ -35,11 +35,12 @@ def main_skin(width=1920, height=1080):
             fill(1280,425,540,2,"#003ee8ff"),
             fill(1298,445,484,304,"#00314b65"),fill(1300,447,480,300,"#00061729"),
             '<widget name="preview" %s alphatest="blend" zPosition="3" />' % box(1320,465,440,264),
+            '<widget name="brand_logo" %s transparent="1" zPosition="4" />' % box(1320,465,440,264),
             label("preview_caption",1270,750,560,44,23,align="center"),
             label("summary",1280,805,550,70,25,color="#00b5d4ec"),
             fill(60,916,4,34,"#003ee8ff",3),label("status",80,910,1780,45,25,color="#009cf0ff"),
-            label(None,60,957,1800,38,22,text="↑↓: výber riadka • OK: otvoriť ponuku • Nastavenia sa ukladajú automaticky.",color="#00b5d4ec")]
-    for x,color,title in ((60,"#00ff526a","Späť"),(520,"#0000ea9b","Aktualizovať"),(980,"#00ffdb52","Satelity"),(1440,"#0045b9ff","Možnosti")):
+            label(None,60,957,1800,38,22,text="↑↓: výber riadka • OK: otvoriť ponuku • Vyber všetkých päť položiek a stlač Stiahnuť.",color="#00b5d4ec")]
+    for x,color,title in ((60,"#00ff526a","Zatvoriť"),(520,"#0000ea9b","Stiahnuť"),(980,"#00ffdb52","Aktualizácia pluginu"),(1440,"#0045b9ff","O projekte")):
         out += [fill(x,1010,420,60,"#0010243c"),fill(x,1010,420,3,color,3),
                 label(None,x+18,1018,40,45,32,text="●",color=color),label(None,x+72,1018,330,45,28,text=title)]
     return "\n".join(out + ["</screen>"])

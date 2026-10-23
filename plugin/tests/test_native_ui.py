@@ -25,6 +25,9 @@ class Component:
     def setBackgroundColor(self,color):self.background=color
     def setPixmapFromFile(self,path):self.filename=path
     def setScale(self,value):pass
+    def resize(self,size):self.dimensions=size
+    def move(self,point):self.location=point
+    def size(self):return types.SimpleNamespace(width=lambda:440,height=lambda:264)
     def setValue(self,value):self.value=value
     def show(self):self.visible=True
     def hide(self):self.visible=False
@@ -86,14 +89,14 @@ class NativeControllerTests(unittest.TestCase):
         startup.connect_timer=lambda timer,callback:timer.callback.append(callback)
         startup.installed_version=lambda:(ROOT/"version.txt").read_text().strip()
         modules={namespace:package,namespace+".plugin":legacy,namespace+".warder_update_ui":startup}
-        attrs={"Components.ActionMap":{"ActionMap":Actions},"Components.Label":{"Label":Component},
+        attrs={"Components.GUIComponent":{"GUIComponent":Component},"Components.ActionMap":{"ActionMap":Actions},"Components.Label":{"Label":Component},
                "Components.MenuList":{"MenuList":Menu},"Components.MultiContent":{"MultiContentEntryText":lambda **kwargs:kwargs},
                "Components.Pixmap":{"Pixmap":Component},"Components.ProgressBar":{"ProgressBar":Component},
                "Components.ScrollLabel":{"ScrollLabel":Component},
                "Components.config":{"ConfigSelection":Setting,"ConfigText":Setting,"config":cls.config,"configfile":cls.configfile},
                "Screens.MessageBox":{"MessageBox":types.SimpleNamespace(TYPE_INFO=0,TYPE_ERROR=1,TYPE_YESNO=2)},
                "Screens.Screen":{"Screen":Screen},"skin":{"parseColor":lambda x:x},
-               "enigma":{"eTimer":Timer,"gFont":lambda *a:a,"RT_HALIGN_LEFT":1,"RT_VALIGN_CENTER":2,
+               "enigma":{"ePixmap":Component,"eWidget":Component,"ePoint":lambda *v:v,"eSize":lambda *v:v,"eTimer":Timer,"gFont":lambda *a:a,"RT_HALIGN_LEFT":1,"RT_VALIGN_CENTER":2,
                          "eListboxPythonMultiContent":object,
                          "getDesktop":lambda unused:types.SimpleNamespace(size=lambda:types.SimpleNamespace(width=lambda:1920,height=lambda:1080))}}
         for name,values in attrs.items():
@@ -115,6 +118,49 @@ class NativeControllerTests(unittest.TestCase):
                                            openWithCallback=lambda cb,*a,**kw:self.calls.append((cb,a,kw)))
         self.main=self.gui.WarderMainScreen(self.session)
         self.session.current_dialog=self.main
+
+    def complete_selection(self):
+        self.main.satellites_chosen(["192E","235E"])
+        for key,value in (("resolution","220x132"),("style","transparent"),("method","sync_tv"),("destination","/media/hdd/picon")):
+            self.main.choose(key,value)
+
+    def test_startup_is_neutral_even_with_saved_settings_and_reopens_neutral(self):
+        self.assertEqual([row[0][2] for row in self.main["list"].values],["Vyber si…"]*5)
+        self.assertTrue(self.main["brand_logo"].visible)
+        self.assertFalse(self.main["preview"].visible)
+        self.assertTrue(self.main["brand_logo"].picture.filename.endswith("warder-background.png"))
+        self.main.update_picons()
+        self.assertIs(self.calls[-1][1][0],self.gui.MessageBox)
+        self.complete_selection()
+        other=self.gui.WarderMainScreen(self.session)
+        self.assertEqual([row[0][2] for row in other["list"].values],["Vyber si…"]*5)
+        self.assertTrue(other["brand_logo"].visible)
+        self.assertEqual(self.main.profile.picon_folder_user.value,"/media/hdd/picon")
+
+    def test_partial_selection_preview_follows_background_and_native_resolution(self):
+        self.main.choose("resolution","400x240")
+        self.assertTrue(self.main["brand_logo"].visible)
+        self.main.choose("style","black")
+        self.assertFalse(self.main["brand_logo"].visible)
+        self.assertTrue(self.main["preview"].visible)
+        self.assertTrue(self.main["preview"].filename.endswith("preview-black.png"))
+        self.assertEqual(self.main["preview"].dimensions,(400,240))
+        self.assertIn("400×240",self.main["preview_caption"].text)
+        self.main.choose("resolution","50x30")
+        self.assertEqual(self.main["preview"].dimensions,(50,30))
+        self.main.update_picons()
+        self.assertIs(self.calls[-1][1][0],self.gui.MessageBox)
+        self.assertEqual(self.main.selection["satellites"],None)
+
+    def test_footer_actions_open_plugin_update_about_and_close_directly(self):
+        with patch.object(self.main.warderUpdateCheck,"request") as request:
+            self.main["actions"]["yellow"]()
+            request.assert_called_once_with(manual=True)
+        self.main["actions"]["blue"]()
+        self.assertIs(self.calls[-1][1][0],self.gui.TextDialog)
+        self.assertEqual(self.calls[-1][1][1],"O projekte")
+        self.main["actions"]["red"]()
+        self.assertTrue(self.main.closed)
 
     def test_all_rows_open_a_picker_without_changing_settings(self):
         before=[p.method.value for p in self.config.plugins.chocholousekpicons]
@@ -232,6 +278,7 @@ class NativeControllerTests(unittest.TestCase):
         self.assertFalse(any(name.startswith("profile") for name in self.main.widgets))
 
     def test_update_uses_only_visible_settings_even_if_old_profiles_are_enabled(self):
+        self.complete_selection()
         self.main.profile.allowed.setValue(False)
         other=self.config.plugins.chocholousekpicons[2]
         other.allowed.setValue(True);other.resolution.setValue("unsupported")
@@ -244,6 +291,7 @@ class NativeControllerTests(unittest.TestCase):
         self.assertTrue(other.allowed.value)
 
     def test_green_action_uses_the_warder_job_and_native_profiles(self):
+        self.complete_selection()
         self.main.update_picons()
         callback,args,kwargs=self.calls[-1]
         self.assertIs(args[0],self.gui.PiconJobScreen)

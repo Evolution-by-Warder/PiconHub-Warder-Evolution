@@ -100,6 +100,7 @@ class MenuTests(unittest.TestCase):
             self.assertFalse({"profile1","profile2","profile3"}&names)
             self.assertTrue({"recent%d" % i for i in range(6)}<=names)
             self.assertNotIn("Nastavenie piconov",layout.main_skin(width,height))
+            self.assertTrue({"brand_logo"}<=names)
             self.assertNotIn("profil",layout.main_skin(width,height).lower())
             fields={item.get("name"):item for item in root if item.get("name")}
             self.assertLess(int(fields["seconds"].get("font").split(";")[1]),int(fields["clock"].get("font").split(";")[1]))
@@ -111,6 +112,17 @@ class MenuTests(unittest.TestCase):
             self.assertNotIn("10:48",layout.main_skin(width,height))
             self.assertNotIn("More channels",layout.main_skin(width,height))
             for count in (1,3,6,53):ET.fromstring(layout.dialog_skin(width,height,count))
+
+    def test_header_seconds_colors_spacing_and_direct_footer_labels(self):
+        root=ET.fromstring(layout.main_skin())
+        fields={item.get("name"):item for item in root if item.get("name")}
+        self.assertEqual(fields["seconds"].get("foregroundColor"),"#00ffffff")
+        self.assertEqual(fields["version"].get("foregroundColor"),"#003ee8ff")
+        self.assertEqual(fields["seconds"].get("font"),"Regular;38")
+        self.assertGreaterEqual(int(fields["version"].get("size").split(",")[0]),210)
+        self.assertLess(int(fields["clock"].get("position").split(",")[0]),1498)
+        labels={item.get("text") for item in root if item.get("text")}
+        self.assertTrue({"Zatvoriť","Stiahnuť","Aktualizácia pluginu","O projekte"}<=labels)
 
 
 class EngineTests(unittest.TestCase):

@@ -13,10 +13,10 @@ from urllib.request import Request, urlopen
 REPOSITORY = "Evolution-by-Warder/PiconHub-Warder-Evolution"
 API = "https://api.github.com/repos/" + REPOSITORY
 RAW = "https://raw.githubusercontent.com/" + REPOSITORY + "/"
-CACHE = pathlib.Path("/var/cache/piconhub-warder-evolution/recent")
+CACHE = pathlib.Path("/var/cache/piconhub-warder-evolution/recent-black")
 COUNT, MAX_PNG, TTL = 6, 512 * 1024, 1800
 SHA = re.compile(r"[0-9a-f]{40}\Z")
-SOURCE = re.compile(r"picons/[a-zA-Z0-9_.-]+/[a-zA-Z0-9_.-]+/transparent/[a-zA-Z0-9_]+\.png\Z")
+SOURCE = re.compile(r"picons/[a-zA-Z0-9_.-]+/[a-zA-Z0-9_.-]+/black/[a-zA-Z0-9_]+\.png\Z")
 
 
 def network_open(url):
@@ -88,6 +88,8 @@ def bundled(root):
 def cached(folder):
     try:
         document = json.loads((folder / "manifest.json").read_text())
+        if document.get("style") != "black":
+            return [], 0
         paths = []
         for sha in document["items"][:COUNT]:
             if not isinstance(sha, str) or not SHA.fullmatch(sha):
@@ -134,7 +136,7 @@ def load_recent(root, folder=CACHE, opener=network_open, now=None):
         for sha, data in images:
             atomic_write(folder / (sha + ".png"), data)
         identities = [sha for sha, data in images]
-        atomic_write(folder / "manifest.json", json.dumps({"checked_at": now, "items": identities}).encode())
+        atomic_write(folder / "manifest.json", json.dumps({"style": "black", "checked_at": now, "items": identities}).encode())
         for path in folder.glob("*.png"):
             if SHA.fullmatch(path.stem) and path.stem not in identities:
                 try:
