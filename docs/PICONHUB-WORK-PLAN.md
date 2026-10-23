@@ -1,42 +1,14 @@
-# PiconHub — work plan for two independent projects
+# PiconHub Warder Evolution — current work plan
 
-Updated: 2026-09-15
+Updated: 2026-10-23.
 
-This plan tracks two separate PiconHub development lines. See `docs/PICONHUB-PROJECT-LINES.md` before working on either line.
+1. Complete set `warder-backups-20261023` for the skin and picon repositories, capturing all refs/history/file bytes and verifying offline restoration.
+2. Store the primary archive in private Trezor and retain a separately delivered standalone copy, with sizes, SHA256, ref inventory and restore instructions.
+3. Preserve existing skin/runtime/picons, MASTER assets, Factory implementation and paused historical plugin workspaces.
+4. Begin the explicitly authorized new futuristic Enigma2 plugin under the name PiconHub Warder Evolution after the backups are verified and delivered.
+5. Reuse genuine recovered top headers; agree on the new main screen and functional scope before calling them implemented.
+6. Implement against the current real picon catalog and prepare an installable IPK. Distinguish code checks, packaging validation and physical receiver evidence.
 
-## A. PiconHub — original Warder project
+The earlier requirement to recover a complete original plugin before any new implementation is superseded by the user's explicit rebuild decision. It is still forbidden to claim a missing old runtime was recovered or to substitute a different project unnoticed.
 
-Identity: independent PiconHub plugin with the new futuristic UI.
-Version family: `0.6.x` / `0.7.x`.
-
-Current work policy:
-- preserve its own approved visual checkpoints;
-- continue functionality only against this project's own code/UI baseline;
-- do not import s3n0/Warder Evolution graphics, structure, package numbering or assumptions;
-- treat its packages and screenshots as Project A artifacts only.
-
-Next development work must be planned from the latest verified Project A source/package state before changing code.
-
-## B. PiconHub Warder Evolution
-
-Identity: modernization of the original s3n0/Chocholousek Picons Enigma2 plugin.
-Repository: `Evolution-by-Warder/PiconHub-Warder-Evolution`.
-Version family: `5.0.240904.x`.
-
-Current work:
-1. Preserve LOCKED graphics, GUI layout and established structure.
-2. Complete/verify Warder Evolution catalog normalization and BLACK/WHITE production under the frozen MASTER quality rules.
-3. Keep transparent originals and MASTER templates unchanged.
-4. Continue plugin modernization around the locked UI/structure: compatibility, reliability, backend behavior, updater/package handling and other approved functionality.
-5. Keep mass catalog work isolated on a controlled working branch and review before merge to `main`.
-6. Only after catalog normalization/approval, proceed to the separately planned Orbit Watch / satellite-change monitor.
-
-Current production branch for the BLACK/WHITE rebuild: `warder-master-production`. Do not use that branch for unrelated plugin/UI development while the rebuild is active.
-
-## Shared operating rule
-
-At the start of every future PiconHub task, explicitly resolve the target line:
-- Project A = PiconHub / futuristic Warder UI / `0.6.x–0.7.x`;
-- Project B = PiconHub Warder Evolution / s3n0 modernization / `5.0.240904.x`.
-
-Do not mix artifacts, rules, versions or visual decisions between them. If a requested change could cross the boundary, obtain Štefan's explicit approval first.
+See CURRENT-STATUS.md for evidence and BACKUP-RESTORE.md for recovery. Do not delete paused branches or change protected production data during this task.

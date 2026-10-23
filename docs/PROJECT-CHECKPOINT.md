@@ -1,5 +1,8 @@
 # PiconHub Warder Evolution — PROJECT CHECKPOINT
 
+> **Current status, 2026-10-23:** This checkpoint below is retained as dated history. Current project identity, the authorized rebuild decision, actual backup status and remaining limits are in [CURRENT-STATUS.md](CURRENT-STATUS.md), [PICONHUB-WORK-PLAN.md](PICONHUB-WORK-PLAN.md) and [BACKUP-RESTORE.md](BACKUP-RESTORE.md). Shared frozen artwork/data rules still apply.
+
+
 Updated: 2026-09-15
 Purpose: durable recovery checkpoint. This file applies ONLY to **PiconHub Warder Evolution**, not to the separate futuristic PiconHub project.
 
