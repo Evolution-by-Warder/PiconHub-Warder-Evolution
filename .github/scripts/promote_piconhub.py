@@ -45,7 +45,7 @@ def main():
     with urlopen(record['release']['url'], timeout=30) as response:
         package = response.read(record['release']['bytes']+1)
     validate(record, feed, release, package)
-    result = api('/releases/'+str(release['id']), {'draft':False,'prerelease':False,'make_latest':'false'})
+    result = api('/releases/'+str(release['id']), {'draft':False,'prerelease':False,'make_latest':'true'})
     if result['draft'] or result['prerelease']:
         raise ValueError('Production release promotion failed')
     print('Production release verified and promoted:', result['html_url'])

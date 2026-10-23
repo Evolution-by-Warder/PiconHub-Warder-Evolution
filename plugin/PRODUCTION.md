@@ -12,7 +12,7 @@ Zápis z 23. októbra 2026 na výslovný pokyn vlastníka projektu. Schválená 
 - Inštalačný priečinok: `/usr/lib/enigma2/python/Plugins/Extensions/WarderPiconHub/`.
 - [Vydanie a IPK](https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/tag/v0.1.13).
 
-Produkčné označenie nemení už vydané bajty IPK. Samostatný workflow pred zrušením označenia Pre-release overí verejne stiahnutý balík, jeho SHA256, veľkosť, zdrojový commit a súlad s [production.json](production.json). Repo obsahuje aj oddelený Factory projekt, preto propagácia pluginu nemení globálnu položku GitHub Latest.
+Produkčné označenie nemení už vydané bajty IPK. Samostatný workflow pred zrušením označenia Pre-release overí verejne stiahnutý balík, jeho SHA256, veľkosť, zdrojový commit a súlad s [production.json](production.json). Repozitár je určený pluginu do prijímača. Produkčná propagácia nastaví jeho schválené vydanie ako GitHub Latest.
 
 ## Dohodnuté rozhranie
 
@@ -59,4 +59,8 @@ SK, CS, EN, DE, PL, HU, RU, FR, IT, ES. Výber podľa jazyka systému; neznámy 
 
 Schválenú grafiku a správanie zachovať. Existujúce verejné IPK, tagy a checksumy neprepisovať; pre funkčnú zmenu zvýšiť verziu. Udržiavať poznámky vo všetkých jazykoch a rovnakú verziu poznámok aj runtime. Zachovať aktuálnu aktualizačnú adresu a názov balíka. Pred novým produkčným povýšením aktualizovať production.json podľa overeného feedu a zdrojového commitu; produkčný workflow overí verejné bajty a označí konkrétny plugin release.
 
-Pôvodné recovery dáta, autorské údaje, historické vetvy, Factory a chránené MASTER picony sa týmto zápisom nemenia.
+Autorské údaje a chránené MASTER picony zostávajú zachované. Staré recovery a vývojové podklady zostávajú v histórii Gitu; aktuálny strom obsahuje iba potrebnú prácu k pluginu. PC Factory adresár a jeho vydania boli na následný pokyn vlastníka odstránené; aktuálne Releases patria pluginu do prijímača.
+
+## Upratanie repozitára
+
+Aktuálny plugin je dostupný aj v hlavnej vetve main. Factory aktualizačný priečinok a nesúvisiace vydania sú odstránené. Potrebné šablóny a pôvod piconov sú pod plugin/artwork/. Adresa picons/ zostáva kvôli kompatibilite galérie v nainštalovaných verziách. Funkčné zdroje pluginu, IPK, checksum a aktualizačná adresa sa uprataním nemenia.
