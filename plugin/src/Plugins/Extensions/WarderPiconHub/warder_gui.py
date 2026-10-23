@@ -174,13 +174,15 @@ class PiconJobScreen(Screen):
         Screen.__init__(self,session)
         self.preferences,self.done,self.started,self.closed=preferences,False,False,False
         self.events,self.cancel=queue.Queue(),threading.Event()
+        self.history,self.download_row,self.follow_progress=[],None,True
         self["title"]=Label(_("Aktualizácia piconov"))
-        self["status"]=Label(_("Pripravujem aktualizáciu piconov…"))
+        self["status"]=ScrollLabel(_("Pripravujem aktualizáciu piconov…"))
         self["hint_red"]=Label(_("Naspäť"))
         self["hint_blue"]=Label(_("Log"))
         self["progress"]=ProgressBar()
-        self["actions"]=ActionMap(["OkCancelActions","ColorActions"],{
-            "ok":self.finish,"cancel":self.finish,"red":self.finish,"blue":self.show_log},-2)
+        self["actions"]=ActionMap(["OkCancelActions","ColorActions","DirectionActions"],{
+            "ok":self.finish,"cancel":self.finish,"red":self.finish,"blue":self.show_log,
+            "up":self.history_up,"down":self.history_down},-2)
         self.timer=eTimer()
         self.connection=connect_timer(self.timer,self.poll)
         self.onLayoutFinish.append(self.start)
@@ -198,7 +200,7 @@ class PiconJobScreen(Screen):
             with open("/tmp/piconhub-picons.log","w") as log:
                 def event(*args):
                     self.events.put(args)
-                    if args[0]!="download":
+                    if args[0]!="download" or args[2] in (0,args[3]):
                         log.write(str(args)+"\n");log.flush()
                 result=PiconRunner(event=event,cancel=self.cancel).run(self.preferences)
                 self.events.put(("result",result))
@@ -212,26 +214,48 @@ class PiconJobScreen(Screen):
     def poll(self):
         if self.closed:
             return
+        changed=False
         for unused in range(1000):
             try: item=self.events.get_nowait()
             except queue.Empty: break
             if item[0]=="stage":
-                self["status"].setText(item[1]);self["progress"].hide()
+                self.history.append(item[1]);self.download_row=None
+                self["progress"].hide();changed=True
             elif item[0]=="download":
-                self["status"].setText(_("Sťahujem %s • %d %%") % (item[1],int(item[2]*100/item[3])))
-                self["progress"].show();self["progress"].setValue(int(item[2]*100/item[3]))
+                percent=int(item[2]*100/item[3])
+                text=_("Sťahujem %s • %d %%") % (item[1],percent)
+                if self.download_row is None:
+                    self.download_row=len(self.history);self.history.append(text)
+                else:self.history[self.download_row]=text
+                self["progress"].show();self["progress"].setValue(percent);changed=True
+            elif item[0]=="processed":
+                if self.history:self.history[-1]+=" ✓"
+                changed=True
             elif item[0] in ("result","error"):
                 self.done=True
                 self["progress"].hide()
                 if item[0]=="result":
-                    self["status"].setText(_("Dokončené.\n\nPridané: %d\nZmenené: %d\nOdstránené: %d") % (item[1]["added"],item[1]["changed"],item[1]["removed"]))
-                else:self["status"].setText(_("Aktualizácia sa nedokončila.\n\n")+item[1])
-                self.timer.stop()
+                    self.history.append(_("Dokončené.\n\nPridané: %d\nZmenené: %d\nOdstránené: %d") % (item[1]["added"],item[1]["changed"],item[1]["removed"]))
+                else:self.history.append(_("Aktualizácia sa nedokončila.\n\n")+item[1])
+                self.timer.stop();self.follow_progress=True;changed=True
+        if changed:
+            position=getattr(self["status"],"currentPosition",0)
+            self["status"].setText("\n".join(self.history),showBottom=self.follow_progress)
+            if not self.follow_progress:self["status"].setPos(position)
+
+    def history_up(self):
+        self.follow_progress=False;self["status"].pageUp()
+
+    def history_down(self):
+        self["status"].pageDown()
+        self.follow_progress=self["status"].isAtLastPage()
 
     def finish(self):
         if self.done:self.close()
         else:
-            self.cancel.set();self["status"].setText(_("Čakám na bezpečné ukončenie…"))
+            self.cancel.set()
+            self.history.append(_("Čakám na bezpečné ukončenie…"))
+            self["status"].setText("\n".join(self.history),showBottom=True)
 
     def show_log(self):
         try:text=pathlib.Path("/tmp/piconhub-picons.log").read_text()[-24000:]

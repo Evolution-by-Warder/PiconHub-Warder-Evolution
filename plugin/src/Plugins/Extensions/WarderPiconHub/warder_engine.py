@@ -94,14 +94,14 @@ class Stage:
         existing = set()
         for path in self.target.iterdir():
             stem = sync.normalize_service_reference(path.stem)
-            if path.suffix == ".png" and stem and path.name == stem+".png" and path.is_file() and not path.is_symlink():
+            if path.suffix == ".png" and stem and path.name == stem+".png" and (path.is_file() or path.is_symlink()):
                 existing.add(path.name)
         writes = []
         for name, checksum in self.hashes.items():
             path = self.target/name
-            if path.is_symlink() or (path.exists() and not path.is_file()):
+            if not path.is_symlink() and path.exists() and not path.is_file():
                 raise PiconError(_("Cieľ piconu nie je bežný súbor: ") + name)
-            if not path.exists() or digest(path) != checksum:
+            if path.is_symlink() or not path.exists() or digest(path) != checksum:
                 writes.append(name)
         wanted = sync.wanted_picon_names(self.queue)
         if self.queue["mode"] == sync.UPDATE_MODE_INCREMENTAL:
@@ -116,7 +116,7 @@ class Stage:
         try:
             for name in sorted(touched):
                 path = self.target/name
-                if path.exists():
+                if path.is_symlink() or path.exists():
                     os.replace(path, self.backup/name)
                     self.moved.append(name)
             for name in writes:
@@ -145,6 +145,7 @@ class PiconRunner:
     def download(self, job, path):
         total = hashlib.sha256()
         count = 0
+        self.event("download", selector_display_label(job["selector_id"]), 0, job["bytes"])
         with path.open("wb") as target:
             for part in job["parts"]:
                 self.check_cancel()
@@ -248,11 +249,11 @@ class PiconRunner:
                     if shutil.disk_usage(stage.target).free < sum(job["bytes"] for job in jobs["jobs"])*3 + 8*1024*1024:
                         raise PiconError(_("Na cieľovom úložisku nie je dosť voľného miesta."))
                     for index,job in enumerate(jobs["jobs"],1):
-                        self.event("stage", _("Profil %d • balík %d/%d • %s") % (number,index,len(jobs["jobs"]),selector_display_label(job["selector_id"])))
                         archive = stage.work/"package.zip"
                         self.download(job, archive)
                         self.event("stage", _("Overujem a rozbaľujem ") + selector_display_label(job["selector_id"]))
                         self.unpack(stage, archive, job)
+                        self.event("processed", selector_display_label(job["selector_id"]))
                         archive.unlink()
                 self.check_cancel()
                 self.event("stage", _("Zapisujem overené picony; dokončenie už neprerušujte"))

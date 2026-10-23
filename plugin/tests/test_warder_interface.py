@@ -284,12 +284,50 @@ class EngineTests(unittest.TestCase):
             with self.assertRaises(engine.PiconError):self.run_fixture(files)
             self.assertEqual(list(self.target.glob("*.png")),[])
 
-    def test_symlink_destination_file_is_preserved(self):
+    def test_symlink_is_replaced_without_touching_its_target(self):
         other=self.root/"keep";other.write_bytes(b"keep")
         (self.target/NAME).symlink_to(other)
-        with self.assertRaises(engine.PiconError):self.run_fixture()
+        result=self.run_fixture()
+        self.assertEqual(result,{"added":0,"changed":1,"removed":0})
         self.assertEqual(other.read_bytes(),b"keep")
-        self.assertTrue((self.target/NAME).is_symlink())
+        self.assertFalse((self.target/NAME).is_symlink())
+        self.assertEqual((self.target/NAME).read_bytes(),png())
+
+    def test_dangling_symlink_is_replaced_and_missing_target_is_not_created(self):
+        other=self.root/"missing"
+        (self.target/NAME).symlink_to(other)
+        self.assertEqual(self.run_fixture()["changed"],1)
+        self.assertFalse(other.exists())
+        self.assertFalse((self.target/NAME).is_symlink())
+        self.assertEqual((self.target/NAME).read_bytes(),png())
+
+    def test_write_failure_restores_valid_and_dangling_relative_symlinks(self):
+        other=self.root/"keep";other.write_bytes(b"keep")
+        for destination in ('../keep','../missing'):
+            path=self.target/NAME
+            path.unlink(missing_ok=True);path.symlink_to(destination)
+            real_replace=os.replace
+            def fail_ready(source,target):
+                if pathlib.Path(source).parent.name=="ready":raise OSError("injected write failure")
+                return real_replace(source,target)
+            with patch.object(engine.os,"replace",side_effect=fail_ready):
+                with self.assertRaises(OSError):self.run_fixture()
+            self.assertTrue(path.is_symlink());self.assertEqual(os.readlink(path),destination)
+            self.assertEqual(other.read_bytes(),b"keep")
+            self.assertFalse((self.root/'missing').exists())
+
+    def test_directory_at_picon_path_is_preserved(self):
+        (self.target/NAME).mkdir()
+        (self.target/NAME/'keep').write_text('safe')
+        with self.assertRaises(engine.PiconError):self.run_fixture()
+        self.assertEqual((self.target/NAME/'keep').read_text(),'safe')
+
+    def test_sync_removes_only_the_stale_link_not_its_target(self):
+        other=self.root/'outside';other.write_bytes(b'safe')
+        (self.target/STALE).symlink_to(other)
+        self.assertEqual(self.run_fixture(mode=sync.UPDATE_MODE_REPLACE_ALL)['removed'],1)
+        self.assertFalse((self.target/STALE).is_symlink())
+        self.assertEqual(other.read_bytes(),b'safe')
 
     def test_cancel_before_commit_preserves_existing_files(self):
         event=threading.Event();event.set()

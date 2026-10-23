@@ -72,7 +72,8 @@ def dialog_skin(width, height, rows=8, multiple=False, kind="choice", title="Vý
     for x,y,wide,high in ((0,0,w,2),(0,h-2,w,2),(0,2,2,h-4),(w-2,2,2,h-4)):
         out.append('<eLabel %s backgroundColor="#003ee8ff" />' % box(x,y,wide,high))
     if kind in ("progress","install"):
-        out.append(widget("status",25,85,1000,h-235 if kind=="progress" else h-160,28))
+        out.append(widget("status",25,85,1000,h-235 if kind=="progress" else h-160,24 if kind=="progress" else 28,
+                          extra='scrollbarMode="showOnDemand"' if kind=="progress" else ""))
         if kind=="progress":
             out.append('<widget name="progress" %s foregroundColor="#003ee8ff" backgroundColor="%s" transparent="0" borderWidth="1" />' % (box(25,h-135,1000,26),POPUP_BACKGROUND))
         footer=[("hint_red",25,490,"#00ff526a")]

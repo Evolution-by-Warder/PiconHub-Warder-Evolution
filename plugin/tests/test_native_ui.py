@@ -21,7 +21,7 @@ class Setting:
 class Component:
     def __init__(self,text=""):
         self.text,self.instance,self.visible,self.background,self.filename=text,self,True,None,None
-    def setText(self,text):self.text=text
+    def setText(self,text,showBottom=False):self.text=text;self.showBottom=showBottom
     def setBackgroundColor(self,color):self.background=color
     def setPixmapFromFile(self,path):self.filename=path
     def setScale(self,value):pass
@@ -34,6 +34,8 @@ class Component:
     def hide(self):self.visible=False
     def pageUp(self):pass
     def pageDown(self):pass
+    def isAtLastPage(self):return True
+    def setPos(self,value):self.currentPosition=value
 
 
 class Menu(Component):
@@ -242,6 +244,44 @@ class NativeControllerTests(unittest.TestCase):
             job["actions"]["blue"]()
             self.assertIs(self.calls[-1][1][0],self.gui.TextDialog)
             job["actions"]["red"]();close.assert_called_once()
+        job.cleanup()
+
+    def test_four_satellite_phases_accumulate_in_one_window(self):
+        job=self.gui.PiconJobScreen(self.session,[])
+        calls=len(self.calls)
+        for label in ('13.0E','16.0E','19.2E','23.5E'):
+            for count in (0,50,100):
+                job.events.put(('download',label,count,100));job.poll()
+            job.events.put(('stage','Overujem a rozbaľujem '+label));job.poll()
+            job.events.put(('processed',label));job.poll()
+        self.assertEqual(len(job.history),8)
+        for index,label in enumerate(('13.0E','16.0E','19.2E','23.5E')):
+            self.assertEqual(job.history[2*index],'Sťahujem '+label+' • 100 %')
+            self.assertEqual(job.history[2*index+1],'Overujem a rozbaľujem '+label+' ✓')
+        self.assertEqual(len(self.calls),calls)
+        self.assertTrue(job['status'].showBottom)
+        job['actions']['up']();self.assertFalse(job.follow_progress)
+        job['status'].currentPosition=42
+        job.events.put(('stage','Zapisujem overené picony'));job.poll()
+        self.assertFalse(job['status'].showBottom)
+        self.assertEqual(job['status'].currentPosition,42)
+        job['actions']['down']();self.assertTrue(job.follow_progress)
+        job.events.put(('result',{'added':4,'changed':1,'removed':0}));job.poll()
+        self.assertIn('13.0E',job['status'].text)
+        self.assertIn('Dokončené',job['status'].text)
+        self.assertEqual(len(self.calls),calls)
+        job.cleanup()
+
+    def test_error_keeps_download_and_processing_history_in_the_same_window(self):
+        job=self.gui.PiconJobScreen(self.session,[])
+        job.events.put(('download','13.0E',100,100))
+        job.events.put(('stage','Overujem a rozbaľujem 13.0E'))
+        job.events.put(('error','Injected failure'))
+        job.poll()
+        self.assertIn('Sťahujem 13.0E • 100 %',job['status'].text)
+        self.assertIn('Overujem a rozbaľujem 13.0E',job['status'].text)
+        self.assertIn('Injected failure',job['status'].text)
+        self.assertTrue(job.done);self.assertFalse(job.timer.running)
         job.cleanup()
 
     def test_text_dialog_uses_red_to_return(self):
