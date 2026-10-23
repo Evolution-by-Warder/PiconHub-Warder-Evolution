@@ -82,4 +82,4 @@ def clock_text(now=None, language="sk"):
         day, date = names[0][now.weekday()], "%d. %s %d" % (now.day, names[1][now.month - 1], now.year)
     else:
         day, date = now.strftime("%A"), now.strftime("%d. %B %Y")
-    return day, date, now.strftime("%H:%M")
+    return day, date, now.strftime("%H:%M"), now.strftime("%S")

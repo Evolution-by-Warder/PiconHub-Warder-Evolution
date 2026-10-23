@@ -15,9 +15,9 @@ def main_skin(width=1920, height=1080):
     for x,y,w,h in ((55,340,1150,555),(1235,340,630,555)):
         out += ['<eLabel %s backgroundColor="#0019c9ff" zPosition="1" />' % box(x,y,w,h),
                 '<eLabel %s backgroundColor="#00102136" zPosition="2" />' % box(x+2,y+2,w-4,h-4)]
-    out += [label("day",1300,32,230,42,26,align="right"),label("date",1210,76,320,40,25,align="right"),
-            label("clock",1550,32,190,85,62,align="center"),label("version",1770,45,140,60,24,align="center"),
-            '<eLabel %s backgroundColor="#0019c9ff" zPosition="3" />' % box(1540,35,2,80),
+    out += [label("day",1250,32,230,42,26,align="right"),label("date",1160,76,320,40,25,align="right"),
+            label("clock",1498,32,190,85,62,align="center"),label("seconds",1690,64,56,48,32,align="left"),label("version",1770,45,140,60,24,align="center"),
+            '<eLabel %s backgroundColor="#0019c9ff" zPosition="3" />' % box(1492,35,2,80),
             '<eLabel %s backgroundColor="#0019c9ff" zPosition="3" />' % box(1752,35,2,80),
             label(None,60,250,650,70,46,text="Nastavenie piconov")]
     for index,x in enumerate((740,1120,1500),1):

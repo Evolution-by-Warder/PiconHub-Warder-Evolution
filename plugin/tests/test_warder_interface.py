@@ -88,15 +88,17 @@ class MenuTests(unittest.TestCase):
         self.assertEqual(model.initial_selectors(profile),["192E","235E"])
 
     def test_live_clock_changes_date_and_localization(self):
-        self.assertEqual(model.clock_text(datetime.datetime(2026,10,23,10,48),"sk_SK"),("Piatok","23. októbra 2026","10:48"))
-        self.assertEqual(model.clock_text(datetime.datetime(2026,10,24,0,0),"sk_SK"),("Sobota","24. októbra 2026","00:00"))
+        self.assertEqual(model.clock_text(datetime.datetime(2026,10,23,10,48),"sk_SK"),("Piatok","23. októbra 2026","10:48","00"))
+        self.assertEqual(model.clock_text(datetime.datetime(2026,10,24,0,0),"sk_SK"),("Sobota","24. októbra 2026","00:00","00"))
         self.assertEqual(model.clock_text(datetime.datetime(2026,10,23,10,48),"cs_CZ")[0],"Pátek")
 
     def test_native_layouts_have_bounded_widgets_and_live_fields(self):
         for width,height in ((1920,1080),(1280,720)):
             root=ET.fromstring(layout.main_skin(width,height))
             names={item.get("name") for item in root}
-            self.assertTrue({"day","date","clock","version","list","preview","profile1","profile2","profile3"}<=names)
+            self.assertTrue({"day","date","clock","seconds","version","list","preview","profile1","profile2","profile3"}<=names)
+            fields={item.get("name"):item for item in root if item.get("name")}
+            self.assertLess(int(fields["seconds"].get("font").split(";")[1]),int(fields["clock"].get("font").split(";")[1]))
             for item in root:
                 x,y=map(int,item.get("position").split(","));w,h=map(int,item.get("size").split(","))
                 self.assertGreater(w,0);self.assertGreater(h,0)

@@ -190,9 +190,13 @@ class NativeControllerTests(unittest.TestCase):
     def test_native_widget_names_match_xml_and_clock_updates(self):
         names={w.get("name") for w in ET.fromstring(self.main.skin) if w.tag=="widget"}
         self.assertTrue(names<=set(self.main.widgets))
-        with patch.object(self.gui.model,"clock_text",return_value=("Piatok","23. októbra 2026","10:48")):
+        with patch.object(self.gui.model,"clock_text",return_value=("Piatok","23. októbra 2026","10:48","09")):
             self.main.tick()
         self.assertEqual(self.main["clock"].text,"10:48")
+        self.assertEqual(self.main["seconds"].text,":09")
+        with patch.object(self.gui.model,"clock_text",return_value=("Piatok","23. októbra 2026","10:48","10")):
+            self.main.tick()
+        self.assertEqual(self.main["seconds"].text,":10")
         self.assertEqual(self.main["version"].text,"v"+(ROOT/"version.txt").read_text().strip())
         self.main.clock_timer.start();self.main.cleanup()
         self.assertFalse(self.main.clock_timer.running)

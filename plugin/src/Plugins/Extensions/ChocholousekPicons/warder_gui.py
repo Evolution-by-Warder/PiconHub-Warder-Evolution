@@ -235,7 +235,7 @@ class WarderMainScreen(Screen):
             profile.background=ConfigSelection(default=value,choices=choices)
             profile.background.setValue(value)
         self.profile_id=max(1,min(3,int(config.plugins.chocholousekpicons_id.getValue())))
-        for name in ("day","date","clock","version","profile1","profile2","profile3","preview_caption","summary","status"):
+        for name in ("day","date","clock","seconds","version","profile1","profile2","profile3","preview_caption","summary","status"):
             self[name]=Label("")
         self["background"],self["preview"]=Pixmap(),Pixmap()
         self["list"]=menu_component(self.warder_scale,82,(32,30))
@@ -270,8 +270,8 @@ class WarderMainScreen(Screen):
     def tick(self):
         if self.closed:return
         language=getattr(getattr(config,"osd",None),"language",None)
-        day,date,clock=model.clock_text(language=language.value if language else "sk")
-        for name,value in (("day",day),("date",date),("clock",clock),("version","v"+installed_version())):
+        day,date,clock,seconds=model.clock_text(language=language.value if language else "sk")
+        for name,value in (("day",day),("date",date),("clock",clock),("seconds",":"+seconds),("version","v"+installed_version())):
             self[name].setText(value)
         try:catalog,error=self.catalog_results.get_nowait()
         except queue.Empty:return
