@@ -36,6 +36,10 @@ class PackageTests(unittest.TestCase):
                 self.assertIn("Package: "+builder.PACKAGE,text)
                 self.assertIn("Version: "+(builder.RUNTIME/"version.txt").read_text().strip(),text)
                 self.assertIn("Conflicts: enigma2-plugin-extensions-chocholousek-picons",text)
+                # OpenEmbedded ships gettext.py in core, not python3-gettext.
+                dependencies = next(line for line in text.splitlines() if line.startswith("Depends: ")).removeprefix("Depends: ").split(", ")
+                self.assertIn("python3-core", dependencies)
+                self.assertNotIn("python3-gettext", dependencies)
                 self.assertEqual(control.getmember("./postinst").mode,0o755)
                 self.assertNotIn(b"reboot",control.extractfile("./postinst").read())
             with tarfile.open(fileobj=io.BytesIO(members["data.tar.gz"]),mode="r:gz") as payload:

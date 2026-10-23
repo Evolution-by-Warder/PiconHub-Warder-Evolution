@@ -58,7 +58,7 @@ def build(destination,source_revision=None):
     if version!=metadata["development_version"]:raise ValueError("Package and runtime version differ")
     control=("Package: %s\nVersion: %s\nArchitecture: all\nSection: extra\nPriority: optional\n"
              "Maintainer: Warder Evolution\n"
-             "Depends: enigma2, python3-core, python3-compression, python3-crypt, python3-datetime, python3-fcntl, python3-gettext, python3-io, python3-json, python3-netclient, python3-threading, python3-xml\n"
+             "Depends: enigma2, python3-core, python3-compression, python3-crypt, python3-datetime, python3-fcntl, python3-io, python3-json, python3-netclient, python3-threading, python3-xml\n"
              "Conflicts: enigma2-plugin-extensions-chocholousek-picons\n"
              "Replaces: enigma2-plugin-extensions-chocholousek-picons\n"
              "Homepage: https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution\n"
