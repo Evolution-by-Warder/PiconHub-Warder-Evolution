@@ -1,3 +1,3 @@
-Vo všetkých výberových oknách je text „Vybrať s OK“.
-Spodné legendy sú vodorovne aj zvislo vycentrované v rovnako širokých poliach. Rovnaké zarovnanie používa výber satelitov, priečinkov, priebeh, log, informácie o projekte aj inštalácia pluginu.
-Preklady sú doplnené vo všetkých 10 jazykoch.
+Oprava spoločného sťahovania viacerých pozícií: picony iných orbitálnych pozícií pribalené v archíve sa ignorujú. Nespôsobia tak konflikt s piconom zo správneho balíka.
+Priebeh zobrazuje 13.0E, 19.2E alebo 23.5E namiesto interných kódov 130E, 192E a 235E. Názvy poskytovateľov zostávajú rozlíšené.
+Kontroly SHA256 a skutočných konfliktov sa zachovávajú; zápis začne až po overení všetkých vybraných balíkov.

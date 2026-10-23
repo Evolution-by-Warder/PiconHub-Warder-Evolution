@@ -15,6 +15,7 @@ import zipfile
 from urllib.request import Request, urlopen
 
 from . import warder_skin_sync as sync
+from .warder_model import selector_display_label
 
 
 class PiconError(ValueError):
@@ -161,15 +162,17 @@ class PiconRunner:
                         checksum.update(data)
                         total.update(data)
                         target.write(data)
-                        self.event("download", job["selector_id"], count, job["bytes"])
+                        self.event("download", selector_display_label(job["selector_id"]), count, job["bytes"])
                 if size != part["bytes"] or checksum.hexdigest() != part["sha256"]:
-                    raise PiconError(_("Nesúhlasí časť balíka ") + job["selector_id"])
+                    raise PiconError(_("Nesúhlasí časť balíka ") + selector_display_label(job["selector_id"]))
         if count != job["bytes"] or total.hexdigest() != job["sha256"]:
-            raise PiconError(_("Nesúhlasí SHA256 balíka ") + job["selector_id"])
+            raise PiconError(_("Nesúhlasí SHA256 balíka ") + selector_display_label(job["selector_id"]))
 
     def unpack(self, stage, archive_path, job):
         wanted = sync.wanted_picon_names(stage.queue)
         native_count = 0
+        foreign_count = 0
+        expected_position = sync.canonical_position_for_selector(job["selector_id"])
         with zipfile.ZipFile(archive_path) as archive:
             members = archive.infolist()
             if sum(info.file_size for info in members) > job["bytes"]*20 + 8*1024*1024:
@@ -187,6 +190,14 @@ class PiconRunner:
                 if not stem:
                     continue
                 name = stem + ".png"
+                # Appended source archives may include service-reference aliases
+                # from other orbital positions. Only the owning position's
+                # package may supply its channel image to this staged install.
+                # Check before duplicate detection, so an unrelated alias in
+                # 13.0E cannot conflict with the real 19.2E package.
+                if expected_position and expected_position != "dtt" and sync.service_orbital_position(stem) != expected_position:
+                    foreign_count += 1
+                    continue
                 native_count += 1
                 stage.upstream.add(name)
                 if wanted is not None and name not in wanted:
@@ -203,6 +214,9 @@ class PiconRunner:
                     raise PiconError(_("Vybrané balíky obsahujú rozdielny picon: ") + name)
                 stage.hashes[name] = checksum
                 (stage.ready/name).write_bytes(data)
+        if foreign_count:
+            self.event("package-filter", {"selector_id":job["selector_id"],
+                       "position":expected_position,"foreign_picons_ignored":foreign_count})
         if not native_count:
             raise PiconError(_("Balík neobsahuje žiadne kanálové picony."))
 
@@ -225,7 +239,7 @@ class PiconRunner:
                         raise PiconError(_("Vo vybraných TV/rádio bouquetoch nie sú služby vybraných pozícií."))
                     plan = sync.plan_runtime_packages(document, queue)
                     if plan["state"] != "ready":
-                        raise PiconError(_("Nie sú dostupné všetky vybrané balíky: ") + ", ".join(plan.get("missing_selectors", [])))
+                        raise PiconError(_("Nie sú dostupné všetky vybrané balíky: ") + ", ".join(selector_display_label(s) for s in plan.get("missing_selectors", [])))
                     jobs = sync.build_download_jobs(document, plan)
                     if jobs["state"] != "ready" or not jobs["jobs"]:
                         raise PiconError(_("Nie je pripravený platný plán sťahovania."))
@@ -234,10 +248,10 @@ class PiconRunner:
                     if shutil.disk_usage(stage.target).free < sum(job["bytes"] for job in jobs["jobs"])*3 + 8*1024*1024:
                         raise PiconError(_("Na cieľovom úložisku nie je dosť voľného miesta."))
                     for index,job in enumerate(jobs["jobs"],1):
-                        self.event("stage", _("Profil %d • balík %d/%d • %s") % (number,index,len(jobs["jobs"]),job["selector_id"]))
+                        self.event("stage", _("Profil %d • balík %d/%d • %s") % (number,index,len(jobs["jobs"]),selector_display_label(job["selector_id"])))
                         archive = stage.work/"package.zip"
                         self.download(job, archive)
-                        self.event("stage", _("Overujem a rozbaľujem ") + job["selector_id"])
+                        self.event("stage", _("Overujem a rozbaľujem ") + selector_display_label(job["selector_id"]))
                         self.unpack(stage, archive, job)
                         archive.unlink()
                 self.check_cancel()

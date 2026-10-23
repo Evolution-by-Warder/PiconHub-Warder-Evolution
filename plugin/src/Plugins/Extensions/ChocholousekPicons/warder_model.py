@@ -21,6 +21,16 @@ DESTINATIONS = tuple(zip((path for path, label in sync.PICON_DESTINATIONS),
 PROVIDERS = {"FREESAT", "DIGI_TELLY", "ANTIKSAT", "CANALPLUS_SK", "CANALPLUS_CZ"}
 
 
+def selector_display_label(selector):
+    """Display stable bindings without exposing technical archive IDs."""
+    if selector in PROVIDERS:
+        return dict(SATELLITES).get(selector, selector)
+    position = sync.canonical_position_for_selector(selector)
+    if position and position != "dtt":
+        return position.upper()
+    return dict(SATELLITES).get(selector, str(selector))
+
+
 class PickerState:
     def __init__(self, choices, selected=(), multiple=False):
         self.choices = tuple(choices)

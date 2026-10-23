@@ -91,6 +91,13 @@ class MenuTests(unittest.TestCase):
         profile=types.SimpleNamespace(sats=types.SimpleNamespace(value="19.2E 23.5E"))
         self.assertEqual(model.initial_selectors(profile),["192E","235E"])
 
+    def test_progress_uses_positions_and_keeps_provider_names_distinct(self):
+        self.assertEqual(model.selector_display_label("130E"),"13.0E")
+        self.assertEqual(model.selector_display_label("192E"),"19.2E")
+        self.assertEqual(model.selector_display_label("235E"),"23.5E")
+        self.assertIn("Canal+ SK",model.selector_display_label("CANALPLUS_SK"))
+        self.assertIn("Canal+ CZ",model.selector_display_label("CANALPLUS_CZ"))
+
     def test_live_clock_changes_date_and_localization(self):
         self.assertEqual(model.clock_text(datetime.datetime(2026,10,23,10,48),"sk_SK"),("Piatok","23. októbra 2026","10:48","00"))
         self.assertEqual(model.clock_text(datetime.datetime(2026,10,24,0,0),"sk_SK"),("Sobota","24. októbra 2026","00:00","00"))
@@ -197,6 +204,50 @@ class EngineTests(unittest.TestCase):
         (self.target/NAME).write_bytes(old)
         self.assertEqual(self.run_fixture()["changed"],1)
         self.assertEqual((self.target/NAME).read_bytes(),new)
+
+    def test_four_positions_ignore_foreign_aliases_and_install_native_versions(self):
+        collision="1_0_1_100A_451_35_C00000_0_0_0.png"
+        own={"130E":"1_0_1_1_1_1_820000_0_0_0.png","160E":"1_0_1_1_1_1_A00000_0_0_0.png",
+             "192E":collision,"235E":NAME}
+        for reverse in (False,True):
+            document=fixture()[0];document["parts"]=[];document["packages"]=[];payloads={}
+            for sid,name in own.items():
+                stream=io.BytesIO()
+                with zipfile.ZipFile(stream,"w",zipfile.ZIP_DEFLATED) as archive:
+                    archive.writestr(name,png())
+                    if sid!="192E":
+                        archive.writestr("old/"+collision,png(b"\xff\x00\x00"))
+                        archive.writestr("aliases/"+collision,png(b"\x00\x00\xff"))
+                data=stream.getvalue();sha=hashlib.sha256(data).hexdigest();filename="test-"+sid+".zip"
+                url=sync.publication_source("production")["package_root"]+filename+".part00"
+                payloads[url]=data
+                document["parts"].append({"filename":filename+".part00","bytes":len(data),"sha256":sha})
+                document["packages"].append({"selector_id":sid,"family":"channel-transparent","resolution":"220x132",
+                                             "filename":filename,"bytes":len(data),"sha256":sha,"parts":[url]})
+            if reverse:document["packages"].reverse()
+            self.assertEqual(sync.validate_publication_manifest(document),[])
+            def opener(url):return io.BytesIO(json.dumps(document).encode() if url==sync.RUNTIME_MANIFEST_URL else payloads[url])
+            value=sync.set_task_position_bindings(prefs(self.target),[sync.task_binding_for_package_selector(sid) for sid in own])
+            events=[]
+            runner=engine.PiconRunner(opener=opener,event=lambda *args:events.append(args),lock_path=str(self.root/"lock"))
+            result=runner.run([value])
+            self.assertEqual(result,{"added":4 if not reverse else 0,"changed":0,"removed":0})
+            for name in own.values():self.assertEqual((self.target/name).read_bytes(),png())
+            self.assertTrue(any(e[0]=="download" and e[1]=="13.0E" for e in events))
+            self.assertTrue(any(e[0]=="stage" and "13.0E" in e[1] for e in events))
+            self.assertEqual(sum(e[1]["foreign_picons_ignored"] for e in events if e[0]=="package-filter"),6)
+
+    def test_foreign_only_archive_cannot_delete_selected_position_files(self):
+        (self.target/STALE).write_bytes(png())
+        with self.assertRaises(engine.PiconError):self.run_fixture({OTHER:png()},sync.UPDATE_MODE_REPLACE_ALL)
+        self.assertEqual((self.target/STALE).read_bytes(),png())
+        self.assertFalse((self.target/OTHER).exists())
+
+    def test_native_conflicting_images_still_abort_before_changes(self):
+        (self.target/NAME).write_bytes(png())
+        files={"old/"+NAME:png(),"new/"+NAME:png(b"\x00\x00\xff")}
+        with self.assertRaises(engine.PiconError):self.run_fixture(files)
+        self.assertEqual((self.target/NAME).read_bytes(),png())
 
     def test_replace_prunes_only_selected_orbits_and_native_service_names(self):
         for name in (STALE,OTHER,"my-logo.png"):(self.target/name).write_bytes(png())
