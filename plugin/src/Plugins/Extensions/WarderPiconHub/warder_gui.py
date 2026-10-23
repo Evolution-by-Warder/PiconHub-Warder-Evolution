@@ -162,7 +162,6 @@ class TextDialog(Screen):
         Screen.__init__(self,session)
         self["title"]=Label(_(title))
         self["hint_red"]=Label(_("Naspäť"))
-        self["hint_scroll"]=Label(_("Posun"))
         self["list"]=ScrollLabel(text)
         self["actions"]=ActionMap(["OkCancelActions","ColorActions","DirectionActions"],{
             "ok":self.close,"cancel":self.close,"red":self.close,"up":self["list"].pageUp,"down":self["list"].pageDown},-2)

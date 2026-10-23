@@ -82,7 +82,7 @@ def dialog_skin(width, height, rows=8, multiple=False, kind="choice", title="Vý
         out.append(widget("list",20,80,1010,h-150,25 if kind=="text" else None,
                           extra='scrollbarMode="showOnDemand" enableWrapAround="1" foregroundColorSelected="#00ffffff" backgroundColorSelected="#002a70ad"'))
         if kind=="text":
-            footer=[("hint_red",25,490,"#00ff526a"),("hint_scroll",535,490,"#00ffffff")]
+            footer=[("hint_red",25,1000,"#00ff526a")]
         elif multiple or kind=="directory":
             footer=[("hint_ok",25,210,"#00ffffff"),("hint_green",245,440,"#0039ff59"),("hint_red",695,330,"#00ff526a")]
         else:
