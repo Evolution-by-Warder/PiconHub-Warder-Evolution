@@ -284,6 +284,51 @@ class NativeControllerTests(unittest.TestCase):
         self.assertTrue(job.done);self.assertFalse(job.timer.running)
         job.cleanup()
 
+    def test_successful_job_returns_to_empty_first_row_and_default_preview(self):
+        self.complete_selection()
+        self.main['list'].moveToIndex(4)
+        stored=(self.main.profile.sats.value,self.main.profile.resolution.value,
+                self.main.profile.background.value,self.main.profile.method.value)
+        self.main.update_picons()
+        callback,args,kwargs=self.calls[-1]
+        self.assertEqual(callback,self.main.picon_job_finished)
+        job=self.gui.PiconJobScreen(self.session,args[1])
+        job.events.put(('result',{'added':1,'changed':0,'removed':0}));job.poll()
+        self.assertEqual(sum(bool(v) for v in self.main.selection.values()),5)
+        job.finish();self.assertIs(job.result,True)
+        callback(job.result)
+        self.assertTrue(all(v is None for v in self.main.selection.values()))
+        self.assertEqual(self.main['list'].getSelectionIndex(),0)
+        self.assertTrue(all(row[0][2]=='Vyber si…' for row in self.main['list'].values))
+        self.assertIn('0 z 5',self.main['summary'].text)
+        self.assertFalse(self.main['preview'].visible)
+        self.assertTrue(self.main['brand_logo'].visible)
+        self.assertEqual(stored,(self.main.profile.sats.value,self.main.profile.resolution.value,
+                                self.main.profile.background.value,self.main.profile.method.value))
+
+    def test_failed_job_preserves_choices_for_retry(self):
+        self.complete_selection();before=dict(self.main.selection)
+        self.main['list'].moveToIndex(3)
+        self.main.update_picons();callback,args,kwargs=self.calls[-1]
+        job=self.gui.PiconJobScreen(self.session,args[1])
+        job.events.put(('error','injected failure'));job.poll();job.finish()
+        self.assertIs(job.result,False);callback(job.result)
+        self.assertEqual(self.main.selection,before)
+        self.assertEqual(self.main['list'].getSelectionIndex(),3)
+        self.main.picon_job_finished(None)
+        self.assertEqual(self.main.selection,before)
+
+    def test_replace_confirmation_starts_job_with_the_same_reset_callback(self):
+        self.complete_selection();self.main.choose('method','all')
+        self.main.update_picons()
+        confirm,args,kwargs=self.calls[-1]
+        self.assertEqual(args[0],self.gui.MessageBox)
+        calls=len(self.calls);confirm(False);self.assertEqual(len(self.calls),calls)
+        confirm(True)
+        callback,args,kwargs=self.calls[-1]
+        self.assertIs(args[0],self.gui.PiconJobScreen)
+        self.assertEqual(callback,self.main.picon_job_finished)
+
     def test_text_dialog_uses_red_to_return(self):
         dialog=self.gui.TextDialog(self.session,"O projekte","PiconHub")
         self.assertEqual(dialog["hint_red"].text,"Naspäť")

@@ -173,6 +173,7 @@ class PiconJobScreen(Screen):
         self.skin=dialog_skin(width,height,8,kind="progress",title="Aktualizácia piconov")
         Screen.__init__(self,session)
         self.preferences,self.done,self.started,self.closed=preferences,False,False,False
+        self.success=False
         self.events,self.cancel=queue.Queue(),threading.Event()
         self.history,self.download_row,self.follow_progress=[],None,True
         self["title"]=Label(_("Aktualizácia piconov"))
@@ -235,6 +236,7 @@ class PiconJobScreen(Screen):
                 self.done=True
                 self["progress"].hide()
                 if item[0]=="result":
+                    self.success=True
                     self.history.append(_("Dokončené.\n\nPridané: %d\nZmenené: %d\nOdstránené: %d") % (item[1]["added"],item[1]["changed"],item[1]["removed"]))
                 else:self.history.append(_("Aktualizácia sa nedokončila.\n\n")+item[1])
                 self.timer.stop();self.follow_progress=True;changed=True
@@ -251,7 +253,7 @@ class PiconJobScreen(Screen):
         self.follow_progress=self["status"].isAtLastPage()
 
     def finish(self):
-        if self.done:self.close()
+        if self.done:self.close(self.success)
         else:
             self.cancel.set()
             self.history.append(_("Čakám na bezpečné ukončenie…"))
@@ -445,9 +447,18 @@ class WarderMainScreen(Screen):
         except ValueError as exc:
             self.session.open(MessageBox,str(exc),type=MessageBox.TYPE_ERROR);return
         if any(p["update_mode"]==model.sync.UPDATE_MODE_REPLACE_ALL for p in preferences):
-            self.session.openWithCallback(lambda yes:self.session.open(PiconJobScreen,preferences) if yes else None,MessageBox,
+            self.session.openWithCallback(lambda yes:self.start_picon_job(preferences) if yes else None,MessageBox,
                                          _("Úplné nahradenie odstráni staré kanálové picony vybraných pozícií. Pokračovať?"),type=MessageBox.TYPE_YESNO,default=False)
-        else:self.session.open(PiconJobScreen,preferences)
+        else:self.start_picon_job(preferences)
+
+    def start_picon_job(self,preferences):
+        self.session.openWithCallback(self.picon_job_finished,PiconJobScreen,preferences)
+
+    def picon_job_finished(self,success):
+        if success is True:
+            self.selection={key:None for key in self.selection}
+            self["list"].moveToIndex(0)
+            self.refresh()
 
     def check_plugin_update(self):
         self.warderUpdateCheck.request(manual=True)

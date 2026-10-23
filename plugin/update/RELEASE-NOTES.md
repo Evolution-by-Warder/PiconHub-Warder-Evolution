@@ -1,3 +1,3 @@
-# PiconHub Warder Evolution 0.1.9
+# PiconHub Warder Evolution 0.1.10
 
-Sťahovanie a spracovanie všetkých družíc sa zobrazuje ako postupne pribúdajúce riadky v jednom okne. Percentá sa menia v aktuálnom riadku, história zostáva a dá sa posúvať šípkami. Existujúce odkazy na picony sa bezpečne nahradia obrázkami bez zmeny cieľových súborov; pri chybe sa obnovia pôvodné odkazy.
+Po úspešnom stiahnutí a návrate sa všetky voľby vrátia na Vyber si…, kurzor na prvý riadok a náhľad na úvodné logo. Pri chybe zostáva výber pripravený na opakovanie. Čiernu lebku vľavo hore nahrádza chrómová lebka z náhľadu bez spodného nápisu.
