@@ -120,6 +120,10 @@ class MenuTests(unittest.TestCase):
     def test_header_seconds_colors_spacing_and_direct_footer_labels(self):
         root=ET.fromstring(layout.main_skin())
         fields={item.get("name"):item for item in root if item.get("name")}
+        for name in ("day","date","clock","seconds","version"):
+            self.assertEqual(fields[name].get("noWrap"),"1")
+        self.assertGreaterEqual(int(fields["date"].get("size").split(",")[0]),400)
+        self.assertGreaterEqual(int(fields["day"].get("size").split(",")[0]),270)
         self.assertEqual(fields["seconds"].get("foregroundColor"),"#00ffffff")
         self.assertEqual(fields["version"].get("foregroundColor"),"#003ee8ff")
         self.assertEqual(fields["seconds"].get("font"),"Regular;38")

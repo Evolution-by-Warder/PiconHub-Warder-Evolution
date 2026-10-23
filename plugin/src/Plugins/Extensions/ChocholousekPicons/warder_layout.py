@@ -8,9 +8,10 @@ def main_skin(width=1920, height=1080):
     def box(x, y, w, h):
         return 'position="%d,%d" size="%d,%d"' % (round(x*sx), round(y*sy), round(w*sx), round(h*sy))
     def label(name, x, y, w, h, font=30, text=None, color="#00ffffff", align="left"):
+        nowrap = 'noWrap="1" ' if name in ("day","date","clock","seconds","version") else ""
         identity = 'name="%s"' % name if name else 'text="%s"' % escape(text or "", {'"': '&quot;'})
         element = "widget" if name else "eLabel"
-        return '<%s %s %s font="Regular;%d" foregroundColor="%s" transparent="1" valign="center" halign="%s" zPosition="3" />' % (element, identity, box(x,y,w,h), round(font*sy),color,align)
+        return '<%s %s %s %sfont="Regular;%d" foregroundColor="%s" transparent="1" valign="center" halign="%s" zPosition="3" />' % (element, identity, box(x,y,w,h), nowrap, round(font*sy),color,align)
     out = ['<screen position="0,0" size="%d,%d" title="PiconHub Warder Evolution" flags="wfNoBorder" backgroundColor="#00071627">' % (width,height),
            '<widget name="background" %s zPosition="0" />' % box(0,0,1920,1080)]
     def fill(x,y,w,h,color,z=2):
@@ -19,7 +20,7 @@ def main_skin(width=1920, height=1080):
         out += [fill(x-4,y-4,w+8,h+8,"#00305670",1),
                 fill(x,y,w,h,"#003ee8ff",1),fill(x+2,y+2,w-4,h-4,"#18091b30"),
                 fill(x+2,y+2,100,4,"#00a4f4ff",3)]
-    out += [label("day",1150,32,230,42,26,align="right"),label("date",1060,76,320,40,25,align="right"),
+    out += [label("day",1110,32,270,42,26,align="right"),label("date",980,76,400,40,25,align="right"),
             label("clock",1398,32,190,85,62,align="center"),label("seconds",1590,58,66,54,38,color="#00ffffff",align="left"),label("version",1680,45,210,60,24,color="#003ee8ff",align="center"),
             '<eLabel %s backgroundColor="#0019c9ff" zPosition="3" />' % box(1392,35,2,80),
             '<eLabel %s backgroundColor="#0019c9ff" zPosition="3" />' % box(1664,35,2,80),
