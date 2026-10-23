@@ -114,6 +114,8 @@ class NativeControllerTests(unittest.TestCase):
         self.config.osd.language.value="sk_SK"
         language_patch=patch.object(self.i18n,"language_code",lambda:self.config.osd.language.value.split("_")[0])
         language_patch.start();self.addCleanup(language_patch.stop)
+        gui_language_patch=patch.object(self.gui,"language_code",lambda:self.i18n.language_code())
+        gui_language_patch.start();self.addCleanup(gui_language_patch.stop)
         profiles=[]
         for number in range(4):
             profiles.append(types.SimpleNamespace(allowed=Setting(number==1),method=Setting("sync_tv"),
@@ -328,6 +330,25 @@ class NativeControllerTests(unittest.TestCase):
         callback,args,kwargs=self.calls[-1]
         self.assertIs(args[0],self.gui.PiconJobScreen)
         self.assertEqual(callback,self.main.picon_job_finished)
+
+    def test_about_shows_credits_and_offline_installed_notes_in_system_language(self):
+        import json
+        with tempfile.TemporaryDirectory() as folder:
+            root=pathlib.Path(folder);(root/'data').mkdir()
+            (root/'data/release-notes.json').write_text(json.dumps({
+                'version':self.gui.installed_version(),
+                'notes':{'sk':'Opravené sťahovanie.','en':'Improved downloads.'}}))
+            with patch.object(self.gui,'ROOT',root):
+                self.main.about()
+                callback,args,kwargs=self.calls[-1]
+                self.assertIs(args[0],self.gui.TextDialog)
+                self.assertIn('Plugin vychádza z práce s3n0 a Chocholousek.',args[2])
+                self.assertIn('Zmeny v tejto verzii:\nOpravené sťahovanie.',args[2])
+                self.config.osd.language.value='en_GB'
+                self.main.about()
+                text=self.calls[-1][1][2]
+                self.assertIn('work of s3n0 and Chocholousek.',text)
+                self.assertIn('Changes in this version:\nImproved downloads.',text)
 
     def test_text_dialog_uses_red_to_return(self):
         dialog=self.gui.TextDialog(self.session,"O projekte","PiconHub")

@@ -73,6 +73,10 @@ def build(destination,source_revision=None):
     # obsolete file while a pre-rename GUI is still reading it every second.
     entries.append(("usr/lib/enigma2/python/Plugins/Extensions/ChocholousekPicons/version.txt",
                     (version+"\n").encode(),0o644))
+    notes_path=ROOT/"update/RELEASE-NOTES.i18n.json"
+    notes=json.loads(notes_path.read_text(encoding="utf-8"))
+    if notes.get("version")!=version:raise ValueError("Release notes and runtime version differ")
+    entries.append((INSTALL_ROOT+"/data/release-notes.json",notes_path.read_bytes(),0o644))
     source={"version":version,"source_revision":source_revision or revision(),"receiver_tested":False}
     entries.append((INSTALL_ROOT+"/build.json",(json.dumps(source,indent=2)+"\n").encode(),0o644))
     with tempfile.TemporaryDirectory() as temporary:

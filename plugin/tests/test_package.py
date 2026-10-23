@@ -80,6 +80,10 @@ class PackageTests(unittest.TestCase):
                 prefix="./"+builder.INSTALL_ROOT+"/"
                 source=json.loads(payload.extractfile(prefix+"build.json").read())
                 self.assertEqual(source["source_revision"],"test-source")
+                notes=json.loads(payload.extractfile(prefix+"data/release-notes.json").read())
+                self.assertEqual(notes['version'],source['version'])
+                self.assertEqual(set(notes['notes']),{'sk','cs','en','de','pl','hu','ru','fr','it','es'})
+                self.assertTrue(all(isinstance(text,str) and text.strip() for text in notes['notes'].values()))
                 catalog=json.loads(payload.extractfile(prefix+"data/channel-manifest.json").read())
                 self.assertEqual(len(catalog["packages"]),468)
                 translations=[name for name in names if name.endswith(".mo")]

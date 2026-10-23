@@ -1,5 +1,5 @@
 """Modern Warder screens around the retained Chocholousek configuration base."""
-from .warder_i18n import _, localize_skin
+from .warder_i18n import _, localize_skin, language_code
 import json
 import pathlib
 import queue
@@ -24,6 +24,7 @@ from . import warder_recent as recent
 from .warder_engine import PiconRunner, fetch_manifest
 from .warder_layout import dialog_skin, main_skin
 from .warder_brand import BrandLogo
+from .warder_release_notes import load_notes
 from .warder_update_ui import StartupUpdateCheck, connect_timer, installed_version
 
 ROOT = pathlib.Path(__file__).parent
@@ -464,7 +465,11 @@ class WarderMainScreen(Screen):
         self.warderUpdateCheck.request(manual=True)
 
     def about(self):
-        self.session.open(TextDialog,_("O projekte"),_("PiconHub Warder Evolution\nVerzia ")+installed_version()+_("\n\nWarder Evolution\nPlugin vychádza z práce s3n0 a Chocholousek.\nKatalóg a plánovanie piconov: FullHDGlass Warder Evolution."))
+        version=installed_version()
+        text=_("PiconHub Warder Evolution\nVerzia ")+version+_("\n\nWarder Evolution\nPlugin vychádza z práce s3n0 a Chocholousek.\nKatalóg a plánovanie piconov: FullHDGlass Warder Evolution.")
+        notes=load_notes(ROOT/"data/release-notes.json",version,language_code())
+        if notes:text+="\n\n"+_("Zmeny v tejto verzii:")+"\n"+notes
+        self.session.open(TextDialog,_("O projekte"),text)
 
     def exit(self):
         configfile.save();self.close()
