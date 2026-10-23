@@ -70,8 +70,12 @@ Tieto body sú zistenia a návrhy, nie hotové opravy:
 
 ## Doplnenie hlavičky podľa používateľa — 23. októbra 2026
 
-Vpravo hore zobraziť deň v týždni, pod ním dátum a vedľa veľký digitálny čas HH:MM podľa dodaného logo.jpg. Texty oddeliť tenkými cyan zvislými čiarami; označenie ENIGMA2 ponechať napravo. Zachovať zvyšok navrhnutého rozhrania.
+Vpravo hore zobraziť deň v týždni, pod ním dátum a vedľa veľký digitálny čas HH:MM podľa dodaného logo.jpg. Texty oddeliť tenkými cyan zvislými čiarami; napravo zobraziť aktuálnu nainštalovanú verziu pluginu namiesto označenia ENIGMA2. Zachovať zvyšok navrhnutého rozhrania.
 
 V implementácii ide o živé textové widgety napojené na systémový čas a časové pásmo prijímača, nie o dátum a hodiny vypálené do podkladovej bitmapy. Hodnoty obnovovať počas otvorenia obrazovky vrátane zmeny dňa; rešpektovať jazyk Enigmy a nastavené letné/zimné časové pásmo. Použiť čas prijímača bez samostatnej internetovej synchronizácie z pluginu. Grafický podklad musí byť pod týmito widgetmi bez starého dátumu a času.
 
 Náhľad s údajmi Piatok, 23. októbra 2026, 10:48 je statická ilustrácia tejto požiadavky. Živé hodiny zatiaľ nie sú implementované ani overené na prijímači.
+
+## Verzia pluginu v hlavičke — doplnenie používateľa
+
+Vpravo od hodín zobrazovať aktuálnu nainštalovanú verziu PiconHub Warder Evolution, nie text ENIGMA2. Hodnotu čítať zo spoločného runtime údaja verzie použitého aj pri zostavení balíka; nesmie byť vypálená do pozadia ani predstavovať dostupnú online verziu. V návrhu sa používa vývojové označenie v0.1.0-dev1. Údaj o dostupnej aktualizácii zobrazovať osobitne v Možnostiach. Zatiaľ ide o návrh, živý widget nie je implementovaný.
