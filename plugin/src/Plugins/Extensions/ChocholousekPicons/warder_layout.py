@@ -22,8 +22,11 @@ def main_skin(width=1920, height=1080):
             label("clock",1498,32,190,85,62,align="center"),label("seconds",1690,64,56,48,32,color="#003ee8ff",align="left"),label("version",1770,45,140,60,24,align="center"),
             '<eLabel %s backgroundColor="#0019c9ff" zPosition="3" />' % box(1492,35,2,80),
             '<eLabel %s backgroundColor="#0019c9ff" zPosition="3" />' % box(1752,35,2,80),
-            label(None,60,245,900,70,46,text="Nastavenie piconov"),
-            label(None,1450,255,410,50,24,text="PICONY • WARDER",color="#003ee8ff",align="right")]
+            label(None,60,236,470,78,30,text="Posledné pridané\npicony",color="#009cf0ff")]
+    for number in range(6):
+        x=590+number*210
+        out += [fill(x,225,170,92,"#00314b65"),fill(x+1,226,168,90,"#18091b30"),
+                '<widget name="recent%d" %s alphatest="blend" zPosition="3" />' % (number,box(x+15,229,140,84))]
     # Subtle row separators and a bright selected row, independent of the TV skin.
     for y in (452,552,652,752):
         out.append(fill(145,y,1010,1,"#00314b65"))

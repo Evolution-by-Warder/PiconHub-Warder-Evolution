@@ -44,8 +44,10 @@ class PackageTests(unittest.TestCase):
                 self.assertNotIn(b"reboot",control.extractfile("./postinst").read())
             with tarfile.open(fileobj=io.BytesIO(members["data.tar.gz"]),mode="r:gz") as payload:
                 names=payload.getnames()
-                for name in ("plugin.py","warder_gui.py","warder_engine.py","warder_update.py","images/warder-background.png","images/preview-white.png","data/skin-menu.json","data/channel-manifest.json"):
+                for name in ("plugin.py","warder_gui.py","warder_engine.py","warder_update.py","warder_recent.py","images/recent/sources.json","images/warder-background.png","images/preview-white.png","data/skin-menu.json","data/channel-manifest.json"):
                     self.assertIn("./"+builder.INSTALL_ROOT+"/"+name,names)
+                recent=[name for name in names if "/images/recent/" in name and name.endswith(".png")]
+                self.assertEqual(len(recent),6)
                 self.assertFalse(any("__pycache__" in name or name.endswith(".pyc") for name in names))
                 self.assertFalse(any(name.startswith("./etc/") for name in names))
                 prefix="./"+builder.INSTALL_ROOT+"/"

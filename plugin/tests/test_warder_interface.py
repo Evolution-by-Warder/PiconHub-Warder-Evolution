@@ -98,6 +98,8 @@ class MenuTests(unittest.TestCase):
             names={item.get("name") for item in root}
             self.assertTrue({"day","date","clock","seconds","version","list","preview"}<=names)
             self.assertFalse({"profile1","profile2","profile3"}&names)
+            self.assertTrue({"recent%d" % i for i in range(6)}<=names)
+            self.assertNotIn("Nastavenie piconov",layout.main_skin(width,height))
             self.assertNotIn("profil",layout.main_skin(width,height).lower())
             fields={item.get("name"):item for item in root if item.get("name")}
             self.assertLess(int(fields["seconds"].get("font").split(";")[1]),int(fields["clock"].get("font").split(";")[1]))

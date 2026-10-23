@@ -18,6 +18,7 @@ from enigma import RT_HALIGN_LEFT, RT_VALIGN_CENTER, eListboxPythonMultiContent,
 
 from . import plugin as legacy
 from . import warder_model as model
+from . import warder_recent as recent
 from .warder_engine import PiconRunner, fetch_manifest
 from .warder_layout import dialog_skin, main_skin
 from .warder_update_ui import StartupUpdateCheck, connect_timer, installed_version
@@ -222,6 +223,7 @@ class WarderMainScreen(Screen):
         self.layout_ready=False
         self.catalog=json.loads((ROOT/"data/channel-manifest.json").read_text())
         self.catalog_results=queue.Queue()
+        self.recent_results=queue.Queue()
         self.profile_id=max(1,min(3,int(config.plugins.chocholousekpicons_id.getValue())))
         profile=self.profile
         if not hasattr(profile,"warder_selectors"):
@@ -236,6 +238,8 @@ class WarderMainScreen(Screen):
         for name in ("day","date","clock","seconds","version","preview_caption","summary","status"):
             self[name]=Label("")
         self["background"],self["preview"]=Pixmap(),Pixmap()
+        for number in range(recent.COUNT):
+            self["recent%d" % number]=Pixmap()
         self["list"]=menu_component(self.warder_scale,100,(32,29,23))
         self["actions"]=ActionMap(["OkCancelActions","DirectionActions","ColorActions"],{
             "up":self["list"].up,"down":self["list"].down,"ok":self.open_row,
@@ -256,8 +260,22 @@ class WarderMainScreen(Screen):
         self["background"].instance.setPixmapFromFile(str(ROOT/"images/warder-background.png"))
         self["background"].instance.setScale(1)
         self.tick();self.clock_timer.start(1000,False);self.refresh()
+        self.show_recent(recent.bundled(ROOT))
         self["status"].setText("Načítavam aktuálny katalóg balíkov…")
         threading.Thread(target=self.refresh_catalog,daemon=True).start()
+        threading.Thread(target=self.refresh_recent,daemon=True).start()
+
+    def refresh_recent(self):
+        self.recent_results.put(recent.load_recent(ROOT))
+
+    def show_recent(self,paths):
+        if self.closed:return
+        for number in range(recent.COUNT):
+            widget=self["recent%d" % number]
+            if number<len(paths) and widget.instance:
+                widget.instance.setPixmapFromFile(str(paths[number]))
+                widget.instance.setScale(1);widget.show()
+            else:widget.hide()
 
     def refresh_catalog(self):
         try:self.catalog_results.put((fetch_manifest(),None))
@@ -269,6 +287,8 @@ class WarderMainScreen(Screen):
         day,date,clock,seconds=model.clock_text(language=language.value if language else "sk")
         for name,value in (("day",day),("date",date),("clock",clock),("seconds",":"+seconds),("version","v"+installed_version())):
             self[name].setText(value)
+        try:self.show_recent(self.recent_results.get_nowait())
+        except queue.Empty:pass
         try:catalog,error=self.catalog_results.get_nowait()
         except queue.Empty:return
         if catalog:

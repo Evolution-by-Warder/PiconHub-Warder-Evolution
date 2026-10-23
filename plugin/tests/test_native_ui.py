@@ -132,7 +132,7 @@ class NativeControllerTests(unittest.TestCase):
         self.assertEqual(self.main.scale,((1920,1920),(1080,1080)))
         self.main.choose("style","white")
         self.assertEqual(self.main.profile_id,1)
-        worker.assert_called_once()
+        self.assertEqual(worker.call_count,2)
         self.main.cleanup()
 
     def test_satellite_picker_rebuilds_after_openatv_skin_sets_scale(self):
@@ -142,6 +142,19 @@ class NativeControllerTests(unittest.TestCase):
         dialog["list"].moveToIndex(index);dialog.accept();dialog.apply()
         self.assertEqual(dialog.result,["CANALPLUS_SK","CANALPLUS_CZ"])
         self.assertEqual(dialog.scale,((1920,1920),(1080,1080)))
+
+    def test_recent_worker_results_are_displayed_only_on_gui_tick(self):
+        paths=self.gui.recent.bundled(ROOT)
+        with patch.object(self.gui.recent,"load_recent",return_value=paths):
+            self.main.refresh_recent()
+        self.assertIsNone(self.main["recent0"].filename)
+        self.main.tick()
+        for number,path in enumerate(paths):
+            self.assertEqual(self.main["recent%d" % number].filename,str(path))
+        self.main.cleanup()
+        self.main.recent_results.put([])
+        self.main.tick()
+        self.assertTrue(self.main["recent0"].visible)
 
     def test_directory_picker_navigates_after_openatv_skin_sets_scale(self):
         with tempfile.TemporaryDirectory() as folder:
