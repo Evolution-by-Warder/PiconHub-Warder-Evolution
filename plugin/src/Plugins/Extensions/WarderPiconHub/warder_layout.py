@@ -120,7 +120,7 @@ def update_skin(width, height, kind="message", version=""):
     else:
         out.append(label("status",170,280,1570,650,32,extra='scrollbarMode="showOnDemand"'))
     for name,x,color in [("red",135,"#00ff526a"),("green",968,"#0039ff59")]:
-        out += ['<widget name="line_%s" %s backgroundColor="%s" zPosition="5" />' % (name,box(x,996,817,2),color),label("key_"+name,x,1006,817,50,28,color,'halign="center" valign="center" noWrap="1"')]
+        out += ['<widget name="line_%s" %s backgroundColor="%s" zPosition="5" />' % (name,box(x+308,996,200,2),color),label("key_"+name,x,1006,817,50,28,color,'halign="center" valign="center" noWrap="1"')]
     out.append(fill(0,984,1920,96,"#00071627",1))
     # Footer backgrounds match the surrounding page, including hidden controls.
     return localize_skin("\n".join(out+["</screen>"]))
