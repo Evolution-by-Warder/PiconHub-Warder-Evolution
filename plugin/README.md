@@ -4,6 +4,10 @@
 
 [Produkčný zápis](PRODUCTION.md) · [Stav overenia](BUILD-STATUS.md) · [Strojový záznam vydania](production.json)
 
+## Vizuálna aktualizácia 0.1.14
+
+Menšia lebka v oboch veľkostiach ikony, zarovnaná do výšky dvojriadkového nápisu. Aktualizácia sa ponúkne cez existujúcu kontrolu verzie po zverejnení overeného balíka.
+
 ## Používanie
 
 Šípkami vyber riadok a stlač OK. Vyber satelity alebo poskytovateľov, rozlíšenie, pozadie, režim a priečinok. Pri satelitoch OK označuje položky, zelené tlačidlo potvrdí výber a červené sa vráti bez zmeny.
