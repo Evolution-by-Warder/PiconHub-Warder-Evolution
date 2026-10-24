@@ -48,7 +48,8 @@ class LocalizationTests(unittest.TestCase):
             with patch.object(i18n,'language_code',return_value=code):
                 root=ET.fromstring(layout.main_skin())
                 labels={item.get('text') for item in root}
-                self.assertIn(close,labels);self.assertIn(preview,labels)
+                self.assertEqual(i18n._('Zatvoriť'),close);self.assertIn(preview,labels)
+                self.assertIsNotNone(root.find("widget[@name='key_red']"))
                 popup=ET.fromstring(layout.dialog_skin(1280,720,53,True))
                 self.assertEqual(popup.get('title'),i18n._('Výber'))
 

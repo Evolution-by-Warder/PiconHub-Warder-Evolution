@@ -32,7 +32,10 @@ def main_skin(width=1920, height=1080):
     # Subtle row separators and a bright selected row, independent of the TV skin.
     for y in (452,552,652,752):
         out.append(fill(145,y,1010,1,"#00314b65"))
-    out += ['<widget name="list" %s transparent="1" scrollbarMode="showOnDemand" enableWrapAround="1" foregroundColor="#00ffffff" foregroundColorSelected="#00ffffff" backgroundColorSelected="#002a70ad" zPosition="3" />' % box(70,350,1120,500),
+    out += ['<widget name="picker_cover" %s backgroundColor="#00102136" zPosition="4" />' % box(60,332,1140,555),
+            label("picker_title",80,340,1100,55,30,color="#003ee8ff").replace('zPosition="3"','zPosition="5"'),
+            '<widget name="panel_text" %s font="Regular;%d" foregroundColor="#00ffffff" backgroundColor="#00102136" transparent="0" scrollbarMode="showOnDemand" zPosition="5" />' % (box(85,410,1090,440),round(28*sy)),
+            '<widget name="list" %s transparent="1" scrollbarMode="showOnDemand" enableWrapAround="1" foregroundColor="#00ffffff" foregroundColorSelected="#00ffffff" backgroundColorSelected="#002a70ad" zPosition="5" />' % box(70,350,1120,500),
             label(None,1280,350,550,60,36,text=_("Náhľad piconu")),
             fill(1280,425,540,2,"#003ee8ff"),
             fill(1298,445,484,304,"#00314b65"),fill(1300,447,480,300,"#00061729"),
@@ -41,10 +44,11 @@ def main_skin(width=1920, height=1080):
             label("preview_caption",1270,750,560,44,23,align="center"),
             label("summary",1280,805,550,70,25,color="#00b5d4ec"),
             fill(60,916,4,34,"#003ee8ff",3),label("status",80,910,1780,45,25,color="#009cf0ff"),
-            label(None,60,957,1800,38,22,text=_("↑↓: výber riadka • OK: otvoriť ponuku • Vyber všetkých päť položiek a stlač Stiahnuť."),color="#00b5d4ec")]
-    for x,color,title in ((60,"#00ff526a",_("Zatvoriť")),(520,"#0000ea9b",_("Stiahnuť")),(980,"#00ffdb52",_("Aktualizácia pluginu")),(1440,"#0045b9ff",_("O projekte"))):
-        out += [fill(x,1010,420,60,"#0010243c"),fill(x,1010,420,3,color,3),
-                label(None,x+18,1018,40,45,32,text="●",color=color),label(None,x+72,1018,330,45,28,text=title)]
+            label("navigation_hint",60,957,1800,38,22,color="#00b5d4ec")]
+    for name,x,color in (("red",60,"#00ff526a"),("green",520,"#0000ea9b"),("yellow",980,"#00ffdb52"),("blue",1440,"#0045b9ff")):
+        out += ['<widget name="footer_%s" %s backgroundColor="#0010243c" zPosition="2" />' % (name,box(x,1010,420,60)),
+                '<widget name="line_%s" %s backgroundColor="%s" zPosition="3" />' % (name,box(x+110,1010,200,3),color),
+                label("key_"+name,x+10,1018,400,45,28,color=color,align="center")]
     return localize_skin("\n".join(out + ["</screen>"]))
 
 

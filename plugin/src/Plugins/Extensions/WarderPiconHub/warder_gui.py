@@ -268,6 +268,13 @@ class PiconJobScreen(Screen):
         self.closed=True;self.cancel.set();self.timer.stop()
 
 
+class PanelText(ScrollLabel):
+    def applySkin(self,desktop,parent):
+        result=ScrollLabel.applySkin(self,desktop,parent)
+        self.instance.setZPosition(5)
+        return result
+
+
 class WarderMainScreen(Screen):
     def __init__(self,session):
         width,height=desktop()
@@ -276,6 +283,8 @@ class WarderMainScreen(Screen):
         self.warder_scale=min(width/1920.0,height/1080.0)
         self.closed=False
         self.layout_ready=False
+        self.picker=None
+        self.panel=None
         self.catalog=json.loads((ROOT/"data/channel-manifest.json").read_text())
         self.catalog_results=queue.Queue()
         self.recent_results=queue.Queue()
@@ -291,16 +300,22 @@ class WarderMainScreen(Screen):
         if value not in dict(choices):choices.append((value,_("Pôvodná voľba: ")+str(value)))
         profile.background=ConfigSelection(default=value,choices=choices)
         profile.background.setValue(value)
-        for name in ("day","date","clock","seconds","version","preview_caption","summary","status"):
+        for name in ("day","date","clock","seconds","version","preview_caption","summary","status","picker_cover","picker_title","navigation_hint"):
             self[name]=Label("")
+        for color in ("red","green","yellow","blue"):
+            for prefix in ("key_","line_","footer_"):
+                self[prefix+color]=Label("")
+        self["picker_cover"].hide();self["picker_title"].hide()
+        self["panel_text"]=PanelText("")
+        self["panel_text"].hide()
         self["background"],self["preview"]=Pixmap(),Pixmap()
         self["brand_logo"]=BrandLogo(ROOT/"images/warder-emblem.png")
         for number in range(recent.COUNT):
             self["recent%d" % number]=Pixmap()
         self["list"]=menu_component(self.warder_scale,100,(32,29,23))
         self["actions"]=ActionMap(["OkCancelActions","DirectionActions","ColorActions"],{
-            "up":self["list"].up,"down":self["list"].down,"ok":self.open_row,
-            "cancel":self.exit,"red":self.exit,"green":self.update_picons,"yellow":self.check_plugin_update,"blue":self.about},-2)
+            "up":self.move_up,"down":self.move_down,"left":self.page_up,"right":self.page_down,"ok":self.open_row,
+            "cancel":self.exit,"red":self.exit,"green":self.green_action,"yellow":self.check_plugin_update,"blue":self.about},-2)
         self.clock_timer=eTimer();self.clock_connection=connect_timer(self.clock_timer,self.tick)
         self.warderUpdateCheck=StartupUpdateCheck(self)
         self.onLayoutFinish.append(self.ready)
@@ -353,6 +368,8 @@ class WarderMainScreen(Screen):
         else:self["status"].setText(_("Offline • zobrazený je priložený katalóg; picony sa nemenili."))
 
     def refresh(self):
+        if self.picker is not None or self.panel is not None:return
+        self.set_footer()
         profile=self.profile
         selections=self.selection["satellites"] or []
         labels=dict(model.SATELLITES)
@@ -400,6 +417,11 @@ class WarderMainScreen(Screen):
         self.profile.warder_selectors.save();configfile.save();self.refresh()
 
     def open_row(self):
+        if self.panel is not None:
+            if not self.panel["callback"]:self.exit()
+            return
+        if self.picker is not None:
+            self.picker_accept();return
         row=self["list"].getCurrent()
         if not row:return
         key=row[0][0]
@@ -409,14 +431,13 @@ class WarderMainScreen(Screen):
             "style":(model.STYLES,self.selection["style"]),
             "method":(model.METHODS,self.selection["method"]),
             "destination":(tuple((p,label+" — "+p) for p,label in model.DESTINATIONS)+(("custom",_("Vlastný priečinok…")),),None)}[key]
-        self.session.openWithCallback(lambda value:self.choose(key,value),ChoiceDialog,row[0][1],choices,current)
+        self.open_picker(row[0][1],choices,current,callback=lambda value:self.choose(key,value))
 
     def choose(self,key,value):
         if value is None:return
         if key=="destination":
             if value=="custom":
-                self.session.openWithCallback(lambda path:self.choose("destination",path),DirectoryDialog,
-                                              self.selection["destination"] or "/media")
+                self.open_directory(self.selection["destination"] or "/media")
                 return
             self.profile.picon_folder.setValue("user_defined");self.profile.picon_folder_user.setValue(value)
         else:
@@ -430,7 +451,119 @@ class WarderMainScreen(Screen):
         family=model.sync.family_for_style(style) if style else None
         available={p["selector_id"] for p in self.catalog["packages"] if (not family or p.get("family")==family) and (not resolution or p.get("resolution")==resolution)}
         choices=[(sid,label+(_(" • zatiaľ nedostupné") if sid not in available else "")) for sid,label in model.SATELLITES]
-        self.session.openWithCallback(self.satellites_chosen,ChoiceDialog,_("Satelity a poskytovatelia"),choices,self.selection["satellites"] or [],True)
+        self.open_picker(_("Satelity a poskytovatelia"),choices,self.selection["satellites"] or [],True,self.satellites_chosen)
+
+    def set_footer(self):
+        picking=self.picker is not None
+        multiple=picking and self.picker.multiple
+        directory=picking and self.picker_path is not None
+        captions=(_("Naspäť"),_("Použiť priečinok") if directory else _("Potvrdiť výber") if multiple else "","","") if picking else (_("Zatvoriť"),_("Stiahnuť"),_("Aktualizácia pluginu"),_("O projekte"))
+        if self.panel is not None:
+            captions=(_("Naspäť") if self.panel["enabled"] else "",self.panel["confirm"] if self.panel["enabled"] else "","","")
+        for color,text in zip(("red","green","yellow","blue"),captions):
+            self["key_"+color].setText(text)
+            for prefix in ("key_","line_","footer_"):
+                (self[prefix+color].show if text else self[prefix+color].hide)()
+        self["navigation_hint"].setText(_("Otvoriť")+" • OK" if directory else _("Vybrať s OK") if picking else _("↑↓: výber riadka • OK: otvoriť ponuku • Vyber všetkých päť položiek a stlač Stiahnuť."))
+        if self.panel is not None:self["navigation_hint"].setText("")
+
+    def move_up(self):
+        (self["panel_text"].pageUp if self.panel is not None else self["list"].up)()
+
+    def move_down(self):
+        (self["panel_text"].pageDown if self.panel is not None else self["list"].down)()
+
+    def page_up(self):
+        if self.panel is not None:self["panel_text"].pageUp()
+        elif self.picker is not None:self["list"].pageUp()
+
+    def page_down(self):
+        if self.panel is not None:self["panel_text"].pageDown()
+        elif self.picker is not None:self["list"].pageDown()
+
+    def show_update_notice(self,text,callback=None,confirm="",enabled=True):
+        if self.panel is None:self.panel_return_index=self["list"].getSelectionIndex()
+        self.panel={"callback":callback,"confirm":confirm,"enabled":enabled}
+        self["picker_title"].setText(_("Aktualizácia PiconHub Warder Evolution"))
+        self["picker_cover"].show();self["picker_title"].show()
+        self["list"].hide()
+        self["panel_text"].setText(text);self["panel_text"].show();self.set_footer()
+
+    def close_update_notice(self,accepted=False):
+        if not self.panel or not self.panel["enabled"]:return
+        callback=self.panel["callback"]
+        self.panel=None
+        self["panel_text"].hide();self["picker_cover"].hide();self["picker_title"].hide();self["list"].show()
+        self.refresh();self["list"].moveToIndex(self.panel_return_index)
+        if callback:callback(accepted)
+
+    def open_picker(self,title,choices,current=None,multiple=False,callback=None,path=None):
+        # Keep the main screen alive; only the left panel changes its contents.
+        if self.picker is None:self.picker_return_index=self["list"].getSelectionIndex()
+        self.picker=model.PickerState(choices,(current or ()) if multiple else (current,),multiple)
+        self.picker_callback=callback
+        self.picker_path=path
+        self.picker_icons={}
+        if multiple:
+            for value,label in choices:
+                icon=ROOT/"images/selectors"/(value+".png")
+                if icon.is_file():self.picker_icons[value]=LoadPixmap(path=str(icon))
+        self["picker_title"].setText(title)
+        self["picker_cover"].show();self["picker_title"].show()
+        scale=self.warder_scale
+        self["list"].instance.move(ePoint(round(70*scale),round(410*scale)))
+        self["list"].instance.resize(eSize(round(1120*scale),round(420*scale)))
+        self["list"].l.setItemHeight(round(60*scale))
+        self["list"].l.setFont(0,gFont("Regular",round(28*scale)))
+        self.picker_rebuild()
+        index=next((i for i,(value,label) in enumerate(choices) if value in self.picker.selected),0)
+        self["list"].moveToIndex(index);self.set_footer()
+
+    def picker_rebuild(self):
+        self["list"].setList(option_entries(self.picker.choices,self.picker.selected,self.warder_scale,self.picker.multiple,self.picker_icons))
+
+    def picker_accept(self):
+        item=self["list"].getCurrent()
+        if not item:return
+        value=item[0][0]
+        if self.picker_path is not None:
+            self.open_directory(value);return
+        if self.picker.multiple:
+            index=self["list"].getSelectionIndex()
+            self.picker.toggle(value);self.picker_rebuild();self["list"].moveToIndex(index)
+        else:self.close_picker(value,True)
+
+    def close_picker(self,value=None,confirmed=False):
+        callback=self.picker_callback
+        self.picker=None
+        self["picker_cover"].hide();self["picker_title"].hide()
+        scale=self.warder_scale
+        self["list"].instance.move(ePoint(round(70*scale),round(350*scale)))
+        self["list"].instance.resize(eSize(round(1120*scale),round(500*scale)))
+        self["list"].l.setItemHeight(round(100*scale))
+        self["list"].l.setFont(0,gFont("Regular",round(32*scale)))
+        self.refresh();self["list"].moveToIndex(self.picker_return_index)
+        if confirmed and callback:callback(value)
+
+    def open_directory(self,path):
+        path=pathlib.Path(path)
+        while not path.is_dir() and path!=path.parent:path=path.parent
+        try:children=sorted((p for p in path.iterdir() if p.is_dir() and not p.is_symlink()),key=lambda p:p.name.lower())
+        except OSError:children=[]
+        choices=[(str(path.parent),"..")]+[(str(p),p.name) for p in children]
+        self.open_picker(_("Priečinok: ")+str(path),choices,callback=lambda value:self.choose("destination",value),path=path)
+
+    def green_action(self):
+        if self.panel is not None:
+            if self.panel["confirm"]:self.close_update_notice(True)
+            return
+        if self.picker is None:self.update_picons();return
+        if self.picker_path is not None:
+            path=str(self.picker_path)
+            if not model.sync.validate_destination(path):
+                self["status"].setText(_("Tento priečinok nie je platný cieľ pre picony."));return
+            self.close_picker(path,True)
+        elif self.picker.multiple:self.close_picker(self.picker.apply(),True)
 
     def satellites_chosen(self,values):
         if values is None:return
@@ -461,9 +594,11 @@ class WarderMainScreen(Screen):
             self.refresh()
 
     def check_plugin_update(self):
+        if self.picker is not None or self.panel is not None:return
         self.warderUpdateCheck.request(manual=True)
 
     def about(self):
+        if self.picker is not None or self.panel is not None:return
         version=installed_version()
         text=_("PiconHub Warder Evolution\nVerzia ")+version+_("\n\nWarder Evolution\nPlugin vychádza z práce s3n0 a Chocholousek.\nKatalóg a plánovanie piconov: FullHDGlass Warder Evolution.")
         notes=load_notes(ROOT/"data/release-notes.json",version,language_code())
@@ -471,6 +606,10 @@ class WarderMainScreen(Screen):
         self.session.open(TextDialog,_("O projekte"),text)
 
     def exit(self):
+        if self.panel is not None:
+            self.close_update_notice();return
+        if self.picker is not None:
+            self.close_picker();return
         configfile.save();self.close()
 
     def cleanup(self):

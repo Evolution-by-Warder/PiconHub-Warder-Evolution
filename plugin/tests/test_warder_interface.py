@@ -136,8 +136,8 @@ class MenuTests(unittest.TestCase):
         self.assertEqual(fields["seconds"].get("font"),"Regular;38")
         self.assertGreaterEqual(int(fields["version"].get("size").split(",")[0]),210)
         self.assertLess(int(fields["clock"].get("position").split(",")[0]),1498)
-        labels={item.get("text") for item in root if item.get("text")}
-        self.assertTrue({"Zatvoriť","Stiahnuť","Aktualizácia pluginu","O projekte"}<=labels)
+        self.assertTrue({"key_red","key_green","key_yellow","key_blue"}<=fields.keys())
+        self.assertEqual(fields["key_red"].get("foregroundColor"),"#00ff526a")
 
     def test_multiselect_footer_has_button_colors_and_fits_hd(self):
         for width,height in ((1920,1080),(1280,720)):

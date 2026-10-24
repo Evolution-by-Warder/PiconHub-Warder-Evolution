@@ -367,6 +367,47 @@ class StartupTests(unittest.TestCase):
         check._answer(types.SimpleNamespace(version="0.1.1"), False)
         self.assertEqual(self.opened, [])
 
+    def test_embedded_auto_offer_waits_for_picker_and_uses_no_modal(self):
+        notices=[]
+        self.screen.show_update_notice=lambda *a,**kw:notices.append((a,kw))
+        self.screen.picker=object()
+        check=self.make_check(lambda version:types.SimpleNamespace(version="9.0.0",notes="Changes"))
+        check.start();self.tasks.pop()();check.poll()
+        self.assertEqual(notices,[])
+        self.screen.picker=None;check.poll()
+        self.assertIn("9.0.0",notices[-1][0][0])
+        self.assertEqual(notices[-1][1]["confirm"],"Potvrdiť")
+        notices[-1][1]["callback"](False)
+        self.assertEqual(self.opened,[])
+
+    def test_embedded_install_success_schedules_restart_only_after_success(self):
+        notices=[]
+        self.screen.show_update_notice=lambda *a,**kw:notices.append((a,kw))
+        with patch.object(self.ui.threading,"Thread",self.worker):
+            installer=self.ui.EmbeddedPluginInstall(self.screen,object())
+        self.assertFalse(notices[-1][1]["enabled"])
+        self.assertFalse(installer.restart_timer.running)
+        installer.results.put(("9.0.0",None))
+        with patch.object(installer.restart_timer,"start") as start:
+            installer.poll();start.assert_called_once_with(3000,True)
+        self.assertIn("3 sekundy",notices[-1][0][0])
+        self.assertEqual(self.opened,[])
+        standby=types.ModuleType("Screens.Standby");standby.TryQuitMainloop=object()
+        with patch.dict(sys.modules,{"Screens.Standby":standby}):installer.restart()
+        self.assertEqual(self.opened[-1][0],(standby.TryQuitMainloop,3))
+        installer.cleanup();self.assertFalse(installer.timer.running)
+
+    def test_embedded_install_failure_stays_readable_without_restart(self):
+        notices=[]
+        self.screen.show_update_notice=lambda *a,**kw:notices.append((a,kw))
+        with patch.object(self.ui.threading,"Thread",self.worker):
+            installer=self.ui.EmbeddedPluginInstall(self.screen,object())
+        installer.results.put((None,"offline"));installer.poll()
+        self.assertIn("offline",notices[-1][0][0])
+        self.assertNotIn("enabled",notices[-1][1])
+        self.assertFalse(installer.restart_timer.running)
+        self.assertEqual(self.opened,[])
+
     def test_release_notes_follow_language_with_english_fallback(self):
         release=types.SimpleNamespace(notes="Default",notes_i18n={"de":"Deutsch","en":"English"})
         with patch.object(self.ui,"language_code",return_value="de"):

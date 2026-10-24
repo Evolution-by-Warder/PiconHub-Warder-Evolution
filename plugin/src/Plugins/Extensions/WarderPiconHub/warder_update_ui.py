@@ -102,6 +102,8 @@ class StartupUpdateCheck:
         if not self.alive or self.busy:
             return False
         self.busy, self.manual = True, manual
+        if manual and hasattr(self.screen,"show_update_notice"):
+            self.screen.show_update_notice(_("Kontrolujem aktualizáciu pluginu…"))
         self.thread_factory(target=self._work, daemon=True).start()
         self.timer.start(250, False)
         return True
@@ -120,12 +122,17 @@ class StartupUpdateCheck:
         # the satellite picker. Never open a modal from an inactive screen.
         if getattr(self.screen.session, "current_dialog", self.screen) is not self.screen:
             return
+        if getattr(self.screen,"picker",None) is not None:
+            return
         try:
             release, error = self.results.get_nowait()
         except queue.Empty:
             return
         self.timer.stop()
         self.busy = False
+        if hasattr(self.screen,"show_update_notice"):
+            self.embedded_result(release,error)
+            return
         notice = MessageBox
         if error:
             print("[PiconHub] Plugin update check failed: " + error)
@@ -142,11 +149,59 @@ class StartupUpdateCheck:
 
     def _answer(self, release, accepted):
         if accepted and self.alive:
-            self.screen.session.open(PluginInstallScreen, release)
+            if hasattr(self.screen,"show_update_notice"):
+                self.installer=EmbeddedPluginInstall(self.screen,release)
+            else:self.screen.session.open(PluginInstallScreen, release)
+
+    def embedded_result(self,release,error):
+        if error:
+            print("[PiconHub] Plugin update check failed: "+error)
+            if self.manual:self.screen.show_update_notice(_("Kontrola aktualizácie sa nepodarila.\n")+error)
+        elif release:
+            text=update_text("offer","PiconHub Warder Evolution",current=installed_version(),new=release.version,notes=localized_notes(release),language=language_code())
+            self.screen.show_update_notice(text,callback=lambda answer:self._answer(release,answer),confirm=update_text("confirm","PiconHub Warder Evolution",language=language_code()))
+        elif self.manual:
+            self.screen.show_update_notice(update_text("current","PiconHub Warder Evolution",current=installed_version(),language=language_code()))
 
     def stop(self):
         self.alive = False
         self.timer.stop()
+
+
+class EmbeddedPluginInstall:
+    """Install off the GUI thread while the existing main panel stays visible."""
+    def __init__(self,screen,release):
+        self.screen,self.release,self.closed=screen,release,False
+        self.results=queue.Queue()
+        self.timer=eTimer();self.connection=connect_timer(self.timer,self.poll)
+        self.restart_timer=eTimer();self.restart_connection=connect_timer(self.restart_timer,self.restart)
+        screen.onClose.append(self.cleanup)
+        screen.show_update_notice(update_text("progress","PiconHub Warder Evolution",language=language_code()),enabled=False)
+        threading.Thread(target=self.work,daemon=True).start()
+        self.timer.start(250,False)
+
+    def work(self):
+        try:self.results.put((install_release(self.release),None))
+        except Exception as exc:self.results.put((None,str(exc)))
+
+    def poll(self):
+        if self.closed:return
+        try:version,error=self.results.get_nowait()
+        except queue.Empty:return
+        self.timer.stop()
+        if error:
+            self.screen.show_update_notice(_("Aktualizácia pluginu zlyhala.\n\n")+error)
+        else:
+            self.screen.show_update_notice(update_text("success","PiconHub Warder Evolution",new=version,language=language_code()),enabled=False)
+            self.restart_timer.start(3000,True)
+
+    def restart(self):
+        if not self.closed:
+            from Screens.Standby import TryQuitMainloop
+            self.screen.session.open(TryQuitMainloop,3)
+
+    def cleanup(self):
+        self.closed=True;self.timer.stop();self.restart_timer.stop()
 
 
 class PluginInstallScreen(Screen):

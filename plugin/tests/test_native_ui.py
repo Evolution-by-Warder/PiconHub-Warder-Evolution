@@ -176,9 +176,73 @@ class NativeControllerTests(unittest.TestCase):
         before=[p.method.value for p in self.config.plugins.chocholousekpicons]
         for row in range(5):
             self.main["list"].moveToIndex(row);self.main.open_row()
-            self.assertIs(self.calls[-1][1][0],self.gui.ChoiceDialog)
+            self.assertIsNotNone(self.main.picker)
+            self.assertTrue(self.main["picker_title"].visible)
+            self.assertEqual(self.main["list"].location,(70,410))
+            self.assertEqual(self.calls,[])
+            self.main.exit()
+            self.assertEqual(self.main["list"].getSelectionIndex(),row)
         self.assertEqual(self.saves,[])
         self.assertEqual([p.method.value for p in self.config.plugins.chocholousekpicons],before)
+
+    def test_embedded_satellite_cancel_discards_and_green_commits(self):
+        self.main.satellites_chosen(["FREESAT"])
+        self.main.select_satellites()
+        self.assertEqual(self.main["list"].values[0][1]["color"],0x0039ff59)
+        self.main.open_row()
+        self.main.exit()
+        self.assertEqual(self.main.selection["satellites"],["FREESAT"])
+        self.main.select_satellites()
+        self.main["list"].moveToIndex(1);self.main.open_row();self.main.green_action()
+        self.assertEqual(self.main.selection["satellites"],["FREESAT",self.gui.model.SATELLITES[1][0]])
+        self.assertIsNone(self.main.picker)
+        self.assertFalse(self.main.closed)
+        self.assertEqual(self.calls,[])
+
+    def test_embedded_single_selection_restores_row_and_footer(self):
+        self.main["list"].moveToIndex(1);self.main.open_row()
+        self.main["list"].moveToIndex(2);self.main.open_row()
+        self.assertEqual(self.main.selection["resolution"],"400x240")
+        self.assertEqual(self.main["list"].getSelectionIndex(),1)
+        self.assertEqual(self.main["list"].location,(70,350))
+        self.assertEqual(self.main["list"].dimensions,(1120,500))
+        self.assertEqual(self.main["key_green"].text,"Stiahnuť")
+        self.assertFalse(self.main["picker_cover"].visible)
+        self.assertEqual(self.calls,[])
+
+    def test_update_notice_uses_left_panel_and_blocks_install_exit(self):
+        answers=[]
+        self.main["list"].moveToIndex(3)
+        self.main.show_update_notice("New version",callback=answers.append,confirm="Potvrdiť")
+        self.assertFalse(self.main["list"].visible)
+        self.assertTrue(self.main["panel_text"].visible)
+        self.main.open_row()
+        self.assertEqual(answers,[])
+        self.main.green_action()
+        self.assertEqual(answers,[True])
+        self.assertEqual(self.main["list"].getSelectionIndex(),3)
+        self.main.show_update_notice("Installing",enabled=False)
+        self.main.exit();self.main.green_action();self.main.open_row()
+        self.assertIsNotNone(self.main.panel)
+        self.assertFalse(self.main.closed)
+        self.assertFalse(self.main["key_red"].visible)
+        self.main.show_update_notice("Failed")
+        self.main.exit()
+        self.assertIsNone(self.main.panel)
+        self.assertEqual(self.calls,[])
+
+    def test_embedded_custom_directory_navigates_and_cancels_without_saving(self):
+        with tempfile.TemporaryDirectory() as folder:
+            child=pathlib.Path(folder)/"picon";child.mkdir()
+            self.main.open_directory(folder)
+            self.main["list"].moveToIndex(1);self.main.open_row()
+            self.assertEqual(self.main.picker_path,child)
+            self.main.exit()
+            self.assertIsNone(self.main.selection["destination"])
+            self.main.open_directory(str(child))
+            self.main.green_action()
+            self.assertEqual(self.main.selection["destination"],str(child))
+            self.assertEqual(self.calls,[])
 
     def test_main_opens_after_openatv_skin_sets_scale(self):
         with patch.object(self.gui.threading,"Thread") as worker:
@@ -382,15 +446,14 @@ class NativeControllerTests(unittest.TestCase):
 
     def test_cancelled_style_picker_saves_nothing(self):
         self.main["list"].moveToIndex(2);self.main.open_row()
-        self.calls[-1][0](None)
+        self.main.exit()
         self.assertEqual(self.main.profile.background.value,"transparent")
         self.assertEqual(self.saves,[])
 
     def test_confirmed_style_changes_only_current_profile(self):
         self.main["list"].moveToIndex(2);self.main.open_row()
-        callback,args,kwargs=self.calls[-1]
-        self.assertEqual(args[2],self.gui.model.STYLES)
-        callback("white")
+        self.assertEqual(self.main.picker.choices,self.gui.model.STYLES)
+        self.main["list"].moveToIndex(1);self.main.open_row()
         self.assertEqual(self.main.profile.background.value,"white")
         self.assertEqual(self.config.plugins.chocholousekpicons[2].background.value,"transparent")
         self.assertEqual(self.saves,[1])
@@ -442,7 +505,7 @@ class NativeControllerTests(unittest.TestCase):
         self.assertEqual(self.config.plugins.chocholousekpicons[1].method.value,"sync_tv")
         self.assertEqual([row[0][0] for row in self.main["list"].values],
                          ["satellites","resolution","style","method","destination"])
-        for action in ("left","right","1","2","3"):
+        for action in ("1","2","3"):
             self.assertNotIn(action,self.main["actions"])
         self.assertFalse(any(name.startswith("profile") for name in self.main.widgets))
 
