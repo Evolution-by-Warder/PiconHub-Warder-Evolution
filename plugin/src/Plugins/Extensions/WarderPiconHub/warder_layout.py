@@ -118,7 +118,8 @@ def update_skin(width, height, kind="message", version=""):
                 label("text",260,280,1480,460,32,extra='scrollbarMode="showOnDemand"'),
                 label("list",260,770,1480,170,32,extra='itemHeight="50" foregroundColorSelected="#00ffffff" backgroundColorSelected="#002a70ad" scrollbarMode="showOnDemand"')]
     else:
-        out.append(label("status",170,280,1570,650,32,extra='scrollbarMode="showOnDemand"'))
+        out.append('<ePixmap %s pixmap="icons/input_info.png" scale="1" alphatest="blend" zPosition="5" />' % box(170,280,70,70))
+        out.append(label("status",260,280,1480,650,32,extra='scrollbarMode="showOnDemand"'))
     for name,x,color in [("red",135,"#00ff526a"),("green",968,"#0039ff59")]:
         out += ['<widget name="line_%s" %s backgroundColor="%s" zPosition="5" />' % (name,box(x+308,996,200,2),color),label("key_"+name,x,1006,817,50,28,color,'halign="center" valign="center" noWrap="1"')]
     out.append(fill(0,984,1920,96,"#00071627",1))

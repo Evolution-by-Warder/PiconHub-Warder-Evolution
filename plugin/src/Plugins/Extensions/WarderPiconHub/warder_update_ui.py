@@ -13,6 +13,7 @@ from Screens.Screen import Screen
 from enigma import eTimer
 
 from .warder_layout import update_skin
+from .warderUpdateText import update_text
 from .warder_update import check_release, install_release
 
 
@@ -64,7 +65,7 @@ class MessageBox(NativeMessageBox):
         for color in ("red", "green"):
             self["line_"+color] = Label("")
         self["key_red"] = Label(_("Naspäť"))
-        self["key_green"] = Label(_("Potvrdiť výber") if self.list else "")
+        self["key_green"] = Label(update_text("confirm", "PiconHub Warder Evolution", language=language_code()) if self.list else "")
         enabled = kwargs.get("enable_input", True) and kwargs.get("enableInput", True)
         self["warderActions"] = ActionMap(["ColorActions"], {"red":self.cancel,"green":self.select}, -3)
         self["warderActions"].setEnabled(enabled)
@@ -132,13 +133,11 @@ class StartupUpdateCheck:
                 self.screen.session.open(notice, _("Kontrola aktualizácie sa nepodarila.\n") + error,
                                          type=MessageBox.TYPE_ERROR, timeout=10)
         elif release:
-            text = (_("Dostupná je nová verzia PiconHub Warder Evolution.\n\n"
-                    "Nainštalovaná: %s\nNová verzia: %s\n\n%s\n\nNainštalovať aktualizáciu?")
-                    % (installed_version(), release.version, localized_notes(release)))
+            text = update_text("offer", "PiconHub Warder Evolution", current=installed_version(), new=release.version, notes=localized_notes(release), language=language_code())
             self.screen.session.openWithCallback(lambda answer: self._answer(release, answer),
                                                  notice, text, type=notice.TYPE_YESNO, default=False)
         elif self.manual:
-            self.screen.session.open(notice, _("Máš aktuálnu verziu, nie je potrebná aktualizácia.") + "\n\n" + installed_version(),
+            self.screen.session.open(notice, update_text("current", "PiconHub Warder Evolution", current=installed_version(), language=language_code()),
                                      type=MessageBox.TYPE_INFO, timeout=6)
 
     def _answer(self, release, accepted):
@@ -166,7 +165,7 @@ class PluginInstallScreen(Screen):
         self["line_red"].hide()
         self["line_green"] = Label("")
         self["line_green"].hide()
-        self["status"] = UpdateText(_("Sťahujem a overujem aktualizáciu pluginu.\nPočas inštalácie nevypínajte prijímač."))
+        self["status"] = UpdateText(update_text("progress", "PiconHub Warder Evolution", language=language_code()))
         self["actions"] = ActionMap(["OkCancelActions","ColorActions"], {"ok": self.finish, "cancel": self.finish,"red": self.finish}, -2)
         self["scrollActions"] = ActionMap(["DirectionActions"], {"up":self["status"].pageUp,"down":self["status"].pageDown}, -3)
         self.timer = eTimer()
@@ -203,7 +202,7 @@ class PluginInstallScreen(Screen):
             return
         self["status"].setText(_("Plugin bol aktualizovaný na verziu ") + version + ".")
         self.session.openWithCallback(self.restart_after_notice, MessageBox,
-                                      _("Plugin bol aktualizovaný na verziu %s.\nO 3 sekundy sa reštartuje GUI.") % version,
+                                      update_text("success", "PiconHub Warder Evolution", new=version, language=language_code()),
                                       type=MessageBox.TYPE_INFO, timeout=3, enable_input=False)
 
     def restart_after_notice(self, *args):

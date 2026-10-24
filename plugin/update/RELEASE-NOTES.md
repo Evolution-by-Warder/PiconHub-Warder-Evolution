@@ -1,5 +1,3 @@
-# PiconHub Warder Evolution 0.1.20
+# PiconHub Warder Evolution 0.1.21
 
-Spodná časť aktualizačných okien tvorí jeden celok. Ak je dostupné iba Naspäť, prázdne druhé tlačidlo sa nezobrazuje. Súčasťou je aj zjednotené znenie hlásenia o aktuálnej verzii podľa FullHDGlass.
-
-Farebné čiary nad tlačidlami sú kratšie a vycentrované nad príslušným nápisom.
+Spoločná viacjazyčná šablóna textov aktualizácie vo FullHDGlass a PiconHub: rovnaká ponuka, priebeh, dokončenie a tlačidlo Potvrdiť. Mení sa iba názov projektu, verzia a popis zmien.

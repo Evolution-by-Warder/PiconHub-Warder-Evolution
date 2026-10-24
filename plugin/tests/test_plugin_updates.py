@@ -224,6 +224,8 @@ class StartupTests(unittest.TestCase):
     def setUp(self):
         language_patch=patch.object(self.i18n,"language_code",return_value="sk")
         language_patch.start();self.addCleanup(language_patch.stop)
+        ui_language_patch=patch.object(self.ui,"language_code",return_value="sk")
+        ui_language_patch.start();self.addCleanup(ui_language_patch.stop)
         self.tasks, self.opened = [], []
         test = self
         class Worker:
@@ -327,7 +329,7 @@ class StartupTests(unittest.TestCase):
         check=self.make_check();check.request(manual=True);self.tasks.pop()();check.poll()
         args,kwargs=self.opened[0]
         self.assertIs(args[0],self.ui.MessageBox)
-        self.assertEqual(args[1],"Máš aktuálnu verziu, nie je potrebná aktualizácia.\n\n"+self.ui.installed_version())
+        self.assertEqual(args[1],self.ui.update_text("current","PiconHub Warder Evolution",current=self.ui.installed_version(),language="sk"))
         self.assertEqual(kwargs['timeout'],6)
 
     def test_offline_startup_is_silent_and_does_not_close_plugin(self):
