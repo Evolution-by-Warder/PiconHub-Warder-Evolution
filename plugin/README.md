@@ -4,9 +4,9 @@
 
 [Produkčný zápis](PRODUCTION.md) · [Stav overenia](BUILD-STATUS.md) · [Strojový záznam vydania](production.json)
 
-## Vizuálna aktualizácia 0.1.14
+## Vizuálna aktualizácia 0.1.15
 
-Menšia lebka v oboch veľkostiach ikony, zarovnaná do výšky dvojriadkového nápisu. Aktualizácia sa ponúkne cez existujúcu kontrolu verzie po zverejnení overeného balíka.
+Spoločná okrúhla lebka s FullHDGlass, širší čitateľný nápis PICON / HUB a priehľadné pozadie v oboch veľkostiach ikony. Overená verzia 0.1.15 je dostupná cez aktualizáciu pluginu. Spoločný podklad a pravidlá sú v artwork/templates/warder-brand/. Toto vydanie nedeklaruje nový fyzický test prijímača.
 
 ## Používanie
 

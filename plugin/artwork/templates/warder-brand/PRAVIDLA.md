@@ -1,7 +1,7 @@
 # Warder Evolution — spoločná šablóna loga
 
 Schválený vizuálny vzor: 24. október 2026.
-Referenčný súbor: Warder-Evolution-vzor.png (FullHDGlass a PiconHub).
+Výrobný podklad loga: piconhub-master.png. Spoločná lebka: warder-shared-skull.png; používa sa bez zmien aj vo FullHDGlass.
 
 ## Záväzné pravidlá pre ďalšie projekty
 
