@@ -137,8 +137,8 @@ class StartupUpdateCheck:
             self.screen.session.openWithCallback(lambda answer: self._answer(release, answer),
                                                  notice, text, type=notice.TYPE_YESNO, default=False)
         elif self.manual:
-            self.screen.session.open(notice, _("Novšie vydanie pluginu nie je dostupné."),
-                                     type=MessageBox.TYPE_INFO, timeout=8)
+            self.screen.session.open(notice, _("Máš aktuálnu verziu, nie je potrebná aktualizácia.") + "\n\n" + installed_version(),
+                                     type=MessageBox.TYPE_INFO, timeout=6)
 
     def _answer(self, release, accepted):
         if accepted and self.alive:

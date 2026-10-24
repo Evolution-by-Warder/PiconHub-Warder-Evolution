@@ -323,6 +323,13 @@ class StartupTests(unittest.TestCase):
         self.assertEqual(len(self.opened), 1)
         self.assertEqual(self.opened[0][1]["type"], self.ui.MessageBox.TYPE_YESNO)
 
+    def test_current_version_notice_matches_fullhdglass_text_and_line_spacing(self):
+        check=self.make_check();check.request(manual=True);self.tasks.pop()();check.poll()
+        args,kwargs=self.opened[0]
+        self.assertIs(args[0],self.ui.MessageBox)
+        self.assertEqual(args[1],"Máš aktuálnu verziu, nie je potrebná aktualizácia.\n\n"+self.ui.installed_version())
+        self.assertEqual(kwargs['timeout'],6)
+
     def test_offline_startup_is_silent_and_does_not_close_plugin(self):
         def offline(version):
             raise OSError("offline")

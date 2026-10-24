@@ -1,3 +1,3 @@
-# PiconHub Warder Evolution 0.1.17
+# PiconHub Warder Evolution 0.1.18
 
-Zjednotený celoplošný vzhľad aktualizačných okien s FullHDGlass: vlastný banner PiconHub, nepriehľadné pozadie, rám a farebné tlačidlá. Automatická ponuka po spustení aj ručná kontrola, priebeh, chyba a úspešné dokončenie používajú rovnaký štýl. Zachovaný automatický reštart GUI po 3 sekundách.
+Zjednotené znenie a riadkovanie hlásenia o aktuálnej verzii podľa FullHDGlass. Rovnaká veta, prázdny riadok a číslo nainštalovanej verzie. Zachované preklady a existujúca aktualizácia.
