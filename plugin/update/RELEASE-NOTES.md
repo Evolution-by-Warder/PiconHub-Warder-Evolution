@@ -1,3 +1,3 @@
-# PiconHub Warder Evolution 0.1.24
+# PiconHub Warder Evolution 0.1.25
 
-Sťahovanie, overovanie, rozbaľovanie a zápis piconov aj výsledok sa zobrazujú v ľavom paneli hlavnej obrazovky. Log a O projekte používajú rovnaký panel. Banner a pravý náhľad zostávajú viditeľné. Zachované je bezpečné prerušenie, posúvanie textu a reset výberu po úspešnom dokončení.
+Vlastný priečinok sa otvára od / a zobrazuje aj skryté adresáre a odkazy na priečinky, napríklad /tmp a /hdd. Pri potvrdení sa uloží skutočný cieľ odkazu.

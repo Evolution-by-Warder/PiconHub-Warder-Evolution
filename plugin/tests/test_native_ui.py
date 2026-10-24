@@ -238,6 +238,39 @@ class NativeControllerTests(unittest.TestCase):
         self.assertIsNone(self.main.panel)
         self.assertEqual(self.calls,[])
 
+    def test_custom_directory_always_starts_at_root(self):
+        self.main.selection["destination"]="/media/hdd/picon"
+        self.main.choose("destination","custom")
+        self.assertEqual(self.main.picker_path,pathlib.Path("/"))
+        self.assertNotIn("..",[label for value,label in self.main.picker.choices])
+        self.main.exit()
+        self.assertEqual(self.main.selection["destination"],"/media/hdd/picon")
+
+    def test_directory_aliases_hidden_directories_and_mounts_are_browsable(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root=pathlib.Path(folder);target=root/"media"/"disk";target.mkdir(parents=True)
+            temporary=root/"run"/"tmp";temporary.mkdir(parents=True)
+            (root/"hdd").symlink_to(target,target_is_directory=True)
+            (root/"tmp").symlink_to(temporary,target_is_directory=True)
+            (root/".hidden").mkdir()
+            (root/"file").write_text("regular file")
+            (root/"broken").symlink_to(root/"missing")
+            (root/"loop").symlink_to(root/"loop")
+            expected={"..","media","run","hdd","tmp",".hidden"}
+            for picker in (self.main,self.gui.DirectoryDialog(self.session,folder)):
+                if picker is self.main:
+                    picker.open_directory(folder);choices=picker.picker.choices
+                else:choices=picker.directory_choices()
+                self.assertEqual({label for value,label in choices},expected)
+            self.main["list"].moveToIndex(next(i for i,row in enumerate(self.main.picker.choices) if row[1]=="hdd"))
+            self.main.open_row()
+            self.assertEqual(self.main.picker_path,root/"hdd")
+            self.main.green_action()
+            self.assertEqual(self.main.selection["destination"],str(target))
+            dialog=self.gui.DirectoryDialog(self.session,str(root/"tmp"))
+            dialog.apply()
+            self.assertEqual(dialog.result,str(temporary))
+
     def test_embedded_custom_directory_navigates_and_cancels_without_saving(self):
         with tempfile.TemporaryDirectory() as folder:
             child=pathlib.Path(folder)/"picon";child.mkdir()

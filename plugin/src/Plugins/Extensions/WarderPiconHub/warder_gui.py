@@ -30,6 +30,31 @@ from .warder_update_ui import StartupUpdateCheck, connect_timer, installed_versi
 ROOT = pathlib.Path(__file__).parent
 
 
+def directory_choices(path):
+    """Include directory aliases used by receiver images, retaining their names."""
+    children = []
+    try:
+        for child in path.iterdir():
+            try:
+                if child.is_dir():children.append(child)
+            except OSError:
+                continue
+    except OSError:
+        pass
+    children.sort(key=lambda child:child.name.lower())
+    parents = [(str(path.parent), "..")] if path != path.parent else []
+    return parents + [(str(child), child.name) for child in children]
+
+
+def directory_destination(path):
+    # Explicitly selecting an alias records its real directory. The installer
+    # still validates this canonical path and refuses changed symlinks.
+    try:
+        return model.sync.validate_destination(str(path.resolve(strict=True)))
+    except (OSError, RuntimeError):
+        return None
+
+
 def desktop():
     size = getDesktop(0).size()
     return size.width(), size.height()
@@ -134,11 +159,7 @@ class DirectoryDialog(ChoiceDialog):
         self["hint_green"].setText(_("Použiť priečinok"))
 
     def directory_choices(self):
-        try:
-            children = sorted((p for p in self.path.iterdir() if p.is_dir() and not p.is_symlink()),key=lambda p:p.name.lower())
-        except OSError:
-            children = []
-        return [(str(self.path.parent),"..")]+[(str(p),p.name) for p in children]
+        return directory_choices(self.path)
 
     def accept(self):
         item = self["list"].getCurrent()
@@ -149,10 +170,11 @@ class DirectoryDialog(ChoiceDialog):
             self.rebuild()
 
     def apply(self):
-        if not model.sync.validate_destination(str(self.path)):
+        destination = directory_destination(self.path)
+        if not destination:
             self.session.open(MessageBox,_("Tento priečinok nie je platný cieľ pre picony."),type=MessageBox.TYPE_ERROR)
             return
-        self.close(str(self.path))
+        self.close(destination)
 
 
 class TextDialog(Screen):
@@ -485,7 +507,7 @@ class WarderMainScreen(Screen):
         if value is None:return
         if key=="destination":
             if value=="custom":
-                self.open_directory(self.selection["destination"] or "/media")
+                self.open_directory("/")
                 return
             self.profile.picon_folder.setValue("user_defined");self.profile.picon_folder_user.setValue(value)
         else:
@@ -602,9 +624,7 @@ class WarderMainScreen(Screen):
     def open_directory(self,path):
         path=pathlib.Path(path)
         while not path.is_dir() and path!=path.parent:path=path.parent
-        try:children=sorted((p for p in path.iterdir() if p.is_dir() and not p.is_symlink()),key=lambda p:p.name.lower())
-        except OSError:children=[]
-        choices=[(str(path.parent),"..")]+[(str(p),p.name) for p in children]
+        choices=directory_choices(path)
         self.open_picker(_("Priečinok: ")+str(path),choices,callback=lambda value:self.choose("destination",value),path=path)
 
     def green_action(self):
@@ -613,8 +633,8 @@ class WarderMainScreen(Screen):
             return
         if self.picker is None:self.update_picons();return
         if self.picker_path is not None:
-            path=str(self.picker_path)
-            if not model.sync.validate_destination(path):
+            path=directory_destination(self.picker_path)
+            if not path:
                 self["status"].setText(_("Tento priečinok nie je platný cieľ pre picony."));return
             self.close_picker(path,True)
         elif self.picker.multiple:self.close_picker(self.picker.apply(),True)
