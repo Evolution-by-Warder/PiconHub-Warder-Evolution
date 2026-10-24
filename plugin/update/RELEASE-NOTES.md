@@ -1,3 +1,3 @@
-# PiconHub Warder Evolution 0.1.16
+# PiconHub Warder Evolution 0.1.17
 
-Mierne zmenšená lebka v ikone pluginu. Pomer plátna 5:3 ako pri FullHDGlass zabraňuje zvislému natiahnutiu pri zobrazení v zozname pluginov. Nápis a dizajn zostávajú zachované.
+Zjednotený celoplošný vzhľad aktualizačných okien s FullHDGlass: vlastný banner PiconHub, nepriehľadné pozadie, rám a farebné tlačidlá. Automatická ponuka po spustení aj ručná kontrola, priebeh, chyba a úspešné dokončenie používajú rovnaký štýl. Zachovaný automatický reštart GUI po 3 sekundách.

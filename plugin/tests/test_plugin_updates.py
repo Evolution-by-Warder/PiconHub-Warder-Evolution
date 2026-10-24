@@ -172,6 +172,35 @@ class Timer:
         self.running = False
 
 
+class Widget:
+    def __init__(self,text=""):self.text=text;self.visible=True
+    def hide(self):self.visible=False
+    def show(self):self.visible=True
+    def setText(self,text):self.text=text
+    def pageUp(self):pass
+    def pageDown(self):pass
+
+class Actions:
+    def __init__(self,contexts,actions,priority):self.actions=actions;self.enabled=True
+    def setEnabled(self,value):self.enabled=value
+
+class GuiScreen(dict):
+    def __init__(self,session):
+        super().__init__();self.session=session;self.onLayoutFinish=[];self.onClose=[];self.returned=None
+    def close(self,*args):self.returned=args
+
+
+class NativeMessage(dict):
+    TYPE_INFO=0;TYPE_ERROR=1;TYPE_YESNO=2
+    def __init__(self,session,text,type=2,default=True,**kwargs):
+        super().__init__();self.text=text;self.onClose=[];self.timer=Timer();self.returned=None
+        self.list=[('Yes',True),('No',False)] if type==2 else None
+        self.selection=default
+    def close(self,result=None):self.returned=result
+    def cancel(self):self.close(False)
+    def select(self):self.close(self.selection if self.list else True)
+
+
 class StartupTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
@@ -179,12 +208,15 @@ class StartupTests(unittest.TestCase):
         package.__path__ = [str(RUNTIME)]
         modules = {"warder_update_test_runtime": package}
         for name, attribute, value in (
-            ("Components.ActionMap", "ActionMap", object), ("Components.Label", "Label", object),
-            ("Screens.Screen", "Screen", object), ("enigma", "eTimer", Timer),
-            ("Screens.MessageBox", "MessageBox", types.SimpleNamespace(TYPE_INFO=0, TYPE_ERROR=1, TYPE_YESNO=2))):
+            ("Components.ActionMap", "ActionMap", Actions), ("Components.Label", "Label", Widget),
+            ("Components.ScrollLabel", "ScrollLabel", Widget),
+            ("Screens.Screen", "Screen", GuiScreen), ("enigma", "eTimer", Timer),
+            ("Screens.MessageBox", "MessageBox", NativeMessage)):
             module = types.ModuleType(name)
             setattr(module, attribute, value)
             modules[name] = module
+        modules["enigma"].getDesktop=lambda index:types.SimpleNamespace(size=lambda:types.SimpleNamespace(width=lambda:1920,height=lambda:1080))
+        cls.desktop_module=modules["enigma"]
         with patch.dict(sys.modules, modules):
             cls.ui = load_module("warder_update_test_runtime.warder_update_ui", RUNTIME / "warder_update_ui.py")
             cls.i18n = sys.modules["warder_update_test_runtime.warder_i18n"]
@@ -204,6 +236,55 @@ class StartupTests(unittest.TestCase):
                                         openWithCallback=lambda *a, **kw: self.opened.append((a, kw)))
         self.screen = types.SimpleNamespace(onLayoutFinish=[], onClose=[], session=session)
         session.current_dialog = self.screen
+
+    def test_automatic_and_manual_offers_use_the_same_owned_fullscreen_dialog(self):
+        import xml.etree.ElementTree as ET
+        for manual in (False,True):
+            self.opened.clear();check=self.make_check(lambda version:types.SimpleNamespace(version="0.1.17",notes="Changes"))
+            check.request(manual=manual);self.tasks.pop()();check.poll()
+            self.assertIs(self.opened[0][0][1],self.ui.MessageBox)
+        with patch.dict(sys.modules,{"enigma":self.desktop_module}):
+            box=self.ui.MessageBox(None,'New version and release notes',type=self.ui.MessageBox.TYPE_YESNO,default=False)
+        self.assertEqual(box['text'].text,'New version and release notes')
+        box['warderActions'].actions['green']();self.assertFalse(box.returned)
+        root=ET.fromstring(box.skin);self.assertEqual(root.get('size'),'1920,1080')
+        self.assertIsNotNone(root.find("ePixmap"))
+        self.assertIn('WarderPiconHub/images/warder-background.png',box.skin)
+        self.assertIn('global.CurrentTime',box.skin)
+        self.assertIn('name="key_red"',box.skin)
+        self.assertIn('name="key_green"',box.skin)
+
+    def test_noninteractive_notice_and_install_share_the_same_frame(self):
+        import xml.etree.ElementTree as ET
+        with patch.dict(sys.modules,{"enigma":self.desktop_module}):
+            box=self.ui.MessageBox(None,'Restart in 3 seconds',type=self.ui.MessageBox.TYPE_INFO,enable_input=False)
+        self.assertFalse(box['warderActions'].enabled)
+        self.assertFalse(box['key_red'].visible)
+        self.assertFalse(box['key_green'].visible)
+        layouts=[ET.fromstring(self.ui.update_skin(1920,1080,kind=k)) for k in ('message','install')]
+        self.assertEqual([ET.tostring(n) for n in layouts[0].findall('eLabel')[:5]],
+                         [ET.tostring(n) for n in layouts[1].findall('eLabel')[:5]])
+        for width,height in ((1920,1080),(1280,720)):
+            for kind in ('message','install'):
+                root=ET.fromstring(self.ui.update_skin(width,height,kind=kind))
+                for element in root:
+                    if element.get('position'):
+                        x,y=map(int,element.get('position').split(','));w,h=map(int,element.get('size').split(','))
+                        self.assertLessEqual(x+w,width);self.assertLessEqual(y+h,height)
+
+    def test_install_failure_keeps_owned_frame_and_only_enables_back_when_done(self):
+        import xml.etree.ElementTree as ET
+        with patch.dict(sys.modules,{"enigma":self.desktop_module}):
+            box=self.ui.PluginInstallScreen(self.screen.session,types.SimpleNamespace(version='0.1.17'))
+        self.assertEqual(ET.fromstring(box.skin).get('size'),'1920,1080')
+        self.assertNotIn('hint_red',box)
+        self.assertFalse(box['key_red'].visible)
+        box.finish();self.assertIsNone(box.returned)
+        box.results.put((None,'opkg failed'));box.poll()
+        self.assertTrue(box['key_red'].visible);self.assertTrue(box['line_red'].visible)
+        self.assertIn('opkg failed',box['status'].text)
+        self.assertEqual(self.opened,[])
+        box.finish();self.assertEqual(box.returned,())
 
     def test_version_reader_survives_a_file_replacement_gap(self):
         import tempfile
@@ -289,7 +370,7 @@ class StartupTests(unittest.TestCase):
         opened=[]
         class Installer(dict):
             pass
-        installer=Installer(status=types.SimpleNamespace(setText=lambda text:None),hint_red=types.SimpleNamespace(show=lambda:None))
+        installer=Installer(status=types.SimpleNamespace(setText=lambda text:None),key_red=types.SimpleNamespace(show=lambda:None))
         installer.closed=False;installer.done=False;installer.timer=Timer();installer.results=queue.Queue()
         installer.results.put(("0.1.1",None))
         installer.restart_after_notice=lambda *args:self.ui.PluginInstallScreen.restart_after_notice(installer,*args)
@@ -312,7 +393,7 @@ class StartupTests(unittest.TestCase):
         import queue
         class Installer(dict):
             pass
-        installer=Installer(status=types.SimpleNamespace(setText=lambda text:None),hint_red=types.SimpleNamespace(show=lambda:None))
+        installer=Installer(status=types.SimpleNamespace(setText=lambda text:None),key_red=types.SimpleNamespace(show=lambda:None))
         installer.closed=False;installer.done=False;installer.timer=Timer();installer.results=queue.Queue()
         installer.results.put((None,"opkg failed"))
         installer.session=self.screen.session

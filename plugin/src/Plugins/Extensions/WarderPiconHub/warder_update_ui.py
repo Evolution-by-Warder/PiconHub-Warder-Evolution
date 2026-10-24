@@ -7,11 +7,12 @@ import threading
 
 from Components.ActionMap import ActionMap
 from Components.Label import Label
-from Screens.MessageBox import MessageBox
+from Components.ScrollLabel import ScrollLabel
+from Screens.MessageBox import MessageBox as NativeMessageBox
 from Screens.Screen import Screen
 from enigma import eTimer
 
-from .warder_layout import dialog_skin
+from .warder_layout import update_skin
 from .warder_update import check_release, install_release
 
 
@@ -41,6 +42,43 @@ def connect_timer(timer, callback):
         timer.callback.append(callback)
         return None
     return timer.timeout.connect(callback)
+
+
+class UpdateText(ScrollLabel):
+    def applySkin(self, desktop, parent):
+        result = ScrollLabel.applySkin(self, desktop, parent)
+        self.instance.setZPosition(5)
+        return result
+
+
+class MessageBox(NativeMessageBox):
+    """Only plugin-update notices use the owned full-screen Warder design."""
+    def __init__(self, session, *args, **kwargs):
+        from enigma import getDesktop
+        size = getDesktop(0).size()
+        NativeMessageBox.__init__(self, session, *args, **kwargs)
+        self.skin = update_skin(size.width(), size.height(), version=installed_version())
+        self.skinName = ["WarderPiconHubUpdateMessage"]
+        self["text"] = UpdateText(self.text)
+        self["title"] = Label(_("Aktualizácia PiconHub Warder Evolution"))
+        for color in ("red", "green"):
+            self["line_"+color] = Label("")
+        self["key_red"] = Label(_("Naspäť"))
+        self["key_green"] = Label(_("Potvrdiť výber") if self.list else "")
+        enabled = kwargs.get("enable_input", True) and kwargs.get("enableInput", True)
+        self["warderActions"] = ActionMap(["ColorActions"], {"red":self.cancel,"green":self.select}, -3)
+        self["warderActions"].setEnabled(enabled)
+        self["warderScroll"] = ActionMap(["DirectionActions"], {"up":self["text"].pageUp,"down":self["text"].pageDown}, -3)
+        self["warderScroll"].setEnabled(enabled and not bool(self.list))
+        if not self.list:
+            self["line_green"].hide()
+        if not enabled:
+            for name in ("line_red","key_red","key_green"):
+                self[name].hide()
+        self.onClose.append(self.timer.stop)
+
+    def autoResize(self):
+        pass
 
 
 class StartupUpdateCheck:
@@ -86,19 +124,20 @@ class StartupUpdateCheck:
             return
         self.timer.stop()
         self.busy = False
+        notice = MessageBox
         if error:
             print("[PiconHub] Plugin update check failed: " + error)
             if self.manual:
-                self.screen.session.open(MessageBox, _("Kontrola aktualizácie sa nepodarila.\n") + error,
+                self.screen.session.open(notice, _("Kontrola aktualizácie sa nepodarila.\n") + error,
                                          type=MessageBox.TYPE_ERROR, timeout=10)
         elif release:
             text = (_("Dostupná je nová verzia PiconHub Warder Evolution.\n\n"
                     "Nainštalovaná: %s\nNová verzia: %s\n\n%s\n\nNainštalovať aktualizáciu?")
                     % (installed_version(), release.version, localized_notes(release)))
             self.screen.session.openWithCallback(lambda answer: self._answer(release, answer),
-                                                 MessageBox, text, type=MessageBox.TYPE_YESNO, default=False)
+                                                 notice, text, type=notice.TYPE_YESNO, default=False)
         elif self.manual:
-            self.screen.session.open(MessageBox, _("Novšie vydanie pluginu nie je dostupné."),
+            self.screen.session.open(notice, _("Novšie vydanie pluginu nie je dostupné."),
                                      type=MessageBox.TYPE_INFO, timeout=8)
 
     def _answer(self, release, accepted):
@@ -114,15 +153,21 @@ class PluginInstallScreen(Screen):
     def __init__(self, session, release):
         from enigma import getDesktop
         size = getDesktop(0).size()
-        self.skin = dialog_skin(size.width(),size.height(),5,kind="install",title="Aktualizácia PiconHub Warder Evolution")
+        self.skin = update_skin(size.width(),size.height(),kind="install",version=installed_version())
         Screen.__init__(self, session)
         self.release, self.started, self.done, self.closed = release, False, False, False
         self.results = queue.Queue()
         self["title"] = Label(_("Aktualizácia PiconHub Warder Evolution"))
-        self["hint_red"] = Label(_("Naspäť"))
-        self["hint_red"].hide()
-        self["status"] = Label(_("Sťahujem a overujem aktualizáciu pluginu.\nPočas inštalácie nevypínajte prijímač."))
+        self["key_red"] = Label(_("Naspäť"))
+        self["key_red"].hide()
+        self["key_green"] = Label("")
+        self["line_red"] = Label("")
+        self["line_red"].hide()
+        self["line_green"] = Label("")
+        self["line_green"].hide()
+        self["status"] = UpdateText(_("Sťahujem a overujem aktualizáciu pluginu.\nPočas inštalácie nevypínajte prijímač."))
         self["actions"] = ActionMap(["OkCancelActions","ColorActions"], {"ok": self.finish, "cancel": self.finish,"red": self.finish}, -2)
+        self["scrollActions"] = ActionMap(["DirectionActions"], {"up":self["status"].pageUp,"down":self["status"].pageDown}, -3)
         self.timer = eTimer()
         self.connection = connect_timer(self.timer, self.poll)
         self.onLayoutFinish.append(self.start)
@@ -151,7 +196,9 @@ class PluginInstallScreen(Screen):
         self.done = True
         if error:
             self["status"].setText(_("Aktualizácia pluginu zlyhala.\n\n") + error)
-            self["hint_red"].show()
+            self["key_red"].show()
+            if "line_red" in self:
+                self["line_red"].show()
             return
         self["status"].setText(_("Plugin bol aktualizovaný na verziu ") + version + ".")
         self.session.openWithCallback(self.restart_after_notice, MessageBox,

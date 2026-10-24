@@ -93,3 +93,33 @@ def dialog_skin(width, height, rows=8, multiple=False, kind="choice", title="Vý
                       extra='halign="center" valign="center" noWrap="1"')
                for index,(name,x,wide,color) in enumerate(footer))
     return localize_skin("\n".join(out+["</screen>"]))
+
+
+def update_skin(width, height, kind="message", version=""):
+    """Full-screen Warder update family, independent of the active TV skin."""
+    sx, sy = width / 1920.0, height / 1080.0
+    def box(x,y,w,h):
+        return 'position="%d,%d" size="%d,%d"' % (round(x*sx),round(y*sy),round(w*sx),round(h*sy))
+    def label(name,x,y,w,h,font=30,color="#00ffffff",extra=""):
+        return '<widget name="%s" %s font="Regular;%d" foregroundColor="%s" backgroundColor="%s" transparent="0" zPosition="5" %s />' % (name,box(x,y,w,h),round(font*sy),color,"#00071627" if y>=996 else "#00102136",extra)
+    def fill(x,y,w,h,color,z=1):
+        return '<eLabel %s backgroundColor="%s" zPosition="%d" />' % (box(x,y,w,h),color,z)
+    out=['<screen position="0,0" size="%d,%d" flags="wfNoBorder" backgroundColor="#00071627">' % (width,height),
+         '<ePixmap %s pixmap="/usr/lib/enigma2/python/Plugins/Extensions/WarderPiconHub/images/warder-background.png" scale="1" zPosition="0" />' % box(0,0,1920,1080),
+         fill(135,244,1650,716,"#00102136"),fill(135,244,1650,2,"#003ee8ff"),fill(135,958,1650,2,"#003ee8ff"),
+         fill(135,244,2,716,"#003ee8ff"),fill(1783,244,2,716,"#003ee8ff"),
+         label("title",850,170,900,42,26,"#003ee8ff",'halign="center" valign="center"')]
+    for x,y,w,h,font,fmt,align in [(1120,25,250,36,25,"%A","right"),(1020,70,350,36,24,"%d. %B %Y","right"),(1398,32,190,85,62,"%H:%M","center"),(1590,58,66,54,38,":%S","left")]:
+        out.append('<widget source="global.CurrentTime" render="Label" %s font="Regular;%d" foregroundColor="#00ffffff" transparent="1" zPosition="5" halign="%s" valign="center" noWrap="1"><convert type="ClockToText">Format:%s</convert></widget>' % (box(x,y,w,h),round(font*sy),align,fmt))
+    out += [fill(1392,25,2,84,"#003ee8ff",5),fill(1664,25,2,84,"#003ee8ff",5),
+            '<eLabel %s text="%s" font="Regular;%d" foregroundColor="#003ee8ff" transparent="1" halign="center" valign="center" noWrap="1" zPosition="5" />' % (box(1680,40,210,76),escape("v"+version),round(23*sy))]
+    if kind=="message":
+        out += ['<widget name="icon" %s pixmaps="icons/input_question.png,icons/input_info.png,icons/input_warning.png,icons/input_error.png,icons/input_message.png" scale="1" alphatest="blend" conditional="icon" zPosition="5" />' % box(170,280,70,70),
+                label("text",260,280,1480,460,32,extra='scrollbarMode="showOnDemand"'),
+                label("list",260,770,1480,170,32,extra='itemHeight="50" foregroundColorSelected="#00ffffff" backgroundColorSelected="#002a70ad" scrollbarMode="showOnDemand"')]
+    else:
+        out.append(label("status",170,280,1570,650,32,extra='scrollbarMode="showOnDemand"'))
+    for name,x,color in [("red",135,"#00ff526a"),("green",968,"#0039ff59")]:
+        out += ['<widget name="line_%s" %s backgroundColor="%s" zPosition="5" />' % (name,box(x,996,817,2),color),label("key_"+name,x,1006,817,50,28,color,'halign="center" valign="center" noWrap="1"')]
+    # Footer backgrounds match the surrounding page, including hidden controls.
+    return localize_skin("\n".join(out+["</screen>"]))

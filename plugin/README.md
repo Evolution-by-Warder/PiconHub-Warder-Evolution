@@ -8,6 +8,10 @@
 
 Spoločná okrúhla lebka s FullHDGlass, širší čitateľný nápis PICON / HUB a priehľadné pozadie v oboch veľkostiach ikony. Overená verzia 0.1.15 je dostupná cez aktualizáciu pluginu. Spoločný podklad a pravidlá sú v artwork/templates/warder-brand/. Toto vydanie nedeklaruje nový fyzický test prijímača.
 
+## Aktualizačné okná 0.1.17
+
+Automatická ponuka novej verzie po spustení aj ručná kontrola používajú vlastné celoplošné okná v spoločnom štýle FullHDGlass / Warder Evolution. Priebeh, chyba aj oznámenie pred automatickým reštartom GUI majú rovnaký banner PiconHub, nepriehľadné pozadie a farebné tlačidlá. Automatická kontrola, overenie SHA256 a reštart po 3 sekundách zostávajú zachované. Nový fyzický test prijímača sa nedeklaruje.
+
 ## Používanie
 
 Šípkami vyber riadok a stlač OK. Vyber satelity alebo poskytovateľov, rozlíšenie, pozadie, režim a priečinok. Pri satelitoch OK označuje položky, zelené tlačidlo potvrdí výber a červené sa vráti bez zmeny.
