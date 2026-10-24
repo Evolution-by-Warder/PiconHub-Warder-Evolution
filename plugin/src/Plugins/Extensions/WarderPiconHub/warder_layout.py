@@ -34,6 +34,7 @@ def main_skin(width=1920, height=1080):
         out.append(fill(145,y,1010,1,"#00314b65"))
     out += ['<widget name="picker_cover" %s backgroundColor="#00102136" zPosition="4" />' % box(60,332,1140,555),
             label("picker_title",80,340,1100,55,30,color="#003ee8ff").replace('zPosition="3"','zPosition="5"'),
+            '<widget name="panel_progress" %s foregroundColor="#003ee8ff" backgroundColor="#00102136" transparent="0" borderWidth="1" zPosition="5" />' % box(85,856,1090,20),
             '<widget name="panel_text" %s font="Regular;%d" foregroundColor="#00ffffff" backgroundColor="#00102136" transparent="0" scrollbarMode="showOnDemand" zPosition="5" />' % (box(85,410,1090,440),round(28*sy)),
             '<widget name="list" %s transparent="1" scrollbarMode="showOnDemand" enableWrapAround="1" foregroundColor="#00ffffff" foregroundColorSelected="#00ffffff" backgroundColorSelected="#002a70ad" zPosition="5" />' % box(70,350,1120,500),
             label(None,1280,350,550,60,36,text=_("Náhľad piconu")),

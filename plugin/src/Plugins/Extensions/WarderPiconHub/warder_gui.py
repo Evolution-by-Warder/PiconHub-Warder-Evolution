@@ -167,27 +167,14 @@ class TextDialog(Screen):
             "ok":self.close,"cancel":self.close,"red":self.close,"up":self["list"].pageUp,"down":self["list"].pageDown},-2)
 
 
-class PiconJobScreen(Screen):
-    def __init__(self,session,preferences):
-        width,height=desktop()
-        self.skin=dialog_skin(width,height,8,kind="progress",title="Aktualizácia piconov")
-        Screen.__init__(self,session)
+class PiconJobController:
+    def setup_job(self,preferences):
         self.preferences,self.done,self.started,self.closed=preferences,False,False,False
         self.success=False
         self.events,self.cancel=queue.Queue(),threading.Event()
         self.history,self.download_row,self.follow_progress=[],None,True
-        self["title"]=Label(_("Aktualizácia piconov"))
-        self["status"]=ScrollLabel(_("Pripravujem aktualizáciu piconov…"))
-        self["hint_red"]=Label(_("Naspäť"))
-        self["hint_blue"]=Label(_("Log"))
-        self["progress"]=ProgressBar()
-        self["actions"]=ActionMap(["OkCancelActions","ColorActions","DirectionActions"],{
-            "ok":self.finish,"cancel":self.finish,"red":self.finish,"blue":self.show_log,
-            "up":self.history_up,"down":self.history_down},-2)
         self.timer=eTimer()
         self.connection=connect_timer(self.timer,self.poll)
-        self.onLayoutFinish.append(self.start)
-        self.onClose.append(self.cleanup)
 
     def start(self):
         if not self.started:
@@ -240,10 +227,12 @@ class PiconJobScreen(Screen):
                     self.history.append(_("Dokončené.\n\nPridané: %d\nZmenené: %d\nOdstránené: %d") % (item[1]["added"],item[1]["changed"],item[1]["removed"]))
                 else:self.history.append(_("Aktualizácia sa nedokončila.\n\n")+item[1])
                 self.timer.stop();self.follow_progress=True;changed=True
-        if changed:
-            position=getattr(self["status"],"currentPosition",0)
-            self["status"].setText("\n".join(self.history),showBottom=self.follow_progress)
-            if not self.follow_progress:self["status"].setPos(position)
+        if changed:self.render_history()
+
+    def render_history(self):
+        position=getattr(self["status"],"currentPosition",0)
+        self["status"].setText("\n".join(self.history),showBottom=self.follow_progress)
+        if not self.follow_progress:self["status"].setPos(position)
 
     def history_up(self):
         self.follow_progress=False;self["status"].pageUp()
@@ -268,6 +257,62 @@ class PiconJobScreen(Screen):
         self.closed=True;self.cancel.set();self.timer.stop()
 
 
+class PiconJobScreen(PiconJobController,Screen):
+    def __init__(self,session,preferences):
+        width,height=desktop()
+        self.skin=dialog_skin(width,height,8,kind="progress",title="Aktualizácia piconov")
+        Screen.__init__(self,session)
+        self["title"]=Label(_("Aktualizácia piconov"))
+        self["status"]=ScrollLabel(_("Pripravujem aktualizáciu piconov…"))
+        self["hint_red"]=Label(_("Naspäť"))
+        self["hint_blue"]=Label(_("Log"))
+        self["progress"]=ProgressBar()
+        self["actions"]=ActionMap(["OkCancelActions","ColorActions","DirectionActions"],{
+            "ok":self.finish,"cancel":self.finish,"red":self.finish,"blue":self.show_log,
+            "up":self.history_up,"down":self.history_down},-2)
+        self.setup_job(preferences)
+        self.onLayoutFinish.append(self.start)
+        self.onClose.append(self.cleanup)
+
+
+class EmbeddedPiconJob(PiconJobController):
+    def __init__(self,host,preferences):
+        self.host,self.view_log=host,False
+        self.setup_job(preferences)
+        host.onClose.append(self.cleanup)
+        host.show_update_notice(_("Pripravujem aktualizáciu piconov…"),title=_("Aktualizácia piconov"))
+        self.start()
+
+    def __getitem__(self,key):
+        return self.host[{"status":"panel_text","progress":"panel_progress"}[key]]
+
+    def render_history(self):
+        if not self.view_log:PiconJobController.render_history(self)
+
+    def show_log(self):
+        if self.view_log:return
+        self.view_log=True
+        try:text=pathlib.Path("/tmp/piconhub-picons.log").read_text()[-24000:]
+        except OSError:text=_("Log zatiaľ nie je dostupný.")
+        self.host["picker_title"].setText(_("Log aktualizácie"))
+        self.host["panel_text"].setText(text,showBottom=True)
+        self.host.set_footer()
+
+    def back_from_log(self):
+        self.view_log=False
+        self.host["picker_title"].setText(_("Aktualizácia piconov"))
+        self.render_history()
+        self.host.set_footer()
+
+    def close(self,success):
+        self.cleanup()
+        if self.cleanup in self.host.onClose:self.host.onClose.remove(self.cleanup)
+        self.host.job=None
+        self.host["panel_progress"].hide()
+        self.host.close_update_notice()
+        self.host.picon_job_finished(success)
+
+
 class PanelText(ScrollLabel):
     def applySkin(self,desktop,parent):
         result=ScrollLabel.applySkin(self,desktop,parent)
@@ -285,6 +330,7 @@ class WarderMainScreen(Screen):
         self.layout_ready=False
         self.picker=None
         self.panel=None
+        self.job=None
         self.catalog=json.loads((ROOT/"data/channel-manifest.json").read_text())
         self.catalog_results=queue.Queue()
         self.recent_results=queue.Queue()
@@ -308,6 +354,8 @@ class WarderMainScreen(Screen):
         self["picker_cover"].hide();self["picker_title"].hide()
         self["panel_text"]=PanelText("")
         self["panel_text"].hide()
+        self["panel_progress"]=ProgressBar()
+        self["panel_progress"].hide()
         self["background"],self["preview"]=Pixmap(),Pixmap()
         self["brand_logo"]=BrandLogo(ROOT/"images/warder-emblem.png")
         for number in range(recent.COUNT):
@@ -460,6 +508,8 @@ class WarderMainScreen(Screen):
         captions=(_("Naspäť"),_("Použiť priečinok") if directory else _("Potvrdiť výber") if multiple else "","","") if picking else (_("Zatvoriť"),_("Stiahnuť"),_("Aktualizácia pluginu"),_("O projekte"))
         if self.panel is not None:
             captions=(_("Naspäť") if self.panel["enabled"] else "",self.panel["confirm"] if self.panel["enabled"] else "","","")
+        if self.job is not None:
+            captions=(_("Naspäť"),"","", "" if self.job.view_log else _("Log"))
         for color,text in zip(("red","green","yellow","blue"),captions):
             self["key_"+color].setText(text)
             for prefix in ("key_","line_","footer_"):
@@ -468,23 +518,27 @@ class WarderMainScreen(Screen):
         if self.panel is not None:self["navigation_hint"].setText("")
 
     def move_up(self):
+        if self.job is not None and not self.job.view_log:
+            self.job.history_up();return
         (self["panel_text"].pageUp if self.panel is not None else self["list"].up)()
 
     def move_down(self):
+        if self.job is not None and not self.job.view_log:
+            self.job.history_down();return
         (self["panel_text"].pageDown if self.panel is not None else self["list"].down)()
 
     def page_up(self):
-        if self.panel is not None:self["panel_text"].pageUp()
+        if self.panel is not None:self.move_up()
         elif self.picker is not None:self["list"].pageUp()
 
     def page_down(self):
-        if self.panel is not None:self["panel_text"].pageDown()
+        if self.panel is not None:self.move_down()
         elif self.picker is not None:self["list"].pageDown()
 
-    def show_update_notice(self,text,callback=None,confirm="",enabled=True):
+    def show_update_notice(self,text,callback=None,confirm="",enabled=True,title=None):
         if self.panel is None:self.panel_return_index=self["list"].getSelectionIndex()
         self.panel={"callback":callback,"confirm":confirm,"enabled":enabled}
-        self["picker_title"].setText(_("Aktualizácia PiconHub Warder Evolution"))
+        self["picker_title"].setText(title or _("Aktualizácia PiconHub Warder Evolution"))
         self["picker_cover"].show();self["picker_title"].show()
         self["list"].hide()
         self["panel_text"].setText(text);self["panel_text"].show();self.set_footer()
@@ -578,14 +632,15 @@ class WarderMainScreen(Screen):
             if missing:raise ValueError(_("Najprv vyber: ")+", ".join(missing)+".")
             preferences=[model.profile_preferences(self.profile)]
         except ValueError as exc:
-            self.session.open(MessageBox,str(exc),type=MessageBox.TYPE_ERROR);return
+            self.show_update_notice(str(exc),title=_("Aktualizácia piconov"));return
         if any(p["update_mode"]==model.sync.UPDATE_MODE_REPLACE_ALL for p in preferences):
-            self.session.openWithCallback(lambda yes:self.start_picon_job(preferences) if yes else None,MessageBox,
-                                         _("Úplné nahradenie odstráni staré kanálové picony vybraných pozícií. Pokračovať?"),type=MessageBox.TYPE_YESNO,default=False)
+            self.show_update_notice(_("Úplné nahradenie odstráni staré kanálové picony vybraných pozícií. Pokračovať?"),callback=lambda yes:self.start_picon_job(preferences) if yes else None,confirm=_("Potvrdiť výber"),title=_("Aktualizácia piconov"))
         else:self.start_picon_job(preferences)
 
     def start_picon_job(self,preferences):
-        self.session.openWithCallback(self.picon_job_finished,PiconJobScreen,preferences)
+        if self.job is not None:return
+        self.job=EmbeddedPiconJob(self,preferences)
+        self.set_footer()
 
     def picon_job_finished(self,success):
         if success is True:
@@ -598,14 +653,20 @@ class WarderMainScreen(Screen):
         self.warderUpdateCheck.request(manual=True)
 
     def about(self):
+        if self.job is not None:
+            self.job.show_log();return
         if self.picker is not None or self.panel is not None:return
         version=installed_version()
         text=_("PiconHub Warder Evolution\nVerzia ")+version+_("\n\nWarder Evolution\nPlugin vychádza z práce s3n0 a Chocholousek.\nKatalóg a plánovanie piconov: FullHDGlass Warder Evolution.")
         notes=load_notes(ROOT/"data/release-notes.json",version,language_code())
         if notes:text+="\n\n"+_("Zmeny v tejto verzii:")+"\n"+notes
-        self.session.open(TextDialog,_("O projekte"),text)
+        self.show_update_notice(text,title=_("O projekte"))
 
     def exit(self):
+        if self.job is not None:
+            if self.job.view_log:self.job.back_from_log()
+            else:self.job.finish()
+            return
         if self.panel is not None:
             self.close_update_notice();return
         if self.picker is not None:

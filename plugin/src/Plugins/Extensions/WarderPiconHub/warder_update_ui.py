@@ -122,7 +122,9 @@ class StartupUpdateCheck:
         # the satellite picker. Never open a modal from an inactive screen.
         if getattr(self.screen.session, "current_dialog", self.screen) is not self.screen:
             return
-        if getattr(self.screen,"picker",None) is not None:
+        if getattr(self.screen,"picker",None) is not None or getattr(self.screen,"job",None) is not None:
+            return
+        if not self.manual and getattr(self.screen,"panel",None) is not None:
             return
         try:
             release, error = self.results.get_nowait()

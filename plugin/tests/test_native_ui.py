@@ -126,6 +126,8 @@ class NativeControllerTests(unittest.TestCase):
         self.saves.clear();self.calls=[]
         self.session=types.SimpleNamespace(open=lambda *a,**kw:self.calls.append((None,a,kw)),
                                            openWithCallback=lambda cb,*a,**kw:self.calls.append((cb,a,kw)))
+        worker_patch=patch.object(self.gui.threading,"Thread")
+        worker_patch.start();self.addCleanup(worker_patch.stop)
         self.main=self.gui.WarderMainScreen(self.session)
         self.session.current_dialog=self.main
 
@@ -140,7 +142,9 @@ class NativeControllerTests(unittest.TestCase):
         self.assertFalse(self.main["preview"].visible)
         self.assertTrue(self.main["brand_logo"].picture.filename.endswith("warder-emblem.png"))
         self.main.update_picons()
-        self.assertIs(self.calls[-1][1][0],self.gui.MessageBox)
+        self.assertIsNotNone(self.main.panel)
+        self.assertEqual(self.calls,[])
+        self.main.exit()
         self.complete_selection()
         other=self.gui.WarderMainScreen(self.session)
         self.assertEqual([row[0][2] for row in other["list"].values],["Vyber si…"]*5)
@@ -159,7 +163,9 @@ class NativeControllerTests(unittest.TestCase):
         self.main.choose("resolution","50x30")
         self.assertEqual(self.main["preview"].dimensions,(50,30))
         self.main.update_picons()
-        self.assertIs(self.calls[-1][1][0],self.gui.MessageBox)
+        self.assertIsNotNone(self.main.panel)
+        self.assertEqual(self.calls,[])
+        self.main.exit()
         self.assertEqual(self.main.selection["satellites"],None)
 
     def test_footer_actions_open_plugin_update_about_and_close_directly(self):
@@ -167,8 +173,9 @@ class NativeControllerTests(unittest.TestCase):
             self.main["actions"]["yellow"]()
             request.assert_called_once_with(manual=True)
         self.main["actions"]["blue"]()
-        self.assertIs(self.calls[-1][1][0],self.gui.TextDialog)
-        self.assertEqual(self.calls[-1][1][1],"O projekte")
+        self.assertEqual(self.main["picker_title"].text,"O projekte")
+        self.assertEqual(self.calls,[])
+        self.main.exit()
         self.main["actions"]["red"]()
         self.assertTrue(self.main.closed)
 
@@ -356,13 +363,11 @@ class NativeControllerTests(unittest.TestCase):
         stored=(self.main.profile.sats.value,self.main.profile.resolution.value,
                 self.main.profile.background.value,self.main.profile.method.value)
         self.main.update_picons()
-        callback,args,kwargs=self.calls[-1]
-        self.assertEqual(callback,self.main.picon_job_finished)
-        job=self.gui.PiconJobScreen(self.session,args[1])
+        job=self.main.job
+        self.assertEqual(self.calls,[])
         job.events.put(('result',{'added':1,'changed':0,'removed':0}));job.poll()
         self.assertEqual(sum(bool(v) for v in self.main.selection.values()),5)
-        job.finish();self.assertIs(job.result,True)
-        callback(job.result)
+        job.finish();self.assertIsNone(self.main.job)
         self.assertTrue(all(v is None for v in self.main.selection.values()))
         self.assertEqual(self.main['list'].getSelectionIndex(),0)
         self.assertTrue(all(row[0][2]=='Vyber si…' for row in self.main['list'].values))
@@ -375,25 +380,63 @@ class NativeControllerTests(unittest.TestCase):
     def test_failed_job_preserves_choices_for_retry(self):
         self.complete_selection();before=dict(self.main.selection)
         self.main['list'].moveToIndex(3)
-        self.main.update_picons();callback,args,kwargs=self.calls[-1]
-        job=self.gui.PiconJobScreen(self.session,args[1])
+        self.main.update_picons();job=self.main.job
         job.events.put(('error','injected failure'));job.poll();job.finish()
-        self.assertIs(job.result,False);callback(job.result)
+        self.assertFalse(job.success);self.assertIsNone(self.main.job)
         self.assertEqual(self.main.selection,before)
         self.assertEqual(self.main['list'].getSelectionIndex(),3)
         self.main.picon_job_finished(None)
         self.assertEqual(self.main.selection,before)
 
+    def test_embedded_job_accumulates_all_positions_and_shows_progress(self):
+        self.complete_selection();self.main.update_picons();job=self.main.job
+        for name in ('13.0E','16.0E','19.2E','23.5E'):
+            job.events.put(('stage','Downloading '+name))
+            job.events.put(('download',name,50,100));job.poll()
+            self.assertEqual(self.main['panel_progress'].value,50)
+            self.assertTrue(self.main['panel_progress'].visible)
+            job.events.put(('stage','Processing '+name));job.events.put(('processed',name))
+            job.poll()
+        text=self.main['panel_text'].text
+        for name in ('13.0E','16.0E','19.2E','23.5E'):
+            self.assertIn('Processing '+name+' ✓',text)
+        self.assertTrue(self.main['panel_text'].showBottom)
+        self.assertFalse(self.main['list'].visible)
+        self.assertEqual(self.main['key_blue'].text,'Log')
+        self.assertEqual(self.calls,[])
+
+    def test_embedded_log_returns_to_latest_progress_without_cancelling(self):
+        self.complete_selection();self.main.update_picons();job=self.main.job
+        self.main.about()
+        self.assertTrue(job.view_log)
+        self.assertEqual(self.main['picker_title'].text,'Log aktualizácie')
+        job.events.put(('stage','New progress while reading log'));job.poll()
+        self.assertNotIn('New progress while reading log',self.main['panel_text'].text)
+        self.main.exit()
+        self.assertFalse(job.view_log);self.assertFalse(job.cancel.is_set())
+        self.assertIn('New progress while reading log',self.main['panel_text'].text)
+        self.assertEqual(self.calls,[])
+
+    def test_embedded_cancel_waits_for_worker_and_blocks_duplicate_jobs(self):
+        self.complete_selection();self.main.update_picons();job=self.main.job
+        self.main.start_picon_job([]);self.assertIs(self.main.job,job)
+        self.main.exit()
+        self.assertTrue(job.cancel.is_set());self.assertIs(self.main.job,job)
+        self.assertFalse(self.main.closed)
+        job.events.put(('error','Cancelled'));job.poll();self.main.exit()
+        self.assertIsNone(self.main.job)
+        self.assertIsNone(self.main.panel)
+        self.assertTrue(self.main['list'].visible)
+        self.assertNotIn(job.cleanup,self.main.onClose)
+
     def test_replace_confirmation_starts_job_with_the_same_reset_callback(self):
         self.complete_selection();self.main.choose('method','all')
         self.main.update_picons()
-        confirm,args,kwargs=self.calls[-1]
-        self.assertEqual(args[0],self.gui.MessageBox)
-        calls=len(self.calls);confirm(False);self.assertEqual(len(self.calls),calls)
-        confirm(True)
-        callback,args,kwargs=self.calls[-1]
-        self.assertIs(args[0],self.gui.PiconJobScreen)
-        self.assertEqual(callback,self.main.picon_job_finished)
+        self.assertIsNotNone(self.main.panel["callback"])
+        self.main.exit();self.assertIsNone(self.main.job)
+        self.main.update_picons();self.main.green_action()
+        self.assertIsInstance(self.main.job,self.gui.EmbeddedPiconJob)
+        self.assertEqual(self.calls,[])
 
     def test_about_shows_credits_and_offline_installed_notes_in_system_language(self):
         import json
@@ -404,13 +447,14 @@ class NativeControllerTests(unittest.TestCase):
                 'notes':{'sk':'Opravené sťahovanie.','en':'Improved downloads.'}}))
             with patch.object(self.gui,'ROOT',root):
                 self.main.about()
-                callback,args,kwargs=self.calls[-1]
-                self.assertIs(args[0],self.gui.TextDialog)
-                self.assertIn('Plugin vychádza z práce s3n0 a Chocholousek.',args[2])
-                self.assertIn('Zmeny v tejto verzii:\nOpravené sťahovanie.',args[2])
+                text=self.main['panel_text'].text
+                self.assertEqual(self.calls,[])
+                self.assertIn('Plugin vychádza z práce s3n0 a Chocholousek.',text)
+                self.assertIn('Zmeny v tejto verzii:\nOpravené sťahovanie.',text)
+                self.main.exit()
                 self.config.osd.language.value='en_GB'
                 self.main.about()
-                text=self.calls[-1][1][2]
+                text=self.main['panel_text'].text
                 self.assertIn('work of s3n0 and Chocholousek.',text)
                 self.assertIn('Changes in this version:\nImproved downloads.',text)
 
@@ -475,7 +519,9 @@ class NativeControllerTests(unittest.TestCase):
         self.main.refresh()
         self.assertEqual(self.main.profile.resolution.value,"150x90")
         self.main.update_picons()
-        self.assertIs(self.calls[-1][1][0],self.gui.MessageBox)
+        self.assertIsNotNone(self.main.panel)
+        self.assertEqual(self.calls,[])
+        self.main.exit()
 
     def test_native_widget_names_match_xml_and_clock_updates(self):
         names={w.get("name") for w in ET.fromstring(self.main.skin) if w.tag=="widget"}
@@ -515,19 +561,18 @@ class NativeControllerTests(unittest.TestCase):
         other=self.config.plugins.chocholousekpicons[2]
         other.allowed.setValue(True);other.resolution.setValue("unsupported")
         self.main.update_picons()
-        callback,args,kwargs=self.calls[-1]
-        self.assertIs(args[0],self.gui.PiconJobScreen)
-        self.assertEqual(len(args[1]),1)
-        self.assertEqual(args[1][0]["resolution"],"220x132")
+        preferences=self.main.job.preferences
+        self.assertEqual(self.calls,[])
+        self.assertEqual(len(preferences),1)
+        self.assertEqual(preferences[0]["resolution"],"220x132")
         self.assertFalse(self.main.profile.allowed.value)
         self.assertTrue(other.allowed.value)
 
     def test_green_action_uses_the_warder_job_and_native_profiles(self):
         self.complete_selection()
         self.main.update_picons()
-        callback,args,kwargs=self.calls[-1]
-        self.assertIs(args[0],self.gui.PiconJobScreen)
-        self.assertEqual(args[1][0]["package_selectors"],["192E","235E"])
+        self.assertIsInstance(self.main.job,self.gui.EmbeddedPiconJob)
+        self.assertEqual(self.main.job.preferences[0]["package_selectors"],["192E","235E"])
 
 
 if __name__=="__main__":unittest.main()

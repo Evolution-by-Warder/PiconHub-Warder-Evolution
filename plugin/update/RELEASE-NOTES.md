@@ -1,3 +1,3 @@
-# PiconHub Warder Evolution 0.1.23
+# PiconHub Warder Evolution 0.1.24
 
-Výber satelitov, rozlíšenia, pozadia, režimu aj priečinka prebieha priamo v ľavom paneli. Banner a pravý náhľad zostávajú viditeľné. Automatická aj ručná aktualizácia pluginu používa ten istý panel vrátane priebehu a hlášky pred reštartom GUI o 3 sekundy.
+Sťahovanie, overovanie, rozbaľovanie a zápis piconov aj výsledok sa zobrazujú v ľavom paneli hlavnej obrazovky. Log a O projekte používajú rovnaký panel. Banner a pravý náhľad zostávajú viditeľné. Zachované je bezpečné prerušenie, posúvanie textu a reset výberu po úspešnom dokončení.
