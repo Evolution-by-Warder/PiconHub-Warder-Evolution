@@ -72,6 +72,7 @@ class MessageBox(NativeMessageBox):
         self["warderScroll"].setEnabled(enabled and not bool(self.list))
         if not self.list:
             self["line_green"].hide()
+            self["key_green"].hide()
         if not enabled:
             for name in ("line_red","key_red","key_green"):
                 self[name].hide()

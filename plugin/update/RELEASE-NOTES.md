@@ -1,3 +1,3 @@
-# PiconHub Warder Evolution 0.1.18
+# PiconHub Warder Evolution 0.1.19
 
-Zjednotené znenie a riadkovanie hlásenia o aktuálnej verzii podľa FullHDGlass. Rovnaká veta, prázdny riadok a číslo nainštalovanej verzie. Zachované preklady a existujúca aktualizácia.
+Spodná časť aktualizačných okien tvorí jeden celok. Ak je dostupné iba Naspäť, prázdne druhé tlačidlo sa nezobrazuje. Súčasťou je aj zjednotené znenie hlásenia o aktuálnej verzii podľa FullHDGlass.
