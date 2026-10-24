@@ -342,7 +342,7 @@ class WarderMainScreen(Screen):
         if self.closed:return
         language=getattr(getattr(config,"osd",None),"language",None)
         day,date,clock,seconds=model.clock_text(language=language.value if language else "sk")
-        for name,value in (("day",day),("date",date),("clock",clock),("seconds",":"+seconds),("version",_("Verzia: %s") % installed_version())):
+        for name,value in (("day",day),("date",date),("clock",clock),("seconds",":"+seconds),("version",installed_version())):
             self[name].setText(value)
         try:self.show_recent(self.recent_results.get_nowait())
         except queue.Empty:pass

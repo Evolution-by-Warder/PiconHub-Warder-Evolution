@@ -20,10 +20,10 @@ def main_skin(width=1920, height=1080):
         out += [fill(x-4,y-4,w+8,h+8,"#00305670",1),
                 fill(x,y,w,h,"#003ee8ff",1),fill(x+2,y+2,w-4,h-4,"#18091b30"),
                 fill(x+2,y+2,100,4,"#00a4f4ff",3)]
-    out += [label("day",1110,32,270,42,26,align="right"),label("date",980,76,400,40,25,align="right"),
-            label("clock",1398,32,190,85,62,align="center"),label("seconds",1590,58,66,54,38,color="#00ffffff",align="left"),label("version",1680,45,210,60,24,color="#003ee8ff",align="center"),
-            '<eLabel %s backgroundColor="#0019c9ff" zPosition="3" />' % box(1392,35,2,80),
-            '<eLabel %s backgroundColor="#0019c9ff" zPosition="3" />' % box(1664,35,2,80),
+    out += [label("day",1110,25,270,36,25,align="right"),label("date",980,70,400,36,24,align="right"),
+            label("clock",1398,32,190,85,62,align="center"),label("seconds",1590,58,66,54,38,color="#00ffffff",align="left"),label(None,1680,25,210,36,25,text=_("Verzia: %s") % "",color="#003ee8ff",align="center"),label("version",1680,70,210,36,24,color="#003ee8ff",align="center"),
+            '<eLabel %s backgroundColor="#0019c9ff" zPosition="3" />' % box(1392,25,2,84),
+            '<eLabel %s backgroundColor="#0019c9ff" zPosition="3" />' % box(1664,25,2,84),
             label(None,60,236,470,78,30,text=_("Posledné pridané\npicony"),color="#009cf0ff")]
     for number in range(6):
         x=590+number*210
@@ -112,7 +112,8 @@ def update_skin(width, height, kind="message", version=""):
     for x,y,w,h,font,fmt,align in [(1120,25,250,36,25,"%A","right"),(1020,70,350,36,24,"%d. %B %Y","right"),(1398,32,190,85,62,"%H:%M","center"),(1590,58,66,54,38,":%S","left")]:
         out.append('<widget source="global.CurrentTime" render="Label" %s font="Regular;%d" foregroundColor="#00ffffff" transparent="1" zPosition="5" halign="%s" valign="center" noWrap="1"><convert type="ClockToText">Format:%s</convert></widget>' % (box(x,y,w,h),round(font*sy),align,fmt))
     out += [fill(1392,25,2,84,"#003ee8ff",5),fill(1664,25,2,84,"#003ee8ff",5),
-            '<eLabel %s text="%s" font="Regular;%d" foregroundColor="#003ee8ff" transparent="1" halign="center" valign="center" noWrap="1" zPosition="5" />' % (box(1680,40,210,76),escape("v"+version),round(23*sy))]
+            '<eLabel %s text="%s" font="Regular;%d" foregroundColor="#003ee8ff" transparent="1" halign="center" valign="center" noWrap="1" zPosition="5" />' % (box(1680,70,210,36),escape(version),round(24*sy))]
+    out.append('<eLabel %s text="%s" font="Regular;%d" foregroundColor="#003ee8ff" transparent="1" halign="center" valign="center" noWrap="1" zPosition="5" />' % (box(1680,25,210,36),escape((_("Verzia: %s") % "").strip()),round(25*sy)))
     if kind=="message":
         out += ['<widget name="icon" %s pixmaps="icons/input_question.png,icons/input_info.png,icons/input_warning.png,icons/input_error.png,icons/input_message.png" scale="1" alphatest="blend" conditional="icon" zPosition="5" />' % box(170,280,70,70),
                 label("text",260,280,1480,460,32,extra='scrollbarMode="showOnDemand"'),

@@ -424,7 +424,7 @@ class NativeControllerTests(unittest.TestCase):
         with patch.object(self.gui.model,"clock_text",return_value=("Piatok","23. októbra 2026","10:48","10")):
             self.main.tick()
         self.assertEqual(self.main["seconds"].text,":10")
-        self.assertEqual(self.main["version"].text,"Verzia: "+(ROOT/"version.txt").read_text().strip())
+        self.assertEqual(self.main["version"].text,(ROOT/"version.txt").read_text().strip())
         self.main.clock_timer.start();self.main.cleanup()
         self.assertFalse(self.main.clock_timer.running)
 
