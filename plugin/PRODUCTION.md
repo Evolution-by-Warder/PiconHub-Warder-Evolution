@@ -1,16 +1,16 @@
 # PiconHub Warder Evolution — ostrá prevádzka
 
-Zápis z 23. októbra 2026 na výslovný pokyn vlastníka projektu. Schválená produkčná základňa: **0.1.13**. Tento dokument nahrádza staré vývojové popisy; historické podklady zostávajú zachované.
+Zápis z 24. októbra 2026 na výslovný pokyn vlastníka projektu. Schválená produkčná základňa: **0.1.25**. Tento dokument nahrádza staré vývojové popisy; historické podklady zostávajú zachované.
 
 ## Identita vydania
 
-- Balík: `enigma2-plugin-extensions-piconhub-warder-evolution_0.1.13_all.ipk`.
-- Tag: `v0.1.13`.
-- Zdrojový commit: `2e4bbd3427418fba605ebd9e9575c5c0dc599662`.
-- Veľkosť: **2 863 178 bajtov**.
-- SHA256: `9fa8d03c1936a107ef015a65c0027f0f647062876c3f02d76be6956eee5df3ed`.
+- Balík: `enigma2-plugin-extensions-piconhub-warder-evolution_0.1.25_all.ipk`.
+- Tag: `v0.1.25`.
+- Zdrojový commit: `bbb5df585e040aff73982853ab895fb863a1faa1`.
+- Veľkosť: **2 860 776 bajtov**.
+- SHA256: `599d2a10abfe5e53470423ff1567c5a0b7400aa4a249d5bfe08a9de600ba3310`.
 - Inštalačný priečinok: `/usr/lib/enigma2/python/Plugins/Extensions/WarderPiconHub/`.
-- [Vydanie a IPK](https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/tag/v0.1.13).
+- [Vydanie a IPK](https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/tag/v0.1.25).
 
 Produkčné označenie nemení už vydané bajty IPK. Samostatný workflow pred zrušením označenia Pre-release overí verejne stiahnutý balík, jeho SHA256, veľkosť, zdrojový commit a súlad s [production.json](production.json). Repozitár je určený pluginu do prijímača. Produkčná propagácia nastaví jeho schválené vydanie ako GitHub Latest.
 
@@ -19,12 +19,16 @@ Produkčné označenie nemení už vydané bajty IPK. Samostatný workflow pred 
 - Schválené futuristické rozhranie, chrómová lebka z náhľadu vľavo hore bez jej spodného nápisu; samostatný veľký názov PICONHUB zostáva. Žiadne riadky „More channels / Better…“.
 - Dátum s preloženým dňom a mesiacom, živý čas s menšími bielymi sekundami a tyrkysová verzia v hlavičke.
 - Šesť posledných pridaných piconov v čiernom štýle; úvodné logo v náhľade, po výbere náhľad zodpovedá pozadiu a rozlíšeniu.
-- Päť riadkov: Satelity, Rozlíšenie, Pozadie, Režim, Priečinok. Vstup cez OK otvorí výberové okno; neutrálne hodnoty „Vyber si…“.
+- Päť riadkov: Satelity, Rozlíšenie, Pozadie, Režim, Priečinok. Vstup cez OK otvorí výber v ľavom paneli hlavnej obrazovky; neutrálne hodnoty „Vyber si…“.
 - Rozlíšenia 50×30, 220×132 a 400×240; pozadia Transparent, Biele a Čierne. Menu družíc a poskytovateľov podľa skinu; poskytovatelia SK a CZ sa nezamieňajú.
 - Pri družiciach jasne zelené označenie a ikony. Päta: Vybrať s OK, zelené Potvrdiť výber, červené Naspäť; názvy neobsahujú prefix názvu farby.
 - Hlavná päta: červené Zatvoriť, zelené Stiahnuť, žlté Aktualizácia pluginu, modré O projekte.
 - Jednotné nepriehľadné textové okná: automatické zalamovanie, posuvník vpravo podľa potreby, šípky ↑/↓ a iba červené Naspäť. Pri aktívnom sťahovaní zostáva aj modré Log.
 - O projekte: „Plugin vychádza z práce s3n0 a Chocholousek.“ Pod tým prehľad zmien aktuálne nainštalovaného vydania, pribalený v IPK pre offline čítanie.
+
+## Aktuálne rozhranie 0.1.25
+
+Výbery, aktualizačné hlásenia, sťahovanie, spracovanie, výsledok, Log aj O projekte sa zobrazujú v ľavom paneli. Banner a pravý náhľad zostávajú viditeľné. Hlavička má upravený horizont a zarovnanie údajov. Vlastný priečinok sa vždy otvára od `/`; zahŕňa skryté adresáre a funkčné odkazy na priečinky ako `/tmp` a `/hdd`. Pri potvrdení odkazu sa uloží overená skutočná cesta. Farebné potvrdenie aktualizácie zostáva pôvodné.
 
 ## Sťahovanie a bezpečný zápis
 
@@ -50,10 +54,10 @@ SK, CS, EN, DE, PL, HU, RU, FR, IT, ES. Výber podľa jazyka systému; neznámy 
 
 ## Skutočné overenie
 
-- **118 automatizovaných testov**, GitHub CI úspešné pre zdroj 0.1.13 (run 39995057378).
+- **134 automatizovaných testov**, GitHub CI úspešné pre zdroj 0.1.25 (run 40103465080).
 - Používateľ dodal úspešný výsledok na prijímači pre 0.1.9: 13.0E, 16.0E, 19.2E a 23.5E; 0 pridaných, 218 zmenených, 753 odstránených. Ide o zaznamenaný výsledok konkrétneho výberu, nie očakávané počty pre každú inštaláciu.
-- Používateľ schválil výmenu lebky a následne zadal zápis pre ostrú prevádzku.
-- Úpravy po 0.1.9 vrátane resetu obrazovky, textov, offline poznámok a päty majú testy a CI. Kompletný nový beh 0.1.13 na prijímači zatiaľ potvrdený nie je. Produkčné schválenie nie je tvrdením o otestovaní všetkých image, zariadení alebo kombinácií balíkov.
+- Používateľ 24. októbra 2026 schválil aktuálny skin aj plugin do ostrej prevádzky. Ide o prijatie aktuálneho stavu, nie tvrdenie o fyzickom otestovaní všetkých kombinácií.
+- Úpravy po 0.1.9 vrátane resetu obrazovky, textov, offline poznámok a päty majú testy a CI. Kompletný nový beh 0.1.25 na prijímači zatiaľ potvrdený nie je. Produkčné schválenie nie je tvrdením o otestovaní všetkých image, zariadení alebo kombinácií balíkov.
 
 ## Ďalšie vydania
 

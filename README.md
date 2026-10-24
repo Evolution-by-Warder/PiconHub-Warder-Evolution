@@ -2,9 +2,9 @@
 
 Warder's original futuristic Enigma2 plugin and the shared Warder picon source database.
 
-## Current state — 2026-10-23
+## Current state — 2026-10-24
 
-**PiconHub Warder Evolution 0.1.13** is the user-approved production baseline. The native Warder interface retains the functional work of s3n0 and Chocholousek. Runtime: `/usr/lib/enigma2/python/Plugins/Extensions/WarderPiconHub/`.
+**PiconHub Warder Evolution 0.1.25** is the user-approved production baseline. The native Warder interface retains the functional work of s3n0 and Chocholousek. Runtime: `/usr/lib/enigma2/python/Plugins/Extensions/WarderPiconHub/`.
 
 Use the [plugin guide](plugin/README.md), [production record](plugin/PRODUCTION.md), [release manifest](plugin/production.json) and [validation status](plugin/BUILD-STATUS.md). They record the final behavior, automatic plugin updates, package identity, language support and precise receiver-test scope. Earlier rebuild plans are historical and do not override this baseline.
 

@@ -1,16 +1,12 @@
 # PiconHub Warder Evolution
 
-**Produkčná verzia 0.1.13**, schválená používateľom 23. októbra 2026. Plugin slúži na sťahovanie a správu piconov v Enigma2.
+**Produkčná verzia 0.1.25**, schválená používateľom 24. októbra 2026. Plugin slúži na sťahovanie a správu piconov v Enigma2.
 
 [Produkčný zápis](PRODUCTION.md) · [Stav overenia](BUILD-STATUS.md) · [Strojový záznam vydania](production.json)
 
-## Vizuálna aktualizácia 0.1.15
+## Aktuálne rozhranie
 
-Spoločná okrúhla lebka s FullHDGlass, širší čitateľný nápis PICON / HUB a priehľadné pozadie v oboch veľkostiach ikony. Overená verzia 0.1.15 je dostupná cez aktualizáciu pluginu. Spoločný podklad a pravidlá sú v artwork/templates/warder-brand/. Toto vydanie nedeklaruje nový fyzický test prijímača.
-
-## Aktualizačné okná 0.1.17
-
-Automatická ponuka novej verzie po spustení aj ručná kontrola používajú vlastné celoplošné okná v spoločnom štýle FullHDGlass / Warder Evolution. Priebeh, chyba aj oznámenie pred automatickým reštartom GUI majú rovnaký banner PiconHub, nepriehľadné pozadie a farebné tlačidlá. Automatická kontrola, overenie SHA256 a reštart po 3 sekundách zostávajú zachované. Nový fyzický test prijímača sa nedeklaruje.
+Výbery aj aktualizácie sa vykonávajú v ľavom paneli. Rovnaký panel používa priebeh sťahovania, spracovanie, výsledok, Log a O projekte. Hlavička a pravý náhľad zostávajú viditeľné. Vlastný priečinok začína v `/` a zobrazuje aj skryté adresáre a odkazy ako `/tmp` a `/hdd`. Schválené ikony, banner, zarovnanie dátumu/času/verzie a pôvodné farebné potvrdenia zostávajú zachované.
 
 ## Používanie
 
@@ -28,12 +24,12 @@ Textové okná používajú rovnaký nepriehľadný podklad. Šípky ↑/↓ pos
 
 ## Inštalácia a aktualizácie
 
-[Stiahnuť IPK 0.1.13](https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/download/v0.1.13/enigma2-plugin-extensions-piconhub-warder-evolution_0.1.13_all.ipk).
+[Stiahnuť IPK 0.1.25](https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/download/v0.1.25/enigma2-plugin-extensions-piconhub-warder-evolution_0.1.25_all.ipk).
 
 Po skopírovaní konkrétneho balíka do `/tmp`:
 
 ```sh
-opkg install /tmp/enigma2-plugin-extensions-piconhub-warder-evolution_0.1.13_all.ipk
+opkg install /tmp/enigma2-plugin-extensions-piconhub-warder-evolution_0.1.25_all.ipk
 ```
 
 Plugin sa inštaluje do `/usr/lib/enigma2/python/Plugins/Extensions/WarderPiconHub/`. Existujúce nastavenia sa zachovávajú. Pri každom otvorení prebehne kontrola novšej verzie na pozadí. Inštaláciu používateľ potvrdí; dostupná je aj ručná kontrola žltým tlačidlom. Po úspešnej aktualizácii sa zobrazí jediné oznámenie a GUI sa po 3 sekundách reštartuje. Bez internetu zostane plugin použiteľný.
