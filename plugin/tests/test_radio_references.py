@@ -9,9 +9,18 @@ spec.loader.exec_module(module)
 picon_reference = module.picon_reference
 collect_picon_references = module.collect_picon_references
 analyze_bouquet = module.analyze_bouquet
+picon_filename_is_reference = module.picon_filename_is_reference
 
 
 class RadioReferenceTests(unittest.TestCase):
+    def test_picon_filename_inventory(self):
+        self.assertTrue(picon_filename_is_reference('1_0_2_AB_1_1_0_0_0_0.png'))
+        self.assertTrue(picon_filename_is_reference('4097_0_1_AB_1_2_0_0_0_0.png'))
+        self.assertTrue(picon_filename_is_reference('1013_0_2_AB_1_2_0_0_0_0.png'))
+        self.assertFalse(picon_filename_is_reference('radio_station.png'))
+        self.assertFalse(picon_filename_is_reference('1_0_2_AB.png'))
+        self.assertFalse(picon_filename_is_reference('1_64_0_0_0_0_0_0_0_0.png'))
+
     def test_dvb_radio(self):
         self.assertEqual(picon_reference('#SERVICE 1:0:2:1234:3:1:0:0:0:0:'),
                          '1_0_2_1234_3_1_0_0_0_0')
