@@ -1480,10 +1480,13 @@ class piconsUpdateJobScreen(Screen):
             for bq_file in self.bouquet_files:
                 print('[ChocholousekPicons] Loading content from the file "%s".' % bq_file)
                 with open(bq_file, 'r') as f:
-                    bq_contents += f.read()
-            self.SRC_in_Bouquets = collect_picon_references(bq_contents)
-            self.SRC_in_Bouquets = [ x.upper() for x in self.SRC_in_Bouquets ]
-            self.SRC_in_Bouquets = list(set(self.SRC_in_Bouquets))              # remove duplicate items ---- converting to <set> and then again back to the <list>
+                    bq_contents += f.read() + '\\n'
+            if config.plugins.chocholousekpicons[profile_id].method.value == 'sync_tv_radio':
+                self.SRC_in_Bouquets = collect_picon_references(bq_contents)
+            else:
+                # Keep the existing TV-only matching semantics unchanged.
+                self.SRC_in_Bouquets = re.findall(r'.*#SERVICE\\s([0-9a-fA-F]+_0_[0-9a-fA-F_]+0_0_0).*\\n*', bq_contents.replace(':', '_'))
+                self.SRC_in_Bouquets = list(set(x.upper() for x in self.SRC_in_Bouquets))
             self.writeLog(_('...done.'))
         else:
             # 4-B) Vytvorí sa fiktívny t.j. prázdny zoznam SRC kódov z userbouquet zoznamov, aby v ďalšiom kroku boli všetky aktuálne pikony na lokálnom disku vymazané (metóda 'all' pre vymazanie všetkých aktuálnych picon a nakopírovanie nových picon)
