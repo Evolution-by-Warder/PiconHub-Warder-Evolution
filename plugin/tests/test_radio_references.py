@@ -47,9 +47,9 @@ class RadioReferenceTests(unittest.TestCase):
         self.assertIsNone(picon_reference('#SERVICE 1:0:2:1234:3:1'))
 
     def test_diagnostic_never_exposes_stream_url(self):
-        contents = ('#SERVICE 1:0:2:A:1:1:0:0:0:0:\\n'
-                    '#SERVICE 4097:0:1:0:0:0:0:0:0:0:http%3a//private.example/secret\\n'
-                    '#DESCRIPTION Private Radio\\n')
+        contents = ('#SERVICE 1:0:2:A:1:1:0:0:0:0:\n'
+                    '#SERVICE 4097:0:1:0:0:0:0:0:0:0:http%3a//private.example/secret\n'
+                    '#DESCRIPTION Private Radio\n')
         result = analyze_bouquet(contents)
         self.assertEqual(result['service_entries'], 2)
         self.assertEqual(result['accepted_unique'], 1)
