@@ -1,6 +1,6 @@
 # PiconHub Warder Evolution
 
-**Produkčná verzia 0.1.27**, schválená používateľom 27. októbra 2026. Plugin slúži na sťahovanie a správu piconov v Enigma2.
+**Produkčná verzia 0.1.29**, schválená používateľom 27. októbra 2026. Plugin slúži na sťahovanie a správu piconov v Enigma2.
 
 [Produkčný zápis](PRODUCTION.md) · [Stav overenia](BUILD-STATUS.md) · [Strojový záznam vydania](production.json)
 
@@ -24,12 +24,12 @@ Textové okná používajú rovnaký nepriehľadný podklad. Šípky ↑/↓ pos
 
 ## Inštalácia a aktualizácie
 
-[Stiahnuť IPK 0.1.27](https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/download/v0.1.27/enigma2-plugin-extensions-piconhub-warder-evolution_0.1.27_all.ipk).
+[Stiahnuť IPK 0.1.29](https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/download/v0.1.29/enigma2-plugin-extensions-piconhub-warder-evolution_0.1.29_all.ipk).
 
 Po skopírovaní konkrétneho balíka do `/tmp`:
 
 ```sh
-opkg install /tmp/enigma2-plugin-extensions-piconhub-warder-evolution_0.1.27_all.ipk
+opkg install /tmp/enigma2-plugin-extensions-piconhub-warder-evolution_0.1.29_all.ipk
 ```
 
 Plugin sa inštaluje do `/usr/lib/enigma2/python/Plugins/Extensions/WarderPiconHub/`. Existujúce nastavenia sa zachovávajú. Pri každom otvorení prebehne kontrola novšej verzie na pozadí. Inštaláciu používateľ potvrdí; dostupná je aj ručná kontrola žltým tlačidlom. Po úspešnej aktualizácii sa zobrazí jediné oznámenie a GUI sa po 3 sekundách reštartuje. Bez internetu zostane plugin použiteľný.
@@ -49,4 +49,7 @@ Zdroj vychádza z práce s3n0 a Chocholousek. Pôvodné autorské údaje, gettex
 
 V riadku Satelity označ **DAB / DAB+ (220×132)**, prípadne aj ďalšie satelitné zdroje. Vyber rozlíšenie **220×132**, pozadie a režim zahŕňajúci rádio. Režim podľa TV a rádia inštaluje iba presné referencie nájdené v rádiových bouquetoch prijímača; pri samostatnom DAB v režime všetkých piconov sa nainštaluje celá dostupná DAB sada. Používa sa nastavený cieľový priečinok, bežne `picon/`.
 
-Aktuálna sada: **51 označení staníc / 80 presných referencií**, každá v troch pozadiach. ASA DE zostáva vynechaná. Existujúce picony mimo pokrytia sa zachovávajú. Balík pluginu má **2 864 610 bajtov**; obrázkové ZIPy sa sťahujú samostatne. Prešlo **175 testov**, CI, kontrola verejného IPK aj skutočné sťahovanie všetkých troch štýlov. Fyzické overenie 0.1.27 v prijímači sa zatiaľ netvrdí.
+Aktuálna sada: **51 označení staníc / 80 presných referencií**, každá v troch pozadiach. ASA DE zostáva vynechaná. Existujúce picony mimo pokrytia sa zachovávajú. Balík pluginu má **2 875 124 bajtov**; obrázkové ZIPy sa sťahujú samostatne. Prešlo **176 testov**, CI, kontrola verejného IPK aj skutočné sťahovanie všetkých troch štýlov. Fyzické overenie 0.1.29 v prijímači sa zatiaľ netvrdí.
+
+
+DAB a DVB-T majú ikony pred názvom; rozlíšenie je samostatná voľba. Obnovený pôvodný archív DVB-T CZ/SK obsahuje 2 674 PNG v prevedení Transparent 220×132. Biele a čierne prevedenie zatiaľ nemá overený balík. Historický archív nepredstavuje záruku úplného aktuálneho pokrytia. Opravené filtrovanie DAB pri spoločnom výbere satelitnej pozície.

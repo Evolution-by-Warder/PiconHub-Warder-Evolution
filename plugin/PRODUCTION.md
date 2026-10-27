@@ -1,16 +1,16 @@
 # PiconHub Warder Evolution — ostrá prevádzka
 
-Zápis z 27. októbra 2026 na výslovný pokyn vlastníka projektu. Schválená produkčná základňa: **0.1.27**. Tento dokument nahrádza staré vývojové popisy; historické podklady zostávajú zachované.
+Zápis z 27. októbra 2026 na výslovný pokyn vlastníka projektu. Schválená produkčná základňa: **0.1.29**. Tento dokument nahrádza staré vývojové popisy; historické podklady zostávajú zachované.
 
 ## Identita vydania
 
-- Balík: `enigma2-plugin-extensions-piconhub-warder-evolution_0.1.27_all.ipk`.
-- Tag: `v0.1.27`.
-- Zdrojový commit: `62dc8a5dffec1741eea5aa0861b39ee27caf5652`.
-- Veľkosť: **2 864 610 bajtov**.
-- SHA256: `275885fdb467f469dab4c2975b51f2caaa80df44cf9b73482381c1ccb6f9e1df`.
+- Balík: `enigma2-plugin-extensions-piconhub-warder-evolution_0.1.29_all.ipk`.
+- Tag: `v0.1.29`.
+- Zdrojový commit: `93fd4546b2e3ebc617404a4c271a5278f763fadd`.
+- Veľkosť: **2 875 124 bajtov**.
+- SHA256: `076eaf60dca9d7d5f7a929462f4be56ee5a2820fcba5f047adfcc8de60fb6233`.
 - Inštalačný priečinok: `/usr/lib/enigma2/python/Plugins/Extensions/WarderPiconHub/`.
-- [Vydanie a IPK](https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/tag/v0.1.27).
+- [Vydanie a IPK](https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/tag/v0.1.29).
 
 Produkčné označenie nemení už vydané bajty IPK. Samostatný workflow pred zrušením označenia Pre-release overí verejne stiahnutý balík, jeho SHA256, veľkosť, zdrojový commit a súlad s [production.json](production.json). Repozitár je určený pluginu do prijímača. Produkčná propagácia nastaví jeho schválené vydanie ako GitHub Latest.
 
@@ -26,7 +26,7 @@ Produkčné označenie nemení už vydané bajty IPK. Samostatný workflow pred 
 - Jednotné nepriehľadné textové okná: automatické zalamovanie, posuvník vpravo podľa potreby, šípky ↑/↓ a iba červené Naspäť. Pri aktívnom sťahovaní zostáva aj modré Log.
 - O projekte: „Plugin vychádza z práce s3n0 a Chocholousek.“ Pod tým prehľad zmien aktuálne nainštalovaného vydania, pribalený v IPK pre offline čítanie.
 
-## Aktuálne rozhranie 0.1.27
+## Aktuálne rozhranie 0.1.29
 
 Výbery, aktualizačné hlásenia, sťahovanie, spracovanie, výsledok, Log aj O projekte sa zobrazujú v ľavom paneli. Banner a pravý náhľad zostávajú viditeľné. Hlavička má upravený horizont a zarovnanie údajov. Vlastný priečinok sa vždy otvára od `/`; zahŕňa skryté adresáre a funkčné odkazy na priečinky ako `/tmp` a `/hdd`. Pri potvrdení odkazu sa uloží overená skutočná cesta. Farebné potvrdenie aktualizácie zostáva pôvodné.
 
@@ -52,19 +52,19 @@ Balík zachováva starý `ChocholousekPicons/version.txt` počas prechodu, aby b
 
 SK, CS, EN, DE, PL, HU, RU, FR, IT, ES. Výber podľa jazyka systému; neznámy jazyk má anglický fallback. Preložené sú dialógy, tlačidlá, dátumové názvy aj poznámky k vydaniu.
 
-## DAB / DAB+ vo verzii 0.1.27
+## DAB / DAB+ vo verzii 0.1.29
 
 Zdroj DAB v existujúcom výbere, 220×132, Transparent/Biele/Čierne. Schválený katalóg má 51 označení / 80 presných desaťpolových referencií. Používa nastavený priečinok; žiadne vymyslené satelitné pozície ani nové duplicitné adresáre. ASA DE zostáva vynechaná. Zdrojový manifest, jednotlivé PNG aj archívy majú SHA256, archívy odkazujú na konkrétny commit a pred zápisom sa overujú. Existujúce rádiové picony mimo pokrytia sa zachovávajú.
 
 ## Skutočné overenie
 
-- **175 automatizovaných testov**; pred zlúčením oba workflow úspešné (40505582290, 40505582208).
-- Úspešný zostavovací a publikačný workflow **40540822495** pre zdroj `62dc8a5dffec1741eea5aa0861b39ee27caf5652`.
-- Verejné IPK má overenú veľkosť a SHA256 a zhoduje sa bajt po bajte s lokálnym zostavením rovnakého zdroja.
-- Živý aktualizátor ponúka prechod 0.1.25 → 0.1.27; balík prešiel validáciou aktualizátora.
+- **176 automatizovaných testov**; pred zlúčením oba workflow úspešné (40505582290, 40505582208).
+- Úspešný zostavovací a publikačný workflow **40548069323** pre zdroj `93fd4546b2e3ebc617404a4c271a5278f763fadd`.
+- Verejné IPK má overenú veľkosť a SHA256 a zodpovedá zverejnenému kontrolnému súčtu.
+- Živý aktualizátor ponúka prechod 0.1.25 → 0.1.29; balík prešiel validáciou aktualizátora.
 - Skutočné stiahnutie a zápis zo živého DAB katalógu do dočasných priečinkov: 80 piconov v každom z troch štýlov; kontrolný existujúci rádiový picon zostal zachovaný.
 - Štefan po prijatí opraveného oficiálneho vzoru výslovne prikázal nasadenie. Súhlas a presné hashe sú zaznamenané v DAB katalógu.
-- Fyzický test PiconHub 0.1.27 na prijímači sa zatiaľ netvrdí. Predchádzajúce výsledky konkrétnych verzií zostávajú v histórii. Používateľ potvrdil fungovanie rádiových piconov v oboch infobaroch FullHDGlass.
+- Fyzický test PiconHub 0.1.29 na prijímači sa zatiaľ netvrdí. Predchádzajúce výsledky konkrétnych verzií zostávajú v histórii. Používateľ potvrdil fungovanie rádiových piconov v oboch infobaroch FullHDGlass.
 
 ## Ďalšie vydania
 
@@ -76,6 +76,9 @@ Autorské údaje a chránené MASTER picony zostávajú zachované. Staré recov
 
 Aktuálny plugin je dostupný aj v hlavnej vetve main. Factory aktualizačný priečinok a nesúvisiace vydania sú odstránené. Potrebné šablóny a pôvod piconov sú pod plugin/artwork/. Adresa picons/ zostáva kvôli kompatibilite galérie v nainštalovaných verziách. Funkčné zdroje pluginu, IPK, checksum a aktualizačná adresa sa uprataním nemenia.
 
-## DAB a DVB-T v 0.1.27
+## DAB a DVB-T v 0.1.29
 
 Prvé dve položky výberu sú DAB a DVB-T. Samostatný overený DAB katalóg sa pri označení dostupnosti posudzuje oddelene od natívneho satelitného katalógu. Identické schválené picony sú aj v picons/19.2e/dab a picons/23.5e/dab a v celkových balíkoch príslušných pozícií (51 a 29 referencií pre každý z troch štýlov). Pôvodné obrázky zostali zachované. Warder je jeden ekosystém so spoločnými dátami a pravidlami; jednotlivé pluginy nezakladajú vlastné nezávislé databázy.
+
+
+DAB a DVB-T majú ikony pred názvom; rozlíšenie je samostatná voľba. Obnovený pôvodný archív DVB-T CZ/SK obsahuje 2 674 PNG v prevedení Transparent 220×132. Biele a čierne prevedenie zatiaľ nemá overený balík. Historický archív nepredstavuje záruku úplného aktuálneho pokrytia. Opravené filtrovanie DAB pri spoločnom výbere satelitnej pozície.
