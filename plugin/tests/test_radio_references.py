@@ -8,6 +8,7 @@ module = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(module)
 picon_reference = module.picon_reference
 collect_picon_references = module.collect_picon_references
+analyze_bouquet = module.analyze_bouquet
 
 
 class RadioReferenceTests(unittest.TestCase):
@@ -44,6 +45,16 @@ class RadioReferenceTests(unittest.TestCase):
 
     def test_reject_truncated_reference(self):
         self.assertIsNone(picon_reference('#SERVICE 1:0:2:1234:3:1'))
+
+    def test_diagnostic_never_exposes_stream_url(self):
+        contents = ('#SERVICE 1:0:2:A:1:1:0:0:0:0:\\n'
+                    '#SERVICE 4097:0:1:0:0:0:0:0:0:0:http%3a//private.example/secret\\n'
+                    '#DESCRIPTION Private Radio\\n')
+        result = analyze_bouquet(contents)
+        self.assertEqual(result['service_entries'], 2)
+        self.assertEqual(result['accepted_unique'], 1)
+        self.assertEqual(result['skipped_entries'], 1)
+        self.assertNotIn('private.example', repr(result))
 
     def test_deduplication(self):
         contents = '#SERVICE 1:0:2:A:1:1:0:0:0:0:\n#SERVICE 1:0:2:a:1:1:0:0:0:0:\n'
