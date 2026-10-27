@@ -21,7 +21,7 @@ The receiver mapping contains **52 station labels and 82 exact ten-field referen
 
 ## Runtime behavior
 
-Choose **DAB / DAB+ (220×132)** in the existing satellite/source selector. It can be combined with normal satellite sources; no fake orbital position or separate destination is created. The configured picon directory is used, normally `picon/`.
+Choose **DAB / DAB+** in the existing satellite/source selector. It can be combined with normal satellite sources; no fake orbital position or separate destination is created. The configured picon directory is used, normally `picon/`.
 
 DAB requires 220×132 and a mode including radio. TV-only operation does not request DAB packages. TV/radio bouquet mode intersects the package with the receiver's exact references. DAB-only full mode installs all verified DAB references. Native satellite selection filters mixed full-mode packages by position.
 
@@ -53,6 +53,6 @@ The corrected Absolut GERMANY sample was explicitly accepted by the owner ("tera
 
 DAB radio belongs to its owning satellite package, like other radio services. Approved identical PNGs are grouped at `picons/19.2e/dab/{transparent,white,black}` (51 references/style) and `picons/23.5e/dab/{transparent,white,black}` (29/style). The owner explicitly requested these transport folders; provider identities and exact reference names are retained. Git reuses the existing content objects.
 
-Full satellite packages were updated by FullHDGlass workflow 40509308490: all three styles preserve 3,687 existing images on 19.2E and 2,189 on 23.5E. Added DAB counts are 51 and 29 respectively. The live skin channel catalog serves these packages without requiring a skin IPK update. PiconHub 0.1.27 places DAB and DVB-T first and corrects the false unavailable DAB label.
+Full satellite packages were updated by FullHDGlass workflow 40509308490: all three styles preserve 3,687 existing images on 19.2E and 2,189 on 23.5E. Added DAB counts are 51 and 29 respectively. The live skin channel catalog serves these packages without requiring a skin IPK update. PiconHub 0.1.29 places DAB and DVB-T first and corrects the false unavailable DAB label.
 
 Official OpenATV scan support: `catalog/openatv-feeds.json` pins eight satellite positions and 52 feed definitions. Static transponder data does not contain every station SID: OpenATV reads station IDs and labels live from FIC. Further station picons require independently verified SID/EID metadata, not guessed reference aliases.
