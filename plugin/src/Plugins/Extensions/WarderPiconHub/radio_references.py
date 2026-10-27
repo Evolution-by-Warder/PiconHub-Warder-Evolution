@@ -1,35 +1,38 @@
 # -*- coding: utf-8 -*-
-"""Conservative extraction of picon references from Enigma2 bouquet entries.
+"""Extract Enigma2 picon basenames from bouquet service entries.
 
-Use the first ten hexadecimal service-reference fields, not stream URLs.
-Preserve original hexadecimal field spelling except case, as Enigma2 picon
-filenames can contain leading zeroes. No speculative DAB identifier mapping.
+Service references have ten hexadecimal identity fields, followed optionally
+by an IPTV URL. The URL must never become part of a filename. This module
+does not guess DAB ensemble IDs or equate unrelated regional stations.
 """
 import re
 
 _HEX = re.compile(r'^[0-9A-Fa-f]+$')
-_NON_PLAYABLE = (0, 1, 4, 64, 128, 256, 512)
+# These are known service-reference *type* strings (decimal spelling).
+# 1 is a valid DVB service and must NOT be rejected.
+_NON_PLAYABLE_TYPES = ('0', '4', '64', '128', '256', '512')
+# The second field is flags; 0 means a normal service entry.
+_STREAM_TYPES = ('4097', '5001', '5002', '8193')
 
 
 def picon_reference(service_line):
-    """Return the reference filename stem, or None for unsupported entries."""
+    """Return a picon basename or None for a non-service/unsupported line."""
     line = service_line.strip()
     if not line.startswith('#SERVICE '):
         return None
     fields = line[len('#SERVICE '):].strip().split(':', 10)
     if len(fields) < 10 or not all(_HEX.match(x) for x in fields[:10]):
         return None
-    values = [int(x, 16) for x in fields[:10]]
-    if values[0] in _NON_PLAYABLE or values[1] != 0:
+    if fields[0] in _NON_PLAYABLE_TYPES or int(fields[1], 16) != 0:
+        return None
+    # Stream URLs can follow the first ten fields, and are deliberately ignored.
+    # Reject entries where the tenth field is not followed by a delimiter.
+    if len(fields) == 10 and not line.endswith(':'):
         return None
     return '_'.join(x.upper() for x in fields[:10])
 
 
 def collect_picon_references(contents):
-    """Return sorted unique references for playable bouquet entries."""
-    found = set()
-    for line in contents.splitlines():
-        name = picon_reference(line)
-        if name:
-            found.add(name)
-    return sorted(found)
+    """Collect sorted, unique picon basenames for playable bouquet services."""
+    return sorted(set(filter(None, (picon_reference(line)
+                                   for line in contents.splitlines()))))
