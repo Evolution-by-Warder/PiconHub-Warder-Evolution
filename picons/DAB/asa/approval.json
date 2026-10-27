@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "status": "owner-authorized",
-  "owner_direction": "Create ASA DE from the supplied logo in all standard sizes/backgrounds and include it in all applicable 23.5E packages; publish on GitHub. 27 October 2026.",
+  "owner_direction": "ASA DE must be included only in standalone DAB and full 23.5E satellite packages. Explicit owner correction: 'picon ASA DE nema bit v balikcoh canal+, ale iba DAB a celkovom 23.5' (27 October 2026).",
   "baseline_commit": "ee5bccd2b06eb42ab9913cf158873443cc018682",
   "official_source": "https://www.dabplus.de/wp-content/themes/dabplus21/assets/svg/asa-logo.svg",
   "source_sha256": "3c4d930cb58e2b56f04a41c00dbed6dacc83a8ba6707dd42878b3602c2c3e0f8",
@@ -86,5 +86,17 @@
       "sha256": "7c1277b07deeb8cefba9454048d14b10ea7a6e3fba1956f2807672ee4830ce1d"
     }
   },
-  "preservation": "Every pre-existing approved DAB PNG is byte-identical; 80 retained + 2 ASA references per archive."
+  "preservation": "Every pre-existing approved DAB PNG is byte-identical; 80 retained + 2 ASA references per archive.",
+  "satellite_selectors": [
+    "235E"
+  ],
+  "standalone_sources": [
+    "DAB"
+  ],
+  "excluded_selectors": [
+    "192E",
+    "SKYLINK",
+    "CANALPLUS_SK",
+    "CANALPLUS_CZ"
+  ]
 }

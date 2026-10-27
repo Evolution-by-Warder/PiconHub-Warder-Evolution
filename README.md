@@ -27,7 +27,7 @@ The root `picons/` address remains compatible with installed plugin versions tha
 
 ## DAB / DAB+ in 0.1.29
 
-Choose **DAB / DAB+** in the source selector. The approved catalog covers **52 labels / 82 exact receiver references** in Transparent, White and Black. Picons install into the configured picon directory; unknown radio picons are retained. See the [DAB guide](picons/DAB/README.md), [live catalog](picons/DAB/catalog/release.json) and [owner authorization](picons/DAB/catalog/publication-approval.json). ASA DE is included using the official vector logo matching the owner-supplied reference. All 80 earlier picons per style remain byte-identical. [ASA source, variants and checks](picons/DAB/asa/approval.json).
+Choose **DAB / DAB+** in the source selector. The approved catalog covers **52 labels / 82 exact receiver references** in Transparent, White and Black. Picons install into the configured picon directory; unknown radio picons are retained. See the [DAB guide](picons/DAB/README.md), [live catalog](picons/DAB/catalog/release.json) and [owner authorization](picons/DAB/catalog/publication-approval.json). ASA DE is included using the official vector logo matching the owner-supplied reference. All 80 earlier picons per style remain byte-identical. [ASA source, variants and checks](picons/DAB/asa/approval.json). ASA is included only in standalone DAB and full 23.5E downloads, with provider packages explicitly excluded.
 
 ## One Warder ecosystem
 

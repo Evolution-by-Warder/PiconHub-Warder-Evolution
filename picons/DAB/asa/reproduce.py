@@ -70,9 +70,6 @@ def build():
             write('picons/DAB/preview/authentic/'+style+'/'+name,data)
             orbital='23.5e' if '_EB0000_' in name else '19.2e'
             write('picons/'+orbital+'/dab/'+style+'/'+name,data)
-            if orbital=='23.5e':
-                for group in ('canal-plus-sk','canal-plus-cz'):
-                    write('picons/23.5e/'+group+'/'+style+'/'+name,data)
     assert preview['records'][:80]==old_records
     preview.update(station_count=52,reference_count=82);preview['unresolved'].pop('ASA DE',None)
     document('picons/DAB/catalog/authentic-preview.json',preview)
@@ -98,7 +95,7 @@ def build():
     with ThreadPoolExecutor(max_workers=3) as pool:evidence=dict(pool.map(package,STYLES))
     release.update(station_count=52,reference_count=82);release['unresolved'].pop('ASA DE',None)
     (ROOT/'next-release.json').write_text(json.dumps(release,ensure_ascii=False,indent=2)+'\n')
-    plan={'schema':1,'status':'owner-authorized','owner_direction':'Create ASA DE from the supplied logo in all standard sizes/backgrounds and include it in all applicable 23.5E packages; publish on GitHub. 27 October 2026.','baseline_commit':BASE,'official_source':URL,'source_sha256':SVG_SHA,'master_sha256':config['master_sha256'],'references':list(REFS),'artwork':variants,'standalone_packages':evidence,'preservation':'Every pre-existing approved DAB PNG is byte-identical; 80 retained + 2 ASA references per archive.'}
+    plan={'schema':1,'status':'owner-authorized','owner_direction':'Create ASA DE from the supplied logo in all standard sizes/backgrounds and include it only in standalone DAB and the full 23.5E satellite packages, excluding Canal+/Skylink/provider groups; publish on GitHub. 27 October 2026.','baseline_commit':BASE,'official_source':URL,'source_sha256':SVG_SHA,'master_sha256':config['master_sha256'],'references':list(REFS),'artwork':variants,'satellite_selectors':['235E'],'standalone_sources':['DAB'],'excluded_selectors':['192E','SKYLINK','CANALPLUS_SK','CANALPLUS_CZ'],'standalone_packages':evidence,'preservation':'Every pre-existing approved DAB PNG is byte-identical; 80 retained + 2 ASA references per archive.'}
     document('picons/DAB/asa/approval.json',plan)
     sheet=Image.new('RGB',(720,310),(55,65,75));draw=ImageDraw.Draw(sheet)
     for i,style in enumerate(STYLES):
