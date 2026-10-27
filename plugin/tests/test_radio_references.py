@@ -9,6 +9,10 @@ class RadioReferenceTests(unittest.TestCase):
         self.assertEqual(picon_reference('#SERVICE 1:0:2:1234:3:1:0:0:0:0:'),
                          '1_0_2_1234_3_1_0_0_0_0')
 
+    def test_preserve_leading_zeroes(self):
+        self.assertEqual(picon_reference('#SERVICE 1:0:2:000A:0001:1:0:0:0:0:'),
+                         '1_0_2_000A_0001_1_0_0_0_0')
+
     def test_dab_style_service_type(self):
         self.assertEqual(picon_reference('#SERVICE 1013:0:2:1234:3:1:0:0:0:0:'),
                          '1013_0_2_1234_3_1_0_0_0_0')
@@ -23,6 +27,9 @@ class RadioReferenceTests(unittest.TestCase):
                      '#DESCRIPTION Radio',
                      '#SERVICE 1:0:2:xyz:0:0:0:0:0:0:'):
             self.assertIsNone(picon_reference(line))
+
+    def test_reject_truncated_reference(self):
+        self.assertIsNone(picon_reference('#SERVICE 1:0:2:1234:3:1'))
 
     def test_deduplication(self):
         contents = '#SERVICE 1:0:2:A:1:1:0:0:0:0:\n#SERVICE 1:0:2:a:1:1:0:0:0:0:\n'
