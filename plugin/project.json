@@ -6,7 +6,7 @@
     "0.7.x"
   ],
   "decision_date": "2026-10-23",
-  "status": "production-authorized",
+  "status": "production-approved",
   "recovery": {
     "source_commit": "6f45821b44559b912cacf21e5bb01932d62766f6",
     "source_path": "plugin/releases/files",
@@ -40,29 +40,39 @@
   "modern_ui_implemented": true,
   "warder_catalog_integrated": true,
   "installable_package_built": true,
-  "runtime_status": "production-authorized",
+  "runtime_status": "production-baseline",
   "latest_published_version": "0.1.26",
   "runtime_directory": "WarderPiconHub",
-  "production_version": "0.1.25",
+  "production_version": "0.1.26",
   "production_manifest": "plugin/production.json",
   "production_approved_by_user": true,
-  "production_approved_on": "2026-10-24",
+  "production_approved_on": "2026-10-27",
   "receiver_validation": {
-    "automated_tests": 134,
+    "automated_tests": 173,
     "ci": "passed",
-    "workflow_run": 40103465080,
-    "receiver": "GigaBlue UHD Quad 4K Pro / OpenATV",
-    "user_confirmed_runtime_version": "0.1.9",
-    "user_confirmed_scenario": "Four orbital positions 13.0E, 16.0E, 19.2E, 23.5E completed successfully; screenshot reports 0 added, 218 changed, 753 removed.",
+    "workflow_run": 40505775243,
+    "pre_merge_core_workflow": 40505582290,
+    "pre_merge_radio_workflow": 40505582208,
+    "public_ipk_verified": true,
+    "public_ipk_matches_local_build": true,
+    "live_dab_downloads": {
+      "transparent": 80,
+      "white": 80,
+      "black": 80,
+      "unknown_existing_picons_preserved": true
+    },
+    "startup_upgrade_from": "0.1.25",
+    "startup_upgrade_to": "0.1.26",
+    "receiver_tested": false,
     "latest_receiver_version_confirmed": false,
-    "limits": "Owner production acceptance and successful automated tests/CI are recorded. Supplied screenshots show 0.1.23; no exhaustive physical receiver test of 0.1.25 is claimed.",
-    "owner_acceptance": "Current skin and plugin accepted for production on 24 October 2026."
+    "owner_acceptance": "Owner authorized production activation on 27 October 2026 after accepting the corrected official-logo composition.",
+    "limits": "173 automated tests, CI and real public-download/staging checks passed on a build host. No physical receiver test of PiconHub 0.1.26 is claimed.",
+    "fullhdglass_radio_infobars": "Owner confirmed picons display in both radio infobars."
   },
   "source_layout": {
     "plugin": "plugin/",
     "picon_provenance": "plugin/artwork/provenance/",
     "templates": "plugin/artwork/templates/",
     "legacy_recent_picons_source": "picons/"
-  },
-  "candidate_status": "Owner authorized production publication on 27 October 2026"
+  }
 }

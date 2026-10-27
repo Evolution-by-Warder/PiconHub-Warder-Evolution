@@ -1,16 +1,16 @@
 # PiconHub Warder Evolution — ostrá prevádzka
 
-Zápis z 24. októbra 2026 na výslovný pokyn vlastníka projektu. Schválená produkčná základňa: **0.1.25**. Tento dokument nahrádza staré vývojové popisy; historické podklady zostávajú zachované.
+Zápis z 27. októbra 2026 na výslovný pokyn vlastníka projektu. Schválená produkčná základňa: **0.1.26**. Tento dokument nahrádza staré vývojové popisy; historické podklady zostávajú zachované.
 
 ## Identita vydania
 
-- Balík: `enigma2-plugin-extensions-piconhub-warder-evolution_0.1.25_all.ipk`.
-- Tag: `v0.1.25`.
-- Zdrojový commit: `bbb5df585e040aff73982853ab895fb863a1faa1`.
-- Veľkosť: **2 860 776 bajtov**.
-- SHA256: `599d2a10abfe5e53470423ff1567c5a0b7400aa4a249d5bfe08a9de600ba3310`.
+- Balík: `enigma2-plugin-extensions-piconhub-warder-evolution_0.1.26_all.ipk`.
+- Tag: `v0.1.26`.
+- Zdrojový commit: `57e4c8a3610b61b544f68589132b75cb26c34358`.
+- Veľkosť: **2 865 224 bajtov**.
+- SHA256: `ca9ea1b0f4725ee56a968fa40bce68e6c200da3026c728bbcaafa8dcf1969391`.
 - Inštalačný priečinok: `/usr/lib/enigma2/python/Plugins/Extensions/WarderPiconHub/`.
-- [Vydanie a IPK](https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/tag/v0.1.25).
+- [Vydanie a IPK](https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/tag/v0.1.26).
 
 Produkčné označenie nemení už vydané bajty IPK. Samostatný workflow pred zrušením označenia Pre-release overí verejne stiahnutý balík, jeho SHA256, veľkosť, zdrojový commit a súlad s [production.json](production.json). Repozitár je určený pluginu do prijímača. Produkčná propagácia nastaví jeho schválené vydanie ako GitHub Latest.
 
@@ -26,7 +26,7 @@ Produkčné označenie nemení už vydané bajty IPK. Samostatný workflow pred 
 - Jednotné nepriehľadné textové okná: automatické zalamovanie, posuvník vpravo podľa potreby, šípky ↑/↓ a iba červené Naspäť. Pri aktívnom sťahovaní zostáva aj modré Log.
 - O projekte: „Plugin vychádza z práce s3n0 a Chocholousek.“ Pod tým prehľad zmien aktuálne nainštalovaného vydania, pribalený v IPK pre offline čítanie.
 
-## Aktuálne rozhranie 0.1.25
+## Aktuálne rozhranie 0.1.26
 
 Výbery, aktualizačné hlásenia, sťahovanie, spracovanie, výsledok, Log aj O projekte sa zobrazujú v ľavom paneli. Banner a pravý náhľad zostávajú viditeľné. Hlavička má upravený horizont a zarovnanie údajov. Vlastný priečinok sa vždy otvára od `/`; zahŕňa skryté adresáre a funkčné odkazy na priečinky ako `/tmp` a `/hdd`. Pri potvrdení odkazu sa uloží overená skutočná cesta. Farebné potvrdenie aktualizácie zostáva pôvodné.
 
@@ -52,12 +52,19 @@ Balík zachováva starý `ChocholousekPicons/version.txt` počas prechodu, aby b
 
 SK, CS, EN, DE, PL, HU, RU, FR, IT, ES. Výber podľa jazyka systému; neznámy jazyk má anglický fallback. Preložené sú dialógy, tlačidlá, dátumové názvy aj poznámky k vydaniu.
 
+## DAB / DAB+ vo verzii 0.1.26
+
+Zdroj DAB v existujúcom výbere, 220×132, Transparent/Biele/Čierne. Schválený katalóg má 51 označení / 80 presných desaťpolových referencií. Používa nastavený priečinok; žiadne vymyslené satelitné pozície ani nové duplicitné adresáre. ASA DE zostáva vynechaná. Zdrojový manifest, jednotlivé PNG aj archívy majú SHA256, archívy odkazujú na konkrétny commit a pred zápisom sa overujú. Existujúce rádiové picony mimo pokrytia sa zachovávajú.
+
 ## Skutočné overenie
 
-- **134 automatizovaných testov**, GitHub CI úspešné pre zdroj 0.1.25 (run 40103465080).
-- Používateľ dodal úspešný výsledok na prijímači pre 0.1.9: 13.0E, 16.0E, 19.2E a 23.5E; 0 pridaných, 218 zmenených, 753 odstránených. Ide o zaznamenaný výsledok konkrétneho výberu, nie očakávané počty pre každú inštaláciu.
-- Používateľ 24. októbra 2026 schválil aktuálny skin aj plugin do ostrej prevádzky. Ide o prijatie aktuálneho stavu, nie tvrdenie o fyzickom otestovaní všetkých kombinácií.
-- Úpravy po 0.1.9 vrátane resetu obrazovky, textov, offline poznámok a päty majú testy a CI. Kompletný nový beh 0.1.25 na prijímači zatiaľ potvrdený nie je. Produkčné schválenie nie je tvrdením o otestovaní všetkých image, zariadení alebo kombinácií balíkov.
+- **173 automatizovaných testov**; pred zlúčením oba workflow úspešné (40505582290, 40505582208).
+- Úspešný zostavovací a publikačný workflow **40505775243** pre zdroj `57e4c8a3610b61b544f68589132b75cb26c34358`.
+- Verejné IPK má overenú veľkosť a SHA256 a zhoduje sa bajt po bajte s lokálnym zostavením rovnakého zdroja.
+- Živý aktualizátor ponúka prechod 0.1.25 → 0.1.26; balík prešiel validáciou aktualizátora.
+- Skutočné stiahnutie a zápis zo živého DAB katalógu do dočasných priečinkov: 80 piconov v každom z troch štýlov; kontrolný existujúci rádiový picon zostal zachovaný.
+- Štefan po prijatí opraveného oficiálneho vzoru výslovne prikázal nasadenie. Súhlas a presné hashe sú zaznamenané v DAB katalógu.
+- Fyzický test PiconHub 0.1.26 na prijímači sa zatiaľ netvrdí. Predchádzajúce výsledky konkrétnych verzií zostávajú v histórii. Používateľ potvrdil fungovanie rádiových piconov v oboch infobaroch FullHDGlass.
 
 ## Ďalšie vydania
 

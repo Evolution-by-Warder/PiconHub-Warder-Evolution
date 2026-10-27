@@ -30,3 +30,7 @@ FullHDGlass: the owner confirmed radio picons display in both infobars; the skin
 ## Release scope
 
 Activate the verified catalog and publish PiconHub 0.1.26 through the existing update feed. Preserve the three background styles, exact service-reference names, configured destination and existing picons outside package coverage. Production package hash and CI run are recorded in `plugin/production.json` after byte verification.
+
+## Production verification
+
+PiconHub 0.1.26 was published from `57e4c8a3610b61b544f68589132b75cb26c34358` by workflow 40505775243. The live updater offers the new version over 0.1.25. All three public DAB archives were installed through the actual runtime runner into temporary directories: 80 added per style, zero removals, and an unknown existing radio picon preserved. The public IPK is 2,865,224 bytes, SHA256 `ca9ea1b0f4725ee56a968fa40bce68e6c200da3026c728bbcaafa8dcf1969391`, identical to the local source build. Physical receiver validation remains unclaimed. `plugin/production.json` records these checks.
