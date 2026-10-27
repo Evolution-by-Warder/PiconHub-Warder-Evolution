@@ -1,66 +1,32 @@
 # -*- coding: utf-8 -*-
-"""Conservative Enigma2 bouquet service-reference extraction.
+"""Conservative extraction of picon references from Enigma2 bouquet entries.
 
-Only the first ten numeric service-reference fields form a picon basename.
-Stream URLs after those fields are not part of the basename. Directory and
-marker entries are excluded. No guessed DAB identifier translations.
+Use the first ten hexadecimal service-reference fields, not stream URLs.
+Preserve original hexadecimal field spelling except case, as Enigma2 picon
+filenames can contain leading zeroes. No speculative DAB identifier mapping.
 """
 import re
 
-_HEX = re.compile(r'^[0-9A-Fa-f]+
-_NON_PLAYABLE = {0, 1, 4, 64, 128, 256, 512}
+_HEX = re.compile(r'^[0-9A-Fa-f]+$')
+_NON_PLAYABLE = (0, 1, 4, 64, 128, 256, 512)
 
 
 def picon_reference(service_line):
-    """Return a picon basename, or None for non-service/unsupported lines."""
+    """Return the reference filename stem, or None for unsupported entries."""
     line = service_line.strip()
     if not line.startswith('#SERVICE '):
         return None
-    reference = line[9:].strip()
-    fields = reference.split(':', 10)
-    if len(fields) < 10 or not all(_HEX.match(x or '') for x in fields[:10]):
+    fields = line[len('#SERVICE '):].strip().split(':', 10)
+    if len(fields) < 10 or not all(_HEX.match(x) for x in fields[:10]):
         return None
     values = [int(x, 16) for x in fields[:10]]
-    if values[0] in _NON_PLAYABLE:
-        return None
-    # Reject bouquet references and directory/marker flags.
-    if values[1] != 0 or values[0] == 0:
+    if values[0] in _NON_PLAYABLE or values[1] != 0:
         return None
     return '_'.join(x.upper() for x in fields[:10])
 
 
 def collect_picon_references(contents):
-    """Collect unique playable service references from one or more bouquets."""
-    found = set()
-    for line in contents.splitlines():
-        name = picon_reference(line)
-        if name:
-            found.add(name)
-    return sorted(found)
-)
-_NON_PLAYABLE = {0, 1, 4, 64, 128, 256, 512}
-
-
-def picon_reference(service_line):
-    """Return a picon basename, or None for non-service/unsupported lines."""
-    line = service_line.strip()
-    if not line.startswith('#SERVICE '):
-        return None
-    reference = line[9:].strip()
-    fields = reference.split(':', 10)
-    if len(fields) < 10 or not all(_HEX.match(x or '') for x in fields[:10]):
-        return None
-    values = [int(x, 16) for x in fields[:10]]
-    if values[0] in _NON_PLAYABLE:
-        return None
-    # Reject bouquet references and directory/marker flags.
-    if values[1] != 0 or values[0] == 0:
-        return None
-    return '_'.join(format(v, 'X') for v in values)
-
-
-def collect_picon_references(contents):
-    """Collect unique playable service references from one or more bouquets."""
+    """Return sorted unique references for playable bouquet entries."""
     found = set()
     for line in contents.splitlines():
         name = picon_reference(line)
