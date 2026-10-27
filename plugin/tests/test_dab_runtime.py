@@ -37,6 +37,21 @@ class DABRuntimeTests(unittest.TestCase):
         self.bouquet(NAME)
     def bouquet(self,name):
         (self.box/'userbouquet.dab.radio').write_text('#SERVICE '+name[:-4].replace('_',':')+':http%3a//private.invalid/secret\n#DESCRIPTION Test\n')
+    def test_published_catalog_installs_without_overriding_its_approval_status(self):
+        root=pathlib.Path(__file__).parents[2]/'picons/DAB'
+        document=(root/'catalog/release.json').read_bytes()
+        parsed=json.loads(document)
+        self.assertEqual(parsed['status'],'verified')
+        package=parsed['packages']['white']
+        def opener(url):
+            if url==dab.MANIFEST_URL:return io.BytesIO(document)
+            self.assertEqual(url,package['url'])
+            return (root/'packages'/url.rsplit('/',1)[1]).open('rb')
+        (self.target/OTHER).write_bytes(b'preserved')
+        p=dict(self.prefs,style='white',update_mode=sync.UPDATE_MODE_INCREMENTAL)
+        result=self.runner(opener).run([p])
+        self.assertEqual(result,{'added':80,'changed':0,'removed':0})
+        self.assertEqual((self.target/OTHER).read_bytes(),b'preserved')
     def test_real_candidate_packages_install_all_three_styles_without_deleting_unknown_files(self):
         root=pathlib.Path(__file__).parents[2]/'picons/DAB'
         document=json.loads((root/'catalog/release-candidate.json').read_text())

@@ -1,7 +1,5 @@
-# Preview picons
+# DAB artwork audit and review
 
-The user-facing **Warder_DAB_Preview_246_Picons.zip** contains 82 service-reference filenames in three variants (transparent, white, black), 220 × 132 PNG.
+`authentic/` contains the rendered official/source-checked station logos used by the approved production ZIPs. `review/` contains the corresponding contact sheets. Publication authorization and exact manifest hash are in `../catalog/publication-approval.json`; the runtime downloads only `../catalog/release.json` and its pinned ZIPs.
 
-These are generated station-name **placeholders**, not genuine station logos and not the approved Warder MASTER V9 design. They are intentionally not committed to the production picon catalog. Do not install automatically.
-
-After artwork approval, publish only appropriately licensed, source-verified and reviewed logos to `../verified/`.
+Earlier Warder_DAB_Preview_246_Picons.zip files were station-name placeholders, not authentic station logos. Those historical placeholders are not used in the current production set.

@@ -1,5 +1,7 @@
 # DAB catalog
 
-Receiver-derived mapping source: `DAB_radio_picon_mapping.csv` (82 service references / 52 station labels / 6 DAB+ bouquets), available in the development artifacts. Each record tracks bouquet, station, exact picon PNG basename, logo source and verification state.
+`DAB_radio_picon_mapping.csv` is the imported receiver mapping: 82 exact references / 52 labels / six bouquets. `release.json` is the approved runtime catalog: 80 references / 51 labels in three styles. ASA DE is excluded pending an authenticated logo.
 
-Do not mark unverified station-name placeholders as approved station logos. No private IPTV stream URLs belong in catalog files.
+`artwork.json` records source assets and hashes. `authentic-preview.json` records rendered bytes; its initial review flags describe the historical build stage. `publication-approval.json` records subsequent owner authorization and pins that exact build manifest. `owner-decisions.json` retains the individual correction acceptance and publication instruction. `release-candidate.json` is the historical candidate, not the runtime endpoint.
+
+No private IPTV URLs or credentials belong in these files. Never present station-name placeholders as approved logos.

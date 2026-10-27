@@ -11,13 +11,9 @@
 - Existing startup update checker retained; startup/offline tests exercise it. No new blocking GUI network request added.
 - New candidate release notes provided in all ten existing plugin languages.
 
-## Pending before production
+## Publication authorized — 27 October 2026
 
-1. Owner visual review of the seven contact sheets; ASA DE remains excluded.
-2. Publish the accepted assets at an immutable commit, then its verified catalog.
-3. Receiver test of 0.1.26, including DAB-only and combined satellite/radio selection.
-
-4. Promote the validated IPK through the existing stable feed; do not modify the stable feed during this review.
+The owner explicitly requested activation and production publication after accepting the corrected official-logo composition. `publication-approval.json` pins this authorization to the exact artwork manifest. ASA DE stays excluded. FullHDGlass radio picons in both infobars are confirmed by the owner. Physical receiver testing of PiconHub 0.1.26 is not claimed; automated and public-download checks are recorded separately.
 
 The old sparse-checkout CI failure was fixed in 8342272ae218221fec07941e1b34c4d143f5f180; both workflows passed there. New runtime/artwork tests supersede the earlier placeholder-only checks.
 
@@ -30,3 +26,7 @@ On 27 October the owner rejected substituting a different Absolut GERMANY wordma
 The corrected Absolut GERMANY sample and the same-official-source composition rule were accepted ("teraz je uz perfektne"). Acceptance is recorded in `catalog/owner-decisions.json`, the DAB README, artwork QUALITY.md and PR #11. BELLA, HOT and TOP 2000 follow this composition rule. The record does not assert visual review of the full 51-label catalog or a receiver test of 0.1.26.
 
 FullHDGlass: the owner confirmed radio picons display in both infobars; the skin rendering issue is closed.
+
+## Release scope
+
+Activate the verified catalog and publish PiconHub 0.1.26 through the existing update feed. Preserve the three background styles, exact service-reference names, configured destination and existing picons outside package coverage. Production package hash and CI run are recorded in `plugin/production.json` after byte verification.

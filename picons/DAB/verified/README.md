@@ -1,5 +1,5 @@
-# Verified DAB/DAB+ Warder picons
+# Approved DAB distribution
 
-Release gate: approved MASTER V9 artwork; confirmed station identity and exact Enigma2 service reference; reviewed image license, attribution and provenance; validated PNG size/transparency; tested in radio list and HD Glass bottom infobar.
+The approved runtime distribution is `../catalog/release.json`, backed by the three immutable ZIPs in `../packages/`. Owner authorization is recorded in `../catalog/publication-approval.json`.
 
-**No artwork has passed this gate yet.** This directory must remain free of placeholder images.
+This directory is reserved for optional offline exports; it intentionally does not duplicate the same 240 PNGs. The receiver installer uses the verified ZIP catalog, not this directory. Never put station-name placeholders here.

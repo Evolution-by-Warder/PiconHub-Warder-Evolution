@@ -1,7 +1,7 @@
 # DAB / DAB+ — PiconHub Warder Evolution
 
-Development candidate **0.1.26**, branch `feature/universal-radio-picons`, PR #11.
-Production remains **0.1.25**. Nothing in this directory changes the stable update feed.
+**PiconHub 0.1.26 — production publication authorized on 27 October 2026.**
+The owner requested activation of the corrected DAB set and the existing automatic plugin updater. Publication approval is recorded in `catalog/publication-approval.json`; physical receiver validation is recorded separately.
 
 ## Current data
 
@@ -10,12 +10,14 @@ The receiver mapping contains **52 station labels and 82 exact ten-field referen
 - `catalog/DAB_radio_picon_mapping.csv`: original receiver mapping; imported verification flags describe its earlier placeholder stage.
 - `catalog/artwork.json`: selected source URLs/revisions, source hashes, contrast operations and frozen master hashes.
 - `sources/`: pinned originals, provenance and upstream licence.
-- `preview/authentic/`: genuine station logo candidates, not the old station-name placeholders.
+- `preview/authentic/`: rendered station logos used by the approved ZIP set; not the old station-name placeholders.
 - `preview/review/`: seven contact sheets, all 51 labels in three styles.
-- `catalog/authentic-preview.json`: output hashes, exact identities and explicit pending visual acceptance.
+- `catalog/authentic-preview.json`: build output hashes and exact identities. Original review flags are retained; subsequent owner publication authorization is in publication-approval.json.
 - `packages/`: deterministic ZIPs, flat exact-reference filenames, one archive per style.
-- `catalog/release-candidate.json`: candidate package hashes and immutable Git URLs. **Rejected by the receiver installer while status is candidate.**
-- `verified/` and production `catalog/release.json`: reserved for the approved distribution.
+- `catalog/release-candidate.json`: candidate package hashes and immutable Git URLs. **Retained as a historical candidate; the receiver uses release.json.**
+- `catalog/release.json`: approved runtime catalog, pinned to immutable ZIP assets.
+- `catalog/publication-approval.json`: owner authorization and exact artwork-manifest hash.
+- `verified/`: reserved offline export directory; runtime installation uses the approved ZIP catalog.
 
 ## Runtime behavior
 

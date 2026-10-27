@@ -1,3 +1,5 @@
-# PiconHub Warder Evolution 0.1.26 — vývojový kandidát
+# PiconHub Warder Evolution 0.1.26
 
-Vývojový kandidát: DAB/DAB+ podľa presných referencií prijímača, overenie balíkov a zachovanie vlastných piconov. Grafika čaká na schválenie; produkčný aktualizátor zostáva na 0.1.25.
+DAB/DAB+ picony podľa presných referencií prijímača. Výber DAB v zozname zdrojov, 220×132 v prevedení Transparent, Biele a Čierne. Overovanie stiahnutých balíkov a zachovanie vlastných či nepokrytých rádiových piconov. Opravené oficiálne logá Absolut. Kontrola aktualizácie pri každom otvorení pluginu.
+
+Databáza DAB pokrýva 51 označení staníc / 80 presných referencií. ASA DE zatiaľ nemá overené logo a zostáva vynechaná.
