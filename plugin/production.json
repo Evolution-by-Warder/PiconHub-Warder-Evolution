@@ -3,15 +3,15 @@
   "product": "PiconHub Warder Evolution",
   "status": "production-approved",
   "approved_on": "2026-10-27",
-  "approval": "Owner explicitly requested \"tak a teraz to vsetko uved do reaneho zivota\" after accepting the corrected official-logo composition.",
+  "approval": "Owner authorized continued deployment of DAB/DVB-T menu fixes, positional DAB source folders and full satellite package integration on 27 October 2026.",
   "source_branch": "plugin/futuristic-rebuild",
-  "source_commit": "57e4c8a3610b61b544f68589132b75cb26c34358",
+  "source_commit": "62dc8a5dffec1741eea5aa0861b39ee27caf5652",
   "release": {
-    "version": "0.1.26",
-    "tag": "v0.1.26",
-    "url": "https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/download/v0.1.26/enigma2-plugin-extensions-piconhub-warder-evolution_0.1.26_all.ipk",
-    "sha256": "ca9ea1b0f4725ee56a968fa40bce68e6c200da3026c728bbcaafa8dcf1969391",
-    "bytes": 2865224
+    "version": "0.1.27",
+    "tag": "v0.1.27",
+    "url": "https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/download/v0.1.27/enigma2-plugin-extensions-piconhub-warder-evolution_0.1.27_all.ipk",
+    "bytes": 2864610,
+    "sha256": "275885fdb467f469dab4c2975b51f2caaa80df44cf9b73482381c1ccb6f9e1df"
   },
   "installation_directory": "/usr/lib/enigma2/python/Plugins/Extensions/WarderPiconHub/",
   "package": "enigma2-plugin-extensions-piconhub-warder-evolution",
@@ -29,9 +29,9 @@
     "es"
   ],
   "validation": {
-    "automated_tests": 173,
+    "automated_tests": 175,
     "ci": "passed",
-    "workflow_run": 40505775243,
+    "workflow_run": 40540822495,
     "pre_merge_core_workflow": 40505582290,
     "pre_merge_radio_workflow": 40505582208,
     "public_ipk_verified": true,
@@ -42,12 +42,19 @@
       "black": 80,
       "unknown_existing_picons_preserved": true
     },
-    "startup_upgrade_from": "0.1.25",
-    "startup_upgrade_to": "0.1.26",
+    "startup_upgrade_from": "0.1.26",
+    "startup_upgrade_to": "0.1.27",
     "receiver_tested": false,
     "latest_receiver_version_confirmed": false,
     "owner_acceptance": "Owner authorized production activation on 27 October 2026 after accepting the corrected official-logo composition.",
-    "limits": "173 automated tests, CI and real public-download/staging checks passed on a build host. No physical receiver test of PiconHub 0.1.26 is claimed.",
-    "fullhdglass_radio_infobars": "Owner confirmed picons display in both radio infobars."
+    "limits": "175 tests and publishing CI pass. Public IPK and upgrade from 0.1.26 validated. Shared DAB package bytes unchanged; physical receiver test of 0.1.27 is not claimed.",
+    "fullhdglass_radio_infobars": "Owner confirmed picons display in both radio infobars.",
+    "full_satellite_dab": {
+      "skin_workflow": 40509308490,
+      "19.2e": 51,
+      "23.5e": 29,
+      "styles": 3,
+      "original_pngs_preserved": true
+    }
   }
 }

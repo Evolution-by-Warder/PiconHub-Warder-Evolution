@@ -6,7 +6,7 @@
     "0.7.x"
   ],
   "decision_date": "2026-10-23",
-  "status": "production-authorized",
+  "status": "production-approved",
   "recovery": {
     "source_commit": "6f45821b44559b912cacf21e5bb01932d62766f6",
     "source_path": "plugin/releases/files",
@@ -40,17 +40,17 @@
   "modern_ui_implemented": true,
   "warder_catalog_integrated": true,
   "installable_package_built": true,
-  "runtime_status": "production-authorized",
+  "runtime_status": "production-baseline",
   "latest_published_version": "0.1.27",
   "runtime_directory": "WarderPiconHub",
-  "production_version": "0.1.26",
+  "production_version": "0.1.27",
   "production_manifest": "plugin/production.json",
   "production_approved_by_user": true,
   "production_approved_on": "2026-10-27",
   "receiver_validation": {
-    "automated_tests": 173,
+    "automated_tests": 175,
     "ci": "passed",
-    "workflow_run": 40505775243,
+    "workflow_run": 40540822495,
     "pre_merge_core_workflow": 40505582290,
     "pre_merge_radio_workflow": 40505582208,
     "public_ipk_verified": true,
@@ -61,13 +61,20 @@
       "black": 80,
       "unknown_existing_picons_preserved": true
     },
-    "startup_upgrade_from": "0.1.25",
-    "startup_upgrade_to": "0.1.26",
+    "startup_upgrade_from": "0.1.26",
+    "startup_upgrade_to": "0.1.27",
     "receiver_tested": false,
     "latest_receiver_version_confirmed": false,
     "owner_acceptance": "Owner authorized production activation on 27 October 2026 after accepting the corrected official-logo composition.",
-    "limits": "173 automated tests, CI and real public-download/staging checks passed on a build host. No physical receiver test of PiconHub 0.1.26 is claimed.",
-    "fullhdglass_radio_infobars": "Owner confirmed picons display in both radio infobars."
+    "limits": "175 tests and publishing CI pass. Public IPK and upgrade from 0.1.26 validated. Shared DAB package bytes unchanged; physical receiver test of 0.1.27 is not claimed.",
+    "fullhdglass_radio_infobars": "Owner confirmed picons display in both radio infobars.",
+    "full_satellite_dab": {
+      "skin_workflow": 40509308490,
+      "19.2e": 51,
+      "23.5e": 29,
+      "styles": 3,
+      "original_pngs_preserved": true
+    }
   },
   "source_layout": {
     "plugin": "plugin/",
