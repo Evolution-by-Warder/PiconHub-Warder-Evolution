@@ -64,6 +64,13 @@ def build():
     for style,digest in config['master_sha256'].items():
         p=MASTERS/(style+'-sablona.png');assert sha(p.read_bytes())==digest
         masters[style]=Image.open(p).convert('RGBA');assert masters[style].size==(220,132)
+    source_links={}
+    for station,spec in config['stations'].items():
+        provenance=spec.get('provenance',{})
+        link=spec.get('source') or provenance.get('url') or provenance.get('source_page')
+        if not isinstance(link,str) or not link.startswith('https://'):
+            raise ValueError('Missing source provenance: '+station)
+        source_links[station]=link
     records=[];station_files={}
     for station,spec in sorted(config['stations'].items()):
         outputs={}
@@ -85,7 +92,7 @@ def build():
         hashes={}
         for style,raw in station_files[station].items():
             folder=ROOT/'preview/authentic'/style;folder.mkdir(parents=True,exist_ok=True);(folder/name).write_bytes(raw);hashes[style]=sha(raw)
-        records.append(dict(row,logo_source=config['stations'][station]['source'],logo_verified='SOURCE_CHECKED',sha256=hashes,status='REVIEW' if config['stations'][station].get('review') else 'QC_READY',approved_master_v9=False))
+        records.append(dict(row,logo_source=source_links[station],logo_verified='SOURCE_CHECKED',sha256=hashes,status='REVIEW' if config['stations'][station].get('review') else 'QC_READY',approved_master_v9=False))
     report={'schema':1,'station_count':len(station_files),'reference_count':len(records),'records':records,'unresolved':config['unresolved'],'status':'authentic-artwork-awaiting-visual-acceptance','master_sha256':config['master_sha256']}
     (ROOT/'catalog/authentic-preview.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
     print(report['station_count'],'stations',report['reference_count'],'references',len(records)*3,'PNG')

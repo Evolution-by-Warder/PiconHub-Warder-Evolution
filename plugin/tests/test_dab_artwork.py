@@ -17,6 +17,8 @@ class AuthenticArtworkTests(unittest.TestCase):
         checked=set()
         for row in self.catalog['records']:
             self.assertFalse(row['approved_master_v9'])
+            self.assertTrue(row['logo_source'].startswith('https://'))
+            self.assertEqual(row['logo_verified'],'SOURCE_CHECKED')
             for style,digest in row['sha256'].items():
                 p=DAB/'preview/authentic'/style/row['picon_filename'];raw=p.read_bytes();self.assertEqual(hashlib.sha256(raw).hexdigest(),digest)
                 if digest in checked:continue

@@ -19,6 +19,9 @@ BLACK a WHITE master PNG sú autoritatívne zdroje pozadia. Nesmú sa prekresľo
 ### 1. Transparentný zdroj
 Kontrolovať rozmery, PNG/RGBA/alfa, alfa hrany, ostrosť, resize artefakty a poškodenie. Doostrenie iba pri preukázateľne mäkkom zdroji, jemne a auditovane. Transparentný originál sa svojvoľne nemení.
 
+### 1a. Oficiálna a schválená identita loga
+Logo sa nesmie vymýšľať ani nahrádzať iným grafickým variantom iba kvôli farbe MASTER podkladu. Používa sa oficiálna alebo Štefanom schválená podoba transparentného zdroja vrátane vlastného kruhu, badge či farebného políčka. BLACK a WHITE zachovávajú tú istú identitu a kompozíciu; prípustné kontrastné zásahy sa riadia výhradne už schválenými component-mask pravidlami nižšie. Iná kompozícia vyžaduje výslovné schválenie.
+
 ### 2. Veľkosť a umiestnenie
 Určiť skutočný bounding box viditeľného loga bez prázdnych transparentných okrajov. Logo proporcionálne prispôsobiť využiteľnej ploche podľa šírky AJ výšky, zachovať pomer strán, nedeformovať, široké limitovať šírkou, vysoké výškou, ponechať rozumný bezpečný odstup a vycentrovať. MASTER pozadie zostáva nedotknuté.
 

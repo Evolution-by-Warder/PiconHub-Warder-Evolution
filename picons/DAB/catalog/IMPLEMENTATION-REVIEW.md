@@ -21,3 +21,7 @@ FullHDGlass: the owner confirmed on 27 October that radio picons now display in 
 4. Promote the validated IPK through the existing stable feed; do not modify the stable feed during this review.
 
 The old sparse-checkout CI failure was fixed in 8342272ae218221fec07941e1b34c4d143f5f180; both workflows passed there. New runtime/artwork tests supersede the earlier placeholder-only checks.
+
+## Owner correction — official logo identity
+
+On 27 October the owner rejected substituting a different Absolut GERMANY wordmark on BLACK. GERMANY, BELLA, HOT and TOP 2000 now all use the exact same official circular source as their transparent/white versions, preserving the logo’s own white backing. No alternate wordmark is substituted to suit the master background. All station identities, source assets and contrast choices must remain official or explicitly owner-approved. The artwork generator also now emits source provenance for both upstream and official-site records; output metadata is checked in CI.
