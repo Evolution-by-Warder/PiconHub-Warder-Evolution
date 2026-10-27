@@ -6,6 +6,7 @@ on:
       - 'plugin/src/Plugins/Extensions/WarderPiconHub/radio_references.py'
       - 'plugin/tests/test_radio_references.py'
       - 'plugin/tests/test_dab_installer.py'
+      - 'plugin/tests/test_dab_catalog.py'
       - 'picons/DAB/**'
       - '.github/workflows/universal-radio-tests.yml'
   push:
@@ -28,3 +29,4 @@ jobs:
         run: |
           python -m unittest discover -s plugin/tests -p test_radio_references.py -v
           python -m unittest discover -s plugin/tests -p test_dab_installer.py -v
+          python -m unittest discover -s plugin/tests -p test_dab_catalog.py -v
