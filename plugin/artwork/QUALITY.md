@@ -22,6 +22,9 @@ Kontrolovať rozmery, PNG/RGBA/alfa, alfa hrany, ostrosť, resize artefakty a po
 ### 1a. Oficiálna a schválená identita loga
 Logo sa nesmie vymýšľať ani nahrádzať iným grafickým variantom iba kvôli farbe MASTER podkladu. Používa sa oficiálna alebo Štefanom schválená podoba transparentného zdroja vrátane vlastného kruhu, badge či farebného políčka. BLACK a WHITE zachovávajú tú istú identitu a kompozíciu; prípustné kontrastné zásahy sa riadia výhradne už schválenými component-mask pravidlami nižšie. Iná kompozícia vyžaduje výslovné schválenie.
 
+
+**Schválený vzor — 27. 10. 2026:** Štefan potvrdil opravenú ukážku Absolut GERMANY slovami „teraz je uz perfektne“. Vo všetkých troch prevedeniach zostáva rovnaký oficiálny transparentný zdroj vrátane jeho vlastného bieleho kruhu. Tento princíp sa používa aj pri Absolut BELLA, HOT a TOP 2000 a pri ďalších piconoch. Schválená ukážka: https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/blob/93823afc4e22be3e0bd16d752103966423e13bce/picons/DAB/preview/review/absolut-germany.png
+
 ### 2. Veľkosť a umiestnenie
 Určiť skutočný bounding box viditeľného loga bez prázdnych transparentných okrajov. Logo proporcionálne prispôsobiť využiteľnej ploche podľa šírky AJ výšky, zachovať pomer strán, nedeformovať, široké limitovať šírkou, vysoké výškou, ponechať rozumný bezpečný odstup a vycentrovať. MASTER pozadie zostáva nedotknuté.
 

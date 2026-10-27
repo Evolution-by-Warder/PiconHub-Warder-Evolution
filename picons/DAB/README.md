@@ -42,3 +42,7 @@ python3 plugin/tools/build_ipk.py --output plugin/build --revision <source-commi
 Review follows `plugin/artwork/QUALITY.md`. `build_packages.py --approval <json>` requires `approved_master_v9: true`, an explicit owner confirmation and the exact SHA256 of `authentic-preview.json`. Only then can it generate `release.json` with status `verified`. Do not fabricate this approval or point production at previews. Asset ZIPs must already exist at the pinned commit before publishing the catalog.
 
 An IPK candidate includes the runtime code, not the logo sources, preview images or ZIP archives. Receiver testing of the new PiconHub candidate remains a separate validation step. The owner has confirmed radio picons display in both FullHDGlass infobars (27 October 2026).
+
+## Recorded owner acceptance — 27 October 2026
+
+The corrected Absolut GERMANY sample was explicitly accepted by the owner ("teraz je uz perfektne"). The accepted composition uses the same official transparent source, including its original white circular backing, on Transparent, White and Black. The same rule is applied to BELLA, HOT and TOP 2000. See `catalog/owner-decisions.json` for the immutable sample/source hashes and the exact scope of this decision. This records the shown sample and composition rule; remaining catalog review and receiver validation are tracked separately.
