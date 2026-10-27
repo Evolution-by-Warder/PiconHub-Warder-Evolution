@@ -50,6 +50,7 @@ from enigma import ePicLoad, eActionMap, eTimer, eEnv, getDesktop
 desktopY = getDesktop(0).size().height()
 desktopX = getDesktop(0).size().width()
 ###########################################################################
+from .radio_references import collect_picon_references
 from . import _, PLUGIN_PATH            # from . import _, PLUGIN_PATH
 ###########################################################################
 
@@ -1480,7 +1481,7 @@ class piconsUpdateJobScreen(Screen):
                 print('[ChocholousekPicons] Loading content from the file "%s".' % bq_file)
                 with open(bq_file, 'r') as f:
                     bq_contents += f.read()
-            self.SRC_in_Bouquets = re.findall(r'.*#SERVICE\s([0-9a-fA-F]+_0_[0-9a-fA-F_]+0_0_0).*\n*' , bq_contents.replace(":","_")  )
+            self.SRC_in_Bouquets = collect_picon_references(bq_contents)
             self.SRC_in_Bouquets = [ x.upper() for x in self.SRC_in_Bouquets ]
             self.SRC_in_Bouquets = list(set(self.SRC_in_Bouquets))              # remove duplicate items ---- converting to <set> and then again back to the <list>
             self.writeLog(_('...done.'))
