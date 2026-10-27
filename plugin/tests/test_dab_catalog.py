@@ -4,7 +4,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-SCRIPT = Path(__file__).resolve().parents[1] / 'picons' / 'DAB' / 'build_catalog.py'
+SCRIPT = Path(__file__).resolve().parents[2] / 'picons' / 'DAB' / 'build_catalog.py'
 spec = importlib.util.spec_from_file_location('dab_catalog_builder', str(SCRIPT))
 module = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(module)
