@@ -12,3 +12,8 @@ Publication must replace matching service aliases in all relevant 23.5E satellit
 ## Published
 
 The shared catalogue was activated at FullHDGlass commit c5fc5ec6ef86e4de79305e892be3afbdf866f662. Workflow 40572516519 passed eight archive tests, audited all 30 relevant satellite/provider archives, updated nine full 23.5E archives and verified all 20 new public parts. The provider archives did not carry these references and stayed unchanged. At 220x132 the existing Fun Radio Z and Melody V/Z PNGs stayed byte-identical; the six requested wrong picons were replaced. Existing DAB and unrelated artwork were preserved. See publication.json.
+
+
+## Canal+ SK/CZ radio completion
+
+Owner correction on 27 October 2026: these radio services belong in both Canal+ provider packages. Their absence in the earlier provider ZIPs was an archive gap, not a reason to exclude them. All nine references were added to each of the eighteen provider size/background combinations. All eighteen receiver plans and public parts were verified; existing station PNGs and the full-satellite/DAB/DVB-T packages were preserved. The canonical picons/23.5e/canal-plus-sk and canal-plus-cz source directories now include the same nine exact 220x132 picons per background, with no graphics regenerated. See canal-publication.json.
