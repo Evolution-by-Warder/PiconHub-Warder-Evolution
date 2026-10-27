@@ -1480,12 +1480,12 @@ class piconsUpdateJobScreen(Screen):
             for bq_file in self.bouquet_files:
                 print('[ChocholousekPicons] Loading content from the file "%s".' % bq_file)
                 with open(bq_file, 'r') as f:
-                    bq_contents += f.read() + '\\n'
+                    bq_contents += f.read() + '\n'
             if config.plugins.chocholousekpicons[profile_id].method.value == 'sync_tv_radio':
                 self.SRC_in_Bouquets = collect_picon_references(bq_contents)
             else:
                 # Keep the existing TV-only matching semantics unchanged.
-                self.SRC_in_Bouquets = re.findall(r'.*#SERVICE\\s([0-9a-fA-F]+_0_[0-9a-fA-F_]+0_0_0).*\\n*', bq_contents.replace(':', '_'))
+                self.SRC_in_Bouquets = re.findall(r'.*#SERVICE\s([0-9a-fA-F]+_0_[0-9a-fA-F_]+0_0_0).*\n*', bq_contents.replace(':', '_'))
                 self.SRC_in_Bouquets = list(set(x.upper() for x in self.SRC_in_Bouquets))
             self.writeLog(_('...done.'))
         else:
