@@ -23,8 +23,8 @@ class DABCatalogTests(unittest.TestCase):
                     (preview / variant / name).write_bytes(b'example')
             mapping = root / 'mapping.csv'
             mapping.write_text(
-                'bouquet,station,picon_filename\\n'
-                + ''.join('DAB test,Station,%s\\n' % name for name in names),
+                'bouquet,station,picon_filename\n'
+                + ''.join('DAB test,Station,%s\n' % name for name in names),
                 encoding='utf-8')
             catalog = module.build_catalog(mapping, preview)
             self.assertEqual(catalog['station_count'], 1)
@@ -38,9 +38,9 @@ class DABCatalogTests(unittest.TestCase):
             root = Path(tmp)
             mapping = root / 'mapping.csv'
             mapping.write_text(
-                'bouquet,station,picon_filename\\n'
-                'DAB,One,4115_0_2_A_1_1_0_0_0_0.png\\n'
-                'DAB,Two,4115_0_2_A_1_1_0_0_0_0.png\\n',
+                'bouquet,station,picon_filename\n'
+                'DAB,One,4115_0_2_A_1_1_0_0_0_0.png\n'
+                'DAB,Two,4115_0_2_A_1_1_0_0_0_0.png\n',
                 encoding='utf-8')
             preview = root / 'preview'
             for variant in ('transparent', 'white', 'black'):
