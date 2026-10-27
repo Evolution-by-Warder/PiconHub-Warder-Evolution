@@ -15,7 +15,7 @@ class RadioReferenceTests(unittest.TestCase):
 
     def test_stream_with_url(self):
         self.assertEqual(picon_reference('#SERVICE 4097:0:1:0:0:0:0:0:0:0:http%3a//radio.example/stream'),
-                         '1001_0_1_0_0_0_0_0_0_0')
+                         '4097_0_1_0_0_0_0_0_0_0')
 
     def test_markers_and_bouquet_references(self):
         for line in ('#SERVICE 1:64:0:0:0:0:0:0:0:0:',
