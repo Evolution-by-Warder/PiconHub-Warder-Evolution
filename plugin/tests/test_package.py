@@ -74,7 +74,7 @@ class PackageTests(unittest.TestCase):
                     self.assertIn("./"+builder.INSTALL_ROOT+"/"+name,names)
                 recent=[name for name in names if "/images/recent/" in name and name.endswith(".png")]
                 self.assertEqual(len(recent),6)
-                self.assertEqual(len([n for n in names if "/images/selectors/" in n and n.endswith(".png")]),53)
+                self.assertEqual(len([n for n in names if "/images/selectors/" in n and n.endswith(".png")]),54)
                 self.assertFalse(any("__pycache__" in name or name.endswith(".pyc") for name in names))
                 self.assertFalse(any(name.startswith("./etc/") for name in names))
                 prefix="./"+builder.INSTALL_ROOT+"/"
@@ -85,7 +85,7 @@ class PackageTests(unittest.TestCase):
                 self.assertEqual(set(notes['notes']),{'sk','cs','en','de','pl','hu','ru','fr','it','es'})
                 self.assertTrue(all(isinstance(text,str) and text.strip() for text in notes['notes'].values()))
                 catalog=json.loads(payload.extractfile(prefix+"data/channel-manifest.json").read())
-                self.assertEqual(len(catalog["packages"]),468)
+                self.assertEqual(len(catalog["packages"]),469)
                 translations=[name for name in names if name.endswith(".mo")]
                 self.assertEqual(len(translations),9)
                 for name in translations:gettext.GNUTranslations(io.BytesIO(payload.extractfile(name).read()))

@@ -211,7 +211,10 @@ class NativeControllerTests(unittest.TestCase):
     def test_dab_and_terrestrial_lead_picker_without_false_unavailable_label(self):
         self.main.select_satellites()
         self.assertEqual(tuple(sid for sid,label in self.main.picker.choices[:2]),("DAB","DVB-T-SK-CZ"))
-        self.assertEqual(dict(self.main.picker.choices)["DAB"],"DAB / DAB+ (220×132)")
+        self.assertEqual(dict(self.main.picker.choices)["DAB"],"DAB / DAB+")
+        self.assertIn("DAB",self.main.picker_icons)
+        self.assertIn("DVB-T-SK-CZ",self.main.picker_icons)
+        self.assertEqual(dict(self.main.picker.choices)["DVB-T-SK-CZ"],"DVB-T sk/cz")
 
     def test_dab_selection_saves_without_inventing_a_satellite_binding(self):
         self.main.satellites_chosen(['DAB'])
@@ -318,7 +321,7 @@ class NativeControllerTests(unittest.TestCase):
 
     def test_satellite_icons_green_marks_and_colored_footer(self):
         dialog=self.gui.ChoiceDialog(self.session,"Satelity",self.gui.model.SATELLITES,["FREESAT"],True)
-        self.assertEqual(len(dialog.icons),53)
+        self.assertEqual(len(dialog.icons),54)
         index=next(i for i,x in enumerate(dialog.state.choices) if x[0]=="FREESAT")
         dialog["list"].moveToIndex(index)
         row=dialog["list"].values[index]
