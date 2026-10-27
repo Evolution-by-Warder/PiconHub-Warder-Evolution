@@ -25,7 +25,12 @@ def picon_reference(service_line):
         return None
     if fields[0] in _NON_PLAYABLE_TYPES or int(fields[1], 16) != 0:
         return None
-    # Generic IPTV entries with all-zero IDs share the same filename stem.\n    # Never assign one station's logo to every such stream. A separate\n    # name/URL-aware mapping must handle these entries.\n    if fields[0] in _STREAM_TYPES and all(int(x, 16) == 0 for x in fields[3:10]):\n        return None\n    # Stream URLs can follow the first ten fields, and are deliberately ignored.
+    # Generic IPTV entries with all-zero IDs share the same filename stem.
+    # Never assign one station's logo to every such stream. A separate
+    # name/URL-aware mapping must handle these entries.
+    if fields[0] in _STREAM_TYPES and all(int(x, 16) == 0 for x in fields[3:10]):
+        return None
+    # Stream URLs can follow the first ten fields, and are deliberately ignored.
     # Reject entries where the tenth field is not followed by a delimiter.
     if len(fields) == 10 and not line.endswith(':'):
         return None
