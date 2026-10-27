@@ -45,7 +45,7 @@ def plan(data,prefs,folder):
     if prefs['update_mode']==sync.UPDATE_MODE_SYNC_TV_RADIO:
         wanted=bouquet_names(folder);names&=wanted
     else:
-        positions=set(prefs.get('positions',[]))
+        positions={sync.position_token(p) for p in prefs.get('positions',[])}
         if not prefs.get('dab_only'):names={n for n in names if sync.service_orbital_position(n[:-4]) in positions}
     if not names:return None
     queue={'destination':prefs['destination'],'positions':[],'mode':sync.UPDATE_MODE_INCREMENTAL,

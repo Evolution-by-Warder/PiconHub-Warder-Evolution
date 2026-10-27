@@ -22,6 +22,13 @@ class DABSelectionTests(unittest.TestCase):
         return types.SimpleNamespace(warder_selectors=setting(selection),resolution=setting(resolution),method=setting(method),background=setting('transparent'),picon_folder=setting('user_defined'),picon_folder_user=setting('/tmp/picon'),sats=setting(''))
     def test_dab_only_does_not_require_a_fake_satellite(self):
         p=model.profile_preferences(self.profile());self.assertTrue(p['dab_only']);self.assertEqual(p['positions'],[])
+    def test_profile_position_casing_does_not_hide_matching_dab_services(self):
+        p=model.profile_preferences(self.profile("235E DAB"))
+        document=source()[0]
+        planned=dab.plan(document,p,"/tmp")
+        self.assertIsNotNone(planned)
+        self.assertEqual(planned[0]["dab_names"],{NAME})
+
     def test_mixed_selection_keeps_native_position_bindings(self):
         p=model.profile_preferences(self.profile('235E DAB'));self.assertFalse(p['dab_only']);self.assertTrue(p['include_dab']);self.assertEqual(p['positions'],['23.5E'])
     def test_dab_rejects_unsupported_resolution_and_tv_only_mode(self):

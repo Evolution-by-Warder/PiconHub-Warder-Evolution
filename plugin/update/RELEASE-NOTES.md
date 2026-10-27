@@ -1,3 +1,3 @@
-# PiconHub Warder Evolution 0.1.27
+# PiconHub Warder Evolution 0.1.28
 
-DAB a DVB-T sú na začiatku zoznamu. Opravené nesprávne označenie DAB ako nedostupného. DAB picony sú aj v celkových balíkoch príslušných pozícií 19,2°E a 23,5°E pri 220×132.
+Opravené filtrovanie DAB pri spoločnom výbere so satelitnou pozíciou. Veľké a malé písmená v označení pozície už nespôsobia vynechanie správnych rádiových piconov. Spoločný Warder kód pre skin aj PiconHub; DAB a DVB-T zostávajú na začiatku ponuky.
