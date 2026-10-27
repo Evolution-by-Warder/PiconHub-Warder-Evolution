@@ -41,3 +41,29 @@ def collect_picon_references(contents):
     """Collect sorted, unique picon basenames for playable bouquet services."""
     return sorted(set(filter(None, (picon_reference(line)
                                    for line in contents.splitlines()))))
+
+
+def analyze_bouquet(contents):
+    """Summarize matching without storing private stream URLs or credentials.
+
+    This read-only diagnostic reports counts and accepted picon references.
+    It does not download images, modify bouquets, or infer station identities.
+    """
+    references = set()
+    skipped = 0
+    service_count = 0
+    for line in contents.splitlines():
+        if not line.strip().startswith('#SERVICE '):
+            continue
+        service_count += 1
+        ref = picon_reference(line)
+        if ref is None:
+            skipped += 1
+        else:
+            references.add(ref)
+    return {
+        'service_entries': service_count,
+        'accepted_unique': len(references),
+        'skipped_entries': skipped,
+        'references': sorted(references),
+    }
