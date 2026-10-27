@@ -5,6 +5,9 @@ import unittest
 from pathlib import Path
 
 SCRIPT = Path(__file__).resolve().parents[2] / 'picons' / 'DAB' / 'build_catalog.py'
+if not SCRIPT.is_file():
+    raise RuntimeError('DAB catalog missing; cwd=%s, repo=%s, picons_exists=%s, dab_exists=%s' %
+                       (Path.cwd(), SCRIPT.parents[2], SCRIPT.parents[1].exists(), SCRIPT.parent.exists()))
 spec = importlib.util.spec_from_file_location('dab_catalog_builder', str(SCRIPT))
 module = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(module)
