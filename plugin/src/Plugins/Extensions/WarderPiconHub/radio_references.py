@@ -69,3 +69,15 @@ def analyze_bouquet(contents):
         'skipped_entries': skipped,
         'references': sorted(references),
     }
+
+
+def picon_filename_is_reference(filename):
+    """Check the basename of a PNG without treating station-name icons as IDs."""
+    if not filename.lower().endswith('.png'):
+        return False
+    stem = filename[:-4]
+    fields = stem.split('_')
+    return (len(fields) == 10
+            and all(_HEX.match(field) for field in fields)
+            and fields[0] not in _NON_PLAYABLE_TYPES
+            and int(fields[1], 16) == 0)
