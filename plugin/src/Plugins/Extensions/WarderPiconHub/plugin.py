@@ -50,7 +50,7 @@ from enigma import ePicLoad, eActionMap, eTimer, eEnv, getDesktop
 desktopY = getDesktop(0).size().height()
 desktopX = getDesktop(0).size().width()
 ###########################################################################
-from .radio_references import collect_picon_references
+from .radio_references import collect_picon_references, picon_filename_is_reference
 from . import _, PLUGIN_PATH            # from . import _, PLUGIN_PATH
 ###########################################################################
 
@@ -1465,7 +1465,16 @@ class piconsUpdateJobScreen(Screen):
         # 3) Vytvorí sa zoznam všetkých picon, umiestnených na lokálnom disku (v internom flash-disku alebo na externom USB/HDD) - včetne veľkostí týchto súborov
         self.writeLog( _('Preparing a list of picons from the picon directory on the local disk...') + ' "%s/*.png"' % self.piconDIR )
         self.SRC_in_HDD = {}
-        dir_list = glob.glob(self.piconDIR + '/[0-65535]_0_*.png')                      # as a precaution against including the Service Reference Name in the list (which might otherwise be deleted!)
+        if config.plugins.chocholousekpicons[profile_id].method.value == 'sync_tv_radio':
+            # The old bracket glob matches only ONE character, not a numeric
+            # range; it misses multi-digit stream/DAB service-type prefixes.
+            # In radio mode, inventory all reference-shaped PNG basenames.
+            dir_list = [
+                p for p in glob.glob(self.piconDIR + '/*.png')
+                if picon_filename_is_reference(os.path.basename(p))
+            ]
+        else:
+            dir_list = glob.glob(self.piconDIR + '/[0-65535]_0_*.png')
         if dir_list:
             for path_N_file in dir_list:
                 self.SRC_in_HDD.update( { path_N_file[:-4].split("/")[-1]  :  int(os.path.getsize(path_N_file))  } )
