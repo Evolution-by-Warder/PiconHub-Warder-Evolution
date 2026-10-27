@@ -16,6 +16,7 @@ from urllib.request import Request, urlopen
 
 from . import warder_skin_sync as sync
 from .warder_model import selector_display_label
+from . import warder_dab as dab
 
 
 class PiconError(ValueError):
@@ -35,10 +36,14 @@ def digest(path):
 
 
 def network_open(url):
-    if not sync.trusted_publication_url(url, "production"):
+    if not (sync.trusted_publication_url(url, "production") or dab.trusted_url(url)):
         raise PiconError(_("Nedôveryhodný zdroj balíka."))
-    return urlopen(Request(url, headers={"User-Agent": "PiconHub-Warder-Evolution", "Cache-Control": "no-cache"}),
-                   timeout=15, context=ssl.create_default_context())
+    response = urlopen(Request(url, headers={"User-Agent": "PiconHub-Warder-Evolution", "Cache-Control": "no-cache"}),
+                       timeout=15, context=ssl.create_default_context())
+    if dab.trusted_url(url) and response.geturl() != url:
+        response.close()
+        raise PiconError(_("Nedôveryhodný zdroj balíka."))
+    return response
 
 
 def fetch_manifest(opener=network_open):
@@ -109,6 +114,10 @@ class Stage:
         else:
             keep = wanted if wanted is not None else self.upstream
             stale = sync.plan_stale_position_picons(existing, self.queue["positions"], keep)
+        # A satellite package cannot authorize deletion of another transport's picons.
+        stale = [name for name in stale if name.startswith("1_")]
+        if self.queue["mode"] == sync.UPDATE_MODE_SYNC_TV_RADIO:
+            stale = []  # Preserve radio identities absent from current upstream coverage.
         touched = set(writes) | set(stale)
         # Preserve a readable journal and backup if rollback cannot finish.
         (self.work/"journal.json").write_text(json.dumps({"destination": str(self.target), "writes": writes,
@@ -221,6 +230,38 @@ class PiconRunner:
         if not native_count:
             raise PiconError(_("Balík neobsahuje žiadne kanálové picony."))
 
+    def stage_dab(self, prefs, stages):
+        self.check_cancel()
+        self.event("stage", _("Načítavam katalóg") + " DAB / DAB+")
+        try:
+            document = dab.read_manifest(self.opener)
+        except (ValueError, TypeError) as exc:
+            raise PiconError(_("Neplatný katalóg: ") + "DAB / DAB+") from exc
+        planned = dab.plan(document, prefs, self.enigma2_dir)
+        if planned is None:
+            if prefs.get("dab_only"):
+                raise PiconError("DAB / DAB+" + _(" • zatiaľ nedostupné"))
+            self.event("stage", "DAB / DAB+" + _(" • zatiaľ nedostupné"))
+            return
+        queue, job = planned
+        stage = Stage(queue)
+        stages.append(stage)
+        if shutil.disk_usage(stage.target).free < job["bytes"]*3 + 8*1024*1024:
+            raise PiconError(_("Na cieľovom úložisku nie je dosť voľného miesta."))
+        archive = stage.work/"dab.zip"
+        self.download(job, archive)
+        self.event("stage", _("Overujem a rozbaľujem ") + "DAB / DAB+")
+        try:
+            dab.unpack(stage, archive, job, self.check_cancel)
+        except (ValueError, TypeError, zipfile.BadZipFile) as exc:
+            raise PiconError(_("Neplatný katalóg: ") + "DAB / DAB+") from exc
+        if prefs["update_mode"] == sync.UPDATE_MODE_SYNC_TV_RADIO:
+            covered=set(job["files"])
+            missing={name for name in dab.bouquet_names(self.enigma2_dir) if name.startswith("4115_")}-covered
+            if missing:self.event("stage", "DAB / DAB+: " + str(len(missing)) + _(" • zatiaľ nedostupné"))
+        self.event("processed", "DAB / DAB+")
+        archive.unlink()
+
     def run(self, preferences):
         if not preferences:
             raise PiconError(_("Nie je zapnutý žiadny profil."))
@@ -232,9 +273,12 @@ class PiconRunner:
                 raise PiconError(_("Aktualizácia piconov už prebieha.")) from exc
             try:
                 self.event("stage", _("Načítavam katalóg"))
-                document = fetch_manifest(self.opener)
+                document = None if all(p.get("dab_only") for p in preferences) else fetch_manifest(self.opener)
                 for number,prefs in enumerate(preferences,1):
                     self.check_cancel()
+                    if prefs.get("dab_only"):
+                        self.stage_dab(prefs, stages)
+                        continue
                     queue = sync.build_runtime_queue(prefs, self.enigma2_dir, sync.runtime_publication())
                     if queue["mode"] in (sync.UPDATE_MODE_SYNC_TV, sync.UPDATE_MODE_SYNC_TV_RADIO) and not queue["services"]:
                         raise PiconError(_("Vo vybraných TV/rádio bouquetoch nie sú služby vybraných pozícií."))
@@ -255,6 +299,8 @@ class PiconRunner:
                         self.unpack(stage, archive, job)
                         self.event("processed", selector_display_label(job["selector_id"]))
                         archive.unlink()
+                    if prefs.get("include_dab"):
+                        self.stage_dab(prefs, stages)
                 self.check_cancel()
                 self.event("stage", _("Zapisujem overené picony; dokončenie už neprerušujte"))
                 total = {"added":0,"changed":0,"removed":0}

@@ -206,6 +206,12 @@ class NativeControllerTests(unittest.TestCase):
         self.assertFalse(self.main.closed)
         self.assertEqual(self.calls,[])
 
+    def test_dab_selection_saves_without_inventing_a_satellite_binding(self):
+        self.main.satellites_chosen(['DAB'])
+        self.assertEqual(self.main.profile.warder_selectors.value,'DAB')
+        self.assertEqual(self.main.profile.sats.value,'')
+        self.assertEqual(self.main.selection['satellites'],['DAB'])
+
     def test_embedded_single_selection_restores_row_and_footer(self):
         self.main["list"].moveToIndex(1);self.main.open_row()
         self.main["list"].moveToIndex(2);self.main.open_row()

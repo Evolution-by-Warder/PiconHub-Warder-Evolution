@@ -50,6 +50,7 @@ from enigma import ePicLoad, eActionMap, eTimer, eEnv, getDesktop
 desktopY = getDesktop(0).size().height()
 desktopX = getDesktop(0).size().width()
 ###########################################################################
+from .radio_references import collect_picon_references, picon_filename_is_reference
 from . import _, PLUGIN_PATH            # from . import _, PLUGIN_PATH
 ###########################################################################
 
@@ -1464,7 +1465,16 @@ class piconsUpdateJobScreen(Screen):
         # 3) Vytvorí sa zoznam všetkých picon, umiestnených na lokálnom disku (v internom flash-disku alebo na externom USB/HDD) - včetne veľkostí týchto súborov
         self.writeLog( _('Preparing a list of picons from the picon directory on the local disk...') + ' "%s/*.png"' % self.piconDIR )
         self.SRC_in_HDD = {}
-        dir_list = glob.glob(self.piconDIR + '/[0-65535]_0_*.png')                      # as a precaution against including the Service Reference Name in the list (which might otherwise be deleted!)
+        if config.plugins.chocholousekpicons[profile_id].method.value == 'sync_tv_radio':
+            # The old bracket glob matches only ONE character, not a numeric
+            # range; it misses multi-digit stream/DAB service-type prefixes.
+            # In radio mode, inventory all reference-shaped PNG basenames.
+            dir_list = [
+                p for p in glob.glob(self.piconDIR + '/*.png')
+                if picon_filename_is_reference(os.path.basename(p))
+            ]
+        else:
+            dir_list = glob.glob(self.piconDIR + '/[0-65535]_0_*.png')
         if dir_list:
             for path_N_file in dir_list:
                 self.SRC_in_HDD.update( { path_N_file[:-4].split("/")[-1]  :  int(os.path.getsize(path_N_file))  } )
@@ -1479,10 +1489,13 @@ class piconsUpdateJobScreen(Screen):
             for bq_file in self.bouquet_files:
                 print('[ChocholousekPicons] Loading content from the file "%s".' % bq_file)
                 with open(bq_file, 'r') as f:
-                    bq_contents += f.read()
-            self.SRC_in_Bouquets = re.findall(r'.*#SERVICE\s([0-9a-fA-F]+_0_[0-9a-fA-F_]+0_0_0).*\n*' , bq_contents.replace(":","_")  )
-            self.SRC_in_Bouquets = [ x.upper() for x in self.SRC_in_Bouquets ]
-            self.SRC_in_Bouquets = list(set(self.SRC_in_Bouquets))              # remove duplicate items ---- converting to <set> and then again back to the <list>
+                    bq_contents += f.read() + '\n'
+            if config.plugins.chocholousekpicons[profile_id].method.value == 'sync_tv_radio':
+                self.SRC_in_Bouquets = collect_picon_references(bq_contents)
+            else:
+                # Keep the existing TV-only matching semantics unchanged.
+                self.SRC_in_Bouquets = re.findall(r'.*#SERVICE\s([0-9a-fA-F]+_0_[0-9a-fA-F_]+0_0_0).*\n*', bq_contents.replace(':', '_'))
+                self.SRC_in_Bouquets = list(set(x.upper() for x in self.SRC_in_Bouquets))
             self.writeLog(_('...done.'))
         else:
             # 4-B) Vytvorí sa fiktívny t.j. prázdny zoznam SRC kódov z userbouquet zoznamov, aby v ďalšiom kroku boli všetky aktuálne pikony na lokálnom disku vymazané (metóda 'all' pre vymazanie všetkých aktuálnych picon a nakopírovanie nových picon)
@@ -1492,7 +1505,12 @@ class piconsUpdateJobScreen(Screen):
         # 5) Vymažú sa neexistujúce a nepotrebné picon-súbory na lokálnom disku (v set-top boxe) pre synchronizáciu (pri použití metód 'sync_tv' a 'sync_tv_radio')
         #    alebo sa vymažú všetky súbory na lokálnom disku (v prípade metódy 'all' bude obsahom SRC_in_Bouquets prázdny list, takže sa vymažú všetky picony na HDD)
         #    avšak v prípade metódy "all_inc" (increment update) bude celá následovná funkcia zmazovania súborov z disku ignorovaná
-        if not 'all_inc' in config.plugins.chocholousekpicons[profile_id].method.value:
+        # Radio services may have reference formats absent from legacy archives.
+        # Never delete existing icons during TV+radio synchronization: missing
+        # catalog entries must not cause loss of otherwise valid radio picons.
+        if config.plugins.chocholousekpicons[profile_id].method.value == 'sync_tv_radio':
+            self.writeLog('TV+RADIO: preserving existing picons (safe incremental sync).')
+        elif not 'all_inc' in config.plugins.chocholousekpicons[profile_id].method.value:
             self.writeLog(_('Deleting unnecessary picons from local disk...'))
             self.SRC_to_Delete = list(  set(self.SRC_in_HDD.keys()) - set(self.SRC_in_Bouquets)  )            
             for src in self.SRC_to_Delete:
