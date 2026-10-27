@@ -64,7 +64,7 @@ class DABRuntimeTests(unittest.TestCase):
         (self.target/OTHER).write_bytes(b'preserved')
         p=dict(self.prefs,style='white',update_mode=sync.UPDATE_MODE_INCREMENTAL)
         result=self.runner(opener).run([p])
-        self.assertEqual(result,{'added':80,'changed':0,'removed':0})
+        self.assertEqual(result,{'added':82,'changed':0,'removed':0})
         self.assertEqual((self.target/OTHER).read_bytes(),b'preserved')
     def test_real_candidate_packages_install_all_three_styles_without_deleting_unknown_files(self):
         root=pathlib.Path(__file__).parents[2]/'picons/DAB'
@@ -83,7 +83,7 @@ class DABRuntimeTests(unittest.TestCase):
                     self.assertEqual(url,package['url'])
                     return (root/'packages'/url.rsplit('/',1)[1]).open('rb')
                 result=self.runner(opener).run([p])
-                self.assertEqual(result,{'added':80,'changed':0,'removed':0})
+                self.assertEqual(result,{'added':82,'changed':0,'removed':0})
                 self.assertEqual((target/OTHER).read_bytes(),b'preserved')
                 for name,digest in package['files'].items():
                     self.assertEqual(hashlib.sha256((target/name).read_bytes()).hexdigest(),digest)
@@ -133,3 +133,4 @@ class DABRuntimeTests(unittest.TestCase):
         self.assertTrue(dab.trusted_url(URL));self.assertTrue(dab.trusted_url(dab.MANIFEST_URL))
         for url in [URL.replace('raw.githubusercontent.com','evil.invalid'),URL.replace('/packages/','/preview/'),URL.replace('/'+'a'*40+'/', '/main/'),URL+'?redirect=evil']:
             self.assertFalse(dab.trusted_url(url))
+

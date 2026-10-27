@@ -10,9 +10,10 @@ class AuthenticArtworkTests(unittest.TestCase):
     def test_exact_receiver_identities_and_regional_labels_are_retained(self):
         names={r['picon_filename']:r['station'] for r in self.mapping}
         self.assertEqual(len(names),82);self.assertEqual(len(set(names.values())),52)
-        self.assertEqual(self.catalog['reference_count'],80)
+        self.assertEqual(self.catalog['reference_count'],82)
         for r in self.catalog['records']:self.assertEqual(names[r['picon_filename']],r['station'])
-        self.assertEqual({names[n] for n in set(names)-{r['picon_filename'] for r in self.catalog['records']}},{'ASA DE'})
+        self.assertEqual(set(names),{r['picon_filename'] for r in self.catalog['records']})
+        self.assertEqual(self.catalog['unresolved'],{})
     def test_all_png_hashes_crc_dimensions_and_decoded_sizes_are_valid(self):
         checked=set()
         for row in self.catalog['records']:
@@ -38,3 +39,4 @@ class AuthenticArtworkTests(unittest.TestCase):
     def test_review_assets_are_not_in_verified_distribution(self):
         self.assertFalse(list((DAB/'verified').glob('*.png')))
         self.assertNotEqual(self.catalog['status'],'verified')
+
