@@ -6,6 +6,7 @@ from test_warder_interface import engine,model,sync,png,prefs,fixture
 dab=engine.dab
 NAME='4115_0_2_1019_C98_3_EB0000_1019_100D_10BC.png'
 OTHER='4115_0_2_1019_C98_3_EB0000_1019_10C4_10BC.png'
+UNKNOWN='4115_0_2_FFFE_FFFE_1_C00000_FFFE_FFFE_FFFE.png'
 URL='https://raw.githubusercontent.com/'+dab.REPOSITORY+'/'+'a'*40+'/picons/DAB/packages/transparent.zip'
 
 def source():
@@ -61,22 +62,25 @@ class DABRuntimeTests(unittest.TestCase):
             if url==dab.MANIFEST_URL:return io.BytesIO(document)
             self.assertEqual(url,package['url'])
             return (root/'packages'/url.rsplit('/',1)[1]).open('rb')
-        (self.target/OTHER).write_bytes(b'preserved')
+        (self.target/UNKNOWN).write_bytes(b'preserved')
         p=dict(self.prefs,style='white',update_mode=sync.UPDATE_MODE_INCREMENTAL)
         result=self.runner(opener).run([p])
         self.assertEqual(result,{'added':82,'changed':0,'removed':0})
-        self.assertEqual((self.target/OTHER).read_bytes(),b'preserved')
+        self.assertEqual((self.target/UNKNOWN).read_bytes(),b'preserved')
     def test_real_candidate_packages_install_all_three_styles_without_deleting_unknown_files(self):
         root=pathlib.Path(__file__).parents[2]/'picons/DAB'
-        document=json.loads((root/'catalog/release-candidate.json').read_text())
-        # Approval is simulated solely in this isolated test opener. The real
-        # candidate catalog must remain rejected by read_manifest.
+        document=json.loads((root/'catalog/release.json').read_text())
+        document['status']='candidate'
+        # Simulate approval only inside this isolated opener. The same real
+        # package bytes must still be rejected when the catalog is a candidate.
+        with self.assertRaisesRegex(ValueError,'not approved'):
+            dab.read_manifest(lambda u:io.BytesIO(json.dumps(document).encode()))
         self.assertEqual(document['status'],'candidate')
         document['status']='verified'
         p=dict(self.prefs,update_mode=sync.UPDATE_MODE_INCREMENTAL)
         for style,package in document['packages'].items():
             with self.subTest(style=style):
-                target=self.root/style;target.mkdir();(target/OTHER).write_bytes(b'preserved')
+                target=self.root/style;target.mkdir();(target/UNKNOWN).write_bytes(b'preserved')
                 p.update(style=style,destination=str(target))
                 def opener(url):
                     if url==dab.MANIFEST_URL:return io.BytesIO(json.dumps(document).encode())
@@ -84,7 +88,7 @@ class DABRuntimeTests(unittest.TestCase):
                     return (root/'packages'/url.rsplit('/',1)[1]).open('rb')
                 result=self.runner(opener).run([p])
                 self.assertEqual(result,{'added':82,'changed':0,'removed':0})
-                self.assertEqual((target/OTHER).read_bytes(),b'preserved')
+                self.assertEqual((target/UNKNOWN).read_bytes(),b'preserved')
                 for name,digest in package['files'].items():
                     self.assertEqual(hashlib.sha256((target/name).read_bytes()).hexdigest(),digest)
     def runner(self,opener):return engine.PiconRunner(opener=opener,enigma2_dir=str(self.box),lock_path=str(self.root/'lock'))
