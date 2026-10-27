@@ -54,3 +54,9 @@ Generic IPTV service entries such as `4097:0:1:0:0:0:0:0:0:0:<url>` are **not un
 Other stream references with genuinely distinct identity fields remain eligible for exact-reference matching. A synthetic example is used in tests; this is **not** evidence that OpenATV DAB+ uses that format.
 
 Local manual smoke checks covered three basic parser cases, but the repository's full test suite and GitHub CI have **not been confirmed green**. No release or merge is authorized.
+
+## Parser syntax recovery and smoke verification
+
+The IPTV collision guard was found to contain literal `\\n` escape sequences outside string literals, making the module invalid Python. Corrected in commit `7df54b9`. A locally reconstructed copy of the parser then passed `py_compile` and four smoke assertions (DVB, unique stream, ambiguous stream, invalid hex). **This is not equivalent to running the exact repository checkout or the full plugin test suite.** CI status is still unconfirmed.
+
+The TV-only parser was explicitly restored to its original matching behavior; the new parser applies only to `sync_tv_radio`. Existing picons are retained in TV+radio sync to prevent destructive loss during catalog gaps.
