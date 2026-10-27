@@ -26,7 +26,7 @@ def picon_reference(service_line):
     # Reject bouquet references and directory/marker flags.
     if values[1] != 0 or values[0] == 0:
         return None
-    return '_'.join(format(v, 'X') for v in values)
+    return '_'.join(x.upper() for x in fields[:10])
 
 
 def collect_picon_references(contents):
