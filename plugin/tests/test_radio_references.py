@@ -29,6 +29,20 @@ class RadioReferenceTests(unittest.TestCase):
         self.assertEqual(picon_reference('#SERVICE 1:0:2:000A:0001:1:0:0:0:0:'),
                          '1_0_2_000A_0001_1_0_0_0_0')
 
+    def test_real_dab_bundes_and_wdr_references(self):
+        # Anonymization-safe identity fields from receiver bouquet samples.
+        examples = (
+            ('#SERVICE 4115:0:2:1019:C98:3:EB0000:1019:100D:10BC:dab%3a//239.128.43.43%3a50043',
+             '4115_0_2_1019_C98_3_EB0000_1019_100D_10BC'),
+            ('#SERVICE 4115:0:2:1019:5:85:C00000:1019:100D:10BC:dab%3a//239.128.43.43%3a50043',
+             '4115_0_2_1019_5_85_C00000_1019_100D_10BC'),
+            ('#SERVICE 4115:0:2:BB8:402:1:C00000:BB8:D492:10FA:dab%3a//228.10.2.5%3a10010',
+             '4115_0_2_BB8_402_1_C00000_BB8_D492_10FA'),
+        )
+        for service, expected in examples:
+            self.assertEqual(picon_reference(service), expected)
+            self.assertTrue(picon_filename_is_reference(expected + '.png'))
+
     def test_dab_style_service_type(self):
         self.assertEqual(picon_reference('#SERVICE 1013:0:2:1234:3:1:0:0:0:0:'),
                          '1013_0_2_1234_3_1_0_0_0_0')
