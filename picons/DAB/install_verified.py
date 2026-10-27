@@ -7,9 +7,21 @@ import argparse
 from pathlib import Path
 import shutil
 import sys
+import struct
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / 'plugin' / 'src' / 'Plugins' / 'Extensions' / 'WarderPiconHub'))
 from radio_references import picon_filename_is_reference
+
+
+def validate_png(path):
+    """Reject non-PNG payloads and unexpected image dimensions."""
+    with path.open('rb') as stream:
+        header = stream.read(24)
+    if len(header) < 24 or header[:8] != b'\\x89PNG\\r\\n\\x1a\\n' or header[12:16] != b'IHDR':
+        raise ValueError('Not a valid PNG header: %s' % path)
+    width, height = struct.unpack('>II', header[16:24])
+    if (width, height) != (220, 132):
+        raise ValueError('Unexpected PNG dimensions %sx%s: %s' % (width, height, path))
 
 
 def plan(source, destination):
@@ -19,6 +31,7 @@ def plan(source, destination):
     for png in sorted(source.glob('*.png')):
         if not picon_filename_is_reference(png.name):
             raise ValueError('Invalid picon filename: %s' % png.name)
+        validate_png(png)
         result.append((png, destination / png.name))
     return result
 
