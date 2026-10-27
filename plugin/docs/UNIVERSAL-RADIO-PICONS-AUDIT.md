@@ -46,3 +46,11 @@ Do not touch approved UI or V9 MASTER templates. Do not merge into main or publi
 5. Run full plugin regression suite and receiver acceptance tests before IPK build and production release.
 
 **No claim of complete DAB+ picon coverage or successful CI is made.**
+
+## Safety update — IPTV collision handling
+
+Generic IPTV service entries such as `4097:0:1:0:0:0:0:0:0:0:<url>` are **not unique picon IDs**. Mapping such a basename directly would assign the same artwork to unrelated streams. The parser now excludes these all-zero stream identities from automatic reference-based matching. A future URL/name-aware alias layer is required, with explicit ambiguity reporting and station-specific aliases.
+
+Other stream references with genuinely distinct identity fields remain eligible for exact-reference matching. A synthetic example is used in tests; this is **not** evidence that OpenATV DAB+ uses that format.
+
+Local manual smoke checks covered three basic parser cases, but the repository's full test suite and GitHub CI have **not been confirmed green**. No release or merge is authorized.
