@@ -33,3 +33,9 @@ find /usr/share/enigma2/picon -maxdepth 1 -type f -name '*.png' | head -30
 ```
 
 These commands **only read** files. The picon path may differ with the user's plugin configuration.
+
+## Privacy-safe diagnostics (feature branch)
+
+The pure-Python `analyze_bouquet(contents)` helper returns `service_entries`, `accepted_unique`, `skipped_entries` and a sorted list of accepted picon reference stems. It does not return stream URLs, descriptions or station names. This is useful for comparing synthetic test bouquets with actual OpenATV output once anonymized samples are available.
+
+The helper is **not yet wired to the receiver UI**. It is a developer diagnostic only, and cannot establish real DAB coverage or renderer compatibility by itself.
