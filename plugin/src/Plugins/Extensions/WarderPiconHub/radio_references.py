@@ -12,6 +12,8 @@ _HEX = re.compile(r'^[0-9A-Fa-f]+$')
 # 1 is a valid DVB service and must NOT be rejected.
 _NON_PLAYABLE_TYPES = ('0', '4', '64', '128', '256', '512')
 # The second field is flags; 0 means a normal service entry.
+# Service-type strings are retained verbatim because Enigma2 references use
+# decimal-looking spellings (e.g. 4097), unlike hex-encoded identity fields.
 _STREAM_TYPES = ('4097', '5001', '5002', '8193')
 
 
