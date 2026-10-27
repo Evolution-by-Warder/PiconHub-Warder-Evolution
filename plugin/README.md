@@ -52,4 +52,7 @@ V riadku Satelity označ **DAB / DAB+ (220×132)**, prípadne aj ďalšie sateli
 Aktuálna sada: **51 označení staníc / 80 presných referencií**, každá v troch pozadiach. ASA DE zostáva vynechaná. Existujúce picony mimo pokrytia sa zachovávajú. Balík pluginu má **2 875 124 bajtov**; obrázkové ZIPy sa sťahujú samostatne. Prešlo **176 testov**, CI, kontrola verejného IPK aj skutočné sťahovanie všetkých troch štýlov. Fyzické overenie 0.1.29 v prijímači sa zatiaľ netvrdí.
 
 
-DAB a DVB-T majú ikony pred názvom; rozlíšenie je samostatná voľba. Obnovený pôvodný archív DVB-T CZ/SK obsahuje 2 674 PNG v prevedení Transparent 220×132. Biele a čierne prevedenie zatiaľ nemá overený balík. Historický archív nepredstavuje záruku úplného aktuálneho pokrytia. Opravené filtrovanie DAB pri spoločnom výbere satelitnej pozície.
+DAB a DVB-T majú ikony pred názvom; rozlíšenie je samostatná voľba. Obnovený pôvodný archív DVB-T CZ/SK obsahuje 2 674 PNG v prevedení Transparent 220×132. Biele a čierne prevedenie je odvodené z tých istých transparentných log na schválených Warder MASTER podkladoch a je už dostupné v spoločnom katalógu. Historický archív nepredstavuje záruku úplného aktuálneho pokrytia. Opravené filtrovanie DAB pri spoločnom výbere satelitnej pozície.
+
+
+Dátová aktualizácia 27. októbra 2026: DVB-T CZ/SK 220×132 je dostupné v prevedeniach Transparent, Biele a Čierne. Každé má rovnakých 2 674 referencií; pôvodné transparentné súbory a farby log zostali zachované. Oba odvodené balíky prešli skutočnou inštaláciou cez Warder engine a overením všetkých verejných častí podľa SHA256. IPK sa nemení. [Zdroj a presné hashe](../picons/DVB-T/catalog/variants.json).

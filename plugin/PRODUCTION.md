@@ -81,4 +81,7 @@ Aktuálny plugin je dostupný aj v hlavnej vetve main. Factory aktualizačný pr
 Prvé dve položky výberu sú DAB a DVB-T. Samostatný overený DAB katalóg sa pri označení dostupnosti posudzuje oddelene od natívneho satelitného katalógu. Identické schválené picony sú aj v picons/19.2e/dab a picons/23.5e/dab a v celkových balíkoch príslušných pozícií (51 a 29 referencií pre každý z troch štýlov). Pôvodné obrázky zostali zachované. Warder je jeden ekosystém so spoločnými dátami a pravidlami; jednotlivé pluginy nezakladajú vlastné nezávislé databázy.
 
 
-DAB a DVB-T majú ikony pred názvom; rozlíšenie je samostatná voľba. Obnovený pôvodný archív DVB-T CZ/SK obsahuje 2 674 PNG v prevedení Transparent 220×132. Biele a čierne prevedenie zatiaľ nemá overený balík. Historický archív nepredstavuje záruku úplného aktuálneho pokrytia. Opravené filtrovanie DAB pri spoločnom výbere satelitnej pozície.
+DAB a DVB-T majú ikony pred názvom; rozlíšenie je samostatná voľba. Obnovený pôvodný archív DVB-T CZ/SK obsahuje 2 674 PNG v prevedení Transparent 220×132. Biele a čierne prevedenie je odvodené z tých istých transparentných log na schválených Warder MASTER podkladoch a je už dostupné v spoločnom katalógu. Historický archív nepredstavuje záruku úplného aktuálneho pokrytia. Opravené filtrovanie DAB pri spoločnom výbere satelitnej pozície.
+
+
+Dátová aktualizácia 27. októbra 2026: DVB-T CZ/SK 220×132 je dostupné v prevedeniach Transparent, Biele a Čierne. Každé má rovnakých 2 674 referencií; pôvodné transparentné súbory a farby log zostali zachované. Oba odvodené balíky prešli skutočnou inštaláciou cez Warder engine a overením všetkých verejných častí podľa SHA256. IPK sa nemení. [Zdroj a presné hashe](../picons/DVB-T/catalog/variants.json).
