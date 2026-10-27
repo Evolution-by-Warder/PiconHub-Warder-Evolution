@@ -48,3 +48,11 @@ An IPK candidate includes the runtime code, not the logo sources, preview images
 ## Recorded owner acceptance — 27 October 2026
 
 The corrected Absolut GERMANY sample was explicitly accepted by the owner ("teraz je uz perfektne"). The accepted composition uses the same official transparent source, including its original white circular backing, on Transparent, White and Black. The same rule is applied to BELLA, HOT and TOP 2000. See `catalog/owner-decisions.json` for the immutable sample/source hashes and the exact scope of this decision. This records the shown sample and composition rule; remaining catalog review and receiver validation are tracked separately.
+
+## Satellite subsets and scan research — 27 October 2026
+
+DAB radio belongs to its owning satellite package, like other radio services. Approved identical PNGs are grouped at `picons/19.2e/dab/{transparent,white,black}` (51 references/style) and `picons/23.5e/dab/{transparent,white,black}` (29/style). The owner explicitly requested these transport folders; provider identities and exact reference names are retained. Git reuses the existing content objects.
+
+Full satellite packages were updated by FullHDGlass workflow 40509308490: all three styles preserve 3,687 existing images on 19.2E and 2,189 on 23.5E. Added DAB counts are 51 and 29 respectively. The live skin channel catalog serves these packages without requiring a skin IPK update. PiconHub 0.1.27 places DAB and DVB-T first and corrects the false unavailable DAB label.
+
+Official OpenATV scan support: `catalog/openatv-feeds.json` pins eight satellite positions and 52 feed definitions. Static transponder data does not contain every station SID: OpenATV reads station IDs and labels live from FIC. Further station picons require independently verified SID/EID metadata, not guessed reference aliases.

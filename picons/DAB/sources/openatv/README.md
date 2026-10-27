@@ -1,0 +1,1 @@
+Pinned official OpenATV scan definitions and non-executable scanner source snapshot, used only to audit exact reference construction. Source: https://github.com/openatv/enigma2/tree/81e1a2e75f0d1f8db56a038b7a6b8a34dad7d496 . Original authorship and upstream licence apply; see LICENSE and LICENSE.GPLv2. No snapshot is included in the receiver IPK.

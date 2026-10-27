@@ -8,7 +8,7 @@ from . import warder_skin_sync as sync
 
 ROOT = pathlib.Path(__file__).parent
 MENU = json.loads((ROOT / "data/skin-menu.json").read_text())["selectors"]
-SATELLITES = tuple((row["selector"], row["label"]) for row in MENU) + (("DAB", "DAB / DAB+ (220×132)"),)
+SATELLITES = (("DAB", "DAB / DAB+ (220×132)"),) + tuple((row["selector"], row["label"]) for row in MENU if row["selector"] == "DVB-T-SK-CZ") + tuple((row["selector"], row["label"]) for row in MENU if row["selector"] != "DVB-T-SK-CZ")
 RESOLUTIONS = tuple((value, label.split(" - ")[0]) for value, label in sync.CHANNEL_RESOLUTION_CHOICES)
 STYLES = (("transparent", "Transparent"), ("white", "Biele"), ("black", "Čierne"))
 METHODS = (("sync_tv", "Podľa TV bouquetov"), ("sync_tv_radio", "Podľa TV a rádia"),

@@ -520,6 +520,8 @@ class WarderMainScreen(Screen):
         style,resolution=self.selection["style"],self.selection["resolution"]
         family=model.sync.family_for_style(style) if style else None
         available={p["selector_id"] for p in self.catalog["packages"] if (not family or p.get("family")==family) and (not resolution or p.get("resolution")==resolution)}
+        # DAB uses a separate approved catalog, not the native satellite catalog.
+        if not resolution or resolution == "220x132":available.add("DAB")
         choices=[(sid,label+(_(" • zatiaľ nedostupné") if sid not in available else "")) for sid,label in model.SATELLITES]
         self.open_picker(_("Satelity a poskytovatelia"),choices,self.selection["satellites"] or [],True,self.satellites_chosen)
 

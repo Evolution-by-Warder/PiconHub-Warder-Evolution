@@ -195,16 +195,23 @@ class NativeControllerTests(unittest.TestCase):
     def test_embedded_satellite_cancel_discards_and_green_commits(self):
         self.main.satellites_chosen(["FREESAT"])
         self.main.select_satellites()
-        self.assertEqual(self.main["list"].values[0][1]["color"],0x0039ff59)
+        freesat_index=next(i for i,(sid,label) in enumerate(self.main.picker.choices) if sid=="FREESAT")
+        self.assertEqual(self.main["list"].values[freesat_index][1]["color"],0x0039ff59)
         self.main.open_row()
         self.main.exit()
         self.assertEqual(self.main.selection["satellites"],["FREESAT"])
         self.main.select_satellites()
-        self.main["list"].moveToIndex(1);self.main.open_row();self.main.green_action()
-        self.assertEqual(self.main.selection["satellites"],["FREESAT",self.gui.model.SATELLITES[1][0]])
+        provider_index=next(i for i,(sid,label) in enumerate(self.main.picker.choices) if sid=="DIGI_TELLY")
+        self.main["list"].moveToIndex(provider_index);self.main.open_row();self.main.green_action()
+        self.assertEqual(self.main.selection["satellites"],["FREESAT","DIGI_TELLY"])
         self.assertIsNone(self.main.picker)
         self.assertFalse(self.main.closed)
         self.assertEqual(self.calls,[])
+
+    def test_dab_and_terrestrial_lead_picker_without_false_unavailable_label(self):
+        self.main.select_satellites()
+        self.assertEqual(tuple(sid for sid,label in self.main.picker.choices[:2]),("DAB","DVB-T-SK-CZ"))
+        self.assertEqual(dict(self.main.picker.choices)["DAB"],"DAB / DAB+ (220×132)")
 
     def test_dab_selection_saves_without_inventing_a_satellite_binding(self):
         self.main.satellites_chosen(['DAB'])
@@ -312,7 +319,9 @@ class NativeControllerTests(unittest.TestCase):
     def test_satellite_icons_green_marks_and_colored_footer(self):
         dialog=self.gui.ChoiceDialog(self.session,"Satelity",self.gui.model.SATELLITES,["FREESAT"],True)
         self.assertEqual(len(dialog.icons),53)
-        row=dialog["list"].values[0]
+        index=next(i for i,x in enumerate(dialog.state.choices) if x[0]=="FREESAT")
+        dialog["list"].moveToIndex(index)
+        row=dialog["list"].values[index]
         self.assertEqual(row[0][0],"FREESAT")
         self.assertEqual(row[1]["text"],"●")
         self.assertEqual(row[1]["color"],0x0039ff59)
@@ -322,7 +331,7 @@ class NativeControllerTests(unittest.TestCase):
         self.assertEqual(dialog["hint_green"].text,"Potvrdiť výber")
         self.assertEqual(dialog["hint_red"].text,"Naspäť")
         dialog.accept()
-        self.assertEqual(dialog["list"].values[0][1]["text"],"○")
+        self.assertEqual(dialog["list"].values[index][1]["text"],"○")
         dialog["actions"]["red"]()
         self.assertIsNone(dialog.result)
 

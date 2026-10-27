@@ -37,6 +37,13 @@ class DABRuntimeTests(unittest.TestCase):
         self.bouquet(NAME)
     def bouquet(self,name):
         (self.box/'userbouquet.dab.radio').write_text('#SERVICE '+name[:-4].replace('_',':')+':http%3a//private.invalid/secret\n#DESCRIPTION Test\n')
+    def test_whole_satellite_package_installs_native_and_dab_radio_together(self):
+        tv="1_0_1_1_1_1_EB0000_0_0_0.png"
+        d,b,url,op=fixture({tv:png(),NAME:png()})
+        result=self.runner(op).run([prefs(self.target,sync.UPDATE_MODE_INCREMENTAL)])
+        self.assertEqual(result,{"added":2,"changed":0,"removed":0})
+        self.assertEqual((self.target/NAME).read_bytes(),png())
+
     def test_published_catalog_installs_without_overriding_its_approval_status(self):
         root=pathlib.Path(__file__).parents[2]/'picons/DAB'
         document=(root/'catalog/release.json').read_bytes()
