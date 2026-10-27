@@ -21,11 +21,11 @@ class RadioReferenceTests(unittest.TestCase):
         for line in ('#SERVICE 1:64:0:0:0:0:0:0:0:0:',
                      '#SERVICE 1:7:1:0:0:0:0:0:0:0:',
                      '#DESCRIPTION Radio',
-                     '#SERVICE 1:0:2:abc:0:0:0:0:0:0:'):
+                     '#SERVICE 1:0:2:xyz:0:0:0:0:0:0:'):
             self.assertIsNone(picon_reference(line))
 
     def test_deduplication(self):
-        contents = '#SERVICE 1:0:2:A:1:1:0:0:0:0:\\n#SERVICE 1:0:2:a:1:1:0:0:0:0:\\n'
+        contents = '#SERVICE 1:0:2:A:1:1:0:0:0:0:\n#SERVICE 1:0:2:a:1:1:0:0:0:0:\n'
         self.assertEqual(collect_picon_references(contents), ['1_0_2_A_1_1_0_0_0_0'])
 
 
