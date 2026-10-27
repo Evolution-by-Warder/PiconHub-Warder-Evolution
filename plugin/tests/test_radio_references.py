@@ -1,7 +1,13 @@
 import unittest
-from Plugins.Extensions.WarderPiconHub.radio_references import (
-    picon_reference, collect_picon_references,
-)
+import importlib.util
+from pathlib import Path
+
+SOURCE = Path(__file__).resolve().parents[1] / 'src' / 'Plugins' / 'Extensions' / 'WarderPiconHub' / 'radio_references.py'
+spec = importlib.util.spec_from_file_location('warder_radio_references', str(SOURCE))
+module = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(module)
+picon_reference = module.picon_reference
+collect_picon_references = module.collect_picon_references
 
 
 class RadioReferenceTests(unittest.TestCase):
