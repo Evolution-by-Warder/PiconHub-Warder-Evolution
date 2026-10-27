@@ -1,0 +1,25 @@
+name: Universal radio parser
+on:
+  pull_request:
+    paths:
+      - 'plugin/src/Plugins/Extensions/WarderPiconHub/plugin.py'
+      - 'plugin/src/Plugins/Extensions/WarderPiconHub/radio_references.py'
+      - 'plugin/tests/test_radio_references.py'
+      - '.github/workflows/universal-radio-tests.yml'
+  push:
+    branches:
+      - feature/universal-radio-picons
+jobs:
+  radio:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Check syntax
+        run: |
+          python -m py_compile plugin/src/Plugins/Extensions/WarderPiconHub/radio_references.py
+          python -m py_compile plugin/src/Plugins/Extensions/WarderPiconHub/plugin.py
+      - name: Radio unit tests
+        run: python -m unittest discover -s plugin/tests -p test_radio_references.py -v
