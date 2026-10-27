@@ -28,6 +28,11 @@ class RadioReferenceTests(unittest.TestCase):
                      '#SERVICE 1:0:2:xyz:0:0:0:0:0:0:'):
             self.assertIsNone(picon_reference(line))
 
+    def test_non_service_lines_and_directory(self):
+        self.assertIsNone(picon_reference('#SERVICE 1:7:1:0:0:0:0:0:0:0:FROM BOUQUET'))
+        self.assertIsNone(picon_reference('#SERVICE 1:64:0:0:0:0:0:0:0:0:'))
+        self.assertIsNone(picon_reference('#SERVICE 0:0:0:0:0:0:0:0:0:0:'))
+
     def test_reject_truncated_reference(self):
         self.assertIsNone(picon_reference('#SERVICE 1:0:2:1234:3:1'))
 
