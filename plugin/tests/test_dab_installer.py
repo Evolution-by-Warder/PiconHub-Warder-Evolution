@@ -6,6 +6,9 @@ import unittest
 from pathlib import Path
 
 SCRIPT = Path(__file__).resolve().parents[2] / 'picons' / 'DAB' / 'install_verified.py'
+if not SCRIPT.is_file():
+    raise RuntimeError('DAB installer missing; cwd=%s, repo=%s, picons_exists=%s, dab_exists=%s' %
+                       (Path.cwd(), SCRIPT.parents[2], SCRIPT.parents[1].exists(), SCRIPT.parent.exists()))
 spec = importlib.util.spec_from_file_location('dab_install_verified', str(SCRIPT))
 module = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(module)
