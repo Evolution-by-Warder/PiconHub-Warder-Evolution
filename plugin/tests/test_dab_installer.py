@@ -5,7 +5,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-SCRIPT = Path(__file__).resolve().parents[2] / 'picons' / 'DAB' / 'install_verified.py'
+SCRIPT = Path(__file__).resolve().parents[1] / 'picons' / 'DAB' / 'install_verified.py'
 spec = importlib.util.spec_from_file_location('dab_install_verified', str(SCRIPT))
 module = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(module)
