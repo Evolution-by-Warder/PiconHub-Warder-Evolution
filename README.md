@@ -37,3 +37,8 @@ The first two source rows use the official DAB badge and shared DVB-T icon. Reso
 
 
 Dátová aktualizácia 27. októbra 2026: DVB-T CZ/SK 220×132 je dostupné v prevedeniach Transparent, Biele a Čierne. Každé má rovnakých 2 674 referencií; pôvodné transparentné súbory a farby log zostali zachované. Oba odvodené balíky prešli skutočnou inštaláciou cez Warder engine a overením všetkých verejných častí podľa SHA256. IPK sa nemení. [Zdroj a presné hashe](picons/DVB-T/catalog/variants.json).
+
+
+## Regional radio data refresh — 27 October 2026
+
+Fun Radio S/V now use the approved Fun Radio Z artwork; Melody S uses Melody V/Z. Regina BA/BB/KE use the owner-supplied regional originals. All three backgrounds and all three supported sizes are live in nine 23.5E satellite archives after auditing 30 relevant satellite/provider archives. Unrelated PNGs and all existing DAB additions were preserved. [Source and verification](picons/radio-refresh-20261027/publication.json). No IPK version changes.

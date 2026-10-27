@@ -7,3 +7,8 @@
 Reproduction: assemble the six immutable transparent ZIP parts from FullHDGlass commit `176bf39ebe07a35a466ce29c7190f76704934387` under `assets/warder/downloads/picons/channels/`; verify the full transparent SHA256 recorded in the catalog. Run `python3 picons/DVB-T/build_variants.py --source TRANSPARENT.zip --masters plugin/artwork/templates/picons --output ARTIFACTS`. Pillow is required only on the build host. The output contains two deterministic ZIPs, SHA256-addressed parts, exact per-PNG records and an internal review sheet.
 
 For actual installation verification, place the intended shared manifest in ARTIFACTS/manifest.json and run `python3 picons/DVB-T/verify_install.py --artifacts ARTIFACTS`. This uses the real receiver planning/downloading/installing engine, checks all 2674 installed file hashes per style and preservation of unrelated files.
+
+
+## Verified inventory
+
+Each 220x132 background contains 2,674 reference PNG files using 203 distinct images. Multiple transmitters, service types and historical references reuse an image. These figures are not an exact count of distinct stations: the source catalogue contains no verified station names. inventory.json records the precise scope.
