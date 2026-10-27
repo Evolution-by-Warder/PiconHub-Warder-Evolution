@@ -7,6 +7,9 @@ on:
       - 'plugin/tests/test_radio_references.py'
       - 'plugin/tests/test_dab_installer.py'
       - 'plugin/tests/test_dab_catalog.py'
+      - 'plugin/tests/test_dab_runtime.py'
+      - 'plugin/tests/test_dab_artwork.py'
+      - 'plugin/src/Plugins/Extensions/WarderPiconHub/warder_dab.py'
       - 'picons/DAB/**'
       - '.github/workflows/universal-radio-tests.yml'
   push:
@@ -26,7 +29,12 @@ jobs:
           python -m py_compile plugin/src/Plugins/Extensions/WarderPiconHub/plugin.py
           python -m py_compile picons/DAB/install_verified.py picons/DAB/build_catalog.py
       - name: Radio unit tests
+        env:
+          PYTHONPATH: plugin/src
+          PYTHONDONTWRITEBYTECODE: 1
         run: |
           python -m unittest discover -s plugin/tests -p test_radio_references.py -v
           python -m unittest discover -s plugin/tests -p test_dab_installer.py -v
           python -m unittest discover -s plugin/tests -p test_dab_catalog.py -v
+          python -m unittest discover -s plugin/tests -p test_dab_runtime.py -v
+          python -m unittest discover -s plugin/tests -p test_dab_artwork.py -v

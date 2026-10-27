@@ -1,3 +1,3 @@
-# PiconHub Warder Evolution 0.1.25
+# PiconHub Warder Evolution 0.1.26 — vývojový kandidát
 
-Vlastný priečinok sa otvára od / a zobrazuje aj skryté adresáre a odkazy na priečinky, napríklad /tmp a /hdd. Pri potvrdení sa uloží skutočný cieľ odkazu.
+Vývojový kandidát: DAB/DAB+ podľa presných referencií prijímača, overenie balíkov a zachovanie vlastných piconov. Grafika čaká na schválenie; produkčný aktualizátor zostáva na 0.1.25.

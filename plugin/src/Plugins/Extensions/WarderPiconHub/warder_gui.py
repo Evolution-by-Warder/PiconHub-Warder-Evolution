@@ -643,7 +643,7 @@ class WarderMainScreen(Screen):
         if values is None:return
         self.selection["satellites"]=list(values)
         self.profile.warder_selectors.setValue(" ".join(values))
-        positions=model.sync.task_positions_from_bindings([model.sync.task_binding_for_package_selector(s) for s in values])
+        positions=model.sync.task_positions_from_bindings([model.sync.task_binding_for_package_selector(s) for s in values if s != "DAB"])
         self.profile.sats.setValue(" ".join(positions));self.save()
 
     def update_picons(self):

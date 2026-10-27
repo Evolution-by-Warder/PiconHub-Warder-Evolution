@@ -8,7 +8,7 @@ from . import warder_skin_sync as sync
 
 ROOT = pathlib.Path(__file__).parent
 MENU = json.loads((ROOT / "data/skin-menu.json").read_text())["selectors"]
-SATELLITES = tuple((row["selector"], row["label"]) for row in MENU)
+SATELLITES = tuple((row["selector"], row["label"]) for row in MENU) + (("DAB", "DAB / DAB+ (220×132)"),)
 RESOLUTIONS = tuple((value, label.split(" - ")[0]) for value, label in sync.CHANNEL_RESOLUTION_CHOICES)
 STYLES = (("transparent", "Transparent"), ("white", "Biele"), ("black", "Čierne"))
 METHODS = (("sync_tv", "Podľa TV bouquetov"), ("sync_tv_radio", "Podľa TV a rádia"),
@@ -71,12 +71,18 @@ def profile_preferences(profile):
         raise ValueError(_("Vyberte pozadie Transparent, Biele alebo Čierne."))
     if profile.method.value not in METHOD_MAP:
         raise ValueError(_("Vyberte režim aktualizácie."))
-    bindings = [sync.task_binding_for_package_selector(value) for value in selectors]
+    include_dab = "DAB" in selectors
+    if include_dab and profile.resolution.value != "220x132":
+        raise ValueError("DAB / DAB+: 220×132")
+    if include_dab and profile.method.value == "sync_tv":
+        raise ValueError(_("Vyberte režim aktualizácie.") + " DAB / DAB+: " + _("Podľa TV a rádia"))
+    bindings = [sync.task_binding_for_package_selector(value) for value in selectors if value != "DAB"]
     preferences = sync.set_task_position_bindings(sync.default_preferences(), bindings)
     preferences.update(style=profile.background.value, resolution=profile.resolution.value,
                        update_mode=METHOD_MAP[profile.method.value],
                        destination=(profile.picon_folder_user.value if profile.picon_folder.value == "user_defined"
                                     else profile.picon_folder.value))
+    preferences.update(include_dab=include_dab, dab_only=include_dab and not bindings)
     return preferences
 
 

@@ -39,14 +39,15 @@ def plan(source, destination):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--destination', required=True, help='Enigma2 picon directory')
+    parser.add_argument('--style', choices=('transparent', 'white', 'black'), default='transparent')
     parser.add_argument('--apply', action='store_true', help='Copy approved files (default: dry run)')
     parser.add_argument('--overwrite', action='store_true', help='Replace existing files (requires --apply)')
     args = parser.parse_args()
     if args.overwrite and not args.apply:
         parser.error('--overwrite requires --apply')
-    source = Path(__file__).resolve().parent / 'verified'
+    source = Path(__file__).resolve().parent / 'verified' / args.style
     destination = Path(args.destination).expanduser()
-    entries = plan(source, destination)
+    entries = plan(source, destination) if source.is_dir() else []
     if not entries:
         print('No approved DAB picons in verified/. Nothing to install.')
         return 0
