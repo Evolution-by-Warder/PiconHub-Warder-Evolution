@@ -28,3 +28,21 @@ Source: `plugin/src/Plugins/Extensions/WarderPiconHub/plugin.py`, current main.
 ## Guardrails
 
 Do not touch approved UI or V9 MASTER templates. Do not merge into main or publish IPK without receiver verification and owner approval. This document records source audit only; **implementation is not yet complete**.
+
+## Implementation update — batch 2026-10-27
+
+- Added `radio_references.py` and integrated it into `plugin.py` bouquet sync.
+- Added isolated parser tests for DVB radio, DAB-like service types, IPTV, duplicates, leading zeros, markers, directories, and malformed entries.
+- For `sync_tv_radio`, existing picons are now preserved rather than deleted when absent from the catalog. This is a deliberate non-destructive safety change pending coverage audit.
+- Added `.github/workflows/universal-radio-tests.yml` to check syntax and run isolated tests.
+- Draft PR #11 tracks development; CI has not yet reported a confirmed result via connector.
+
+### Remaining critical work
+
+1. Acquire *real* OpenATV 8.x DAB+ generated bouquet examples. The current `1013` example is a **synthetic parser fixture**, not evidence of a deployed DAB service type.
+2. Confirm the actual picon filename convention used by OpenATV 8.x DAB renderer and HD Glass infobar; first-ten-fields matching may not cover all implementations.
+3. Audit source ZIP/7z catalogs for DAB station logo availability; current satellite archive downloader cannot create new DAB artwork automatically.
+4. Add verified DAB source catalog, licensing/provenance and conservative alias mapping. Preserve region-specific WDR/ARD/BR identities.
+5. Run full plugin regression suite and receiver acceptance tests before IPK build and production release.
+
+**No claim of complete DAB+ picon coverage or successful CI is made.**
