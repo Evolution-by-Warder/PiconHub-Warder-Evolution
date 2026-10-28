@@ -23,7 +23,7 @@ change('_("ERROR") + ": DAB / DAB+: "', '_("ERROR") + ": " + self.dwnJob + ": "'
 change('"DAB / DAB+: %d%%" % percent', 'self.dwnJob + ": %d%%" % percent')
 change('if not warderRadio.is_dab(item)]))', 'if not warderRadio.is_radio(item)]))')
 change('if any(warderRadio.is_dab(item) for item in (selected or [])):self.selected.add("DAB")', 'if any(warderRadio.is_dab(item) for item in (selected or [])):self.selected.add("DAB")\n\t\tif any(warderRadio.is_iptv(item) for item in (selected or [])):self.selected.add("IPTV-SK-CZ")')
-change('self.list.addSelection("DAB / DAB+", dict(warderRadio.DAB_BINDING), 0,', 'self.list.addSelection(_("IPTV radios SK/CZ"), dict(warderRadio.IPTV_BINDING), -1, "IPTV-SK-CZ" in self.selected, PLUGINPATH + "images/selectors/IPTV-SK-CZ.png")\n\t\tself.list.addSelection("DAB / DAB+", dict(warderRadio.DAB_BINDING), 0,')
+change('self.list.addSelection("DAB / DAB+", dict(warderRadio.DAB_BINDING), 0,', 'self.list.addSelection(warderRadio.label({"include_iptv": True}), dict(warderRadio.IPTV_BINDING), -1, "IPTV-SK-CZ" in self.selected, PLUGINPATH + "images/selectors/IPTV-SK-CZ.png")\n\t\tself.list.addSelection("DAB / DAB+", dict(warderRadio.DAB_BINDING), 0,')
 compile(s, str(source), 'exec')
 (R/'patched/skin-plugin.py').write_text(s)
 print('Prepared skin picker, mixed selection and progress UI')

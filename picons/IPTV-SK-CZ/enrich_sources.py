@@ -28,6 +28,11 @@ for row in rows:
   if candidates:
    r=max(candidates,key=lambda r:('svg' in r['favicon'],bool(re.search('180|192|256|512|logo',r['favicon'])),r['lastcheckok']))
    spec={'source_page':r['homepage'],'url':r['favicon'],'identity':r['name'],'evidence':'Logo hosted on the station homepage domain; discovered through Radio Browser, visual verification pending.'}
+ if spec and (spec['url'].endswith('/assets/images/cd.png') or 'zeno.fm/static/icons/' in spec['url']):
+  spec=None # Generic CD/player/platform artwork is not the station logo.
+ decisions=json.loads((R/'catalog/manual-artwork-sources.json').read_text())['rows']
+ override=next((x for x in decisions if x['country']==row['country'] and x['identity_key']==row['identity_key']),None)
+ if override:spec=override
  result.append(dict(row,logo=spec))
 (R/'catalog/refreshed-artwork-sources.json').write_text(json.dumps({'schema':1,'status':'source-candidates-require-visual-review','rows':result},ensure_ascii=False,indent=2)+'\n')
 print('Selected sources',sum(bool(r['logo']) for r in result),'of',len(result))

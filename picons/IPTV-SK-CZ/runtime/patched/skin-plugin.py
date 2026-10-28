@@ -10141,7 +10141,7 @@ class warderPositionSelectorScr(Screen):
 		self.onLayoutFinish.append(self.startSelect)
 
 	def startSelect(self):
-		self.list.addSelection(_("IPTV radios SK/CZ"), dict(warderRadio.IPTV_BINDING), -1, "IPTV-SK-CZ" in self.selected, PLUGINPATH + "images/selectors/IPTV-SK-CZ.png")
+		self.list.addSelection(warderRadio.label({"include_iptv": True}), dict(warderRadio.IPTV_BINDING), -1, "IPTV-SK-CZ" in self.selected, PLUGINPATH + "images/selectors/IPTV-SK-CZ.png")
 		self.list.addSelection("DAB / DAB+", dict(warderRadio.DAB_BINDING), 0, "DAB" in self.selected, PLUGINPATH + "images/selectors/DAB.png")
 		ordered = sorted(range(len(SATLIST)), key=lambda i: (warderPiconSync.task_binding_for_display_label(SATLIST[i][0]) or {}).get("package_selector") != "DVB-T-SK-CZ")
 		for x in ordered:

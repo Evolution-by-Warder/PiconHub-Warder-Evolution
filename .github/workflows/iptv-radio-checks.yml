@@ -1,0 +1,29 @@
+name: IPTV SK-CZ shared radio checks
+on:
+  push:
+    branches: [radio/iptv-sk-cz-refresh]
+    paths: [picons/IPTV-SK-CZ/**, .github/workflows/iptv-radio-checks.yml]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  runtime:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ['3.9', '3.14']
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            plugin/src
+            picons/IPTV-SK-CZ
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Prepare actual shared-core dependencies
+        run: python picons/IPTV-SK-CZ/runtime/prepare_tests.py
+      - name: Validate shared downloader, both hosts and catalogue identities
+        run: python -m unittest discover -s picons/IPTV-SK-CZ/runtime -p 'test_*.py' -v
+      - name: Compile the prepared skin UI
+        run: python -m py_compile picons/IPTV-SK-CZ/runtime/patched/skin-plugin.py

@@ -25,6 +25,7 @@ def aliases(name):
  name=re.sub(r'(?:32|64|128|192|256|320)$','',name)
  name=re.sub(r'^RTVS\s*','',name,flags=re.I)
  k=key(name)
+ k={'wehouseradio':'zun','wehouse':'zun','rockmaxradio':'rockradio','rockmax':'rockradio','bibliask':'biblia','beta8090':'betahity80sa90s'}.get(k,k)
  k={'infovojnask':'infovojna','infovojna2':'infovojna','kissradio':'kiss','impulsraaadio':'impuls','radiodechovka':'dechovka','class icprague':'classicpraha','classicprague':'classicpraha','hitfmplus':'hitradiofmplus','hitradiofmcrystal':'hitradiocrystal','hitradiocrystal':'hitradiocrystal','fajnfresh':'fajnfresh','metalheart':'metalheartradio','raduoproglas':'proglas','wehouseradio':'wehouse','wehouse':'wehouse','zonerundergroundnetwork':'zun','zunradio':'zun','patriarsi':'patriaradio','jubilanti':'betahramejubilantom','radiaczbirds':'relaxacezpevptaku','radiaczfire':'relaxaceohenvkrbu','radiaczsea':'relaxacemore','radiacztrain':'relaxacejedoucivlak','countryradio':'country','funradio':'fun','funradio8090':'fun8090','funradiocz':'funcz','funradioceskoslovenskehity':'funcz','funradiodance':'fundance','funradiochill':'funchill','funradiomilenialky':'funmilenialky','patriarsi':'patriaradio','helax937':'helax','cityfm':'hitradiocity','hitradiocity937fm':'hitradiocity','citymilenium':'hitradiomilenium','radiovlnaoldiesparty':'vlnaoldiesparty'}.get(k,k)
  return {'frekvence1actve':'frekvence1','evropa2actve':'evropa2','evropa2radio':'evropa2','evropa2aac':'evropa2','evropa2mp3':'evropa2','radio1':'1','bestfm':'bestfm','sro1radioslovensko256k':'slovensko'}.get(k,k)
 def rank(r):
@@ -71,6 +72,7 @@ for country in ['SK','CZ']:
     if ref.replace(':','_') not in reserved and ref.replace(':','_') not in assigned:break
     nonce+=1
   assigned.add(ref.replace(':','_'));name=publisher_names[country].get(k) or ' '.join(row['name'].split())
+  if country=='CZ' and k=='zun':name='ZUN rádio'
   if name=='RÁDIO FM':name='Rádio_FM'
   name=re.sub(r'[\x00-\x1f\x7f]',' ',name).strip()
   entry={'country':country,'name':name,'service_reference':ref,'picon_filename':ref.replace(':','_')+'.png','stream_url':u,'homepage':row['homepage'],'source_stationuuids':sorted(uuids),'source_stationuuid':row['stationuuid'],'catalogue_lastcheck':row['lastchecktime_iso8601'],'identity_key':k,'retained_original_reference':bool(matched),'status':'refresh-candidate-requires-review'}

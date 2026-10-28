@@ -57,6 +57,10 @@ for row in rows:
    for style in styles:
     canvas=Image.new('RGBA',size) if style=='transparent' else masters[style].copy() if size==(220,132) else masters[style].convert('RGBa').resize(size,Image.Resampling.LANCZOS).convert('RGBA')
     art=fitted.copy()
+    if style=='black' and spec['url'].endswith('frontinus_logo_transparent_1.png'):
+     variant=next(x for x in json.loads((R/'catalog/extra-pinned-sources.json').read_text()) if x['url'].endswith('frontinus_logo_transparent_white.png'))
+     source=R/variant['path'];assert hashlib.sha256(source.read_bytes()).hexdigest()==variant['sha256']
+     art=Image.open(source).convert('RGBA');art=art.crop(art.getbbox());art.thumbnail((round(size[0]*192/220),round(size[1]*104/132)),Image.Resampling.LANCZOS)
     if style=='black' and spec['url'].endswith('beta-radio-logo.png'):
      art=beta_black(p);art.thumbnail((round(size[0]*192/220),round(size[1]*104/132)),Image.Resampling.LANCZOS)
     if style=='black' and spec['url'].endswith('logo_re.svg'):

@@ -15,8 +15,8 @@ def is_radio(binding):
 def selected(preferences):
     return bool(preferences.get("include_dab") or preferences.get("include_iptv"))
 
-def label(preferences, translate=lambda value: value):
-    return ", ".join(([translate("IPTV radios SK/CZ")] if preferences.get("include_iptv") else [])
+def label(preferences, translate=None):
+    return ", ".join(([engine._("IPTV rádiá SK/CZ")] if preferences.get("include_iptv") else [])
                      + (["DAB / DAB+"] if preferences.get("include_dab") else []))
 
 def is_dab(binding):
