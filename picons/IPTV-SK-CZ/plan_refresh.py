@@ -4,7 +4,7 @@ No uncertain station is deleted or renamed, and no discovery row is called live-
 from pathlib import Path
 from urllib.parse import urlsplit,unquote
 from datetime import datetime,timezone
-import json,re,unicodedata
+import json,re,unicodedata,hashlib
 R=Path(__file__).resolve().parent
 old=json.loads((R/'catalog/stations.json').read_text())['stations']
 def norm(v):
@@ -35,6 +35,11 @@ def score(row):
  return (codec=='MP3',codec in ('AAC','AAC+'),0<bitrate<=320,bitrate,str(row.get('lastchecktime','')))
 catalogs={c:json.loads((R/f'research/{c}-radio-browser.json').read_text()) for c in ['SK','CZ']}
 now=datetime.now(timezone.utc)
+if (R/'catalog/source-snapshot.json').exists():
+ snapshot=json.loads((R/'catalog/source-snapshot.json').read_text())
+ for name,digest in snapshot['files'].items():
+  assert hashlib.sha256((R/'research'/name).read_bytes()).hexdigest()==digest,'Discovery input changed; create a new dated snapshot'
+ now=datetime.fromisoformat(snapshot['as_of'])
 def recent(r):
  try:stamp=datetime.fromisoformat(r['lastchecktime_iso8601'].replace('Z','+00:00'));return r.get('lastcheckok')==1 and 0<=(now-stamp).total_seconds()<3*86400
  except (KeyError,ValueError,TypeError):return False

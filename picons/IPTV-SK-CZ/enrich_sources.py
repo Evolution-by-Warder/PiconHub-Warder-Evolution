@@ -33,6 +33,9 @@ for row in rows:
  decisions=json.loads((R/'catalog/manual-artwork-sources.json').read_text())['rows']
  override=next((x for x in decisions if x['country']==row['country'] and x['identity_key']==row['identity_key']),None)
  if override:spec=override
+ if spec and (R/'catalog/style-sources.json').exists():
+  extras=[x for x in json.loads((R/'catalog/style-sources.json').read_text())['rows'] if x['country']==row['country'] and x['identity_key']==row['identity_key']]
+  if extras:spec=dict(spec,style_sources={x['style']:x for x in extras})
  result.append(dict(row,logo=spec))
 (R/'catalog/refreshed-artwork-sources.json').write_text(json.dumps({'schema':1,'status':'source-candidates-require-visual-review','rows':result},ensure_ascii=False,indent=2)+'\n')
 print('Selected sources',sum(bool(r['logo']) for r in result),'of',len(result))

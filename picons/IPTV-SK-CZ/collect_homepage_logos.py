@@ -13,7 +13,8 @@ byurl={urlkey(p['url']):p for p in pages if 'error' not in p}
 DENY=('facebook','instagram','google','apple','android','zoznam','partner','reklam','kampan','kampaň','sponsor','toplist')
 selected=[]
 for row in data['rows']:
- if row.get('logo'):continue
+ existing=row.get('logo')
+ if existing and existing.get('approved_variants'):continue
  p=byurl.get(urlkey(row.get('homepage','')))
  if not p:continue
  options=[]
@@ -33,6 +34,7 @@ for row in data['rows']:
   if score>=8 and structural:options.append((score,full,label))
  if options:
   _,url,label=max(options)
+  if existing and not (url.lower().endswith('.svg') and not existing['url'].lower().split('?')[0].endswith('.svg')):continue
   row['logo']={'url':url,'source_page':p.get('final_url',p['url']),'identity':label or row['name'],'evidence':'Station-name-matching logo element on its own homepage; visual review pending.'};selected.append(row['name'])
 # Explicitly identified inline vector logos, copied without redrawing.
 inline=[('https://www.evropa2.cz/','evropa2',lambda s:next(x for x in re.findall(r'<svg\b[^>]*>.*?</svg>',s,re.S) if '<title>Evropa 2</title>' in x)),('https://www.subfm.sk/','subfm',lambda s:re.search(r'<h1>\s*<\?xml[^>]*>\s*(<svg\b.*?</svg>)',s,re.S)[1]),('http://www.radiokosice.sk/','kosice',lambda s:re.search(r'<span name="radiokosice"[^>]*>(<svg\b.*?</svg>)',s,re.S)[1])]

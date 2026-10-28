@@ -17,10 +17,12 @@ Dokončiť: rozšírenie a kontrola aktuálneho SK/CZ katalógu, aktualizovaný 
 - Počty kandidátov sa menia pri overovaní a zlučovaní historických názvov. Aktuálny zoznam je v `catalog/refreshed-stations.json`; počet položiek nie je počet overených staníc. Pôvodných 68 záznamov ešte čaká na osobitné overenie; absencia v katalógu ani sieťový timeout nie sú dôkaz zániku stanice.
 - Priame obmedzené skúšky 424 adries vrátili 115 zvukových odpovedí; 94 adries patrí aktuálne vybraným záznamom. Výsledok nie je potvrdenie prehrávania v prijímači.
 - Nový downloader overuje presný repozitár, nemenný commit, SHA256, inventár, rozmer PNG a rovnaké pokrytie deviatich variantov. Zlyhanie kombinovanej úlohy DAB + IPTV ponechá cieľové súbory nezmenené.
-- PiconHub aj adaptér FullHDGlass používajú spoločný downloader. Lokálne prešlo 16 cielených testov. Pripravené úpravy pickeru a priebehu sú stále vo `runtime/patched/`, zatiaľ neboli zaradené do produkcie.
+- PiconHub aj adaptér FullHDGlass používajú spoločný downloader. Lokálne prešlo 16 cielených testov, všetkých 176 existujúcich testov PiconHubu a 15 testov skutočného hostiteľa FullHDGlass. Pripravené úpravy pickeru a priebehu sú stále vo `runtime/patched/`, zatiaľ neboli zaradené do produkcie.
 - Žiadne obrázky sa negenerujú na prijímači. Budúce externé ZIP balíky nebudú súčasťou inštalačného IPK.
 - Fun rádio, Melody a tri Reginy preberajú všetkých deväť variantov presne z vlastníkom schválených podkladov. Žiadne nové logo ani náhradná identita sa nevymýšľa.
 - Vizuálna kontrola odhalila chybný prvok „on air“ namiesto loga Detského rádia; bol odmietnutý. Ďalšie zdroje a kontrast sa ešte kontrolujú. Náhľady sa nesmú považovať za produkčné schválenie.
 
 Testy: `python3 -m unittest discover -s runtime -p 'test_*.py' -q`.
 Pre čistý checkout najskôr spustiť `python3 picons/IPTV-SK-CZ/runtime/prepare_tests.py`. Testy používajú skutočné spoločné moduly a preklady, nie náhrady Enigma2.
+
+GitHub kontrola spoločného downloadera na Python 3.9 a 3.14: https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/actions/runs/40669393450 . Rozšírená sada s celým existujúcim pluginom ešte čaká na nový checkpoint.

@@ -16,11 +16,16 @@ jobs:
       - uses: actions/checkout@v4
         with:
           sparse-checkout: |
-            plugin/src
+            plugin
+            picons/DAB
             picons/IPTV-SK-CZ
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python }}
+      - name: Validate the complete existing plugin suite
+        env:
+          PYTHONPATH: plugin/src
+        run: python -m unittest discover -s plugin/tests -v
       - name: Prepare actual shared-core dependencies
         run: python picons/IPTV-SK-CZ/runtime/prepare_tests.py
       - name: Validate shared downloader, both hosts and catalogue identities

@@ -3,11 +3,11 @@ Keeps the original full bouquet intact on disk. Publication requires review.
 """
 from pathlib import Path
 from urllib.parse import urlsplit,unquote,urlunsplit,parse_qsl,urlencode
-import json,hashlib,re,runpy,contextlib,io
+import json,hashlib,re,runpy,contextlib,io,os
 R=Path(__file__).resolve().parent
 with contextlib.redirect_stdout(io.StringIO()):M=runpy.run_path(str(R/'plan_refresh.py'))
 key,recent=M['key'],M['recent'];old=json.loads((R/'catalog/stations.json').read_text())['stations']
-original=R.parent/'deliverables/radio-fixed/userbouquet.warder.radio';raw=original.read_text()
+original=Path(os.environ.get('WARDER_SOURCE_BOUQUET',str(R/'inputs/userbouquet.warder.radio')));raw=original.read_text()
 publishers={'SK':json.loads((R/'research/radia-sk-stations.json').read_text()),'CZ':json.loads((R/'research/radia-stations.json').read_text())}
 publisher_names={}
 def canonical_url(u):
@@ -25,6 +25,10 @@ def aliases(name):
  name=re.sub(r'(?:32|64|128|192|256|320)$','',name)
  name=re.sub(r'^RTVS\s*','',name,flags=re.I)
  k=key(name)
+ if k=='chatrdio':k='chatradio'
+ if re.fullmatch(r'impulsra+dio',k):k='impuls'
+ if k=='fajnradio':k='fajn'
+ k={'hitradiomagic':'hitradiocernahora','fajnradiohity':'fajn','bestofrock':'rockradiolegendsofrock'}.get(k,k)
  k={'wehouseradio':'zun','wehouse':'zun','rockmaxradio':'rockradio','rockmax':'rockradio','bibliask':'biblia','beta8090':'betahity80sa90s'}.get(k,k)
  k={'infovojnask':'infovojna','infovojna2':'infovojna','kissradio':'kiss','impulsraaadio':'impuls','radiodechovka':'dechovka','class icprague':'classicpraha','classicprague':'classicpraha','hitfmplus':'hitradiofmplus','hitradiofmcrystal':'hitradiocrystal','hitradiocrystal':'hitradiocrystal','fajnfresh':'fajnfresh','metalheart':'metalheartradio','raduoproglas':'proglas','wehouseradio':'wehouse','wehouse':'wehouse','zonerundergroundnetwork':'zun','zunradio':'zun','patriarsi':'patriaradio','jubilanti':'betahramejubilantom','radiaczbirds':'relaxacezpevptaku','radiaczfire':'relaxaceohenvkrbu','radiaczsea':'relaxacemore','radiacztrain':'relaxacejedoucivlak','countryradio':'country','funradio':'fun','funradio8090':'fun8090','funradiocz':'funcz','funradioceskoslovenskehity':'funcz','funradiodance':'fundance','funradiochill':'funchill','funradiomilenialky':'funmilenialky','patriarsi':'patriaradio','helax937':'helax','cityfm':'hitradiocity','hitradiocity937fm':'hitradiocity','citymilenium':'hitradiomilenium','radiovlnaoldiesparty':'vlnaoldiesparty'}.get(k,k)
  return {'frekvence1actve':'frekvence1','evropa2actve':'evropa2','evropa2radio':'evropa2','evropa2aac':'evropa2','evropa2mp3':'evropa2','radio1':'1','bestfm':'bestfm','sro1radioslovensko256k':'slovensko'}.get(k,k)
@@ -47,6 +51,9 @@ for country in ['SK','CZ']:
   if not recent(row) or row.get('codec','').upper() not in ('MP3','AAC','AAC+','OGG','FLAC','OPUS') or not row.get('homepage') or not k:continue
   if not M['identity_consistent'](name,row):skipped.append({'country':country,'name':name,'reason':'Station identity conflicts with broadcaster stream path'});continue
   home=urlsplit(row['homepage']).hostname or ''
+  if home=='radioparty.pl' or home.endswith('.radioparty.pl') or k=='streamcpdemofm':
+   skipped.append({'country':country,'name':name,'reason':'Polish station or hosting demo; not an identified SK/CZ radio service'});continue
+  if country=='CZ' and k=='county' and home in ('countryradio.cz','www.countryradio.cz'):k='country'
   if home.endswith(('.fr','.si','.ua')) or home in ('www.laradioplus.com','laradioplus.com') or re.search(r'\b(?:TV|Televize|Television)\b',name,re.I) or name.startswith(('Óčko','TA3')):
    skipped.append({'country':country,'name':name,'reason':'Foreign-country homepage or television entry; not a local radio service'});continue
   if urlsplit(u).scheme not in ('http','https'):continue
@@ -73,6 +80,7 @@ for country in ['SK','CZ']:
     nonce+=1
   assigned.add(ref.replace(':','_'));name=publisher_names[country].get(k) or ' '.join(row['name'].split())
   if country=='CZ' and k=='zun':name='ZUN rádio'
+  if country=='CZ' and k=='chatradio':name='Chat Rádio'
   if name=='RÁDIO FM':name='Rádio_FM'
   name=re.sub(r'[\x00-\x1f\x7f]',' ',name).strip()
   entry={'country':country,'name':name,'service_reference':ref,'picon_filename':ref.replace(':','_')+'.png','stream_url':u,'homepage':row['homepage'],'source_stationuuids':sorted(uuids),'source_stationuuid':row['stationuuid'],'catalogue_lastcheck':row['lastchecktime_iso8601'],'identity_key':k,'retained_original_reference':bool(matched),'status':'refresh-candidate-requires-review'}
@@ -83,6 +91,9 @@ for country in ['SK','CZ']:
 excluded_old=[];retained_unverified=[]
 for row in old:
  identity=aliases(row['name'])
+ if row['country']=='CZ' and row['name']=='RadioParty.pl':
+  excluded_old.append(dict(row,reason='Polish RadioParty.pl was previously filed under Czech stations; not an identified Czech radio service.',evidence=['https://radioparty.pl/']))
+  continue
  if any(x['country']==row['country'] and (x['identity_key']==identity or canonical_url(x['stream_url'])==canonical_url(row['stream_url'])) for x in catalog):continue
  if row['country']=='SK' and row['name'] in ('N-Radio','Radio Yes','SRo 7 - Radio Pyramida'):
   excluded_old.append(dict(row,reason={'N-Radio':'This address belongs to French NRadio, not a current Slovak station.','Radio Yes':'Radio Yes ended; Radio Topolcany is listed under its current identity.','SRo 7 - Radio Pyramida':'Radio Pyramida ended 2025-02-28 according to STVR.'}[row['name']],evidence=['https://www.fluxradios.com/Radios-France/France-Groupe-Isa-Media-Development/NRadio-France','https://www.radia.sk/radia/yes','https://www.stvr.org/media/a542/file/item/sk/0002/programovy_koncept_stvr_2025.WEZw.pdf']))
@@ -90,6 +101,7 @@ for row in old:
  stem=row['service_reference'].replace(':','_')
  if stem in assigned:continue
  entry=dict(row,identity_key=identity,retained_original_reference=True,status='retained-original-awaiting-verification',homepage='',source_stationuuid=None,catalogue_lastcheck=None)
+ entry['name']=publisher_names[row['country']].get(identity,row['name'])
  catalog.append(entry);assigned.add(stem);retained_unverified.append(row['name'])
 # A merged codec variant keeps its original picon identity as an alias. Never
 # assign an alias which is the primary reference of another current programme.

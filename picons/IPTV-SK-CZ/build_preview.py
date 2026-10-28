@@ -4,10 +4,14 @@ from PIL import Image,ImageDraw
 from xml.etree import ElementTree as ET
 import json,io,hashlib,copy
 import cairosvg
+from component_variants import negative_wordmark
 R=Path(__file__).resolve().parent;styles=('transparent','white','black');sizes=((50,30),(220,132),(400,240))
-masters={s:Image.open(R/'templates'/f'{s}-sablona.png').convert('RGBA') for s in ('white','black')}
+templates=R/'templates' if (R/'templates').exists() else R.parents[1]/'plugin/artwork/templates/picons'
+masters={s:Image.open(templates/f'{s}-sablona.png').convert('RGBA') for s in ('white','black')}
 expected=json.loads((R/'catalog/master-sha256.json').read_text())
-for s in masters:assert hashlib.sha256((R/'templates'/f'{s}-sablona.png').read_bytes()).hexdigest()==expected[s]
+for s in masters:assert hashlib.sha256((templates/f'{s}-sablona.png').read_bytes()).hexdigest()==expected[s]
+masks=json.loads((R/'catalog/component-masks.json').read_text())
+canvases={(size,style):(Image.new('RGBA',size) if style=='transparent' else masters[style].copy() if size==(220,132) else masters[style].convert('RGBa').resize(size,Image.Resampling.LANCZOS).convert('RGBA')) for size in sizes for style in styles}
 def beta_black(source):
  image=Image.open(source).convert('RGBA');image=image.crop(image.getbbox())
  pixels=list(image.getdata());w,h=image.size;pending={i for i,p in enumerate(pixels) if p[3]};groups=[]
@@ -55,8 +59,15 @@ for row in rows:
   for size in sizes:
    fitted=logo.copy();fitted.thumbnail((round(size[0]*192/220),round(size[1]*104/132)),Image.Resampling.LANCZOS)
    for style in styles:
-    canvas=Image.new('RGBA',size) if style=='transparent' else masters[style].copy() if size==(220,132) else masters[style].convert('RGBa').resize(size,Image.Resampling.LANCZOS).convert('RGBA')
+    canvas=canvases[(size,style)].copy()
     art=fitted.copy()
+    if style=='black' and row['identity_key'] in masks:
+     art=negative_wordmark(p,masks[row['identity_key']]);art.thumbnail((round(size[0]*192/220),round(size[1]*104/132)),Image.Resampling.LANCZOS)
+    if style in spec.get('style_sources',{}):
+     variant=spec['style_sources'][style];source=R/variant['path'];assert hashlib.sha256(source.read_bytes()).hexdigest()==variant['sha256']
+     raw=source.read_bytes()
+     if source.suffix=='.svg':raw=cairosvg.svg2png(bytestring=raw,output_width=800)
+     art=Image.open(io.BytesIO(raw)).convert('RGBA');art=art.crop(art.getbbox());art.thumbnail((round(size[0]*192/220),round(size[1]*104/132)),Image.Resampling.LANCZOS)
     if style=='black' and spec['url'].endswith('frontinus_logo_transparent_1.png'):
      variant=next(x for x in json.loads((R/'catalog/extra-pinned-sources.json').read_text()) if x['url'].endswith('frontinus_logo_transparent_white.png'))
      source=R/variant['path'];assert hashlib.sha256(source.read_bytes()).hexdigest()==variant['sha256']
@@ -69,6 +80,13 @@ for row in rows:
      nodes[5].set('style','fill:#ffffff !important')
      assert all(ET.tostring(nodes[i])==raw for i,raw in preserved.items())
      art=Image.open(io.BytesIO(cairosvg.svg2png(bytestring=ET.tostring(vector),output_width=1600))).convert('RGBA');art=art.crop(art.getbbox());art.thumbnail((round(size[0]*192/220),round(size[1]*104/132)),Image.Resampling.LANCZOS)
+    if style=='white' and spec['url'].endswith('R7-logo_biele_new.svg'):
+     vector=ET.fromstring(p.read_bytes());nodes=list(vector.iter())
+     assert len(nodes)==9 and all(nodes[i].get('fill')=='#FFFFFF' for i in (1,2,3,4,7))
+     preserved={i:ET.tostring(nodes[i]) for i in (5,6,8)}
+     for i in (1,2,3,4,7):nodes[i].set('fill','#000000')
+     assert all(ET.tostring(nodes[i])==before for i,before in preserved.items())
+     art=Image.open(io.BytesIO(cairosvg.svg2png(bytestring=ET.tostring(vector),output_width=800))).convert('RGBA');art=art.crop(art.getbbox());art.thumbnail((round(size[0]*192/220),round(size[1]*104/132)),Image.Resampling.LANCZOS)
     if mono and not opaque and style in ('white','black'):
      rgb=0 if style=='white' else 255
      art.putdata([(rgb,rgb,rgb,a) if a else (r,g,b,a) for r,g,b,a in art.getdata()])

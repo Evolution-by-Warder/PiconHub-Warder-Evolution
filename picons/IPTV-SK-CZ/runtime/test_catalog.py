@@ -22,7 +22,7 @@ class CatalogTests(unittest.TestCase):
   self.assertNotIn('cro7',r['stream_url'])
  def test_confirmed_retired_or_wrong_country_programmes_stay_excluded(self):
   names={r['name'] for r in self.rows}
-  for name in ('N-Radio','Radio Yes','SRo 7 - Radio Pyramida','LA RADIO PLUS ANNECY'):
+  for name in ('N-Radio','Radio Yes','SRo 7 - Radio Pyramida','LA RADIO PLUS ANNECY','RadioParty.pl'):
    self.assertNotIn(name,names)
  def test_selected_streams_contain_no_login_or_expiring_radiojar_token(self):
   for r in self.rows:
