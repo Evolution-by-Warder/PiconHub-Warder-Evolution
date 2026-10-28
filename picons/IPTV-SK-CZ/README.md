@@ -2,7 +2,7 @@
 
 Spoločná kolekcia pre PiconHub Warder Evolution a FullHDGlass Warder Evolution.
 
-Bouquet obsahuje 321 položiek: 88 slovenských a 233 českých. Pri 286 vybraných URL skúška vrátila zvukové dáta; dostupnosť všetkých 321 nie je potvrdená. Picony pokrývajú 247 položiek, 263 súborov vrátane starších referencií v každom variante. Zvyšných 74 položiek zatiaľ nemá vhodný overený podklad. Nevymýšľame náhradné logá.
+Bouquet obsahuje 321 položiek: 88 slovenských a 233 českých. Pri 286 vybraných URL skúška vrátila zvukové dáta; dostupnosť všetkých 321 nie je potvrdená. Picony pokrývajú 248 položiek, 264 súborov vrátane starších referencií v každom variante. Zvyšných 73 položiek zatiaľ nemá vhodný overený podklad. Nevymýšľame náhradné logá.
 
 Dostupné sú rozmery 50×30, 220×132 a 400×240, vždy Transparent, Biele a Čierne. Inštalátor kontroluje SHA256 archívu aj jednotlivých PNG a nemení nesúvisiace používateľské picony. Oba projekty používajú rovnaký katalóg a rovnaký kód sťahovania.
 
@@ -27,3 +27,5 @@ Odstraňuje zdrojovú hlavičku, neprehrateľné lokálne zástupné adresy a pr
 Pôvod zahraničných údajov: verejný zoznam [OpenHDF/hdfradio](https://github.com/openhdf/hdfradio), súbor `userbouquet.iptv_radio.radio`. Nejde o pôvodný výtvor Warder; Warder spravuje vlastnú SK/CZ časť, zlúčenie a referencie. Označenie zdroja je v tejto dokumentácii, používateľský bouquet má hlavičku Warder Radio Streams.
 
 Overenie a počty posledného spracovania: [world-radio-update.json](catalog/world-radio-update.json).
+
+Doplnený originál od vlastníka: 897. Všetkých deväť variantov používa dodaný podklad bez zmeny farieb a písma. [Overenie publikácie](catalog/owner-artwork-publication.json).
