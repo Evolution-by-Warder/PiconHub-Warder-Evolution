@@ -849,11 +849,13 @@
     "url": "https://www.radiokosice.sk/#warder-source-logo",
     "source_page": "https://www.radiokosice.sk/",
     "identity": "kosice",
-    "evidence": "Exact inline station logo SVG extracted from the identified homepage logo element.",
+    "evidence": "The BA stream uses the same broadcaster homepage and Radio Kosice identity; retain the same official brand mark, without inventing a regional logo.",
     "source_type": "inline-svg",
     "path": "sources/inline-388a86eaf8984656b9edab5e.svg",
     "sha256": "388a86eaf8984656b9edab5ee5c2ad41bb86fce4d49b323a7357c8b1eacb1d01",
-    "bytes": 2527
+    "bytes": 2527,
+    "country": "SK",
+    "identity_key": "kosiceba"
   },
   "https://www.detske.radio/#warder-source-logo": {
     "url": "https://www.detske.radio/#warder-source-logo",
@@ -1080,11 +1082,13 @@
   "https://www.radiorocksv.eu/wp-content/uploads/2022/06/RADIO-Rock-SV-logo-stream-1.png": {
     "url": "https://www.radiorocksv.eu/wp-content/uploads/2022/06/RADIO-Rock-SV-logo-stream-1.png",
     "source_page": "https://www.radiorocksv.eu/",
-    "identity": "RÁDIO Rock SV",
-    "evidence": "Station-name-matching logo element on its own homepage; visual review pending.",
+    "identity": "Rádio Rock SV",
+    "evidence": "Exact own-site station logo, retaining its own approved circular backing on every master style. Directory cutouts must not silently remove that circle.",
     "path": "sources/5ab60ec698d4ddde53b8ef9d.png",
     "bytes": 1462935,
-    "sha256": "7170c6c76399ed7ec1f74347ff51a70084fc239fc91d78201a26da926c684237"
+    "sha256": "7170c6c76399ed7ec1f74347ff51a70084fc239fc91d78201a26da926c684237",
+    "country": "SK",
+    "identity_key": "rocksv"
   },
   "https://suita.sk/wp-content/uploads/2026/02/logoSuita.svg": {
     "source_page": "https://suita.sk/",
@@ -1532,7 +1536,7 @@
     "url": "http://www.radiootava.cz/player/final_logo-web.png",
     "identity": "Radio Otava",
     "evidence": "Logo hosted on the station homepage domain; discovered through Radio Browser, visual verification pending.",
-    "error": "HTTPError: HTTP Error 404: Not Found"
+    "error": "URLError: <urlopen error timed out>"
   },
   "https://zeno.fm/static/icons/apple-icon-152x152.png": {
     "source_page": "https://zeno.fm/radio/phonk-radio/",
@@ -2651,5 +2655,42 @@
     "path": "sources/81d2d9b94764c0e8b12b09e2.svg",
     "bytes": 1001,
     "sha256": "29a509dd7026931410eaae3a42791e85a51e4632fd48385ba499522e550505ef"
+  },
+  "http://www.freeradio.cz/img/header.png": {
+    "country": "CZ",
+    "identity_key": "freeradio1070fmbrno",
+    "url": "http://www.freeradio.cz/img/header.png",
+    "source_page": "http://www.freeradio.cz/",
+    "identity": "Free Radio 107 FM",
+    "logo_crop": [
+      419,
+      0,
+      606,
+      203
+    ],
+    "evidence": "Complete yellow/black Free Radio branded badge extracted without redrawing from its official header; retain the bee, text, frequency and original badge backing. Loudspeaker banner decoration is excluded.",
+    "path": "sources/df7ffae4ae54337b26ebb873.png",
+    "bytes": 113241,
+    "sha256": "d8af488ed250a9b37a3e24424e113b54965d022903daf61463358e7250d20e66"
+  },
+  "https://www.krokodyl.cz/www/frontend/images/logo.png": {
+    "url": "https://www.krokodyl.cz/www/frontend/images/logo.png",
+    "source_page": "https://www.krokodyl.cz/",
+    "identity": "Rádio Krokodýl",
+    "evidence": "Station-name-matching logo element on its own homepage; visual review pending.",
+    "path": "sources/83434a310725a28b52096f0a.png",
+    "bytes": 30187,
+    "sha256": "57440d9171be570e46060a347c3197396c1bc6394e3f7170e54e329da0b778da"
+  },
+  "https://slowdownradijo.cz/wp-content/uploads/2020/06/cropped-slow-down-radijo_logo_01-4.png": {
+    "country": "CZ",
+    "identity_key": "slowdownradijo",
+    "url": "https://slowdownradijo.cz/wp-content/uploads/2020/06/cropped-slow-down-radijo_logo_01-4.png",
+    "source_page": "https://slowdownradijo.cz/",
+    "identity": "Slow Down Rádijo",
+    "evidence": "Original full-size station-hosted WordPress logo corresponding to the documented thumbnail; no upscaling of the 32-pixel favicon.",
+    "path": "sources/5081a4f8d6e5cf064dd8b834.png",
+    "bytes": 43908,
+    "sha256": "57347856c5c7427b1646765c6c420bb30ba597a4ccc5028fca034bee305a47c1"
   }
 }
