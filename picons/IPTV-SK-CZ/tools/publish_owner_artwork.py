@@ -81,6 +81,9 @@ def main():
     proof={'status':'verified','version':update['version'],'payload_commit':payload,'picon_stations':base['picon_stations'],'missing_artwork':base['missing_artwork'],'references_per_variant':len(common),'all_nine_public_archives_verified':True,'previous_picons_preserved_byte_for_byte':True,'new_station_keys':[r['identity_key'] for r in additions]};write(ROOT/'catalog/owner-artwork-publication.json',proof)
     git('add',str(ROOT/'catalog'),str(ROOT/'README.md'));git('commit','-m','Activate verified owner-supplied radio artwork in the shared catalogue')
     git('push','origin','HEAD:refs/heads/'+branch)
+    # A sparse depth-one checkout may not know main's old commit locally;
+    # fetch the ancestry before the client's non-forced fast-forward check.
+    git('fetch','--no-tags','--deepen=10','origin',branch,'main')
     assert head()==update['expected_main_sha'],'Production advanced before activation'
     git('push','origin','HEAD:refs/heads/main')
     print(json.dumps(proof))
