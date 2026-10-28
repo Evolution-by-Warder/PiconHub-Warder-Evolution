@@ -13,9 +13,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+          sparse-checkout: picons/IPTV-SK-CZ
       - uses: actions/setup-python@v5
         with:
           python-version: '3.14'
       - run: python3 -m pip install --quiet Pillow
       - name: Verify all images and publish immutable downloads
-        run: python3 picons/IPTV-SK-CZ/tools/publish_packages.py
+        run: python3 picons/IPTV-SK-CZ/tools/publish_followup.py
