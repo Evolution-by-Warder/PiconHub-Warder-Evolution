@@ -11,3 +11,16 @@ Aktuálne výsledky sú kandidáti. `refresh-candidate.json` nesmie byť vyhlás
 Logá: iba oficiálne alebo vlastníkom schválené identity. Použiť zmrazené Warder MASTER pozadia, proporcionálny fit, 50×30, 220×132 a 400×240, transparent/white/black. Nevymýšľať logá, neopravovať farby hrubými maskami. Sporné identity a kontrast vyžadujú vizuálne preverenie; chýbajúce logo nenahrádzať logom podobnej stanice.
 
 Dokončiť: rozšírenie a kontrola aktuálneho SK/CZ katalógu, aktualizovaný kompletný bouquet, finálne priradenie piconov, generovanie a vizuálna kontrola deviatich balíkov, integrácia `IPTV rádiá SK/CZ` do oboch aplikácií, cielené testy, štandardné produkčné vydanie a dokumentácia skutočných výsledkov.
+
+## Pracovný checkpoint 28. 10. 2026
+
+- Katalóg obsahuje 88 SK a 243 CZ kandidátov. Nie je to tvrdenie o 331 overených staniciach. Pôvodných 68 záznamov ešte čaká na osobitné overenie; absencia v katalógu ani sieťový timeout nie sú dôkaz zániku stanice.
+- Priame obmedzené skúšky 424 adries vrátili 115 zvukových odpovedí; 94 adries patrí aktuálne vybraným záznamom. Výsledok nie je potvrdenie prehrávania v prijímači.
+- Nový downloader overuje presný repozitár, nemenný commit, SHA256, inventár, rozmer PNG a rovnaké pokrytie deviatich variantov. Zlyhanie kombinovanej úlohy DAB + IPTV ponechá cieľové súbory nezmenené.
+- PiconHub aj adaptér FullHDGlass používajú spoločný downloader. Lokálne prešlo 12 cielených testov. Pripravené úpravy pickeru a priebehu sú stále vo `runtime/patched/`, zatiaľ neboli zaradené do produkcie.
+- Žiadne obrázky sa negenerujú na prijímači. Budúce externé ZIP balíky nebudú súčasťou inštalačného IPK.
+- Fun rádio, Melody a tri Reginy preberajú všetkých deväť variantov presne z vlastníkom schválených podkladov. Žiadne nové logo ani náhradná identita sa nevymýšľa.
+- Vizuálna kontrola odhalila chybný prvok „on air“ namiesto loga Detského rádia; bol odmietnutý. Ďalšie zdroje a kontrast sa ešte kontrolujú. Náhľady sa nesmú považovať za produkčné schválenie.
+
+Testy: `python3 -m unittest discover -s runtime -p 'test_*.py' -q`.
+Súbor `runtime/patched/warder_i18n.py` je len testovacia náhrada; nikdy ho neprenášať do pluginu ani skinu.
