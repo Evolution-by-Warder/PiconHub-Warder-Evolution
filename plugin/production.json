@@ -2,16 +2,16 @@
   "schema": 1,
   "product": "PiconHub Warder Evolution",
   "status": "production-approved",
-  "approved_on": "2026-10-27",
-  "approval": "Owner authorized continued deployment of DAB/DVB-T menu fixes, positional DAB source folders and full satellite package integration on 27 October 2026.",
+  "approved_on": "2026-10-28",
+  "approval": "Owner requested completion and deployment of refreshed SK/CZ IPTV radio bouquets and official Warder picons across PiconHub and FullHDGlass.",
   "source_branch": "plugin/futuristic-rebuild",
-  "source_commit": "93fd4546b2e3ebc617404a4c271a5278f763fadd",
+  "source_commit": "2338498bb1bde99d921cf2ccf1f237730bea5c27",
   "release": {
-    "version": "0.1.29",
-    "tag": "v0.1.29",
-    "url": "https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/download/v0.1.29/enigma2-plugin-extensions-piconhub-warder-evolution_0.1.29_all.ipk",
-    "bytes": 2875124,
-    "sha256": "076eaf60dca9d7d5f7a929462f4be56ee5a2820fcba5f047adfcc8de60fb6233"
+    "version": "0.1.30",
+    "tag": "v0.1.30",
+    "url": "https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/download/v0.1.30/enigma2-plugin-extensions-piconhub-warder-evolution_0.1.30_all.ipk",
+    "bytes": 2879782,
+    "sha256": "08959228cf12b5c5cadd2e31d3ba2367dc5eca5948ab573ce9e1fc8335fa9d91"
   },
   "installation_directory": "/usr/lib/enigma2/python/Plugins/Extensions/WarderPiconHub/",
   "package": "enigma2-plugin-extensions-piconhub-warder-evolution",
@@ -29,56 +29,20 @@
     "es"
   ],
   "validation": {
-    "automated_tests": 176,
+    "automated_tests": 191,
     "ci": "passed",
-    "workflow_run": 40548069323,
-    "pre_merge_core_workflow": 40505582290,
-    "pre_merge_radio_workflow": 40505582208,
+    "workflow_run": 40686906248,
     "public_ipk_verified": true,
-    "public_ipk_matches_local_build": false,
-    "live_dab_downloads": {
-      "transparent": 80,
-      "white": 80,
-      "black": 80,
-      "unknown_existing_picons_preserved": true
-    },
-    "startup_upgrade_from": "0.1.27",
-    "startup_upgrade_to": "0.1.29",
     "receiver_tested": false,
-    "latest_receiver_version_confirmed": false,
-    "owner_acceptance": "Owner authorized production activation on 27 October 2026 after accepting the corrected official-logo composition.",
-    "limits": "176 tests and publishing CI pass. Public IPK size and SHA256 independently verified. Actual live DVB-T install added 2,674 PNGs and preserved unrelated files. Physical receiver test of 0.1.29 is not claimed.",
-    "fullhdglass_radio_infobars": "Owner confirmed picons display in both radio infobars.",
-    "full_satellite_dab": {
-      "skin_workflow": 40509308490,
-      "19.2e": 51,
-      "23.5e": 29,
-      "styles": 3,
-      "original_pngs_preserved": true
+    "iptv": {
+      "bouquet_entries": 321,
+      "picon_entries": 213,
+      "missing_artwork": 108,
+      "audio_sampled": 286,
+      "variants": 9,
+      "references_per_variant": 229,
+      "public_archives_sha256_verified": true
     },
-    "dvb_t": {
-      "images": 2674,
-      "style": "transparent",
-      "resolution": "220x132",
-      "source": "Original archived Chocholousek CZ/SK package; current full broadcast coverage and white/black variants are not claimed."
-    },
-    "live_dvb_t_variants": {
-      "source_commit": "c662265bd085a7916289975f7c4472a25d6c9b40",
-      "shared_catalog_commit": "b9a67183391ebccc8d760d45e6c8151e439b458e",
-      "resolution": "220x132",
-      "styles": [
-        "transparent",
-        "white",
-        "black"
-      ],
-      "pngs_per_style": 2674,
-      "original_transparent_unchanged": true,
-      "original_logo_colours_preserved": true,
-      "public_derived_parts_verified": 44,
-      "public_derived_bytes_verified": 182898839,
-      "derived_styles_real_engine_installed": true,
-      "unknown_user_files_preserved": true,
-      "ipk_changed": false
-    }
+    "limits": "No physical receiver confirmation of 0.1.30 is claimed. 108 bouquet entries do not yet have suitable verified picons; not all 321 streams were verified live."
   }
 }

@@ -1,16 +1,16 @@
 # PiconHub Warder Evolution — ostrá prevádzka
 
-Zápis z 27. októbra 2026 na výslovný pokyn vlastníka projektu. Schválená produkčná základňa: **0.1.29**. Tento dokument nahrádza staré vývojové popisy; historické podklady zostávajú zachované.
+Zápis aktualizovaný 28. októbra 2026 na pokyn vlastníka projektu. Produkčná verzia: **0.1.30**. Tento dokument nahrádza staré vývojové popisy; historické podklady zostávajú zachované.
 
 ## Identita vydania
 
-- Balík: `enigma2-plugin-extensions-piconhub-warder-evolution_0.1.29_all.ipk`.
-- Tag: `v0.1.29`.
-- Zdrojový commit: `93fd4546b2e3ebc617404a4c271a5278f763fadd`.
-- Veľkosť: **2 875 124 bajtov**.
-- SHA256: `076eaf60dca9d7d5f7a929462f4be56ee5a2820fcba5f047adfcc8de60fb6233`.
+- Balík: `enigma2-plugin-extensions-piconhub-warder-evolution_0.1.30_all.ipk`.
+- Tag: `v0.1.30`.
+- Zdrojový commit: `2338498bb1bde99d921cf2ccf1f237730bea5c27`.
+- Veľkosť: **2 879 782 bajtov**.
+- SHA256: `08959228cf12b5c5cadd2e31d3ba2367dc5eca5948ab573ce9e1fc8335fa9d91`.
 - Inštalačný priečinok: `/usr/lib/enigma2/python/Plugins/Extensions/WarderPiconHub/`.
-- [Vydanie a IPK](https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/tag/v0.1.29).
+- [Vydanie a IPK](https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/tag/v0.1.30).
 
 Produkčné označenie nemení už vydané bajty IPK. Samostatný workflow pred zrušením označenia Pre-release overí verejne stiahnutý balík, jeho SHA256, veľkosť, zdrojový commit a súlad s [production.json](production.json). Repozitár je určený pluginu do prijímača. Produkčná propagácia nastaví jeho schválené vydanie ako GitHub Latest.
 
@@ -59,7 +59,7 @@ Zdroj DAB v existujúcom výbere, 220×132, Transparent/Biele/Čierne. Schválen
 ## Skutočné overenie
 
 - **176 automatizovaných testov**; pred zlúčením oba workflow úspešné (40505582290, 40505582208).
-- Úspešný zostavovací a publikačný workflow **40548069323** pre zdroj `93fd4546b2e3ebc617404a4c271a5278f763fadd`.
+- Úspešný zostavovací a publikačný workflow **40548069323** pre zdroj `2338498bb1bde99d921cf2ccf1f237730bea5c27`.
 - Verejné IPK má overenú veľkosť a SHA256 a zodpovedá zverejnenému kontrolnému súčtu.
 - Živý aktualizátor ponúka prechod 0.1.25 → 0.1.29; balík prešiel validáciou aktualizátora.
 - Skutočné stiahnutie a zápis zo živého DAB katalógu do dočasných priečinkov: 80 piconov v každom z troch štýlov; kontrolný existujúci rádiový picon zostal zachovaný.
@@ -85,3 +85,8 @@ DAB a DVB-T majú ikony pred názvom; rozlíšenie je samostatná voľba. Obnove
 
 
 Dátová aktualizácia 27. októbra 2026: DVB-T CZ/SK 220×132 je dostupné v prevedeniach Transparent, Biele a Čierne. Každé má rovnakých 2 674 referencií; pôvodné transparentné súbory a farby log zostali zachované. Oba odvodené balíky prešli skutočnou inštaláciou cez Warder engine a overením všetkých verejných častí podľa SHA256. IPK sa nemení. [Zdroj a presné hashe](../picons/DVB-T/catalog/variants.json).
+
+
+## IPTV SK/CZ — 0.1.30
+
+Spoločný katalóg a presný zdieľaný kód s FullHDGlass 1.0.36. 321 položiek bouquetu; 213 položiek s piconmi v deviatich variantoch, 229 referenčných PNG v každom variante. 108 položiek bez vhodného overeného podkladu zostáva výslovne uvedených. 191 testov a publikačné CI 40686906248 prešli, verejné IPK overené podľa veľkosti a SHA256. Ostatné staršie údaje overenia vyššie dokumentujú predchádzajúcu základňu. Fyzický test 0.1.30 na prijímači sa netvrdí.

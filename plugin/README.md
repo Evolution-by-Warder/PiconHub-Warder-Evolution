@@ -1,6 +1,6 @@
 # PiconHub Warder Evolution
 
-**Produkčná verzia 0.1.29**, schválená používateľom 27. októbra 2026. Plugin slúži na sťahovanie a správu piconov v Enigma2.
+**Produkčná verzia 0.1.30**, nasadená na pokyn používateľa 28. októbra 2026. Plugin slúži na sťahovanie a správu piconov v Enigma2.
 
 [Produkčný zápis](PRODUCTION.md) · [Stav overenia](BUILD-STATUS.md) · [Strojový záznam vydania](production.json)
 
@@ -24,12 +24,12 @@ Textové okná používajú rovnaký nepriehľadný podklad. Šípky ↑/↓ pos
 
 ## Inštalácia a aktualizácie
 
-[Stiahnuť IPK 0.1.29](https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/download/v0.1.29/enigma2-plugin-extensions-piconhub-warder-evolution_0.1.29_all.ipk).
+[Stiahnuť IPK 0.1.30](https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/download/v0.1.30/enigma2-plugin-extensions-piconhub-warder-evolution_0.1.30_all.ipk).
 
 Po skopírovaní konkrétneho balíka do `/tmp`:
 
 ```sh
-opkg install /tmp/enigma2-plugin-extensions-piconhub-warder-evolution_0.1.29_all.ipk
+opkg install /tmp/enigma2-plugin-extensions-piconhub-warder-evolution_0.1.30_all.ipk
 ```
 
 Plugin sa inštaluje do `/usr/lib/enigma2/python/Plugins/Extensions/WarderPiconHub/`. Existujúce nastavenia sa zachovávajú. Pri každom otvorení prebehne kontrola novšej verzie na pozadí. Inštaláciu používateľ potvrdí; dostupná je aj ručná kontrola žltým tlačidlom. Po úspešnej aktualizácii sa zobrazí jediné oznámenie a GUI sa po 3 sekundách reštartuje. Bez internetu zostane plugin použiteľný.
@@ -47,7 +47,7 @@ Zdroj vychádza z práce s3n0 a Chocholousek. Pôvodné autorské údaje, gettex
 
 ## DAB / DAB+
 
-V riadku Satelity označ **DAB / DAB+ (220×132)**, prípadne aj ďalšie satelitné zdroje. Vyber rozlíšenie **220×132**, pozadie a režim zahŕňajúci rádio. Režim podľa TV a rádia inštaluje iba presné referencie nájdené v rádiových bouquetoch prijímača; pri samostatnom DAB v režime všetkých piconov sa nainštaluje celá dostupná DAB sada. Používa sa nastavený cieľový priečinok, bežne `picon/`.
+V riadku Satelity označ **DAB / DAB+**, prípadne aj ďalšie satelitné zdroje. Vyber rozlíšenie **220×132**, pozadie a režim zahŕňajúci rádio. Režim podľa TV a rádia inštaluje iba presné referencie nájdené v rádiových bouquetoch prijímača; pri samostatnom DAB v režime všetkých piconov sa nainštaluje celá dostupná DAB sada. Používa sa nastavený cieľový priečinok, bežne `picon/`.
 
 Aktuálna sada: **51 označení staníc / 80 presných referencií**, každá v troch pozadiach. ASA DE zostáva vynechaná. Existujúce picony mimo pokrytia sa zachovávajú. Balík pluginu má **2 875 124 bajtov**; obrázkové ZIPy sa sťahujú samostatne. Prešlo **176 testov**, CI, kontrola verejného IPK aj skutočné sťahovanie všetkých troch štýlov. Fyzické overenie 0.1.29 v prijímači sa zatiaľ netvrdí.
 
@@ -56,3 +56,10 @@ DAB a DVB-T majú ikony pred názvom; rozlíšenie je samostatná voľba. Obnove
 
 
 Dátová aktualizácia 27. októbra 2026: DVB-T CZ/SK 220×132 je dostupné v prevedeniach Transparent, Biele a Čierne. Každé má rovnakých 2 674 referencií; pôvodné transparentné súbory a farby log zostali zachované. Oba odvodené balíky prešli skutočnou inštaláciou cez Warder engine a overením všetkých verejných častí podľa SHA256. IPK sa nemení. [Zdroj a presné hashe](../picons/DVB-T/catalog/variants.json).
+
+
+## IPTV rádiá SK/CZ
+
+Prvá položka ponuky, s vlastnou ikonou. Rozlíšenia 50×30, 220×132, 400×240; Transparent, Biele a Čierne. Picony pre 213 položiek, v každom variante 229 referenčných PNG. [Obnovené bouquety a pokrytie](../picons/IPTV-SK-CZ/README.md): 321 položiek, z toho 286 URL vrátilo zvukové dáta pri skúške; 108 položiek zatiaľ bez vhodného overeného piconu.
+
+Sťahovanie IPTV spolu s DAB vyžaduje 220×132. Kontrola archívov aj PNG podľa SHA256 a presnej rádiovej referencie; nesúvisiace picony sa zachovajú. Voľba podľa TV tento rádiový zdroj odmietne. Automatická kontrola novšej verzie pri každom otvorení zostáva aktívna.
