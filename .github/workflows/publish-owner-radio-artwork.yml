@@ -1,0 +1,33 @@
+name: Publish owner-approved radio artwork
+on:
+  push:
+    branches: ['radio/owner-artwork-*']
+    paths:
+      - '.github/workflows/publish-owner-radio-artwork.yml'
+      - 'picons/IPTV-SK-CZ/tools/publish_owner_artwork.py'
+      - 'picons/IPTV-SK-CZ/catalog/owner-artwork-update.json'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: owner-radio-artwork
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          filter: blob:none
+          sparse-checkout: |
+            picons/IPTV-SK-CZ
+            .github/workflows
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.14'
+      - run: python -m pip install --quiet Pillow
+      - name: Verify every old and new PNG and publish immutable packages
+        run: python picons/IPTV-SK-CZ/tools/publish_owner_artwork.py
