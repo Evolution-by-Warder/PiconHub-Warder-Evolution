@@ -33,10 +33,10 @@ Choose **DAB / DAB+** in the source selector. The approved catalog covers **52 l
 
 FullHDGlass, PiconHub and GSU are applications in one Warder ecosystem. They share approved source data, logo identity rules and consistent controls. DAB radio picons are grouped with their owning satellites and supplied through the same live catalogs used across the ecosystem. In PiconHub 0.1.30 IPTV SK/CZ, DAB and DVB-T lead the source list; standalone DAB uses its own verified catalog and is no longer incorrectly marked unavailable.
 
-The three radio and terrestrial sources have their own shared selector icons. Resolution remains a separate setting. The native live catalog now includes the restored original CZ/SK DVB-T transparent 220×132 package (2,674 PNGs); white and black variants are now derived from the same transparent logos on the frozen Warder masters and available in the shared live catalogue. Position filtering is shared with FullHDGlass and handles the canonical receiver position labels.
+The three radio and terrestrial sources have their own shared selector icons. Resolution remains a separate setting. The audited CZ/SK DVB-T collection contains 2,531 receiver-reference PNGs in each 220×132 background. It adds 54 references, updates 148 existing logos and removes 197 obsolete or incorrect filenames. Regional uncertainties and operator-confirmed programmes awaiting exact references are listed explicitly. [Current inventory, cleanup and provenance](picons/DVB-T/README.md).
 
 
-Dátová aktualizácia 27. októbra 2026: DVB-T CZ/SK 220×132 je dostupné v prevedeniach Transparent, Biele a Čierne. Každé má rovnakých 2 674 referencií; pôvodné transparentné súbory a farby log zostali zachované. Oba odvodené balíky prešli skutočnou inštaláciou cez Warder engine a overením všetkých verejných častí podľa SHA256. IPK sa nemení. [Zdroj a presné hashe](picons/DVB-T/catalog/variants.json).
+Dátová aktualizácia 28. októbra 2026: spoločný balík DVB-T/T2 SK/CZ bol doplnený a vyčistený. Všetky tri pozadia prešli reálnou inštaláciou cez Warder engine a overením SHA256. Verzia pluginu a IPK sa nemenia.
 
 
 ## Regional radio data refresh — 27 October 2026

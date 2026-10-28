@@ -9,11 +9,11 @@ def opener(url):
  if url==s.RUNTIME_MANIFEST_URL:return io.BytesIO(json.dumps(doc).encode())
  return (out/url.rsplit('/',1)[-1]).open('rb')
 report=json.loads((out/'variants.json').read_text());results={}
-for style in ('white','black'):
+for style in ('transparent','white','black'):
  with tempfile.TemporaryDirectory() as temp:
   target=pathlib.Path(temp)/'picon';target.mkdir();(target/'user.png').write_bytes(b'user file preserved')
   prefs=s.default_preferences(str(target));prefs=s.set_task_position_bindings(prefs,[s.task_binding_for_package_selector('DVB-T-SK-CZ')]);prefs.update(resolution='220x132',style=style,update_mode=s.UPDATE_MODE_INCREMENTAL,prepared=True)
-  result=e.PiconRunner(opener=opener,lock_path=temp+'/lock',enigma2_dir=temp+'/enigma2').run([prefs]);assert result=={'added':2674,'changed':0,'removed':0},result
+  result=e.PiconRunner(opener=opener,lock_path=temp+'/lock',enigma2_dir=temp+'/enigma2').run([prefs]);assert result=={'added':len(report['records']),'changed':0,'removed':0},result
   assert (target/'user.png').read_bytes()==b'user file preserved'
   for name,r in report['records'].items():assert hashlib.sha256((target/name).read_bytes()).hexdigest()==r[style]
   results[style]=dict(result,all_file_sha256_verified=True,user_file_preserved=True)

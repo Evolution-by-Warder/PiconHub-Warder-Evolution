@@ -1,14 +1,39 @@
-# DVB-T CZ/SK — shared Warder packages
+# DVB-T / DVB-T2 Slovensko a Česko — audit 28. 10. 2026
 
-2674 original receiver filenames, 203 unique original transparent logos. Transparent source bytes are preserved. White and black are derived from those same logos, fitted proportionally inside the immutable Warder MASTER frames without recolouring, guessed identities or invented artwork. Original artwork and trademarks retain their authorship. The original collection is historical and does not guarantee complete current broadcasting coverage.
+Spoločný zoznam a picony pre PiconHub aj FullHDGlass. Runtime ponuka zostáva `DVB-T-SK-CZ`, 220 × 132, Transparent / Biele / Čierne. Inštalácia smeruje do používateľom zvoleného priečinka piconov; nevzniká nový priečinok podľa rozlíšenia.
 
-`catalog/variants.json` records original and resulting PNG hashes, archive/part hashes, source provenance, exact frozen master hashes and the owner instruction of 27 October 2026. The live package index is shared by FullHDGlass and PiconHub; these data packages do not enlarge either IPK.
+## Čo bolo skontrolované
 
-Reproduction: assemble the six immutable transparent ZIP parts from FullHDGlass commit `176bf39ebe07a35a466ce29c7190f76704934387` under `assets/warder/downloads/picons/channels/`; verify the full transparent SHA256 recorded in the catalog. Run `python3 picons/DVB-T/build_variants.py --source TRANSPARENT.zip --masters plugin/artwork/templates/picons --output ARTIFACTS`. Pillow is required only on the build host. The output contains two deterministic ZIPs, SHA256-addressed parts, exact per-PNG records and an internal review sheet.
+- 198 kombinácií SID / TSID / ONID z verejných meraní SatelitnáTV.sk: 127 slovenských a 71 českých.
+- 11 existujúcich slovenských rozhlasových referencií; nejde o nové fyzické meranie prijímačom.
+- 18 ďalších položiek potvrdených prevádzkovateľom bez spoľahlivo priradenej terestriálnej referencie.
+- Pôvodný balík: 2 674 názvov PNG, 203 odlišných obrázkov. Ani jeden z týchto počtov nie je počet súčasných staníc.
 
-For actual installation verification, place the intended shared manifest in ARTIFACTS/manifest.json and run `python3 picons/DVB-T/verify_install.py --artifacts ARTIFACTS`. This uses the real receiver planning/downloading/installing engine, checks all 2674 installed file hashes per style and preservation of unrelated files.
+Výsledný zoznam má 227 riadkov. Jedna stanica sa môže objaviť vo viacerých multiplexoch, regiónoch alebo verziách. `catalog/station-list.csv` je čitateľný prehľad; JSON zachováva pôvodný SDT názov, zdroj, dátum merania, identifikátory a stav priradenia.
 
+## Doplnenie balíkov
 
-## Verified inventory
+54 nových názvov PNG, oprava alebo aktualizácia 148 existujúcich transparentných PNG a zodpovedajúcich bielych/čiernych variantov. Odstránených je 197 zastaraných alebo chybných názvov PNG. Výsledok: **2 531 PNG v každom z troch balíkov**. Ostatné ponechané PNG zostávajú nezmenené. Medzi doplneniami sú JOJ Šport 2, Kanal 1, RiK, Nickelodeon, Prima LOVE SK, Markíza Krimi, VIXEN, Music Box Classic, ČRo Pohoda, Český Impuls, Rádio Čas a Čas Rock, nové pozície JOJ Family a CS Mystery. Opravené sú aj zámeny Sport 1 a Regina Stred/Východ, staré WAU a testovacie obrázky pri konkrétnych pomenovaných staniciach.
 
-Each 220x132 background contains 2,674 reference PNG files using 203 distinct images. Multiple transmitters, service types and historical references reuse an image. These figures are not an exact count of distinct stations: the source catalogue contains no verified station names. inventory.json records the precise scope.
+Použité sú existujúce schválené Warder picony alebo logá priamo od vysielateľa či prevádzkovateľa siete. Žiadne logo nie je vymyslené. Pôvodný transparentný obrázok sa pri existujúcich schválených trojiciach neprekresľuje. Pri nových zdrojových logách sa zachováva pomer strán aj farby; biele a čierne pozadie používa nemennú šablónu Warder.
+
+## Vyčistenie starého balíka
+
+Odstránené sú referencie potvrdene ukončených ČT3, Rádio Pyramída, Paramount Network CZ, TUTY TV, NASA TV UHD, Sport 5, O2 TV Free, Naživo a Barrandov News/Family, staré Sporty TV a generické testovacie obrázky bez identity. Ak je ich referencia už použitá overenou aktuálnou stanicou, zostáva zachovaná s novým správnym logom. Zmeny brandov, napríklad WAU → JOJ KRIMI, a staré rozhlasové logá sa aktualizujú na všetkých existujúcich aliasoch. Dôvody a zdroje pre každý odstránený súbor sú v `catalog/removals.json`; prehľad programov v `catalog/obsolete-stations.json`. Neoverené regionálne položky sa nevydávajú za zrušené.
+
+## Čo nie je potvrdené
+
+77 riadkov má otvorený stav: chýbajúce schválené logo, rozporná regionálna identita alebo neoverená aktuálna referencia. Toto číslo nie je 77 chýbajúcich staníc: viaceré riadky sú opakovania v regiónoch. Obzvlášť všeobecný `Regio T2` nemožno priradiť jedinému logu pre celé Česko. `Service 1–5` a `Test-1/2` zostávajú technickými názvami bez vymyslenej identity. Prima Sport je potvrdený prevádzkovateľom MUX 24, ale bez potvrdeného terestriálneho SID sa nevytvára odhadnuté priradenie. Staré merania RTVS na MUX 1 a Paramount Network sú označené oddelene od aktuálnej ponuky prevádzkovateľa. Regionálne merania nie sú zárukou aktuálneho vysielania.
+
+## Hlavné zdroje
+
+- [Plustelka: aktuálne štyri celoplošné multiplexy](https://plustelka.sk/technicke-informacie)
+- [České Radiokomunikace: MUX 21–23 a regionálne siete](https://www.digistranky.cz/naladte-si/programova-nabidka)
+- [Digital Broadcasting: MUX 24, regionálne programy a rádiá](https://www.multiplex24.cz/images/document/20260103-l7RIZWTQ.pdf)
+- [Prima Sport v MUX 24 od 17. augusta 2026](https://www.multiplex24.cz/detail-aktuality/novy-televizni-program-prima-sport-od-17-srpna-2026)
+- [Slovenské rozhlasové vysielanie DVB-T2](https://www.radia.sk/frekvencie)
+- [SatelitnáTV.sk: vlastné merania vysielačov](https://www.satelitnatv.sk/vysielace/dvb-t/)
+
+TV referencia s typom `1` a namespace `EEEE0000` je kompatibilný názov pre zdokumentované fallback vyhľadávanie OpenATV/FullHDGlass. Nie je tvrdením o skutočnom SDT type konkrétneho HD/HEVC programu. Rádiá dostávajú typ `2` a kompatibilný typ `1`; existujúce presné referencie a frekvenčné aliasy zostávajú zachované. SID/TSID/ONID sa zo zdrojov čítajú v desiatkovej sústave a do názvu PNG sa zapisujú šestnástkovo.
+
+Manifest sa aktivuje až po overení SHA-256 všetkých troch archívov a všetkých verejných častí. Táto aktualizácia dát nemení verzie aplikácií, IPK ani aktualizačné kanály pluginov.
