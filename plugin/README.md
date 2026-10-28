@@ -14,7 +14,7 @@ Výbery aj aktualizácie sa vykonávajú v ľavom paneli. Rovnaký panel použí
 
 - Rozlíšenia: **50×30, 220×132, 400×240**.
 - Pozadia: **Transparent, Biele, Čierne**.
-- Ponuka zahŕňa 53 identifikátorov družíc/poskytovateľov a samostatný zdroj **DAB / DAB+**. Pôvodný satelitný katalóg obsahuje 468 balíkov; DAB má vlastný overený katalóg.
+- Ponuka zahŕňa družice a poskytovateľov aj samostatné zdroje **IPTV rádiá SK/CZ**, **DAB / DAB+** a **DVB-T CZ/SK**. Rádiové zdroje používajú vlastné overené katalógy.
 - Režimy: podľa TV bouquetov, podľa TV a rádia, doplnenie/aktualizácia všetkých, úplné nahradenie vybraných pozícií.
 - Profily sa v rozhraní nezobrazujú. Pri otvorení sú voľby neutrálne: „Vyber si…“.
 
@@ -49,7 +49,7 @@ Zdroj vychádza z práce s3n0 a Chocholousek. Pôvodné autorské údaje, gettex
 
 V riadku Satelity označ **DAB / DAB+**, prípadne aj ďalšie satelitné zdroje. Vyber rozlíšenie **220×132**, pozadie a režim zahŕňajúci rádio. Režim podľa TV a rádia inštaluje iba presné referencie nájdené v rádiových bouquetoch prijímača; pri samostatnom DAB v režime všetkých piconov sa nainštaluje celá dostupná DAB sada. Používa sa nastavený cieľový priečinok, bežne `picon/`.
 
-Aktuálna sada: **51 označení staníc / 80 presných referencií**, každá v troch pozadiach. ASA DE zostáva vynechaná. Existujúce picony mimo pokrytia sa zachovávajú. Balík pluginu má **2 875 124 bajtov**; obrázkové ZIPy sa sťahujú samostatne. Prešlo **176 testov**, CI, kontrola verejného IPK aj skutočné sťahovanie všetkých troch štýlov. Fyzické overenie 0.1.29 v prijímači sa zatiaľ netvrdí.
+Aktuálne pokrytie a presné kontrolné súčty určuje [živý DAB katalóg](../picons/DAB/catalog/release.json). ASA DE je súčasťou DAB a celkovej 23.5E, nie Canal+ balíkov. Existujúce picony mimo pokrytia sa zachovávajú. IPK 0.1.30 má **2 879 782 bajtov**; obrázkové ZIPy sa sťahujú samostatne. Prešlo **191 testov** a overenie verejného IPK. Fyzický test tejto verzie na prijímači sa zatiaľ netvrdí.
 
 
 DAB a DVB-T majú ikony pred názvom; rozlíšenie je samostatná voľba. Obnovený pôvodný archív DVB-T CZ/SK obsahuje 2 674 PNG v prevedení Transparent 220×132. Biele a čierne prevedenie je odvodené z tých istých transparentných log na schválených Warder MASTER podkladoch a je už dostupné v spoločnom katalógu. Historický archív nepredstavuje záruku úplného aktuálneho pokrytia. Opravené filtrovanie DAB pri spoločnom výbere satelitnej pozície.

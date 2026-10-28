@@ -1,92 +1,44 @@
 # PiconHub Warder Evolution — ostrá prevádzka
 
-Zápis aktualizovaný 28. októbra 2026 na pokyn vlastníka projektu. Produkčná verzia: **0.1.30**. Tento dokument nahrádza staré vývojové popisy; historické podklady zostávajú zachované.
+Produkčná verzia **0.1.30**, nasadená 28. októbra 2026 na pokyn vlastníka projektu.
 
-## Identita vydania
+## Vydanie
 
+- Zdroj: `2338498bb1bde99d921cf2ccf1f237730bea5c27`.
 - Balík: `enigma2-plugin-extensions-piconhub-warder-evolution_0.1.30_all.ipk`.
-- Tag: `v0.1.30`.
-- Zdrojový commit: `2338498bb1bde99d921cf2ccf1f237730bea5c27`.
-- Veľkosť: **2 879 782 bajtov**.
+- Veľkosť: 2 879 782 bajtov.
 - SHA256: `08959228cf12b5c5cadd2e31d3ba2367dc5eca5948ab573ce9e1fc8335fa9d91`.
-- Inštalačný priečinok: `/usr/lib/enigma2/python/Plugins/Extensions/WarderPiconHub/`.
-- [Vydanie a IPK](https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/tag/v0.1.30).
+- Inštalácia: `/usr/lib/enigma2/python/Plugins/Extensions/WarderPiconHub/`.
+- [Vydanie](https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/tag/v0.1.30), [strojový záznam](production.json).
 
-Produkčné označenie nemení už vydané bajty IPK. Samostatný workflow pred zrušením označenia Pre-release overí verejne stiahnutý balík, jeho SHA256, veľkosť, zdrojový commit a súlad s [production.json](production.json). Repozitár je určený pluginu do prijímača. Produkčná propagácia nastaví jeho schválené vydanie ako GitHub Latest.
+## Jedno rozhranie
 
-## Dohodnuté rozhranie
+Výber, sťahovanie, spracovanie, výsledok, Log, aktualizácie a O projekte sa zobrazujú v ľavom paneli. Pravý náhľad a hlavička zostávajú viditeľné. Pri otvorení sú voľby neutrálne; po úspechu a návrate sa obnoví úvodný výber. Pri chybe zostáva výber pripravený na opakovanie.
 
-- Schválené futuristické rozhranie, chrómová lebka z náhľadu vľavo hore bez jej spodného nápisu; samostatný veľký názov PICONHUB zostáva. Žiadne riadky „More channels / Better…“.
-- Dátum s preloženým dňom a mesiacom, živý čas s menšími bielymi sekundami a tyrkysová verzia v hlavičke.
-- Šesť posledných pridaných piconov v čiernom štýle; úvodné logo v náhľade, po výbere náhľad zodpovedá pozadiu a rozlíšeniu.
-- Päť riadkov: Satelity, Rozlíšenie, Pozadie, Režim, Priečinok. Vstup cez OK otvorí výber v ľavom paneli hlavnej obrazovky; neutrálne hodnoty „Vyber si…“.
-- Rozlíšenia 50×30, 220×132 a 400×240; pozadia Transparent, Biele a Čierne. Menu družíc a poskytovateľov podľa skinu; poskytovatelia SK a CZ sa nezamieňajú.
-- Pri družiciach jasne zelené označenie a ikony. Päta: Vybrať s OK, zelené Potvrdiť výber, červené Naspäť; názvy neobsahujú prefix názvu farby.
-- Hlavná päta: červené Zatvoriť, zelené Stiahnuť, žlté Aktualizácia pluginu, modré O projekte.
-- Jednotné nepriehľadné textové okná: automatické zalamovanie, posuvník vpravo podľa potreby, šípky ↑/↓ a iba červené Naspäť. Pri aktívnom sťahovaní zostáva aj modré Log.
-- O projekte: „Plugin vychádza z práce s3n0 a Chocholousek.“ Pod tým prehľad zmien aktuálne nainštalovaného vydania, pribalený v IPK pre offline čítanie.
+Rozlíšenia: 50×30, 220×132, 400×240. Pozadia: Transparent, Biele, Čierne. Červené Zatvoriť, zelené Stiahnuť, žlté Aktualizácia pluginu, modré O projekte. Výbery majú farebné popisy bez prefixov názvu farby. Dlhý text sa zalamuje a posúva šípkami; priebeh zostáva v jednom spoločnom okne.
 
-## Aktuálne rozhranie 0.1.29
+## Zdroje
 
-Výbery, aktualizačné hlásenia, sťahovanie, spracovanie, výsledok, Log aj O projekte sa zobrazujú v ľavom paneli. Banner a pravý náhľad zostávajú viditeľné. Hlavička má upravený horizont a zarovnanie údajov. Vlastný priečinok sa vždy otvára od `/`; zahŕňa skryté adresáre a funkčné odkazy na priečinky ako `/tmp` a `/hdd`. Pri potvrdení odkazu sa uloží overená skutočná cesta. Farebné potvrdenie aktualizácie zostáva pôvodné.
+Prvé položky sú IPTV rádiá SK/CZ, DAB / DAB+ a DVB-T CZ/SK; potom družice a poskytovatelia. Rozlíšenie je samostatná voľba.
 
-## Sťahovanie a bezpečný zápis
+IPTV má picony pre **213 položiek**, **229 presných referencií** v každom z deviatich variantov. Samostatný obnovený bouquet má **321 položiek** (88 SK, 233 CZ); skúška pri 286 vybraných URL vrátila zvukové dáta. **108 položiek zatiaľ nemá vhodný overený picon.** Iné krajiny v celom pôvodnom bouquete zostávajú zachované. [Bouquety, pokrytie a zdroje](../picons/IPTV-SK-CZ/README.md).
 
-Jedno okno uchováva postupne pribúdajúce riadky sťahovania a spracovania každej pozície. Percentá aktualizujú aktuálny riadok a dokončené spracovanie má značku ✓. História sa dá posúvať šípkami a priebeh sleduje nové riadky, pokiaľ používateľ nečíta staršiu časť.
+DAB používa samostatný zdieľaný katalóg pri 220×132, s rovnakými schválenými obrázkami aj v príslušných celkových satelitných balíkoch. Aktuálne pokrytie a hashe určuje [živý DAB katalóg](../picons/DAB/catalog/release.json). ASA DE patrí do DAB a celkovej 23.5E, nie do Canal+ balíkov. DVB-T CZ/SK používa obnovenú historickú sadu 2 674 referencií pri 220×132 vo všetkých troch pozadiach; úplné súčasné pokrytie vysielania sa netvrdí.
 
-Po úspechu a návrate sa všetkých päť volieb vráti na „Vyber si…“, kurzor na prvý riadok a náhľad na úvodné logo. Uložená konfigurácia sa tým nemaže. Pri chybe výber zostáva na opakovanie.
+## Bezpečný zápis
 
-ZIP časti aj celý balík sa kontrolujú podľa veľkosti a SHA256. Pred zápisom sa overujú PNG a rozlíšenie, dostupnosť úložiska a miesto. Cudzie orbitálne aliasy sa filtrujú pred kontrolou duplicít; 130E sa používateľovi zobrazuje ako 13.0E. Existujúce symbolické odkazy sa nahradia bez zmeny ich cieľových súborov a pri chybe sa obnovia. Skutočné adresáre na mieste PNG zostávajú chránené. Zápis má zálohu a rollback; neúspešná obnova ponechá zálohu na opravu.
+Kontrolujú sa veľkosť a SHA256 archívu, presná referencia, SHA256 a rozmery PNG. Nesúvisiace používateľské picony sa zachovajú. Pred zápisom sa overí priestor a pripraví záloha; chyba má rollback. Pri spoločnom výbere DAB a IPTV sa používa 220×132. IPTV podľa TV a rádia vyberá presné referencie z rádiových bouquetov; TV-only režim rádiový zdroj odmietne.
 
-## Aktualizácia samotného pluginu
+## Aktualizácie a jazyky
 
-Feed zostáva na existujúcej adrese:
+Pri každom otvorení prebehne kontrola novšej verzie na pozadí. Inštaláciu používateľ potvrdí; žlté tlačidlo spustí ručnú kontrolu. Po overenej úspešnej inštalácii sa zobrazí jediné oznámenie a po troch sekundách sa reštartuje GUI. Bez internetu plugin pokračuje. Aktualizačná adresa zostáva `plugin/futuristic-rebuild/plugin/update/stable.json`. Verejné verzie IPK a ich kontrolné súčty sa neprepisujú.
 
-`https://raw.githubusercontent.com/Evolution-by-Warder/PiconHub-Warder-Evolution/plugin/futuristic-rebuild/plugin/update/stable.json`
+Podporované jazyky podľa systému: SK, CS, EN, DE, PL, HU, RU, FR, IT, ES; anglický fallback. Preložené sú dialógy, dátumové názvy aj poznámky k vydaniu.
 
-Pri každom otvorení plugin skontroluje GitHub na pozadí; novšiu verziu ponúkne na potvrdenie. Žlté tlačidlo vyvolá ručnú kontrolu. Bez siete sa normálne pokračuje. IPK sa pred inštaláciou overí. Po úspechu sa zobrazí jediné oznámenie, po 3 sekundách nasleduje reštart GUI.
+## Overenie
 
-Balík zachováva starý `ChocholousekPicons/version.txt` počas prechodu, aby bežiace staršie hodiny pri výmene súborov nespadli. Staré zvyšky sa archivujú pod `/var/lib/warder-piconhub/previous-runtime/`; po novom importe GUI sa odstráni iba vlastný dočasný prechodový záznam. Druhá položka pluginu sa nevytvára. Pôvodné konfiguračné kľúče v `/etc/enigma2/settings` zostávajú kvôli kompatibilite; nie sú starou inštalačnou cestou.
+191 testov a zostavovacie/publikačné CI **40686906248** prešli. Produkčné povýšenie **40687527676** overilo identitu a verejné bajty IPK. Všetkých deväť verejných IPTV archívov prešlo skutočnou inštaláciou cez aktuálny engine do dočasných priečinkov: po 229 PNG, s uchovaním kontrolného nesúvisiaceho súboru. Fyzický test 0.1.30 na prijímači sa zatiaľ netvrdí.
 
-## Jazyky
+## Spoločný Warder ekosystém
 
-SK, CS, EN, DE, PL, HU, RU, FR, IT, ES. Výber podľa jazyka systému; neznámy jazyk má anglický fallback. Preložené sú dialógy, tlačidlá, dátumové názvy aj poznámky k vydaniu.
-
-## DAB / DAB+ vo verzii 0.1.29
-
-Zdroj DAB v existujúcom výbere, 220×132, Transparent/Biele/Čierne. Schválený katalóg má 51 označení / 80 presných desaťpolových referencií. Používa nastavený priečinok; žiadne vymyslené satelitné pozície ani nové duplicitné adresáre. ASA DE zostáva vynechaná. Zdrojový manifest, jednotlivé PNG aj archívy majú SHA256, archívy odkazujú na konkrétny commit a pred zápisom sa overujú. Existujúce rádiové picony mimo pokrytia sa zachovávajú.
-
-## Skutočné overenie
-
-- **176 automatizovaných testov**; pred zlúčením oba workflow úspešné (40505582290, 40505582208).
-- Úspešný zostavovací a publikačný workflow **40548069323** pre zdroj `2338498bb1bde99d921cf2ccf1f237730bea5c27`.
-- Verejné IPK má overenú veľkosť a SHA256 a zodpovedá zverejnenému kontrolnému súčtu.
-- Živý aktualizátor ponúka prechod 0.1.25 → 0.1.29; balík prešiel validáciou aktualizátora.
-- Skutočné stiahnutie a zápis zo živého DAB katalógu do dočasných priečinkov: 80 piconov v každom z troch štýlov; kontrolný existujúci rádiový picon zostal zachovaný.
-- Štefan po prijatí opraveného oficiálneho vzoru výslovne prikázal nasadenie. Súhlas a presné hashe sú zaznamenané v DAB katalógu.
-- Fyzický test PiconHub 0.1.29 na prijímači sa zatiaľ netvrdí. Predchádzajúce výsledky konkrétnych verzií zostávajú v histórii. Používateľ potvrdil fungovanie rádiových piconov v oboch infobaroch FullHDGlass.
-
-## Ďalšie vydania
-
-Schválenú grafiku a správanie zachovať. Existujúce verejné IPK, tagy a checksumy neprepisovať; pre funkčnú zmenu zvýšiť verziu. Udržiavať poznámky vo všetkých jazykoch a rovnakú verziu poznámok aj runtime. Zachovať aktuálnu aktualizačnú adresu a názov balíka. Pred novým produkčným povýšením aktualizovať production.json podľa overeného feedu a zdrojového commitu; produkčný workflow overí verejné bajty a označí konkrétny plugin release.
-
-Autorské údaje a chránené MASTER picony zostávajú zachované. Staré recovery a vývojové podklady zostávajú v histórii Gitu; aktuálny strom obsahuje iba potrebnú prácu k pluginu. PC Factory adresár a jeho vydania boli na následný pokyn vlastníka odstránené; aktuálne Releases patria pluginu do prijímača.
-
-## Upratanie repozitára
-
-Aktuálny plugin je dostupný aj v hlavnej vetve main. Factory aktualizačný priečinok a nesúvisiace vydania sú odstránené. Potrebné šablóny a pôvod piconov sú pod plugin/artwork/. Adresa picons/ zostáva kvôli kompatibilite galérie v nainštalovaných verziách. Funkčné zdroje pluginu, IPK, checksum a aktualizačná adresa sa uprataním nemenia.
-
-## DAB a DVB-T v 0.1.29
-
-Prvé dve položky výberu sú DAB a DVB-T. Samostatný overený DAB katalóg sa pri označení dostupnosti posudzuje oddelene od natívneho satelitného katalógu. Identické schválené picony sú aj v picons/19.2e/dab a picons/23.5e/dab a v celkových balíkoch príslušných pozícií (51 a 29 referencií pre každý z troch štýlov). Pôvodné obrázky zostali zachované. Warder je jeden ekosystém so spoločnými dátami a pravidlami; jednotlivé pluginy nezakladajú vlastné nezávislé databázy.
-
-
-DAB a DVB-T majú ikony pred názvom; rozlíšenie je samostatná voľba. Obnovený pôvodný archív DVB-T CZ/SK obsahuje 2 674 PNG v prevedení Transparent 220×132. Biele a čierne prevedenie je odvodené z tých istých transparentných log na schválených Warder MASTER podkladoch a je už dostupné v spoločnom katalógu. Historický archív nepredstavuje záruku úplného aktuálneho pokrytia. Opravené filtrovanie DAB pri spoločnom výbere satelitnej pozície.
-
-
-Dátová aktualizácia 27. októbra 2026: DVB-T CZ/SK 220×132 je dostupné v prevedeniach Transparent, Biele a Čierne. Každé má rovnakých 2 674 referencií; pôvodné transparentné súbory a farby log zostali zachované. Oba odvodené balíky prešli skutočnou inštaláciou cez Warder engine a overením všetkých verejných častí podľa SHA256. IPK sa nemení. [Zdroj a presné hashe](../picons/DVB-T/catalog/variants.json).
-
-
-## IPTV SK/CZ — 0.1.30
-
-Spoločný katalóg a presný zdieľaný kód s FullHDGlass 1.0.36. 321 položiek bouquetu; 213 položiek s piconmi v deviatich variantoch, 229 referenčných PNG v každom variante. 108 položiek bez vhodného overeného podkladu zostáva výslovne uvedených. 191 testov a publikačné CI 40686906248 prešli, verejné IPK overené podľa veľkosti a SHA256. Ostatné staršie údaje overenia vyššie dokumentujú predchádzajúcu základňu. Fyzický test 0.1.30 na prijímači sa netvrdí.
+PiconHub a FullHDGlass používajú rovnaký katalóg a presné zdieľané moduly. Farby a schválené typy log sa zachovávajú, nové značky sa nevymýšľajú. MASTER podklady zostávajú zmrazené. Obrázkové balíky sa sťahujú samostatne; nezväčšujú IPK. Pôvodné autorské údaje s3n0 a Chocholousek aj autorov obrázkov zostávajú zachované. Historické vývojové a recovery podklady sú v Gite.
