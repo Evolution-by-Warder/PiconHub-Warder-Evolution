@@ -50,3 +50,7 @@ The shared IPTV source leads the list, followed by DAB and DVB-T. Three sizes ×
 
 
 Dátové doplnenie 28.10.2026 (r2): 247 položiek s piconmi / 263 referencií v každom z deviatich variantov, 74 zatiaľ bez vhodného overeného piconu. Overené Radia.sk, Radia.cz a MyOnlineRadio.cz aj dodané originály. Všetkých deväť verejných archívov a obrázkov prešlo kontrolou; aktuálne dáta sa stiahnu opätovným výberom IPTV rádiá SK/CZ. Verzie IPK sa nemenia. [Zdroje a zhodovanie](https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/blob/main/picons/IPTV-SK-CZ/catalog/followup-sources.json).
+
+## Weekly world radio list
+
+[Warder Radio Streams](picons/IPTV-SK-CZ/bouquets/userbouquet.warder.radio) keeps the owned Slovak and Czech stations first, followed by a weekly refreshed international list. The Sunday GitHub workflow preserves existing identities, rejects truncated input and leaves the last good list intact on failure. [Processing and source attribution](picons/IPTV-SK-CZ/README.md#týždenné-obnovenie-sveta). The satellite audit automation is unchanged.
