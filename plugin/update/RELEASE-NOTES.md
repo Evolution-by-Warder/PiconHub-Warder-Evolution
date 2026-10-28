@@ -1,3 +1,5 @@
-# PiconHub Warder Evolution 0.1.29
+# PiconHub Warder Evolution 0.1.30
 
-Oficiálna DAB ikona a spoločná DVB-T picona pred názvom. Názvy zdrojov bez údaja o rozlíšení. Opravené filtrovanie DAB pri spoločnom výbere so satelitnou pozíciou. Veľké a malé písmená v označení pozície už nespôsobia vynechanie správnych rádiových piconov. Spoločný Warder kód pre skin aj PiconHub; DAB a DVB-T zostávajú na začiatku ponuky.
+Nová spoločná ponuka IPTV rádiá SK/CZ: tri rozlíšenia a tri pozadia. Picony pre 213 položiek; samostatný obnovený bouquet má 321 položiek. Overenie SHA256 archívov aj obrázkov, zachovanie ostatných piconov. Súčasné sťahovanie IPTV a DAB pri 220×132.
+
+108 položiek zatiaľ nemá vhodný overený picon. Bouquet: picons/IPTV-SK-CZ/bouquets/.

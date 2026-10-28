@@ -74,7 +74,7 @@ class PackageTests(unittest.TestCase):
                     self.assertIn("./"+builder.INSTALL_ROOT+"/"+name,names)
                 recent=[name for name in names if "/images/recent/" in name and name.endswith(".png")]
                 self.assertEqual(len(recent),6)
-                self.assertEqual(len([n for n in names if "/images/selectors/" in n and n.endswith(".png")]),54)
+                self.assertEqual(len([n for n in names if "/images/selectors/" in n and n.endswith(".png")]),55)
                 self.assertFalse(any("__pycache__" in name or name.endswith(".pyc") for name in names))
                 self.assertFalse(any(name.startswith("./etc/") for name in names))
                 prefix="./"+builder.INSTALL_ROOT+"/"

@@ -17,6 +17,7 @@ from urllib.request import Request, urlopen
 from . import warder_skin_sync as sync
 from .warder_model import selector_display_label
 from . import warder_dab as dab
+from . import warder_iptv as iptv
 
 
 class PiconError(ValueError):
@@ -36,11 +37,11 @@ def digest(path):
 
 
 def network_open(url):
-    if not (sync.trusted_publication_url(url, "production") or dab.trusted_url(url)):
+    if not (sync.trusted_publication_url(url, "production") or dab.trusted_url(url) or iptv.trusted_url(url)):
         raise PiconError(_("Nedôveryhodný zdroj balíka."))
     response = urlopen(Request(url, headers={"User-Agent": "PiconHub-Warder-Evolution", "Cache-Control": "no-cache"}),
                        timeout=15, context=ssl.create_default_context())
-    if dab.trusted_url(url) and response.geturl() != url:
+    if (dab.trusted_url(url) or iptv.trusted_url(url)) and response.geturl() != url:
         response.close()
         raise PiconError(_("Nedôveryhodný zdroj balíka."))
     return response
@@ -237,7 +238,10 @@ class PiconRunner:
             document = dab.read_manifest(self.opener)
         except (ValueError, TypeError) as exc:
             raise PiconError(_("Neplatný katalóg: ") + "DAB / DAB+") from exc
-        planned = dab.plan(document, prefs, self.enigma2_dir)
+        dab_preferences = dict(prefs)
+        if prefs.get("radio_only") and not prefs.get("positions"):
+            dab_preferences["dab_only"] = True
+        planned = dab.plan(document, dab_preferences, self.enigma2_dir)
         if planned is None:
             if prefs.get("dab_only"):
                 raise PiconError("DAB / DAB+" + _(" • zatiaľ nedostupné"))
@@ -262,6 +266,35 @@ class PiconRunner:
         self.event("processed", "DAB / DAB+")
         archive.unlink()
 
+    def stage_iptv(self, prefs, stages):
+        self.check_cancel()
+        label = _(iptv.LABEL)
+        self.event("stage", _("Načítavam katalóg") + " " + label)
+        try:
+            document = iptv.read_manifest(self.opener)
+            planned = iptv.plan(document, prefs, self.enigma2_dir)
+        except (ValueError, TypeError) as exc:
+            raise PiconError(_("Neplatný katalóg: ") + label) from exc
+        if planned is None:
+            if prefs.get("iptv_only"):
+                raise PiconError(label + _(" • zatiaľ nedostupné"))
+            self.event("stage", label + _(" • zatiaľ nedostupné"))
+            return
+        queue, job = planned
+        stage = Stage(queue)
+        stages.append(stage)
+        if shutil.disk_usage(stage.target).free < job["bytes"] * 3 + 8 * 1024 * 1024:
+            raise PiconError(_("Na cieľovom úložisku nie je dosť voľného miesta."))
+        archive = stage.work / "iptv-sk-cz.zip"
+        self.download(job, archive)
+        self.event("stage", _("Overujem a rozbaľujem ") + label)
+        try:
+            iptv.unpack(stage, archive, job, self.check_cancel)
+        except (ValueError, TypeError, zipfile.BadZipFile) as exc:
+            raise PiconError(_("Neplatný katalóg: ") + label) from exc
+        self.event("processed", label)
+        archive.unlink()
+
     def run(self, preferences):
         if not preferences:
             raise PiconError(_("Nie je zapnutý žiadny profil."))
@@ -273,9 +306,18 @@ class PiconRunner:
                 raise PiconError(_("Aktualizácia piconov už prebieha.")) from exc
             try:
                 self.event("stage", _("Načítavam katalóg"))
-                document = None if all(p.get("dab_only") for p in preferences) else fetch_manifest(self.opener)
+                document = None if all(p.get("dab_only") or p.get("iptv_only") or p.get("radio_only") for p in preferences) else fetch_manifest(self.opener)
                 for number,prefs in enumerate(preferences,1):
                     self.check_cancel()
+                    if prefs.get("radio_only"):
+                        if prefs.get("include_dab"):
+                            self.stage_dab(prefs, stages)
+                        if prefs.get("include_iptv"):
+                            self.stage_iptv(prefs, stages)
+                        continue
+                    if prefs.get("iptv_only"):
+                        self.stage_iptv(prefs, stages)
+                        continue
                     if prefs.get("dab_only"):
                         self.stage_dab(prefs, stages)
                         continue
@@ -301,6 +343,8 @@ class PiconRunner:
                         archive.unlink()
                     if prefs.get("include_dab"):
                         self.stage_dab(prefs, stages)
+                    if prefs.get("include_iptv"):
+                        self.stage_iptv(prefs, stages)
                 self.check_cancel()
                 self.event("stage", _("Zapisujem overené picony; dokončenie už neprerušujte"))
                 total = {"added":0,"changed":0,"removed":0}
@@ -325,3 +369,4 @@ class PiconRunner:
             finally:
                 for stage in stages:
                     stage.cleanup()
+
