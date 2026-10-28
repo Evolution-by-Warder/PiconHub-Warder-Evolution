@@ -46,4 +46,7 @@ Fun Radio S/V now use the approved Fun Radio Z artwork; Melody S uses Melody V/Z
 
 ## IPTV SK/CZ radios in 0.1.30
 
-The shared IPTV source leads the list, followed by DAB and DVB-T. Three sizes × three backgrounds, 213 programme picons and 229 exact reference filenames per variant. The refreshed bouquet contains 321 entries (88 SK, 233 CZ); 286 selected streams returned audio during sampling. 108 entries still lack suitable verified artwork. [Bouquets, coverage and provenance](picons/IPTV-SK-CZ/README.md). Archives remain external to the small IPK.
+The shared IPTV source leads the list, followed by DAB and DVB-T. Three sizes × three backgrounds, 247 programme picons and 263 exact reference filenames per variant. The refreshed bouquet contains 321 entries (88 SK, 233 CZ); 286 selected streams returned audio during sampling. 74 entries still lack suitable verified artwork. [Bouquets, coverage and provenance](picons/IPTV-SK-CZ/README.md). Archives remain external to the small IPK.
+
+
+Dátové doplnenie 28.10.2026 (r2): 247 položiek s piconmi / 263 referencií v každom z deviatich variantov, 74 zatiaľ bez vhodného overeného piconu. Overené Radia.sk, Radia.cz a MyOnlineRadio.cz aj dodané originály. Všetkých deväť verejných archívov a obrázkov prešlo kontrolou; aktuálne dáta sa stiahnu opätovným výberom IPTV rádiá SK/CZ. Verzie IPK sa nemenia. [Zdroje a zhodovanie](https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/blob/main/picons/IPTV-SK-CZ/catalog/followup-sources.json).

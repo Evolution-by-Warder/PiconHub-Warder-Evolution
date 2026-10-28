@@ -21,7 +21,7 @@ Rozlíšenia: 50×30, 220×132, 400×240. Pozadia: Transparent, Biele, Čierne. 
 
 Prvé položky sú IPTV rádiá SK/CZ, DAB / DAB+ a DVB-T CZ/SK; potom družice a poskytovatelia. Rozlíšenie je samostatná voľba.
 
-IPTV má picony pre **213 položiek**, **229 presných referencií** v každom z deviatich variantov. Samostatný obnovený bouquet má **321 položiek** (88 SK, 233 CZ); skúška pri 286 vybraných URL vrátila zvukové dáta. **108 položiek zatiaľ nemá vhodný overený picon.** Iné krajiny v celom pôvodnom bouquete zostávajú zachované. [Bouquety, pokrytie a zdroje](../picons/IPTV-SK-CZ/README.md).
+IPTV má picony pre **247 položiek**, **263 presných referencií** v každom z deviatich variantov. Samostatný obnovený bouquet má **321 položiek** (88 SK, 233 CZ); skúška pri 286 vybraných URL vrátila zvukové dáta. **74 položiek zatiaľ nemá vhodný overený picon.** Iné krajiny v celom pôvodnom bouquete zostávajú zachované. [Bouquety, pokrytie a zdroje](../picons/IPTV-SK-CZ/README.md).
 
 DAB používa samostatný zdieľaný katalóg pri 220×132, s rovnakými schválenými obrázkami aj v príslušných celkových satelitných balíkoch. Aktuálne pokrytie a hashe určuje [živý DAB katalóg](../picons/DAB/catalog/release.json). ASA DE patrí do DAB a celkovej 23.5E, nie do Canal+ balíkov. DVB-T CZ/SK používa obnovenú historickú sadu 2 674 referencií pri 220×132 vo všetkých troch pozadiach; úplné súčasné pokrytie vysielania sa netvrdí.
 
@@ -37,8 +37,11 @@ Podporované jazyky podľa systému: SK, CS, EN, DE, PL, HU, RU, FR, IT, ES; ang
 
 ## Overenie
 
-191 testov a zostavovacie/publikačné CI **40686906248** prešli. Produkčné povýšenie **40687527676** overilo identitu a verejné bajty IPK. Všetkých deväť verejných IPTV archívov prešlo skutočnou inštaláciou cez aktuálny engine do dočasných priečinkov: po 229 PNG, s uchovaním kontrolného nesúvisiaceho súboru. Fyzický test 0.1.30 na prijímači sa zatiaľ netvrdí.
+191 testov a zostavovacie/publikačné CI **40686906248** prešli. Produkčné povýšenie **40687527676** overilo identitu a verejné bajty IPK. Pri pôvodnom vydaní všetkých deväť verejných IPTV archívov prešlo skutočnou inštaláciou cez aktuálny engine do dočasných priečinkov: po 229 PNG, s uchovaním kontrolného nesúvisiaceho súboru. Fyzický test 0.1.30 na prijímači sa zatiaľ netvrdí.
 
 ## Spoločný Warder ekosystém
 
 PiconHub a FullHDGlass používajú rovnaký katalóg a presné zdieľané moduly. Farby a schválené typy log sa zachovávajú, nové značky sa nevymýšľajú. MASTER podklady zostávajú zmrazené. Obrázkové balíky sa sťahujú samostatne; nezväčšujú IPK. Pôvodné autorské údaje s3n0 a Chocholousek aj autorov obrázkov zostávajú zachované. Historické vývojové a recovery podklady sú v Gite.
+
+
+Dátové doplnenie 28.10.2026 (r2): 247 položiek s piconmi / 263 referencií v každom z deviatich variantov, 74 zatiaľ bez vhodného overeného piconu. Overené Radia.sk, Radia.cz a MyOnlineRadio.cz aj dodané originály. Všetkých deväť verejných archívov a obrázkov prešlo kontrolou; aktuálne dáta sa stiahnu opätovným výberom IPTV rádiá SK/CZ. Verzie IPK sa nemenia. [Zdroje a zhodovanie](https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/blob/main/picons/IPTV-SK-CZ/catalog/followup-sources.json).

@@ -60,6 +60,9 @@ Dátová aktualizácia 27. októbra 2026: DVB-T CZ/SK 220×132 je dostupné v pr
 
 ## IPTV rádiá SK/CZ
 
-Prvá položka ponuky, s vlastnou ikonou. Rozlíšenia 50×30, 220×132, 400×240; Transparent, Biele a Čierne. Picony pre 213 položiek, v každom variante 229 referenčných PNG. [Obnovené bouquety a pokrytie](../picons/IPTV-SK-CZ/README.md): 321 položiek, z toho 286 URL vrátilo zvukové dáta pri skúške; 108 položiek zatiaľ bez vhodného overeného piconu.
+Prvá položka ponuky, s vlastnou ikonou. Rozlíšenia 50×30, 220×132, 400×240; Transparent, Biele a Čierne. Picony pre 247 položiek, v každom variante 263 referenčných PNG. [Obnovené bouquety a pokrytie](../picons/IPTV-SK-CZ/README.md): 321 položiek, z toho 286 URL vrátilo zvukové dáta pri skúške; 74 položiek zatiaľ bez vhodného overeného piconu.
 
 Sťahovanie IPTV spolu s DAB vyžaduje 220×132. Kontrola archívov aj PNG podľa SHA256 a presnej rádiovej referencie; nesúvisiace picony sa zachovajú. Voľba podľa TV tento rádiový zdroj odmietne. Automatická kontrola novšej verzie pri každom otvorení zostáva aktívna.
+
+
+Dátové doplnenie 28.10.2026 (r2): 247 položiek s piconmi / 263 referencií v každom z deviatich variantov, 74 zatiaľ bez vhodného overeného piconu. Overené Radia.sk, Radia.cz a MyOnlineRadio.cz aj dodané originály. Všetkých deväť verejných archívov a obrázkov prešlo kontrolou; aktuálne dáta sa stiahnu opätovným výberom IPTV rádiá SK/CZ. Verzie IPK sa nemenia. [Zdroje a zhodovanie](https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/blob/main/picons/IPTV-SK-CZ/catalog/followup-sources.json).
