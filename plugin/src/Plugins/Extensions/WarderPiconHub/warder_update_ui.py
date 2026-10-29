@@ -137,7 +137,6 @@ class StartupUpdateCheck:
             return
         notice = MessageBox
         if error:
-            print("[PiconHub] Plugin update check failed: " + error)
             if self.manual:
                 self.screen.session.open(notice, _("Kontrola aktualizácie sa nepodarila.\n") + error,
                                          type=MessageBox.TYPE_ERROR, timeout=10)
@@ -157,7 +156,6 @@ class StartupUpdateCheck:
 
     def embedded_result(self,release,error):
         if error:
-            print("[PiconHub] Plugin update check failed: "+error)
             if self.manual:self.screen.show_update_notice(_("Kontrola aktualizácie sa nepodarila.\n")+error)
         elif release:
             text=update_text("offer","PiconHub Warder Evolution",current=installed_version(),new=release.version,notes=localized_notes(release),language=language_code())

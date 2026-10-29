@@ -40,6 +40,7 @@ import glob
 import random
 ###########################################################################
 import os
+import tempfile
 #from commands import getstatusoutput                                        # unfortunately "commands" module is removed in Python 3.x and therefore in the future, it is better to use a more complicated "subprocess"
 #from subprocess import check_output, CalledProcessError                     # unfortunately "subprocess" module was added in Python 2.4+ versions ... some older Enigmas as example OpenPLi-4 contains only old Python (missing subprocess module)
 #from shlex import split as shlexSplit
@@ -303,7 +304,7 @@ class mainConfigScreen(Screen, ConfigListScreen):
                     user_SAT = list(  set(user_SAT) - set(lost_SAT)  )
                     config.plugins.chocholousekpicons[id].sats.setValue(' '.join(user_SAT))
                     config.plugins.chocholousekpicons[id].sats.save()
-                    print('[ChocholousekPicons] these satellites are no longer supported (non-existent picon packages): %s' % (' '.join(lost_SAT)))
+                    pass  # Status belongs in the plugin UI, not the Enigma2 log.
                     message = _('Sorry, the following picon packages no longer exist\n(these satellite positions are no longer supported):') + '\n\n' + ' '.join(lost_SAT)
                     self.session.open(MessageBox, message, type=MessageBox.TYPE_WARNING)
         config.plugins.chocholousekpicons_id.setValue(id_backup)
@@ -558,7 +559,7 @@ class mainConfigScreen(Screen, ConfigListScreen):
             url = 'https://picon.cz/download/' + fields[0]
             new_file = PLUGIN_PATH + fields[1]
         else:
-            print('[ChocholousekPicons] Error ! The archive file name "filmbox-premium" (preview picons file) was not found in the contents of the file "id_for_permalinks*.log" !')
+            pass  # Status belongs in the plugin UI, not the Enigma2 log.
             return
         
         k = glob.glob(PLUGIN_PATH + 'filmbox-premium-*.7z')
@@ -566,7 +567,7 @@ class mainConfigScreen(Screen, ConfigListScreen):
         
         if self.parseVer(new_file) > self.parseVer(current_file):                   # comparsion of two strings like of a two numbers, for example, as the following:   '191125' > '191013'
             if not downloadFile(url, new_file):                                     # the ".7z" archive-file with preview images (channel picons for the one and the same TV channel)
-                print('[ChocholousekPicons] Picons preview file download failed ! (URL = %s , target file = %s)' % (url, new_file))
+                pass  # Status belongs in the plugin UI, not the Enigma2 log.
                 return
             self.deleteFiles(current_file)
             self.deleteFiles(PLUGIN_PATH + 'images/filmbox-premium-*.png')
@@ -574,21 +575,21 @@ class mainConfigScreen(Screen, ConfigListScreen):
             status, out = runShell('%s e -y -o"%s" "%s" "*.png"' % (self.bin7zip, PLUGIN_PATH + 'images', new_file))
             # check the status error and clean the archive file (will be filled with a short note)
             if status == 0:
-                print('[ChocholousekPicons] Picon preview files were successfully updated to ver. %s. The archive file was extracted into the plugin directory.' % self.parseVer(new_file))
+                pass  # Status belongs in the plugin UI, not the Enigma2 log.
                 with open(new_file, 'w') as f:
                     f.write('This file was cleaned by the plugin algorithm. It will be used to preserve the local version of the picon preview images.')
             elif status == 127:             # exit code = 127  (32512 // 256) = system : shell-command is missing OR executable file was not found
-                print('[ChocholousekPicons] Error %s !!! The 7-zip archiver was not found. Please check and install the enigma package "p7zip".\nShell output:\n%s' % (status, out))
+                pass  # Status belongs in the plugin UI, not the Enigma2 log.
                 self.deleteFiles(new_file)
             elif status == 2:               # exit code = 2    (512 // 256)   =  7-zip : FATAL ERROR
-                print('[ChocholousekPicons] Error %s !!! The 7-zip archiver did not find the archive file. Please check the correct path to directory and check the correct file name: %s\nShell output:\n%s' % (status, new_file, out))
+                pass  # Status belongs in the plugin UI, not the Enigma2 log.
                 self.deleteFiles(new_file)
             else:
-                print('[ChocholousekPicons] Error %s !!! The 7-zip archiver failed with an unknown error.\nShell output:\n%s' % (status, out))
+                pass  # Status belongs in the plugin UI, not the Enigma2 log.
                 self.deleteFiles(new_file)
     
     def deleteFiles(self, mask):
-        print('[ChocholousekPicons] deleting files by mask: %s' % mask)
+        pass  # Status belongs in the plugin UI, not the Enigma2 log.
         lst = glob.glob(mask)
         if lst:
             for file in lst:
@@ -611,10 +612,10 @@ class mainConfigScreen(Screen, ConfigListScreen):
         dir_list = sorted(glob.glob(PLUGIN_PATH + 'id_for_permalinks*.log'), key=os.path.basename)          # key=os.path.getctime
         if dir_list:
             self.chochoContent = open(dir_list[-1], 'r').read()                 # glob returns a list variable (however, a string is needed, so we only extract the last index from the list variable)
-            print('[ChocholousekPicons] The %s file has been successfully loaded to memory.' % (dir_list[-1]) )
+            pass  # Status belongs in the plugin UI, not the Enigma2 log.
         else:
             self.chochoContent = ''
-            print('[ChocholousekPicons] Warning ! The file %s was not found !' % (PLUGIN_PATH + 'id_for_permalinks*.log') )
+            pass  # Status belongs in the plugin UI, not the Enigma2 log.
     
     def downloadChochoFile(self):
         '''
@@ -635,13 +636,13 @@ class mainConfigScreen(Screen, ConfigListScreen):
                 downloaded_file = downloadFile(url, PLUGIN_PATH)
                 if downloaded_file:
                     self.deleteFiles(current_filename)
-                    print('[ChocholousekPicons] File "id_for_permalinks*.log" was updated -- from %s, to %s' % (self.parseVer(current_filename), self.parseVer(new_filename)))
+                    pass  # Status belongs in the plugin UI, not the Enigma2 log.
                 else:
-                    print('[ChocholousekPicons] Error ! File download failed ! file=%s, url=%s' % (downloaded_file, url))
+                    pass  # Status belongs in the plugin UI, not the Enigma2 log.
             else:
-                print('[ChocholousekPicons] File "id_for_permalinks*.log" is up to date, no update required. (current: %s, online: %s)' % (self.parseVer(current_filename), self.parseVer(new_filename)))
+                pass  # Status belongs in the plugin UI, not the Enigma2 log.
         else:
-            print('[ChocholousekPicons] Error ! File "id_for_permalinks*.log" was not found on the internet ! (url = %s)' % url)
+            pass  # Status belongs in the plugin UI, not the Enigma2 log.
     
     def changeAvailableMethods(self):
         id = config.plugins.chocholousekpicons_id.getValue()
@@ -686,7 +687,7 @@ class mainConfigScreen(Screen, ConfigListScreen):
         lst = re.findall('-220x132-(.*)_by_chocholousek', self.chochoContent)
         lst = list(set(lst))                          # remove duplicates from list
         lst.sort(key = self.fnSort)
-        print('[ChocholousekPicons] getAllSat = %s' % lst)
+        pass  # Status belongs in the plugin UI, not the Enigma2 log.
         return lst
     
     def fnSort(self, s):
@@ -781,7 +782,7 @@ class mainConfigScreen(Screen, ConfigListScreen):
         if status == 0:
             return out.lower()                                          # return architectures from system, like as:  'mips'
         
-        print('[ChocholousekPicons] Error! Could not get information about chipset-architecture! Returning an empty string!')
+        pass  # Status belongs in the plugin UI, not the Enigma2 log.
         return ''
     
     ###########################################################################
@@ -1234,7 +1235,7 @@ class directoryBrowserScreen(Screen, ConfigListScreen):
     
     def deleteDir_FromCallBack(self, confirmed):
         if confirmed:
-            print('[ChocholousekPicons] deleting directory: %s' % self.getDirAppointedToCursor())
+            pass  # Status belongs in the plugin UI, not the Enigma2 log.
             err, out = runShell('rm -r %s' % self.getDirAppointedToCursor())
             #os.removedirs(self.getDirAppointedToCursor())
             self.rebuildConfigList()
@@ -1330,9 +1331,6 @@ class piconsUpdateJobScreen(Screen):
             self.thCancellationTimer.callback.append(self.thCancellation)                                   # eTimer for old version of Enigma2 core (OE 2.0 / OE-Alliance 4.? open-source core)
         self.thCancellationTimer.start(1000, False)
         
-        self.tmpLogFile = '/tmp/chocholousekpicons.log'
-        if os.path.isfile(self.tmpLogFile):
-            os.remove(self.tmpLogFile)
         
         #self.onShown.append(self.func_name)
         #self.onLayoutFinish.append(self.func_name)
@@ -1487,7 +1485,7 @@ class piconsUpdateJobScreen(Screen):
             self.writeLog( _('Preparing a list of picons from userbouquet files...') + ' "/etc/enigma2/userbouquet.*.{tv,radio}"' )
             bq_contents = ''
             for bq_file in self.bouquet_files:
-                print('[ChocholousekPicons] Loading content from the file "%s".' % bq_file)
+                pass  # Status belongs in the plugin UI, not the Enigma2 log.
                 with open(bq_file, 'r') as f:
                     bq_contents += f.read() + '\n'
             if config.plugins.chocholousekpicons[profile_id].method.value == 'sync_tv_radio':
@@ -1658,10 +1656,16 @@ class piconsUpdateJobScreen(Screen):
         return free_memory                      # return free memory (in bytes)
     
     def extractCertainPiconsFromArchive(self, archiveFile, SRC_list):
-        with open('/tmp/picons-to-extraction.txt', 'w') as f:
-            f.write('.png\n'.join(SRC_list) + '.png\n')
-        status, out = runShell('%s e -y -o"%s" "%s" @/tmp/picons-to-extraction.txt' % (self.bin7zip, self.piconDIR, archiveFile)  )
-        os.remove('/tmp/picons-to-extraction.txt')
+        temporary = None
+        try:
+            with tempfile.NamedTemporaryFile(mode='w',prefix='piconhub-extract-',suffix='.txt',delete=False) as f:
+                temporary = f.name
+                f.write('.png\n'.join(SRC_list) + '.png\n')
+            status, out = runShell('%s e -y -o"%s" "%s" @"%s"' % (self.bin7zip, self.piconDIR, archiveFile, temporary))
+        finally:
+            if temporary is not None:
+                try: os.unlink(temporary)
+                except OSError: pass
         if status == 0:
             return True
         else:
@@ -1699,7 +1703,7 @@ class piconsUpdateJobScreen(Screen):
                     size, path = fields[0], fields[-1]
                     tmp.update({ path.split('/')[-1].split('.')[0] :  int(size) })      #  { "service_reference_code" :  file_size }
             else:
-                print('[ChocholousekPicons] Error ! Could not find the beginning and end of the list in the "%s" archive when listing "*.png" files.' % archiveFile)
+                pass  # Status belongs in the plugin UI, not the Enigma2 log.
         else:
             self.writeLog7zipError(status, out, archiveFile)
         return tmp  # returns an empty string on error, otherwise returns the list of all file names without extension + file sizes
@@ -1715,10 +1719,8 @@ class piconsUpdateJobScreen(Screen):
     def writeLog(self, text=''):
         timestamp = str((datetime.now() - self.startTime).total_seconds()).ljust(10,"0")[:6]        # by subtracting time from datetime(), we get a new object: datetime.timedelta(), which can then be converted to seconds (float value) with the .total_seconds() method
         m = '[%s] %s' % (timestamp, text)
-        print('[ChocholousekPicons] %s' % m)
-        self.logWindowText += '\n' + m
-        with open(self.tmpLogFile, 'a') as f:
-            f.write(m + '\n')
+        pass  # Status belongs in the plugin UI, not the Enigma2 log.
+        self.logWindowText = (self.logWindowText + '\n' + m)[-24000:]
     
     def logWindowUpdate(self):
         '''
@@ -1781,7 +1783,7 @@ def downloadFile(url, target_filename='', save_to_disk=True):
         if 'drive.google' in url:
             for c in cookie_jar:
                 if c.name.startswith('download_warning'):                           # in case of drive.google download a virus warning message is possible (for some downloads)
-                    print('[ChocholousekPicons] url: %s - "warning_message" detected' % url)
+                    pass  # Status belongs in the plugin UI, not the Enigma2 log.
                     url = url.replace('&id=', '&confirm=%s&id=' % c.value)          # and then it's necessary to add a parameter with confirmation of the warning message
                     req = urllib2.Request(url, data=None, headers=headers)
                     handler = urllib2.urlopen(req, timeout=15)
@@ -1805,11 +1807,11 @@ def downloadFile(url, target_filename='', save_to_disk=True):
                 f.write(data)
     
     except Exception as e:
-        print('[ChocholousekPicons] download failed - error: %s , URL: %s , target_filename: %s' % (str(e), url, target_filename) )
+        pass  # Status belongs in the plugin UI, not the Enigma2 log.
         target_filename = ''
     
     except:
-        print('[ChocholousekPicons] download failed - URL: %s , target_filename: %s' % (url, target_filename) )
+        pass  # Status belongs in the plugin UI, not the Enigma2 log.
         target_filename = ''
     
     return target_filename
@@ -1852,12 +1854,11 @@ def newOE():
 
 def runShell(cmd):          # os.system() - I use this primitive Shell output, for better compatibility with older versions of Python than 2.4.x (where the subsupport module is missing), as well as for newer versions of Python 3.x.x (where the commands.getstatusoutput is missing)
     try:
-        retCode   = os.system(cmd + ' > /tmp/chocholousekpicons-cmd.log 2>&1') // 256   # with redirecting stdout and stderr to a temporary LOG file
-        retOutput = open('/tmp/chocholousekpicons-cmd.log', 'r').read()                 # retrieving saved output from temporary file that was previously created via Shell
-        os.remove('/tmp/chocholousekpicons-cmd.log')
+        import subprocess
+        retCode, retOutput = subprocess.getstatusoutput(cmd)
     except Exception as e:
         retCode   = -1
-        retOutput = e.message
+        retOutput = str(e)
     except:
         retCode   = -1
         retOutput = ''
@@ -1893,7 +1894,7 @@ def runShell(cmd):          # os.system() - I use this primitive Shell output, f
 
 
 def pluginMenu(session, **kwargs):              # starts when the plugin is opened via Plugin-MENU
-    print('PLUGINSTARTDEBUGLOG - pluginMenu executed')
+    pass  # Status belongs in the plugin UI, not the Enigma2 log.
     global plugin_ver_local
     plugin_ver_local = open(PLUGIN_PATH + 'version.txt', 'r').read().strip()
     from .warder_gui import WarderMainScreen

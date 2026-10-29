@@ -51,6 +51,14 @@ class RuntimeMigrationTests(unittest.TestCase):
         with patch.object(migration.shutil,'move',side_effect=observe_move), patch.object(pathlib.Path,'replace',observe_replace):
             migration.migrate(self.extensions,self.state)
 
+    def test_failed_version_replace_removes_partial_file_and_preserves_old_version(self):
+        from unittest.mock import patch
+        self.old.mkdir();(self.old/'version.txt').write_text('0.1.6\n')
+        with patch.object(pathlib.Path,'replace',side_effect=OSError('disk error')):
+            with self.assertRaises(OSError):migration.migrate(self.extensions,self.state)
+        self.assertEqual((self.old/'version.txt').read_text(),'0.1.6\n')
+        self.assertEqual([p.name for p in self.old.iterdir()],['version.txt'])
+
     def test_transition_marker_works_if_opkg_already_removed_the_old_directory(self):
         self.state.mkdir();(self.state/'legacy-transition-needed').touch()
         migration.migrate(self.extensions,self.state)

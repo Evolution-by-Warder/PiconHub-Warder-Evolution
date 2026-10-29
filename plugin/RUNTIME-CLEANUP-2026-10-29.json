@@ -1,0 +1,98 @@
+{
+  "schema": 1,
+  "date": "2026-10-29",
+  "product": "PiconHub",
+  "scope": "All installed Python source modules, package hooks and runtime helper output; text resources and temporary/cache writers reviewed. Developer-only build/test logs are outside receiver runtime.",
+  "python_files": 20,
+  "runtime_source": [
+    {
+      "path": "plugin/src/PiconHubWarderEvolution/__init__.py",
+      "sha256": "2b390f1bbabbaf7b328485edf327b99662e8010dcfe7a9e7b76b4ad50825ddd8"
+    },
+    {
+      "path": "plugin/src/PiconHubWarderEvolution/catalog.py",
+      "sha256": "c1e39b275af339cd0ac099766c2c12ff13dacacef788b55a67547498f2d88522"
+    },
+    {
+      "path": "plugin/src/Plugins/Extensions/WarderPiconHub/__init__.py",
+      "sha256": "0b0936fa14aedc2676997ba6d22a71727ff0c21d2d5b3d9628e2e8d50d2eff38"
+    },
+    {
+      "path": "plugin/src/Plugins/Extensions/WarderPiconHub/plugin.py",
+      "sha256": "92e16d91b3bd819ad72ea6eba91d3c9a9d84fb15a2e94a11822ac601852e11c0"
+    },
+    {
+      "path": "plugin/src/Plugins/Extensions/WarderPiconHub/radio_references.py",
+      "sha256": "36a28bb55a18314e87b855d14ce0fbb817fc2249ee469c9a1952d7715bf4d9a1"
+    },
+    {
+      "path": "plugin/src/Plugins/Extensions/WarderPiconHub/warderUpdateText.py",
+      "sha256": "50cf7ff1cdd7464c90862aab7e89ce781eb73f7aa2364082edb5e3ffc425a3de"
+    },
+    {
+      "path": "plugin/src/Plugins/Extensions/WarderPiconHub/warder_brand.py",
+      "sha256": "9496549038f9d58528bb04220de29fb4d44a711c133c1dd2f6db4c55773cad3a"
+    },
+    {
+      "path": "plugin/src/Plugins/Extensions/WarderPiconHub/warder_dab.py",
+      "sha256": "c51b13406200040be77cfb51a8c5de7a9f9c8e3e8717c074da41a7207897b6c7"
+    },
+    {
+      "path": "plugin/src/Plugins/Extensions/WarderPiconHub/warder_engine.py",
+      "sha256": "c3810eb73f6d4f2f26622eef9c7edb06f218e829b34dec7809f31a30b19847e0"
+    },
+    {
+      "path": "plugin/src/Plugins/Extensions/WarderPiconHub/warder_gui.py",
+      "sha256": "742130811615569c71e63e8c4385e4a7d371abefb1de4d42e77ccb0acbf9502e"
+    },
+    {
+      "path": "plugin/src/Plugins/Extensions/WarderPiconHub/warder_i18n.py",
+      "sha256": "129e4de81b41dc87aff3f2f16d14c3ee9c4efea4c6e9f1c0e9db4250bb4e83c6"
+    },
+    {
+      "path": "plugin/src/Plugins/Extensions/WarderPiconHub/warder_iptv.py",
+      "sha256": "6d57c1ee3ac1f02f8a510bc06e407830f2b9a1c9c5ba75723a4f801300883899"
+    },
+    {
+      "path": "plugin/src/Plugins/Extensions/WarderPiconHub/warder_layout.py",
+      "sha256": "fe40136b5cb7b947618edc6160ff74bc71c1b95ace51e27f40615fca4c8ff14d"
+    },
+    {
+      "path": "plugin/src/Plugins/Extensions/WarderPiconHub/warder_migrate.py",
+      "sha256": "fe5ab44985225ad68116910245582623ada04a2bd16995fe1767cff6509966d3"
+    },
+    {
+      "path": "plugin/src/Plugins/Extensions/WarderPiconHub/warder_model.py",
+      "sha256": "9f17814c1c97132c4d35ae9ce47ce0d0266e1fa348523665b5ce56aa0dacc5d5"
+    },
+    {
+      "path": "plugin/src/Plugins/Extensions/WarderPiconHub/warder_recent.py",
+      "sha256": "fe7402be663e066df375be29b59d4f91df7c4914174df304f7d8e93acff3bb45"
+    },
+    {
+      "path": "plugin/src/Plugins/Extensions/WarderPiconHub/warder_release_notes.py",
+      "sha256": "8515e705a6f6bda82e16c51914647264ba1b48209474fa3843da2c8c60bfe6f5"
+    },
+    {
+      "path": "plugin/src/Plugins/Extensions/WarderPiconHub/warder_skin_sync.py",
+      "sha256": "fdb761014e98cb6f1c1672e6d948d769e55ae7a807a958e37cac2870f2f1afcb"
+    },
+    {
+      "path": "plugin/src/Plugins/Extensions/WarderPiconHub/warder_update.py",
+      "sha256": "de798cb6565df3ce4656eb5c24eef5d5af11dbd31bbb585099cc2f7ed7a452e5"
+    },
+    {
+      "path": "plugin/src/Plugins/Extensions/WarderPiconHub/warder_update_ui.py",
+      "sha256": "a417f401aed25e6965d08ff3eefcb76466872d41bab76f77d8fbf96639769c15"
+    }
+  ],
+  "receiver_execution": false,
+  "production_feed_changed": false,
+  "findings_and_fixes": [
+    "Priebeh v tlačidle Log zostáva dostupný, ale iba v RAM: najviac 160 riadkov, každý najviac 1024 znakov; zobrazenie najviac 24000 znakov.",
+    "Odstránené piconhub-picons.log aj staré chocholousekpicons.log; starý priebeh GUI je obmedzený na 24000 znakov.",
+    "Starý runShell číta priamo z procesovej rúry a nepoužíva chocholousekpicons-cmd.log. Bežné konzolové debug výpisy a automatické chyby kontroly aktualizácií sú vypnuté.",
+    "Selektívne rozbaľovanie používa jedinečný dočasný zoznam a finally cleanup. Stage uprace aj neúspešnú inicializáciu.",
+    "Zámok inštalácie, overovací katalóg (aj starý názov id_for_permalinks*.log), posledné picony, nastavenia a zálohy pri neúspešnom rollbacku sú funkčné dáta, nie diagnostický odpad."
+  ]
+}

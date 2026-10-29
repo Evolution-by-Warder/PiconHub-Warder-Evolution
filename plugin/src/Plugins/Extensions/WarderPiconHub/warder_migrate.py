@@ -3,6 +3,7 @@ import json
 import os
 from pathlib import Path
 import shutil
+import tempfile
 import uuid
 
 PRODUCT = "PiconHub Warder Evolution"
@@ -78,9 +79,16 @@ def migrate(extensions=DEFAULT_EXTENSIONS, state=DEFAULT_STATE):
     legacy.mkdir(parents=True, exist_ok=True)
     # The already-running old main screen still reads its version every second.
     # No Python launcher remains here, so Enigma2 cannot list a second plugin.
-    temporary_version = legacy / ".version-transition.tmp"
-    temporary_version.write_text(version + "\n")
-    temporary_version.replace(legacy / "version.txt")
+    temporary_version = None
+    try:
+        with tempfile.NamedTemporaryFile(mode='w',prefix='.version-transition-',suffix='.tmp',dir=str(legacy),delete=False) as stream:
+            temporary_version = Path(stream.name)
+            stream.write(version + "\n")
+        temporary_version.replace(legacy / "version.txt")
+    finally:
+        if temporary_version is not None:
+            try: temporary_version.unlink(missing_ok=True)
+            except OSError: pass
     (legacy / MARKER).write_text(json.dumps({"product":PRODUCT,"compatibility":1,
                                            "version":version,"archived_to":backup,"gui_pid":running_gui_pid()}) + "\n")
     requested.unlink(missing_ok=True)

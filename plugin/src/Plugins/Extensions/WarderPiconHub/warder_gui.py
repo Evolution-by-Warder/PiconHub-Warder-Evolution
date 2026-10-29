@@ -4,6 +4,7 @@ import json
 import pathlib
 import queue
 import threading
+from collections import deque
 
 from Components.ActionMap import ActionMap
 from Components.Label import Label
@@ -195,6 +196,7 @@ class PiconJobController:
         self.success=False
         self.events,self.cancel=queue.Queue(),threading.Event()
         self.history,self.download_row,self.follow_progress=[],None,True
+        self._log_rows,self._log_lock=deque(maxlen=160),threading.Lock()
         self.timer=eTimer()
         self.connection=connect_timer(self.timer,self.poll)
 
@@ -207,19 +209,19 @@ class PiconJobController:
 
     def work(self):
         try:
-            with open("/tmp/piconhub-picons.log","w") as log:
-                def event(*args):
-                    self.events.put(args)
-                    if args[0]!="download" or args[2] in (0,args[3]):
-                        log.write(str(args)+"\n");log.flush()
-                result=PiconRunner(event=event,cancel=self.cancel).run(self.preferences)
-                self.events.put(("result",result))
+            def event(*args):
+                self.events.put(args)
+                if args[0]!="download" or args[2] in (0,args[3]):
+                    with self._log_lock:self._log_rows.append(str(args)[:1024])
+            result=PiconRunner(event=event,cancel=self.cancel).run(self.preferences)
+            self.events.put(("result",result))
         except Exception as exc:
             self.events.put(("error",str(exc)))
-            try:
-                with open("/tmp/piconhub-picons.log","a") as log:log.write("ERROR: "+str(exc)+"\n")
-            except OSError:
-                pass
+            with self._log_lock:self._log_rows.append(("ERROR: "+str(exc))[:1024])
+
+    def log_text(self):
+        with self._log_lock:text="\n".join(self._log_rows)[-24000:]
+        return text or _("Log zatiaľ nie je dostupný.")
 
     def poll(self):
         if self.closed:
@@ -271,8 +273,7 @@ class PiconJobController:
             self["status"].setText("\n".join(self.history),showBottom=True)
 
     def show_log(self):
-        try:text=pathlib.Path("/tmp/piconhub-picons.log").read_text()[-24000:]
-        except OSError:text=_("Log zatiaľ nie je dostupný.")
+        text=self.log_text()
         self.session.open(TextDialog,_("Log aktualizácie"),text)
 
     def cleanup(self):
@@ -314,8 +315,7 @@ class EmbeddedPiconJob(PiconJobController):
     def show_log(self):
         if self.view_log:return
         self.view_log=True
-        try:text=pathlib.Path("/tmp/piconhub-picons.log").read_text()[-24000:]
-        except OSError:text=_("Log zatiaľ nie je dostupný.")
+        text=self.log_text()
         self.host["picker_title"].setText(_("Log aktualizácie"))
         self.host["panel_text"].setText(text,showBottom=True)
         self.host.set_footer()

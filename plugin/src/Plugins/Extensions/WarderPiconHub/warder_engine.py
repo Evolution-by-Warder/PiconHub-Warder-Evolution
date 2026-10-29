@@ -71,8 +71,12 @@ class Stage:
         self.target.mkdir(parents=True, exist_ok=True)
         self.work = pathlib.Path(tempfile.mkdtemp(prefix=".piconhub-stage-", dir=str(self.target)))
         self.ready, self.backup = self.work/"ready", self.work/"backup"
-        self.ready.mkdir()
-        self.backup.mkdir()
+        try:
+            self.ready.mkdir()
+            self.backup.mkdir()
+        except Exception:
+            shutil.rmtree(self.work,ignore_errors=True)
+            raise
         self.upstream, self.hashes = set(), {}
         self.moved, self.written = [], []
         self.keep = False
