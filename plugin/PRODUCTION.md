@@ -1,47 +1,14 @@
 # PiconHub Warder Evolution — ostrá prevádzka
 
-Produkčná verzia **0.1.30**, nasadená 28. októbra 2026 na pokyn vlastníka projektu.
+Aktuálna produkčná verzia **0.1.32**, schválená vlastníkom 29.10.2026. Riadna aktualizácia z 0.1.30 aj cleanup kandidáta 0.1.31.
 
-## Vydanie
+- [Vydanie](https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/tag/v0.1.32) · [Presný produkčný záznam](production.json).
+- Zdroj: `2dc74563c629cad562c85def4cb5d16ca77bbdc6`.
+- IPK: **2879214 bajtov**, SHA256 `28b9e238d5689ddf21a0dfaba075cae89440545093750624ae3628766828dde7`.
+- **195 testov** a zostavovacie/publikačné CI **40918594093** prešli. Verejný IPK bol samostatne stiahnutý, overený a je bajtovo zhodný s lokálnym zostavením; verejný feed ponúka tú istú verziu, veľkosť a hash.
 
-- Zdroj: `2338498bb1bde99d921cf2ccf1f237730bea5c27`.
-- Balík: `enigma2-plugin-extensions-piconhub-warder-evolution_0.1.30_all.ipk`.
-- Veľkosť: 2 879 782 bajtov.
-- SHA256: `08959228cf12b5c5cadd2e31d3ba2367dc5eca5948ab573ce9e1fc8335fa9d91`.
-- Inštalácia: `/usr/lib/enigma2/python/Plugins/Extensions/WarderPiconHub/`.
-- [Vydanie](https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/tag/v0.1.30), [strojový záznam](production.json).
+Priebeh a chyby zostávajú dostupné v Logu v obmedzenej RAM. Automatické súborové/konzolové diagnostiky sú vypnuté; dočasné súbory sa upracú aj pri chybe. Potrebné rollback zálohy, používateľské nastavenia, nainštalované picony a schválené obrázky zostávajú.
 
-## Jedno rozhranie
+Aktualizačná adresa zostáva `plugin/futuristic-rebuild/plugin/update/stable.json`. Kontrola pri otvorení beží na pozadí; používateľ potvrzuje inštaláciu, po úspechu sa reštartuje GUI. Jazyková podpora SK/CS/EN/DE/PL/HU/RU/FR/IT/ES a pôvodné autorské údaje s3n0/Chocholousek sú zachované.
 
-Výber, sťahovanie, spracovanie, výsledok, Log, aktualizácie a O projekte sa zobrazujú v ľavom paneli. Pravý náhľad a hlavička zostávajú viditeľné. Pri otvorení sú voľby neutrálne; po úspechu a návrate sa obnoví úvodný výber. Pri chybe zostáva výber pripravený na opakovanie.
-
-Rozlíšenia: 50×30, 220×132, 400×240. Pozadia: Transparent, Biele, Čierne. Červené Zatvoriť, zelené Stiahnuť, žlté Aktualizácia pluginu, modré O projekte. Výbery majú farebné popisy bez prefixov názvu farby. Dlhý text sa zalamuje a posúva šípkami; priebeh zostáva v jednom spoločnom okne.
-
-## Zdroje
-
-Prvé položky sú IPTV rádiá SK/CZ, DAB / DAB+ a DVB-T CZ/SK; potom družice a poskytovatelia. Rozlíšenie je samostatná voľba.
-
-IPTV má picony pre **247 položiek**, **263 presných referencií** v každom z deviatich variantov. Samostatný obnovený bouquet má **321 položiek** (88 SK, 233 CZ); skúška pri 286 vybraných URL vrátila zvukové dáta. **74 položiek zatiaľ nemá vhodný overený picon.** Iné krajiny v celom pôvodnom bouquete zostávajú zachované. [Bouquety, pokrytie a zdroje](../picons/IPTV-SK-CZ/README.md).
-
-DAB používa samostatný zdieľaný katalóg pri 220×132, s rovnakými schválenými obrázkami aj v príslušných celkových satelitných balíkoch. Aktuálne pokrytie a hashe určuje [živý DAB katalóg](../picons/DAB/catalog/release.json). ASA DE patrí do DAB a celkovej 23.5E, nie do Canal+ balíkov. DVB-T CZ/SK používa obnovenú historickú sadu 2 674 referencií pri 220×132 vo všetkých troch pozadiach; úplné súčasné pokrytie vysielania sa netvrdí.
-
-## Bezpečný zápis
-
-Kontrolujú sa veľkosť a SHA256 archívu, presná referencia, SHA256 a rozmery PNG. Nesúvisiace používateľské picony sa zachovajú. Pred zápisom sa overí priestor a pripraví záloha; chyba má rollback. Pri spoločnom výbere DAB a IPTV sa používa 220×132. IPTV podľa TV a rádia vyberá presné referencie z rádiových bouquetov; TV-only režim rádiový zdroj odmietne.
-
-## Aktualizácie a jazyky
-
-Pri každom otvorení prebehne kontrola novšej verzie na pozadí. Inštaláciu používateľ potvrdí; žlté tlačidlo spustí ručnú kontrolu. Po overenej úspešnej inštalácii sa zobrazí jediné oznámenie a po troch sekundách sa reštartuje GUI. Bez internetu plugin pokračuje. Aktualizačná adresa zostáva `plugin/futuristic-rebuild/plugin/update/stable.json`. Verejné verzie IPK a ich kontrolné súčty sa neprepisujú.
-
-Podporované jazyky podľa systému: SK, CS, EN, DE, PL, HU, RU, FR, IT, ES; anglický fallback. Preložené sú dialógy, dátumové názvy aj poznámky k vydaniu.
-
-## Overenie
-
-191 testov a zostavovacie/publikačné CI **40686906248** prešli. Produkčné povýšenie **40687527676** overilo identitu a verejné bajty IPK. Pri pôvodnom vydaní všetkých deväť verejných IPTV archívov prešlo skutočnou inštaláciou cez aktuálny engine do dočasných priečinkov: po 229 PNG, s uchovaním kontrolného nesúvisiaceho súboru. Fyzický test 0.1.30 na prijímači sa zatiaľ netvrdí.
-
-## Spoločný Warder ekosystém
-
-PiconHub a FullHDGlass používajú rovnaký katalóg a presné zdieľané moduly. Farby a schválené typy log sa zachovávajú, nové značky sa nevymýšľajú. MASTER podklady zostávajú zmrazené. Obrázkové balíky sa sťahujú samostatne; nezväčšujú IPK. Pôvodné autorské údaje s3n0 a Chocholousek aj autorov obrázkov zostávajú zachované. Historické vývojové a recovery podklady sú v Gite.
-
-
-Dátové doplnenie 28.10.2026 (r2): 247 položiek s piconmi / 263 referencií v každom z deviatich variantov, 74 zatiaľ bez vhodného overeného piconu. Overené Radia.sk, Radia.cz a MyOnlineRadio.cz aj dodané originály. Všetkých deväť verejných archívov a obrázkov prešlo kontrolou; aktuálne dáta sa stiahnu opätovným výberom IPTV rádiá SK/CZ. Verzie IPK sa nemenia. [Zdroje a zhodovanie](https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/blob/main/picons/IPTV-SK-CZ/catalog/followup-sources.json).
+Autoritatívne aktuálne piconové katalógy a ich zdroje zostávajú v main; produkčné povýšenie ich neprepisuje staršou kópiou vývojovej vetvy. Fyzický test celej verzie 0.1.32 na prijímači sa netvrdí.

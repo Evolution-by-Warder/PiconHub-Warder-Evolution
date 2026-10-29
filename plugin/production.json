@@ -2,16 +2,17 @@
   "schema": 1,
   "product": "PiconHub Warder Evolution",
   "status": "production-approved",
-  "approved_on": "2026-10-28",
-  "approval": "Owner requested completion and deployment of refreshed SK/CZ IPTV radio bouquets and official Warder picons across PiconHub and FullHDGlass.",
+  "approved_on": "2026-10-29",
+  "approval": "vsetky verzie uved do ostrej prevadzky a zapis vsetko kam treba",
   "source_branch": "plugin/futuristic-rebuild",
-  "source_commit": "2338498bb1bde99d921cf2ccf1f237730bea5c27",
+  "source_commit": "2dc74563c629cad562c85def4cb5d16ca77bbdc6",
   "release": {
-    "version": "0.1.30",
-    "tag": "v0.1.30",
-    "url": "https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/download/v0.1.30/enigma2-plugin-extensions-piconhub-warder-evolution_0.1.30_all.ipk",
-    "bytes": 2879782,
-    "sha256": "08959228cf12b5c5cadd2e31d3ba2367dc5eca5948ab573ce9e1fc8335fa9d91"
+    "version": "0.1.32",
+    "tag": "v0.1.32",
+    "url": "https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/download/v0.1.32/enigma2-plugin-extensions-piconhub-warder-evolution_0.1.32_all.ipk",
+    "bytes": 2879214,
+    "sha256": "28b9e238d5689ddf21a0dfaba075cae89440545093750624ae3628766828dde7",
+    "release_url": "https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/tag/v0.1.32"
   },
   "installation_directory": "/usr/lib/enigma2/python/Plugins/Extensions/WarderPiconHub/",
   "package": "enigma2-plugin-extensions-piconhub-warder-evolution",
@@ -29,20 +30,18 @@
     "es"
   ],
   "validation": {
-    "automated_tests": 191,
+    "automated_tests": 195,
     "ci": "passed",
-    "workflow_run": 40686906248,
+    "workflow_run": 40918594093,
     "public_ipk_verified": true,
+    "public_update_feed_verified": true,
     "receiver_tested": false,
-    "iptv": {
-      "bouquet_entries": 321,
-      "picon_entries": 213,
-      "missing_artwork": 108,
-      "audio_sampled": 286,
-      "variants": 9,
-      "references_per_variant": 229,
-      "public_archives_sha256_verified": true
-    },
-    "limits": "No physical receiver confirmation of 0.1.30 is claimed. 108 bouquet entries do not yet have suitable verified picons; not all 321 streams were verified live."
-  }
+    "limits": "Owner authorized production on 29 October 2026; no new exhaustive physical receiver test is claimed."
+  },
+  "accepted_candidate": {
+    "version": "0.1.31",
+    "source_commit": "1440264fa739c42372410bc43efdea8bbaf3d5b7",
+    "runtime_changes": "Version and localized release notes only; runtime cleanup and original artwork preserved."
+  },
+  "canonical_assets": "Existing main picon data and frozen MASTER artwork are preserved."
 }
