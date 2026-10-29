@@ -54,3 +54,8 @@ Dátové doplnenie 28.10.2026 (r2): 247 položiek s piconmi / 263 referencií v 
 ## Weekly world radio list
 
 [Warder Radio Streams](picons/IPTV-SK-CZ/bouquets/userbouquet.warder.radio) keeps the owned Slovak and Czech stations first, followed by a weekly refreshed international list. The Sunday GitHub workflow preserves existing identities, rejects truncated input and leaves the last good list intact on failure. [Processing and source attribution](picons/IPTV-SK-CZ/README.md#týždenné-obnovenie-sveta). The satellite audit automation is unchanged.
+
+
+## Európske picony — 29. október 2026
+
+V spoločnom živom katalógu je aktivovaných 27 schválených grafík, 81 originálov 220×132 a ich pomerné varianty 50×30/400×240 v 63 balíkoch siedmich polôh. Dnešné servisné údaje potvrdili 38 priradení. Všetkých 137 nových verejných častí má overenú veľkosť a SHA256; prešli aj skutočné inštalačné kontroly. [Schválenia a zdrojové PNG](plugin/artwork/provenance/europe-approved-20261029/) · [Záznam ostrej prevádzky](plugin/artwork/provenance/europe-approved-20261029/publication-live.json). PiconHub zostáva 0.1.32; nové dáta získate opätovným stiahnutím v režime nahradenia. Samostatná dávka D1 (Sport League 1–4) ešte čaká na schválenie.
