@@ -2,9 +2,9 @@
 
 Warder's original futuristic Enigma2 plugin and the shared Warder picon source database.
 
-## Current state — 2026-10-28
+## Current state — 2026-10-29
 
-**PiconHub Warder Evolution 0.1.30** is the user-approved production baseline. The native Warder interface retains the functional work of s3n0 and Chocholousek. Runtime: `/usr/lib/enigma2/python/Plugins/Extensions/WarderPiconHub/`.
+**PiconHub Warder Evolution 0.1.32** is the user-approved production baseline. The native Warder interface retains the functional work of s3n0 and Chocholousek. Runtime: `/usr/lib/enigma2/python/Plugins/Extensions/WarderPiconHub/`.
 
 Use the [plugin guide](plugin/README.md), [production record](plugin/PRODUCTION.md), [release manifest](plugin/production.json) and [validation status](plugin/BUILD-STATUS.md). They record the final behavior, automatic plugin updates, package identity, language support and precise receiver-test scope. Earlier rebuild plans are historical and do not override this baseline.
 
@@ -31,12 +31,12 @@ Choose **DAB / DAB+** in the source selector. The approved catalog covers **52 l
 
 ## One Warder ecosystem
 
-FullHDGlass, PiconHub and GSU are applications in one Warder ecosystem. They share approved source data, logo identity rules and consistent controls. DAB radio picons are grouped with their owning satellites and supplied through the same live catalogs used across the ecosystem. In PiconHub 0.1.30 IPTV SK/CZ, DAB and DVB-T lead the source list; standalone DAB uses its own verified catalog and is no longer incorrectly marked unavailable.
+FullHDGlass, PiconHub and GSU are applications in one Warder ecosystem. They share approved source data, logo identity rules and consistent controls. DAB radio picons are grouped with their owning satellites and supplied through the same live catalogs used across the ecosystem. In PiconHub 0.1.32 IPTV SK/CZ, DAB and DVB-T lead the source list; standalone DAB uses its own verified catalog and is no longer incorrectly marked unavailable.
 
 The three radio and terrestrial sources have their own shared selector icons. Resolution remains a separate setting. The audited CZ/SK DVB-T collection contains 2,531 receiver-reference PNGs in each 220×132 background. It adds 54 references, updates 148 existing logos and removes 197 obsolete or incorrect filenames. Regional uncertainties and operator-confirmed programmes awaiting exact references are listed explicitly. [Current inventory, cleanup and provenance](picons/DVB-T/README.md).
 
 
-Dátová aktualizácia 28. októbra 2026: spoločný balík DVB-T/T2 SK/CZ bol doplnený a vyčistený. Všetky tri pozadia prešli reálnou inštaláciou cez Warder engine a overením SHA256. Verzia pluginu a IPK sa nemenia.
+Dátová aktualizácia 29. októbra 2026: spoločný balík DVB-T/T2 SK/CZ bol doplnený a vyčistený. Všetky tri pozadia prešli reálnou inštaláciou cez Warder engine a overením SHA256. Verzia pluginu a IPK sa nemenia.
 
 
 ## Regional radio data refresh — 27 October 2026
@@ -44,7 +44,7 @@ Dátová aktualizácia 28. októbra 2026: spoločný balík DVB-T/T2 SK/CZ bol d
 Fun Radio S/V now use the approved Fun Radio Z artwork; Melody S uses Melody V/Z. Regina BA/BB/KE use the owner-supplied regional originals. All three backgrounds and all three supported sizes are live in nine 23.5E satellite archives after auditing 30 relevant satellite/provider archives. Unrelated PNGs and all existing DAB additions were preserved. [Source and verification](picons/radio-refresh-20261027/publication.json). No IPK version changes.
 
 
-## IPTV SK/CZ radios in 0.1.30
+## IPTV SK/CZ radios in 0.1.32
 
 The shared IPTV source leads the list, followed by DAB and DVB-T. Three sizes × three backgrounds, 247 programme picons and 263 exact reference filenames per variant. The refreshed bouquet contains 321 entries (88 SK, 233 CZ); 286 selected streams returned audio during sampling. 74 entries still lack suitable verified artwork. [Bouquets, coverage and provenance](picons/IPTV-SK-CZ/README.md). Archives remain external to the small IPK.
 
