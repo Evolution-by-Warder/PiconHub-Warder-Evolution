@@ -66,7 +66,7 @@ class GitHub:
 def manifest(path, version, notes):
     if updates.version_key(version)[4] != 4:
         raise ValueError("Only numbered releases can be published to this compatible feed")
-    expected_name = updates.PACKAGE_ID + "_" + version + "_all.ipk"
+    expected_name = updates.DOWNLOAD_PREFIX + "_" + version + "_all.ipk"
     if path.name != expected_name:
         raise ValueError("Unexpected IPK filename")
     data = path.read_bytes()
@@ -162,7 +162,7 @@ if __name__ == "__main__":
     if updates.version_key(version)[4] != 4:
         print("Development package: release feed is unchanged.")
     else:
-        path = args.output / (updates.PACKAGE_ID + "_" + version + "_all.ipk")
+        path = args.output / (updates.DOWNLOAD_PREFIX + "_" + version + "_all.ipk")
         notes = (ROOT / "update/RELEASE-NOTES.md").read_text()
         result = publish(path, version, args.revision, notes, GitHub(os.environ.get("GITHUB_TOKEN")))
         print("Verified plugin update published:", result["release"]["version"])

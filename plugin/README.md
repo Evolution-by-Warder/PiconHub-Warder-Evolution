@@ -1,6 +1,6 @@
 # PiconHub Warder Evolution
 
-**Produkčná verzia 0.1.32**, nasadená na pokyn používateľa 29. októbra 2026. Plugin slúži na sťahovanie a správu piconov v Enigma2.
+**Produkčná verzia 0.1.33** používa iba krátke názvy IPK. Z 0.1.32 je potrebná jedna ručná inštalácia bez odinštalovania; ďalšie aktualizácie už fungujú s krátkymi názvami. Plugin slúži na sťahovanie a správu piconov v Enigma2.
 
 [Produkčný zápis](PRODUCTION.md) · [Stav overenia](BUILD-STATUS.md) · [Strojový záznam vydania](production.json)
 
@@ -24,12 +24,12 @@ Textové okná používajú rovnaký nepriehľadný podklad. Šípky ↑/↓ pos
 
 ## Inštalácia a aktualizácie
 
-[Stiahnuť IPK 0.1.32](https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/download/v0.1.32/enigma2-plugin-extensions-piconhub_0.1.32_all.ipk).
+[Stiahnuť IPK 0.1.33](https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/download/v0.1.33/enigma2-plugin-extensions-piconhub_0.1.33_all.ipk).
 
 Po skopírovaní konkrétneho balíka do `/tmp`:
 
 ```sh
-opkg install /tmp/enigma2-plugin-extensions-piconhub_0.1.32_all.ipk
+opkg install /tmp/enigma2-plugin-extensions-piconhub_0.1.33_all.ipk
 ```
 
 Plugin sa inštaluje do `/usr/lib/enigma2/python/Plugins/Extensions/WarderPiconHub/`. Existujúce nastavenia sa zachovávajú. Pri každom otvorení prebehne kontrola novšej verzie na pozadí. Inštaláciu používateľ potvrdí; dostupná je aj ručná kontrola žltým tlačidlom. Po úspešnej aktualizácii sa zobrazí jediné oznámenie a GUI sa po 3 sekundách reštartuje. Bez internetu zostane plugin použiteľný.
@@ -49,7 +49,7 @@ Zdroj vychádza z práce s3n0 a Chocholousek. Pôvodné autorské údaje, gettex
 
 V riadku Satelity označ **DAB / DAB+**, prípadne aj ďalšie satelitné zdroje. Vyber rozlíšenie **220×132**, pozadie a režim zahŕňajúci rádio. Režim podľa TV a rádia inštaluje iba presné referencie nájdené v rádiových bouquetoch prijímača; pri samostatnom DAB v režime všetkých piconov sa nainštaluje celá dostupná DAB sada. Používa sa nastavený cieľový priečinok, bežne `picon/`.
 
-Aktuálne pokrytie a presné kontrolné súčty určuje [živý DAB katalóg](../picons/DAB/catalog/release.json). ASA DE je súčasťou DAB a celkovej 23.5E, nie Canal+ balíkov. Existujúce picony mimo pokrytia sa zachovávajú. IPK 0.1.32 má **2 879 782 bajtov**; obrázkové ZIPy sa sťahujú samostatne. Prešlo **191 testov** a overenie verejného IPK. Fyzický test tejto verzie na prijímači sa zatiaľ netvrdí.
+Aktuálne pokrytie a presné kontrolné súčty určuje [živý DAB katalóg](../picons/DAB/catalog/release.json). ASA DE je súčasťou DAB a celkovej 23.5E, nie Canal+ balíkov. Existujúce picony mimo pokrytia sa zachovávajú. IPK 0.1.33 má **2 879 782 bajtov**; obrázkové ZIPy sa sťahujú samostatne. Prešlo **191 testov** a overenie verejného IPK. Fyzický test tejto verzie na prijímači sa zatiaľ netvrdí.
 
 
 DAB a DVB-T majú ikony pred názvom; rozlíšenie je samostatná voľba. Obnovený pôvodný archív DVB-T CZ/SK obsahuje 2 674 PNG v prevedení Transparent 220×132. Biele a čierne prevedenie je odvodené z tých istých transparentných log na schválených Warder MASTER podkladoch a je už dostupné v spoločnom katalógu. Historický archív nepredstavuje záruku úplného aktuálneho pokrytia. Opravené filtrovanie DAB pri spoločnom výbere satelitnej pozície.

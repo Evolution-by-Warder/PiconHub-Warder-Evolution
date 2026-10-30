@@ -1,0 +1,49 @@
+name: Publish one short PiconHub IPK
+on:
+  push:
+    branches: [release/piconhub-short-only-0.1.33]
+    paths: ['plugin/**', '.github/**', 'docs/SHORT-PACKAGE-NAMES.md']
+permissions:
+  contents: write
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+      PYTHONPATH: plugin/src
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            plugin
+            picons/DAB
+            picons/IPTV-SK-CZ
+            docs
+            .github
+            README.md
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+      - name: Verify plugin, strict short filenames and old-updater limitation
+        run: |
+          python -m unittest discover -s plugin/tests -v
+          python -m unittest discover -s .github/tests -v
+      - name: Build exactly one deterministic short IPK
+        run: |
+          python plugin/tools/build_ipk.py --output plugin/build --revision "$GITHUB_SHA"
+          cp plugin/build/enigma2-plugin-extensions-piconhub_0.1.33_all.ipk /tmp/piconhub-first.ipk
+          python plugin/tools/build_ipk.py --output plugin/build --revision "$GITHUB_SHA"
+          cmp /tmp/piconhub-first.ipk plugin/build/enigma2-plugin-extensions-piconhub_0.1.33_all.ipk
+          test "$(find plugin/build -name '*.ipk' | wc -l)" -eq 1
+      - name: Publish verified short IPK and activate matching production feed
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ github.token }}
+        run: python plugin/tools/publish_short_only_release.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: PiconHub-0.1.33-short
+          path: |
+            plugin/build/*.ipk
+            plugin/build/*.sha256
+            reports/piconhub-short-only-0.1.33.json

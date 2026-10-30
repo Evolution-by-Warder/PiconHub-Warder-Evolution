@@ -47,6 +47,8 @@ class PackageTests(unittest.TestCase):
             path,sha=builder.build(pathlib.Path(folder)/"a",source_revision="test-source")
             other,other_sha=builder.build(pathlib.Path(folder)/"b",source_revision="test-source")
             self.assertEqual(sha,other_sha);self.assertEqual(path.read_bytes(),other.read_bytes())
+            self.assertEqual(path.name,'enigma2-plugin-extensions-piconhub_'+(builder.RUNTIME/'version.txt').read_text().strip()+'_all.ipk')
+            self.assertEqual(list(path.parent.glob('*.ipk')),[path])
             members=ar_members(path.read_bytes())
             self.assertEqual(set(members),{"debian-binary","control.tar.gz","data.tar.gz"})
             self.assertEqual(members["debian-binary"],b"2.0\n")

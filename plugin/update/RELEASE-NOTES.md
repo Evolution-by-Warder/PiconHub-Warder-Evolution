@@ -1,10 +1,7 @@
-# PiconHub Warder Evolution 0.1.32
+# PiconHub 0.1.33
 
-Produkčné vydanie tichej prevádzky a upratovania pracovných súborov.
+Inštalačný balík a aktualizátor používajú výhradne krátky názov `enigma2-plugin-extensions-piconhub_VERSION_all.ipk`. Zostavovanie ani publikovanie nevytvárajú dlhé kópie. Interná identita balíka, skupina rozšírení, nastavenia, picony a schválená grafika zostávajú zachované.
 
-- Priebeh a chyby zostávajú dostupné v rozhraní Log v ohraničenej RAM, bez automatických súborových a konzolových diagnostík.
-- Dočasné súbory a neúplné pracovné priečinky sa upracú aj pri chybe; potrebné rollback zálohy zostávajú.
-- Nastavenia, nainštalované picony, schválená grafika, katalógy a používateľské súbory zachované.
-- Verzia 0.1.32 umožňuje riadnu aktualizáciu zo stabilnej 0.1.30 aj kandidáta 0.1.31.
+**Z verzie 0.1.32 nainštalujte tento IPK raz ručne cez existujúcu inštaláciu.** Starý aktualizátor má pevne zakódovaný dlhý názov, preto túto aktualizáciu nedokáže prijať. Odinštalovanie nie je potrebné. Nasledujúce aktualizácie už fungujú s krátkymi názvami. Prechodový dlhý balík sa podľa pokynu vlastníka nevytvára.
 
-Ostrú prevádzku výslovne schválil vlastník 29.10.2026. Nový fyzický test na prijímači sa netvrdí.
+Automatické testy a overenie verejného balíka sú povinné pred aktiváciou. Táto oprava zatiaľ nebola potvrdená na fyzickom prijímači.
