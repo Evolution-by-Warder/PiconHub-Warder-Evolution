@@ -67,3 +67,10 @@ Schválené D1: Magenta Sport League 1–4, 12 presných originálov 220×132 a 
 ## Krátky inštalačný súbor a zaradenie — 30. október 2026
 
 [Stiahnuť enigma2-plugin-extensions-piconhub_0.1.32_all.ipk](https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/download/v0.1.32/enigma2-plugin-extensions-piconhub_0.1.32_all.ipk). Presné pôvodné produkčné bajty a SHA256. Správca pluginov: **Balíčky s rozšíreniami → piconhub-warder-evolution**. Vnútorná identita aj stará URL aktualizátora zostávajú kompatibilné. [Overenie kategórií](docs/PLUGIN-PACKAGE-GROUPS.json).
+
+
+## Picons/picons v štandarde Warder — 30. október 2026
+
+Spoločné dáta FullHDGlass a PiconHub dopĺňajú 70 overených servisných identít / 117 presných PNG referencií. Použitých je 50 našich existujúcich grafík a 13 doplnených log; všetky tri veľkosti a tri pozadia, 135 aktualizovaných archívov. Pôvodné PNG zostávajú bajtovo zachované. Deväť neistých alebo technických položiek je výslovne vylúčených. Zmeny sa získajú aktualizáciou piconových dát; verzia IPK zostáva 0.1.32.
+
+[Zdrojové podklady, štandard a vizuálna kontrola](plugin/artwork/provenance/picons-assimilated-20261030/) · [Záznam aktivácie a kontrol](reports/picons-assimilated-activation-20261030.json).
