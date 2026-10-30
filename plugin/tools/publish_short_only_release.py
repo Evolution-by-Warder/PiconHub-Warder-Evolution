@@ -32,7 +32,7 @@ def main():
     for branch,expected in approval['targets'].items():
         assert head(branch)==expected,'Source advanced: '+branch
         tree,files=inspect(expected)
-        for name,digest in approval['original_files'].items():assert files.get(name,{}).get('sha')==digest,(branch,name)
+        for name,digest in approval['original_files_by_branch'][branch].items():assert files.get(name,{}).get('sha')==digest,(branch,name)
         states[branch]={'head':expected,'tree':tree,'files':files}
     release=client.request('GET','/releases/tags/v'+version,allow_missing=True)
     if release is None:
