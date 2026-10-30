@@ -14,7 +14,7 @@ def validate(record, feed, release, package):
         if record['release'][key] != item[key]:
             raise ValueError('Production record differs from verified feed: '+key)
     expected_tag = 'v'+item['version']
-    filename = 'enigma2-plugin-extensions-piconhub-warder-evolution_'+item['version']+'_all.ipk'
+    filename = 'enigma2-plugin-extensions-piconhub_'+item['version']+'_all.ipk'
     expected_url = 'https://github.com/'+REPOSITORY+'/releases/download/'+expected_tag+'/'+filename
     if item['tag'] != expected_tag or item['url'] != expected_url:
         raise ValueError('Unexpected package identity')

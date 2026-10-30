@@ -1,5 +1,5 @@
-# Overenie PiconHub 0.1.32 — 29. októbra 2026
+# Overenie PiconHub 0.1.33
 
-Produkčné povýšenie overeného cleanup kandidáta 0.1.31 na výslovný pokyn vlastníka. Runtime zachováva funkcie aj grafiku; mení sa verzia, poznámky k vydaniu a produkčné metadáta. Sada 195 testov overuje jadro, GUI, aktualizácie, rollback a upratovanie. Presný zdroj, aktuálne CI a verejné kontrolné súčty sa zaznamenávajú v [production.json](production.json).
+Povinné kontroly: úplná sada pluginových a produkčných testov, deterministické zostavenie, jediný krátky IPK, nezmenená vnútorná identita, odmietnutie dlhého názvu pri publikovaní aj aktualizácii, SHA-256 a veľkosť verejného balíka a zhoda aktualizačného manifestu.
 
-Výberové ZIP katalógy a schválené obrázky zostávajú podľa autoritatívneho main; táto verzia mení iba plugin a vydávacie záznamy. Fyzický test 0.1.32 na prijímači sa netvrdí.
+Snapshot aktualizátora 0.1.32 potvrdzuje potrebu jednej ručnej inštalácie. Nasledujúce aktualizácie používajú krátke názvy. Nastavenia, picony a schválené zdroje sa nemenia. Presné výsledky sú v [production.json](production.json) a `reports/piconhub-short-only-0.1.33.json`. Fyzický test zatiaľ nie je potvrdený.

@@ -80,6 +80,12 @@ class PublisherTests(unittest.TestCase):
         self.assertEqual((self.path.parent/short).read_bytes(),self.path.read_bytes())
         self.assertEqual(assets[short]['digest'],assets[self.path.name]['digest'])
 
+    def test_long_filename_can_never_be_published(self):
+        with tempfile.TemporaryDirectory() as folder:
+            path=pathlib.Path(folder)/(publisher.updates.PACKAGE_ID+'_'+self.version+'_all.ipk')
+            path.write_bytes(self.path.read_bytes())
+            with self.assertRaises(ValueError):publisher.manifest(path,self.version,'Notes')
+
     def test_damaged_public_download_never_updates_feed(self):
         client=FakeGitHub(self.path.read_bytes());client.bad_public=True
         with self.assertRaises(ValueError):publisher.publish(self.path,self.version,REVISION,"Notes",client)

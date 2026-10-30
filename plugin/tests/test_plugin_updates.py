@@ -28,7 +28,7 @@ updates = load_module("warder_update_tests_core", RUNTIME / "warder_update.py")
 def feed(version="0.1.1"):
     return {"schema": 1, "product": "PiconHub Warder Evolution", "channel": "stable",
             "release": {"version": version, "tag": "v" + version,
-                        "url": "https://github.com/" + updates.REPOSITORY + "/releases/download/v" + version + "/" + updates.PACKAGE_ID + "_" + version + "_all.ipk",
+                        "url": "https://github.com/" + updates.REPOSITORY + "/releases/download/v" + version + "/" + updates.DOWNLOAD_PREFIX + "_" + version + "_all.ipk",
                         "sha256": "a" * 64, "bytes": 123, "notes": "Changes"}}
 
 
@@ -86,6 +86,18 @@ class ReleaseTests(unittest.TestCase):
             document[key] = value
             with self.assertRaises(updates.UpdateError):
                 updates.parse_release(json.dumps(document), "0.1.0-dev1")
+
+    def test_short_filename_is_required_and_long_alias_is_rejected(self):
+        document=feed()
+        self.assertIn('/'+updates.DOWNLOAD_PREFIX+'_',document['release']['url'])
+        self.assertEqual(updates.parse_release(json.dumps(document),'0.1.0').version,'0.1.1')
+        document['release']['url']=document['release']['url'].replace('/'+updates.DOWNLOAD_PREFIX+'_','/'+updates.PACKAGE_ID+'_')
+        with self.assertRaises(updates.UpdateError):updates.parse_release(json.dumps(document),'0.1.0')
+
+    def test_previous_0_1_32_requires_manual_installation_of_short_only_release(self):
+        previous=load_module('piconhub_previous_updater_0_1_32',RUNTIME.parents[3]/'tests/fixtures/warder_update_0_1_32.py')
+        with self.assertRaises(previous.UpdateError):previous.parse_release(json.dumps(feed('0.1.33')),'0.1.32')
+        self.assertEqual(updates.parse_release(json.dumps(feed('0.1.33')),'0.1.32').version,'0.1.33')
 
     def test_manifest_read_is_bounded(self):
         self.assertEqual(updates.check_release("0.1.0", lambda url: io.BytesIO(json.dumps(feed()).encode())).version, "0.1.1")
