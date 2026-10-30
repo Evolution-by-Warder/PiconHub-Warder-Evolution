@@ -2,7 +2,7 @@
 
 Warder's original futuristic Enigma2 plugin and the shared Warder picon source database.
 
-## Current state — 2026-10-29
+## Current state — 2026-10-30
 
 **PiconHub Warder Evolution 0.1.32** is the user-approved production baseline. The native Warder interface retains the functional work of s3n0 and Chocholousek. Runtime: `/usr/lib/enigma2/python/Plugins/Extensions/WarderPiconHub/`.
 
@@ -58,4 +58,8 @@ Dátové doplnenie 28.10.2026 (r2): 247 položiek s piconmi / 263 referencií v 
 
 ## Európske picony — 29. október 2026
 
-V spoločnom živom katalógu je aktivovaných 27 schválených grafík, 81 originálov 220×132 a ich pomerné varianty 50×30/400×240 v 63 balíkoch siedmich polôh. Dnešné servisné údaje potvrdili 38 priradení. Všetkých 137 nových verejných častí má overenú veľkosť a SHA256; prešli aj skutočné inštalačné kontroly. [Schválenia a zdrojové PNG](plugin/artwork/provenance/europe-approved-20261029/) · [Záznam ostrej prevádzky](plugin/artwork/provenance/europe-approved-20261029/publication-live.json). PiconHub zostáva 0.1.32; nové dáta získate opätovným stiahnutím v režime nahradenia. Samostatná dávka D1 (Sport League 1–4) ešte čaká na schválenie.
+V spoločnom živom katalógu je aktivovaných 27 schválených grafík, 81 originálov 220×132 a ich pomerné varianty 50×30/400×240 v 63 balíkoch siedmich polôh. Dnešné servisné údaje potvrdili 38 priradení. Všetkých 137 nových verejných častí má overenú veľkosť a SHA256; prešli aj skutočné inštalačné kontroly. [Schválenia a zdrojové PNG](plugin/artwork/provenance/europe-approved-20261029/) · [Záznam ostrej prevádzky](plugin/artwork/provenance/europe-approved-20261029/publication-live.json). PiconHub zostáva 0.1.32; nové dáta získate opätovným stiahnutím v režime nahradenia. Samostatná dávka D1 bola následne schválená a zverejnená 30. októbra; pozri záznam nižšie.
+
+## Magenta Sport League — 30. október 2026
+
+Schválené D1: Magenta Sport League 1–4, 12 presných originálov 220×132 a osem overených referencií na 9°E/13°E. Aktualizovaných je 18 spoločných balíkov v troch veľkostiach a pozadiach; prešlo 7 testov, 18 inštalácií/plánov, SHA256 všetkých 57 nových verejných častí aj oba runtime načítavače katalógu. [Schválenie a overenie](plugin/artwork/provenance/magenta-league-approved-20261030/). Spolu A/B/C/D: 31 grafík, 93 originálov, 46 priradení v 63 živých balíkoch. PiconHub zostáva 0.1.32; nové dáta získate opätovným stiahnutím v režime nahradenia.
