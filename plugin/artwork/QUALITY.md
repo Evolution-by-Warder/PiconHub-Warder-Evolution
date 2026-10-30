@@ -84,3 +84,10 @@ Guarded import pridal 4 601 transparentných piconov, bez výroby WHITE/BLACK a 
 
 ## Zásada
 Kvalita a správnosť majú prednosť pred počtom. Keď automatika nevie bezpečne rozhodnúť, výsledok ide do REVIEW — nie do Git `main` ako odhad.
+
+
+## Schválený referenčný checkpoint — 30. 10. 2026
+
+Vlastník po zobrazení všetkých 13 doplnených log v Transparent, WHITE a BLACK výslovne potvrdil: „laska, su perfektne presne podla nasho Warder standardu.“ Týchto 39 presných základných PNG 220×132 je schválenou ukážkou existujúceho Warder štandardu. Potvrdzuje zachovanie identity loga, pomerné umiestnenie na zmrazených MASTER podkladoch a bezpečné kontrastné úpravy oddelených komponentov. Nejde o povolenie meniť iné schválené grafiky alebo hádať nejednoznačné masky.
+
+[Schválenie s presnými SHA256](provenance/picons-assimilated-20261030/owner-approval.json) · [Schválená ukážka](provenance/picons-assimilated-20261030/quality-review.png).
