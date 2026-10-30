@@ -2,7 +2,7 @@
 
 Spoločná kolekcia pre PiconHub Warder Evolution a FullHDGlass Warder Evolution.
 
-Bouquet obsahuje 321 položiek: 88 slovenských a 233 českých. Pri 286 vybraných URL skúška vrátila zvukové dáta; dostupnosť všetkých 321 nie je potvrdená. Picony pokrývajú 248 položiek, 264 súborov vrátane starších referencií v každom variante. Zvyšných 73 položiek zatiaľ nemá vhodný overený podklad. Nevymýšľame náhradné logá.
+Bouquet obsahuje 321 položiek: 88 slovenských a 233 českých. Pri 286 vybraných URL skúška vrátila zvukové dáta; dostupnosť všetkých 321 nie je potvrdená. Picony pokrývajú 278 položiek, 294 súborov vrátane starších referencií v každom variante. Zvyšných 43 položiek zatiaľ nemá vhodný overený podklad. Nevymýšľame náhradné logá.
 
 Dostupné sú rozmery 50×30, 220×132 a 400×240, vždy Transparent, Biele a Čierne. Inštalátor kontroluje SHA256 archívu aj jednotlivých PNG a nemení nesúvisiace používateľské picony. Oba projekty používajú rovnaký katalóg a rovnaký kód sťahovania.
 
@@ -29,3 +29,5 @@ Pôvod zahraničných údajov: verejný zoznam [OpenHDF/hdfradio](https://github
 Overenie a počty posledného spracovania: [world-radio-update.json](catalog/world-radio-update.json).
 
 Doplnený originál od vlastníka: 897. Všetkých deväť variantov používa dodaný podklad bez zmeny farieb a písma. [Overenie publikácie](catalog/owner-artwork-publication.json).
+
+Doplnenie 30. októbra 2026: majiteľ schválil všetky štyri ukážky — 26 grafických predlôh pre 30 chýbajúcich položiek. Všetkých deväť archívov obsahuje rovnaké referencie. Staršie picony zostali byte za bytom zachované. [Schválenie](catalog/radio-logos-approval-20261030.json), [overenie publikácie](catalog/radio-logos-publication-20261030.json). Obnovte IPTV rádiá SK/CZ v PiconHube alebo FullHDGlass; nový IPK netreba.
