@@ -63,3 +63,7 @@ V spoločnom živom katalógu je aktivovaných 27 schválených grafík, 81 orig
 ## Magenta Sport League — 30. október 2026
 
 Schválené D1: Magenta Sport League 1–4, 12 presných originálov 220×132 a osem overených referencií na 9°E/13°E. Aktualizovaných je 18 spoločných balíkov v troch veľkostiach a pozadiach; prešlo 7 testov, 18 inštalácií/plánov, SHA256 všetkých 57 nových verejných častí aj oba runtime načítavače katalógu. [Schválenie a overenie](plugin/artwork/provenance/magenta-league-approved-20261030/). Spolu A/B/C/D: 31 grafík, 93 originálov, 46 priradení v 63 živých balíkoch. PiconHub zostáva 0.1.32; nové dáta získate opätovným stiahnutím v režime nahradenia.
+
+## Krátky inštalačný súbor a zaradenie — 30. október 2026
+
+[Stiahnuť enigma2-plugin-extensions-piconhub_0.1.32_all.ipk](https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/download/v0.1.32/enigma2-plugin-extensions-piconhub_0.1.32_all.ipk). Presné pôvodné produkčné bajty a SHA256. Správca pluginov: **Balíčky s rozšíreniami → piconhub-warder-evolution**. Vnútorná identita aj stará URL aktualizátora zostávajú kompatibilné. [Overenie kategórií](docs/PLUGIN-PACKAGE-GROUPS.json).

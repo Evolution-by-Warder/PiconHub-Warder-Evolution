@@ -24,12 +24,12 @@ Textové okná používajú rovnaký nepriehľadný podklad. Šípky ↑/↓ pos
 
 ## Inštalácia a aktualizácie
 
-[Stiahnuť IPK 0.1.32](https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/download/v0.1.32/enigma2-plugin-extensions-piconhub-warder-evolution_0.1.32_all.ipk).
+[Stiahnuť IPK 0.1.32](https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/download/v0.1.32/enigma2-plugin-extensions-piconhub_0.1.32_all.ipk).
 
 Po skopírovaní konkrétneho balíka do `/tmp`:
 
 ```sh
-opkg install /tmp/enigma2-plugin-extensions-piconhub-warder-evolution_0.1.32_all.ipk
+opkg install /tmp/enigma2-plugin-extensions-piconhub_0.1.32_all.ipk
 ```
 
 Plugin sa inštaluje do `/usr/lib/enigma2/python/Plugins/Extensions/WarderPiconHub/`. Existujúce nastavenia sa zachovávajú. Pri každom otvorení prebehne kontrola novšej verzie na pozadí. Inštaláciu používateľ potvrdí; dostupná je aj ručná kontrola žltým tlačidlom. Po úspešnej aktualizácii sa zobrazí jediné oznámenie a GUI sa po 3 sekundách reštartuje. Bez internetu zostane plugin použiteľný.
