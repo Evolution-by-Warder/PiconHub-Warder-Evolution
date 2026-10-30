@@ -35,7 +35,7 @@ def main():
     plan_path=BASE/'prepared-artwork.json';plan=json.loads(plan_path.read_text())
     catalogue=ROOT/'picons/IPTV-SK-CZ/catalog'
     stations=json.loads((catalogue/'stations.json').read_text())['stations'];lookup={r['identity_key']:r for r in stations}
-    release=json.loads((catalogue/'release.json').read_text());existing=release['packages']['220x132']['transparent']['files']
+    release=json.loads((catalogue/'release.json').read_text());existing=set(plan.get('baseline_file_inventory', release['packages']['220x132']['transparent']['files']))
     owned=(ROOT/'picons/IPTV-SK-CZ/bouquets/userbouquet.warder.sk-cz.radio').read_text()
     world=(ROOT/'picons/IPTV-SK-CZ/bouquets/userbouquet.warder.radio').read_text()
     masters={}

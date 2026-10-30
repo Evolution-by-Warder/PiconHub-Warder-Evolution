@@ -1,0 +1,40 @@
+name: Publish reviewed SK-CZ radio logos
+on:
+  push:
+    branches: ['radio/publish-reviewed-logos-20261030']
+    paths:
+      - '.github/workflows/publish-reviewed-radio-logos.yml'
+      - 'picons/IPTV-SK-CZ/tools/publish_reviewed_radio_logos.py'
+      - 'picons/IPTV-SK-CZ/catalog/radio-logos-publication-plan-20261030.json'
+      - 'picons/IPTV-SK-CZ/catalog/radio-logos-approval-20261030.json'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: owner-radio-artwork
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          filter: blob:none
+          fetch-depth: 10
+          sparse-checkout: |
+            picons/IPTV-SK-CZ
+            plugin/src/Plugins/Extensions/WarderPiconHub
+            plugin/tests
+            .github/workflows
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install PNG validator
+        run: python -m pip install --quiet Pillow
+      - name: Check radio receiver integration
+        run: python -m unittest discover -s plugin/tests -p test_iptv.py -v
+      - name: Verify approved artwork and publish all nine immutable archives
+        run: python picons/IPTV-SK-CZ/tools/publish_reviewed_radio_logos.py

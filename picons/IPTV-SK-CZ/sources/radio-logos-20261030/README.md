@@ -1,6 +1,6 @@
 # SK/CZ radio logo candidates — 30 October 2026
 
-Prepared for visual review. Production catalogue, bouquets, IPKs and update feeds are unchanged.
+All four preview sheets were approved by Štefan Varga on 30 October 2026. The exact approval is in `../../catalog/radio-logos-approval-20261030.json`; publication proof records when all nine shared archives are activated. Bouquets, receiver code and IPKs are unchanged.
 
 The owner supplied 26 images in `Warder Radio Streams.ZIP`. Twenty-three usable station graphics map to 26 currently missing service references. The generic R/play symbols are not station artwork. The supplied Czech Dance Radio graphic is not assigned to the legacy `stream.danceradio.nl:9920` service.
 
