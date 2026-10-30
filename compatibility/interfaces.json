@@ -1,0 +1,258 @@
+{
+  "schema": 1,
+  "project": "PiconHub",
+  "reviewed_upstream": "26544b4af938b462c251135810e229e897689bc2",
+  "baseline_upstream": "13e055d3e172679c4c3fb16da1b0462d0bd8b660",
+  "modules": {
+    "Components.ActionMap": [
+      "ActionMap"
+    ],
+    "Components.ConfigList": [
+      "ConfigList",
+      "ConfigListScreen"
+    ],
+    "Components.GUIComponent": [
+      "GUIComponent"
+    ],
+    "Components.Label": [
+      "Label"
+    ],
+    "Components.Language": [
+      "language"
+    ],
+    "Components.MenuList": [
+      "MenuList"
+    ],
+    "Components.MultiContent": [
+      "MultiContentEntryPixmapAlphaBlend",
+      "MultiContentEntryText"
+    ],
+    "Components.Pixmap": [
+      "Pixmap"
+    ],
+    "Components.ProgressBar": [
+      "ProgressBar"
+    ],
+    "Components.ScrollLabel": [
+      "ScrollLabel"
+    ],
+    "Components.Sources.StaticText": [
+      "StaticText"
+    ],
+    "Components.SystemInfo": [
+      "SystemInfo"
+    ],
+    "Components.config": [
+      "ConfigNothing",
+      "ConfigSelection",
+      "ConfigSelectionNumber",
+      "ConfigSubList",
+      "ConfigSubsection",
+      "ConfigText",
+      "ConfigYesNo",
+      "KEY_OK",
+      "NoSave",
+      "config",
+      "configfile",
+      "getConfigListEntry"
+    ],
+    "Screens.InputBox": [
+      "InputBox"
+    ],
+    "Screens.MessageBox": [
+      "MessageBox"
+    ],
+    "Screens.Screen": [
+      "Screen"
+    ],
+    "Screens.Standby": [
+      "TryQuitMainloop",
+      "inStandby"
+    ],
+    "Tools.LoadPixmap": [
+      "LoadPixmap"
+    ]
+  },
+  "contracts": [
+    {
+      "module": "Components.ActionMap",
+      "class": "ActionMap",
+      "kind": "signature",
+      "method": "__init__",
+      "expected": "arguments(posonlyargs=[], args=[arg(arg='self'), arg(arg='contexts'), arg(arg='actions'), arg(arg='prio'), arg(arg='parentScreen')], kwonlyargs=[], kw_defaults=[], defaults=[Constant(value=None), Constant(value=None), Constant(value=0), Constant(value=None)])"
+    },
+    {
+      "module": "Components.ConfigList",
+      "class": "ConfigList",
+      "kind": "signature",
+      "method": "__init__",
+      "expected": "arguments(posonlyargs=[], args=[arg(arg='self'), arg(arg='list'), arg(arg='session')], kwonlyargs=[], kw_defaults=[], defaults=[Constant(value=None)])"
+    },
+    {
+      "module": "Components.ConfigList",
+      "class": "ConfigListScreen",
+      "kind": "signature",
+      "method": "__init__",
+      "expected": "arguments(posonlyargs=[], args=[arg(arg='self'), arg(arg='list'), arg(arg='session'), arg(arg='on_change'), arg(arg='fullUI'), arg(arg='allowDefault')], kwonlyargs=[], kw_defaults=[], defaults=[Constant(value=None), Constant(value=None), Constant(value=False), Constant(value=False)])"
+    },
+    {
+      "module": "Components.GUIComponent",
+      "class": "GUIComponent",
+      "kind": "signature",
+      "method": "__init__",
+      "expected": "arguments(posonlyargs=[], args=[arg(arg='self')], kwonlyargs=[], kw_defaults=[], defaults=[])"
+    },
+    {
+      "module": "Components.Label",
+      "class": "Label",
+      "kind": "signature",
+      "method": "__init__",
+      "expected": "arguments(posonlyargs=[], args=[arg(arg='self'), arg(arg='text')], kwonlyargs=[], kw_defaults=[], defaults=[Constant(value='')])"
+    },
+    {
+      "module": "Components.MenuList",
+      "class": "MenuList",
+      "kind": "signature",
+      "method": "__init__",
+      "expected": "arguments(posonlyargs=[], args=[arg(arg='self'), arg(arg='menuList'), arg(arg='enableWrapAround'), arg(arg='content')], kwonlyargs=[], kw_defaults=[], defaults=[Constant(value=None), Name(id='eListboxPythonStringContent', ctx=Load())])"
+    },
+    {
+      "module": "Components.Pixmap",
+      "class": "Pixmap",
+      "kind": "signature",
+      "method": "__init__",
+      "expected": "arguments(posonlyargs=[], args=[arg(arg='self')], kwonlyargs=[], kw_defaults=[], defaults=[])"
+    },
+    {
+      "module": "Components.ProgressBar",
+      "class": "ProgressBar",
+      "kind": "signature",
+      "method": "__init__",
+      "expected": "arguments(posonlyargs=[], args=[arg(arg='self')], kwonlyargs=[], kw_defaults=[], defaults=[])"
+    },
+    {
+      "module": "Components.ScrollLabel",
+      "class": "ScrollLabel",
+      "kind": "signature",
+      "method": "__init__",
+      "expected": "arguments(posonlyargs=[], args=[arg(arg='self'), arg(arg='text')], kwonlyargs=[], kw_defaults=[], defaults=[Constant(value='')])"
+    },
+    {
+      "module": "Components.Sources.StaticText",
+      "class": "StaticText",
+      "kind": "signature",
+      "method": "__init__",
+      "expected": "arguments(posonlyargs=[], args=[arg(arg='self'), arg(arg='text'), arg(arg='filter')], kwonlyargs=[], kw_defaults=[], defaults=[Constant(value=''), Lambda(args=arguments(posonlyargs=[], args=[arg(arg='x')], kwonlyargs=[], kw_defaults=[], defaults=[]), body=Name(id='x', ctx=Load()))])"
+    },
+    {
+      "module": "Components.config",
+      "class": "ConfigYesNo",
+      "kind": "signature",
+      "method": "__init__",
+      "expected": "arguments(posonlyargs=[], args=[arg(arg='self'), arg(arg='default'), arg(arg='graphic')], kwonlyargs=[], kw_defaults=[], defaults=[Constant(value=False), Constant(value=True)])"
+    },
+    {
+      "module": "Components.config",
+      "class": "ConfigSelection",
+      "kind": "signature",
+      "method": "__init__",
+      "expected": "arguments(posonlyargs=[], args=[arg(arg='self'), arg(arg='choices'), arg(arg='default')], kwonlyargs=[], kw_defaults=[], defaults=[Constant(value=None)])"
+    },
+    {
+      "module": "Components.config",
+      "class": "ConfigNothing",
+      "kind": "signature",
+      "method": "__init__",
+      "expected": "arguments(posonlyargs=[], args=[arg(arg='self')], kwonlyargs=[], kw_defaults=[], defaults=[])"
+    },
+    {
+      "module": "Components.config",
+      "class": "ConfigSelectionNumber",
+      "kind": "signature",
+      "method": "__init__",
+      "expected": "arguments(posonlyargs=[], args=[arg(arg='self'), arg(arg='min'), arg(arg='max'), arg(arg='stepwidth'), arg(arg='default'), arg(arg='wraparound'), arg(arg='units')], kwonlyargs=[], kw_defaults=[], defaults=[Constant(value=None), Constant(value=False), Constant(value=None)])"
+    },
+    {
+      "module": "Components.config",
+      "class": "ConfigText",
+      "kind": "signature",
+      "method": "__init__",
+      "expected": "arguments(posonlyargs=[], args=[arg(arg='self'), arg(arg='default'), arg(arg='fixed_size'), arg(arg='visible_width')], kwonlyargs=[], kw_defaults=[], defaults=[Constant(value=''), Constant(value=True), Constant(value=False)])"
+    },
+    {
+      "module": "Components.config",
+      "class": "ConfigSubList",
+      "kind": "signature",
+      "method": "__init__",
+      "expected": "arguments(posonlyargs=[], args=[arg(arg='self')], kwonlyargs=[], kw_defaults=[], defaults=[])"
+    },
+    {
+      "module": "Components.config",
+      "class": "ConfigSubsection",
+      "kind": "signature",
+      "method": "__init__",
+      "expected": "arguments(posonlyargs=[], args=[arg(arg='self')], kwonlyargs=[], kw_defaults=[], defaults=[])"
+    },
+    {
+      "module": "Screens.InputBox",
+      "class": "InputBox",
+      "kind": "signature",
+      "method": "__init__",
+      "expected": "arguments(posonlyargs=[], args=[arg(arg='self'), arg(arg='session'), arg(arg='title'), arg(arg='windowTitle'), arg(arg='useableChars')], kwonlyargs=[], kw_defaults=[], kwarg=arg(arg='kwargs'), defaults=[Constant(value=''), Call(func=Name(id='_', ctx=Load()), args=[Constant(value='Input')], keywords=[]), Constant(value=None)])"
+    },
+    {
+      "module": "Screens.MessageBox",
+      "class": "MessageBox",
+      "kind": "signature",
+      "method": "__init__",
+      "expected": "arguments(posonlyargs=[], args=[arg(arg='self'), arg(arg='session'), arg(arg='text'), arg(arg='type'), arg(arg='timeout'), arg(arg='list'), arg(arg='default'), arg(arg='closeOnAnyKey'), arg(arg='enableInput'), arg(arg='msgBoxID'), arg(arg='typeIcon'), arg(arg='timeoutDefault'), arg(arg='windowTitle'), arg(arg='skinName'), arg(arg='close_on_any_key'), arg(arg='enable_input'), arg(arg='timeout_default'), arg(arg='title'), arg(arg='picon'), arg(arg='skin_name'), arg(arg='simple')], kwonlyargs=[], kw_defaults=[], defaults=[Name(id='TYPE_YESNO', ctx=Load()), UnaryOp(op=USub(), operand=Constant(value=1)), Constant(value=None), Constant(value=True), Constant(value=False), Constant(value=True), Constant(value=None), Constant(value=None), Constant(value=None), Constant(value=None), Constant(value=None), Constant(value=False), Constant(value=True), Constant(value=None), Constant(value=None), Constant(value=None), Constant(value=None), Constant(value=None)])"
+    },
+    {
+      "module": "Screens.Screen",
+      "class": "Screen",
+      "kind": "signature",
+      "method": "__init__",
+      "expected": "arguments(posonlyargs=[], args=[arg(arg='self'), arg(arg='session'), arg(arg='parent'), arg(arg='mandatoryWidgets'), arg(arg='enableHelp')], kwonlyargs=[], kw_defaults=[], defaults=[Constant(value=None), Constant(value=None), Constant(value=False)])"
+    },
+    {
+      "module": "Screens.Standby",
+      "class": "TryQuitMainloop",
+      "kind": "signature",
+      "method": "__init__",
+      "expected": "arguments(posonlyargs=[], args=[arg(arg='self'), arg(arg='session'), arg(arg='retvalue'), arg(arg='timeout'), arg(arg='default_yes')], kwonlyargs=[], kw_defaults=[], defaults=[Name(id='QUIT_SHUTDOWN', ctx=Load()), UnaryOp(op=USub(), operand=Constant(value=1)), Constant(value=True)])"
+    },
+    {
+      "module": "Screens.Screen",
+      "class": "Screen",
+      "kind": "signature",
+      "method": "setTitle",
+      "expected": "arguments(posonlyargs=[], args=[arg(arg='self'), arg(arg='title'), arg(arg='showPath')], kwonlyargs=[], kw_defaults=[], defaults=[Constant(value=True)])"
+    },
+    {
+      "module": "Screens.Screen",
+      "class": "Screen",
+      "kind": "signature",
+      "method": "close",
+      "expected": "arguments(posonlyargs=[], args=[arg(arg='self')], vararg=arg(arg='retVal'), kwonlyargs=[], kw_defaults=[], defaults=[])"
+    },
+    {
+      "module": "Components.ConfigList",
+      "class": "ConfigListScreen",
+      "kind": "signature",
+      "method": "keySave",
+      "expected": "arguments(posonlyargs=[], args=[arg(arg='self')], kwonlyargs=[], kw_defaults=[], defaults=[])"
+    },
+    {
+      "module": "Components.ConfigList",
+      "class": "ConfigListScreen",
+      "kind": "signature",
+      "method": "keyCancel",
+      "expected": "arguments(posonlyargs=[], args=[arg(arg='self')], kwonlyargs=[], kw_defaults=[], defaults=[])"
+    }
+  ],
+  "limitations": [
+    "Source contracts and mocked receiver APIs; not a hardware receiver test.",
+    "Guarded legacy ScreenAnimations and codec_data are optional; current VideoCodec is required by the FullHDGlass current-image guard.",
+    "Own bundled modules and native C++ APIs are covered by the recorded audit and runtime tests, not Python export discovery."
+  ]
+}
