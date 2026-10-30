@@ -75,6 +75,10 @@ class PublisherTests(unittest.TestCase):
         self.assertLess(public_index,feed_index)
         self.assertFalse(client.events[feed_index][2]["force"])
         self.assertEqual(client.feed,document)
+        assets={asset['name']:asset for asset in client.release['assets']}
+        short='enigma2-plugin-extensions-piconhub_'+self.version+'_all.ipk'
+        self.assertEqual((self.path.parent/short).read_bytes(),self.path.read_bytes())
+        self.assertEqual(assets[short]['digest'],assets[self.path.name]['digest'])
 
     def test_damaged_public_download_never_updates_feed(self):
         client=FakeGitHub(self.path.read_bytes());client.bad_public=True

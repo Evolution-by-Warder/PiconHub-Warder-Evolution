@@ -90,6 +90,10 @@ def build(destination,source_revision=None):
     path=destination/(PACKAGE+"_"+version+"_all.ipk");path.write_bytes(data)
     checksum=hashlib.sha256(data).hexdigest()
     path.with_suffix(path.suffix+".sha256").write_text(checksum+"  "+path.name+"\n")
+    # Public download name is independent of opkg's installed package identity.
+    download=destination/("enigma2-plugin-extensions-piconhub_"+version+"_all.ipk")
+    download.write_bytes(data)
+    download.with_suffix(".ipk.sha256").write_text(checksum+"  "+download.name+"\n")
     return path,checksum
 
 
@@ -99,5 +103,5 @@ if __name__=="__main__":
     parser.add_argument("--revision")
     args=parser.parse_args()
     path,checksum=build(args.output,args.revision)
-    print(path)
+    print(path.with_name("enigma2-plugin-extensions-piconhub_"+(RUNTIME/"version.txt").read_text().strip()+"_all.ipk"))
     print("SHA256",checksum)

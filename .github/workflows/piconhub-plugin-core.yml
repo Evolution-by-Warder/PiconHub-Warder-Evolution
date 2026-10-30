@@ -62,4 +62,11 @@ jobs:
       - name: Publish verified numbered plugin release and update feed
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: python3 plugin/tools/publish_plugin_release.py --output plugin/build --revision "$GITHUB_SHA"
+        run: |
+          VERSION=$(cat plugin/src/Plugins/Extensions/WarderPiconHub/version.txt)
+          PUBLISHED=$(python3 -c 'import json; print((json.load(open("plugin/update/stable.json")).get("release") or {}).get("version", ""))')
+          if [ "$VERSION" = "$PUBLISHED" ]; then
+            echo 'Current version is already published; a packaging-tool change does not replace its immutable IPK.'
+            exit 0
+          fi
+          python3 plugin/tools/publish_plugin_release.py --output plugin/build --revision "$GITHUB_SHA"

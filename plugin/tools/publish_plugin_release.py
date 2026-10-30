@@ -115,8 +115,11 @@ def publish(path, version, revision, notes, client):
         raise ValueError("Existing release has a different source revision")
     assets = {asset["name"]: asset for asset in release.get("assets", [])}
     package_data = path.read_bytes()
-    files = ((path.name, package_data),
-             (path.name + ".sha256", (item["sha256"] + "  " + path.name + "\n").encode()))
+    download_name = "enigma2-plugin-extensions-piconhub_" + version + "_all.ipk"
+    # Installed updaters pin the old URL. Both names contain identical bytes.
+    files = tuple(entry for name in (download_name, path.name) for entry in (
+        (name, package_data),
+        (name + ".sha256", (item["sha256"] + "  " + name + "\n").encode())))
     for name, data in files:
         asset = assets.get(name)
         if asset is None:
@@ -130,6 +133,10 @@ def publish(path, version, revision, notes, client):
     public = client.public_package(item["url"], item["bytes"])
     if len(public) != item["bytes"] or hashlib.sha256(public).hexdigest() != item["sha256"]:
         raise ValueError("Public release package verification failed; feed was not changed")
+    download_url = item["url"].rsplit("/", 1)[0] + "/" + download_name
+    public = client.public_package(download_url, item["bytes"])
+    if len(public) != item["bytes"] or hashlib.sha256(public).hexdigest() != item["sha256"]:
+        raise ValueError("Short download verification failed; feed was not changed")
     # Only after public bytes pass verification, publish the feed with a strict
     # fast-forward commit. A concurrent source change makes ref advancement fail.
     source = client.request("GET", "/git/commits/" + revision)
