@@ -10,6 +10,6 @@ Na priamy pokyn vlastníka je 10 pomenovaných kandidátov z auditu zapracovaný
 
 `source/` zachováva 10 skutočných pôvodných PNG. `artwork/` obsahuje 30 odsúhlasených variantov pre zostavenie. Biele a čierne podklady sú existujúce MASTER šablóny; ich SHA-256 je v pláne. `generate.py` reprodukuje varianty a overuje ich SHA-256, pričom nemá sieťové požiadavky. Grafiky pre 50×30 a 400×240 sa odvodzujú štandardným postupom publikovania so zachovaním alfa kanála.
 
-[Plán a pôvod](publication-plan.json) · [Aktivácia](../../../../../reports/source-candidates-activation-20261030.json) · [Spoločná publikácia](https://github.com/Evolution-by-Warder/FullHDGlass-Warder-Evolution/blob/main/reports/source-candidates-publication-20261030.json)
+[Plán a pôvod](publication-plan.json) · [Aktivácia](../../../../reports/source-candidates-activation-20261030.json) · [Spoločná publikácia](https://github.com/Evolution-by-Warder/FullHDGlass-Warder-Evolution/blob/main/reports/source-candidates-publication-20261030.json)
 
 Nový IPK nie je potrebný. Aktualizáciu príslušných pozícií stiahnite cez skin alebo PiconHub. Trezor bol vynechaný.
