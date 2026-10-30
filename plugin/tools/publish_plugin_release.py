@@ -49,7 +49,7 @@ class GitHub:
         except HTTPError as exc:
             if allow_missing and exc.code == 404:
                 return None
-            raise RuntimeError("GitHub release API failed: HTTP %d" % exc.code) from None
+            raise RuntimeError("GitHub release API failed: HTTP %d: %s" % (exc.code, exc.read(1024).decode("utf-8", "replace"))) from None
 
     def public_package(self, url, expected_bytes):
         for attempt in range(4):

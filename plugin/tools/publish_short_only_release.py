@@ -18,7 +18,7 @@ def main():
     approval=json.loads((ROOT/'plugin/update/short-only-approval.json').read_text())
     assert os.environ['GITHUB_REPOSITORY']==p.REPO
     assert os.environ['GITHUB_REF']=='refs/heads/release/piconhub-short-only-0.1.33'
-    revision=approval.get('package_source_revision',os.environ['GITHUB_SHA']);client=p.GitHub(os.environ['GITHUB_TOKEN'])
+    revision=approval.get('package_source_revision',os.environ['GITHUB_SHA']);release_revision=os.environ['GITHUB_SHA'];client=p.GitHub(os.environ['GITHUB_TOKEN'])
     version='0.1.33';path=ROOT/'plugin/build'/('enigma2-plugin-extensions-piconhub_'+version+'_all.ipk')
     document=p.manifest(path,version,(ROOT/'plugin/update/RELEASE-NOTES.md').read_text());item=document['release']
     assert len(list(path.parent.glob('*.ipk')))==1
@@ -36,8 +36,8 @@ def main():
         states[branch]={'head':expected,'tree':tree,'files':files}
     release=client.request('GET','/releases/tags/v'+version,allow_missing=True)
     if release is None:
-        release=client.request('POST','/releases',{'tag_name':'v'+version,'target_commitish':revision,'name':'PiconHub '+version,'body':item['notes'],'draft':True,'prerelease':False,'make_latest':'false'})
-    assert release['target_commitish']==revision
+        release=client.request('POST','/releases',{'tag_name':'v'+version,'target_commitish':release_revision,'name':'PiconHub '+version,'body':item['notes'],'draft':True,'prerelease':False,'make_latest':'false'})
+    assert release['target_commitish']==release_revision
     assets={x['name']:x for x in release.get('assets',[])}
     assert set(assets).issubset({path.name,path.name+'.sha256'})
     for name,raw in [(path.name,path.read_bytes()),(path.name+'.sha256',(item['sha256']+'  '+path.name+'\n').encode())]:
@@ -49,8 +49,8 @@ def main():
     if release['draft']:client.request('PATCH','/releases/'+str(release['id']),{'draft':False,'prerelease':False,'make_latest':'true'})
     raw=client.public_package(item['url'],item['bytes'])
     assert len(raw)==item['bytes'] and hashlib.sha256(raw).hexdigest()==item['sha256']
-    report={'status':'PRODUCTION_VERIFIED','version':version,'release':item,'source_commit':revision,'workflow_run':int(os.environ['GITHUB_RUN_ID']),'short_only':True,'long_transition_created':False,'previous_0_1_32_requires_one_manual_install':True,'settings_and_picons_preserved':True,'physical_receiver_tested':False,'trezor_accessed':False}
-    record=json.loads((ROOT/'plugin/production.json').read_text());record.update(approved_on='2026-10-30',approval=approval['authorization'],source_commit=revision)
+    report={'status':'PRODUCTION_VERIFIED','version':version,'release':item,'source_commit':release_revision,'package_source_commit':revision,'workflow_run':int(os.environ['GITHUB_RUN_ID']),'short_only':True,'long_transition_created':False,'previous_0_1_32_requires_one_manual_install':True,'settings_and_picons_preserved':True,'physical_receiver_tested':False,'trezor_accessed':False}
+    record=json.loads((ROOT/'plugin/production.json').read_text());record.update(approved_on='2026-10-30',approval=approval['authorization'],source_commit=release_revision,package_source_commit=revision)
     record['release']=dict(item,release_url='https://github.com/'+p.REPO+'/releases/tag/v'+version)
     record['validation']={'automated_tests':198,'ci':'passed','workflow_run':int(os.environ['GITHUB_RUN_ID']),'public_ipk_verified':True,'public_update_feed_verified':True,'receiver_tested':False,'limits':'One manual install is required from 0.1.32 because its updater validates the former filename. No long bridge is created, per owner instruction.'}
     record['short_only']=True;record['manual_install_from_0_1_32']=True
