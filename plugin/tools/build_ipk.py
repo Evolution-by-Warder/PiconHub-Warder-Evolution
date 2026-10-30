@@ -14,6 +14,7 @@ import tempfile
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 RUNTIME=ROOT/"src/Plugins/Extensions/WarderPiconHub"
 PACKAGE="enigma2-plugin-extensions-piconhub-warder-evolution"
+DOWNLOAD_PREFIX="enigma2-plugin-extensions-piconhub"
 INSTALL_ROOT="usr/lib/enigma2/python/Plugins/Extensions/WarderPiconHub"
 
 
@@ -87,7 +88,7 @@ def build(destination,source_revision=None):
     data=ar((("debian-binary",b"2.0\n"),("control.tar.gz",archive((("control",control.encode(),0o644),("preinst",preinst.encode(),0o755),("postinst",postinst.encode(),0o755)))),
              ("data.tar.gz",archive(entries))))
     destination=pathlib.Path(destination);destination.mkdir(parents=True,exist_ok=True)
-    path=destination/(PACKAGE+"_"+version+"_all.ipk");path.write_bytes(data)
+    path=destination/(DOWNLOAD_PREFIX+"_"+version+"_all.ipk");path.write_bytes(data)
     checksum=hashlib.sha256(data).hexdigest()
     path.with_suffix(path.suffix+".sha256").write_text(checksum+"  "+path.name+"\n")
     # Public download name is independent of opkg's installed package identity.

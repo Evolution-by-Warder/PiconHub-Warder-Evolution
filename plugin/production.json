@@ -2,18 +2,30 @@
   "schema": 1,
   "product": "PiconHub Warder Evolution",
   "status": "production-approved",
-  "approved_on": "2026-10-29",
-  "approval": "vsetky verzie uved do ostrej prevadzky a zapis vsetko kam treba",
+  "approved_on": "2026-10-30",
+  "approval": "Owner: okamzite mi sprav novy ipk kratky a nastav system tak aby uz nikdy nebol dlhy; jeden novy kratky ipk. No long bridge or alias is permitted. One manual installation from 0.1.32 is required.",
   "source_branch": "plugin/futuristic-rebuild",
-  "source_commit": "2dc74563c629cad562c85def4cb5d16ca77bbdc6",
+  "source_commit": "00df0eec2fa8cea1edb831321091d96d1b80f63f",
   "release": {
-    "version": "0.1.32",
-    "tag": "v0.1.32",
-    "url": "https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/download/v0.1.32/enigma2-plugin-extensions-piconhub-warder-evolution_0.1.32_all.ipk",
-    "bytes": 2879214,
-    "sha256": "28b9e238d5689ddf21a0dfaba075cae89440545093750624ae3628766828dde7",
-    "release_url": "https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/tag/v0.1.32",
-    "download_url": "https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/download/v0.1.32/enigma2-plugin-extensions-piconhub_0.1.32_all.ipk"
+    "version": "0.1.33",
+    "tag": "v0.1.33",
+    "url": "https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/download/v0.1.33/enigma2-plugin-extensions-piconhub_0.1.33_all.ipk",
+    "sha256": "7902b6907849fda2f7789646e59c00e0f15245308cb73b0411b67ac0cdc4cce5",
+    "bytes": 2879048,
+    "notes": "# PiconHub 0.1.33\n\nInštalačný balík a aktualizátor používajú výhradne krátky názov `enigma2-plugin-extensions-piconhub_VERSION_all.ipk`. Zostavovanie ani publikovanie nevytvárajú dlhé kópie. Interná identita balíka, skupina rozšírení, nastavenia, picony a schválená grafika zostávajú zachované.\n\n**Z verzie 0.1.32 nainštalujte tento IPK raz ručne cez existujúcu inštaláciu.** Starý aktualizátor má pevne zakódovaný dlhý názov, preto túto aktualizáciu nedokáže prijať. Odinštalovanie nie je potrebné. Nasledujúce aktualizácie už fungujú s krátkymi názvami. Prechodový dlhý balík sa podľa pokynu vlastníka nevytvára.\n\nAutomatické testy a overenie verejného balíka sú povinné pred aktiváciou. Táto oprava zatiaľ nebola potvrdená na fyzickom prijímači.",
+    "notes_i18n": {
+      "sk": "Opravený aktualizátor a publikovanie: inštalačné balíky používajú výhradne krátky názov piconhub. Verziu 0.1.33 treba z 0.1.32 nainštalovať ručne; ďalšie aktualizácie už prijímajú krátke názvy. Nastavenia, nainštalované picony a grafika sú zachované.",
+      "cs": "Opravený aktualizátor a publikování: instalační balíčky používají výhradně krátký název piconhub. Verzi 0.1.33 je z 0.1.32 nutné nainstalovat ručně; další aktualizace již přijímají krátké názvy. Nastavení, pikony a grafika zůstávají zachovány.",
+      "en": "Updater and publishing now use only short piconhub package filenames. Install 0.1.33 manually over 0.1.32 once; subsequent updates accept short filenames. Settings, installed picons and artwork are preserved.",
+      "de": "Updater und Veröffentlichung verwenden nur kurze piconhub-Dateinamen. 0.1.33 einmal manuell über 0.1.32 installieren; spätere Updates akzeptieren kurze Namen. Einstellungen, Picons und Grafiken bleiben erhalten.",
+      "pl": "Aktualizator i publikacja używają wyłącznie krótkich nazw piconhub. Wersję 0.1.33 należy raz zainstalować ręcznie na 0.1.32; kolejne aktualizacje obsługują krótkie nazwy. Ustawienia, pikony i grafika pozostają zachowane.",
+      "hu": "A frissítő és a kiadás csak rövid piconhub-fájlneveket használ. A 0.1.33-at egyszer kézzel kell telepíteni a 0.1.32-re; a későbbi frissítések elfogadják a rövid neveket. A beállítások, pikonok és grafikák megmaradnak.",
+      "ru": "Обновление и публикация используют только короткие имена piconhub. Один раз установите 0.1.33 вручную поверх 0.1.32; последующие обновления принимают короткие имена. Настройки, пиконы и графика сохранены.",
+      "fr": "Les mises à jour et publications utilisent uniquement les noms courts piconhub. Installer une fois 0.1.33 manuellement sur 0.1.32 ; les mises à jour suivantes acceptent les noms courts. Paramètres, picons et graphismes conservés.",
+      "it": "Aggiornamento e pubblicazione usano solo nomi brevi piconhub. Installare una volta 0.1.33 manualmente sulla 0.1.32; gli aggiornamenti successivi accettano nomi brevi. Impostazioni, picon e grafica restano invariati.",
+      "es": "Las actualizaciones y publicaciones usan solo nombres cortos piconhub. Instala 0.1.33 manualmente sobre 0.1.32 una vez; las siguientes actualizaciones aceptan nombres cortos. Ajustes, picons y gráficos se conservan."
+    },
+    "release_url": "https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/tag/v0.1.33"
   },
   "installation_directory": "/usr/lib/enigma2/python/Plugins/Extensions/WarderPiconHub/",
   "package": "enigma2-plugin-extensions-piconhub-warder-evolution",
@@ -31,13 +43,13 @@
     "es"
   ],
   "validation": {
-    "automated_tests": 195,
+    "automated_tests": 198,
     "ci": "passed",
-    "workflow_run": 40918594093,
+    "workflow_run": 41104004495,
     "public_ipk_verified": true,
     "public_update_feed_verified": true,
     "receiver_tested": false,
-    "limits": "Owner authorized production on 29 October 2026; no new exhaustive physical receiver test is claimed."
+    "limits": "One manual install is required from 0.1.32 because its updater validates the former filename. No long bridge is created, per owner instruction."
   },
   "accepted_candidate": {
     "version": "0.1.31",
@@ -47,5 +59,8 @@
   "canonical_assets": "Existing main picon data and frozen MASTER artwork are preserved.",
   "download_naming_changed_on": "2026-10-30",
   "plugin_browser_category": "extensions",
-  "plugin_browser_name": "piconhub-warder-evolution"
+  "plugin_browser_name": "piconhub-warder-evolution",
+  "package_source_commit": "7eeaa20036aa4f8d01d460541b92df8eaed92909",
+  "short_only": true,
+  "manual_install_from_0_1_32": true
 }

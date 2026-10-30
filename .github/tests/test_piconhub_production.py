@@ -11,7 +11,7 @@ promotion=importlib.util.module_from_spec(spec);spec.loader.exec_module(promotio
 class ProductionTests(unittest.TestCase):
     def setUp(self):
         self.data=b'verified package bytes'
-        self.name='enigma2-plugin-extensions-piconhub-warder-evolution_0.1.13_all.ipk'
+        self.name='enigma2-plugin-extensions-piconhub_0.1.13_all.ipk'
         self.item={'version':'0.1.13','tag':'v0.1.13','sha256':hashlib.sha256(self.data).hexdigest(),
                    'bytes':len(self.data),'url':'https://github.com/'+promotion.REPOSITORY+'/releases/download/v0.1.13/'+self.name}
         self.record={'release':dict(self.item),'source_commit':'a'*40}

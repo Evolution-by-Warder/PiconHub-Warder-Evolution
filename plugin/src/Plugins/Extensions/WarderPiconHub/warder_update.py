@@ -14,6 +14,7 @@ from urllib.request import Request, urlopen
 
 REPOSITORY = "Evolution-by-Warder/PiconHub-Warder-Evolution"
 PACKAGE_ID = "enigma2-plugin-extensions-piconhub-warder-evolution"
+DOWNLOAD_PREFIX = "enigma2-plugin-extensions-piconhub"
 # Keep this feed address compatible with already-installed development builds.
 # CI advances it only after the public release IPK has been verified.
 FEED_URL = "https://raw.githubusercontent.com/" + REPOSITORY + "/plugin/futuristic-rebuild/plugin/update/stable.json"
@@ -69,7 +70,7 @@ def parse_release(payload, current_version):
     tag = item.get("tag")
     if tag not in (item["version"], "v" + item["version"]):
         raise UpdateError("Release tag does not match version")
-    expected = "https://github.com/" + REPOSITORY + "/releases/download/" + tag + "/" + PACKAGE_ID + "_" + item["version"] + "_all.ipk"
+    expected = "https://github.com/" + REPOSITORY + "/releases/download/" + tag + "/" + DOWNLOAD_PREFIX + "_" + item["version"] + "_all.ipk"
     if item.get("url") != expected:
         raise UpdateError("Unexpected plugin package URL")
     digest, size, notes = item.get("sha256"), item.get("bytes"), item.get("notes", "")

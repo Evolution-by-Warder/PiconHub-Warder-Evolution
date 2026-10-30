@@ -4,7 +4,7 @@ Warder's original futuristic Enigma2 plugin and the shared Warder picon source d
 
 ## Current state — 2026-10-30
 
-**PiconHub Warder Evolution 0.1.32** is the user-approved production baseline. The native Warder interface retains the functional work of s3n0 and Chocholousek. Runtime: `/usr/lib/enigma2/python/Plugins/Extensions/WarderPiconHub/`.
+**PiconHub 0.1.33** fixes short-only installation filenames and updater validation. Install this version manually once over 0.1.32; later updates use the short filename. No long transition package is created. [Download](https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/download/v0.1.33/enigma2-plugin-extensions-piconhub_0.1.33_all.ipk). The native Warder interface retains the functional work of s3n0 and Chocholousek. Runtime: `/usr/lib/enigma2/python/Plugins/Extensions/WarderPiconHub/`.
 
 Use the [plugin guide](plugin/README.md), [production record](plugin/PRODUCTION.md), [release manifest](plugin/production.json) and [validation status](plugin/BUILD-STATUS.md). They record the final behavior, automatic plugin updates, package identity, language support and precise receiver-test scope. Earlier rebuild plans are historical and do not override this baseline.
 
@@ -67,3 +67,10 @@ Schválené D1: Magenta Sport League 1–4, 12 presných originálov 220×132 a 
 ## Krátky inštalačný súbor a zaradenie — 30. október 2026
 
 [Stiahnuť enigma2-plugin-extensions-piconhub_0.1.32_all.ipk](https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/download/v0.1.32/enigma2-plugin-extensions-piconhub_0.1.32_all.ipk). Presné pôvodné produkčné bajty a SHA256. Správca pluginov: **Balíčky s rozšíreniami → piconhub-warder-evolution**. Vnútorná identita aj stará URL aktualizátora zostávajú kompatibilné. [Overenie kategórií](docs/PLUGIN-PACKAGE-GROUPS.json).
+
+
+## Picons/picons v štandarde Warder — 30. október 2026
+
+Spoločné dáta FullHDGlass a PiconHub dopĺňajú 70 overených servisných identít / 117 presných PNG referencií. Použitých je 50 našich existujúcich grafík a 13 doplnených log; všetky tri veľkosti a tri pozadia, 135 aktualizovaných archívov. Pôvodné PNG zostávajú bajtovo zachované. Deväť neistých alebo technických položiek je výslovne vylúčených. Zmeny sa získajú aktualizáciou piconových dát; verzia IPK zostáva 0.1.32.
+
+[Zdrojové podklady, štandard a vizuálna kontrola](plugin/artwork/provenance/picons-assimilated-20261030/) · [Záznam aktivácie a kontrol](reports/picons-assimilated-activation-20261030.json).
