@@ -18,10 +18,11 @@ def main():
     approval=json.loads((ROOT/'plugin/update/short-only-approval.json').read_text())
     assert os.environ['GITHUB_REPOSITORY']==p.REPO
     assert os.environ['GITHUB_REF']=='refs/heads/release/piconhub-short-only-0.1.33'
-    revision=os.environ['GITHUB_SHA'];client=p.GitHub(os.environ['GITHUB_TOKEN'])
+    revision=approval.get('package_source_revision',os.environ['GITHUB_SHA']);client=p.GitHub(os.environ['GITHUB_TOKEN'])
     version='0.1.33';path=ROOT/'plugin/build'/('enigma2-plugin-extensions-piconhub_'+version+'_all.ipk')
     document=p.manifest(path,version,(ROOT/'plugin/update/RELEASE-NOTES.md').read_text());item=document['release']
     assert len(list(path.parent.glob('*.ipk')))==1
+    assert item['sha256']==approval['expected_package_sha256'],'Build must exactly match the delivered IPK'
     def head(branch):return client.request('GET','/git/ref/heads/'+quote(branch,safe=''))['object']['sha']
     def inspect(sha):
         commit=client.request('GET','/git/commits/'+sha)
