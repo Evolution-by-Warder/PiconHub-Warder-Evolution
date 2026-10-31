@@ -501,13 +501,13 @@ class NativeControllerTests(unittest.TestCase):
                 text=self.main['panel_text'].text
                 self.assertEqual(self.calls,[])
                 self.assertIn('Plugin vychádza z práce s3n0 a Chocholousek.',text)
-                self.assertIn('Zmeny v tejto verzii:\nOpravené sťahovanie.',text)
+                self.assertIn('Opravené sťahovanie.',text)
                 self.main.exit()
                 self.config.osd.language.value='en_GB'
                 self.main.about()
                 text=self.main['panel_text'].text
                 self.assertIn('work of s3n0 and Chocholousek.',text)
-                self.assertIn('Changes in this version:\nImproved downloads.',text)
+                self.assertIn('Improved downloads.',text)
 
     def test_text_dialog_uses_red_to_return(self):
         dialog=self.gui.TextDialog(self.session,"O projekte","PiconHub")

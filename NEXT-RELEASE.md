@@ -1,3 +1,11 @@
+# Current receiver repair status — 31 October 2026
+
+The recorded functional repairs and four-entry History presentation are included in the verified 0.1.35 repair package. See the receiver-repair documentation and public verification report. Published repair IPKs are immutable; stable update feeds remain unchanged. A final physical receiver retest of this package is pending.
+
+The following entries are preserved as historical investigation and approval records; their earlier IPK holds do not override the owner's later instruction to combine and repair the recorded issues.
+
+---
+
 # Next release — History presentation
 
 Status: required with the next functional fix or enhancement; no standalone IPK for this task.

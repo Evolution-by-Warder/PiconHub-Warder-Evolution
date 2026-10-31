@@ -65,7 +65,7 @@ def build(destination,source_revision=None):
              "Homepage: https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution\n"
              "Description: Download and manage picons.\n") % (PACKAGE,version)
     preinst='#!/bin/sh\nif [ -z "$D" ]; then\nold=/usr/lib/enigma2/python/Plugins/Extensions/ChocholousekPicons\nnew=/usr/lib/enigma2/python/Plugins/Extensions/WarderPiconHub\nif { [ -f "$old/version.txt" ] || [ -f "$old/plugin.py" ]; } && [ ! -f "$new/version.txt" ]; then\n    mkdir -p /var/lib/warder-piconhub || exit 1\n    touch /var/lib/warder-piconhub/legacy-transition-needed || exit 1\nfi\nfi\nexit 0\n'
-    postinst='#!/bin/sh\nif [ -z "$D" ]; then\n    for log in /tmp/piconhub-picons.log /tmp/chocholousekpicons.log /tmp/chocholousekpicons-cmd.log; do\n        if [ -f "$log" ] && [ ! -L "$log" ]; then rm -f "$log"; fi\n    done\n    python3 /usr/lib/enigma2/python/Plugins/Extensions/WarderPiconHub/warder_migrate.py || exit 1\nfi\nexit 0\n'
+    postinst='#!/bin/sh\nif [ -z "$D" ]; then\n    for log in /tmp/piconhub-picons.log /tmp/chocholousekpicons.log /tmp/chocholousekpicons-cmd.log; do\n        if [ -f "$log" ] && [ ! -L "$log" ]; then rm -f "$log"; fi\n    done\n    python3 /usr/lib/enigma2/python/Plugins/Extensions/WarderPiconHub/warder_migrate.py || exit 1\n    python3 /usr/lib/enigma2/python/Plugins/Extensions/WarderPiconHub/warder_update.py --verify-installed-files || exit 1\nfi\nexit 0\n'
     entries=[]
     for path in sorted(RUNTIME.rglob("*")):
         if path.is_file() and not path.is_symlink() and "__pycache__" not in path.parts and path.suffix not in (".pyc",".pyo"):

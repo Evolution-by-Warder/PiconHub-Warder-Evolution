@@ -23,6 +23,16 @@ class ReleaseNotesTests(unittest.TestCase):
     def test_unsupported_language_falls_back_to_english(self):
         self.assertEqual(module.load_notes(self.path,'0.1.12','nl_NL'),'English changes')
 
+    def test_version_blocks_are_separated_limited_to_four_and_localized(self):
+        data={'version':'0.1.12','notes':{'en':'latest'},'entries':[
+            {'version':'0.1.'+str(v),'notes':{'sk':'Zmena '+str(v),'en':'Change '+str(v)}} for v in range(12,6,-1)]}
+        self.path.write_text(json.dumps(data))
+        text=module.load_notes(self.path,'0.1.12','sk_SK')
+        self.assertEqual(text.count('PiconHub '),4)
+        self.assertEqual(text.count('────────────────────────'),3)
+        self.assertIn('Zmena 12',text)
+        self.assertNotIn('0.1.8',text)
+
     def test_notes_from_another_version_are_never_displayed(self):
         self.assertEqual(module.load_notes(self.path,'0.1.11','sk'),'')
         self.assertEqual(module.load_notes(self.path,'0.1.13','sk'),'')
