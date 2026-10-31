@@ -1,0 +1,79 @@
+{
+  "schema": 1,
+  "date": "2026-10-31",
+  "status": "REPAIR_PACKAGE_VERIFIED_PHYSICAL_RETEST_PENDING",
+  "product": "PiconHub",
+  "version": "0.1.35",
+  "release": {
+    "tag": "v0.1.35",
+    "url": "https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/tag/v0.1.35",
+    "prerelease": true,
+    "assets": [
+      {
+        "name": "enigma2-plugin-extensions-piconhub_0.1.35_all.ipk",
+        "bytes": 2879430,
+        "digest": "sha256:52cc24b4af666262f2faa70cb80b25c2c0a72c9bf13a3d744950c45a8c1c14b0",
+        "url": "https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/download/v0.1.35/enigma2-plugin-extensions-piconhub_0.1.35_all.ipk"
+      },
+      {
+        "name": "enigma2-plugin-extensions-piconhub_0.1.35_all.ipk.sha256",
+        "bytes": 116,
+        "digest": "sha256:ede199461360ba912e6e5080734c2dcf814d31b5a886def5e1a5b3b7d5b93bef",
+        "url": "https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/download/v0.1.35/enigma2-plugin-extensions-piconhub_0.1.35_all.ipk.sha256"
+      }
+    ]
+  },
+  "source": {
+    "packaged_commit": "c30073e48dceb50a41af957f369aab757e2d1241",
+    "integrated_head": "9cb6ac379a3dd19b8e8a44c2e8a4635cb89ea91a",
+    "branch": "fix/receiver-repairs-20261031",
+    "pull_request": "https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/pull/13",
+    "integration_changes": "Current reports, release status and non-runtime review preview only; packaged code unchanged."
+  },
+  "validation": {
+    "workflow_run": 41239184139,
+    "workflow_conclusion": "success",
+    "public_package": {
+      "product": "PiconHub",
+      "version": "0.1.35",
+      "file": "enigma2-plugin-extensions-piconhub_0.1.35_all.ipk",
+      "bytes": 2879430,
+      "sha256": "52cc24b4af666262f2faa70cb80b25c2c0a72c9bf13a3d744950c45a8c1c14b0",
+      "source_python_modules_match": 18,
+      "packaged_health_and_history_checked": true,
+      "receiver_retest": false
+    },
+    "current_version_upgrade": {
+      "product": "PiconHub",
+      "old_package": "enigma2-plugin-extensions-piconhub_0.1.34-rc1_all.ipk",
+      "new_package": "enigma2-plugin-extensions-piconhub_0.1.35_all.ipk",
+      "opkg_exit": 0,
+      "fully_installed": true,
+      "all_non_conffile_payload_bytes_match": true,
+      "user_settings_preserved": true,
+      "force_reinstall_or_overwrite": false,
+      "offline_inert_hooks_enabled": true
+    },
+    "current_version_upgrade_scope": "Real opkg version/ownership transitions with complete public payloads; dependencies omitted and maintainer hooks inert in disposable offline roots; --force-postinstall only enables those inert hooks in offline opkg. Native hooks have separate tests; this is not a physical receiver test.",
+    "unit_tests": 204
+  },
+  "stable_update_feeds_changed": false,
+  "published_old_ipks_changed": false,
+  "limits": [
+    "New repair package physical receiver retest is pending.",
+    "Original forum first-failure causes are not generalized beyond the verified evidence."
+  ],
+  "implemented_repairs": [
+    "Critical installed payload and exact final package/version/state verification",
+    "First GUI migration retains the previous GUI version path",
+    "Four short localized release-history entries",
+    "Version 0.1.35 is newer than installed RC1 in real opkg"
+  ],
+  "previous_receiver_confirmation": {
+    "baseline": "ChocholousekPicons 5.0.240904",
+    "version": "0.1.34-rc1",
+    "box": "GigaBlue Quad 4K Pro",
+    "image": "OpenATV 8.0.1",
+    "first_gui_transition_and_startup": true
+  }
+}
