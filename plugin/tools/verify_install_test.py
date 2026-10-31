@@ -11,7 +11,7 @@ import tarfile
 import tempfile
 
 ROOT = Path(__file__).resolve().parents[1]
-VERSION = '0.1.34-rc1'
+VERSION = '0.1.35'
 PREFIX = 'usr/lib/enigma2/python/Plugins/Extensions/WarderPiconHub/'
 
 

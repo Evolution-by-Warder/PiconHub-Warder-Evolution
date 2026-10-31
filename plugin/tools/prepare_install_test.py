@@ -5,7 +5,7 @@ import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-VERSION = '0.1.34-rc1'
+VERSION = '0.1.35'
 
 
 def main():
@@ -16,8 +16,8 @@ def main():
     value = json.loads(path.read_text())
     value['development_version'] = VERSION
     path.write_text(json.dumps(value,indent=2)+'\n')
-    (ROOT/'update/RELEASE-NOTES.i18n.json').write_bytes((ROOT/'design/install-test/notes-0.1.34-rc1.json').read_bytes())
-    (ROOT/'update/RELEASE-NOTES.md').write_bytes((ROOT/'design/install-test/RELEASE-NOTES-0.1.34-rc1.md').read_bytes())
+    (ROOT/'update/RELEASE-NOTES.i18n.json').write_bytes((ROOT/'design/install-test/notes-0.1.35.json').read_bytes())
+    (ROOT/'update/RELEASE-NOTES.md').write_bytes((ROOT/'design/install-test/RELEASE-NOTES-0.1.35.md').read_bytes())
     assert hashlib.sha256(feed.read_bytes()).hexdigest()==before
     folder = ROOT/'build'
     folder.mkdir(exist_ok=True)

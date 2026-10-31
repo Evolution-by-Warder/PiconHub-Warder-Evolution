@@ -1,7 +1,7 @@
 name: PiconHub installation test release
 on:
   push:
-    branches: [test/install-health-0.1.34-rc1]
+    branches: [fix/receiver-repairs-20261031]
     paths: [plugin/**, .github/workflows/install-health-test.yml]
 permissions:
   contents: write
@@ -32,13 +32,13 @@ jobs:
           set -euo pipefail
           python plugin/tools/prepare_install_test.py
           python plugin/tools/build_ipk.py --output plugin/build --revision "$GITHUB_SHA"
-          cp plugin/build/enigma2-plugin-extensions-piconhub_0.1.34-rc1_all.ipk /tmp/first.ipk
+          cp plugin/build/enigma2-plugin-extensions-piconhub_0.1.35_all.ipk /tmp/first.ipk
           python plugin/tools/build_ipk.py --output plugin/build --revision "$GITHUB_SHA"
-          cmp /tmp/first.ipk plugin/build/enigma2-plugin-extensions-piconhub_0.1.34-rc1_all.ipk
+          cmp /tmp/first.ipk plugin/build/enigma2-plugin-extensions-piconhub_0.1.35_all.ipk
           python plugin/tools/verify_install_test.py
       - uses: actions/upload-artifact@v4
         with:
-          name: PiconHub-0.1.34-rc1
+          name: PiconHub-0.1.35
           path: plugin/build/*
           retention-days: 30
       - name: Publish only the test IPK and checksum
@@ -46,12 +46,12 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-          PACKAGE=plugin/build/enigma2-plugin-extensions-piconhub_0.1.34-rc1_all.ipk
-          TAG=install-health-0.1.34-rc1
+          PACKAGE=plugin/build/enigma2-plugin-extensions-piconhub_0.1.35_all.ipk
+          TAG=v0.1.35
           if gh release view "$TAG" >/dev/null 2>&1; then
             mkdir -p /tmp/immutable
             gh release download "$TAG" --pattern "$(basename "$PACKAGE")" --dir /tmp/immutable
             cmp "$PACKAGE" "/tmp/immutable/$(basename "$PACKAGE")"
           else
-            gh release create "$TAG" "$PACKAGE" "$PACKAGE.sha256" --target "$GITHUB_SHA" --prerelease --latest=false --title "PiconHub 0.1.34-rc1" --notes-file plugin/update/RELEASE-NOTES.md
+            gh release create "$TAG" "$PACKAGE" "$PACKAGE.sha256" --target "$GITHUB_SHA" --prerelease --latest=false --title "PiconHub 0.1.35" --notes-file plugin/update/RELEASE-NOTES.md
           fi
