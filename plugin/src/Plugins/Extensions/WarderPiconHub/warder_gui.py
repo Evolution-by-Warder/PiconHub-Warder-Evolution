@@ -572,7 +572,7 @@ class WarderMainScreen(Screen):
         multiple=picking and self.picker.multiple
         directory=picking and self.picker_path is not None
         marked=self.marked_profiles()
-        download=_("Stiahnuť (%d)")%len(marked) if marked else _("Stiahnuť")
+        download=_("Stiahnuť (%d)")%len(marked)
         captions=(_("Naspäť"),_("Použiť priečinok") if directory else _("Potvrdiť výber") if multiple else "","","") if picking else (_("Zatvoriť"),download,_("Aktualizácia pluginu"),_("O projekte"))
         if self.panel is not None:
             captions=(_("Naspäť") if self.panel["enabled"] else "",self.panel["confirm"] if self.panel["enabled"] else "","","")
@@ -582,7 +582,12 @@ class WarderMainScreen(Screen):
             self["key_"+color].setText(text)
             for prefix in ("key_","line_","footer_"):
                 (self[prefix+color].show if text else self[prefix+color].hide)()
-        self["navigation_hint"].setText(_("Otvoriť")+" • OK" if directory else _("Vybrať s OK") if picking else _("←→: profil • 0: označiť • ↑↓: riadok • OK: výber • Stiahnuť: označené profily" if marked else "←→: profil • 0: označiť • ↑↓: riadok • OK: výber • Stiahnuť: otvorený profil"))
+        disabled=not picking and self.panel is None and self.job is None and not marked
+        if self["key_green"].instance:
+            self["key_green"].instance.setForegroundColor(parseColor("#00738696" if disabled else "#0000ea9b"))
+        if self["line_green"].instance:
+            self["line_green"].instance.setBackgroundColor(parseColor("#00314b65" if disabled else "#0000ea9b"))
+        self["navigation_hint"].setText(_("Otvoriť")+" • OK" if directory else _("Vybrať s OK") if picking else _("←→: profil • 0: označiť • ↑↓: riadok • OK: výber • Stiahnuť: označené profily" if marked else "←→: profil • 0: označiť • ↑↓: riadok • OK: výber • Najprv označ profil"))
         if self.panel is not None:self["navigation_hint"].setText("")
 
     def move_up(self):
@@ -696,8 +701,10 @@ class WarderMainScreen(Screen):
 
     def update_picons(self):
         if self.closed or self.job is not None or self.picker is not None or self.panel is not None:return
+        selected=self.marked_profiles()
+        if not selected:return
         preferences=[]
-        for number in self.marked_profiles() or [self.profile_id]:
+        for number in selected:
             profile=config.plugins.chocholousekpicons[number]
             selection=model.profile_selection(profile)
             try:

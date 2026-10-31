@@ -30,15 +30,15 @@ jobs:
       - name: Build and inspect isolated RC package
         run: |
           set -euo pipefail
-          python plugin/tools/prepare_install_test.py --version 0.1.36
+          python plugin/tools/prepare_install_test.py --version 0.1.37
           python plugin/tools/build_ipk.py --output plugin/build --revision "$GITHUB_SHA"
-          cp plugin/build/enigma2-plugin-extensions-piconhub_0.1.36_all.ipk /tmp/first.ipk
+          cp plugin/build/enigma2-plugin-extensions-piconhub_0.1.37_all.ipk /tmp/first.ipk
           python plugin/tools/build_ipk.py --output plugin/build --revision "$GITHUB_SHA"
-          cmp /tmp/first.ipk plugin/build/enigma2-plugin-extensions-piconhub_0.1.36_all.ipk
+          cmp /tmp/first.ipk plugin/build/enigma2-plugin-extensions-piconhub_0.1.37_all.ipk
           python plugin/tools/verify_install_test.py
       - uses: actions/upload-artifact@v4
         with:
-          name: PiconHub-0.1.36
+          name: PiconHub-0.1.37
           path: plugin/build/*
           retention-days: 30
       - name: Publish only the test IPK and checksum
@@ -46,12 +46,12 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-          PACKAGE=plugin/build/enigma2-plugin-extensions-piconhub_0.1.36_all.ipk
-          TAG=v0.1.36
+          PACKAGE=plugin/build/enigma2-plugin-extensions-piconhub_0.1.37_all.ipk
+          TAG=v0.1.37
           if gh release view "$TAG" >/dev/null 2>&1; then
             mkdir -p /tmp/immutable
             gh release download "$TAG" --pattern "$(basename "$PACKAGE")" --dir /tmp/immutable
             cmp "$PACKAGE" "/tmp/immutable/$(basename "$PACKAGE")"
           else
-            gh release create "$TAG" "$PACKAGE" "$PACKAGE.sha256" --target "$GITHUB_SHA" --prerelease --latest=false --title "PiconHub 0.1.36" --notes-file plugin/update/RELEASE-NOTES.md
+            gh release create "$TAG" "$PACKAGE" "$PACKAGE.sha256" --target "$GITHUB_SHA" --prerelease --latest=false --title "PiconHub 0.1.37" --notes-file plugin/update/RELEASE-NOTES.md
           fi

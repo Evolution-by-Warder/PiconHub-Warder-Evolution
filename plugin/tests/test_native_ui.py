@@ -139,6 +139,7 @@ class NativeControllerTests(unittest.TestCase):
         self.main.satellites_chosen(["192E","235E"])
         for key,value in (("resolution","220x132"),("style","transparent"),("method","sync_tv"),("destination","/media/hdd/picon")):
             self.main.choose(key,value)
+        if not self.main.profile.warder_process.value:self.main.toggle_profile()
 
     def test_saved_profile_restores_on_startup_and_reopening(self):
         self.assertTrue(all(row[0][2]!='Vyber si…' for row in self.main['list'].values))
@@ -162,6 +163,7 @@ class NativeControllerTests(unittest.TestCase):
         self.assertEqual(self.main["preview"].dimensions,(400,240))
         self.assertIn("400×240",self.main["preview_caption"].text)
         self.main.choose("resolution","50x30")
+        self.main.toggle_profile()
         self.assertEqual(self.main["preview"].dimensions,(50,30))
         self.main.update_picons()
         self.assertIsNotNone(self.main.panel)
@@ -230,7 +232,7 @@ class NativeControllerTests(unittest.TestCase):
         self.assertEqual(self.main["list"].getSelectionIndex(),1)
         self.assertEqual(self.main["list"].location,(70,390))
         self.assertEqual(self.main["list"].dimensions,(1120,500))
-        self.assertEqual(self.main["key_green"].text,"Stiahnuť")
+        self.assertEqual(self.main["key_green"].text,"Stiahnuť (0)")
         self.assertFalse(self.main["picker_cover"].visible)
         self.assertEqual(self.calls,[])
 
@@ -568,6 +570,7 @@ class NativeControllerTests(unittest.TestCase):
 
     def test_unoffered_legacy_resolution_is_not_silently_changed(self):
         self.main.profile.resolution.setValue("150x90")
+        self.main.toggle_profile()
         self.main.refresh()
         self.assertEqual(self.main.profile.resolution.value,"150x90")
         self.main.update_picons()
@@ -656,6 +659,7 @@ class NativeControllerTests(unittest.TestCase):
         self.main.satellites_chosen(['DAB'])
         self.main.choose('method','all_inc')
         self.main.choose('destination','/media/usb/picon')
+        self.main.toggle_profile()
         self.main.update_picons()
         preferences=self.main.job.preferences
         self.assertEqual(len(preferences),1)
@@ -673,6 +677,7 @@ class NativeControllerTests(unittest.TestCase):
         self.main.select_satellites()
         self.main.switch_profile(3);self.assertEqual(self.main.profile_id,1)
         self.main.exit()
+        self.main.toggle_profile()
         self.main.choose('method','all');self.main.update_picons()
         self.assertIsNotNone(self.main.panel)
         self.main.switch_profile(2);self.assertEqual(self.main.profile_id,1)
@@ -680,7 +685,7 @@ class NativeControllerTests(unittest.TestCase):
         self.main.page_down();self.assertEqual(self.main.profile_id,2)
 
     def test_only_marked_profiles_one_and_three_run_with_their_own_settings(self):
-        self.complete_selection();self.main['actions']['0']()
+        self.complete_selection()
         self.main.switch_profile(3)
         self.main.satellites_chosen(['DAB'])
         for key,value in [('method','all_inc'),('style','black'),('destination','/media/usb/picon')]:self.main.choose(key,value)
@@ -704,7 +709,7 @@ class NativeControllerTests(unittest.TestCase):
         self.assertEqual(reopened.marked_profiles(),[1,3])
 
     def test_incomplete_marked_profile_aborts_entire_batch_before_start(self):
-        self.complete_selection();self.main.toggle_profile()
+        self.complete_selection()
         self.main.switch_profile(3);self.main.toggle_profile()
         self.main.profile.resolution.setValue('unsupported')
         self.main.update_picons()
@@ -713,11 +718,16 @@ class NativeControllerTests(unittest.TestCase):
         self.assertIn('Rozlíšenie',self.main['panel_text'].text)
         self.main.toggle_profile();self.assertEqual(self.main.marked_profiles(),[1,3])
 
-    def test_no_marks_runs_open_profile_and_picker_cannot_change_marks(self):
+    def test_no_marks_disables_download_and_picker_cannot_change_marks(self):
         self.main.switch_profile(4)
         self.main.select_satellites();self.main.toggle_profile()
         self.assertEqual(self.main.marked_profiles(),[])
         self.main.exit();self.main.update_picons()
+        self.assertIsNone(self.main.job)
+        self.assertIsNone(self.main.panel)
+        self.assertEqual(self.main['key_green'].text,'Stiahnuť (0)')
+        self.assertEqual(self.main['key_green'].foreground,'#00738696')
+        self.main.toggle_profile();self.main.update_picons()
         self.assertEqual([p['profile_number'] for p in self.main.job.preferences],[4])
 
     def test_loading_saved_style_keeps_a_fixed_default_so_native_save_retains_it(self):
@@ -739,6 +749,7 @@ class NativeControllerTests(unittest.TestCase):
         self.main.load_profile(1)
         self.assertEqual(profile.background.value,'SNP_legacy_custom')
         self.assertIsNone(self.main.selection['style'])
+        self.main.toggle_profile()
         self.main.update_picons()
         self.assertIsNone(self.main.job)
 

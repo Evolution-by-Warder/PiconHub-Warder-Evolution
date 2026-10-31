@@ -11,7 +11,7 @@ VERSION = '0.1.35'
 
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--version',default=VERSION,choices=('0.1.35','0.1.36'))
+    parser.add_argument('--version',default=VERSION,choices=('0.1.35','0.1.36','0.1.37'))
     version=parser.parse_args().version
     feed = ROOT/'update/stable.json'
     before = hashlib.sha256(feed.read_bytes()).hexdigest()
