@@ -12,3 +12,9 @@ Requested by the repository owner on 31 October 2026.
 - Preserve installer/result output and its existing actions; do not apply the 4-entry history limit to operational results.
 
 Include this work when the plugin next changes. Check the history screen with long descriptions, language variants and the newest four entries before publishing that release.
+
+## Final verification of plugin installation
+
+Prepared source on `fix/install-transition-20261031`: validate critical runtime files and exact installed version during postinst, then require native package identity, version and fully installed status after opkg exits. Keep the normal opkg install command; a missing force flag has not been established as the cause of the user's first-attempt failure. Minimal real-opkg transition from the original 5.0.240904 passed with and without force flags. No physical-receiver first-failure root cause is claimed. See `reports/install-transition-review-20261031.json`.
+
+This source is pending a future authorized functional release. Keep the already recorded four-entry, general-description History requirement for that release. No public IPK, version, feed or picon data was changed by this investigation.

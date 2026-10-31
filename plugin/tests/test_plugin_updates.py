@@ -148,12 +148,15 @@ class ReleaseTests(unittest.TestCase):
             return types.SimpleNamespace(returncode=0, stdout="installed")
         data = ipk()
         release = updates.Release("0.1.1", "url", hashlib.sha256(data).hexdigest(), len(data))
-        self.assertEqual(updates.install_release(release, lambda *a, **kw: io.BytesIO(data), runner), "0.1.1")
+        verified = []
+        verifier = lambda version, **kw: verified.append(version)
+        self.assertEqual(updates.install_release(release, lambda *a, **kw: io.BytesIO(data), runner, verifier), "0.1.1")
+        self.assertEqual(verified, ['0.1.1'])
         self.assertEqual(calls[0][:2], ["opkg", "install"])
         self.assertFalse(any("force" in arg or "reboot" in arg for arg in calls[0]))
         bad = updates.Release("0.1.1", "url", "a" * 64, len(data))
         with self.assertRaises(updates.UpdateError):
-            updates.install_release(bad, lambda *a, **kw: io.BytesIO(data), runner)
+            updates.install_release(bad, lambda *a, **kw: io.BytesIO(data), runner, verifier)
         self.assertEqual(len(calls), 1)
 
     def test_package_manager_failure_is_not_reported_as_success(self):
