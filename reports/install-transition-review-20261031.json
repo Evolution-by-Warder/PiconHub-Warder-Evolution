@@ -1,0 +1,42 @@
+{
+  "schema": 1,
+  "date": "2026-10-31",
+  "base_commit": "8f39c1586b51a21722d5322854f23c49591e1e91",
+  "state": "prepared-final-installation-verification",
+  "reported_failure_reproduced": false,
+  "original_package": {
+    "version": "5.0.240904",
+    "sha256": "ed89bd4a4ac3b450585ff28ceb8d8a7ce263c47753f4d781f5304b4102daef86",
+    "source_commit": "84a40ed6b01f8dc7d49b632f886525b9c51773c7",
+    "source_path": "ChocholousekPicons/released_build/enigma2-plugin-extensions-chocholousek-picons_5.0.240904_all.ipk"
+  },
+  "opkg_version": "0.10.0 (libsolv 0.7.40)",
+  "finding": "Original-to-current replacement passed the minimal real-opkg ordering test both with and without force flags. Original postrm receives upgrade and preserves the migration source. Exact receiver-specific first failure remains unconfirmed.",
+  "changes": [
+    "Validate critical installed runtime files and exact version during postinst",
+    "After opkg exits, require matching native package identity/version and Status: install ok installed before returning updater success",
+    "Keep normal opkg install; no force-overwrite or force-reinstall added"
+  ],
+  "tests": {
+    "installation_health": 5,
+    "updater": 31,
+    "runtime_transition": 9,
+    "total": 45,
+    "actual_source_payload_check": "passed",
+    "generated_postinst_syntax": "passed"
+  },
+  "limits": [
+    "Real x86_64 opkg/libsolv with minimal fixture payloads and actual rewritten preinst/legacy postrm; new postinst is inert in ordering fixtures. Payload and UI checks are tested separately.",
+    "Not a full product installation or a physical VU+ framebuffer/runtime test."
+  ],
+  "scope": {
+    "product_ipk_created": false,
+    "public_package_or_feed_changed": false,
+    "trezor_changed": false
+  },
+  "full_cross_project_report": "Evolution-by-Warder/FullHDGlass-Warder-Evolution branch fix/install-transition-20261031 docs/INSTALL-TRANSITION-20261031.md",
+  "source_branch": "fix/install-transition-20261031",
+  "source_commit": "487e46aef74323cb81ce7af554a90dd74cf36468",
+  "related_skin_fix_commit": "680bab699ff934b92b891a771ed465ce8d71e53c",
+  "related_piconhub_fix_commit": "487e46aef74323cb81ce7af554a90dd74cf36468"
+}
