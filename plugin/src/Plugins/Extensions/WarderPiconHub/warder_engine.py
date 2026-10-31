@@ -313,6 +313,7 @@ class PiconRunner:
                 document = None if all(p.get("dab_only") or p.get("iptv_only") or p.get("radio_only") for p in preferences) else fetch_manifest(self.opener)
                 for number,prefs in enumerate(preferences,1):
                     self.check_cancel()
+                    self.event("stage",_("Profil %d")%prefs.get("profile_number",number))
                     if prefs.get("radio_only"):
                         if prefs.get("include_dab"):
                             self.stage_dab(prefs, stages)

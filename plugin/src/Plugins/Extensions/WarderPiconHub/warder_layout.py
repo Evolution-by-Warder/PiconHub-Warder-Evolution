@@ -30,13 +30,17 @@ def main_skin(width=1920, height=1080):
         out += [fill(x,225,170,92,"#00314b65"),fill(x+1,226,168,90,"#18091b30"),
                 '<widget name="recent%d" %s alphatest="blend" zPosition="3" />' % (number,box(x+15,229,140,84))]
     # Subtle row separators and a bright selected row, independent of the TV skin.
-    for y in (452,552,652,752):
+    for number in range(1,5):
+        x=70+(number-1)*280
+        out += [fill(x,337,270,46,'#00314b65'),
+                '<widget name="profile%d" %s font="Regular;%d" foregroundColor="#00b5d4ec" backgroundColor="#0010243c" transparent="0" valign="center" halign="center" noWrap="1" zPosition="3" />' % (number,box(x+1,338,268,44),round(24*sy))]
+    for y in (490,590,690,790):
         out.append(fill(145,y,1010,1,"#00314b65"))
     out += ['<widget name="picker_cover" %s backgroundColor="#00102136" zPosition="4" />' % box(60,332,1140,555),
             label("picker_title",80,340,1100,55,30,color="#003ee8ff").replace('zPosition="3"','zPosition="5"'),
             '<widget name="panel_progress" %s foregroundColor="#003ee8ff" backgroundColor="#00102136" transparent="0" borderWidth="1" zPosition="5" />' % box(85,856,1090,20),
             '<widget name="panel_text" %s font="Regular;%d" foregroundColor="#00ffffff" backgroundColor="#00102136" transparent="0" scrollbarMode="showOnDemand" zPosition="5" />' % (box(85,410,1090,440),round(28*sy)),
-            '<widget name="list" %s transparent="1" scrollbarMode="showOnDemand" enableWrapAround="1" foregroundColor="#00ffffff" foregroundColorSelected="#00ffffff" backgroundColorSelected="#002a70ad" zPosition="5" />' % box(70,350,1120,500),
+            '<widget name="list" %s transparent="1" scrollbarMode="showOnDemand" enableWrapAround="1" foregroundColor="#00ffffff" foregroundColorSelected="#00ffffff" backgroundColorSelected="#002a70ad" zPosition="5" />' % ('position="%d,%d" size="%d,%d"' % (round(70*sx),round(390*sy),round(1120*sx),5*round(100*sy))),
             label(None,1280,350,550,60,36,text=_("Náhľad piconu")),
             fill(1280,425,540,2,"#003ee8ff"),
             fill(1298,445,484,304,"#00314b65"),fill(1300,447,480,300,"#00061729"),

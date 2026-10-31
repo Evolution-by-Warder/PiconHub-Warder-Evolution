@@ -479,7 +479,8 @@ class StartupTests(unittest.TestCase):
         self.assertNotIn("_AUTO_CHECK_DONE", source)
         self.assertNotIn("ssl._create_default_https_context =", source)
         self.assertNotIn("def downNinstPlugin", source)
-        self.assertIn("ConfigSelectionNumber(1,3,1,default=1)", source)
+        self.assertIn("ConfigSelectionNumber(1,PROFILE_COUNT,1,default=1)", source)
+        self.assertIn("PROFILE_COUNT = 4",source)
 
 
 if __name__ == "__main__":
