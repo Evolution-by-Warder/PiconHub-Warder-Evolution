@@ -608,7 +608,7 @@ class NativeControllerTests(unittest.TestCase):
                          ["satellites","resolution","style","method","destination"])
         for action in ("1","2","3"):
             self.assertNotIn(action,self.main["actions"])
-        self.assertEqual([self.main["profile%d"%i].text for i in range(1,5)],["□ Profil %d"%i for i in range(1,5)])
+        self.assertEqual([self.main["profile%d"%i].text for i in range(1,5)],["Profil %d"%i for i in range(1,5)])
 
     def test_update_uses_only_visible_settings_even_if_old_profiles_are_enabled(self):
         self.complete_selection()
@@ -694,8 +694,10 @@ class NativeControllerTests(unittest.TestCase):
         self.main.profile.resolution.setValue('unsupported')
         self.assertEqual(self.main.marked_profiles(),[1,3])
         self.assertEqual(self.main['key_green'].text,'Stiahnuť (2)')
-        self.assertEqual(self.main['profile1'].text,'✓ Profil 1')
-        self.assertEqual(self.main['profile3'].text,'✓ Profil 3')
+        self.assertEqual(self.main['profile_mark1'].text,'✓')
+        self.assertEqual(self.main['profile_mark1'].foreground,'#0000ea9b')
+        self.assertEqual(self.main['profile_mark3'].text,'✓')
+        self.assertEqual(self.main['profile_mark3'].foreground,'#0000ea9b')
         self.main.update_picons();job=self.main.job
         self.assertEqual([p['profile_number'] for p in job.preferences],[1,3])
         self.assertEqual([p['destination'] for p in job.preferences],['/media/hdd/picon','/media/usb/picon'])

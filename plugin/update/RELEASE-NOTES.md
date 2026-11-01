@@ -1,7 +1,5 @@
-PiconHub 0.1.37 — skúšobná verzia
+PiconHub 0.1.38 — skúšobná verzia
 
-Štyri nezávislé profily s vlastnými uloženými nastaveniami. Šípkami doľava a doprava prepnete profil, tlačidlom 0 ho označíte alebo odznačíte. Stiahnuť spracuje iba označené profily: jeden, dva, tri alebo všetky štyri. Bez označenia sa nič nespustí. Nastavenia aj označenia zostávajú zachované po stiahnutí a reštarte GUI.
+Zelené fajky pri označených profiloch. Modrá záložka naďalej označuje profil otvorený na úpravu.
 
-Modrá záložka označuje profil otvorený na úpravu. Značka ✓ označuje profil zaradený na spracovanie. Počet na zelenom tlačidle zodpovedá počtu označených profilov. Pri nule je tlačidlo neaktívne.
-
-Po inštalácii reštartujte GUI. Overenie na prijímači ešte neprebehlo.
+Ovládanie: ←/→ prepína profil, 0 pridá alebo zruší fajku. Zelené Stiahnuť (počet) spracuje iba označené profily. Bez označenia sa nič nespustí. Každý zo štyroch profilov si pamätá svoje nastavenia. Po inštalácii reštartujte GUI.

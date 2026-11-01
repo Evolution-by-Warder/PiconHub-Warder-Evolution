@@ -33,7 +33,8 @@ def main_skin(width=1920, height=1080):
     for number in range(1,5):
         x=70+(number-1)*280
         out += [fill(x,337,270,46,'#00314b65'),
-                '<widget name="profile%d" %s font="Regular;%d" foregroundColor="#00b5d4ec" backgroundColor="#0010243c" transparent="0" valign="center" halign="center" noWrap="1" zPosition="3" />' % (number,box(x+1,338,268,44),round(24*sy))]
+                '<widget name="profile%d" %s font="Regular;%d" foregroundColor="#00b5d4ec" backgroundColor="#0010243c" transparent="0" valign="center" halign="center" noWrap="1" zPosition="3" />' % (number,box(x+1,338,268,44),round(24*sy)),
+                '<widget name="profile_mark%d" %s font="Regular;%d" foregroundColor="#0000ea9b" transparent="1" valign="center" halign="center" noWrap="1" zPosition="3" />' % (number,box(x+28,338,36,44),round(24*sy))]
     for y in (490,590,690,790):
         out.append(fill(145,y,1010,1,"#00314b65"))
     out += ['<widget name="picker_cover" %s backgroundColor="#00102136" zPosition="4" />' % box(60,332,1140,555),

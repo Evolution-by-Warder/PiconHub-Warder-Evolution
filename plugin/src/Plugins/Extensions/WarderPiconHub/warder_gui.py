@@ -364,6 +364,7 @@ class WarderMainScreen(Screen):
         self.load_profile(config.plugins.chocholousekpicons_id.getValue())
         for number in range(1,legacy.PROFILE_COUNT+1):
             self['profile%d'%number]=Label('')
+            self['profile_mark%d'%number]=Label('')
         for name in ("day","date","clock","seconds","version","preview_caption","summary","status","picker_cover","picker_title","navigation_hint"):
             self[name]=Label("")
         for color in ("red","green","yellow","blue"):
@@ -476,7 +477,12 @@ class WarderMainScreen(Screen):
         if self.picker is not None or self.panel is not None:return
         for number in range(1,legacy.PROFILE_COUNT+1):
             tab=self['profile%d'%number]
-            tab.setText(('✓ ' if config.plugins.chocholousekpicons[number].warder_process.value else '□ ')+(_('Profil %d')%number))
+            selected=config.plugins.chocholousekpicons[number].warder_process.value
+            tab.setText(_('Profil %d')%number)
+            mark=self['profile_mark%d'%number]
+            mark.setText('✓' if selected else '□')
+            if mark.instance:
+                mark.instance.setForegroundColor(parseColor('#0000ea9b' if selected else '#00b5d4ec'))
             if tab.instance:
                 tab.instance.setBackgroundColor(parseColor('#002a70ad' if number==self.profile_id else '#0010243c'))
                 tab.instance.setForegroundColor(parseColor('#00ffffff' if number==self.profile_id else '#00b5d4ec'))
