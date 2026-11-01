@@ -11,7 +11,7 @@ import tarfile
 import tempfile
 
 ROOT = Path(__file__).resolve().parents[1]
-VERSION = '0.1.35'
+VERSION = (ROOT/'src/Plugins/Extensions/WarderPiconHub/version.txt').read_text().strip()
 PREFIX = 'usr/lib/enigma2/python/Plugins/Extensions/WarderPiconHub/'
 
 

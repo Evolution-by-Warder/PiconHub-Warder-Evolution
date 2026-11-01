@@ -110,11 +110,10 @@ class MenuTests(unittest.TestCase):
             root=ET.fromstring(layout.main_skin(width,height))
             names={item.get("name") for item in root}
             self.assertTrue({"day","date","clock","seconds","version","list","preview"}<=names)
-            self.assertFalse({"profile1","profile2","profile3"}&names)
+            self.assertTrue({"profile1","profile2","profile3","profile4"}<=names)
             self.assertTrue({"recent%d" % i for i in range(6)}<=names)
             self.assertNotIn("Nastavenie piconov",layout.main_skin(width,height))
             self.assertTrue({"brand_logo"}<=names)
-            self.assertNotIn("profil",layout.main_skin(width,height).lower())
             fields={item.get("name"):item for item in root if item.get("name")}
             self.assertLess(int(fields["seconds"].get("font").split(";")[1]),int(fields["clock"].get("font").split(";")[1]))
             for item in root:
@@ -125,6 +124,25 @@ class MenuTests(unittest.TestCase):
             self.assertNotIn("10:48",layout.main_skin(width,height))
             self.assertNotIn("More channels",layout.main_skin(width,height))
             for count in (1,3,6,53):ET.fromstring(layout.dialog_skin(width,height,count))
+
+    def test_profile_tabs_and_five_rows_fit_without_moving_preview_or_footer(self):
+        for width,height in ((1280,720),(1920,1080),(3840,2160)):
+            scale=height/1080
+            fields={item.get('name'):item for item in ET.fromstring(layout.main_skin(width,height)) if item.get('name')}
+            def rect(name):
+                node=fields[name]
+                return (*map(int,node.get('position').split(',')),*map(int,node.get('size').split(',')))
+            x,y,w,h=rect('list')
+            self.assertEqual(h//round(100*scale),5)
+            self.assertLessEqual(y+h,round(895*scale))
+            for number in range(1,5):
+                tx,ty,tw,th=rect('profile%d'%number)
+                self.assertGreaterEqual(tx,x)
+                self.assertLessEqual(tx+tw,x+w)
+                self.assertLess(ty+th,y)
+                if number<4:self.assertLess(tx+tw,rect('profile%d'%(number+1))[0])
+            self.assertEqual(rect('preview'),tuple(round(v*scale) for v in (1320,465,440,264)))
+            self.assertEqual(rect('key_green'),tuple(round(v*scale) for v in (530,1018,400,45)))
 
     def test_header_seconds_colors_spacing_and_direct_footer_labels(self):
         root=ET.fromstring(layout.main_skin())

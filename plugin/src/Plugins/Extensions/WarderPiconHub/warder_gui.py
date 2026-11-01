@@ -14,9 +14,10 @@ from Tools.LoadPixmap import LoadPixmap
 from Components.Pixmap import Pixmap
 from Components.ProgressBar import ProgressBar
 from Components.ScrollLabel import ScrollLabel
-from Components.config import ConfigSelection, ConfigText, config, configfile
+from Components.config import ConfigSelection, ConfigText, ConfigYesNo, config, configfile
 from Screens.MessageBox import MessageBox
 from Screens.Screen import Screen
+from skin import parseColor
 from enigma import BT_SCALE, RT_HALIGN_LEFT, RT_VALIGN_CENTER, eListboxPythonMultiContent, eTimer, gFont, getDesktop, ePoint, eSize
 
 from . import plugin as legacy
@@ -301,9 +302,10 @@ class PiconJobScreen(PiconJobController,Screen):
 class EmbeddedPiconJob(PiconJobController):
     def __init__(self,host,preferences):
         self.host,self.view_log=host,False
+        self.title=_("Aktualizácia piconov")+" • "+(_("Profily: %s")%", ".join(str(p["profile_number"]) for p in preferences if "profile_number" in p))
         self.setup_job(preferences)
         host.onClose.append(self.cleanup)
-        host.show_update_notice(_("Pripravujem aktualizáciu piconov…"),title=_("Aktualizácia piconov"))
+        host.show_update_notice(_("Pripravujem aktualizáciu piconov…"),title=self.title)
         self.start()
 
     def __getitem__(self,key):
@@ -322,7 +324,7 @@ class EmbeddedPiconJob(PiconJobController):
 
     def back_from_log(self):
         self.view_log=False
-        self.host["picker_title"].setText(_("Aktualizácia piconov"))
+        self.host["picker_title"].setText(self.title)
         self.render_history()
         self.host.set_footer()
 
@@ -357,17 +359,12 @@ class WarderMainScreen(Screen):
         self.catalog_results=queue.Queue()
         self.recent_results=queue.Queue()
         self.selection={key:None for key in ("satellites","resolution","style","method","destination")}
-        self.profile_id=max(1,min(3,int(config.plugins.chocholousekpicons_id.getValue())))
-        profile=self.profile
-        if not hasattr(profile,"warder_selectors"):
-            profile.warder_selectors=ConfigText(default="",fixed_size=False)
-        value=profile.background.value
-        if value in (None,"no_satellites_was_selected","no_picons"):
-            value="transparent"
-        choices=list(model.STYLES)
-        if value not in dict(choices):choices.append((value,_("Pôvodná voľba: ")+str(value)))
-        profile.background=ConfigSelection(default=value,choices=choices)
-        profile.background.setValue(value)
+        for profile in config.plugins.chocholousekpicons[1:legacy.PROFILE_COUNT+1]:
+            self.prepare_profile(profile)
+        self.load_profile(config.plugins.chocholousekpicons_id.getValue())
+        for number in range(1,legacy.PROFILE_COUNT+1):
+            self['profile%d'%number]=Label('')
+            self['profile_mark%d'%number]=Label('')
         for name in ("day","date","clock","seconds","version","preview_caption","summary","status","picker_cover","picker_title","navigation_hint"):
             self[name]=Label("")
         for color in ("red","green","yellow","blue"):
@@ -383,13 +380,52 @@ class WarderMainScreen(Screen):
         for number in range(recent.COUNT):
             self["recent%d" % number]=Pixmap()
         self["list"]=menu_component(self.warder_scale,100,(32,29,23))
-        self["actions"]=ActionMap(["OkCancelActions","DirectionActions","ColorActions"],{
-            "up":self.move_up,"down":self.move_down,"left":self.page_up,"right":self.page_down,"ok":self.open_row,
+        self["actions"]=ActionMap(["OkCancelActions","DirectionActions","ColorActions","NumberActions"],{
+            "up":self.move_up,"down":self.move_down,"left":self.page_up,"right":self.page_down,"ok":self.open_row,"0":self.toggle_profile,
             "cancel":self.exit,"red":self.exit,"green":self.green_action,"yellow":self.check_plugin_update,"blue":self.about},-2)
         self.clock_timer=eTimer();self.clock_connection=connect_timer(self.clock_timer,self.tick)
         self.warderUpdateCheck=StartupUpdateCheck(self)
         self.onLayoutFinish.append(self.ready)
         self.onClose.append(self.cleanup)
+        self.refresh()
+
+    def prepare_profile(self,profile):
+        if not hasattr(profile,"warder_process"):
+            profile.warder_process=ConfigYesNo(default=False)
+        if not hasattr(profile,"warder_selectors"):
+            profile.warder_selectors=ConfigText(default="",fixed_size=False)
+        value=getattr(profile.background,"saved_value",None) or profile.background.value
+        if value is None:
+            value="no_satellites_was_selected"
+        choices=[("no_satellites_was_selected",_("Vyber si…"))]+list(model.STYLES)
+        if value not in dict(choices):choices.append((value,_("Vyber si…") if value in ("no_satellites_was_selected","no_picons") else _("Pôvodná voľba: ")+str(value)))
+        # Enigma2 omits default values when saving; never make the user's style the default.
+        profile.background=ConfigSelection(default="no_satellites_was_selected",choices=choices)
+        profile.background.setValue(value)
+
+    def load_profile(self,number):
+        self.profile_id=max(1,min(legacy.PROFILE_COUNT,int(number)))
+        self.prepare_profile(self.profile)
+        self.selection=model.profile_selection(self.profile)
+
+    def marked_profiles(self):
+        return [number for number in range(1,legacy.PROFILE_COUNT+1)
+                if config.plugins.chocholousekpicons[number].warder_process.value]
+
+    def toggle_profile(self):
+        if self.closed or self.job is not None or self.picker is not None or self.panel is not None:return
+        setting=self.profile.warder_process
+        setting.setValue(not setting.value);setting.save();configfile.save();self.refresh()
+
+    def switch_profile(self,number):
+        if self.closed or self.job is not None or self.picker is not None or self.panel is not None:return
+        number=(int(number)-1)%legacy.PROFILE_COUNT+1
+        if number==self.profile_id:return
+        self.save()
+        config.plugins.chocholousekpicons_id.setValue(number)
+        config.plugins.chocholousekpicons_id.save()
+        self.load_profile(number)
+        configfile.save()
         self.refresh()
 
     @property
@@ -439,6 +475,17 @@ class WarderMainScreen(Screen):
 
     def refresh(self):
         if self.picker is not None or self.panel is not None:return
+        for number in range(1,legacy.PROFILE_COUNT+1):
+            tab=self['profile%d'%number]
+            selected=config.plugins.chocholousekpicons[number].warder_process.value
+            tab.setText(_('Profil %d')%number)
+            mark=self['profile_mark%d'%number]
+            mark.setText('✓' if selected else '□')
+            if mark.instance:
+                mark.instance.setForegroundColor(parseColor('#0000ea9b' if selected else '#00b5d4ec'))
+            if tab.instance:
+                tab.instance.setBackgroundColor(parseColor('#002a70ad' if number==self.profile_id else '#0010243c'))
+                tab.instance.setForegroundColor(parseColor('#00ffffff' if number==self.profile_id else '#00b5d4ec'))
         self.set_footer()
         profile=self.profile
         selections=self.selection["satellites"] or []
@@ -530,7 +577,9 @@ class WarderMainScreen(Screen):
         picking=self.picker is not None
         multiple=picking and self.picker.multiple
         directory=picking and self.picker_path is not None
-        captions=(_("Naspäť"),_("Použiť priečinok") if directory else _("Potvrdiť výber") if multiple else "","","") if picking else (_("Zatvoriť"),_("Stiahnuť"),_("Aktualizácia pluginu"),_("O projekte"))
+        marked=self.marked_profiles()
+        download=_("Stiahnuť (%d)")%len(marked)
+        captions=(_("Naspäť"),_("Použiť priečinok") if directory else _("Potvrdiť výber") if multiple else "","","") if picking else (_("Zatvoriť"),download,_("Aktualizácia pluginu"),_("O projekte"))
         if self.panel is not None:
             captions=(_("Naspäť") if self.panel["enabled"] else "",self.panel["confirm"] if self.panel["enabled"] else "","","")
         if self.job is not None:
@@ -539,7 +588,12 @@ class WarderMainScreen(Screen):
             self["key_"+color].setText(text)
             for prefix in ("key_","line_","footer_"):
                 (self[prefix+color].show if text else self[prefix+color].hide)()
-        self["navigation_hint"].setText(_("Otvoriť")+" • OK" if directory else _("Vybrať s OK") if picking else _("↑↓: výber riadka • OK: otvoriť ponuku • Vyber všetkých päť položiek a stlač Stiahnuť."))
+        disabled=not picking and self.panel is None and self.job is None and not marked
+        if self["key_green"].instance:
+            self["key_green"].instance.setForegroundColor(parseColor("#00738696" if disabled else "#0000ea9b"))
+        if self["line_green"].instance:
+            self["line_green"].instance.setBackgroundColor(parseColor("#00314b65" if disabled else "#0000ea9b"))
+        self["navigation_hint"].setText(_("Otvoriť")+" • OK" if directory else _("Vybrať s OK") if picking else _("←→: profil • 0: označiť • ↑↓: riadok • OK: výber • Stiahnuť: označené profily" if marked else "←→: profil • 0: označiť • ↑↓: riadok • OK: výber • Najprv označ profil"))
         if self.panel is not None:self["navigation_hint"].setText("")
 
     def move_up(self):
@@ -555,10 +609,12 @@ class WarderMainScreen(Screen):
     def page_up(self):
         if self.panel is not None:self.move_up()
         elif self.picker is not None:self["list"].pageUp()
+        else:self.switch_profile(self.profile_id-1)
 
     def page_down(self):
         if self.panel is not None:self.move_down()
         elif self.picker is not None:self["list"].pageDown()
+        else:self.switch_profile(self.profile_id+1)
 
     def show_update_notice(self,text,callback=None,confirm="",enabled=True,title=None):
         if self.panel is None:self.panel_return_index=self["list"].getSelectionIndex()
@@ -617,8 +673,8 @@ class WarderMainScreen(Screen):
         self.picker=None
         self["picker_cover"].hide();self["picker_title"].hide()
         scale=self.warder_scale
-        self["list"].instance.move(ePoint(round(70*scale),round(350*scale)))
-        self["list"].instance.resize(eSize(round(1120*scale),round(500*scale)))
+        self["list"].instance.move(ePoint(round(70*scale),round(390*scale)))
+        self["list"].instance.resize(eSize(round(1120*scale),5*round(100*scale)))
         self["list"].l.setItemHeight(round(100*scale))
         self["list"].l.setFont(0,gFont("Regular",round(32*scale)))
         self.refresh();self["list"].moveToIndex(self.picker_return_index)
@@ -650,12 +706,21 @@ class WarderMainScreen(Screen):
         self.profile.sats.setValue(" ".join(positions));self.save()
 
     def update_picons(self):
-        try:
-            missing=[name for key,name in (("satellites",_("Satelity")),("resolution",_("Rozlíšenie")),("style",_("Pozadie")),("method",_("Režim")),("destination",_("Priečinok"))) if not self.selection[key]]
-            if missing:raise ValueError(_("Najprv vyber: ")+", ".join(missing)+".")
-            preferences=[model.profile_preferences(self.profile)]
-        except ValueError as exc:
-            self.show_update_notice(str(exc),title=_("Aktualizácia piconov"));return
+        if self.closed or self.job is not None or self.picker is not None or self.panel is not None:return
+        selected=self.marked_profiles()
+        if not selected:return
+        preferences=[]
+        for number in selected:
+            profile=config.plugins.chocholousekpicons[number]
+            selection=model.profile_selection(profile)
+            try:
+                missing=[name for key,name in (("satellites",_("Satelity")),("resolution",_("Rozlíšenie")),("style",_("Pozadie")),("method",_("Režim")),("destination",_("Priečinok"))) if not selection[key]]
+                if missing:raise ValueError(_("Najprv vyber: ")+", ".join(missing)+".")
+                prefs=model.profile_preferences(profile)
+                prefs['profile_number']=number
+                preferences.append(prefs)
+            except ValueError as exc:
+                self.show_update_notice((_("Profil %d")%number)+": "+str(exc),title=_("Aktualizácia piconov"));return
         if any(p["update_mode"]==model.sync.UPDATE_MODE_REPLACE_ALL for p in preferences):
             self.show_update_notice(_("Úplné nahradenie odstráni staré kanálové picony vybraných pozícií. Pokračovať?"),callback=lambda yes:self.start_picon_job(preferences) if yes else None,confirm=_("Potvrdiť výber"),title=_("Aktualizácia piconov"))
         else:self.start_picon_job(preferences)
@@ -667,8 +732,6 @@ class WarderMainScreen(Screen):
 
     def picon_job_finished(self,success):
         if success is True:
-            self.selection={key:None for key in self.selection}
-            self["list"].moveToIndex(0)
             self.refresh()
 
     def check_plugin_update(self):

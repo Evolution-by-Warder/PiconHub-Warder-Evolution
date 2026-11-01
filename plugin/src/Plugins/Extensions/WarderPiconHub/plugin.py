@@ -55,7 +55,8 @@ from .radio_references import collect_picon_references, picon_filename_is_refere
 from . import _, PLUGIN_PATH            # from . import _, PLUGIN_PATH
 ###########################################################################
 
-config.plugins.chocholousekpicons_id = ConfigSelectionNumber(1,3,1,default=1)
+PROFILE_COUNT = 4
+config.plugins.chocholousekpicons_id = ConfigSelectionNumber(1,PROFILE_COUNT,1,default=1)
 
 config.plugins.chocholousekpicons = ConfigSubList()
 
@@ -73,7 +74,7 @@ methodsALL = ConfigSelection(
                             ('sync_tv',       _('sync with TV userbouquets')         ),
                             ('sync_tv_radio', _('sync with TV+RADIO userbouquets')   )       ]  )
 
-for id in range(0,4):
+for id in range(PROFILE_COUNT+1):
     
     p = ConfigSubsection()
     
@@ -117,6 +118,8 @@ for id in range(0,4):
         ("sync_tv_radio", _("sync with TV+RADIO userbouquets"))])
     
     p.sats = ConfigText(default = '19.2E 23.5E', fixed_size = False)
+    p.warder_selectors = ConfigText(default='', fixed_size=False)
+    p.warder_process = ConfigYesNo(default=False)
     
     p.resolution = ConfigSelection(
         default = '220x132',
@@ -291,7 +294,7 @@ class mainConfigScreen(Screen, ConfigListScreen):
         
         all_SAT = self.getAllSat()              ### 5.
         id_backup = config.plugins.chocholousekpicons_id.getValue()
-        for id in range(0, 4):
+        for id in range(PROFILE_COUNT+1):
             #### filling data for all available picon-backgrounds, in all user-configuration profiles:
             config.plugins.chocholousekpicons_id.setValue(id)
             self.changeAvailableBackgrounds()
@@ -1417,7 +1420,7 @@ class piconsUpdateJobScreen(Screen):
             self.writeLog( _('Attempting to free RAM by clearing the system cache (before: %s / after: %s).') % (fRAM, self.freeRAM()) )
         
         # Postupne prejdem a spracujem všetky konfiguračné profily
-        for id in range(0,4):
+        for id in range(PROFILE_COUNT+1):
             if config.plugins.chocholousekpicons[id].allowed.getValue():
                self.proceedCfgProfile(id) 
         

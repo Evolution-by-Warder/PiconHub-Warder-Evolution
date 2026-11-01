@@ -1,6 +1,5 @@
-# PiconHub 0.1.34-rc1
+PiconHub 0.1.38 — skúšobná verzia
 
-Testovacie vydanie so spoľahlivejším overením dokončenej inštalácie a prehľadnou históriou posledných štyroch vydaní.
+Zelené fajky pri označených profiloch. Modrá záložka naďalej označuje profil otvorený na úpravu.
 
-Najprv overte bežný prechod zo starej verzie bez --force-reinstall. Po inštalácii reštartujte GUI.
-Ostrý aktualizačný kanál zostáva nezmenený.
+Ovládanie: ←/→ prepína profil, 0 pridá alebo zruší fajku. Zelené Stiahnuť (počet) spracuje iba označené profily. Bez označenia sa nič nespustí. Každý zo štyroch profilov si pamätá svoje nastavenia. Po inštalácii reštartujte GUI.
