@@ -92,6 +92,17 @@ def profile_preferences(profile):
     return preferences
 
 
+def profile_selection(profile):
+    """Restore a fresh working copy without changing this or another profile."""
+    return {
+        'satellites': initial_selectors(profile) or None,
+        'resolution': profile.resolution.value if profile.resolution.value in dict(RESOLUTIONS) else None,
+        'style': profile.background.value if profile.background.value in dict(STYLES) else None,
+        'method': profile.method.value if profile.method.value in METHOD_MAP else None,
+        'destination': profile.picon_folder_user.value if profile.picon_folder.value=='user_defined' else profile.picon_folder.value,
+    }
+
+
 def clock_text(now=None, language="sk"):
     now = now or datetime.datetime.now()  # Receiver's local timezone, including DST.
     languages = {

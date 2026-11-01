@@ -185,7 +185,37 @@ def validate_ipk(path, release):
         raise UpdateError("IPK package identity, version or architecture mismatch")
 
 
-def install_release(release, opener=_open, runner=subprocess.run):
+def verify_payload(expected_version=None, runtime=None):
+    runtime = pathlib.Path(runtime) if runtime is not None else pathlib.Path(__file__).parent
+    for name in ('plugin.py', '__init__.py', 'warder_gui.py', 'warder_engine.py',
+                 'warder_update.py', 'warder_migrate.py', 'version.txt'):
+        path = runtime / name
+        if not path.is_file() or path.stat().st_size == 0:
+            raise UpdateError('Incomplete PiconHub installation: missing ' + name)
+    installed = (runtime / 'version.txt').read_text().strip()
+    version_key(installed)
+    if expected_version is not None and installed != expected_version:
+        raise UpdateError('Installed PiconHub version does not match the downloaded release')
+    return installed
+
+
+def verify_installation(expected_version, runner=subprocess.run, runtime=None):
+    installed = verify_payload(expected_version, runtime)
+    result = runner(['opkg', 'status', PACKAGE_ID], stdout=subprocess.PIPE,
+                    stderr=subprocess.STDOUT, text=True, timeout=10)
+    if result.returncode != 0:
+        raise UpdateError('Could not verify installed PiconHub package state')
+    for paragraph in result.stdout.split('\n\n'):
+        fields = dict(line.split(': ', 1) for line in paragraph.splitlines()
+                      if ': ' in line and not line[:1].isspace())
+        if (fields.get('Package') == PACKAGE_ID and
+                fields.get('Version') == installed and
+                fields.get('Status', '').split() == ['install', 'ok', 'installed']):
+            return installed
+    raise UpdateError('PiconHub package is not completely installed')
+
+
+def install_release(release, opener=_open, runner=subprocess.run, verifier=verify_installation):
     """Called only after the UI accepts installation; never force or reboot."""
     with tempfile.TemporaryDirectory(prefix="piconhub-plugin-update-") as temporary:
         path = download_release(release, pathlib.Path(temporary) / "update.ipk", opener)
@@ -194,4 +224,16 @@ def install_release(release, opener=_open, runner=subprocess.run):
                         stderr=subprocess.STDOUT, text=True, timeout=300)
         if result.returncode != 0:
             raise UpdateError("opkg failed (%s): %s" % (result.returncode, result.stdout[-2000:]))
+        verifier(release.version, runner=runner)
     return release.version
+
+
+if __name__ == '__main__':
+    import sys
+    if sys.argv[1:] != ['--verify-installed-files']:
+        sys.exit(2)
+    try:
+        verify_payload()
+    except (OSError, ValueError, UpdateError) as error:
+        print(str(error), file=sys.stderr)
+        sys.exit(1)

@@ -12,10 +12,12 @@ ROOT=pathlib.Path(__file__).parents[1]/"src/Plugins/Extensions/WarderPiconHub"
 
 
 class Setting:
-    def __init__(self,default=None,**kwargs):self.value,self.default,self.saves=default,default,0
+    def __init__(self,default=None,**kwargs):self.value,self.default,self.saves,self.saved_value=default,default,0,None
     def setValue(self,value):self.value=value
     def getValue(self):return self.value
-    def save(self):self.saves+=1
+    def save(self):
+        self.saves+=1
+        self.saved_value=None if self.value==self.default else self.value
 
 
 class Component:
@@ -23,6 +25,7 @@ class Component:
         self.text,self.instance,self.visible,self.background,self.filename=text,self,True,None,None
     def setText(self,text,showBottom=False):self.text=text;self.showBottom=showBottom
     def setBackgroundColor(self,color):self.background=color
+    def setForegroundColor(self,color):self.foreground=color
     def setPixmapFromFile(self,path):self.filename=path
     def setScale(self,value):pass
     def setAlphatest(self,value):pass
@@ -82,6 +85,7 @@ class NativeControllerTests(unittest.TestCase):
         cls.configfile=types.SimpleNamespace(save=lambda:None)
         cls.saves=[]
         legacy=types.ModuleType(namespace+".plugin")
+        legacy.PROFILE_COUNT=4
         legacy.mainConfigScreen=types.SimpleNamespace(cfgProfileSave=lambda screen,number:cls.saves.append(number))
         startup=types.ModuleType(namespace+".warder_update_ui")
         class Check:
@@ -96,7 +100,7 @@ class NativeControllerTests(unittest.TestCase):
                "Components.MenuList":{"MenuList":Menu},"Components.MultiContent":{"MultiContentEntryText":lambda **kwargs:kwargs,"MultiContentEntryPixmapAlphaBlend":lambda **kwargs:kwargs},"Tools.LoadPixmap":{"LoadPixmap":lambda **kwargs:kwargs},
                "Components.Pixmap":{"Pixmap":Component},"Components.ProgressBar":{"ProgressBar":Component},
                "Components.ScrollLabel":{"ScrollLabel":Component},
-               "Components.config":{"ConfigSelection":Setting,"ConfigText":Setting,"config":cls.config,"configfile":cls.configfile},
+               "Components.config":{"ConfigSelection":Setting,"ConfigText":Setting,"ConfigYesNo":Setting,"config":cls.config,"configfile":cls.configfile},
                "Screens.MessageBox":{"MessageBox":types.SimpleNamespace(TYPE_INFO=0,TYPE_ERROR=1,TYPE_YESNO=2)},
                "Screens.Screen":{"Screen":Screen},"skin":{"parseColor":lambda x:x},
                "enigma":{"BT_SCALE":1,"ePixmap":Component,"eWidget":Component,"ePoint":lambda *v:v,"eSize":lambda *v:v,"eTimer":Timer,"gFont":lambda *a:a,"RT_HALIGN_LEFT":1,"RT_VALIGN_CENTER":2,
@@ -117,7 +121,7 @@ class NativeControllerTests(unittest.TestCase):
         gui_language_patch=patch.object(self.gui,"language_code",lambda:self.i18n.language_code())
         gui_language_patch.start();self.addCleanup(gui_language_patch.stop)
         profiles=[]
-        for number in range(4):
+        for number in range(5):
             profiles.append(types.SimpleNamespace(allowed=Setting(number==1),method=Setting("sync_tv"),
                 sats=Setting("19.2E 23.5E"),resolution=Setting("220x132"),background=Setting("transparent"),
                 picon_folder=Setting("/usr/share/enigma2/picon"),picon_folder_user=Setting("/")))
@@ -135,23 +139,21 @@ class NativeControllerTests(unittest.TestCase):
         self.main.satellites_chosen(["192E","235E"])
         for key,value in (("resolution","220x132"),("style","transparent"),("method","sync_tv"),("destination","/media/hdd/picon")):
             self.main.choose(key,value)
+        if not self.main.profile.warder_process.value:self.main.toggle_profile()
 
-    def test_startup_is_neutral_even_with_saved_settings_and_reopens_neutral(self):
-        self.assertEqual([row[0][2] for row in self.main["list"].values],["Vyber si…"]*5)
-        self.assertTrue(self.main["brand_logo"].visible)
-        self.assertFalse(self.main["preview"].visible)
-        self.assertTrue(self.main["brand_logo"].picture.filename.endswith("warder-emblem.png"))
-        self.main.update_picons()
-        self.assertIsNotNone(self.main.panel)
-        self.assertEqual(self.calls,[])
-        self.main.exit()
+    def test_saved_profile_restores_on_startup_and_reopening(self):
+        self.assertTrue(all(row[0][2]!='Vyber si…' for row in self.main['list'].values))
+        self.assertTrue(self.main['preview'].visible)
         self.complete_selection()
         other=self.gui.WarderMainScreen(self.session)
-        self.assertEqual([row[0][2] for row in other["list"].values],["Vyber si…"]*5)
-        self.assertTrue(other["brand_logo"].visible)
-        self.assertEqual(self.main.profile.picon_folder_user.value,"/media/hdd/picon")
+        self.assertEqual(other.selection,self.main.selection)
+        self.assertEqual(other.profile.picon_folder_user.value,'/media/hdd/picon')
+        self.assertTrue(other['preview'].visible)
 
     def test_partial_selection_preview_follows_background_and_native_resolution(self):
+        profile=self.main.profile
+        profile.sats.setValue('');profile.background.setValue('no_satellites_was_selected')
+        self.main=self.gui.WarderMainScreen(self.session)
         self.main.choose("resolution","400x240")
         self.assertTrue(self.main["brand_logo"].visible)
         self.main.choose("style","black")
@@ -161,12 +163,13 @@ class NativeControllerTests(unittest.TestCase):
         self.assertEqual(self.main["preview"].dimensions,(400,240))
         self.assertIn("400×240",self.main["preview_caption"].text)
         self.main.choose("resolution","50x30")
+        self.main.toggle_profile()
         self.assertEqual(self.main["preview"].dimensions,(50,30))
         self.main.update_picons()
         self.assertIsNotNone(self.main.panel)
         self.assertEqual(self.calls,[])
         self.main.exit()
-        self.assertEqual(self.main.selection["satellites"],None)
+        self.assertIsNone(self.main.selection["satellites"])
 
     def test_footer_actions_open_plugin_update_about_and_close_directly(self):
         with patch.object(self.main.warderUpdateCheck,"request") as request:
@@ -227,9 +230,9 @@ class NativeControllerTests(unittest.TestCase):
         self.main["list"].moveToIndex(2);self.main.open_row()
         self.assertEqual(self.main.selection["resolution"],"400x240")
         self.assertEqual(self.main["list"].getSelectionIndex(),1)
-        self.assertEqual(self.main["list"].location,(70,350))
+        self.assertEqual(self.main["list"].location,(70,390))
         self.assertEqual(self.main["list"].dimensions,(1120,500))
-        self.assertEqual(self.main["key_green"].text,"Stiahnuť")
+        self.assertEqual(self.main["key_green"].text,"Stiahnuť (0)")
         self.assertFalse(self.main["picker_cover"].visible)
         self.assertEqual(self.calls,[])
 
@@ -294,7 +297,7 @@ class NativeControllerTests(unittest.TestCase):
             self.main["list"].moveToIndex(1);self.main.open_row()
             self.assertEqual(self.main.picker_path,child)
             self.main.exit()
-            self.assertIsNone(self.main.selection["destination"])
+            self.assertEqual(self.main.selection["destination"],"/usr/share/enigma2/picon")
             self.main.open_directory(str(child))
             self.main.green_action()
             self.assertEqual(self.main.selection["destination"],str(child))
@@ -408,7 +411,7 @@ class NativeControllerTests(unittest.TestCase):
         self.assertTrue(job.done);self.assertFalse(job.timer.running)
         job.cleanup()
 
-    def test_successful_job_returns_to_empty_first_row_and_default_preview(self):
+    def test_successful_job_retains_profile_settings_row_and_preview(self):
         self.complete_selection()
         self.main['list'].moveToIndex(4)
         stored=(self.main.profile.sats.value,self.main.profile.resolution.value,
@@ -419,12 +422,12 @@ class NativeControllerTests(unittest.TestCase):
         job.events.put(('result',{'added':1,'changed':0,'removed':0}));job.poll()
         self.assertEqual(sum(bool(v) for v in self.main.selection.values()),5)
         job.finish();self.assertIsNone(self.main.job)
-        self.assertTrue(all(v is None for v in self.main.selection.values()))
-        self.assertEqual(self.main['list'].getSelectionIndex(),0)
-        self.assertTrue(all(row[0][2]=='Vyber si…' for row in self.main['list'].values))
-        self.assertIn('0 z 5',self.main['summary'].text)
-        self.assertFalse(self.main['preview'].visible)
-        self.assertTrue(self.main['brand_logo'].visible)
+        self.assertEqual(sum(bool(v) for v in self.main.selection.values()),5)
+        self.assertEqual(self.main['list'].getSelectionIndex(),4)
+        self.assertTrue(all(row[0][2]!='Vyber si…' for row in self.main['list'].values))
+        self.assertIn('5 z 5',self.main['summary'].text)
+        self.assertTrue(self.main['preview'].visible)
+        self.assertFalse(self.main['brand_logo'].visible)
         self.assertEqual(stored,(self.main.profile.sats.value,self.main.profile.resolution.value,
                                 self.main.profile.background.value,self.main.profile.method.value))
 
@@ -501,13 +504,13 @@ class NativeControllerTests(unittest.TestCase):
                 text=self.main['panel_text'].text
                 self.assertEqual(self.calls,[])
                 self.assertIn('Plugin vychádza z práce s3n0 a Chocholousek.',text)
-                self.assertIn('Zmeny v tejto verzii:\nOpravené sťahovanie.',text)
+                self.assertIn('Opravené sťahovanie.',text)
                 self.main.exit()
                 self.config.osd.language.value='en_GB'
                 self.main.about()
                 text=self.main['panel_text'].text
                 self.assertIn('work of s3n0 and Chocholousek.',text)
-                self.assertIn('Changes in this version:\nImproved downloads.',text)
+                self.assertIn('Improved downloads.',text)
 
     def test_text_dialog_uses_red_to_return(self):
         dialog=self.gui.TextDialog(self.session,"O projekte","PiconHub")
@@ -567,6 +570,7 @@ class NativeControllerTests(unittest.TestCase):
 
     def test_unoffered_legacy_resolution_is_not_silently_changed(self):
         self.main.profile.resolution.setValue("150x90")
+        self.main.toggle_profile()
         self.main.refresh()
         self.assertEqual(self.main.profile.resolution.value,"150x90")
         self.main.update_picons()
@@ -588,7 +592,7 @@ class NativeControllerTests(unittest.TestCase):
         self.main.clock_timer.start();self.main.cleanup()
         self.assertFalse(self.main.clock_timer.running)
 
-    def test_saved_active_settings_are_retained_without_profile_controls(self):
+    def test_saved_active_settings_are_retained_with_four_profile_tabs(self):
         self.config.plugins.chocholousekpicons_id.setValue(2)
         settings=self.config.plugins.chocholousekpicons[2]
         settings.background.setValue("black")
@@ -604,7 +608,7 @@ class NativeControllerTests(unittest.TestCase):
                          ["satellites","resolution","style","method","destination"])
         for action in ("1","2","3"):
             self.assertNotIn(action,self.main["actions"])
-        self.assertFalse(any(name.startswith("profile") for name in self.main.widgets))
+        self.assertEqual([self.main["profile%d"%i].text for i in range(1,5)],["Profil %d"%i for i in range(1,5)])
 
     def test_update_uses_only_visible_settings_even_if_old_profiles_are_enabled(self):
         self.complete_selection()
@@ -624,6 +628,139 @@ class NativeControllerTests(unittest.TestCase):
         self.main.update_picons()
         self.assertIsInstance(self.main.job,self.gui.EmbeddedPiconJob)
         self.assertEqual(self.main.job.preferences[0]["package_selectors"],["192E","235E"])
+
+    def test_four_profiles_restore_independent_choices_and_active_tab(self):
+        expected=[]
+        selectors=(['192E'],['DAB'],['IPTV-SK-CZ'],['FREESAT','DAB'])
+        for number in range(1,5):
+            self.main.switch_profile(number)
+            self.main.satellites_chosen(selectors[number-1])
+            for key,value in [('resolution','220x132'),('style',('transparent','white','black','transparent')[number-1]),
+                              ('method','all_inc'),('destination','/media/hdd/profile%d/picon'%number)]:
+                self.main.choose(key,value)
+            expected.append(dict(self.main.selection))
+        for number in (1,3,2,4):
+            self.main.switch_profile(number)
+            self.assertEqual(self.main.selection,expected[number-1])
+            self.assertEqual(self.main['profile%d'%number].background,'#002a70ad')
+            self.assertEqual(sum(self.main['profile%d'%i].background=='#002a70ad' for i in range(1,5)),1)
+        reopened=self.gui.WarderMainScreen(self.session)
+        self.assertEqual(reopened.profile_id,4)
+        self.assertEqual(reopened.selection,expected[3])
+        reopened.selection['satellites'].append('235E')
+        reopened.load_profile(4)
+        self.assertEqual(reopened.selection,expected[3])
+        self.assertEqual(self.config.plugins.chocholousekpicons[0].method.value,'sync_tv')
+
+    def test_profile_four_alone_runs_even_with_all_profiles_enabled(self):
+        for profile in self.config.plugins.chocholousekpicons:
+            profile.allowed.setValue(True)
+        self.main.switch_profile(4)
+        self.main.satellites_chosen(['DAB'])
+        self.main.choose('method','all_inc')
+        self.main.choose('destination','/media/usb/picon')
+        self.main.toggle_profile()
+        self.main.update_picons()
+        preferences=self.main.job.preferences
+        self.assertEqual(len(preferences),1)
+        self.assertTrue(preferences[0]['dab_only'])
+        self.assertEqual(preferences[0]['destination'],'/media/usb/picon')
+        self.assertEqual(preferences[0]['package_selectors'],[])
+        self.main.profile.picon_folder_user.setValue('/media/hdd/other/picon')
+        self.assertEqual(preferences[0]['destination'],'/media/usb/picon')
+        self.main.page_down()
+        self.assertEqual(self.main.profile_id,4)
+
+    def test_profile_arrows_wrap_but_are_blocked_during_picker_and_confirmation(self):
+        self.main.page_up();self.assertEqual(self.main.profile_id,4)
+        self.main.page_down();self.assertEqual(self.main.profile_id,1)
+        self.main.select_satellites()
+        self.main.switch_profile(3);self.assertEqual(self.main.profile_id,1)
+        self.main.exit()
+        self.main.toggle_profile()
+        self.main.choose('method','all');self.main.update_picons()
+        self.assertIsNotNone(self.main.panel)
+        self.main.switch_profile(2);self.assertEqual(self.main.profile_id,1)
+        self.main.exit();self.assertIsNone(self.main.job)
+        self.main.page_down();self.assertEqual(self.main.profile_id,2)
+
+    def test_only_marked_profiles_one_and_three_run_with_their_own_settings(self):
+        self.complete_selection()
+        self.main.switch_profile(3)
+        self.main.satellites_chosen(['DAB'])
+        for key,value in [('method','all_inc'),('style','black'),('destination','/media/usb/picon')]:self.main.choose(key,value)
+        self.main['actions']['0']()
+        self.main.switch_profile(4)
+        self.main.profile.resolution.setValue('unsupported')
+        self.assertEqual(self.main.marked_profiles(),[1,3])
+        self.assertEqual(self.main['key_green'].text,'Stiahnuť (2)')
+        self.assertEqual(self.main['profile_mark1'].text,'✓')
+        self.assertEqual(self.main['profile_mark1'].foreground,'#0000ea9b')
+        self.assertEqual(self.main['profile_mark3'].text,'✓')
+        self.assertEqual(self.main['profile_mark3'].foreground,'#0000ea9b')
+        self.main.update_picons();job=self.main.job
+        self.assertEqual([p['profile_number'] for p in job.preferences],[1,3])
+        self.assertEqual([p['destination'] for p in job.preferences],['/media/hdd/picon','/media/usb/picon'])
+        self.assertEqual(job.preferences[0]['package_selectors'],['192E','235E'])
+        self.assertTrue(job.preferences[1]['dab_only'])
+        self.main['actions']['0']();self.assertEqual(self.main.marked_profiles(),[1,3])
+        self.assertIn('1, 3',self.main['picker_title'].text)
+        job.events.put(('result',{'added':0,'changed':0,'removed':0}));job.poll();job.finish()
+        self.assertEqual(self.main.marked_profiles(),[1,3])
+        reopened=self.gui.WarderMainScreen(self.session)
+        self.assertEqual(reopened.marked_profiles(),[1,3])
+
+    def test_incomplete_marked_profile_aborts_entire_batch_before_start(self):
+        self.complete_selection()
+        self.main.switch_profile(3);self.main.toggle_profile()
+        self.main.profile.resolution.setValue('unsupported')
+        self.main.update_picons()
+        self.assertIsNone(self.main.job)
+        self.assertIn('Profil 3',self.main['panel_text'].text)
+        self.assertIn('Rozlíšenie',self.main['panel_text'].text)
+        self.main.toggle_profile();self.assertEqual(self.main.marked_profiles(),[1,3])
+
+    def test_no_marks_disables_download_and_picker_cannot_change_marks(self):
+        self.main.switch_profile(4)
+        self.main.select_satellites();self.main.toggle_profile()
+        self.assertEqual(self.main.marked_profiles(),[])
+        self.main.exit();self.main.update_picons()
+        self.assertIsNone(self.main.job)
+        self.assertIsNone(self.main.panel)
+        self.assertEqual(self.main['key_green'].text,'Stiahnuť (0)')
+        self.assertEqual(self.main['key_green'].foreground,'#00738696')
+        self.main.toggle_profile();self.main.update_picons()
+        self.assertEqual([p['profile_number'] for p in self.main.job.preferences],[4])
+
+    def test_loading_saved_style_keeps_a_fixed_default_so_native_save_retains_it(self):
+        for number,style in ((1,'black'),(2,'white'),(3,'transparent'),(4,'black')):
+            profile=self.config.plugins.chocholousekpicons[number]
+            profile.background.saved_value=style
+            profile.background.setValue('no_satellites_was_selected')
+            self.main.switch_profile(number)
+            self.main.load_profile(number)
+            self.assertEqual(self.main.selection['style'],style)
+            profile.background.save()
+            self.assertEqual(profile.background.saved_value,style)
+            self.assertNotEqual(profile.background.default,style)
+
+    def test_unknown_legacy_background_is_preserved_without_becoming_a_valid_download(self):
+        profile=self.main.profile
+        profile.background.saved_value='SNP_legacy_custom'
+        profile.background.setValue('no_satellites_was_selected')
+        self.main.load_profile(1)
+        self.assertEqual(profile.background.value,'SNP_legacy_custom')
+        self.assertIsNone(self.main.selection['style'])
+        self.main.toggle_profile()
+        self.main.update_picons()
+        self.assertIsNone(self.main.job)
+
+    def test_hd_picker_return_keeps_five_complete_settings_rows(self):
+        self.main.warder_scale=2/3
+        self.main.open_picker('Test',[('black','Black')],None,callback=lambda value:None)
+        self.main.close_picker()
+        self.assertEqual(self.main['list'].dimensions[1],5*round(100*2/3))
+
 
 
 if __name__=="__main__":unittest.main()

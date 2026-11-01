@@ -1,7 +1,7 @@
-# PiconHub 0.1.33
+PiconHub 0.1.38
 
-Inštalačný balík a aktualizátor používajú výhradne krátky názov `enigma2-plugin-extensions-piconhub_VERSION_all.ipk`. Zostavovanie ani publikovanie nevytvárajú dlhé kópie. Interná identita balíka, skupina rozšírení, nastavenia, picony a schválená grafika zostávajú zachované.
+Štyri nezávislé profily pre sťahovanie piconov. Každý si pamätá vlastné nastavenia satelitov a poskytovateľov, rozlíšenia, pozadia, režimu a cieľového priečinka. Na spracovanie možno označiť ľubovoľný jeden, dva, tri alebo všetky štyri profily.
 
-**Z verzie 0.1.32 nainštalujte tento IPK raz ručne cez existujúcu inštaláciu.** Starý aktualizátor má pevne zakódovaný dlhý názov, preto túto aktualizáciu nedokáže prijať. Odinštalovanie nie je potrebné. Nasledujúce aktualizácie už fungujú s krátkymi názvami. Prechodový dlhý balík sa podľa pokynu vlastníka nevytvára.
+Zelená fajka označuje profil zaradený na spracovanie; modrá záložka profil otvorený na úpravu. Šípky ←/→ prepínajú profily, ↑/↓ a OK upravujú nastavenia, tlačidlo 0 pridá alebo zruší fajku. Zelené Stiahnuť (počet) spracuje iba označené profily. Bez označenia sa nič nespustí. Nastavenia aj označenia sa zachovajú po stiahnutí a reštarte GUI.
 
-Automatické testy a overenie verejného balíka sú povinné pred aktiváciou. Táto oprava zatiaľ nebola potvrdená na fyzickom prijímači.
+Po aktualizácii reštartujte GUI. Z verzie 0.1.32 je potrebná jednorazová ručná inštalácia krátkeho IPK cez existujúcu inštaláciu, bez odinštalovania. Neskoršie podporované verzie používajú bežný aktualizačný kanál.

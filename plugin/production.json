@@ -2,11 +2,75 @@
   "schema": 1,
   "product": "PiconHub Warder Evolution",
   "status": "production-update-active",
-  "approved_on": "2026-10-31",
-  "approval": "Owner: tak to vsetko sprav (activate all three verified repair update channels).",
-  "source_branch": "fix/receiver-repairs-20261031",
-  "source_commit": "c30073e48dceb50a41af957f369aab757e2d1241",
+  "approved_on": "2026-11-01",
+  "approval": "Owner: prosim uprav to ako normal verziu (promote 0.1.38 to a normal stable release and update channel).",
+  "source_branch": "feature/four-profiles-20261101",
+  "source_commit": "4ac22bf74265ae2728c0d1263f91dbb34f19636b",
   "release": {
+    "version": "0.1.38",
+    "tag": "v0.1.38",
+    "url": "https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/download/v0.1.38/enigma2-plugin-extensions-piconhub_0.1.38_all.ipk",
+    "sha256": "e3ed6fb2568877dbce6fde1cbbf1f4150b0c28174a194fec31fbe82808812c1e",
+    "bytes": 2883764,
+    "notes": "PiconHub 0.1.38\n\nŠtyri nezávislé profily pre sťahovanie piconov. Každý si pamätá vlastné nastavenia satelitov a poskytovateľov, rozlíšenia, pozadia, režimu a cieľového priečinka. Na spracovanie možno označiť ľubovoľný jeden, dva, tri alebo všetky štyri profily.\n\nZelená fajka označuje profil zaradený na spracovanie; modrá záložka profil otvorený na úpravu. Šípky ←/→ prepínajú profily, ↑/↓ a OK upravujú nastavenia, tlačidlo 0 pridá alebo zruší fajku. Zelené Stiahnuť (počet) spracuje iba označené profily. Bez označenia sa nič nespustí. Nastavenia aj označenia sa zachovajú po stiahnutí a reštarte GUI.\n\nPo aktualizácii reštartujte GUI. Z verzie 0.1.32 je potrebná jednorazová ručná inštalácia krátkeho IPK cez existujúcu inštaláciu, bez odinštalovania. Neskoršie podporované verzie používajú bežný aktualizačný kanál.\n",
+    "notes_i18n": {
+      "sk": "Štyri nezávislé profily s uloženými nastaveniami, výber ľubovoľnej kombinácie na spracovanie a zelené fajky. ←/→ prepína profil, 0 označuje. Bez označenia sa nič nespustí. Po aktualizácii reštartujte GUI.",
+      "cs": "Čtyři nezávislé profily s uloženými nastaveními, výběr libovolné kombinace ke zpracování a zelené značky. ←/→ přepíná profil, 0 označuje. Bez označení se nic nespustí. Po aktualizaci restartujte GUI.",
+      "en": "Four independent profiles with saved settings, selective batch downloads and green checkmarks. Left/right switches profiles; 0 marks or unmarks one. Nothing starts without marked profiles. Restart the GUI after updating.",
+      "de": "Vier unabhängige Profile mit gespeicherten Einstellungen, frei wählbare Profilkombinationen und grüne Häkchen. Links/rechts wechselt das Profil; 0 markiert es. Ohne Markierung startet nichts. Nach dem Update die GUI neu starten.",
+      "pl": "Cztery niezależne profile z zapisanymi ustawieniami, dowolny wybór profili do przetworzenia i zielone znaczniki. Lewo/prawo zmienia profil; 0 zaznacza. Bez zaznaczeń nic się nie uruchamia. Po aktualizacji uruchom ponownie GUI.",
+      "hu": "Négy független profil mentett beállításokkal, szabadon választható profilkombinációk és zöld pipák. Bal/jobb vált profilt, 0 kijelöl. Kijelölés nélkül semmi nem indul. Frissítés után indítsd újra a GUI-t.",
+      "ru": "Четыре независимых профиля с сохраненными настройками, выбор любого сочетания профилей и зеленые галочки. Влево/вправо переключает профиль; 0 отмечает его. Без отметок ничего не запускается. После обновления перезапустите GUI.",
+      "fr": "Quatre profils indépendants avec réglages enregistrés, choix libre des profils à traiter et coches vertes. Gauche/droite change de profil ; 0 le coche ou le décoche. Sans coche, rien ne démarre. Redémarrez l’interface après la mise à jour.",
+      "it": "Quattro profili indipendenti con impostazioni salvate, combinazioni di profili a scelta e spunte verdi. Sinistra/destra cambia profilo; 0 lo seleziona. Senza selezione non parte nulla. Riavviare la GUI dopo l’aggiornamento.",
+      "es": "Cuatro perfiles independientes con ajustes guardados, selección libre de perfiles y marcas verdes. Izquierda/derecha cambia de perfil; 0 lo marca o desmarca. Sin perfiles marcados no se inicia nada. Reinicie la interfaz tras actualizar."
+    },
+    "release_url": "https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/tag/v0.1.38"
+  },
+  "installation_directory": "/usr/lib/enigma2/python/Plugins/Extensions/WarderPiconHub/",
+  "package": "enigma2-plugin-extensions-piconhub-warder-evolution",
+  "update_feed": "https://raw.githubusercontent.com/Evolution-by-Warder/PiconHub-Warder-Evolution/plugin/futuristic-rebuild/plugin/update/stable.json",
+  "languages": [
+    "sk",
+    "cs",
+    "en",
+    "de",
+    "pl",
+    "hu",
+    "ru",
+    "fr",
+    "it",
+    "es"
+  ],
+  "validation": {
+    "unit_tests": 214,
+    "ci": "passed",
+    "package_workflow_run": 41255663231,
+    "stable_promotion_workflow_run": 41283578750,
+    "public_ipk_size_and_sha256_verified": true,
+    "existing_updaters_verified": [
+      "0.1.33",
+      "0.1.35"
+    ],
+    "receiver_gui_installation_observed": true,
+    "receiver_all_features_tested": false,
+    "catalogue_combined_selectors_host_checks": "9/9 variants; incremental repeat, replace, bouquet sync and two-profile batch passed",
+    "catalogue_verification_url": "https://github.com/Evolution-by-Warder/FullHDGlass-Warder-Evolution/blob/main/reports/CANAL-UNIFICATION-20261101.md",
+    "limits": "0.1.32 needs one manual short-name IPK installation. The immutable 0.1.38 package is promoted without rebuilding or replacing assets. Complete physical receiver feature validation is not claimed."
+  },
+  "accepted_candidate": {
+    "version": "0.1.38",
+    "source_commit": "4ac22bf74265ae2728c0d1263f91dbb34f19636b",
+    "runtime_changes": "Four independent persistent profiles, explicit subset processing, disabled zero-selection download and green checkmarks."
+  },
+  "canonical_assets": "Existing main picon data and frozen MASTER artwork are preserved.",
+  "download_naming_changed_on": "2026-10-30",
+  "plugin_browser_category": "extensions",
+  "plugin_browser_name": "piconhub-warder-evolution",
+  "package_source_commit": "4ac22bf74265ae2728c0d1263f91dbb34f19636b",
+  "short_only": true,
+  "manual_install_from_0_1_32": true,
+  "previous_release": {
     "version": "0.1.35",
     "tag": "v0.1.35",
     "url": "https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/download/v0.1.35/enigma2-plugin-extensions-piconhub_0.1.35_all.ipk",
@@ -27,22 +91,7 @@
     },
     "release_url": "https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/tag/v0.1.35"
   },
-  "installation_directory": "/usr/lib/enigma2/python/Plugins/Extensions/WarderPiconHub/",
-  "package": "enigma2-plugin-extensions-piconhub-warder-evolution",
-  "update_feed": "https://raw.githubusercontent.com/Evolution-by-Warder/PiconHub-Warder-Evolution/plugin/futuristic-rebuild/plugin/update/stable.json",
-  "languages": [
-    "sk",
-    "cs",
-    "en",
-    "de",
-    "pl",
-    "hu",
-    "ru",
-    "fr",
-    "it",
-    "es"
-  ],
-  "validation": {
+  "previous_validation": {
     "unit_tests": 204,
     "ci": "passed",
     "public_ipk_size_and_sha256_verified": true,
@@ -51,17 +100,5 @@
     "receiver_device": "GigaBlue Quad4KPro / OpenATV 8.0.1",
     "original_forum_octagon_retest": false,
     "limits": "Version 0.1.32 requires one manual short-name IPK installation; supported later updater versions accept 0.1.35. No long-name alias is published."
-  },
-  "accepted_candidate": {
-    "version": "0.1.31",
-    "source_commit": "1440264fa739c42372410bc43efdea8bbaf3d5b7",
-    "runtime_changes": "Version and localized release notes only; runtime cleanup and original artwork preserved."
-  },
-  "canonical_assets": "Existing main picon data and frozen MASTER artwork are preserved.",
-  "download_naming_changed_on": "2026-10-30",
-  "plugin_browser_category": "extensions",
-  "plugin_browser_name": "piconhub-warder-evolution",
-  "package_source_commit": "c30073e48dceb50a41af957f369aab757e2d1241",
-  "short_only": true,
-  "manual_install_from_0_1_32": true
+  }
 }
