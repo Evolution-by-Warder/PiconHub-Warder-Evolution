@@ -1,3 +1,13 @@
+# Pending owner request — History: five entries — 1 November 2026
+
+At the next normal release, expand the displayed History from the latest 4 entries to the latest 5 entries in all three projects: FullHDGlass, PiconHub and GSU. This instruction supersedes the earlier four-entry limit recorded below.
+
+Keep the existing compact layout, version/date headings, separators, localization and brief user-facing descriptions. Preserve the complete source history; only the number of entries shown in the UI changes. Do not apply the limit to installation or processing output.
+
+Record this as pending work only. Do not create a new IPK, bump a version or change update feeds solely for this request. Include and verify five visible entries when preparing the next authorized release.
+
+---
+
 # Current receiver repair status — 31 October 2026
 
 The recorded functional repairs and four-entry History presentation are included in the verified 0.1.35 repair package. See the receiver-repair documentation and public verification report. Published repair IPKs are immutable; stable update feeds remain unchanged. A final physical receiver retest of this package is pending.
