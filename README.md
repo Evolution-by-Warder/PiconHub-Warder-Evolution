@@ -2,9 +2,9 @@
 
 Warder's original futuristic Enigma2 plugin and the shared Warder picon source database.
 
-## Current state — 2026-10-30
+## Current state — 2026-11-01
 
-**PiconHub 0.1.33** fixes short-only installation filenames and updater validation. Install this version manually once over 0.1.32; later updates use the short filename. No long transition package is created. [Download](https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/download/v0.1.33/enigma2-plugin-extensions-piconhub_0.1.33_all.ipk). The native Warder interface retains the functional work of s3n0 and Chocholousek. Runtime: `/usr/lib/enigma2/python/Plugins/Extensions/WarderPiconHub/`.
+**PiconHub 0.1.38 is the stable release.** Four independent profiles keep their settings; left/right selects a profile and 0 toggles its green processing checkmark. Download processes only the marked subset, and stays inactive with no marks. [Download the public IPK](https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/download/v0.1.38/enigma2-plugin-extensions-piconhub_0.1.38_all.ipk). Supported later versions receive it through the stable update channel; 0.1.32 needs one manual installation over the existing version. Restart the GUI after updating. The runtime remains `/usr/lib/enigma2/python/Plugins/Extensions/WarderPiconHub/`.
 
 Use the [plugin guide](plugin/README.md), [production record](plugin/PRODUCTION.md), [release manifest](plugin/production.json) and [validation status](plugin/BUILD-STATUS.md). They record the final behavior, automatic plugin updates, package identity, language support and precise receiver-test scope. Earlier rebuild plans are historical and do not override this baseline.
 
