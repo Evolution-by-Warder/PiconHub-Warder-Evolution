@@ -3,7 +3,7 @@
 import json
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
-VERSION='0.1.39-test1'
+VERSION='0.1.39-test2'
 NAME='PiconHub'
 RUNTIME=ROOT/'plugin/src/Plugins/Extensions/WarderPiconHub'
 notes={"sk":"OpenATV 8.1: WQHD škálovanie, celé riadky ponúk a história piatich verzií. Testovacia zostava; fyzický GLES test čaká.",

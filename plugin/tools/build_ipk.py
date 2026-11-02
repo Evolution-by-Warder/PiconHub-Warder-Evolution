@@ -6,6 +6,7 @@ import hashlib
 import io
 import json
 import pathlib
+import runpy
 import subprocess
 import sys
 import tarfile
@@ -55,6 +56,7 @@ def revision():
 
 def build(destination,source_revision=None):
     version=(RUNTIME/"version.txt").read_text().strip()
+    runpy.run_path(str(RUNTIME/"warder_update.py"))["version_key"](version)
     metadata=json.loads((ROOT/"project.json").read_text())
     if version!=metadata["development_version"]:raise ValueError("Package and runtime version differ")
     control=("Package: %s\nVersion: %s\nArchitecture: all\nSection: extra\nPriority: optional\n"

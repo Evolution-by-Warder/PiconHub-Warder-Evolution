@@ -64,6 +64,15 @@ class ReleaseTests(unittest.TestCase):
             with self.assertRaises(updates.UpdateError):
                 updates.version_key(invalid)
 
+    def test_installed_test_versions_are_valid_and_stable_feed_cannot_downgrade(self):
+        self.assertGreater(updates.version_key('0.1.39-test2'),updates.version_key('0.1.39-test1'))
+        self.assertGreater(updates.version_key('0.1.39-test1'),updates.version_key('0.1.39'))
+        self.assertIsNone(updates.parse_release(json.dumps(feed('0.1.38')),'0.1.39-test2'))
+        self.assertIsNone(updates.parse_release(json.dumps(feed('0.1.39')),'0.1.39-test2'))
+        self.assertEqual(updates.parse_release(json.dumps(feed('0.1.40')),'0.1.39-test2').version,'0.1.40')
+        with self.assertRaisesRegex(updates.UpdateError,'Development build in stable channel'):
+            updates.parse_release(json.dumps(feed('0.1.40-test1')),'0.1.39-test2')
+
     def test_only_new_releases_are_offered(self):
         self.assertEqual(updates.parse_release(json.dumps(feed()), "0.1.0-dev1").version, "0.1.1")
         self.assertIsNone(updates.parse_release(json.dumps(feed()), "0.1.1"))

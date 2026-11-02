@@ -28,12 +28,12 @@ class UpdateError(ValueError):
 def version_key(value):
     if not isinstance(value, str):
         raise UpdateError("Invalid plugin version")
-    match = re.fullmatch(r"v?(\d+)\.(\d+)\.(\d+)(?:\.(\d+))?(?:-(dev|alpha|beta|rc)(\d+))?", value)
+    match = re.fullmatch(r"v?(\d+)\.(\d+)\.(\d+)(?:\.(\d+))?(?:-(dev|alpha|beta|rc|test)(\d+))?", value)
     if not match:
         raise UpdateError("Invalid plugin version")
     major, minor, patch, revision, stage, number = match.groups()
     return (int(major), int(minor), int(patch), int(revision or 0),
-            {"dev": 0, "alpha": 1, "beta": 2, "rc": 3, None: 4}[stage], int(number or 0))
+            {"dev": 0, "alpha": 1, "beta": 2, "rc": 3, None: 4, "test": 5}[stage], int(number or 0))
 
 
 @dataclass(frozen=True)

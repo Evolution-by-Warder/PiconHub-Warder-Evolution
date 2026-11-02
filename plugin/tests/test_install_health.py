@@ -29,6 +29,11 @@ class InstallHealthTests(unittest.TestCase):
     def test_complete_install_is_accepted(self):
         self.assertEqual(updates.verify_installation('0.1.33', self.status(), self.root), '0.1.33')
 
+    def test_test_candidate_payload_and_configured_package_are_accepted(self):
+        for version in ('0.1.39-test1','0.1.39-test2'):
+            (self.root/'version.txt').write_text(version+'\n')
+            self.assertEqual(updates.verify_installation(version,self.status(version=version),self.root),version)
+
     def test_half_install_wrong_version_and_wrong_package_are_rejected(self):
         for runner in (self.status('half-installed'), self.status('unpacked'),
                        self.status(version='0.1.32'), self.status(package='other')):
