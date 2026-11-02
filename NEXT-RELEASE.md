@@ -38,3 +38,7 @@ Prepared source on `fix/install-transition-20261031`: validate critical runtime 
 This source is pending a future authorized functional release. Keep the already recorded four-entry, general-description History requirement for that release. No public IPK, version, feed or picon data was changed by this investigation.
 
 Prepared source commit: `487e46aef74323cb81ce7af554a90dd74cf36468`. Related skin source: `680bab699ff934b92b891a771ed465ce8d71e53c`; related PiconHub source: `487e46aef74323cb81ce7af554a90dd74cf36468`.
+
+## 2026-11-02 common stable release authorised
+
+Owner resumed publication and explicitly requested all accumulated repairs as normal releases: FullHDGlass 1.0.62, GSU 13.41-r4, PiconHub 0.1.40. The earlier pause is superseded. Preserve settings and deliberately enlarged fonts. Source, public package checks, immutable releases and live update feeds are recorded by the common release workflow. See docs/COMMON-STABLE-20261102.md.

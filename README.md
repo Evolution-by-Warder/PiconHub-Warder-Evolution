@@ -1,5 +1,9 @@
 # PiconHub Warder Evolution
 
+## Spoločné ostré vydanie — 2. november 2026
+
+**PiconHub 0.1.40** pre OpenPLi a OpenATV. [Poznámky k vydaniu](docs/COMMON-STABLE-20261102.md). [Stiahnuť IPK](https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/download/v0.1.40/enigma2-plugin-extensions-piconhub_0.1.40_all.ipk).
+
 Warder's original futuristic Enigma2 plugin and the shared Warder picon source database.
 
 ## Current state — 2026-11-01
