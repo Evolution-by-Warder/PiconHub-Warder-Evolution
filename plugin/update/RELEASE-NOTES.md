@@ -1,7 +1,5 @@
-PiconHub 0.1.38
+PiconHub 0.1.40
 
-Štyri nezávislé profily pre sťahovanie piconov. Každý si pamätá vlastné nastavenia satelitov a poskytovateľov, rozlíšenia, pozadia, režimu a cieľového priečinka. Na spracovanie možno označiť ľubovoľný jeden, dva, tri alebo všetky štyri profily.
+Spoločná verzia pre OpenPLi a OpenATV. Opravená inštalácia a štart aktualizátora bez modulu dataclasses, overovanie verzií balíkov a prispôsobenie zoznamov v HD/FHD/WQHD/UHD. Zachované sú štyri nezávislé profily, nastavenia, stiahnuté picony a doterajšie úpravy OpenATV 8.1/GLES. Po aktualizácii reštartujte GUI.
 
-Zelená fajka označuje profil zaradený na spracovanie; modrá záložka profil otvorený na úpravu. Šípky ←/→ prepínajú profily, ↑/↓ a OK upravujú nastavenia, tlačidlo 0 pridá alebo zruší fajku. Zelené Stiahnuť (počet) spracuje iba označené profily. Bez označenia sa nič nespustí. Nastavenia aj označenia sa zachovajú po stiahnutí a reštarte GUI.
-
-Po aktualizácii reštartujte GUI. Z verzie 0.1.32 je potrebná jednorazová ručná inštalácia krátkeho IPK cez existujúcu inštaláciu, bez odinštalovania. Neskoršie podporované verzie používajú bežný aktualizačný kanál.
+Common OpenPLi and OpenATV release. Fixes installation and updater startup without dataclasses, package-version validation and HD/FHD/WQHD/UHD list layouts. Preserves four independent profiles, settings, downloaded picons and earlier OpenATV 8.1/GLES compatibility work. Restart the GUI after updating.
