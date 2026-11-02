@@ -231,6 +231,8 @@ class StartupTests(unittest.TestCase):
             setattr(module, attribute, value)
             modules[name] = module
         modules["enigma"].getDesktop=lambda index:types.SimpleNamespace(size=lambda:types.SimpleNamespace(width=lambda:1920,height=lambda:1080))
+        modules["enigma"].eListbox=type("NativeListbox",(),{})
+        modules["enigma"].eSize=lambda *values:values
         cls.desktop_module=modules["enigma"]
         with patch.dict(sys.modules, modules):
             cls.ui = load_module("warder_update_test_runtime.warder_update_ui", RUNTIME / "warder_update_ui.py")

@@ -16,7 +16,7 @@ from Components.ProgressBar import ProgressBar
 from Components.ScrollLabel import ScrollLabel
 from Components.config import ConfigSelection, ConfigText, ConfigYesNo, config, configfile
 from Screens.MessageBox import MessageBox
-from Screens.Screen import Screen
+from .warder_screen import Screen
 from skin import parseColor
 from enigma import BT_SCALE, RT_HALIGN_LEFT, RT_VALIGN_CENTER, eListboxPythonMultiContent, eTimer, gFont, getDesktop, ePoint, eSize
 

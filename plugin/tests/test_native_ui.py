@@ -57,6 +57,7 @@ class Screen:
     def __init__(self,session):self.session,self.widgets,self.onLayoutFinish,self.onClose,self.result=session,{},[],[],None
     def __getitem__(self,key):return self.widgets[key]
     def __setitem__(self,key,value):self.widgets[key]=value
+    def values(self):return self.widgets.values()
     def applySkin(self):
         # OpenATV Screen.applySkin owns scale and replaces it before callbacks.
         self.scale=((1920,1920),(1080,1080))
@@ -104,7 +105,7 @@ class NativeControllerTests(unittest.TestCase):
                "Screens.MessageBox":{"MessageBox":types.SimpleNamespace(TYPE_INFO=0,TYPE_ERROR=1,TYPE_YESNO=2)},
                "Screens.Screen":{"Screen":Screen},"skin":{"parseColor":lambda x:x},
                "enigma":{"BT_SCALE":1,"ePixmap":Component,"eWidget":Component,"ePoint":lambda *v:v,"eSize":lambda *v:v,"eTimer":Timer,"gFont":lambda *a:a,"RT_HALIGN_LEFT":1,"RT_VALIGN_CENTER":2,
-                         "eListboxPythonMultiContent":object,
+                         "eListboxPythonMultiContent":object,"eListbox":type("NativeListbox",(),{}),
                          "getDesktop":lambda unused:types.SimpleNamespace(size=lambda:types.SimpleNamespace(width=lambda:1920,height=lambda:1080))}}
         for name,values in attrs.items():
             module=types.ModuleType(name)

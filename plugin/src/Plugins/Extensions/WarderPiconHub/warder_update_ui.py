@@ -9,7 +9,7 @@ from Components.ActionMap import ActionMap
 from Components.Label import Label
 from Components.ScrollLabel import ScrollLabel
 from Screens.MessageBox import MessageBox as NativeMessageBox
-from Screens.Screen import Screen
+from .warder_screen import Screen
 from enigma import eTimer
 
 from .warder_layout import update_skin

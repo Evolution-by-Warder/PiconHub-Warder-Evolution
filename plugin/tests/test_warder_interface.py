@@ -126,7 +126,7 @@ class MenuTests(unittest.TestCase):
             for count in (1,3,6,53):ET.fromstring(layout.dialog_skin(width,height,count))
 
     def test_profile_tabs_and_five_rows_fit_without_moving_preview_or_footer(self):
-        for width,height in ((1280,720),(1920,1080),(3840,2160)):
+        for width,height in ((1280,720),(1920,1080),(2560,1440),(3840,2160)):
             scale=height/1080
             fields={item.get('name'):item for item in ET.fromstring(layout.main_skin(width,height)) if item.get('name')}
             def rect(name):
