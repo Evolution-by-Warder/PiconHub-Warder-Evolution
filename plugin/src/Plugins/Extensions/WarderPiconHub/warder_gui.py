@@ -647,7 +647,7 @@ class WarderMainScreen(Screen):
         self["picker_cover"].show();self["picker_title"].show()
         scale=self.warder_scale
         self["list"].instance.move(ePoint(round(70*scale),round(410*scale)))
-        self["list"].instance.resize(eSize(round(1120*scale),round(420*scale)))
+        self["list"].instance.resize(eSize(round(1120*scale),7*round(60*scale)))
         self["list"].l.setItemHeight(round(60*scale))
         self["list"].l.setFont(0,gFont("Regular",round(28*scale)))
         self.picker_rebuild()

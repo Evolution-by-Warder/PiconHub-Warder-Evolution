@@ -68,13 +68,14 @@ def dialog_skin(width, height, rows=8, multiple=False, kind="choice", title="Vý
     backdrops to labels, ScrollLabel children or the unselected list rows.
     """
     scale = min(width / 1920.0, height / 1080.0)
-    w, h = 1050, 170 + min(rows,8)*60
-    def box(x,y,wide,high):
-        return 'position="%d,%d" size="%d,%d"' % tuple(round(v*scale) for v in (x,y,wide,high))
-    def widget(name,x,y,wide,high,font=24,color="#00ffffff",extra=""):
+    visible_rows = max(1, min(rows, 8))
+    w, h = 1050, 170 + visible_rows*60
+    def box(x,y,wide,high,pixel_height=None):
+        return 'position="%d,%d" size="%d,%d"' % (round(x*scale),round(y*scale),round(wide*scale),round(high*scale) if pixel_height is None else pixel_height)
+    def widget(name,x,y,wide,high,font=24,color="#00ffffff",extra="",pixel_height=None):
         font_attr = 'font="Regular;%d"' % round(font*scale) if font is not None else ""
         return '<widget name="%s" %s %s foregroundColor="%s" backgroundColor="%s" transparent="0" %s />' % (
-            name,box(x,y,wide,high),font_attr,color,POPUP_BACKGROUND,extra)
+            name,box(x,y,wide,high,pixel_height),font_attr,color,POPUP_BACKGROUND,extra)
     out=['<screen position="center,center" size="%d,%d" title="%s" flags="wfNoBorder" backgroundColor="%s">' %
          (round(w*scale),round(h*scale),escape(_(title),{'"':'&quot;'}),POPUP_BACKGROUND),
          widget("title",25,15,1000,50,32,"#0019c9ff"),
@@ -89,8 +90,11 @@ def dialog_skin(width, height, rows=8, multiple=False, kind="choice", title="Vý
         footer=[("hint_red",25,490,"#00ff526a")]
         if kind=="progress":footer.append(("hint_blue",535,490,"#0045b9ff"))
     else:
+        # Match MenuList's rounded pixel row height, after desktop scaling.
+        # ScrollLabel owns its text pagination and keeps the full text viewport.
         out.append(widget("list",20,80,1010,h-150,25 if kind=="text" else None,
-                          extra='scrollbarMode="showOnDemand" enableWrapAround="1" foregroundColorSelected="#00ffffff" backgroundColorSelected="#002a70ad"'))
+                          extra='scrollbarMode="showOnDemand" enableWrapAround="1" foregroundColorSelected="#00ffffff" backgroundColorSelected="#002a70ad"',
+                          pixel_height=None if kind=="text" else visible_rows*round(60*scale)))
         if kind=="text":
             footer=[("hint_red",25,1000,"#00ff526a")]
         elif multiple or kind=="directory":
@@ -108,10 +112,10 @@ def dialog_skin(width, height, rows=8, multiple=False, kind="choice", title="Vý
 def update_skin(width, height, kind="message", version=""):
     """Full-screen Warder update family, independent of the active TV skin."""
     sx, sy = width / 1920.0, height / 1080.0
-    def box(x,y,w,h):
-        return 'position="%d,%d" size="%d,%d"' % (round(x*sx),round(y*sy),round(w*sx),round(h*sy))
-    def label(name,x,y,w,h,font=30,color="#00ffffff",extra=""):
-        return '<widget name="%s" %s font="Regular;%d" foregroundColor="%s" backgroundColor="%s" transparent="0" zPosition="5" %s />' % (name,box(x,y,w,h),round(font*sy),color,"#00071627" if y>=996 else "#00102136",extra)
+    def box(x,y,w,h,pixel_height=None):
+        return 'position="%d,%d" size="%d,%d"' % (round(x*sx),round(y*sy),round(w*sx),round(h*sy) if pixel_height is None else pixel_height)
+    def label(name,x,y,w,h,font=30,color="#00ffffff",extra="",pixel_height=None):
+        return '<widget name="%s" %s font="Regular;%d" foregroundColor="%s" backgroundColor="%s" transparent="0" zPosition="5" %s />' % (name,box(x,y,w,h,pixel_height),round(font*sy),color,"#00071627" if y>=996 else "#00102136",extra)
     def fill(x,y,w,h,color,z=1):
         return '<eLabel %s backgroundColor="%s" zPosition="%d" />' % (box(x,y,w,h),color,z)
     out=['<screen position="0,0" size="%d,%d" flags="wfNoBorder" backgroundColor="#00071627">' % (width,height),
@@ -127,7 +131,7 @@ def update_skin(width, height, kind="message", version=""):
     if kind=="message":
         out += ['<widget name="icon" %s pixmaps="icons/input_question.png,icons/input_info.png,icons/input_warning.png,icons/input_error.png,icons/input_message.png" scale="1" alphatest="blend" conditional="icon" zPosition="5" />' % box(170,280,70,70),
                 label("text",260,280,1480,460,32,extra='scrollbarMode="showOnDemand"'),
-                label("list",260,770,1480,170,32,extra='itemHeight="50" foregroundColorSelected="#00ffffff" backgroundColorSelected="#002a70ad" scrollbarMode="showOnDemand"')]
+                label("list",260,770,1480,170,32,extra='itemHeight="%d" foregroundColorSelected="#00ffffff" backgroundColorSelected="#002a70ad" scrollbarMode="showOnDemand"' % round(50*sy),pixel_height=3*round(50*sy))]
     else:
         out.append('<ePixmap %s pixmap="icons/input_info.png" scale="1" alphatest="blend" zPosition="5" />' % box(170,280,70,70))
         out.append(label("status",260,280,1480,650,32,extra='scrollbarMode="showOnDemand"'))
