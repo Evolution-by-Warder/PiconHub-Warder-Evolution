@@ -126,7 +126,7 @@ class MenuTests(unittest.TestCase):
             for count in (1,3,6,53):ET.fromstring(layout.dialog_skin(width,height,count))
 
     def test_profile_tabs_and_five_rows_fit_without_moving_preview_or_footer(self):
-        for width,height in ((1280,720),(1920,1080),(3840,2160)):
+        for width,height in ((1280,720),(1920,1080),(2560,1440),(3840,2160)):
             scale=height/1080
             fields={item.get('name'):item for item in ET.fromstring(layout.main_skin(width,height)) if item.get('name')}
             def rect(name):
@@ -143,6 +143,23 @@ class MenuTests(unittest.TestCase):
                 if number<4:self.assertLess(tx+tw,rect('profile%d'%(number+1))[0])
             self.assertEqual(rect('preview'),tuple(round(v*scale) for v in (1320,465,440,264)))
             self.assertEqual(rect('key_green'),tuple(round(v*scale) for v in (530,1018,400,45)))
+
+    def test_choice_and_update_lists_never_show_a_partial_row_after_scaling(self):
+        for width,height in ((1280,720),(1366,768),(1920,1080),(2560,1440),(3840,2160),(1920,1200)):
+            scale=min(width/1920,height/1080)
+            for count in (0,1,3,8,53):
+                for kind in ("choice","directory"):
+                    root=ET.fromstring(layout.dialog_skin(width,height,count,kind=kind))
+                    node=root.find("widget[@name='list']")
+                    y=int(node.get('position').split(',')[1]);h=int(node.get('size').split(',')[1])
+                    footer=root.find("widget[@name='hint_red']")
+                    self.assertGreaterEqual(h,round(60*scale))
+                    self.assertEqual(h % round(60*scale),0,(width,height,count,kind))
+                    self.assertLessEqual(y+h,int(footer.get('position').split(',')[1]))
+            root=ET.fromstring(layout.update_skin(width,height))
+            node=root.find("widget[@name='list']")
+            self.assertEqual(int(node.get('size').split(',')[1]) % int(node.get('itemHeight')),0)
+            self.assertEqual(int(node.get('itemHeight')),round(50*height/1080))
 
     def test_header_seconds_colors_spacing_and_direct_footer_labels(self):
         root=ET.fromstring(layout.main_skin())

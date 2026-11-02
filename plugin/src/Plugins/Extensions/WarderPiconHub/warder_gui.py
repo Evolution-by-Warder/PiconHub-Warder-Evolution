@@ -16,7 +16,7 @@ from Components.ProgressBar import ProgressBar
 from Components.ScrollLabel import ScrollLabel
 from Components.config import ConfigSelection, ConfigText, ConfigYesNo, config, configfile
 from Screens.MessageBox import MessageBox
-from Screens.Screen import Screen
+from .warder_screen import Screen
 from skin import parseColor
 from enigma import BT_SCALE, RT_HALIGN_LEFT, RT_VALIGN_CENTER, eListboxPythonMultiContent, eTimer, gFont, getDesktop, ePoint, eSize
 
@@ -647,7 +647,7 @@ class WarderMainScreen(Screen):
         self["picker_cover"].show();self["picker_title"].show()
         scale=self.warder_scale
         self["list"].instance.move(ePoint(round(70*scale),round(410*scale)))
-        self["list"].instance.resize(eSize(round(1120*scale),round(420*scale)))
+        self["list"].instance.resize(eSize(round(1120*scale),7*round(60*scale)))
         self["list"].l.setItemHeight(round(60*scale))
         self["list"].l.setFont(0,gFont("Regular",round(28*scale)))
         self.picker_rebuild()

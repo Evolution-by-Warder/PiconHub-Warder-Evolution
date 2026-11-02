@@ -7,7 +7,7 @@
 
 ###########################################################################
 from Plugins.Plugin import PluginDescriptor
-from Screens.Screen import Screen
+from .warder_screen import Screen
 from Screens.MessageBox import MessageBox
 from Screens.InputBox import InputBox
 from Screens.Standby import TryQuitMainloop, inStandby                      # TryQuitMainLoop for the enigma2 gui restart # inStandby to detect if enigma2 is in Standby mode
@@ -162,7 +162,7 @@ class mainConfigScreen(Screen, ConfigListScreen):
     
     if desktopX > 1900:    # Full-HD or higher
         skin = '''
-        <screen name="mainScreen"       position="center,center" size="1200,800" title="Chocholousek picons" flags="wfNoBorder" backgroundColor="#44000000">
+        <screen resolution="1920,1080" name="mainScreen"       position="center,center" size="1200,800" title="Chocholousek picons" flags="wfNoBorder" backgroundColor="#44000000">
 
             <widget name="version_txt"  position="0,0"     size="1200,60"  font="Regular;42" foregroundColor="yellow" transparent="1" halign="center" valign="center" />
             <widget name="author_txt"   position="0,60"    size="1200,40"  font="Regular;28" foregroundColor="yellow" transparent="1" halign="center" valign="center" />
@@ -189,7 +189,7 @@ class mainConfigScreen(Screen, ConfigListScreen):
         </screen>'''
     else:                   # HD-ready or lower
         skin = '''
-        <screen name="mainScreen"       position="center,center" size="850,640" title="Chocholousek picons" flags="wfNoBorder" backgroundColor="#44000000">
+        <screen resolution="1280,720" name="mainScreen"       position="center,center" size="850,640" title="Chocholousek picons" flags="wfNoBorder" backgroundColor="#44000000">
 
             <widget name="version_txt"  position="0,0"     size="850,40" font="Regular;26" foregroundColor="yellow" transparent="1" halign="center" valign="center" />
             <widget name="author_txt"   position="0,40"    size="850,30" font="Regular;16" foregroundColor="yellow" transparent="1" halign="center" valign="center" />
@@ -805,7 +805,7 @@ class satellitesConfigScreen(Screen, ConfigListScreen):
     
     if desktopX > 1900:    # Full-HD or higher
         skin = '''
-        <screen name="satellitesConfigScreen" position="center,center" size="450,900" title="Satellite positions" flags="wfNoBorder" backgroundColor="#44000000">
+        <screen resolution="1920,1080" name="satellitesConfigScreen" position="center,center" size="450,900" title="Satellite positions" flags="wfNoBorder" backgroundColor="#44000000">
             <widget name="txt_title"          position="0,0"           size="450,080" font="Regular;42" foregroundColor="yellow" transparent="1" halign="center" valign="center" />
 
             <widget name="txt_count"          position="180,80"        size="90,30"   font="Regular;30" foregroundColor="white"  transparent="1" halign="center" valign="center" />
@@ -826,7 +826,7 @@ class satellitesConfigScreen(Screen, ConfigListScreen):
         </screen>'''
     else:                   # HD-ready or lower
         skin = '''
-        <screen name="satellitesConfigScreen" position="center,center" size="350,650" title="Satellite positions" flags="wfNoBorder" backgroundColor="#44000000">
+        <screen resolution="1280,720" name="satellitesConfigScreen" position="center,center" size="350,650" title="Satellite positions" flags="wfNoBorder" backgroundColor="#44000000">
             <widget name="txt_title"          position="0,0"           size="350,050" font="Regular;24" foregroundColor="yellow" transparent="1" halign="center" valign="center" />
 
             <widget name="txt_count"          position="145,40"        size="60,25"   font="Regular;22" foregroundColor="white"  transparent="1" halign="center" valign="center" />
@@ -1063,7 +1063,7 @@ class directoryBrowserScreen(Screen, ConfigListScreen):
     
     if desktopX > 1900:    # Full-HD or higher
         skin = '''
-        <screen name="directoryBrowserScreen" position="center,center" size="1000,900" title="Directory browser" flags="wfNoBorder" backgroundColor="#44000000">
+        <screen resolution="1920,1080" name="directoryBrowserScreen" position="center,center" size="1000,900" title="Directory browser" flags="wfNoBorder" backgroundColor="#44000000">
             <widget name="txt_title"  position="0,0"     size="1000,90"  font="Regular;42" foregroundColor="yellow" transparent="1" halign="center" valign="center" />
             
             <widget name="txt_dir"    position="50,90"   size="900,50"   font="Regular;30" foregroundColor="white"  transparent="1" halign="left"   valign="center" />
@@ -1083,7 +1083,7 @@ class directoryBrowserScreen(Screen, ConfigListScreen):
         </screen>'''
     else:                   # HD-ready or lower
         skin = '''
-        <screen name="directoryBrowserScreen" position="center,center" size="800,600" title="Directory browser" flags="wfNoBorder" backgroundColor="#44000000">
+        <screen resolution="1280,720" name="directoryBrowserScreen" position="center,center" size="800,600" title="Directory browser" flags="wfNoBorder" backgroundColor="#44000000">
             <widget name="txt_title"  position="0,0"     size="800,65"   font="Regular;26" foregroundColor="yellow" transparent="1" halign="center" valign="center" />
             
             <widget name="txt_dir"    position="25,65"   size="750,35"   font="Regular;22" foregroundColor="white"  transparent="1" halign="left"   valign="center" />
@@ -1276,14 +1276,14 @@ class directoryBrowserScreen(Screen, ConfigListScreen):
 
 class piconsUpdateJobScreen(Screen):
     
-    border = 50 if desktopX > 1900 else 30
+    border = round(50*desktopY/1080) if desktopX > 1900 else round(30*desktopY/720)
     outerFrameSizeX = desktopX - border*2
     outerFrameSizeY = desktopY - border*2
     innerFrameSizeX = outerFrameSizeX - border*2
     innerFrameSizeY = outerFrameSizeY - border*2
     innerFramePositionX = border
     innerFramePositionY = border
-    fontSize = 28 if desktopX > 1900 else 20
+    fontSize = round(28*desktopY/1080) if desktopX > 1900 else round(20*desktopY/720)
     
     skin = '''
         <screen name="piconsUpdateJobScreen" position="center,center" size="{},{}" title="picons update in progress" flags="wfNoBorder" backgroundColor="#22000000">

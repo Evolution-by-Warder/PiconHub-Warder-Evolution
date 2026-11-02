@@ -44,7 +44,7 @@ class Component:
 class Menu(Component):
     def __init__(self,values,**kwargs):
         super().__init__();self.values,self.index=values,0
-        self.l=types.SimpleNamespace(setFont=lambda *a:None,setItemHeight=lambda *a:None)
+        self.l=types.SimpleNamespace(setFont=lambda *a:None,setItemHeight=lambda value:setattr(self,'row_height',value))
     def setList(self,values):self.values=values;self.index=min(self.index,max(0,len(values)-1))
     def getCurrent(self):return self.values[self.index] if self.values else None
     def getSelectionIndex(self):return self.index
@@ -57,6 +57,7 @@ class Screen:
     def __init__(self,session):self.session,self.widgets,self.onLayoutFinish,self.onClose,self.result=session,{},[],[],None
     def __getitem__(self,key):return self.widgets[key]
     def __setitem__(self,key,value):self.widgets[key]=value
+    def values(self):return self.widgets.values()
     def applySkin(self):
         # OpenATV Screen.applySkin owns scale and replaces it before callbacks.
         self.scale=((1920,1920),(1080,1080))
@@ -104,7 +105,7 @@ class NativeControllerTests(unittest.TestCase):
                "Screens.MessageBox":{"MessageBox":types.SimpleNamespace(TYPE_INFO=0,TYPE_ERROR=1,TYPE_YESNO=2)},
                "Screens.Screen":{"Screen":Screen},"skin":{"parseColor":lambda x:x},
                "enigma":{"BT_SCALE":1,"ePixmap":Component,"eWidget":Component,"ePoint":lambda *v:v,"eSize":lambda *v:v,"eTimer":Timer,"gFont":lambda *a:a,"RT_HALIGN_LEFT":1,"RT_VALIGN_CENTER":2,
-                         "eListboxPythonMultiContent":object,
+                         "eListboxPythonMultiContent":object,"eListbox":type("NativeListbox",(),{}),
                          "getDesktop":lambda unused:types.SimpleNamespace(size=lambda:types.SimpleNamespace(width=lambda:1920,height=lambda:1080))}}
         for name,values in attrs.items():
             module=types.ModuleType(name)
@@ -224,6 +225,16 @@ class NativeControllerTests(unittest.TestCase):
         self.assertEqual(self.main.profile.warder_selectors.value,'DAB')
         self.assertEqual(self.main.profile.sats.value,'')
         self.assertEqual(self.main.selection['satellites'],['DAB'])
+
+    def test_embedded_picker_and_popup_geometry_match_controller_row_heights(self):
+        for width,height in ((1280,720),(1366,768),(1920,1080),(2560,1440),(3840,2160)):
+            with patch.object(self.gui,'desktop',return_value=(width,height)):
+                screen=self.gui.WarderMainScreen(self.session)
+                screen.select_satellites()
+                self.assertEqual(screen['list'].dimensions[1] % screen['list'].row_height,0)
+                dialog=self.gui.ChoiceDialog(self.session,'Choices',[(i,str(i)) for i in range(53)])
+                node=ET.fromstring(dialog.skin).find("widget[@name='list']")
+                self.assertEqual(int(node.get('size').split(',')[1]) % dialog['list'].row_height,0)
 
     def test_embedded_single_selection_restores_row_and_footer(self):
         self.main["list"].moveToIndex(1);self.main.open_row()

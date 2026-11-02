@@ -1,12 +1,83 @@
 {
   "schema": 1,
-  "product": "PiconHub Warder Evolution",
+  "product": "PiconHub",
   "status": "production-update-active",
-  "approved_on": "2026-11-01",
-  "approval": "Owner: prosim uprav to ako normal verziu (promote 0.1.38 to a normal stable release and update channel).",
-  "source_branch": "feature/four-profiles-20261101",
-  "source_commit": "4ac22bf74265ae2728c0d1263f91dbb34f19636b",
+  "approved_on": "2026-11-02",
+  "approval": "Owner explicitly requested all latest repairs in all our plugins as normal full releases and all required records; this supersedes the earlier publishing pause.",
+  "source_branch": "main",
+  "source_commit": "3cadf0b85f2e9deb5b2a2f81f3a562161f3bc42f",
   "release": {
+    "version": "0.1.40",
+    "tag": "v0.1.40",
+    "url": "https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/download/v0.1.40/enigma2-plugin-extensions-piconhub_0.1.40_all.ipk",
+    "sha256": "909dd86f2872857ec78f93db5c59bbd4f3cef7200a2a39adaee604d9659a2af9",
+    "bytes": 2885936,
+    "notes": "Spoločná verzia pre OpenPLi a OpenATV. Opravená inštalácia a štart aktualizátora bez modulu dataclasses, overovanie verzií balíkov a prispôsobenie zoznamov v HD/FHD/WQHD/UHD. Zachované sú štyri nezávislé profily, nastavenia, stiahnuté picony a doterajšie úpravy OpenATV 8.1/GLES. Po aktualizácii reštartujte GUI.",
+    "notes_i18n": {
+      "cs": "Společné vydání pro OpenPLi a OpenATV. Opravy instalace, kompatibility a zobrazení; dosavadní nastavení zůstávají zachována. Po aktualizaci restartujte GUI.",
+      "de": "Gemeinsame Ausgabe für OpenPLi und OpenATV. Korrekturen an Installation, Kompatibilität und Darstellung; vorhandene Einstellungen bleiben erhalten. Nach dem Update die GUI neu starten.",
+      "pl": "Wspólne wydanie dla OpenPLi i OpenATV. Poprawki instalacji, zgodności i wyświetlania; dotychczasowe ustawienia pozostają zachowane. Po aktualizacji uruchom ponownie GUI.",
+      "hu": "Közös kiadás OpenPLi és OpenATV rendszerekhez. Telepítési, kompatibilitási és megjelenítési javítások; a meglévő beállítások megmaradnak. Frissítés után indítsd újra a GUI-t.",
+      "ru": "Общий выпуск для OpenPLi и OpenATV. Исправлены установка, совместимость и отображение; существующие настройки сохраняются. После обновления перезапустите GUI.",
+      "fr": "Version commune pour OpenPLi et OpenATV. Corrections d’installation, de compatibilité et d’affichage ; les réglages existants sont conservés. Redémarrez l’interface après la mise à jour.",
+      "it": "Versione comune per OpenPLi e OpenATV. Correzioni di installazione, compatibilità e visualizzazione; le impostazioni esistenti vengono conservate. Riavviare la GUI dopo l’aggiornamento.",
+      "es": "Versión común para OpenPLi y OpenATV. Correcciones de instalación, compatibilidad y visualización; se conservan los ajustes existentes. Reinicie la interfaz tras actualizar.",
+      "sk": "Spoločná verzia pre OpenPLi a OpenATV. Opravená inštalácia a štart aktualizátora bez modulu dataclasses, overovanie verzií balíkov a prispôsobenie zoznamov v HD/FHD/WQHD/UHD. Zachované sú štyri nezávislé profily, nastavenia, stiahnuté picony a doterajšie úpravy OpenATV 8.1/GLES. Po aktualizácii reštartujte GUI.",
+      "en": "Common OpenPLi and OpenATV release. Fixes installation and updater startup without dataclasses, package-version validation and HD/FHD/WQHD/UHD list layouts. Preserves four independent profiles, settings, downloaded picons and earlier OpenATV 8.1/GLES compatibility work. Restart the GUI after updating."
+    },
+    "release_url": "https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/tag/v0.1.40"
+  },
+  "installation_directory": "/usr/lib/enigma2/python/Plugins/Extensions/WarderPiconHub/",
+  "package": "enigma2-plugin-extensions-piconhub-warder-evolution",
+  "update_feed": "https://raw.githubusercontent.com/Evolution-by-Warder/PiconHub-Warder-Evolution/plugin/futuristic-rebuild/plugin/update/stable.json",
+  "languages": [
+    "sk",
+    "cs",
+    "en",
+    "de",
+    "pl",
+    "hu",
+    "ru",
+    "fr",
+    "it",
+    "es"
+  ],
+  "validation": {
+    "version": "0.1.40",
+    "package_source_commit": "3cadf0b85f2e9deb5b2a2f81f3a562161f3bc42f",
+    "workflow_run": "41501218087",
+    "public_ipk_sha256_verified": true,
+    "public_ipk_sidecar_verified": true,
+    "sha256": "909dd86f2872857ec78f93db5c59bbd4f3cef7200a2a39adaee604d9659a2af9",
+    "bytes": 2885936,
+    "candidate_sha256": "1c7000b2502f247c245e96634aa45e6a318ba4d3e008c3a067063cce3e47fed1",
+    "candidate_python_files_compared": 19,
+    "only_generated_version_labels_changed": true,
+    "OpenPLi_refs": [
+      "release-9.2",
+      "develop"
+    ],
+    "OpenATV_refs": [
+      "8.0",
+      "8.0-next",
+      "master"
+    ],
+    "matrices_passed": true,
+    "physical_receiver_all_features_verified": false,
+    "custom_font_settings_preserved": true
+  },
+  "accepted_candidate": {
+    "version": "0.1.39-test3",
+    "sha256": "1c7000b2502f247c245e96634aa45e6a318ba4d3e008c3a067063cce3e47fed1"
+  },
+  "canonical_assets": "Existing main picon data and frozen MASTER artwork are preserved.",
+  "download_naming_changed_on": "2026-10-30",
+  "plugin_browser_category": "extensions",
+  "plugin_browser_name": "piconhub-warder-evolution",
+  "package_source_commit": "3cadf0b85f2e9deb5b2a2f81f3a562161f3bc42f",
+  "short_only": true,
+  "manual_install_from_0_1_32": true,
+  "previous_release": {
     "version": "0.1.38",
     "tag": "v0.1.38",
     "url": "https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/download/v0.1.38/enigma2-plugin-extensions-piconhub_0.1.38_all.ipk",
@@ -27,70 +98,6 @@
     },
     "release_url": "https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/tag/v0.1.38"
   },
-  "installation_directory": "/usr/lib/enigma2/python/Plugins/Extensions/WarderPiconHub/",
-  "package": "enigma2-plugin-extensions-piconhub-warder-evolution",
-  "update_feed": "https://raw.githubusercontent.com/Evolution-by-Warder/PiconHub-Warder-Evolution/plugin/futuristic-rebuild/plugin/update/stable.json",
-  "languages": [
-    "sk",
-    "cs",
-    "en",
-    "de",
-    "pl",
-    "hu",
-    "ru",
-    "fr",
-    "it",
-    "es"
-  ],
-  "validation": {
-    "unit_tests": 214,
-    "ci": "passed",
-    "package_workflow_run": 41255663231,
-    "stable_promotion_workflow_run": 41283578750,
-    "public_ipk_size_and_sha256_verified": true,
-    "existing_updaters_verified": [
-      "0.1.33",
-      "0.1.35"
-    ],
-    "receiver_gui_installation_observed": true,
-    "receiver_all_features_tested": false,
-    "catalogue_combined_selectors_host_checks": "9/9 variants; incremental repeat, replace, bouquet sync and two-profile batch passed",
-    "catalogue_verification_url": "https://github.com/Evolution-by-Warder/FullHDGlass-Warder-Evolution/blob/main/reports/CANAL-UNIFICATION-20261101.md",
-    "limits": "0.1.32 needs one manual short-name IPK installation. The immutable 0.1.38 package is promoted without rebuilding or replacing assets. Complete physical receiver feature validation is not claimed."
-  },
-  "accepted_candidate": {
-    "version": "0.1.38",
-    "source_commit": "4ac22bf74265ae2728c0d1263f91dbb34f19636b",
-    "runtime_changes": "Four independent persistent profiles, explicit subset processing, disabled zero-selection download and green checkmarks."
-  },
-  "canonical_assets": "Existing main picon data and frozen MASTER artwork are preserved.",
-  "download_naming_changed_on": "2026-10-30",
-  "plugin_browser_category": "extensions",
-  "plugin_browser_name": "piconhub-warder-evolution",
-  "package_source_commit": "4ac22bf74265ae2728c0d1263f91dbb34f19636b",
-  "short_only": true,
-  "manual_install_from_0_1_32": true,
-  "previous_release": {
-    "version": "0.1.35",
-    "tag": "v0.1.35",
-    "url": "https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/download/v0.1.35/enigma2-plugin-extensions-piconhub_0.1.35_all.ipk",
-    "sha256": "52cc24b4af666262f2faa70cb80b25c2c0a72c9bf13a3d744950c45a8c1c14b0",
-    "bytes": 2879430,
-    "notes": "PiconHub 0.1.35\n\nSpoľahlivejšia inštalácia, prechod z pôvodného pluginu a kontrola úspešného dokončenia aktualizácie. Prehľadnejšia história posledných štyroch vydaní v jazyku prostredia. Existujúce nastavenia a stiahnuté picony zostávajú zachované.\n\nZ verzie 0.1.32 je potrebná jednorazová ručná inštalácia IPK cez existujúcu verziu; ďalšie aktualizácie už podporujú krátky názov balíka. Po aktualizácii reštartujte GUI.\n",
-    "notes_i18n": {
-      "sk": "Spoľahlivejšie overenie dokončenej inštalácie.",
-      "cs": "Spolehlivější ověření dokončené instalace.",
-      "en": "More reliable verification of completed installations.",
-      "de": "Zuverlässigere Prüfung abgeschlossener Installationen.",
-      "pl": "Pewniejsza weryfikacja zakończonej instalacji.",
-      "hu": "A befejezett telepítés megbízhatóbb ellenőrzése.",
-      "ru": "Более надежная проверка завершенной установки.",
-      "fr": "Vérification plus fiable des installations terminées.",
-      "it": "Verifica più affidabile delle installazioni completate.",
-      "es": "Verificación más fiable de las instalaciones completadas."
-    },
-    "release_url": "https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/tag/v0.1.35"
-  },
   "previous_validation": {
     "unit_tests": 204,
     "ci": "passed",
@@ -100,5 +107,10 @@
     "receiver_device": "GigaBlue Quad4KPro / OpenATV 8.0.1",
     "original_forum_octagon_retest": false,
     "limits": "Version 0.1.32 requires one manual short-name IPK installation; supported later updater versions accept 0.1.35. No long-name alias is published."
+  },
+  "peer_production": {
+    "fullhdglass": "1.0.62",
+    "gsu": "13.41-r4",
+    "piconhub": "0.1.40"
   }
 }
