@@ -5,7 +5,7 @@ on:
     paths: [.github/workflows/piconhub-0.1.41-download-fix.yml]
   workflow_dispatch:
 permissions:
-  contents: read
+  contents: write
 jobs:
   test-and-build:
     runs-on: ubuntu-latest
@@ -33,3 +33,10 @@ jobs:
           path: |
             plugin/build/enigma2-plugin-extensions-piconhub_0.1.41_all.ipk
             plugin/build/enigma2-plugin-extensions-piconhub_0.1.41_all.ipk.sha256
+
+      - name: Publish verified 0.1.41 IPK and checksum
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          gh release create v0.1.41 plugin/build/enigma2-plugin-extensions-piconhub_0.1.41_all.ipk plugin/build/enigma2-plugin-extensions-piconhub_0.1.41_all.ipk.sha256 --target "$GITHUB_SHA" --title 'PiconHub 0.1.41' --notes 'Download robustness fixes for non-UTF8 server responses, legacy metadata and bouquet parsing. Existing settings and profiles are preserved. Restart Enigma2 GUI after updating.' --latest=false
