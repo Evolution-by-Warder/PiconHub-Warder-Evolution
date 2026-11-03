@@ -599,7 +599,8 @@ class mainConfigScreen(Screen, ConfigListScreen):
                 os.remove(file)
     
     def parseVer(self, filepath):
-        return int(re.findall(r'\d{6}', filepath)[-1])
+        matches = re.findall(r'\d{6}', filepath)
+        return int(matches[-1]) if matches else 0
     
     def delayed(self, x):
         self.delayTimer = eTimer()
@@ -614,7 +615,8 @@ class mainConfigScreen(Screen, ConfigListScreen):
     def loadChochoContent(self):
         dir_list = sorted(glob.glob(PLUGIN_PATH + 'id_for_permalinks*.log'), key=os.path.basename)          # key=os.path.getctime
         if dir_list:
-            self.chochoContent = open(dir_list[-1], 'r').read()                 # glob returns a list variable (however, a string is needed, so we only extract the last index from the list variable)
+            with open(dir_list[-1], 'rb') as f:
+                self.chochoContent = f.read().decode('utf-8', 'replace')                 # glob returns a list variable (however, a string is needed, so we only extract the last index from the list variable)
             pass  # Status belongs in the plugin UI, not the Enigma2 log.
         else:
             self.chochoContent = ''
@@ -1489,8 +1491,8 @@ class piconsUpdateJobScreen(Screen):
             bq_contents = ''
             for bq_file in self.bouquet_files:
                 pass  # Status belongs in the plugin UI, not the Enigma2 log.
-                with open(bq_file, 'r') as f:
-                    bq_contents += f.read() + '\n'
+                with open(bq_file, 'rb') as f:
+                    bq_contents += f.read().decode('utf-8', 'replace') + '\n'
             if config.plugins.chocholousekpicons[profile_id].method.value == 'sync_tv_radio':
                 self.SRC_in_Bouquets = collect_picon_references(bq_contents)
             else:
