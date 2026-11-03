@@ -10,16 +10,35 @@ VANITY_TLDS = {'fm', 'am', 'tv', 'me', 'io', 'ai', 'co', 'cc', 'nu', 'ws',
                'tk', 'gg', 'sh', 'to'}
 QUALITY = re.compile(r'\s*[\[(]\s*(?:(?:mp3|aac\+?|ogg|opus|flac|hls|hd|hq|lq)|'
                      r'\d{2,4}\s*(?:k(?:b(?:it)?)?p?s?))\s*[\])]\s*$', re.I)
+ENCODING = r'(?:mp3|aac\+?|ogg(?:\+meta)?|opus|flac|hls)'
+QUALITY_GROUP = re.compile(r'\s*[\[(]([^\[\]()]+)[\])]\s*$')
+QUALITY_WORDS = re.compile(r'(?:(?:mp3|aac|ogg|meta|opus|flac|hls|stream|high|low|quality|mobile|hd|hq|sd|lq|non|ssl|k|kb|kbps|kbit|bit|s)|\d{2,4}|[\s+/,\-])+\Z')
+TRAILING_ENCODING = re.compile(r'\s+\d{2,4}\s*(?:kbps|kbit/s|kb/s|k)\s*'+ENCODING+r'\s*$')
+PLACEHOLDER_NAMES = {'test','teststation','teststream','demo','undefined','unknown',
+                     'noname','stationname','yourradioname','stream','offline','deleted','donotuse'}
 
 
 def name_key(name):
     """Ignore typography and explicit encoding labels, retaining language and subchannels."""
     name = unicodedata.normalize('NFKD', name.casefold())
     name = ''.join(c for c in name if not unicodedata.combining(c))
-    while QUALITY.search(name):
-        name = QUALITY.sub('', name)
+    while True:
+        old=name
+        name=QUALITY.sub('',name)
+        group=QUALITY_GROUP.search(name)
+        if group and QUALITY_WORDS.fullmatch(group[1].strip()):
+            name=name[:group.start()]
+        name=TRAILING_ENCODING.sub('',name)
+        if name==old:
+            break
+    # Directory headings often prepend the Slovak public-service channel index.
+    # Keep regional/programme suffixes; only the redundant index is removed.
+    name=re.sub(r'^sro\s*\d{1,2}\s*[:\-]?\s*(?=radio\b)', '', name)
+    compact=''.join(c for c in name if c.isalnum())
+    if compact.startswith('radio') and len(compact)>8:
+        compact=compact[5:]
     # Do not transliterate other scripts to an empty ASCII identity.
-    return ''.join(c for c in name if c.isalnum())
+    return compact
 
 
 def homepage_key(url):
@@ -149,6 +168,8 @@ def select_stations(rows, names, preferred_references=()):
                     reason = 'source-reports-unavailable'
                 elif not name_key(item['name']) or not any(homepage_key(u) for u in item.get('homepages', [])):
                     reason = 'missing-station-evidence'
+                elif ''.join(c for c in item['name'].casefold() if c.isalnum()) in PLACEHOLDER_NAMES:
+                    reason = 'placeholder-or-test-entry'
                 elif (urlsplit(item['url']).hostname == 'stream.bauermedia.sk'
                       and any(homepage_key(u) and homepage_key(u)[0] == 'rayo.sk'
                               for u in item.get('homepages', []))):

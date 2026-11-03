@@ -1,9 +1,11 @@
 import copy
+import tempfile
+from pathlib import Path
 import unittest
 from unittest.mock import patch
 from station_identity import name_key, one_typo, select_stations, apply_stream_checks
 from global_radio import original_source_list,SOURCE_GROUP
-from stream_audit import probe, audio_signature, Redirects
+from stream_audit import probe, audio_signature, Redirects, audit
 
 NAMES = {'SK':'Slovensko', 'CZ':'Čechy', 'DE':'Germany', 'SI':'Slovenia'}
 
@@ -30,6 +32,11 @@ class StationIdentityTests(unittest.TestCase):
                 self.assertEqual(out[0]['merged_references'],['extra'])
                 self.assertEqual(len(out[0]['stream_variants']),2)
                 self.assertFalse(review)
+    def test_directory_prefixes_do_not_create_second_station(self):
+        self.assertEqual(name_key('SRo1 Rádio Slovensko'),name_key('Rádio Slovensko'))
+        self.assertEqual(name_key('SRo3: Rádio Devín'),name_key('Rádio Devín'))
+        self.assertEqual(name_key('Rádio Best FM'),name_key('BestFM'))
+        self.assertNotEqual(name_key('SRo2 Rádio Regina Východ'),name_key('SRo2 Rádio Regina Západ'))
     def test_distinct_subchannels_and_station_numbers_are_not_merged(self):
         names=['Rádio Expres','Rádio Expres - Best Of 90s','Rádio Expres - Detské hity',
                'InfoVojna','InfoVojna 2','Classical Radio','Classicals Radio']
@@ -52,6 +59,9 @@ class StationIdentityTests(unittest.TestCase):
         self.assertTrue(name_key('北京广播'))
     def test_encoding_labels_merge_but_genre_and_live_labels_remain(self):
         self.assertEqual(name_key('Radio Test (AAC)'),name_key('Rádio Test [128 kbps]'))
+        self.assertEqual(name_key('SomaFM Lush (128k AAC)'),name_key('SomaFM Lush (320k MP3)'))
+        self.assertEqual(name_key('Radio Paradise Main Mix 128k AAC'),name_key('Radio Paradise Main Mix 192k MP3'))
+        self.assertEqual(name_key('We House Radio (AAC+ High)'),name_key('We House Radio (MP3 128)'))
         self.assertNotEqual(name_key('Radio Test (Live)'),name_key('Radio Test'))
         self.assertNotEqual(name_key('Radio Test 80s'),name_key('Radio Test 90s'))
     def test_transport_variants_ignore_only_known_tracking(self):
@@ -75,6 +85,9 @@ class StationIdentityTests(unittest.TestCase):
         out,review,_=select_stations([a],NAMES)
         self.assertFalse(out)
         self.assertEqual(review[0]['review_reason'],'broadcaster-channel-identity-unconfirmed')
+    def test_placeholder_entries_are_not_real_stations(self):
+        out,review,_=select_stations([row('TEST-Station','https://test.example/live','a')],NAMES)
+        self.assertFalse(out);self.assertEqual(review[0]['review_reason'],'placeholder-or-test-entry')
     def test_unknown_unhealthy_and_unsupported_rows_stay_in_review(self):
         rows=[row('Unknown','https://a.example/','a',country=None),
               row('No website','https://b.example/','b',home=None),
@@ -108,6 +121,16 @@ class Reply:
 
 
 class StreamAuditTests(unittest.TestCase):
+    def test_unreachable_host_shortcut_never_claims_individual_station_failure(self):
+        rows=[row('Radio '+str(i),'https://same.example/'+str(i),str(i)) for i in range(10)]
+        def unavailable(r,timeout):
+            return {'url':r['url'],'status':'connection-unconfirmed','error':'timeout',
+                    'checked_at':'2026-11-03T00:00:00+00:00'}
+        with tempfile.TemporaryDirectory() as directory,patch('stream_audit.probe',side_effect=unavailable) as network:
+            checks=audit(rows,Path(directory)/'audit.json.gz',workers=1,timeout=1)
+        self.assertEqual(network.call_count,4)
+        self.assertEqual(sum(r['status']=='host-check-unconfirmed' for r in checks.values()),6)
+        self.assertFalse(any(r.get('confirmed_failure') for r in checks.values()))
     def test_timeout_keeps_station_and_confirmed_failure_is_reviewed(self):
         rows=[row('Radio A','https://a.example/live','a'),row('Radio B','https://b.example/live','b')]
         checks={rows[0]['url']:{'status':'connection-unconfirmed'},

@@ -63,11 +63,26 @@ def probe(row, timeout=5):
     return result
 
 
-def audit(rows, output, workers=32, timeout=5):
+def audit(rows, output, workers=32, timeout=5, max_age=86400):
     """Two requests per host at most; schedule round-robin across hosts."""
+    cached={}
+    if output.exists():
+        try:
+            previous=json.loads(gzip.decompress(output.read_bytes())).get('checks',{})
+            now=datetime.now(timezone.utc)
+            candidate_urls={r['url'] for r in rows}
+            candidate_urls.update(v['url'] for r in rows for v in r.get('stream_variants',[]))
+            for url in candidate_urls:
+                result=previous.get(url)
+                if (result and (result.get('status')=='audio-confirmed' or result.get('confirmed_failure'))
+                    and 0 <= (now-datetime.fromisoformat(result['checked_at'])).total_seconds() < max_age):
+                    cached[url]=result
+        except (OSError,ValueError,TypeError,KeyError):
+            cached={}
     hosts = defaultdict(list)
     for row in rows:
-        hosts[urlsplit(row['url']).hostname].append(row)
+        if row['url'] not in cached:
+            hosts[urlsplit(row['url']).hostname].append(row)
     ordered = []
     while hosts:
         for host in list(hosts):
@@ -75,18 +90,47 @@ def audit(rows, output, workers=32, timeout=5):
             if not hosts[host]:
                 del hosts[host]
     gates = defaultdict(lambda: threading.Semaphore(2))
-    def work(row):
-        with gates[urlsplit(row['url']).hostname]:
-            result=probe(row, timeout)
-            hard=lambda r: r['status']=='non-audio-or-unrecognised' or r.get('http_status') in (404,410)
-            if hard(result):
-                first=result
-                result=probe(row, timeout)
-                result['confirmed_failure']=hard(result)
-                result['first_status']=first['status']
+    host_state=defaultdict(lambda: {'reachable':False,'failures':0})
+    state_lock=threading.Lock()
+    def checked_probe(row):
+        host=urlsplit(row['url']).hostname
+        with gates[host]:
+            with state_lock:
+                state=host_state[host]
+                blocked=not state['reachable'] and state['failures']>=4
+            if blocked:
+                return {'url':row['url'],'status':'host-check-unconfirmed','requested':False,
+                        'checked_at':datetime.now(timezone.utc).replace(microsecond=0).isoformat(),
+                        'error':'Host connection unconfirmed on four independent addresses; no station failure inferred.'}
+            result=probe(row,timeout)
+            with state_lock:
+                if result.get('http_status') is not None:
+                    host_state[host]['reachable']=True
+                elif result['status']=='connection-unconfirmed':
+                    host_state[host]['failures']+=1
             return result
-    results = {}
+    def work(row):
+        result=checked_probe(row)
+        hard=lambda r: r['status']=='non-audio-or-unrecognised' or r.get('http_status') in (404,410)
+        if hard(result):
+            first=result
+            result=checked_probe(row)
+            result['confirmed_failure']=hard(result)
+            result['first_status']=first['status']
+            if result['confirmed_failure']:
+                alternatives=[]
+                for variant in row.get('stream_variants',[])[:4]:
+                    if variant['url']==row['url']:
+                        continue
+                    alternative=cached.get(variant['url']) or checked_probe(dict(row,url=variant['url']))
+                    alternatives.append(alternative)
+                    if alternative['status']=='audio-confirmed':
+                        break
+                result['alternative_checks']=alternatives
+        return result
+    results = dict(cached)
     started = time.monotonic()
+    print(json.dumps({'rows':len(rows),'fresh_cached_checks':len(cached),'network_checks':len(ordered)}),flush=True)
     def save():
         raw = json.dumps({'schema': 1, 'checks': results}, ensure_ascii=False, separators=(',', ':')).encode()
         temporary = output.with_suffix('.tmp')
@@ -94,12 +138,14 @@ def audit(rows, output, workers=32, timeout=5):
         temporary.replace(output)
     with ThreadPoolExecutor(max_workers=workers) as pool:
         futures = {pool.submit(work, row): row for row in ordered}
-        for future in as_completed(futures):
+        for completed,future in enumerate(as_completed(futures),1):
             result = future.result()
+            for alternative in result.pop('alternative_checks',[]):
+                results[alternative['url']]=alternative
             results[result['url']] = result
-            if len(results) % 250 == 0:
+            if completed % 250 == 0:
                 save()
-                print(json.dumps({'completed':len(results),'total':len(rows),
+                print(json.dumps({'completed':completed,'total':len(ordered),
                                   'seconds':round(time.monotonic()-started),
                                   'statuses':dict(Counter(r['status'] for r in results.values()))}), flush=True)
     save()

@@ -322,6 +322,7 @@ def main():
             raise ValueError('Live checking environment could not confirm audio')
         items,stream_review,stream_stats=apply_stream_checks(items,checks)
         review.extend(stream_review);stats.update(stream_stats)
+        stats.update(review_rows=len(review),published_station_rows=len(items))
     stats.update(total_stations=len(items),countries=len({r['countrycode'] for r in items}-{None}),
                  unclassified=sum(r['countrycode'] is None for r in items))
     for entry in parse(owned):
