@@ -1,7 +1,7 @@
 name: Build Vivacom Warder review sheet (no release)
 on:
   push:
-    branches: [review/vivacom-warder-artwork-20261103]
+    branches: [main]
     paths: [.github/workflows/vivacom-artwork-review.yml]
   workflow_dispatch:
 permissions:
@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: review/vivacom-warder-artwork-20261103
+          ref: main
           sparse-checkout: |
             picons/13.0e/vivacom
             plugin/artwork/templates/picons
