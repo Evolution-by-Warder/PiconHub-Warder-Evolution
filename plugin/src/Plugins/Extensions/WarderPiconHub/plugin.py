@@ -1575,7 +1575,7 @@ class piconsUpdateJobScreen(Screen):
         # 3. Kontrola stiahnutého súboru na jeho obsah - jedná sa o formát 7-zip alebo HTML ? Nie je to ERROR ? A v prípade HTML súboru, je tam obsiahnutý tiež oznam o chybe ?
         if not self.fileHeader7z(dwn_file):
             with open(dwn_file, 'rb') as f:                         # using byte-code... because the contents of the file can still be in "bytes" format and not "string" format...
-                file_content = f.read().decode('utf-8')             # ...and then Python 3 may report an error... so, for both PY2 + PY3, we need use the byte-code format - due to compatibility in both
+                file_content = f.read(16384).decode('utf-8', 'replace')             # ...and then Python 3 may report an error... so, for both PY2 + PY3, we need use the byte-code format - due to compatibility in both
             if 'possible_VPN_error' in file_content:
                 add_msg = ' %s %s' % ( _('Possible cause:'), _('using a VPN as an internet gateway') )
             elif '<title>' in file_content:
