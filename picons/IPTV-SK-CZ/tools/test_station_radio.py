@@ -125,6 +125,19 @@ class Reply:
 
 
 class StreamAuditTests(unittest.TestCase):
+    def test_owner_confirmed_slovak_originals_survive_outage_without_url_rewrite(self):
+        for check in ({'status':'connection-unconfirmed'},
+                      {'status':'http-error','http_status':503},
+                      {'status':'http-error','http_status':404,'confirmed_failure':True},
+                      {'status':'audio-confirmed','final_url':'https://other.example/live'}):
+            with self.subTest(check=check):
+                item=row('Original SK','http://original.example/live','original',protected=True)
+                item['stream_variants']=[{'url':'https://alternative.example/live'}]
+                out,review,stats=apply_stream_checks([item],{item['url']:check,
+                    'https://alternative.example/live':{'status':'audio-confirmed'}})
+                self.assertEqual(len(out),1);self.assertFalse(review)
+                for field in ('name','url','reference'):self.assertEqual(out[0][field],item[field])
+                self.assertEqual(stats['original_slovak_stations_preserved'],1)
     def test_real_socket_deadline_interrupts_dripping_http_headers(self):
         class Handler(BaseHTTPRequestHandler):
             def log_message(self,*args):pass

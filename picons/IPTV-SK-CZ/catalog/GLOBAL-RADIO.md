@@ -1,5 +1,7 @@
 # Centrálna databáza rádií
 
+**Pôvodné Slovensko je vlastníkom potvrdený základ, nie nový import.** Všetkých 88 pôvodných položiek sa zachová s presným názvom, streamom a referenciou aj počas výpadku alebo neúspešnej vzdialenej sondy. Overené nové stanice možno dopĺňať. Kontrola z inej siete nesmie pôvodnú adresu prepísať ani stanicu vyradiť; neistý výsledok je iba stav kontroly. Nové neoverené a sporné importované záznamy naďalej čakajú v pracovnej databáze. Toto pravidlo nahrádza skoršie plošné vyradenie všetkých nepotvrdených streamov.
+
 Dátová cesta je rovnaká pre každú aktualizáciu: **úplné podporované zdroje → hlavná databáza → zlúčenie streamových identít a krajín → overený katalóg pre box**.
 
 ## Súbory v `catalog/global/`

@@ -214,6 +214,16 @@ def apply_stream_checks(rows, checks):
     published=[];review=[];stats=Counter()
     for row in rows:
         check=checks.get(row['url'],{})
+        if row.get('protected') and row.get('countrycode')=='SK':
+            # The owner confirmed this original list is working. A remote probe
+            # must neither remove these stations nor rewrite their stream URLs.
+            item=dict(row,live_status='audio-confirmed' if check.get('status')=='audio-confirmed'
+                      else 'original-station-retained-during-outage')
+            published.append(item)
+            stats['original_slovak_stations_preserved']+=1
+            stats['audio_confirmed' if check.get('status')=='audio-confirmed'
+                  else 'known_stations_retained_during_outage']+=1
+            continue
         reason=None
         if check.get('confirmed_failure'):
             reason='confirmed-unavailable-or-non-audio'

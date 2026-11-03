@@ -335,6 +335,14 @@ def main():
     for entry in parse(owned):
         if entry.url and not any(r['reference']==entry.reference and r['name']==entry.name and entry.url in r['aliases'] for r in items+review):
             raise ValueError('Curated station lost during station selection')
+    original_group=None
+    for entry in parse(owned):
+        if not entry.url:
+            original_group=entry.name
+        elif original_group=='Slovensko' and not any(
+                r['reference']==entry.reference and r['name']==entry.name and r['url']==entry.url
+                for r in items):
+            raise ValueError('Original Slovak station was removed or its URL changed')
     lines=['#NAME Warder Radio World\n'];group=None
     for row in items:
         if row['group']!=group:
@@ -361,11 +369,11 @@ def main():
     country_index.append({'name':SOURCE_GROUP,'countrycode':None,'stations':len(source_view),'original_source_view':True})
     replace(args.output/'countries.json',json.dumps(country_index,ensure_ascii=False,indent=2)+'\n')
     report={'schema':1,'built_at':now,'sources':status,'processing':stats,'master':master_info,
-        'catalogue':compiled_info,'receiver':receiver_info,'review':review_info,'station_policy':3,
+        'catalogue':compiled_info,'receiver':receiver_info,'review':review_info,'station_policy':4,
         'last_live_published_stations':len(items) if args.stream_checks else last_live_count,
         'bouquet_bytes':len(bouquet.encode()),
         'owned_sha256':hashlib.sha256(owned.encode()).hexdigest(),
-        'validation':'Live bounded audio samples where confirmed; timeouts are unconfirmed, not dead. No claim of receiver playback verification.' if args.stream_checks else 'Source-reported health only; no claim of box playback verification.',
+        'validation':'Live bounded samples for additions; the owner-confirmed original Slovak list retains exact names, URLs and references through probe failures. Timeouts are not dead stations. No universal receiver playback claim.' if args.stream_checks else 'Source-reported health only; original Slovak list preserved.',
         'source_list':{'name':SOURCE_GROUP,'stations':len(source_view),
                        'source_sha256':hashlib.sha256(args.source_view.read_bytes()).hexdigest(),
                        'policy':'Original source names, URLs and order; separately requested unfiltered view.'},
