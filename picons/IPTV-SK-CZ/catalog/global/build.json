@@ -1,53 +1,81 @@
 {
   "schema": 1,
-  "built_at": "2026-11-03T19:39:16+00:00",
+  "built_at": "2026-11-03T22:15:54+00:00",
   "sources": {
     "radio-browser": {
       "status": "live",
-      "observations": 63003,
+      "observations": 63019,
       "invalid_records": 17,
       "server": "de1.api.radio-browser.info",
-      "rows": 63020,
-      "seconds": 9.1
+      "rows": 63036,
+      "seconds": 9.43
     },
     "laut.fm": {
       "status": "live",
-      "observations": 16908,
-      "rows": 16908,
-      "inventory": 16908,
+      "observations": 16905,
+      "rows": 16905,
+      "inventory": 16905,
       "pages": 17,
       "requests": 18,
       "page_duplicates": 0,
       "named_recoveries": 0,
       "unavailable_names": [],
-      "active": 16902
+      "active": 16900
     }
   },
   "processing": {
-    "duplicate_observations_merged": 14430,
-    "country_conflicts": 594,
-    "new_unhealthy_clusters_excluded": 566,
-    "total_stations": 71303,
-    "countries": 222,
-    "unclassified": 20572
+    "duplicate_observations_merged": 14510,
+    "country_conflicts": 595,
+    "new_unhealthy_clusters_excluded": 575,
+    "total_stations": 40416,
+    "countries": 220,
+    "unclassified": 0,
+    "station_variant_rows_merged": 3084,
+    "missing_station_evidence": 2422,
+    "broadcaster_channel_identity_unconfirmed": 17,
+    "unresolved_same_name_identities": 2270,
+    "country_evidence_needs_review": 162,
+    "placeholder_or_test_entry": 1,
+    "unknown_or_conflicting_country": 20571,
+    "review_rows": 27799,
+    "input_station_rows": 71299,
+    "published_station_rows": 40416,
+    "live_check_unconfirmed": 5950,
+    "audio_confirmed": 34466,
+    "confirmed_unavailable_or_non_audio": 2277,
+    "redirects_to_another_station": 79,
+    "verified_alternative_urls_selected": 26
   },
   "master": {
-    "bytes": 7153192,
-    "decoded_bytes": 42490316,
-    "sha256": "c3b3ccf963c11c05e9ed03869463502fc1ade6873b2b86fa185873cf178b89a3"
+    "bytes": 7156494,
+    "decoded_bytes": 42524204,
+    "sha256": "bec51a24057cf97dc69c716eed57a37ce42624fa36ce8800554d835494d54990"
   },
   "catalogue": {
-    "bytes": 8061755,
-    "decoded_bytes": 41585056,
-    "sha256": "58ff1e269773092b554187d04b2d0cfc76d3a71baefae02df7adf842c008bea7"
+    "bytes": 5748165,
+    "decoded_bytes": 31507172,
+    "sha256": "723fdb4d91c20ec62676808e4432bffb226de3c18450d1d9af2873f942876259"
   },
   "receiver": {
-    "bytes": 2064570,
-    "decoded_bytes": 11011503,
-    "sha256": "6d7cc6b7101bcba31a3688d87f29a1ec166daa8b9d4526f4fc0e7fc0d3ba1ca3"
+    "bytes": 1427409,
+    "decoded_bytes": 7183311,
+    "sha256": "886599c29d40490699464bf3d3a29ffaa7947f9828f4b23bcf680a6103b38fa3"
   },
-  "bouquet_bytes": 8971773,
+  "review": {
+    "bytes": 2951860,
+    "decoded_bytes": 21449363,
+    "sha256": "40c450b16dfdc467c286bcd6d89176c8bf1a96d7aec290a29c1992f3a984d32b"
+  },
+  "station_policy": 2,
+  "bouquet_bytes": 5876638,
   "owned_sha256": "04d28a935b5d47effca6a799c84af441e197159eac6e32aab4b6013ef8abdb56",
-  "validation": "Source-reported health only; no claim of box playback verification.",
+  "validation": "Live bounded audio samples where confirmed; timeouts are unconfirmed, not dead. No claim of receiver playback verification.",
+  "source_list": {
+    "name": "HDF Radio zoznam",
+    "stations": 5344,
+    "source_sha256": "734c7ebc56f48724d6dc4517076813fab43e81a46894f6c9682e12787ff0e600",
+    "policy": "Original source names, URLs and order; separately requested unfiltered view."
+  },
+  "receiver_rows": 45760,
   "source_policy": "Only supported directory exports are imported; other services remain candidates."
 }
