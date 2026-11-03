@@ -1,5 +1,6 @@
 """Publish station identities, retaining stream variants and doubtful rows for review."""
 from collections import Counter, defaultdict
+from datetime import datetime,timezone
 import re
 import unicodedata
 from urllib.parse import parse_qsl, urlsplit
@@ -70,6 +71,49 @@ def one_typo(a, b):
     return a != b and re.sub(r'(.)\1+', r'\1', a) == re.sub(r'(.)\1+', r'\1', b)
 
 
+LANGUAGE_SITES={'en','eng','english','cz','cs','cesky','czech','de','deutsch','german',
+                'fr','francais','french','es','espanol','spanish','ru','russian',
+                'it','italian','pt','portuguese','pl','polish','sk','slovak'}
+GENERIC_MOUNTS={'live','stream','radio','listen','index','master','audio','broadcast',
+                'playlist','rock','jazz','pop','news','main','station','channel','default',
+                'play','mp3','aac','aacp','ogg','opus','flac','hls','low','high','hi','lo'}
+
+
+def programme_mount(row,url):
+    """Encoding profiles share a programme; station/channel numbers do not."""
+    p=urlsplit(url);host=p.hostname.lower()
+    family='play.cz' if re.fullmatch(r'(?:icecast|ice)\d*\.play\.cz',host) else host
+    path=p.path
+    stem=re.sub(r'\.(?:mp3|aacp?|ogg|opus|flac|m3u8?|pls)$','',path,flags=re.I)
+    if stem==path:return None
+    suffix=re.search(r'(?:[_-](?:mp3|aacp?|ogg|opus|flac))?[_-](24|32|48|56|64|96|128|160|192|256|320|512|high|low|hi|lo|hq|lq)$',stem,re.I)
+    if suffix and not (suffix[1].isdigit() and suffix[1] in re.findall(r'\d+',name_key(row['name']))):
+        stem=stem[:suffix.start()]
+    elif family=='play.cz':
+        suffix=re.search(r'(24|32|48|56|64|96|128|160|192|256|320|512)$',stem)
+        if suffix and suffix[1] not in re.findall(r'\d+',name_key(row['name'])):
+            stem=stem[:suffix.start()]
+    stem=re.sub(r'[_-](?:mp3|aacp?|ogg|opus|flac)$','',stem,flags=re.I)
+    token=stem.rsplit('/',1)[-1]
+    if len(token)<3 or not any(c.isalpha() for c in token) or token.casefold() in GENERIC_MOUNTS:
+        return None
+    port=p.port if p.port not in (None,80,443) else None
+    query=transport_key(url)[3]
+    # A shared leaf such as /programme-a/play.mp3 vs /programme-b/play.mp3
+    # is not a shared programme: retain the entire identifying path.
+    return (family,port,stem,query),stem,query
+
+
+def language_site(url):
+    key=homepage_key(url)
+    if not key:return None
+    host,path=key
+    if len(host.split('.'))>=3 and host.split('.')[0] in LANGUAGE_SITES:
+        host=host.split('.',1)[1]
+    if path.strip('/') in LANGUAGE_SITES:path=''
+    return host,path
+
+
 def select_stations(rows, names, preferred_references=()):
     """Keep one evidenced station per country/name; quarantine unresolved homonyms."""
     parents = list(range(len(rows)))
@@ -90,11 +134,33 @@ def select_stations(rows, names, preferred_references=()):
             parents[max(a, b)] = min(a, b)
 
     evidence = {}
+    programmes={};site_programmes=defaultdict(list)
     typo_buckets = defaultdict(set)
     for i, row in enumerate(rows):
         country = row.get('countrycode')
         if not country or not keys[i]:
             continue
+        # Same audio resource across HTTP/HTTPS or encoding/node profiles is
+        # stronger evidence than translated/old display labels.
+        for value in streams[i]:
+            key=(country,'transport',value)
+            if key in programmes:join(i,programmes[key])
+            else:programmes[key]=i
+        for url in row.get('aliases',[row['url']]):
+            programme=programme_mount(row,url)
+            if not programme:continue
+            resource,programme_path,query=programme
+            key=(country,'programme',resource)
+            if key in programmes:join(i,programmes[key])
+            else:programmes[key]=i
+            for home in row.get('homepages',[]):
+                site=language_site(home)
+                if not site:continue
+                key=(country,site,programme_path,resource[1],query)
+                for other in site_programmes[key]:
+                    a=set(row.get('languages',[]));b=set(rows[other].get('languages',[]))
+                    if not a or not b or a & b:join(i,other)
+                site_programmes[key].append(i)
         for kind, values in (('homepage', homes[i]), ('stream', streams[i])):
             for value in values:
                 key = (country, keys[i], kind, value)
@@ -137,7 +203,7 @@ def select_stations(rows, names, preferred_references=()):
         item = dict(rows[canonical])
         # Keep all curated identities if two of them really occur in one cluster.
         protected = [i for i in indices if rows[i].get('protected')]
-        if len(protected) > 1:
+        if len(protected) > 1 and any(rows[i].get('countrycode')=='SK' for i in protected):
             selected.extend(dict(rows[i]) for i in protected)
             others = [i for i in indices if i not in protected]
             review.extend(dict(rows[i], review_reason='multiple-curated-identities') for i in others)
@@ -149,7 +215,16 @@ def select_stations(rows, names, preferred_references=()):
             {r['url']: {k: r.get(k) for k in ('url', 'bitrate', 'codec', 'healthy')}
              for i in indices for r in [rows[i]]}.values(), key=lambda r: r['url'])
         item['merged_references'] = sorted({rows[i]['reference'] for i in indices} - {item['reference']})
+        item['name_aliases']=sorted({name for i in indices for name in
+                                    [rows[i]['name']]+rows[i].get('name_aliases',[])})
         item['healthy'] = any(rows[i].get('healthy') for i in indices)
+        item['known_working']=any(rows[i].get('known_working') for i in indices)
+        item['failure_days']=sorted({d for i in indices for d in rows[i].get('failure_days',[])})
+        item['last_audio_at']=max((rows[i].get('last_audio_at') or '' for i in indices),default='') or None
+        item['first_failure_at']=min((rows[i]['first_failure_at'] for i in indices
+                                      if rows[i].get('first_failure_at')),default=None)
+        item['last_failure_at']=max((rows[i]['last_failure_at'] for i in indices
+                                     if rows[i].get('last_failure_at')),default=None)
         stats['station_variant_rows_merged'] += len(indices) - 1
         selected.append(item)
 
@@ -164,7 +239,7 @@ def select_stations(rows, names, preferred_references=()):
             if not item.get('protected'):
                 if not item.get('countrycode'):
                     reason = 'unknown-or-conflicting-country'
-                elif not item.get('healthy'):
+                elif not item.get('healthy') and not item.get('known_working'):
                     reason = 'source-reports-unavailable'
                 elif not name_key(item['name']) or not any(homepage_key(u) for u in item.get('homepages', [])):
                     reason = 'missing-station-evidence'
@@ -217,7 +292,7 @@ def apply_stream_checks(rows, checks):
         if row.get('protected') and row.get('countrycode')=='SK':
             # The owner confirmed this original list is working. A remote probe
             # must neither remove these stations nor rewrite their stream URLs.
-            item=dict(row,live_status='audio-confirmed' if check.get('status')=='audio-confirmed'
+            item=dict(row,known_working=True,live_status='audio-confirmed' if check.get('status')=='audio-confirmed'
                       else 'original-station-retained-during-outage')
             published.append(item)
             stats['original_slovak_stations_preserved']+=1
@@ -246,10 +321,40 @@ def apply_stream_checks(rows, checks):
                 check=checks[row['url']]
                 stats['verified_alternative_urls_selected']+=1
                 reason=None
+        if reason in ('live-audio-not-confirmed','confirmed-unavailable-or-non-audio') and (
+                row.get('known_working') or row.get('protected')):
+            row=dict(row,known_working=True)
+            days=set(row.get('failure_days',[]))
+            observed=None
+            try:
+                observed=datetime.fromisoformat(check['checked_at'].replace('Z','+00:00'))
+            except (KeyError,ValueError,TypeError):pass
+            # A deferred check or regional access restriction is not evidence
+            # of a retired station. Cached retries on one date count once.
+            if (observed is not None and check.get('requested',True)
+                    and check.get('http_status') not in (401,403)
+                    and check.get('status') not in ('playlist-needs-review','host-check-unconfirmed','audit-budget-unconfirmed')):
+                days.add(observed.date().isoformat())
+                row['first_failure_at']=row.get('first_failure_at') or observed.isoformat()
+                row['last_failure_at']=max(row.get('last_failure_at') or '',observed.isoformat())
+            row['failure_days']=sorted(days)[-30:]
+            persistent=False
+            try:
+                first=datetime.fromisoformat((row.get('first_failure_at') or '').replace('Z','+00:00'))
+                last=datetime.fromisoformat((row.get('last_failure_at') or '').replace('Z','+00:00'))
+                persistent=len(days)>=3 and (last-first).total_seconds()>=48*3600
+            except (KeyError,ValueError,TypeError):pass
+            if not persistent:
+                published.append(dict(row,live_status='known-station-retained-during-outage'))
+                stats['known_stations_retained_during_outage']+=1
+                continue
+            reason='persistent-unavailability'
         if reason:
             review.append(dict(row,review_reason=reason,stream_check=check))
             stats[reason.replace('-','_')]+=1
         else:
-            published.append(row)
+            published.append(dict(row,known_working=True,live_status='audio-confirmed',
+                                  last_audio_at=check.get('checked_at') or row.get('last_audio_at'),
+                                  first_failure_at=None,last_failure_at=None,failure_days=[]))
             stats['audio_confirmed' if check.get('status')=='audio-confirmed' else 'live_check_unconfirmed']+=1
     return published,review,dict(stats)
