@@ -323,6 +323,8 @@ def main():
         # reason to erase a working international catalogue.
         if sum(c.get('status')=='audio-confirmed' for c in checks.values())<100:
             raise ValueError('Live checking environment could not confirm audio')
+        stats['audit_requested_urls']=sum(c.get('requested',True) for c in checks.values())
+        stats['audit_deferred_urls']=sum(c.get('requested') is False for c in checks.values())
         items,stream_review,stream_stats=apply_stream_checks(items,checks)
         review.extend(stream_review);stats.update(stream_stats)
         stats.update(review_rows=len(review),published_station_rows=len(items))

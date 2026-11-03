@@ -52,7 +52,15 @@ jobs:
       - name: Compile master database and country catalogue
         run: python picons/IPTV-SK-CZ/tools/global_radio.py
       - name: Audit stream addresses and bounded audio samples
-        run: python picons/IPTV-SK-CZ/tools/stream_audit.py --input picons/IPTV-SK-CZ/catalog/global/world-radio.json.gz --output picons/IPTV-SK-CZ/catalog/global/stream-audit.json.gz --workers 64 --timeout 5
+        run: |
+          python picons/IPTV-SK-CZ/tools/stream_audit.py --input picons/IPTV-SK-CZ/catalog/global/world-radio.json.gz --output picons/IPTV-SK-CZ/catalog/global/stream-audit.json.gz --workers 64 --timeout 5 --budget-seconds 300
+          python picons/IPTV-SK-CZ/tools/stream_audit.py --input picons/IPTV-SK-CZ/catalog/global/world-radio.json.gz --output picons/IPTV-SK-CZ/catalog/global/stream-audit.json.gz --workers 64 --timeout 5 --budget-seconds 300
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: radio-stream-audit
+          path: picons/IPTV-SK-CZ/catalog/global/stream-audit.json.gz
+          retention-days: 7
       - name: Apply corroborated stream failures and redirects
         run: python picons/IPTV-SK-CZ/tools/global_radio.py --stream-checks picons/IPTV-SK-CZ/catalog/global/stream-audit.json.gz
       - name: Publish validated catalogues as one revision
