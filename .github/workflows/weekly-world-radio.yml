@@ -9,6 +9,8 @@ on:
       - '.github/workflows/weekly-world-radio.yml'
       - 'picons/IPTV-SK-CZ/tools/update_world_radio.py'
       - 'picons/IPTV-SK-CZ/tools/test_world_radio.py'
+      - 'picons/IPTV-SK-CZ/tools/laut_radio.py'
+      - 'picons/IPTV-SK-CZ/tools/test_laut_radio.py'
       - 'picons/IPTV-SK-CZ/bouquets/userbouquet.warder.sk-cz.radio'
 permissions:
   contents: write
@@ -33,7 +35,7 @@ jobs:
         with:
           python-version: '3.14'
       - name: Test country filtering, identity stability and failure handling
-        run: python -m unittest discover -s picons/IPTV-SK-CZ/tools -p test_world_radio.py -v
+        run: python -m unittest discover -s picons/IPTV-SK-CZ/tools -p 'test_*radio.py' -v
       - name: Refresh temporary source and publish only verified output
         shell: bash
         run: |
