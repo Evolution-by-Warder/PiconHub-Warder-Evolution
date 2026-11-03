@@ -9,11 +9,12 @@ import hashlib
 from http.client import HTTPException
 import json
 from pathlib import Path
+import socket
 import threading
 import time
 from urllib.error import HTTPError, URLError
 from urllib.parse import urlsplit
-from urllib.request import HTTPRedirectHandler, Request, build_opener
+from urllib.request import HTTPRedirectHandler, HTTPHandler, HTTPSHandler, Request, build_opener
 
 from station_identity import name_key
 from global_radio import url_key
@@ -26,28 +27,72 @@ class Redirects(HTTPRedirectHandler):
         return super().redirect_request(req, fp, code, msg, headers, newurl)
 
 
+class DeadlineHandler:
+    """Abort a connected socket at an absolute deadline, including slow headers."""
+    def __init__(self, deadline, timers):
+        super().__init__()
+        self.deadline,self.timers=deadline,timers
+    def do_open(self,http_class,request,**options):
+        def factory(*args,**kwargs):
+            connection=http_class(*args,**kwargs)
+            original=connection.connect
+            def connect():
+                original()
+                connected_socket=connection.sock
+                def abort():
+                    try:connected_socket.shutdown(socket.SHUT_RDWR)
+                    except OSError:pass
+                timer=threading.Timer(max(.01,self.deadline-time.monotonic()),abort)
+                timer.daemon=True
+                self.timers.append(timer)
+                timer.start()
+            connection.connect=connect
+            return connection
+        return super().do_open(factory,request,**options)
+
+
+class DeadlineHTTP(DeadlineHandler,HTTPHandler):pass
+class DeadlineHTTPS(DeadlineHandler,HTTPSHandler):pass
+
+
 def audio_signature(data):
     return (data.startswith((b'ID3', b'OggS', b'fLaC')) or b'ftyp' in data[:16]
             or any(data[i] == 255 and data[i+1] & 0xe0 == 0xe0
                    for i in range(min(len(data)-1, 512))))
 
 
+def read_sample(response, timeout):
+    """Do not wait for a full buffer from a slow/dripping live stream."""
+    deadline=time.monotonic()+timeout
+    data=bytearray()
+    read=getattr(response,'read1',response.read)
+    while len(data)<1024 and time.monotonic()<deadline:
+        chunk=read(1024-len(data))
+        if not chunk:
+            break
+        data.extend(chunk)
+        if len(data)>=64:
+            break
+    return bytes(data)
+
+
 def probe(row, timeout=5):
     result = {'url': row['url'], 'checked_at': datetime.now(timezone.utc).replace(microsecond=0).isoformat()}
+    timers=[];deadline=time.monotonic()+timeout
     try:
         url_key(row['url'])
         request = Request(row['url'], headers={'User-Agent': 'WarderRadio/catalogue-validation',
                                               'Icy-MetaData': '0', 'Connection': 'close'})
-        with build_opener(Redirects()).open(request, timeout=timeout) as response:
+        with build_opener(Redirects(),DeadlineHTTP(deadline,timers),DeadlineHTTPS(deadline,timers)).open(request, timeout=timeout) as response:
             final = response.geturl()
             url_key(final)
-            data = response.read(1024)
+            data = read_sample(response,timeout)
             content = response.headers.get('Content-Type', '').lower().split(';')[0]
             icy_name = response.headers.get('icy-name', '').strip()
             result.update(final_url=final, http_status=response.status,
                           content_type=content, icy_name=icy_name,
                           sample_bytes=len(data), sample_sha256=hashlib.sha256(data).hexdigest())
-            if response.status != 200 or not data:
+            if response.status != 200 or len(data)<32:
                 result['status'] = 'empty-or-incomplete'
             elif audio_signature(data) and (content.startswith('audio/') or content in
                                             ('application/ogg', 'application/octet-stream', 'video/mp4')):
@@ -60,12 +105,14 @@ def probe(row, timeout=5):
         result.update(status='http-error', http_status=error.code)
     except (URLError, OSError, ValueError, TimeoutError, HTTPException) as error:
         result.update(status='connection-unconfirmed', error=str(error)[:240])
+    finally:
+        for timer in timers:timer.cancel()
     return result
 
 
-def audit(rows, output, workers=32, timeout=5, max_age=86400):
+def audit(rows, output, workers=32, timeout=5, max_age=86400, budget_seconds=300):
     """Two requests per host at most; schedule round-robin across hosts."""
-    cached={}
+    cached={};previous={}
     if output.exists():
         try:
             previous=json.loads(gzip.decompress(output.read_bytes())).get('checks',{})
@@ -74,13 +121,18 @@ def audit(rows, output, workers=32, timeout=5, max_age=86400):
             candidate_urls.update(v['url'] for r in rows for v in r.get('stream_variants',[]))
             for url in candidate_urls:
                 result=previous.get(url)
-                if (result and (result.get('status')=='audio-confirmed' or result.get('confirmed_failure'))
-                    and 0 <= (now-datetime.fromisoformat(result['checked_at'])).total_seconds() < max_age):
+                if result and result.get('status')=='audit-budget-unconfirmed':
+                    continue
+                ttl=max_age if result and (result.get('status')=='audio-confirmed' or result.get('confirmed_failure')) else min(max_age,3600)
+                if (result and 0 <= (now-datetime.fromisoformat(result['checked_at'])).total_seconds() < ttl):
                     cached[url]=result
         except (OSError,ValueError,TypeError,KeyError):
             cached={}
     hosts = defaultdict(list)
-    for row in rows:
+    pending_order=sorted(rows,key=lambda row:(
+        0 if previous.get(row['url'],{}).get('status')=='audit-budget-unconfirmed' else 1,
+        previous.get(row['url'],{}).get('checked_at','')))
+    for row in pending_order:
         if row['url'] not in cached:
             hosts[urlsplit(row['url']).hostname].append(row)
     ordered = []
@@ -90,11 +142,18 @@ def audit(rows, output, workers=32, timeout=5, max_age=86400):
             if not hosts[host]:
                 del hosts[host]
     gates = defaultdict(lambda: threading.Semaphore(2))
+    budget_deadline=time.monotonic()+budget_seconds
     host_state=defaultdict(lambda: {'reachable':False,'failures':0})
     state_lock=threading.Lock()
+    def deferred(row):
+        return {'url':row['url'],'status':'audit-budget-unconfirmed','requested':False,
+                'deferred_at':datetime.now(timezone.utc).replace(microsecond=0).isoformat(),
+                'error':'No audio claim: deferred after the bounded audit window.'}
     def checked_probe(row):
+        if time.monotonic()>=budget_deadline:return deferred(row)
         host=urlsplit(row['url']).hostname
         with gates[host]:
+            if time.monotonic()>=budget_deadline:return deferred(row)
             with state_lock:
                 state=host_state[host]
                 blocked=not state['reachable'] and state['failures']>=4
@@ -158,8 +217,10 @@ if __name__ == '__main__':
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--workers', type=int, default=32)
     parser.add_argument('--timeout', type=float, default=5)
+    parser.add_argument('--budget-seconds',type=int,default=300)
     args = parser.parse_args()
     if not 1 <= args.workers <= 64 or not 1 <= args.timeout <= 15:
         parser.error('Invalid concurrency/timeout bound')
+    if not 1<=args.budget_seconds<=1800:parser.error('Invalid audit window')
     rows = json.loads(gzip.decompress(args.input.read_bytes()))
-    audit(rows, args.output, args.workers, args.timeout)
+    audit(rows, args.output, args.workers, args.timeout,budget_seconds=args.budget_seconds)

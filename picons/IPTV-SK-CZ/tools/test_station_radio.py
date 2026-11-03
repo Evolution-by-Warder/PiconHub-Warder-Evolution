@@ -1,11 +1,15 @@
 import copy
 import tempfile
+import threading
+import time
+from http.server import ThreadingHTTPServer,BaseHTTPRequestHandler
 from pathlib import Path
+from datetime import datetime,timezone
 import unittest
 from unittest.mock import patch
 from station_identity import name_key, one_typo, select_stations, apply_stream_checks
 from global_radio import original_source_list,SOURCE_GROUP
-from stream_audit import probe, audio_signature, Redirects, audit
+from stream_audit import probe, audio_signature, Redirects, audit, read_sample
 
 NAMES = {'SK':'Slovensko', 'CZ':'Čechy', 'DE':'Germany', 'SI':'Slovenia'}
 
@@ -121,6 +125,59 @@ class Reply:
 
 
 class StreamAuditTests(unittest.TestCase):
+    def test_real_socket_deadline_interrupts_dripping_http_headers(self):
+        class Handler(BaseHTTPRequestHandler):
+            def log_message(self,*args):pass
+            def do_GET(self):
+                try:
+                    if self.path=='/slow':
+                        self.connection.sendall(b'HTTP/1.1 200 OK\r\nContent-Type: audio/mpeg\r\nX-Drip: ')
+                        for unused in range(30):
+                            self.connection.sendall(b'x');time.sleep(.1)
+                    else:
+                        self.send_response(200);self.send_header('Content-Type','audio/mpeg')
+                        self.end_headers();self.wfile.write(b'ID3'+b'x'*128)
+                except OSError:pass
+        server=ThreadingHTTPServer(('127.0.0.1',0),Handler)
+        thread=threading.Thread(target=server.serve_forever,kwargs={'poll_interval':.01},daemon=True)
+        thread.start()
+        try:
+            # Only this controlled loopback fixture bypasses the public-URL check.
+            with patch('stream_audit.url_key',side_effect=lambda url:url):
+                base='http://127.0.0.1:'+str(server.server_port)
+                started=time.monotonic()
+                good=probe({'url':base+'/good'},timeout=.3)
+                slow=probe({'url':base+'/slow'},timeout=.3)
+            self.assertEqual(good['status'],'audio-confirmed')
+            self.assertNotEqual(slow['status'],'audio-confirmed')
+            self.assertLess(time.monotonic()-started,1.5)
+        finally:
+            server.shutdown();server.server_close()
+    def test_expired_audit_window_defers_without_claiming_an_audio_check(self):
+        rows=[row('Radio A','https://a.example/live','a')]
+        with tempfile.TemporaryDirectory() as directory,patch('stream_audit.probe') as network:
+            checks=audit(rows,Path(directory)/'audit.json.gz',workers=1,timeout=1,budget_seconds=0)
+        network.assert_not_called()
+        self.assertEqual(checks[rows[0]['url']]['status'],'audit-budget-unconfirmed')
+        self.assertFalse(checks[rows[0]['url']]['requested'])
+    def test_dripping_stream_does_not_wait_for_a_full_buffer(self):
+        class Drip:
+            def read(self,n):raise AssertionError('A full-buffer read would stall')
+            def read1(self,n):return b'x'
+        with patch('stream_audit.time.monotonic',side_effect=[0,0,1,2,8]):
+            self.assertEqual(read_sample(Drip(),5),b'xxx')
+    def test_fresh_check_is_reused_without_turning_uncertainty_into_success(self):
+        rows=[row('Radio A','https://a.example/live','a')]
+        result={'url':rows[0]['url'],'status':'connection-unconfirmed',
+                'checked_at':datetime.now(timezone.utc).isoformat()}
+        with tempfile.TemporaryDirectory() as directory,patch('stream_audit.probe',return_value=result) as network:
+            target=Path(directory)/'audit.json.gz'
+            audit(rows,target,workers=1,timeout=1)
+            checks=audit(rows,target,workers=1,timeout=1)
+            self.assertEqual(network.call_count,1)
+            self.assertEqual(checks[rows[0]['url']]['status'],'connection-unconfirmed')
+            audit(rows,target,workers=1,timeout=1,max_age=0)
+            self.assertEqual(network.call_count,2)
     def test_unreachable_host_shortcut_never_claims_individual_station_failure(self):
         rows=[row('Radio '+str(i),'https://same.example/'+str(i),str(i)) for i in range(10)]
         def unavailable(r,timeout):
@@ -131,17 +188,19 @@ class StreamAuditTests(unittest.TestCase):
         self.assertEqual(network.call_count,4)
         self.assertEqual(sum(r['status']=='host-check-unconfirmed' for r in checks.values()),6)
         self.assertFalse(any(r.get('confirmed_failure') for r in checks.values()))
-    def test_timeout_keeps_station_and_confirmed_failure_is_reviewed(self):
+    def test_timeout_is_retained_for_review_not_claimed_dead_or_playable(self):
         rows=[row('Radio A','https://a.example/live','a'),row('Radio B','https://b.example/live','b')]
         checks={rows[0]['url']:{'status':'connection-unconfirmed'},
                 rows[1]['url']:{'status':'http-error','http_status':404,'confirmed_failure':True}}
         out,review,stats=apply_stream_checks(rows,checks)
-        self.assertEqual([r['reference'] for r in out],['a'])
-        self.assertEqual([r['reference'] for r in review],['b'])
+        self.assertFalse(out)
+        self.assertEqual([r['reference'] for r in review],['a','b'])
+        self.assertEqual(review[0]['review_reason'],'live-audio-not-confirmed')
+        self.assertEqual(review[1]['review_reason'],'confirmed-unavailable-or-non-audio')
     def test_other_station_redirect_cannot_masquerade_as_original(self):
         a=row('Europa 2 Fitness','https://a.example/live','a')
         b=row('Rádio Melody','https://b.example/live','b')
-        checks={a['url']:{'status':'audio-confirmed','final_url':b['url']}}
+        checks={a['url']:{'status':'audio-confirmed','final_url':b['url']},b['url']:{'status':'audio-confirmed'}}
         out,review,_=apply_stream_checks([a,b],checks)
         self.assertEqual([r['reference'] for r in out],['b'])
         self.assertEqual(review[0]['review_reason'],'redirects-to-another-station')

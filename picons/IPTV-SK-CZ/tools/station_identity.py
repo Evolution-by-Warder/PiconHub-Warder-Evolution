@@ -217,6 +217,11 @@ def apply_stream_checks(rows, checks):
         reason=None
         if check.get('confirmed_failure'):
             reason='confirmed-unavailable-or-non-audio'
+        elif check.get('status')!='audio-confirmed':
+            # Preserve the observation/master and saved favourites, while the
+            # user-facing country catalogue requires actual audio evidence.
+            # A timeout/playlist/access restriction is review, never "dead".
+            reason='live-audio-not-confirmed'
         final=check.get('final_url')
         if check.get('status')=='audio-confirmed' and final and url_key(final)!=url_key(row['url']):
             targets=endpoints.get(url_key(final),[])
@@ -226,8 +231,9 @@ def apply_stream_checks(rows, checks):
             alternatives=[v for v in row.get('stream_variants',[])
                           if checks.get(v['url'],{}).get('status')=='audio-confirmed'
                           and v['url']!=row['url']]
-            if alternatives and reason=='confirmed-unavailable-or-non-audio':
+            if alternatives and reason in ('confirmed-unavailable-or-non-audio','live-audio-not-confirmed'):
                 row=dict(row,url=alternatives[0]['url'])
+                check=checks[row['url']]
                 stats['verified_alternative_urls_selected']+=1
                 reason=None
         if reason:
