@@ -1,7 +1,7 @@
 from pathlib import Path
 from PIL import Image,ImageDraw,ImageFont
 import json,hashlib
-ROOT=Path(__file__).resolve().parents[1]
+ROOT=Path(__file__).resolve().parents[2]
 BASE=ROOT/"picons/13.0e/vivacom"
 MAST=ROOT/"plugin/artwork/templates/picons"
 OUT=ROOT/"review/vivacom-20261103"
