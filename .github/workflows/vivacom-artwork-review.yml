@@ -1,0 +1,32 @@
+name: Build Vivacom Warder review sheet (no release)
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/vivacom-artwork-review.yml]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          sparse-checkout: |
+            picons/13.0e/vivacom
+            plugin/artwork/templates/picons
+            plugin/tools/build_vivacom_review.py
+            .github/workflows/vivacom-artwork-review.yml
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install Pillow
+      - run: python plugin/tools/build_vivacom_review.py
+      - name: Store proof images for owner approval only
+        run: |
+          git config user.name 'Warder artwork review'
+          git config user.email 'warder-artwork@users.noreply.github.com'
+          git add --sparse -f review/vivacom-20261103
+          git commit -m 'Add 27 Vivacom proof PNGs and contact sheet for owner approval'
+          git push origin HEAD:main
