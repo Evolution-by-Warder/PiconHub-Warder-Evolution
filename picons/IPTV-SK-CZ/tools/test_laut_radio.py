@@ -29,10 +29,12 @@ class LautTests(unittest.TestCase):
             stream('Existing name', 'http://stream.laut.fm/known', '4097:0:2:99:88:ED:0:0:0:0'))
 
     def test_provider_aliases_deduplicate_without_accepting_other_hosts_or_injection(self):
-        for url in ('http://stream.laut.fm/known', 'https://known.stream.laut.fm/known?ref=old'):
+        for url in ('http://stream.laut.fm/known', 'https://known.stream.laut.fm/known?ref=old',
+                    'https://alias-host.stream.laut.fm/known'):
             self.assertEqual(station_key(url), 'known')
+        self.assertEqual(station_key('https://antenneb.stream.laut.fm/antenne_b'),'antenne_b')
         for url in ('https://api.laut.fm/station/known', 'https://laut.fm/known',
-                    'https://wrong.stream.laut.fm/known', 'https://stream.laut.fm.evil/known',
+                    'https://a.b.stream.laut.fm/known', 'https://stream.laut.fm.evil/known',
                     'https://user:pass@stream.laut.fm/known', 'https://stream.laut.fm/known?x=\nINJECT',
                     'file:///tmp/known', None):
             self.assertIsNone(station_key(url))

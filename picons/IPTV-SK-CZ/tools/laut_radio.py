@@ -31,7 +31,10 @@ def station_key(url):
         if (parts.scheme not in ('http', 'https') or parts.username or parts.password
                 or parts.port not in (None, 80, 443) or not SLUG.fullmatch(name)):
             return None
-        if host == 'stream.laut.fm' or host == name + '.stream.laut.fm':
+        # Some public station IDs contain underscores while their stream host
+        # has a different spelling (antenne_b -> antenneb.stream.laut.fm).
+        prefix = host[:-len('.stream.laut.fm')] if host.endswith('.stream.laut.fm') else ''
+        if host == 'stream.laut.fm' or re.fullmatch(r'[a-z0-9-]{1,100}', prefix):
             return name
     except (ValueError, TypeError):
         pass
