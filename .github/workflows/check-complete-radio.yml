@@ -10,6 +10,11 @@ jobs:
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            picons/IPTV-SK-CZ/tools
+            picons/IPTV-SK-CZ/bouquets
+          sparse-checkout-cone-mode: false
       - uses: actions/setup-python@v5
         with:
           python-version: '3.14'
