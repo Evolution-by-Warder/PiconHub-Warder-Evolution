@@ -49,7 +49,7 @@ def stations(rows):
             continue
         name, url = row.get('name'), row.get('stream_url')
         if not isinstance(name, str) or station_key(url) != name:
-            raise ValueError('laut.fm station and stream identity differ')
+            raise ValueError('laut.fm station and stream identity differ: %r / %r' % (name, url))
         label = row.get('display_name') or name
         if not isinstance(label, str) or any(ord(c) < 32 for c in label):
             raise ValueError('Invalid laut.fm station label')
