@@ -74,8 +74,8 @@ def audit(rows, output, workers=32, timeout=5, max_age=86400):
             candidate_urls.update(v['url'] for r in rows for v in r.get('stream_variants',[]))
             for url in candidate_urls:
                 result=previous.get(url)
-                if (result and (result.get('status')=='audio-confirmed' or result.get('confirmed_failure'))
-                    and 0 <= (now-datetime.fromisoformat(result['checked_at'])).total_seconds() < max_age):
+                ttl=max_age if result and (result.get('status')=='audio-confirmed' or result.get('confirmed_failure')) else min(max_age,3600)
+                if (result and 0 <= (now-datetime.fromisoformat(result['checked_at'])).total_seconds() < ttl):
                     cached[url]=result
         except (OSError,ValueError,TypeError,KeyError):
             cached={}

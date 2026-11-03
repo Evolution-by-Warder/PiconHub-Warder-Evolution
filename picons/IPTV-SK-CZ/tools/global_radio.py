@@ -279,6 +279,9 @@ def main():
     parser.add_argument('--source-view',type=Path,default=ROOT/'catalog/source-radio.radio')
     parser.add_argument('--stream-checks',type=Path)
     args=parser.parse_args();args.output.mkdir(parents=True,exist_ok=True)
+    prior_report_path=args.output/'build.json'
+    prior_report=json.loads(prior_report_path.read_text()) if prior_report_path.exists() else {}
+    last_live_count=prior_report.get('last_live_published_stations')
     master_path=args.output/'world-radio-master.json.gz'
     old=read_gzip(master_path) if master_path.exists() else {}
     previous_path=args.output/'world-radio.json.gz'
@@ -323,6 +326,8 @@ def main():
         items,stream_review,stream_stats=apply_stream_checks(items,checks)
         review.extend(stream_review);stats.update(stream_stats)
         stats.update(review_rows=len(review),published_station_rows=len(items))
+        if isinstance(last_live_count,int) and len(items)<last_live_count*.85:
+            raise ValueError('Unexpected live catalogue shrink; previous published catalogue retained')
     stats.update(total_stations=len(items),countries=len({r['countrycode'] for r in items}-{None}),
                  unclassified=sum(r['countrycode'] is None for r in items))
     for entry in parse(owned):
@@ -354,7 +359,8 @@ def main():
     country_index.append({'name':SOURCE_GROUP,'countrycode':None,'stations':len(source_view),'original_source_view':True})
     replace(args.output/'countries.json',json.dumps(country_index,ensure_ascii=False,indent=2)+'\n')
     report={'schema':1,'built_at':now,'sources':status,'processing':stats,'master':master_info,
-        'catalogue':compiled_info,'receiver':receiver_info,'review':review_info,'station_policy':2,
+        'catalogue':compiled_info,'receiver':receiver_info,'review':review_info,'station_policy':3,
+        'last_live_published_stations':len(items) if args.stream_checks else last_live_count,
         'bouquet_bytes':len(bouquet.encode()),
         'owned_sha256':hashlib.sha256(owned.encode()).hexdigest(),
         'validation':'Live bounded audio samples where confirmed; timeouts are unconfirmed, not dead. No claim of receiver playback verification.' if args.stream_checks else 'Source-reported health only; no claim of box playback verification.',

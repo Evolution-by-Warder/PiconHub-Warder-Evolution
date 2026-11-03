@@ -1,6 +1,7 @@
 import copy
 import tempfile
 from pathlib import Path
+from datetime import datetime,timezone
 import unittest
 from unittest.mock import patch
 from station_identity import name_key, one_typo, select_stations, apply_stream_checks
@@ -121,6 +122,18 @@ class Reply:
 
 
 class StreamAuditTests(unittest.TestCase):
+    def test_fresh_check_is_reused_without_turning_uncertainty_into_success(self):
+        rows=[row('Radio A','https://a.example/live','a')]
+        result={'url':rows[0]['url'],'status':'connection-unconfirmed',
+                'checked_at':datetime.now(timezone.utc).isoformat()}
+        with tempfile.TemporaryDirectory() as directory,patch('stream_audit.probe',return_value=result) as network:
+            target=Path(directory)/'audit.json.gz'
+            audit(rows,target,workers=1,timeout=1)
+            checks=audit(rows,target,workers=1,timeout=1)
+            self.assertEqual(network.call_count,1)
+            self.assertEqual(checks[rows[0]['url']]['status'],'connection-unconfirmed')
+            audit(rows,target,workers=1,timeout=1,max_age=0)
+            self.assertEqual(network.call_count,2)
     def test_unreachable_host_shortcut_never_claims_individual_station_failure(self):
         rows=[row('Radio '+str(i),'https://same.example/'+str(i),str(i)) for i in range(10)]
         def unavailable(r,timeout):
@@ -131,17 +144,19 @@ class StreamAuditTests(unittest.TestCase):
         self.assertEqual(network.call_count,4)
         self.assertEqual(sum(r['status']=='host-check-unconfirmed' for r in checks.values()),6)
         self.assertFalse(any(r.get('confirmed_failure') for r in checks.values()))
-    def test_timeout_keeps_station_and_confirmed_failure_is_reviewed(self):
+    def test_timeout_is_retained_for_review_not_claimed_dead_or_playable(self):
         rows=[row('Radio A','https://a.example/live','a'),row('Radio B','https://b.example/live','b')]
         checks={rows[0]['url']:{'status':'connection-unconfirmed'},
                 rows[1]['url']:{'status':'http-error','http_status':404,'confirmed_failure':True}}
         out,review,stats=apply_stream_checks(rows,checks)
-        self.assertEqual([r['reference'] for r in out],['a'])
-        self.assertEqual([r['reference'] for r in review],['b'])
+        self.assertFalse(out)
+        self.assertEqual([r['reference'] for r in review],['a','b'])
+        self.assertEqual(review[0]['review_reason'],'live-audio-not-confirmed')
+        self.assertEqual(review[1]['review_reason'],'confirmed-unavailable-or-non-audio')
     def test_other_station_redirect_cannot_masquerade_as_original(self):
         a=row('Europa 2 Fitness','https://a.example/live','a')
         b=row('Rádio Melody','https://b.example/live','b')
-        checks={a['url']:{'status':'audio-confirmed','final_url':b['url']}}
+        checks={a['url']:{'status':'audio-confirmed','final_url':b['url']},b['url']:{'status':'audio-confirmed'}}
         out,review,_=apply_stream_checks([a,b],checks)
         self.assertEqual([r['reference'] for r in out],['b'])
         self.assertEqual(review[0]['review_reason'],'redirects-to-another-station')
