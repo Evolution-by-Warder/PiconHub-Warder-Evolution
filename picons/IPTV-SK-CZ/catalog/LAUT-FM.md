@@ -16,3 +16,12 @@ Oficiálna schéma API 1.0.4 obsahuje filtre podľa žánru, počiatočného pí
 `--source-file` zachová offline správanie bez API požiadaviek; `--without-laut` vynechá API a zachová predchádzajúce doplnkové údaje. Kontroly sú v `test_laut_radio.py` a `test_world_radio.py`.
 
 Aktualizujú sa online dáta v repozitári; nové IPK nie je potrebné.
+
+
+## Overenie publikácie — 3. november 2026
+
+Pridanie zdroja: 598ab14d608dc0dc2c5e909e6319df65d0bcb125. Živý skúšobný beh: https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/actions/runs/41697720515.
+Publikačný beh: https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/actions/runs/41698216802 — úspešný; 23 testov zlučovania a chýb zdroja prešlo.
+Výsledný zoznam: **6358 staníc**, z toho vlastné SK 88 / CZ 233. Doplnok pridal 914 nových staníc a obnovil 192 adries existujúcich staníc pri zachovaní referencií.
+Verejný bouquet má 823472 bajtov; SHA-256 v publikovanom reporte: `693b8b3af8039d25bb602274425b9b85f8bad46e9f4a42d08e0ef9bece5b6a1f`.
+Súbory dát publikoval commit `46331b15bb0035179ede0abc007c390bf21ecdbe`. Kontrola jednotlivých audio streamov ani skutočné načítanie na prijímači sa týmto nepreukazuje. Radio Browser a ostatné zdroje z prehľadu ešte nie sú pripojené ako automatické importéry.
