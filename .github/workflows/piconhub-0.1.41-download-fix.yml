@@ -1,0 +1,35 @@
+name: PiconHub 0.1.41 download fix candidate
+on:
+  push:
+    branches: [release/piconhub-0.1.41-download-fix]
+    paths: [.github/workflows/piconhub-0.1.41-download-fix.yml]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.14'
+      - name: Syntax and updater tests
+        run: |
+          python -m py_compile plugin/src/Plugins/Extensions/WarderPiconHub/plugin.py
+          python -m py_compile plugin/src/Plugins/Extensions/WarderPiconHub/warder_update.py
+          python -m unittest discover -s plugin/tests -v
+      - name: Build deterministic IPK
+        run: |
+          python plugin/tools/build_ipk.py --output plugin/build --revision "$GITHUB_SHA"
+          cp plugin/build/enigma2-plugin-extensions-piconhub_0.1.41_all.ipk /tmp/piconhub-first.ipk
+          python plugin/tools/build_ipk.py --output plugin/build --revision "$GITHUB_SHA"
+          cmp /tmp/piconhub-first.ipk plugin/build/enigma2-plugin-extensions-piconhub_0.1.41_all.ipk
+          sha256sum plugin/build/enigma2-plugin-extensions-piconhub_0.1.41_all.ipk
+      - uses: actions/upload-artifact@v4
+        with:
+          name: piconhub-0.1.41-download-fix-candidate
+          path: |
+            plugin/build/enigma2-plugin-extensions-piconhub_0.1.41_all.ipk
+            plugin/build/enigma2-plugin-extensions-piconhub_0.1.41_all.ipk.sha256
