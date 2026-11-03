@@ -19,7 +19,7 @@ jobs:
         run: |
           python -m py_compile plugin/src/Plugins/Extensions/WarderPiconHub/plugin.py
           python -m py_compile plugin/src/Plugins/Extensions/WarderPiconHub/warder_update.py
-          python -m unittest discover -s plugin/tests -v
+          PYTHONPATH=plugin/src python -m unittest discover -s plugin/tests -v
       - name: Build deterministic IPK
         run: |
           python plugin/tools/build_ipk.py --output plugin/build --revision "$GITHUB_SHA"
