@@ -18,8 +18,11 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.14'
+      - run: python -m unittest discover -s picons/IPTV-SK-CZ/tools -p 'test_*radio.py' -v
       - run: python picons/IPTV-SK-CZ/tools/fetch_complete_radio.py
+      - run: python picons/IPTV-SK-CZ/tools/global_radio.py --output catalogue-data/compiled
       - uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: complete-radio-sources
           path: catalogue-data
