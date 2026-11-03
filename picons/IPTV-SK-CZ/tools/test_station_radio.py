@@ -8,7 +8,7 @@ from datetime import datetime,timezone
 import unittest
 from unittest.mock import patch
 from station_identity import name_key, one_typo, select_stations, apply_stream_checks
-from global_radio import original_source_list,SOURCE_GROUP
+from global_radio import original_source_list,SOURCE_GROUP,compile_catalogue
 from stream_audit import probe, audio_signature, Redirects, audit, read_sample
 
 NAMES = {'SK':'Slovensko', 'CZ':'Čechy', 'DE':'Germany', 'SI':'Slovenia'}
@@ -23,6 +23,27 @@ def row(name, url, reference, country='SK', home='https://station.example/', pro
 
 
 class StationIdentityTests(unittest.TestCase):
+    def test_primary_reference_stays_with_its_profile_across_rebuilds(self):
+        source=[]
+        for key,name,url in [('a','Translated','https://stream.example/programme-128.mp3'),
+                             ('b','Original','https://stream.example/programme-320.mp3')]:
+            item=row(name,url,key,country='DE')
+            item.update(source_id='radio-browser:'+key,homepage='https://station.example/')
+            item.pop('reference')
+            source.append(item)
+        prior=row('Original',source[0]['url'],'old',country='DE')
+        prior['aliases']=[r['url'] for r in source]
+        prior['known_working']=True
+        # A legacy unprotected baseline reference must not displace the
+        # already-published programme reference after alternate recovery.
+        source[0]['reference']='legacy'
+        previous=[prior]
+        for _ in range(3):
+            rows,_,_=compile_catalogue({'test':{'rows':source}},NAMES,'#NAME Test\n',previous)
+            selected,_,_=select_stations(rows,NAMES,{r['reference'] for r in previous})
+            self.assertEqual([(r['name'],r['url'],r['reference']) for r in selected],
+                             [('Original',source[1]['url'],'old')])
+            previous=selected
     def test_translated_classic_praha_prague_share_the_same_stream(self):
         a=row('Classic Prague','https://icecast8.play.cz/classic128.mp3','a',country='CZ',home='https://www.classicpraha.cz/',protected=True)
         b=row('Classic Praha','http://icecast8.play.cz/classic128.mp3','b',country='CZ',home='http://www.classicpraha.cz/')
