@@ -1,0 +1,53 @@
+name: Check supplemental radio source
+on:
+  push:
+    branches: [radio-laut-source-20261103]
+    paths: ['.github/workflows/check-laut-source.yml']
+permissions:
+  contents: read
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Read public API schema and station samples
+        run: |
+          python - <<'PY'
+          import json, pathlib, urllib.request
+          urls = [
+              ('schema', 'https://docs.api.laut.fm/api-spec.yaml'),
+              ('first', 'https://api.laut.fm/stations?limit=3&offset=0'),
+              ('next', 'https://api.laut.fm/stations?limit=3&offset=3'),
+              ('station', 'https://api.laut.fm/station/hitradioslovakia'),
+              ('names', 'https://api.laut.fm/station_names'),
+          ]
+          report = {}
+          for key, url in urls:
+              try:
+                  request = urllib.request.Request(url, headers={'User-Agent':'Warder-radio-source-check/1','Accept':'application/json, text/yaml'})
+                  with urllib.request.urlopen(request, timeout=15) as response:
+                      raw = response.read(2*1024*1024+1)
+                      if len(raw)>2*1024*1024: raise ValueError('response too large')
+                      headers = {k:v for k,v in response.headers.items() if any(s in k.lower() for s in ('pagin','total','link','content-type'))}
+                  pathlib.Path(key+'.txt').write_bytes(raw)
+                  if key=='schema':
+                      report[key] = {'bytes':len(raw)}
+                  else:
+                      data = json.loads(raw)
+                      rows = data if isinstance(data,list) else data.get('data',data.get('stations',[])) if isinstance(data,dict) else []
+                      report[key] = {'bytes':len(raw),'type':type(data).__name__,'headers':headers,'count':len(rows),'keys':list(data)[:15] if isinstance(data,dict) else None,'sample':rows[:2] if rows else data}
+                      if key=='names':report[key]['sample']=rows[:5]
+              except Exception as e:
+                  report[key] = {'error':str(e)}
+          pathlib.Path('report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2))
+          print(json.dumps(report,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: public-laut-source-check
+          path: |
+            *.txt
+            report.json
