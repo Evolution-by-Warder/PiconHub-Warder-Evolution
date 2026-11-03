@@ -11,6 +11,10 @@ on:
       - 'picons/IPTV-SK-CZ/tools/test_world_radio.py'
       - 'picons/IPTV-SK-CZ/tools/laut_radio.py'
       - 'picons/IPTV-SK-CZ/tools/test_laut_radio.py'
+      - 'picons/IPTV-SK-CZ/tools/global_radio.py'
+      - 'picons/IPTV-SK-CZ/tools/test_global_radio.py'
+      - 'picons/IPTV-SK-CZ/tools/fetch_complete_radio.py'
+      - 'picons/IPTV-SK-CZ/tools/test_fetch_complete_radio.py'
       - 'picons/IPTV-SK-CZ/bouquets/userbouquet.warder.sk-cz.radio'
 permissions:
   contents: write
@@ -20,7 +24,7 @@ concurrency:
 jobs:
   update:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
         with:
@@ -29,24 +33,30 @@ jobs:
           sparse-checkout: |
             picons/IPTV-SK-CZ/bouquets
             picons/IPTV-SK-CZ/tools
-            picons/IPTV-SK-CZ/catalog/world-radio-update.json
+            picons/IPTV-SK-CZ/catalog
           sparse-checkout-cone-mode: false
       - uses: actions/setup-python@v5
         with:
           python-version: '3.14'
       - name: Test country filtering, identity stability and failure handling
         run: python -m unittest discover -s picons/IPTV-SK-CZ/tools -p 'test_*radio.py' -v
-      - name: Refresh temporary source and publish only verified output
+      - name: Refresh compatible catalogue
+        continue-on-error: true
+        run: python picons/IPTV-SK-CZ/tools/update_world_radio.py
+      - name: Download complete supported source snapshots
+        run: python picons/IPTV-SK-CZ/tools/fetch_complete_radio.py
+      - name: Compile master database and country catalogue
+        run: python picons/IPTV-SK-CZ/tools/global_radio.py
+      - name: Publish validated catalogues as one revision
         shell: bash
         run: |
           set -euo pipefail
-          python picons/IPTV-SK-CZ/tools/update_world_radio.py
-          git add picons/IPTV-SK-CZ/bouquets/userbouquet.warder.radio picons/IPTV-SK-CZ/catalog/world-radio-update.json
+          git add picons/IPTV-SK-CZ/bouquets/userbouquet.warder.radio picons/IPTV-SK-CZ/catalog/world-radio-update.json picons/IPTV-SK-CZ/catalog/global
           if git diff --cached --quiet; then
-            echo 'Warder radio list is already current.'
+            echo 'Warder radio database is already current.'
             exit 0
           fi
           git config user.name 'Warder radio automation'
           git config user.email 'warder-radio@users.noreply.github.com'
-          git commit -m 'Refresh world radios while preserving Warder SK/CZ entries'
+          git commit -m 'Refresh central radio database and compiled country catalogue'
           git push origin HEAD:main
