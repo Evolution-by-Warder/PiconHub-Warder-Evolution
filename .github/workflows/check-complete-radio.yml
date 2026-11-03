@@ -1,0 +1,21 @@
+name: Build complete radio directory candidate
+on:
+  push:
+    branches: [radio-global-catalogue-20261103]
+permissions:
+  contents: read
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.14'
+      - run: python picons/IPTV-SK-CZ/tools/fetch_complete_radio.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: complete-radio-sources
+          path: catalogue-data
+          retention-days: 7
