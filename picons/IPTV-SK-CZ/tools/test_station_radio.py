@@ -23,6 +23,44 @@ def row(name, url, reference, country='SK', home='https://station.example/', pro
 
 
 class StationIdentityTests(unittest.TestCase):
+    def test_translated_classic_praha_prague_share_the_same_stream(self):
+        a=row('Classic Prague','https://icecast8.play.cz/classic128.mp3','a',country='CZ',home='https://www.classicpraha.cz/',protected=True)
+        b=row('Classic Praha','http://icecast8.play.cz/classic128.mp3','b',country='CZ',home='http://www.classicpraha.cz/')
+        out,review,_=select_stations([a,b],NAMES)
+        self.assertEqual(len(out),1);self.assertFalse(review)
+        self.assertEqual(set(out[0]['name_aliases']),{'Classic Prague','Classic Praha'})
+    def test_foreign_praha_prague_merge_but_local_radio_praha_is_distinct(self):
+        old=row('Český rozhlas Rádio Praha','http://icecast2.play.cz/cro7-128.mp3','old',country='CZ',home='http://www.radio.cz/en',protected=True)
+        current=row('Radio Prague International','https://rozhlas.stream/cro7_mp3_128.mp3','new',country='CZ',home='https://english.radio.cz/',protected=True)
+        current['aliases'].append('https://rozhlas.stream/radio_prague_int_high.aac')
+        regional=row('Rádio Praha','https://rozhlas.stream/radio_dab_praha_high.aac','regional',country='CZ',home='https://praha.rozhlas.cz/')
+        out,review,_=select_stations([old,current,regional],NAMES)
+        self.assertEqual(len(out),2);self.assertFalse(review)
+        foreign=next(r for r in out if r['reference']=='new')
+        self.assertIn('old',foreign['merged_references'])
+        self.assertIn('Český rozhlas Rádio Praha',foreign['name_aliases'])
+        self.assertTrue(any(r['name']=='Rádio Praha' for r in out))
+    def test_programme_profiles_preserve_station_numbers_and_significant_query(self):
+        a=row('Radio 128','https://icecast8.play.cz/radio-128.mp3','a',home='https://a.example/')
+        b=row('Radio 256','https://icecast8.play.cz/radio-256.mp3','b',home='https://b.example/')
+        c=row('Channel One','https://icecast8.play.cz/channel_high.aac?channel=one','c',home='https://c.example/')
+        d=row('Channel Two','https://icecast8.play.cz/channel_low.aac?channel=two','d',home='https://d.example/')
+        self.assertEqual(len(select_stations([a,b,c,d],NAMES)[0]),4)
+    def test_generic_mounts_and_different_language_channels_do_not_merge(self):
+        a=row('Red Service','https://red.example/live_high.aac','a')
+        b=row('Blue Service','https://blue.example/live_low.aac','b')
+        self.assertEqual(len(select_stations([a,b],NAMES)[0]),2)
+    def test_network_subchannels_keep_their_entire_path_not_just_shared_leaf(self):
+        rows=[row('Network '+name,'https://streams.example/'+name+'/play.mp3',name,
+                  home='https://network.example/') for name in ('news','classic','jazz','rock')]
+        self.assertEqual(len(select_stations(rows,NAMES)[0]),4)
+        rows=[row('Network '+name,'https://streams.example/'+name+'/hls.m3u8',name,
+                  home='https://network.example/') for name in ('news','classic','jazz','rock')]
+        self.assertEqual(len(select_stations(rows,NAMES)[0]),4)
+        a=row('English Service','https://en.stream.example/international_high.aac','a',home='https://english.station.example/')
+        b=row('French Service','https://fr.stream.example/international_low.aac','b',home='https://french.station.example/')
+        a['languages']=['english'];b['languages']=['french']
+        self.assertEqual(len(select_stations([a,b],NAMES)[0]),2)
     def test_receiver_examples_merge_with_curated_name_url_and_reference(self):
         for names in [('Rádio Expres','RÁDIO EXPRES'), ('Info_vojna','InfoVojna'),
                       ('Rádio Mária Slovensko','Rádio Maria Slovensko'),
@@ -125,6 +163,53 @@ class Reply:
 
 
 class StreamAuditTests(unittest.TestCase):
+    def test_known_station_needs_failures_on_three_dates_and_48_hours(self):
+        item=row('Known station','https://known.example/live','known',country='DE')
+        item['known_working']=True
+        for timestamp in ('2026-11-03T12:00:00+00:00','2026-11-03T23:00:00+00:00','2026-11-04T12:00:00+00:00'):
+            check={'status':'connection-unconfirmed','checked_at':timestamp}
+            out,review,_=apply_stream_checks([item],{item['url']:check})
+            self.assertEqual(len(out),1);self.assertFalse(review)
+            item=out[0]
+        self.assertEqual(item['failure_days'],['2026-11-03','2026-11-04'])
+        out,review,_=apply_stream_checks([item],{item['url']:{'status':'connection-unconfirmed',
+            'checked_at':'2026-11-05T12:00:00+00:00'}})
+        self.assertFalse(out);self.assertEqual(review[0]['review_reason'],'persistent-unavailability')
+        self.assertEqual(review[0]['reference'],'known')
+    def test_recovered_known_station_resets_outage_history(self):
+        item=row('Known station','https://known.example/live','known',country='DE')
+        item.update(known_working=True,first_failure_at='2026-11-03T12:00:00+00:00',failure_days=['2026-11-03','2026-11-04'])
+        out,review,_=apply_stream_checks([item],{item['url']:{'status':'audio-confirmed','checked_at':'2026-11-05T12:00:00+00:00'}})
+        self.assertFalse(review);self.assertEqual(out[0]['failure_days'],[])
+        self.assertIsNone(out[0]['first_failure_at'])
+        self.assertEqual(out[0]['last_audio_at'],'2026-11-05T12:00:00+00:00')
+    def test_access_restriction_does_not_complete_a_short_failure_window(self):
+        item=row('Known station','https://known.example/live','known',country='DE')
+        item.update(known_working=True,first_failure_at='2026-11-03T23:50:00+00:00',
+                    last_failure_at='2026-11-05T00:10:00+00:00',
+                    failure_days=['2026-11-03','2026-11-04','2026-11-05'])
+        out,review,_=apply_stream_checks([item],{item['url']:{'status':'http-error','http_status':403,
+            'checked_at':'2026-11-06T12:00:00+00:00'}})
+        self.assertEqual(len(out),1);self.assertFalse(review)
+    def test_deferred_or_access_restricted_probe_does_not_age_a_known_outage(self):
+        item=row('Known station','https://known.example/live','known',country='DE');item['known_working']=True
+        item.update(first_failure_at=None,last_failure_at=None,failure_days=[])
+        for check in ({'status':'host-check-unconfirmed','requested':False,'checked_at':'2026-11-05T12:00:00+00:00'},
+                      {'status':'http-error','http_status':403,'checked_at':'2026-11-05T12:00:00+00:00'}):
+            out,review,_=apply_stream_checks([item],{item['url']:check})
+            self.assertFalse(review);self.assertEqual(out[0]['failure_days'],[])
+    def test_known_status_does_not_keep_a_wrong_station_redirect(self):
+        item=row('Known station','https://known.example/live','known',country='DE');item['known_working']=True
+        other=row('Other programme','https://other.example/live','other',country='DE')
+        out,review,_=apply_stream_checks([item,other],{
+            item['url']:{'status':'audio-confirmed','final_url':other['url']},other['url']:{'status':'audio-confirmed'}})
+        self.assertEqual([r['reference'] for r in out],['other'])
+        self.assertEqual(review[0]['review_reason'],'redirects-to-another-station')
+    def test_known_source_failure_does_not_hide_the_station_before_live_check(self):
+        item=row('Known station','https://known.example/live','known',country='DE')
+        item.update(known_working=True,healthy=False)
+        out,review,_=select_stations([item],NAMES)
+        self.assertEqual(len(out),1);self.assertFalse(review)
     def test_owner_confirmed_slovak_originals_survive_outage_without_url_rewrite(self):
         for check in ({'status':'connection-unconfirmed'},
                       {'status':'http-error','http_status':503},

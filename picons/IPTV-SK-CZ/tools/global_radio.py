@@ -206,7 +206,12 @@ def compile_catalogue(sources, names, owned, previous=()):
                 'homepages':sorted({r['homepage'] for r in members if r.get('homepage')}),
                 'favicons':sorted({r['favicon'] for r in members if r.get('favicon')}),
                 'healthy':any(r['healthy'] for r in members),
-                'protected':bool(row.get('protected'))})
+                'protected':bool(row.get('protected')),
+                'known_working':bool(row.get('protected') or (prior or {}).get('known_working')),
+                'last_audio_at':(prior or {}).get('last_audio_at'),
+                'first_failure_at':(prior or {}).get('first_failure_at'),
+                'last_failure_at':(prior or {}).get('last_failure_at'),
+                'failure_days':list((prior or {}).get('failure_days',[]))})
         stats['duplicate_observations_merged']+=len(members)-len(preferred)
     by_ref={r['reference']:r for r in output}
     if len(by_ref)!=len(output): raise ValueError('Duplicate service reference')
@@ -286,6 +291,18 @@ def main():
     old=read_gzip(master_path) if master_path.exists() else {}
     previous_path=args.output/'world-radio.json.gz'
     previous=read_gzip(previous_path) if previous_path.exists() else []
+    # Migrate actual previously published successes, never a preview/import.
+    confirmed=prior_report.get('processing',{}).get('audio_confirmed',0)
+    retained=prior_report.get('processing',{}).get('known_stations_retained_during_outage',0)
+    if prior_report.get('station_policy',0)>=3 and confirmed+retained==len(previous):
+        for row in previous:
+            row['known_working']=True
+            if row.get('live_status') in (None,'audio-confirmed'):
+                row['last_audio_at']=row.get('last_audio_at') or prior_report.get('built_at')
+    previous_identities=list(previous)
+    known_review_path=args.output/'world-radio.review.json.gz'
+    if known_review_path.exists():
+        previous_identities.extend(r for r in read_gzip(known_review_path) if r.get('known_working'))
     registry=args.snapshots/'countries.json.gz'
     names=country_names(read_gzip(registry)) if registry.exists() else old.get('countries',{})
     if len(names)<150:raise ValueError('No complete country registry available')
@@ -309,7 +326,7 @@ def main():
         else:raise ValueError('No initial snapshot for '+provider)
     owned=args.owned.read_text();baseline=args.baseline.read_text()
     sources['warder']={'rows':baseline_rows(baseline,owned,names),'fetched_at':now}
-    items,bouquet,stats=compile_catalogue(sources,names,owned,previous)
+    items,bouquet,stats=compile_catalogue(sources,names,owned,previous_identities)
     if previous and len(items)<len(previous)*.95:raise ValueError('Unexpected compiled catalogue shrink')
     # Guard raw inputs before applying the explicit, auditable quality policy.
     # Deliberate variant merging/review is not mistaken for a source outage.
@@ -333,7 +350,9 @@ def main():
     stats.update(total_stations=len(items),countries=len({r['countrycode'] for r in items}-{None}),
                  unclassified=sum(r['countrycode'] is None for r in items))
     for entry in parse(owned):
-        if entry.url and not any(r['reference']==entry.reference and r['name']==entry.name and entry.url in r['aliases'] for r in items+review):
+        if entry.url and not any((r['reference']==entry.reference and r['name']==entry.name
+                                  or entry.reference in r.get('merged_references',[]))
+                                 and entry.url in r['aliases'] for r in items+review):
             raise ValueError('Curated station lost during station selection')
     original_group=None
     for entry in parse(owned):
@@ -369,11 +388,11 @@ def main():
     country_index.append({'name':SOURCE_GROUP,'countrycode':None,'stations':len(source_view),'original_source_view':True})
     replace(args.output/'countries.json',json.dumps(country_index,ensure_ascii=False,indent=2)+'\n')
     report={'schema':1,'built_at':now,'sources':status,'processing':stats,'master':master_info,
-        'catalogue':compiled_info,'receiver':receiver_info,'review':review_info,'station_policy':4,
+        'catalogue':compiled_info,'receiver':receiver_info,'review':review_info,'station_policy':5,
         'last_live_published_stations':len(items) if args.stream_checks else last_live_count,
         'bouquet_bytes':len(bouquet.encode()),
         'owned_sha256':hashlib.sha256(owned.encode()).hexdigest(),
-        'validation':'Live bounded samples for additions; the owner-confirmed original Slovak list retains exact names, URLs and references through probe failures. Timeouts are not dead stations. No universal receiver playback claim.' if args.stream_checks else 'Source-reported health only; original Slovak list preserved.',
+        'validation':'Original Slovak names/URLs/references are retained. Known working stations survive transient probe failure; retirement requires failures on three dates spanning at least 48h. New additions require audio evidence. No universal receiver playback claim.' if args.stream_checks else 'Source-reported health only; known station history and original Slovak list preserved.',
         'source_list':{'name':SOURCE_GROUP,'stations':len(source_view),
                        'source_sha256':hashlib.sha256(args.source_view.read_bytes()).hexdigest(),
                        'policy':'Original source names, URLs and order; separately requested unfiltered view.'},
