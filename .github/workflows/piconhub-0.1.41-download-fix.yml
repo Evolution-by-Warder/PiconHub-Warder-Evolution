@@ -1,0 +1,42 @@
+name: PiconHub 0.1.41 download fix candidate
+on:
+  push:
+    branches: [release/piconhub-0.1.41-download-fix]
+    paths: [.github/workflows/piconhub-0.1.41-download-fix.yml]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.14'
+      - name: Syntax and updater tests
+        run: |
+          python -m py_compile plugin/src/Plugins/Extensions/WarderPiconHub/plugin.py
+          python -m py_compile plugin/src/Plugins/Extensions/WarderPiconHub/warder_update.py
+          PYTHONPATH=plugin/src python -m unittest discover -s plugin/tests -v
+      - name: Build deterministic IPK
+        run: |
+          python plugin/tools/build_ipk.py --output plugin/build --revision "$GITHUB_SHA"
+          cp plugin/build/enigma2-plugin-extensions-piconhub_0.1.41_all.ipk /tmp/piconhub-first.ipk
+          python plugin/tools/build_ipk.py --output plugin/build --revision "$GITHUB_SHA"
+          cmp /tmp/piconhub-first.ipk plugin/build/enigma2-plugin-extensions-piconhub_0.1.41_all.ipk
+          sha256sum plugin/build/enigma2-plugin-extensions-piconhub_0.1.41_all.ipk
+      - uses: actions/upload-artifact@v4
+        with:
+          name: piconhub-0.1.41-download-fix-candidate
+          path: |
+            plugin/build/enigma2-plugin-extensions-piconhub_0.1.41_all.ipk
+            plugin/build/enigma2-plugin-extensions-piconhub_0.1.41_all.ipk.sha256
+
+      - name: Publish verified 0.1.41 IPK and checksum
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          gh release create v0.1.41 plugin/build/enigma2-plugin-extensions-piconhub_0.1.41_all.ipk plugin/build/enigma2-plugin-extensions-piconhub_0.1.41_all.ipk.sha256 --target "$GITHUB_SHA" --title 'PiconHub 0.1.41' --notes 'Download robustness fixes for non-UTF8 server responses, legacy metadata and bouquet parsing. Existing settings and profiles are preserved. Restart Enigma2 GUI after updating.' --latest=false
