@@ -358,6 +358,8 @@ def main():
     report['foreign_stations'] = report['total_stations'] - sum(report['owned_stations'].values())
     report['bouquet_sha256'] = hashlib.sha256(result.encode()).hexdigest()
     report['supplemental_sources'] = {'laut.fm': supplemental}
+    # Preserve the separately requested original-source view, before merging.
+    replace(ROOT / 'catalog/source-radio.radio', source)
     replace(OUTPUT, result)
     replace(REPORT, json.dumps(report, ensure_ascii=False, indent=2) + '\n')
     print(json.dumps({k: report[k] for k in ('owned_stations', 'foreign_stations', 'total_stations')}, ensure_ascii=False))

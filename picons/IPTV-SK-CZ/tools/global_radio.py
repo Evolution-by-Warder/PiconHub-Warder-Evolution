@@ -14,12 +14,14 @@ from urllib.parse import urlsplit, urlunsplit
 
 from laut_radio import station_key
 from update_world_radio import parse, label_key, render_marker, replace
+from station_identity import select_stations, apply_stream_checks
 
 ROOT = Path(__file__).resolve().parents[1]
 MAX_ROWS = 150000
 MAX_MASTER = 128 * 1024 * 1024
 MAX_BOUQUET = 32 * 1024 * 1024
 UNKNOWN = 'Nezaradené'
+SOURCE_GROUP = 'HDF Radio zoznam'
 ALIASES = {
     'slovensko':'SK','slovakia':'SK','slowakei':'SK',
     'cechy':'CZ','cesko':'CZ','czechia':'CZ','czech republic':'CZ','tschechien':'CZ',
@@ -243,12 +245,39 @@ def write_gzip(path,data):
     return {'bytes':len(blob),'decoded_bytes':len(raw),'sha256':hashlib.sha256(blob).hexdigest()}
 
 
+def original_source_list(text, reserved):
+    """Separate last view: original source names, URLs and sequence, no country merge."""
+    result=[];assigned=set(reserved)
+    for entry in parse(text):
+        if not entry.url:
+            continue
+        try:
+            url_key(entry.url)
+        except ValueError:
+            # Source-local placeholders are headings, never playable stations.
+            continue
+        nonce=0
+        while True:
+            digest=hashlib.sha256(('source-view|'+entry.reference+'|'+entry.url+'|'+str(nonce)).encode()).hexdigest()
+            reference=f'4097:0:2:{int(digest[:4],16) or 1:X}:{int(digest[4:8],16) or 1:X}:EF:0:0:0:0'
+            if reference not in assigned:
+                break
+            nonce+=1
+        assigned.add(reference)
+        result.append({'name':entry.name,'url':entry.url,'reference':reference,'group':SOURCE_GROUP})
+    if not 1000<=len(result)<=20000:
+        raise ValueError('Incomplete original-source view')
+    return result
+
+
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--snapshots',type=Path,default=Path('catalogue-data'))
     parser.add_argument('--output',type=Path,default=ROOT/'catalog/global')
     parser.add_argument('--baseline',type=Path,default=ROOT/'bouquets/userbouquet.warder.radio')
     parser.add_argument('--owned',type=Path,default=ROOT/'bouquets/userbouquet.warder.sk-cz.radio')
+    parser.add_argument('--source-view',type=Path,default=ROOT/'catalog/source-radio.radio')
+    parser.add_argument('--stream-checks',type=Path)
     args=parser.parse_args();args.output.mkdir(parents=True,exist_ok=True)
     master_path=args.output/'world-radio-master.json.gz'
     old=read_gzip(master_path) if master_path.exists() else {}
@@ -279,21 +308,59 @@ def main():
     sources['warder']={'rows':baseline_rows(baseline,owned,names),'fetched_at':now}
     items,bouquet,stats=compile_catalogue(sources,names,owned,previous)
     if previous and len(items)<len(previous)*.95:raise ValueError('Unexpected compiled catalogue shrink')
+    # Guard raw inputs before applying the explicit, auditable quality policy.
+    # Deliberate variant merging/review is not mistaken for a source outage.
+    items,review,selection=select_stations(items,names,{r['reference'] for r in previous})
+    stats.update(selection)
+    if args.stream_checks:
+        checks=read_gzip(args.stream_checks).get('checks',{})
+        if len(checks)<len(items)*.95:
+            raise ValueError('Incomplete live stream audit; publication stopped')
+        # An all-failure result indicates a broken checking environment, not a
+        # reason to erase a working international catalogue.
+        if sum(c.get('status')=='audio-confirmed' for c in checks.values())<100:
+            raise ValueError('Live checking environment could not confirm audio')
+        items,stream_review,stream_stats=apply_stream_checks(items,checks)
+        review.extend(stream_review);stats.update(stream_stats)
+    stats.update(total_stations=len(items),countries=len({r['countrycode'] for r in items}-{None}),
+                 unclassified=sum(r['countrycode'] is None for r in items))
+    for entry in parse(owned):
+        if entry.url and not any(r['reference']==entry.reference and r['name']==entry.name and entry.url in r['aliases'] for r in items+review):
+            raise ValueError('Curated station lost during station selection')
+    lines=['#NAME Warder Radio World\n'];group=None
+    for row in items:
+        if row['group']!=group:
+            group=row['group'];lines.append(render_marker(group))
+        lines.append('#SERVICE '+row['reference']+':'+row['url'].replace(':','%3a')+'\n#DESCRIPTION '+row['name']+'\n')
+    bouquet=''.join(lines)
     master={'schema':1,'countries':names,'sources':sources}
     master_info=write_gzip(master_path,master)
     compiled_info=write_gzip(previous_path,items)
+    review_info=write_gzip(args.output/'world-radio.review.json.gz',review)
     receiver=[{k:r[k] for k in ('name','url','reference','group')} for r in items]
+    source_view=original_source_list(args.source_view.read_text(),{r['reference'] for r in receiver})
+    receiver.extend(source_view)
+    lines.append(render_marker(SOURCE_GROUP))
+    for row in source_view:
+        lines.append('#SERVICE '+row['reference']+':'+row['url'].replace(':','%3a')+'\n#DESCRIPTION '+row['name']+'\n')
+    bouquet=''.join(lines)
     receiver_info=write_gzip(args.output/'world-radio.receiver.json.gz',receiver)
     if len(receiver)>100000 or receiver_info['bytes']>8*1024*1024 or receiver_info['decoded_bytes']>32*1024*1024:
         raise ValueError('Receiver payload exceeds supported limits')
     replace(args.output/'userbouquet.warder.world.radio',bouquet)
     country_counts=Counter(r['group'] for r in items)
     country_index=[{'name':name,'countrycode':next((r['countrycode'] for r in items if r['group']==name),None),'stations':count} for name,count in country_counts.items()]
+    country_index.append({'name':SOURCE_GROUP,'countrycode':None,'stations':len(source_view),'original_source_view':True})
     replace(args.output/'countries.json',json.dumps(country_index,ensure_ascii=False,indent=2)+'\n')
     report={'schema':1,'built_at':now,'sources':status,'processing':stats,'master':master_info,
-        'catalogue':compiled_info,'receiver':receiver_info,'bouquet_bytes':len(bouquet.encode()),
+        'catalogue':compiled_info,'receiver':receiver_info,'review':review_info,'station_policy':2,
+        'bouquet_bytes':len(bouquet.encode()),
         'owned_sha256':hashlib.sha256(owned.encode()).hexdigest(),
-        'validation':'Source-reported health only; no claim of box playback verification.',
+        'validation':'Live bounded audio samples where confirmed; timeouts are unconfirmed, not dead. No claim of receiver playback verification.' if args.stream_checks else 'Source-reported health only; no claim of box playback verification.',
+        'source_list':{'name':SOURCE_GROUP,'stations':len(source_view),
+                       'source_sha256':hashlib.sha256(args.source_view.read_bytes()).hexdigest(),
+                       'policy':'Original source names, URLs and order; separately requested unfiltered view.'},
+        'receiver_rows':len(receiver),
         'source_policy':'Only supported directory exports are imported; other services remain candidates.'}
     replace(args.output/'build.json',json.dumps(report,ensure_ascii=False,indent=2)+'\n')
     print(json.dumps(report,ensure_ascii=False,indent=2))

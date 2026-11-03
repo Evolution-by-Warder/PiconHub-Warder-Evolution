@@ -13,6 +13,10 @@ on:
       - 'picons/IPTV-SK-CZ/tools/test_laut_radio.py'
       - 'picons/IPTV-SK-CZ/tools/global_radio.py'
       - 'picons/IPTV-SK-CZ/tools/test_global_radio.py'
+      - 'picons/IPTV-SK-CZ/tools/station_identity.py'
+      - 'picons/IPTV-SK-CZ/tools/stream_audit.py'
+      - 'picons/IPTV-SK-CZ/tools/test_station_radio.py'
+      - 'picons/IPTV-SK-CZ/catalog/source-radio.radio'
       - 'picons/IPTV-SK-CZ/tools/fetch_complete_radio.py'
       - 'picons/IPTV-SK-CZ/tools/test_fetch_complete_radio.py'
       - 'picons/IPTV-SK-CZ/bouquets/userbouquet.warder.sk-cz.radio'
@@ -24,7 +28,7 @@ concurrency:
 jobs:
   update:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
         with:
@@ -47,11 +51,15 @@ jobs:
         run: python picons/IPTV-SK-CZ/tools/fetch_complete_radio.py
       - name: Compile master database and country catalogue
         run: python picons/IPTV-SK-CZ/tools/global_radio.py
+      - name: Audit stream addresses and bounded audio samples
+        run: python picons/IPTV-SK-CZ/tools/stream_audit.py --input picons/IPTV-SK-CZ/catalog/global/world-radio.json.gz --output picons/IPTV-SK-CZ/catalog/global/stream-audit.json.gz --workers 64 --timeout 5
+      - name: Apply corroborated stream failures and redirects
+        run: python picons/IPTV-SK-CZ/tools/global_radio.py --stream-checks picons/IPTV-SK-CZ/catalog/global/stream-audit.json.gz
       - name: Publish validated catalogues as one revision
         shell: bash
         run: |
           set -euo pipefail
-          git add picons/IPTV-SK-CZ/bouquets/userbouquet.warder.radio picons/IPTV-SK-CZ/catalog/world-radio-update.json picons/IPTV-SK-CZ/catalog/global
+          git add picons/IPTV-SK-CZ/bouquets/userbouquet.warder.radio picons/IPTV-SK-CZ/catalog/world-radio-update.json picons/IPTV-SK-CZ/catalog/source-radio.radio picons/IPTV-SK-CZ/catalog/global
           if git diff --cached --quiet; then
             echo 'Warder radio database is already current.'
             exit 0
