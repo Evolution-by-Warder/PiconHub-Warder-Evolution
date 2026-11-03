@@ -186,7 +186,13 @@ def compile_catalogue(sources, names, owned, previous=()):
         languages=sorted({v for r in members for v in r.get('languages',[])})
         for row in preferred:
             country=row.get('countrycode') if row.get('protected') else code
-            reference=row.get('reference') or (prior or {}).get('reference')
+            # A programme's old reference belongs to its primary resource,
+            # not whichever encoding/profile happens to be traversed first.
+            # Other profiles share history but receive temporary variant refs.
+            prior_reference=(prior or {}).get('reference') if prior and (
+                url_key(prior['url']) in keys or url_key(prior['url']) not in aliases) else None
+            reference=(row.get('reference') if row.get('protected') else
+                       prior_reference or row.get('reference'))
             if not row.get('protected'):
                 if reference in assigned: reference=None
                 if not reference:

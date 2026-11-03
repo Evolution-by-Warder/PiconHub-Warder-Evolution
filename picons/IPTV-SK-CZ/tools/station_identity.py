@@ -194,13 +194,17 @@ def select_stations(rows, names, preferred_references=()):
     def rank(i):
         r = rows[i]
         return (not r.get('protected'), not r.get('healthy'),
-                r['reference'] not in preferred_references,
                 not r['url'].startswith('https:'),
-                -min(r.get('bitrate', 0), 512), r['reference'])
+                -min(r.get('bitrate', 0), 512), r['name'].casefold(),r['url'],r['reference'])
 
     for indices in clusters.values():
         canonical = min(indices, key=rank)
         item = dict(rows[canonical])
+        if not item.get('protected'):
+            existing=[i for i in indices if rows[i]['reference'] in preferred_references]
+            if existing:
+                identity=min(existing,key=lambda i:rows[i]['reference'])
+                item['reference']=rows[identity]['reference'];item['id']=rows[identity]['id']
         # Keep all curated identities if two of them really occur in one cluster.
         protected = [i for i in indices if rows[i].get('protected')]
         if len(protected) > 1 and any(rows[i].get('countrycode')=='SK' for i in protected):
