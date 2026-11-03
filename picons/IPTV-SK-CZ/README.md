@@ -31,3 +31,10 @@ Overenie a počty posledného spracovania: [world-radio-update.json](catalog/wor
 Doplnený originál od vlastníka: 897. Všetkých deväť variantov používa dodaný podklad bez zmeny farieb a písma. [Overenie publikácie](catalog/owner-artwork-publication.json).
 
 Doplnenie 30. októbra 2026: majiteľ schválil všetky štyri ukážky — 26 grafických predlôh pre 30 chýbajúcich položiek. Všetkých deväť archívov obsahuje rovnaké referencie. Staršie picony zostali byte za bytom zachované. [Schválenie](catalog/radio-logos-approval-20261030.json), [overenie publikácie](catalog/radio-logos-publication-20261030.json). Obnovte IPTV rádiá SK/CZ v PiconHube alebo FullHDGlass; nový IPK netreba.
+
+
+## Doplnkové zdroje pre online zoznam
+
+Od 3. novembra 2026 sa pri obnove používa aj verejné API laut.fm: aktualizuje známe stanice a preverí najviac 1 000 kandidátov na doplnenie. Nové stanice bez overenej krajiny patria do skupiny laut.fm. SK/CZ časť a existujúce referencie zostávajú zachované; pri výpadku API sa ponechajú predchádzajúce doplnkové údaje. [Spracovanie a limity](catalog/LAUT-FM.md). Nové IPK netreba.
+
+Ďalšie možnosti rozšírenia, vrátane Radio Browser a ďalších adresárov, sú oddelene zhrnuté v [prehľade zdrojov](catalog/RADIO-SOURCES.md); ich uvedenie nie je oznámením hotového importéra.

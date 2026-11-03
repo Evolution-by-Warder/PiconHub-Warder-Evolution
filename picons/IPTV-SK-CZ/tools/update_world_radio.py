@@ -250,17 +250,114 @@ def replace(path, text):
     temporary.replace(path)
 
 
+def supplement_laut(result, owned, previous, records):
+    """Keep owned rows/identities/countries, merge aliases and append new stations."""
+    from laut_radio import station_key
+    protected = {e.reference for e in parse(owned) if e.url}
+    blocked, old, group = set(), {}, None
+    for entry in parse(previous) if previous else []:
+        if entry.url is None:
+            group = entry.name
+        else:
+            name = station_key(entry.url)
+            if name:
+                if COUNTRIES.get(label_key(group or '')):
+                    blocked.add(name)
+                old.setdefault(name, (entry, group or 'laut.fm'))
+    existing = parse(result)
+    seen = {station_key(e.url) for e in existing if e.url} - {None}
+    assigned = {e.reference for e in existing if e.url}
+    counts = Counter()
+    lines = result.splitlines(keepends=True)
+    for i, line in enumerate(lines):
+        if not line.startswith('#SERVICE '):
+            continue
+        fields = line[9:].strip().split(':', 10)
+        if len(fields) != 11 or fields[1] == '64':
+            continue
+        reference = ':'.join(fields[:10])
+        name = station_key(unquote(fields[10]))
+        if not name or reference in protected:
+            continue
+        item = records.get(name)
+        fallback = old.get(name)
+        url = item.stream_url if item else fallback[0].url if fallback else None
+        if url and url != unquote(fields[10]):
+            lines[i] = '#SERVICE ' + reference + ':' + url.replace(':', '%3a') + '\n'
+            counts['streams_updated' if item else 'previous_streams_retained'] += 1
+        if item:
+            counts['existing_matched'] += 1
+    additions = defaultdict(list)
+    for name in sorted((set(records) | set(old)) - seen - blocked):
+        item, prior = records.get(name), old.get(name)
+        if not item and not prior:
+            continue
+        label = prior[0].name if prior else 'laut.fm - ' + item.display_name
+        url = item.stream_url if item else prior[0].url
+        if BRANDING.search(label) or BRANDING.search(url):
+            continue
+        reference = prior[0].reference if prior else None
+        if reference in assigned:
+            reference = None
+        nonce = 0
+        while reference is None:
+            digest = hashlib.sha256(f'laut.fm|{name}|{nonce}'.encode()).hexdigest()
+            candidate = f'4097:0:2:{int(digest[:4],16) or 1:X}:{int(digest[4:8],16) or 1:X}:ED:0:0:0:0'
+            if candidate not in assigned:
+                reference = candidate
+            nonce += 1
+        assigned.add(reference)
+        additions[prior[1] if prior else 'laut.fm'].append(Entry(reference, label, url))
+        counts['previous_stations_retained' if prior else 'new_stations'] += 1
+    for group, entries in additions.items():
+        lines.append(render_marker(group))
+        for entry in entries:
+            lines.append(f'#SERVICE {entry.reference}:{entry.url.replace(":", "%3a")}\n#DESCRIPTION {entry.name}\n')
+    output = ''.join(lines)
+    body = owned.split('\n', 1)[1]
+    if not output.split('\n', 1)[1].startswith(body):
+        raise ValueError('Supplement changed owned SK/CZ data')
+    final = [e for e in parse(output) if e.url]
+    if len(output.encode()) > MAX_BYTES or len(final) > 20000 or len({e.reference for e in final}) != len(final):
+        raise ValueError('Supplement exceeds receiver catalogue limits')
+    return output, dict(counts)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--source-file', type=Path, help='Offline source for verification')
+    parser.add_argument('--without-laut', action='store_true', help='Keep existing supplementary rows without API access')
+    parser.add_argument('--laut-discovery-limit', type=int, default=1000,
+                        help='Maximum discovery candidates per update (0 to 1000)')
     args = parser.parse_args()
+    if not 0 <= args.laut_discovery_limit <= 1000:
+        parser.error('--laut-discovery-limit must be between 0 and 1000')
     source = args.source_file.read_text(encoding='utf-8-sig') if args.source_file else download()
     owned = OWNED.read_text(encoding='utf-8')
     previous = OUTPUT.read_text(encoding='utf-8') if OUTPUT.exists() else ''
     result, report = build(source, owned, previous)
     previous_world = max(0, len([e for e in parse(previous) if e.url]) - sum(report['owned_stations'].values())) if previous else 0
+    if REPORT.exists():
+        old_report = json.loads(REPORT.read_text(encoding='utf-8'))
+        previous_world = old_report.get('base_foreign_stations', old_report.get('foreign_stations', previous_world))
     if report['foreign_stations'] < max(3000, previous_world * 0.9):
         raise ValueError('Unexpectedly small source; existing bouquet has been preserved')
+    from laut_radio import download as download_laut, station_key
+    known = {station_key(e.url) for e in parse(result) + (parse(previous) if previous else []) if e.url} - {None}
+    records, supplemental = {}, {'status': 'offline', 'country_filter': False}
+    if not args.without_laut and not args.source_file:
+        try:
+            records, supplemental = download_laut(known, args.laut_discovery_limit)
+        except Exception as error:
+            supplemental = {'status': 'previous-data-retained', 'country_filter': False,
+                            'error': str(error)[:200]}
+    result, merged = supplement_laut(result, owned, previous, records)
+    supplemental.update(merged)
+    report['base_foreign_stations'] = report['foreign_stations']
+    report['total_stations'] = len([e for e in parse(result) if e.url])
+    report['foreign_stations'] = report['total_stations'] - sum(report['owned_stations'].values())
+    report['bouquet_sha256'] = hashlib.sha256(result.encode()).hexdigest()
+    report['supplemental_sources'] = {'laut.fm': supplemental}
     replace(OUTPUT, result)
     replace(REPORT, json.dumps(report, ensure_ascii=False, indent=2) + '\n')
     print(json.dumps({k: report[k] for k in ('owned_stations', 'foreign_stations', 'total_stations')}, ensure_ascii=False))
