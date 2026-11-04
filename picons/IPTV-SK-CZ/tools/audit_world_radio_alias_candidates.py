@@ -96,9 +96,9 @@ def build():
         # Review leads only: useful when no byte-identical alias exists yet.
         # Never infer official identities from broadcaster-name similarity.
         family_words = re.compile(
-            r"\\b(?:orf|bayern|br\\b|hr\\b|mdr|ndr|swr|wdr|rbb|"
-            r"deutschland|antenne|radio\\s?1|oe3|oe1|fm4|"
-            r"rmf|zet|eska|polskie|radiowa|retro|petofi|kossuth)\\b", re.I
+            r"\b(?:orf|bayern|br\b|hr\b|mdr|ndr|swr|wdr|rbb|"
+            r"deutschland|antenne|radio\s?1|oe3|oe1|fm4|"
+            r"rmf|zet|eska|polskie|radiowa|retro|petofi|kossuth)\b", re.I
         )
         seen = set()
         selected = []
