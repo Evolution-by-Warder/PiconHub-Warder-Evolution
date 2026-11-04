@@ -1,0 +1,29 @@
+The frozen V9 renderer lives in the separately pinned Master repository.
+Its templates and classifier must not be edited to implement this policy.
+
+Production/audit callers must replace their direct classify_and_render call:
+
+    from warder_brand_guard import classify_and_render_guarded
+    fitted, scale, box = renderer.fit_logo(original_rgba)
+    geometry = renderer.fit_geometry_mask(original_rgba, box, scale)
+    result = classify_and_render_guarded(
+        renderer, fitted, master_rgba, style,
+        centering_mask=geometry, original_source=original_rgba,
+    )
+
+BrandIntegrityError means no export. REVIEW/ERROR/SKIP from the renderer also
+means no usable export. Run identity, source, reference and final visual QC
+separately; this gate only enforces geometry and whole-logo integrity.
+Always pass original_source as well as the fitted image, so a faint coloured
+edge lost during proportional resize cannot turn a coloured brand into an
+automatically recolourable monochrome logo.
+
+Exact approved outputs are retained by their recorded SHA256 outside the
+renderer. There is no station-name bypass and no wildcard approval.
+
+Run portable regression tests:
+    PYTHONPATH=tools python tools/test_warder_brand_guard.py
+
+The full November rescan uses the unchanged pinned V9 renderer and this guard.
+It includes all original source jobs plus refreshed current archive/source
+bindings. Its JSONL evidence is diagnostic, not a ready-to-install picon pack.

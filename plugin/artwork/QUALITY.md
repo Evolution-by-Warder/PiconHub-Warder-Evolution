@@ -20,7 +20,7 @@ BLACK a WHITE master PNG sú autoritatívne zdroje pozadia. Nesmú sa prekresľo
 Kontrolovať rozmery, PNG/RGBA/alfa, alfa hrany, ostrosť, resize artefakty a poškodenie. Doostrenie iba pri preukázateľne mäkkom zdroji, jemne a auditovane. Transparentný originál sa svojvoľne nemení.
 
 ### 1a. Oficiálna a schválená identita loga
-Logo sa nesmie vymýšľať ani nahrádzať iným grafickým variantom iba kvôli farbe MASTER podkladu. Používa sa oficiálna alebo Štefanom schválená podoba transparentného zdroja vrátane vlastného kruhu, badge či farebného políčka. BLACK a WHITE zachovávajú tú istú identitu a kompozíciu; prípustné kontrastné zásahy sa riadia výhradne už schválenými component-mask pravidlami nižšie. Iná kompozícia vyžaduje výslovné schválenie.
+Logo sa nesmie vymýšľať ani nahrádzať iným grafickým variantom iba kvôli farbe MASTER podkladu. Používa sa oficiálna alebo Štefanom schválená podoba transparentného zdroja vrátane vlastného kruhu, badge či farebného políčka. BLACK a WHITE zachovávajú tú istú identitu a kompozíciu; prípustné kontrastné zásahy sa riadia výhradne aktuálnym pravidlom ochrany celého farebného loga nižšie. Iná kompozícia vyžaduje výslovné schválenie.
 
 
 **Schválený vzor — 27. 10. 2026:** Štefan potvrdil opravenú ukážku Absolut GERMANY slovami „teraz je uz perfektne“. Vo všetkých troch prevedeniach zostáva rovnaký oficiálny transparentný zdroj vrátane jeho vlastného bieleho kruhu. Tento princíp sa používa aj pri Absolut BELLA, HOT a TOP 2000 a pri ďalších piconoch. Schválená ukážka: https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/blob/93823afc4e22be3e0bd16d752103966423e13bce/picons/DAB/preview/review/absolut-germany.png
@@ -28,44 +28,27 @@ Logo sa nesmie vymýšľať ani nahrádzať iným grafickým variantom iba kvôl
 ### 2. Veľkosť a umiestnenie
 Určiť skutočný bounding box viditeľného loga bez prázdnych transparentných okrajov. Logo proporcionálne prispôsobiť využiteľnej ploche podľa šírky AJ výšky, zachovať pomer strán, nedeformovať, široké limitovať šírkou, vysoké výškou, ponechať rozumný bezpečný odstup a vycentrovať. MASTER pozadie zostáva nedotknuté.
 
-### 3. Farba a čitateľnosť — text-aware + local-background + component-mask pravidlo
-BLACK a WHITE sa posudzujú samostatne. Základom je zachovať originálne brand farby a grafické prvky všade, kde sú čitateľné.
+### 3. Farba a čitateľnosť — celé farebné logo je chránené (2026-11-04)
 
-**Text ležiaci priamo na MASTER pozadí** sa posudzuje samostatne z hľadiska čitateľnosti. Ak na konkrétnom masteri zaniká, jeho farba sa môže zmeniť na vhodnú kontrastnú farbu bez zmeny ostatných dobre čitateľných brand prvkov. Tmavý text na BLACK sa zmení na vhodnú svetlú farbu; veľmi svetlý text na WHITE na vhodnú tmavú. Mení sa celý logický textový prvok konzistentne.
+Toto pravidlo nahrádza predchádzajúce component-mask pravidlá 3, 3a a 3b. **Do farebného loga s písmom sa automaticky nesmie zasahovať.** Zdroj sa posudzuje ako jeden celok: farebný symbol, biele/čierne/sivé písmo, samostatné alebo odpojené písmená, badge, panely, gradienty, alfa a všetky antialias hrany. Pri viditeľnom ne-neutrálnom pixeli sa konzervatívne chráni celé logo, aj pri nízkej alfe.
 
-**Text vložený do farebného políčka, badge, pásu, kruhu alebo iného vlastného grafického pozadia loga sa podľa BLACK/WHITE MASTERU NESMIE prefarbovať.** Jeho kontrast sa posudzuje voči vlastnému lokálnemu farebnému pozadiu. Farba vnútorného písma, jeho farebné políčko a ich antialias/prechodové pixely sa zachovávajú ako jeden chránený brand prvok.
+Pri BLACK aj WHITE sú povolené iba schválené proporcionálne prispôsobenie a centrovanie originálu na nezmenenom MASTER podklade. Výsledok musí byť pixelovo zhodný s kompozíciou nedotknutého zdroja po tejto geometrii. Oddeliteľnosť textu, jeho poloha priamo na MASTER podklade ani nízky kontrast nedávajú povolenie prefarbovať ho. Pri nedostatočnej čitateľnosti nasleduje REVIEW; nie automatická zmena farby, obrys, tieň, halo alebo náhrada loga.
 
-### 3a. Presná ochrana logických komponentov
-Kontrastná úprava sa smie vykonať iba po spoľahlivom oddelení celého logického komponentu, ktorý sa má meniť, od všetkých susedných brand prvkov. **Nesmie sa používať hrubý obdĺžnik, súradnicová hranica typu `x < ...`, globálny prah tmavosti ani iná maska, ktorá môže zasiahnuť susedné farebné políčko, jeho pozadie, vnútorné písmo alebo antialias hranu.**
+Kontrastná úprava zostáva dostupná iba pre skutočne monochromatické logo podľa zmrazeného enginu a jeho QC. PASS/AUTO-FIXED nie sú vizuálnym schválením identity stanice.
 
-Chránený farebný komponent musí zostať pixelovo nedotknutý po celej svojej ploche vrátane okrajov a antialias pixelov. Ak maska úpravy čo i len čiastočne pretína chránený farebný komponent, automatická úprava sa nevykoná a prípad ide do REVIEW.
+Výnimka platí len pre konkrétny výstup, ktorý vlastník výslovne schválil a ktorého presný SHA256 je zaznamenaný. Nesmie sa preniesť na celú stanicu, rodinu log, podobný zdroj ani nový render. Historické schválenia sú potvrdením svojich presných výstupov, nie všeobecným povolením meniť farebné logá. Jedenásť trojíc schválených 4. 11. 2026 sa zachováva bez regenerovania; ich 33 presných PNG je evidovaných v [owner-approval.json](provenance/warder-approved11-20261104/owner-approval.json).
 
-Príklad TV DUGA+: `TV` je samostatný logický textový komponent ležiaci priamo na masteri a na BLACK môže byť zosvetlený. Celý farebný blok `DUGA+` — všetky farebné políčka, vnútorné písmená, `+`, okraje a antialias — je chránený a musí zostať pixel za pixelom zhodný so zdrojovým logom po geometrickom resize. Úprava `TV` nesmie zasiahnuť ani jediný pixel bloku `DUGA+`.
-
-Logá, ktorých podstatou je prevažne text — napríklad rádiové wordmarky/názvy staníc — sa môžu považovať za textový celok. Ak wordmark leží priamo na masteri a zaniká, môže sa celý zmeniť na svetlú farbu na BLACK alebo tmavú na WHITE. Tvar, typografia, rozostupy a integrálne symboly zostávajú zachované.
-
-Pri grafickom symbole/piktograme platí podobná zásada iba vtedy, keď je symbol jednofarebný alebo jednoznačne oddeliteľný a leží priamo na masteri. Farebné brand prvky s vlastným grafickým pozadím sa nemenia.
-
-Zakázané sú náhodné pixelové kontrastné opravy, rozbíjanie jedného písmena/symbolu, prefarbovanie vnútorného textu farebných badge podľa mastera, automatické obrysy, tiene, halo a agresívne celoplošné prefarbenie farebného loga kvôli jednému prvku.
-
-Monochromatické logo alebo jednoduchý textový wordmark môže mať celú svetlú verziu pre BLACK a celú tmavú verziu pre WHITE. NOS a RÁDIO SLOVAKIA INTERNATIONAL sú vzorové typy takejto alternatívy.
-
-### 3b. V9 schválenie — zmiešané logo so svetlým textom
-Štefan vizuálne schválil princíp ukázaný vo V9 na vzorkách 5 a 6: ak zmiešané/farebné logo obsahuje **biely alebo veľmi svetlý text ležiaci priamo na WHITE MASTER pozadí**, tento text sa má zmeniť na **čierny/tmavý**, pokiaľ ho component-mask dokáže bezpečne oddeliť. Ostatné farebné brand prvky (napr. červený symbol, farebné `FM`, badge alebo grafika) musia zostať bez zmeny vrátane okrajov a antialias pixelov. Rovnaká zásada platí opačne pre tmavý text zanikajúci na BLACK MASTER: bezpečne oddelený text sa zmení na svetlý a ostatné farebné prvky zostanú nedotknuté.
-
-V9 vzorky 5 a 6 potvrdili aj QC zásadu: samotné zistenie „farebné logo“ nestačí na automatický PASS. Najprv sa musí posúdiť čitateľnosť jednotlivých logických komponentov na konkrétnom MASTER pozadí. Ak bezpečné oddelenie svetlého/tmavého textu nie je garantované, prípad zostáva REVIEW a automatika nesmie hádať.
-
-Ak automatika nevie spoľahlivo rozlíšiť komponenty alebo vytvoriť masku bez zásahu do susedného chráneného prvku, prípad ide do REVIEW. REVIEW má prednosť pred chybnou automatickou úpravou.
+Kontrola musí bežať cez fail-closed guard `tools/warder_brand_guard.py` s politikou `WHOLE_COLOURED_LOGO_V2`. Ak pôvodný engine navrhne zásah do chráneného loga, guard návrh odmietne; REVIEW/BLOCKED sa neexportuje ako použiteľný picon. Samotné zistenie nezmenených sýtych pixelov alebo bezpečnej masky nestačí.
 
 ### 4. Výroba
-Vytvoriť `black/<same-service-reference>.png` a `white/<same-service-reference>.png`. Zachovať správne logo, service reference, providera a satelitnú pozíciu. Povolené sú iba schválené operácie: QC, proporcionálne fit/centrovanie a bezpečná kontrastná zmena presne oddeleného logického prvku.
+Vytvoriť `black/<same-service-reference>.png` a `white/<same-service-reference>.png`. Zachovať správne logo, service reference, providera a satelitnú pozíciu. Povolené sú iba schválené operácie: QC, proporcionálne fit/centrovanie a kontrastná zmena iba skutočne monochromatického loga podľa bodu 3.
 
 ### 5. Výstupná kontrola
-Overiť 220×132, PNG/RGBA/alfa, správnu cestu position → provider → style, service-reference, čitateľnosť textu/symbolov, proporcionálnu veľkosť, centrovanie a čisté hrany. Pri každej kontrastnej úprave overiť, že všetky chránené farebné komponenty zostali pixelovo nezmenené po geometrickom resize a že maska úpravy nezasiahla ich pozadie, vnútorné písmo, okraje ani antialias pixely.
+Overiť 220×132, PNG/RGBA/alfa, správnu cestu position → provider → style, service-reference, čitateľnosť textu/symbolov, proporcionálnu veľkosť, centrovanie a čisté hrany. Pri farebnom logu porovnať celý výsledok s kompozíciou nezmeneného originálu po schválenej geometrii na MASTER podklade. Porovnávanie iba sýtych pixelov alebo jednotlivých komponentov nestačí. Každý zásah do písma, pozadia loga, alfa alebo hrán blokuje export, ak nejde o presný už schválený výstup.
 
 ## Triedenie QC
 1. PASS — originál bezpečne použitý.
-2. AUTO-FIXED — použitá presne schválená a auditovaná zmena presne oddeleného logického prvku.
+2. AUTO-FIXED — auditovaná kontrastná zmena skutočne monochromatického loga; farebné logo sa nemení.
 3. REVIEW — nejednoznačný vizuálny prípad alebo neistá maska; automatika ho nesmie hádať.
 4. ERROR/SKIP — technicky chybný alebo nespracovateľný.
 AUTO-FIXED/REVIEW/ERROR musia mať auditný dôvod.
@@ -91,3 +74,4 @@ Kvalita a správnosť majú prednosť pred počtom. Keď automatika nevie bezpe�
 Vlastník po zobrazení všetkých 13 doplnených log v Transparent, WHITE a BLACK výslovne potvrdil: „laska, su perfektne presne podla nasho Warder standardu.“ Týchto 39 presných základných PNG 220×132 je schválenou ukážkou existujúceho Warder štandardu. Potvrdzuje zachovanie identity loga, pomerné umiestnenie na zmrazených MASTER podkladoch a bezpečné kontrastné úpravy oddelených komponentov. Nejde o povolenie meniť iné schválené grafiky alebo hádať nejednoznačné masky.
 
 [Schválenie s presnými SHA256](provenance/picons-assimilated-20261030/owner-approval.json) · [Schválená ukážka](provenance/picons-assimilated-20261030/quality-review.png).
+
