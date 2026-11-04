@@ -711,6 +711,8 @@ READY = "ready"
 # SATLIST identity must stay separate from orbital filtering. Provider selectors can
 # share one orbital position, while nearby legacy selectors may have distinct IDs.
 _SELECTOR_LABEL_BINDINGS = {
+    "(34.5W) Satelit 34.5W": ("345W", "34.5w"),
+    "(50.0E) Satelit 50.0E": ("500E", "50.0e"),
     "(0.8W) Freesat": (
         "FREESAT",
         "0.8w"
@@ -928,6 +930,8 @@ _SELECTOR_LABEL_BINDINGS = {
     )
 }
 _SELECTOR_ID_TO_POSITION = {
+    "345W": "34.5w",
+    "500E": "50.0e",
     "FREESAT": "0.8w",
     "DIGI_TELLY": "0.8w",
     "ANTIKSAT": "16.0e",
@@ -1578,6 +1582,34 @@ def _trusted_https_url(url, manifest_url=None):
     return trusted_publication_url(url, manifest_url)
 
 
+def validate_background_coverage(document):
+    """Require all styles for every satellite/provider and every advertised size."""
+    policy = document.get("satellite_variant_policy", {})
+    styles = ("transparent", "white", "black")
+    sizes = ("50x30", "220x132", "400x240")
+    if policy.get("styles") != list(styles) or policy.get("resolutions") != list(sizes):
+        return ["invalid three-background publication policy"]
+    groups, satellites = {}, set()
+    for item in document.get("packages", []):
+        if not isinstance(item, dict) or item.get("family") not in _FAMILIES:
+            continue
+        selector, size = item.get("selector_id"), item.get("resolution")
+        groups.setdefault((selector, size), set()).add(item["family"].replace("channel-", ""))
+        # Physical positions have all three standard sizes. Provider/terrestrial
+        # compatibility entries retain their advertised resolution inventory.
+        if re.match(r"^\d+[EW](?:_[A-Z])?$", str(selector)):
+            satellites.add(selector)
+    errors = []
+    for selector in sorted(satellites):
+        for size in sizes:
+            groups.setdefault((selector, size), set())
+    for (selector, size), present in sorted(groups.items()):
+        for style in styles:
+            if style not in present:
+                errors.append("missing satellite/provider background: %s/%s/%s" % (selector, size, style))
+    return errors
+
+
 def validate_publication_manifest(document, manifest_url=None):
     """Validate the receiver-facing Warder manifest before any download is queued."""
     errors = []
@@ -1674,6 +1706,8 @@ def validate_publication_manifest(document, manifest_url=None):
                 errors.append("package part size mismatch")
     if delivery == "raw-github-parts" and part_meta and referenced_parts != set(part_meta):
         errors.append("part metadata/reference mismatch")
+    if "satellite_variant_policy" in document:
+        errors.extend(validate_background_coverage(document))
     return errors
 
 

@@ -87,7 +87,7 @@ class PackageTests(unittest.TestCase):
                 self.assertEqual(set(notes['notes']),{'sk','cs','en','de','pl','hu','ru','fr','it','es'})
                 self.assertTrue(all(isinstance(text,str) and text.strip() for text in notes['notes'].values()))
                 catalog=json.loads(payload.extractfile(prefix+"data/channel-manifest.json").read())
-                self.assertEqual(len(catalog["packages"]),469)
+                self.assertEqual(len(catalog["packages"]),492)
                 translations=[name for name in names if name.endswith(".mo")]
                 self.assertEqual(len(translations),9)
                 for name in translations:gettext.GNUTranslations(io.BytesIO(payload.extractfile(name).read()))

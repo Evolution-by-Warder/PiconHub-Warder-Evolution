@@ -774,4 +774,18 @@ class NativeControllerTests(unittest.TestCase):
 
 
 
+    def test_new_positions_preserve_all_backgrounds_and_other_profiles(self):
+        self.complete_selection()
+        other=self.config.plugins.chocholousekpicons[3]
+        before=(other.sats.value,other.background.value,other.resolution.value)
+        self.main.satellites_chosen(['345W','500E'])
+        for style in ['transparent','white','black']:
+            self.main.choose('style',style)
+            prefs=self.gui.model.profile_preferences(self.main.profile)
+            self.assertEqual(prefs['package_selectors'],['345W','500E'])
+            self.assertEqual(prefs['style'],style)
+            self.main.profile.background.save()
+            self.assertEqual(self.main.profile.background.saved_value,style)
+        self.assertEqual((other.sats.value,other.background.value,other.resolution.value),before)
+
 if __name__=="__main__":unittest.main()
