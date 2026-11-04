@@ -20,6 +20,17 @@ Automatizácia [GitHub Actions run 41888237726](https://github.com/Evolution-by-
 - Rádio je naďalej vedené pod týmto názvom na [aktuálnom webe rbb](https://www.rbb-online.de/unternehmen/presse/programmwochen/radio3/).
 - **Výsledok vizuálnej kontroly:** šedé písmená „radio“ sú na BLACK masteri príliš tmavé. Nesmie sa automaticky zosvetliť farebné logo ani vytvoriť vlastná verzia bez potvrdenia. **BLACK = REVIEW/BLOCKED**, čaká sa na oficiálnu alternatívu pre tmavé pozadie alebo ďalšie schválenie. Transparent/White sú len kandidáti.
 
+### Alternatíva z oficiálnej stránky rbb – celý originálny obraz
+
+Nové bezpečné **review-only** riešenie je JPG priamo z [aktuálnej oficiálnej stránky rbb](https://www.rbb-online.de/unternehmen/presse/programmwochen/radio3/), ktorý obsahuje úplné logo „radio3 rbb“ aj jeho vlastný tmavozelený podklad.
+
+- [Ukážka 3 štýlov Warder bez prefarbenia](radio3-official-rbb/review-sheet.png)
+- Originál: [rbb broadcaster JPG](https://www.rbb-online.de/content/dam/rbb/rbb/unternehmen/presse/presseinformationen/2024/03/radio3_Logo_auf_Hintergrund-1-.jpg.jpg/size=966x543.jpg), 966×543 px, 23 124 B.
+- SHA-256: `776d8651a30f1733844c3ddc0f3c37abd27a3aff6c77c45a90648e68b81a54c1`.
+- Oficiálny JPG v rámci schválenej proporcionality: 185×104 px, deväť kontrolných PNG v `radio3-official-rbb/artwork/`, inventár SHA256 v [provenance](radio3-official-rbb/provenance.json).
+- **Kontrast na BLACK vyriešený iba zmenou na iný originálny zdroj od vysielateľa.** Celé pôvodné logo s vlastným podkladom zostáva bez farebných a typografických zásahov, verzia zo sivého Commons SVG zostáva blokovaná.
+- Finálne zaradenie čaká na kontrolu práv na ďalšie šírenie a vizuálne schválenie tejto konkrétnej kompozície. Nejde o publikovaný picon.
+
 ## Ďalšie dve stanice z prvej dávky
 
 - **Kossuth Rádió (HU)**: **pozor na neaktuálny zdroj loga.** Vysielateľ oznámil relaunch 24. augusta 2026 a médiá uvádzajú aj novú grafickú identitu. Staré logo z 2024 **nepoužiť**, kým nepreveríme aktuálne originálne grafické podklady. [Oficiálne oznámenie](https://mediaklikk.hu/cikk/2026/08/23/augusztus-24-en-indul-a-megujult-kossuth/).
