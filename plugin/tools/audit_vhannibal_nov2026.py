@@ -40,17 +40,26 @@ def main():
   base=pathlib.PurePosixPath(name).name.upper()
   if base.endswith(".PNG") and re.match(r"^1_0_[0-9A-F_]+\.PNG$",base):
    names.setdefault(base,(name,data))
+ # Confirm that candidates are actually referenced in the newly downloaded settings.
+ setting_refs=set()
+ for fname,blob in settings if "settings" in locals() else []:
+  if "userbouquet." not in fname.lower() and not fname.lower().endswith((".tv",".radio")):continue
+  for match in re.findall(rb"(?m)^#SERVICE\\s+([0-9A-Fa-f:]+)",blob):
+   fields=match.decode("ascii").split(":")
+   if len(fields)>=10:
+    setting_refs.add("_".join(fields[:10]).upper()+".PNG")
  added=sorted(set(names)-set(local))
  shared=sorted(set(names)&set(local))
+ in_settings=sorted(set(added)&setting_refs)
  changed=[]
  for name in shared:
   source=hashlib.sha256(names[name][1]).hexdigest()
   if not any(hashlib.sha256(p.read_bytes()).hexdigest()==source for p in local[name] if p.parent.name=="transparent"):
    changed.append(name)
  missing_styles={name:sorted({"transparent","black","white"}-{p.parent.name for p in paths}) for name,paths in local.items() if len({p.parent.name for p in paths})<3}
- result={"status":"AUDIT_ONLY_NO_PUBLICATION","date":"2026-11-04","sources":info,"source_picon_references":len(names),"local_references":len(local),"source_new_references":len(added),"source_existing_references":len(shared),"existing_different_source_bytes":len(changed),"local_missing_styles":len(missing_styles),"new_references":added,"different_source_bytes":changed,"missing_styles":missing_styles}
+ result={"status":"AUDIT_ONLY_NO_PUBLICATION","date":"2026-11-04","sources":info,"source_picon_references":len(names),"local_references":len(local),"source_new_references":len(added),"source_existing_references":len(shared),"existing_different_source_bytes":len(changed),"local_missing_styles":len(missing_styles),"new_references":added,"new_references_in_current_bouquets":in_settings,"current_bouquet_references":len(setting_refs),"different_source_bytes":changed,"missing_styles":missing_styles}
  (OUT/"audit.json").write_text(json.dumps(result,indent=2)+"\n")
- lines=["# Vhannibal November 2026 vs Warder PiconHub","","> Comparison only. No picons have been added, overwritten or published.","",f"- Source references: {len(names)}",f"- Already named in PiconHub: {len(shared)}",f"- New service-reference filenames: {len(added)}",f"- Same reference, different PNG bytes: {len(changed)} (not necessarily outdated)",f"- Existing Warder references lacking all three styles: {len(missing_styles)}","","## First 100 new references","",*["- "+x for x in added[:100]],"","## First 100 differing source images","",*["- "+x for x in changed[:100]],"","See audit.json for full lists. Existing artwork must not be replaced without visual review."]
+ lines=["# Vhannibal November 2026 vs Warder PiconHub","","> Comparison only. No picons have been added, overwritten or published.","",f"- Source references: {len(names)}",f"- Already named in PiconHub: {len(shared)}",f"- New service-reference filenames: {len(added)}",f"- New filenames referenced by current Motor bouquets: {len(in_settings)}",f"- Same reference, different PNG bytes: {len(changed)} (not necessarily outdated)",f"- Existing Warder references lacking all three styles: {len(missing_styles)}","","## First 100 new references","",*["- "+x for x in added[:100]],"","## First 100 differing source images","",*["- "+x for x in changed[:100]],"","See audit.json for full lists. Existing artwork must not be replaced without visual review."]
  (OUT/"audit.md").write_text("\n".join(lines)+"\n")
- print("AUDIT",len(added),len(changed),flush=True)
+ print("AUDIT",len(added),len(changed),"IN_BOUQUETS",len(in_settings),flush=True)
 if __name__=="__main__":main()
