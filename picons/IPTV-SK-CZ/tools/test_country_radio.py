@@ -21,6 +21,7 @@ class CountryPackagesTests(unittest.TestCase):
             self.assertEqual(first, again)
             restored = []
             for entry in first['countries']:
+                self.assertEqual((root / entry['path']).read_bytes()[9],255)
                 restored += json.loads(gzip.decompress((root / entry['path']).read_bytes()))
             self.assertEqual(restored, self.rows)
             self.rows[-1]['name'] = 'Changed Czech station'

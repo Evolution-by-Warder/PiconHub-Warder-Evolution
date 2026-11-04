@@ -37,7 +37,11 @@ def export_packages(rows, countries, output):
 
     def package(items, code, name, kind, directory):
         raw = encoded(items)
-        blob = gzip.compress(raw, mtime=0)
+        # Python 3.9-3.12 may expose zlib's host OS byte with mtime=0;
+        # normalize it to the Python 3.14 value for portable package versions.
+        blob = bytearray(gzip.compress(raw, mtime=0))
+        blob[9] = 255
+        blob = bytes(blob)
         digest = hashlib.sha256(blob).hexdigest()
         path = directory + '/' + digest + '.json.gz'
         if len(blob) > 8 * 1024 * 1024 or len(raw) > 32 * 1024 * 1024:
