@@ -21,7 +21,7 @@ EXPECTED_MASTERS={
 }
 SOURCE_SHA256={
     "player-wordmark":"93e95da63a16c53c199e3266071e008ca025c907a4aedfbbe30895c8c97dc4a7",
-    "station-signet":"332021552b0e72292d20b9cc2d5cb3251ae6b064d061044761d04e9a1b037d0",
+    "station-signet":"332021552b0e72292d20b9cc2d5cb3251ae6b064d061044761d04e9a1b037d0c",
     "official-og":"87bf174ed3bd9c5d11ab14276fb746e69f59f3d587d7845c30f2e441d14a4a65",
     "app-icon":"4060c58e2aff69413d331c67906a5abf5273e18d8e63d4858ac3fa9e2c4a0cac",
 }
