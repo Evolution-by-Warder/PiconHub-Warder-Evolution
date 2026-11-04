@@ -1,0 +1,73 @@
+name: Warder radio r6 exact aliases (approved masters only)
+on:
+  push:
+    branches: ['radio/warder-two-approved-aliases-r6-20261104']
+    paths:
+      - '.github/workflows/warder-radio-aliases-r6.yml'
+      - 'picons/IPTV-SK-CZ/tools/publish_radio_logo_aliases_r6.py'
+permissions:
+  contents: write
+concurrency:
+  group: warder-radio-r6-aliases
+  cancel-in-progress: false
+jobs:
+  validate-and-stage:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          filter: blob:none
+          sparse-checkout: |
+            picons/IPTV-SK-CZ
+            plugin/src/Plugins/Extensions/WarderPiconHub
+            plugin/tests
+            .github/workflows
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify original 9 r5 archives and stage byte-identical aliases
+        run: python picons/IPTV-SK-CZ/tools/publish_radio_logo_aliases_r6.py --prepare
+      - name: Commit new r6 ZIP payloads to immutable source SHA
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add picons/IPTV-SK-CZ/packages/iptv-sk-cz-*.zip
+          git diff --cached --exit-code && exit 1 || true
+          git commit -m "Stage 9 Warder radio r6 packs (2 verified aliases copied byte-exact)"
+          git push origin HEAD:radio/warder-two-approved-aliases-r6-20261104
+      - name: Pin r6 release manifest to public immutable archive commit
+        run: |
+          payload="$(git rev-parse HEAD)"
+          python picons/IPTV-SK-CZ/tools/publish_radio_logo_aliases_r6.py --finalize "$payload"
+          python picons/IPTV-SK-CZ/tools/publish_radio_logo_aliases_r6.py --verify
+      - name: Replay PiconHub receiver manifest/install logic
+        run: python -m unittest discover -s plugin/tests -p test_iptv.py -v
+      - name: Verify unaffected station and radio identity regressions
+        run: python -m unittest discover -s picons/IPTV-SK-CZ/tools -p 'test_*radio.py' -v
+      - name: Commit pinned, verified release metadata (without changing station identities)
+        run: |
+          git add picons/IPTV-SK-CZ/catalog/release.json                   picons/IPTV-SK-CZ/catalog/missing-artwork.csv                   picons/IPTV-SK-CZ/catalog/warder-radio-picons-20261104-r6.json                   picons/IPTV-SK-CZ/README.md
+          git commit -m "Record r6 full 320/320 Warder radio reference coverage"
+          git push origin HEAD:radio/warder-two-approved-aliases-r6-20261104
+      - name: Verify public archive SHA-256 at exact pinned source revision
+        run: |
+          python - <<'PY'
+          import hashlib, json, time
+          from urllib.request import Request, urlopen
+          from pathlib import Path
+          release=json.loads(Path('picons/IPTV-SK-CZ/catalog/release.json').read_text())
+          for size,styles in release['packages'].items():
+              for style,meta in styles.items():
+                  for attempt in range(4):
+                      try:
+                          with urlopen(Request(meta['url'],headers={'User-Agent':'Warder-Radio-r6-verifier'}),timeout=40) as response:
+                              data=response.read(meta['bytes']+1)
+                          assert len(data)==meta['bytes'] and hashlib.sha256(data).hexdigest()==meta['sha256']
+                          print('PUBLIC VERIFIED', size, style, len(data))
+                          break
+                      except Exception:
+                          if attempt == 3: raise
+                          time.sleep(3)
+          PY
