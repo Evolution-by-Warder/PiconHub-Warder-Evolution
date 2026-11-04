@@ -18,10 +18,25 @@ jobs:
           python-version: '3.12'
       - name: Compare latest official picons with our reference names
         run: python plugin/tools/audit_vhannibal_nov2026.py
-      - name: Save audit report, no picon modifications
+      - name: Summarize comparison
         run: |
-          git config user.name 'Warder audit'
-          git config user.email 'warder-audit@users.noreply.github.com'
-          git add reports/vhannibal-nov2026/
-          git diff --cached --quiet || git commit -m 'Record November Vhannibal read-only delta [skip ci]'
-          git push origin HEAD:main
+          python - <<'PY'
+          import json,collections
+          j=json.load(open("reports/vhannibal-nov2026/audit.json"))
+          print("COUNTS",j["source_picon_references"],j["local_references"],j["source_new_references"],j["existing_different_source_bytes"])
+          groups=collections.Counter()
+          for ref in j["new_references"]:
+              bits=ref.split("_")
+              try:
+                  orbital=int(bits[6],16)>>16
+                  if orbital>1800:orbital-=3600
+                  groups[f"{abs(orbital)/10:g}{'E' if orbital>=0 else 'W'}"]+=1
+              except Exception:groups["unknown"]+=1
+          print("SATELLITES",groups.most_common(30))
+          print("NEW_SAMPLE",j["new_references"][:30])
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: vhannibal-nov2026-comparison-only
+          path: reports/vhannibal-nov2026/
+          retention-days: 90
