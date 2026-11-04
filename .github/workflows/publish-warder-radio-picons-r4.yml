@@ -1,0 +1,38 @@
+name: Publish further verified Warder radio picons
+on:
+  push:
+    branches: ['radio/warder-picons-20261104-r4']
+    paths:
+      - '.github/workflows/publish-warder-radio-picons-r3.yml'
+      - 'picons/IPTV-SK-CZ/tools/publish_warder_radio_picons_r4.py'
+      - 'picons/IPTV-SK-CZ/sources/warder-radio-20261104-r4/plan.json'
+permissions:
+  contents: write
+concurrency:
+  group: owner-radio-artwork
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          filter: blob:none
+          fetch-depth: 0
+          sparse-checkout: |
+            picons/IPTV-SK-CZ
+            plugin/artwork/templates/picons
+            plugin/src/Plugins/Extensions/WarderPiconHub
+            plugin/tests
+            .github/workflows
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install --quiet Pillow==13.0.0
+      - name: Check existing receiver package validation
+        run: python -m unittest discover -s plugin/tests -p test_iptv.py -v
+      - name: Verify frozen renders, preserve older PNGs, check receiver and publish
+        run: python picons/IPTV-SK-CZ/tools/publish_warder_radio_picons_r4.py --publish
