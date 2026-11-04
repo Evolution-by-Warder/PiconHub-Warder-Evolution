@@ -64,7 +64,7 @@ def main():
             parser.feed(body.decode("utf-8", errors="replace"))
             seen = set()
             for kind, url, alt in parser.found:
-                url = url.split(",")[0].strip().split(" 2x")[0].split(" 1x")[0]
+                url = url.split(",")[0].strip().strip("\\'\"").split(" 2x")[0].split(" 1x")[0]
                 if not url or url.startswith(("data:", "blob:", "javascript:")):
                     continue
                 absolute = urljoin(item.get("final_url", page), url)
