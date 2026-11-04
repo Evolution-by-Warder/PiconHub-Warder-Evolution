@@ -1,0 +1,43 @@
+name: Review Antenne Bayern official 2000er stream logo sources in Warder style
+on:
+  push:
+    branches: ['review/antenne-bayern-2000er-official-warder-20261104']
+    paths:
+      - '.github/workflows/review-antenne-bayern-2000er.yml'
+      - 'picons/IPTV-SK-CZ/tools/review_antenne_bayern_2000er.py'
+permissions:
+  contents: write
+jobs:
+  review:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          filter: blob:none
+          sparse-checkout: |
+            picons/IPTV-DE/catalog
+            picons/IPTV-SK-CZ/catalog
+            picons/IPTV-SK-CZ/tools
+            picons/IPTV-SK-CZ/review
+            plugin/artwork/templates/picons
+            .github/workflows
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python3 -m pip install --quiet Pillow==13.0.0
+      - name: Check current broadcaster artwork and nine-variant Warder output hashes
+        run: python3 picons/IPTV-SK-CZ/tools/review_antenne_bayern_2000er.py
+      - name: Commit review-only original source and Warder PNGs
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add picons/IPTV-SK-CZ/review/antenne-bayern-2000er-20261104/
+          if ! git diff --cached --quiet; then
+            git commit -m "Review original Antenne Bayern 2000er station logos in Warder frames"
+            git push origin HEAD:review/antenne-bayern-2000er-official-warder-20261104
+          fi
+      - uses: actions/upload-artifact@v4
+        with:
+          name: warder-antenne-bayern-2000er-review
+          path: picons/IPTV-SK-CZ/review/antenne-bayern-2000er-20261104/
