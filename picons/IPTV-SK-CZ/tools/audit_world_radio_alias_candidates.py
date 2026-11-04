@@ -60,6 +60,7 @@ def stream(item):
 
 def build():
     report = {
+        "shortlist_for_official_logo_research": {},
         "schema": 1,
         "version": "2026-11-04",
         "status": "research_candidates_not_approved",
@@ -92,6 +93,26 @@ def build():
                 exact[key].append(s)
             if name_key(s.get("name")):
                 names[name_key(s["name"])].append(s)
+        # Review leads only: useful when no byte-identical alias exists yet.
+        # Never infer official identities from broadcaster-name similarity.
+        family_words = re.compile(
+            r"\\b(?:orf|bayern|br\\b|hr\\b|mdr|ndr|swr|wdr|rbb|"
+            r"deutschland|antenne|radio\\s?1|oe3|oe1|fm4|"
+            r"rmf|zet|eska|polskie|radiowa|retro|petofi|kossuth)\\b", re.I
+        )
+        seen = set()
+        selected = []
+        for station in uncovered:
+            station_name = station.get("name", "")
+            key = name_key(station_name)
+            if key in seen or not family_words.search(str(station_name)):
+                continue
+            seen.add(key)
+            selected.append({"name": station_name, "reference": ref(station),
+                             "stream_url": stream(station)})
+            if len(selected) == 35:
+                break
+        report["shortlist_for_official_logo_research"][code] = selected
         safe, review, unmatched = 0, 0, 0
         for item in uncovered:
             target_ref = ref(item)
