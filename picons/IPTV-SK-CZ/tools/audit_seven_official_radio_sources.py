@@ -129,7 +129,8 @@ def main():
                 if absolute in seen:continue
                 seen.add(absolute)
                 items.append(dict(url=absolute,role=str(role or ""),alt=str(alt or "")[:150],
-                                  score=score(str(role or ""),absolute,str(alt or "")),
+                                  score=(score(str(role or ""),absolute,str(alt or "")) +
+                                         (80 if item["country"]=="DE" and "2000er" in (absolute+" "+str(alt)).lower() else 0)),
                                   source_page=item["page"],asset_origin_verified=False,
                                   exact_station_logo_verified=False))
             items.sort(key=lambda x:(-x["score"],x["url"]))
