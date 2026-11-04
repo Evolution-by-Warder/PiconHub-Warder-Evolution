@@ -1,0 +1,41 @@
+name: Review official ESKA ROCK alternate whole logos
+on:
+  push:
+    branches: [review/warder-radio-eskarock-original-20261104]
+    paths:
+      - '.github/workflows/review-eskarock-official-alternatives.yml'
+      - 'picons/IPTV-SK-CZ/tools/review_eskarock_official_alternatives.py'
+permissions:
+  contents: write
+jobs:
+  alt-review:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          filter: blob:none
+          sparse-checkout: |
+            picons/IPTV-SK-CZ/tools
+            picons/IPTV-SK-CZ/review
+            plugin/artwork/templates/picons
+            .github/workflows
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Install deterministic vector / PNG render dependencies
+        run: python3 -m pip install --quiet Pillow==13.0.0 CairoSVG==2.8.2 defusedxml==0.7.1
+      - name: Render current official whole-logo alternatives without recolouring
+        run: python3 picons/IPTV-SK-CZ/tools/review_eskarock_official_alternatives.py
+      - name: Publish review artifacts to PR branch only
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add picons/IPTV-SK-CZ/review/eskarock-20261104/alternatives*
+          git diff --cached --quiet && exit 1
+          git commit -m "Compare official ESKA ROCK original whole-logo alternatives in Warder masters"
+          git push origin HEAD:review/warder-radio-eskarock-original-20261104
+      - uses: actions/upload-artifact@v4
+        with:
+          name: warder-eskarock-official-alternatives
+          path: picons/IPTV-SK-CZ/review/eskarock-20261104/alternatives*
