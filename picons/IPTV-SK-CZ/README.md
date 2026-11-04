@@ -2,7 +2,7 @@
 
 Spoločná kolekcia pre PiconHub Warder Evolution a FullHDGlass Warder Evolution.
 
-Bouquet obsahuje 321 položiek: 88 slovenských a 233 českých. Pri 286 vybraných URL skúška vrátila zvukové dáta; dostupnosť všetkých 321 nie je potvrdená. Picony pokrývajú 278 položiek, 294 súborov vrátane starších referencií v každom variante. Zvyšných 43 položiek zatiaľ nemá vhodný overený podklad. Nevymýšľame náhradné logá.
+Bouquet obsahuje 321 položiek: 88 slovenských a 233 českých. Pri 286 vybraných URL skúška vrátila zvukové dáta; dostupnosť všetkých 321 nie je potvrdená. Picony pokrývajú 282 položiek pôvodného bouquetu, 316 súborov vrátane starších referencií v každom variante. Zvyšných 39 položiek zatiaľ nemá vhodný overený podklad. Nevymýšľame náhradné logá.
 
 Dostupné sú rozmery 50×30, 220×132 a 400×240, vždy Transparent, Biele a Čierne. Inštalátor kontroluje SHA256 archívu aj jednotlivých PNG a nemení nesúvisiace používateľské picony. Oba projekty používajú rovnaký katalóg a rovnaký kód sťahovania.
 
@@ -38,3 +38,5 @@ Doplnenie 30. októbra 2026: majiteľ schválil všetky štyri ukážky — 26 g
 Od 3. novembra 2026 sa pri obnove používa aj verejné API laut.fm: aktualizuje známe stanice a preverí najviac 1 000 kandidátov na doplnenie. Nové stanice bez overenej krajiny patria do skupiny laut.fm. SK/CZ časť a existujúce referencie zostávajú zachované; pri výpadku API sa ponechajú predchádzajúce doplnkové údaje. [Spracovanie a limity](catalog/LAUT-FM.md). Nové IPK netreba.
 
 Ďalšie možnosti rozšírenia, vrátane Radio Browser a ďalších adresárov, sú oddelene zhrnuté v [prehľade zdrojov](catalog/RADIO-SOURCES.md); ich uvedenie nie je oznámením hotového importéra.
+
+Doplnenie 4. novembra 2026: 6 overených grafických predlôh a 15 prepojení existujúcich piconov na aktuálne označenia staníc. Všetkých 294 predchádzajúcich PNG v každom variante zostalo bez zmeny. Použité sú pôvodné schválené Warder šablóny. Aktuálny katalóg má picony pre 88 z 89 slovenských a 210 z 250 českých položiek; zvyšné logá alebo identity ešte vyžadujú overenie. Počty pôvodného 321-položkového bouquetu sa od aktuálneho katalógu líšia. [Ukážka 1](sources/warder-radio-20261104/Warder-radio-picony-1.png), [ukážka 2](sources/warder-radio-20261104/Warder-radio-picony-2.png), [pokrytie a nevyriešené položky](sources/warder-radio-20261104/coverage.json), [overenie publikácie](catalog/warder-radio-picons-20261104.json). Nové IPK pre tieto dáta netreba; obnovte IPTV rádiá SK/CZ v PiconHube.
