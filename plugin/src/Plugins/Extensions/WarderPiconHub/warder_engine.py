@@ -271,11 +271,19 @@ class PiconRunner:
         archive.unlink()
 
     def stage_iptv(self, prefs, stages):
+        selectors = prefs.get("iptv_selectors") or [iptv.SELECTOR]
+        if len(set(selectors)) != len(selectors) or any(key not in iptv.SELECTORS for key in selectors):
+            raise PiconError(_("Neplatný katalóg: ") + "IPTV")
+        for selector in selectors:
+            self.stage_iptv_collection(prefs, stages, selector)
+
+    def stage_iptv_collection(self, prefs, stages, selector):
         self.check_cancel()
-        label = _(iptv.LABEL)
+        label = _(dict(iptv.COLLECTIONS)[selector])
         self.event("stage", _("Načítavam katalóg") + " " + label)
         try:
-            document = iptv.read_manifest(self.opener)
+            document = (iptv.read_manifest(self.opener) if selector == iptv.SELECTOR
+                        else iptv.read_manifest(self.opener, selector))
             planned = iptv.plan(document, prefs, self.enigma2_dir)
         except (ValueError, TypeError) as exc:
             raise PiconError(_("Neplatný katalóg: ") + label) from exc
@@ -289,7 +297,7 @@ class PiconRunner:
         stages.append(stage)
         if shutil.disk_usage(stage.target).free < job["bytes"] * 3 + 8 * 1024 * 1024:
             raise PiconError(_("Na cieľovom úložisku nie je dosť voľného miesta."))
-        archive = stage.work / "iptv-sk-cz.zip"
+        archive = stage.work / (selector.lower() + ".zip")
         self.download(job, archive)
         self.event("stage", _("Overujem a rozbaľujem ") + label)
         try:

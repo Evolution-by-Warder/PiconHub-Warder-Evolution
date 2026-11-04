@@ -569,7 +569,7 @@ class WarderMainScreen(Screen):
         available={p["selector_id"] for p in self.catalog["packages"] if (not family or p.get("family")==family) and (not resolution or p.get("resolution")==resolution)}
         # DAB uses a separate approved catalog, not the native satellite catalog.
         if not resolution or resolution == "220x132":available.add("DAB")
-        available.add("IPTV-SK-CZ")
+        available.update(model.iptv.SELECTORS)
         choices=[(sid,label+(_(" • zatiaľ nedostupné") if sid not in available else "")) for sid,label in model.SATELLITES]
         self.open_picker(_("Satelity a poskytovatelia"),choices,self.selection["satellites"] or [],True,self.satellites_chosen)
 
@@ -702,7 +702,7 @@ class WarderMainScreen(Screen):
         if values is None:return
         self.selection["satellites"]=list(values)
         self.profile.warder_selectors.setValue(" ".join(values))
-        positions=model.sync.task_positions_from_bindings([model.sync.task_binding_for_package_selector(s) for s in values if s not in ("DAB", "IPTV-SK-CZ")])
+        positions=model.sync.task_positions_from_bindings([model.sync.task_binding_for_package_selector(s) for s in values if s not in ("DAB",) + model.iptv.SELECTORS])
         self.profile.sats.setValue(" ".join(positions));self.save()
 
     def update_picons(self):

@@ -41,6 +41,39 @@ def profile(dest,selectors='IPTV-SK-CZ',res='220x132'):
  return types.SimpleNamespace(warder_selectors=V(selectors),sats=V(''),resolution=V(res),background=V('black'),method=V('all_inc'),picon_folder=V('user_defined'),picon_folder_user=V(dest))
 
 class IntegrationTests(unittest.TestCase):
+ def test_two_countries_download_only_their_own_archives_and_keep_existing_files(self):
+  resources,base=fixture();names={}
+  import copy
+  for number,selector in enumerate(('IPTV-AT','IPTV-DE','IPTV-HU','IPTV-PL'),1):
+   document=copy.deepcopy(base);document['collection']=selector
+   name=NAME.replace('_1234_','_'+str(1234+number)+'_');names[selector]=name
+   for resolution,variants in document['packages'].items():
+    for style,entry in variants.items():
+     raw=png(*map(int,resolution.split('x')));body=io.BytesIO()
+     with zipfile.ZipFile(body,'w') as archive:archive.writestr(name,raw)
+     url=entry['url'].replace('IPTV-SK-CZ',selector).replace('iptv-sk-cz',selector.lower())
+     data=body.getvalue();resources[url]=data
+     entry.update(url=url,bytes=len(data),sha256=hashlib.sha256(data).hexdigest(),files={name:hashlib.sha256(raw).hexdigest()})
+   resources[iptv.manifest_url(selector)]=json.dumps(document).encode()
+  for corrupt in (False,True):
+   with tempfile.TemporaryDirectory() as tmp:
+    target=Path(tmp,'picon');target.mkdir();(target/'unrelated.png').write_bytes(b'keep');calls=[]
+    def opener(url):
+     calls.append(url)
+     body=resources[url]
+     if corrupt and '/IPTV-PL/packages/' in url:body+=b'corrupt'
+     return Response(body,url)
+    prefs=model.profile_preferences(profile(str(target),'IPTV-DE IPTV-PL'))
+    self.assertEqual(prefs['iptv_selectors'],['IPTV-DE','IPTV-PL'])
+    runner=engine.PiconRunner(opener=opener,enigma2_dir=tmp,lock_path=str(Path(tmp,'lock')))
+    if corrupt:
+     with self.assertRaises(engine.PiconError):runner.run([prefs])
+     self.assertEqual({p.name:p.read_bytes() for p in target.iterdir()},{'unrelated.png':b'keep'})
+    else:
+     result=runner.run([prefs]);self.assertEqual(result['added'],2)
+     self.assertEqual({p.name for p in target.iterdir()},{'unrelated.png',names['IPTV-DE'],names['IPTV-PL']})
+    self.assertFalse(any('/IPTV-AT/' in url or '/IPTV-HU/' in url or '/IPTV-SK-CZ/' in url for url in calls))
+
  def test_only_iptv_and_combined_dab_use_no_satellite_manifest(self):
   for selectors,expected in [('IPTV-SK-CZ',1),('DAB IPTV-SK-CZ',2)]:
    with tempfile.TemporaryDirectory() as tmp:

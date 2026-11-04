@@ -1,0 +1,44 @@
+name: Publish independent IPTV radio countries and PiconHub 0.1.42
+on:
+  push:
+    branches: ['radio/country-picons-20261104-1']
+    paths: ['.github/workflows/publish-country-radio-picons.yml']
+permissions:
+  contents: write
+concurrency:
+  group: warder-country-radio-publication
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install --quiet Pillow==13.0.0
+      - name: Test existing compatibility and separate country selection
+        run: PYTHONPATH=plugin/src python -m unittest discover -s plugin/tests -v
+      - name: Build reviewed country archives, verify native installer and public downloads
+        run: python tools/publish_country_radio_picons.py --publish
+      - name: Build identical country-aware plugin packages twice
+        run: |
+          python plugin/tools/build_ipk.py --output plugin/build --revision "$GITHUB_SHA"
+          cp plugin/build/enigma2-plugin-extensions-piconhub_0.1.42_all.ipk /tmp/country-radio-first.ipk
+          python plugin/tools/build_ipk.py --output plugin/build --revision "$GITHUB_SHA"
+          cmp /tmp/country-radio-first.ipk plugin/build/enigma2-plugin-extensions-piconhub_0.1.42_all.ipk
+      - name: Publish immutable IPK and activate verified stable feeds
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python tools/publish_country_plugin_release.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: country-radio-picons-and-plugin-verification
+          path: |
+            plugin/build/*.ipk
+            plugin/build/*.sha256
+            reports/country-radio*.json
+            reports/country-plugin*.json

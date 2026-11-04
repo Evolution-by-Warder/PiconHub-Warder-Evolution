@@ -1,4 +1,4 @@
-"""Pinned IPTV SK/CZ artwork packages; no receiver-side image generation."""
+"""Pinned per-country IPTV radio artwork packages; no receiver-side image generation."""
 import hashlib
 import json
 import pathlib
@@ -12,8 +12,31 @@ from . import warder_skin_sync as sync
 REPOSITORY = 'Evolution-by-Warder/PiconHub-Warder-Evolution'
 SELECTOR = 'IPTV-SK-CZ'
 LABEL = 'IPTV rádiá SK/CZ'
-MANIFEST_URL = 'https://raw.githubusercontent.com/' + REPOSITORY + '/main/picons/IPTV-SK-CZ/catalog/release.json'
-_PINNED = re.compile(r'^https://raw\.githubusercontent\.com/' + re.escape(REPOSITORY) + r'/[0-9a-f]{40}/picons/IPTV-SK-CZ/packages/iptv-sk-cz-(?:transparent|white|black)-(?:50x30|220x132|400x240)\.zip$')
+COLLECTIONS = ((SELECTOR, LABEL), ('IPTV-AT', 'IPTV rádiá Austria'),
+               ('IPTV-DE', 'IPTV rádiá Germany'), ('IPTV-HU', 'IPTV rádiá Hungary'),
+               ('IPTV-PL', 'IPTV rádiá Poland'))
+SELECTORS = tuple(key for key, label in COLLECTIONS)
+BASE = 'https://raw.githubusercontent.com/' + REPOSITORY + '/'
+MANIFEST_URL = BASE + 'main/picons/' + SELECTOR + '/catalog/release.json'
+_PINNED = re.compile(r'^' + re.escape(BASE) + r'[0-9a-f]{40}/picons/'
+                     r'(?P<collection>IPTV-(?:SK-CZ|AT|DE|HU|PL))/packages/'
+                     r'(?P<prefix>iptv-(?:sk-cz|at|de|hu|pl))-(?:transparent|white|black)-'
+                     r'(?:50x30|220x132|400x240)\.zip$')
+
+
+def manifest_url(selector=SELECTOR):
+    if selector not in SELECTORS:
+        raise ValueError('Unsupported IPTV country collection')
+    return BASE + 'main/picons/' + selector + '/catalog/release.json'
+
+
+def pinned_collection(url):
+    match = _PINNED.fullmatch(url) if isinstance(url, str) else None
+    if match and match['prefix'] == match['collection'].lower():
+        return match['collection']
+    return None
+
+
 _SHA = re.compile(r'^[0-9a-f]{64}$')
 _NAME = re.compile(r'(?:4097|5001|5002|8193)_0_(?:2|A)_(?:[0-9A-F]+_){6}[0-9A-F]+\.png')
 RESOLUTIONS = ('50x30', '220x132', '400x240')
@@ -21,7 +44,8 @@ STYLES = ('transparent', 'white', 'black')
 
 
 def trusted_url(url):
-    return isinstance(url, str) and (url == MANIFEST_URL or bool(_PINNED.fullmatch(url)))
+    return isinstance(url, str) and (url in tuple(manifest_url(key) for key in SELECTORS)
+                                     or pinned_collection(url) is not None)
 
 
 def reference_filename(name):
@@ -29,13 +53,13 @@ def reference_filename(name):
             and any(int(value, 16) for value in name[:-4].split('_')[3:]))
 
 
-def read_manifest(opener):
-    with opener(MANIFEST_URL) as response:
+def read_manifest(opener, selector=SELECTOR):
+    with opener(manifest_url(selector)) as response:
         raw = response.read(2 * 1024 * 1024 + 1)
     if len(raw) > 2 * 1024 * 1024:
         raise ValueError('IPTV catalogue exceeds size limit')
     data = json.loads(raw)
-    if not isinstance(data, dict) or data.get('schema') != 1 or data.get('status') != 'verified' or data.get('collection') != SELECTOR:
+    if not isinstance(data, dict) or data.get('schema') != 1 or data.get('status') != 'verified' or data.get('collection') != selector:
         raise ValueError('IPTV catalogue is not verified')
     packages = data.get('packages')
     if not isinstance(packages, dict) or set(packages) != set(RESOLUTIONS):
@@ -49,9 +73,9 @@ def read_manifest(opener):
             if not isinstance(package, dict) or package.get('resolution') != resolution:
                 raise ValueError('Invalid IPTV resolution')
             url, digest = package.get('url'), package.get('sha256')
-            if not isinstance(url, str) or not _PINNED.fullmatch(url) or not isinstance(digest, str) or not _SHA.fullmatch(digest):
+            if not isinstance(url, str) or pinned_collection(url) != selector or not isinstance(digest, str) or not _SHA.fullmatch(digest):
                 raise ValueError('Invalid IPTV package identity')
-            if not url.endswith('/iptv-sk-cz-' + style + '-' + resolution + '.zip'):
+            if not url.endswith('/' + selector.lower() + '-' + style + '-' + resolution + '.zip'):
                 raise ValueError('IPTV style URL mismatch')
             if type(package.get('bytes')) is not int or not 0 < package['bytes'] <= 64 * 1024 * 1024:
                 raise ValueError('Invalid IPTV package size')
@@ -91,7 +115,10 @@ def plan(data, preferences, folder):
     # Only named, verified files may be overwritten; unrelated picons survive.
     queue = {'destination': preferences['destination'], 'positions': [],
              'mode': sync.UPDATE_MODE_INCREMENTAL, 'services': [], 'iptv_names': names}
-    job = dict(package, selector_id=SELECTOR,
+    selector = data.get('collection')
+    if selector not in SELECTORS:
+        raise ValueError('Unsupported IPTV country collection')
+    job = dict(package, selector_id=selector,
                parts=[{'url': package['url'], 'bytes': package['bytes'], 'sha256': package['sha256']}])
     return queue, job
 

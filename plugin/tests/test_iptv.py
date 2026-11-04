@@ -31,6 +31,19 @@ def manifest():
    raw=png(*map(int,res.split('x')));d['packages'][res][style]={'resolution':res,'url':'https://raw.githubusercontent.com/'+iptv.REPOSITORY+'/'+'a'*40+'/picons/IPTV-SK-CZ/packages/iptv-sk-cz-'+style+'-'+res+'.zip','bytes':100,'sha256':'0'*64,'files':{NAME:hashlib.sha256(raw).hexdigest()}}
  return d
 class IPTVTests(unittest.TestCase):
+ def test_country_manifests_cannot_cross_country_archive_paths(self):
+  for selector in ('IPTV-AT','IPTV-DE','IPTV-HU','IPTV-PL'):
+   document=manifest();document['collection']=selector
+   for variants in document['packages'].values():
+    for entry in variants.values():entry['url']=entry['url'].replace('IPTV-SK-CZ',selector).replace('iptv-sk-cz',selector.lower())
+   calls=[]
+   def opener(url):calls.append(url);return io.BytesIO(json.dumps(document).encode())
+   self.assertEqual(iptv.read_manifest(opener,selector),document)
+   self.assertEqual(calls,[iptv.manifest_url(selector)])
+   entry=document['packages']['50x30']['black'];entry['url']=entry['url'].replace('/'+selector+'/', '/IPTV-SK-CZ/')
+   self.assertFalse(iptv.trusted_url(entry['url']))
+   with self.assertRaises(ValueError):iptv.read_manifest(opener,selector)
+
  def test_all_nine_variants_accept_the_same_nonzero_radio_references(self):
   d=manifest();self.assertEqual(iptv.read_manifest(lambda u:io.BytesIO(json.dumps(d).encode())),d)
  def test_package_urls_require_exact_repo_commit_collection_style_and_size(self):
