@@ -44,7 +44,7 @@ def main():
  setting_refs=set()
  for fname,blob in settings if "settings" in locals() else []:
   if "userbouquet." not in fname.lower() and not fname.lower().endswith((".tv",".radio")):continue
-  for match in re.findall(rb"(?m)^#SERVICE\\s+([0-9A-Fa-f:]+)",blob):
+  for match in re.findall(rb"(?m)^#SERVICE\s+([0-9A-Fa-f:]+)",blob):
    fields=match.decode("ascii").split(":")
    if len(fields)>=10:
     setting_refs.add("_".join(fields[:10]).upper()+".PNG")
