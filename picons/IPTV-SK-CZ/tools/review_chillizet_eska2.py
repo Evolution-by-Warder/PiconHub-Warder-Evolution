@@ -19,12 +19,12 @@ STATIONS=(
        reference="4097:0:2:418A:25BD:ED:0:0:0:0",
        stream_url="https://n-4-1.dcs.redcdn.pl/sc/o2/Eurozet/live/chillizet.livx",
        src="https://prowly-prod.s3.eu-west-1.amazonaws.com/uploads/4587/assets/32565/Logo_ChilliZET_RGB.jpg",
-       page="https://newsroom.eurozet.pl/presskits/chillizet",ext="jpg",source_sha256=""),
+       page="https://newsroom.eurozet.pl/presskits/chillizet",ext="jpg",source_sha256="769a5207e46a57a41a47a4d1e5d4755c98ed0f7ae0f93a101e8edfa3180fe814"),
   dict(slug="eska2",name="ESKA 2",
        reference="4097:0:2:B0F1:AC26:ED:0:0:0:0",
        stream_url="https://ic1.smcdn.pl/1530-1.mp3",
        src="https://cdn.files.smcloud.net/t/eska2-logo.png",
-       page="https://dwa.eska.pl/",ext="png",source_sha256=""),
+       page="https://dwa.eska.pl/",ext="png",source_sha256="143bd8c8157fae3c6ba01e062edf5eaf1f979d0901e99f028cb57a2bb1208651"),
 )
 
 sha=lambda b:hashlib.sha256(b).hexdigest()
