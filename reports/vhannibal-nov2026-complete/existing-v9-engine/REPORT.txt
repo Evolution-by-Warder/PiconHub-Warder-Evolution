@@ -1,0 +1,44 @@
+WARDER — EXISTING V9 ENGINE / FULL READ-ONLY SCAN — 4 November 2026
+
+USED EXISTING CODE, UNCHANGED
+Renderer SHA256: b841585ca0441251f7e3e10108f1128c0aba69986c8fe2db17f435351723da30
+Visual-QC SHA256: 234f0c0cad405dfa292cdcaab840f3c1252cec1ece956b67c6c44b0bf56e5be1
+This is the same renderer SHA256 recorded by the successful October Vhannibal white-ghost scan, not the historical Factory plate-aware-v20 renderer. Source-QC and split-ghost scans call the existing repository functions. The adapter supplies paths, batching and reports; it does not change classifier constants or contrast thresholds.
+Regression fixture results: helpers PASS; channel regressions PASS; auxiliary fixture has 5 PASS / 5 REVIEW, with REVIEW preserved.
+
+COVERAGE
+- 189,238 source/live inventory entries represented.
+- 17,282 distinct source-pixel jobs processed.
+- 65,948 complete or partial source/variant bindings scanned, plus 218 records with missing transparent source, recorded separately. Conservation: 66,166 total bindings.
+- Every raw decision and exact source path remains in v9-source-and-variant-results.jsonl.gz.
+
+FINDINGS
+- 1,496 distinct receiver references use the exact generic DVB-S or test-pattern pixel families identified by the user. They are blocked as station-logo inputs. This is a digest-bound exclusion across all matching records, not a claim that the V9 contrast engine recognizes station names.
+- 81 individual engine variant attempts stopped at the protected-colour invariant. None was promoted or retried with weakened thresholds. They are in engine-invariant-rejections.json.
+- 2,030 repeated current WHITE/reference bindings were flagged by the existing split-component scanner.
+- 69,938 repeated current style/reference bindings differ from the immutable MASTER border or put pixels into its protected outer area. This includes historical frames and geometry differences; each finding is REVIEW evidence, not automatic replacement permission.
+- Comparisons with renderer outputs are not semantic logo identification. A mathematically matching picture can still belong to the wrong station; Nova/Nova Sport/Novasports and numeric feed labels stay subject to identity verification.
+
+ACTUAL RE-RENDERED CANDIDATES
+- 633 unique triplets were emitted through the pinned existing engine.
+- 18 are raw engine AUTO-FIXED; 615 remain raw-engine REVIEW.
+- Visual inspection vetoed 5 AUTO-FIXED triplets: RTSH Shqip/Muzike/SAT integral circle inversions, DAZN numeral-panel inversion pending brand verification, and the flattened Kto est kto portrait. They are explicitly isolated in review-after-visual-qc-do-not-install. Raw engine decisions remain unchanged in the evidence. There are zero final visual-quality approvals.
+- The AUTO-FIXED lane still requires station/reference verification. Generic encoder/feed service proposals are separated into technical-service-do-not-install.
+- REVIEW images are isolated in review-do-not-install and labelled as blocked on every review page. They are NOT finished Warder artwork. In particular, .black remains REVIEW because the existing engine detects unresolved light/two-tone components; that result was not overridden.
+- Candidate rendering stopped when the engine or the outer-MASTER guard rejected it; partial outputs were excluded from this deliverable.
+
+CORRECTION OF EARLIER WORK
+The earlier November hash comparison and the first candidate batches were inventory/technical evidence, not certification of Warder visual quality. They must not be used as an approved import plan. This existing-engine result supersedes the previous candidate batch. Neither PIXEL_IDENTICAL, existing/live presence, nor a technically valid PNG is accepted as a quality approval.
+
+FILES
+index.html: searchable engine outcome and review pages.
+candidate-manifest.json: exact candidate/source references, raw engine decisions and SHA256.
+rejected-generic-and-test-pattern-families.json: blocked placeholder families and every matching reference.
+current-variant-findings.csv.gz: style-level findings for each repeated origin/reference binding.
+engine-invariant-rejections.json: unchanged raw engine invariant failures.
+blocked-candidates.json: output blocks for geometry, source or frame-guard failure.
+review-pages/: explicitly labelled raw proposals.
+SHA256SUMS: complete delivered file integrity.
+
+PRODUCTION
+No production catalog, PNG, update channel, MASTER template or reference mapping was changed. Existing source originals were not rewritten. No REVIEW, invariant rejection, placeholder or identity-uncertain proposal was promoted. No automatic final identity approval is claimed.

@@ -1,0 +1,660 @@
+{
+  "helper_regressions": {
+    "logical_grouping": "PASS",
+    "integer_centering": "PASS",
+    "local_panel_knockout": "PASS",
+    "hd_plus_panel_count": 1,
+    "hd_plus_knockout_count": 2,
+    "pixel_reproducibility": "PASS",
+    "digest_bound_approval": {
+      "records": 18,
+      "valid_match": "PASS",
+      "source_sha_invalidation": "PASS",
+      "output_sha_invalidation": "PASS",
+      "reason_signature_invalidation": "PASS",
+      "template_sha_invalidation": "PASS",
+      "identity_variant_checkpoint_provenance_invalidation": "PASS",
+      "pixel_bounds": "PASS",
+      "odesa_white_one_pixel_delta_1": "PASS",
+      "out_of_limit_delta_review": "PASS",
+      "alpha_change_review": "PASS",
+      "geometry_change_review": "PASS",
+      "source_reason_template_provenance_change_review": "PASS"
+    }
+  },
+  "auxiliary_proof_regressions": {
+    "identities": 10,
+    "pass": 5,
+    "review": 5,
+    "fail": 0,
+    "results": [
+      {
+        "identity": "provider-logo::TV8.png",
+        "filename": "TV8.png",
+        "status": "REVIEW",
+        "expected_proof_status": "PASS",
+        "bbox": [
+          45,
+          8,
+          175,
+          124
+        ],
+        "center_x": 110.0,
+        "center_y": 66.0,
+        "translation": [
+          16,
+          0
+        ],
+        "variants": {
+          "black": {
+            "engine_status": "AUTO-FIXED",
+            "expected_status": "PASS",
+            "pixel_match": false,
+            "different_pixels": 4,
+            "alpha_geometry_sha256": "43977bb42fa10c4e7205ba139468a4a14f85872bf65de7ab6f390580108889f7",
+            "centering_translation": [
+              16,
+              0
+            ],
+            "expected_sha256": "a7915c75482081e00c5f445b3b6180400e36be05d54c5f898a6dea1b52a4b2b4",
+            "rendered_sha256": "26af48d25ab5a542f5b2420a3e68acb77fb39e913999a578a74de22d2cce24ec",
+            "reason": "recoloured 1 safely isolated achromatic component(s)"
+          },
+          "white": {
+            "engine_status": "AUTO-FIXED",
+            "expected_status": "PASS",
+            "pixel_match": false,
+            "different_pixels": 3,
+            "alpha_geometry_sha256": "43977bb42fa10c4e7205ba139468a4a14f85872bf65de7ab6f390580108889f7",
+            "centering_translation": [
+              16,
+              0
+            ],
+            "expected_sha256": "0062d22968e2e75d4b703108cac215d38d2616bf0f9f84e950651c29e3eb0a3a",
+            "rendered_sha256": "11467cada0d244f33d814628c6bccaff85a72016ffa108cd099c3f99bf5d6a55",
+            "reason": "recoloured 1 safely isolated achromatic component(s)"
+          }
+        }
+      },
+      {
+        "identity": "provider-logo::7+ CHANNEL.png",
+        "filename": "7+ CHANNEL.png",
+        "status": "PASS",
+        "expected_proof_status": "PASS",
+        "bbox": [
+          12,
+          8,
+          208,
+          123
+        ],
+        "center_x": 110.0,
+        "center_y": 65.5,
+        "translation": [
+          0,
+          0
+        ],
+        "variants": {
+          "black": {
+            "engine_status": "PASS",
+            "expected_status": "PASS",
+            "pixel_match": true,
+            "different_pixels": 0,
+            "alpha_geometry_sha256": "84cdd31bb987965c78591bfe75368738c44af5fb82bfd92f51792e9d65e34996",
+            "centering_translation": [
+              0,
+              0
+            ],
+            "expected_sha256": "b0b329d9d7e2616eda6bbb33b1aa7a8de0e04d8a9221ba50ed15504b2972f02d",
+            "rendered_sha256": "b0b329d9d7e2616eda6bbb33b1aa7a8de0e04d8a9221ba50ed15504b2972f02d",
+            "reason": "source components preserved; no approved contrast correction required"
+          },
+          "white": {
+            "engine_status": "AUTO-FIXED",
+            "expected_status": "PASS",
+            "pixel_match": true,
+            "different_pixels": 0,
+            "alpha_geometry_sha256": "84cdd31bb987965c78591bfe75368738c44af5fb82bfd92f51792e9d65e34996",
+            "centering_translation": [
+              0,
+              0
+            ],
+            "expected_sha256": "ecc3ab84d072d0b83b3a91b73b899d5ce048d009c7c36f3d17c7c9dd25ce6df6",
+            "rendered_sha256": "ecc3ab84d072d0b83b3a91b73b899d5ce048d009c7c36f3d17c7c9dd25ce6df6",
+            "reason": "recoloured 1 safely isolated achromatic component(s)"
+          }
+        }
+      },
+      {
+        "identity": "provider-logo::CCTV.png",
+        "filename": "CCTV.png",
+        "status": "REVIEW",
+        "expected_proof_status": "REVIEW",
+        "bbox": [
+          8,
+          37,
+          211,
+          95
+        ],
+        "center_x": 109.5,
+        "center_y": 66.0,
+        "translation": [
+          0,
+          16
+        ],
+        "variants": {
+          "black": {
+            "engine_status": "PASS",
+            "expected_status": "REVIEW",
+            "pixel_match": true,
+            "different_pixels": 0,
+            "alpha_geometry_sha256": "25a540964cacf86d535ab744ea9370a1fd5bd6e7bdbc43ef80e59670e0c18978",
+            "centering_translation": [
+              0,
+              16
+            ],
+            "expected_sha256": "54e305d5c7f8387e1a28f694916dbd4ecc1c6ac1a96090697c6769a3b0c71b94",
+            "rendered_sha256": "54e305d5c7f8387e1a28f694916dbd4ecc1c6ac1a96090697c6769a3b0c71b94",
+            "reason": "source components preserved; no approved contrast correction required"
+          },
+          "white": {
+            "engine_status": "REVIEW",
+            "expected_status": "PASS",
+            "pixel_match": true,
+            "different_pixels": 0,
+            "alpha_geometry_sha256": "25a540964cacf86d535ab744ea9370a1fd5bd6e7bdbc43ef80e59670e0c18978",
+            "centering_translation": [
+              0,
+              16
+            ],
+            "expected_sha256": "bbf648f4e04b0a6f8752365dc4a4c725d9cc1ac8bce7aad9fba8dcc1e47facbb",
+            "rendered_sha256": "bbf648f4e04b0a6f8752365dc4a4c725d9cc1ac8bce7aad9fba8dcc1e47facbb",
+            "reason": "two-tone achromatic component 2 has 74.3% materially low-contrast pixels on WHITE"
+          }
+        }
+      },
+      {
+        "identity": "provider-logo::CBC.png",
+        "filename": "CBC.png",
+        "status": "PASS",
+        "expected_proof_status": "PASS",
+        "bbox": [
+          12,
+          8,
+          208,
+          124
+        ],
+        "center_x": 110.0,
+        "center_y": 66.0,
+        "translation": [
+          0,
+          0
+        ],
+        "variants": {
+          "black": {
+            "engine_status": "PASS",
+            "expected_status": "PASS",
+            "pixel_match": true,
+            "different_pixels": 0,
+            "alpha_geometry_sha256": "003f05aaa8009fa9ae549573a150e8d21c8cea06ff27355772da608b81da2a2e",
+            "centering_translation": [
+              0,
+              0
+            ],
+            "expected_sha256": "22d6b4f3fa80d550b60eb0053f36baf1300b397a803c8123906be34f844a9e5a",
+            "rendered_sha256": "22d6b4f3fa80d550b60eb0053f36baf1300b397a803c8123906be34f844a9e5a",
+            "reason": "source components preserved; no approved contrast correction required"
+          },
+          "white": {
+            "engine_status": "AUTO-FIXED",
+            "expected_status": "PASS",
+            "pixel_match": true,
+            "different_pixels": 0,
+            "alpha_geometry_sha256": "003f05aaa8009fa9ae549573a150e8d21c8cea06ff27355772da608b81da2a2e",
+            "centering_translation": [
+              0,
+              0
+            ],
+            "expected_sha256": "bb5e0b2198b3b9cee6c6d4a38b9bbbf3ef0b5c1c9af4dcb71a717be583157d9d",
+            "rendered_sha256": "bb5e0b2198b3b9cee6c6d4a38b9bbbf3ef0b5c1c9af4dcb71a717be583157d9d",
+            "reason": "recoloured 1 safely isolated achromatic component(s)"
+          }
+        }
+      },
+      {
+        "identity": "provider-logo::BETA DIGITAL.png",
+        "filename": "BETA DIGITAL.png",
+        "status": "REVIEW",
+        "expected_proof_status": "REVIEW",
+        "bbox": [
+          8,
+          37,
+          212,
+          96
+        ],
+        "center_x": 110.0,
+        "center_y": 66.5,
+        "translation": [
+          0,
+          16
+        ],
+        "variants": {
+          "black": {
+            "engine_status": "PASS",
+            "expected_status": "REVIEW",
+            "pixel_match": true,
+            "different_pixels": 0,
+            "alpha_geometry_sha256": "8f412e605b91f39ded3f2c479ac9d0ac01edb9b78058720f5922f184dd74d7b9",
+            "centering_translation": [
+              0,
+              16
+            ],
+            "expected_sha256": "fbb68cfd38e58c2a23bccbd7b8374a05122a07fd8af077758fccb894dfbda90b",
+            "rendered_sha256": "fbb68cfd38e58c2a23bccbd7b8374a05122a07fd8af077758fccb894dfbda90b",
+            "reason": "source components preserved; no approved contrast correction required"
+          },
+          "white": {
+            "engine_status": "REVIEW",
+            "expected_status": "PASS",
+            "pixel_match": true,
+            "different_pixels": 0,
+            "alpha_geometry_sha256": "8f412e605b91f39ded3f2c479ac9d0ac01edb9b78058720f5922f184dd74d7b9",
+            "centering_translation": [
+              0,
+              16
+            ],
+            "expected_sha256": "2adc739e16c393fa4c7d5613accfb868ba0d56706d01cfbc727103927dcf0845",
+            "rendered_sha256": "2adc739e16c393fa4c7d5613accfb868ba0d56706d01cfbc727103927dcf0845",
+            "reason": "two-tone achromatic component 2 has 21.3% materially low-contrast pixels on WHITE"
+          }
+        }
+      },
+      {
+        "identity": "provider-logo::BETADIGITAL.png",
+        "filename": "BETADIGITAL.png",
+        "status": "REVIEW",
+        "expected_proof_status": "REVIEW",
+        "bbox": [
+          8,
+          37,
+          212,
+          96
+        ],
+        "center_x": 110.0,
+        "center_y": 66.5,
+        "translation": [
+          0,
+          16
+        ],
+        "variants": {
+          "black": {
+            "engine_status": "PASS",
+            "expected_status": "REVIEW",
+            "pixel_match": true,
+            "different_pixels": 0,
+            "alpha_geometry_sha256": "8f412e605b91f39ded3f2c479ac9d0ac01edb9b78058720f5922f184dd74d7b9",
+            "centering_translation": [
+              0,
+              16
+            ],
+            "expected_sha256": "fbb68cfd38e58c2a23bccbd7b8374a05122a07fd8af077758fccb894dfbda90b",
+            "rendered_sha256": "fbb68cfd38e58c2a23bccbd7b8374a05122a07fd8af077758fccb894dfbda90b",
+            "reason": "source components preserved; no approved contrast correction required"
+          },
+          "white": {
+            "engine_status": "REVIEW",
+            "expected_status": "PASS",
+            "pixel_match": true,
+            "different_pixels": 0,
+            "alpha_geometry_sha256": "8f412e605b91f39ded3f2c479ac9d0ac01edb9b78058720f5922f184dd74d7b9",
+            "centering_translation": [
+              0,
+              16
+            ],
+            "expected_sha256": "2adc739e16c393fa4c7d5613accfb868ba0d56706d01cfbc727103927dcf0845",
+            "rendered_sha256": "2adc739e16c393fa4c7d5613accfb868ba0d56706d01cfbc727103927dcf0845",
+            "reason": "two-tone achromatic component 2 has 21.3% materially low-contrast pixels on WHITE"
+          }
+        }
+      },
+      {
+        "identity": "provider-logo::COSMONOVA LLC.png",
+        "filename": "COSMONOVA LLC.png",
+        "status": "REVIEW",
+        "expected_proof_status": "REVIEW",
+        "bbox": [
+          8,
+          50,
+          212,
+          82
+        ],
+        "center_x": 110.0,
+        "center_y": 66.0,
+        "translation": [
+          0,
+          23
+        ],
+        "variants": {
+          "black": {
+            "engine_status": "PASS",
+            "expected_status": "PASS",
+            "pixel_match": true,
+            "different_pixels": 0,
+            "alpha_geometry_sha256": "49a9f1f864dc493b0ecff2cc828e4e3ff60376310a179a70c2d7d97f1e04b1b3",
+            "centering_translation": [
+              0,
+              23
+            ],
+            "expected_sha256": "f3c5ca73de65982403461192461c92c07b333ee50a56be01babb63516a6fd7fc",
+            "rendered_sha256": "f3c5ca73de65982403461192461c92c07b333ee50a56be01babb63516a6fd7fc",
+            "reason": "source components preserved; no approved contrast correction required"
+          },
+          "white": {
+            "engine_status": "REVIEW",
+            "expected_status": "REVIEW",
+            "pixel_match": true,
+            "different_pixels": 0,
+            "alpha_geometry_sha256": "49a9f1f864dc493b0ecff2cc828e4e3ff60376310a179a70c2d7d97f1e04b1b3",
+            "centering_translation": [
+              0,
+              23
+            ],
+            "expected_sha256": "830423d6f18d8a9b66900af3dc9e257192c1e8b3dbaabcacae04298ee3a273c2",
+            "rendered_sha256": "830423d6f18d8a9b66900af3dc9e257192c1e8b3dbaabcacae04298ee3a273c2",
+            "reason": "chromatic component 2 has 100.0% materially low-contrast pixels on WHITE; chromatic component 5 has 100.0% materially low-contrast pixels on WHITE; chromatic component 31 has 100.0% materially low-contrast pixels on WHITE; chromatic component 33 has 100.0% materially low-contrast pixels on WHITE"
+          }
+        }
+      },
+      {
+        "identity": "provider-logo::TVCINE 3 HD.png",
+        "filename": "TVCINE 3 HD.png",
+        "status": "PASS",
+        "expected_proof_status": "PASS",
+        "bbox": [
+          8,
+          46,
+          212,
+          85
+        ],
+        "center_x": 110.0,
+        "center_y": 65.5,
+        "translation": [
+          0,
+          20
+        ],
+        "variants": {
+          "black": {
+            "engine_status": "PASS",
+            "expected_status": "PASS",
+            "pixel_match": true,
+            "different_pixels": 0,
+            "alpha_geometry_sha256": "f4b5d18d952d49cfb539e263f4467e93cd97c04a01f1afaea726938ad92c92e3",
+            "centering_translation": [
+              0,
+              20
+            ],
+            "expected_sha256": "24286d9f3c772ba04f7f94c061fad8e7eff6c2073d924710fa70933d61b85b68",
+            "rendered_sha256": "24286d9f3c772ba04f7f94c061fad8e7eff6c2073d924710fa70933d61b85b68",
+            "reason": "source components preserved; no approved contrast correction required"
+          },
+          "white": {
+            "engine_status": "AUTO-FIXED",
+            "expected_status": "PASS",
+            "pixel_match": true,
+            "different_pixels": 0,
+            "alpha_geometry_sha256": "f4b5d18d952d49cfb539e263f4467e93cd97c04a01f1afaea726938ad92c92e3",
+            "centering_translation": [
+              0,
+              20
+            ],
+            "expected_sha256": "857f91cf737585f2241e4a6dc3ae4ac55c6858a06f6c4b598d61a8ebc7ebdf6d",
+            "rendered_sha256": "857f91cf737585f2241e4a6dc3ae4ac55c6858a06f6c4b598d61a8ebc7ebdf6d",
+            "reason": "recoloured 1 safely isolated achromatic component(s)"
+          }
+        }
+      },
+      {
+        "identity": "provider-logo::TVCINE 4 HD.png",
+        "filename": "TVCINE 4 HD.png",
+        "status": "PASS",
+        "expected_proof_status": "PASS",
+        "bbox": [
+          8,
+          46,
+          212,
+          85
+        ],
+        "center_x": 110.0,
+        "center_y": 65.5,
+        "translation": [
+          0,
+          20
+        ],
+        "variants": {
+          "black": {
+            "engine_status": "PASS",
+            "expected_status": "PASS",
+            "pixel_match": true,
+            "different_pixels": 0,
+            "alpha_geometry_sha256": "1bac90312110e64d327a46387948d1e8e60688c959a6bdfffad4daf0339e63f8",
+            "centering_translation": [
+              0,
+              20
+            ],
+            "expected_sha256": "1dbdb0650416c168fce87c3571023ff7234e62fc84eedd54163588ee9a5c8cec",
+            "rendered_sha256": "1dbdb0650416c168fce87c3571023ff7234e62fc84eedd54163588ee9a5c8cec",
+            "reason": "source components preserved; no approved contrast correction required"
+          },
+          "white": {
+            "engine_status": "AUTO-FIXED",
+            "expected_status": "PASS",
+            "pixel_match": true,
+            "different_pixels": 0,
+            "alpha_geometry_sha256": "1bac90312110e64d327a46387948d1e8e60688c959a6bdfffad4daf0339e63f8",
+            "centering_translation": [
+              0,
+              20
+            ],
+            "expected_sha256": "11f24dc3634a3a32b9f87babaa1acea88c49c5862da3fcb9af9c08055310286f",
+            "rendered_sha256": "11f24dc3634a3a32b9f87babaa1acea88c49c5862da3fcb9af9c08055310286f",
+            "reason": "recoloured 1 safely isolated achromatic component(s)"
+          }
+        }
+      },
+      {
+        "identity": "provider-logo::TVSRIES HD.png",
+        "filename": "TVSRIES HD.png",
+        "status": "PASS",
+        "expected_proof_status": "PASS",
+        "bbox": [
+          8,
+          42,
+          212,
+          89
+        ],
+        "center_x": 110.0,
+        "center_y": 65.5,
+        "translation": [
+          0,
+          18
+        ],
+        "variants": {
+          "black": {
+            "engine_status": "PASS",
+            "expected_status": "PASS",
+            "pixel_match": true,
+            "different_pixels": 0,
+            "alpha_geometry_sha256": "e4a8f7cb984993408f4619c22c2b82e7778f458f5311e3419d7f0549ec0760ae",
+            "centering_translation": [
+              0,
+              18
+            ],
+            "expected_sha256": "3b92d215c606905d814dcfb76de49c941785d16d8ac5181fa4431ae51c0f2f3d",
+            "rendered_sha256": "3b92d215c606905d814dcfb76de49c941785d16d8ac5181fa4431ae51c0f2f3d",
+            "reason": "source components preserved; no approved contrast correction required"
+          },
+          "white": {
+            "engine_status": "AUTO-FIXED",
+            "expected_status": "PASS",
+            "pixel_match": true,
+            "different_pixels": 0,
+            "alpha_geometry_sha256": "e4a8f7cb984993408f4619c22c2b82e7778f458f5311e3419d7f0549ec0760ae",
+            "centering_translation": [
+              0,
+              18
+            ],
+            "expected_sha256": "e8e1ed5ccd92ef8eff12e2d80fa036bf65786955e7bf2bd7eab7c91f3f3d727e",
+            "rendered_sha256": "e8e1ed5ccd92ef8eff12e2d80fa036bf65786955e7bf2bd7eab7c91f3f3d727e",
+            "reason": "recoloured 1 safely isolated achromatic component(s)"
+          }
+        }
+      }
+    ]
+  },
+  "channel_regressions": {
+    "cases": 10,
+    "variants": 20,
+    "status": "PASS",
+    "results": [
+      {
+        "source": "picons/0.8w/digi-hu/transparent/1_0_1_5F0_3_1_E080000_0_0_0.png",
+        "overall_status": "AUTO-FIXED",
+        "variants": {
+          "black": {
+            "status": "PASS",
+            "pixel_match": true
+          },
+          "white": {
+            "status": "AUTO-FIXED",
+            "pixel_match": true
+          }
+        }
+      },
+      {
+        "source": "picons/0.8w/digislovakia/transparent/1_0_16_1B72_AF7_BB_FFF80000_0_0_0.png",
+        "overall_status": "AUTO-FIXED",
+        "variants": {
+          "black": {
+            "status": "AUTO-FIXED",
+            "pixel_match": true
+          },
+          "white": {
+            "status": "PASS",
+            "pixel_match": true
+          }
+        }
+      },
+      {
+        "source": "picons/0.8w/digislovakia/transparent/1_0_16_3F6_AF1_BB_E080000_0_0_0.png",
+        "overall_status": "PASS",
+        "variants": {
+          "black": {
+            "status": "PASS",
+            "pixel_match": true
+          },
+          "white": {
+            "status": "PASS",
+            "pixel_match": true
+          }
+        }
+      },
+      {
+        "source": "picons/0.8w/digislovakia/transparent/1_0_16_7E9_AF2_BB_E080000_0_0_0.png",
+        "overall_status": "AUTO-FIXED",
+        "variants": {
+          "black": {
+            "status": "AUTO-FIXED",
+            "pixel_match": true
+          },
+          "white": {
+            "status": "PASS",
+            "pixel_match": true
+          }
+        }
+      },
+      {
+        "source": "picons/0.8w/digislovakia/transparent/1_0_16_FAD_AF4_BB_E080000_0_0_0.png",
+        "overall_status": "AUTO-FIXED",
+        "variants": {
+          "black": {
+            "status": "PASS",
+            "pixel_match": true
+          },
+          "white": {
+            "status": "AUTO-FIXED",
+            "pixel_match": true
+          }
+        }
+      },
+      {
+        "source": "picons/0.8w/digislovakia/transparent/1_0_19_178E_AF6_BB_E080000_0_0_0.png",
+        "overall_status": "AUTO-FIXED",
+        "variants": {
+          "black": {
+            "status": "PASS",
+            "pixel_match": true
+          },
+          "white": {
+            "status": "AUTO-FIXED",
+            "pixel_match": true
+          }
+        }
+      },
+      {
+        "source": "picons/0.8w/digislovakia/transparent/1_0_19_1B65_AF7_BB_FFF80000_0_0_0.png",
+        "overall_status": "AUTO-FIXED",
+        "variants": {
+          "black": {
+            "status": "AUTO-FIXED",
+            "pixel_match": true
+          },
+          "white": {
+            "status": "PASS",
+            "pixel_match": true
+          }
+        }
+      },
+      {
+        "source": "picons/0.8w/digislovakia/transparent/1_0_19_1B66_AF7_BB_FFF80000_0_0_0.png",
+        "overall_status": "AUTO-FIXED",
+        "variants": {
+          "black": {
+            "status": "AUTO-FIXED",
+            "pixel_match": true
+          },
+          "white": {
+            "status": "PASS",
+            "pixel_match": true
+          }
+        }
+      },
+      {
+        "source": "picons/0.8w/digislovakia/transparent/1_0_19_7813_2C3_600_E080000_0_0_0.png",
+        "overall_status": "AUTO-FIXED",
+        "variants": {
+          "black": {
+            "status": "AUTO-FIXED",
+            "pixel_match": true
+          },
+          "white": {
+            "status": "PASS",
+            "pixel_match": true
+          }
+        }
+      },
+      {
+        "source": "picons/0.8w/digislovakia/transparent/1_0_19_7A50_2CB_600_FFF80000_0_0_0.png",
+        "overall_status": "AUTO-FIXED",
+        "variants": {
+          "black": {
+            "status": "AUTO-FIXED",
+            "pixel_match": true
+          },
+          "white": {
+            "status": "PASS",
+            "pixel_match": true
+          }
+        }
+      }
+    ]
+  }
+}
