@@ -75,3 +75,10 @@ Vlastník po zobrazení všetkých 13 doplnených log v Transparent, WHITE a BLA
 
 [Schválenie s presnými SHA256](provenance/picons-assimilated-20261030/owner-approval.json) · [Schválená ukážka](provenance/picons-assimilated-20261030/quality-review.png).
 
+
+
+## Schválený checkpoint BEZ ZÁSAHU — 4. 11. 2026
+
+Vlastník potvrdil všetky varianty BEZ ZÁSAHU v obrázkovom prehľade 622 zostávajúcich grafík a nariadil ich zaradenie do zoznamov. Schválených je 1 244 presných WHITE/BLACK PNG zachovávajúcich celé originálne logo. Ich vzhľad sa už nemá viesť ako neschválený iba preto, že engine predtým vytvoril iný chybný návrh. Schválenie sa viaže na presné výstupné SHA256 a nie je všeobecnou výnimkou pre prefarbovanie.
+
+[Presné schválenie a PNG](provenance/warder-unchanged622-20261104/owner-approval.json) · [Zoznam schválených grafík](provenance/warder-unchanged622-20261104/approved-artwork.csv) · [Samostatné overenie referencií](provenance/warder-unchanged622-20261104/reference-verification.csv).
