@@ -1,11 +1,25 @@
 #!/usr/bin/env python3
 """Verify complete satellite/provider coverage and actual two-client installations."""
 from pathlib import Path
-import argparse,ast,copy,hashlib,importlib.util,io,json,os,shutil,stat,sys,tempfile,types,urllib.request,zipfile
+import argparse,ast,copy,hashlib,importlib.util,io,json,os,shutil,stat,sys,tempfile,types,time,urllib.request,zipfile
+from urllib.error import HTTPError, URLError
 ROOT=Path(__file__).resolve().parents[1]
 sha=lambda b:hashlib.sha256(b).hexdigest()
 def load(name,path):
  s=importlib.util.spec_from_file_location(name,path);m=importlib.util.module_from_spec(s);s.loader.exec_module(m);return m
+
+def public_bytes(url):
+ for attempt in range(4):
+  try:
+   address=url if not attempt else url+("&" if "?" in url else "?")+"warder_verify_retry="+str(attempt)
+   request=urllib.request.Request(address,headers={"Cache-Control":"no-cache","User-Agent":"Warder-complete-background-verification"})
+   with urllib.request.urlopen(request,timeout=90) as response:return response.read()
+  except HTTPError as error:
+   if error.code not in (429,500,502,503,504) or attempt==3:raise
+  except (URLError,TimeoutError,OSError):
+   if attempt==3:raise
+  time.sleep(1+attempt)
+ raise RuntimeError("Public archive verification download failed")
 
 def main():
  a=argparse.ArgumentParser();a.add_argument('--manifest',type=Path,required=True);a.add_argument('--part-dir',type=Path);a.add_argument('--skin-root',type=Path,required=True);a.add_argument('--report',type=Path,required=True);args=a.parse_args()
@@ -32,7 +46,7 @@ def main():
   chunks=[]
   for url in p['parts']:
    name=url.rsplit('/',1)[-1];path=args.part_dir/name if args.part_dir else None
-   b=path.read_bytes() if path and path.exists() else urllib.request.urlopen(url,timeout=90).read();m=metadata[name];assert sha(b)==m['sha256'] and len(b)==m['bytes'];chunks.append(b);loaded[url]=b
+   b=path.read_bytes() if path and path.exists() else public_bytes(url);m=metadata[name];assert sha(b)==m['sha256'] and len(b)==m['bytes'];chunks.append(b);loaded[url]=b
    if path and not path.exists():path.write_bytes(b)
   raw=b''.join(chunks);assert sha(raw)==p['sha256'] and len(raw)==p['bytes']
   with zipfile.ZipFile(io.BytesIO(raw)) as z:
