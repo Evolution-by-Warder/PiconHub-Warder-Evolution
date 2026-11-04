@@ -15,6 +15,7 @@ from urllib.parse import urlsplit, urlunsplit
 from laut_radio import station_key
 from update_world_radio import parse, label_key, render_marker, replace
 from station_identity import select_stations, apply_stream_checks, retirement_evidence
+from country_catalogue import export_packages
 
 ROOT = Path(__file__).resolve().parents[1]
 MAX_ROWS = 150000
@@ -394,6 +395,7 @@ def main():
     country_index=[{'name':name,'countrycode':next((r['countrycode'] for r in items if r['group']==name),None),'stations':count} for name,count in country_counts.items()]
     country_index.append({'name':SOURCE_GROUP,'countrycode':None,'stations':len(source_view),'original_source_view':True})
     replace(args.output/'countries.json',json.dumps(country_index,ensure_ascii=False,indent=2)+'\n')
+    package_manifest=export_packages(receiver,country_index,args.output)
     report={'schema':1,'built_at':now,'sources':status,'processing':stats,'master':master_info,
         'catalogue':compiled_info,'receiver':receiver_info,'review':review_info,'station_policy':6,
         'last_live_published_stations':len(items) if args.stream_checks else last_live_count,
@@ -404,6 +406,7 @@ def main():
                        'source_sha256':hashlib.sha256(args.source_view.read_bytes()).hexdigest(),
                        'policy':'Original source names, URLs and order; separately requested unfiltered view.'},
         'receiver_rows':len(receiver),
+        'country_packages_revision':package_manifest['revision'],
         'source_policy':'Only supported directory exports are imported; other services remain candidates.'}
     replace(args.output/'build.json',json.dumps(report,ensure_ascii=False,indent=2)+'\n')
     print(json.dumps(report,ensure_ascii=False,indent=2))

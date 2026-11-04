@@ -12,6 +12,8 @@ on:
       - 'picons/IPTV-SK-CZ/tools/laut_radio.py'
       - 'picons/IPTV-SK-CZ/tools/test_laut_radio.py'
       - 'picons/IPTV-SK-CZ/tools/global_radio.py'
+      - 'picons/IPTV-SK-CZ/tools/country_catalogue.py'
+      - 'picons/IPTV-SK-CZ/tools/test_country_radio.py'
       - 'picons/IPTV-SK-CZ/tools/test_global_radio.py'
       - 'picons/IPTV-SK-CZ/tools/station_identity.py'
       - 'picons/IPTV-SK-CZ/tools/stream_audit.py'
@@ -30,6 +32,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 60
     env:
+      COUNTRY_PACKAGES_ONLY: ${{ github.event_name == 'push' && startsWith(github.event.head_commit.message, 'Build country catalogue packages:') }}
       REVIEWED_SK_CORRECTION: ${{ github.event_name == 'push' && startsWith(github.event.head_commit.message, 'Apply reviewed Slovak catalogue corrections:') }}
     steps:
       - uses: actions/checkout@v4
@@ -50,16 +53,17 @@ jobs:
         if: env.REVIEWED_SK_CORRECTION == 'true'
         run: cp picons/IPTV-SK-CZ/catalog/global/world-radio.receiver.json.gz /tmp/warder-radio-before.json.gz
       - name: Refresh compatible catalogue
-        if: env.REVIEWED_SK_CORRECTION != 'true'
+        if: env.REVIEWED_SK_CORRECTION != 'true' && env.COUNTRY_PACKAGES_ONLY != 'true'
         continue-on-error: true
         run: python picons/IPTV-SK-CZ/tools/update_world_radio.py
       - name: Download complete supported source snapshots
-        if: env.REVIEWED_SK_CORRECTION != 'true'
+        if: env.REVIEWED_SK_CORRECTION != 'true' && env.COUNTRY_PACKAGES_ONLY != 'true'
         run: python picons/IPTV-SK-CZ/tools/fetch_complete_radio.py
       - name: Compile master database and country catalogue
+        if: env.COUNTRY_PACKAGES_ONLY != 'true'
         run: python picons/IPTV-SK-CZ/tools/global_radio.py
       - name: Audit stream addresses and bounded audio samples
-        if: env.REVIEWED_SK_CORRECTION != 'true'
+        if: env.REVIEWED_SK_CORRECTION != 'true' && env.COUNTRY_PACKAGES_ONLY != 'true'
         run: |
           python picons/IPTV-SK-CZ/tools/stream_audit.py --input picons/IPTV-SK-CZ/catalog/global/world-radio.json.gz --output picons/IPTV-SK-CZ/catalog/global/stream-audit.json.gz --workers 64 --timeout 5 --budget-seconds 300
           python picons/IPTV-SK-CZ/tools/stream_audit.py --input picons/IPTV-SK-CZ/catalog/global/world-radio.json.gz --output picons/IPTV-SK-CZ/catalog/global/stream-audit.json.gz --workers 64 --timeout 5 --budget-seconds 300
@@ -70,6 +74,7 @@ jobs:
           path: picons/IPTV-SK-CZ/catalog/global/stream-audit.json.gz
           retention-days: 7
       - name: Apply corroborated stream failures and redirects
+        if: env.COUNTRY_PACKAGES_ONLY != 'true'
         run: python picons/IPTV-SK-CZ/tools/global_radio.py --stream-checks picons/IPTV-SK-CZ/catalog/global/stream-audit.json.gz
       - name: Require exactly the two reviewed removals and no other receiver changes
         if: env.REVIEWED_SK_CORRECTION == 'true'
@@ -87,6 +92,8 @@ jobs:
           assert all(row == before[key] for key, row in after.items()), 'Unreviewed receiver change; publication stopped'
           print('Only the reviewed Patria duplicate and retired Pyramida were removed.')
           PY
+      - name: Build deterministic country packages from the validated receiver catalogue
+        run: python picons/IPTV-SK-CZ/tools/country_catalogue.py
       - name: Publish validated catalogues as one revision
         shell: bash
         run: |
