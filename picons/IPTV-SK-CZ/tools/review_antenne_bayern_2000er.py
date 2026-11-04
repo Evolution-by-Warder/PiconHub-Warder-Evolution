@@ -37,6 +37,12 @@ def verify_identity():
     d=json.loads((ROOT/"catalog/release.json").read_text())
     assert TARGET not in d["packages"]["220x132"]["black"]["files"]
 
+PINNED_SHA256 = {
+    "publisher-jpeg-576": "ae3414170b1762c06f56f95ed0fe7901f1ce7db7be2c3f2f45aba5b8d96dbaa5",
+    "publisher-webp-65d": "25936aa26612af8eaf03fbea6369cc29652d548c99335ce0bee06f83052ff262",
+    "publisher-jpeg-a5": "4431986c233f0b9e0ac4c212d8a1420f79ea805c946e3286b805985032776285"
+}
+
 def source(slug,url,kind):
     assert url in [u for _,u,_ in SOURCES]
     name=OUT/slug/("official."+kind)
@@ -46,6 +52,8 @@ def source(slug,url,kind):
         with urlopen(Request(url,headers={"User-Agent":"Warder-Radio-Broadcaster-Logo-Review"}),timeout=35) as rsp:
             raw=rsp.read(MAX+1)
     assert 0<len(raw)<=MAX
+    if SHA(raw)!=PINNED_SHA256[slug]:
+        raise ValueError("Publisher stream-logo artwork changed: "+slug)
     image=Image.open(io.BytesIO(raw))
     image.load()
     assert image.format.lower()==("jpeg" if kind=="jpg" else kind)
