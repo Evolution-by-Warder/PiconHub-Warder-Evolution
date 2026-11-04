@@ -1,0 +1,35 @@
+name: Warder 7-country radio official source HTML audit (read-only)
+on:
+  push:
+    branches: ['research/warder-radio-7-official-source-pages-20261104']
+    paths:
+      - '.github/workflows/audit-warder-seven-radio-sources.yml'
+      - 'picons/IPTV-SK-CZ/tools/audit_seven_official_radio_sources.py'
+permissions:
+  contents: write
+jobs:
+  audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          filter: blob:none
+          sparse-checkout: |
+            picons/IPTV-SK-CZ/catalog
+            picons/IPTV-SK-CZ/tools
+            .github/workflows
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Compare seven official stations and inspect their publisher HTML
+        run: python3 picons/IPTV-SK-CZ/tools/audit_seven_official_radio_sources.py
+      - name: Commit evidence candidates only
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add picons/IPTV-SK-CZ/catalog/official-radio-source-batch-20261104.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Record official source assets for seven Warder radio stations"
+            git push origin HEAD:research/warder-radio-7-official-source-pages-20261104
+          fi
