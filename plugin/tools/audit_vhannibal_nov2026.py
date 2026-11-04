@@ -38,7 +38,7 @@ def main():
  names={}
  for name,data in picons:
   base=pathlib.PurePosixPath(name).name.upper()
-  if base.endswith(".PNG") and re.match(r"^1_0_[0-9A-F_]+\\.PNG$",base):
+  if base.endswith(".PNG") and re.match(r"^1_0_[0-9A-F_]+\.PNG$",base):
    names.setdefault(base,(name,data))
  added=sorted(set(names)-set(local))
  shared=sorted(set(names)&set(local))
