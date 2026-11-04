@@ -1,0 +1,42 @@
+name: Review Antenne Vorarlberg Main and Partymix in Warder standard
+on:
+  push:
+    branches: ['review/antenne-vorarlberg-main-partymix-20261104']
+    paths:
+      - '.github/workflows/review-antenne-vorarlberg-main-partymix.yml'
+      - 'picons/IPTV-SK-CZ/tools/review_antenne_vorarlberg.py'
+permissions:
+  contents: write
+jobs:
+  preview:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          filter: blob:none
+          sparse-checkout: |
+            picons/IPTV-SK-CZ/catalog
+            picons/IPTV-SK-CZ/tools
+            picons/IPTV-SK-CZ/review
+            plugin/artwork/templates/picons
+            .github/workflows
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python3 -m pip install --quiet Pillow==13.0.0
+      - name: Render verified radio source images and test the 18 Warder PNGs
+        run: python3 picons/IPTV-SK-CZ/tools/review_antenne_vorarlberg.py
+      - name: Save original PNG/JPG and all review-only renders in branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add picons/IPTV-SK-CZ/review/antenne-vorarlberg-20261104
+          if ! git diff --cached --quiet; then
+            git commit -m "Save 18 official Antenne Vorarlberg Warder review picons"
+            git push origin HEAD:review/antenne-vorarlberg-main-partymix-20261104
+          fi
+      - uses: actions/upload-artifact@v4
+        with:
+          name: warder-vorarlberg-official-review
+          path: picons/IPTV-SK-CZ/review/antenne-vorarlberg-20261104/
