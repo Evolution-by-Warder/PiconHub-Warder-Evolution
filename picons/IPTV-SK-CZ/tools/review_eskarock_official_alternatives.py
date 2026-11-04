@@ -122,7 +122,17 @@ def main():
             print("BLOCKED OFFICIAL ALTERNATIVE",slug,error)
             continue
         if SHA(raw)!=SOURCE_SHA256[slug]:
-            raise ValueError("Publisher original source changed: "+slug)
+            # An upstream URL can change its bytes; never silently take an
+            # unreviewed logo or overwrite the frozen source. Optional whole
+            # logos are blocked individually. The preferred OG candidate
+            # remains fail-closed and must exactly match its reviewed source.
+            if slug == "official-og":
+                raise ValueError("Approved review candidate source changed: "+slug)
+            entries.append(dict(slug=slug,source_url=url,status="blocked_source_changed",
+                                expected_sha256=SOURCE_SHA256[slug],
+                                observed_sha256=SHA(raw),publishing_allowed=False))
+            print("BLOCKED SOURCE HASH",slug,SHA(raw))
+            continue
         (folder/("original."+kind)).write_bytes(raw)
         renders={}
         for style in ("transparent","white","black"):
