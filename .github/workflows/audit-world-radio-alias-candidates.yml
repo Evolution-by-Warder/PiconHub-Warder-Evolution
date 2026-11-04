@@ -1,0 +1,38 @@
+name: Audit approved radio-logo alias opportunities (4 countries)
+on:
+  push:
+    branches: ['research/warder-world-radio-logo-alias-scan-20261104']
+    paths:
+      - '.github/workflows/audit-world-radio-alias-candidates.yml'
+      - 'picons/IPTV-SK-CZ/tools/audit_world_radio_alias_candidates.py'
+permissions:
+  contents: write
+jobs:
+  audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          filter: blob:none
+          sparse-checkout: |
+            picons/IPTV-AT
+            picons/IPTV-DE
+            picons/IPTV-HU
+            picons/IPTV-PL
+            picons/IPTV-SK-CZ/tools
+            picons/IPTV-SK-CZ/catalog
+            .github/workflows
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Compare official approved-logo source identity and remaining station references
+        run: python picons/IPTV-SK-CZ/tools/audit_world_radio_alias_candidates.py
+      - name: Save transparent research queue only
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add picons/IPTV-SK-CZ/catalog/world-radio-alias-scan-20261104.json
+          git commit -m "Audit approved Warder-logo reuse opportunities in AT/DE/HU/PL"
+          git push origin HEAD:research/warder-world-radio-logo-alias-scan-20261104
