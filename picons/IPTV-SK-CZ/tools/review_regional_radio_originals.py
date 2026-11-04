@@ -44,6 +44,15 @@ SOURCES=(
       source="https://steiermark.antenne.at/media/1024-QBE62OCK.png",ext="png"),
 )
 
+PINNED_SOURCE_SHA256 = {
+    "katowice-app-icon": "f2e76c54bcd555e4ee82ad25cd4bececdd40dd9e1d951a1faa3ba9560ce3fc50",
+    "poznan-og": "272bf5e8f312a38eee599cd0709ef11d44596e282a096d876b9a31586105ea72",
+    "poznan-original-blue-on-white": "7302a0f4fd960c92a0a3c2f5d2176a46173ab94306a386f051683bb6392da624",
+    "poznan-white-vector": "d9397a498beca245685292ac44f556a333924683ace5054e7d961f61facfbf4e",
+    "steiermark-button": "50330f8d336ad60f08ab7a70eaca88003280fff94e66dd7ee61faa6ed8835b88",
+    "steiermark-og": "4be6be52d2cb61f01a03ed3fb4db5f9184ea1fce26259d7115070079a5b54f5a"
+}
+
 def original(entry):
     path=REVIEW/entry["slug"]/("original."+entry["ext"])
     path.parent.mkdir(parents=True,exist_ok=True)
@@ -53,6 +62,10 @@ def original(entry):
         with urlopen(Request(entry["source"],headers={"User-Agent":"Warder Radio official-logo review/1.0"}),timeout=35) as resp:
             body=resp.read(LIMIT+1)
     assert 0<len(body)<=LIMIT
+    if entry["slug"] in PINNED_SOURCE_SHA256:
+        actual=SHA(body)
+        if actual!=PINNED_SOURCE_SHA256[entry["slug"]]:
+            raise ValueError("Publisher original asset changed: "+entry["slug"]+" "+actual)
     kind=entry["ext"]
     if kind=="svg":
         raw=body.lower()
@@ -64,9 +77,11 @@ def original(entry):
         icon=Image.open(io.BytesIO(raster)).convert("RGBA")
     else:
         icon=Image.open(io.BytesIO(body))
-        assert icon.format.lower()==("jpeg" if kind=="jpg" else kind)
+        if icon.format.lower()!=("jpeg" if kind=="jpg" else kind):
+            raise ValueError("Unexpected broadcaster image format %s for %s" % (icon.format,entry["slug"]))
         icon=icon.convert("RGBA")
-    assert 80<=icon.width<=9000 and 50<=icon.height<=9000
+    if not (80<=icon.width<=9000 and 50<=icon.height<=9000):
+        raise ValueError("Publisher image geometry insufficient: %sx%s" % (icon.width,icon.height))
     bb=icon.getchannel("A").getbbox()
     assert bb
     icon=icon.crop(bb)
