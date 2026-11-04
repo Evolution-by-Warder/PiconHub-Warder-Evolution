@@ -1,0 +1,35 @@
+name: Audit current official HU/PL radio logo source assets
+on:
+  push:
+    branches: [research/radio-2026-official-hu-pl-assets]
+    paths:
+      - '.github/workflows/audit-current-radio-official-logos.yml'
+      - 'picons/IPTV-SK-CZ/tools/audit_current_radio_logo_sources.py'
+permissions:
+  contents: write
+jobs:
+  audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          filter: blob:none
+          sparse-checkout: |
+            picons/IPTV-SK-CZ/catalog
+            picons/IPTV-SK-CZ/tools
+            .github/workflows
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Audit publisher-owned webpages for source-logo candidates
+        run: python3 picons/IPTV-SK-CZ/tools/audit_current_radio_logo_sources.py
+      - name: Publish source evidence report only
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add picons/IPTV-SK-CZ/catalog/radio-official-source-audit-20261104.json
+          git diff --cached --quiet && exit 1
+          git commit -m "Record publisher-origin current HU/PL radio logo source candidates"
+          git push origin HEAD:research/radio-2026-official-hu-pl-assets
