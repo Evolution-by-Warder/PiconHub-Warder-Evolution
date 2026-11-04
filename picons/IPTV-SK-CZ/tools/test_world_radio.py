@@ -21,6 +21,15 @@ SOURCE = ('#NAME HDF Radio Streams\n'+marker('Update by www.hdfreaks.cc')+
 
 
 class MergerTests(unittest.TestCase):
+    def test_owner_removal_survives_source_refresh_without_blocking_port_reuse(self):
+        source=SOURCE.replace(marker('Germany'), marker('Germany')+
+            stream('Star The Mix','http://sc.ipip.cz:8004/;')+
+            stream('Radio Diana','http://sc.ipip.cz:8004/;'))
+        result,report=build(source,OWN,'')
+        self.assertNotIn('#DESCRIPTION Star The Mix',result)
+        self.assertIn('#DESCRIPTION Radio Diana',result)
+        self.assertEqual(report['processing']['owner_removed_stations_excluded'],1)
+
     def test_owned_body_exactly_preserved_at_top(self):
         output, report = build(SOURCE,OWN,'')
         self.assertTrue(output.split('\n',1)[1].startswith(OWN.split('\n',1)[1]))

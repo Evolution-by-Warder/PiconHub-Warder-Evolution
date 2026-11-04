@@ -405,6 +405,15 @@ class OriginalSourceTests(unittest.TestCase):
         self.assertEqual({r['group'] for r in rows},{SOURCE_GROUP})
         self.assertEqual(len({r['reference'] for r in rows}),1001)
         self.assertEqual(rows,original_source_list(source,set()))
+    def test_owner_removed_station_is_filtered_from_original_source_view(self):
+        lines=['#NAME Original\n']
+        for i in range(1000):
+            lines.append(f'#SERVICE 4097:0:2:{i+1:X}:1:1:0:0:0:0:https%3a//stream.example/{i}\n#DESCRIPTION Keep {i}\n')
+        lines.append('#SERVICE 4097:0:2:FFFF:1:1:0:0:0:0:http%3a//sc.ipip.cz:8004/;\n#DESCRIPTION Star The Mix\n')
+        rows=original_source_list(''.join(lines),set())
+        self.assertEqual(len(rows),1000)
+        self.assertFalse(any(r['name']=='Star The Mix' for r in rows))
+
     def test_empty_source_view_does_not_replace_existing_data(self):
         with self.assertRaises(ValueError):original_source_list('#NAME Empty\n',set())
 

@@ -13,7 +13,7 @@ import re
 from urllib.parse import urlsplit, urlunsplit
 
 from laut_radio import station_key
-from update_world_radio import parse, label_key, render_marker, replace
+from update_world_radio import parse, label_key, render_marker, replace, owner_removed
 from station_identity import select_stations, apply_stream_checks, retirement_evidence
 from country_catalogue import export_packages
 
@@ -90,6 +90,8 @@ def source_rows(provider, rows, names):
     for row in rows:
         try:
             if not isinstance(row,dict): raise ValueError('record')
+            if owner_removed(row):
+                rejected['owner_removed_stations']+=1;continue
             key=clean(row.get('stationuuid') if provider=='radio-browser' else row.get('name'),100)
             if not key or key in seen: raise ValueError('duplicate source identity')
             name=clean(row.get('name') if provider=='radio-browser' else row.get('display_name') or key)
@@ -127,6 +129,7 @@ def baseline_rows(text, owned, names):
     rows=[];group=UNKNOWN
     for e in parse(text):
         if not e.url: group=e.name;continue
+        if owner_removed(e):continue
         url_key(e.url)
         rows.append({'source_id':'warder:'+e.reference,'reference':e.reference,'name':e.name,
             'url':e.url,'aliases':[e.url],'countrycode':countries.get(label_key(group)),
@@ -138,7 +141,8 @@ def baseline_rows(text, owned, names):
 
 
 def compile_catalogue(sources, names, owned, previous=()):
-    rows=[r for source in sources.values() for r in source['rows']]
+    rows=[r for source in sources.values() for r in source['rows'] if not owner_removed(r)]
+    previous=[r for r in previous if not owner_removed(r)]
     if len(rows)>MAX_ROWS: raise ValueError('Master row limit exceeded')
     # Union by exact stream aliases, never by a station's display name.
     parents=list(range(len(rows))); aliases={};row_keys=[]
@@ -261,7 +265,7 @@ def original_source_list(text, reserved):
     """Separate last view: original source names, URLs and sequence, no country merge."""
     result=[];assigned=set(reserved)
     for entry in parse(text):
-        if not entry.url:
+        if not entry.url or owner_removed(entry):
             continue
         try:
             url_key(entry.url)
@@ -333,6 +337,8 @@ def main():
         else:raise ValueError('No initial snapshot for '+provider)
     owned=args.owned.read_text();baseline=args.baseline.read_text()
     sources['warder']={'rows':baseline_rows(baseline,owned,names),'fetched_at':now}
+    for source in sources.values():
+        source['rows']=[r for r in source['rows'] if not owner_removed(r)]
     items,bouquet,stats=compile_catalogue(sources,names,owned,previous_identities)
     if previous and len(items)<len(previous)*.95:raise ValueError('Unexpected compiled catalogue shrink')
     # Guard raw inputs before applying the explicit, auditable quality policy.

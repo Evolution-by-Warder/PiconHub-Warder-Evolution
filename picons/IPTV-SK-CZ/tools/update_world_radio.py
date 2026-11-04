@@ -30,6 +30,36 @@ BRANDING = re.compile(r'hdf\s*radio|hdfreaks', re.I)
 HEX = re.compile(r'^[0-9a-fA-F]+$')
 
 
+OWNER_REMOVED_REFERENCE = '4097:0:2:B929:9DC5:EC:0:0:0:0'
+
+
+def owner_removed(row):
+    """Owner removed this nonworking station on 2026-11-04; do not re-import it.
+
+    Match its exact reference, or its name together with its known endpoint.
+    A different station reusing the server port must remain eligible.
+    """
+    if isinstance(row, dict):
+        reference = row.get('reference', row.get('service_reference', ''))
+        name = row.get('name', '')
+        urls = row.get('aliases') or [row.get('url', row.get('stream_url', ''))]
+    else:
+        reference, name, urls = row.reference, row.name, [row.url]
+    if str(reference or '').rstrip(':') == OWNER_REMOVED_REFERENCE:
+        return True
+    if ' '.join(label_key(name).split()) != 'star the mix':
+        return False
+    for url in urls:
+        try:
+            parsed = urlsplit(url or '')
+            if (parsed.hostname in {'sc.ipip.cz', 'ipip.cz', 'radioo.cz', '212.96.160.160'}
+                    and parsed.port == 8004 and parsed.path.rstrip('/;') == ''):
+                return True
+        except ValueError:
+            pass
+    return False
+
+
 @dataclass(frozen=True)
 class Entry:
     reference: str
@@ -161,6 +191,9 @@ def build(source, owned, previous):
                 pending = []
             else:
                 pending = [entry.name]
+            continue
+        if owner_removed(entry):
+            stats['owner_removed_stations_excluded'] += 1
             continue
         if section:
             excluded[section] += 1

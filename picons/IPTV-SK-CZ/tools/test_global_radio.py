@@ -24,6 +24,21 @@ def sources(*rows):
     return {'warder':{'rows':baseline_rows(OWNED,OWNED,NAMES)},'extra':{'rows':list(rows)}}
 
 class GlobalRadioTests(unittest.TestCase):
+    def test_owner_removed_station_is_not_revived_from_a_cached_master(self):
+        dead=record('warder:removed','http://sc.ipip.cz:8004/;',country='CZ',
+                    reference='4097:0:2:B929:9DC5:EC:0:0:0:0')
+        dead['name']='Star The Mix'
+        reused=record('rb:reused','http://sc.ipip.cz:8004/;',country='CZ')
+        reused['name']='Radio Diana'
+        rows,bouquet,_=compile_catalogue(sources(dead,reused),NAMES,OWNED)
+        self.assertNotIn('Star The Mix',bouquet)
+        self.assertTrue(any(r['name']=='Radio Diana' for r in rows))
+        incoming={'stationuuid':'removed','name':'Star The Mix','url':'http://sc.ipip.cz:8004/;',
+                  'countrycode':'CZ','lastcheckok':1}
+        imported,counts=source_rows('radio-browser',[incoming],NAMES)
+        self.assertEqual(imported,[])
+        self.assertEqual(counts['owner_removed_stations'],1)
+
     def test_aliases_are_conservative(self):
         self.assertEqual(url_key('http://EXAMPLE.com:80'),url_key('http://example.com/'))
         self.assertNotEqual(url_key('http://a.test/128'),url_key('https://a.test/128'))
