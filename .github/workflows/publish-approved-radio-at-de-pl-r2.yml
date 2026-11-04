@@ -1,0 +1,96 @@
+name: Publish owner-approved Warder radio AT/DE/PL r2 (exact 27 PNG)
+on:
+  push:
+    branches: ['radio/approved-at-de-pl-warder-r2-20261104']
+    paths:
+      - '.github/workflows/publish-approved-radio-at-de-pl-r2.yml'
+      - 'tools/publish_warder_radio_approved_3.py'
+      - 'tools/publish_country_radio_picons.py'
+      - 'picons/IPTV-AT/plan.json'
+      - 'picons/IPTV-DE/plan.json'
+      - 'picons/IPTV-PL/plan.json'
+permissions:
+  contents: write
+concurrency:
+  group: warder-owner-radio-at-de-pl-r2
+  cancel-in-progress: false
+jobs:
+  verified-publish:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          filter: blob:none
+          sparse-checkout: |
+            picons/IPTV-AT
+            picons/IPTV-DE
+            picons/IPTV-PL
+            tools
+            plugin/src/Plugins/Extensions/WarderPiconHub
+            plugin/tests
+            .github/workflows
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install Pillow for original-source/PNG validation
+        run: python3 -m pip install --quiet Pillow==13.0.0
+      - name: Fetch exact frozen source PNGs and broadcaster originals from owner-approved reviews
+        run: |
+          git fetch origin refs/heads/review/warder-radio-at-de-original-artwork-20261104
+          git fetch origin refs/heads/review/warder-radio-eskarock-original-20261104
+          git cat-file -e '430a4ba51621959454e9a0155103a1c1fe8a525f^{commit}'
+          git cat-file -e '04db0d182d9e951ca13ab8beb582e4f3f4fd505b^{commit}'
+      - name: Compile publisher and approved image producer
+        run: python3 -m py_compile tools/publish_warder_radio_approved_3.py tools/publish_country_radio_picons.py
+      - name: Verify all old manifests/packages and stage exactly 27 accepted Warder images
+        run: python3 tools/publish_warder_radio_approved_3.py --prepare
+      - name: Commit immutable ZIP payload and frozen owner-approved source/PNG bytes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add picons/IPTV-AT/packages/ picons/IPTV-DE/packages/ picons/IPTV-PL/packages/ \
+                  picons/IPTV-AT/sources/approved-radio-20261104/ \
+                  picons/IPTV-DE/sources/approved-radio-20261104/ \
+                  picons/IPTV-PL/sources/approved-radio-20261104/
+          if git diff --cached --quiet; then
+            echo "No exact approved image payload changes staged" >&2
+            exit 1
+          fi
+          git commit -m "Freeze 27 owner-approved Warder PNGs in verified AT DE PL packages"
+          git push origin HEAD:radio/approved-at-de-pl-warder-r2-20261104
+      - name: Generate SHA-pinned release, per-country coverage, remaining lists and provenance
+        run: |
+          payload="$(git rev-parse HEAD)"
+          python3 tools/publish_warder_radio_approved_3.py --finalize "$payload"
+      - name: Validate all 27 archives and PiconHub non-destructive receiver installer
+        run: python3 tools/publish_warder_radio_approved_3.py --verify
+      - name: Replay native IPTV package compatibility tests
+        env:
+          PYTHONPATH: plugin/src
+        run: python3 -m unittest discover -s plugin/tests -p test_iptv.py -v
+      - name: Commit production manifests and review trace
+        run: |
+          git add picons/IPTV-AT/catalog/ picons/IPTV-DE/catalog/ picons/IPTV-PL/catalog/ \
+                  picons/IPTV-AT/coverage.json picons/IPTV-DE/coverage.json picons/IPTV-PL/coverage.json \
+                  picons/IPTV-AT/remaining.json.gz picons/IPTV-DE/remaining.json.gz picons/IPTV-PL/remaining.json.gz \
+                  picons/IPTV-AT/README.md picons/IPTV-DE/README.md picons/IPTV-PL/README.md
+          git diff --cached --quiet && exit 1
+          git commit -m "Pin three verified country radio picon releases and exact logo provenance"
+          git push origin HEAD:radio/approved-at-de-pl-warder-r2-20261104
+      - name: Independently verify all nine public ZIPs per country by exact URL, size and SHA-256
+        run: python3 tools/publish_warder_radio_approved_3.py --public
+      - name: Upload release proof/metadata (never touch unrelated packages)
+        uses: actions/upload-artifact@v4
+        with:
+          name: warder-radio-approved-at-de-pl-r2-verified
+          path: |
+            picons/IPTV-AT/catalog/owner-approved-radio-20261104-r2.json
+            picons/IPTV-DE/catalog/owner-approved-radio-20261104-r2.json
+            picons/IPTV-PL/catalog/owner-approved-radio-20261104-r2.json
+            picons/IPTV-AT/catalog/release.json
+            picons/IPTV-DE/catalog/release.json
+            picons/IPTV-PL/catalog/release.json
