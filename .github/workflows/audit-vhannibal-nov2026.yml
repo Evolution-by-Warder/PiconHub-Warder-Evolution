@@ -1,0 +1,27 @@
+name: Audit November Vhannibal picons (read only)
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/audit-vhannibal-nov2026.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  compare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Compare latest official picons with our reference names
+        run: python plugin/tools/audit_vhannibal_nov2026.py
+      - name: Save audit report, no picon modifications
+        run: |
+          git config user.name 'Warder audit'
+          git config user.email 'warder-audit@users.noreply.github.com'
+          git add reports/vhannibal-nov2026/
+          git diff --cached --quiet || git commit -m 'Record November Vhannibal read-only delta [skip ci]'
+          git push origin HEAD:main
