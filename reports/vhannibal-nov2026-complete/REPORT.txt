@@ -28,7 +28,7 @@ Pri kontrole aliasu sa ignoruje iba typ služby: prefix, SID, TSID, ONID, celý 
 
 AKO ČÍTAŤ BALÍK
 Otvoriť index.html po rozbalení: vyhľadávanie podľa názvu, referencie alebo stavu; odkazy na všetky porovnávacie strany.
-Grafické strany: Vhannibal | existujúci zdrojový Warder Transparent | White | Black. Prázdne pole znamená, že zdrojová trojica nebola nájdená. Samotná strana necertifikuje živé pokrytie ani správnu identitu; rozhodujú konkrétne inventáre a dôkazy.
+Grafické strany po oprave: Vhannibal | aktuálny Warder Transparent | White | Black. V každom stĺpci sa používa tá istá presná referencia; priorita je živý balík, master a zdrojová vetva. NOT FOUND znamená neprítomnosť daného štýlu vo všetkých auditovaných zdrojoch. Pôvod a presné varianty sú zaznamenané v graphic-review-index.json. Rozdiely a konflikty sa automaticky neprepisujú.
 all-services-and-references.csv: celá zjednotená množina 14 254 referencií.
 missing-from-live.csv: 2 004 chýbajúcich upstream referencií v živých základných balíkoch.
 existing-inventory.jsonl.gz: každá porovnaná PNG cesta a hash, pre transparentné obrázky aj pixelové údaje.
@@ -41,3 +41,24 @@ Dôkladne overený je úplný technický audit základnej grafiky a priradení z
 
 PRODUKCIA
 Žiadny produkčný PNG, zdrojový PNG, zmrazený master, katalóg, archív, verzia IPK ani aktualizačný kanál sa nezmenil. Produkčné a zdrojové stromy zostali čisté. Neisté prípady sa nepublikovali.
+
+
+AKTUALIZÁCIA PO OPRAVE NÁHĽADU
+Druhá veľká dávka — 4. november 2026
+
+Náhľad je opravený pre všetkých 7 609 grafických skupín. Pôvodná chyba: resolver čítal White/Black iba vedľa Transparent v zdrojovej vetve a ignoroval existujúci master a živé balíky. Teraz sa každá presná referencia a každý štýl hľadá samostatne v poradí live → master → source-main. Pôvod je uvedený pod obrázkom, skutočná neprítomnosť je označená NOT FOUND. Stĺpce nepoužívajú inú referenciu z rovnakej grafickej skupiny. Pre 60'lar aj 80'ler sú všetky tri živé varianty overené a zobrazené v corrected-60s-80s.png.
+
+Opätovné použitie: 37 referencií / 32 existujúcich trojíc; oproti prvej dávke pribudlo 14 kandidátov zapojením zmrazeného mastera.
+Nová grafika: 834 referencií / 613 unikátnych trojíc / 1839 PNG 220×132 RGBA.
+Výstupy sú izolované kandidáty na štandardných nezmenených Warder MASTER podkladoch. Logo sa proporcionálne prispôsobilo využiteľnej ploche a vycentrovalo rovnako pre všetky tri štýly. Jeho farby ani chránené brand prvky sa svojvoľne nemenili. Nepoužili sa obrysy, tiene, automatické odstraňovanie pozadia ani globálne kontrastné prefarbenie. Každý pixel mimo masky loga zodpovedá MASTER šablóne.
+Počet nových trojíc s poradným lokálnym kontrastným nálezom: 613. Tieto nálezy sa nesmú automaticky vyriešiť globálnym prefarbením. Pomer jasu je poradný nález; nevie spoľahlivo rozlíšiť text od vlastného brand pozadia, preto nerozhoduje o finálnom schválení.
+
+Celé zostávajúce zadanie má výslovné dispozície: {"NOT_IN_NOVEMBER_LAMEDB_OR_BOUQUETS": 878, "NEW_ARTWORK_CANDIDATE": 834, "PROVIDER_UNCONFIRMED": 129, "TECHNICAL_LABEL_QUARANTINE": 48, "UPSTREAM_TYPE_DIFFERS_FROM_UNIQUE_CURRENT_SERVICE": 77, "OPAQUE_SOURCE_QUARANTINE": 1}.
+NOT_IN_NOVEMBER_LAMEDB_OR_BOUQUETS sú zdrojové PNG bez doloženej aktuálnej služby v dodanom novembrovom nastavení. Neoznačujú sa automaticky za zaniknuté.
+UPSTREAM_TYPE_DIFFERS_FROM_UNIQUE_CURRENT_SERVICE je doložená zhoda všetkých polí okrem typu služby; dnešná lamedb referencia je uvedená samostatne. Nepridáva sa slepo starý alias do produkcie.
+PROVIDER_UNCONFIRMED nemá potvrdeného providera; nevymýšľa sa adresár.
+TECHNICAL_LABEL_QUARANTINE ostáva bez prisúdenej stanice.
+OPAQUE_SOURCE_QUARANTINE zachováva nepriehľadný originál bez odhadovaného odmazávania brand pozadia.
+
+Všetkých 2 004 pôvodne chýbajúcich referencií je zahrnutých presne raz medzi kandidátmi na opätovné použitie a podrobnými dispozíciami. Pôvodný summary.json popisuje prvý audit; táto aktualizácia je v continuation/batch-summary.json.
+Nová grafika ani nové mapovania nie sú finálne schválené alebo publikované. Produkcia, existujúce PNG, master, balíky a aktualizačné kanály sa nemenili.
