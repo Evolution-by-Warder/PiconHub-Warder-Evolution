@@ -1,0 +1,43 @@
+PICONHUB WARDER EVOLUTION — NOVEMBROVÝ VHANNIBAL AUDIT
+Dátum: 4. november 2026
+Stav: technické porovnanie dokončené; grafické a identitné REVIEW nie je schválenie produkcie.
+
+VÝSLEDKY
+- Kompletný lamedb: 12 713 servisných záznamov; rovnakých 12 713 platných referencií v bouquetoch.
+- Vhannibal: 14 081 PNG položiek. Z toho 14 078 platných unikátnych referencií a 3 názvy s príponou (1)/(2) v karanténe.
+- 7 609 unikátnych grafických podkladov; každý má položku v prehľade a porovnávaciu stranu. Spolu 254 strán.
+- Porovnané zdroje: main PiconHub (24 360 PNG), zmrazený master (29 388 PNG), všetkých 162 živých balíkov 220×132 (135 490 PNG položiek).
+- Integrita: SHA256 a veľkosť všetkých 338 častí aj 162 zostavených archívov overené; PNG čítané cez ZIP CRC. Súhrnný inventár má 189 238 záznamov vrátane opakovaní medzi balíkmi.
+- Z platných upstream referencií je 12 074 prítomných v živých základných balíkoch; 2 004 tam chýba. Z nich 1 980 nie je ani v porovnaných zdrojových stromoch a 24 je iba v zdrojových dátach.
+- 12 537 upstream referencií má zhodu v novembrovom lamedb aj bouquetoch; 1 541 ju nemá. Tieto položky sa neoznačujú automaticky za nové ani aktuálne stanice.
+- 176 lamedb služieb nemá PNG v dodanom piconovom archíve.
+- 6 524 upstream referencií má odlišný dekódovaný obraz oproti existujúcemu transparentnému obrazu; 5 574 má pixelovú zhodu. Rozdiel grafiky sám osebe nedokazuje zastarané logo.
+- 116 kombinácií referencia/štýl na 47 referenciách má rôzne bajty v živých balíkoch. Všetky konkrétne balíky, cesty a SHA sú v live-artwork-conflicts.json.
+- 156 platných upstream PNG má iné rozmery ako 220×132; 2 zdroje sú úplne nepriehľadné. Neboli automaticky pretvorené alebo nasadené.
+
+KONKRÉTNE PRIPRAVENÉ KANDIDÁTY
+- 23 referencií / 19 existujúcich Warder trojíc / 57 unikátnych PNG 220×132 RGBA.
+- Ide o opätovné použitie existujúcej grafiky, s presnými pôvodnými a výslednými SHA256 a dôkazom väzby. Žiadne nové pozadia, odhady loga, globálne prefarbenie, obrysy ani deformovanie.
+- Ak bol existujúci obrázok paletový, bol prevedený do RGBA s kontrolou presnej zhody dekódovaných pixelov. Existujúci originál ostal nedotknutý.
+- Kandidáty sú izolované v reused-artwork/. Mapa referencia → tri PNG je v reuse-candidates.json. Nie je to inštalačný ani schválený produkčný balík.
+- 1 981 ďalších chýbajúcich referencií zostáva s konkrétnym dôvodom v unresolved-candidates.json. Zahŕňa chýbajúcu identitu/providera/polohu, technické alebo číselné názvy a prípady bez jednoznačnej použiteľnej Warder trojice.
+
+DÔLEŽITÁ OPRAVA VYHODNOCOVANIA
+Typ služby v lamedb je desiatkový, názov piconu používa hexadecimálny zápis. Napríklad lamedb typ 25 patrí do 1_0_19_…, nie 1_0_25_…. Historický importný parser čítajúci typ cez int(...,16) by nesprávne vyhodnotil 5 264 záznamov tohto vstupu. Tento audit používa správny prevod a kontroluje ho voči bouquetom. Historické skripty, originály ani produkčné mapovania sa neprepísali.
+Pri kontrole aliasu sa ignoruje iba typ služby: prefix, SID, TSID, ONID, celý namespace aj koncové polia musia sedieť. Nízke bity namespace sa nezahadzujú.
+
+AKO ČÍTAŤ BALÍK
+Otvoriť index.html po rozbalení: vyhľadávanie podľa názvu, referencie alebo stavu; odkazy na všetky porovnávacie strany.
+Grafické strany: Vhannibal | existujúci zdrojový Warder Transparent | White | Black. Prázdne pole znamená, že zdrojová trojica nebola nájdená. Samotná strana necertifikuje živé pokrytie ani správnu identitu; rozhodujú konkrétne inventáre a dôkazy.
+all-services-and-references.csv: celá zjednotená množina 14 254 referencií.
+missing-from-live.csv: 2 004 chýbajúcich upstream referencií v živých základných balíkoch.
+existing-inventory.jsonl.gz: každá porovnaná PNG cesta a hash, pre transparentné obrázky aj pixelové údaje.
+source-technical-review.json: technické výnimky. quarantined-filenames.json: nespoľahlivé názvy, ktoré sa nesmú potichu normalizovať.
+sources.json: presné commity, vstupné SHA256 a SHA schválených MASTER šablón.
+verification.json: skutočne vykonané kontroly a ich rozsah. SHA256SUMS: integrita odovzdávaného obsahu.
+
+HRANICE OVERENIA
+Dôkladne overený je úplný technický audit základnej grafiky a priradení z dodaných novembrových vstupov. Atlas umožňuje vizuálne posúdenie všetkých skupín; netvrdí ručné schválenie všetkých 7 609 grafík. Kandidáty na opätovné použitie vyžadujú záverečné posúdenie identity a vzhľadu. Nebola overená dostupnosť vysielania na prijímači ani logá všetkých prevádzkovateľov z nezávislých aktuálnych webov. Bajty živých variantov 50×30 a 400×240 neboli súčasťou tohto porovnania a neboli certifikované.
+
+PRODUKCIA
+Žiadny produkčný PNG, zdrojový PNG, zmrazený master, katalóg, archív, verzia IPK ani aktualizačný kanál sa nezmenil. Produkčné a zdrojové stromy zostali čisté. Neisté prípady sa nepublikovali.
