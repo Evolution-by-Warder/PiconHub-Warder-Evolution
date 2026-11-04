@@ -143,7 +143,8 @@ def stage():
                 destination = folder / rel
                 destination.parent.mkdir(parents=True, exist_ok=True)
                 blob = checked_git_blob(a["source_review_commit"],
-                                        CONFIG[code]["review_base"] + "/artwork/" +
+                                        CONFIG[code]["review_base"] +
+                                        ("/" if code == "PL" else "/artwork/") +
                                         size + "/" + style + "/" + filename(code))
                 assert SHA(blob) == a["render_sha256"][size][style], (code,size,style)
                 pngcheck(blob,size)
