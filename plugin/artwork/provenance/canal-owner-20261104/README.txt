@@ -1,6 +1,6 @@
 CANAL+ – WARDER, 4. november 2026
 
-STAV: NÁVRHY NA VIZUÁLNE SCHVÁLENIE, PRODUKCIA NEZMENENÁ.
+STAV: SCHVÁLENÉ A NASADENÉ V OSTRÝCH BALÍKOCH, 4. NOVEMBER 2026.
 
 4 dodané logá; 36 grafických variantov: 50x30, 220x132, 400x240 × transparent, WHITE, BLACK. Použité sú originálne zmrazené Warder MASTER pozadia. Kontrolné SHA256 sú v review-manifest.json.
 
@@ -10,4 +10,4 @@ review-only/package-deltas/ obsahuje 45 NÁVRHOV zmien pre aktuálne produkčné
 
 19.2E a holandská 23.5E vetva Action vyžadujú overenie regionálnej grafiky; SD a UHD/B2B služby sú vylúčené, pretože dodané logo má HD. Ostatné pozície ani providery sa nepridávajú hádaním.
 
-Po prijatí presných návrhov treba obnoviť aktuálny katalóg, prestavať celé dotknuté archívy so zachovaním ostatných PNG, overiť oba runtime enginy a až potom aktivovať katalóg.
+Používateľ prijal presné návrhy slovami „laska beriem“. owner-approval.json a publication-plan.json určujú schválené výstupy a väzby; pôvodné review-only podklady zostávajú historickým záznamom. Všetkých 45 úplných archívov je nasadených: 99 pridaných a 162 nahradených PNG, ďalších 51 609 PNG zostalo bajtovo zachovaných. Prešli oba skutočné inštalačné enginy, verejné SHA256 overenie všetkých 74 častí a kontrola aktivovaného katalógu. Podrobnosti, commity a dôkazy sú v publication-live.json. Verzie IPK sa nemenia; dáta sa získajú opätovným stiahnutím príslušných balíkov.
