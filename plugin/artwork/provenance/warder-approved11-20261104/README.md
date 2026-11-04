@@ -1,0 +1,1 @@
+Owner-approved set of 11 exact Warder triplets (33 PNGs). The attached sheet and owner-approval.json bind the approved pixels by SHA256. publication-plan.json maps only the 11 exact November lamedb references; no namespace truncation or inferred aliases are authorized. Shared delivery uses 50x30, 220x132 and 400x240 with the approved base PNG bytes preserved at 220x132.
