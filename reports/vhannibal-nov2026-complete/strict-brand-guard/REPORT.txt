@@ -1,0 +1,13 @@
+WARDER — COMPLETE BRAND PROTECTION RESCAN
+
+This replaces the previous V9 engine candidate package. Previous raw renders are not approved and must not be used as an import plan.
+
+Root cause verified in the existing renderer: it selects neutral pixel islands inside mixed-colour artwork before protecting the complete component. Its old invariant checked saturated pixels only, leaving integral white/grey pixels and antialias edges exposed. A REVIEW label did not undo those mutations.
+
+New fail-closed gate protects the entire connected mixed-colour component, including neutral pixels, enclosed holes and antialias boundaries. It compares exact RGBA render pixels against the original source on the unchanged MASTER. The existing renderer and frozen thresholds are unchanged; an unsafe result is rejected before export.
+
+ITV WHITE and BLACK and Channel 4 BLACK regression cases are blocked. TGRT and Travel+Adventure separate neutral-text corrections continue to work. Every one of the original 17,282 source jobs was revisited, with original live/master/source bindings retained in the complete report.
+
+No blocked render, mutated colour-component image, old preview or old REVIEW contact sheet is included. All REVIEW, visual-veto and technical-service renders are omitted, including renders which passed the colour guard alone. Their metadata is retained. Only isolated AUTO-FIXED proposals without a visual veto are supplied as images; they still require source identity and visual-quality review. They are not final Warder picons. Empty/reference-only/generic and technical cases are not silently repaired or renamed.
+
+Production sources, masters, runtime channels and production packages were not changed. No final visual-quality approval is claimed.
