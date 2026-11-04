@@ -4,6 +4,7 @@ on:
     branches: [main]
     paths:
       - .github/workflows/audit-vhannibal-nov2026.yml
+      - plugin/tools/audit_vhannibal_nov2026.py
   workflow_dispatch:
 permissions:
   contents: write
@@ -23,7 +24,7 @@ jobs:
           python - <<'PY'
           import json,collections
           j=json.load(open("reports/vhannibal-nov2026/audit.json"))
-          print("COUNTS",j["source_picon_references"],j["local_references"],j["source_new_references"],j["existing_different_source_bytes"])
+          print("COUNTS",j["source_picon_references"],j["local_references"],j["source_new_references"],j["existing_different_source_bytes"],"BOUQUET_MATCHES",len(j["new_references_in_current_bouquets"]))
           groups=collections.Counter()
           for ref in j["new_references"]:
               bits=ref.split("_")
