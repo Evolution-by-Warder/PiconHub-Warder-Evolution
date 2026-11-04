@@ -78,3 +78,9 @@ Schválené D1: Magenta Sport League 1–4, 12 presných originálov 220×132 a 
 Spoločné dáta FullHDGlass a PiconHub dopĺňajú 70 overených servisných identít / 117 presných PNG referencií. Použitých je 50 našich existujúcich grafík a 13 doplnených log; všetky tri veľkosti a tri pozadia, 135 aktualizovaných archívov. Pôvodné PNG zostávajú bajtovo zachované. Deväť neistých alebo technických položiek je výslovne vylúčených. Zmeny sa získajú aktualizáciou piconových dát; verzia IPK zostáva 0.1.32.
 
 [Zdrojové podklady, štandard a vizuálna kontrola](plugin/artwork/provenance/picons-assimilated-20261030/) · [Záznam aktivácie a kontrol](reports/picons-assimilated-activation-20261030.json).
+
+## PiconHub 0.1.43 — 34,5°W a 50°E
+
+Podpora 34,5°W a 50°E vo všetkých troch rozmeroch a pozadiach Transparent, White a Black. Kontrola kompletných pozadí satelitov aj providerov; uložené profily zostávajú zachované. Po aktualizácii reštartujte GUI.
+
+[Stiahnuť IPK](https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/download/v0.1.43/enigma2-plugin-extensions-piconhub_0.1.43_all.ipk). Overené všetky tri pozadia satelitov aj providerov, verejné IPK a kontrolné súčty.

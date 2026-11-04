@@ -3,10 +3,65 @@
   "product": "PiconHub",
   "status": "production-update-active",
   "approved_on": "2026-11-04",
-  "approval": "Owner requested additional radio countries as independent packages with English country names.",
+  "approval": "Owner requested full support for 34.5W and 50E in both clients and three Warder backgrounds for every satellite and provider.",
   "source_branch": "main",
-  "source_commit": "72d0edd2db70bb75ea4419bc21a0a9216c21772a",
+  "source_commit": "a8e67a356795663aa70a8fbc9acf81a73afe4b61",
   "release": {
+    "version": "0.1.43",
+    "tag": "v0.1.43",
+    "url": "https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/download/v0.1.43/enigma2-plugin-extensions-piconhub_0.1.43_all.ipk",
+    "sha256": "459a46a82515469bc1dbfe38cbd1d7984b20e556f68f0d671566f03e868b09f7",
+    "bytes": 2896202,
+    "notes": "Podpora 34,5°W a 50°E vo všetkých troch rozmeroch a pozadiach Transparent, White a Black. Kontrola kompletných pozadí satelitov aj providerov; uložené profily zostávajú zachované. Po aktualizácii reštartujte GUI.",
+    "notes_i18n": {
+      "cs": "Podpora 34,5°W a 50°E ve všech třech rozměrech a pozadích Transparent, White a Black. Kontrola úplnosti pozadí satelitů i operátorů; uložené profily zůstávají zachované. Po aktualizaci restartujte GUI.",
+      "de": "Unterstützung für 34,5°W und 50°E in allen drei Größen und Hintergründen Transparent, White und Black. Vollständige Hintergrundprüfung für Satelliten und Anbieter; gespeicherte Profile bleiben erhalten. Nach dem Update die GUI neu starten.",
+      "pl": "Obsługa 34,5°W i 50°E we wszystkich trzech rozmiarach i stylach Transparent, White i Black. Kontrola kompletności teł dla satelitów i operatorów; zapisane profile pozostają zachowane. Po aktualizacji uruchom ponownie GUI.",
+      "hu": "A 34,5°W és 50°E támogatása mindhárom méretben és Transparent, White, Black háttérrel. A műholdak és szolgáltatók háttereinek teljességellenőrzése; a mentett profilok megmaradnak. Frissítés után indítsd újra a GUI-t.",
+      "ru": "Поддержка 34,5°W и 50°E во всех трех размерах и стилях Transparent, White и Black. Проверка полноты фонов спутников и операторов; сохраненные профили остаются. После обновления перезапустите GUI.",
+      "fr": "Prise en charge de 34,5°W et 50°E dans les trois tailles et styles Transparent, White et Black. Vérification des fonds pour les satellites et fournisseurs ; profils conservés. Redémarrez l’interface après la mise à jour.",
+      "it": "Supporto di 34,5°W e 50°E in tutte e tre le dimensioni e negli stili Transparent, White e Black. Verifica degli sfondi per satelliti e operatori; profili salvati conservati. Riavviare la GUI dopo l’aggiornamento.",
+      "es": "Compatibilidad con 34,5°W y 50°E en los tres tamaños y estilos Transparent, White y Black. Verificación de fondos para satélites y proveedores; perfiles guardados conservados. Reinicie la interfaz tras actualizar.",
+      "sk": "Podpora 34,5°W a 50°E vo všetkých troch rozmeroch a pozadiach Transparent, White a Black. Kontrola kompletných pozadí satelitov aj providerov; uložené profily zostávajú zachované. Po aktualizácii reštartujte GUI.",
+      "en": "Support for 34.5°W and 50°E in all three sizes and Transparent, White and Black backgrounds. Complete background validation for satellites and providers; saved profiles are preserved. Restart the GUI after updating."
+    },
+    "release_url": "https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/tag/v0.1.43"
+  },
+  "installation_directory": "/usr/lib/enigma2/python/Plugins/Extensions/WarderPiconHub/",
+  "package": "enigma2-plugin-extensions-piconhub-warder-evolution",
+  "update_feed": "https://raw.githubusercontent.com/Evolution-by-Warder/PiconHub-Warder-Evolution/plugin/futuristic-rebuild/plugin/update/stable.json",
+  "languages": [
+    "sk",
+    "cs",
+    "en",
+    "de",
+    "pl",
+    "hu",
+    "ru",
+    "fr",
+    "it",
+    "es"
+  ],
+  "validation": {
+    "ci": "passed",
+    "workflow_run": 41909723426,
+    "public_ipk_verified": true,
+    "three_background_catalogue_verified": true,
+    "all_profiles_and_other_payload_preserved": true,
+    "physical_receiver_tested": false
+  },
+  "accepted_candidate": {
+    "version": "0.1.39-test3",
+    "sha256": "1c7000b2502f247c245e96634aa45e6a318ba4d3e008c3a067063cce3e47fed1"
+  },
+  "canonical_assets": "Existing main picon data and frozen MASTER artwork are preserved.",
+  "download_naming_changed_on": "2026-10-30",
+  "plugin_browser_category": "extensions",
+  "plugin_browser_name": "piconhub-warder-evolution",
+  "package_source_commit": "a8e67a356795663aa70a8fbc9acf81a73afe4b61",
+  "short_only": true,
+  "manual_install_from_0_1_32": true,
+  "previous_release": {
     "version": "0.1.42",
     "tag": "v0.1.42",
     "url": "https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/download/v0.1.42/enigma2-plugin-extensions-piconhub_0.1.42_all.ipk",
@@ -26,61 +81,6 @@
       "en": "Separate IPTV radio packages for Austria, Germany, Hungary and Poland. Each country has its own selection, archives and verified Warder picons. The existing SK/CZ package and saved profiles are preserved. Restart the GUI after updating."
     },
     "release_url": "https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/tag/v0.1.42"
-  },
-  "installation_directory": "/usr/lib/enigma2/python/Plugins/Extensions/WarderPiconHub/",
-  "package": "enigma2-plugin-extensions-piconhub-warder-evolution",
-  "update_feed": "https://raw.githubusercontent.com/Evolution-by-Warder/PiconHub-Warder-Evolution/plugin/futuristic-rebuild/plugin/update/stable.json",
-  "languages": [
-    "sk",
-    "cs",
-    "en",
-    "de",
-    "pl",
-    "hu",
-    "ru",
-    "fr",
-    "it",
-    "es"
-  ],
-  "validation": {
-    "automated_tests": 230,
-    "ci": "passed",
-    "workflow_run": 41828563275,
-    "public_ipk_verified": true,
-    "country_archives_verified": 36,
-    "receiver_tested": false
-  },
-  "accepted_candidate": {
-    "version": "0.1.39-test3",
-    "sha256": "1c7000b2502f247c245e96634aa45e6a318ba4d3e008c3a067063cce3e47fed1"
-  },
-  "canonical_assets": "Existing main picon data and frozen MASTER artwork are preserved.",
-  "download_naming_changed_on": "2026-10-30",
-  "plugin_browser_category": "extensions",
-  "plugin_browser_name": "piconhub-warder-evolution",
-  "package_source_commit": "72d0edd2db70bb75ea4419bc21a0a9216c21772a",
-  "short_only": true,
-  "manual_install_from_0_1_32": true,
-  "previous_release": {
-    "version": "0.1.38",
-    "tag": "v0.1.38",
-    "url": "https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/download/v0.1.38/enigma2-plugin-extensions-piconhub_0.1.38_all.ipk",
-    "sha256": "e3ed6fb2568877dbce6fde1cbbf1f4150b0c28174a194fec31fbe82808812c1e",
-    "bytes": 2883764,
-    "notes": "PiconHub 0.1.38\n\nŠtyri nezávislé profily pre sťahovanie piconov. Každý si pamätá vlastné nastavenia satelitov a poskytovateľov, rozlíšenia, pozadia, režimu a cieľového priečinka. Na spracovanie možno označiť ľubovoľný jeden, dva, tri alebo všetky štyri profily.\n\nZelená fajka označuje profil zaradený na spracovanie; modrá záložka profil otvorený na úpravu. Šípky ←/→ prepínajú profily, ↑/↓ a OK upravujú nastavenia, tlačidlo 0 pridá alebo zruší fajku. Zelené Stiahnuť (počet) spracuje iba označené profily. Bez označenia sa nič nespustí. Nastavenia aj označenia sa zachovajú po stiahnutí a reštarte GUI.\n\nPo aktualizácii reštartujte GUI. Z verzie 0.1.32 je potrebná jednorazová ručná inštalácia krátkeho IPK cez existujúcu inštaláciu, bez odinštalovania. Neskoršie podporované verzie používajú bežný aktualizačný kanál.\n",
-    "notes_i18n": {
-      "sk": "Štyri nezávislé profily s uloženými nastaveniami, výber ľubovoľnej kombinácie na spracovanie a zelené fajky. ←/→ prepína profil, 0 označuje. Bez označenia sa nič nespustí. Po aktualizácii reštartujte GUI.",
-      "cs": "Čtyři nezávislé profily s uloženými nastaveními, výběr libovolné kombinace ke zpracování a zelené značky. ←/→ přepíná profil, 0 označuje. Bez označení se nic nespustí. Po aktualizaci restartujte GUI.",
-      "en": "Four independent profiles with saved settings, selective batch downloads and green checkmarks. Left/right switches profiles; 0 marks or unmarks one. Nothing starts without marked profiles. Restart the GUI after updating.",
-      "de": "Vier unabhängige Profile mit gespeicherten Einstellungen, frei wählbare Profilkombinationen und grüne Häkchen. Links/rechts wechselt das Profil; 0 markiert es. Ohne Markierung startet nichts. Nach dem Update die GUI neu starten.",
-      "pl": "Cztery niezależne profile z zapisanymi ustawieniami, dowolny wybór profili do przetworzenia i zielone znaczniki. Lewo/prawo zmienia profil; 0 zaznacza. Bez zaznaczeń nic się nie uruchamia. Po aktualizacji uruchom ponownie GUI.",
-      "hu": "Négy független profil mentett beállításokkal, szabadon választható profilkombinációk és zöld pipák. Bal/jobb vált profilt, 0 kijelöl. Kijelölés nélkül semmi nem indul. Frissítés után indítsd újra a GUI-t.",
-      "ru": "Четыре независимых профиля с сохраненными настройками, выбор любого сочетания профилей и зеленые галочки. Влево/вправо переключает профиль; 0 отмечает его. Без отметок ничего не запускается. После обновления перезапустите GUI.",
-      "fr": "Quatre profils indépendants avec réglages enregistrés, choix libre des profils à traiter et coches vertes. Gauche/droite change de profil ; 0 le coche ou le décoche. Sans coche, rien ne démarre. Redémarrez l’interface après la mise à jour.",
-      "it": "Quattro profili indipendenti con impostazioni salvate, combinazioni di profili a scelta e spunte verdi. Sinistra/destra cambia profilo; 0 lo seleziona. Senza selezione non parte nulla. Riavviare la GUI dopo l’aggiornamento.",
-      "es": "Cuatro perfiles independientes con ajustes guardados, selección libre de perfiles y marcas verdes. Izquierda/derecha cambia de perfil; 0 lo marca o desmarca. Sin perfiles marcados no se inicia nada. Reinicie la interfaz tras actualizar."
-    },
-    "release_url": "https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/tag/v0.1.38"
   },
   "previous_validation": {
     "unit_tests": 204,
