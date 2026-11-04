@@ -3,7 +3,7 @@
   "collection": "IPTV-DE",
   "country": "DE",
   "country_name": "Germany",
-  "version": "2026.11.04-2",
+  "version": "2026.11.04-3",
   "master_sha256": {
     "white": "c6ae4a808a65ffc8e6458336fccbfe4216de1e832ec0a9abf800907f2f783589",
     "black": "61e69f7fc46e340453bf74ccd7af6ac9d8eba9f8e232884659e1ea99f6abf3fe"
@@ -1366,6 +1366,24 @@
           "target": "4097_0_2_C634_62DF_ED_0_0_0_0.png",
           "stream_url": "http://www.rbbkultur.de/livemp3",
           "source_view": false
+        },
+        {
+          "name": "radio 3 | rbb | LQ",
+          "country": "DE",
+          "reference": "4097:0:2:4CD:9AC2:ED:0:0:0:0",
+          "target": "4097_0_2_4CD_9AC2_ED_0_0_0_0.png",
+          "stream_url": "http://www.rbbkultur.de/livemp3_s",
+          "source_view": false,
+          "original_approved_master_alias": true
+        },
+        {
+          "name": "radio 3 | rbb | MQ",
+          "country": "DE",
+          "reference": "4097:0:2:F806:39F9:ED:0:0:0:0",
+          "target": "4097_0_2_F806_39F9_ED_0_0_0_0.png",
+          "stream_url": "http://www.rbbkultur.de/livemp3_m",
+          "source_view": false,
+          "original_approved_master_alias": true
         }
       ],
       "render_sha256": {
@@ -1384,6 +1402,11 @@
           "white": "f19b4ddb3504bae6ec8fd0b9f8e834062e6e16124ea5cf95e74e6ad5d4cfa5ec",
           "black": "7b316c1dd0bb84e98ed0cf2a5c24ef677725b8b82dccf3f75b52c36697b54999"
         }
+      },
+      "verified_bitrate_aliases": {
+        "official_rbb_stream_list": "https://www.rbb-online.de/radio/frequenzen/livestreams.html",
+        "official_radio3_rebrand": "https://www.rbb-online.de/unternehmen/presse/presseinformationen/unternehmen/2024/20240214-aus-rbbkultur-wird-radio3-neuer-name-neuer-morgen-neue-stimmen.html",
+        "note": "HQ, MQ and LQ are bitrate variants of one rbb radio3 programme; use approved exact source PNG without rendering new branding."
       }
     }
   ],
@@ -1660,7 +1683,7 @@
     }
   },
   "policy": "Only verified original station marks on approved Warder masters. Country packages are independent; country display names stay English.",
-  "reference_files_per_variant": 88,
+  "reference_files_per_variant": 90,
   "catalogue_stations": 3422,
-  "covered_stations": 62
+  "covered_stations": 64
 }

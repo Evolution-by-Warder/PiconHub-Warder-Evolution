@@ -1,0 +1,66 @@
+name: Publish official radio3 MQ/LQ Warder picon aliases (DE r3)
+on:
+  push:
+    branches: ['radio/rbb-radio3-bitrate-aliases-r3-20261104']
+    paths:
+      - '.github/workflows/publish-radio3-rbb-aliases-r3.yml'
+      - 'tools/publish_radio3_rbb_aliases.py'
+      - 'picons/IPTV-DE/plan.json'
+permissions:
+  contents: write
+concurrency:
+  group: warder-rbb-radio3-bitrate-aliases
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          filter: blob:none
+          sparse-checkout: |
+            picons/IPTV-DE
+            tools
+            plugin/src/Plugins/Extensions/WarderPiconHub
+            plugin/tests
+            .github/workflows
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python3 -m pip install --quiet Pillow==13.0.0
+      - name: Guard new alias publisher and approved country source
+        run: python3 -m py_compile tools/publish_radio3_rbb_aliases.py
+      - name: Build only RBB radio3 medium and low bitrate reference aliases
+        run: python3 tools/publish_radio3_rbb_aliases.py --prepare
+      - name: Commit nine pinned exact image packages
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add picons/IPTV-DE/packages/
+          git diff --cached --quiet && exit 1
+          git commit -m "Stage nine byte-identical radio3 HQ aliases for LQ and MQ"
+          git push origin HEAD:radio/rbb-radio3-bitrate-aliases-r3-20261104
+      - name: Rebuild release metadata and country remaining list from exact source
+        run: python3 tools/publish_radio3_rbb_aliases.py --finalize "$(git rev-parse HEAD)"
+      - name: Verify package hashes, unchanged old images and native PiconHub downloader
+        run: python3 tools/publish_radio3_rbb_aliases.py --verify
+      - name: PiconHub IPTV regression and installer tests
+        env:
+          PYTHONPATH: plugin/src
+        run: python3 -m unittest discover -s plugin/tests -p test_iptv.py -v
+      - name: Commit verified country release and proof
+        run: |
+          git add picons/IPTV-DE/catalog/ picons/IPTV-DE/coverage.json \
+                  picons/IPTV-DE/remaining.json.gz picons/IPTV-DE/README.md
+          git diff --cached --quiet && exit 1
+          git commit -m "Record verified rbb radio3 LQ MQ picon aliases in DE r3 release"
+          git push origin HEAD:radio/rbb-radio3-bitrate-aliases-r3-20261104
+      - name: Verify every public SHA-pinned zip
+        run: python3 tools/publish_radio3_rbb_aliases.py --public
+      - uses: actions/upload-artifact@v4
+        with:
+          name: warder-radio3-rbb-bitrate-aliases-r3
+          path: |
+            picons/IPTV-DE/catalog/radio3-bitrate-aliases-r3.json
+            picons/IPTV-DE/catalog/release.json
