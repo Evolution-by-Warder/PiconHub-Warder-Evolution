@@ -19,6 +19,12 @@ EXPECTED_MASTERS={
   "white":"c6ae4a808a65ffc8e6458336fccbfe4216de1e832ec0a9abf800907f2f783589",
   "black":"61e69f7fc46e340453bf74ccd7af6ac9d8eba9f8e232884659e1ea99f6abf3fe",
 }
+SOURCE_SHA256={
+    "player-wordmark":"93e95da63a16c53c199e3266071e008ca025c907a4aedfbbe30895c8c97dc4a7",
+    "station-signet":"332021552b0e72292d20b9cc2d5cb3251ae6b064d061044761d04e9a1b037d0",
+    "official-og":"87bf174ed3bd9c5d11ab14276fb746e69f59f3d587d7845c30f2e441d14a4a65",
+    "app-icon":"4060c58e2aff69413d331c67906a5abf5273e18d8e63d4858ac3fa9e2c4a0cac",
+}
 SOURCES=(
   ("player-wordmark","https://www.eskarock.pl/media/eskarock/desktop/images/player-logo.svg","svg"),
   ("station-signet","https://www.eskarock.pl/media/desktop/site_header/images/signets/signet-eskarock.svg","svg"),
@@ -107,6 +113,8 @@ def main():
             entries.append(dict(slug=slug,source_url=url,status="blocked",reason=str(error)[:400]))
             print("BLOCKED OFFICIAL ALTERNATIVE",slug,error)
             continue
+        if SHA(raw)!=SOURCE_SHA256[slug]:
+            raise ValueError("Publisher original source changed: "+slug)
         folder=dest/slug
         folder.mkdir(parents=True,exist_ok=True)
         (folder/("original."+kind)).write_bytes(raw)
@@ -131,7 +139,12 @@ def main():
     if not any(x["status"]=="candidate_only" for x in entries):
         raise ValueError("No verified alternative official source could be rendered")
     m=dict(schema=1,stage="review_not_production",date="2026-11-04",station="ESKA ROCK",
-           reference=REF,files=entries,notice="No colour changes, no production changes, alternative source edition must be separately approved.")
+           reference=REF,files=entries,
+           preferred_review_candidate="official-og",
+           preferred_source_sha256=SOURCE_SHA256["official-og"],
+           chosen_for_review_reason="High-resolution original full wordmark with native black backing; strong red/white contrast across three Warder masters.",
+           production_approved=False,
+           notice="No colour changes, no production changes, alternative source edition must be separately approved.")
     (ROOT/"alternatives.json").write_text(json.dumps(m,indent=2,ensure_ascii=False)+"\n",encoding="utf-8")
     make_sheet(previews,[x for x in entries if x["status"]=="candidate_only"])
     print("PASS: official alternatives review prepared, production protected")

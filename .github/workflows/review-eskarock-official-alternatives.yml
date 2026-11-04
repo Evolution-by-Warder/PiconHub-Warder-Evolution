@@ -32,9 +32,12 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add picons/IPTV-SK-CZ/review/eskarock-20261104/alternatives*
-          git diff --cached --quiet && exit 1
-          git commit -m "Compare official ESKA ROCK original whole-logo alternatives in Warder masters"
-          git push origin HEAD:review/warder-radio-eskarock-original-20261104
+          if ! git diff --cached --quiet; then
+            git commit -m "Compare official ESKA ROCK original whole-logo alternatives in Warder masters"
+            git push origin HEAD:review/warder-radio-eskarock-original-20261104
+          else
+            echo "Verified renders unchanged; publisher originals are SHA-256 pinned."
+          fi
       - uses: actions/upload-artifact@v4
         with:
           name: warder-eskarock-official-alternatives
