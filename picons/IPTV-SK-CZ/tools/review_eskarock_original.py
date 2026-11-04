@@ -35,7 +35,8 @@ SOURCES = (
         "official_station_page": "https://www.eskarock.pl/",
         "source_page": "https://www.eskarock.pl/",
         "source_url": "https://www.eskarock.pl/media/desktop/site_header/images/logos/logo-eskarock.svg",
-        "source_sha1": "",
+        "source_sha1": "7af80b0057e35d0bc8be053c121ee25786410261",
+        "source_sha256": "91f52a35a6744d105688785632c5e5a03808deb6fb841d11bc35f71b07dfe4f0",
         "source_kind": "publisher-owned official station header vector discovered 2026-11-04",
         "author": "Grupa ZPR Media / ESKA ROCK",
         "license": "Broadcaster-owned trademark; reuse eligibility requires editorial review",
@@ -146,8 +147,8 @@ def main():
     for station in SOURCES:
         filename = inspect_baseline(station)
         raw = get(station["source_url"])
-        if station["source_sha1"] and digest(raw, "sha1") != station["source_sha1"]:
-            raise ValueError("Original source changed: " + station["slug"])
+        if (digest(raw, "sha1") != station["source_sha1"] or digest(raw) != station["source_sha256"]):
+            raise ValueError("Pinned official original source changed: " + station["slug"])
         validate_vector(raw)
         png = cairosvg.svg2png(bytestring=raw, scale=station["scale"], unsafe=False)
         logo = Image.open(io.BytesIO(png)).convert("RGBA")
