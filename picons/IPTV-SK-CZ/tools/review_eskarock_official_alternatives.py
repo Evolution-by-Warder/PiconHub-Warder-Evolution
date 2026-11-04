@@ -2,7 +2,7 @@
 """Evaluate whole, official ESKA ROCK logo variants; never repaint lettering.
 
 The base wordmark from the broadcaster is already frozen in provenance.json.
-Alternative publisher-provided logos are treated as independent, *unapproved*
+Frozen review source bytes are SHA-256 verified even if the publisher changes live URLs.\nAlternative publisher-provided logos are treated as independent, *unapproved*
 source compositions, not as permission to recolour the original.
 """
 from pathlib import Path
@@ -36,10 +36,16 @@ REF="4097_0_2_A68C_EC79_ED_0_0_0_0.png"
 MASTER_SIZE=(W,H)
 SHA=lambda raw:hashlib.sha256(raw).hexdigest()
 
-def original(url, kind):
+def original(url, kind, frozen_source):
     assert url in {s[1] for s in SOURCES}
-    with urlopen(Request(url,headers={"User-Agent":"Warder Radio official-logo verifier/1.0"}),timeout=35) as f:
-        raw=f.read(512*1024+1)
+    if frozen_source.is_file():
+        # A published review snapshot is immutable even when the broadcaster
+        # rotates a server-side asset at the same URL. Re-render the audited
+        # exact bytes, and keep all source SHA checks as fail-closed gates.
+        raw=frozen_source.read_bytes()
+    else:
+        with urlopen(Request(url,headers={"User-Agent":"Warder Radio official-logo verifier/1.0"}),timeout=35) as f:
+            raw=f.read(512*1024+1)
     assert 0<len(raw)<=512*1024
     if kind=="svg":
         lowered=raw.lower()
@@ -105,8 +111,10 @@ def main():
     entries=[]
     previews={}
     for slug,url,kind in SOURCES:
+        folder=dest/slug
+        folder.mkdir(parents=True,exist_ok=True)
         try:
-            raw,source=original(url,kind)
+            raw,source=original(url,kind,folder/("original."+kind))
         except Exception as error:
             # Fail closed per-asset. Record why the official URL did not yield a
             # suitable source, but do not invent a replacement image.
@@ -115,8 +123,6 @@ def main():
             continue
         if SHA(raw)!=SOURCE_SHA256[slug]:
             raise ValueError("Publisher original source changed: "+slug)
-        folder=dest/slug
-        folder.mkdir(parents=True,exist_ok=True)
         (folder/("original."+kind)).write_bytes(raw)
         renders={}
         for style in ("transparent","white","black"):
