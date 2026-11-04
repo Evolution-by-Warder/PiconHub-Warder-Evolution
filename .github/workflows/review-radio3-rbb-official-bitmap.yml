@@ -1,0 +1,41 @@
+name: Verify official RBB radio3 bitmap in Warder frames (review only)
+on:
+  push:
+    branches: [review/warder-radio-at-de-original-artwork-20261104]
+    paths:
+      - '.github/workflows/review-radio3-rbb-official-bitmap.yml'
+      - 'picons/IPTV-SK-CZ/tools/review_radio3_rbb_bitmap.py'
+permissions:
+  contents: write
+jobs:
+  review:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          filter: blob:none
+          sparse-checkout: |
+            picons/IPTV-SK-CZ/tools
+            picons/IPTV-SK-CZ/review
+            plugin/artwork/templates/picons
+            .github/workflows
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python3 -m pip install --quiet Pillow==13.0.0
+      - name: Fetch broadcaster-owned JPG and render nine byte-verified Warder review variants
+        run: python3 picons/IPTV-SK-CZ/tools/review_radio3_rbb_bitmap.py
+      - name: Commit review-only original and provenance
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add picons/IPTV-SK-CZ/review/foreign-radio-20261104/radio3-official-rbb
+          if ! git diff --cached --quiet; then
+            git commit -m "Review rbb radio3 official JPG in frozen Warder style"
+            git push origin HEAD:review/warder-radio-at-de-original-artwork-20261104
+          fi
+      - uses: actions/upload-artifact@v4
+        with:
+          name: warder-radio3-rbb-official-bitmap-review
+          path: picons/IPTV-SK-CZ/review/foreign-radio-20261104/radio3-official-rbb
