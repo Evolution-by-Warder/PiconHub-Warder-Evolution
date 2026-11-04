@@ -74,6 +74,26 @@ def build(country,revision,approved_folder=None):
         assert len(raw)==entry['bytes'] and SHA(raw)==entry['sha256'];dab[style]=zipfile.ZipFile(io.BytesIO(raw))
     prepared={(size,style):{} for size in iptv.RESOLUTIONS for style in iptv.STYLES}
     for artwork in plan['artwork']:
+        if 'frozen_review_assets' in artwork:
+            # Owner-approved exact Warder PNG bytes. No rasterisation,
+            # colour repair or second resizing: preserve approved output.
+            source = (root / artwork['path']).read_bytes()
+            assert SHA(source) == artwork['sha256'], 'Owner-approved source file changed'
+            for resolution in iptv.RESOLUTIONS:
+                for style in iptv.STYLES:
+                    path = root / artwork['frozen_review_assets'][resolution][style]
+                    body = path.read_bytes()
+                    assert SHA(body) == artwork['render_sha256'][resolution][style], 'Approved Warder PNG changed'
+                    with Image.open(io.BytesIO(body)) as image:
+                        assert image.format == 'PNG' and image.mode == 'RGBA'
+                        assert image.size == tuple(map(int, resolution.split('x')))
+                        image.verify()
+                    for station in artwork['stations']:
+                        assert station['country'] == country
+                        name = station['target']
+                        assert iptv.reference_filename(name) and name not in prepared[(resolution,style)]
+                        prepared[(resolution,style)][name] = body
+            continue
         if 'approved_dab_filename' not in artwork:
             raw=(root/artwork['path']).read_bytes();assert SHA(raw)==artwork['sha256'];original=Image.open(io.BytesIO(raw)).convert('RGBA')
             for flag,colour in [('light_panel','white'),('dark_panel','black')]:
