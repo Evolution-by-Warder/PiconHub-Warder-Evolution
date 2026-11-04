@@ -33,6 +33,9 @@ SOURCES=(
       source="https://www.radio.katowice.pl/apple-touch-icon.png",ext="png"),
  dict(country="PL",name="Polskie Radio Poznań",slug="poznan-og",reference="4097:0:2:130A:2B66:ED:0:0:0:0",
       source="https://radiopoznan.fm/v3/img/logo.png",ext="png"),
+ dict(country="PL",name="Polskie Radio Poznań",slug="poznan-original-blue-on-white",reference="4097:0:2:130A:2B66:ED:0:0:0:0",
+      source="https://radiopoznan.fm/uploads/assets/5j85fdjl3wrwpa4_logo-radio_poznan_logo-poziom-1080x675.jpg",ext="jpg",
+      source_page="https://radiopoznan.fm/informacje/pozostale/przerwa-techniczna-w-nadawaniu-radia"),
  dict(country="PL",name="Polskie Radio Poznań",slug="poznan-white-vector",reference="4097:0:2:130A:2B66:ED:0:0:0:0",
       source="https://radiopoznan.fm/v7/img/logo-white.svg",ext="svg"),
  dict(country="AT",name="Antenne Steiermark",slug="steiermark-button",reference="4097:0:2:45CD:FE77:EC:0:0:0:0",
@@ -61,7 +64,7 @@ def original(entry):
         icon=Image.open(io.BytesIO(raster)).convert("RGBA")
     else:
         icon=Image.open(io.BytesIO(body))
-        assert icon.format.lower()==kind
+        assert icon.format.lower()==("jpeg" if kind=="jpg" else kind)
         icon=icon.convert("RGBA")
     assert 80<=icon.width<=9000 and 50<=icon.height<=9000
     bb=icon.getchannel("A").getbbox()
@@ -114,7 +117,11 @@ def main():
     for e in SOURCES:
         entry=checked[(e["country"],e["name"])]
         assert entry["ref"]==e["reference"] and entry["status"]=="read"
-        assert e["source"] in {asset["url"] for asset in entry["candidates"]}
+        if e["slug"] == "poznan-original-blue-on-white":
+            assert e["source"] == "https://radiopoznan.fm/uploads/assets/5j85fdjl3wrwpa4_logo-radio_poznan_logo-poziom-1080x675.jpg"
+            assert e["source_page"].startswith("https://radiopoznan.fm/informacje/")
+        else:
+            assert e["source"] in {asset["url"] for asset in entry["candidates"]}
     ROOT=Path("picons")
     for e in SOURCES:
         info=json.loads((ROOT/("IPTV-"+e["country"])/"catalog/release.json").read_text())
