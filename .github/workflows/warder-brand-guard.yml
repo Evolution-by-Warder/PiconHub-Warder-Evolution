@@ -1,0 +1,27 @@
+name: Warder whole-colour-logo protection
+on:
+  pull_request:
+    paths:
+      - tools/warder_brand_guard.py
+      - tools/test_warder_brand_guard.py
+      - plugin/artwork/QUALITY.md
+      - .github/workflows/warder-brand-guard.yml
+  push:
+    branches: [main]
+    paths:
+      - tools/warder_brand_guard.py
+      - tools/test_warder_brand_guard.py
+      - plugin/artwork/QUALITY.md
+      - .github/workflows/warder-brand-guard.yml
+permissions:
+  contents: read
+jobs:
+  whole-logo-regressions:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install numpy pillow
+      - run: PYTHONPATH=tools PYTHONDONTWRITEBYTECODE=1 python tools/test_warder_brand_guard.py
