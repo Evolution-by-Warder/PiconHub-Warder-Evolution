@@ -46,16 +46,16 @@ class LogoCandidateParser(HTMLParser):
         if tag=="title":
             self.in_title=True
         if tag=="meta":
-            key=(attrs.get("property") or attrs.get("name") or "").lower()
+            key=str(attrs.get("property") or attrs.get("name") or "").lower()
             if key in ("og:image","og:image:url","twitter:image","twitter:image:src"):
                 self.urls.append((attrs.get("content",""),"meta:"+key,attrs.get("content","")))
         if tag=="link":
-            rel=attrs.get("rel","").lower()
+            rel=str(attrs.get("rel") or "").lower()
             if "icon" in rel or "image_src" in rel:
                 self.urls.append((attrs.get("href",""),"link:"+rel,""))
         if tag in ("img","source"):
             parts=[attrs.get("src",""),attrs.get("data-src",""),attrs.get("data-lazy-src",""),attrs.get("srcset","")]
-            text=" ".join(str(attrs.get(k,"")) for k in ("alt","title","class","id"))
+            text=" ".join(str(attrs.get(k) or "") for k in ("alt","title","class","id"))
             urls=[part.split(",")[0].strip().split(" ")[0] for part in parts if part]
             for url in urls:
                 if re.search(r"logo|brand|station|radio|kossuth|antenne|pozna|katowice|retro|channel|program|app.?icon", url+" "+text,re.I):
@@ -112,7 +112,7 @@ def main():
             seen=set()
             items=[]
             for url,role,alt in parser.urls:
-                url=url.strip().strip("\"'")
+                url=str(url or "").strip().strip("\"'")
                 if not url:continue
                 if url=="inline-svg":
                     absolute="inline-svg"
