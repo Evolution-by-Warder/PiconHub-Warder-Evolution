@@ -18,11 +18,11 @@ STATIONS=(
   dict(slug="antenne-vorarlberg",name="Antenne Vorarlberg",
        reference="4097:0:2:493E:D4F2:ED:0:0:0:0",
        stream_url="https://web.radio.antennevorarlberg.at/av-live?aggregator=Radioplayer",
-       src="Logo_korrekt.original.png",ext="png",source_sha256=""),
+       src="Logo_korrekt.original.png",ext="png",source_sha256="40c19ffabb19f237d9a562e072f7baa6f4ef9877a5d597751516399e78d34d5c"),
   dict(slug="antenne-vorarlberg-partymix",name="Antenne Vorarlberg - Partymix",
        reference="4097:0:2:91D:E279:EC:0:0:0:0",
        stream_url="https://web.radio.antennevorarlberg.at/av-partymix",
-       src="AV_Partymix_mit_Logo.original.jpg",ext="jpg",source_sha256=""),
+       src="AV_Partymix_mit_Logo.original.jpg",ext="jpg",source_sha256="ee401991f759a31cf23878fbb3c6866dcd9bd45cd8e4f2c373f3da31bfc1386f"),
 )
 sha=lambda b:hashlib.sha256(b).hexdigest()
 
