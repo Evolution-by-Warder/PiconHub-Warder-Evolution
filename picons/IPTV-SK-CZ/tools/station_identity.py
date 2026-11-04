@@ -61,6 +61,37 @@ def transport_key(url):
     return (p.hostname.lower(), port, p.path or '/', query)
 
 
+# Editorial evidence outranks a legacy endpoint that still serves audio.
+# STVR programme concept 2025, p. 25: Pyramida ended on 2025-02-28.
+PYRAMIDA_RETIREMENT = {
+    'effective_date': '2025-02-28',
+    'source': 'https://www.stvr.org/download.pl?ID=31453&hash=dwSLRbHysLAXglOCE0FdLRE5JM9bnPYQ',
+    'page': 25,
+}
+
+
+def stvr_programme(url):
+    """Explicit old/current broadcaster resources; never infer RSI from a label."""
+    p=urlsplit(url)
+    if ((p.hostname=='live.slovakradio.sk' and p.port in (None,80,443,8000)) or
+            (p.hostname=='icecast.stv.livebox.sk' and p.port in (None,80,443))):
+        path=p.path.casefold()
+        if path=='/patria_128.mp3':return 'patria',transport_key(url)[3]
+        if re.fullmatch(r'/(?:pyramida|klasika)_(?:128|256)\.mp3',path):
+            return 'retired-pyramida',transport_key(url)[3]
+    return None
+
+
+def retirement_evidence(row):
+    if row.get('countrycode')!='SK':return None
+    if name_key(row['name']) in {'pyramida','rtvsradiopyramida','stvrradiopyramida'}:
+        return PYRAMIDA_RETIREMENT
+    if any((p:=stvr_programme(u)) and p[0]=='retired-pyramida'
+           for u in row.get('aliases',[row['url']])):
+        return PYRAMIDA_RETIREMENT
+    return None
+
+
 def one_typo(a, b):
     if min(len(a), len(b)) < 10 or abs(len(a) - len(b)) > 1:
         return False
@@ -116,6 +147,11 @@ def language_site(url):
 
 def select_stations(rows, names, preferred_references=()):
     """Keep one evidenced station per country/name; quarantine unresolved homonyms."""
+    input_count=len(rows)
+    retired=[dict(r,review_reason='confirmed-retired-programme',
+                  retirement_evidence=retirement_evidence(r))
+             for r in rows if retirement_evidence(r)]
+    rows=[r for r in rows if not retirement_evidence(r)]
     parents = list(range(len(rows)))
     preferred_references=set(preferred_references)
     keys = [name_key(r['name']) for r in rows]
@@ -146,6 +182,12 @@ def select_stations(rows, names, preferred_references=()):
             key=(country,'transport',value)
             if key in programmes:join(i,programmes[key])
             else:programmes[key]=i
+        for url in row.get('aliases',[row['url']]):
+            broadcaster=stvr_programme(url)
+            if country=='SK' and broadcaster and broadcaster[0]=='patria':
+                key=(country,'broadcaster',broadcaster)
+                if key in programmes:join(i,programmes[key])
+                else:programmes[key]=i
         for url in row.get('aliases',[row['url']]):
             programme=programme_mount(row,url)
             if not programme:continue
@@ -188,8 +230,8 @@ def select_stations(rows, names, preferred_references=()):
     for i in range(len(rows)):
         clusters[root(i)].append(i)
     selected = []
-    review = []
-    stats = Counter()
+    review = retired
+    stats = Counter(confirmed_retired_programme=len(retired))
 
     def rank(i):
         r = rows[i]
@@ -276,9 +318,9 @@ def select_stations(rows, names, preferred_references=()):
                                  else 3 if not r['countrycode'] else 2,
                                  r['group'].casefold(), name_key(r['name']), r['reference']))
     stats['review_rows'] = len(review)
-    stats['input_station_rows'] = len(rows)
+    stats['input_station_rows'] = input_count
     stats['published_station_rows'] = len(published)
-    if len(published) + len(review) + stats['station_variant_rows_merged'] != len(rows):
+    if len(published) + len(review) + stats['station_variant_rows_merged'] != input_count:
         raise ValueError('Station selection accounting mismatch')
     return published, review, dict(stats)
 

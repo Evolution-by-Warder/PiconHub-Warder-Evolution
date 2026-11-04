@@ -23,6 +23,42 @@ def row(name, url, reference, country='SK', home='https://station.example/', pro
 
 
 class StationIdentityTests(unittest.TestCase):
+    def test_patria_old_server_and_legacy_rsi_label_merge_into_original(self):
+        current=row('Rádio Patria','https://icecast.stv.livebox.sk/patria_128.mp3','owned',
+                    home='https://patria.stvr.sk/',protected=True)
+        old=row('SRo5 Rádio Pátria /RSI','http://live.slovakradio.sk:8000/Patria_128.mp3','old',
+                home='https://www.rtvs.sk/')
+        out,review,stats=select_stations([old,current],NAMES)
+        self.assertEqual(len(out),1);self.assertFalse(review)
+        for field in ('name','url','reference'):self.assertEqual(out[0][field],current[field])
+        self.assertIn('old',out[0]['merged_references'])
+        self.assertIn(old['url'],out[0]['aliases'])
+        self.assertIn(old['name'],out[0]['name_aliases'])
+    def test_patria_alias_does_not_merge_real_rsi_or_distinct_query(self):
+        rows=[row('Rádio Patria','https://icecast.stv.livebox.sk/patria_128.mp3','patria',protected=True),
+              row('Radio Slovakia International','https://icecast.stv.livebox.sk/rsi_128.mp3','rsi',protected=True),
+              row('Another channel','http://live.slovakradio.sk:8000/Patria_128.mp3?channel=other','other')]
+        self.assertEqual(len(select_stations(rows,NAMES)[0]),3)
+    def test_confirmed_retirement_overrides_audio_and_known_station_history(self):
+        for protected in (False,True):
+            old=row('SRo7 Rádio Pyramída','https://icecast.stv.livebox.sk/klasika_128.mp3','old',protected=protected)
+            old.update(known_working=True,live_status='audio-confirmed')
+            out,review,stats=select_stations([old],NAMES)
+            self.assertFalse(out);self.assertEqual(len(review),1)
+            self.assertEqual(review[0]['review_reason'],'confirmed-retired-programme')
+            self.assertEqual(review[0]['retirement_evidence']['effective_date'],'2025-02-28')
+            self.assertEqual(stats['input_station_rows'],1)
+            self.assertEqual(stats['confirmed_retired_programme'],1)
+    def test_old_klasika_resource_cannot_reenter_under_a_new_display_label(self):
+        old=row('Archive service','http://live.slovakradio.sk:8000/Klasika_256.mp3','old')
+        out,review,_=select_stations([old],NAMES)
+        self.assertFalse(out);self.assertEqual(review[0]['reference'],'old')
+    def test_other_countries_and_current_stvr_services_are_not_retired(self):
+        rows=[row('Radio Pyramida','https://example.cz/pyramida.mp3','cz',country='CZ'),
+              row('Rádio Litera','https://icecast.stv.livebox.sk/litera_128.mp3','litera',protected=True),
+              row('Rádio Junior','https://icecast.stv.livebox.sk/junior_128.mp3','junior',protected=True)]
+        out,review,_=select_stations(rows,NAMES)
+        self.assertEqual(len(out),3);self.assertFalse(review)
     def test_primary_reference_stays_with_its_profile_across_rebuilds(self):
         source=[]
         for key,name,url in [('a','Translated','https://stream.example/programme-128.mp3'),

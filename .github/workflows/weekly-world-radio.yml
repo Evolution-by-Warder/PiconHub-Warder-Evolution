@@ -29,6 +29,8 @@ jobs:
   update:
     runs-on: ubuntu-latest
     timeout-minutes: 60
+    env:
+      REVIEWED_SK_CORRECTION: ${{ github.event_name == 'push' && startsWith(github.event.head_commit.message, 'Apply reviewed Slovak catalogue corrections:') }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -44,14 +46,20 @@ jobs:
           python-version: '3.14'
       - name: Test country filtering, identity stability and failure handling
         run: python -m unittest discover -s picons/IPTV-SK-CZ/tools -p 'test_*radio.py' -v
+      - name: Save published snapshot for the reviewed Slovak correction
+        if: env.REVIEWED_SK_CORRECTION == 'true'
+        run: cp picons/IPTV-SK-CZ/catalog/global/world-radio.receiver.json.gz /tmp/warder-radio-before.json.gz
       - name: Refresh compatible catalogue
+        if: env.REVIEWED_SK_CORRECTION != 'true'
         continue-on-error: true
         run: python picons/IPTV-SK-CZ/tools/update_world_radio.py
       - name: Download complete supported source snapshots
+        if: env.REVIEWED_SK_CORRECTION != 'true'
         run: python picons/IPTV-SK-CZ/tools/fetch_complete_radio.py
       - name: Compile master database and country catalogue
         run: python picons/IPTV-SK-CZ/tools/global_radio.py
       - name: Audit stream addresses and bounded audio samples
+        if: env.REVIEWED_SK_CORRECTION != 'true'
         run: |
           python picons/IPTV-SK-CZ/tools/stream_audit.py --input picons/IPTV-SK-CZ/catalog/global/world-radio.json.gz --output picons/IPTV-SK-CZ/catalog/global/stream-audit.json.gz --workers 64 --timeout 5 --budget-seconds 300
           python picons/IPTV-SK-CZ/tools/stream_audit.py --input picons/IPTV-SK-CZ/catalog/global/world-radio.json.gz --output picons/IPTV-SK-CZ/catalog/global/stream-audit.json.gz --workers 64 --timeout 5 --budget-seconds 300
@@ -63,6 +71,22 @@ jobs:
           retention-days: 7
       - name: Apply corroborated stream failures and redirects
         run: python picons/IPTV-SK-CZ/tools/global_radio.py --stream-checks picons/IPTV-SK-CZ/catalog/global/stream-audit.json.gz
+      - name: Require exactly the two reviewed removals and no other receiver changes
+        if: env.REVIEWED_SK_CORRECTION == 'true'
+        run: |
+          python - <<'PY'
+          import gzip, json
+          def read(path):
+              with gzip.open(path, 'rt') as stream:
+                  return {row['reference']: row for row in json.load(stream)}
+          before = read('/tmp/warder-radio-before.json.gz')
+          after = read('picons/IPTV-SK-CZ/catalog/global/world-radio.receiver.json.gz')
+          expected = {'4097:0:2:74A2:61B7:ED:0:0:0:0', '4097:0:2:1514:72ED:ED:0:0:0:0'}
+          assert before.keys() - after.keys() == expected, 'Unexpected removal; publication stopped'
+          assert not after.keys() - before.keys(), 'Unreviewed addition; publication stopped'
+          assert all(row == before[key] for key, row in after.items()), 'Unreviewed receiver change; publication stopped'
+          print('Only the reviewed Patria duplicate and retired Pyramida were removed.')
+          PY
       - name: Publish validated catalogues as one revision
         shell: bash
         run: |

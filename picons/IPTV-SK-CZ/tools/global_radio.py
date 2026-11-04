@@ -14,7 +14,7 @@ from urllib.parse import urlsplit, urlunsplit
 
 from laut_radio import station_key
 from update_world_radio import parse, label_key, render_marker, replace
-from station_identity import select_stations, apply_stream_checks
+from station_identity import select_stations, apply_stream_checks, retirement_evidence
 
 ROOT = Path(__file__).resolve().parents[1]
 MAX_ROWS = 150000
@@ -364,7 +364,8 @@ def main():
     for entry in parse(owned):
         if not entry.url:
             original_group=entry.name
-        elif original_group=='Slovensko' and not any(
+        elif original_group=='Slovensko' and not retirement_evidence(
+                {'countrycode':'SK','name':entry.name,'url':entry.url}) and not any(
                 r['reference']==entry.reference and r['name']==entry.name and r['url']==entry.url
                 for r in items):
             raise ValueError('Original Slovak station was removed or its URL changed')
@@ -394,11 +395,11 @@ def main():
     country_index.append({'name':SOURCE_GROUP,'countrycode':None,'stations':len(source_view),'original_source_view':True})
     replace(args.output/'countries.json',json.dumps(country_index,ensure_ascii=False,indent=2)+'\n')
     report={'schema':1,'built_at':now,'sources':status,'processing':stats,'master':master_info,
-        'catalogue':compiled_info,'receiver':receiver_info,'review':review_info,'station_policy':5,
+        'catalogue':compiled_info,'receiver':receiver_info,'review':review_info,'station_policy':6,
         'last_live_published_stations':len(items) if args.stream_checks else last_live_count,
         'bouquet_bytes':len(bouquet.encode()),
         'owned_sha256':hashlib.sha256(owned.encode()).hexdigest(),
-        'validation':'Original Slovak names/URLs/references are retained. Known working stations survive transient probe failure; retirement requires failures on three dates spanning at least 48h. New additions require audio evidence. No universal receiver playback claim.' if args.stream_checks else 'Source-reported health only; known station history and original Slovak list preserved.',
+        'validation':'Original Slovak names/URLs/references are retained except explicitly confirmed retirements. Editorial retirements override endpoint audio; verified broadcaster aliases merge. Known working stations survive transient probe failure; retirement requires failures on three dates spanning at least 48h. New additions require audio evidence. No universal receiver playback claim.' if args.stream_checks else 'Source-reported health only; known station history and original Slovak list preserved.',
         'source_list':{'name':SOURCE_GROUP,'stations':len(source_view),
                        'source_sha256':hashlib.sha256(args.source_view.read_bytes()).hexdigest(),
                        'policy':'Original source names, URLs and order; separately requested unfiltered view.'},
