@@ -61,7 +61,7 @@ class LogoCandidateParser(HTMLParser):
                 if re.search(r"logo|brand|station|radio|kossuth|antenne|pozna|katowice|retro|channel|program|app.?icon", url+" "+text,re.I):
                     self.urls.append((url,"img:"+text[:90],attrs.get("alt","")))
         if tag=="svg":
-            cls=(attrs.get("class","")+" "+attrs.get("id","")).lower()
+            cls=(str(attrs.get("class") or "")+" "+str(attrs.get("id") or "")).lower()
             if "logo" in cls:
                 self.urls.append(("inline-svg","inline:"+cls[:60],""))
 
@@ -107,7 +107,13 @@ def main():
                 result["html_sha256"]=hashlib.sha256(body).hexdigest()
                 result["html_bytes"]=len(body)
             parser=LogoCandidateParser()
-            parser.feed(body.decode("utf-8",errors="replace"))
+            try:
+                parser.feed(body.decode("utf-8",errors="replace"))
+            except (TypeError, ValueError, AttributeError) as exc:
+                # Some broadcaster pages contain malformed embedded markup.
+                # Retain links already parsed and report the diagnostic instead
+                # of incorrectly claiming the HTML page was unavailable.
+                result["parse_warning"] = type(exc).__name__ + ": " + str(exc)[:180]
             result["page_title"]=parser.title.strip()
             seen=set()
             items=[]
@@ -122,8 +128,8 @@ def main():
                     if parsed.scheme not in ("http","https"):continue
                 if absolute in seen:continue
                 seen.add(absolute)
-                items.append(dict(url=absolute,role=role,alt=alt[:150],
-                                  score=score(role,absolute,alt),
+                items.append(dict(url=absolute,role=str(role or ""),alt=str(alt or "")[:150],
+                                  score=score(str(role or ""),absolute,str(alt or "")),
                                   source_page=item["page"],asset_origin_verified=False,
                                   exact_station_logo_verified=False))
             items.sort(key=lambda x:(-x["score"],x["url"]))
