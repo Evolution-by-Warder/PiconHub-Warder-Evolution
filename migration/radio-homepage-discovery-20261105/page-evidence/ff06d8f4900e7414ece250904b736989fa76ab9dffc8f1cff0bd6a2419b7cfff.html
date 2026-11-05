@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>OnlyRadio, tous vos tubes, tout le temps !</title>
+		<meta name="description" content="OnlyRadio est un concept de radio en ligne sans publicités, orientée 25-35 ans, nous proposons un contenu varié pop/rock/electro.">
+		<meta name="author" content="SAProduction">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta property="og:title" content="OnlyRadio, tous vos tubes, tout le temps !">
+		<meta property="og:description" content="OnlyRadio est un concept de radio en ligne sans publicités, orientée 25-35 ans, nous proposons un contenu varié pop/rock/electro.">
+		<meta property="og:image" content="https://www.onlyradio.fr/images/pochette-defaut.svg">
+		<meta property="og:type" content="website">
+		<link rel="stylesheet" href="style.css" />
+		<script src="scripts.js?v=20261030-web2"></script>
+	<link rel="canonical" href="https://www.onlyradio.fr/mobile/">
+</head>	
+	<body>
+		<section id="top-barre">
+			<div class="titre-en-cours" id="titre-en-cours">Chargement du titre en cours...</div>
+		</section>
+		<section id="pochette">
+			<div class="contener">
+			</div>
+		</section>
+		<section id="player">
+			<div class="contener">
+				<div class="contener-gauche">
+				<a id="prev-button" class="prev" title="Précédent"></a>
+				<a id="play" class="play" tabindex="1" title="Lecture" onclick="Lecture('play')" style="display:block;"></a>
+				<a id="pause" class="pause" tabindex="1" title="Pause" onclick="Lecture('pause')" style="display:none;"></a>
+				<a id="next-button" class="next" title="Suivant"></a>
+				<div class="current-time" id="current-time">00:00</div>
+				<audio preload="none" src="https://flux.onlyradio.fr/live"></audio>
+				</div>					
+			</div>			
+		</section>
+	<style>.prev,.next{display:none!important}#pochette.pochette{background-image:url(/images/pochette-defaut.svg);background-size:cover}#pochette{background-image:url(/images/pochette-defaut.svg);background-size:contain;background-repeat:no-repeat;background-position:center}</style>
+</body>	
+</html>
