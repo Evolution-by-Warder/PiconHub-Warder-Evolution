@@ -1,6 +1,6 @@
 # Vhannibal TV continuation — 5 November 2026
 
-All 121 graphic groups previously presented in the initial 12-graphic batch, Astra batch02, Astra batch03, Hot Bird batch04, Thor batch05 and the Film Europe supplement now have exact-PNG owner approval. Thor batch06 adds 36 groups awaiting owner visual review. Current staged totals: 157 unique groups, 121 owner-approved and 36 pending, with 471 control PNGs. These are staged-batch counts, not global remaining Vhannibal counts. Radio-plugin work remains separate.
+All 157 graphic groups previously presented through Thor batch06, including the Film Europe supplement, now have exact-PNG owner approval. Astra 23.5E batch07 adds 48 groups awaiting owner visual review. Current staged totals: 205 unique graphic groups, 157 owner-approved and 48 pending, with 615 control PNGs. These are staged-batch counts, not global remaining Vhannibal counts. Radio-plugin work remains separate.
 
 ## MASTER refresh
 
@@ -59,3 +59,19 @@ The exact November service 1_0_19_1F4F_AF8_BB_E080000_0_0_0 identifies Nova Spor
 [Sheet 1](https://chatgpt.com/library?file_id=libfile_3aa13020466881919d5691c7514756f6&account_id=personal) · [Sheet 2](https://chatgpt.com/library?file_id=libfile_15b6f2a0f714819199a1b6b73cb32d0e&account_id=personal) · [Sheet 3](https://chatgpt.com/library?file_id=libfile_6cffb2b94ab481918bdf1d1d0b6d4b56&account_id=personal) · [Sheet 4](https://chatgpt.com/library?file_id=libfile_1a38142d68d08191925f24679b17392d&account_id=personal) · [Sheet 5](https://chatgpt.com/library?file_id=libfile_75cc0cfaabc88191bfc0eac0d2199afe&account_id=personal) · [Sheet 6](https://chatgpt.com/library?file_id=libfile_05cf9f3a33308191a931ad6a73d10570&account_id=personal)
 
 WHITE contrast needs review for SVT1, NRK1 and other light lettering; BLACK needs review for TV 2 Midt-Vest, Østjylland and Syd and other dark original elements. Original lines and panels are part of the preserved artwork. The 13 blocked mappings, frozen background masters, engine code, application code and live download packages remain unchanged. The MASTER data repairs are not a live download package publication or a current RF/on-air certification.
+
+## Thor batch06 owner approval
+
+Owner message: “vsetko beriem, pokracuj”. All 36 displayed graphics / 108 exact PNGs / 51 complete source references are bound in the owner approval record. All 108 archived hashes were reverified. Approval does not extend to new batch07, unseen candidates, or the 13 known blocked mappings. Existing generic or different regional MASTER graphics were not overwritten merely because their programme names were similar. The prior ShopLC refresh and Nova Sport 6 exact-reference repair remain active; no additional verified regional same-variant replacement was selected from batch06.
+
+## Astra 23.5E batch07
+
+48 distinct source graphics, 53 exact November references and 144 control PNGs at 220×132. Source programme names, full namespaces, decimal service types, provider metadata, bouquets and +235 orbital transponders were independently checked. Every output retains the whole original artwork and frozen WHITE/BLACK templates. All 144 RGBA dimensions, output SHA256 bindings and the final ZIP CRC passed. Canonical comparisons exclude existing MASTER pixels and all 157 prior staged graphics. The eight final sheets were visually checked. Multiple independently verified references sharing the same exact source artwork are displayed with all programme names; that grouping does not merge programme identities or assign Warder IDs.
+
+[Batch07 ZIP](https://chatgpt.com/library?file_id=libfile_288f249e98c08191af2988477a0f48ce&account_id=personal)
+
+[Sheet 1](https://chatgpt.com/library?file_id=libfile_b79b79f4a8a08191984c1dbea69c4617&account_id=personal) · [Sheet 2](https://chatgpt.com/library?file_id=libfile_552a5ff350748191b1a8d36539117427&account_id=personal) · [Sheet 3](https://chatgpt.com/library?file_id=libfile_7d790002e82081919c610dcbf031e140&account_id=personal) · [Sheet 4](https://chatgpt.com/library?file_id=libfile_9469eb5f45f08191974743885708a928&account_id=personal) · [Sheet 5](https://chatgpt.com/library?file_id=libfile_2f13d84e50648191b8ea7f234d56e5e9&account_id=personal) · [Sheet 6](https://chatgpt.com/library?file_id=libfile_cd3c25a0c96481919c1f65c9af054da5&account_id=personal) · [Sheet 7](https://chatgpt.com/library?file_id=libfile_8e751bf7111081919fd6d2a374535455&account_id=personal) · [Sheet 8](https://chatgpt.com/library?file_id=libfile_9bbddb7e54c0819186011eabbbc5ba2e&account_id=personal)
+
+WHITE contrast needs review for Barrandov, CT24, Nova Sport 2, Dvojka and other light lettering; BLACK needs review for TV Paprika, RTVS24 and other dark elements. RTVS24 and RTVS SPORT retain the source's original labels and artwork for owner brand-continuity review and are not certified as current on-air branding. Generic SERVICE placeholders, Premium and the unconfirmed Prima Sport feed are held separately. Film+ SK, Disney CZ, CANAL+ and HBO2 HD canonically match existing MASTER pixels and remain recorded as exact-identity/full-triplet reuse candidates rather than duplicate new renders.
+
+This commit changes review evidence and approval records only. MASTER PNGs, live download packages, backgrounds, engine and application code are unchanged. Film Europe's intentional line stays preserved and approved. All 13 blocked mappings remain blocked.
