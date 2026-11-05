@@ -1,0 +1,1707 @@
+
+<html lang="en">
+<head> <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Northern Dial is independent 24/7 Canadian music radio: discover emerging artists, Canadian songs, and curated shows from coast to coast.">
+    <meta name="theme-color" content="#CC3333">
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#CC3333">
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#CC3333">
+
+<!-- PWA Meta Tags -->
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="Northern Dial">
+<link rel="icon" type="image/svg+xml" href="/images/nd-beaver-headphones.svg?v=20261101">
+<link rel="apple-touch-icon" href="/images/nd-beaver-180.png?v=20261101">
+
+<!-- Manifest -->
+
+<link rel="manifest" href="./manifest.json">
+<link rel="canonical" href="https://www.northerndial.ca/">
+<link rel="alternate" hreflang="en" href="https://www.northerndial.ca/">
+<link rel="alternate" hreflang="fr" href="https://www.northerndial.ca/?lang=fr">
+<link rel="alternate" hreflang="x-default" href="https://www.northerndial.ca/">
+<meta property="og:title" content="Independent Canadian Music Radio | Northern Dial">
+<meta property="og:description" content="Discover Canadian artists, curated radio shows, and 24/7 independent music on Northern Dial.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.northerndial.ca/">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "RadioStation",
+  "name": "Northern Dial",
+  "url": "https://www.northerndial.ca/",
+  "description": "Independent 24/7 Canadian music radio featuring emerging artists and curated programming.",
+  "areaServed": "Canada"
+}
+</script>
+
+<title>Independent Canadian Music Radio | Northern Dial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="image" href="/assets/northern-dial-home-hero.jpg?v=20260914c" fetchpriority="high">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@700&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+html {
+    background-color: #ffffff;
+    overscroll-behavior-y: none;
+}
+
+body {
+    font-family: 'Roboto Condensed', sans-serif;
+    background-color: #ffffff;
+    color: #1a1a1a;
+    overscroll-behavior-y: none;
+}
+
+#stories {
+    padding-bottom: 24px !important;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    background-color: transparent;
+}
+
+    /* Keeps the semantic page heading available to crawlers and assistive technology
+       without changing the visual homepage composition. */
+    .visually-hidden {
+        position: absolute !important;
+        width: 1px !important;
+        height: 1px !important;
+        padding: 0 !important;
+        margin: -1px !important;
+        overflow: hidden !important;
+        clip: rect(0, 0, 0, 0) !important;
+        white-space: nowrap !important;
+        border: 0 !important;
+    }
+
+.header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.logo-image {
+    max-width: 500px;
+    width: 100%;
+    height: auto;
+}
+
+.player-section {
+    margin-bottom: 60px;
+}
+
+.site-nav {
+    align-items: center;
+    background: #1a1a1a;
+    border-bottom: 2px solid #C33;
+    display: flex;
+    gap: 0;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    margin: 0 calc(50% - 50vw) 24px;
+    padding: 0;
+    position: sticky;
+    top: 0;
+    transform: translateY(-110%);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    z-index: 20;
+}
+
+.site-nav.is-visible {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+.site-nav a {
+    color: #fff;
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    padding: 14px 28px;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.2s ease, background-color 0.2s ease;
+    flex: 0 0 auto;
+}
+
+.site-nav a:hover, .site-nav a:focus, .site-nav a.active {
+    background: #262626;
+    color: #C33;
+}
+
+.site-nav a.active {
+    border-bottom: 3px solid #C33;
+}
+
+.discovery-banner {
+    align-items: center;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+    border: 4px solid #C33;
+    border-radius: 10px;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.18);
+    color: #fff;
+    display: flex;
+    gap: 28px;
+    justify-content: space-between;
+    margin: -22px 0 38px;
+    padding: 24px 28px;
+}
+.discovery-banner-copy {
+    min-width: 0;
+}
+.discovery-banner-kicker {
+    color: #C33;
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+}
+.discovery-banner h2 {
+    color: #fff;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    line-height: 1;
+    margin-bottom: 7px;
+    text-transform: uppercase;
+}
+.discovery-banner p {
+    color: #d8d8d8;
+    font-size: 1rem;
+    line-height: 1.5;
+    margin: 0;
+    max-width: 720px;
+}
+.discovery-banner-cta {
+    background: #C33;
+    border: 2px solid #C33;
+    border-radius: 7px;
+    color: #fff;
+    flex: 0 0 auto;
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    padding: 12px 20px;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+.discovery-banner-cta:hover,
+.discovery-banner-cta:focus {
+    background: #8B2323;
+    border-color: #8B2323;
+    transform: translateY(-2px);
+}
+
+
+/* ND_HOME_TOP_GRID_CSS_START */
+.home-top-grid {
+    align-items: stretch;
+    display: grid;
+    gap: 24px;
+    grid-template-columns: minmax(0, 1.65fr) minmax(320px, 1fr);
+    margin-bottom: 38px;
+}
+
+.home-top-grid .player-section {
+    display: flex;
+    margin-bottom: 0;
+    min-width: 0;
+}
+
+.home-top-grid .custom-player {
+    height: 100%;
+    width: 100%;
+}
+
+.home-top-grid .discovery-banner {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: space-between;
+    margin: 0;
+    min-height: 100%;
+    padding: 26px;
+}
+
+.home-top-grid .discovery-banner h2 {
+    font-size: clamp(2rem, 3vw, 2.7rem);
+}
+
+.home-top-grid .discovery-banner-cta {
+    text-align: center;
+    width: 100%;
+}
+
+@media (max-width: 900px) {
+    .home-top-grid {
+        display: block;
+        margin-bottom: 0;
+    }
+
+    .home-top-grid .player-section {
+        display: block;
+        margin-bottom: 60px;
+    }
+
+    .home-top-grid .custom-player {
+        height: auto;
+    }
+
+    .home-top-grid .discovery-banner {
+        margin: -22px 0 38px;
+        min-height: 0;
+    }
+}
+/* ND_HOME_TOP_GRID_CSS_END */
+
+.custom-player {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+    border: 5px solid #C33;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 8px 30px rgba(195, 51, 51, 0.4);
+}
+
+.player-controls {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.play-pause-btn {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #C33, #8B2323);
+    border: 3px solid #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.play-pause-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(195, 51, 51, 0.8);
+}
+
+.play-pause-btn:active {
+    transform: scale(0.95);
+}
+
+.play-icon, .pause-icon {
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.pause-icon {
+    display: none;
+}
+
+.play-pause-btn.playing .play-icon {
+    display: none;
+}
+
+.play-pause-btn.playing .pause-icon {
+    display: block;
+}
+
+.player-info {
+    flex: 1;
+    min-width: 200px;
+}
+
+.status-text {
+    font-size: 0.9rem;
+    color: #C33;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+    font-weight: 700;
+}
+
+.now-playing-text {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 5px;
+}
+
+.artist-text {
+    font-size: 1.2rem;
+    color: #cccccc;
+}
+
+.volume-control {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 150px;
+}
+
+.volume-icon {
+    color: #C33;
+    font-size: 20px;
+}
+
+.volume-slider {
+    flex: 1;
+    height: 6px;
+    -webkit-appearance: none;
+    appearance: none;
+    background: #444;
+    border-radius: 5px;
+    outline: none;
+}
+
+.volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    background: #C33;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.volume-slider::-webkit-slider-thumb:hover {
+    background: #ff4444;
+    transform: scale(1.2);
+}
+
+.volume-slider::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    background: #C33;
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+}
+
+.visualizer-btn {
+    background: linear-gradient(135deg, #C33, #8B2323);
+    color: white;
+    border: 3px solid white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.visualizer-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px rgba(195, 51, 51, 0.8);
+}
+
+.artist-profile-btn {
+    align-items: center;
+    background: #ffffff;
+    border: 3px solid #ffffff;
+    border-radius: 8px;
+    color: #1a1a1a;
+    display: inline-flex;
+    font-size: 0.9rem;
+    font-weight: 700;
+    justify-content: center;
+    letter-spacing: 1.5px;
+    padding: 12px 20px;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.artist-profile-btn[hidden] {
+    display: none !important;
+}
+
+.artist-profile-btn:hover,
+.artist-profile-btn:focus {
+    background: #C33;
+    border-color: #ffffff;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 0 24px rgba(195, 51, 51, 0.55);
+}
+
+.artist-profile-btn:focus-visible {
+    outline: 3px solid #ffffff;
+    outline-offset: 3px;
+}
+
+.visualizer-btn.playing {
+    animation: pulse 2s ease infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { box-shadow: 0 0 20px rgba(195, 51, 51, 0.5); }
+    50% { box-shadow: 0 0 40px rgba(195, 51, 51, 0.9); }
+}
+
+.visualizer-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.98);
+    z-index: 10000;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.visualizer-overlay.show {
+    display: flex;
+}
+
+.visualizer-close {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    background: #C33;
+    color: white;
+    border: none;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    font-size: 2.5rem;
+    cursor: pointer;
+    line-height: 1;
+    transition: all 0.3s ease;
+    z-index: 10001;
+}
+
+.visualizer-close:hover {
+    transform: scale(1.1) rotate(90deg);
+    background: #ff4444;
+}
+
+.visualizer-canvas-container {
+    width: 100%;
+    max-width: 1200px;
+    height: 400px;
+    background: linear-gradient(180deg, #1a1a1a 0%, #000 100%);
+    border-radius: 12px;
+    border: 5px solid #C33;
+    margin-bottom: 40px;
+    position: relative;
+    overflow: hidden;
+}
+
+#visualizerCanvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.visualizer-info {
+    text-align: center;
+    color: white;
+    max-width: 1200px;
+    width: 100%;
+}
+
+.visualizer-live-box {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.15);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 25px;
+    padding: 8px 20px;
+    margin-bottom: 30px;
+    backdrop-filter: blur(10px);
+}
+
+.visualizer-live-dot {
+    width: 12px;
+    height: 12px;
+    background: #C33;
+    border-radius: 50%;
+    animation: livePulse 2s ease-in-out infinite;
+}
+
+@keyframes livePulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(195, 51, 51, 0.7); }
+    50% { box-shadow: 0 0 0 8px rgba(195, 51, 51, 0); }
+}
+
+.visualizer-status {
+    font-size: 0.9rem;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 700;
+}
+
+.visualizer-song {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 4rem;
+    color: #C33;
+    margin-bottom: 8px;
+    letter-spacing: 6px;
+    text-shadow: 0 0 30px rgba(195, 51, 51, 0.8);
+    line-height: 1.2;
+}
+
+.visualizer-artist {
+    font-size: 2rem;
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+.visualizer-style-btn {
+    background: rgba(195, 51, 51, 0.2);
+    color: white;
+    border: 2px solid #C33;
+    padding: 10px 24px;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.visualizer-style-btn:hover {
+    background: rgba(195, 51, 51, 0.4);
+    transform: translateY(-2px);
+}
+
+.visualizer-style-btn.active {
+    background: #C33;
+    box-shadow: 0 0 20px rgba(195, 51, 51, 0.8);
+}
+
+.content-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 70px;
+}
+
+.column {
+    background: rgba(255, 255, 255, 0.7);
+    border: 4px solid #1a1a1a;
+    padding: 35px;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+
+.column h2 {
+    font-family: 'Oswald', sans-serif;
+    font-size: 2rem;
+    color: #C33;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-bottom: 20px;
+    border-bottom: 3px solid #1a1a1a;
+    padding-bottom: 10px;
+}
+
+.column p {
+    line-height: 1.8;
+    font-size: 1.05rem;
+}
+
+.shows-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3.5rem;
+    text-align: center;
+    letter-spacing: 8px;
+    margin-bottom: 50px;
+    text-shadow: 2px 2px 0 #C33;
+}
+
+.shows-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 30px;
+}
+
+.show-card {
+    background: #1a1a1a;
+    border: 5px solid #C33;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.3);
+}
+
+.show-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 35px rgba(0,0,0,0.4);
+}
+
+.show-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-bottom: 3px solid #C33;
+}
+
+.show-content {
+    padding: 25px;
+}
+
+.show-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.8rem;
+    color: #F0F0F0;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+}
+
+.show-description {
+    color: #F0F0F0;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+    opacity: 0.9;
+}
+
+.show-time {
+    color: #C33;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+    background: rgba(195, 51, 51, 0.2);
+    padding: 10px 14px;
+    border-radius: 4px;
+    display: inline-block;
+    border: 1px solid rgba(195, 51, 51, 0.4);
+}
+
+.install-banner {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, #C33, #8B2323);
+    color: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(195, 51, 51, 0.6);
+    z-index: 10000;
+    display: none;
+    animation: slideUp 0.4s ease;
+}
+
+.install-banner.show {
+    display: block;
+}
+
+.install-banner-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.install-banner-text {
+    flex: 1;
+    min-width: 200px;
+}
+
+.install-banner-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.install-banner-subtitle {
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.install-banner-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.install-btn, .dismiss-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    font-weight: 700;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+}
+
+.install-btn {
+    background: white;
+    color: #C33;
+}
+
+.install-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(255,255,255,0.3);
+}
+
+.dismiss-btn {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+.dismiss-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.install-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 10001;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.install-modal.show {
+    display: flex;
+}
+
+.install-modal-content {
+    background: white;
+    border-radius: 12px;
+    padding: 30px;
+    max-width: 500px;
+    width: 100%;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.install-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.install-modal-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.8rem;
+    color: #C33;
+    text-transform: uppercase;
+}
+
+.close-modal-btn {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: #999;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.install-modal-steps {
+    margin-top: 20px;
+}
+
+.install-step {
+    margin-bottom: 15px;
+    padding: 15px;
+    background: #f5f5f5;
+    border-radius: 8px;
+    border-left: 4px solid #C33;
+}
+
+.install-step-number {
+    font-weight: 700;
+    color: #C33;
+    margin-bottom: 5px;
+}
+
+@keyframes slideUp {
+    from { transform: translateY(100px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+@media (max-width: 768px) {
+
+    .discovery-banner {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 16px;
+        margin-top: -28px;
+        padding: 20px;
+    }
+    .discovery-banner-cta {
+        text-align: center;
+        width: 100%;
+    }
+
+    .site-nav {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0;
+        margin-left: calc(50% - 50vw);
+        margin-right: calc(50% - 50vw);
+        padding: 0;
+    }
+
+    .site-nav a {
+        font-size: 0.82rem;
+        letter-spacing: 0.06em;
+        padding: 12px 6px;
+        text-align: center;
+    }
+
+    .content-columns { grid-template-columns: 1fr; }
+    .shows-title { font-size: 2.5rem; }
+    .logo-image { max-width: 90%; }
+    .player-controls { justify-content: center; }
+    .now-playing-text { font-size: 1.4rem; }
+    .artist-text { font-size: 1rem; }
+    .install-banner { bottom: 10px; left: 10px; right: 10px; padding: 15px; }
+    .install-banner-content { flex-direction: column; align-items: stretch; }
+    .install-banner-buttons { width: 100%; justify-content: stretch; }
+    .install-btn, .dismiss-btn { flex: 1; }
+    .install-modal-content { padding: 20px; }
+    .visualizer-btn { font-size: 0.8rem; padding: 10px 18px; }
+    .visualizer-song { font-size: 2rem; letter-spacing: 3px; }
+    .visualizer-artist { font-size: 1.2rem; }
+    .visualizer-status { font-size: 0.75rem; letter-spacing: 1px; }
+    .visualizer-live-box { padding: 6px 15px; margin-bottom: 20px; }
+    .visualizer-live-dot { width: 10px; height: 10px; }
+    .visualizer-canvas-container { height: 250px; }
+    .visualizer-close { width: 50px; height: 50px; font-size: 2rem; top: 20px; right: 20px; }
+    .visualizer-style-btn { font-size: 0.7rem; padding: 8px 12px; }
+}
+
+@media (max-width: 420px) {
+    .site-nav {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .site-nav {
+        transition: none;
+    }
+}
+
+
+
+/* ND_MOBILE_MENU_CSS_START */
+.mobile-menu-toggle {
+    display: none;
+}
+
+.mobile-menu-links {
+    align-items: stretch;
+    display: flex;
+    gap: inherit;
+    justify-content: center;
+    width: 100%;
+}
+
+.mobile-menu-links > li {
+    list-style: none;
+}
+
+@media (max-width: 768px) {
+    .mobile-menu-nav {
+        display: block !important;
+        padding: 0 !important;
+        position: sticky !important;
+        top: 0 !important;
+        z-index: 1000 !important;
+    }
+
+    .mobile-menu-toggle {
+        align-items: center;
+        background: #1a1a1a !important;
+        border: 0 !important;
+        border-radius: 0 !important;
+        color: #ffffff !important;
+        cursor: pointer;
+        display: flex !important;
+        font-family: 'Oswald', sans-serif !important;
+        font-size: 0.88rem !important;
+        font-weight: 700 !important;
+        justify-content: space-between;
+        letter-spacing: 0.14em !important;
+        line-height: 1 !important;
+        margin: 0 !important;
+        min-height: 48px;
+        padding: 13px 18px !important;
+        text-transform: uppercase;
+        width: 100% !important;
+    }
+
+    .mobile-menu-toggle:hover,
+    .mobile-menu-toggle:focus {
+        background: #262626 !important;
+        color: #ffffff !important;
+    }
+
+    .mobile-menu-toggle:focus-visible {
+        outline: 3px solid #CC3333 !important;
+        outline-offset: -3px;
+    }
+
+    .mobile-menu-icon {
+        color: #CC3333;
+        font-family: Arial, sans-serif;
+        font-size: 1.35rem;
+        font-weight: 700;
+        letter-spacing: 0;
+        line-height: 1;
+    }
+
+    .mobile-menu-links {
+        background: #1a1a1a;
+        display: none !important;
+        flex-direction: column !important;
+        gap: 0 !important;
+        margin: 0 !important;
+        max-width: none !important;
+        padding: 0 !important;
+        width: 100% !important;
+    }
+
+    .mobile-menu-nav.menu-open .mobile-menu-links {
+        display: flex !important;
+    }
+
+    .mobile-menu-links > li {
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+    }
+
+    .mobile-menu-links a,
+    .mobile-menu-links li a {
+        background: #1a1a1a !important;
+        border: 0 !important;
+        border-bottom: 1px solid #343434 !important;
+        border-radius: 0 !important;
+        color: #ffffff !important;
+        display: block !important;
+        flex: none !important;
+        font-family: 'Oswald', sans-serif !important;
+        font-size: 0.88rem !important;
+        font-weight: 700 !important;
+        letter-spacing: 0.11em !important;
+        margin: 0 !important;
+        padding: 14px 18px !important;
+        text-align: left !important;
+        text-decoration: none !important;
+        text-transform: uppercase !important;
+        width: 100% !important;
+    }
+
+    .mobile-menu-links a:hover,
+    .mobile-menu-links a:focus,
+    .mobile-menu-links a.active,
+    .mobile-menu-links li a:hover,
+    .mobile-menu-links li a:focus,
+    .mobile-menu-links li a.active {
+        background: #262626 !important;
+        color: #CC3333 !important;
+    }
+
+    .mobile-menu-links a.active,
+    .mobile-menu-links li a.active {
+        border-left: 4px solid #CC3333 !important;
+        padding-left: 14px !important;
+    }
+
+    .mobile-menu-links .submit-link,
+    .mobile-menu-links li .submit-link {
+        background: #CC3333 !important;
+        border-bottom-color: #CC3333 !important;
+        color: #ffffff !important;
+    }
+
+    .mobile-menu-links .submit-link:hover,
+    .mobile-menu-links .submit-link:focus,
+    .mobile-menu-links li .submit-link:hover,
+    .mobile-menu-links li .submit-link:focus {
+        background: #8B2323 !important;
+        color: #ffffff !important;
+    }
+}
+/* ND_MOBILE_MENU_CSS_END */
+</style>
+
+
+<style id="nd-home-language-styles">
+.site-nav .language-toggle {
+    appearance: none;
+    background: transparent;
+    border: 0;
+    color: #fff;
+    cursor: pointer;
+    flex: 0 0 auto;
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    padding: 14px 28px;
+    text-transform: uppercase;
+    transition: color 0.2s ease, background-color 0.2s ease;
+}
+.site-nav .language-toggle:hover,
+.site-nav .language-toggle:focus {
+    background: #262626;
+    color: #C33;
+}
+.site-nav .language-toggle:focus-visible {
+    outline: 3px solid #C33;
+    outline-offset: -3px;
+}
+@media (max-width: 768px) {
+    .mobile-menu-links .language-toggle {
+        background: #1a1a1a !important;
+        border: 0 !important;
+        border-bottom: 1px solid #343434 !important;
+        border-radius: 0 !important;
+        color: #ffffff !important;
+        display: block !important;
+        font-family: 'Oswald', sans-serif !important;
+        font-size: 0.88rem !important;
+        font-weight: 700 !important;
+        letter-spacing: 0.11em !important;
+        margin: 0 !important;
+        padding: 14px 18px !important;
+        text-align: left !important;
+        text-transform: uppercase !important;
+        width: 100% !important;
+    }
+    .mobile-menu-links .language-toggle:hover,
+    .mobile-menu-links .language-toggle:focus {
+        background: #262626 !important;
+        color: #CC3333 !important;
+    }
+}
+/* ND_HOME_TV_PROMO_CSS_START */
+.home-tv-promo{margin:0 0 38px;background:#171717;border:5px solid #CC3333;border-radius:12px;overflow:hidden;box-shadow:0 8px 28px rgba(0,0,0,.2)}
+.home-tv-promo a{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(300px,.85fr);min-height:230px;color:#fff;text-decoration:none}
+.home-tv-art{min-height:230px;background:linear-gradient(90deg,rgba(23,23,23,.05),rgba(23,23,23,.55)),url('/assets/northern-dial-home-hero.jpg?v=20260914c') 72% center/cover no-repeat;position:relative}
+.home-tv-art:after{content:'TV';position:absolute;left:24px;bottom:18px;background:#CC3333;color:#fff;font-family:'Oswald',sans-serif;font-size:.82rem;font-weight:700;letter-spacing:.18em;padding:7px 10px}
+.home-tv-copy{display:flex;flex-direction:column;justify-content:center;padding:28px}
+.home-tv-kicker{color:#CC3333;font-family:'Oswald',sans-serif;font-size:.75rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;margin-bottom:7px}
+.home-tv-copy h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.8rem,5vw,4.5rem);font-weight:400;letter-spacing:.04em;line-height:.9;margin:0 0 12px;text-transform:uppercase}
+.home-tv-copy p{color:#d7d2c7;font-size:1rem;line-height:1.5;margin:0 0 18px}
+.home-tv-cta{align-self:flex-start;background:#CC3333;border:2px solid #fff;color:#fff;font-family:'Oswald',sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.12em;padding:10px 14px;text-transform:uppercase}
+.home-tv-promo a:hover .home-tv-cta,.home-tv-promo a:focus .home-tv-cta{background:#8B2323}
+@media(max-width:760px){.home-tv-promo{margin:0 0 30px}.home-tv-promo a{grid-template-columns:1fr}.home-tv-art{min-height:190px}.home-tv-copy{padding:23px 20px 25px}}
+/* ND_HOME_TV_PROMO_CSS_END */
+</style>
+
+  <link rel="stylesheet" href="/nd-shell.css?v=20261008f">
+  <link rel="stylesheet" href="/nd-banner.css?v=20261103a">
+</head>
+<body id="top">
+    <div class="container">
+
+<h1 class="visually-hidden">Independent Canadian Music Radio</h1>
+
+<div class="hero" id="hero">
+<header class="header nd-home-hero-logo" role="img" aria-label="Northern Dial">
+    <span class="visually-hidden">Northern Dial</span>
+</header>
+
+<div class="home-top-grid">
+<section class="player-section">
+    <div class="custom-player">
+        <div class="player-controls">
+            <button class="play-pause-btn" id="playPauseBtn">
+                <span class="play-icon">▶</span>
+                <span class="pause-icon">❚❚</span>
+            </button>
+            <div class="player-info">
+                <div class="status-text" id="statusText">NOW PLAYING</div>
+                <div class="now-playing-text" id="songTitle">Northern Dial Radio</div>
+                <div class="artist-text" id="artistName">All Killer, All CanCon</div>
+            </div>
+            <div class="volume-control">
+                <span class="volume-icon">🔊</span>
+                <input type="range" min="0" max="100" value="70" class="volume-slider" id="volumeSlider">
+            </div>
+            <button class="visualizer-btn" id="visualizerBtn">
+                <span style="margin-right: 8px;">🎵</span>
+                Visualizer
+            </button>
+            <a class="artist-profile-btn" id="artistProfileBtn" href="./artists.html" hidden>
+                Meet the Artist →
+            </a>
+        </div>
+        <div class="nd-alexa-listening">
+            <span class="nd-alexa-listening-label">Now on Alexa</span>
+            <span class="nd-alexa-listening-command">“Alexa, play Northern Dial Radio.”</span>
+        </div>
+    </div>
+    <audio id="radioStream" preload="none">
+        <source src="https://a10.asurahosting.com:7220/radio.mp3" type="audio/mpeg">
+    </audio>
+</section>
+
+<section class="discovery-banner" aria-labelledby="discovery-banner-title">
+    <div class="discovery-banner-copy">
+        <div class="discovery-banner-kicker">Northern Dial Discovery</div>
+        <h2 id="discovery-banner-title">Find Your Next Canadian Artist</h2>
+        <p>Pick a genre, era or artist you already love and we’ll dial up five Canadian artists worth checking out.</p>
+    </div>
+    <a class="discovery-banner-cta" href="./discover.html">Start Discovering</a>
+</section>
+</div>
+
+</div>
+
+<nav class="site-nav mobile-menu-nav nd-home-nav" aria-label="Main navigation">
+    <button class="mobile-menu-toggle" type="button" aria-expanded="false" aria-label="Open navigation menu">
+        <span>Menu</span>
+        <span class="mobile-menu-icon" aria-hidden="true">☰</span>
+    </button>
+    <div class="mobile-menu-links nd-home-nav-links">
+        <a href="./" class="active" aria-current="page">Home</a>
+        <a href="library.html">Songs</a>
+        <a href="artists.html">Artists</a>
+        <a href="discover.html">Discover</a>
+        <a href="new-releases.html">New Releases</a>
+        <a href="tv.html">TV</a>
+        <a href="new-canadian-artists.html">New Artists</a>
+        <a href="blog/">Blog</a>
+        <div class="nd-home-more">
+            <button type="button" class="nd-home-more-toggle" aria-expanded="false">More <span aria-hidden="true">▾</span></button>
+            <div class="nd-home-more-menu">
+                <a href="about.html">About</a>
+                <a href="#submit" class="submit-link">Submit</a>
+        <button type="button" class="language-switch language-toggle" data-language-toggle lang="fr" aria-label="Afficher la page d’accueil en français">Français</button>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div id="about" class="content-columns">
+    <div class="column">
+        <h2>About</h2>
+        <p>Northern Dial is an independent Canadian radio station built for people who actually care about music.</p>
+        <p style="margin-top: 15px;">This station exists because Canadian music deserves space not just in quotas, but in context. We believe the best songs hit differently depending on the hour, the season, and where you are. So we built a station that moves with you.</p>
+        <p style="margin-top: 15px;">We stream 24/7 and add new music into rotation constantly. Interested in having your music  or podcast played? Scroll down and click our submission box.</p>
+        <p style="margin-top: 15px;"><a href="about.html" style="color:#8B2323;font-weight:700;text-decoration:none;">About the Northern Dial project →</a></p>
+    </div>
+    <div class="column">
+        <h2>Recently Played</h2>
+        <div id="recentlyPlayed" style="max-height: 400px; overflow-y: auto;">
+            <div style="color:#999; text-align:center; padding:20px;">Loading...</div>
+        </div>
+    </div>
+</div>
+<section class="home-tv-promo" aria-labelledby="home-tv-title">
+    <a href="tv.html">
+        <div class="home-tv-art" aria-hidden="true"></div>
+        <div class="home-tv-copy">
+            <div class="home-tv-kicker">New on Northern Dial</div>
+            <h2 id="home-tv-title">Northern Dial TV</h2>
+            <p>Canadian music, on screen. Put on the channel and let the next discovery find you.</p>
+            <span class="home-tv-cta">Watch Northern Dial TV →</span>
+        </div>
+    </a>
+</section>
+
+<!-- Explore Recent Songs Banner -->
+<section id="library" style="margin-bottom: 60px;">
+    <a href="https://www.northerndial.ca/library.html" style="text-decoration: none; display: block;">
+        <div style="background:linear-gradient(135deg, #1a1a1a, #2a2a2a); border:5px solid #C33; border-radius:12px; padding:30px; text-align:center; cursor:pointer; transition:all 0.3s ease; box-shadow:0 6px 25px rgba(195,51,51,0.3);"
+            onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 35px rgba(195,51,51,0.5)'"
+            onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 6px 25px rgba(195,51,51,0.3)'">
+            <h2 style="font-family:'Bebas Neue',sans-serif; font-size:2.5rem; color:#C33; text-transform:uppercase; letter-spacing:5px; margin-bottom:12px; text-shadow:2px 2px 4px rgba(0,0,0,0.3);">Explore Recent Songs</h2>
+            <p style="color:rgba(255,255,255,0.9); font-size:1.1rem; margin-bottom:20px; line-height:1.5;">Browse recently played tracks and search our catalog</p>
+            <button style="background:linear-gradient(135deg,#C33,#8B2323); color:white; border:none; padding:12px 35px; border-radius:8px; font-weight:700; font-size:1rem; text-transform:uppercase; letter-spacing:2px; cursor:pointer; transition:all 0.3s ease; box-shadow:0 4px 15px rgba(195,51,51,0.3);"
+                onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 6px 20px rgba(195,51,51,0.5)'"
+                onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 15px rgba(195,51,51,0.3)'">
+                Browse Now →
+            </button>
+        </div>
+    </a>
+</section>
+
+<section id="shows" class="shows-section">
+    <h2 class="shows-title">On Air Daily</h2>
+    <div class="shows-grid">
+        <div class="show-card">
+            <img loading="lazy" decoding="async" src="https://i.imgur.com/LJFSC1l.jpeg" alt="Open Roads" class="show-image">
+            <div class="show-content">
+                <h3 class="show-title">Canadian Open Roads</h3>
+                <p class="show-description">A playlist that feels like sunrise and highways - pop, indie, rock, R&B that moves with the morning.</p>
+                <div class="show-time">10:00 AM - 2:00 PM</div>
+            </div>
+        </div>
+        <div class="show-card">
+            <img loading="lazy" decoding="async" src="https://i.imgur.com/38QC8zh.jpeg" alt="Northern Bars" class="show-image">
+            <div class="show-content">
+                <h3 class="show-title">Northern Bars</h3>
+                <p class="show-description">A hip-hop forward block rooted in Canadian voices - from golden era hits to new rap chemistry.</p>
+                <div class="show-time">2:00 PM - 10:00 PM</div>
+            </div>
+        </div>
+        <div class="show-card">
+            <img loading="lazy" decoding="async" src="https://i.imgur.com/7X7rN10.jpeg" alt="After Hours" class="show-image">
+            <div class="show-content">
+                <h3 class="show-title">After Hours Up North</h3>
+                <p class="show-description">Late night vibes for deeper listening - mellow beats, smooth grooves, edge-of-town energy.</p>
+                <div class="show-time">10:00 PM - 2:00 AM</div>
+            </div>
+        </div>
+
+        <div class="show-card" style="cursor:pointer;" onclick="document.getElementById('requestModal').classList.add('show')">
+            <img loading="lazy" decoding="async" src="request-card.png" alt="Request A Song" class="show-image">
+            <div class="show-content">
+                <h3 class="show-title">Request A Song</h3>
+                <p class="show-description">Got a track in mind? Submit a request and we'll add it to the rotation.</p>
+                <div class="show-time" style="cursor:pointer;">Submit A Request</div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<section id="submit" style="margin-top: 70px;">
+    <div onclick="document.getElementById('submitModal').classList.add('show')"
+        style="background:linear-gradient(135deg, #C33, #8B2323); border:5px solid #1a1a1a; border-radius:12px; padding:40px; text-align:center; cursor:pointer; transition:all 0.3s ease; box-shadow:0 8px 30px rgba(195,51,51,0.4);"
+        onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 12px 40px rgba(195,51,51,0.6)'"
+        onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 30px rgba(195,51,51,0.4)'">
+        <h2 style="font-family:'Bebas Neue',sans-serif; font-size:3rem; color:white; text-transform:uppercase; letter-spacing:6px; margin-bottom:15px; text-shadow:2px 2px 4px rgba(0,0,0,0.3);">Submit Your Music</h2>
+        <p style="color:rgba(255,255,255,0.95); font-size:1.2rem; margin-bottom:25px; line-height:1.6;">Canadian artist or podcaster? Share your tracks with us for airplay on Northern Dial.</p>
+        <button style="background:white; color:#C33; border:none; padding:15px 40px; border-radius:8px; font-weight:700; font-size:1.1rem; text-transform:uppercase; letter-spacing:2px; cursor:pointer; transition:all 0.3s ease; box-shadow:0 4px 15px rgba(0,0,0,0.2);"
+            onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 6px 20px rgba(0,0,0,0.3)'"
+            onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.2)'">
+            Submit Now
+        </button>
+    </div>
+</section>
+
+<section style="margin-top: 40px;">
+    <div onclick="document.getElementById('involvedModal').classList.add('show')"
+        style="background:#1a1a1a; border:5px solid #C33; border-radius:12px; padding:40px; text-align:center; cursor:pointer; transition:all 0.3s ease; box-shadow:0 8px 30px rgba(0,0,0,0.3);"
+        onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 12px 40px rgba(0,0,0,0.5)'"
+        onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 30px rgba(0,0,0,0.3)'">
+        <h2 style="font-family:'Bebas Neue',sans-serif; font-size:3rem; color:#C33; text-transform:uppercase; letter-spacing:6px; margin-bottom:15px; text-shadow:2px 2px 4px rgba(0,0,0,0.3);">Open-Source Community Project</h2>
+        <p style="color:rgba(255,255,255,0.95); font-size:1.2rem; margin-bottom:25px; line-height:1.6;">Explore our bigger picture and discover how you can get involved in building the future of Canadian independent radio.</p>
+        <button style="background:linear-gradient(135deg,#C33,#8B2323); color:white; border:none; padding:15px 40px; border-radius:8px; font-weight:700; font-size:1.1rem; text-transform:uppercase; letter-spacing:2px; cursor:pointer; transition:all 0.3s ease; box-shadow:0 4px 15px rgba(195,51,51,0.3);"
+            onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 6px 20px rgba(195,51,51,0.5)'"
+            onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 15px rgba(195,51,51,0.3)'">
+            Learn More
+        </button>
+    </div>
+</section>
+
+</div>
+
+<!-- Homepage editorial batch refreshed 2026-10-01 -->
+<!-- Latest Stories -->
+<div id="stories" style="background:transparent; border-top:4px solid #C33; padding:60px 20px;">
+  <div style="max-width:1200px; margin:0 auto;">
+    <h2 style="font-family:'Bebas Neue',sans-serif; font-size:2.8rem; letter-spacing:0.06em; color:#1a1a1a; margin-bottom:6px;">Latest Stories</h2>
+    <p style="font-family:'Roboto Condensed',sans-serif; color:#fff; margin-bottom:36px; font-size:1rem; letter-spacing:0.04em;">Artist features, listening guides and deep dives from the Northern Dial blog</p>
+    <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(280px,1fr)); gap:24px; margin-bottom:36px;">
+
+<!-- OCT21_RASCALZ_HOME_START -->
+<a href="/blog/the-night-the-rascalz-said-no.html" style="text-decoration:none;display:block;border-radius:10px;overflow:hidden;background:white;border:1px solid #e0e0e0;">
+  <img width="1536" height="864" loading="lazy" decoding="async" src="/images/rascalz-juno-protest-hero.jpg" alt="Northern Dial collage of Rascalz with Vancouver landmarks" style="width:100%;height:auto;aspect-ratio:16/9;object-fit:contain;display:block;background:#111;">
+  <div style="padding:20px 18px 18px;">
+    <p style="font-family:Oswald,sans-serif;font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#c33;margin-bottom:8px;">October 21, 2026 · Canadian Hip-Hop History</p>
+    <h3 style="font-family:Oswald,sans-serif;font-size:1.3rem;color:#1a1a1a;margin-bottom:10px;line-height:1.2;">The Night the Rascalz Said No</h3>
+    <p style="font-size:.92rem;color:#555;line-height:1.6;margin-bottom:14px;">In 1998, the Vancouver group refused a Juno presented off-camera. A year later, Canadian rap reached the televised stage.</p>
+    <span style="font-family:Oswald,sans-serif;font-size:.8rem;color:#c33;">Read More →</span>
+  </div>
+</a>
+<!-- OCT21_RASCALZ_HOME_END -->
+<!-- OCT18_KOS_FEATURE_START -->
+<a href="/blog/k-os-breaking-the-rules-canadian-hip-hop.html" style="text-decoration:none;display:block;border-radius:10px;overflow:hidden;background:white;border:1px solid #e0e0e0;"><img width="1200" height="676" loading="lazy" decoding="async" src="/images/k-os-breaking-the-rules-collage.jpg" alt="k-os in a Northern Dial torn-paper collage featuring three portraits" style="width:100%;height:auto;aspect-ratio:16/9;object-fit:contain;display:block;background:#111;"><div style="padding:20px 18px 18px;"><p style="font-family:Oswald,sans-serif;font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#c33;margin-bottom:8px;">October 18, 2026 · Artist Feature</p><h3 style="font-family:Oswald,sans-serif;font-size:1.3rem;color:#1a1a1a;margin-bottom:10px;line-height:1.2;">Before Canadian Hip-Hop Broke Through, k-os Was Already Breaking the Rules</h3><p style="font-size:.92rem;color:#555;line-height:1.6;margin-bottom:14px;">From <em>Exit</em> and <em>Joyful Rebellion</em> to a new project reportedly financed by Drake, k-os has spent decades challenging expectations.</p><span style="font-family:Oswald,sans-serif;font-size:.8rem;color:#c33;">Read More →</span></div></a>
+<!-- OCT18_KOS_FEATURE_END -->
+<!-- OCT09_FEATURES_START -->
+<a href="/blog/neddy-one-last-time-mississauga.html" style="text-decoration:none;display:block;border-radius:10px;overflow:hidden;background:white;border:1px solid #e0e0e0;"><img width="1672" height="941" loading="lazy" decoding="async" src="/images/neddy-one-last-time-mississauga-collage.jpg" alt="Neddy in a Northern Dial torn-paper collage" style="width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;display:block;background:#111;"><div style="padding:20px 18px 18px;"><p style="font-family:Oswald,sans-serif;font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#c33;margin-bottom:8px;">October 9, 2026 · Artist Feature</p><h3 style="font-family:Oswald,sans-serif;font-size:1.3rem;color:#1a1a1a;margin-bottom:10px;line-height:1.2;">Artist Feature: Neddy Wrote “One Last Time” When Talking Was Too Much</h3><p style="font-size:.92rem;color:#555;line-height:1.6;margin-bottom:14px;">After his mother’s cancer diagnosis, the Mississauga songwriter went to his basement studio. “One Last Time” came out of that evening.</p><span style="font-family:Oswald,sans-serif;font-size:.8rem;color:#c33;">Read More →</span></div></a>
+<a href="/blog/chikoruss-montreal-rbounce-vol-1.html" style="text-decoration:none;display:block;border-radius:10px;overflow:hidden;background:white;border:1px solid #e0e0e0;"><img width="1672" height="941" loading="lazy" decoding="async" src="/images/chikoruss-montreal-rbounce-vol-1-collage.jpg" alt="Chikoruss in a Northern Dial torn-paper collage" style="width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;display:block;background:#111;"><div style="padding:20px 18px 18px;"><p style="font-family:Oswald,sans-serif;font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#c33;margin-bottom:8px;">October 9, 2026 · Artist Feature</p><h3 style="font-family:Oswald,sans-serif;font-size:1.3rem;color:#1a1a1a;margin-bottom:10px;line-height:1.2;">Artist Feature: Chikoruss Wants R&amp;B Back on the Dance Floor</h3><p style="font-size:.92rem;color:#555;line-height:1.6;margin-bottom:14px;">The Montreal singer wanted to dance before he wanted to sing. That history explains more about his music than the Y2K label alone.</p><span style="font-family:Oswald,sans-serif;font-size:.8rem;color:#c33;">Read More →</span></div></a>
+<a href="/blog/concepcion-john-concepcion-winnipeg-rnb.html" style="text-decoration:none;display:block;border-radius:10px;overflow:hidden;background:white;border:1px solid #e0e0e0;"><img width="1672" height="941" loading="lazy" decoding="async" src="/images/concepcion-john-concepcion-winnipeg-rnb-collage.jpg" alt="Concepcion in a Northern Dial torn-paper collage" style="width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;display:block;background:#111;"><div style="padding:20px 18px 18px;"><p style="font-family:Oswald,sans-serif;font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#c33;margin-bottom:8px;">October 9, 2026 · Artist Feature</p><h3 style="font-family:Oswald,sans-serif;font-size:1.3rem;color:#1a1a1a;margin-bottom:10px;line-height:1.2;">Artist Feature: Concepcion Kept Singing Through the Nerves</h3><p style="font-size:.92rem;color:#555;line-height:1.6;margin-bottom:14px;">The Winnipeg R&amp;B singer’s polished cover videos came with a less visible struggle: nerves about performing, even before stepping onstage.</p><span style="font-family:Oswald,sans-serif;font-size:.8rem;color:#c33;">Read More →</span></div></a>
+<a href="/blog/virgo-rising-wishbone-winnipeg.html" style="text-decoration:none;display:block;border-radius:10px;overflow:hidden;background:white;border:1px solid #e0e0e0;"><img width="1672" height="941" loading="lazy" decoding="async" src="/images/virgo-rising-wishbone-winnipeg-collage.jpg" alt="Virgo Rising in a Northern Dial torn-paper collage" style="width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;display:block;background:#111;"><div style="padding:20px 18px 18px;"><p style="font-family:Oswald,sans-serif;font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#c33;margin-bottom:8px;">October 9, 2026 · Artist Feature</p><h3 style="font-family:Oswald,sans-serif;font-size:1.3rem;color:#1a1a1a;margin-bottom:10px;line-height:1.2;">Artist Feature: Virgo Rising’s Wishbone Knows You Can’t Move Back in Time</h3><p style="font-size:.92rem;color:#555;line-height:1.6;margin-bottom:14px;">A return to an old apartment helped shape the Winnipeg quartet’s debut album. The address stayed the same. Life had moved on.</p><span style="font-family:Oswald,sans-serif;font-size:.8rem;color:#c33;">Read More →</span></div></a>
+<a href="/blog/ok-mickey-mickey-brandolino-solo.html" style="text-decoration:none;display:block;border-radius:10px;overflow:hidden;background:white;border:1px solid #e0e0e0;"><img width="1672" height="941" loading="lazy" decoding="async" src="/images/ok-mickey-mickey-brandolino-solo-collage.jpg" alt="OK MICKEY in a Northern Dial torn-paper collage" style="width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;display:block;background:#111;"><div style="padding:20px 18px 18px;"><p style="font-family:Oswald,sans-serif;font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#c33;margin-bottom:8px;">October 9, 2026 · Artist Feature</p><h3 style="font-family:Oswald,sans-serif;font-size:1.3rem;color:#1a1a1a;margin-bottom:10px;line-height:1.2;">Artist Feature: Before OK MICKEY, Mickey Brandolino Was Already Building Pop Songs</h3><p style="font-size:.92rem;color:#555;line-height:1.6;margin-bottom:14px;">The former Valley guitarist brings a decade of collaboration to his first solo single, “gay allegations ft. my girlfriend.”</p><span style="font-family:Oswald,sans-serif;font-size:.8rem;color:#c33;">Read More →</span></div></a>
+<!-- OCT09_FEATURES_END -->
+<!-- OCT07_EDITORIAL_START -->
+<a href="/blog/jessie-reyez-second-catalogue.html" style="text-decoration:none;display:block;border-radius:10px;overflow:hidden;background:white;border:1px solid #e0e0e0;"><img width="1672" height="941" loading="lazy" decoding="async" src="/images/jessie-reyez-second-catalogue.svg" alt="Jessie Reyez surrounded by Dua Lipa, Normani, Kehlani and Lisa in a torn-paper editorial collage" style="width:100%;height:200px;object-fit:cover;display:block;"><div style="padding:20px 18px 18px;"><p style="font-family:'Roboto Condensed',sans-serif;font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#CC3333;margin-bottom:8px;">October 7, 2026 · Artist Feature</p><h3 style="font-family:'Oswald',sans-serif;font-size:1.3rem;color:#1a1a1a;margin-bottom:10px;line-height:1.2;">Jessie Reyez’s Second Catalogue</h3><p style="font-family:'Roboto Condensed',sans-serif;font-size:.92rem;color:#555;line-height:1.6;margin-bottom:14px;">From Dua Lipa’s “One Kiss” to Lisa’s “Moonlit Floor,” the Toronto singer has helped write hits you might never have connected to her.</p><span style="font-family:'Oswald',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#CC3333;">Read More →</span></div></a>
+<a href="/blog/elisapie-dreams-inuktitut.html" style="text-decoration:none;display:block;border-radius:10px;overflow:hidden;background:white;border:1px solid #e0e0e0;"><img width="1672" height="941" loading="lazy" decoding="async" src="/images/elisapie-dreams-inuktitut.svg" alt="Elisapie framed by her raised hands and colourful woven clothing in an Arctic-inspired torn-paper collage" style="width:100%;height:200px;object-fit:cover;display:block;"><div style="padding:20px 18px 18px;"><p style="font-family:'Roboto Condensed',sans-serif;font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#CC3333;margin-bottom:8px;">October 7, 2026 · New Music</p><h3 style="font-family:'Oswald',sans-serif;font-size:1.3rem;color:#1a1a1a;margin-bottom:10px;line-height:1.2;">Elisapie’s New “Dreams” Connects a Familiar Song With an Inuk Story</h3><p style="font-family:'Roboto Condensed',sans-serif;font-size:.92rem;color:#555;line-height:1.6;margin-bottom:14px;">Her Cranberries adaptation for North of North follows a Fleetwood Mac cover rooted in family memory.</p><span style="font-family:'Oswald',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#CC3333;">Read More →</span></div></a>
+<a href="/blog/canadian-trip-hop-classics.html" style="text-decoration:none;display:block;border-radius:10px;overflow:hidden;background:white;border:1px solid #e0e0e0;"><img width="1672" height="941" loading="lazy" decoding="async" src="/images/canadian-trip-hop-classics.svg" alt="Esthero with the members of Elsiane and Beast in a torn-paper collage of records and studio equipment" style="width:100%;height:200px;object-fit:cover;display:block;"><div style="padding:20px 18px 18px;"><p style="font-family:'Roboto Condensed',sans-serif;font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#CC3333;margin-bottom:8px;">October 7, 2026 · Listening Guide</p><h3 style="font-family:'Oswald',sans-serif;font-size:1.3rem;color:#1a1a1a;margin-bottom:10px;line-height:1.2;">Canadian Trip-Hop Classics</h3><p style="font-family:'Roboto Condensed',sans-serif;font-size:.92rem;color:#555;line-height:1.6;margin-bottom:14px;">Esthero, Elsiane and Beast took trip-hop in different directions. Sixtoo offers a related route through instrumental hip-hop.</p><span style="font-family:'Oswald',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#CC3333;">Read More →</span></div></a>
+<a href="/blog/five-canadian-soul-singers.html" style="text-decoration:none;display:block;border-radius:10px;overflow:hidden;background:white;border:1px solid #e0e0e0;"><img width="1672" height="941" loading="lazy" decoding="async" src="/images/five-canadian-soul-singers.svg" alt="Dylan Sinclair, Clerel, Charlotte Day Wilson, Witch Prophet and Dominique Fils-Aimé in a warm-toned torn-paper collage" style="width:100%;height:200px;object-fit:cover;display:block;"><div style="padding:20px 18px 18px;"><p style="font-family:'Roboto Condensed',sans-serif;font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#CC3333;margin-bottom:8px;">October 7, 2026 · Listening Guide</p><h3 style="font-family:'Oswald',sans-serif;font-size:1.3rem;color:#1a1a1a;margin-bottom:10px;line-height:1.2;">Five Canadian Soul Singers Worth Your Time</h3><p style="font-family:'Roboto Condensed',sans-serif;font-size:.92rem;color:#555;line-height:1.6;margin-bottom:14px;">Dylan Sinclair, Clerel, Charlotte Day Wilson, Witch Prophet and Dominique Fils-Aimé offer five routes into Canadian soul.</p><span style="font-family:'Oswald',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#CC3333;">Read More →</span></div></a>
+<!-- OCT07_EDITORIAL_END -->
+
+      <a href="/blog/who-is-angine-de-poitrine-polaris-2026.html" style="text-decoration:none;display:block;border-radius:10px;overflow:hidden;background:white;border:1px solid #e0e0e0;transition:box-shadow .25s,transform .25s;"><img width="1200" height="675" loading="lazy" decoding="async" src="images/angine-de-poitrine-polaris-2026.jpg" alt="Angine de Poitrine in a Northern Dial torn-paper collage inspired by Saguenay, Quebec" style="width:100%;height:200px;object-fit:cover;display:block;background:#111;"><div style="padding:20px 18px 18px;"><p style="font-family:'Roboto Condensed',sans-serif;font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#CC3333;margin-bottom:8px;">October 1, 2026 · Polaris Music Prize</p><h3 style="font-family:'Oswald',sans-serif;font-size:1.3rem;color:#1a1a1a;margin-bottom:10px;line-height:1.2;">Who Is Angine de Poitrine? Meet the 2026 Polaris Prize Winners</h3><p style="font-family:'Roboto Condensed',sans-serif;font-size:.92rem;color:#555;line-height:1.6;margin-bottom:14px;">The masked Saguenay duo swept both 2026 Polaris prizes. Start with “Fabienk,” then follow the strange logic into <em>Vol. II</em>.</p><span style="font-family:'Oswald',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#CC3333;">Read More →</span></div></a>
+      <a href="/blog/canadian-albums-october-2026.html" style="text-decoration:none;display:block;border-radius:10px;overflow:hidden;background:white;border:1px solid #e0e0e0;transition:box-shadow .25s,transform .25s;"><img width="1200" height="675" loading="lazy" decoding="async" src="images/canadian-albums-october-2026.jpg" alt="Record shop collage for Northern Dial's October 2026 Canadian album guide" style="width:100%;height:200px;object-fit:cover;display:block;background:#111;"><div style="padding:20px 18px 18px;"><p style="font-family:'Roboto Condensed',sans-serif;font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#CC3333;margin-bottom:8px;">October 1, 2026 · New Canadian Music</p><h3 style="font-family:'Oswald',sans-serif;font-size:1.3rem;color:#1a1a1a;margin-bottom:10px;line-height:1.2;">Canadian Albums Coming in October 2026</h3><p style="font-family:'Roboto Condensed',sans-serif;font-size:.92rem;color:#555;line-height:1.6;margin-bottom:14px;">Bruce Cockburn, Art d’Ecco, Ghostkeeper, Nickelback, PISS and more lead October’s Canadian album calendar.</p><span style="font-family:'Oswald',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#CC3333;">Read More →</span></div></a>
+
+
+      <a href="/blog/before-drake-canadian-hip-hop-history-part-1.html" style="text-decoration:none;display:block;border-radius:10px;overflow:hidden;background:white;border:1px solid #e0e0e0;transition:box-shadow .25s,transform .25s;"><img width="1200" height="675" loading="lazy" decoding="async" src="images/before-drake-canadian-hip-hop-part-1.jpg" alt="Torn-paper collage of early Canadian hip-hop artists, radio and Toronto imagery" style="width:100%;height:200px;object-fit:cover;display:block;background:#111;"><div style="padding:20px 18px 18px;"><p style="font-family:'Roboto Condensed',sans-serif;font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#CC3333;margin-bottom:8px;">October 1, 2026 · Canadian Hip-Hop History</p><h3 style="font-family:'Oswald',sans-serif;font-size:1.3rem;color:#1a1a1a;margin-bottom:10px;line-height:1.2;">Before Drake, Part 1: How Canadian Hip-Hop Found Its Voice</h3><p style="font-family:'Roboto Condensed',sans-serif;font-size:.92rem;color:#555;line-height:1.6;margin-bottom:14px;">Before the industry caught up, radio, independent records and artists like Michie Mee, Maestro Fresh Wes and Dream Warriors built the foundation.</p><span style="font-family:'Oswald',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#CC3333;">Read More →</span></div></a>
+
+      <a href="/blog/canadian-artists-like-daniel-caesar.html" style="text-decoration:none;display:block;border-radius:10px;overflow:hidden;background:white;border:1px solid #e0e0e0;transition:box-shadow .25s,transform .25s;"><img width="1200" height="675" loading="lazy" decoding="async" src="images/daniel-caesar-canadian-artists.jpg" alt="Daniel Caesar in a Northern Dial torn-paper collage" style="width:100%;height:200px;object-fit:cover;display:block;background:#111;"><div style="padding:20px 18px 18px;"><p style="font-family:'Roboto Condensed',sans-serif;font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#CC3333;margin-bottom:8px;">October 1, 2026 · If You Like...</p><h3 style="font-family:'Oswald',sans-serif;font-size:1.3rem;color:#1a1a1a;margin-bottom:10px;line-height:1.2;">If You Like Daniel Caesar, Listen to These 6 Canadian Artists</h3><p style="font-family:'Roboto Condensed',sans-serif;font-size:.92rem;color:#555;line-height:1.6;margin-bottom:14px;">Six different routes out from Daniel Caesar’s sound through Toronto R&amp;B, psychedelic soul, folk and jazz.</p><span style="font-family:'Oswald',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#CC3333;">Read More →</span></div></a>
+
+      <a href="/blog/monsune-returns-after-seven-years.html" style="text-decoration:none;display:block;border-radius:10px;overflow:hidden;background:white;border:1px solid #e0e0e0;transition:box-shadow .25s,transform .25s;"><img width="1200" height="675" loading="lazy" decoding="async" src="images/monsune-returns-after-seven-years.jpg" alt="Monsune in a Toronto collage" style="width:100%;height:200px;object-fit:cover;display:block;background:#111;"><div style="padding:20px 18px 18px;"><p style="font-family:'Roboto Condensed',sans-serif;font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#CC3333;margin-bottom:8px;">September 26, 2026 · Artist Feature</p><h3 style="font-family:'Oswald',sans-serif;font-size:1.3rem;color:#1a1a1a;margin-bottom:10px;line-height:1.2;">Monsune Returns After Seven Years Behind the Boards</h3><p style="font-family:'Roboto Condensed',sans-serif;font-size:.92rem;color:#555;line-height:1.6;margin-bottom:14px;">Toronto’s Scott Zhang returns to the Monsune name with “Sure.”</p><span style="font-family:'Oswald',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#CC3333;">Read More →</span></div></a>
+      <a href="/blog/kardinal-offishall-firestarter-vol-2.html" style="text-decoration:none;display:block;border-radius:10px;overflow:hidden;background:white;border:1px solid #e0e0e0;transition:box-shadow .25s,transform .25s;"><img width="1200" height="675" loading="lazy" decoding="async" src="images/kardinal-offishall-firestarter-vol-2.jpg" alt="Kardinal Offishall in a Scarborough collage" style="width:100%;height:200px;object-fit:cover;display:block;background:#111;"><div style="padding:20px 18px 18px;"><p style="font-family:'Roboto Condensed',sans-serif;font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#CC3333;margin-bottom:8px;">September 26, 2026 · Canadian Hip-Hop</p><h3 style="font-family:'Oswald',sans-serif;font-size:1.3rem;color:#1a1a1a;margin-bottom:10px;line-height:1.2;">Kardinal Offishall Returns With Firestarter Vol. 2</h3><p style="font-family:'Roboto Condensed',sans-serif;font-size:.92rem;color:#555;line-height:1.6;margin-bottom:14px;">Kardinal Offishall returns to Firestarter 25 years later.</p><span style="font-family:'Oswald',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#CC3333;">Read More →</span></div></a>
+      <a href="/blog/francophone-hip-hop-canada-2026.html" style="text-decoration:none;display:block;border-radius:10px;overflow:hidden;background:white;border:1px solid #e0e0e0;transition:box-shadow .25s,transform .25s;"><img width="1200" height="675" loading="lazy" decoding="async" src="images/francophone-hip-hop-canada-2026.jpg" alt="Northern Dial collage for a 2026 guide to francophone hip-hop in Canada" style="width:100%;height:200px;object-fit:cover;display:block;background:#111;"><div style="padding:20px 18px 18px;"><p style="font-family:'Roboto Condensed',sans-serif;font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#CC3333;margin-bottom:8px;">September 21, 2026 · Francophone Hip-Hop</p><h3 style="font-family:'Oswald',sans-serif;font-size:1.3rem;color:#1a1a1a;margin-bottom:10px;line-height:1.2;">A Guide to Francophone Hip-Hop in Canada in 2026</h3><p style="font-family:'Roboto Condensed',sans-serif;font-size:.92rem;color:#555;line-height:1.6;margin-bottom:14px;">Five current artists, five different ways into francophone rap across Canada.</p><span style="font-family:'Oswald',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#CC3333;">Read More →</span></div></a>
+      <a href="/blog/canadian-songwriters-hall-of-fame-2026.html" style="text-decoration:none;display:block;border-radius:10px;overflow:hidden;background:white;border:1px solid #e0e0e0;transition:box-shadow .25s,transform .25s;"><img width="1200" height="675" loading="lazy" decoding="async" src="images/canadian-songwriters-hall-of-fame-2026.jpg" alt="Northern Dial collage featuring the 2026 Canadian Songwriters Hall of Fame class" style="width:100%;height:200px;object-fit:cover;display:block;background:#111;"><div style="padding:20px 18px 18px;"><p style="font-family:'Roboto Condensed',sans-serif;font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#CC3333;margin-bottom:8px;">September 21, 2026 · Canadian Music</p><h3 style="font-family:'Oswald',sans-serif;font-size:1.3rem;color:#1a1a1a;margin-bottom:10px;line-height:1.2;">The Songs Behind Canada’s 2026 Songwriters Hall of Fame Class</h3><p style="font-family:'Roboto Condensed',sans-serif;font-size:.92rem;color:#555;line-height:1.6;margin-bottom:14px;">The Tragically Hip, Feist, Loverboy and Roch Voisine enter the Hall of Fame Sept. 26. Here’s where to start.</p><span style="font-family:'Oswald',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#CC3333;">Read More →</span></div></a>
+
+      <a href="/blog/ai-generated-music-canadian-independent-artists.html" style="text-decoration:none;display:block;border-radius:10px;overflow:hidden;background:white;border:1px solid #e0e0e0;transition:box-shadow .25s,transform .25s;"><img width="1200" height="675" loading="lazy" decoding="async" src="images/ai-music-human-machine-2026.jpg" alt="Northern Dial collage about AI-generated music and Canadian independent artists" style="width:100%;height:200px;object-fit:cover;display:block;background:#111;"><div style="padding:20px 18px 18px;"><p style="font-family:'Roboto Condensed',sans-serif;font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#CC3333;margin-bottom:8px;">September 20, 2026 · Music &amp; Technology</p><h3 style="font-family:'Oswald',sans-serif;font-size:1.3rem;color:#1a1a1a;margin-bottom:10px;line-height:1.2;">What AI-Generated Music Means for Canadian Independent Artists</h3><p style="font-family:'Roboto Condensed',sans-serif;font-size:.92rem;color:#555;line-height:1.6;margin-bottom:14px;">What changes when generating a song becomes easier than getting anyone to care about one?</p><span style="font-family:'Oswald',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#CC3333;">Read More →</span></div></a>
+
+      <a href="/blog/2026-polaris-music-prize-short-list-guide.html" style="text-decoration:none;display:block;border-radius:10px;overflow:hidden;background:white;border:1px solid #e0e0e0;transition:box-shadow .25s,transform .25s;"><img width="1200" height="675" loading="lazy" decoding="async" src="images/polaris-short-list-2026.jpg" alt="Northern Dial collage for the 2026 Polaris Music Prize Short List" style="width:100%;height:200px;object-fit:cover;display:block;background:#111;"><div style="padding:20px 18px 18px;"><p style="font-family:'Roboto Condensed',sans-serif;font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#CC3333;margin-bottom:8px;">September 20, 2026 · Polaris Music Prize</p><h3 style="font-family:'Oswald',sans-serif;font-size:1.3rem;color:#1a1a1a;margin-bottom:10px;line-height:1.2;">A Listener’s Guide to the 2026 Polaris Music Prize Short List</h3><p style="font-family:'Roboto Condensed',sans-serif;font-size:.92rem;color:#555;line-height:1.6;margin-bottom:14px;">Ten albums, ten very different ways into Canadian music. Here’s where to start.</p><span style="font-family:'Oswald',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#CC3333;">Read More →</span></div></a>
+
+      <a href="/blog/new-canadian-music-september-18-2026.html" style="text-decoration:none;display:block;border-radius:10px;overflow:hidden;background:white;border:1px solid #e0e0e0;transition:box-shadow .25s,transform .25s;"><img width="1200" height="675" loading="lazy" decoding="async" src="images/new-canadian-music-sept-18-2026.jpg" alt="Northern Dial collage for new Canadian music released September 18, 2026" onerror="this.onerror=null;this.src='images/new-canadian-releases-sept-11-2026-collage-v2.jpg'" style="width:100%;height:200px;object-fit:cover;display:block;background:#111;"><div style="padding:20px 18px 18px;"><p style="font-family:'Roboto Condensed',sans-serif;font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#CC3333;margin-bottom:8px;">September 19, 2026 · New Canadian Music</p><h3 style="font-family:'Oswald',sans-serif;font-size:1.3rem;color:#1a1a1a;margin-bottom:10px;line-height:1.2;">6 New Canadian Releases to Hear This Weekend</h3><p style="font-family:'Roboto Condensed',sans-serif;font-size:.92rem;color:#555;line-height:1.6;margin-bottom:14px;">Carly Rae Jepsen, Blonde Diamond, Orville Peck, Emma Worley, Weatherell and Joce Reyome lead this week’s picks.</p><span style="font-family:'Oswald',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#CC3333;">Read More →</span></div></a>
+<a href="/blog/on-repeat-vibi-angeldies.html" style="text-decoration:none;display:block;border-radius:10px;overflow:hidden;background:white;border:1px solid #e0e0e0;transition:box-shadow .25s,transform .25s;"><img width="1200" height="675" loading="lazy" decoding="async" src="images/vibi-angeldies.jpg" alt="VIBI angeldies" style="width:100%;height:200px;object-fit:cover;object-position:center;display:block;background:#111;"><div style="padding:20px 18px 18px;"><p style="font-family:'Roboto Condensed',sans-serif;font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#CC3333;margin-bottom:8px;">September 12, 2026 · On Repeat</p><h3 style="font-family:'Oswald',sans-serif;font-size:1.3rem;color:#1a1a1a;margin-bottom:10px;line-height:1.2;">On Repeat: VIBI’s “angeldies”</h3><p style="font-family:'Roboto Condensed',sans-serif;font-size:.92rem;color:#555;line-height:1.6;margin-bottom:14px;">The Canadian singer-songwriter keeps a fast-moving 2026 run going with “angeldies.”</p><span style="font-family:'Oswald',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#CC3333;">Read More →</span></div></a>
+
+
+</div>
+      <a href="/blog/" style="display:inline-block; font-family:'Oswald',sans-serif; font-weight:700; font-size:0.9rem; letter-spacing:0.12em; text-transform:uppercase; color:white; background:#CC3333; padding:14px 32px; border-radius:8px; text-decoration:none;">View All Stories</a>
+    </div>
+  </div>
+</div>
+
+<div class="install-modal" id="requestModal">
+    <div class="install-modal-content" style="max-width:600px;">
+        <div class="install-modal-header">
+            <h2 class="install-modal-title">Request A Song</h2>
+            <button class="close-modal-btn" onclick="document.getElementById('requestModal').classList.remove('show')">&times;</button>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:10px; margin-bottom:20px;">
+            <input type="text" id="requestSearch" placeholder="Search for a song or artist..."
+                onkeydown="if(event.key==='Enter') searchSongs()"
+                style="width:100%; padding:15px 20px; font-size:1.1rem; font-family:'Roboto Condensed',sans-serif; border:3px solid #C33; border-radius:8px; background:#f5f5f5; color:#1a1a1a; outline:none; box-sizing:border-box;">
+            <button onclick="searchSongs()"
+                style="width:100%; background:linear-gradient(135deg,#C33,#8B2323); color:white; border:none; padding:15px 25px; border-radius:8px; font-weight:700; font-size:1rem; text-transform:uppercase; letter-spacing:1px; cursor:pointer;">
+                Search
+            </button>
+        </div>
+        <div id="requestStatus" style="display:none; padding:12px 20px; border-radius:8px; margin-bottom:20px; font-weight:700; text-align:center;"></div>
+        <div id="requestResults" style="display:flex; flex-direction:column; gap:10px; max-height:400px; overflow-y:auto;"></div>
+    </div>
+</div>
+
+<div class="install-modal" id="submitModal">
+    <div class="install-modal-content" style="max-width:600px;">
+        <div class="install-modal-header">
+            <h2 class="install-modal-title">Submit Music</h2>
+            <button class="close-modal-btn" onclick="document.getElementById('submitModal').classList.remove('show')">&times;</button>
+        </div>
+        <form id="submitForm" onsubmit="handleSubmitMusic(event)" style="display:flex; flex-direction:column; gap:15px;">
+            <input type="text" id="artistName" placeholder="Artist/Band Name *" required
+                style="width:100%; padding:15px 20px; font-size:1rem; font-family:'Roboto Condensed',sans-serif; border:2px solid #ddd; border-radius:8px; outline:none; box-sizing:border-box;">
+
+        <input type="email" id="artistEmail" placeholder="Your Email *" required
+            style="width:100%; padding:15px 20px; font-size:1rem; font-family:'Roboto Condensed',sans-serif; border:2px solid #ddd; border-radius:8px; outline:none; box-sizing:border-box;">
+
+        <input type="text" id="trackLinks" placeholder="Track Links (SoundCloud, Spotify, YouTube, etc.) *" required
+            style="width:100%; padding:15px 20px; font-size:1rem; font-family:'Roboto Condensed',sans-serif; border:2px solid #ddd; border-radius:8px; outline:none; box-sizing:border-box;">
+
+        <input type="text" id="socialLinks" placeholder="Social Media (Instagram, Twitter, Website, etc.)"
+            style="width:100%; padding:15px 20px; font-size:1rem; font-family:'Roboto Condensed',sans-serif; border:2px solid #ddd; border-radius:8px; outline:none; box-sizing:border-box;">
+
+        <textarea id="artistMessage" placeholder="Tell us about your music, your sound, where you're from..." rows="5"
+            style="width:100%; padding:15px 20px; font-size:1rem; font-family:'Roboto Condensed',sans-serif; border:2px solid #ddd; border-radius:8px; outline:none; box-sizing:border-box; resize:vertical;"></textarea>
+
+        <button type="submit"
+            style="width:100%; background:linear-gradient(135deg,#C33,#8B2323); color:white; border:none; padding:15px 25px; border-radius:8px; font-weight:700; font-size:1rem; text-transform:uppercase; letter-spacing:1px; cursor:pointer;">
+            Submit Music
+        </button>
+    </form>
+</div>
+
+</div>
+
+<div class="install-modal" id="involvedModal">
+    <div class="install-modal-content" style="max-width:700px;">
+        <div class="install-modal-header">
+            <h2 class="install-modal-title">The Northern Dial Project</h2>
+            <button class="close-modal-btn" onclick="document.getElementById('involvedModal').classList.remove('show')">&times;</button>
+        </div>
+
+    <div style="line-height:1.8; color:#333;">
+        <h3 style="font-family:'Oswald',sans-serif; color:#C33; font-size:1.5rem; margin-top:20px; margin-bottom:15px; text-transform:uppercase; letter-spacing:2px;">Our Mantra</h3>
+        <p>Northern Dial exists to prove that independent, community-driven radio can thrive in the streaming era. We believe Canadian music deserves better than algorithm playlists and quota-filling: it deserves context, curation, and a platform built by people who actually care.</p>
+
+        <h3 style="font-family:'Oswald',sans-serif; color:#C33; font-size:1.5rem; margin-top:25px; margin-bottom:15px; text-transform:uppercase; letter-spacing:2px;">Where We Are Now</h3>
+        <p>This is v1: a homegrown, open-source passion project built from scratch. We're streaming 24/7 with curated blocks of Canadian music across genres, constantly adding new tracks to rotation, and developing the infrastructure for what comes next.</p>
+
+        <h3 style="font-family:'Oswald',sans-serif; color:#C33; font-size:1.5rem; margin-top:25px; margin-bottom:15px; text-transform:uppercase; letter-spacing:2px;">The Vision</h3>
+        <p style="margin-bottom:10px;">Northern Dial is positioning to become a comprehensive Canadian music and culture platform with:</p>
+        <ul style="margin-left:20px; margin-bottom:15px;">
+            <li style="margin-bottom:8px;"><strong>Hyper-local niche programming:</strong> city-specific shows, regional spotlights, and genre-focused blocks</li>
+            <li style="margin-bottom:8px;"><strong>Weekly shows and segments:</strong> hosted programs with personalities, guest mixes, artist interviews</li>
+            <li style="margin-bottom:8px;"><strong>Community news integration:</strong> local music scene coverage, event promotion, grassroots storytelling</li>
+            <li style="margin-bottom:8px;"><strong>Personality development:</strong> cultivating hosts and voices that connect with listeners</li>
+            <li style="margin-bottom:8px;"><strong>Exclusive and live content:</strong> live DJ sets, in-studio sessions, premiere releases</li>
+            <li style="margin-bottom:8px;"><strong>Complementary media website:</strong> reviews, features, news, and longform content supporting what's on air</li>
+        </ul>
+        <p>This isn't just a radio station. It's a movement to reclaim space for independent Canadian voices in a landscape dominated by corporate consolidation and algorithmic curation.</p>
+
+        <h3 style="font-family:'Oswald',sans-serif; color:#C33; font-size:1.5rem; margin-top:25px; margin-bottom:15px; text-transform:uppercase; letter-spacing:2px;">How You Can Contribute</h3>
+        <p style="margin-bottom:10px;">Northern Dial is community-powered. We welcome contributions in any capacity:</p>
+        <ul style="margin-left:20px; margin-bottom:15px;">
+            <li style="margin-bottom:8px;"><strong>Sponsorship and Funding:</strong> Help us expand infrastructure, commission content, and compensate contributors</li>
+            <li style="margin-bottom:8px;"><strong>Grassroots Promotion:</strong> Share the station, spread the word, build the community</li>
+            <li style="margin-bottom:8px;"><strong>Content Submission:</strong> Submit music, podcasts, mixes, or ideas for programming</li>
+            <li style="margin-bottom:8px;"><strong>Development and Design:</strong> Contribute code, design assets, or technical expertise</li>
+            <li style="margin-bottom:8px;"><strong>Hosting and Production:</strong> Pitch show concepts, volunteer to host, produce segments</li>
+            <li style="margin-bottom:8px;"><strong>Writing and Journalism:</strong> Contribute to the future media platform with reviews, features, and reporting</li>
+        </ul>
+
+        <div style="margin-top:30px; padding:25px; background:#f5f5f5; border-left:4px solid #C33; border-radius:8px;">
+            <h4 style="font-family:'Oswald',sans-serif; color:#C33; font-size:1.3rem; margin-bottom:15px; text-transform:uppercase; letter-spacing:1px;">Get Involved</h4>
+            <form id="involvedForm" onsubmit="handleInvolvedForm(event)" style="display:flex; flex-direction:column; gap:12px;">
+                <input type="text" id="involvedName" placeholder="Your Name *" required
+                    style="width:100%; padding:12px 15px; font-size:0.95rem; font-family:'Roboto Condensed',sans-serif; border:2px solid #ddd; border-radius:6px; outline:none; box-sizing:border-box;">
+
+                <input type="email" id="involvedEmail" placeholder="Your Email *" required
+                    style="width:100%; padding:12px 15px; font-size:0.95rem; font-family:'Roboto Condensed',sans-serif; border:2px solid #ddd; border-radius:6px; outline:none; box-sizing:border-box;">
+
+                <select id="involvedInterest" required
+                    style="width:100%; padding:12px 15px; font-size:0.95rem; font-family:'Roboto Condensed',sans-serif; border:2px solid #ddd; border-radius:6px; outline:none; box-sizing:border-box; background:white;">
+                    <option value="">I'm interested in... *</option>
+                    <option value="Sponsorship and Funding">Sponsorship and Funding</option>
+                    <option value="Grassroots Promotion">Grassroots Promotion</option>
+                    <option value="Content Submission">Content Submission</option>
+                    <option value="Development and Design">Development and Design</option>
+                    <option value="Hosting and Production">Hosting and Production</option>
+                    <option value="Writing and Journalism">Writing and Journalism</option>
+                    <option value="Other">Other</option>
+                </select>
+
+                <textarea id="involvedMessage" placeholder="Tell us about your interest and how you'd like to contribute..." rows="4" required
+                    style="width:100%; padding:12px 15px; font-size:0.95rem; font-family:'Roboto Condensed',sans-serif; border:2px solid #ddd; border-radius:6px; outline:none; box-sizing:border-box; resize:vertical;"></textarea>
+
+                <button type="submit"
+                    style="width:100%; background:linear-gradient(135deg,#C33,#8B2323); color:white; border:none; padding:12px 20px; border-radius:6px; font-weight:700; font-size:0.95rem; text-transform:uppercase; letter-spacing:1px; cursor:pointer;">
+                    Submit
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<div class="install-banner" id="installBanner">
+    <div class="install-banner-content">
+        <div class="install-banner-text">
+            <div class="install-banner-title">Install Northern Dial</div>
+            <div class="install-banner-subtitle">Add to your home screen for quick access</div>
+        </div>
+        <div class="install-banner-buttons">
+            <button class="install-btn" id="installBtn">Install</button>
+            <button class="dismiss-btn" id="dismissBtn">Later</button>
+        </div>
+    </div>
+</div>
+
+<div class="install-modal" id="installModal">
+    <div class="install-modal-content">
+        <div class="install-modal-header">
+            <h2 class="install-modal-title">Install App</h2>
+            <button class="close-modal-btn" id="closeModalBtn">&times;</button>
+        </div>
+        <div class="install-modal-steps" id="installSteps"></div>
+    </div>
+</div>
+
+<div class="visualizer-overlay" id="visualizerOverlay">
+    <button class="visualizer-close" id="visualizerClose">&times;</button>
+
+<div class="visualizer-canvas-container">
+    <canvas id="visualizerCanvas"></canvas>
+</div>
+
+<div class="visualizer-info">
+    <div class="visualizer-live-box">
+        <div class="visualizer-live-dot"></div>
+        <div class="visualizer-status" id="visualizerStatus">LIVE NOW</div>
+    </div>
+    <div class="visualizer-song" id="visualizerSong">Northern Dial Radio</div>
+    <div class="visualizer-artist" id="visualizerArtist">All Killer, All CanCon</div>
+</div>
+
+<div style="margin-top: 30px; display: flex; gap: 10px; justify-content: center; flex-wrap: nowrap;">
+    <button class="visualizer-style-btn active" data-style="wave">Wave</button>
+    <button class="visualizer-style-btn" data-style="circular">Circle</button>
+    <button class="visualizer-style-btn" data-style="particles">Dots</button>
+</div>
+
+</div>
+
+<script src="/homepage.js?v=20261013artistlinks"></script>
+
+<script>
+    // Match the blog archive's scroll-activated background treatment.
+    function updateHomepageGradient() {
+        const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const scrollPercent = scrollableHeight > 0
+            ? Math.min(Math.max(window.scrollY / scrollableHeight, 0), 1)
+            : 0;
+        const r = Math.round(255 - (255 - 204) * scrollPercent);
+        const g = Math.round(255 - (255 - 51) * scrollPercent);
+        const b = Math.round(255 - (255 - 51) * scrollPercent);
+        document.body.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+    }
+
+    window.addEventListener('scroll', updateHomepageGradient, { passive: true });
+    updateHomepageGradient();
+</script>
+
+
+<script>
+/* ND_MOBILE_MENU_JS_START */
+(function () {
+    const menus = document.querySelectorAll('.mobile-menu-nav');
+    menus.forEach((nav, index) => {
+        const toggle = nav.querySelector('.mobile-menu-toggle');
+        const links = nav.querySelector('.mobile-menu-links');
+        if (!toggle || !links) return;
+
+        if (!links.id) links.id = `nd-mobile-menu-${index + 1}`;
+        toggle.setAttribute('aria-controls', links.id);
+
+        const icon = toggle.querySelector('.mobile-menu-icon');
+        const closeMenu = () => {
+            nav.classList.remove('menu-open');
+            toggle.setAttribute('aria-expanded', 'false');
+            toggle.setAttribute('aria-label', 'Open navigation menu');
+            if (icon) icon.textContent = '☰';
+        };
+
+        const openMenu = () => {
+            nav.classList.add('menu-open');
+            toggle.setAttribute('aria-expanded', 'true');
+            toggle.setAttribute('aria-label', 'Close navigation menu');
+            if (icon) icon.textContent = '✕';
+        };
+
+        toggle.addEventListener('click', () => {
+            if (nav.classList.contains('menu-open')) closeMenu();
+            else openMenu();
+        });
+
+        links.addEventListener('click', event => {
+            if (event.target.closest('a')) closeMenu();
+        });
+
+        document.addEventListener('keydown', event => {
+            if (event.key === 'Escape') closeMenu();
+        });
+
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) closeMenu();
+        });
+    });
+})();
+/* ND_MOBILE_MENU_JS_END */
+</script>
+
+
+<!-- ND_PROJECT_LINKS_START -->
+<footer class="nd-project-links" aria-label="Northern Dial project links" style="margin-top:48px;background:#1a1a1a;border-top:4px solid #CC3333;color:#fff;padding:24px 18px;">
+  <div style="max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;">
+    <div style="font-family:'Oswald',sans-serif;font-size:.82rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#CC3333;">Northern Dial Project</div>
+    <nav aria-label="Project pages" style="display:flex;gap:16px;flex-wrap:wrap;">
+      <a href="/about.html" style="color:#fff;font-family:'Roboto Condensed',sans-serif;font-weight:700;text-decoration:none;">About</a>
+      <a href="/sessions.html" style="color:#fff;font-family:'Roboto Condensed',sans-serif;font-weight:700;text-decoration:none;">Sessions</a>
+      <a href="/archive.html" style="color:#fff;font-family:'Roboto Condensed',sans-serif;font-weight:700;text-decoration:none;">Archive &amp; Atlas</a>
+      <a href="/accessibility.html" style="color:#fff;font-family:'Roboto Condensed',sans-serif;font-weight:700;text-decoration:none;">Accessibility</a>
+      <a href="/requests.html" style="color:#fff;font-family:'Roboto Condensed',sans-serif;font-weight:700;text-decoration:none;">Request a Song</a>
+    </nav>
+  </div>
+</footer>
+<!-- ND_PROJECT_LINKS_END -->
+
+<script src="/homepage_language.js?v=20260927b"></script>
+<script src="/accessibility_enhancements.js"></script>
+  <script src="/nd-shell.js?v=20261013artistlinks" defer></script>
+
+<style id="nd-home-special-shell-css">
+.nd-home-hero-logo { text-align:center; }
+.nd-home-hero-logo .logo-image { display:block; width:min(82%,620px); max-width:620px; height:auto; margin:0 auto; }
+.nd-home-nav { position:sticky !important; top:0; z-index:10000; }
+.nd-home-nav-links { align-items:stretch; justify-content:center; }
+.nd-home-more { position:relative; display:flex; align-items:stretch; }
+.nd-home-more-toggle { background:transparent; border:0; color:#fff; cursor:pointer; font-family:'Oswald',sans-serif; font-size:.95rem; font-weight:700; letter-spacing:.12em; padding:14px 28px; text-transform:uppercase; }
+.nd-home-more-toggle:hover,.nd-home-more-toggle:focus { background:#262626; color:#C33; }
+.nd-home-more-menu { display:none; position:absolute; right:0; top:100%; min-width:190px; background:#1a1a1a; border-top:2px solid #C33; box-shadow:0 10px 24px rgba(0,0,0,.25); z-index:10001; }
+.nd-home-more.open .nd-home-more-menu,.nd-home-more:focus-within .nd-home-more-menu { display:block; }
+.nd-home-more-menu a,.nd-home-more-menu button { display:block; width:100%; background:#1a1a1a; border:0; border-bottom:1px solid #343434; color:#fff; cursor:pointer; font-family:'Oswald',sans-serif; font-size:.88rem; font-weight:700; letter-spacing:.1em; padding:14px 18px; text-align:left; text-decoration:none; text-transform:uppercase; }
+.nd-home-more-menu a:hover,.nd-home-more-menu a:focus,.nd-home-more-menu button:hover,.nd-home-more-menu button:focus { background:#262626; color:#C33; }
+.nd-home-more-menu .submit-link { background:#C33; color:#fff; }
+@media (max-width:768px) {
+  .nd-home-hero-logo .logo-image { width:min(90%,520px); }
+  .nd-home-more { display:block; width:100%; }
+  .nd-home-more-toggle { display:none; }
+  .nd-home-more-menu { display:block; position:static; min-width:0; box-shadow:none; border:0; width:100%; }
+}
+</style>
+<script id="nd-home-special-shell-js">
+document.addEventListener('DOMContentLoaded', function () {
+  const more = document.querySelector('.nd-home-more');
+  const toggle = document.querySelector('.nd-home-more-toggle');
+  if (!more || !toggle) return;
+  toggle.addEventListener('click', function (event) {
+    event.stopPropagation();
+    const open = more.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', String(open));
+  });
+  document.addEventListener('click', function (event) {
+    if (!more.contains(event.target)) {
+      more.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+    }
+  });
+  document.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape') {
+      more.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+    }
+  });
+});
+</script>
+
+</body>
+</html>
