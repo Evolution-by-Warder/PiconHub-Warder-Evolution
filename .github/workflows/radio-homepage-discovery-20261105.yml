@@ -1,0 +1,56 @@
+name: Discover remaining Radio logos on confirmed broadcaster websites
+on:
+  push:
+    branches: ['radio-global-catalogue-20261103']
+    paths: ['.github/workflows/radio-homepage-discovery-20261105.yml']
+permissions:
+  contents: write
+concurrency:
+  group: radio-homepage-discovery-20261105
+  cancel-in-progress: false
+jobs:
+  discover:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 350
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            migration/radio-homepage-discovery-20261105
+            .github/workflows
+      - uses: actions/checkout@v4
+        with:
+          ref: e90a1fe3a2734b555f48f343284f9103530180fb
+          path: _radio_catalogue
+          persist-credentials: false
+          sparse-checkout: |
+            picons/IPTV-SK-CZ/catalog/global
+            plugin/artwork/templates/picons
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install --quiet Pillow==13.0.0 CairoSVG==2.8.2
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq tesseract-ocr libcairo2
+      - name: Record worker identity
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      - name: Discover original logos and save every 25 processed stations
+        run: |
+          python migration/radio-homepage-discovery-20261105/discover_radio_homepage_logos.py --catalogue _radio_catalogue/picons/IPTV-SK-CZ/catalog/global --masters _radio_catalogue/plugin/artwork/templates/picons --output migration/radio-homepage-discovery-20261105 --commit
+      - name: Preserve latest progress if interrupted
+        if: always()
+        run: |
+          git add migration/radio-homepage-discovery-20261105
+          if ! git diff --cached --quiet; then
+            git commit -m "Preserve Radio homepage discovery progress"
+            git push origin HEAD:radio-global-catalogue-20261103
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: radio-homepage-discovery-checkpoint
+          retention-days: 90
+          path: |
+            migration/radio-homepage-discovery-20261105/discovery-journal.jsonl
+            migration/radio-homepage-discovery-20261105/verified-ready.json
