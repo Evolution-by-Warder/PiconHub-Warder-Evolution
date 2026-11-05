@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sunrise Cariló 98.5</title>
+    <meta name="description" content="Sunrise Cariló 96.9">
+    <meta name="author" content="Mediamax">
+	<link href="css/style.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+	<link rel="manifest" href="/site.webmanifest">
+	<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+	<meta name="msapplication-TileColor" content="#2b5797">
+	<meta name="theme-color" content="#ffffff">
+</head>
+<body class="bg-transparent">
+
+<div class="d-flex flex-column align-items-center justify-content-end h-100">
+	<div class="separador"></div>
+	
+	<div class="image">
+		<img class="img-fluid" alt="" src="img/Sunrise_logo.png" width="">	
+	</div>
+	
+	<!-- <div class="separador"></div> -->
+		
+	<article class="screen">
+
+		<div class="bodyPlayer"></div>
+			<audio preload="auto" id="audio" controls>
+			<source src="https://strcdn.klm99.com:10982/sunrisecarilo">
+		</audio>
+		
+		<div id="player__controls" class="box d-flex w-100 justify-content-between  box__play--paused">
+			<div  class="box__play d-flex align-items-center h-100">
+				<button class="box__play__button" title="Play">
+					<i class="box__play__button__icon--playing fas fa-play"></i>
+					<i class="box__play__button__icon--paused fas fa-pause"></i>
+				</button>
+			</div>
+			<div class="box__volume  d-flex align-items-center h-100">
+				<input type="range" class="custom-range" min="0" max="100" value="100" step="1" oninput="audio.volume=this.value/100" onchange="this.oninput();">
+			</div>
+			<div class="box__volume__icon d-flex align-items-center h-100">
+				<i class="fas fa-volume-up"></i>
+			</div>
+		</div>
+	</article>
+		
+	<div class="separador"></div>
+	<div class="separador"></div>
+		
+	<div class="image">
+		<img class="img-fluid" alt="" src="img/download_app.png" usemap="#image-map" width="">	
+	</div>
+		
+	<map name="image-map">
+		<area target="_blank" alt="App Store" title="App Store" href="https://apps.apple.com/us/app/sunrise-caril%C3%B3/id1543449319" coords="3,3,132,44" shape="rect">
+		<area target="_blank" alt="Google Play" title="Google Play" href="https://play.google.com/store/apps/details?id=com.mediamaxargentina.sunrisecarilo" coords="147,2,297,45" shape="rect">
+	</map>
+		
+	<div class="separador_footer"></div>
+
+		<p class="rrss">
+			<a href="https://www.instagram.com/sunrisecarilo/" target="_blank"><i class="fab fa-instagram"></i></a>
+			<a href="https://www.facebook.com/Sunrise-Caril%C3%B3-116956083553544" target="_blank"><i class="fab fa-facebook-f"></i></a>
+			<!--<a href="https://twitter.com/sunrisecarilo" target="_blank"><i class="fab fa-twitter"></i></a>-->
+			<a href="https://vm.tiktok.com/ZSsc7YLP/" target="_blank"><i class="fab fa-tiktok"></i></a>
+			<!-- <a href="https://open.spotify.com/user/bkrsp5sksp1cszvyn4x8guqjd" target="_blank"><i class="fab fa-spotify"></i></a>
+			<a href="https://api.whatsapp.com/send?phone=542235653354" target="_blank"><i class="fab fa-whatsapp"></i></a> -->
+			<a href="https://www.mediamaxargentina.com/" target="_blank"><img class="" alt="" src="img/logo_mediamax.png" width=""><i class=""></i></a>
+		</p>
+	</div>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/scripts.js"></script>
+	<script src="https://kit.fontawesome.com/0e6b9810a6.js" crossorigin="anonymous"></script>
+	<script src="js/player.js"></script>
+	<script src="js/fondo.js"></script>
+</body>
+</html>
