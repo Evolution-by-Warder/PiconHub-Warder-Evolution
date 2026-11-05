@@ -35190,7 +35190,8 @@
       "homepages": [
         "https://superfly.fm/player/index.php?stream=web_pure_playlist"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:B9FD:2EDC:ED:0:0:0:0": {
       "name": "Radio Surprise The Live DJ Radio",
@@ -35202,7 +35203,10 @@
       "homepages": [
         "https://www.calltv4u.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (7) Failed to connect to www.calltv4u.com port 443 after 498 ms: Couldn't connect to server\n"
+      ]
     },
     "4097:0:2:7C9D:33BD:ED:0:0:0:0": {
       "name": "Technikum City",
@@ -35214,7 +35218,8 @@
       "homepages": [
         "http://www.radiotechnikum.at/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:501C:D1E6:ED:0:0:0:0": {
       "name": "Technikum Gold",
@@ -35226,7 +35231,8 @@
       "homepages": [
         "https://radiotechnikum.at/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:5913:AEBE:ED:0:0:0:0": {
       "name": "Technikum One",
@@ -35276,7 +35282,41 @@
         "https://tirol.orf.at/player/",
         "https://tirol.orf.at/radio/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://oekastatic.orf.at/mojo/1_4_1/storyserver//oeka/common/images/orf-brick.svg",
+        "final_url": "https://oekastatic.orf.at/mojo/1_4_1/storyserver//oeka/common/images/orf-brick.svg",
+        "path": "originals/2169f3123f7c9ec703975c993745cb07bbc8175c7143790e56ba7aacd68cdbf5.img",
+        "sha256": "2169f3123f7c9ec703975c993745cb07bbc8175c7143790e56ba7aacd68cdbf5",
+        "bytes": 700,
+        "dimensions": [
+          640,
+          279
+        ],
+        "format": "SVG",
+        "frozen_svg_raster": {
+          "path": "rasterized/e536cabe567b62609a56c5c7d89a2d4dffffc3b8f653c3f0c746a86bd43c459a.png",
+          "sha256": "e536cabe567b62609a56c5c7d89a2d4dffffc3b8f653c3f0c746a86bd43c459a",
+          "cairosvg_version": "2.8.2"
+        }
+      },
+      "page": {
+        "url": "https://tirol.orf.at/radio/",
+        "final_url": "https://tirol.orf.at/radio/",
+        "sha256": "5f3650022cc026e04493137c994f47685253d5005397e74bdc85d35e2ff8326b",
+        "path": "page-evidence/5f3650022cc026e04493137c994f47685253d5005397e74bdc85d35e2ff8326b.html",
+        "titles": [
+          "tirol.ORF.at - Radio Tirol",
+          "So wird Ihre Gruppe zum Team des Tages",
+          "Hier finden Sie alle Podcasts"
+        ],
+        "image_urls": [
+          "https://oekastatic.orf.at/mojo/1_4_1/storyserver//oeka/common/images/orf-brick.svg",
+          "https://oekastatic.orf.at/mojo/1_4_1/storyserver//oeka/common/images/target.news.red-universal.svg",
+          "https://oekastatic.orf.at/mojo/1_4_1/storyserver//common/images/favicons/favicon-128x128.png"
+        ]
+      },
+      "ocr_text": "ORF\n"
     },
     "4097:0:2:33A6:2C52:ED:0:0:0:0": {
       "name": "Radio Uno Kärnten",
@@ -35288,7 +35328,34 @@
       "homepages": [
         "https://radiouno-kaernten.at/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://mlsb1aptnbku.i.optimole.com/w:1920/h:994/q:mauto/f:best/https://radiouno-kaernten.at/wp-content/uploads/2022/07/Radio-Uno-Logo-JPEG-scaled.jpg",
+        "final_url": "https://mlsb1aptnbku.i.optimole.com/w:1920/h:994/q:mauto/f:best/https://radiouno-kaernten.at/wp-content/uploads/2022/07/Radio-Uno-Logo-JPEG-scaled.jpg",
+        "path": "originals/b7eecacf86c799d115b603e4b2aeefed1707f02d91c1ad92a5fa2619c483219c.img",
+        "sha256": "b7eecacf86c799d115b603e4b2aeefed1707f02d91c1ad92a5fa2619c483219c",
+        "bytes": 71988,
+        "dimensions": [
+          1919,
+          994
+        ],
+        "format": "JPEG"
+      },
+      "page": {
+        "url": "https://radiouno-kaernten.at/",
+        "final_url": "https://radiouno-kaernten.at/",
+        "sha256": "8598f70e12b019a394e19191fa9b8e105d0196f69de2d480fd6c329573bedbaf",
+        "path": "page-evidence/8598f70e12b019a394e19191fa9b8e105d0196f69de2d480fd6c329573bedbaf.html",
+        "titles": [
+          "Radio Uno Kärnten",
+          " "
+        ],
+        "image_urls": [
+          "https://mlsb1aptnbku.i.optimole.com/w:1920/h:994/q:mauto/f:best/https://radiouno-kaernten.at/wp-content/uploads/2022/07/Radio-Uno-Logo-JPEG-scaled.jpg",
+          "https://mlsb1aptnbku.i.optimole.com/w:auto/h:auto/q:mauto/f:best/https://radiouno-kaernten.at/wp-content/uploads/2022/07/Radio-Uno-Logo-JPEG-scaled.jpg"
+        ]
+      },
+      "ocr_text": "Radio/Uno\n"
     },
     "4097:0:2:3E97:EA5F:ED:0:0:0:0": {
       "name": "ViyanaFM",
@@ -35338,7 +35405,8 @@
         "https://vorarlberg.orf.at/player",
         "https://vorarlberg.orf.at/player/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:753B:1CEE:ED:0:0:0:0": {
       "name": "Vorarlberg 80s",
@@ -35350,7 +35418,8 @@
       "homepages": [
         "http://antennevorarlberg.at/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:31FB:8673:ED:0:0:0:0": {
       "name": "Radio Weanerisch gspielt",
@@ -35362,7 +35431,8 @@
       "homepages": [
         "https://www.radio-weanarisch.at/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:F055:CA98:EC:0:0:0:0": {
       "name": "Welle 1 - Linz",
@@ -35386,7 +35456,10 @@
       "homepages": [
         "https://live.welle1.at/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (60) SSL certificate problem: unable to get local issuer certificate\nMore details here: https://curl.se/docs/sslcerts.html\n\ncurl failed to verify the legitimacy of the server"
+      ]
     },
     "4097:0:2:AF9D:4BE7:ED:0:0:0:0": {
       "name": "WELLE 1 Wien & DAB+ – WELLE 1",
@@ -35410,7 +35483,8 @@
       "homepages": [
         "https://wien.orf.at/player"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:3157:6856:ED:0:0:0:0": {
       "name": "Radio X-MAS",
@@ -35446,7 +35520,10 @@
       "homepages": [
         "https://yeshua.at/server/radioArtists/index"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Failed to connect to yeshua.at port 443 after 3001 ms: Timeout was reached\n"
+      ]
     },
     "4097:0:2:27B7:F906:ED:0:0:0:0": {
       "name": "radioYpsilon - Wir hör'n uns!",
@@ -35458,7 +35535,10 @@
       "homepages": [
         "https://www.radioypsilon.at/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (60) SSL certificate problem: unable to get local issuer certificate\nMore details here: https://curl.se/docs/sslcerts.html\n\ncurl failed to verify the legitimacy of the server"
+      ]
     },
     "4097:0:2:6F81:6DDD:ED:0:0:0:0": {
       "name": "Yu Radio",
@@ -35506,7 +35586,8 @@
       "homepages": [
         "https://www.arazmarket.az/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:5220:AE39:ED:0:0:0:0": {
       "name": "ASAN Radio",
@@ -35519,7 +35600,87 @@
         "http://asanradio.az/",
         "http://www.asanradio.az/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "http://asanradio.az/radio/images/logo.png",
+        "final_url": "http://asanradio.az/radio/images/logo.png",
+        "path": "originals/2343a0e9d8f808b3c8f0b2713bc91d7f11d9ec0062a66d6c659eb588b7108876.img",
+        "sha256": "2343a0e9d8f808b3c8f0b2713bc91d7f11d9ec0062a66d6c659eb588b7108876",
+        "bytes": 132008,
+        "dimensions": [
+          1925,
+          1471
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "http://asanradio.az/",
+        "final_url": "http://asanradio.az/",
+        "sha256": "5d38c9d3029fd68ad2f79178dc687412e0586586baae232f8db8a563e2194a76",
+        "path": "page-evidence/5d38c9d3029fd68ad2f79178dc687412e0586586baae232f8db8a563e2194a76.html",
+        "titles": [
+          "ASAN Radio"
+        ],
+        "image_urls": [
+          "http://asanradio.az/new/images/fmlogo.png",
+          "http://asanradio.az/new/images/logo.png",
+          "http://asanradio.az/radio/images/logo.png"
+        ]
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/9cca4259e3abd8e233c8f7eacc86f61b77c0b891ece9cc878d2b3a3da3706ed2.png",
+          "sha256": "9cca4259e3abd8e233c8f7eacc86f61b77c0b891ece9cc878d2b3a3da3706ed2",
+          "bytes": 2048
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/9ba7728306a054b9e68b36cf2a3f37895e80fcd25e31e1b3d43ef60bfb13fc0b.png",
+          "sha256": "9ba7728306a054b9e68b36cf2a3f37895e80fcd25e31e1b3d43ef60bfb13fc0b",
+          "bytes": 15473
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/82b05fefc11f6dd063810598398fabc4391aec08ff2970bed048eea490bd3ccc.png",
+          "sha256": "82b05fefc11f6dd063810598398fabc4391aec08ff2970bed048eea490bd3ccc",
+          "bytes": 48946
+        },
+        "50x30/white": {
+          "path": "verified-assets/da6896378872804a55c975c4e9c758148a8afc0a4fe97a35b6dec4fee1537cfb.png",
+          "sha256": "da6896378872804a55c975c4e9c758148a8afc0a4fe97a35b6dec4fee1537cfb",
+          "bytes": 3072
+        },
+        "220x132/white": {
+          "path": "verified-assets/63fda58bfe4631170bcc6ffd191df15d84a96bc60e7658cf2326e51a749d9d3b.png",
+          "sha256": "63fda58bfe4631170bcc6ffd191df15d84a96bc60e7658cf2326e51a749d9d3b",
+          "bytes": 38029
+        },
+        "400x240/white": {
+          "path": "verified-assets/7c14455be3a69fbdae0a73d7ae945dd3ab68ed88f8275323de7ccd6a9ac988d9.png",
+          "sha256": "7c14455be3a69fbdae0a73d7ae945dd3ab68ed88f8275323de7ccd6a9ac988d9",
+          "bytes": 97441
+        },
+        "50x30/black": {
+          "path": "verified-assets/f69b312c55c78bd9c22a6cf417cf7bd8e52215292f1d24eb14436a9f07a14d37.png",
+          "sha256": "f69b312c55c78bd9c22a6cf417cf7bd8e52215292f1d24eb14436a9f07a14d37",
+          "bytes": 3438
+        },
+        "220x132/black": {
+          "path": "verified-assets/69e944e2ff42d76b243c455400ae0af7609667e00ca9e007cc07e2a389583719.png",
+          "sha256": "69e944e2ff42d76b243c455400ae0af7609667e00ca9e007cc07e2a389583719",
+          "bytes": 37807
+        },
+        "400x240/black": {
+          "path": "verified-assets/30e15c91953c8a9b4e80657fd45e761c6540be176f7d3c95f0d025a5dfe0e65c.png",
+          "sha256": "30e15c91953c8a9b4e80657fd45e761c6540be176f7d3c95f0d025a5dfe0e65c",
+          "bytes": 97227
+        }
+      },
+      "verification": {
+        "exact_stream_and_current_page_name": true,
+        "image_link_recorded_in_page": true,
+        "full_distinctive_wordmark": "asan %\n\nradio\n",
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:4241:C36C:ED:0:0:0:0": {
       "name": "AutoLife Azerbaijan",
@@ -35531,7 +35692,8 @@
       "homepages": [
         "https://autoliferadio.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:A7E:59A1:ED:0:0:0:0": {
       "name": "AutoLife Radio Azerbaijan",
@@ -35543,7 +35705,8 @@
       "homepages": [
         "https://autoliferadio.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:87CB:41B0:ED:0:0:0:0": {
       "name": "AVTO FM",
@@ -35567,7 +35730,8 @@
       "homepages": [
         "https://www.bravosupermarket.az/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:197F:93A7:ED:0:0:0:0": {
       "name": "DalğaFM 92.5",
@@ -35579,7 +35743,35 @@
       "homepages": [
         "https://dalgafm.az/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://dalgafm.az/assets/brand/dalga-logo-original.jpeg",
+        "final_url": "https://dalgafm.az/assets/brand/dalga-logo-original.jpeg",
+        "path": "originals/d4806f2e52fe51968801b3f1e63ae40ddb2fa8c23b1b8fc0cfe071ca66112b1a.img",
+        "sha256": "d4806f2e52fe51968801b3f1e63ae40ddb2fa8c23b1b8fc0cfe071ca66112b1a",
+        "bytes": 48682,
+        "dimensions": [
+          1217,
+          441
+        ],
+        "format": "JPEG"
+      },
+      "page": {
+        "url": "https://dalgafm.az/",
+        "final_url": "https://dalgafm.az/",
+        "sha256": "a1e7cc2e253504cdc8c0f0e7620a8ecea14d39a5b2d043372d69946b04c9ffe8",
+        "path": "page-evidence/a1e7cc2e253504cdc8c0f0e7620a8ecea14d39a5b2d043372d69946b04c9ffe8.html",
+        "titles": [
+          "Dalğa FM 92.5",
+          "Dalğanı tut, fərqi hiss et "
+        ],
+        "image_urls": [
+          "https://dalgafm.az/assets/brand/dalga-logo-original.jpeg",
+          "https://dalgafm.az/assets/brand/dalga-logo-transparent.png",
+          "https://dalgafm.az/assets/brand/favicon.png"
+        ]
+      },
+      "ocr_text": "Oalga fm\n"
     },
     "4097:0:2:8174:8C64:ED:0:0:0:0": {
       "name": "Radio Enerji 101.1 FM",
@@ -35591,7 +35783,8 @@
       "homepages": [
         "https://enerjifm.az/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:52EC:20E:ED:0:0:0:0": {
       "name": "Kepez FM",
@@ -35676,7 +35869,35 @@
       "homepages": [
         "https://planetfm.az/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://planetfm.az/assets/branding/logo.png",
+        "final_url": "https://planetfm.az/assets/branding/logo.png",
+        "path": "originals/dfb421cc0db67828a3622ef01b1ab3049b0d8d51d45c5c80f4adf972ff5dd007.img",
+        "sha256": "dfb421cc0db67828a3622ef01b1ab3049b0d8d51d45c5c80f4adf972ff5dd007",
+        "bytes": 10335,
+        "dimensions": [
+          320,
+          96
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://planetfm.az/",
+        "final_url": "https://planetfm.az/",
+        "sha256": "89d6d22b6c36e9b21757fa01906d765f002b3ea4c59301834f7820d7a1d7e9dc",
+        "path": "page-evidence/89d6d22b6c36e9b21757fa01906d765f002b3ea4c59301834f7820d7a1d7e9dc.html",
+        "titles": [
+          "Planet FM 88.7",
+          "Haqqımızda"
+        ],
+        "image_urls": [
+          "https://planetfm.az/assets/branding/logo.png",
+          "https://planetfm.az/icon.svg",
+          "https://planetfm.az/assets/seo/planetfm_6a3d30fdbb94a0.35746318.png"
+        ]
+      },
+      "ocr_text": ""
     },
     "4097:0:2:A860:74C6:ED:0:0:0:0": {
       "name": "Rahat Supermarket Radio",
@@ -35688,7 +35909,8 @@
       "homepages": [
         "https://rahatmarket.az/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:D6D2:4F1C:ED:0:0:0:0": {
       "name": "Real FM 107",
@@ -35700,7 +35922,10 @@
       "homepages": [
         "https://realfm.az/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (6) Could not resolve host: realfm.az\n"
+      ]
     },
     "4097:0:2:F22C:4D13:ED:0:0:0:0": {
       "name": "Sağlam Radio",
@@ -35712,7 +35937,10 @@
       "homepages": [
         "https://sehiyye.gov.az/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (35) Recv failure: Connection reset by peer\n"
+      ]
     },
     "4097:0:2:5467:A549:ED:0:0:0:0": {
       "name": "TMB 100.5",
@@ -35736,7 +35964,33 @@
       "homepages": [
         "https://vintageradio.az/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://vintageradio.az/Favicon%20120x120",
+        "final_url": "https://vintageradio.az/Favicon%20120x120",
+        "path": "originals/f37d660d6f99baffdaa661d405a1f6d8cf0fa73c760ecfb48750bbc0a38a55b9.img",
+        "sha256": "f37d660d6f99baffdaa661d405a1f6d8cf0fa73c760ecfb48750bbc0a38a55b9",
+        "bytes": 3437,
+        "dimensions": [
+          120,
+          120
+        ],
+        "format": "JPEG"
+      },
+      "page": {
+        "url": "https://vintageradio.az/",
+        "final_url": "https://vintageradio.az/",
+        "sha256": "c45b367bddf7d7e5b3bfc4b9d86073f0c41caac6113d98e3a203554b351078a1",
+        "path": "page-evidence/c45b367bddf7d7e5b3bfc4b9d86073f0c41caac6113d98e3a203554b351078a1.html",
+        "titles": [
+          "VINTAGE RADIO AZERBAIJAN"
+        ],
+        "image_urls": [
+          "https://vintageradio.az/Favicon%20120x120",
+          "https://vintageradio.az/IMG-20250609-WA0019.jpg"
+        ]
+      },
+      "ocr_text": ""
     },
     "4097:0:2:3775:BEF1:ED:0:0:0:0": {
       "name": "Xezer FM",
@@ -468634,15 +468888,15 @@
   },
   "counts": {
     "already_ready_in_saved_checkpoint": 1747,
-    "blocked_no_confirmed_station_page_and_logo": 783,
+    "blocked_no_confirmed_station_page_and_logo": 802,
     "blocked_no_independent_station_homepage": 872,
     "blocked_no_unique_current_station_metadata": 4248,
-    "candidate_assistant_visual_and_identity_check": 155,
+    "candidate_assistant_visual_and_identity_check": 160,
     "covered_by_primary_image_acquisition_worker": 12942,
     "needs_assistant_identity_research_for_short_or_generic_name": 4215,
-    "pending_homepage_discovery": 15929,
-    "ready_verified_homepage_and_wordmark": 12
+    "pending_homepage_discovery": 15904,
+    "ready_verified_homepage_and_wordmark": 13
   },
-  "last_event": "homepages_950_of_16879",
-  "updated_utc": "2026-11-05T12:43:07Z"
+  "last_event": "homepages_975_of_16879",
+  "updated_utc": "2026-11-05T12:43:29Z"
 }

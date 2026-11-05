@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="JutZjtYqLM5EkuDBP6cSpWmerN29EY2de56r52qv">
+    <link rel="stylesheet" href="/new/css/custom11.css"/>
+    <link rel="shortcut icon" href="/radio/images/logo.png"/>
+    <link rel="stylesheet" href="/new/css/responsive5.css"/>
+    <link rel="stylesheet" href="/new/css/slick.css"/>
+    <link rel="stylesheet" href="/new/css/flatpickr.min.css"/>
+    <script src="/new/js/jquery-3.3.1.min.js"></script>
+    <script src="/new/js/slick.min.js"></script>
+    <title>ASAN Radio</title>
+        <script type='text/javascript' src='//platform-api.sharethis.com/js/sharethis.js#property=5c1100c47b0b4500110a1cbb&product=inline-share-buttons' async='async'></script>
+</head>
+<body>
+    <header class="bg-top w-100">
+        <div class="cont">
+            <div class="datetime">
+                <span id="headertime" style="color:white;"></span>
+            </div>
+            <div id="forecast"></div>
+            <div class="currency">
+                    <span>
+                        <span>USD - 1.7</span>
+                        <span>EUR - 1.9097</span>
+                        <span>RUB - 2.0796</span>
+                        <span>TRY - 0.034</span>
+                        <a target="_blank" href="https://www.cbar.az/other/azn-rates">DAHA ÇOX</a>
+                    </span>
+                </div>
+        </div>
+    </header>
+    <nav class="bg-menu">
+        <div class="cont">
+         <a href="/">
+             <img id="logo" src="/new/images/logo.png"/>
+         </a>
+            
+        <div class="menu">
+             
+             <ul class="list-inline float-right">
+                                    <li class="list-inline-item menu-margin">
+                        <a class="text-white" href="/category/11">ASAN xəbər</a>
+                    </li>
+                                    <li class="list-inline-item menu-margin">
+                        <a class="text-white" href="/category/4">Müsahibə</a>
+                    </li>
+                                    <li class="list-inline-item menu-margin">
+                        <a class="text-white" href="/category/17">Dövlət xidmətləri</a>
+                    </li>
+                                    <li class="list-inline-item menu-margin">
+                        <a class="text-white" href="/category/16">Gündəm</a>
+                    </li>
+                                    <li class="list-inline-item menu-margin">
+                        <a class="text-white" href="/category/19">Dünya</a>
+                    </li>
+                                    <li class="list-inline-item menu-margin">
+                        <a class="text-white" href="/category/14">HavadASAN</a>
+                    </li>
+                                <li class="list-inline-item menu-margin">
+                    <a class="text-white" href="/redaktor-siyaseti">Redaktor siyasəti</a>
+                </li>
+                <li class="list-inline float-right">
+                    <form action="/search">
+                        <input type="text" class="search-input" name="search" />
+                    </form>
+                </li>
+             </ul>
+        </div>
+         <div class="menu-toggler" >
+             <img src='/new/images/menu.png'/>
+         </div>
+        </div>
+    </nav>
+    <div class="menu-sm">
+                    <a class="menu-item-sm" href="/category/11">
+                ASAN xəbər
+            </a>
+                    <a class="menu-item-sm" href="/category/4">
+                Müsahibə
+            </a>
+                    <a class="menu-item-sm" href="/category/17">
+                Dövlət xidmətləri
+            </a>
+                    <a class="menu-item-sm" href="/category/16">
+                Gündəm
+            </a>
+                    <a class="menu-item-sm" href="/category/19">
+                Dünya
+            </a>
+                    <a class="menu-item-sm" href="/category/14">
+                HavadASAN
+            </a>
+                       
+   </div>
+      <div class="cont o-hidden">
+        <div class="hotNewsLeft">
+            <div class="hotNewsName">YENİLİKLƏR</div>
+            <marquee behaviour="slide" onMouseOver="this.stop()" onMouseOut="this.start()" class="hotNewsTxt">
+                <div>
+                                                <a href="/news/34256">&quot;YAŞAT&quot; Fonduna edilən ianələrin miqdarı niyə azalıb? </a>
+                                                <a href="/news/34254">Şəhid övladları üçün 4-cü &quot;YAŞAT&quot; düşərgəsi başlayıb</a>
+                                                <a href="/news/34252"> 
+Problemlərinizin həll yolu - &quot;ASAN müraciət&quot;</a>
+                                                <a href="/news/34248">“ASAN xidmət” Ulu Öndərin xatirəsinə müsabiqə reallaşdırıb</a>
+                                                <a href="/news/34242">Ötən həftə daha #ASAN oldu - 17-23 fevral 2025</a>
+                                    </div>
+            </marquee>
+
+        </div>
+        <div class="hotNewsRight">
+            <button class="liveBtn" onClick="openRadioWindow()">CANLI</button>
+            <div class="fmlogo">
+                <img src="/new/images/fmlogo.png" />
+            </div>
+        </div>
+        <button class="liveBtn sm" onClick="openRadioWindow()">CANLI</button>
+    </div>
+          <style>
+        div#st-2{
+            display: none;
+        }
+    </style>
+    <div id="news-carousel">
+        <section id="carousels" class="cont">
+            <div class="ant-row">
+                <div class="pr-lg-15 ant-col-xs-24 ant-col-lg-16 ant-col-xl-16">
+                    <div class="carousel-left">
+                                               
+                    </div>
+                </div>
+                <div class="ant-col-xs-24 ant-col-lg-8 ant-col-xl-8">
+                    <div class="ant-row" style="margin-left: -12px; margin-right: -12px;">
+                        <div class="ant-col-sm-12 ant-col-md-12 ant-col-lg-24" style="padding-left: 12px; padding-right: 12px;">
+                                <div class="carousel-top">
+                                                                    </div>
+                        </div>
+                        <div class="ant-col-sm-12 ant-col-md-12 ant-col-lg-24" style="margin-top: 13px; padding-left: 12px; padding-right: 12px;">
+                            <div class="carousel-bottom">
+                                                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <section id="videos" class="cont">
+        <div class="ant-row">
+            <div class="ant-col-lg-17 ant-col-xl-17">
+                    <div id="pop-news">
+                            <div id="popular-header">SON XƏBƏRLƏR</div>
+                            <div class="popular progres-container"><div class="progress"></div></div>
+                                                                                                <div class="ant-row" style="margin-left: -22px; margin-right: -22px;">
+                                                                                               <div class="ant-col-md-12 ant-col-lg-12 ant-col-xl-12" style="padding-left: 10px; padding-right: 10px;">
+                                        <div class="custom-card">
+                                            <a href="/news/34242" class="popular-first">
+                                                <div class="layer-container"><div class="trans-layer"></div>
+                                                <img class="popular-first-img" src="http://asanradio.az/photos/990033_1740404702_hefte.jpeg">
+                                                </div>
+                                                <div>Ötən həftə daha #ASAN oldu - 17-23 fevral 2025</div>
+                                                <div class="timeinfo">
+                                                    <img class="clock" src="/new/images/clock.png">
+                                                <span class="color-a2">Fevral 24,2025 17:44</span>
+                                                </div>
+                                            </a>
+                                            <div class="layer-panel popular-big">
+                                            <a href="/category/17" class="ant-btn btn-red" style="border-radius: 0px 5px;">Dövlət xidmətləri</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                                                       
+                                                                                                                           <div class="ant-col-md-12 ant-col-lg-12 ant-col-xl-12" style="padding-left: 10px; padding-right: 10px;">
+                                        <div class="custom-card">
+                                            <a href="/news/34212" class="popular-first">
+                                                <div class="layer-container"><div class="trans-layer"></div>
+                                                <img class="popular-first-img" src="http://asanradio.az/photos/914047_1724308451_gjgk.jpeg">
+                                                </div>
+                                                <div>Kosmosda köməksiz qalan iki kosmonavt: Batç Uilmor və Sani Uillyams</div>
+                                                <div class="timeinfo">
+                                                    <img class="clock" src="/new/images/clock.png">
+                                                <span class="color-a2">Avqust 22,2024 10:33</span>
+                                                </div>
+                                            </a>
+                                            <div class="layer-panel popular-big">
+                                            <a href="/category/19" class="ant-btn btn-red" style="border-radius: 0px 5px;">Dünya</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                                                                                   </div>
+                                        
+                                                                                                <div class="ant-row" style="margin-left: -15px; margin-right: -15px;">    
+                                                                                               <div class="ant-col-lg-8 ant-col-xl-8" style="padding-left: 6px; padding-right: 6px;">
+                                        <div class="custom-card">
+                                            <a href="/news/34256" class="popular-second">
+                                                <div class="layer-container"> <div class="trans-layer"></div>
+                                                <img class="popular-second-img" src="http://asanradio.az/photos/760535_1750400479_sayyt.jpeg">
+                                                </div>
+                                            <div>&quot;YAŞAT&quot; Fonduna edilən ianələrin miqdarı niyə azalıb? </div>
+                                                <div class="timeinfo">
+                                                    <img class="clock" src="/new/images/clock.png">
+                                                <span class="color-a2">İyun 20,2025 10:21</span>
+                                                </div>
+                                            </a>
+                                            <div class="layer-panel popular-small">
+                                            <a href="/category/4" class="ant-btn btn-red" style="border-radius: 0px 5px;">Müsahibə</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                                                       
+                                                                                                                           <div class="ant-col-lg-8 ant-col-xl-8" style="padding-left: 6px; padding-right: 6px;">
+                                        <div class="custom-card">
+                                            <a href="/news/34193" class="popular-second">
+                                                <div class="layer-container"> <div class="trans-layer"></div>
+                                                <img class="popular-second-img" src="http://asanradio.az/photos/363888_1721798632_hava_aise.jpeg">
+                                                </div>
+                                            <div>Hava necə olacaq? 24.07.2024</div>
+                                                <div class="timeinfo">
+                                                    <img class="clock" src="/new/images/clock.png">
+                                                <span class="color-a2">İyul 24,2024 09:23</span>
+                                                </div>
+                                            </a>
+                                            <div class="layer-panel popular-small">
+                                            <a href="/category/14" class="ant-btn btn-red" style="border-radius: 0px 5px;">HavadASAN</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                                                       
+                                                                                                                           <div class="ant-col-lg-8 ant-col-xl-8" style="padding-left: 6px; padding-right: 6px;">
+                                        <div class="custom-card">
+                                            <a href="/news/34228" class="popular-second">
+                                                <div class="layer-container"> <div class="trans-layer"></div>
+                                                <img class="popular-second-img" src="http://asanradio.az/photos/108016_1730185048_hefteee.jpeg">
+                                                </div>
+                                            <div>Ötən həftə də daha ASAN oldu</div>
+                                                <div class="timeinfo">
+                                                    <img class="clock" src="/new/images/clock.png">
+                                                <span class="color-a2">Oktyabr 29,2024 10:57</span>
+                                                </div>
+                                            </a>
+                                            <div class="layer-panel popular-small">
+                                            <a href="/category/16" class="ant-btn btn-red" style="border-radius: 0px 5px;">Gündəm</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                                                                                   </div>
+                                        
+                                                                                                <div class="ant-row" style="margin-left: -15px; margin-right: -15px;">    
+                                                                                               <div class="ant-col-lg-8 ant-col-xl-8" style="padding-left: 6px; padding-right: 6px;">
+                                        <div class="custom-card">
+                                            <a href="/news/34204" class="popular-second">
+                                                <div class="layer-container"> <div class="trans-layer"></div>
+                                                <img class="popular-second-img" src="http://asanradio.az/photos/303876_1724146272_putin.jpeg">
+                                                </div>
+                                            <div>Vladimir Putin Ulu Öndər Heydər Əliyevin məzarını ziyarət edib</div>
+                                                <div class="timeinfo">
+                                                    <img class="clock" src="/new/images/clock.png">
+                                                <span class="color-a2">Avqust 20,2024 13:30</span>
+                                                </div>
+                                            </a>
+                                            <div class="layer-panel popular-small">
+                                            <a href="/category/11" class="ant-btn btn-red" style="border-radius: 0px 5px;">ASAN xəbər</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                                                       
+                                    
+                            
+                        </div>
+            
+                        <div id="video-news">
+                                <div id="popular-header">ƏN ÇOX OXUNANLAR</div>
+                                <div class="popular progres-container"><div class="progress"></div></div>
+                                <div class="pop-carousel">
+                                                                    </div>
+                            </div>
+
+                      <!--       <div id="as-news">
+                                    <div id="asan-header">ASAN</div>
+                                    <div class="asan progres-container"><div class="progress"></div></div>
+                                                                            <div class="ant-row" style="margin-left:-13px;margin-right:-13px;">
+                                            <div class="ant-col-lg-10 ant-col-xl-10" style="padding-left: 13px; padding-right: 13px;">
+                                                    <a href="/news/34254" class="asan-img-cont">
+                                                    <img src="http://asanradio.az/photos/657291_1750161603_sayt_2.jpeg">
+                                                        <div class="trans-layer"></div>
+                                                    </a>
+                                            </div>
+                                            <div class="ant-col-lg-14 ant-col-xl-14" style="padding-left: 13px; padding-right: 13px;">
+                                                    <a href="/news/34254" style="color: black; display: block; max-height: 220px; margin-bottom: 40px; overflow: hidden;">
+                                                        <div class="asan-news-type">ASAN</div>
+                                                    <p class="asan-news-title">Şəhid övladları üçün 4-cü &quot;YAŞAT&quot; düşərgəsi başlayıb</p>
+                                                        <div class="timeinfo">
+                                                            <img class="clock" src="/new/images/clock.png">
+                                                        <span class="">İyun 17,2025 15:59</span>
+                                                        </div>
+                                                    <p class="asan-news-content"></p>
+                                                    </a>
+                                            </div>
+                                        </div>
+                                                                            <div class="ant-row" style="margin-left:-13px;margin-right:-13px;">
+                                            <div class="ant-col-lg-10 ant-col-xl-10" style="padding-left: 13px; padding-right: 13px;">
+                                                    <a href="/news/34248" class="asan-img-cont">
+                                                    <img src="http://asanradio.az/photos/405108_1746718560_WhatsApp_Image_2025-05-08_at_19.29.30.jpeg">
+                                                        <div class="trans-layer"></div>
+                                                    </a>
+                                            </div>
+                                            <div class="ant-col-lg-14 ant-col-xl-14" style="padding-left: 13px; padding-right: 13px;">
+                                                    <a href="/news/34248" style="color: black; display: block; max-height: 220px; margin-bottom: 40px; overflow: hidden;">
+                                                        <div class="asan-news-type">ASAN</div>
+                                                    <p class="asan-news-title">“ASAN xidmət” Ulu Öndərin xatirəsinə müsabiqə reallaşdırıb</p>
+                                                        <div class="timeinfo">
+                                                            <img class="clock" src="/new/images/clock.png">
+                                                        <span class="">May 08,2025 19:28</span>
+                                                        </div>
+                                                    <p class="asan-news-content"></p>
+                                                    </a>
+                                            </div>
+                                        </div>
+                                                                            <div class="ant-row" style="margin-left:-13px;margin-right:-13px;">
+                                            <div class="ant-col-lg-10 ant-col-xl-10" style="padding-left: 13px; padding-right: 13px;">
+                                                    <a href="/news/34240" class="asan-img-cont">
+                                                    <img src="http://asanradio.az/photos/106909_1740404573_indeks.jpeg">
+                                                        <div class="trans-layer"></div>
+                                                    </a>
+                                            </div>
+                                            <div class="ant-col-lg-14 ant-col-xl-14" style="padding-left: 13px; padding-right: 13px;">
+                                                    <a href="/news/34240" style="color: black; display: block; max-height: 220px; margin-bottom: 40px; overflow: hidden;">
+                                                        <div class="asan-news-type">ASAN</div>
+                                                    <p class="asan-news-title">“ASAN xidmət indeksi” üzrə nəticələr açıqlanıb</p>
+                                                        <div class="timeinfo">
+                                                            <img class="clock" src="/new/images/clock.png">
+                                                        <span class="">Fevral 24,2025 17:41</span>
+                                                        </div>
+                                                    <p class="asan-news-content"></p>
+                                                    </a>
+                                            </div>
+                                        </div>
+                                                                    </div> -->
+                        
+            </div>
+            <div class="soc-ad ant-col-lg-6 ant-col-lg-offset-1">
+            <div id="news-list">
+                                    <p style="margin-bottom: 10px;">XƏBƏR LENTİ</p>
+                                    <div class="progres-container"><div class="progress"></div></div>
+                                    <ul class="news-list">
+                                                                                    <li class="news-list-item">
+                                                <a href=/news/34256>
+                                                    <div class="news-list-title">&quot;YAŞAT&quot; Fonduna edilən ianələrin miqdarı niyə azalıb? </div>
+                                                    <div class="timeinfo"><img class="clock" src="/new/images/clock.png"><span class="color-a2">İyun 20,2025 10:21</span></div>
+                                                </a>
+                                            </li>
+                                                                                    <li class="news-list-item">
+                                                <a href=/news/34254>
+                                                    <div class="news-list-title">Şəhid övladları üçün 4-cü &quot;YAŞAT&quot; düşərgəsi başlayıb</div>
+                                                    <div class="timeinfo"><img class="clock" src="/new/images/clock.png"><span class="color-a2">İyun 17,2025 15:59</span></div>
+                                                </a>
+                                            </li>
+                                                                                    <li class="news-list-item">
+                                                <a href=/news/34252>
+                                                    <div class="news-list-title"> 
+Problemlərinizin həll yolu - &quot;ASAN müraciət&quot;</div>
+                                                    <div class="timeinfo"><img class="clock" src="/new/images/clock.png"><span class="color-a2">İyun 17,2025 15:52</span></div>
+                                                </a>
+                                            </li>
+                                                                                    <li class="news-list-item">
+                                                <a href=/news/34248>
+                                                    <div class="news-list-title">“ASAN xidmət” Ulu Öndərin xatirəsinə müsabiqə reallaşdırıb</div>
+                                                    <div class="timeinfo"><img class="clock" src="/new/images/clock.png"><span class="color-a2">May 08,2025 19:28</span></div>
+                                                </a>
+                                            </li>
+                                                                                    <li class="news-list-item">
+                                                <a href=/news/34242>
+                                                    <div class="news-list-title">Ötən həftə daha #ASAN oldu - 17-23 fevral 2025</div>
+                                                    <div class="timeinfo"><img class="clock" src="/new/images/clock.png"><span class="color-a2">Fevral 24,2025 17:44</span></div>
+                                                </a>
+                                            </li>
+                                                                                    <li class="news-list-item">
+                                                <a href=/news/34240>
+                                                    <div class="news-list-title">“ASAN xidmət indeksi” üzrə nəticələr açıqlanıb</div>
+                                                    <div class="timeinfo"><img class="clock" src="/new/images/clock.png"><span class="color-a2">Fevral 24,2025 17:41</span></div>
+                                                </a>
+                                            </li>
+                                                                                    <li class="news-list-item">
+                                                <a href=/news/34239>
+                                                    <div class="news-list-title">MM-in Ailə, qadın və uşaq məsələləri komitəsinin sədri Hicran Hüseynova &quot;QəbuldASAN&quot;da</div>
+                                                    <div class="timeinfo"><img class="clock" src="/new/images/clock.png"><span class="color-a2">Fevral 10,2025 15:24</span></div>
+                                                </a>
+                                            </li>
+                                                                                    <li class="news-list-item">
+                                                <a href=/news/34237>
+                                                    <div class="news-list-title"> 
+
+
+
+
+
+
+
+ 
+
+
+ 
+ 
+
+ 
+
+
+
+ 
+
+0:41 / 22:02
+
+ 
+
+
+
+
+
+
+
+ 
+
+
+
+
+ 
+ 
+ 
+ 
+
+
+Dövlət Sosial Müdafiə Fondunun sədri Himalay Məmişov &quot;QəbuldASAN&quot;da sualları cavablandırıb
+
+
+
+
+
+</div>
+                                                    <div class="timeinfo"><img class="clock" src="/new/images/clock.png"><span class="color-a2">Dekabr 14,2024 14:24</span></div>
+                                                </a>
+                                            </li>
+                                                                            </ul>
+                                    <a class="custom-primary-button w-100" href="/newsfeed">DAHA ÇOX</a>
+                            </div>
+                    <div class="ant-row-flex ant-row-flex-space-between">
+                            <div class="ant-col-4">
+                                <a href="https://www.facebook.com/ASANRadio/" target="_blank">
+                                    <img class="social-img" src="/new/images/facebook.png">
+                                </a>
+                            </div>
+                            <div class="ant-col-4">
+                                <a href="https://twitter.com/radio_asan" target="_blank">
+                                    <img class="social-img" src="/new/images/twitter.png">
+                                </a>
+                            </div>
+                            <div class="ant-col-4">
+                                <a href="https://www.youtube.com/channel/UCCy6BuNDq8ldBfj_1dfGx-w" target="_blank">
+                                    <img class="social-img" src="/new/images/youtube.png">
+                                </a>
+                            </div>
+                            <div class="ant-col-4">
+                                    <a href="https://www.instagram.com/asanradio100/?igshid=YmMyMTA2M2Y=" target="_blank">
+                                        <img style="border-radius:5px;" class="social-img" src="/new/images/instagram.jpg">
+                                    </a>
+                            </div>
+                            <div class="ant-col-4">
+                                <a href="/cdn-cgi/l/email-protection#365f58505976455b574442585341451855595b">
+                                    <img class="social-img" src="/new/images/mail.png">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="ad-panel">
+                            
+                        <br>
+                        <a href="http://abad.gov.az" target="_blank"><img src="http://asanradio.az/images/abad.gif" alt=""></a>
+                    </br></br>
+                        <div><img src="http://asanradio.az/images/terefdash.jpg" alt=""></div>
+                         <br>
+                        <br>
+                        
+                        
+                        <div class="apps-panel">
+                                <p style="margin-bottom:10px">MOBİL</p>
+                                <div class="progres-container">
+                                    <div class="progress"></div>
+                                </div>
+                                <a class="google" target="_blank" href="https://play.google.com/store/apps/details?id=az.asanradio16"></a>
+                                <a class="ios"> </a>
+                            </div> 
+                          
+                            
+                            <form action="/arxiv" method="GET">
+                                <div class="datepicker-label">Arxiv</div>
+                                <div class="progres-container"><div class="progress"></div></div>
+                                <input type="text" name="tarix" class="custom-input" placeholder="Tarix seçin.." id="datepicker">
+                                <button type="submit" class="custom-primary-button w-100">AXTAR</button>
+                            </form>  
+                    </div>
+            </div>
+        </div>
+    </section>
+    <div id="info">
+        <div class="cont">
+        <div class="ant-row-flex ant-row-flex-space-between">
+            <div class="ant-col-lg-11 ant-col-xl-11">
+                <div id="contactPane">
+                    <div>Əlaqə</div>
+                    <div class="progres-container">
+                        <div class="progress"></div>
+                    </div>
+                    <div>Ünvan: Yasamal rayonu, A. M. Şərifzadə küç. 157</div>
+                    <div>Əlaqə nömrəsi: 012 444 74 44</div>
+                    <div>Efir nömrəsi: 012 56 56 100</div>
+                    <div>Whatsapp nömrəsi: 070 65 56 100</div>
+                    <div>Email: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="761f18101936170517180417121f1958170c">[email&#160;protected]</a>, <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d3b6b7baa7bca193b2a0b2bda1b2b7babcfdb2a9">[email&#160;protected]</a></div>
+                    <div style="margin-top:10px;">Reklam:</div>
+                    <div>Mobil: 050 60 06 100</div>
+                    <div>Şəhər: 012 444 74 44 (daxili 80695)</div>
+                    <div>Email: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="89fbece2e5e8e4c9e8fae8e7fbe8ede0e6a7e8f3">[email&#160;protected]</a></div>
+                </div>
+            </div>
+            <div class="ant-col-lg-11 ant-col-xl-11">
+                <div id="aboutPane">
+                    <div><a href="/haqqimizda">Haqqımızda</a></div>
+                    <div class="progres-container">
+                        <div class="progress"></div>
+                    </div>
+                    <div style="max-height: initial;">
+                        <!-- Azərbaycan Respublikasının Prezidenti yanında Vətəndaşlara Xidmət və Sosial İnnovasiyalar üzrə Dövlət Agentliyinin tabeliyində yaradılan “ASAN Radio” dövlət xidmətləri sahəsində ixtisaslaşan ilk və yeganə radiodur. “ASAN Radio”ya 100 MHs tezliyində ümumrespublika radio yayımı üçün xüsusi razılıq (lisenziya) 2015-ci il sentyabrın 8-də Milli Televiziya ... Radio Şurasının iclasında verilib. -->
+                   <!--      Azərbaycan Respublikasının Prezidenti cənab İlham Əliyevin tapşırığı ilə 
+                        yaradılan ASAN Radio 24 dekabr, 2015-ci il tarixində yayıma başlayıb. 
+                        Dövlət xidmətləri sahəsində ixtisaslaşan ilk və yeganə radiodur. 
+                        Azərbaycan Respublikasının Prezidenti yanında Vətəndaşlara Xidmət və 
+                        Sosial İnnovasiyalar üzrə Dövlət Agentliyinin tabeliyində yaradılan “ASAN Radio”ya 
+                        100 MHs tezliyində ümumrespublika radio yayımı üçün xüsusi razılıq (lisenziya) 2015-ci 
+                        il sentyabrın 8-də Milli Televiziya və Radio Şurasının iclasında verilib. ASAN Radio gün ərzində xəbərləri
+                         operativ çatdırır. Sosial mediada fəallığı ilə seçilir. İnternet üzərindən canlı yayım, audio, videoreportajlar
+                          yayımlayır, asanradio.az saytı daim yenilənir. ASAN Radio dövlət qurumları, beynəlxalq təşkilatlar və aparıcı şirkətlərlə 
+                          əməkdaşlıq edir. Faydalı layihələr, proqramlar hazırlayır. ASAN Radio gələcəyin media işçilərini yetişdirir. ASAN könüllüləri,
+                           ADA Universitetinin, Azərbaycan Dillər Universitetinin, Bakı Dövlət Universitetinin, Bakı Slavyan Universitetinin jurnalistika 
+                           fakültəsinin tələbələri radioda təcrübə keçirlər. ASAN Radio dinləyicisi üçün yalnız zövqlü musiqi səsləndirir. ASAN Radio mühüm 
+                           sosial layihələrə informasiya dəstəyi göstərir. İrimiqyaslı yarışların, tədbirlərin, sərgilərin eksklüziv radio tərəfdaşıdır.
+                            ASAN Radionu asanradio.az saytından, mobil tətbiqlərdən dinləmək mümkündür. Azərbaycanda fəaliyyət göstərən 20 “ASAN xidmət” 
+                            (Bakıda 5, bölgələrdə 15) və 2 “ASAN Kommunal” mərkəzində ASAN Radio səsləndirilir. Statistikaya görə hər ay 200.000 insan bu
+                             xidmətdən istifadə edir. Başqa sözlə bu qədər 
+                        insan radiomuzu eşidir. ASAN Radio Azərbaycanın 82%-ni əhatə edir. 
+                        Şuşada yayımlanan ilk radio – ASAN Radio oldu. İşğaldan azad olunan digər şəhər 
+                        rayonlarda bizi 95.6 FM-də dinləmək mümkündür. Ümumilikdə, ASAN Radio respublika ərazisində 100 
+                        FM, 96.5 FM, 95.6 FM və 92.7 FM-də yayımlanır. ASAN Radio – Operativ Məlumat dalğası! -->
+                                                    <p style="text-align: justify;">&ldquo;ASAN Radio&rdquo; Azərbaycan Respublikasının Prezidenti cənab İlham Əliyevin tapşırığına əsasən yaradılıb.&nbsp;</p>
+<p style="text-align: justify;">24 dekabr 2015-ci il tarixindən etibarən Prezident yanında Vətəndaşlara Xidmət və Sosial İnnovasiyalar &uuml;zrə D&ouml;vlət Agentliyinin tabeliyində (&ldquo;ASAN xidmət&rdquo;) yayıma başlayıb.&nbsp;</p>
+<p style="text-align: justify;">&ldquo;ASAN Radio&rdquo;ya 100 MHs tezliyində &uuml;mumrespublika radio yayımı &uuml;&ccedil;&uuml;n x&uuml;susi razılıq (lisenziya) 2015-ci il sentyabrın 8-də Milli Televiziya və Radio Şurasının (indiki Audiovizual Şura) iclasında verilib.</p>
+<p style="text-align: justify;">&ldquo;ASAN Radio&rdquo; d&ouml;vlət xidmətləri sahəsində ixtisaslaşan ilk və yeganə radiodur.</p>
+<p style="text-align: justify;">Xidmətlərlə yanaşı, &ldquo;ASAN Radio&rdquo; Azərbaycanda və d&uuml;nyada baş verən vacib xəbərləri dinləyicilərinə birbaşa mənbədən, dəqiq və operativ &ccedil;atdırır.&nbsp;</p>
+<p style="text-align: justify;">Eyni zamanda, dinləyicilər bizim radioda aktual m&ouml;vzuların m&uuml;zakirə olunduğu maraqlı verilişlər və keyfiyyətli musiqi dinləyə bilir.&nbsp;</p>
+<p style="text-align: justify;">&ldquo;ASAN Radio&rdquo; Bakıda və b&ouml;lgələrdə 100, 96.5, 95.6 və 92.7 FM dalğalarında yayımlanır.&nbsp;</p>
+<p style="text-align: justify;">Faydalı Məlumat dalğasını www.asanradio.az saytından və mobil tətbiqlərdən də dinləyə bilərsiniz.&nbsp;</p>
+<p style="text-align: justify;">&ldquo;ASAN Radio&rdquo; - Dəqiq, Operativ, Faydalı!</p>
+                                            </div>
+                </div>
+            </div>
+           
+        </div>
+        </div>
+    </div>
+    <div class="bg-bottom">
+        <div class="cont color-a2" id="year">
+            
+        </div>
+    </div>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="/new/js/player2.js"></script>
+    <script src="/new/js/app15.js"></script>
+    <script src="/new/js/flatpickr.js"></script>
+    <script src="/new/js/animation2.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-72444336-1"></script>
+<script>
+    let year = new Date().getFullYear();
+    document.querySelector('#year').innerHTML=`© 2015-${year} ASAN Radio`
+    
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-72444336-1');
+</script>
+
+
+
+</body>
+</html>
