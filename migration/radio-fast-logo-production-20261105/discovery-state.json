@@ -12140,7 +12140,10 @@
       "homepages": [
         "https://antenaunoradio.blogspot.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 429\n"
+      ]
     },
     "4097:0:2:ADDC:DFDC:ED:0:0:0:0": {
       "name": "Antena Nueve 94.3 FM",
@@ -12152,7 +12155,34 @@
       "homepages": [
         "https://antenanueve.com.ar/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://antenanueve.com.ar/icons/icon@192.png?v1",
+        "final_url": "https://antenanueve.com.ar/icons/icon@192.png?v1",
+        "path": "originals/1035952593eac6b53f9363e5e57f0fdade1db113c9dcc70b270be88901f1c860.img",
+        "sha256": "1035952593eac6b53f9363e5e57f0fdade1db113c9dcc70b270be88901f1c860",
+        "bytes": 20661,
+        "dimensions": [
+          192,
+          192
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://antenanueve.com.ar/",
+        "final_url": "https://antenanueve.com.ar/",
+        "original_html_sha256": "e5e3326162438ff05dde2e6a12a2dd7f50c7d4e3b17af0634d11213dab754e37",
+        "path": "page-evidence/e5e3326162438ff05dde2e6a12a2dd7f50c7d4e3b17af0634d11213dab754e37.json",
+        "titles": [
+          "Antena Nueve FM 94.3 Tostado Santa Fe"
+        ],
+        "image_urls": [
+          "https://antenanueve.com.ar/icons/icon@192.png?v1",
+          "https://antenanueve.com.ar/icons/icon@512.png?v1"
+        ],
+        "named_logos": {}
+      },
+      "ocr_text": "antena\n\nnUeve\n\n94.3\n"
     },
     "4097:0:2:2DDA:A9EA:ED:0:0:0:0": {
       "name": "Antena Uno 92.3FM Posadas",
@@ -12171,7 +12201,93 @@
       "homepages": [
         "https://fm989.com.ar/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://fm989.com.ar/wp-content/uploads/2020/12/logo-copia-1.png",
+        "final_url": "https://fm989.com.ar/wp-content/uploads/2020/12/logo-copia-1.png",
+        "path": "originals/f8aead5e8e5c4b85b84ebd1584392af31385cba9f28787d84a1bf9a30bd0e1dc.img",
+        "sha256": "f8aead5e8e5c4b85b84ebd1584392af31385cba9f28787d84a1bf9a30bd0e1dc",
+        "bytes": 19280,
+        "dimensions": [
+          165,
+          169
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://fm989.com.ar/",
+        "final_url": "https://fm989.com.ar/",
+        "original_html_sha256": "9fbb2ba474f94bdfebf7c79b0208c61481dab086bb3806f3d34a807af1c22081",
+        "path": "page-evidence/9fbb2ba474f94bdfebf7c79b0208c61481dab086bb3806f3d34a807af1c22081.json",
+        "titles": [
+          "FM 989 Apuntes – Radio Solidaria Santos Lugares"
+        ],
+        "image_urls": [
+          "https://fm989.com.ar/wp-content/uploads/2020/12/logo-copia-1.png",
+          "https://fm989.com.ar/wp-content/uploads/2020/12/cropped-logo-transparente-180x180.png",
+          "https://fm989.com.ar/wp-content/uploads/2020/12/cropped-logo-transparente-192x192.png"
+        ],
+        "named_logos": {
+          "https://fm989.com.ar/wp-content/uploads/2020/12/logo-copia-1.png": "FM 989 Apuntes  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/38767cca1c032605a089484a535dd7adce0707259109f1b3bb21550ff5798e64.png",
+          "sha256": "38767cca1c032605a089484a535dd7adce0707259109f1b3bb21550ff5798e64",
+          "bytes": 1505
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/62a9910e4db9d6b34cb3d9f1373dd61cb934283fb8af18822c8f016fa4e6b70f.png",
+          "sha256": "62a9910e4db9d6b34cb3d9f1373dd61cb934283fb8af18822c8f016fa4e6b70f",
+          "bytes": 12685
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/c3f6a46f0945728df6914552a3f66bef7ee95d6ba67f8e15ceae869900f0896b.png",
+          "sha256": "c3f6a46f0945728df6914552a3f66bef7ee95d6ba67f8e15ceae869900f0896b",
+          "bytes": 38629
+        },
+        "50x30/white": {
+          "path": "verified-assets/39ca1dfbb8d995f3622de33a5578967bdd6089fca5394ffa36717e665e3e1f6e.png",
+          "sha256": "39ca1dfbb8d995f3622de33a5578967bdd6089fca5394ffa36717e665e3e1f6e",
+          "bytes": 2883
+        },
+        "220x132/white": {
+          "path": "verified-assets/b151799961e72c4c6bba7c461dc0c1449a85b50944047299fd55f4a1b6a0f8c8.png",
+          "sha256": "b151799961e72c4c6bba7c461dc0c1449a85b50944047299fd55f4a1b6a0f8c8",
+          "bytes": 38644
+        },
+        "400x240/white": {
+          "path": "verified-assets/92fe647134dbf8b8f604636de533f68910115ccbc46438969d27b528532bc26e.png",
+          "sha256": "92fe647134dbf8b8f604636de533f68910115ccbc46438969d27b528532bc26e",
+          "bytes": 99306
+        },
+        "50x30/black": {
+          "path": "verified-assets/5721e030e59441b6491f0785ceddbf6d5e3d58aca214d5c23da4dcc7b037d60b.png",
+          "sha256": "5721e030e59441b6491f0785ceddbf6d5e3d58aca214d5c23da4dcc7b037d60b",
+          "bytes": 2986
+        },
+        "220x132/black": {
+          "path": "verified-assets/1127b1669eaeeecdd254f01f605d1fe8a611d8979e8d3e8912505757ac3903d8.png",
+          "sha256": "1127b1669eaeeecdd254f01f605d1fe8a611d8979e8d3e8912505757ac3903d8",
+          "bytes": 37496
+        },
+        "400x240/black": {
+          "path": "verified-assets/bb2af429df5e8bb64a360f1dcef1b0f258cc3bc28fc7e553e2409b1816b75557.png",
+          "sha256": "bb2af429df5e8bb64a360f1dcef1b0f258cc3bc28fc7e553e2409b1816b75557",
+          "bytes": 94544
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "FM 989 Apuntes  ",
+        "matched_brand_keys": [
+          "apuntes"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:F266:AFF8:ED:0:0:0:0": {
       "name": "Arco Iris FM 98.1",
@@ -12183,7 +12299,10 @@
       "homepages": [
         "https://arcoirischaco.com.ar/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (6) Could not resolve host: arcoirischaco.com.ar\n"
+      ]
     },
     "4097:0:2:A3B3:2078:ED:0:0:0:0": {
       "name": "Radio Argentina 89.3 FM",
@@ -12195,7 +12314,95 @@
       "homepages": [
         "https://radioarg.net/argentina-893-fm"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://radioarg.net/storage/radios/8224/10346/conversions/argentina-893-fm-online-lg.webp",
+        "final_url": "https://radioarg.net/storage/radios/8224/10346/conversions/argentina-893-fm-online-lg.webp",
+        "path": "originals/63628a9117ccf5f831b3a53ad7cb50dd5802a7e5fbe7fd25d19109caf743da90.img",
+        "sha256": "63628a9117ccf5f831b3a53ad7cb50dd5802a7e5fbe7fd25d19109caf743da90",
+        "bytes": 3050,
+        "dimensions": [
+          144,
+          144
+        ],
+        "format": "WEBP"
+      },
+      "page": {
+        "url": "https://radioarg.net/argentina-893-fm",
+        "final_url": "https://radioarg.net/argentina-893-fm",
+        "original_html_sha256": "f806fa32429d15806f770a797f7cd7b39833a2a36a277e8ade76e71793d9e732",
+        "path": "page-evidence/f806fa32429d15806f770a797f7cd7b39833a2a36a277e8ade76e71793d9e732.json",
+        "titles": [
+          "Radio Argentina 89.3 FM en vivo",
+          "Radio Argentina 89.3 FM"
+        ],
+        "image_urls": [
+          "https://radioarg.net/logo.webp",
+          "https://radioarg.net/storage/radios/8224/10346/conversions/argentina-893-fm-online-lg.webp",
+          "https://radioarg.net/favicon.ico"
+        ],
+        "named_logos": {
+          "https://radioarg.net/logo.webp": "Radioarg.net  ",
+          "https://radioarg.net/storage/radios/8224/10346/conversions/argentina-893-fm-online-lg.webp": "Logo Radio Argentina 89.3 FM  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/1520d5dc24fb9b555dfb0e79698fdedce172dd0d9c698f1e1857a416e5edf1a7.png",
+          "sha256": "1520d5dc24fb9b555dfb0e79698fdedce172dd0d9c698f1e1857a416e5edf1a7",
+          "bytes": 1080
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/1ad84ccff06f6bc326c4ba5360c9357a8c48f4bb742170321b6bf2eb81381a1c.png",
+          "sha256": "1ad84ccff06f6bc326c4ba5360c9357a8c48f4bb742170321b6bf2eb81381a1c",
+          "bytes": 10129
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/307821561792eb01006fbb9116082a7aa7d9468f3568cb6386cc354ec4ad3b29.png",
+          "sha256": "307821561792eb01006fbb9116082a7aa7d9468f3568cb6386cc354ec4ad3b29",
+          "bytes": 28010
+        },
+        "50x30/white": {
+          "path": "verified-assets/e708d5ff5a32bbcc5085c03f58f9cde8a41111ec7c7e1ce415a1a9876cca446e.png",
+          "sha256": "e708d5ff5a32bbcc5085c03f58f9cde8a41111ec7c7e1ce415a1a9876cca446e",
+          "bytes": 2350
+        },
+        "220x132/white": {
+          "path": "verified-assets/ae56a33d170cb1dec9e6ebe9ff4967daaad67d69e592d3effa5081a33c1de238.png",
+          "sha256": "ae56a33d170cb1dec9e6ebe9ff4967daaad67d69e592d3effa5081a33c1de238",
+          "bytes": 32108
+        },
+        "400x240/white": {
+          "path": "verified-assets/1fddf1c4688f41868b3aed4d9cfe34cf6ef4ffe9b6e953b2a2da14dc33421069.png",
+          "sha256": "1fddf1c4688f41868b3aed4d9cfe34cf6ef4ffe9b6e953b2a2da14dc33421069",
+          "bytes": 80817
+        },
+        "50x30/black": {
+          "path": "verified-assets/b2dba792afcbe32c4e0c2b0914b0ed23f1c7ce053c323ff2be59961c3e92f6aa.png",
+          "sha256": "b2dba792afcbe32c4e0c2b0914b0ed23f1c7ce053c323ff2be59961c3e92f6aa",
+          "bytes": 2594
+        },
+        "220x132/black": {
+          "path": "verified-assets/b03699951f82738683fdd9cd0b7e9f09aaf58b58764f55ac7d51866e7c12702f.png",
+          "sha256": "b03699951f82738683fdd9cd0b7e9f09aaf58b58764f55ac7d51866e7c12702f",
+          "bytes": 31061
+        },
+        "400x240/black": {
+          "path": "verified-assets/8bdd96526ec30868f4b14a7ce624f749180b86ef3483a6921b2c470aecf4ada6.png",
+          "sha256": "8bdd96526ec30868f4b14a7ce624f749180b86ef3483a6921b2c470aecf4ada6",
+          "bytes": 78097
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Logo Radio Argentina 89.3 FM  ",
+        "matched_brand_keys": [
+          "argentina"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:729E:1EDE:ED:0:0:0:0": {
       "name": "Radio Argentina - AM 570",
@@ -12207,7 +12414,8 @@
       "homepages": [
         "http://am570radioargentina.com.ar/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:3A21:DA95:ED:0:0:0:0": {
       "name": "Aries FM 91.1",
@@ -12219,7 +12427,10 @@
       "homepages": [
         "https://ariesfmsalta.com.ar/es/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 404\n"
+      ]
     },
     "4097:0:2:A7FB:53CE:ED:0:0:0:0": {
       "name": "Radio Arul Online",
@@ -12231,7 +12442,38 @@
       "homepages": [
         "https://radioarulonline.on-air.fm/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://radioarulonline.on-air.fm/icon.png",
+        "final_url": "https://radioarulonline.on-air.fm/icon.png",
+        "path": "originals/d1339e6f6457719ba63a671e18c6e22f34e1d1e5ba85f0ca69432a4398babf81.img",
+        "sha256": "d1339e6f6457719ba63a671e18c6e22f34e1d1e5ba85f0ca69432a4398babf81",
+        "bytes": 28830,
+        "dimensions": [
+          512,
+          512
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://radioarulonline.on-air.fm/",
+        "final_url": "https://radioarulonline.on-air.fm/",
+        "original_html_sha256": "a490651ec615e68a1970ecee7226ea27e1db6b038603aae730d235058776273e",
+        "path": "page-evidence/a490651ec615e68a1970ecee7226ea27e1db6b038603aae730d235058776273e.json",
+        "titles": [
+          "Radio Arul Online | Listen Now",
+          "Radio Arul Online"
+        ],
+        "image_urls": [
+          "https://radioarulonline.on-air.fm/icon.png",
+          "https://radioarulonline.on-air.fm/icons/512-icon.png",
+          "https://radioarulonline.on-air.fm/icons/favicon-icon.png"
+        ],
+        "named_logos": {
+          "https://radioarulonline.on-air.fm/icon.png": "  "
+        }
+      },
+      "ocr_text": "()\n"
     },
     "4097:0:2:EF4B:E4CD:ED:0:0:0:0": {
       "name": "AsiCoE 105.9 Bella Viste Ctes",
@@ -12243,7 +12485,37 @@
       "homepages": [
         "https://radioasicoe.esenvivo.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://radioasicoe.esenvivo.com/img/logo.webp",
+        "final_url": "https://radioasicoe.esenvivo.com/img/logo.webp",
+        "path": "originals/38f014f4abd1e777033a59631a6af6e5f5f8d10f99df7492dd66bf5bd93eb342.img",
+        "sha256": "38f014f4abd1e777033a59631a6af6e5f5f8d10f99df7492dd66bf5bd93eb342",
+        "bytes": 7594,
+        "dimensions": [
+          754,
+          388
+        ],
+        "format": "WEBP"
+      },
+      "page": {
+        "url": "https://radioasicoe.esenvivo.com/",
+        "final_url": "https://radioasicoe.esenvivo.com/",
+        "original_html_sha256": "42cadd50019bc397b44fb00a9819b62689190300677c25075a9d2829875017ff",
+        "path": "page-evidence/42cadd50019bc397b44fb00a9819b62689190300677c25075a9d2829875017ff.json",
+        "titles": [
+          "Radio AsíCoE 105.9 Bella Vista Corrientes"
+        ],
+        "image_urls": [
+          "https://radioasicoe.esenvivo.com/img/logo.webp",
+          "https://radioasicoe.esenvivo.com/img/apple-icon-180x180.png",
+          "https://radioasicoe.esenvivo.com/img/apple-icon-60x60.png"
+        ],
+        "named_logos": {
+          "https://radioasicoe.esenvivo.com/img/logo.webp": "Logo  "
+        }
+      },
+      "ocr_text": "INAUI\n\nFM 100.9 BELLA VISTA | FM 105.9 BELLA Vista (CTES.) =|\n"
     },
     "4097:0:2:9305:C7CF:ED:0:0:0:0": {
       "name": "Aspen 102.3",
@@ -12257,7 +12529,11 @@
         "https://fmaspen.com/#",
         "https://www.fmaspen.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 403\n",
+        "curl: (22) The requested URL returned error: 403\n"
+      ]
     },
     "4097:0:2:6FEE:21EE:ED:0:0:0:0": {
       "name": "Aspen 88.3 FM Bahía Blanca",
@@ -12269,7 +12545,97 @@
       "homepages": [
         "https://radioarg.net/aspen-883-fm-bahia-blanca"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://radioarg.net/storage/radios/27298/82162/conversions/laz1IocMlu1YxdqeyVn0LYz3CgyT88-metaYXNwZW4tODgzLWZtLWJhaGlhLmpwZw==--lg.webp",
+        "final_url": "https://radioarg.net/storage/radios/27298/82162/conversions/laz1IocMlu1YxdqeyVn0LYz3CgyT88-metaYXNwZW4tODgzLWZtLWJhaGlhLmpwZw==--lg.webp",
+        "path": "originals/3082bdf9b55b8ab809f4af9c1378feb907baf6b9925e50cd3587c4a5b343f467.img",
+        "sha256": "3082bdf9b55b8ab809f4af9c1378feb907baf6b9925e50cd3587c4a5b343f467",
+        "bytes": 5362,
+        "dimensions": [
+          144,
+          144
+        ],
+        "format": "WEBP"
+      },
+      "page": {
+        "url": "https://radioarg.net/aspen-883-fm-bahia-blanca",
+        "final_url": "https://radioarg.net/aspen-883-fm-bahia-blanca",
+        "original_html_sha256": "c8c9e95d66326affd819ac86454d6359f15e150bf5a283a1d405103f88707d55",
+        "path": "page-evidence/c8c9e95d66326affd819ac86454d6359f15e150bf5a283a1d405103f88707d55.json",
+        "titles": [
+          "Aspen 88.3 FM Bahía Blanca en vivo",
+          "Aspen 88.3 FM Bahía Blanca"
+        ],
+        "image_urls": [
+          "https://radioarg.net/logo.webp",
+          "https://radioarg.net/storage/radios/27298/82162/conversions/laz1IocMlu1YxdqeyVn0LYz3CgyT88-metaYXNwZW4tODgzLWZtLWJhaGlhLmpwZw==--lg.webp",
+          "https://radioarg.net/favicon.ico"
+        ],
+        "named_logos": {
+          "https://radioarg.net/logo.webp": "Radioarg.net  ",
+          "https://radioarg.net/storage/radios/27298/82162/conversions/laz1IocMlu1YxdqeyVn0LYz3CgyT88-metaYXNwZW4tODgzLWZtLWJhaGlhLmpwZw==--lg.webp": "Logo Aspen 88.3 FM Bahía Blanca  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/726352c470054d7773ee02a65c32d69fce03b00e0cf3734cc7c830a341ce08a0.png",
+          "sha256": "726352c470054d7773ee02a65c32d69fce03b00e0cf3734cc7c830a341ce08a0",
+          "bytes": 1891
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/bded222a3addecdb5c7da42871d39e6621de7b47589f5b01531a3859fc67e9b9.png",
+          "sha256": "bded222a3addecdb5c7da42871d39e6621de7b47589f5b01531a3859fc67e9b9",
+          "bytes": 18317
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/4ca521f2d48a205104aa759a5839099050fafeccfe1c538539f3c4cce385439f.png",
+          "sha256": "4ca521f2d48a205104aa759a5839099050fafeccfe1c538539f3c4cce385439f",
+          "bytes": 50135
+        },
+        "50x30/white": {
+          "path": "verified-assets/6a4ed5c81b7f4bc36d916e1e742208e22031e6e5869398dbc17a6fe7bd68f7b4.png",
+          "sha256": "6a4ed5c81b7f4bc36d916e1e742208e22031e6e5869398dbc17a6fe7bd68f7b4",
+          "bytes": 3197
+        },
+        "220x132/white": {
+          "path": "verified-assets/7da839089e934c69c534216874caaab1dff05ca9aae7af215ec48834e62dd0ea.png",
+          "sha256": "7da839089e934c69c534216874caaab1dff05ca9aae7af215ec48834e62dd0ea",
+          "bytes": 40578
+        },
+        "400x240/white": {
+          "path": "verified-assets/07fdaaf33acf42eb459de04aafa4cab69d24a36b1ad093973697a9f2f69ce879.png",
+          "sha256": "07fdaaf33acf42eb459de04aafa4cab69d24a36b1ad093973697a9f2f69ce879",
+          "bytes": 102465
+        },
+        "50x30/black": {
+          "path": "verified-assets/047a13e0f9228c2130bed64fc4db8388b8947aa7a388f783eca88f0edb776ea9.png",
+          "sha256": "047a13e0f9228c2130bed64fc4db8388b8947aa7a388f783eca88f0edb776ea9",
+          "bytes": 3391
+        },
+        "220x132/black": {
+          "path": "verified-assets/c6d8928a7e0e173c71ef024b8e72da8f12674b6ed4a4eaada76630d2c92af0ed.png",
+          "sha256": "c6d8928a7e0e173c71ef024b8e72da8f12674b6ed4a4eaada76630d2c92af0ed",
+          "bytes": 39501
+        },
+        "400x240/black": {
+          "path": "verified-assets/789cb0464d43d72be36bd61aed8eecb8d9c97663eb01986fc868300a81e9c66e.png",
+          "sha256": "789cb0464d43d72be36bd61aed8eecb8d9c97663eb01986fc868300a81e9c66e",
+          "bytes": 99836
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Logo Aspen 88.3 FM Bahía Blanca  ",
+        "matched_brand_keys": [
+          "aspen",
+          "bahia",
+          "blanca"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:D065:7D8A:ED:0:0:0:0": {
       "name": "Aspen 93.7 Corrientes (AAC Stream)",
@@ -12288,7 +12654,96 @@
       "homepages": [
         "https://radioarg.net/aspen-mar-del-plata-893"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://radioarg.net/storage/radios/27596/84630/conversions/nX7DEIEjnDKuWQe2ZC4GyZjw0uaQkB-metaYXNwZW4tbWFyLWRlbC1wbGF0YS5qcGc=--lg.webp",
+        "final_url": "https://radioarg.net/storage/radios/27596/84630/conversions/nX7DEIEjnDKuWQe2ZC4GyZjw0uaQkB-metaYXNwZW4tbWFyLWRlbC1wbGF0YS5qcGc=--lg.webp",
+        "path": "originals/471b0a45e496c7336d6236d502d92ad9a926e065d349f3202eb6d7d8b1a4e4ae.img",
+        "sha256": "471b0a45e496c7336d6236d502d92ad9a926e065d349f3202eb6d7d8b1a4e4ae",
+        "bytes": 6296,
+        "dimensions": [
+          144,
+          144
+        ],
+        "format": "WEBP"
+      },
+      "page": {
+        "url": "https://radioarg.net/aspen-mar-del-plata-893",
+        "final_url": "https://radioarg.net/aspen-mar-del-plata-893",
+        "original_html_sha256": "3dd02eacde91c82a0f1ea20d5c6f2263a28a61d208d6ad6668966d036e36ddfc",
+        "path": "page-evidence/3dd02eacde91c82a0f1ea20d5c6f2263a28a61d208d6ad6668966d036e36ddfc.json",
+        "titles": [
+          "Aspen Mar del Plata 89.3 en vivo",
+          "Aspen Mar del Plata 89.3"
+        ],
+        "image_urls": [
+          "https://radioarg.net/logo.webp",
+          "https://radioarg.net/storage/radios/27596/84630/conversions/nX7DEIEjnDKuWQe2ZC4GyZjw0uaQkB-metaYXNwZW4tbWFyLWRlbC1wbGF0YS5qcGc=--lg.webp",
+          "https://radioarg.net/favicon.ico"
+        ],
+        "named_logos": {
+          "https://radioarg.net/logo.webp": "Radioarg.net  ",
+          "https://radioarg.net/storage/radios/27596/84630/conversions/nX7DEIEjnDKuWQe2ZC4GyZjw0uaQkB-metaYXNwZW4tbWFyLWRlbC1wbGF0YS5qcGc=--lg.webp": "Logo Aspen Mar del Plata 89.3  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/92698722b168bdee5d4dee65e0c52f6b6e20060be10be41dd57a95e383c9c8fd.png",
+          "sha256": "92698722b168bdee5d4dee65e0c52f6b6e20060be10be41dd57a95e383c9c8fd",
+          "bytes": 2117
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/598f995d36e74da857cfd0e0e2f87b0aa0d98d713eea64b22aeac2819c1d5b7b.png",
+          "sha256": "598f995d36e74da857cfd0e0e2f87b0aa0d98d713eea64b22aeac2819c1d5b7b",
+          "bytes": 18799
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/9f6ec0148c91ba475bf3a6557b84b7f197def7a61f87d667d8f50b3b11c393d8.png",
+          "sha256": "9f6ec0148c91ba475bf3a6557b84b7f197def7a61f87d667d8f50b3b11c393d8",
+          "bytes": 53146
+        },
+        "50x30/white": {
+          "path": "verified-assets/e1f91b7d03a2cb2d5eed6a0b8b2771911cd30356cf7f92034e9ee16ec02bb6b1.png",
+          "sha256": "e1f91b7d03a2cb2d5eed6a0b8b2771911cd30356cf7f92034e9ee16ec02bb6b1",
+          "bytes": 3465
+        },
+        "220x132/white": {
+          "path": "verified-assets/935ccc03775d625f1c5d0064a7870ca2fdbdf1d9a69ae9f7ffb6fe58bfde14a7.png",
+          "sha256": "935ccc03775d625f1c5d0064a7870ca2fdbdf1d9a69ae9f7ffb6fe58bfde14a7",
+          "bytes": 41219
+        },
+        "400x240/white": {
+          "path": "verified-assets/43268383c50e9740c61e184fcf0724b63ad4446456ca50d3099470ddae5ce15f.png",
+          "sha256": "43268383c50e9740c61e184fcf0724b63ad4446456ca50d3099470ddae5ce15f",
+          "bytes": 106361
+        },
+        "50x30/black": {
+          "path": "verified-assets/8b07cd5890c711d7e121dcc43764714a4826c82f337ae25ca24a370f96acd93b.png",
+          "sha256": "8b07cd5890c711d7e121dcc43764714a4826c82f337ae25ca24a370f96acd93b",
+          "bytes": 3685
+        },
+        "220x132/black": {
+          "path": "verified-assets/63163f89a50a1b10799d75ee2862db2ad798c553753a6e6da0eda72fff3ba4e6.png",
+          "sha256": "63163f89a50a1b10799d75ee2862db2ad798c553753a6e6da0eda72fff3ba4e6",
+          "bytes": 40216
+        },
+        "400x240/black": {
+          "path": "verified-assets/6fe7e69485bd77f65647478cf8fd2f8af827f5dcd39f7cd6d5d1c719c273d6b7.png",
+          "sha256": "6fe7e69485bd77f65647478cf8fd2f8af827f5dcd39f7cd6d5d1c719c273d6b7",
+          "bytes": 103197
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Logo Aspen Mar del Plata 89.3  ",
+        "matched_brand_keys": [
+          "aspen",
+          "plata"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:45A8:B890:ED:0:0:0:0": {
       "name": "Radio Atómika",
@@ -12300,7 +12755,95 @@
       "homepages": [
         "https://radioarg.net/radio-atomika"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://radioarg.net/storage/radios/8109/10231/conversions/radio-atomika-1061-fm-lg.webp",
+        "final_url": "https://radioarg.net/storage/radios/8109/10231/conversions/radio-atomika-1061-fm-lg.webp",
+        "path": "originals/90dd27de3a7620a957e29a7d5780ece400446a8305e0fc1d0e8e1e31b79e2cee.img",
+        "sha256": "90dd27de3a7620a957e29a7d5780ece400446a8305e0fc1d0e8e1e31b79e2cee",
+        "bytes": 7690,
+        "dimensions": [
+          144,
+          144
+        ],
+        "format": "WEBP"
+      },
+      "page": {
+        "url": "https://radioarg.net/radio-atomika",
+        "final_url": "https://radioarg.net/radio-atomika",
+        "original_html_sha256": "fc90566a4eeff6f8b07a2cd63bbc5b67957616eb149d4ff00e174cbc1f4e7d8f",
+        "path": "page-evidence/fc90566a4eeff6f8b07a2cd63bbc5b67957616eb149d4ff00e174cbc1f4e7d8f.json",
+        "titles": [
+          "Escuchar Radio Atómika en vivo",
+          "Radio Atómika"
+        ],
+        "image_urls": [
+          "https://radioarg.net/logo.webp",
+          "https://radioarg.net/storage/radios/8109/10231/conversions/radio-atomika-1061-fm-lg.webp",
+          "https://radioarg.net/favicon.ico"
+        ],
+        "named_logos": {
+          "https://radioarg.net/logo.webp": "Radioarg.net  ",
+          "https://radioarg.net/storage/radios/8109/10231/conversions/radio-atomika-1061-fm-lg.webp": "Logo Radio Atómika  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/451d9d7f968f90a9603b64c4d01a941da51b3c51a129bf420852339c64a53474.png",
+          "sha256": "451d9d7f968f90a9603b64c4d01a941da51b3c51a129bf420852339c64a53474",
+          "bytes": 1891
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/b5c1e4b35125e4d9234f23d8b512fdc031cfcc0c20d97718c47fa4b8a53ea614.png",
+          "sha256": "b5c1e4b35125e4d9234f23d8b512fdc031cfcc0c20d97718c47fa4b8a53ea614",
+          "bytes": 23279
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/dfc1281bea2faf30118252270e94bb3cef48a60d43ca9697f857d2687d5d249b.png",
+          "sha256": "dfc1281bea2faf30118252270e94bb3cef48a60d43ca9697f857d2687d5d249b",
+          "bytes": 64811
+        },
+        "50x30/white": {
+          "path": "verified-assets/5aafd3a373f403fbf80fec0d0a2ce21b0df699b5bc76d873ec1c0006e773b234.png",
+          "sha256": "5aafd3a373f403fbf80fec0d0a2ce21b0df699b5bc76d873ec1c0006e773b234",
+          "bytes": 3151
+        },
+        "220x132/white": {
+          "path": "verified-assets/1b65c9e061f484c4e2ceab390766a174743257a5ceffe9af4ca76ccd64e6700c.png",
+          "sha256": "1b65c9e061f484c4e2ceab390766a174743257a5ceffe9af4ca76ccd64e6700c",
+          "bytes": 46062
+        },
+        "400x240/white": {
+          "path": "verified-assets/edd04a3d83f095c2e2517548b7f76d01ff2f0c3c5159bb8672e2b1b0fe4a1bc2.png",
+          "sha256": "edd04a3d83f095c2e2517548b7f76d01ff2f0c3c5159bb8672e2b1b0fe4a1bc2",
+          "bytes": 119012
+        },
+        "50x30/black": {
+          "path": "verified-assets/293654f0cc781a3b32d301ab829b66e3eb05a4012a022033f4f46263d81530cf.png",
+          "sha256": "293654f0cc781a3b32d301ab829b66e3eb05a4012a022033f4f46263d81530cf",
+          "bytes": 3344
+        },
+        "220x132/black": {
+          "path": "verified-assets/27d6e4a1a3443ed372aa10cdfddb0fae6dfa2c6c7cfbce816480e1e89ce49dfd.png",
+          "sha256": "27d6e4a1a3443ed372aa10cdfddb0fae6dfa2c6c7cfbce816480e1e89ce49dfd",
+          "bytes": 44890
+        },
+        "400x240/black": {
+          "path": "verified-assets/f2443c0d77970f7ef33ebec8855f4a7fbe1322eda2fec5ee55d7e2163428059e.png",
+          "sha256": "f2443c0d77970f7ef33ebec8855f4a7fbe1322eda2fec5ee55d7e2163428059e",
+          "bytes": 116315
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Logo Radio Atómika  ",
+        "matched_brand_keys": [
+          "atomika"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:3E52:3D2:ED:0:0:0:0": {
       "name": "Radio Bar 96.9 FM",
@@ -12336,7 +12879,96 @@
       "homepages": [
         "http://www.radiobeat97.com.ar/beat/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://radiobeat97.com.ar/beat/wp-content/uploads/2024/06/logo-beat-2024.png",
+        "final_url": "https://radiobeat97.com.ar/beat/wp-content/uploads/2024/06/logo-beat-2024.png",
+        "path": "originals/4ebd0e47f4c9ab16ebd6778b49f8b258982088ca57c9a4f8f6c31b693c9bac54.img",
+        "sha256": "4ebd0e47f4c9ab16ebd6778b49f8b258982088ca57c9a4f8f6c31b693c9bac54",
+        "bytes": 34698,
+        "dimensions": [
+          774,
+          238
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "http://www.radiobeat97.com.ar/beat/",
+        "final_url": "https://radiobeat97.com.ar/beat/",
+        "original_html_sha256": "7dd29470143c628381aa77cd6ebd968018e3019bfaa6a1ca005d9ff6b2abc2b0",
+        "path": "page-evidence/7dd29470143c628381aa77cd6ebd968018e3019bfaa6a1ca005d9ff6b2abc2b0.json",
+        "titles": [
+          "Radio Beat FM | 97.5 mhz – Transmitiendo desde la ciudad de Villa Carlos Paz",
+          "Radio Beat FM | 97.5 mhz"
+        ],
+        "image_urls": [
+          "http://www.radiobeat97.com.ar/beat/wp-content/uploads/2021/09/logo-beat-2021b-1-blanco.png",
+          "https://radiobeat97.com.ar/beat/wp-content/uploads/2024/06/logo-beat-2024.png",
+          "https://radiobeat97.com.ar/beat/wp-content/uploads/2024/06/logo-beat-scaled.jpg"
+        ],
+        "named_logos": {
+          "https://radiobeat97.com.ar/beat/wp-content/uploads/2024/06/logo-beat-2024.png": "Radio Beat FM | 97.5 mhz  ",
+          "https://radiobeat97.com.ar/beat/wp-content/uploads/2024/06/logo-beat-scaled.jpg": "  ",
+          "http://www.radiobeat97.com.ar/beat/wp-content/uploads/2021/09/logo-beat-2021b-1-blanco.png": "INFORMACIÓN DE CONTACTO  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/5369f100bbb117dd1b2d59955b5c90cbcb445595a560e0c6432d806380b469d2.png",
+          "sha256": "5369f100bbb117dd1b2d59955b5c90cbcb445595a560e0c6432d806380b469d2",
+          "bytes": 1610
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/df8c7bbb9babec2d819a6e0d22a7621e4c9dfadc7bf5d1b9dcece34635480f36.png",
+          "sha256": "df8c7bbb9babec2d819a6e0d22a7621e4c9dfadc7bf5d1b9dcece34635480f36",
+          "bytes": 10898
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/64c396109d569f0e1d5342cbde150188b5aa6c796f84bd84fa4a704e1cd894b1.png",
+          "sha256": "64c396109d569f0e1d5342cbde150188b5aa6c796f84bd84fa4a704e1cd894b1",
+          "bytes": 34310
+        },
+        "50x30/white": {
+          "path": "verified-assets/ef44fd850238706c8841438abb23b51f459923031bec79af9d657f7900a2074b.png",
+          "sha256": "ef44fd850238706c8841438abb23b51f459923031bec79af9d657f7900a2074b",
+          "bytes": 3509
+        },
+        "220x132/white": {
+          "path": "verified-assets/4c25e249ab1cc84c659850e9c448d3f500fe5b56f6cc3bfbdd61b2f44bf36c41.png",
+          "sha256": "4c25e249ab1cc84c659850e9c448d3f500fe5b56f6cc3bfbdd61b2f44bf36c41",
+          "bytes": 38800
+        },
+        "400x240/white": {
+          "path": "verified-assets/f1a73896ba48135f3147423070501de054029aed4f6f261e771a7816825f47eb.png",
+          "sha256": "f1a73896ba48135f3147423070501de054029aed4f6f261e771a7816825f47eb",
+          "bytes": 103798
+        },
+        "50x30/black": {
+          "path": "verified-assets/6ec289880b43aeaf89de9edf08a767006b547262e3372433d8a80b51cd442893.png",
+          "sha256": "6ec289880b43aeaf89de9edf08a767006b547262e3372433d8a80b51cd442893",
+          "bytes": 3128
+        },
+        "220x132/black": {
+          "path": "verified-assets/8315ec384b696dca4923bc57ed2bcf98e2608a03205bcebaad804c36697154f5.png",
+          "sha256": "8315ec384b696dca4923bc57ed2bcf98e2608a03205bcebaad804c36697154f5",
+          "bytes": 34388
+        },
+        "400x240/black": {
+          "path": "verified-assets/c7629af46f3d4b5cc8a329e0b951babf638f0af97f8e9c32abad313469423291.png",
+          "sha256": "c7629af46f3d4b5cc8a329e0b951babf638f0af97f8e9c32abad313469423291",
+          "bytes": 85493
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Radio Beat FM | 97.5 mhz  ",
+        "matched_brand_keys": [
+          "beat"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:C280:25AA:ED:0:0:0:0": {
       "name": "Beat Digital",
@@ -12348,7 +12980,96 @@
       "homepages": [
         "https://radioarg.net/beat-digital"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://radioarg.net/storage/radios/22292/61545/conversions/6feEe00IMfd0iizEmCntwAI6h2uwQi-metaYmVhdC1kaWdpdGFsLmpwZw==--lg.webp",
+        "final_url": "https://radioarg.net/storage/radios/22292/61545/conversions/6feEe00IMfd0iizEmCntwAI6h2uwQi-metaYmVhdC1kaWdpdGFsLmpwZw==--lg.webp",
+        "path": "originals/8afbb3ce859584d493ccb82c708143b659e4d402f124ba992e057dca0ce7c459.img",
+        "sha256": "8afbb3ce859584d493ccb82c708143b659e4d402f124ba992e057dca0ce7c459",
+        "bytes": 4062,
+        "dimensions": [
+          144,
+          144
+        ],
+        "format": "WEBP"
+      },
+      "page": {
+        "url": "https://radioarg.net/beat-digital",
+        "final_url": "https://radioarg.net/beat-digital",
+        "original_html_sha256": "9bc942b1496b6cde59e832d4f8fd1af454a6473e3d0ebe28890e08beca17408d",
+        "path": "page-evidence/9bc942b1496b6cde59e832d4f8fd1af454a6473e3d0ebe28890e08beca17408d.json",
+        "titles": [
+          "Beat Digital en vivo",
+          "Beat Digital"
+        ],
+        "image_urls": [
+          "https://radioarg.net/logo.webp",
+          "https://radioarg.net/storage/radios/22292/61545/conversions/6feEe00IMfd0iizEmCntwAI6h2uwQi-metaYmVhdC1kaWdpdGFsLmpwZw==--lg.webp",
+          "https://radioarg.net/favicon.ico"
+        ],
+        "named_logos": {
+          "https://radioarg.net/logo.webp": "Radioarg.net  ",
+          "https://radioarg.net/storage/radios/22292/61545/conversions/6feEe00IMfd0iizEmCntwAI6h2uwQi-metaYmVhdC1kaWdpdGFsLmpwZw==--lg.webp": "Logo Beat Digital  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/654fe9921d765e33b8685d370f3a060761cc91534a0f73214deb02bfabe0b0e0.png",
+          "sha256": "654fe9921d765e33b8685d370f3a060761cc91534a0f73214deb02bfabe0b0e0",
+          "bytes": 1554
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/57b231fc518ac59b7afad7d0a024bf771e1f8cdae51e9e6fa61f10fbf0c3ad29.png",
+          "sha256": "57b231fc518ac59b7afad7d0a024bf771e1f8cdae51e9e6fa61f10fbf0c3ad29",
+          "bytes": 14820
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/3ccf693ef9ac8527c248f24edf6a20a86f88451cb0109f971b0e79e053590f9d.png",
+          "sha256": "3ccf693ef9ac8527c248f24edf6a20a86f88451cb0109f971b0e79e053590f9d",
+          "bytes": 38184
+        },
+        "50x30/white": {
+          "path": "verified-assets/061524a48d3a9294bf843d05fd4c1686635294ee54b0b3def655971747834167.png",
+          "sha256": "061524a48d3a9294bf843d05fd4c1686635294ee54b0b3def655971747834167",
+          "bytes": 2755
+        },
+        "220x132/white": {
+          "path": "verified-assets/5175a1512831b164bb0105ce884199042940b9f989c48d616456579635aa51d0.png",
+          "sha256": "5175a1512831b164bb0105ce884199042940b9f989c48d616456579635aa51d0",
+          "bytes": 36746
+        },
+        "400x240/white": {
+          "path": "verified-assets/c1ba7f025f472f4a1be48854ea9811056121360064bd30f1ec759069da74053e.png",
+          "sha256": "c1ba7f025f472f4a1be48854ea9811056121360064bd30f1ec759069da74053e",
+          "bytes": 90675
+        },
+        "50x30/black": {
+          "path": "verified-assets/b80cd2cb419e4750a92f6ae86600aee36d7b2c6d7aa7cef3457860a84ac5b0c2.png",
+          "sha256": "b80cd2cb419e4750a92f6ae86600aee36d7b2c6d7aa7cef3457860a84ac5b0c2",
+          "bytes": 2976
+        },
+        "220x132/black": {
+          "path": "verified-assets/fc861292d3707c53273ab21c06537e3b3c6464f3c6c1cb5c858ffd73fbe8de78.png",
+          "sha256": "fc861292d3707c53273ab21c06537e3b3c6464f3c6c1cb5c858ffd73fbe8de78",
+          "bytes": 35770
+        },
+        "400x240/black": {
+          "path": "verified-assets/482eec13d908da22a173c4a0856435f51fd1a737d9d823c71b3876e4ff43b48a.png",
+          "sha256": "482eec13d908da22a173c4a0856435f51fd1a737d9d823c71b3876e4ff43b48a",
+          "bytes": 87889
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Logo Beat Digital  ",
+        "matched_brand_keys": [
+          "beat",
+          "digital"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:429B:76E7:ED:0:0:0:0": {
       "name": "Radio Beat FM 97.5",
@@ -12360,7 +13081,95 @@
       "homepages": [
         "https://radioarg.net/beat-fm-975"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://radioarg.net/storage/radios/8079/10201/conversions/beat-fm-975-lg.webp",
+        "final_url": "https://radioarg.net/storage/radios/8079/10201/conversions/beat-fm-975-lg.webp",
+        "path": "originals/b4289b247499a26ea7ee1aadf12f79ef97ca2a5f0444448bcd6ccf3f0fe0a231.img",
+        "sha256": "b4289b247499a26ea7ee1aadf12f79ef97ca2a5f0444448bcd6ccf3f0fe0a231",
+        "bytes": 2470,
+        "dimensions": [
+          144,
+          144
+        ],
+        "format": "WEBP"
+      },
+      "page": {
+        "url": "https://radioarg.net/beat-fm-975",
+        "final_url": "https://radioarg.net/beat-fm-975",
+        "original_html_sha256": "f81dd4b2d273d09050f71716a4a30b91734aa3d5970591d7227dfdedd541ecab",
+        "path": "page-evidence/f81dd4b2d273d09050f71716a4a30b91734aa3d5970591d7227dfdedd541ecab.json",
+        "titles": [
+          "Radio Beat FM 97.5 en vivo, Villa Carlos Paz",
+          "Radio Beat FM 97.5"
+        ],
+        "image_urls": [
+          "https://radioarg.net/logo.webp",
+          "https://radioarg.net/storage/radios/8079/10201/conversions/beat-fm-975-lg.webp",
+          "https://radioarg.net/favicon.ico"
+        ],
+        "named_logos": {
+          "https://radioarg.net/logo.webp": "Radioarg.net  ",
+          "https://radioarg.net/storage/radios/8079/10201/conversions/beat-fm-975-lg.webp": "Logo Radio Beat FM 97.5  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/508d3766e2cc3d9ca347973dd0dee765ac90763f190010de05b67b3682cfa48c.png",
+          "sha256": "508d3766e2cc3d9ca347973dd0dee765ac90763f190010de05b67b3682cfa48c",
+          "bytes": 1080
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/530443e58fbe5ec8afc0dc371fe4ed011728d6ef4bce22cadd5b755386a7e9e3.png",
+          "sha256": "530443e58fbe5ec8afc0dc371fe4ed011728d6ef4bce22cadd5b755386a7e9e3",
+          "bytes": 8001
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/99478979f8189ff2df72f03d1c3798f7858260c58b469ab6432f81ec13e50fdc.png",
+          "sha256": "99478979f8189ff2df72f03d1c3798f7858260c58b469ab6432f81ec13e50fdc",
+          "bytes": 21137
+        },
+        "50x30/white": {
+          "path": "verified-assets/c7596377b9de6dca394d71fc409240b9a342375011d7a0567a945c2835bf17c9.png",
+          "sha256": "c7596377b9de6dca394d71fc409240b9a342375011d7a0567a945c2835bf17c9",
+          "bytes": 2416
+        },
+        "220x132/white": {
+          "path": "verified-assets/4aa74e335228464da6413ce19731ae36a8dfe5a59c1d3e604b067d265a73c501.png",
+          "sha256": "4aa74e335228464da6413ce19731ae36a8dfe5a59c1d3e604b067d265a73c501",
+          "bytes": 30055
+        },
+        "400x240/white": {
+          "path": "verified-assets/58bb04be45d6401aacb0d9594ead88a6ad12efe5ec1b7e5afe0ee2a09e59e7cd.png",
+          "sha256": "58bb04be45d6401aacb0d9594ead88a6ad12efe5ec1b7e5afe0ee2a09e59e7cd",
+          "bytes": 74166
+        },
+        "50x30/black": {
+          "path": "verified-assets/e7ebdc63543ad00f60a5dce9a86a7d6f193a779fb193364b90ba6b84f140e8dd.png",
+          "sha256": "e7ebdc63543ad00f60a5dce9a86a7d6f193a779fb193364b90ba6b84f140e8dd",
+          "bytes": 2692
+        },
+        "220x132/black": {
+          "path": "verified-assets/adc0079f77e0ddc8c69c6a75aaeb8645a6146609d92708df226f2165e5a3915c.png",
+          "sha256": "adc0079f77e0ddc8c69c6a75aaeb8645a6146609d92708df226f2165e5a3915c",
+          "bytes": 29098
+        },
+        "400x240/black": {
+          "path": "verified-assets/5b65a5f1a86507b4c6418f4506b447e41655ce6d01859b4a76428121343e5365.png",
+          "sha256": "5b65a5f1a86507b4c6418f4506b447e41655ce6d01859b4a76428121343e5365",
+          "bytes": 71486
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Logo Radio Beat FM 97.5  ",
+        "matched_brand_keys": [
+          "beat"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:3486:C0BF:ED:0:0:0:0": {
       "name": "Radio Belgrano AM 570",
@@ -12372,7 +13181,95 @@
       "homepages": [
         "https://radioarg.net/belgrano-am-570"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://radioarg.net/storage/radios/26812/80161/conversions/6JymV2VcanrvTMKm512pVRIwZjSckm-metaU2NyZWVuc2hvdF84MC5wbmc=--lg.webp",
+        "final_url": "https://radioarg.net/storage/radios/26812/80161/conversions/6JymV2VcanrvTMKm512pVRIwZjSckm-metaU2NyZWVuc2hvdF84MC5wbmc=--lg.webp",
+        "path": "originals/7409bf6355b5c6b1a18251d8c7d2e427cef9946b2069ecf67732ba670f953ee5.img",
+        "sha256": "7409bf6355b5c6b1a18251d8c7d2e427cef9946b2069ecf67732ba670f953ee5",
+        "bytes": 3158,
+        "dimensions": [
+          144,
+          144
+        ],
+        "format": "WEBP"
+      },
+      "page": {
+        "url": "https://radioarg.net/belgrano-am-570",
+        "final_url": "https://radioarg.net/belgrano-am-570",
+        "original_html_sha256": "64095aaf87f35df52d19e608d73029c5f7ebdcd352e7dd3ed4bfe992bf4b7101",
+        "path": "page-evidence/64095aaf87f35df52d19e608d73029c5f7ebdcd352e7dd3ed4bfe992bf4b7101.json",
+        "titles": [
+          "Radio Belgrano AM 570 en vivo",
+          "Radio Belgrano AM 570"
+        ],
+        "image_urls": [
+          "https://radioarg.net/logo.webp",
+          "https://radioarg.net/storage/radios/26812/80161/conversions/6JymV2VcanrvTMKm512pVRIwZjSckm-metaU2NyZWVuc2hvdF84MC5wbmc=--lg.webp",
+          "https://radioarg.net/favicon.ico"
+        ],
+        "named_logos": {
+          "https://radioarg.net/logo.webp": "Radioarg.net  ",
+          "https://radioarg.net/storage/radios/26812/80161/conversions/6JymV2VcanrvTMKm512pVRIwZjSckm-metaU2NyZWVuc2hvdF84MC5wbmc=--lg.webp": "Logo Radio Belgrano AM 570  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/8c92daa8ab6dd27f503ae73404a7f6ac7a3185cb1ee469beb703062c60b7c9cb.png",
+          "sha256": "8c92daa8ab6dd27f503ae73404a7f6ac7a3185cb1ee469beb703062c60b7c9cb",
+          "bytes": 1023
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/ff9698e8d4d5b6fea3216efe493a75542175b3e53d7f8800e2baeb90e3d777c0.png",
+          "sha256": "ff9698e8d4d5b6fea3216efe493a75542175b3e53d7f8800e2baeb90e3d777c0",
+          "bytes": 8436
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/f12a0fa1bba8861d329cf19baaef3a6df0c96450909b7718b4cc27da261813e0.png",
+          "sha256": "f12a0fa1bba8861d329cf19baaef3a6df0c96450909b7718b4cc27da261813e0",
+          "bytes": 23654
+        },
+        "50x30/white": {
+          "path": "verified-assets/11bb7cc08c8d0313976b315cf6c6b41e91aef34f86538a92ad5c6604ed0d6ecc.png",
+          "sha256": "11bb7cc08c8d0313976b315cf6c6b41e91aef34f86538a92ad5c6604ed0d6ecc",
+          "bytes": 2316
+        },
+        "220x132/white": {
+          "path": "verified-assets/6466bb559e8476a6937b10d8f29fe9ed83229f1c5f3ecd9438afe14a8116c8d0.png",
+          "sha256": "6466bb559e8476a6937b10d8f29fe9ed83229f1c5f3ecd9438afe14a8116c8d0",
+          "bytes": 30641
+        },
+        "400x240/white": {
+          "path": "verified-assets/598ffa92ed7b1118719bcc512a44e5ba5bbb6b09f73e654529f2ae45acc5c517.png",
+          "sha256": "598ffa92ed7b1118719bcc512a44e5ba5bbb6b09f73e654529f2ae45acc5c517",
+          "bytes": 76977
+        },
+        "50x30/black": {
+          "path": "verified-assets/bb0f0766ebb16bd2955d1affcb040f6b39bba1bf48f2adb5eb12d98fc46f419d.png",
+          "sha256": "bb0f0766ebb16bd2955d1affcb040f6b39bba1bf48f2adb5eb12d98fc46f419d",
+          "bytes": 2602
+        },
+        "220x132/black": {
+          "path": "verified-assets/d0a034c50a83835e637eb9c115497c041edb618f889862d1e357cdd5f9e0da8d.png",
+          "sha256": "d0a034c50a83835e637eb9c115497c041edb618f889862d1e357cdd5f9e0da8d",
+          "bytes": 29607
+        },
+        "400x240/black": {
+          "path": "verified-assets/f18f2ce3919497523559a5d89e369df708905ddcd4a3a5c1f3666fdff42ba815.png",
+          "sha256": "f18f2ce3919497523559a5d89e369df708905ddcd4a3a5c1f3666fdff42ba815",
+          "bytes": 74209
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Logo Radio Belgrano AM 570  ",
+        "matched_brand_keys": [
+          "belgrano"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:A6A7:CD39:ED:0:0:0:0": {
       "name": "Radio Belgrano - AM 650",
@@ -12384,7 +13281,10 @@
       "homepages": [
         "http://am570radioargentina.com.ar/radio-belgrano-a650-2/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 404\n"
+      ]
     },
     "4097:0:2:1C21:8E29:ED:0:0:0:0": {
       "name": "Radio Belgrano Suardi",
@@ -12396,7 +13296,96 @@
       "homepages": [
         "https://radioarg.net/belgrano"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://radioarg.net/storage/radios/8096/69244/conversions/3iezoDJAJQm8vi0eVWQqlqD3tjjV5p-metaYmVsZ3Jhbm8tc3VhcmRpLnBuZw==--lg.webp",
+        "final_url": "https://radioarg.net/storage/radios/8096/69244/conversions/3iezoDJAJQm8vi0eVWQqlqD3tjjV5p-metaYmVsZ3Jhbm8tc3VhcmRpLnBuZw==--lg.webp",
+        "path": "originals/e2d1de5744632a952b39ba8128c57e7eb041dbb1b113b2075e357e928c15a307.img",
+        "sha256": "e2d1de5744632a952b39ba8128c57e7eb041dbb1b113b2075e357e928c15a307",
+        "bytes": 3278,
+        "dimensions": [
+          144,
+          144
+        ],
+        "format": "WEBP"
+      },
+      "page": {
+        "url": "https://radioarg.net/belgrano",
+        "final_url": "https://radioarg.net/belgrano",
+        "original_html_sha256": "b480b7b86666b62fbe082e1f87e3ef8706849f9410c6477623759254a3e46869",
+        "path": "page-evidence/b480b7b86666b62fbe082e1f87e3ef8706849f9410c6477623759254a3e46869.json",
+        "titles": [
+          "Radio Belgrano Suardi En Vivo",
+          "Radio Belgrano Suardi"
+        ],
+        "image_urls": [
+          "https://radioarg.net/logo.webp",
+          "https://radioarg.net/storage/radios/8096/69244/conversions/3iezoDJAJQm8vi0eVWQqlqD3tjjV5p-metaYmVsZ3Jhbm8tc3VhcmRpLnBuZw==--lg.webp",
+          "https://radioarg.net/favicon.ico"
+        ],
+        "named_logos": {
+          "https://radioarg.net/logo.webp": "Radioarg.net  ",
+          "https://radioarg.net/storage/radios/8096/69244/conversions/3iezoDJAJQm8vi0eVWQqlqD3tjjV5p-metaYmVsZ3Jhbm8tc3VhcmRpLnBuZw==--lg.webp": "Logo Radio Belgrano Suardi  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/c5bcda46e83daa5575585f11317fbde6afdabee73b1a143f403ff3f9c0613309.png",
+          "sha256": "c5bcda46e83daa5575585f11317fbde6afdabee73b1a143f403ff3f9c0613309",
+          "bytes": 1028
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/3f611d4163a2132e60e862750770463c5dda8a1d5442652a44d956700d3c2868.png",
+          "sha256": "3f611d4163a2132e60e862750770463c5dda8a1d5442652a44d956700d3c2868",
+          "bytes": 9453
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/b3f5140554542aea5fb8d72a40697e6d037f678b1f9b4ce47fc435eec776e1b4.png",
+          "sha256": "b3f5140554542aea5fb8d72a40697e6d037f678b1f9b4ce47fc435eec776e1b4",
+          "bytes": 26750
+        },
+        "50x30/white": {
+          "path": "verified-assets/48e39b8dc7d25eff5e353c732a13dee6697bbc776bfd563247806edc94325ef1.png",
+          "sha256": "48e39b8dc7d25eff5e353c732a13dee6697bbc776bfd563247806edc94325ef1",
+          "bytes": 2376
+        },
+        "220x132/white": {
+          "path": "verified-assets/7d73fddc32d1b051b58ceb9fb7613002639813e5525d9f81198b8e252861a851.png",
+          "sha256": "7d73fddc32d1b051b58ceb9fb7613002639813e5525d9f81198b8e252861a851",
+          "bytes": 31656
+        },
+        "400x240/white": {
+          "path": "verified-assets/9796aa6d1894653e2ca6f605f2a4610936cd0931ec53a28dc8fe39924d0db0bd.png",
+          "sha256": "9796aa6d1894653e2ca6f605f2a4610936cd0931ec53a28dc8fe39924d0db0bd",
+          "bytes": 80341
+        },
+        "50x30/black": {
+          "path": "verified-assets/1cf631f8e4d7d553381ba769a7e4806872bf0dea459d72bbac68200936d0227a.png",
+          "sha256": "1cf631f8e4d7d553381ba769a7e4806872bf0dea459d72bbac68200936d0227a",
+          "bytes": 2551
+        },
+        "220x132/black": {
+          "path": "verified-assets/2001ce416545e90822e15fb548a387f72af63159163fe91b4ce21db0c9c09676.png",
+          "sha256": "2001ce416545e90822e15fb548a387f72af63159163fe91b4ce21db0c9c09676",
+          "bytes": 30618
+        },
+        "400x240/black": {
+          "path": "verified-assets/8aa3c2425fe5b9606d4bca500a01572af4d0bfcc74921adb2a43a0e0882dafac.png",
+          "sha256": "8aa3c2425fe5b9606d4bca500a01572af4d0bfcc74921adb2a43a0e0882dafac",
+          "bytes": 77493
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Logo Radio Belgrano Suardi  ",
+        "matched_brand_keys": [
+          "belgrano",
+          "suardi"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:7EDC:658D:ED:0:0:0:0": {
       "name": "Radio Bella Vista Ctes 92.1",
@@ -12408,7 +13397,40 @@
       "homepages": [
         "https://radiobellavista.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://radiobellavista.com/wp-content/uploads/2022/12/LOGO-RADIO-3.png",
+        "final_url": "https://radiobellavista.com/wp-content/uploads/2022/12/LOGO-RADIO-3.png",
+        "path": "originals/447aff108e78185cddc59e092d430682614a2b86aec8848fc312ba635efe3169.img",
+        "sha256": "447aff108e78185cddc59e092d430682614a2b86aec8848fc312ba635efe3169",
+        "bytes": 13288,
+        "dimensions": [
+          405,
+          150
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://radiobellavista.com/",
+        "final_url": "https://radiobellavista.com/",
+        "original_html_sha256": "1fee30ae581105907cdb75e7bf00cda369cd536070b186e5123273aabffe7e43",
+        "path": "page-evidence/1fee30ae581105907cdb75e7bf00cda369cd536070b186e5123273aabffe7e43.json",
+        "titles": [
+          "Radio Bella Vista 92.1 - La Radio De Tu Ciudad",
+          " Radio Bella Vista 92.1 "
+        ],
+        "image_urls": [
+          "https://radiobellavista.com/wp-content/uploads/2022/12/LOGO-RADIO-2.png",
+          "https://radiobellavista.com/wp-content/uploads/2022/12/LOGO-RADIO-3.png",
+          "https://radiobellavista.com/wp-content/uploads/2022/12/LOGO-RADIO-4-1.png"
+        ],
+        "named_logos": {
+          "https://radiobellavista.com/wp-content/uploads/2022/12/LOGO-RADIO-3.png": "  ",
+          "https://radiobellavista.com/wp-content/uploads/2022/12/LOGO-RADIO-2.png": "  ",
+          "https://radiobellavista.com/wp-content/uploads/2022/12/LOGO-RADIO-4-1.png": " DESCARGA NUESTRA APP "
+        }
+      },
+      "ocr_text": "Rapio\n\nBellaVista\n\nah\n\n92.1\n"
     },
     "4097:0:2:9A86:C45F:ED:0:0:0:0": {
       "name": "Berlin 107.7",
@@ -12428,7 +13450,35 @@
         "http://www.radiobicentenario.com.ar/",
         "https://www.radiobicentenario.com.ar/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://www.radiobicentenario.com.ar/img/favicon/radiobicentenario/android-icon-192x192.png",
+        "final_url": "https://www.radiobicentenario.com.ar/img/favicon/radiobicentenario/android-icon-192x192.png",
+        "path": "originals/64e07e0c3b343ce2e46a11d33b293c4018bbf67c45e2c480d7617b23717d3ba3.img",
+        "sha256": "64e07e0c3b343ce2e46a11d33b293c4018bbf67c45e2c480d7617b23717d3ba3",
+        "bytes": 13078,
+        "dimensions": [
+          192,
+          192
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "http://www.radiobicentenario.com.ar/",
+        "final_url": "https://www.radiobicentenario.com.ar/",
+        "original_html_sha256": "2e3c9a945a2268e2b02d8bad6e6fe454245590d70662047aa8096e12ea40f1e4",
+        "path": "page-evidence/2e3c9a945a2268e2b02d8bad6e6fe454245590d70662047aa8096e12ea40f1e4.json",
+        "titles": [
+          "Radio Bicentenario - FM 103.3 en vivo - Tucuman"
+        ],
+        "image_urls": [
+          "https://www.radiobicentenario.com.ar/img/favicon/radiobicentenario/android-icon-192x192.png",
+          "https://www.radiobicentenario.com.ar/img/favicon/radiobicentenario/apple-icon-114x114.png",
+          "https://www.radiobicentenario.com.ar/img/favicon/radiobicentenario/apple-icon-120x120.png"
+        ],
+        "named_logos": {}
+      },
+      "ocr_text": "C55\n"
     },
     "4097:0:2:B170:A11C:ED:0:0:0:0": {
       "name": "Big Bang Radio",
@@ -12454,7 +13504,93 @@
       "homepages": [
         "https://www.blendradio.ar/english.html"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://www.blendradio.ar/assets/blend-logo.png",
+        "final_url": "https://www.blendradio.ar/assets/blend-logo.png",
+        "path": "originals/cd1ea4976bba6989bf4ad59d0e537974eb2c20985fcacb28c1967bedf8ba2583.img",
+        "sha256": "cd1ea4976bba6989bf4ad59d0e537974eb2c20985fcacb28c1967bedf8ba2583",
+        "bytes": 17061,
+        "dimensions": [
+          760,
+          346
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://www.blendradio.ar/english.html",
+        "final_url": "https://www.blendradio.ar/english.html",
+        "original_html_sha256": "cf5573f5f38d1977c414f7dcbd5230782c994cba7847753d9581ae9e5e802cd2",
+        "path": "page-evidence/cf5573f5f38d1977c414f7dcbd5230782c994cba7847753d9581ae9e5e802cd2.json",
+        "titles": [
+          "Blend Radio | The music plays on",
+          "The music plays  on. "
+        ],
+        "image_urls": [
+          "https://www.blendradio.ar/assets/blend-logo.png",
+          "https://www.blendradio.ar/favicon.ico"
+        ],
+        "named_logos": {
+          "https://www.blendradio.ar/assets/blend-logo.png": "Blend Radio  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/08ec070d0e255e46b7c3fada8d305045b9a9303b8c56594a23b2da54e36a7206.png",
+          "sha256": "08ec070d0e255e46b7c3fada8d305045b9a9303b8c56594a23b2da54e36a7206",
+          "bytes": 2131
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/931ffe81700885dddb2382186a0dab6bc78fa233a827d1702cbe4e623ab2106d.png",
+          "sha256": "931ffe81700885dddb2382186a0dab6bc78fa233a827d1702cbe4e623ab2106d",
+          "bytes": 14173
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/797390bf939a72457082b561958ca63fc759a8aabc5f54454e45f40dc7e0a924.png",
+          "sha256": "797390bf939a72457082b561958ca63fc759a8aabc5f54454e45f40dc7e0a924",
+          "bytes": 45502
+        },
+        "50x30/white": {
+          "path": "verified-assets/0041e6d5bd1e5023d94b5de650f47b8862815b339abc82ec28eece44f4ccc095.png",
+          "sha256": "0041e6d5bd1e5023d94b5de650f47b8862815b339abc82ec28eece44f4ccc095",
+          "bytes": 3512
+        },
+        "220x132/white": {
+          "path": "verified-assets/f0b971151ca85e401144421f37c5a2730e7b4ccfeb30f3dcfeff321e0e75d071.png",
+          "sha256": "f0b971151ca85e401144421f37c5a2730e7b4ccfeb30f3dcfeff321e0e75d071",
+          "bytes": 39054
+        },
+        "400x240/white": {
+          "path": "verified-assets/5745c8ee848c1a211b894553b4bf45744bd2cf8b2396eec0fd225868abb63d59.png",
+          "sha256": "5745c8ee848c1a211b894553b4bf45744bd2cf8b2396eec0fd225868abb63d59",
+          "bytes": 103333
+        },
+        "50x30/black": {
+          "path": "verified-assets/a73e44edcc4759289e3445536a97749b7b869782d969204597b30ef9bb15c8a5.png",
+          "sha256": "a73e44edcc4759289e3445536a97749b7b869782d969204597b30ef9bb15c8a5",
+          "bytes": 3178
+        },
+        "220x132/black": {
+          "path": "verified-assets/b3e1604303e0d1d0afe1588c0c5b5fc0875ef5adb9e6c7e5f05a03d44712f01a.png",
+          "sha256": "b3e1604303e0d1d0afe1588c0c5b5fc0875ef5adb9e6c7e5f05a03d44712f01a",
+          "bytes": 35946
+        },
+        "400x240/black": {
+          "path": "verified-assets/22aca651f7026151751cfa64ea6ac8e4b89a0cff15385658c5bde8f8f94ca3c2.png",
+          "sha256": "22aca651f7026151751cfa64ea6ac8e4b89a0cff15385658c5bde8f8f94ca3c2",
+          "bytes": 89647
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Blend Radio  ",
+        "matched_brand_keys": [
+          "blend"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:8201:8979:ED:0:0:0:0": {
       "name": "Blue 100.7 FM",
@@ -12473,7 +13609,100 @@
       "homepages": [
         "https://www.blurfm.com/es/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://www.blurfm.com/_astro/logo.BU-ycw9m_Zkm18N.svg",
+        "final_url": "https://www.blurfm.com/_astro/logo.BU-ycw9m_Zkm18N.svg",
+        "path": "originals/cb7e4311832c6bd56f01af950da57ab1da8ffc241353e769d8f9c26f9b75e928.img",
+        "sha256": "cb7e4311832c6bd56f01af950da57ab1da8ffc241353e769d8f9c26f9b75e928",
+        "bytes": 8010,
+        "dimensions": [
+          640,
+          181
+        ],
+        "format": "SVG",
+        "frozen_svg_raster": {
+          "path": "rasterized/f792073a8665f837dc24fcb181fce0b8f9cd6a4a54cdb1dc1034586c5c1e0caa.png",
+          "sha256": "f792073a8665f837dc24fcb181fce0b8f9cd6a4a54cdb1dc1034586c5c1e0caa",
+          "cairosvg_version": "2.8.2"
+        }
+      },
+      "page": {
+        "url": "https://www.blurfm.com/es/",
+        "final_url": "https://www.blurfm.com/es/",
+        "original_html_sha256": "85aeb5f55100468498b84ec2bcdc0fb5b5a3fd31e526534578cfedb592bc1d64",
+        "path": "page-evidence/85aeb5f55100468498b84ec2bcdc0fb5b5a3fd31e526534578cfedb592bc1d64.json",
+        "titles": [
+          "Blur FM Radio Online",
+          "Descubre Nuevos Sonidos"
+        ],
+        "image_urls": [
+          "https://www.blurfm.com/_astro/logo.BU-ycw9m_Zkm18N.svg",
+          "https://www.blurfm.com/_astro/logo_footer.BH4JyBk2_ZSUl94.svg",
+          "https://www.blurfm.com/favicon.svg"
+        ],
+        "named_logos": {
+          "https://www.blurfm.com/_astro/logo.BU-ycw9m_Zkm18N.svg": "Blur FM  ",
+          "https://www.blurfm.com/_astro/logo_footer.BH4JyBk2_ZSUl94.svg": "Blur FM  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/8626312750490d9709359e5882d07c3efe31e62a07b5f1058a3db4232c004c48.png",
+          "sha256": "8626312750490d9709359e5882d07c3efe31e62a07b5f1058a3db4232c004c48",
+          "bytes": 1227
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/54159fa4c69360a3b3e7c0ffa92b03d9828b9ba7648e216d1c7bd4d31359b2fd.png",
+          "sha256": "54159fa4c69360a3b3e7c0ffa92b03d9828b9ba7648e216d1c7bd4d31359b2fd",
+          "bytes": 7483
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/02dd0eb1ed35c09e2708e8a298596b043e26ff6b3ff020d1ee4f439875c358e1.png",
+          "sha256": "02dd0eb1ed35c09e2708e8a298596b043e26ff6b3ff020d1ee4f439875c358e1",
+          "bytes": 23339
+        },
+        "50x30/white": {
+          "path": "verified-assets/b47911f7757197b8fd8097709ddee131b625ab373ae9e2ccfdbea2bc82e94d08.png",
+          "sha256": "b47911f7757197b8fd8097709ddee131b625ab373ae9e2ccfdbea2bc82e94d08",
+          "bytes": 2682
+        },
+        "220x132/white": {
+          "path": "verified-assets/3324c8ac9413c00e4255f5764d89590cf28ee30e48fd71184c641485d59139c1.png",
+          "sha256": "3324c8ac9413c00e4255f5764d89590cf28ee30e48fd71184c641485d59139c1",
+          "bytes": 34441
+        },
+        "400x240/white": {
+          "path": "verified-assets/2a7b72919f689e9446bf397fd34b71cd00c99edc384329206d095833c92c2703.png",
+          "sha256": "2a7b72919f689e9446bf397fd34b71cd00c99edc384329206d095833c92c2703",
+          "bytes": 84901
+        },
+        "50x30/black": {
+          "path": "verified-assets/f73d13cb26dce72dda7b89042f43f94a4729cd7d2d7d1e7307758cfc8bb1671d.png",
+          "sha256": "f73d13cb26dce72dda7b89042f43f94a4729cd7d2d7d1e7307758cfc8bb1671d",
+          "bytes": 3224
+        },
+        "220x132/black": {
+          "path": "verified-assets/0e7a6a2f3bd7be7f79f14cdd5a46f572380be7440577574309553e48a1b35976.png",
+          "sha256": "0e7a6a2f3bd7be7f79f14cdd5a46f572380be7440577574309553e48a1b35976",
+          "bytes": 35456
+        },
+        "400x240/black": {
+          "path": "verified-assets/680a9df2504fd2882d13d1216e952b92d545ceaded3235b82069a29a2b69dd6f.png",
+          "sha256": "680a9df2504fd2882d13d1216e952b92d545ceaded3235b82069a29a2b69dd6f",
+          "bytes": 89079
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Blur FM  ",
+        "matched_brand_keys": [
+          "blur"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:1CD9:FCD5:ED:0:0:0:0": {
       "name": "Blur Radio",
@@ -12485,7 +13714,100 @@
       "homepages": [
         "https://www.blurfm.com/es/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://www.blurfm.com/_astro/logo.BU-ycw9m_Zkm18N.svg",
+        "final_url": "https://www.blurfm.com/_astro/logo.BU-ycw9m_Zkm18N.svg",
+        "path": "originals/cb7e4311832c6bd56f01af950da57ab1da8ffc241353e769d8f9c26f9b75e928.img",
+        "sha256": "cb7e4311832c6bd56f01af950da57ab1da8ffc241353e769d8f9c26f9b75e928",
+        "bytes": 8010,
+        "dimensions": [
+          640,
+          181
+        ],
+        "format": "SVG",
+        "frozen_svg_raster": {
+          "path": "rasterized/f792073a8665f837dc24fcb181fce0b8f9cd6a4a54cdb1dc1034586c5c1e0caa.png",
+          "sha256": "f792073a8665f837dc24fcb181fce0b8f9cd6a4a54cdb1dc1034586c5c1e0caa",
+          "cairosvg_version": "2.8.2"
+        }
+      },
+      "page": {
+        "url": "https://www.blurfm.com/es/",
+        "final_url": "https://www.blurfm.com/es/",
+        "original_html_sha256": "85aeb5f55100468498b84ec2bcdc0fb5b5a3fd31e526534578cfedb592bc1d64",
+        "path": "page-evidence/85aeb5f55100468498b84ec2bcdc0fb5b5a3fd31e526534578cfedb592bc1d64.json",
+        "titles": [
+          "Blur FM Radio Online",
+          "Descubre Nuevos Sonidos"
+        ],
+        "image_urls": [
+          "https://www.blurfm.com/_astro/logo.BU-ycw9m_Zkm18N.svg",
+          "https://www.blurfm.com/_astro/logo_footer.BH4JyBk2_ZSUl94.svg",
+          "https://www.blurfm.com/favicon.svg"
+        ],
+        "named_logos": {
+          "https://www.blurfm.com/_astro/logo.BU-ycw9m_Zkm18N.svg": "Blur FM  ",
+          "https://www.blurfm.com/_astro/logo_footer.BH4JyBk2_ZSUl94.svg": "Blur FM  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/8626312750490d9709359e5882d07c3efe31e62a07b5f1058a3db4232c004c48.png",
+          "sha256": "8626312750490d9709359e5882d07c3efe31e62a07b5f1058a3db4232c004c48",
+          "bytes": 1227
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/54159fa4c69360a3b3e7c0ffa92b03d9828b9ba7648e216d1c7bd4d31359b2fd.png",
+          "sha256": "54159fa4c69360a3b3e7c0ffa92b03d9828b9ba7648e216d1c7bd4d31359b2fd",
+          "bytes": 7483
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/02dd0eb1ed35c09e2708e8a298596b043e26ff6b3ff020d1ee4f439875c358e1.png",
+          "sha256": "02dd0eb1ed35c09e2708e8a298596b043e26ff6b3ff020d1ee4f439875c358e1",
+          "bytes": 23339
+        },
+        "50x30/white": {
+          "path": "verified-assets/b47911f7757197b8fd8097709ddee131b625ab373ae9e2ccfdbea2bc82e94d08.png",
+          "sha256": "b47911f7757197b8fd8097709ddee131b625ab373ae9e2ccfdbea2bc82e94d08",
+          "bytes": 2682
+        },
+        "220x132/white": {
+          "path": "verified-assets/3324c8ac9413c00e4255f5764d89590cf28ee30e48fd71184c641485d59139c1.png",
+          "sha256": "3324c8ac9413c00e4255f5764d89590cf28ee30e48fd71184c641485d59139c1",
+          "bytes": 34441
+        },
+        "400x240/white": {
+          "path": "verified-assets/2a7b72919f689e9446bf397fd34b71cd00c99edc384329206d095833c92c2703.png",
+          "sha256": "2a7b72919f689e9446bf397fd34b71cd00c99edc384329206d095833c92c2703",
+          "bytes": 84901
+        },
+        "50x30/black": {
+          "path": "verified-assets/f73d13cb26dce72dda7b89042f43f94a4729cd7d2d7d1e7307758cfc8bb1671d.png",
+          "sha256": "f73d13cb26dce72dda7b89042f43f94a4729cd7d2d7d1e7307758cfc8bb1671d",
+          "bytes": 3224
+        },
+        "220x132/black": {
+          "path": "verified-assets/0e7a6a2f3bd7be7f79f14cdd5a46f572380be7440577574309553e48a1b35976.png",
+          "sha256": "0e7a6a2f3bd7be7f79f14cdd5a46f572380be7440577574309553e48a1b35976",
+          "bytes": 35456
+        },
+        "400x240/black": {
+          "path": "verified-assets/680a9df2504fd2882d13d1216e952b92d545ceaded3235b82069a29a2b69dd6f.png",
+          "sha256": "680a9df2504fd2882d13d1216e952b92d545ceaded3235b82069a29a2b69dd6f",
+          "bytes": 89079
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Blur FM  ",
+        "matched_brand_keys": [
+          "blur"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:7D41:8542:ED:0:0:0:0": {
       "name": "Radio Boing 97.3 Rosario",
@@ -12497,7 +13819,47 @@
       "homepages": [
         "https://www.redboing.com/radio-boing-en-vivo-rosario/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://www.redboing.com//radio-players/logo-887.svg",
+        "final_url": "https://www.redboing.com//radio-players/logo-887.svg",
+        "path": "originals/4a68358002a2cdb12723c7e3012f758bb62ec0d5b4104bbfddf07f765a0e37cf.img",
+        "sha256": "4a68358002a2cdb12723c7e3012f758bb62ec0d5b4104bbfddf07f765a0e37cf",
+        "bytes": 6971,
+        "dimensions": [
+          640,
+          283
+        ],
+        "format": "SVG",
+        "frozen_svg_raster": {
+          "path": "rasterized/32d974c69df8770bafd0e90b9afdf6931c3d9b520e083e394f88e9a529e5a20e.png",
+          "sha256": "32d974c69df8770bafd0e90b9afdf6931c3d9b520e083e394f88e9a529e5a20e",
+          "cairosvg_version": "2.8.2"
+        }
+      },
+      "page": {
+        "url": "https://www.redboing.com/radio-boing-en-vivo-rosario/",
+        "final_url": "https://www.redboing.com/radio-boing-en-vivo-rosario/",
+        "original_html_sha256": "88911a14d4b37a62b0e072a4b0f5a41d2fa6f6070a51d3e0ccc37cb870aadf94",
+        "path": "page-evidence/88911a14d4b37a62b0e072a4b0f5a41d2fa6f6070a51d3e0ccc37cb870aadf94.json",
+        "titles": [
+          "Escuchar Radio Boing en vivo! FM 97.3 Rosario - RedBoing"
+        ],
+        "image_urls": [
+          "https://i0.wp.com/www.redboing.com/radio-players/logo-derock.png?resize=90%2C42&ssl=1",
+          "https://www.redboing.com//radio-players/logo-887.svg",
+          "https://www.redboing.com//radio-players/logo-rio.svg"
+        ],
+        "named_logos": {
+          "https://www.redboing.com//radio-players/radio-boing.svg": "  ",
+          "https://www.redboing.com//radio-players/logo-887.svg": "  ",
+          "https://www.redboing.com/wp-content/uploads/2021/01/logo-redboing-1.svg": "RedBoing  ",
+          "https://www.redboing.com//radio-players/logo-rio.svg": "  ",
+          "https://i0.wp.com/www.redboing.com/radio-players/logo-derock.png?resize=90%2C42&ssl=1": "  ",
+          "https://www.redboing.com/wp-content/themes/gazeta/images/gazeta-logo-h-light.svg": "Gazeta  "
+        }
+      },
+      "ocr_text": ".\n"
     },
     "4097:0:2:D195:9F3B:ED:0:0:0:0": {
       "name": "Radio Boom Show",
@@ -455610,14 +456972,14 @@
   },
   "counts": {
     "already_ready_in_saved_checkpoint": 4155,
-    "blocked_no_confirmed_station_page_and_logo": 134,
+    "blocked_no_confirmed_station_page_and_logo": 140,
     "blocked_no_independent_station_homepage": 1269,
     "blocked_no_unique_current_station_metadata": 4248,
-    "candidate_assistant_visual_and_identity_check": 39,
+    "candidate_assistant_visual_and_identity_check": 45,
     "needs_assistant_identity_research_for_short_or_generic_name": 1328,
-    "pending_homepage_discovery": 29678,
-    "ready_verified_homepage_and_wordmark": 52
+    "pending_homepage_discovery": 29653,
+    "ready_verified_homepage_and_wordmark": 65
   },
-  "last_event": "homepages_200_of_29878",
-  "updated_utc": "2026-11-05T13:44:49Z"
+  "last_event": "homepages_225_of_29878",
+  "updated_utc": "2026-11-05T13:45:15Z"
 }
