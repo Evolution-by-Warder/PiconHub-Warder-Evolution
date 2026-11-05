@@ -335,7 +335,15 @@ class NativeControllerTests(unittest.TestCase):
 
     def test_satellite_icons_green_marks_and_colored_footer(self):
         dialog=self.gui.ChoiceDialog(self.session,"Satelity",self.gui.model.SATELLITES,["FREESAT"],True)
-        self.assertEqual(len(dialog.icons),59)
+        self.assertEqual(set(dialog.icons),{value for value,label in self.gui.model.SATELLITES})
+        for selector in ("345W","500E"):
+            index=next(i for i,x in enumerate(dialog.state.choices) if x[0]==selector)
+            self.assertIn("png",dialog["list"].values[index][2])
+        self.main.open_picker("Satelity",self.gui.model.SATELLITES,multiple=True)
+        self.assertEqual(set(self.main.picker_icons),set(dialog.icons))
+        for selector in ("345W","500E"):
+            index=next(i for i,x in enumerate(self.main.picker.choices) if x[0]==selector)
+            self.assertIn("png",self.main["list"].values[index][2])
         index=next(i for i,x in enumerate(dialog.state.choices) if x[0]=="FREESAT")
         dialog["list"].moveToIndex(index)
         row=dialog["list"].values[index]
