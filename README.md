@@ -1,17 +1,17 @@
 # PiconHub Warder Evolution
 
-## Spoločné ostré vydanie — 4. november 2026
+## Spoločné ostré vydanie — 5. november 2026
 
-**PiconHub 0.1.43** pre OpenPLi a OpenATV. [Poznámky k vydaniu](docs/CURRENT-RELEASE.md). [Stiahnuť IPK](https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/download/v0.1.43/enigma2-plugin-extensions-piconhub_0.1.43_all.ipk).
+**PiconHub 0.1.44** pre OpenPLi a OpenATV. [Poznámky k vydaniu](docs/CURRENT-RELEASE.md). [Stiahnuť IPK](https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/download/v0.1.44/enigma2-plugin-extensions-piconhub_0.1.44_all.ipk).
 
 Warder's original futuristic Enigma2 plugin and the shared Warder picon source database.
 
 
 34,5°W a 50°E: všetky tri rozmery a pozadia Transparent, White a Black. Úplnosť troch pozadí sa kontroluje pre všetky satelity aj providery. [Pravidlo pozadí](docs/WARDER-BACKGROUND-POLICY.txt).
 
-## Current state — 2026-11-04
+## Current state — 2026-11-05
 
-**PiconHub 0.1.43 is the stable release.** Four independent profiles keep their settings; left/right selects a profile and 0 toggles its green processing checkmark. Download processes only the marked subset, and stays inactive with no marks. [Download the public IPK](https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/download/v0.1.43/enigma2-plugin-extensions-piconhub_0.1.43_all.ipk). Supported later versions receive it through the stable update channel; 0.1.32 needs one manual installation over the existing version. Restart the GUI after updating. The runtime remains `/usr/lib/enigma2/python/Plugins/Extensions/WarderPiconHub/`.
+**PiconHub 0.1.44 is the stable release.** Four independent profiles keep their settings; left/right selects a profile and 0 toggles its green processing checkmark. Download processes only the marked subset, and stays inactive with no marks. [Download the public IPK](https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/download/v0.1.44/enigma2-plugin-extensions-piconhub_0.1.44_all.ipk). Supported later versions receive it through the stable update channel; 0.1.32 needs one manual installation over the existing version. Restart the GUI after updating. The runtime remains `/usr/lib/enigma2/python/Plugins/Extensions/WarderPiconHub/`.
 
 Use the [plugin guide](plugin/README.md), [production record](plugin/PRODUCTION.md), [release manifest](plugin/production.json) and [validation status](plugin/BUILD-STATUS.md). They record the final behavior, automatic plugin updates, package identity, language support and precise receiver-test scope. Earlier rebuild plans are historical and do not override this baseline.
 
@@ -87,3 +87,9 @@ Spoločné dáta FullHDGlass a PiconHub dopĺňajú 70 overených servisných id
 Podpora 34,5°W a 50°E vo všetkých troch rozmeroch a pozadiach Transparent, White a Black. Kontrola kompletných pozadí satelitov aj providerov; uložené profily zostávajú zachované. Po aktualizácii reštartujte GUI.
 
 [Stiahnuť IPK](https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/download/v0.1.43/enigma2-plugin-extensions-piconhub_0.1.43_all.ipk). Overené všetky tri pozadia satelitov aj providerov, verejné IPK a kontrolné súčty.
+
+## PiconHub 0.1.44 — oprava poradia a ikon
+
+Doplnené pôvodné logá 34,5°W a 50°E v oboch výberoch PiconHubu. Všetky položky majú pribalenú ikonu; uložené profily a tri pozadia zostávajú zachované. Po aktualizácii reštartujte GUI.
+
+[Stiahnuť IPK](https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/download/v0.1.44/enigma2-plugin-extensions-piconhub_0.1.44_all.ipk). Overené všetky tri pozadia satelitov aj providerov, verejné IPK a kontrolné súčty.
