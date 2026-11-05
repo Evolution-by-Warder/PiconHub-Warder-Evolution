@@ -875065,7 +875065,8 @@
         "https://karnaval.com/radyolar/pop90"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:C55A:2071:ED:0:0:0:0": {
       "name": "POWERTÜRK SLOW",
@@ -875078,7 +875079,10 @@
         "https://listen.powerapp.com.tr/powerturkslow/mpeg/icecast.audio"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Operation timed out after 8001 milliseconds with 968913 bytes received\n"
+      ]
     },
     "4097:0:2:68E4:D7A4:ED:0:0:0:0": {
       "name": "RADYO 08",
@@ -875091,7 +875095,10 @@
         "https://sslyayin.netyayin.net:10931/"
       ],
       "needs_assistant_visual_identity": true,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Operation timed out after 8000 milliseconds with 212178 bytes received\n"
+      ]
     },
     "4097:0:2:58B6:E4FF:ED:0:0:0:0": {
       "name": "Radyo 13",
@@ -875104,7 +875111,37 @@
         "http://www.radyo13.com.tr/"
       ],
       "needs_assistant_visual_identity": true,
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "http://www.radyo13.com.tr/wp-content/uploads/2022/10/WhatsApp_Image_2022-10-11_at_15.27.31-removebg-preview.png",
+        "final_url": "http://www.radyo13.com.tr/wp-content/uploads/2022/10/WhatsApp_Image_2022-10-11_at_15.27.31-removebg-preview.png",
+        "path": "originals/6d2abefe86df21997a9dfdc66339c0657aedae784b95db0ed18b943b5d568edb.img",
+        "sha256": "6d2abefe86df21997a9dfdc66339c0657aedae784b95db0ed18b943b5d568edb",
+        "bytes": 89677,
+        "dimensions": [
+          594,
+          420
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "http://www.radyo13.com.tr/",
+        "final_url": "http://www.radyo13.com.tr/",
+        "original_html_sha256": "e17f28ffc2b6547e9ccc7027d75302efd9e85fa6d6effc4ef5bcef383cbd3358",
+        "path": "page-evidence/e17f28ffc2b6547e9ccc7027d75302efd9e85fa6d6effc4ef5bcef383cbd3358.json",
+        "titles": [
+          "Radyo 13 – Kentin Sesi"
+        ],
+        "image_urls": [
+          "http://www.radyo13.com.tr/wp-content/uploads/2022/10/WhatsApp_Image_2022-10-11_at_15.27.31-removebg-preview.png",
+          "http://www.radyo13.com.tr/wp-content/uploads/2021/01/cropped-logo-light-150x150.png",
+          "http://www.radyo13.com.tr/wp-content/uploads/2021/01/cropped-logo-light-300x300.png"
+        ],
+        "named_logos": {
+          "http://www.radyo13.com.tr/wp-content/uploads/2022/10/WhatsApp_Image_2022-10-11_at_15.27.31-removebg-preview.png": "  "
+        }
+      },
+      "ocr_text": "(((\n\n@\n\n@))))\n\nn/\\DY'\n\nESI\n\n1\n\nol\n\n3\n\n960\n"
     },
     "4097:0:2:95A7:3B9C:ED:0:0:0:0": {
       "name": "Radyo 13 FM 96",
@@ -875129,7 +875166,37 @@
         "https://radyo16.com.tr/"
       ],
       "needs_assistant_visual_identity": true,
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://radyo16.com.tr/wp-content/uploads/favicon-150x150.png",
+        "final_url": "https://radyo16.com.tr/wp-content/uploads/favicon-150x150.png",
+        "path": "originals/3948f676209eb0e75ea80a5893f8e90979eeb4929bd52cfc8031cf3eff766ce3.img",
+        "sha256": "3948f676209eb0e75ea80a5893f8e90979eeb4929bd52cfc8031cf3eff766ce3",
+        "bytes": 2439,
+        "dimensions": [
+          150,
+          150
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://radyo16.com.tr/",
+        "final_url": "https://radyo16.com.tr/",
+        "original_html_sha256": "204a3d9333c6dafcca9dea7ad1d254d587df7cd21798207f55b3b9f1e6b509e1",
+        "path": "page-evidence/204a3d9333c6dafcca9dea7ad1d254d587df7cd21798207f55b3b9f1e6b509e1.json",
+        "titles": [
+          "Kapsamlı Dixit Genişletmeleri ve Kaynak Rehberleri - radyo16.com.tr",
+          " radyo16.com.tr ",
+          " radyo16.com.tr ",
+          " radyo16.com.tr "
+        ],
+        "image_urls": [
+          "https://radyo16.com.tr/wp-content/uploads/favicon-150x150.png",
+          "https://radyo16.com.tr/wp-content/uploads/favicon.png"
+        ],
+        "named_logos": {}
+      },
+      "ocr_text": ""
     },
     "4097:0:2:1156:8290:ED:0:0:0:0": {
       "name": "Radyo 2000 Erzincan",
@@ -875142,7 +875209,10 @@
         "http://www.2000radyo.com/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (6) Could not resolve host: www.2000radyo.com\n"
+      ]
     },
     "4097:0:2:B5C8:39E9:ED:0:0:0:0": {
       "name": "RADYO 23",
@@ -875155,7 +875225,8 @@
         "https://www.radyofm23.com/"
       ],
       "needs_assistant_visual_identity": true,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:CD49:9377:ED:0:0:0:0": {
       "name": "RADYO 24",
@@ -875168,7 +875239,10 @@
         "https://24arabesk.80.yayin.com.tr/"
       ],
       "needs_assistant_visual_identity": true,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Operation timed out after 8001 milliseconds with 370713 bytes received\n"
+      ]
     },
     "4097:0:2:E2C1:4118:ED:0:0:0:0": {
       "name": "Radyo 35",
@@ -875181,7 +875255,38 @@
         "https://www.radyo35.com/"
       ],
       "needs_assistant_visual_identity": true,
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://www.radyo35.com/assets/img/logo-480.png?v=1792136335",
+        "final_url": "https://www.radyo35.com/assets/img/logo-480.png?v=1792136335",
+        "path": "originals/0ac703b815c1f63743f9dcb6ecaab20183c1f4d8485afe6ca85fa2a6ce714cb0.img",
+        "sha256": "0ac703b815c1f63743f9dcb6ecaab20183c1f4d8485afe6ca85fa2a6ce714cb0",
+        "bytes": 59668,
+        "dimensions": [
+          480,
+          233
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://www.radyo35.com/",
+        "final_url": "https://www.radyo35.com/",
+        "original_html_sha256": "12028c007607b1ddb0a7994905e16af9bcbb4ec7d2495932e0dd061cb95c8b13",
+        "path": "page-evidence/12028c007607b1ddb0a7994905e16af9bcbb4ec7d2495932e0dd061cb95c8b13.json",
+        "titles": [
+          "Radyo 35 | 89.0 FM | Her Zaman En İyisi",
+          "Radyo 35, 89.0 FM İzmir"
+        ],
+        "image_urls": [
+          "https://www.radyo35.com/assets/img/logo-480.png?v=1792136335",
+          "https://www.radyo35.com/assets/img/apple-touch-icon.png?v=1792136334",
+          "https://www.radyo35.com/assets/img/favicon.png?v=1792136334"
+        ],
+        "named_logos": {
+          "https://www.radyo35.com/assets/img/logo-480.png?v=1792136335": "  "
+        }
+      },
+      "ocr_text": ""
     },
     "4097:0:2:E2E6:7BE7:ED:0:0:0:0": {
       "name": "Radyo 37",
@@ -875194,7 +875299,38 @@
         "http://www.radyo37.com.tr/"
       ],
       "needs_assistant_visual_identity": true,
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "http://www.radyo37.com.tr/uploads/2026/09/radyo-37a-bng-260924-141808-3268d3f7.png",
+        "final_url": "http://www.radyo37.com.tr/uploads/2026/09/radyo-37a-bng-260924-141808-3268d3f7.png",
+        "path": "originals/3345be2210c4be70136963130dc39cb01165b62ffc11c59284f689fca05351fa.img",
+        "sha256": "3345be2210c4be70136963130dc39cb01165b62ffc11c59284f689fca05351fa",
+        "bytes": 43334,
+        "dimensions": [
+          1024,
+          287
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "http://www.radyo37.com.tr/",
+        "final_url": "http://www.radyo37.com.tr/",
+        "original_html_sha256": "f348b0a0bb1d451b1bd7bc83e0e5b2b2f5e118ee3b055baeded33b6b055b3dee",
+        "path": "page-evidence/f348b0a0bb1d451b1bd7bc83e0e5b2b2f5e118ee3b055baeded33b6b055b3dee.json",
+        "titles": [
+          "Radyo 37 - 95.2 FM",
+          "Sevdiğin müzik, sevdiğin sesler, hep yanında."
+        ],
+        "image_urls": [
+          "http://www.radyo37.com.tr/uploads/2026/09/radyo-37a-bng-260924-141808-3268d3f7.png",
+          "http://www.radyo37.com.tr/app-icon/180.png?v=4c03eb00",
+          "http://www.radyo37.com.tr/uploads/2026/09/favicon37-5e4c8bc7.png"
+        ],
+        "named_logos": {
+          "http://www.radyo37.com.tr/uploads/2026/09/radyo-37a-bng-260924-141808-3268d3f7.png": "Radyo 37  "
+        }
+      },
+      "ocr_text": "L=N\n\n| ia |\n\n=\n"
     },
     "4097:0:2:6436:E77C:ED:0:0:0:0": {
       "name": "RADYO 44",
@@ -875209,7 +875345,10 @@
         "https://radyo44.com.tr/"
       ],
       "needs_assistant_visual_identity": true,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Operation timed out after 8000 milliseconds with 371130 bytes received\n"
+      ]
     },
     "4097:0:2:4835:C00E:ED:0:0:0:0": {
       "name": "Radyo 45lik - 45'lik Radyo",
@@ -875223,7 +875362,41 @@
         "https://www.radyo45lik.com/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://radyo45lik.com/wp-content/uploads/2022/08/45lik-logo_2020-sade_guncel1apng-e1668948915970.png",
+        "final_url": "https://radyo45lik.com/wp-content/uploads/2022/08/45lik-logo_2020-sade_guncel1apng-e1668948915970.png",
+        "path": "originals/dd79c99b850c588d93114ca11004efce532b753b47bcf65a57a8d548167339c8.img",
+        "sha256": "dd79c99b850c588d93114ca11004efce532b753b47bcf65a57a8d548167339c8",
+        "bytes": 14828,
+        "dimensions": [
+          1219,
+          800
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://radyo45lik.com/",
+        "final_url": "https://radyo45lik.com/",
+        "original_html_sha256": "1dbcdce627c182a35d64671f48d5d73fd782342fe1d69ca43c1283309b731003",
+        "path": "page-evidence/1dbcdce627c182a35d64671f48d5d73fd782342fe1d69ca43c1283309b731003.json",
+        "titles": [
+          "Radyo 45lik • Türkiye'nin Nostalji Radyosu"
+        ],
+        "image_urls": [
+          "https://radyo45lik.com/wp-content/uploads/2022/08/45lik-logo_2020-sade_guncel1apng-e1668948915970.png",
+          "https://radyo45lik.com/wp-content/uploads/2022/11/Dewart_v3_logo4-300x58.png",
+          "https://radyo45lik.com/wp-content/uploads/2024/12/GitassiMedia-Logo_2024a.svg"
+        ],
+        "named_logos": {
+          "https://radyo45lik.com/wp-content/uploads/2025/07/Radyo-45lik-Logo-_1B.png": "Radyo 45lik  ",
+          "https://radyo45lik.com/wp-content/uploads/2025/07/Radyo-45lik-Logo-_1A.png": "Radyo 45lik  ",
+          "https://radyo45lik.com/wp-content/uploads/2022/08/45lik-logo_2020-sade_guncel1apng-e1668948915970.png": "  ",
+          "https://radyo45lik.com/wp-content/uploads/2024/12/GitassiMedia-Logo_2024a.svg": "  ",
+          "https://radyo45lik.com/wp-content/uploads/2022/11/Dewart_v3_logo4-300x58.png": "  "
+        }
+      },
+      "ocr_text": "45:\n"
     },
     "4097:0:2:5478:52C7:ED:0:0:0:0": {
       "name": "RADYO 68",
@@ -875236,7 +875409,10 @@
         "https://radyo.yayindakiler.com:4022/"
       ],
       "needs_assistant_visual_identity": true,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Operation timed out after 8001 milliseconds with 340416 bytes received\n"
+      ]
     },
     "4097:0:2:6659:BA6E:ED:0:0:0:0": {
       "name": "Radyo 7",
@@ -875249,7 +875425,53 @@
         "http://www.radyo7.com/"
       ],
       "needs_assistant_visual_identity": true,
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://cdn.kanal7.com/radyo7//application/assets/home/common/images/radyo7-logo.svg",
+        "final_url": "https://cdn.kanal7.com/radyo7//application/assets/home/common/images/radyo7-logo.svg",
+        "path": "originals/d5e65aed8dbd0ecca43cd7f5bb34ccd83de3d37395f0a079d49f7d5678e72cb7.img",
+        "sha256": "d5e65aed8dbd0ecca43cd7f5bb34ccd83de3d37395f0a079d49f7d5678e72cb7",
+        "bytes": 7979,
+        "dimensions": [
+          640,
+          274
+        ],
+        "format": "SVG",
+        "frozen_svg_raster": {
+          "path": "rasterized/8835aae8fedd1dc3c358aa03eab6bea82ca9f3a734f26d4d0d5d21d8f589378e.png",
+          "sha256": "8835aae8fedd1dc3c358aa03eab6bea82ca9f3a734f26d4d0d5d21d8f589378e",
+          "cairosvg_version": "2.8.2"
+        }
+      },
+      "page": {
+        "url": "http://www.radyo7.com/",
+        "final_url": "https://www.radyo7.com/",
+        "original_html_sha256": "55b5062992ce49dd5d6e7c20d15aedd566ad4b6822ad5a01be42a35d02b96351",
+        "path": "page-evidence/55b5062992ce49dd5d6e7c20d15aedd566ad4b6822ad5a01be42a35d02b96351.json",
+        "titles": [
+          "Radyo7 - Canlı Radyo Dinle",
+          "Canlı Yayına Mesaj Gönder",
+          "ARŞİVDEN SEÇMELER",
+          "PROGRAMCILAR",
+          "PODCASTLER",
+          "EN İYİ 20",
+          " RADYO 7’DE BUGÜN ",
+          "VİDEO GALERİ",
+          "MÜZİK HABERLERİ",
+          "YAŞAM",
+          "KÜLTÜR & EDEBİYAT",
+          "HER AN YANINIZDA!"
+        ],
+        "image_urls": [
+          "https://cdn.kanal7.com/radyo7//application/assets/home/common/images/radyo7-logo.svg",
+          "https://cdn.kanal7.com/radyo7//application/assets/home/common/images/apple-touch-icon-114x114.png",
+          "https://cdn.kanal7.com/radyo7//application/assets/home/common/images/apple-touch-icon-72x72.png"
+        ],
+        "named_logos": {
+          "https://cdn.kanal7.com/radyo7//application/assets/home/common/images/radyo7-logo.svg": "Radyo 7  "
+        }
+      },
+      "ocr_text": "Radyo7 )\n"
     },
     "4097:0:2:5EC2:E8EA:ED:0:0:0:0": {
       "name": "RADYO 71",
@@ -875262,7 +875484,10 @@
         "https://radyo.yayin.com.tr:5924/"
       ],
       "needs_assistant_visual_identity": true,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Operation timed out after 8000 milliseconds with 371983 bytes received\n"
+      ]
     },
     "4097:0:2:C95C:38D9:ED:0:0:0:0": {
       "name": "RADYO 75",
@@ -875275,7 +875500,10 @@
         "https://anadolu.liderhost.com.tr/8126/stream"
       ],
       "needs_assistant_visual_identity": true,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Operation timed out after 8001 milliseconds with 244809 bytes received\n"
+      ]
     },
     "4097:0:2:20C8:D7E3:ED:0:0:0:0": {
       "name": "RADYO 80",
@@ -875288,7 +875516,10 @@
         "https://radyo.yayindakiler.com:4064/"
       ],
       "needs_assistant_visual_identity": true,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Operation timed out after 8001 milliseconds with 336096 bytes received\n"
+      ]
     },
     "4097:0:2:9D29:803D:ED:0:0:0:0": {
       "name": "Radyo 9",
@@ -875302,7 +875533,38 @@
         "https://www.radyo9.com/"
       ],
       "needs_assistant_visual_identity": true,
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://www.radyo9.com/logos/radyo9_dark.png",
+        "final_url": "https://www.radyo9.com/logos/radyo9_dark.png",
+        "path": "originals/ea381d342c6e30de8f47d62dc8217fb6a81ceff98ff4c500ee2f3bd869cd6bbe.img",
+        "sha256": "ea381d342c6e30de8f47d62dc8217fb6a81ceff98ff4c500ee2f3bd869cd6bbe",
+        "bytes": 60245,
+        "dimensions": [
+          1250,
+          1250
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://www.radyo9.com/",
+        "final_url": "https://www.radyo9.com/",
+        "original_html_sha256": "7a24960073786c35be44bc2c9df78a7f42f0ee97f586cc6d220717b868fd5056",
+        "path": "page-evidence/7a24960073786c35be44bc2c9df78a7f42f0ee97f586cc6d220717b868fd5056.json",
+        "titles": [
+          "Radyo 9 | 99.9 FM - Ege'nin Öncü Hibrit Radyosu (RadioDNS & RadioVIS)",
+          "Hayatın Sesini Aç"
+        ],
+        "image_urls": [
+          "https://www.radyo9.com/logos/radyo9_dark.png",
+          "https://www.radyo9.com/apple-touch-icon.png",
+          "https://www.radyo9.com/favicon-16x16.png"
+        ],
+        "named_logos": {
+          "https://www.radyo9.com/logos/radyo9_dark.png": "Radyo 9  "
+        }
+      },
+      "ocr_text": "RADYO\n\nFM 99.9\n\nDinletir...\n"
     },
     "4097:0:2:C470:D85:ED:0:0:0:0": {
       "name": "RADYO AHENK",
@@ -875315,7 +875577,10 @@
         "https://yayin.radyomadyo.com:8014/stream"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Operation timed out after 8001 milliseconds with 253571 bytes received\n"
+      ]
     },
     "4097:0:2:C405:119D:ED:0:0:0:0": {
       "name": "RADYO AK",
@@ -875328,7 +875593,10 @@
         "https://radyoak.com.tr/"
       ],
       "needs_assistant_visual_identity": true,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (6) Could not resolve host: www.arabeskradyo.com\n"
+      ]
     },
     "4097:0:2:12A1:3FE1:ED:0:0:0:0": {
       "name": "RADYO AKDENIZ",
@@ -875365,7 +875633,10 @@
         "https://alevifm.com.tr/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (6) Could not resolve host: alevifm.com.tr\n"
+      ]
     },
     "4097:0:2:752A:62D9:ED:0:0:0:0": {
       "name": "RADYO ANTALYA",
@@ -875378,7 +875649,10 @@
         "https://sslyayin.netyayin.net:8036/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Operation timed out after 8001 milliseconds with 220764 bytes received\n"
+      ]
     },
     "4097:0:2:A5D4:AAA2:ED:0:0:0:0": {
       "name": "Radyo A (Radyo Anadolu Üniversitesi)",
@@ -875391,7 +875665,10 @@
         "http://www.radyoa.anadolu.edu.tr/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 504\n"
+      ]
     },
     "4097:0:2:49C9:79E:ED:0:0:0:0": {
       "name": "RADYO ARMONİ",
@@ -875404,7 +875681,43 @@
         "http://afyonarmonihaber.com/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "http://afyonarmonihaber.com/content/uploads/firmalar/2022/08/arceliklogo-1661253542.jpg",
+        "final_url": "http://afyonarmonihaber.com/content/uploads/firmalar/2022/08/arceliklogo-1661253542.jpg",
+        "path": "originals/3e26f7d847e6cbd575ccb26d2f91ab1694ad6b9635ee0e29d83e05afbd24c8cf.img",
+        "sha256": "3e26f7d847e6cbd575ccb26d2f91ab1694ad6b9635ee0e29d83e05afbd24c8cf",
+        "bytes": 18522,
+        "dimensions": [
+          800,
+          450
+        ],
+        "format": "JPEG"
+      },
+      "page": {
+        "url": "http://afyonarmonihaber.com/",
+        "final_url": "http://afyonarmonihaber.com/",
+        "original_html_sha256": "5b3cfe465cabf9fea57350b6045934e18e147d2f16ab7b1fd4e57d9d9f3d3293",
+        "path": "page-evidence/5b3cfe465cabf9fea57350b6045934e18e147d2f16ab7b1fd4e57d9d9f3d3293.json",
+        "titles": [
+          "afyonarmonihaber.com"
+        ],
+        "image_urls": [
+          "http://afyonarmonihaber.com/content/uploads/firmalar/2022/08/arceliklogo-1661253542.jpg",
+          "http://afyonarmonihaber.com/content/uploads/firmalar/2022/08/lc-waikiki-logo-copy-1661253913.jpg",
+          "http://afyonarmonihaber.com/content/uploads/firmalar/2022/08/migros-logo-1661253868.jpg"
+        ],
+        "named_logos": {
+          "http://afyonarmonihaber.com/content/uploads/firmalar/2022/08/lc-waikiki-logo-copy-1661253913.jpg": "Lcw Waikiki  ",
+          "http://afyonarmonihaber.com/content/uploads/firmalar/2022/08/migros-logo-1661253868.jpg": "Migros  ",
+          "http://afyonarmonihaber.com/content/uploads/firmalar/2022/08/oyaklogo-1661253811.jpg": "Oyak Renault  ",
+          "http://afyonarmonihaber.com/content/uploads/firmalar/2022/08/toyota-logo-1661253755.jpg": "Toyota  ",
+          "http://afyonarmonihaber.com/content/uploads/firmalar/2022/08/opetlogo-1661253594.jpg": "Opet  ",
+          "http://afyonarmonihaber.com/content/uploads/firmalar/2022/08/arceliklogo-1661253542.jpg": "Arçelik  ",
+          "http://afyonarmonihaber.com/content/uploads/firmalar/2022/08/vestel-elektronik-logo-1661253488.jpg": "Vestel  "
+        }
+      },
+      "ocr_text": "we arcellk\n"
     },
     "4097:0:2:EB0D:3BAE:ED:0:0:0:0": {
       "name": "RADYO ATILIM",
@@ -875417,7 +875730,10 @@
         "https://listen.powerapp.com.tr/radyoatilim/mpeg/icecast.audio"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Operation timed out after 8002 milliseconds with 482935 bytes received\n"
+      ]
     },
     "4097:0:2:C79B:8698:ED:0:0:0:0": {
       "name": "RadyoAura",
@@ -875431,7 +875747,96 @@
         "https://www.radyoaura.com/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://radioaurastorage2.blob.core.windows.net/music-files/station-branding/radyoaura/logo.jpg",
+        "final_url": "https://radioaurastorage2.blob.core.windows.net/music-files/station-branding/radyoaura/logo.jpg",
+        "path": "originals/d4fa65fbc81d6351b630b0da232932cf9c00e27f58e51cfdb17196517581b479.img",
+        "sha256": "d4fa65fbc81d6351b630b0da232932cf9c00e27f58e51cfdb17196517581b479",
+        "bytes": 35071,
+        "dimensions": [
+          550,
+          580
+        ],
+        "format": "JPEG"
+      },
+      "page": {
+        "url": "https://radiaura.net/radyoaura",
+        "final_url": "https://radiaura.net/radyoaura",
+        "original_html_sha256": "8b59c53e79915440b38ade743acad449b2729a28a1019d32ba4d77cad20cae86",
+        "path": "page-evidence/8b59c53e79915440b38ade743acad449b2729a28a1019d32ba4d77cad20cae86.json",
+        "titles": [
+          "RadioAura - Custom AI Radio Solutions",
+          "RadyoAura - İstanbul'un Yapay Zeka Radyosu"
+        ],
+        "image_urls": [
+          "https://radiaura.net/images/logos/gender-equality.jpg",
+          "https://radiaura.net/images/logos/sustain.png",
+          "https://radioaurastorage2.blob.core.windows.net/music-files/station-branding/radyoaura/logo.jpg"
+        ],
+        "named_logos": {
+          "https://radioaurastorage2.blob.core.windows.net/music-files/station-branding/radyoaura/logo.jpg": "RadyoAura  ",
+          "https://radiaura.net/images/logos/sustain.png": "Sustainability  ",
+          "https://radiaura.net/images/logos/gender-equality.jpg": "Gender Equality  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/be2ecc65c8e888544ffb376a4e7f331ef3b6773bf0b4adda86c3b458593b9e9a.png",
+          "sha256": "be2ecc65c8e888544ffb376a4e7f331ef3b6773bf0b4adda86c3b458593b9e9a",
+          "bytes": 1692
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/d6b669ec647b8b45d3d0ba13264d2367d66874a1f0597be5a2a6279d12992b51.png",
+          "sha256": "d6b669ec647b8b45d3d0ba13264d2367d66874a1f0597be5a2a6279d12992b51",
+          "bytes": 13944
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/1be58193d608f127b82eb6d98ab6cd009ea5f6ba67a40b471807f0e488e70461.png",
+          "sha256": "1be58193d608f127b82eb6d98ab6cd009ea5f6ba67a40b471807f0e488e70461",
+          "bytes": 38492
+        },
+        "50x30/white": {
+          "path": "verified-assets/b1b06ba8c82f9d093d62db3ffe382d4d473409988b05fccba22a28647e53b48c.png",
+          "sha256": "b1b06ba8c82f9d093d62db3ffe382d4d473409988b05fccba22a28647e53b48c",
+          "bytes": 2990
+        },
+        "220x132/white": {
+          "path": "verified-assets/7815a6e2918753e6d12680ba31456f5f3b29abf0472ad234956388537b28ebcd.png",
+          "sha256": "7815a6e2918753e6d12680ba31456f5f3b29abf0472ad234956388537b28ebcd",
+          "bytes": 36463
+        },
+        "400x240/white": {
+          "path": "verified-assets/dc216162ce7dbd9f545f86f4f4570dfa2c176c728e97422eccadf95affd5209d.png",
+          "sha256": "dc216162ce7dbd9f545f86f4f4570dfa2c176c728e97422eccadf95affd5209d",
+          "bytes": 91276
+        },
+        "50x30/black": {
+          "path": "verified-assets/2e5dc9fe58e28982b9eaed3e4321f8a9ae06a418c58e19a58d6874accdcfc609.png",
+          "sha256": "2e5dc9fe58e28982b9eaed3e4321f8a9ae06a418c58e19a58d6874accdcfc609",
+          "bytes": 3174
+        },
+        "220x132/black": {
+          "path": "verified-assets/b3c6df6eb3854024d6b2db9598ee1a77f6543566fb7a58202a267fca494c665b.png",
+          "sha256": "b3c6df6eb3854024d6b2db9598ee1a77f6543566fb7a58202a267fca494c665b",
+          "bytes": 35377
+        },
+        "400x240/black": {
+          "path": "verified-assets/78f776ccf759ba415078e6d3e4e53c7e57f1e6b0922c9510a67db0348a2be143.png",
+          "sha256": "78f776ccf759ba415078e6d3e4e53c7e57f1e6b0922c9510a67db0348a2be143",
+          "bytes": 88880
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "RadyoAura  ",
+        "matched_brand_keys": [
+          "radyoaura"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:D66F:C8F:ED:0:0:0:0": {
       "name": "RADYO AVARE",
@@ -875444,7 +875849,10 @@
         "https://anadolu.liderhost.com.tr:10980/;"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Operation timed out after 8003 milliseconds with 228487 bytes received\n"
+      ]
     },
     "4097:0:2:2FBB:499:ED:0:0:0:0": {
       "name": "RADYO B",
@@ -875457,7 +875865,10 @@
         "https://radyob.ozelip.com.tr/8042/stream"
       ],
       "needs_assistant_visual_identity": true,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Operation timed out after 8002 milliseconds with 539456 bytes received\n"
+      ]
     },
     "4097:0:2:40CF:D57F:ED:0:0:0:0": {
       "name": "Radyo Banko",
@@ -875471,7 +875882,95 @@
         "http://yayin.netradyom.com:9910/RADYOBANKO"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "http://radyobanko.com/wp-content/uploads/2024/11/logo.png",
+        "final_url": "http://radyobanko.com/wp-content/uploads/2024/11/logo.png",
+        "path": "originals/d7bb39746cf33332883b95e2ae9417efec35df6a383ad73b27e2d51d07a54e6a.img",
+        "sha256": "d7bb39746cf33332883b95e2ae9417efec35df6a383ad73b27e2d51d07a54e6a",
+        "bytes": 22920,
+        "dimensions": [
+          678,
+          288
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "http://radyobanko.com/",
+        "final_url": "http://radyobanko.com/",
+        "original_html_sha256": "f64c578d77549a05baad4e0e328d3249c1b57f729aeaf582d40b8cdb82b0bff9",
+        "path": "page-evidence/f64c578d77549a05baad4e0e328d3249c1b57f729aeaf582d40b8cdb82b0bff9.json",
+        "titles": [
+          "Radyo Banko",
+          " Tümünü Gör "
+        ],
+        "image_urls": [
+          "http://radyobanko.com/wp-content/uploads/2024/11/logo.png",
+          "https://radyobanko.com/wp-content/uploads/2024/11/logo.png",
+          "https://radyobanko.com/wp-content/uploads/2024/11/favicon.png"
+        ],
+        "named_logos": {
+          "https://radyobanko.com/wp-content/uploads/2024/11/logo.png": "Radyo Banko  ",
+          "http://radyobanko.com/wp-content/uploads/2024/11/logo.png": "Radyo Banko  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/0b0bb7b23c4d0f4cf3fb6e96f5f6e66aaa28b3494e22c13ba60e4c1f4635b579.png",
+          "sha256": "0b0bb7b23c4d0f4cf3fb6e96f5f6e66aaa28b3494e22c13ba60e4c1f4635b579",
+          "bytes": 1251
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/4ee61413ad82f6d5a958c4f69b06c2c6386e2e06212390475a8f6e4f4f119d6a.png",
+          "sha256": "4ee61413ad82f6d5a958c4f69b06c2c6386e2e06212390475a8f6e4f4f119d6a",
+          "bytes": 7487
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/51d8e8ed82cb75ec84107c0a953c4d303e76af3d1505876c5f9861f3a949f011.png",
+          "sha256": "51d8e8ed82cb75ec84107c0a953c4d303e76af3d1505876c5f9861f3a949f011",
+          "bytes": 22976
+        },
+        "50x30/white": {
+          "path": "verified-assets/6fdb3869aae6c20403d9916fbefb8ede8ec7ab06c88d27c9078b4b3f991b12a7.png",
+          "sha256": "6fdb3869aae6c20403d9916fbefb8ede8ec7ab06c88d27c9078b4b3f991b12a7",
+          "bytes": 2815
+        },
+        "220x132/white": {
+          "path": "verified-assets/e3efd7084770372847508b887eb4014150e05c579e8e68c8524d9579095bdfdf.png",
+          "sha256": "e3efd7084770372847508b887eb4014150e05c579e8e68c8524d9579095bdfdf",
+          "bytes": 34179
+        },
+        "400x240/white": {
+          "path": "verified-assets/1215b8dbd29a7c9ea43c142b5907456fd4b63e45a18cfd654f26fbbb608f20f6.png",
+          "sha256": "1215b8dbd29a7c9ea43c142b5907456fd4b63e45a18cfd654f26fbbb608f20f6",
+          "bytes": 85923
+        },
+        "50x30/black": {
+          "path": "verified-assets/1e168b30e9fc1982b1523041efd5b887f9c336173248de2be85f2c04072e2850.png",
+          "sha256": "1e168b30e9fc1982b1523041efd5b887f9c336173248de2be85f2c04072e2850",
+          "bytes": 3131
+        },
+        "220x132/black": {
+          "path": "verified-assets/37d44a2c119b52bd2a21151a8245a79161e485e91bbaa85a9db6be718bf3ed62.png",
+          "sha256": "37d44a2c119b52bd2a21151a8245a79161e485e91bbaa85a9db6be718bf3ed62",
+          "bytes": 34184
+        },
+        "400x240/black": {
+          "path": "verified-assets/54fde69e92e1af6e286d00964c7efa2cf8942b760a6ac3213355259bb01fd1e6.png",
+          "sha256": "54fde69e92e1af6e286d00964c7efa2cf8942b760a6ac3213355259bb01fd1e6",
+          "bytes": 86266
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Radyo Banko  ",
+        "matched_brand_keys": [
+          "banko"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:899A:4B0D:ED:0:0:0:0": {
       "name": "Radyo Banko Fm",
@@ -875484,7 +875983,10 @@
         "http://yayin.netradyom.com:8050/RADYOBANKO"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Operation timed out after 8001 milliseconds with 92571 bytes received\n"
+      ]
     },
     "4097:0:2:883A:535F:ED:0:0:0:0": {
       "name": "RADYO BAŞAKŞEHİR",
@@ -875497,7 +875999,10 @@
         "https://icecast.netmedya.net/rbasaksehir"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Operation timed out after 8000 milliseconds with 189240 bytes received\n"
+      ]
     },
     "4097:0:2:CD86:F583:ED:0:0:0:0": {
       "name": "RADYO BAŞKA",
@@ -875510,7 +876015,10 @@
         "https://playerservices.streamtheworld.com/api/livestream-redirect/BASKA.mp3"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Operation timed out after 8001 milliseconds with 256627 bytes received\n"
+      ]
     },
     "4097:0:2:64A2:E1CA:ED:0:0:0:0": {
       "name": "Radyo Bilkent",
@@ -875523,7 +876031,58 @@
         "https://www.radyobilkent.com/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://www.radyobilkent.com/assets/img/blogimg/726496_0_teaco-logo.png",
+        "final_url": "https://www.radyobilkent.com/assets/img/blogimg/726496_0_teaco-logo.png",
+        "path": "originals/656eb1179bb755dfee78d94519e25633c9166c716545eba6a0d0fbc9428e7271.img",
+        "sha256": "656eb1179bb755dfee78d94519e25633c9166c716545eba6a0d0fbc9428e7271",
+        "bytes": 14918,
+        "dimensions": [
+          592,
+          592
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://www.radyobilkent.com/",
+        "final_url": "https://www.radyobilkent.com/",
+        "original_html_sha256": "e6f78ac1b909164dffde886192d54631810710d0723fef65865a104d79cdfd68",
+        "path": "page-evidence/e6f78ac1b909164dffde886192d54631810710d0723fef65865a104d79cdfd68.json",
+        "titles": [
+          "Radyo Bilkent | İçinden Gelen Sesi Dinle!",
+          "cross",
+          "Şimdi yayında: KUL!S",
+          "Sırada yayında: Roots"
+        ],
+        "image_urls": [
+          "https://www.radyobilkent.com/assets/img/blogimg/726496_0_teaco-logo.png",
+          "https://www.radyobilkent.com/assets/img/blogimg/Dove_logo.png",
+          "https://www.radyobilkent.com/assets/img/blogimg/LOccitane-Logo.png"
+        ],
+        "named_logos": {
+          "https://www.radyobilkent.com/assets/img/logos/text.png": "  ",
+          "https://www.radyobilkent.com/assets/img/logos/firstwave.png": "  ",
+          "https://www.radyobilkent.com/assets/img/logos/midwave.png": "  ",
+          "https://www.radyobilkent.com/assets/img/logos/lastwave.png": "  ",
+          "https://www.radyobilkent.com/assets/img/logos/blink.png": "  ",
+          "https://www.radyobilkent.com/assets/img/logos/rbico1.png": "  ",
+          "https://www.radyobilkent.com/assets/img/logos/rbico2.png": "  ",
+          "https://www.radyobilkent.com/assets/img/blogimg/rollhouse_renkli_siyah_logo-01-removebg-preview.png": "  ",
+          "https://www.radyobilkent.com/assets/img/blogimg/Red-Bull-Logo.png": "  ",
+          "https://www.radyobilkent.com/assets/img/blogimg/LOccitane-Logo.png": "  ",
+          "https://www.radyobilkent.com/assets/img/blogimg/Page-4-Logo.png": "  ",
+          "https://www.radyobilkent.com/assets/img/blogimg/kafes_logo-768x768.png": "  ",
+          "https://www.radyobilkent.com/assets/img/blogimg/fiba-logo-removebg-preview.png": "  ",
+          "https://www.radyobilkent.com/assets/img/blogimg/pirelli-logo-2.png": "  ",
+          "https://www.radyobilkent.com/assets/img/blogimg/logo_intro.png": "  ",
+          "https://www.radyobilkent.com/assets/img/blogimg/kahve-dunyasi-logo-4239BF964C-seeklogo.com.png": "  ",
+          "https://www.radyobilkent.com/assets/img/blogimg/Dove_logo.png": "  ",
+          "https://www.radyobilkent.com/assets/img/blogimg/bridgestone-logo-1.png": "  ",
+          "https://www.radyobilkent.com/assets/img/blogimg/726496_0_teaco-logo.png": "  "
+        }
+      },
+      "ocr_text": "TEA\n\nCU\n"
     },
     "4097:0:2:6703:8AB9:ED:0:0:0:0": {
       "name": "Radyo Bi̇tli̇s Eren",
@@ -875548,7 +876107,10 @@
         "https://anadolu.liderhost.com.tr:10966/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Operation timed out after 8001 milliseconds with 228492 bytes received\n"
+      ]
     },
     "4097:0:2:F635:D576:ED:0:0:0:0": {
       "name": "RADYO BLACK LOVE",
@@ -875561,7 +876123,10 @@
         "https://anadolu.liderhost.com.tr:10964/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Operation timed out after 8002 milliseconds with 228481 bytes received\n"
+      ]
     },
     "4097:0:2:1B84:6A79:ED:0:0:0:0": {
       "name": "RADYO BU",
@@ -875574,7 +876139,10 @@
         "https://radyo.yayindakiler.com:8006/"
       ],
       "needs_assistant_visual_identity": true,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Operation timed out after 8001 milliseconds with 368678 bytes received\n"
+      ]
     },
     "4097:0:2:A9C5:E2C1:ED:0:0:0:0": {
       "name": "Radyo Can",
@@ -875587,7 +876155,8 @@
         "http://www.radyocan.net/"
       ],
       "needs_assistant_visual_identity": true,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:6EE5:24B3:ED:0:0:0:0": {
       "name": "RADYO CLUBBİN",
@@ -875600,7 +876169,10 @@
         "https://radyo.yayin.com.tr:6199/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Operation timed out after 8000 milliseconds with 371244 bytes received\n"
+      ]
     },
     "4097:0:2:50C:F75B:ED:0:0:0:0": {
       "name": "RADYO ÇUKUR",
@@ -875613,7 +876185,10 @@
         "https://radyo.yayin.com.tr:4060/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Operation timed out after 8000 milliseconds with 374074 bytes received\n"
+      ]
     },
     "4097:0:2:6EB1:D784:ED:0:0:0:0": {
       "name": "Radyo Dede Bilişim Test Yayını",
@@ -875633,7 +876208,8 @@
         "https://dingilradyo.com.tr/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:166F:A745:ED:0:0:0:0": {
       "name": "Radyo Doğubayazıt FM 104.4",
@@ -875668,7 +876244,10 @@
         "https://radyo.yayindakiler.com:2044/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Operation timed out after 8000 milliseconds with 373632 bytes received\n"
+      ]
     },
     "4097:0:2:9C46:23B5:ED:0:0:0:0": {
       "name": "RADYO DÜET",
@@ -875681,7 +876260,10 @@
         "https://radyoduet.duzce.edu.tr/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (60) SSL certificate problem: unable to get local issuer certificate\nMore details here: https://curl.se/docs/sslcerts.html\n\ncurl failed to verify the legitimacy of the server"
+      ]
     },
     "4097:0:2:5924:449C:ED:0:0:0:0": {
       "name": "RADYO DURAK",
@@ -875694,7 +876276,94 @@
         "http://www.radyodurak.net/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "http://www.radyodurak.net/uploads/2026/09/002-yatay-radyo-durak-92-0-01bf35cc.png",
+        "final_url": "http://www.radyodurak.net/uploads/2026/09/002-yatay-radyo-durak-92-0-01bf35cc.png",
+        "path": "originals/35252cad6db29a2b9089db6a31c87a8d7edd73dc6f85c9263e944073ede31a6b.img",
+        "sha256": "35252cad6db29a2b9089db6a31c87a8d7edd73dc6f85c9263e944073ede31a6b",
+        "bytes": 54864,
+        "dimensions": [
+          1508,
+          338
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "http://www.radyodurak.net/",
+        "final_url": "http://www.radyodurak.net/",
+        "original_html_sha256": "144e0ab9c3e4b12ff71eb31ee5ed92f0914b77ff1861a9c429e34097b4c8aa89",
+        "path": "page-evidence/144e0ab9c3e4b12ff71eb31ee5ed92f0914b77ff1861a9c429e34097b4c8aa89.json",
+        "titles": [
+          "Radyo Durak 92.0 - Tam 92",
+          "Sevdiğin müzik, sevdiğin sesler, hep yanında."
+        ],
+        "image_urls": [
+          "http://www.radyodurak.net/uploads/2026/09/002-yatay-radyo-durak-92-0-01bf35cc.png",
+          "http://www.radyodurak.net/app-icon/180.png?v=88bf2bde",
+          "http://www.radyodurak.net/uploads/2026/09/ankara-radyo-durak-dinle-824ca792.jpg"
+        ],
+        "named_logos": {
+          "http://www.radyodurak.net/uploads/2026/09/002-yatay-radyo-durak-92-0-01bf35cc.png": "Radyo Durak 92.0  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/4e308959f58e930825f9591c7b21d1fd3c4f10623ec25b5b362c6c52736bef6e.png",
+          "sha256": "4e308959f58e930825f9591c7b21d1fd3c4f10623ec25b5b362c6c52736bef6e",
+          "bytes": 1125
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/31a9ae9d32a6450b5901ac200d8ea14692856722eb79af6cb245ac4814011761.png",
+          "sha256": "31a9ae9d32a6450b5901ac200d8ea14692856722eb79af6cb245ac4814011761",
+          "bytes": 9542
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/023d0ffc3da34330911e3ee84c16ddef98d0c494f947c406570ebf9fc9ffd7c9.png",
+          "sha256": "023d0ffc3da34330911e3ee84c16ddef98d0c494f947c406570ebf9fc9ffd7c9",
+          "bytes": 29901
+        },
+        "50x30/white": {
+          "path": "verified-assets/7ea3c0fa679fc65541309fa6bb47488afe4b37954d32aa2bdbd69fb12bd0271d.png",
+          "sha256": "7ea3c0fa679fc65541309fa6bb47488afe4b37954d32aa2bdbd69fb12bd0271d",
+          "bytes": 2873
+        },
+        "220x132/white": {
+          "path": "verified-assets/1c1d79f3cecabcc54d3c4b08674564e10b833ba1b44a7fd1ea486ed3731b177e.png",
+          "sha256": "1c1d79f3cecabcc54d3c4b08674564e10b833ba1b44a7fd1ea486ed3731b177e",
+          "bytes": 38210
+        },
+        "400x240/white": {
+          "path": "verified-assets/6fb90e535921dfdbd823b6cb5057d22ca1f4d16b52efb997ab9de4bb4eb430c0.png",
+          "sha256": "6fb90e535921dfdbd823b6cb5057d22ca1f4d16b52efb997ab9de4bb4eb430c0",
+          "bytes": 97042
+        },
+        "50x30/black": {
+          "path": "verified-assets/b2d48466f3b327ba0c050c65d886eb762808f62028cc6c41266a5293e6921725.png",
+          "sha256": "b2d48466f3b327ba0c050c65d886eb762808f62028cc6c41266a5293e6921725",
+          "bytes": 3200
+        },
+        "220x132/black": {
+          "path": "verified-assets/0d785c42d74918fc8852c0ae97db37e6577ca6ca9566ed57327190e2ef375d21.png",
+          "sha256": "0d785c42d74918fc8852c0ae97db37e6577ca6ca9566ed57327190e2ef375d21",
+          "bytes": 38107
+        },
+        "400x240/black": {
+          "path": "verified-assets/7b890be6c37f5abb2caccc007b938fb71346cb5f51e40c1bc661859a58ebd140.png",
+          "sha256": "7b890be6c37f5abb2caccc007b938fb71346cb5f51e40c1bc661859a58ebd140",
+          "bytes": 96204
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Radyo Durak 92.0  ",
+        "matched_brand_keys": [
+          "durak"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:B79:4F92:ED:0:0:0:0": {
       "name": "Radyo Duygusal",
@@ -875719,7 +876388,10 @@
         "http://37.247.98.8/stream/29/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Operation timed out after 8001 milliseconds with 374491 bytes received\n"
+      ]
     },
     "4097:0:2:CF92:498C:ED:0:0:0:0": {
       "name": "Radyo Eksen 96.2",
@@ -875732,7 +876404,38 @@
         "http://www.radioeksen.com/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://www.radioeksen.com/media/da1jo0qq/eksen-footer-logo.png",
+        "final_url": "https://www.radioeksen.com/media/da1jo0qq/eksen-footer-logo.png",
+        "path": "originals/0b372b32196e9900c9fcb58cde30d486c3c0e3acfd6e024837e3bdfbe2b56d8b.img",
+        "sha256": "0b372b32196e9900c9fcb58cde30d486c3c0e3acfd6e024837e3bdfbe2b56d8b",
+        "bytes": 13173,
+        "dimensions": [
+          280,
+          120
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "http://www.radioeksen.com/",
+        "final_url": "https://www.radioeksen.com/",
+        "original_html_sha256": "668109128fcadb86cbd8467b612c371edabbe07c31758926f8792f8d0560689d",
+        "path": "page-evidence/668109128fcadb86cbd8467b612c371edabbe07c31758926f8792f8d0560689d.json",
+        "titles": [
+          "Radyo Eksen | Radyo Eksen"
+        ],
+        "image_urls": [
+          "https://www.radioeksen.com/media/da1jo0qq/eksen-footer-logo.png",
+          "https://www.radioeksen.com/media/lajbpjqe/eksen-footer-logo.png",
+          "https://www.radioeksen.com/Content/Eksen/images/eksenLogoIcon.png"
+        ],
+        "named_logos": {
+          "https://www.radioeksen.com/media/lajbpjqe/eksen-footer-logo.png": "Logo  ",
+          "https://www.radioeksen.com/media/da1jo0qq/eksen-footer-logo.png": "Logo  "
+        }
+      },
+      "ocr_text": "EKSE!N\n\n96.2\n"
     },
     "4097:0:2:497D:8217:ED:0:0:0:0": {
       "name": "Radyo EN",
@@ -875758,7 +876461,11 @@
         "https://mega-ask.com.tr/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "'utf-8' codec can't decode byte 0x89 in position 0: invalid start byte",
+        "curl: (6) Could not resolve host: mega-ask.com.tr\n"
+      ]
     },
     "4097:0:2:94C6:E8B5:ED:0:0:0:0": {
       "name": "Radyo Esenler",
@@ -875771,7 +876478,10 @@
         "https://yayin2.canliyayin.org:10978/;"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Operation timed out after 8002 milliseconds with 359624 bytes received\n"
+      ]
     },
     "4097:0:2:C99C:60CF:ED:0:0:0:0": {
       "name": "RADYO EŞME",
@@ -875784,7 +876494,10 @@
         "https://anadolu.liderhost.com.tr:8358/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Operation timed out after 8000 milliseconds with 214413 bytes received\n"
+      ]
     },
     "4097:0:2:7F75:5E67:ED:0:0:0:0": {
       "name": "RADYO ESTÜ",
@@ -875797,7 +876510,10 @@
         "https://ssl120.radyotelekom.com.tr/8024/stream"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Operation timed out after 8000 milliseconds with 244817 bytes received\n"
+      ]
     },
     "4097:0:2:191F:92FD:ED:0:0:0:0": {
       "name": "Radyo Fenomen",
@@ -875810,7 +876526,8 @@
         "https://www.radyofenomen.com/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:4EE6:BBB6:ED:0:0:0:0": {
       "name": "Radyo Fenomen Clubbin",
@@ -875823,7 +876540,8 @@
         "https://radyofenomen.com/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:F7C2:B42D:ED:0:0:0:0": {
       "name": "Radyo Fikir",
@@ -875836,7 +876554,36 @@
         "https://www.radyofikir.com/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://www.radyofikir.com/wp-content/uploads/2023/06/ssss-287x300.jpg",
+        "final_url": "https://www.radyofikir.com/wp-content/uploads/2023/06/ssss-287x300.jpg",
+        "path": "originals/3bc996e544a5701585e2b65ac48201df12e589065bcad4fe652e7d493665d27a.img",
+        "sha256": "3bc996e544a5701585e2b65ac48201df12e589065bcad4fe652e7d493665d27a",
+        "bytes": 13669,
+        "dimensions": [
+          287,
+          300
+        ],
+        "format": "JPEG"
+      },
+      "page": {
+        "url": "https://www.radyofikir.com/",
+        "final_url": "https://www.radyofikir.com/",
+        "original_html_sha256": "e8060dd56ca86e6a42ae2a9a5875c584f230d80b90c3843987960def3e3668cb",
+        "path": "page-evidence/e8060dd56ca86e6a42ae2a9a5875c584f230d80b90c3843987960def3e3668cb.json",
+        "titles": [
+          "RADYO FİKİR",
+          " YAYINCILIK İLKELERİMİZ "
+        ],
+        "image_urls": [
+          "https://www.radyofikir.com/wp-content/uploads/2023/06/ssss-287x300.jpg"
+        ],
+        "named_logos": {
+          "https://www.radyofikir.com/wp-content/uploads/2023/06/ssss-287x300.jpg": "Site logo  "
+        }
+      },
+      "ocr_text": "Re My Py\n\nws\n\n=\n\n—,\n\n* Saf (2) no\n\n— RADYO\n\n4y\n\nth,\n\nfy,\n\nTray i! s\n"
     },
     "4097:0:2:7589:AEB8:ED:0:0:0:0": {
       "name": "RADYO FLAS",
@@ -875849,7 +876596,10 @@
         "https://radyoflas.com/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "cannot identify image file <_io.BytesIO object at 0x7fbcff8a6890>"
+      ]
     },
     "4097:0:2:12DF:A631:ED:0:0:0:0": {
       "name": "Radyo Gökçeada",
@@ -875862,7 +876612,93 @@
         "https://www.radyogokceada.net/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://www.radyogokceada.net/images/playerlogo.png",
+        "final_url": "https://www.radyogokceada.net/images/playerlogo.png",
+        "path": "originals/836b044f37e156664a31e66f098b7fc7e0daa8921aad1296ab85842873c4d40b.img",
+        "sha256": "836b044f37e156664a31e66f098b7fc7e0daa8921aad1296ab85842873c4d40b",
+        "bytes": 250252,
+        "dimensions": [
+          591,
+          591
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://www.radyogokceada.net/",
+        "final_url": "https://www.radyogokceada.net/",
+        "original_html_sha256": "de6a77f07623917911a876f812828e93b0dbb0aabe23a19c22d6f3f2a42fcea2",
+        "path": "page-evidence/de6a77f07623917911a876f812828e93b0dbb0aabe23a19c22d6f3f2a42fcea2.json",
+        "titles": [
+          "Radyo Gökçeada"
+        ],
+        "image_urls": [
+          "https://www.radyogokceada.net/images/playerlogo.png",
+          "https://www.radyogokceada.net/images/radyologo.png"
+        ],
+        "named_logos": {
+          "https://www.radyogokceada.net/images/radyologo.png": "Radyo Gökçeada  ",
+          "https://www.radyogokceada.net/images/playerlogo.png": "Radyo Gökçeada  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/dbb2237eac91c927fa808d52ab80150f6adb7da6d4c73fdec9e1d81b985dfdb8.png",
+          "sha256": "dbb2237eac91c927fa808d52ab80150f6adb7da6d4c73fdec9e1d81b985dfdb8",
+          "bytes": 1452
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/40640410dbf548aae586b44fe6fbef4c86d94d90fc6390d3d44fe612d32994c2.png",
+          "sha256": "40640410dbf548aae586b44fe6fbef4c86d94d90fc6390d3d44fe612d32994c2",
+          "bytes": 14287
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/eb94f0a2dd8477f80f54bb8314f49d7bd6a16b93c2037733efa5c789887d8fe8.png",
+          "sha256": "eb94f0a2dd8477f80f54bb8314f49d7bd6a16b93c2037733efa5c789887d8fe8",
+          "bytes": 43828
+        },
+        "50x30/white": {
+          "path": "verified-assets/a3203207ef50c8fd1acae0ce67b52db2b5f134228c310e7b9a2e33a5aa3cdafc.png",
+          "sha256": "a3203207ef50c8fd1acae0ce67b52db2b5f134228c310e7b9a2e33a5aa3cdafc",
+          "bytes": 2772
+        },
+        "220x132/white": {
+          "path": "verified-assets/15bdc070a6684c12d0dfd5ac52ac9ce8e58583b51835120e493de3a4b4a7332a.png",
+          "sha256": "15bdc070a6684c12d0dfd5ac52ac9ce8e58583b51835120e493de3a4b4a7332a",
+          "bytes": 40926
+        },
+        "400x240/white": {
+          "path": "verified-assets/662f58c0cdf0e7eccfdb91b24df62ed426310602d7e91193b00bdfb5bae72010.png",
+          "sha256": "662f58c0cdf0e7eccfdb91b24df62ed426310602d7e91193b00bdfb5bae72010",
+          "bytes": 104108
+        },
+        "50x30/black": {
+          "path": "verified-assets/fc492d7c6503a0f98a0b32ebdd4040b0fc0207d295abd4b6023cd42a6d632f9c.png",
+          "sha256": "fc492d7c6503a0f98a0b32ebdd4040b0fc0207d295abd4b6023cd42a6d632f9c",
+          "bytes": 3013
+        },
+        "220x132/black": {
+          "path": "verified-assets/a8f691870c8af9af7002cd43ffa83bca50e57c0fa3e15de4435332329802da36.png",
+          "sha256": "a8f691870c8af9af7002cd43ffa83bca50e57c0fa3e15de4435332329802da36",
+          "bytes": 41181
+        },
+        "400x240/black": {
+          "path": "verified-assets/ac99ceb8d205f3386684f18be164700281fd50bc859ae99d0828f64783f9e42a.png",
+          "sha256": "ac99ceb8d205f3386684f18be164700281fd50bc859ae99d0828f64783f9e42a",
+          "bytes": 105053
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Radyo Gökçeada  ",
+        "matched_brand_keys": [
+          "gokceada"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:1DFD:3261:ED:0:0:0:0": {
       "name": "Radyo Gönül Mısraları",
@@ -875882,7 +876718,38 @@
         "http://www.radyogul.com.tr/"
       ],
       "needs_assistant_visual_identity": true,
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://www.radyogul.com.tr/assets/images/radyo-gul-logo.png",
+        "final_url": "https://www.radyogul.com.tr/assets/images/radyo-gul-logo.png",
+        "path": "originals/2442ac84ee2406ae6ad8369327cce0342a389b92d2448b0e91d005fd620c67c8.img",
+        "sha256": "2442ac84ee2406ae6ad8369327cce0342a389b92d2448b0e91d005fd620c67c8",
+        "bytes": 23846,
+        "dimensions": [
+          150,
+          134
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "http://www.radyogul.com.tr/",
+        "final_url": "http://www.radyogul.com.tr/",
+        "original_html_sha256": "561bcce6890e754844882dae3ec294dcc9df9f00cd33455fd1136a55b08fc817",
+        "path": "page-evidence/561bcce6890e754844882dae3ec294dcc9df9f00cd33455fd1136a55b08fc817.json",
+        "titles": [
+          "Radyo Gül 91.7",
+          "Samimi,saygılı.tutarlı",
+          "Günün Her Saatinde Değerli İçerik"
+        ],
+        "image_urls": [
+          "https://www.radyogul.com.tr/assets/images/radyo-gul-logo.png",
+          "https://www.radyogul.com.tr/assets/images/icon-192.png"
+        ],
+        "named_logos": {
+          "https://www.radyogul.com.tr/assets/images/radyo-gul-logo.png": "  "
+        }
+      },
+      "ocr_text": "&\n"
     },
     "4097:0:2:5A38:BA68:ED:0:0:0:0": {
       "name": "RADYO GÜVEN",
@@ -875895,7 +876762,10 @@
         "https://radyo.yayin.com.tr:4098/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Operation timed out after 8002 milliseconds with 312446 bytes received\n"
+      ]
     },
     "4097:0:2:1313:8BD6:ED:0:0:0:0": {
       "name": "Radyo Hakkın Sesi",
@@ -875908,7 +876778,8 @@
         "https://www.mihr.com/radyo/2/hakkin-sesi"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:B552:282B:ED:0:0:0:0": {
       "name": "Radyo Havaları",
@@ -875922,7 +876793,11 @@
         "https://xn--radyohavalar-d5b.com.tr/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Operation timed out after 8001 milliseconds with 373237 bytes received\n",
+        "curl: (6) Could not resolve host: xn--radyohavalar-d5b.com.tr\n"
+      ]
     },
     "4097:0:2:652:6270:ED:0:0:0:0": {
       "name": "RADYO HAZAR",
@@ -875935,7 +876810,10 @@
         "https://radyo.yayin.com.tr:8286/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Operation timed out after 8000 milliseconds with 375945 bytes received\n"
+      ]
     },
     "4097:0:2:F958:9A9C:ED:0:0:0:0": {
       "name": "Radyo Hidayet Çağı",
@@ -875948,7 +876826,8 @@
         "https://www.mihr.com/radyo/1/hidayet-cagi"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:7267:FBBA:ED:0:0:0:0": {
       "name": "Radyo İlahi",
@@ -875961,7 +876840,8 @@
         "https://www.radyokuran.net/sayfalar/radyo-ilahi-islam"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:B4EC:902:ED:0:0:0:0": {
       "name": "RADYO İMZA",
@@ -875974,7 +876854,10 @@
         "https://radyo.radyoimza.com:8016/;"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Operation timed out after 8000 milliseconds with 243252 bytes received\n"
+      ]
     },
     "4097:0:2:B532:69B2:ED:0:0:0:0": {
       "name": "Radyo Kaptan",
@@ -875988,7 +876871,93 @@
         "https://radyokaptan.com.tr/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://radyokaptan.com.tr/assets/radyo-kaptan-logo-primary.jpg",
+        "final_url": "https://radyokaptan.com.tr/assets/radyo-kaptan-logo-primary.jpg",
+        "path": "originals/c2807310692934fae74fca1d2a76c0d6cd584c95157ac2d217c83d2ae49cd042.img",
+        "sha256": "c2807310692934fae74fca1d2a76c0d6cd584c95157ac2d217c83d2ae49cd042",
+        "bytes": 211658,
+        "dimensions": [
+          1254,
+          1254
+        ],
+        "format": "JPEG"
+      },
+      "page": {
+        "url": "https://radyokaptan.com.tr/",
+        "final_url": "https://radyokaptan.com.tr/",
+        "original_html_sha256": "bd7edee376482a7b875e185a7c698d700981e90654f7e5d6821c997dff8d0685",
+        "path": "page-evidence/bd7edee376482a7b875e185a7c698d700981e90654f7e5d6821c997dff8d0685.json",
+        "titles": [
+          "Radyo Kaptan FM | Rotanızı Belirleyen Radyo",
+          "Müziğin Rotası Burada Başlar"
+        ],
+        "image_urls": [
+          "https://radyokaptan.com.tr/assets/radyo-kaptan-logo-primary.jpg",
+          "https://radyokaptan.com.tr/assets/radyo-kaptan-logo-secondary.jpg"
+        ],
+        "named_logos": {
+          "https://radyokaptan.com.tr/assets/radyo-kaptan-logo-primary.jpg": "Radyo Kaptan Logo  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/db2b4205c25b4ace55f1bcbf0af3e50fc844aa0679f4e8fe90ca640e5aad0665.png",
+          "sha256": "db2b4205c25b4ace55f1bcbf0af3e50fc844aa0679f4e8fe90ca640e5aad0665",
+          "bytes": 2032
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/88e6153b09a9f4b556e7d804172dfff517e7f449c084e62e67abe7f7c5aee463.png",
+          "sha256": "88e6153b09a9f4b556e7d804172dfff517e7f449c084e62e67abe7f7c5aee463",
+          "bytes": 24826
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/214914b3f65d6045702010999ce5f1de1e83b65b0d15bae5e570a88501bff4cc.png",
+          "sha256": "214914b3f65d6045702010999ce5f1de1e83b65b0d15bae5e570a88501bff4cc",
+          "bytes": 71264
+        },
+        "50x30/white": {
+          "path": "verified-assets/1aebdb36d6b8b86ba228b1a3512aba62cbfc12a1401686f52289b715f3dd91c7.png",
+          "sha256": "1aebdb36d6b8b86ba228b1a3512aba62cbfc12a1401686f52289b715f3dd91c7",
+          "bytes": 3282
+        },
+        "220x132/white": {
+          "path": "verified-assets/202851b2797e64ef719bf785979073c36ce75bf5e0d1cb054b57a1ad9cdf606b.png",
+          "sha256": "202851b2797e64ef719bf785979073c36ce75bf5e0d1cb054b57a1ad9cdf606b",
+          "bytes": 48073
+        },
+        "400x240/white": {
+          "path": "verified-assets/a3f099f804af7c0218cc368b235e13b06b1d56bbc5e55744663d173eb8885058.png",
+          "sha256": "a3f099f804af7c0218cc368b235e13b06b1d56bbc5e55744663d173eb8885058",
+          "bytes": 126326
+        },
+        "50x30/black": {
+          "path": "verified-assets/961fa24281d321145b4b9d0c36aeee3f2de631f7dd9eaeec7eb9365907beb093.png",
+          "sha256": "961fa24281d321145b4b9d0c36aeee3f2de631f7dd9eaeec7eb9365907beb093",
+          "bytes": 3489
+        },
+        "220x132/black": {
+          "path": "verified-assets/6993b8fa3465a1bfb1c3a37dcc8959d11dc8acdfc48d1f12edd110b64aa28ba6.png",
+          "sha256": "6993b8fa3465a1bfb1c3a37dcc8959d11dc8acdfc48d1f12edd110b64aa28ba6",
+          "bytes": 47082
+        },
+        "400x240/black": {
+          "path": "verified-assets/ff5ec7a603f1caad69a37940d9eebf167e20c18f649d48509507fac9382d4108.png",
+          "sha256": "ff5ec7a603f1caad69a37940d9eebf167e20c18f649d48509507fac9382d4108",
+          "bytes": 123390
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Radyo Kaptan Logo  ",
+        "matched_brand_keys": [
+          "kaptan"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:25EB:A1AF:ED:0:0:0:0": {
       "name": "Radyo Karadeniz",
@@ -876001,7 +876970,37 @@
         "https://www.radyokaradeniz.com/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://radyokaradeniz.com/uploads/settings/logo_69fcfb84e4cd6.png",
+        "final_url": "https://radyokaradeniz.com/uploads/settings/logo_69fcfb84e4cd6.png",
+        "path": "originals/6e3e2f547fa2b570b8ecdb1a3235c830c8751b2ec242c39bb84bff2b5d5f482c.img",
+        "sha256": "6e3e2f547fa2b570b8ecdb1a3235c830c8751b2ec242c39bb84bff2b5d5f482c",
+        "bytes": 88438,
+        "dimensions": [
+          1024,
+          512
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://www.radyokaradeniz.com/",
+        "final_url": "https://radyokaradeniz.com/",
+        "original_html_sha256": "62bedf4be2113c18226fa2a905972948a830387d4dd6be807f6d883327bee730",
+        "path": "page-evidence/62bedf4be2113c18226fa2a905972948a830387d4dd6be807f6d883327bee730.json",
+        "titles": [
+          "Radyo Karadeniz - Alemde Tekiz - Sınırsız Müziğin Yeni Frekansı",
+          "\n                    *Alemde  Tekiz*                 "
+        ],
+        "image_urls": [
+          "https://radyokaradeniz.com/uploads/settings/logo_69fcfb84e4cd6.png",
+          "https://radyokaradeniz.com/uploads/settings/fav_69fcfb84e4efb.png"
+        ],
+        "named_logos": {
+          "https://radyokaradeniz.com/uploads/settings/logo_69fcfb84e4cd6.png": "NexusFM  "
+        }
+      },
+      "ocr_text": "mete hte\n\nf\n"
     },
     "4097:0:2:AF1E:6DDC:ED:0:0:0:0": {
       "name": "Radyo Karakoçan",
@@ -876014,7 +877013,8 @@
         "https://www.radyokarakocan.com/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:F67:C277:ED:0:0:0:0": {
       "name": "Radyo Kent",
@@ -876049,7 +877049,8 @@
         "http://radyokulup.com/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:B5C0:B6F3:ED:0:0:0:0": {
       "name": "RADYO KOÇ",
@@ -876062,7 +877063,10 @@
         "https://stores.powerapp.com.tr/kocschool/mpeg/icecast.audio"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Operation timed out after 8001 milliseconds with 480236 bytes received\n"
+      ]
     },
     "4097:0:2:207C:7378:ED:0:0:0:0": {
       "name": "RADYO KTU",
@@ -876075,7 +877079,95 @@
         "https://www.ktu.edu.tr/radyotv"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://www.ktu.edu.tr/image/Logo2.png",
+        "final_url": "https://www.ktu.edu.tr/image/Logo2.png",
+        "path": "originals/d7f8d2d81505b56582264d27c3196e3cb7d2babd742c4f3fd30fe8168c1eca07.img",
+        "sha256": "d7f8d2d81505b56582264d27c3196e3cb7d2babd742c4f3fd30fe8168c1eca07",
+        "bytes": 98886,
+        "dimensions": [
+          700,
+          254
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://www.ktu.edu.tr/radyotv",
+        "final_url": "https://www.ktu.edu.tr/radyotv",
+        "original_html_sha256": "30b6775e7e95ba8e26025ffd82e0c8fdc55ec88797f9b40cba46f4bfce02a6ad",
+        "path": "page-evidence/30b6775e7e95ba8e26025ffd82e0c8fdc55ec88797f9b40cba46f4bfce02a6ad.json",
+        "titles": [
+          "\nAnasayfa | KTÜ Radyo TV",
+          "duyurular"
+        ],
+        "image_urls": [
+          "https://www.ktu.edu.tr/image/Logo2.png",
+          "https://www.ktu.edu.tr/image/logo/other/yokak.png",
+          "https://www.ktu.edu.tr/image/tr_bg.png"
+        ],
+        "named_logos": {
+          "https://www.ktu.edu.tr/image/logo/other/yokak.png": "YÖKAK 5 Yıl Tam Akreditasyon  ",
+          "https://www.ktu.edu.tr/image/Logo2.png": "KTÜ  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/0fd140ddf6b58295ed69c12dfb91da2c7a781b4d68648456dc0d9ce7c9dfab6d.png",
+          "sha256": "0fd140ddf6b58295ed69c12dfb91da2c7a781b4d68648456dc0d9ce7c9dfab6d",
+          "bytes": 1163
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/d6032f9ec5c3831784d60c257282d1bb564914fb38965b3b728b0732e2951276.png",
+          "sha256": "d6032f9ec5c3831784d60c257282d1bb564914fb38965b3b728b0732e2951276",
+          "bytes": 10542
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/3b32479922f23d0237ce3d2db86a2f2b8061e5cdaa20c8ca9a99834180c3634e.png",
+          "sha256": "3b32479922f23d0237ce3d2db86a2f2b8061e5cdaa20c8ca9a99834180c3634e",
+          "bytes": 35249
+        },
+        "50x30/white": {
+          "path": "verified-assets/d12d3b5ce9ae7441c1fcb18f163123d1623882d941cb06686cbbd65a1fcd5d1d.png",
+          "sha256": "d12d3b5ce9ae7441c1fcb18f163123d1623882d941cb06686cbbd65a1fcd5d1d",
+          "bytes": 2330
+        },
+        "220x132/white": {
+          "path": "verified-assets/7d041d275903b116e11f8d3bf70fd0a3b5c026dbe11cc83f36cc28714a5f811a.png",
+          "sha256": "7d041d275903b116e11f8d3bf70fd0a3b5c026dbe11cc83f36cc28714a5f811a",
+          "bytes": 35698
+        },
+        "400x240/white": {
+          "path": "verified-assets/8fcbf0262056f13281372096480f3a9ca2b08152ff95971993197b2e90363303.png",
+          "sha256": "8fcbf0262056f13281372096480f3a9ca2b08152ff95971993197b2e90363303",
+          "bytes": 87376
+        },
+        "50x30/black": {
+          "path": "verified-assets/5281ea205821401682b7fd947648fbfce2585dc89fd688fa59b4f8bc048a0bb0.png",
+          "sha256": "5281ea205821401682b7fd947648fbfce2585dc89fd688fa59b4f8bc048a0bb0",
+          "bytes": 3095
+        },
+        "220x132/black": {
+          "path": "verified-assets/5dcaaa84291a6ce1184567f58e24fc0866b3849d22ab60d32b1da902449050a0.png",
+          "sha256": "5dcaaa84291a6ce1184567f58e24fc0866b3849d22ab60d32b1da902449050a0",
+          "bytes": 38471
+        },
+        "400x240/black": {
+          "path": "verified-assets/30b830c6dccf0f4fd6b04534499235ec17a8e0cc9e4c2d76cdeef3eef76b7477.png",
+          "sha256": "30b830c6dccf0f4fd6b04534499235ec17a8e0cc9e4c2d76cdeef3eef76b7477",
+          "bytes": 97559
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "KTÜ  ",
+        "matched_brand_keys": [
+          "ktu"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:36A0:3840:ED:0:0:0:0": {
       "name": "Radyo light",
@@ -876089,7 +877181,11 @@
         "https://yayin.radiolight.net:8005/live"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (60) SSL certificate problem: unable to get local issuer certificate\nMore details here: https://curl.se/docs/sslcerts.html\n\ncurl failed to verify the legitimacy of the server",
+        "curl: (60) SSL certificate problem: unable to get local issuer certificate\nMore details here: https://curl.se/docs/sslcerts.html\n\ncurl failed to verify the legitimacy of the server"
+      ]
     },
     "4097:0:2:F34:A0DF:ED:0:0:0:0": {
       "name": "RADYO LOJİK",
@@ -876102,7 +877198,8 @@
         "https://radyolojik.com/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:C84A:3CE9:ED:0:0:0:0": {
       "name": "Radyo Maksat",
@@ -876115,7 +877212,43 @@
         "https://radyomaksat.com.tr/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://radyomaksat.com.tr/assets/autodj-badge.svg",
+        "final_url": "https://radyomaksat.com.tr/assets/autodj-badge.svg",
+        "path": "originals/c1c96907b66bc638772025dfc0949c7de000143851d407474ff523c7ebec6c9f.img",
+        "sha256": "c1c96907b66bc638772025dfc0949c7de000143851d407474ff523c7ebec6c9f",
+        "bytes": 1951,
+        "dimensions": [
+          640,
+          640
+        ],
+        "format": "SVG",
+        "frozen_svg_raster": {
+          "path": "rasterized/32792e55c4847565bf948d06a6ba0f2af34a259efb68b57319a77159f058aa82.png",
+          "sha256": "32792e55c4847565bf948d06a6ba0f2af34a259efb68b57319a77159f058aa82",
+          "cairosvg_version": "2.8.2"
+        }
+      },
+      "page": {
+        "url": "https://radyomaksat.com.tr/",
+        "final_url": "https://radyomaksat.com.tr/",
+        "original_html_sha256": "723d641f1765043dbf9c64dcc92b8cb8f31c2a266e6e1b99cb00a5e835ddff31",
+        "path": "page-evidence/723d641f1765043dbf9c64dcc92b8cb8f31c2a266e6e1b99cb00a5e835ddff31.json",
+        "titles": [
+          "RADYO MAKSAT | İYİ MÜZİK, DOĞRU ADRES",
+          "RADYO MAKSAT"
+        ],
+        "image_urls": [
+          "https://radyomaksat.com.tr/assets/autodj-badge.svg",
+          "https://radyomaksat.com.tr/assets/images/dede-medya-logo.webp"
+        ],
+        "named_logos": {
+          "https://radyomaksat.com.tr/assets/autodj-badge.svg": "AutoDJ logosu  ",
+          "https://radyomaksat.com.tr/assets/images/dede-medya-logo.webp": "Dede Medya logosu  "
+        }
+      },
+      "ocr_text": "Ne,\n\n-@-\n\n7)»\n\nAUTO DJ\n\nKESINTiSiZ MUZIK\n"
     },
     "4097:0:2:8805:4969:ED:0:0:0:0": {
       "name": "Radyo Maranata",
@@ -876128,7 +877261,90 @@
         "http://radyomaranata.com/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://radyomaranata.com/wp-content/uploads/2025/09/MaranataLogoOriginal.webp",
+        "final_url": "https://radyomaranata.com/wp-content/uploads/2025/09/MaranataLogoOriginal.webp",
+        "path": "originals/a828c6ef3b462f6472b72ce4bb72a88efda9a8c0c488cf80882d66965851459e.img",
+        "sha256": "a828c6ef3b462f6472b72ce4bb72a88efda9a8c0c488cf80882d66965851459e",
+        "bytes": 13672,
+        "dimensions": [
+          374,
+          136
+        ],
+        "format": "WEBP"
+      },
+      "page": {
+        "url": "http://radyomaranata.com/",
+        "final_url": "https://radyomaranata.com/",
+        "original_html_sha256": "520ad51b64ea155750d229e30ea5ddc6056839472a097ce04c4c8e2486cd2d15",
+        "path": "page-evidence/520ad51b64ea155750d229e30ea5ddc6056839472a097ce04c4c8e2486cd2d15.json",
+        "titles": [
+          "Radyo Maranata – Hristiyan Radyo"
+        ],
+        "image_urls": [
+          "https://radyomaranata.com/wp-content/uploads/2025/09/MaranataLogoOriginal.webp",
+          "https://radyomaranata.com/wp-content/uploads/2025/09/cropped-favicon_rm-192x192-1-150x150.png",
+          "https://radyomaranata.com/wp-content/uploads/2025/09/cropped-favicon_rm-192x192-1.png"
+        ],
+        "named_logos": {
+          "https://radyomaranata.com/wp-content/uploads/2025/09/MaranataLogoOriginal.webp": "Home  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/cc56df4da22f6bc3ac89de573ea8ccd7c3e506b3cd0ae71f51719ab3b829fff9.png",
+          "sha256": "cc56df4da22f6bc3ac89de573ea8ccd7c3e506b3cd0ae71f51719ab3b829fff9",
+          "bytes": 1766
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/fd9498154881d661e0894400d9b0bad9711b4eb63f85648009726b8ad5555a1b.png",
+          "sha256": "fd9498154881d661e0894400d9b0bad9711b4eb63f85648009726b8ad5555a1b",
+          "bytes": 19570
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/eb158494291e8b9b7a861c8f667762ed89258e73060a3b75cdb17876b5c9f02e.png",
+          "sha256": "eb158494291e8b9b7a861c8f667762ed89258e73060a3b75cdb17876b5c9f02e",
+          "bytes": 61283
+        },
+        "50x30/white": {
+          "path": "verified-assets/00357a0024effd95571b6f1d9b2b854ee37ae04ec49b2eec27a8390507e4dee0.png",
+          "sha256": "00357a0024effd95571b6f1d9b2b854ee37ae04ec49b2eec27a8390507e4dee0",
+          "bytes": 2659
+        },
+        "220x132/white": {
+          "path": "verified-assets/fb288a87d684251190523eecc15b5844fd27a59946ab46aaf3f33e1b56136ed8.png",
+          "sha256": "fb288a87d684251190523eecc15b5844fd27a59946ab46aaf3f33e1b56136ed8",
+          "bytes": 41232
+        },
+        "400x240/white": {
+          "path": "verified-assets/892e536d424a64913747e6c51c217ff433bd62842470700cda6f9fd2e32f698f.png",
+          "sha256": "892e536d424a64913747e6c51c217ff433bd62842470700cda6f9fd2e32f698f",
+          "bytes": 103733
+        },
+        "50x30/black": {
+          "path": "verified-assets/179c0a2f8f97fbcacc86deb9f3d792dede9e723c7c0533f5a2c2c8d934cffe91.png",
+          "sha256": "179c0a2f8f97fbcacc86deb9f3d792dede9e723c7c0533f5a2c2c8d934cffe91",
+          "bytes": 3367
+        },
+        "220x132/black": {
+          "path": "verified-assets/4c7992ffef7b12b08b9ef0eeddd7cef3f05272810941159f2045c3a99229941f.png",
+          "sha256": "4c7992ffef7b12b08b9ef0eeddd7cef3f05272810941159f2045c3a99229941f",
+          "bytes": 42998
+        },
+        "400x240/black": {
+          "path": "verified-assets/311cd6f19cdf48544e6dcaec3a03ecad13694c85e89f2b4803d0a55cf1c8b6d7.png",
+          "sha256": "311cd6f19cdf48544e6dcaec3a03ecad13694c85e89f2b4803d0a55cf1c8b6d7",
+          "bytes": 112174
+        }
+      },
+      "verification": {
+        "exact_stream_and_current_page_name": true,
+        "image_link_recorded_in_page": true,
+        "full_distinctive_wordmark": "Wharenate\n\nwuww.cradyomaranata.cam\n",
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:ABBC:EE5:ED:0:0:0:0": {
       "name": "Radyo Mars",
@@ -876141,7 +877357,10 @@
         "https://radyomars.com/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (35) OpenSSL/3.0.13: error:0A000458:SSL routines::tlsv1 unrecognized name\n"
+      ]
     },
     "4097:0:2:EE3F:8160:ED:0:0:0:0": {
       "name": "Radyo Mavi Denizim",
@@ -876166,7 +877385,10 @@
         "https://www.artuklumezopotamyaradyo.com/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 403\n"
+      ]
     },
     "4097:0:2:DA2E:AD2F:ED:0:0:0:0": {
       "name": "RADYO MONİ",
@@ -876179,7 +877401,10 @@
         "https://radyo.yayin.com.tr:4262/stream"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Operation timed out after 8000 milliseconds with 342547 bytes received\n"
+      ]
     },
     "4097:0:2:BA6D:3E6A:ED:0:0:0:0": {
       "name": "RADYO MOOD",
@@ -876192,7 +877417,10 @@
         "https://radyo.yayin.com.tr:5862/;"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Operation timed out after 8000 milliseconds with 300372 bytes received\n"
+      ]
     },
     "4097:0:2:9DF8:6278:ED:0:0:0:0": {
       "name": "Radyo Mori",
@@ -876205,7 +877433,8 @@
         "https://amed.ozelip.com/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:7C20:A3AC:ED:0:0:0:0": {
       "name": "RADYO MUĞLA",
@@ -876218,7 +877447,10 @@
         "https://radyo.yayindakiler.com:3006/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Operation timed out after 8000 milliseconds with 358983 bytes received\n"
+      ]
     },
     "4097:0:2:7A3E:403C:ED:0:0:0:0": {
       "name": "Radyo Munzur 97.7",
@@ -876231,7 +877463,8 @@
         "http://canlifm.com/m/ozgun/radyomunzur"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:18C2:2B3B:ED:0:0:0:0": {
       "name": "radyo mydonose",
@@ -876244,7 +877477,10 @@
         "https://playerservices.streamtheworld.com/api/livestream-redirect/RADIO_MYDONOSE128AAC.aac?/;stream.mp3"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Operation timed out after 7817 milliseconds with 276122 bytes received\n"
+      ]
     },
     "4097:0:2:4F7B:18C2:ED:0:0:0:0": {
       "name": "Radyo Nebi",
@@ -876257,7 +877493,91 @@
         "https://www.nebifm.net/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://www.nebifm.net/uploads/logo/1banner.png",
+        "final_url": "https://www.nebifm.net/uploads/logo/1banner.png",
+        "path": "originals/095d31221ed08b6b07b19ae654e9903decbca0ecf2e597ff06490ac36565bf09.img",
+        "sha256": "095d31221ed08b6b07b19ae654e9903decbca0ecf2e597ff06490ac36565bf09",
+        "bytes": 40106,
+        "dimensions": [
+          336,
+          55
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://www.nebifm.net/",
+        "final_url": "https://www.nebifm.net/",
+        "original_html_sha256": "9422115df176c9cab6fc6675cfd20c68cabc13d907e83670cfd30e983bb3b91b",
+        "path": "page-evidence/9422115df176c9cab6fc6675cfd20c68cabc13d907e83670cfd30e983bb3b91b.json",
+        "titles": [
+          "Nebi FM - Huzur Veren Radyo"
+        ],
+        "image_urls": [
+          "https://www.nebifm.net/uploads/logo/1banner.png"
+        ],
+        "named_logos": {
+          "https://www.nebifm.net/uploads/logo/1banner.png": "Nebi Fm  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/613b94e3fb4b0ea0fd828fd391c213c31469d2c805a56ea07aeb8baf56f801d5.png",
+          "sha256": "613b94e3fb4b0ea0fd828fd391c213c31469d2c805a56ea07aeb8baf56f801d5",
+          "bytes": 1769
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/df86463990f7f38c4bd05138ceca4764cff93865e22091188dbe3e5877996e30.png",
+          "sha256": "df86463990f7f38c4bd05138ceca4764cff93865e22091188dbe3e5877996e30",
+          "bytes": 18125
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/968ef43168f46ce5bef5bcbe57e793a10124b51797c783740addd49a2c1710bd.png",
+          "sha256": "968ef43168f46ce5bef5bcbe57e793a10124b51797c783740addd49a2c1710bd",
+          "bytes": 54705
+        },
+        "50x30/white": {
+          "path": "verified-assets/a1d995722c99d5391007708b40197f717e5128bd961c798aa505030b79272417.png",
+          "sha256": "a1d995722c99d5391007708b40197f717e5128bd961c798aa505030b79272417",
+          "bytes": 2969
+        },
+        "220x132/white": {
+          "path": "verified-assets/3a9bf0942dc0f511ee258793a19268947b475904f689308a68b99d8e8e8b730d.png",
+          "sha256": "3a9bf0942dc0f511ee258793a19268947b475904f689308a68b99d8e8e8b730d",
+          "bytes": 43634
+        },
+        "400x240/white": {
+          "path": "verified-assets/61a1aa21ba3b208f77c94a07160c6d305df7096c6a59019a2b543e244b066dc8.png",
+          "sha256": "61a1aa21ba3b208f77c94a07160c6d305df7096c6a59019a2b543e244b066dc8",
+          "bytes": 109843
+        },
+        "50x30/black": {
+          "path": "verified-assets/b197d1379892b84cf53a75daf783c003c76d9e850ad6b6219d6cd6429a49547b.png",
+          "sha256": "b197d1379892b84cf53a75daf783c003c76d9e850ad6b6219d6cd6429a49547b",
+          "bytes": 3193
+        },
+        "220x132/black": {
+          "path": "verified-assets/01218bb765b12519d893dcb825f75ffe05c6765f81d0d74628423fbf33fec5f8.png",
+          "sha256": "01218bb765b12519d893dcb825f75ffe05c6765f81d0d74628423fbf33fec5f8",
+          "bytes": 41982
+        },
+        "400x240/black": {
+          "path": "verified-assets/16bdfc6fafdfbe8d97b44e4817dc04161ad73c8e291194affd67cbf62c7f7e3a.png",
+          "sha256": "16bdfc6fafdfbe8d97b44e4817dc04161ad73c8e291194affd67cbf62c7f7e3a",
+          "bytes": 106281
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Nebi Fm  ",
+        "matched_brand_keys": [
+          "nebi"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:23BC:72D6:ED:0:0:0:0": {
       "name": "RADYO NEŞE",
@@ -876270,7 +877590,10 @@
         "https://radyo.yayindakiler.com:2042/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Operation timed out after 8001 milliseconds with 94522 bytes received\n"
+      ]
     },
     "4097:0:2:2F45:7491:ED:0:0:0:0": {
       "name": "RADYO NET",
@@ -876283,7 +877606,101 @@
         "https://www.radyonetfm.net/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://www.radyonetfm.net/netlogo-dark.svg",
+        "final_url": "https://www.radyonetfm.net/netlogo-dark.svg",
+        "path": "originals/0d9ae953d60c1677fa0394baf7dc5c661d303f1a8c033d176916247252fa758a.img",
+        "sha256": "0d9ae953d60c1677fa0394baf7dc5c661d303f1a8c033d176916247252fa758a",
+        "bytes": 13364,
+        "dimensions": [
+          640,
+          160
+        ],
+        "format": "SVG",
+        "frozen_svg_raster": {
+          "path": "rasterized/81c3093b2fb5420ec61a45790d8c5a0191b4d449dfe50f1833218099f6135a2e.png",
+          "sha256": "81c3093b2fb5420ec61a45790d8c5a0191b4d449dfe50f1833218099f6135a2e",
+          "cairosvg_version": "2.8.2"
+        }
+      },
+      "page": {
+        "url": "https://www.radyonetfm.net/",
+        "final_url": "https://www.radyonetfm.net/",
+        "original_html_sha256": "992b115c310e4ba68fc49e86a95c70d4fe9de0391d7a6c768f7b276aa7131048",
+        "path": "page-evidence/992b115c310e4ba68fc49e86a95c70d4fe9de0391d7a6c768f7b276aa7131048.json",
+        "titles": [
+          "RADYONET | Canlı Radyo Dinle",
+          "Müziğin ve hikâyelerin adresi",
+          "Günün ritmi burada",
+          "Konyada Net"
+        ],
+        "image_urls": [
+          "https://www.radyonetfm.net/netlogo-dark.svg",
+          "https://www.radyonetfm.net/netlogo-light.svg"
+        ],
+        "named_logos": {
+          "https://www.radyonetfm.net/netlogo-light.svg": "RADYONET  ",
+          "https://www.radyonetfm.net/netlogo-dark.svg": "RADYONET  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/f8c6f2a06501bacb3180f20750654b4da5111be9316c3a4533174902baf1bf64.png",
+          "sha256": "f8c6f2a06501bacb3180f20750654b4da5111be9316c3a4533174902baf1bf64",
+          "bytes": 674
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/bf8b95b32f88e29c9f1320c541b3ee79a540ac2c2e1745ba8ae9f40895c407c4.png",
+          "sha256": "bf8b95b32f88e29c9f1320c541b3ee79a540ac2c2e1745ba8ae9f40895c407c4",
+          "bytes": 4364
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/6dbf0931559f1e1818cdec983e6c4ab8f31c30721101cf0c0904fb628e1a2360.png",
+          "sha256": "6dbf0931559f1e1818cdec983e6c4ab8f31c30721101cf0c0904fb628e1a2360",
+          "bytes": 13168
+        },
+        "50x30/white": {
+          "path": "verified-assets/7c2680e6133bd516504f41cbf5d53e99c6a2a40d97a35f9c4c51ab4daf192b28.png",
+          "sha256": "7c2680e6133bd516504f41cbf5d53e99c6a2a40d97a35f9c4c51ab4daf192b28",
+          "bytes": 2278
+        },
+        "220x132/white": {
+          "path": "verified-assets/04b760ab32bdf669cc811592e7d7068f6d0315c8ca02212a85c19e78f9638b4b.png",
+          "sha256": "04b760ab32bdf669cc811592e7d7068f6d0315c8ca02212a85c19e78f9638b4b",
+          "bytes": 33776
+        },
+        "400x240/white": {
+          "path": "verified-assets/1fb3eaf921f872339210406efe8f7fa1dd2c05d57f4e103e0e3e2d98dd3bdfd0.png",
+          "sha256": "1fb3eaf921f872339210406efe8f7fa1dd2c05d57f4e103e0e3e2d98dd3bdfd0",
+          "bytes": 80865
+        },
+        "50x30/black": {
+          "path": "verified-assets/808f9e88b928c9cfc292440c57e5e764b788f37ded82a12914fa90532d211254.png",
+          "sha256": "808f9e88b928c9cfc292440c57e5e764b788f37ded82a12914fa90532d211254",
+          "bytes": 2854
+        },
+        "220x132/black": {
+          "path": "verified-assets/328c1b233d95f67ef6ddc3edba5f9c2d5e9fb8d0fe6663ca511f06c10af0c724.png",
+          "sha256": "328c1b233d95f67ef6ddc3edba5f9c2d5e9fb8d0fe6663ca511f06c10af0c724",
+          "bytes": 34916
+        },
+        "400x240/black": {
+          "path": "verified-assets/2a23a7938371a7dd7691c0244d0753999829c3842de410cea04b1512df5287af.png",
+          "sha256": "2a23a7938371a7dd7691c0244d0753999829c3842de410cea04b1512df5287af",
+          "bytes": 85303
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "RADYONET  ",
+        "matched_brand_keys": [
+          "net"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:8F61:55C3:ED:0:0:0:0": {
       "name": "RADYO NEVŞEHİR",
@@ -876296,7 +877713,10 @@
         "https://stream2.rtvtakip.com:7025/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Operation timed out after 8001 milliseconds with 359378 bytes received\n"
+      ]
     },
     "4097:0:2:1683:A47B:ED:0:0:0:0": {
       "name": "Radyo Nida",
@@ -876309,7 +877729,95 @@
         "https://radyonida.com.tr/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://www.radyonida.com.tr/logo-horizontal.png",
+        "final_url": "https://www.radyonida.com.tr/logo-horizontal.png",
+        "path": "originals/51e5b43082f582719ae4ed67b31a0a4255229c5a9103acddbf470e14eefa3d02.img",
+        "sha256": "51e5b43082f582719ae4ed67b31a0a4255229c5a9103acddbf470e14eefa3d02",
+        "bytes": 130986,
+        "dimensions": [
+          746,
+          1040
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://radyonida.com.tr/",
+        "final_url": "https://www.radyonida.com.tr/",
+        "original_html_sha256": "4162499c68dbe9a2f0c5cdb805c9f994a1884c194f2eeace4a91771e13d9c526",
+        "path": "page-evidence/4162499c68dbe9a2f0c5cdb805c9f994a1884c194f2eeace4a91771e13d9c526.json",
+        "titles": [
+          "Radyo Nida - İlahi & Manevi Yayınlar"
+        ],
+        "image_urls": [
+          "https://www.radyonida.com.tr/logo-horizontal.png",
+          "https://www.radyonida.com.tr/logo-wide.png",
+          "https://www.radyonida.com.tr/logo.png"
+        ],
+        "named_logos": {
+          "https://www.radyonida.com.tr/logo-wide.png": "Radyo Nida  ",
+          "https://www.radyonida.com.tr/logo.png": "Radyo Nida  ",
+          "https://www.radyonida.com.tr/logo-horizontal.png": "Radyo Nida  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/bdc2aa93aaa237d6cf048cea23ca32fdba50857b76c03a7c9066432b5e2d13b6.png",
+          "sha256": "bdc2aa93aaa237d6cf048cea23ca32fdba50857b76c03a7c9066432b5e2d13b6",
+          "bytes": 1498
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/fbd3c12638e1408bc33870bc7f2e404114c05a70003e1e96a69e5dfc44b4299a.png",
+          "sha256": "fbd3c12638e1408bc33870bc7f2e404114c05a70003e1e96a69e5dfc44b4299a",
+          "bytes": 11867
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/37e253fa4f2da0c0fcc91bdb07c258e6d0fdb89b13f65ee0672be868751621f7.png",
+          "sha256": "37e253fa4f2da0c0fcc91bdb07c258e6d0fdb89b13f65ee0672be868751621f7",
+          "bytes": 37736
+        },
+        "50x30/white": {
+          "path": "verified-assets/9cd4f4807788b9b6a94d10672bdc4e449a94f12bc3b06324322898af154205b5.png",
+          "sha256": "9cd4f4807788b9b6a94d10672bdc4e449a94f12bc3b06324322898af154205b5",
+          "bytes": 2648
+        },
+        "220x132/white": {
+          "path": "verified-assets/8fd44b7275de5f4ae53a119778dfdc83a3d047882b251f57b7c0c61fa98a71f2.png",
+          "sha256": "8fd44b7275de5f4ae53a119778dfdc83a3d047882b251f57b7c0c61fa98a71f2",
+          "bytes": 37241
+        },
+        "400x240/white": {
+          "path": "verified-assets/d3ab959becbf61580ea1bf13a0081ba7df2289a6fc2704608f61755484a87709.png",
+          "sha256": "d3ab959becbf61580ea1bf13a0081ba7df2289a6fc2704608f61755484a87709",
+          "bytes": 94546
+        },
+        "50x30/black": {
+          "path": "verified-assets/5b2fad55e8cd01f7ca992eb4f683941b29fe24eaf1fb7116fbb237f58f91b98f.png",
+          "sha256": "5b2fad55e8cd01f7ca992eb4f683941b29fe24eaf1fb7116fbb237f58f91b98f",
+          "bytes": 3103
+        },
+        "220x132/black": {
+          "path": "verified-assets/a5dc2d7e07de3cdde340ad8076e78b69c592c042573afd90289ad3b110a89d07.png",
+          "sha256": "a5dc2d7e07de3cdde340ad8076e78b69c592c042573afd90289ad3b110a89d07",
+          "bytes": 37093
+        },
+        "400x240/black": {
+          "path": "verified-assets/9c88acc79b83d275df2cf2e869072c3c9325f1d493b92394d5cc9dda22f0fbbe.png",
+          "sha256": "9c88acc79b83d275df2cf2e869072c3c9325f1d493b92394d5cc9dda22f0fbbe",
+          "bytes": 93832
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Radyo Nida  ",
+        "matched_brand_keys": [
+          "nida"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:F09B:6195:ED:0:0:0:0": {
       "name": "Radyo ODTU",
@@ -876322,7 +877830,10 @@
         "http://www.radyoodtu.com.tr/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (6) Could not resolve host: www.www.radyoodtu.com.tr\n"
+      ]
     },
     "4097:0:2:DDE0:5DBF:ED:0:0:0:0": {
       "name": "Radyo Odtu Easy",
@@ -876335,7 +877846,38 @@
         "https://radyoodtu.com.tr/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://www.radyoodtu.com.tr/images/header/header-logo.png",
+        "final_url": "https://www.radyoodtu.com.tr/images/header/header-logo.png",
+        "path": "originals/7bc1a0721a557a72985632f80e974571e186d3a0a0847412ad09d5198de7b8cc.img",
+        "sha256": "7bc1a0721a557a72985632f80e974571e186d3a0a0847412ad09d5198de7b8cc",
+        "bytes": 15763,
+        "dimensions": [
+          600,
+          144
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://radyoodtu.com.tr/",
+        "final_url": "https://www.radyoodtu.com.tr/",
+        "original_html_sha256": "44e428f3b66a6670c1443259d53eddce370502faca96311fe6034f2761f65659",
+        "path": "page-evidence/44e428f3b66a6670c1443259d53eddce370502faca96311fe6034f2761f65659.json",
+        "titles": [
+          "Ana Sayfa | Radyo ODTÜ 103.1"
+        ],
+        "image_urls": [
+          "https://www.radyoodtu.com.tr/images/footer/logo-white.svg",
+          "https://www.radyoodtu.com.tr/images/header/header-logo.png",
+          "https://www.radyoodtu.com.tr/favicon.ico"
+        ],
+        "named_logos": {
+          "https://www.radyoodtu.com.tr/images/header/header-logo.png": "  ",
+          "https://www.radyoodtu.com.tr/images/footer/logo-white.svg": "  "
+        }
+      },
+      "ocr_text": "fadyo\n\n1o3.1\n"
     },
     "4097:0:2:1222:3C44:ED:0:0:0:0": {
       "name": "Radyo ODTU - Rock",
@@ -876348,7 +877890,38 @@
         "https://www.radyoodtu.com.tr/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://www.radyoodtu.com.tr/images/header/header-logo.png",
+        "final_url": "https://www.radyoodtu.com.tr/images/header/header-logo.png",
+        "path": "originals/7bc1a0721a557a72985632f80e974571e186d3a0a0847412ad09d5198de7b8cc.img",
+        "sha256": "7bc1a0721a557a72985632f80e974571e186d3a0a0847412ad09d5198de7b8cc",
+        "bytes": 15763,
+        "dimensions": [
+          600,
+          144
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://www.radyoodtu.com.tr/",
+        "final_url": "https://www.radyoodtu.com.tr/",
+        "original_html_sha256": "44e428f3b66a6670c1443259d53eddce370502faca96311fe6034f2761f65659",
+        "path": "page-evidence/44e428f3b66a6670c1443259d53eddce370502faca96311fe6034f2761f65659.json",
+        "titles": [
+          "Ana Sayfa | Radyo ODTÜ 103.1"
+        ],
+        "image_urls": [
+          "https://www.radyoodtu.com.tr/images/footer/logo-white.svg",
+          "https://www.radyoodtu.com.tr/images/header/header-logo.png",
+          "https://www.radyoodtu.com.tr/favicon.ico"
+        ],
+        "named_logos": {
+          "https://www.radyoodtu.com.tr/images/header/header-logo.png": "  ",
+          "https://www.radyoodtu.com.tr/images/footer/logo-white.svg": "  "
+        }
+      },
+      "ocr_text": "fadyo\n\n1o3.1\n"
     },
     "4097:0:2:CCCC:ACBB:ED:0:0:0:0": {
       "name": "RADYO PAUSE",
@@ -876361,7 +877934,92 @@
         "https://radyopause.com.tr/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://radyopause.com.tr/wp-content/uploads/2025/07/cropped-Adsiz-276-x-58-piksel.png",
+        "final_url": "https://radyopause.com.tr/wp-content/uploads/2025/07/cropped-Adsiz-276-x-58-piksel.png",
+        "path": "originals/fb475f73545c01f532992b45862953bf908b9fa5a317b0f6ebbaf9a113aeec1e.img",
+        "sha256": "fb475f73545c01f532992b45862953bf908b9fa5a317b0f6ebbaf9a113aeec1e",
+        "bytes": 5627,
+        "dimensions": [
+          209,
+          58
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://radyopause.com.tr/",
+        "final_url": "https://radyopause.com.tr/",
+        "original_html_sha256": "8fdd604d0460e409fd4ffc77312feb4c34f8096b41b36f7a46dd4fcfe2001b0d",
+        "path": "page-evidence/8fdd604d0460e409fd4ffc77312feb4c34f8096b41b36f7a46dd4fcfe2001b0d.json",
+        "titles": [
+          "Radyo Pause",
+          "Anasayfa"
+        ],
+        "image_urls": [
+          "https://radyopause.com.tr/wp-content/uploads/2025/07/cropped-Adsiz-276-x-58-piksel.png"
+        ],
+        "named_logos": {
+          "https://radyopause.com.tr/wp-content/uploads/2025/07/cropped-Adsiz-276-x-58-piksel.png": "Radyo Pause  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/fe59903b68b53bf74062b78174c71697e47a168f26349a5d9ca924fe40ca0d72.png",
+          "sha256": "fe59903b68b53bf74062b78174c71697e47a168f26349a5d9ca924fe40ca0d72",
+          "bytes": 1585
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/da415ef4ee2bab045e22d1eea86829b9650793d955c0a0d9fba18362a373f32e.png",
+          "sha256": "da415ef4ee2bab045e22d1eea86829b9650793d955c0a0d9fba18362a373f32e",
+          "bytes": 13698
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/abfaeab2196787c1149f2a353083e52aaefd2e649ed63ba6fd53d9598c8f6032.png",
+          "sha256": "abfaeab2196787c1149f2a353083e52aaefd2e649ed63ba6fd53d9598c8f6032",
+          "bytes": 39403
+        },
+        "50x30/white": {
+          "path": "verified-assets/9c47d343a6a5c7d228c2f492b9d9857ababea6b622f8f2f072c7184338cc48ca.png",
+          "sha256": "9c47d343a6a5c7d228c2f492b9d9857ababea6b622f8f2f072c7184338cc48ca",
+          "bytes": 2800
+        },
+        "220x132/white": {
+          "path": "verified-assets/46623cc6f31e17c8952d323fe6fe47079b08ee18222d4ecfd12fede89b6b0778.png",
+          "sha256": "46623cc6f31e17c8952d323fe6fe47079b08ee18222d4ecfd12fede89b6b0778",
+          "bytes": 39513
+        },
+        "400x240/white": {
+          "path": "verified-assets/6dcedb36a2d183415354d48fe2e64c7d089a89bf817d7771319831bde035af48.png",
+          "sha256": "6dcedb36a2d183415354d48fe2e64c7d089a89bf817d7771319831bde035af48",
+          "bytes": 99313
+        },
+        "50x30/black": {
+          "path": "verified-assets/613d95eef228999ee46d242e223e4e6e3331b68f51a5e0c8b63e86187c502f40.png",
+          "sha256": "613d95eef228999ee46d242e223e4e6e3331b68f51a5e0c8b63e86187c502f40",
+          "bytes": 3207
+        },
+        "220x132/black": {
+          "path": "verified-assets/3355765d82605cec23c302a79a70599bcbb7907fb64a44fe2881b55bd17a3d14.png",
+          "sha256": "3355765d82605cec23c302a79a70599bcbb7907fb64a44fe2881b55bd17a3d14",
+          "bytes": 38137
+        },
+        "400x240/black": {
+          "path": "verified-assets/a7af340706032ffe63edb73a9678e128c6a728aa6b5a649a912fe9bec077615a.png",
+          "sha256": "a7af340706032ffe63edb73a9678e128c6a728aa6b5a649a912fe9bec077615a",
+          "bytes": 94698
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Radyo Pause  ",
+        "matched_brand_keys": [
+          "pause"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:AB27:8A73:ED:0:0:0:0": {
       "name": "RADYO SAHİL",
@@ -876374,7 +878032,38 @@
         "https://radyosahil.com.tr/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://radyosahil.com.tr/uploads/settings/logo_6ae8a5cb3269e.jpg",
+        "final_url": "https://radyosahil.com.tr/uploads/settings/logo_6ae8a5cb3269e.jpg",
+        "path": "originals/7a2a6ee6361025ef394d36bc896c4155d58166f5eb3e8359b1600d92c99b2a59.img",
+        "sha256": "7a2a6ee6361025ef394d36bc896c4155d58166f5eb3e8359b1600d92c99b2a59",
+        "bytes": 50515,
+        "dimensions": [
+          636,
+          689
+        ],
+        "format": "JPEG"
+      },
+      "page": {
+        "url": "https://radyosahil.com.tr/",
+        "final_url": "https://radyosahil.com.tr/",
+        "original_html_sha256": "21872db0a3c0f416d208749e04d243638e2db84b615fb8ed0b015918eb00071b",
+        "path": "page-evidence/21872db0a3c0f416d208749e04d243638e2db84b615fb8ed0b015918eb00071b.json",
+        "titles": [
+          "- İzmir'in En Çok Dinlenen Radyosu - Radyo Sahil İZMİR",
+          "\n                    SİTEMİZİ  YENİLİYORUZ..                 ",
+          "\n                    Yayın  Akışımızı Güncelliyoruz..                 "
+        ],
+        "image_urls": [
+          "https://radyosahil.com.tr/uploads/settings/logo_6ae8a5cb3269e.jpg",
+          "https://radyosahil.com.tr/uploads/settings/fav_6ae8a5cb3290a.jpg"
+        ],
+        "named_logos": {
+          "https://radyosahil.com.tr/uploads/settings/logo_6ae8a5cb3269e.jpg": "Logo  "
+        }
+      },
+      "ocr_text": "rady@ Sahil\n"
     },
     "4097:0:2:CB33:A176:ED:0:0:0:0": {
       "name": "RADYO ŞAMPİYON",
@@ -876387,7 +878076,92 @@
         "http://www.radyosampiyon.com.tr/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://www.radyosampiyon.com.tr/wp-content/uploads/2023/09/SAMPIYON-TV-LOGOM.jpg",
+        "final_url": "https://www.radyosampiyon.com.tr/wp-content/uploads/2023/09/SAMPIYON-TV-LOGOM.jpg",
+        "path": "originals/6421bf0c86df9b2b9ac77b65f904ac201ae603614ccc1a6e38a6b1662c5ede48.img",
+        "sha256": "6421bf0c86df9b2b9ac77b65f904ac201ae603614ccc1a6e38a6b1662c5ede48",
+        "bytes": 236217,
+        "dimensions": [
+          1080,
+          847
+        ],
+        "format": "JPEG"
+      },
+      "page": {
+        "url": "http://www.radyosampiyon.com.tr/",
+        "final_url": "http://www.radyosampiyon.com.tr/",
+        "original_html_sha256": "53f611c1605a8d9f3d7e04ed9bf8e08e476e3017008b816e8fafc890ff7e5bfd",
+        "path": "page-evidence/53f611c1605a8d9f3d7e04ed9bf8e08e476e3017008b816e8fafc890ff7e5bfd.json",
+        "titles": [
+          "Radyo Şampiyon Bursa",
+          "      "
+        ],
+        "image_urls": [
+          "https://www.radyosampiyon.com.tr/wp-content/uploads/2023/09/SAMPIYON-TV-LOGOM.jpg"
+        ],
+        "named_logos": {
+          "https://www.radyosampiyon.com.tr/wp-content/uploads/2023/09/SAMPIYON-TV-LOGOM.jpg": "Radyo Şampiyon Bursa Radyo Şampiyon Bursa "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/40a302580679c900e46ad375e3232b0189e84ad5012789363496689941d11428.png",
+          "sha256": "40a302580679c900e46ad375e3232b0189e84ad5012789363496689941d11428",
+          "bytes": 1854
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/ab19c4f52c3a3ef313a425664fac6daa011282432c8e1d8abffbc2c8e29648a0.png",
+          "sha256": "ab19c4f52c3a3ef313a425664fac6daa011282432c8e1d8abffbc2c8e29648a0",
+          "bytes": 16770
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/a91ccabe4e6e3d90bb0e8923df7d34d909eba103f24f41ae995537c8f697f8d7.png",
+          "sha256": "a91ccabe4e6e3d90bb0e8923df7d34d909eba103f24f41ae995537c8f697f8d7",
+          "bytes": 47840
+        },
+        "50x30/white": {
+          "path": "verified-assets/1241371abc10a540a243fe3a5d385f9882bb70cc2e4cb76b9bdcb18cbe8053a6.png",
+          "sha256": "1241371abc10a540a243fe3a5d385f9882bb70cc2e4cb76b9bdcb18cbe8053a6",
+          "bytes": 3010
+        },
+        "220x132/white": {
+          "path": "verified-assets/e07803159c61160228b94c5c5249ca7bd303aac04d56abc05475c4bfa7394d68.png",
+          "sha256": "e07803159c61160228b94c5c5249ca7bd303aac04d56abc05475c4bfa7394d68",
+          "bytes": 36570
+        },
+        "400x240/white": {
+          "path": "verified-assets/a2623622ab5be78d9c4e35e3c0c61c3d8c14adc4598d4627478f42cce2e09ff9.png",
+          "sha256": "a2623622ab5be78d9c4e35e3c0c61c3d8c14adc4598d4627478f42cce2e09ff9",
+          "bytes": 95935
+        },
+        "50x30/black": {
+          "path": "verified-assets/036e8f79a49aa72035321ed0b74adab9af158a48aec289c7dc86fd29f0abd63d.png",
+          "sha256": "036e8f79a49aa72035321ed0b74adab9af158a48aec289c7dc86fd29f0abd63d",
+          "bytes": 3224
+        },
+        "220x132/black": {
+          "path": "verified-assets/c600d62bf013772d1cabfaa5e105d249eb1b677700469f537a0ce3e7f8269316.png",
+          "sha256": "c600d62bf013772d1cabfaa5e105d249eb1b677700469f537a0ce3e7f8269316",
+          "bytes": 35357
+        },
+        "400x240/black": {
+          "path": "verified-assets/35a85cf88a744bccd43223a43bea67c593ab47de9e27dbbd329308c3030ebc6e.png",
+          "sha256": "35a85cf88a744bccd43223a43bea67c593ab47de9e27dbbd329308c3030ebc6e",
+          "bytes": 92533
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Radyo Şampiyon Bursa Radyo Şampiyon Bursa ",
+        "matched_brand_keys": [
+          "sampiyon"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:EDCC:F13F:ED:0:0:0:0": {
       "name": "RADYO SARI TRAMVAY",
@@ -876400,7 +878174,10 @@
         "http://37.247.98.8/stream/27/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Operation timed out after 8000 milliseconds with 376164 bytes received\n"
+      ]
     },
     "4097:0:2:8E1F:3A36:ED:0:0:0:0": {
       "name": "Radyo Sarıkamış",
@@ -876413,7 +878190,10 @@
         "https://www.radyosarikamis.com/sayfa-hakkimizda-1"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (6) Could not resolve host: www.radyosarikamis.com\n"
+      ]
     },
     "4097:0:2:F4B3:2EB3:ED:0:0:0:0": {
       "name": "RADYO SEVTEK",
@@ -876426,7 +878206,39 @@
         "https://sevtekfm.com/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://sevtekfm.com/images/logo_girdaptasarim.png",
+        "final_url": "https://sevtekfm.com/images/logo_girdaptasarim.png",
+        "path": "originals/e92de1a4791805c05f03b15d756547296c68bfd60a809c287506d80ee1f39706.img",
+        "sha256": "e92de1a4791805c05f03b15d756547296c68bfd60a809c287506d80ee1f39706",
+        "bytes": 6535,
+        "dimensions": [
+          140,
+          53
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://sevtekfm.com/",
+        "final_url": "https://sevtekfm.com/",
+        "original_html_sha256": "169f7e93d98d1832cb8db42b8ee7e8da37db9328205a25830c2fcf8383d31c9a",
+        "path": "page-evidence/169f7e93d98d1832cb8db42b8ee7e8da37db9328205a25830c2fcf8383d31c9a.json",
+        "titles": [
+          "Usak Sevtek fm | www.sevtekfm.com"
+        ],
+        "image_urls": [
+          "https://sevtekfm.com/images/logo_girdaptasarim.png",
+          "https://sevtekfm.com/images/logo_radyohosting.png",
+          "https://sevtekfm.com/images/logo_radyositesikur.png"
+        ],
+        "named_logos": {
+          "https://sevtekfm.com/images/logo_radyositesikur.png": "  ",
+          "https://sevtekfm.com/images/logo_radyohosting.png": "  ",
+          "https://sevtekfm.com/images/logo_girdaptasarim.png": "  "
+        }
+      },
+      "ocr_text": ""
     },
     "4097:0:2:A61:C064:ED:0:0:0:0": {
       "name": "Radyo Seymen",
@@ -876439,7 +878251,94 @@
         "https://www.radyoseymen.com.tr/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://radyoseymen.com.tr/wp-content/uploads/2023/04/radyo-seymen-logo1.png",
+        "final_url": "https://radyoseymen.com.tr/wp-content/uploads/2023/04/radyo-seymen-logo1.png",
+        "path": "originals/79f66f646d59fac8225c9a07595755bc3a6e9396c26cd68a6faf32b783bff7f2.img",
+        "sha256": "79f66f646d59fac8225c9a07595755bc3a6e9396c26cd68a6faf32b783bff7f2",
+        "bytes": 17369,
+        "dimensions": [
+          800,
+          386
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://www.radyoseymen.com.tr/",
+        "final_url": "https://radyoseymen.com.tr/",
+        "original_html_sha256": "376154df963becfc483c81e889ad01904563a4b211e870a981685ea31ad56c12",
+        "path": "page-evidence/376154df963becfc483c81e889ad01904563a4b211e870a981685ea31ad56c12.json",
+        "titles": [
+          "Anasayfa – Radyo Seymen"
+        ],
+        "image_urls": [
+          "https://radyoseymen.com.tr/wp-content/uploads/2023/04/radyo-seymen-logo1.png",
+          "https://radyoseymen.com.tr/wp-content/uploads/2023/05/Dewart_v3_logo4.png",
+          "https://radyoseymen.com.tr/wp-content/uploads/2026/03/cropped-radyoseymen-favicon-180x180.png"
+        ],
+        "named_logos": {
+          "https://radyoseymen.com.tr/wp-content/uploads/2023/04/radyo-seymen-logo1.png": "Radyo Seymen  ",
+          "https://radyoseymen.com.tr/wp-content/uploads/2023/05/Dewart_v3_logo4.png": "Dewart  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/44a687fc21b5c9d26183632e31eb5120259eb5b6f50dd1384c1d7a0bf101704c.png",
+          "sha256": "44a687fc21b5c9d26183632e31eb5120259eb5b6f50dd1384c1d7a0bf101704c",
+          "bytes": 1762
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/a6636fe05bd9d76625659c6321c5eae5e5ce27adf464bfcb9a320da6cb6e71cb.png",
+          "sha256": "a6636fe05bd9d76625659c6321c5eae5e5ce27adf464bfcb9a320da6cb6e71cb",
+          "bytes": 12060
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/4278a1b33fede829e1a73f779ea77e0ffc1ab3b76d5a6ce650dd787b2f412480.png",
+          "sha256": "4278a1b33fede829e1a73f779ea77e0ffc1ab3b76d5a6ce650dd787b2f412480",
+          "bytes": 38884
+        },
+        "50x30/white": {
+          "path": "verified-assets/ffacf763520f10185fd17d6212d1a88442460718a68f4b8a7752c24d24a35f34.png",
+          "sha256": "ffacf763520f10185fd17d6212d1a88442460718a68f4b8a7752c24d24a35f34",
+          "bytes": 3165
+        },
+        "220x132/white": {
+          "path": "verified-assets/12f408b10e99402c6ac2e2f3b24e2dedc4587731c687d7f006af6cfe0c239440.png",
+          "sha256": "12f408b10e99402c6ac2e2f3b24e2dedc4587731c687d7f006af6cfe0c239440",
+          "bytes": 38349
+        },
+        "400x240/white": {
+          "path": "verified-assets/93fee62caf7921181fa2d9a57abba01eb3609df5f257bc75a6ca2bf4a28c445c.png",
+          "sha256": "93fee62caf7921181fa2d9a57abba01eb3609df5f257bc75a6ca2bf4a28c445c",
+          "bytes": 98476
+        },
+        "50x30/black": {
+          "path": "verified-assets/a41c794e2af7684f101602052455222c32597285cc25c9a0f7beed4bc88aa0d6.png",
+          "sha256": "a41c794e2af7684f101602052455222c32597285cc25c9a0f7beed4bc88aa0d6",
+          "bytes": 3080
+        },
+        "220x132/black": {
+          "path": "verified-assets/c228dedd15054bc1b13bf9369a3c487a07b95dbf29f3f54b03cf8cc69e219e6f.png",
+          "sha256": "c228dedd15054bc1b13bf9369a3c487a07b95dbf29f3f54b03cf8cc69e219e6f",
+          "bytes": 36076
+        },
+        "400x240/black": {
+          "path": "verified-assets/e2b4907631ec71692fb2f08e28d5c80ed0bdf2c0a842ea6616239c1aa2d7f6d3.png",
+          "sha256": "e2b4907631ec71692fb2f08e28d5c80ed0bdf2c0a842ea6616239c1aa2d7f6d3",
+          "bytes": 89359
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Radyo Seymen  ",
+        "matched_brand_keys": [
+          "seymen"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:7562:12CD:ED:0:0:0:0": {
       "name": "Radyo Sinerji",
@@ -876452,7 +878351,38 @@
         "https://www.radyosinerji.com/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://www.radyosinerji.com/public/default/images/sinerjilogobeyaz.png",
+        "final_url": "https://www.radyosinerji.com/public/default/images/sinerjilogobeyaz.png",
+        "path": "originals/23655c8a139df59da47689587f3e444a50f6ab86927a490b9d609467aafa6b84.img",
+        "sha256": "23655c8a139df59da47689587f3e444a50f6ab86927a490b9d609467aafa6b84",
+        "bytes": 21130,
+        "dimensions": [
+          450,
+          110
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://www.radyosinerji.com/",
+        "final_url": "https://www.radyosinerji.com/",
+        "original_html_sha256": "7303f817627253f60ff504d476bd26138e3931e9f0f79e53a062a30b35af1dcc",
+        "path": "page-evidence/7303f817627253f60ff504d476bd26138e3931e9f0f79e53a062a30b35af1dcc.json",
+        "titles": [
+          "RadyoSinerji - Tokat'ın Dünya'ya Sesi"
+        ],
+        "image_urls": [
+          "https://www.radyosinerji.com/public/default/images/sinerjilogobeyaz.png",
+          "https://www.radyosinerji.com/public/default/images/upload/1295232716722240.png",
+          "https://www.radyosinerji.com/public/default/images/upload/2371272411932830.png"
+        ],
+        "named_logos": {
+          "https://www.radyosinerji.com/public/default/images/upload/1295232716722240.png": "logo  ",
+          "https://www.radyosinerji.com/public/default/images/sinerjilogobeyaz.png": "footer logo  "
+        }
+      },
+      "ocr_text": ""
     },
     "4097:0:2:29D3:166F:ED:0:0:0:0": {
       "name": "Radyo Şiran",
@@ -876465,7 +878395,10 @@
         "https://live.radyositesihazir.com/8078/stream"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Operation timed out after 8002 milliseconds with 359394 bytes received\n"
+      ]
     },
     "4097:0:2:8D7B:626E:ED:0:0:0:0": {
       "name": "Radyo Sputnik",
@@ -876478,7 +878411,37 @@
         "https://anlatilaninotesi.com.tr/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://cdn.img.anlatilaninotesi.com.tr/i/favicon/favicon-114x114.png",
+        "final_url": "https://cdn.img.anlatilaninotesi.com.tr/i/favicon/favicon-114x114.png",
+        "path": "originals/7c51e713fa3a632fb86985de3158f240e6c057e3e242026ffe98eec63cc595db.img",
+        "sha256": "7c51e713fa3a632fb86985de3158f240e6c057e3e242026ffe98eec63cc595db",
+        "bytes": 3593,
+        "dimensions": [
+          114,
+          114
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://anlatilaninotesi.com.tr/",
+        "final_url": "https://anlatilaninotesi.com.tr/",
+        "original_html_sha256": "41d33b2320e792251e1c6c016c7a910982a2a8515074a44ffe2e8cc7cab7d3fa",
+        "path": "page-evidence/41d33b2320e792251e1c6c016c7a910982a2a8515074a44ffe2e8cc7cab7d3fa.json",
+        "titles": [
+          "Sputnik Haberler - Dünya ve Türkiye Gündemi, Son Dakika Haberler"
+        ],
+        "image_urls": [
+          "https://cdn.img.anlatilaninotesi.com.tr/i/logo/logo.svg",
+          "https://cdn.img.anlatilaninotesi.com.tr/i/favicon/favicon-114x114.png",
+          "https://cdn.img.anlatilaninotesi.com.tr/i/favicon/favicon-120x120.png"
+        ],
+        "named_logos": {
+          "https://cdn.img.anlatilaninotesi.com.tr/i/logo/logo.svg": "Sputnik Türkiye  "
+        }
+      },
+      "ocr_text": ""
     },
     "4097:0:2:7BF8:5EFF:ED:0:0:0:0": {
       "name": "Radyo Taksi",
@@ -876491,7 +878454,10 @@
         "https://radyo.taksi.com/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (6) Could not resolve host: radyo.taksi.com\n"
+      ]
     },
     "4097:0:2:C7DA:A04A:ED:0:0:0:0": {
       "name": "RADYO TALYA",
@@ -876504,7 +878470,8 @@
         "https://radyotalya.com/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:14F7:6008:ED:0:0:0:0": {
       "name": "Radyo Trafik İstanbul",
@@ -1007277,13 +1009244,13 @@
   },
   "counts": {
     "already_ready_in_saved_checkpoint": 9992,
-    "blocked_no_confirmed_station_page_and_logo": 12154,
+    "blocked_no_confirmed_station_page_and_logo": 12221,
     "blocked_no_independent_station_homepage": 1165,
     "blocked_no_unique_current_station_metadata": 3838,
-    "candidate_assistant_visual_and_identity_check": 3703,
-    "pending_homepage_discovery": 6431,
-    "ready_verified_homepage_and_wordmark": 3620
+    "candidate_assistant_visual_and_identity_check": 3723,
+    "pending_homepage_discovery": 6331,
+    "ready_verified_homepage_and_wordmark": 3633
   },
-  "last_event": "homepages_8200_of_14631",
-  "updated_utc": "2026-11-05T16:54:26Z"
+  "last_event": "homepages_8300_of_14631",
+  "updated_utc": "2026-11-05T16:55:01Z"
 }
