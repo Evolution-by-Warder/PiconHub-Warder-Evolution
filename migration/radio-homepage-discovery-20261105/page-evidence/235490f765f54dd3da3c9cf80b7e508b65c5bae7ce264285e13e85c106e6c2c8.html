@@ -1,0 +1,1269 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Mix FM Teresina - 91,5 MHz</title>
+  <meta name="description" content="Mix FM Teresina 91,5 MHz. Ouça ao vivo, acompanhe promoções e acesse os conteúdos da Rede Mix.">
+
+  <link rel="icon" type="image/png" href="favicon.png">
+
+  <style>
+    :root{
+      --mix-yellow:#ffd400;
+      --mix-black:#050505;
+      --mix-dark:#111111;
+      --mix-gray:#f1f1f1;
+      --mix-text:#121212;
+      --mix-muted:#6c6c6c;
+      --white:#ffffff;
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+
+    html{scroll-behavior:smooth}
+
+    body{
+      font-family:Arial,Helvetica,sans-serif;
+      color:var(--mix-text);
+      background:var(--white);
+      line-height:1.5;
+    }
+
+    a{text-decoration:none;color:inherit}
+
+    .topbar{
+      background:var(--mix-black);
+      color:var(--white);
+      border-bottom:4px solid var(--mix-yellow);
+      position:sticky;
+      top:0;
+      z-index:1000;
+    }
+
+    .topbar-inner{
+      max-width:1180px;
+      margin:0 auto;
+      min-height:78px;
+      padding:0 22px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:28px;
+    }
+
+    .brand{
+      font-size:23px;
+      font-weight:900;
+      letter-spacing:-.5px;
+      white-space:nowrap;
+    }
+
+    .brand strong{color:var(--mix-yellow)}
+
+    .main-nav{
+      display:flex;
+      align-items:center;
+      gap:22px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+
+    .main-nav a{
+      color:#fff;
+      font-weight:700;
+      font-size:14px;
+      text-transform:uppercase;
+      transition:.2s;
+    }
+
+    .main-nav a:hover{color:var(--mix-yellow)}
+
+    .listen-nav{
+      background:var(--mix-yellow);
+      color:#000!important;
+      padding:11px 16px;
+      border-radius:4px;
+    }
+
+    .hero{
+      background:
+        linear-gradient(90deg,rgba(0,0,0,.94),rgba(0,0,0,.72)),
+        radial-gradient(circle at 85% 30%,#353535 0,#0b0b0b 48%,#000 100%);
+      color:#fff;
+    }
+
+    .hero-inner{
+      max-width:1180px;
+      margin:auto;
+      min-height:560px;
+      padding:65px 22px;
+      display:grid;
+      grid-template-columns:1fr 420px;
+      gap:60px;
+      align-items:center;
+    }
+
+    .hero-kicker{
+      color:var(--mix-yellow);
+      text-transform:uppercase;
+      font-size:14px;
+      font-weight:900;
+      letter-spacing:1.2px;
+      margin-bottom:15px;
+    }
+
+    .hero h1{
+      font-size:clamp(46px,7vw,82px);
+      line-height:.95;
+      font-weight:900;
+      letter-spacing:-3px;
+      margin-bottom:22px;
+    }
+
+    .hero h1 span{color:var(--mix-yellow)}
+
+    .hero-text{
+      color:#cfcfcf;
+      font-size:18px;
+      max-width:640px;
+      margin-bottom:28px;
+    }
+
+    .hero-actions{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:46px;
+      padding:0 20px;
+      border-radius:4px;
+      font-weight:900;
+      text-transform:uppercase;
+      font-size:13px;
+      transition:.2s;
+    }
+
+    .btn-primary{background:var(--mix-yellow);color:#000}
+    .btn-primary:hover{transform:translateY(-2px)}
+
+    .btn-outline{
+      border:1px solid #666;
+      color:#fff;
+      background:#171717;
+    }
+
+    .hero-logo-wrap{
+      display:flex;
+      justify-content:center;
+    }
+
+    .hero-logo{
+      width:min(410px,100%);
+      height:auto;
+      border-radius:4px;
+      box-shadow:0 20px 60px rgba(0,0,0,.42);
+    }
+
+    .live-strip{
+      background:var(--mix-yellow);
+      color:#000;
+    }
+
+    .live-strip-inner{
+      max-width:1180px;
+      margin:auto;
+      padding:18px 22px;
+      display:grid;
+      grid-template-columns:180px 1fr;
+      gap:24px;
+      align-items:center;
+    }
+
+    .live-label{
+      font-weight:900;
+      text-transform:uppercase;
+      display:flex;
+      align-items:center;
+      gap:9px;
+    }
+
+    .dot{
+      width:10px;
+      height:10px;
+      background:#e40000;
+      border-radius:50%;
+      box-shadow:0 0 0 5px rgba(228,0,0,.13);
+    }
+
+    audio{width:100%;height:38px}
+
+    .section{
+      padding:72px 22px;
+    }
+
+    .section.alt{background:var(--mix-gray)}
+
+    .container{
+      max-width:1180px;
+      margin:auto;
+    }
+
+    .section-head{
+      margin-bottom:34px;
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:20px;
+      border-bottom:4px solid var(--mix-black);
+      padding-bottom:12px;
+    }
+
+    .section-head h2{
+      font-size:38px;
+      line-height:1;
+      font-weight:900;
+      text-transform:uppercase;
+      letter-spacing:-1.5px;
+    }
+
+    .section-head h2 span{color:#d2ae00}
+
+    .section-head p{
+      color:var(--mix-muted);
+      max-width:520px;
+      font-size:15px;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:24px;
+    }
+
+    .mix-card{
+      background:#fff;
+      border:1px solid #dedede;
+      min-height:280px;
+      display:flex;
+      flex-direction:column;
+      transition:.2s;
+    }
+
+    .mix-card:hover{
+      transform:translateY(-5px);
+      box-shadow:0 14px 30px rgba(0,0,0,.08);
+    }
+
+    .card-top{
+      height:110px;
+      background:var(--mix-black);
+      border-bottom:6px solid var(--mix-yellow);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:44px;
+    }
+
+    .card-body{
+      padding:24px;
+      flex:1;
+      display:flex;
+      flex-direction:column;
+    }
+
+    .mix-card h3{
+      font-size:25px;
+      font-weight:900;
+      text-transform:uppercase;
+      margin-bottom:10px;
+    }
+
+    .mix-card p{
+      color:var(--mix-muted);
+      margin-bottom:22px;
+      flex:1;
+    }
+
+    .card-link{
+      color:#111;
+      font-weight:900;
+      font-size:13px;
+      text-transform:uppercase;
+    }
+
+    .card-link span{color:#c5a300}
+
+    .promo-box{
+      background:var(--mix-black);
+      color:#fff;
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:30px;
+      align-items:center;
+      padding:42px;
+      border-left:10px solid var(--mix-yellow);
+    }
+
+    .promo-box small{
+      color:var(--mix-yellow);
+      font-weight:900;
+      text-transform:uppercase;
+    }
+
+    .promo-box h2{
+      font-size:clamp(32px,5vw,54px);
+      line-height:1;
+      margin:8px 0 12px;
+      text-transform:uppercase;
+      font-weight:900;
+    }
+
+    .promo-box p{color:#c8c8c8;max-width:720px}
+
+    /* ===== Comercial Mix FM Teresina ===== */
+
+    .commercial-box{
+      background:var(--mix-yellow);
+      color:#000;
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:36px;
+      align-items:center;
+      padding:48px 42px;
+      border-left:10px solid var(--mix-black);
+    }
+
+    .commercial-box small{
+      display:block;
+      font-weight:900;
+      text-transform:uppercase;
+      letter-spacing:1.2px;
+      margin-bottom:8px;
+    }
+
+    .commercial-box h2{
+      font-size:clamp(36px,5vw,58px);
+      line-height:.95;
+      text-transform:uppercase;
+      font-weight:900;
+      letter-spacing:-2px;
+      margin-bottom:14px;
+    }
+
+    .commercial-box p{
+      max-width:720px;
+      font-size:17px;
+    }
+
+    .commercial-box .btn{
+      background:var(--mix-black);
+      color:#fff;
+      white-space:nowrap;
+    }
+
+    .commercial-box .btn:hover{
+      color:var(--mix-yellow);
+      transform:translateY(-2px);
+    }
+
+    .commercial-modal{
+      position:fixed;
+      inset:0;
+      z-index:3000;
+      background:rgba(0,0,0,.82);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:22px;
+    }
+
+    .commercial-modal.open{
+      display:flex;
+    }
+
+    .commercial-dialog{
+      width:min(900px,100%);
+      max-height:calc(100vh - 44px);
+      overflow:auto;
+      background:#111;
+      color:#fff;
+      border-top:7px solid var(--mix-yellow);
+      box-shadow:0 25px 80px rgba(0,0,0,.5);
+      position:relative;
+      padding:38px;
+    }
+
+    .commercial-close{
+      position:absolute;
+      top:14px;
+      right:16px;
+      width:42px;
+      height:42px;
+      border:1px solid #444;
+      background:#191919;
+      color:#fff;
+      border-radius:50%;
+      cursor:pointer;
+      font-size:25px;
+      line-height:1;
+    }
+
+    .commercial-close:hover{
+      color:var(--mix-yellow);
+      border-color:var(--mix-yellow);
+    }
+
+    .commercial-kicker{
+      color:var(--mix-yellow);
+      text-transform:uppercase;
+      font-size:12px;
+      font-weight:900;
+      letter-spacing:1.3px;
+      margin-bottom:8px;
+    }
+
+    .commercial-dialog h2{
+      font-size:36px;
+      line-height:1;
+      text-transform:uppercase;
+      font-weight:900;
+      margin-bottom:8px;
+    }
+
+    .commercial-intro{
+      color:#aaa;
+      margin-bottom:28px;
+    }
+
+    .commercial-form-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+    }
+
+    .commercial-field{
+      width:100%;
+      border:1px solid #393939;
+      background:#1a1a1a;
+      color:#fff;
+      padding:15px 16px;
+      min-height:52px;
+      font:inherit;
+      outline:none;
+    }
+
+    .commercial-field:focus{
+      border-color:var(--mix-yellow);
+    }
+
+    .commercial-field::placeholder{
+      color:#929292;
+    }
+
+    textarea.commercial-field{
+      resize:vertical;
+      min-height:120px;
+      margin-top:14px;
+    }
+
+    .commercial-label{
+      display:block;
+      font-weight:900;
+      margin:24px 0 12px;
+    }
+
+    .commercial-options{
+      display:flex;
+      flex-wrap:wrap;
+      gap:9px;
+    }
+
+    .commercial-option{
+      position:relative;
+    }
+
+    .commercial-option input{
+      position:absolute;
+      opacity:0;
+      pointer-events:none;
+    }
+
+    .commercial-option span{
+      display:block;
+      border:1px solid #444;
+      background:#1b1b1b;
+      padding:11px 14px;
+      font-size:14px;
+      font-weight:800;
+      cursor:pointer;
+      transition:.2s;
+    }
+
+    .commercial-option input:checked + span{
+      background:var(--mix-yellow);
+      color:#000;
+      border-color:var(--mix-yellow);
+    }
+
+    .commercial-actions{
+      margin-top:24px;
+      padding-top:22px;
+      border-top:1px solid #333;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:20px;
+    }
+
+    .commercial-actions small{
+      color:#888;
+      max-width:430px;
+    }
+
+    .commercial-submit{
+      border:0;
+      cursor:pointer;
+    }
+
+
+    .contact-grid{
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:40px;
+      align-items:start;
+    }
+
+    .contact-title{
+      font-size:38px;
+      text-transform:uppercase;
+      font-weight:900;
+      margin-bottom:18px;
+    }
+
+    .contact-list{
+      display:grid;
+      gap:11px;
+      color:#555;
+    }
+
+    .contact-list a{
+      font-weight:700;
+      color:#111;
+    }
+
+    .social-panel{
+      background:var(--mix-black);
+      color:#fff;
+      padding:28px;
+      border-top:6px solid var(--mix-yellow);
+    }
+
+    .social-panel h3{
+      text-transform:uppercase;
+      margin-bottom:18px;
+      font-size:22px;
+    }
+
+    .social-links{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+
+    .social-links a{
+      border:1px solid #444;
+      padding:11px 14px;
+      font-weight:800;
+      font-size:13px;
+      text-transform:uppercase;
+    }
+
+    .social-links a:hover{
+      color:var(--mix-yellow);
+      border-color:var(--mix-yellow);
+    }
+
+    footer{
+      background:#000;
+      color:#777;
+      border-top:4px solid var(--mix-yellow);
+    }
+
+    .footer-inner{
+      max-width:1180px;
+      margin:auto;
+      padding:26px 22px;
+      display:flex;
+      justify-content:space-between;
+      gap:20px;
+      flex-wrap:wrap;
+      font-size:13px;
+    }
+
+
+    .menu-toggle{
+      display:none;
+      width:44px;
+      height:40px;
+      padding:8px;
+      border:0;
+      background:transparent;
+      cursor:pointer;
+    }
+
+    .menu-toggle span{
+      display:block;
+      height:3px;
+      background:#fff;
+      margin:5px 0;
+      border-radius:3px;
+      transition:.2s;
+    }
+
+    @media(max-width:900px){
+      .topbar-inner{
+        min-height:68px;
+        position:relative;
+      }
+
+      .brand{
+        font-size:18px;
+      }
+
+      .menu-toggle{
+        display:block;
+      }
+
+      .main-nav{
+        display:none;
+        position:absolute;
+        top:68px;
+        left:0;
+        right:0;
+        background:#050505;
+        border-top:1px solid #222;
+        border-bottom:4px solid var(--mix-yellow);
+        padding:14px 22px 20px;
+        flex-direction:column;
+        align-items:stretch;
+        gap:0;
+      }
+
+      .main-nav.open{
+        display:flex;
+      }
+
+      .main-nav a{
+        display:block;
+        padding:13px 0;
+        border-bottom:1px solid #202020;
+        font-size:14px;
+      }
+
+      .main-nav a:last-child{
+        border-bottom:0;
+      }
+
+      .listen-nav{
+        margin-top:10px;
+        text-align:center;
+        padding:12px 16px!important;
+      }
+
+      .hero-inner{
+        grid-template-columns:1fr;
+        gap:30px;
+        min-height:auto;
+        padding:48px 22px 42px;
+        text-align:center;
+      }
+
+      .hero h1{
+        font-size:clamp(42px,12vw,64px);
+        letter-spacing:-2px;
+      }
+
+      .hero-text{
+        font-size:16px;
+        margin-left:auto;
+        margin-right:auto;
+      }
+
+      .hero-actions{
+        justify-content:center;
+      }
+
+      .hero-logo{
+        max-width:300px;
+      }
+
+      .grid{
+        grid-template-columns:1fr 1fr;
+      }
+
+      .contact-grid{
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media(max-width:650px){
+      .topbar-inner{
+        padding-left:16px;
+        padding-right:16px;
+      }
+
+      .brand{
+        max-width:245px;
+        white-space:normal;
+        line-height:1.05;
+      }
+
+      .hero-inner{
+        padding:36px 16px 34px;
+      }
+
+      .hero-kicker{
+        font-size:12px;
+      }
+
+      .hero h1{
+        font-size:clamp(38px,14vw,54px);
+        line-height:.98;
+      }
+
+      .hero-logo{
+        width:min(260px,82vw);
+      }
+
+      .hero-actions{
+        flex-direction:column;
+      }
+
+      .btn{
+        width:100%;
+      }
+
+      .live-strip-inner{
+        grid-template-columns:1fr;
+        gap:12px;
+        padding:16px;
+      }
+
+      .live-label{
+        justify-content:center;
+      }
+
+      audio{
+        width:100%;
+      }
+
+      .section{
+        padding:52px 16px;
+      }
+
+      .section-head{
+        display:block;
+        margin-bottom:24px;
+      }
+
+      .section-head h2{
+        font-size:30px;
+      }
+
+      .section-head p{
+        margin-top:10px;
+      }
+
+      .grid{
+        grid-template-columns:1fr;
+        gap:16px;
+      }
+
+      .mix-card{
+        min-height:0;
+      }
+
+      .card-top{
+        height:86px;
+        font-size:36px;
+      }
+
+      .card-body{
+        padding:20px;
+      }
+
+      .mix-card h3{
+        font-size:22px;
+      }
+
+      .promo-box{
+        grid-template-columns:1fr;
+        padding:28px 20px;
+        border-left-width:7px;
+      }
+
+      .promo-box h2{
+        font-size:34px;
+      }
+
+      .commercial-box{
+        grid-template-columns:1fr;
+        padding:30px 22px;
+        border-left-width:7px;
+      }
+
+      .commercial-box h2{
+        font-size:36px;
+      }
+
+      .commercial-box .btn{
+        width:100%;
+      }
+
+      .commercial-dialog{
+        padding:32px 20px 24px;
+      }
+
+      .commercial-dialog h2{
+        font-size:29px;
+        padding-right:40px;
+      }
+
+      .commercial-form-grid{
+        grid-template-columns:1fr;
+      }
+
+      .commercial-actions{
+        flex-direction:column;
+        align-items:stretch;
+      }
+
+      .commercial-submit{
+        width:100%;
+      }
+
+
+      .contact-title{
+        font-size:30px;
+      }
+
+      .social-panel{
+        padding:22px;
+      }
+
+      .social-links{
+        flex-direction:column;
+      }
+
+      .social-links a{
+        text-align:center;
+      }
+
+      .footer-inner{
+        padding:22px 16px;
+        flex-direction:column;
+        text-align:center;
+      }
+    }
+
+    @media(max-width:380px){
+      .brand{
+        font-size:16px;
+        max-width:210px;
+      }
+
+      .hero h1{
+        font-size:36px;
+      }
+
+      .hero-logo{
+        width:230px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">MIX FM <strong>91,5</strong> TERESINA</div>
+
+    <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="main-nav">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav class="main-nav" id="main-nav">
+      <a href="#inicio">Início</a>
+      <a href="https://radiomixfm.com.br/programas/" target="_blank" rel="noopener noreferrer">Programas</a>
+      <a href="https://radiomixfm.com.br/promocoes/" target="_blank" rel="noopener noreferrer">Promoções</a>
+      <a href="https://radiomixfm.com.br/musica/" target="_blank" rel="noopener noreferrer">Música</a>
+      <a href="https://radiomixfm.com.br/noticias/" target="_blank" rel="noopener noreferrer">Notícias</a>
+      <a href="#contato">Contato</a>
+      <a class="listen-nav" href="#ao-vivo">▶ Ouça ao vivo</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <section class="hero" id="inicio">
+    <div class="hero-inner">
+
+      <div>
+        <div class="hero-kicker">Juntos no melhor Mix!</div>
+
+        <h1>
+          MIX FM<br>
+          TERESINA <span>91,5</span>
+        </h1>
+
+        <p class="hero-text">
+          Música, entretenimento, promoções e a programação da Mix em Teresina.
+          Ouça a rádio ao vivo e acesse os principais conteúdos da Rede Mix.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#ao-vivo">▶ Ouça agora</a>
+          <a class="btn btn-outline" href="#promocoes">Promoções locais</a>
+        </div>
+      </div>
+
+      <div class="hero-logo-wrap">
+        <img src="MIX_TERESINA_1.jpeg" alt="Mix FM Teresina 91,5" class="hero-logo">
+      </div>
+
+    </div>
+  </section>
+
+  <section class="live-strip" id="ao-vivo">
+    <div class="live-strip-inner">
+      <div class="live-label">
+        <span class="dot"></span>
+        Ao vivo — 91,5 FM
+      </div>
+
+      <audio controls preload="none">
+        <source src="https://webradio.amsolution.com.br/radio/8080/mix" type="audio/mpeg">
+        Seu navegador não suporta reprodução de áudio.
+      </audio>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+
+      <div class="section-head">
+        <h2>Conteúdo <span>Mix</span></h2>
+        <p>
+          Acesse os principais conteúdos da Rede Mix mantendo a experiência local da Mix FM Teresina.
+        </p>
+      </div>
+
+      <div class="grid">
+
+        <a class="mix-card" href="https://radiomixfm.com.br/programas/" target="_blank" rel="noopener noreferrer">
+          <div class="card-top">🎙️</div>
+          <div class="card-body">
+            <h3>Programas</h3>
+            <p>Conheça os programas, atrações e horários da programação da Rede Mix.</p>
+            <div class="card-link">Ver programas <span>→</span></div>
+          </div>
+        </a>
+
+        <a class="mix-card" href="https://radiomixfm.com.br/locutores/" target="_blank" rel="noopener noreferrer">
+          <div class="card-top">🎧</div>
+          <div class="card-body">
+            <h3>Locutores</h3>
+            <p>Conheça os apresentadores e comunicadores que fazem parte da Mix FM.</p>
+            <div class="card-link">Conheça os locutores <span>→</span></div>
+          </div>
+        </a>
+
+        <a class="mix-card" href="https://radiomixfm.com.br/midiakit/" target="_blank" rel="noopener noreferrer">
+          <div class="card-top">📢</div>
+          <div class="card-body">
+            <h3>Mídia Kit</h3>
+            <p>Informações comerciais, materiais da marca e possibilidades de publicidade na Rede Mix.</p>
+            <div class="card-link">Acessar mídia kit <span>→</span></div>
+          </div>
+        </a>
+
+        <a class="mix-card" href="https://radiomixfm.com.br/promocoes/" target="_blank" rel="noopener noreferrer">
+          <div class="card-top">🎁</div>
+          <div class="card-body">
+            <h3>Promoções</h3>
+            <p>Veja também as promoções e campanhas nacionais da Rádio Mix FM.</p>
+            <div class="card-link">Ver promoções <span>→</span></div>
+          </div>
+        </a>
+
+        <a class="mix-card" href="https://radiomixfm.com.br/musica/" target="_blank" rel="noopener noreferrer">
+          <div class="card-top">🎵</div>
+          <div class="card-body">
+            <h3>Música</h3>
+            <p>Novidades, lançamentos, artistas e tudo o que está rolando no mundo da música.</p>
+            <div class="card-link">Ver música <span>→</span></div>
+          </div>
+        </a>
+
+        <a class="mix-card" href="https://radiomixfm.com.br/noticias/" target="_blank" rel="noopener noreferrer">
+          <div class="card-top">📰</div>
+          <div class="card-body">
+            <h3>Notícias</h3>
+            <p>Entretenimento, cultura pop, música e as principais novidades publicadas pela Mix.</p>
+            <div class="card-link">Ver notícias <span>→</span></div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt" id="promocoes">
+    <div class="container">
+
+      <div class="promo-box">
+        <div>
+          <small>Promoção local</small>
+          <h2>Houston Bike<br>Dia dos Pais</h2>
+          <p>
+            Promoção da Mix FM Teresina em parceria com a Houston Bike.
+            Confira todas as regras e condições no regulamento oficial.
+          </p>
+        </div>
+
+        <a class="btn btn-primary" href="regulamento_houston_pais26.html">
+          Ver regulamento
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="section" id="anuncie">
+    <div class="container">
+
+      <div class="commercial-box">
+        <div>
+          <small>Anuncie na Mix FM Teresina 91,5</small>
+          <h2>Sua marca<br>no melhor Mix.</h2>
+          <p>
+            Spots, patrocínios, promoções e ações especiais para aproximar
+            sua empresa dos ouvintes da Mix FM Teresina.
+          </p>
+        </div>
+
+        <button class="btn commercial-open" type="button">
+          Fale com nosso comercial
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+
+  <section class="section" id="contato">
+    <div class="container contact-grid">
+
+      <div>
+        <div class="contact-title">Mix FM Teresina</div>
+
+        <div class="contact-list">
+          <div>📻 91,5 MHz</div>
+          <div>📍 Shopping Rio Poty - Piso L3 — Teresina, Piauí</div>
+          <div>✉ <a href="mailto:contato@mixfmteresina.com.br">contato@mixfmteresina.com.br</a></div>
+          <div>📱 <a href="https://wa.me/5586981819150" target="_blank" rel="noopener noreferrer">(86) 98181-9150</a></div>
+        </div>
+      </div>
+
+      <div class="social-panel">
+        <h3>Siga a Mix</h3>
+
+        <div class="social-links">
+          <a href="https://www.instagram.com/mixfmteresina/" target="_blank" rel="noopener noreferrer">Instagram</a>
+          <a href="https://wa.me/5586981819150" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+          <a href="https://radiomixfm.com.br/" target="_blank" rel="noopener noreferrer">Rede Mix</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<div class="commercial-modal" id="commercial-modal" aria-hidden="true">
+  <div class="commercial-dialog" role="dialog" aria-modal="true" aria-labelledby="commercial-title">
+
+    <button class="commercial-close" type="button" aria-label="Fechar">×</button>
+
+    <div class="commercial-kicker">Anuncie na Mix FM 91,5</div>
+    <h2 id="commercial-title">Fale com o comercial</h2>
+
+    <p class="commercial-intro">
+      Conte o que sua empresa precisa e fale diretamente com a equipe comercial
+      da Mix FM Teresina.
+    </p>
+
+    <form id="commercial-form">
+
+      <div class="commercial-form-grid">
+        <input class="commercial-field" id="commercial-name"
+               type="text" placeholder="Seu nome" required>
+
+        <input class="commercial-field" id="commercial-company"
+               type="text" placeholder="Empresa">
+
+        <input class="commercial-field" id="commercial-phone"
+               type="tel" placeholder="WhatsApp com DDD">
+
+        <input class="commercial-field" id="commercial-email"
+               type="email" placeholder="E-mail">
+      </div>
+
+      <span class="commercial-label">O que você tem em mente?</span>
+
+      <div class="commercial-options">
+
+        <label class="commercial-option">
+          <input type="radio" name="commercial-interest"
+                 value="Spot na programação" checked>
+          <span>📻 Spot na programação</span>
+        </label>
+
+        <label class="commercial-option">
+          <input type="radio" name="commercial-interest"
+                 value="Patrocínio de programa">
+          <span>📢 Patrocínio de programa</span>
+        </label>
+
+        <label class="commercial-option">
+          <input type="radio" name="commercial-interest"
+                 value="Promoção com ouvintes">
+          <span>🎁 Promoção com ouvintes</span>
+        </label>
+
+        <label class="commercial-option">
+          <input type="radio" name="commercial-interest"
+                 value="Ação especial">
+          <span>⭐ Ação especial</span>
+        </label>
+
+      </div>
+
+      <textarea class="commercial-field" id="commercial-message"
+                placeholder="Quer contar mais? (opcional)"></textarea>
+
+      <div class="commercial-actions">
+        <small>
+          Ao enviar, sua mensagem será aberta no WhatsApp da equipe comercial
+          da Mix FM Teresina.
+        </small>
+
+        <button class="btn btn-primary commercial-submit" type="submit">
+          Enviar pelo WhatsApp →
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>
+
+
+<footer>
+  <div class="footer-inner">
+    <div>© 2026 Mix FM Teresina - 91,5 MHz</div>
+    <div>Conteúdo nacional: Rede Mix de Rádio</div>
+  </div>
+</footer>
+
+
+<script>
+  const menuToggle = document.querySelector('.menu-toggle');
+  const mainNav = document.querySelector('.main-nav');
+
+  menuToggle.addEventListener('click', () => {
+    const open = mainNav.classList.toggle('open');
+    menuToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+
+  mainNav.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      mainNav.classList.remove('open');
+      menuToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  const commercialModal = document.getElementById('commercial-modal');
+  const commercialOpen = document.querySelector('.commercial-open');
+  const commercialClose = document.querySelector('.commercial-close');
+  const commercialForm = document.getElementById('commercial-form');
+
+  function openCommercial(){
+    commercialModal.classList.add('open');
+    commercialModal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeCommercial(){
+    commercialModal.classList.remove('open');
+    commercialModal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  commercialOpen.addEventListener('click', openCommercial);
+  commercialClose.addEventListener('click', closeCommercial);
+
+  commercialModal.addEventListener('click', event => {
+    if(event.target === commercialModal){
+      closeCommercial();
+    }
+  });
+
+  document.addEventListener('keydown', event => {
+    if(event.key === 'Escape' && commercialModal.classList.contains('open')){
+      closeCommercial();
+    }
+  });
+
+  commercialForm.addEventListener('submit', event => {
+    event.preventDefault();
+
+    const name = document.getElementById('commercial-name').value.trim();
+    const company = document.getElementById('commercial-company').value.trim();
+    const phone = document.getElementById('commercial-phone').value.trim();
+    const email = document.getElementById('commercial-email').value.trim();
+    const message = document.getElementById('commercial-message').value.trim();
+
+    const interest =
+      document.querySelector('input[name="commercial-interest"]:checked')?.value || '';
+
+    const lines = [
+      'Olá! Vim pelo site da Mix FM Teresina e gostaria de falar com o comercial.',
+      '',
+      `Nome: ${name}`,
+      company ? `Empresa: ${company}` : '',
+      phone ? `WhatsApp: ${phone}` : '',
+      email ? `E-mail: ${email}` : '',
+      interest ? `Interesse: ${interest}` : '',
+      message ? `Mensagem: ${message}` : ''
+    ].filter(Boolean);
+
+    const url =
+      'https://wa.me/5586981819150?text=' +
+      encodeURIComponent(lines.join('\\n'));
+
+    window.open(url, '_blank', 'noopener,noreferrer');
+  });
+
+</script>
+
+</body>
+</html>
