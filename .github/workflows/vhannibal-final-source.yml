@@ -1,0 +1,57 @@
+name: Complete verified Vhannibal source
+on:
+  push:
+    branches: [factory/vhannibal-final-20261105]
+    paths:
+      - tools/vhannibal-final-source.py
+      - tools/vhannibal_final_assets.py
+      - reports/vhannibal-final-input/**
+      - .github/workflows/vhannibal-final-source.yml
+permissions:
+  contents: write
+concurrency:
+  group: warder-vhannibal-final-source
+  cancel-in-progress: false
+jobs:
+  integrate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+          filter: blob:none
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /tools/vhannibal-final-source.py
+            /tools/vhannibal_final_assets.py
+            /reports/vhannibal-final-input/
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install --quiet Pillow==13.0.0
+      - name: Verify every pinned input and unpack data
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json,hashlib,tarfile,io
+          b=Path('reports/vhannibal-final-input');m=json.load(open(b/'input-manifest.json'));raw=b''
+          for part in m['parts']:
+              v=(b/part['filename']).read_bytes();assert len(v)==part['bytes'] and hashlib.sha256(v).hexdigest()==part['sha256'];raw+=v
+          assert len(raw)==m['bytes'] and hashlib.sha256(raw).hexdigest()==m['sha256']
+          with tarfile.open(fileobj=io.BytesIO(raw),mode='r:gz') as t:
+              assert {x.name for x in t.getmembers()}==set(m['members'])
+              for entry in t.getmembers():
+                  assert entry.isfile() and not entry.name.startswith('/') and '..' not in Path(entry.name).parts
+                  v=t.extractfile(entry).read();assert hashlib.sha256(v).hexdigest()==m['members'][entry.name]
+                  p=Path('.completion-input')/entry.name;p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(v)
+          PY
+      - name: Reproduce canonical bytes, run preservation guard and stage commits
+        run: |
+          git config user.name 'Warder picon automation'
+          git config user.email 'warder-picons@users.noreply.github.com'
+          python -u tools/vhannibal-final-source.py .completion-input
+      - uses: actions/upload-artifact@v4
+        with:
+          name: vhannibal-final-source-result
+          path: .completion-input/source-result.json
