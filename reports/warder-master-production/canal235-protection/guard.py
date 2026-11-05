@@ -41,6 +41,12 @@ def validate_plan(plan, policy=None, baseline=None):
         key='|'.join((write.get('resolution',''),write.get('family',''),source))
         expected=reuse.get('canonical_hashes',{}).get(key)
         return bool(expected and write.get('content_sha256')==expected)
+    native_path=ROOT/'published-native-reuse.json'
+    native_evidence=json.loads(native_path.read_text()) if native_path.exists() else {}
+    def native_size_reuse(write):
+        r=write.get('reference','');key='|'.join((r,write.get('family',''),write.get('resolution','')))
+        expected=native_evidence.get(key)
+        return bool(expected and str(write.get('path','')).startswith('packages/') and write.get('resolution') in ('50x30','400x240') and write.get('source_reference')==r and expected.get('reference')==r and write.get('content_sha256')==expected.get('png_sha256') and write.get('source_native_sha256')==expected.get('source_native_sha256'))
     result=[]
     for write in plan:
         path=str(write.get('path','')).replace('\\','/').casefold()
@@ -53,6 +59,7 @@ def validate_plan(plan, policy=None, baseline=None):
         if isinstance(names,str):names=[names]
         family=next((families[normalized_name(n)] for n in names if normalized_name(n) in families),None)
         if package:reason='BLOCK_PROTECTED_CANAL_PACKAGE'
+        elif write.get('operation')=='PRESERVED_NATIVE_SIZE_DERIVATIVE':reason='ALLOW_EXACT_PUBLISHED_NATIVE_SIZE_DERIVATIVE' if native_size_reuse(write) else 'BLOCK_UNVERIFIED_NATIVE_SIZE_COPY'
         elif write.get('operation')=='CANAL_CANONICAL_REUSE':reason='ALLOW_VERIFIED_CANAL_BYTE_REUSE' if canonical_reuse(write,parts) else 'BLOCK_UNVERIFIED_CANAL_REUSE'
         elif identity(parts) in approved:reason='BLOCK_REUSED_CANAL_REFERENCE_REQUIRE_CANONICAL_SOURCE'
         elif is235 and identity(parts) in protected:reason='BLOCK_PROTECTED_STATION_REFERENCE'
