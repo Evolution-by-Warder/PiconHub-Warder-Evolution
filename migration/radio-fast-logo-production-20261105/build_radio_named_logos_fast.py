@@ -9,7 +9,8 @@ from html.parser import HTMLParser
 from urllib.parse import urlsplit,urljoin,urlunsplit
 from concurrent.futures import ThreadPoolExecutor
 from PIL import Image,ImageDraw,ImageChops
-import argparse,gzip,hashlib,html,io,json,re,subprocess,tempfile,time,unicodedata,threading
+import argparse,gzip,hashlib,html,io,json,re,subprocess,tempfile,time,unicodedata,threading,os
+os.environ.setdefault("OMP_THREAD_LIMIT","1")
 SHA=lambda b:hashlib.sha256(b).hexdigest()
 PINS={'white':'c6ae4a808a65ffc8e6458336fccbfe4216de1e832ec0a9abf800907f2f783589','black':'61e69f7fc46e340453bf74ccd7af6ac9d8eba9f8e232884659e1ea99f6abf3fe'}
 DIRECTORIES={'akouradio.com','tunein.com','radio-browser.info','onlineradiobox.com','mytuner-radio.com','streema.com','radioline.co','radio.net','radio.de','onlineradio.de','liveonlineradio.net','radio.garden','facebook.com','twitter.com','x.com','youtube.com','instagram.com','getmeradio.com','radioguide.fm','zeno.fm','laut.fm'}
@@ -28,9 +29,15 @@ def brand_keys(name):
 def distinctive(s):return bool(brand_keys(s))
 def endpoint(u):
  p=urlsplit(u);return urlunsplit((p.scheme.lower(),p.netloc.lower(),p.path,p.query,''))
+def metadata_endpoint(url):
+ p=urlsplit(url);parts=p.path.strip('/').split('/')
+ for i,part in enumerate(parts):
+  if re.fullmatch(r'(?:mp3|aac|aacp|ogg|opus|flac)-(?:\d+)',part,re.I):
+   return ((p.hostname or '').lower(),'/'.join(parts[:i+1]))
+ return ((p.hostname or '').lower(),p.path.rstrip('/'),p.query)
 def dump(p,d):
- p.parent.mkdir(parents=True,exist_ok=True);tmp=p.with_suffix(p.suffix+'.tmp');body=json.dumps(d,ensure_ascii=False,indent=2);body=re.sub(r'\b(?:sk|pk)\.[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{8,}','[OMITTED_PAGE_CREDENTIAL]',body);tmp.write_text(body+'\n');tmp.replace(p)
-CACHE=Path(tempfile.mkdtemp(prefix='radio-fast-cache-'));URL_CACHE={};URL_LOCKS={};CACHE_LOCK=threading.Lock();RENDER_CACHE={};RENDER_LOCK=threading.Lock()
+ p.parent.mkdir(parents=True,exist_ok=True);tmp=p.with_name(p.name+'.'+str(threading.get_ident())+'.tmp');body=json.dumps(d,ensure_ascii=False,indent=2);body=re.sub(r'\b(?:sk|pk)\.[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{8,}','[OMITTED_PAGE_CREDENTIAL]',body);tmp.write_text(body+'\n');tmp.replace(p)
+CACHE=Path(tempfile.mkdtemp(prefix='radio-fast-cache-'));URL_CACHE={};URL_LOCKS={};CACHE_LOCK=threading.Lock();RENDER_CACHE={};RENDER_LOCK=threading.Lock();RENDER_SOURCE_LOCKS={}
 def fetch(url,limit=4*1024*1024):
  with CACHE_LOCK:lock=URL_LOCKS.setdefault(url,threading.Lock())
  with lock:
@@ -67,32 +74,39 @@ class Images(HTMLParser):
 def titles(body):return [html.unescape(re.sub('<[^>]+>',' ',s)) for s in re.findall(r'<(?:title|h1)\b[^>]*>(.*?)</(?:title|h1)>',body,flags=re.I|re.S)]
 
 def main():
- ap=argparse.ArgumentParser();ap.add_argument('--catalogue',type=Path,required=True);ap.add_argument('--masters',type=Path,required=True);ap.add_argument('--output',type=Path,required=True);ap.add_argument('--commit',action='store_true');args=ap.parse_args();root=args.output;root.mkdir(parents=True,exist_ok=True)
+ ap=argparse.ArgumentParser();ap.add_argument('--catalogue',type=Path,required=True);ap.add_argument('--masters',type=Path,required=True);ap.add_argument('--output',type=Path,required=True);ap.add_argument('--commit',action='store_true');ap.add_argument('--workers',type=int,default=32);ap.add_argument('--checkpoint-size',type=int,default=100);args=ap.parse_args();assert 1<=args.workers<=64 and 1<=args.checkpoint_size<=250;root=args.output;root.mkdir(parents=True,exist_ok=True)
  receiver=json.load(gzip.open(args.catalogue/'world-radio.receiver.json.gz'));world=json.load(gzip.open(args.catalogue/'world-radio.json.gz'));ready=set(json.loads((root/'ready-references-seed.json').read_text()))
  masters={'transparent':Image.new('RGBA',(220,132))}
  for style,pin in PINS.items():
   raw=(args.masters/(style+'-sablona.png')).read_bytes();assert SHA(raw)==pin;masters[style]=Image.open(io.BytesIO(raw)).convert('RGBA')
  saved=root/'discovery-state.json';state=json.loads(saved.read_text()) if saved.exists() else {'schema':1,'project':'Radio plugin','production_changed':False,'catalogue_sha256':SHA((args.catalogue/'world-radio.receiver.json.gz').read_bytes()),'stations':{}}
  assert state['catalogue_sha256']==SHA((args.catalogue/'world-radio.receiver.json.gz').read_bytes())
- byurl={}
+ byurl={};byreference={};bymetadata={}
  for s in world:
-  for u in [s['url'],*s.get('aliases',[])]:byurl.setdefault(endpoint(u),[]).append(s)
+  for ref in [s['reference'],*s.get('merged_references',[])]:byreference.setdefault(ref,[]).append(s)
+  for u in [s['url'],*s.get('aliases',[]),*[v['url'] for v in s.get('stream_variants',[])]]:
+   byurl.setdefault(endpoint(u),[]).append(s);bymetadata.setdefault(metadata_endpoint(u),[]).append(s)
  queue=[]
  for s in receiver:
   ref=s['reference']
-  if ref in state['stations'] and state['stations'][ref].get('status') not in ('pending_homepage_discovery','transient_discovery_error'):continue
+  existing=state['stations'].get(ref)
+  if ref in ready:
+   if existing and existing.get('status')=='ready_verified_homepage_and_wordmark':continue
+   state['stations'][ref]=dict(existing or s,status='already_ready_in_saved_checkpoint');continue
+  retryable_page_write=existing and existing.get('status')=='blocked_no_confirmed_station_page_and_logo' and any('page-evidence' in e and ('No such file or directory' in e or '.tmp' in e) for e in existing.get('errors',[]))
+  if existing and not retryable_page_write and existing.get('status') not in ('pending_homepage_discovery','transient_discovery_error','blocked_no_unique_current_station_metadata','needs_assistant_identity_research_for_short_or_generic_name'):continue
   row=dict(s)
   if ref in ready:row['status']='already_ready_in_saved_checkpoint'
   else:
-   matches=byurl.get(endpoint(s['url']),[])
+   matches=byreference.get(ref) or byurl.get(endpoint(s['url'])) or bymetadata.get(metadata_endpoint(s['url']),[])
    if len({m['id'] for m in matches})!=1:row.update(status='blocked_no_unique_current_station_metadata')
    else:
     m=matches[0];hosts={urlsplit(h).hostname for h in m.get('homepages',[])};existing=[u for u in m.get('favicons',[]) if urlsplit(u).scheme in ('http','https') and urlsplit(u).hostname in hosts]
     pages=[u for u in m.get('homepages',[]) if urlsplit(u).scheme in ('http','https') and not directory(u)]
     row.update(station_id=m['id'],country=m.get('countrycode') or 'WORLD',homepages=pages)
     if not pages:row['status']='blocked_no_independent_station_homepage'
-    elif not distinctive(s['name']):row['status']='needs_assistant_identity_research_for_short_or_generic_name'
-    else:row['status']='pending_homepage_discovery';queue.append(row)
+    else:
+     row['needs_assistant_visual_identity']=not distinctive(s['name']);row['status']='pending_homepage_discovery';queue.append(row)
   state['stations'][ref]=row
  def checkpoint(event):
   counts={k:sum(r['status']==k for r in state['stations'].values()) for k in sorted({r['status'] for r in state['stations'].values()})};state.update(counts=counts,last_event=event,updated_utc=time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime()));dump(saved,state)
@@ -103,7 +117,7 @@ def main():
    subprocess.run(['git','add','--',str(root)],check=True)
    if subprocess.run(['git','diff','--cached','--quiet']).returncode:
     subprocess.run(['git','commit','-m','Save completed Radio logos: '+event],check=True);subprocess.run(['git','push','origin','HEAD:research/warder-world-radio-logo-alias-scan-20261104'],check=True)
- def render(original):
+ def render_uncached(original):
   mark=original.copy();mark.thumbnail((192,104),Image.Resampling.LANCZOS);pos=((220-mark.width)//2,(132-mark.height)//2);box=(*pos,pos[0]+mark.width,pos[1]+mark.height);variants={}
   for style,background in masters.items():
    canvas=background.copy()
@@ -118,6 +132,11 @@ def main():
     with Image.open(io.BytesIO(raw)) as check:assert check.mode=='RGBA' and check.size==tuple(map(int,size.split('x')));check.verify()
     variants[size+'/'+style]=dict(path=str(p.relative_to(root)),sha256=SHA(raw),bytes=len(raw))
   return variants
+ def render(original,source_sha):
+  with RENDER_LOCK:lock=RENDER_SOURCE_LOCKS.setdefault(source_sha,threading.Lock())
+  with lock:
+   if source_sha not in RENDER_CACHE:RENDER_CACHE[source_sha]=render_uncached(original)
+   return RENDER_CACHE[source_sha]
  def discover(row):
   row=dict(row);errors=[];candidate=None
   for url in row['homepages'][:2]:
@@ -125,7 +144,7 @@ def main():
     raw,final=fetch(url,2*1024*1024)
     if directory(final):continue
     body=raw.decode('utf-8',errors='replace');ts=titles(body)
-    keys=brand_keys(row['name']);page_keys={key for key in keys if any(key in norm(t) for t in ts)}
+    keys=brand_keys(row['name']) or {norm(row['name'])};page_keys={key for key in keys if any(key in norm(t) for t in ts)}
     if not page_keys:continue
     parser=Images(final);parser.feed(body);urls=list(dict.fromkeys(u for _,u in sorted(parser.items)))[:3]
     proof=root/'page-evidence'/(SHA(raw)+'.json')
@@ -151,8 +170,8 @@ def main():
       if rasterized:
        rp=root/'rasterized'/(SHA(rasterized)+'.png');rp.parent.mkdir(exist_ok=True);rp.write_bytes(rasterized);source['frozen_svg_raster']=dict(path=str(rp.relative_to(root)),sha256=SHA(rasterized),cairosvg_version=cairosvg.__version__)
       named_logo=parser.logo_names.get(image_url,'');linked_brand={key for key in page_keys if key in norm(named_logo)}
-      if linked_brand:
-       row.update(status='ready_verified_homepage_and_wordmark',source=source,page=page,renders=render(rgba),verification=dict(identity='unique catalogue stream and current broadcaster page',named_header_logo=True,image_alt=named_logo,matched_brand_keys=sorted(linked_brand),variants_verified=9,whole_original_and_master_outside_logo_preserved=True));return row
+      if linked_brand and not row.get('needs_assistant_visual_identity'):
+       row.update(status='ready_verified_homepage_and_wordmark',source=source,page=page,renders=render(rgba,digest),verification=dict(identity='unique catalogue stream and current broadcaster page',named_header_logo=True,image_alt=named_logo,matched_brand_keys=sorted(linked_brand),variants_verified=9,whole_original_and_master_outside_logo_preserved=True));return row
       check=rgba.copy();check.thumbnail((640,640),Image.Resampling.LANCZOS)
       if max(check.size)<400:check=check.resize((check.width*2,check.height*2),Image.Resampling.LANCZOS)
       bg=Image.new('RGBA',check.size,'white');bg.alpha_composite(check)
@@ -160,18 +179,18 @@ def main():
        ip=Path(folder)/'source.png';bg.convert('RGB').save(ip);ocr=subprocess.run(['tesseract',str(ip),'stdout','--psm','11','-l','eng'],capture_output=True,text=True,timeout=10);text=ocr.stdout if ocr.returncode==0 else ''
       if candidate is None:candidate=dict(source=source,page=page,ocr_text=text)
       callsign_proof=any(re.fullmatch(r'[wkc][a-z]{3}|bbc|npr|abc|rtl|rts|srf|ndr|swr|mdr|rtbf',key) and key in norm(text) for key in page_keys)
-      if norm(row['name']) in norm(text) or callsign_proof:
-       row.update(status='ready_verified_homepage_and_wordmark',source=source,page=page,renders=render(rgba),verification=dict(exact_stream_and_current_page_name=True,image_link_recorded_in_page=True,full_distinctive_wordmark=text,variants_verified=9,whole_original_and_master_outside_logo_preserved=True));return row
+      if not row.get('needs_assistant_visual_identity') and (norm(row['name']) in norm(text) or callsign_proof):
+       row.update(status='ready_verified_homepage_and_wordmark',source=source,page=page,renders=render(rgba,digest),verification=dict(exact_stream_and_current_page_name=True,image_link_recorded_in_page=True,full_distinctive_wordmark=text,variants_verified=9,whole_original_and_master_outside_logo_preserved=True));return row
      except Exception as e:errors.append(str(e)[:180])
    except Exception as e:errors.append(str(e)[:180])
   if candidate:row.update(status='candidate_assistant_visual_and_identity_check',**candidate)
   else:row.update(status='blocked_no_confirmed_station_page_and_logo',errors=errors)
   return row
  checkpoint('entire_catalogue_evaluated_missing_homepage_logos_queued')
- for offset in range(0,len(queue),25):
-  chunk=queue[offset:offset+25]
-  with ThreadPoolExecutor(12) as pool:
+ for offset in range(0,len(queue),args.checkpoint_size):
+  chunk=queue[offset:offset+args.checkpoint_size]
+  with ThreadPoolExecutor(args.workers) as pool:
    for row in pool.map(discover,chunk):state['stations'][row['reference']]=row
-  checkpoint(f'homepages_{min(offset+25,len(queue))}_of_{len(queue)}')
+  checkpoint(f'homepages_{min(offset+args.checkpoint_size,len(queue))}_of_{len(queue)}')
  checkpoint('homepage_discovery_completed_with_explicit_unresolved_items')
 if __name__=='__main__':main()
