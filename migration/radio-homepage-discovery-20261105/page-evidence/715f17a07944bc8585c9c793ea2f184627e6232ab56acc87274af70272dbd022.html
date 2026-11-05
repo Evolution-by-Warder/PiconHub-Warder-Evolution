@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nicfel radio, ¡100% original!</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      line-height: 1.6;
+    }
+    header, nav, main, footer {
+      padding: 1em;
+    }
+    header {
+      display: flex;
+      align-items: center;
+      gap: 1em;
+    }
+    nav ul {
+      display: flex;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      gap: 1em;
+    }
+    nav a {
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+    }
+    nav a:hover {
+      color: #0077cc;
+    }
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background: #000;
+      color: #fff;
+      padding: 8px;
+      z-index: 100;
+    }
+    .skip-link:focus {
+      top: 0;
+    }
+    .player-container {
+      margin-top: 1em;
+      padding: 1em;
+      background: #f0f0f0;
+      border-radius: 8px;
+    }
+    footer {
+      margin-top: 2em;
+      background: #222;
+      color: #fff;
+      text-align: center;
+      padding: 1.5em 1em;
+    }
+    footer a {
+      color: #66ccff;
+      text-decoration: none;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <!-- Enlace para saltar al contenido -->
+  <a href="#contenido" class="skip-link">Saltar al contenido principal</a>
+
+  <header role="banner">
+    <img src="logo.png" alt="Logo de Nicfel radio" width="120" height="120">
+    <div>
+      <h1>Nicfel radio, ¡100% original!</h1>
+      <nav role="navigation" aria-label="Navegación principal">
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="sobre-nosotros.html">Sobre nosotros</a></li>
+          
+     <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenido" role="main">
+    <h2>Página de inicio</h2>
+    <section aria-labelledby="en-vivo">
+      <h3 id="en-vivo">Señal en vivo</h3>
+      <div class="player-container">
+        <audio id="radio-player" controls autoplay aria-label="Reproductor de la señal en vivo de Nicfel radio">
+          <source src="http://listen.usuarios.space/nicfelradio" type="audio/mpeg">
+          Tu navegador no soporta el elemento de audio.
+        </audio>
+      </div>
+    </section>
+
+    <p>Bienvenidos a la web de <strong>Nicfel radio, ¡100% original!</strong>. En este espacio podrás escuchar nuestra señal en vivo, así como conocer nuestra programación, medios de contacto, novedades sobre la emisora y mucho más. Iremos actualizando este sitio a medida que renovemos nuestra programación o se produzcan cambios en la misma. Gracias por sintonizar <strong>Nicfel radio</strong>. ¡Deléitate a tu antojo, 100% original!</p>
+  </main>
+
+  <footer role="contentinfo">
+    <p>&copy; 2025 Nicfel radio. Todos los derechos reservados.</p>
+    <p>Visitas: <span id="contador">0</span></p>
+    <p>Web diseñada por <a href="http://www.andysoft.es.tl" target="_blank" rel="noopener">Andysoft Technologies</a></p>
+  </footer>
+
+  <script>
+    // Ajustar volumen al 30% al cargar
+    window.addEventListener('DOMContentLoaded', () => {
+      const player = document.getElementById('radio-player');
+      if (player) {
+        player.volume = 0.3;
+      }
+
+      // Contador de visitas (localStorage para demo)
+      const contadorEl = document.getElementById('contador');
+      let visitas = localStorage.getItem('visitasNicfel');
+      if (!visitas) {
+        visitas = 1;
+      } else {
+        visitas = parseInt(visitas) + 1;
+      }
+      localStorage.setItem('visitasNicfel', visitas);
+      contadorEl.textContent = visitas;
+    });
+  </script>
+</body>
+</html>
