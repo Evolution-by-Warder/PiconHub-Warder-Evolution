@@ -1,0 +1,482 @@
+
+
+
+<!DOCTYPE html>
+<html lang="de-AT">
+    <head
+        
+    >
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>
+            Webradio
+            
+                
+                    - ANTENNE VORARLBERG
+                
+            
+        </title>
+
+        
+            <meta name="title" content="ANTENNE VORARLBERG Streamingwelt: Eure Musikvielfalt rund um die Uhr im Ländle" />
+        
+        
+            <meta name="description" content="Entdeckt die ANTENNE VORARLBERG Streamingwelt, eure Internet-Radio-Station im Ländle: Mehr Musik! Mehr Vielfalt! Oldies, Rock, Pop, Dance, Partymix und coole Beats rund um die Uhr in unserer Streamingwelt." />
+        
+
+        
+            
+
+
+    <link rel="icon" href="/static/base/img/favicon.5665739761fe.png" type="image/png" />
+    <link rel="apple-touch-icon" href="/static/base/img/apple-touch-icon.168e05c8048c.png" />
+
+
+        
+
+        <link rel="stylesheet" type="text/css" href="/static/base/player/styles/app.8130e892da06.css">
+
+        
+
+        
+    <script src="https://web.cmp.usercentrics.eu/tcf/stub.js"></script>
+    <script id="usercentrics-cmp"
+            data-settings-id="HCvGNNAJv"
+            src="https://web.cmp.usercentrics.eu/ui/loader.js"
+            async
+            
+    ></script>
+    
+    
+
+
+
+        
+            
+
+
+    
+        <script>
+            var evaTax = {"tOne":"Music and Audio","tTwo":"","tThree":"","tFour":"","tFive":"","tSix":""};
+        
+        </script>
+    
+    
+        <script async src="//rmsi-player.de/eva/276583_spa/rms.min.js"></script>
+    
+
+
+        
+
+        
+
+    <!-- Google tag (gtag.js) -->
+    <script type="text/plain" data-consent="Google Analytics" data-type="script-url" data-url="https://www.googletagmanager.com/gtag/js?id=G-1TYVLK5PET"></script>
+    <script type="text/plain" data-consent="Google Analytics" data-type="script">
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-1TYVLK5PET');
+    </script>
+
+
+
+        
+    
+
+
+
+
+
+    </head>
+
+    <body>
+        
+<div class="js-frontendUserbar" data-params="{}"></div>
+
+
+        <div id="app"
+             v-cloak
+             data-use-rms-tag-manager="1"
+             data-initial-autoplay="1"
+        >
+            <div class="sections">
+                <div ref="stage" class="section stage" :class="[renderedHeader.class]">
+    <div class="background">
+        <div class="cover" v-if="renderedHeader.type === 'channel'">
+            <img :src="renderedChannelPlaylistCoverUrl" v-if="renderedChannelPlaylistCoverUrl">
+        </div>
+        <div class="sujet" v-if="renderedHeader.headerImageUrl">
+            <div class="image">
+                <img :src="renderedHeader.headerImageUrl">
+                <div class="mask" v-if="renderedHeader.type === 'podcast'"></div>
+            </div>
+        </div>
+        <div class="gradient" v-if="renderedHeader.type === 'channel'"></div>
+    </div>
+    <div class="_center">
+        <div class="padded">
+            <a class="logo" href="/" data-ripple></a>
+            <div class="info">
+                <div class="home" v-if="renderedHeader.type === 'podcast' && initialPodcastId">
+                    <a class="link" href="/player/">Home</a>
+                </div>
+                <div class="playing">
+                    <div class="status" :class="{live:renderedHeader.isLive}"></div>
+                    <div class="equalizer _equalizer" :class="{animated:playWhenReady}"></div>
+                </div>
+                <div class="title">
+                    <p class="line1" v-if="renderedHeader.title" v-text="renderedHeader.title"></p>
+                    <p class="line2" v-if="renderedHeader.subtitle" v-text="renderedHeader.subtitle"></p>
+                    
+                    <div class="more" v-if="renderedHeader.type === 'podcast' && !initialPodcastId">
+                        <a class="link" :href="currentPodcast.url">Alle Folgen</a>
+                    </div>
+                </div>
+            </div>
+            <div class="playlist" v-if="renderedHeader.type === 'channel'" ref="playlist">
+                <div class="track"
+                     v-for="item in renderedChannelPlaylist"
+                     :class="{active:item.isActive}"
+                >
+                    <div class="cover">
+                        <div class="image" v-if="!renderedHeader.reducedCoverDisplay || item.isActive">
+                            <img :src="item.coverUrl" v-if="item.coverUrl" key="main">
+                            <img :src="renderedHeader.imageUrl" v-else-if="renderedHeader.imageUrl" key="fallback">
+                        </div>
+                        <div class="controls" v-if="item.isActive">
+                            <div class="_playIcon" data-ripple
+                                 :class="{pause:playWhenReady}"
+                                 @click="togglePlayback()"
+                            ></div>
+                        </div>
+                        <div class="share" v-if="item.isActive">
+                            <player-sharing :url="getChannelShareUrl(selectedChannelId)"></player-sharing>
+                        </div>
+                    </div>
+                    <div class="info">
+                        <p class="artist" v-text="item.artist"></p>
+                        <p class="title" v-text="item.title"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="episodes" v-if="renderedHeader.type === 'podcast'">
+                <div class="items">
+                    <div class="episode">
+                        
+                        <template v-if="renderedPodcastPlaylist.prev">
+                            <div class="content">
+                                <p class="datetime">{{ renderedPodcastPlaylist.prev.formattedDatetime }}</p>
+                                <p class="title">{{ renderedPodcastPlaylist.prev.title }}</p>
+                            </div>
+                            <div class="gradient"></div>
+                        </template>
+                    </div>
+                    <div class="episode">
+                        <div class="content">
+                            <p class="datetime" v-if="renderedPodcastPlaylist.current">{{ renderedPodcastPlaylist.current.formattedDatetime }}</p>
+                            <p class="title" v-if="renderedPodcastPlaylist.current">{{ renderedPodcastPlaylist.current.title }}</p>
+                            <div class="controls _playerControls">
+                                <div class="rewind" @click="rewindAudio" data-ripple></div>
+                                <div class="_playIcon" data-ripple
+                                    :class="{pause:playWhenReady}"
+                                    @click="togglePlayback()"
+                                ></div>
+                                <div class="forward" @click="forwardAudio" data-ripple></div>
+                            </div>
+                        </div>
+                        <div class="controlBar _playerControlBar" v-if="renderedPodcastPlaylist.current">
+                            <div class="track" data-ripple="center-pointer"
+                                @pointerdown="playerBarPointerdown"
+                                @pointermove="playerBarPointermove"
+                                @pointerup="playerBarPointerup"
+                                @pointercancel="playerBarPointerup"
+                                @touchstart="playerBarTouchstart"
+                            >
+                                <div class="bar" :style="{width:audioPlayedPercent+'%'}"></div>
+                                <div class="knob" :style="{left:audioPlayedPercent+'%'}"></div>
+                            </div>
+                            <p class="time">
+                                <span>{{ renderedAudioCurrentTime }}</span> |
+                                <span class="duration"><b>{{ renderedAudioDuration }}</b></span>
+                            </p>
+                        </div>
+                        <div class="share">
+                            <player-sharing :url="renderedPodcastPlaylist.current.shareUrl" v-if="renderedPodcastPlaylist.current"></player-sharing>
+                        </div>
+                    </div>
+                    <div class="episode">
+                        <template v-if="renderedPodcastPlaylist.next">
+                            <div class="content">
+                                <p class="datetime">{{ renderedPodcastPlaylist.next.formattedDatetime }}</p>
+                                <p class="title">{{ renderedPodcastPlaylist.next.title }}</p>
+                            </div>
+                            <div class="gradient"></div>
+                        </template>
+                    </div>
+                </div>
+                <div class="arrow left" data-ripple
+                     v-if="renderedPodcastPlaylist.prev"
+                     @click="skipToPrev()"
+                >
+                    <div class="icon"></div>
+                </div>
+                <div class="arrow right" data-ripple
+                     v-if="renderedPodcastPlaylist.next"
+                     @click="skipToNext()"
+                >
+                    <div class="icon"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+                
+
+    <div class="section channels">
+        <div class="_center">
+            <div class="_channelList">
+                <div class="channel" data-ripple="inside"
+                     v-for="channel in renderedChannels"
+                     :class="{active:channel.isActive}"
+                     @click="selectChannel(channel.id, true)"
+                >
+                    <div class="image">
+                        <img v-if="channel.imageUrl" :src="channel.imageUrl" loading="lazy">
+                        <div class="equalizerHolder">
+                            <div class="_equalizer" :class="{animated:playWhenReady && channel.isActive}"></div>
+                        </div>
+                    </div>
+                    <div class="info">
+                        <p>{{ channel.subtitle }}</p>
+                    </div>
+                    <div class="share">
+                        <player-sharing :url="channel.shareUrl"></player-sharing>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="section other">
+        <div class="_center">
+            <div class="section" v-for="(section, sectionIndex) in renderedSections">
+                <p class="title" v-if="section.title">{{ section.title }}</p>
+                <div class="_channelList"
+                     v-if="section.type === 'podcast_images'"
+                >
+                    <div class="channel" data-ripple="inside"
+                         v-for="episode in section.episodes"
+                         :class="{active:episode.isActive}"
+                         @click="selectPodcastEpisode(episode.podcast.id, episode.id, true)"
+                    >
+                        <div class="image">
+                            <img :src="episode.podcast.imageUrl" loading="lazy" v-if="episode.podcast.imageUrl">
+                            <div class="equalizerHolder">
+                                <div class="_equalizer" :class="{animated:playWhenReady && episode.isActive}"></div>
+                            </div>
+                        </div>
+                        <div class="share">
+                            <player-sharing :url="episode.shareUrl"></player-sharing>
+                        </div>
+                    </div>
+                </div>
+                <div class="_podcastList highlights"
+                     v-else-if="section.type === 'podcast_highlights'"
+                     :class="{collapsed:section.showMore && section.collapsed}"
+                >
+                    <div class="items">
+                        <div class="item" data-ripple="inside"
+                             v-for="episode in section.episodes"
+                             :class="{active:episode.isActive}"
+                             @click="selectPodcastEpisode(episode.podcast.id, episode.id, true)"
+                        >
+                            <div class="image">
+                                <img :src="episode.podcast.imageUrl" loading="lazy" v-if="episode.podcast.imageUrl">
+                                <div class="equalizerHolder">
+                                    <div class="_equalizer" :class="{animated:playWhenReady && episode.isActive}"></div>
+                                </div>
+                            </div>
+                            <div class="text">
+                                <p class="datetime">{{ episode.formattedDatetime }}</p>
+                                <p class="subtitle">{{ episode.podcast.title }}</p>
+                                <p class="title">{{ episode.title }}</p>
+                                <div class="equalizerHolder">
+                                    <div class="_equalizer" :class="{animated:playWhenReady && episode.isActive}"></div>
+                                </div>
+                            </div>
+                            <div class="share">
+                                <player-sharing :url="episode.shareUrl"></player-sharing>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="more" data-ripple
+                         v-if="section.showMore && section.collapsed"
+                         @click="openSection(sectionIndex)"
+                    ></div>
+                </div>
+                <div class="_podcastList"
+                     v-else-if="section.type === 'podcast_episodes'"
+                     :class="{collapsed:section.showMore && section.collapsed}"
+                >
+                    <div class="items">
+                        <div class="item" data-ripple="inside"
+                             v-for="(episode, episodeIndex) in section.episodes"
+                             :class="{active:episode.isActive}"
+                             @click="selectPodcastEpisode(episode.podcast.id, episode.id, true)"
+                        >
+                            <div class="image" v-if="episodeIndex === 0">
+                                <img :src="episode.podcast.imageUrl" loading="lazy" v-if="episode.podcast.imageUrl">
+                                <div class="equalizerHolder">
+                                    <div class="_equalizer" :class="{animated:playWhenReady && episode.isActive}"></div>
+                                </div>
+                            </div>
+                            <div class="text">
+                                <p class="datetime">{{ episode.formattedDatetime }}</p>
+                                <p class="subtitle" v-if="episodeIndex === 0">Aktuelle Folge</p>
+                                <p class="title">{{ episode.title }}</p>
+                                <div class="equalizerHolder">
+                                    <div class="_equalizer" :class="{animated:playWhenReady && episode.isActive}"></div>
+                                </div>
+                            </div>
+                            <div class="share">
+                                <player-sharing :url="episode.shareUrl"></player-sharing>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="more" data-ripple
+                         v-if="section.showMore && section.collapsed"
+                         @click="openSection(sectionIndex)"
+                    ></div>
+                    <div class="all">
+                        <a class="link" data-ripple
+                            v-if="section.showMore && !section.collapsed"
+                            :href="section.episodes[0].podcast.url"
+                        >Alle Folgen</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+                
+<div class="section footer">
+    <div class="_center">
+        <p class="copyright">
+            &copy; 2026 ANTENNE VORARLBERG<br>
+            
+                
+                    <a href="https://www.antennevorarlberg.at/" target="_blank">
+                        
+                            Startseite
+                        
+                    </a> |
+                
+                    <a href="https://www.antennevorarlberg.at/info/impressum/" target="_blank">
+                        
+                            Impressum
+                        
+                    </a> |
+                
+                    <a href="https://www.antennevorarlberg.at/info/agb/" target="_blank">
+                        
+                            AGB
+                        
+                    </a> |
+                
+                    <a href="https://www.antennevorarlberg.at/info/datenschutz/" target="_blank">
+                        
+                            Datenschutz
+                        
+                    </a> |
+                
+            
+            <a href="#" onclick="UC_UI.showSecondLayer(); return false;">Privatsphäre</a>
+        </p>
+        <p class="wunderweiss">
+            <a href="https://www.wunderweiss.com" target="_blank" data-ripple>site by wunderweiss</a>, v1.20
+        </p>
+    </div>
+</div>
+
+            </div>
+
+            <div class="playerBar" :class="{visible:playerBarVisible}">
+    <div class="_center">
+        <div class="controlBarHolder">
+            <div class="controlBar _playerControlBar" v-if="renderedHeader.type === 'podcast'">
+                <div class="track" data-ripple="center-pointer"
+                    @pointerdown="playerBarPointerdown"
+                    @pointermove="playerBarPointermove"
+                    @pointerup="playerBarPointerup"
+                    @pointercancel="playerBarPointerup"
+                    @touchstart="playerBarTouchstart"
+                >
+                    <div class="bar" :style="{width:audioPlayedPercent+'%'}"></div>
+                    <div class="knob" :style="{left:audioPlayedPercent+'%'}"></div>
+                </div>
+                <p class="time">
+                    <span>{{ renderedAudioCurrentTime }}</span> |
+                    <span class="duration"><b>{{ renderedAudioDuration }}</b></span>
+                </p>
+            </div>
+        </div>
+        <div class="controls _playerControls">
+            <div class="rewind" v-if="renderedHeader.type === 'podcast'" @click="rewindAudio" data-ripple></div>
+            <div class="_playIcon" data-ripple
+                :class="{pause:playWhenReady}"
+                @click="togglePlayback()"
+            ></div>
+            <div class="forward" v-if="renderedHeader.type === 'podcast'" @click="forwardAudio" data-ripple></div>
+        </div>
+        <div class="info">
+            <template v-if="renderedHeader.type === 'podcast' && renderedPodcastPlaylist && renderedPodcastPlaylist.current">
+                <p class="line1">{{ renderedPodcastPlaylist.current.formattedDatetime }}</p>
+                <p class="line2">{{ renderedPodcastPlaylist.current.title }}</p>
+            </template>
+            <template v-if="renderedHeader.type === 'channel' && currentChannelPlaylist && currentChannelPlaylist.currentTrack">
+                <p class="line1">{{ renderedHeader.channelTitle }}</p>
+                <p class="line2 channel">{{ currentChannelPlaylist.currentTrack.artist }}</p>
+                <p class="line3">{{ currentChannelPlaylist.currentTrack.title }}</p>
+            </template>
+        </div>
+    </div>
+</div>
+
+
+            <div class="toTop" :class="{visible:toTopVisible}">
+                <div class="_center">
+                    <div class="button" @click="goToTop" data-ripple></div>
+                </div>
+            </div>
+
+            <player-snackbar ref="snackbar" inline-template>
+                <div class="snackBar">
+                    <div class="_center">
+                        <div class="bar" v-text="message" :class="{visible:message}"></div>
+                    </div>
+                </div>
+            </player-snackbar>
+
+            <player-ripple inline-template>
+                <div class="ripple" :style="rippleStyle" :class="{animated:rippleAnimated}">
+                    <div class="inner" :style="innerStyle"></div>
+                </div>
+            </player-ripple>
+        </div>
+
+        <script src="/static/radio_portal/thirdparty/jquery.min.e6c2415c0ace.js"></script>
+        <script src="/static/radio_portal/thirdparty/URI.min.68fe1c29ba85.js"></script>
+        
+            <script src="/static/base/thirdparty/vue/vue.min.7f8906c1a232.js"></script>
+        
+        <script src="/static/radio_portal/thirdparty/js.cookie.min.ae11f74bdaae.js"></script>
+
+        <script src="/static/CACHE/js/player.888e1c63f8b9.js"></script>
+
+    </body>
+</html>
