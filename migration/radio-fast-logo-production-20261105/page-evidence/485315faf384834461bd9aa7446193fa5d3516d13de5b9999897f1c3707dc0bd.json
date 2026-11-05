@@ -1,0 +1,26 @@
+{
+  "url": "https://www.kristal.fm/",
+  "final_url": "https://kristal.media/",
+  "original_html_sha256": "485315faf384834461bd9aa7446193fa5d3516d13de5b9999897f1c3707dc0bd",
+  "path": "page-evidence/485315faf384834461bd9aa7446193fa5d3516d13de5b9999897f1c3707dc0bd.json",
+  "titles": [
+    "KRISTAL Media — More Than Just Radio!",
+    "\r\n         More Than \r\n         Just Radio \r\n      ",
+    " ALL   NEWS ",
+    " KRISTAL ON-THE-GO   EVENTS ",
+    "What are you looking for?",
+    ", h1, or a canonical\n     archive-title element) — safer than reconstructing it from the slug. */\n  function themeArchiveTitle(){\n    var el = document.querySelector('.page-title, .archive-title, .elementor-heading-title');\n    if(el && el.textContent && el.textContent.trim().length){ return el.textContent.trim(); }\n    /* Fallback: use   minus the site suffix (common WP pattern: \"X - Site\" or \"X | Site\") */\n    var t = document.title.replace(/\\s*[|\\-–]\\s*[^|\\-–]+$/, '').trim();\n    return t || '';\n  }\n\n  /* Default context: 'LATEST NEWS' / 'News & Updates' */\n  var context = { eyebrow: 'SEARCH KRISTAL MEDIA', title: 'What are you looking for?', subtitle: subtitle ? subtitle.innerHTML : '' };\n\n  if(searchQuery !== null){\n    /* Search results */\n    context.eyebrow = 'SEARCH RESULTS';\n    context.title = 'Results for “ ' + escapeHtml(searchQuery) + ' ”';\n    context.subtitle = 'Showing posts, pages, and tags that match your search.';\n    if(searchInput){ searchInput.value = searchQuery; }\n  } else if(/\\bcategory-/.test(cls) || /\\/category\\//.test(pathname)){\n    context.eyebrow = 'CATEGORY';\n    var catName = themeArchiveTitle() || slugFromPath('category');\n    context.title = catName;\n    context.subtitle = 'Every story filed under  ' + escapeHtml(catName) + ' , newest first.';\n  } else if(/\\btag-/.test(cls) || /\\/tag\\//.test(pathname)){\n    context.eyebrow = 'TAG';\n    var tagName = themeArchiveTitle() || slugFromPath('tag');\n    context.title = '#' + tagName;\n    context.subtitle = 'Every post tagged  ' + escapeHtml(tagName) + ' .';\n  } else if(/\\bauthor\\b/.test(cls) || /\\/author\\//.test(pathname)){\n    context.eyebrow = 'AUTHOR';\n    var authorName = themeArchiveTitle() || slugFromPath('author');\n    context.title = 'Posts by ' + authorName;\n    context.subtitle = 'Every story written by  ' + escapeHtml(authorName) + ' .';\n  } else if(/\\bdate\\b/.test(cls) || /\\b(year|month|day)\\b/.test(cls)){\n    context.eyebrow = 'ARCHIVE';\n    var dateTitle = themeArchiveTitle() || 'Archive';\n    context.title = dateTitle;\n    context.subtitle = 'Everything we published during this period.';\n  }\n\n  eyebrow.textContent = context.eyebrow;\n  title.innerHTML = context.title;\n  if(subtitle){ subtitle.innerHTML = context.subtitle; }\n\n  /* 2. Count the posts on the current page and append it to the subtitle as a soft stat. */\n  requestAnimationFrame(function(){\n    var count = document.querySelectorAll('.km-posts-archive__grid article, .elementor-posts .elementor-post').length;\n    if(count && subtitle){\n      var noun = count === 1 ? 'story' : 'stories';\n      subtitle.insertAdjacentHTML('beforeend', ' ·  ' + count + ' ' + noun + '  on this page.');\n    }\n  });\n\n  /* Helpers */\n  function slugFromPath(prefix){\n    var m = pathname.match(new RegExp('/' + prefix + '/([^/]+)/'));\n    if(!m) return '';\n    try{ return decodeURIComponent(m[1]).replace(/-/g,' ').replace(/\\b\\w/g, function(l){ return l.toUpperCase(); }); } catch(e){ return m[1]; }\n  }\n  function escapeHtml(s){ return String(s).replace(/[&<>\"']/g, function(c){ return ({\"&\":\"&\",\" \":\">\",'\"':\"\"\",\"'\":\"'\"})[c]; }); }\n})();\n \t\t\t\t \n\t\t\t\t \n\t\t\t\t\t \n\t\t\t\t \n\t\t\t\t \n\t\t\t\t \n\t\t\t\t\t\t \n\t\t\t\t \n\t\t\t\t\t \n\t\t\t\t \n\t\t \n\t\t\t\t\t \n\t\t\t\t \n\t\t\t\t \n\t\t\t\t\t \r\n     WHAT WE DO \r\n      OUR   SERVICES ",
+    " MEET THE   DJS "
+  ],
+  "image_urls": [
+    "https://darkgoldenrod-skunk-708856.hostingersite.com/logo/KRISTAL.webp",
+    "https://kristal.media/wp-content/uploads/2024/06/kristalmedialogo.png",
+    "https://kristal.media/wp-content/uploads/2026/09/KRISTAL-colored-03-yellow-scaled.webp"
+  ],
+  "named_logos": {
+    "https://kristal.media/wp-content/uploads/2024/06/kristalmedialogo.png": "Kristal Media  ",
+    "https://kristal.media/wp-content/uploads/2026/09/KRISTAL-colored-03-yellow-scaled.webp": "KRISTALfm logo  ",
+    "https://kristal.media/wp-content/uploads/2026/09/QURANfm-colored-02-small.webp": "Al-Quran FM logo  ",
+    "https://darkgoldenrod-skunk-708856.hostingersite.com/logo/KRISTAL.webp": "KRISTAL Media  "
+  }
+}
