@@ -1,0 +1,1024 @@
+<!DOCTYPE HTML>
+<!--[if IEMobile 7 ]><html class="no-js iem7" manifest="default.appcache?v=1"><![endif]-->
+<!--[if lt IE 7 ]><html class="no-js ie6" lang="en"><![endif]-->
+<!--[if IE 7 ]><html class="no-js ie7" lang="en"><![endif]-->
+<!--[if IE 8 ]><html class="no-js ie8" lang="en">&nbsp;<![endif]-->
+<!--[if (gte IE 9)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+
+	<!-- Begin : Custom Head HTML -->
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1873352384162377"
+     crossorigin="anonymous"></script>
+
+<style>
+.sc-content > .content-header.template-byline {
+    width: 100% !important;
+    max-width: none !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+.sc-content > .content-header.template-byline .feature-info {
+    margin-top: 0 !important;
+}
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const contentArea = document.querySelector("#sc-content-area");
+    if (!contentArea) return;
+
+    const header = contentArea.querySelector(":scope > .content-header.template-byline");
+    const wrapper = contentArea.querySelector(":scope > .sc-sidebar-wrapper");
+    const article = wrapper ? wrapper.querySelector(":scope > .sc-content") : null;
+
+    if (header && article) {
+        article.insertBefore(header, article.firstChild);
+    }
+});
+</script>
+
+
+
+
+<style>
+#bayfm-live-clock {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex: 0 0 112px;
+    width: 112px;
+    min-width: 112px;
+    max-width: 112px;
+
+    white-space: nowrap;
+    padding: 0 8px;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum";
+
+    color: #ffffff;
+    background: #1599CF;
+
+    box-sizing: border-box;
+}
+
+/* Space before Local News */
+#bayfm-live-clock + * {
+    margin-left: 10px !important;
+}
+</style>
+
+<script>
+(function () {
+
+    function bayfmClockText() {
+        return new Intl.DateTimeFormat('en-CA', {
+            timeZone: 'America/St_Johns',
+            hour: 'numeric',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: true
+        }).format(new Date());
+    }
+
+    function getBayFMContentLeft() {
+
+        var main = document.querySelector('main');
+
+        if (!main) {
+            return 0;
+        }
+
+        /*
+         * Find the widest substantial element inside <main>
+         * that does NOT span the whole browser window.
+         * This should correspond to BayFM's white content area.
+         */
+        var elements = main.querySelectorAll('div, section, article');
+
+        var best = null;
+        var bestWidth = 0;
+
+        for (var i = 0; i < elements.length; i++) {
+
+            var rect = elements[i].getBoundingClientRect();
+
+            if (
+                rect.width > 700 &&
+                rect.width < window.innerWidth - 40 &&
+                rect.left > 20 &&
+                rect.left < window.innerWidth / 3 &&
+                rect.width > bestWidth
+            ) {
+                best = elements[i];
+                bestWidth = rect.width;
+            }
+        }
+
+        if (best) {
+            return Math.round(best.getBoundingClientRect().left);
+        }
+
+        return Math.round(main.getBoundingClientRect().left);
+    }
+
+    function installClock() {
+
+        var ticker = document.querySelector(
+            '.scWidgetContainer.tickerWidget.layout-beside.size-sm'
+        );
+
+        if (!ticker) {
+            return;
+        }
+
+        var clock = document.getElementById('bayfm-live-clock');
+
+        if (!clock) {
+            clock = document.createElement('div');
+            clock.id = 'bayfm-live-clock';
+
+            ticker.insertBefore(clock, ticker.firstChild);
+        }
+
+        clock.textContent = bayfmClockText();
+
+        /* Match the full height of the ticker */
+        var tickerHeight = ticker.getBoundingClientRect().height;
+
+        if (tickerHeight > 0) {
+            clock.style.height = tickerHeight + 'px';
+            clock.style.minHeight = tickerHeight + 'px';
+        }
+
+        /*
+         * Align clock with the actual white content area.
+         */
+        var contentLeft = getBayFMContentLeft();
+
+        clock.style.marginLeft = contentLeft + 'px';
+    }
+
+    function startClock() {
+
+        installClock();
+
+        setInterval(installClock, 1000);
+
+        window.addEventListener('resize', installClock);
+
+        setTimeout(installClock, 500);
+        setTimeout(installClock, 1500);
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', startClock);
+    } else {
+        startClock();
+    }
+
+})();
+</script>
+
+<script type="text/javascript">
+smsWidgetSettings = {
+    senderId: '3UkTThaBe0FSdT49CGCT4qlHsZChA3sfQmMu1FNNIXnThBYUCSbX3Guti3USJH9T2Nt2To6M1j5MRaLJSr02BNLraqXqbo7nd6YZ',
+    token: '7844dfc7fd60580fdcba5d8ee22376f870dbbcf7d1faa41f367dbca0b4b4dcb0c24451d295bd4ae9b6c1fdcf46b0a47fc2c9b4419917036240cc76c4efd89f84',
+    color: 'f45642'
+};
+document.addEventListener("DOMContentLoaded", function(e) { var r = Math.random().toString(36).substring(3); var h = document.getElementsByTagName('head')[0]; var s = document.createElement('script'); s.type = 'text/javascript'; s.src = 'https://app.textgroove.com/widget/textloader/'+ r + '/load.js'; h.appendChild(s); });
+</script>
+	<!-- End : Custom Head HTML -->
+
+	<title>100.1 BayFM (CKVB-FM)</title>
+	
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=6.0">
+	<meta name="keywords" content="bayfm, corner brook, boir, boiradio, bay of islands, bay of islands radio, local, newfoundland, community radio, country, news, nl, boiradio, 100.1, local radio, advertise, news, bayfm 100.1, ckvb, ckvb-fm, ckvb, cornerbrook, deer lake, Humber valley, Pasadena, bay fm, corner brook radio" />
+	<meta name="description" content="Community radio serving Western Newfoundland" />
+	<meta property="og:type" content="website" />
+	<meta property="og:title" content="100.1 BayFM (CKVB-FM)" />
+	<meta property="og:description" content="Community radio serving Western Newfoundland" />
+	<meta property="og:url" content="https://www.bayfm.ca/" />
+	<meta property="og:site_name" content="100.1 BayFM (CKVB-FM)" />
+	<meta property="og:image" content="https://media-cdn.socastsrm.com/uploads/station/3738/fbShare.png?r=99807" />
+
+	<link rel="pingback" href="https://www.bayfm.ca/xmlrpc.php" />
+	<link rel="apple-touch-icon" href="https://media-cdn.socastsrm.com/uploads/station/3738/squareIcon.png?r=99808" />
+	<script>
+		var isIE8 = false; 
+	</script>
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<script src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE9.js"></script>
+	<script>
+		isIE8 = true;
+		Date.now = Date.now || function() { return +new Date; };
+	</script>
+	<![endif]-->
+
+		
+	<script type="text/javascript">
+		//$headerType is "main"
+		//$request is "/"
+		var socast_page = {
+    "cacheKey": "wp-postMacros-4061-wp-8",
+    "companyID": 647,
+    "accountID": 3964,
+    "blogID": 4061,
+    "ownerBlogID": 4061,
+    "currentBlogID": 4061,
+    "callLetters": "CKVB-FM",
+    "siteName": "100.1 BayFM (CKVB-FM)",
+    "squareLogo": "https:\/\/media-cdn.socastsrm.com\/uploads\/station\/3738\/squareIcon.png?r=99808",
+    "postID": 8,
+    "title": "Home",
+    "type": "page",
+    "referrer": null,
+    "userAgent": "Mozilla\/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit\/605.1.15 (KHTML, like Gecko) Version\/17.4 Safari\/605.1.15 (Applebot\/0.1; +http:\/\/www.apple.com\/go\/applebot)",
+    "eventID": null,
+    "location": "Corner Brook, NL, Canada",
+    "navString": "Home",
+    "isSyn": false,
+    "hasContent": true,
+    "featured_image": false,
+    "featured_image_caption": null,
+    "featured_image_alt": "",
+    "url": "http:\/\/www.bayfm.ca\/",
+    "is_yii": false,
+    "post_format": "standard",
+    "featured_image_facebook": "",
+    "featured_image_twitter": "",
+    "timestamp_published": "1781104488",
+    "timestamp_modified": "1789004345",
+    "date_published": "Jun 10, 2026 | 12:44 PM",
+    "date_modified": "Sep 9, 2026 | 11:09 PM",
+    "platform": "web",
+    "target": "omniture",
+    "pageType": "blog",
+    "shareTemplate": "<a href='http:\/\/www.facebook.com\/sharer.php?u=POST_URL' target='_blank' class='socialShareLink facebook'><img src='https:\/\/media-cdn.socastsrm.com\/images\/social\/png\/facebook.png' alt='facebook' \/><\/a><a href='https:\/\/bsky.app\/intent\/compose?text=POST_URL' target='_blank' class='socialShareLink bluesky'><img src='https:\/\/media-cdn.socastsrm.com\/images\/social\/png\/bluesky.png' alt='bluesky' \/><\/a><a href='https:\/\/x.com\/intent\/post?url=POST_URL&text=POST_TITLE' target='_blank' class='socialShareLink twitter'><img src='https:\/\/media-cdn.socastsrm.com\/images\/social\/png\/xitter.png' alt='twitter' \/><\/a><a href='mailto:?body=POST_URL&subject=POST_TITLE' target='_blank' class='socialShareLink email'><img src='https:\/\/media-cdn.socastsrm.com\/images\/social\/png\/email.png' alt='email' \/><\/a>"
+};
+		socast_page.url = window.location;
+		var adMacros = socast_page;
+		var Page = socast_page;
+		var gvars = { cdnStatic : '' };
+		var CDN_HOST_MEDIA = 'https://media-cdn.socastsrm.com';
+		var GOOGLE_MAP_ID = '77d575c540d23575';
+		var isMobileUserAgent = false;
+		var communityUserName = null;
+		var communityUserIcon = null;
+		var V3_RECAPTCHA_SITE_KEY = '6LchdXMgAAAAAP4dU47UWMAhU0Tc8Uf0ldZrstqZ';
+	</script>
+	
+	<script>
+	var hasPlayer = true;
+	var isInsideSocastIframe = false;
+	var playerType = 'socast';
+	var popupPlayerURL = '/player/?playerID=3854';
+	var popupPlayerSize = '_blank';
+</script>
+		<meta name='robots' content='max-image-preview:large' />
+	<style>img:is([sizes="auto" i], [sizes^="auto," i]) { contain-intrinsic-size: 3000px 1500px }</style>
+	<link rel='dns-prefetch' href='//maps.googleapis.com' />
+<link rel='dns-prefetch' href='//cdn-js.socastsrm.com' />
+<link rel='dns-prefetch' href='//www.google.com' />
+<link rel='dns-prefetch' href='//cdn-css.socastsrm.com' />
+<script type="text/javascript">
+/* <![CDATA[ */
+window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/16.0.1\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/16.0.1\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/www.bayfm.ca\/wp-includes\/js\/wp-emoji-release.min.js?ver=6.8.2"}};
+/*! This file is auto-generated */
+!function(s,n){var o,i,e;function c(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(o,JSON.stringify(t))}catch(e){}}function p(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data),a=(e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0),new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data));return t.every(function(e,t){return e===a[t]})}function u(e,t){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);for(var n=e.getImageData(16,16,1,1),a=0;a<n.data.length;a++)if(0!==n.data[a])return!1;return!0}function f(e,t,n,a){switch(t){case"flag":return n(e,"\ud83c\udff3\ufe0f\u200d\u26a7\ufe0f","\ud83c\udff3\ufe0f\u200b\u26a7\ufe0f")?!1:!n(e,"\ud83c\udde8\ud83c\uddf6","\ud83c\udde8\u200b\ud83c\uddf6")&&!n(e,"\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f","\ud83c\udff4\u200b\udb40\udc67\u200b\udb40\udc62\u200b\udb40\udc65\u200b\udb40\udc6e\u200b\udb40\udc67\u200b\udb40\udc7f");case"emoji":return!a(e,"\ud83e\udedf")}return!1}function g(e,t,n,a){var r="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):s.createElement("canvas"),o=r.getContext("2d",{willReadFrequently:!0}),i=(o.textBaseline="top",o.font="600 32px Arial",{});return e.forEach(function(e){i[e]=t(o,e,n,a)}),i}function t(e){var t=s.createElement("script");t.src=e,t.defer=!0,s.head.appendChild(t)}"undefined"!=typeof Promise&&(o="wpEmojiSettingsSupports",i=["flag","emoji"],n.supports={everything:!0,everythingExceptFlag:!0},e=new Promise(function(e){s.addEventListener("DOMContentLoaded",e,{once:!0})}),new Promise(function(t){var n=function(){try{var e=JSON.parse(sessionStorage.getItem(o));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+g.toString()+"("+[JSON.stringify(i),f.toString(),p.toString(),u.toString()].join(",")+"));",a=new Blob([e],{type:"text/javascript"}),r=new Worker(URL.createObjectURL(a),{name:"wpTestEmojiSupports"});return void(r.onmessage=function(e){c(n=e.data),r.terminate(),t(n)})}catch(e){}c(n=g(i,f,p,u))}t(n)}).then(function(e){for(var t in e)n.supports[t]=e[t],n.supports.everything=n.supports.everything&&n.supports[t],"flag"!==t&&(n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&n.supports[t]);n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&!n.supports.flag,n.DOMReady=!1,n.readyCallback=function(){n.DOMReady=!0}}).then(function(){return e}).then(function(){var e;n.supports.everything||(n.readyCallback(),(e=n.source||{}).concatemoji?t(e.concatemoji):e.wpemoji&&e.twemoji&&(t(e.twemoji),t(e.wpemoji)))}))}((window,document),window._wpemojiSettings);
+/* ]]> */
+</script>
+<link rel='stylesheet' id='wp-block-library-css' href='https://cdn-css.socastsrm.com/cdn_v18.6.6a/wordpress/wp-includes/css/dist/block-library/style.min.css?ver=6.8.2' type='text/css' media='all' />
+<link rel='stylesheet' id='js_composer_front-css' href='https://cdn-css.socastsrm.com/cdn_v18.6.6a/wordpress/wp-content/plugins/js_composer/assets/css/js_composer.min.css?ver=8.7.2' type='text/css' media='all' />
+<link rel='stylesheet' id='bootstrap-css' href='https://cdn-css.socastsrm.com/cdn_v18.6.6a/application/css/bootstrap/4.1.0/css/bootstrap.css?ver=6.8.2' type='text/css' media='all' />
+<link rel='stylesheet' id='custom-css' href='https://cdn-css.socastsrm.com/cdn_v18.6.6a/application/css/custom.css?v=2013-10-02&#038;ver=6.8.2' type='text/css' media='all' />
+<link rel='stylesheet' id='global-theme-css' href='https://cdn-css.socastsrm.com/cdn_v18.6.6a/application/css/global-theme.css?ver=6.8.2' type='text/css' media='all' />
+<link rel='stylesheet' id='global-frontend-css' href='https://cdn-css.socastsrm.com/cdn_v18.6.6a/application/stylesheets/frontend/frontend.css?ver=6.8.4' type='text/css' media='all' />
+<style id='wp-emoji-styles-inline-css' type='text/css'>
+
+	img.wp-smiley, img.emoji {
+		display: inline !important;
+		border: none !important;
+		box-shadow: none !important;
+		height: 1em !important;
+		width: 1em !important;
+		margin: 0 0.07em !important;
+		vertical-align: -0.1em !important;
+		background: none !important;
+		padding: 0 !important;
+	}
+</style>
+<style id='classic-theme-styles-inline-css' type='text/css'>
+/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}
+</style>
+<style id='global-styles-inline-css' type='text/css'>
+:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgba(255, 255, 255, 1), 6px 6px rgba(0, 0, 0, 1);--wp--preset--shadow--crisp: 6px 6px 0px rgba(0, 0, 0, 1);}:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}
+:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}
+:root :where(.wp-block-pullquote){font-size: 1.5em;line-height: 1.6;}
+</style>
+<script type="text/javascript" src="https://cdn-js.socastsrm.com/cdn_v18.6.6a/wordpress/wp-includes/js/jquery/jquery.js" id="jquery-core-js"></script>
+<script type="text/javascript" src="https://cdn-js.socastsrm.com/cdn_v18.6.6a/wordpress/wp-includes/js/jquery/jquery-migrate.min.js" id="jquery-migrate-js"></script>
+<script type="text/javascript" src="https://cdn-js.socastsrm.com/cdn_v18.6.6a/application/js/jquery/jquery-ui-1.13.3/jquery-ui.min.js" id="jquery-ui-js"></script>
+<script type="text/javascript" src="https://cdn-js.socastsrm.com/cdn_v18.6.6a/application/css/bootstrap/4.1.0/js/popper-1.14.3.min.js" id="popper-js"></script>
+<script type="text/javascript" src="https://cdn-js.socastsrm.com/cdn_v18.6.6a/application/css/bootstrap/4.1.0/js/bootstrap.min.js" id="bootstrap-js"></script>
+<script type="text/javascript" src="https://cdn-js.socastsrm.com/cdn_v18.6.6a/application/js/json/json2.js" id="json-js"></script>
+<script type="text/javascript" src="https://cdn-js.socastsrm.com/cdn_v18.6.6a/application/js/custom.js?v=2017-05-29" id="custom-js"></script>
+<script type="text/javascript" src="https://cdn-js.socastsrm.com/cdn_v18.6.6a/application/js/jquery/socast.jquery.frontend.js" id="frontend-plugins-js"></script>
+<script type="text/javascript" src="https://cdn-js.socastsrm.com/cdn_v18.6.6a/wordpress/wp-content/plugins/socast-widgets/js/lightBox.js?v=2014-08-21" id="lightbox-js"></script>
+<script type="text/javascript" src="https://cdn-js.socastsrm.com/cdn_v18.6.6a/application/js/frontend.js" id="frontend-js"></script>
+<script type="text/javascript" src="https://cdn-js.socastsrm.com/cdn_v18.6.6a/application/js/jquery/jquery.ui.kk-chronomasonry.js" id="chronomasonry-js"></script>
+<script type="text/javascript" src="https://cdn-js.socastsrm.com/cdn_v18.6.6a/application/js/jquery/jquery.ui.socastTouch.js" id="socasttouch-js"></script>
+<script type="text/javascript" src="https://cdn-js.socastsrm.com/cdn_v18.6.6a/wordpress/wp-content/plugins/socast-widgets/js/widgets/poll.js" id="socastcms_poll_script-js"></script>
+<script type="text/javascript" src="https://www.google.com/recaptcha/api.js?render=6LchdXMgAAAAAP4dU47UWMAhU0Tc8Uf0ldZrstqZ" id="recaptcha-js"></script>
+<script></script><link rel="https://api.w.org/" href="https://www.bayfm.ca/wp-json/" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://www.bayfm.ca/xmlrpc.php?rsd" />
+<meta name="generator" content="WordPress 6.8.2" />
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-TQ2K7TM');</script>
+<!-- End Google Tag Manager --><meta name="generator" content="Powered by WPBakery Page Builder - drag and drop page builder for WordPress."/>
+<link rel="icon" href="https://media-cdn.socastsrm.com/uploads/station/3738/squareIcon.png?r=99808" sizes="32x32" />
+<link rel="icon" href="https://media-cdn.socastsrm.com/uploads/station/3738/squareIcon.png?r=99808" sizes="192x192" />
+<link rel="apple-touch-icon" href="https://media-cdn.socastsrm.com/uploads/station/3738/squareIcon.png?r=99808" />
+<meta name="msapplication-TileImage" content="https://media-cdn.socastsrm.com/uploads/station/3738/squareIcon.png?r=99808" />
+<noscript><style> .wpb_animate_when_almost_visible { opacity: 1; }</style></noscript>
+		<style>
+	
+h2.sc-heading-widget a {
+
+	color: #0D93D2;
+}
+h2.sc-heading-widget {
+
+	color: #0D93D2 !important;
+	text-align: left;
+	background-color: transparent;
+	border-bottom: 4px solid #F7941D;
+	padding-left: 5px;
+	padding-right: 5px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}	</style>
+	<style>.font-barlow { font-family: Barlow, Sans-Serif; } 
+</style><link href='https://fonts.googleapis.com/css?family=Barlow:400,300,300italic,400italic,700,900,100' rel='stylesheet' type='text/css'>
+		<link type="text/css" href="https://cdn-js.socastsrm.com/cdn_v18.6.6a/wordpress/wp-content/themes/socast-3/assets/css/style.css" rel="stylesheet" data-cssvar />
+		<style data-cssvar>
+		:root {
+			/* body and content */
+			--body-bgd: #f2f2f2;
+			--sc-content-bgd: #ffffff;
+
+			--sc-text: #222222;
+			--text-header: #222222;
+			
+			--sc-primary: #00aadc;
+			--ad-slot-bgd: rgba(255, 255, 255, 0);
+			--ad-slot-text: var(--sc-text);
+			
+			/* head and nav */
+			--nav-bgd: #0d93d2;
+			--nav-text: #ffffff;
+			--nav-text-hover: #f7941d;
+			--nav-child-text: #ffffff;
+			--nav-child-text-hover: #f7941d;
+			--player-btn-bgd: #f7941d;
+			--player-btn-text: #ffffff;
+			--player-btn-hover-bgd: #e2821b;
+			--player-btn-hover-text: #ffffff;
+			--nav-font-size: 1.25rem;
+			--spacing-nav: calc(1.25rem / 2);
+			--nav-height: 65px;
+			
+			/* sidebar */
+			--sidebar-width: 320px;
+			--sidebar-bgd: transparent;
+			--sidebar-text: #000000;
+			--sidebar-highlight: #F7941D;
+			--sidebar-btn-text: var(--sc-content-bgd);
+			
+			/* footer */
+			--footer-bgd: #0f6ab0;
+			--footer-text: #ffffff;
+			--footer-highlight: var(--nav-text);
+			
+						--heading-font: Barlow, Sans-Serif; 
+					}
+		
+				body { font-family: Barlow, Sans-Serif; }
+						#stickyHeader, #minimalMenu, #minimalMenu .text-h3 { font-family: Barlow, Sans-Serif !important; }
+				
+		
+		@media screen and (min-width: 1280px) {
+			.site_width { 
+				max-width: 1280px !important;  
+				
+				margin-left:auto;
+				margin-right:auto;
+			}
+			
+		}
+		@media screen and (min-width: 1280px) {
+			body.single main .site_width,
+			body.single nav.site_width,
+			body.single footer.site_width{ 
+				max-width: 1280px !important; 
+				
+				margin-left:auto;
+				margin-right:auto;
+			}
+		}
+		
+		@media screen and (min-width: 1280px) {
+					}
+		@media screen and (max-width: 1279px) {
+			a.floating-bgd-img { display: none; }
+		}
+		
+				</style>
+	<script type='text/javascript' src='https://cdn-js.socastsrm.com/cdn_v18.6.6a/wordpress/wp-content/themes/socast-3/assets/js/scripts.js'></script></head>
+<body class='home blog wp-theme-socast-3 wpb-js-composer js-comp-ver-8.7.2 vc_responsive contentType-page socast-3 headerType-main header-not-sticky'><!--[if lte IE 9]><p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p><![endif]-->
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TQ2K7TM"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) --><div class='sc-ad-block slot-leaderboard site_width'><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1873352384162377"
+     crossorigin="anonymous"></script>
+<!-- BOIR Leaderboards -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-1873352384162377"
+     data-ad-slot="5568309185"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div><div class='scWidgetContainer tickerWidget layout-beside size-sm' style='color:#ffffff;background-color:#0f6ab0;'>
+	
+	<div class='label text-help'>Local News</div>
+	<div class='items-wrapper'><a href='https://www.bayfm.ca/2026/11/05/one-in-three-atlantic-canadians-are-skipping-meals-or-eating-less-because-they-cant-afford-food-according-to-a-salvation-army-report/' class='item'>One in three Atlantic Canadians are skipping meals or eating less because they can't afford food, according to a Salvation Army report</a><a href='https://www.bayfm.ca/2026/11/05/talks-are-back-on-between-the-city-of-corner-brook-and-cupe-4386-workers-at-the-civic-center/' class='item'>Talks are back on between the city of Corner Brook and CUPE 4386 workers at the Civic Center</a><a href='https://www.bayfm.ca/2026/11/05/new-mining-program-at-mun-will-start-taking-students-next-fall/' class='item'>New mining program at MUN will start taking students next fall</a><a href='https://www.bayfm.ca/2026/11/04/corner-brook-city-hall-and-locked-out-cupe-workers-at-the-civic-center-will-return-to-talks-next-week/' class='item'>Corner Brook city hall and locked out CUPE workers at the Civic Center are back in talks which will start again on Monday</a><a href='https://www.bayfm.ca/2026/11/04/the-story-of-a-dog-named-reid-and-his-45-day-trek-to-find-home-is-now-in-a-childrens-book/' class='item'>The story of a dog named Reid and his 45-day trek to find home is now in a children's book</a><a href='https://www.bayfm.ca/2026/11/04/mun-medicine-student-launches-survey-for-anyone-with-a-connection-to-mental-health-and-addictions/' class='item'>MUN medicine student launches survey for anyone with a connection to mental health and addictions</a><a href='https://www.bayfm.ca/2026/11/04/masking-now-required-at-healthcare-facilities-until-the-end-of-march/' class='item'>Masking now required at healthcare facilities until the end of March</a><a href='https://www.bayfm.ca/2026/11/04/rcmp-locate-a-wanted-man-on-monday-at-a-home-in-seal-cove-after-he-fled-on-foot/' class='item'>RCMP locate a wanted man on Monday at a home in Seal Cove after he fled on foot</a><a href='https://www.bayfm.ca/2026/11/04/government-launches-consultations-on-a-10-year-agriculture-strategy-with-the-goal-of-strengthening-food-production-and-connecting-producers-with-markets/' class='item'>Government launches consultations on a 10-year Agriculture Strategy with the goal of strengthening food production and connecting producers with markets</a><a href='https://www.bayfm.ca/2026/11/04/bay-st-george-rcmp-investigating-after-pieces-of-metal-found-in-halloween-gum/' class='item'>Bay St. George RCMP investigating after pieces of metal found in Halloween gum</a><a href='https://www.bayfm.ca/2026/11/03/free-event-coming-to-the-rotary-arts-center-as-part-of-national-addictions-awareness-week/' class='item'>Free event coming to the Rotary Arts Center as part of National Addictions Awareness Week</a><a href='https://www.bayfm.ca/2026/11/03/corner-brook-royals-to-be-drafted-tonight-by-the-3-remaining-teams-in-the-central-west-senior-hockey-league/' class='item'>Corner Brook Royals to be drafted tonight by the 3 remaining teams in the Central-West Senior Hockey League</a><a href='https://www.bayfm.ca/2026/11/03/collision-in-corner-brook-friday-night-sends-three-people-to-hospital/' class='item'>Collision in Corner Brook Friday night sends three people to hospital</a><a href='https://www.bayfm.ca/2026/11/03/lack-of-snow-and-too-warm-to-start-the-snowmobiling-season-in-gros-morne-national-park/' class='item'>Lack of snow and too warm to start the snowmobiling season in Gros Morne National Park</a><a href='https://www.bayfm.ca/2026/11/03/10-year-agriculture-strategy-to-be-announced-today/' class='item'>10-year Agriculture Strategy to be announced today</a><a href='https://www.bayfm.ca/2026/11/03/humber-gros-morne-mha-takes-to-social-media-over-a-dispute-surrounding-access-to-the-new-community-health-center/' class='item'>Humber-Gros Morne MHA takes to social media over a dispute surrounding access to the new Community Health Center</a><a href='https://www.bayfm.ca/2026/11/02/lewin-parkway-off-ramp-closed-yesterday-as-rnc-responded-to-a-single-vehicle-collision-but-no-medical-attention-needed/' class='item'>No medical attention needed during a single-vehicle collision on the Lewin Parkway off-ramp yesterday</a><a href='https://www.bayfm.ca/2026/11/02/gingerbread-house-due-to-open-november-12th-at-the-valley-mall-for-the-45th-year/' class='item'>Gingerbread House due to open November 12th at the Valley Mall for the 45th year</a><a href='https://www.bayfm.ca/2026/11/02/corner-brook-royals-taking-a-leave-of-absence-from-the-central-west-senior-hockey-league-due-to-labour-dispute-at-civic-center/' class='item'>Corner Brook Royals taking a leave of absence from the Central West Senior Hockey League due to labour dispute at Civic Center</a><a href='https://www.bayfm.ca/2026/11/02/eligible-seniors-in-nl-to-get-a-one-time-tax-free-payment-of-500-before-the-end-of-the-year/' class='item'>Eligible seniors in NL to get a one-time, tax free payment of $500 before the end of the year</a></div>
+</div>		<section id='theHeader' class='hero-header layout-custom height-content padding-none align-center'>
+			<div class="hero-video-container"></div><div  class='site_width'><div class='hero-content'><div><div class="vc_row wpb_row vc_row-fluid sc-gridless"><div class="wpb_column vc_column_container vc_col-sm-12"><div class="vc_column-inner "><div class="wpb_wrapper"><div class="vc_empty_space"   style="height: 25px"><span class="vc_empty_space_inner"></span></div></div></div></div></div><div class="vc_row wpb_row vc_row-fluid vc_row-o-equal-height vc_row-o-content-middle vc_row-flex"><div class="wpb_column vc_column_container vc_col-sm-4"><div class="vc_column-inner "><div class="wpb_wrapper">
+	<div  class="wpb_single_image wpb_content_element vc_align_left">
+		
+		<figure class="wpb_wrapper vc_figure">
+			<a href="http://bayfm.ca" target="_self" class="vc_single_image-wrapper   vc_box_border_grey"><img width="1024" height="427" src="https://media-cdn.socastsrm.com/wordpress/wp-content/blogs.dir/4061/files/2026/07/bayfm-halo-1024x427.webp" class="vc_single_image-img attachment-large" alt="" title="bayfm halo" decoding="async" fetchpriority="high"  /></a>
+		</figure>
+	</div>
+</div></div></div><div class="wpb_column vc_column_container vc_col-sm-4"><div class="vc_column-inner "><div class="wpb_wrapper"></div></div></div><div class="wpb_column vc_column_container vc_col-sm-4"><div class="vc_column-inner "><div class="wpb_wrapper">
+	<div  class="wpb_single_image wpb_content_element vc_align_center">
+		
+		<figure class="wpb_wrapper vc_figure">
+			<a href="https://d3964.cms.socastsrm.com/player/?playerID=3854" target="_self" class="vc_single_image-wrapper   vc_box_border_grey"><img width="350" height="110" src="https://media-cdn.socastsrm.com/wordpress/wp-content/blogs.dir/4061/files/2026/07/hero-cta-hover-56b0f7e8a36f5.gif" class="vc_single_image-img attachment-full" alt="" title="hero_cta_hover-56b0f7e8a36f5" decoding="async" /></a>
+		</figure>
+	</div>
+</div></div></div></div></div></div></div>		</section>
+		<script>
+		var heroBgds = ["https:\/\/media-cdn.socastsrm.com\/wordpress\/wp-content\/blogs.dir\/4061\/files\/2026\/10\/crbk-drone.png"];
+		if (typeof heroBgds === 'object' && heroBgds.length > 0) {
+			var randomIndex = Math.floor(Math.random() * (heroBgds.length));
+			if (heroBgds[randomIndex] !== 'undefined' && heroBgds[randomIndex].length > 0) {
+				var heroBgVal = heroBgds[randomIndex];
+				// If the value is a CSS function (e.g. linear-gradient), apply directly;
+				// otherwise wrap in url() so the browser fetches it as an image.
+				if (/^\s*[-\w]+\s*\(/.test(heroBgVal)) {
+					$('.hero-header').css('background-image', heroBgVal);
+				} else {
+					$('.hero-header').css('background-image', 'url(' + heroBgVal + ')');
+				}
+			}
+		}
+		</script>
+		<style>
+			#theHeader {
+				--sc-text: #222222;
+				--text-header: #222222;
+				--sc-primary: #f7941d;
+				--sc-content-bgd: rgba(255, 255, 255, 0); /* fall back to $bgd_color if $content_bgd_color is transparent */
+				background-color: rgba(255, 255, 255, 0);
+				color: #222222;
+				text-align: center;
+			}
+			
+			#theHeader .hero-content {
+				background-color: rgba(0, 0, 0, 0);
+			}
+		</style>
+		<nav id='stickyHeader' class='nav-align-left full_content hasPlayBtn'>
+	<div  class='site_width nav-container'><div class='nav-left '>
+	<a href='#' id='minimalMenuToggle'>
+		<svg class='icon' viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill='currentColor' d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" /></svg>
+				<span class='text icon-right'>Menu</span>
+			</a>
+			<a href='#' class='socastPlayerBtn hover-effect'>
+		<span class='hover-effect'>
+			<span class='text icon-left'>Listen Live</span><svg  class='icon' xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 24 24">
+				<path fill='currentColor' d="M8,5.14V19.14L19,12.14L8,5.14Z" />
+			</svg>
+		</span>
+	</a>
+	</div>
+<div class='nav-middle '>
+	<div><!-- IE hack -->
+		<ul class="nav nav-lower">
+	<li class="hasSubnav">
+		<a href='https://www.bayfm.ca/about' target="_self" class="nav-item-parent">About<span class='icon icon-right chevron'></span></a>
+					<div class='submenu'>
+				<ul>
+									<li><a href='https://www.bayfm.ca/about/how-to-listen' target="_self" class="nav-item-child">How To Listen</a></li>
+									<li><a href='https://www.bayfm.ca/about/schedule' target="_self" class="nav-item-child">Programming Schedule</a></li>
+									<li><a href='https://www.bayfm.ca/about/donate-to-bay-fm' target="_self" class="nav-item-child">Donate To Bay FM</a></li>
+									<li><a href='https://www.bayfm.ca/volunteer-with-bay-fm' target="_self" class="nav-item-child">Volunteer With Bay FM</a></li>
+								</ul>
+			</div>
+			</li>
+	<li class="hasSubnav">
+		<a href='https://www.bayfm.ca/news' target="_self" class="nav-item-parent">News<span class='icon icon-right chevron'></span></a>
+					<div class='submenu'>
+				<ul>
+									<li><a href='https://www.bayfm.ca/news/local-news' target="_self" class="nav-item-child">Local News</a></li>
+									<li><a href='https://www.bayfm.ca/news/international-news' target="_self" class="nav-item-child">International News</a></li>
+									<li><a href='https://www.bayfm.ca/news/country-music-news' target="_self" class="nav-item-child">Country Music News</a></li>
+								</ul>
+			</div>
+			</li>
+	<li class="">
+		<a href='https://www.bayfm.ca/weather' target="_self" class="nav-item-parent">Weather</a>
+			</li>
+	<li class="">
+		<a href='https://www.bayfm.ca/advertise' target="_self" class="nav-item-parent">Advertise</a>
+			</li>
+	<li class="">
+		<a href='https://www.bayfm.ca/on-demand' target="_self" class="nav-item-parent">On Demand</a>
+			</li>
+	<li class="hasSubnav">
+		<a href='https://www.bayfm.ca/contact' target="_self" class="nav-item-parent">Contact<span class='icon icon-right chevron'></span></a>
+					<div class='submenu'>
+				<ul>
+									<li><a href='https://www.bayfm.ca/birthday-club' target="_self" class="nav-item-child">Birthday Club</a></li>
+									<li><a href='https://www.bayfm.ca/requests' target="_self" class="nav-item-child">Requests</a></li>
+									<li><a href='https://www.bayfm.ca/about/cbsc' target="_self" class="nav-item-child">CBSC</a></li>
+								</ul>
+			</div>
+			</li>
+	<li class="">
+		<a href='https://www.bayfm.ca/events' target="_self" class="nav-item-parent">Events</a>
+			</li>
+	<li class="">
+		<a href='https://www.bayfm.ca/recently-played' target="_self" class="nav-item-parent">Recently Played</a>
+			</li>
+</ul>
+	</div>
+</div>
+<div class='nav-right'>
+	<a href='/?s=' class='search-icon'><svg class='icon' x="0" y="0" viewBox="0 0 24 24"> 
+<path fill='currentColor' d="M9.5,3C13.1,3,16,5.9,16,9.5c0,1.6-0.6,3.1-1.6,4.2l0.3,0.3h0.8l5,5L19,20.5l-5-5v-0.8l-0.3-0.3c-1.1,1-2.6,1.6-4.2,1.6
+	C5.9,16,3,13.1,3,9.5S5.9,3,9.5,3 M9.5,5C7,5,5,7,5,9.5S7,14,9.5,14S14,12,14,9.5S12,5,9.5,5z"/>
+</svg></a>
+</div>
+</div></nav>
+<div id='minimalMenu' class='left_align'>
+	<div class='wrapper'>
+		<a href='#' class='close hover-effect'><span class='hover-effect'>&times;</span></a>
+				<ul class="nav nav-expanded ">
+	<li>
+		<a href='/?s=' target="_self" class="nav-item-parent hover-effect"><span class="hover-effect">Search</span></a></li>
+	<li>
+		<a href='https://www.bayfm.ca/about' target="_self" class="nav-item-parent hover-effect"><span class="hover-effect">About</span></a><div class='submenu'>
+				<ul>
+									<li><a href='https://www.bayfm.ca/about/how-to-listen' target="_self" class="nav-item-child hover-effect"><span class="hover-effect">How To Listen</span></a></li>
+									<li><a href='https://www.bayfm.ca/about/schedule' target="_self" class="nav-item-child hover-effect"><span class="hover-effect">Programming Schedule</span></a></li>
+									<li><a href='https://www.bayfm.ca/about/donate-to-bay-fm' target="_self" class="nav-item-child hover-effect"><span class="hover-effect">Donate To Bay FM</span></a></li>
+									<li><a href='https://www.bayfm.ca/volunteer-with-bay-fm' target="_self" class="nav-item-child hover-effect"><span class="hover-effect">Volunteer With Bay FM</span></a></li>
+								</ul>
+			</div></li>
+	<li>
+		<a href='https://www.bayfm.ca/news' target="_self" class="nav-item-parent hover-effect"><span class="hover-effect">News</span></a><div class='submenu'>
+				<ul>
+									<li><a href='https://www.bayfm.ca/news/local-news' target="_self" class="nav-item-child hover-effect"><span class="hover-effect">Local News</span></a></li>
+									<li><a href='https://www.bayfm.ca/news/international-news' target="_self" class="nav-item-child hover-effect"><span class="hover-effect">International News</span></a></li>
+									<li><a href='https://www.bayfm.ca/news/country-music-news' target="_self" class="nav-item-child hover-effect"><span class="hover-effect">Country Music News</span></a></li>
+								</ul>
+			</div></li>
+	<li>
+		<a href='https://www.bayfm.ca/weather' target="_self" class="nav-item-parent hover-effect"><span class="hover-effect">Weather</span></a></li>
+	<li>
+		<a href='https://www.bayfm.ca/advertise' target="_self" class="nav-item-parent hover-effect"><span class="hover-effect">Advertise</span></a></li>
+	<li>
+		<a href='https://www.bayfm.ca/on-demand' target="_self" class="nav-item-parent hover-effect"><span class="hover-effect">On Demand</span></a></li>
+	<li>
+		<a href='https://www.bayfm.ca/contact' target="_self" class="nav-item-parent hover-effect"><span class="hover-effect">Contact</span></a><div class='submenu'>
+				<ul>
+									<li><a href='https://www.bayfm.ca/birthday-club' target="_self" class="nav-item-child hover-effect"><span class="hover-effect">Birthday Club</span></a></li>
+									<li><a href='https://www.bayfm.ca/requests' target="_self" class="nav-item-child hover-effect"><span class="hover-effect">Requests</span></a></li>
+									<li><a href='https://www.bayfm.ca/about/cbsc' target="_self" class="nav-item-child hover-effect"><span class="hover-effect">CBSC</span></a></li>
+								</ul>
+			</div></li>
+	<li>
+		<a href='https://www.bayfm.ca/events' target="_self" class="nav-item-parent hover-effect"><span class="hover-effect">Events</span></a></li>
+	<li>
+		<a href='https://www.bayfm.ca/recently-played' target="_self" class="nav-item-parent hover-effect"><span class="hover-effect">Recently Played</span></a></li>
+</ul>		
+		<ul class='nav social social-badge'>
+		<li><a href='facebook.com/groups/bayfm' title='Facebook' target='_blank' class='sc-center-box'><img alt='facebook' class='icon svg-loader' data-icon="facebook"  /></a></li>
+				<li><a href='twitter.com/boiradio' title='X' target='_blank' class='sc-center-box'><img alt='twitter' class='icon svg-loader' data-icon="xitter" /></a></li>
+																	</ul>	</div>
+</div>
+<div id='minimalMenuOverlay'></div>
+<div id='stickyNotifications'></div><main><div id='sc-content-area' class='site_width'><div class='sc-sidebar-wrapper  sidebar-align-right' data-hascontent="true">
+<div class='sc-content'>
+
+<article id="post-8" class="post-8 page type-page status-publish hentry">
+	
+	<div class="entry-content">
+		<div class="wpb-content-wrapper"><div class="vc_row wpb_row vc_row-fluid sc-gridless"><div class="wpb_column vc_column_container vc_col-sm-12"><div class="vc_column-inner "><div class="wpb_wrapper"><div class="featureRotator scWidgetContainer align-left " data-uid="scfr-52120-6aec7cb2b139e">
+	<div class='items-wrapper-box'>
+		<div class='items-wrapper'>
+			<a href="https://bayfm.ca/advertise"  class="feature ">
+	<div class='aspect-ratio-container sc-image-container'>
+		<div class="image aspect-ratio-content sc-center-box">
+			<img decoding="async" src="https://media-cdn.socastsrm.com/wordpress/wp-content/blogs.dir/4061/files/2026/10/bayfm-grow-business-banner-online.png" alt="Feature: https://bayfm.ca/advertise" />
+		</div>
+	</div>
+	<div class="caption"></div>
+	<div class="subtitle"></div>
+</a>
+<a   class="feature ">
+	<div class='aspect-ratio-container sc-image-container'>
+		<div class="image aspect-ratio-content sc-center-box">
+			<img decoding="async" src="https://media-cdn.socastsrm.com/wordpress/wp-content/blogs.dir/4061/files/2026/07/country-road.jpg" alt="" />
+		</div>
+	</div>
+	<div class="caption"></div>
+	<div class="subtitle"></div>
+</a>
+<a href="/camera"  class="feature ">
+	<div class='aspect-ratio-container sc-image-container'>
+		<div class="image aspect-ratio-content sc-center-box">
+			<img decoding="async" src="https://media-cdn.socastsrm.com/wordpress/wp-content/blogs.dir/4061/files/2026/09/eye-in-the-sky-homepage-banner.jpg" alt="Feature: /camera" />
+		</div>
+	</div>
+	<div class="caption"></div>
+	<div class="subtitle"></div>
+</a>
+<a   class="feature ">
+	<div class='aspect-ratio-container sc-image-container'>
+		<div class="image aspect-ratio-content sc-center-box">
+			<img decoding="async" src="https://media-cdn.socastsrm.com/wordpress/wp-content/blogs.dir/4061/files/2026/07/685b42a28864a.jpg" alt="" />
+		</div>
+	</div>
+	<div class="caption"></div>
+	<div class="subtitle"></div>
+</a>
+<a   class="feature ">
+	<div class='aspect-ratio-container sc-image-container'>
+		<div class="image aspect-ratio-content sc-center-box">
+			<img decoding="async" src="https://media-cdn.socastsrm.com/wordpress/wp-content/blogs.dir/4061/files/2026/08/ss-banner.jpg" alt="" />
+		</div>
+	</div>
+	<div class="caption"></div>
+	<div class="subtitle"></div>
+</a>
+<a   class="feature ">
+	<div class='aspect-ratio-container sc-image-container'>
+		<div class="image aspect-ratio-content sc-center-box">
+			<img decoding="async" src="https://media-cdn.socastsrm.com/wordpress/wp-content/blogs.dir/4061/files/2026/08/15yrs.jpg" alt="" />
+		</div>
+	</div>
+	<div class="caption"></div>
+	<div class="subtitle"></div>
+</a>
+
+		</div>
+	</div>
+	<div class="markers"><a href="javascript:;" class="marker marker-state circle"><span class='sr-text'>See Feature 0</span></a><a href="javascript:;" class="marker marker-state circle"><span class='sr-text'>See Feature 1</span></a><a href="javascript:;" class="marker marker-state circle"><span class='sr-text'>See Feature 2</span></a><a href="javascript:;" class="marker marker-state circle"><span class='sr-text'>See Feature 3</span></a><a href="javascript:;" class="marker marker-state circle"><span class='sr-text'>See Feature 4</span></a><a href="javascript:;" class="marker marker-state circle"><span class='sr-text'>See Feature 5</span></a></div>
+	<div style='clear:both;'></div>
+	<style>
+	.featureRotator[data-uid="scfr-52120-6aec7cb2b139e"] {
+		width:1200px;
+	}
+	.featureRotator[data-uid="scfr-52120-6aec7cb2b139e"] .aspect-ratio-container {
+		padding-top: calc(628 / 1200 * 100%);
+	}
+	.featureRotator[data-uid="scfr-52120-6aec7cb2b139e"] .items-wrapper, 
+	#theSidebar .featureRotator[data-uid="scfr-52120-6aec7cb2b139e"] .items-wrapper { 
+		width: calc((6 + 1) * (100% + 10px ) ); max-width: calc( (6 + 1) * (100% + 10px ) ) !important;
+	} 
+	.featureRotator[data-uid="scfr-52120-6aec7cb2b139e"] .feature { 
+		width: calc( ( 100% - (  ( 6 + 1) * 10px) )  / (6 + 1));
+	}
+	</style>
+</div><h2 class='sc-heading-widget '>LOCAL NEWS</h2><div class="blogNewsWidget scWidgetContainer sc-list sc-list-lg sc-crop-list sc-multicolumn-fadein" data-uid="scbnl-6aec7cb2bbeb3"  data-layout="-12" data-stripped="yes" data-summary="150" data-imgsize="Default 16:9" data-author="no" data-view="no" data-date="yes" data-adpos="none" data-colwidth="300" data-excluded="" data-cache-namespace="930">
+	<div class='loader sc-center-box hidden'><img src='https://media-cdn.socastsrm.com/application/theme/images/loaders/indicator-big.gif' alt='' /></div>
+	
+	
+	<div class="posts items-wrapper"><div class="sc-list-item sc-divider item">
+	<a href="https://www.bayfm.ca/2026/11/05/one-in-three-atlantic-canadians-are-skipping-meals-or-eating-less-because-they-cant-afford-food-according-to-a-salvation-army-report/"  class='sc-list-lg-link'>
+		<div class="sc-list-img" data-imgsrc="https://media-cdn.socastsrm.com/wordpress/wp-content/blogs.dir/4061/files/2026/11/elasticcomputefarm-supermarket-949913-800x450.jpg">
+		    <div class="aspect-ratio-container">
+			    <img decoding="async" class="sc-crop-list-img aspect-ratio-content" src="https://media-cdn.socastsrm.com/wordpress/wp-content/blogs.dir/4061/files/2026/11/elasticcomputefarm-supermarket-949913-800x450.jpg" alt=''/>
+		    </div>
+	    </div>
+		<div class="sc-list-title primary_color sc-list-display-link">One in three Atlantic Canadians are skipping meals or eating less because they can't afford food, according to a Salvation Army report</div>
+	</a>
+	<div class='sc-list-content'>
+		<div class="text">More than one in three Atlantic Canadians are skipping meals or eating less because they can't afford groceries and according to a  Salvation Army Rep...</div>
+		<div class="text-sm sc-item-detail">
+			<span class='sc-author'></span>
+			<span class='sc-time'><svg class="icon" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 24 24"><path fill="currentColor" d="M12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22C6.47,22 2,17.5 2,12A10,10 0 0,1 12,2M12.5,7V12.25L17,14.92L16.25,16.15L11,13V7H12.5Z" /></svg>3h ago</span>
+			<span class='sc-view'></span>
+			<span class="sc-image-attribution"></span>
+		</div>
+	</div>
+</div><div class="sc-list-item sc-divider item">
+	<a href="https://www.bayfm.ca/2026/11/05/talks-are-back-on-between-the-city-of-corner-brook-and-cupe-4386-workers-at-the-civic-center/"  class='sc-list-lg-link'>
+		<div class="sc-list-img" data-imgsrc="https://media-cdn.socastsrm.com/wordpress/wp-content/blogs.dir/4061/files/2026/09/cb-fall-logo.jpg">
+		    <div class="aspect-ratio-container">
+			    <img decoding="async" class="sc-crop-list-img aspect-ratio-content" src="https://media-cdn.socastsrm.com/wordpress/wp-content/blogs.dir/4061/files/2026/09/cb-fall-logo.jpg" alt=''/>
+		    </div>
+	    </div>
+		<div class="sc-list-title primary_color sc-list-display-link">Talks are back on between the city of Corner Brook and CUPE 4386 workers at the Civic Center</div>
+	</a>
+	<div class='sc-list-content'>
+		<div class="text">Yesterday morning, the City of Corner Brook and CUPE Local 4386 entered confidential exploratory talks with the conciliator. These are scheduled to co...</div>
+		<div class="text-sm sc-item-detail">
+			<span class='sc-author'></span>
+			<span class='sc-time'><svg class="icon" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 24 24"><path fill="currentColor" d="M12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22C6.47,22 2,17.5 2,12A10,10 0 0,1 12,2M12.5,7V12.25L17,14.92L16.25,16.15L11,13V7H12.5Z" /></svg>3h ago</span>
+			<span class='sc-view'></span>
+			<span class="sc-image-attribution"></span>
+		</div>
+	</div>
+</div><div class="sc-list-item sc-divider item">
+	<a href="https://www.bayfm.ca/2026/11/05/new-mining-program-at-mun-will-start-taking-students-next-fall/"  class='sc-list-lg-link'>
+		<div class="sc-list-img" data-imgsrc="https://media-cdn.socastsrm.com/wordpress/wp-content/blogs.dir/4061/files/2026/09/gov-logo.png">
+		    <div class="aspect-ratio-container">
+			    <img decoding="async" class="sc-crop-list-img aspect-ratio-content" src="https://media-cdn.socastsrm.com/wordpress/wp-content/blogs.dir/4061/files/2026/09/gov-logo.png" alt=''/>
+		    </div>
+	    </div>
+		<div class="sc-list-title primary_color sc-list-display-link">New mining program at MUN will start taking students next fall</div>
+	</a>
+	<div class='sc-list-content'>
+		<div class="text">A new Bachelor of Engineering in Mining and Mineral Processing engineering program at Memorial University will be accepting its first students next fa...</div>
+		<div class="text-sm sc-item-detail">
+			<span class='sc-author'></span>
+			<span class='sc-time'><svg class="icon" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 24 24"><path fill="currentColor" d="M12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22C6.47,22 2,17.5 2,12A10,10 0 0,1 12,2M12.5,7V12.25L17,14.92L16.25,16.15L11,13V7H12.5Z" /></svg>3h ago</span>
+			<span class='sc-view'></span>
+			<span class="sc-image-attribution"></span>
+		</div>
+	</div>
+</div><div class="sc-list-item sc-divider item">
+	<a href="https://www.bayfm.ca/2026/11/04/corner-brook-city-hall-and-locked-out-cupe-workers-at-the-civic-center-will-return-to-talks-next-week/"  class='sc-list-lg-link'>
+		<div class="sc-list-img" data-imgsrc="https://media-cdn.socastsrm.com/wordpress/wp-content/blogs.dir/4061/files/2026/10/civic-centre-outside-pic.jpg">
+		    <div class="aspect-ratio-container">
+			    <img decoding="async" class="sc-crop-list-img aspect-ratio-content" src="https://media-cdn.socastsrm.com/wordpress/wp-content/blogs.dir/4061/files/2026/10/civic-centre-outside-pic.jpg" alt=''/>
+		    </div>
+	    </div>
+		<div class="sc-list-title primary_color sc-list-display-link">Corner Brook city hall and locked out CUPE workers at the Civic Center are back in talks which will start again on Monday</div>
+	</a>
+	<div class='sc-list-content'>
+		<div class="text">This morning, the City of Corner Brook and CUPE Local 4386 entered confidential exploratory talks with the conciliator. These are scheduled to continu...</div>
+		<div class="text-sm sc-item-detail">
+			<span class='sc-author'></span>
+			<span class='sc-time'><svg class="icon" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 24 24"><path fill="currentColor" d="M12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22C6.47,22 2,17.5 2,12A10,10 0 0,1 12,2M12.5,7V12.25L17,14.92L16.25,16.15L11,13V7H12.5Z" /></svg>17h ago</span>
+			<span class='sc-view'></span>
+			<span class="sc-image-attribution"></span>
+		</div>
+	</div>
+</div><div class="sc-list-item sc-divider item">
+	<a href="https://www.bayfm.ca/2026/11/04/the-story-of-a-dog-named-reid-and-his-45-day-trek-to-find-home-is-now-in-a-childrens-book/"  class='sc-list-lg-link'>
+		<div class="sc-list-img" data-imgsrc="https://media-cdn.socastsrm.com/wordpress/wp-content/blogs.dir/4061/files/2026/11/reid2-800x450.jpg">
+		    <div class="aspect-ratio-container">
+			    <img decoding="async" class="sc-crop-list-img aspect-ratio-content" src="https://media-cdn.socastsrm.com/wordpress/wp-content/blogs.dir/4061/files/2026/11/reid2-800x450.jpg" alt=''/>
+		    </div>
+	    </div>
+		<div class="sc-list-title primary_color sc-list-display-link">The story of a dog named Reid and his 45-day trek to find home is now in a children's book</div>
+	</a>
+	<div class='sc-list-content'>
+		<div class="text">It started as a labour of love, stretched right across the province and is still warming the hearts of young and old. The story of a family furrbaby n...</div>
+		<div class="text-sm sc-item-detail">
+			<span class='sc-author'></span>
+			<span class='sc-time'><svg class="icon" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 24 24"><path fill="currentColor" d="M12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22C6.47,22 2,17.5 2,12A10,10 0 0,1 12,2M12.5,7V12.25L17,14.92L16.25,16.15L11,13V7H12.5Z" /></svg>21h ago</span>
+			<span class='sc-view'></span>
+			<span class="sc-image-attribution"></span>
+		</div>
+	</div>
+</div><div class="sc-list-item sc-divider item">
+	<a href="https://www.bayfm.ca/2026/11/04/mun-medicine-student-launches-survey-for-anyone-with-a-connection-to-mental-health-and-addictions/"  class='sc-list-lg-link'>
+		<div class="sc-list-img" data-imgsrc="https://media-cdn.socastsrm.com/wordpress/wp-content/blogs.dir/4061/files/2026/11/survey-pic-443x450.jpg">
+		    <div class="aspect-ratio-container">
+			    <img decoding="async" class="sc-crop-list-img aspect-ratio-content" src="https://media-cdn.socastsrm.com/wordpress/wp-content/blogs.dir/4061/files/2026/11/survey-pic-443x450.jpg" alt=''/>
+		    </div>
+	    </div>
+		<div class="sc-list-title primary_color sc-list-display-link">MUN medicine student launches survey for anyone with a connection to mental health and addictions</div>
+	</a>
+	<div class='sc-list-content'>
+		<div class="text">A medicine student at MUN is on a mission to explore gaps in the system for those with mental health and addictions. Melissa Pearce is working towards...</div>
+		<div class="text-sm sc-item-detail">
+			<span class='sc-author'></span>
+			<span class='sc-time'><svg class="icon" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 24 24"><path fill="currentColor" d="M12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22C6.47,22 2,17.5 2,12A10,10 0 0,1 12,2M12.5,7V12.25L17,14.92L16.25,16.15L11,13V7H12.5Z" /></svg>21h ago</span>
+			<span class='sc-view'></span>
+			<span class="sc-image-attribution"></span>
+		</div>
+	</div>
+</div></div>
+	<div style='clear:both;'></div>
+	
+	<a href='/more-blog/?sort=publish_date&categories=4061-12&offset=6&items_per_page=6&items_per_more_page=30&el_class=&length_of_article_summary=150&display_author_name=no&display_view=no&display_date=yes&layout=-12&column_width=300&promo_position=default&target=&back_url=%2F&back_page_name=Home' class='btn btn-secondary moreBtn'>See More</a>
+	<div style='clear:both;'></div>
+</div><!-- Generated by: SoCast Blog List ({"last_updated":1793883314,"cache_namespace":930,"source":"elasticsearch","count":316,"query_time":40,"query_time_es":1,"age":0}) --></div></div></div></div>
+</div>			</div><!-- .entry-content -->
+
+	<footer class="entry-meta">
+			</footer><!-- #entry-meta -->
+</article><!-- #post-8 -->
+	<div style="clear:both;"></div>
+			</div>
+		<div class='sc-sidebar'>
+<div class="sidebar-content"><div class="wpb-content-wrapper"><div class="vc_row wpb_row vc_row-fluid sc-gridless"><div class="wpb_column vc_column_container vc_col-sm-12"><div class="vc_column-inner "><div class="wpb_wrapper"><div class='scWidgetContainer currentProgramWidget scGenericList sc-list sc-list-sm hide-desc hide-btn' >
+	<h2 class="sc-heading-widget">ON THE AIR</h2>
+	<div class='items-wrapper'><div class="sc-list-item item">
+	<a href='#' title='Listen Live' class='socastPlayerBtn sc-list-img' data-streamid="">
+		<div class='img-container'>
+			<img class='program-img sc-image ' src='https://media-cdn.socastsrm.com/wordpress/wp-content/blogs.dir/4061/files/2026/07/generic-program.jpeg' alt='' />
+			<div class='sc-overlay-play-btn btn btn-primary'><svg class="icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 24 24"><path fill="currentColor" d="M8,5.14V19.14L19,12.14L8,5.14Z"></path></svg></div>
+		</div>
+	</a>
+	<div class="sc-list-content sc-list-info program-info">
+		<div class='text-help np-text'></div>
+		<div class="sc-list-title program-title">Mid-Mornings</div>
+		<div class='current-timeslot sc-item-detail'><svg class="icon" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 24 24"><path fill="currentColor" d="M12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22C6.47,22 2,17.5 2,12A10,10 0 0,1 12,2M12.5,7V12.25L17,14.92L16.25,16.15L11,13V7H12.5Z" /></svg><span class='timetext'>9:15 AM - 11:00 AM</span></div>
+		<div class='program-description text'></div>
+	</div>
+</div></div>
+</div>
+	<div  class="wpb_single_image wpb_content_element vc_align_center">
+		
+		<figure class="wpb_wrapper vc_figure">
+			<a href="https://d3964.cms.socastsrm.com/birthday-club/" target="_self" class="vc_single_image-wrapper   vc_box_border_grey"><img loading="lazy" decoding="async" width="600" height="300" src="https://media-cdn.socastsrm.com/wordpress/wp-content/blogs.dir/4061/files/2026/09/bayfm-bday-club-robins.gif" class="vc_single_image-img attachment-full" alt="" title="BAYFM BDAY CLUB ROBINS" /></a>
+		</figure>
+	</div>
+
+	<div  class="wpb_single_image wpb_content_element vc_align_center">
+		
+		<figure class="wpb_wrapper vc_figure">
+			<a href="https://d3964.cms.socastsrm.com/camera" target="_self" class="vc_single_image-wrapper   vc_box_border_grey"><img loading="lazy" decoding="async" width="1000" height="523" src="https://media-cdn.socastsrm.com/wordpress/wp-content/blogs.dir/4061/files/2026/07/sky-cam.jpeg" class="vc_single_image-img attachment-large" alt="" title="sky cam"  /></a>
+		</figure>
+	</div>
+<h2 class='sc-heading-widget '><a href='https://www.bayfm.ca/recently-played/'>RECENTLY PLAYED</a></h2><div class="lastPlayedWidget scWidgetContainer showMore skip-0" data-listurl="https://socast-public.s3.amazonaws.com/player/lp_3964_3854.js" data-npurl="https://socast-public.s3.amazonaws.com/player/np_3964_3854.js" data-offset="0">
+	
+	<div class="songs"></div>
+	<div style='clear:both;'></div>
+	<a class='btn btn-silver moreBtn' href='javascript:;' data-next="" >More</a>
+</div><h2 class='sc-heading-widget '>CONNECT WITH BAYFM</h2><div class='scWidgetContainer scSocialIconsWidget align-center icons-medium'><div class='social-links'><a href='https://facebook.com/groups/bayfm' target='_blank' class='socialIconLink facebook'><img src='https://media-cdn.socastsrm.com/wordpress/wp-content/themes/common_images/social/facebook.png' alt='facebook' /></a><a href='https://twitter.com/boiradio' target='_blank' class='socialIconLink twitter'><img src='https://media-cdn.socastsrm.com/wordpress/wp-content/themes/common_images/social/twitter.png' alt='twitter' /></a><a href='https://apps.apple.com/us/app/100-1-bay-fm/id6474561119?itsct=apps_box_link&amp;itscg=30200' target='_blank' class='socialIconLink ios'><img src='https://media-cdn.socastsrm.com/wordpress/wp-content/themes/common_images/social/ios.png' alt='ios' /></a><a href='https://play.google.com/store/apps/details?id=ca.bayfm.player&amp;hl=en&amp;gl=US' target='_blank' class='socialIconLink android'><img src='https://media-cdn.socastsrm.com/wordpress/wp-content/themes/common_images/social/android.png' alt='android' /></a></div><script>
+		$(document).ready(function() {
+			var base_url = '/wordpress/wp-content/themes/';
+			var theme_images_dir = 'common_images/';
+		loadSvg('.scSocialIconsWidget .socialIconLink.facebook', base_url+theme_images_dir+'social/facebook', '', 'facebook');
+loadSvg('.scSocialIconsWidget .socialIconLink.twitter', base_url+theme_images_dir+'social/xitter', '', 'xitter');
+loadSvg('.scSocialIconsWidget .socialIconLink.ios', base_url+theme_images_dir+'social/ios', '', 'ios');
+loadSvg('.scSocialIconsWidget .socialIconLink.android', base_url+theme_images_dir+'social/android', '', 'android');
+});
+		</script></div><h2 class='sc-heading-widget '>SUPPORTERS</h2>
+	<div  class="wpb_single_image wpb_content_element vc_align_center">
+		
+		<figure class="wpb_wrapper vc_figure">
+			<div class="vc_single_image-wrapper   vc_box_border_grey"><img loading="lazy" decoding="async" width="300" height="50" src="https://media-cdn.socastsrm.com/wordpress/wp-content/blogs.dir/4061/files/2026/07/fundedbycanada-300x50.webp" class="vc_single_image-img attachment-medium" alt="" title="fundedbycanada"  /></div>
+		</figure>
+	</div>
+
+	<div  class="wpb_single_image wpb_content_element vc_align_center">
+		
+		<figure class="wpb_wrapper vc_figure">
+			<div class="vc_single_image-wrapper   vc_box_border_grey"><img loading="lazy" decoding="async" width="300" height="150" src="https://media-cdn.socastsrm.com/wordpress/wp-content/blogs.dir/4061/files/2026/07/govnl-logo-300x150.webp" class="vc_single_image-img attachment-medium" alt="" title="govnl logo"  /></div>
+		</figure>
+	</div>
+
+	<div  class="wpb_single_image wpb_content_element vc_align_center">
+		
+		<figure class="wpb_wrapper vc_figure">
+			<div class="vc_single_image-wrapper   vc_box_border_grey"><img loading="lazy" decoding="async" width="300" height="94" src="https://media-cdn.socastsrm.com/wordpress/wp-content/blogs.dir/4061/files/2026/07/crbk-logo-300x94.webp" class="vc_single_image-img attachment-medium" alt="" title="crbk logo"  /></div>
+		</figure>
+	</div>
+</div></div></div></div>
+</div></div></div>
+	</div>
+</div>
+</main>
+<footer id='theFooter' class='footerAlign-center footerWidth-full'><div class='footer-section footer-social'><ul class='nav social social-badge'>
+		<li><a href='facebook.com/groups/bayfm' title='Facebook' target='_blank' class='sc-center-box'><img alt='facebook' class='icon svg-loader' data-icon="facebook"  /></a></li>
+				<li><a href='twitter.com/boiradio' title='X' target='_blank' class='sc-center-box'><img alt='twitter' class='icon svg-loader' data-icon="xitter" /></a></li>
+																	</ul></div>
+<div class='footer-section footer-nav'>
+	<ul class="nav nav-expanded ">
+	<li>
+		<a href='https://www.bayfm.ca/advertise' target="_self" class="nav-item-parent hover-effect"><span class="hover-effect">Advertise</span></a></li>
+	<li>
+		<a href='/privacy' target="_self" class="nav-item-parent hover-effect"><span class="hover-effect">Privacy Policy</span></a></li>
+	<li>
+		<a href='/terms' target="_self" class="nav-item-parent hover-effect"><span class="hover-effect">Terms Of Service</span></a></li>
+</ul>
+</div>
+<div class='footer-section company '><img src='https://media-cdn.socastsrm.com/wordpress/wp-content/blogs.dir/4061/files/2026/07/bayfm-logo-white.png' class='company-logo' alt='Bay of Islands Radio Inc.' /></div>
+<div class="footer-section copyright">Copyright &copy; 2026. All Rights Reserved.</div>
+<div class='footer-section'>
+	<div id='socastTagline'>
+		<a id='poweredBySocastLink' href='https://www.socastdigital.com' target='_blank' rel='noopener noreferrer' >
+			<img src='https://media-cdn.socastsrm.com/wordpress/wp-content/themes/common_images/PoweredBySoCastTagline-White.png' alt='Powered by SoCast' />
+		</a>
+		<script>
+		$(document).ready(function() {
+			var image_type = '-White';
+			if (typeof footer_luminance != 'undefined' && footer_luminance < 127.5) image_type = '-Black';
+			loadSvg('#poweredBySocastLink', '/wordpress/wp-content/themes/common_images/PoweredBySoCastTagline', image_type, 'Powered by SoCast');
+		});
+		</script>
+	</div></div></footer><script type="text/javascript">
+function openLogin() {
+	window.location = "/login";
+}
+</script><script>
+	grecaptcha.ready(function(){
+		grecaptcha.execute("6LchdXMgAAAAAP4dU47UWMAhU0Tc8Uf0ldZrstqZ", {action: 'page_load'})
+		.then(_ => {
+			
+		});
+	});
+</script><script>
+(function () {
+	var NAME = 'sc_form_token';
+
+	function readCookie() {
+		var match = document.cookie.match(/(?:^|;\s*)sc_form_token=([^;]*)/);
+		return match ? decodeURIComponent(match[1]) : '';
+	}
+
+	function mintToken() {
+		var hex = '';
+		if (window.crypto && window.crypto.getRandomValues) {
+			var bytes = new Uint8Array(32);
+			window.crypto.getRandomValues(bytes);
+			for (var i = 0; i < bytes.length; i++) hex += ('0' + bytes[i].toString(16)).slice(-2);
+			return hex;
+		}
+		while (hex.length < 64) hex += Math.floor(Math.random() * 16).toString(16);
+		return hex;
+	}
+
+	/* The token the cookie holds, minting and storing one when it holds none. Returns
+	   '' when the cookie can't be written - a browser refusing cookies, or an older
+	   httponly sc_form_token still in place, which document.cookie may not overwrite.
+	   Either way the server-rendered field value is left exactly as it is. */
+	function currentToken() {
+		var token = readCookie();
+		if (token) return token;
+
+		token = mintToken();
+		var cookie = NAME + '=' + token + ';path=/;max-age=3600;samesite=Strict';
+		if (location.protocol === 'https:') cookie += ';secure';
+		document.cookie = cookie;
+
+		return readCookie() === token ? token : '';
+	}
+
+	function syncFields(scope) {
+		var fields = (scope || document).querySelectorAll('input[name="sc_form_token"]');
+		// No gated form in scope, so no reason to hand this visitor a cookie.
+		if (!fields.length) return;
+
+		var token = currentToken();
+		if (!token) return;
+		for (var i = 0; i < fields.length; i++) fields[i].value = token;
+	}
+
+	/* Capture phase, so the value is in place before the handlers that read the form
+	   back out - the comment and activity-stream forms serialize themselves and post
+	   over AJAX from their own submit handlers. */
+	document.addEventListener('submit', function (e) { syncFields(e.target); }, true);
+
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', function () { syncFields(); });
+	} else {
+		syncFields();
+	}
+})();
+</script><script type="speculationrules">
+{"prefetch":[{"source":"document","where":{"and":[{"href_matches":"\/*"},{"not":{"href_matches":["\/wp-*.php","\/wp-admin\/*","\/wordpress\/wp-content\/blogs.dir\/4061\/files\/*","\/wp-content\/*","\/wp-content\/plugins\/*","\/wp-content\/themes\/socast-3\/*","\/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}
+</script>
+<script type="text/html" id="wpb-modifications"> window.wpbCustomElement = 1; </script><script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places,marker&amp;key=AIzaSyBY5c5Bd4wOXXCjyQLKGbCfxiMhnOu0QQ4" id="socastcms_widgets_google_maps-js"></script>
+<script type="text/javascript" src="https://cdn-js.socastsrm.com/cdn_v18.6.6a/js/css-var-polyfill.js" id="css-polyfill-js"></script>
+<script type="text/javascript" src="https://cdn-js.socastsrm.com/cdn_v18.6.6a/wordpress/wp-content/plugins/js_composer/assets/js/dist/js_composer_front.min.js?ver=8.7.2" id="wpb_composer_front_js-js"></script>
+<script type="text/javascript" src="https://cdn-js.socastsrm.com/cdn_v18.6.6a/wordpress/wp-content/plugins/socast-widgets/js/widgets/featureRotator.js?v=2014-07-29&amp;ver=6.8.2" id="socast_featureRotator_script-js"></script>
+<script type="text/javascript" src="https://cdn-js.socastsrm.com/cdn_v18.6.6a/wordpress/wp-content/plugins/socast-widgets/js/widgets/blogNews.js?ver=6.8.2" id="socastcms_blogNews_script-js"></script>
+<script type="text/javascript" src="https://cdn-js.socastsrm.com/cdn_v18.6.6a/wordpress/wp-content/plugins/socast-widgets/js/widgets/lastPlayed.js?ver=6.8.2" id="socastcms_lastPlayed_script-js"></script>
+<script></script>	</body>
+</html>
