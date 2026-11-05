@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    
+    <title>Rádio Nova Geração FM</title>
+    <meta name="description" content="A rádio que ama você!">
+    <meta name="keywords" content="Radio, web, fm, nova geração, mogi das cruzes, conectado, online, gospel, evangelho, crente, evangélica, louvor, mundo, melhor, Amor, ama, você" />
+
+    <link rel="preconnect" href="https://www.googletagmanager.com">
+    <link rel="preconnect" href="https://www.youtube.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Rádio Nova Geração FM">
+    <meta property="og:description" content="A rádio que ama você!">
+    <meta property="og:image:width" content="600">
+    <meta property="og:image:height" content="600">
+    <meta property="og:image" content="http://www.radionovageracaofm.com.br/admin/assets/img/logo.png">
+    <meta property="og:url" content="http://www.radionovageracaofm.com.br/">
+
+
+
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="admin/assets/img/favicon.jpg">
+    <link rel="shortcut icon" href="admin/assets/img/favicon.jpg" />
+    <link href="https://fonts.googleapis.com/css?family=Oswald:400,700,300" rel="preload stylesheet" as="style">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,400italic,700" rel="preload stylesheet" as="style">
+
+
+    <link rel="preload stylesheet" as="style" type="text/css" href="assets/css/bootstrap.min.css?v=4.2.3
+">
+
+    <link rel="preload" as="font" crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/fonts/fontawesome-webfont.woff2?v=4.7.0">
+
+    <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="preload stylesheet" as="style" href="assets/css/jquery.vegas.css">
+    <link rel="preload stylesheet" as="style" href="assets/css/light.css?v=4.2.3
+">
+    <link rel="preload stylesheet" as="style" href="assets/css/orange.css?v=4.2.3
+">
+
+    <style type="text/css">
+        #audio-player {
+            font-size: 10px;
+            position: relative;
+            width: 100%;
+            bottom: 0;
+            z-index: 9999;
+            transition: all .2s ease-in-out;
+            -webkit-transition: all .2s ease-in-out;
+            -moz-transition: all .2s ease-in-out;
+            -o-transition: all .2s ease-in-out;
+            -ms-transition: all .2s ease-in-out;
+        }
+
+        .rock-player .controls {
+            z-index: 100;
+        }
+
+        .link-none {
+            padding-left: 0 !important;
+            margin-bottom: 0 !important;
+        }
+
+        .player-sticky {
+            position: sticky !important;
+            margin-right: 0px !important;
+        }
+    </style>
+
+    <link rel="preload stylesheet" as="style"  href="inc/chat/js/emoji/style.css?v=4.2.3
+"><link rel="preload stylesheet" as="style"  href="assets/css/flexslider.css?v=4.2.3
+">
+    <link rel="canonical" href="http://www.radionovageracaofm.com.br/">
+</head>
+
+<body>
+  <style type="text/css">
+	#audio-player {height: 50px; background: #ff8e24; border-top: none;}
+	.player{padding-top: 4px;}
+
+	.player audio{
+		height: 40px;
+	}
+
+</style>
+
+<div class="navbar-fixed-top player-sticky">
+	<section id="audio-player">
+	    <div class="text-center player">
+	    	<audio id="native_html5" autoplay="" controls="" preload="none">
+				<source src="https://virtues.live:8138/stream" type="audio/mpeg">
+				<source src="https://virtues.live:8138/stream" type="audio/mp3">
+				<source src="https://virtues.live:8138/stream" type="audio/aac">
+			</audio>
+	    </div>
+	</section>
+</div>
+
+<script type="text/javascript">
+	//autoplay
+	var player = document.getElementById('native_html5');
+	playPromise = player.play();
+    if (playPromise !== undefined) {
+	    playPromise.then(_ => {
+      		player.play();
+      }).catch(error => {
+      		player.pause();
+      });
+    }
+</script>  <header>
+  <nav class="navbar yamm navbar-default">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle fa fa-navicon" role="button" aria-label="Menu Navbar"></button>
+        <a class="navbar-brand" href="/">
+            <img loading="lazy" src="admin/assets/img/logo.png?November520261254pm16" alt="Rádio Nova Geração FM" />
+        </a>
+      </div>
+      <div class="nav_wrapper">
+        <div class="nav_scroll">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="/">Início</a></li>
+            <li ><a href="podcasts">Podcasts</a></li>
+            <li ><a href="news">Notícias</a></li>
+            <li class="dropdown "><a href="#">Galeria <i class="fa fa-caret-right"></i></a>
+              <ul class="dropdown-menu">
+                <li><a href="fotos">Fotos</a></li>
+                <li><a href="videos">Vídeos</a></li>
+              </ul>
+            </li>
+                          <li ><a href='mural'>Recados</a></li>
+                        <li ><a href="programacao">Programação</a></li>
+            <li ><a href="eventos">Eventos</a></li>
+            <li ><a href="equipe">Equipe</a></li>
+            <li ><a href="sobre">Sobre</a></li>
+            <li ><a href="contato">Contato</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<ul class="vegas-slides hidden">
+  <li><img loading="lazy" data-fade="2000"  src="admin/data/img/gallery/Bg/rBVaVVzENw2AUsxiAAKcJQLZu7k306.jpg" alt="" /></li>
+<li><img loading="lazy" data-fade="2000"  src="admin/data/img/gallery/Bg/praia-entardecer-wallpaper.jpg" alt="" /></li>
+<li><img loading="lazy" data-fade="2000"  src="admin/data/img/gallery/Bg/thumb2-winter-landscape-snow-forest-sunset-evening.jpg" alt="" /></li>
+<li><img loading="lazy" data-fade="2000"  src="admin/data/img/gallery/Bg/fundo-fotografico-infantil-176-x-275m-tema-estrada-1-D_NQ_NP_815960-MLB26138022721_102017-F.jpg" alt="" /></li>
+<li><img loading="lazy" data-fade="2000"  src="admin/data/img/gallery/Bg/Trigo 2 bg.jpg" alt="" /></li>
+<li><img loading="lazy" data-fade="2000"  src="admin/data/img/gallery/Bg/1216526.jpg" alt="" /></li>
+<li><img loading="lazy" data-fade="2000"  src="admin/data/img/gallery/Bg/Trigo bg.jpg" alt="" /></li>
+<li><img loading="lazy" data-fade="2000"  src="admin/data/img/gallery/Bg/win6.jpg" alt="" /></li>
+<li><img loading="lazy" data-fade="2000"  src="admin/data/img/gallery/Bg/Hunnewell.jpg" alt="" /></li>
+<li><img loading="lazy" data-fade="2000"  src="admin/data/img/gallery/Bg/papel-de-parede-cenico-com-um-close-up-de-girassol-contra-o-fundo-verde-com-flores-grandes-girassois-bonitos-ao-ar-livre_1391-372.jpg" alt="" /></li>
+<li><img loading="lazy" data-fade="2000"  src="admin/data/img/gallery/Bg/news-article-large_0.jpg" alt="" /></li>
+<li><img loading="lazy" data-fade="2000"  src="admin/data/img/gallery/Bg/a-paisagem-bonita-do-sol-da-praia-com-um-barco_1112-212.jpg" alt="" /></li>
+<li><img loading="lazy" data-fade="2000"  src="admin/data/img/gallery/Bg/original.jpg" alt="" /></li>
+<li><img loading="lazy" data-fade="2000"  src="admin/data/img/gallery/Bg/papel-de-parede-paisagem-por-do-sol-0008-adesivo-de-parede-papel-de-parede-para-quarto.jpg" alt="" /></li>
+<li><img loading="lazy" data-fade="2000"  src="admin/data/img/gallery/Bg/quadro-por-do-sol-paisagem-mar-praia-azul-55x100-D_NQ_NP_979207-MLB26017422665_092017-F.jpg" alt="" /></li>
+<li><img loading="lazy" data-fade="2000"  src="admin/data/img/gallery/Bg/istockphoto-468936610-612x612.jpg" alt="" /></li>
+<li><img loading="lazy" data-fade="2000"  src="admin/data/img/gallery/Bg/bPd4Ecd-1.jpg" alt="" /></li>
+ 
+</ul>
+  <div id="ajaxArea">
+    <div class="pageContentArea">
+      <section id="home-slider">
+        <div class="container">
+          <div class="home-inner">
+            <div id="homeSliderNav" class="slider-nav">
+              <a id="home-prev" href="#" class="prev fa fa-chevron-left"></a>
+              <a id="home-next" href="#" class="next fa fa-chevron-right"></a>
+            </div>
+            <div id="flex-home" class="flexslider" data-animation="slide" data-animationSpeed="1000" data-autoPlay="true" data-slideshowSpeed="7000">
+              <ul class="slides">
+                
+
+<li><img loading="lazy" src="admin/data/img/gallery/Slider/SLIDE APP.png" alt="" />
+</li>
+
+<li><img loading="lazy" src="admin/data/img/gallery/Slider/SLIDE REDES SOCIAIS SITE 2.png" alt="" />
+</li>
+
+<li><img loading="lazy" src="admin/data/img/gallery/Slider/SLIDE 4 PIX SITE.png" alt="" />
+</li>
+
+<li><img loading="lazy" src="admin/data/img/gallery/Slider/SLIDE SITE MIF CHURCH.png" alt="" />
+</li>
+
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="rockPlayerHolder"></div>
+      <div class="clearfix"></div>
+
+      <section id="updates">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <h1>Locutor no Ar</h1>
+              <span id="no-ar-home"></span>
+              
+              
+                          </div>
+
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                              <h1>Chat &quot;Encontro de Discípulos&quot;</h1>
+                <div class="chat-borda" style="width:100%; height:320px;">
+                  <span id="ChatBS"></span>
+                </div>
+              
+              
+              <h1>Últimas Notícias</h1>
+              <div class="row"><div class="col-md-12"><div class="news-feed"><a class="link-none" href="news-cristaos-louvam-e-pregam-nas-ruas-da-alemanha-no-dia-da-reforma-protestante"><img loading="lazy" src="https://media.guiame.com.br/archives/2026/11/03/4139348265-caminhada-de-louvor.jpg" alt="Cristãos louvam e pregam nas ruas da Alemanha no Dia da Reforma Protestante"></a><a href="news-cristaos-louvam-e-pregam-nas-ruas-da-alemanha-no-dia-da-reforma-protestante">Cristãos louvam e pregam nas ruas da Alemanha no Dia da Reforma Protestante</a><ul><li><span class="fa fa-calendar"></span>03/11/2026</li></ul><p>Um grupo de crist&atilde;os celebrou a Reforma Protestante nas ruas da Alemanha, ber&ccedil;o do movimento que impactou o mundo, na noite de s&aacute;...</p></div></div></div><div class="row"><div class="col-md-12"><div class="news-feed"><a class="link-none" href="news-gabriel-medina-vence-etapa-nas-filipinas-e-glorifica-a-deus-toda-honra-a-ti"><img loading="lazy" src="https://media.guiame.com.br/archives/2026/11/03/1987961588-gabriel-medina-apos-conquista-nas-filipinas.jpeg" alt="Gabriel Medina vence etapa nas Filipinas e glorifica a Deus: “Toda honra a Ti”"></a><a href="news-gabriel-medina-vence-etapa-nas-filipinas-e-glorifica-a-deus-toda-honra-a-ti">Gabriel Medina vence etapa nas Filipinas e glorifica a Deus: “Toda honra a Ti”</a><ul><li><span class="fa fa-calendar"></span>03/11/2026</li></ul><p>Ap&oacute;s vencer uma etapa do Circuito Mundial de Surfe (WSL), nas Filipinas, Gabriel Medina glorificou a Deus. Nesta ter&ccedil;a-feira (3), o surf...</p></div></div></div><div class="row"><div class="col-md-12"><div class="news-feed"><a class="link-none" href="news-centenas-de-evangelicos-clamam-pela-paz-em-frente-a-prefeitura-de-volta-redonda"><img loading="lazy" src="https://media.guiame.com.br/archives/2026/11/03/2700982852-clamor-volta-redonda.png" alt="Centenas de evangélicos clamam pela paz em frente à Prefeitura de Volta Redonda"></a><a href="news-centenas-de-evangelicos-clamam-pela-paz-em-frente-a-prefeitura-de-volta-redonda">Centenas de evangélicos clamam pela paz em frente à Prefeitura de Volta Redonda</a><ul><li><span class="fa fa-calendar"></span>03/11/2026</li></ul><p>Volta Redonda, no Sul Fluminense, reuniu centenas de fi&eacute;is em um clamor pela paz na manh&atilde; de segunda-feira (2). A mobiliza&ccedil;&atild...</p></div></div></div><div class="row"><div class="col-md-12"><div class="news-feed"><a class="link-none" href="news-frentes-evangelicas-repudiam-fala-de-youtuber-sobre-incendiar-igrejas-e-bandeira-de-israel"><img loading="lazy" src="https://media.guiame.com.br/archives/2026/11/03/2370545751-helder-maldonado.jpeg" alt="Frentes evangélicas repudiam fala de youtuber sobre incendiar igrejas e bandeira de Israel"></a><a href="news-frentes-evangelicas-repudiam-fala-de-youtuber-sobre-incendiar-igrejas-e-bandeira-de-israel">Frentes evangélicas repudiam fala de youtuber sobre incendiar igrejas e bandeira de Israel</a><ul><li><span class="fa fa-calendar"></span>03/11/2026</li></ul><p>As Frentes Evang&eacute;licas da C&acirc;mara dos Deputados e do Senado Federal repudiaram a fala do youtuber Helder Maldonado incentivando a viol&eci...</p></div></div></div>            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <h1>Aplicativos</h1>
+              <div class="banner-app">
+                                  <div class="text-center">
+                    <a class="no-ajaxy" href="https://play.google.com/store/apps/details?id=fe.virtues.ag.appradio.pro&amp;hl=pt&amp;gl=US" target="_blank">
+                      <img loading="lazy" src="assets/img/apk.png" alt="App Android">
+                    </a>
+                  </div> 
+                
+                                  <div class="text-center">
+                    <a class="no-ajaxy" href="https://apps.apple.com/br/app/r%C3%A1dio-nova-gera%C3%A7%C3%A3o-fm/id6480408796" target="_blank" width>
+                      <img loading="lazy" src="assets/img/ios2.png" alt="App Iphone">
+                    </a>
+                  </div> 
+                              </div>
+
+              <h1>Ouça no Celular</h1>
+              <div class="text-center">
+                                  <a class="no-ajaxy" href="https://play.google.com/store/apps/details?id=fe.virtues.ag.appradio.pro&amp;hl=pt&amp;gl=US" target="_blank">
+                    <img loading="lazy" class="celularimg" src="assets/img/android.png" alt="Android">
+                  </a>
+                
+                                  <a class="no-ajaxy" href="https://apps.apple.com/br/app/r%C3%A1dio-nova-gera%C3%A7%C3%A3o-fm/id6480408796" target="_blank">
+                    <img loading="lazy" class="celularimg" src="assets/img/ios.png" alt="Iphone">
+                  </a>
+                
+                
+                              </div>
+
+                            <h1>Último Recado</h1><article class="post-comments">
+
+		
+			<div class="comment-read">
+			<div class="comment-reply">
+				<a style="text-decoration: none;" href="/mural">
+					<b style="font-size:46px;" class="fa fa-user"></b>					<h3>LUCY  FERREIRA .</h3>
+					<h4>04/11/2026</h4>
+					<h5>RIO DE JANEIRO .</h5>
+					<p>Eu, outra vez. Por favor. Intercessores e ouvintes. Se possível, orem aO Criador, por mim, por minha irmã Eny e por amigos que também estão precisando, por motivo de saúde. Obrigada. Boa noite! Lucy Ferreira. Rio de Janeiro. Preciso muito. Que vossas orações possam chegar AO CRIADOR!</p>
+				</a>
+			</div>
+		</div>
+
+</article>                          </div>
+          </div>
+          <h1>Últimos Vídeos</h1>
+          <div class="text-center">
+                      </div>
+        </div>
+      </section>
+      <!-- youtube player modal -->
+      <div class="modal fade" id="youtube-player" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title"><span id="youtube-title"></span></h4>
+            </div>
+            <div class="modal-body">
+              <div class="embed-container">
+                <div id="youtube-embed"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><!--pageContent-->
+  </div><!--ajaxwrap-->
+  <section id="albums">
+	<div class="container">
+		<h1>Anunciantes</h1>
+		<div class="albums-carousel">
+			<div id="foo1">
+				<div class="album">
+		<img loading="lazy" src="admin/assets/img/anunciantes/0108-2024-08-07.png" alt="Nos Ouça pelo Tune-In!"/><div class="hover">
+		<ul>
+			<li><a class='no-ajaxy' href="https://tunein.com/radio/Radio-Nova-Geracao-FM-s330995/" target="_bank" aria-label="Nos Ouça pelo Tune-In!"><span class="fa fa-link"></span></a></li>
+		</ul>
+		<h3>Nos Ouça pelo Tune-In!</h3>
+		</div>
+		</div><div class="album">
+		<img loading="lazy" src="admin/assets/img/anunciantes/5330-2024-08-07.png" alt="Nos ouça pelo RádiosNet!"/><div class="hover">
+		<ul>
+			<li><a class='no-ajaxy' href="https://www.radios.com.br/aovivo/radio-nova-geracao-fm/32447" target="_bank" aria-label="Nos ouça pelo RádiosNet!"><span class="fa fa-link"></span></a></li>
+		</ul>
+		<h3>Nos ouça pelo RádiosNet!</h3>
+		</div>
+		</div><div class="album">
+		<img loading="lazy" src="admin/assets/img/anunciantes/7500-2024-08-07.png" alt="Nos ouça pelo Online RadioBox!"/><div class="hover">
+		<ul>
+			<li><a class='no-ajaxy' href="https://onlineradiobox.com/br/novageracaogospel/" target="_bank" aria-label="Nos ouça pelo Online RadioBox!"><span class="fa fa-link"></span></a></li>
+		</ul>
+		<h3>Nos ouça pelo Online RadioBox!</h3>
+		</div>
+		</div><div class="album">
+		<img loading="lazy" src="admin/assets/img/anunciantes/4635-2025-10-21.png" alt="Nos ouça pelo RádioTune.FM!"/><div class="hover">
+		<ul>
+			<li><a class='no-ajaxy' href="https://radiotune.fm/pt-es/@radio-nova-geracao-fm" target="_bank" aria-label="Nos ouça pelo RádioTune.FM!"><span class="fa fa-link"></span></a></li>
+		</ul>
+		<h3>Nos ouça pelo RádioTune.FM!</h3>
+		</div>
+		</div><div class="album">
+		<img loading="lazy" src="admin/assets/img/anunciantes/0221-2024-08-07.png" alt="Nos ouça pelo My Tuner!"/><div class="hover">
+		<ul>
+			<li><a class='no-ajaxy' href="https://mytuner-radio.com/pt/radio/radio-nova-geracao-fm1-505441/" target="_bank" aria-label="Nos ouça pelo My Tuner!"><span class="fa fa-link"></span></a></li>
+		</ul>
+		<h3>Nos ouça pelo My Tuner!</h3>
+		</div>
+		</div><div class="album">
+		<img loading="lazy" src="admin/assets/img/anunciantes/2309-2024-08-07.png" alt="Nos ouça pelo Simple Radio!"/><div class="hover">
+		<ul>
+			<li><a class='no-ajaxy' href="https://streema.com/radios/Novageracao_Gospel" target="_bank" aria-label="Nos ouça pelo Simple Radio!"><span class="fa fa-link"></span></a></li>
+		</ul>
+		<h3>Nos ouça pelo Simple Radio!</h3>
+		</div>
+		</div><div class="album">
+		<img loading="lazy" src="admin/assets/img/anunciantes/3324-2024-08-07.png" alt="Nos ouça pelo Radio NonStop!"/><div class="hover">
+		<ul>
+			<li><a class='no-ajaxy' href="https://thenonstopradio.com/radio/r%C3%A1dio_nova_gera%C3%A7%C3%A3o_gospel_br" target="_bank" aria-label="Nos ouça pelo Radio NonStop!"><span class="fa fa-link"></span></a></li>
+		</ul>
+		<h3>Nos ouça pelo Radio NonStop!</h3>
+		</div>
+		</div><div class="album">
+		<img loading="lazy" src="admin/assets/img/anunciantes/2009-2024-08-07.png" alt="Nos ouça pelo RadiosOnlineAoVivo!"/><div class="hover">
+		<ul>
+			<li><a class='no-ajaxy' href="https://radiosaovivo.net/nova-geracao-fm/" target="_bank" aria-label="Nos ouça pelo RadiosOnlineAoVivo!"><span class="fa fa-link"></span></a></li>
+		</ul>
+		<h3>Nos ouça pelo RadiosOnlineAoVivo!</h3>
+		</div>
+		</div><div class="album">
+		<img loading="lazy" src="admin/assets/img/anunciantes/9599-2024-08-07.png" alt="Nos ouça pelo CXRadio!"/><div class="hover">
+		<ul>
+			<li><a class='no-ajaxy' href="https://www.cxradio.com.br/radio/novageracao-gospel" target="_bank" aria-label="Nos ouça pelo CXRadio!"><span class="fa fa-link"></span></a></li>
+		</ul>
+		<h3>Nos ouça pelo CXRadio!</h3>
+		</div>
+		</div><div class="album">
+		<img loading="lazy" src="admin/assets/img/anunciantes/9676-2024-08-07.png" alt="Nos ouça pelo AppRadioFm.com!"/><div class="hover">
+		<ul>
+			<li><a class='no-ajaxy' href="https://share.appradiofm.com/egTf" target="_bank" aria-label="Nos ouça pelo AppRadioFm.com!"><span class="fa fa-link"></span></a></li>
+		</ul>
+		<h3>Nos ouça pelo AppRadioFm.com!</h3>
+		</div>
+		</div><div class="album">
+		<img loading="lazy" src="admin/assets/img/anunciantes/1979-2024-08-07.png" alt="Nos ouça pelo Radio.pt!"/><div class="hover">
+		<ul>
+			<li><a class='no-ajaxy' href="https://www.radio.pt/s/novageracaofm" target="_bank" aria-label="Nos ouça pelo Radio.pt!"><span class="fa fa-link"></span></a></li>
+		</ul>
+		<h3>Nos ouça pelo Radio.pt!</h3>
+		</div>
+		</div><div class="album">
+		<img loading="lazy" src="admin/assets/img/anunciantes/1193-2024-08-07.png" alt="Nos ouça pelo Radios Brasil!"/><div class="hover">
+		<ul>
+			<li><a class='no-ajaxy' href="https://radiosbrasil.com.br/radios/4617/" target="_bank" aria-label="Nos ouça pelo Radios Brasil!"><span class="fa fa-link"></span></a></li>
+		</ul>
+		<h3>Nos ouça pelo Radios Brasil!</h3>
+		</div>
+		</div><div class="album">
+		<img loading="lazy" src="admin/assets/img/anunciantes/5685-2024-08-07.png" alt="nos ouça pelo RádioAOVIVO.COM!"/><div class="hover">
+		<ul>
+			<li><a class='no-ajaxy' href="https://www.radio-ao-vivo.com/radio-nova-geracao-fm2" target="_bank" aria-label="nos ouça pelo RádioAOVIVO.COM!"><span class="fa fa-link"></span></a></li>
+		</ul>
+		<h3>nos ouça pelo RádioAOVIVO.COM!</h3>
+		</div>
+		</div><div class="album">
+		<img loading="lazy" src="admin/assets/img/anunciantes/4631-2024-08-08.png" alt="Nos ouça pelo Rádios Online Brasil!"/><div class="hover">
+		<ul>
+			<li><a class='no-ajaxy' href="https://radiosonlinebrasil.com.br/radios/sp/radio-nova-geracao-fm/" target="_bank" aria-label="Nos ouça pelo Rádios Online Brasil!"><span class="fa fa-link"></span></a></li>
+		</ul>
+		<h3>Nos ouça pelo Rádios Online Brasil!</h3>
+		</div>
+		</div><div class="album">
+		<img loading="lazy" src="admin/assets/img/anunciantes/1190-2026-03-04.png" alt="Nos ouça pelo Clube Rádios!"/><div class="hover">
+		<ul>
+			<li><a class='no-ajaxy' href="https://cluberadios.com.br/channel.php?id=59" target="_bank" aria-label="Nos ouça pelo Clube Rádios!"><span class="fa fa-link"></span></a></li>
+		</ul>
+		<h3>Nos ouça pelo Clube Rádios!</h3>
+		</div>
+		</div><div class="album">
+		<img loading="lazy" src="admin/assets/img/anunciantes/4520-2024-08-08.png" alt="Nos ouça pelo radio garden!"/><div class="hover">
+		<ul>
+			<li><a class='no-ajaxy' href="https://radio.garden/listen/radio-nova-geracao/XgHF1qSl" target="_bank" aria-label="Nos ouça pelo radio garden!"><span class="fa fa-link"></span></a></li>
+		</ul>
+		<h3>Nos ouça pelo radio garden!</h3>
+		</div>
+		</div><div class="album">
+		<img loading="lazy" src="admin/assets/img/anunciantes/0812-2025-10-21.png" alt="Nos ouça pelo radios-brasil.com!"/><div class="hover">
+		<ul>
+			<li><a class='no-ajaxy' href="https://radios-brasil.com/2145-radio-nova-geracao-fm.html" target="_bank" aria-label="Nos ouça pelo radios-brasil.com!"><span class="fa fa-link"></span></a></li>
+		</ul>
+		<h3>Nos ouça pelo radios-brasil.com!</h3>
+		</div>
+		</div>
+			</div>
+		</div>
+	</div>
+</section>  <footer>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-4 col-md-4 col-sm-4">
+				<h4><span class="fa fa-sitemap"></span>Menu</h4>
+				<div class="row">
+
+					<div class="col-lg-6 col-md-6 col-sm-6">
+						<ul class="sitemap">
+							<li><a href="home">Início</a></li>
+							<li><a href="podcasts">Podcasts</a></li>
+							<li><a href="sobre">Sobre</a></li>
+							<li><a href="news">Notícias</a></li>
+							<li><a href='mural'>Recados</a></li>							<li><a href="programacao">Programação</a></li>
+						</ul>
+					</div>
+
+					<div class="col-lg-6 col-md-6 col-sm-6">
+						<ul class="sitemap">
+							<li><a href="eventos">Eventos</a></li>
+							<li><a href="fotos">Fotos</a></li>
+							<li><a href="videos">Vídeos</a></li>
+							<li><a href="equipe">Equipe</a></li>
+							<li><a href="contato">Contato</a></li>
+							<li><a href="politica-de-privacidade">Política de Privacidade</a></li>
+						</ul>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="col-lg-2 col-md-2 col-sm-2">
+				<h4><span class="fa fa-info-circle"></span>Informações</h4>
+				<p>Rádio Nova Geração FM</p>
+				<p>A rádio que ama você!</p>
+			</div>
+
+			<div class="col-lg-3 col-md-3 col-sm-3">
+				<h4><span class="fa fa-umbrella"></span>Previsão do Tempo</h4>
+							</div>
+
+			<div class="col-lg-3 col-md-3 col-sm-3">
+				<h4><span class="fa fa-envelope"></span>Contato</h4>
+
+				<i class="fa fa-envelope-o fa-2x"></i> contato.radionovageracaofm@gmail.com				<br /><br />
+									<i class="fa fa-whatsapp fa-2x"></i> <a class="no-ajaxy" href="https://api.whatsapp.com/send?phone=5511967312173" target="_blank">WhatsApp</a>
+							</div>
+		</div>
+
+		<ul class="social">
+			<hr>
+			<span class="fa fa-info-circle"> Visitas: 980048 </span>   |   <span class="fa fa-info-circle"> Online: 22</span>			<br><br>
+
+							<li><a class="no-ajaxy" href="https://www.instagram.com/radio.novageracaofm/" target="_bank" title="Instagram" aria-label="Instagram"><span class="fa fa-instagram"></span></a></li>
+			
+							<li><a class="no-ajaxy" href="https://api.whatsapp.com/send?phone=5511967312173" target="_bank" title="WhatsApp"><span class="fa fa-whatsapp"></span></a></li>
+			
+			
+							<li><a class="no-ajaxy" href="https://www.youtube.com/@radio.novageracaofm" target="_bank" title="Youtube" aria-label="Youtube"><span class="fa fa-youtube"></span></a></li>
+			
+							<li><a class="no-ajaxy" href="https://www.facebook.com/r.novageracaofm/" target="_bank" title="Facebook" aria-label="Facebook"><span class="fa fa-facebook"></span></a></li>
+			
+							<li>
+					<a class="no-ajaxy" href="#" target="_bank" title="X - Twitter" aria-label="X - Twitter">
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="16pt" height="16pt">
+							<path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z" />
+						</svg>
+					</a>
+				</li>
+			
+			
+			
+							<li><a class="no-ajaxy" href="#" target="_bank" title="Pinterest" aria-label="Pinterest"><span class="fa fa-pinterest"></span></a></li>
+			
+							<li><a class="no-ajaxy" href="#" target="_bank" title="Linkedin" aria-label="Linkedin"><span class="fa fa-linkedin"></span></a></li>
+			
+							<li><a class="no-ajaxy" href="#" target="_bank" title="Flickr" aria-label="Flickr"><span class="fa fa-flickr"></span></a></li>
+			
+		</ul>
+		<p class="text-center">Rádio Nova Geração FM © 2026 - Todos os direitos reservados.</p>
+	</div>
+</footer>
+
+  <!-- <script async src="assets/js/modernizr-2.6.2-respond-1.1.0.min.js"></script> -->
+<script defer src="assets/js/jquery.js"></script>
+<script defer src="assets/js/ajaxify.min.js"></script>
+<script defer src="assets/js/bootstrap.min.js?v=4.2.3
+"></script>
+<script defer src="assets/js/jquery.carouFredSel-6.2.1-packed.js?v=4.2.3
+"></script>
+<script defer src="assets/js/jquery.vegas.min.js?v=4.2.3
+"></script>
+<script defer src="assets/js/jquery.flexslider-min.js?v=4.2.3
+"></script>
+<script defer src="assets/jPlayer/jquery.jplayer.min.js"></script>
+<script defer src="assets/jPlayer/add-on/jplayer.playlist.min.js"></script>
+<script defer src="assets/js/main.min.js?v=4.2.3
+"></script>
+<script defer src="admin/includes/tracker.js?uri=/&ref="></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id="></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', '');
+</script>      <script defer src="inc/chat/jaxinit.js?November520261254pm16"></script>
+  </body>
+
+</html>
