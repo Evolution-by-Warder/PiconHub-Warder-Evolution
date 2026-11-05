@@ -10778,7 +10778,10 @@
       "previous_transient_error": [
         "curl: (28) Operation timed out after 8001 milliseconds with 375328 bytes received\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (28) Operation timed out after 8000 milliseconds with 371148 bytes received\n"
+      ]
     },
     "4097:0:2:AC6A:B5FA:ED:0:0:0:0": {
       "name": "D2BS",
@@ -10796,7 +10799,10 @@
       "previous_transient_error": [
         "curl: (6) Could not resolve host: d2bs.nl\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (6) Could not resolve host: d2bs.nl\n"
+      ]
     },
     "4097:0:2:D1CD:2B08:ED:0:0:0:0": {
       "name": "New Dance Radio",
@@ -10814,7 +10820,10 @@
       "previous_transient_error": [
         "curl: (6) Could not resolve host: newdanceradio.fun\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (6) Could not resolve host: newdanceradio.fun\n"
+      ]
     },
     "4097:0:2:78D3:648C:ED:0:0:0:0": {
       "name": "Omroep Eemsdelta",
@@ -10834,7 +10843,11 @@
         "curl: (6) Could not resolve host: www.omroepbovengroningen.nlhome\n",
         "curl: (6) Could not resolve host: www.omroepbovengroningen.nlhome\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (6) Could not resolve host: www.omroepbovengroningen.nlhome\n",
+        "curl: (6) Could not resolve host: www.omroepbovengroningen.nlhome\n"
+      ]
     },
     "4097:0:2:8CBF:ACCD:ED:0:0:0:0": {
       "name": "90s Pinoy Alternative",
@@ -10852,7 +10865,10 @@
       "previous_transient_error": [
         "curl: (28) Operation timed out after 8000 milliseconds with 242200 bytes received\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (28) Operation timed out after 8000 milliseconds with 243600 bytes received\n"
+      ]
     },
     "4097:0:2:559B:3970:ED:0:0:0:0": {
       "name": "Easy Rock La Union 106.7 FM",
@@ -10875,7 +10891,33 @@
         "curl: (22) The requested URL returned error: 429\n",
         "curl: (22) The requested URL returned error: 403\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "source": {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/c/c2/Easy_Rock_logo_2021.svg",
+        "final_url": "https://upload.wikimedia.org/wikipedia/commons/c/c2/Easy_Rock_logo_2021.svg",
+        "path": "originals/39a4ce747292535c06d82476b7b83017216bccd7c96598d26bc78596aa3cc3f5.img",
+        "sha256": "39a4ce747292535c06d82476b7b83017216bccd7c96598d26bc78596aa3cc3f5",
+        "bytes": 7123,
+        "dimensions": [
+          640,
+          361
+        ],
+        "format": "SVG",
+        "frozen_svg_raster": {
+          "path": "rasterized/08897dd8cd520715f57f80ea1a1e3bcacef5e3c352c398d2938afc589a6d2923.png",
+          "sha256": "08897dd8cd520715f57f80ea1a1e3bcacef5e3c352c398d2938afc589a6d2923",
+          "cairosvg_version": "2.8.2"
+        }
+      },
+      "catalogue_evidence": {
+        "catalogue_snapshot": "e90a1fe3a2734b555f48f343284f9103530180fb",
+        "catalogue_station_id": "4c8a74c614b278fd26f40be1",
+        "exact_receiver_reference": "4097:0:2:559B:3970:ED:0:0:0:0",
+        "exact_receiver_stream": "http://proxima.shoutca.st:8227/stream",
+        "catalogue_supplied_image_url": "https://upload.wikimedia.org/wikipedia/commons/c/c2/Easy_Rock_logo_2021.svg",
+        "current_homepage_not_confirmed": true
+      },
+      "status": "candidate_catalogue_artwork_needs_visual_identity",
+      "verification": "Image URL supplied by the uniquely matched frozen catalogue programme; recovered after an earlier transient network failure. Visual identity still requires review; no confirmed current homepage is claimed."
     },
     "4097:0:2:94C2:5D92:ED:0:0:0:0": {
       "name": "Win Radio Cagayan de Oro",
@@ -10896,7 +10938,11 @@
         "curl: (22) The requested URL returned error: 404\n",
         "curl: (22) The requested URL returned error: 500\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (22) The requested URL returned error: 404\n",
+        "curl: (22) The requested URL returned error: 500\n"
+      ]
     },
     "4097:0:2:A684:3C69:ED:0:0:0:0": {
       "name": "Arturo Toscanini - Classical Radio",
@@ -10917,7 +10963,11 @@
         "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n",
         "curl: (22) The requested URL returned error: 402\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n",
+        "curl: (22) The requested URL returned error: 402\n"
+      ]
     },
     "4097:0:2:71B4:423D:ED:0:0:0:0": {
       "name": "Berlin Philharmonic Orchestra - Classical Radio",
@@ -10935,7 +10985,10 @@
       "previous_transient_error": [
         "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n"
+      ]
     },
     "4097:0:2:56D9:82E0:ED:0:0:0:0": {
       "name": "Boomerang 2020s",
@@ -10954,7 +11007,10 @@
       "previous_transient_error": [
         "curl: (6) Could not resolve host: greatesthits.radio\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (6) Could not resolve host: greatesthits.radio\n"
+      ]
     },
     "4097:0:2:B34C:7E5:ED:0:0:0:0": {
       "name": "Boomerang 40's",
@@ -10973,7 +11029,10 @@
       "previous_transient_error": [
         "curl: (6) Could not resolve host: greatesthits.radio\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (6) Could not resolve host: greatesthits.radio\n"
+      ]
     },
     "4097:0:2:28D0:42FF:ED:0:0:0:0": {
       "name": "Boomerang 60's",
@@ -10992,7 +11051,10 @@
       "previous_transient_error": [
         "curl: (6) Could not resolve host: greatesthits.radio\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (6) Could not resolve host: greatesthits.radio\n"
+      ]
     },
     "4097:0:2:3527:B541:ED:0:0:0:0": {
       "name": "Boomerang 70's",
@@ -11011,7 +11073,10 @@
       "previous_transient_error": [
         "curl: (6) Could not resolve host: greatesthits.radio\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (6) Could not resolve host: greatesthits.radio\n"
+      ]
     },
     "4097:0:2:1D1E:9E37:ED:0:0:0:0": {
       "name": "Bryn Terfel - Classical Radio",
@@ -11032,7 +11097,11 @@
         "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n",
         "curl: (22) The requested URL returned error: 402\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n",
+        "curl: (22) The requested URL returned error: 402\n"
+      ]
     },
     "4097:0:2:6D4D:FF34:ED:0:0:0:0": {
       "name": "Classical Radio - Andrea Segovia",
@@ -11051,7 +11120,10 @@
       "previous_transient_error": [
         "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n"
+      ]
     },
     "4097:0:2:E063:7FEB:ED:0:0:0:0": {
       "name": "Classical Radio - André Rieu",
@@ -11071,7 +11143,11 @@
         "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n",
         "curl: (22) The requested URL returned error: 402\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n",
+        "curl: (22) The requested URL returned error: 402\n"
+      ]
     },
     "4097:0:2:1893:24E1:ED:0:0:0:0": {
       "name": "Classical Radio - Bavarian Radio Symphony Orchestr",
@@ -11091,7 +11167,11 @@
         "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n",
         "curl: (22) The requested URL returned error: 402\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n",
+        "curl: (22) The requested URL returned error: 402\n"
+      ]
     },
     "4097:0:2:4E93:92DF:EC:0:0:0:0": {
       "name": "Classical Radio - Calm",
@@ -11110,7 +11190,10 @@
       "previous_transient_error": [
         "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n"
+      ]
     },
     "4097:0:2:917B:8DFB:ED:0:0:0:0": {
       "name": "Classical Radio  -  Chicago Symphony Orchestra",
@@ -11128,7 +11211,10 @@
       "previous_transient_error": [
         "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n"
+      ]
     },
     "4097:0:2:2C6C:DB09:ED:0:0:0:0": {
       "name": "Classical Radio - Handel",
@@ -11149,7 +11235,11 @@
         "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n",
         "curl: (22) The requested URL returned error: 402\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n",
+        "curl: (22) The requested URL returned error: 402\n"
+      ]
     },
     "4097:0:2:3EE2:B39E:ED:0:0:0:0": {
       "name": "Classical Radio - John Williams",
@@ -11170,7 +11260,28 @@
         "curl: (22) The requested URL returned error: 404\n",
         "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "source": {
+        "url": "https://cdn.audioaddict.com/classicalradio.com/assets/apple-touch-icon-120x120-7922555f3bb73e6e492c46abda410434ea8ca2dd3349ce116a1511dde6f4f584.png",
+        "final_url": "https://cdn.audioaddict.com/classicalradio.com/assets/apple-touch-icon-120x120-7922555f3bb73e6e492c46abda410434ea8ca2dd3349ce116a1511dde6f4f584.png",
+        "path": "originals/7922555f3bb73e6e492c46abda410434ea8ca2dd3349ce116a1511dde6f4f584.img",
+        "sha256": "7922555f3bb73e6e492c46abda410434ea8ca2dd3349ce116a1511dde6f4f584",
+        "bytes": 19680,
+        "dimensions": [
+          120,
+          120
+        ],
+        "format": "PNG"
+      },
+      "catalogue_evidence": {
+        "catalogue_snapshot": "e90a1fe3a2734b555f48f343284f9103530180fb",
+        "catalogue_station_id": "3c9bfe529920b437fc6b0aee",
+        "exact_receiver_reference": "4097:0:2:3EE2:B39E:ED:0:0:0:0",
+        "exact_receiver_stream": "https://drive.uber.radio/uber/crjohnwilliams/icecast.audio",
+        "catalogue_supplied_image_url": "https://cdn.audioaddict.com/classicalradio.com/assets/apple-touch-icon-120x120-7922555f3bb73e6e492c46abda410434ea8ca2dd3349ce116a1511dde6f4f584.png",
+        "current_homepage_not_confirmed": true
+      },
+      "status": "candidate_catalogue_artwork_needs_visual_identity",
+      "verification": "Image URL supplied by the uniquely matched frozen catalogue programme; recovered after an earlier transient network failure. Visual identity still requires review; no confirmed current homepage is claimed."
     },
     "4097:0:2:D55C:A919:ED:0:0:0:0": {
       "name": "Classical Radio  - Lang Lang",
@@ -11188,7 +11299,10 @@
       "previous_transient_error": [
         "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n"
+      ]
     },
     "4097:0:2:6D19:1181:ED:0:0:0:0": {
       "name": "Classical Radio - Liszt",
@@ -11208,7 +11322,10 @@
       "previous_transient_error": [
         "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n"
+      ]
     },
     "4097:0:2:CFA:869C:ED:0:0:0:0": {
       "name": "Classical Radio - London Symphony Orchestra",
@@ -11228,7 +11345,11 @@
         "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n",
         "curl: (22) The requested URL returned error: 402\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n",
+        "curl: (22) The requested URL returned error: 402\n"
+      ]
     },
     "4097:0:2:A96F:9797:ED:0:0:0:0": {
       "name": "Classical Radio - Luciano Pavarotti",
@@ -11249,7 +11370,11 @@
         "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n",
         "curl: (22) The requested URL returned error: 402\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n",
+        "curl: (22) The requested URL returned error: 402\n"
+      ]
     },
     "4097:0:2:F50D:66FE:ED:0:0:0:0": {
       "name": "Classical Radio - New Releases",
@@ -11270,7 +11395,11 @@
         "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n",
         "curl: (22) The requested URL returned error: 402\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n",
+        "curl: (22) The requested URL returned error: 402\n"
+      ]
     },
     "4097:0:2:8EE7:BE62:ED:0:0:0:0": {
       "name": "Classical Radio - Nigel Kennedy",
@@ -11291,7 +11420,11 @@
         "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n",
         "curl: (22) The requested URL returned error: 402\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n",
+        "curl: (22) The requested URL returned error: 402\n"
+      ]
     },
     "4097:0:2:F2D:7B23:ED:0:0:0:0": {
       "name": "Classical Radio - Placido Domingo",
@@ -11312,7 +11445,11 @@
         "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n",
         "curl: (22) The requested URL returned error: 402\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n",
+        "curl: (22) The requested URL returned error: 402\n"
+      ]
     },
     "4097:0:2:B532:F58B:ED:0:0:0:0": {
       "name": "Classical Radio - Ralph Vaughan Williams",
@@ -11333,7 +11470,11 @@
         "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n",
         "curl: (22) The requested URL returned error: 402\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n",
+        "curl: (22) The requested URL returned error: 402\n"
+      ]
     },
     "4097:0:2:A350:277E:ED:0:0:0:0": {
       "name": "Classical Radio  - Sibelius",
@@ -11354,7 +11495,11 @@
         "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n",
         "curl: (22) The requested URL returned error: 402\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n",
+        "curl: (22) The requested URL returned error: 402\n"
+      ]
     },
     "4097:0:2:E8D9:871:ED:0:0:0:0": {
       "name": "Classical Radio-  Sir Adrian Boult",
@@ -11375,7 +11520,11 @@
         "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n",
         "curl: (22) The requested URL returned error: 402\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n",
+        "curl: (22) The requested URL returned error: 402\n"
+      ]
     },
     "4097:0:2:F7C:25AA:ED:0:0:0:0": {
       "name": "Classical Radio  - Sir Colin Davis",
@@ -11396,7 +11545,11 @@
         "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n",
         "curl: (22) The requested URL returned error: 402\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n",
+        "curl: (22) The requested URL returned error: 402\n"
+      ]
     },
     "4097:0:2:D694:7960:ED:0:0:0:0": {
       "name": "Classical Radio - Sir Simon Rattle",
@@ -11419,7 +11572,12 @@
         "curl: (22) The requested URL returned error: 402\n",
         "curl: (22) The requested URL returned error: 402\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n",
+        "curl: (22) The requested URL returned error: 402\n",
+        "curl: (22) The requested URL returned error: 402\n"
+      ]
     },
     "4097:0:2:60D4:A536:ED:0:0:0:0": {
       "name": "Classical Radio  - Stravinsky",
@@ -11438,7 +11596,10 @@
       "previous_transient_error": [
         "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n"
+      ]
     },
     "4097:0:2:316F:88F8:ED:0:0:0:0": {
       "name": "Classical Radio - Tchaikovsky",
@@ -11459,7 +11620,28 @@
         "curl: (22) The requested URL returned error: 404\n",
         "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "source": {
+        "url": "https://cdn.audioaddict.com/classicalradio.com/assets/apple-touch-icon-120x120-7922555f3bb73e6e492c46abda410434ea8ca2dd3349ce116a1511dde6f4f584.png",
+        "final_url": "https://cdn.audioaddict.com/classicalradio.com/assets/apple-touch-icon-120x120-7922555f3bb73e6e492c46abda410434ea8ca2dd3349ce116a1511dde6f4f584.png",
+        "path": "originals/7922555f3bb73e6e492c46abda410434ea8ca2dd3349ce116a1511dde6f4f584.img",
+        "sha256": "7922555f3bb73e6e492c46abda410434ea8ca2dd3349ce116a1511dde6f4f584",
+        "bytes": 19680,
+        "dimensions": [
+          120,
+          120
+        ],
+        "format": "PNG"
+      },
+      "catalogue_evidence": {
+        "catalogue_snapshot": "e90a1fe3a2734b555f48f343284f9103530180fb",
+        "catalogue_station_id": "4c1bc4deea4465a950862fab",
+        "exact_receiver_reference": "4097:0:2:316F:88F8:ED:0:0:0:0",
+        "exact_receiver_stream": "https://drive.uber.radio/uber/crtchaikovsky/icecast.audio",
+        "catalogue_supplied_image_url": "https://cdn.audioaddict.com/classicalradio.com/assets/apple-touch-icon-120x120-7922555f3bb73e6e492c46abda410434ea8ca2dd3349ce116a1511dde6f4f584.png",
+        "current_homepage_not_confirmed": true
+      },
+      "status": "candidate_catalogue_artwork_needs_visual_identity",
+      "verification": "Image URL supplied by the uniquely matched frozen catalogue programme; recovered after an earlier transient network failure. Visual identity still requires review; no confirmed current homepage is claimed."
     },
     "4097:0:2:ACF1:3A1B:ED:0:0:0:0": {
       "name": "Classical Radio - Verdi",
@@ -11480,7 +11662,28 @@
         "curl: (22) The requested URL returned error: 404\n",
         "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "source": {
+        "url": "https://cdn.audioaddict.com/classicalradio.com/assets/apple-touch-icon-120x120-7922555f3bb73e6e492c46abda410434ea8ca2dd3349ce116a1511dde6f4f584.png",
+        "final_url": "https://cdn.audioaddict.com/classicalradio.com/assets/apple-touch-icon-120x120-7922555f3bb73e6e492c46abda410434ea8ca2dd3349ce116a1511dde6f4f584.png",
+        "path": "originals/7922555f3bb73e6e492c46abda410434ea8ca2dd3349ce116a1511dde6f4f584.img",
+        "sha256": "7922555f3bb73e6e492c46abda410434ea8ca2dd3349ce116a1511dde6f4f584",
+        "bytes": 19680,
+        "dimensions": [
+          120,
+          120
+        ],
+        "format": "PNG"
+      },
+      "catalogue_evidence": {
+        "catalogue_snapshot": "e90a1fe3a2734b555f48f343284f9103530180fb",
+        "catalogue_station_id": "e7ff6b7e71186459978dc7a8",
+        "exact_receiver_reference": "4097:0:2:ACF1:3A1B:ED:0:0:0:0",
+        "exact_receiver_stream": "https://drive.uber.radio/uber/crverdi/icecast.audio",
+        "catalogue_supplied_image_url": "https://cdn.audioaddict.com/classicalradio.com/assets/apple-touch-icon-120x120-7922555f3bb73e6e492c46abda410434ea8ca2dd3349ce116a1511dde6f4f584.png",
+        "current_homepage_not_confirmed": true
+      },
+      "status": "candidate_catalogue_artwork_needs_visual_identity",
+      "verification": "Image URL supplied by the uniquely matched frozen catalogue programme; recovered after an earlier transient network failure. Visual identity still requires review; no confirmed current homepage is claimed."
     },
     "4097:0:2:E62E:DD86:ED:0:0:0:0": {
       "name": "Classical Radio - Vienna Philharmonic",
@@ -11500,7 +11703,11 @@
         "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n",
         "curl: (22) The requested URL returned error: 402\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n",
+        "curl: (22) The requested URL returned error: 402\n"
+      ]
     },
     "4097:0:2:CE2:F2BC:ED:0:0:0:0": {
       "name": "Classical Radio - Vladamir Horowitz",
@@ -11524,7 +11731,12 @@
         "curl: (22) The requested URL returned error: 402\n",
         "curl: (22) The requested URL returned error: 402\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n",
+        "curl: (22) The requested URL returned error: 402\n",
+        "curl: (22) The requested URL returned error: 402\n"
+      ]
     },
     "4097:0:2:B502:6CF1:ED:0:0:0:0": {
       "name": "Classica Radio - Ravel",
@@ -11545,7 +11757,11 @@
         "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n",
         "curl: (22) The requested URL returned error: 402\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n",
+        "curl: (22) The requested URL returned error: 402\n"
+      ]
     },
     "4097:0:2:275C:3F52:ED:0:0:0:0": {
       "name": "Cleveland Orchestra - Classical Radio",
@@ -11566,7 +11782,11 @@
         "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n",
         "curl: (22) The requested URL returned error: 402\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n",
+        "curl: (22) The requested URL returned error: 402\n"
+      ]
     },
     "4097:0:2:3543:C8B4:ED:0:0:0:0": {
       "name": "C.R. - Royal Concert Orchestra of Netherlands",
@@ -11584,7 +11804,10 @@
       "previous_transient_error": [
         "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n"
+      ]
     },
     "4097:0:2:CB26:360B:ED:0:0:0:0": {
       "name": "Easy 10s",
@@ -11602,7 +11825,10 @@
       "previous_transient_error": [
         "curl: (6) Could not resolve host: easy.radio\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (6) Could not resolve host: easy.radio\n"
+      ]
     },
     "4097:0:2:7E9D:246D:ED:0:0:0:0": {
       "name": "Easy Andrea Bocelli",
@@ -11623,7 +11849,11 @@
         "curl: (6) Could not resolve host: easy.radio\n",
         "curl: (22) The requested URL returned error: 402\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (6) Could not resolve host: easy.radio\n",
+        "curl: (22) The requested URL returned error: 402\n"
+      ]
     },
     "4097:0:2:87F9:965E:ED:0:0:0:0": {
       "name": "Easy Andy Williams",
@@ -11641,7 +11871,10 @@
       "previous_transient_error": [
         "curl: (6) Could not resolve host: easy.radio\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (6) Could not resolve host: easy.radio\n"
+      ]
     },
     "4097:0:2:9BDB:43C6:ED:0:0:0:0": {
       "name": "Easy Barbra Streisand",
@@ -11659,7 +11892,10 @@
       "previous_transient_error": [
         "curl: (6) Could not resolve host: easy.radio\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (6) Could not resolve host: easy.radio\n"
+      ]
     },
     "4097:0:2:702E:AE14:ED:0:0:0:0": {
       "name": "Easy Classical",
@@ -11677,7 +11913,10 @@
       "previous_transient_error": [
         "curl: (6) Could not resolve host: easy.radio\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (6) Could not resolve host: easy.radio\n"
+      ]
     },
     "4097:0:2:9415:936C:ED:0:0:0:0": {
       "name": "Easy Country",
@@ -11695,7 +11934,10 @@
       "previous_transient_error": [
         "curl: (6) Could not resolve host: easy.radio\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (6) Could not resolve host: easy.radio\n"
+      ]
     },
     "4097:0:2:9133:1B6B:ED:0:0:0:0": {
       "name": "Easy Instrumentals",
@@ -11713,7 +11955,10 @@
       "previous_transient_error": [
         "curl: (6) Could not resolve host: easy.radio\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (6) Could not resolve host: easy.radio\n"
+      ]
     },
     "4097:0:2:CBF9:9CBF:ED:0:0:0:0": {
       "name": "Easy James Last",
@@ -11731,7 +11976,10 @@
       "previous_transient_error": [
         "curl: (6) Could not resolve host: easy.radio\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (6) Could not resolve host: easy.radio\n"
+      ]
     },
     "4097:0:2:9248:CD99:ED:0:0:0:0": {
       "name": "Exclusively Dean Martin",
@@ -11752,7 +12000,11 @@
         "curl: (6) Could not resolve host: d3kle7qwymxpcy.cloudfront.net\n",
         "curl: (7) Failed to connect to en-ie.radioline.co port 443 after 1018 ms: Couldn't connect to server\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (6) Could not resolve host: d3kle7qwymxpcy.cloudfront.net\n",
+        "curl: (7) Failed to connect to en-ie.radioline.co port 443 after 756 ms: Couldn't connect to server\n"
+      ]
     },
     "4097:0:2:7660:3BFE:ED:0:0:0:0": {
       "name": "Exclusively Foo Fighters",
@@ -11770,7 +12022,10 @@
       "previous_transient_error": [
         "curl: (6) Could not resolve host: d3kle7qwymxpcy.cloudfront.net\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (6) Could not resolve host: d3kle7qwymxpcy.cloudfront.net\n"
+      ]
     },
     "4097:0:2:BE11:47CF:ED:0:0:0:0": {
       "name": "Exclusively Guns N’ Roses",
@@ -11788,7 +12043,10 @@
       "previous_transient_error": [
         "curl: (6) Could not resolve host: d3kle7qwymxpcy.cloudfront.net\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (6) Could not resolve host: d3kle7qwymxpcy.cloudfront.net\n"
+      ]
     },
     "4097:0:2:1718:5E35:ED:0:0:0:0": {
       "name": "Exclusively Iron Maiden",
@@ -11806,7 +12064,10 @@
       "previous_transient_error": [
         "curl: (6) Could not resolve host: d3kle7qwymxpcy.cloudfront.net\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (6) Could not resolve host: d3kle7qwymxpcy.cloudfront.net\n"
+      ]
     },
     "4097:0:2:E8E:AD56:ED:0:0:0:0": {
       "name": "Exclusively Shania Twain",
@@ -11824,7 +12085,10 @@
       "previous_transient_error": [
         "curl: (6) Could not resolve host: d3kle7qwymxpcy.cloudfront.net\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (6) Could not resolve host: d3kle7qwymxpcy.cloudfront.net\n"
+      ]
     },
     "4097:0:2:307C:D4B4:ED:0:0:0:0": {
       "name": "Fun Radio For Kids - Bedtime Stories",
@@ -11842,7 +12106,10 @@
       "previous_transient_error": [
         "curl: (6) Could not resolve host: forkids.radio\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (6) Could not resolve host: forkids.radio\n"
+      ]
     },
     "4097:0:2:9501:839:ED:0:0:0:0": {
       "name": "Greatest Hits 1950's",
@@ -11861,7 +12128,10 @@
       "previous_transient_error": [
         "curl: (6) Could not resolve host: greatesthits.radio\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (6) Could not resolve host: greatesthits.radio\n"
+      ]
     },
     "4097:0:2:73D4:C513:ED:0:0:0:0": {
       "name": "Greatest Hits 1980's",
@@ -11880,7 +12150,10 @@
       "previous_transient_error": [
         "curl: (6) Could not resolve host: greatesthits.radio\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (6) Could not resolve host: greatesthits.radio\n"
+      ]
     },
     "4097:0:2:B8C9:1CE:ED:0:0:0:0": {
       "name": "Greatest Hits 2000's",
@@ -11899,7 +12172,10 @@
       "previous_transient_error": [
         "curl: (6) Could not resolve host: greatesthits.radio\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (6) Could not resolve host: greatesthits.radio\n"
+      ]
     },
     "4097:0:2:4D18:B194:ED:0:0:0:0": {
       "name": "Greatest Hits 2010's",
@@ -11918,7 +12194,10 @@
       "previous_transient_error": [
         "curl: (6) Could not resolve host: greatesthits.radio\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (6) Could not resolve host: greatesthits.radio\n"
+      ]
     },
     "4097:0:2:9D5F:56B8:ED:0:0:0:0": {
       "name": "Herbert Von Karajan - Classical Radio",
@@ -11938,7 +12217,11 @@
         "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n",
         "curl: (22) The requested URL returned error: 404\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n",
+        "curl: (22) The requested URL returned error: 404\n"
+      ]
     },
     "4097:0:2:F34A:2B96:ED:0:0:0:0": {
       "name": "Joan Sutherland - Classical Radio",
@@ -11958,7 +12241,11 @@
         "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n",
         "curl: (22) The requested URL returned error: 402\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n",
+        "curl: (22) The requested URL returned error: 402\n"
+      ]
     },
     "4097:0:2:1F4E:14C9:ED:0:0:0:0": {
       "name": "José Carreras - Classical Radio",
@@ -11977,7 +12264,10 @@
       "previous_transient_error": [
         "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n"
+      ]
     },
     "4097:0:2:565B:A623:ED:0:0:0:0": {
       "name": "Julian Bream - Classical Radio",
@@ -11998,7 +12288,11 @@
         "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n",
         "curl: (22) The requested URL returned error: 402\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n",
+        "curl: (22) The requested URL returned error: 402\n"
+      ]
     },
     "4097:0:2:540B:726A:ED:0:0:0:0": {
       "name": "Julian Lloyd Webber - Classical Radio",
@@ -12017,7 +12311,10 @@
       "previous_transient_error": [
         "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n"
+      ]
     },
     "4097:0:2:778F:B20F:ED:0:0:0:0": {
       "name": "Katherine Jenkins - Classical Radio",
@@ -12035,7 +12332,10 @@
       "previous_transient_error": [
         "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n"
+      ]
     },
     "4097:0:2:F276:57B2:ED:0:0:0:0": {
       "name": "Kiri Te Kanawa - Classical Radio",
@@ -12053,7 +12353,10 @@
       "previous_transient_error": [
         "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n"
+      ]
     },
     "4097:0:2:12C4:EEF3:ED:0:0:0:0": {
       "name": "Lorin Maazel - Classical Radio",
@@ -12074,7 +12377,11 @@
         "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n",
         "curl: (22) The requested URL returned error: 402\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n",
+        "curl: (22) The requested URL returned error: 402\n"
+      ]
     },
     "4097:0:2:A050:E34A:ED:0:0:0:0": {
       "name": "Maria Callas - Classical Radio",
@@ -12093,7 +12400,10 @@
       "previous_transient_error": [
         "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n"
+      ]
     },
     "4097:0:2:95C1:8ADB:ED:0:0:0:0": {
       "name": "Marin Alsop - Classical Radio",
@@ -12112,7 +12422,10 @@
       "previous_transient_error": [
         "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n"
+      ]
     },
     "4097:0:2:8E91:F1C7:ED:0:0:0:0": {
       "name": "Montserrat Caballe' - Classical Radio",
@@ -12133,7 +12446,11 @@
         "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n",
         "curl: (22) The requested URL returned error: 402\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n",
+        "curl: (22) The requested URL returned error: 402\n"
+      ]
     },
     "4097:0:2:F10C:1E71:ED:0:0:0:0": {
       "name": "Nadia Boulanger - Classical Radio",
@@ -12154,7 +12471,11 @@
         "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n",
         "curl: (22) The requested URL returned error: 402\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n",
+        "curl: (22) The requested URL returned error: 402\n"
+      ]
     },
     "4097:0:2:32A7:38D7:ED:0:0:0:0": {
       "name": "StarBox RnB",
@@ -12172,7 +12493,10 @@
       "previous_transient_error": [
         "curl: (6) Could not resolve host: starbox.radio\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (6) Could not resolve host: starbox.radio\n"
+      ]
     },
     "4097:0:2:D0E:9DF1:ED:0:0:0:0": {
       "name": "Radio Gameli",
@@ -12190,7 +12514,10 @@
       "previous_transient_error": [
         "curl: (28) Failed to connect to radiolebene.tg port 443 after 3000 ms: Timeout was reached\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (28) Failed to connect to radiolebene.tg port 443 after 3002 ms: Timeout was reached\n"
+      ]
     },
     "4097:0:2:A670:DBE4:ED:0:0:0:0": {
       "name": "Dadaş Fm Erzurum",
@@ -12208,7 +12535,10 @@
       "previous_transient_error": [
         "curl: (28) Operation timed out after 8000 milliseconds with 240745 bytes received\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (28) Operation timed out after 8002 milliseconds with 240744 bytes received\n"
+      ]
     },
     "4097:0:2:87B3:5541:ED:0:0:0:0": {
       "name": "Elazığ Mavi Radyo",
@@ -12226,7 +12556,10 @@
       "previous_transient_error": [
         "curl: (6) Could not resolve host: maviradyo.net\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (6) Could not resolve host: maviradyo.net\n"
+      ]
     },
     "4097:0:2:6A7:C9B1:ED:0:0:0:0": {
       "name": "FIND A CUTİE <3",
@@ -12244,7 +12577,10 @@
       "previous_transient_error": [
         "curl: (28) Operation timed out after 8001 milliseconds with 293407 bytes received\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (28) Operation timed out after 8000 milliseconds with 293407 bytes received\n"
+      ]
     },
     "4097:0:2:36D8:7D74:ED:0:0:0:0": {
       "name": "GİMSA RADYO",
@@ -12262,7 +12598,10 @@
       "previous_transient_error": [
         "curl: (28) Resolving timed out after 3000 milliseconds\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (28) Resolving timed out after 3001 milliseconds\n"
+      ]
     },
     "4097:0:2:5D50:9C2E:ED:0:0:0:0": {
       "name": "imaj fm Erzurum",
@@ -12280,7 +12619,10 @@
       "previous_transient_error": [
         "curl: (28) Operation timed out after 8001 milliseconds with 375895 bytes received\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (28) Operation timed out after 8000 milliseconds with 359543 bytes received\n"
+      ]
     },
     "4097:0:2:ABBC:EE5:ED:0:0:0:0": {
       "name": "Radyo Mars",
@@ -12298,7 +12640,10 @@
       "previous_transient_error": [
         "curl: (35) OpenSSL/3.0.13: error:0A000458:SSL routines::tlsv1 unrecognized name\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (35) OpenSSL/3.0.13: error:0A000458:SSL routines::tlsv1 unrecognized name\n"
+      ]
     },
     "4097:0:2:8E1F:3A36:ED:0:0:0:0": {
       "name": "Radyo Sarıkamış",
@@ -12316,7 +12661,10 @@
       "previous_transient_error": [
         "curl: (6) Could not resolve host: www.radyosarikamis.com\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (6) Could not resolve host: www.radyosarikamis.com\n"
+      ]
     },
     "4097:0:2:53A5:3466:ED:0:0:0:0": {
       "name": "Ulusal Radyo",
@@ -12334,7 +12682,28 @@
       "previous_transient_error": [
         "curl: (22) The requested URL returned error: 429\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "source": {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/e/e7/Ulusal_Kanal_logo.png",
+        "final_url": "https://upload.wikimedia.org/wikipedia/commons/e/e7/Ulusal_Kanal_logo.png",
+        "path": "originals/cc869e235d39b8f0afee71735f40da638cded0f59315ac2e220cd884075df0df.img",
+        "sha256": "cc869e235d39b8f0afee71735f40da638cded0f59315ac2e220cd884075df0df",
+        "bytes": 3996,
+        "dimensions": [
+          640,
+          214
+        ],
+        "format": "PNG"
+      },
+      "catalogue_evidence": {
+        "catalogue_snapshot": "e90a1fe3a2734b555f48f343284f9103530180fb",
+        "catalogue_station_id": "42a4fede8998d8cb0539bd66",
+        "exact_receiver_reference": "4097:0:2:53A5:3466:ED:0:0:0:0",
+        "exact_receiver_stream": "https://radyo.ulusalkanal.net.tr/9302/stream",
+        "catalogue_supplied_image_url": "https://upload.wikimedia.org/wikipedia/commons/e/e7/Ulusal_Kanal_logo.png",
+        "current_homepage_not_confirmed": true
+      },
+      "status": "candidate_catalogue_artwork_needs_visual_identity",
+      "verification": "Image URL supplied by the uniquely matched frozen catalogue programme; recovered after an earlier transient network failure. Visual identity still requires review; no confirmed current homepage is claimed."
     },
     "4097:0:2:A87A:56F2:ED:0:0:0:0": {
       "name": "Virgin Radio Türkiye",
@@ -12353,7 +12722,10 @@
       "previous_transient_error": [
         "curl: (22) The requested URL returned error: 503\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (22) The requested URL returned error: 503\n"
+      ]
     },
     "4097:0:2:78FC:5DB2:ED:0:0:0:0": {
       "name": "BLOCK FM 103.2",
@@ -12375,7 +12747,11 @@
         "curl: (22) The requested URL returned error: 403\n",
         "curl: (28) Operation timed out after 8002 milliseconds with 242469 bytes received\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (22) The requested URL returned error: 403\n",
+        "curl: (28) Operation timed out after 8001 milliseconds with 242468 bytes received\n"
+      ]
     },
     "4097:0:2:81C1:B463:ED:0:0:0:0": {
       "name": "RADIO SSESE 101.9 FM",
@@ -12393,7 +12769,10 @@
       "previous_transient_error": [
         "curl: (28) Operation timed out after 8002 milliseconds with 293407 bytes received\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (28) Operation timed out after 8000 milliseconds with 293408 bytes received\n"
+      ]
     },
     "4097:0:2:16CA:E9B:ED:0:0:0:0": {
       "name": "Teshuvah radio",
@@ -12411,7 +12790,10 @@
       "previous_transient_error": [
         "curl: (28) Operation timed out after 7858 milliseconds with 415661 bytes received\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (28) Operation timed out after 7999 milliseconds with 415660 bytes received\n"
+      ]
     },
     "4097:0:2:C6C9:C1FA:ED:0:0:0:0": {
       "name": "Zakarpattya FM 101.9",
@@ -12429,7 +12811,10 @@
       "previous_transient_error": [
         "curl: (28) Failed to connect to zakarpattyafm.com.ua port 80 after 3000 ms: Timeout was reached\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (28) Failed to connect to zakarpattyafm.com.ua port 80 after 3000 ms: Timeout was reached\n"
+      ]
     },
     "4097:0:2:250D:83A:ED:0:0:0:0": {
       "name": "Закарпаття FM",
@@ -12447,7 +12832,10 @@
       "previous_transient_error": [
         "curl: (28) Failed to connect to zakarpattyafm.com.ua port 80 after 3000 ms: Timeout was reached\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (28) Failed to connect to zakarpattyafm.com.ua port 80 after 3000 ms: Timeout was reached\n"
+      ]
     },
     "4097:0:2:A839:AD6A:ED:0:0:0:0": {
       "name": "Радіо Інді.UA",
@@ -12465,7 +12853,28 @@
       "previous_transient_error": [
         "curl: (22) The requested URL returned error: 429\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "source": {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/4/48/%D0%A0%D0%B0%D0%B4%D1%96%D0%BE_%D0%86%D0%BD%D0%B4%D1%96.UA.png",
+        "final_url": "https://upload.wikimedia.org/wikipedia/commons/4/48/%D0%A0%D0%B0%D0%B4%D1%96%D0%BE_%D0%86%D0%BD%D0%B4%D1%96.UA.png",
+        "path": "originals/9ca4330855d519aab312710d82f88c5f04f95f7578069c0ef4f477ea5063491e.img",
+        "sha256": "9ca4330855d519aab312710d82f88c5f04f95f7578069c0ef4f477ea5063491e",
+        "bytes": 30406,
+        "dimensions": [
+          220,
+          220
+        ],
+        "format": "PNG"
+      },
+      "catalogue_evidence": {
+        "catalogue_snapshot": "e90a1fe3a2734b555f48f343284f9103530180fb",
+        "catalogue_station_id": "57f6f5001b7dcce57d889938",
+        "exact_receiver_reference": "4097:0:2:A839:AD6A:ED:0:0:0:0",
+        "exact_receiver_stream": "https://online.radioplayer.ua/RadioIndieUA",
+        "catalogue_supplied_image_url": "https://upload.wikimedia.org/wikipedia/commons/4/48/%D0%A0%D0%B0%D0%B4%D1%96%D0%BE_%D0%86%D0%BD%D0%B4%D1%96.UA.png",
+        "current_homepage_not_confirmed": true
+      },
+      "status": "candidate_catalogue_artwork_needs_visual_identity",
+      "verification": "Image URL supplied by the uniquely matched frozen catalogue programme; recovered after an earlier transient network failure. Visual identity still requires review; no confirmed current homepage is claimed."
     },
     "4097:0:2:5160:2F6C:ED:0:0:0:0": {
       "name": "100% Whatever Westcountry",
@@ -12483,7 +12892,10 @@
       "previous_transient_error": [
         "curl: (28) Failed to connect to whateverwestcountry.com port 443 after 3001 ms: Timeout was reached\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (28) Failed to connect to whateverwestcountry.com port 443 after 3002 ms: Timeout was reached\n"
+      ]
     },
     "4097:0:2:4FD6:AEA5:ED:0:0:0:0": {
       "name": "radioalfa7 latin hits",
@@ -12501,7 +12913,8 @@
       "previous_transient_error": [
         "curl: (22) The requested URL returned error: 429\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": []
     },
     "4097:0:2:4955:EDDC:ED:0:0:0:0": {
       "name": "radioalfa8 latin hits",
@@ -12519,7 +12932,8 @@
       "previous_transient_error": [
         "curl: (22) The requested URL returned error: 429\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": []
     },
     "4097:0:2:CCA4:DDE5:ED:0:0:0:0": {
       "name": "Castle Radio",
@@ -12537,7 +12951,10 @@
       "previous_transient_error": [
         "curl: (6) Could not resolve host: www.castleradio.co.uk\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (6) Could not resolve host: www.castleradio.co.uk\n"
+      ]
     },
     "4097:0:2:2BE0:8EC2:ED:0:0:0:0": {
       "name": "E3 RADIO",
@@ -12555,7 +12972,10 @@
       "previous_transient_error": [
         "curl: (28) Failed to connect to e3radio.live port 443 after 3002 ms: Timeout was reached\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (28) Failed to connect to e3radio.live port 443 after 3001 ms: Timeout was reached\n"
+      ]
     },
     "4097:0:2:293A:65ED:ED:0:0:0:0": {
       "name": "Like Country",
@@ -12576,7 +12996,11 @@
         "curl: (92) HTTP/2 stream 1 was not closed cleanly: PROTOCOL_ERROR (err 1)\n",
         "cannot identify image file <_io.BytesIO object at 0x7f462045e840>"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (92) HTTP/2 stream 1 was not closed cleanly: PROTOCOL_ERROR (err 1)\n",
+        "cannot identify image file <_io.BytesIO object at 0x7f44dfc05a30>"
+      ]
     },
     "4097:0:2:6C5F:B1F5:ED:0:0:0:0": {
       "name": "Like Radio - COUNTRY (AAC+)",
@@ -12594,7 +13018,10 @@
       "previous_transient_error": [
         "curl: (92) HTTP/2 stream 1 was not closed cleanly: PROTOCOL_ERROR (err 1)\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (92) HTTP/2 stream 1 was not closed cleanly: PROTOCOL_ERROR (err 1)\n"
+      ]
     },
     "4097:0:2:15FA:A125:ED:0:0:0:0": {
       "name": "Lyca Radio",
@@ -12612,7 +13039,10 @@
       "previous_transient_error": [
         "curl: (28) Operation timed out after 7005 milliseconds with 0 bytes received\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (22) The requested URL returned error: 404\n"
+      ]
     },
     "4097:0:2:E6D4:8EFB:ED:0:0:0:0": {
       "name": "News Radio UK",
@@ -12630,7 +13060,10 @@
       "previous_transient_error": [
         "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n"
+      ]
     },
     "4097:0:2:1672:EACE:ED:0:0:0:0": {
       "name": "NTS Channel 1",
@@ -12648,7 +13081,33 @@
       "previous_transient_error": [
         "curl: (22) The requested URL returned error: 429\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "source": {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/2/20/NTS_Radio_logo.svg",
+        "final_url": "https://upload.wikimedia.org/wikipedia/commons/2/20/NTS_Radio_logo.svg",
+        "path": "originals/e20bb71357224913781a4ffda073f2eacf7549a145e146bc9ec7e7280c447332.img",
+        "sha256": "e20bb71357224913781a4ffda073f2eacf7549a145e146bc9ec7e7280c447332",
+        "bytes": 622,
+        "dimensions": [
+          640,
+          640
+        ],
+        "format": "SVG",
+        "frozen_svg_raster": {
+          "path": "rasterized/1870996457ab06e9bae64c7c97005a694069df593196cb5b983f526768768bbe.png",
+          "sha256": "1870996457ab06e9bae64c7c97005a694069df593196cb5b983f526768768bbe",
+          "cairosvg_version": "2.8.2"
+        }
+      },
+      "catalogue_evidence": {
+        "catalogue_snapshot": "e90a1fe3a2734b555f48f343284f9103530180fb",
+        "catalogue_station_id": "4c3bc585c545ec65fc7d9055",
+        "exact_receiver_reference": "4097:0:2:1672:EACE:ED:0:0:0:0",
+        "exact_receiver_stream": "https://stream-relay-geo.ntslive.net/stream?client=direct",
+        "catalogue_supplied_image_url": "https://upload.wikimedia.org/wikipedia/commons/2/20/NTS_Radio_logo.svg",
+        "current_homepage_not_confirmed": true
+      },
+      "status": "candidate_catalogue_artwork_needs_visual_identity",
+      "verification": "Image URL supplied by the uniquely matched frozen catalogue programme; recovered after an earlier transient network failure. Visual identity still requires review; no confirmed current homepage is claimed."
     },
     "4097:0:2:3B31:8585:ED:0:0:0:0": {
       "name": "NTS Channel 2",
@@ -12666,7 +13125,33 @@
       "previous_transient_error": [
         "curl: (22) The requested URL returned error: 429\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "source": {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/2/20/NTS_Radio_logo.svg",
+        "final_url": "https://upload.wikimedia.org/wikipedia/commons/2/20/NTS_Radio_logo.svg",
+        "path": "originals/e20bb71357224913781a4ffda073f2eacf7549a145e146bc9ec7e7280c447332.img",
+        "sha256": "e20bb71357224913781a4ffda073f2eacf7549a145e146bc9ec7e7280c447332",
+        "bytes": 622,
+        "dimensions": [
+          640,
+          640
+        ],
+        "format": "SVG",
+        "frozen_svg_raster": {
+          "path": "rasterized/1870996457ab06e9bae64c7c97005a694069df593196cb5b983f526768768bbe.png",
+          "sha256": "1870996457ab06e9bae64c7c97005a694069df593196cb5b983f526768768bbe",
+          "cairosvg_version": "2.8.2"
+        }
+      },
+      "catalogue_evidence": {
+        "catalogue_snapshot": "e90a1fe3a2734b555f48f343284f9103530180fb",
+        "catalogue_station_id": "3721e6cb428b33db36ed163e",
+        "exact_receiver_reference": "4097:0:2:3B31:8585:ED:0:0:0:0",
+        "exact_receiver_stream": "https://stream-relay-geo.ntslive.net/stream2?client=direct",
+        "catalogue_supplied_image_url": "https://upload.wikimedia.org/wikipedia/commons/2/20/NTS_Radio_logo.svg",
+        "current_homepage_not_confirmed": true
+      },
+      "status": "candidate_catalogue_artwork_needs_visual_identity",
+      "verification": "Image URL supplied by the uniquely matched frozen catalogue programme; recovered after an earlier transient network failure. Visual identity still requires review; no confirmed current homepage is claimed."
     },
     "4097:0:2:3232:7578:ED:0:0:0:0": {
       "name": "The Bottom Line Liberia",
@@ -12684,7 +13169,10 @@
       "previous_transient_error": [
         "curl: (6) Could not resolve host: www.bottomlineliberia.com\n"
       ],
-      "status": "pending_catalogue_artwork"
+      "status": "blocked_no_new_usable_catalogue_artwork",
+      "errors": [
+        "curl: (6) Could not resolve host: www.bottomlineliberia.com\n"
+      ]
     },
     "4097:0:2:6DA3:6743:ED:0:0:0:0": {
       "name": "Vibe Radio",
@@ -13763,10 +14251,10 @@
     }
   },
   "counts": {
-    "blocked_no_new_usable_catalogue_artwork": 494,
-    "candidate_catalogue_artwork_needs_visual_identity": 6,
-    "pending_catalogue_artwork": 159
+    "blocked_no_new_usable_catalogue_artwork": 586,
+    "candidate_catalogue_artwork_needs_visual_identity": 14,
+    "pending_catalogue_artwork": 59
   },
-  "last_event": "artwork_500_of_659",
-  "updated_utc": "2026-11-05T20:18:09Z"
+  "last_event": "artwork_600_of_659",
+  "updated_utc": "2026-11-05T20:18:20Z"
 }
