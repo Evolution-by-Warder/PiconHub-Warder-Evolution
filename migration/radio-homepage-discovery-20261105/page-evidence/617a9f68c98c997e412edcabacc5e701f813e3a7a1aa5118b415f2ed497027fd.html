@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <!-- GENERIERT aus src/template.html + src/channels.json – nicht direkt bearbeiten, sondern php src/build.php ausführen. -->
+    <script
+        id="usercentrics-cmp"
+        data-settings-id="QJ-hji3K"
+        src="https://app.usercentrics.eu/browser-ui/latest/bundle.js"
+        data-tcf-enabled
+    ></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Life Radio Classic Rock Hits – Radioplayer" />
+    <meta name="theme-color" content="#ffed00" />
+
+    <title>Life Radio Classic Rock Hits - Radioplayer</title>
+
+    <link rel="preconnect" href="https://mapi.radioplayer.cloud/api/at/" />
+    <link rel="preconnect" href="https://core-search.radioplayer.cloud/040/qp/" crossorigin="use-credentials" />
+    <link rel="preload" as="font" crossorigin type="font/ttf" href="https://radioplayer.liferadio.at/assets/fonts/Poppins-Bold.ttf" />
+    <link rel="icon" type="image/png" href="https://radioplayer.liferadio.at/assets/favicon.png" />
+
+<!-- RMSi Tag-Manager Start -->
+<script type="text/javascript" src="https://rmsi-player.de/eva/286141_spa/rms.min.js"></script>
+<script>
+    // Dekoriert eine URL, indem bestimmte Parameter hinzugefügt oder angepasst werden.
+    function decorateURL(url) {
+        let base;
+        let query;
+        let spliter = url.indexOf("?");
+        if (spliter != -1) {
+            base = url.substring(0, spliter);
+            query = new URLSearchParams(url.substring(spliter + 1));
+        } else {
+            base = url;
+            query = new URLSearchParams();
+        }
+        // Player-Schlüssel
+        query.set("pkey", "web-liferadio-at");
+        // Usercentrics TCF String
+        query.set("tcstring", "DER TCF STRING WENN");
+        // Adswizz listenerid auch als generischen Schlüssel setzen
+        if (query.has("aw_0_awz.listenerid")) {
+            query.set("listenerid", query.get("aw_0_awz.listenerid"));
+        }
+        return base + "?" + query.toString();
+    }
+</script>
+<script type="application/javascript" src="https://rmsi-vermarktung.de/radioplayer/v4/liferadio/modifying-urls.js"></script>
+<!-- RMSi Tag-Manager End -->
+
+    <!-- Radioplayer Web Player (Radioplayer CDN) -->
+    <script type="module" src="https://assets.player.radio/latest/radioplayer.js"></script>
+    <script nomodule defer src="https://assets.player.radio/latest/radioplayer.legacy.js"></script>
+    <link rel="stylesheet" href="https://assets.player.radio/latest/radioplayer.css" />
+
+    <!-- Life Radio Design (CI) – bewusst NACH radioplayer.css -->
+    <link rel="stylesheet" type="text/css" href="https://radioplayer.liferadio.at/style.css?v=20260902165857" />
+
+    <!-- lrTouchpoint: Hörer-Kontaktpunkte + Hördauer → aircheck.cloud. Läuft NUR nach Einwilligung für den
+         Usercentrics-Dienst "Google Tag Manager" (dasselbe Gate wie der Tag-Manager auf liferadio.at).
+         Der Player feuert keine GTM-Ereignisse; der Adapter meldet den ersten Play des Audio-Elements als
+         'radio_stream_start' mit dem Anzeigenamen des Senders (kein Slug!) in den dataLayer, den das Skript beobachtet. -->
+<script>
+(function () {
+    var SERVICE = "Google Tag Manager", NAME = "Life Radio Classic Rock Hits", SRC = "https:\/\/radioplayer.liferadio.at\/assets\/lr-touchpoint.js?v=20260902165857";
+    var loaded = false, started = false;
+    window.dataLayer = window.dataLayer || [];
+    // Erster Play des Player-Audios → Ereignis wie auf liferadio.at (Anzeigename)
+    document.addEventListener('play', function (ev) {
+        var t = ev.target;
+        if (started || !t || (t.tagName !== 'AUDIO' && t.tagName !== 'VIDEO')) return;
+        started = true;
+        window.dataLayer.push({ event: 'radio_stream_start', name: NAME });
+    }, true);
+    function consented() {
+        try {
+            if (!window.UC_UI || typeof UC_UI.getServicesBaseInfo !== 'function') return false;
+            var s = UC_UI.getServicesBaseInfo().filter(function (x) { return x.name === SERVICE; })[0];
+            return !!(s && s.consent && s.consent.status);
+        } catch (e) { return false; }
+    }
+    function maybeLoad() {
+        if (loaded || !consented()) return;
+        loaded = true;
+        var s = document.createElement('script'); s.src = SRC; s.async = true; document.head.appendChild(s);
+    }
+    window.addEventListener('UC_UI_INITIALIZED', maybeLoad);
+    window.addEventListener('UC_UI_CMP_EVENT', function () { setTimeout(maybeLoad, 0); });
+    window.addEventListener('KONSOLELABSCmpStatusChange', function () { setTimeout(maybeLoad, 0); });
+    maybeLoad();
+})();
+</script>
+    <!-- Matomo Tag Manager -->
+<script>
+var _mtm = window._mtm = window._mtm || [];
+_mtm.push({'mtm.startTime': (new Date().getTime()), 'event': 'mtm.Start'});
+var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+g.async=true; g.src='https://analytics.liferadio.at/js/container_MRaOERYt.js'; s.parentNode.insertBefore(g,s);
+</script>
+    <!-- End Matomo Tag Manager -->
+</head>
+<body>
+    <div data-widget-radioplayer>
+        <script type="application/json">
+            {
+                "mapi": "https://mapi.radioplayer.cloud/api/at/",
+                "cm": "https://cm.radioplayer.cloud/040/",
+                "al": "https://fh-at.radioplayer.org/analytics.html",
+                "np": "https://core-search.radioplayer.cloud/040/qp/",
+                "qp": "https://core-search.radioplayer.cloud/040/qp/",
+                "rpLogo": "https://assets.radioplayer.org/rpLogo.svg",
+                "localeRootUrl": "https://assets.player.radio/latest",
+                "playLocked": true,
+                "numberOfUnlockers": 1,
+                "tracking": {
+                    "type": "quantyoo",
+                    "pk": "web-liferadio-at",
+                    "trackingBaseUrl": "qy.liferadio.at"
+                },
+                "cmp": {
+                    "windowObject": "UC_UI",
+                    "openFunction": "showFirstLayer",
+                    "manageCookieSettingsSubtext": "via usercentrics"
+                },
+                "iframeSrc": "https://radioplayer.liferadio.at/pluginspace.html?c=classicrock&v=20260902165857",
+                "theme": "LIGHT",
+                "themeColour": "#ffed00",
+                "widgetTheme": "LIGHT",
+                "widgetBackground": "#ffed00",
+                "widgetColour": "#ffffff",
+                "widgetHeaderColour": "#081519",
+                "widgets": [
+                    "IF"
+                ],
+                "id": "128",
+                "fallback": [
+                    {
+                        "url": "https://stream.liferadio.at/clrock/mp3-192/radioplayer-web/?listenerid=[IFA]&tcstring=[PLAYER_TC_STRING]",
+                        "format": "mp3"
+                    }
+                ],
+                "stationUrl": "https://liferadio.at",
+                "stationLogo": "https://radioplayer.liferadio.at/assets/covers/classicrock.png",
+                "enableIframeMessaging": true
+            }
+        </script>
+    </div>
+</body>
+</html>
