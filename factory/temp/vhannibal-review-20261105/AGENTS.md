@@ -11,3 +11,9 @@ Astra235 batch07 is withdrawn from export. Its 39 protected groups must keep cur
 Owner extension, 2026-11-05: reuse the completed CANAL+ SK/CZ artwork in the full 23.5E set and every other position/provider carrying the same station and variant. Before making a new graphic, look up the canonical source. Copy existing native-size/background PNG bytes; do not render the same artwork again. Keep country, language, regional and HD/SD/UHD variants distinct.
 
 The guard now permits only the explicit CANAL_CANONICAL_REUSE operation for a verified target identity and exact pinned PNG hash, while source SK/CZ packages stay immutable. Ordinary Vhannibal writes to the verified reused identities are blocked on every position, including service-type aliases. Reuse evidence is in canal235-protection/reuse-evidence.json; missing or generic cross-market name evidence stays held.
+
+## Completed approved Vhannibal batch
+
+All 157 owner-approved graphics from batches 01–06 and Film Europe are complete: 138 approved PNG triplets, 8 existing same-variant master reuses and 11 protected CANAL reuses. The integration binds 175 exact non-CANAL references and is live in FullHDGlass PR40, commit d86f25e628fe910e54f5bbc8c71dcb5b4682ed57. Do not recreate, requeue or ask for approval of these graphics. Read the completion record and exclude its completed_source_pixel_keys before selecting new work. Continue with unstaged artwork. The separate withdrawn Astra235 batch07 and its 9 held groups retain their own constraints.
+
+Completion record: approved-publication/completion.json.
