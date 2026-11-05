@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="es-CR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Urbano 106 105.9 FM | EmisorasCostaRica.com</title>
+
+    
+            <link href='https://s3.amazonaws.com/cdn.emisoras.com/newdesign/Images/favicon.ico' rel='icon' type='image/x-icon'/>
+        
+    <meta name="title" content="Urbano 106 105.9 FM | EmisorasCostaRica.com">
+<meta name="description" content="Urbano 106 105.9 FM se transmite en vivo las 24 horas del día desde San José, Costa Rica. Su programación está compuesta por un repertorio musical en donde el radioyente podrá escuchar lo mejor del Hip Hop, Reggae, Música Urbana, Música Moderna, y los ritmos más pegajoso de hoy en día.">
+<meta name="keywords" content="urbano 106, urbano 106 105.9 fm, urbano 106 105.9 fm en vivo">
+<meta property="og:image" content="http://emisorascostarica.com/2ceff7f48f0d205be4d94c74a052623f.jpg">
+<meta property="og:url" content="http://emisorascostarica.com/urbano-106-1059-fm">
+<meta property="og:description" content="Urbano 106 105.9 FM se transmite en vivo las 24 horas del día desde San José, Costa Rica. Su programación está compuesta por un repertorio musical en donde el radioyente podrá escuchar lo mejor del Hip Hop, Reggae, Música Urbana, Música Moderna, y los ritmos más pegajoso de hoy en día.">
+<meta property="og:title" content="Urbano 106 105.9 FM | EmisorasCostaRica.com">
+<meta property="og:og:type" content="website">
+<link href="http://emisorascostarica.com/urbano-106-1059-fm" rel="canonical">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/mediaelement/4.2.6/mediaelementplayer.css" rel="stylesheet">
+<link href="/assets/510308ef/css/bootstrap.css" rel="stylesheet">
+<link href="/css/site.css" rel="preload" as="style" onload="this.rel=&#039;stylesheet&#039;">
+<link href="/assets/3ab64f21/vendor/bootstrap/css/bootstrap.min.css" rel="preload" as="style" onload="this.rel=&#039;stylesheet&#039;">
+<link href="/assets/3ab64f21/css/style.min.css?v=2.43" rel="preload" as="style" onload="this.rel=&#039;stylesheet&#039;">
+<link href="/assets/3ab64f21/css/owl.carousel.css" rel="preload" as="style" onload="this.rel=&#039;stylesheet&#039;">
+<link href="/assets/3ab64f21/css/owl.theme.css" rel="preload" as="style" onload="this.rel=&#039;stylesheet&#039;">
+<link href="/assets/3ab64f21/vendor/font-awesome/css/font-awesome.min.css?v=1.1" rel="preload" as="style" onload="this.rel=&#039;stylesheet&#039;">
+<link href="/assets/3ab64f21/vendor/selectr/selectr.css" rel="preload" as="style" onload="this.rel=&#039;stylesheet&#039;">
+<link href="/assets/3ab64f21/js/smartapp/smart-app-banner.css?v1" rel="preload" as="style" onload="this.rel=&#039;stylesheet&#039;">
+<style>        
+    .slot_4 {
+        width: 300px; height: 250px;
+        display: block;
+        margin: auto;
+    }
+    
+    @media (min-width: 768px) {
+        .slot_4 {
+            width: 300px; height: 250px;
+        }
+    }
+</style>
+<style>        
+    .slot_2 {
+        width: 300px; height: 250px;
+        display: block;
+        margin: auto;
+    }
+    
+    @media (min-width: 768px) {
+        .slot_2 {
+            width: 728px; height: 90px;
+        }
+    }
+</style>
+<style>        
+    .slot_3 {
+        width: 300px; height: 250px;
+        display: block;
+        margin: auto;
+    }
+    
+    @media (min-width: 768px) {
+        .slot_3 {
+            width: 728px; height: 90px;
+        }
+    }
+</style>    <script>
+        /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+        /* This file is meant as a standalone workflow for
+        - testing support for link[rel=preload]
+        - enabling async CSS loading in browsers that do not support rel=preload
+        - applying rel preload css once loaded, whether supported or not.
+        */
+        (function( w ){
+            "use strict";
+            // rel=preload support test
+            if( !w.loadCSS ){
+                w.loadCSS = function(){};
+            }
+            // define on the loadCSS obj
+            var rp = loadCSS.relpreload = {};
+            // rel=preload feature support test
+            // runs once and returns a function for compat purposes
+            rp.support = (function(){
+                var ret;
+                try {
+                    ret = w.document.createElement( "link" ).relList.supports( "preload" );
+                } catch (e) {
+                    ret = false;
+                }
+                return function(){
+                    return ret;
+                };
+            })();
+
+            // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+            // then change that media back to its intended value on load
+            rp.bindMediaToggle = function( link ){
+                // remember existing media attr for ultimate state, or default to 'all'
+                var finalMedia = link.media || "all";
+
+                function enableStylesheet(){
+                    // unbind listeners
+                    if( link.addEventListener ){
+                        link.removeEventListener( "load", enableStylesheet );
+                    } else if( link.attachEvent ){
+                        link.detachEvent( "onload", enableStylesheet );
+                    }
+                    link.setAttribute( "onload", null );
+                    link.media = finalMedia;
+                }
+
+                // bind load handlers to enable media
+                if( link.addEventListener ){
+                    link.addEventListener( "load", enableStylesheet );
+                } else if( link.attachEvent ){
+                    link.attachEvent( "onload", enableStylesheet );
+                }
+
+                // Set rel and non-applicable media type to start an async request
+                // note: timeout allows this to happen async to let rendering continue in IE
+                setTimeout(function(){
+                    link.rel = "stylesheet";
+                    link.media = "only x";
+                });
+                // also enable media after 3 seconds,
+                // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+                setTimeout( enableStylesheet, 3000 );
+            };
+
+            // loop through link elements in DOM
+            rp.poly = function(){
+                // double check this to prevent external calls from running
+                if( rp.support() ){
+                    return;
+                }
+                var links = w.document.getElementsByTagName( "link" );
+                for( var i = 0; i < links.length; i++ ){
+                    var link = links[ i ];
+                    // qualify links to those with rel=preload and as=style attrs
+                    if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+                        // prevent rerunning on link
+                        link.setAttribute( "data-loadcss", true );
+                        // bind listeners to toggle media back
+                        rp.bindMediaToggle( link );
+                    }
+                }
+            };
+
+            // if unsupported, run the polyfill
+            if( !rp.support() ){
+                // run once at least
+                rp.poly();
+
+                // rerun poly on an interval until onload
+                var run = w.setInterval( rp.poly, 500 );
+                if( w.addEventListener ){
+                    w.addEventListener( "load", function(){
+                        rp.poly();
+                        w.clearInterval( run );
+                    } );
+                } else if( w.attachEvent ){
+                    w.attachEvent( "onload", function(){
+                        rp.poly();
+                        w.clearInterval( run );
+                    } );
+                }
+            }
+
+
+            // commonjs
+            if( typeof exports !== "undefined" ){
+                exports.loadCSS = loadCSS;
+            }
+            else {
+                w.loadCSS = loadCSS;
+            }
+        }( typeof global !== "undefined" ? global : this ) );
+    </script>
+</head>
+<body id="page-top" class="inner">
+
+<!--main section-->
+
+<!-- navigation-->
+<nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+
+    <div class="container">
+        <div class="row">
+
+            <!-- header-logo-->
+            <div class="navbar-header pad_0">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <img src="/img/hamburg_icon.png" alt="Menu">
+                </button>
+                <a class="navbar-brand page-scroll top_nav logo" href="/"><img src="https://s3.amazonaws.com/cdn.radionewproject.com/c3af7de5d70fde405686651e8762b3d7.png" alt="Urbano 106 105.9 FM | EmisorasCostaRica.com"></a>
+                <form id="search-form" class="navbar-form navbar-right hidden-sm hidden-xs" action="/search" method="get">                    <div class="form-group">
+                        <table style="width: 100%">
+                            <tr>
+                                <td style="width: 100%;">
+                                    <input type="text" id="stationsearch-name" class="form-control" name="StationSearch[name]" placeholder="Buscar por Nombre o Frecuencia">                                    <button type="sutmit"></button>
+                                </td>
+
+                            </tr>
+                        </table>
+                    </div>
+                </form>            </div>
+            <!-- header-logo-->
+            <!-- menu_links and search-->
+            <div class="menu_links">
+
+                <div class="collapse navbar-collapse js-navbar-collapse" id="bs-example-navbar-collapse-1">
+
+                    <ul class="nav navbar-nav navbar-left navbar-head nav_head top-menu">
+                        <li class="nav-item dropdown mega-dropdown">
+                            <a class="dropdown-toggle brder-rght brdr_lrft" data-toggle="dropdown" href="#">Emisoras Populares<span class="glyphicon glyphicon-chevron-down pull-right"></span></a>
+                            <ul class="dropdown-menu mega-dropdown-menu row">
+                                                                    <li class="col-sm-3">
+                                        <a href="/radio-musical-975-fm">Radio Musical 97.5 FM</a>                                    </li>
+                                                                    <li class="col-sm-3">
+                                        <a href="/la-mejor-991-fm">La Mejor 99.1 FM</a>                                    </li>
+                                                                    <li class="col-sm-3">
+                                        <a href="/radio-disney-1011-fm">Radio Disney 101.1 FM</a>                                    </li>
+                                                                    <li class="col-sm-3">
+                                        <a href="/columbia-estereo-927-fm">Columbia Estereo 92.7 FM</a>                                    </li>
+                                                                    <li class="col-sm-3">
+                                        <a href="/radio-columbia">Radio Columbia</a>                                    </li>
+                                                                    <li class="col-sm-3">
+                                        <a href="/omega-estereo-1051-fm">Omega Estéreo 105.1 FM</a>                                    </li>
+                                                                    <li class="col-sm-3">
+                                        <a href="/besame-899-fm">Bésame 89.9 FM</a>                                    </li>
+                                                                    <li class="col-sm-3">
+                                        <a href="/los-40-principales-1043-fm">Los 40 Principales 104.3 FM</a>                                    </li>
+                                                                    <li class="col-sm-3">
+                                        <a href="/radio-2-995-fm">Radio 2 99.5 FM</a>                                    </li>
+                                                                    <li class="col-sm-3">
+                                        <a href="/radio-sinfonola-903-fm">Radio Sinfonola 90.3 FM</a>                                    </li>
+                                                            </ul>
+                        </li>
+                        <li class="nav-item dropdown mega-dropdown"><a class="dropdown-toggle brder-rght brdr_lrft" data-toggle="dropdown" href="#">Género<span class="glyphicon glyphicon-chevron-down pull-right"></span></a>
+                            <ul class="dropdown-menu mega-dropdown-menu row">
+                                
+                                    <li class="col-sm-2">
+                                        <ul>
+                                                                                    <li>
+                                                <a href="/search?StationSearch%5Bgenre_id%5D=30">Jazz (2)</a>                                            </li>
+                                                                                    <li>
+                                                <a href="/search?StationSearch%5Bgenre_id%5D=26">Religiosa (10)</a>                                            </li>
+                                                                                    <li>
+                                                <a href="/search?StationSearch%5Bgenre_id%5D=27">Clásica (2)</a>                                            </li>
+                                                                                    <li>
+                                                <a href="/search?StationSearch%5Bgenre_id%5D=60">Norteña (1)</a>                                            </li>
+                                                                                    <li>
+                                                <a href="/search?StationSearch%5Bgenre_id%5D=51">Ranchera (3)</a>                                            </li>
+                                                                                    <li>
+                                                <a href="/search?StationSearch%5Bgenre_id%5D=25">Romántica (5)</a>                                            </li>
+                                                                                </ul>
+                                    </li>
+                                
+                                    <li class="col-sm-2">
+                                        <ul>
+                                                                                    <li>
+                                                <a href="/search?StationSearch%5Bgenre_id%5D=33">Informativa (19)</a>                                            </li>
+                                                                                    <li>
+                                                <a href="/search?StationSearch%5Bgenre_id%5D=35">Salsa (6)</a>                                            </li>
+                                                                                    <li>
+                                                <a href="/search?StationSearch%5Bgenre_id%5D=37">70's (3)</a>                                            </li>
+                                                                                    <li>
+                                                <a href="/search?StationSearch%5Bgenre_id%5D=38">80's (3)</a>                                            </li>
+                                                                                    <li>
+                                                <a href="/search?StationSearch%5Bgenre_id%5D=39">90's (2)</a>                                            </li>
+                                                                                    <li>
+                                                <a href="/search?StationSearch%5Bgenre_id%5D=57">Actualidad (8)</a>                                            </li>
+                                                                                </ul>
+                                    </li>
+                                
+                                    <li class="col-sm-2">
+                                        <ul>
+                                                                                    <li>
+                                                <a href="/search?StationSearch%5Bgenre_id%5D=76">Balada (3)</a>                                            </li>
+                                                                                    <li>
+                                                <a href="/search?StationSearch%5Bgenre_id%5D=70">Cumbia (3)</a>                                            </li>
+                                                                                    <li>
+                                                <a href="/search?StationSearch%5Bgenre_id%5D=21">Pop (11)</a>                                            </li>
+                                                                                    <li>
+                                                <a href="/search?StationSearch%5Bgenre_id%5D=23">Rock (7)</a>                                            </li>
+                                                                                    <li>
+                                                <a href="/search?StationSearch%5Bgenre_id%5D=84">Entretenimiento (3)</a>                                            </li>
+                                                                                    <li>
+                                                <a href="/search?StationSearch%5Bgenre_id%5D=79">Música Tradicional (2)</a>                                            </li>
+                                                                                </ul>
+                                    </li>
+                                
+                                    <li class="col-sm-2">
+                                        <ul>
+                                                                                    <li>
+                                                <a href="/search?StationSearch%5Bgenre_id%5D=48">Variada (10)</a>                                            </li>
+                                                                                    <li>
+                                                <a href="/search?StationSearch%5Bgenre_id%5D=34">Deportiva (6)</a>                                            </li>
+                                                                                    <li>
+                                                <a href="/search?StationSearch%5Bgenre_id%5D=31">Hip Hop (1)</a>                                            </li>
+                                                                                    <li>
+                                                <a href="/search?StationSearch%5Bgenre_id%5D=101">Reggae (1)</a>                                            </li>
+                                                                                    <li>
+                                                <a href="/search?StationSearch%5Bgenre_id%5D=41">Urbana (1)</a>                                            </li>
+                                                                                    <li>
+                                                <a href="/search?StationSearch%5Bgenre_id%5D=63">Música en Inglés (1)</a>                                            </li>
+                                                                                </ul>
+                                    </li>
+                                
+                                    <li class="col-sm-2">
+                                        <ul>
+                                                                                    <li>
+                                                <a href="/search?StationSearch%5Bgenre_id%5D=59">Música Contemporánea (1)</a>                                            </li>
+                                                                                    <li>
+                                                <a href="/search?StationSearch%5Bgenre_id%5D=65">Hits  (2)</a>                                            </li>
+                                                                                    <li>
+                                                <a href="/search?StationSearch%5Bgenre_id%5D=72">Bolero (1)</a>                                            </li>
+                                                                                    <li>
+                                                <a href="/search?StationSearch%5Bgenre_id%5D=36">Top 40 (3)</a>                                            </li>
+                                                                                    <li>
+                                                <a href="/search?StationSearch%5Bgenre_id%5D=42">Tropical (3)</a>                                            </li>
+                                                                                    <li>
+                                                <a href="/search?StationSearch%5Bgenre_id%5D=43">Cultural (2)</a>                                            </li>
+                                                                                </ul>
+                                    </li>
+                                
+                                    <li class="col-sm-2">
+                                        <ul>
+                                                                                    <li>
+                                                <a href="/search?StationSearch%5Bgenre_id%5D=44">Educativa (1)</a>                                            </li>
+                                                                                    <li>
+                                                <a href="/search?StationSearch%5Bgenre_id%5D=46">Latino (1)</a>                                            </li>
+                                                                                    <li>
+                                                <a href="/search?StationSearch%5Bgenre_id%5D=97">Alternativa (1)</a>                                            </li>
+                                                                                </ul>
+                                    </li>
+                                
+                            </ul>
+
+                        </li>
+                        <li class="nav-item dropdown mega-dropdown"><a class="dropdown-toggle brder-rght brdr_lrft" data-toggle="dropdown" href="#">Localidad<span class="glyphicon glyphicon-chevron-down pull-right"></span></a>
+                            <ul class="dropdown-menu mega-dropdown-menu row">
+                                
+                                    <li class="col-sm-3">
+                                        <ul>
+                                                                                    <li>
+                                                <a href="/search?StationSearch%5Blocation%5D=Alajuela">Alajuela (1)</a>                                            </li>
+                                                                                    <li>
+                                                <a href="/search?StationSearch%5Blocation%5D=Cartago">Cartago (3)</a>                                            </li>
+                                                                                    <li>
+                                                <a href="/search?StationSearch%5Blocation%5D=Ciudad+Cort%C3%A9s">Ciudad Cortés (1)</a>                                            </li>
+                                                                                    <li>
+                                                <a href="/search?StationSearch%5Blocation%5D=Heredia">Heredia (1)</a>                                            </li>
+                                                                                    <li>
+                                                <a href="/search?StationSearch%5Blocation%5D=Liberia">Liberia (1)</a>                                            </li>
+                                                                                </ul>
+                                    </li>
+                                
+                                    <li class="col-sm-3">
+                                        <ul>
+                                                                                    <li>
+                                                <a href="/search?StationSearch%5Blocation%5D=Lim%C3%B3n">Limón (1)</a>                                            </li>
+                                                                                    <li>
+                                                <a href="/search?StationSearch%5Blocation%5D=Puntarenas">Puntarenas (1)</a>                                            </li>
+                                                                                    <li>
+                                                <a href="/search?StationSearch%5Blocation%5D=Quesada">Quesada (1)</a>                                            </li>
+                                                                                    <li>
+                                                <a href="/search?StationSearch%5Blocation%5D=sa">sa (1)</a>                                            </li>
+                                                                                    <li>
+                                                <a href="/search?StationSearch%5Blocation%5D=san">san (1)</a>                                            </li>
+                                                                                </ul>
+                                    </li>
+                                
+                                    <li class="col-sm-3">
+                                        <ul>
+                                                                                    <li>
+                                                <a href="/search?StationSearch%5Blocation%5D=San+Carlos">San Carlos (1)</a>                                            </li>
+                                                                                    <li>
+                                                <a href="/search?StationSearch%5Blocation%5D=San+Isidro">San Isidro (2)</a>                                            </li>
+                                                                                    <li>
+                                                <a href="/search?StationSearch%5Blocation%5D=San+Jos%C3%A9">San José (31)</a>                                            </li>
+                                                                                    <li>
+                                                <a href="/search?StationSearch%5Blocation%5D=San+Juan">San Juan (1)</a>                                            </li>
+                                                                                    <li>
+                                                <a href="/search?StationSearch%5Blocation%5D=San+Pedro">San Pedro (2)</a>                                            </li>
+                                                                                </ul>
+                                    </li>
+                                
+                                    <li class="col-sm-3">
+                                        <ul>
+                                                                                    <li>
+                                                <a href="/search?StationSearch%5Blocation%5D=San+Ram%C3%B3n">San Ramón (1)</a>                                            </li>
+                                                                                    <li>
+                                                <a href="/search?StationSearch%5Blocation%5D=Tib%C3%A1s">Tibás (1)</a>                                            </li>
+                                                                                    <li>
+                                                <a href="/search?StationSearch%5Blocation%5D=Zapote">Zapote (3)</a>                                            </li>
+                                                                                </ul>
+                                    </li>
+                                
+                            </ul>
+
+                        </li>
+                        <li class="nav-item">
+                            <a href="/blog">Blog</a>                        </li>
+                    </ul>
+
+                    
+
+                </div>
+
+
+            </div>
+        </div>
+
+
+        <!-- menu_links and search-->
+
+        <form id="search-form-mobile" class="navbar-form navbar-left hidden-lg hidden-md" action="/search" method="get">        <div class="form-group">
+            <input type="text" id="stationsearch-name" class="form-control" name="StationSearch[name]" placeholder="Buscar por Nombre o Frecuencia">            <button type="sutmit"><i class="fa fa-search"></i></button>
+        </div>
+
+        </form>    </div>
+</nav>
+</section>
+<!-- navigation-->
+
+<section class="main_sec nosocial" >
+
+    <div class="container">
+
+        
+
+
+
+<div class="row">
+
+    <div class="wd_100">
+
+
+
+        
+        <section class="radios">
+
+            <div class="col-md-8">
+                <div class="bxshadow">
+
+
+                    <div class="heading">
+                        <div>
+                            <div>
+                                <div>
+                                    <h1>
+                                        Urbano 106 105.9 FM                                    </h1>
+                                </div>
+                                <div>
+                                                                    </div>
+                            </div>
+                            <!-- <div class="col-sm-6 social-buttons">
+                                <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                                <div class="fb-like" data-href="/urbano-106-1059-fm" data-width="" data-layout="button_count" data-action="like" data-size="small" data-show-faces="false" data-share="true"></div>
+                            </div> -->
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-5 col-sm-5">
+                            <div class="bxshadow logobig">
+                                <img src="https://s3.amazonaws.com/cdn.radionewproject.com/2ceff7f48f0d205be4d94c74a052623f.jpg" alt="Urbano 106 105.9 FM" title="Urbano 106 105.9 FM">                            </div>
+                        </div>
+                        <div class="col-md-7 col-sm-7 text-center">
+                            <div id="radio-player">
+                                <div class="volume-controls">
+                                    <span class="mute"></span>
+                                    <span class="volume-max"></span>
+                                </div>
+                                <audio src="https://usa18.fastcast4u.com/proxy/rmoohhrw?mp=/stream/1/" width="100%" data-mejsoptions='{"startVolume": "0.5"}' class="mejs__player" autoplay></audio>
+                            </div>
+
+
+                            <div class="freq-selector">
+                                <label for="">Localidad</label>
+                                <select id="custom-dropdown" class="custom-dropdown" name="channel-selector">
+<option value="2016" selected data-url="/urbano-106-1059-fm/2016" data-stream="1">San José 105.9 FM</option>
+</select>                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="bxshadow text-center ad-size" style="padding: 4px">
+
+                        <!-- Responsive Ad -->
+    <ins class='adsbygoogle slot_4'
+             data-ad-client='ca-pub-2982894129551983'
+             data-ad-slot='9793462951'
+                 ></ins>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+                </div>
+
+                <div class="text-center ad-size" style="padding: 10px 4px;">
+
+                    <div style="border-bottom: 1px solid #eee" class="fb-page" data-href="" data-colorscheme="dark" data-border-color="black" data-tabs="" data-width="" data-height="" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false">
+                        <blockquote cite="" class="fb-xfbml-parse-ignore">
+                            <a href="">Radios de Costa Rica | EmisorasCostaRica.com</a>
+                        </blockquote>
+                    </div>
+                </div>
+
+            </div>
+            <div class="clearfix"></div>
+
+        </section>
+        <!-- radio -->
+
+
+        <!-- Detail radio-->
+        <section class="detail_radio">
+            <div class="col-md-9 col-sm-9">
+
+                <div class="bxshadow aboutdetail">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <label><strong>Frecuencia:</strong>
+                                105.9 FM                            </label>
+                            <label><strong>Localidad:</strong> San José</label>
+                                                            <label><strong>Teléfono:</strong> 50640003561</label>
+                                                    </div>
+                        <div class="col-md-7">
+                                                            <label><strong>Género:</strong> Hip Hop, Urbana, Reggae</label>
+                                                        <label><strong>Dirección:</strong> San José</label>
+                            <label><strong>Web: </strong> <a rel="nofollow" href="http://radiourbanocr.com/">http://radiourbanocr.com/</a></label>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="clearfix"></div>
+
+                <!-- add -->
+                <section class="addlarge">
+
+                    <div class="col-md-12 ad-container">
+                            <!-- Responsive Ad -->
+    <ins class='adsbygoogle slot_2'
+             data-ad-client='ca-pub-2982894129551983'
+             data-ad-slot='6136502559'
+                 ></ins>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>                    </div>
+                    <div class="clearfix"></div>
+
+                </section>
+                <!-- add -->
+
+                <!-- ad -->
+
+                <div class="col-md-12">
+                    <div class="bxshadow description">
+                        <p>Urbano 106 105.9 FM se transmite en vivo las 24 horas del día desde San José, Costa Rica. Su programación está compuesta por un repertorio musical en donde el radioyente podrá escuchar lo mejor del Hip Hop, Reggae, Música Urbana, Música Moderna, y los ritmos más pegajoso de hoy en día.</p><p>En Urbano 106 105.9 FM el radioyente podrá disfrutar todo el día de la música más movida y relajada. Es una estación que está al alcance de todos tanto por su frecuencia 105.9 como por internet a través de nuestro portal Web.&nbsp;</p><p><strong>Programas de Urbano 106 105.9 FM</strong></p><p><ul><li>Despertate<br></li><li>Morning&nbsp; Mix<br></li><li>Old School Lunch<br></li><li>Coffe Break<br></li><li>Traffic Jam<br></li><li>La Voz del Surf<br></li><li>Di Docta Show<br></li><li>&nbsp;Reggae University<br></li><li>Play Some Roots<br></li></ul></p>                    </div>
+                </div>
+                <div class="clearfix"></div>
+
+                <!-- ad-->
+
+                <!-- add -->
+                <section class="addlarge">
+
+                    <div class="col-md-12 ad-container">
+                            <!-- Responsive Ad -->
+    <ins class='adsbygoogle slot_3'
+             data-ad-client='ca-pub-2982894129551983'
+             data-ad-slot='4659769350'
+                 ></ins>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>                    </div>
+                    <div class="clearfix"></div>
+
+                </section>
+                <!-- add -->
+            </div>
+
+            <div class="col-md-3 col-sm-3">
+                <div class="bxshadow related">
+                    <h2>Emisoras Populares</h2>
+                    <ul>
+                                                    <li>
+                                <a href="/radio-musical-975-fm">Radio Musical 97.5 FM</a>                            </li>
+                                                    <li>
+                                <a href="/la-mejor-991-fm">La Mejor 99.1 FM</a>                            </li>
+                                                    <li>
+                                <a href="/radio-disney-1011-fm">Radio Disney 101.1 FM</a>                            </li>
+                                                    <li>
+                                <a href="/columbia-estereo-927-fm">Columbia Estereo 92.7 FM</a>                            </li>
+                                                    <li>
+                                <a href="/radio-columbia">Radio Columbia</a>                            </li>
+                                                    <li>
+                                <a href="/omega-estereo-1051-fm">Omega Estéreo 105.1 FM</a>                            </li>
+                                                    <li>
+                                <a href="/besame-899-fm">Bésame 89.9 FM</a>                            </li>
+                                                    <li>
+                                <a href="/los-40-principales-1043-fm">Los 40 Principales 104.3 FM</a>                            </li>
+                                                    <li>
+                                <a href="/radio-2-995-fm">Radio 2 99.5 FM</a>                            </li>
+                                                    <li>
+                                <a href="/radio-sinfonola-903-fm">Radio Sinfonola 90.3 FM</a>                            </li>
+                                            </ul>
+                </div>
+            </div>
+
+        </section>
+        <!-- Detail radio -->
+
+
+        <!-- comments-->
+        <!-- <section class="comments">
+
+            <div class="col-md-12">
+                <div class="bxshadow">
+                    <div class="fb-comments" data-href="http://emisorascostarica.com/urbano-106-1059-fm" data-numposts="5" data-colorscheme="dark" data-width="100%"></div>
+                </div>
+            </div>
+
+        </section> -->
+        <!-- comments-->
+
+
+
+    </div>
+
+</div>
+
+    </div>
+</section>
+
+<!-- footer-->
+<footer>
+    <div class="container blackbg">
+        <div class="row">
+
+            <div class="social col-md-4 col-sm-4 col-xs-12 text-right pull-right">
+                <div class="links">
+                                    </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8 col-sm-8 col-xs-12">
+
+                <ul><li><a href="/pagina/nosotros">Nosotros</a></li>
+<li><a href="/pagina/politica-de-privacidad">Pólitica de Privacidad</a></li>
+<li><a href="/pagina/terminos-de-responsabilidad">Términos De Responsabilidad</a></li>
+<li><a href="/pagina/contacto">Contacto</a></li></ul>
+
+            </div>
+
+
+            <div class="col-md-4 col-sm-4 col-xs-12 text-right">
+                <ul class="flags" style="max-width: 260px; float: right">
+                                                                    <li><a href="https://emisorasdominicanasonline.com/" ><img class="lazyload" data-src="https://s3.amazonaws.com/cdn.radionewproject.com/emisoras-dominicanas/a5f0fcd36716679f600600d2f2fabf84.png" alt="" title=""></a></li>
+                                                                    <li><a href="https://emisorasdevenezuela.com/" ><img class="lazyload" data-src="https://s3.amazonaws.com/cdn.radionewproject.com/emisorasdevenezuela/deb6c5d368946e94ad48ad00760977a4.png" alt="" title=""></a></li>
+                                                                    <li><a href="https://emisorasecuador.com/" ><img class="lazyload" data-src="https://s3.amazonaws.com/cdn.radionewproject.com/emisoras-ecuador/846370fd79a95d89343b7e4e502a7a70.png" alt="" title=""></a></li>
+                                                                    <li><a href="https://emisorashonduras.com/" ><img class="lazyload" data-src="https://s3.amazonaws.com/cdn.radionewproject.com/radios-honduras/b4ca541628a89b7e7c2606deac232fff.png" alt="" title=""></a></li>
+                                                                    <li><a href="http://emisoraselsalvador.com/" ><img class="lazyload" data-src="https://s3.amazonaws.com/cdn.radionewproject.com/emisoras-elsalvador/ecefedd39eb9e669a5ff57563cde1b9f.png" alt="" title=""></a></li>
+                                                                    <li><a href="https://emisorasdemexico.com/" ><img class="lazyload" data-src="https://s3.amazonaws.com/cdn.radionewproject.com/radios-mexico/7e030e1ac31a2f4ce9fd555fa8811662.png" alt="" title=""></a></li>
+                                                                    <li><a href="https://radioscolombia.com/" ><img class="lazyload" data-src="https://s3.amazonaws.com/cdn.radionewproject.com/emisoras-colombia/891a2aa8b7ab2994302e8592c364e0ef.png" alt="" title=""></a></li>
+                                                                    <li><a href="https://emisorasdepanama.com/" ><img class="lazyload" data-src="https://s3.amazonaws.com/cdn.radionewproject.com/emisoras-panama/e462105cb70aca42a570150dee03e846.png" alt="" title=""></a></li>
+                                                                    <li><a href="https://emisorasguatemala.com/" ><img class="lazyload" data-src="https://s3.amazonaws.com/cdn.radionewproject.com/radios-guatemala/d6921aed8f2b32b5dbb3aa08ca35c474.png" alt="" title=""></a></li>
+                                                                    <li><a href="https://emisorasdenicaragua.com/" ><img class="lazyload" data-src="https://s3.amazonaws.com/cdn.radionewproject.com/radios-nicaragua/0d1c953ac72a791aab0900bda11fb26a.png" alt="" title=""></a></li>
+                                                                    <li><a href="https://emisorasbolivianas.com/" ><img class="lazyload" data-src="https://s3.amazonaws.com/cdn.radionewproject.com/emisoras-bolivia/cb7a823f1003fa45b6fd41b582ad6940.png" alt="" title=""></a></li>
+                                                                    <li><a href="https://emisorasperuanas.com/" ><img class="lazyload" data-src="https://s3.amazonaws.com/cdn.radionewproject.com/emisoras-peru/8aa58a5a37dbd4253ccea6a8f3fd4fd8.png" alt="" title=""></a></li>
+                                                                    <li><a href="https://emisorasargentinas.com/" ><img class="lazyload" data-src="https://s3.amazonaws.com/cdn.radionewproject.com/radios-argentina/c89537e1bda35b96a2b1d43e439a7d04.png" alt="" title=""></a></li>
+                                                                    <li><a href="https://emisoraschilenas.com/" ><img class="lazyload" data-src="https://s3.amazonaws.com/cdn.radionewproject.com/emisoras-chile/3a5d610d9869cf1541ceaf7b3383e547.png" alt="" title=""></a></li>
+                                                                    <li><a href="https://emisorasuruguayas.com/" ><img class="lazyload" data-src="https://s3.amazonaws.com/cdn.radionewproject.com/radios-uruguay/c9975ebdefc3407d1f711368de218f1e.png" alt="" title=""></a></li>
+                                                                    <li><a href="https://emisorasdeparaguay.com/" ><img class="lazyload" data-src="https://s3.amazonaws.com/cdn.radionewproject.com/emisoras-paraguay/4803a27804d81c3d6cb19c7fe5d03602.png" alt="" title=""></a></li>
+                    
+                </ul>
+            </div>
+
+
+        </div>
+    </div>
+</footer>
+<!-- footer-->
+
+<div id="fb-root"></div>
+
+    <!-- Global Site Tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-35876423-6"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments)};
+  gtag('js', new Date());
+
+  gtag('config', 'UA-35876423-6');
+</script>
+<script defer src="https://apis.google.com/js/platform.js"></script>
+<script defer src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="/assets/73f4195e/yii.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mediaelement/4.2.6/mediaelement-and-player.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/rangeslider.js/2.3.1/rangeslider.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js"></script>
+<script src="/assets/3ab64f21/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="/assets/3ab64f21/vendor/selectr/selectr.min.js"></script>
+<script src="/assets/3ab64f21/js/smartapp/smart-app-banner.js"></script>
+<script src="/assets/3ab64f21/js/lazysizes.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@11.0.3/dist/lazyload.min.js"></script>
+<script src="/assets/73f4195e/yii.activeForm.js"></script>
+<script>jQuery(function ($) {
+    var selector = new Selectr('#custom-dropdown', {
+        searchable: false,
+        clearable: false,
+        renderOption: function(option){
+            var template = [
+              '<span class="status_'+ option.getAttribute('data-stream') +'"></span>',
+              option.textContent.trim()
+            ];
+            return template.join('');
+        }
+    });
+    
+    selector.on('selectr.select', function(option) {
+        location.href=option.getAttribute('data-url');
+    });
+
+jQuery('#search-form').yiiActiveForm([], []);
+jQuery('#search-form-mobile').yiiActiveForm([], []);
+(function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.9";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+    new SmartBanner({
+          daysHidden: 15,   // days to hide banner after close button is clicked (defaults to 15)
+          daysReminder: 90, // days to hide banner after "VIEW" button is clicked (defaults to 90)
+          appStoreLanguage: 'us', // language code for the App Store (defaults to user's browser language)
+          title: '',
+          author: 'Kiskoo',
+          button: 'Descargar',
+          store: {
+              ios: 'App Store',
+              android: 'Google Play Store',
+          },
+          price: {
+              ios: 'GRATIS',
+              android: 'GRATIS',
+          }
+          // , theme: '' // put platform type ('ios', 'android', etc.) here to force single theme on all device
+          // , icon: '' // full path to icon image if not using website icon image
+          // , force: 'ios' // Uncomment for platform emulation
+      });
+      
+      
+});</script></body>
+</html>
+
