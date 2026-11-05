@@ -83392,7 +83392,8 @@
       "homepages": [
         "https://teploe.net/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:FE69:B70A:ED:0:0:0:0": {
       "name": "WGFM-Trance",
@@ -83404,7 +83405,8 @@
       "homepages": [
         "https://top-radio.ru/web/wargaming-fm"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:498A:ED2A:ED:0:0:0:0": {
       "name": "Zefir FM",
@@ -83416,7 +83418,10 @@
       "homepages": [
         "https://www.zefir-fm.by/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (6) Could not resolve host: spinsamurai.team\n"
+      ]
     },
     "4097:0:2:80A5:C065:ED:0:0:0:0": {
       "name": "Zефир FM",
@@ -83428,7 +83433,10 @@
       "homepages": [
         "http://bobrlife.by/radio"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Failed to connect to bobrlife.by port 80 after 3002 ms: Timeout was reached\n"
+      ]
     },
     "4097:0:2:5FD0:F07D:ED:0:0:0:0": {
       "name": "Авторадио Минск",
@@ -83440,7 +83448,10 @@
       "homepages": [
         "https://live.humorfm.by:8443/avtoradio"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Operation timed out after 8000 milliseconds with 174990 bytes received\n"
+      ]
     },
     "4097:0:2:9DFF:5F6F:ED:0:0:0:0": {
       "name": "Барановичи FM",
@@ -83452,7 +83463,10 @@
       "homepages": [
         "https://100fm.by/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 404\n"
+      ]
     },
     "4097:0:2:98D:8AC9:ED:0:0:0:0": {
       "name": "Город FM Брест 97,7",
@@ -83464,7 +83478,37 @@
       "homepages": [
         "https://gorodfm.by/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://gorodfm.by/upload/medialibrary/31f/g6u69jdst25vajh2dvw1becps26twho3.png",
+        "final_url": "https://gorodfm.by/upload/medialibrary/31f/g6u69jdst25vajh2dvw1becps26twho3.png",
+        "path": "originals/e9a450394080a5f286e609a2154c598ff6ec792dc4dc6539ffe1e2461f9de84f.img",
+        "sha256": "e9a450394080a5f286e609a2154c598ff6ec792dc4dc6539ffe1e2461f9de84f",
+        "bytes": 3408,
+        "dimensions": [
+          216,
+          71
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://gorodfm.by/",
+        "final_url": "https://gorodfm.by/",
+        "original_html_sha256": "654231d4718e4fedba3ec3549ac8ed9141ee58c0c69b7a7023c8fabb6343d99a",
+        "path": "page-evidence/654231d4718e4fedba3ec3549ac8ed9141ee58c0c69b7a7023c8fabb6343d99a.json",
+        "titles": [
+          "Радио Город FM (Брест)",
+          "Мы выбираем  «Город FМ» "
+        ],
+        "image_urls": [
+          "https://gorodfm.by/upload/medialibrary/31f/g6u69jdst25vajh2dvw1becps26twho3.png",
+          "https://gorodfm.by/local/templates/gorodfm/images/logo.png"
+        ],
+        "named_logos": {
+          "https://gorodfm.by/upload/medialibrary/31f/g6u69jdst25vajh2dvw1becps26twho3.png": "logo  "
+        }
+      },
+      "ocr_text": "OOF Mis\n"
     },
     "4097:0:2:C3CB:4C71:ED:0:0:0:0": {
       "name": "Душевное радио",
@@ -83477,7 +83521,43 @@
         "https://dushevnoeradio.by/",
         "https://top-radio.ru/minsk/dushevnoe-radio"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://dushevnoeradio.by/_img/logo.svg",
+        "final_url": "https://dushevnoeradio.by/_img/logo.svg",
+        "path": "originals/f4a86cce163350471c5300919b51dae4ed937c737ce55b6f79cecadf5df08860.img",
+        "sha256": "f4a86cce163350471c5300919b51dae4ed937c737ce55b6f79cecadf5df08860",
+        "bytes": 3944,
+        "dimensions": [
+          640,
+          245
+        ],
+        "format": "SVG",
+        "frozen_svg_raster": {
+          "path": "rasterized/89bc6131cf03b7e7460d533cfeed75725e35331452b1366716c1449fd3664e48.png",
+          "sha256": "89bc6131cf03b7e7460d533cfeed75725e35331452b1366716c1449fd3664e48",
+          "cairosvg_version": "2.8.2"
+        }
+      },
+      "page": {
+        "url": "https://dushevnoeradio.by/",
+        "final_url": "https://dushevnoeradio.by/",
+        "original_html_sha256": "1c1dce7c96c285221e49ea512e6a3041578363be04bb8fd253811eeee4afe249",
+        "path": "page-evidence/1c1dce7c96c285221e49ea512e6a3041578363be04bb8fd253811eeee4afe249.json",
+        "titles": [
+          "Душевное Радио — ретро-хиты, любимые мелодии и хорошее настроение онлайн",
+          "Душевное радио — музыка и истории, которые близки сердцу"
+        ],
+        "image_urls": [
+          "https://dushevnoeradio.by/_img/logo.svg",
+          "https://dushevnoeradio.by/_img/apple-touch-icon.png",
+          "https://dushevnoeradio.by/_img/favicon/1.svg"
+        ],
+        "named_logos": {
+          "https://dushevnoeradio.by/_img/logo.svg": "  "
+        }
+      },
+      "ocr_text": "Dy uebnoe\n"
     },
     "4097:0:2:FCBF:B218:ED:0:0:0:0": {
       "name": "Еўрарадыё Alternative",
@@ -83489,7 +83569,10 @@
       "homepages": [
         "https://euroradio.fm/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 403\n"
+      ]
     },
     "4097:0:2:6BAA:BBC5:ED:0:0:0:0": {
       "name": "Еўрарадыё BY",
@@ -83501,7 +83584,10 @@
       "homepages": [
         "https://euroradio.fm/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 403\n"
+      ]
     },
     "4097:0:2:F96:B908:ED:0:0:0:0": {
       "name": "Легенды FM",
@@ -83515,7 +83601,100 @@
         "https://legendy.by/",
         "https://top-radio.ru/minsk/legendyi-fm"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "http://legendy.by/themes/maintheme/images/head_logo.svg",
+        "final_url": "http://legendy.by/themes/maintheme/images/head_logo.svg",
+        "path": "originals/b2077ae3f0bd32290184f22c33326c78d17e5b91c553924a0cabe7f71e3e1e89.img",
+        "sha256": "b2077ae3f0bd32290184f22c33326c78d17e5b91c553924a0cabe7f71e3e1e89",
+        "bytes": 13864,
+        "dimensions": [
+          640,
+          164
+        ],
+        "format": "SVG",
+        "frozen_svg_raster": {
+          "path": "rasterized/d52f31ebab9f44cf83afd01086ff50b06af93f1b09adcbf5e63b83796f6f9263.png",
+          "sha256": "d52f31ebab9f44cf83afd01086ff50b06af93f1b09adcbf5e63b83796f6f9263",
+          "cairosvg_version": "2.8.2"
+        }
+      },
+      "page": {
+        "url": "http://legendy.by/",
+        "final_url": "http://legendy.by/",
+        "original_html_sha256": "0770f45da13b66f8d5edbf5da42a78849a12e1ef0f98ee9fe4b35b0334f5d315",
+        "path": "page-evidence/0770f45da13b66f8d5edbf5da42a78849a12e1ef0f98ee9fe4b35b0334f5d315.json",
+        "titles": [
+          "    Радио онлайн — Легенды FM | Слушать бесплатно\n",
+          "Что играло",
+          "В эфире",
+          "Успейте проголосовать!"
+        ],
+        "image_urls": [
+          "http://legendy.by/themes/maintheme/images/head_logo.svg",
+          "http://legendy.by/favicon.ico"
+        ],
+        "named_logos": {
+          "http://legendy.by/themes/maintheme/images/head_logo.svg": "Легенды ФМ  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/4906b97394ee691b6f1f28f5819d76e53d76f564fec5b24a52f35700ffe1f2f2.png",
+          "sha256": "4906b97394ee691b6f1f28f5819d76e53d76f564fec5b24a52f35700ffe1f2f2",
+          "bytes": 1634
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/31cf20461a04feaf4f566670e0bb3bc160670eac65bce1b5938a2e4772d29ae4.png",
+          "sha256": "31cf20461a04feaf4f566670e0bb3bc160670eac65bce1b5938a2e4772d29ae4",
+          "bytes": 11859
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/f17d20ebcddc6b7a4fd3cfa61f59ab6acca61abbf095584552682e14e8bac11a.png",
+          "sha256": "f17d20ebcddc6b7a4fd3cfa61f59ab6acca61abbf095584552682e14e8bac11a",
+          "bytes": 39132
+        },
+        "50x30/white": {
+          "path": "verified-assets/b28df83d4831c4ddccf9344ad593ad738a57e3858f3d39fd77200dc7e9496e68.png",
+          "sha256": "b28df83d4831c4ddccf9344ad593ad738a57e3858f3d39fd77200dc7e9496e68",
+          "bytes": 2976
+        },
+        "220x132/white": {
+          "path": "verified-assets/e9aa3532c651800d96a28c4bf0a7f99219a5ee5a1133b99b55ef0fe7155551ec.png",
+          "sha256": "e9aa3532c651800d96a28c4bf0a7f99219a5ee5a1133b99b55ef0fe7155551ec",
+          "bytes": 38792
+        },
+        "400x240/white": {
+          "path": "verified-assets/a3188527c1b955649ef890df95bee05842c64c49c52bc784135aaa03307a681e.png",
+          "sha256": "a3188527c1b955649ef890df95bee05842c64c49c52bc784135aaa03307a681e",
+          "bytes": 99894
+        },
+        "50x30/black": {
+          "path": "verified-assets/4f3dcb4d45eb97fc8f88064f628d249e5160bb13f93ff327759e80a016b0e30a.png",
+          "sha256": "4f3dcb4d45eb97fc8f88064f628d249e5160bb13f93ff327759e80a016b0e30a",
+          "bytes": 3012
+        },
+        "220x132/black": {
+          "path": "verified-assets/a1d5541a30c29bb7e6b1ffb02dda7efd45616bb1b202ba65c5d58b705d6fc0ca.png",
+          "sha256": "a1d5541a30c29bb7e6b1ffb02dda7efd45616bb1b202ba65c5d58b705d6fc0ca",
+          "bytes": 36583
+        },
+        "400x240/black": {
+          "path": "verified-assets/a171b54227724217a09efd0e94f78353770ee5e0139d8f05f97c06b84bf9ef51.png",
+          "sha256": "a171b54227724217a09efd0e94f78353770ee5e0139d8f05f97c06b84bf9ef51",
+          "bytes": 91431
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Легенды ФМ  ",
+        "matched_brand_keys": [
+          "легенды"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:BA59:EAD9:ED:0:0:0:0": {
       "name": "МВ-Радио",
@@ -83540,7 +83719,10 @@
       "homepages": [
         "https://wwv.zvuch.com/radio-online/melodii-veka"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 403\n"
+      ]
     },
     "4097:0:2:747D:F36D:ED:0:0:0:0": {
       "name": "Народное Радио",
@@ -83553,7 +83735,98 @@
         "https://narodnoeradio.by/",
         "https://top-radio.ru/minsk/narodnoe-belarus"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://narodnoeradio.by/wp-content/themes/cretaoil/svg/nn_logo.svg",
+        "final_url": "https://narodnoeradio.by/wp-content/themes/cretaoil/svg/nn_logo.svg",
+        "path": "originals/f31020c3860a96509e9c171ec6e87b3f16bd0687cd18b4d4439164d72c4aa879.img",
+        "sha256": "f31020c3860a96509e9c171ec6e87b3f16bd0687cd18b4d4439164d72c4aa879",
+        "bytes": 8196,
+        "dimensions": [
+          640,
+          235
+        ],
+        "format": "SVG",
+        "frozen_svg_raster": {
+          "path": "rasterized/eabd428704dfcf95bafbd69c82a88c2344dfb6e85cb14c9322f2defc43272c9a.png",
+          "sha256": "eabd428704dfcf95bafbd69c82a88c2344dfb6e85cb14c9322f2defc43272c9a",
+          "cairosvg_version": "2.8.2"
+        }
+      },
+      "page": {
+        "url": "https://narodnoeradio.by/",
+        "final_url": "https://narodnoeradio.by/",
+        "original_html_sha256": "029bde52b0a0a7d5bc8768b0960515b7ed89bd6f8b3690b3fb37e4dcc52d0e71",
+        "path": "page-evidence/029bde52b0a0a7d5bc8768b0960515b7ed89bd6f8b3690b3fb37e4dcc52d0e71.json",
+        "titles": [
+          "Народное Радио",
+          "Народное радио"
+        ],
+        "image_urls": [
+          "https://narodnoeradio.by/wp-content/themes/cretaoil/svg/nn_logo.svg",
+          "https://narodnoeradio.by/wp-content/themes/cretaoil/favicon.ico"
+        ],
+        "named_logos": {
+          "https://narodnoeradio.by/wp-content/themes/cretaoil/svg/nn_logo.svg": "Народное радио Народное радио "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/d7314f40ceecaff856fd5c915bbbb799b626e5cc3e360e3ae391f76cc3f02a8f.png",
+          "sha256": "d7314f40ceecaff856fd5c915bbbb799b626e5cc3e360e3ae391f76cc3f02a8f",
+          "bytes": 1780
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/43786301a361cea51c9d896082fb6523ca27714134f8d67246f47b3f0a6b2847.png",
+          "sha256": "43786301a361cea51c9d896082fb6523ca27714134f8d67246f47b3f0a6b2847",
+          "bytes": 13947
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/5033a055253c2bad8cb1b0480cc4a05dc053b1079db0d079655099aba6d070fa.png",
+          "sha256": "5033a055253c2bad8cb1b0480cc4a05dc053b1079db0d079655099aba6d070fa",
+          "bytes": 46481
+        },
+        "50x30/white": {
+          "path": "verified-assets/a769777f817a481fdfeac0089325a394fd14c354063c95da2c60f1b501555a2a.png",
+          "sha256": "a769777f817a481fdfeac0089325a394fd14c354063c95da2c60f1b501555a2a",
+          "bytes": 3238
+        },
+        "220x132/white": {
+          "path": "verified-assets/7afd51a2d59822521317fc916b62b857ef0b801f842ae217dbef31244b3ae010.png",
+          "sha256": "7afd51a2d59822521317fc916b62b857ef0b801f842ae217dbef31244b3ae010",
+          "bytes": 39299
+        },
+        "400x240/white": {
+          "path": "verified-assets/f2e05c3df57e97f5bb859e2dd385d983da41873b977fc373031a40f907ff8f06.png",
+          "sha256": "f2e05c3df57e97f5bb859e2dd385d983da41873b977fc373031a40f907ff8f06",
+          "bytes": 102866
+        },
+        "50x30/black": {
+          "path": "verified-assets/42ecf3568f73c9f7369ff309683b08377f9aca00cc9f3556386b58b7c1190463.png",
+          "sha256": "42ecf3568f73c9f7369ff309683b08377f9aca00cc9f3556386b58b7c1190463",
+          "bytes": 3254
+        },
+        "220x132/black": {
+          "path": "verified-assets/e29f6df131afe19e9301fbef9aceca0a5fe2c79833f6601b536c2b5846028eab.png",
+          "sha256": "e29f6df131afe19e9301fbef9aceca0a5fe2c79833f6601b536c2b5846028eab",
+          "bytes": 37833
+        },
+        "400x240/black": {
+          "path": "verified-assets/1c45128085793c96fa61f934c2ab180bd44b468a974b388604e4f1699ecf6bc0.png",
+          "sha256": "1c45128085793c96fa61f934c2ab180bd44b468a974b388604e4f1699ecf6bc0",
+          "bytes": 95931
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Народное радио Народное радио ",
+        "matched_brand_keys": [
+          "народное"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:A22E:10C:ED:0:0:0:0": {
       "name": "Новое радио",
@@ -83566,7 +83839,10 @@
         "https://live.novoeradio.by:444/live/novoeradio_aac128/icecast.audio",
         "https://novoeradio.by/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Operation timed out after 8002 milliseconds with 488975 bytes received\n"
+      ]
     },
     "4097:0:2:6F72:2944:ED:0:0:0:0": {
       "name": "Новое радио - Fresh",
@@ -83578,7 +83854,8 @@
       "homepages": [
         "https://www.novoeradio.by/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:F3B8:454A:ED:0:0:0:0": {
       "name": "Новое радио - MegaMix",
@@ -83590,7 +83867,8 @@
       "homepages": [
         "https://www.novoeradio.by/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:35DF:F2EF:ED:0:0:0:0": {
       "name": "Открытое Слово Авто Радио",
@@ -83602,7 +83880,8 @@
       "homepages": [
         "https://radioslovo.net/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:F843:B366:ED:0:0:0:0": {
       "name": "Открытое Слово Братские встречи",
@@ -83614,7 +83893,8 @@
       "homepages": [
         "https://radioslovo.net/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:42ED:B099:ED:0:0:0:0": {
       "name": "Открытое Слово Инструментальная музыка",
@@ -83626,7 +83906,10 @@
       "homepages": [
         "https://radioslovo.net/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "[Errno 2] No such file or directory: 'migration/radio-fast-logo-production-20261105/page-evidence/4f0312121f6bf3e29eb957532342791a45a6bbc6bb00ac6039a3d8295f16b915.json.tmp' -> 'mig"
+      ]
     },
     "4097:0:2:7E:7177:ED:0:0:0:0": {
       "name": "Радио 123",
@@ -83651,7 +83934,8 @@
         "https://roks.by/",
         "https://roks.com/onlajn"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:898D:7754:ED:0:0:0:0": {
       "name": "Радио витебск",
@@ -83663,7 +83947,10 @@
       "homepages": [
         "https://radiovitebsk.by/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (92) HTTP/2 stream 1 was not closed cleanly: PROTOCOL_ERROR (err 1)\n"
+      ]
     },
     "4097:0:2:5554:1A5A:ED:0:0:0:0": {
       "name": "радио Минск 92.4",
@@ -83675,7 +83962,10 @@
       "homepages": [
         "https://minsknews.by/radio-minsk/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 403\n"
+      ]
     },
     "4097:0:2:62B7:54BA:ED:0:0:0:0": {
       "name": "Радио Могилёв",
@@ -83687,7 +83977,10 @@
       "homepages": [
         "https://www.tvrmogilev.by/ru/radio/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Failed to connect to www.tvrmogilev.by port 443 after 3002 ms: Timeout was reached\n"
+      ]
     },
     "4097:0:2:9D39:E924:ED:0:0:0:0": {
       "name": "Радыё Relax",
@@ -83706,7 +83999,10 @@
       "homepages": [
         "http://www.racyja.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 403\n"
+      ]
     },
     "4097:0:2:C2D3:B913:ED:0:0:0:0": {
       "name": "Радыё Сталiца",
@@ -83718,7 +84014,8 @@
       "homepages": [
         "https://www.prfm.ru/radio/radio-stalitsa.html"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:1167:AF1A:ED:0:0:0:0": {
       "name": "Русское радио Минск 98.9 FM",
@@ -504428,14 +504725,14 @@
   },
   "counts": {
     "already_ready_in_saved_checkpoint": 4155,
-    "blocked_no_confirmed_station_page_and_logo": 1052,
+    "blocked_no_confirmed_station_page_and_logo": 1073,
     "blocked_no_independent_station_homepage": 1269,
     "blocked_no_unique_current_station_metadata": 4248,
-    "candidate_assistant_visual_and_identity_check": 343,
+    "candidate_assistant_visual_and_identity_check": 345,
     "needs_assistant_identity_research_for_short_or_generic_name": 1328,
-    "pending_homepage_discovery": 28053,
-    "ready_verified_homepage_and_wordmark": 455
+    "pending_homepage_discovery": 28028,
+    "ready_verified_homepage_and_wordmark": 457
   },
-  "last_event": "homepages_1825_of_29878",
-  "updated_utc": "2026-11-05T14:05:35Z"
+  "last_event": "homepages_1850_of_29878",
+  "updated_utc": "2026-11-05T14:05:51Z"
 }
