@@ -1,0 +1,68 @@
+<svg width="400" height="500" viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#7fff00;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#ff1493;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#00bfff;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00ffff;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#8a2be2;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ff1493;stop-opacity:1" />
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Center leaf (top) -->
+  <ellipse cx="200" cy="120" rx="20" ry="80" 
+    fill="none" stroke="url(#grad1)" stroke-width="4" filter="url(#glow)"/>
+  
+  <!-- Top-left leaf -->
+  <ellipse cx="140" cy="140" rx="20" ry="70" 
+    transform="rotate(-45 140 140)"
+    fill="none" stroke="url(#grad1)" stroke-width="4" filter="url(#glow)"/>
+  
+  <!-- Top-right leaf -->
+  <ellipse cx="260" cy="140" rx="20" ry="70" 
+    transform="rotate(45 260 140)"
+    fill="none" stroke="url(#grad2)" stroke-width="4" filter="url(#glow)"/>
+  
+  <!-- Middle-left leaf -->
+  <ellipse cx="100" cy="200" rx="20" ry="80" 
+    transform="rotate(-70 100 200)"
+    fill="none" stroke="url(#grad1)" stroke-width="4" filter="url(#glow)"/>
+  
+  <!-- Middle-right leaf -->
+  <ellipse cx="300" cy="200" rx="20" ry="80" 
+    transform="rotate(70 300 200)"
+    fill="none" stroke="url(#grad2)" stroke-width="4" filter="url(#glow)"/>
+  
+  <!-- Bottom-left leaf -->
+  <ellipse cx="120" cy="250" rx="18" ry="65" 
+    transform="rotate(-100 120 250)"
+    fill="none" stroke="url(#grad1)" stroke-width="4" filter="url(#glow)"/>
+  
+  <!-- Bottom-right leaf -->
+  <ellipse cx="280" cy="250" rx="18" ry="65" 
+    transform="rotate(100 280 250)"
+    fill="none" stroke="url(#grad2)" stroke-width="4" filter="url(#glow)"/>
+  
+  <!-- Center connection -->
+  <circle cx="200" cy="200" r="8" 
+    fill="url(#grad1)" filter="url(#glow)"/>
+  
+  <!-- WebAmp text -->
+  <text x="200" y="400" 
+    font-family="Arial, sans-serif" 
+    font-size="80" 
+    font-weight="bold" 
+    fill="white" 
+    text-anchor="middle"
+    filter="url(#glow)">WebAmp</text>
+</svg>
