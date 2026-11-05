@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="es"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Triple A 97.2 FM - Desde el corazón de la Guajira</title>
+    
+    <!-- Meta Descriptions & SEO -->
+    <meta name="description" content="Escucha La Triple A 97.2 FM en vivo. Desde el corazón de la Guajira con la mejor programación y música.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/img/logo.png">
+    <link rel="apple-touch-icon" href="assets/img/logo.png">
+    
+    <!-- Open Graph (WhatsApp, Facebook, etc.) -->
+    <meta property="og:title" content="La Triple A 97.2 FM - Desde el corazón de la Guajira">
+    <meta property="og:description" content="Escucha La Triple A 97.2 FM en vivo. Desde el corazón de la Guajira con la mejor programación.">
+    <meta property="og:image" content="https://latriplearadio.com/assets/img/logo.png">
+    <meta property="og:url" content="https://latriplearadio.com">
+    <meta property="og:type" content="website">
+    
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="La Triple A 97.2 FM - Desde el corazón de la Guajira">
+    <meta name="twitter:description" content="Escucha La Triple A 97.2 FM en vivo. Desde el corazón de la Guajira.">
+    <meta name="twitter:image" content="https://latriplearadio.com/assets/img/logo.png">
+
+    <link rel="stylesheet" href="css/styles.css?v=55">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+    <!-- Supabase SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/regular/style.css"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/thin/style.css"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/light/style.css"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/bold/style.css"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/fill/style.css"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/duotone/style.css">
+</head>
+<body data-supabase-url="https://tpgtjixawdpougnzqnew.supabase.co" data-supabase-key="sb_publishable_VcFWTlX9_P_qc7ZL4jTRMA_wuK1dvUj" data-supabase-url2="https://ddasjtncijuazcnpwytt.supabase.co" data-supabase-key2="sb_publishable_zN9k1XodDlp3ZG5_EcdJ7w_KxzyJybb" data-supabase-url3="https://wsapjnxujnirjqbvbmiv.supabase.co" data-supabase-key3="sb_publishable_ff8PG5yFfYgX6DNa51c4kg_fpeCjmKq" class="loaded">
+
+    <!-- Barra de Modo Previsualización (Vista de Oyente) -->
+    <div id="preview-mode-bar" style="display: none; position: fixed; top: 20px; left: 50%; transform: translateX(-50%); z-index: 100000; background: var(--bg-dark); border: 2px solid #38bdf8; padding: 10px 25px; border-radius: 30px; align-items: center; gap: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+        <span style="color: #38bdf8; font-weight: 700; font-size: 0.9rem; letter-spacing: 0.5px;">VISTA PREVIA (VISTA DE OYENTE)</span>
+        <button id="admin-preview-exit-btn" class="btn btn-primary btn-sm" style="background: #38bdf8; border: none; color: var(--bg-dark); font-weight: 700; border-radius: 20px; padding: 6px 16px; cursor: pointer; transition: all 0.3s ease;">Volver al Editor</button>
+    </div>
+
+    <!-- Publicidad Lateral Izquierda - Fixed a la pantalla (directo en body para que position:fixed funcione correctamente) -->
+    <div id="hero-ad-left-container" class="hero-side-ad ad-deactivated">
+        <div class="ad-container-body">
+            <a id="hero-ad-left-link" href="#" target="_blank" style="display: block; width: 100%; height: 100%; text-decoration: none;">
+                <img id="hero-ad-left-img" data-is-editable-img="true" src="assets/img/logo.png" alt="Publicidad Izquierda">
+            </a>
+        </div>
+    </div>
+
+    <!-- Publicidad Lateral Derecha - Fixed a la pantalla -->
+    <div id="hero-ad-right-container" class="hero-side-ad ad-deactivated">
+        <div class="ad-container-body">
+            <a id="hero-ad-right-link" href="#" target="_blank" style="display: block; width: 100%; height: 100%; text-decoration: none;">
+                <img id="hero-ad-right-img" data-is-editable-img="true" src="assets/img/logo.png" alt="Publicidad Derecha">
+            </a>
+        </div>
+    </div>
+
+    <!-- Header Navigation -->
+    <header class="header" id="header">
+        <div class="container navbar">
+            <div class="brand-group" style="display: flex; align-items: center; gap: 15px;">
+                <a href="#inicio" class="logo">
+                    <img id="editable-img-0" data-is-editable-img="true" src="assets/img/logo.png" alt="La Triple A 97.2 FM" style="height: 45px; width: auto;" data-original-src="assets/img/logo.png">
+                </a>
+                
+                <!-- Mini Player Integrated -->
+                <div id="header-mini-player" class="mini-player" style="display: flex; flex-direction: row; flex-wrap: nowrap; align-items: center; gap: 15px;">
+                    <!-- Sound Wave -->
+                    <div class="mini-wave" id="mini-wave">
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                    </div>
+                    
+                    <span class="mini-player-text" style="font-weight: 700; font-size: 0.9rem; white-space: nowrap; margin-right: 5px;">La Triple A 97.2</span>
+                    
+                    <button id="floating-play-pause" style="border-radius: 50%; width: 34px; height: 34px; padding: 0; display: flex; align-items: center; justify-content: center; min-width: 34px; background-color: var(--primary-green) !important; color: white !important; border: none; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
+                        <i class="ph-fill ph-play" style="font-size: 1.1rem;"></i>
+                    </button>
+                    
+                    <!-- Volume Control -->
+                    <div class="mini-volume" style="display: flex; align-items: center; gap: 5px; margin-left: 5px;">
+                        <i id="floating-volume-icon" class="ph ph-speaker-high" style="color: var(--primary-green); font-size: 1.2rem;"></i>
+                        <input type="range" id="floating-volume-slider" min="0" max="1" step="0.01" value="1" style="width: 60px; height: 4px; cursor: pointer;">
+                    </div>
+                </div>
+            </div>
+            <nav class="nav-links">
+                <a href="#inicio">Inicio</a>
+                <a href="#reproductor">En Vivo</a>
+                <a href="#nosotros">Nosotros</a>
+                <a href="#programacion">Programas</a>
+                <a href="#publicidad">Publicidad</a>
+                <a href="#redes">Redes</a>
+                <a href="#contacto" class="btn-sm">Contacto</a>
+            </nav>
+            <button class="mobile-menu-btn" aria-label="Abrir menú">
+                <i class="ph ph-list"></i>
+            </button>
+        </div>
+    </header>
+
+
+    <!-- Mobile Nav -->
+    <div class="mobile-nav">
+        <nav class="mobile-nav-links">
+            <a href="#inicio">Inicio</a>
+            <a href="#reproductor">En Vivo</a>
+            <a href="#nosotros">Nosotros</a>
+            <a href="#programacion">Programas</a>
+            <a href="#publicidad">Publicidad</a>
+            <a href="#redes" id="mobile-redes-link">Redes</a>
+            <a href="#contacto">Contacto</a>
+        </nav>
+    </div>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="inicio" class="hero section-spacing">
+            <div class="hero-bg-waves"></div>
+            <div class="container hero-content align-center">
+                <div class="hero-logo-row">
+                    <!-- Logo Principal -->
+                    <div class="hero-logo-main">
+                        <img id="editable-img-1" data-is-editable-img="true" src="assets/img/logo.png" alt="La Triple A 97.2 FM" style="max-height: 220px; width: auto; max-width: 100%;" data-original-src="assets/img/logo.png">
+                    </div>
+                </div>
+                <h1 id="hero-title-hidden" class="hero-title" style="display: none;" data-is-editable="true" data-original-content="
+                    La Triple A 97.2 FM
+                ">
+                    La Triple A 97.2 FM
+                </h1>
+                <h2 id="hero-title-visible" class="hero-subtitle-large" style="font-size: 2.5rem; color: var(--accent-yellow); font-family: var(--font-heading); font-weight: 700; margin-bottom: 20px; text-shadow: 0 4px 10px rgba(0,0,0,0.3);" data-is-editable="true" data-original-content="
+                    Tu Ritmo, Tu Vida
+                ">
+                    Tu Ritmo, Tu Vida
+                </h2>
+                <p id="hero-desc" class="hero-subtitle" data-is-editable="true" data-original-content="La mejor programación musical y de entretenimiento, directo a tus oídos, 24/7 en línea.">La mejor programación noticiosa y musical, para llevar&nbsp; el mejor entretenimiento directo a tus oídos.</p>
+                <div class="hero-cta">
+                    <a href="#reproductor" class="btn btn-primary pulse">
+                        <i class="ph-fill ph-play-circle"></i> Escuchar en vivo
+                    </a>
+                    <a href="#contacto" class="btn btn-outline">Contáctanos</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Live Player Section -->
+        <section id="reproductor" class="player-section section-spacing reveal">
+            <div class="container">
+                <div class="player-container glass-panel">
+                    <!-- Main Controls Area -->
+                    <div class="player-main">
+                        <div class="player-info">
+                            <div class="now-playing-anim">
+                                <span class="bar"></span>
+                                <span class="bar"></span>
+                                <span class="bar"></span>
+                                <span class="bar"></span>
+                            </div>
+                            <div class="text-info">
+                                <div class="player-badges-container">
+                                    <span class="live-badge">EN VIVO</span>
+                                    <span id="player-listeners-badge" class="player-listeners-badge" style="display: none;">
+                                        <i class="ph-fill ph-users"></i> <span id="player-listeners-count">0</span> oyentes
+                                    </span>
+                                </div>
+                                <h2 id="player-title" data-is-editable="true" data-original-content="Transmisión Central">La Triple A 97.2 FM</h2>
+                                <p id="player-subtitle" data-is-editable="true" data-original-content="Únete a la mejor sintonía en este momento.">Identidad del Sur de La Guajira</p>
+                            </div>
+                        </div>
+                        
+                        <div class="player-controls">
+                            <!-- Hidden audio element for streaming url -->
+                            <audio id="radio-stream" src="https://play14.tikast.com:22079/;" preload="none" crossorigin="anonymous">
+                                Tu navegador no soporta el elemento de audio.
+                            </audio>
+
+                            <button id="play-pause-btn" class="control-btn play-btn" aria-label="Reproducir">
+                                <i class="ph-fill ph-play"></i>
+                            </button>
+
+                            <div class="player-controls-secondary">
+                                <div class="volume-control">
+                                    <i class="ph ph-speaker-high" id="volume-icon"></i>
+                                    <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.8" aria-label="Volumen">
+                                </div>
+
+                                <button id="eq-toggle-btn" class="eq-btn" title="Ecualizador">
+                                    <i class="ph ph-equalizer"></i>
+                                    <span>EQ</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Equalizer Drawer Area -->
+                    <div id="eq-drawer" class="eq-drawer">
+                        <div class="eq-drawer-content">
+                            <div class="eq-slider-group">
+                                <label>Bajos</label>
+                                <input type="range" id="eq-bass" min="-10" max="10" step="1" value="0">
+                                <span class="eq-value" id="val-bass">0dB</span>
+                            </div>
+                            <div class="eq-slider-group">
+                                <label>Medios</label>
+                                <input type="range" id="eq-mids" min="-10" max="10" step="1" value="0">
+                                <span class="eq-value" id="val-mids">0dB</span>
+                            </div>
+                            <div class="eq-slider-group">
+                                <label>Agudos</label>
+                                <input type="range" id="eq-treble" min="-10" max="10" step="1" value="0">
+                                <span class="eq-value" id="val-treble">0dB</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Banner PC (solo visible en escritorio ≥769px) -->
+                <div id="player-banner-container" class="player-ad-banner ad-deactivated">
+                    <div class="ad-container-body">
+                        <a id="player-ad-banner-link" href="#" target="_blank" style="display: block; width: 100%; height: 100%; text-decoration: none;">
+                            <img id="player-ad-banner-img" data-is-editable-img="true" src="assets/img/banner_pc.png" alt="Banner PC" style="width: 100%; height: 100%; object-fit: contain; display: block; margin: 0 auto;">
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Banner Móvil (solo visible en móvil ≤768px) -->
+                <div id="player-banner-mobile-container" class="player-ad-banner-mobile ad-deactivated">
+                    <div class="ad-container-body-mobile">
+                        <a id="player-ad-banner-mobile-link" href="#" target="_blank" style="display: block; width: 100%; height: 100%; text-decoration: none;">
+                            <img id="player-ad-banner-mobile-img" data-is-editable-img="true" src="assets/img/banner_mobile.jpg" alt="Banner Móvil" style="width: 100%; height: 100%; object-fit: contain; display: block; margin: 0 auto;">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Us Section -->
+        <section id="nosotros" class="about-section section-spacing reveal">
+            <div class="container about-grid">
+                <div class="about-text">
+                    <h2 id="about-section-title" class="section-title" data-is-editable="true" data-original-content="Sobre &lt;span class=&quot;highlight&quot;&gt;Nosotros&lt;/span&gt;"><span class="highlight">Nosotros</span></h2>
+                    <p id="about-desc" data-is-editable="true" data-original-content="Somos &lt;strong&gt;La Triple A 97.2 FM&lt;/strong&gt;, una emisora nacida con la pasión de conectar a nuestra comunidad en San Juan del Cesar, La Guajira, a través de la música e información de calidad.">Somos <strong>La Triple A 97.2 FM</strong>, una emisora nacida con la pasión de conectar a nuestra comunidad en San Juan del Cesar, y el Sur de La Guajira, a través de la música e información de calidad.</p>
+                    
+                    <div class="mission-vision">
+                        <div class="mv-card">
+                            <i class="ph ph-target"></i>
+                            <h3 id="mission-title" data-is-editable="true" data-original-content="Misión">Misión</h3>
+                            <p id="mission-desc" data-is-editable="true" data-original-content="Brindar entretenimiento y cultura con un formato fresco y moderno que acompañe el día a día de nuestros oyentes.">Brindar entretenimiento y cultura con un formato fresco y moderno que acompañe el día a día de nuestros oyentes.</p>
+                        </div>
+                        <div class="mv-card">
+                            <i class="ph ph-eye"></i>
+                            <h3 id="vision-title" data-is-editable="true" data-original-content="Visión">Visión</h3>
+                            <p id="vision-desc" data-is-editable="true" data-original-content="Ser la radio online líder, reconocida por su excelencia en sonido y programación en toda la región.">Ser la radio online líder, reconocida por su excelencia en sonido y programación en toda la región.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-images">
+                    <div class="image-wrapper" style="background: none; box-shadow: none;">
+                        <img id="editable-img-about" data-is-editable-img="true" src="assets/img/logo.png" alt="Logo La Triple A" style="width: 100%; height: auto; object-fit: contain; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.1));" data-original-src="assets/img/logo.png">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Programming Section -->
+        <section id="programacion" class="schedule-section section-spacing bg-light reveal">
+            <div class="container">
+                <h2 id="programs-section-title" class="section-title align-center" data-is-editable="true" data-original-content="Nuestra &lt;span class=&quot;highlight&quot;&gt;Programación&lt;/span&gt;">Nuestra <span class="highlight">Programación</span></h2>
+                <div id="program-grid-container" class="program-grid">
+                        <div class="program-card" data-card-id="1">
+                            <div class="card-img">
+                                <img id="editable-img-prog-1" data-is-editable-img="true" src="assets/img/dynamic_editable-img-prog-1.png" style="width: 100%; height: 100%; object-fit: cover;">
+                                <span id="time-badge-1" data-is-editable="true" class="time-badge">06:00 - 07:00</span>
+                            </div>
+                            <div class="card-content">
+                                <h3 id="prog-title-1" data-is-editable="true">El Informativo de La Mañana</h3>
+                                <p id="prog-desc-1" data-is-editable="true">Despierta con la mejor información, junto a Evelin Fuentes, Ruth Mendoza y todo el equipo periodístico de La Triple A.</p>
+                                <span class="host"><i class="ph ph-microphone-stage"></i> <span id="host-name-1" data-is-editable="true">Evelin José Fuentes &amp; Ruth Mendoza<br></span></span>
+                            </div>
+                        </div>
+                    
+                        <div class="program-card" data-card-id="3">
+                            <div class="card-img">
+                                <img id="editable-img-prog-3" data-is-editable-img="true" src="assets/img/dynamic_editable-img-prog-3.png" style="width: 100%; height: 100%; object-fit: cover;">
+                                <span id="time-badge-3" data-is-editable="true" class="time-badge">08:00 - 09:00</span>
+                            </div>
+                            <div class="card-content">
+                                <h3 id="prog-title-3" data-is-editable="true">Gente, Cultura y Pueblo</h3>
+                                <p id="prog-desc-3" data-is-editable="true">Con HuGaGa</p>
+                                <span class="host"><i class="ph ph-microphone-stage"></i> <span id="host-name-3" data-is-editable="true"><div>Hugues Gámez Gámez</div></span></span>
+                            </div>
+                        </div>
+                    
+                        <div class="program-card" data-card-id="1777233172049">
+                            <div class="card-img">
+                                <img id="editable-img-prog-1777233172049" data-is-editable-img="true" src="assets/img/dynamic_editable-img-prog-1777233172049.png" style="width: 100%; height: 100%; object-fit: cover;">
+                                <span id="time-badge-1777233172049" data-is-editable="true" class="time-badge">10:00 - 12:00</span>
+                            </div>
+                            <div class="card-content">
+                                <h3 id="prog-title-1777233172049" data-is-editable="true">Mañanas Triple A</h3>
+                                <p id="prog-desc-1777233172049" data-is-editable="true">Ponle sabor a tus mañanas, con mañanas Triple A</p>
+                                <span class="host"><i class="ph ph-microphone-stage"></i> <span id="host-name-1777233172049" data-is-editable="true">Andrés Felipe Daza &amp; Álvaro Triple A</span></span>
+                            </div>
+                        </div>
+                    
+                        <div class="program-card" data-card-id="2">
+                            <div class="card-img">
+                                <img id="editable-img-prog-2" data-is-editable-img="true" src="assets/img/dynamic_editable-img-prog-2.png" style="width: 100%; height: 100%; object-fit: cover;">
+                                <span id="time-badge-2" data-is-editable="true" class="time-badge">12:00 - 13:00</span>
+                            </div>
+                            <div class="card-content">
+                                <h3 id="prog-title-2" data-is-editable="true">El Informativo del Medio Día&nbsp;</h3>
+                                <p id="prog-desc-2" data-is-editable="true"><span style="font-size: 15.2px;">Conéctate con la mejor información, junto a Evelin Fuentes y el equipo periodístico de La Triple A.</span></p>
+                                <span class="host"><i class="ph ph-microphone-stage"></i> <span id="host-name-2" data-is-editable="true">Evelin José Fuentes Ortega</span></span>
+                            </div>
+                        </div>
+                    
+                        <div class="program-card" data-card-id="1775703178161">
+                            <div class="card-img">
+                                <img id="editable-img-prog-1775703178161" data-is-editable-img="true" src="assets/img/dynamic_editable-img-prog-1775703178161.png" style="width: 100%; height: 100%; object-fit: cover;">
+                                <span id="time-badge-1775703178161" data-is-editable="true" class="time-badge">13:00 - 14:00</span>
+                            </div>
+                            <div class="card-content">
+                                <h3 id="prog-title-1775703178161" data-is-editable="true">Comunicación y Tejido Social</h3>
+                                <p id="prog-desc-1775703178161" data-is-editable="true">La radio revista cívica y cultural</p>
+                                <span class="host"><i class="ph ph-microphone-stage"></i> <span id="host-name-1775703178161" data-is-editable="true">Ana Cecilia Fuentes</span></span>
+                            </div>
+                        </div>
+                    
+                        <div class="program-card" data-card-id="1775530040650">
+                            <div class="card-img">
+                                <img id="editable-img-prog-1775530040650" data-is-editable-img="true" src="assets/img/dynamic_editable-img-prog-1775530040650.png" style="width: 100%; height: 100%; object-fit: cover;">
+                                <span id="time-badge-1775530040650" data-is-editable="true" class="time-badge">14:00 - 15:00</span>
+                            </div>
+                            <div class="card-content">
+                                <h3 id="prog-title-1775530040650" data-is-editable="true">Primera Plana</h3>
+                                <p id="prog-desc-1775530040650" data-is-editable="true">El programa de opinión líder en el sur de La Guajira.</p>
+                                <span class="host"><i class="ph ph-microphone-stage"></i> <span id="host-name-1775530040650" data-is-editable="true">Hamilton Daza Gutiérrez</span></span>
+                            </div>
+                        </div>
+
+                        <div class="program-card" data-card-id="1781964542146">
+                            <div class="card-img">
+                                <img id="editable-img-prog-1781964542146" data-is-editable-img="true" src="assets/img/dynamic_editable-img-prog-1781964542146.png" style="width: 100%; height: 100%; object-fit: cover;">
+                                <span id="time-badge-1781964542146" data-is-editable="true" class="time-badge">07:00 - 08:00</span>
+                            </div>
+                            <div class="card-content">
+                                <h3 id="prog-title-1781964542146" data-is-editable="true">ADN Sobrenatural</h3>
+                                <p id="prog-desc-1781964542146" data-is-editable="true">Disfruta de un tiempo sobrenatural y lleno de palabra de bendición, prosperidad y sanidad para toda la familia, de la mano de Dios.</p>
+                                <span class="host"><i class="ph ph-microphone-stage"></i> <span id="host-name-1781964542146" data-is-editable="true">Pastor Johasyn Vanegas</span></span>
+                            </div>
+                        </div>
+
+                        <div class="program-card" data-card-id="1781964900286">
+                            <div class="card-img">
+                                <img id="editable-img-prog-1781964900286" data-is-editable-img="true" src="assets/img/dynamic_editable-img-prog-1781964900286.png" style="width: 100%; height: 100%; object-fit: cover;">
+                                <span id="time-badge-1781964900286" data-is-editable="true" class="time-badge">09:00 - 11:00</span>
+                            </div>
+                            <div class="card-content">
+                                <h3 id="prog-title-1781964900286" data-is-editable="true">Vallenateando</h3>
+                                <p id="prog-desc-1781964900286" data-is-editable="true">Lo mejor de nuestro Folclore está todos los sábados en Vallenateando, con Jaime Elías.</p>
+                                <span class="host"><i class="ph ph-microphone-stage"></i> <span id="host-name-1781964900286" data-is-editable="true">Jaime Elías</span></span>
+                            </div>
+                        </div>
+
+                        <div class="program-card" data-card-id="1781964988811">
+                            <div class="card-img">
+                                <img id="editable-img-prog-1781964988811" data-is-editable-img="true" src="assets/img/dynamic_editable-img-prog-1781964988811.png" style="width: 100%; height: 100%; object-fit: cover;">
+                                <span id="time-badge-1781964988811" data-is-editable="true" class="time-badge">17:00 - 18:00</span>
+                            </div>
+                            <div class="card-content">
+                                <h3 id="prog-title-1781964988811" data-is-editable="true">Atardecer Campesino</h3>
+                                <p id="prog-desc-1781964988811" data-is-editable="true">Las notas del campo y el vallenato autentico se fusionan en Atardecer Campesino.</p>
+                                <span class="host"><i class="ph ph-microphone-stage"></i> <span id="host-name-1781964988811" data-is-editable="true">Walter Mendoza Martínez</span></span>
+                            </div>
+                        </div>
+                    </div>
+                <!-- Admin Add Program Button -->
+                <div id="admin-add-program-wrapper" style="display: none; text-align: center; margin-top: 30px;">
+                    <button id="add-program-btn" class="btn btn-outline" style="border-style: dashed; border-width: 2px; width: 100%; max-width: 300px; padding: 20px; color: var(--text-muted); font-weight: 600;">
+                        <i class="ph ph-plus" style="font-size: 2rem; display: block; margin-bottom: 5px;"></i>
+                        Añadir Pestaña de Programa
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Advertising Section -->
+        <section id="publicidad" class="ads-section section-spacing reveal">
+            <div class="container ads-container">
+                <div class="ads-content glass-panel">
+                    <h2 id="ads-section-title" class="section-title" data-is-editable="true" data-original-content="Anúnciate con &lt;span class=&quot;highlight&quot;&gt;Nosotros&lt;/span&gt;">Anúnciate con <span class="highlight">Nosotros</span></h2>
+                    <p id="ads-section-desc" class="ads-desc" data-is-editable="true" data-original-content="Llega a miles de oyentes diarios. Impulsa tu negocio anunciándote en nuestra emisora con planes adaptados a tu presupuesto.">Llega a miles de oyentes diarios. Impulsa tu negocio anunciándote en nuestra emisora con planes adaptados a tu presupuesto.</p>
+                    <ul class="ads-benefits">
+                        <li><i class="ph-fill ph-check-circle"></i> <span id="ad-benefit-1" data-is-editable="true" data-original-content="Gran alcance y audiencia segmentada">Gran alcance y audiencia segmentada.</span></li>
+                        <li><i class="ph-fill ph-check-circle"></i> <span id="ad-benefit-2" data-is-editable="true" data-original-content="Menciones en vivo y spots publicitarios">Menciones en vivo y spots publicitarios.</span></li>
+                        <li><i class="ph-fill ph-check-circle"></i> <span id="ad-benefit-3" data-is-editable="true" data-original-content="Presencia en nuestra web y redes sociales">Presencia en nuestra web, app para Android y redes sociales.</span></li>
+                    </ul>
+                    <a href="#contacto" class="btn btn-primary mt-4">Solicitar Información</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contacto" class="contact-section section-spacing bg-light reveal">
+            <div class="container">
+                <div class="contact-grid">
+                    <div class="contact-info">
+                        <h2 id="contact-title" class="section-title" data-is-editable="true" data-original-content="Habla con &lt;span class=&quot;highlight&quot;&gt;Nosotros&lt;/span&gt;">Contáctanos&nbsp;</h2>
+                        <p id="contact-desc" data-is-editable="true" data-original-content="¿Tienes dudas sobre publicidad, alianzas o sugerencias? Escríbenos y te responderemos pronto.">¿Tienes dudas sobre publicidad, alianzas o sugerencias? Escríbenos y te responderemos pronto.</p>
+                        
+                        <div class="contact-methods">
+                            <div class="method">
+                                <i class="ph-fill ph-envelope-simple"></i>
+                                <span id="contact-email" data-is-editable="true" data-original-content="latripleafm@gmail.com">contacto@latriplearadio.com</span>
+                            </div>
+                            <div class="method">
+                                <i class="ph-fill ph-phone"></i>
+                                <span id="contact-phone" data-is-editable="true" data-original-content="+57 321 3879553">+57 301 1029487</span>
+                            </div>
+                            <div class="method">
+                                <i class="ph-fill ph-whatsapp-logo"></i>
+                                <span id="contact-whatsapp" data-is-editable="true" data-original-content="WhatsApp (321 3879553)">WhatsApp (+57 3011029487)</span>
+                            </div>
+                            <div class="method">
+                                <i class="ph-fill ph-map-pin"></i>
+                                <span id="contact-address" data-is-editable="true" data-original-content="San Juan del Cesar, La Guajira">San Juan del Cesar - Villanueva, La Guajira</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="contact-cta-wrapper align-center glass-panel" style="padding: 40px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 20px;">
+                        <i class="ph-fill ph-whatsapp-logo" style="font-size: 5rem; color: #25D366;"></i>
+                        <h3 id="contact-cta-title" style="font-size: 1.8rem; font-family: var(--font-heading);" data-is-editable="true" data-original-content="Chatea con nosotros">Chatea con nosotros</h3>
+                        <p id="contact-cta-desc" style="color: var(--text-muted);" data-is-editable="true" data-original-content="Puedes enviarnos un mensaje directamente por WhatsApp para publicidad o sugerencias.">Puedes enviarnos un mensaje directamente por WhatsApp para publicidad o sugerencias.</p>
+                        <a href="https://wa.me/573011029487" target="_blank" class="btn btn-primary w-100" style="background-color: #25D366; border: none;">
+                            <span id="contact-cta-btn" data-is-editable="true" data-original-content="Enviar Mensaje">Enviar Mensaje</span> <i class="ph ph-whatsapp-logo"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Social Media Section -->
+        <section id="redes" class="social-section section-spacing reveal">
+            <div class="container">
+                <h2 id="social-section-title" class="section-title align-center" data-is-editable="true" data-original-content="Sintoniza con &lt;span class=&quot;highlight&quot;&gt;Nosotros&lt;/span&gt;">Síguenos en nuestras&nbsp;<span class="highlight">Redes Sociales</span></h2>
+                <div class="social-cards-grid">
+                    <!-- Card 1: Emisora -->
+                    <a href="https://instagram.com/latriplea97.2" target="_blank" class="social-card instagram glass-panel">
+                        <div class="social-icon-wrapper">
+                            <i class="ph-fill ph-instagram-logo"></i>
+                        </div>
+                        <div class="social-card-content">
+                            <h3 id="instagram-title" data-is-editable="true" data-original-content="@latriplea97.2">@latriplea97.2</h3>
+                            <p id="instagram-desc" data-is-editable="true" data-original-content="¡Vive el ritmo! Síguenos para descubrir contenido exclusivo, fotos de cabina y enterarte de todas nuestras sorpresas.">Descubre contenido exclusivo, detrás de micrófonos y lo último de nuestra programación.</p>
+                            <span class="social-action">Seguir ahora <i class="ph ph-arrow-up-right"></i></span>
+                        </div>
+                    </a>
+                    <!-- Card 2: Facebook -->
+                    <a href="https://www.facebook.com/latriplea97.2" target="_blank" class="social-card facebook glass-panel">
+                        <div class="social-icon-wrapper">
+                            <i class="ph-fill ph-facebook-logo"></i>
+                        </div>
+                        <div class="social-card-content">
+                            <h2 id="facebook-title" style="font-size: 1.4rem; margin-bottom: 5px; font-weight: 600;" data-is-editable="true" data-original-content="La Triple A 97.2 FM">La Triple A 97.2 FM</h2>
+                            <p id="facebook-desc" data-is-editable="true" data-original-content="Únete a nuestra comunidad. Transmisiones en vivo, noticias locales y lo mejor de nuestra programación en Facebook.">Noticias, entretenimiento y transmisiones en vivo. Únete a nuestra gran familia en Facebook.</p>
+                            <span class="social-action">Ir a Facebook <i class="ph ph-arrow-up-right"></i></span>
+                        </div>
+                    </a>
+                    <!-- Card 3: TikTok -->
+                    <a href="https://www.tiktok.com/@latriplea97.2" target="_blank" class="social-card tiktok glass-panel">
+                        <div class="social-icon-wrapper">
+                            <i class="ph-fill ph-tiktok-logo"></i>
+                        </div>
+                        <div class="social-card-content">
+                            <h2 id="tiktok-title" style="font-size: 1.4rem; margin-bottom: 5px; font-weight: 600;" data-is-editable="true" data-original-content="@latriplea97.2">@latriplea97.2</h2>
+                            <p id="tiktok-desc" data-is-editable="true" data-original-content="¡Pura diversión! Mira nuestros mejores momentos en TikTok, detrás de cámaras y contenido musical exclusivo.">Mira nuestros mejores momentos en TikTok, detrás de cámaras y contenido musical exclusivo.</p>
+                            <span class="social-action">Ver TikTok <i class="ph ph-arrow-up-right"></i></span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-content">
+            <!-- Brand -->
+            <div class="footer-brand footer-col">
+                <a href="#inicio" class="logo">
+                    <img id="editable-img-5" data-is-editable-img="true" src="assets/img/dynamic_editable-img-5.png" alt="La Triple A 97.2 FM" style="height: 60px; width: auto; margin-bottom: 20px;" data-original-src="assets/img/dynamic_editable-img-5.png">
+                </a>
+                <p id="footer-brand-desc" data-is-editable="true" data-original-content="Transmitiendo desde el corazón de La Guajira para todo el mundo. 24/7 en línea.">Nuestra identidad, transmitiendo desde el corazón de La Guajira.</p>
+            </div>
+            
+            <!-- App & Socials -->
+            <div class="footer-app-social footer-col">
+                <h3 id="footer-app-title" data-is-editable="true" data-original-content="Escucha en todas partes">Llévanos contigo siempre&nbsp;</h3>
+                <a href="https://play.google.com/store/apps/details?id=com.virtualtronics.latripleafm&amp;pcampaignid=web_share" target="_blank" aria-label="Descargar en Google Play" class="app-button">
+                    <img src="assets/img/google-play.png" alt="Disponible en Google Play" style="height: 42px; width: auto;" id="editable-img-4" data-is-editable-img="true" data-original-src="assets/img/google-play.png">
+                </a>
+                <div class="social-icons-row" style="margin-top: 20px;">
+                    <a href="https://instagram.com/latriplea97.2" target="_blank" aria-label="Instagram Emisora" class="social-icon-btn"><i class="ph-fill ph-instagram-logo"></i></a>
+                    <a href="https://www.facebook.com/latriplea97.2" target="_blank" aria-label="Facebook Emisora" class="social-icon-btn"><i class="ph-fill ph-facebook-logo"></i></a>
+                    <a href="https://www.tiktok.com/@latriplea97.2" target="_blank" aria-label="TikTok Emisora" class="social-icon-btn"><i class="ph-fill ph-tiktok-logo"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container" style="display: flex; justify-content: center; align-items: center; gap: 10px;">
+                <p id="footer-copyright" data-is-editable="true" data-original-content="© 2026 La Triple A 97.2 FM. Todos los derechos reservados.">© 2026 La TripleA97.2. Todos los derechos reservados.</p>
+                <button id="admin-trigger" class="btn-text" style="font-size: 0.8rem; color: #64748b; background: transparent; border: none; cursor: pointer; text-decoration: underline;">Administrador</button>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Admin Login Modal -->
+    <div id="admin-modal" class="modal-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 10000; align-items: center; justify-content: center;">
+        <div class="modal-content glass-panel" style="padding: 40px; max-width: 400px; width: 90%; border-radius: var(--border-radius); border: 1px solid var(--primary-green); display: flex; flex-direction: column; align-items: center;">
+            <img id="admin-logo" data-is-editable-img="true" src="assets/img/logo.png" style="height: 60px; width: auto; margin-bottom: 20px;" data-original-src="assets/img/logo.png">
+            <h3 id="admin-panel-title" style="margin-bottom: 25px; text-align: center; color: var(--primary-green); font-size: 1.8rem;" data-is-editable="true" data-original-content="Panel de Control">Panel de Control</h3>
+            <div class="form-group" style="margin-bottom: 20px;">
+                <label style="display: block; margin-bottom: 8px; font-weight: 500;">Correo Electrónico</label>
+                <input type="email" id="admin-email-input" placeholder="admin@ejemplo.com" style="width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px;">
+            </div>
+            <div class="form-group" style="margin-bottom: 20px;">
+                <label style="display: block; margin-bottom: 8px; font-weight: 500;">Contraseña</label>
+                <input type="password" id="admin-pass-input" placeholder="********" style="width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px;">
+            </div>
+            <div class="modal-actions" style="display: flex; justify-content: flex-end; gap: 15px; margin-top: 30px;">
+                <button id="close-modal" class="btn btn-outline" style="border-color: var(--text-muted); color: var(--text-muted);">Cancelar</button>
+                <button id="login-btn" class="btn btn-primary">Entrar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ad Config Modal -->
+        <div id="ad-config-modal" class="modal-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 10000; align-items: center; justify-content: center;">
+        <div class="modal-content glass-panel" style="padding: 35px; max-width: 560px; width: 95%; border-radius: var(--border-radius); border: 2px solid var(--primary-green); display: flex; flex-direction: column; max-height: 90vh; overflow-y: auto; color: var(--text-main);">
+            <h3 style="margin-bottom: 20px; text-align: center; color: var(--primary-green); font-size: 1.8rem;">Ajustes de Publicidad</h3>
+
+            <!-- ACTIVAR/DESACTIVAR -->
+            <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px;">
+                <h4 style="color: var(--text-muted); font-size: 0.8rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px;">Activar / Desactivar</h4>
+                <div class="form-group" style="display: flex; align-items: center; justify-content: space-between; background: rgba(0,0,0,0.04); padding: 12px 15px; border-radius: 8px; border: 1px solid rgba(0,0,0,0.08);">
+                    <label style="font-weight: 600; font-size: 0.95rem; color: var(--text-main); cursor: pointer; user-select: none;" for="ad-promo-active-checkbox">Ventana Emergente (Pop-up)</label>
+                    <label class="switch" style="position: relative; display: inline-block; width: 50px; height: 26px;">
+                        <input type="checkbox" id="ad-promo-active-checkbox" checked style="opacity: 0; width: 0; height: 0;">
+                        <span class="slider round" style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #cbd5e1; transition: .4s; border-radius: 34px;"></span>
+                    </label>
+                </div>
+                <div class="form-group" style="display: flex; align-items: center; justify-content: space-between; background: rgba(0,0,0,0.04); padding: 12px 15px; border-radius: 8px; border: 1px solid rgba(0,0,0,0.08);">
+                    <label style="font-weight: 600; font-size: 0.95rem; color: var(--text-main); cursor: pointer; user-select: none;" for="hero-ad-left-active-checkbox">Publicidad Izquierda (Lateral)</label>
+                    <label class="switch" style="position: relative; display: inline-block; width: 50px; height: 26px;">
+                        <input type="checkbox" id="hero-ad-left-active-checkbox" style="opacity: 0; width: 0; height: 0;">
+                        <span class="slider round" style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #cbd5e1; transition: .4s; border-radius: 34px;"></span>
+                    </label>
+                </div>
+                <div class="form-group" style="display: flex; align-items: center; justify-content: space-between; background: rgba(0,0,0,0.04); padding: 12px 15px; border-radius: 8px; border: 1px solid rgba(0,0,0,0.08);">
+                    <label style="font-weight: 600; font-size: 0.95rem; color: var(--text-main); cursor: pointer; user-select: none;" for="hero-ad-right-active-checkbox">Publicidad Derecha (Lateral)</label>
+                    <label class="switch" style="position: relative; display: inline-block; width: 50px; height: 26px;">
+                        <input type="checkbox" id="hero-ad-right-active-checkbox" style="opacity: 0; width: 0; height: 0;">
+                        <span class="slider round" style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #cbd5e1; transition: .4s; border-radius: 34px;"></span>
+                    </label>
+                </div>
+                <div class="form-group" style="display: flex; align-items: center; justify-content: space-between; background: rgba(0,0,0,0.04); padding: 12px 15px; border-radius: 8px; border: 1px solid rgba(0,0,0,0.08);">
+                    <label style="font-weight: 600; font-size: 0.95rem; color: var(--text-main); cursor: pointer; user-select: none;" for="player-ad-banner-active-checkbox">Banner PC (bajo el reproductor)</label>
+                    <label class="switch" style="position: relative; display: inline-block; width: 50px; height: 26px;">
+                        <input type="checkbox" id="player-ad-banner-active-checkbox" style="opacity: 0; width: 0; height: 0;">
+                        <span class="slider round" style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #cbd5e1; transition: .4s; border-radius: 34px;"></span>
+                    </label>
+                </div>
+                <div class="form-group" style="display: flex; align-items: center; justify-content: space-between; background: rgba(0,0,0,0.04); padding: 12px 15px; border-radius: 8px; border: 1px solid rgba(0,0,0,0.08);">
+                    <label style="font-weight: 600; font-size: 0.95rem; color: var(--text-main); cursor: pointer; user-select: none;" for="player-ad-banner-mobile-active-checkbox">Banner Móvil (bajo el reproductor)</label>
+                    <label class="switch" style="position: relative; display: inline-block; width: 50px; height: 26px;">
+                        <input type="checkbox" id="player-ad-banner-mobile-active-checkbox" style="opacity: 0; width: 0; height: 0;">
+                        <span class="slider round" style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #cbd5e1; transition: .4s; border-radius: 34px;"></span>
+                    </label>
+                </div>
+                <div class="form-group" style="display: flex; align-items: center; justify-content: space-between; background: rgba(0,0,0,0.04); padding: 12px 15px; border-radius: 8px; border: 1px solid rgba(0,0,0,0.08);">
+                    <label style="font-weight: 600; font-size: 0.95rem; color: var(--text-main); cursor: pointer; user-select: none;" for="listeners-counter-status-checkbox">Contador de Oyentes en Reproductor</label>
+                    <label class="switch" style="position: relative; display: inline-block; width: 50px; height: 26px;">
+                        <input type="checkbox" id="listeners-counter-status-checkbox" style="opacity: 0; width: 0; height: 0;">
+                        <span class="slider round" style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #cbd5e1; transition: .4s; border-radius: 34px;"></span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- AJUSTE DE CONTADOR DE OYENTES EN VIVO -->
+            <div style="border-top: 1px solid rgba(0,0,0,0.08); padding-top: 18px; margin-bottom: 18px; display: flex; flex-direction: column; gap: 10px;">
+                <h4 style="color: var(--primary-green); font-size: 1rem; font-weight: 700;">Configuración de Oyentes (Reproductor)</h4>
+                <div class="form-group" style="display: flex; flex-direction: column; gap: 5px;">
+                    <label style="font-weight: 600; font-size: 0.85rem; color: var(--text-main);">Oyentes base adicionales (Aumentar / Inflar cantidad)</label>
+                    <input type="number" id="listeners-counter-base-input" placeholder="Ej: 100" value="0" min="0" max="99999" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.9rem;">
+                    <small style="color: var(--text-muted); font-size: 0.78rem;">Este número se suma automáticamente a los oyentes reales de forma dinámica.</small>
+                </div>
+            </div>
+
+            <!-- PUBLICIDAD IZQUIERDA -->
+            <div style="border-top: 1px solid rgba(0,0,0,0.08); padding-top: 18px; margin-bottom: 18px; display: flex; flex-direction: column; gap: 10px;">
+                <h4 style="color: var(--primary-green); font-size: 1rem; font-weight: 700;">Publicidad Izquierda (Lateral)</h4>
+                <div class="form-group" style="display: flex; flex-direction: column; gap: 5px;">
+                    <label style="font-weight: 600; font-size: 0.85rem; color: var(--text-main);">Enlace al hacer clic (URL)</label>
+                    <input type="url" id="hero-ad-left-url-input" placeholder="https://ejemplo.com" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem; background: white; color: black;">
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <div class="form-group" style="flex: 1; display: flex; flex-direction: column; gap: 5px;">
+                        <label style="font-weight: 600; font-size: 0.85rem; color: var(--text-main);">Modo de Tamaño</label>
+                        <select id="hero-ad-left-mode-select" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem; background: white; color: black;">
+                            <option value="fixed">Resolución Fija (Px)</option>
+                            <option value="auto">Automático (Adaptable)</option>
+                        </select>
+                    </div>
+                    <div class="form-group" style="flex: 1; display: flex; flex-direction: column; gap: 5px;">
+                        <label style="font-weight: 600; font-size: 0.85rem; color: var(--text-main);">Ajuste (Nunca Deforma)</label>
+                        <select id="hero-ad-left-fit-select" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem; background: white; color: black;">
+                            <option value="contain">Sin Deformar (Contener)</option>
+                            <option value="cover">Cubrir Espacio</option>
+                            <option value="fill">Llenar Completo</option>
+                        </select>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <div class="form-group" style="flex: 1; display: flex; flex-direction: column; gap: 5px;">
+                        <label style="font-weight: 600; font-size: 0.85rem; color: var(--text-main);">Ancho (px)</label>
+                        <input type="number" id="hero-ad-left-width-input" placeholder="230" min="50" max="1920" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem; background: white; color: black;">
+                    </div>
+                    <div class="form-group" style="flex: 1; display: flex; flex-direction: column; gap: 5px;">
+                        <label style="font-weight: 600; font-size: 0.85rem; color: var(--text-main);">Alto (px)</label>
+                        <input type="number" id="hero-ad-left-height-input" placeholder="460" min="50" max="1920" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem; background: white; color: black;">
+                    </div>
+                </div>
+            </div>
+
+            <!-- PUBLICIDAD DERECHA -->
+            <div style="border-top: 1px solid rgba(0,0,0,0.08); padding-top: 18px; margin-bottom: 18px; display: flex; flex-direction: column; gap: 10px;">
+                <h4 style="color: var(--primary-green); font-size: 1rem; font-weight: 700;">Publicidad Derecha (Lateral)</h4>
+                <div class="form-group" style="display: flex; flex-direction: column; gap: 5px;">
+                    <label style="font-weight: 600; font-size: 0.85rem; color: var(--text-main);">Enlace al hacer clic (URL)</label>
+                    <input type="url" id="hero-ad-right-url-input" placeholder="https://ejemplo.com" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem; background: white; color: black;">
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <div class="form-group" style="flex: 1; display: flex; flex-direction: column; gap: 5px;">
+                        <label style="font-weight: 600; font-size: 0.85rem; color: var(--text-main);">Modo de Tamaño</label>
+                        <select id="hero-ad-right-mode-select" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem; background: white; color: black;">
+                            <option value="fixed">Resolución Fija (Px)</option>
+                            <option value="auto">Automático (Adaptable)</option>
+                        </select>
+                    </div>
+                    <div class="form-group" style="flex: 1; display: flex; flex-direction: column; gap: 5px;">
+                        <label style="font-weight: 600; font-size: 0.85rem; color: var(--text-main);">Ajuste (Nunca Deforma)</label>
+                        <select id="hero-ad-right-fit-select" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem; background: white; color: black;">
+                            <option value="contain">Sin Deformar (Contener)</option>
+                            <option value="cover">Cubrir Espacio</option>
+                            <option value="fill">Llenar Completo</option>
+                        </select>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <div class="form-group" style="flex: 1; display: flex; flex-direction: column; gap: 5px;">
+                        <label style="font-weight: 600; font-size: 0.85rem; color: var(--text-main);">Ancho (px)</label>
+                        <input type="number" id="hero-ad-right-width-input" placeholder="230" min="50" max="1920" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem; background: white; color: black;">
+                    </div>
+                    <div class="form-group" style="flex: 1; display: flex; flex-direction: column; gap: 5px;">
+                        <label style="font-weight: 600; font-size: 0.85rem; color: var(--text-main);">Alto (px)</label>
+                        <input type="number" id="hero-ad-right-height-input" placeholder="460" min="50" max="1920" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem; background: white; color: black;">
+                    </div>
+                </div>
+            </div>
+
+            <!-- BANNER PC REPRODUCTOR -->
+            <div style="border-top: 1px solid rgba(0,0,0,0.08); padding-top: 18px; margin-bottom: 18px; display: flex; flex-direction: column; gap: 10px;">
+                <h4 style="color: var(--primary-green); font-size: 1rem; font-weight: 700;">🖥️ Banner PC (bajo el reproductor)</h4>
+                <div style="background: rgba(16, 185, 129, 0.08); border-left: 3px solid var(--primary-green); padding: 8px 12px; border-radius: 4px; font-size: 0.82rem; color: var(--text-main);">
+                    <strong>Resolución recomendada:</strong> 1024 × 133 px (pantallas de computador).<br>
+                    <small style="color: var(--text-muted);">Soporta todos los formatos: imágenes (JPG, PNG, WebP), GIF animados y videos (MP4, WebM).</small>
+                </div>
+                <div class="form-group" style="display: flex; flex-direction: column; gap: 5px;">
+                    <label style="font-weight: 600; font-size: 0.85rem; color: var(--text-main);">Enlace al hacer clic (URL)</label>
+                    <input type="url" id="player-ad-banner-url-input" placeholder="https://ejemplo.com" value="#" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem; background: white; color: black;">
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <div class="form-group" style="flex: 1; display: flex; flex-direction: column; gap: 5px;">
+                        <label style="font-weight: 600; font-size: 0.85rem; color: var(--text-main);">Modo de Tamaño</label>
+                        <select id="player-ad-banner-mode-select" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem; background: white; color: black;">
+                            <option value="fixed">Resolución Fija (Px)</option>
+                            <option value="auto">Automático (Adaptable)</option>
+                        </select>
+                    </div>
+                    <div class="form-group" style="flex: 1; display: flex; flex-direction: column; gap: 5px;">
+                        <label style="font-weight: 600; font-size: 0.85rem; color: var(--text-main);">Ajuste (Nunca Deforma)</label>
+                        <select id="player-ad-banner-fit-select" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem; background: white; color: black;">
+                            <option value="contain">Sin Deformar (Contener)</option>
+                            <option value="cover">Cubrir Espacio</option>
+                            <option value="fill">Llenar Completo</option>
+                        </select>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <div class="form-group" style="flex: 1; display: flex; flex-direction: column; gap: 5px;">
+                        <label style="font-weight: 600; font-size: 0.85rem; color: var(--text-main);">Ancho max. (px)</label>
+                        <input type="number" id="player-ad-banner-width-input" placeholder="1024" value="1024" min="200" max="1920" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem; background: white; color: black;">
+                    </div>
+                    <div class="form-group" style="flex: 1; display: flex; flex-direction: column; gap: 5px;">
+                        <label style="font-weight: 600; font-size: 0.85rem; color: var(--text-main);">Alto (px)</label>
+                        <input type="number" id="player-ad-banner-height-input" placeholder="133" value="133" min="50" max="900" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem; background: white; color: black;">
+                    </div>
+                </div>
+            </div>
+
+            <!-- BANNER MÓVIL REPRODUCTOR -->
+            <div style="border-top: 1px solid rgba(0,0,0,0.08); padding-top: 18px; margin-bottom: 18px; display: flex; flex-direction: column; gap: 10px;">
+                <h4 style="color: var(--primary-green); font-size: 1rem; font-weight: 700;">📱 Banner Móvil (bajo el reproductor)</h4>
+                <div style="background: rgba(16, 185, 129, 0.08); border-left: 3px solid var(--primary-green); padding: 8px 12px; border-radius: 4px; font-size: 0.82rem; color: var(--text-main);">
+                    <strong>Resolución recomendada:</strong> 1024 × 267 px (pantallas de celular).<br>
+                    <small style="color: var(--text-muted);">Soporta todos los formatos: imágenes (JPG, PNG, WebP), GIF animados y videos (MP4, WebM).</small>
+                </div>
+                <div class="form-group" style="display: flex; flex-direction: column; gap: 5px;">
+                    <label style="font-weight: 600; font-size: 0.85rem; color: var(--text-main);">Enlace al hacer clic (URL)</label>
+                    <input type="url" id="player-ad-banner-mobile-url-input" placeholder="https://ejemplo.com" value="#" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem; background: white; color: black;">
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <div class="form-group" style="flex: 1; display: flex; flex-direction: column; gap: 5px;">
+                        <label style="font-weight: 600; font-size: 0.85rem; color: var(--text-main);">Modo de Tamaño</label>
+                        <select id="player-ad-banner-mobile-mode-select" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem; background: white; color: black;">
+                            <option value="fixed">Resolución Fija (Px)</option>
+                            <option value="auto">Automático (Adaptable)</option>
+                        </select>
+                    </div>
+                    <div class="form-group" style="flex: 1; display: flex; flex-direction: column; gap: 5px;">
+                        <label style="font-weight: 600; font-size: 0.85rem; color: var(--text-main);">Ajuste (Nunca Deforma)</label>
+                        <select id="player-ad-banner-mobile-fit-select" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem; background: white; color: black;">
+                            <option value="contain">Sin Deformar (Contener)</option>
+                            <option value="cover">Cubrir Espacio</option>
+                            <option value="fill">Llenar Completo</option>
+                        </select>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <div class="form-group" style="flex: 1; display: flex; flex-direction: column; gap: 5px;">
+                        <label style="font-weight: 600; font-size: 0.85rem; color: var(--text-main);">Ancho max. (px)</label>
+                        <input type="number" id="player-ad-banner-mobile-width-input" placeholder="1024" value="1024" min="100" max="1920" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem; background: white; color: black;">
+                    </div>
+                    <div class="form-group" style="flex: 1; display: flex; flex-direction: column; gap: 5px;">
+                        <label style="font-weight: 600; font-size: 0.85rem; color: var(--text-main);">Alto (px)</label>
+                        <input type="number" id="player-ad-banner-mobile-height-input" placeholder="267" value="267" min="50" max="900" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem; background: white; color: black;">
+                    </div>
+                </div>
+            </div>
+
+            <!-- POP-UP CONFIGURACION -->
+            <div style="border-top: 1px solid rgba(0,0,0,0.08); padding-top: 18px; margin-bottom: 18px; display: flex; flex-direction: column; gap: 10px;">
+                <h4 style="color: var(--primary-green); font-size: 1rem; font-weight: 700;">Configuración del Pop-up</h4>
+                <div class="form-group" style="display: flex; flex-direction: column; gap: 5px;">
+                    <label style="font-weight: 600; font-size: 0.85rem; color: var(--text-main);">Enlace al hacer clic en la imagen (URL)</label>
+                    <input type="url" id="ad-promo-url-input" value="http://wa.me/573223878232?utm_source=beacons&utm_medium=lib_share&utm_campaign=cmaproducciones" placeholder="https://ejemplo.com (vacío = sin enlace)" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem; background: white; color: black;">
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <div class="form-group" style="flex: 1; display: flex; flex-direction: column; gap: 5px;">
+                        <label style="font-weight: 600; font-size: 0.85rem; color: var(--text-main);">Modo de Tamaño</label>
+                        <select id="ad-promo-mode-select" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem; background: white; color: black;">
+                            <option value="auto">Automático (Adaptable)</option>
+                            <option value="fixed">Resolución Fija (Px)</option>
+                        </select>
+                    </div>
+                    <div class="form-group" style="flex: 1; display: flex; flex-direction: column; gap: 5px;">
+                        <label style="font-weight: 600; font-size: 0.85rem; color: var(--text-main);">Ajuste de Imagen/Video</label>
+                        <select id="ad-promo-fit-select" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem; background: white; color: black;">
+                            <option value="contain">Sin Deformar (Contener)</option>
+                            <option value="cover">Cubrir Espacio</option>
+                            <option value="fill">Llenar Completo</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group" style="display: flex; flex-direction: column; gap: 5px;">
+                    <label style="font-weight: 600; font-size: 0.85rem; color: var(--text-main);">Tipo de Botón en el Pop-up</label>
+                    <select id="ad-promo-btn-type-select" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem; background: white; color: black;">
+                        <option value="calendar">Botón de Calendario (Agendar)</option>
+                        <option value="link" selected>Botón de Enlace Personalizado</option>
+                        <option value="none">Ocultar Botón</option>
+                    </select>
+                </div>
+                <div id="ad-promo-btn-link-group" class="form-group" style="display: flex; flex-direction: column; gap: 5px;">
+                    <label style="font-weight: 600; font-size: 0.85rem; color: var(--text-main);">URL del Botón de Enlace</label>
+                    <input type="url" id="ad-promo-btn-link-input" value="http://wa.me/573223878232?utm_source=beacons&utm_medium=lib_share&utm_campaign=cmaproducciones" placeholder="https://ejemplo.com" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem; background: white; color: black;">
+                </div>
+                <div class="form-group" style="display: flex; flex-direction: column; gap: 5px;">
+                    <label style="font-weight: 600; font-size: 0.85rem; color: var(--text-main);">Texto del Botón</label>
+                    <input type="text" id="ad-cal-btn-text-input" value="Comprar Boletas / Palcos 🎟️" placeholder="Comprar Boletas / Palcos 🎟️" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem; background: white; color: black;">
+                </div>
+                <div id="ad-calendar-fields-group" style="display: none; flex-direction: column; gap: 10px;">
+                    <div class="form-group" style="display: flex; flex-direction: column; gap: 5px;">
+                        <label style="font-weight: 600; font-size: 0.85rem; color: var(--text-main);">Título del Evento</label>
+                        <input type="text" id="ad-cal-title-input" placeholder="Gran Lanzamiento La Triple A 97.2 FM" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem; background: white; color: black;">
+                    </div>
+                    <div style="display: flex; gap: 10px; width: 100%;">
+                        <div class="form-group" style="flex: 1; display: flex; flex-direction: column; gap: 5px;">
+                            <label style="font-weight: 600; font-size: 0.85rem; color: var(--text-main);">Fecha y Hora Inicio</label>
+                            <input type="datetime-local" id="ad-cal-start-input" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem; background: white; color: black;">
+                        </div>
+                        <div class="form-group" style="flex: 1; display: flex; flex-direction: column; gap: 5px;">
+                            <label style="font-weight: 600; font-size: 0.85rem; color: var(--text-main);">Fecha y Hora Fin</label>
+                            <input type="datetime-local" id="ad-cal-end-input" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem; background: white; color: black;">
+                        </div>
+                    </div>
+                    <div class="form-group" style="display: flex; flex-direction: column; gap: 5px;">
+                        <label style="font-weight: 600; font-size: 0.85rem; color: var(--text-main);">Ubicación del Evento</label>
+                        <input type="text" id="ad-cal-location-input" placeholder="San Juan del Cesar, La Guajira" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem; background: white; color: black;">
+                    </div>
+                    <div class="form-group" style="display: flex; flex-direction: column; gap: 5px;">
+                        <label style="font-weight: 600; font-size: 0.85rem; color: var(--text-main);">Descripción del Evento</label>
+                        <textarea id="ad-cal-desc-input" rows="2" placeholder="Detalles sobre el evento..." style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem; background: white; color: black; font-family: inherit; resize: vertical;"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 20px; text-align: center; background: rgba(0,0,0,0.04); padding: 15px; border-radius: 8px; border: 1px solid rgba(0,0,0,0.08);">
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px;">Soporta imágenes (PNG, JPG, WEBP, GIF, SVG) y Videos (MP4, WebM). Para cambiar archivos, arrástralos sobre la página o usa los botones flotantes de edición.</p>
+                <button id="ad-config-open-preview-btn" class="btn btn-outline btn-sm" style="width: 100%; border-color: var(--accent-yellow); color: var(--accent-yellow); justify-content: center; gap: 5px; cursor: pointer; background: var(--bg-dark);">
+                    <i class="ph ph-eye"></i> Abrir Publicidad Emergente para Editar
+                </button>
+            </div>
+
+            <div class="modal-actions" style="display: flex; justify-content: flex-end; gap: 15px;">
+                <button id="close-ad-config-modal" class="btn btn-primary" style="background-color: var(--primary-green); color: white; width: 100%; justify-content: center; cursor: pointer; border: none;">Aceptar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Toolbar -->
+    <div id="admin-toolbar" style="display: none; position: fixed; bottom: 20px; right: 20px; z-index: 9999; background: var(--bg-dark); padding: 15px; border-radius: 30px; gap: 10px; box-shadow: var(--shadow-hover); border: 2px solid var(--primary-green); align-items: center;">
+        <span style="color: white; align-self: center; margin-right: 10px; font-weight: 600;">MODO EDITOR</span>
+        <span id="viewer-count-display" style="color: var(--primary-green); font-weight: 600; margin-right: 15px; font-family: monospace; background: rgba(16, 185, 129, 0.1); padding: 5px 12px; border-radius: 15px; border: 1px solid rgba(16, 185, 129, 0.3);">👥 -- online</span>
+        <button id="save-changes" class="btn btn-primary btn-sm">Guardar Cambios</button>
+        <button id="admin-preview-mode-btn" class="btn btn-outline btn-sm" style="border-color: #38bdf8; color: #38bdf8;"><i class="ph ph-eye"></i> Previsualizar</button>
+        <button id="admin-ad-config-btn" class="btn btn-outline btn-sm" style="border-color: var(--accent-yellow); color: var(--accent-yellow);"><i class="ph ph-megaphone"></i> Publicidad</button>
+        <button id="reset-site" class="btn btn-outline btn-sm" style="border-color: #ef4444; color: #ef4444;">Limpiar Todo</button>
+        <button id="logout-btn" class="btn btn-outline btn-sm">Salir</button>
+    </div>
+
+    <!-- Ventana Emergente de Publicidad -->
+    <div id="ad-promo-modal" class="ad-modal-overlay" style="display: none;">
+        <div class="ad-modal-content">
+            <button id="ad-promo-close" class="ad-modal-close" aria-label="Cerrar publicidad">
+                <i class="ph ph-x"></i>
+            </button>
+            <div class="ad-modal-body">
+                <a id="ad-promo-link" href="http://wa.me/573223878232?utm_source=beacons&utm_medium=lib_share&utm_campaign=cmaproducciones" target="_blank" style="display: flex; justify-content: center; align-items: center; width: auto; max-width: 100%; height: auto; text-decoration: none;">
+                    <img id="ad-promo-img" data-is-editable-img="true" src="assets/img/festival_compositores.jpg" alt="49º Festival Nacional de Compositores" style="max-width: 100%; max-height: calc(88vh - 90px); width: auto; height: auto; object-fit: contain; display: block; border-radius: 13px; margin: 0 auto;">
+                </a>
+            </div>
+            <!-- Botón de Agendar o Enlace -->
+            <button id="ad-promo-calendar" class="ad-promo-btn btn btn-primary pulse" style="margin-top: 15px; width: 100%; text-align: center; justify-content: center; gap: 8px; font-weight: 700; display: flex; align-items: center; border: none; cursor: pointer;">
+                <i class="ph ph-ticket" style="font-size: 1.35rem;"></i> Comprar Boletas / Palcos 🎟️
+            </button>
+        </div>
+    </div>
+
+    <script src="js/script.js?v=55"></script>
+    <!-- Hidden elements for admin use -->
+    <input type="file" id="admin-file-input" accept="image/*,video/*,.gif,.svg,.mp4,.webm,.ogg" style="display: none;">
+
+
+</body></html>
