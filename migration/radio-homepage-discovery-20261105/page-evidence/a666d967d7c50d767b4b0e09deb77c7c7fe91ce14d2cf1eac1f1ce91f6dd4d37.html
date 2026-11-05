@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Banovina Light - Slušaj uživo</title>
+  <meta id="meta-description" name="description" content="Slušajte Banovina Light uživo putem interneta. Najbolji zabavni hitovi - slušaju svi, slušajte i vi!" />
+  <meta id="meta-robots" name="robots" content="index,follow" />
+  <link id="link-canonical" rel="canonical" href="https://www.radio-banovina.hr/light/" />
+
+  <!-- Open Graph -->
+  <meta id="og-title" property="og:title" content="" />
+  <meta id="og-description" property="og:description" content="" />
+  <meta id="og-image" property="og:image" content="" />
+  <meta id="og-url" property="og:url" content="" />
+  <meta id="og-type" property="og:type" content="website" />
+  <meta id="og-locale" property="og:locale" content="hr_HR" />
+
+  <!-- Twitter -->
+  <meta id="twitter-card" name="twitter:card" content="summary_large_image" />
+  <meta id="twitter-title" name="twitter:title" content="" />
+  <meta id="twitter-description" name="twitter:description" content="" />
+  <meta id="twitter-image" name="twitter:image" content="" />
+
+  <meta id="meta-theme-color" name="theme-color" content="#eb0000" />
+  <link rel="icon" href="./favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" href="./live-icon.png" />
+  <link rel="apple-touch-icon" href="./live-icon.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./player.css?v=20260616.2314" />
+
+  <!-- Strukturirani podaci (JSON-LD) i footer "o postaji" ubacuju se iz config.js (seo.schema / seo.aboutHtml) -->
+
+  <!-- ANALYTICS: zalijepi svoj analytics snippet ovdje (npr. Google Analytics / Matomo / sl.). -->
+  <!-- ANALYTICS_START -->
+  <!-- ANALYTICS_END -->
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <div class="brand">
+        <img id="brand-logo" class="brand__logo" src="./logo.jpg" alt="Radio">
+        <div class="brand__text">
+          <div id="brand-title" class="brand__title">Radio Banovina</div>
+          <div id="brand-sub" class="brand__sub">Slušaj uživo</div>
+        </div>
+      </div>
+
+      <div class="header__actions">
+        <a id="header-wa" class="header-icon header-icon--wa" href="#" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" title="WhatsApp"></a>
+        <button id="theme-btn" class="header-icon" type="button" aria-label="Tema" title="Tema"></button>
+      </div>
+    </header>
+
+    <nav id="channel-bar" class="channel-bar" aria-label="Kanal linkovi"></nav>
+
+    <div id="ad-top" class="ad-slot ad-slot--top" aria-label="Oglas">
+      <!-- AdSense TOP: zalijepi ovdje kod koji ti AdSense izbaci (ins + script). -->
+    </div>
+
+    <main class="grid">
+      <!-- data-nosnippet: Google ne smije koristiti "sad svira"/listu pjesama kao opis u rezultatima -->
+      <section class="card player" data-nosnippet>
+        <div class="player__art">
+          <div class="cover-wrap">
+            <img id="cover" src="./logo.jpg" alt="Cover" loading="lazy" decoding="async">
+            <button id="cover-toggle" class="cover-toggle" type="button" aria-label="Play">
+              <span class="cover-toggle__bubble" aria-hidden="true">
+                <span class="cover-toggle__icon"></span>
+                <span class="cover-toggle__text">PLAY</span>
+              </span>
+            </button>
+          </div>
+        </div>
+
+        <div class="player__meta">
+          <div id="cover-fade" class="cover-fade" aria-hidden="true"></div>
+          <div class="nowplaying">
+            <div class="nowplaying__row">
+              <span class="live-dot" aria-hidden="true"></span>
+              <span class="nowplaying__label">UŽIVO</span>
+              <span class="nowplaying__time" id="np-time"></span>
+            </div>
+            <div class="nowplaying__artist" id="np-artist">Radio Banovina</div>
+            <div class="nowplaying__title" id="np-title">Uživo</div>
+          </div>
+
+          <div class="controls">
+            <button id="play-btn" class="btn btn-primary" type="button">Play</button>
+
+            <div class="vol">
+              <input id="vol" type="range" min="0" max="100" value="70" aria-label="Glasnoća" />
+            </div>
+          </div>
+
+          <div class="status" id="status"></div>
+        </div>
+
+        <nav id="channel-row" class="channel-row" aria-label="Kanali"></nav>
+
+        <audio id="audio" preload="none"></audio>
+      </section>
+
+      <!-- Desktop-only extra (npr. AdSense/banner). Puni lijevi stupac ispod playera. -->
+      <section id="desktop-extra-card" class="card desktop-extra" aria-label="Oglas" data-nosnippet>
+        <div id="desktop-extra" class="desktop-extra__inner"></div>
+      </section>
+
+      <section id="recent-card" class="card recent" data-nosnippet>
+        <div class="card__header">
+          <div class="card__title-row">
+            <div class="card__title">Zadnje svirano</div>
+            <a id="full-history-link" class="card__link" href="#" target="_blank" rel="noopener noreferrer">Cijela povijest</a>
+          </div>
+          <div class="card__meta" id="recent-meta"></div>
+        </div>
+
+        <div class="recent__controls">
+          <input id="recent-search" type="search" placeholder="Pretraži…" autocomplete="off" />
+          <button id="refresh-btn" class="btn" type="button">Osvježi</button>
+        </div>
+
+        <div id="recent-list" class="recent__list" aria-live="polite"></div>
+      </section>
+    </main>
+
+    <div id="ad-bottom" class="ad-slot ad-slot--bottom" aria-label="Oglas">
+      <!-- AdSense BOTTOM: zalijepi ovdje kod koji ti AdSense izbaci (ins + script). -->
+    </div>
+
+    <footer class="footer">
+      <p id="footer-about" class="footer__about" hidden></p>
+      <div id="footer-hint" class="footer__hint">
+        Konfiguracija: <span class="mono">config.js</span> ili URL parametri <span class="mono">?stream=…&api=…&limit=10&refresh=30&ads=0</span>
+      </div>
+    </footer>
+  </div>
+
+  <script src="./config.js?v=20260616.2314"></script>
+  <script src="./player.js?v=20260616.2314"></script>
+</body>
+</html>
+
+
