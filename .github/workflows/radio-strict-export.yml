@@ -1,0 +1,106 @@
+name: Export strict Radio verification result
+on:
+  push:
+    branches: [work/radio-strict-export-20261105]
+    paths: [.github/workflows/radio-strict-export.yml]
+permissions:
+  contents: read
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: de8f87e9585af301cc01d181db1a79690599995d
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /migration/radio-catalogue-strict-ocr-20261105/verified-ready.json
+            /migration/radio-catalogue-strict-ocr-20261105/completion.json
+            /migration/radio-catalogue-strict-ocr-20261105/screen-state.json
+            /migration/radio-catalogue-artwork-recovery-20261105/originals/fe6f32ad3a2fb76527419b8e3fee6d39406bde6ca1f2ea156544ba938e2213c1.img
+            /migration/radio-catalogue-strict-ocr-20261105/verified-assets/17bf5d69466b3ffb9b8c615c86e2d9fe2b82e2e09e4a5b4bd4be4c9b2ec747b5.png
+            /migration/radio-catalogue-strict-ocr-20261105/verified-assets/a2a09f900653c3a98e7b8c5dff0c872af6edb4e07ad0a67ad51d47b8e7702f0c.png
+            /migration/radio-catalogue-strict-ocr-20261105/verified-assets/0a164a91095c61982c218ecf295976ed331a6ff97e7c570a0483eb8d91121b91.png
+            /migration/radio-catalogue-strict-ocr-20261105/verified-assets/281dc52b216617704ab945200a35f84f950d03f3766f55cdfe0b04997256a35e.png
+            /migration/radio-catalogue-strict-ocr-20261105/verified-assets/8dac131e86dfa6203df45ba440a10fa798709157b1759cffda7f72d6ce4ce283.png
+            /migration/radio-catalogue-strict-ocr-20261105/verified-assets/5e9d6fff1e684119996776ecf9e96176aad9c4af7351437ea3f74ba0ba90cecf.png
+            /migration/radio-catalogue-strict-ocr-20261105/verified-assets/9e7beb37164f492a9d62a9538d1a618ef4f01a77c98642cad056c8bb3f1349ac.png
+            /migration/radio-catalogue-strict-ocr-20261105/verified-assets/a079d9458b5aa09eb3eda2203957588c6bd6b692058dcf498dc7804936601e55.png
+            /migration/radio-catalogue-strict-ocr-20261105/verified-assets/4b918092ea7ed703fc715436288d51844ad21289d8133689eb91de3f628fa406.png
+            /migration/radio-catalogue-artwork-recovery-20261105/originals/a2307b09111d4727f17b79b0deed5acffbc6eb7e9130d4d0aeb2b5cbf2aa2743.img
+            /migration/radio-catalogue-strict-ocr-20261105/verified-assets/b04de65b04cb6e70a0826f8fce20d087c554dfb67bd37df88d4b1576aab747f5.png
+            /migration/radio-catalogue-strict-ocr-20261105/verified-assets/6a5d0afe62bec430c3000de2f74e7d319cee3c42264d6b246f1653f2e8bd1781.png
+            /migration/radio-catalogue-strict-ocr-20261105/verified-assets/82c20df6424eae1d832915465d4cc32c2a5eeb3b0880648cb4886f061e826fd5.png
+            /migration/radio-catalogue-strict-ocr-20261105/verified-assets/45498793878f5f6660a3b83744b40b6766d7d1d87050a34687f7e5887f12cfc5.png
+            /migration/radio-catalogue-strict-ocr-20261105/verified-assets/75c4f3039f1d4029d1fa7cca6b4fd65bed920028815102b6ef2234ac4aeb7695.png
+            /migration/radio-catalogue-strict-ocr-20261105/verified-assets/db256e2467d05eb50cc0ac89d3cfc2455a746009b65bb69eb0f7cad5a5e5a6fb.png
+            /migration/radio-catalogue-strict-ocr-20261105/verified-assets/8305bdb6864259d5e6b6f451d00178f8a7fdc7e07ee51dc8c25ed5bf257ab3fd.png
+            /migration/radio-catalogue-strict-ocr-20261105/verified-assets/e7ec2e189592b8dee7e5957f88b6f9f39295aea4fc128b5aac248ad7a366d2c1.png
+            /migration/radio-catalogue-strict-ocr-20261105/verified-assets/5db46294ebb398aa2a5657d9e196c429477a5db9ca8c174bd7c4b0aa788d786a.png
+            /migration/radio-catalogue-artwork-recovery-20261105/originals/9f2635e8571dd87956d662af80039890e56ed0620157701b224d7d75df515919.img
+            /migration/radio-catalogue-strict-ocr-20261105/verified-assets/40878c450593c209c7031433f4885817cfa44fa6d092170b27fdf39cb31f56a6.png
+            /migration/radio-catalogue-strict-ocr-20261105/verified-assets/e1d26ded935737baf53fc1dadc3b090e87d69b2d8684da8e20b37ec0a14f8d0e.png
+            /migration/radio-catalogue-strict-ocr-20261105/verified-assets/5834771a6d796e6dd094ce032a05fd441717a79d93170d2172d4890ab8f493ab.png
+            /migration/radio-catalogue-strict-ocr-20261105/verified-assets/c0ce4f75bf031a1e353b4f952f827c4b7928c85d9af2f0b781424f696c94e4e8.png
+            /migration/radio-catalogue-strict-ocr-20261105/verified-assets/4448b15634e13aaf0c5ba90541ea65200d646ab3e10d3687d42b4e7ba8e9e2a2.png
+            /migration/radio-catalogue-strict-ocr-20261105/verified-assets/e86903049e59b6759d54e11fab19332ac322a9c6932f8f6c7e9f9eac6844e7b1.png
+            /migration/radio-catalogue-strict-ocr-20261105/verified-assets/8eb1a0a0f5f88f4a405cc8747e4740cf7cb97f6e854800a2716fe2237074d657.png
+            /migration/radio-catalogue-strict-ocr-20261105/verified-assets/32aaa506f29e416a02c7561fa237239106ce45f72e6c11bed21ab671802d17af.png
+            /migration/radio-catalogue-strict-ocr-20261105/verified-assets/bb5d099762df794f8f9514d167ff03a5a77a0426c415b3693ec1f468eb991bfd.png
+            /migration/radio-catalogue-artwork-recovery-20261105/originals/1a667164ec53ae71b385777274a2ebc6347ca254f38f0b33dfae45eab526854a.img
+            /migration/radio-catalogue-strict-ocr-20261105/verified-assets/10059fb0f2bc4e1917861472db3a6c3dfe7de23ee7dbca3357c003bc3a25bf3b.png
+            /migration/radio-catalogue-strict-ocr-20261105/verified-assets/623117e3cf586d46c027620ee1670479bb109ba8bf11062372d47e8dd750fa4a.png
+            /migration/radio-catalogue-strict-ocr-20261105/verified-assets/2bfe4ed03633e11aa5b9bf3e147f93f958cace997b0150f7191b3fc642d055d9.png
+            /migration/radio-catalogue-strict-ocr-20261105/verified-assets/7ab8e44cf9677239e42e6bb88aefaac45143859abf273844a4772789b131c3d5.png
+            /migration/radio-catalogue-strict-ocr-20261105/verified-assets/24884fc53d8d7eda6a204752325f8146d2ab6aea43e5291e478cd5c60ed9f061.png
+            /migration/radio-catalogue-strict-ocr-20261105/verified-assets/6b8d32954671b36e9e65b0024c2d51c8b13a780ba3f5c31abe8d0df7d8d8953c.png
+            /migration/radio-catalogue-strict-ocr-20261105/verified-assets/4ac9214a557b0ff1e254bf68ddaf0c7802b60f33ef73169810bf4318abf70410.png
+            /migration/radio-catalogue-strict-ocr-20261105/verified-assets/6d9c76706d12cb553e9f76e4b7a97d9c67e3ee2b7a64e1f118bcc1c40838c5b3.png
+            /migration/radio-catalogue-strict-ocr-20261105/verified-assets/8719b02ba3562a449b8c0f8159e8820921a8858e0e5ddff7aece8f8a098faf65.png
+            /migration/radio-catalogue-artwork-recovery-20261105/originals/1c151fbd480db0c8456dc91cf8bfb14c4479cf9da5652d04e5326b37f3fe2a47.img
+            /migration/radio-catalogue-strict-ocr-20261105/verified-assets/aed8ead5729b7072c197ba115f0951bcf81c074103d55bca796e0b6ac7713a32.png
+            /migration/radio-catalogue-strict-ocr-20261105/verified-assets/eb72c2d448b0196329baa497978912eb0fdb25bdc8196973c24d9b051cee147e.png
+            /migration/radio-catalogue-strict-ocr-20261105/verified-assets/0bcf336f6bda9e985ffa97ac63980d0771043d498f2724c5150e8d0b0bedbd75.png
+            /migration/radio-catalogue-strict-ocr-20261105/verified-assets/4494d3736dbc3516b345179f37b6d4a0252be518df51def9b38782186f579cf5.png
+            /migration/radio-catalogue-strict-ocr-20261105/verified-assets/a3b004d4fe514210c8239bb5b8d2610e455cd56eb7171b3fcbe03bc2cc2c2445.png
+            /migration/radio-catalogue-strict-ocr-20261105/verified-assets/fd0a9dbb8068eb00a2f4c40b018a779f6ca6ffb872294d2515aca9525cc9a6f5.png
+            /migration/radio-catalogue-strict-ocr-20261105/verified-assets/c500d5765d581581f308d98e9b69c1e198a0645605dff32266f6fb20c48d0480.png
+            /migration/radio-catalogue-strict-ocr-20261105/verified-assets/c5288c696fd42eb169dbaddbc8f5cdc6e406affa24aa7e239551cbb612946cec.png
+            /migration/radio-catalogue-strict-ocr-20261105/verified-assets/8f0c997c7b9afac6438b980fa4ef73ebba8f76bd624e6e5ed5d9a3a4b6439e15.png
+            /migration/radio-catalogue-artwork-recovery-20261105/originals/ca1db1b6c73117afbecbce4c9d349862679ab8082355aa8bd0ce7fc2a0f15eb4.img
+            /migration/radio-catalogue-strict-ocr-20261105/verified-assets/301e4e2675dd5c7c82022ff44bf477d9f2c66cd778e9f9b92d32b32a8cd57b7a.png
+            /migration/radio-catalogue-strict-ocr-20261105/verified-assets/cfed8df1a9aa96ae5c323d9193b27bedba199c68febef0e4d03021c3b13bf401.png
+            /migration/radio-catalogue-strict-ocr-20261105/verified-assets/fece70b8a0826e481647a4ed830f05e05aa2c64c8a4abe73b11b5aa6e95c162f.png
+            /migration/radio-catalogue-strict-ocr-20261105/verified-assets/bad1d0c4f50a7376403d8609cbeaed28afd99b4f74109c04477a1c30334e7dce.png
+            /migration/radio-catalogue-strict-ocr-20261105/verified-assets/a7b327628de205a6ce89e59429ccc7f441416dfe87a851f5041d284527aa5b2b.png
+            /migration/radio-catalogue-strict-ocr-20261105/verified-assets/68099db6a4c69d03bc75337dc958b827dec82cb3a1bc1fd47219819311c7d5f6.png
+            /migration/radio-catalogue-strict-ocr-20261105/verified-assets/b3837dd8e8cc425665db14c661e941086fa0a262a8856d68db867e5cc0f123a1.png
+            /migration/radio-catalogue-strict-ocr-20261105/verified-assets/5d29117a7327e997b8ba1faa533af2cc7ec5124fba0aef51d6c3fdce09875a25.png
+            /migration/radio-catalogue-strict-ocr-20261105/verified-assets/2554b86def576280cafe58c5111f001af3d6c72872e003760be230d683aaecc1.png
+            /migration/radio-catalogue-artwork-recovery-20261105/originals/9a8af5cd371e13f02b366a751fcb77f7acd42e70d037a671719779d0639b6e53.img
+            /migration/radio-catalogue-strict-ocr-20261105/verified-assets/3ea569ebe86704d3166d2ed1f2c1fff9b46fb7a4a012bdb8cc0a23c42c4bbacf.png
+            /migration/radio-catalogue-strict-ocr-20261105/verified-assets/cc501b8b112ac9c7f07b8c60eb51ffe29704c4174a43590902235b629aa117ae.png
+            /migration/radio-catalogue-strict-ocr-20261105/verified-assets/21aadf2d8a910b6faeeb1f854fbbf3e49cff067a5ef2f33a89786d6f69a63ec4.png
+            /migration/radio-catalogue-strict-ocr-20261105/verified-assets/8453d9e2d7d25d7d1d1b892cff5bc2a5d5c60bc2c954000c696a5a43ffa29cec.png
+            /migration/radio-catalogue-strict-ocr-20261105/verified-assets/4cd6f35581c9959437ab660e628b65fd84eae211ae601759eb3160dd984698e8.png
+            /migration/radio-catalogue-strict-ocr-20261105/verified-assets/12ab5932d96d3233eab82ebf41a5750a0a37310608497df2806a20bf6ee0d272.png
+            /migration/radio-catalogue-strict-ocr-20261105/verified-assets/82f3f71ae804b0dcdaa725812a8ea02f757608e2f836fe2707cd7c55bd901beb.png
+            /migration/radio-catalogue-strict-ocr-20261105/verified-assets/85a72d0b4fc341599101f7dd3f65923f6db55b922cf155c63a581b0ef005ec22.png
+            /migration/radio-catalogue-strict-ocr-20261105/verified-assets/9446083877717ebbc9bff6bd6db8239e0dd95dde9bda9a9adc03b2d3b8e8a389.png
+            /migration/radio-catalogue-artwork-recovery-20261105/originals/59bc70ae6c3e97536881f3e6aa853adad18e12cef4de1ae3944b5635a883cfc5.img
+            /migration/radio-catalogue-strict-ocr-20261105/verified-assets/565793a8c54fc7856116cca35689c94dea09d3cea941b7e84511f2f1643e5072.png
+            /migration/radio-catalogue-strict-ocr-20261105/verified-assets/bc15c61b03dcaaae70beb4a483fbd93057937e0ef4ddb10b404712ac82f94a4b.png
+            /migration/radio-catalogue-strict-ocr-20261105/verified-assets/d034a8097d477c3870f65c19cd2e46f8cfc2accd741d946ad6f4a21f1778a2a1.png
+            /migration/radio-catalogue-strict-ocr-20261105/verified-assets/709861b9c856831512e8beeecf3cd8604e85c70709912bc31decb19cfdb3f140.png
+            /migration/radio-catalogue-strict-ocr-20261105/verified-assets/bb0d9fdcacadfa52665f12b3045cc2aafa8510f573a146d088e47926b6513213.png
+            /migration/radio-catalogue-strict-ocr-20261105/verified-assets/4f610a4e083c5ba279f6a81459783ef80c02f7892b7bf470bde69a11d9a19201.png
+            /migration/radio-catalogue-strict-ocr-20261105/verified-assets/0c2e69a37a707961c10854cc90c4fb9daddf693ae139b95939c5f65af5749ccf.png
+            /migration/radio-catalogue-strict-ocr-20261105/verified-assets/ed242f7600848f84cb62bbb4254df526c291b1013f687e8ef36c5007b411551c.png
+            /migration/radio-catalogue-strict-ocr-20261105/verified-assets/22cee68fc5c9c621dc7308fe2e4638e9cfe2804a74a226d395eb8ba31b360856.png
+      - uses: actions/upload-artifact@v4
+        with:
+          name: radio-strict-verified-evidence
+          path: migration/
+          if-no-files-found: error
+          retention-days: 14
