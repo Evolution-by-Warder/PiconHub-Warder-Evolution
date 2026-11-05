@@ -1,0 +1,2001 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dynamic Radio Dubai</title>
+<meta name="description" content="Dynamic Radio Dubaï – La voix francophone des Émirats
+
+Description
+
+Dynamic Radio Dubaï est une webradio francophone indépendante, fondée en 2022 par la jou"><link rel="canonical" href="https://dynamicradio-dubai.com/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Dynamic Radio Dubai">
+<meta property="og:title" content="Dynamic Radio Dubai">
+<meta property="og:description" content="Dynamic Radio Dubaï – La voix francophone des Émirats
+
+Description
+
+Dynamic Radio Dubaï est une webradio francophone indépendante, fondée en 2022 par la journaliste Noria Chikhi et basée à Dubaï. "><meta property="og:url" content="https://dynamicradio-dubai.com/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Dynamic Radio Dubai">
+<meta name="twitter:description" content="Dynamic Radio Dubaï – La voix francophone des Émirats
+
+Description
+
+Dynamic Radio Dubaï est une webradio francophone indépendante, fondée en 2022 par la journaliste Noria Chikhi et basée à Dubaï. "><meta property="og:image" content="https://dynamicradio-dubai.com/uploads/temp/logos/logo_1741_1781016480_73def8.jpg"><meta property="og:image:alt" content="Dynamic Radio Dubai"><meta name="twitter:image" content="https://dynamicradio-dubai.com/uploads/temp/logos/logo_1741_1781016480_73def8.jpg"><link rel="icon" href="/uploads/temp/logos/logo_1741_1781016480_73def8.jpg"><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+<style>
+:root{
+  --c1: #7b2494;
+  --c2: #310e3b;
+  --bg: #ffffff;
+  --tx: #310e3b;
+  /* Lecteur en bas (taille normale) : contenu de l'iframe = 80 px (72 + 2x4 de padding).
+     96 px laissait 16 px vides sous le lecteur (2026-10-31). Barre lg du haut : 96 px. */
+  --player-h: 96px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;padding-bottom:var(--player-h)}
+h1,h2,h3,.site-header .brand,.hero h1,.page-text h1{font-family:'Poppins','Inter',sans-serif}
+a{color:var(--c1)}
+.site-header{position:sticky;top:0;z-index:50;background:var(--c2);color:#fff;padding:10px 20px;display:flex;align-items:center;gap:14px;box-shadow:0 2px 12px rgba(0,0,0,.12);overflow:visible}
+.site-header{transition:top .28s ease}.site-header.hdr-hidden .site-logo{opacity:0;pointer-events:none}
+.site-logo-link{display:inline-flex;line-height:0}
+/* Texte libre + slogan à côté du logo. Jamais souligné, ni au survol : c'est une
+   signature de marque, pas un lien de navigation (même si tout le bloc est cliquable). */
+.site-headline{display:flex;flex-direction:column;justify-content:center;gap:1px;min-width:0;
+  margin-left:12px;text-decoration:none;border:0;line-height:1.15}
+.site-headline:hover{text-decoration:none}
+.shl-title{color:#fff;font-weight:800;font-size:1.05rem;letter-spacing:.01em}
+.shl-slogan{color:rgba(255,255,255,.72);font-weight:500;font-size:.74rem}
+@media(max-width:480px){.shl-title{font-size:.92rem}.shl-slogan{font-size:.66rem}}
+.site-logo{height:46px;border-radius:12px;display:block;box-shadow:0 3px 12px rgba(0,0,0,.3);transition:opacity .3s ease}
+.site-header .brand{color:#fff;text-decoration:none;font-weight:800;font-size:1.2rem}
+@media(min-width:769px){
+  /* Barre fine : la hauteur du logo ne pousse pas le menu (il déborde vers le bas) */
+  .site-header{padding-top:4px;padding-bottom:4px}
+  .site-logo{height:150px;border-radius:24px;border:3px solid rgba(255,255,255,.14);
+    margin:3px 0 -103px;   /* 3px d'espace en haut, déborde nettement sous la barre */
+    position:relative;z-index:2}
+}
+.universe-switch{position:relative;margin-left:14px}
+.us-trigger{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;padding:6px 12px;border-radius:30px;cursor:pointer;font-weight:600;font-size:.9rem;line-height:1}
+.us-trigger:hover{background:rgba(255,255,255,.2)}
+.us-mainlogo{width:26px;height:26px;border-radius:6px;object-fit:cover}
+.us-caret{font-size:.72rem;transition:transform .2s}
+.universe-switch.open .us-caret{transform:rotate(180deg)}
+.us-panel{position:absolute;top:calc(100% + 8px);left:0;min-width:250px;background:#fff;border-radius:14px;box-shadow:0 12px 40px rgba(0,0,0,.28);padding:8px;display:none;z-index:150;max-height:70vh;overflow:auto}
+.universe-switch.open .us-panel{display:block}
+.us-panel-title{font-size:.7rem;text-transform:uppercase;letter-spacing:.05em;color:#8a8a99;padding:6px 10px 2px;font-weight:700}
+.us-now{display:flex;align-items:center;gap:7px;font-size:.8rem;color:#555;padding:0 10px 8px;font-weight:600;white-space:nowrap;overflow:hidden;max-width:234px}
+.us-now #usNowTxt{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.us-live-dot{width:8px;height:8px;border-radius:50%;background:#ff4d4f;flex-shrink:0;animation:usPulse 1.6s infinite}
+@keyframes usPulse{0%{box-shadow:0 0 0 0 rgba(255,77,79,.55)}70%{box-shadow:0 0 0 7px rgba(255,77,79,0)}100%{box-shadow:0 0 0 0 rgba(255,77,79,0)}}
+.us-dot{width:7px;height:7px;border-radius:50%;background:var(--c1);flex-shrink:0;animation:usDot 1.4s infinite}
+@keyframes usDot{0%,100%{opacity:.4;transform:scale(.8)}50%{opacity:1;transform:scale(1.12)}}
+.us-eq{display:none;align-items:flex-end;gap:2px;height:14px;margin-left:auto;margin-right:6px}
+.us-item.active .us-eq{display:flex}
+.us-eq i{width:3px;background:var(--c1);border-radius:2px;animation:pbEq .9s ease-in-out infinite}
+.us-eq i:nth-child(2){animation-delay:.25s}
+.us-eq i:nth-child(3){animation-delay:.5s}
+.us-item.active .us-play{display:none}
+.us-item{display:flex;align-items:center;gap:10px;width:100%;background:transparent;border:0;padding:8px 10px;border-radius:10px;cursor:pointer;text-align:left;color:#1a1a2e}
+.us-item:hover{background:rgba(0,0,0,.05)}
+.us-item.active{background:color-mix(in srgb,var(--c1) 15%,transparent)}
+.us-item img,.us-item .us-noimg{width:38px;height:38px;border-radius:9px;object-fit:cover;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--c1),var(--c2));color:#fff}
+.us-item-name{flex:1;font-weight:600;font-size:.95rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.us-play{color:var(--c1);font-size:1.2rem;opacity:0;transition:opacity .15s}
+.us-item:hover .us-play,.us-item.active .us-play{opacity:1}
+@media(max-width:640px){.us-panel{left:auto;right:0}.universe-switch{display:none}}
+.site-nav{margin-left:auto;display:flex;gap:18px;flex-wrap:wrap;align-items:center}
+.site-nav a{color:rgba(255,255,255,.85);text-decoration:none;font-weight:600;font-size:.95rem;padding-bottom:2px;border-bottom:2px solid transparent}
+.site-nav a:hover,.site-nav a.active{color:#fff;border-bottom-color:var(--c1)}
+.nav-toggle,.nav-close{display:none;background:none;border:0;color:#fff;cursor:pointer}
+.nav-toggle{font-size:1.7rem;line-height:1;margin-left:auto;padding:2px 6px}
+/* Logo + réseaux du tiroir mobile : rendus dans le DOM à toutes les tailles mais
+   affichés uniquement quand .site-nav devient un tiroir (<=768px), sinon ils
+   viendraient doubler le logo et les icônes déjà présents dans l'en-tête. */
+.nav-brand,.nav-social{display:none}
+@media (max-width:768px){
+  .nav-toggle{display:block}
+  /* Le header crée un contexte d'empilement : on le remonte au-dessus du backdrop
+     pour que le drawer (enfant du header) ne soit pas recouvert par l'opacité. */
+  .site-header{z-index:140}
+  .site-nav{position:fixed;top:0;right:0;height:100%;width:80%;max-width:320px;margin:0;
+    flex-direction:column;align-items:stretch;gap:0;padding:64px 24px 24px;background:var(--c2);
+    transform:translateX(105%);transition:transform .26s ease;z-index:130;box-shadow:-6px 0 28px rgba(0,0,0,.35);overflow-y:auto}
+  .site-nav.open{transform:translateX(0)}
+  .site-nav a{font-size:1.12rem;padding:15px 0;border-bottom:1px solid rgba(255,255,255,.12)}
+  .site-nav a.active{border-bottom-color:rgba(255,255,255,.12);color:var(--c1)}
+  /* Bloc de marque en haut du tiroir. Les overrides annulent les styles de lien
+     de menu (.site-nav a) qui s'appliqueraient aussi à ce lien et à ceux des réseaux. */
+  .site-nav a.nav-brand{display:flex;align-items:center;justify-content:center;
+    padding:0 0 18px;margin-bottom:4px;border-bottom:1px solid rgba(255,255,255,.18);flex-shrink:0}
+  .site-nav .nav-brand-logo{max-height:58px;max-width:100%;border-radius:9px;display:block}
+  .site-nav .nav-brand-txt{color:#fff;font-weight:800;font-size:1.15rem;text-align:center;line-height:1.25}
+  /* margin-top:auto colle le bloc en bas du tiroir même quand le menu est court. */
+  .site-nav .nav-social{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;
+    margin-top:auto;padding-top:24px;flex-shrink:0}
+  .site-nav .nav-social a{width:40px;height:40px;padding:0;border-bottom:0;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.14);
+    color:#fff;font-size:1.05rem;text-decoration:none}
+  .site-nav .nav-social a:hover{background:var(--c1);color:#fff}
+  .nav-close{display:block;position:absolute;top:16px;right:18px;font-size:1.6rem}
+  .nav-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.5);opacity:0;visibility:hidden;transition:opacity .26s;z-index:120}
+  .nav-backdrop.open{opacity:1;visibility:visible}
+}
+/* ── Option « en-tête aligné au contenu » (radio_sites.header_width = contained) ──
+   Le bandeau garde sa couleur bord à bord ; seuls ses contenus (logo, menu et,
+   en thème magazine, lecteur + fil info) sont ramenés sur la largeur du contenu
+   via un padding latéral calculé. --hdr-wrap = largeur utile du contenu, que
+   chaque overlay de thème redéfinit ; sous 769px on ne touche à rien (le menu
+   est un tiroir et la gouttière mobile reste la meilleure option). */
+body.hdr-boxed{--hdr-wrap:1000px;--hdr-gut:20px}
+@media(min-width:769px){
+  body.hdr-boxed .site-header{
+    padding-left:max(var(--hdr-gut),calc((100% - var(--hdr-wrap)) / 2));
+    padding-right:max(var(--hdr-gut),calc((100% - var(--hdr-wrap)) / 2));
+  }
+}
+.hero{max-width:900px;margin:0 auto;padding:64px 20px 40px;text-align:center}
+.hero h1{font-size:2.6rem;font-weight:800;line-height:1.15;margin-bottom:12px}
+.hero .tagline{font-size:1.25rem;opacity:.85;margin-bottom:24px}
+.hero .desc{font-size:1.05rem;opacity:.8;line-height:1.7;max-width:680px;margin:0 auto}
+.hero .logo-xl{max-height:120px;margin-bottom:24px;border-radius:16px}
+.page-text{max-width:820px;margin:0 auto;padding:48px 20px}
+.page-text h1{font-size:2rem;font-weight:800;margin-bottom:20px}
+/* Titre de page (2026-10-09, tous thèmes) : bandeau pleine largeur couleur secondaire,
+   titre centré en capitales + trait primaire. Ne vise que le H1 PREMIER enfant d'une
+   section .page-text (les H1 d'article / podcast / vidéo ne le sont pas). Pleine largeur
+   par marges négatives en vw ; body en overflow-x:clip (clip et non hidden, qui
+   casserait l'en-tête sticky). */
+body{overflow-x:clip}
+.page-text>h1:first-child{position:relative;margin:-48px calc(50% - 50vw) 36px;padding:clamp(38px,6vw,64px) 24px clamp(34px,5vw,54px);text-align:center;font-size:clamp(2.1rem,5vw,3.6rem);font-weight:800;line-height:.95;letter-spacing:-.02em;text-transform:uppercase;color:#fff;background:radial-gradient(ellipse at 15% 0%,color-mix(in srgb,var(--c1) 38%,transparent),transparent 60%),radial-gradient(ellipse at 90% 120%,color-mix(in srgb,var(--c1) 22%,transparent),transparent 55%),var(--c2)}
+.page-text>h1:first-child::after{content:"";display:block;width:64px;height:5px;border-radius:3px;background:var(--c1);margin:18px auto 0}
+@media(max-width:768px){.page-text>h1:first-child{margin-bottom:26px}}
+.page-text .prose{line-height:1.8;opacity:.9}
+.page-text .desc{opacity:.75;font-size:1.05rem}
+/* Horoscope : cartes des 12 signes (symboles Unicode ♈…♓ en guise d'icônes) */
+.horo-page{max-width:1100px}
+.horo-date{text-transform:capitalize;font-weight:700;color:var(--c1);margin:-8px 0 22px;display:flex;align-items:center;gap:8px}
+.horo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-top:8px}
+.horo-card{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:14px;padding:16px 18px;box-shadow:0 2px 10px rgba(0,0,0,.05);transition:transform .15s,box-shadow .15s}
+.horo-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.09)}
+.horo-head{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.horo-sym{width:46px;height:46px;flex-shrink:0;display:flex;align-items:center;justify-content:center;border-radius:14px;border:2px solid var(--c1);color:var(--c1);background:transparent}
+.horo-sym svg{width:26px;height:26px;display:block}
+.horo-id{display:flex;flex-direction:column;min-width:0}
+.horo-name{font-weight:800;font-size:1.05rem;line-height:1.2}
+.horo-dates{font-size:.78rem;opacity:.6}
+.horo-text{margin:0;line-height:1.6;font-size:.96rem;opacity:.92}
+.horo-slider{position:relative}
+.horo-dots{display:none;justify-content:center;flex-wrap:wrap;gap:7px;margin-top:16px}
+.horo-dot{width:8px;height:8px;padding:0;border:0;border-radius:50%;background:rgba(127,127,127,.35);cursor:pointer;transition:width .2s ease,background .2s ease}
+.horo-dot.active{width:22px;border-radius:4px;background:var(--c1)}
+/* Mobile : une carte par écran, défilement horizontal avec accroche (scroll-snap).
+   Pas de bibliothèque : le geste natif suffit, le JS ne sert qu'aux puces. */
+@media(max-width:768px){
+  .horo-grid{display:flex;grid-template-columns:none;overflow-x:auto;scroll-snap-type:x mandatory;
+    gap:12px;padding:2px 0 6px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .horo-grid::-webkit-scrollbar{display:none}
+  .horo-card{flex:0 0 86%;scroll-snap-align:center;min-width:0}
+  .horo-dots{display:flex}
+}
+.rss-link{display:inline-flex;align-items:center;gap:6px;color:var(--c1);text-decoration:none;font-weight:600}
+.pod-title{font-weight:700;font-size:1.1rem}
+.pod-dur{font-size:.82rem;opacity:.6;white-space:nowrap;display:inline-flex;align-items:center;gap:4px}
+.pod-desc{opacity:.75;font-size:.95rem;line-height:1.6;margin-bottom:12px}
+/* Podcast à la une */
+.pod-featured{position:relative;border-radius:20px;padding:26px 26px 22px;margin-bottom:28px;color:#fff;background:linear-gradient(135deg,var(--c2),var(--c1));box-shadow:0 18px 44px rgba(0,0,0,.2)}
+.pod-featured-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.18);padding:4px 12px;border-radius:999px;font-size:.74rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;margin-bottom:12px}
+.pod-featured-title{font-size:1.7rem;font-weight:800;margin:0 0 8px;color:#fff}
+.pod-featured-meta{font-size:.85rem;opacity:.85;display:inline-flex;align-items:center;gap:5px;margin-bottom:12px}
+.pod-featured-desc{line-height:1.65;opacity:.92;margin:0 0 16px;font-size:1rem}
+.pod-featured audio{width:100%;filter:drop-shadow(0 2px 6px rgba(0,0,0,.2))}
+/* Pochette de l'épisode (podcast à la une + page dédiée) : deux colonnes,
+   la vignette à gauche, le titre/lecteur à droite ; empilé sur mobile. */
+.pod-featured-cover{width:172px;aspect-ratio:1/1;object-fit:cover;border-radius:14px;display:block;
+  box-shadow:0 10px 26px rgba(0,0,0,.28);background:rgba(255,255,255,.14)}
+.pod-featured.has-cover{display:grid;grid-template-columns:172px minmax(0,1fr);column-gap:22px;align-items:start}
+.pod-featured.has-cover .pod-featured-badge{grid-column:1/-1}
+.pod-featured.has-cover .pod-featured-body{min-width:0}
+@media(max-width:600px){
+  .pod-featured.has-cover{grid-template-columns:1fr}
+  .pod-featured-cover{width:100%;max-width:210px;margin:0 auto 14px}
+}
+/* Grille de podcasts */
+.pod-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
+.pod-card{display:flex;flex-direction:column;border:1px solid rgba(128,128,128,.16);border-radius:16px;padding:18px 20px;background:rgba(128,128,128,.05);transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+.pod-card:hover{transform:translateY(-4px);box-shadow:0 14px 32px rgba(0,0,0,.14);border-color:var(--c1)}
+.pod-card-head{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.pod-card-icon{flex-shrink:0;width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--c2),var(--c1));color:#fff;font-size:1.1rem}
+.pod-card-icon.has-cover{background-size:cover;background-position:center;background-repeat:no-repeat}
+.pod-card-titles{display:flex;flex-direction:column;gap:2px;min-width:0}
+.pod-card-meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.pod-cat-tag{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.02em;color:var(--c1);background:rgba(127,127,127,.12);padding:2px 8px;border-radius:999px}
+/* Filtres catégories */
+.pod-cats{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+.pod-cat{border:1px solid rgba(128,128,128,.3);background:transparent;color:inherit;padding:6px 15px;border-radius:999px;font-size:.85rem;font-weight:600;cursor:pointer;transition:background .12s,color .12s,border-color .12s}
+.pod-cat:hover{border-color:var(--c1)}
+.pod-cat.active{background:var(--c1);color:#fff;border-color:var(--c1)}
+/* Lecteur audio personnalisé */
+.vr-audio.unavailable .vra-dur{color:#dc3545;font-weight:600}
+.vr-audio{display:flex;align-items:center;gap:13px;background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.16);border-radius:12px;padding:10px 14px;margin-top:auto}
+.vra-play{flex:0 0 auto;width:42px;height:42px;border-radius:50%;border:0;background:var(--c1);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.25rem;transition:transform .12s}
+.vra-play:hover{transform:scale(1.08)}
+.vra-main{flex:1;min-width:0}
+.vra-bar{position:relative;height:6px;border-radius:6px;background:rgba(128,128,128,.32);cursor:pointer;overflow:hidden}
+.vra-prog{position:absolute;left:0;top:0;height:100%;width:0;background:var(--c1);border-radius:6px}
+.vra-meta{display:flex;justify-content:space-between;font-size:.72rem;opacity:.6;margin-top:6px}
+/* Lecteur sur la carte à la une (fond coloré) */
+.pod-featured .vr-audio{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.28)}
+.pod-featured .vra-play{background:#fff;color:var(--c2)}
+.pod-featured .vra-bar{background:rgba(255,255,255,.32)}
+.pod-featured .vra-prog{background:#fff}
+.pod-featured .vra-meta{opacity:.9}
+/* Boutons de partage réseaux sociaux (cartes, à la une, page détail) */
+.pod-share{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-top:12px}
+.ps-label{display:inline-flex;align-items:center;font-size:.8rem;opacity:.5;margin-right:2px}
+.ps-btn{width:30px;height:30px;border-radius:50%;border:1px solid rgba(128,128,128,.28);background:transparent;color:inherit;display:inline-flex;align-items:center;justify-content:center;font-size:.85rem;cursor:pointer;text-decoration:none;opacity:.75;transition:opacity .15s,border-color .15s,color .15s,transform .15s;padding:0;line-height:1}
+.ps-btn:hover{opacity:1;border-color:var(--c1);color:var(--c1);transform:translateY(-2px)}
+.ps-btn.ps-copy.copied{background:#198754;border-color:#198754;color:#fff;opacity:1}
+.ps-native{display:none}
+html.can-share .ps-native{display:inline-flex}
+.pod-share-lg .ps-btn{width:38px;height:38px;font-size:1.05rem}
+.pod-featured .ps-btn{border-color:rgba(255,255,255,.45);color:#fff;opacity:.85}
+.pod-featured .ps-btn:hover{border-color:#fff;color:#fff;background:rgba(255,255,255,.16);opacity:1}
+.pod-featured .ps-label{opacity:.75}
+.pod-title-link{color:inherit;text-decoration:none}
+.pod-title-link:hover{color:var(--c1)}
+.pod-featured-title a{color:#fff;text-decoration:none}
+.pod-featured-title a:hover{text-decoration:underline}
+/* Page de détail d'un podcast */
+.pod-rv-link{display:inline-flex;align-items:center;gap:6px;margin-top:10px;font-size:.85rem;
+  font-weight:600;color:var(--c1);text-decoration:none}
+.pod-rv-link:hover{text-decoration:underline}
+.pod-single .news-back{display:inline-flex;align-items:center;gap:6px;color:var(--c1);font-weight:600;text-decoration:none;margin-bottom:18px}
+.pod-single .news-back:hover{gap:10px}
+.pod-detail .pod-featured-title{font-size:1.9rem}
+.pod-detail .pod-featured-meta{display:flex;flex-wrap:wrap;gap:16px}
+.pod-detail .pod-featured-meta span{display:inline-flex;align-items:center;gap:5px}
+.pod-detail .pod-featured-desc{white-space:pre-line}
+@media(max-width:600px){.pod-detail .pod-featured-title{font-size:1.45rem}}
+@media(max-width:600px){.pod-grid{grid-template-columns:1fr}.pod-featured-title{font-size:1.4rem}}
+/* Hero slider */
+.hero-slider{position:relative;width:100%;height:min(60vh,440px);overflow:hidden}
+.hero-slider.hs-full{width:100%;max-width:none;margin-left:0;margin-right:0;border-radius:0}
+.hero-slider.hs-h-m{height:min(75vh,620px)}
+.hero-slider.hs-h-l{height:min(92vh,820px)}
+.hs-track{display:flex;height:100%;transition:transform var(--hs-speed,.5s) ease}
+/* Transitions « empilées » (fondu, zoom, glissement vers le haut, coupure) : les slides
+   sont superposées dans une grille (même cellule) au lieu d'être côte à côte, ce qui
+   garde la hauteur auto du format mobile portrait (.hs-mob). */
+.hero-slider.hs-stack .hs-track{display:grid;grid-template-rows:100%;transform:none!important}
+.hero-slider.hs-stack .hs-slide{grid-area:1/1;min-width:0;width:100%}
+.hs-fx-fade .hs-slide,.hs-fx-zoom .hs-slide{opacity:0;transition:opacity var(--hs-speed,.5s) ease,transform var(--hs-speed,.5s) ease}
+.hs-fx-zoom .hs-slide{transform:scale(1.12)}
+.hs-fx-fade .hs-slide.is-active,.hs-fx-zoom .hs-slide.is-active{opacity:1;transform:none;z-index:1}
+.hs-fx-up .hs-slide{transform:translateY(100%);transition:transform 0s linear var(--hs-speed,.5s)}
+.hs-fx-up .hs-slide.is-active{transform:none;z-index:2;transition:transform var(--hs-speed,.5s) ease}
+.hs-fx-up .hs-slide.is-leaving{transform:none;z-index:1}
+.hs-fx-none .hs-slide{visibility:hidden}
+.hs-fx-none .hs-slide.is-active{visibility:visible}
+.hs-slide{position:relative;min-width:100%;height:100%;background-image:var(--hs-bg,none);background-size:cover;background-position:center;background-color:var(--c2);display:flex;align-items:center;justify-content:center}
+.hs-overlay{position:absolute;inset:0;background:linear-gradient(rgba(0,0,0,.25),rgba(0,0,0,.55))}
+.hs-ov-0 .hs-overlay{background:none}
+.hs-ov-s .hs-overlay{background:linear-gradient(rgba(0,0,0,.12),rgba(0,0,0,.3))}
+.hs-ov-l .hs-overlay{background:linear-gradient(rgba(0,0,0,.45),rgba(0,0,0,.78))}
+.hs-al-left .hs-slide{justify-content:flex-start}
+.hs-al-left .hs-content{text-align:left;padding-left:max(24px,6%)}
+.hs-al-right .hs-slide{justify-content:flex-end}
+.hs-al-right .hs-content{text-align:right;padding-right:max(24px,6%)}
+.hs-content{position:relative;text-align:center;color:var(--hs-color,#fff);max-width:820px;padding:24px}
+.hs-content h1{font-size:2.6rem;font-weight:800;margin-bottom:12px;text-shadow:0 2px 12px rgba(0,0,0,.45);font-family:var(--hs-font,'Poppins','Inter',sans-serif)}
+.hs-content p{font-size:1.2rem;opacity:.95;margin-bottom:18px;text-shadow:0 1px 8px rgba(0,0,0,.45);font-family:var(--hs-font,'Inter',sans-serif)}
+.hs-va-top .hs-slide{align-items:flex-start;padding-top:clamp(24px,6vh,70px)}
+.hs-va-bottom .hs-slide{align-items:flex-end;padding-bottom:clamp(28px,7vh,84px)}
+.hs-sz-s .hs-content h1{font-size:clamp(1.5rem,4.5vw,2rem)}
+.hs-sz-s .hs-content p{font-size:clamp(.9rem,2.5vw,1rem)}
+.hs-sz-l .hs-content h1{font-size:clamp(2.2rem,6vw,3.4rem)}
+.hs-sz-l .hs-content p{font-size:clamp(1.15rem,3vw,1.45rem)}
+.hs-sz-xl .hs-content h1{font-size:clamp(2.6rem,7.5vw,4.3rem)}
+.hs-sz-xl .hs-content p{font-size:clamp(1.25rem,3.4vw,1.7rem)}
+.hs-btn{display:inline-block;background:var(--c1);color:#fff;padding:12px 28px;border-radius:999px;font-weight:700;text-decoration:none}
+.hs-arrow{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,.35);color:#fff;border:0;width:44px;height:44px;border-radius:50%;font-size:1.7rem;line-height:1;cursor:pointer;z-index:2}
+.hs-prev{left:14px}.hs-next{right:14px}
+.hs-dots{position:absolute;bottom:14px;left:0;right:0;display:flex;gap:8px;justify-content:center;z-index:2}
+.hs-dot{width:10px;height:10px;border-radius:50%;border:0;background:rgba(255,255,255,.5);cursor:pointer;padding:0}
+.hs-dot.active{background:#fff}
+/* Visuel mobile : sous 768px on bascule sur l'image portrait (repli sur l'image PC
+   si la slide n'en a pas). hs-mob = au moins une slide a une image mobile : le
+   carrousel prend alors un format portrait au lieu de la hauteur desktop. */
+@media(max-width:768px){
+  .hs-slide{background-image:var(--hs-bg-m,var(--hs-bg,none))}
+  .hero-slider.hs-mob{height:auto}
+  .hero-slider.hs-mob .hs-track{height:auto}
+  .hero-slider.hs-mob .hs-slide{height:auto;aspect-ratio:4/5;max-height:82vh}
+}
+/* « Ça vient de passer » en rangée de pochettes hors thème Portail (plays_style=covers).
+   Même rendu que le thème Portail (site-theme-portail.css), largeur alignée sur le contenu. */
+.pr-row{max-width:1200px;margin:22px auto 6px;padding:0 20px}
+.pr-row .pt-head{display:flex;align-items:baseline;justify-content:space-between;gap:14px;margin:0 0 12px;border-bottom:3px solid var(--c1);padding-bottom:8px}
+.pr-row .pt-head h2{margin:0;padding:0;font-size:1.35rem;font-weight:800;text-transform:uppercase;letter-spacing:-.01em;line-height:1}
+.pr-row .pt-head h2:after{display:none}
+.pr-row .pt-head h2 i{color:var(--c1);margin-right:6px}
+.pr-row .pt-scroll{display:flex;gap:12px;overflow-x:auto;overflow-y:hidden;padding:2px 0 12px;scroll-snap-type:x mandatory;scrollbar-width:thin}
+.pr-row .pt-play{flex:0 0 128px;scroll-snap-align:start;display:flex;flex-direction:column;gap:6px}
+.pr-row .pt-play-cover{position:relative;display:flex;align-items:center;justify-content:center;width:128px;height:128px;border-radius:10px;background:linear-gradient(135deg,var(--c2),var(--c1));background-size:cover;background-position:center;background-repeat:no-repeat;color:#fff;font-size:1.9rem;border:1px solid rgba(0,0,0,.1)}
+.pr-row .pt-play-time{position:absolute;left:0;bottom:0;padding:2px 8px;border-radius:0 8px 0 10px;background:var(--c1);color:#fff;font-size:.66rem;font-weight:800;letter-spacing:.04em}
+.pr-row .pt-play-title{font-weight:700;font-size:.8rem;line-height:1.2;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.pr-row .pt-play-artist{font-size:.72rem;font-weight:600;opacity:.65;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@media(max-width:768px){.pr-row{padding:0 14px}.pr-row .pt-head h2{font-size:1.15rem}.pr-row .pt-play,.pr-row .pt-play-cover{flex-basis:108px;width:108px}.pr-row .pt-play-cover{height:108px}}
+/* Sections / modules */
+.site-section{padding:48px 20px}
+.site-section .sec-inner{max-width:1000px;margin:0 auto}
+.site-section.sec-center{text-align:center}
+.site-section h2{font-size:1.8rem;font-weight:800;margin-bottom:14px}
+.site-section .sec-text{line-height:1.8;opacity:.92}
+/* ── Bandeau « Téléchargez l'application » (section app, 2026-10-27) ── */
+.site-section.sec-app{padding-top:28px;padding-bottom:28px}
+.app-band{position:relative;overflow:hidden;display:flex;flex-wrap:wrap;align-items:center;gap:28px 40px;background:var(--c2);color:#fff;border-radius:22px;padding:38px 40px;box-shadow:0 18px 50px rgba(0,0,0,.18);text-align:left}
+.app-band::before{content:"";position:absolute;right:-120px;top:-130px;width:420px;height:420px;border-radius:50%;background:var(--c1);opacity:.22}
+.app-band::after{content:"";position:absolute;left:-90px;bottom:-150px;width:300px;height:300px;border-radius:50%;border:40px solid var(--c1);opacity:.12}
+.app-band-text{position:relative;z-index:1;flex:1 1 300px;min-width:0}
+.app-eyebrow{display:inline-flex;align-items:center;gap:7px;font-size:.72rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--c1);background:rgba(255,255,255,.08);padding:6px 12px;border-radius:30px;margin-bottom:14px}
+.site-section .app-band h2{color:#fff;font-size:clamp(1.5rem,3.2vw,2.2rem);line-height:1.15;margin-bottom:12px}
+.app-band .sec-text{color:rgba(255,255,255,.84);margin-bottom:18px;opacity:1}
+.app-feats{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px 18px;margin:0 0 24px;padding:0}
+.app-feats li{display:flex;align-items:center;gap:10px;font-size:.9rem;font-weight:600;color:#fff}
+.app-feats i{width:32px;height:32px;flex:0 0 32px;border-radius:9px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.1);color:var(--c1);font-size:1rem}
+.app-badges{display:flex;flex-wrap:wrap;gap:12px}
+.app-badge{display:inline-flex;align-items:center;gap:11px;background:#000;color:#fff;text-decoration:none;border:1px solid rgba(255,255,255,.35);border-radius:12px;padding:9px 18px 9px 14px;min-width:178px;transition:transform .15s,border-color .15s}
+.app-badge:hover{transform:translateY(-2px);border-color:#fff;color:#fff}
+.app-badge i{font-size:1.65rem;line-height:1}
+.app-badge span{display:flex;flex-direction:column;line-height:1.15;text-align:left}
+.app-badge small{font-size:.62rem;text-transform:uppercase;letter-spacing:.06em;opacity:.8}
+.app-badge strong{font-size:1.08rem;font-weight:700}
+.app-phone{position:relative;z-index:1;flex:0 0 auto;margin:0 auto;width:200px;height:400px;border-radius:36px;background:#0b0b0f;padding:10px;box-shadow:0 0 0 2px rgba(255,255,255,.14),0 26px 60px rgba(0,0,0,.45);transform:rotate(4deg)}
+.app-phone-screen{position:relative;height:100%;border-radius:28px;background:#fff;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:30px 16px;text-align:center;color:#15151c}
+.app-phone-screen::before{content:"";position:absolute;left:0;right:0;top:0;height:48%;background:var(--c1);opacity:.16}
+.app-phone-notch{position:absolute;top:8px;left:50%;transform:translateX(-50%);width:70px;height:18px;border-radius:12px;background:#0b0b0f}
+.app-phone-logo{position:relative;max-width:140px;max-height:72px;border-radius:10px;object-fit:contain}
+.app-phone-name{position:relative;font-weight:800;font-size:.95rem}
+.app-phone-live{position:relative;display:inline-flex;align-items:center;gap:6px;font-size:.64rem;font-weight:800;letter-spacing:.1em;color:#fff;background:#e53935;padding:4px 10px;border-radius:20px}
+.app-phone-live i{width:6px;height:6px;border-radius:50%;background:#fff;animation:appLive 1.2s infinite}
+.app-phone-eq{position:relative;display:flex;align-items:flex-end;gap:4px;height:34px}
+.app-phone-eq i{width:6px;height:100%;border-radius:3px;background:var(--c1);transform-origin:bottom;animation:appEq 1s ease-in-out infinite}
+.app-phone-eq i:nth-child(2){animation-delay:-.3s}.app-phone-eq i:nth-child(3){animation-delay:-.6s}.app-phone-eq i:nth-child(4){animation-delay:-.15s}.app-phone-eq i:nth-child(5){animation-delay:-.45s}.app-phone-eq i:nth-child(6){animation-delay:-.75s}.app-phone-eq i:nth-child(7){animation-delay:-.05s}
+.app-phone-play{position:relative;width:58px;height:58px;border-radius:50%;background:var(--c1);color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.9rem;box-shadow:0 8px 20px rgba(0,0,0,.25)}
+@keyframes appEq{0%,100%{transform:scaleY(.3)}50%{transform:scaleY(1)}}
+@keyframes appLive{50%{opacity:.25}}
+@media (max-width:640px){.app-band{padding:28px 20px;border-radius:18px}.app-phone{width:170px;height:340px;transform:none}.app-badges .app-badge{flex:1 1 100%;justify-content:center}}
+@media (prefers-reduced-motion:reduce){.app-phone-eq i,.app-phone-live i{animation:none}}
+.app-badges-sm{margin-top:12px;gap:8px}
+.app-badges.app-badges-sm .app-badge{min-width:0;flex:1 1 140px;justify-content:center;padding:7px 12px;border-radius:10px}
+.app-badges-sm .app-badge i{font-size:1.3rem}
+.app-badges-sm .app-badge strong{font-size:.92rem}
+.site-footer .ft-app{display:flex;flex-direction:column;gap:8px}
+.site-footer .ft-app-label{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.6)}
+.app-badges.app-badges-ft .app-badge{min-width:150px;padding:7px 14px;flex:0 0 auto}
+.sec-btn{display:inline-block;margin-top:16px;background:var(--c1);color:#fff;padding:10px 24px;border-radius:999px;font-weight:700;text-decoration:none}
+.sec-img{width:100%;border-radius:12px;display:block}
+/* Bloc des sections rangées AVANT le carrousel hero : on resserre les marges pour
+   qu'elles se posent contre l'en-tête / le fil info au lieu de flotter au milieu. */
+.sec-above-hero .site-section{padding-top:22px;padding-bottom:0}
+.sec-above-hero .site-section:last-child{padding-bottom:22px}
+.sec-below-hero .site-section{padding-top:22px;padding-bottom:0}
+.sec-below-hero .site-section:last-child{padding-bottom:26px}
+/* ── Section « carrousel d'images » (type multislide) ────────────────────────
+   Format CARRE impose (2026-08-04) : toutes les diapos sont affichees en 1:1 et
+   recadrees au centre (object-fit:cover). Avant, la hauteur suivait l'image la
+   plus haute du lot : des que les visuels n'avaient pas le meme rapport, le bloc
+   sautait d'une diapo a l'autre. Visuels a fournir en 800 x 800 px (taille
+   rappelee dans le formulaire d'ajout d'image).
+   Largeur plafonnee : un carre pleine largeur ferait plus de 1500 px de haut. */
+.ms-slider{position:relative;width:100%;max-width:min(720px,100%);margin:0 auto}
+.ms-viewport{position:relative;overflow:hidden;border-radius:12px;aspect-ratio:1/1;touch-action:pan-y}
+.ms-track{display:flex;align-items:stretch;height:100%;transition:transform .45s ease}
+.ms-slide{position:relative;flex:0 0 100%;min-width:100%;display:block;text-decoration:none;color:#fff}
+.ms-slide img{width:100%;height:100%;object-fit:cover;display:block}
+.ms-cap{position:absolute;left:0;right:0;bottom:0;padding:26px 16px 12px;font-size:.92rem;font-weight:600;
+  background:linear-gradient(rgba(0,0,0,0),rgba(0,0,0,.72));text-shadow:0 1px 6px rgba(0,0,0,.6)}
+.ms-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:2;background:rgba(0,0,0,.38);color:#fff;
+  border:0;width:38px;height:38px;border-radius:50%;font-size:1.2rem;cursor:pointer;display:flex;
+  align-items:center;justify-content:center;opacity:.85;transition:opacity .15s,background .15s}
+.ms-arrow:hover{opacity:1;background:var(--c1)}
+.ms-prev{left:10px}
+.ms-next{right:10px}
+/* Pastilles posées SUR l'image, en bas au centre (repère : portails radio type NRJ). */
+.ms-dots{position:absolute;left:0;right:0;bottom:12px;z-index:2;display:flex;gap:8px;justify-content:center}
+/* Liseré blanc : la pastille active est en couleur principale et doit rester
+   visible même posée sur une image de cette même couleur. */
+.ms-dot{width:11px;height:11px;border-radius:50%;padding:0;cursor:pointer;background:rgba(255,255,255,.35);
+  border:2px solid rgba(255,255,255,.9);box-shadow:0 1px 4px rgba(0,0,0,.45)}
+.ms-dot.active{background:var(--c1);border-color:#fff;transform:scale(1.2)}
+@media(max-width:600px){.ms-arrow{width:32px;height:32px;font-size:1rem}.ms-cap{font-size:.82rem}}
+
+/* ── Présentation « vignettes » du carrousel d'images ────────────────────────
+   Toutes les images côte à côte, en carré, surmontées de leur légende en gros —
+   le format « Temps forts / Jeux / Podcasts ». Images rendues telles quelles,
+   sans voile de couleur (voir plus bas). */
+.ms-tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(230px,100%),1fr));gap:14px}
+.ms-tile{position:relative;display:block;overflow:hidden;border-radius:10px;aspect-ratio:1/1;
+  text-decoration:none;color:#fff;background:var(--c2)}
+.ms-tile img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s ease}
+/* Voile de couleur retire le 2026-08-04 (demande client) : les visuels fournis sont
+   deja travailles, la teinte var(--c1) en multiply les denaturait. Ne pas le
+   reintroduire sans demande explicite. Seul le degrade de la legende reste : il est
+   indispensable a la lisibilite du texte pose sur l'image. */
+.ms-tile:hover img{transform:scale(1.06)}
+.ms-tile .ms-cap{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:14px 16px;
+  background:linear-gradient(rgba(0,0,0,0),rgba(0,0,0,.45));
+  font-size:clamp(1.15rem,2.4vw,1.9rem);font-weight:800;line-height:1.1;
+  text-shadow:0 2px 10px rgba(0,0,0,.55)}
+@media(max-width:600px){.ms-tiles{gap:10px}}  /* .ms-tile reste carre sur mobile */
+/* Rangée « Réseaux sociaux » (section de type social). Centrée quand la section
+   l'est, alignée à gauche sinon : elle suit le réglage d'alignement comme le
+   texte, sans avoir besoin d'un réglage à elle. */
+.sec-socials{display:flex;flex-wrap:wrap;gap:12px;margin-top:6px}
+.sec-center .sec-socials{justify-content:center}
+.sec-socials a{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;
+  justify-content:center;font-size:1.35rem;text-decoration:none;color:#fff;
+  background:linear-gradient(135deg,var(--c1),var(--c2));
+  box-shadow:0 10px 20px -14px var(--c1);transition:transform .15s ease,filter .15s ease}
+.sec-socials a:hover{transform:translateY(-2px);filter:brightness(1.08)}
+@media(max-width:600px){.sec-socials a{width:44px;height:44px;font-size:1.2rem}}
+/* Carrousel bord à bord : on neutralise la gouttière et la largeur max de la
+   section pour qu'il s'aligne exactement sur le hero. Les coins arrondis sautent
+   aussi — un bloc pleine largeur aux angles ronds jure avec le hero, qui est droit. */
+.site-section.sec-full{padding-left:0;padding-right:0}
+.site-section.sec-full>.sec-inner{max-width:none}
+.site-section.sec-full>.sec-inner>h2{margin-left:20px}
+/* En LARGE, les vignettes s'etalent bord a bord mais le carrousel carre garde
+   son plafond de largeur : un carre pleine largeur serait ingerable. */
+.site-section.sec-full .ms-slider{max-width:min(720px,100%)}
+.site-section.sec-full .ms-viewport,.site-section.sec-full .ms-tile{border-radius:0}
+.sec-video{position:relative;width:100%;max-width:880px;margin:0 auto;aspect-ratio:16/9;border-radius:12px;overflow:hidden;background:#000}
+.sec-video iframe{width:100%;height:100%;border:0;display:block}
+.sec-video-file{width:100%;max-width:880px;display:block;margin:0 auto;border-radius:12px;background:#000}
+.video-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(300px,100%),1fr));gap:22px}
+.video-card{border-radius:16px;overflow:hidden;background:rgba(255,255,255,.95);border:1px solid rgba(20,26,56,.07);box-shadow:0 4px 16px rgba(20,26,56,.08);cursor:pointer;transition:transform .18s ease,box-shadow .18s ease}
+.video-card:hover{transform:translateY(-4px);box-shadow:0 12px 28px rgba(20,26,56,.16)}
+.video-card .sec-video{max-width:none;border-radius:0}
+.video-card .sec-video-file{max-width:none;border-radius:0}
+.video-thumb{position:relative;aspect-ratio:16/9;background:#141a38 center/cover no-repeat}
+.video-play{position:absolute;inset:0;margin:auto;width:60px;height:60px;border-radius:50%;background:var(--c1);display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.9rem;box-shadow:0 8px 22px color-mix(in srgb,var(--c1) 40%,transparent);transition:transform .15s ease}
+.video-card:hover .video-play{transform:scale(1.14)}
+.video-card-body{padding:12px 16px}
+.video-title,h2.video-title{font-size:1.02rem;font-weight:700;margin:0}
+.video-desc{font-size:.9rem;opacity:.85;margin-top:6px;line-height:1.6}
+/* Modale vidéo (lightbox) */
+.video-modal{position:fixed;inset:0;z-index:400;display:flex;align-items:center;justify-content:center;padding:20px}
+.video-modal[hidden]{display:none}
+.video-modal-backdrop{position:absolute;inset:0;background:rgba(8,10,26,.9)}
+.video-modal-box{position:relative;width:min(960px,96vw);z-index:2}
+.video-modal-frame{aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:#000;box-shadow:0 24px 70px rgba(0,0,0,.65)}
+.video-modal-frame iframe,.video-modal-frame video{width:100%;height:100%;border:0;display:block}
+/* Fiche d'une vidéo (/videos/<slug>-<id>) */
+.vid-single .vid-detail{margin-bottom:34px}
+.vid-detail-title{font-size:1.9rem;margin:0 0 10px}
+.vid-detail-meta{margin-bottom:16px;opacity:.8;font-size:.92rem}
+.vid-detail-player{border-radius:14px;overflow:hidden;background:#000;margin-bottom:18px}
+.vid-detail-video{width:100%;max-height:78vh;display:block;background:#000}
+.vid-detail-player .sec-video{margin:0}
+.vid-detail-desc{margin-bottom:18px;line-height:1.65}
+.vid-more-title{font-size:1.25rem;margin:30px 0 14px}
+/* Titre cliquable d'une carte + bandeau « À la une » */
+.video-title-link{color:inherit;text-decoration:none}
+.video-title-link:hover{color:var(--c1)}
+.video-spotlight{position:relative}
+.vid-featured-badge{display:inline-flex;align-items:center;gap:6px;background:var(--c1);color:#fff;
+  font-weight:700;font-size:.78rem;letter-spacing:.02em;padding:5px 12px;border-radius:999px;margin-bottom:10px}
+.video-card .pod-share{margin-top:10px}
+.video-modal-close{position:absolute;top:-46px;right:0;background:none;border:0;color:#fff;font-size:2.1rem;cursor:pointer;line-height:1;padding:4px}
+.video-modal-close:hover{color:var(--c1)}
+/* Lightbox affiche d'événement */
+.ev-zoom{cursor:zoom-in}
+.ev-lightbox{position:fixed;inset:0;z-index:420;display:flex;align-items:center;justify-content:center;padding:24px}
+.ev-lightbox[hidden]{display:none}
+.ev-lightbox-backdrop{position:absolute;inset:0;background:rgba(8,10,26,.92);cursor:zoom-out}
+.ev-lightbox img{position:relative;z-index:2;max-width:min(1100px,96vw);max-height:92vh;width:auto;height:auto;border-radius:12px;box-shadow:0 24px 70px rgba(0,0,0,.65)}
+.ev-lightbox-close{position:absolute;top:16px;right:20px;z-index:3;background:none;border:0;color:#fff;font-size:2.4rem;line-height:1;cursor:pointer;padding:4px}
+.ev-lightbox-close:hover{color:var(--c1)}
+.sec-ti{display:flex;gap:32px;align-items:center;flex-wrap:wrap}
+.sec-ti>div{flex:1 1 280px}
+.sec-ti.sec-imgleft{flex-direction:row-reverse}
+.sec-cta{text-align:center}
+/* Équipe */
+.team-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:22px}
+.team-card{transition:transform .18s ease}
+.team-card:hover{transform:translateY(-5px)}
+.team-media{position:relative;aspect-ratio:3/4;border-radius:18px;overflow:hidden;box-shadow:0 10px 28px rgba(0,0,0,.2)}
+.team-media img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block;transition:transform .4s ease}
+.team-card:hover .team-media img{transform:scale(1.06)}
+.team-ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--c2),var(--c1));color:rgba(255,255,255,.6);font-size:3.6rem}
+.team-overlay{position:absolute;left:0;right:0;bottom:0;padding:38px 16px 14px;background:linear-gradient(to top,rgba(0,0,0,.85),rgba(0,0,0,.4) 55%,transparent);color:#fff;text-align:left}
+.team-name{font-weight:800;font-size:1.12rem;line-height:1.2;color:#fff}
+.team-role{display:block;color:#fff;opacity:.9;font-weight:700;font-size:.74rem;text-transform:uppercase;letter-spacing:.04em;margin-top:4px}
+.team-bio{font-size:.88rem;opacity:.8;line-height:1.55;margin-top:12px}
+/* Actualités — cartes modernes */
+.news-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:26px}
+.news-page{max-width:1200px}
+.news-page .news-list{grid-template-columns:repeat(3,1fr)}
+@media(max-width:1000px){.news-page .news-list{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.news-page .news-list{grid-template-columns:1fr}}
+.news-pagination{display:flex;justify-content:center;align-items:center;gap:8px;margin-top:40px;flex-wrap:wrap}
+.np-btn{display:inline-flex;align-items:center;justify-content:center;min-width:40px;height:40px;padding:0 13px;border-radius:12px;border:1px solid rgba(128,128,128,.25);font-weight:700;font-size:.95rem;text-decoration:none;color:inherit;transition:border-color .15s ease,color .15s ease,transform .15s ease}
+a.np-btn:hover{border-color:var(--c1);color:var(--c1);transform:translateY(-2px)}
+.np-cur{background:var(--c1);border-color:var(--c1);color:#fff}
+.np-off{opacity:.35}
+.np-dots{opacity:.5;padding:0 2px}
+.news-card{display:flex;flex-direction:column;background:rgba(128,128,128,.06);border:1px solid rgba(128,128,128,.14);border-radius:18px;overflow:hidden;text-decoration:none;color:inherit;transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+.news-card:hover{transform:translateY(-5px);box-shadow:0 16px 38px rgba(0,0,0,.16);border-color:var(--c1)}
+.news-card-media{position:relative;aspect-ratio:16/10;overflow:hidden;background:var(--c2)}
+.news-card-media img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s ease}
+.news-card:hover .news-card-media img{transform:scale(1.06)}
+.news-card-ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--c2),var(--c1));color:rgba(255,255,255,.55);font-size:2.4rem}
+.news-card-date{position:absolute;top:12px;left:12px;background:var(--c1);color:#fff;font-size:.74rem;font-weight:700;letter-spacing:.02em;padding:5px 11px;border-radius:999px;display:inline-flex;align-items:center;gap:5px;box-shadow:0 3px 10px rgba(0,0,0,.25)}
+.news-card-body{padding:18px 20px 22px;display:flex;flex-direction:column;gap:10px;flex:1}
+.news-card-body h2{font-size:1.22rem;font-weight:800;line-height:1.3;margin:0}
+.news-title-link{color:inherit;text-decoration:none}
+.news-card:hover .news-title-link{color:var(--c1)}
+.news-excerpt{line-height:1.6;opacity:.74;font-size:.93rem;margin:0}
+.news-more{margin-top:auto;display:inline-flex;align-items:center;gap:6px;color:var(--c1);font-weight:700;text-decoration:none;font-size:.9rem;transition:gap .15s}
+.news-card:hover .news-more{gap:11px}
+/* Actualités — layouts « à la une » et « compact » */
+.news-featured{margin-bottom:26px}
+.news-lead{display:grid;grid-template-columns:1.15fr 1fr;background:rgba(128,128,128,.06);border:1px solid rgba(128,128,128,.14);border-radius:18px;overflow:hidden;text-decoration:none;color:inherit;transition:transform .18s,box-shadow .18s,border-color .18s}
+.news-lead:hover{transform:translateY(-4px);box-shadow:0 16px 38px rgba(0,0,0,.16);border-color:var(--c1)}
+.news-lead-media{position:relative;min-height:260px;background:var(--c2)}
+.news-lead-media img{width:100%;height:100%;object-fit:cover;display:block}
+.news-lead-ph{width:100%;height:100%;min-height:220px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--c2),var(--c1));color:rgba(255,255,255,.55);font-size:3rem}
+.news-lead-body{padding:28px 30px;display:flex;flex-direction:column;justify-content:center}
+.news-lead-badge{align-self:flex-start;background:var(--c1);color:#fff;font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;padding:5px 13px;border-radius:999px;margin-bottom:12px}
+.news-lead-date{font-size:.8rem;color:var(--c1);font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.news-lead-body h2{font-size:1.7rem;font-weight:800;line-height:1.2;margin:0 0 10px}
+.news-lead-excerpt{line-height:1.65;opacity:.8;margin:0 0 14px}
+.news-rows{display:flex;flex-direction:column;gap:14px}
+.news-row{display:flex;gap:16px;align-items:center;background:rgba(128,128,128,.06);border:1px solid rgba(128,128,128,.14);border-radius:14px;overflow:hidden;padding:10px 14px 10px 10px;text-decoration:none;color:inherit;transition:transform .15s,box-shadow .15s,border-color .15s}
+.news-row:hover{transform:translateX(3px);box-shadow:0 10px 24px rgba(0,0,0,.12);border-color:var(--c1)}
+.news-row-thumb{flex:0 0 auto;width:120px;height:80px;border-radius:10px;overflow:hidden;background:var(--c2)}
+.news-row-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.news-row-ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--c2),var(--c1));color:rgba(255,255,255,.5);font-size:1.4rem}
+.news-row-body{flex:1;min-width:0}
+.news-row-date{font-size:.74rem;color:var(--c1);font-weight:700;margin-bottom:2px;display:flex;align-items:center;gap:5px}
+.news-row-body h2{font-size:1.05rem;font-weight:800;margin:0 0 3px;line-height:1.3}
+.news-row-body h2 a{color:inherit;text-decoration:none}
+.news-row:hover h2 a{color:var(--c1)}
+.news-row-excerpt{font-size:.85rem;opacity:.7;margin:0;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+@media(max-width:640px){.news-lead{grid-template-columns:1fr}.news-lead-media{min-height:180px}.news-row-thumb{width:88px;height:64px}.news-row-excerpt{display:none}}
+/* Article seul */
+.article-single{max-width:760px}
+.article-single .news-back{display:flex;width:max-content;align-items:center;gap:6px;color:var(--c1);font-weight:600;text-decoration:none;margin-bottom:18px}
+.article-single .news-back:hover{gap:10px}
+.article-single .news-date{display:inline-flex;align-items:center;gap:6px;font-size:.82rem;color:var(--c1);font-weight:700;text-transform:uppercase;letter-spacing:.03em;margin-bottom:6px}
+.article-single h1{margin:6px 0 18px;line-height:1.18}
+.article-cover{width:100%;max-height:440px;object-fit:cover;border-radius:18px;margin-bottom:26px;box-shadow:0 18px 44px rgba(0,0,0,.18)}
+/* Podcast associé à un article */
+.hs-title-link{color:inherit;text-decoration:none}.hs-title-link:hover{text-decoration:underline;text-underline-offset:4px}
+.article-podcast{display:flex;gap:16px;align-items:center;padding:16px;margin:0 0 26px;border-radius:16px;background:rgba(128,128,128,.07);border:1px solid rgba(128,128,128,.18)}
+.article-podcast .ap-cover{flex:0 0 auto;width:84px;height:84px;border-radius:12px;background-size:cover;background-position:center;box-shadow:0 6px 16px rgba(0,0,0,.15)}
+.article-podcast .ap-ph{display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--c2),var(--c1));color:#fff;font-size:2rem}
+.article-podcast .ap-body{flex:1;min-width:0}
+.article-podcast .ap-label{font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--c1)}
+.article-podcast .ap-dur{font-weight:500;opacity:.7;text-transform:none}
+.article-podcast .ap-title{font-weight:700;margin:2px 0 8px;line-height:1.3}
+.article-podcast .ap-title a{color:inherit;text-decoration:none}
+.article-podcast .ap-title a:hover{text-decoration:underline}
+.article-podcast .vr-audio{margin-top:0}
+/* Page détail article : 4 mises en page (classic / wide / immersive / sidebar) — 2026-11-04 */
+.article-single.art-wide,.article-single.art-sidebar{max-width:1180px}
+.art-wide h1{font-size:clamp(2rem,4vw,3rem)}
+.art-wide .article-cover{max-height:620px;border-radius:20px}
+.art-wide .article-body{font-size:1.08rem}
+.article-single.art-immersive{max-width:860px}
+.art-hero{position:relative;margin:-48px calc(50% - 50vw) 34px;min-height:clamp(340px,62vh,600px);display:flex;align-items:flex-end;overflow:hidden;background:var(--c2);color:#fff}
+.art-hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.art-hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.18) 0%,rgba(0,0,0,.22) 45%,rgba(0,0,0,.8) 100%)}
+.art-hero-noimg{min-height:clamp(260px,40vh,380px);background:radial-gradient(ellipse at 15% 0%,color-mix(in srgb,var(--c1) 38%,transparent),transparent 60%),var(--c2)}
+.art-hero-noimg::after{display:none}
+.art-hero-in{position:relative;z-index:1;width:100%;max-width:1100px;margin:0 auto;padding:28px 20px clamp(28px,5vw,52px)}
+.art-hero .news-back{color:#fff;opacity:.92}
+.art-hero .news-date{color:#fff;background:var(--c1);padding:4px 10px;border-radius:6px}
+.art-hero h1{color:#fff;font-size:clamp(2rem,5vw,3.4rem);margin:12px 0 0;max-width:900px;text-shadow:0 2px 18px rgba(0,0,0,.35)}
+.art-wrap{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:44px;align-items:start}
+.art-side{position:sticky;top:90px;padding:20px;border-radius:18px;background:rgba(128,128,128,.06);border:1px solid rgba(128,128,128,.16)}
+.art-side-title{display:flex;align-items:center;gap:8px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;font-size:.85rem;color:var(--c1);padding-bottom:12px;margin-bottom:4px;border-bottom:3px solid var(--c1)}
+.as-item{display:flex;gap:12px;align-items:flex-start;padding:12px 0;text-decoration:none;color:inherit;border-bottom:1px solid rgba(128,128,128,.16)}
+.as-item:last-of-type{border-bottom:0}
+.as-thumb{flex:0 0 96px;width:96px;height:68px;border-radius:10px;overflow:hidden;background:rgba(128,128,128,.12);display:flex;align-items:center;justify-content:center;color:var(--c1);font-size:1.4rem}
+.as-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .3s}
+.as-item:hover .as-thumb img{transform:scale(1.06)}
+.as-txt{min-width:0;display:flex;flex-direction:column;gap:3px}
+.as-date{font-size:.74rem;font-weight:700;color:var(--c1);text-transform:uppercase;letter-spacing:.03em}
+.as-title{font-weight:700;line-height:1.3;font-size:.95rem;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.as-item:hover .as-title{color:var(--c1)}
+.art-side-all{display:inline-flex;align-items:center;gap:6px;margin-top:12px;font-weight:700;color:var(--c1);text-decoration:none;font-size:.9rem}
+@media(max-width:991px){.art-wrap{grid-template-columns:1fr;gap:32px}.art-side{position:static}}
+@media(max-width:560px){.article-podcast{align-items:flex-start}.article-podcast .ap-cover{width:56px;height:56px}}
+/* Alignements de l'éditeur (anciens contenus en classes Quill) */
+.ql-align-center{text-align:center}.ql-align-right{text-align:right}.ql-align-justify{text-align:justify}
+.article-body{line-height:1.85;opacity:.92;font-size:1.06rem}
+.article-body img{max-width:100%;border-radius:12px}
+.news-text{line-height:1.7;opacity:.88}
+.news-text p{margin:0 0 .7em}
+.news-text ul,.news-text ol{padding-left:1.4em;margin:.5em 0}
+.news-text a{color:var(--c1)}
+.news-text h2,.news-text h3{margin:.6em 0 .3em}
+.news-text blockquote{border-left:3px solid var(--c1);margin:.6em 0;padding-left:14px;opacity:.85}
+/* Contact */
+.contact-page{max-width:1120px}
+.contact-intro{line-height:1.7;opacity:.85;margin:0 auto 30px;font-size:1.08rem;max-width:760px;text-align:center}
+.contact-layout{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:28px;align-items:start}
+.contact-main{min-width:0}
+.cf-card{background:#fff;color:#1a1a22;border-radius:18px;padding:30px 30px 26px;box-shadow:0 18px 50px rgba(15,15,25,.10),0 2px 6px rgba(15,15,25,.05)}
+.cf-head{display:flex;align-items:center;gap:14px;margin-bottom:22px}
+.cf-head-ico{flex:0 0 auto;width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--c1);color:#fff;font-size:1.2rem}
+.cf-title{margin:0;font-size:1.45rem;line-height:1.1}
+.cf-sub{margin:3px 0 0;font-size:.9rem;opacity:.6}
+.cf-card .contact-form input,.cf-card .contact-form textarea{color:#1a1a22;background:#f4f4f6;border-color:transparent}
+.cf-card .contact-form input:focus,.cf-card .contact-form textarea:focus{background:#fff;border-color:var(--c1);box-shadow:0 0 0 3px color-mix(in srgb,var(--c1) 18%,transparent)}
+.contact-side{display:flex;flex-direction:column;gap:12px;background:var(--c2);color:#fff;border-radius:18px;padding:28px 24px}
+.cs-title{font-family:inherit;font-size:1.25rem;font-weight:800;text-transform:uppercase;letter-spacing:.02em;margin-bottom:6px;padding-bottom:12px;border-bottom:3px solid var(--c1);align-self:flex-start}
+.contact-card{display:flex;align-items:center;gap:14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.10);border-radius:14px;padding:14px 16px;transition:background .15s}
+.contact-card:hover{background:rgba(255,255,255,.10)}
+.contact-card .cc-icon{flex:0 0 auto;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--c1);color:#fff;font-size:1.05rem}
+.contact-card .cc-body{min-width:0}
+.contact-card .cc-label{font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;opacity:.6;font-weight:700;margin-bottom:3px}
+.contact-card .cc-value{font-weight:700;font-size:1.02rem;word-break:break-word}
+.contact-card a{color:#fff;text-decoration:none}
+.contact-card a:hover{color:var(--c1)}
+.cc-social{display:flex;gap:8px;margin-top:6px;flex-wrap:wrap}
+.cc-social a{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.12);font-size:1rem;transition:background .15s}
+.cc-social a:hover{background:var(--c1);color:#fff}
+@media(max-width:860px){.contact-layout{grid-template-columns:1fr}.cf-card{padding:24px 18px 20px}}
+.partners-page .partners-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;margin-top:26px}
+.partner-card{display:flex;align-items:center;gap:13px;background:rgba(128,128,128,.07);border:1px solid rgba(128,128,128,.16);border-radius:14px;padding:15px 17px;text-decoration:none;color:inherit;transition:border-color .15s,transform .15s}
+.partner-card:hover{border-color:var(--c1);transform:translateY(-2px)}
+.partner-card .pc-icon{flex:0 0 auto;width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--c1);color:#fff;font-size:1.1rem}
+.partner-card .pc-icon.pc-img{width:56px;height:56px;border-radius:12px;background:#fff;border:1px solid rgba(128,128,128,.18);overflow:hidden}
+.partner-card .pc-icon.pc-img img{width:100%;height:100%;object-fit:contain;display:block}
+.partner-card .pc-body{min-width:0;display:flex;flex-direction:column}
+.partner-card .pc-name{font-weight:700}
+.partner-card .pc-host{font-size:.78rem;opacity:.55;word-break:break-all}
+.partner-card .pc-go{margin-left:auto;opacity:.4;font-size:.9rem}
+.contact-form{display:flex;flex-direction:column;gap:14px}
+.contact-form label{display:flex;flex-direction:column;gap:6px;font-weight:600;font-size:.9rem}
+.contact-form .cf-row{display:flex;gap:14px;flex-wrap:wrap}
+.contact-form .cf-row label{flex:1 1 220px}
+.contact-form input,.contact-form textarea{font:inherit;font-weight:400;padding:11px 13px;border:1px solid rgba(128,128,128,.3);border-radius:10px;background:rgba(128,128,128,.06);color:var(--tx)}
+.contact-form input:focus,.contact-form textarea:focus{outline:none;border-color:var(--c1)}
+.contact-form .cf-hp{position:absolute;left:-9999px;width:1px;height:1px}
+.cf-captcha{display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:#f4f4f6;border-radius:12px;padding:10px 14px}
+.cf-cap-lbl{font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;font-weight:700;opacity:.55;margin-right:4px}
+.cf-die{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:9px;background:var(--c2);color:#fff;font-size:1.15rem;font-weight:800;line-height:1}
+.cf-plus,.cf-eq{font-size:1.2rem;font-weight:800;opacity:.6}
+.contact-form .cf-answer,.cf-card .contact-form .cf-answer{width:74px;text-align:center;font-weight:700;background:#fff;border:1px solid rgba(0,0,0,.16)}
+.cf-submit{align-self:flex-start;display:inline-flex;align-items:center;gap:8px;background:var(--c1);color:#fff;border:0;padding:14px 34px;border-radius:999px;font-weight:800;cursor:pointer;font-size:1rem;text-transform:uppercase;letter-spacing:.04em;transition:transform .12s,filter .12s}
+.cf-submit:hover{filter:brightness(1.08);transform:translateY(-1px)}
+.cf-msg{font-size:.92rem;min-height:1.2em}
+/* Programmes : cartes avec pastille jour + horaire */
+.page-text.page-wide{max-width:1180px}
+/* Cartes programmes (2026-10-12) */
+.pc-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(320px,100%),1fr));gap:20px}
+.pc-card{position:relative;display:flex;flex-direction:column;background:#fff;color:#14162b;border:1px solid rgba(20,26,56,.08);border-radius:16px;overflow:hidden;box-shadow:0 3px 14px rgba(20,26,56,.07);transition:transform .16s ease,box-shadow .16s ease}
+.pc-card::before{content:"";position:absolute;left:0;top:0;right:0;height:4px;background:var(--c1)}
+.pc-card:hover{transform:translateY(-3px);box-shadow:0 10px 26px rgba(20,26,56,.14)}
+.pc-media{aspect-ratio:16/9;background:#eee center/cover no-repeat}
+.pc-ph{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:16px;text-align:center;color:#fff;background:radial-gradient(ellipse at 20% 0%,color-mix(in srgb,var(--c1) 70%,transparent),transparent 65%),linear-gradient(135deg,var(--c2),color-mix(in srgb,var(--c1) 55%,var(--c2)))}
+.pc-ph i{font-size:2.2rem;opacity:.9}.pc-ph span{font-weight:800;font-size:1.05rem;text-transform:uppercase;letter-spacing:.03em;line-height:1.2;overflow-wrap:anywhere;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}
+.pc-body{padding:18px 20px 18px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.pc-slots{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.pc-slots li{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px}
+.pc-day{background:color-mix(in srgb,var(--c1) 12%,#fff);color:color-mix(in srgb,var(--c1) 80%,#000);font-size:.7rem;font-weight:800;letter-spacing:.4px;text-transform:uppercase;padding:4px 10px;border-radius:99px;line-height:1.3}
+.pc-time{display:inline-flex;align-items:center;gap:5px;font-weight:800;font-size:.95rem;color:var(--c2);white-space:nowrap}
+.pc-time i{font-size:.8rem;opacity:.55}
+.pc-title{margin:2px 0 0;font-size:1.12rem;font-weight:800;line-height:1.25;overflow-wrap:anywhere}
+.pc-desc{font-size:.9rem;line-height:1.6;opacity:.8;overflow-wrap:anywhere}
+.pc-desc p{margin:0 0 .5em}.pc-desc p:last-child{margin:0}
+.pc-desc img,.pc-desc iframe,.pc-desc video,.pc-desc table{max-width:100%;height:auto}
+.pc-clamp{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;line-clamp:3;overflow:hidden}
+.pc-card.open .pc-clamp{display:block;-webkit-line-clamp:unset;overflow:visible}
+.pc-more{align-self:flex-start;display:inline-flex;align-items:center;gap:6px;background:none;border:0;padding:0;font-size:.85rem;font-weight:700;color:var(--c1);cursor:pointer}
+.pc-more i{transition:transform .2s}.pc-more-off{display:none}
+.pc-card.open .pc-more i{transform:rotate(180deg)}.pc-card.open .pc-more-on{display:none}.pc-card.open .pc-more-off{display:inline}
+body.bg-dark-auto .pc-card{background:rgba(255,255,255,.045);border-color:rgba(255,255,255,.10);color:inherit;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+body.bg-dark-auto .pc-day{background:color-mix(in srgb,var(--c1) 28%,transparent);color:#fff}
+body.bg-dark-auto .pc-time{color:inherit}
+@media(max-width:768px){.pc-list{grid-template-columns:1fr;gap:14px}.pc-body{padding:15px 16px}}
+.prog-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(330px,100%),1fr));gap:16px}
+.prog-item{display:flex;gap:16px;align-items:flex-start;background:rgba(255,255,255,.95);border:1px solid rgba(20,26,56,.07);border-left:4px solid var(--c1);border-radius:14px;padding:16px 18px;box-shadow:0 3px 14px rgba(20,26,56,.07);transition:transform .15s ease,box-shadow .15s ease}
+.prog-item:hover{transform:translateY(-3px);box-shadow:0 9px 24px rgba(20,26,56,.14)}
+.prog-when{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:5px;min-width:88px;max-width:118px;text-align:center}
+.prog-day{background:var(--c1);color:#fff;font-size:.68rem;font-weight:800;letter-spacing:.5px;text-transform:uppercase;padding:4px 11px;border-radius:99px;white-space:normal;line-height:1.35;text-align:center}
+.prog-time{font-size:1rem;color:var(--c2);font-weight:800;white-space:nowrap}
+.prog-info{flex:1 1 0;min-width:0;overflow-wrap:anywhere;word-break:break-word}
+.prog-title{font-weight:800;font-size:1.02rem}
+.prog-desc img,.prog-desc iframe,.prog-desc video,.prog-desc table{max-width:100%;height:auto}
+.prog-desc{font-size:.88rem;opacity:.78;margin-top:3px;line-height:1.55}
+/* Événements : cartes avec bloc date dégradé */
+.event-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(420px,100%),1fr));gap:20px}
+.event-item{display:flex;gap:18px;align-items:flex-start;background:rgba(255,255,255,.95);border:1px solid rgba(20,26,56,.07);border-radius:18px;padding:18px;box-shadow:0 4px 18px rgba(20,26,56,.08);transition:transform .18s ease,box-shadow .18s ease}
+.event-item:hover{transform:translateY(-3px);box-shadow:0 10px 26px rgba(20,26,56,.15)}
+.event-date-box{flex:0 0 auto;width:74px;height:74px;border-radius:14px;background:var(--c1);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.05;box-shadow:0 6px 14px color-mix(in srgb,var(--c1) 30%,transparent)}
+.ev-day{font-size:1.65rem;font-weight:800}
+.ev-mon{font-size:.68rem;font-weight:700;letter-spacing:1.2px;margin-top:2px}
+.event-img{width:150px;height:96px;object-fit:cover;border-radius:12px;flex:0 0 auto}
+.event-body{flex:1 1 200px}
+.event-meta{display:flex;gap:14px;flex-wrap:wrap;font-size:.82rem;color:var(--c1);font-weight:700;margin-bottom:4px}
+.event-body h2{font-size:1.25rem;font-weight:800;margin:0 0 6px}
+.event-text{line-height:1.65;opacity:.85;font-size:.92rem}
+/* Événements — mises en page sélectionnables (cards / featured / agenda) */
+.ev-page>h1{margin-bottom:22px}
+.ev-loc{font-size:.82rem;color:var(--c1);font-weight:700;display:flex;align-items:center;gap:5px;margin-bottom:5px}
+.ev-txt{line-height:1.65;opacity:.85;font-size:.92rem}
+.ev-noimg{width:100%;height:100%;min-height:120px;display:flex;align-items:center;justify-content:center;background:var(--c1);color:rgba(255,255,255,.9);font-size:2rem}
+.ev-past{opacity:.6}
+.ev-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(280px,100%),1fr));gap:20px}
+.ev-card{background:rgba(255,255,255,.96);border:1px solid rgba(20,26,56,.07);border-radius:16px;overflow:hidden;box-shadow:0 4px 18px rgba(20,26,56,.08);display:flex;flex-direction:column;transition:transform .18s,box-shadow .18s}
+.ev-card:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(20,26,56,.15)}
+.ev-card-media{position:relative;height:160px}
+.ev-card-media img{width:100%;height:100%;object-fit:cover;display:block}
+.ev-pill{position:absolute;top:10px;left:10px;background:rgba(255,255,255,.95);border-radius:10px;padding:4px 9px;text-align:center;line-height:1;box-shadow:0 4px 10px rgba(0,0,0,.18);display:flex;flex-direction:column;gap:1px}
+.ev-pill b{font-size:1.1rem;font-weight:800;color:var(--c2)}
+.ev-pill i{font-size:.56rem;font-weight:800;letter-spacing:.8px;font-style:normal;color:var(--c1)}
+.ev-card-body{padding:14px 16px 18px}
+.ev-card-body h2{font-size:1.08rem;font-weight:800;margin:0 0 6px}
+.ev-hero{display:grid;grid-template-columns:1.05fr 1fr;border:1px solid rgba(20,26,56,.08);border-radius:18px;overflow:hidden;box-shadow:0 10px 30px rgba(20,26,56,.1);margin-bottom:26px}
+.ev-hero-media{min-height:270px}
+.ev-hero-media img{width:100%;height:100%;object-fit:cover;display:block}
+.ev-hero-body{padding:26px 28px;display:flex;flex-direction:column;justify-content:center}
+.ev-badge{align-self:flex-start;font-size:.68rem;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:#fff;background:var(--c1);padding:5px 13px;border-radius:999px;margin-bottom:14px}
+.ev-hero-when{margin-bottom:14px}
+.ev-hero-body h2{font-size:1.55rem;font-weight:800;margin:0 0 8px;line-height:1.18}
+.ev-upnext-h{font-size:.8rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;opacity:.6;margin:0 0 14px;display:flex;align-items:center;gap:10px}
+.ev-upnext-h::after{content:"";flex:1;height:1px;background:rgba(20,26,56,.12)}
+.ev-upnext{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(300px,100%),1fr));gap:14px}
+.ev-up{display:flex;gap:14px;align-items:center;background:rgba(255,255,255,.96);border:1px solid rgba(20,26,56,.07);border-radius:14px;padding:12px 14px;transition:transform .15s,box-shadow .15s}
+.ev-up:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(20,26,56,.1)}
+.ev-up .event-date-box{width:56px;height:56px;border-radius:11px}
+.ev-up .ev-day{font-size:1.25rem}
+.ev-up .ev-mon{font-size:.55rem}
+.ev-up-body h3{font-size:.98rem;font-weight:800;margin:0 0 3px}
+.ev-up-body .ev-loc{margin-bottom:0}
+.ev-agenda{position:relative;padding-left:30px}
+.ev-agenda::before{content:"";position:absolute;left:9px;top:6px;bottom:6px;width:2px;background:var(--c1);opacity:.35}
+.ev-month{font-size:.72rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--c1);margin:4px 0 14px}
+.ev-ag{position:relative;display:flex;gap:18px;align-items:center;background:rgba(255,255,255,.96);border:1px solid rgba(20,26,56,.07);border-radius:16px;padding:16px 18px;margin-bottom:16px;box-shadow:0 4px 16px rgba(20,26,56,.06);transition:transform .15s,box-shadow .15s}
+.ev-ag:hover{transform:translateX(3px);box-shadow:0 10px 24px rgba(20,26,56,.12)}
+.ev-ag::before{content:"";position:absolute;left:-25px;top:50%;transform:translateY(-50%);width:12px;height:12px;border-radius:50%;background:var(--c1);border:3px solid var(--bg,#fff);box-shadow:0 0 0 2px var(--c1)}
+.ev-ag-img{width:120px;height:80px;object-fit:cover;border-radius:12px;flex:0 0 auto}
+.ev-ag-body{flex:1;min-width:0}
+.ev-ag-body h2{font-size:1.12rem;font-weight:800;margin:0 0 4px}
+/* Équipe — cercles */
+.team-circles{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:24px;text-align:center}
+.team-circle img,.team-circle .tc-ph{width:130px;height:130px;border-radius:50%;object-fit:cover;object-position:top center;margin:0 auto 12px;display:block;box-shadow:0 8px 22px rgba(0,0,0,.18);border:3px solid var(--c1)}
+.team-circle .tc-ph{display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--c2),var(--c1));color:rgba(255,255,255,.6);font-size:2.6rem}
+.tc-name{font-weight:800;font-size:1.02rem}
+.tc-role{font-size:.76rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--c1);margin-top:3px}
+/* Équipe — fiches détaillées */
+.team-rows{display:flex;flex-direction:column;gap:18px}
+.team-row{display:flex;gap:20px;align-items:flex-start;background:rgba(128,128,128,.06);border:1px solid rgba(128,128,128,.14);border-radius:16px;padding:18px}
+.tr-media{flex:0 0 auto;width:110px;height:130px;border-radius:12px;overflow:hidden}
+.tr-media img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block}
+.tr-ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--c2),var(--c1));color:rgba(255,255,255,.6);font-size:2.4rem}
+.tr-body{flex:1;min-width:0}
+.tr-name{font-weight:800;font-size:1.2rem}
+.tr-role{font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--c1);margin:2px 0 8px}
+.tr-bio{line-height:1.6;opacity:.85;font-size:.93rem}
+@media(max-width:640px){.team-row{flex-direction:column}.tr-media{width:100%;height:200px}}
+/* Vidéos — spotlight */
+.video-spotlight{margin-bottom:22px}
+.video-spotlight .video-card{width:100%}
+.video-spotlight .video-thumb{aspect-ratio:16/9;height:auto}
+.video-spotlight .video-title{font-size:1.3rem}
+/* Programmes — agenda chronologique */
+.prog-schedule{display:flex;flex-direction:column;gap:20px}
+.ps-day{background:rgba(255,255,255,.95);border:1px solid rgba(20,26,56,.07);border-radius:14px;padding:14px 18px;box-shadow:0 3px 14px rgba(20,26,56,.07)}
+.ps-day>h3{font-size:1.05rem;font-weight:800;margin:0 0 10px;color:var(--c2);display:flex;align-items:center;gap:8px}
+.ps-today{border-left:4px solid var(--c1)}
+.ps-now{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;background:var(--c1);color:#fff;padding:2px 8px;border-radius:999px}
+.ps-row{display:flex;gap:14px;align-items:baseline;padding:7px 0;border-top:1px solid rgba(20,26,56,.06)}
+.ps-row:first-of-type{border-top:0}
+.ps-time{flex:0 0 auto;min-width:92px;font-weight:800;color:var(--c1);font-size:.9rem}
+.ps-title{font-weight:600}
+/* Podcasts — liste (une colonne) */
+.pod-mode-list .pod-grid{grid-template-columns:1fr}
+@media(max-width:640px){.ev-hero{grid-template-columns:1fr}.ev-hero-media{min-height:180px}.ev-ag-img{display:none}.ev-cards{grid-template-columns:1fr}}
+/* Grille hebdomadaire des programmes */
+.week-wrap{overflow-x:auto;margin-bottom:34px;padding-bottom:6px}
+/* ── Grille en onglets par jour ─────────────────────────────────────────── */
+.week-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px}
+.wt-btn{position:relative;border:1px solid rgba(20,26,56,.12);background:#fff;color:inherit;
+  border-radius:999px;padding:9px 18px;font-weight:700;font-size:.9rem;cursor:pointer;
+  display:inline-flex;align-items:center;gap:7px;transition:all .16s ease}
+.wt-btn:hover{border-color:var(--c1);color:var(--c1)}
+.wt-btn.active{background:var(--c1);border-color:var(--c1);color:#fff;box-shadow:0 6px 16px rgba(0,0,0,.14)}
+.wt-abbr{display:none}
+.wt-today{font-size:.6rem;font-weight:800;letter-spacing:.6px;text-transform:uppercase;
+  background:rgba(255,255,255,.22);border-radius:999px;padding:2px 7px}
+.wt-btn:not(.active) .wt-today{background:var(--c1);color:#fff}
+.week-panels{margin-bottom:34px}
+.week-panel{display:none;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px}
+.week-panel.active{display:grid}
+.wk-now{background:rgba(0,0,0,.045);border-left-width:5px;box-shadow:0 0 0 2px var(--c1) inset,0 8px 22px rgba(0,0,0,.10);
+  border-radius:10px;position:relative}
+.wk-badge{margin-top:4px;align-self:flex-start;font-size:.62rem;font-weight:800;letter-spacing:.6px;
+  text-transform:uppercase;background:var(--c1);color:#fff;border-radius:999px;padding:3px 9px}
+@media(max-width:560px){
+  .wt-full{display:none}.wt-abbr{display:inline}
+  .wt-btn{padding:9px 14px}
+  .week-panel.active{grid-template-columns:1fr}
+}
+.week-grid{display:grid;grid-template-columns:repeat(7,minmax(148px,1fr));gap:10px;min-width:1060px}
+.week-col{background:rgba(255,255,255,.95);border:1px solid rgba(20,26,56,.07);border-radius:14px;padding:10px;display:flex;flex-direction:column;gap:8px}
+.week-col.week-today{border-color:var(--c1);box-shadow:0 0 0 2px var(--c1),0 8px 22px rgba(210,63,209,.18)}
+.week-day{font-weight:800;text-align:center;font-size:.92rem;padding:8px 4px;border-radius:10px;background:var(--c2);color:#fff;display:flex;flex-direction:column;align-items:center;gap:2px}
+.week-today .week-day{background:var(--c1)}
+.week-now{font-size:.6rem;font-weight:700;letter-spacing:.8px;text-transform:uppercase;opacity:.9}
+.wk-show{background:rgba(20,26,56,.04);border-left:3px solid var(--c1);border-radius:8px;padding:8px 10px;display:flex;flex-direction:column;gap:2px}
+.wk-time{font-size:.74rem;font-weight:800;color:var(--c1)}
+.wk-title{font-size:.82rem;font-weight:700;line-height:1.3}
+.wk-music{opacity:.55;border-left-color:rgba(20,26,56,.2)}
+/* Grille illustrée : panneau en cartes image quand les émissions ont un visuel */
+.week-panel:has(.wk-cards){display:none}.week-panel.active:has(.wk-cards){display:block}
+.page-text:has(.wk-cards){max-width:1120px}
+.wk-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px}
+.wk-card{display:flex;flex-direction:column;background:#fff;color:#0F0D16;border-radius:12px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.06);transition:transform .18s,box-shadow .18s}
+.wk-card:hover{transform:translateY(-3px);box-shadow:0 12px 26px rgba(0,0,0,.14)}
+.wk-card-media{position:relative;aspect-ratio:16/10;background:linear-gradient(135deg,var(--c2),var(--c1)) center/cover no-repeat}
+.wk-card-media::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 55%,rgba(0,0,0,.45))}
+.wk-card-time{position:absolute;left:10px;bottom:10px;z-index:1;background:var(--c1);color:#fff;font-weight:800;font-size:.74rem;letter-spacing:.03em;padding:4px 9px;border-radius:4px}
+.wk-card-live{position:absolute;left:10px;top:10px;z-index:1;display:inline-flex;align-items:center;gap:6px;background:#fff;color:var(--c1);font-weight:900;font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;padding:4px 9px;border-radius:4px}
+.wk-card-live i{width:7px;height:7px;border-radius:50%;background:var(--c1);animation:usPulse 1.6s infinite}
+.wk-card-body{padding:12px 14px 14px;display:flex;flex-direction:column;gap:4px;flex:1}
+.wk-card-title{font-weight:800;font-size:1.02rem;line-height:1.2}
+.wk-card-text{font-size:.84rem;line-height:1.45;opacity:.7;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.wk-card-bar{display:block;height:4px;border-radius:4px;background:rgba(0,0,0,.08);margin-top:auto;overflow:hidden}
+.wk-card-bar b{display:block;height:100%;background:var(--c1);border-radius:4px}
+.wk-card-now{grid-column:1/-1;order:-1;flex-direction:row;outline:3px solid var(--c1);outline-offset:-3px}
+.wk-card-now .wk-card-media{flex:0 0 46%;aspect-ratio:auto;min-height:230px}
+.wk-card-now .wk-card-body{padding:22px 24px;justify-content:center;gap:8px}
+.wk-card-now .wk-card-title{font-size:clamp(1.5rem,3vw,2.2rem)}
+.wk-card-now .wk-card-text{-webkit-line-clamp:5;font-size:.95rem}
+.wk-card-now .wk-card-bar{margin-top:10px;height:6px}
+body.theme-portail .wk-card-title{font-family:'Poppins',sans-serif;text-transform:uppercase;letter-spacing:-.01em}
+@media(max-width:640px){.wk-card-now{flex-direction:column}.wk-card-now .wk-card-media{flex:none;aspect-ratio:16/10;min-height:0}.wk-cards{grid-template-columns:1fr 1fr;gap:10px}.wk-card-now{grid-column:1/-1}.wk-card-text{-webkit-line-clamp:2}.wk-card-body{padding:10px 11px 12px}.wk-card-title{font-size:.92rem}}
+.prog-subtitle{font-size:1.3rem;font-weight:800;margin:0 0 18px}
+/* Titres de section : soulignement dégradé */
+.site-section>.sec-inner>h2{position:relative;display:inline-block;padding-bottom:10px;margin-bottom:22px}
+/* Filet sous les titres de section : couleur PRINCIPALE du site, et rien d'autre.
+   Le dégradé vers un violet codé en dur jurait dès que la charte n'était pas rouge. */
+.site-section>.sec-inner>h2:after{content:"";position:absolute;left:0;bottom:0;width:52px;height:4px;border-radius:2px;background:var(--c1)}
+/* Dédicaces */
+.dedic-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px}
+.dedic-card{border:1px solid rgba(128,128,128,.2);border-radius:14px;padding:16px 18px;background:rgba(128,128,128,.05)}
+.dedic-from{font-weight:700;color:var(--c1);margin-bottom:6px}
+.dedic-msg{line-height:1.6;opacity:.9}
+.dedic-when{font-size:.75rem;opacity:.5;margin-top:8px}
+/* Bandeau alerte */
+.site-alert{padding:10px 20px;text-align:center;font-weight:600;font-size:.95rem}
+.site-alert.info{background:#0d6efd;color:#fff}
+.site-alert.success{background:#198754;color:#fff}
+.site-alert.warning{background:#ffc107;color:#1a1a1a}
+.site-alert.danger{background:#dc3545;color:#fff}
+.site-alert-link{color:inherit;text-decoration:none;display:inline-flex;align-items:center;gap:2px}
+.site-alert-link:hover{text-decoration:underline}
+/* Player en popup */
+.player-expand{position:fixed;right:12px;bottom:calc(var(--player-h) + 8px);z-index:101;background:rgba(0,0,0,.32);color:#fff;border:1px solid rgba(255,255,255,.2);width:34px;height:34px;border-radius:50%;font-size:.9rem;cursor:pointer;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px);opacity:.7;transition:opacity .15s,background .15s}
+.player-expand:hover{opacity:1;background:var(--c1);border-color:transparent}
+.player-modal{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;display:none;align-items:center;justify-content:center}
+.player-modal.open{display:flex}
+.player-modal .pm-box{width:380px;max-width:94vw;height:560px;max-height:90vh;background:var(--c2);border-radius:16px;overflow:hidden;position:relative}
+.player-modal iframe{width:100%;height:100%;border:0}
+.player-modal .pm-close{position:absolute;top:8px;right:8px;z-index:2;background:rgba(0,0,0,.5);color:#fff;border:0;width:34px;height:34px;border-radius:50%;cursor:pointer}
+/* Bandeau de dédicaces défilant */
+.has-dedic{padding-bottom:calc(var(--player-h) + 42px)}
+.has-dedic .player-expand{bottom:calc(var(--player-h) + 50px)}
+.dedic-bar{position:fixed;left:0;right:0;bottom:var(--player-h);height:42px;background:var(--c1);color:#fff;z-index:99;display:flex;align-items:center;overflow:hidden}
+.dedic-send{flex:0 0 auto;background:rgba(0,0,0,.28);color:#fff;border:0;height:100%;padding:0 16px;font-weight:700;font-size:.85rem;cursor:pointer;white-space:nowrap}
+.dedic-track-wrap{flex:1 1 auto;overflow:hidden;position:relative;height:100%}
+.dedic-track{display:flex;gap:42px;align-items:center;height:100%;white-space:nowrap;position:absolute;left:0;animation:dedicScroll 45s linear infinite;will-change:transform;padding-left:42px}
+.dedic-track:hover{animation-play-state:paused}
+.dedic-pill{font-size:.9rem}
+.dedic-pill strong{font-weight:800}
+@keyframes dedicScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media(max-width:600px){.dedic-send-txt{display:none}}
+/* Modale d'envoi de dédicace */
+.dedic-modal{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:300;display:none;align-items:center;justify-content:center;padding:16px}
+.dedic-modal.open{display:flex}
+.dm-box{background:var(--bg);color:var(--tx);width:420px;max-width:96vw;border-radius:16px;padding:24px;position:relative;box-shadow:0 20px 60px rgba(0,0,0,.4)}
+.dm-close{position:absolute;top:10px;right:12px;background:none;border:0;color:var(--tx);font-size:1.2rem;cursor:pointer;opacity:.6}
+.dm-box h3{font-size:1.3rem;font-weight:800;margin-bottom:16px}
+.dm-box input[type=text],.dm-box textarea{width:100%;padding:12px;border:1px solid rgba(128,128,128,.3);border-radius:10px;margin-bottom:12px;font:inherit;background:rgba(128,128,128,.06);color:var(--tx)}
+.dm-submit{background:var(--c1);color:#fff;border:0;padding:12px 24px;border-radius:999px;font-weight:700;cursor:pointer;width:100%}
+.dm-msg{margin-top:10px;font-size:.9rem;text-align:center}
+@media(max-width:600px){.news-list{grid-template-columns:1fr}}
+@media(max-width:768px){.hs-content h1{font-size:1.8rem}.hs-content p{font-size:1rem}.site-section{padding:34px 18px}}
+@media(max-width:640px){
+  /* Événements : image pleine largeur au-dessus, date + texte en dessous */
+  .event-list{grid-template-columns:1fr}
+  .event-item{flex-wrap:wrap;padding:14px;gap:14px}
+  .event-img{order:-1;width:100%;height:175px}
+  .event-date-box{width:60px;height:60px;border-radius:12px}
+  .ev-day{font-size:1.3rem}
+  .ev-mon{font-size:.6rem}
+  .event-body{flex:1 1 65%}
+  .event-body h2{font-size:1.1rem}
+  /* Programmes : cartes compactes */
+  .prog-list{grid-template-columns:1fr}
+  .prog-item{padding:13px 14px;gap:12px}
+  .prog-when{min-width:72px}
+  .prog-time{font-size:.92rem}
+  /* Grille hebdo : colonnes plus étroites (défilement horizontal) */
+  .week-grid{grid-template-columns:repeat(7,minmax(132px,1fr));min-width:940px}
+  /* Vidéos + modale */
+  .video-grid{grid-template-columns:1fr;gap:16px}
+  .video-modal{padding:10px}
+  .site-section>.sec-inner>h2{font-size:1.35rem}
+}
+#site-main{min-height:calc(100vh - var(--player-h) - 220px);transition:opacity .15s}
+#site-main.pjax-loading{opacity:.4}
+.site-footer{background:var(--c2);color:rgba(255,255,255,.85);padding:36px 20px 28px}
+.site-footer .ft-inner{max-width:1000px;margin:0 auto;display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start;justify-content:space-between}
+.site-footer .ft-brand{display:flex;align-items:center;gap:12px;font-weight:800;font-size:1.1rem;color:#fff}
+.site-footer .ft-brand img{height:34px;border-radius:7px}
+.site-footer .ft-links{display:flex;flex-wrap:wrap;gap:14px}
+.site-footer .ft-links a{color:rgba(255,255,255,.82);text-decoration:none;font-size:.78rem}
+.site-footer .ft-links a:hover{color:#fff;text-decoration:underline}
+.site-footer .ft-social{display:flex;gap:10px}
+.site-footer .ft-social a{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.12);color:#fff;font-size:1rem;text-decoration:none}
+.site-footer .ft-social a:hover{background:var(--c1)}
+.site-footer .ft-bottom{max-width:1000px;margin:22px auto 0;padding-top:18px;border-top:1px solid rgba(255,255,255,.15);display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;font-size:.82rem;color:rgba(255,255,255,.6)}
+.site-footer .ft-bottom a{color:rgba(255,255,255,.8);text-decoration:none}
+.player-bar{position:fixed;left:0;right:0;bottom:0;height:var(--player-h);background:var(--c2);z-index:100;box-shadow:0 -2px 16px rgba(0,0,0,.25);display:flex;align-items:center}
+.player-bar iframe{flex:1;min-width:0;height:100%;border:0;display:block}
+.pb-radios{display:flex;align-items:center;gap:8px;padding:0 10px;height:100%;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;max-width:52%}
+.pb-radios::-webkit-scrollbar{display:none}
+.pb-radio{position:relative;flex-shrink:0;width:56px;height:56px;padding:0;border:0;border-radius:14px;overflow:hidden;cursor:pointer;background:rgba(255,255,255,.08);box-shadow:0 2px 8px rgba(0,0,0,.3);transition:transform .18s ease,box-shadow .18s ease,outline-color .18s ease;outline:2px solid transparent;outline-offset:2px}
+.pb-radio img,.pb-radio .pb-noimg{width:100%;height:100%;object-fit:cover;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.2rem;background:linear-gradient(135deg,var(--c1),var(--c2))}
+.pb-radio:hover{transform:translateY(-3px) scale(1.05);box-shadow:0 8px 22px rgba(0,0,0,.45)}
+.pb-radio.active{outline-color:var(--c1);transform:translateY(-2px)}
+.pb-radio::after{content:"";position:absolute;inset:0;background:rgba(0,0,0,.32);opacity:.32;transition:opacity .18s ease}
+.pb-radio.active::after,.pb-radio:hover::after{opacity:0}
+.pb-eq{position:absolute;left:0;right:0;bottom:5px;display:none;align-items:flex-end;justify-content:center;gap:2px;height:14px;pointer-events:none;z-index:2}
+.pb-radio.active .pb-eq{display:flex}
+.pb-eq i{width:3px;background:#fff;border-radius:2px;box-shadow:0 0 4px rgba(0,0,0,.6);animation:pbEq .9s ease-in-out infinite}
+.pb-eq i:nth-child(2){animation-delay:.25s}
+.pb-eq i:nth-child(3){animation-delay:.5s}
+@keyframes pbEq{0%,100%{height:4px}50%{height:13px}}
+@media(max-width:640px){.pb-radios{max-width:40%;gap:5px;padding:0 6px}.pb-radio{width:42px;height:42px;border-radius:10px}}
+.preview-flag{position:fixed;top:8px;right:8px;z-index:200;background:#ffc107;color:#000;font-size:.72rem;font-weight:700;padding:3px 10px;border-radius:999px}
+</style>
+<link rel="stylesheet" href="/assets/css/site-news-ticker.css?v=20261102">
+<link rel="stylesheet" href="/assets/css/site-theme-no1.css?v=18">
+<script>
+/* En-tête « intelligent », TOUS thèmes (2026-10-09) : au défilement vers le bas l'en-tête
+   remonte hors de l'écran, il revient dès qu'on remonte. Si la barre lecteur est logée
+   dans l'en-tête (lecteur « en haut » : Magazine / Portail), seule la partie logo + menu
+   disparaît et le lecteur reste collé en haut. On joue sur `top` du header sticky
+   (négatif = partie masquée) et pas sur un transform, qui casserait le tiroir de menu
+   mobile en position:fixed. Sans effet si l'en-tête n'est pas sticky. */
+(function(){
+  var lastY = window.pageYOffset || 0, hidden = false;
+  function onScroll(){
+    var h = document.querySelector('.site-header'); if (!h) return;
+    if (getComputedStyle(h).position !== 'sticky') return;
+    var y = window.pageYOffset || 0, dy = y - lastY;
+    if (Math.abs(dy) < 6) return;
+    lastY = y;
+    var nav = document.getElementById('site-nav');
+    var busy = (nav && nav.classList.contains('open')) || h.querySelector('.universe-switch.open');
+    var hide = dy > 0 && y > h.offsetHeight + 60 && !busy;
+    if (y <= 0) hide = false;
+    if (hide === hidden) return;
+    hidden = hide;
+    var pb = h.querySelector('.player-bar');
+    var shift = pb ? pb.offsetTop : h.offsetHeight;
+    h.style.top = hide ? (-shift) + 'px' : '';
+    h.classList.toggle('hdr-hidden', hide);
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+})();
+</script>
+</head>
+<body class="theme-no1 hdr-boxed has-dedic">
+
+<header class="site-header has-news-ticker">
+            <a href="/" data-pjax class="site-logo-link"><img class="site-logo" id="site-logo" src="/uploads/temp/logos/logo_1741_1781016480_73def8.jpg" alt="Dynamic Radio Dubai"></a>
+            <a href="/" data-pjax class="site-headline">
+        <span class="shl-title">Dynamic Radio Dubaï</span>        <span class="shl-slogan">La francophonie sans frontières</span>    </a>
+                <div class="n1-social">
+                <a href="https://www.instagram.com/p/DRL7oNSESXy/" target="_blank" rel="noopener" title="instagram" aria-label="instagram"><i class="bi bi-instagram"></i></a>
+                <a href="https://www.tiktok.com/@dynamicradiodubai" target="_blank" rel="noopener" title="tiktok" aria-label="tiktok"><i class="bi bi-tiktok"></i></a>
+            </div>
+        <button class="nav-toggle" id="navToggle" aria-label="Ouvrir le menu"><i class="bi bi-list"></i></button>
+    <nav class="site-nav" id="site-nav">
+        <button class="nav-close" id="navClose" aria-label="Fermer le menu"><i class="bi bi-x-lg"></i></button>
+                <a href="/" data-pjax class="nav-brand">
+                        <img class="nav-brand-logo" src="/uploads/temp/logos/logo_1741_1781016480_73def8.jpg" alt="Dynamic Radio Dubai">
+                    </a>
+                <a href="/programmes" data-pjax >Programmes</a>
+                <a href="/actualites" data-pjax >Actualités</a>
+                <a href="/equipe" data-pjax >Équipe</a>
+                <a href="/podcasts" data-pjax >Podcasts</a>
+                <a href="/videos" data-pjax >Vidéos</a>
+                <a href="/horoscope" data-pjax >Horoscope</a>
+                <a href="/contact" data-pjax >Contact</a>
+                <a href="/partenaires-2" data-pjax >Partenaires</a>
+                        <div class="nav-social">
+                        <a href="https://www.instagram.com/p/DRL7oNSESXy/" target="_blank" rel="noopener" title="instagram" aria-label="instagram"><i class="bi bi-instagram"></i></a>
+                        <a href="https://www.tiktok.com/@dynamicradiodubai" target="_blank" rel="noopener" title="tiktok" aria-label="tiktok"><i class="bi bi-tiktok"></i></a>
+                    </div>
+            </nav>
+    <!-- Player persistant : iframe jamais re-rendu lors de la navigation PJAX -->
+<div class="player-bar">
+        <iframe id="vesta-player" src="/embed/player.php?radio=DYNAMICRADIODUBAI&amp;style=horizontal&amp;noname=1&amp;cover=1&amp;v=4&amp;color=%237b2494&amp;color2=%23310e3b&amp;bg=%23310e3b&amp;text=%23ffffff&amp;size=lg" allow="autoplay" title="Lecteur radio"></iframe>
+</div>
+<div class="n1-ticker site-news-ticker" role="region" aria-label="Le fil info">
+    <div class="n1-ticker-label"><span class="n1-ticker-dot" aria-hidden="true"></span> Le fil info</div>
+    <div class="n1-ticker-viewport">
+        <div class="n1-ticker-track">
+                        <div class="news-ticker-group">
+                                <a data-pjax href="/actualites/itw-de-mme-eleonore-caroit-ministre-deleguee-chargee-de-la-francophonie-des-part">ITW de Mme Eléonore CAROIT, ministre déléguée chargée de la Francophonie, des Partenariats internationaux et des Français de l’étranger</a>
+                                <a data-pjax href="/actualites/la-fete-de-la-musique-une-celebration-universelle-des-rythmes-et-des-cultures">La Fête de la Musique : une célébration universelle des rythmes et des cultures</a>
+                                <a data-pjax href="/actualites/itw-de-gregoire-akcelrod-agent-sportif-de-football">ITW De Grégoire Akcelrod agent sportif de football</a>
+                                <a data-pjax href="/actualites/itw-exclusive-du-romancier-monsieur-david-ducci-pour-la-sortie-du-tome-1-du-roma">ITW exclusive du romancier Monsieur David DUCCI pour la sortie du Tome 1 du roman FAMILY STADIUM</a>
+                                <a data-pjax href="/actualites/itw-exclusive-du-consul-de-france-aux-emirats-arabes-unis-monsieur-jean-christop">ITW exclusive du Consul de France, aux Émirats arabes unis, Monsieur Jean-Christophe, Paris</a>
+                                <a data-pjax href="/actualites/itw-hiphop-cardio">ITW HipHop Cardio</a>
+                                <a data-pjax href="/actualites/itw-exclusive-du-contre-amiral-hugues-laine-aux-emirats-arabes-unis">ITW exclusive du contre-amiral Hugues Lainé aux Émirats arabes unis</a>
+                                <a data-pjax href="/actualites/itw-de-mr-omar-harfouch">ITW de Mr Omar HARFOUCH</a>
+                            </div>
+                        <div class="news-ticker-group" aria-hidden="true">
+                                <a data-pjax href="/actualites/itw-de-mme-eleonore-caroit-ministre-deleguee-chargee-de-la-francophonie-des-part" tabindex="-1">ITW de Mme Eléonore CAROIT, ministre déléguée chargée de la Francophonie, des Partenariats internationaux et des Français de l’étranger</a>
+                                <a data-pjax href="/actualites/la-fete-de-la-musique-une-celebration-universelle-des-rythmes-et-des-cultures" tabindex="-1">La Fête de la Musique : une célébration universelle des rythmes et des cultures</a>
+                                <a data-pjax href="/actualites/itw-de-gregoire-akcelrod-agent-sportif-de-football" tabindex="-1">ITW De Grégoire Akcelrod agent sportif de football</a>
+                                <a data-pjax href="/actualites/itw-exclusive-du-romancier-monsieur-david-ducci-pour-la-sortie-du-tome-1-du-roma" tabindex="-1">ITW exclusive du romancier Monsieur David DUCCI pour la sortie du Tome 1 du roman FAMILY STADIUM</a>
+                                <a data-pjax href="/actualites/itw-exclusive-du-consul-de-france-aux-emirats-arabes-unis-monsieur-jean-christop" tabindex="-1">ITW exclusive du Consul de France, aux Émirats arabes unis, Monsieur Jean-Christophe, Paris</a>
+                                <a data-pjax href="/actualites/itw-hiphop-cardio" tabindex="-1">ITW HipHop Cardio</a>
+                                <a data-pjax href="/actualites/itw-exclusive-du-contre-amiral-hugues-laine-aux-emirats-arabes-unis" tabindex="-1">ITW exclusive du contre-amiral Hugues Lainé aux Émirats arabes unis</a>
+                                <a data-pjax href="/actualites/itw-de-mr-omar-harfouch" tabindex="-1">ITW de Mr Omar HARFOUCH</a>
+                            </div>
+                    </div>
+    </div>
+</div>
+</header>
+<div class="nav-backdrop" id="navBackdrop"></div>
+
+<!-- Modale vidéo (persistante, hors PJAX) -->
+<div class="video-modal" id="videoModal" hidden>
+    <div class="video-modal-backdrop" data-vm-close></div>
+    <div class="video-modal-box">
+        <button class="video-modal-close" data-vm-close aria-label="Fermer">&times;</button>
+        <div class="video-modal-frame" id="videoModalFrame"></div>
+    </div>
+</div>
+<script>
+(function () {
+    var modal = document.getElementById('videoModal');
+    var frame = document.getElementById('videoModalFrame');
+    if (!modal || !frame) return;
+    function esc(v) { return String(v == null ? '' : v).replace(/"/g, '&quot;'); }
+    function open(src) {
+        frame.innerHTML = '<iframe src="' + esc(src) + '" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>';
+        modal.hidden = false;
+        document.body.style.overflow = 'hidden';
+    }
+    /** Vidéo hébergée par le site : balise <video> native, pas d'iframe.
+     *  data-vid est recopié sur la balise : c'est lui qui déclenche les jalons
+     *  de progression (cf. le bloc « Statistiques de lecture » plus bas). */
+    function openFile(src, poster, vid) {
+        frame.innerHTML = '<video src="' + esc(src) + '"'
+            + (poster ? ' poster="' + esc(poster) + '"' : '')
+            + (vid ? ' data-vid="' + esc(vid) + '"' : '')
+            + ' controls autoplay playsinline preload="metadata"'
+            + ' style="width:100%;height:100%;display:block;background:#000"></video>';
+        modal.hidden = false;
+        document.body.style.overflow = 'hidden';
+        if (window.vestaWatchVideos) window.vestaWatchVideos(frame);
+    }
+    function openFrom(el) {
+        if (el.dataset.file) { openFile(el.dataset.file, el.dataset.poster || '', el.dataset.vid || ''); return true; }
+        if (el.dataset.embed) { open(el.dataset.embed); return true; }
+        return false;
+    }
+    function close() {
+        modal.hidden = true;
+        frame.innerHTML = ''; // stoppe la lecture
+        document.body.style.overflow = '';
+    }
+    document.addEventListener('click', function (e) {
+        var trigger = e.target.closest && e.target.closest('.video-modal-trigger');
+        if (trigger && openFrom(trigger)) { e.preventDefault(); return; }
+        if (e.target.closest && e.target.closest('[data-vm-close]')) { close(); }
+    });
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && !modal.hidden) close();
+        if ((e.key === 'Enter' || e.key === ' ') && document.activeElement
+            && document.activeElement.classList && document.activeElement.classList.contains('video-modal-trigger')) {
+            e.preventDefault();
+            openFrom(document.activeElement);
+        }
+    });
+})();
+</script>
+
+<script>
+// ── Statistiques de lecture des vidéos hébergées ─────────────────────────────
+// Une <video data-vid="N"> envoie un jalon à 25 / 50 / 75 / 95 % puis à la fin.
+// On mémorise le point le plus AVANCÉ atteint (_maxT), pas l'instant courant :
+// un visiteur qui revient en arrière ne doit pas faire retomber sa progression.
+// Même principe que le lecteur de podcast, cf. utilities/VideoStats.php.
+(function () {
+    function beacon(v, pct) {
+        if (!v || !v.dataset.vid) return;
+        var body = 'pct=' + Math.round(pct) + '&sec=' + Math.round(v._maxT || 0);
+        var url  = '/videos/' + v.dataset.vid + '/progress';
+        try {
+            if (navigator.sendBeacon) {
+                navigator.sendBeacon(url, new Blob([body], { type: 'application/x-www-form-urlencoded' }));
+            } else {
+                fetch(url, { method: 'POST', body: body, keepalive: true,
+                             headers: { 'Content-Type': 'application/x-www-form-urlencoded' } });
+            }
+        } catch (e) { /* mesure best-effort : jamais bloquante pour la lecture */ }
+    }
+    function watch(scope) {
+        (scope || document).querySelectorAll('video[data-vid]').forEach(function (v) {
+            if (v._vsBound) return;
+            v._vsBound = true; v._sent = 0; v._maxT = 0;
+            v.addEventListener('timeupdate', function () {
+                if (v.currentTime > v._maxT) v._maxT = v.currentTime;
+                if (!v.duration || !isFinite(v.duration)) return;
+                var pct  = v._maxT / v.duration * 100;
+                var step = pct >= 95 ? 95 : pct >= 75 ? 75 : pct >= 50 ? 50 : pct >= 25 ? 25 : 0;
+                if (step > v._sent) { v._sent = step; beacon(v, step); }
+            });
+            v.addEventListener('ended', function () { v._sent = 100; beacon(v, 100); });
+        });
+    }
+    // Exposée : la lightbox injecte son lecteur après coup, et la navigation
+    // PJAX remplace le contenu sans recharger la page — les deux rappellent
+    // window.vestaWatchVideos() sur le fragment qu'elles viennent d'insérer.
+    window.vestaWatchVideos = watch;
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () { watch(); });
+    else watch();
+})();
+</script>
+
+<!-- Lightbox affiche d'événement (persistante, hors PJAX) -->
+<div class="ev-lightbox" id="evLightbox" hidden>
+    <div class="ev-lightbox-backdrop" data-evlb-close></div>
+    <button class="ev-lightbox-close" data-evlb-close aria-label="Fermer">&times;</button>
+    <img id="evLightboxImg" src="" alt="">
+</div>
+<script>
+(function () {
+    var lb = document.getElementById('evLightbox');
+    var im = document.getElementById('evLightboxImg');
+    if (!lb || !im) return;
+    function open(src) { im.src = src; lb.hidden = false; document.body.style.overflow = 'hidden'; }
+    function close() { lb.hidden = true; im.src = ''; document.body.style.overflow = ''; }
+    document.addEventListener('click', function (e) {
+        var z = e.target.closest && e.target.closest('.ev-zoom');
+        if (z) { var full = z.dataset.full || z.getAttribute('src'); if (full) { e.preventDefault(); open(full); return; } }
+        if (e.target.closest && e.target.closest('[data-evlb-close]')) close();
+    });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !lb.hidden) close(); });
+})();
+</script>
+
+<main id="site-main"><div class="site-page" data-title="Accueil · Dynamic Radio Dubai"><div class="hero-slider hs-h-l hs-ov-m hs-al-center hs-sz-xl hs-va-middle hs-full hs-fx-slide" data-autoplay="6000" data-speed="500" style="--hs-speed:500ms;"><div class="hs-track"><div class="hs-slide is-active" style="--hs-bg:url('/uploads/user-music/1741/site-ai/ai_1785767228_16ae275c.jpg');"><div class="hs-overlay"></div><div class="hs-content"><h1>Dynamic Radio Dubai</h1><p>La 1ère webradio francophone des Émirats</p></div></div><div class="hs-slide" style="--hs-bg:url('/uploads/user-music/1741/site-ai/ai_1785767244_33356d62.jpg');"><div class="hs-overlay"></div><div class="hs-content"><h1>Le son des Français de Dubaï</h1><p>Hits, culture et bonne humeur, 24h/24</p></div></div><div class="hs-slide" style="--hs-bg:url('/uploads/user-music/1741/site-ai/ai_1785767260_8d8369b3.jpg');"><div class="hs-overlay"></div><div class="hs-content"><h1>Une grille 100% live</h1><p>De La Matinale à Planète Groove</p></div></div><div class="hs-slide" style="--hs-bg:url('/uploads/user-music/1741/site-ai/ai_1785767278_685d2669.jpg');"><div class="hs-overlay"></div><div class="hs-content"><h1>Écoutez-nous partout</h1><p>Web, mobile et enceintes connectées</p></div></div></div><button class="hs-arrow hs-prev" aria-label="Précédent">&#8249;</button><button class="hs-arrow hs-next" aria-label="Suivant">&#8250;</button><div class="hs-dots"><button class="hs-dot active" data-i="0"></button><button class="hs-dot" data-i="1"></button><button class="hs-dot" data-i="2"></button><button class="hs-dot" data-i="3"></button></div></div><div class="n1-grid"><div class="n1-main"><section class="site-section sec-center"><div class="sec-inner"><h2>Bienvenue sur Dynamic Radio Dubai</h2><div class="sec-text">La première webradio francophone des Émirats arabes unis. Depuis Dubaï, nous faisons vivre la musique, la culture et l&#039;actualité de la communauté francophone du Golfe — en direct, 24h/24.</div></div></section><section class="site-section"><div class="sec-inner"><div class="sec-ti"><div class="sec-ti-text"><h2>La radio des francophones aux Émirats et partout dans le monde</h2><div class="sec-text">Talk, découvertes musicales, invités et rendez-vous quotidiens : une grille pensée pour les Français et francophones de Dubaï et dans le monde. La seule radio qui écoute ses auditeurs alors emporte Dynamic Radio Dubaï partout avec toi.</div></div><div class="sec-ti-img"><img class="sec-img" src="/uploads/user-music/1741/site-section/sec_28_1791988481_1_f8a911.jpg" alt=""></div></div></div></section><section class="site-section"><div class="sec-inner"><h2>Actualités</h2><div class="news-list"><article class="news-card"><a class="news-card-media" data-pjax href="/actualites/itw-de-mme-eleonore-caroit-ministre-deleguee-chargee-de-la-francophonie-des-part"><img src="/uploads/user-music/1741/site-items/item_actualites_28_1791895637_e48760.jpg" alt="" style="object-position:43% 22%"><span class="news-card-date"><i class="bi bi-calendar3"></i> 22/06/2026</span></a><div class="news-card-body"><h2><a class="news-title-link" data-pjax href="/actualites/itw-de-mme-eleonore-caroit-ministre-deleguee-chargee-de-la-francophonie-des-part">ITW de Mme Eléonore CAROIT, ministre déléguée chargée de la Francophonie, des Partenariats internationaux et des Français de l’étranger</a></h2><p class="news-excerpt">Éléonore Caroit – Ministre déléguée chargée de la FrancophonieÉléonore Caroit, née à Paris le 8 juillet 1985, est une avocate et femme politique franco-dominica…</p><a class="news-more" data-pjax href="/actualites/itw-de-mme-eleonore-caroit-ministre-deleguee-chargee-de-la-francophonie-des-part">Lire la suite <i class="bi bi-arrow-right"></i></a></div></article><article class="news-card"><a class="news-card-media" data-pjax href="/actualites/la-fete-de-la-musique-une-celebration-universelle-des-rythmes-et-des-cultures"><img src="/uploads/user-music/1741/site-items/item_actualites_28_1791894767_7ee8b0.jpg" alt=""><span class="news-card-date"><i class="bi bi-calendar3"></i> 21/06/2026</span></a><div class="news-card-body"><h2><a class="news-title-link" data-pjax href="/actualites/la-fete-de-la-musique-une-celebration-universelle-des-rythmes-et-des-cultures">La Fête de la Musique : une célébration universelle des rythmes et des cultures</a></h2><p class="news-excerpt">Retour sur la Fête de la Musique vécue depuis Dubaï : une célébration universelle des rythmes et des cultures.…</p><a class="news-more" data-pjax href="/actualites/la-fete-de-la-musique-une-celebration-universelle-des-rythmes-et-des-cultures">Lire la suite <i class="bi bi-arrow-right"></i></a></div></article><article class="news-card"><a class="news-card-media" data-pjax href="/actualites/itw-de-gregoire-akcelrod-agent-sportif-de-football"><img src="/uploads/user-music/1741/site-items/item_actualites_28_1791891637_ec4f67.jpg" alt="" style="object-position:69% 24%"><span class="news-card-date"><i class="bi bi-calendar3"></i> 05/03/2026</span></a><div class="news-card-body"><h2><a class="news-title-link" data-pjax href="/actualites/itw-de-gregoire-akcelrod-agent-sportif-de-football">ITW De Grégoire Akcelrod agent sportif de football</a></h2><p class="news-excerpt">https://www.instagram.com/reel/DVOdMw4CfTL/?xtok=MWl6NjN0ZjNobnFycA==Dans cet épisode, nous allons vous emmener dans les coulisses du métier d’agent, pour décou…</p><a class="news-more" data-pjax href="/actualites/itw-de-gregoire-akcelrod-agent-sportif-de-football">Lire la suite <i class="bi bi-arrow-right"></i></a></div></article><article class="news-card"><a class="news-card-media" data-pjax href="/actualites/itw-exclusive-du-romancier-monsieur-david-ducci-pour-la-sortie-du-tome-1-du-roma"><img src="/uploads/user-music/1741/site-items/item_actualites_28_1791897222_be5308.jpg" alt="" style="object-position:61% 33%"><span class="news-card-date"><i class="bi bi-calendar3"></i> 12/02/2026</span></a><div class="news-card-body"><h2><a class="news-title-link" data-pjax href="/actualites/itw-exclusive-du-romancier-monsieur-david-ducci-pour-la-sortie-du-tome-1-du-roma">ITW exclusive du romancier Monsieur David DUCCI pour la sortie du Tome 1 du roman FAMILY STADIUM</a></h2><p class="news-excerpt">David Ducci — Du football à l’écriture, les secrets derrière le jeuAncien footballeur professionnel passé notamment par Monaco, David Ducci est aujourd’hui entr…</p><a class="news-more" data-pjax href="/actualites/itw-exclusive-du-romancier-monsieur-david-ducci-pour-la-sortie-du-tome-1-du-roma">Lire la suite <i class="bi bi-arrow-right"></i></a></div></article><article class="news-card"><a class="news-card-media" data-pjax href="/actualites/itw-exclusive-du-consul-de-france-aux-emirats-arabes-unis-monsieur-jean-christop"><img src="/uploads/user-music/1741/site-items/item_actualites_28_1791895855_1d925e.jpg" alt="" style="object-position:38% 15%"><span class="news-card-date"><i class="bi bi-calendar3"></i> 22/01/2026</span></a><div class="news-card-body"><h2><a class="news-title-link" data-pjax href="/actualites/itw-exclusive-du-consul-de-france-aux-emirats-arabes-unis-monsieur-jean-christop">ITW exclusive du Consul de France, aux Émirats arabes unis, Monsieur Jean-Christophe, Paris</a></h2><p class="news-excerpt">Jean-Christophe Paris – Consul général de France à DubaïJean-Christophe Paris est un diplomate français qui occupe les fonctions de consul général de France à D…</p><a class="news-more" data-pjax href="/actualites/itw-exclusive-du-consul-de-france-aux-emirats-arabes-unis-monsieur-jean-christop">Lire la suite <i class="bi bi-arrow-right"></i></a></div></article><article class="news-card"><a class="news-card-media" data-pjax href="/actualites/itw-hiphop-cardio"><img src="/uploads/user-music/1741/site-items/item_actualites_28_1791894120_07e947.jpg" alt=""><span class="news-card-date"><i class="bi bi-calendar3"></i> 26/11/2025</span></a><div class="news-card-body"><h2><a class="news-title-link" data-pjax href="/actualites/itw-hiphop-cardio">ITW HipHop Cardio</a></h2><p class="news-excerpt">Rencontre avec l&#039;équipe du HipHop Cardio, le concept qui mêle sport et culture hip-hop, au micro de Dynamic Radio Dubai.…</p><a class="news-more" data-pjax href="/actualites/itw-hiphop-cardio">Lire la suite <i class="bi bi-arrow-right"></i></a></div></article></div><div class="sec-cta" style="margin-top:18px"><a class="sec-btn" data-pjax href="/actualites">Voir tout</a></div></div></section><section class="site-section sec-center"><div class="sec-inner"><div class="sec-cta"><h2>Restons en contact</h2><div class="sec-text">Une dédicace, un partenariat, une envie de passer à l&#039;antenne ?</div><a class="sec-btn" href="/contact">Nous contacter</a></div></div></section><section class="site-section sec-app"><div class="sec-inner"><div class="app-band"><div class="app-band-text"><span class="app-eyebrow"><i class="bi bi-phone"></i> Application mobile</span><h2>Dynamic Radio Dubai dans votre poche</h2><div class="sec-text">Téléchargez l&#039;application gratuite et emportez Dynamic Radio Dubai partout : en voiture, au travail, en balade. Le direct, les titres qui passent et les podcasts, toujours à portée de main.</div><ul class="app-feats"><li><i class="bi bi-broadcast"></i> Le direct en un geste</li><li><i class="bi bi-music-note-list"></i> Les titres qui passent</li><li><i class="bi bi-mic"></i> Les podcasts à réécouter</li><li><i class="bi bi-headphones"></i> L'écoute écran éteint</li></ul><div class="app-badges"><a class="app-badge" href="https://play.google.com/store/apps/details?id=radio.dynamiquerd" target="_blank" rel="noopener" aria-label="Disponible sur Google Play"><i class="bi bi-google-play"></i><span><small>Disponible sur</small><strong>Google Play</strong></span></a><a class="app-badge" href="https://apps.apple.com/us/app/dynamic-radio-dubai/id6446273400" target="_blank" rel="noopener" aria-label="Télécharger dans l'App Store"><i class="bi bi-apple"></i><span><small>Télécharger dans</small><strong>l'App Store</strong></span></a></div></div><div class="app-phone" aria-hidden="true"><div class="app-phone-screen"><span class="app-phone-notch"></span><img class="app-phone-logo" src="/uploads/temp/logos/logo_1741_1781016480_73def8.jpg" alt=""><span class="app-phone-live"><i></i> EN DIRECT</span><span class="app-phone-eq"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="app-phone-play"><i class="bi bi-play-fill"></i></span><span class="app-phone-name">Dynamic Radio Dubai</span></div></div></div></div></section></div><aside class="n1-aside"><section class="n1-block" id="recentPlaysBlock"><h2 class="n1-block-title"><i class="bi bi-music-note-beamed"></i> Ça vient de passer</h2><div id="recentPlaysList"><div class="n1-play"><span class="n1-play-time">14:20</span><img class="n1-play-cover" src="https://cdn-images.dzcdn.net/images/cover/912594cc88625ecbeeb6fce8ee178a74/500x500-000000-80-0-0.jpg" alt="" loading="lazy"><div class="n1-play-meta"><div class="n1-play-title">The Morning</div><div class="n1-play-artist">The Weeknd</div></div></div><div class="n1-play"><span class="n1-play-time">14:14</span><img class="n1-play-cover" src="https://cdn-images.dzcdn.net/images/cover/beebc3fbdf9fef95f2262b60fc5e05d6/500x500-000000-80-0-0.jpg" alt="" loading="lazy"><div class="n1-play-meta"><div class="n1-play-title">Heal Me</div><div class="n1-play-artist">Damian Marley ft. Adele</div></div></div><div class="n1-play"><span class="n1-play-time">14:11</span><img class="n1-play-cover" src="https://studio10.vestaradio.com/uploads/user-music/1741/covers/cover_2117_1781433481.jpeg" alt="" loading="lazy"><div class="n1-play-meta"><div class="n1-play-title">Be with You Tonight</div><div class="n1-play-artist">La Felix, Tommy</div></div></div><div class="n1-play"><span class="n1-play-time">14:08</span><img class="n1-play-cover" src="https://cdn-images.dzcdn.net/images/cover/5d708c0bed13752846b72b80a8f30f94/500x500-000000-80-0-0.jpg" alt="" loading="lazy"><div class="n1-play-meta"><div class="n1-play-title">Nimporte quoi</div><div class="n1-play-artist">DYNAMICRADIODUBAI</div></div></div><div class="n1-play"><span class="n1-play-time">14:04</span><img class="n1-play-cover" src="https://cdn-images.dzcdn.net/images/cover/b3169741e58b2e72992f75d803c5d65c/500x500-000000-80-0-0.jpg" alt="" loading="lazy"><div class="n1-play-meta"><div class="n1-play-title">La-baie</div><div class="n1-play-artist">Clara Luciani</div></div></div><div class="n1-play"><span class="n1-play-time">14:01</span><img class="n1-play-cover" src="https://cdn-images.dzcdn.net/images/cover/0abb0f2f8d3c01d21e6b70803503baeb/500x500-000000-80-0-0.jpg" alt="" loading="lazy"><div class="n1-play-meta"><div class="n1-play-title">Redescends-Ft.-Zaho</div><div class="n1-play-artist">Vegedream</div></div></div><div class="n1-play"><span class="n1-play-time">13:58</span><img class="n1-play-cover" src="https://studio10.vestaradio.com/uploads/user-music/1741/covers/cover_1707_1781873157.jpeg" alt="" loading="lazy"><div class="n1-play-meta"><div class="n1-play-title">Sometimes-I-Smile</div><div class="n1-play-artist">AIsong</div></div></div><div class="n1-play"><span class="n1-play-time">13:54</span><img class="n1-play-cover" src="https://cdn-images.dzcdn.net/images/cover/4881da25276aeb06aafacf1a49c30b56/500x500-000000-80-0-0.jpg" alt="" loading="lazy"><div class="n1-play-meta"><div class="n1-play-title">Blue-Wake-Up-Call</div><div class="n1-play-artist">Mel</div></div></div></div></section><section class="n1-block n1-follow"><h2 class="n1-block-title"><i class="bi bi-heart-fill"></i> Suivez-nous</h2><div class="n1-follow-grid"><a href="https://www.instagram.com/p/DRL7oNSESXy/" target="_blank" rel="noopener" aria-label="Instagram"><i class="bi bi-instagram"></i><span>Instagram</span></a><a href="https://www.tiktok.com/@dynamicradiodubai" target="_blank" rel="noopener" aria-label="TikTok"><i class="bi bi-tiktok"></i><span>TikTok</span></a></div></section><section class="n1-block n1-infos"><h2 class="n1-block-title"><i class="bi bi-broadcast-pin"></i> Nous écouter</h2><div class="n1-infos-body"><p class="n1-infos-freq">La 1ère webradio francophone des Émirats</p><a class="n1-infos-listen" href="#top" onclick="try{window.scrollTo({top:0,behavior:'smooth'});}catch(e){window.scrollTo(0,0);}return false;"><i class="bi bi-play-circle-fill"></i> Écouter en direct</a><div class="app-badges app-badges-sm"><a class="app-badge" href="https://play.google.com/store/apps/details?id=radio.dynamiquerd" target="_blank" rel="noopener" aria-label="Disponible sur Google Play"><i class="bi bi-google-play"></i><span><small>Disponible sur</small><strong>Google Play</strong></span></a><a class="app-badge" href="https://apps.apple.com/us/app/dynamic-radio-dubai/id6446273400" target="_blank" rel="noopener" aria-label="Télécharger dans l'App Store"><i class="bi bi-apple"></i><span><small>Télécharger dans</small><strong>l'App Store</strong></span></a></div></div></section></aside></div></div></main>
+
+<!-- Footer commun (persistant, hors PJAX) -->
+<footer class="site-footer">
+    <div class="ft-inner">
+        <div class="ft-brand">
+            <img src="/uploads/temp/logos/logo_1741_1781016480_73def8.jpg" alt="">            <span>Dynamic Radio Dubai</span>
+        </div>
+        <nav class="ft-links">
+                        <a href="/partenaires" data-pjax>Partenaires</a>
+                        <a href="/mentions-legales" data-pjax>Mentions légales</a>
+                        <a href="/politique-de-confidentialite" data-pjax>Politique de confidentialité</a>
+                    </nav>
+                <div class="ft-social">
+                        <a href="https://www.instagram.com/p/DRL7oNSESXy/" target="_blank" rel="noopener" title="instagram"><i class="bi bi-instagram"></i></a>
+                        <a href="https://www.tiktok.com/@dynamicradiodubai" target="_blank" rel="noopener" title="tiktok"><i class="bi bi-tiktok"></i></a>
+                    </div>
+                        <div class="ft-app">
+            <span class="ft-app-label">Notre application</span>
+            <div class="app-badges app-badges-ft"><a class="app-badge" href="https://play.google.com/store/apps/details?id=radio.dynamiquerd" target="_blank" rel="noopener" aria-label="Disponible sur Google Play"><i class="bi bi-google-play"></i><span><small>Disponible sur</small><strong>Google Play</strong></span></a><a class="app-badge" href="https://apps.apple.com/us/app/dynamic-radio-dubai/id6446273400" target="_blank" rel="noopener" aria-label="Télécharger dans l'App Store"><i class="bi bi-apple"></i><span><small>Télécharger dans</small><strong>l'App Store</strong></span></a></div>        </div>
+            </div>
+    <div class="ft-bottom">
+        <span>© 2026 Dynamic Radio Dubai. Tous droits réservés.</span>
+        <span><a href="https://vestaradio.net" target="_blank" rel="noopener">Créer une webradio</a></span>
+    </div>
+</footer>
+
+
+<!-- Player en popup (version verticale complète du lecteur existant) -->
+<button class="player-expand" id="playerExpand" aria-label="Agrandir le lecteur"><i class="bi bi-arrows-angle-expand"></i></button>
+<div class="player-modal" id="playerModal">
+    <div class="pm-box">
+        <button class="pm-close" id="playerModalClose" aria-label="Fermer"><i class="bi bi-x-lg"></i></button>
+        <iframe id="vesta-player-modal" src="" allow="autoplay" title="Lecteur radio"
+                data-src="/embed/player.php?radio=DYNAMICRADIODUBAI&amp;style=vertical&amp;color=%237b2494&amp;color2=%23310e3b&amp;bg=%23310e3b&amp;text=%23ffffff"></iframe>
+    </div>
+</div>
+
+
+<script>
+/* « Ça vient de passer » en rangée de pochettes (thème Portail, ou tout thème avec
+   plays_style=covers) : rafraîchissement autonome. Le bloc porte le nom de la radio
+   à suivre ; le mur des radios (Portail) ou le sélecteur d'univers le met à jour.
+   Le bloc est relu à chaque appel : PJAX remplace #site-main. */
+(function(){
+  function blk(){ return document.getElementById('ptPlaysBlock'); }
+  function render(items){
+    var b = blk(), list = document.getElementById('ptPlaysList');
+    if(!b || !list) return;
+    if(!items || !items.length){ b.style.display = 'none'; return; }
+    b.style.display = '';
+    list.innerHTML = '';
+    items.forEach(function(p){
+      var card = document.createElement('div'); card.className = 'pt-play';
+      var cov = document.createElement('span');
+      cov.className = 'pt-play-cover' + (p.cover ? '' : ' pt-play-ph');
+      if(p.cover){ cov.style.backgroundImage = 'url(' + p.cover + ')'; }
+      else { cov.innerHTML = '<i class="bi bi-disc"></i>'; }
+      var tm = document.createElement('span'); tm.className = 'pt-play-time'; tm.textContent = p.time || '';
+      cov.appendChild(tm); card.appendChild(cov);
+      var ti = document.createElement('span'); ti.className = 'pt-play-title'; ti.textContent = p.title || ''; card.appendChild(ti);
+      var ar = document.createElement('span'); ar.className = 'pt-play-artist'; ar.textContent = p.artist || ''; card.appendChild(ar);
+      list.appendChild(card);
+    });
+  }
+  function pull(){
+    var b = blk(); if(!b) return;
+    var name = b.getAttribute('data-radio') || '';
+    if(!name) return;
+    fetch('/api/player-public.php?radio=' + encodeURIComponent(name) + '&action=recent')
+      .then(function(r){ return r.json(); })
+      .then(function(d){ if(d && d.success) render(d.recent || []); })
+      .catch(function(){});
+  }
+  // Changement de radio (mur des radios du Portail, sélecteur d'univers) : on suit.
+  window.vestaPlaysRow = function(name){ var b = blk(); if(b && name){ b.setAttribute('data-radio', name); pull(); } };
+  document.addEventListener('click', function(e){
+    var el = e.target.closest ? e.target.closest('[data-uni-radio]') : null;
+    if(el) window.vestaPlaysRow(el.getAttribute('data-uni-radio'));
+  });
+  setInterval(pull, 45000);
+})();
+</script>
+
+<!-- Bandeau de dédicaces défilant (au-dessus du player) -->
+<div class="dedic-bar">
+    <button class="dedic-send" id="dedicSend"><i class="bi bi-chat-heart-fill"></i><span class="dedic-send-txt"> Envoyer une dédicace</span></button>
+    <div class="dedic-track-wrap">
+        <div class="dedic-track">
+                        <span class="dedic-pill"><strong>Mathieu</strong> : Pour ma jolie et tendre Laïna, qui m’a fait découvrir cette radio, je lui dédicace toutes ces magnifiques chansons❤️❤️❤️</span>
+                        <span class="dedic-pill"><strong>Lola Luxembourg</strong> : Merci Dynamic Radio Dubaï pour toutes ces musiques incroyables et tous ces artistes que je découvre seulement sur votre radio. Merci de votre originalité de votre personnalité vous êtes une radio top est-ce que j’aime chez vous c’est que ça parle à tout le monde donc vraiment merci  ❤</span>
+                        <span class="dedic-pill"><strong>Zina et linda de Paris</strong> : Toujours aussi bien l’émission du samedi soir avec Mister S. On apprécie beaucoup les musiques et les découvertes de ces musiques orientale que l’on connaît pas forcément et on aime surtout les remix. Donc on dédicace cette émission à notre papa Omar et notre maman Sabrina. Qui vous écoute d’Alger.</span>
+                        <span class="dedic-pill"><strong>Alain</strong> : super site</span>
+                        <span class="dedic-pill"><strong>dynamic radio Dubaï</strong> : Hâte de vous voir à Dubaï ma ville de coeur! En attendant un grand merci de diffuser mes chansons ! Musicalement, Aldria Serra 🐦‍🔥 la fille du Nord</span>
+                        <span class="dedic-pill"><strong>Lilas de Bruxelle</strong> : Merci pour ce voyage en musique, j’ai passé une heure très sympa sur Dynamic Radio Dubaï. Donc merci à Mister S de nous proposer chaque samedi soir. Cet émission j’ai beaucoup apprécié avec ma maman et ma sœur Sarah je dédicace d’ailleurs cette cette Emission à ma cousine Dalila, Madrid</span>
+                        <span class="dedic-pill"><strong>Mister-S Marhaba</strong> : Bonsoir à tous merci beaucoup pour votre fidélité j’espère que vous allez bien je souhaite particulièrement la bienvenue à Djema qui nous écoute du côté de la suisse bienvenue au suisse prenez soin de vous je vous embrasse 
+Mister-S</span>
+                        <span class="dedic-pill"><strong>Doria</strong> : Pour Djamel mon meilleur ami un bisous de Paris 💜</span>
+                        <span class="dedic-pill"><strong>Djamel</strong> : Noria ta radio est top une programmation de qualité, bravo vraiment !!!!</span>
+                        <span class="dedic-pill"><strong>Mister-S   Marhaba</strong> : Bonsoir à tous j’espère que vous allez tous bien merci pour votre fidélité je vous souhaite une excellente soirée prenez soin de vous je vous embrasse Mister-S</span>
+                        <span class="dedic-pill"><strong>Samir</strong> : Pour ma Nono ta radio est 👍👍👍👍❤️❤️❤️</span>
+                        <span class="dedic-pill"><strong>Emma de Hong Kong❤️</strong> : Pour ma maman Isabelle mon Papa Karim et mon frère Yanis je pense à vous et vous ❤️❤️❤️❤️❤️❤️❤️</span>
+                        <span class="dedic-pill"><strong>Laura Turin</strong> : Un grand merci à toute l’équipe de Dynamic Radio Dubaï pour tous les moments partagés et la découverte musicale et surtout l’emission de MISTER S merci et bisous et tendresse à ma sœur Leandra à Paris❤️❤️❤️</span>
+                        <span class="dedic-pill"><strong>Paolo de Madrid</strong> : Pour Laura ma douce et belle âme sœur mon allié ma moitier je t’❤️</span>
+                        <span class="dedic-pill"><strong>Paul</strong> : Découverte musicale intéressante sur la plus belle des radio 👍❤️</span>
+                        <span class="dedic-pill"><strong>Sophie</strong> : Superbe emission orientale merci pour le voyage</span>
+                        <span class="dedic-pill"><strong>Madjid et wardha</strong> : Merci pour l’émission orientale une heure de pure bonheur un voyage musicale qui fait du bien à notre cœur merci MISTER S et l’équipe de Dynamic ❤️</span>
+                        <span class="dedic-pill"><strong>Ness</strong> : Pour mon papa, le meilleur ❤️ Comme d’habitude, une fabuleuse émission ! Gros bisous de ta fille 🥰</span>
+                        <span class="dedic-pill"><strong>Mister-S Marhaba</strong> : Bonsoir à tous les amis j’espère que vous allez bien je vous beaucoup de message avec beaucoup d’émotion vous savez que dynamic radio Dubai vous offres toujours le meilleur MERCI pour votre fidélité prenez soin de vous je embrasse prenez soin de vous</span>
+                        <span class="dedic-pill"><strong>Daniela tv</strong> : Salut 😊 Moi, c’est Daniela TV. Je suis célibataire et actuellement à la recherche d’un homme sérieux, sincère et attentionné, qui saura m’aimer et m’accepter telle que je suis. Je souhaite construire une belle relation basée sur le respect, la confiance et la sincérité. ❤️</span>
+                        <span class="dedic-pill"><strong>Mister-S Marhaba</strong> : Bonjour à tous les amis j’espère que vous allez bien et que tous ce passe bien de votre côté 
+
+Virginie et Marco, Momo de Constantine, Sophia, Malik et Yacine, Carole, Lyana, Mila merci beaucoup vous assurez votre fidélité me touche prenez soin de vous je vous embrasse bon week-end à tous. Mister-S</span>
+                        <span class="dedic-pill"><strong>Noria Dubaï</strong> : Dédicace spéciale à mon mari mon amour ma vie ❤️celui qui a fait de moi une femme heureuse sereine et tellement amoureuse ❤️❤️❤️❤️</span>
+                        <span class="dedic-pill"><strong>Paul de Geneve</strong> : Marie ❤️je ne t’oublie pas et mon retour définitif est programmé pour être à tes côtés et plus jamais être séparé je t’❤️❤️❤️❤️❤️❤️❤️</span>
+                        <span class="dedic-pill"><strong>Nicolas</strong> : Pour ma douce Oraya ❤️et toute l’équipe de Dynamic radio Dubaï ❤️❤️❤️👍👍👍🔥🔥🔥🔥</span>
+                        <span class="dedic-pill"><strong>Virginie et Marco</strong> : Merci pour ce voyage musicale orientale cette musique est envoûtante merci à Mister S👍❤️</span>
+                        <span class="dedic-pill"><strong>Momo de Constantine</strong> : Bravo le kif du samedi soir merci frérot Mister S</span>
+                        <span class="dedic-pill"><strong>Sophia</strong> : L’émission orientale du samedi est une TUERIE 👍👍👍Merci MISTER S ❤️❤️❤️❤️❤️</span>
+                        <span class="dedic-pill"><strong>Mister-S Marhaba</strong> : Bonjour à tous j’espère que vous allez bien 
+C&#039;est un grand plaisir de lire vos messages qui me font très plaisir vraiment merci Malik et Yacine, Carole, Layna et à ceux qui nous écoutent  dans le monde  prenez soin de vous je vous embrasse rendez-vous Samedi 
+Mister-S 
+Dynamic Radio Dubaï</span>
+                        <span class="dedic-pill"><strong>Malik et Yacine</strong> : Thank you for this fabulous oriental program. Thank you so much, I&#039;m rediscovering artists I used to listen to with my mother. Thank you, kisses from Washington DC</span>
+                        <span class="dedic-pill"><strong>Carole</strong> : Merci Mister S pour ce voyage aux pays des milles et une nuit ❤️👍🙏</span>
+                        <span class="dedic-pill"><strong>Layna</strong> : Merci pour cette émission du samedi soir un vraie voyage musical à la découverte de la musique orientale merci à cette jolie voix de l’animateur Mister S❤️</span>
+                        <span class="dedic-pill"><strong>Sophie</strong> : Pour Karim mon âme sœur ❤️❤️❤️</span>
+                        <span class="dedic-pill"><strong>Nathalie</strong> : Pour Sullivan avec tout mon amour 17 ans et je t’❤️comme au premier jour❤️</span>
+                        <span class="dedic-pill"><strong>Terry Un français aux 4 coins du monde</strong> : Pour tous les francophones qui nous écoutent au quatre coins du monde spécial, dédicace à vous tous</span>
+                        <span class="dedic-pill"><strong>Clara</strong> : À mon Javier, mon amour espagnol, courageux et passionné. 6000 km n&#039;est rien quand c&#039;est toi qui m&#039;attends</span>
+                        <span class="dedic-pill"><strong>Alexandro</strong> : Моей дорогой подруге Анастасия (Nastya) Иванова и Екатерина(Katya) Петрова, спасибо за вашу теплую душу.</span>
+                        <span class="dedic-pill"><strong>Sabrina</strong> : شكرا لأنك شخص طيب ومحترم، أنا أرتاحمعك.</span>
+                        <span class="dedic-pill"><strong>Ethan</strong> : Big respect to John and Emily, thank you for believing in
+#OneHumanityOneHeart from day one.</span>
+                        <span class="dedic-pill"><strong>Ivankâ</strong> : Dédicace à Mme Elena Volkov et à M.
+Sergei Petrov, pour leur professionnalisme exemplaire. Une collaboration précieuse.</span>
+                        <span class="dedic-pill"><strong>Pablo</strong> : A mi increíble equipo y colegas, gracias por su profesionalismo, dedicación y amabilidad. Este éxito es nuestro.❤️</span>
+                        <span class="dedic-pill"><strong>Mathieu</strong> : Pour ma jolie et tendre Laïna, qui m’a fait découvrir cette radio, je lui dédicace toutes ces magnifiques chansons❤️❤️❤️</span>
+                        <span class="dedic-pill"><strong>Lola Luxembourg</strong> : Merci Dynamic Radio Dubaï pour toutes ces musiques incroyables et tous ces artistes que je découvre seulement sur votre radio. Merci de votre originalité de votre personnalité vous êtes une radio top est-ce que j’aime chez vous c’est que ça parle à tout le monde donc vraiment merci  ❤</span>
+                        <span class="dedic-pill"><strong>Zina et linda de Paris</strong> : Toujours aussi bien l’émission du samedi soir avec Mister S. On apprécie beaucoup les musiques et les découvertes de ces musiques orientale que l’on connaît pas forcément et on aime surtout les remix. Donc on dédicace cette émission à notre papa Omar et notre maman Sabrina. Qui vous écoute d’Alger.</span>
+                        <span class="dedic-pill"><strong>Alain</strong> : super site</span>
+                        <span class="dedic-pill"><strong>dynamic radio Dubaï</strong> : Hâte de vous voir à Dubaï ma ville de coeur! En attendant un grand merci de diffuser mes chansons ! Musicalement, Aldria Serra 🐦‍🔥 la fille du Nord</span>
+                        <span class="dedic-pill"><strong>Lilas de Bruxelle</strong> : Merci pour ce voyage en musique, j’ai passé une heure très sympa sur Dynamic Radio Dubaï. Donc merci à Mister S de nous proposer chaque samedi soir. Cet émission j’ai beaucoup apprécié avec ma maman et ma sœur Sarah je dédicace d’ailleurs cette cette Emission à ma cousine Dalila, Madrid</span>
+                        <span class="dedic-pill"><strong>Mister-S Marhaba</strong> : Bonsoir à tous merci beaucoup pour votre fidélité j’espère que vous allez bien je souhaite particulièrement la bienvenue à Djema qui nous écoute du côté de la suisse bienvenue au suisse prenez soin de vous je vous embrasse 
+Mister-S</span>
+                        <span class="dedic-pill"><strong>Doria</strong> : Pour Djamel mon meilleur ami un bisous de Paris 💜</span>
+                        <span class="dedic-pill"><strong>Djamel</strong> : Noria ta radio est top une programmation de qualité, bravo vraiment !!!!</span>
+                        <span class="dedic-pill"><strong>Mister-S   Marhaba</strong> : Bonsoir à tous j’espère que vous allez tous bien merci pour votre fidélité je vous souhaite une excellente soirée prenez soin de vous je vous embrasse Mister-S</span>
+                        <span class="dedic-pill"><strong>Samir</strong> : Pour ma Nono ta radio est 👍👍👍👍❤️❤️❤️</span>
+                        <span class="dedic-pill"><strong>Emma de Hong Kong❤️</strong> : Pour ma maman Isabelle mon Papa Karim et mon frère Yanis je pense à vous et vous ❤️❤️❤️❤️❤️❤️❤️</span>
+                        <span class="dedic-pill"><strong>Laura Turin</strong> : Un grand merci à toute l’équipe de Dynamic Radio Dubaï pour tous les moments partagés et la découverte musicale et surtout l’emission de MISTER S merci et bisous et tendresse à ma sœur Leandra à Paris❤️❤️❤️</span>
+                        <span class="dedic-pill"><strong>Paolo de Madrid</strong> : Pour Laura ma douce et belle âme sœur mon allié ma moitier je t’❤️</span>
+                        <span class="dedic-pill"><strong>Paul</strong> : Découverte musicale intéressante sur la plus belle des radio 👍❤️</span>
+                        <span class="dedic-pill"><strong>Sophie</strong> : Superbe emission orientale merci pour le voyage</span>
+                        <span class="dedic-pill"><strong>Madjid et wardha</strong> : Merci pour l’émission orientale une heure de pure bonheur un voyage musicale qui fait du bien à notre cœur merci MISTER S et l’équipe de Dynamic ❤️</span>
+                        <span class="dedic-pill"><strong>Ness</strong> : Pour mon papa, le meilleur ❤️ Comme d’habitude, une fabuleuse émission ! Gros bisous de ta fille 🥰</span>
+                        <span class="dedic-pill"><strong>Mister-S Marhaba</strong> : Bonsoir à tous les amis j’espère que vous allez bien je vous beaucoup de message avec beaucoup d’émotion vous savez que dynamic radio Dubai vous offres toujours le meilleur MERCI pour votre fidélité prenez soin de vous je embrasse prenez soin de vous</span>
+                        <span class="dedic-pill"><strong>Daniela tv</strong> : Salut 😊 Moi, c’est Daniela TV. Je suis célibataire et actuellement à la recherche d’un homme sérieux, sincère et attentionné, qui saura m’aimer et m’accepter telle que je suis. Je souhaite construire une belle relation basée sur le respect, la confiance et la sincérité. ❤️</span>
+                        <span class="dedic-pill"><strong>Mister-S Marhaba</strong> : Bonjour à tous les amis j’espère que vous allez bien et que tous ce passe bien de votre côté 
+
+Virginie et Marco, Momo de Constantine, Sophia, Malik et Yacine, Carole, Lyana, Mila merci beaucoup vous assurez votre fidélité me touche prenez soin de vous je vous embrasse bon week-end à tous. Mister-S</span>
+                        <span class="dedic-pill"><strong>Noria Dubaï</strong> : Dédicace spéciale à mon mari mon amour ma vie ❤️celui qui a fait de moi une femme heureuse sereine et tellement amoureuse ❤️❤️❤️❤️</span>
+                        <span class="dedic-pill"><strong>Paul de Geneve</strong> : Marie ❤️je ne t’oublie pas et mon retour définitif est programmé pour être à tes côtés et plus jamais être séparé je t’❤️❤️❤️❤️❤️❤️❤️</span>
+                        <span class="dedic-pill"><strong>Nicolas</strong> : Pour ma douce Oraya ❤️et toute l’équipe de Dynamic radio Dubaï ❤️❤️❤️👍👍👍🔥🔥🔥🔥</span>
+                        <span class="dedic-pill"><strong>Virginie et Marco</strong> : Merci pour ce voyage musicale orientale cette musique est envoûtante merci à Mister S👍❤️</span>
+                        <span class="dedic-pill"><strong>Momo de Constantine</strong> : Bravo le kif du samedi soir merci frérot Mister S</span>
+                        <span class="dedic-pill"><strong>Sophia</strong> : L’émission orientale du samedi est une TUERIE 👍👍👍Merci MISTER S ❤️❤️❤️❤️❤️</span>
+                        <span class="dedic-pill"><strong>Mister-S Marhaba</strong> : Bonjour à tous j’espère que vous allez bien 
+C&#039;est un grand plaisir de lire vos messages qui me font très plaisir vraiment merci Malik et Yacine, Carole, Layna et à ceux qui nous écoutent  dans le monde  prenez soin de vous je vous embrasse rendez-vous Samedi 
+Mister-S 
+Dynamic Radio Dubaï</span>
+                        <span class="dedic-pill"><strong>Malik et Yacine</strong> : Thank you for this fabulous oriental program. Thank you so much, I&#039;m rediscovering artists I used to listen to with my mother. Thank you, kisses from Washington DC</span>
+                        <span class="dedic-pill"><strong>Carole</strong> : Merci Mister S pour ce voyage aux pays des milles et une nuit ❤️👍🙏</span>
+                        <span class="dedic-pill"><strong>Layna</strong> : Merci pour cette émission du samedi soir un vraie voyage musical à la découverte de la musique orientale merci à cette jolie voix de l’animateur Mister S❤️</span>
+                        <span class="dedic-pill"><strong>Sophie</strong> : Pour Karim mon âme sœur ❤️❤️❤️</span>
+                        <span class="dedic-pill"><strong>Nathalie</strong> : Pour Sullivan avec tout mon amour 17 ans et je t’❤️comme au premier jour❤️</span>
+                        <span class="dedic-pill"><strong>Terry Un français aux 4 coins du monde</strong> : Pour tous les francophones qui nous écoutent au quatre coins du monde spécial, dédicace à vous tous</span>
+                        <span class="dedic-pill"><strong>Clara</strong> : À mon Javier, mon amour espagnol, courageux et passionné. 6000 km n&#039;est rien quand c&#039;est toi qui m&#039;attends</span>
+                        <span class="dedic-pill"><strong>Alexandro</strong> : Моей дорогой подруге Анастасия (Nastya) Иванова и Екатерина(Katya) Петрова, спасибо за вашу теплую душу.</span>
+                        <span class="dedic-pill"><strong>Sabrina</strong> : شكرا لأنك شخص طيب ومحترم، أنا أرتاحمعك.</span>
+                        <span class="dedic-pill"><strong>Ethan</strong> : Big respect to John and Emily, thank you for believing in
+#OneHumanityOneHeart from day one.</span>
+                        <span class="dedic-pill"><strong>Ivankâ</strong> : Dédicace à Mme Elena Volkov et à M.
+Sergei Petrov, pour leur professionnalisme exemplaire. Une collaboration précieuse.</span>
+                        <span class="dedic-pill"><strong>Pablo</strong> : A mi increíble equipo y colegas, gracias por su profesionalismo, dedicación y amabilidad. Este éxito es nuestro.❤️</span>
+                    </div>
+    </div>
+</div>
+<script>
+// Vitesse de lecture CONSTANTE (≈ 55 px/s) : la durée suit la longueur du bandeau.
+// Avec une durée fixe de 45 s, 30 dédicaces longues défilaient à ~800 px/s (illisible).
+(function(){
+  var t = document.querySelector('.dedic-track'); if(!t) return;
+  function fit(){ var half = t.scrollWidth / 2; if(half > 0) t.style.animationDuration = Math.max(20, Math.round(half / 55)) + 's'; }
+  fit(); window.addEventListener('load', fit);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+})();
+</script>
+
+<!-- Modale d'envoi de dédicace (formulaire sécurisé) -->
+<div class="dedic-modal" id="dedicModal">
+    <div class="dm-box">
+        <button class="dm-close" id="dedicModalClose" aria-label="Fermer"><i class="bi bi-x-lg"></i></button>
+        <h3><i class="bi bi-chat-heart me-2"></i>Envoyer une dédicace</h3>
+        <form id="dedicForm" autocomplete="off">
+            <input type="text" id="dedicName" maxlength="50" placeholder="Ton prénom" required>
+            <textarea id="dedicMessage" maxlength="300" rows="3" placeholder="Ton message…" required></textarea>
+            <input type="text" id="dedicHp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px">
+            <button type="submit" class="dm-submit"><i class="bi bi-send me-1"></i>Envoyer</button>
+            <div id="dedicMsg" class="dm-msg"></div>
+        </form>
+    </div>
+</div>
+
+<script>
+(function () {
+    var main = document.getElementById('site-main');
+    var nav  = document.getElementById('site-nav');
+    if (!main || !nav) return;
+
+    function setActive(path) {
+        nav.querySelectorAll('a[data-pjax]').forEach(function (a) {
+            a.classList.toggle('active', a.getAttribute('href') === path.split('?')[0]);
+        });
+    }
+
+    function load(path, push) {
+        main.classList.add('pjax-loading');
+        var url = path + (path.indexOf('?') === -1 ? '?' : '&') + '__pjax=1';
+        fetch(url, { headers: { 'X-Requested-With': 'pjax' } })
+            .then(function (r) { return r.text(); })
+            .then(function (html) {
+                main.innerHTML = html;
+                main.classList.remove('pjax-loading');
+                var page = main.querySelector('.site-page');
+                if (page && page.dataset.title) document.title = page.dataset.title;
+                if (push) history.pushState({ path: path }, '', path);
+                setActive(path);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                initHomeSlider();
+                initMultiSliders();
+                if (window.vestaMountReviews) window.vestaMountReviews(main);
+                // Les <video data-vid> de la nouvelle page n'ont jamais été vues
+                // par le compteur de lecture : on le rebranche sur le fragment.
+                if (window.vestaWatchVideos) window.vestaWatchVideos(main);
+                // innerHTML n'exécute pas les <script> : les blocs AdSense de la
+                // nouvelle page sont remplis ici (cf. vestaMountAdsense).
+                if (window.vestaMountAdsense) window.vestaMountAdsense(main);
+            })
+            .catch(function () { window.location.href = path; }); // fallback : nav classique
+    }
+
+    // « Lire la suite » des cartes programmes (délégué : compatible PJAX).
+    document.addEventListener('click', function (e) {
+        var b = e.target.closest ? e.target.closest('.pc-more') : null;
+        if (!b) return;
+        var c = b.closest('.pc-card');
+        var on = c.classList.toggle('open');
+        b.setAttribute('aria-expanded', on ? 'true' : 'false');
+    });
+
+    // Onglets « jour » de la grille des programmes. Délégué sur document : le
+    // <script> ne peut pas vivre dans la page (PJAX injecte via innerHTML, qui
+    // n'exécute pas les <script> — les onglets restaient morts après navigation).
+    document.addEventListener('click', function (e) {
+        var b = e.target.closest ? e.target.closest('.wt-btn') : null;
+        if (!b) return;
+        e.preventDefault();
+        var root = b.closest('.page-text') || document;
+        var d = b.getAttribute('data-wday');
+        root.querySelectorAll('.wt-btn').forEach(function (x) {
+            var on = (x === b);
+            x.classList.toggle('active', on);
+            x.setAttribute('aria-selected', on ? 'true' : 'false');
+        });
+        root.querySelectorAll('.week-panel').forEach(function (p) {
+            p.classList.toggle('active', p.getAttribute('data-wday') === d);
+        });
+    });
+
+    // Intercepte les clics sur les liens de navigation du site
+    document.addEventListener('click', function (e) {
+        var a = e.target.closest('a[data-pjax]');
+        if (!a) return;
+        // même origine uniquement
+        if (a.host !== window.location.host) return;
+        e.preventDefault();
+        var path = a.getAttribute('href');
+        if (path === window.location.pathname + window.location.search) return;
+        load(path, true);
+    });
+
+    // Bouton retour / avant du navigateur
+    window.addEventListener('popstate', function (e) {
+        var path = (e.state && e.state.path) ? e.state.path : window.location.pathname + window.location.search;
+        load(path, false);
+    });
+
+    // État initial dans l'historique
+    history.replaceState({ path: window.location.pathname + window.location.search }, '', window.location.pathname + window.location.search);
+
+    // ── Hero slider : init au chargement + après chaque navigation PJAX ──
+    var sliderTimer = null;
+    function initHomeSlider() {
+        if (sliderTimer) { clearInterval(sliderTimer); sliderTimer = null; }
+        var sl = main.querySelector('.hero-slider');
+        if (!sl) return;
+        var track = sl.querySelector('.hs-track');
+        var slides = sl.querySelectorAll('.hs-slide');
+        var dots = sl.querySelectorAll('.hs-dot');
+        if (!track || slides.length < 2) return;
+        var i = 0, n = slides.length;
+        var speed = parseInt(sl.dataset.speed, 10) || 500;
+        function go(k){
+            var prev = i; i = (k + n) % n;
+            track.style.transform = 'translateX(' + (-i * 100) + '%)';
+            slides.forEach(function (s, j) { s.classList.toggle('is-active', j === i); s.classList.toggle('is-leaving', j === prev && j !== i); });
+            setTimeout(function () { if (slides[prev] && prev !== i) slides[prev].classList.remove('is-leaving'); }, speed);
+            dots.forEach(function (d, j) { d.classList.toggle('active', j === i); });
+        }
+        function play(){ if (sliderTimer) clearInterval(sliderTimer); var ms = parseInt(sl.dataset.autoplay) || 6000; sliderTimer = setInterval(function () { go(i + 1); }, ms); }
+        var nx = sl.querySelector('.hs-next'), pv = sl.querySelector('.hs-prev');
+        if (nx) nx.addEventListener('click', function () { go(i + 1); play(); });
+        if (pv) pv.addEventListener('click', function () { go(i - 1); play(); });
+        dots.forEach(function (d, j) { d.addEventListener('click', function () { go(j); play(); }); });
+        go(0); play();
+    }
+    initHomeSlider();
+
+    // ── Carrousels d'images (sections de type multislide) ────────────────────
+    // Plusieurs par page, chacun autonome. Ré-appelé après chaque swap PJAX :
+    // le contenu de #site-main est remplacé, les anciens écouteurs disparaissent
+    // avec lui, donc rien à détacher.
+    var msTimers = [];
+    function initMultiSliders() {
+        // PJAX remplace #site-main : les anciens carrousels sont détachés mais leurs
+        // setInterval continueraient de tourner (et retiendraient le DOM en mémoire).
+        // On coupe donc TOUT avant de ré-initialiser, comme le fait initHomeSlider.
+        msTimers.forEach(clearInterval);
+        msTimers = [];
+        document.querySelectorAll('#site-main .ms-slider').forEach(function (sl) {
+            var track = sl.querySelector('.ms-track');
+            var items = sl.querySelectorAll('.ms-slide');
+            var dots  = Array.prototype.slice.call(sl.querySelectorAll('.ms-dot'));
+            if (!track || items.length < 2) return;
+            var i = 0, timer = null;
+            var delay = parseInt(sl.dataset.autoplay || '0', 10);
+            function go(n) {
+                i = (n + items.length) % items.length;
+                track.style.transform = 'translateX(' + (-i * 100) + '%)';
+                dots.forEach(function (d, j) { d.classList.toggle('active', j === i); });
+            }
+            function play() {
+                if (timer) clearInterval(timer);
+                if (delay > 0) {
+                    timer = setInterval(function () { go(i + 1); }, delay);
+                    msTimers.push(timer);
+                }
+            }
+            var nx = sl.querySelector('.ms-next'), pv = sl.querySelector('.ms-prev');
+            if (nx) nx.addEventListener('click', function () { go(i + 1); play(); });
+            if (pv) pv.addEventListener('click', function () { go(i - 1); play(); });
+            dots.forEach(function (d, j) { d.addEventListener('click', function () { go(j); play(); }); });
+            // Glisser du doigt (mobile) : un balayage horizontal net change de diapo ;
+            // un geste surtout vertical est laissé au défilement de la page.
+            // Le clic qui suit un balayage est annulé pour ne pas ouvrir le lien.
+            var tx = 0, ty = 0, swiped = false;
+            sl.addEventListener('touchstart', function (e) {
+                var t = e.touches[0]; tx = t.clientX; ty = t.clientY; swiped = false;
+                if (timer) clearInterval(timer);
+            }, { passive: true });
+            sl.addEventListener('touchend', function (e) {
+                var t = e.changedTouches[0], dx = t.clientX - tx, dy = t.clientY - ty;
+                if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.3) {
+                    swiped = true;
+                    go(dx < 0 ? i + 1 : i - 1);
+                }
+                play();
+            }, { passive: true });
+            sl.addEventListener('click', function (e) {
+                if (swiped) { e.preventDefault(); e.stopPropagation(); swiped = false; }
+            }, true);
+            // Pause au survol : on laisse le temps de lire/cliquer une affiche.
+            sl.addEventListener('mouseenter', function () { if (timer) clearInterval(timer); });
+            sl.addEventListener('mouseleave', play);
+            go(0); play();
+        });
+    }
+    initMultiSliders();
+})();
+
+// Menu off-canvas (mobile)
+(function () {
+    var nav = document.getElementById('site-nav');
+    var tg  = document.getElementById('navToggle');
+    var cl  = document.getElementById('navClose');
+    var bd  = document.getElementById('navBackdrop');
+    if (!nav || !tg) return;
+    function open()  { nav.classList.add('open');    if (bd) bd.classList.add('open');    document.body.style.overflow = 'hidden'; }
+    function close() { nav.classList.remove('open'); if (bd) bd.classList.remove('open'); document.body.style.overflow = ''; }
+    tg.addEventListener('click', open);
+    if (cl) cl.addEventListener('click', close);
+    if (bd) bd.addEventListener('click', close);
+    // Fermer quand on clique un lien (la navigation PJAX se fait en parallèle)
+    nav.addEventListener('click', function (e) { if (e.target.closest('a')) close(); });
+})();
+
+// Player détaché : ouvre le lecteur (version verticale) dans une vraie fenêtre popup.
+(function () {
+    var expand = document.getElementById('playerExpand');
+    var bottom = document.getElementById('vesta-player');
+    var frame = document.getElementById('vesta-player-modal'); // sert juste de source d'URL
+    if (!expand || !bottom) return;
+    var bottomSrc = bottom.getAttribute('src');
+    var popupUrl = (frame && frame.dataset.src ? frame.dataset.src : bottomSrc);
+    var win = null, watch = null;
+
+    function restoreBar() {
+        if (watch) { clearInterval(watch); watch = null; }
+        bottom.src = bottomSrc + (bottomSrc.indexOf('?') === -1 ? '?' : '&') + 'autoplay=1';
+    }
+    expand.addEventListener('click', function () {
+        // Si une fenêtre est déjà ouverte, on la ramène au premier plan
+        if (win && !win.closed) { win.focus(); return; }
+        bottom.src = 'about:blank'; // coupe le son de la barre pour éviter le double flux
+        var url = popupUrl + (popupUrl.indexOf('?') === -1 ? '?' : '&') + 'autoplay=1';
+        win = window.open(url, 'vestaPlayer', 'width=400,height=640,menubar=no,toolbar=no,location=no,status=no,scrollbars=no,resizable=yes');
+        if (!win) { restoreBar(); return; } // popup bloqué → on relance la barre
+        // Quand la fenêtre est fermée, on relance la lecture dans la barre
+        watch = setInterval(function () { if (!win || win.closed) restoreBar(); }, 1000);
+    });
+    window.addEventListener('pagehide', function () { if (win && !win.closed) win.close(); });
+})();
+
+// Dédicaces : modale d'envoi (formulaire sécurisé → API player-public existante)
+(function () {
+    var send = document.getElementById('dedicSend');
+    var modal = document.getElementById('dedicModal');
+    if (!send || !modal) return;
+    var closeBtn = document.getElementById('dedicModalClose');
+    var form = document.getElementById('dedicForm');
+    function open() { modal.classList.add('open'); }
+    function close() { modal.classList.remove('open'); }
+    send.addEventListener('click', open);
+    if (closeBtn) closeBtn.addEventListener('click', close);
+    modal.addEventListener('click', function (e) { if (e.target === modal) close(); });
+    if (form) form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (document.getElementById('dedicHp').value) return; // honeypot → bot
+        var name = document.getElementById('dedicName').value.trim();
+        var msg = document.getElementById('dedicMessage').value.trim();
+        var out = document.getElementById('dedicMsg');
+        if (name.length < 2 || msg.length < 2) { out.innerHTML = '<span style="color:#dc3545">Renseigne ton prénom et ton message.</span>'; return; }
+        out.textContent = 'Envoi…';
+        fetch("\/api\/player-public.php?radio=DYNAMICRADIODUBAI&action=dedicace", {
+            method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name: name, message: msg, website: document.getElementById('dedicHp').value })
+        }).then(function (r) { return r.json(); }).then(function (d) {
+            if (d && (d.success || d.ok)) {
+                out.innerHTML = '<span style="color:#198754">' + (d.moderated === false ? 'Merci ! Ta dédicace est publiée.' : 'Merci ! Ta dédicace sera affichée après validation.') + ' 💌</span>';
+                form.reset(); setTimeout(close, 2500);
+            } else {
+                out.innerHTML = '<span style="color:#dc3545">' + ((d && d.error) || "Échec de l'envoi") + '</span>';
+            }
+        }).catch(function () { out.innerHTML = '<span style="color:#dc3545">Erreur réseau</span>'; });
+    });
+})();
+
+// Formulaire de contact (délégué sur document → fonctionne aussi après navigation PJAX)
+document.addEventListener('submit', function (e) {
+    var f = e.target.closest ? e.target.closest('#siteContactForm') : null;
+    if (!f) return;
+    e.preventDefault();
+    if (f.querySelector('.cf-hp') && f.querySelector('.cf-hp').value) return; // honeypot
+    var out = f.querySelector('#contactMsg');
+    var el = f.elements;
+    var data = {
+        name: (el['name'].value || '').trim(),
+        email: (el['email'].value || '').trim(),
+        subject: (el['subject'] ? el['subject'].value : '').trim(),
+        message: (el['message'].value || '').trim(),
+        website: f.querySelector('.cf-hp') ? f.querySelector('.cf-hp').value : '',
+        d1: el['d1'].value, d2: el['d2'].value, answer: el['answer'].value
+    };
+    if (data.name.length < 2 || !/.+@.+\..+/.test(data.email) || data.message.length < 10) {
+        out.innerHTML = '<span style="color:#dc3545">Renseigne ton nom, un email valide et un message (10 caractères min).</span>'; return;
+    }
+    if (parseInt(data.answer, 10) !== (parseInt(data.d1, 10) + parseInt(data.d2, 10))) {
+        out.innerHTML = '<span style="color:#dc3545">Le résultat du calcul est incorrect.</span>'; return;
+    }
+    var btn = f.querySelector('.cf-submit'); if (btn) btn.disabled = true;
+    out.textContent = 'Envoi…';
+    fetch('/api/player-public.php?radio=DYNAMICRADIODUBAI&action=contact', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data)
+    }).then(function (r) { return r.json(); }).then(function (d) {
+        if (btn) btn.disabled = false;
+        if (d && d.success) {
+            out.innerHTML = '<span style="color:#198754">Merci ! Ton message a bien été envoyé.</span>';
+            f.reset();
+        } else {
+            out.innerHTML = '<span style="color:#dc3545">' + ((d && d.error) || "Échec de l'envoi") + '</span>';
+        }
+    }).catch(function () { if (btn) btn.disabled = false; out.innerHTML = '<span style="color:#dc3545">Erreur réseau</span>'; });
+});
+
+// Lecteurs audio personnalisés (podcasts) + filtres catégories — délégué (compatible PJAX)
+(function () {
+    // Partage natif (mobile) : le bouton « … » n'apparaît que si l'API existe
+    if (navigator.share) document.documentElement.classList.add('can-share');
+    var current = null; // audio en cours
+    function fmt(s) { if (!isFinite(s) || s < 0) return '--:--'; s = Math.floor(s); return Math.floor(s / 60) + ':' + ('0' + (s % 60)).slice(-2); }
+    function getAudio(box) {
+        if (box._audio) return box._audio;
+        var a = new Audio(); a.preload = 'none'; a.src = box.dataset.src; box._audio = a; a._box = box;
+        var prog = box.querySelector('.vra-prog'), cur = box.querySelector('.vra-cur'), dur = box.querySelector('.vra-dur'), icon = box.querySelector('.vra-play i');
+        a.addEventListener('loadedmetadata', function () { if (dur) dur.textContent = fmt(a.duration); });
+        a.addEventListener('timeupdate', function () { if (prog && a.duration) prog.style.width = (a.currentTime / a.duration * 100) + '%'; if (cur) cur.textContent = fmt(a.currentTime); });
+        a.addEventListener('ended', function () { if (icon) icon.className = 'bi bi-play-fill'; box.classList.remove('playing'); if (prog) prog.style.width = '0%'; });
+        // Stats d'écoute : progression envoyée au serveur par paliers (25/50/75/95 %)
+        // et à la fermeture de la page. Voir utilities/PodcastStats.php.
+        if (box.dataset.pid) {
+            a._pid = box.dataset.pid; a._sent = 0; a._maxT = 0;
+            a.addEventListener('timeupdate', function () {
+                if (a.currentTime > a._maxT) a._maxT = a.currentTime;
+                if (!a.duration) return;
+                var pct = a._maxT / a.duration * 100;
+                var step = pct >= 95 ? 95 : pct >= 75 ? 75 : pct >= 50 ? 50 : pct >= 25 ? 25 : 0;
+                if (step > a._sent) { a._sent = step; podBeacon(a, step); }
+            });
+            a.addEventListener('ended', function () { a._sent = 100; podBeacon(a, 100); });
+        }
+        // Fichier absent / illisible (ex. 404) : ne pas laisser le bouton en « pause » sur un silence
+        a.addEventListener('error', function () { if (icon) icon.className = 'bi bi-play-fill'; box.classList.remove('playing'); box.classList.add('unavailable'); if (dur) dur.textContent = 'Fichier indisponible'; });
+        return a;
+    }
+    function podBeacon(a, pct) {
+        if (!a || !a._pid) return;
+        var body = 'pct=' + Math.round(pct) + '&sec=' + Math.round(a._maxT || 0);
+        try {
+            if (navigator.sendBeacon) navigator.sendBeacon('/podcasts/' + a._pid + '/progress', new Blob([body], { type: 'application/x-www-form-urlencoded' }));
+            else fetch('/podcasts/' + a._pid + '/progress', { method: 'POST', body: body, headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, keepalive: true });
+        } catch (e) {}
+    }
+    window.addEventListener('pagehide', function () {
+        if (current && current._pid && current.duration) podBeacon(current, Math.min(99, current._maxT / current.duration * 100));
+    });
+    function stop(a) { if (!a) return; a.pause(); var b = a._box; if (b) { b.classList.remove('playing'); var i = b.querySelector('.vra-play i'); if (i) i.className = 'bi bi-play-fill'; } }
+    document.addEventListener('click', function (e) {
+        var play = e.target.closest('.vra-play');
+        if (play) {
+            var box = play.closest('.vr-audio'); var a = getAudio(box); var icon = play.querySelector('i');
+            if (a.paused) {
+                if (current && current !== a) stop(current);
+                current = a; a.play(); box.classList.add('playing'); if (icon) icon.className = 'bi bi-pause-fill';
+            } else { stop(a); }
+            return;
+        }
+        var bar = e.target.closest('.vra-bar');
+        if (bar) {
+            var b2 = bar.closest('.vr-audio'); var a2 = getAudio(b2);
+            if (a2.duration) { var r = bar.getBoundingClientRect(); a2.currentTime = Math.max(0, Math.min(1, (e.clientX - r.left) / r.width)) * a2.duration; }
+            return;
+        }
+        var dot = e.target.closest('.horo-dot');
+        if (dot) {
+            var sl = dot.closest('.horo-slider'), gr = sl && sl.querySelector('.horo-grid');
+            var card = gr && gr.children[+dot.dataset.i];
+            if (card) gr.scrollTo({ left: card.offsetLeft - (gr.clientWidth - card.clientWidth) / 2, behavior: 'smooth' });
+            return;
+        }
+        // Partage : copie du lien (avec confirmation visuelle) + partage natif mobile
+        var copyBtn = e.target.closest('.ps-copy');
+        if (copyBtn) {
+            var shWrap = copyBtn.closest('.pod-share');
+            var shUrl = (shWrap && shWrap.dataset.url) || window.location.href;
+            var okCopy = function () {
+                var ic = copyBtn.querySelector('i');
+                copyBtn.classList.add('copied'); if (ic) ic.className = 'bi bi-check-lg';
+                setTimeout(function () { copyBtn.classList.remove('copied'); if (ic) ic.className = 'bi bi-link-45deg'; }, 1600);
+            };
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(shUrl).then(okCopy).catch(function () {});
+            } else {
+                var ta = document.createElement('textarea'); ta.value = shUrl;
+                ta.style.position = 'fixed'; ta.style.left = '-9999px';
+                document.body.appendChild(ta); ta.select();
+                try { document.execCommand('copy'); okCopy(); } catch (err) {}
+                document.body.removeChild(ta);
+            }
+            return;
+        }
+        var natBtn = e.target.closest('.ps-native');
+        if (natBtn && navigator.share) {
+            var shWrap2 = natBtn.closest('.pod-share');
+            navigator.share({
+                title: (shWrap2 && shWrap2.dataset.title) || document.title,
+                text: (shWrap2 && shWrap2.dataset.title) || document.title,
+                url: (shWrap2 && shWrap2.dataset.url) || window.location.href
+            }).catch(function () {});
+            return;
+        }
+        var chip = e.target.closest('.pod-cat');
+        if (chip) {
+            var wrap = chip.closest('.pod-cats'); if (wrap) wrap.querySelectorAll('.pod-cat').forEach(function (c) { c.classList.toggle('active', c === chip); });
+            // Cible la grille associée à ces filtres (l'accueil peut aussi contenir
+            // une .pod-grid via l'aperçu du module Podcasts).
+            var cat = chip.dataset.cat;
+            var grid = (wrap && (wrap.parentNode.querySelector('.pod-cats ~ .pod-grid') || wrap.parentNode.querySelector('.pod-grid'))) || document.querySelector('.pod-grid');
+            if (grid) grid.querySelectorAll('.pod-card').forEach(function (card) { card.style.display = (cat === '*' || card.dataset.cat === cat) ? '' : 'none'; });
+            return;
+        }
+    });
+    // Carrousel horoscope : la puce active suit le défilement. Le scroll ne remonte
+    // pas dans l'arbre, mais il se CAPTURE au niveau du document : une seule écoute
+    // suffit, y compris pour les blocs injectés par PJAX.
+    document.addEventListener('scroll', function (e) {
+        var gr = e.target;
+        if (!gr || !gr.classList || !gr.classList.contains('horo-grid')) return;
+        var sl = gr.closest('.horo-slider'); if (!sl) return;
+        var dots = sl.querySelectorAll('.horo-dot'); if (!dots.length) return;
+        var mid = gr.scrollLeft + gr.clientWidth / 2, best = 0, dist = Infinity;
+        for (var i = 0; i < gr.children.length; i++) {
+            var c = gr.children[i], d = Math.abs(c.offsetLeft + c.clientWidth / 2 - mid);
+            if (d < dist) { dist = d; best = i; }
+        }
+        for (var j = 0; j < dots.length; j++) dots[j].classList.toggle('active', j === best);
+    }, true);
+
+    // Stoppe l'audio en cours lors d'une navigation PJAX (le contenu est remplacé)
+    var main = document.getElementById('site-main');
+    if (main) new MutationObserver(function () { if (current && current._box && !document.body.contains(current._box)) { stop(current); current = null; } }).observe(main, { childList: true });
+})();
+</script>
+
+<script>
+// Blocs Google AdSense (SiteAds) : un push par <ins> pas encore rempli.
+// Rappelé après chaque navigation PJAX.
+window.vestaMountAdsense = function (root) {
+    (root || document).querySelectorAll('ins.adsbygoogle:not([data-adsbygoogle-status])').forEach(function () {
+        try { (window.adsbygoogle = window.adsbygoogle || []).push({}); } catch (e) {}
+    });
+};
+window.vestaMountAdsense(document);
+</script>
+
+<style>
+/* ── Avis des auditeurs ── */
+/* Le widget définit ses propres nuances : le Site Radio n'a pas les variables
+   --soft/--soft2 de l'app, seulement --c1 / --tx / --bg. */
+.rv{--rv-soft:color-mix(in srgb,var(--tx) 6%,transparent);
+    --rv-soft2:color-mix(in srgb,var(--tx) 12%,transparent);
+    margin-top:20px;border-top:1px solid var(--rv-soft2);padding-top:16px}
+.rv-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
+.rv-head .ti{font-size:.9rem;font-weight:700}
+.rv-avg{display:flex;align-items:center;gap:6px;font-size:.78rem;font-weight:600}
+.rv-stars{color:#f5b301;letter-spacing:1px}
+.rv-item{background:var(--rv-soft);border-radius:13px;padding:10px 12px;margin-bottom:8px}
+.rv-item .who{display:flex;justify-content:space-between;gap:8px;font-size:.78rem;font-weight:700}
+.rv-item .who .dt{font-weight:500;opacity:.5;font-size:.7rem;flex:0 0 auto}
+.rv-item .msg{font-size:.8rem;line-height:1.45;margin-top:4px}
+.rv-empty{font-size:.78rem;opacity:.55;padding:6px 0 10px}
+.rv-toggle{width:100%;border:1px dashed var(--rv-soft2);background:none;color:var(--c1);border-radius:13px;
+  padding:11px;font-weight:600;font-size:.82rem;cursor:pointer;font-family:inherit;
+  display:flex;align-items:center;justify-content:center;gap:6px}
+.rv-form{background:var(--rv-soft);border-radius:14px;padding:13px;margin-top:10px;position:relative}
+.rv-form label{font-size:.7rem;font-weight:600;opacity:.7;display:block;margin-bottom:3px}
+.rv-form input,.rv-form textarea{width:100%;border:1px solid var(--rv-soft2);background:var(--bg);color:var(--tx);
+  border-radius:11px;padding:9px 11px;font-size:.83rem;font-family:inherit;margin-bottom:9px}
+.rv-form textarea{resize:vertical;min-height:70px}
+.rv-form .hp{position:absolute;left:-9999px}
+.rv-form .send{width:100%;border:0;border-radius:12px;padding:11px;background:var(--c1);color:#fff;
+  font-weight:700;font-size:.85rem;cursor:pointer;font-family:inherit}
+.rv-form .out{font-size:.75rem;margin-top:8px;min-height:1em}
+.rv-rate{display:flex;gap:5px;margin-bottom:10px}
+.rv-rate button{border:0;background:none;font-size:1.5rem;line-height:1;color:var(--rv-soft2);cursor:pointer;padding:0}
+.rv-rate button.on{color:#f5b301}
+.rv-note{font-size:.7rem;opacity:.6;margin-top:8px;display:flex;gap:5px;align-items:flex-start}
+</style>
+<script>
+(function () {
+  var RV_ON    = false;
+  var RV_D1    = 5, RV_D2 = 8;
+  var RV_RADIO = "DYNAMICRADIODUBAI";
+
+  function esc(v){ var d = document.createElement('div'); d.textContent = (v == null ? '' : v); return d.innerHTML; }
+// Les avis publiés arrivent de l'API ; le dépôt part en modération et n'est
+// donc jamais affiché immédiatement — le message le dit clairement.
+function starsHtml(n){ return '<span class="rv-stars">' + '★'.repeat(n) + '☆'.repeat(5 - n) + '</span>'; }
+
+function buildReviews(container, type, targetId, label){
+  if(!RV_ON || !container) return;
+  var box = document.createElement('div');
+  box.className = 'rv';
+  box.innerHTML = '<div class="rv-head"><div class="ti">Avis des auditeurs</div><div class="rv-avg" data-avg></div></div>'
+                + '<div data-list><div class="rv-empty">Chargement…</div></div>'
+                + '<button type="button" class="rv-toggle"><i class="bi bi-pencil-square"></i> Donner mon avis</button>'
+                + '<div data-form hidden></div>';
+  container.appendChild(box);
+
+  var list = box.querySelector('[data-list]'), avg = box.querySelector('[data-avg]');
+  var formSlot = box.querySelector('[data-form]'), toggle = box.querySelector('.rv-toggle');
+
+  function load(){
+    fetch('/api/player-public.php?radio=' + encodeURIComponent(RV_RADIO)
+          + '&action=reviews&type=' + encodeURIComponent(type) + '&target=' + encodeURIComponent(targetId))
+      .then(function(r){ return r.json(); })
+      .then(function(d){
+        var rows = (d && d.reviews) || [];
+        avg.innerHTML = d && d.average ? starsHtml(Math.round(d.average)) + ' ' + d.average + '/5 · ' + rows.length + ' avis'
+                                       : (rows.length ? rows.length + ' avis' : '');
+        if(!rows.length){ list.innerHTML = '<div class="rv-empty">Aucun avis pour le moment. Soyez le premier !</div>'; return; }
+        list.innerHTML = rows.map(function(x){
+          return '<div class="rv-item"><div class="who">' + esc(x.author)
+               + '<span class="dt">' + esc(x.date) + '</span></div>'
+               + (x.rating ? '<div>' + starsHtml(x.rating) + '</div>' : '')
+               + '<div class="msg">' + esc(x.message) + '</div></div>';
+        }).join('');
+      })
+      .catch(function(){ list.innerHTML = '<div class="rv-empty">Avis indisponibles.</div>'; });
+  }
+  load();
+
+  toggle.addEventListener('click', function(){
+    if(!formSlot.hidden){ formSlot.hidden = true; return; }
+    if(!formSlot.innerHTML){
+      formSlot.innerHTML =
+        '<form class="rv-form">'
+        + '<label>Votre note</label>'
+        + '<div class="rv-rate">' + [1,2,3,4,5].map(function(i){
+            return '<button type="button" data-star="' + i + '" aria-label="' + i + ' sur 5">★</button>'; }).join('') + '</div>'
+        + '<label>Votre prénom</label><input type="text" data-name maxlength="60">'
+        + '<label>Votre avis</label><textarea data-msg maxlength="1000" placeholder="Ce que vous en avez pensé…"></textarea>'
+        + '<label>Anti-robot : combien font ' + RV_D1 + ' + ' + RV_D2 + ' ?</label>'
+        + '<input type="number" data-answer inputmode="numeric" style="max-width:120px">'
+        + '<input type="text" class="hp" data-hp tabindex="-1" autocomplete="off" aria-hidden="true">'
+        + '<button class="send" type="submit"><i class="bi bi-send me-1"></i> Envoyer mon avis</button>'
+        + '<div class="out" data-out></div>'
+        + '<div class="rv-note"><i class="bi bi-shield-check"></i><span>Votre avis sera publié après validation par la radio.</span></div>'
+        + '</form>';
+
+      var form = formSlot.querySelector('form'), rating = 0;
+      formSlot.querySelectorAll('[data-star]').forEach(function(b){
+        b.addEventListener('click', function(){
+          rating = parseInt(b.getAttribute('data-star'), 10);
+          formSlot.querySelectorAll('[data-star]').forEach(function(x){
+            x.classList.toggle('on', parseInt(x.getAttribute('data-star'), 10) <= rating);
+          });
+        });
+      });
+      form.addEventListener('submit', function(ev){
+        ev.preventDefault();
+        var out = form.querySelector('[data-out]');
+        if(form.querySelector('[data-hp]').value) return;              // honeypot
+        var name = form.querySelector('[data-name]').value.trim();
+        var msg  = form.querySelector('[data-msg]').value.trim();
+        if(name.length < 2 || msg.length < 5){
+          out.innerHTML = '<span style="color:#dc3545">Indiquez votre prénom et un avis d\'au moins 5 caractères.</span>'; return;
+        }
+        if(parseInt(form.querySelector('[data-answer]').value, 10) !== (RV_D1 + RV_D2)){
+          out.innerHTML = '<span style="color:#dc3545">Résultat du calcul incorrect.</span>'; return;
+        }
+        out.textContent = 'Envoi…';
+        fetch('/api/player-public.php?radio=' + encodeURIComponent(RV_RADIO) + '&action=review', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ type: type, target: targetId, label: label || '',
+                                 name: name, message: msg, rating: rating,
+                                 website: '', d1: RV_D1, d2: RV_D2,
+                                 answer: form.querySelector('[data-answer]').value })
+        }).then(function(r){ return r.json(); }).then(function(d){
+          if(d && d.success){
+            out.innerHTML = '<span style="color:#198754">Merci ! Votre avis sera publié après validation. ⭐</span>';
+            form.reset();
+            formSlot.querySelectorAll('[data-star]').forEach(function(x){ x.classList.remove('on'); });
+            rating = 0;
+          } else {
+            out.innerHTML = '<span style="color:#dc3545">' + esc((d && d.error) || "Échec de l'envoi") + '</span>';
+          }
+        }).catch(function(){ out.innerHTML = '<span style="color:#dc3545">Erreur réseau</span>'; });
+      });
+    }
+    formSlot.hidden = false;
+    formSlot.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+  });
+}
+
+  // API publique
+  window.vestaBuildReviews = buildReviews;
+
+  // Montage déclaratif : utilisé par le Site Radio, où le contenu est rechargé
+  // en PJAX (le widget doit donc pouvoir être remonté à chaque navigation).
+  window.vestaMountReviews = function (root) {
+    if (!RV_ON) return;
+    (root || document).querySelectorAll('[data-reviews]:not([data-rv-built])').forEach(function (el) {
+      el.setAttribute('data-rv-built', '1');
+      buildReviews(el, el.getAttribute('data-rv-type') || 'article',
+                   el.getAttribute('data-rv-target') || '', el.getAttribute('data-rv-label') || '');
+    });
+  };
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function () { window.vestaMountReviews(); });
+  } else {
+    window.vestaMountReviews();
+  }
+})();
+</script>
+
+</body>
+</html>

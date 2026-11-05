@@ -1,0 +1,2482 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <!-- Google AdSense (chargé via adsense.js — compatible Turbo) -->
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GKS751LLWF"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-GKS751LLWF');
+    </script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/@hotwired/turbo@7.3.0/dist/turbo.es2017-umd.js" defer></script>
+    <!-- PATCH : Corriger les attributs SVG invalides (width/height avec calc()) avant clonage Turbo -->
+    <script>
+    (function() {
+        // ── PATCH : Intercepter les attributs SVG invalides à la source ──
+        // Google AdSense injecte des SVG avec width="calc(12px - 2px)" ou width=""
+        // Ces valeurs sont invalides et causent des erreurs console.
+        // En patchant setAttribute/setAttributeNS, on filtre avant que l'erreur
+        // ne soit déclenchée par le navigateur.
+        var SVG_ATTRS = ['width', 'height'];
+        var SVG_CALC_RE = /^calc\(/i;
+        var SVG_EMPTY_RE = /^\s*$/;
+
+        function isInvalidSvgValue(attr, value) {
+            if (SVG_ATTRS.indexOf(attr) === -1) return false;
+            if (value === null || value === undefined) return false;
+            var s = String(value).trim();
+            return SVG_CALC_RE.test(s) || SVG_EMPTY_RE.test(s);
+        }
+
+        // Patcher setAttribute sur SVGElement.prototype
+        var origSetAttr = SVGElement.prototype.setAttribute;
+        if (origSetAttr) {
+            SVGElement.prototype.setAttribute = function(attr, value) {
+                if (isInvalidSvgValue(attr, value)) {
+                    return; // Ignorer silencieusement
+                }
+                return origSetAttr.call(this, attr, value);
+            };
+        }
+
+        // Patcher setAttributeNS sur SVGElement.prototype
+        var origSetAttrNS = SVGElement.prototype.setAttributeNS;
+        if (origSetAttrNS) {
+            SVGElement.prototype.setAttributeNS = function(ns, attr, value) {
+                // Extraire le nom local (ex: "width" depuis "http://www.w3.org/1999/xlink:width")
+                var localName = attr;
+                if (typeof attr === 'string' && attr.indexOf(':') !== -1) {
+                    localName = attr.split(':').pop();
+                }
+                if (isInvalidSvgValue(localName, value)) {
+                    return; // Ignorer silencieusement
+                }
+                return origSetAttrNS.call(this, ns, attr, value);
+            };
+        }
+
+        // Filet de sécurité : MutationObserver pour nettoyer les SVG
+        // déjà présents ou modifiés par d'autres moyens (ex: innerHTML)
+        function cleanSvgAttributes(svg) {
+            for (var i = 0; i < SVG_ATTRS.length; i++) {
+                var attr = SVG_ATTRS[i];
+                var val = svg.getAttribute(attr);
+                if (val !== null) {
+                    var trimmed = val.trim();
+                    if (SVG_CALC_RE.test(trimmed) || SVG_EMPTY_RE.test(trimmed)) {
+                        svg.removeAttribute(attr);
+                    }
+                }
+            }
+        }
+
+        function cleanAllSvgs(root) {
+            if (!root || root.nodeType !== 1) return;
+            if (root.tagName === 'svg') {
+                cleanSvgAttributes(root);
+            }
+            var svgs = root.querySelectorAll('svg');
+            for (var i = 0; i < svgs.length; i++) {
+                cleanSvgAttributes(svgs[i]);
+            }
+        }
+
+        var observer = new MutationObserver(function(mutations) {
+            for (var i = 0; i < mutations.length; i++) {
+                var addedNodes = mutations[i].addedNodes;
+                for (var j = 0; j < addedNodes.length; j++) {
+                    cleanAllSvgs(addedNodes[j]);
+                }
+                var target = mutations[i].target;
+                if (target && target.tagName === 'svg') {
+                    cleanSvgAttributes(target);
+                }
+            }
+        });
+
+        observer.observe(document.documentElement, {
+            childList: true,
+            subtree: true,
+            attributes: true,
+            attributeFilter: ['width', 'height']
+        });
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', function() {
+                cleanAllSvgs(document.body);
+            });
+        } else {
+            cleanAllSvgs(document.body);
+        }
+
+        document.addEventListener('turbo:load', function() {
+            cleanAllSvgs(document.body);
+        });
+        document.addEventListener('turbo:render', function() {
+            cleanAllSvgs(document.body);
+        });
+    })();
+    </script>
+    <script>
+    // ── Filtre des erreurs cross-origin iframe (AdSense / DoubleClick) ──
+    // Les iframes publicitaires (doubleclick.net) tentent d'accéder à
+    // window.parent pour se redimensionner, ce qui déclenche des erreurs
+    // "Blocked a frame with origin ... from accessing a frame with origin ..."
+    // Ces erreurs sont inoffensives et ne doivent pas polluer la console.
+    //
+    // Trois mécanismes de capture :
+    // 1. window.onerror  → attrape les erreurs non catchées
+    // 2. unhandledrejection → attrape les promesses rejetées
+    // 3. console.error patched → attrape les erreurs loggées depuis l'intérieur
+    //    des iframes ou depuis des try/catch internes à skeleton.js
+    (function() {
+        // ── Filtre des erreurs cross-origin iframe (AdSense / DoubleClick) ──
+        // Les iframes publicitaires (doubleclick.net) tentent d'accéder à
+        // window.parent pour se redimensionner, ce qui déclenche des erreurs
+        // "Blocked a frame with origin ... from accessing a frame with origin ..."
+        // Ces erreurs sont inoffensives et ne doivent pas polluer la console.
+        //
+        // Quatre mécanismes de capture :
+        // 1. window.onerror  → attrape les erreurs non catchées
+        // 2. unhandledrejection → attrape les promesses rejetées
+        // 3. console.error patched → attrape les erreurs loggées depuis l'intérieur
+        //    des iframes ou depuis des try/catch internes
+        // 4. Filtre par filename → attrape les erreurs dont le message est vide
+        //    mais qui proviennent de domaines publicitaires (doubleclick.net, googleads)
+        var CROSS_ORIGIN_PATTERNS = [
+            'Blocked a frame with origin',
+            'Blocked a frame',
+            'cross-origin',
+            'Permission denied',
+            'Failed to read a named property',
+            'Blocked a frame with origin'
+        ];
+        var SVG_ERROR_PATTERNS = [
+            'Invalid value for <svg> attribute',
+            'Invalid value for <svg>',
+            'Invalid value for attribute'
+        ];
+        var IGNORED_DOMAINS = [
+            'doubleclick.net',
+            'googleads',
+            'googlesyndication',
+            'adsystem',
+            'adservice'
+        ];
+
+        function isCrossOriginError(msg) {
+            if (!msg || typeof msg !== 'string') return false;
+            for (var i = 0; i < CROSS_ORIGIN_PATTERNS.length; i++) {
+                if (msg.indexOf(CROSS_ORIGIN_PATTERNS[i]) !== -1) return true;
+            }
+            return false;
+        }
+
+        function isSvgError(msg) {
+            if (!msg || typeof msg !== 'string') return false;
+            for (var i = 0; i < SVG_ERROR_PATTERNS.length; i++) {
+                if (msg.indexOf(SVG_ERROR_PATTERNS[i]) !== -1) return true;
+            }
+            return false;
+        }
+
+        function isIgnoredDomain(filename) {
+            if (!filename || typeof filename !== 'string') return false;
+            for (var i = 0; i < IGNORED_DOMAINS.length; i++) {
+                if (filename.indexOf(IGNORED_DOMAINS[i]) !== -1) return true;
+            }
+            return false;
+        }
+
+        // 1. window.onerror — capture les erreurs JS + ressources (404, timeout, etc.)
+        window.addEventListener('error', function(e) {
+            var msg = e.message || (e.error && e.error.message) || '';
+            var filename = e.filename || '';
+
+            // Filtrer par message ou filename
+            if (isCrossOriginError(msg) || isSvgError(msg) || isIgnoredDomain(filename)) {
+                e.preventDefault();
+                e.stopPropagation();
+                return true;
+            }
+
+            // Filtrer les erreurs de ressources (img, script, iframe) 404
+            // provenant de domaines publicitaires
+            var target = e.target;
+            if (target) {
+                var src = target.src || target.href || target.data || '';
+                if (isIgnoredDomain(src)) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    return true;
+                }
+            }
+        }, true);
+
+        // 2. unhandledrejection
+        window.addEventListener('unhandledrejection', function(e) {
+            var msg = '';
+            if (e.reason) {
+                msg = e.reason.message || (typeof e.reason === 'string' ? e.reason : '');
+            }
+            if (isCrossOriginError(msg) || isSvgError(msg)) {
+                e.preventDefault();
+            }
+        });
+
+        // 3. Patch console.error pour filtrer les erreurs loggées depuis
+        //    l'intérieur des iframes ou des try/catch internes
+        var origConsoleError = console.error;
+        console.error = function() {
+            var args = Array.prototype.slice.call(arguments);
+            for (var i = 0; i < args.length; i++) {
+                var arg = args[i];
+                var str = (typeof arg === 'string') ? arg : (arg && arg.message) ? arg.message : String(arg);
+                if (isCrossOriginError(str) || isSvgError(str)) {
+                    return; // silencieux
+                }
+            }
+            return origConsoleError.apply(console, args);
+        };
+
+        // 4. Patch console.warn pour les avertissements AdSense résiduels
+        var origConsoleWarn = console.warn;
+        console.warn = function() {
+            var args = Array.prototype.slice.call(arguments);
+            for (var i = 0; i < args.length; i++) {
+                var arg = args[i];
+                var str = (typeof arg === 'string') ? arg : (arg && arg.message) ? arg.message : String(arg);
+                if (isCrossOriginError(str) || isSvgError(str)) {
+                    return; // silencieux
+                }
+            }
+            return origConsoleWarn.apply(console, args);
+        };
+
+        // 5. Patch console.log pour capturer les messages résiduels
+        //    que certains navigateurs émettent via console.log pour
+        //    les erreurs cross-origin d'iframes
+        var origConsoleLog = console.log;
+        console.log = function() {
+            var args = Array.prototype.slice.call(arguments);
+            for (var i = 0; i < args.length; i++) {
+                var arg = args[i];
+                var str = (typeof arg === 'string') ? arg : (arg && arg.message) ? arg.message : String(arg);
+                if (isCrossOriginError(str) || isSvgError(str)) {
+                    return; // silencieux
+                }
+            }
+            return origConsoleLog.apply(console, args);
+        };
+
+    })();
+
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ACCUEIL – EnjoyStation Digital</title>
+    <!-- Balises supplémentaires SEO Position Zéro -->
+    <meta name="description" content="Webradio gratuite EnjoyStation : écoutez la radio en ligne sans pub. Hits, nouveautés musicales, dédicaces et votez pour vos titres préférés. Radio digitale 24h/7j depuis la France.">
+    <meta name="keywords" content="webradio, radio en ligne, radio digitale, webradio gratuite, radio sans pub, musique streaming, hits, playlist, écouter radio, France, EnjoyStation">
+    <meta name="author" content="EnjoyStation – Julien Baudry">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <!-- Balises Google Discover / Google News -->
+    <meta name="googlebot-news" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta property="article:published_time" content="">
+    <meta property="article:modified_time" content="">
+    <meta property="article:author" content="EnjoyStation">
+    <meta property="article:section" content="Actualités Musicales">
+    <meta property="article:tag" content="K-pop, J-pop">
+    <meta name="news_keywords" content="K-pop, J-pop, EnjoyStation, actualité musicale">
+    <meta name="standout" content="">
+    <meta name="copyright" content="EnjoyStation 2026">
+    <meta name="theme-color" content="#e6002d">
+    <link rel="canonical" href="http://www.enjoystation.fr/">
+    <!-- Balises hreflang multilingues pour le SEO -->
+    <link rel="alternate" hreflang="fr" href="http://www.enjoystation.fr/?lang=fr">
+    <link rel="alternate" hreflang="en" href="http://www.enjoystation.fr/?lang=en">
+    <link rel="alternate" hreflang="ko" href="http://www.enjoystation.fr/?lang=ko">
+    <link rel="alternate" hreflang="ja" href="http://www.enjoystation.fr/?lang=ja">
+    <link rel="alternate" hreflang="x-default" href="http://www.enjoystation.fr/">
+    <meta property="og:locale" content="fr_FR">
+    <meta property="og:locale:alternate" content="fr_FR">
+    <meta property="og:locale:alternate" content="en_US">
+    <meta property="og:locale:alternate" content="ko_KR">
+    <meta property="og:locale:alternate" content="ja_JP">
+    <link rel="icon" href="/static/img/fav.png" type="image/png">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="EnjoyStation – Webradio gratuite · Radio en ligne">
+    <meta property="og:description" content="Webradio gratuite EnjoyStation : écoutez la radio en ligne sans pub. Hits, nouveautés musicales, votez pour vos titres préférés.">
+    <meta property="og:url" content="http://www.enjoystation.fr/">
+    <meta property="og:site_name" content="EnjoyStation">
+    <meta property="og:image" content="https://www.enjoystation.fr/static/logo_og.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="EnjoyStation – Webradio gratuite · Radio en ligne">
+    <meta name="twitter:image" content="https://www.enjoystation.fr/static/logo_og.png">
+    <meta name="twitter:site" content="@enjoystation">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "RadioStation",
+        "name": "EnjoyStation",
+        "url": "https://www.enjoystation.fr/",
+        "description": "EnjoyStation, webradio gratuite et radio digitale : écoutez vos hits préférés en direct, sans pub, 24h/7j. Musique en streaming, émissions live, dédicaces et actus.",
+        "logo": "https://www.enjoystation.fr/static/logo_site1.png",
+        "image": "https://www.enjoystation.fr/static/logo_site1.png",
+        "founder": {"@type": "Person", "name": "Julien Baudry"},
+        "address": {"@type": "PostalAddress", "addressCountry": "FR"},
+        "contactPoint": {"@type": "ContactPoint", "contactType": "customer support", "email": "gestion@enjoystation.fr", "telephone": "+33-4-XXXXXXXX"},
+        "sameAs": ["https://www.facebook.com/enjoystationoff", "https://www.instagram.com/enjoystation_off/"],
+        "broadcastFrequency": "Digital",
+        "broadcastSignalModulation": "Digital",
+        "areaServed": {"@type": "Country", "name": "France"},
+        "genre": "Hits · Pop · Musique actuelle",
+        "audience": {"@type": "Audience", "audienceType": "Musique"},
+        "language": ["fr", "en", "ko", "ja"],
+        "keywords": "webradio, radio digitale, musique en streaming, radio en ligne, hits, webradio gratuite, radio sans pub"
+    }
+    </script>
+    <!-- Generateur BreadcrumbList (surcouche JS – sera peuplé par chaque page) -->
+    <script id="breadcrumb-schema" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Accueil","item":"https://www.enjoystation.fr/"}]}</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/bootstrap-mini.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <!-- PWA -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="EnjoyStation">
+    <link rel="apple-touch-icon" href="/static/img/fav.png">
+    
+</head>
+<body>
+
+    <!-- SKIP TO CONTENT (accessibilité) -->
+    <a class="skip-link" href="#main-content">Aller au contenu principal</a>
+
+    <!-- ARIA live region : annonce dynamique du titre en cours -->
+    <div id="aria-live-player" aria-live="polite" aria-atomic="true" class="visually-hidden" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);"></div>
+
+    <!-- ===== TOPBAR RADIO ===== -->
+    <!-- data-turbo-permanent retiré : les icônes Font Awesome > SVG causent des erreurs de clonage -->
+    <div class="topbar" id="topbar">
+        <div class="topbar__left">
+            <span class="topbar__on-air"><span class="topbar__on-air-dot"></span>En direct : </span>
+            <span class="topbar__now" id="topbar-title">Chargement...</span>
+        </div>
+        <div class="topbar__right">
+            <span class="topbar__fm-badge"><i class="fa fa-broadcast-tower" aria-hidden="true"></i> Digital • Webradio</span>
+        </div>
+        <div class="topbar__social">
+            <a href="https://www.facebook.com/enjoystationoff" aria-label="Facebook" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/enjoystation_off/" aria-label="Instagram" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+            <a href="https://t.me/+Evv5mMP5oeFmYjhk" aria-label="Telegram" target="_blank" rel="noopener noreferrer"><i class="fab fa-telegram-plane"></i></a>
+            <!-- Sélecteur de langue -->
+            <div class="lang-selector" style="display:inline-block;position:relative;">
+                <button class="lang-selector__btn" id="lang-selector-btn" aria-label="Langue" title="Langue" style="background:transparent;border:1px solid var(--border);color:var(--grey);border-radius:4px;padding:2px 6px;font-size:.7rem;cursor:pointer;">
+                    <i class="fa fa-globe" aria-hidden="true"></i> FR
+                </button>
+                <ul class="lang-selector__dropdown" id="lang-selector-dropdown">
+                    
+                    <li><a href="/lang/fr" class="lang-selector__dropdown__link is-current">Français</a></li>
+                    
+                    <li><a href="/lang/en" class="lang-selector__dropdown__link">English</a></li>
+                    
+                    <li><a href="/lang/ko" class="lang-selector__dropdown__link">한국어</a></li>
+                    
+                    <li><a href="/lang/ja" class="lang-selector__dropdown__link">日本語</a></li>
+                    
+                </ul>
+            </div>
+            <button class="theme-toggle-btn" id="theme-toggle-btn" onclick="toggleTheme()" aria-label="Mode clair/Mode sombre" title="Mode clair/Mode sombre">
+                <i class="fa fa-moon" aria-hidden="true" id="theme-icon"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- ===== NAVIGATION PRINCIPALE ===== -->
+    <!-- data-turbo-permanent retiré : les icônes Font Awesome > SVG causent des erreurs de clonage -->
+    <nav class="main-nav" id="main-nav" aria-label="Navigation principale">
+        <div class="main-nav__inner">
+            <a class="main-nav__logo" href="/" aria-label="EnjoyStation — ACCUEIL">
+                <img class="main-nav__logo-img" src="/static/img/logo_site.png" alt="EnjoyStation" width="50" height="50">
+                <span class="main-nav__fm-label">Digital</span>
+            </a>
+            <button class="main-nav__burger" id="nav-burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="nav-links">
+                <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
+            </button>
+            <ul class="main-nav__links" id="nav-links" role="list">
+                <li class="nav-item">
+                    <a href="/" class="main-nav__link active" aria-current="page">ACCUEIL</a>
+                </li>
+                <li class="nav-item has-dropdown">
+                    <button class="main-nav__link nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">
+                        PROGRAMMATION <i class="fa fa-chevron-down nav-arrow" aria-hidden="true"></i>
+                    </button>
+                    <ul class="nav-dropdown" role="menu">
+                        <li role="none"><a href="/emissions" class="nav-dropdown__link " role="menuitem"><i class="fa fa-microphone me-2" aria-hidden="true"></i>Émissions</a></li>
+                        <li role="none"><a href="/player" class="nav-dropdown__link" role="menuitem"><i class="fa fa-mobile-screen me-2" aria-hidden="true"></i>App mobile</a></li>
+                        <li role="none"><a href="/historique" class="nav-dropdown__link " role="menuitem"><i class="fa fa-list-music me-2" aria-hidden="true"></i>Titres diffusés</a></li>
+                        <li role="none"><a href="/artistes" class="nav-dropdown__link " role="menuitem"><i class="fa fa-users me-2" aria-hidden="true"></i>Artistes</a></li>
+                        <li role="none"><a href="/a-propos" class="nav-dropdown__link" role="menuitem"><i class="fa fa-radio me-2" aria-hidden="true"></i>À propos</a></li>
+                        <li role="none"><a href="/widget" class="nav-dropdown__link" role="menuitem"><i class="fa fa-code me-2" aria-hidden="true"></i>Widget</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item has-dropdown">
+                    <button class="main-nav__link nav-dropdown-toggle " aria-haspopup="true" aria-expanded="false">
+                        ACTUALITÉS <i class="fa fa-chevron-down nav-arrow" aria-hidden="true"></i>
+                    </button>
+                    <ul class="nav-dropdown" role="menu">
+                        <li role="none"><a href="/actus" class="nav-dropdown__link" role="menuitem"><i class="fa fa-newspaper me-2" aria-hidden="true"></i>Actus musique</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item has-dropdown">
+                    <button class="main-nav__link nav-dropdown-toggle  " aria-haspopup="true" aria-expanded="false">
+                        COMMUNAUTÉ <i class="fa fa-chevron-down nav-arrow" aria-hidden="true"></i>
+                    </button>
+                    <ul class="nav-dropdown" role="menu">
+                        <li role="none"><a href="/dedicace" class="nav-dropdown__link" role="menuitem"><i class="fa fa-heart me-2" aria-hidden="true"></i>Dédicace</a></li>
+                        <li role="none"><a href="/request" class="nav-dropdown__link " role="menuitem"><i class="fa fa-music me-2" aria-hidden="true"></i>Demander un titre</a></li>
+                        <li role="none"><a href="/stats" class="nav-dropdown__link" role="menuitem"><i class="fa fa-thumbs-up me-2" aria-hidden="true"></i>Classement</a></li>
+                        <li role="none"><a href="/comment-voter" class="nav-dropdown__link" role="menuitem"><i class="fa fa-circle-question me-2" aria-hidden="true"></i>Comment voter ?</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="/contact" class="main-nav__link " aria-current="false">CONTACT</a>
+                </li>
+                <!-- Sélecteur de langue (mobile uniquement) -->
+                <li class="nav-item nav-item--theme-mobile" role="none" style="border-top:1px solid var(--border);padding-top:.5rem;margin-top:.5rem;">
+                    <span style="font-size:.7rem;color:var(--grey);padding:.25rem 1.25rem;display:block;">Langue</span>
+                    
+                    <a href="/lang/fr" class="main-nav__link current-lang" style="padding-left:1.25rem;">
+                        Français
+                    </a>
+                    
+                    <a href="/lang/en" class="main-nav__link" style="padding-left:1.25rem;">
+                        English
+                    </a>
+                    
+                    <a href="/lang/ko" class="main-nav__link" style="padding-left:1.25rem;">
+                        한국어
+                    </a>
+                    
+                    <a href="/lang/ja" class="main-nav__link" style="padding-left:1.25rem;">
+                        日本語
+                    </a>
+                    
+                </li>
+                <!-- Thème clair/sombre (mobile uniquement) -->
+                <li class="nav-item nav-item--theme-mobile" role="none">
+                    <button class="main-nav__link nav-theme-mobile-btn" onclick="toggleTheme()" aria-label="Mode clair/Mode sombre">
+                        <i class="fa fa-moon" id="theme-icon-mobile" aria-hidden="true"></i>
+                        <span id="theme-label-mobile">Mode clair</span>
+                    </button>
+                </li>
+            </ul>
+            <a class="main-nav__cta" href="#" onclick="toggleRadio(); return false;" aria-label="ÉCOUTER">
+                <i class="fa fa-play" aria-hidden="true"></i> ÉCOUTER
+            </a>
+        </div>
+    </nav>
+
+    <!-- ===== CONTENU ===== -->
+    <main class="site-main" id="main-content" tabindex="-1">
+        
+
+<!-- ===== HERO ===== -->
+<section class="index-hero" aria-label="EnjoyStation – Webradio gratuite · Radio en ligne | Hits &amp; Nouveautés">
+    <div class="index-hero__bg"></div>
+    <div class="index-hero__overlay"></div>
+    <div class="index-hero__content">
+        <div class="index-hero__eyebrow fade-in-up">
+            <span class="index-hero__eyebrow-dot" aria-hidden="true"></span>
+            EN DIRECT 24h/7j • SANS PUB
+        </div>
+        <img src="static/img/logo_site1.png" alt="EnjoyStation – Webradio gratuite et radio digitale" class="index-hero__logo fade-in-up fade-in-up--d1" loading="eager">
+        <h1 class="index-hero__title fade-in-up fade-in-up--d2">EnjoyStation – <span style="color:var(--red);">Digital</span> - Global Asian Pop Radio</h1>
+        <p class="index-hero__sub fade-in-up fade-in-up--d3">La radio digitale qui fait battre le rythme de toute la France.<br>Hits du moment, nouveautés exclusives, émissions live. &lt;strong&gt;100% gratuit.&lt;/strong&gt;</p>
+        <div class="index-hero__actions fade-in-up fade-in-up--d4">
+            <a class="index-hero__btn index-hero__btn--primary" href="#" onclick="toggleRadio(); return false;" aria-label="ÉCOUTER EN DIRECT">
+                <i class="fa fa-play" aria-hidden="true"></i> ÉCOUTER EN DIRECT
+            </a>
+            <a class="index-hero__btn index-hero__btn--outline" href="/historique">
+                <i class="fa fa-music" aria-hidden="true"></i> PROGRAMMATION
+            </a>
+        </div>
+        <div class="index-hero__stats fade-in-up fade-in-up--d5" role="list">
+            <div class="index-hero__stat" role="listitem">
+                <span class="index-hero__stat-value">24/7</span>
+                <span class="index-hero__stat-label">Sans interruption</span>
+            </div>
+            <div class="index-hero__stat" role="listitem">
+                <span class="index-hero__stat-value">100%</span>
+                <span class="index-hero__stat-label">Gratuit</span>
+            </div>
+            <div class="index-hero__stat" role="listitem">
+                <span class="index-hero__stat-value">SANS</span>
+                <span class="index-hero__stat-label">Publicité</span>
+            </div>
+            <div class="index-hero__stat" role="listitem">
+                <span class="index-hero__stat-value">FR</span>
+                <span class="index-hero__stat-label">Écoute partout en France</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="page-wrapper">
+
+    <!-- PUBLICITÉ -->
+    <div class="index-ad">
+        <ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-4362590165156241" data-ad-slot="9334049712"></ins>
+    </div>
+
+    <!-- ===== ACTUALITÉS ===== -->
+    <section class="index-section" aria-label="ACTUALITÉS MUSIQUE">
+        <div class="index-section__header">
+            <h2 class="index-section__title"><i class="fa fa-bolt" aria-hidden="true"></i>ACTUALITÉS MUSIQUE</h2>
+            <a href="/actus" class="index-section__link">TOUTES LES ACTUS</a>
+        </div>
+        <div class="index-news">
+            
+            
+            
+            <a href="/actus/onlyoneof-depasse-la-concurrence-son-dernier-clip-bat-son-propre-record-de-streaming" class="index-news__card index-news__card--featured" aria-label="OnlyOneOf dépasse la concurrence, son dernier clip bat son propre record de streaming !">
+                
+                <div class="index-news__img-wrap">
+                    <img src="/static/news_img/jp_kpop_996c38361813.webp" alt="OnlyOneOf dépasse la concurrence, son dernier clip bat son propre record de streaming !" loading="eager" width="640" height="360">
+                    <span class="index-news__category" aria-hidden="true">À LA UNE</span>
+                </div>
+                
+                <div class="index-news__body">
+                    <h2 class="index-news__title">OnlyOneOf dépasse la concurrence, son dernier clip bat son propre record de streaming !</h2>
+                    <p class="index-news__excerpt">OnlyOneOf explose les records de streaming avec son dernier clip !</p>
+                </div>
+                <div class="index-news__footer">
+                    <div class="index-news__meta">
+                        <span class="index-news__author">Julien Baudry</span>
+                        <span class="index-news__date"><i class="fa fa-calendar-alt" aria-hidden="true"></i>17/08/2026</span>
+                    </div>
+                    <span class="index-news__read" aria-hidden="true">LIRE LA SUITE › <i class="fa fa-arrow-right" aria-hidden="true"></i></span>
+                </div>
+            </a>
+            
+            
+            
+            <a href="/actus/itzy-ecrit-lhistoire-avec-une-collaboration-de-reve-qui-secoue-les-charts" class="index-news__card" aria-label="ITZY écrit l&#39;histoire avec une collaboration de rêve qui secoue les charts !">
+                
+                <div class="index-news__img-wrap">
+                    <img src="/static/news_img/jp_kpop_3a0adf20e5ab.webp" alt="ITZY écrit l&#39;histoire avec une collaboration de rêve qui secoue les charts !" loading="lazy" width="320" height="180">
+                    <span class="index-news__category" aria-hidden="true">ACTU</span>
+                </div>
+                
+                <div class="index-news__body">
+                    <h3 class="index-news__title">ITZY écrit l&#39;histoire avec une collaboration de rêve qui secoue les charts !</h3>
+                    <p class="index-news__excerpt">ITZY secoue les charts avec une collaboration explosive !</p>
+                </div>
+                <div class="index-news__footer">
+                    <div class="index-news__meta">
+                        <span class="index-news__author">Julien Baudry</span>
+                        <span class="index-news__date"><i class="fa fa-calendar-alt" aria-hidden="true"></i>17/08/2026</span>
+                    </div>
+                    <span class="index-news__read" aria-hidden="true">LIRE › <i class="fa fa-arrow-right" aria-hidden="true"></i></span>
+                </div>
+            </a>
+            
+            
+            
+            <a href="/actus/evnne-lance-lassaut-lartiste-phenomene-annonce-une-tournee-asiatique-historique" class="index-news__card" aria-label="EVNNE lance l&#39;assaut : l&#39;artiste phénomène annonce une tournée asiatique historique !">
+                
+                <div class="index-news__img-wrap">
+                    <img src="/static/news_img/jp_kpop_371bed970300.webp" alt="EVNNE lance l&#39;assaut : l&#39;artiste phénomène annonce une tournée asiatique historique !" loading="lazy" width="320" height="180">
+                    <span class="index-news__category" aria-hidden="true">ACTU</span>
+                </div>
+                
+                <div class="index-news__body">
+                    <h3 class="index-news__title">EVNNE lance l&#39;assaut : l&#39;artiste phénomène annonce une tournée asiatique historique !</h3>
+                    <p class="index-news__excerpt">EVNNE lance une tournée asiatique historique !</p>
+                </div>
+                <div class="index-news__footer">
+                    <div class="index-news__meta">
+                        <span class="index-news__author">Julien Baudry</span>
+                        <span class="index-news__date"><i class="fa fa-calendar-alt" aria-hidden="true"></i>17/08/2026</span>
+                    </div>
+                    <span class="index-news__read" aria-hidden="true">LIRE › <i class="fa fa-arrow-right" aria-hidden="true"></i></span>
+                </div>
+            </a>
+            
+            
+            
+            <a href="/actus/hyuna-impose-son-style-un-single-evenement-avec-psy" class="index-news__card" aria-label="Hyuna impose son style : un single événement avec PSY !">
+                
+                <div class="index-news__img-wrap">
+                    <img src="/static/news_img/jp_kpop_c549147bfc9a.webp" alt="Hyuna impose son style : un single événement avec PSY !" loading="lazy" width="320" height="180">
+                    <span class="index-news__category" aria-hidden="true">ACTU</span>
+                </div>
+                
+                <div class="index-news__body">
+                    <h3 class="index-news__title">Hyuna impose son style : un single événement avec PSY !</h3>
+                    <p class="index-news__excerpt">Hyuna dévoile son single événement avec PSY !</p>
+                </div>
+                <div class="index-news__footer">
+                    <div class="index-news__meta">
+                        <span class="index-news__author">Julien Baudry</span>
+                        <span class="index-news__date"><i class="fa fa-calendar-alt" aria-hidden="true"></i>17/08/2026</span>
+                    </div>
+                    <span class="index-news__read" aria-hidden="true">LIRE › <i class="fa fa-arrow-right" aria-hidden="true"></i></span>
+                </div>
+            </a>
+            
+            
+            
+            <a href="/actus/k-pop-le-groupe-kiss-of-life-bouscule-la-toile-en-devoilant-un-teaser-mysterieux" class="index-news__card" aria-label="K-Pop : le groupe KISS OF LIFE bouscule la toile en dévoilant un teaser mystérieux !">
+                
+                <div class="index-news__img-wrap">
+                    <img src="/static/news_img/jp_kpop_1349bfdf35c6.webp" alt="K-Pop : le groupe KISS OF LIFE bouscule la toile en dévoilant un teaser mystérieux !" loading="lazy" width="320" height="180">
+                    <span class="index-news__category" aria-hidden="true">ACTU</span>
+                </div>
+                
+                <div class="index-news__body">
+                    <h3 class="index-news__title">K-Pop : le groupe KISS OF LIFE bouscule la toile en dévoilant un teaser mystérieux !</h3>
+                    <p class="index-news__excerpt">Découvrez le dernier teaser de KISS OF LIFE, qui secoue la scène K-pop !</p>
+                </div>
+                <div class="index-news__footer">
+                    <div class="index-news__meta">
+                        <span class="index-news__author">Julien Baudry</span>
+                        <span class="index-news__date"><i class="fa fa-calendar-alt" aria-hidden="true"></i>17/08/2026</span>
+                    </div>
+                    <span class="index-news__read" aria-hidden="true">LIRE › <i class="fa fa-arrow-right" aria-hidden="true"></i></span>
+                </div>
+            </a>
+            
+            
+            
+            <a href="/actus/jimin-concretise-son-regne-avec-une-tournee-asiatique-monumentale" class="index-news__card" aria-label="Jimin concrétise son règne avec une tournée asiatique monumentale !">
+                
+                <div class="index-news__img-wrap">
+                    <img src="/static/news_img/jp_kpop_cb207f293c80.webp" alt="Jimin concrétise son règne avec une tournée asiatique monumentale !" loading="lazy" width="320" height="180">
+                    <span class="index-news__category" aria-hidden="true">ACTU</span>
+                </div>
+                
+                <div class="index-news__body">
+                    <h3 class="index-news__title">Jimin concrétise son règne avec une tournée asiatique monumentale !</h3>
+                    <p class="index-news__excerpt">Jimin annonce une tournée asiatique explosive !</p>
+                </div>
+                <div class="index-news__footer">
+                    <div class="index-news__meta">
+                        <span class="index-news__author">Julien Baudry</span>
+                        <span class="index-news__date"><i class="fa fa-calendar-alt" aria-hidden="true"></i>17/08/2026</span>
+                    </div>
+                    <span class="index-news__read" aria-hidden="true">LIRE › <i class="fa fa-arrow-right" aria-hidden="true"></i></span>
+                </div>
+            </a>
+            
+            
+            
+            <a href="/actus/le-sserafim-affirme-sa-domination-surprend-avec-un-concept-inedit" class="index-news__card" aria-label="LE SSERAFIM affirme sa domination, surprend avec un concept inédit !">
+                
+                <div class="index-news__img-wrap">
+                    <img src="/static/news_img/jp_kpop_61eede4ee750.webp" alt="LE SSERAFIM affirme sa domination, surprend avec un concept inédit !" loading="lazy" width="320" height="180">
+                    <span class="index-news__category" aria-hidden="true">ACTU</span>
+                </div>
+                
+                <div class="index-news__body">
+                    <h3 class="index-news__title">LE SSERAFIM affirme sa domination, surprend avec un concept inédit !</h3>
+                    <p class="index-news__excerpt">Découvrez comment LE SSERAFIM éblouit le monde du K-pop !</p>
+                </div>
+                <div class="index-news__footer">
+                    <div class="index-news__meta">
+                        <span class="index-news__author">Julien Baudry</span>
+                        <span class="index-news__date"><i class="fa fa-calendar-alt" aria-hidden="true"></i>17/08/2026</span>
+                    </div>
+                    <span class="index-news__read" aria-hidden="true">LIRE › <i class="fa fa-arrow-right" aria-hidden="true"></i></span>
+                </div>
+            </a>
+            
+            
+            
+        </div>
+    </section>
+
+    <hr class="index-divider">
+
+    <!-- ===== INTERAGIR ===== -->
+    <section class="index-section" aria-label="INTERAGIR">
+        <div class="index-section__header">
+            <h2 class="index-section__title"><i class="fa fa-people-arrows" aria-hidden="true"></i>INTERAGIR</h2>
+        </div>
+        <div class="index-features">
+
+            <a href="/dedicace" class="index-feature">
+                <div class="index-feature__header">
+                    <span class="index-feature__icon"><i class="fa fa-microphone" aria-hidden="true"></i></span>
+                    <div>
+                        <div class="index-feature__name">Envoyer une dédicace</div>
+                        <div class="index-feature__sub">Votre message à l&#39;antenne</div>
+                    </div>
+                </div>
+                <p class="index-feature__text">Envoyez une dédicace à vos proches et elle sera lue en direct sur EnjoyStation !</p>
+                <span class="index-feature__cta">ENVOYER UNE DÉDICACE → <i class="fa fa-arrow-right" aria-hidden="true"></i></span>
+            </a>
+
+            <div class="index-feature" id="hero-vote-box">
+                <div class="index-feature__header">
+                    <span class="index-feature__icon index-feature__icon--vote"><i class="fa fa-star" aria-hidden="true"></i></span>
+                    <div>
+                        <div class="index-feature__name">Voter pour ce titre</div>
+                        <div class="index-feature__sub" id="vote-card-title">Chargement…</div>
+                    </div>
+                </div>
+                <p class="index-feature__text">Vous aimez le titre diffusé en ce moment ? Donnez votre avis !</p>
+                <div class="index-feature__votes">
+                    <button id="vote-up-hero" class="index-vote-btn" onclick="castVote('up')" aria-label="J&#39;aime">
+                        <i class="fa fa-thumbs-up" aria-hidden="true"></i> J&#39;aime <span id="hero-vote-up-count" class="index-vote-btn__count"></span>
+                    </button>
+                    <button id="vote-dn-hero" class="index-vote-btn" onclick="castVote('down')" aria-label="Pas fan">
+                        <i class="fa fa-thumbs-down" aria-hidden="true"></i> Pas fan <span id="hero-vote-dn-count" class="index-vote-btn__count"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PUBLICITÉ -->
+    <div class="index-ad">
+        <ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-4362590165156241" data-ad-slot="9334049712"></ins>
+    </div>
+
+    <!-- ===== DERNIERS TITRES ===== -->
+    <section class="index-section" aria-label="PROGRAMMATION EN COURS">
+        <div class="index-section__header">
+            <h2 class="index-section__title"><i class="fa fa-music" aria-hidden="true"></i>PROGRAMMATION EN COURS</h2>
+            <a href="/historique" class="index-section__link">VOIR PLUS</a>
+        </div>
+        <ul class="index-tracklist" id="tracklist-recent" aria-label="Derniers titres diffusés">
+            
+            <li class="index-tracklist__item">
+                <span class="index-tracklist__num" aria-hidden="true">1</span>
+                
+                
+                <a href="/artiste/Che%27Nelle" class="index-tracklist__cover-link" aria-label="Voir tous les titres de Che&#39;Nelle">
+                    <img class="index-tracklist__cover"
+                         src="/cover/たいせつなもの - Che&#39;Nelle.jpg"
+                         alt="Pochette de Che&#39;Nelle - たいせつなもの"
+                         loading="lazy" width="44" height="44">
+                </a>
+                
+                <div class="index-tracklist__info">
+                    
+                    <div class="index-tracklist__title"><a href="/artiste/Che%27Nelle">たいせつなもの</a></div>
+                    <div class="index-tracklist__artist"><a href="/artiste/Che%27Nelle">Che&#39;Nelle</a></div>
+                    
+                </div>
+                
+                <span class="index-tracklist__live" aria-label="EN DIRECT">
+                    <span class="index-tracklist__live-dot" aria-hidden="true"></span>EN DIRECT
+                </span>
+                
+                <div class="index-tracklist__vote" data-title="Che&#39;Nelle - たいせつなもの">
+                    <button class="index-tracklist__vote-btn vote-up-btn" onclick="castVote('up',this)" title="J'aime" aria-label="J'aime ce titre">
+                        <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                    </button>
+                    <button class="index-tracklist__vote-btn vote-dn-btn" onclick="castVote('down',this)" title="Pas fan" aria-label="Voter contre ce titre">
+                        <i class="fa fa-thumbs-down" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </li>
+            
+            <li class="index-tracklist__item">
+                <span class="index-tracklist__num" aria-hidden="true">2</span>
+                
+                
+                <a href="/artiste/TAEYANG" class="index-tracklist__cover-link" aria-label="Voir tous les titres de TAEYANG">
+                    <img class="index-tracklist__cover"
+                         src="/cover/TAEYANG - LIVE FAST DIE SLOW.jpg"
+                         alt="Pochette de TAEYANG - LIVE FAST DIE SLOW"
+                         loading="lazy" width="44" height="44">
+                </a>
+                
+                <div class="index-tracklist__info">
+                    
+                    <div class="index-tracklist__title"><a href="/artiste/TAEYANG">LIVE FAST DIE SLOW</a></div>
+                    <div class="index-tracklist__artist"><a href="/artiste/TAEYANG">TAEYANG</a></div>
+                    
+                </div>
+                
+                <span class="index-tracklist__time">14:19</span>
+                
+                <div class="index-tracklist__vote" data-title="TAEYANG - LIVE FAST DIE SLOW">
+                    <button class="index-tracklist__vote-btn vote-up-btn" onclick="castVote('up',this)" title="J'aime" aria-label="J'aime ce titre">
+                        <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                    </button>
+                    <button class="index-tracklist__vote-btn vote-dn-btn" onclick="castVote('down',this)" title="Pas fan" aria-label="Voter contre ce titre">
+                        <i class="fa fa-thumbs-down" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </li>
+            
+            <li class="index-tracklist__item">
+                <span class="index-tracklist__num" aria-hidden="true">3</span>
+                
+                
+                <a href="/artiste/Balming%20Tiger" class="index-tracklist__cover-link" aria-label="Voir tous les titres de Balming Tiger">
+                    <img class="index-tracklist__cover"
+                         src="/cover/Balming Tiger - KEEP ON.jpg"
+                         alt="Pochette de Balming Tiger - KEEP ON"
+                         loading="lazy" width="44" height="44">
+                </a>
+                
+                <div class="index-tracklist__info">
+                    
+                    <div class="index-tracklist__title"><a href="/artiste/Balming%20Tiger">KEEP ON</a></div>
+                    <div class="index-tracklist__artist"><a href="/artiste/Balming%20Tiger">Balming Tiger</a></div>
+                    
+                </div>
+                
+                <span class="index-tracklist__time">14:15</span>
+                
+                <div class="index-tracklist__vote" data-title="Balming Tiger - KEEP ON">
+                    <button class="index-tracklist__vote-btn vote-up-btn" onclick="castVote('up',this)" title="J'aime" aria-label="J'aime ce titre">
+                        <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                    </button>
+                    <button class="index-tracklist__vote-btn vote-dn-btn" onclick="castVote('down',this)" title="Pas fan" aria-label="Voter contre ce titre">
+                        <i class="fa fa-thumbs-down" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </li>
+            
+            <li class="index-tracklist__item">
+                <span class="index-tracklist__num" aria-hidden="true">4</span>
+                
+                
+                <a href="/artiste/HYOLYN" class="index-tracklist__cover-link" aria-label="Voir tous les titres de HYOLYN">
+                    <img class="index-tracklist__cover"
+                         src="/cover/ChecK - HYOLYN.jpg"
+                         alt="Pochette de HYOLYN - ChecK"
+                         loading="lazy" width="44" height="44">
+                </a>
+                
+                <div class="index-tracklist__info">
+                    
+                    <div class="index-tracklist__title"><a href="/artiste/HYOLYN">ChecK</a></div>
+                    <div class="index-tracklist__artist"><a href="/artiste/HYOLYN">HYOLYN</a></div>
+                    
+                </div>
+                
+                <span class="index-tracklist__time">14:10</span>
+                
+                <div class="index-tracklist__vote" data-title="HYOLYN - ChecK">
+                    <button class="index-tracklist__vote-btn vote-up-btn" onclick="castVote('up',this)" title="J'aime" aria-label="J'aime ce titre">
+                        <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                    </button>
+                    <button class="index-tracklist__vote-btn vote-dn-btn" onclick="castVote('down',this)" title="Pas fan" aria-label="Voter contre ce titre">
+                        <i class="fa fa-thumbs-down" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </li>
+            
+            <li class="index-tracklist__item">
+                <span class="index-tracklist__num" aria-hidden="true">5</span>
+                
+                
+                <a href="/artiste/sajou%20no%20hana" class="index-tracklist__cover-link" aria-label="Voir tous les titres de sajou no hana">
+                    <img class="index-tracklist__cover"
+                         src="/cover/Eternel - sajou no hana.jpg"
+                         alt="Pochette de sajou no hana - Eternel"
+                         loading="lazy" width="44" height="44">
+                </a>
+                
+                <div class="index-tracklist__info">
+                    
+                    <div class="index-tracklist__title"><a href="/artiste/sajou%20no%20hana">Eternel</a></div>
+                    <div class="index-tracklist__artist"><a href="/artiste/sajou%20no%20hana">sajou no hana</a></div>
+                    
+                </div>
+                
+                <span class="index-tracklist__time">14:08</span>
+                
+                <div class="index-tracklist__vote" data-title="sajou no hana - Eternel">
+                    <button class="index-tracklist__vote-btn vote-up-btn" onclick="castVote('up',this)" title="J'aime" aria-label="J'aime ce titre">
+                        <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                    </button>
+                    <button class="index-tracklist__vote-btn vote-dn-btn" onclick="castVote('down',this)" title="Pas fan" aria-label="Voter contre ce titre">
+                        <i class="fa fa-thumbs-down" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </li>
+            
+            <li class="index-tracklist__item">
+                <span class="index-tracklist__num" aria-hidden="true">6</span>
+                
+                
+                <a href="/artiste/%E9%BE%8D%E5%AE%AE%E5%9F%8E" class="index-tracklist__cover-link" aria-label="Voir tous les titres de 龍宮城">
+                    <img class="index-tracklist__cover"
+                         src="/cover/MOTTO - 龍宮城.jpg"
+                         alt="Pochette de 龍宮城 - MOTTO"
+                         loading="lazy" width="44" height="44">
+                </a>
+                
+                <div class="index-tracklist__info">
+                    
+                    <div class="index-tracklist__title"><a href="/artiste/%E9%BE%8D%E5%AE%AE%E5%9F%8E">MOTTO</a></div>
+                    <div class="index-tracklist__artist"><a href="/artiste/%E9%BE%8D%E5%AE%AE%E5%9F%8E">龍宮城</a></div>
+                    
+                </div>
+                
+                <span class="index-tracklist__time">14:06</span>
+                
+                <div class="index-tracklist__vote" data-title="龍宮城 - MOTTO">
+                    <button class="index-tracklist__vote-btn vote-up-btn" onclick="castVote('up',this)" title="J'aime" aria-label="J'aime ce titre">
+                        <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                    </button>
+                    <button class="index-tracklist__vote-btn vote-dn-btn" onclick="castVote('down',this)" title="Pas fan" aria-label="Voter contre ce titre">
+                        <i class="fa fa-thumbs-down" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </li>
+            
+            <li class="index-tracklist__item">
+                <span class="index-tracklist__num" aria-hidden="true">7</span>
+                
+                
+                <a href="/artiste/LUN8" class="index-tracklist__cover-link" aria-label="Voir tous les titres de LUN8">
+                    <img class="index-tracklist__cover"
+                         src="/cover/SNEAKERS - LUN8.jpg"
+                         alt="Pochette de LUN8 - SNEAKERS"
+                         loading="lazy" width="44" height="44">
+                </a>
+                
+                <div class="index-tracklist__info">
+                    
+                    <div class="index-tracklist__title"><a href="/artiste/LUN8">SNEAKERS</a></div>
+                    <div class="index-tracklist__artist"><a href="/artiste/LUN8">LUN8</a></div>
+                    
+                </div>
+                
+                <span class="index-tracklist__time">14:04</span>
+                
+                <div class="index-tracklist__vote" data-title="LUN8 - SNEAKERS">
+                    <button class="index-tracklist__vote-btn vote-up-btn" onclick="castVote('up',this)" title="J'aime" aria-label="J'aime ce titre">
+                        <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                    </button>
+                    <button class="index-tracklist__vote-btn vote-dn-btn" onclick="castVote('down',this)" title="Pas fan" aria-label="Voter contre ce titre">
+                        <i class="fa fa-thumbs-down" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </li>
+            
+            <li class="index-tracklist__item">
+                <span class="index-tracklist__num" aria-hidden="true">8</span>
+                
+                
+                <a href="/artiste/Heart%20to%20Heart" class="index-tracklist__cover-link" aria-label="Voir tous les titres de Heart to Heart">
+                    <img class="index-tracklist__cover"
+                         src="/cover/Heart to Heart - Part 2 - EXILE ATSUSHI.jpg"
+                         alt="Pochette de Heart to Heart - Part 2 - EXILE ATSUSHI"
+                         loading="lazy" width="44" height="44">
+                </a>
+                
+                <div class="index-tracklist__info">
+                    
+                    <div class="index-tracklist__title"><a href="/artiste/Heart%20to%20Heart">Part 2</a></div>
+                    <div class="index-tracklist__artist"><a href="/artiste/Heart%20to%20Heart">Heart to Heart</a></div>
+                    
+                </div>
+                
+                <span class="index-tracklist__time">13:44</span>
+                
+                <div class="index-tracklist__vote" data-title="Heart to Heart - Part 2 - EXILE ATSUSHI">
+                    <button class="index-tracklist__vote-btn vote-up-btn" onclick="castVote('up',this)" title="J'aime" aria-label="J'aime ce titre">
+                        <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                    </button>
+                    <button class="index-tracklist__vote-btn vote-dn-btn" onclick="castVote('down',this)" title="Pas fan" aria-label="Voter contre ce titre">
+                        <i class="fa fa-thumbs-down" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </li>
+            
+        </ul>
+    </section>
+
+    <hr class="index-divider">
+
+    <!-- ===== NOUVEAUTÉS + TOP VOTES ===== -->
+    <div class="index-side-grid">
+
+        <div class="index-side-card">
+            <div class="index-side-card__header">
+                <i class="fa fa-plus-circle" aria-hidden="true"></i> DERNIÈRES NOUVEAUTÉS
+            </div>
+            
+            
+            
+            <a href="/artiste/Heart%20to%20Heart" class="index-side-card__row" aria-label="Voir tous les titres de Heart to Heart">
+                <img src="/cover/Heart to Heart - Part 2 - EXILE ATSUSHI.jpg"
+                     alt="" width="32" height="32" class="index-side-card__thumb">
+                <span class="index-side-card__row-title">
+                    
+                    <span class="index-side-card__track">Part 2</span>
+                    <span class="index-side-card__artist">Heart to Heart</span>
+                    
+                </span>
+                <span class="index-side-card__badge"><i class="fa fa-star" aria-hidden="true"></i> NOUVEAU</span>
+            </a>
+            
+            
+            <a href="/artiste/EXILE%20TRIBE" class="index-side-card__row" aria-label="Voir tous les titres de EXILE TRIBE">
+                <img src="/cover/DYSTOPIAN PARADISE - THE RAMPAGE from EXILE TRIBE, FANTASTICS from EXILE TRIBE, B.jpg"
+                     alt="" width="32" height="32" class="index-side-card__thumb">
+                <span class="index-side-card__row-title">
+                    
+                    <span class="index-side-card__track">DYSTOPIAN PARADISE (feat. FANTASTICS)</span>
+                    <span class="index-side-card__artist">EXILE TRIBE</span>
+                    
+                </span>
+                <span class="index-side-card__badge"><i class="fa fa-star" aria-hidden="true"></i> NOUVEAU</span>
+            </a>
+            
+            
+            <a href="/artiste/AKASAKI" class="index-side-card__row" aria-label="Voir tous les titres de AKASAKI">
+                <img src="/cover/トンチンカン - AKASAKI.jpg"
+                     alt="" width="32" height="32" class="index-side-card__thumb">
+                <span class="index-side-card__row-title">
+                    
+                    <span class="index-side-card__track">トンチンカン</span>
+                    <span class="index-side-card__artist">AKASAKI</span>
+                    
+                </span>
+                <span class="index-side-card__badge"><i class="fa fa-star" aria-hidden="true"></i> NOUVEAU</span>
+            </a>
+            
+            
+            <a href="/artiste/IO" class="index-side-card__row" aria-label="Voir tous les titres de IO">
+                <img src="/cover/Calling Back (feat. Tete) - IO, Tete.jpg"
+                     alt="" width="32" height="32" class="index-side-card__thumb">
+                <span class="index-side-card__row-title">
+                    
+                    <span class="index-side-card__track">Calling Back (feat. Tete)</span>
+                    <span class="index-side-card__artist">IO</span>
+                    
+                </span>
+                <span class="index-side-card__badge"><i class="fa fa-star" aria-hidden="true"></i> NOUVEAU</span>
+            </a>
+            
+            
+            <a href="/artiste/YUTA" class="index-side-card__row" aria-label="Voir tous les titres de YUTA">
+                <img src="/cover/Dreams Never Sleep - 映画『仮面ライダーゼッツ さよならのミッション』主題歌 - YUTA.jpg"
+                     alt="" width="32" height="32" class="index-side-card__thumb">
+                <span class="index-side-card__row-title">
+                    
+                    <span class="index-side-card__track">Dreams Never Sleep</span>
+                    <span class="index-side-card__artist">YUTA</span>
+                    
+                </span>
+                <span class="index-side-card__badge"><i class="fa fa-star" aria-hidden="true"></i> NOUVEAU</span>
+            </a>
+            
+            
+        </div>
+
+        <div class="index-side-card">
+            <div class="index-side-card__header">
+                <i class="fa fa-thumbs-up" aria-hidden="true"></i> TOP 5 DES VOTES
+            </div>
+            
+            
+            
+            
+            
+            <a href="/artiste/ONE%20OR%20EIGHT" class="index-side-card__row index-side-card__row--vote" aria-label="ONE OR EIGHT - YANKEE SQUAT">
+                <span class="index-side-card__rank">#1</span>
+                <div class="index-side-card__vote-info">
+                    <div class="index-side-card__vote-title">YANKEE SQUAT</div>
+                    <div class="index-side-card__vote-artist">ONE OR EIGHT</div>
+                </div>
+                <span class="index-side-card__score"><i class="fa fa-heart" aria-hidden="true"></i>2</span>
+            </a>
+            
+            
+            
+            
+            <a href="/artiste/YUHZ" class="index-side-card__row index-side-card__row--vote" aria-label="YUHZ - Rush Rush">
+                <span class="index-side-card__rank">#2</span>
+                <div class="index-side-card__vote-info">
+                    <div class="index-side-card__vote-title">Rush Rush</div>
+                    <div class="index-side-card__vote-artist">YUHZ</div>
+                </div>
+                <span class="index-side-card__score"><i class="fa fa-heart" aria-hidden="true"></i>2</span>
+            </a>
+            
+            
+            
+            
+            <a href="/artiste/NewJeans" class="index-side-card__row index-side-card__row--vote" aria-label="NewJeans - Super Shy">
+                <span class="index-side-card__rank">#3</span>
+                <div class="index-side-card__vote-info">
+                    <div class="index-side-card__vote-title">Super Shy</div>
+                    <div class="index-side-card__vote-artist">NewJeans</div>
+                </div>
+                <span class="index-side-card__score"><i class="fa fa-heart" aria-hidden="true"></i>1</span>
+            </a>
+            
+            
+            
+            
+            <a href="/artiste/" class="index-side-card__row index-side-card__row--vote" aria-label="Official HIGE DANdism">
+                <span class="index-side-card__rank">#4</span>
+                <div class="index-side-card__vote-info">
+                    <div class="index-side-card__vote-title">Official HIGE DANdism</div>
+                    
+                </div>
+                <span class="index-side-card__score"><i class="fa fa-heart" aria-hidden="true"></i>1</span>
+            </a>
+            
+            
+            
+            
+            <a href="/artiste/IDID" class="index-side-card__row index-side-card__row--vote" aria-label="IDID - FLY!">
+                <span class="index-side-card__rank">#5</span>
+                <div class="index-side-card__vote-info">
+                    <div class="index-side-card__vote-title">FLY!</div>
+                    <div class="index-side-card__vote-artist">IDID</div>
+                </div>
+                <span class="index-side-card__score"><i class="fa fa-heart" aria-hidden="true"></i>1</span>
+            </a>
+            
+            
+            <div class="index-side-card__footer">
+                <a href="/comment-voter"><i class="fa fa-circle-question" aria-hidden="true"></i> Comment voter ?</a>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- PUBLICITÉ -->
+    <div class="index-ad">
+        <ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-4362590165156241" data-ad-slot="9334049712"></ins>
+    </div>
+
+    <!-- ===== SECTION PRÉSENTATION SEO ===== -->
+    <section class="index-seo" aria-label="Présentation d'EnjoyStation">
+        <div class="index-seo__inner">
+            <div class="index-seo__header">
+                <span class="index-seo__badge">Webradio gratuite</span>
+                <h2 class="index-seo__title">Écoutez <span class="index-seo__highlight">EnjoyStation</span> en direct</h2>
+                <p class="index-seo__lead">Votre webradio gratuite et radio digitale disponible <strong>24h/7j</strong></p>
+            </div>
+            <div class="index-seo__grid">
+                <div class="index-seo__content">
+                    <p><strong>EnjoyStation</strong> est votre <strong>webradio</strong> gratuite et <strong>radio digitale</strong> disponible 24h/7j. Écoutez en streaming vos <strong>hits</strong> préférés, découvrez les <strong>nouveautés musicales</strong> et profitez d'une <strong>radio en ligne sans publicité</strong>.</p>
+                    <p>Avec EnjoyStation, la <strong>webradio en direct</strong> vous accompagne partout : sur votre ordinateur, votre mobile ou via notre <strong>application PWA</strong>. Vous pouvez aussi <strong>demander un titre</strong>, <strong>envoyer une dédicace</strong> à vos proches, ou <strong>voter</strong> pour les morceaux que vous aimez.</p>
+                    <p><strong>Radio en ligne</strong>, <strong>webradio sans pub</strong>, <strong>radio digitale France</strong> – EnjoyStation, c'est la musique en continu, les émissions live avec Hyunsu, Vivienne et Rémy, et une communauté d'auditeurs passionnés.</p>
+                </div>
+                <div class="index-seo__features">
+                    <h3 class="index-seo__features-title">Pourquoi choisir EnjoyStation ?</h3>
+                    <ul class="index-seo__list">
+                        <li><span class="index-seo__check" aria-hidden="true">✓</span><div><strong>Webradio gratuite</strong><span class="index-seo__desc">100% sans abonnement, sans inscription</span></div></li>
+                        <li><span class="index-seo__check" aria-hidden="true">✓</span><div><strong>Radio en streaming</strong><span class="index-seo__desc">écoutez en direct depuis n'importe où</span></div></li>
+                        <li><span class="index-seo__check" aria-hidden="true">✓</span><div><strong>Webradio sans pub</strong><span class="index-seo__desc">une expérience musicale ininterrompue</span></div></li>
+                        <li><span class="index-seo__check" aria-hidden="true">✓</span><div><strong>Radio digitale</strong><span class="index-seo__desc">programmation variée (hits, pop, nouveautés)</span></div></li>
+                        <li><span class="index-seo__check" aria-hidden="true">✓</span><div><strong>Émissions live</strong><span class="index-seo__desc">Morning Enjoy, Enjoy Midi, Enjoy Show et Enjoy Soirée</span></div></li>
+                        <li><span class="index-seo__check" aria-hidden="true">✓</span><div><strong>Communauté</strong><span class="index-seo__desc">dédicaces, demandes de titres, votes et classements</span></div></li>
+                    </ul>
+                    <div class="index-seo__cta">
+                        <a href="#" onclick="toggleRadio(); return false;" class="index-seo__btn"><i class="fa fa-headphones" aria-hidden="true"></i> Écouter le direct →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MusicPlaylist Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "MusicPlaylist",
+        "name": "EnjoyStation – Programmation en cours",
+        "description": "Playlist en direct de la webradio EnjoyStation : hits, pop, nouveautés musicales.",
+        "numTracks": 200,
+        "url": "https://www.enjoystation.fr/",
+        "mainEntityOfPage": "https://www.enjoystation.fr/"
+    }
+    </script>
+</div>
+
+<style>
+/* ==========================================================
+   HERO
+   ========================================================== */
+.index-hero {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 420px;
+    overflow: hidden;
+    text-align: center;
+    padding: 3rem 1rem;
+}
+.index-hero__bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #1a0008 0%, #2d0a18 30%, #1a1a2e 70%, #0d0d1a 100%);
+    border-bottom: 1px solid var(--border);
+}
+.index-hero__overlay {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, rgba(212,63,122,0.08) 0%, transparent 70%);
+}
+.index-hero__content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+}
+.index-hero__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--red);
+    background: var(--red-light);
+    border: 1px solid rgba(212,63,122,0.3);
+    padding: 0.25rem 0.8rem;
+    border-radius: 100px;
+    margin-bottom: 1rem;
+}
+.index-hero__eyebrow-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--red);
+}
+.index-hero__logo {
+    height: 90px;
+    width: auto;
+    margin-bottom: 1rem;
+}
+.index-hero__title {
+    font-family: var(--font-heading);
+    font-size: clamp(1.4rem, 4vw, 2rem);
+    font-weight: 900;
+    color: var(--white);
+    margin: 0 0 0.75rem;
+    letter-spacing: -0.02em;
+}
+.index-hero__sub {
+    font-size: 0.92rem;
+    color: var(--grey);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+.index-hero__actions {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+}
+.index-hero__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    padding: 0.65rem 1.5rem;
+    border-radius: 100px;
+    text-decoration: none;
+    transition: opacity 0.2s, transform 0.2s;
+    cursor: pointer;
+}
+.index-hero__btn--primary {
+    background: var(--red);
+    color: #fff;
+    border: none;
+}
+.index-hero__btn--primary:hover { opacity: 0.9; transform: translateY(-2px); color: #fff; }
+.index-hero__btn--outline {
+    background: transparent;
+    color: var(--grey);
+    border: 1px solid var(--border);
+}
+.index-hero__btn--outline:hover { border-color: var(--red); color: var(--red); transform: translateY(-2px); }
+.index-hero__stats {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.index-hero__stat {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.15rem;
+    padding: 0.4rem 0.85rem;
+    border-radius: 10px;
+    background: rgba(0,0,0,0.3);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.06);
+}
+.index-hero__stat-value {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 900;
+    color: var(--white);
+}
+.index-hero__stat-label {
+    font-size: 0.6rem;
+    color: var(--grey);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+@media (max-width: 600px) {
+    .index-hero { min-height: 320px; padding: 2rem 1rem; }
+    .index-hero__logo { height: 70px; }
+}
+
+/* ==========================================================
+   SECTIONS
+   ========================================================== */
+.index-section {
+    margin-bottom: 1.5rem;
+}
+.index-section__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--border);
+}
+.index-section__title {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    font-weight: 900;
+    color: var(--white);
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+.index-section__title i { color: var(--red); font-size: 0.85rem; }
+.index-section__link {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--grey);
+    text-decoration: none;
+    transition: color 0.2s;
+    white-space: nowrap;
+}
+.index-section__link:hover { color: var(--red); }
+.index-divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 1.5rem 0;
+}
+.index-ad {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+}
+
+/* ==========================================================
+   NEWS
+   ========================================================== */
+.index-news {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.25rem;
+}
+.index-news__card {
+    background: var(--dark2);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: border-color 0.2s, transform 0.2s;
+    text-decoration: none;
+    color: inherit;
+}
+.index-news__card:hover {
+    border-color: var(--red);
+    transform: translateY(-2px);
+    color: inherit;
+}
+.index-news__card--featured {
+    grid-column: 1 / -1;
+}
+.index-news__img-wrap {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 16/9;
+    background: var(--dark3);
+}
+.index-news__img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s;
+}
+.index-news__card:hover .index-news__img-wrap img { transform: scale(1.04); }
+.index-news__img-wrap--placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.index-news__img-wrap--placeholder i { font-size: 2rem; color: var(--border); }
+.index-news__category {
+    position: absolute;
+    top: 0.6rem;
+    left: 0.6rem;
+    background: var(--red);
+    color: #fff;
+    font-size: 0.6rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 0.2rem 0.5rem;
+    border-radius: 6px;
+}
+.index-news__body { padding: 1rem 1.1rem; flex: 1; display: flex; flex-direction: column; }
+.index-news__title {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 800;
+    line-height: 1.3;
+    margin-bottom: 0.4rem;
+    color: var(--white);
+    transition: color 0.2s;
+}
+.index-news__card:hover .index-news__title { color: var(--red); }
+.index-news__excerpt {
+    font-size: 0.8rem;
+    color: var(--grey);
+    line-height: 1.5;
+    flex: 1;
+    margin-bottom: 0.6rem;
+}
+.index-news__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding: 0.75rem 1.1rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.68rem;
+    color: var(--grey);
+}
+.index-news__meta { display: flex; flex-direction: column; gap: 0.15rem; min-width: 0; }
+.index-news__author { font-weight: 600; color: var(--grey-light); }
+.index-news__date { display: inline-flex; align-items: center; gap: 0.25rem; font-size: 0.65rem; }
+.index-news__date i { font-size: 0.6rem; }
+.index-news__read { color: var(--red); font-weight: 700; letter-spacing: 0.5px; font-size: 0.7rem; white-space: nowrap; display: inline-flex; align-items: center; gap: 0.3rem; }
+.index-news__read i { font-size: 0.55rem; transition: transform 0.2s; }
+.index-news__card:hover .index-news__read i { transform: translateX(3px); }
+.index-news__empty {
+    grid-column: 1 / -1;
+    padding: 2rem;
+    text-align: center;
+    color: var(--grey);
+    font-size: 0.85rem;
+}
+
+/* ==========================================================
+   FEATURES
+   ========================================================== */
+.index-features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+}
+.index-feature {
+    background: var(--dark2);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.1rem 1.25rem;
+    transition: border-color 0.2s;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+}
+.index-feature:hover { border-color: var(--red); color: inherit; }
+.index-feature__header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.6rem;
+}
+.index-feature__icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: var(--red-light);
+    color: var(--red);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+.index-feature__icon--vote { background: rgba(255,215,0,0.12); color: #f59e0b; }
+.index-feature__name {
+    font-weight: 800;
+    font-size: 0.9rem;
+    color: var(--white);
+}
+.index-feature__sub {
+    font-size: 0.72rem;
+    color: var(--grey);
+    margin-top: 0.05rem;
+}
+.index-feature__text {
+    font-size: 0.8rem;
+    color: var(--grey);
+    line-height: 1.6;
+    margin: 0 0 0.75rem;
+    flex: 1;
+}
+.index-feature__cta {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--red);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    transition: gap 0.2s;
+}
+.index-feature:hover .index-feature__cta { gap: 0.5rem; }
+.index-feature__votes {
+    display: flex;
+    gap: 0.5rem;
+}
+.index-vote-btn {
+    flex: 1;
+    background: var(--dark3);
+    border: 1px solid var(--border);
+    color: var(--grey);
+    border-radius: 8px;
+    padding: 0.45rem 0.7rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+    transition: all 0.15s;
+    font-family: var(--font-body);
+}
+.index-vote-btn:hover { border-color: var(--red); color: var(--red); }
+.index-vote-btn__count { opacity: 0.7; font-size: 0.7rem; }
+#hero-vote-box[data-voted="up"]   #vote-up-hero { background: rgba(230,57,70,0.15); border-color: var(--red); color: var(--red); }
+#hero-vote-box[data-voted="down"] #vote-dn-hero { background: rgba(120,120,140,0.12); border-color: #555; color: #666; }
+
+/* ==========================================================
+   TRACKLIST
+   ========================================================== */
+.index-tracklist {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+.index-tracklist__item {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    background: var(--dark2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.55rem 0.85rem;
+    transition: border-color 0.2s;
+}
+.index-tracklist__item:hover { border-color: var(--red); }
+.index-tracklist__num { min-width: 1.5rem; text-align: center; font-size: 0.7rem; font-weight: 700; color: var(--grey); flex-shrink: 0; }
+.index-tracklist__cover { width: 44px; height: 44px; border-radius: 6px; object-fit: cover; flex-shrink: 0; background: var(--dark3); }
+.index-tracklist__cover-link { display: flex; flex-shrink: 0; border-radius: 6px; transition: opacity 0.2s; }
+.index-tracklist__cover-link:hover { opacity: 0.8; }
+.index-tracklist__info { flex: 1; min-width: 0; }
+.index-tracklist__title { font-size: 0.85rem; font-weight: 600; color: var(--white); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.index-tracklist__title a { color: inherit; text-decoration: none; transition: color 0.2s; }
+.index-tracklist__title a:hover { color: var(--red); }
+.index-tracklist__artist { font-size: 0.7rem; color: var(--grey); }
+.index-tracklist__artist a { color: inherit; text-decoration: none; transition: color 0.2s; }
+.index-tracklist__artist a:hover { color: var(--red); }
+.index-tracklist__live { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.65rem; font-weight: 700; color: #4caf50; text-transform: uppercase; letter-spacing: 0.5px; flex-shrink: 0; }
+.index-tracklist__live-dot { width: 6px; height: 6px; border-radius: 50%; background: #4caf50; animation: pulse-green 1.4s infinite; }
+@keyframes pulse-green { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.4); } }
+.index-tracklist__time { font-size: 0.68rem; color: var(--grey); flex-shrink: 0; }
+.index-tracklist__vote { display: flex; gap: 0.2rem; align-items: center; flex-shrink: 0; }
+.index-tracklist__vote-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--grey);
+    border-radius: 6px;
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.65rem;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+.index-tracklist__vote-btn:hover { border-color: var(--red); color: var(--red); }
+.index-tracklist__vote[data-voted="up"]   .vote-up-btn { background: rgba(230,57,70,0.15); border-color: var(--red); color: var(--red); }
+.index-tracklist__vote[data-voted="down"] .vote-dn-btn { background: rgba(120,120,140,0.12); border-color: #555; color: #666; }
+.index-tracklist__empty { padding: 1rem; color: var(--grey); font-size: 0.85rem; text-align: center; }
+
+/* ==========================================================
+   SIDE GRID (nouveautés + top votes)
+   ========================================================== */
+.index-side-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+}
+.index-side-card {
+    background: var(--dark2);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+}
+.index-side-card__header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.85rem 1.1rem;
+    border-bottom: 1px solid var(--border);
+    font-weight: 800;
+    font-size: 0.85rem;
+    color: var(--white);
+}
+.index-side-card__header i { color: var(--red); font-size: 0.8rem; }
+.index-side-card__row {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.6rem 1.1rem;
+    border-bottom: 1px solid var(--border);
+    text-decoration: none;
+    color: inherit;
+    transition: background 0.15s;
+}
+.index-side-card__row:last-child { border-bottom: none; }
+.index-side-card__row:hover { background: var(--dark3); border-color: var(--red); }
+.index-side-card__thumb { width: 32px; height: 32px; border-radius: 4px; object-fit: cover; flex-shrink: 0; }
+.index-side-card__row-title { flex: 1; min-width: 0; }
+.index-side-card__track { display: block; font-weight: 700; font-size: 0.82rem; color: var(--white); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.index-side-card__artist { display: block; font-size: 0.68rem; color: var(--grey); }
+.index-side-card__badge { font-size: 0.6rem; font-weight: 700; background: var(--dark3); border: 1px solid var(--border); border-radius: 6px; padding: 0.1rem 0.4rem; color: var(--grey); white-space: nowrap; flex-shrink: 0; }
+.index-side-card__badge i { color: var(--red); margin-right: 0.15rem; }
+.index-side-card__rank { min-width: 1.5rem; text-align: center; font-size: 0.7rem; font-weight: 800; color: var(--grey); flex-shrink: 0; }
+.index-side-card__vote-info { flex: 1; min-width: 0; }
+.index-side-card__vote-title { font-size: 0.82rem; font-weight: 700; color: var(--white); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.index-side-card__vote-artist { font-size: 0.68rem; color: var(--grey); }
+.index-side-card__score { font-size: 0.72rem; font-weight: 700; color: #4caf50; background: rgba(76,175,80,0.1); border: 1px solid rgba(76,175,80,0.2); padding: 0.15rem 0.5rem; border-radius: 6px; flex-shrink: 0; display: inline-flex; align-items: center; gap: 0.2rem; }
+.index-side-card__score i { font-size: 0.6rem; }
+.index-side-card__empty { padding: 1.5rem 1.1rem; text-align: center; color: var(--grey); font-size: 0.82rem; line-height: 1.6; }
+.index-side-card__link { color: var(--red); font-weight: 700; text-decoration: underline; font-size: 0.8rem; }
+.index-side-card__footer { padding: 0.5rem 1.1rem; border-top: 1px solid var(--border); text-align: center; }
+.index-side-card__footer a { font-size: 0.7rem; color: var(--grey); text-decoration: none; display: inline-flex; align-items: center; gap: 0.3rem; transition: color 0.2s; }
+.index-side-card__footer a:hover { color: var(--red); }
+
+/* ==========================================================
+   SEO SECTION
+   ========================================================== */
+.index-seo {
+    background: var(--dark2);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+}
+.index-seo__inner { padding: 2rem; }
+.index-seo__header { text-align: center; margin-bottom: 1.5rem; }
+.index-seo__badge { display: inline-flex; background: var(--red-light); border: 1px solid rgba(212,63,122,0.3); color: var(--red); font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; padding: 0.25rem 0.8rem; border-radius: 100px; margin-bottom: 0.75rem; }
+.index-seo__title { font-family: var(--font-heading); font-size: 1.3rem; font-weight: 900; color: var(--white); margin: 0 0 0.3rem; }
+.index-seo__highlight { color: var(--red); }
+.index-seo__lead { font-size: 0.88rem; color: var(--grey); margin: 0; }
+.index-seo__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.index-seo__content { color: var(--grey); line-height: 1.8; font-size: 0.85rem; }
+.index-seo__content p { margin-bottom: 0.75rem; }
+.index-seo__content strong { color: var(--white); }
+.index-seo__features-title { font-family: var(--font-heading); font-size: 0.95rem; font-weight: 800; color: var(--white); margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--red); display: inline-block; }
+.index-seo__list { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; margin-bottom: 1.5rem; }
+.index-seo__list li { display: flex; align-items: flex-start; gap: 0.6rem; font-size: 0.82rem; line-height: 1.4; }
+.index-seo__list li strong { display: block; color: var(--white); font-weight: 700; font-size: 0.85rem; }
+.index-seo__check { display: flex; align-items: center; justify-content: center; width: 22px; height: 22px; border-radius: 50%; background: rgba(212,63,122,0.15); color: var(--red); font-size: 0.65rem; font-weight: 800; flex-shrink: 0; margin-top: 2px; }
+.index-seo__desc { display: block; color: var(--grey); font-size: 0.75rem; }
+.index-seo__cta { text-align: center; margin-top: 0.5rem; }
+.index-seo__btn { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--red); color: #fff; font-weight: 700; font-size: 0.85rem; padding: 0.65rem 1.5rem; border-radius: 100px; border: none; cursor: pointer; transition: opacity 0.2s, transform 0.2s; text-decoration: none; }
+.index-seo__btn:hover { opacity: 0.9; transform: translateY(-2px); color: #fff; }
+[data-theme="light"] .index-seo__list li strong { color: #111; }
+[data-theme="light"] .index-seo__desc { color: #666; }
+
+@media (max-width: 768px) {
+    .index-seo__grid { grid-template-columns: 1fr; }
+    .index-seo__inner { padding: 1.25rem; }
+}
+
+/* ==========================================================
+   ANIMATIONS
+   ========================================================== */
+.fade-in-up { animation: fadeInUp 0.6s ease-out both; }
+.fade-in-up--d1 { animation-delay: 0.1s; }
+.fade-in-up--d2 { animation-delay: 0.2s; }
+.fade-in-up--d3 { animation-delay: 0.3s; }
+.fade-in-up--d4 { animation-delay: 0.4s; }
+.fade-in-up--d5 { animation-delay: 0.5s; }
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ==========================================================
+   LIGHT THEME
+   ========================================================== */
+[data-theme="light"] .index-section__title { color: #111; }
+[data-theme="light"] .index-feature { background: #fff; border-color: #e0e0e0; }
+[data-theme="light"] .index-feature__name { color: #111; }
+[data-theme="light"] .index-tracklist__item { background: #fff; border-color: #e0e0e0; }
+[data-theme="light"] .index-tracklist__title { color: #111; }
+[data-theme="light"] .index-tracklist__title a { color: #111; }
+[data-theme="light"] .index-side-card { background: #fff; border-color: #e0e0e0; }
+[data-theme="light"] .index-side-card__header { color: #111; }
+[data-theme="light"] .index-side-card__track { color: #111; }
+[data-theme="light"] .index-side-card__row:hover { background: #f9f9f9; }
+[data-theme="light"] .index-seo { background: #fff; border-color: #e0e0e0; }
+[data-theme="light"] .index-news__card { background: #fff; border-color: #e0e0e0; }
+</style>
+
+<script>
+var _currentVoteTitle = '';
+
+function castVote(action, el) {
+    var title = _currentVoteTitle;
+    var container = null;
+    if (el && el.closest) {
+        container = el.closest('.index-tracklist__vote');
+        if (container && container.dataset.title) title = container.dataset.title;
+    }
+    if (!title) return;
+    var key = 'voted__' + title;
+    if (sessionStorage.getItem(key)) return;
+    sessionStorage.setItem(key, action);
+    if (container) {
+        container.setAttribute('data-voted', action);
+    } else {
+        var heroBox = document.getElementById('hero-vote-box');
+        if (heroBox) heroBox.setAttribute('data-voted', action);
+    }
+    fetch('/api/vote', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({action: action, title: title})
+    })
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+        if (title === _currentVoteTitle) {
+            var upEl = document.getElementById('hero-vote-up-count');
+            var dnEl = document.getElementById('hero-vote-dn-count');
+            if (upEl) upEl.textContent = d.up > 0 ? ' · ' + d.up : '';
+            if (dnEl) dnEl.textContent = d.down > 0 ? ' · ' + d.down : '';
+        }
+    })
+    .catch(function(){});
+}
+
+(function() {
+    var npTitle    = document.getElementById('np-title');
+    var npArtist   = document.getElementById('np-artist');
+    var statTracks = document.getElementById('stat-tracks');
+    var voteCardTitle = document.getElementById('vote-card-title');
+    var heroVoteBox   = document.getElementById('hero-vote-box');
+
+    function refreshNP() {
+        fetch('/current')
+            .then(function(r) { return r.json(); })
+            .then(function(data) {
+                if (npTitle)  npTitle.textContent  = data.current_title  || '';
+                if (npArtist) npArtist.textContent = data.current_artist || '';
+                var raw = (data.current_title || '').trim();
+                if (raw && raw !== _currentVoteTitle) {
+                    _currentVoteTitle = raw;
+                    if (voteCardTitle) {
+                        var parts = raw.split(' - ');
+                        voteCardTitle.textContent = parts.length > 1 ? parts[1] + ' — ' + parts[0] : raw;
+                    }
+                    if (heroVoteBox) heroVoteBox.removeAttribute('data-voted');
+                    var voted = sessionStorage.getItem('voted__' + raw);
+                    if (voted && heroVoteBox) heroVoteBox.setAttribute('data-voted', voted);
+                    var upEl = document.getElementById('hero-vote-up-count');
+                    var dnEl = document.getElementById('hero-vote-dn-count');
+                    if (upEl) upEl.textContent = '';
+                    if (dnEl) dnEl.textContent = '';
+                }
+            })
+            .catch(function() {});
+    }
+    function refreshStats() {
+        fetch('/api/stats')
+            .then(function(r) { return r.json(); })
+            .then(function(data) {
+                if (statTracks && data.track_count !== undefined)
+                    statTracks.textContent = data.track_count;
+            })
+            .catch(function() {});
+    }
+    function refreshLiveCount() {
+        fetch('/api/stream/active_listeners')
+            .then(function(r) { return r.json(); })
+            .then(function(data) {
+                var el = document.getElementById('live-count-number');
+                if (el && data.active_listeners !== undefined) {
+                    el.textContent = data.active_listeners > 0 ? data.active_listeners : '—';
+                }
+            })
+            .catch(function() {});
+    }
+    refreshNP();
+    refreshStats();
+    refreshLiveCount();
+    setInterval(refreshNP, 5000);
+    setInterval(refreshStats, 30000);
+    setInterval(refreshLiveCount, 15000);
+
+    var _lastFirstTitle = '';
+    function buildTrackItem(item, index) {
+        var isFirst = (index === 0);
+        var title = item.title || '';
+        var parts = title.indexOf(' - ') > -1 ? title.split(' - ') : null;
+        var trackTitle = parts ? parts.slice(1).join(' - ') : title;
+        var artist = parts ? parts[0] : '';
+        var cover = item.cover || 'https://cdn-icons-png.flaticon.com/512/727/727245.png';
+        var time = item.time || '';
+        if (time.indexOf(' ') > -1) time = time.split(' ')[1].slice(0, 5);
+        var voted = sessionStorage.getItem('voted__' + title);
+        var voteAttr = voted ? ' data-voted="' + voted + '"' : '';
+        var rightCol = isFirst
+            ? '<span class="index-tracklist__live" aria-label="En cours"><span class="index-tracklist__live-dot" aria-hidden="true"></span>EN DIRECT</span>'
+            : '<span class="index-tracklist__time">' + time + '</span>';
+        var artistEncoded = artist ? encodeURIComponent(artist) : '';
+        var artistLink = artist ? '/artiste/' + artistEncoded : '#';
+        var titleHtml = artist
+            ? '<div class="index-tracklist__title"><a href="' + artistLink + '">' + trackTitle + '</a></div>'
+            : '<div class="index-tracklist__title">' + trackTitle + '</div>';
+        var artistHtml = artist
+            ? '<div class="index-tracklist__artist"><a href="' + artistLink + '">' + artist + '</a></div>'
+            : '';
+        var coverHtml = artist
+            ? '<a href="' + artistLink + '" class="index-tracklist__cover-link" aria-label="Voir tous les titres de ' + artist + '"><img class="index-tracklist__cover" src="' + cover + '" alt="Pochette" loading="lazy" width="44" height="44"></a>'
+            : '<img class="index-tracklist__cover" src="' + cover + '" alt="Pochette" loading="lazy" width="44" height="44">';
+        return '<li class="index-tracklist__item">'
+            + '<span class="index-tracklist__num" aria-hidden="true">' + (index + 1) + '</span>'
+            + coverHtml
+            + '<div class="index-tracklist__info">'
+            + titleHtml
+            + artistHtml
+            + '</div>'
+            + rightCol
+            + '<div class="index-tracklist__vote"' + voteAttr + ' data-title="' + title.replace(/"/g, '"') + '">'
+            + '<button class="index-tracklist__vote-btn vote-up-btn" onclick="castVote(\'up\',this)" title="J\'aime" aria-label="J\'aime ce titre"><i class="fa fa-thumbs-up" aria-hidden="true"></i></button>'
+            + '<button class="index-tracklist__vote-btn vote-dn-btn" onclick="castVote(\'down\',this)" title="Pas fan" aria-label="Voter contre"><i class="fa fa-thumbs-down" aria-hidden="true"></i></button>'
+            + '</div>'
+            + '</li>';
+    }
+    function refreshTracks() {
+        fetch('/api/recent-tracks')
+            .then(function(r) { return r.json(); })
+            .then(function(tracks) {
+                if (!tracks || !tracks.length) return;
+                var firstTitle = tracks[0].title || '';
+                if (firstTitle === _lastFirstTitle) return;
+                _lastFirstTitle = firstTitle;
+                var ul = document.getElementById('tracklist-recent');
+                if (!ul) return;
+                var html = '';
+                for (var i = 0; i < tracks.length; i++) html += buildTrackItem(tracks[i], i);
+                ul.innerHTML = html;
+            })
+            .catch(function() {});
+    }
+    refreshTracks();
+    setInterval(refreshTracks, 10000);
+
+    document.querySelectorAll('.index-tracklist__vote').forEach(function(el) {
+        var t = el.dataset.title;
+        if (!t) return;
+        var voted = sessionStorage.getItem('voted__' + t);
+        if (voted) el.setAttribute('data-voted', voted);
+    });
+})();
+</script>
+
+    </main>
+
+    <!-- ===== FOOTER RADIO DIGITAL ===== -->
+    <footer class="site-footer" aria-label="CONTACT">
+        <div class="site-footer__inner">
+            <div class="site-footer__col">
+                <div class="site-footer__brand">
+                    <i class="fa fa-broadcast-tower" aria-hidden="true" style="color:var(--red);"></i>
+                    EnjoyStation <span class="site-footer__brand-fm">Digital</span>
+                </div>
+                <p class="site-footer__tagline">Votre radio digitale. Hits, nouveautés, live. Partout en France.</p>
+                <div class="site-footer__social">
+                    <a href="https://www.facebook.com/enjoystationoff" aria-label="EnjoyStation sur Facebook" rel="noopener noreferrer"><i class="fab fa-facebook-f" aria-hidden="true"></i></a>
+                    <a href="https://www.instagram.com/enjoystation_off/" aria-label="EnjoyStation sur Instagram" rel="noopener noreferrer"><i class="fab fa-instagram" aria-hidden="true"></i></a>
+                    <a href="https://t.me/+Evv5mMP5oeFmYjhk" aria-label="EnjoyStation sur Telegram" target="_blank" rel="noopener noreferrer"><i class="fab fa-telegram-plane" aria-hidden="true"></i></a>
+                </div>
+            </div>
+            <div class="site-footer__col">
+                <h4 class="site-footer__heading">ENJOY STATION</h4>
+                <ul>
+                    <li><a href="/contact">Contact</a></li>
+                    <li><a href="/historique">Programmation musicale</a></li>
+                    <li><a href="/actus">Actualités</a></li>
+                    <li><a href="/dedicace">Dédicaces</a></li>
+                    <li><a href="/request">Demander un titre</a></li>
+                    <li><a href="/emissions">Émissions</a></li>
+                    <li><a href="/player">App mobile</a></li>
+                </ul>
+            </div>
+            <div class="site-footer__col">
+                <h4 class="site-footer__heading">INFOS LÉGALES</h4>
+                <ul>
+                    <li><a href="/mentions-legales">Mentions légales</a></li>
+                    <li><a href="/politique-confidentialite">Confidentialité</a></li>
+                    <li><a href="/accessibilite">Accessibilité</a></li>
+                    <li><a href="/comment-voter">Comment voter ?</a></li>
+                    <li><a href="/a-propos">À propos</a></li>
+                    <li><a href="/widget">Widget</a></li>
+                    <li><a href="/status">État des services</a></li>
+                    
+                    <li><a href="/admin/login">Administration</a></li>
+                    
+                </ul>
+            </div>
+            <div class="site-footer__col">
+                <h4 class="site-footer__heading">CONTACT</h4>
+                <ul>
+                    <li><span itemscope itemtype="https://schema.org/Organization"><span itemprop="name">EnjoyStation</span></span></li>
+                    <li>SIREN&nbsp;: 914 836 200</li>
+                    <li><a href="mailto:gestion@enjoystation.fr">gestion@enjoystation.fr</a></li>
+                    <li><i class="fa fa-broadcast-tower" style="color:var(--red);margin-right:.3rem;" aria-hidden="true"></i> Digital • Webradio</li>
+                    <li>France, 2026</li>
+                </ul>
+            </div>
+        </div>
+        <div class="site-footer__bottom">
+            &copy; 2026 <strong>EnjoyStation Digital</strong> &mdash; Webradio &amp; diffusion numérique. Tous droits réservés.&nbsp;
+            <a href="/mentions-legales">Mentions légales</a> &mdash;
+            <a href="/politique-confidentialite">Cookies</a> &mdash;
+            <a href="/contact">Contact</a>
+        </div>
+    </footer>
+
+    <!-- ===== PLAYER STICKY BAS ===== -->
+    <!-- data-turbo-permanent retiré : les icônes Font Awesome > SVG causent des erreurs de clonage, et les pubs AdSense sont réinitialisées -->
+    <div id="sticky-player" class="player-bar" role="region" aria-label="Titre en cours...">
+        <div class="player-bar__inner">
+            <div class="player-bar__cover-wrap">
+                <img src="https://cdn-icons-png.flaticon.com/512/727/727245.png" alt="Pochette du titre en cours" class="player-bar__cover player-cover-img" width="46" height="46" loading="lazy" decoding="async">
+                <span class="player-bar__live-badge" aria-hidden="true">LIVE</span>
+            </div>
+            <div class="player-bar__info">
+                <span class="player-bar__station" aria-hidden="true">ENJOY STATION</span>
+                <span class="player-bar__title" id="current-title" aria-label="Titre en cours...">Titre en cours...</span>
+            </div>
+            <div class="player-vote" id="player-vote" aria-label="J&#39;aime ce titre">
+                <button class="vote-btn" id="btn-vote-up" onclick="voteTrack('up')" title="J&#39;aime ce titre" aria-label="J&#39;aime ce titre">
+                    <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                    <span class="vote-count" id="vote-up-count"></span>
+                </button>
+                <button class="vote-btn" id="btn-vote-down" onclick="voteTrack('down')" title="Je n&#39;aime pas" aria-label="Je n&#39;aime pas">
+                    <i class="fa fa-thumbs-down" aria-hidden="true"></i>
+                </button>
+            </div>
+            <div class="player-bar__viz" id="player-viz" aria-hidden="true">
+                <span class="player-bar__viz-bar"></span>
+                <span class="player-bar__viz-bar"></span>
+                <span class="player-bar__viz-bar"></span>
+                <span class="player-bar__viz-bar"></span>
+                <span class="player-bar__viz-bar"></span>
+            </div>
+            <div class="player-bar__controls">
+                <button class="player-bar__btn player-bar__btn--play" id="btn-play-pause" onclick="toggleRadio()" title="Lecture / Pause" aria-label="Lecture / Pause">
+                    <i class="fa fa-play" id="play-icon" aria-hidden="true"></i>
+                </button>
+            </div>
+            <div class="player-bar__volume">
+                <button class="player-bar__btn player-bar__btn--mute" id="btn-mute-unmute" title="Couper / Activer le son" aria-label="Couper / Activer le son">
+                    <i class="fa fa-volume-up" aria-hidden="true"></i>
+                </button>
+                <input type="range" id="volume-slider" min="0" max="100" value="80" class="player-bar__volume-slider" aria-label="Volume" title="Volume">
+            </div>
+        </div>
+        <audio id="radio-player" preload="none" style="display:none;" aria-hidden="true"></audio>
+    </div>
+
+    <!-- ===== BANDEAU COOKIES (RGPD) ===== -->
+    <div class="cookie-banner" id="cookie-banner" role="region" aria-label="EnjoyStation utilise des cookies pour son audience (Google Analytics) et sa publicité (AdSense).">
+        <div class="cookie-banner__text">
+            <i class="fa fa-cookie-bite me-1" aria-hidden="true"></i>
+            EnjoyStation utilise des cookies pour son audience (Google Analytics) et sa publicité (AdSense).
+            <a href="/politique-confidentialite">En savoir plus</a>
+        </div>
+        <div class="cookie-banner__actions">
+            <button class="cookie-btn cookie-btn--decline" id="cookie-decline" aria-label="REFUSER">REFUSER</button>
+            <button class="cookie-btn cookie-btn--accept" id="cookie-accept" aria-label="ACCEPTER">ACCEPTER</button>
+        </div>
+    </div>
+
+    <script src="/static/js/player.js" data-turbo-track="reload"></script>
+    <script src="/static/js/adsense.js" data-turbo-track="reload"></script>
+    <!-- Gestion centralisée AdSense (compatible Turbo.js) -->
+    <script>
+    /**
+     * Gestion centralisée d'AdSense compatible Turbo.js
+     * 
+     * Problème résolu : avec Turbo.js, les balises <script> contenues dans les
+     * blocs de contenu ne sont pas exécutées lors des navigations. Ce script
+     * scanne le DOM après chaque chargement Turbo pour repousser les annonces
+     * qui n'ont pas encore été initialisées.
+     */
+    (function() {
+        'use strict';
+
+        var ADSENSE_CLIENT = 'ca-pub-4362590165156241';
+        var ADSENSE_SLOT_DEFAULT = '9334049712';
+
+        var PUSHED_MARK = 'data-adsbygoogle-pushed';
+
+        function isAdSenseScriptLoaded() {
+            var scripts = document.querySelectorAll('script[src*="pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"]');
+            return scripts.length > 0;
+        }
+
+        function ensureAdSenseScript() {
+            if (isAdSenseScriptLoaded()) return;
+            var s = document.createElement('script');
+            s.async = true;
+            s.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=' + ADSENSE_CLIENT;
+            s.crossOrigin = 'anonymous';
+            document.head.appendChild(s);
+        }
+
+        function pushPendingAds() {
+            var containers = document.querySelectorAll('ins.adsbygoogle');
+            var pushed = 0;
+            for (var i = 0; i < containers.length; i++) {
+                if (!containers[i].getAttribute(PUSHED_MARK)) {
+                    pushed++;
+                    containers[i].setAttribute(PUSHED_MARK, 'true');
+                }
+            }
+            if (pushed > 0) {
+                try {
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                } catch(e) {
+                    // Ignorer silencieusement
+                }
+            }
+            return pushed;
+        }
+
+        function refreshAds() {
+            ensureAdSenseScript();
+            pushPendingAds();
+        }
+
+        // 1. Au chargement initial de la page
+        if (document.readyState === 'complete') {
+            refreshAds();
+        } else {
+            window.addEventListener('load', refreshAds);
+        }
+
+        // 2. Après chaque navigation Turbo (contenu chargé dynamiquement)
+        document.addEventListener('turbo:load', function() {
+            setTimeout(refreshAds, 100);
+        });
+        document.addEventListener('turbo:render', function() {
+            setTimeout(refreshAds, 100);
+        });
+
+        // 3. MutationObserver pour capturer les conteneurs injectés dynamiquement
+        var observer = new MutationObserver(function(mutations) {
+            for (var i = 0; i < mutations.length; i++) {
+                var addedNodes = mutations[i].addedNodes;
+                for (var j = 0; j < addedNodes.length; j++) {
+                    var node = addedNodes[j];
+                    if (node.nodeType === 1) {
+                        if (node.tagName === 'INS' && node.classList.contains('adsbygoogle')) {
+                            if (!node.getAttribute(PUSHED_MARK)) {
+                                setTimeout(refreshAds, 50);
+                                return;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+        observer.observe(document.documentElement, {
+            childList: true,
+            subtree: true
+        });
+
+    })();
+    </script>
+    <script>
+    // ---- Mode clair / sombre ----
+    (function(){
+        var saved = localStorage.getItem('enjoystation_theme') || 'dark';
+        if (saved === 'light') document.documentElement.setAttribute('data-theme', 'light');
+        var icon = document.getElementById('theme-icon');
+        if (icon) icon.className = saved === 'light' ? 'fa fa-sun' : 'fa fa-moon';
+        var iconM = document.getElementById('theme-icon-mobile');
+        if (iconM) iconM.className = saved === 'light' ? 'fa fa-moon' : 'fa fa-sun';
+        var labelM = document.getElementById('theme-label-mobile');
+        if (labelM) labelM.textContent = saved === 'light' ? 'Mode sombre' : 'Mode clair';
+    })();
+    window.toggleTheme = function() {
+        var html = document.documentElement;
+        var current = html.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+        if (current === 'light') html.setAttribute('data-theme', 'light');
+        else html.removeAttribute('data-theme');
+        localStorage.setItem('enjoystation_theme', current);
+        var icon = document.getElementById('theme-icon');
+        if (icon) icon.className = current === 'light' ? 'fa fa-sun' : 'fa fa-moon';
+        var iconM = document.getElementById('theme-icon-mobile');
+        if (iconM) iconM.className = current === 'light' ? 'fa fa-moon' : 'fa fa-sun';
+        var labelM = document.getElementById('theme-label-mobile');
+        if (labelM) labelM.textContent = current === 'light' ? 'Mode sombre' : 'Mode clair';
+    };
+
+    // ---- Langue sélecteur dropdown ----
+    (function() {
+        var btn = document.getElementById('lang-selector-btn');
+        var dd = document.getElementById('lang-selector-dropdown');
+        if (btn && dd) {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                dd.style.display = dd.style.display === 'block' ? 'none' : 'block';
+            });
+            document.addEventListener('click', function() {
+                if (dd) dd.style.display = 'none';
+            });
+        }
+    })();
+
+    // ---- Vote titres ----
+    var _voted = {};
+    window.voteTrack = function(action) {
+        var title = (document.getElementById('current-title') || {}).textContent || '';
+        title = title.trim();
+        if (!title || title === 'Titre en cours...' || title === 'Chargement...') return;
+        if (_voted[title]) return;
+        _voted[title] = action;
+        var upBtn   = document.getElementById('btn-vote-up');
+        var downBtn = document.getElementById('btn-vote-down');
+        if (upBtn)   upBtn.classList.toggle('voted-up',   action === 'up');
+        if (downBtn) downBtn.classList.toggle('voted-down', action === 'down');
+        fetch('/api/vote', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({action: action, title: title})
+        }).then(function(r){ return r.json(); }).then(function(data){
+            var cnt = document.getElementById('vote-up-count');
+            if (cnt && data.up !== undefined) cnt.textContent = data.up > 0 ? data.up : '';
+        }).catch(function(){});
+    };
+    // Réinitialiser vote au changement de titre
+    window._resetVoteButtons = function() {
+        _voted = {};
+        ['btn-vote-up','btn-vote-down'].forEach(function(id){
+            var b = document.getElementById(id);
+            if (b) { b.classList.remove('voted-up','voted-down'); }
+        });
+        var cnt = document.getElementById('vote-up-count');
+        if (cnt) cnt.textContent = '';
+    };
+
+    // ---- RESTAURATION D'ÉTAT APRÈS NAVIGATION TURBO ----
+    // Sans data-turbo-permanent, les éléments sont re-rendus.
+    // On restaure leur état (thème, volume, etc.) via turbo:load.
+    // Forcer le scroll en haut de page à chaque navigation
+    // Turbo restaure la position de scroll automatiquement, on force
+    // avant le rendu et on désactive la restauration native.
+    (function() {
+        // Désactiver la restauration de scroll native du navigateur
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+        // Forcer le scroll AVANT le rendu Turbo
+        document.addEventListener('turbo:before-render', function() {
+            window.scrollTo(0, 0);
+        });
+        // Forcer le scroll APRÈS le rendu Turbo (avec délais pour contrer les restaurations)
+        document.addEventListener('turbo:load', function() {
+            window.scrollTo(0, 0);
+            setTimeout(function() { window.scrollTo(0, 0); }, 50);
+            setTimeout(function() { window.scrollTo(0, 0); }, 150);
+            updateBackToTop();
+            
+            // Restaurer l'état du bouton back-to-top
+            var btt = document.getElementById('back-to-top');
+            if (btt) {
+                btt.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            }
+
+            // Restaurer le thème
+            var saved = localStorage.getItem('enjoystation_theme') || 'dark';
+            if (saved === 'light') {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+            var icon = document.getElementById('theme-icon');
+            if (icon) icon.className = saved === 'light' ? 'fa fa-sun' : 'fa fa-moon';
+            var iconM = document.getElementById('theme-icon-mobile');
+            if (iconM) iconM.className = saved === 'light' ? 'fa fa-moon' : 'fa fa-sun';
+            var labelM = document.getElementById('theme-label-mobile');
+            if (labelM) labelM.textContent = saved === 'light' ? 'Mode sombre' : 'Mode clair';
+
+            // Restaurer le volume
+            var vol = localStorage.getItem('enjoystation_volume');
+            var slider = document.getElementById('volume-slider');
+            if (vol !== null && slider) {
+                slider.value = vol;
+            }
+            var mute = localStorage.getItem('enjoystation_muted');
+            var muteBtn = document.getElementById('btn-mute-unmute');
+            var muteIcon = muteBtn ? muteBtn.querySelector('i') : null;
+            if (mute === 'true' && muteIcon) {
+                muteIcon.className = 'fa fa-volume-mute';
+            } else if (muteIcon) {
+                muteIcon.className = 'fa fa-volume-up';
+            }
+
+            // Re-attacher l'event listener du menu burger (car il peut être perdu)
+            (function(){
+                var burger = document.getElementById('nav-burger');
+                var links  = document.getElementById('nav-links');
+                if (burger && links) {
+                    // Éviter les doublons d'écouteurs
+                    burger._listenerAttached = burger._listenerAttached || false;
+                    if (!burger._listenerAttached) {
+                        burger._listenerAttached = true;
+                        burger.addEventListener('click', function(){
+                            var open = links.classList.toggle('is-open');
+                            burger.setAttribute('aria-expanded', String(open));
+                            burger.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu');
+                            burger.classList.toggle('is-open', open);
+                        });
+                        links.querySelectorAll('a').forEach(function(a) {
+                            a.addEventListener('click', function() {
+                                links.classList.remove('is-open');
+                                burger.setAttribute('aria-expanded', 'false');
+                                burger.setAttribute('aria-label', 'Ouvrir le menu');
+                                burger.classList.remove('is-open');
+                            });
+                        });
+                    }
+                }
+            })();
+
+            // Restaurer l'état du player (play/pause)
+            var audio = document.getElementById('radio-player');
+            var playIcon = document.getElementById('play-icon');
+            if (audio && playIcon) {
+                if (!audio.paused && !audio.ended) {
+                    playIcon.className = 'fa fa-pause';
+                } else {
+                    playIcon.className = 'fa fa-play';
+                }
+            }
+        });
+    })();
+
+    (function(){
+        // ── Menu burger (premier attach) ──
+        var burger = document.getElementById('nav-burger');
+        var links  = document.getElementById('nav-links');
+        if (burger && links) {
+            burger._listenerAttached = burger._listenerAttached || false;
+            if (!burger._listenerAttached) {
+                burger._listenerAttached = true;
+                burger.addEventListener('click', function(){
+                    var open = links.classList.toggle('is-open');
+                    burger.setAttribute('aria-expanded', String(open));
+                    burger.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu');
+                    burger.classList.toggle('is-open', open);
+                });
+                links.querySelectorAll('a').forEach(function(a) {
+                    a.addEventListener('click', function() {
+                        links.classList.remove('is-open');
+                        burger.setAttribute('aria-expanded', 'false');
+                        burger.setAttribute('aria-label', 'Ouvrir le menu');
+                        burger.classList.remove('is-open');
+                    });
+                });
+            }
+        }
+
+        // ── Dropdowns ──
+        var isMobile = function(){ return window.innerWidth <= 768; };
+
+        document.querySelectorAll('.has-dropdown').forEach(function(item) {
+            var toggle = item.querySelector('.nav-dropdown-toggle');
+            var dropdown = item.querySelector('.nav-dropdown');
+            if (!toggle || !dropdown) return;
+
+            // Desktop : hover
+            item.addEventListener('mouseenter', function(){
+                if (isMobile()) return;
+                dropdown.classList.add('is-open');
+                toggle.setAttribute('aria-expanded', 'true');
+                item.querySelector('.nav-arrow').style.transform = 'rotate(180deg)';
+            });
+            item.addEventListener('mouseleave', function(){
+                if (isMobile()) return;
+                dropdown.classList.remove('is-open');
+                toggle.setAttribute('aria-expanded', 'false');
+                item.querySelector('.nav-arrow').style.transform = '';
+            });
+
+            // Mobile + clavier : click/tap
+            toggle.addEventListener('click', function(e){
+                var wasOpen = dropdown.classList.contains('is-open');
+                // Fermer les autres dropdowns
+                document.querySelectorAll('.nav-dropdown.is-open').forEach(function(d){ d.classList.remove('is-open'); });
+                document.querySelectorAll('.nav-dropdown-toggle').forEach(function(t){
+                    t.setAttribute('aria-expanded','false');
+                    var arr = t.querySelector('.nav-arrow');
+                    if (arr) arr.style.transform = '';
+                });
+                if (!wasOpen) {
+                    dropdown.classList.add('is-open');
+                    toggle.setAttribute('aria-expanded', 'true');
+                    item.querySelector('.nav-arrow').style.transform = 'rotate(180deg)';
+                }
+            });
+        });
+
+        // Fermer les dropdowns au clic en dehors
+        document.addEventListener('click', function(e){
+            if (!e.target.closest('.has-dropdown')) {
+                document.querySelectorAll('.nav-dropdown.is-open').forEach(function(d){ d.classList.remove('is-open'); });
+                document.querySelectorAll('.nav-dropdown-toggle').forEach(function(t){
+                    t.setAttribute('aria-expanded','false');
+                    var arr = t.querySelector('.nav-arrow');
+                    if (arr) arr.style.transform = '';
+                });
+            }
+        });
+
+        // Fermer avec Escape
+        document.addEventListener('keydown', function(e){
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.nav-dropdown.is-open').forEach(function(d){ d.classList.remove('is-open'); });
+                document.querySelectorAll('.nav-dropdown-toggle').forEach(function(t){
+                    t.setAttribute('aria-expanded','false');
+                    var arr = t.querySelector('.nav-arrow');
+                    if (arr) arr.style.transform = '';
+                });
+            }
+        });
+
+        // Cookie banner
+        var cb = document.getElementById('cookie-banner');
+        var accepted = localStorage.getItem('cookie_consent');
+        if (accepted !== null) { if(cb) cb.classList.add('is-hidden'); }
+        document.getElementById('cookie-accept') && document.getElementById('cookie-accept').addEventListener('click', function(){
+            localStorage.setItem('cookie_consent', '1');
+            if(cb) cb.classList.add('is-hidden');
+        });
+        document.getElementById('cookie-decline') && document.getElementById('cookie-decline').addEventListener('click', function(){
+            localStorage.setItem('cookie_consent', '0');
+            if(cb) cb.classList.add('is-hidden');
+        });
+    })();
+    </script>
+    <!-- ===== BOUTON RETOUR HAUT DE PAGE ===== -->
+    <button id="back-to-top" class="back-to-top" aria-label="Aller au contenu principal" title="Retour en haut">
+        <i class="fa fa-chevron-up" aria-hidden="true"></i>
+    </button>
+
+    <script>
+    // ---- Back to top : afficher/masquer selon le scroll ----
+    (function() {
+        var btt = document.getElementById('back-to-top');
+        if (!btt) return;
+
+        window._backToTopHandler = function() {
+            if (window.scrollY > 300) {
+                btt.classList.add('is-visible');
+            } else {
+                btt.classList.remove('is-visible');
+            }
+        };
+
+        window.addEventListener('scroll', window._backToTopHandler, { passive: true });
+        window.addEventListener('turbo:load', function() {
+            window._backToTopHandler();
+        });
+
+        btt.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // État initial
+        window._backToTopHandler();
+    })();
+    function updateBackToTop() {
+        if (window._backToTopHandler) window._backToTopHandler();
+    }
+    </script>
+
+    <!-- Service Worker PWA -->
+    <script>
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/sw.js', { updateViaCache: 'none' }).then(function(reg) {
+            // Forcer la mise à jour si un nouveau SW est disponible
+            if (reg.waiting) {
+                reg.waiting.postMessage({ type: 'SKIP_WAITING' });
+            }
+            // Vérifier les mises à jour à chaque chargement de page
+            reg.update();
+        }).catch(function(){});
+        
+        // Écouter le message SKIP_WAITING pour activer le nouveau SW immédiatement
+        navigator.serviceWorker.addEventListener('message', function(event) {
+            if (event.data && event.data.type === 'SKIP_WAITING') {
+                navigator.serviceWorker.ready.then(function(reg) {
+                    reg.active.postMessage({ type: 'SKIP_WAITING' });
+                });
+            }
+        });
+    }
+    </script>
+    
+</body>
+</html>
