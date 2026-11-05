@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0b1020">
+
+    <!-- Performance: warm up third-party connections used on first paint -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://hits93toronto.com:2490" crossorigin>
+
+    <!-- Load icon font CSS without blocking initial render -->
+    <link rel="preload" as="style" href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css"></noscript>
+
+    <script>var API_URL = "https://hits93toronto.com:2490", SERVER_ID=1, BASE_URL="", DEF_IMG_URL="https://streaming.center/minisite/img/default-cover.png";</script>
+
+    <title>Hits 93 Toronto | Global Top Hits Radio Station | Pop, Dance &amp; New Music Stream</title>
+    <script type="module" crossorigin src="/index.js"></script>
+
+    <!-- Load main CSS without blocking HTML parsing -->
+    <link rel="preload" as="style" href="/index.css" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/index.css"></noscript>
+
+    <meta name="description" content="Hits 93 Toronto is a Canadian-owned online pop radio station streaming live 24/7 from Toronto to listeners worldwide. Tune in for current hits, future favourites, and nonstop pop + dance.">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://hits93toronto.com/">
+
+    <!-- Open Graph (Facebook, iMessage, etc.) -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Hits 93 Toronto">
+    <meta property="og:title" content="Hits 93 Toronto | Live Pop Radio from Toronto">
+    <meta property="og:description" content="Canadian-owned. Streaming worldwide. Current hits, future favourites, live 24/7.">
+    <meta property="og:url" content="https://hits93toronto.com/">
+
+    <!-- IMPORTANT:
+         Social crawlers commonly refuse non-standard ports (e.g., :2490). Host the OG image on the website origin.
+         Put the file at /og/hits93-og-1200x630.jpg (or .png) and update this URL if you change it.
+    -->
+    <meta property="og:image" content="https://hits93toronto.com/og/hits93-og-1200x630.jpg">
+    <meta property="og:image:secure_url" content="https://hits93toronto.com/og/hits93-og-1200x630.jpg">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@Hits93Toronto">
+    <meta name="twitter:title" content="Hits 93 Toronto | Live Pop Radio from Toronto">
+    <meta name="twitter:description" content="Canadian-owned. Streaming worldwide. Current hits, future favourites, live 24/7.">
+    <meta name="twitter:image" content="https://hits93toronto.com/og/hits93-og-1200x630.jpg">
+
+    <!-- Basic structured data for SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "RadioStation",
+      "name": "Hits 93 Toronto",
+      "url": "https://hits93toronto.com/",
+      "description": "Canadian-owned online pop radio station streaming live 24/7 from Toronto to the world.",
+      "logo": "https://hits93toronto.com/og/hits93-logo-512.png",
+      "sameAs": [
+        "https://x.com/Hits93Toronto",
+        "https://www.instagram.com/Hits93Toronto",
+        "https://www.facebook.com/Hits93TO",
+        "https://www.youtube.com/@Hits93Toronto"
+      ]
+    }
+    </script>
+  </head>
+  <body>
+    <div id="app"></div>
+  </body>
+</html>

@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Radio Happysound | Nederlandstalige hits 24/7</title>
+    <link rel="canonical" href="https://radiohappysound.com/">
+  <link rel="icon" href="images/favicon.png">
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=20261016b">
+</head>
+<body>
+  <header class="site">
+    <div class="wrap">
+      <a class="brand" href="/">
+        <strong>RADIO HAPPYSOUND</strong>
+        <em>From Canada with love</em>
+      </a>
+      <button type="button" class="nav-toggle" aria-label="Menu"><span></span></button>
+      <nav>
+        <a href="/" class="active">Home</a>
+        <a href="/partners">Partners</a>
+        <a href="/programmering">Programmering</a>
+        <a href="/playlist">Playlist</a>
+        <a href="/info" class="nav-end">Info</a>
+        <a href="https://www.facebook.com/radiohappysound/" target="_blank" rel="noopener">Facebook</a>
+      </nav>
+    </div>
+  </header>
+      <div class="hero-slider" data-interval="8000">
+    <div class="slides">
+            <div class="slide is-on" style="background-image:url('images/slides/slide22-20261007192228.jpg')">
+        <span class="slide-name">Radio Happysound</span>      </div>
+            <div class="slide" style="background-image:url('images/slides/slide03-20261007190146.jpg')">
+        <span class="slide-name">We draaien ook live met dj&#039;s</span>      </div>
+            <div class="slide" style="background-image:url('images/slides/Music-HD-Wallpaper-20261007190040.jpg')">
+        <span class="slide-name">Instrumentale muziek</span>      </div>
+            <div class="slide" style="background-image:url('images/slides/slide20-20261006171429.jpg')">
+        <span class="slide-name">Nederlandstalige muziek</span>      </div>
+            <div class="slide" style="background-image:url('images/slides/flag_canada_leaves_stones-20261006172546.jpg')">
+        <span class="slide-name">From Canada with Love</span>      </div>
+          </div>
+    <div class="slide-bar"><span></span></div>
+  </div>
+  
+  <section class="hero">
+    <div class="wrap">
+      <div class="badge">10 jaar · 2016 – 2026</div>
+      <h1>Radio Happysound – gezellige Nederlandstalige webradio</h1>
+      <p>Schlagers, piratenklassiekers, polka’s en instrumentaal.<br>Op verzoek via de site, live als we achter de knoppen zitten.<br>Voor Nederlanders in Canada en iedereen die zin heeft in een bekende plaat.</p>
+      <p>Dutch-language hits and sing-along favourites, 24/7. Requests welcome.</p>
+      <a id="request-banner" class="request-banner" href="request-cloud/">
+        <img id="request-banner-img" src="images/verzoek-cloud.png" width="480" height="240" alt="Verzoekjes via de cloud">
+      </a>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap">
+      <h2>Gezellige Nederlandstalige webradio</h2>
+      <p class="lead">Nonstop bekende platen, live als we achter de knoppen zitten. Onderdeel van TorontoCast, met SOCAN-licentie. De speler staat op de TorontoCast-pagina.</p>
+      <div class="grid">
+        <article class="card">
+          <h3>Nederlandstalig</h3>
+          <p>Hits en meezingers van toen tot nu.</p>
+        </article>
+        <article class="card">
+          <h3>Piraten &amp; schlager</h3>
+          <p>Klassiekers uit de piratentijd, Duitse schlagers en polka’s.</p>
+        </article>
+        <article class="card">
+          <h3>Op verzoek</h3>
+          <p>Zie onder Info de uitleg hoe het verzoeksysteem werkt.</p>
+        </article>
+       
+      </div>
+    </div>
+  </section>
+  <div class="wrap" style="text-align:center;padding:18px 0 8px;">
+    <img src="https://radiohappysound.com/images/Torontocast-Socan.png" alt="Powered by TorontoCast — Licensed by SOCAN" style="width:min(480px,95%);height:auto;">
+  </div>
+  <footer>
+    <div class="wrap foot-center">
+      <div>TorontoCast. All rights reserved. Licensed by SOCAN © radio Happysound since 2016</div>
+    </div>
+  </footer>
+  <aside id="player-dock" class="player-dock">
+  <button type="button" id="dock-size" class="dock-size" title="Kleiner maken" aria-label="Kleiner maken">−</button>
+  <img id="dock-cover" class="dock-cover" src="request-cloud/no-picture/na.png" alt="">
+  <div class="dock-bar" id="dock-bar" hidden><span id="dock-bar-fill"></span></div>
+  <style>
+    .dock-bar { height: 8px; margin: 8px 0 0; background: #f0d0d0; border-radius: 999px; overflow: hidden; }
+    .dock-bar span { display: block; height: 100%; width: 100%; background: #c41212; }
+    .player-dock.is-mini .dock-bar { display: none; }
+    @media (max-width: 760px) { .dock-bar { display: none; } }
+  </style>
+  <div class="dock-meta">
+    <div id="dock-artist" class="dock-artist">Radio Happysound</div>
+    <div id="dock-title" class="dock-title"></div>
+  </div>
+  <div class="dock-links">
+    <a class="dock-ico" href="https://radiohappysound.torontocast.stream/happysound.pls" title="Winamp / PLS" download>⚡</a>
+    <a class="dock-ico" href="https://cast1.torontocast.com:1780/stream" title="Direct stream" aria-label="Direct stream" target="_blank" rel="noopener">▶</a>
+    <a class="dock-ico dock-web" href="https://radiohappysound.torontocast.stream/" title="Webplayer" id="dock-webplayer">🎧</a>
+  </div>
+  <a class="dock-socan" href="https://radiohappysound.torontocast.stream/" title="Licensed to Play — SOCAN" id="dock-socan">
+    <img src="images/socan.png" alt="Licensed to Play 2026 SOCAN">
+  </a>
+</aside>
+<div id="request-frame" class="request-frame" hidden>
+  <div class="request-frame-bar">
+    <strong>Verzoekplaat</strong>
+    <button type="button" id="request-frame-close">Sluiten</button>
+  </div>
+  <iframe id="request-frame-view" title="Verzoeksysteem" src="about:blank"></iframe>
+</div>
+<script>
+(function () {
+  var url = 'https://radiohappysound.torontocast.stream/';
+  function openWeb(e) {
+    e.preventDefault();
+    var w = Math.min(720, screen.availWidth);
+    var h = Math.min(560, screen.availHeight);
+    var left = Math.max(0, (screen.availWidth - w) / 2);
+    var top = Math.max(0, (screen.availHeight - h) / 2);
+    window.open(url, 'HappySoundWebplayer', 'width=' + w + ',height=' + h + ',left=' + left + ',top=' + top + ',scrollbars=yes,resizable=yes');
+  }
+  var web = document.getElementById('dock-webplayer');
+  var socan = document.getElementById('dock-socan');
+  if (web) web.addEventListener('click', openWeb);
+  if (socan) socan.addEventListener('click', openWeb);
+
+  var frame = document.getElementById('request-frame');
+  var frameView = document.getElementById('request-frame-view');
+  var frameClose = document.getElementById('request-frame-close');
+  function openRequest(e) {
+    if (e) e.preventDefault();
+    if (!frame || !frameView) return;
+    frameView.src = base + (base.indexOf('?') === -1 ? '?inframe=1' : '&inframe=1');
+    frame.hidden = false;
+    document.body.appendChild(frame);
+    document.body.classList.add('request-open');
+  }
+  function closeRequest() {
+    if (!frame || !frameView) return;
+    frame.hidden = true;
+    frameView.src = 'about:blank';
+    document.body.classList.remove('request-open');
+  }
+  var banner = document.getElementById('request-banner');
+  if (banner) banner.addEventListener('click', openRequest);
+  document.querySelectorAll('.js-open-request').forEach(function (el) {
+    el.addEventListener('click', openRequest);
+  });
+  if (frameClose) frameClose.addEventListener('click', closeRequest);
+
+  var frameBar = frame ? frame.querySelector('.request-frame-bar') : null;
+  if (frame && frameBar && window.matchMedia('(min-width: 761px)').matches) {
+    frameBar.style.cursor = 'grab';
+    var frameDrag = null;
+    frameBar.addEventListener('pointerdown', function (e) {
+      if (e.target.closest('button')) return;
+      var rect = frame.getBoundingClientRect();
+      frame.style.transform = 'none';
+      frame.style.left = rect.left + 'px';
+      frame.style.top = rect.top + 'px';
+      frameDrag = { x: e.clientX, y: e.clientY, left: rect.left, top: rect.top };
+      frameBar.setPointerCapture(e.pointerId);
+      frameBar.style.cursor = 'grabbing';
+    });
+    frameBar.addEventListener('pointermove', function (e) {
+      if (!frameDrag) return;
+      var left = Math.max(8, Math.min(window.innerWidth - frame.offsetWidth - 8, frameDrag.left + e.clientX - frameDrag.x));
+      var top = Math.max(8, Math.min(window.innerHeight - frame.offsetHeight - 8, frameDrag.top + e.clientY - frameDrag.y));
+      frame.style.left = left + 'px';
+      frame.style.top = top + 'px';
+    });
+    function endFrameDrag() {
+      if (!frameDrag) return;
+      frameDrag = null;
+      frameBar.style.cursor = 'grab';
+    }
+    frameBar.addEventListener('pointerup', endFrameDrag);
+    frameBar.addEventListener('pointercancel', endFrameDrag);
+  }
+
+  var base = 'request-cloud/';
+  function applyMode(live) {
+    base = live ? 'request-live/' : 'request-cloud/';
+    var banner = document.getElementById('request-banner');
+    var img = document.getElementById('request-banner-img');
+    if (banner) banner.href = base;
+    if (img) {
+      img.src = live ? 'images/verzoek-live.png' : 'images/verzoek-cloud.png';
+      img.alt = live ? 'We zijn live — vraag je plaat aan' : 'Verzoekjes via de cloud';
+    }
+  }
+
+  var dockLeft = 0;
+  var dockDur = 0;
+  var dockKey = '';
+  function saveBar(key, dur, startedAt) {
+    try {
+      localStorage.setItem('rhs-dock-bar', JSON.stringify({ key: key, dur: dur, startedAt: startedAt }));
+    } catch (e) {}
+  }
+  function loadBar() {
+    try {
+      return JSON.parse(localStorage.getItem('rhs-dock-bar') || 'null');
+    } catch (e) {
+      return null;
+    }
+  }
+  function leftFrom(startedAt, dur) {
+    var gone = Math.floor((Date.now() - startedAt) / 1000);
+    return Math.max(0, dur - gone);
+  }
+  function paintBar() {
+    var bar = document.getElementById('dock-bar');
+    var fill = document.getElementById('dock-bar-fill');
+    if (!bar || !fill) return;
+    if (window.matchMedia('(max-width: 760px)').matches || dockDur <= 0) {
+      bar.hidden = true;
+      return;
+    }
+    bar.hidden = false;
+    var pct = Math.max(0, Math.min(100, (dockLeft / dockDur) * 100));
+    fill.style.width = pct + '%';
+  }
+  function tickNow() {
+    fetch('request-live/status.php', { cache: 'no-store' })
+      .then(function (r) { return r.json(); })
+      .then(function (s) {
+        applyMode(s && s.mode === 'live');
+        return fetch(base + 'playing_data.php', { cache: 'no-store' });
+      })
+      .then(function (r) { return r.json(); })
+      .then(function (d) {
+        if (!d || !d.ok || !d.now) return;
+        var a = document.getElementById('dock-artist');
+        var t = document.getElementById('dock-title');
+        var c = document.getElementById('dock-cover');
+        if (a) a.textContent = d.now.artist || '';
+        if (t) t.textContent = d.now.title || '';
+        if (c && d.now.cover) c.src = base + d.now.cover;
+        var key = (d.now.id || '') + '|' + (d.now.title || '');
+        var dur = parseInt(d.now.duration, 10) || 0;
+        var left = parseInt(d.left, 10);
+        if (isNaN(left) || left < 0) left = dur;
+        dockDur = dur;
+        var saved = loadBar();
+        if (saved && saved.key === key && saved.dur === dur && saved.startedAt) {
+          dockLeft = leftFrom(saved.startedAt, dur);
+        } else if (dockKey && key !== dockKey) {
+          dockLeft = dur;
+          saveBar(key, dur, Date.now());
+        } else {
+          dockLeft = left;
+          saveBar(key, dur, Date.now() - Math.max(0, dur - left) * 1000);
+        }
+        dockKey = key;
+        paintBar();
+      })
+      .catch(function () {});
+  }
+  tickNow();
+  setInterval(tickNow, 15000);
+  setInterval(function () {
+    var saved = loadBar();
+    if (saved && saved.key === dockKey && saved.startedAt) {
+      dockLeft = leftFrom(saved.startedAt, dockDur);
+    } else if (dockLeft > 0) {
+      dockLeft -= 1;
+    }
+    paintBar();
+  }, 1000);
+
+  var dock = document.getElementById('player-dock');
+  var sizeBtn = document.getElementById('dock-size');
+  var dockSpot = null;
+  function placeDock(left, top) {
+    dock.style.right = 'auto';
+    dock.style.bottom = 'auto';
+    dock.style.left = left + 'px';
+    dock.style.top = top + 'px';
+  }
+  function pinDockDown() {
+    var r = dock.getBoundingClientRect();
+    dock.style.right = 'auto';
+    dock.style.top = 'auto';
+    dock.style.left = (dockSpot ? dockSpot.left : r.left) + 'px';
+    dock.style.bottom = '8px';
+  }
+  function setDockSize(mini) {
+    if (!dock || !sizeBtn) return;
+    if (mini) {
+      if (!dockSpot || localStorage.getItem('rhs-dock-mini') !== '1') {
+        var r = dock.getBoundingClientRect();
+        dockSpot = { left: Math.round(r.left), top: Math.round(r.top) };
+      }
+      dock.classList.add('is-mini');
+      pinDockDown();
+    } else {
+      dock.classList.remove('is-mini');
+      if (dockSpot) {
+        placeDock(dockSpot.left, dockSpot.top);
+      } else {
+        dock.style.left = '';
+        dock.style.top = '';
+        dock.style.right = '';
+        dock.style.bottom = '';
+      }
+    }
+    sizeBtn.textContent = mini ? '+' : '−';
+    sizeBtn.title = mini ? 'Groter maken' : 'Kleiner maken';
+    sizeBtn.setAttribute('aria-label', sizeBtn.title);
+    localStorage.setItem('rhs-dock-mini', mini ? '1' : '0');
+  }
+  if (dock && window.matchMedia('(min-width: 761px)').matches) {
+    try {
+      var saved = JSON.parse(localStorage.getItem('rhs-dock') || 'null');
+      if (saved && typeof saved.left === 'number' && typeof saved.top === 'number') {
+        dockSpot = { left: saved.left, top: saved.top };
+        if (localStorage.getItem('rhs-dock-mini') !== '1') placeDock(saved.left, saved.top);
+      }
+    } catch (e) {}
+  }
+  if (sizeBtn) {
+    if (localStorage.getItem('rhs-dock-mini') === '1') setDockSize(true);
+    sizeBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      setDockSize(!dock.classList.contains('is-mini'));
+    });
+  }
+  window.addEventListener('resize', function () {
+    if (dock && dock.classList.contains('is-mini')) pinDockDown();
+  });
+  window.addEventListener('load', function () {
+    if (dock && dock.classList.contains('is-mini')) pinDockDown();
+  });
+  if (dock && window.matchMedia('(min-width: 761px)').matches) {
+    dock.style.cursor = 'grab';
+    function placeDock(left, top) {
+      dock.style.right = 'auto';
+      dock.style.bottom = 'auto';
+      dock.style.left = left + 'px';
+      dock.style.top = top + 'px';
+    }
+    function saveDock() {
+      var r = dock.getBoundingClientRect();
+      dockSpot = { left: Math.round(r.left), top: Math.round(r.top) };
+      localStorage.setItem('rhs-dock', JSON.stringify(dockSpot));
+    }
+    try {
+      var saved = JSON.parse(localStorage.getItem('rhs-dock') || 'null');
+      if (saved && typeof saved.left === 'number' && typeof saved.top === 'number' && localStorage.getItem('rhs-dock-mini') !== '1') {
+        placeDock(saved.left, saved.top);
+      }
+    } catch (e) {}
+    var drag = null;
+    dock.addEventListener('pointerdown', function (e) {
+      if (e.target.closest('a,button')) return;
+      var r = dock.getBoundingClientRect();
+      drag = { x: e.clientX, y: e.clientY, left: r.left, top: r.top };
+      dock.setPointerCapture(e.pointerId);
+      dock.style.cursor = 'grabbing';
+      e.preventDefault();
+    });
+    dock.addEventListener('pointermove', function (e) {
+      if (!drag) return;
+      var left = Math.max(8, Math.min(window.innerWidth - dock.offsetWidth - 8, drag.left + e.clientX - drag.x));
+      var top = Math.max(8, Math.min(window.innerHeight - dock.offsetHeight - 8, drag.top + e.clientY - drag.y));
+      placeDock(left, top);
+      saveDock();
+    });
+    function endDrag() {
+      if (!drag) return;
+      drag = null;
+      dock.style.cursor = 'grab';
+      saveDock();
+    }
+    dock.addEventListener('pointerup', endDrag);
+    dock.addEventListener('pointercancel', endDrag);
+  }
+})();
+</script>
+  <script src="js/slider.js?v=20261007c"></script>
+  <script src="js/player.js?v=20261008c"></script>
+  <script>
+  (function () {
+    var btn = document.querySelector('.nav-toggle');
+    var nav = document.querySelector('header.site nav');
+    if (!btn || !nav) return;
+    btn.addEventListener('click', function () { nav.classList.toggle('open'); });
+  })();
+  </script>
+</body>
+</html>
