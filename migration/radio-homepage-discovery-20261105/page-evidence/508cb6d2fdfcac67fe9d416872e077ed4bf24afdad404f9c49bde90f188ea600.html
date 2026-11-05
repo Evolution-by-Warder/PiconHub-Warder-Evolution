@@ -1,0 +1,461 @@
+<!doctype html>
+<html class="no-js" lang="en">  <!-- Bootstrap: xmlns="http://www.w3.org/1999/xhtml" -->
+<head>
+    <meta charset="UTF-8"/>
+    <!--    <meta http-equiv="X-UA-Compatible" content="IE=edge">  Bootstrap: added for carousel  -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <title>The Voice of Islam Radio Station from Lakemba (Sydney), Australia - إذاعة الصوت الإسلامي من سيدني بأستراليا</title>
+    <meta name="description" content="The Voice of Islam Radio Station from Lakemba (Sydney) is the Muslims' Community Radio Station in Sydney, Australia - 87.6 FM - إذاعة الصوت الإسلامي هي إذاعة الجالية الإسلامية بسيدني في أستراليا">
+    <meta name="author" content="Bilal Abdeen - http://BuildWebsitePro.com.au">
+
+    <!-- For Bing Search Engine -->
+    <meta name="msvalidate.01" content="4A366368A2BB5EA2CC4D895901C8213E"/>
+
+    <!-- Facebook Open Graph Meta Tags (Social Media Buttons) -->
+    <meta property="og:title" content="The Voice of Islam Radio Station from Lakemba (Sydney), Australia - إذاعة الصوت الإسلامي من سيدني بأستراليا"/>
+    <meta property="og:site_name" content="The Voice of Islam Radio Station"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="http://theVoiceOfIslam.com.au"/>
+    <meta property="og:description" content="The Voice of Islam Radio Station from Lakemba (Sydney) is the Muslims' Community Radio Station in Sydney, Australia - 87.6 FM - إذاعة الصوت الإسلامي هي إذاعة الجالية الإسلامية بسيدني في أستراليا"/>
+    <meta property="og:locale" content="en_US"/>
+	<meta property="og:image" content="http://theVoiceOfIslam.com.au/img/walid-3.jpg"/>
+
+    <link rel="shortcut icon" href="img/logo_256px.ico">
+    <link rel="stylesheet" href="css/app.css"/>
+    <link rel="stylesheet" href="css/circle.player.css">
+
+    <!-- Stylesheet required to power RRSSB (Social Media Buttons) -->
+    <link rel="stylesheet" href="css/rrssb.css" />
+
+    <!-- Bootstrap: -->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.js"></script>
+      <script src="js/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- <style>
+        /* body {background-image: url("img/pattern2_c.png");} */
+        body { background-color: olivedrab; } /* olivedrab = 6B8E23 */
+
+        .panel {
+            background-color: #FFF9DA; /* #FFF8C4; /* #FFFFB8; /* khaki; /* #EBEB87; */
+        }
+    </style>    -->
+
+</head>
+
+<body role="document">
+<!--[if lt IE 9]>
+	<h2>Note:</h2>
+    <h2 class="chromeframe">You are using an <strong>outdated</strong> browser.
+    	Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</h2>
+<![endif]-->
+
+<!-- The jPlayer div must not be hidden. Keep it at the root of the body element to avoid any such problems. -->
+<div id="jquery_jplayer_1" class="cp-jplayer"></div>
+
+<!-- Listen Live + Ad Banners (Slider) + Logo -->
+<div class="row">
+    <div class="small-6 medium-2 columns text-right">
+        <img src="img/logo-110.png" alt="The Voice of Islam Radio Station Logo" /> <!--class="hide-for-small" style="max-width:100%;height:auto;" -->
+    </div>
+
+    <!-- <div class="small-6 column-small-centered columns text-center show-for-small">
+        <ul id="cp_container_1" class="cp-controls img-circular">
+            <li><a class="cp-play" tabindex="1">play</a></li>
+            <li><a class="cp-pause" style="display:none;" tabindex="1">pause</a></li>
+        </ul>
+    </div> -->
+
+    <div class="medium-8 columns hide-for-small ads">
+<!--        <ul data-orbit data-options="animation:slide; pause_on_hover:true; animation_speed:500; navigation_arrows:true; bullets:false;"> </ul>-->
+        <ul data-orbit data-options="animation:fade; pause_on_hover:true; resume_on_mouseout:true; animation_speed:0; timer_speed:2000; slide_number:true; bullets:false;"> <!-- class="example-orbit" -->
+            <li> <img src="img/ad-1.png" alt="Ad 1" height="120"/> </li>
+            <li> <img src="img/ad-2.png" alt="Ad 2" height="120"/> </li>
+            <li> <img src="img/ad-3.png" alt="Ad 3" height="120"/> </li>
+<!--            <li> <img src="http://placehold.it/1000x120&text=[ Ad 1 ]" alt="Ad 1" /> </li>
+            <li> <img src="http://placehold.it/1000x120&text=[ Ad 2 ]" alt="Ad 2" /> </li>
+            <li> <img src="http://placehold.it/1000x120&text=[ Ad 3 ]" alt="Ad 3" /> </li> -->
+        </ul>
+    </div>
+
+    <div class="small-6 medium-2 columns text-center"> <!-- hide-for-small -->
+<!--        <a href="#" class="img-circular"><b>Listen Live</b></a>-->
+<!--    <p><a href="http://voiceofislam.appsunder.com:8000/voiceofislam.mp3" class="sm2_button" title="Live Streaming">Live Streaming</a> Listen Live</p>-->
+        <ul id="cp_container_1" class="cp-controls img-circular">
+            <li><a class="cp-play" tabindex="1">play</a></li>
+            <li><a class="cp-pause" style="display:none;" tabindex="1">pause</a></li> <!-- Needs the inline style here, or jQuery.show() uses display:inline instead of display:block -->
+        </ul>
+    </div>
+
+    <div class="small-12 columns show-for-small">
+<!--        <ul data-orbit data-options="animation:slide; pause_on_hover:true; animation_speed:500; navigation_arrows:true; bullets:false;"> </ul>-->
+        <ul data-orbit data-options="animation:fade; pause_on_hover:true; resume_on_mouseout:true; animation_speed:0; timer_speed:2000; slide_number:true; bullets:false;"> <!-- class="example-orbit" -->
+            <li> <img src="img/ad-1.png" alt="Ad 1" height="120"/> </li>
+            <li> <img src="img/ad-2.png" alt="Ad 2" height="120"/> </li>
+            <li> <img src="img/ad-3.png" alt="Ad 3" height="120"/> </li>
+<!--            <li> <img src="http://placehold.it/1000x120&text=[ Ad 1 ]" alt="Ad 1" /> </li>
+            <li> <img src="http://placehold.it/1000x120&text=[ Ad 2 ]" alt="Ad 2" /> </li>
+            <li> <img src="http://placehold.it/1000x120&text=[ Ad 3 ]" alt="Ad 3" /> </li> -->
+        </ul>
+    </div>
+
+</div>
+
+<!--    <div class="row">
+        <div class="medium-5 columns " lang="ar" dir="rtl">
+            <div class="panel">
+                <h4>إذاعـــــة الــــصــــوت الإســـلامـــي</h4>
+                <h5>من سيدني بأستراليا - 87.6 FM</h5>
+            </div>
+        </div>
+        <div class="medium-2 medium-centered columns">
+            <p><a href="#" class="img-circular"><b>Listen Live</b></a></p>
+        </div>
+        <div class="medium-5 columns">
+            <div class="panel">
+                <h4>The Voice of Islam Radio Station</h4>
+                <h5>from Sydney, Australia - 87.6 FM </h5>
+            </div>
+        </div>
+    </div> -->
+
+<!-- Programs Pictures (Slider) -->
+<div class="row">
+      <div class="columns orbit-container">
+        <ul data-orbit data-options="animation:fade; pause_on_hover:true; resume_on_mouseout:true; timer_speed:2000;
+                                     animation_speed:0; slide_number:true; bullets:false;">
+            <li class="active">
+                <!-- <img src="img/Sydney_opera_house_2010_1200X350.jpg" alt="slide 3" />  -->
+                <img src="img/ibrahim-3.jpg" alt="Abrahim's Photo" width="1200" height="300"/>
+                <div class="orbit-caption right" lang="ar" dir="rtl">ابراهبم الزعبي - برنامج صباحيات</div>
+            </li>
+            <li>
+                <!-- <img src="img/Sydney_skyline_at_dusk_-_Dec_2008_1200X350.jpg" alt="slide 1" />  -->
+                <img src="img/rania-6.jpg" alt="Rania's Photo" width="1200" height="300"/> <!-- width="1000" height="50" -->
+                <div class="orbit-caption right" lang="ar" dir="rtl">رانيا البرجاوي - برنامج متفرقات في الدين والحياة</div>
+            </li>
+            <li>
+                <img src="img/ahmed-1.jpg" alt="Ahmed's Photo" width="1200" height="300"/>
+                <div class="orbit-caption right" lang="ar" dir="rtl">د. أحمد عقاد - إعداد وتقديم الأخبار العالمية</div>
+            </li>
+            <!-- <li>
+                <img src="img/ahlam-3.jpg" alt="Ahlam's Photo" width="1200" height="300"/>
+                <div class="orbit-caption right" lang="ar" dir="rtl">أحلام خليل - تقديم الأخبار العالمية وبرنامج متفرقات</div>
+            </li>  -->
+            <li>
+                <img src="img/anwar-2.jpg" alt="Anwar's Photo" width="1200" height="300"/>
+                <div class="orbit-caption right" lang="ar" dir="rtl">أنور حمام - برنامجا "فهل من مدكر" و"نور على الدرب"</div>
+            </li>
+            <li>
+                <!-- <img src="img/Sydney_harbour_bridge_new_south_wales1200X350.jpg" alt="slide 2" />  -->
+                <img src="img/walid-3.jpg" alt="Alwalid's Photo" width="1200" height="300"/>
+                <div class="orbit-caption right" lang="ar" dir="rtl">الوليد المذيب - برنامجا "نزهة المشتاق" و"أمجاد"</div>
+            </li>
+            <li>
+                <img src="img/y-factor-3.png" alt="The Y Factor's Photo" width="1200" height="300"/>
+                <div class="orbit-caption">The Y Factor Team (Left to Right: Jamel, Mostafa, Naveen, Tasnim, Zeynab, Miran, Deanna)</div>
+            </li>
+        </ul>
+     </div>
+</div>
+
+<!-- Navigation Bar -->
+<div class="row">
+    <div class="columns">
+        <nav class="top-bar" data-topbar>
+            <ul class="title-area">
+                <li class="name">
+                </li>
+                <li class="toggle-topbar">
+                    <a href="#">Menu&nbsp;<span lang="ar" dir="rtl">القائمة</span></a>
+                </li>
+            </ul>
+
+            <!-- Right Nav Section -->
+            <section class="top-bar-section">
+                <ul class="right">
+                    <li class="active"><a href="index.html">Home&nbsp;<span lang="ar" dir="rtl"> الرئيسة</span></a></li>
+                    <li><a href="schedule.html">Broadcast Schedule&nbsp;<span lang="ar" dir="rtl"> مواعيد البث</span></a></li>
+                    <li><a href="programs.html">Programs&nbsp;<span lang="ar" dir="rtl"> البرامج</span></a></li>
+                    <li><a href="links.html">Links&nbsp;<span lang="ar" dir="rtl"> روابط</span></a></li>
+                    <li><a href="aboutus.html">About Us&nbsp;<span lang="ar" dir="rtl">من نحن</span></a></li>
+                    <li ><a href="contactus.php">Contact Us&nbsp;<span lang="ar" dir="rtl">اتصل بنا</span></a></li>
+                    <li><a href="donate.html">Donate&nbsp;<span lang="ar" dir="rtl">تبرع</span></a></li>
+                </ul>
+            </section>
+        </nav>
+    </div>
+</div>
+
+<!-- Main Contents -->
+<article class="row" data-equalizer>
+        <div class="medium-6 columns" lang="ar" dir="rtl">
+            <div class="panel" data-equalizer-watch>
+
+				<div data-alert class="alert-box alert radius show-for-small">
+				  <div>للاستماع للبث المباشر على أجهزة الهاتف المحمول، ينصح باستخدام البرنامج الخاص بذلك. صفحة <a href="links.html">روابط</a> تحتوي على روابط البرامج المتوفرة.</div>
+				  <div lang="en" dir="ltr">For live-listening (online streaming) on mobile phones, it is recommended to use the relevant application. The <a href="links.html">Links</a> page includes download links for the available applications.</div>
+				  <a href="#" class="close close-rtl">&times;</a>
+				</div>
+
+                <h4>إذاعـــــة الــــصــــوت الإســـلامـــي</h4>
+                <h5> من سيدني بأستراليا - 87.6 FM </h5>
+                <p>إذاعة الصوت الإسلامي من سيدني بأستراليا تبث برامجها على مدار اليوم على الترددات التالية:</p>
+                <ul>
+                    <li>87.6 FM</li>
+                    <li>Narrow Band) 173.350 MHz)</li>
+                    <li>Narrow Band) 173.425 MHz)</li>
+                    <li>107.9 FM (فقط أثناء شهر رمضان المبارك)</li>
+                </ul>
+
+                <h5>وبرامجها تشمل ما يلي: </h5>
+                <ul>
+                    <li>تلاوة القرآن الكريم</li>
+                    <li>محاضرات إسلامية</li>
+                    <li>بث مباشر لخطبة الجمعة </li>
+                    <li>أخبار محلية وعالمية</li>
+                    <li>برامج وثائقية</li>
+                    <li>برامج اجتماعية</li>
+                    <li>مسابقات ثقافية</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="medium-6 columns" lang="en" dir="ltr">
+            <div class="panel" data-equalizer-watch>
+                <h1>The Voice of Islam Radio Station</h1>
+                <h5>from Sydney, Australia - 87.6 FM</h5>
+                <p>The Voice of Islam Radio Station broadcasts from Sydney, Australia on the following frequencies.</p>
+                <ul>
+                    <li>87.6 FM</li>
+                    <li>173.350 MHz (Narrow Band)</li>
+                    <li>173.425 MHz (Narrow Band)</li>
+                    <li>107.9 FM (Only during the holy month of Ramadan)</li>
+                </ul>
+
+                <h5>Daily broadcast includes:</h5>
+                <ul>
+                    <li>Recitation of the Holy Quran</li>
+                    <li>Islamic lectures</li>
+                    <li>Live broadcasts of Friday sermons</li>
+                    <li>Local and international news</li>
+                    <li>Radio documentaries</li>
+                    <li>Talk shows and programs on contemporary topics</li>
+                    <li>Trivia and competitions</li>
+                </ul>
+
+            </div>
+        </div>
+
+</article>
+
+	<!-- Social Media Buttons (RRSSB) start here.  -->
+	<div class="row" style="margin-bottom: 0.75em;">
+	    <div class="columns">
+                <ul class="rrssb-buttons clearfix">
+                    <li class="email">
+                        <a href="mailto:?subject=Check%20Out%20The%20Voice%20of%20Islam%20Radio%20Station&amp;body=Check%20out%20http%3A%2F%2FtheVoiceOfIslam.com.au">
+                            <span class="icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
+									x="0px" y="0px" width="28px" height="28px" viewBox="0 0 28 28" enable-background="new 0 0 28 28" xml:space="preserve">
+									<g><path d="M20.111 26.147c-2.336 1.051-4.361 1.401-7.125 1.401c-6.462 0-12.146-4.633-12.146-12.265 c0-7.94 5.762-14.833 14.561-14.833
+										c6.853 0 11.8 4.7 11.8 11.252c0 5.684-3.194 9.265-7.399 9.3 c-1.829 0-3.153-0.934-3.347-2.997h-0.077
+										c-1.208 1.986-2.96 2.997-5.023 2.997c-2.532 0-4.361-1.868-4.361-5.062 c0-4.749 3.504-9.071 9.111-9.071
+										c1.713 0 3.7 0.4 4.6 0.973l-1.169 7.203c-0.388 2.298-0.116 3.3 1 3.4 c1.673 0 3.773-2.102 3.773-6.58c0-5.061-3.27-8.994-9.303-8.994c-5.957 0-11.175 4.673-11.175 12.1 c0 6.5 4.2 10.2 10 10.201
+										c1.986 0 4.089-0.43 5.646-1.245L20.111 26.147z M16.646 10.1 c-0.311-0.078-0.701-0.155-1.207-0.155
+										c-2.571 0-4.595 2.53-4.595 5.529c0 1.5 0.7 2.4 1.9 2.4 c1.441 0 2.959-1.828 3.311-4.087L16.646 10.068z"/>
+									</g>
+								</svg>
+                            </span>
+                            <span class="text">email</span>
+                        </a>
+                    </li>
+                    <li class="facebook">
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=http://theVoiceOfIslam.com.au" class="popup">
+                            <span class="icon">
+                                <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                x="0px" y="0px" width="28px" height="28px" viewBox="0 0 28 28" enable-background="new 0 0 28 28" xml:space="preserve">
+                                    <path d="M27.825,4.783c0-2.427-2.182-4.608-4.608-4.608H4.783c-2.422,0-4.608,2.182-4.608,4.608v18.434
+                                        c0,2.427,2.181,4.608,4.608,4.608H14V17.379h-3.379v-4.608H14v-1.795c0-3.089,2.335-5.885,5.192-5.885h3.718v4.608h-3.726
+                                        c-0.408,0-0.884,0.492-0.884,1.236v1.836h4.609v4.608h-4.609v10.446h4.916c2.422,0,4.608-2.188,4.608-4.608V4.783z"/>
+                                </svg>
+                            </span>
+                            <span class="text">facebook</span>
+                        </a>
+                    </li>
+                    <li class="linkedin">
+                        <a href="http://www.linkedin.com/shareArticle?mini=true&amp;url=http://theVoiceOfIslam.com.au&amp;title=The%20Voice%20of%20Islam%20Radio%20Station&amp;summary=The%20Voice%20of%20Islam%20Radio%20Station" class="popup">
+                            <span class="icon">
+                                <svg version="1.1" id="Layer_2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                x="0px" y="0px" width="28px" height="28px" viewBox="0 0 28 28" enable-background="new 0 0 28 28" xml:space="preserve">
+                                    <path d="M25.424,15.887v8.447h-4.896v-7.882c0-1.979-0.709-3.331-2.48-3.331c-1.354,0-2.158,0.911-2.514,1.803
+                                        c-0.129,0.315-0.162,0.753-0.162,1.194v8.216h-4.899c0,0,0.066-13.349,0-14.731h4.899v2.088c-0.01,0.016-0.023,0.032-0.033,0.048
+                                        h0.033V11.69c0.65-1.002,1.812-2.435,4.414-2.435C23.008,9.254,25.424,11.361,25.424,15.887z M5.348,2.501
+                                        c-1.676,0-2.772,1.092-2.772,2.539c0,1.421,1.066,2.538,2.717,2.546h0.032c1.709,0,2.771-1.132,2.771-2.546
+                                        C8.054,3.593,7.019,2.501,5.343,2.501H5.348z M2.867,24.334h4.897V9.603H2.867V24.334z"/>
+                                </svg>
+                            </span>
+                            <span class="text">linkedin</span>
+                        </a>
+                    </li>
+                    <li class="twitter">
+                        <a href="http://twitter.com/home?status=Check%20Out%20The%20Voice%20of%20Islam%20Radio%20Station%3A%20http://theVoiceOfIslam.com.au" class="popup">
+                            <span class="icon">
+                                <svg version="1.1" id="Layer_3" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                     width="28px" height="28px" viewBox="0 0 28 28" enable-background="new 0 0 28 28" xml:space="preserve">
+                                <path d="M24.253,8.756C24.689,17.08,18.297,24.182,9.97,24.62c-3.122,0.162-6.219-0.646-8.861-2.32
+                                    c2.703,0.179,5.376-0.648,7.508-2.321c-2.072-0.247-3.818-1.661-4.489-3.638c0.801,0.128,1.62,0.076,2.399-0.155
+                                    C4.045,15.72,2.215,13.6,2.115,11.077c0.688,0.275,1.426,0.407,2.168,0.386c-2.135-1.65-2.729-4.621-1.394-6.965
+                                    C5.575,7.816,9.54,9.84,13.803,10.071c-0.842-2.739,0.694-5.64,3.434-6.482c2.018-0.623,4.212,0.044,5.546,1.683
+                                    c1.186-0.213,2.318-0.662,3.329-1.317c-0.385,1.256-1.247,2.312-2.399,2.942c1.048-0.106,2.069-0.394,3.019-0.851
+                                    C26.275,7.229,25.39,8.196,24.253,8.756z"/>
+                                </svg>
+                           </span>
+                            <span class="text">twitter</span>
+                        </a>
+                    </li>
+                    <!-- <li class="googleplus">
+                        <a href="https://plus.google.com/share?url=Check%20Out%20The%20Voice%20of%20Islam%20Radio%20Station%20http://theVoiceOfIslam.com.au" class="popup">
+                            <span class="icon">
+                                <svg version="1.1" id="Layer_4" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                x="0px" y="0px" width="28px" height="28px" viewBox="0 0 28 28" enable-background="new 0 0 28 28" xml:space="preserve">
+                                    <g>
+                                        <g>
+                                            <path d="M14.703,15.854l-1.219-0.948c-0.372-0.308-0.88-0.715-0.88-1.459c0-0.748,0.508-1.223,0.95-1.663
+                                                c1.42-1.119,2.839-2.309,2.839-4.817c0-2.58-1.621-3.937-2.399-4.581h2.097l2.202-1.383h-6.67c-1.83,0-4.467,0.433-6.398,2.027
+                                                C3.768,4.287,3.059,6.018,3.059,7.576c0,2.634,2.022,5.328,5.604,5.328c0.339,0,0.71-0.033,1.083-0.068
+                                                c-0.167,0.408-0.336,0.748-0.336,1.324c0,1.04,0.551,1.685,1.011,2.297c-1.524,0.104-4.37,0.273-6.467,1.562
+                                                c-1.998,1.188-2.605,2.916-2.605,4.137c0,2.512,2.358,4.84,7.289,4.84c5.822,0,8.904-3.223,8.904-6.41
+                                                c0.008-2.327-1.359-3.489-2.829-4.731H14.703z M10.269,11.951c-2.912,0-4.231-3.765-4.231-6.037c0-0.884,0.168-1.797,0.744-2.511
+                                                c0.543-0.679,1.489-1.12,2.372-1.12c2.807,0,4.256,3.798,4.256,6.242c0,0.612-0.067,1.694-0.845,2.478
+                                                c-0.537,0.55-1.438,0.948-2.295,0.951V11.951z M10.302,25.609c-3.621,0-5.957-1.732-5.957-4.142c0-2.408,2.165-3.223,2.911-3.492
+                                                c1.421-0.479,3.25-0.545,3.555-0.545c0.338,0,0.52,0,0.766,0.034c2.574,1.838,3.706,2.757,3.706,4.479
+                                                c-0.002,2.073-1.736,3.665-4.982,3.649L10.302,25.609z"/>
+                                            <polygon points="23.254,11.89 23.254,8.521 21.569,8.521 21.569,11.89 18.202,11.89 18.202,13.604 21.569,13.604 21.569,17.004
+                                                23.254,17.004 23.254,13.604 26.653,13.604 26.653,11.89      "/>
+                                        </g>
+                                    </g>
+                                </svg>
+                            </span>
+                            <span class="text">google+</span>
+                        </a>
+                    </li> -->
+                </ul>
+		</div>
+	</div>
+	<!-- Social Media Buttons (RRSSB) end here -->
+
+<!-- Footer -->
+<footer class="row">
+	<div class="small-12 columns">
+		<div class="panel">
+			<div class="row">
+				<div class="small-12 medium-4 columns small-text-center medium-text-right">
+				  <a href="#">Back to top</a>
+				</div>
+				<div class="small-12 medium-8 columns small-text-center medium-text-left">
+					Designed &amp; Built by <a href="http://BuildWebsitePro.com.au/">BuildWebsitePro.com.au</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</footer>
+
+<!--    <div class="large-12 columns">
+      <hr />
+      <div class="row">
+        <div class="large-6 columns">
+          <p>© Copyright no one at all. Go to town.</p>
+        </div>
+        <div class="large-6 columns">
+          <ul class="inline-list right">
+            <li><a href="#">Link 1</a></li>
+            <li><a href="#">Link 2</a></li>
+            <li><a href="#">Link 3</a></li>
+            <li><a href="#">Link 4</a></li>
+          </ul>
+        </div>
+      </div>
+    </div> -->
+
+<!-- The following js are required for Zurb Foundation -->
+<!--    <script src="js/app.js"></script>-->
+<script src="js/vendor/jquery.js"></script>
+<script src="js/foundation.min-rtl.js"></script> <!-- rtl -->
+<script src="js/vendor/modernizr.js"></script> <!-- required for the orbit animation (NOT js/foundation/foundation.orbit.js) -->
+<script>$(document).foundation();</script>
+
+<!-- The following js are required for the jPlayer -->
+<!--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>-->
+<script type="text/javascript" src="js/jplayer/jquery.jplayer.min.js"></script>
+<script type="text/javascript" src="js/jplayer/mod.csstransforms.min.js"></script> <!-- required for orbit: (1)) bug fix for flickering at slide 1, (2) bug fix for Samsung browser -->
+<script type="text/javascript" src="js/jplayer/circle.player.js"></script> <!-- The code of the js was updated by Bilal -->
+
+<script type="text/javascript">
+//<![CDATA[
+$(document).ready(function(){
+	/*
+	 * Instance CirclePlayer inside jQuery doc ready
+	 *
+	 * CirclePlayer(jPlayerSelector, media, options)
+	 *   jPlayerSelector: String - The css selector of the jPlayer div.
+	 *   media: Object - The media object used in jPlayer("setMedia",media).
+	 *   options: Object - The jPlayer options.
+	 *
+	 * Multiple instances must set the cssSelectorAncestor in the jPlayer options. Defaults to "#cp_container_1" in CirclePlayer.
+	 *
+	 * The CirclePlayer uses the default supplied:"m4a, oga" if not given, which is different from the jPlayer default of supplied:"mp3"
+	 * Note that the {wmode:"window"} option is set to ensure playback in Firefox 3.6 with the Flash solution.
+	 * However, the OGA format would be used in this case with the HTML solution.
+	 */
+	var myCirclePlayer = new CirclePlayer("#jquery_jplayer_1",
+	{
+        // Using https below does NOT work
+		// mp3: "https://voiceofislam.appsunder.com:8000/voiceofislam.mp3"
+        mp3: "https://stream.appsunderstream.com/voiceofislam.mp3"
+
+//		m4a: "http://www.jplayer.org/audio/m4a/Miaow-07-Bubble.m4a"
+//		oga: "http://www.jplayer.org/audio/ogg/Miaow-07-Bubble.ogg"
+	}, {
+		cssSelectorAncestor: "#cp_container_1",
+		swfPath: "js",
+		wmode: "window",
+		keyEnabled: true
+	});
+});
+//]]>
+</script>
+
+<!-- The following js are required for the Rabbie's suggestion -->
+<!--<script src="js/audiojs/audio.min.js"></script>
+<script>
+  audiojs.events.ready(function() {
+    var as = audiojs.createAll();
+  });
+</script>-->
+
+<!-- Social Media Buttons (RRSSB) -->
+<script src="js/rrssb.min.js"></script>
+<script>
+    var _gaq=[['_setAccount','UA-404294-1'],['_trackPageview']];
+    (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+    g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+    s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+<!-- The following is for Google Analytics -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-51853752-1', 'thevoiceofislam.com.au');
+  ga('send', 'pageview');
+</script>
+
+</body>
+</html>
