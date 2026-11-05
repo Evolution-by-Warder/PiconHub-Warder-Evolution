@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Rádio Essencial - A Sua Rádio Online</title>
+    <link href="https://fonts.googleapis.com/css?family=Khand&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Anton&display=swap" rel="stylesheet">
+    <link type="text/css" href="css/themify-icons.css" rel="stylesheet">
+    <link type="text/css" href="css/style.css?v=18" rel="stylesheet">
+</head>
+
+<body style="background:#FBBB5B;">
+    <header>
+        <div class="container">
+            <div class="local-logo">
+                <a href="https://radioessencial.co.ao/">Uma Rádio de Palavra</a>
+            </div>
+        </div>
+    </header>
+    <main>
+        <section class="main-body">
+            <div class="container">
+                <div class="side-slogan">
+                    <h2 style="display:none">Uma Radio de Palavra</h2>
+                    <div class="slogan-txt1 txt">
+                        Rádio 
+                    </div><br>
+                    <div class="slogan-txt2 txt">
+                        Essencial
+                    </div>                              
+                    <div class="lt-text">
+                       05/11/2026 09:33                    </div>
+                    <p><span onclick="grelha()" class="ver_grelha">Ver a Grelha</span></p>  
+                </div>
+                <div class="side-menu">
+                    <div class="title-menu">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="equilizer" viewBox="0 0 128 128">
+                            <g>
+                                <title>Audio Equilizer</title>
+                                <rect class="bar" transform="translate(0,0)" y="15"></rect>
+                                <rect class="bar" transform="translate(25,0)" y="15"></rect>
+                                <rect class="bar" transform="translate(50,0)" y="15"></rect>
+                                <rect class="bar" transform="translate(75,0)" y="15"></rect>
+                                <rect class="bar" transform="translate(100,0)" y="15"></rect>
+                            </g>
+                        </svg><span>96.1 FM</span>
+                    </div>
+					<div>
+					    <iframe src="https://public-player-widget.webradiosite.com/?cover=0&current_track=0&schedules=0&link=0&popup=0&share=0&embed=0&auto_play=0&source=8983&theme=dark&color=1&identifier=Essencial%20Player&info=https%3A%2F%2Fpublic-player-widget.webradiosite.com%2Fapp%2Fplayer%2Finfo%2F162161%3Fhash%3De293b26c2d9a4f742a4d8d44d8dc4b346b383e3d&locale=pt-pt" border="0" scrolling="no" frameborder="0" allow="autoplay; clipboard-write" allowtransparency="true" style="background-color: unset;width: 140px;" height="165"></iframe>
+					</div>					
+                	</div>
+                <div class="side-image" style=" background-image:url('img/logo_essencial.png');"></div>
+                
+            </div>
+            <div class="grellha" id="grelha" >
+                    <div class="grelha_inside">
+                       <img src="img/CATALOGO_VE.png" alt="Programação da grelha"/>
+                    </div>
+                </div>
+        </section>
+    </main>
+    <script>
+        function grelha() {
+            var elmnt = document.getElementById("grelha");
+            elmnt.scrollIntoView({ behavior: "smooth" });
+}
+    </script>
+</body>
+</html>
