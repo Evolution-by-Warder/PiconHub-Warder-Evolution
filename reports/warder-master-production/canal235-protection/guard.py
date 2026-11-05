@@ -32,6 +32,15 @@ def validate_plan(plan, policy=None, baseline=None):
     baseline=baseline or json.loads((ROOT/policy['baseline_file']).read_text())
     protected={identity(reference_parts(r)) for r in baseline['protected_reference_filenames']}
     families={n:family for family,names in policy['explicit_station_families'].items() for n in names}
+    reuse_path=ROOT/policy.get('canonical_reuse_evidence_file','reuse-evidence.json')
+    reuse=json.loads(reuse_path.read_text()) if reuse_path.exists() else {}
+    approved={identity(reference_parts(c['reference'])):c for c in reuse.get('candidates',[])}
+    def canonical_reuse(write, parts):
+        source=write.get('source_reference'); c=approved.get(identity(parts))
+        if not c or c['source_reference']!=source:return False
+        key='|'.join((write.get('resolution',''),write.get('family',''),source))
+        expected=reuse.get('canonical_hashes',{}).get(key)
+        return bool(expected and write.get('content_sha256')==expected)
     result=[]
     for write in plan:
         path=str(write.get('path','')).replace('\\','/').casefold()
@@ -44,6 +53,7 @@ def validate_plan(plan, policy=None, baseline=None):
         if isinstance(names,str):names=[names]
         family=next((families[normalized_name(n)] for n in names if normalized_name(n) in families),None)
         if package:reason='BLOCK_PROTECTED_CANAL_PACKAGE'
+        elif write.get('operation')=='CANAL_CANONICAL_REUSE':reason='ALLOW_VERIFIED_CANAL_BYTE_REUSE' if canonical_reuse(write,parts) else 'BLOCK_UNVERIFIED_CANAL_REUSE'
         elif is235 and identity(parts) in protected:reason='BLOCK_PROTECTED_STATION_REFERENCE'
         elif is235 and family:reason='BLOCK_PROTECTED_STATION_FAMILY'
         elif is235:reason='HOLD_235E_MISSING_REFERENCE_AND_BRAND_CHECK'
