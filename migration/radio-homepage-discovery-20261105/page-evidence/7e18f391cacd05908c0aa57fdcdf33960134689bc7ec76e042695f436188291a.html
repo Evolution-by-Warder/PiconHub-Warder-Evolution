@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script>
+/* Runs before body paints — decides layout mode with zero flash */
+(function(){
+  var p=new URLSearchParams(location.search);
+  var standalone=window.matchMedia('(display-mode: standalone)').matches||window.navigator.standalone||p.has('pwa');
+  document.documentElement.classList.add(standalone?'is-pwa':'is-web');
+})();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="application-name" content="Voice of Ummah Radio">
+<meta name="apple-mobile-web-app-title" content="Voice of Ummah Radio">
+<title>Voice of Ummah | Islamic Urdu Radio Bahrain</title>
+<meta name="description" content="Voice of Ummah - Bahrain's first and only Islamic Urdu radio station broadcasting live 24/7. Listen to Quran recitations, lectures, and nasheeds in Urdu.">
+<meta name="author" content="Voice of Ummah">
+<meta name="theme-color" content="#0a1128">
+<meta name="background-color" content="#000000">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<link rel="apple-touch-icon" href="/assets/icon-512.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/assets/icon-192.png" type="image/png">
+<link rel="canonical" href="https://voiceofummah.com">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+:root{--green-bg:#0e3b2d;--green-dark:#081f16;--gold:#d4af37;--ivory:#faf8f0;--white:#fff;}
+body{margin:0;background:radial-gradient(circle at top,var(--green-bg) 0%,var(--green-dark) 90%);font-family:'Poppins',sans-serif;color:var(--white);overflow-x:hidden;position:relative;}
+html.is-pwa body{background:radial-gradient(circle at top,#0a1128 0%,#000 90%);}
+/* Layout switch decided before first paint — no flash */
+#pwaLayout{display:none;}
+html.is-pwa #webLayout{display:none;}
+html.is-pwa #pwaLayout{display:flex;}
+.btn-round:active{transform:scale(.9);}
+body::before{content:"";position:fixed;inset:0;background:url('/assets/islamic-calligraphy.png') center/cover no-repeat;opacity:.15;z-index:0;pointer-events:none;}
+.main-container{min-height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px 15px calc(80px + env(safe-area-inset-bottom));text-align:center;position:relative;z-index:1;box-sizing:border-box;}
+.fade-in{opacity:0;transform:translateY(20px);animation:fadeIn .8s ease forwards;}
+@keyframes fadeIn{to{opacity:1;transform:translateY(0);}}
+.fade-out{opacity:0;transition:opacity 1s ease;}
+.logo-icon{font-size:4rem;color:var(--gold);animation:pulse 2.5s infinite;}
+@keyframes pulse{0%,100%{transform:scale(1);filter:drop-shadow(0 0 6px var(--gold));}50%{transform:scale(1.08);filter:drop-shadow(0 0 12px var(--gold));}}
+h1{font-weight:700;font-size:clamp(2rem,5vw,3rem);margin-top:10px;background:linear-gradient(135deg,var(--gold),#fff9c4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.subtitle{color:#c8c8c8;letter-spacing:1.5px;margin-bottom:.9rem;}
+.tagline-verse{font-family:'Noto Nastaliq Arabic',serif;font-size:1.4rem;color:var(--white);margin-bottom:2rem;direction:rtl;}
+.verse-card,.radio-card{background:var(--ivory);color:#111;border-radius:18px;border:2px solid var(--gold);padding:25px;box-shadow:0 8px 35px rgba(212,175,55,.3);max-width:750px;margin-bottom:25px;}
+#quran-verse{font-family:'Noto Nastaliq Urdu',serif;font-size:1.4rem;line-height:2.4rem;direction:rtl;text-align:right;color:#111;}
+.radio-header{font-family:'VT323',monospace;font-size:1.6rem;color:#0e3b2d;font-weight:600;margin-bottom:15px;animation:blink 1.8s infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.3;}}
+.controls{display:flex;justify-content:center;gap:15px;margin:15px 0;}
+.btn-round{width:55px;height:55px;border-radius:50%;border:none;color:#fff;font-size:1.3rem;display:flex;align-items:center;justify-content:center;transition:.3s;box-shadow:inset -2px -2px 5px rgba(0,0,0,.6),0 3px 10px rgba(0,0,0,.8);}
+.btn-play{background:linear-gradient(135deg,#0e3b2d,#1f5a43);}
+.btn-mute{background:linear-gradient(135deg,#b22222,#660000);}
+.volume-section{display:flex;justify-content:center;align-items:center;gap:10px;margin-top:10px;}
+input[type=range]{flex:1;height:6px;appearance:none;background:rgba(0,0,0,.15);border-radius:3px;}
+input[type=range]::-webkit-slider-thumb{width:16px;height:16px;border-radius:50%;background:#0e3b2d;box-shadow:0 0 6px #0e3b2d;}
+footer{background:var(--green-dark);color:var(--white);text-align:center;padding:12px 12px calc(12px + env(safe-area-inset-bottom));border-top:1px solid var(--gold);font-size:.9rem;position:fixed;bottom:0;width:100%;z-index:10;box-sizing:border-box;}
+/* PWA — Navy & Gold */
+.radio-bar{background:linear-gradient(180deg,#0a1128,#05070f);border:2px solid var(--gold);border-radius:18px;padding:25px;max-width:750px;box-shadow:inset 0 0 25px rgba(212,175,55,.25),0 0 40px rgba(212,175,55,.15);color:var(--gold);font-family:'VT323',monospace;position:relative;}
+.oled-screen{font-family:'VT323',monospace;color:#f5f5f0;background:radial-gradient(circle,#0d1330,#05070f);border:1px solid rgba(212,175,55,.4);border-radius:12px;padding:25px 20px;text-align:center;box-shadow:inset 0 0 20px rgba(212,175,55,.1),0 0 15px rgba(212,175,55,.25);}
+.station-name{font-size:2rem;letter-spacing:2px;margin-bottom:.6rem;color:var(--gold);}
+.status-text{font-size:1.1rem;color:#f0c419;text-shadow:0 0 6px #d4af37,0 0 12px #d4af37,0 0 24px rgba(212,175,55,.8);letter-spacing:2px;margin:.6rem 0 1.2rem;display:inline-block;}
+.power-led{position:absolute;top:10px;right:10px;width:12px;height:12px;border-radius:50%;background:radial-gradient(circle,#f9d71c,#b8860b);box-shadow:0 0 8px #d4af37,0 0 15px #d4af37,0 0 25px rgba(212,175,55,.6);animation:led-glow 1.5s infinite;}
+@keyframes led-glow{0%,100%{opacity:1;}50%{opacity:.6;}}
+.equaliser{display:flex;justify-content:center;align-items:flex-end;gap:12px;height:60px;position:relative;z-index:2;}
+.bar{display:flex;flex-direction:column-reverse;gap:2px;width:14px;}
+.bar div{width:14px;height:6px;background:#0d1330;border-radius:1px;transition:background .2s;}
+.btn-gold{background:radial-gradient(circle,#f9d71c,#b8860b);}
+.volume-section-pwa{display:flex;justify-content:center;align-items:center;gap:10px;max-width:400px;margin:0 auto;color:var(--gold);}
+.volume-section-pwa input[type=range]{flex:1;height:8px;appearance:none;background:rgba(212,175,55,.25);border-radius:4px;outline:none;box-shadow:0 0 10px rgba(212,175,55,.2),inset 0 0 5px rgba(212,175,55,.3);}
+.volume-section-pwa input::-webkit-slider-thumb{appearance:none;width:18px;height:18px;border-radius:50%;background:var(--gold);box-shadow:0 0 15px #d4af37,0 0 25px rgba(212,175,55,.6);}
+#offlineToast{position:fixed;bottom:calc(20px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);background:rgba(220,53,69,.95);color:#fff;padding:12px 24px;border-radius:30px;font-family:'VT323',monospace;font-size:1.1rem;letter-spacing:1px;text-align:center;z-index:1000;box-shadow:0 0 20px rgba(220,53,69,.5);opacity:0;pointer-events:none;transition:.6s;}
+#offlineToast.show{opacity:1;bottom:calc(40px + env(safe-area-inset-bottom));}
+.btn-exit{background:linear-gradient(135deg,#1a2450,#0a1128);border:1px solid var(--gold)!important;color:var(--gold);}
+.sleep-timer{display:flex;justify-content:center;align-items:center;gap:8px;margin-top:14px;color:var(--gold);font-family:'VT323',monospace;font-size:1.1rem;}
+.sleep-timer select{background:#0d1330;color:var(--gold);border:1px solid rgba(212,175,55,.4);border-radius:6px;padding:4px 8px;font-family:'VT323',monospace;font-size:1rem;}
+#sleepCountdown{min-width:4.5em;display:inline-block;}
+.install-banner{position:fixed;left:12px;right:12px;bottom:calc(70px + env(safe-area-inset-bottom));background:var(--ivory);color:#111;border:2px solid var(--gold);border-radius:14px;padding:12px 14px;display:none;align-items:center;gap:10px;box-shadow:0 8px 25px rgba(0,0,0,.35);z-index:900;text-align:left;}
+.install-banner span{flex:1;font-size:.92rem;line-height:1.3;}
+.install-btn{background:linear-gradient(135deg,#0e3b2d,#1f5a43);color:#fff;border:none;border-radius:8px;padding:8px 14px;font-weight:600;white-space:nowrap;}
+.install-dismiss{background:none;border:none;font-size:1.3rem;line-height:1;color:#666;padding:0 4px;}
+
+
+</style>
+</head>
+
+<body onclick="unlockAudio()" ontouchstart="unlockAudio()">
+
+<!-- Web Layout -->
+<div class="main-container fade-in" id="webLayout">
+  <div class="logo-icon"><i class="fas fa-mosque"></i></div>
+  <h1>VOICE OF UMMAH</h1>
+  <p class="tagline-verse" dir="rtl">وَاعْتَصِمُوا بِحَبْلِ اللَّهِ جَمِيعًا وَلَا تَفَرَّقُوا ۚ</p>
+  <p class="subtitle">• Faith Unites • Division Breaks •</p>
+
+  <div class="verse-card fade-in">
+    <p id="quran-verse"><span class="spinner-border text-warning"></span></p>
+    <p id="quran-reference"></p>
+  </div>
+
+  <div class="radio-card fade-in">
+    <div class="radio-header">🎧 LIVE – VOICE OF UMMAH RADIO CHANNEL</div>
+    <div class="controls">
+      <button id="playBtnWeb" class="btn-round btn-play" aria-label="Play radio"><i class="fas fa-play" aria-hidden="true"></i></button>
+      <button id="muteBtnWeb" class="btn-round btn-mute" aria-label="Mute"><i class="fas fa-volume-up" aria-hidden="true"></i></button>
+      <button id="shareBtnWeb" class="share-btn" aria-label="Share"><i class="fa-solid fa-share-nodes" aria-hidden="true"></i> Share</button>
+    </div>
+    <div class="volume-section">
+      <input type="range" id="volumeWeb" min="0" max="100" value="70" aria-label="Volume">
+      <span id="volTextWeb">70%</span>
+    </div>
+  </div>
+</div>
+
+<!-- PWA OLED Layout -->
+<div class="main-container" id="pwaLayout">
+  <div class="radio-bar">
+    <div class="power-led" aria-hidden="true"></div>
+    <div class="oled-screen">
+      <p class="station-name">VOICE OF UMMAH FM</p>
+      <p class="status-text" id="oledStatus" role="status" aria-live="polite">Connecting…</p>
+
+<div class="equaliser" id="equaliser" aria-hidden="true">
+    <div class="bar"></div>
+    <div class="bar"></div>
+    <div class="bar"></div>
+    <div class="bar"></div>
+    <div class="bar"></div>
+</div>
+
+<!-- EQ TEXT LABELS with Glow -->
+<div aria-hidden="true" style="
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    margin-top:8px;
+    color:#d4af37;
+    font-family:'VT323',monospace;
+    font-size:1rem;
+    letter-spacing:1px;
+    text-shadow:
+        0 0 4px #d4af37,
+        0 0 8px #d4af37,
+        0 0 12px rgba(212,175,55,0.7);
+">
+    <span>B</span>
+    <span>L</span>
+    <span>M</span>
+    <span>H</span>
+    <span>T</span>
+</div>
+
+
+    </div>
+
+    <div class="controls">
+      <button id="playBtn" class="btn-round btn-gold" style="display:none;" aria-label="Play radio"><i class="fas fa-play" aria-hidden="true"></i></button>
+      <button id="muteBtn" class="btn-round btn-exit" aria-label="Mute"><i class="fas fa-volume-up" aria-hidden="true"></i></button>
+      <button id="closeBtn" class="btn-round btn-exit" style="display:none;" aria-label="Close app"><i class="fas fa-xmark" aria-hidden="true"></i></button>
+    </div>
+
+    <div class="volume-section-pwa">
+      <input type="range" id="volumeSlider" min="0" max="100" value="70" aria-label="Volume">
+      <span id="volumeText">70%</span>
+    </div>
+
+    <div class="sleep-timer">
+      <i class="fas fa-moon" aria-hidden="true"></i>
+      <select id="sleepSelect" aria-label="Sleep timer">
+        <option value="0">Sleep Timer: Off</option>
+        <option value="15">15 min</option>
+        <option value="30">30 min</option>
+        <option value="45">45 min</option>
+        <option value="60">60 min</option>
+      </select>
+      <span id="sleepCountdown"></span>
+    </div>
+  </div>
+</div>
+
+<footer>&copy; 2011 - <span id="currentYear"></span> Voice of Ummah. All rights reserved.</footer>
+<div id="offlineToast" role="status" aria-live="polite">⚠ Offline Mode – Connection Lost</div>
+<div id="installBanner" class="install-banner" role="region" aria-label="Install app">
+  <span id="installText">📲 Install this app for quick, one-tap access.</span>
+  <button id="installBtn" class="install-btn">Install</button>
+  <button id="installDismiss" class="install-dismiss" aria-label="Dismiss install prompt">&times;</button>
+</div>
+
+<audio id="radioPlayer" preload="auto" crossorigin="anonymous">
+  <source src="https://mediati.me/listen/vou/radio.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+/* Player init */
+const player=document.getElementById("radioPlayer");player.crossOrigin="anonymous";document.getElementById("currentYear").textContent=new Date().getFullYear();
+</script>
+
+<script>
+/* Quran verse rotation */
+async function fetchVerse(){const v=document.getElementById("quran-verse"),r=document.getElementById("quran-reference");try{const now=new Date(),ksa=new Date(now.getTime()+3*3600000),t=6236,m=Math.floor(ksa.getTime()/60000),id=(m%t)+1,res=await axios.get(`https://api.alquran.cloud/v1/ayah/${id}/ur.junagarhi`),d=res.data.data;v.classList.add("fade-out");r.classList.add("fade-out");setTimeout(()=>{v.textContent=d.text;r.textContent=`Surah ${d.surah.englishName}, Ayah ${d.numberInSurah}`;v.classList.remove("fade-out");r.classList.remove("fade-out")},800);}catch(e){v.textContent="بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ";r.textContent="In the name of Allah, the Most Gracious, the Most Merciful";}}
+fetchVerse();(function(){const n=new Date(),ms=(60-n.getUTCSeconds())*1000;setTimeout(()=>{fetchVerse();setInterval(fetchVerse,60000)},ms)})();document.addEventListener("visibilitychange",()=>{if(!document.hidden)fetchVerse()});
+</script>
+
+<script>
+/* Web controls (no EQ here — EQ disabled for web mode) */
+const playBtnWeb=document.getElementById("playBtnWeb"),muteBtnWeb=document.getElementById("muteBtnWeb"),volumeWeb=document.getElementById("volumeWeb"),volTextWeb=document.getElementById("volTextWeb");player.volume=.7;
+volumeWeb.oninput=e=>{player.volume=e.target.value/100;volTextWeb.textContent=e.target.value+"%";}
+let webPlaying=false;playBtnWeb.onclick=()=>{if(webPlaying){player.pause();playBtnWeb.innerHTML='<i class="fas fa-play"></i>';webPlaying=false;}else{player.play();playBtnWeb.innerHTML='<i class="fas fa-stop"></i>';webPlaying=true;}};muteBtnWeb.onclick=()=>{player.muted=!player.muted;muteBtnWeb.innerHTML=player.muted?'<i class="fas fa-volume-mute"></i>':'<i class="fas fa-volume-up"></i>';};
+document.getElementById("shareBtnWeb").onclick=()=>{const d={title:"Voice of Ummah Radio",text:"🎧 Listen to Voice of Ummah Radio",url:"https://voiceofummah.com"};navigator.share?navigator.share(d):navigator.clipboard.writeText(d.url);}
+</script>
+
+<script>
+/* EQ PWA ONLY — analyser disabled in web mode */
+const equaliser=document.getElementById("equaliser");
+let audioCtx=null,analyser=null,bufferLength=0,dataArray=null,eqInterval=null;
+
+/* Build bar blocks */
+equaliser&&equaliser.querySelectorAll(".bar").forEach(b=>{for(let i=0;i<10;i++)b.appendChild(document.createElement("div"));});
+
+/* Setup analyser */
+function setupAnalyser(){if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();if(!analyser&&audioCtx.state==="running"){try{const src=audioCtx.createMediaElementSource(player);analyser=audioCtx.createAnalyser();analyser.fftSize=256;bufferLength=analyser.frequencyBinCount;dataArray=new Uint8Array(bufferLength);src.connect(analyser);analyser.connect(audioCtx.destination);}catch(e){}}}
+
+/* Update EQ */
+function updateRealEQ(){if(!analyser||player.paused)return;analyser.getByteFrequencyData(dataArray);const bars=equaliser.querySelectorAll(".bar"),totalBars=5;for(let i=0;i<totalBars;i++){const start=Math.floor(Math.pow(i/totalBars,2)*bufferLength),end=Math.floor(Math.pow((i+1)/totalBars,2)*bufferLength);let sum=0,count=0;for(let j=start;j<end;j++){sum+=dataArray[j];count++;}const lvl=Math.floor((sum/count)/255*10);bars[i].querySelectorAll("div").forEach((blk,k)=>{blk.style.background=k<lvl?(k<3?"#b8860b":k<6?"#f9d71c":"#ff2e2e"):"#0d1330";});}}
+
+/* Warm-up */
+function warmUpEQ(){equaliser.querySelectorAll(".bar").forEach((bar,i)=>{bar.querySelectorAll("div").forEach((blk,k)=>{blk.style.background="#0d1330";blk.style.opacity=0;setTimeout(()=>blk.style.opacity=1,(k*60)+(i*40));});});}
+function warmUpThenStart(){warmUpEQ();setTimeout(()=>startEQ(),900);}
+
+function startEQ(){setupAnalyser();eqInterval&&clearInterval(eqInterval);audioCtx.resume?.();eqInterval=setInterval(updateRealEQ,120);}
+function stopEQ(){if(eqInterval){clearInterval(eqInterval);eqInterval=null;}equaliser.querySelectorAll("div").forEach(b=>b.style.background="#0d1330");}
+</script>
+
+<script>
+/* Layout mode already decided pre-paint (see head script); just expose the flag */
+const standalone=document.documentElement.classList.contains("is-pwa");
+</script>
+
+<script>
+/* PWA logic: autoplay (with cross-platform fallback) + real connection status + sleep timer */
+const STATUS_LIVE="LIVE • 99.0 MHz";
+let beginPlayback=null; /* exposed so unlockAudio() can reuse the same path */
+
+window.addEventListener("load",()=>{if(!standalone)return;
+const playBtn=document.getElementById("playBtn"),muteBtn=document.getElementById("muteBtn"),closeBtn=document.getElementById("closeBtn"),oledStatus=document.getElementById("oledStatus"),volumeSlider=document.getElementById("volumeSlider"),volumeText=document.getElementById("volumeText"),sleepSelect=document.getElementById("sleepSelect"),sleepCountdown=document.getElementById("sleepCountdown");
+
+closeBtn.style.display="flex";
+
+/* Volume restore */
+player.volume=parseFloat(localStorage.getItem("vou_vol"))||.7;
+volumeSlider.value=player.volume*100;volumeText.textContent=Math.round(player.volume*100)+"%";
+volumeSlider.oninput=e=>{const v=e.target.value/100;player.volume=v;volumeText.textContent=e.target.value+"%";localStorage.setItem("vou_vol",v);};
+
+let retryCount=0,reconnectTimer=null,userPaused=false,lastProgress=Date.now();
+
+function withTimeout(promise,ms){
+  return Promise.race([promise,new Promise((_,rej)=>setTimeout(()=>rej(new Error("timeout")),ms))]);
+}
+
+/* Real playback attempt — works across Android/iOS/desktop autoplay policies.
+   On success: hide the play button. On block/failure: show it so the user has
+   a guaranteed way to start audio (required by iOS/Safari gesture rules).
+   player.play() is never gated on audioCtx.resume() — a suspended AudioContext
+   (common after screen lock / backgrounding) can leave that promise hanging
+   forever on mobile, which would otherwise block playback indefinitely. */
+beginPlayback=function(){
+  userPaused=false;
+  lastProgress=Date.now();
+  oledStatus.textContent="Connecting…";
+  if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();
+  withTimeout(audioCtx.resume(),4000).catch(()=>{});
+  return player.play().then(()=>{
+    playBtn.style.display="none";
+    !analyser&&(setupAnalyser(),warmUpThenStart());
+  }).catch(()=>{
+    playBtn.style.display="flex";
+    oledStatus.textContent="Tap ▶ to Play";
+  });
+};
+
+/* Backoff-based hard reconnect — always reloads the <source> first, since a
+   stalled connection can look "open" to the browser even though no bytes are
+   arriving; just calling play() again on it does nothing. */
+function scheduleReconnect(){
+  if(userPaused)return;
+  if(retryCount<5){
+    const delay=Math.min(30000,1000*2**retryCount);retryCount++;
+    oledStatus.textContent=`Reconnecting (${retryCount})…`;
+    clearTimeout(reconnectTimer);
+    reconnectTimer=setTimeout(()=>{player.load();beginPlayback();},delay);
+  }else{
+    oledStatus.textContent="Stream unavailable — Tap ▶";
+    playBtn.style.display="flex";
+  }
+}
+
+playBtn.onclick=()=>{retryCount=0;clearTimeout(reconnectTimer);player.load();beginPlayback();};
+beginPlayback();
+
+/* Status text reflects what the stream is actually doing. */
+player.addEventListener("playing",()=>{retryCount=0;clearTimeout(reconnectTimer);lastProgress=Date.now();oledStatus.textContent=STATUS_LIVE;playBtn.style.display="none";});
+player.addEventListener("timeupdate",()=>{lastProgress=Date.now();});
+player.addEventListener("waiting",()=>{if(!userPaused)oledStatus.textContent="Buffering…";});
+player.addEventListener("stalled",()=>{if(!userPaused)oledStatus.textContent="Reconnecting…";});
+player.addEventListener("error",()=>{if(!userPaused)scheduleReconnect();});
+
+/* Stuck-forever safety net — the single source of truth for "is audio actually
+   flowing", independent of whether the browser ever fires a proper 'error'
+   event. Some Icecast/Shoutcast streams stall silently (connection stays
+   open, no data, no error) — common on desktop. If there's been no real
+   playback progress for 12s while we believe we should be playing, force a
+   hard reconnect instead of leaving the status frozen. */
+setInterval(()=>{
+  if(userPaused||player.paused)return;
+  if(Date.now()-lastProgress>12000){
+    lastProgress=Date.now();
+    scheduleReconnect();
+  }
+},3000);
+
+/* Mute */
+muteBtn.onclick=()=>{player.muted=!player.muted;muteBtn.innerHTML=player.muted?'<i class="fas fa-volume-mute" aria-hidden="true"></i>':'<i class="fas fa-volume-up" aria-hidden="true"></i>';if(!player.paused&&!eqInterval)startEQ();};
+
+/* Monitor */
+setInterval(()=>{player.paused||player.ended?stopEQ():!eqInterval&&startEQ();},1500);
+
+/* Close */
+closeBtn.onclick=()=>{window.close();};
+
+/* Offline/Online */
+window.addEventListener("offline",()=>{userPaused=true;clearTimeout(reconnectTimer);player.pause();stopEQ();oledStatus.textContent="⚠ Offline";playBtn.style.display="none";});
+window.addEventListener("online",()=>{retryCount=0;player.load();beginPlayback();});
+
+/* Sleep timer */
+let sleepTimeoutId=null,sleepIntervalId=null;
+sleepSelect.onchange=()=>{
+  clearTimeout(sleepTimeoutId);clearInterval(sleepIntervalId);sleepCountdown.textContent="";
+  const mins=parseInt(sleepSelect.value,10);
+  if(!mins)return;
+  let remaining=mins*60;
+  sleepIntervalId=setInterval(()=>{
+    remaining--;
+    const m=String(Math.floor(remaining/60)).padStart(2,"0"),s=String(remaining%60).padStart(2,"0");
+    sleepCountdown.textContent=`⏳ ${m}:${s}`;
+    if(remaining<=0)clearInterval(sleepIntervalId);
+  },1000);
+  sleepTimeoutId=setTimeout(()=>{
+    userPaused=true;clearTimeout(reconnectTimer);
+    player.pause();stopEQ();
+    playBtn.style.display="flex";
+    oledStatus.textContent="😴 Sleep Timer Ended";
+    sleepCountdown.textContent="";
+    sleepSelect.value="0";
+  },mins*60*1000);
+};
+});
+</script>
+
+<script>
+/* Unlock audio — first tap/touch anywhere on iOS Safari satisfies the gesture
+   requirement even if it wasn't the play button itself. */
+function unlockAudio(){
+  if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();
+  if(standalone&&beginPlayback&&player.paused){beginPlayback();return;}
+  if(audioCtx.state==="suspended")audioCtx.resume().then(()=>player.play().catch(()=>{}));
+  !analyser&&setupAnalyser();
+}
+</script>
+
+<!-- SW -->
+<script>
+if("serviceWorker"in navigator){navigator.serviceWorker.register("/sw.js?v=21",{scope:"/"});}
+</script>
+
+<script>
+/* Install prompt — Android/Chrome/Edge use the native beforeinstallprompt flow;
+   iOS Safari has no such API, so it gets manual "Add to Home Screen" instructions. */
+(function(){
+  if(standalone)return;
+  const banner=document.getElementById("installBanner"),installText=document.getElementById("installText"),installBtn=document.getElementById("installBtn"),installDismiss=document.getElementById("installDismiss");
+  if(localStorage.getItem("vou_install_dismissed")==="1")return;
+
+  const isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent);
+  let deferredPrompt=null;
+
+  if(isIOS){
+    installText.textContent='📲 Install: tap Share, then "Add to Home Screen"';
+    installBtn.style.display="none";
+    banner.style.display="flex";
+  }else{
+    window.addEventListener("beforeinstallprompt",(e)=>{
+      e.preventDefault();
+      deferredPrompt=e;
+      banner.style.display="flex";
+    });
+  }
+
+  installBtn.onclick=async()=>{
+    if(!deferredPrompt)return;
+    banner.style.display="none";
+    deferredPrompt.prompt();
+    await deferredPrompt.userChoice;
+    deferredPrompt=null;
+  };
+
+  installDismiss.onclick=()=>{
+    banner.style.display="none";
+    localStorage.setItem("vou_install_dismissed","1");
+  };
+
+  window.addEventListener("appinstalled",()=>{banner.style.display="none";});
+})();
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/axios@1.6.0/dist/axios.min.js"></script>
+
+</body>
+</html>
