@@ -1,0 +1,194 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="100%" height="100%">
+  <defs>
+    <!-- Background Radial Glow -->
+    <radialGradient id="sphereGrad" cx="35%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="65%" stop-color="#f8fafc"/>
+      <stop offset="100%" stop-color="#e2e8f0"/>
+    </radialGradient>
+
+    <!-- FM Green-to-Gold Gradient -->
+    <linearGradient id="fmGrad" x1="0%" y1="20%" x2="100%" y2="80%">
+      <stop offset="0%" stop-color="#047857"/>
+      <stop offset="28%" stop-color="#15803d"/>
+      <stop offset="55%" stop-color="#65a30d"/>
+      <stop offset="82%" stop-color="#eab308"/>
+      <stop offset="100%" stop-color="#facc15"/>
+    </linearGradient>
+
+    <!-- 3D Shadow for X -->
+    <filter id="xShadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="8" dy="12" stdDeviation="6" flood-color="#1f0724" flood-opacity="0.6"/>
+    </filter>
+
+    <!-- 3D Shadow for 95.9 -->
+    <filter id="numShadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="6" dy="10" stdDeviation="4" flood-color="#3b0740" flood-opacity="0.7"/>
+    </filter>
+
+    <!-- Glow for Live Badge -->
+    <filter id="outerGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+
+    <clipPath id="circleClip">
+      <circle cx="400" cy="400" r="376"/>
+    </clipPath>
+  </defs>
+
+  <!-- Outer Ring Shadow & Base -->
+  <circle cx="400" cy="404" r="384" fill="#cbd5e1" opacity="0.6"/>
+  <circle cx="400" cy="400" r="380" fill="url(#sphereGrad)" stroke="#94a3b8" stroke-width="4"/>
+
+  <!-- Clipped Globe & Map Elements -->
+  <g clip-path="url(#circleClip)">
+    <!-- Globe Longitude & Latitude Wireframe -->
+    <g stroke="#cbd5e1" stroke-width="1.8" fill="none" opacity="0.85">
+      <!-- Latitudes -->
+      <line x1="20" y1="400" x2="780" y2="400" stroke-width="2.2" stroke="#94a3b8"/>
+      <ellipse cx="400" cy="400" rx="380" ry="90"/>
+      <ellipse cx="400" cy="400" rx="380" ry="180"/>
+      <ellipse cx="400" cy="400" rx="380" ry="270"/>
+      <ellipse cx="400" cy="400" rx="380" ry="340"/>
+
+      <!-- Longitudes -->
+      <line x1="400" y1="20" x2="400" y2="780" stroke-width="2.2" stroke="#94a3b8"/>
+      <ellipse cx="400" cy="400" rx="90" ry="380"/>
+      <ellipse cx="400" cy="400" rx="180" ry="380"/>
+      <ellipse cx="400" cy="400" rx="270" ry="380"/>
+      <ellipse cx="400" cy="400" rx="340" ry="380"/>
+    </g>
+
+    <!-- Stylized Philippines Archipelago Map Silhouette -->
+    <g fill="#84cc16" opacity="0.4" transform="translate(330, 80) scale(1.15)">
+      <!-- Luzon Silhouette -->
+      <path d="M70,30 C65,40 50,70 55,90 C60,110 45,130 50,150 C55,160 70,170 75,185 C80,200 65,220 70,235 C75,245 95,240 100,225 C105,210 115,200 110,180 C105,160 120,135 115,115 C110,95 125,75 110,50 C95,25 80,20 70,30 Z"/>
+      <!-- Palawan -->
+      <path d="M-15,180 C-25,200 -40,230 -50,260 C-55,275 -50,285 -40,280 C-30,270 -15,235 -5,210 C5,190 -5,175 -15,180 Z"/>
+      <!-- Visayas -->
+      <path d="M85,250 C75,260 60,270 70,285 C80,295 95,285 105,275 C115,265 100,250 85,250 Z"/>
+      <path d="M120,245 C110,255 125,275 135,285 C145,290 150,275 145,260 C140,250 130,240 120,245 Z"/>
+      <path d="M95,295 C85,305 90,320 105,320 C115,320 125,305 115,295 Z"/>
+      <!-- Mindanao -->
+      <path d="M80,340 C60,350 45,370 40,395 C35,420 55,440 75,445 C95,450 120,455 140,440 C155,430 165,410 160,390 C155,370 140,355 125,345 C110,335 95,335 80,340 Z"/>
+    </g>
+  </g>
+
+  <!-- Main Logo Typography & Shapes -->
+  <g transform="translate(0, 0)">
+    <!-- THE ICONIC 3D "X" -->
+    <!-- X 3D Drop Shadow / Extrusion -->
+    <g fill="#1f0724">
+      <!-- Diagonal 1 shadow (top-left to bottom-right) -->
+      <polygon points="152,142 396,442 316,442 72,142"/>
+      <!-- Diagonal 2 shadow (bottom-left to top-right) -->
+      <polygon points="80,442 432,142 512,142 160,442"/>
+    </g>
+
+    <!-- Diagonal Arm 1: Top-Left to Bottom-Right -->
+    <polygon points="144,134 388,434 308,434 64,134" fill="#3b0d3e" stroke="#250628" stroke-width="4"/>
+
+    <!-- Diagonal Arm 2: Bottom-Left to Top-Right -->
+    <polygon points="72,434 424,134 504,134 152,434" fill="#4a124e" stroke="#ffffff" stroke-width="3" filter="url(#xShadow)"/>
+
+    <!-- Inner highlights on X -->
+    <polygon points="80,426 418,142 490,142 152,426" fill="#58165d"/>
+    <polygon points="148,140 230,240 210,240 128,140" fill="#6d1b74" opacity="0.6"/>
+
+    <!-- THE 3D "FM" -->
+    <!-- FM Shadow -->
+    <g transform="translate(10, 10)" opacity="0.5">
+      <path d="M390,215 L590,215 L580,260 L455,260 L448,300 L560,300 L550,345 L440,345 L425,430 L355,430 Z" fill="#064e3b"/>
+      <path d="M580,430 L610,215 L675,215 L705,335 L745,215 L805,215 L765,430 L705,430 L720,330 L685,430 L645,430 L630,330 L615,430 Z" fill="#064e3b"/>
+    </g>
+
+    <!-- F Letter with Gradient & 3D bevel -->
+    <g>
+      <!-- F Outer border / 3D edge -->
+      <path d="M380,210 L585,210 L575,260 L450,260 L443,300 L555,300 L545,350 L435,350 L420,430 L345,430 Z"
+            fill="#064e3b" stroke="#ffffff" stroke-width="5" stroke-linejoin="round"/>
+      <!-- F Face -->
+      <path d="M382,213 L580,213 L572,257 L447,257 L440,297 L550,297 L542,347 L432,347 L417,427 L350,427 Z"
+            fill="url(#fmGrad)"/>
+      <!-- F Highlight -->
+      <path d="M385,216 L575,216 L570,230 L445,230 L438,297 L430,297 L420,424 L353,424 Z"
+            fill="#ffffff" opacity="0.35"/>
+    </g>
+
+    <!-- M Letter with Gradient & 3D bevel -->
+    <g transform="translate(-30, 0)">
+      <!-- M Outer border / 3D edge -->
+      <path d="M635,430 L658,210 L730,210 L768,340 L812,210 L880,210 L835,430 L770,430 L785,330 L748,430 L708,430 L692,330 L675,430 Z"
+            fill="#064e3b" stroke="#ffffff" stroke-width="5" stroke-linejoin="round"/>
+      <!-- M Face -->
+      <path d="M637,427 L660,213 L727,213 L766,340 L810,213 L875,213 L832,427 L773,427 L787,327 L747,427 L710,427 L694,327 L677,427 Z"
+            fill="url(#fmGrad)"/>
+      <!-- M Highlight -->
+      <path d="M662,216 L723,216 L766,335 L808,216 L870,216 L865,230 L810,230 L772,350 L760,350 L720,230 L666,230 Z"
+            fill="#ffffff" opacity="0.35"/>
+    </g>
+
+    <!-- SUB-BANNER: "GENERAL SANTOS CITY" -->
+    <g transform="translate(305, 435)">
+      <!-- Banner 3D Base -->
+      <rect x="0" y="3" width="400" height="42" rx="6" fill="#1f0724"/>
+      <!-- Banner Front -->
+      <rect x="0" y="0" width="400" height="40" rx="6" fill="#3b0d3e" stroke="#ffffff" stroke-width="3"/>
+      <!-- Banner Text -->
+      <text x="200" y="27" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
+            font-weight="900" font-size="20" fill="#ffffff" letter-spacing="3" text-anchor="middle">
+        GENERAL SANTOS CITY
+      </text>
+    </g>
+
+    <!-- LARGE NUMBERS: "95.9" -->
+    <g filter="url(#numShadow)" transform="translate(170, 650)">
+      <!-- 3D Extrusion Shadow -->
+      <text x="0" y="5" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
+            font-weight="900" font-size="205" fill="#250529" letter-spacing="-2">
+        95.9
+      </text>
+      <!-- Stroke Outline -->
+      <text x="0" y="0" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
+            font-weight="900" font-size="205" fill="#a21caf" stroke="#ffffff" stroke-width="8" stroke-linejoin="round" letter-spacing="-2">
+        95.9
+      </text>
+      <!-- Front Magenta Face -->
+      <text x="0" y="0" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
+            font-weight="900" font-size="205" fill="#b82d88" letter-spacing="-2">
+        95.9
+      </text>
+      <!-- Inner Top Highlight -->
+      <text x="0" y="-2" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
+            font-weight="900" font-size="205" fill="#d946ef" opacity="0.35" letter-spacing="-2">
+        95.9
+      </text>
+    </g>
+
+    <!-- CURVED BOTTOM TEXT: "Y2H BROADCASTING NETWORK INC." -->
+    <g>
+      <!-- Arc Path for Text -->
+      <path id="bottomArc" d="M 120,625 A 345,345 0 0,0 680,625" fill="none"/>
+      
+      <!-- Leaf / Logo Emblems at start -->
+      <g transform="translate(160, 675) rotate(-35) scale(0.9)" fill="#047857">
+        <path d="M0,0 Q12,-15 25,-12 Q15,10 0,0 Z"/>
+        <path d="M-5,10 Q5,0 18,5 Q5,20 -5,10 Z"/>
+      </g>
+      
+      <text fill="#047857" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
+            font-weight="900" font-size="24" letter-spacing="3.5">
+        <textPath href="#bottomArc" startOffset="50%" text-anchor="middle">
+          Y2H BROADCASTING NETWORK INC.
+        </textPath>
+      </text>
+
+      <!-- Leaf Emblem at end -->
+      <g transform="translate(640, 675) rotate(35) scale(0.9)" fill="#047857">
+        <path d="M0,0 Q-12,-15 -25,-12 Q-15,10 0,0 Z"/>
+        <path d="M5,10 Q-5,0 -18,5 Q-5,20 5,10 Z"/>
+      </g>
+    </g>
+  </g>
+</svg>
