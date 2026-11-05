@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Rádio Tua Voz 1010 AM – Ouça ao vivo</title>
+<meta name="description" content="Rádio Tua Voz 1010 AM, de Caxias do Sul. A rádio que toca você. Ouça ao vivo no site ou instale o app no seu celular.">
+<meta name="theme-color" content="#1b5e2b">
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Tua Voz">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Rádio Tua Voz 1010 AM – Ouça ao vivo">
+<meta property="og:description" content="A rádio que toca você. Ouça ao vivo e instale o app no celular.">
+<meta property="og:image" content="https://www.tuavoz.com.br/img/compartilhar.jpg">
+<meta property="og:url" content="https://www.tuavoz.com.br/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --verde:#5ab371; --verde-forte:#3f9a4f; --verde-escuro:#1b5e2b; --noite:#0d2416;
+  --grafite:#222; --texto:#1f2a22; --suave:#5f6f64; --claro:#f3f8f4; --branco:#fff;
+  --raio:18px; --sombra:0 14px 40px rgba(0,0,0,.18);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Montserrat,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;color:var(--texto);background:var(--claro);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+img{max-width:100%;display:block}
+.wrap{width:min(1080px,100% - 32px);margin:0 auto}
+
+/* ===== topo / player ===== */
+.hero{position:relative;min-height:100vh;min-height:100svh;display:flex;flex-direction:column;color:#fff;overflow:hidden;
+  background:linear-gradient(160deg,rgba(13,36,22,.92) 0%,rgba(27,94,43,.86) 55%,rgba(90,179,113,.80) 100%),url("/img/ceu.jpg") center/cover no-repeat,var(--noite)}
+.hero::after{content:"";position:absolute;inset:auto -10% -1px -10%;height:90px;background:var(--claro);border-radius:50% 50% 0 0/100% 100% 0 0}
+.barra{display:flex;align-items:center;justify-content:space-between;padding:calc(14px + env(safe-area-inset-top)) 0 14px}
+.barra .marca{font-weight:800;letter-spacing:.5px;font-size:15px;opacity:.95;text-decoration:none}
+.barra nav{display:flex;gap:6px}
+.barra nav a{font-size:13px;font-weight:600;text-decoration:none;padding:8px 12px;border-radius:999px;opacity:.9}
+.barra nav a:hover{background:rgba(255,255,255,.12);opacity:1}
+.palco{position:relative;z-index:1;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:10px 0 120px;gap:18px}
+.logo{width:min(380px,82vw);filter:drop-shadow(0 10px 24px rgba(0,0,0,.35))}
+.aovivo{display:inline-flex;align-items:center;gap:8px;background:rgba(0,0,0,.28);border:1px solid rgba(255,255,255,.18);padding:6px 14px;border-radius:999px;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase}
+.aovivo i{width:9px;height:9px;border-radius:50%;background:#ff4d4d;box-shadow:0 0 0 0 rgba(255,77,77,.7);animation:pulso 1.6s infinite}
+@keyframes pulso{70%{box-shadow:0 0 0 10px rgba(255,77,77,0)}100%{box-shadow:0 0 0 0 rgba(255,77,77,0)}}
+
+.play{position:relative;width:132px;height:132px;border-radius:50%;border:0;cursor:pointer;background:var(--branco);color:var(--verde-escuro);
+  display:grid;place-items:center;box-shadow:0 18px 44px rgba(0,0,0,.35),inset 0 -6px 0 rgba(0,0,0,.06);transition:transform .15s ease}
+.play:hover{transform:scale(1.04)}
+.play:active{transform:scale(.97)}
+.play:focus-visible{outline:4px solid #fff;outline-offset:6px}
+.play svg{width:54px;height:54px}
+.play .ic-pause,.play .ic-load{display:none}
+.play::before,.play::after{content:"";position:absolute;inset:-14px;border-radius:50%;border:2px solid rgba(255,255,255,.55);opacity:0}
+body.tocando .play::before{animation:onda 2.2s infinite}
+body.tocando .play::after{animation:onda 2.2s 1.1s infinite}
+@keyframes onda{0%{transform:scale(.9);opacity:.8}100%{transform:scale(1.45);opacity:0}}
+body.tocando .play .ic-play,body.carregando .play .ic-play{display:none}
+body.tocando .play .ic-pause{display:block}
+body.carregando .play .ic-load{display:block;animation:gira 1s linear infinite}
+@keyframes gira{to{transform:rotate(360deg)}}
+.status{font-size:15px;font-weight:600;min-height:22px;opacity:.95}
+.eq{display:flex;gap:4px;align-items:flex-end;height:22px;opacity:0;transition:opacity .3s}
+body.tocando .eq{opacity:1}
+.eq span{width:5px;background:#fff;border-radius:3px;animation:eq 1s ease-in-out infinite}
+.eq span:nth-child(2){animation-delay:.2s}.eq span:nth-child(3){animation-delay:.4s}.eq span:nth-child(4){animation-delay:.1s}.eq span:nth-child(5){animation-delay:.3s}
+@keyframes eq{0%,100%{height:5px}50%{height:22px}}
+.volume{display:flex;align-items:center;gap:10px;font-size:13px;opacity:.9;color:#fff}
+.volume input{width:150px;accent-color:#fff}
+.ios .volume{display:none}
+.acoes{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:6px}
+.btn{display:inline-flex;align-items:center;gap:10px;border:0;cursor:pointer;text-decoration:none;font:700 15px/1 Montserrat,system-ui,sans-serif;
+  padding:15px 22px;border-radius:999px;transition:transform .15s ease,background .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn svg{width:20px;height:20px;flex:none}
+.btn-baixar{background:var(--grafite);color:#fff;box-shadow:0 10px 26px rgba(0,0,0,.3)}
+.btn-baixar b{color:var(--verde)}
+.btn-vidro{background:rgba(255,255,255,.14);color:#fff;border:1px solid rgba(255,255,255,.28)}
+body.app .btn-baixar{display:none}
+
+/* ===== seções ===== */
+section{padding:56px 0}
+h2{font-size:clamp(24px,4vw,32px);margin:0 0 10px;color:var(--verde-escuro);letter-spacing:-.3px}
+.sub{color:var(--suave);margin:0 0 28px;font-size:16px;line-height:1.6}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}
+.card{background:#fff;border-radius:var(--raio);padding:24px;box-shadow:0 6px 20px rgba(27,94,43,.08)}
+.card .ic{width:46px;height:46px;border-radius:14px;background:#e3f3e7;color:var(--verde-forte);display:grid;place-items:center;margin-bottom:14px}
+.card .ic svg{width:24px;height:24px}
+.card h3{margin:0 0 6px;font-size:17px}
+.card p{margin:0;color:var(--suave);line-height:1.55;font-size:14.5px}
+
+.app-faixa{background:linear-gradient(135deg,var(--verde-escuro),var(--verde-forte));color:#fff;border-radius:26px;padding:34px;display:grid;grid-template-columns:auto 1fr auto;gap:26px;align-items:center;box-shadow:var(--sombra)}
+.app-faixa img{width:96px;height:96px;border-radius:24px;box-shadow:0 8px 20px rgba(0,0,0,.25);background:#fff}
+.app-faixa h2{color:#fff;margin:0 0 6px}
+.app-faixa p{margin:0;opacity:.9;line-height:1.55}
+body.app .app-faixa{display:none}
+
+.contato{display:grid;grid-template-columns:1fr 1.2fr;gap:28px;align-items:start}
+.infos{display:grid;gap:12px}
+.info{display:flex;gap:14px;align-items:center;background:#fff;border-radius:14px;padding:16px 18px;text-decoration:none;box-shadow:0 4px 14px rgba(27,94,43,.07)}
+.info svg{width:24px;height:24px;color:var(--verde-forte);flex:none}
+.info small{display:block;color:var(--suave);font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.6px}
+.info strong{font-size:16px}
+form{background:#fff;border-radius:var(--raio);padding:24px;box-shadow:0 6px 20px rgba(27,94,43,.08);display:grid;gap:12px}
+label{font-size:13px;font-weight:600;color:var(--suave)}
+input,textarea{width:100%;font:15px Montserrat,system-ui,sans-serif;padding:13px 14px;border:1.5px solid #dbe7de;border-radius:12px;background:#fbfdfb;color:var(--texto);margin-top:6px}
+input:focus,textarea:focus{outline:none;border-color:var(--verde);box-shadow:0 0 0 4px rgba(90,179,113,.18)}
+textarea{min-height:120px;resize:vertical}
+.oculto{position:absolute;left:-9999px}
+.btn-enviar{background:var(--verde-forte);color:#fff;justify-content:center}
+.aviso{font-size:14px;font-weight:600;min-height:20px}
+.aviso.ok{color:var(--verde-forte)}.aviso.erro{color:#c0392b}
+
+footer{background:var(--noite);color:rgba(255,255,255,.8);padding:30px 0 calc(30px + env(safe-area-inset-bottom));font-size:13px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center}
+footer a{color:#fff}
+
+/* ===== janela de instalação ===== */
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;align-items:flex-end;justify-content:center;z-index:50;padding:16px}
+.modal.aberto{display:flex}
+.janela{background:#fff;color:var(--texto);border-radius:24px;max-width:420px;width:100%;padding:26px 24px 22px;box-shadow:var(--sombra);animation:sobe .25s ease}
+@keyframes sobe{from{transform:translateY(30px);opacity:0}}
+.janela .topo{display:flex;gap:14px;align-items:center;margin-bottom:16px}
+.janela .topo img{width:58px;height:58px;border-radius:14px;box-shadow:0 4px 12px rgba(0,0,0,.15)}
+.janela h3{margin:0;font-size:19px}
+.janela ol{margin:0 0 18px;padding-left:20px;line-height:1.7;font-size:15px}
+.janela .tag{display:inline-flex;vertical-align:middle;background:#eef4f0;border-radius:8px;padding:2px 7px;font-weight:700}
+.janela .tag svg{width:16px;height:16px}
+.janela button{width:100%;justify-content:center}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(120px);background:var(--grafite);color:#fff;padding:13px 20px;border-radius:999px;font-weight:600;font-size:14px;transition:transform .3s,opacity .3s;z-index:60;opacity:0;pointer-events:none}
+.toast.mostra{transform:translateX(-50%) translateY(0);opacity:1}
+
+@media (min-width:700px){.modal{align-items:center}}
+@media (max-width:760px){
+  .barra nav{display:none}
+  .app-faixa{grid-template-columns:1fr;text-align:center;justify-items:center;padding:28px 22px}
+  .contato{grid-template-columns:1fr}
+  section{padding:44px 0}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap barra">
+    <a class="marca" href="/">RÁDIO TUA VOZ · 1010 AM</a>
+    <nav><a href="#sobre">A rádio</a><a href="#app">App</a><a href="#contato">Contato</a></nav>
+  </div>
+  <div class="wrap palco">
+    <img class="logo" src="/img/logo-tuavoz.png" alt="Rádio Tua Voz 1010 AM – A rádio que toca você" width="619" height="300">
+    <span class="aovivo"><i></i> Ao vivo</span>
+    <button class="play" id="play" aria-label="Ouvir a rádio ao vivo">
+      <svg class="ic-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.4-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg>
+      <svg class="ic-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4.2" height="14" rx="1.2"/><rect x="13.8" y="5" width="4.2" height="14" rx="1.2"/></svg>
+      <svg class="ic-load" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9"/></svg>
+    </button>
+    <div class="eq" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+    <div class="status" id="status" role="status" aria-live="polite">Toque para ouvir</div>
+    <label class="volume"><span>Volume</span><input id="volume" type="range" min="0" max="1" step="0.05" value="1" aria-label="Volume"></label>
+    <div class="acoes">
+      <button class="btn btn-baixar" id="baixar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0-5-5m5 5 5-5M5 21h14"/></svg>
+        <span><b>BAIXAR</b> O APP</span>
+      </button>
+      <a class="btn btn-vidro" href="https://www.facebook.com/rdtuavoz" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 8.5V6.8c0-.8.5-1 1-1h2V2.2L14.3 2C11.4 2 10.5 4 10.5 6v2.5H8V12h2.5v10H14V12h2.6l.4-3.5H14z"/></svg>
+        Facebook
+      </a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section id="sobre">
+    <div class="wrap">
+      <h2>A rádio que toca você</h2>
+      <p class="sub">A Rádio Tua Voz, 1010 AM de Caxias do Sul, leva música, fé e companhia para o seu dia. Ouça ao vivo de onde estiver, pelo site ou pelo app no celular.</p>
+      <div class="cards">
+        <div class="card">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div>
+          <h3>Música e mensagem</h3><p>Programação gospel o dia inteiro, com louvor, palavra e momentos de inspiração.</p>
+        </div>
+        <div class="card">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/></svg></div>
+          <h3>No seu celular</h3><p>Instale o app em um toque, sem loja: o ícone da Tua Voz fica na tela do seu celular.</p>
+        </div>
+        <div class="card">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.9 19.1a10 10 0 0 1 0-14.2M7.8 16.2a6 6 0 0 1 0-8.4M16.2 7.8a6 6 0 0 1 0 8.4M19.1 4.9a10 10 0 0 1 0 14.2"/><circle cx="12" cy="12" r="2"/></svg></div>
+          <h3>1010 AM</h3><p>No rádio de casa ou do carro, em Caxias do Sul e região, e na internet para o mundo todo.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="app" style="padding-top:8px">
+    <div class="wrap">
+      <div class="app-faixa">
+        <img src="/img/icon-192.png" alt="Ícone do app Tua Voz" width="96" height="96">
+        <div>
+          <h2>Tenha a Tua Voz na tela do celular</h2>
+          <p>Toque em <strong>Baixar o app</strong> e o ícone da rádio aparece junto com os seus aplicativos. É só abrir e ouvir, leve e sem ocupar espaço.</p>
+        </div>
+        <button class="btn btn-baixar" data-baixar>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0-5-5m5 5 5-5M5 21h14"/></svg>
+          <span><b>BAIXAR</b> O APP</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section id="contato">
+    <div class="wrap">
+      <h2>Fale com a gente</h2>
+      <p class="sub">Peça sua música, mande seu recado ou fale com a nossa equipe.</p>
+      <div class="contato">
+        <div class="infos">
+          <a class="info" href="tel:+555432893067">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
+            <span><small>Telefone</small><strong>(54) 3289-3067</strong></span>
+          </a>
+          <a class="info" href="/cdn-cgi/l/email-protection#b4d7dbdac0d5c0dbf4c0c1d5c2dbce9ad7dbd99ad6c6">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
+            <span><small>E-mail</small><strong><span class="__cf_email__" data-cfemail="e98a86879d889d86a99d9c889f8693c78a8684c78b9b">[email&#160;protected]</span></strong></span>
+          </a>
+          <a class="info" href="https://www.facebook.com/rdtuavoz" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 8.5V6.8c0-.8.5-1 1-1h2V2.2L14.3 2C11.4 2 10.5 4 10.5 6v2.5H8V12h2.5v10H14V12h2.6l.4-3.5H14z"/></svg>
+            <span><small>Facebook</small><strong>/rdtuavoz</strong></span>
+          </a>
+        </div>
+        <form id="form" novalidate>
+          <label>Nome<input name="nome" autocomplete="name" required minlength="2" maxlength="100"></label>
+          <label>E-mail<input name="email" type="email" autocomplete="email" required maxlength="150"></label>
+          <label>Mensagem<textarea name="mensagem" required minlength="3" maxlength="5000"></textarea></label>
+          <input class="oculto" name="site" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <button class="btn btn-enviar" type="submit">Enviar mensagem</button>
+          <div class="aviso" id="aviso" role="status" aria-live="polite"></div>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© <span id="ano">2026</span> Rádio Tua Voz · 1010 AM · Caxias do Sul – RS</span>
+    <a href="/politica_privacidade.pdf" target="_blank" rel="noopener">Política de privacidade</a>
+  </div>
+</footer>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="mtitulo">
+  <div class="janela">
+    <div class="topo"><img src="/img/icon-192.png" alt=""><div><h3 id="mtitulo">Instalar o app Tua Voz</h3><small style="color:var(--suave)">Grátis, leve e sem loja</small></div></div>
+    <ol id="passos"></ol>
+    <button class="btn btn-enviar" id="fechar">Entendi</button>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+(function () {
+  "use strict";
+  var BASE = "https://streaming.radiocaxias.com.br/listen/tuavoz/";
+  var corpo = document.body, statusEl = document.getElementById("status"), botao = document.getElementById("play");
+  var ua = navigator.userAgent, ios = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+  if (ios) corpo.classList.add("ios");
+  document.getElementById("ano").textContent = new Date().getFullYear();
+
+  /* ---------- player: AAC (leve) com reserva em MP3, reconecta sozinho ---------- */
+  var audio = new Audio(); audio.preload = "none";
+  var aacOk = !!(audio.canPlayType("audio/aac") || audio.canPlayType('audio/mp4; codecs="mp4a.40.2"'));
+  var formato = aacOk ? "aac" : "mp3";
+  var querTocar = false, tentativas = 0, timerRetry = null, ultimoTempo = 0, parado = 0, trocando = false;
+
+  function estado(e, texto) {
+    corpo.classList.toggle("tocando", e === "tocando");
+    corpo.classList.toggle("carregando", e === "carregando");
+    statusEl.textContent = texto;
+    botao.setAttribute("aria-label", e === "tocando" ? "Pausar a rádio" : "Ouvir a rádio ao vivo");
+    if ("mediaSession" in navigator) navigator.mediaSession.playbackState = e === "tocando" ? "playing" : (querTocar ? "playing" : "paused");
+  }
+  function conectar() {
+    clearTimeout(timerRetry);
+    estado("carregando", tentativas ? "Reconectando…" : "Conectando…");
+    trocando = true;                  // ate tocar: o "pause" que a troca do src dispara nao e o ouvinte pausando
+    audio.src = BASE + "radio." + formato + "?t=" + Date.now();   // sempre ao vivo, sem áudio velho do cache
+    var p = audio.play();
+    if (p && p.catch) p.catch(function (err) {
+      if (err && err.name === "NotAllowedError") { querTocar = false; estado("parado", "Toque para ouvir"); }
+      else if (err && err.name !== "AbortError") falhou();
+    });
+  }
+  function falhou() {
+    if (!querTocar) return;
+    tentativas++;
+    if (tentativas >= 2 && formato === "aac") formato = "mp3";        // reserva
+    var espera = Math.min(15000, 1500 * tentativas);
+    estado("carregando", navigator.onLine === false ? "Sem internet… tentando de novo" : "Reconectando…");
+    clearTimeout(timerRetry); timerRetry = setTimeout(conectar, espera);
+  }
+  function tocar() { querTocar = true; tentativas = 0; conectar(); }
+  function parar() {
+    querTocar = false; trocando = false; clearTimeout(timerRetry);
+    audio.pause(); audio.removeAttribute("src"); audio.load();      // ao voltar, toca o ao vivo
+    estado("parado", "Toque para ouvir");
+  }
+  botao.addEventListener("click", function () { querTocar ? parar() : tocar(); });
+  audio.addEventListener("playing", function () { trocando = false; tentativas = 0; estado("tocando", "Você está ouvindo a Tua Voz"); });
+  audio.addEventListener("waiting", function () { if (querTocar) estado("carregando", "Carregando…"); });
+  ["error", "ended"].forEach(function (ev) {
+    audio.addEventListener(ev, function () { if (querTocar) falhou(); });
+  });
+  // pausa vinda de fora (fone desconectado, ligacao, controle da tela de bloqueio)
+  audio.addEventListener("pause", function () { if (querTocar && !trocando && !audio.ended && !audio.error) { querTocar = false; clearTimeout(timerRetry); estado("parado", "Pausado"); } });
+  window.addEventListener("online", function () { if (querTocar) { tentativas = 0; conectar(); } });
+  setInterval(function () {                                           // vigia: som travado por 12 s -> reconecta
+    if (!querTocar || audio.paused) { parado = 0; return; }
+    if (audio.currentTime === ultimoTempo) { parado += 3; if (parado >= 12) { parado = 0; falhou(); } }
+    else { parado = 0; ultimoTempo = audio.currentTime; }
+  }, 3000);
+  var vol = document.getElementById("volume");
+  vol.addEventListener("input", function () { audio.volume = +vol.value; });
+
+  if ("mediaSession" in navigator) {                                  // controles na tela de bloqueio
+    navigator.mediaSession.metadata = new MediaMetadata({
+      title: "Rádio Tua Voz", artist: "Ao vivo · 1010 AM", album: "A rádio que toca você",
+      artwork: [{ src: "/img/icon-192.png", sizes: "192x192", type: "image/png" }, { src: "/img/icon-512.png", sizes: "512x512", type: "image/png" }]
+    });
+    navigator.mediaSession.setActionHandler("play", tocar);
+    navigator.mediaSession.setActionHandler("pause", parar);
+    try { navigator.mediaSession.setActionHandler("stop", parar); } catch (e) {}
+  }
+
+  /* ---------- BAIXAR: instala o app (atalho com nome e logo) ---------- */
+  var instalado = window.matchMedia("(display-mode: standalone)").matches || navigator.standalone === true;
+  if (instalado) corpo.classList.add("app");
+  var pedido = null;
+  window.addEventListener("beforeinstallprompt", function (e) { e.preventDefault(); pedido = e; });
+  window.addEventListener("appinstalled", function () { corpo.classList.add("app"); fecharModal(); aviso("Pronto! O app Tua Voz está na sua tela."); });
+
+  var compartilhar = '<span class="tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V3m0 0L8 7m4-4 4 4M5 11v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-9"/></svg></span>';
+  function passos() {
+    if (ios) {
+      var safari = !/CriOS|FxiOS|EdgiOS|OPiOS/.test(ua);
+      return (safari ? "" : "<li>Abra <b>tuavoz.com.br</b> no <b>Safari</b> (ou use o botão de compartilhar deste navegador).</li>") +
+        "<li>Toque em " + compartilhar + " <b>Compartilhar</b>, na barra do navegador.</li>" +
+        "<li>Role a lista e toque em <b>Adicionar à Tela de Início</b>.</li>" +
+        "<li>Confirme em <b>Adicionar</b>. O ícone <b>Tua Voz</b> aparece na sua tela.</li>";
+    }
+    if (/Android/.test(ua)) {
+      return "<li>Toque no menu <span class=\"tag\">⋮</span> do navegador (canto de cima).</li>" +
+        "<li>Escolha <b>Instalar app</b> ou <b>Adicionar à tela inicial</b>.</li>" +
+        "<li>Confirme. O ícone <b>Tua Voz</b> aparece junto com os seus aplicativos.</li>";
+    }
+    return "<li>No Chrome ou Edge, clique no ícone de instalar <span class=\"tag\">⊕</span> na barra de endereço.</li>" +
+      "<li>Ou abra este site no <b>celular</b> e toque em <b>Baixar o app</b>.</li>";
+  }
+  var modal = document.getElementById("modal");
+  function abrirModal() { document.getElementById("passos").innerHTML = passos(); modal.classList.add("aberto"); document.getElementById("fechar").focus(); }
+  function fecharModal() { modal.classList.remove("aberto"); }
+  document.getElementById("fechar").addEventListener("click", fecharModal);
+  modal.addEventListener("click", function (e) { if (e.target === modal) fecharModal(); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") fecharModal(); });
+
+  function baixar() {
+    if (pedido) {
+      pedido.prompt();
+      pedido.userChoice.then(function (r) { if (r.outcome === "accepted") aviso("Instalando o app Tua Voz…"); pedido = null; });
+    } else abrirModal();
+  }
+  document.getElementById("baixar").addEventListener("click", baixar);
+  [].forEach.call(document.querySelectorAll("[data-baixar]"), function (b) { b.addEventListener("click", baixar); });
+
+  var toast = document.getElementById("toast"), tt;
+  function aviso(t) { toast.textContent = t; toast.classList.add("mostra"); clearTimeout(tt); tt = setTimeout(function () { toast.classList.remove("mostra"); }, 3500); }
+
+  if ("serviceWorker" in navigator) window.addEventListener("load", function () { navigator.serviceWorker.register("/sw.js").catch(function () {}); });
+
+  /* ---------- formulário de contato ---------- */
+  var form = document.getElementById("form"), avisoEl = document.getElementById("aviso");
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var d = new FormData(form), email = (d.get("email") || "").trim();
+    if ((d.get("nome") || "").trim().length < 2) return msg("Por favor, preencha seu nome.", 1, "nome");
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return msg("Por favor, preencha um e-mail válido.", 1, "email");
+    if ((d.get("mensagem") || "").trim().length < 3) return msg("Por favor, escreva sua mensagem.", 1, "mensagem");
+    var b = form.querySelector("button"); b.disabled = true; msg("Enviando…");
+    fetch("/contato.php", { method: "POST", body: d }).then(function (r) { return r.json(); }).then(function (r) {
+      if (r.ok) { form.reset(); msg("Mensagem enviada! Obrigado por falar com a Tua Voz.", 0); }
+      else msg(r.erro || "Não foi possível enviar agora. Ligue (54) 3289-3067.", 1);
+    }).catch(function () { msg("Não foi possível enviar agora. Ligue (54) 3289-3067.", 1); })
+      .then(function () { b.disabled = false; });
+  });
+  function msg(t, erro, campo) {
+    avisoEl.textContent = t; avisoEl.className = "aviso" + (erro === 1 ? " erro" : erro === 0 ? " ok" : "");
+    if (campo) form.elements[campo].focus();
+  }
+})();
+</script>
+</body>
+</html>
