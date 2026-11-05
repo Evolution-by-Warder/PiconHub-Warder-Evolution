@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rede Graúna FM Camaçari - A rádio número 1 do Brasil | Ao Vivo</title>
+  
+  <meta name="description" content="Ouça a Rede Graúna FM ao vivo. Música, notícias e informação de Camaçari, Bahia. A sua opção de bom gosto!">
+  <meta name="keywords" content="rádio online, graúna fm, camaçari, bahia, música, notícias, ao vivo">
+  <meta name="robots" content="index, follow">
+  
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Rede Graúna FM - Ao Vivo">
+  <meta property="og:description" content="Acompanhe a programação da Rede Graúna FM diretamente do seu navegador.">
+  <meta property="og:image" content="https://www.graunafm.com.br/index_files/ico.png">
+  <meta property="og:url" content="https://www.graunafm.com.br">
+
+  <link rel="icon" type="image/png" href="https://www.graunafm.com.br/index_files/ico.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Arial&display=swap" rel="stylesheet">
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3309417832084484"
+     crossorigin="anonymous"></script>
+
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: "Arial", sans-serif;
+      color: #fff;
+      overflow: hidden;
+    }
+
+    /* --- PRELOADER (TELA DE CARREGAMENTO) --- */
+    #preloader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #36953a; /* Fundo verde enquanto carrega */
+        z-index: 9999; /* Garante que fique em cima de tudo */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: opacity 0.5s ease, visibility 0.5s; /* Efeito de sumir suave */
+    }
+
+    /* Classe para esconder o preloader */
+    #preloader.hide {
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    /* Animação da Logo carregando */
+    #preloader img {
+        max-width: 200px; /* Tamanho máximo da logo no carregamento */
+        width: 80%;
+        animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(1); opacity: 1; }
+        50% { transform: scale(1.05); opacity: 0.7; }
+        100% { transform: scale(1); opacity: 1; }
+    }
+    /* ---------------------------------------- */
+
+    /* Fundo Principal */
+    #bg {
+      background: url("./index_files/bg.png") no-repeat center center;
+      background-size: cover;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: center;
+      position: relative;
+    }
+
+    /* Área do Player */
+    .player-container {
+      text-align: center;
+      margin-bottom: 40px;
+      z-index: 10;
+    }
+
+    .play-btn {
+      height: 80px;
+      width: 80px;
+      cursor: pointer;
+      filter: drop-shadow(0px 0px 10px rgba(0,0,0,0.8));
+      transition: transform 0.2s;
+    }
+
+    .play-btn:hover {
+      transform: scale(1.1);
+    }
+
+    .player-text {
+      font-family: 'Oswald', sans-serif;
+      font-size: 24px;
+      margin-top: 10px;
+      text-transform: uppercase;
+      text-shadow: 2px 2px 4px #000;
+    }
+
+    /* Rodapé e Redes Sociais */
+    footer {
+      text-align: center;
+      width: 100%;
+      padding-bottom: 20px;
+      background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+    }
+
+    .app-download {
+      margin-bottom: 15px;
+      display: block;
+    }
+    
+    .app-download img {
+      height: 50px;
+      width: auto;
+    }
+
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+
+    .social-icons img {
+      width: 45px;
+      height: 45px;
+      transition: opacity 0.3s;
+    }
+
+    .social-icons img:hover {
+      opacity: 0.8;
+    }
+
+    .copyright {
+      font-size: 14px;
+      color: #e0e0e0;
+    }
+    
+    h1.seo-title {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        margin: -1px;
+        padding: 0;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        border: 0;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="preloader">
+      <img src="index_files/logo.png" alt="Carregando Rede Graúna FM...">
+  </div>
+
+  <h1 class="seo-title">Rádio Rede Graúna FM Camaçari - Ouça Ao Vivo</h1>
+
+  <div id="bg">
+    
+    <div class="player-container">
+        <img id="playerButton" class="play-btn" src="./index_files/play.svg" alt="Tocar Rádio">
+        <div class="player-text">Ouça Ao Vivo</div>
+    </div>
+
+    <footer>
+      <a href="https://centova11.ipstm.net/plugins/app-multiplataforma/tgkmiffh/" target="_blank" class="app-download">
+        <img src="index_files/google-play-01.png" alt="Baixar App na Google Play">
+      </a>
+
+      <div class="social-icons">
+        <a href="https://www.facebook.com/RedeGraunaFM" target="_blank" aria-label="Facebook">
+          <img src="index_files/facebook.png" alt="Facebook">
+        </a>
+        <a href="https://www.instagram.com/grauna.fm/" target="_blank" aria-label="Instagram">
+          <img src="index_files/instagram.png" alt="Instagram">
+        </a>
+      </div>
+
+      <div class="copyright">
+        © Rede Graúna FM - Camaçari<br>
+        2001 - 2026
+      </div>
+    </footer>
+
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <script type="text/javascript">
+    // --- Lógica do Preloader ---
+    // O evento 'load' dispara quando TODAS as imagens e estilos terminaram de baixar
+    window.addEventListener("load", function() {
+        var loader = document.getElementById("preloader");
+        loader.classList.add("hide");
+        
+        // Remove o preloader do HTML após o efeito visual para liberar memória
+        setTimeout(function(){
+            loader.style.display = "none";
+        }, 500);
+    });
+
+    $(document).ready(function() {
+        // Configuração do Stream
+        var streamUrl = "https://www.graunafm.com.br/stream/;";
+        var audio = new Audio(streamUrl);
+        var isPlaying = false;
+        var $btn = $("#playerButton");
+
+        function updateIcon(state) {
+            if(state === "play") $btn.attr("src", "./index_files/play.svg");
+            if(state === "pause") $btn.attr("src", "./index_files/pause.svg");
+            if(state === "loading") $btn.attr("src", "./index_files/loader.svg");
+        }
+
+        audio.onerror = function() {
+            console.error("Erro no stream de áudio.");
+            updateIcon("play");
+            isPlaying = false;
+        };
+
+        audio.onplaying = function() {
+            updateIcon("pause");
+            isPlaying = true;
+        };
+
+        audio.onwaiting = function() {
+            updateIcon("loading");
+        };
+
+        function togglePlay() {
+            if (isPlaying) {
+                audio.pause();
+                audio.src = "";
+                audio.src = streamUrl;
+                updateIcon("play");
+                isPlaying = false;
+            } else {
+                updateIcon("loading");
+                var playPromise = audio.play();
+
+                if (playPromise !== undefined) {
+                    playPromise.catch(error => {
+                        console.log("Autoplay bloqueado ou erro: " + error);
+                        updateIcon("play");
+                        isPlaying = false;
+                    });
+                }
+            }
+        }
+
+        $btn.click(function() { 
+            togglePlay(); 
+        });
+
+        // Autoplay tentativo (silencioso)
+        var autoPlayPromise = audio.play();
+        if (autoPlayPromise !== undefined) {
+            autoPlayPromise.then(_ => {
+                updateIcon("pause");
+                isPlaying = true;
+            }).catch(error => {
+                console.log("Aguardando interação do usuário.");
+                updateIcon("play");
+            });
+        }
+    });
+  </script>
+</body>
+</html>
