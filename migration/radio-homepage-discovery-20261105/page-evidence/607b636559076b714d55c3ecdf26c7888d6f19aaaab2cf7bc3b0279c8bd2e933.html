@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <meta property="og:type" content="music.radio_station"/> 
+    <meta property="fb:app_id" content="328891587502"/> 
+    <meta name="apple-itunes-app" content="app-id=641585676">
+    <meta name="google-play-app" content="app-id=com.radio.pulsradio">
+    <!-- Preconnect : l'app appelle ces domaines dès le boot (titre courant,
+         pochettes). Gagne DNS+TLS sur mobile. -->
+    <!-- api : appels fetch en CORS → crossorigin correct -->
+    <link rel="preconnect" href="https://api.pulsradio.com" crossorigin />
+    <!-- pochettes : chargées en <img> simple (NON-CORS) → PAS de crossorigin,
+         sinon la connexion préouverte ne serait pas réutilisée par l'image
+         (Lighthouse : « préconnexion inutilisée »). C'est le domaine du LCP. -->
+    <link rel="preconnect" href="https://pochettes.pulsradio.com" />
+    <link rel="dns-prefetch" href="https://pochettes.pulsradio.com" />
+    <!-- Google Analytics 4 — chargé APRÈS window.load (+1,5s) pour ne pas
+         concurrencer le rendu initial. Les événements s'accumulent dans
+         dataLayer et partent dès que gtag.js arrive : aucune perte de mesure. -->
+    <script>
+    // gtag.js pèse 161 Ko — le plus gros fichier de la page, plus lourd que
+    // tout le code du site réuni. Chargé 1,5 s après window.load, il entrait
+    // encore en concurrence avec le rendu sur mobile lent (le LCP y arrive
+    // vers 4 s), au détriment du contenu que l'internaute attend.
+    //
+    // Il part désormais à la PREMIÈRE INTERACTION (défilement, clic, touche),
+    // avec un filet de sécurité à 6 s : plus aucune concurrence avec le
+    // premier rendu, et la mesure reste complète — les événements
+    // s'accumulent dans dataLayer et sont envoyés dès l'arrivée du script.
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-Q68TP938N7');
+    (function () {
+      var loaded = false;
+      function loadGA() {
+        if (loaded) return;
+        loaded = true;
+        EVENTS.forEach(function (e) { window.removeEventListener(e, loadGA); });
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = 'https://www.googletagmanager.com/gtag/js?id=G-Q68TP938N7';
+        document.head.appendChild(s);
+      }
+      var EVENTS = ['scroll', 'pointerdown', 'keydown', 'touchstart'];
+      EVENTS.forEach(function (e) {
+        window.addEventListener(e, loadGA, { passive: true, once: true });
+      });
+      window.addEventListener('load', function () { setTimeout(loadGA, 6000); });
+    })();
+    </script>
+    <script>
+    /**
+     * Préchargement des données des pages flux.
+     *
+     * Sans lui, la requête « derniers titres » ne partait qu'à ~1 930 ms sur
+     * mobile : il fallait d'abord télécharger le JS principal, puis le chunk
+     * de la page, puis monter React. L'API, elle, répond en ~15 ms — le délai
+     * venait donc uniquement de l'attente du JavaScript, et aucun cache
+     * serveur n'y aurait changé quoi que ce soit.
+     *
+     * Lancées ici, les requêtes partent dès le parsing du HTML (~250 ms), en
+     * parallèle du téléchargement des scripts. React récupère ensuite une
+     * promesse déjà résolue.
+     *
+     * Effet de bord utile : la promesse étant partagée, le double montage du
+     * composant ne déclenche plus qu'un seul appel réseau.
+     */
+    (function () {
+      var m = location.pathname.match(/^\/[a-z]{2}\/([a-z0-9]+)\/page-flux\.html$/i);
+      if (!m) return;
+      var V = { dance: 'pulsradio', hits: 'hitparty', club: 'club', lounge: 'lounge',
+                trance: 'trance', '2000': '2000', '90s': '90', '80s': 'magicradio' };
+      var v = V[m[1].toLowerCase()];
+      if (!v) return;
+      var d = new Date(), p = function (n) { return (n < 10 ? '0' : '') + n; };
+      var dt = d.getFullYear() + '-' + p(d.getMonth() + 1) + '-' + p(d.getDate()) +
+               ' ' + p(d.getHours()) + ':' + p(d.getMinutes());
+      var opt = { headers: { 'X-Client-Type': 'web' } };
+      var get = function (url) {
+        return fetch(url, opt).then(function (r) { return r.ok ? r.json() : null; })
+                              .catch(function () { return null; });
+      };
+      var API = 'https://api.pulsradio.com/v2/tracks/';
+      window.__pulsPrefetch = {
+        version: v,
+        at: Date.now(),
+        history: get(API + 'history?version=' + v + '&datetime=' + encodeURIComponent(dt)),
+        top20: get(API + 'top20-list?version=' + v)
+      };
+    })();
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Radio Hits en Ligne – Les Tubes du Moment | PulsRadio</title>
+    <meta name="description" content="Les tubes du moment en continu sur PulsRadio Hits. Radio en ligne gratuite : les hits dance et pop actuels, le Top 20 de la semaine et les nouveautés." />
+    <meta name="keywords" content="radio, dance, trance, club, hits, 90s, 80s, 2000, lounge, electronic music, webradio, pulsradio" />
+    <!-- Canonical injecté par route via seo-stream.php / seo-pulsradio.php.
+         NE PAS remettre de canonical en dur ici : un canonical unique vers la
+         home sur toutes les pages SPA a provoqué une désindexation massive. -->
+    <meta property="og:title" content="Radio Hits en Ligne – Les Tubes du Moment | PulsRadio" />
+    <meta property="og:description" content="Les tubes du moment en continu sur PulsRadio Hits. Radio en ligne gratuite : les hits dance et pop actuels, le Top 20 de la semaine et les nouveautés." />
+    <meta property="og:url" content="https://www.pulsradio.com/fr/hits/" />
+    <meta property="og:image" content="https://www.pulsradio.com/img/logo-dance.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:type" content="image/png" />
+    <meta name="twitter:title" content="PulsRadio - Dance & Trance Music Radio" />
+    <meta name="twitter:description" content="Stream the best dance & trance music 24/7 with PulsRadio. Listen to dance, trance, and club music from top DJs worldwide. The First Radio dance and trance." />
+    <meta name="twitter:image" content="https://www.pulsradio.com/img/logo-dance.png" />
+    <meta name="twitter:image:width" content="1200" />
+    <meta name="twitter:image:height" content="630" />
+    <meta name="twitter:url" content="https://www.pulsradio.com/" />
+    <script type="module" crossorigin src="/assets/index-DI83C8Ky.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/vendor-react-JfSO1VTi.js">
+    <link rel="modulepreload" crossorigin href="/assets/vendor-howler-Dvj-8-8Q.js">
+    <link rel="stylesheet" crossorigin href="/assets/index-BuMnb5Fl.css">
+    <link rel="canonical" href="https://www.pulsradio.com/fr/hits/" />
+  <link rel="preload" as="image" fetchpriority="high" href="https://www.pulsradio.com/img/logo-hitparty.png" />
+  <link rel="alternate" hreflang="fr" href="https://www.pulsradio.com/fr/hits/" />
+  <link rel="alternate" hreflang="en" href="https://www.pulsradio.com/en/hits/" />
+  <link rel="alternate" hreflang="de" href="https://www.pulsradio.com/de/hits/" />
+  <link rel="alternate" hreflang="pl" href="https://www.pulsradio.com/pl/hits/" />
+  <link rel="alternate" hreflang="es" href="https://www.pulsradio.com/es/hits/" />
+  <link rel="alternate" hreflang="it" href="https://www.pulsradio.com/it/hits/" />
+  <link rel="alternate" hreflang="ru" href="https://www.pulsradio.com/ru/hits/" />
+  <link rel="alternate" hreflang="nl" href="https://www.pulsradio.com/nl/hits/" />
+  <link rel="alternate" hreflang="x-default" href="https://www.pulsradio.com/en/hits/" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"RadioStation","name":"PulsRadio Hits","alternateName":"PulsRadio","url":"https://www.pulsradio.com/fr/hits/","logo":"https://www.pulsradio.com/img/logo-pulsradio.png","image":"https://www.pulsradio.com/img/logo-pulsradio.png","genre":"Hits du moment","sameAs":["https://www.facebook.com/pulsradiocom","https://www.instagram.com/pulsradiocom","https://twitter.com/pulsradiocom","https://www.youtube.com/pulsradiocom"],"potentialAction":{"@type":"ListenAction","target":"https://www.pulsradio.com/fr/hits/"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"PulsRadio","item":"https://www.pulsradio.com/fr/dance/"},{"@type":"ListItem","position":2,"name":"PulsRadio Hits","item":"https://www.pulsradio.com/fr/hits/"}]}]}</script>
+</head>
+  <body>
+    <div id="root">
+<div id="seo-shell" aria-hidden="true" style="position:absolute;top:0;left:0;width:100%;max-width:760px;padding:24px;opacity:0;z-index:-1;pointer-events:none;font-family:system-ui,sans-serif"><h1>PulsRadio Hits : la radio hits du moment en ligne</h1><p>PulsRadio Hits diffuse les tubes du moment en continu : dance, pop et électro. Retrouvez chaque semaine le classement des titres les plus diffusés et découvrez les nouveautés avant tout le monde.</p><section><h2>Top 20 de la semaine – PulsRadio Hits</h2><ol><li>Riton feat Soaky Siren - Sugar</li><li>Martin Garrix feat Shaun Farrugia - If We ll Ever Be Remembered</li><li>Jonas Blue feat Sam Feldt x Sam DeRosa (Endless Summer Project) - Till The End</li><li>Mr Belt x Wezol feat Gamuel Sori - Genesis</li><li>Martin Garrix feat Tove Lo - Pressure</li><li>Alan Walker feat ISAK - Sorry</li><li>Yellow Claw x Weird Genius x Novia Bachmid - Lonely</li><li>Jonas Blue x Why Dont We - Dont Wake Me Up</li><li>Toby Romeo x Keanu Silva x SACHA - Hopeless Heart</li><li>Dash Berlin - In The End</li><li>Bob Sinclar x NYV - Borderline</li><li>Lizot feat Boney M - Daddy Cool</li><li>Dimitri Vegas and Like Mike feat R3HAB x Prezioso - Shooting Darts</li><li>Topic x Robin Schulz x Nico Santos x Paul van Dyk - In Your Arms (For An Angel)</li><li>Alle Farben x Kiddo - Alright</li><li>Hugel feat Nikol Apatini - 4 to the Floor</li><li>Steve Aoki feat Natanael Cano - Kong 2.0</li><li>Timmy Trumpet x Gabry Ponte - Mad World</li><li>Dynoro x HVME x Gaudini - Why Why Why</li><li>VIZE x Dario Rodriguez x Lagique - Who s Holding You</li></ol></section><nav><p>Écouter les autres webradios PulsRadio :</p><a href="/fr/dance/">PulsRadio Dance</a> <a href="/fr/club/">PulsRadio Club</a> <a href="/fr/lounge/">PulsRadio Lounge</a> <a href="/fr/trance/">PulsRadio Trance</a> <a href="/fr/2000/">PulsRadio 2000</a> <a href="/fr/90s/">PulsRadio 90s</a> <a href="/fr/80s/">PulsRadio 80s</a> </nav></div>
+</div>
+    <!-- Bandeau cookies : auto-hébergé (/lib/cookieconsent/) et chargé 2s
+         après window.load. Avant : CSS render-blocking + JS SYNCHRONE depuis
+         cdnjs.cloudflare.com (DNS+TLS externe qui bloquait le parsing mobile).
+         L'ancien Universal Analytics UA-10373678-1 a été retiré : le service
+         est éteint par Google depuis juillet 2023, il ne collectait plus rien. -->
+    <script>
+    window.addEventListener('load', function () {
+      setTimeout(function () {
+        var l = document.createElement('link');
+        l.rel = 'stylesheet';
+        l.href = '/lib/cookieconsent/cookieconsent.min.css';
+        document.head.appendChild(l);
+        var s = document.createElement('script');
+        s.src = '/lib/cookieconsent/cookieconsent.min.js';
+        s.onload = function () {
+          // La lib pose des aria-label EN ("dismiss cookie message") qui ne
+          // matchent pas le texte FR visible → échec Lighthouse
+          // label-content-name-mismatch. On les retire après init : le texte
+          // visible suffit comme nom accessible.
+          setTimeout(function () {
+            document.querySelectorAll('.cc-window [aria-label]').forEach(function (el) {
+              el.removeAttribute('aria-label');
+            });
+          }, 300);
+          // Bandeau traduit dans les 8 langues du site. La langue est lue
+          // dans l'URL (/fr/…, /de/…) comme partout ailleurs sur le site ;
+          // repli sur l'anglais si le préfixe est absent ou inconnu.
+          var CC_I18N = {
+            fr: {
+              message: "En poursuivant votre navigation sur ce site, vous acceptez l'utilisation de cookies vous permettant d'accéder à des services et offres adaptées à vos centres d'intérêts, ainsi que des cookies de mesure d'audience et de navigation.",
+              dismiss: "J'accepte",
+              link: 'En savoir plus'
+            },
+            en: {
+              message: 'By continuing to browse this site, you accept the use of cookies to provide services and offers tailored to your interests, as well as cookies for audience measurement and navigation.',
+              dismiss: 'I accept',
+              link: 'Learn more'
+            },
+            de: {
+              message: 'Wenn Sie weiter auf dieser Website surfen, akzeptieren Sie die Verwendung von Cookies, um Ihnen auf Ihre Interessen zugeschnittene Dienste und Angebote anzubieten, sowie von Cookies zur Reichweitenmessung und Navigation.',
+              dismiss: 'Ich akzeptiere',
+              link: 'Mehr erfahren'
+            },
+            es: {
+              message: 'Al continuar navegando por este sitio, aceptas el uso de cookies para ofrecerte servicios y ofertas adaptados a tus intereses, así como cookies de medición de audiencia y navegación.',
+              dismiss: 'Acepto',
+              link: 'Más información'
+            },
+            it: {
+              message: "Continuando a navigare su questo sito, accetti l'uso dei cookie per offrirti servizi e offerte in linea con i tuoi interessi, nonché dei cookie per la misurazione dell'audience e la navigazione.",
+              dismiss: 'Accetto',
+              link: 'Maggiori informazioni'
+            },
+            pl: {
+              message: 'Kontynuując przeglądanie tej strony, akceptujesz wykorzystanie plików cookie w celu dostarczania usług i ofert dopasowanych do Twoich zainteresowań, a także plików cookie do pomiaru oglądalności i nawigacji.',
+              dismiss: 'Akceptuję',
+              link: 'Dowiedz się więcej'
+            },
+            ru: {
+              message: 'Продолжая просмотр этого сайта, вы соглашаетесь на использование файлов cookie для предоставления услуг и предложений, соответствующих вашим интересам, а также файлов cookie для измерения аудитории и навигации.',
+              dismiss: 'Принимаю',
+              link: 'Подробнее'
+            },
+            nl: {
+              message: 'Door verder te surfen op deze site accepteer je het gebruik van cookies om diensten en aanbiedingen aan te bieden die zijn afgestemd op jouw interesses, en van cookies voor publieksmeting en navigatie.',
+              dismiss: 'Ik accepteer',
+              link: 'Meer informatie'
+            }
+          };
+          var ccMatch = window.location.pathname.match(/^\/([a-z]{2})\//);
+          var ccLang = ccMatch && CC_I18N[ccMatch[1]] ? ccMatch[1] : 'en';
+          var ccText = CC_I18N[ccLang];
+
+          window.cookieconsent.initialise({
+            palette: {
+              popup: { background: '#edeff5', text: '#838391' },
+              button: { background: '#f2b108', text: '#191917' }
+            },
+            position: 'bottom-right',
+            content: {
+              message: ccText.message,
+              dismiss: ccText.dismiss,
+              link: ccText.link,
+              href: 'https://www.pulsradio.com/' + ccLang + '/dance/page-mentions-legales.html'
+            }
+          });
+        };
+        document.body.appendChild(s);
+      }, 2000);
+    });
+    </script>
+  </body>
+</html>
