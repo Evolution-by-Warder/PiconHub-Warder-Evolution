@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    
+    <title>Web Rádio E5</title>
+    <meta name="description" content="Web Rádio E5 de Jundiaí / SP - Brasil.">
+    <meta name="keywords" content="web radio e5 jundiai sp brasil anos 80 radio senado google music player 24h" />
+
+    <link rel="preconnect" href="https://www.googletagmanager.com">
+    <link rel="preconnect" href="https://www.youtube.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Web Rádio E5">
+    <meta property="og:description" content="Web Rádio E5 de Jundiaí / SP - Brasil.">
+    <meta property="og:image:width" content="600">
+    <meta property="og:image:height" content="600">
+    <meta property="og:image" content="https://webradioe5.com.br/admin/assets/img/logo.png">
+    <meta property="og:url" content="https://webradioe5.com.br/">
+
+
+
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="admin/assets/img/favicon.jpg">
+    <link rel="shortcut icon" href="admin/assets/img/favicon.jpg" />
+    <link href="https://fonts.googleapis.com/css?family=Oswald:400,700,300" rel="preload stylesheet" as="style">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,400italic,700" rel="preload stylesheet" as="style">
+
+
+    <link rel="preload stylesheet" as="style" type="text/css" href="assets/css/bootstrap.min.css?v=4.2.3
+">
+
+    <link rel="preload" as="font" crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/fonts/fontawesome-webfont.woff2?v=4.7.0">
+
+    <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="preload stylesheet" as="style" href="assets/css/jquery.vegas.css">
+    <link rel="preload stylesheet" as="style" href="assets/css/light.css?v=4.2.3
+">
+    <link rel="preload stylesheet" as="style" href="assets/css/blue.css?v=4.2.3
+">
+
+    <style type="text/css">
+        #audio-player {
+            font-size: 10px;
+            position: relative;
+            width: 100%;
+            bottom: 0;
+            z-index: 9999;
+            transition: all .2s ease-in-out;
+            -webkit-transition: all .2s ease-in-out;
+            -moz-transition: all .2s ease-in-out;
+            -o-transition: all .2s ease-in-out;
+            -ms-transition: all .2s ease-in-out;
+        }
+
+        .rock-player .controls {
+            z-index: 100;
+        }
+
+        .link-none {
+            padding-left: 0 !important;
+            margin-bottom: 0 !important;
+        }
+
+        .player-sticky {
+            position: sticky !important;
+            margin-right: 0px !important;
+        }
+    </style>
+
+    <link rel="preload stylesheet" as="style"  href="inc/chat/js/emoji/style.css?v=4.2.3
+"><link rel="preload stylesheet" as="style"  href="assets/css/flexslider.css?v=4.2.3
+">
+    <link rel="canonical" href="https://webradioe5.com.br/">
+</head>
+
+<body>
+ <style type="text/css">
+	#audio-player {
+		height: 65px;
+		background: #9af80d !important;
+		border-top: none !important;	}
+
+	.audio-title,
+	.audio-timer,
+	.now_playing {
+		color: #062160 !important;
+	}
+
+	.jp-playlist li {
+		margin: 0;
+	}
+</style>
+<div class="navbar-fixed-top player-sticky">
+	<section id="audio-player">
+		<div class="container">
+			<div class="rock-player">
+				<div class="playListTrigger">
+				</div>
+				<div class="row">
+					<div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
+						<div class="row">
+							<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+								<div id="player-instance" class="jp-jplayer"></div>
+								<div class="controls">
+									<div class="play-pause jp-play"></div>
+									<div class="play-pause jp-pause" style="display:none" title="Play/Pause"></div>
+									<div class="jp-volume-controls">
+										<button class="jp-mute" role="button" tabindex="0">mute</button>
+										<button class="jp-volume-max" role="button" tabindex="0">max volume</button>
+										<div class="jp-volume-bar">
+											<div class="jp-volume-bar-value"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-8 col-md-8 col-sm-6 col-xs-12">
+								<div class="player-status">
+									<h5 class="audio-title"></h5>
+									<div class="audio-timer">
+										<span class="current-time jp-current-time">00:00</span> / <span class="total-time jp-duration">0:00</span>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-8 col-md-8 col-sm-6 col-xs-12">
+								<div class="player-social">
+																			<a class="no-ajaxy" href="https://5a57bda70564a.streamlock.net/wradioe5/wradioe5.stream/playlist.m3u8" target="_blank">
+											<img loading="lazy" class="celularimg" src="assets/img/android.png" alt="Android">
+										</a>
+									
+																			<a class="no-ajaxy" href="https://5a57bda70564a.streamlock.net/wradioe5/wradioe5.stream/playlist.m3u8" target="_blank">
+											<img loading="lazy" class="celularimg" src="assets/img/ios.png" alt="Iphone">
+										</a>
+									
+									
+																	</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+						<div class="audio-list">
+							<div class="jp-playlist">
+								<ul class="hidden playlist-files">
+									<li data-title="Web Rádio E5" data-artist="<span></span>" data-mp3="https://paineldj6.com.br:18496/stream"></li>
+								</ul>
+								<h5 class="no-ar">No Ar Agora:</h5>
+								<div class="audio-track">
+									<ul>
+										<li></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</div>
+<script type="text/javascript">
+	setTimeout(function() {
+		$.ajax({
+			url: "admin/includes/locutor/no-ar-player.php",
+			success: function(result) {
+				$(".jp-artist").html(result);
+			}
+		});
+	}, 2500);
+	setInterval(function() {
+		$.ajax({
+			url: "admin/includes/locutor/no-ar-player.php",
+			success: function(result) {
+				$(".jp-artist").html(result);
+			}
+		});
+	}, 120000);
+</script>
+  <header>
+  <nav class="navbar yamm navbar-default">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle fa fa-navicon" role="button" aria-label="Menu Navbar"></button>
+        <a class="navbar-brand" href="/">
+            <img loading="lazy" src="admin/assets/img/logo.png?November52026958am22" alt="Web Rádio E5" />
+        </a>
+      </div>
+      <div class="nav_wrapper">
+        <div class="nav_scroll">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="/">Início</a></li>
+            <li ><a href="podcasts">Podcasts</a></li>
+            <li ><a href="news">Notícias</a></li>
+            <li class="dropdown "><a href="#">Galeria <i class="fa fa-caret-right"></i></a>
+              <ul class="dropdown-menu">
+                <li><a href="fotos">Fotos</a></li>
+                <li><a href="videos">Vídeos</a></li>
+              </ul>
+            </li>
+                          <li ><a href='mural'>Recados</a></li>
+                        <li ><a href="programacao">Programação</a></li>
+            <li ><a href="eventos">Eventos</a></li>
+            <li ><a href="equipe">Equipe</a></li>
+            <li ><a href="sobre">Sobre</a></li>
+            <li ><a href="contato">Contato</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<ul class="vegas-slides hidden">
+  <li><img loading="lazy" data-fade="2000"  src="admin/data/img/gallery/Bg/bg3.jpg" alt="" /></li>
+<li><img loading="lazy" data-fade="2000"  src="admin/data/img/gallery/Bg/bg1.jpg" alt="" /></li>
+<li><img loading="lazy" data-fade="2000"  src="admin/data/img/gallery/Bg/bg2.jpg" alt="" /></li>
+<li><img loading="lazy" data-fade="2000"  src="admin/data/img/gallery/Bg/bg4.jpg" alt="" /></li>
+ 
+</ul>
+  <div id="ajaxArea">
+    <div class="pageContentArea">
+      <section id="home-slider">
+        <div class="container">
+          <div class="home-inner">
+            <div id="homeSliderNav" class="slider-nav">
+              <a id="home-prev" href="#" class="prev fa fa-chevron-left"></a>
+              <a id="home-next" href="#" class="next fa fa-chevron-right"></a>
+            </div>
+            <div id="flex-home" class="flexslider" data-animation="slide" data-animationSpeed="1000" data-autoPlay="true" data-slideshowSpeed="7000">
+              <ul class="slides">
+                
+
+<li><img loading="lazy" src="admin/data/img/gallery/Slider/18480slider.jpg" alt="Anuncie aqui" />
+<div class="flex-caption"><h2>Anuncie aqui</h2></div>
+</li>
+
+<li><img loading="lazy" src="admin/data/img/gallery/Slider/Sem título_20260511_144500.png" alt="" />
+</li>
+
+<li><a class="no-ajaxy" href="https://v2.webradioe5.com.br/" target="_blank"><img loading="lazy" src="admin/data/img/gallery/Slider/Sem título_20260511_173659.png" alt="" />
+</a></li>
+
+<li><a class="no-ajaxy" href="http://play.radios.com.br/57206" target="_blank"><img loading="lazy" src="admin/data/img/gallery/Slider/300x100_frase2.png" alt="" />
+</a></li>
+
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="rockPlayerHolder"></div>
+      <div class="clearfix"></div>
+
+      <section id="updates">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <h1>Locutor no Ar</h1>
+              <span id="no-ar-home"></span>
+              				<h1>Peça Sua Música</h1>
+			<div class="event-feed">
+				<section id="contact">
+					<form id="pedido-form" action="inc/submit-pedido.php" method="post">
+						
+						<div class="form-group">
+							<input class="" type="text" id="nome" name="nome" maxlength="50" placeholder="Nome" required />
+						</div>
+						<div class="form-group">
+							<input class="" type="text" name="email" id="email" maxlength="100" placeholder="E-mail" required/>
+						</div>
+						<div class="">
+							<textarea class="" name="message" id="message" maxlength="250" required placeholder="Seu Pedido"></textarea>
+						</div>
+						
+						<center>
+							<button id="submit1" type="submit" name="enviar">Enviar</button>
+						</center>
+					</form>
+					<div id="pedido-error" style="display:none;color:#ff002a;">Por favor, forneça informações válidas</div>
+					<div id="pedido-success" style="display:none;">Olá <span id="pedido-name"></span>, seu pedido foi enviado com sucesso, obrigado!</div>
+				</section>
+			</div>
+											
+              
+                              <h1>Enquete</h1>
+                <style type="text/css">
+                  .poll-simple .poll-title {
+                    color: #000 !important;
+                  }
+
+                  .poll-simple .poll-table td {
+                    color: #000 !important;
+                  }
+
+                  .poll-simple .poll-input-cont {
+                    background-color: #696969 !important;
+                  }
+
+                  .poll-simple .poll-inner {
+                    color: #000 !important;
+                  }
+
+                                  </style>
+                <div class='ajax-poll' tclass='poll-simple' style='width:100%;'></div>
+                          </div>
+
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                              <h1>Bate-Papo</h1>
+                <div class="chat-borda" style="width:100%; height:320px;">
+                  <span id="ChatBS"></span>
+                </div>
+              
+              
+              <h1>Últimas Notícias</h1>
+              <div class="row"><div class="col-md-12"><div class="news-feed"><a class="link-none" href="news-cristiano-ronaldo-anuncia-despedida-da-selecao-de-portugal-aos-41-anos"><img loading="lazy" src="https://media-manager.noticiasaominuto.com.br/640/naom_6a5228a771f08.webp" alt="
+                    Cristiano Ronaldo anuncia despedida da seleção de Portugal aos 41 anos
+                "></a><a href="news-cristiano-ronaldo-anuncia-despedida-da-selecao-de-portugal-aos-41-anos">
+                    Cristiano Ronaldo anuncia despedida da seleção de Portugal aos 41 anos
+                </a><ul><li><span class="fa fa-calendar"></span>05/11/2026</li></ul><p>Após 23 anos defendendo Portugal, Cristiano Ronaldo anunciou nesta quinta-feira (5) o fim de sua trajetória pela seleção. Em uma longa mensagem pu...</p></div></div></div><div class="row"><div class="col-md-12"><div class="news-feed"><a class="link-none" href="news-eduarda-braum-renata-del-bianco-e-rikardo-negro-estao-na-roca-no-reality-a-fazenda-18"><img loading="lazy" src="https://media-manager.noticiasaominuto.com.br/640/naom_6aec6a810a8c0.webp" alt="
+                    Eduarda Braum, Renata del Bianco e Rikardo Negro estão na roça no reality 'A Fazenda 18'
+                "></a><a href="news-eduarda-braum-renata-del-bianco-e-rikardo-negro-estao-na-roca-no-reality-a-fazenda-18">
+                    Eduarda Braum, Renata del Bianco e Rikardo Negro estão na roça no reality 'A Fazenda 18'
+                </a><ul><li><span class="fa fa-calendar"></span>05/11/2026</li></ul><p>Renata del Bianco, Rikardo Negro e Eduarda Braum disputam a permanência em A Fazenda 18 nesta quinta-feira (5). Mayk Leão venceu a Prova do Fazendei...</p></div></div></div><div class="row"><div class="col-md-12"><div class="news-feed"><a class="link-none" href="news-salario-minimo-de-2027-veja-o-valor-previsto-e-quem-tera-aumento"><img loading="lazy" src="https://media-manager.noticiasaominuto.com.br/640/naom_59938d5237d20.webp" alt="
+                    Salário mínimo de 2027: veja o valor previsto e quem terá aumento
+                "></a><a href="news-salario-minimo-de-2027-veja-o-valor-previsto-e-quem-tera-aumento">
+                    Salário mínimo de 2027: veja o valor previsto e quem terá aumento
+                </a><ul><li><span class="fa fa-calendar"></span>05/11/2026</li></ul><p>Proposta do governo federal prevê que o salário mínimo passe de R$ 1.621 para R$ 1.741 em 2027, um aumento de R$ 120. O reajuste também terá impa...</p></div></div></div><div class="row"><div class="col-md-12"><div class="news-feed"><a class="link-none" href="news-seis-avioes-sofrem-ameacas-de-bomba-na-europa-cacas-sao-acionados"><img loading="lazy" src="https://media-manager.noticiasaominuto.com.br/640/naom_6919f93d9c0b9.webp" alt="
+                    Seis aviões sofrem ameaças de bomba na Europa; caças são acionados
+                "></a><a href="news-seis-avioes-sofrem-ameacas-de-bomba-na-europa-cacas-sao-acionados">
+                    Seis aviões sofrem ameaças de bomba na Europa; caças são acionados
+                </a><ul><li><span class="fa fa-calendar"></span>05/11/2026</li></ul><p>Uma série de ameaças de bomba mobilizou autoridades em aeroportos europeus nesta terça-feira (3). Entre os voos afetados estão dois aviões da Rya...</p></div></div></div>            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <h1>Aplicativos</h1>
+              <div class="banner-app">
+                                  <div class="text-center">
+                    <a class="no-ajaxy" href="https://play.google.com/store/apps/details?id=br.com.audiobras.webradioe5" target="_blank">
+                      <img loading="lazy" src="assets/img/apk.png" alt="App Android">
+                    </a>
+                  </div> 
+                
+                              </div>
+
+              <h1>Ouça no Celular</h1>
+              <div class="text-center">
+                                  <a class="no-ajaxy" href="https://5a57bda70564a.streamlock.net/wradioe5/wradioe5.stream/playlist.m3u8" target="_blank">
+                    <img loading="lazy" class="celularimg" src="assets/img/android.png" alt="Android">
+                  </a>
+                
+                                  <a class="no-ajaxy" href="https://5a57bda70564a.streamlock.net/wradioe5/wradioe5.stream/playlist.m3u8" target="_blank">
+                    <img loading="lazy" class="celularimg" src="assets/img/ios.png" alt="Iphone">
+                  </a>
+                
+                
+                              </div>
+
+              	      <h1>Top 5</h1>
+    
+
+   <audio id="music_top"></audio>
+   <div id="top_muisc_youtube"></div>
+
+	<div class="recent-post">
+		<div class="top5-back">
+							<img loading="lazy" src="admin/assets/img/artistas/artista1.png" alt="top1" class="top5">
+						<div class="aligButton">
+				<button id="pButton" class="play" audiotop="admin/assets/audios/top5/top1.mp3?" ></button>
+			</div>
+			
+			<h5><strong class="top5-numero">1.</strong> Everybody Wants To Rule The World</h5>
+			<p>Tears For Fears</p>
+		</div>
+	</div>
+	<div class="recent-post">
+		<div class="top5-back">
+							<img loading="lazy" src="admin/assets/img/artistas/artista2.png" alt="top2" class="top5">
+						<div class="aligButton">
+				<button id="pButton" class="play" audiotop="admin/assets/audios/top5/top2.mp3?"></button>
+			</div>
+			<h5><strong class="top5-numero">2.</strong> Tarzan Boy</h5>
+			<p>Baltimora</p>
+		</div>
+	</div>
+	<div class="recent-post">
+		<div class="top5-back">
+						<img loading="lazy" src="admin/assets/img/artistas/artista3.png" alt="top3" class="top5">
+						<div class="aligButton">
+				<button id="pButton" class="play" audiotop="admin/assets/audios/top5/top3.mp3?"></button>
+			</div>
+			<h5><strong class="top5-numero">3.</strong> Careless Whisper</h5>
+			<p>George Michael</p>
+		</div>
+	</div>
+	<div class="recent-post">
+		<div class="top5-back">
+						<img loading="lazy" src="admin/assets/img/artistas/artista4.png" alt="top4" class="top5">
+						<div class="aligButton">
+				<button id="pButton" class="play" audiotop="admin/assets/audios/top5/top4.mp3?"></button>
+			</div>
+			<h5><strong class="top5-numero">4.</strong> Self Control</h5>
+			<p>Laura Branigan</p>
+		</div>
+	</div>
+	<div class="recent-post">
+		<div class="top5-back">
+						<img loading="lazy" src="admin/assets/img/artistas/artista5.png" alt="top5" class="top5">
+						<div class="aligButton">
+				<button id="pButton" class="play" audiotop="admin/assets/audios/top5/top5.mp3?"></button>
+			</div>
+			<h5><strong class="top5-numero">5.</strong> Broken Wings</h5>
+			<p>Mr. Mister</p>
+		</div>
+	</div>
+
+	              <h1>Último Recado</h1><article class="post-comments">
+
+		
+			<div class="comment-read">
+			<div class="comment-reply">
+				<a style="text-decoration: none;" href="/mural">
+					<b style="font-size: 0;padding: 4px 0px 2px 0px;background-color: rgb(255 255 255 / 0%);"><img loading="lazy" style="width:57px;height:57px" src="uploads/avatar/1608139703.gif" alt="Equipe"></b>					<h3>Equipe</h3>
+					<h4>19/02/2021</h4>
+					<h5>Brasil</h5>
+					<p>Obrigado pela visita e deixe seu recado também</p>
+				</a>
+			</div>
+		</div>
+
+</article>                              <h1>Doação</h1>
+
+                <p class="text-center">
+                  <a href="https://livepix.gg/portale5" target="_blank" rel="noopener noreferrer" class="no-ajaxy">
+                    <img src="assets/img/donate1-PT_BR.webp" class="" alt="donate now">
+                  </a>
+                </p>
+                <p class="text-center"> Faça um LivePix e ajude a Web Rádio E5 a continuar transmitindo!</p>
+
+                          </div>
+          </div>
+          <h1>Últimos Vídeos</h1>
+          <div class="text-center">
+                      </div>
+        </div>
+      </section>
+      <!-- youtube player modal -->
+      <div class="modal fade" id="youtube-player" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title"><span id="youtube-title"></span></h4>
+            </div>
+            <div class="modal-body">
+              <div class="embed-container">
+                <div id="youtube-embed"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><!--pageContent-->
+  </div><!--ajaxwrap-->
+  <section id="albums">
+	<div class="container">
+		<h1>Anunciantes</h1>
+		<div class="albums-carousel">
+			<div id="foo1">
+				<div class="album">
+		<img loading="lazy" src="admin/assets/img/anunciantes/5543-2017-05-10.png" alt="Anuncie Aqui"/><div class="hover">
+		<ul>
+			<li><a class='no-ajaxy' href="#/" target="_bank" aria-label="Anuncie Aqui"><span class="fa fa-link"></span></a></li>
+		</ul>
+		<h3>Anuncie Aqui</h3>
+		</div>
+		</div><div class="album">
+		<img loading="lazy" src="admin/assets/img/anunciantes/5299-2018-05-18.png" alt="Anuncie Aqui"/><div class="hover">
+		<ul>
+			<li><a class='no-ajaxy' href="#" target="_bank" aria-label="Anuncie Aqui"><span class="fa fa-link"></span></a></li>
+		</ul>
+		<h3>Anuncie Aqui</h3>
+		</div>
+		</div><div class="album">
+		<img loading="lazy" src="admin/assets/img/anunciantes/6215-2018-05-18.png" alt="Anuncie Aqui"/><div class="hover">
+		<ul>
+			<li><a class='no-ajaxy' href="#" target="_bank" aria-label="Anuncie Aqui"><span class="fa fa-link"></span></a></li>
+		</ul>
+		<h3>Anuncie Aqui</h3>
+		</div>
+		</div><div class="album">
+		<img loading="lazy" src="admin/assets/img/anunciantes/0064-2026-06-26.png" alt="Ouça E5 no RadiosNet"/><div class="hover">
+		<ul>
+			<li><a class='no-ajaxy' href="http://play.radios.com.br/57206" target="_bank" aria-label="Ouça E5 no RadiosNet"><span class="fa fa-link"></span></a></li>
+		</ul>
+		<h3>Ouça E5 no RadiosNet</h3>
+		</div>
+		</div><div class="album">
+		<img loading="lazy" src="admin/assets/img/anunciantes/0011-2026-06-26.jpg" alt="Retransmissora da Web Rádio E5"/><div class="hover">
+		<ul>
+			<li><a class='no-ajaxy' href="https://educemar.wixsite.com/webradioboademais" target="_bank" aria-label="Retransmissora da Web Rádio E5"><span class="fa fa-link"></span></a></li>
+		</ul>
+		<h3>Retransmissora da Web Rádio E5</h3>
+		</div>
+		</div>
+			</div>
+		</div>
+	</div>
+</section>  <footer>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-4 col-md-4 col-sm-4">
+				<h4><span class="fa fa-sitemap"></span>Menu</h4>
+				<div class="row">
+
+					<div class="col-lg-6 col-md-6 col-sm-6">
+						<ul class="sitemap">
+							<li><a href="home">Início</a></li>
+							<li><a href="podcasts">Podcasts</a></li>
+							<li><a href="sobre">Sobre</a></li>
+							<li><a href="news">Notícias</a></li>
+							<li><a href='mural'>Recados</a></li>							<li><a href="programacao">Programação</a></li>
+						</ul>
+					</div>
+
+					<div class="col-lg-6 col-md-6 col-sm-6">
+						<ul class="sitemap">
+							<li><a href="eventos">Eventos</a></li>
+							<li><a href="fotos">Fotos</a></li>
+							<li><a href="videos">Vídeos</a></li>
+							<li><a href="equipe">Equipe</a></li>
+							<li><a href="contato">Contato</a></li>
+							<li><a href="politica-de-privacidade">Política de Privacidade</a></li>
+						</ul>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="col-lg-2 col-md-2 col-sm-2">
+				<h4><span class="fa fa-info-circle"></span>Informações</h4>
+				<p>Web Rádio E5</p>
+				<p>Web Rádio E5 de Jundiaí / SP - Brasil.</p>
+			</div>
+
+			<div class="col-lg-3 col-md-3 col-sm-3">
+				<h4><span class="fa fa-umbrella"></span>Previsão do Tempo</h4>
+				<div id="ww_32d6f092ad0b3" v='1.3' loc='id' a='{"t":"horizontal","lang":"pt","sl_lpl":1,"ids":["wl4899"],"font":"Arial","sl_ics":"one_a","sl_sot":"celsius","cl_bkg":"#689F38","cl_font":"#FFFFFF","cl_cloud":"#FFFFFF","cl_persp":"#FFFFFF","cl_sun":"#FFC107","cl_moon":"#FFC107","cl_thund":"#FF5722"}'>Mais previsões: <a href="https://tempolongo.com/rio_de_janeiro_tempo_25_dias/" id="ww_32d6f092ad0b3_u" target="_blank">Rio de Janeiro 30 day forecast</a></div><script async src="https://app3.weatherwidget.org/js/?id=ww_32d6f092ad0b3"></script>			</div>
+
+			<div class="col-lg-3 col-md-3 col-sm-3">
+				<h4><span class="fa fa-envelope"></span>Contato</h4>
+
+				<i class="fa fa-envelope-o fa-2x"></i> eduardo.cedm@gmail.com				<br /><br />
+									<i class="fa fa-whatsapp fa-2x"></i> <a class="no-ajaxy" href="https://api.whatsapp.com/send?phone=5511952418939" target="_blank">WhatsApp</a>
+							</div>
+		</div>
+
+		<ul class="social">
+			<hr>
+			<span class="fa fa-info-circle"> Visitas: 1106840 </span>   |   <span class="fa fa-info-circle"> Online: 18</span>			<br><br>
+
+							<li><a class="no-ajaxy" href="https://www.instagram.com/webradioe5_oficial/" target="_bank" title="Instagram" aria-label="Instagram"><span class="fa fa-instagram"></span></a></li>
+			
+							<li><a class="no-ajaxy" href="https://api.whatsapp.com/send?phone=5511952418939" target="_bank" title="WhatsApp"><span class="fa fa-whatsapp"></span></a></li>
+			
+			
+			
+							<li><a class="no-ajaxy" href="https://web.facebook.com/webradioe5" target="_bank" title="Facebook" aria-label="Facebook"><span class="fa fa-facebook"></span></a></li>
+			
+							<li>
+					<a class="no-ajaxy" href="https://twitter.com/portal_e5" target="_bank" title="X - Twitter" aria-label="X - Twitter">
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="16pt" height="16pt">
+							<path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z" />
+						</svg>
+					</a>
+				</li>
+			
+			
+			
+							<li><a class="no-ajaxy" href="#" target="_bank" title="Pinterest" aria-label="Pinterest"><span class="fa fa-pinterest"></span></a></li>
+			
+							<li><a class="no-ajaxy" href="#" target="_bank" title="Linkedin" aria-label="Linkedin"><span class="fa fa-linkedin"></span></a></li>
+			
+							<li><a class="no-ajaxy" href="#" target="_bank" title="Flickr" aria-label="Flickr"><span class="fa fa-flickr"></span></a></li>
+			
+		</ul>
+		<p class="text-center">Web Rádio E5 © 2026 - Todos os direitos reservados.</p>
+	</div>
+</footer>
+
+  <!-- <script async src="assets/js/modernizr-2.6.2-respond-1.1.0.min.js"></script> -->
+<script defer src="assets/js/jquery.js"></script>
+<script defer src="assets/js/ajaxify.min.js"></script>
+<script defer src="assets/js/bootstrap.min.js?v=4.2.3
+"></script>
+<script defer src="assets/js/jquery.carouFredSel-6.2.1-packed.js?v=4.2.3
+"></script>
+<script defer src="assets/js/jquery.vegas.min.js?v=4.2.3
+"></script>
+<script defer src="assets/js/jquery.flexslider-min.js?v=4.2.3
+"></script>
+<script defer src="assets/enquete/ajax-poll.php?v=2"></script>
+<script defer src="assets/jPlayer/jquery.jplayer.min.js"></script>
+<script defer src="assets/jPlayer/add-on/jplayer.playlist.min.js"></script>
+<script src="https://www.youtube.com/player_api"></script>
+<script defer src="assets/js/main.min.js?v=4.2.3
+"></script>
+<script defer src="admin/includes/tracker.js?uri=/&ref="></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id="></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', '');
+</script>      <script defer src="inc/chat/jaxinit.js?November52026958am22"></script>
+  </body>
+
+</html>
