@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/x-icon" href="/images/favicon/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="theme-color" content="#0a0a0a" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <title>CubanFlow Radio - Música Cubana y Radio Latina en Vivo</title>
+    <!--
+      NOTE: Default canonical and og:url are intentionally NOT set here.
+      For a SPA, a hard-coded <link rel="canonical"> in the static shell
+      would leak to non-JS-rendering crawlers as the canonical for EVERY
+      route, causing "Alternate page with proper canonical tag" errors.
+      Per-route canonicals/og:url are emitted by:
+        - <SEOHead> via React Helmet on JS-rendered crawls (modern Googlebot)
+        - The Netlify edge function og-prerender for known bot user agents
+      The base meta description / OG tags below are SEO defaults that only
+      apply when the SPA shell is served (homepage or a route og-prerender
+      doesn't yet handle).
+    -->
+    <meta name="description" content="CubanFlow Radio - Tu estación de música cubana 24/7. Escucha salsa, reggaeton cubano, timba, son cubano y más. Radio cubana online gratis desde Miami, FL." />
+
+    <!-- Open Graph / Facebook (defaults only; per-route values from SEOHead/og-prerender) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="CubanFlow Radio - Tu Estación de Música Cubana 24/7" />
+    <meta property="og:description" content="Escucha salsa, reggaeton cubano, timba, son cubano y más. Radio cubana online gratis desde Miami, FL." />
+    <meta property="og:image" content="https://cubanflow.com/images/og-default.jpg" />
+    <meta property="og:site_name" content="CubanFlow Radio" />
+    <meta property="og:locale" content="es_ES" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="CubanFlow Radio - Música Cubana 24/7" />
+    <meta name="twitter:description" content="Escucha salsa, reggaeton cubano, timba, son cubano y más. Radio cubana online gratis." />
+    <meta name="twitter:image" content="https://cubanflow.com/images/og-default.jpg" />
+    <meta name="twitter:site" content="@cubanflowradio" />
+
+    <!-- Organization Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "CubanFlow Radio",
+      "url": "https://cubanflow.com",
+      "logo": "https://cubanflow.com/images/favicon/android-chrome-512x512.png",
+      "description": "CubanFlow Radio - Tu estación de música cubana 24/7. Escucha salsa, reggaeton cubano, timba, son cubano y más.",
+      "foundingDate": "2024",
+      "foundingLocation": {
+        "@type": "Place",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Miami",
+          "addressRegion": "FL",
+          "addressCountry": "US"
+        }
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "email": "info@cubanflow.com",
+        "contactType": "customer service"
+      },
+      "sameAs": [
+        "https://instagram.com/cubanflowapp"
+      ]
+    }
+    </script>
+
+    <!-- WebSite Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "CubanFlow Radio",
+      "url": "https://cubanflow.com",
+      "description": "Tu estación de música cubana 24/7",
+      "inLanguage": ["es", "en"],
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://cubanflow.com/artistas?q={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+
+    <!-- Fonts: preconnect + one stylesheet from the HTML head. Inter used to be
+         @import-ed from index.css, which the browser only discovers after the
+         CSS bundle downloads — a late, render-blocking request. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="manifest" href="/manifest.json">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4226614544898981" crossorigin="anonymous"></script>
+    <script type="module" crossorigin src="/assets/index-DnPhFEmO.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-DTmsSAM_.css">
+  <link rel="manifest" href="/manifest.webmanifest"><script defer src="/~flock.js" data-proxy-url="/~api/analytics"></script><script defer src="/__l5e/events.270c78a44fc53e7b.js" data-artifact-kind="dwl_content_hash" data-artifact-id="c7121a16708a28edb4780d7ccfb81f36e14e6caf2144e6c552fe55876fd1f6a9" data-commit-sha="10b768655c500c92fd4f35cdbf10b8b0b08580d7" data-context-token="v1.eyJwcm9qZWN0X2lkIjoibG92cF8yOHliZ3k2ZGNlOWswcnd6Y3B6cXN2eHgycCIsImFydGlmYWN0X2tpbmQiOiJkd2xfY29udGVudF9oYXNoIiwiYXJ0aWZhY3RfaWQiOiJjNzEyMWExNjcwOGEyOGVkYjQ3ODBkN2NjZmI4MWYzNmUxNGU2Y2FmMjE0NGU2YzU1MmZlNTU4NzZmZDFmNmE5IiwiY29tbWl0X3NoYSI6IjEwYjc2ODY1NWM1MDBjOTJmZDRmMzVjZGJmMTBiOGIwYjA4NTgwZDciLCJleHAiOjE3OTY0NzY1MTN9.7Yp1Qj1PSQKilIO8_CM6_hsSkplSzaYdFYvF12C4MSE" data-autocapture="1" data-consent="1"></script></head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
