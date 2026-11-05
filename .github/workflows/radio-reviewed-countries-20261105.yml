@@ -1,0 +1,34 @@
+name: Render visually reviewed Radio country logos
+on:
+  push:
+    branches: [work/radio-missing-countries-20261105]
+    paths: [migration/radio-missing-countries-20261105/assistant-review-decisions.json]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: work/radio-missing-countries-20261105
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install Pillow==13.0.0
+      - name: Prepare approved master templates
+        run: |
+          mkdir -p /tmp/radio-masters
+          cp plugin/artwork/templates/picons/white-sablona.png /tmp/radio-masters/white.png
+          cp plugin/artwork/templates/picons/black-sablona.png /tmp/radio-masters/black.png
+      - run: python tools/review_missing_country_logos.py --root migration/radio-missing-countries-20261105 --templates /tmp/radio-masters
+      - name: Save reviewed originals and all nine PNG variants
+        run: |
+          git config user.name 'Warder Radio artwork'
+          git config user.email 'radio-artwork@users.noreply.github.com'
+          git add migration/radio-missing-countries-20261105
+          if ! git diff --cached --quiet; then
+            git commit -m 'Save visually reviewed Radio logos for missing countries'
+            git push origin HEAD:work/radio-missing-countries-20261105
+          fi
