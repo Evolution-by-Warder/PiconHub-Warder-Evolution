@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<title></title>
+	
+	<script language="javascript" type="text/javascript" src="/system/jquery.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="../../theme/startpage.css" />
+</head>
+<body>
+
+<div id="header">
+	<div id="logo">
+		<h1>Radio Azathoth Revival</h1>
+		<h2>192 Kbps stream</h2>
+	</div>
+</div>
+
+
+<div id="topbar">
+	<div id="nowplaying">
+				<div id="cc_tunein">
+	<a href="https://cast4.asurahosting.com/tunein/aadu-stream.pls"><img align="absmiddle" src="https://cast4.asurahosting.com/system/images/tunein-pls.png" border="0" alt="Winamp, iTunes" title="Winamp, iTunes" /></a>
+	<a href="https://cast4.asurahosting.com/tunein/aadu-stream.asx"><img align="absmiddle" src="https://cast4.asurahosting.com/system/images/tunein-asx.png" border="0" alt="Windows Media Player" title="Windows Media Player" /></a>
+	<a href="https://cast4.asurahosting.com/tunein/aadu-stream.ram"><img align="absmiddle" src="https://cast4.asurahosting.com/system/images/tunein-ram.png" border="0" alt="Real Player" title="Real Player" /></a>
+	<a href="https://cast4.asurahosting.com/tunein/aadu-stream.qtl"><img align="absmiddle" src="https://cast4.asurahosting.com/system/images/tunein-qtl.png" border="0" alt="QuickTime" title="QuickTime" /></a>
+	<a href="https://cast4.my-control-panel.com/stream/aadu/stream.pls"><img align="absmiddle" src="https://cast4.asurahosting.com/system/images/tunein-web.png" border="0" alt="Stream Proxy" title="Stream Proxy" /></a>
+</div>
+
+
+		<div style="white-space: nowrap; overflow: hidden; margin-right: 8px">
+			Now playing: <a href="/tunein/aadu.pls" id="cc_strinfo_summary_aadu" class="cc_streaminfo" style="text-overflow: ellipsis">Loading...</a> (<span id="cc_strinfo_server_aadu" class="cc_streaminfo"></span>)<br />
+		</div>
+		<script language="javascript" type="text/javascript" src="/system/streaminfo.js"></script>
+
+	</div>
+</div>
+
+
+<div id="container">
+	
+	<div id="leftnav">
+				
+		<h3>Recent Tracks</h3>
+		
+		<div id="cc_recenttracks_aadu" class="cc_recenttracks_list">Loading...</div>
+		
+		<script language="javascript" type="text/javascript" src="/system/recenttracks.js"></script>
+		
+	</div>
+	
+	
+	<div id="content">
+				<h3>Web Audio Player</h3>
+
+		<div class="block">
+			<div class="content" style="text-align: center; margin: 0 auto 0 auto">
+
+				<div class="cc_player" data-username="aadu" data-charset="" data-size="sm" data-style="light">Loading ...</div>
+
+			</div>
+		</div>
+		<script language="javascript" type="text/javascript" src="/system/player.js"></script>
+
+		
+		<h3>Request a song</h3>
+	
+		<div class="block">
+			<div class="content">
+			
+				<div id="cc_req_result_aadu"></div>
+				<form>
+				Song artist: <input type="text" id="cc_req_artist_aadu" name="request[artist]" size="40" maxlength="127" /><br />
+				Song title: <input type="text" id="cc_req_title_aadu" name="request[title]" size="40" maxlength="127" /><br />
+				Dedicated to: <input type="text" id="cc_req_dedi_aadu" name="request[dedication]" size="40" maxlength="127" /><br />
+				Your name: <input type="text" id="cc_req_sender_aadu" name="request[sender]" size="40" maxlength="127" /><br />
+				Your E-mail: <input type="text" id="cc_req_email_aadu" name="request[email]" size="40" maxlength="127" /><br />
+				<input type="button" id="cc_req_button_aadu" class="cc_request_form" value="Submit song request" /><br />
+				</form>			
+			</div>
+		</div>
+		<script language="javascript" type="text/javascript" src="/system/request.js"></script>
+		
+	
+		
+		<h3>On-demand Content</h3>
+	
+		<div class="block">
+			<div class="content">
+				<div id="cc_ondemand_aadu" class="cc_ondemand_content">Loading...</div>
+			</div>
+		</div>
+		<script language="javascript" type="text/javascript" src="/system/ondemand.js"></script>
+		
+		
+		
+
+	</div>
+	
+</div>
+
+<div id="footer">
+	<div class="content">
+		<div style="float: right">Powered by  <a target="_blank" href="http://www.centova.com">Centova Cast</a></div>
+		Hosted by Asura Hosting
+	</div>
+</div>
+
+</body>
+</html>
