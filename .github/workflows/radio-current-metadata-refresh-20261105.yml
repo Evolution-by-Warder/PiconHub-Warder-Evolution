@@ -1,0 +1,49 @@
+name: Recover new Radio artwork from exact source UUIDs
+on:
+  push:
+    branches: [research/warder-world-radio-logo-alias-scan-20261104]
+    paths:
+      - migration/radio-current-metadata-refresh-20261105/refresh_radio_metadata.py
+      - migration/radio-current-metadata-refresh-20261105/recover_current_metadata_artwork.py
+      - migration/radio-current-metadata-refresh-20261105/input.b64
+      - .github/workflows/radio-current-metadata-refresh-20261105.yml
+permissions:
+  contents: write
+concurrency:
+  group: radio-current-metadata-refresh-20261105
+  cancel-in-progress: false
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          sparse-checkout: |
+            migration/radio-current-metadata-refresh-20261105
+            .github/workflows
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install --quiet Pillow==13.0.0 CairoSVG==2.8.2
+      - name: Check exact station binding and HTTP batch parsing
+        run: python migration/radio-current-metadata-refresh-20261105/verify_radio_metadata_refresh.py
+      - name: Refresh original UUIDs without changing receiver identities
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          python migration/radio-current-metadata-refresh-20261105/refresh_radio_metadata.py --input migration/radio-current-metadata-refresh-20261105/input.b64 --output migration/radio-current-metadata-refresh-20261105/results --commit
+      - name: Acquire only previously unseen registered artwork
+        run: python migration/radio-current-metadata-refresh-20261105/recover_current_metadata_artwork.py --seed migration/radio-current-metadata-refresh-20261105/results/new-artwork-input.b64 --output migration/radio-current-metadata-refresh-20261105/results/artwork --workers 32 --checkpoint-size 100 --commit
+      - name: Preserve completed checkpoints
+        if: always()
+        run: |
+          git add -- migration/radio-current-metadata-refresh-20261105/results
+          if ! git diff --cached --quiet; then git commit -m 'Preserve Radio metadata artwork recovery checkpoint'; fi
+          python -c "import sys; sys.path.insert(0,'migration/radio-current-metadata-refresh-20261105'); from radio_source_helpers import push_checkpoint; push_checkpoint()"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: radio-current-metadata-refresh-20261105
+          path: migration/radio-current-metadata-refresh-20261105/results
