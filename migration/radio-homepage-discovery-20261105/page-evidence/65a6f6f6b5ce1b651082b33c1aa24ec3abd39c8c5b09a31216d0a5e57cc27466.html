@@ -1,0 +1,1883 @@
+<!doctype html>
+<html lang="hr">
+<head><meta charset="utf-8">
+
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Radio Istra — Broj 1 u Istri.</title>
+<meta name="description" content="Radio Istra — broj 1 u Istri. Slušaj uživo, gdje god da jesi.">
+<link rel="icon" href="assets/favicon.png" type="image/png">
+<link rel="preload" href="assets/fontovi/playfair-display-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fontovi/playfair-display-latin-ext.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fontovi/open-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fontovi/open-sans-latin-ext.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+/* Pisma s naseg posluzitelja - varijabilni woff2, SIL OFL 1.1.
+   Preuzeto s Google Fontsa 26. 10. 2026.; preglednik ne zove nicije
+   vanjske posluzitelje, pa ni Googleove. Licence su u assets/fontovi/. */
+@font-face{
+  font-family:"Playfair Display";
+  font-style:normal;
+  font-weight:400 900;
+  font-display:swap;
+  src:url("assets/fontovi/playfair-display-latin.woff2") format("woff2");
+  unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face{
+  font-family:"Playfair Display";
+  font-style:normal;
+  font-weight:400 900;
+  font-display:swap;
+  src:url("assets/fontovi/playfair-display-latin-ext.woff2") format("woff2");
+  unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face{
+  font-family:"Open Sans";
+  font-style:normal;
+  font-weight:300 800;
+  font-stretch:100%;
+  font-display:swap;
+  src:url("assets/fontovi/open-sans-latin.woff2") format("woff2");
+  unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face{
+  font-family:"Open Sans";
+  font-style:normal;
+  font-weight:300 800;
+  font-stretch:100%;
+  font-display:swap;
+  src:url("assets/fontovi/open-sans-latin-ext.woff2") format("woff2");
+  unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+:root{
+  --crvena:#f25546;
+  --crvena-svijetla:#ff6658;
+  --crvena-duboka:#df4635;
+  --crvena-najsvjetlija:#ff7d70;
+  --tamna:#1b2439;
+  --tamnija:#141a2a;
+  --zelena:#b2c7b6;
+  --bijela:#fff;
+  --naslov:"Playfair Display",Georgia,serif;
+  --tekst:"Open Sans",system-ui,-apple-system,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--bijela);color:var(--tamna);
+  font-family:var(--tekst);font-size:17px;line-height:1.6;
+  overflow-x:hidden;
+}
+img{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3{
+  font-family:var(--naslov);font-weight:600;margin:0;line-height:1.18;letter-spacing:-.005em;
+  /* Playfair po zadanom ima minuskulne brojke - trazimo verzalne, visine velikih slova */
+  font-variant-numeric:lining-nums;
+  -webkit-font-feature-settings:"lnum" 1;font-feature-settings:"lnum" 1;
+}
+
+/* ---------- pojavljivanje pri skrolu ---------- */
+.otkrij{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s cubic-bezier(.22,.8,.3,1)}
+.otkrij.vidljivo{opacity:1;transform:none}
+.otkrij.k1{transition-delay:.08s}
+.otkrij.k2{transition-delay:.16s}
+.otkrij.k3{transition-delay:.24s}
+
+/* ---------- HERO ---------- */
+.hero{
+  background:linear-gradient(135deg,
+    var(--crvena-najsvjetlija) 0%,
+    var(--crvena-svijetla) 26%,
+    var(--crvena) 58%,
+    var(--crvena-duboka) 100%);
+  color:var(--bijela);padding:34px 0 64px;position:relative;
+}
+.traka{
+  max-width:1180px;margin:0 auto;padding:0 28px;
+  display:flex;align-items:center;justify-content:space-between;gap:20px;
+}
+.logo{width:128px;height:auto}
+.hero h1{
+  font-size:clamp(2.5rem,7.6vw,6.6rem);
+  text-align:center;margin:calc(clamp(34px,7vw,66px) - 20px) auto 20px;  /* 27. 10.: naslov 20 px vise, visina bloka ista */
+  max-width:16ch;
+}
+
+/* gumb pilula */
+.pilula{
+  display:inline-flex;align-items:center;gap:14px;
+  background:var(--tamna);color:var(--bijela);
+  border:0;cursor:pointer;
+  font-family:var(--tekst);font-size:1rem;
+  padding:11px 11px 11px 26px;border-radius:999px;
+  transition:transform .25s ease,box-shadow .25s ease;
+  white-space:nowrap;
+}
+.pilula:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(0,0,0,.22)}
+.pilula .kolut{
+  width:34px;height:34px;border-radius:50%;background:var(--bijela);
+  display:grid;place-items:center;flex:none;
+}
+.pilula .kolut{position:relative}
+.pilula .kolut::after{
+  content:"";position:absolute;inset:-3px;border-radius:50%;
+  border:2px solid #fff;opacity:.85;
+  animation:pulsMali 2s infinite;
+}
+.pilula .kolut svg{width:24px;height:24px;fill:var(--tamna);margin-left:1px}
+.pilula.svira .kolut::after{animation:none;opacity:0}
+
+.svirko{position:relative}
+.svirko::after{
+  content:"";position:absolute;inset:-6px;border-radius:50%;
+  border:2px solid #fff;opacity:.85;
+  animation:puls 2s infinite;
+}
+.svirko.svira::after{animation:none;opacity:0}
+
+@keyframes puls{0%{transform:scale(1);opacity:.9}45%{opacity:.34}100%{transform:scale(1.34);opacity:0}}
+@keyframes pulsMali{0%{transform:scale(1);opacity:.9}55%{opacity:.4}100%{transform:scale(1.3);opacity:0}}
+
+/* ---------- FOTOGRAFIJA + PLOHA ---------- */
+.foto{position:relative;background:var(--tamna)}
+.foto img,.foto picture{width:100%;height:auto;display:block}
+.foto img{aspect-ratio:1672/753}
+.ploha{
+  position:absolute;right:0;bottom:calc(2.5% + 70px);
+  width:calc(min(56%,608px) - 50px);
+  background:rgba(27,36,57,.66);
+  -webkit-backdrop-filter:blur(5px);backdrop-filter:blur(5px);
+  border-radius:208px 0 0 208px;
+  padding:27px 43px 29px clamp(48px,5.6vw,83px);
+  color:var(--bijela);
+}
+.ploha h2{
+  font-family:var(--naslov);font-weight:500;
+  font-size:clamp(.95rem,2.5vw,2.2rem);
+  letter-spacing:.012em;margin-bottom:8px;
+}
+.ploha strong{font-weight:600}
+.ploha p{margin:0;font-size:clamp(.78rem,1.52vw,1.16rem)}
+
+/* ---------- TAMNA SEKCIJA / PLAYER ---------- */
+.tamna{background:var(--tamna);color:var(--bijela);padding:clamp(60px,9vw,110px) 0}
+.omot{max-width:1180px;margin:0 auto;padding:0 28px}
+.tamna h2{font-size:clamp(1.9rem,4.6vw,3.2rem)}
+.tamna h2 span{display:block}
+.tamna h2 span+span{margin-top:.42em}
+/* nadnaslov iznad "Samo dobar radio" - sitna verzalna slova, desktop i mobitel */
+.tamna .nadnaslov{font-size:.95rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.72);margin:0 0 1.1em}
+/* dvije inacice naslova - prikazuje se po jedna, ovisno o sirini */
+.naslov-mobitel{display:none}
+
+.red{display:flex;align-items:center;gap:30px;margin-top:clamp(34px,5vw,56px);flex-wrap:wrap}
+.svirko{
+  width:84px;height:84px;flex:none;border-radius:50%;
+  background:var(--bijela);border:0;cursor:pointer;
+  display:grid;place-items:center;
+  transition:transform .25s ease,box-shadow .25s ease;
+}
+.svirko:hover{transform:scale(1.07);box-shadow:0 0 0 12px rgba(255,255,255,.1)}
+.svirko svg{width:48px;height:48px;fill:var(--tamna);margin-left:3px}
+.svirko.svira svg{margin-left:0}
+.red .svirko{background:var(--crvena-svijetla)}
+.red .svirko svg{fill:#fff}
+.red .svirko:hover{box-shadow:0 0 0 12px rgba(255,102,88,.2)}
+.red p{margin:0;max-width:46ch}
+
+/* ekvilajzer */
+.ekvi{
+  display:flex;align-items:center;gap:7px;height:92px;
+  margin-left:auto;margin-right:30px;
+  opacity:.38;transition:opacity .45s ease;   /* pun tek dok svira */
+}
+.ekvi i{display:block;width:2px;background:var(--bijela);border-radius:2px;transform-origin:center}
+.ekvi i:nth-child(1){height:30%}
+.ekvi i:nth-child(2){height:48%}
+.ekvi i:nth-child(3){height:24%}
+.ekvi i:nth-child(4){height:66%}
+.ekvi i:nth-child(5){height:100%}
+.ekvi i:nth-child(6){height:40%}
+.ekvi i:nth-child(7){height:76%}
+.ekvi i:nth-child(8){height:28%}
+.ekvi i:nth-child(9){height:52%}
+.ekvi i:nth-child(10){height:74%}
+.ekvi i:nth-child(11){height:26%}
+.ekvi i:nth-child(12){height:58%}
+.ekvi i:nth-child(13){height:36%}
+.ekvi i:nth-child(14){height:88%}
+.ekvi i:nth-child(15){height:30%}
+.ekvi i:nth-child(16){height:46%}
+.ekvi i:nth-child(17){height:70%}
+.ekvi i:nth-child(18){height:32%}
+.ekvi i:nth-child(19){height:54%}
+.ekvi.svira{opacity:1}
+.ekvi.svira i{animation:skok 1.05s ease-in-out infinite}
+.ekvi.svira i:nth-child(2){animation-duration:.78s;animation-delay:.10s}
+.ekvi.svira i:nth-child(3){animation-duration:1.30s;animation-delay:.22s}
+.ekvi.svira i:nth-child(4){animation-duration:.90s;animation-delay:.05s}
+.ekvi.svira i:nth-child(5){animation-duration:1.15s;animation-delay:.30s}
+.ekvi.svira i:nth-child(6){animation-duration:.84s;animation-delay:.16s}
+.ekvi.svira i:nth-child(7){animation-duration:1.40s;animation-delay:.26s}
+.ekvi.svira i:nth-child(8){animation-duration:.96s;animation-delay:.38s}
+.ekvi.svira i:nth-child(9){animation-duration:1.22s;animation-delay:.08s}
+.ekvi.svira i:nth-child(10){animation-duration:.92s;animation-delay:.12s}
+.ekvi.svira i:nth-child(11){animation-duration:1.26s;animation-delay:.36s}
+.ekvi.svira i:nth-child(12){animation-duration:.80s;animation-delay:.20s}
+.ekvi.svira i:nth-child(13){animation-duration:1.12s;animation-delay:.42s}
+.ekvi.svira i:nth-child(14){animation-duration:.86s;animation-delay:.07s}
+.ekvi.svira i:nth-child(15){animation-duration:1.34s;animation-delay:.28s}
+.ekvi.svira i:nth-child(16){animation-duration:.98s;animation-delay:.48s}
+.ekvi.svira i:nth-child(17){animation-duration:1.18s;animation-delay:.14s}
+.ekvi.svira i:nth-child(18){animation-duration:.88s;animation-delay:.40s}
+.ekvi.svira i:nth-child(19){animation-duration:1.28s;animation-delay:.24s}
+@keyframes skok{0%,100%{transform:scaleY(.42)}50%{transform:scaleY(1)}}
+
+/* ---------- ZELENA SEKCIJA ---------- */
+.zelena{background:var(--zelena);color:var(--bijela);padding:clamp(56px,8vw,96px) 0}
+.dvoje{
+  max-width:1180px;margin:0 auto;padding:0 28px;
+  display:grid;grid-template-columns:.84fr 1.16fr;gap:clamp(30px,5vw,64px);align-items:center;
+}
+.nadnaslov{font-size:1.15rem;margin:0 0 .7em}
+.zelena h2{font-size:clamp(1.9rem,4.6vw,3.1rem)}
+.zelena h2 span{display:block}
+.zelena h2 span+span{margin-top:.38em}
+.zelena .dvoje>div:first-child{margin-left:150px}
+.zelena .desno{margin-left:150px}
+.zelena .desno p{margin:0 0 clamp(26px,4vw,40px);font-size:clamp(1rem,1.9vw,1.3rem)}
+.porukom{
+  display:inline-flex;align-items:center;gap:26px;
+  text-decoration:none;color:var(--bijela);font-size:1.02rem;
+}
+.porukom .kolut{
+  width:72px;height:72px;flex:none;border-radius:50%;background:var(--bijela);
+  display:grid;place-items:center;
+  transition:transform .25s ease,box-shadow .25s ease;
+}
+.porukom:hover .kolut{transform:scale(1.07);box-shadow:0 0 0 12px rgba(255,255,255,.22)}
+.porukom .kolut svg{width:27px;height:27px;fill:var(--tamna)}
+
+/* ---------- FREKVENCIJE I DOSEG ---------- */
+.doseg{
+  background:linear-gradient(180deg,var(--crvena-svijetla) 0%,var(--crvena) 100%);
+  color:#fff;padding:clamp(60px,9vw,108px) 0;overflow:hidden;
+}
+.doseg .omot{
+  display:grid;grid-template-columns:.92fr 1.08fr;
+  gap:clamp(32px,5vw,72px);align-items:center;
+}
+.doseg .karta-blok img{width:100%;height:auto;display:block}
+.doseg h2{font-size:clamp(1.9rem,4.6vw,3.1rem)}
+.doseg .nadnaslov{font-size:1.1rem;margin:0 0 .6em;color:rgba(255,255,255,.82)}
+.doseg .uvodnik{margin:3.2em 0 0;  /* 27. 10.: nize ispod frekvencija (desktop; mobitel ima svoje) */max-width:58ch;color:rgba(255,255,255,.88)}
+.doseg .online{margin:.55em 0 0;max-width:58ch;font-weight:600;color:#fff}
+
+.popis{
+  list-style:none;margin:clamp(30px,4vw,46px) 0 0;padding:0;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(118px,1fr));
+  gap:clamp(20px,3vw,34px) clamp(14px,2vw,26px);
+}
+.popis li{
+  opacity:0;transform:translateY(16px);
+  transition:opacity .55s ease,transform .55s cubic-bezier(.22,.8,.3,1);
+}
+.popis.vidljivo li{opacity:1;transform:none}
+.popis b{
+  display:block;font-family:var(--naslov);font-weight:600;
+  font-size:clamp(1.7rem,3.2vw,2.3rem);line-height:1.05;
+  font-variant-numeric:lining-nums;
+}
+.popis span{display:block;margin-top:.35em;font-size:.92rem;color:rgba(255,255,255,.72)}
+
+@media (max-width:900px){
+  .doseg .omot{grid-template-columns:1fr}
+  .doseg .karta-blok{max-width:420px;margin:0 auto}
+}
+@media (prefers-reduced-motion:reduce){
+  .popis li{opacity:1;transform:none;transition:none}
+}
+
+/* ---------- PODNOŽJE ---------- */
+.podnozje{background:linear-gradient(180deg,var(--tamna) 0%,#0b0f18 62%,#000 100%);color:var(--bijela);padding:clamp(56px,8vw,92px) 0 0}
+.stupci{
+  max-width:1180px;margin:0 auto;padding:0 28px;
+  display:grid;grid-template-columns:1.1fr 1fr auto;gap:clamp(28px,4vw,56px);align-items:start;
+}
+.podnozje .logo{width:132px;margin-bottom:26px}
+.podnozje p{margin:0;line-height:1.75;font-size:.88rem}
+.podnozje .pravila-veza{margin-top:22px}
+/* druga veza (pravilnik natjecaja) stoji tik ispod prve */
+.podnozje .pravila-veza+.pravila-veza{margin-top:8px}
+.podnozje .naslovak{margin-bottom:1.3em;letter-spacing:.08em;font-size:.94rem;color:#fff}
+.stupci>div:nth-child(2){margin-left:20px}
+.podnozje .oznaka{color:rgba(255,255,255,.72)}
+/* oznake poravnate ulijevo, brojevi udesno */
+.podnozje .telefoni{
+  display:grid;grid-template-columns:auto auto;
+  justify-content:start;column-gap:14px;
+}
+.podnozje .telefoni a{text-align:right}
+.podnozje a{text-decoration:none}
+.podnozje a:hover{text-decoration:underline}
+/* u desnom stupcu ikone i blok s akcijama stoje uz isti desni rub, a unutar
+   bloka su pravila centrirana ispod gumba - sirinu zadaje gumb */
+.stupac-desno{display:flex;flex-direction:column;align-items:flex-end}
+.stupac-desno .akcije{display:flex;flex-direction:column;align-items:center;margin-right:20px}
+.stupac-desno .akcije .podnozje-gumb{margin-right:0}
+.stupac-desno .akcije .pravila-veza{margin-right:0}
+/* 29. 10.: tri veze ispod gumba poravnate udesno (desni rub = "Nagradni natjecaj"); na mobitelu ostaju centrirane */
+.stupac-desno .akcije{align-items:flex-end}
+.stupac-desno .akcije .pravila-veza{text-align:right}
+.drustvene{display:flex;gap:18px;padding-top:4px;margin-right:20px}
+.drustvene a{
+  width:48px;height:48px;border-radius:50%;
+  border:1px solid rgba(255,255,255,.45);
+  display:grid;place-items:center;
+  transition:background .25s ease,border-color .25s ease,color .25s ease,transform .25s ease;
+}
+.drustvene a:hover{
+  color:var(--crvena-svijetla);
+  border-color:var(--crvena-svijetla);
+  background:rgba(255,102,88,.12);
+  transform:translateY(-3px);
+}
+.drustvene svg{width:21px;height:21px}
+.drustvene a[aria-label="SoundCloud"] svg{width:29px;height:29px}
+/* simbol unutar WhatsApp kruga pomaknut udesno, krug ostaje na mjestu */
+.drustvene a[aria-label="WhatsApp"] svg{position:relative;left:2px}
+.podnozje-gumb{
+  display:inline-flex;align-items:center;gap:9px;
+  margin:40px 20px 0 0;padding:11px 19px;border-radius:999px;
+  border:1px solid rgba(255,255,255,.26);
+  color:#fff;font-size:.86rem;text-decoration:none;white-space:nowrap;
+  transition:border-color .25s ease,color .25s ease,background .25s ease;
+}
+.podnozje-gumb:hover{
+  border-color:var(--crvena-svijetla);color:#fff;
+  background:rgba(255,102,88,.12);text-decoration:none;
+}
+
+.crta{
+  max-width:1180px;margin:clamp(40px,6vw,64px) auto 0;padding:20px 28px 26px;
+  border-top:1px solid rgba(255,255,255,.18);
+  display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  font-size:.86rem;color:rgba(255,255,255,.72);
+}
+.crta span:last-child{letter-spacing:.08em}
+
+/* ---------- POPUP PLAYER ---------- */
+.zastor{
+  position:fixed;inset:0;z-index:60;
+  background:rgba(10,13,21,.78);-webkit-backdrop-filter:blur(7px);backdrop-filter:blur(7px);
+  display:grid;place-items:center;padding:22px;
+  opacity:0;pointer-events:none;transition:opacity .3s ease;
+}
+.zastor.otvoren{opacity:1;pointer-events:auto}
+.zastor[hidden]{display:none!important}
+.okvir{
+  background:var(--tamna);color:var(--bijela);
+  width:min(440px,100%);border-radius:22px;padding:42px 36px 38px;
+  text-align:center;position:relative;
+  transform:translateY(16px) scale(.97);transition:transform .34s cubic-bezier(.22,.9,.3,1);
+}
+.zastor.otvoren .okvir{transform:none}
+.okvir h3{font-size:1.5rem;margin-bottom:6px}
+.eu-tekst{margin:14px 0 0;line-height:1.7;color:rgba(255,255,255,.82)}
+
+/* glasnoća */
+.glasno{display:flex;align-items:center;gap:12px;margin:26px auto 0;max-width:260px}
+.glasno button{
+  border:0;background:none;padding:0;cursor:pointer;color:#fff;
+  width:26px;height:26px;display:grid;place-items:center;flex:none;opacity:.8;
+  transition:opacity .2s ease;
+}
+.glasno button:hover{opacity:1}
+.glasno svg{width:20px;height:20px;fill:currentColor}
+.glasno input[type=range]{
+  -webkit-appearance:none;appearance:none;width:100%;height:4px;border-radius:3px;
+  outline:0;cursor:pointer;margin:0;
+  background:linear-gradient(to right,
+    #fff 0%, #fff var(--ispuna,80%),
+    rgba(255,255,255,.25) var(--ispuna,80%), rgba(255,255,255,.25) 100%);
+}
+.glasno input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;appearance:none;width:15px;height:15px;border-radius:50%;
+  background:#fff;cursor:pointer;border:0;
+}
+.glasno input[type=range]::-moz-range-thumb{
+  width:15px;height:15px;border-radius:50%;background:#fff;cursor:pointer;border:0;
+}
+.mini .glasno{margin:0;max-width:124px;gap:8px}
+@media (max-width:560px){ .mini .glasno{display:none} }
+.zatvori{
+  position:absolute;top:14px;right:14px;width:38px;height:38px;
+  border:0;background:rgba(255,255,255,.1);color:#fff;border-radius:50%;
+  font-size:19px;line-height:1;cursor:pointer;transition:background .2s ease;
+}
+.zatvori:hover{background:rgba(255,255,255,.22)}
+
+/* ---------- MINI TRAKA (samo dok svira) ---------- */
+.mini{
+  position:fixed;right:20px;bottom:20px;z-index:50;
+  background:var(--tamnija);color:#fff;
+  display:flex;align-items:center;gap:14px;
+  padding:8px 17px;border-radius:999px;
+  box-shadow:0 14px 38px -10px rgba(0,0,0,.6);
+  transform:translateY(170%);
+  transition:transform .4s cubic-bezier(.22,.9,.3,1);
+  max-width:calc(100vw - 40px);
+}
+.mini.vidljiva{transform:translateY(0)}
+.mini .svirko{width:40px;height:40px}
+.mini .svirko svg{width:22px;height:22px;margin-left:1px}
+.mini .svirko.svira svg{margin-left:0}
+.mini .svirko::after{display:none}
+.mini .ekvi{height:22px;gap:4px;margin:0}
+.mini .ekvi i{width:1.5px}
+.mini .sklanjac{
+  width:28px;height:28px;flex:none;border:0;border-radius:50%;cursor:pointer;
+  background:rgba(255,255,255,.1);color:#fff;font-size:14px;line-height:1;
+  transition:background .2s ease;
+}
+.mini .sklanjac:hover{background:rgba(255,255,255,.22)}
+
+@media (max-width:900px){
+  .dvoje,.stupci{grid-template-columns:1fr}
+
+  /* na mobitelu je sve ispod fotografije centrirano */
+  .tamna .omot,
+  .zelena .dvoje>div,
+  .doseg .omot>div,
+  .stupci>div,
+  .crta{text-align:center}
+  .red{justify-content:center;text-align:center}
+  .red p{max-width:none}
+  .ekvi{margin:16px auto 0}
+  .porukom{justify-content:center}
+  .zelena .desno p,.doseg .uvodnik,.doseg .online{margin-left:auto;margin-right:auto}
+  .podnozje .logo{margin-left:auto;margin-right:auto}
+  .podnozje .telefoni{justify-content:center}
+  .stupac-desno{align-items:center}
+  .stupac-desno .akcije{align-items:center;margin-right:0}
+  .drustvene{justify-content:center}
+  .crta{flex-direction:column;align-items:center;justify-content:center;gap:10px}
+  .crta span:last-child{color:var(--crvena-svijetla)}
+  .popis{justify-content:center}
+  .stupci>div:nth-child(2){margin-left:0;margin-top:30px}
+  .zelena .dvoje>div:first-child,.zelena .desno{margin-left:0}
+  /* mobilna fotografija ima svoj omjer, inace je atributi <img> rastegnu */
+  .foto img{aspect-ratio:844/941}
+
+  .ploha{
+    width:min(86%,520px);
+    border-radius:140px 0 0 140px;
+    padding:20px 24px 22px 58px;
+    bottom:calc(2% + 10px);  /* 27. 10.: 10 px vise */
+  }
+  /* mora stati u jedan red i na uzim telefonima */
+  .ploha h2{font-size:min(5.8vw,2.2rem);white-space:nowrap;margin-bottom:9px}
+  .ploha p{font-size:min(4.1vw,1.08rem)}
+  .ekvi{margin:8px 0 0;height:64px;gap:5px}
+  .drustvene{justify-content:center;margin-right:0}
+  .podnozje-gumb{margin-right:0}
+  .crta{justify-content:flex-start}
+
+  /* 27. 10.: tekst "Slusaj..." i ekvilajzer malo nize ispod gumba play */
+  .red p{margin-top:14px}
+  .ekvi{margin-top:22px}
+  /* blok o signalu malo nize ispod popisa frekvencija */
+  .doseg .uvodnik{margin-top:2em}
+  .doseg .online{margin-top:1em}
+  /* ikone drustvenih mreza 10 % vece, samo na mobitelu */
+  .drustvene a{width:53px;height:53px}
+  .drustvene svg{width:23px;height:23px}
+  .drustvene a[aria-label="SoundCloud"] svg{width:32px;height:32px}
+  /* fotografija 10 px vise: crveni blok iznad nje je za toliko nizi */
+  .hero{padding-bottom:54px}
+}
+@media (max-width:560px){
+  /* frekvencije u tri stupca i krupniji naslovi */
+  /* flex umjesto mreze: 4 u prvom redu, 3 u drugom, oba centrirana */
+  .popis{display:flex;flex-wrap:wrap;justify-content:center;gap:26px 12px}
+  .popis li{flex:0 0 calc(25% - 9px)}   /* tocno 4 po redu uz razmak 12px */
+  .popis b{font-size:1.45rem}
+  .popis span{font-size:.84rem}
+  .zelena h2,.doseg h2{font-size:2.45rem}
+  /* ovaj je naslov najdulji - mora stati u dva reda, ne tri */
+  .red{margin-top:36px;gap:68px}
+  .naslov-desktop{display:none}
+  .naslov-mobitel{display:block}
+  .tamna h2{font-size:2.2rem}
+  .tamna h2 span:first-child{font-size:1.45em;line-height:1.05}
+  .doseg .nadnaslov,.zelena .nadnaslov{font-size:1.2rem}
+
+  .traka{flex-direction:column;align-items:center;gap:0}
+  .logo{width:144px}
+  .pilula{display:none}
+  .hero h1{font-size:4.5rem;max-width:9ch;margin-top:calc(clamp(42px,10vw,68px) + 3px)}  /* 27. 10.: 3 px nize */
+  .pilula{font-size:.9rem;padding:9px 9px 9px 18px;gap:10px}
+  .pilula .kolut{width:34px;height:34px}
+  .pilula .kolut svg{width:19px;height:19px}
+  .red{gap:20px}
+  .mini .natpis{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .otkrij{opacity:1;transform:none;transition:none}
+  .ekvi.svira i,.pilula .kolut::after,.svirko::after{animation:none;opacity:0}
+  *{transition-duration:.01ms!important}
+}
+
+/* ---------- OBRAZAC: ŽELJE I ČESTITKE ---------- */
+.zastor.sirok{display:block;overflow-y:auto;padding:0}
+.okvir.obrazac{
+  width:min(760px,100%);margin:26px auto;text-align:left;
+  padding:40px clamp(22px,4vw,44px) 36px;border-radius:20px;
+}
+.okvir.obrazac h3{font-size:1.75rem;margin-bottom:8px}
+.uvod{margin:16px 0 30px;color:rgba(255,255,255,.72);font-size:.97rem}
+
+.obrazac fieldset{border:0;padding:0;margin:0 0 28px;min-width:0}
+.obrazac legend,.odsjek{
+  font-family:var(--naslov);font-weight:600;font-size:1.08rem;
+  padding:0;margin:0 0 14px;color:#fff;
+  font-variant-numeric:lining-nums;
+  -webkit-font-feature-settings:"lnum" 1;font-feature-settings:"lnum" 1;
+}
+.obrazac .odsjek{margin-top:4px}
+
+.usluga{
+  display:flex;align-items:center;gap:14px;
+  border:1px solid rgba(255,255,255,.2);border-radius:12px;
+  padding:14px 16px;margin-bottom:10px;cursor:pointer;
+  transition:border-color .2s ease,background .2s ease;
+}
+.usluga:hover{border-color:rgba(255,255,255,.45)}
+.usluga input{accent-color:var(--crvena);width:18px;height:18px;flex:none;margin:0}
+.usluga:has(input:checked){border-color:var(--crvena);background:rgba(242,85,70,.16)}
+.usluga span{display:flex;flex-direction:column;line-height:1.35}
+.usluga small{color:rgba(255,255,255,.62);font-size:.84rem}
+.usluga em{margin-left:auto;font-style:normal;font-weight:600;white-space:nowrap}
+
+.polja{display:grid;grid-template-columns:1fr 1fr;gap:14px 16px}
+.polje{display:flex;flex-direction:column;gap:6px;min-width:0}
+.polje.puno{grid-column:1/-1}
+.polje label{font-size:.86rem;color:rgba(255,255,255,.76)}
+.polje input,.polje select,.polje textarea{
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.2);
+  border-radius:10px;color:#fff;font:inherit;font-size:.96rem;padding:11px 13px;
+  transition:border-color .2s ease,background .2s ease;width:100%;
+}
+.polje textarea{resize:vertical;min-height:112px}
+.polje.kratko textarea{min-height:76px}
+
+/* tko pise tekst cestitke: kupac sam ili redakcija prema upisanim detaljima */
+.polje.nacin{gap:9px}
+.oznaka-nacina{font-size:.86rem;color:rgba(255,255,255,.76)}
+.izbor{display:flex;flex-wrap:wrap;gap:9px 22px}
+.izbor label{display:inline-flex;align-items:center;gap:8px;cursor:pointer;font-size:.93rem}
+.izbor input[type=radio]{
+  width:16px;height:16px;flex:none;padding:0;border:0;border-radius:0;
+  background:none;accent-color:var(--crvena);
+}
+.cestitka-set .tekst-ai{display:none}
+.cestitka-set.pise-ai .tekst-sam{display:none}
+.cestitka-set.pise-ai .tekst-ai{display:flex}
+.polje input:focus,.polje select:focus,.polje textarea:focus{
+  outline:0;border-color:var(--crvena);background:rgba(255,255,255,.1);
+}
+.polje input::placeholder,.polje textarea::placeholder{color:rgba(255,255,255,.35)}
+.polje select option{background:var(--tamna);color:#fff}
+.polje.lose input,.polje.lose textarea{border-color:#ff7b7b}
+
+.zbroj{
+  display:flex;align-items:center;justify-content:space-between;gap:14px;
+  background:rgba(255,255,255,.07);border-radius:12px;padding:16px 18px;margin:4px 0 28px;
+}
+.zbroj span{color:rgba(255,255,255,.76);font-size:.92rem}
+.zbroj b{font-family:var(--tekst);font-weight:600;font-size:1.4rem}
+
+.uplata{border:1px solid rgba(255,255,255,.18);border-radius:14px;padding:22px 20px;margin:0 0 26px}
+.uplata dl{display:grid;grid-template-columns:auto 1fr;gap:7px 16px;margin:0 0 18px;font-size:.9rem}
+.uplata dt{color:rgba(255,255,255,.6)}
+.uplata dd{margin:0;word-break:break-word}
+.barkod{text-align:center}
+.barkod canvas{
+  background:#fff;border-radius:8px;padding:10px;
+  width:100%;max-width:420px;height:auto;
+  display:block;margin:0 auto 10px;
+}
+.barkod p{margin:0;font-size:.82rem;color:rgba(255,255,255,.58)}
+.barkod.prazan canvas{display:none}
+
+.privola{display:flex;gap:11px;align-items:flex-start;margin:0 0 24px;font-size:.88rem;color:rgba(255,255,255,.78)}
+.privola input{accent-color:var(--crvena);width:18px;height:18px;margin:2px 0 0;flex:none}
+
+.posalji{
+  width:100%;border:0;cursor:pointer;border-radius:999px;
+  background:var(--crvena);color:#fff;font-family:var(--tekst);font-size:1.03rem;
+  padding:15px 24px;transition:transform .2s ease,box-shadow .2s ease,opacity .2s ease;
+}
+.posalji:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 12px 28px rgba(242,85,70,.42)}
+.posalji:disabled{opacity:.55;cursor:default}
+.javka{margin:16px 0 0;font-size:.92rem;min-height:1.4em}
+.javka.greska{font-size:1rem;font-weight:600}
+.privola.lose{
+  color:#c0372c;
+  background:rgba(216,69,60,.08);
+  border-radius:10px;padding:10px 12px;margin-left:-12px;margin-right:-12px;
+}
+.privola.lose input{outline:2px solid #d8453c;outline-offset:3px}
+.javka.ok{color:#9fe0b0}
+.javka.greska{color:#ff9d9d}
+.sitno{margin:22px 0 0;font-size:.82rem;color:rgba(255,255,255,.55);line-height:1.65}
+.sitno a{color:rgba(255,255,255,.8)}
+
+/* setovi polja za pojedinu čestitku */
+.cestitka-set{margin-top:26px}
+.cestitka-set+.cestitka-set{margin-top:22px;padding-top:22px;border-top:1px solid rgba(27,36,57,.1)}
+
+/* kalendar emitiranja: odabrati se mogu samo nedjelje */
+.kalendar{position:relative}
+.kalendar .kalendar-polje{padding-right:38px;cursor:pointer}
+.kalendar-znak{
+  position:absolute;right:13px;top:50%;transform:translateY(-50%);
+  width:17px;height:17px;fill:#8a92a1;pointer-events:none;
+}
+.kalendar-ploca{
+  position:absolute;z-index:5;top:calc(100% + 8px);left:0;
+  width:302px;max-width:calc(100vw - 52px);
+  background:#fff;border:1px solid #dde1e9;border-radius:14px;
+  box-shadow:0 18px 44px rgba(27,36,57,.2);padding:14px 14px 10px;
+}
+.kalendar-ploca[hidden]{display:none}
+.kalendar-vrh{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}
+.kalendar-vrh b{
+  font-family:var(--naslov);font-weight:600;font-size:1rem;color:var(--tamna);
+  font-variant-numeric:lining-nums;
+  -webkit-font-feature-settings:"lnum" 1;font-feature-settings:"lnum" 1;
+}
+.kalendar-vrh button{
+  border:1px solid #dde1e9;background:#fff;color:var(--tamna);font:inherit;
+  width:30px;height:30px;flex:none;border-radius:9px;cursor:pointer;line-height:1;
+  transition:border-color .2s ease,color .2s ease;
+}
+.kalendar-vrh button:hover:not(:disabled){border-color:var(--crvena);color:var(--crvena)}
+.kalendar-vrh button:disabled{opacity:.34;cursor:default}
+.kalendar-mreza{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;text-align:center}
+.kalendar-mreza i{font-style:normal;font-size:.71rem;color:#8a92a1;padding:3px 0 5px}
+.kalendar-mreza span{padding:7px 0}
+.kalendar-mreza button{
+  border:0;background:none;font:inherit;font-size:.86rem;color:var(--tamna);
+  padding:7px 0;border-radius:8px;cursor:pointer;
+}
+.kalendar-mreza button:hover{background:rgba(242,85,70,.12);color:var(--crvena)}
+.kalendar-mreza button:disabled{color:#c3c8d2;background:#f5f6f9;cursor:default}
+.kalendar-mreza button:disabled:hover{color:#c3c8d2;background:#f5f6f9}
+.kalendar-mreza button.odabran,
+.kalendar-mreza button.odabran:hover{background:var(--crvena);color:#fff}
+.kalendar-nogica{margin:10px 0 2px;font-size:.76rem;color:#8a92a1;text-align:center}
+
+/* napomena o privatnosti ispod privole */
+.privola:has(+ .privola-napomena){margin-bottom:9px}
+.privola-napomena{margin:0 0 24px;font-size:.82rem;color:rgba(255,255,255,.6)}
+.privola-napomena a{color:var(--crvena)}
+
+/* ---------- PRAVILA PRIVATNOSTI ---------- */
+.okvir.pravila{
+  width:min(760px,100%);margin:26px auto;text-align:left;
+  padding:40px clamp(22px,4vw,44px) 36px;border-radius:20px;
+}
+.okvir.pravila h3{font-size:1.75rem;margin-bottom:6px}
+.okvir.pravila .datum{margin:0 0 4px;font-size:.76rem;font-style:italic;color:#8a92a1}
+.okvir.pravila h4{
+  font-family:var(--naslov);font-weight:600;font-size:1.06rem;color:var(--tamna);
+  margin:28px 0 10px;
+  font-variant-numeric:lining-nums;
+  -webkit-font-feature-settings:"lnum" 1;font-feature-settings:"lnum" 1;
+}
+.okvir.pravila p,.okvir.pravila li{font-size:.93rem;line-height:1.75;color:#4b5464}
+.okvir.pravila p{margin:0 0 11px}
+.okvir.pravila ul{margin:0 0 11px;padding-left:19px}
+.okvir.pravila li{margin:0 0 6px}
+.okvir.pravila a{color:var(--crvena)}
+.okvir.pravila .osnove{
+  border:1px solid #dde1e9;border-radius:12px;background:#fafbfc;
+  padding:18px 20px 6px;margin:0 0 12px;
+}
+.okvir.pravila .osnove dt{color:var(--tamna);font-weight:600;font-size:.92rem;line-height:1.5}
+.okvir.pravila .osnove dd{margin:3px 0 14px;font-size:.87rem;color:#6b7384}
+
+/* ---------- POPUP: EU CLANCI (29. 10. 2026.) ---------- */
+.okvir.eu h3{margin-bottom:42px}
+.okvir.eu .eu-uvod{margin:0 0 40px;font-size:.93rem;line-height:1.7;color:#6b7384}
+.eu-clanak{border-top:1px solid #e3e6ec}
+.eu-clanak:last-child{border-bottom:1px solid #e3e6ec}
+.eu-clanak summary{list-style:none;cursor:pointer;padding:18px 36px 18px 0;position:relative}
+.eu-clanak summary::-webkit-details-marker{display:none}
+.eu-clanak summary::after{
+  content:"";position:absolute;right:12px;top:50%;width:9px;height:9px;
+  border-right:2px solid var(--crvena);border-bottom:2px solid var(--crvena);
+  transform:translateY(-70%) rotate(45deg);transition:transform .25s ease;
+}
+.eu-clanak[open] summary::after{transform:translateY(-30%) rotate(-135deg)}
+.eu-clanak .eu-meta{display:block;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:#8a92a1;margin-bottom:7px}
+.eu-clanak.eu-neobjavljen .eu-meta{color:var(--crvena)}
+.eu-clanak .eu-naslov{display:block;font-family:var(--naslov);font-weight:700;font-size:1.6rem;line-height:1.28;color:var(--tamna);transition:color .2s ease}
+.eu-clanak summary:hover .eu-naslov{color:var(--crvena)}
+.eu-tijelo{padding:2px 0 20px}
+.okvir.pravila .eu-tijelo h4{margin:20px 0 8px}
+.eu-tijelo p:last-child{margin-bottom:0}
+.eu-status{color:#8a92a1;font-size:.93rem}
+
+@media (max-width:620px){
+  .polja{grid-template-columns:1fr}
+  .usluga em{margin-left:0;width:100%}
+  .usluga{flex-wrap:wrap}
+}
+
+/* ---------- POPUP: DOSEG ---------- */
+.okvir.karta{
+  width:min(560px,100%);text-align:center;
+  padding:28px clamp(20px,3vw,32px) 24px;
+  max-height:94vh;display:flex;flex-direction:column;
+}
+.okvir.karta h3{font-size:1.45rem;margin-bottom:6px}
+.okvir.karta .uvod{margin:0 0 14px;font-size:.89rem}
+.okvir.karta img{
+  width:auto;max-width:100%;max-height:60vh;height:auto;
+  display:block;margin:0 auto;flex:0 1 auto;min-height:0;
+}
+.okvir.karta .legenda{
+  display:flex;gap:22px;flex-wrap:wrap;justify-content:center;
+  margin-top:14px;font-size:.85rem;color:#5b6475;
+}
+.okvir.karta .legenda span{display:flex;align-items:center;gap:8px}
+.okvir.karta .legenda i{width:11px;height:11px;border-radius:50%;flex:none}
+
+/* ---------- SVJETLA VERZIJA OBRASCA ---------- */
+.okvir.obrazac .privola-napomena{color:#7b8392}
+
+.okvir.obrazac,.okvir.karta,.okvir.pravila{
+  background:#fff;color:var(--tamna);
+  box-shadow:0 40px 90px -30px rgba(10,14,25,.55);
+}
+.okvir.obrazac h3,.okvir.obrazac .odsjek,.okvir.obrazac legend,
+.okvir.karta h3,.okvir.pravila h3{color:var(--tamna)}
+.okvir.pravila .zatvori{background:rgba(27,36,57,.08);color:var(--tamna)}
+.okvir.pravila .zatvori:hover{background:rgba(27,36,57,.16)}
+.okvir.obrazac .uvod,.okvir.karta .uvod{color:#5b6475}
+.okvir.obrazac .zatvori,.okvir.karta .zatvori{background:rgba(27,36,57,.08);color:var(--tamna)}
+.okvir.obrazac .zatvori:hover,.okvir.karta .zatvori:hover{background:rgba(27,36,57,.16)}
+
+.okvir.obrazac .usluga{border-color:#dde1e9}
+.okvir.obrazac .usluga:hover{border-color:#b9c0cd;background:#fafbfc}
+.okvir.obrazac .usluga:has(input:checked){border-color:var(--crvena);background:rgba(242,85,70,.08)}
+.okvir.obrazac .usluga small{color:#6b7384}
+
+.okvir.obrazac .polje label{color:#5b6475}
+.okvir.obrazac .oznaka-nacina{color:#5b6475}
+.okvir.obrazac .izbor input[type=radio]{background:none;border:0}
+.okvir.obrazac .polje input,
+.okvir.obrazac .polje select,
+.okvir.obrazac .polje textarea{
+  background:#f6f7f9;border-color:#dde1e9;color:var(--tamna);
+}
+.okvir.obrazac .polje input:focus,
+.okvir.obrazac .polje select:focus,
+.okvir.obrazac .polje textarea:focus{
+  background:#fff;border-color:var(--crvena);
+  box-shadow:0 0 0 3px rgba(242,85,70,.14);
+}
+.okvir.obrazac .polje input::placeholder,
+.okvir.obrazac .polje textarea::placeholder{color:#9aa2b1}
+.okvir.obrazac .polje select option{background:#fff;color:var(--tamna)}
+.okvir.obrazac .polje.lose input,
+.okvir.obrazac .polje.lose textarea{border-color:#d8453c;background:#fff6f5}
+.okvir.obrazac .polje input:disabled{background:#eef0f4;color:#9aa2b1}
+.okvir.obrazac .polje label span[style]{opacity:1!important;color:#8a92a1}
+
+.okvir.obrazac .zbroj{background:#f3f5f8}
+.okvir.obrazac .zbroj span{color:#5b6475}
+.okvir.obrazac .zbroj b{color:var(--tamna)}
+
+.okvir.obrazac .uplata{border-color:#dde1e9;background:#fafbfc}
+.okvir.obrazac .uplata dt{color:#6b7384}
+.okvir.obrazac .barkod canvas{background:#fff;border:1px solid #e4e7ee}
+.okvir.obrazac .barkod p{color:#6b7384}
+
+.okvir.obrazac .privola{color:#4b5464}
+.okvir.obrazac .javka.ok{color:#1d7a43}
+.okvir.obrazac .javka.greska{color:#c0372c}
+.okvir.obrazac .sitno{color:#7b8392}
+.okvir.obrazac .cestitka-set .set-naslov{color:var(--tamna);margin-bottom:14px}
+.okvir.obrazac .sitno a{color:var(--tamna)}
+
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<header class="hero">
+  <div class="traka">
+    <img class="logo" src="assets/logo-bijeli.png" alt="Radio Istra" width="599" height="408">
+    <button class="pilula" data-sviraj>
+      Slušaj uživo
+      <span class="kolut"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
+    </button>
+  </div>
+  <h1 class="otkrij">Broj 1 u Istri.</h1>
+</header>
+
+<!-- ===== FOTOGRAFIJA ===== -->
+<section class="foto">
+  <picture>
+    <source media="(max-width:900px)" srcset="assets/ekipa-mobitel.jpg?v=20261027b" width="844" height="941">
+    <img src="assets/ekipa.jpg?v=20261027b" alt="Voditelji Radija Istre u studiju" width="1672" height="753">
+  </picture>
+  <div class="ploha otkrij">
+    <h2>JUTARNJI RADIO ISTRE</h2>
+    <p>Radnim danom ujutro s vama su<br><strong>Damir, Roberta i Lea!</strong></p>
+  </div>
+</section>
+
+<!-- ===== SLUŠAJ ===== -->
+<section class="tamna">
+  <div class="omot">
+    <p class="nadnaslov otkrij">Hitovi za sve generacije</p>
+    <h2 class="otkrij naslov-desktop"><span>Samo dobar radio, 24/7.</span><span>Gdje god da jesi!</span></h2>
+    <h2 class="otkrij naslov-mobitel"><span>24/7</span><span>Samo dobar radio,</span><span>gdje god da jesi!</span></h2>
+    <div class="red otkrij k1">
+      <button class="svirko" data-sviraj aria-label="Pokreni Radio Istru uživo">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+      </button>
+      <p>Slušaj Radio Istru online.<br>Klikni play, a mi ćemo se pobrinuti za ostalo.</p>
+      <div class="ekvi" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== JAVI SE ===== -->
+<section class="zelena">
+  <div class="dvoje">
+    <div class="otkrij">
+      <p class="nadnaslov">Mi smo uvijek tu. A ti?</p>
+      <h2><span>Imaš nešto</span><span>za reći?</span></h2>
+    </div>
+    <div class="desno otkrij k1">
+      <p>Dobra priča, pitanje ili samo pozdrav?<br>Javi se ekipi Radio Istre</p>
+      <a class="porukom" href="https://wa.me/385916221120" target="_blank" rel="noopener">
+        <span class="kolut"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0 0 20.465 3.488"/></svg></span>
+        Pošalji poruku na WhatsApp
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FREKVENCIJE I DOSEG ===== -->
+<section class="doseg" id="doseg">
+  <div class="omot">
+    <div class="karta-blok otkrij">
+      <img src="assets/karta-doseg.svg" width="1080" height="1058"
+           alt="Karta Hrvatske s označenim područjem slušanosti Radio Istre">
+    </div>
+    <div>
+      <p class="nadnaslov otkrij">Pronađi nas na skali</p>
+      <h2 class="otkrij k1">Naše frekvencije</h2>
+      <ul class="popis" id="popis-frekvencija">
+        <li><b>96.9</b><span>Učka</span></li>
+        <li><b>98.0</b><span>Pula</span></li>
+        <li><b>98.5</b><span>Poreč</span></li>
+        <li><b>92.1</b><span>Rabac</span></li>
+        <li><b>107.3</b><span>Umag</span></li>
+        <li><b>88.0</b><span>Rovinj</span></li>
+        <li><b>97.9</b><span>Buje</span></li>
+      </ul>
+      <p class="uvodnik otkrij k2">Naš signal pokriva cijelu Istru, Kvarner s otocima i Gorski kotar,
+      a doseže i dio Like, Karlovačke i Zadarske županije.</p>
+      <p class="online otkrij k3">A online nas možeš slušati bilo gdje u svijetu.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PODNOŽJE ===== -->
+<footer class="podnozje">
+  <div class="stupci">
+    <div class="otkrij">
+      <img class="logo" src="assets/logo-bijeli.png" alt="Radio Istra" width="599" height="408">
+      <p>Radio Istra<br><a href="https://www.google.com/maps/search/?api=1&amp;query=Ulica%20Jurja%20Dobrile%206%2C%2052000%20Pazin" target="_blank" rel="noopener">Ulica Jurja Dobrile 6<br>52000 Pazin</a></p>
+    </div>
+    <div class="otkrij k1">
+      <p class="naslovak">JAVI SE</p>
+      <p class="telefoni">
+        <span class="oznaka">Eter:</span><a href="tel:+38552624066">052 62 40 66</a>
+        <span class="oznaka">Centrala:</span><a href="tel:+38552887700">052 88 77 00</a>
+        <span class="oznaka">Marketing:</span><a href="tel:+38552887711">052 88 77 11</a>
+      </p>
+      <p>
+        <a href="mailto:radioistra@radioistra.hr" target="_blank" rel="noopener">radioistra@radioistra.hr</a><br>
+        <a href="mailto:marketing@radioistra.hr" target="_blank" rel="noopener">marketing@radioistra.hr</a>
+      </p>
+    </div>
+    <div class="stupac-desno">
+      <div class="drustvene otkrij k2">
+      <a href="https://wa.me/385916221120" target="_blank" rel="noopener" aria-label="WhatsApp">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0 0 20.465 3.488"/></svg>
+      </a>
+      <a href="https://www.facebook.com/radioistra" target="_blank" rel="noopener" aria-label="Facebook">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 22v-8h2.7l.4-3.1h-3.1V8.9c0-.9.25-1.5 1.54-1.5h1.66V4.6c-.29-.04-1.28-.13-2.43-.13-2.4 0-4.05 1.47-4.05 4.17v2.26H7.5V14h2.72v8h3.28z"/></svg>
+      </a>
+      <a href="https://www.instagram.com/radio_istra" target="_blank" rel="noopener" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+          <rect x="3.5" y="3.5" width="17" height="17" rx="5" fill="none"/>
+          <circle cx="12" cy="12" r="3.9" fill="none"/>
+          <circle cx="17" cy="7" r="1.1" fill="currentColor" stroke="none"/>
+        </svg>
+      </a>
+      <a href="https://soundcloud.com/radioistra" target="_blank" rel="noopener" aria-label="SoundCloud">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <rect x="2.4" y="11.6" width="1.5" height="4.9" rx=".75"/>
+          <rect x="5.6" y="9.8" width="1.5" height="6.7" rx=".75"/>
+          <rect x="8.8" y="8.4" width="1.5" height="8.1" rx=".75"/>
+          <path d="M12.6 16.5h7.6a3.2 3.2 0 1 0-.5-6.4 4.8 4.8 0 0 0-7.1-3.1z"/>
+        </svg>
+        </a>
+      </div>
+      <div class="akcije">
+        <a class="podnozje-gumb otkrij k3" href="#" data-cestitke>Želje i čestitke</a>
+        <p class="pravila-veza otkrij k3"><a href="#" data-privatnost>Pravila privatnosti</a></p>
+        <p class="pravila-veza otkrij k3"><a href="/images/2026/Pravilnik%20natjecaja%20Reci%20da%20si%20z%20Istre%20ili%20Kvarnera%20bez%20da%20reces%20da%20si%20z%20Istre%20ili%20Kvarnera.pdf" target="_blank" rel="noopener" title="Pravilnik natječaja „Reci da si z Istre ili Kvarnera bez da rečeš da si z Istre ili Kvarnera" (PDF)">Nagradni natječaj</a></p>
+        <!-- 29. 10. 2026.: EU veza, treca u nizu, desno poravnata s ostalima -->
+        <p class="pravila-veza eu-veza otkrij k3"><a href="#" data-eu>Projekti Europske unije</a></p>
+      </div>
+    </div>
+  </div>
+  <div class="crta">
+    <span>© 2026 Radio Istra. Sva prava pridržana.</span>
+    <span>BROJ 1 U ISTRI.</span>
+  </div>
+</footer>
+
+
+<!-- ===== POPUP: ŽELJE I ČESTITKE ===== -->
+<div class="zastor sirok" id="popup-privatnost" hidden role="dialog" aria-modal="true" aria-labelledby="nasl-privatnost">
+  <div class="okvir pravila">
+    <button class="zatvori" id="zatvori-privatnost" aria-label="Zatvori">✕</button>
+    <h3 id="nasl-privatnost">Pravila privatnosti</h3>
+    <p class="datum">Zadnja izmjena: 26. listopada 2026.</p>
+
+    <h4>1. Tko obrađuje vaše podatke</h4>
+    <p>Voditelj obrade je <strong>CIK „Dr. Božo Milanović" d.o.o. — Radio Istra</strong>,
+      Jurja Dobrile 6, 52000 Pazin.</p>
+    <p>Za sve o osobnim podacima javite se na
+      <a href="mailto:radioistra@radioistra.hr" target="_blank" rel="noopener">radioistra@radioistra.hr</a>
+      ili 052 88 77 00.</p>
+
+    <h4>2. Koje podatke prikupljamo</h4>
+    <p>Kad ispunite obrazac <em>Želje i čestitke</em>, prikupljamo:</p>
+    <ul>
+      <li>ime i prezime, e-mail adresu i broj telefona;</li>
+      <li>adresu, poštanski broj, grad i OIB — samo ako ih upišete, radi ispravne uplatnice i računa;</li>
+      <li>sadržaj čestitke: kome je namijenjena, prigodu, željeni datum emitiranja, glazbenu želju i tekst koji se čita u eteru;</li>
+      <li>odabranu uslugu, broj čestitki i iznos.</li>
+    </ul>
+    <p>Poslužitelj uz to bilježi IP adresu i vrijeme slanja obrasca. IP adresu koristimo isključivo
+      da spriječimo zlouporabu obrasca i ne povezujemo je s ostalim vašim podacima.</p>
+    <p>Stranica ne koristi kolačiće za praćenje, analitiku ni oglašavanje. U vašem pregledniku
+      ostaje jedino postavka glasnoće playera, koja se ne šalje nikome.</p>
+
+    <h4>3. Zašto i na temelju čega</h4>
+    <div class="osnove">
+      <dl>
+        <dt>Čitanje čestitke u eteru i objava njezina sadržaja</dt>
+        <dd>privola — članak 6. stavak 1. točka (a) Opće uredbe o zaštiti podataka</dd>
+        <dt>Izvršenje naručene usluge, kontakt s vama i naplata</dt>
+        <dd>izvršenje ugovora, odnosno radnje na vaš zahtjev — točka (b)</dd>
+        <dt>Izdavanje i čuvanje računa</dt>
+        <dd>zakonska obveza — točka (c)</dd>
+        <dt>Sprečavanje zlouporabe obrasca</dt>
+        <dd>naš legitimni interes — točka (f)</dd>
+      </dl>
+    </div>
+    <p>Privolu možete povući u svakom trenutku porukom na
+      <a href="mailto:pozdravi@radioistra.hr" target="_blank" rel="noopener">pozdravi@radioistra.hr</a>.
+      Povučete li je prije emitiranja, čestitku nećemo pročitati. Povlačenje ne utječe na zakonitost
+      obrade do tog trenutka ni na obvezu čuvanja računa.</p>
+
+    <h4>4. Osoba kojoj je čestitka namijenjena</h4>
+    <p>U tekstu čestitke najčešće navodite ime druge osobe. Slanjem obrasca potvrđujete da tu osobu
+      smijete spomenuti u javnom emitiranju. Njezine podatke koristimo samo za čitanje čestitke
+      i ni za što drugo.</p>
+
+    <h4>5. Koliko dugo čuvamo podatke</h4>
+    <ul>
+      <li>Poruka s čestitkom i prepiska u vezi s njom: 12 mjeseci od datuma emitiranja.</li>
+      <li>Računi i knjigovodstvene isprave: u rokovima propisanim Zakonom o računovodstvu
+        (za isprave na temelju kojih se knjiži najmanje 11 godina).</li>
+      <li>Zapis o IP adresi za ograničavanje obrasca: jedan sat.</li>
+      <li>Uobičajeni zapisi poslužitelja o pristupu: u pravilu najviše 30 dana.</li>
+    </ul>
+
+    <h4>6. Tko još može vidjeti podatke</h4>
+    <p>Podatke ne prodajemo i ne ustupamo drugima za njihove svrhe. Pristup im, u mjeri nužnoj
+      za rad usluge, imaju:</p>
+    <ul>
+      <li>davatelj usluge poslužitelja (Contabo GmbH, poslužitelj u Europskoj uniji);</li>
+      <li>banka kod koje se izvršava uplata;</li>
+      <li>knjigovodstveni servis koji vodi poslovne knjige;</li>
+      <li>nadležna tijela, kada to traži zakon.</li>
+    </ul>
+    <p>Stranica se u cijelosti učitava s našeg poslužitelja — slike, pisma i sve ostalo.
+      Jedina iznimka je slušanje uživo: pokrenete li player, zvučni prijenos dohvaća se s
+      poslužitelja davatelja StreamingPulse, koji u tom trenutku vidi vašu IP adresu. Nikakve
+      druge podatke mu ne šaljemo. Ne pokrenete li slušanje, vaš preglednik ne kontaktira
+      nijedan poslužitelj izvan našega.</p>
+
+    <h4>7. Vaša prava</h4>
+    <p>Imate pravo zatražiti pristup svojim podacima, ispravak netočnih podataka, brisanje,
+      ograničenje obrade i prenosivost, te uložiti prigovor na obradu koja se temelji na
+      legitimnom interesu. Zahtjev pošaljite na
+      <a href="mailto:radioistra@radioistra.hr" target="_blank" rel="noopener">radioistra@radioistra.hr</a>
+      — odgovaramo najkasnije u roku od mjesec dana.</p>
+    <p>Smatrate li da podatke obrađujemo protivno propisima, možete se obratiti Agenciji za zaštitu
+      osobnih podataka (AZOP), Ulica Metela Ožegovića 16, 10000 Zagreb,
+      <a href="mailto:azop@azop.hr" target="_blank" rel="noopener">azop@azop.hr</a>.</p>
+
+    <h4>8. Izmjene</h4>
+    <p>Ova pravila možemo povremeno dopuniti. Datum zadnje izmjene uvijek je naveden na vrhu.</p>
+  </div>
+</div>
+
+<!-- 29. 10. 2026.: 12 EU clanaka; tekstove po datumu objave daje /eu-clanci.php (podaci izvan docroota) -->
+<div class="zastor sirok" id="popup-eu" hidden role="dialog" aria-modal="true" aria-labelledby="nasl-eu">
+  <div class="okvir pravila eu">
+    <button class="zatvori" id="zatvori-eu" aria-label="Zatvori">✕</button>
+    <h3 id="nasl-eu">Projekti Europske unije</h3>
+    <p class="eu-uvod" id="eu-uvod"></p>
+    <div id="eu-popis"><p class="eu-status">Učitavanje…</p></div>
+  </div>
+</div>
+
+<div class="zastor sirok" id="popup-cestitke" hidden role="dialog" aria-modal="true" aria-labelledby="nasl-cestitke">
+  <div class="okvir obrazac">
+    <button class="zatvori" id="zatvori-cestitke" aria-label="Zatvori">✕</button>
+    <h3 id="nasl-cestitke">Želje i čestitke</h3>
+    <p class="uvod">Pošalji čestitku u eter Radija Istre. Ispuni podatke, odaberi uslugu i pošalji — javit ćemo ti se emailom.</p>
+
+    <form id="forma-cestitke" novalidate>
+      <div class="polja">
+        <div class="polje">
+          <label for="f-kolicina">Količina čestitki <span style="opacity:.6">(najviše 10)</span></label>
+          <input type="number" id="f-kolicina" name="kolicina" value="1" min="1" max="10" step="1" inputmode="numeric">
+        </div>
+      </div>
+
+      <!-- setove polja za čestitke slaže JS prema upisanoj količini -->
+      <div id="setovi"></div>
+
+      <p class="odsjek" style="margin-top:28px">Tvoji podaci</p>
+      <div class="polja">
+        <div class="polje"><label for="f-ime">Ime i prezime *</label><input id="f-ime" name="ime" required autocomplete="name"></div>
+        <div class="polje"><label for="f-email">E-mail *</label><input id="f-email" name="email" type="email" required autocomplete="email"></div>
+        <div class="polje"><label for="f-adresa">Adresa (ulica i broj)</label><input id="f-adresa" name="adresa" autocomplete="street-address"></div>
+        <div class="polje"><label for="f-mjesto">Poštanski broj i grad</label><input id="f-mjesto" name="mjesto"></div>
+        <div class="polje"><label for="f-telefon">Telefon *</label><input id="f-telefon" name="telefon" type="tel" required autocomplete="tel"></div>
+        <div class="polje"><label for="f-oib">OIB <span style="opacity:.6">(poziv na broj)</span></label><input id="f-oib" name="oib" inputmode="numeric" maxlength="11"></div>
+      </div>
+
+      <fieldset style="margin:30px 0 28px">
+        <legend>Odaberi uslugu</legend>
+        <label class="usluga">
+          <input type="radio" name="usluga" value="Čestitka u eteru" data-cijena="10" checked>
+          <span>Čestitka u eteru<small>Uključuje tekst i prigodan glazbeni broj</small></span>
+          <em>10,00 €</em>
+        </label>
+        <!-- polje ostaje skriveno i isključeno jer ga skripta čita; stickovi se zasad ne prodaju -->
+        <input type="number" id="f-stickovi" name="stickovi" value="0" disabled hidden>
+      </fieldset>
+
+      <div class="zbroj"><span>Ukupno za uplatu</span><b id="ukupno">10,00 €</b></div>
+
+      <div class="uplata">
+        <p class="odsjek" style="margin-top:0">Podaci za uplatu</p>
+        <dl>
+          <dt>Primatelj</dt><dd>CIK „Dr. Božo Milanović" d.o.o. — Radio Istra<br>Jurja Dobrile 6, 52000 Pazin</dd>
+          <dt>IBAN</dt><dd>HR2224020061100110679</dd>
+          <dt>Poziv na broj</dt><dd id="pnb">tvoj OIB</dd>
+          <dt>Opis</dt><dd>Čestitke</dd>
+        </dl>
+        <div class="barkod prazan" id="barkod">
+          <canvas id="platno-barkod" aria-label="2D barkod za plaćanje"></canvas>
+          <p id="barkod-tekst">Upiši ime, adresu i grad za ispravno generiranje barkoda za plaćanje.</p>
+        </div>
+      </div>
+
+      <label class="privola">
+        <input type="checkbox" name="privola" value="1" required>
+        <span>Suglasan/na sam da Radio Istra obradi moje podatke radi emitiranja čestitke i kontakta.</span>
+      </label>
+      <p class="privola-napomena">Detaljnije o tome kako prikupljamo i obrađujemo vaše podatke možete pročitati u <a href="#" data-privatnost>Pravilima privatnosti</a>.</p>
+
+      <button type="submit" class="posalji">Pošalji čestitku</button>
+      <p class="javka" id="javka" role="status" aria-live="polite"></p>
+
+      <p class="sitno">
+        Čestitke se mogu predati i osobno na Radio Istri, radnim danom od ponedjeljka do četvrtka od 8 do 16 sati.
+      </p>
+    </form>
+
+    <!-- kalup jednog seta polja za čestitku -->
+    <template id="kalup-cestitka">
+      <div class="cestitka-set">
+        <p class="odsjek set-naslov">Čestitka</p>
+        <div class="polja">
+          <div class="polje"><label>Za koga *</label><input data-p="kome" placeholder="npr. Petra i Marko, mladenci"></div>
+          <div class="polje"><label>Od koga *</label><input data-p="od" placeholder="npr. mama Nada i tata Branko"></div>
+          <div class="polje">
+            <label>Prigoda *</label>
+            <select data-p="prigoda">
+              <option value="">— odaberi —</option>
+              <option>Rođendan</option><option>Godišnjica braka</option><option>Vjenčanje</option>
+              <option>Krštenje</option><option>Rođenje djeteta</option><option>Imendan</option>
+              <option>Matura</option><option>Diploma</option><option>Odlazak u mirovinu</option><option>Drugo</option>
+            </select>
+          </div>
+          <div class="polje">
+            <label>Datum emitiranja * <span style="opacity:.6">(nedjeljom)</span></label>
+            <div class="kalendar">
+              <input data-p="datum" class="kalendar-polje" readonly placeholder="— odaberi nedjelju —" autocomplete="off">
+              <svg class="kalendar-znak" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2v2H5a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-2V2h-2v2H9V2H7zM5 9h14v10H5V9z"/></svg>
+            </div>
+          </div>
+          <div class="polje puno"><label>Glazbena želja</label><input data-p="glazba" placeholder="Izvođač — naziv pjesme"></div>
+          <div class="polje puno tekst-sam"><label>Tekst čestitke *</label><textarea data-p="tekst" placeholder="Napiši tekst onako kako želiš da se pročita u eteru."></textarea></div>
+          <div class="polje puno kratko tekst-ai"><label>Detalji *</label><textarea data-p="detalji" placeholder="Gdje su se vjenčali, koliko godina slave, nešto osobno…"></textarea></div>
+        </div>
+      </div>
+    </template>
+  </div>
+</div>
+
+<!-- ===== MINI TRAKA ===== -->
+<div class="mini" id="mini">
+  <div class="ekvi" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="glasno">
+    <button type="button" data-tiho aria-label="Utišaj"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3a4.5 4.5 0 0 0-2.5-4.03v8.06A4.5 4.5 0 0 0 16.5 12z"/></svg></button>
+    <input type="range" min="0" max="100" value="80" data-glasnoca aria-label="Glasnoća">
+  </div>
+  <button class="svirko" data-sviraj aria-label="Zaustavi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></button>
+  <button class="sklanjac" id="skloni-mini" aria-label="Sakrij traku">✕</button>
+</div>
+
+<audio id="zvuk" preload="none"></audio>
+
+<script>
+(function(){
+  "use strict";
+  var STREAM = "https://de4.streamingpulse.com/ssl/RadioIstra";
+
+  var zvuk = document.getElementById("zvuk");
+  var mini = document.getElementById("mini");
+  var miniSklonjena = false;
+
+  var IKONA_PLAY = "M8 5v14l11-7z";
+  var IKONA_STOP = "M7 6h3.5v12H7zM13.5 6H17v12h-3.5z";
+
+  function svira(){ return !zvuk.paused && !zvuk.ended; }
+
+  function osvjezi(){
+    var jeste = svira();
+    document.querySelectorAll("[data-sviraj] svg path").forEach(function(p){
+      p.setAttribute("d", jeste ? IKONA_STOP : IKONA_PLAY);
+    });
+    document.querySelectorAll("[data-sviraj]").forEach(function(b){
+      b.classList.toggle("svira", jeste);
+      if (b.closest("#mini")) b.setAttribute("aria-label", jeste ? "Zaustavi" : "Pokreni");
+    });
+    document.querySelectorAll(".ekvi").forEach(function(e){ e.classList.toggle("svira", jeste); });
+    mini.classList.toggle("vidljiva", jeste && !miniSklonjena);
+  }
+
+  function pokreni(){
+    // izvor se postavlja samo ako ga nema - inace play() krece bez ponovnog spajanja
+    if (!zvuk.getAttribute("src")) zvuk.setAttribute("src", STREAM);
+    miniSklonjena = false;   // nova reprodukcija opet pokazuje pilulu
+    var p = zvuk.play();
+    if (p && p.then) p.then(osvjezi).catch(osvjezi);
+    osvjezi();
+  }
+
+  function zaustavi(){
+    zvuk.pause();
+    // kod zivog streama treba prekinuti i dohvat, inace se buffer puni u pozadini
+    zvuk.removeAttribute("src");
+    zvuk.load();
+    osvjezi();
+  }
+
+  zvuk.addEventListener("playing", osvjezi);
+  zvuk.addEventListener("pause",   osvjezi);
+  zvuk.addEventListener("error",   osvjezi);
+
+  document.querySelectorAll("[data-sviraj]").forEach(function(btn){
+    btn.addEventListener("click", function(){
+      if (svira()){ zaustavi(); return; }
+      pokreni();
+    });
+  });
+
+  document.getElementById("skloni-mini").addEventListener("click", function(){
+    miniSklonjena = true;
+    osvjezi();
+  });
+  // ----- glasnoća -----
+  var klizaci = document.querySelectorAll("[data-glasnoca]");
+  var tipke   = document.querySelectorAll("[data-tiho]");
+  var IKONA_ZVUK = "M3 9v6h4l5 5V4L7 9H3zm13.5 3a4.5 4.5 0 0 0-2.5-4.03v8.06A4.5 4.5 0 0 0 16.5 12z";
+  var IKONA_TIHO = "M3 9v6h4l5 5V4L7 9H3zm15.2 3 2.7-2.7-1.41-1.42-2.7 2.71-2.71-2.71-1.41 1.42 2.7 2.7-2.7 2.7 1.41 1.42 2.71-2.71 2.7 2.71 1.41-1.42L18.2 12z";  /* zvucnik + x */
+  var zadnja = 0.8;
+
+  function postavi(v, izvor){
+    v = Math.max(0, Math.min(1, v));
+    zvuk.volume = v;
+    zvuk.muted = v === 0;
+    if (v > 0) zadnja = v;
+    var posto = Math.round(v * 100);
+    klizaci.forEach(function(k){
+      if (k !== izvor) k.value = String(posto);
+      k.style.setProperty("--ispuna", posto + "%");
+    });
+    tipke.forEach(function(t){
+      var put = t.querySelector("path");
+      if (put) put.setAttribute("d", v === 0 ? IKONA_TIHO : IKONA_ZVUK);
+      t.setAttribute("aria-label", v === 0 ? "Uključi zvuk" : "Utišaj");
+    });
+    try { localStorage.setItem("ri-glasnoca", String(v)); } catch (e) {}
+  }
+
+  klizaci.forEach(function(k){
+    k.addEventListener("input", function(){ postavi(parseInt(k.value, 10) / 100, k); });
+  });
+  tipke.forEach(function(t){
+    t.addEventListener("click", function(){ postavi(zvuk.volume === 0 ? zadnja : 0); });
+  });
+
+  var spremljena = null;
+  try { spremljena = localStorage.getItem("ri-glasnoca"); } catch (e) {}
+  postavi(spremljena === null ? 0.8 : parseFloat(spremljena));
+
+  // frekvencije se pojavljuju jedna za drugom
+  var popis = document.getElementById("popis-frekvencija");
+  if (popis){
+    popis.querySelectorAll("li").forEach(function(li, i){
+      li.style.transitionDelay = (i * 0.07) + "s";
+    });
+    if ("IntersectionObserver" in window){
+      var op = new IntersectionObserver(function(u){
+        u.forEach(function(z){
+          if (z.isIntersecting){ popis.classList.add("vidljivo"); op.disconnect(); }
+        });
+      }, {threshold:.25});
+      op.observe(popis);
+    } else {
+      popis.classList.add("vidljivo");
+    }
+  }
+
+  // pojavljivanje pri skrolu
+  var meta = document.querySelectorAll(".otkrij");
+  if ("IntersectionObserver" in window){
+    var oko = new IntersectionObserver(function(unosi){
+      unosi.forEach(function(u){
+        if (u.isIntersecting){ u.target.classList.add("vidljivo"); oko.unobserve(u.target); }
+      });
+    }, {threshold:.16, rootMargin:"0px 0px -8% 0px"});
+    meta.forEach(function(el){ oko.observe(el); });
+  } else {
+    meta.forEach(function(el){ el.classList.add("vidljivo"); });
+  }
+
+  osvjezi();
+})();
+</script>
+
+<script>
+/* ===== Obrazac: želje i čestitke ===== */
+(function(){
+  "use strict";
+
+  var PRIMATELJ   = "CIK Dr. Božo Milanović";
+  var ULICA       = "Jurja Dobrile 6";
+  var MJESTO      = "52000 Pazin";
+  var IBAN        = "HR2224020061100110679";
+  var OPIS        = "Čestitke";
+  var CIJENA_STICK = 5;
+
+  var popup   = document.getElementById("popup-cestitke");
+  var forma   = document.getElementById("forma-cestitke");
+
+  /* Je li otvoren neki drugi zastor osim zadanog. */
+  window.drugiZastorOtvoren = function(osim){
+    return Array.prototype.some.call(document.querySelectorAll(".zastor"), function(z){
+      return z !== osim && !z.hidden;
+    });
+  };
+
+  /* Svi zastori imaju isti z-index, pa bi onaj kasniji u dokumentu prekrio
+     onaj koji se otvara iznad njega. Zato otvoreni ide navrh. */
+  window.zastorNaVrh = function(popup){
+    var naj = 60;
+    Array.prototype.forEach.call(document.querySelectorAll(".zastor"), function(z){
+      if (z === popup || z.hidden) return;
+      naj = Math.max(naj, parseInt(getComputedStyle(z).zIndex, 10) || 60);
+    });
+    popup.style.zIndex = naj + 1;
+  };
+  var ukupnoEl = document.getElementById("ukupno");
+  var pnbEl   = document.getElementById("pnb");
+  var javka   = document.getElementById("javka");
+  var stickovi = document.getElementById("f-stickovi");
+  var OBAVEZNA = ["kome", "od", "prigoda", "datum"];
+  var kolicinaEl = document.getElementById("f-kolicina");
+  var setovi = document.getElementById("setovi");
+  var kalup  = document.getElementById("kalup-cestitka");
+
+  var NAJVISE = 10;
+  var MJESECI = ["siječnja","veljače","ožujka","travnja","svibnja","lipnja",
+                 "srpnja","kolovoza","rujna","listopada","studenoga","prosinca"];
+  var MJESECI_IME = ["Siječanj","Veljača","Ožujak","Travanj","Svibanj","Lipanj",
+                     "Srpanj","Kolovoz","Rujan","Listopad","Studeni","Prosinac"];
+  var DANI = ["Pon","Uto","Sri","Čet","Pet","Sub","Ned"];
+
+  /* Emitira se nedjeljom; prva slobodna je ona najmanje 3 dana od danas,
+     koliko redakciji treba za pripremu. */
+  function prvaNedjelja(){
+    var d = new Date();
+    d.setHours(12, 0, 0, 0);
+    d.setDate(d.getDate() + 3);
+    while (d.getDay() !== 0) d.setDate(d.getDate() + 1);
+    return d;
+  }
+  var OD = prvaNedjelja();
+  var DO = new Date(OD.getTime());
+  DO.setDate(DO.getDate() + 7 * 51);            // godinu dana unaprijed
+
+  function opisDatuma(d){
+    return "nedjelja, " + d.getDate() + ". " + MJESECI[d.getMonth()] + " " + d.getFullYear() + ".";
+  }
+
+  var ploce = [];                               // svi kalendari na obrascu
+
+  function zatvoriKalendare(){
+    var bilo = false;
+    ploce.forEach(function(k){
+      if (!k.ploca.hidden){ k.ploca.hidden = true; bilo = true; }
+    });
+    return bilo;
+  }
+
+  /* Mjesecna mreza u kojoj su svi dani osim nedjelja posivljeni i
+     neodabirljivi; isto vrijedi za nedjelje izvan razdoblja za prijavu. */
+  function kalendar(polje){
+    var omot = polje.parentNode;
+    var ploca = document.createElement("div");
+    ploca.className = "kalendar-ploca";
+    ploca.hidden = true;
+    omot.appendChild(ploca);
+    ploce.push({omot: omot, ploca: ploca});
+
+    var vid = new Date(OD.getFullYear(), OD.getMonth(), 1);
+    var prviMj = new Date(OD.getFullYear(), OD.getMonth(), 1);
+    var zadnjiMj = new Date(DO.getFullYear(), DO.getMonth(), 1);
+
+    function crtaj(){
+      ploca.textContent = "";
+
+      var vrh = document.createElement("div");
+      vrh.className = "kalendar-vrh";
+      var nazad = document.createElement("button");
+      nazad.type = "button"; nazad.textContent = "‹";
+      nazad.setAttribute("aria-label", "Prethodni mjesec");
+      nazad.disabled = vid.getTime() <= prviMj.getTime();
+      nazad.addEventListener("click", function(e){
+        e.stopPropagation(); vid.setMonth(vid.getMonth() - 1); crtaj();
+      });
+      var ime = document.createElement("b");
+      ime.textContent = MJESECI_IME[vid.getMonth()] + " " + vid.getFullYear();
+      var dalje = document.createElement("button");
+      dalje.type = "button"; dalje.textContent = "›";
+      dalje.setAttribute("aria-label", "Sljedeći mjesec");
+      dalje.disabled = vid.getTime() >= zadnjiMj.getTime();
+      dalje.addEventListener("click", function(e){
+        e.stopPropagation(); vid.setMonth(vid.getMonth() + 1); crtaj();
+      });
+      vrh.appendChild(nazad); vrh.appendChild(ime); vrh.appendChild(dalje);
+      ploca.appendChild(vrh);
+
+      var mreza = document.createElement("div");
+      mreza.className = "kalendar-mreza";
+      DANI.forEach(function(n){
+        var i = document.createElement("i"); i.textContent = n; mreza.appendChild(i);
+      });
+
+      var prvi = new Date(vid.getFullYear(), vid.getMonth(), 1);
+      var pomak = (prvi.getDay() + 6) % 7;        // ponedjeljak je prvi stupac
+      for (var i = 0; i < pomak; i++) mreza.appendChild(document.createElement("span"));
+
+      var ukupno = new Date(vid.getFullYear(), vid.getMonth() + 1, 0).getDate();
+      for (var dan = 1; dan <= ukupno; dan++){
+        mreza.appendChild(celija(new Date(vid.getFullYear(), vid.getMonth(), dan, 12, 0, 0, 0)));
+      }
+      ploca.appendChild(mreza);
+
+      var nog = document.createElement("p");
+      nog.className = "kalendar-nogica";
+      nog.textContent = "Čestitke se emitiraju nedjeljom.";
+      ploca.appendChild(nog);
+    }
+
+    function celija(d){
+      var b = document.createElement("button");
+      b.type = "button";
+      b.textContent = String(d.getDate());
+      var nedjelja = d.getDay() === 0;
+      if (!nedjelja || d.getTime() < OD.getTime() || d.getTime() > DO.getTime()){
+        b.disabled = true;
+        b.title = nedjelja ? "Izvan razdoblja za prijavu" : "Čestitke se emitiraju nedjeljom";
+        return b;
+      }
+      var tekst = opisDatuma(d);
+      b.setAttribute("aria-label", tekst);
+      if (polje.value === tekst) b.className = "odabran";
+      b.addEventListener("click", function(){
+        polje.value = tekst;
+        ploca.hidden = true;
+        polje.closest(".polje").classList.remove("lose");
+      });
+      return b;
+    }
+
+    polje.addEventListener("click", function(){
+      if (!ploca.hidden){ ploca.hidden = true; return; }
+      zatvoriKalendare();
+      vid = new Date(OD.getFullYear(), OD.getMonth(), 1);
+      crtaj();
+      ploca.hidden = false;
+    });
+    polje.addEventListener("keydown", function(e){
+      if (e.key === "Enter" || e.key === " "){ e.preventDefault(); polje.click(); }
+    });
+  }
+
+  document.addEventListener("click", function(e){
+    // meta koja je u meduvremenu maknuta iz dokumenta nije "klik izvan kalendara"
+    if (!e.target.isConnected) return;
+    ploce.forEach(function(k){
+      if (!k.ploca.hidden && !k.omot.contains(e.target)) k.ploca.hidden = true;
+    });
+  });
+
+  /* ---- setovi polja: jedan po cestitki ---- */
+  var brojSeta = 0;
+
+  function noviSet(){
+    var set = kalup.content.firstElementChild.cloneNode(true);
+    var n = ++brojSeta;
+    set.querySelectorAll("[data-n]").forEach(function(el){
+      el.name = el.dataset.n + n;                 // radio gumbi moraju biti par po setu
+      el.addEventListener("change", function(){
+        set.classList.toggle("pise-ai", el.value === "ai" && el.checked);
+      });
+    });
+    set.querySelectorAll("[data-p]").forEach(function(el){
+      var id = "f-" + el.dataset.p + "-" + n;
+      el.id = id;
+      el.name = el.dataset.p + n;
+      var oznaka = el.closest(".polje").querySelector("label");
+      if (oznaka) oznaka.setAttribute("for", id);
+      if (el.classList.contains("kalendar-polje")) kalendar(el);
+    });
+    return set;
+  }
+
+  /* Setovi se dodaju odmah, a brisu samo na potvrdu (change/blur) - inace bi
+     se pri prepisivanju broja usput izgubio vec upisan tekst. */
+  function slozi(dopustiBrisanje){
+    var n = kolicina();
+    while (setovi.children.length < n) setovi.appendChild(noviSet());
+    while (dopustiBrisanje && setovi.children.length > n){
+      var zadnji = setovi.lastElementChild;
+      ploce = ploce.filter(function(k){ return !zadnji.contains(k.omot); });
+      setovi.removeChild(zadnji);
+    }
+    var ukupno = setovi.children.length;
+    Array.prototype.forEach.call(setovi.children, function(set, i){
+      set.querySelector(".set-naslov").textContent =
+        ukupno > 1 ? (i + 1) + ". čestitka" : "Čestitka";
+    });
+  }
+
+  /* Pise li tekst redakcija umjesto kupca. */
+  function pisemoMi(set){
+    var r = set.querySelector('[data-n="nacin"][value="ai"]');
+    return !!(r && r.checked);
+  }
+
+  /* Sve cestitke jedne prijave. */
+  function cestitke(){
+    return Array.prototype.map.call(setovi.children, function(set){
+      function p(k){
+        var e = set.querySelector('[data-p="' + k + '"]');
+        return e ? String(e.value || "").trim() : "";
+      }
+      return {kome: p("kome"), od: p("od"), prigoda: p("prigoda"), datum: p("datum"),
+              glazba: p("glazba"), ton: p("ton"), jezik: p("jezik"),
+              nacin: pisemoMi(set) ? "ai" : "sam",
+              tekst: pisemoMi(set) ? "" : p("tekst"),
+              detalji: pisemoMi(set) ? p("detalji") : ""};
+    });
+  }
+
+  var platno  = document.getElementById("platno-barkod");
+  var kutija  = document.getElementById("barkod");
+  var barkodTekst = document.getElementById("barkod-tekst");
+  var gumb    = forma.querySelector(".posalji");
+  var otvoren = 0;
+  var bibliotekaUcitana = false;
+
+  function val(n){ var e = forma.elements[n]; return e ? String(e.value || "").trim() : ""; }
+
+  function odabrana(){ return forma.querySelector('input[name="usluga"]:checked'); }
+
+  function kolicina(){
+    var k = parseInt(kolicinaEl ? kolicinaEl.value : "1", 10);
+    return Math.max(1, Math.min(NAJVISE, isNaN(k) ? 1 : k));
+  }
+
+  function iznos(){
+    var r = odabrana();
+    var osnovica = r ? parseFloat(r.dataset.cijena) : 0;
+    var dodatni = stickovi.disabled ? 0 : Math.max(0, Math.min(50, parseInt(stickovi.value, 10) || 0));
+    return osnovica * kolicina() + dodatni * CIJENA_STICK;
+  }
+
+  function formatiraj(n){ return n.toFixed(2).replace(".", ",") + " €"; }
+
+  function ucitajBiblioteku(){
+    if (bibliotekaUcitana) return Promise.resolve();
+    return new Promise(function(uspjeh, neuspjeh){
+      var s = document.createElement("script");
+      s.src = "assets/pdf417.js";
+      s.onload = function(){ bibliotekaUcitana = true; uspjeh(); };
+      s.onerror = neuspjeh;
+      document.head.appendChild(s);
+    });
+  }
+
+  /* HUB-3 dopušta samo određene znakove; ostalo mičemo. */
+  function ocisti(t, duljina){
+    t = String(t || "").replace(/[^0-9A-Za-zČčĆćĐđŠšŽž ,.:\-+?'\/()]/g, " ");
+    return t.replace(/\s+/g, " ").trim().substring(0, duljina);
+  }
+
+  /* Biblioteka svaki znak niza tretira kao JEDAN bajt (charCodeAt), a HUB-3
+     trazi UTF-8. Bez ove pretvorbe se č, ć, ž, š i đ pokvare pri skeniranju. */
+  function uBajtove(t){
+    var b;
+    if (window.TextEncoder) {
+      b = new TextEncoder().encode(t);
+    } else {
+      var e = unescape(encodeURIComponent(t));
+      b = []; for (var k = 0; k < e.length; k++) b.push(e.charCodeAt(k));
+    }
+    var r = "";
+    for (var i = 0; i < b.length; i++) r += String.fromCharCode(b[i]);
+    return r;
+  }
+
+  /* HUB-3 niz slazemo sami: ugradjeni HUB3.format trazi adresu i grad
+     platitelja, a standard dopusta da ta polja budu prazna. */
+  function hub3(ime, adresa, grad, oib){
+    var centi = String(Math.round(iznos() * 100));
+    while (centi.length < 15) centi = "0" + centi;
+    return [
+      "HRVHUB30", "EUR", centi,
+      ime, adresa, grad,
+      PRIMATELJ, ULICA, MJESTO,
+      IBAN,
+      oib ? "HR00" : "HR99",
+      oib,
+      "OTHR",
+      OPIS
+    ].join("\n") + "\n";
+  }
+
+  function crtajBarkod(){
+    var ime = ocisti(val("ime"), 30);
+    var adresa = ocisti(val("adresa"), 27);
+    var grad = ocisti(val("mjesto"), 27);
+    var oib = val("oib").replace(/\D/g, "").substring(0, 11);
+
+    ucitajBiblioteku().then(function(){
+      try {
+        PDF417.draw(uBajtove(hub3(ime, adresa, grad, oib)), platno, 3, 4);
+        kutija.classList.remove("prazan");
+        barkodTekst.textContent = (adresa && grad)
+          ? "Skeniraj u svojoj bankovnoj aplikaciji (HUB-3)."
+          : "Skeniraj u bankovnoj aplikaciji. Upiši adresu i grad za potpunu uplatnicu.";
+      } catch (e) {
+        kutija.classList.add("prazan");
+        barkodTekst.textContent = "Barkod se ne može stvoriti s unesenim podacima.";
+      }
+    }).catch(function(){
+      kutija.classList.add("prazan");
+      barkodTekst.textContent = "Barkod trenutno nije dostupan.";
+    });
+  }
+
+  function osvjezi(){
+    slozi(false);
+    var r = odabrana();
+    var stick = r && parseFloat(r.dataset.cijena) >= 15;
+    stickovi.disabled = !stick;
+    if (!stick) stickovi.value = "0";
+    ukupnoEl.textContent = formatiraj(iznos());
+    var oib = val("oib").replace(/\D/g, "");
+    pnbEl.textContent = oib ? oib : "tvoj OIB";
+    crtajBarkod();
+  }
+
+  function otvori(e){
+    if (e) e.preventDefault();
+    otvoren = Date.now();
+    forma.elements["pocetak"] && (forma.elements["pocetak"].value = otvoren);
+    popup.hidden = false;
+    requestAnimationFrame(function(){ popup.classList.add("otvoren"); });
+    document.body.style.overflow = "hidden";
+    osvjezi();
+  }
+
+  function zatvori(){
+    popup.classList.remove("otvoren");
+    document.body.style.overflow = drugiZastorOtvoren(popup) ? "hidden" : "";
+    setTimeout(function(){ popup.hidden = true; }, 320);
+  }
+
+  document.querySelectorAll("[data-cestitke]").forEach(function(a){
+    a.addEventListener("click", otvori);
+  });
+  document.getElementById("zatvori-cestitke").addEventListener("click", zatvori);
+  popup.addEventListener("click", function(e){ if (e.target === popup) zatvori(); });
+  document.addEventListener("keydown", function(e){
+    if (e.key !== "Escape") return;
+    if (zatvoriKalendare()) return;
+    // drugi popup otvoren iznad obrasca zatvara njegov vlastiti rukovatelj
+    if (drugiZastorOtvoren(popup)) return;
+    if (popup.classList.contains("otvoren")) zatvori();
+  });
+
+  forma.addEventListener("change", osvjezi);
+  ["ime","adresa","mjesto","oib","stickovi","kolicina"].forEach(function(n){
+    var e = forma.elements[n];
+    if (e) e.addEventListener("input", osvjezi);
+  });
+
+  // upisanu kolicinu poravnavamo i skracujemo broj setova tek na potvrdu
+  kolicinaEl.addEventListener("change", function(){
+    var k = parseInt(kolicinaEl.value, 10);
+    kolicinaEl.value = String(Math.max(1, Math.min(NAJVISE, isNaN(k) ? 1 : k)));
+    slozi(true);
+  });
+
+  slozi(false);
+
+  forma.addEventListener("submit", function(e){
+    e.preventDefault();
+    javka.textContent = "";
+    javka.className = "javka";
+
+    var lose = null;
+    ["ime","email","telefon"].forEach(function(n){
+      var el = forma.elements[n];
+      var pol = el.closest(".polje");
+      var prazno = !String(el.value || "").trim();
+      if (pol) pol.classList.toggle("lose", prazno);
+      if (prazno && !lose) lose = el;
+    });
+    Array.prototype.forEach.call(setovi.children, function(set){
+      // uz zajednicka polja trazi se tekst, odnosno detalji ako ga pisemo mi
+      ["tekst", "detalji"].forEach(function(k){
+        set.querySelector('[data-p="' + k + '"]').closest(".polje").classList.remove("lose");
+      });
+      OBAVEZNA.concat([pisemoMi(set) ? "detalji" : "tekst"]).forEach(function(k){
+        var el = set.querySelector('[data-p="' + k + '"]');
+        var pol = el.closest(".polje");
+        var prazno = !String(el.value || "").trim();
+        pol.classList.toggle("lose", prazno);
+        if (prazno && !lose) lose = el;
+      });
+    });
+    var privolaRed = forma.querySelector(".privola");
+    privolaRed.classList.remove("lose");
+
+    if (lose){
+      javka.textContent = "Nedostaje podatak — označeno je crveno.";
+      javka.className = "javka greska";
+      lose.scrollIntoView({block:"center", behavior:"smooth"});
+      setTimeout(function(){ lose.focus(); }, 300);
+      return;
+    }
+    if (!forma.elements["privola"].checked){
+      javka.textContent = "Još samo potvrdi privolu na dnu obrasca.";
+      javka.className = "javka greska";
+      privolaRed.classList.add("lose");
+      privolaRed.scrollIntoView({block:"center", behavior:"smooth"});
+      setTimeout(function(){ forma.elements["privola"].focus(); }, 300);
+      return;
+    }
+
+    var podaci = {
+      // saljemo TRAJANJE ispunjavanja, ne vrijeme s korisnikova sata -
+      // inace razlika u satu racunala i servera odbija stvarne prijave
+      trajanje: Math.max(0, Math.round((Date.now() - otvoren) / 1000)),
+      ime: val("ime"), email: val("email"), telefon: val("telefon"),
+      adresa: val("adresa"), mjesto: val("mjesto"), oib: val("oib"),
+      cestitke: cestitke(),
+      usluga: odabrana() ? odabrana().value : "",
+      barkod: kutija.classList.contains("prazan") ? "" : platno.toDataURL("image/png"),
+      kolicina: kolicina(),
+      stickovi: stickovi.disabled ? 0 : (parseInt(stickovi.value, 10) || 0),
+      iznos: iznos().toFixed(2),
+      privola: "1"
+    };
+
+    gumb.disabled = true;
+    gumb.textContent = "Šaljem…";
+
+    fetch("posalji-cestitku.php", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(podaci)
+    }).then(function(o){
+      return o.json().catch(function(){ return {ok:false, poruka:"Neočekivan odgovor poslužitelja."}; });
+    }).then(function(o){
+      javka.textContent = o.poruka || (o.ok ? "Poslano." : "Došlo je do greške.");
+      javka.className = "javka " + (o.ok ? "ok" : "greska");
+      if (o.ok){
+        forma.reset();
+        slozi(true);
+        osvjezi();
+        gumb.textContent = "Poslano ✓";
+        // popup se sam zatvara 6 s nakon potvrde i vraca se u pocetno stanje
+        setTimeout(function(){
+          zatvori();
+          gumb.disabled = false;
+          gumb.textContent = "Pošalji čestitku";
+          javka.textContent = "";
+          javka.className = "javka";
+        }, 6000);
+        return;
+      }
+      gumb.disabled = false; gumb.textContent = "Pošalji čestitku";
+    }).catch(function(){
+      javka.textContent = "Slanje nije uspjelo. Javi se na pozdravi@radioistra.hr.";
+      javka.className = "javka greska";
+      gumb.disabled = false; gumb.textContent = "Pošalji čestitku";
+    });
+  });
+})();
+</script>
+
+<script>
+/* Samostalni popupi u podnozju - isti zastor/okvir kao ostali */
+(function(){
+  function popupNaKlik(idPopup, idZatvori, biralo){
+    var popup = document.getElementById(idPopup);
+    if (!popup) return;
+
+    function otvori(e){
+      if (e) e.preventDefault();
+      popup.hidden = false;
+      zastorNaVrh(popup);
+      requestAnimationFrame(function(){ popup.classList.add("otvoren"); });
+      document.body.style.overflow = "hidden";
+    }
+    function zatvori(){
+      popup.classList.remove("otvoren");
+      // pravila se mogu otvoriti i iznad obrasca - tada pozadina ostaje zakljucana
+      document.body.style.overflow = drugiZastorOtvoren(popup) ? "hidden" : "";
+      setTimeout(function(){ popup.hidden = true; popup.style.zIndex = ""; }, 320);
+    }
+
+    document.querySelectorAll(biralo).forEach(function(a){
+      a.addEventListener("click", otvori);
+    });
+    document.getElementById(idZatvori).addEventListener("click", zatvori);
+    popup.addEventListener("click", function(e){ if (e.target === popup) zatvori(); });
+    document.addEventListener("keydown", function(e){
+      if (e.key === "Escape" && !popup.hidden) zatvori();
+    });
+  }
+
+  popupNaKlik("popup-eu", "zatvori-eu", "[data-eu]");
+
+  // EU clanci: ucitaju se pri prvom otvaranju popupa; ?pregled=KLJUC pokazuje i neobjavljene
+  (function(){
+    var popis = document.getElementById("eu-popis"), uvod = document.getElementById("eu-uvod");
+    if (!popis) return;
+    var ucitano = false;
+    function meta(c){
+      var m = "Članak " + c.broj + " – objavljeno " + c.datum;
+      if (c.emisija) m += " · u eteru " + c.emisija;
+      if (!c.objavljen) m = "NEOBJAVLJEN · Članak " + c.broj + " – objava " + c.datum + (c.emisija ? " · u eteru " + c.emisija : "");
+      return m;
+    }
+    function prikazi(podaci, otvoriBroj){
+      uvod.textContent = podaci.uvod || "";
+      popis.innerHTML = "";
+      if (!podaci.clanci || !podaci.clanci.length){
+        popis.innerHTML = '<p class="eu-status">Prvi članak objavljujemo uskoro.</p>';
+        return;
+      }
+      podaci.clanci.forEach(function(c, i){
+        var d = document.createElement("details");
+        d.className = "eu-clanak" + (c.objavljen ? "" : " eu-neobjavljen");
+        d.id = "eu-" + c.broj;
+        if (otvoriBroj ? c.broj === otvoriBroj : i === 0) d.open = true;
+        var sum = document.createElement("summary");
+        var m = document.createElement("span"); m.className = "eu-meta"; m.textContent = meta(c);
+        var n = document.createElement("span"); n.className = "eu-naslov"; n.textContent = c.naslov;
+        sum.appendChild(m); sum.appendChild(n);
+        var t = document.createElement("div"); t.className = "eu-tijelo"; t.innerHTML = c.tekst;
+        d.appendChild(sum); d.appendChild(t); popis.appendChild(d);
+      });
+      if (otvoriBroj){
+        var cilj = document.getElementById("eu-" + otvoriBroj);
+        if (cilj) setTimeout(function(){ cilj.scrollIntoView({block:"start", behavior:"smooth"}); }, 350);
+      }
+    }
+    function ucitaj(otvoriBroj){
+      if (ucitano) return;
+      ucitano = true;
+      var kljuc = new URLSearchParams(location.search).get("pregled");
+      var url = "/eu-clanci.php" + (kljuc ? "?pregled=" + encodeURIComponent(kljuc) : "");
+      fetch(url, {cache:"no-store"}).then(function(r){ return r.json(); })
+        .then(function(p){ prikazi(p, otvoriBroj); })
+        .catch(function(){ ucitano = false; popis.innerHTML = '<p class="eu-status">Članke trenutačno nije moguće učitati. Pokušajte ponovno.</p>'; });
+    }
+    document.querySelectorAll("[data-eu]").forEach(function(a){
+      a.addEventListener("click", function(){ ucitaj(0); });
+    });
+    // duboka veza: radioistra.hr/#eu ili /#eu-3 otvara popup (i clanak 3)
+    var h = /^#eu(?:-(\d+))?$/.exec(location.hash);
+    if (h){
+      var gumb = document.querySelector("[data-eu]");
+      if (gumb){ ucitaj(h[1] ? parseInt(h[1], 10) : 0); gumb.click(); }
+    }
+  })();
+  popupNaKlik("popup-privatnost", "zatvori-privatnost", "[data-privatnost]");
+})();
+</script>
+</body>
+</html>
