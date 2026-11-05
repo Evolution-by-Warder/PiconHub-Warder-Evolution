@@ -713243,7 +713243,8 @@
         "http://gtrk22.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:3896:434:ED:0:0:0:0": {
       "name": "mayakfm_mp3_128kbps",
@@ -713256,7 +713257,10 @@
         "https://icecast-vgtrk.cdnvideo.ru/mayakfm_mp3_128kbps"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Operation timed out after 8000 milliseconds with 173568 bytes received\n"
+      ]
     },
     "4097:0:2:74BA:D511:ED:0:0:0:0": {
       "name": "MCM",
@@ -713269,7 +713273,8 @@
         "https://mcm.fm/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:91DA:3315:ED:0:0:0:0": {
       "name": "Mcreative",
@@ -713282,7 +713287,10 @@
         "http://radcap.ru/moderncreative.html"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Failed to connect to radcap.ru port 80 after 3002 ms: Timeout was reached\n"
+      ]
     },
     "4097:0:2:2FAF:FB80:ED:0:0:0:0": {
       "name": "Radio Medved",
@@ -713295,7 +713303,34 @@
         "http://www.radiomedved.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://www.radiomedved.ru/api/pwa/icon",
+        "final_url": "https://www.radiomedved.ru/api/pwa/icon",
+        "path": "originals/f3a0d24a615ecd217e7631e49faeb78b382ed23359d1274048d1979b5a34d5e4.img",
+        "sha256": "f3a0d24a615ecd217e7631e49faeb78b382ed23359d1274048d1979b5a34d5e4",
+        "bytes": 76983,
+        "dimensions": [
+          1080,
+          1080
+        ],
+        "format": "JPEG"
+      },
+      "page": {
+        "url": "http://www.radiomedved.ru/",
+        "final_url": "https://www.radiomedved.ru/",
+        "original_html_sha256": "b59a4968b14986a1702767b7cc03247c4fb874bcff80bc304d576881b2cf2ee3",
+        "path": "page-evidence/b59a4968b14986a1702767b7cc03247c4fb874bcff80bc304d576881b2cf2ee3.json",
+        "titles": [
+          "Radio Medved"
+        ],
+        "image_urls": [
+          "https://www.radiomedved.ru/api/pwa/icon",
+          "https://www.radiomedved.ru/assets/favicon-DDeAPxyl.png"
+        ],
+        "named_logos": {}
+      },
+      "ocr_text": ""
     },
     "4097:0:2:E33:45E9:ED:0:0:0:0": {
       "name": "Megapolis Samara",
@@ -713320,7 +713355,40 @@
         "https://radio.melodiclab.studio/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://radio.melodiclab.studio/favicon.svg?v=1",
+        "final_url": "https://radio.melodiclab.studio/favicon.svg?v=1",
+        "path": "originals/635b2e420860a4c532c9271d33dd5f144bdad2b5708e6e7ce1ee9f152003e7ad.img",
+        "sha256": "635b2e420860a4c532c9271d33dd5f144bdad2b5708e6e7ce1ee9f152003e7ad",
+        "bytes": 394,
+        "dimensions": [
+          640,
+          640
+        ],
+        "format": "SVG",
+        "frozen_svg_raster": {
+          "path": "rasterized/3e29f7fffbe3b78d9baad4cab7db56808328927096fbba64fe33b95b49fb7399.png",
+          "sha256": "3e29f7fffbe3b78d9baad4cab7db56808328927096fbba64fe33b95b49fb7399",
+          "cairosvg_version": "2.8.2"
+        }
+      },
+      "page": {
+        "url": "https://radio.melodiclab.studio/",
+        "final_url": "https://radio.melodiclab.studio/",
+        "original_html_sha256": "4ea0d9e5da188339551928c6a484fd91bfdb8efda6c767491bb3feeee0cebb65",
+        "path": "page-evidence/4ea0d9e5da188339551928c6a484fd91bfdb8efda6c767491bb3feeee0cebb65.json",
+        "titles": [
+          "MelodiClab Radio — Live",
+          "MelodiClab  Radio. "
+        ],
+        "image_urls": [
+          "https://radio.melodiclab.studio/favicon.svg?v=1",
+          "https://radio.melodiclab.studio/technics-v1.png"
+        ],
+        "named_logos": {}
+      },
+      "ocr_text": "4a\n\n>»\n\n4\n"
     },
     "4097:0:2:5B45:7494:ED:0:0:0:0": {
       "name": "Radio Melodiya",
@@ -713333,7 +713401,10 @@
         "https://radiomelody.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Failed to connect to radiomelody.ru port 443 after 3000 ms: Timeout was reached\n"
+      ]
     },
     "4097:0:2:B449:8936:ED:0:0:0:0": {
       "name": "METALchet",
@@ -713346,7 +713417,8 @@
         "https://myradio24.com/metalchet"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:E60A:CC82:ED:0:0:0:0": {
       "name": "Metaradio",
@@ -713383,7 +713455,10 @@
         "http://www.radcap.ru/middleeast.html"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Failed to connect to www.radcap.ru port 80 after 3000 ms: Timeout was reached\n"
+      ]
     },
     "4097:0:2:C037:3633:ED:0:0:0:0": {
       "name": "Midtempo Radio",
@@ -713408,7 +713483,8 @@
         "https://mikulski.rocks/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:631A:C93E:ED:0:0:0:0": {
       "name": "Mineplay FM",
@@ -713421,7 +713497,8 @@
         "https://radio.nedodev.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:7393:CBFC:ED:0:0:0:0": {
       "name": "Mirobyte",
@@ -713434,7 +713511,8 @@
         "https://mirobyte.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:87D9:DC34:ED:0:0:0:0": {
       "name": "Mixadance FM",
@@ -713461,7 +713539,10 @@
         "http://www.mixadance.fm/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Failed to connect to www.mixadance.fm port 80 after 3000 ms: Timeout was reached\n"
+      ]
     },
     "4097:0:2:1348:C93D:ED:0:0:0:0": {
       "name": "MixCult",
@@ -713474,7 +713555,10 @@
         "http://mixcult.net/#"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Failed to connect to mixcult.net port 80 after 3000 ms: Timeout was reached\n"
+      ]
     },
     "4097:0:2:A821:7759:ED:0:0:0:0": {
       "name": "Mix FM",
@@ -713509,7 +713593,10 @@
         "https://montecarlo.ru/online/monte-carlo-bossa"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 404\n"
+      ]
     },
     "4097:0:2:AF97:B04A:ED:0:0:0:0": {
       "name": "MonteCarlo Chill-Lounge",
@@ -713536,7 +713623,10 @@
         "https://montecarlo.ru/online/zolotaya-kollekciya"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 404\n"
+      ]
     },
     "4097:0:2:1625:7171:ED:0:0:0:0": {
       "name": "Radio Monte Carlo Golf Club",
@@ -713549,7 +713639,42 @@
         "http://montecarlo.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://montecarlo.ru/logo.svg",
+        "final_url": "https://montecarlo.ru/logo.svg",
+        "path": "originals/85fbaffb4a1a6b1233e08d22233b49a06165fe09aae9b09f376800fead5a3cc8.img",
+        "sha256": "85fbaffb4a1a6b1233e08d22233b49a06165fe09aae9b09f376800fead5a3cc8",
+        "bytes": 46656,
+        "dimensions": [
+          640,
+          640
+        ],
+        "format": "SVG",
+        "frozen_svg_raster": {
+          "path": "rasterized/f11bc27cec4bac4226403966a5ab22d059d8b65dba712898d2ef81d56ccff07e.png",
+          "sha256": "f11bc27cec4bac4226403966a5ab22d059d8b65dba712898d2ef81d56ccff07e",
+          "cairosvg_version": "2.8.2"
+        }
+      },
+      "page": {
+        "url": "http://montecarlo.ru/",
+        "final_url": "https://montecarlo.ru/",
+        "original_html_sha256": "667668cf38d79066ee34597ab59b22aef89953173a1538dd534b77520c3e854c",
+        "path": "page-evidence/667668cf38d79066ee34597ab59b22aef89953173a1538dd534b77520c3e854c.json",
+        "titles": [
+          "Радио Monte Carlo  - слушать прямой эфир бесплатно. Официальный сайт радиостанции"
+        ],
+        "image_urls": [
+          "https://montecarlo.ru/logo.svg",
+          "https://montecarlo.ru/apple-icon.png?cdc4099e9b48f995",
+          "https://montecarlo.ru/favicon.ico?447b9cf72ea0a073"
+        ],
+        "named_logos": {
+          "https://montecarlo.ru/logo.svg": "cover  "
+        }
+      },
+      "ocr_text": "EG):\n\n—————\n\nRABY\n"
     },
     "4097:0:2:D54A:51D0:ED:0:0:0:0": {
       "name": "Monte Carlo: Sweet",
@@ -713574,7 +713699,8 @@
         "https://radiogoose.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:297A:F7DC:ED:0:0:0:0": {
       "name": "Moskva FM",
@@ -713587,7 +713713,10 @@
         "https://www.mosfm.com/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 403\n"
+      ]
     },
     "4097:0:2:FCBC:558:ED:0:0:0:0": {
       "name": "MOTORADIO",
@@ -713600,7 +713729,44 @@
         "http://motoradio.online/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://motoradio.online/assets/img/logo-laika.svg",
+        "final_url": "https://motoradio.online/assets/img/logo-laika.svg",
+        "path": "originals/e1a98a145a044dd7056668429c988c4ec3aec1bd11bc0607b17fca8573dd375f.img",
+        "sha256": "e1a98a145a044dd7056668429c988c4ec3aec1bd11bc0607b17fca8573dd375f",
+        "bytes": 3306,
+        "dimensions": [
+          640,
+          180
+        ],
+        "format": "SVG",
+        "frozen_svg_raster": {
+          "path": "rasterized/d1af5e2d0eb4680649a10d69dc34845c96b3ec7320f196fe395be70cdcbf8922.png",
+          "sha256": "d1af5e2d0eb4680649a10d69dc34845c96b3ec7320f196fe395be70cdcbf8922",
+          "cairosvg_version": "2.8.2"
+        }
+      },
+      "page": {
+        "url": "http://motoradio.online/",
+        "final_url": "https://motoradio.online/",
+        "original_html_sha256": "592a8c180ad84700c3c63c765a5092c706efa65c538c39703934880c25912736",
+        "path": "page-evidence/592a8c180ad84700c3c63c765a5092c706efa65c538c39703934880c25912736.json",
+        "titles": [
+          "MOTORADIO — независимая хард-рок радиостанция",
+          "\n\t             MOTO \n\t             RADIO \n\t          "
+        ],
+        "image_urls": [
+          "https://motoradio.online/assets/img/logo-laika.svg",
+          "https://motoradio.online/assets/img/logo.png",
+          "https://motoradio.online/apple-touch-icon.png"
+        ],
+        "named_logos": {
+          "https://motoradio.online/assets/img/logo.png": "  ",
+          "https://motoradio.online/assets/img/logo-laika.svg": "  "
+        }
+      },
+      "ocr_text": ""
     },
     "4097:0:2:619B:B9E7:ED:0:0:0:0": {
       "name": "MOTORADIO.ONLINE, Just music, no programs",
@@ -713662,7 +713828,10 @@
         "http://myudm.ru/radio"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Failed to connect to myudm.ru port 80 after 3000 ms: Timeout was reached\n"
+      ]
     },
     "4097:0:2:4BF5:C846:ED:0:0:0:0": {
       "name": "Muse - Радио MAXIMUM",
@@ -713675,7 +713844,8 @@
         "https://radiostream.novawap.com/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:BBC8:CE02:ED:0:0:0:0": {
       "name": "Musical Decadence Radio",
@@ -713700,7 +713870,38 @@
         "https://radiomv.com/de/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://de.radiomv.com/wp-content/uploads/2022/08/RadioMv-newlogo-800w-4-300x90.png",
+        "final_url": "https://de.radiomv.com/wp-content/uploads/2022/08/RadioMv-newlogo-800w-4-300x90.png",
+        "path": "originals/0a9d6742315be8c9a1ee40cb69dbba5ac8bd1f9c42eb529368d82b84987933a2.img",
+        "sha256": "0a9d6742315be8c9a1ee40cb69dbba5ac8bd1f9c42eb529368d82b84987933a2",
+        "bytes": 12048,
+        "dimensions": [
+          300,
+          90
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://radiomv.com/de/",
+        "final_url": "https://de.radiomv.com/",
+        "original_html_sha256": "ae853c052271d8ff9cd1743249bcf327b20bbb5418f9dfe9697540170640a2cc",
+        "path": "page-evidence/ae853c052271d8ff9cd1743249bcf327b20bbb5418f9dfe9697540170640a2cc.json",
+        "titles": [
+          "RadioMv | Christlicher Online Radiosender"
+        ],
+        "image_urls": [
+          "https://de.radiomv.com/wp-content/uploads/2022/08/RadioMv-newlogo-800w-4-300x90.png",
+          "https://de.radiomv.com/wp-content/uploads/2022/08/RadioMv-newlogo-800w-4.png",
+          "https://de.radiomv.com/wp-content/uploads/2023/02/android-chrome-192x192-1.png"
+        ],
+        "named_logos": {
+          "https://de.radiomv.com/wp-content/uploads/2022/08/RadioMv-newlogo-800w-4.png": "  ",
+          "https://de.radiomv.com/wp-content/uploads/2022/08/RadioMv-newlogo-800w-4-300x90.png": "  "
+        }
+      },
+      "ocr_text": "po.\n\n1 oy,\n\nrs\n\n% RADIOMY.COM\n\nBS\n\nPani\n\nre\n\nONILINE CHRISTIAN RADIO NETWORK\n\noY\n"
     },
     "4097:0:2:EB4D:71F4:ED:0:0:0:0": {
       "name": "Radio Myata",
@@ -713713,7 +713914,8 @@
         "http://radiomyata.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:B764:8DE6:ED:0:0:0:0": {
       "name": "Radio Myata - Gold Hits",
@@ -713738,7 +713940,8 @@
         "https://radiomyata.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:3342:24CD:ED:0:0:0:0": {
       "name": "Mylene Farmer",
@@ -713751,7 +713954,101 @@
         "https://pcradio.app/radio/mylene-farmer-live-pcr-27oosrh/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://media.pcradio.app/media/logos/180/1006424/logo_KhilUHjRUe.jpg?v=20260529-media-restore",
+        "final_url": "https://media.pcradio.app/media/logos/180/1006424/logo_KhilUHjRUe.jpg?v=20260529-media-restore",
+        "path": "originals/069eba84134388fa256cde8f5f70fd1ac6e32ca26c100f00d3e87d37dfef3dc0.img",
+        "sha256": "069eba84134388fa256cde8f5f70fd1ac6e32ca26c100f00d3e87d37dfef3dc0",
+        "bytes": 13813,
+        "dimensions": [
+          250,
+          250
+        ],
+        "format": "JPEG"
+      },
+      "page": {
+        "url": "https://pcradio.app/radio/mylene-farmer-live-pcr-27oosrh/",
+        "final_url": "https://pcradio.app/radio/mylene-farmer-live-pcr-27oosrh/",
+        "original_html_sha256": "a80f45d98d0cc46fa0f1688a39a55128f2d890bb5e31eabb1969e0b308122748",
+        "path": "page-evidence/a80f45d98d0cc46fa0f1688a39a55128f2d890bb5e31eabb1969e0b308122748.json",
+        "titles": [
+          "Mylene Farmer Radio Moscow: Listen Live Online | PCRADIO",
+          "Mylene Farmer radio"
+        ],
+        "image_urls": [
+          "https://media.pcradio.app/media/logos/180/1004022/logo_Lrssrf5Bo9.jpg?v=20260529-media-restore",
+          "https://media.pcradio.app/media/logos/180/1004169/logo_IxDIVvfYsd.jpg?v=20260529-media-restore",
+          "https://media.pcradio.app/media/logos/180/1006424/logo_KhilUHjRUe.jpg?v=20260529-media-restore"
+        ],
+        "named_logos": {
+          "https://media.pcradio.app/media/logos/180/1006424/logo_KhilUHjRUe.jpg?v=20260529-media-restore": "Mylene Farmer radio logo  ",
+          "https://media.pcradio.app/media/logos/180/115/logo_yIyxT7kinZ.jpg?v=20260529-media-restore": "  ",
+          "https://media.pcradio.app/media/logos/180/113/logo_XYUQLY3x4F.jpg?v=20260529-media-restore": "  ",
+          "https://media.pcradio.app/media/logos/180/1004022/logo_Lrssrf5Bo9.jpg?v=20260529-media-restore": "  ",
+          "https://media.pcradio.app/media/logos/180/182/logo_plwrkdUAaS.jpg?v=20260529-media-restore": "  ",
+          "https://media.pcradio.app/media/logos/180/64936/logo_JlG1Ua63a9.jpg?v=20260529-media-restore": "  ",
+          "https://media.pcradio.app/media/logos/180/1004169/logo_IxDIVvfYsd.jpg?v=20260529-media-restore": "  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/4da49351a5a6db85927c236fcf6f47c593b03770746689972c67a22188214120.png",
+          "sha256": "4da49351a5a6db85927c236fcf6f47c593b03770746689972c67a22188214120",
+          "bytes": 2009
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/fb24c48274bf919717d081d88deec2c2fa2051d395431a766d9134b586e5e9d1.png",
+          "sha256": "fb24c48274bf919717d081d88deec2c2fa2051d395431a766d9134b586e5e9d1",
+          "bytes": 25155
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/497aed54974535dbef72ff4562f869a33ee92840ffdffc784f5ddd981a29a900.png",
+          "sha256": "497aed54974535dbef72ff4562f869a33ee92840ffdffc784f5ddd981a29a900",
+          "bytes": 69758
+        },
+        "50x30/white": {
+          "path": "verified-assets/b4cb59093c7d3daffcd772320bf9a7507ed61f743a17a539faeaebd9cd25aa32.png",
+          "sha256": "b4cb59093c7d3daffcd772320bf9a7507ed61f743a17a539faeaebd9cd25aa32",
+          "bytes": 3265
+        },
+        "220x132/white": {
+          "path": "verified-assets/1fadf68220497e85acc1079ac368bf00dc0de8a1a9898dd6d71ec4ce84576564.png",
+          "sha256": "1fadf68220497e85acc1079ac368bf00dc0de8a1a9898dd6d71ec4ce84576564",
+          "bytes": 47894
+        },
+        "400x240/white": {
+          "path": "verified-assets/659a877742c3c01188fdd78085b47707d53c024beddee75b71093f859cbdb785.png",
+          "sha256": "659a877742c3c01188fdd78085b47707d53c024beddee75b71093f859cbdb785",
+          "bytes": 123463
+        },
+        "50x30/black": {
+          "path": "verified-assets/23e7b43053cd4f665eeb1eb09b73122ffe94665cb71912bfde5834faa1f95a06.png",
+          "sha256": "23e7b43053cd4f665eeb1eb09b73122ffe94665cb71912bfde5834faa1f95a06",
+          "bytes": 3427
+        },
+        "220x132/black": {
+          "path": "verified-assets/779c87be4de104ff23186d2dcc1ebfc8c60b571e971da88f775cb2b2c648322a.png",
+          "sha256": "779c87be4de104ff23186d2dcc1ebfc8c60b571e971da88f775cb2b2c648322a",
+          "bytes": 46726
+        },
+        "400x240/black": {
+          "path": "verified-assets/9fe130d930716b89d5c4f5c9dc53f750334496c2453868fcc6393ba96c6624fc.png",
+          "sha256": "9fe130d930716b89d5c4f5c9dc53f750334496c2453868fcc6393ba96c6624fc",
+          "bytes": 120672
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Mylene Farmer radio logo  ",
+        "matched_brand_keys": [
+          "farmer",
+          "mylene"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:9497:8CA4:ED:0:0:0:0": {
       "name": "NAC Radio",
@@ -713765,7 +714062,11 @@
         "http://ntrk21.ru/radio"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (6) Could not resolve host: nacradio.ru\n",
+        "curl: (22) The requested URL returned error: 403\n"
+      ]
     },
     "4097:0:2:BB89:F10A:ED:0:0:0:0": {
       "name": "Nashe 2.0",
@@ -713778,7 +714079,10 @@
         "http://www.nashe.ru/nashe20/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 404\n"
+      ]
     },
     "4097:0:2:90D:DB64:ED:0:0:0:0": {
       "name": "Nashe Radio 106.0 FM Serpukhov",
@@ -713791,7 +714095,10 @@
         "https://radioserpukhov.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (6) Could not resolve host: radioserpukhov.ru\n"
+      ]
     },
     "4097:0:2:4992:738A:ED:0:0:0:0": {
       "name": "Native Roads Radio",
@@ -713811,7 +714118,10 @@
         "https://listen7.myradio24.com/41891"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Operation timed out after 8000 milliseconds with 151235 bytes received\n"
+      ]
     },
     "4097:0:2:4D2:582B:ED:0:0:0:0": {
       "name": "Never",
@@ -713836,7 +714146,10 @@
         "https://nevermind-radio.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Failed to connect to nevermind-radio.ru port 443 after 3002 ms: Timeout was reached\n"
+      ]
     },
     "4097:0:2:B903:125D:ED:0:0:0:0": {
       "name": "New Age Radio",
@@ -713849,7 +714162,34 @@
         "https://newageradio.myrh.ru/"
       ],
       "needs_assistant_visual_identity": true,
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://newageradio.myrh.ru/public_pages/logo/1649107543624b6257478bc.jpg",
+        "final_url": "https://newageradio.myrh.ru/public_pages/logo/1649107543624b6257478bc.jpg",
+        "path": "originals/b5009cd4d4b0b4be53a2a51ef01f6891e88919f1715490f602362f2756baae32.img",
+        "sha256": "b5009cd4d4b0b4be53a2a51ef01f6891e88919f1715490f602362f2756baae32",
+        "bytes": 61931,
+        "dimensions": [
+          640,
+          640
+        ],
+        "format": "JPEG"
+      },
+      "page": {
+        "url": "https://newageradio.myrh.ru/",
+        "final_url": "https://newageradio.myrh.ru/",
+        "original_html_sha256": "f928fcbb178a90addd316d87e37d0d23e22096c0fe0d3a612e8ddc0bfe90047c",
+        "path": "page-evidence/f928fcbb178a90addd316d87e37d0d23e22096c0fe0d3a612e8ddc0bfe90047c.json",
+        "titles": [
+          "New Age Radio – слушать радио онлайн"
+        ],
+        "image_urls": [
+          "https://newageradio.myrh.ru/public_pages/favicon/16507347176264367dd2a6d.jpg",
+          "https://newageradio.myrh.ru/public_pages/logo/1649107543624b6257478bc.jpg"
+        ],
+        "named_logos": {}
+      },
+      "ocr_text": "NewAge\n"
     },
     "4097:0:2:63E0:DF81:ED:0:0:0:0": {
       "name": "NEW HIP-HOP - качаем по-новому!",
@@ -713874,7 +714214,8 @@
         "https://101.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:97F4:4AD9:ED:0:0:0:0": {
       "name": "New Life Radio",
@@ -713911,7 +714252,37 @@
         "https://radionv.ru/new-wave-radio"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://radionv.ru/ssl/u/pic/a6/caf806d2f611f1875acad8a74dba0b/-/logo.png",
+        "final_url": "https://radionv.ru/ssl/u/pic/a6/caf806d2f611f1875acad8a74dba0b/-/logo.png",
+        "path": "originals/f14ebd56cc7b8c7dbaef681dd0e095754dd28ac28b78eb27ce9fa761db16d89e.img",
+        "sha256": "f14ebd56cc7b8c7dbaef681dd0e095754dd28ac28b78eb27ce9fa761db16d89e",
+        "bytes": 1697,
+        "dimensions": [
+          250,
+          80
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://radionv.ru/new-wave-radio",
+        "final_url": "https://radionv.ru/new-wave-radio",
+        "original_html_sha256": "01bbddb9812bb896bcc45a5329959b89f4334f302dfa26467b23289d61afa3fa",
+        "path": "page-evidence/01bbddb9812bb896bcc45a5329959b89f4334f302dfa26467b23289d61afa3fa.json",
+        "titles": [
+          "NEW WAVE RADIO",
+          "\n                        NEW WAVE RADIO\n                    "
+        ],
+        "image_urls": [
+          "https://radionv.ru/ssl/u/pic/a6/caf806d2f611f1875acad8a74dba0b/-/logo.png",
+          "https://radionv.ru/favicon.ico"
+        ],
+        "named_logos": {
+          "https://radionv.ru/ssl/u/pic/a6/caf806d2f611f1875acad8a74dba0b/-/logo.png": "  "
+        }
+      },
+      "ocr_text": ""
     },
     "4097:0:2:C256:3106:ED:0:0:0:0": {
       "name": "NG Radio Show",
@@ -713924,7 +714295,10 @@
         "https://www.ngradioshow.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 429\n"
+      ]
     },
     "4097:0:2:13AA:9390:ED:0:0:0:0": {
       "name": "Nightwave Plaza",
@@ -713937,7 +714311,35 @@
         "https://plaza.one/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://plaza.one/icons/apple-touch-icon.png?v=2208042",
+        "final_url": "https://plaza.one/icons/apple-touch-icon.png?v=2208042",
+        "path": "originals/11c58aba533943844370d59690b9e122a5b3e372994dc3716b1431906dc79ea5.img",
+        "sha256": "11c58aba533943844370d59690b9e122a5b3e372994dc3716b1431906dc79ea5",
+        "bytes": 11681,
+        "dimensions": [
+          180,
+          180
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://plaza.one/",
+        "final_url": "https://plaza.one/",
+        "original_html_sha256": "fcd3f5ddad3031b7d478bcbac6136f25ac0c30443995de41adfd4c8b263fafd3",
+        "path": "page-evidence/fcd3f5ddad3031b7d478bcbac6136f25ac0c30443995de41adfd4c8b263fafd3.json",
+        "titles": [
+          "Nightwave Plaza - Online Vaporwave Radio"
+        ],
+        "image_urls": [
+          "https://plaza.one/icons/apple-touch-icon.png?v=2208042",
+          "https://plaza.one/icons/favicon-16x16.png?v=2208042",
+          "https://plaza.one/icons/favicon-32x32.png?v=2208042"
+        ],
+        "named_logos": {}
+      },
+      "ocr_text": ""
     },
     "4097:0:2:6D93:D00:ED:0:0:0:0": {
       "name": "Nirvana",
@@ -713950,7 +714352,8 @@
         "https://radiofm.novawap.com/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:F74:D1CE:ED:0:0:0:0": {
       "name": "NOGAY FM",
@@ -713963,7 +714366,8 @@
         "http://nogay-fm.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:F0C:40E6:ED:0:0:0:0": {
       "name": "Noise FM - EDM Radio",
@@ -713988,7 +714392,10 @@
         "https://radio.zelixo.net/public/nostalgia_ost"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 403\n"
+      ]
     },
     "4097:0:2:E8F6:D17E:ED:0:0:0:0": {
       "name": "Nostalgie FM Makhachkala",
@@ -714001,7 +714408,10 @@
         "https://top-radio.ru/maxachkala/nostalgie-makhachkala"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 404\n"
+      ]
     },
     "4097:0:2:65DD:592B:ED:0:0:0:0": {
       "name": "Radio Novaya Rossiya",
@@ -714015,7 +714425,11 @@
         "https://radionovaya.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 404\n",
+        "curl: (6) Could not resolve host: radionovaya.ru\n"
+      ]
     },
     "4097:0:2:42BB:6629:ED:0:0:0:0": {
       "name": "NOVOE - Novosibirsk",
@@ -714028,7 +714442,8 @@
         "https://newradio.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:727:6DFE:ED:0:0:0:0": {
       "name": "N-Radio 107.9 FM",
@@ -714041,7 +714456,10 @@
         "https://1079fm.ru/"
       ],
       "needs_assistant_visual_identity": true,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (6) Could not resolve host: 1079fm.ru\n"
+      ]
     },
     "4097:0:2:7A26:5C0:ED:0:0:0:0": {
       "name": "NRJ Russia",
@@ -714054,7 +714472,8 @@
         "http://energyfm.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:9668:507D:ED:0:0:0:0": {
       "name": "NRJ Туапсе 105.0 FM",
@@ -714067,7 +714486,10 @@
         "https://top-radio.ru/tuapse/energy"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) SSL connection timeout\n"
+      ]
     },
     "4097:0:2:208D:3AE1:ED:0:0:0:0": {
       "name": "NRJ Тула 101.4 FM",
@@ -714080,7 +714502,8 @@
         "https://top-radio.ru/tula/energy"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:668C:199A:ED:0:0:0:0": {
       "name": "NStation",
@@ -714106,7 +714529,8 @@
         "https://nstation.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:6CCB:E21D:ED:0:0:0:0": {
       "name": "Nui Radio",
@@ -714119,7 +714543,37 @@
         "https://nuiradio.ru/"
       ],
       "needs_assistant_visual_identity": true,
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://nuiradio.ru/img/nuiradio-logo.png",
+        "final_url": "https://nuiradio.ru/img/nuiradio-logo.png",
+        "path": "originals/aa663b84643edee9b29ef666a3929c5d7a7327da0b90c8ecf0c4b93aadbeea1f.img",
+        "sha256": "aa663b84643edee9b29ef666a3929c5d7a7327da0b90c8ecf0c4b93aadbeea1f",
+        "bytes": 6654,
+        "dimensions": [
+          220,
+          150
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://nuiradio.ru/",
+        "final_url": "https://nuiradio.ru/",
+        "original_html_sha256": "3ae4a9c095713b131b0716068dfff5738583483138bccc7da196ccf68cec37f8",
+        "path": "page-evidence/3ae4a9c095713b131b0716068dfff5738583483138bccc7da196ccf68cec37f8.json",
+        "titles": [
+          "NUiRADIO (Ну и радио) - интернет-радио позитива | г. Чебоксары"
+        ],
+        "image_urls": [
+          "https://nuiradio.ru/img/nuiradio-logo.png",
+          "https://nuiradio.ru/fav/favicon.ico",
+          "https://nuiradio.ru/fav/logo-240.png"
+        ],
+        "named_logos": {
+          "https://nuiradio.ru/img/nuiradio-logo.png": "Ну и радио онлайн радио "
+        }
+      },
+      "ocr_text": ""
     },
     "4097:0:2:495:F14E:ED:0:0:0:0": {
       "name": "null fm",
@@ -714132,7 +714586,88 @@
         "https://nullfm.dedyn.io/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://nullfm.ru/api/nowplaying/nullfm/art/1793896589.jpg",
+        "final_url": "https://nullfm.ru/static/uploads/nullfm/album_art.1782424166.jpg",
+        "path": "originals/2045a62d221714f7857ba18ced0d7f828e6e3d47b2fa7abc30de9bcd2224ce47.img",
+        "sha256": "2045a62d221714f7857ba18ced0d7f828e6e3d47b2fa7abc30de9bcd2224ce47",
+        "bytes": 240231,
+        "dimensions": [
+          1254,
+          1254
+        ],
+        "format": "JPEG"
+      },
+      "page": {
+        "url": "https://nullfm.dedyn.io/",
+        "final_url": "https://nullfm.ru/public/nullfm",
+        "original_html_sha256": "783338ecaecfa336acb4a43ecbbb6aef01e2b6ee895c7a0a67fe4f35448961f5",
+        "path": "page-evidence/783338ecaecfa336acb4a43ecbbb6aef01e2b6ee895c7a0a67fe4f35448961f5.json",
+        "titles": [
+          "null fm"
+        ],
+        "image_urls": [
+          "https://nullfm.ru/static/icons/production/180.png",
+          "https://nullfm.ru/static/icons/production/192.png",
+          "https://nullfm.ru/api/nowplaying/nullfm/art/1793896589.jpg"
+        ],
+        "named_logos": {}
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/171e6641e344a418f700acfac79c360655898965080cbab1469a29d3fc0cf788.png",
+          "sha256": "171e6641e344a418f700acfac79c360655898965080cbab1469a29d3fc0cf788",
+          "bytes": 1573
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/816c545177763738869384ef84eb6ebee972b9cad1686ed4997d886164f1e59c.png",
+          "sha256": "816c545177763738869384ef84eb6ebee972b9cad1686ed4997d886164f1e59c",
+          "bytes": 16060
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/933eeec4327de521ca3e862e5ea351f381d960e11ff52761501cdab19450fc06.png",
+          "sha256": "933eeec4327de521ca3e862e5ea351f381d960e11ff52761501cdab19450fc06",
+          "bytes": 46385
+        },
+        "50x30/white": {
+          "path": "verified-assets/69762cc7af1a0e0f0b7010ec589e8427e1bdb0476a913f6a282cf417d50e22c5.png",
+          "sha256": "69762cc7af1a0e0f0b7010ec589e8427e1bdb0476a913f6a282cf417d50e22c5",
+          "bytes": 2896
+        },
+        "220x132/white": {
+          "path": "verified-assets/5175ca367ed2f13566dce2fc763eb2789eec25b02067006c458d8769b6949c33.png",
+          "sha256": "5175ca367ed2f13566dce2fc763eb2789eec25b02067006c458d8769b6949c33",
+          "bytes": 38754
+        },
+        "400x240/white": {
+          "path": "verified-assets/00305108a3e7dba74a38762b72b7130cdd32c9181e1aa340637828fc8ecea591.png",
+          "sha256": "00305108a3e7dba74a38762b72b7130cdd32c9181e1aa340637828fc8ecea591",
+          "bytes": 100488
+        },
+        "50x30/black": {
+          "path": "verified-assets/b009ba53c7ed1d8c7d0dcd29e3c5fa0a5653bd4d3eb4e0cd9e3df8382b119ef8.png",
+          "sha256": "b009ba53c7ed1d8c7d0dcd29e3c5fa0a5653bd4d3eb4e0cd9e3df8382b119ef8",
+          "bytes": 3197
+        },
+        "220x132/black": {
+          "path": "verified-assets/e41413b11e23b8922477218f131db824fe918896bbcf32e51e92f1e2badf3247.png",
+          "sha256": "e41413b11e23b8922477218f131db824fe918896bbcf32e51e92f1e2badf3247",
+          "bytes": 37765
+        },
+        "400x240/black": {
+          "path": "verified-assets/f842ff9fd123cfce49fc75415286fb0183c9a53cbda3d2f760785535e14e434f.png",
+          "sha256": "f842ff9fd123cfce49fc75415286fb0183c9a53cbda3d2f760785535e14e434f",
+          "bytes": 97584
+        }
+      },
+      "verification": {
+        "exact_stream_and_current_page_name": true,
+        "image_link_recorded_in_page": true,
+        "full_distinctive_wordmark": "YAS\n\nBi\n\n—NULL FM-—\n",
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:7694:27F2:ED:0:0:0:0": {
       "name": "o0o0.online",
@@ -714145,7 +714680,38 @@
         "https://o0o0.online/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://o0o0.online/icon.svg",
+        "final_url": "https://o0o0.online/icon.svg",
+        "path": "originals/a14a2e5012cb7a96b20bd98c572aa0e84e6f5a47e40e5073a63fcb8552f7b44e.img",
+        "sha256": "a14a2e5012cb7a96b20bd98c572aa0e84e6f5a47e40e5073a63fcb8552f7b44e",
+        "bytes": 306,
+        "dimensions": [
+          640,
+          640
+        ],
+        "format": "SVG",
+        "frozen_svg_raster": {
+          "path": "rasterized/3db5a5443ef26467a2f9d1e39b868f72cb06ae72b02d1b16b94de193ee71fcd4.png",
+          "sha256": "3db5a5443ef26467a2f9d1e39b868f72cb06ae72b02d1b16b94de193ee71fcd4",
+          "cairosvg_version": "2.8.2"
+        }
+      },
+      "page": {
+        "url": "https://o0o0.online/",
+        "final_url": "https://o0o0.online/",
+        "original_html_sha256": "c78ea4cd4aad37fb5723410862a87eb30c2696d1fafae12d8c131385eb4e085e",
+        "path": "page-evidence/c78ea4cd4aad37fb5723410862a87eb30c2696d1fafae12d8c131385eb4e085e.json",
+        "titles": [
+          "o0o0.online"
+        ],
+        "image_urls": [
+          "https://o0o0.online/icon.svg"
+        ],
+        "named_logos": {}
+      },
+      "ocr_text": "oO\n"
     },
     "4097:0:2:85AC:61B5:ED:0:0:0:0": {
       "name": "RadioOBEREG",
@@ -714170,7 +714736,10 @@
         "http://www.radcap.ru/oceania.html"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Failed to connect to www.radcap.ru port 80 after 3002 ms: Timeout was reached\n"
+      ]
     },
     "4097:0:2:E465:A03:ED:0:0:0:0": {
       "name": "Office",
@@ -714195,7 +714764,8 @@
         "https://smotrim.ru/radiorus"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:5975:83ED:ED:0:0:0:0": {
       "name": "Radio OldHit",
@@ -714220,7 +714790,8 @@
         "https://www.olimpfm.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:5E1A:AF0E:ED:0:0:0:0": {
       "name": "Omsk FM",
@@ -714233,7 +714804,48 @@
         "http://www.omskfm.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://omskfm.ru/new_images/logo-auto_147.jpg",
+        "final_url": "https://omskfm.ru/new_images/logo-auto_147.jpg",
+        "path": "originals/0ab5fa3649558b21c414db86c8394496aa22a838dd106e631095b3f3def150ad.img",
+        "sha256": "0ab5fa3649558b21c414db86c8394496aa22a838dd106e631095b3f3def150ad",
+        "bytes": 33192,
+        "dimensions": [
+          147,
+          147
+        ],
+        "format": "JPEG"
+      },
+      "page": {
+        "url": "http://www.omskfm.ru/",
+        "final_url": "https://omskfm.ru/",
+        "original_html_sha256": "a35607acb774218e1786add53b12978947d58312c3292192d126fe09412befe7",
+        "path": "page-evidence/a35607acb774218e1786add53b12978947d58312c3292192d126fe09412befe7.json",
+        "titles": [
+          "Слушать радио Онлайн / Реклама на радио в \r\nОмске/ Radio Online Omsk"
+        ],
+        "image_urls": [
+          "https://omskfm.ru/new_images/logo-auto_147.jpg",
+          "https://omskfm.ru/new_images/logo-auto_152.png",
+          "https://omskfm.ru/new_images/logo-drive_147.jpg"
+        ],
+        "named_logos": {
+          "https://omskfm.ru/new_images/logo-europa_152.png": "  ",
+          "https://omskfm.ru/new_images/logo-europa_147.jpg": "  ",
+          "https://omskfm.ru/new_images/logo-retro_152.png": "  ",
+          "https://omskfm.ru/new_images/logo-retro_147.jpg": "  ",
+          "https://omskfm.ru/new_images/logo-auto_152.png": "  ",
+          "https://omskfm.ru/new_images/logo-auto_147.jpg": "  ",
+          "https://omskfm.ru/new_images/logo-record_152.png": "  ",
+          "https://omskfm.ru/new_images/logo-record_147.jpg": "  ",
+          "https://omskfm.ru/new_images/logo-drive_152.png": "  ",
+          "https://omskfm.ru/new_images/logo-drive_147.jpg": "  ",
+          "https://omskfm.ru/new_images/logo-sport_152.png": "  ",
+          "https://omskfm.ru/new_images/logo-sport_147.jpg": "  "
+        }
+      },
+      "ocr_text": "GE\n\nAgoyh\n\nOMCK\n"
     },
     "4097:0:2:63DC:C4C0:ED:0:0:0:0": {
       "name": "Orchestral Rhythm & Soul Music (Listen DE) (MP3 256 kbps)",
@@ -714246,7 +714858,8 @@
         "https://stream-vie.radio-zone.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:C5C6:394:ED:0:0:0:0": {
       "name": "orchestre national de Russie",
@@ -714259,7 +714872,46 @@
         "https://rnor.ru/radio"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://rnor.ru/lib/imgs/menu-logo2-afisha-w.png",
+        "final_url": "https://rnor.ru/lib/imgs/menu-logo2-afisha-w.png",
+        "path": "originals/db03b50e400eb317ea5421efe87a2d886a5948d49d53e68660e9d5680f5b20b3.img",
+        "sha256": "db03b50e400eb317ea5421efe87a2d886a5948d49d53e68660e9d5680f5b20b3",
+        "bytes": 26617,
+        "dimensions": [
+          240,
+          227
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://rnor.ru/radio",
+        "final_url": "https://rnor.ru/radio",
+        "original_html_sha256": "c090129a02e8b716c72d34399090219e3813b61bc0677742d61bbd514e30749b",
+        "path": "page-evidence/c090129a02e8b716c72d34399090219e3813b61bc0677742d61bbd514e30749b.json",
+        "titles": [
+          "Российский национальный оркестр - Радио Российского национального оркестра. Russian National Orchestra Radio",
+          "Радио"
+        ],
+        "image_urls": [
+          "https://rnor.ru/lib/imgs/menu-logo2-afisha-w.png",
+          "https://rnor.ru/lib/imgs/menu-logo2-radio-w.png",
+          "https://rnor.ru/lib/imgs/menu-logo2-video-w.png"
+        ],
+        "named_logos": {
+          "https://rnor.ru/lib/imgs/sopt/ok-logo.gif": "OK  ",
+          "https://rnor.ru/lib/imgs/sopt/mail.ru-logo.gif": "Мой мир mail.ru  ",
+          "https://rnor.ru/lib/imgs/sopt/vk-logo.gif": "В контакте  ",
+          "https://rnor.ru/lib/imgs/menu-logo2-w.png": "  ",
+          "https://rnor.ru/lib/imgs/menu-logo2-afisha-w.png": "Афиша  ",
+          "https://rnor.ru/lib/imgs/menu-logo2-video-w.png": "РНО видео архив  ",
+          "https://rnor.ru/lib/imgs/menu-logo2-radio-w.png": "РНО радио онлайн  ",
+          "https://rnor.ru/lib/imgs/voradiologo.jpg": "  ",
+          "https://topradio.me/newdizine/img/logo-knopka.jpg": "Радио онлайн  "
+        }
+      },
+      "ocr_text": "AOmUA\n"
     },
     "4097:0:2:845D:AD5F:ED:0:0:0:0": {
       "name": "Radio Orpheus",
@@ -714272,7 +714924,8 @@
         "https://orpheusradio.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:EA19:845C:ED:0:0:0:0": {
       "name": "Radio Orthodox Chants",
@@ -714286,7 +714939,8 @@
         "http://www.orthodox-chants.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:A39A:6AFB:ED:0:0:0:0": {
       "name": "OTO Radio",
@@ -714299,7 +714953,94 @@
         "https://oto-radio.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://oto-radio.ru/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flogo-black.848b5bf6.png&w=1920&q=75",
+        "final_url": "https://oto-radio.ru/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flogo-black.848b5bf6.png&w=1920&q=75",
+        "path": "originals/127aac4b7977b161a37cf1d1448d6be378ecbda77c6f5dd4be6af543cc1141d2.img",
+        "sha256": "127aac4b7977b161a37cf1d1448d6be378ecbda77c6f5dd4be6af543cc1141d2",
+        "bytes": 11313,
+        "dimensions": [
+          788,
+          788
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://oto-radio.ru/",
+        "final_url": "https://oto-radio.ru/",
+        "original_html_sha256": "c15a65f238628132d9006800aa74edd6ba2b2fce3625cbb8015fa0cc1158fc06",
+        "path": "page-evidence/c15a65f238628132d9006800aa74edd6ba2b2fce3625cbb8015fa0cc1158fc06.json",
+        "titles": [
+          "OTO Radio"
+        ],
+        "image_urls": [
+          "https://oto-radio.ru/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flogo-black.848b5bf6.png&w=1920&q=75",
+          "https://oto-radio.ru/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flogo-gray.cab7743f.png&w=1920&q=75",
+          "https://oto-radio.ru/favicon.ico"
+        ],
+        "named_logos": {
+          "https://oto-radio.ru/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flogo-gray.cab7743f.png&w=1920&q=75": "OTO-Radio Logo  ",
+          "https://oto-radio.ru/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flogo-black.848b5bf6.png&w=1920&q=75": "OTO-Radio Logo  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/11755622a6f3d7fa184e0b61ae80a3b23ab6084df2e2d03e5503bb2edbfb879c.png",
+          "sha256": "11755622a6f3d7fa184e0b61ae80a3b23ab6084df2e2d03e5503bb2edbfb879c",
+          "bytes": 817
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/9eb7b0462939e782ab978cccddaf3ec338defbde9ab4c4ccb6c46d706430d544.png",
+          "sha256": "9eb7b0462939e782ab978cccddaf3ec338defbde9ab4c4ccb6c46d706430d544",
+          "bytes": 5714
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/4b83ce08c98dc977517c09e2ff65a3459c10a7ad9e634b4118e77514f326a4fe.png",
+          "sha256": "4b83ce08c98dc977517c09e2ff65a3459c10a7ad9e634b4118e77514f326a4fe",
+          "bytes": 17666
+        },
+        "50x30/white": {
+          "path": "verified-assets/f3d66439d7f90c995d951a9ac83a4a85d54cb9bc554eab343b4b7ae979c64dca.png",
+          "sha256": "f3d66439d7f90c995d951a9ac83a4a85d54cb9bc554eab343b4b7ae979c64dca",
+          "bytes": 3096
+        },
+        "220x132/white": {
+          "path": "verified-assets/96d4a384419f41b48e52bdf356d904f3cb2cf0980643599cd5e53602e5342e33.png",
+          "sha256": "96d4a384419f41b48e52bdf356d904f3cb2cf0980643599cd5e53602e5342e33",
+          "bytes": 37121
+        },
+        "400x240/white": {
+          "path": "verified-assets/0a5ac720dba92b9bc5d8201eba44455adbb46550df2a99e9fd3ab56bd731c036.png",
+          "sha256": "0a5ac720dba92b9bc5d8201eba44455adbb46550df2a99e9fd3ab56bd731c036",
+          "bytes": 94660
+        },
+        "50x30/black": {
+          "path": "verified-assets/855e780d78b55d38a02bc440393e62386ad2891d93b0616bfa64528710882cac.png",
+          "sha256": "855e780d78b55d38a02bc440393e62386ad2891d93b0616bfa64528710882cac",
+          "bytes": 2588
+        },
+        "220x132/black": {
+          "path": "verified-assets/381f4291ac1bc1d545b6b68571655b08e2b27e8379c5ec0f42ee910e47f78eb8.png",
+          "sha256": "381f4291ac1bc1d545b6b68571655b08e2b27e8379c5ec0f42ee910e47f78eb8",
+          "bytes": 31698
+        },
+        "400x240/black": {
+          "path": "verified-assets/6118c24811307ec63ec2e48899587cf1ce913636d9b484b60748052954f4de8b.png",
+          "sha256": "6118c24811307ec63ec2e48899587cf1ce913636d9b484b60748052954f4de8b",
+          "bytes": 74251
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "OTO-Radio Logo  ",
+        "matched_brand_keys": [
+          "oto"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:190F:F10E:ED:0:0:0:0": {
       "name": "Overdrive Live! Station",
@@ -714313,7 +715054,34 @@
         "https://www.overdrivelive.net/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://overdrivelive.net/wp-content/uploads/2026/08/favicon_overdrivelive-150x150.png",
+        "final_url": "https://overdrivelive.net/wp-content/uploads/2026/08/favicon_overdrivelive-150x150.png",
+        "path": "originals/9fdbd3033f9fb22bbe181589a711c9539e92e781f5e5fb3533b8d1ac7bacda3b.img",
+        "sha256": "9fdbd3033f9fb22bbe181589a711c9539e92e781f5e5fb3533b8d1ac7bacda3b",
+        "bytes": 15520,
+        "dimensions": [
+          150,
+          150
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://overdrivelive.net/",
+        "final_url": "https://overdrivelive.net/",
+        "original_html_sha256": "26f578cbb567c525ab752f351d7816073bb3399ad2ae7ca0016e804735091be5",
+        "path": "page-evidence/26f578cbb567c525ab752f351d7816073bb3399ad2ae7ca0016e804735091be5.json",
+        "titles": [
+          "Главная | Overdrive Live"
+        ],
+        "image_urls": [
+          "https://overdrivelive.net/wp-content/uploads/2026/08/favicon_overdrivelive-150x150.png",
+          "https://overdrivelive.net/wp-content/uploads/2026/08/favicon_overdrivelive-300x300.png"
+        ],
+        "named_logos": {}
+      },
+      "ocr_text": ""
     },
     "4097:0:2:A3B3:6070:ED:0:0:0:0": {
       "name": "Radio Petersburg",
@@ -714329,7 +715097,10 @@
         "https://www.5-tv.ru/projects/1000143/radio-peterburg/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 501\n"
+      ]
     },
     "4097:0:2:8707:F134:ED:0:0:0:0": {
       "name": "Piano Covers",
@@ -714342,7 +715113,8 @@
         "https://www.radioromantika.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:C8B9:4337:ED:0:0:0:0": {
       "name": "Piano Worship",
@@ -714374,7 +715146,8 @@
         "https://pilotfm.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:9097:A1B6:ED:0:0:0:0": {
       "name": "Pilot fm dance channel",
@@ -714400,7 +715173,10 @@
         "https://www.radiopled.org/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (60) SSL certificate problem: unable to get local issuer certificate\nMore details here: https://curl.se/docs/sslcerts.html\n\ncurl failed to verify the legitimacy of the server"
+      ]
     },
     "4097:0:2:A22F:598E:ED:0:0:0:0": {
       "name": "Polygon FM",
@@ -714426,7 +715202,54 @@
         "https://popfm-bir.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://i127.fastpic.org/big/2026/0224/29/d3822cd4fef36c79dfae5998b625e929.png",
+        "final_url": "https://i127.fastpic.org/big/2026/0224/29/d3822cd4fef36c79dfae5998b625e929.png",
+        "path": "originals/a24d1a71a6bcfe52f95fbc9e8cc552985baa3687366a8c3c13a490d889bdf651.img",
+        "sha256": "a24d1a71a6bcfe52f95fbc9e8cc552985baa3687366a8c3c13a490d889bdf651",
+        "bytes": 15383,
+        "dimensions": [
+          200,
+          100
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://popfm-bir.ru/",
+        "final_url": "https://popfm-bir.ru/",
+        "original_html_sha256": "c9abf96f090a8b7c90106c539c1f2b27a1c2ece8618e1e3b9268a598e48d25e0",
+        "path": "page-evidence/c9abf96f090a8b7c90106c539c1f2b27a1c2ece8618e1e3b9268a598e48d25e0.json",
+        "titles": [
+          "POPFM Биробиджан"
+        ],
+        "image_urls": [
+          "https://i127.fastpic.org/big/2026/0224/29/d3822cd4fef36c79dfae5998b625e929.png",
+          "https://i127.fastpic.org/big/2026/0224/34/617854c2f022c0c800e169f28deedf34.png",
+          "https://i127.fastpic.org/big/2026/0224/38/399dbd724026a87b11b7ce6ad9476e38.png"
+        ],
+        "named_logos": {
+          "https://i127.fastpic.org/thumb/2026/0227/67/7b513101d649673889365764a93ec467.jpeg": "POPFM ROCK  ",
+          "https://i127.fastpic.org/big/2026/0301/72/4bf66644a2241324f603fbc3b50aed72.png": "POPFM DANCE  ",
+          "https://i127.fastpic.org/big/2026/0301/c3/9a2838420551e0b6f0969b361f02e6c3.png": "POPFM RUS  ",
+          "https://i127.fastpic.org/big/2026/0224/38/399dbd724026a87b11b7ce6ad9476e38.png": "PCRADIO  ",
+          "https://i127.fastpic.org/big/2026/0224/50/b14051ed117afac39538e6368a206350.png": "TopRadio.me  ",
+          "https://i127.fastpic.org/big/2026/0224/f6/5c4aeee4333d2a4c00b90e34f90b64f6.png": "The-radio.ru  ",
+          "https://i127.fastpic.org/big/2026/0224/f0/50906477a2d84c27865133fc7eb67bf0.png": "ТОПРАДИО.РФ  ",
+          "https://i127.fastpic.org/big/2026/0224/34/617854c2f022c0c800e169f28deedf34.png": "onlineradiobox.ru  ",
+          "https://i127.fastpic.org/big/2026/0224/29/d3822cd4fef36c79dfae5998b625e929.png": "Radio-Tochka.com  ",
+          "https://i127.fastpic.org/big/2026/0224/8e/517e6d2c04da50915e5f9306a9b94f8e.png": "MyRadio24  ",
+          "https://i127.fastpic.org/big/2026/0224/cf/93e0396cd5447fd16da83b9dba5223cf.png": "Radiobells  ",
+          "https://i127.fastpic.org/big/2026/0224/7c/d7c74924915950d82d299e83cfd3817c.webp": "Radio Baza Catalog  ",
+          "https://i127.fastpic.org/big/2026/0224/95/878c6a8d1756fb01ec2e485b12f7c295.png": "FirstRadio  ",
+          "https://i127.fastpic.org/big/2026/0228/d8/e21e30623edd5cff7e9806e695f5c0d8.png": "FirstRadio  ",
+          "https://i127.fastpic.org/thumb/2026/0609/76/_1da121183bb46da95abd485289532176.jpeg": "djmolotoff  ",
+          "https://i127.fastpic.org/big/2026/0320/11/125eecd439c5c3acee3f1c0b8d90b411.png": "FirstRadio  ",
+          "https://i127.fastpic.org/thumb/2026/0609/9a/1d3c4bd70eef3c30ab04e766a5ba029a.jpeg": "OnlineRadioHub.ru  ",
+          "https://i127.fastpic.org/thumb/2026/0622/81/7ed342012d8023fd9ae10fe327454581.jpeg": "telluri.ru  "
+        }
+      },
+      "ocr_text": "() ao\n"
     },
     "4097:0:2:A038:3F2:ED:0:0:0:0": {
       "name": "POPFM Ретро",
@@ -714439,7 +715262,54 @@
         "https://popfm-bir.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://i127.fastpic.org/big/2026/0224/29/d3822cd4fef36c79dfae5998b625e929.png",
+        "final_url": "https://i127.fastpic.org/big/2026/0224/29/d3822cd4fef36c79dfae5998b625e929.png",
+        "path": "originals/a24d1a71a6bcfe52f95fbc9e8cc552985baa3687366a8c3c13a490d889bdf651.img",
+        "sha256": "a24d1a71a6bcfe52f95fbc9e8cc552985baa3687366a8c3c13a490d889bdf651",
+        "bytes": 15383,
+        "dimensions": [
+          200,
+          100
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://popfm-bir.ru/",
+        "final_url": "https://popfm-bir.ru/",
+        "original_html_sha256": "c9abf96f090a8b7c90106c539c1f2b27a1c2ece8618e1e3b9268a598e48d25e0",
+        "path": "page-evidence/c9abf96f090a8b7c90106c539c1f2b27a1c2ece8618e1e3b9268a598e48d25e0.json",
+        "titles": [
+          "POPFM Биробиджан"
+        ],
+        "image_urls": [
+          "https://i127.fastpic.org/big/2026/0224/29/d3822cd4fef36c79dfae5998b625e929.png",
+          "https://i127.fastpic.org/big/2026/0224/34/617854c2f022c0c800e169f28deedf34.png",
+          "https://i127.fastpic.org/big/2026/0224/38/399dbd724026a87b11b7ce6ad9476e38.png"
+        ],
+        "named_logos": {
+          "https://i127.fastpic.org/thumb/2026/0227/67/7b513101d649673889365764a93ec467.jpeg": "POPFM ROCK  ",
+          "https://i127.fastpic.org/big/2026/0301/72/4bf66644a2241324f603fbc3b50aed72.png": "POPFM DANCE  ",
+          "https://i127.fastpic.org/big/2026/0301/c3/9a2838420551e0b6f0969b361f02e6c3.png": "POPFM RUS  ",
+          "https://i127.fastpic.org/big/2026/0224/38/399dbd724026a87b11b7ce6ad9476e38.png": "PCRADIO  ",
+          "https://i127.fastpic.org/big/2026/0224/50/b14051ed117afac39538e6368a206350.png": "TopRadio.me  ",
+          "https://i127.fastpic.org/big/2026/0224/f6/5c4aeee4333d2a4c00b90e34f90b64f6.png": "The-radio.ru  ",
+          "https://i127.fastpic.org/big/2026/0224/f0/50906477a2d84c27865133fc7eb67bf0.png": "ТОПРАДИО.РФ  ",
+          "https://i127.fastpic.org/big/2026/0224/34/617854c2f022c0c800e169f28deedf34.png": "onlineradiobox.ru  ",
+          "https://i127.fastpic.org/big/2026/0224/29/d3822cd4fef36c79dfae5998b625e929.png": "Radio-Tochka.com  ",
+          "https://i127.fastpic.org/big/2026/0224/8e/517e6d2c04da50915e5f9306a9b94f8e.png": "MyRadio24  ",
+          "https://i127.fastpic.org/big/2026/0224/cf/93e0396cd5447fd16da83b9dba5223cf.png": "Radiobells  ",
+          "https://i127.fastpic.org/big/2026/0224/7c/d7c74924915950d82d299e83cfd3817c.webp": "Radio Baza Catalog  ",
+          "https://i127.fastpic.org/big/2026/0224/95/878c6a8d1756fb01ec2e485b12f7c295.png": "FirstRadio  ",
+          "https://i127.fastpic.org/big/2026/0228/d8/e21e30623edd5cff7e9806e695f5c0d8.png": "FirstRadio  ",
+          "https://i127.fastpic.org/thumb/2026/0609/76/_1da121183bb46da95abd485289532176.jpeg": "djmolotoff  ",
+          "https://i127.fastpic.org/big/2026/0320/11/125eecd439c5c3acee3f1c0b8d90b411.png": "FirstRadio  ",
+          "https://i127.fastpic.org/thumb/2026/0609/9a/1d3c4bd70eef3c30ab04e766a5ba029a.jpeg": "OnlineRadioHub.ru  ",
+          "https://i127.fastpic.org/thumb/2026/0622/81/7ed342012d8023fd9ae10fe327454581.jpeg": "telluri.ru  "
+        }
+      },
+      "ocr_text": "() ao\n"
     },
     "4097:0:2:9B81:1A1C:ED:0:0:0:0": {
       "name": "POPFM Рок",
@@ -714452,7 +715322,54 @@
         "http://popfm-bir.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://i127.fastpic.org/big/2026/0224/29/d3822cd4fef36c79dfae5998b625e929.png",
+        "final_url": "https://i127.fastpic.org/big/2026/0224/29/d3822cd4fef36c79dfae5998b625e929.png",
+        "path": "originals/a24d1a71a6bcfe52f95fbc9e8cc552985baa3687366a8c3c13a490d889bdf651.img",
+        "sha256": "a24d1a71a6bcfe52f95fbc9e8cc552985baa3687366a8c3c13a490d889bdf651",
+        "bytes": 15383,
+        "dimensions": [
+          200,
+          100
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "http://popfm-bir.ru/",
+        "final_url": "http://popfm-bir.ru/",
+        "original_html_sha256": "c9abf96f090a8b7c90106c539c1f2b27a1c2ece8618e1e3b9268a598e48d25e0",
+        "path": "page-evidence/c9abf96f090a8b7c90106c539c1f2b27a1c2ece8618e1e3b9268a598e48d25e0.json",
+        "titles": [
+          "POPFM Биробиджан"
+        ],
+        "image_urls": [
+          "https://i127.fastpic.org/big/2026/0224/29/d3822cd4fef36c79dfae5998b625e929.png",
+          "https://i127.fastpic.org/big/2026/0224/34/617854c2f022c0c800e169f28deedf34.png",
+          "https://i127.fastpic.org/big/2026/0224/38/399dbd724026a87b11b7ce6ad9476e38.png"
+        ],
+        "named_logos": {
+          "https://i127.fastpic.org/thumb/2026/0227/67/7b513101d649673889365764a93ec467.jpeg": "POPFM ROCK  ",
+          "https://i127.fastpic.org/big/2026/0301/72/4bf66644a2241324f603fbc3b50aed72.png": "POPFM DANCE  ",
+          "https://i127.fastpic.org/big/2026/0301/c3/9a2838420551e0b6f0969b361f02e6c3.png": "POPFM RUS  ",
+          "https://i127.fastpic.org/big/2026/0224/38/399dbd724026a87b11b7ce6ad9476e38.png": "PCRADIO  ",
+          "https://i127.fastpic.org/big/2026/0224/50/b14051ed117afac39538e6368a206350.png": "TopRadio.me  ",
+          "https://i127.fastpic.org/big/2026/0224/f6/5c4aeee4333d2a4c00b90e34f90b64f6.png": "The-radio.ru  ",
+          "https://i127.fastpic.org/big/2026/0224/f0/50906477a2d84c27865133fc7eb67bf0.png": "ТОПРАДИО.РФ  ",
+          "https://i127.fastpic.org/big/2026/0224/34/617854c2f022c0c800e169f28deedf34.png": "onlineradiobox.ru  ",
+          "https://i127.fastpic.org/big/2026/0224/29/d3822cd4fef36c79dfae5998b625e929.png": "Radio-Tochka.com  ",
+          "https://i127.fastpic.org/big/2026/0224/8e/517e6d2c04da50915e5f9306a9b94f8e.png": "MyRadio24  ",
+          "https://i127.fastpic.org/big/2026/0224/cf/93e0396cd5447fd16da83b9dba5223cf.png": "Radiobells  ",
+          "https://i127.fastpic.org/big/2026/0224/7c/d7c74924915950d82d299e83cfd3817c.webp": "Radio Baza Catalog  ",
+          "https://i127.fastpic.org/big/2026/0224/95/878c6a8d1756fb01ec2e485b12f7c295.png": "FirstRadio  ",
+          "https://i127.fastpic.org/big/2026/0228/d8/e21e30623edd5cff7e9806e695f5c0d8.png": "FirstRadio  ",
+          "https://i127.fastpic.org/thumb/2026/0609/76/_1da121183bb46da95abd485289532176.jpeg": "djmolotoff  ",
+          "https://i127.fastpic.org/big/2026/0320/11/125eecd439c5c3acee3f1c0b8d90b411.png": "FirstRadio  ",
+          "https://i127.fastpic.org/thumb/2026/0609/9a/1d3c4bd70eef3c30ab04e766a5ba029a.jpeg": "OnlineRadioHub.ru  ",
+          "https://i127.fastpic.org/thumb/2026/0622/81/7ed342012d8023fd9ae10fe327454581.jpeg": "telluri.ru  "
+        }
+      },
+      "ocr_text": "() ao\n"
     },
     "4097:0:2:1E69:C6A7:ED:0:0:0:0": {
       "name": "POPFM Русское",
@@ -714465,7 +715382,54 @@
         "https://popfm-bir.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://i127.fastpic.org/big/2026/0224/29/d3822cd4fef36c79dfae5998b625e929.png",
+        "final_url": "https://i127.fastpic.org/big/2026/0224/29/d3822cd4fef36c79dfae5998b625e929.png",
+        "path": "originals/a24d1a71a6bcfe52f95fbc9e8cc552985baa3687366a8c3c13a490d889bdf651.img",
+        "sha256": "a24d1a71a6bcfe52f95fbc9e8cc552985baa3687366a8c3c13a490d889bdf651",
+        "bytes": 15383,
+        "dimensions": [
+          200,
+          100
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://popfm-bir.ru/",
+        "final_url": "https://popfm-bir.ru/",
+        "original_html_sha256": "c9abf96f090a8b7c90106c539c1f2b27a1c2ece8618e1e3b9268a598e48d25e0",
+        "path": "page-evidence/c9abf96f090a8b7c90106c539c1f2b27a1c2ece8618e1e3b9268a598e48d25e0.json",
+        "titles": [
+          "POPFM Биробиджан"
+        ],
+        "image_urls": [
+          "https://i127.fastpic.org/big/2026/0224/29/d3822cd4fef36c79dfae5998b625e929.png",
+          "https://i127.fastpic.org/big/2026/0224/34/617854c2f022c0c800e169f28deedf34.png",
+          "https://i127.fastpic.org/big/2026/0224/38/399dbd724026a87b11b7ce6ad9476e38.png"
+        ],
+        "named_logos": {
+          "https://i127.fastpic.org/thumb/2026/0227/67/7b513101d649673889365764a93ec467.jpeg": "POPFM ROCK  ",
+          "https://i127.fastpic.org/big/2026/0301/72/4bf66644a2241324f603fbc3b50aed72.png": "POPFM DANCE  ",
+          "https://i127.fastpic.org/big/2026/0301/c3/9a2838420551e0b6f0969b361f02e6c3.png": "POPFM RUS  ",
+          "https://i127.fastpic.org/big/2026/0224/38/399dbd724026a87b11b7ce6ad9476e38.png": "PCRADIO  ",
+          "https://i127.fastpic.org/big/2026/0224/50/b14051ed117afac39538e6368a206350.png": "TopRadio.me  ",
+          "https://i127.fastpic.org/big/2026/0224/f6/5c4aeee4333d2a4c00b90e34f90b64f6.png": "The-radio.ru  ",
+          "https://i127.fastpic.org/big/2026/0224/f0/50906477a2d84c27865133fc7eb67bf0.png": "ТОПРАДИО.РФ  ",
+          "https://i127.fastpic.org/big/2026/0224/34/617854c2f022c0c800e169f28deedf34.png": "onlineradiobox.ru  ",
+          "https://i127.fastpic.org/big/2026/0224/29/d3822cd4fef36c79dfae5998b625e929.png": "Radio-Tochka.com  ",
+          "https://i127.fastpic.org/big/2026/0224/8e/517e6d2c04da50915e5f9306a9b94f8e.png": "MyRadio24  ",
+          "https://i127.fastpic.org/big/2026/0224/cf/93e0396cd5447fd16da83b9dba5223cf.png": "Radiobells  ",
+          "https://i127.fastpic.org/big/2026/0224/7c/d7c74924915950d82d299e83cfd3817c.webp": "Radio Baza Catalog  ",
+          "https://i127.fastpic.org/big/2026/0224/95/878c6a8d1756fb01ec2e485b12f7c295.png": "FirstRadio  ",
+          "https://i127.fastpic.org/big/2026/0228/d8/e21e30623edd5cff7e9806e695f5c0d8.png": "FirstRadio  ",
+          "https://i127.fastpic.org/thumb/2026/0609/76/_1da121183bb46da95abd485289532176.jpeg": "djmolotoff  ",
+          "https://i127.fastpic.org/big/2026/0320/11/125eecd439c5c3acee3f1c0b8d90b411.png": "FirstRadio  ",
+          "https://i127.fastpic.org/thumb/2026/0609/9a/1d3c4bd70eef3c30ab04e766a5ba029a.jpeg": "OnlineRadioHub.ru  ",
+          "https://i127.fastpic.org/thumb/2026/0622/81/7ed342012d8023fd9ae10fe327454581.jpeg": "telluri.ru  "
+        }
+      },
+      "ocr_text": "() ao\n"
     },
     "4097:0:2:D301:EFA7:ED:0:0:0:0": {
       "name": "Pop (Popular) Music - Caprice Radio",
@@ -714478,7 +715442,10 @@
         "http://radcap.ru/pop.html"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Failed to connect to radcap.ru port 80 after 3002 ms: Timeout was reached\n"
+      ]
     },
     "4097:0:2:26FF:B06F:ED:0:0:0:0": {
       "name": "Pop Soul - Caprice Radio",
@@ -714491,7 +715458,10 @@
         "http://radcap.ru/popsoul.html"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Failed to connect to radcap.ru port 80 after 3002 ms: Timeout was reached\n"
+      ]
     },
     "4097:0:2:189B:7DFB:ED:0:0:0:0": {
       "name": "Radio Portal Novovoronezh",
@@ -714504,7 +715474,8 @@
         "https://portalradio.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:3C71:45F8:ED:0:0:0:0": {
       "name": "Port Rock radio",
@@ -714517,7 +715488,37 @@
         "https://portrock.ru/#intro"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://lk.castnow.ru/public/6/logo.jpg",
+        "final_url": "https://lk.castnow.ru/public/6/logo.jpg",
+        "path": "originals/3368fb708c497ff875d4d943a122c67b4fd2f2d8f186c6ae056a9221cbe8532a.img",
+        "sha256": "3368fb708c497ff875d4d943a122c67b4fd2f2d8f186c6ae056a9221cbe8532a",
+        "bytes": 42919,
+        "dimensions": [
+          600,
+          600
+        ],
+        "format": "JPEG"
+      },
+      "page": {
+        "url": "https://portrock.ru/#intro",
+        "final_url": "https://portrock.ru/#intro",
+        "original_html_sha256": "791962d17b01c08bf4bfa13d4052d8c48c101d80b3b40865c56afe25f1bd9d93",
+        "path": "page-evidence/791962d17b01c08bf4bfa13d4052d8c48c101d80b3b40865c56afe25f1bd9d93.json",
+        "titles": [
+          "Port Rock radio"
+        ],
+        "image_urls": [
+          "https://lk.castnow.ru/public/6/logo.jpg",
+          "https://portrock.ru/favicon.ico",
+          "https://portrock.ru/img/og_image.jpg"
+        ],
+        "named_logos": {
+          "https://lk.castnow.ru/public/6/logo.jpg": "Logo  "
+        }
+      },
+      "ocr_text": "Pot Rook\n\na\n"
     },
     "4097:0:2:3F3B:5F9A:ED:0:0:0:0": {
       "name": "Post Black",
@@ -714530,7 +715531,10 @@
         "http://radcap.ru/postblack.html"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Failed to connect to radcap.ru port 80 after 3002 ms: Timeout was reached\n"
+      ]
     },
     "4097:0:2:CBE3:4B7B:ED:0:0:0:0": {
       "name": "Power Hit (Мурманск)",
@@ -714568,7 +715572,35 @@
         "https://rpfm.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://rpfm.ru/local/templates/rpfm/img/v2/android-icon-192x192.png",
+        "final_url": "https://rpfm.ru/local/templates/rpfm/img/v2/android-icon-192x192.png",
+        "path": "originals/8d9e31d7ecc4d51e8249a3329347488e8bf56b809c08c6d642080e04aeed140d.img",
+        "sha256": "8d9e31d7ecc4d51e8249a3329347488e8bf56b809c08c6d642080e04aeed140d",
+        "bytes": 8241,
+        "dimensions": [
+          192,
+          192
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://rpfm.ru/",
+        "final_url": "https://rpfm.ru/",
+        "original_html_sha256": "ced8c7166d17482fda9c9878b1073fb29fff39f0eea0e42ca5a935083e9e2254",
+        "path": "page-evidence/ced8c7166d17482fda9c9878b1073fb29fff39f0eea0e42ca5a935083e9e2254.json",
+        "titles": [
+          "Радио Premium"
+        ],
+        "image_urls": [
+          "https://rpfm.ru/local/templates/rpfm/img/v2/android-icon-192x192.png",
+          "https://rpfm.ru/local/templates/rpfm/img/v2/apple-icon-114x114.png",
+          "https://rpfm.ru/local/templates/rpfm/img/v2/apple-icon-120x120.png"
+        ],
+        "named_logos": {}
+      },
+      "ocr_text": ""
     },
     "4097:0:2:C6C5:A355:ED:0:0:0:0": {
       "name": "Radio Priboy",
@@ -714581,7 +715613,8 @@
         "https://priboyfm.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:6B0F:90A6:ED:0:0:0:0": {
       "name": "Primorskaya Volna (Ussuriysk 90.0 FM)",
@@ -714601,7 +715634,10 @@
         "https://primuzfm.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Failed to connect to primuzfm.ru port 443 after 3000 ms: Timeout was reached\n"
+      ]
     },
     "4097:0:2:7CB5:4275:ED:0:0:0:0": {
       "name": "princessluna.fun - Night DJ",
@@ -714614,7 +715650,35 @@
         "http://princessluna.fun/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "http://princessluna.fun/static/uploads/browser_icon/114.1712509607.png",
+        "final_url": "http://princessluna.fun/static/uploads/browser_icon/114.1712509607.png",
+        "path": "originals/4cb7e722f9cc49f958998ba81e615f010cd3ad8718b93bc136b5d09a15871e26.img",
+        "sha256": "4cb7e722f9cc49f958998ba81e615f010cd3ad8718b93bc136b5d09a15871e26",
+        "bytes": 2939,
+        "dimensions": [
+          114,
+          114
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "http://princessluna.fun/",
+        "final_url": "http://princessluna.fun/",
+        "original_html_sha256": "09b51a7fa25245a9d07b3ab3151fd9506afb9553eb8e0e203451be0c3d6576a3",
+        "path": "page-evidence/09b51a7fa25245a9d07b3ab3151fd9506afb9553eb8e0e203451be0c3d6576a3.json",
+        "titles": [
+          "Princess Luna Radio"
+        ],
+        "image_urls": [
+          "http://princessluna.fun/static/uploads/browser_icon/114.1712509607.png",
+          "http://princessluna.fun/static/uploads/browser_icon/120.1712509607.png",
+          "http://princessluna.fun/static/uploads/browser_icon/144.1712509607.png"
+        ],
+        "named_logos": {}
+      },
+      "ocr_text": ""
     },
     "4097:0:2:FE73:C8EC:ED:0:0:0:0": {
       "name": "Programiqa",
@@ -714627,7 +715691,10 @@
         "http://programiqa.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (6) Could not resolve host: programiqa.ru\n"
+      ]
     },
     "4097:0:2:FC07:68A0:ED:0:0:0:0": {
       "name": "Radio Pro Italo Disco",
@@ -714640,7 +715707,8 @@
         "https://101.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:2D3C:329C:ED:0:0:0:0": {
       "name": "provodach",
@@ -714665,7 +715733,8 @@
         "http://cast.ru.eu.org/status-json.xsl"
       ],
       "needs_assistant_visual_identity": true,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:85F8:C8AA:ED:0:0:0:0": {
       "name": "Pub Rock - Caprice Radio",
@@ -714678,7 +715747,10 @@
         "http://radcap.ru/pubrock.html"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Failed to connect to radcap.ru port 80 after 3002 ms: Timeout was reached\n"
+      ]
     },
     "4097:0:2:CDAE:9EB2:ED:0:0:0:0": {
       "name": "Pump",
@@ -714698,7 +715770,10 @@
         "http://radcap.ru/spacemusic.html"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Failed to connect to radcap.ru port 80 after 3000 ms: Timeout was reached\n"
+      ]
     },
     "4097:0:2:BA41:4C40:ED:0:0:0:0": {
       "name": "RADCAP: AMBIENT DUB",
@@ -714711,7 +715786,10 @@
         "http://radcap.ru/ambientdub.html"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Failed to connect to radcap.ru port 80 after 3002 ms: Timeout was reached\n"
+      ]
     },
     "4097:0:2:6484:F9EF:ED:0:0:0:0": {
       "name": "RadCap - Atmospheric Ambient Black Metal",
@@ -714724,7 +715802,10 @@
         "http://radcap.ru/aabmds.html"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Failed to connect to radcap.ru port 80 after 3002 ms: Timeout was reached\n"
+      ]
     },
     "4097:0:2:45F:4191:ED:0:0:0:0": {
       "name": "RadCap - Avantgarde Black Metal",
@@ -714737,7 +715818,10 @@
         "http://radcap.ru/avantblackmet.html"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Failed to connect to radcap.ru port 80 after 3001 ms: Timeout was reached\n"
+      ]
     },
     "4097:0:2:2F7:CF64:ED:0:0:0:0": {
       "name": "RadCap - Black Death Metal",
@@ -714750,7 +715834,10 @@
         "http://radcap.ru/blackdeath.html"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Failed to connect to radcap.ru port 80 after 3002 ms: Timeout was reached\n"
+      ]
     },
     "4097:0:2:292B:7071:ED:0:0:0:0": {
       "name": "RadCap - Britpop",
@@ -714763,7 +715850,10 @@
         "http://radcap.ru/britpop.html"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Failed to connect to radcap.ru port 80 after 3000 ms: Timeout was reached\n"
+      ]
     },
     "4097:0:2:ED78:F8AD:ED:0:0:0:0": {
       "name": "RadCap - Brutal Death Metal",
@@ -714776,7 +715866,10 @@
         "https://radcap.ru/brutaldeathmetal.html"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Failed to connect to radcap.ru port 443 after 3002 ms: Timeout was reached\n"
+      ]
     },
     "4097:0:2:4328:7101:ED:0:0:0:0": {
       "name": "RadCap - Crossover Progressive",
@@ -714789,7 +715882,10 @@
         "http://radcap.ru/crossoverprog.html"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Failed to connect to radcap.ru port 80 after 3002 ms: Timeout was reached\n"
+      ]
     },
     "4097:0:2:E685:7C3C:ED:0:0:0:0": {
       "name": "RadCap - Crossover Thrash Metal",
@@ -714802,7 +715898,10 @@
         "http://radcap.ru/crossoverthrash.html"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Failed to connect to radcap.ru port 80 after 3002 ms: Timeout was reached\n"
+      ]
     },
     "4097:0:2:4CC4:D7E4:ED:0:0:0:0": {
       "name": "RadCap - Crust Punk",
@@ -714815,7 +715914,10 @@
         "http://radcap.ru/crust.html"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Failed to connect to radcap.ru port 80 after 3004 ms: Timeout was reached\n"
+      ]
     },
     "4097:0:2:D813:737E:ED:0:0:0:0": {
       "name": "RADCAP: DARK / DOOM / NOIR / FUNERAL / AMBIENT JAZZ",
@@ -714828,7 +715930,10 @@
         "http://radcap.ru/darkjazz.html"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Failed to connect to radcap.ru port 80 after 3002 ms: Timeout was reached\n"
+      ]
     },
     "4097:0:2:8656:3826:ED:0:0:0:0": {
       "name": "RadCap - Dark Metal",
@@ -714841,7 +715946,10 @@
         "http://radcap.ru/darkmetal.html"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Failed to connect to radcap.ru port 80 after 3002 ms: Timeout was reached\n"
+      ]
     },
     "4097:0:2:2E2A:58CA:ED:0:0:0:0": {
       "name": "RadCap - Death Doom Metal",
@@ -714854,7 +715962,10 @@
         "http://radcap.ru/deathdoom.html"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Failed to connect to radcap.ru port 80 after 3002 ms: Timeout was reached\n"
+      ]
     },
     "4097:0:2:3A9B:7DEA:ED:0:0:0:0": {
       "name": "RadCap - Doom Metal",
@@ -714867,7 +715978,10 @@
         "http://radcap.ru/doom.html"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Failed to connect to radcap.ru port 80 after 3002 ms: Timeout was reached\n"
+      ]
     },
     "4097:0:2:16C5:C8F4:ED:0:0:0:0": {
       "name": "RADCAP: DRONE AMBIENT",
@@ -714880,7 +715994,10 @@
         "http://radcap.ru/droneambient.html"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Failed to connect to radcap.ru port 80 after 3002 ms: Timeout was reached\n"
+      ]
     },
     "4097:0:2:A2DF:D702:ED:0:0:0:0": {
       "name": "RadCap - Female Vocal in Metal",
@@ -714893,7 +716010,10 @@
         "http://radcap.ru/femalemetal.html"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Failed to connect to radcap.ru port 80 after 3002 ms: Timeout was reached\n"
+      ]
     },
     "4097:0:2:1399:C40F:ED:0:0:0:0": {
       "name": "RadCap - Folk Metal",
@@ -714906,7 +716026,10 @@
         "http://radcap.ru/folkmetal.html"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Failed to connect to radcap.ru port 80 after 3002 ms: Timeout was reached\n"
+      ]
     },
     "4097:0:2:647:B411:ED:0:0:0:0": {
       "name": "RadCap - Folk Punk",
@@ -714919,7 +716042,10 @@
         "http://radcap.ru/folkpunk.html"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Failed to connect to radcap.ru port 80 after 3002 ms: Timeout was reached\n"
+      ]
     },
     "4097:0:2:E1C3:2C81:ED:0:0:0:0": {
       "name": "RadCap - Funk Rock Metal",
@@ -714932,7 +716058,10 @@
         "http://radcap.ru/funkrock.html"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Failed to connect to radcap.ru port 80 after 3001 ms: Timeout was reached\n"
+      ]
     },
     "4097:0:2:37E5:7D:ED:0:0:0:0": {
       "name": "RadCap - Gothic Black Metal",
@@ -913217,13 +914346,13 @@
   },
   "counts": {
     "already_ready_in_saved_checkpoint": 9992,
-    "blocked_no_confirmed_station_page_and_logo": 9661,
+    "blocked_no_confirmed_station_page_and_logo": 9738,
     "blocked_no_independent_station_homepage": 1165,
     "blocked_no_unique_current_station_metadata": 3838,
-    "candidate_assistant_visual_and_identity_check": 2716,
-    "pending_homepage_discovery": 10531,
-    "ready_verified_homepage_and_wordmark": 3000
+    "candidate_assistant_visual_and_identity_check": 2736,
+    "pending_homepage_discovery": 10431,
+    "ready_verified_homepage_and_wordmark": 3003
   },
-  "last_event": "homepages_4100_of_14631",
-  "updated_utc": "2026-11-05T16:36:12Z"
+  "last_event": "homepages_4200_of_14631",
+  "updated_utc": "2026-11-05T16:36:38Z"
 }
