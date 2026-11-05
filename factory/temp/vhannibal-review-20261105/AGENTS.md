@@ -14,6 +14,12 @@ The guard now permits only the explicit CANAL_CANONICAL_REUSE operation for a ve
 
 ## Completed approved Vhannibal batch
 
-All 157 owner-approved graphics from batches 01–06 and Film Europe are complete: 138 approved PNG triplets, 8 existing same-variant master reuses and 11 protected CANAL reuses. The integration binds 175 exact non-CANAL references and is live in FullHDGlass PR40, commit d86f25e628fe910e54f5bbc8c71dcb5b4682ed57. Do not recreate, requeue or ask for approval of these graphics. Read the completion record and exclude its completed_source_pixel_keys before selecting new work. Continue with unstaged artwork. The separate withdrawn Astra235 batch07 and its 9 held groups retain their own constraints.
+All 157 owner-approved graphics from batches 01–06 and Film Europe are complete: 138 approved PNG triplets, 8 existing same-variant master reuses and 11 protected CANAL reuses. The integration binds 175 exact non-CANAL references and is live in FullHDGlass PR40, commit d86f25e628fe910e54f5bbc8c71dcb5b4682ed57. Do not recreate, requeue or ask for approval of these graphics. Read the completion record and exclude its completed_source_pixel_keys before selecting new work. The remaining supplied usable source was subsequently completed; see the final completion record below. The separate withdrawn Astra235 batch07 and its 9 held groups retain their own constraints.
 
 Completion record: approved-publication/completion.json.
+
+## Entire supplied Vhannibal input completed
+
+The 3 November Motor source is closed with explicit terminal exceptions. All 14,081 PNG items are classified; all 12,503 accepted current references are published in the full satellite sets in all nine size/background slots (FullHDGlass PR41, content commit c772496c2648d544c54fe92420551454ac50925b). Read ../vhannibal-final-20261105/completion.json, plans.json and source-dispositions.json before doing any follow-up. There is no remaining automatic usable-source queue. Do not recreate 670 accepted source artwork groups, reused Master/CANAL artwork, or the earlier 157 approved graphics. Only revisit an entry in ../vhannibal-final-20261105/exceptions.json when new independent identity/variant evidence resolves its recorded reason.
+
+All original CANAL provider packages remain immutable. The guard additionally permits PRESERVED_NATIVE_SIZE_DERIVATIVE only for package paths, the identical full source/target reference, 50x30 or 400x240, and the exact native/output hashes in canal235-protection/published-native-reuse.json. It never authorizes fresh upstream 23.5E artwork or Master replacements. Keep every country/regional/HD/SD distinction and frozen background. Radio plugin work remains separate.

@@ -1,3 +1,13 @@
+# Authoritative final completion — 2026-11-05
+
+The supplied Vhannibal Motor source is complete for all usable current references. 14,081 input PNGs are terminally classified; 12,503 accepted current references are live in all nine satellite size/background variants. 198 explicit technical/identity/conflict exceptions remain excluded, with reasons. FullHDGlass PR41: https://github.com/Evolution-by-Warder/FullHDGlass-Warder-Evolution/pull/41. Data content commit: c772496c2648d544c54fe92420551454ac50925b.
+
+Read ../vhannibal-final-20261105/COMPLETION.md and completion.json. There is no pending automatic batch queue. Do not restart completed batches or recreate source/Master/CANAL artwork. The remaining exceptions can only be reconsidered with new independent evidence. All CANAL preservation and variant rules still apply.
+
+---
+
+# Historical review notes — superseded by the completion above
+
 # Vhannibal TV continuation — 5 November 2026
 
 All 157 graphic groups presented through Thor batch06 remain owner-approved. The 48 Astra 23.5E batch07 source proposals are withdrawn from export under the owner's CANAL+ SK/CZ preservation instruction: 39 overlap existing protected station identities and 9 remain held until an independent current-CANAL membership and missing-reference check. Current historical staged total: 205 groups / 615 control PNGs; active pending owner-review groups: 0. No CANAL package or existing 23.5E PNG has been changed by these review batches. Radio-plugin work remains separate.
