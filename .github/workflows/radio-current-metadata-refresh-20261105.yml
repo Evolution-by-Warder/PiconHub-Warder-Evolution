@@ -6,6 +6,7 @@ on:
       - migration/radio-current-metadata-refresh-20261105/refresh_radio_metadata.py
       - migration/radio-current-metadata-refresh-20261105/recover_current_metadata_artwork.py
       - migration/radio-current-metadata-refresh-20261105/input.b64
+      - migration/radio-current-metadata-refresh-20261105/transient-network-retry-input.b64
       - .github/workflows/radio-current-metadata-refresh-20261105.yml
 permissions:
   contents: write
@@ -36,6 +37,8 @@ jobs:
           python migration/radio-current-metadata-refresh-20261105/refresh_radio_metadata.py --input migration/radio-current-metadata-refresh-20261105/input.b64 --output migration/radio-current-metadata-refresh-20261105/results --commit
       - name: Acquire only previously unseen registered artwork
         run: python migration/radio-current-metadata-refresh-20261105/recover_current_metadata_artwork.py --seed migration/radio-current-metadata-refresh-20261105/results/new-artwork-input.b64 --output migration/radio-current-metadata-refresh-20261105/results/artwork --workers 32 --checkpoint-size 100 --commit
+      - name: Recover only previously failed image transfers
+        run: python migration/radio-current-metadata-refresh-20261105/recover_current_metadata_artwork.py --seed migration/radio-current-metadata-refresh-20261105/transient-network-retry-input.b64 --output migration/radio-current-metadata-refresh-20261105/results/transient-network-retry --workers 32 --checkpoint-size 100 --commit
       - name: Preserve completed checkpoints
         if: always()
         run: |

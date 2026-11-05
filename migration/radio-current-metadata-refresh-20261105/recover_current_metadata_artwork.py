@@ -41,7 +41,7 @@ def main():
      evidence.pop('catalogue_supplied_image_url');evidence.update(row['metadata_refresh_evidence_by_url'][url])
     row.update(source=source,catalogue_evidence=evidence)
     if reuse:row.update(status='reuse_verified_graphic_pending_import',approved_graphic_reference=reuse['reference'],expected_render_fingerprint=reuse['render_fingerprint'],verification='Exact source SHA256, full normalized receiver name and catalogue country match an already saved approved graphic. Import must verify and copy the original nine saved PNG bytes; no new programme alias is inferred.')
-    else:row.update(status='candidate_catalogue_artwork_needs_visual_identity',verification='New image URL returned by the original source UUID after exact name, country and stream checks. Visual identity still requires review; no confirmed current homepage is claimed.')
+    else:row.update(status='candidate_catalogue_artwork_needs_visual_identity',verification=('New image URL returned by the original source UUID after exact name, country and stream checks.' if row.get('metadata_refresh_evidence_by_url') else 'Image URL supplied by the uniquely matched frozen catalogue programme; recovered after an earlier transient network failure.')+' Visual identity still requires review; no confirmed current homepage is claimed.')
     return row
    except Exception as e:errors.append(str(e)[:160])
   row.update(status='blocked_no_new_usable_catalogue_artwork',errors=errors);return row
