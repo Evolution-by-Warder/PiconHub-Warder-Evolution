@@ -1,0 +1,55 @@
+name: Resume complete Radio source acquisition with persistent checkpoints
+on:
+  push:
+    branches: ['review/radio-laut-large-batch04-20261105']
+    paths: ['.github/workflows/radio-complete-checkpoint-20261105.yml']
+permissions:
+  contents: write
+concurrency:
+  group: radio-complete-source-acquisition-20261105
+  cancel-in-progress: false
+jobs:
+  collect:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 350
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            migration/radio-complete-20261105
+            .github/workflows
+      - uses: actions/checkout@v4
+        with:
+          ref: e90a1fe3a2734b555f48f343284f9103530180fb
+          path: _radio_catalogue
+          persist-credentials: false
+          sparse-checkout: |
+            picons/IPTV-SK-CZ/catalog/global
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install --quiet Pillow==13.0.0
+      - name: Record worker identity
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      - name: Acquire originals and save progress every batch
+        run: |
+          python migration/radio-complete-20261105/collect_radio_sources.py --catalogue _radio_catalogue/picons/IPTV-SK-CZ/catalog/global --output migration/radio-complete-20261105 --commit
+      - name: Preserve latest progress even if interrupted
+        if: always()
+        run: |
+          git add migration/radio-complete-20261105
+          if ! git diff --cached --quiet; then
+            git commit -m "Preserve interrupted Radio source acquisition progress"
+            git push origin HEAD:review/radio-laut-large-batch04-20261105
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: radio-complete-source-checkpoint
+          retention-days: 90
+          path: |
+            migration/radio-complete-20261105/source-acquisition.json
+            migration/radio-complete-20261105/acquisition-journal.jsonl
+            migration/radio-complete-20261105/candidate-sheets
