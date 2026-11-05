@@ -227686,7 +227686,11 @@
       "homepages": [
         "https://radio-kabadougou.mdn.live/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 404\n",
+        "Command '['tesseract', '/tmp/radio-logo-ocr-4jlq48ao/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds"
+      ]
     },
     "4097:0:2:230F:42A1:ED:0:0:0:0": {
       "name": "La Voix d'Azaguié",
@@ -227708,7 +227712,10 @@
       "homepages": [
         "https://lavoixdeladiaspora.fr/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Operation timed out after 8005 milliseconds with 0 bytes received\n"
+      ]
     },
     "4097:0:2:D0D4:58F:ED:0:0:0:0": {
       "name": "LA VOIX DE L'ESPERANCE",
@@ -227720,7 +227727,95 @@
       "homepages": [
         "https://lavoixdelesperance.org/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://lavoixdelesperance.org/wp-content/uploads/2024/11/cropped-cropped-Tout-pour-la-gloire-de-Jesus-2.png",
+        "final_url": "https://lavoixdelesperance.org/wp-content/uploads/2024/11/cropped-cropped-Tout-pour-la-gloire-de-Jesus-2.png",
+        "path": "originals/824edd13eaa94009b1203d98c601d9b8d3ef42104e6eafb02a709a1ce5da95e6.img",
+        "sha256": "824edd13eaa94009b1203d98c601d9b8d3ef42104e6eafb02a709a1ce5da95e6",
+        "bytes": 280483,
+        "dimensions": [
+          511,
+          511
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://lavoixdelesperance.org/",
+        "final_url": "https://lavoixdelesperance.org/",
+        "original_html_sha256": "ae63b98e9577747f72e62f19638d2c98c1526ad8f45143f9419c4c0355a5d1d0",
+        "path": "page-evidence/ae63b98e9577747f72e62f19638d2c98c1526ad8f45143f9419c4c0355a5d1d0.json",
+        "titles": [
+          "LA  VOIX DE L'ESPERANCE – Tout pour la gloire de Jésus !",
+          "\n\t\t\t\t\t\t\t LA  VOIX DE L'ESPERANCE \n\t\t\t\t\t\t"
+        ],
+        "image_urls": [
+          "https://lavoixdelesperance.org/wp-content/uploads/2022/10/LOGO-RADIO-300x225.png",
+          "https://lavoixdelesperance.org/wp-content/uploads/2024/11/cropped-cropped-Tout-pour-la-gloire-de-Jesus-2.png",
+          "https://lavoixdelesperance.org/wp-content/uploads/2024/11/cropped-Tout-pour-la-gloire-de-Jesus-2-180x180.png"
+        ],
+        "named_logos": {
+          "https://lavoixdelesperance.org/wp-content/uploads/2024/11/cropped-cropped-Tout-pour-la-gloire-de-Jesus-2.png": "LA  VOIX DE L'ESPERANCE  ",
+          "https://lavoixdelesperance.org/wp-content/uploads/2022/10/LOGO-RADIO-300x225.png": "  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/19e55a0b0b3be6ffe45100ed71ac20bead6b05d165622cf6141f160e8a32a726.png",
+          "sha256": "19e55a0b0b3be6ffe45100ed71ac20bead6b05d165622cf6141f160e8a32a726",
+          "bytes": 1858
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/969a3c9238ea388dcafe1256a203b50bf914d1e02d829f16a9b41decfff81f0a.png",
+          "sha256": "969a3c9238ea388dcafe1256a203b50bf914d1e02d829f16a9b41decfff81f0a",
+          "bytes": 21202
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/5eb73f0bed42181d03220b49da18880d462666d6217a7d67ad1de598917847a3.png",
+          "sha256": "5eb73f0bed42181d03220b49da18880d462666d6217a7d67ad1de598917847a3",
+          "bytes": 59010
+        },
+        "50x30/white": {
+          "path": "verified-assets/bcb70883b2d887dd2a4e9b9ced80fad81ab9631772c55f1f040dbb6ed4375df9.png",
+          "sha256": "bcb70883b2d887dd2a4e9b9ced80fad81ab9631772c55f1f040dbb6ed4375df9",
+          "bytes": 3150
+        },
+        "220x132/white": {
+          "path": "verified-assets/2a00c66675746d10efba0d671e290831e6ee81abdd13b1ce94267f0d8c38b70d.png",
+          "sha256": "2a00c66675746d10efba0d671e290831e6ee81abdd13b1ce94267f0d8c38b70d",
+          "bytes": 43635
+        },
+        "400x240/white": {
+          "path": "verified-assets/cf148689e1c2a7f2818f764149b833d2a1d6dbdcdeb70a6f817c5f188a34b21d.png",
+          "sha256": "cf148689e1c2a7f2818f764149b833d2a1d6dbdcdeb70a6f817c5f188a34b21d",
+          "bytes": 112593
+        },
+        "50x30/black": {
+          "path": "verified-assets/fa17ed2cc06d3a8803171ed6e9d9e66f07d5f9745995a1610717f5aa7d26785c.png",
+          "sha256": "fa17ed2cc06d3a8803171ed6e9d9e66f07d5f9745995a1610717f5aa7d26785c",
+          "bytes": 3410
+        },
+        "220x132/black": {
+          "path": "verified-assets/cf3cb4ba7adf5e4ce85c791dce4dc4b347fb8fd166b8f4de7531b7acaa6e4cbc.png",
+          "sha256": "cf3cb4ba7adf5e4ce85c791dce4dc4b347fb8fd166b8f4de7531b7acaa6e4cbc",
+          "bytes": 42589
+        },
+        "400x240/black": {
+          "path": "verified-assets/b265935500e106eb5cd4b9db339551b36d1877169144b93d41656458e0286934.png",
+          "sha256": "b265935500e106eb5cd4b9db339551b36d1877169144b93d41656458e0286934",
+          "bytes": 109663
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "LA  VOIX DE L'ESPERANCE  ",
+        "matched_brand_keys": [
+          "voix"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:71EA:5143:ED:0:0:0:0": {
       "name": "La Voix Du Bon Berger",
@@ -227732,7 +227827,10 @@
       "homepages": [
         "https://link.radioking.com/lavoixdubonberger"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "Command '['tesseract', '/tmp/radio-logo-ocr-5jzypifz/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds"
+      ]
     },
     "4097:0:2:27E7:411E:ED:0:0:0:0": {
       "name": "Les Messagers Du Christ",
@@ -227744,7 +227842,10 @@
       "homepages": [
         "https://www.messagersduchrist.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "Command '['tesseract', '/tmp/radio-logo-ocr-wxr3ha8z/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds"
+      ]
     },
     "4097:0:2:A7FB:52F7:ED:0:0:0:0": {
       "name": "Life radio Côte d’Ivoire",
@@ -227756,7 +227857,35 @@
       "homepages": [
         "https://liferadio.ci/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://liferadio.ci/wp-content/uploads/2022/04/cropped-favicon-192x192.jpg",
+        "final_url": "https://liferadio.ci/wp-content/uploads/2022/04/cropped-favicon-192x192.jpg",
+        "path": "originals/add9a00869217a4676f2b1c4c5693808e0d5b15d2b3e2470d1c46127818c8f91.img",
+        "sha256": "add9a00869217a4676f2b1c4c5693808e0d5b15d2b3e2470d1c46127818c8f91",
+        "bytes": 5620,
+        "dimensions": [
+          192,
+          192
+        ],
+        "format": "JPEG"
+      },
+      "page": {
+        "url": "https://liferadio.ci/",
+        "final_url": "https://liferadio.ci/",
+        "original_html_sha256": "1288d15ec3e91241eb9a41ccef120967e257bf7a8fee04323b969f658a940b20",
+        "path": "page-evidence/1288d15ec3e91241eb9a41ccef120967e257bf7a8fee04323b969f658a940b20.json",
+        "titles": [
+          "Accueil | Life Radio"
+        ],
+        "image_urls": [
+          "https://liferadio.ci/wp-content/uploads/2022/04/cropped-favicon-180x180.jpg",
+          "https://liferadio.ci/wp-content/uploads/2022/04/cropped-favicon-192x192.jpg",
+          "https://liferadio.ci/wp-content/uploads/2022/04/cropped-favicon-32x32.jpg"
+        ],
+        "named_logos": {}
+      },
+      "ocr_text": "e radi\n\n1107.7 |\n"
     },
     "4097:0:2:1DA3:262B:ED:0:0:0:0": {
       "name": "Luli Radio",
@@ -227788,7 +227917,41 @@
       "homepages": [
         "https://radio-media-ci-yamoussoukro.mdn.live/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://radio-media-ci-yamoussoukro.mdn.live/favicon.svg",
+        "final_url": "https://radio-media-ci-yamoussoukro.mdn.live/favicon.svg",
+        "path": "originals/6ca6d199940de120bf2ba2f1863c7e6a3d443c7089ce61d0678810c1fc79249d.img",
+        "sha256": "6ca6d199940de120bf2ba2f1863c7e6a3d443c7089ce61d0678810c1fc79249d",
+        "bytes": 1175,
+        "dimensions": [
+          640,
+          544
+        ],
+        "format": "SVG",
+        "frozen_svg_raster": {
+          "path": "rasterized/0812d558a073d0daf14cd14ee6f6748250e2f2411eff329a947a523580ce262a.png",
+          "sha256": "0812d558a073d0daf14cd14ee6f6748250e2f2411eff329a947a523580ce262a",
+          "cairosvg_version": "2.8.2"
+        }
+      },
+      "page": {
+        "url": "https://radio-media-ci-yamoussoukro.mdn.live/",
+        "final_url": "https://radio-media-ci-yamoussoukro.mdn.live/",
+        "original_html_sha256": "09c877f70df2facfc15fc806fc5f0515063f165dc88feb7bf296065e093fe8f8",
+        "path": "page-evidence/09c877f70df2facfc15fc806fc5f0515063f165dc88feb7bf296065e093fe8f8.json",
+        "titles": [
+          "Listen to Radio MEDIA CI Yamoussoukro | Zeno.FM",
+          " Radio MEDIA CI Yamoussoukro  "
+        ],
+        "image_urls": [
+          "https://radio-media-ci-yamoussoukro.mdn.live/apple-touch-icon.png",
+          "https://radio-media-ci-yamoussoukro.mdn.live/favicon.ico",
+          "https://radio-media-ci-yamoussoukro.mdn.live/favicon.svg"
+        ],
+        "named_logos": {}
+      },
+      "ocr_text": "<a\n"
     },
     "4097:0:2:99E5:5E40:ED:0:0:0:0": {
       "name": "Radio Nationale Catholique (RNC) — La Voix de l'Évangile",
@@ -227800,7 +227963,8 @@
       "homepages": [
         "http://rnc-ci.net/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:C7CE:B0FB:ED:0:0:0:0": {
       "name": "Nostalgie CI",
@@ -227812,7 +227976,95 @@
       "homepages": [
         "https://www.nostalgie.ci/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://www.nostalgie.ci/img/nef-logo.png",
+        "final_url": "https://www.nostalgie.ci/img/nef-logo.png",
+        "path": "originals/3807f4eb9f2915c88b0f8f7e4a300713dd2031c0018646cd71fa30fa3b82f13e.img",
+        "sha256": "3807f4eb9f2915c88b0f8f7e4a300713dd2031c0018646cd71fa30fa3b82f13e",
+        "bytes": 267428,
+        "dimensions": [
+          760,
+          194
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://www.nostalgie.ci/",
+        "final_url": "https://www.nostalgie.ci/",
+        "original_html_sha256": "6d483f18ff797850b86b2d4fc1d84057ef1bb16c7c6dda2a06f76546852b3d8f",
+        "path": "page-evidence/6d483f18ff797850b86b2d4fc1d84057ef1bb16c7c6dda2a06f76546852b3d8f.json",
+        "titles": [
+          "Nostalgie CI — 101.1 FM · Sérieusement Décalée",
+          "Nostalgie en Folie — 28 et 29 novembre 2026 à l'INJS Marcory"
+        ],
+        "image_urls": [
+          "https://www.nostalgie.ci/img/nef-logo.png",
+          "https://www.nostalgie.ci/img/nef-nostakids.png",
+          "https://www.nostalgie.ci/apple-icon?496f1680ec0a8958"
+        ],
+        "named_logos": {
+          "https://www.nostalgie.ci/img/nef-logo.png": "Nostalgie en Folie — Sponsor officiel : Port Autonome d'Abidjan  ",
+          "https://www.nostalgie.ci/img/nef-nostakids.png": "NostaKids City  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/ac73d4ab1b2e0cebcfba6f65a9afe44f9a6d5919777df696e344ea505976cbb1.png",
+          "sha256": "ac73d4ab1b2e0cebcfba6f65a9afe44f9a6d5919777df696e344ea505976cbb1",
+          "bytes": 1820
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/b161107cc3dc43b15c3d766a21b7a019d29e9d09a53dde9af586c99ae5f8b273.png",
+          "sha256": "b161107cc3dc43b15c3d766a21b7a019d29e9d09a53dde9af586c99ae5f8b273",
+          "bytes": 20989
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/3b6a77b268fcb70d9f0a2aeb463b190723e5846b66e9931775042cef334e0b6b.png",
+          "sha256": "3b6a77b268fcb70d9f0a2aeb463b190723e5846b66e9931775042cef334e0b6b",
+          "bytes": 57638
+        },
+        "50x30/white": {
+          "path": "verified-assets/211725c797c8739d5bec38f0b7b2dfe78f51fb84b27306824f76e6aeed03ca57.png",
+          "sha256": "211725c797c8739d5bec38f0b7b2dfe78f51fb84b27306824f76e6aeed03ca57",
+          "bytes": 3040
+        },
+        "220x132/white": {
+          "path": "verified-assets/ae936cd584e3679e847d46f69cdbbf5506ba188c1ba0d1a9db326a24570cab84.png",
+          "sha256": "ae936cd584e3679e847d46f69cdbbf5506ba188c1ba0d1a9db326a24570cab84",
+          "bytes": 44050
+        },
+        "400x240/white": {
+          "path": "verified-assets/4f6d7898ebd1d72e3c8f7a658360181a9fdbec31da0f2f66ac6355a6dbd42fed.png",
+          "sha256": "4f6d7898ebd1d72e3c8f7a658360181a9fdbec31da0f2f66ac6355a6dbd42fed",
+          "bytes": 113816
+        },
+        "50x30/black": {
+          "path": "verified-assets/1930b33727ff3971b8267ab532874f94752a1f7172956fccd47437f1f729fc56.png",
+          "sha256": "1930b33727ff3971b8267ab532874f94752a1f7172956fccd47437f1f729fc56",
+          "bytes": 3199
+        },
+        "220x132/black": {
+          "path": "verified-assets/1f46e9efb05e498658c1c6e2d1662d0e74633bef14e2ec2b7971c39c9ce6db08.png",
+          "sha256": "1f46e9efb05e498658c1c6e2d1662d0e74633bef14e2ec2b7971c39c9ce6db08",
+          "bytes": 43022
+        },
+        "400x240/black": {
+          "path": "verified-assets/aa3bd70f04cfcaa5c47afb5bc605ca40d406adbf5592d5d95eeca0e5d54f38d9.png",
+          "sha256": "aa3bd70f04cfcaa5c47afb5bc605ca40d406adbf5592d5d95eeca0e5d54f38d9",
+          "bytes": 110001
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Nostalgie en Folie — Sponsor officiel : Port Autonome d'Abidjan  ",
+        "matched_brand_keys": [
+          "nostalgie"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:CECB:E436:ED:0:0:0:0": {
       "name": "Radio Pulsar Katiola",
@@ -227824,7 +228076,11 @@
       "homepages": [
         "https://radiopulsarkatiola.vestaradio.eu/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "Command '['tesseract', '/tmp/radio-logo-ocr-b9a1txqb/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds",
+        "Command '['tesseract', '/tmp/radio-logo-ocr-8lnk7xmx/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds"
+      ]
     },
     "4097:0:2:19FB:E98D:ED:0:0:0:0": {
       "name": "Radio Jam",
@@ -227848,7 +228104,38 @@
       "homepages": [
         "https://rtiplay.ci/frequence2"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://rtiplay.ci/assets/images/logo.png",
+        "final_url": "https://rtiplay.ci/assets/images/logo.png",
+        "path": "originals/bab559b63ab3637256dcfddb75c87bf841e5afdec67b42064d3a639fa9765b8e.img",
+        "sha256": "bab559b63ab3637256dcfddb75c87bf841e5afdec67b42064d3a639fa9765b8e",
+        "bytes": 8926,
+        "dimensions": [
+          351,
+          147
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://rtiplay.ci/frequence2",
+        "final_url": "https://rtiplay.ci/frequence2",
+        "original_html_sha256": "dc116f05902c9f14976193da7ec0cbd86576fd6974d0cf792b0bf5b5062c5ad4",
+        "path": "page-evidence/dc116f05902c9f14976193da7ec0cbd86576fd6974d0cf792b0bf5b5062c5ad4.json",
+        "titles": [
+          "RTI Play | Application Web VOD"
+        ],
+        "image_urls": [
+          "https://rtiplay.ci/assets/images/logo.png",
+          "https://storage.rtiplay.ci/channels/c96c95c8-3b16-11f0-9c81-1a93fbd894ba/58633306-5521-4b53-ae25-9897fc9bae75.png?X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=minioadmin%2F20261104%2Fafrica%2Fs3%2Faws4_request&X-Amz-Date=20261104T205726Z&X-Amz-SignedHeaders=host&X-Amz-Expires=86400&X-Amz-Signature=0e43666ee002da538b3d0a6113bc9c8a3b7f843c73457b7c236675a0d058c4ee",
+          "https://rtiplay.ci/assets/icons/favicon.ico"
+        ],
+        "named_logos": {
+          "https://rtiplay.ci/assets/images/logo.png": "logo  ",
+          "https://storage.rtiplay.ci/channels/c96c95c8-3b16-11f0-9c81-1a93fbd894ba/58633306-5521-4b53-ae25-9897fc9bae75.png?X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=minioadmin%2F20261104%2Fafrica%2Fs3%2Faws4_request&X-Amz-Date=20261104T205726Z&X-Amz-SignedHeaders=host&X-Amz-Expires=86400&X-Amz-Signature=0e43666ee002da538b3d0a6113bc9c8a3b7f843c73457b7c236675a0d058c4ee": "logo  "
+        }
+      },
+      "ocr_text": ""
     },
     "4097:0:2:A14E:C33:ED:0:0:0:0": {
       "name": "RVM Radio",
@@ -227860,7 +228147,95 @@
       "homepages": [
         "https://www.rvmsikensi.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://www.rvmsikensi.com/rvm_logo_official.jpg",
+        "final_url": "https://www.rvmsikensi.com/rvm_logo_official.jpg",
+        "path": "originals/8f3763e9012af8b6c98ee239c9f6e2fe83c59420ccd4cef64dc3d25a95cbcb9d.img",
+        "sha256": "8f3763e9012af8b6c98ee239c9f6e2fe83c59420ccd4cef64dc3d25a95cbcb9d",
+        "bytes": 357753,
+        "dimensions": [
+          1024,
+          1024
+        ],
+        "format": "JPEG"
+      },
+      "page": {
+        "url": "https://www.rvmsikensi.com/",
+        "final_url": "https://www.rvmsikensi.com/",
+        "original_html_sha256": "6eaffe74eafb41bbf6746bb5219a71ab9348fbc6a40fa32b1dbae8a05845e637",
+        "path": "page-evidence/6eaffe74eafb41bbf6746bb5219a71ab9348fbc6a40fa32b1dbae8a05845e637.json",
+        "titles": [
+          "My RVM Radio - 106.2 FM | La Voix de la Ville",
+          "RADIO RVM",
+          "RADIO VIE   MEILLEURE "
+        ],
+        "image_urls": [
+          "https://www.rvmsikensi.com/rvm_logo_official.jpg",
+          "https://www.rvmsikensi.com/favicon.ico",
+          "https://www.rvmsikensi.com/favicon.ico?favicon.0kurn5k0jnunt.ico"
+        ],
+        "named_logos": {
+          "https://www.rvmsikensi.com/rvm_logo_official.jpg": "RVM Logo  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/76ba9f9b21c28731a3de8efce90bea223ae025e22f5f021baef7d0c6a3d5aed8.png",
+          "sha256": "76ba9f9b21c28731a3de8efce90bea223ae025e22f5f021baef7d0c6a3d5aed8",
+          "bytes": 1453
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/685039e04a295d1edcd7ff076a348ba2630f5d3d67080b0a7c6f3a09aa5c52be.png",
+          "sha256": "685039e04a295d1edcd7ff076a348ba2630f5d3d67080b0a7c6f3a09aa5c52be",
+          "bytes": 19970
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/c9be6e2128d858a14e956ad073bab8431183062ed7ec79cda63089304d2e5b9d.png",
+          "sha256": "c9be6e2128d858a14e956ad073bab8431183062ed7ec79cda63089304d2e5b9d",
+          "bytes": 52064
+        },
+        "50x30/white": {
+          "path": "verified-assets/8b0052a2183eb4dcf036c393d9446bf24a28ed8969f6bc57a487cbcb55734a32.png",
+          "sha256": "8b0052a2183eb4dcf036c393d9446bf24a28ed8969f6bc57a487cbcb55734a32",
+          "bytes": 2642
+        },
+        "220x132/white": {
+          "path": "verified-assets/920ba686c0e89bdc15d94a5a82044a0119b9e945ca4f26be18b2db5cc7a8342d.png",
+          "sha256": "920ba686c0e89bdc15d94a5a82044a0119b9e945ca4f26be18b2db5cc7a8342d",
+          "bytes": 41518
+        },
+        "400x240/white": {
+          "path": "verified-assets/080dfb61426d1ba170fd4083d9de6f178bba0ec3b58b4817dedb34216c061913.png",
+          "sha256": "080dfb61426d1ba170fd4083d9de6f178bba0ec3b58b4817dedb34216c061913",
+          "bytes": 102672
+        },
+        "50x30/black": {
+          "path": "verified-assets/3483ba5e6245b28ae550176fe25df2cb980ced634afe534f3ad3541eba17c393.png",
+          "sha256": "3483ba5e6245b28ae550176fe25df2cb980ced634afe534f3ad3541eba17c393",
+          "bytes": 2878
+        },
+        "220x132/black": {
+          "path": "verified-assets/aabe6dd191b47166c6cfe7f7b7f6abd3122ebea9048f513c6650a6906eea5c8e.png",
+          "sha256": "aabe6dd191b47166c6cfe7f7b7f6abd3122ebea9048f513c6650a6906eea5c8e",
+          "bytes": 40398
+        },
+        "400x240/black": {
+          "path": "verified-assets/87ed3c259039611425cbda61f28d3f72a1d892b0cb4302d46ebd2d373d5a7031.png",
+          "sha256": "87ed3c259039611425cbda61f28d3f72a1d892b0cb4302d46ebd2d373d5a7031",
+          "bytes": 99496
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "RVM Logo  ",
+        "matched_brand_keys": [
+          "rvm"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:67C5:CE8B:ED:0:0:0:0": {
       "name": "Radio Saphir",
@@ -227872,7 +228247,93 @@
       "homepages": [
         "https://radiosaphir.net/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://radiosaphir.net/wp-content/uploads/2018/03/Logo-Saphir_officiel.png",
+        "final_url": "https://radiosaphir.net/wp-content/uploads/2018/03/Logo-Saphir_officiel.png",
+        "path": "originals/8c9e23f03a4990c5787262f99a3cd6170b66d4f4730addd5d39a132946b743b1.img",
+        "sha256": "8c9e23f03a4990c5787262f99a3cd6170b66d4f4730addd5d39a132946b743b1",
+        "bytes": 18706,
+        "dimensions": [
+          483,
+          201
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://radiosaphir.net/",
+        "final_url": "https://radiosaphir.net/",
+        "original_html_sha256": "da342b38d918484cf21784c83cb599b3f9c79a96e834df075d8b15ea14ed0ac9",
+        "path": "page-evidence/da342b38d918484cf21784c83cb599b3f9c79a96e834df075d8b15ea14ed0ac9.json",
+        "titles": [
+          "Radio Saphir :"
+        ],
+        "image_urls": [
+          "https://radiosaphir.net/wp-content/uploads/2018/03/Logo-Saphir_officiel.png",
+          "https://radiosaphir.net/wp-content/plugins/pwa-for-wp/images/logo-512x512.png",
+          "https://radiosaphir.net/wp-content/plugins/pwa-for-wp/images/logo.png"
+        ],
+        "named_logos": {
+          "https://radiosaphir.net/wp-content/uploads/2018/03/Logo-Saphir_officiel.png": "Radio Saphir :  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/7da9faab32f6744811e6bf77910b05acb6b840333eef4752931c10d05b591685.png",
+          "sha256": "7da9faab32f6744811e6bf77910b05acb6b840333eef4752931c10d05b591685",
+          "bytes": 1730
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/fd4451946eeecc957f4ddc16a449af4889cac88f8c622592f5829e78196b5494.png",
+          "sha256": "fd4451946eeecc957f4ddc16a449af4889cac88f8c622592f5829e78196b5494",
+          "bytes": 13235
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/7101860de779b91ded34866252cd6b3c1b79d9455b083eb76f66b726fd035563.png",
+          "sha256": "7101860de779b91ded34866252cd6b3c1b79d9455b083eb76f66b726fd035563",
+          "bytes": 40947
+        },
+        "50x30/white": {
+          "path": "verified-assets/e7c42ff1d9e2ad78faec13797b6c4e4996bd60a789f394eeb7e9cee4745dff84.png",
+          "sha256": "e7c42ff1d9e2ad78faec13797b6c4e4996bd60a789f394eeb7e9cee4745dff84",
+          "bytes": 3131
+        },
+        "220x132/white": {
+          "path": "verified-assets/350d24cd1a91663a492183e0d3ec19f0f68ca981bb4e9c002e91984e25975793.png",
+          "sha256": "350d24cd1a91663a492183e0d3ec19f0f68ca981bb4e9c002e91984e25975793",
+          "bytes": 38769
+        },
+        "400x240/white": {
+          "path": "verified-assets/a37528feee8547617d1a7a150c1d02ee4e0f5223d0cd9a75144d82a1a8a8e140.png",
+          "sha256": "a37528feee8547617d1a7a150c1d02ee4e0f5223d0cd9a75144d82a1a8a8e140",
+          "bytes": 100487
+        },
+        "50x30/black": {
+          "path": "verified-assets/ebffb0a47b209a47514b77a28aa91f3710b7744e983bebd96544efda220f8ae1.png",
+          "sha256": "ebffb0a47b209a47514b77a28aa91f3710b7744e983bebd96544efda220f8ae1",
+          "bytes": 2786
+        },
+        "220x132/black": {
+          "path": "verified-assets/184d5f7659aceee5b3e58b5180ce33bfe2a0f2e2f067563f01895c953aa0ad49.png",
+          "sha256": "184d5f7659aceee5b3e58b5180ce33bfe2a0f2e2f067563f01895c953aa0ad49",
+          "bytes": 35080
+        },
+        "400x240/black": {
+          "path": "verified-assets/708ae430b42606d29a7742087f388981a25e2ad14d9000146c9583419b5d2440.png",
+          "sha256": "708ae430b42606d29a7742087f388981a25e2ad14d9000146c9583419b5d2440",
+          "bytes": 84622
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Radio Saphir :  ",
+        "matched_brand_keys": [
+          "saphir"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:80F9:F6B7:ED:0:0:0:0": {
       "name": "Savannah FM",
@@ -227894,7 +228355,11 @@
       "homepages": [
         "https://welove.radio/radio/serveur-de-messages-prohetiques/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 404\n",
+        "Command '['tesseract', '/tmp/radio-logo-ocr-ap8h80rf/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds"
+      ]
     },
     "4097:0:2:A822:A206:ED:0:0:0:0": {
       "name": "Skyrock Abidjan",
@@ -227906,7 +228371,94 @@
       "homepages": [
         "https://skyrock.fm/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://skyrock.fm/_next/image?url=%2Fimages%2Flogo-skyrock.png&w=384&q=75&dpl=4590bdf30e6973ffafbff203ae37afe9490ad685",
+        "final_url": "https://skyrock.fm/_next/image?url=%2Fimages%2Flogo-skyrock.png&w=384&q=75&dpl=4590bdf30e6973ffafbff203ae37afe9490ad685",
+        "path": "originals/ec5e2e4d00a70b637056e5f3f4e019712bc491976c8fe79989a315c3cd8bc02b.img",
+        "sha256": "ec5e2e4d00a70b637056e5f3f4e019712bc491976c8fe79989a315c3cd8bc02b",
+        "bytes": 2763,
+        "dimensions": [
+          186,
+          93
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://skyrock.fm/",
+        "final_url": "https://skyrock.fm/",
+        "original_html_sha256": "321cc3fe1b3a97fcd27b460b483918a8f880d6487a8a9d35b33697bd24e062c6",
+        "path": "page-evidence/321cc3fe1b3a97fcd27b460b483918a8f880d6487a8a9d35b33697bd24e062c6.json",
+        "titles": [
+          "Skyrock"
+        ],
+        "image_urls": [
+          "https://skyrock.fm/_next/image?url=%2Fimages%2Flogo-skyrock.png&w=384&q=75&dpl=4590bdf30e6973ffafbff203ae37afe9490ad685",
+          "https://skyrock.fm/images/logo-skyrock.svg?dpl=4590bdf30e6973ffafbff203ae37afe9490ad685",
+          "https://skyrock.fm/favicon.ico"
+        ],
+        "named_logos": {
+          "https://skyrock.fm/_next/image?url=%2Fimages%2Flogo-skyrock.png&w=384&q=75&dpl=4590bdf30e6973ffafbff203ae37afe9490ad685": "Skyrock  ",
+          "https://skyrock.fm/images/logo-skyrock.svg?dpl=4590bdf30e6973ffafbff203ae37afe9490ad685": "Skyrock  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/56fc6306c119ff37a7c0742fdf435da87ef1e6d86bc8b8a423e5a992dbfe1dcb.png",
+          "sha256": "56fc6306c119ff37a7c0742fdf435da87ef1e6d86bc8b8a423e5a992dbfe1dcb",
+          "bytes": 2767
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/4598364fc14128d67da3bcc5e23ad35fe36de21c566b845db372347e48c0c0ac.png",
+          "sha256": "4598364fc14128d67da3bcc5e23ad35fe36de21c566b845db372347e48c0c0ac",
+          "bytes": 7759
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/da7ac59e83a72f69a0b74a23be1e6e084c894e1ab6cf0417338f86bfdd6ddff6.png",
+          "sha256": "da7ac59e83a72f69a0b74a23be1e6e084c894e1ab6cf0417338f86bfdd6ddff6",
+          "bytes": 49398
+        },
+        "50x30/white": {
+          "path": "verified-assets/5b37538b092e116a57b67783a62464d54830fc05d5e1490e5a66439f15461908.png",
+          "sha256": "5b37538b092e116a57b67783a62464d54830fc05d5e1490e5a66439f15461908",
+          "bytes": 3554
+        },
+        "220x132/white": {
+          "path": "verified-assets/1c61a2e2749911e92996ff962bbecc11bd5626a622b56c2840b965bc1279de97.png",
+          "sha256": "1c61a2e2749911e92996ff962bbecc11bd5626a622b56c2840b965bc1279de97",
+          "bytes": 27515
+        },
+        "400x240/white": {
+          "path": "verified-assets/9ccb38470af4c7ce32ee9fa4e4aa20b7afb94d25330653f1f4ff8daa9d11624d.png",
+          "sha256": "9ccb38470af4c7ce32ee9fa4e4aa20b7afb94d25330653f1f4ff8daa9d11624d",
+          "bytes": 96071
+        },
+        "50x30/black": {
+          "path": "verified-assets/1a5c1eb7df75defeb4427d5d62127afc1ca34d7f10178dcf4ab425eba4ed4701.png",
+          "sha256": "1a5c1eb7df75defeb4427d5d62127afc1ca34d7f10178dcf4ab425eba4ed4701",
+          "bytes": 3718
+        },
+        "220x132/black": {
+          "path": "verified-assets/78eeeae23d133bd82f065dedb72869134a8173b5200ab759b12ec3b27b2c70c9.png",
+          "sha256": "78eeeae23d133bd82f065dedb72869134a8173b5200ab759b12ec3b27b2c70c9",
+          "bytes": 26210
+        },
+        "400x240/black": {
+          "path": "verified-assets/a2bcf83b0c58f45c1cf9d3ad3a7d6f547355e1fef73d2f2d89e5ab0e1df957fc.png",
+          "sha256": "a2bcf83b0c58f45c1cf9d3ad3a7d6f547355e1fef73d2f2d89e5ab0e1df957fc",
+          "bytes": 91717
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Skyrock  ",
+        "matched_brand_keys": [
+          "skyrock"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:1B40:FA1D:ED:0:0:0:0": {
       "name": "Radio SOLEIL",
@@ -227938,7 +228490,8 @@
       "homepages": [
         "http://trace.ci/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:FEBC:EBDE:ED:0:0:0:0": {
       "name": "Radio Tropic1 Korhogo",
@@ -227960,7 +228513,35 @@
       "homepages": [
         "https://wavemaster.diskstation.me/public/wavemaster_radio"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://wavemaster.diskstation.me/static/uploads/browser_icon/180.1793404090.png",
+        "final_url": "https://wavemaster.diskstation.me/static/uploads/browser_icon/180.1793404090.png",
+        "path": "originals/e8230ca0f3cec9dc500017881a3ebd17b36f33c80269a7a66f5ccb10a01034e6.img",
+        "sha256": "e8230ca0f3cec9dc500017881a3ebd17b36f33c80269a7a66f5ccb10a01034e6",
+        "bytes": 37291,
+        "dimensions": [
+          180,
+          180
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://wavemaster.diskstation.me/public/wavemaster_radio",
+        "final_url": "https://wavemaster.diskstation.me/public/wavemaster_radio",
+        "original_html_sha256": "1f1df6f2ea571f917476f14bd0dd0b44a40df3301494e02ebe367b3b09033b9d",
+        "path": "page-evidence/1f1df6f2ea571f917476f14bd0dd0b44a40df3301494e02ebe367b3b09033b9d.json",
+        "titles": [
+          "WaveMaster Radio"
+        ],
+        "image_urls": [
+          "https://wavemaster.diskstation.me/static/uploads/browser_icon/180.1793404090.png",
+          "https://wavemaster.diskstation.me/static/uploads/browser_icon/192.1793404090.png",
+          "https://wavemaster.diskstation.me/api/nowplaying/wavemaster_radio/art/1793891378.jpg"
+        ],
+        "named_logos": {}
+      },
+      "ocr_text": "wR\n"
     },
     "4097:0:2:D644:971B:ED:0:0:0:0": {
       "name": "Radio 101 Soft Sound",
@@ -227972,7 +228553,8 @@
       "homepages": [
         "https://radio101.hr/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:5EC9:4FB5:ED:0:0:0:0": {
       "name": "Radio 105 Selnica (HR)",
@@ -227984,7 +228566,8 @@
       "homepages": [
         "https://www.radio105.hr/#"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:57CC:D9BB:ED:0:0:0:0": {
       "name": "Radio 4 You",
@@ -228018,7 +228601,10 @@
       "homepages": [
         "http://www.prvi.hr/antenazagreb"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 404\n"
+      ]
     },
     "4097:0:2:D3D1:A1CC:ED:0:0:0:0": {
       "name": "Antena Zagreb Hit",
@@ -228030,7 +228616,10 @@
       "homepages": [
         "http://www.prvi.hr/antenazagreb"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 404\n"
+      ]
     },
     "4097:0:2:8A8A:2C0A:ED:0:0:0:0": {
       "name": "Antena Zagreb Love",
@@ -228042,7 +228631,10 @@
       "homepages": [
         "http://www.prvi.hr/antenazagreb"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 404\n"
+      ]
     },
     "4097:0:2:9F4D:55:ED:0:0:0:0": {
       "name": "Antena Zagreb Rock",
@@ -228054,7 +228646,10 @@
       "homepages": [
         "http://www.prvi.hr/images/Antena/Logos/AntenaZagreb-Logo.png"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 404\n"
+      ]
     },
     "4097:0:2:16AE:A37C:ED:0:0:0:0": {
       "name": "Antena Zagreb Uživo",
@@ -228066,7 +228661,38 @@
       "homepages": [
         "http://www.antenazagreb.hr/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://www.antenazagreb.hr/wp-content/uploads/2018/03/ANTENA-LOGOTIP-2018-color-landscape-2.png",
+        "final_url": "https://www.antenazagreb.hr/wp-content/uploads/2018/03/ANTENA-LOGOTIP-2018-color-landscape-2.png",
+        "path": "originals/7538e84c8ad55f2cea77dec3e0fcaf80b4a62c32f2eea379a992100db085c1e1.img",
+        "sha256": "7538e84c8ad55f2cea77dec3e0fcaf80b4a62c32f2eea379a992100db085c1e1",
+        "bytes": 21330,
+        "dimensions": [
+          864,
+          224
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "http://www.antenazagreb.hr/",
+        "final_url": "https://www.antenazagreb.hr/",
+        "original_html_sha256": "714d1ade5b5ba5c377b9dd8452ac8d33885fd3786405190b885643472c35c53d",
+        "path": "page-evidence/714d1ade5b5ba5c377b9dd8452ac8d33885fd3786405190b885643472c35c53d.json",
+        "titles": [
+          "Antena Zagreb - antena zagreb",
+          "\n\t\t\t\t\t\t\t\t\t\t\t\t POSLIJEPODNE (MARADIN) \n\t\t\t\t\t\t\t\t\t\t\t"
+        ],
+        "image_urls": [
+          "https://www.antenazagreb.hr/wp-content/uploads/2018/03/ANTENA-LOGOTIP-2018-color-landscape-2.png",
+          "https://www.antenazagreb.hr/wp-content/uploads/2018/03/ANTENA-star-2018-colour-150x150.png",
+          "https://www.antenazagreb.hr/wp-content/uploads/2018/03/ANTENA-star-2018-colour-300x300.png"
+        ],
+        "named_logos": {
+          "https://www.antenazagreb.hr/wp-content/uploads/2018/03/ANTENA-LOGOTIP-2018-color-landscape-2.png": "Home  "
+        }
+      },
+      "ocr_text": ""
     },
     "4097:0:2:C7F2:17E5:ED:0:0:0:0": {
       "name": "Antena Zagreb - Xmas",
@@ -228085,7 +228711,38 @@
       "homepages": [
         "https://www.antenazagreb.hr/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://www.antenazagreb.hr/wp-content/uploads/2018/03/ANTENA-LOGOTIP-2018-color-landscape-2.png",
+        "final_url": "https://www.antenazagreb.hr/wp-content/uploads/2018/03/ANTENA-LOGOTIP-2018-color-landscape-2.png",
+        "path": "originals/7538e84c8ad55f2cea77dec3e0fcaf80b4a62c32f2eea379a992100db085c1e1.img",
+        "sha256": "7538e84c8ad55f2cea77dec3e0fcaf80b4a62c32f2eea379a992100db085c1e1",
+        "bytes": 21330,
+        "dimensions": [
+          864,
+          224
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://www.antenazagreb.hr/",
+        "final_url": "https://www.antenazagreb.hr/",
+        "original_html_sha256": "714d1ade5b5ba5c377b9dd8452ac8d33885fd3786405190b885643472c35c53d",
+        "path": "page-evidence/714d1ade5b5ba5c377b9dd8452ac8d33885fd3786405190b885643472c35c53d.json",
+        "titles": [
+          "Antena Zagreb - antena zagreb",
+          "\n\t\t\t\t\t\t\t\t\t\t\t\t POSLIJEPODNE (MARADIN) \n\t\t\t\t\t\t\t\t\t\t\t"
+        ],
+        "image_urls": [
+          "https://www.antenazagreb.hr/wp-content/uploads/2018/03/ANTENA-LOGOTIP-2018-color-landscape-2.png",
+          "https://www.antenazagreb.hr/wp-content/uploads/2018/03/ANTENA-star-2018-colour-150x150.png",
+          "https://www.antenazagreb.hr/wp-content/uploads/2018/03/ANTENA-star-2018-colour-300x300.png"
+        ],
+        "named_logos": {
+          "https://www.antenazagreb.hr/wp-content/uploads/2018/03/ANTENA-LOGOTIP-2018-color-landscape-2.png": "Home  "
+        }
+      },
+      "ocr_text": ""
     },
     "4097:0:2:6D60:8687:ED:0:0:0:0": {
       "name": "Radio Banovina",
@@ -593709,14 +594366,14 @@
   },
   "counts": {
     "already_ready_in_saved_checkpoint": 4155,
-    "blocked_no_confirmed_station_page_and_logo": 3678,
+    "blocked_no_confirmed_station_page_and_logo": 3692,
     "blocked_no_independent_station_homepage": 1269,
     "blocked_no_unique_current_station_metadata": 4248,
-    "candidate_assistant_visual_and_identity_check": 1167,
+    "candidate_assistant_visual_and_identity_check": 1173,
     "needs_assistant_identity_research_for_short_or_generic_name": 1328,
-    "pending_homepage_discovery": 23978,
-    "ready_verified_homepage_and_wordmark": 1080
+    "pending_homepage_discovery": 23953,
+    "ready_verified_homepage_and_wordmark": 1085
   },
-  "last_event": "homepages_5900_of_29878",
-  "updated_utc": "2026-11-05T15:09:27Z"
+  "last_event": "homepages_5925_of_29878",
+  "updated_utc": "2026-11-05T15:09:59Z"
 }
