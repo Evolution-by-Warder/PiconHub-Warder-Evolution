@@ -166473,7 +166473,11 @@
       "homepages": [
         "https://www.classichitsonline.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "Command '['tesseract', '/tmp/radio-logo-ocr-yenjbubm/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds",
+        "Command '['tesseract', '/tmp/radio-logo-ocr-45p7p2tt/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds"
+      ]
     },
     "4097:0:2:21CC:1771:ED:0:0:0:0": {
       "name": "Classic House Music",
@@ -166497,7 +166501,92 @@
       "homepages": [
         "https://www.coast1011.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://www.coast1011.com/wp-content/uploads/2026/01/Coast-Logo-Transparent-Background-2026.webp",
+        "final_url": "https://www.coast1011.com/wp-content/uploads/2026/01/Coast-Logo-Transparent-Background-2026.webp",
+        "path": "originals/c6940ce282902e5317f0c141601b6e5df30518d0e55ca6b404574cff2c2f49ea.img",
+        "sha256": "c6940ce282902e5317f0c141601b6e5df30518d0e55ca6b404574cff2c2f49ea",
+        "bytes": 34536,
+        "dimensions": [
+          540,
+          260
+        ],
+        "format": "WEBP"
+      },
+      "page": {
+        "url": "https://www.coast1011.com/",
+        "final_url": "https://www.coast1011.com/",
+        "original_html_sha256": "5c9894cb5752b7fea2882bcfe3050640bee23758c4e0944f6e885063c797f62e",
+        "path": "page-evidence/5c9894cb5752b7fea2882bcfe3050640bee23758c4e0944f6e885063c797f62e.json",
+        "titles": [
+          "Coast 101.1FM"
+        ],
+        "image_urls": [
+          "https://www.coast1011.com/wp-content/uploads/2026/01/Coast-Logo-Transparent-Background-2026.webp",
+          "https://www.coast1011.com/wp-content/uploads/2026/03/83b7212d-e3d4-4705-bba0-a71ca35feff1-0.png"
+        ],
+        "named_logos": {
+          "https://www.coast1011.com/wp-content/uploads/2026/01/Coast-Logo-Transparent-Background-2026.webp": "Coast 101.1FM Logo  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/dba864c1effe58f9109a29c6b9a51b12bf05b5697fe599f00f4ce9ef8b77e2db.png",
+          "sha256": "dba864c1effe58f9109a29c6b9a51b12bf05b5697fe599f00f4ce9ef8b77e2db",
+          "bytes": 2295
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/254489e255ec95df5b2855ebbfad34ecf9ce4216d16a3f416aa0b50d4ca25953.png",
+          "sha256": "254489e255ec95df5b2855ebbfad34ecf9ce4216d16a3f416aa0b50d4ca25953",
+          "bytes": 25680
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/cb176818df61117e1cd261742bb30a95bffc4140a64c2adfc25e1ac29d535f7c.png",
+          "sha256": "cb176818df61117e1cd261742bb30a95bffc4140a64c2adfc25e1ac29d535f7c",
+          "bytes": 74469
+        },
+        "50x30/white": {
+          "path": "verified-assets/b7f1592add36248959def391f85bbc0f08fe17c746a7a4eb0a0c722fab1ea9bd.png",
+          "sha256": "b7f1592add36248959def391f85bbc0f08fe17c746a7a4eb0a0c722fab1ea9bd",
+          "bytes": 3349
+        },
+        "220x132/white": {
+          "path": "verified-assets/cfea55873c1ddf45c9c5f248b47fb8358e8c335b51933cd86dc7d61c4a809aad.png",
+          "sha256": "cfea55873c1ddf45c9c5f248b47fb8358e8c335b51933cd86dc7d61c4a809aad",
+          "bytes": 45583
+        },
+        "400x240/white": {
+          "path": "verified-assets/630eeb2d904b000e3c1cdd6fe49c85bbc60294abac1fc5ad7fb3e4a312af5982.png",
+          "sha256": "630eeb2d904b000e3c1cdd6fe49c85bbc60294abac1fc5ad7fb3e4a312af5982",
+          "bytes": 118548
+        },
+        "50x30/black": {
+          "path": "verified-assets/d1546415f1faaa335bf66458f73b3a64c88276d7b600bfbe64d44be086cdb751.png",
+          "sha256": "d1546415f1faaa335bf66458f73b3a64c88276d7b600bfbe64d44be086cdb751",
+          "bytes": 3594
+        },
+        "220x132/black": {
+          "path": "verified-assets/9ace48f3fd8032f0ef14060f5f84a1328d253166660461bc2eb6af6ec44ad2fe.png",
+          "sha256": "9ace48f3fd8032f0ef14060f5f84a1328d253166660461bc2eb6af6ec44ad2fe",
+          "bytes": 46721
+        },
+        "400x240/black": {
+          "path": "verified-assets/76748d24f68ce8fba86b1de07a0d371a1dbee294f4db45cb6dfd8b6b27071201.png",
+          "sha256": "76748d24f68ce8fba86b1de07a0d371a1dbee294f4db45cb6dfd8b6b27071201",
+          "bytes": 120649
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Coast 101.1FM Logo  ",
+        "matched_brand_keys": [
+          "coast"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:DC10:9C00:ED:0:0:0:0": {
       "name": "Coast to Coast AM (Art Bell) - DOPEBEAT",
@@ -166509,7 +166598,94 @@
       "homepages": [
         "https://radio.dopebeat.xyz/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://radio.dopebeat.xyz/logos/dopebeat-title-logo.png?v=3",
+        "final_url": "https://radio.dopebeat.xyz/logos/dopebeat-title-logo.png?v=3",
+        "path": "originals/5dd9691e8664bdfb975f113364c84cba5d842182e1949afbb45c7a3fd077e7cd.img",
+        "sha256": "5dd9691e8664bdfb975f113364c84cba5d842182e1949afbb45c7a3fd077e7cd",
+        "bytes": 1104932,
+        "dimensions": [
+          3009,
+          696
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://radio.dopebeat.xyz/",
+        "final_url": "https://radio.dopebeat.xyz/",
+        "original_html_sha256": "254bd86ddb4d31358adf6d7a23e6c77232d1d84f02fad965926986208a682190",
+        "path": "page-evidence/254bd86ddb4d31358adf6d7a23e6c77232d1d84f02fad965926986208a682190.json",
+        "titles": [
+          "DOPEBEAT",
+          " "
+        ],
+        "image_urls": [
+          "https://radio.dopebeat.xyz/logos/dopebeat-title-logo.png?v=3",
+          "https://radio.dopebeat.xyz/favicon-32.png",
+          "https://radio.dopebeat.xyz/favicon.ico"
+        ],
+        "named_logos": {
+          "https://radio.dopebeat.xyz/logos/dopebeat-title-logo.png?v=3": "DOPEBEAT  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/1193bc42d4098193d08f319229b441ac9db38aa95fac1c1f9932dc7f602f6642.png",
+          "sha256": "1193bc42d4098193d08f319229b441ac9db38aa95fac1c1f9932dc7f602f6642",
+          "bytes": 1587
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/33ce3b0440618fab00862b49ae76594b3cd8431852a7390afa632d9921ca4e30.png",
+          "sha256": "33ce3b0440618fab00862b49ae76594b3cd8431852a7390afa632d9921ca4e30",
+          "bytes": 14574
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/32e694d32644a9cbc72aa734ea5ca4635c73a5f72cc4780abea9dd92a75c915d.png",
+          "sha256": "32e694d32644a9cbc72aa734ea5ca4635c73a5f72cc4780abea9dd92a75c915d",
+          "bytes": 40983
+        },
+        "50x30/white": {
+          "path": "verified-assets/99383c0309af968a0e5ef72e5e2f79a50831c1b7840d833fa5bc84af26e37e93.png",
+          "sha256": "99383c0309af968a0e5ef72e5e2f79a50831c1b7840d833fa5bc84af26e37e93",
+          "bytes": 2954
+        },
+        "220x132/white": {
+          "path": "verified-assets/49a11bb62267d8c461d7bd252f18d77859f4af369af0d2a4edfc9d3e24113853.png",
+          "sha256": "49a11bb62267d8c461d7bd252f18d77859f4af369af0d2a4edfc9d3e24113853",
+          "bytes": 37836
+        },
+        "400x240/white": {
+          "path": "verified-assets/3cd8ed2ac4a9b9007c0bb11bf06bb0c811119d36dd74a6d5583c48c8b574a06c.png",
+          "sha256": "3cd8ed2ac4a9b9007c0bb11bf06bb0c811119d36dd74a6d5583c48c8b574a06c",
+          "bytes": 96628
+        },
+        "50x30/black": {
+          "path": "verified-assets/4445cb57826e4f84a5b1f013f84bfd7d5c82104d45f5edba95f987081792a3f4.png",
+          "sha256": "4445cb57826e4f84a5b1f013f84bfd7d5c82104d45f5edba95f987081792a3f4",
+          "bytes": 3179
+        },
+        "220x132/black": {
+          "path": "verified-assets/7d3fc62976a7d219e2fa401b41e0806216ebb3b3a18a12f3583a5a4fc8ef3135.png",
+          "sha256": "7d3fc62976a7d219e2fa401b41e0806216ebb3b3a18a12f3583a5a4fc8ef3135",
+          "bytes": 36857
+        },
+        "400x240/black": {
+          "path": "verified-assets/f170ef2cb088060eafbdf7b2cf5923b38254c5e400b225aa6cf6f60176a25376.png",
+          "sha256": "f170ef2cb088060eafbdf7b2cf5923b38254c5e400b225aa6cf6f60176a25376",
+          "bytes": 92334
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "DOPEBEAT  ",
+        "matched_brand_keys": [
+          "dopebeat"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:133D:ED14:ED:0:0:0:0": {
       "name": "CoolFM Beauce",
@@ -166522,7 +166698,51 @@
         "http://www.coolfm.biz/",
         "https://www.coolfm.biz/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://www.coolfm.biz/assets/img/logo-pied-chox.png",
+        "final_url": "https://www.coolfm.biz/assets/img/logo-pied-chox.png",
+        "path": "originals/b996ecf5e9a1d7194dcc7096c32326cdf5093433140ac0e671ed44e788b9ee78.img",
+        "sha256": "b996ecf5e9a1d7194dcc7096c32326cdf5093433140ac0e671ed44e788b9ee78",
+        "bytes": 4165,
+        "dimensions": [
+          125,
+          51
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "http://www.coolfm.biz/",
+        "final_url": "https://www.coolfm.biz/",
+        "original_html_sha256": "fc01124de58ba4187f8f011f8d1947c8b5f8212cf976b258200f4993963f8e66",
+        "path": "page-evidence/fc01124de58ba4187f8f011f8d1947c8b5f8212cf976b258200f4993963f8e66.json",
+        "titles": [
+          "Radio Cool 103,5 FM et nouvelles en Beauce",
+          " Hits de l’heure ",
+          "\n             Podcasts et programmation \n              Voir tous les  podcasts +   \n        ",
+          " Avis de décès "
+        ],
+        "image_urls": [
+          "https://www.coolfm.biz/assets/img/logo-pied-cfyx.png",
+          "https://www.coolfm.biz/assets/img/logo-pied-chlc.png",
+          "https://www.coolfm.biz/assets/img/logo-pied-chox.png"
+        ],
+        "named_logos": {
+          "https://www.coolfm.biz/assets/svg/logo-cool-fm-1035-entete.svg": "Cool 103,5 FM  ",
+          "https://www.coolfm.biz/assets/svg/logo-beauce-tv.svg": "Beauce TV  ",
+          "https://www.coolfm.biz/assets/svg/logo-cool-fm-1035-blanc.svg": "Cool 103,5 FM  ",
+          "https://www.coolfm.biz/assets/svg/logo-beauce-tv-blanc.svg": "Beauce TV  ",
+          "https://www.coolfm.biz/assets/img/logo-pied-groupe-simard.png": "  ",
+          "https://www.coolfm.biz/assets/img/logo-pied-mix-997.png": "  ",
+          "https://www.coolfm.biz/assets/img/logo-pied-ciel.png": "  ",
+          "https://www.coolfm.biz/assets/img/logo-pied-cibm.png": "  ",
+          "https://www.coolfm.biz/assets/img/logo-pied-chox.png": "  ",
+          "https://www.coolfm.biz/assets/img/logo-pied-ciqi.png": "  ",
+          "https://www.coolfm.biz/assets/img/logo-pied-cfyx.png": "  ",
+          "https://www.coolfm.biz/assets/img/logo-pied-chlc.png": "  "
+        }
+      },
+      "ocr_text": ""
     },
     "4097:0:2:D15F:D260:ED:0:0:0:0": {
       "name": "Country 102",
@@ -166571,7 +166791,39 @@
         "https://radiocountryacadienne.com/",
         "https://www.radiocountryacadienne.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://radiocountryacadienne.com/wp-content/uploads/2023/03/logo1.png",
+        "final_url": "https://radiocountryacadienne.com/wp-content/uploads/2023/03/logo1.png",
+        "path": "originals/bcdb913b2ce3fe402c9c711b5287c969242bfdb1b533400e0849d49914c65b59.img",
+        "sha256": "bcdb913b2ce3fe402c9c711b5287c969242bfdb1b533400e0849d49914c65b59",
+        "bytes": 16620,
+        "dimensions": [
+          300,
+          200
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://www.radiocountryacadienne.com/",
+        "final_url": "https://radiocountryacadienne.com/",
+        "original_html_sha256": "01236f0b2a72b081acb0c2371ec6d721727249cfd74f8aefb2ecc87b77978324",
+        "path": "page-evidence/01236f0b2a72b081acb0c2371ec6d721727249cfd74f8aefb2ecc87b77978324.json",
+        "titles": [
+          "Bienvenu sur Radio Country Acadienne",
+          "Bienvenus sur Radio Country Acadienne"
+        ],
+        "image_urls": [
+          "https://radiocountryacadienne.com/wp-content/uploads/2023/03/logo1.png",
+          "https://radiocountryacadienne.com/wp-content/uploads/2023/03/new-logo-e1717285648556.png",
+          "https://radiocountryacadienne.com/wp-content/uploads/2023/03/logomenu.png"
+        ],
+        "named_logos": {
+          "https://radiocountryacadienne.com/wp-content/uploads/2023/03/new-logo-e1717285648556.png": "new-logo  ",
+          "https://radiocountryacadienne.com/wp-content/uploads/2023/03/logo1.png": "  "
+        }
+      },
+      "ocr_text": "| “cd\n\neb\n\nall\n\nDrala Cx Dini APD\n"
     },
     "4097:0:2:32F5:2DD9:ED:0:0:0:0": {
       "name": "Radio Crescendo",
@@ -166583,7 +166835,95 @@
       "homepages": [
         "https://www.radiocrescendo.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://www.radiocrescendo.com/images/crescendo-20211.png",
+        "final_url": "https://www.radiocrescendo.com/images/crescendo-20211.png",
+        "path": "originals/3f15109630310f2dbe1216208cdebdbbe92c59a0aa9d64cd1698d36a8715aa23.img",
+        "sha256": "3f15109630310f2dbe1216208cdebdbbe92c59a0aa9d64cd1698d36a8715aa23",
+        "bytes": 85373,
+        "dimensions": [
+          2631,
+          590
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://www.radiocrescendo.com/",
+        "final_url": "https://www.radiocrescendo.com/index.php/nl/",
+        "original_html_sha256": "eb5b76394e5121006b2d67cbae4f2ec987395ff134bbc985ba51dd83dd520f75",
+        "path": "page-evidence/eb5b76394e5121006b2d67cbae4f2ec987395ff134bbc985ba51dd83dd520f75.json",
+        "titles": [
+          "Radio Crescendo - Radio Crescendo"
+        ],
+        "image_urls": [
+          "https://www.radiocrescendo.com/images/banners/logobuma.png",
+          "https://www.radiocrescendo.com/images/banners/logosena.png",
+          "https://www.radiocrescendo.com/images/crescendo-20211.png"
+        ],
+        "named_logos": {
+          "https://www.radiocrescendo.com/images/crescendo-20211.png": "Radio Crescendo  ",
+          "https://www.radiocrescendo.com/images/banners/logosena.png": "  ",
+          "https://www.radiocrescendo.com/images/banners/logobuma.png": "  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/fba83ca2522881c0d49da1ed9aace1be35fc38cecc3e0d7b913983ab14fda700.png",
+          "sha256": "fba83ca2522881c0d49da1ed9aace1be35fc38cecc3e0d7b913983ab14fda700",
+          "bytes": 1247
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/aa7d48a62f061f9084900fbf041135468068d2858e9a07b36692a217313a425a.png",
+          "sha256": "aa7d48a62f061f9084900fbf041135468068d2858e9a07b36692a217313a425a",
+          "bytes": 10746
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/c1f027db34e94310fd16647437dec7d50262258efcc24feeeb263407d5dc04c6.png",
+          "sha256": "c1f027db34e94310fd16647437dec7d50262258efcc24feeeb263407d5dc04c6",
+          "bytes": 34778
+        },
+        "50x30/white": {
+          "path": "verified-assets/5f90cfe2ac8ce16a886b8fab2ed631c40fa39ca4fb28bec5f6daeaabaf5c9f99.png",
+          "sha256": "5f90cfe2ac8ce16a886b8fab2ed631c40fa39ca4fb28bec5f6daeaabaf5c9f99",
+          "bytes": 2667
+        },
+        "220x132/white": {
+          "path": "verified-assets/5eb36c8a24568aecc7351ff243d920d1a2dd7fff307709050dc58d183d07ac47.png",
+          "sha256": "5eb36c8a24568aecc7351ff243d920d1a2dd7fff307709050dc58d183d07ac47",
+          "bytes": 37544
+        },
+        "400x240/white": {
+          "path": "verified-assets/3c9b5625887ce6be228581b9bd7a363ab8a52a7e96cd845c8cecc6dc08b6b8ed.png",
+          "sha256": "3c9b5625887ce6be228581b9bd7a363ab8a52a7e96cd845c8cecc6dc08b6b8ed",
+          "bytes": 93673
+        },
+        "50x30/black": {
+          "path": "verified-assets/67de78e37ed7cae160b7b80325e231dd7cba6fa236a2a75303914a5d3a032591.png",
+          "sha256": "67de78e37ed7cae160b7b80325e231dd7cba6fa236a2a75303914a5d3a032591",
+          "bytes": 2885
+        },
+        "220x132/black": {
+          "path": "verified-assets/349c10e2961729bc18977b700a9b2320e6b0894ab33a74fa2b8702678c1205a4.png",
+          "sha256": "349c10e2961729bc18977b700a9b2320e6b0894ab33a74fa2b8702678c1205a4",
+          "bytes": 36927
+        },
+        "400x240/black": {
+          "path": "verified-assets/463626a2c45e245ea84f06a86952f08e15c5b5f5cfbfe18550ee0dc1a37b6cde.png",
+          "sha256": "463626a2c45e245ea84f06a86952f08e15c5b5f5cfbfe18550ee0dc1a37b6cde",
+          "bytes": 90431
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Radio Crescendo  ",
+        "matched_brand_keys": [
+          "crescendo"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:E99F:21FC:ED:0:0:0:0": {
       "name": "CRIK - The Lynx Classic Rock - Calgary, Alberta, Canada",
@@ -166595,7 +166935,8 @@
       "homepages": [
         "https://www.lynxradionetwork.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:1FCE:A820:ED:0:0:0:0": {
       "name": "Crucial Velocity Radio",
@@ -166607,7 +166948,11 @@
       "homepages": [
         "https://crucialvelocity.ca/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "Command '['tesseract', '/tmp/radio-logo-ocr-gpkdsv2t/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds",
+        "Command '['tesseract', '/tmp/radio-logo-ocr-r3njyc93/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds"
+      ]
     },
     "4097:0:2:86F:6C72:ED:0:0:0:0": {
       "name": "Crucial Velocity Radio Blown",
@@ -166626,7 +166971,40 @@
       "homepages": [
         "https://d1alternative.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://d1alternative.com/img/logo/logo-D1_400.png",
+        "final_url": "https://d1alternative.com/img/logo/logo-D1_400.png",
+        "path": "originals/dd604503015ef3df5a436a962a95abf446b0288c134623bba4ce3e25cea36bbd.img",
+        "sha256": "dd604503015ef3df5a436a962a95abf446b0288c134623bba4ce3e25cea36bbd",
+        "bytes": 11633,
+        "dimensions": [
+          400,
+          400
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://d1alternative.com/",
+        "final_url": "https://d1alternative.com/",
+        "original_html_sha256": "9bfed3f5771b4d0e2ff8e50c672d440975d9b9ea67f8417ed17ea64db5c820c6",
+        "path": "page-evidence/9bfed3f5771b4d0e2ff8e50c672d440975d9b9ea67f8417ed17ea64db5c820c6.json",
+        "titles": [
+          "D1 Alternative | No Shitty Music ",
+          " D1 Alternative "
+        ],
+        "image_urls": [
+          "https://D2Relax.com/img/logo-D2_400.png",
+          "https://d1alternative.com/img/logo/logo-D1_400.png",
+          "https://d1alternative.com/img/logo_alternative.png"
+        ],
+        "named_logos": {
+          "https://d1alternative.com/img/logo_alternative.png": "D1 Alternative  ",
+          "https://d1alternative.com/img/logo/logo-D1_400.png": "radio D1  ",
+          "https://D2Relax.com/img/logo-D2_400.png": "  "
+        }
+      },
+      "ocr_text": ""
     },
     "4097:0:2:6210:B88E:ED:0:0:0:0": {
       "name": "DanceRadio.ca Radio ONE",
@@ -166645,7 +167023,94 @@
       "homepages": [
         "https://www.dareuradio.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://www.dareuradio.com/_next/image?url=%2Fimages%2Flogo.jpg&w=3840&q=75&dpl=dpl_GxiTizSpY3LYDsENjgGbSMLmG6m3",
+        "final_url": "https://www.dareuradio.com/_next/image?url=%2Fimages%2Flogo.jpg&w=3840&q=75&dpl=dpl_GxiTizSpY3LYDsENjgGbSMLmG6m3",
+        "path": "originals/c21ba16127d418b2d5d2fd31082beaa94c16fe93497e823599188c454e5c6221.img",
+        "sha256": "c21ba16127d418b2d5d2fd31082beaa94c16fe93497e823599188c454e5c6221",
+        "bytes": 51829,
+        "dimensions": [
+          1024,
+          1024
+        ],
+        "format": "JPEG"
+      },
+      "page": {
+        "url": "https://www.dareuradio.com/",
+        "final_url": "https://www.dareuradio.com/",
+        "original_html_sha256": "7ba7d28000354356cee0729bb4147b235c4e264a5a903d509976d45ebee6b04d",
+        "path": "page-evidence/7ba7d28000354356cee0729bb4147b235c4e264a5a903d509976d45ebee6b04d.json",
+        "titles": [
+          "DAREU Radio — Authentic Soul & R&B Streaming 24/7",
+          "Where  Dreams  Live"
+        ],
+        "image_urls": [
+          "https://www.dareuradio.com/_next/image?url=%2Fimages%2Flogo.jpg&w=3840&q=75&dpl=dpl_GxiTizSpY3LYDsENjgGbSMLmG6m3",
+          "https://www.dareuradio.com/apple-icon.png?apple-icon.3fe21eec.png",
+          "https://www.dareuradio.com/favicon.ico?favicon.fd63a7f2.ico"
+        ],
+        "named_logos": {
+          "https://www.dareuradio.com/_next/image?url=%2Fimages%2Flogo.jpg&w=3840&q=75&dpl=dpl_GxiTizSpY3LYDsENjgGbSMLmG6m3": "DAREU logo  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/7993127918a1a8034d2afac1472f2eed8513ddfadeb65f171df4dd3137ccbd85.png",
+          "sha256": "7993127918a1a8034d2afac1472f2eed8513ddfadeb65f171df4dd3137ccbd85",
+          "bytes": 1542
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/92333c53f2611becc6cd45173cb333eabb2672f8d6d3d5f259ea80a1a2de6af5.png",
+          "sha256": "92333c53f2611becc6cd45173cb333eabb2672f8d6d3d5f259ea80a1a2de6af5",
+          "bytes": 13831
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/92201948388de84ddb27bf2c003f91cdf78bacf79a849ab41b270a6c3f4e9600.png",
+          "sha256": "92201948388de84ddb27bf2c003f91cdf78bacf79a849ab41b270a6c3f4e9600",
+          "bytes": 37717
+        },
+        "50x30/white": {
+          "path": "verified-assets/4dfd98828e1f53bae55546259ba2bac30afa2e951e0185909d399b142b2fd505.png",
+          "sha256": "4dfd98828e1f53bae55546259ba2bac30afa2e951e0185909d399b142b2fd505",
+          "bytes": 2822
+        },
+        "220x132/white": {
+          "path": "verified-assets/83e92fefabbd4cdb4fb6f66d29c45fa00661550584c511cdcb1f942f6631762a.png",
+          "sha256": "83e92fefabbd4cdb4fb6f66d29c45fa00661550584c511cdcb1f942f6631762a",
+          "bytes": 36088
+        },
+        "400x240/white": {
+          "path": "verified-assets/b08f9cf016ea267994437de707167e2fd6d5ba8941d08edcb3951d0c9a4b3486.png",
+          "sha256": "b08f9cf016ea267994437de707167e2fd6d5ba8941d08edcb3951d0c9a4b3486",
+          "bytes": 90918
+        },
+        "50x30/black": {
+          "path": "verified-assets/e12c8449eb32350e0a58846ec08088ceb41072a8fae3054d238d60f377da3359.png",
+          "sha256": "e12c8449eb32350e0a58846ec08088ceb41072a8fae3054d238d60f377da3359",
+          "bytes": 3020
+        },
+        "220x132/black": {
+          "path": "verified-assets/915b67c7ee6957c45f3c9bcaeaa8a22be72f5e9d47d83004c23b9c56a8703f79.png",
+          "sha256": "915b67c7ee6957c45f3c9bcaeaa8a22be72f5e9d47d83004c23b9c56a8703f79",
+          "bytes": 35010
+        },
+        "400x240/black": {
+          "path": "verified-assets/55aa33ce7f4e4ae71c8f923099bcf7e620eb0e284620b84aa3b078edec5e0265.png",
+          "sha256": "55aa33ce7f4e4ae71c8f923099bcf7e620eb0e284620b84aa3b078edec5e0265",
+          "bytes": 87923
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "DAREU logo  ",
+        "matched_brand_keys": [
+          "dareu"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:2446:2CC5:ED:0:0:0:0": {
       "name": "Dead Moon Radio",
@@ -166657,7 +167122,8 @@
       "homepages": [
         "https://deadmoonradio.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:14F1:10FA:ED:0:0:0:0": {
       "name": "DJFM.ca Toronto, ON",
@@ -166676,7 +167142,10 @@
       "homepages": [
         "https://decayfm.com/dkfm-edge-2/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 403\n"
+      ]
     },
     "4097:0:2:4F2E:2AE8:ED:0:0:0:0": {
       "name": "DKFM Shoegaze Radio",
@@ -166688,7 +167157,10 @@
       "homepages": [
         "https://decayfm.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 403\n"
+      ]
     },
     "4097:0:2:BA88:75A3:ED:0:0:0:0": {
       "name": "DMagicWorld!",
@@ -166700,7 +167172,39 @@
       "homepages": [
         "https://www.dmagicworld.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://www.dmagicworld.com/img/logo2_1_1200x800.png",
+        "final_url": "https://www.dmagicworld.com/img/logo2_1_1200x800.png",
+        "path": "originals/faa100cce5ff4d3150867f9943a3aeadb7a199a3f0880f757ac2abf1f7a15fee.img",
+        "sha256": "faa100cce5ff4d3150867f9943a3aeadb7a199a3f0880f757ac2abf1f7a15fee",
+        "bytes": 148478,
+        "dimensions": [
+          1200,
+          800
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://www.dmagicworld.com/",
+        "final_url": "https://www.dmagicworld.com/index.html",
+        "original_html_sha256": "4584fe8ad1be94f23820996f1c6610bb3bb73004e32c6f942e2e6084f338d67f",
+        "path": "page-evidence/4584fe8ad1be94f23820996f1c6610bb3bb73004e32c6f942e2e6084f338d67f.json",
+        "titles": [
+          "DMagicWorld! — Disney Theme Park Music Radio 24/7",
+          "Where Memories Play.",
+          "Every park has a soundtrack.",
+          "Plan the moments that matter."
+        ],
+        "image_urls": [
+          "https://www.dmagicworld.com/img/logo.png",
+          "https://www.dmagicworld.com/img/logo2_1_1200x800.png"
+        ],
+        "named_logos": {
+          "https://www.dmagicworld.com/img/logo.png": "  "
+        }
+      },
+      "ocr_text": "—\n"
     },
     "4097:0:2:B414:2986:ED:0:0:0:0": {
       "name": "Radio Downtown",
@@ -166712,7 +167216,10 @@
       "homepages": [
         "https://radiodowntown.ca/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "Command '['tesseract', '/tmp/radio-logo-ocr-bzpt1r3u/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds"
+      ]
     },
     "4097:0:2:F8A9:345A:ED:0:0:0:0": {
       "name": "dubplate.fm Urban Boogie",
@@ -166724,7 +167231,10 @@
       "homepages": [
         "https://dubplate.fm/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "Command '['tesseract', '/tmp/radio-logo-ocr-hzmpqqpe/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds"
+      ]
     },
     "4097:0:2:8A7F:B265:ED:0:0:0:0": {
       "name": "Early 60's - Calm Radio",
@@ -166753,7 +167263,92 @@
       "homepages": [
         "https://easymusicplus.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://easymusicplus.com/images/ezmplogo.png",
+        "final_url": "https://easymusicplus.com/images/ezmplogo.png",
+        "path": "originals/6b43a2d869d9c66740b15a3a8916b5aeca31319742461e5bc40060c40d0c9c25.img",
+        "sha256": "6b43a2d869d9c66740b15a3a8916b5aeca31319742461e5bc40060c40d0c9c25",
+        "bytes": 14915,
+        "dimensions": [
+          429,
+          68
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://easymusicplus.com/",
+        "final_url": "https://easymusicplus.com/",
+        "original_html_sha256": "ce3c25ee9a04ac4f748a6815848e138ebe042ba1e4008a36058ca9954cf14666",
+        "path": "page-evidence/ce3c25ee9a04ac4f748a6815848e138ebe042ba1e4008a36058ca9954cf14666.json",
+        "titles": [
+          "Easy Music + Plus"
+        ],
+        "image_urls": [
+          "https://easymusicplus.com/images/ezmplogo.png"
+        ],
+        "named_logos": {
+          "https://easymusicplus.com/images/ezmplogo.png": " Easy Music + Plus "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/a0ac85b0a98e1c4f2d06446a152e0a92d6b198e07cbf04cfda45b3545166d489.png",
+          "sha256": "a0ac85b0a98e1c4f2d06446a152e0a92d6b198e07cbf04cfda45b3545166d489",
+          "bytes": 707
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/0bd156c4ef44c36338ea2e54b56733081143fd01e4786f61dd77a487920c7e0d.png",
+          "sha256": "0bd156c4ef44c36338ea2e54b56733081143fd01e4786f61dd77a487920c7e0d",
+          "bytes": 5435
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/ef29d5f1ac9d81af72ce509d52edf2fd4fa8b834e4b493df6327f3306b05b108.png",
+          "sha256": "ef29d5f1ac9d81af72ce509d52edf2fd4fa8b834e4b493df6327f3306b05b108",
+          "bytes": 15680
+        },
+        "50x30/white": {
+          "path": "verified-assets/9710645f0a246ec859269508c92960ad25101eafbf0f6645eecd4bfd1bf64686.png",
+          "sha256": "9710645f0a246ec859269508c92960ad25101eafbf0f6645eecd4bfd1bf64686",
+          "bytes": 2633
+        },
+        "220x132/white": {
+          "path": "verified-assets/0053e0826612c611d9b44b3a6dd418a643d6495d11de918d55ca998b7d2b349d.png",
+          "sha256": "0053e0826612c611d9b44b3a6dd418a643d6495d11de918d55ca998b7d2b349d",
+          "bytes": 37426
+        },
+        "400x240/white": {
+          "path": "verified-assets/916d20d231eb189f9b4f8fab8d97de780c6a32f58f1917579c47993f5f865fbf.png",
+          "sha256": "916d20d231eb189f9b4f8fab8d97de780c6a32f58f1917579c47993f5f865fbf",
+          "bytes": 92125
+        },
+        "50x30/black": {
+          "path": "verified-assets/9e2f0c6e2612f676e0d269281da5221e7367e01532cad46d0478f65f27343089.png",
+          "sha256": "9e2f0c6e2612f676e0d269281da5221e7367e01532cad46d0478f65f27343089",
+          "bytes": 2446
+        },
+        "220x132/black": {
+          "path": "verified-assets/42ee4fe6f35c893b58bb499f7f2574f9cdf22b0121489bd38b9b1f339a8a3974.png",
+          "sha256": "42ee4fe6f35c893b58bb499f7f2574f9cdf22b0121489bd38b9b1f339a8a3974",
+          "bytes": 32945
+        },
+        "400x240/black": {
+          "path": "verified-assets/b84d8a561402def226b31b603e0c87bbc1cc35c0feccc1edc60c1bbe1c4a9b55.png",
+          "sha256": "b84d8a561402def226b31b603e0c87bbc1cc35c0feccc1edc60c1bbe1c4a9b55",
+          "bytes": 76611
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": " Easy Music + Plus ",
+        "matched_brand_keys": [
+          "easy",
+          "plus"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:FCA0:3480:ED:0:0:0:0": {
       "name": "Edmonton Sports Talk",
@@ -166772,7 +167367,35 @@
       "homepages": [
         "https://www.radioemily.ca/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://cdn.prod.website-files.com/5d8a5d531d87fd0ac639f844/5dc1e3c4a9fb0f4c2c90dcc4_webappicon.png",
+        "final_url": "https://cdn.prod.website-files.com/5d8a5d531d87fd0ac639f844/5dc1e3c4a9fb0f4c2c90dcc4_webappicon.png",
+        "path": "originals/59a8d1aa4c812706a2c44878668933e9974516a82ad705e61745b1597c1291ec.img",
+        "sha256": "59a8d1aa4c812706a2c44878668933e9974516a82ad705e61745b1597c1291ec",
+        "bytes": 25852,
+        "dimensions": [
+          256,
+          256
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://www.radioemily.ca/",
+        "final_url": "https://www.radioemily.ca/",
+        "original_html_sha256": "72bc56a941472e1e86eefd0fe344500a97378004a6bcdc79398b4b16b5545094",
+        "path": "page-evidence/72bc56a941472e1e86eefd0fe344500a97378004a6bcdc79398b4b16b5545094.json",
+        "titles": [
+          "Radio Emily",
+          "RADIO EMILY"
+        ],
+        "image_urls": [
+          "https://cdn.prod.website-files.com/5d8a5d531d87fd0ac639f844/5dc1e38575d685c56d0b7ec9_radioemfavicon.png",
+          "https://cdn.prod.website-files.com/5d8a5d531d87fd0ac639f844/5dc1e3c4a9fb0f4c2c90dcc4_webappicon.png"
+        ],
+        "named_logos": {}
+      },
+      "ocr_text": ""
     },
     "4097:0:2:8E4A:DA36:ED:0:0:0:0": {
       "name": "Radio Enigma RDE",
@@ -166784,7 +167407,8 @@
       "homepages": [
         "https://enigmastationonair.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:ECFD:BED0:ED:0:0:0:0": {
       "name": "Epic Rock Radio TorontoCast",
@@ -166796,7 +167420,8 @@
       "homepages": [
         "https://www.epicrockradio.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:74AA:E705:ED:0:0:0:0": {
       "name": "ETN.fm",
@@ -166809,7 +167434,35 @@
         "http://etn.fm/",
         "http://www.etn.fm/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://www.etn.fm/apple-touch-icon.png",
+        "final_url": "https://www.etn.fm/apple-touch-icon.png",
+        "path": "originals/9a8f8ed46441a631eb4aaf63f78bf3b476c4043691282883a5d8e4b9df3b9716.img",
+        "sha256": "9a8f8ed46441a631eb4aaf63f78bf3b476c4043691282883a5d8e4b9df3b9716",
+        "bytes": 2463,
+        "dimensions": [
+          180,
+          180
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "http://etn.fm/",
+        "final_url": "https://www.etn.fm/",
+        "original_html_sha256": "937aea035150d0074475d362626007d87367229f04adac6fa65398fee8bc6b9d",
+        "path": "page-evidence/937aea035150d0074475d362626007d87367229f04adac6fa65398fee8bc6b9d.json",
+        "titles": [
+          "ETN.fm Radio"
+        ],
+        "image_urls": [
+          "https://www.etn.fm/apple-touch-icon.png",
+          "https://www.etn.fm/etnlogo.svg",
+          "https://www.etn.fm/favicon-16x16.png"
+        ],
+        "named_logos": {}
+      },
+      "ocr_text": ""
     },
     "4097:0:2:F804:D062:ED:0:0:0:0": {
       "name": "Eurodance Classic ... Pure - Classic - Addictive",
@@ -166821,7 +167474,42 @@
       "homepages": [
         "https://www.radio-eurodance-classic.eu/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://www.radio-eurodance-classic.eu/images/logo_rad.io_.png",
+        "final_url": "https://www.radio-eurodance-classic.eu/images/logo_rad.io_.png",
+        "path": "originals/38e116d7ec7d8a367c9f2eaee7a7548ecddd9f137fd082f8849aaed4854c579c.img",
+        "sha256": "38e116d7ec7d8a367c9f2eaee7a7548ecddd9f137fd082f8849aaed4854c579c",
+        "bytes": 159607,
+        "dimensions": [
+          705,
+          345
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://www.radio-eurodance-classic.eu/",
+        "final_url": "https://www.radio-eurodance-classic.eu/",
+        "original_html_sha256": "1ccef33994c2c87134e285f66a95a416313163f1188e4d9864d34994dcb41373",
+        "path": "page-evidence/1ccef33994c2c87134e285f66a95a416313163f1188e4d9864d34994dcb41373.json",
+        "titles": [
+          "Radio Eurodance Classic - Strictly 90s - Now that's what I call eurodance !"
+        ],
+        "image_urls": [
+          "https://www.radio-eurodance-classic.eu/components/com_extrawatch/img/icons/extrawatch-logo-16x16.gif",
+          "https://www.radio-eurodance-classic.eu/images/LogoStreema.png",
+          "https://www.radio-eurodance-classic.eu/images/logo_rad.io_.png"
+        ],
+        "named_logos": {
+          "https://www.radio-eurodance-classic.eu/templates/dd_djmarica_71/images/logo-165102699.png": "  ",
+          "https://www.radio-eurodance-classic.eu/images/logo_rec_kdj.png": "logo  ",
+          "https://www.radio-eurodance-classic.eu/components/com_extrawatch/img/icons/extrawatch-logo-16x16.gif": "Real time web analytics, Heat map tracking Real time web analytics, Heat map tracking ",
+          "https://www.radio-eurodance-classic.eu/images/tunein_logo.png": "tunein logo  ",
+          "https://www.radio-eurodance-classic.eu/images/LogoStreema.png": "LogoStreema  ",
+          "https://www.radio-eurodance-classic.eu/images/logo_rad.io_.png": "logo rad.io   "
+        }
+      },
+      "ocr_text": "LISTEN TO YOUR\n\nFAVORITE\n\nradio\n"
     },
     "4097:0:2:136D:24F0:ED:0:0:0:0": {
       "name": "Euro Nation",
@@ -166840,7 +167528,8 @@
       "homepages": [
         "https://play.exclusive.radio/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:2270:3547:ED:0:0:0:0": {
       "name": "exclusively Erasure",
@@ -166852,7 +167541,8 @@
       "homepages": [
         "https://play.exclusive.radio/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:F6EE:D104:ED:0:0:0:0": {
       "name": "Exlusively Eurythmics",
@@ -166864,7 +167554,8 @@
       "homepages": [
         "https://play.exclusive.radio/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:41D:A74B:ED:0:0:0:0": {
       "name": "fairchildren radio",
@@ -560099,14 +560790,14 @@
   },
   "counts": {
     "already_ready_in_saved_checkpoint": 4155,
-    "blocked_no_confirmed_station_page_and_logo": 2140,
+    "blocked_no_confirmed_station_page_and_logo": 2153,
     "blocked_no_independent_station_homepage": 1269,
     "blocked_no_unique_current_station_metadata": 4248,
-    "candidate_assistant_visual_and_identity_check": 887,
+    "candidate_assistant_visual_and_identity_check": 894,
     "needs_assistant_identity_research_for_short_or_generic_name": 1328,
-    "pending_homepage_discovery": 26028,
-    "ready_verified_homepage_and_wordmark": 848
+    "pending_homepage_discovery": 26003,
+    "ready_verified_homepage_and_wordmark": 853
   },
-  "last_event": "homepages_3850_of_29878",
-  "updated_utc": "2026-11-05T14:40:15Z"
+  "last_event": "homepages_3875_of_29878",
+  "updated_utc": "2026-11-05T14:40:48Z"
 }
