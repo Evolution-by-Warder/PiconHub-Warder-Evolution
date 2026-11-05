@@ -1,0 +1,92 @@
+{
+  "status": "PASS",
+  "live_commit": "cd07bb6355ac1727fb9bb017f1ea8525638552cb",
+  "manifest_sha256": "348a4ca9d633957ac6a7354939aca857ea3fff376838d887e99c53becacd730f",
+  "canonical_canal_packages_preserved": 18,
+  "public_downloads": [
+    {
+      "selector": "90E",
+      "resolution": "400x240",
+      "family": "channel-white",
+      "archive_sha256": "36ea44bd9d73fd5b616c9d679d159a48ea8fd5fd4c934a4ca6f279ce7985c76f",
+      "all_png_crc": "PASS",
+      "changed_png_hashes": 32
+    },
+    {
+      "selector": "235E",
+      "resolution": "400x240",
+      "family": "channel-black",
+      "archive_sha256": "bffe6ea54ae0abdccdf24872586afa041fcd1125eda07ce2881bf99252334072",
+      "all_png_crc": "PASS",
+      "changed_png_hashes": 12
+    },
+    {
+      "selector": "SKYLINK",
+      "resolution": "400x240",
+      "family": "channel-white",
+      "archive_sha256": "a5d13def33bb754573a00467543af191e77c48b7c9f260246f1ad40ac339adfc",
+      "all_png_crc": "PASS",
+      "changed_png_hashes": 455
+    }
+  ],
+  "main_public_manifest_verified": true,
+  "pull_request": "https://github.com/Evolution-by-Warder/FullHDGlass-Warder-Evolution/pull/41",
+  "compatibility_and_regression_checks": {
+    "OpenATV master": "PASS",
+    "OpenATV 8.0-next": "PASS",
+    "OpenATV 8.0": "PASS",
+    "native (develop)": "PASS",
+    "native (release-9.2)": "PASS",
+    "regression": "PASS"
+  },
+  "protection_guard_regression": [
+    {
+      "path": "packages/235E/1_0_1_14A2_C98_3_EB0000_0_0_0.png",
+      "reference": "1_0_1_14A2_C98_3_EB0000_0_0_0",
+      "allowed": true,
+      "reason": "ALLOW_EXACT_PUBLISHED_NATIVE_SIZE_DERIVATIVE"
+    },
+    {
+      "path": "packages/235E/1_0_1_14A2_C98_3_EB0000_0_0_0.png",
+      "reference": "1_0_1_14A2_C98_3_EB0000_0_0_0",
+      "allowed": false,
+      "reason": "BLOCK_UNVERIFIED_NATIVE_SIZE_COPY"
+    },
+    {
+      "path": "picons/23.5e/test/transparent/1_0_1_14A2_C98_3_EB0000_0_0_0.png",
+      "reference": "1_0_1_14A2_C98_3_EB0000_0_0_0",
+      "allowed": false,
+      "reason": "BLOCK_UNVERIFIED_NATIVE_SIZE_COPY"
+    },
+    {
+      "path": "packages/235E/1_0_1_14A2_C98_3_EB0000_0_0_0.png",
+      "reference": "1_0_1_14A2_C98_3_EB0000_0_0_0",
+      "allowed": false,
+      "reason": "BLOCK_PROTECTED_CANAL_PACKAGE"
+    },
+    {
+      "path": "packages/235E/1_0_1_14A2_C98_3_EB0000_0_0_0.png",
+      "reference": "1_0_1_14A2_C98_3_EB0000_0_0_0",
+      "allowed": false,
+      "reason": "BLOCK_UNVERIFIED_NATIVE_SIZE_COPY"
+    },
+    {
+      "path": "packages/235E/1_0_1_14A2_C98_3_EB0000_0_0_0.png",
+      "reference": "1_0_1_14A2_C98_3_EB0000_0_0_0",
+      "allowed": false,
+      "reason": "BLOCK_UNVERIFIED_NATIVE_SIZE_COPY"
+    },
+    {
+      "path": "packages/235E/unknown.png",
+      "reference": null,
+      "allowed": false,
+      "reason": "BLOCK_PROTECTED_STATION_FAMILY"
+    },
+    {
+      "path": "picons/9.0e/test.png",
+      "reference": null,
+      "allowed": true,
+      "reason": "ALLOW_OUTSIDE_PROTECTED_SCOPE"
+    }
+  ]
+}
