@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en"
+      data-bs-theme="">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Glaz | Radio - AzuraCast</title>
+
+        <script type="module" src="/static/vite_dist/assets/Layout-bv1AQt90.js"></script>
+    <script>
+    function ready(callback) {
+        if (document.readyState !== "loading") callback();
+        else document.addEventListener("DOMContentLoaded", callback);
+    }
+    </script>    <link rel="modulepreload" href="/static/vite_dist/bootstrap.esm-Dq9sF8NR.js" />    <link rel="stylesheet" href="/static/vite_dist/assets/Layout-CCydoEzM.css" />
+<link rel="apple-touch-icon" sizes="180x180" href="/static/uploads/browser_icon/180.1792065279.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/static/uploads/browser_icon/192.1792065279.png">
+<meta name="theme-color" content="#2196F3">
+
+        <link rel="manifest" href="/public/glazradio/app.webmanifest">
+
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-status-bar-style" content="black">
+    <meta name="mobile-web-app-title" content="Glaz | Radio">
+
+    <meta property="og:title" content="Glaz | Radio">
+    <meta property="og:url" content="https://www.glazradio.tech/">
+    <meta property="og:image" content="https://www.glazradio.tech/api/nowplaying/glazradio/art/1793885089.jpg">
+
+    <meta property="twitter:card" content="player">
+    <meta property="twitter:player" content="https://www.glazradio.tech/public/glazradio/social">
+    <meta property="twitter:player:width" content="400">
+    <meta property="twitter:player:height" content="200">
+
+    <link rel="alternate" type="application/json+oembed"
+          href="https://www.glazradio.tech/public/glazradio/oembed/json"/>
+    <link rel="alternate" type="text/xml+oembed"
+          href="https://www.glazradio.tech/public/glazradio/oembed/xml"/>
+    <link rel="stylesheet" href="/static/vite_dist/assets/AlbumArt-CIy0fxne.css" />
+    <link rel="stylesheet" href="/static/vite_dist/assets/Player-CxUO6NFS.css" />
+    <link rel="stylesheet" href="/static/vite_dist/assets/SongHistory-ojYi6opy.css" />
+    <link rel="modulepreload" href="/static/vite_dist/ApiInterfaces-CfpeLDp9.js" />
+    <link rel="modulepreload" href="/static/vite_dist/bootstrap.esm-Dq9sF8NR.js" />
+    <link rel="modulepreload" href="/static/vite_dist/layout-CFevryhU.js" />
+    <link rel="modulepreload" href="/static/vite_dist/useOptionalStorage-Bhos3KxY.js" />
+    <link rel="modulepreload" href="/static/vite_dist/query-NNOtvFiD.js" />
+    <link rel="modulepreload" href="/static/vite_dist/Lightbox-BfzFGMzu.js" />
+    <link rel="modulepreload" href="/static/vite_dist/vendor-lightbox-CnG_UmC4.js" />
+    <link rel="modulepreload" href="/static/vite_dist/icon-ic-baseline-help-CHDBN07d.js" />
+    <link rel="modulepreload" href="/static/vite_dist/useHasModal-CYv-CDkc.js" />
+    <link rel="modulepreload" href="/static/vite_dist/Loading-Dm2UA3fY.js" />
+    <link rel="modulepreload" href="/static/vite_dist/Requests-BZ71605x.js" />
+    <link rel="modulepreload" href="/static/vite_dist/forEach-vUn88Aqd.js" />
+    <link rel="modulepreload" href="/static/vite_dist/isSymbol-CwaCDJaD.js" />
+    <link rel="modulepreload" href="/static/vite_dist/identity-Dfvzj6n2.js" />
+    <link rel="modulepreload" href="/static/vite_dist/range-CYTESHT1.js" />
+    <link rel="modulepreload" href="/static/vite_dist/DataTable-Dgt57Ru5.js" />
+    <link rel="modulepreload" href="/static/vite_dist/cloneDeepWith-DiBvtVre.js" />
+    <link rel="modulepreload" href="/static/vite_dist/globalThis-Cb5RZ8_X.js" />
+    <link rel="modulepreload" href="/static/vite_dist/isArguments-B53RwWED.js" />
+    <link rel="modulepreload" href="/static/vite_dist/toNumber-BD4hGKu-.js" />
+    <link rel="modulepreload" href="/static/vite_dist/some-DzvaW1cC.js" />
+    <link rel="modulepreload" href="/static/vite_dist/matchesProperty-BIrGBpDo.js" />
+    <link rel="modulepreload" href="/static/vite_dist/cloneDeep-C8o-n13V.js" />
+    <link rel="modulepreload" href="/static/vite_dist/FormMultiCheck-CfX9OTZ8.js" />
+    <link rel="modulepreload" href="/static/vite_dist/iteratee-CW1uOx1d.js" />
+    <link rel="modulepreload" href="/static/vite_dist/isPrototype-Gupa4O0k.js" />
+    <link rel="modulepreload" href="/static/vite_dist/FormCheckbox-Ckw4NxXv.js" />
+    <link rel="modulepreload" href="/static/vite_dist/functions-createRequiredInjectionState-D5EzFyWJ.js" />
+    <link rel="modulepreload" href="/static/vite_dist/icon-ic-baseline-chevron-right-vtYDpSyT.js" />
+    <link rel="modulepreload" href="/static/vite_dist/useApiRouter-C1F85eqX.js" />
+    <link rel="modulepreload" href="/static/vite_dist/useApi-BPuI6ZR9-bNg6OhAc.js" />
+    <link rel="modulepreload" href="/static/vite_dist/AlbumArt-DbZvXzEm.js" />
+    <link rel="modulepreload" href="/static/vite_dist/_plugin-vue_export-helper-BDNMzG2s.js" />
+    <link rel="modulepreload" href="/static/vite_dist/functions-dataTable-useApiItemProvider-BAfn5rjt.js" />
+    <link rel="modulepreload" href="/static/vite_dist/entities-PublicPlayer-c_1Pi1hZ.js" />
+    <link rel="modulepreload" href="/static/vite_dist/Player-BZQIkK04.js" />
+    <link rel="modulepreload" href="/static/vite_dist/useNowPlaying-DazBQnie.js" />
+    <link rel="modulepreload" href="/static/vite_dist/omitBy-DvyI3rkX.js" />
+    <link rel="modulepreload" href="/static/vite_dist/identity-Bivv3cyh.js" />
+    <link rel="modulepreload" href="/static/vite_dist/getSymbolsIn-dvTaERME.js" />
+    <link rel="modulepreload" href="/static/vite_dist/toInteger-BPtn1sNx.js" />
+    <link rel="modulepreload" href="/static/vite_dist/MuteButton-0Y7xtssl.js" />
+    <link rel="modulepreload" href="/static/vite_dist/PlayButton-TSNzIjqc.js" />
+    <link rel="modulepreload" href="/static/vite_dist/icon-ic-baseline-play-circle-B4eMOcCs.js" />
+    <link rel="modulepreload" href="/static/vite_dist/icon-ic-baseline-cloud-download-DoowRtm6.js" />
+    <link rel="modulepreload" href="/static/vite_dist/SongHistory-ADT0gXmz.js" />
+    <link rel="modulepreload" href="/static/vite_dist/vendor-luxon-CcvfeUtZ.js" />
+    <link rel="modulepreload" href="/static/vite_dist/luxon-qzLWmhFL.js" />
+    <style>
+            </style>
+
+    <style>/* GlazRadio — style « éditorial mono » rétro : beige papier, traits fins noirs, orange et jaune */
+:root,[data-bs-theme]{
+  --ink:#1C1814; --bg:#C2AA8A; --card:#F6EDD9; --rust:#9E4516; --blue:#123C52;
+  --mono:"DM Mono","JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+    --bs-secondary-rgb:28,24,20; --bs-secondary:#1C1814; --bs-body-bg:#C2AA8A; --bs-body-color:#1C1814;
+}
+html,body,body.page-minimal{
+  background-color:var(--bg)!important;
+  /* léger grain de papier */
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .35  0 0 0 0 .25  0 0 0 0 .1  0 0 0 .09 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")!important;
+  color:var(--ink)!important;font-family:var(--mono)!important}
+body.page-minimal{display:flex;flex-direction:column;min-height:100vh;width:100%}
+#page-wrapper{flex:1;display:flex;width:100%}
+.public-page{max-width:520px;margin:0 auto}
+
+/* Cadre */
+.public-page .card{background:var(--card)!important;border:1px solid var(--ink)!important;border-radius:0!important;box-shadow:none!important;color:var(--ink)!important}
+.public-page .card-body{padding:22px 20px!important}
+
+/* Bandeau jaune « en direct » */
+.public-page .card::before{content:"● En direct";display:block;padding:11px 20px;background:var(--blue);border-bottom:1px solid var(--ink);font:500 12px/1 var(--mono);color:var(--card)}
+
+/* Titre de la radio : affiché « Glaz | Radio » en typo machine à écrire */
+.public-page .card-title{margin:-22px -20px 22px!important;padding:18px 20px!important;border-bottom:1px solid var(--ink);text-align:center;font-size:0!important;line-height:0!important;color:var(--ink)!important}
+.public-page .card-title::after{content:"Glaz | Radio";display:block;font:500 28px/1.1 var(--mono);letter-spacing:.02em;text-transform:none;color:var(--ink)}
+
+/* Titre en cours */
+.now-playing-details{display:flex;gap:18px;align-items:flex-start}
+.now-playing-art .album_art,.now-playing-art img{width:96px;height:96px;object-fit:cover;border-radius:0!important;border:1px solid var(--ink);background:transparent;box-shadow:none!important}
+.now-playing-main{flex:1;min-width:0}
+.now-playing-title{font:500 15px/1.35 var(--mono)!important;color:var(--ink)!important;margin:0 0 6px!important}
+.now-playing-artist{font:400 12px/1.4 var(--mono)!important;color:var(--ink)!important;text-decoration:underline;text-underline-offset:2px;margin:0 0 14px!important}
+.now-playing-artist,.now-playing-title{text-transform:none!important;letter-spacing:0!important}
+.now-playing-artist::before{content:"Par : ";display:inline-block;white-space:pre;text-decoration:none}
+
+/* Progression : trait noir + pastille */
+.radio-player-widget,.radio-player-widget *{--widget-primary-color:#1C1814}
+.time-display{display:flex;align-items:center;gap:10px;font:400 11px var(--mono)!important}
+.time-display .text-secondary,.time-display-played,.time-display-total{color:var(--ink)!important}
+.time-display-progress{flex:1}
+.time-display .progress{height:2px!important;background:rgba(28,24,20,.25)!important;border-radius:0!important;overflow:visible!important}
+.time-display .progress-bar{position:relative;background-color:var(--ink)!important;border-radius:0!important;overflow:visible!important}
+.time-display .progress-bar::after{content:"";position:absolute;right:-5px;top:50%;width:10px;height:10px;margin-top:-5px;border-radius:50%;background:var(--ink)}
+.radio-player-widget hr{display:none}
+
+/* Bandeau orange : lecture et volume */
+.radio-controls{display:flex;align-items:center;gap:14px;margin:22px -20px -22px;padding:16px 20px;background:var(--rust);border-top:1px solid var(--ink)}
+.radio-control-play-button{width:54px;height:54px;margin:0;padding:0;display:flex!important;align-items:center;justify-content:center;background:rgba(255,255,255,.38)!important;color:#fff!important;border:0!important;border-radius:50%!important;transition:background .15s}
+.radio-control-play-button:hover{background:rgba(255,255,255,.6)!important}
+.radio-control-play-button svg{width:26px;height:26px;fill:currentColor}
+/* Choix de la qualité du flux (visible seulement s'il y a plusieurs flux) */
+.radio-control-select-stream{flex:0 1 auto;width:auto!important;min-width:0}
+.radio-control-select-stream:not(:has(select)){display:none!important}
+.radio-control-select-stream select{width:auto;max-width:150px;padding:7px 26px 7px 9px;background-color:transparent!important;color:var(--card)!important;border:1px solid var(--card)!important;border-radius:0!important;box-shadow:none!important;font:500 11px/1.2 var(--mono)!important;letter-spacing:.04em;text-transform:none;cursor:pointer;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6'><path d='M0 0l5 6 5-6z' fill='%23F6EDD9'/></svg>")!important;background-repeat:no-repeat!important;background-position:right 9px center!important;background-size:10px 6px!important;appearance:none;-webkit-appearance:none}
+.radio-control-select-stream select option{background:#F6EDD9;color:#1C1814}
+.radio-control-volume{margin-left:auto;width:52%}
+.radio-control-volume-slider{min-width:0}
+.radio-control-volume .btn,.radio-control-volume svg{color:var(--card)!important}
+.form-range{accent-color:var(--card)}
+.form-range::-webkit-slider-runnable-track{background:var(--card);height:2px;border-radius:0}
+.form-range::-webkit-slider-thumb{background:var(--card)!important;border:0;border-radius:50%;width:12px;height:12px;margin-top:-5px}
+.form-range::-moz-range-track{background:var(--card);height:2px}
+.form-range::-moz-range-thumb{background:var(--card)!important;border:0;border-radius:50%;width:12px;height:12px}
+
+/* Boutons « Historique des titres » et « Playlist » retirés */
+.card-body.buttons{display:none!important}
+
+/* Mise en page centrée : [carte | historique] puis la bande des heures dessous */
+body #page-wrapper #main{flex:1 1 auto!important;width:100%!important;margin:0!important;padding:24px 18px!important;box-sizing:border-box;
+  display:flex!important;flex-direction:row!important;flex-wrap:wrap!important;
+  justify-content:center!important;align-items:center!important;align-content:center!important;row-gap:0!important;column-gap:16px!important}
+#public-radio-player{flex:0 1 520px;min-width:0;display:flex;align-self:center}
+#public-radio-player .public-page{width:100%;max-width:none;margin:0;display:flex}
+#public-radio-player .public-page .card{width:100%;margin:0!important}
+.glaz-break{flex:0 0 100%;height:0}
+
+/* Case « Derniers titres » */
+#glaz-history{flex:0 0 300px;min-width:0;align-self:center;display:flex;flex-direction:column;box-sizing:border-box;background:var(--card);border:1px solid var(--ink);color:var(--ink);font-family:var(--mono)}
+.glaz-history-bar{padding:11px 20px;background:var(--blue);color:var(--card);border-bottom:1px solid var(--ink);font:500 12px/1 var(--mono)}
+.glaz-history-list{flex:1;min-height:0;overflow-y:auto;scrollbar-width:thin;scrollbar-color:#1C1814 transparent}
+.glaz-history-item{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--ink)}
+.glaz-history-item img{flex:none;width:44px;height:44px;object-fit:cover;border:1px solid var(--ink)}
+.glaz-history-text{flex:1;min-width:0}
+.glaz-history-name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font:500 13px/1.3 var(--mono)}
+.glaz-history-artist{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font:400 11px/1.4 var(--mono)}
+.glaz-history-time{flex:none;font:400 11px var(--mono)}
+.glaz-history-empty{padding:16px;font:400 12px var(--mono)}
+
+/* Bande des heures : discrète, séparée du bloc, même largeur que lui (520 + 16 + 300) */
+#glaz-clocks{flex:0 0 836px;max-width:836px;box-sizing:border-box;margin-top:16px;display:grid;grid-template-columns:repeat(5,1fr);background:var(--card);border:1px solid var(--ink);color:var(--ink)}
+.glaz-clock{padding:9px 4px;text-align:center;border-right:1px solid var(--ink);min-width:0;font:500 11px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;white-space:nowrap}
+.glaz-clock:last-child{border-right:0}
+
+/* Liens : petits boutons discrets sous la bande des heures */
+#glaz-links{flex:0 0 836px;max-width:836px;box-sizing:border-box;margin-top:20px;display:flex;flex-wrap:wrap;justify-content:center;gap:12px}
+#glaz-links a,#glaz-links button{cursor:pointer;font:500 11px/1 var(--mono);letter-spacing:.08em;color:var(--ink)!important;text-decoration:none!important;padding:8px 16px;border:1px solid var(--ink);background:transparent;transition:background .15s,color .15s}
+#glaz-links a:hover,#glaz-links a:focus-visible,#glaz-links button:hover,#glaz-links button:focus-visible{background:var(--blue);color:var(--card)!important}
+
+/* Mention discrète sous les liens */
+#glaz-legal{flex:0 0 836px;max-width:836px;box-sizing:border-box;margin:18px 0 0;text-align:center;font:400 10px/1.5 var(--mono);letter-spacing:.06em;color:var(--ink);opacity:.75}
+
+/* Ligne défilante au-dessus du bloc */
+#glaz-ticker{order:-2;flex:0 0 836px;max-width:836px;box-sizing:border-box;margin-bottom:16px;overflow:hidden;background:var(--card);border:1px solid var(--ink);padding:9px 0;color:var(--ink)}
+.glaz-break-top{order:-1}
+.glaz-ticker-track{display:flex;width:max-content;animation:glaz-scroll 45s linear infinite}
+.glaz-ticker-group{display:flex;flex:none;white-space:nowrap;font:500 11px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase}
+.glaz-ticker-group span::after{content:"●";margin:0 26px;font-size:7px;vertical-align:middle}
+@keyframes glaz-scroll{to{transform:translateX(-50%)}}
+@media(prefers-reduced-motion:reduce){.glaz-ticker-track{animation:none}}
+
+/* Pied de page : « Propulsé par AzuraCast » masqué */
+#footer,#footer.footer-alt{background:transparent!important;font-size:0!important;padding:0}
+#footer,#footer *{text-shadow:none!important}
+#footer a{display:none!important}
+
+@media(max-width:860px){
+  body #page-wrapper #main{flex-direction:column!important;flex-wrap:nowrap!important;align-items:center!important;justify-content:center!important}
+  .glaz-break{display:none}
+  #public-radio-player{flex:none;width:100%;max-width:520px}
+  #glaz-history{flex:none;width:100%;max-width:520px;margin-top:16px;height:auto!important;max-height:340px}
+  #glaz-links{flex:none;width:100%;max-width:520px;margin-top:16px}
+  #glaz-legal{flex:none;width:100%;max-width:520px;margin-top:14px}
+  #glaz-ticker{flex:none;width:100%;max-width:520px;margin-bottom:12px}
+  #glaz-clocks{flex:none;width:100%;max-width:520px;grid-template-columns:repeat(2,1fr)}
+  .glaz-clock{border-top:1px solid var(--ink)}
+  .glaz-clock:nth-child(-n+2){border-top:0}
+  .glaz-clock:nth-child(2n){border-right:0}
+  .glaz-clock:last-child:nth-child(odd){grid-column:span 2}
+}
+@media(max-width:480px){
+  .now-playing-art .album_art{width:72px;height:72px}
+  .radio-control-volume{width:auto;flex:1 1 0;min-width:0}
+  .public-page .card-title::after{font-size:24px}
+  .radio-control-select-stream select{max-width:96px}
+}</style></head>
+
+<body class="page-minimal page-station-public-player station-glazradio">
+
+    <script>
+        ready(() => {
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', function () {
+                    navigator.serviceWorker.register('/public/sw.js');
+                });
+            }
+        });
+    </script>
+    <script type="module" src="/static/vite_dist/assets/PublicFullPlayer-BdMuZmZh.js"></script>
+    <script type="text/javascript">
+        let Vue_PublicFullPlayer;
+        ready(() => {
+            Vue_PublicFullPlayer = window.vueComponent('#public-radio-player', {"locale":"en_US","localeShort":"en","localeWithDashes":"en-US","timeConfig":{},"apiCsrf":null,"dashboardProps":null,"user":null,"notifications":[],"componentProps":{"stationName":"Glaz | Radio","enableRequests":false,"downloadPlaylistUri":"\/public\/glazradio\/playlist.pls","requests":{"requestListUri":"\/api\/station\/1\/requests","showAlbumArt":true,"customFields":[]},"player":{"nowPlayingProps":{"stationShortName":"glazradio","useStatic":true,"useSse":true},"offlineText":null,"showAlbumArt":true,"autoplay":false,"showHls":false,"widgetCustomization":{"primaryColor":null,"backgroundColor":null,"textColor":null,"showAlbumArt":true,"roundedCorners":false,"autoplay":false,"showVolumeControls":true,"showTrackProgress":true,"showStreamSelection":true,"showHistoryButton":true,"showRequestButton":true,"showPlaylistButton":true,"initialVolume":75,"layout":"horizontal","enablePopupPlayer":false,"continuousPlay":false,"customCss":null}}}});
+        });
+    </script>
+<script>
+    </script>
+
+<script>// GlazRadio — police, historique des titres à droite et heures des villes
+(function () {
+  // Police DM Mono (Google Fonts)
+  var link = document.createElement('link');
+  link.rel = 'stylesheet';
+  link.href = 'https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&display=swap';
+  document.head.appendChild(link);
+
+  // Nom court de la station, pris dans l'adresse de la page (/public/glazradio)
+  var slug = location.pathname.replace(/\/+$/, '').split('/').pop() || 'glazradio';
+
+  function make(tag, cls, text) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (text) e.textContent = text;
+    return e;
+  }
+
+  // Les pochettes servies avec une autre adresse (ex. IP du serveur en http) sont ramenées sur ce site en https
+  function fixArtUrl(u) {
+    try {
+      var x = new URL(u, location.href);
+      if (x.pathname.indexOf('/api/station/') === 0 && x.origin !== location.origin) {
+        return location.origin + x.pathname + x.search;
+      }
+    } catch (e) {}
+    return u;
+  }
+  function fixImg(img) {
+    var fixed = fixArtUrl(img.getAttribute('src') || '');
+    if (fixed !== img.getAttribute('src')) img.setAttribute('src', fixed);
+  }
+  function watchImages() {
+    document.querySelectorAll('img').forEach(fixImg);
+    new MutationObserver(function (muts) {
+      muts.forEach(function (m) {
+        if (m.type === 'attributes' && m.target.tagName === 'IMG') fixImg(m.target);
+        m.addedNodes && m.addedNodes.forEach(function (n) {
+          if (n.nodeType !== 1) return;
+          if (n.tagName === 'IMG') fixImg(n);
+          else if (n.querySelectorAll) n.querySelectorAll('img').forEach(fixImg);
+        });
+      });
+    }).observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['src'] });
+  }
+
+  // Jingles : repérés par le nom de leur playlist (elle doit contenir « jingle »)
+  function isJingle(playlist) { return /jingle/i.test(playlist || ''); }
+
+  // Titre de l'onglet : « ♪ Titre — Artiste · Glaz | Radio »
+  var BASE_TITLE = 'Glaz | Radio';
+  var wantedTitle = '';
+  var currentSong = '';
+  function setTitle(np) {
+    var s = (np && np.song) || {};
+    var name = s.title || s.text || '';
+    if (!name || isJingle(np && np.playlist)) {
+      currentSong = '';
+      wantedTitle = BASE_TITLE;
+    } else {
+      currentSong = s.artist ? name + ' — ' + s.artist : name;
+      wantedTitle = '♪ ' + currentSong + ' · ' + BASE_TITLE;
+    }
+    if (document.title !== wantedTitle) document.title = wantedTitle;
+  }
+  function guardTitle() {
+    var t = document.querySelector('title');
+    if (!t) return;
+    new MutationObserver(function () {
+      if (wantedTitle && document.title !== wantedTitle) document.title = wantedTitle;
+    }).observe(t, { childList: true, characterData: true, subtree: true });
+  }
+
+  // Bouton « partager » : feuille de partage sur téléphone, copie du lien sur ordinateur
+  function copyText(text, done) {
+    function fallback() {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.cssText = 'position:fixed;opacity:0;top:0;left:0';
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); } catch (e) {}
+      document.body.removeChild(ta);
+      done();
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, fallback);
+    } else {
+      fallback();
+    }
+  }
+  function shareRadio(btn) {
+    var url = location.origin + location.pathname;
+    var text = currentSong ? '♪ ' + currentSong + ' — en écoute sur ' + BASE_TITLE : BASE_TITLE + ', ma radio en ligne';
+    var touch = window.matchMedia && matchMedia('(pointer:coarse)').matches;
+    if (navigator.share && touch) {
+      navigator.share({ title: BASE_TITLE, text: text, url: url }).catch(function () {});
+      return;
+    }
+    copyText(url, function () {
+      var old = btn.textContent;
+      btn.textContent = 'lien copié ✓';
+      setTimeout(function () { btn.textContent = old; }, 2000);
+    });
+  }
+
+  // Liens sous le bloc
+  var LINKS = [
+    ['suno', 'https://suno.com/@glaz_studio', 'Mon profil Suno'],
+    ['mon livre', 'https://www.amazon.fr/dp/B0HLH4H7XZ', 'Mon livre sur Amazon'],
+    ['profil', 'https://www.atelier-glaz.com/', 'Mon site : Atelier Glaz']
+  ];
+  function addLinks() {
+    var main = document.getElementById('main');
+    if (!main || document.getElementById('glaz-links')) return;
+    main.appendChild(make('div', 'glaz-break'));
+    var nav = make('nav');
+    nav.id = 'glaz-links';
+    LINKS.forEach(function (l) {
+      var a = make('a', null, l[0]);
+      a.href = l[1];
+      a.title = l[2];
+      a.setAttribute('aria-label', l[2]);
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+      nav.appendChild(a);
+    });
+    var share = make('button', null, 'partager');
+    share.type = 'button';
+    share.title = 'Partager la radio';
+    share.addEventListener('click', function () { shareRadio(share); });
+    nav.appendChild(share);
+    main.appendChild(nav);
+  }
+
+  // Mention sous les liens
+  function addLegal() {
+    var main = document.getElementById('main');
+    if (!main || document.getElementById('glaz-legal')) return;
+    main.appendChild(make('div', 'glaz-break'));
+    var p = make('p', null, 'Radio alimentée avec de la musique créée avec Suno');
+    p.id = 'glaz-legal';
+    main.appendChild(p);
+  }
+
+  // Case « Historique » à droite de la carte
+  var list;
+  function addHistoryPanel() {
+    var main = document.getElementById('main');
+    if (!main || document.getElementById('glaz-history')) return;
+    var panel = make('aside');
+    panel.id = 'glaz-history';
+    panel.appendChild(make('div', 'glaz-history-bar', '↺ Derniers titres'));
+    list = make('div', 'glaz-history-list');
+    panel.appendChild(list);
+    main.appendChild(panel);
+  }
+
+  // Ligne défilante des genres, au-dessus du bloc
+  var GENRES = ['folk', 'rock', 'blues', 'chanson française', '90s hip hop', 'rock celtic', 'bluegrass', 'rap us 90s'];
+  function addTicker() {
+    var main = document.getElementById('main');
+    if (!main || document.getElementById('glaz-ticker')) return;
+    var box = make('div');
+    box.id = 'glaz-ticker';
+    box.setAttribute('aria-label', 'Genres : ' + GENRES.join(', '));
+    var track = make('div', 'glaz-ticker-track');
+    track.setAttribute('aria-hidden', 'true');
+    for (var g = 0; g < 2; g++) {
+      var group = make('div', 'glaz-ticker-group');
+      for (var r = 0; r < 2; r++) {
+        GENRES.forEach(function (name) { group.appendChild(make('span', null, name)); });
+      }
+      track.appendChild(group);
+    }
+    box.appendChild(track);
+    main.appendChild(box);
+    main.appendChild(make('div', 'glaz-break glaz-break-top'));
+  }
+
+  // Bande des heures sous le bloc
+  var CITIES = [
+    ['Nantes', 'Europe/Paris'],
+    ['Tokyo', 'Asia/Tokyo'],
+    ['New York', 'America/New_York'],
+    ['Paris', 'Europe/Paris'],
+    ['Barcelone', 'Europe/Madrid']
+  ];
+  var clockEls = [];
+  function addClocks() {
+    var main = document.getElementById('main');
+    if (!main || document.getElementById('glaz-clocks')) return;
+    main.appendChild(make('div', 'glaz-break'));
+    var box = make('div');
+    box.id = 'glaz-clocks';
+    CITIES.forEach(function (c) {
+      var cell = make('div', 'glaz-clock');
+      cell.appendChild(document.createTextNode(c[0] + ' | '));
+      var t = make('span');
+      cell.appendChild(t);
+      box.appendChild(cell);
+      clockEls.push(t);
+    });
+    main.appendChild(box);
+    tick();
+  }
+  function tick() {
+    var now = new Date();
+    CITIES.forEach(function (c, i) {
+      var parts = new Intl.DateTimeFormat('fr-FR', {
+        timeZone: c[1], hour: '2-digit', minute: '2-digit', hourCycle: 'h23'
+      }).formatToParts(now);
+      var h = '', m = '';
+      parts.forEach(function (p) {
+        if (p.type === 'hour') h = p.value;
+        if (p.type === 'minute') m = p.value;
+      });
+      var el = clockEls[i];
+      el.textContent = h + ':' + m;
+    });
+  }
+
+  // La case Historique prend la même hauteur que la carte du lecteur
+  function matchHeight() {
+    var panel = document.getElementById('glaz-history');
+    var card = document.querySelector('.public-page .card');
+    if (!panel || !card) return;
+    panel.style.height = card.getBoundingClientRect().height + 'px';
+  }
+  function watchCard() {
+    matchHeight();
+    var card = document.querySelector('.public-page .card');
+    if (card && window.ResizeObserver) {
+      new ResizeObserver(matchHeight).observe(card);
+    } else {
+      setTimeout(watchCard, 500); // la carte n'est pas encore affichée
+    }
+  }
+
+  function hhmm(ts) {
+    return new Date(ts * 1000).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+  }
+
+  function render(history) {
+    if (!list) return;
+    list.textContent = '';
+    if (!history || !history.length) {
+      list.appendChild(make('div', 'glaz-history-empty', 'Aucun titre pour le moment.'));
+      return;
+    }
+    history.filter(function (h) { return !isJingle(h.playlist); }).slice(0, 15).forEach(function (h) {
+      var s = h.song || {};
+      var row = make('div', 'glaz-history-item');
+      if (s.art) {
+        var img = make('img');
+        img.src = fixArtUrl(s.art);
+        img.alt = '';
+        img.loading = 'lazy';
+        row.appendChild(img);
+      }
+      var txt = make('div', 'glaz-history-text');
+      txt.appendChild(make('div', 'glaz-history-name', s.title || s.text || ''));
+      txt.appendChild(make('div', 'glaz-history-artist', s.artist || ''));
+      row.appendChild(txt);
+      row.appendChild(make('div', 'glaz-history-time', hhmm(h.played_at)));
+      list.appendChild(row);
+    });
+  }
+
+  function refresh() {
+    fetch('/api/nowplaying/' + encodeURIComponent(slug), { cache: 'no-store' })
+      .then(function (r) { return r.json(); })
+      .then(function (d) {
+        render(d.song_history);
+        setTitle(d.now_playing);
+      })
+      .catch(function () {});
+  }
+
+  function init() {
+    addHistoryPanel();
+    addTicker();
+    addClocks();
+    addLinks();
+    addLegal();
+    watchImages();
+    guardTitle();
+    watchCard();
+    refresh();
+    setInterval(refresh, 10000);
+    setInterval(tick, 5000);
+    document.addEventListener('visibilitychange', refresh);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();</script>
+<div id="page-wrapper">
+    <main id="main">
+        
+<div id="public-radio-player" class="vue-component">Loading...</div>
+    </main>
+
+            <footer id="footer" class="footer-alt" role="contentinfo" aria-label="Footer">
+            Powered by <a href="https://azuracast.com/" target="_blank">AzuraCast</a>         </footer>
+    </div>
+</body>
+</html>
