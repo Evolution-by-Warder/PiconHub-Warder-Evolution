@@ -3137,7 +3137,10 @@
       "homepages": [
         "https://chisomoradiostation.wordpress.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "Command '['tesseract', '/tmp/radio-logo-ocr-zmaoepmm/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds"
+      ]
     },
     "4097:0:2:9F47:3AC9:ED:0:0:0:0": {
       "name": "EBS Radio",
@@ -3173,7 +3176,10 @@
       "homepages": [
         "https://groove100.mw/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Resolving timed out after 3002 milliseconds\n"
+      ]
     },
     "4097:0:2:C28F:20CB:ED:0:0:0:0": {
       "name": "Radio Islam Malawi",
@@ -3185,7 +3191,94 @@
       "homepages": [
         "https://radioislam.org.mw/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://radioislam.org.mw/wp-content/uploads/2025/11/cropped-WhatsApp-Image-2025-11-08-at-8.05.55-PM-removebg-preview.png",
+        "final_url": "https://radioislam.org.mw/wp-content/uploads/2025/11/cropped-WhatsApp-Image-2025-11-08-at-8.05.55-PM-removebg-preview.png",
+        "path": "originals/c48b2f88653d07c57f810ecb647aaaaae21d3ab76e285ae57d62ae668a56fbf2.img",
+        "sha256": "c48b2f88653d07c57f810ecb647aaaaae21d3ab76e285ae57d62ae668a56fbf2",
+        "bytes": 297218,
+        "dimensions": [
+          500,
+          500
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://radioislam.org.mw/",
+        "final_url": "https://radioislam.org.mw/",
+        "original_html_sha256": "9f9912dcaef68d3a8141bd8558074b3abed4fa6f1fcd94e252ad4ec0d8bcf820",
+        "path": "page-evidence/9f9912dcaef68d3a8141bd8558074b3abed4fa6f1fcd94e252ad4ec0d8bcf820.json",
+        "titles": [
+          "Radio Islam Malawi – Education For the Nation",
+          "\n           Radio Islam Malawi \n        "
+        ],
+        "image_urls": [
+          "https://radioislam.org.mw/wp-content/uploads/2025/11/cropped-WhatsApp-Image-2025-11-08-at-8.05.55-PM-removebg-preview.png",
+          "https://radioislam.org.mw/wp-content/uploads/2025/11/cropped-WhatsApp-Image-2025-11-08-at-8.05.55-PM-180x180.jpeg",
+          "https://radioislam.org.mw/wp-content/uploads/2025/11/cropped-WhatsApp-Image-2025-11-08-at-8.05.55-PM-192x192.jpeg"
+        ],
+        "named_logos": {
+          "https://radioislam.org.mw/wp-content/uploads/2025/11/cropped-WhatsApp-Image-2025-11-08-at-8.05.55-PM-removebg-preview.png": "Radio Islam Logo  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/06a2cde9c964448161ba94cf4e566731cc70fcce0046c65251baa3834c698020.png",
+          "sha256": "06a2cde9c964448161ba94cf4e566731cc70fcce0046c65251baa3834c698020",
+          "bytes": 1947
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/7c366cc9d32007eea94cfb24de8c8f5cf41f08583e2b5c8c691e9c96d83e5ac4.png",
+          "sha256": "7c366cc9d32007eea94cfb24de8c8f5cf41f08583e2b5c8c691e9c96d83e5ac4",
+          "bytes": 21707
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/198bb9d93469087e44f2940d7f0a33e2050e7ebdb64a480e6f5e20c695ee676c.png",
+          "sha256": "198bb9d93469087e44f2940d7f0a33e2050e7ebdb64a480e6f5e20c695ee676c",
+          "bytes": 64584
+        },
+        "50x30/white": {
+          "path": "verified-assets/b8f4c4ace67978b18b718b8016c5d702768ac000ee22adce31dcbbee3c20152a.png",
+          "sha256": "b8f4c4ace67978b18b718b8016c5d702768ac000ee22adce31dcbbee3c20152a",
+          "bytes": 3097
+        },
+        "220x132/white": {
+          "path": "verified-assets/7a0e72e1a2d417c8658430bce24bcf917b178d0d514cec708607e635e61fa64e.png",
+          "sha256": "7a0e72e1a2d417c8658430bce24bcf917b178d0d514cec708607e635e61fa64e",
+          "bytes": 46510
+        },
+        "400x240/white": {
+          "path": "verified-assets/c3771b4210b734406318bd018b4ec56d5ac9421b7678b9882e7c3ea8e679efb9.png",
+          "sha256": "c3771b4210b734406318bd018b4ec56d5ac9421b7678b9882e7c3ea8e679efb9",
+          "bytes": 123108
+        },
+        "50x30/black": {
+          "path": "verified-assets/762e70d64e0ae62bad28f677be4c6eafe617171a7701a8a8929e578eff07f333.png",
+          "sha256": "762e70d64e0ae62bad28f677be4c6eafe617171a7701a8a8929e578eff07f333",
+          "bytes": 3012
+        },
+        "220x132/black": {
+          "path": "verified-assets/b8d42cde277c0299943d55b110f29f341d1a2b46989c7b14ba6a19e0ff87602c.png",
+          "sha256": "b8d42cde277c0299943d55b110f29f341d1a2b46989c7b14ba6a19e0ff87602c",
+          "bytes": 41537
+        },
+        "400x240/black": {
+          "path": "verified-assets/4fd6cb5f5df6189dcc12d92d45671cc073fdd4ff21a9d42aa13799f6481233fc.png",
+          "sha256": "4fd6cb5f5df6189dcc12d92d45671cc073fdd4ff21a9d42aa13799f6481233fc",
+          "bytes": 103834
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Radio Islam Logo  ",
+        "matched_brand_keys": [
+          "islam"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:F4CD:F3D2:ED:0:0:0:0": {
       "name": "Kasupe Radio",
@@ -3197,7 +3290,40 @@
       "homepages": [
         "https://kasuperadio.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://kasuperadio.com/wp-content/uploads/2023/08/9124ee2b-5d4f-4a12-ba3d-1366f4c02f75-170x170.png",
+        "final_url": "https://kasuperadio.com/wp-content/uploads/2023/08/9124ee2b-5d4f-4a12-ba3d-1366f4c02f75-170x170.png",
+        "path": "originals/949902e64cf80f09fedf9a7d936c52bcb8400d5fa645576c48c47e550755f549.img",
+        "sha256": "949902e64cf80f09fedf9a7d936c52bcb8400d5fa645576c48c47e550755f549",
+        "bytes": 7614,
+        "dimensions": [
+          170,
+          170
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://kasuperadio.com/",
+        "final_url": "https://kasuperadio.com/",
+        "original_html_sha256": "87923cedcdaa58fcf9e58e96eeaae2b890699296c95445439770bd9e4186ada1",
+        "path": "page-evidence/87923cedcdaa58fcf9e58e96eeaae2b890699296c95445439770bd9e4186ada1.json",
+        "titles": [
+          "Kasupe Radio – Building Smarter Businesses",
+          "\n\t\t\t\t\t\t\t\t\t\t\t\t Tracking Malawi’s Economy \n\t\t\t\t\t\t\t\t\t\t\t"
+        ],
+        "image_urls": [
+          "https://kasuperadio.com/wp-content/uploads/2023/08/9124ee2b-5d4f-4a12-ba3d-1366f4c02f75-170x170.png",
+          "https://kasuperadio.com/wp-content/uploads/2026/10/kasupe-logo-onair2-136px-2x-1.png",
+          "https://kasuperadio.com/wp-content/uploads/2026/10/kasupe-logo-onair2-68px.png"
+        ],
+        "named_logos": {
+          "https://kasuperadio.com/wp-content/uploads/2026/10/kasupe-logo-onair2-68px.png": "Home  ",
+          "https://kasuperadio.com/wp-content/uploads/2023/08/9124ee2b-5d4f-4a12-ba3d-1366f4c02f75-170x170.png": "logo  ",
+          "https://kasuperadio.com/wp-content/uploads/2026/10/kasupe-logo-onair2-136px-2x-1.png": "Home  "
+        }
+      },
+      "ocr_text": "K, RADI\n"
     },
     "4097:0:2:9516:8579:ED:0:0:0:0": {
       "name": "RADIO MARIA MALAWI",
@@ -3233,7 +3359,95 @@
       "homepages": [
         "https://mdubsmusic.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://i0.wp.com/mdubsmusic.com/wp-content/uploads/2021/01/cropped-LOGO.png?fit=6498%2C2185&ssl=1",
+        "final_url": "https://i0.wp.com/mdubsmusic.com/wp-content/uploads/2021/01/cropped-LOGO.png?fit=6498%2C2185&ssl=1",
+        "path": "originals/50b833673c508e2cd208577187ad1240f028d50896df4440331349690fcaba25.img",
+        "sha256": "50b833673c508e2cd208577187ad1240f028d50896df4440331349690fcaba25",
+        "bytes": 755293,
+        "dimensions": [
+          6498,
+          2185
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://mdubsmusic.com/",
+        "final_url": "https://mdubsmusic.com/",
+        "original_html_sha256": "27e363536dad120ae2feabba67487a096f822ca1e490c95c3feaf89b7807c859",
+        "path": "page-evidence/27e363536dad120ae2feabba67487a096f822ca1e490c95c3feaf89b7807c859.json",
+        "titles": [
+          "Home - Mdubs Music",
+          "    "
+        ],
+        "image_urls": [
+          "https://i0.wp.com/mdubsmusic.afrikatec.co.za/wp-content/uploads/2021/01/LOGO-outline-300x138.png?resize=300%2C138&ssl=1",
+          "https://i0.wp.com/mdubsmusic.com/wp-content/uploads/2021/01/cropped-LOGO.png?fit=6498%2C2185&ssl=1",
+          "https://i0.wp.com/mdubsmusic.com/wp-content/uploads/2021/01/cropped-favicon.png?fit=192%2C192&ssl=1"
+        ],
+        "named_logos": {
+          "https://i0.wp.com/mdubsmusic.com/wp-content/uploads/2021/01/cropped-LOGO.png?fit=6498%2C2185&ssl=1": "Mdubs Music  ",
+          "https://i0.wp.com/mdubsmusic.afrikatec.co.za/wp-content/uploads/2021/01/LOGO-outline-300x138.png?resize=300%2C138&ssl=1": "  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/520c9295464c9021f60fe58291167339bf7d5ec119aa4e087fbb81227fcdf82d.png",
+          "sha256": "520c9295464c9021f60fe58291167339bf7d5ec119aa4e087fbb81227fcdf82d",
+          "bytes": 1767
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/605fa89a25bfb628a20a5f126ac35a4063825540db1ce6d4a442e442e53000a7.png",
+          "sha256": "605fa89a25bfb628a20a5f126ac35a4063825540db1ce6d4a442e442e53000a7",
+          "bytes": 15851
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/b17b3baa4a5fab72f38441e4d31545069705d6e2f4f457728d21af40518f48f7.png",
+          "sha256": "b17b3baa4a5fab72f38441e4d31545069705d6e2f4f457728d21af40518f48f7",
+          "bytes": 45792
+        },
+        "50x30/white": {
+          "path": "verified-assets/f7384cbaedd098dd5fc5135ab4aa0fd9b30d52a91c09e353ddf5122da760c429.png",
+          "sha256": "f7384cbaedd098dd5fc5135ab4aa0fd9b30d52a91c09e353ddf5122da760c429",
+          "bytes": 3071
+        },
+        "220x132/white": {
+          "path": "verified-assets/1e92f7a8bb94efd5ef0648d11dc260a313cf6491b830278a525e84b051383c32.png",
+          "sha256": "1e92f7a8bb94efd5ef0648d11dc260a313cf6491b830278a525e84b051383c32",
+          "bytes": 41866
+        },
+        "400x240/white": {
+          "path": "verified-assets/a2842b633830a5105233c993ffd60e341c0631edbec978d71668df991cf6e70c.png",
+          "sha256": "a2842b633830a5105233c993ffd60e341c0631edbec978d71668df991cf6e70c",
+          "bytes": 106916
+        },
+        "50x30/black": {
+          "path": "verified-assets/002a28351658dd7bee7c06c0dc3f17eeb524e03bbb6e3258da589feae109c76c.png",
+          "sha256": "002a28351658dd7bee7c06c0dc3f17eeb524e03bbb6e3258da589feae109c76c",
+          "bytes": 2999
+        },
+        "220x132/black": {
+          "path": "verified-assets/ecee57ebecc7c76bfc56113777571cb58d3e0d8aa3b24ad7940bdba27f87e1d5.png",
+          "sha256": "ecee57ebecc7c76bfc56113777571cb58d3e0d8aa3b24ad7940bdba27f87e1d5",
+          "bytes": 38941
+        },
+        "400x240/black": {
+          "path": "verified-assets/7800d1e81e70d0cfaca14158bdddb48b9e37e37f0378017fbda26154cff9f106.png",
+          "sha256": "7800d1e81e70d0cfaca14158bdddb48b9e37e37f0378017fbda26154cff9f106",
+          "bytes": 95495
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Mdubs Music  ",
+        "matched_brand_keys": [
+          "mdubs"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:A89E:E6D4:ED:0:0:0:0": {
       "name": "MIJ FM Malawi Institute of Journalism",
@@ -3281,7 +3495,8 @@
       "homepages": [
         "https://www.police.gov.mw/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:D5F:6BE3:ED:0:0:0:0": {
       "name": "Power 101 digital",
@@ -3293,7 +3508,8 @@
       "homepages": [
         "https://power101digital.wixsite.com/website"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:49C2:8BF4:ED:0:0:0:0": {
       "name": "Power Global Gospel Radio",
@@ -3329,7 +3545,12 @@
       "homepages": [
         "https://rumphifm.mw/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Resolving timed out after 3000 milliseconds\n",
+        "curl: (28) SSL connection timeout\n",
+        "curl: (28) Resolving timed out after 3000 milliseconds\n"
+      ]
     },
     "4097:0:2:433D:8EF8:ED:0:0:0:0": {
       "name": "ThoMpo Online Radio",
@@ -3353,7 +3574,10 @@
       "homepages": [
         "https://times.mw/times-radio/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Operation timed out after 8002 milliseconds with 0 bytes received\n"
+      ]
     },
     "4097:0:2:C8B0:37A6:ED:0:0:0:0": {
       "name": "Timveni Online",
@@ -3365,7 +3589,42 @@
       "homepages": [
         "https://timveni.org.mw/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://timveni.org.mw/wp-content/uploads/2025/03/TIMVENI-LOGO-white-1024x359.png",
+        "final_url": "https://timveni.org.mw/wp-content/uploads/2025/03/TIMVENI-LOGO-white-1024x359.png",
+        "path": "originals/2bd3b4cebef12840d325c5d5ca1cf269340f347e0e5579e291b8ead4047db7df.img",
+        "sha256": "2bd3b4cebef12840d325c5d5ca1cf269340f347e0e5579e291b8ead4047db7df",
+        "bytes": 41536,
+        "dimensions": [
+          1024,
+          359
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://timveni.org.mw/",
+        "final_url": "https://timveni.org.mw/",
+        "original_html_sha256": "5dd77bda992888d28eef00b76cb977a7e265503ba6e629ca2e5329d8cc28b12b",
+        "path": "page-evidence/5dd77bda992888d28eef00b76cb977a7e265503ba6e629ca2e5329d8cc28b12b.json",
+        "titles": [
+          "Homepage - Timveni"
+        ],
+        "image_urls": [
+          "https://timveni.org.mw/wp-content/uploads/2025/03/TIMVENI-LOGO-white-1024x359.png",
+          "https://timveni.org.mw/wp-content/uploads/2025/03/TIMVENI-LOGO2-1024x382.png",
+          "https://timveni.org.mw/wp-content/uploads/2025/12/DOT-Vertical-Logo-RGB-300x224.png"
+        ],
+        "named_logos": {
+          "https://timveni.org.mw/wp-content/uploads/2025/03/TIMVENI-LOGO-white-1024x359.png": "  ",
+          "https://timveni.org.mw/wp-content/uploads/2025/03/TIMVENI-LOGO2-1024x382.png": "  ",
+          "https://timveni.org.mw/wp-content/uploads/2025/12/DOT-Vertical-Logo-RGB-e1764594071732.png": "DOT Vertical Logo - RGB  ",
+          "https://timveni.org.mw/wp-content/uploads/2025/12/WUSC-Logo-Vertical-Black-e1764593916683.png": "WUSC-Logo-Vertical-Black  ",
+          "https://timveni.org.mw/wp-content/uploads/2025/12/DOT-Vertical-Logo-RGB-300x224.png": "  ",
+          "https://timveni.org.mw/wp-content/uploads/2025/12/WUSC-Logo-Vertical-Black-300x247.png": "  "
+        }
+      },
+      "ocr_text": ""
     },
     "4097:0:2:BA7F:560F:ED:0:0:0:0": {
       "name": "Umunthu FM",
@@ -3377,7 +3636,92 @@
       "homepages": [
         "https://umunthufm.net/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://umunthufm.net/web/img/logo.png",
+        "final_url": "https://umunthufm.net/web/img/logo.png",
+        "path": "originals/c1152aac452e1cba3fed4c30207a8ef5dd44f6f28c21c3fa378115dc0ba3b702.img",
+        "sha256": "c1152aac452e1cba3fed4c30207a8ef5dd44f6f28c21c3fa378115dc0ba3b702",
+        "bytes": 137927,
+        "dimensions": [
+          2835,
+          1890
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://umunthufm.net/",
+        "final_url": "https://umunthufm.net/",
+        "original_html_sha256": "fb98432bc130e18dfc9c115dda880e76e25f3f2eb0fb187a3fda35e3a6fc7a27",
+        "path": "page-evidence/fb98432bc130e18dfc9c115dda880e76e25f3f2eb0fb187a3fda35e3a6fc7a27.json",
+        "titles": [
+          "Home - Umunthu FM"
+        ],
+        "image_urls": [
+          "https://umunthufm.net/bin/localdata/LO250308B2CEC8406437B1813/umunthufmlogo.svg",
+          "https://umunthufm.net/bin/newsroom/NE25106F42BEBA1B8779101311/LOGOS.png",
+          "https://umunthufm.net/web/img/logo.png"
+        ],
+        "named_logos": {
+          "https://umunthufm.net/bin/localdata/LO250308B2CEC8406437B1813/umunthufmlogo.svg": "Logo  ",
+          "https://umunthufm.net/web/img/logo.png": "Cover image for Thanzi Langa Episode 2  ",
+          "https://umunthufm.net/bin/newsroom/NE25106F42BEBA1B8779101311/LOGOS.png": "Poster for It is false that Former HRDC Chairperson, now AFORD Vice President Timothy Mtambo is planning for the anti-government protests  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/55ed527f2c32f5ac6f5ac77068274ef13b95246623934fe55ba6c448e548a62c.png",
+          "sha256": "55ed527f2c32f5ac6f5ac77068274ef13b95246623934fe55ba6c448e548a62c",
+          "bytes": 1070
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/9288f0a04035bd4c6ea031f5cd1d78fe277169c0f2df8aa92fa8185476f722b4.png",
+          "sha256": "9288f0a04035bd4c6ea031f5cd1d78fe277169c0f2df8aa92fa8185476f722b4",
+          "bytes": 7874
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/26d05c5333d0d61cd6120096e46724d7cd10f6b0809f19eef0b5bb4068192adc.png",
+          "sha256": "26d05c5333d0d61cd6120096e46724d7cd10f6b0809f19eef0b5bb4068192adc",
+          "bytes": 25126
+        },
+        "50x30/white": {
+          "path": "verified-assets/7f7b1f61bfde3e68c0f9a5bbec96f79eda27405be33cbf9e31a568220a1453af.png",
+          "sha256": "7f7b1f61bfde3e68c0f9a5bbec96f79eda27405be33cbf9e31a568220a1453af",
+          "bytes": 2701
+        },
+        "220x132/white": {
+          "path": "verified-assets/5adc3be5941d0d6fa3c23f171c29d53ff9687d630f749e5281d2172554ab4830.png",
+          "sha256": "5adc3be5941d0d6fa3c23f171c29d53ff9687d630f749e5281d2172554ab4830",
+          "bytes": 36344
+        },
+        "400x240/white": {
+          "path": "verified-assets/021f855a87fb09e83933d95c8a214fd2ef6ed131cf5dd0e990964bfbc3416c06.png",
+          "sha256": "021f855a87fb09e83933d95c8a214fd2ef6ed131cf5dd0e990964bfbc3416c06",
+          "bytes": 91503
+        },
+        "50x30/black": {
+          "path": "verified-assets/5199c17d636bf8da60e35d25e348ca94ac11efe114029feddfb29e5fc6605399.png",
+          "sha256": "5199c17d636bf8da60e35d25e348ca94ac11efe114029feddfb29e5fc6605399",
+          "bytes": 2674
+        },
+        "220x132/black": {
+          "path": "verified-assets/b2131c2778607863f29ae660d0d77a05d5737896f6c3a59e5a3768d663f203af.png",
+          "sha256": "b2131c2778607863f29ae660d0d77a05d5737896f6c3a59e5a3768d663f203af",
+          "bytes": 34432
+        },
+        "400x240/black": {
+          "path": "verified-assets/a6498bbfefe80d59b2c737847bca7ebdbbb7d1440b6d1fdf9190e2f1635b32e1.png",
+          "sha256": "a6498bbfefe80d59b2c737847bca7ebdbbb7d1440b6d1fdf9190e2f1635b32e1",
+          "bytes": 83615
+        }
+      },
+      "verification": {
+        "exact_stream_and_current_page_name": true,
+        "image_link_recorded_in_page": true,
+        "full_distinctive_wordmark": "4\n\nUmunthu fm\n\nCitizen Voice, Liwu la Wetka\n",
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:202B:CFFB:ED:0:0:0:0": {
       "name": "Voice of Livingstonia (VoL)",
@@ -3401,7 +3745,10 @@
       "homepages": [
         "https://yetufm.mw/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Resolving timed out after 3001 milliseconds\n"
+      ]
     },
     "4097:0:2:AC94:DE85:ED:0:0:0:0": {
       "name": "YONECO FM",
@@ -3413,7 +3760,10 @@
       "homepages": [
         "https://www.yonecofm.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Resolving timed out after 3002 milliseconds\n"
+      ]
     },
     "4097:0:2:4917:429:ED:0:0:0:0": {
       "name": "ZBS Zodiak FM",
@@ -3437,7 +3787,10 @@
       "homepages": [
         "https://psmnews.mv/stream/radio-dheenuge-adu"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 403\n"
+      ]
     },
     "4097:0:2:2A96:A94D:ED:0:0:0:0": {
       "name": "Dhivehi FM",
@@ -3450,7 +3803,11 @@
         "https://psmnews.mv/stream/radio-dhivehi-fm",
         "https://psmnews.mv/stream/tvm"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 403\n",
+        "curl: (22) The requested URL returned error: 403\n"
+      ]
     },
     "4097:0:2:E5F8:262:ED:0:0:0:0": {
       "name": "Dhivehi Raajjeyge Adu",
@@ -3462,7 +3819,10 @@
       "homepages": [
         "https://psmnews.mv/stream/radio-dhivehi-raajjeyge-adu"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 403\n"
+      ]
     },
     "4097:0:2:B59C:4E1A:ED:0:0:0:0": {
       "name": "Kalux FM Bamako",
@@ -3474,7 +3834,38 @@
       "homepages": [
         "https://kaluxfm.blogspot.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://blogger.googleusercontent.com/img/a/AVvXsEiCGR5u4uxyhtI9ZvCoGb7-jNp_bJgTqFilb2HjuBGfkxVoBYBxeePrIuVF227EhlZ7-a3aUO0wPGDxY9nndOA2FBUo_Fmu6PHnjTNCa_4NAbhxoQFOSYGBRuJRp2rh5StYZ1Dx_neaazONrEdCCZd-RzCTIPTAM11WOoPa0LdMAvJ1t3bTh2EdmcCK",
+        "final_url": "https://blogger.googleusercontent.com/img/a/AVvXsEiCGR5u4uxyhtI9ZvCoGb7-jNp_bJgTqFilb2HjuBGfkxVoBYBxeePrIuVF227EhlZ7-a3aUO0wPGDxY9nndOA2FBUo_Fmu6PHnjTNCa_4NAbhxoQFOSYGBRuJRp2rh5StYZ1Dx_neaazONrEdCCZd-RzCTIPTAM11WOoPa0LdMAvJ1t3bTh2EdmcCK",
+        "path": "originals/eb695d113d60cac3a5327ff800bcf0e26e7fad683681f06ae1db1feb7040efd1.img",
+        "sha256": "eb695d113d60cac3a5327ff800bcf0e26e7fad683681f06ae1db1feb7040efd1",
+        "bytes": 2914,
+        "dimensions": [
+          300,
+          68
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://kaluxfm.blogspot.com/",
+        "final_url": "https://www.kaluxfm.com/",
+        "original_html_sha256": "5a18b2c3fd0217300075ae46459f0e761dc4ef477aad55bbe07672e5576c2f59",
+        "path": "page-evidence/5a18b2c3fd0217300075ae46459f0e761dc4ef477aad55bbe07672e5576c2f59.json",
+        "titles": [
+          "KALUX FM",
+          " KALUX FM ",
+          "\nNous suivre\n",
+          "\nAnnonce\n"
+        ],
+        "image_urls": [
+          "https://www.kaluxfm.com/favicon.ico",
+          "https://blogger.googleusercontent.com/img/a/AVvXsEiCGR5u4uxyhtI9ZvCoGb7-jNp_bJgTqFilb2HjuBGfkxVoBYBxeePrIuVF227EhlZ7-a3aUO0wPGDxY9nndOA2FBUo_Fmu6PHnjTNCa_4NAbhxoQFOSYGBRuJRp2rh5StYZ1Dx_neaazONrEdCCZd-RzCTIPTAM11WOoPa0LdMAvJ1t3bTh2EdmcCK",
+          "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh4ntNdXzxsVRzXHGEspKjhWCvrmsw7IoQbu3EXGgqjsGkwS59gruyp1d0YsANkQ2PFbfhO1ylr6eehi7XH-UJh_gSiFy86pfza3S1ZIezy-OO4sGrxGF1XUTFiAMXb7KNWaUC-Sj_wFTlhsHNL89bc3qNEUN11tEBeVluDnqaoFGzZ8hKAvE5wjNEu2-8/s1600/166080.jpg"
+        ],
+        "named_logos": {}
+      },
+      "ocr_text": ""
     },
     "4097:0:2:12D6:BCF3:ED:0:0:0:0": {
       "name": "Radio Kledu",
@@ -3486,7 +3877,8 @@
       "homepages": [
         "https://info-mali.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:2435:2DFC:ED:0:0:0:0": {
       "name": "Radio Madjoura Nourou Dine Touba",
@@ -3498,7 +3890,10 @@
       "homepages": [
         "http://www.madjoura.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 403\n"
+      ]
     },
     "4097:0:2:11D0:6F4E:ED:0:0:0:0": {
       "name": "Radio Neneba FM 97.7 Markala",
@@ -3510,7 +3905,95 @@
       "homepages": [
         "https://nenebafm.info/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://nenebafm.info/wp-content/uploads/2026/07/cropped-Logo-RNFM-officiel-100x97.png",
+        "final_url": "https://nenebafm.info/wp-content/uploads/2026/07/cropped-Logo-RNFM-officiel-100x97.png",
+        "path": "originals/53a6c05af437641841072c163b899f5c891b38ecdbd18bcaab89ebc2d829b70d.img",
+        "sha256": "53a6c05af437641841072c163b899f5c891b38ecdbd18bcaab89ebc2d829b70d",
+        "bytes": 19325,
+        "dimensions": [
+          100,
+          97
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://nenebafm.info/",
+        "final_url": "https://nenebafm.info/",
+        "original_html_sha256": "c4069b6c542363d6561a583e59046b1ae793b34852d618aaf2247f48e490bf1e",
+        "path": "page-evidence/c4069b6c542363d6561a583e59046b1ae793b34852d618aaf2247f48e490bf1e.json",
+        "titles": [
+          "NENEBA FM DE MARKALA – La Voix de Markala, l'echo du Mali"
+        ],
+        "image_urls": [
+          "https://nenebafm.info/wp-content/uploads/2026/07/Logo-RNFM-officiel-300x300.png",
+          "https://nenebafm.info/wp-content/uploads/2026/07/cropped-Logo-RNFM-officiel-100x97.png",
+          "https://nenebafm.info/wp-content/uploads/2026/07/cropped-Logo-RNFM-officiel-1-180x180.png"
+        ],
+        "named_logos": {
+          "https://nenebafm.info/wp-content/uploads/2026/07/cropped-Logo-RNFM-officiel-100x97.png": "NENEBA FM DE MARKALA  ",
+          "https://nenebafm.info/wp-content/uploads/2026/07/Logo-RNFM-officiel-300x300.png": "RNFM  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/11ba85590cc561ab5bc20f0918c2b69b7dd377571fa68255fb019452042c9faa.png",
+          "sha256": "11ba85590cc561ab5bc20f0918c2b69b7dd377571fa68255fb019452042c9faa",
+          "bytes": 1950
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/d61748bb55db55005426e0d0f3914b77da51bf9f40b9fae50837488eab850e32.png",
+          "sha256": "d61748bb55db55005426e0d0f3914b77da51bf9f40b9fae50837488eab850e32",
+          "bytes": 22530
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/7866f5ea5d73309750fcbe2010ddbcd4c91a762fd3075025408e769cd7c9a183.png",
+          "sha256": "7866f5ea5d73309750fcbe2010ddbcd4c91a762fd3075025408e769cd7c9a183",
+          "bytes": 64604
+        },
+        "50x30/white": {
+          "path": "verified-assets/1804dbdb539e6adfbb0303aa0e04d1b1e52bd47ce8420c9d292d726237ab1619.png",
+          "sha256": "1804dbdb539e6adfbb0303aa0e04d1b1e52bd47ce8420c9d292d726237ab1619",
+          "bytes": 3252
+        },
+        "220x132/white": {
+          "path": "verified-assets/a24672ae884908b2d010b68b78aa0b1dfcf2b397e82c1a70d9f5286ab8c6ca48.png",
+          "sha256": "a24672ae884908b2d010b68b78aa0b1dfcf2b397e82c1a70d9f5286ab8c6ca48",
+          "bytes": 46827
+        },
+        "400x240/white": {
+          "path": "verified-assets/26b95d62a27774647eb2361a9a5910875f00372794cf3f26c035909b89e32787.png",
+          "sha256": "26b95d62a27774647eb2361a9a5910875f00372794cf3f26c035909b89e32787",
+          "bytes": 121921
+        },
+        "50x30/black": {
+          "path": "verified-assets/b5d9596aa7c1b713ee028f88da35399d5e301a73e22e7fefa02c77e59bb9d914.png",
+          "sha256": "b5d9596aa7c1b713ee028f88da35399d5e301a73e22e7fefa02c77e59bb9d914",
+          "bytes": 3522
+        },
+        "220x132/black": {
+          "path": "verified-assets/80528a07fb9882bfd458dc6a14fb3e446ce64744c646ad26595b67c392dffad9.png",
+          "sha256": "80528a07fb9882bfd458dc6a14fb3e446ce64744c646ad26595b67c392dffad9",
+          "bytes": 45589
+        },
+        "400x240/black": {
+          "path": "verified-assets/af87c78d7371a2e5278ca2f316f6da893e775fd6d0f6442b8c55906e31954387.png",
+          "sha256": "af87c78d7371a2e5278ca2f316f6da893e775fd6d0f6442b8c55906e31954387",
+          "bytes": 118788
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "NENEBA FM DE MARKALA  ",
+        "matched_brand_keys": [
+          "markala",
+          "neneba"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:5727:97EC:ED:0:0:0:0": {
       "name": "Radio Dziani",
@@ -3522,7 +4005,11 @@
       "homepages": [
         "https://dzianifm.fr/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "Command '['tesseract', '/tmp/radio-logo-ocr-4swq0f6t/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds",
+        "Command '['tesseract', '/tmp/radio-logo-ocr-dh9o2qe7/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds"
+      ]
     },
     "4097:0:2:EAC7:C365:ED:0:0:0:0": {
       "name": "Mayotte La 1ère",
@@ -3534,7 +4021,41 @@
       "homepages": [
         "https://la1ere.francetvinfo.fr/mayotte/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://la1ere.franceinfo.fr/statics/img/favicons/default/favicon.svg",
+        "final_url": "https://la1ere.franceinfo.fr/statics/img/favicons/default/favicon.svg",
+        "path": "originals/77d502a4e503f85aaae9ad645764514b3c9b74b872f0d0402fe4f0743edd7285.img",
+        "sha256": "77d502a4e503f85aaae9ad645764514b3c9b74b872f0d0402fe4f0743edd7285",
+        "bytes": 503,
+        "dimensions": [
+          640,
+          640
+        ],
+        "format": "SVG",
+        "frozen_svg_raster": {
+          "path": "rasterized/13bc7c3edac5a6e92c82a3291ca799a512e8d477134be87afd0fe29b646efd95.png",
+          "sha256": "13bc7c3edac5a6e92c82a3291ca799a512e8d477134be87afd0fe29b646efd95",
+          "cairosvg_version": "2.8.2"
+        }
+      },
+      "page": {
+        "url": "https://la1ere.francetvinfo.fr/mayotte/",
+        "final_url": "https://la1ere.franceinfo.fr/mayotte/",
+        "original_html_sha256": "6ce3af1ea34ca85a6cfc3cf72b7c1d5d727a4c2751731fdce413e680c161e4c8",
+        "path": "page-evidence/6ce3af1ea34ca85a6cfc3cf72b7c1d5d727a4c2751731fdce413e680c161e4c8.json",
+        "titles": [
+          "Mayotte La 1ère : actualités et info en direct de Mayotte, replays TV et radio - Outre-mer La 1ère",
+          "      Mayotte La 1ère "
+        ],
+        "image_urls": [
+          "https://la1ere.franceinfo.fr/favicon.png",
+          "https://la1ere.franceinfo.fr/statics/img/favicons/default/favicon.ico",
+          "https://la1ere.franceinfo.fr/statics/img/favicons/default/favicon.svg"
+        ],
+        "named_logos": {}
+      },
+      "ocr_text": "ol\n"
     },
     "4097:0:2:9A0F:376F:ED:0:0:0:0": {
       "name": "MGL Radio",
@@ -3546,7 +4067,11 @@
       "homepages": [
         "http://mglradio.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "Command '['tesseract', '/tmp/radio-logo-ocr-iz09g4vb/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds",
+        "Command '['tesseract', '/tmp/radio-logo-ocr-w1dbv3hn/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds"
+      ]
     },
     "4097:0:2:16A2:9E18:ED:0:0:0:0": {
       "name": "Mongolian Music Radio",
@@ -3558,7 +4083,8 @@
       "homepages": [
         "https://www.radiosons.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:8847:8D05:ED:0:0:0:0": {
       "name": "Гэр бүлийн радио 104.5",
@@ -3570,7 +4096,40 @@
       "homepages": [
         "https://1045.mn/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://1045.mn/maintenance/wp-content/uploads/2022/07/logo1045-1.svg",
+        "final_url": "https://1045.mn/maintenance/wp-content/uploads/2022/07/logo1045-1.svg",
+        "path": "originals/f4e2d0200d2459835c5630a73009ffef34d15330d6d86ab2882167d857c5b161.img",
+        "sha256": "f4e2d0200d2459835c5630a73009ffef34d15330d6d86ab2882167d857c5b161",
+        "bytes": 10735,
+        "dimensions": [
+          640,
+          922
+        ],
+        "format": "SVG",
+        "frozen_svg_raster": {
+          "path": "rasterized/e7a423855fb414e5715ffb9b03f3cb4b90f2db4701537a2da3ec1b57363a5e1b.png",
+          "sha256": "e7a423855fb414e5715ffb9b03f3cb4b90f2db4701537a2da3ec1b57363a5e1b",
+          "cairosvg_version": "2.8.2"
+        }
+      },
+      "page": {
+        "url": "https://1045.mn/",
+        "final_url": "https://1045.mn/maintenance/",
+        "original_html_sha256": "13ef4a8f3e63b3b13f69d6dca1ec29b4df2dd8e5d197b6a65aa0661dc1309bd1",
+        "path": "page-evidence/13ef4a8f3e63b3b13f69d6dca1ec29b4df2dd8e5d197b6a65aa0661dc1309bd1.json",
+        "titles": [
+          "Гэр бүлийн радио 104.5 – Итгэл төрүүлж, ирээдүйд хөтөлнө."
+        ],
+        "image_urls": [
+          "https://1045.mn/maintenance/wp-content/uploads/2022/07/logo1045-1.svg"
+        ],
+        "named_logos": {
+          "https://1045.mn/maintenance/wp-content/uploads/2022/07/logo1045-1.svg": " logo1045 "
+        }
+      },
+      "ocr_text": "[3P BYAUUH\n"
     },
     "4097:0:2:13D7:E3CF:ED:0:0:0:0": {
       "name": "ZJB Radio",
@@ -7799,11 +8358,11 @@
     }
   },
   "counts": {
-    "blocked_no_confirmed_station_page_and_logo": 84,
-    "candidate_assistant_visual_and_identity_check": 21,
-    "pending_homepage_discovery": 297,
-    "ready_verified_homepage_and_wordmark": 20
+    "blocked_no_confirmed_station_page_and_logo": 100,
+    "candidate_assistant_visual_and_identity_check": 26,
+    "pending_homepage_discovery": 272,
+    "ready_verified_homepage_and_wordmark": 24
   },
-  "last_event": "homepages_125_of_422",
-  "updated_utc": "2026-11-05T15:26:16Z"
+  "last_event": "homepages_150_of_422",
+  "updated_utc": "2026-11-05T15:26:47Z"
 }
