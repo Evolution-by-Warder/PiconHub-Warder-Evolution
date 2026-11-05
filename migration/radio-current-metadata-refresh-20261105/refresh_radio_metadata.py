@@ -31,7 +31,7 @@ def verified_new_icons(programme, records, known_urls):
 
 def api_batch(ids, servers):
  errors=[]
- for server in servers:
+ for server in servers*2:
   try:
    url=server+'/json/stations/byuuid?'+urlencode({'uuids':','.join(ids)})
    with urlopen(Request(url,headers={'User-Agent':'WarderRadioPiconReview/2026.11','Accept':'application/json'}),timeout=12) as response:
@@ -68,7 +68,9 @@ def main():
  saved=root/'metadata-batches';saved.mkdir(exist_ok=True)
  def get_batch(item):
   n,ids=item;p=saved/f'batch-{n:04d}.json'
-  if p.exists():return n,json.loads(p.read_text())
+  if p.exists():
+   previous=json.loads(p.read_text())
+   if not previous.get('errors'):return n,previous
   response=api_batch(ids,servers);dump(p,response);return n,response
  with ThreadPoolExecutor(4) as pool:
   for n,response in pool.map(get_batch,enumerate(batches)):
