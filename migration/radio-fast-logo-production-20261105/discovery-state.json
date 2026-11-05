@@ -115279,7 +115279,12 @@
       "homepages": [
         "https://www.estradarealfm.com.br/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "SVG has external or embedded active content",
+        "Command '['tesseract', '/tmp/radio-logo-ocr-ih07qols/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds",
+        "Command '['tesseract', '/tmp/radio-logo-ocr-vcmmcjvl/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds"
+      ]
     },
     "4097:0:2:6D7B:AEC5:ED:0:0:0:0": {
       "name": "Eurodance Weebly 1",
@@ -115291,7 +115296,12 @@
       "homepages": [
         "https://danceanos90.weebly.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 404\n",
+        "curl: (22) The requested URL returned error: 404\n",
+        "Command '['tesseract', '/tmp/radio-logo-ocr-d24p7eh2/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds"
+      ]
     },
     "4097:0:2:3750:77E6:ED:0:0:0:0": {
       "name": "Eurodance Weebly 3",
@@ -115303,7 +115313,40 @@
       "homepages": [
         "https://eurodance90s.weebly.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://eurodance90s.weebly.com/uploads/2/0/6/8/20680686/logo-orange-radio_orig.png",
+        "final_url": "https://eurodance90s.weebly.com/uploads/2/0/6/8/20680686/logo-orange-radio_orig.png",
+        "path": "originals/0c236cbf4aa30a181594e7676ddf32abfeb223f81c3964cf23a6af183ec00372.img",
+        "sha256": "0c236cbf4aa30a181594e7676ddf32abfeb223f81c3964cf23a6af183ec00372",
+        "bytes": 9978,
+        "dimensions": [
+          200,
+          200
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://eurodance90s.weebly.com/",
+        "final_url": "https://eurodance90s.weebly.com/",
+        "original_html_sha256": "08fc2604d9b20029125f972551973b75296693d13ca824cb05797b812ee22b6e",
+        "path": "page-evidence/08fc2604d9b20029125f972551973b75296693d13ca824cb05797b812ee22b6e.json",
+        "titles": [
+          "eurodance 90's - Home"
+        ],
+        "image_urls": [
+          "https://eurodance90s.weebly.com/uploads/2/0/6/8/20680686/logo-orange-radio_orig.png",
+          "https://eurodance90s.weebly.com/uploads/2/0/6/8/20680686/logo-rio-radios-online-250x90_orig.png",
+          "https://eurodance90s.weebly.com/uploads/2/0/6/8/20680686/logo-rob-180x180_orig.png"
+        ],
+        "named_logos": {
+          "https://eurodance90s.weebly.com/uploads/2/0/6/8/20680686/logo-orange-radio_orig.png": "Picture  ",
+          "https://eurodance90s.weebly.com/uploads/2/0/6/8/20680686/logo-rob-180x180_orig.png": "Picture  ",
+          "https://eurodance90s.weebly.com/uploads/2/0/6/8/20680686/logo-rio-radios-online-250x90_orig.png": "Picture  ",
+          "https://eurodance90s.weebly.com/uploads/2/0/6/8/20680686/published/logo.png?1672447066": "Picture  "
+        }
+      },
+      "ocr_text": "Eo\n\nOrange Radio\n"
     },
     "4097:0:2:A453:FAA8:ED:0:0:0:0": {
       "name": "Rádio Evangelica Calafate",
@@ -115315,7 +115358,39 @@
       "homepages": [
         "https://radioevangelicacalafate.sintoniaonline.com.br/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://ouvirradioonline.com.br/logo.png",
+        "final_url": "https://ouvirradioonline.com.br/logo.png",
+        "path": "originals/10ce1d1f55f7ad1e6ccd25df6a83d8ba1c94558fcb496e0b09adfec50c3d45f5.img",
+        "sha256": "10ce1d1f55f7ad1e6ccd25df6a83d8ba1c94558fcb496e0b09adfec50c3d45f5",
+        "bytes": 2269,
+        "dimensions": [
+          200,
+          87
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://radioevangelicacalafate.sintoniaonline.com.br/",
+        "final_url": "https://radioevangelicacalafate.sintoniaonline.com.br/",
+        "original_html_sha256": "12d02297d2b2604d2421cb59766814cdb722a8c5df45efe813b79090cdd6acb7",
+        "path": "page-evidence/12d02297d2b2604d2421cb59766814cdb722a8c5df45efe813b79090cdd6acb7.json",
+        "titles": [
+          "Rádio Evangelica Calafate",
+          "Rádio Evangelica Calafate"
+        ],
+        "image_urls": [
+          "https://ouvirradioonline.com.br/logo.png",
+          "https://radioevangelicacalafate.sintoniaonline.com.br/public/13554-2026-05-18.png",
+          "https://radioevangelicacalafate.sintoniaonline.com.br/public/60326-2023-05-11.png"
+        ],
+        "named_logos": {
+          "https://radioevangelicacalafate.sintoniaonline.com.br/public/13554-2026-05-18.png": "logo  ",
+          "https://ouvirradioonline.com.br/logo.png": "OuvirRadioOnline  "
+        }
+      },
+      "ocr_text": ""
     },
     "4097:0:2:BFDD:29FF:ED:0:0:0:0": {
       "name": "Rádio Evangelizar",
@@ -115327,7 +115402,12 @@
       "homepages": [
         "http://radioevangelizar.com.br/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "Command '['tesseract', '/tmp/radio-logo-ocr-kdq8f6dm/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds",
+        "Command '['tesseract', '/tmp/radio-logo-ocr-_vfz6545/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds",
+        "Command '['tesseract', '/tmp/radio-logo-ocr-0xnrzxw9/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds"
+      ]
     },
     "4097:0:2:C7F3:11D:ED:0:0:0:0": {
       "name": "Rádio Evangelizar Família",
@@ -115339,7 +115419,12 @@
       "homepages": [
         "https://radioevangelizar.com.br/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "Command '['tesseract', '/tmp/radio-logo-ocr-ov1mvhz6/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds",
+        "Command '['tesseract', '/tmp/radio-logo-ocr-dbn6pnpx/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds",
+        "Command '['tesseract', '/tmp/radio-logo-ocr-2piqj6po/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds"
+      ]
     },
     "4097:0:2:20C3:AF54:ED:0:0:0:0": {
       "name": "Rádio Fábrica de Gaiteiros",
@@ -115358,7 +115443,10 @@
       "homepages": [
         "http://facopp.unoeste.br/facopp/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 404\n"
+      ]
     },
     "4097:0:2:5301:8D2F:ED:0:0:0:0": {
       "name": "Rádio Fandango 102.5 FM",
@@ -115370,7 +115458,94 @@
       "homepages": [
         "http://www.radiofandango.com.br/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "http://www.radiofandango.com.br/up/logo_102.png",
+        "final_url": "https://www.radiofandango.com.br/up/logo_102.png",
+        "path": "originals/77ba513487083828ebad95aac217e7f049905f1651c4a998f1b633aaa7efac45.img",
+        "sha256": "77ba513487083828ebad95aac217e7f049905f1651c4a998f1b633aaa7efac45",
+        "bytes": 46576,
+        "dimensions": [
+          192,
+          192
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "http://www.radiofandango.com.br/",
+        "final_url": "https://www.radiofandango.com.br/",
+        "original_html_sha256": "0950db41383878f891b1ef1887044db467c43717ee482eafbfa98b4c1a6452e5",
+        "path": "page-evidence/0950db41383878f891b1ef1887044db467c43717ee482eafbfa98b4c1a6452e5.json",
+        "titles": [
+          "Rádio Fandango 102.5 –  Lider em Notí­cias da Região – Cachoeira do Sul RS"
+        ],
+        "image_urls": [
+          "http://www.radiofandango.com.br/up/logo_102.png",
+          "http://www.radiofandango.com.br/up/logo_89.png",
+          "https://www.radiofandango.com.br/favicon-v2.ico"
+        ],
+        "named_logos": {
+          "http://www.radiofandango.com.br/up/logo_102.png": "Baixe o App da Fandango  Fm 102.5  ",
+          "http://www.radiofandango.com.br/up/logo_89.png": "Baixe o App da Classica Fm 89.5  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/6e8a7b2e8e4a6cf5ff7c67e8ad0ca77916c92cedc9a485cb62b1584044d23512.png",
+          "sha256": "6e8a7b2e8e4a6cf5ff7c67e8ad0ca77916c92cedc9a485cb62b1584044d23512",
+          "bytes": 2001
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/dd3f102dab42233a118e44b9d8287fdc265547b98800c42b4b47e7aac6286d6d.png",
+          "sha256": "dd3f102dab42233a118e44b9d8287fdc265547b98800c42b4b47e7aac6286d6d",
+          "bytes": 19780
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/4f5df89a26b9fdddd94f43af6fa19206fd933b3543bb9dd4409ae4186ef4e4a8.png",
+          "sha256": "4f5df89a26b9fdddd94f43af6fa19206fd933b3543bb9dd4409ae4186ef4e4a8",
+          "bytes": 54992
+        },
+        "50x30/white": {
+          "path": "verified-assets/6284ee265c817e9475566fd75f754fe0ba24a37869f47cee2b4097bda8d6ffd5.png",
+          "sha256": "6284ee265c817e9475566fd75f754fe0ba24a37869f47cee2b4097bda8d6ffd5",
+          "bytes": 3277
+        },
+        "220x132/white": {
+          "path": "verified-assets/c9160552682c6cd1f7669cf503cbac94eaabd3f2ca324eb095fd517e7fe74507.png",
+          "sha256": "c9160552682c6cd1f7669cf503cbac94eaabd3f2ca324eb095fd517e7fe74507",
+          "bytes": 42222
+        },
+        "400x240/white": {
+          "path": "verified-assets/c789f343cb50af696c422277a8f72438d25ae14b5bf4682ffc707350845e6ecb.png",
+          "sha256": "c789f343cb50af696c422277a8f72438d25ae14b5bf4682ffc707350845e6ecb",
+          "bytes": 108386
+        },
+        "50x30/black": {
+          "path": "verified-assets/6952f819d3dccb17ffe2abe0640a21e3b32f14a138f20e729d6cb8f5c50e6e6a.png",
+          "sha256": "6952f819d3dccb17ffe2abe0640a21e3b32f14a138f20e729d6cb8f5c50e6e6a",
+          "bytes": 3509
+        },
+        "220x132/black": {
+          "path": "verified-assets/219dfae123243a972c6a33f515a79221106ddee8cafe95e87d8b5d304f9f1195.png",
+          "sha256": "219dfae123243a972c6a33f515a79221106ddee8cafe95e87d8b5d304f9f1195",
+          "bytes": 41214
+        },
+        "400x240/black": {
+          "path": "verified-assets/56a400b04cd00fd207e91f5ba4eb37af67ba01feb25809a2893befb6bd7a5f8d.png",
+          "sha256": "56a400b04cd00fd207e91f5ba4eb37af67ba01feb25809a2893befb6bd7a5f8d",
+          "bytes": 105562
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Baixe o App da Fandango  Fm 102.5  ",
+        "matched_brand_keys": [
+          "fandango"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:555:11B3:ED:0:0:0:0": {
       "name": "Fan FM Aracaju",
@@ -115382,7 +115557,8 @@
       "homepages": [
         "https://redefanfm.com.br/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:852E:3329:ED:0:0:0:0": {
       "name": "Fay Só Forró das Antigas",
@@ -115394,7 +115570,10 @@
       "homepages": [
         "http://7602.site.stm-ip.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (6) Could not resolve host: 7602.site.stm-ip.com\n"
+      ]
     },
     "4097:0:2:CFAE:5119:ED:0:0:0:0": {
       "name": "Rádio Federal Fm 101,3 Mhz UNIFAL",
@@ -115406,7 +115585,93 @@
       "homepages": [
         "http://www.radiofederalfm.com.br/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://facepevirtual.org.br/facepe/radio_federal_fm/logo_branco2.png",
+        "final_url": "https://facepevirtual.org.br/facepe/radio_federal_fm/logo_branco2.png",
+        "path": "originals/b09c700ec14080a42f413aa27fc477886c1e1e045a2c93d06e8bf3df13406c89.img",
+        "sha256": "b09c700ec14080a42f413aa27fc477886c1e1e045a2c93d06e8bf3df13406c89",
+        "bytes": 115268,
+        "dimensions": [
+          3188,
+          658
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "http://www.radiofederalfm.com.br/",
+        "final_url": "https://facepevirtual.org.br/facepe/radio_federal_fm/",
+        "original_html_sha256": "522bf7f48ccbc850ecdd53953f2af01d62d0a83daf465a36d9d9fc1876deb309",
+        "path": "page-evidence/522bf7f48ccbc850ecdd53953f2af01d62d0a83daf465a36d9d9fc1876deb309.json",
+        "titles": [
+          "Rádio Federal FM 101.3 | A Melhor Música 24 horas por dia",
+          "\n                 \n                     \n                 \n            "
+        ],
+        "image_urls": [
+          "https://facepevirtual.org.br/facepe/radio_federal_fm/logo_branco2.png",
+          "https://facepevirtual.org.br/facepe/radio_federal_fm/favicon4.png"
+        ],
+        "named_logos": {
+          "https://facepevirtual.org.br/facepe/radio_federal_fm/logo_branco2.png": "Rádio Federal FM  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/3b84f9f81c998894248fde4dd770b7e82c37f3e3649413ad0b1014fd706453d7.png",
+          "sha256": "3b84f9f81c998894248fde4dd770b7e82c37f3e3649413ad0b1014fd706453d7",
+          "bytes": 1327
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/cfa42cf122de570bc96ed5ca7896b9ebab35351fc716145db93faec5a8ce6d57.png",
+          "sha256": "cfa42cf122de570bc96ed5ca7896b9ebab35351fc716145db93faec5a8ce6d57",
+          "bytes": 10989
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/3d6246a9a21ea7347a78b187056b139f5d5b284ee36e4fbc3e57e84112b1fb85.png",
+          "sha256": "3d6246a9a21ea7347a78b187056b139f5d5b284ee36e4fbc3e57e84112b1fb85",
+          "bytes": 34660
+        },
+        "50x30/white": {
+          "path": "verified-assets/66ba8f2a9c60d5633378f1cb8b3647577e7c951a8aa036cf82afc572330f441c.png",
+          "sha256": "66ba8f2a9c60d5633378f1cb8b3647577e7c951a8aa036cf82afc572330f441c",
+          "bytes": 2641
+        },
+        "220x132/white": {
+          "path": "verified-assets/796dd0a7495e05789e4cb41987161cf0a4e8727c177f0d89dc7511fd2a761825.png",
+          "sha256": "796dd0a7495e05789e4cb41987161cf0a4e8727c177f0d89dc7511fd2a761825",
+          "bytes": 36819
+        },
+        "400x240/white": {
+          "path": "verified-assets/d475d8ea88e8a909862dae6a4fa5dd7f4df114f5c8f52a5af06a6e96608f1fa2.png",
+          "sha256": "d475d8ea88e8a909862dae6a4fa5dd7f4df114f5c8f52a5af06a6e96608f1fa2",
+          "bytes": 92217
+        },
+        "50x30/black": {
+          "path": "verified-assets/a80ccec85a609c188148b64ea0887d64f4f6f79ad093c57c12d0e38696281e4f.png",
+          "sha256": "a80ccec85a609c188148b64ea0887d64f4f6f79ad093c57c12d0e38696281e4f",
+          "bytes": 3189
+        },
+        "220x132/black": {
+          "path": "verified-assets/d99bf5eb9301f5f47cae9069847b6acaa076d3a7da339f9ba04ed0cc54c7c829.png",
+          "sha256": "d99bf5eb9301f5f47cae9069847b6acaa076d3a7da339f9ba04ed0cc54c7c829",
+          "bytes": 38189
+        },
+        "400x240/black": {
+          "path": "verified-assets/95fcec66f42a4a6dfc81c40cf4a392289bf6a2b8727c07ef4ac4a8b385d72613.png",
+          "sha256": "95fcec66f42a4a6dfc81c40cf4a392289bf6a2b8727c07ef4ac4a8b385d72613",
+          "bytes": 96718
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Rádio Federal FM  ",
+        "matched_brand_keys": [
+          "federal"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:95EA:DA5:ED:0:0:0:0": {
       "name": "Fema FM Santa Rosa",
@@ -115418,7 +115683,8 @@
       "homepages": [
         "https://femafm.minhawebradio.net/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:E614:9616:ED:0:0:0:0": {
       "name": "Fever 105",
@@ -115437,7 +115703,10 @@
       "homepages": [
         "https://./"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (6) Could not resolve host: .\n"
+      ]
     },
     "4097:0:2:3D1E:54E:ED:0:0:0:0": {
       "name": "Rádio Flashback Fm",
@@ -115449,7 +115718,12 @@
       "homepages": [
         "http://flashbackfmst.com.br/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "cannot identify image file <_io.BytesIO object at 0x7f7b383d0040>",
+        "Command '['tesseract', '/tmp/radio-logo-ocr-hgcbmlm9/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds",
+        "Command '['tesseract', '/tmp/radio-logo-ocr-m1mc5zjw/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds"
+      ]
     },
     "4097:0:2:B185:81F6:ED:0:0:0:0": {
       "name": "Rádio Flash Prime",
@@ -115461,7 +115735,8 @@
       "homepages": [
         "https://www.owh.radio.br/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:11AD:8596:ED:0:0:0:0": {
       "name": "FM DOM BOSCO 96.1",
@@ -115473,7 +115748,38 @@
       "homepages": [
         "https://fmdombosco.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://fmdombosco.com/wp-content/uploads/2023/11/TELA-ICONE-APP2-300x300.png",
+        "final_url": "https://fmdombosco.com/wp-content/uploads/2023/11/TELA-ICONE-APP2-300x300.png",
+        "path": "originals/e6c3d0ee8549474981b679dc1eac8e21adf6eb5a26dbe49b06bb429fc5484455.img",
+        "sha256": "e6c3d0ee8549474981b679dc1eac8e21adf6eb5a26dbe49b06bb429fc5484455",
+        "bytes": 21024,
+        "dimensions": [
+          300,
+          300
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://fmdombosco.com/",
+        "final_url": "https://fmdombosco.com/",
+        "original_html_sha256": "d9149279eb353533c82b3d3c51ab688438ef10444ba68affc7760ecc555a4201",
+        "path": "page-evidence/d9149279eb353533c82b3d3c51ab688438ef10444ba68affc7760ecc555a4201.json",
+        "titles": [
+          "FM Dom Bosco - Rádio FM Dom Bosco 96,1 de Fortaleza"
+        ],
+        "image_urls": [
+          "https://fmdombosco.com/wp-content/uploads/2023/11/LOGO-CLUBE-DE-AMIGOS-300x85.png",
+          "https://fmdombosco.com/wp-content/uploads/elementor/thumbs/ICONE-LOGO-PNG-qfgjdtkqu57njbybld3gf3hfd1su11u1jk5vincdts.png",
+          "https://fmdombosco.com/wp-content/uploads/2023/11/TELA-ICONE-APP2-300x300.png"
+        ],
+        "named_logos": {
+          "https://fmdombosco.com/wp-content/uploads/elementor/thumbs/ICONE-LOGO-PNG-qfgjdtkqu57njbybld3gf3hfd1su11u1jk5vincdts.png": "ICONE-LOGO-PNG ICONE-LOGO-PNG ",
+          "https://fmdombosco.com/wp-content/uploads/2023/11/LOGO-CLUBE-DE-AMIGOS-300x85.png": "  "
+        }
+      },
+      "ocr_text": "D\n"
     },
     "4097:0:2:3EBD:8AA9:ED:0:0:0:0": {
       "name": "Fm Imperial",
@@ -115485,7 +115791,45 @@
       "homepages": [
         "https://www.fmimperial.com.br/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://www.fmimperial.com.br/public/img/whatsapp_logo.svg",
+        "final_url": "https://www.fmimperial.com.br/public/img/whatsapp_logo.svg",
+        "path": "originals/316c57cd0e0a1eebd56de328b745663f085ca2adde66028d5f45f8c59c3cfcc7.img",
+        "sha256": "316c57cd0e0a1eebd56de328b745663f085ca2adde66028d5f45f8c59c3cfcc7",
+        "bytes": 2177,
+        "dimensions": [
+          640,
+          643
+        ],
+        "format": "SVG",
+        "frozen_svg_raster": {
+          "path": "rasterized/0539186e07946a3d0486904ec7bdc3e3455759c2482466aae77b9a20ed7b0eb8.png",
+          "sha256": "0539186e07946a3d0486904ec7bdc3e3455759c2482466aae77b9a20ed7b0eb8",
+          "cairosvg_version": "2.8.2"
+        }
+      },
+      "page": {
+        "url": "https://www.fmimperial.com.br/",
+        "final_url": "https://www.fmimperial.com.br/",
+        "original_html_sha256": "ef20a49606902a1246dda35d73a888d33b97560d85ec4e852d2ee76653e49e3c",
+        "path": "page-evidence/ef20a49606902a1246dda35d73a888d33b97560d85ec4e852d2ee76653e49e3c.json",
+        "titles": [
+          "FM Imperial de Pedro II ",
+          "Bicicleta de jovem desaparecido é encontrada em área de mata na zona rural de Pedro II"
+        ],
+        "image_urls": [
+          "https://www.fmimperial.com.br/public/img/ig_logo.svg",
+          "https://www.fmimperial.com.br/public/img/logo-imperial.png",
+          "https://www.fmimperial.com.br/public/img/whatsapp_logo.svg"
+        ],
+        "named_logos": {
+          "https://www.fmimperial.com.br/public/img/logo-imperial.png": "  ",
+          "https://www.fmimperial.com.br/public/img/ig_logo.svg": "  ",
+          "https://www.fmimperial.com.br/public/img/whatsapp_logo.svg": "  "
+        }
+      },
+      "ocr_text": ""
     },
     "4097:0:2:2500:2737:ED:0:0:0:0": {
       "name": "FM JOVEM 104.9",
@@ -115497,7 +115841,10 @@
       "homepages": [
         "https://fmjovem104.9.redederadio.com.br/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (6) Could not resolve host: fmjovem104.9.redederadio.com.br\n"
+      ]
     },
     "4097:0:2:1BF4:1334:ED:0:0:0:0": {
       "name": "FM Liberdade 101,1",
@@ -115516,7 +115863,11 @@
       "homepages": [
         "http://www.fmmusicbrasil.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "Command '['tesseract', '/tmp/radio-logo-ocr-_2xcwb14/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds",
+        "Command '['tesseract', '/tmp/radio-logo-ocr-aar9z__f/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds"
+      ]
     },
     "4097:0:2:9E09:5C81:ED:0:0:0:0": {
       "name": "FM O DIA 100.5",
@@ -115528,7 +115879,42 @@
       "homepages": [
         "http://www.fmodia.com.br/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://www.fmodia.com.br/wp-content/uploads/2023/11/logo-fmodia-rio.png",
+        "final_url": "https://www.fmodia.com.br/wp-content/uploads/2023/11/logo-fmodia-rio.png",
+        "path": "originals/bf781ffee7f2797512a57328b36e6e721c646874b1934d52d4be040eebcf2adb.img",
+        "sha256": "bf781ffee7f2797512a57328b36e6e721c646874b1934d52d4be040eebcf2adb",
+        "bytes": 64105,
+        "dimensions": [
+          300,
+          107
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "http://www.fmodia.com.br/",
+        "final_url": "https://www.fmodia.com.br/",
+        "original_html_sha256": "3aa94326301de6ef651f7cad4a2bbf89204dc54ab30eb7938a562a90d38ce053",
+        "path": "page-evidence/3aa94326301de6ef651f7cad4a2bbf89204dc54ab30eb7938a562a90d38ce053.json",
+        "titles": [
+          "FM O Dia – Alegria que Irradia",
+          " Menu ",
+          " Especiais ",
+          " Ao vivo "
+        ],
+        "image_urls": [
+          "https://www.fmodia.com.br/images/Logo.gif",
+          "https://www.fmodia.com.br/wp-content/uploads/2023/09/cropped-logo-fm-o-dia-topo-1.png",
+          "https://www.fmodia.com.br/wp-content/uploads/2023/11/logo-fmodia-rio.png"
+        ],
+        "named_logos": {
+          "https://www.fmodia.com.br/wp-content/uploads/2023/09/cropped-logo-fm-o-dia-topo-1.png": "  ",
+          "https://www.fmodia.com.br/wp-content/uploads/2023/11/logo-fmodia-rio.png": "  ",
+          "https://www.fmodia.com.br/images/Logo.gif": "  "
+        }
+      },
+      "ocr_text": ""
     },
     "4097:0:2:234F:7407:ED:0:0:0:0": {
       "name": "Rádio FM O Dia 99.7 FM",
@@ -115566,7 +115952,35 @@
       "homepages": [
         "https://www.fmvaleverde.com.br/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://fmvaleverde.com.br/wp-content/uploads/2025/09/fav-100x100.png",
+        "final_url": "https://fmvaleverde.com.br/wp-content/uploads/2025/09/fav-100x100.png",
+        "path": "originals/85d64de41ef690c4be67f5006c3381c1f1ccbcc29eaeb9e164b9dc47f8e80820.img",
+        "sha256": "85d64de41ef690c4be67f5006c3381c1f1ccbcc29eaeb9e164b9dc47f8e80820",
+        "bytes": 5198,
+        "dimensions": [
+          100,
+          100
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://www.fmvaleverde.com.br/",
+        "final_url": "https://fmvaleverde.com.br/",
+        "original_html_sha256": "745e2e6f81fdec3529248119728cedaba2076fd7f7ebf43536644b75c3433dc2",
+        "path": "page-evidence/745e2e6f81fdec3529248119728cedaba2076fd7f7ebf43536644b75c3433dc2.json",
+        "titles": [
+          "FM Vale Verde 96,7 – A maior do sudoeste paulista | Ouça ao vivo"
+        ],
+        "image_urls": [
+          "https://fmvaleverde.com.br/wp-content/uploads/2025/09/fav-100x100.png",
+          "https://fmvaleverde.com.br/wp-content/uploads/2025/09/fav.png",
+          "https://fmvaleverde.com.br/wp-content/uploads/2024/10/logo-ads.jpg"
+        ],
+        "named_logos": {}
+      },
+      "ocr_text": ""
     },
     "4097:0:2:1F1D:EC36:ED:0:0:0:0": {
       "name": "FM Verdade 98,7",
@@ -115578,7 +115992,44 @@
       "homepages": [
         "https://xcastradios.com.br/radio/radio-fm-verdade-98-7-11038"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://beta.xcast.com.br/img/logo.png",
+        "final_url": "https://beta.xcast.com.br/img/logo.png",
+        "path": "originals/cde6318388a301962c634f92545c265802ddca5d809559db2199811e552c2899.img",
+        "sha256": "cde6318388a301962c634f92545c265802ddca5d809559db2199811e552c2899",
+        "bytes": 10263,
+        "dimensions": [
+          560,
+          254
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://xcastradios.com.br/radio/radio-fm-verdade-98-7-11038",
+        "final_url": "https://xcastradios.com.br/radio/radio-fm-verdade-98-7-11038",
+        "original_html_sha256": "d235915d4aebe97e9f2b31180d30e7a465b620339155fa2d3a3c52fc3c947798",
+        "path": "page-evidence/d235915d4aebe97e9f2b31180d30e7a465b620339155fa2d3a3c52fc3c947798.json",
+        "titles": [
+          "Ouvir FM Verdade 98,7 ao vivo - Granja · xCAST Rádios",
+          "FM Verdade 98,7",
+          "FM Verdade 98,7"
+        ],
+        "image_urls": [
+          "https://beta.xcast.com.br/img/logo.png",
+          "https://beta.xcast.com.br/img/logos/logo-10924.png",
+          "https://beta.xcast.com.br/img/logos/logo-11038.png"
+        ],
+        "named_logos": {
+          "https://beta.xcast.com.br/img/logos/logo-11038.png": "  ",
+          "https://beta.xcast.com.br/img/logos/logo-7666.png": "Radio Mar Azul FM  ",
+          "https://beta.xcast.com.br/img/logos/logo-6686.png": "Radio Igm  ",
+          "https://beta.xcast.com.br/img/logos/logo-8106.png": "Radio Domo FM  ",
+          "https://beta.xcast.com.br/img/logos/logo-10924.png": "Radio Iracema Web  ",
+          "https://beta.xcast.com.br/img/logo.png": "  "
+        }
+      },
+      "ocr_text": "@)\n"
     },
     "4097:0:2:B86:A7CD:ED:0:0:0:0": {
       "name": "Fofinho Rock Club",
@@ -115590,7 +116041,10 @@
       "homepages": [
         "https://fofinhorockclub.com.br/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "Command '['tesseract', '/tmp/radio-logo-ocr-zxwlwfy_/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds"
+      ]
     },
     "4097:0:2:C33A:4AE6:ED:0:0:0:0": {
       "name": "Radio Folha",
@@ -115602,7 +116056,114 @@
       "homepages": [
         "https://www.radiofolha.fm/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://www.radiofolha.fm/storage/images/notifi/logo-folha-esportes-6ae2626b4c4c5567622120.jpg",
+        "final_url": "https://www.radiofolha.fm/storage/images/notifi/logo-folha-esportes-6ae2626b4c4c5567622120.jpg",
+        "path": "originals/f72b67f64992f0ad6a26175c111557d8c4d04d285d8c153afa7f8654e0ec6ea8.img",
+        "sha256": "f72b67f64992f0ad6a26175c111557d8c4d04d285d8c153afa7f8654e0ec6ea8",
+        "bytes": 101765,
+        "dimensions": [
+          1280,
+          720
+        ],
+        "format": "JPEG"
+      },
+      "page": {
+        "url": "https://www.radiofolha.fm/",
+        "final_url": "https://www.radiofolha.fm/",
+        "original_html_sha256": "67acb09fd49161a0433820cb7d59e3c9cb069610765152eb18aee26b84c40d12",
+        "path": "page-evidence/67acb09fd49161a0433820cb7d59e3c9cb069610765152eb18aee26b84c40d12.json",
+        "titles": [
+          "Rádio Folha - 100.3 FM",
+          "Bom Dia 100.3",
+          "Bom Dia 100.3",
+          "FOLHA ESPORTES",
+          "Jornal 100.3",
+          "Bom Dia 100.3",
+          "FOLHA ESPORTES",
+          "Bom Dia 100.3",
+          "Agenda da Semana",
+          "RESUMÃO DA FOLHA",
+          "Bom Dia 100.3",
+          "Resumão Da Folha",
+          "FOLHA ESPORTES",
+          "Bom Dia 100.3",
+          "RESUMÃO DA FOLHA",
+          "FOLHA ESPORTES",
+          "Bom Dia 100.3",
+          "RESUMÃO DA FOLHA",
+          "FOLHA ESPORTES",
+          "Jornal 100.3",
+          "Bom Dia 100.3"
+        ],
+        "image_urls": [
+          "https://www.radiofolha.fm/site/assets/images/logo_retangulo.png",
+          "https://www.radiofolha.fm/storage/images/notifi/logo-folha-esportes-6ae2626b4c4c5567622120.jpg",
+          "https://www.radiofolha.fm/site/assets/favicon/apple-touch-icon.png"
+        ],
+        "named_logos": {
+          "https://www.radiofolha.fm/site/assets/images/logo_retangulo.png": "  ",
+          "https://www.radiofolha.fm/storage/images/notifi/logo-folha-esportes-6ae2626b4c4c5567622120.jpg": "FOLHA ESPORTES FOLHA ESPORTES "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/5cefc4a9268bea5923337ac4686ccedbf817f59cc8ccd69c78111434493f5a99.png",
+          "sha256": "5cefc4a9268bea5923337ac4686ccedbf817f59cc8ccd69c78111434493f5a99",
+          "bytes": 2837
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/ecd02a65de35bb1aa3cffbcdbe2d1b1c9341386663f20aa746c199d91e5045f1.png",
+          "sha256": "ecd02a65de35bb1aa3cffbcdbe2d1b1c9341386663f20aa746c199d91e5045f1",
+          "bytes": 39184
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/ba91fc3b290b21cd981ffd87716581b4e6e04bdf6ab560da13698ae8c0bc8b48.png",
+          "sha256": "ba91fc3b290b21cd981ffd87716581b4e6e04bdf6ab560da13698ae8c0bc8b48",
+          "bytes": 104266
+        },
+        "50x30/white": {
+          "path": "verified-assets/bbc1538475304e0d20033723dfa2acf6cb299cd7808a6360ce9a1049835bdc24.png",
+          "sha256": "bbc1538475304e0d20033723dfa2acf6cb299cd7808a6360ce9a1049835bdc24",
+          "bytes": 3509
+        },
+        "220x132/white": {
+          "path": "verified-assets/1a6e6c9d791f04b88a526b35331c251d89c027defe036e1b67e4409c6cf099e9.png",
+          "sha256": "1a6e6c9d791f04b88a526b35331c251d89c027defe036e1b67e4409c6cf099e9",
+          "bytes": 52813
+        },
+        "400x240/white": {
+          "path": "verified-assets/4f83a0bb9fcf592c2a5e8935070cf83e71f3883c984b591f3dbb8d29548ed9a7.png",
+          "sha256": "4f83a0bb9fcf592c2a5e8935070cf83e71f3883c984b591f3dbb8d29548ed9a7",
+          "bytes": 137952
+        },
+        "50x30/black": {
+          "path": "verified-assets/c198c2c63484ee16f939d10310fe8fb9ae154e61072a6f532e1733634d109817.png",
+          "sha256": "c198c2c63484ee16f939d10310fe8fb9ae154e61072a6f532e1733634d109817",
+          "bytes": 3562
+        },
+        "220x132/black": {
+          "path": "verified-assets/eb168a1b73b190d9dc4958ccc24163d48ee75e638247db3eff5c7651822d977f.png",
+          "sha256": "eb168a1b73b190d9dc4958ccc24163d48ee75e638247db3eff5c7651822d977f",
+          "bytes": 51462
+        },
+        "400x240/black": {
+          "path": "verified-assets/c3d04ac605d2b0324a3d1079d6a1883506ea431239c6450a7c1f749d01613a65.png",
+          "sha256": "c3d04ac605d2b0324a3d1079d6a1883506ea431239c6450a7c1f749d01613a65",
+          "bytes": 133934
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "FOLHA ESPORTES FOLHA ESPORTES ",
+        "matched_brand_keys": [
+          "folha"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:775D:92B2:ED:0:0:0:0": {
       "name": "Rádio Forró",
@@ -115615,7 +116176,10 @@
         "http://toligado.net.br/",
         "https://toligado.net.br/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 429\n"
+      ]
     },
     "4097:0:2:B510:C6AC:ED:0:0:0:0": {
       "name": "Rádio Forró Brega",
@@ -526013,14 +526577,14 @@
   },
   "counts": {
     "already_ready_in_saved_checkpoint": 4155,
-    "blocked_no_confirmed_station_page_and_logo": 1429,
+    "blocked_no_confirmed_station_page_and_logo": 1444,
     "blocked_no_independent_station_homepage": 1269,
     "blocked_no_unique_current_station_metadata": 4248,
-    "candidate_assistant_visual_and_identity_check": 568,
+    "candidate_assistant_visual_and_identity_check": 575,
     "needs_assistant_identity_research_for_short_or_generic_name": 1328,
-    "pending_homepage_discovery": 27303,
-    "ready_verified_homepage_and_wordmark": 603
+    "pending_homepage_discovery": 27278,
+    "ready_verified_homepage_and_wordmark": 606
   },
-  "last_event": "homepages_2575_of_29878",
-  "updated_utc": "2026-11-05T14:18:38Z"
+  "last_event": "homepages_2600_of_29878",
+  "updated_utc": "2026-11-05T14:19:19Z"
 }
