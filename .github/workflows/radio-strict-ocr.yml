@@ -1,0 +1,30 @@
+name: Strict verification of remaining catalogue wordmarks
+on:
+  push:
+    branches: [work/radio-catalogue-strict-ocr-20261105]
+    paths: [migration/radio-catalogue-strict-ocr-20261105/seed.b64]
+permissions:
+  contents: write
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: work/radio-catalogue-strict-ocr-20261105
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /tools/
+            /plugin/artwork/templates/picons/
+            /migration/radio-catalogue-artwork-recovery-20261105/discovery-state.json
+            /migration/radio-catalogue-artwork-recovery-20261105/originals/
+            /migration/radio-catalogue-artwork-recovery-20261105/rasterized/
+            /migration/radio-catalogue-strict-ocr-20261105/
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install Pillow==13.0.0
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq tesseract-ocr
+      - run: python tools/test_strict_catalogue_ocr.py
+      - run: python tools/strict_catalogue_ocr.py --base migration/radio-catalogue-artwork-recovery-20261105 --output migration/radio-catalogue-strict-ocr-20261105 --branch work/radio-catalogue-strict-ocr-20261105
