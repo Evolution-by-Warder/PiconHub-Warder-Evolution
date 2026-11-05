@@ -1,0 +1,382 @@
+<!doctype html>
+<html lang="es-CL">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- ─── SEO base ──────────────────────────────────────────────────────── -->
+    <title>Radio Araucana 95.9 FM — Radio en Temuco en vivo, podcast y reels | La voz de La Araucanía</title>
+    <meta name="description" content="Radio en Temuco: escucha Radio Araucana 95.9 FM en vivo, la primera FM de Chile, desde 1960. Podcast Araucana Digital, entrevistas en video, reels, noticias y deporte de La Araucanía, online 24/7." />
+    <link rel="canonical" href="https://radioaraucana.cl/" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="theme-color" content="#191919" />
+    <meta name="author" content="Radio Araucana FM 95.9" />
+
+    <!-- Geo tags (SEO local Chile) -->
+    <meta name="geo.region" content="CL-AR" />
+    <meta name="geo.placename" content="Temuco, La Araucanía, Chile" />
+    <meta name="geo.position" content="-38.7396;-72.5984" />
+    <meta name="ICBM" content="-38.7396, -72.5984" />
+
+    <!-- ─── Open Graph ────────────────────────────────────────────────────── -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Radio Araucana FM 95.9" />
+    <meta property="og:locale" content="es_CL" />
+    <meta property="og:url" content="https://radioaraucana.cl/" />
+    <meta property="og:title" content="Radio Araucana 95.9 FM — Radio en Temuco, en vivo y en video" />
+    <meta property="og:description" content="La radio de Temuco, en vivo y en video. Desde 1960 en el 95.9 FM; hoy también podcast, entrevistas y reels sobre La Araucanía." />
+    <meta property="og:image" content="https://radioaraucana.cl/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Radio Araucana FM 95.9 — Temuco, La Araucanía" />
+
+    <!-- ─── Twitter Card ──────────────────────────────────────────────────── -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Radio Araucana 95.9 FM — Radio en Temuco en vivo" />
+    <meta name="twitter:description" content="La radio histórica de Temuco y La Araucanía. En vivo 24/7 desde 1960." />
+    <meta name="twitter:image" content="https://radioaraucana.cl/og-image.png" />
+
+    <!-- ─── Iconos / PWA ──────────────────────────────────────────────────── -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- ─── Performance: preconnect / dns-prefetch ────────────────────────── -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://audio.streaminghd.cl" />
+    <link rel="dns-prefetch" href="https://audio.streaminghd.cl" />
+    <link rel="preconnect" href="https://api.open-meteo.com" />
+    <link rel="preconnect" href="https://i.ytimg.com" />
+
+    <!-- Fuente Open Sans precargada (la app la usa via @import inline; este preload acelera el primer paint) -->
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap"
+    />
+
+    <!-- ─── JSON-LD: Organization (grupo dueño de Araucana + Frontera) ───── -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "@id": "https://radioaraucana.cl/#organization",
+      "name": "Grupo Radios Araucana y La Frontera",
+      "alternateName": "Radios Araucana y La Frontera",
+      "url": "https://radioaraucana.cl/",
+      "logo": "https://radioaraucana.cl/favicon.svg",
+      "foundingDate": "1960",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Caupolicán 110, Of. 2003",
+        "addressLocality": "Temuco",
+        "addressRegion": "La Araucanía",
+        "postalCode": "4780000",
+        "addressCountry": "CL"
+      },
+      "contactPoint": [{
+        "@type": "ContactPoint",
+        "telephone": "+56-9-9287-2087",
+        "contactType": "customer service",
+        "email": "contacto@araucanayfrontera.cl",
+        "areaServed": "CL",
+        "availableLanguage": ["Spanish"]
+      }],
+      "sameAs": [
+        "https://www.instagram.com/araucanaradio",
+        "https://www.facebook.com/share/1aK6itN6zP/?mibextid=wwXIfr",
+        "https://www.youtube.com/@araucanafm"
+      ]
+    }
+    </script>
+
+    <!-- ─── JSON-LD: WebSite ─────────────────────────────────────────────── -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "@id": "https://radioaraucana.cl/#website",
+      "url": "https://radioaraucana.cl/",
+      "name": "Radio Araucana FM 95.9",
+      "description": "Sitio oficial de Radio Araucana FM 95.9 Temuco — La voz histórica de La Araucanía desde 1960.",
+      "inLanguage": "es-CL",
+      "publisher": { "@id": "https://radioaraucana.cl/#organization" }
+    }
+    </script>
+
+    <!-- ─── JSON-LD: RadioStation Araucana 95.9 FM ───────────────────────── -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "RadioStation",
+      "@id": "https://radioaraucana.cl/#araucana",
+      "name": "Radio Araucana",
+      "alternateName": ["Araucana FM 95.9", "Radio Araucana Temuco", "Araucana Temuco", "Radio Araucana 95.9 FM Temuco", "Radio Temuco 95.9", "XQD 1", "XQD-1"],
+      "url": "https://radioaraucana.cl/",
+      "logo": "https://radioaraucana.cl/favicon.svg",
+      "description": "Primera radio de Frecuencia Modulada en Chile y la segunda en toda Latinoamérica. Fundada el 1 de enero de 1960 en Temuco como XQD 1.",
+      "broadcastFrequency": {
+        "@type": "BroadcastFrequencySpecification",
+        "broadcastFrequencyValue": 95.9,
+        "broadcastSignalModulation": "FM"
+      },
+      "broadcastDisplayName": "Radio Araucana 95.9 FM",
+      "broadcastTimezone": "America/Santiago",
+      "foundingDate": "1960-01-01",
+      "areaServed": {
+        "@type": "AdministrativeArea",
+        "name": "Región de La Araucanía",
+        "containedInPlace": { "@type": "Country", "name": "Chile" }
+      },
+      "location": {
+        "@type": "Place",
+        "name": "Temuco, La Araucanía, Chile",
+        "geo": { "@type": "GeoCoordinates", "latitude": -38.7396, "longitude": -72.5984 }
+      },
+      "parentOrganization": { "@id": "https://radioaraucana.cl/#organization" },
+      "sameAs": [
+        "https://www.instagram.com/araucanaradio",
+        "https://www.facebook.com/share/1aK6itN6zP/?mibextid=wwXIfr",
+        "https://www.youtube.com/@araucanafm"
+      ]
+    }
+    </script>
+
+    <!-- ─── JSON-LD: RadioBroadcastService Araucana ──────────────────────── -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "RadioBroadcastService",
+      "name": "Radio Araucana 95.9 FM — Stream en vivo",
+      "broadcastDisplayName": "Radio Araucana FM 95.9",
+      "broadcastFrequency": "95.9 FM",
+      "broadcaster": { "@id": "https://radioaraucana.cl/#araucana" },
+      "inLanguage": "es-CL",
+      "potentialAction": {
+        "@type": "ListenAction",
+        "target": "https://radioaraucana.cl/stream",
+        "expectsAcceptanceOf": { "@type": "Offer", "category": "free", "eligibleRegion": { "@type": "Country", "name": "Chile" } }
+      }
+    }
+    </script>
+
+    <!-- ─── JSON-LD: RadioStation La Frontera 1110 AM ────────────────────── -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "RadioStation",
+      "@id": "https://radioaraucana.cl/#frontera",
+      "name": "Radio La Frontera",
+      "alternateName": "La Frontera 1110 AM",
+      "url": "https://radioaraucana.cl/#frontera",
+      "broadcastFrequency": {
+        "@type": "BroadcastFrequencySpecification",
+        "broadcastFrequencyValue": 1110,
+        "broadcastSignalModulation": "AM"
+      },
+      "broadcastDisplayName": "Radio La Frontera 1110 AM",
+      "broadcastTimezone": "America/Santiago",
+      "foundingDate": "1939-10",
+      "areaServed": {
+        "@type": "AdministrativeArea",
+        "name": "Región de La Araucanía",
+        "containedInPlace": { "@type": "Country", "name": "Chile" }
+      },
+      "location": {
+        "@type": "Place",
+        "name": "Temuco, La Araucanía, Chile",
+        "geo": { "@type": "GeoCoordinates", "latitude": -38.7396, "longitude": -72.5984 }
+      },
+      "parentOrganization": { "@id": "https://radioaraucana.cl/#organization" }
+    }
+    </script>
+
+    <!-- ─── JSON-LD: RadioBroadcastService La Frontera ───────────────────── -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "RadioBroadcastService",
+      "name": "Radio La Frontera 1110 AM — Stream en vivo",
+      "broadcastDisplayName": "Radio La Frontera 1110 AM",
+      "broadcastFrequency": "1110 AM",
+      "broadcaster": { "@id": "https://radioaraucana.cl/#frontera" },
+      "inLanguage": "es-CL",
+      "potentialAction": {
+        "@type": "ListenAction",
+        "target": "https://radioaraucana.cl/stream-frontera"
+      }
+    }
+    </script>
+    <!-- ─── JSON-LD: PodcastSeries Araucana Digital ──────────────────────── -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "PodcastSeries",
+      "@id": "https://radioaraucana.cl/#podcast",
+      "name": "Araucana Digital",
+      "alternateName": "Araucana Digital Podcast",
+      "url": "https://radioaraucana.cl/#podcast",
+      "description": "Podcast en video de Radio Araucana 95.9 FM: entrevistas con las personas que mueven La Araucanía — deporte, cultura, negocios y política — grabadas en los estudios de Temuco y publicadas cada semana en YouTube.",
+      "inLanguage": "es-CL",
+      "image": "https://radioaraucana.cl/og-image.png",
+      "webFeed": "https://www.youtube.com/feeds/videos.xml?channel_id=UC1VJdF1eurA5mZ42diw83Zw",
+      "publisher": { "@id": "https://radioaraucana.cl/#organization" },
+      "sameAs": ["https://www.youtube.com/@araucanafm"]
+    }
+    </script>
+    <script type="module" crossorigin src="/assets/main-BYyKid8O.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/jsx-runtime-CsFOKDx2.js">
+    <link rel="modulepreload" crossorigin href="/assets/src-C2fL6yoQ.js">
+    <link rel="modulepreload" crossorigin href="/assets/preload-helper-DeiOTZKJ.js">
+    <link rel="modulepreload" crossorigin href="/assets/x-DaTIng7c.js">
+    <link rel="modulepreload" crossorigin href="/assets/site-0LxTIUGu.js">
+    <link rel="stylesheet" crossorigin href="/assets/src-9gL3TrUD.css">
+  </head>
+  <body>
+    <!-- ─── Stub SEO oculto ────────────────────────────────────────────────
+         Contenido indexable servido en el HTML inicial para crawlers que NO
+         ejecutan JavaScript (GPTBot, ClaudeBot, PerplexityBot, CCBot,
+         Applebot-Extended) y para acelerar la indexación de Googlebot.
+         Invisible para usuarios mediante display:none — el aria-hidden
+         evita que lectores de pantalla lo lean (la versión React es la que
+         consumen los usuarios reales).
+    ──────────────────────────────────────────────────────────────────────── -->
+    <div id="seo-content" aria-hidden="true" style="display:none">
+      <header>
+        <h1>Radio Araucana 95.9 FM — La radio de Temuco, en vivo y en video, desde 1960</h1>
+        <p><strong>Radio en Temuco, Región de La Araucanía, Chile.</strong> Sintoniza el <strong>95.9 FM</strong> en Temuco o escucha online en <a href="https://radioaraucana.cl/stream">radioaraucana.cl/stream</a>. Una de las radios más escuchadas de Temuco y La Araucanía.</p>
+      </header>
+
+      <section>
+        <h2>Quiénes somos</h2>
+        <p>
+          Radio Araucana FM 95.9 nació el <strong>1 de enero de 1960</strong> en Temuco
+          y entró en la historia como <strong>XQD 1, la primera radio de Frecuencia
+          Modulada en Chile y la segunda en toda Latinoamérica</strong>. Desde 1981
+          transmite desde su torre instalada en lo alto del <strong>Cerro Ñielol</strong>,
+          a 180 metros sobre el nivel del mar, consolidándose como una de las principales
+          emisoras del sur de Chile.
+        </p>
+        <p>
+          Desde hace más de 65 años acompañamos a las familias del sur con noticias
+          locales, deporte regional, música y programas que reflejan la identidad de un
+          territorio donde conviven la cultura mapuche, la tradición de los colonos
+          europeos y la vida moderna del sur.
+        </p>
+        <p>
+          Nuestra señal FM 95.9 cubre Temuco, Padre Las Casas y comunas del centro de
+          La Araucanía. Para quienes están en zonas donde la señal FM no llega bien
+          —o fuera de Chile— transmitimos en vivo 24/7 por internet en
+          <a href="https://radioaraucana.cl/">radioaraucana.cl</a>, accesible desde
+          cualquier dispositivo sin necesidad de instalar aplicaciones.
+        </p>
+        <p>
+          Los estudios de audiencia radial de <strong>Ipsos</strong> ubican consistentemente
+          a Radio Araucana entre las emisoras más escuchadas de Chile y como
+          <strong>la radio de Temuco con mayor sintonía</strong>.
+        </p>
+        <p>
+          Radio Araucana forma parte del <strong>Grupo Radios Araucana y La Frontera</strong>,
+          que también opera <strong>Radio La Frontera 1110 AM</strong>, una de las
+          radioemisoras más antiguas del sur de Chile, fundada en octubre de 1939.
+          Juntas, ambas emisoras representan más de 150 años de historia radial al
+          servicio de la Araucanía.
+        </p>
+        <p>
+          Nuestra misión es ser la voz principal de la región: contar lo que pasa,
+          dar espacio a quienes lo necesitan y mantener viva la conversación pública
+          desde el sur.
+        </p>
+      </section>
+
+      <section>
+        <h2>Cómo escucharnos</h2>
+        <ul>
+          <li><strong>Radio Araucana FM 95.9</strong> — Sintoniza el dial 95.9 MHz en FM en Temuco y La Araucanía.</li>
+          <li><strong>Online en vivo</strong> — Reproduce el stream desde <a href="https://radioaraucana.cl/">radioaraucana.cl</a> en cualquier dispositivo (computador, móvil, tablet, smart TV).</li>
+          <li><strong>Desde el extranjero</strong> — El stream funciona en cualquier país sin restricciones geográficas. Solo abre <a href="https://radioaraucana.cl/">radioaraucana.cl</a> y presiona "Escuchar en vivo".</li>
+          <li><strong>Radio La Frontera 1110 AM</strong> — Nuestra emisora hermana se escucha en el dial 1110 kHz AM y también online en el mismo sitio.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Programación</h2>
+        <p>Parrilla habitual de Radio Araucana FM 95.9, hora de Chile (America/Santiago):</p>
+        <ul>
+          <li><strong>06:00 – 10:00</strong> · Sube que Te Llevo · conducido por Alejandro Contreras</li>
+          <li><strong>10:00 – 13:00</strong> · La Gran Manada · conducido por Miguel Ángel Contreras</li>
+          <li><strong>13:30 – 14:30</strong> · La Voz Albiverde · programa oficial de Deportes Temuco · conducido por Mariela González (lunes, miércoles y viernes)</li>
+          <li><strong>15:00 – 16:00</strong> · Contra el Reloj · conducido por Cristian Neira</li>
+          <li><strong>16:00 – 18:00</strong> · Tarde a Tarde de Clásicos · conducido por Luis Vega</li>
+          <li><strong>18:00 – 20:00</strong> · Al Fondo a la Derecha · conducido por Rolando Gómez</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Cobertura geográfica</h2>
+        <p>
+          La señal FM 95.9 llega con buena recepción a <strong>Temuco, Padre Las Casas
+          y comunas cercanas</strong> de la Región de La Araucanía. Cubrimos
+          editorialmente noticias y temas de toda la región —incluyendo Araucanía
+          Andina, Costa Araucanía y zona lacustre—, y para quienes están fuera del
+          área FM transmitimos en vivo 24/7 en
+          <a href="https://radioaraucana.cl/">radioaraucana.cl</a>.
+        </p>
+      </section>
+
+      <section>
+        <h2>Contacto</h2>
+        <address>
+          <strong>Radio Araucana FM 95.9 — Estudios centrales</strong><br />
+          <a href="https://es.wikipedia.org/wiki/Edificio_Torre_Caupolic%C3%A1n">Edificio Torre Caupolicán</a>, Caupolicán 110, Oficina 2003<br />
+          Temuco, Región de La Araucanía, Chile<br />
+          Teléfono y WhatsApp: +56 9 9287 2087<br />
+          Correo general: <a href="mailto:contacto@araucanayfrontera.cl">contacto@araucanayfrontera.cl</a><br />
+          Correo prensa: <a href="mailto:prensa@araucanayfrontera.cl">prensa@araucanayfrontera.cl</a><br />
+          Correo administración / publicidad: <a href="mailto:administracion@araucanayfrontera.cl">administracion@araucanayfrontera.cl</a><br />
+          Horario administrativo: Lunes a Viernes, 9:00 a 18:00 hrs.
+        </address>
+      </section>
+
+      <section>
+        <h2>Preguntas frecuentes</h2>
+        <h3>¿En qué frecuencia se escucha Radio Araucana?</h3>
+        <p>Radio Araucana se escucha en el dial <strong>95.9 FM</strong> en Temuco y la Región de La Araucanía. También se transmite en vivo por internet desde <a href="https://radioaraucana.cl/">radioaraucana.cl</a>.</p>
+
+        <h3>¿Cómo escuchar Radio Araucana online desde el extranjero?</h3>
+        <p>Abre <a href="https://radioaraucana.cl/">radioaraucana.cl</a> desde cualquier país y presiona el botón "Escuchar en vivo". El stream funciona sin restricciones geográficas en computadores, teléfonos y tablets.</p>
+
+        <h3>¿Qué tipo de música y programas emite Radio Araucana?</h3>
+        <p>Radio Araucana combina informativos locales, deporte regional, conversación, entrevistas políticas, música clásica popular y programas culturales. La parrilla incluye matinales, programas deportivos como "La Voz Albiverde" y bloques de música clásica como "Tarde a Tarde de Clásicos".</p>
+
+        <h3>¿Dónde están los estudios de Radio Araucana?</h3>
+        <p>Los estudios centrales de Radio Araucana FM 95.9 están en el <a href="https://es.wikipedia.org/wiki/Edificio_Torre_Caupolic%C3%A1n"><strong>Edificio Torre Caupolicán</strong></a>, Caupolicán 110, Oficina 2003, Temuco, Región de La Araucanía, Chile. La Torre Caupolicán es uno de los edificios más reconocibles del centro de Temuco y parte de la identidad arquitectónica de la ciudad.</p>
+
+        <p>Para más respuestas, visita nuestra página de <a href="/faq">preguntas frecuentes</a> o conoce nuestra historia en <a href="/sobre-nosotros">Sobre nosotros</a>.</p>
+      </section>
+
+      <nav>
+        <h2>Enlaces</h2>
+        <ul>
+          <li><a href="/">Inicio</a></li>
+          <li><a href="/#podcast">Podcast Araucana Digital</a></li>
+          <li><a href="/#reels">Reels y shorts</a></li>
+          <li><a href="/sobre-nosotros">Sobre nosotros</a></li>
+          <li><a href="/faq">Preguntas frecuentes</a></li>
+          <li><a href="https://radioaraucana.cl/stream">Stream Radio Araucana 95.9 FM</a></li>
+          <li><a href="https://radioaraucana.cl/stream-frontera">Stream Radio La Frontera 1110 AM</a></li>
+          <li><a href="https://www.instagram.com/araucanaradio" rel="me">Instagram</a></li>
+          <li><a href="https://www.facebook.com/share/1aK6itN6zP/?mibextid=wwXIfr" rel="me">Facebook</a></li>
+          <li><a href="https://www.youtube.com/@araucanafm" rel="me">YouTube</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <div id="root"></div>
+  </body>
+</html>

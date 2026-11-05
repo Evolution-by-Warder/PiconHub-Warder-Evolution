@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image/png" id="favicon" href="">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="./assets/fonts/style.css">
+        <link rel="stylesheet" href="./assets/css/root.css">
+        <link rel="stylesheet" href="./assets/css/style.css">
+        <link rel="stylesheet" href="./assets/css/media.css">
+        <link rel="manifest" href="./manifest.json">
+        <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+        <title id="title">Radio 4ever</title>       
+    </head>
+    <body>
+        <section class="playerResp d-none animate__animated animate__fadeInDown" id="playerResp">
+            <div class="logoRespon">
+                <img src="" class="img-logo" width="30">&nbsp; &nbsp;
+                <label class="titleRespon" id="titleRespon"></label>
+            </div>
+            <div class="cnt-btn-respon">
+                <button class="playerRespon" id="playerRespon">
+                    <i class="fa-solid fa-circle-play" id="icon-player2"></i>
+                </button>
+            </div>
+
+        </section>
+        <section class="biblia flex d-none animate__animated animate__fadeIn" id="biblia">
+            <div class="close2">
+                <button class="btn-close" id="btn-close2">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="cnt-biblia1 mt-40">
+                <h1 class="text-center w-100 f-24">Biblia RVR60</h1>
+                <div class="controles-biblia">
+                    <div class="cnt-select">
+                        <div>
+                            <select id="libroBiblico" class="form-control" onchange="cambiolibros()"></select>
+                        </div>
+                        <div class="pl-2">
+                            <select id="numberCapitulo" class="form-control" onchange="mostrarBiblia()"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="cnt-respueta2">
+                    <div class="w-100 cnt-biblia p-3" id="respuesta"></div>
+                </div>
+            </div>
+        </section>
+        <section class="programacion" id="programacion">
+            <div class="close">
+                <button class="btn-close" id="btn-close">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <h2 class="text-center w-100">
+                <i class="fa-solid fa-calendar-days"></i>&nbsp;Programación Diaria</h2>
+            <div class="cnt-programacion">
+                <div class="dias">
+                    <button class="btn-dias" onclick="lun();">Lun</button>
+                    <button class="btn-dias" onclick="mar();">Mar</button>
+                    <button class="btn-dias" onclick="mie();">Mie</button>
+                    <button class="btn-dias" onclick="jue();">Jue</button>
+                    <button class="btn-dias" onclick="vie();">Vie</button>
+                    <button class="btn-dias" onclick="sab();">Sab</button>
+                    <button class="btn-dias" onclick="dom();">Dom</button>
+                </div>
+                <div class="data-programacion">
+                    <div class="viewday" id="viewday"></div>
+                </div>
+            </div>
+        </section>
+        <div class="menu1">
+            <div class="principal" id="navbar">
+                <div class="logo m1">
+                    <i class="fas fa-spinner fa-pulse" id="spiner1"></i>
+                    <img src="" class="img-logo d-none animate__animated animate__fadeIn">
+                </div>
+                <div class="navpage m2">
+                    <ul class="listas">
+                        <li>
+                            <a href="#portada" class="links">
+                                <i class="fa-solid fa-house-chimney-window"></i>&nbsp;
+                                <span>Inicio</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#post" class="links">
+                                <i class="fa-solid fa-shield-halved"></i>&nbsp;
+                                <span>Blog</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#videos" class="links">
+                                <i class="fa-solid fa-clapperboard"></i>&nbsp;
+                                <span>Video</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#podcast" class="links">
+                                <i class="fa-solid fa-microphone"></i>&nbsp;
+                                <span>Podcast</span>
+                            </a>
+
+                        </li>
+                        <li>
+                            <a href="#" class="links" id="btnprogram">
+                                <i class="fa-solid fa-calendar-days"></i>&nbsp;
+                                <span>Programación</span>
+                            </a>
+
+                        </li>
+                        <li class="d-none">
+                            <a href="#" class="links" id="btn-biblia">
+                                <i class="fa-solid fa-book-bible"></i>&nbsp;
+                                <span>Biblia</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="m3"></div>
+            </div>
+        </div>
+        <section class="visor d-none" id="visor"></section>
+        <section class="portada" id="portada">
+            <div class="visortv d-none" id="visortv">
+                <div class="close2">
+                    <button class="btn-close" id="btn-close3">
+                        <i class="fa-solid fa-xmark" style="color:#ffffff !important"></i>
+                    </button>
+                </div>
+                <div class="cnt-tv">
+                    <div class="infotv">
+                        <div class="tvnombre">
+                            <img src="" class="img-logo" width="50">
+                            <span id="tvnombre">MOx Radio</span>
+                        </div>
+                        <div class="activetv">
+                            <div class="live2">
+                                <div class="encendido2"></div>
+                                <div>Live</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="embedtv" id="embed"></div>
+                </div>
+            </div>
+            <div class="preloader" id="loader"></div>
+            <div class="program">
+                <div class="programflex">
+                    <a href="#" class="links" id="btnProgramResp">
+                        <i class="fa-solid fa-calendar-days icono"></i>
+                    </a>
+                    <img src="" class="img-logo" width="70">
+                </div>                
+            </div>
+            <div class="btn-what">
+                <a href="https://wa.link/11fca1" target="_blank"><button class="circle2">
+                    <i class="fa-brands fa-whatsapp"></i>
+                </button></a>
+            </div>
+
+            <div class="contenido">
+                <div class="logoCentral">
+                    <img src="" class="img-logo d-none animate__animated animate__fadeIn logoImagen">
+                    <img src="" id="imgresponmeta" class="imgresponmeta animate__animated animate__fadeIn">
+                </div>
+                <div class="caja-reproductor" id="medio">
+                    <div class="laminaCaja">
+                        <div class="reproductor">
+                            <button class="boton-player" id="play">
+                                <i class="fa-regular fa-circle-play" id="icon-player"></i>
+                            </button>
+                        </div>
+                        <div class="imgmeta" >
+                            <img src="" id="imgmeta" width="80">
+                        </div>
+                        <div id="player" class="player">
+                            <div id="resultado" class="meta"></div>
+                            <canvas id="analyzer_render"></canvas>
+                            <div id="audio_box"></div>
+                            <div id="nombre" class="nombre nombremeta">mi radio</div>
+                            <div class="live">
+                                <div class="encendido"></div>
+                                <div>Live</div>                                
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="redes">
+                    <ul>
+                        <li class="d-none" id="facebook">
+                            <a href="#" id="faceB" class="links" target="_blank">
+                                <i class=" icon icon-facebook icon-redes"></i>
+                            </a>
+                        </li>
+                        <li class="d-none" id="instagram">
+                            <a href="#" id="instB" class="links" target="_blank">
+                                <i class="icon icon-instagram icon-redes"></i>
+                            </a>
+                        </li>
+                        <li class="d-none" id="telegram">
+                            <a href="#" id="teleB" class="links" target="_blank">
+                                <i class="icon icon-telegram icon-redes"></i>
+                            </a>
+                        </li>
+                        <li class="d-none" id="twitter">
+                            <a href="#" id="twitB" class="links" target="_blank">
+                                <i class="icon icon-twitter icon-redes"></i>
+                            </a>
+                        </li>
+                        <li class="d-none" id="whatsapp">
+                            <a href="#" id="whatB" class="links" target="_blank">
+                                <i class="icon icon-spotify icon-redes"></i>
+                            </a>
+                        </li>
+                        <li class="d-none" id="youtube">
+                            <a href="#" id="youtB" class="links" target="_blank">
+                                <i class="icon icon-youtube1 icon-redes"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <div class="menu2">
+            <div class="responsivo">
+                <ul>
+                    <li><a href="#" class="links" onclick="home();"><i class="fa-solid fa-house-chimney-window"></i></a></li>
+                    <li><a href="#" class="links" onclick="blog();"><i class="fa-solid fa-shield-halved"></i></a></li>
+                    <li><a href="#" class="links" onclick="videosx();"><i class="fa-solid fa-clapperboard"></i></a></li>
+                    <li><a href="#" class="links" onclick="podcastx();"><i class="fa-solid fa-microphone"></i></a></li>
+                    <li class="d-none"><a href="#" class="links" onclick="bibliax();"><i class="fa-solid fa-book-bible"></i></a></li>
+                    <li><a href="https://wa.link/11fca1" class="links circle" target="_blank"><i class="fa-brands fa-whatsapp "></i></a></li>
+                </ul>
+            </div>
+        </div>
+
+        <section class="nosotros" id="nosotros"></section>
+
+        <section class="infoPrincipal" id="infoPrincipal">
+            <div class="cnt-infoPrincipal">
+                <div>
+                    <div class="iconx" id="icon1"></div>
+                    <div class="text">
+                        <div class="icon-fondo" id="iconFondo1"></div>
+                        <div class="textoInfo" id="text1"></div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="iconx" id="icon2"></div>
+                    <div class="text">
+                        <div class="icon-fondo" id="iconFondo2"></div>
+                        <div class="textoInfo" id="text2"></div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="iconx" id="icon3"></div>
+                    <div class="text">
+                        <div class="icon-fondo" id="iconFondo3"></div>
+                        <div class="textoInfo" id="text3"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="post margin-scroll" id="post">
+            <div class="titulo" id="tituloPost">
+                <h1>Noticias</h1>
+            </div>
+            <div class="cnt-post">
+                <div class="postData" id="postData"></div>
+            </div>
+        </section>
+        <section class="btnvermas">
+            <div>
+                <a href="blog.html" class="linkvermas">
+                    <div class="vermas">
+                        + Ver más
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <section class="videos margin-scroll" id="videos">
+            <div class="titulo2" id="tituloVideo">
+                <h1>Videos</h1>
+            </div>
+            <div class="cnt-videos">
+                <div class="grid" id="videoData"></div>
+            </div>
+        </section>
+
+        <section class="btnvermas">
+            <div>
+                <a href="videos.html" class="linkvermas" traget="_blank">
+                    <div class="vermas">
+                        + Ver más
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <section class="podcast margin-scroll" id="podcast">
+            <div class="titulo" id="tituloPodcast">
+                <h1>Podcast</h1>
+            </div>
+            <div class="cnt-podcast">
+                <audio src="" id="reproPod"></audio>
+                <div class="podcastData" id="podcastData"></div>
+            </div>
+        </section>
+
+        <section class="btnvermas">
+            <div>
+                <a href="podcast.html" class="linkvermas">
+                    <div class="vermas">
+                        + Ver más
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <section class="locutores">
+            <div class="cnt-locutores">
+                <div class="titulo-locutores">
+                    <h1>Locutores</h1>
+                </div>
+                <div class="Infolocutores" id="locutoresData"></div>
+            </div>
+        </section>
+
+        <section class="footerx">
+            <div class="logofondo">
+                <img src="" class="img-logo" width="400">
+            </div>
+            <div class="cnt-firstFooter">
+                <div class="linea" style="padding-left: 25px;">
+                    <hr>
+                </div>
+                <div>
+                    <ul class="redesFooter">
+                        <li class="d-none" id="facebookx">
+                            <a href="" id="faceBx" class="links">
+                                <i class=" icon icon-facebook icon-redes"></i>
+                            </a>
+                        </li>
+                        <li class="d-none" id="instagramx">
+                            <a href="" id="instBx" class="links">
+                                <i class="icon icon-instagram icon-redes"></i>
+                            </a>
+                        </li>
+                        <li class="d-none" id="telegramx">
+                            <a href="" id="teleBx" class="links">
+                                <i class="icon icon-telegram icon-redes"></i>
+                            </a>
+                        </li>
+                        <li class="d-none" id="twitterx">
+                            <a href="" id="twitBx" class="links">
+                                <i class="icon icon-twitter icon-redes"></i>
+                            </a>
+                        </li>
+                        <li class="d-none" id="whatsappx">
+                            <a href="" id="whatBx" class="links">
+                                <i class="icon icon-spotify icon-redes"></i>
+                            </a>
+                        </li>
+                        <li class="d-none" id="youtubex">
+                            <a href="" id="youtBx" class="links">
+                                <i class="icon icon-youtube1 icon-redes"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="linea" style="padding-right: 25px; ">
+                    <hr>
+                </div>
+            </div>
+
+            <div class="imgfooter">
+                <img src="" class="img-logo" width="150">
+            </div>
+            <div class="infoFooter" id="infoFooter"></div>
+
+        </section>
+        <section class="copy">
+            <img src="./assets/imgs/copy.png" width="100">
+        </section>
+
+        <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.4.0/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.4.0/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.4.0/firebase-firestore.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.4.0/firebase-storage.js"></script>
+        <script src="./assets/conexion/conexion.js"></script>
+        <script src="./assets/js/theme.js"></script>
+        <script src="./assets/js/main.js"></script>
+        <!-- <script src="./assets/js/biblia.js"></script> -->
+        <script src="./script.js"></script>
+
+    </body>
+</html>
