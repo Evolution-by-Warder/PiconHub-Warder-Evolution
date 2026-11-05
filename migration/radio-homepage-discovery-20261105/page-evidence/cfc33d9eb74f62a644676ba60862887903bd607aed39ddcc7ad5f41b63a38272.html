@@ -1,0 +1,500 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+	<head>
+	<title>Mix Rock Metal Radio</title>
+	<meta name="viewport" content="width=device-width />
+	<meta name="description" content="Internet Radio - NWOBHM NWOTHM Heavy Metal Hard Rock Classic Rock Request Songs Free">
+	<link rel="shortcut icon" href="favicon.ico" />
+	<!-- General styles of the samPHPweb pages -->
+	<link rel="stylesheet" type="text/css" href="styles/style.css" />
+	<!-- Common Javascript functions -->
+	<script type="text/javascript" src="js/common.js"></script>
+	
+		<!-- Javascript for request and songinfo actions -->
+	<script type="text/javascript">
+	/**			 * Open a popup window to send a song request to SAM			 */			function request(songID)			{									requestPrivate(songID);							}		</script>
+	
+	<!-- JQuery library to do cool Javascript stuff -->
+	<script type="text/javascript" src="js/jquery-1.4.2.js"></script>
+	<!-- JQuery plugin for Cross-Browser compatible rounding of corners -->
+	<script type="text/javascript" src="js/jquery.corner.js"></script>
+<script>
+$(document).ready(function(){
+setInterval(function(){
+$(".refreshme").load(window.location.href + " .refreshme" );
+}, 10000);
+});
+</script>
+<style>
+#myBtn {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  display: none;
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 99;
+  font-size: 18px;
+  border: none;
+  outline: none;
+  background-color: red;
+  color: white;
+  cursor: pointer;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+#myBtn:hover {
+  background-color: #666;
+}
+</style>
+    <style> 
+        img { 
+            filter: drop-shadow(3px 3px 1px black);	
+}
+</style>
+	</head>
+	<body>
+	<!-- BEGIN:PAGE -->
+	<div id="page">
+	<!-- BEGIN:LOGO -->
+	<div id="logo">
+	<img src="https://www.mixrockmetal.net/images/logo.png"/>
+	</div>
+	<!-- END:LOGO -->
+	
+	<!-- BEGIN:NAVIGATION -->
+	<div id="navigation" style="border-radius: 10px";>
+	<dl>
+	<dt>Menu</dt>
+	<dd><a href="https://mixrockmetal.net/listen.html" title="Click to Listen" target="_blank"><img src="images/menu/speaker.png" /> Listen</a><a href="playing.php" title="Now playing"><img src="images/menu/play.png" /> Now playing</a><a href="playlist.php" title="Playlist &amp; Requests"><img src="images/menu/tb-file-list.png" /> Playlist/Request</a><a href="https://mixrockmetalradio.ishoutbox.com/" title="Shoutbox" target="_blank"><img src="images/menu/chatb.png" /> Chat/Shout</a>
+		</dl>
+	</div>
+	<!-- END:NAVIGATION -->	
+
+		
+			<!-- BEGIN:CURRENTLY PLAYING -->
+			
+			<div id="currently_playing_wrapper">
+				<div id="currently_playing" style="border-radius: 10px";>
+					<table cellpadding="0" cellspacing="0">
+						<thead>
+							<tr>
+								<th align="left" style="width: 170px;">
+									Now Playing
+								</th>
+								<th align="center">
+								</th>
+								<th align="left">
+								</th>
+								<th align="right" style="width: 50px;">
+									Time
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td align="center">
+																		<br />
+									<a href="javascript:songinfo(47230)">
+										<img id="cpPictureMainSong" onload="showPicture(this, true)" width="225" height="225" src="https://mixrockmetal.net/covers/Witch - Salems Rise - 1985.jpg" alt="Album Cover" title="Album Cover" />
+									<br />
+									<br />
+									</a>
+									                    
+								</td>
+								<td colspan="1">
+									<span id="currently-playing-title">Hear The Thunder</span><font color="green"></font>
+									<br /><font color="#666666">Artist: </font><span id="currently-playing-artist">Witch</span> 									<br /><font color="#666666">Album: </font><span id="currently-playing-artist">Salem's Rise</span>																	</td>
+								<td align="left">
+								<a href="javascript:songinfo(47230)">
+										<img src="images/info.png" alt="Track information" title="Track information" /></a>
+										</td>
+										
+								<td align="right">
+									<span id="currently-playing-duration"></span>4:29</span>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<!-- END:CURRENTLY PLAYING -->
+
+		
+						
+			<!-- BEGIN:COMING UP -->
+			<div id="coming-up_wrapper">
+			<div id="refreshme" class="refreshme">
+				<div id="coming-up" style="border-radius: 10px";>
+					<table cellpadding="0" cellspacing="0">
+						<thead>
+							<tr>
+								<th colspan="1" align="left">
+									Coming up
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>
+																			<div>
+											<span class="comingIndex">1</span>											<a href="javascript:songinfo(45323)" title="Toxic Holocaust - Serve...">
+												Serve...												 <br /><font color="#666666">Artist: </font>Toxic Holocaust 											</a>
+																				</div>
+																			<div>
+											<span class="comingIndex">2</span>											<a href="javascript:songinfo(26147)" title="Axevyper - The adventurer">
+												The adventurer												 <br /><font color="#666666">Artist: </font>Axevyper 											</a>
+																				</div>
+																			<div>
+											<span class="comingIndex">3</span>											<a href="javascript:songinfo(30908)" title="Excel - Given Question">
+												Given Question												 <br /><font color="#666666">Artist: </font>Excel 											</a>
+																				</div>
+																			<div>
+											<span class="comingIndex">4</span>											<a href="javascript:songinfo(38954)" title="Pat Travers Band - Crash and Burn">
+												Crash and Burn												 <br /><font color="#666666">Artist: </font>Pat Travers Band 											</a>
+																				</div>
+																		<hr style="width:100%;border:none;"/>
+									
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+	</div>
+			<!-- END:COMING UP -->
+			
+						<!-- BEGIN:RECENTLY PLAYED -->
+			<div id="recently_played_wrapper">
+				<div id="recently_played" style="border-radius: 10px";>
+					<table cellpadding="0" cellspacing="0">
+						<thead>
+							<tr>
+								<th colspan="2" align="left">
+									Recently Played
+								</th>
+								<th class="links" align="center">
+									Info
+								</th>
+								<th align="left">
+									Album
+								</th>
+								<th align="right">
+									Time
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+													<tr>
+								<td>
+																		
+										<a href="javascript:songinfo(33548)">
+										<img class="rpPicture" id="rpPicture0" onload="showPicture(this, 1)" width="120" height="120" src="https://mixrockmetal.net/covers/IN VAIN_The Little Things That Matter.jpg" alt="Album Cover" title="Album Cover" /></a>
+																	</td>
+
+								<td>
+									In Vain - Serenity Valley																	</td>
+								<td align="center">
+
+									<a href="javascript:songinfo(33548)">
+										<img src="images/info.png" alt="Track information" title="Track information" />
+									</a>
+								</td>
+
+								<td>
+									The Little Things That Matter								</td>
+								<td align="right">
+									4:38								</td>
+							</tr>
+													<tr>
+								<td>
+																		
+										<a href="javascript:songinfo(26076)">
+										<img class="rpPicture" id="rpPicture1" onload="showPicture(this, 1)" width="120" height="120" src="https://mixrockmetal.net/covers/Axe - Nemesis.jpg" alt="Album Cover" title="Album Cover" /></a>
+																	</td>
+
+								<td>
+									Axe - Masquerade																	</td>
+								<td align="center">
+
+									<a href="javascript:songinfo(26076)">
+										<img src="images/info.png" alt="Track information" title="Track information" />
+									</a>
+								</td>
+
+								<td>
+									Nemesis								</td>
+								<td align="right">
+									4:46								</td>
+							</tr>
+													<tr>
+								<td>
+																		
+										<a href="javascript:songinfo(30661)">
+										<img class="rpPicture" id="rpPicture2" onload="showPicture(this, 1)" width="120" height="120" src="https://mixrockmetal.net/covers/Elton John - Goodbye Yellow Brick Road.jpg" alt="Album Cover" title="Album Cover" /></a>
+																	</td>
+
+								<td>
+									Elton John - Social Disease																	</td>
+								<td align="center">
+
+									<a href="javascript:songinfo(30661)">
+										<img src="images/info.png" alt="Track information" title="Track information" />
+									</a>
+								</td>
+
+								<td>
+									Goodbye Yellow Brick Road								</td>
+								<td align="right">
+									3:47								</td>
+							</tr>
+													<tr>
+								<td>
+																		
+										<a href="javascript:songinfo(39856)">
+										<img class="rpPicture" id="rpPicture3" onload="showPicture(this, 1)" width="120" height="120" src="https://mixrockmetal.net/covers/Rage - The Missing Link.jpg" alt="Album Cover" title="Album Cover" /></a>
+																	</td>
+
+								<td>
+									Rage - Nevermore																	</td>
+								<td align="center">
+
+									<a href="javascript:songinfo(39856)">
+										<img src="images/info.png" alt="Track information" title="Track information" />
+									</a>
+								</td>
+
+								<td>
+									The Missing Link								</td>
+								<td align="right">
+									4:27								</td>
+							</tr>
+													<tr>
+								<td>
+																		
+										<a href="javascript:songinfo(34102)">
+										<img class="rpPicture" id="rpPicture4" onload="showPicture(this, 1)" width="120" height="120" src="https://mixrockmetal.net/covers/JACK THE RIPPER - Blood Bath.jpg" alt="Album Cover" title="Album Cover" /></a>
+																	</td>
+
+								<td>
+									JACK THE RIPPER - Blood Bath																	</td>
+								<td align="center">
+
+									<a href="javascript:songinfo(34102)">
+										<img src="images/info.png" alt="Track information" title="Track information" />
+									</a>
+								</td>
+
+								<td>
+									Blood Bath								</td>
+								<td align="right">
+									3:44								</td>
+							</tr>
+													<tr>
+								<td>
+																		
+										<a href="javascript:songinfo(42092)">
+										<img class="rpPicture" id="rpPicture5" onload="showPicture(this, 1)" width="120" height="120" src="https://mixrockmetal.net/covers/Sentenced - The Funeral Album.jpg" alt="Album Cover" title="Album Cover" /></a>
+																	</td>
+
+								<td>
+									Sentenced - A Long Way To Nowhere																	</td>
+								<td align="center">
+
+									<a href="javascript:songinfo(42092)">
+										<img src="images/info.png" alt="Track information" title="Track information" />
+									</a>
+								</td>
+
+								<td>
+									The Funeral Album								</td>
+								<td align="right">
+									3:27								</td>
+							</tr>
+													<tr>
+								<td>
+																		
+										<a href="javascript:songinfo(41383)">
+										<img class="rpPicture" id="rpPicture6" onload="showPicture(this, 1)" width="120" height="120" src="https://mixrockmetal.net/covers/Sadwings - Lonely Hero.jpg" alt="Album Cover" title="Album Cover" /></a>
+																	</td>
+
+								<td>
+									Sadwings - Winternights																	</td>
+								<td align="center">
+
+									<a href="javascript:songinfo(41383)">
+										<img src="images/info.png" alt="Track information" title="Track information" />
+									</a>
+								</td>
+
+								<td>
+									Lonely Hero								</td>
+								<td align="right">
+									3:50								</td>
+							</tr>
+													<tr>
+								<td>
+																		
+										<a href="javascript:songinfo(36752)">
+										<img class="rpPicture" id="rpPicture7" onload="showPicture(this, 1)" width="120" height="120" src="https://mixrockmetal.net/covers/Messiahs Kiss - Metal.jpg" alt="Album Cover" title="Album Cover" /></a>
+																	</td>
+
+								<td>
+									Messiah's Kiss - Hell Or Victory																	</td>
+								<td align="center">
+
+									<a href="javascript:songinfo(36752)">
+										<img src="images/info.png" alt="Track information" title="Track information" />
+									</a>
+								</td>
+
+								<td>
+									Metal								</td>
+								<td align="right">
+									5:25								</td>
+							</tr>
+													<tr>
+								<td>
+																		
+										<a href="javascript:songinfo(38492)">
+										<img class="rpPicture" id="rpPicture8" onload="showPicture(this, 1)" width="120" height="120" src="https://mixrockmetal.net/covers/Outloud - Well rock you to Hell and back again.jpg" alt="Album Cover" title="Album Cover" /></a>
+																	</td>
+
+								<td>
+									Outloud - Broken sleep																	</td>
+								<td align="center">
+
+									<a href="javascript:songinfo(38492)">
+										<img src="images/info.png" alt="Track information" title="Track information" />
+									</a>
+								</td>
+
+								<td>
+									We'll rock you to Hell and back again!								</td>
+								<td align="right">
+									4:07								</td>
+							</tr>
+												</tbody>
+					</table>
+				</div>
+			</div>
+			<!-- END:RECENTLY PLAYED -->
+			
+				<!-- BEGIN:FOOTER -->
+		<!-- BEGIN:TOP_REQUESTS -->
+				
+	<div id="top_requests" style="border-radius: 10px";>
+	<dl>
+	<dt>Most Requested</dt>
+		<dd><a href="javascript:songinfo(26704)" title="Black Sabbath - End Of The Beginning">1  . <img id="trPicture" onload="showPicture(this, true)" width="60" height="60" src="https://mixrockmetal.net/covers/Black Sabbath - 13.jpg" alt="Album Cover" title="Album Cover" />    Black Sabbath  -  End Of The Beginning = 59 Requests</a></dd>
+		<dd><a href="javascript:songinfo(37069)" title="Metallica - 2 X 4">2  . <img id="trPicture" onload="showPicture(this, true)" width="60" height="60" src="https://mixrockmetal.net/covers/metallica_load.jpg" alt="Album Cover" title="Album Cover" />    Metallica  -  2 X 4 = 52 Requests</a></dd>
+		<dd><a href="javascript:songinfo(42759)" title="Slayer - Seasons In the Abyss">3  . <img id="trPicture" onload="showPicture(this, true)" width="60" height="60" src="https://mixrockmetal.net/covers/Slayer - Seasons In the Abyss.jpg" alt="Album Cover" title="Album Cover" />    Slayer  -  Seasons In the Abyss = 52 Requests</a></dd>
+		<dd><a href="javascript:songinfo(33912)" title="Iron Maiden - The Duellists">4  . <img id="trPicture" onload="showPicture(this, true)" width="60" height="60" src="https://mixrockmetal.net/covers/Iron Maiden Powerslave.jpg" alt="Album Cover" title="Album Cover" />    Iron Maiden  -  The Duellists = 51 Requests</a></dd>
+		<dd><a href="javascript:songinfo(38704)" title="Ozzy Osbourne - See You On The Other Side">5  . <img id="trPicture" onload="showPicture(this, true)" width="60" height="60" src="https://mixrockmetal.net/covers/Ozzy Osbourne Ozzmosis.jpg" alt="Album Cover" title="Album Cover" />    Ozzy Osbourne  -  See You On The Other Side = 48 Requests</a></dd>
+		<dd><a href="javascript:songinfo(36718)" title="Mercyful Fate - The Oath">6  . <img id="trPicture" onload="showPicture(this, true)" width="60" height="60" src="https://mixrockmetal.net/covers/Mercyful Fate - Don't Break The Oath.jpg" alt="Album Cover" title="Album Cover" />    Mercyful Fate  -  The Oath = 48 Requests</a></dd>
+		<dd><a href="javascript:songinfo(37109)" title="Metallica - The Call of Ktulu">7  . <img id="trPicture" onload="showPicture(this, true)" width="60" height="60" src="https://mixrockmetal.net/covers/Metallica - Ride The Lightning.jpg" alt="Album Cover" title="Album Cover" />    Metallica  -  The Call of Ktulu = 46 Requests</a></dd>
+		<dd><a href="javascript:songinfo(37083)" title="Metallica - The Thing That Should Not Be">8  . <img id="trPicture" onload="showPicture(this, true)" width="60" height="60" src="https://mixrockmetal.net/covers/Metallica - Master of Puppets.jpg" alt="Album Cover" title="Album Cover" />    Metallica  -  The Thing That Should Not Be = 46 Requests</a></dd>
+		<dd><a href="javascript:songinfo(28598)" title="Cradle Of Filth - Cruelty Brought Thee Orchids">9  . <img id="trPicture" onload="showPicture(this, true)" width="60" height="60" src="https://mixrockmetal.net/covers/Cradle of Filth - Cruelty and the Beast.jpg" alt="Album Cover" title="Album Cover" />    Cradle Of Filth  -  Cruelty Brought Thee Orchids = 45 Requests</a></dd>
+		<dd><a href="javascript:songinfo(44450)" title="The Doobie Brothers - Jesus Is Just Alright">10  . <img id="trPicture" onload="showPicture(this, true)" width="60" height="60" src="https://mixrockmetal.net/covers/The Doobie Brothers - Very Best Of.jpg" alt="Album Cover" title="Album Cover" />    The Doobie Brothers  -  Jesus Is Just Alright = 44 Requests</a></dd>
+		<dd><a href="javascript:songinfo(34641)" title="Khemmis - Hunted">11  . <img id="trPicture" onload="showPicture(this, true)" width="60" height="60" src="https://mixrockmetal.net/covers/Khemmis - Hunted.jpg" alt="Album Cover" title="Album Cover" />    Khemmis  -  Hunted = 44 Requests</a></dd>
+		<dd><a href="javascript:songinfo(30320)" title="Dreadnaught - Warning Signs">12  . <img id="trPicture" onload="showPicture(this, true)" width="60" height="60" src="https://mixrockmetal.net/covers/Dreadnaught - Caught The Vultures Sleeping.jpg" alt="Album Cover" title="Album Cover" />    Dreadnaught  -  Warning Signs = 43 Requests</a></dd>
+		<dd><a href="javascript:songinfo(38814)" title="Pantera - Hard Lines, Sunken Cheeks">13  . <img id="trPicture" onload="showPicture(this, true)" width="60" height="60" src="https://mixrockmetal.net/covers/Pantera - Far Beyond Driven.jpg" alt="Album Cover" title="Album Cover" />    Pantera  -  Hard Lines, Sunken Cheeks = 42 Requests</a></dd>
+		<dd><a href="javascript:songinfo(30317)" title="Dreadnaught - Set Fire To The Plan">14  . <img id="trPicture" onload="showPicture(this, true)" width="60" height="60" src="https://mixrockmetal.net/covers/Dreadnaught - Caught The Vultures Sleeping.jpg" alt="Album Cover" title="Album Cover" />    Dreadnaught  -  Set Fire To The Plan = 40 Requests</a></dd>
+		<dd><a href="javascript:songinfo(30318)" title="Dreadnaught - Aim To Destroy">15  . <img id="trPicture" onload="showPicture(this, true)" width="60" height="60" src="https://mixrockmetal.net/covers/Dreadnaught - Caught The Vultures Sleeping.jpg" alt="Album Cover" title="Album Cover" />    Dreadnaught  -  Aim To Destroy = 38 Requests</a></dd>
+		<dd><a href="javascript:songinfo(30375)" title="Dream Theater - Learning to Live">16  . <img id="trPicture" onload="showPicture(this, true)" width="60" height="60" src="https://mixrockmetal.net/covers/Dream Theater - Images & Words.jpg" alt="Album Cover" title="Album Cover" />    Dream Theater  -  Learning to Live = 37 Requests</a></dd>
+		<dd><a href="javascript:songinfo(31824)" title="Slyzzer - Hellcats">17  . <img id="trPicture" onload="showPicture(this, true)" width="60" height="60" src="https://mixrockmetal.net/covers/German Metal Fighters No.1 - 1987.jpg" alt="Album Cover" title="Album Cover" />    Slyzzer  -  Hellcats = 36 Requests</a></dd>
+		<dd><a href="javascript:songinfo(36248)" title="Manufacturer's Pride - Adeptus Satanicus">18  . <img id="trPicture" onload="showPicture(this, true)" width="60" height="60" src="https://mixrockmetal.net/covers/Manufacturers Pride - Sound Of Gods Absence.jpg" alt="Album Cover" title="Album Cover" />    Manufacturer's Pride  -  Adeptus Satanicus = 36 Requests</a></dd>
+		<dd><a href="javascript:songinfo(29789)" title="Dimmu Borgir - Dimmu Borgir">19  . <img id="trPicture" onload="showPicture(this, true)" width="60" height="60" src="https://mixrockmetal.net/covers/dimmu borgir abrahadabra.jpg" alt="Album Cover" title="Album Cover" />    Dimmu Borgir  -  Dimmu Borgir = 34 Requests</a></dd>
+		<dd><a href="javascript:songinfo(34386)" title="Judas Priest - You've Got Another Thing Comin'">20  . <img id="trPicture" onload="showPicture(this, true)" width="60" height="60" src="https://mixrockmetal.net/covers/Judas Priest - Priest...Live.jpg" alt="Album Cover" title="Album Cover" />    Judas Priest  -  You've Got Another Thing Comin' = 32 Requests</a></dd>
+		
+	</dl>
+	</div>
+		<!-- END:TOP_REQUESTS -->
+		<div id="footer">
+		<hr color= "red" width="100%">
+            <p>
+			<font size="5"><b>Listeners Total:<div id="listener_count">16</div>
+			</b></font>
+			</p>
+			<p>
+			192k-MP3: <script src="https://scripts.myradiostream.com/s3/4202/listeners.js"></script>
+			          <script src="https://scripts.myradiostream.com/s3/4202/status.js?online=Live&offline=Off Air&nosource=On Air Soon"></script>
+			</p>
+			<p>
+            128k-AAC: <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+4			          <script src="https://scripts.myradiostream.com/s3/4198/status.js?online=Live&offline=Off Air&nosource=On Air Soon"></script>
+					  
+			</p>
+			<p>
+<div class="gtranslate_wrapper"></div>
+<script>window.gtranslateSettings = {"default_language":"en","native_language_names":true,"languages":["en","fr","it","es","nl","de","no","la","pl","el","ro","ru","pt","sv","tr","bg","uk","hu","da"],"wrapper_selector":".gtranslate_wrapper","flag_size":48,"select_language_label":"Language"}</script>
+<script src="https://cdn.gtranslate.net/widgets/latest/fd.js" defer></script>
+<p/>
+
+		<button onclick="topFunction()" id="myBtn" title="Go to top"><img src="https://www.mixrockmetal.net/backtop35.png" alt="Top"></button>
+		
+<script>
+// Get the button
+let mybutton = document.getElementById("myBtn");
+
+// When the user scrolls down 20px from the top of the document, show the button
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    mybutton.style.display = "block";
+  } else {
+    mybutton.style.display = "none";
+  }
+}
+
+// When the user clicks on the button, scroll to the top of the document
+function topFunction() {
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+}
+</script>
+		</div>
+		
+		<style>
+#myBtn {
+  display: none;
+  position: fixed;
+  bottom: 100px;
+  right: 30px;
+</style>
+
+		<!-- END:FOOTER -->
+		</div>
+		<!-- END:PAGE -->
+		
+		<script type="text/javascript">
+		//<![CDATA[
+					//Check if song changed every CHECK_INTERVAL milliseconds
+			setInterval("DoCheckRefresh()", 5000);
+
+			function DoCheckRefresh()
+			{
+				var url = 'songcheck.js.php?songID=47230&buster=' + (new Date().getTime());
+				$.getScript(url); //jQuery call to call remote javascript
+			}
+
+			//This function is called by remote javascript above if the song changed
+			function doSongChanged()
+			{
+				DoRefresh();
+			}
+
+			function DoRefresh()
+			{
+				//Reload this page with the new data
+				document.location.href = "playing.php?buster=05010259186";
+			}
+				//]]>
+		</script>
+		
+
+</body>
+</html>
+
