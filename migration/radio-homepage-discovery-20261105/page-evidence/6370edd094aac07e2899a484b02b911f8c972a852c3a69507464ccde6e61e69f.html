@@ -1,0 +1,1075 @@
+
+	<!DOCTYPE>
+<html lang="pt-BR" prefix="og: http://ogp.me/ns#" xmlns:fb="http://ogp.me/ns/fb#" class="single dark">
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+
+<!--[if gt IE 8]><!--> <html dir="ltr" lang="pt-BR"> <!--<![endif]--><head>
+  	
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    <link href="https://www.radiojamaicabrasileira.com/theme/assets/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="https://www.radiojamaicabrasileira.com/theme/assets/css/sweet-alert.css" rel="stylesheet" media="screen">
+    <link href="https://www.radiojamaicabrasileira.com/theme/assets/css/style.css" rel="stylesheet" media="screen">
+	<script>
+	var templateDir = "https://www.radiojamaicabrasileira.com/theme";
+	var pDir = "https://www.radiojamaicabrasileira.com/core";
+	</script>
+	
+<title>Radio Jamaica Brasileira™ - A Pioneira da Web</title>
+<meta name="description" content="A Pioneira da Web"/>
+<meta property="og:locale" content="pt_BR" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Radio Jamaica Brasileira™ - A Pioneira da Web" />
+<meta property="og:description" content="A Pioneira da Web" />
+<meta property="og:url" content="https://www.radiojamaicabrasileira.com/" />
+<meta property="og:site_name" content="Radio Jamaica Brasileira™" />
+<script type='application/ld+json'>{"@context":"https:\/\/schema.org","@type":"WebSite","@id":"#website","url":"https:\/\/www.radiojamaicabrasileira.com\/","name":"Radio Jamaica Brasileira\u2122","potentialAction":{"@type":"SearchAction","target":"https:\/\/www.radiojamaicabrasileira.com\/?s={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<link rel='dns-prefetch' href='//s.w.org' />
+<link rel='stylesheet'  href='https://www.radiojamaicabrasileira.com/core/quick-chat/css/quick-chat.css' type='text/css' media='all' />
+<!--[if lt IE 8]>
+<link rel='stylesheet'  href='https://www.radiojamaicabrasileira.com/core/quick-chat/css/quick-chat-ie.css' type='text/css' media='all' />
+<![endif]-->
+<script type='text/javascript' src='https://www.radiojamaicabrasileira.com/core/advanced-ajax-page-loader/jquery.js'></script>
+	<script type="text/javascript">
+		checkjQuery = false;
+		jQueryScriptOutputted = false;
+		
+		//Content ID
+		var AAPL_content = 'containerAjaxfy';
+		
+		//Search Class
+		var AAPL_search_class = 'searchform';
+		
+		//Ignore List - this is for travisavery who likes my comments... hello
+		var AAPL_ignore_string = new String('#, /file, /wp-, .pdf, .zip, .rar'); 
+		var AAPL_ignore = AAPL_ignore_string.split(', ');
+		
+		//Shall we take care of analytics?
+		var AAPL_track_analytics = false		
+		//Various options and settings
+		var AAPL_scroll_top = true		
+		//Maybe the script is being a tw**? With this you can find out why...
+		var AAPL_warnings = false;
+		
+		//This is probably not even needed anymore, but lets keep for a fallback
+		function initJQuery() {
+			if (checkjQuery == true) {
+				//if the jQuery object isn't available
+				if (typeof(jQuery) == 'undefined') {
+				
+					if (! jQueryScriptOutputted) {
+						//only output the script once..
+						jQueryScriptOutputted = true;
+						
+						//output the jquery script
+						//one day I will complain :/ double quotes inside singles.
+						document.write('<scr' + 'ipt type="text/javascript" src="https://www.radiojamaicabrasileira.com/core/advanced-ajax-page-loader/jquery.js"></scr' + 'ipt>');
+					}
+					setTimeout('initJQuery()', 50);
+				}
+			}
+		}
+
+		initJQuery();
+
+	</script>
+
+	<script type="text/javascript" src="https://www.radiojamaicabrasileira.com/core/advanced-ajax-page-loader/ajax-page-loader.js"></script>
+	<script type="text/javascript" src="https://www.radiojamaicabrasileira.com/core/advanced-ajax-page-loader/reload_code.js"></script>
+	
+	<script type="text/javascript">
+		//urls
+		var AAPLsiteurl = "https://www.radiojamaicabrasileira.com";
+		var AAPLhome = "https://www.radiojamaicabrasileira.com";
+		
+		//The old code here was RETARDED - Much like the rest of the code... Now I have replaced this with something better ;)
+		//PRELOADING YEEEYYYYY!!
+		var AAPLloadingIMG = jQuery('<img/>').attr('src', 'https://www.radiojamaicabrasileira.com/files/AAPL/loaders/WordPress Ball Spin.gif');
+		var AAPLloadingDIV = jQuery('<div/>').attr('style', 'display:none;').attr('id', 'ajaxLoadDivElement');
+		AAPLloadingDIV.appendTo('body');
+		AAPLloadingIMG.appendTo('#ajaxLoadDivElement');
+		//My code can either be seen as sexy? Or just a terribly orchestrated hack? Really it's up to you...
+		
+		//Loading/Error Code
+		//now using json_encode - two birds one bullet.
+		var str = "<div id=\"preloadAjaxfy\">\r\n\t<p style=\"text-align: center !important;\">\r\n\t\t<div style=\"width:30px; height:30px; margin:0 auto\"><div class=\"help\"><\/div><\/div>\r\n\t<\/p>\r\n\t<p style=\"text-align: center !important;\">Carregando...<\/p>\r\n<\/div>";
+		var AAPL_loading_code = str.replace('{loader}', AAPLloadingIMG.attr('src'));
+		str = "<center>\r\n\t<p style=\"text-align: center !important;\">Erro!<\/p>\r\n\t<p style=\"text-align: center !important;\">\r\n\t\t<font color=\"red\">O conte\u00fado n\u00e3o pode ser carregado, tente atualizar a p\u00e1gina apertando F5.<\/font>\r\n\t<\/p>\r\n<\/center>";
+		var AAPL_loading_error_code = str.replace('{loader}', AAPLloadingIMG.attr('src'));
+	</script>
+	<link href='https://use.fontawesome.com/releases/v5.1.1/css/all.css' rel='stylesheet' type='text/css'><link href='https://www.radiojamaicabrasileira.com/core/hoost/assets/css/hoost.css' rel='stylesheet' type='text/css'><script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAahw1G_ssG8I0VBkCKky5inir3jJrGnkQ' type='text/javascript'></script>
+	<script type='text/javascript'>
+	/* <![CDATA[ */
+	sk_i18n_error = 'Não pode ler o Feed  Schreikasten';
+	sk_url = 'https://www.radiojamaicabrasileira.com';
+	sk_hasFocus = false;
+	sk_old_title = document.title;
+	sk_title_message = 'Nova mensagem de ';
+	sk_text_del = 'Tem certeza que quer apagar esse comentário?';
+	sk_text_blk = 'Tem certeza que quer marcar esse comentário?';
+	sk_text_spm = 'Marcar como SPAM?';
+	/* ]]> */
+	</script>
+	<script type='text/javascript' src='https://www.radiojamaicabrasileira.com/core/schreikasten/libs/soundmanager2.js'></script>
+<script type='text/javascript' src='https://www.radiojamaicabrasileira.com/core/schreikasten/libs/universal.js'></script>
+<script type='text/javascript' src='https://www.radiojamaicabrasileira.com/inc/js/tw-sack.min.js'></script>
+<script type='text/javascript' src='https://www.radiojamaicabrasileira.com/core/schreikasten/libs/htmlEncoder.js'></script>
+<script type='text/javascript' src='https://www.radiojamaicabrasileira.com/core/schreikasten/schreikasten.js'></script>
+<link rel='stylesheet'  href='https://www.radiojamaicabrasileira.com/core/schreikasten/css/schreikasten.css' type='text/css' media='all' />
+<link rel="icon" href="https://www.radiojamaicabrasileira.com/files/2024/01/cropped-Radio-Jamaica-Brasileira-Logomarca-2019-png909-32x32.png" sizes="32x32" />
+<link rel="icon" href="https://www.radiojamaicabrasileira.com/files/2024/01/cropped-Radio-Jamaica-Brasileira-Logomarca-2019-png909-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon-precomposed" href="https://www.radiojamaicabrasileira.com/files/2024/01/cropped-Radio-Jamaica-Brasileira-Logomarca-2019-png909-180x180.png" />
+<meta name="msapplication-TileImage" content="https://www.radiojamaicabrasileira.com/files/2024/01/cropped-Radio-Jamaica-Brasileira-Logomarca-2019-png909-270x270.png" />
+  	<style>
+		body nav,
+		body nav:before,
+		body .mainSite .bx-pager a.active,
+		.coverEffect,
+		.coverEffect:after,
+		.coverEffect:before,
+		.buttonMore:after,
+		.widget_hoost_eventos ul li .imgThumb span,
+		.sk-button, .openFormShout,
+		.widget_hoost_eventos ul li h4,
+		footer,
+		footer:before,
+		footer:after,
+		body.single .widget_container .linksSociais li,
+		.controlColorBG.bgC2#modTwitter:before,
+		.controlColorBG.bgC2#modTwitter:after,
+		.twitterContainer,
+		.titlePedidos,
+		.formPedidos input[type=submit],
+		.thumbInners,
+		.thumbInners:after,
+		.titleInners ul li a,
+		.listPorgramacao li.active:after,
+		.overFlwProgramacao .descProgramacaoContent span,
+		.overFlwProgramacao .descProgramacaoContent h3,
+		.innerGaleria ul li .item_galeria .imgThumb,
+		.promocaoRegulamento,
+		.participarPromocao,
+		input[type=submit].formPagesButton,
+		.totalpoll-poll-container .totalpoll-buttons .totalpoll-button.totalpoll-button-primary {background-color:#23ae19!important;}
+		
+		body .mainSite ul li a h2 span,
+		body .mainSite .bx-pager a,
+		.titleMods:after,
+		.titleMods:before,
+		#modNoticias ul li:first-child .containerNoticias .contentNoticias h3 a:before,
+		.titleWidgets:after,
+		.titleWidgets:before,
+		.widget_hoost_eventos ul li .imgThumb span:before,
+		body .sk-comment img,
+		.containerTop .thumbImgTop:before,
+		.containerTop .thumbImgTop:after,
+		.widget_hoost_blog ul li .contetNoticias h4 a:before,
+		.innerNoticia ul li .margInnerNoticias .imgThumb:after,
+		.innerNoticia ul li .margInnerNoticias .imgThumb:before,
+		.widget_container.widget_nav_menu ul li a:before, ul.categorias li a:before,
+		.innerBlog ul li .imgThumb:after,
+		.innerBlog ul li .imgThumb:before,
+		.totalpoll-poll-container .totalpoll-buttons .totalpoll-button.totalpoll-button-primary{border-color:#23ae19!important;}
+		
+		.playPause i,
+		#modNoticias ul li:first-child .containerNoticias .contentNoticias .date,
+		.containerTop .nomeCantor span,
+		.widget_hoost_noticias ul li .contetNoticias strong,
+		.widget_hoost_noticias ul li .contetNoticias p,
+		.widget_hoost_blog ul li .contetNoticias p a,
+		#modNoticias ul li .containerNoticias .contentNoticias .date,
+		.contentSingle a.vejaMais,
+		#modNoticias ul li:first-child .containerNoticias .contentNoticias p span,
+		.innerNoticia ul li .margInnerNoticias strong,
+		.innerNoticia ul li .margInnerNoticias .contetNoticias p,
+		.innerBlog ul li .contetNoticias p a{color:#23ae19!important; }
+		
+	</style>
+  	 	    
+
+    <script src="https://www.radiojamaicabrasileira.com/theme/assets/js/jquery.js"></script>
+    <script src="https://www.radiojamaicabrasileira.com/theme/assets/js/jquery-ui.min.js"></script>
+    <script src="https://www.radiojamaicabrasileira.com/theme/assets/js/date.js"></script>
+    
+		
+		
+		
+		<style>
+		/****** CSS Personalizado *******/
+				</style>
+  </head>
+  <body class="single dark">  
+
+  
+  <div class="overPedido"></div>
+  <div class="formPedidos">
+	<div class="titlePedidos"><i class="fas fa-envelope-open"></i> <span>Pedido de Música</span></div>
+
+	<div class="pedidoSucesso" style="display:none">Pedido enviado com sucesso! :)</div>
+	<div class="contentPedidosControl">
+	<p>Preencha os campos abaixo para submeter seu pedido de música:</p>
+
+
+		<form action="" onsubmit="return valformPedidos()" method="POST" class="formPedido">
+			<input type="text" class="pedidosNome" name="pedidosNome" placeholder="Seu nome">
+			<input type="text" class="pedidosEmail" name="pedidosEmail" placeholder="Seu e-mail">
+			<input type="text" class="pedidoArtista" name="pedidoArtista" placeholder="Nome do Artista">
+			<input type="text" class="pedidoMusica" name="pedidoMusica" placeholder="Nome da Música">
+			<input type="text" class="pedidoMensagem" name="pedidoMensagem" placeholder="Mensagem">
+			<input type="hidden" value="" name="receipPedidos">
+			<span class="email-block">
+				<label for="email">Leave this blank if you're human</label>
+				<input type="text" class="mailHoneyPot" name="email" />
+			</span>
+			<input type="submit" value="Enviar">
+		</form>
+	</div>
+</div>
+ 
+ 
+    		
+   			<style>
+		body {padding-bottom: 140px;}
+		.singlePlayer {background: #09080d; height: 85px; width: 100%; display: block; position: fixed; bottom: 0px; z-index: 100; max-width: 1916px; margin: 0 auto; padding: 0 2px; }
+		.singlePlayer:before {background: #09080d; position: absolute; top: -6px; right: -0px; height: 140px; width: 100%; content: ''; transform: rotate(-1deg);z-index: 3;}
+		
+		body.light .singlePlayer {background: #f6f9fc;}
+		body.light .singlePlayer:before {background: #f6f9fc;}
+		
+		.coverEffect {width: 164px; height: 164px; display: block; background: #ff0066; border-radius: 50%; left: 50%; margin-left: -82px; bottom: 0px; z-index: 1; position: absolute;}
+		.coverEffect:before {width: 194px; height: 194px; display: block; background: #ff0066; border-radius: 50%; left: 50%; top: 50%; margin-top: -97px; margin-left: -97px; bottom: 0px; z-index: 1; position: absolute; opacity: 0.5; content: '';}
+		.coverEffect:after {width: 234px; height: 234px; display: block; background: #ff0066; border-radius: 50%; left: 50%; top: 50%; margin-top: -117px; margin-left: -117px; bottom: 0px; z-index: 1; position: absolute;opacity: 0.5; content: ''; }
+		.coverEffect.anima:after {animation: scaleanimation 1s; animation-iteration-count:infinite; }
+		.cover {width: 164px; height: 164px; display: block;  border-radius: 50%; left: 50%; margin-left: -82px; bottom: 0px; z-index: 4; position: absolute;}
+		.cover span {width: 164px; height: 164px; display: block; border-radius: 50%; overflow: hidden; z-index: 3; position: relative;}
+		.cover span img {width: 164px; height: 164px; display: block; overflow: hidden;}
+		
+		.playPause {position: absolute; width: 66px; height: 66px; display: block; left: 50%; margin-left: -33px; top: 50%; margin-top: -33px; background: #fff; border-radius: 50%; z-index: 5; text-align: center; padding: 8px; transition-duration: 0.3s; }
+		
+		
+		.playPause i {font-size: 50px; color: #ff0066; cursor: pointer; position: relative; z-index: 5; display: none; transition-duration: 0.3s;}
+		
+		.playPause:before {width: 100px; height: 100px; position: absolute; top: 50%; left: 50%; margin-top: -50px; margin-left: -50px; background: rgba(255,255,255,0.2); border: solid 1px rgba(255,255,255,0.3); z-index:4; content: ''; border-radius: 50%;}
+		.playPause .fa-play-circle {display: block;} 
+		.playPause:hover {transform: scale(1.2); transition-duration: 0.3s;}
+		
+		.volumeIcons {width: 164px; height: 164px; display: block; left: 50%; margin-left: -82px; bottom: 0px; z-index:3; position: absolute;}
+		
+		.volumeIcons i.fa-volume-up, .volumeIcons i.fa-ellipsis-h {color: #fff; font-size: 20px; position: absolute; cursor: pointer;}
+		.volumeIcons i.fa-volume-up {right:-50px; bottom: 40px;}
+		.volumeIcons i.fa-ellipsis-h {left:-50px; bottom: 40px;}
+		
+		
+		.playingShare {float: left; position: relative; z-index: 3;  padding-left: 30px; margin: 30px 0px;}
+		.playingShare strong {font-family: 'bebas_neueregular', Cambria, Hoefler Text, Liberation Serif, Times, Times New Roman, serif; color: #fff; font-size: 15px; opacity: 0.1; display: inline-block;}
+		.playingShare ul {padding: 0px; margin: 0px; display: inline-block; list-style: none;}
+		.playingShare ul li {display: inline-block;}
+		.playingShare ul li a {display: block; width: 20px; height: 20px; text-align: center; margin: 0 5px;}
+		.playingShare ul li a i {color: #fff; font-size: 20px;}
+		
+		.playingNow {float: right; position: relative; z-index: 3; text-align: right; padding-right: 30px; margin: 15px 0px;}
+		.playingNow strong {font-family: 'bebas_neueregular', Cambria, Hoefler Text, Liberation Serif, Times, Times New Roman, serif; color: #b4b1c3; font-size: 15px; opacity: 0.1; display: block;}
+		
+		.linksPlayrs {position: absolute; left: -65px; bottom: 95px; list-style: none; padding: 0px; margin: 0px; z-index: 3; display: none;}
+		.linksPlayrs li {display: block; height: 40px; width: 40px; margin: 5px; position: relative;}
+		.linksPlayrs li a {background: #09080d; padding: 10px; height: 40px; width: 40px; border-radius: 50%; display: block; text-align: center; position: relative;}
+		.linksPlayrs li a i {color: #fff; font-size: 20px;}
+		.linksPlayrs li a .helper { display: inline-block; height: 100%; vertical-align: middle;}
+		.linksPlayrs li .tooltip {width:100px;}
+		
+		.volumeContainer {position: absolute; right: -60px; bottom: 95px; z-index: 3; background: #09080d; padding: 16px; width: 40px; display: none; border-radius: 5px;}
+		.volumeContainer #slider {background:#434343; width:8px; height:80px;  position:relative;}
+		.volumeContainer .ui-slider .ui-slider-handle {background:#23ae19; border: solid 1px #23ae19; box-shadow:1px 1px 0px rgba(0,0,0,0.1); position: absolute; z-index: 2; width: 16px; height: 16px; border-radius:50%; margin-left:-7px; cursor: pointer; right:-4px; margin-bottom: -7px;}
+		.volumeContainer .ui-slider .ui-slider-handle:focus {outline:none;}
+		.volumeContainer .ui-slider-range { width:8px; border-radius:5px; background:#23ae19; border: solid 1px #23ae19; position: absolute; bottom: 0px;}
+		.volumeContainer .fa-volume-down {position:absolute; left:-22px; top:-3px; font-size: 15px; color: #23ae19}
+		/* Animation Keyframes*/
+		@keyframes scaleanimation {
+			0% { transform: scale(1.2);}
+			10% {transform: scale(0.9); }
+			20% { transform: scale(1); }
+			30% { transform: scale(1.2); }
+			40% { transform: scale(0.8); }
+			50% { transform: scale(1.1); }
+			60% { transform: scale(1.0); }
+			70% { transform: scale(0.9); }
+			80% { transform: scale(1); }
+			90% { transform: scale(0.8); }
+			100% { transform: scale(1.2); }
+		}
+		
+		
+		body.light .playPause i,
+		body.light .volumeIcons i.fa-volume-up, .volumeIcons i.fa-ellipsis-h,
+		body.light .playingShare strong,
+		body.light .playingShare ul li a i,
+		body.light .playingNow strong,
+		body.light .linksPlayrs li a i,
+		body.light .volumeContainer .fa-volume-down {color:#7b8796;}
+		body.light .playingNow strong,
+		body.light .playingShare strong{opacity: 0.5;}
+		
+		
+	</style>
+
+	<div class="singlePlayer">
+
+	<input type="hidden" name="themePath" class="themePath" value="https://www.radiojamaicabrasileira.com/theme">
+	<input type="hidden" name="strIp" class="strIp" value="s03.transmissaodigital.com">
+	<input type="hidden" name="strPort" class="strPort" value="6772">
+	<input type="hidden" name="strUser" class="strUser" value="">
+	<input type="hidden" name="strCodec" class="strCodec" value="aac">
+	<input type="hidden" name="strPonint" class="strPonint" value="">
+	<input type="hidden" name="strSSL" class="strSSL" value="1">
+	<input type="hidden" name="strTecnologia" class="strTecnologia" value="shoutcastv2">
+	<input type="hidden" name="strAutoplay" class="strAutoplay" value="">
+	<audio id="player"> 
+		<source src="https://s03.transmissaodigital.com:6772/stream" type='audio/mp4; codecs="mp4a.40.5"' />
+	<source src="https://s03.transmissaodigital.com:6772/stream" type="audio/aacp" />
+		<span>Your browser dont support that element.</span>
+	</audio>
+		<div class="coverEffect"></div>
+		<div class="cover">
+												<span><img src="https://www.radiojamaicabrasileira.com/files/2024/01/Design-sem-nome-51.png"></span>
+							
+			<div class="playPause stoped">
+				<i class="fas fa-play-circle"></i>
+				<i class="fas fa-pause-circle"></i>
+			</div>
+		</div>
+		
+		<div class="volumeIcons">
+			<div class="volumeContainer hidden-xs"><div id="slider"></div></div>
+			<i class="fas fa-volume-up"></i>
+			<i class="fas fa-ellipsis-h"></i>
+			<ul class="linksPlayrs">
+				<li><a href="https://play.google.com/store/apps/details?id=com.jamaicabrasileira.atdesign&hl=pt_BR&gl=US&pli=1" target="_blank" title="Dispositivos Android." data-toggle="tooltip" data-placement="left" class="android" data-tooltip="Android"><span class="helper"></span><i class="fab fa-android"></i></a></li>											</ul>
+		</div>
+		
+		<div class="playingShare hidden-xs">
+			<strong>Compartilhe:</strong>
+			<ul>
+				<li><a href="#" onclick="window.open('http://www.facebook.com/share.php?u=https://www.radiojamaicabrasileira.com', 'Facebook', 'height=300,width=500');"><i class="fab fa-facebook-f"></i></a></li>
+				<li><a href="#" onclick="window.open('http://twitter.com/home?status=Estou ouvindo a Radio Jamaica Brasileira™ - A Pioneira da Web - https://www.radiojamaicabrasileira.com', 'Facebook', 'height=300,width=500');"><i class="fab fa-twitter"></i></a></li>
+				<li><a href="#" onclick="window.open('https://web.whatsapp.com/send?text=Estou ouvindo a Radio Jamaica Brasileira™ - A Pioneira da Web - https://www.radiojamaicabrasileira.com', 'Facebook', 'height=600,width=800');"><i class="fab fa-whatsapp"></i></a></li>
+			</ul>
+		</div>
+		
+		<div class="playingNow hidden-xs">
+			<strong>Tocando agora:</strong>
+			<span class="status hoostcast" data-widget="nowplaying" data-value="title" data-username=""></span>
+		</div>
+		
+	</div>
+	<script>
+
+
+		$(function() {
+
+			$('.fa-ellipsis-h').click(function() {
+				$('.linksPlayrs').slideToggle(300);
+			});
+			$('.fa-volume-up').click(function() {
+				$('.volumeContainer').slideToggle(300);
+			}); 
+				
+			player = document.getElementById("player");
+			
+			$('.playPause i').click(function() { 
+				if ( $(this).parent().hasClass('stoped') ) {
+					player.play();
+					$(this).parent('.playPause').removeClass('stoped').addClass('playing');
+					$('.fa-play-circle').hide();
+					$('.fa-pause-circle').show();
+					$('.coverEffect').addClass('anima');
+				} else {
+					player.pause();
+					$(this).parent('.playPause').removeClass('playing').addClass('stoped');
+					$('.fa-pause-circle').hide();
+					$('.fa-play-circle').show();
+					$('.coverEffect').removeClass('anima');
+				}
+			});
+			
+			$('#slider').slider({
+				orientation: "vertical",
+				range: "min",
+				value: 50,
+				min: 0,
+				max: 100,
+				animate: true,
+				change: function (event, ui) {
+					volume = ui.value;
+					player.volume = volume / 100;
+				}
+			});
+			
+					});
+	</script>
+	
+	<script language="javascript" type="text/javascript" src="https://s03.transmissaodigital.com/w//widgets.js"></script>
+
+					
+				       
+  
+  <div class="overlay"></div>
+  			
+  <header>
+  	<a href="https://www.radiojamaicabrasileira.com" class="logotipo" ><img src="https://www.radiojamaicabrasileira.com/files/2024/01/Design-sem-nome-57.png"><h1>Radio Jamaica Brasileira™ - A Pioneira da Web</h1></a>
+  	
+  	<a href="#" class="singleMenu"><i class="fas fa-bars"></i></a> 	
+  </header>
+  
+  	
+  	<nav class="menuAjaxfy">
+		<span class="menuTitle">Menu</span>
+				
+		<ul id="menu-menu-principal" class="main-navi"><li class="menu-item-has-children"><a href="https://www.radiojamaicabrasileira.com/sobre-nos/">Sobre-nos</a>
+<ul class="sub-menu">
+	<li><a href="https://www.radiojamaicabrasileira.com/sobre-nos/">Sobre-nos</a></li>
+	<li><a href="https://www.radiojamaicabrasileira.com/fale-conosco/">Fale conosco</a></li>
+</ul>
+</li>
+<li><a href="https://www.radiojamaicabrasileira.com/noticias/">Notícias</a></li>
+<li><a href="https://www.radiojamaicabrasileira.com/category/blog/">Blog</a></li>
+<li><a href="https://www.radiojamaicabrasileira.com/programacao/">Programação</a></li>
+<li><a href="https://www.radiojamaicabrasileira.com/galeria_de_fotos/">Galerias de fotos</a></li>
+<li><a href="https://www.radiojamaicabrasileira.com/eventos/">Eventos</a></li>
+<li><a href="https://www.radiojamaicabrasileira.com/videos/">Vídeos</a></li>
+<li><a href="https://www.radiojamaicabrasileira.com/equipe/">Equipe</a></li>
+<li><a href="https://www.radiojamaicabrasileira.com/promocoes/">Promoções</a></li>
+<li><a href="https://www.radiojamaicabrasileira.com/fale-conosco/">Contato</a></li>
+</ul>
+				<a href="#" title="" class="closeMenuSingle"><i class="fas fa-times"></i></a>
+	</nav> 
+
+<div id="containerAjaxfy">
+    <div class="mainSite">
+  	<ul id="firstSlider">    	
+		
+               <li>
+            <a href="#" target="_self" title="" style="background:url(https://i.ibb.co/fxPhZX2/midia-slide-jamaica-brasileira.png) center top;">
+                <div class="container">
+                    <div class="slidercontent">
+                                            </div>
+                </div>
+            </a>
+        </li>
+            	
+		        <li>
+            <a href="#" target="_self" title="" style="background:url(https://i.ibb.co/BCSRMjQ/2.png) center top;">
+                <div class="container">
+                    <div class="slidercontent">
+                                            </div>
+                </div>
+            </a>
+        </li>
+            	
+		        <li>
+            <a href="https://www.amazon.com.br/Radio-Jamaica-Brasileira-Pioneira-Web/dp/B0CRBHVRW4/ref=sr_1_18?dib=eyJ2IjoiMSJ9.h8f-LjbbJM4lY60xAqL1wir0G5Q56Eoasm9o4MIubtqZfHoyBtlbjMxfmLi7G14jd0i2dhUWvJFTiTBYpJoaVVDJ_ouspGYqFN7zkDlJys90FOau4Ct2cv36IHpo9quJ9lFqIBSk2xMeTNaK3RbJN7SkbRhm1eeWvWaODi5hs-k0t9Ndy4Kz7R789AN7JjvIJ5sDK3rgi_nqTIkiYRAtPHs84_7k0Dy0LDtKOc1CW7o.PyfLPoFeqKvgtr1lah6FfAhLsgbhWd2VGQs_6ZxNHrE&dib_tag=se&qid=1705744372&rnid=17938239011&s=alexa-skills&sr=1-18" target="_blank" title="" style="background:url(https://i.ibb.co/yfh4xwW/midia-slide-jamaica-brasileira-3.png) center top;">
+                <div class="container">
+                    <div class="slidercontent">
+                                            </div>
+                </div>
+            </a>
+        </li>
+            	
+		        <li>
+            <a href="#" target="" title="" style="background:url(https://i.ibb.co/gZGQ3Ff/4.png) center top;">
+                <div class="container">
+                    <div class="slidercontent">
+                                            </div>
+                </div>
+            </a>
+        </li>
+            	
+		        <li>
+            <a href="https://app.mobileradio.com.br/radiojamaicabrasileira" target="_blank" title="" style="background:url(https://i.ibb.co/R0Kyyjx/C-pia-de-fones-nos-ouvidos-e-m-sica-na-alta-4.png) center top;">
+                <div class="container">
+                    <div class="slidercontent">
+                                            </div>
+                </div>
+            </a>
+        </li>
+            </ul>
+  </div>
+
+	<div class="controlColorBG">
+	
+	<div>
+		<div class="bannerPublicidade">
+							<div class="container"><a href="https://app.mobileradio.com.br/radiojamaicabrasileira" target="_blank" title=""><img src="https://www.radiojamaicabrasileira.com/files/2024/01/SE-VOCÊ-GOSTA-DE-SE-CONECTAR-DE-FORMA-RÁPIDA-NOSSO-APP-É-A-SOLUÇÃO-VOCÊ-24H-CONOSCO.png"  width="100%"  /></a></div>
+								</div>
+	</div>
+	
+</div><div class="controlColorBG">
+	
+	<div>
+		<div class="bannerPublicidade">
+							<div class="container"><a href="https://www.instagram.com/radiojamaicabrasileira/" target="_blank" title=""><img src="https://www.radiojamaicabrasileira.com/files/2024/01/SE-VOCÊ-GOSTA-DE-SE-CONECTAR-DE-FORMA-RÁPIDA-NOSSO-APP-É-A-SOLUÇÃO-VOCÊ-24H-CONOSCO-2.png"  width="100%"  /></a></div>
+								</div>
+	</div>
+	
+</div><div class="contentSingle controlColorBG" id="modNoticias">
+	<div class="container">
+  	<h2 class="titleMods">Últimas noticias</h2>
+	<ul class="row">    
+				    	<li class="col-md-6">
+    		<div class="containerNoticias">
+				<div class="imgThumb"><a href="https://www.radiojamaicabrasileira.com/noticias/mellow-mood-na-radio-jamaica-brasileira/" title="Mellow Mood: O reggae italiano que conquistou o mundo e chega à Rádio Jamaica Brasileira">
+				<img width="540" height="235" src="https://www.radiojamaicabrasileira.com/files/2025/12/Banda-Mellow-Mood-5-540x235.jpg" class="attachment-noticiasThumbSingle size-noticiasThumbSingle wp-post-image" alt="" title="Veja o post completo" srcset="https://www.radiojamaicabrasileira.com/files/2025/12/Banda-Mellow-Mood-5-540x235.jpg 540w, https://www.radiojamaicabrasileira.com/files/2025/12/Banda-Mellow-Mood-5-300x130.jpg 300w, https://www.radiojamaicabrasileira.com/files/2025/12/Banda-Mellow-Mood-5-1024x443.jpg 1024w" sizes="(max-width: 540px) 100vw, 540px" />				</a></div>
+				<div class="contentNoticias">
+					<strong></strong>
+					<h3><a href="https://www.radiojamaicabrasileira.com/noticias/mellow-mood-na-radio-jamaica-brasileira/" title="Mellow Mood: O reggae italiano que conquistou o mundo e chega à Rádio Jamaica Brasileira">Mellow Mood: O reggae italiano que conquistou o mundo e chega à Rádio Jamaica Brasi</a></h3>
+				<p>A banda italiana Mellow Mood é um dos nomes mais consistentes e respeitados do reggae europeu contemporâneo. Formado em 2005, o grupo surgiu ainda no período escolar de seus integrantes, tendo à frente os irmãos gêmeos Jacopo e Lorenzo Garzia, que até hoje <span>...</span></p>                    
+                    <div class="date">Em 22/12/2025<span></span></div>
+				<a href="https://www.radiojamaicabrasileira.com/noticias/mellow-mood-na-radio-jamaica-brasileira/" title="Mellow Mood: O reggae italiano que conquistou o mundo e chega à Rádio Jamaica Brasileira" class="buttonMore"><span>Saiba mais</span></a>                    
+                    
+				</div>
+			</div>
+        </li>
+		    	<li class="col-md-6">
+    		<div class="containerNoticias">
+				<div class="imgThumb"><a href="https://www.radiojamaicabrasileira.com/noticias/3a-edicao-da-previa-da-republica-do-reggae/" title="3ª edição da Prévia da República do Reggae">
+				<img width="150" height="115" src="https://www.radiojamaicabrasileira.com/files/2025/11/Pévia-do-República-do-Reggae-Destaque-1-150x115.jpeg" class="attachment-noticiasThumbPeq size-noticiasThumbPeq wp-post-image" alt="" title="Veja o post completo" />				</a></div>
+				<div class="contentNoticias">
+					<strong></strong>
+					<h3><a href="https://www.radiojamaicabrasileira.com/noticias/3a-edicao-da-previa-da-republica-do-reggae/" title="3ª edição da Prévia da República do Reggae">3ª edição da Prévia da República do Reggae</a></h3>
+				                    
+                    <div class="date">Em 23/11/2025<span></span></div>
+				                    
+                    
+				</div>
+			</div>
+        </li>
+		    	<li class="col-md-6">
+    		<div class="containerNoticias">
+				<div class="imgThumb"><a href="https://www.radiojamaicabrasileira.com/noticias/especial-milton-batera/" title="Especial Milton Batera">
+				<img width="150" height="115" src="https://www.radiojamaicabrasileira.com/files/2025/11/Especial-Minton-Batera-Destaque-150x115.jpeg" class="attachment-noticiasThumbPeq size-noticiasThumbPeq wp-post-image" alt="" title="Veja o post completo" />				</a></div>
+				<div class="contentNoticias">
+					<strong></strong>
+					<h3><a href="https://www.radiojamaicabrasileira.com/noticias/especial-milton-batera/" title="Especial Milton Batera">Especial Milton Batera</a></h3>
+				                    
+                    <div class="date">Em 23/11/2025<span></span></div>
+				                    
+                    
+				</div>
+			</div>
+        </li>
+		    	<li class="col-md-6">
+    		<div class="containerNoticias">
+				<div class="imgThumb"><a href="https://www.radiojamaicabrasileira.com/noticias/especial-com-gau-pass/" title="Entrevista especial com a cantora Gau Pass">
+				<img width="150" height="115" src="https://www.radiojamaicabrasileira.com/files/2025/10/Especial-Gaus-Pass-150x115.jpg" class="attachment-noticiasThumbPeq size-noticiasThumbPeq wp-post-image" alt="" title="Veja o post completo" />				</a></div>
+				<div class="contentNoticias">
+					<strong></strong>
+					<h3><a href="https://www.radiojamaicabrasileira.com/noticias/especial-com-gau-pass/" title="Entrevista especial com a cantora Gau Pass">Entrevista especial com a cantora Gau Pass</a></h3>
+				                    
+                    <div class="date">Em 19/10/2025<span></span></div>
+				                    
+                    
+				</div>
+			</div>
+        </li>
+		    	<li class="col-md-6">
+    		<div class="containerNoticias">
+				<div class="imgThumb"><a href="https://www.radiojamaicabrasileira.com/noticias/bandamanoroots/" title="Banda Mano Roots na Radio Jamaica Brasileira">
+				<img width="150" height="115" src="https://www.radiojamaicabrasileira.com/files/2025/10/Especial-Mano-Roots-150x115.jpg" class="attachment-noticiasThumbPeq size-noticiasThumbPeq wp-post-image" alt="" title="Veja o post completo" />				</a></div>
+				<div class="contentNoticias">
+					<strong></strong>
+					<h3><a href="https://www.radiojamaicabrasileira.com/noticias/bandamanoroots/" title="Banda Mano Roots na Radio Jamaica Brasileira">Banda Mano Roots na Radio Jamaica Brasileira</a></h3>
+				                    
+                    <div class="date">Em 11/10/2025<span></span></div>
+				                    
+                    
+				</div>
+			</div>
+        </li>
+		            </ul>
+    <div class="clearfix"></div>
+    <a href="https://www.radiojamaicabrasileira.com/noticias/" title="" class="vejaMais">Veja todas as noticias</a>
+	</div>
+</div>
+
+
+
+
+
+ 
+
+ 
+<div class="controlColorBG">
+	
+	<div>
+		<div class="bannerPublicidade">
+							<div class="container"><img src="https://www.radiojamaicabrasileira.com/files/2024/01/5.png"  width="100%"  /></div>
+								</div>
+	</div>
+	
+</div><div id="modSidebar" class="controlColorBG">  
+  <div class="container">
+    
+		  	<div class="colunaEsquerda inlineBlockCols col-md-3"><div class="widgetContainer"><div class="widget_container widget_sk"><h3 class="titleWidgets">Mural de Recados</h3><div class="sepWidgets"></div>
+<script type='text/javascript'>
+	/* <![CDATA[ */
+	
+	
+	function sk_timer187845() {
+		var sk_timer_div = document.getElementById('sk_timer187845');
+		if(sk_timer_div.value) clearTimeout(sk_timer_div.value);
+		timer_id=setTimeout( 'sk_refresh187845(true);' , 60000 );
+		sk_timer_div.value=timer_id;
+	}
+	
+	function sk_refresh187845(timer) {
+		var sk_timer_div = document.getElementById('sk_timer187845');
+sk_timer187845();
+		sk_feed( document.getElementById('sk_page187845').value, 187845, sk_semaphore187845, false, timer);
+	}
+	
+	function for_delete187845() {
+		document.getElementById('sk_for_id187845').value='0';
+		document.getElementById('sk_for_name187845').innerHTML='';
+		document.getElementById('sk_for_tr187845').className='sk-for-nai';
+	}
+	
+	function for_set187845(id, name) {
+		document.getElementById('sk_for_id187845').value=id;
+		document.getElementById('sk_for_name187845').innerHTML=name;
+		var text=document.getElementById('sk_text187845').value;
+		if(false) {
+			document.getElementById('sk_text187845').value='Resposta: '+text;
+		} else {
+			document.getElementById('sk_text187845').value='Para '+name+' - '+text;
+		}
+		document.getElementById('sk_for_tr187845').className='sk-for-yep';
+	}
+	
+	function sk_replyDelete187845(id, text) {
+		var aux = document.getElementById('sk-187845-'+id);
+		aux.setAttribute('class', 'sk-reply sk-reply-on');
+		aux.setAttribute('className', 'sk-reply sk-reply-on');
+		if(confirm(text)) {
+			sk_action(id, 'delete', 187845, sk_semaphore187845);
+		} else {
+			aux.setAttribute('class', 'sk-reply');
+			aux.setAttribute('className', 'sk-reply'); //IE sucks
+		}
+	}
+	
+	function sk_pressButton187845() {
+		var alias=document.getElementById('sk_alias187845').value;
+		var text=document.getElementById('sk_text187845').value;
+		var email=document.getElementById('sk_email187845').value;
+		var skfor=document.getElementById('sk_for_id187845').value;
+		if(text.length>225) {
+			alert('Tamanho da mensagem maior que o permitido');
+			return false;
+		}
+		document.getElementById('th_sk_alias187845').innerHTML = alias;
+		document.getElementById('th_sk_text187845').innerHTML = text.replace(/\n/g,"<br>");;
+		if(true){
+			document.getElementById('throbber-page187845').setAttribute('class','throbber-page-on');
+			document.getElementById('throbber-page187845').setAttribute('className','throbber-page-on'); //IE sucks
+		} else {
+			document.getElementById('throbber-img187845').setAttribute('class','throbber-img-on');
+			document.getElementById('throbber-img187845').setAttribute('className','throbber-img-on'); //IE sucks
+			document.getElementById('throbber-img187845').style.visibility='visible';
+		}
+		for_delete187845();
+		document.getElementById('sk_page187845').value=1;
+		document.getElementById('sk_text187845').value='';
+		div_sk_allowed = document.getElementById('sk_allowed187845');
+		if(div_sk_allowed.value > 0) {
+			div_sk_allowed.value = div_sk_allowed.value - 1;
+		}
+		
+		sk_add( alias, email, text, skfor, 187845, sk_semaphore187845 );
+	}
+/* ]]> */
+</script>
+<div id='sk_content187845'><input type='hidden' id='sk_allowed187845' name='sk_allowed187845' value='-1' /><input type='hidden' id='sk_enabled187845' name='sk_enabled187845' value='1' /><input type='hidden' id='sk_submit_text187845' name='sk_submit_text187845' value='Enviar' /><input type='hidden' id='sk_message187845' name='sk_message187845' value='none' /><input type='hidden' id='sk_blocked187845' name='sk_blocked187845' value='0' /><input type='hidden' id='sk_int_count187845' name='sk_int_count187845' value='29' /><input type='hidden' id='sk_int_last187845' name='sk_int_last187845' value='Danny' />
+<div class='throbber-img-off' style='visibility: hidden;' id='throbber-img187845'><a name='sk-comment-id0'></a>
+		<div style='min-height: 32px;' class='sk-userdata-user'><img src="https://www.radiojamaicabrasileira.com/core/cat-generator-avatars/cache/d41d8c.png" srcset="https://www.radiojamaicabrasileira.com/core/cat-generator-avatars/cache/d41d8c.png 2x" width="55" height="55" class="avatar avatar-55 cat-generator-avatar photo avatar-default" alt="" ><strong id='th_sk_alias187845'></strong> <div class='sk-little'>&nbsp;Enviando...&nbsp;</div>
+		</div>
+		<div class='clearfix'></div>
+		<div class='sk-widgettext bgC2'>
+			<div class='skwidget-comment' id='th_sk_text187845'></div>
+			<div style='clear: both;'></div>
+		</div>
+		</div>
+<div class='sk-comment sk-user-user recado bgC1' id='sk-187845-26'><a name='sk-comment-id26'></a>
+		<div style='min-height: 32px;' class='sk-userdata-user'><img src="https://www.radiojamaicabrasileira.com/core/cat-generator-avatars/cache/8822ba.png" srcset="https://www.radiojamaicabrasileira.com/core/cat-generator-avatars/cache/8822ba.png 2x" width="55" height="55" class="avatar avatar-55 cat-generator-avatar photo" alt="" ><strong>JERôNIMO</strong> <div class='sk-little'>sábado, out 11. 2025 5:23 PM</div>
+		</div>
+		<div class='clearfix'></div>
+		<div class='sk-widgettext bgC2'>
+			<div class='skwidget-comment'>Belém-PA, na escuta da Radio Jamaica Brasileira, eu e minha esposa…
+</div>
+			<div style='clear: both;'></div>
+		</div>
+		</div>
+<div class='sk-comment sk-user-user recado bgC1' id='sk-187845-27'><a name='sk-comment-id27'></a>
+		<div style='min-height: 32px;' class='sk-userdata-user'><img src="https://www.radiojamaicabrasileira.com/core/cat-generator-avatars/cache/dba967.png" srcset="https://www.radiojamaicabrasileira.com/core/cat-generator-avatars/cache/dba967.png 2x" width="55" height="55" class="avatar avatar-55 cat-generator-avatar photo" alt="" ><strong>Rondyjamaica</strong> <div class='sk-little'>sexta-feira, abr 17. 2026 12:48 PM</div>
+		</div>
+		<div class='clearfix'></div>
+		<div class='sk-widgettext bgC2'>
+			<div class='skwidget-comment'>Toca pra nós música com Carlton Barrett na batera
+</div>
+			<div style='clear: both;'></div>
+		</div>
+		</div>
+<div class='sk-comment sk-user-user recado bgC1' id='sk-187845-28'><a name='sk-comment-id28'></a>
+		<div style='min-height: 32px;' class='sk-userdata-user'><img src="https://www.radiojamaicabrasileira.com/core/cat-generator-avatars/cache/8822ba.png" srcset="https://www.radiojamaicabrasileira.com/core/cat-generator-avatars/cache/8822ba.png 2x" width="55" height="55" class="avatar avatar-55 cat-generator-avatar photo" alt="" ><strong>Jjeronimo</strong> <div class='sk-little'>sábado, maio 23. 2026 10:57 AM</div>
+		</div>
+		<div class='clearfix'></div>
+		<div class='sk-widgettext bgC2'>
+			<div class='skwidget-comment'>Conectado na RJB&#8230;
+</div>
+			<div style='clear: both;'></div>
+		</div>
+		</div>
+<div class='sk-comment sk-user-user recado bgC1' id='sk-187845-29'><a name='sk-comment-id29'></a>
+		<div style='min-height: 32px;' class='sk-userdata-user'><img src="https://www.radiojamaicabrasileira.com/core/cat-generator-avatars/cache/cd2059.png" srcset="https://www.radiojamaicabrasileira.com/core/cat-generator-avatars/cache/cd2059.png 2x" width="55" height="55" class="avatar avatar-55 cat-generator-avatar photo" alt="" ><strong>Salvador Campos</strong> <div class='sk-little'>domingo, set 20. 2026 5:41 PM</div>
+		</div>
+		<div class='clearfix'></div>
+		<div class='sk-widgettext bgC2'>
+			<div class='skwidget-comment'>Ligado na .radiojamaicabrasileira
+</div>
+			<div style='clear: both;'></div>
+		</div>
+		</div>
+<div class='sk-comment sk-user-user recado bgC1' id='sk-187845-30'><a name='sk-comment-id30'></a>
+		<div style='min-height: 32px;' class='sk-userdata-user'><img src="https://www.radiojamaicabrasileira.com/core/cat-generator-avatars/cache/4c46f5.png" srcset="https://www.radiojamaicabrasileira.com/core/cat-generator-avatars/cache/4c46f5.png 2x" width="55" height="55" class="avatar avatar-55 cat-generator-avatar photo" alt="" ><strong>Danny</strong> <div class='sk-little'>terça-feira, out 13. 2026 7:26 AM</div>
+		</div>
+		<div class='clearfix'></div>
+		<div class='sk-widgettext bgC2'>
+			<div class='skwidget-comment'>Love radio Jamaica ❤️❤️ stepping out a Ireland &amp;#55356;&amp;#56814;&amp;#55356;&amp;#56810; 
+</div>
+			<div style='clear: both;'></div>
+		</div>
+		</div>
+<br/><div id='throbber-page187845' class='throbber-page-off'><small><span class='sk-page-actual'>1</span> &#183; <a class='sk-page-other' onclick="
+				var aux = document.getElementById('throbber-page187845');
+				aux.setAttribute('class', 'throbber-page-on');
+				aux.setAttribute('className', 'throbber-page-on'); //IE sucks
+				document.getElementById('sk_page187845').value=2;
+				
+sk_timer187845();
+				sk_feed( 2, 187845, sk_semaphore187845, true );">2</a> &#183; <a class='sk-page-other' onclick="
+				var aux = document.getElementById('throbber-page187845');
+				aux.setAttribute('class', 'throbber-page-on');
+				aux.setAttribute('className', 'throbber-page-on'); //IE sucks
+				document.getElementById('sk_page187845').value=3;
+				
+sk_timer187845();
+				sk_feed( 3, 187845, sk_semaphore187845, true );">3</a> &#183; <a class='sk-page-other' onclick="
+				var aux = document.getElementById('throbber-page187845');
+				aux.setAttribute('class', 'throbber-page-on');
+				aux.setAttribute('className', 'throbber-page-on'); //IE sucks
+				document.getElementById('sk_page187845').value=4;
+				
+sk_timer187845();
+				sk_feed( 4, 187845, sk_semaphore187845, true );">4</a> &#183; <a class='sk-page-other' onclick="
+				var aux = document.getElementById('throbber-page187845');
+				aux.setAttribute('class', 'throbber-page-on');
+				aux.setAttribute('className', 'throbber-page-on'); //IE sucks
+				document.getElementById('sk_page187845').value=5;
+				
+sk_timer187845();
+				sk_feed( 5, 187845, sk_semaphore187845, true );">5</a> &#183; <a class='sk-page-other'
+			 onclick="
+			
+				var aux = document.getElementById('throbber-page187845');
+				aux.setAttribute('class', 'throbber-page-on');
+				aux.setAttribute('className', 'throbber-page-on'); //IE sucks
+				document.getElementById('sk_page187845').value=6;
+				
+sk_timer187845();
+				sk_feed( 6, 187845, sk_semaphore187845, true );">&#187;</a></small></div></div><a name='sk_top'></a><div class='openFormShout'><span>Deixe seu recado</span></div><div class='formShout'><p>Para deixar seu recado preencha os campos abaixo:</p><table border='0' class='sk-table'><tr class='sk-rowname'>
+				<td>
+					<input class='sk-text' type='text' id='sk_alias187845' name='sk_alias187845' value='' placeholder='Nome'/>
+				</td>
+			</tr>
+			<tr class='sk-rowemail'>
+				<td>
+					<input class='sk-text' type='text' id='sk_email187845' name='sk_email187845' value='' placeholder='E-mail'/>
+				</td>
+			</tr><tr class='sk-for-nai' id='sk_for_tr187845'>
+			<td nowrap='nowrap'>Para:</td>
+			<td><span id='sk_for_name187845'></span>&nbsp;<img src='https://www.radiojamaicabrasileira.com/core/schreikasten/img/clear.png' align='top' border='0' alt='' onclick='for_delete187845();' /><input id='sk_for_id187845' name='sk_for_id187845' type='hidden' size='5' value='0'/></td>
+		</tr>
+		<tr>
+			<td align='right'><textarea rows='0' cols='0' class='sk-area' placeholder='Recado' name='sk_text187845' id='sk_text187845' onkeypress='
+				var key;
+				if(window.event)
+					key = window.event.keyCode; //IE
+				else
+					key = event.keyCode;
+				if(this.value.length>225-1 &amp;&amp; !(key==8 || key==37 || key==38 || key==39 || key==40) )
+				return false;'></textarea></td>
+		</tr>
+		</table><table class='sk-table'>		
+			<tr>
+				<td colspan='2' class='sk-little'>
+					<div class='sk-box-message'></div>
+					<div class='sk-box-button'>
+						<input type='hidden' id='sk_timer187845' value=''/><input type='hidden' id='sk_count187845' name='sk_count187845' value='29' /><input type='hidden' id='sk_page187845' name='sk_page187845' value='1' /><input type='hidden' id='sk_size187845' name='sk_size187845' value='5' /><input type='button' class='sk-button sk-button-size' value='Enviar' id='sk_button187845' onclick='
+						sk_enabled = document.getElementById("sk_enabled187845").value;
+						sk_allowed = document.getElementById("sk_allowed187845").value;
+						if(sk_enabled == 1 ) {
+							this.disabled = true;
+							sk_pressButton187845();
+						} else {
+							alert(document.getElementById("sk_message187845").value);
+						}
+						'/>
+					</div>
+					<div class='sk-box-text'>E-mail  não será publicado<br/>(mas é usado para o avatar)</div>
+				</td>
+			</tr>
+			</table></div>
+<script type='text/javascript'>
+	window.onblur = function () {sk_hasFocus = false;}
+	window.onfocus = function () {sk_hasFocus = true; document.title = sk_old_title;}
+	var sk_semaphore187845=new sk_Semaphore();
+	sk_semaphore187845.setGreen();
+	
+sk_timer187845(); 
+	
+</script>
+<div class="clearfix"></div></div></div></div>
+  	<div class="colunaCentral inlineBlockCols col-md-6"><div class="widgetContainer"><div class="widget_container widget_hoost_blog"><h3 class="titleWidgets">È O REGGAE!</h3><div class="sepWidgets"></div>
+        
+        
+            <ul class="widgetBlog">
+						
+            <li>
+                
+                    <div class="imgThumb"><a href="https://www.radiojamaicabrasileira.com/banda-live-wyya-de-volta-a-programacao-lanca-o-single-warrior/" title="Banda Live Wyya de volta à programação lança o single “Warrior”"><img width="860" height="400" src="https://www.radiojamaicabrasileira.com/files/2025/08/Especial-Roots-LIVE-WYYA-3-860x400.jpg" class="attachment-noticiasThumbInners size-noticiasThumbInners wp-post-image" alt="" /></a></div>
+                    <div class="contetNoticias">
+                        <h4><a href="https://www.radiojamaicabrasileira.com/banda-live-wyya-de-volta-a-programacao-lanca-o-single-warrior/" title="Banda Live Wyya de volta à programação lança o single “Warrior”">Banda Live Wyya de volta à programação lança o single “Warrior�</a></h3>                    
+                        <p>Neste domingo, 10/08/2025 a Rádio Jamaica Brasileira tem o prazer de apresentar novamente um especial exclusivo com a consagrada banda jamaicana Live Wyya! Nesta edição, celebramos com @livewyyaja o lançamento do... <a href='https://www.radiojamaicabrasileira.com/banda-live-wyya-de-volta-a-programacao-lanca-o-single-warrior/' title='Leia mais'>Leia mais</a></p>
+                        <span class="finalBlogItem">Em 09/08/2025</span>
+                    </div>
+            </li>
+						
+            <li>
+                
+                    <div class="imgThumb"><a href="https://www.radiojamaicabrasileira.com/de-volta-a-programacao-earth-warrior-lanca-o-single-all-things-bright/" title="De volta à programação Earth Warrior lança o single &#8220;All Things Bright&#8221;"><img width="860" height="400" src="https://www.radiojamaicabrasileira.com/files/2025/08/Especial-Roots-Earth-Warrior-2-860x400.jpg" class="attachment-noticiasThumbInners size-noticiasThumbInners wp-post-image" alt="" /></a></div>
+                    <div class="contetNoticias">
+                        <h4><a href="https://www.radiojamaicabrasileira.com/de-volta-a-programacao-earth-warrior-lanca-o-single-all-things-bright/" title="De volta à programação Earth Warrior lança o single &#8220;All Things Bright&#8221;">De volta à programação Earth Warrior lança o single &#8220;All Thi</a></h3>                    
+                        <p>Neste domingo, 10/08/2025, a Rádio Jamaica Brasileira tem o orgulho de apresentar mais uma vez um especial imperdível com o talentoso artista jamaicano Earth Warrior! Nesta edição, celebramos o lançamento do seu... <a href='https://www.radiojamaicabrasileira.com/de-volta-a-programacao-earth-warrior-lanca-o-single-all-things-bright/' title='Leia mais'>Leia mais</a></p>
+                        <span class="finalBlogItem">Em 09/08/2025</span>
+                    </div>
+            </li>
+						
+            <li>
+                
+                    <div class="imgThumb"><a href="https://www.radiojamaicabrasileira.com/especial-tilibop/" title="Especial Tilibop"><img width="860" height="400" src="https://www.radiojamaicabrasileira.com/files/2024/04/Tilibop-860x400.jpeg" class="attachment-noticiasThumbInners size-noticiasThumbInners wp-post-image" alt="" /></a></div>
+                    <div class="contetNoticias">
+                        <h4><a href="https://www.radiojamaicabrasileira.com/especial-tilibop/" title="Especial Tilibop">Especial Tilibop</a></h3>                    
+                        <p>A Radio Jamaica Brasileira em parceria com a Radio Central Reggae têm o prazer de apresentar o Especial com o Jamaicano TILIBOB. Então anote na sua agenda: Domingo, 21 de abril de 2024 às 18h. Produção e... <a href='https://www.radiojamaicabrasileira.com/especial-tilibop/' title='Leia mais'>Leia mais</a></p>
+                        <span class="finalBlogItem">Em 18/04/2024</span>
+                    </div>
+            </li>
+			            </ul>
+        
+		<div class="clearfix"></div></div></div><div class="widgetContainer"><div class="widget_container widget_hoost_noticias"><h3 class="titleWidgets">Últimas noticias</h3><div class="sepWidgets"></div>
+        
+        
+            <ul id="widgetNoticias">
+						
+            <li class="col-lg-4 col-md-6">
+                <div class="widgetNoticiasInner">
+                    <div class="imgThumb"><a href="https://www.radiojamaicabrasileira.com/noticias/mellow-mood-na-radio-jamaica-brasileira/" title="Mellow Mood: O reggae italiano que conquistou o mundo e chega à Rádio Jamaica Brasileira"><img width="255" height="125" src="https://www.radiojamaicabrasileira.com/files/2025/12/Banda-Mellow-Mood-5-255x125.jpg" class="attachment-noticiasThumbWidget size-noticiasThumbWidget wp-post-image" alt="" /></a></div>
+                    <div class="contetNoticias">
+                        <strong></strong>
+                        <h3><a href="https://www.radiojamaicabrasileira.com/noticias/mellow-mood-na-radio-jamaica-brasileira/" title="Mellow Mood: O reggae italiano que conquistou o mundo e chega à Rádio Jamaica Brasileira">Mellow Mood: O reggae italiano que conquistou o mundo e chega à Rádio Jamaica Brasi</a></h3>
+                        <p>Em 22/12/2025</p>
+                    </div>
+               </div>
+            </li>
+						
+            <li class="col-lg-4 col-md-6">
+                <div class="widgetNoticiasInner">
+                    <div class="imgThumb"><a href="https://www.radiojamaicabrasileira.com/noticias/3a-edicao-da-previa-da-republica-do-reggae/" title="3ª edição da Prévia da República do Reggae"><img width="255" height="125" src="https://www.radiojamaicabrasileira.com/files/2025/11/Pévia-do-República-do-Reggae-Destaque-1-255x125.jpeg" class="attachment-noticiasThumbWidget size-noticiasThumbWidget wp-post-image" alt="" /></a></div>
+                    <div class="contetNoticias">
+                        <strong></strong>
+                        <h3><a href="https://www.radiojamaicabrasileira.com/noticias/3a-edicao-da-previa-da-republica-do-reggae/" title="3ª edição da Prévia da República do Reggae">3ª edição da Prévia da República do Reggae</a></h3>
+                        <p>Em 23/11/2025</p>
+                    </div>
+               </div>
+            </li>
+						
+            <li class="col-lg-4 col-md-6">
+                <div class="widgetNoticiasInner">
+                    <div class="imgThumb"><a href="https://www.radiojamaicabrasileira.com/noticias/especial-milton-batera/" title="Especial Milton Batera"><img width="255" height="125" src="https://www.radiojamaicabrasileira.com/files/2025/11/Especial-Minton-Batera-Destaque-255x125.jpeg" class="attachment-noticiasThumbWidget size-noticiasThumbWidget wp-post-image" alt="" /></a></div>
+                    <div class="contetNoticias">
+                        <strong></strong>
+                        <h3><a href="https://www.radiojamaicabrasileira.com/noticias/especial-milton-batera/" title="Especial Milton Batera">Especial Milton Batera</a></h3>
+                        <p>Em 23/11/2025</p>
+                    </div>
+               </div>
+            </li>
+			            </ul>
+        
+        
+		<div class="clearfix"></div></div></div></div>
+  	<div class="colunaDireita inlineBlockCols col-md-3"><div class="widgetContainer"><div class="widget_container widget_hoost_social"><h3 class="titleWidgets">Curta no social</h3><div class="sepWidgets"></div>
+        
+        
+				<style>
+				.widget_container .linksSociais {margin:0px; padding:0px; float:right; margin-top:10px; }
+				.widget_container .linksSociais {margin:0px; padding:0px; float:none; margin-top:10px; }
+				.widget_container .linksSociais li {display:inline-block; padding:4px!important; transition-duration:0.3s; border-radius:3px; margin: 7px;}
+				.widget_container .linkSocial {width:30px; height:30px; display:inline-block; font-size: 28px!important; text-align: center;}
+
+				</style>
+                <ul class="widget linksSociais">
+                    <li class="speakerBgs"><a href="https://www.facebook.com/RJBrasileira" target="_blank" class="linkSocial"><i class="fab fa-facebook-f"></i></a></li>                    <li class="speakerBgs"><a href="https://twitter.com/radiojamaicabra" target="_blank" class="linkSocial"><i class="fab fa-twitter"></i></a></li>                    <li class="speakerBgs"><a href="https://www.youtube.com/radiojamaicabrasileira" target="_blank" class="linkSocial"><i class="fab fa-youtube"></i></a></li>                    <li class="speakerBgs"><a href="https://www.instagram.com/radiojamaicabrasileira" target="_blank" class="linkSocial"><i class="fab fa-instagram"></i></a></li>                    <li class="speakerBgs"><a href="https://soundcloud.com/radiojamaicabrasileira" target="_blank" class="linkSocial"><i class="fab fa-soundcloud"></i></a></li>                                                            <li class="speakerBgs"><a href="https://vimeo.com/user116675680" target="_blank" class="linkSocial"><i class="fab fa-vimeo-v"></i></a></li>                                                        </ul>
+        
+        
+		<div class="clearfix"></div></div></div></div>
+    	  
+  
+  </div>
+</div>
+
+
+
+
+<div class="controlColorBG">
+	
+	<div>
+		<div class="bannerPublicidade">
+							<div class="container"><a href="https://www.amazon.com.br/Radio-Jamaica-Brasileira-Pioneira-Web/dp/B0CRBHVRW4/ref=sr_1_1?crid=3J883OOKB51HF&dib=eyJ2IjoiMSJ9.JBxJxccoauyxBuNrGLP19Q.RWKdPwZmc3fMtyc4bELXDMXBnfec1R919EtXC-xgoyc&dib_tag=se&keywords=jamaica+brasileira&qid=1705778331&s=alexa-skills&sprefix=jamaica%2Calexa-skills%2C479&sr=1-1" target="_blank" title=""><img src="https://www.radiojamaicabrasileira.com/files/2024/01/SE-VOCÊ-GOSTA-DE-SE-CONECTAR-DE-FORMA-RÁPIDA-NOSSO-APP-É-A-SOLUÇÃO-VOCÊ-24H-CONOSCO-1.png"  width="100%"  /></a></div>
+								</div>
+	</div>
+	
+</div><div class="controlColorBG">
+	
+	<div>
+		<div class="bannerPublicidade">
+							<div class="container"><a href="https://www.facebook.com/RJBrasileira" target="_blank" title=""><img src="https://www.radiojamaicabrasileira.com/files/2024/01/4.png"  width="100%"  /></a></div>
+								</div>
+	</div>
+	
+</div>	</div>
+<footer>
+	<div class="container">
+		<div class="widgetContainer col-md-3"><div class="widget_container widget_text footer_widget"><h3 class="titleWidgets">META</h3><div class="sepWidgets"></div>			<div class="textwidget"><p>Fazer parte do seu dia-a-dia e transmitir as melhores vibrações positivas através da nossa programação. Nossa equipe é experiente e lhe proporcionará um ambiente familiar e amigável envolvido por muita interatividade combinada com o melhor da música reggae nacional e internacional.</p>
+</div>
+		<div class="clearfix"></div></div></div><div class="widgetContainer col-md-3"><div class="widget_container widget_nav_menu footer_widget"><h3 class="titleWidgets">Menu</h3><div class="sepWidgets"></div><div class="menu-menu-principal-container"><ul id="menu-menu-principal-1" class="menu"><li class="menu-item-has-children"><a href="https://www.radiojamaicabrasileira.com/sobre-nos/">Sobre-nos</a>
+<ul class="sub-menu">
+	<li><a href="https://www.radiojamaicabrasileira.com/sobre-nos/">Sobre-nos</a></li>
+	<li><a href="https://www.radiojamaicabrasileira.com/fale-conosco/">Fale conosco</a></li>
+</ul>
+</li>
+<li><a href="https://www.radiojamaicabrasileira.com/noticias/">Notícias</a></li>
+<li><a href="https://www.radiojamaicabrasileira.com/category/blog/">Blog</a></li>
+<li><a href="https://www.radiojamaicabrasileira.com/programacao/">Programação</a></li>
+<li><a href="https://www.radiojamaicabrasileira.com/galeria_de_fotos/">Galerias de fotos</a></li>
+<li><a href="https://www.radiojamaicabrasileira.com/eventos/">Eventos</a></li>
+<li><a href="https://www.radiojamaicabrasileira.com/videos/">Vídeos</a></li>
+<li><a href="https://www.radiojamaicabrasileira.com/equipe/">Equipe</a></li>
+<li><a href="https://www.radiojamaicabrasileira.com/promocoes/">Promoções</a></li>
+<li><a href="https://www.radiojamaicabrasileira.com/fale-conosco/">Contato</a></li>
+</ul></div><div class="clearfix"></div></div></div><div class="widgetContainer col-md-3"><div class="widget_container widget_hoost_whatsapp footer_widget"><h3 class="titleWidgets">Whatsapp</h3><div class="sepWidgets"></div>
+        
+        
+        
+		 
+       
+        <a href="https://web.whatsapp.com/send?l=en&amp;phone=+5585981741888" target="_blank" title="Whatsapp" class="buttonZap" style="float: none!important; width: 100%!important; margin: 0px!important; padding: 0px!important; position: relative!important; top: 0px!important; left: 0px!important;"><div><i class="fab fa-whatsapp"></i></div> <span class="containerZap hideMobile"><span>Fale conosco via Whatsapp:</span> <span class="nbmr">+55 85 981741888</span></span></a>
+        
+        
+        
+		<div class="clearfix"></div></div></div><div class="widgetContainer col-md-3"><div class="widget_container widget_hoost_facebook footer_widget"><h3 class="titleWidgets">Curta no Facebook</h3><div class="sepWidgets"></div>
+        
+        
+        
+        <div class="boxFacebookWidget">
+        	<div class="fb-page" data-href="https://www.facebook.com/RJBrasileira" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"></div>
+        </div>
+        
+        
+		<div class="clearfix"></div></div></div>        <div class="clearfix"></div>
+	</div>
+</footer>
+
+<div class="container" id="finalFooter">
+  	<span class="txtCopright">© Radio Jamaica Brasileira™ - A Pioneira da Web | Desde 2000</span>
+    </div>
+
+
+<script src="https://www.radiojamaicabrasileira.com/theme/assets/js/bootstrap.min.js"></script>
+<script src="https://www.radiojamaicabrasileira.com/theme/assets/js/jquery.easing.1.3.js"></script>
+<script src="https://www.radiojamaicabrasileira.com/theme/assets/js/jquery.colorbox-min.js"></script>
+<script src="https://www.radiojamaicabrasileira.com/theme/assets/js/scripts.js"></script>
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.8";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>  
+<script>               
+
+$(document).ready(function() {
+	/* Widget do topo */
+	if (dayOfWeek = '0') {
+		$('.locutor.dom').css({opacity:'1'});
+	}
+	if (dayOfWeek = '1') {
+		$('.locutor.seg').css({opacity:'1'});
+	}
+	if (dayOfWeek = '2') {
+		$('.locutor.ter').css({opacity:'1'});
+	}
+	if (dayOfWeek = '3') {
+		$('.locutor.qua').css({opacity:'1'});
+	}
+	if (dayOfWeek = '4') {
+		$('.locutor.qui').css({opacity:'1'});
+	}
+	if (dayOfWeek = '5') {
+		$('.locutor.sex').css({opacity:'1'});
+	}
+	if (dayOfWeek = '6') {
+		$('.locutor.sab').css({opacity:'1'});
+	}
+});
+var playerCode = "nao";
+var radioURL = "s03.transmissaodigital.com";
+var radioPort = "6772";
+var radioUser = "";
+var templateDir = "https://www.radiojamaicabrasileira.com/theme";
+var pDir = "https://www.radiojamaicabrasileira.com/core";
+
+/********* SCRIPTS PERSONALIZADOS ******/
+</script>   
+  <div style="display:none">
+    <div id="contentLightbox">
+    	    	    </div>
+    <script type="text/javascript"> 
+    	    	    </script>       
+  </div>
+	<script type='text/javascript' src='https://www.radiojamaicabrasileira.com/core/hoost/assets/js/hoostscripts.js'></script>
+<script type='text/javascript' src='https://www.radiojamaicabrasileira.com/core/hoost/assets/js/masonry.pkgd.min.js'></script>
+<script type='text/javascript' src='https://www.radiojamaicabrasileira.com/core/quick-chat/js/jquery.c00kie.js'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var quick_chat = {"url":"https:\/\/www.radiojamaicabrasileira.com\/core\/quick-chat\/","ajaxurl":"https:\/\/www.radiojamaicabrasileira.com\/painel\/admin-ajax.php","user_id":"0","version":"4.14","debug_mode":"0"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://www.radiojamaicabrasileira.com/core/quick-chat/js/quick-chat-load.js'></script>
+<script type='text/javascript' src='https://www.radiojamaicabrasileira.com/inc/js/wp-embed.min.js'></script>
+ 
+  </body>
+</html> 
+

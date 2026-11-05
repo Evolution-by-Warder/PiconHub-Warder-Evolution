@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+        <title>Radio Jauense Online Ao vivo 820 15 XV de Jau TRIBOX Internet</title>
+        <script src="lgpd.js"></script>
+        <script src="jquery.js"></script>
+        <style type="text/css">
+			audio {
+				color: purple;
+				background-color:#000000; 
+				width: 300px;
+			}
+			body {
+				background-color:#000;
+			}
+			#pButton{
+				height:48px; 
+				width: 48px;
+				border: 0px;
+				background-size: 50% 50%;
+				background-position: center;
+				margin-left:5px; 
+				margin-right:5px;
+			}
+			.play{background: url('./radio-aovivo-files/icon-play.png') no-repeat; cursor:pointer;}
+			.pause{background: url('./radio-aovivo-files/icon-pause.png') no-repeat; cursor:pointer;}			
+			.volume-up{background: url('./radio-aovivo-files/icon-volume-up.png') no-repeat; cursor:pointer;}
+			.volume-down{background: url('./radio-aovivo-files/icon-volume-down.png') no-repeat; cursor:pointer;}
+            .bt-cookies{
+                position: fixed;
+                bottom: 40px;
+                left: 20px;
+                right: 20px;
+                z-index: 100000;
+                background-color: #1473B9;
+                padding-bottom: 15px;
+                padding-left: 20px;
+                padding-right: 20px;
+                padding-top: 8px;
+                align-items: center;
+                border-radius: 12px;
+                margin-right: 5px;
+                max-width: 1230px;
+                box-shadow: 0 0 10px #aaa;
+            }			
+        </style>
+
+       
+
+        <!-- cookies -->
+        <script>
+        function setCookie(name,value,days) {
+            var expires = "";
+            if (days) {
+                var date = new Date();
+                date.setTime(date.getTime() + (days*24*60*60*1000));
+                expires = "; expires=" + date.toUTCString();
+            }
+            document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+        }
+        function getCookie(name) {
+            var nameEQ = name + "=";
+            var ca = document.cookie.split(';');
+            for(var i=0;i < ca.length;i++) {
+                var c = ca[i];
+                while (c.charAt(0)==' ') c = c.substring(1,c.length);
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+            }
+            return null;
+        }
+        function eraseCookie(name) {   
+            document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+        }
+        </script>    
+        <!-- cookies -->
+       
+    </head>
+    <body>
+        <div align="center" style="margin-top:-2px; margin-bottom:-6px;">    
+        <img src="./radio-aovivo-files/radio-2018.png" alt="" width="300" height="380">
+        </div>
+        <div align="center">    
+        <a href="https://www.tribox.com.br" style=" border:0px;" target="_blank"><img src="./radio-aovivo-files/radio-2015-02-12-01-footer.png" alt="" width="300" height="110"></a>
+        </div>
+        <div align="center" style="margin-bottom:-20px;">          
+        <audio id="player1" autoplay src="https://s38.maxcast.com.br:8091/live"></audio>    
+        </div>    
+        <div align="center">
+          <button id="pButton" class="play" onClick="document.getElementById('player1').play()"></button>
+          <button id="pButton" class="pause" onClick="document.getElementById('player1').pause()"></button>
+          <button id="pButton" class="volume-up" onClick="document.getElementById('player1').volume += 0.1"></button>
+          <button id="pButton" class="volume-down" onClick="document.getElementById('player1').volume -= 0.1"></button>
+           <br> 
+          <a href="pg_base_privacidade.php" style="color: white;font-weight:bolder!important;font-size: 15px;" target="_blank"> Política de Privacidade.</a>
+      </div>
+
+      <!---
+      <div class="lgpd" style="display: none;">
+
+        <button class="closemodalno ui right icon button">
+            <i class="close icon"></i>
+        </button>
+        <br>
+        <p style="color: white;">
+                Utilizamos cookies para melhorar sua experiência de compra. Ao ativar o botão abaixo, você concorda com o uso de cookies em nosso site.<br>
+                Para mais informações, confira nossa <a href="/politica-de-privacidade" style="color: white;font-weight:bolder!important;" target="_blank"> Política de Privacidade.</a>
+        </p>
+        <button class="closemodalyes ui black button">Aceitar</button>
+        <button class="closemodalno ui grey button">Recusar</button>
+    </div>
+        -->
+        <!-- cookies -->
+    <div class="bt-cookies" style="display: none;">
+
+    <button class="closemodalno ui right icon button">
+            X
+    </button>
+    <br>
+    <p style="color: white;">
+            Utilizamos cookies para melhorar sua experiência de compra. Ao ativar o botão abaixo, você concorda com o uso de cookies em nosso site.
+            Para mais informações, confira nossa <a href="pg_base_privacidade.php" style="color: white;font-weight:bolder!important;" target="_blank"> Política de Privacidade.</a>
+    </p>
+    <button class="closemodalyes ui black button">Aceitar</button>
+    <button class="closemodalno ui grey button">Recusar</button>
+    </div>
+    <!-- fim cookies -->
+    <script>
+        if(getCookie('cookies') != 's' && getCookie('cookies') != 'n'){
+            $('.bt-cookies').fadeIn();
+        }
+
+            
+        $('.closemodalyes').click(function() {
+            $('.bt-cookies').fadeOut();
+            setCookie('cookies', 's', 365);
+        })
+
+        $('.closemodalno').click(function() {
+            $('.bt-cookies').fadeOut();
+            setCookie('cookies', 'n', 1);
+        })   
+    
+    
+    </script>
+
+</body>
+</html>

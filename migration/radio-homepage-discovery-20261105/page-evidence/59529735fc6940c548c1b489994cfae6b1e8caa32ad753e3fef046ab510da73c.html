@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+
+		<meta property="og:image" content="" />
+	<meta property="og:image:width" content="1200" />
+	<meta property="og:image:height" content="630" />
+	<meta property="og:image:alt" content="Pagina" />
+	<meta property="og:image:type" content="image/png" />
+
+
+	<!-- Disable tap highlight on IE -->
+	<meta name="msapplication-tap-highlight" content="no">
+
+	<!-- Browser`s header background color -->
+	<meta name="theme-color" content="#F7F7F7">
+
+	<!-- Add to homescreen for Chrome on Android -->
+	<meta name="mobile-web-app-capable" content="yes">
+	<meta name="application-name" content="Jovem Pan Aracaju - 88.7 FM">
+
+	<!-- Add to homescreen for Safari on iOS -->
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-title" content="Jovem Pan Aracaju - 88.7 FM">
+
+	<link rel="preload" href="https://glomes.com.br/jovempanaju/wp-content/themes/rededigital/fonts/Nunito/Nunito-ExtraLight.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+	<link rel="preload" href="https://glomes.com.br/jovempanaju/wp-content/themes/rededigital/fonts/Nunito/Nunito-Light.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+	<link rel="preload" href="https://glomes.com.br/jovempanaju/wp-content/themes/rededigital/fonts/Nunito/Nunito-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+	<link rel="preload" href="https://glomes.com.br/jovempanaju/wp-content/themes/rededigital/fonts/Nunito/Nunito-SemiBold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+	<link rel="preload" href="https://glomes.com.br/jovempanaju/wp-content/themes/rededigital/fonts/Nunito/Nunito-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+	<link rel="preload" href="https://glomes.com.br/jovempanaju/wp-content/themes/rededigital/fonts/Nunito/Nunito-ExtraBold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+	<link rel="preload" href="https://glomes.com.br/jovempanaju/wp-content/themes/rededigital/fonts/Nunito/Nunito-Black.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+
+	
+	<style>
+		.bg-cor-primaria,
+		.bg-cor-primaria-hover:hover {
+			background-color: #a7aaad !important;
+		}
+
+		.cor-primaria,
+		.cor-primaria-hover:hover {
+			color: #a7aaad !important;
+		}
+
+		.shadow-cor-primaria {
+			text-shadow: 10px 5px #a7aaad !important;
+		}
+
+		.bg-cor-secundaria,
+		.bg-cor-secundaria-hover:hover {
+			background-color: #ab2327 !important;
+		}
+
+		.cor-secundaria,
+		.cor-secundaria-hover:hover {
+			color: #ab2327 !important;
+		}
+
+		.degrade {
+			background: linear-gradient(90deg, rgb(171,35,39) 0%, rgb(167,170,170) 100%) !important;
+		}
+
+		.degrade-border {
+			background-image: linear-gradient(white, #fff), linear-gradient(to right, rgb(171,35,39), rgb(167,170,170)) !important;
+		}
+
+		.bg-cor-texto-primaria,
+		.bg-cor-texto-primaria-hover:hover,
+		.header-secondary .icon-nav div,
+		.header-secondary .icon-nav:after,
+		.header-secondary .icon-nav:before {
+			background-color: #ab2327 !important;
+		}
+
+		.cor-texto-primaria,
+		.cor-texto-primaria-hover:hover {
+			color: #ab2327 !important;
+		}
+		:root {
+			--cor-primaria: #a7aaad;
+			--cor-secundaria: #ab2327;
+		}
+
+		.cor-texto-base-hover:hover {
+			color: #fff !important;
+		}
+
+		.bg-cor-texto-secundaria,
+		.bg-cor-texto-secundaria-hover:hover {
+			background-color: #a7aaad !important;
+		}
+
+		.cor-texto-secundaria,
+		.cor-texto-secundaria-hover:hover {
+			color: #a7aaad !important;
+		}
+
+		.header-secondary #menu-main-desktop li a,
+		.footer-primary .column-02 #menu-footer li a {
+			color: #ab2327 !important;
+		}
+
+		.header-secondary #menu-main-desktop li a:hover,
+		.footer-primary .column-02 #menu-footer li a:hover,
+		.section-text-model .box-text .text a:hover,
+		.section-content-single .content a:hover,
+		.section-highlighted-home .slide .swiper-slide:hover .text span,
+		.section-alternative-news-general .list .item:hover .text span,
+		.section-top10-home .news .item:hover .text span,
+		.section-highlighted-news .list .item:hover .text span,
+		.section-list-news .news .item:hover .text span,
+		.section-category-news .list .item:hover .text span {
+			color: #a7aaad !important;
+		}
+
+		.footer-primary .column-04 .contact .item:hover .icon {
+			background-color: #a7aaad !important;
+		}
+
+		.section-top10-home .top10 .item,
+		.section-top10-home .top10 .item .icon {
+			border-color: #a7aaad !important;
+		}
+
+		.section-list-programming .tabs li.active,
+		.section-list-podcasts .item .button,
+		.custom-select span,
+		.button-load-more {
+			border-color: #a7aaad !important;
+		}
+
+		.custom-select span::after {
+			border-color: #a7aaad transparent transparent !important;
+		}
+	</style>
+
+	<meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
+
+	<!-- This site is optimized with the Yoast SEO plugin v28.3 - https://yoast.com/product/yoast-seo-wordpress/ -->
+	<title>Jovem Pan Aracaju - 88.7 FM</title>
+	<meta name="description" content="Desde 2007, a Jovem Pan Aracaju, uma empresa do Grupo Lomes de Comunicação, está no ar em Sergipe com uma programação musical abrangente e diferenciada." />
+	<link rel="canonical" href="https://glomes.com.br/jovempanaju/" />
+	<meta property="og:locale" content="pt_BR" />
+	<meta property="og:type" content="website" />
+	<meta property="og:title" content="Jovem Pan Aracaju - 88.7 FM" />
+	<meta property="og:description" content="Desde 2007, a Jovem Pan Aracaju, uma empresa do Grupo Lomes de Comunicação, está no ar em Sergipe com uma programação musical abrangente e diferenciada." />
+	<meta property="og:url" content="https://glomes.com.br/jovempanaju/" />
+	<meta property="og:site_name" content="Jovem Pan Aracaju - 88.7 FM" />
+	<meta property="article:modified_time" content="2022-08-19T14:16:53+00:00" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<script type="application/ld+json" class="yoast-schema-graph">{"@context":"https:\/\/schema.org","@graph":[{"@type":"WebPage","@id":"https:\/\/glomes.com.br\/jovempanaju\/","url":"https:\/\/glomes.com.br\/jovempanaju\/","name":"Jovem Pan Aracaju - 88.7 FM","isPartOf":{"@id":"https:\/\/glomes.com.br\/jovempanaju\/#website"},"about":{"@id":"https:\/\/glomes.com.br\/jovempanaju\/#organization"},"datePublished":"2022-01-17T18:27:26+00:00","dateModified":"2022-08-19T14:16:53+00:00","description":"Desde 2007, a Jovem Pan Aracaju, uma empresa do Grupo Lomes de Comunicação, está no ar em Sergipe com uma programação musical abrangente e diferenciada.","breadcrumb":{"@id":"https:\/\/glomes.com.br\/jovempanaju\/#breadcrumb"},"inLanguage":"pt-BR","potentialAction":[{"@type":"ReadAction","target":["https:\/\/glomes.com.br\/jovempanaju\/"]}]},{"@type":"BreadcrumbList","@id":"https:\/\/glomes.com.br\/jovempanaju\/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Início"}]},{"@type":"WebSite","@id":"https:\/\/glomes.com.br\/jovempanaju\/#website","url":"https:\/\/glomes.com.br\/jovempanaju\/","name":"Jovem Pan Aracaju - 88.7 FM","description":"","publisher":{"@id":"https:\/\/glomes.com.br\/jovempanaju\/#organization"},"potentialAction":[{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https:\/\/glomes.com.br\/jovempanaju\/?s={search_term_string}"},"query-input":{"@type":"PropertyValueSpecification","valueRequired":true,"valueName":"search_term_string"}}],"inLanguage":"pt-BR"},{"@type":"Organization","@id":"https:\/\/glomes.com.br\/jovempanaju\/#organization","name":"Jovem Pan Aracaju - 88.7 FM","url":"https:\/\/glomes.com.br\/jovempanaju\/","logo":{"@type":"ImageObject","inLanguage":"pt-BR","@id":"https:\/\/glomes.com.br\/jovempanaju\/#\/schema\/logo\/image\/","url":"https:\/\/glomes.com.br\/jovempanaju\/wp-content\/uploads\/sites\/10\/2022\/02\/jovempan-aracaju.png","contentUrl":"https:\/\/glomes.com.br\/jovempanaju\/wp-content\/uploads\/sites\/10\/2022\/02\/jovempan-aracaju.png","width":255,"height":177,"caption":"Jovem Pan Aracaju - 88.7 FM"},"image":{"@id":"https:\/\/glomes.com.br\/jovempanaju\/#\/schema\/logo\/image\/"}}]}</script>
+	<!-- / Yoast SEO plugin. -->
+
+
+<style id="wp-img-auto-sizes-contain-inline-css">
+img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
+/*# sourceURL=wp-img-auto-sizes-contain-inline-css */
+</style>
+
+<link rel='stylesheet' id='leaflet-css-css' href='https://glomes.com.br/jovempanaju/wp-content/plugins/meow-lightbox/app/style.min.css?ver=1787236167' media='all' />
+<link rel='stylesheet' id='embedpress-css-css' href='https://glomes.com.br/jovempanaju/wp-content/plugins/embedpress/assets/css/embedpress.css?ver=1787236024' media='all' />
+<link rel='stylesheet' id='embedpress-blocks-style-css' href='https://glomes.com.br/jovempanaju/wp-content/plugins/embedpress/assets/css/blocks.build.css?ver=1787236024' media='all' />
+<style id="wp-block-library-inline-css">
+:root{--wp-block-synced-color:#7a00df;--wp-block-synced-color--rgb:122,0,223;--wp-bound-block-color:var(--wp-block-synced-color);--wp-editor-canvas-background:#ddd;--wp-admin-theme-color:#007cba;--wp-admin-theme-color--rgb:0,124,186;--wp-admin-theme-color-darker-10:#006ba1;--wp-admin-theme-color-darker-10--rgb:0,107,160.5;--wp-admin-theme-color-darker-20:#005a87;--wp-admin-theme-color-darker-20--rgb:0,90,135;--wp-admin-border-width-focus:2px}@media (min-resolution:192dpi){:root{--wp-admin-border-width-focus:1.5px}}.wp-element-button{cursor:pointer}:root .has-very-light-gray-background-color{background-color:#eee}:root .has-very-dark-gray-background-color{background-color:#313131}:root .has-very-light-gray-color{color:#eee}:root .has-very-dark-gray-color{color:#313131}:root .has-vivid-green-cyan-to-vivid-cyan-blue-gradient-background{background:linear-gradient(135deg,#00d084,#0693e3)}:root .has-purple-crush-gradient-background{background:linear-gradient(135deg,#34e2e4,#4721fb 50%,#ab1dfe)}:root .has-hazy-dawn-gradient-background{background:linear-gradient(135deg,#faaca8,#dad0ec)}:root .has-subdued-olive-gradient-background{background:linear-gradient(135deg,#fafae1,#67a671)}:root .has-atomic-cream-gradient-background{background:linear-gradient(135deg,#fdd79a,#004a59)}:root .has-nightshade-gradient-background{background:linear-gradient(135deg,#330968,#31cdcf)}:root .has-midnight-gradient-background{background:linear-gradient(135deg,#020381,#2874fc)}:root{--wp--preset--font-size--normal:16px;--wp--preset--font-size--huge:42px}.has-regular-font-size{font-size:1em}.has-larger-font-size{font-size:2.625em}.has-normal-font-size{font-size:var(--wp--preset--font-size--normal)}.has-huge-font-size{font-size:var(--wp--preset--font-size--huge)}:root .has-text-align-center{text-align:center}:root .has-text-align-left{text-align:left}:root .has-text-align-right{text-align:right}.has-fit-text{white-space:nowrap!important}#end-resizable-editor-section{display:none}.aligncenter{clear:both}.items-justified-left{justify-content:flex-start}.items-justified-center{justify-content:center}.items-justified-right{justify-content:flex-end}.items-justified-space-between{justify-content:space-between}.screen-reader-text{word-wrap:normal!important;border:0;clip-path:inset(50%);height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute;width:1px;word-break:normal!important}.screen-reader-text:focus{background-color:#ddd;clip-path:none;color:#444;display:block;font-size:1em;height:auto;left:5px;line-height:normal;padding:15px 23px 14px;text-decoration:none;top:5px;width:auto;z-index:100000}html :where(.has-border-color){border-style:solid}html :where([style^=border-color],[style*=";border-color"],[style*="; border-color"]){border-style:solid}html :where([style^=border-top-color],[style*=";border-top-color"],[style*="; border-top-color"]){border-top-style:solid}html :where([style^=border-right-color],[style*=";border-right-color"],[style*="; border-right-color"]){border-right-style:solid}html :where([style^=border-bottom-color],[style*=";border-bottom-color"],[style*="; border-bottom-color"]){border-bottom-style:solid}html :where([style^=border-left-color],[style*=";border-left-color"],[style*="; border-left-color"]){border-left-style:solid}html :where([style^=border-width],[style*=";border-width"],[style*="; border-width"]){border-style:solid}html :where([style^=border-top-width],[style*=";border-top-width"],[style*="; border-top-width"]){border-top-style:solid}html :where([style^=border-right-width],[style*=";border-right-width"],[style*="; border-right-width"]){border-right-style:solid}html :where([style^=border-bottom-width],[style*=";border-bottom-width"],[style*="; border-bottom-width"]){border-bottom-style:solid}html :where([style^=border-left-width],[style*=";border-left-width"],[style*="; border-left-width"]){border-left-style:solid}html :where(img[class*=wp-image-]){height:auto;max-width:100%}:where(figure){margin:0 0 1em}html :where(.is-position-sticky){--wp-admin--admin-bar--position-offset:var(--wp-admin--admin-bar--height,0px)}@media screen and (max-width:600px){html :where(.is-position-sticky){--wp-admin--admin-bar--position-offset:0px}}
+/*wp_block_styles_on_demand_placeholder:6aec7bf64ab5d*/
+/*# sourceURL=wp-block-library-inline-css */
+</style>
+<style id="classic-theme-styles-inline-css">
+/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}
+/*# sourceURL=/wp-includes/css/classic-themes.min.css */
+</style>
+<style id="wp-block-styles-placeholder-inline-css">
+:root { --wp-internal-comment: "Placeholder for wp_hoist_late_printed_styles() to replace with the block styles printed at wp_footer." }
+/*# sourceURL=wp-block-styles-placeholder-inline-css */
+</style>
+<style id="wp-global-styles-placeholder-inline-css">
+:root { --wp-internal-comment: "Placeholder for wp_hoist_late_printed_styles() to replace with the global-styles printed at wp_footer." }
+/*# sourceURL=wp-global-styles-placeholder-inline-css */
+</style>
+<link rel='stylesheet' id='meks-app-block-frontend-css-css' href='https://glomes.com.br/jovempanaju/wp-content/plugins/meks-audio-player/assets/css/blocks.style.css?ver=1.3' media='all' />
+<link rel='stylesheet' id='mgl-css-css' href='https://glomes.com.br/jovempanaju/wp-content/plugins/meow-gallery/app/style.min.css?ver=1787236114' media='all' />
+<link rel='stylesheet' id='weskit-iwwa-css' href='https://glomes.com.br/jovempanaju/wp-content/themes/rededigital/css/style.css?ver=1.1.10' media='all' />
+<link rel='stylesheet' id='meks_ap-main-css' href='https://glomes.com.br/jovempanaju/wp-content/plugins/meks-audio-player/assets/css/main.css?ver=1.3' media='all' />
+<style id="meks_ap-main-inline-css">
+.meks-ap-bg, .mejs-volume-total, .meks-ap-collapsed .meks-ap-toggle {
+                    background: #000;
+                 }.meks-ap, .meks-ap a, .mejs-button>button {
+                    color: #FFF;
+                 }.mejs-volume-button>.mejs-volume-slider,.mejs__speed-selector, .mejs-speed-selector, .mejs-playpause-button {
+                    background-color: #FFF;
+                }.mejs-volume-button:hover > button:before,.mejs__speed-selector,.mejs-speed-selector, .mejs-speed-button:hover button, .mejs-playpause-button button{
+                    color: #000;
+                }.mejs-time-current, .mejs-time-handle-content{
+                    background-color: #FFF;
+            }.mejs-time-handle-content{
+                border-color: #FFF;
+        }:root{
+            --player-original-bg-color: #000;
+        }
+/*# sourceURL=meks_ap-main-inline-css */
+</style>
+<link rel='stylesheet' id='qlwapp-frontend-css' href='https://glomes.com.br/jovempanaju/wp-content/plugins/wp-whatsapp-chat/build/frontend/css/style.css?ver=8.5.9' media='all' />
+<script id="wp-hooks-js" src="https://glomes.com.br/jovempanaju/wp-includes/js/dist/hooks.min.js?ver=f0f188028580e8dc1255"></script>
+<script id="wp-i18n-js" src="https://glomes.com.br/jovempanaju/wp-includes/js/dist/i18n.min.js?ver=1dfe7db3940c23ea9216"></script>
+<script id="wp-i18n-js-after">
+wp.i18n.setLocaleData( { 'text direction\u0004ltr': [ 'ltr' ] } );
+//# sourceURL=wp-i18n-js-after
+</script>
+<script id="mwl-build-js-js-extra">
+var mwl_settings = {"api_url":"https://glomes.com.br/jovempanaju/wp-json/meow-lightbox/v1/","rest_nonce":"7011cf2b08","plugin_url":"https://glomes.com.br/jovempanaju/wp-content/plugins/meow-lightbox/app/","version":"1787236167","settings":{"rtf_slider_fix":false,"engine":"default","backdrop_opacity":85,"theme":"dark","flat_orientation":"below","orientation":"auto","selector":".entry-content, .gallery, .mgl-gallery, .wp-block-gallery,  .wp-block-image","selector_ahead":false,"deep_linking":false,"deep_linking_slug":"mwl","rendering_delay":300,"skip_dynamic_fetch":false,"include_orphans":false,"js_logs":false,"social_sharing":false,"social_sharing_facebook":true,"social_sharing_twitter":true,"social_sharing_pinterest":true,"separate_galleries":false,"disable_arrows_on_mobile":false,"animation_toggle":"none","animation_speed":"normal","low_res_placeholder":false,"wordpress_big_image":false,"right_click_protection":true,"magnification":true,"full_screen":false,"full_screen_start_desktop":false,"full_screen_start_mobile":false,"anti_selector":".blog, .archive, .emoji, .attachment-post-image, .no-lightbox","preloading":false,"download_link":false,"caption_source":"caption","caption_ellipsis":true,"exif":{"title":true,"caption":true,"camera":true,"lens":true,"date":false,"time":false,"date_timezone":false,"shutter_speed":true,"aperture":true,"focal_length":true,"copyright":false,"author":false,"iso":true,"keywords":false,"metadata_toggle":false,"metadata_toggle_start_hidden":false},"slideshow":{"enabled":false,"timer":3000,"autoplay":false},"map":{"enabled":false}}};
+//# sourceURL=mwl-build-js-js-extra
+</script>
+<script id="mwl-build-js-js-translations">
+( function( domain, translations ) {
+	var localeData = translations.locale_data[ domain ] || translations.locale_data.messages;
+	localeData[""].domain = domain;
+	wp.i18n.setLocaleData( localeData, domain );
+} )( "meow-lightbox", {
+  "translation-revision-date": "2026-06-07 15:00+0000",
+  "generator": "Meow Apps",
+  "source": "app/lightbox.js",
+  "domain": "messages",
+  "locale_data": {
+    "messages": {
+      "": {
+        "domain": "messages",
+        "lang": "pt_BR",
+        "plural-forms": "nplurals=2; plural=(n > 1);"
+      },
+      "Gallery": ["Galeria"],
+      "Dashboard": ["Painel"],
+      "Zoom image": ["Ampliar imagem"],
+      "Previous": ["Anterior"],
+      "Next": ["Próximo"],
+      "Actions": ["Ações"],
+      "Start Slideshow": ["Iniciar apresentação"],
+      "Stop Slideshow": ["Parar apresentação"],
+      "Show Info": ["Mostrar informações"],
+      "Hide Info": ["Ocultar informações"],
+      "Show Image": ["Mostrar imagem"],
+      "Show on Map": ["Ver no mapa"],
+      "Show Metadata": ["Mostrar metadados"],
+      "Hide Metadata": ["Ocultar metadados"],
+      "Download": ["Baixar"],
+      "Close": ["Fechar"],
+      "Image caption and metadata": ["Legenda e metadados da imagem"],
+      "Share": ["Compartilhar"],
+      "Fullscreen": ["Tela cheia"],
+      "Exit Fullscreen": ["Sair da tela cheia"],
+      "Camera model": ["Modelo da câmera"],
+      "Lens": ["Lente"],
+      "Focal length": ["Distância focal"],
+      "Shutter speed": ["Velocidade do obturador"],
+      "Aperture": ["Abertura"],
+      "ISO": ["ISO"],
+      "Date taken": ["Data da foto"],
+      "Keywords": ["Palavras-chave"],
+      "Copyright": ["Direitos autorais"],
+      "Author": ["Autor"]
+    }
+  }
+}
+ );
+//# sourceURL=mwl-build-js-js-translations
+</script>
+<script id="mwl-build-js-js" src="https://glomes.com.br/jovempanaju/wp-content/plugins/meow-lightbox/app/lightbox.js?ver=1787236167"></script>
+<link rel="https://api.w.org/" href="https://glomes.com.br/jovempanaju/wp-json/" /><link rel="alternate" title="JSON" type="application/json" href="https://glomes.com.br/jovempanaju/wp-json/wp/v2/pages/4" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://glomes.com.br/jovempanaju/xmlrpc.php?rsd" />
+<meta name="generator" content="WordPress 7.1.4" />
+<link rel='shortlink' href='https://glomes.com.br/jovempanaju/' />
+<link rel="icon" href="https://glomes.com.br/jovempanaju/wp-content/uploads/sites/10/2022/03/cropped-digital-104fm-32x32.png" sizes="32x32" />
+<link rel="icon" href="https://glomes.com.br/jovempanaju/wp-content/uploads/sites/10/2022/03/cropped-digital-104fm-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="https://glomes.com.br/jovempanaju/wp-content/uploads/sites/10/2022/03/cropped-digital-104fm-180x180.png" />
+<meta name="msapplication-TileImage" content="https://glomes.com.br/jovempanaju/wp-content/uploads/sites/10/2022/03/cropped-digital-104fm-270x270.png" />
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNJTB20VKK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-SNJTB20VKK');
+</script>
+	<script type='text/javascript' src='https://platform-api.sharethis.com/js/sharethis.js#property=670d1e2aad17db001a541169&product=inline-share-buttons' async='async'></script>
+</head>
+
+<body class="home wp-singular page-template-default page page-id-4 wp-theme-rededigital page-home">
+		<div class="backdrop"></div>
+				<div id="popup" class="modal">
+				<div class="modal-close"><svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 348.333 348.334"><path d="M336.559 68.611L231.016 174.165l105.543 105.549c15.699 15.705 15.699 41.145 0 56.85-7.844 7.844-18.128 11.769-28.407 11.769-10.296 0-20.581-3.919-28.419-11.769L174.167 231.003 68.609 336.563c-7.843 7.844-18.128 11.769-28.416 11.769-10.285 0-20.563-3.919-28.413-11.769-15.699-15.698-15.699-41.139 0-56.85l105.54-105.549L11.774 68.611c-15.699-15.699-15.699-41.145 0-56.844 15.696-15.687 41.127-15.687 56.829 0l105.563 105.554L279.721 11.767c15.705-15.687 41.139-15.687 56.832 0 15.705 15.699 15.705 41.145.006 56.844z"/></svg></div>
+				<div class="modal-content">
+					<a href="javascript:;" target="_self" title="Rede Digital">
+						<picture>
+							<source srcset="https://glomes.com.br/jovempanaju/wp-content/uploads/sites/10/2025/07/IBOPE-PAN-1-1-600x500.jpg" media="(max-width: 800px)">
+							<img class="img-responsive" src="https://glomes.com.br/jovempanaju/wp-content/uploads/sites/10/2025/07/IBOPE-PAN-1-1-720x480.jpg" alt="Rede Digital" title="Rede Digital" width="720" height="480">
+						</picture>
+					</a>
+				</div>
+			</div>
+	
+
+	
+		<header id="header">
+
+			<div class="header-primary">
+				<div class="degrade"></div>
+				<div class="container">
+					<img class="img-responsive decoration" src="https://glomes.com.br/jovempanaju/wp-content/uploads/sites/10/2022/02/vetor-topo.png" width="36" height="73" alt="Decoração">
+
+											<a class="logo"  href="https://glomes.com.br/grupo-lomes/" target="_self" >
+															<span>GRUPO LOMES DE COMUNICAÇÃO.</span>
+													</a>
+					
+					<div class="links">
+						<a class="cor-secundaria cor-primaria-hover" href="https://glomes.com.br/jovempanaju/departamento-do-ouvinte" title="Departamento do Ouvinte">
+							<svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 476 476"><path d="M400.85 181v-18.3c0-43.8-15.5-84.5-43.6-114.7-28.8-31-68.4-48-111.6-48h-15.1c-43.2 0-82.8 17-111.6 48-28.1 30.2-43.6 70.9-43.6 114.7V181c-34.1 2.3-61.2 30.7-61.2 65.4V275c0 36.1 29.4 65.5 65.5 65.5h36.9c6.6 0 12-5.4 12-12V192.8c0-6.6-5.4-12-12-12h-17.2v-18.1c0-79.1 56.4-138.7 131.1-138.7h15.1c74.8 0 131.1 59.6 131.1 138.7v18.1h-17.2c-6.6 0-12 5.4-12 12v135.6c0 6.6 5.4 12 12 12h16.8c-4.9 62.6-48 77.1-68 80.4-5.5-16.9-21.4-29.1-40.1-29.1h-30c-23.2 0-42.1 18.9-42.1 42.1s18.9 42.2 42.1 42.2h30.1c19.4 0 35.7-13.2 40.6-31 9.8-1.4 25.3-4.9 40.7-13.9 21.7-12.7 47.4-38.6 50.8-90.8 34.3-2.1 61.5-30.6 61.5-65.4v-28.6c.1-34.6-26.9-63.1-61-65.3zm-296.1 135.4h-24.9c-22.9 0-41.5-18.6-41.5-41.5v-28.6c0-22.9 18.6-41.5 41.5-41.5h24.9v111.6zM268.25 452h-30.1c-10 0-18.1-8.1-18.1-18.1s8.1-18.1 18.1-18.1h30.1c10 0 18.1 8.1 18.1 18.1s-8.1 18.1-18.1 18.1zm169.7-177.1c0 22.9-18.6 41.5-41.5 41.5h-24.9V204.8h24.9c22.9 0 41.5 18.6 41.5 41.5v28.6z"/></svg>							<span>Departamento do Ouvinte</span>
+						</a>
+													<a class="cor-primaria cor-secundaria-hover" href="https://glomes.com.br/jovempanaju/podcasts/" title="Podcast">
+								<svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 270.189 270.189"><path d="M224.408 139.658c0-4.143-3.357-7.5-7.5-7.5s-7.5 3.357-7.5 7.5c0 40.976-33.337 74.313-74.313 74.313-40.977 0-74.313-33.337-74.313-74.313 0-4.143-3.357-7.5-7.5-7.5s-7.5 3.357-7.5 7.5c0 46.721 36.063 85.173 81.813 88.995v26.536H94.188a7.499 7.499 0 0 0-7.5 7.5c0 4.143 3.357 7.5 7.5 7.5h81.813c4.143 0 7.5-3.357 7.5-7.5s-3.357-7.5-7.5-7.5h-33.406v-26.536c45.75-3.822 81.813-42.274 81.813-88.995z"/><path d="M135.095 188.064c26.691 0 48.406-21.715 48.406-48.406V48.406C183.501 21.715 161.787 0 135.095 0S86.688 21.715 86.688 48.406v91.252c0 26.692 21.716 48.406 48.407 48.406zm0-173.064c18.42 0 33.406 14.986 33.406 33.406v2.5h-16.406c-4.143 0-7.5 3.357-7.5 7.5s3.357 7.5 7.5 7.5h16.406v20.625h-16.406a7.499 7.499 0 0 0-7.5 7.5c0 4.143 3.357 7.5 7.5 7.5h16.406v20.627h-16.406a7.499 7.499 0 0 0-7.5 7.5c0 4.143 3.357 7.5 7.5 7.5h16.406v2.5c0 18.42-14.986 33.406-33.406 33.406-18.421 0-33.407-14.986-33.407-33.406v-2.5h16.407c4.143 0 7.5-3.357 7.5-7.5s-3.357-7.5-7.5-7.5h-16.407v-20.627h16.407c4.143 0 7.5-3.357 7.5-7.5s-3.357-7.5-7.5-7.5h-16.407V65.906h16.407c4.143 0 7.5-3.357 7.5-7.5s-3.357-7.5-7.5-7.5h-16.407v-2.5c0-18.42 14.986-33.406 33.407-33.406z"/></svg>								<span>Podcast</span>
+							</a>
+											</div>
+
+					<div class="info">
+						<div class="social">
+													</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="header-secondary">
+				<div class="container">
+					<a class="logo" href="https://glomes.com.br/jovempanaju">
+						<img class="img-responsive" src="https://glomes.com.br/jovempanaju/wp-content/uploads/sites/10/2022/02/logo-jparacaju.png" width="185" height="120" alt="Jovem Pan Aracaju - 88.7 FM">
+					</a>
+
+					<a class="link-home" href="https://glomes.com.br/jovempanaju">
+						<img class="img-responsive" src="https://glomes.com.br/jovempanaju/wp-content/uploads/sites/10/2022/02/home.png" width="22" height="21" alt="Home">
+					</a>
+
+					<ul id="menu-main-desktop" class="menu"><li id="menu-item-37" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-37"><a href="https://glomes.com.br/jovempanaju/a-radio/">A Rádio</a></li>
+<li id="menu-item-38" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-38"><a href="/jovempanaju/promocoes">Promoções</a></li>
+<li id="menu-item-39" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-39"><a href="/jovempanaju/programacao">Programação</a></li>
+<li id="menu-item-8" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8"><a href="https://glomes.com.br/jovempanaju/noticias/">Notícias</a></li>
+</ul>
+					<div class="info-radio ">
+						<div class="box">
+															<div class="hear">
+									<small>Você está ouvindo</small>
+									<div class="icon">
+										<img class="img-responsive" src="https://glomes.com.br/jovempanaju/wp-content/uploads/sites/10/2022/02/radio.png" width="29" height="21" alt="Jovem Pan Aracaju - 88.7 FM">
+										<span class="cor-texto-secundaria">Jovem Pan Aracaju - 88.7 FM</span>
+									</div>
+								</div>
+														<div class="location">
+								<img class="img-responsive" src="https://glomes.com.br/jovempanaju/wp-content/uploads/sites/10/2022/02/localizacao.png" width="21" height="29" alt="">
+								<span class="cor-texto-secundaria"></span>
+							</div>
+						</div>
+						<div class="select-radio ">
+							<div class="selected">
+								<span>Outra Rádio</span>
+							</div>
+							<div class="list">
+								<a href="https://glomes.com.br/digitalalagoinhasfm" rel="external">Digital FM 96.3 - Alagoinhas</a><a href="https://glomes.com.br/morenaserrinhafm" rel="external">Morena Serrinha - 97.9 FM</a><a href="https://glomes.com.br/bandfmsalvador" rel="external">BAND FM Salvador - 104.3 FM</a><a href="https://glomes.com.br/regionalserrinhaam" rel="external">Regional Serrinha - 790 AM</a><a href="https://glomes.com.br/progressocapimgrossofm" rel="external">Progresso Capim Grosso - 1530 AM</a><a href="https://glomes.com.br/transbrasilcapimgrossofm" rel="external">Transbrasil Capim Grosso - 90.9 FM</a><a href="https://glomes.com.br/transbrasilcruzdasalmasfm" rel="external">Transbrasil Cruz das Almas - 93.7 FM</a><a href="https://glomes.com.br/transbrasileuclidesdacunhafm" rel="external">Transbrasil Euclides da Cunha - 95.7 FM</a><a href="https://glomes.com.br/bandfeirafm" rel="external">Band FM 90.5 - Feira de Santana</a><a href="https://glomes.com.br/bandalagoinhasfm" rel="external">Band FM 91.9 - Alagoinhas</a><a href="https://glomes.com.br/jovempanfeira" rel="external">Jovem Pan Feira de Santana - 100.9 FM</a><a href="https://glomes.com.br/transbrasilfeirafm" rel="external">Transbrasil Feira  - 99.5 FM</a>							</div>
+						</div>
+					</div>
+
+					<div class="icon-nav">
+						<div></div>
+					</div>
+				</div>
+			</div>
+
+			<div class="header-mobile degrade">
+				<div class="button-close">
+					<svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19"><path class="icon-close" data-name="Line 110" fill="none" stroke-linecap="round" stroke-width="3" d="M1.5 9.5h16"/><path class="icon-close" data-name="Line 111" fill="none" stroke-linecap="round" stroke-width="3" d="M9.5 17.5v-16"/></svg>				</div>
+
+				<div class="info-radio">
+					<div class="box">
+													<div class="hear">
+								<small class="cor-texto-primaria">Você está ouvindo</small>
+								<div class="icon">
+									<img class="img-responsive" src="https://glomes.com.br/jovempanaju/wp-content/uploads/sites/10/2022/02/radio.png" width="29" height="21" alt="Jovem Pan Aracaju - 88.7 FM">
+									<span class="cor-texto-secundaria">Jovem Pan Aracaju - 88.7 FM</span>
+								</div>
+							</div>
+												<div class="location">
+							<img class="img-responsive" src="https://glomes.com.br/jovempanaju/wp-content/uploads/sites/10/2022/02/localizacao.png" width="21" height="29" alt="">
+							<span class="cor-texto-secundaria"></span>
+						</div>
+					</div>
+					<div class="select-radio">
+						<div class="selected">
+							<span>Outra Rádio</span>
+						</div>
+						<div class="list">
+							<a href="https://glomes.com.br/digitalalagoinhasfm" rel="external">Digital FM 96.3 - Alagoinhas</a><a href="https://glomes.com.br/morenaserrinhafm" rel="external">Morena Serrinha - 97.9 FM</a><a href="https://glomes.com.br/bandfmsalvador" rel="external">BAND FM Salvador - 104.3 FM</a><a href="https://glomes.com.br/regionalserrinhaam" rel="external">Regional Serrinha - 790 AM</a><a href="https://glomes.com.br/progressocapimgrossofm" rel="external">Progresso Capim Grosso - 1530 AM</a><a href="https://glomes.com.br/transbrasilcapimgrossofm" rel="external">Transbrasil Capim Grosso - 90.9 FM</a><a href="https://glomes.com.br/transbrasilcruzdasalmasfm" rel="external">Transbrasil Cruz das Almas - 93.7 FM</a><a href="https://glomes.com.br/transbrasileuclidesdacunhafm" rel="external">Transbrasil Euclides da Cunha - 95.7 FM</a><a href="https://glomes.com.br/bandfeirafm" rel="external">Band FM 90.5 - Feira de Santana</a><a href="https://glomes.com.br/bandalagoinhasfm" rel="external">Band FM 91.9 - Alagoinhas</a><a href="https://glomes.com.br/jovempanfeira" rel="external">Jovem Pan Feira de Santana - 100.9 FM</a><a href="https://glomes.com.br/transbrasilfeirafm" rel="external">Transbrasil Feira  - 99.5 FM</a>						</div>
+					</div>
+				</div>
+
+				<ul id="menu-main-mobile" class="menu"><li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-37"><a href="https://glomes.com.br/jovempanaju/a-radio/">A Rádio</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-38"><a href="/jovempanaju/promocoes">Promoções</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-39"><a href="/jovempanaju/programacao">Programação</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8"><a href="https://glomes.com.br/jovempanaju/noticias/">Notícias</a></li>
+</ul>
+				<div class="links">
+					<a href="https://glomes.com.br/jovempanaju/departamento-do-ouvinte" title="Departamento do Ouvinte">
+						<span>Departamento do Ouvinte</span>
+					</a>
+											<a href="https://glomes.com.br/jovempanaju/podcasts/" title="Podcast">
+							<span>Podcast</span>
+						</a>
+									</div>
+			</div>
+		</header>
+
+		<main>
+		    <section class="section-banner-home">
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                                    <a class="swiper-slide publicidade_" >
+                                                        <picture>
+                                    <source media="(min-width:768px)" srcset="https://glomes.com.br/jovempanaju/wp-content/uploads/sites/10/2025/07/3-1.jpg">
+                                    <img class="img-cover" src="https://glomes.com.br/jovempanaju/wp-content/uploads/sites/10/2025/07/JovemPan-AracaJu-3.jpg" width="1920" height="680" alt="IBOPE">
+                                </picture>
+
+
+                                                </a>
+                            </div>
+            <div class="swiper-button swiper-button-next"></div>
+            <div class="swiper-button swiper-button-prev"></div>
+        </div>
+    </section>
+        <section class="section-team-home">
+            <div class="container">
+                                    <div class="title">
+                                                <div class="text cor-texto-primaria">
+                            <h1>
+                                conheça  
+                                                                    <strong>nosso time</strong>
+                                                            </h1>
+                                                            <p>que é composto por profissionais qualificados</p>
+                                                    </div>
+                    </div>
+                
+                <div class="slide">
+                    <div class="swiper-container">
+                        <div class="swiper-wrapper">
+                                                                <div class="swiper-slide">
+                                        <div class="image degrade-border">
+                                                                                            <img class="img-responsive" src="https://glomes.com.br/jovempanaju/wp-content/uploads/sites/10/2026/06/ISRAEL-CAMPELO-1-109x109.png" width="109" height="109" alt="ISRAEL CAMPELO">
+                                                                                    </div>
+                                                                                    <span class="name cor-texto-primaria">ISRAEL CAMPELO</span>
+                                                                                    <span class="occupation">LOCUTOR</span>
+                                                                            </div>
+                                                                <div class="swiper-slide">
+                                        <div class="image degrade-border">
+                                                                                            <img class="img-responsive" src="https://glomes.com.br/jovempanaju/wp-content/uploads/sites/10/2026/06/HENRIETTY-109x109.png" width="109" height="109" alt="HENRIETTY BELLY ">
+                                                                                    </div>
+                                                                                    <span class="name cor-texto-primaria">HENRIETTY BELLY </span>
+                                                                                    <span class="occupation">LOCUTORA</span>
+                                                                            </div>
+                                                                <div class="swiper-slide">
+                                        <div class="image degrade-border">
+                                                                                            <img class="img-responsive" src="https://glomes.com.br/jovempanaju/wp-content/uploads/sites/10/2026/06/ffabiana-109x109.png" width="109" height="109" alt="FABIANA FERRARI">
+                                                                                    </div>
+                                                                                    <span class="name cor-texto-primaria">FABIANA FERRARI</span>
+                                                                                    <span class="occupation">JORNALISTA</span>
+                                                                            </div>
+                                                                <div class="swiper-slide">
+                                        <div class="image degrade-border">
+                                                                                            <img class="img-responsive" src="https://glomes.com.br/jovempanaju/wp-content/uploads/sites/10/2026/06/PAULO-SOUSA-109x109.png" width="109" height="109" alt="PAULO SOUSA">
+                                                                                    </div>
+                                                                                    <span class="name cor-texto-primaria">PAULO SOUSA</span>
+                                                                                    <span class="occupation">JORNALISTA</span>
+                                                                            </div>
+                                                                <div class="swiper-slide">
+                                        <div class="image degrade-border">
+                                                                                            <img class="img-responsive" src="https://glomes.com.br/jovempanaju/wp-content/uploads/sites/10/2026/06/WILLIAM-FONSECA-109x109.png" width="109" height="109" alt="WILLIAM FONSECA">
+                                                                                    </div>
+                                                                                    <span class="name cor-texto-primaria">WILLIAM FONSECA</span>
+                                                                                    <span class="occupation">LOCUTOR</span>
+                                                                            </div>
+                                                    </div>
+
+                        <div class="swiper-button-next cor-texto-primaria"></div>
+                        <div class="swiper-button-prev cor-texto-primaria"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+     
+
+    <section class="section-highlighted-home">
+        <div class="container">
+            <div class="title">
+                                <div class="text cor-texto-secundaria">
+                    <h2>em <strong>destaque</strong></h2>
+                </div>
+            </div>
+
+            <div class="box">
+                <div class="card">
+                    <a class="" href="https://glomes.com.br/anatel-muda-regras-para-envio-de-sms-e-combate-a-golpes-confira-o-que-muda/?b=10">
+                        <div class="image">
+                            <img class="img-cover" src="https://glomes.com.br/jovempanaju/wp-content/uploads/2026/11/52186304768_905943d46c_o-e1792021391529-820x590.webp" width="820" height="590" alt="Anatel muda regras para envio de SMS e combate a golpes; confira o que muda">
+                        </div>
+                        <div class="text">
+                                                        <small class="category" style="background-color:">
+                                Brasil                            </small>
+                            <span>Anatel muda regras para envio de SMS e combate a golpes; confira o que muda</span>
+                            <span class="post-date">05/11/2026 09:35</span>
+                        </div>
+                                            </a>                           
+               
+                </div>
+
+                <div class="slide">
+                    <div class="swiper-container">
+                        <div class="swiper-wrapper">
+                                                            <a class="swiper-slide" href="https://glomes.com.br/governo-publica-regras-do-imposto-do-pecado-e-define-novas-aliquotas/?b=10">
+                                    <div class="image">
+                                        <img class="img-responsive" src="https://glomes.com.br/jovempanaju/wp-content/uploads/2026/11/190973governo-publica-regras-do-imposto-do-pecado-e-define-novas-aliquotas-confira-3-145x115.jpg" width="145" height="115" alt="Governo publica regras do Imposto do Pecado e define novas alíquotas">
+                                    </div>
+                                    <div class="text">
+                                        <small class="category" style="background-color:">
+                                            Brasil                                        </small>
+                                        <span class="cor-texto-primaria">Governo publica regras do Imposto do Pecado e define novas alíquotas</span>
+                                        <span class="post-date cor-texto-primaria">05/11/2026 09:32</span>
+                                    </div>
+                                </a>
+                                                            <a class="swiper-slide" href="https://glomes.com.br/apos-tres-dias-de-bloqueio-trecho-da-br-324-e-liberado-em-simoes-filho/?b=10">
+                                    <div class="image">
+                                        <img class="img-responsive" src="https://glomes.com.br/jovempanaju/wp-content/uploads/2026/11/190977apos-tres-dias-de-bloqueio-trecho-da-br-324-e-liberado-em-simoes-filho-3-145x115.jpg" width="145" height="115" alt="Após três dias de bloqueio, trecho da BR-324 é liberado em Simões Filho">
+                                    </div>
+                                    <div class="text">
+                                        <small class="category" style="background-color:">
+                                            Salvador                                        </small>
+                                        <span class="cor-texto-primaria">Após três dias de bloqueio, trecho da BR-324 é liberado em Simões Filho</span>
+                                        <span class="post-date cor-texto-primaria">05/11/2026 09:29</span>
+                                    </div>
+                                </a>
+                                                            <a class="swiper-slide" href="https://glomes.com.br/senador-eleito-nos-estados-unidos-brinca-sobrenome-que-e-expressao-popular-no-brasil/?b=10">
+                                    <div class="image">
+                                        <img class="img-responsive" src="https://glomes.com.br/jovempanaju/wp-content/uploads/2026/11/t4tx-hero-2048x1130-1-145x115.webp" width="145" height="115" alt="Senador eleito nos Estados Unidos já brincou com sobrenome que é expressão popular no Brasil">
+                                    </div>
+                                    <div class="text">
+                                        <small class="category" style="background-color:#c05c45">
+                                            Internacional                                        </small>
+                                        <span class="cor-texto-primaria">Senador eleito nos Estados Unidos já brincou com sobrenome que é expressão popular no Brasil</span>
+                                        <span class="post-date cor-texto-primaria">04/11/2026 19:06</span>
+                                    </div>
+                                </a>
+                                                            <a class="swiper-slide" href="https://glomes.com.br/isaque-gomes-lanca-album-eu-boto-fe-com-14-faixas-nesta-quinta-5/?b=10">
+                                    <div class="image">
+                                        <img class="img-responsive" src="https://glomes.com.br/jovempanaju/wp-content/uploads/2026/11/WhatsApp-Image-2026-11-04-at-08.59.17-145x115.jpeg" width="145" height="115" alt="Isaque Gomes lança álbum “Eu Boto Fé”, com 14 faixas, na quinta, 5">
+                                    </div>
+                                    <div class="text">
+                                        <small class="category" style="background-color:#f49d12">
+                                            Entretenimento                                        </small>
+                                        <span class="cor-texto-primaria">Isaque Gomes lança álbum “Eu Boto Fé”, com 14 faixas, na quinta, 5</span>
+                                        <span class="post-date cor-texto-primaria">04/11/2026 17:58</span>
+                                    </div>
+                                </a>
+                                                            <a class="swiper-slide" href="https://glomes.com.br/apos-aprovacao-da-pec-da-seguranca-publica-lula-reforca-criacao-de-ministerio/?b=10">
+                                    <div class="image">
+                                        <img class="img-responsive" src="https://glomes.com.br/jovempanaju/wp-content/uploads/2026/11/190935apos-aprovacao-da-pec-da-seguranca-publica-lula-reforca-criacao-de-ministerio-3-145x115.jpg" width="145" height="115" alt="Após aprovação da PEC da Segurança Pública, Lula reforça criação de ministério">
+                                    </div>
+                                    <div class="text">
+                                        <small class="category" style="background-color:#e0001d">
+                                            Política                                        </small>
+                                        <span class="cor-texto-primaria">Após aprovação da PEC da Segurança Pública, Lula reforça criação de ministério</span>
+                                        <span class="post-date cor-texto-primaria">04/11/2026 11:07</span>
+                                    </div>
+                                </a>
+                                                            <a class="swiper-slide" href="https://glomes.com.br/teatro-margarida-ribeiro-escolhe-a-realeza-da-micareta-2026-nesta-quarta-4/?b=10">
+                                    <div class="image">
+                                        <img class="img-responsive" src="https://glomes.com.br/jovempanaju/wp-content/uploads/2026/11/Escolha-das-Majestades-da-Micareta-2026-Fotos-Jorge-Magalhaes-301-145x115.jpg" width="145" height="115" alt="Realeza da Micareta de Feira 2026 será escolhida nesta quarta, 4, no Teatro Margarida Ribeiro">
+                                    </div>
+                                    <div class="text">
+                                        <small class="category" style="background-color:">
+                                            Micareta de Feira                                        </small>
+                                        <span class="cor-texto-primaria">Realeza da Micareta de Feira 2026 será escolhida nesta quarta, 4, no Teatro Margarida Ribeiro</span>
+                                        <span class="post-date cor-texto-primaria">04/11/2026 10:39</span>
+                                    </div>
+                                </a>
+                                                    </div>
+                    </div>
+
+                    <div class="bottom">
+                        <div class="swiper-button-prev"></div>
+                        <div class="swiper-button-next"></div>
+                        <a class="button cor-texto-secundaria bg-cor-texto-secundaria-hover" href="https://glomes.com.br/jovempanaju/noticias/">
+                            <span>ver mais notícias +</span>
+                        </a>
+                    </div>          
+                
+                </div>
+            </div>
+        </div>
+    </section>
+         
+        
+             <section class="section-alternative-news-general section-noticias" data-posts="93944,93941,93928">
+        <div class="container">
+       
+                      
+
+            <div class="list has-banner">
+                                    <a class="item" href="https://glomes.com.br/democratas-conquistam-maioria-no-congresso-dos-eua-e-impoem-derrota-historica-a-donald-trump/?b=10">
+                                                    <div class="image">
+                                <img class="img-cover" src="https://glomes.com.br/jovempanaju/wp-content/uploads/2026/11/Captura-de-tela-2026-11-04-100731-415x300.png" width="415" height="300" alt="Democratas conquistam maioria no Congresso dos Estados Unidos e impõem derrota a Donald Trump">
+                            </div>
+                                                <div class="text">
+                                                            <small class="category" style="background-color: #c05c45;">
+                                    Internacional                                </small>
+                                                        <span class="cor-texto-primaria">Democratas conquistam maioria no Congresso dos Estados Unidos e impõem derrota a Donald Trump</span>
+                            <span class="post-date cor-texto-primaria">04/11/2026 10:04</span>
+                                                    </div>
+                    </a>
+                                    <a class="item" href="https://glomes.com.br/nova-identidade-pode-ser-solicitada-pelo-celular-veja-como-emitir-a-cin/?b=10">
+                                                    <div class="image">
+                                <img class="img-cover" src="https://glomes.com.br/jovempanaju/wp-content/uploads/2026/11/190932nova-identidade-pode-ser-solicitada-pelo-celular-veja-como-emitir-a-cin-3-415x300.jpg" width="415" height="300" alt="Nova carteira de identidade pode ser solicitada pelo celular; saiba como">
+                            </div>
+                                                <div class="text">
+                                                            <small class="category" style="background-color: ;">
+                                    Brasil                                </small>
+                                                        <span class="cor-texto-primaria">Nova carteira de identidade pode ser solicitada pelo celular; saiba como</span>
+                            <span class="post-date cor-texto-primaria">04/11/2026 09:58</span>
+                                                    </div>
+                    </a>
+                                    <a class="item" href="https://glomes.com.br/em-dois-turnos-senado-federal-aprova-pec-da-seguranca-entenda-o-que-muda/?b=10">
+                                                    <div class="image">
+                                <img class="img-cover" src="https://glomes.com.br/jovempanaju/wp-content/uploads/2026/11/190923em-vitoria-do-governo-senado-aprova-pec-da-seguranca-sem-reduzir-maioridade-penal-3-415x300.jpg" width="415" height="300" alt="Em dois turnos, Senado Federal aprova PEC da Segurança Pública; entenda o que muda">
+                            </div>
+                                                <div class="text">
+                                                            <small class="category" style="background-color: #e0001d;">
+                                    Política                                </small>
+                                                        <span class="cor-texto-primaria">Em dois turnos, Senado Federal aprova PEC da Segurança Pública; entenda o que muda</span>
+                            <span class="post-date cor-texto-primaria">04/11/2026 09:14</span>
+                                                    </div>
+                    </a>
+                            </div>
+                    </div>
+    </section>
+	</main>
+
+	
+	<footer id="footer">
+		<div class="footer-newsletter bg-cor-secundaria">
+			<div class="container">
+				<div class="title">
+					<div class="icon">
+						<img class="img-responsive" src="https://glomes.com.br/jovempanaju/wp-content/uploads/sites/10/2022/04/envelopeCinza.png" width="70" height="53" alt="Newsletter">
+					</div>
+											<div class="text">
+															<h5 class="cor-primaria">Newsletter</h5>
+															<span>Receba nossas novidades</span>
+													</div>
+									</div>
+
+				<form id="newsletter-form">
+					<input class="input-text" type="text" name="nome_newsletter" placeholder="Digite aqui o seu nome" required>
+					<input class="input-text" type="email" name="email_newsletter" placeholder="Digite aqui o seu e-mail" required>
+					<input class="input-submit bg-cor-primaria cor-primaria-hover" type="submit" value="Cadastrar">
+				</form>
+			</div>
+		</div>
+
+		<div class="footer-primary">
+			<div class="container">
+				<img class="img-responsive decoration" src="https://glomes.com.br/jovempanaju/wp-content/uploads/sites/10/2022/02/vetor-rodape.png" width="203" height="311" alt="Rede Digital">
+
+				<div class="column-01">
+					<a class="logo" href="https://glomes.com.br/jovempanaju">
+						<img class="img-responsive" src="https://glomes.com.br/jovempanaju/wp-content/uploads/sites/10/2022/02/logo-jparacaju.png" width="185" height="120" alt="Jovem Pan Aracaju - 88.7 FM">
+					</a>
+									</div>
+
+				<div class="column-02">
+					<ul id="menu-footer">
+						<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-37"><a href="https://glomes.com.br/jovempanaju/a-radio/">A Rádio</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-38"><a href="/jovempanaju/promocoes">Promoções</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-39"><a href="/jovempanaju/programacao">Programação</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8"><a href="https://glomes.com.br/jovempanaju/noticias/">Notícias</a></li>
+							<li><a href="https://glomes.com.br/jovempanaju/departamento-do-ouvinte" title="Departamento do Ouvinte">Departamento do Ouvinte</a></li>
+					</ul>
+				</div>
+
+				<div class="column-03">
+					<div class="about">
+						<div class="logo">
+															<a  href="https://glomes.com.br/grupo-lomes/" target="_blank" >
+									<img class="img-responsive" src="https://glomes.com.br/jovempanaju/wp-content/uploads/2026/08/1-2-e1785779124503.png" width="105" height="38" alt="Sobre o Grupo Lomes">
+								</a>
+															<span>Sobre o Grupo Lomes</span>
+													</div>
+													<div class="text">
+								<p>O Grupo Lomes atua no mercado radiofônico há mais de 35 anos, tendo uma área de abrangência nos Estados da Bahia e Sergipe, com um alcance populacional de aproximadamente 12.650.000, em 297 cidades baianas e em todo estado de Sergipe.</p>
+							</div>
+											</div>
+				</div>
+
+				<div class="column-04">
+					<div class="contact">
+											</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="footer-secondary">
+			<div class="container">
+				<div class="copyright">
+					<small>© Copyright 2026</small>
+				</div>
+				<div class="button-back-top">
+					<img class="img-responsive" src="https://glomes.com.br/jovempanaju/wp-content/themes/rededigital/img/icons/arrow-gray.png" width="22" height="12" alt="Seta Voltar">
+				</div>
+				<a class="logo-iwwa" href="https://www.iwwa.com.br/" target="_blank" title="Desenvolvido por: IWWA Agência e Produtora Digital">
+					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 103.1 33.6" width="73" height="37"><style>.st0,.st1{fill-rule:evenodd;clip-rule:evenodd;fill:#36316c}.st2{fill:#36316c;stroke:#36316c;stroke-width:0;stroke-linecap:round;stroke-linejoin:round}</style><path id="XMLID_44_" class="st0" d="M56.5.9c1.4-.4 2.1 0 2.7 1.4 3.4 8.4 6.8 16.8 10.3 25.1.1.3.3.6.5 1.2 3.9-9.4 7.6-18.5 11.4-27.8h2.1c-4.5 10.9-9 21.7-13.6 32.8-2.8-6.8-5.6-13.4-8.4-20.2-2.8 6.8-5.5 13.4-8.4 20.2C48.5 22.5 44 11.7 39.5.9c2-.4 2-.4 2.7 1.3 3.5 8.4 6.9 16.8 10.4 25.2.1.3.3.6.5 1.1.8-1.9 1.5-3.7 2.2-5.4 1.6-3.8 3.2-7.7 4.7-11.5.2-.5.2-1.1 0-1.6-1-2.7-2.2-5.3-3.3-8 .1-.3 0-.7-.2-1.1z"/><path id="XMLID_43_" class="st0" d="M35.6 28.6c-.3-.5-.4-.8-.5-1-3.5-8.5-6.9-16.9-10.4-25.4C24 .5 23.9.5 22 1c1.2 3 2.5 6 3.6 9 .2.5.2 1.3 0 1.8-1.5 3.8-3.1 7.6-4.6 11.4-.7 1.8-1.4 3.5-2.2 5.4-.2-.5-.4-.8-.5-1.1-3.5-8.4-6.9-16.8-10.4-25.2C7.2.6 7.2.6 5.2.9c4.5 10.8 9 21.6 13.6 32.7 2.8-6.8 5.5-13.4 8.4-20.2 2.8 6.8 5.6 13.4 8.4 20.2 2.6-6.3 5.2-12.6 7.8-18.8-.4-.8-.7-1.7-1.1-2.5-2.2 5.4-4.5 10.8-6.7 16.3z"/><path id="XMLID_42_" class="st1" d="M0 .8h1.9v32H0V.8z"/><path id="XMLID_41_" d="M89.5 0c-4.6 11.1-9.1 21.9-13.6 32.8 2.1.2 2.1.2 2.8-1.5.3-.8.7-1.7 1-2.6l1.9-4.6c2.6-6.4 5.2-12.7 7.9-19.2 2.7 6.6 5.3 12.9 7.9 19.3H86.6c-.5 0-1.1.3-1.2.7-.2.4-.4.8-.5 1.3h12.7c.4 0 .9.4 1.1.7.7 1.4 1.2 2.9 1.8 4.4.7 1.7.7 1.7 2.7 1.4C98.6 21.9 94.1 11.1 89.5 0z"/></svg>				</a>
+			</div>
+		</div>
+	</footer>
+	
+	<div class="load">
+		<div class="item-load"></div>
+	</div>
+
+	<div class="mensagem">
+		<span class="item-mensagem"></span>
+		<div class="close-mensagem"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52" width="48" height="48"><path d="M26 0C11.664 0 0 11.663 0 26s11.664 26 26 26 26-11.663 26-26S40.336 0 26 0zm0 50C12.767 50 2 39.233 2 26S12.767 2 26 2s24 10.767 24 24-10.767 24-24 24z"/><path d="M35.707 16.293a.999.999 0 0 0-1.414 0L26 24.586l-8.293-8.293a.999.999 0 1 0-1.414 1.414L24.586 26l-8.293 8.293a.999.999 0 1 0 1.414 1.414L26 27.414l8.293 8.293a.997.997 0 0 0 1.414 0 .999.999 0 0 0 0-1.414L27.414 26l8.293-8.293a.999.999 0 0 0 0-1.414z"/></svg></div>
+	</div>
+	
+	
+<div class="box-player-floating">
+    <div class="buttons">        
+            <div class="button button-close-player cor-texto-primaria cor-texto-base-hover bg-cor-texto-primaria-hover ">
+                <img class="img-responsive" src="https://glomes.com.br/jovempanaju/wp-content/uploads/sites/10/2022/02/radio.png" width="29" height="21" alt="Jovem Pan Aracaju - 88.7 FM">
+                <small>Ouça a Rádio</small>
+            </div>
+            <a class="button cor-texto-primaria cor-texto-base-hover bg-cor-texto-primaria-hover" href="https://glomes.com.br/jovempanaju/departamento-do-ouvinte" title="Departamento do Ouvinte">
+                <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 476 476"><path d="M400.85 181v-18.3c0-43.8-15.5-84.5-43.6-114.7-28.8-31-68.4-48-111.6-48h-15.1c-43.2 0-82.8 17-111.6 48-28.1 30.2-43.6 70.9-43.6 114.7V181c-34.1 2.3-61.2 30.7-61.2 65.4V275c0 36.1 29.4 65.5 65.5 65.5h36.9c6.6 0 12-5.4 12-12V192.8c0-6.6-5.4-12-12-12h-17.2v-18.1c0-79.1 56.4-138.7 131.1-138.7h15.1c74.8 0 131.1 59.6 131.1 138.7v18.1h-17.2c-6.6 0-12 5.4-12 12v135.6c0 6.6 5.4 12 12 12h16.8c-4.9 62.6-48 77.1-68 80.4-5.5-16.9-21.4-29.1-40.1-29.1h-30c-23.2 0-42.1 18.9-42.1 42.1s18.9 42.2 42.1 42.2h30.1c19.4 0 35.7-13.2 40.6-31 9.8-1.4 25.3-4.9 40.7-13.9 21.7-12.7 47.4-38.6 50.8-90.8 34.3-2.1 61.5-30.6 61.5-65.4v-28.6c.1-34.6-26.9-63.1-61-65.3zm-296.1 135.4h-24.9c-22.9 0-41.5-18.6-41.5-41.5v-28.6c0-22.9 18.6-41.5 41.5-41.5h24.9v111.6zM268.25 452h-30.1c-10 0-18.1-8.1-18.1-18.1s8.1-18.1 18.1-18.1h30.1c10 0 18.1 8.1 18.1 18.1s-8.1 18.1-18.1 18.1zm169.7-177.1c0 22.9-18.6 41.5-41.5 41.5h-24.9V204.8h24.9c22.9 0 41.5 18.6 41.5 41.5v28.6z"/></svg>                <small>Departamento do Ouvinte</small>
+            </a>
+                    <a class="button cor-texto-primaria cor-texto-base-hover bg-cor-texto-primaria-hover" href="https://glomes.com.br/jovempanaju/podcasts/" title="Podcast">
+                <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 270.189 270.189"><path d="M224.408 139.658c0-4.143-3.357-7.5-7.5-7.5s-7.5 3.357-7.5 7.5c0 40.976-33.337 74.313-74.313 74.313-40.977 0-74.313-33.337-74.313-74.313 0-4.143-3.357-7.5-7.5-7.5s-7.5 3.357-7.5 7.5c0 46.721 36.063 85.173 81.813 88.995v26.536H94.188a7.499 7.499 0 0 0-7.5 7.5c0 4.143 3.357 7.5 7.5 7.5h81.813c4.143 0 7.5-3.357 7.5-7.5s-3.357-7.5-7.5-7.5h-33.406v-26.536c45.75-3.822 81.813-42.274 81.813-88.995z"/><path d="M135.095 188.064c26.691 0 48.406-21.715 48.406-48.406V48.406C183.501 21.715 161.787 0 135.095 0S86.688 21.715 86.688 48.406v91.252c0 26.692 21.716 48.406 48.407 48.406zm0-173.064c18.42 0 33.406 14.986 33.406 33.406v2.5h-16.406c-4.143 0-7.5 3.357-7.5 7.5s3.357 7.5 7.5 7.5h16.406v20.625h-16.406a7.499 7.499 0 0 0-7.5 7.5c0 4.143 3.357 7.5 7.5 7.5h16.406v20.627h-16.406a7.499 7.499 0 0 0-7.5 7.5c0 4.143 3.357 7.5 7.5 7.5h16.406v2.5c0 18.42-14.986 33.406-33.406 33.406-18.421 0-33.407-14.986-33.407-33.406v-2.5h16.407c4.143 0 7.5-3.357 7.5-7.5s-3.357-7.5-7.5-7.5h-16.407v-20.627h16.407c4.143 0 7.5-3.357 7.5-7.5s-3.357-7.5-7.5-7.5h-16.407V65.906h16.407c4.143 0 7.5-3.357 7.5-7.5s-3.357-7.5-7.5-7.5h-16.407v-2.5c0-18.42 14.986-33.406 33.407-33.406z"/></svg>                <small>Podcast</small>
+            </a>
+            </div>
+
+    <div class="box">
+        <div class="title cor-secundaria" title="No Ar">
+            <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 270.189 270.189"><path d="M224.408 139.658c0-4.143-3.357-7.5-7.5-7.5s-7.5 3.357-7.5 7.5c0 40.976-33.337 74.313-74.313 74.313-40.977 0-74.313-33.337-74.313-74.313 0-4.143-3.357-7.5-7.5-7.5s-7.5 3.357-7.5 7.5c0 46.721 36.063 85.173 81.813 88.995v26.536H94.188a7.499 7.499 0 0 0-7.5 7.5c0 4.143 3.357 7.5 7.5 7.5h81.813c4.143 0 7.5-3.357 7.5-7.5s-3.357-7.5-7.5-7.5h-33.406v-26.536c45.75-3.822 81.813-42.274 81.813-88.995z"/><path d="M135.095 188.064c26.691 0 48.406-21.715 48.406-48.406V48.406C183.501 21.715 161.787 0 135.095 0S86.688 21.715 86.688 48.406v91.252c0 26.692 21.716 48.406 48.407 48.406zm0-173.064c18.42 0 33.406 14.986 33.406 33.406v2.5h-16.406c-4.143 0-7.5 3.357-7.5 7.5s3.357 7.5 7.5 7.5h16.406v20.625h-16.406a7.499 7.499 0 0 0-7.5 7.5c0 4.143 3.357 7.5 7.5 7.5h16.406v20.627h-16.406a7.499 7.499 0 0 0-7.5 7.5c0 4.143 3.357 7.5 7.5 7.5h16.406v2.5c0 18.42-14.986 33.406-33.406 33.406-18.421 0-33.407-14.986-33.407-33.406v-2.5h16.407c4.143 0 7.5-3.357 7.5-7.5s-3.357-7.5-7.5-7.5h-16.407v-20.627h16.407c4.143 0 7.5-3.357 7.5-7.5s-3.357-7.5-7.5-7.5h-16.407V65.906h16.407c4.143 0 7.5-3.357 7.5-7.5s-3.357-7.5-7.5-7.5h-16.407v-2.5c0-18.42 14.986-33.406 33.407-33.406z"/></svg>            <span>No ar</span>
+        </div>
+        
+                <audio
+            controls
+            src="https://8060.brasilstream.com.br/stream">
+                Your browser does not support the
+                <code>audio</code> element.
+        </audio>
+        <div class="button bg-cor-texto-primaria">
+            <span>Programação</span>
+        </div>
+        <!-- <div class="button bg-cor-texto-secundaria">
+            <span>00:00 às 05:00</span>
+        </div> -->
+
+        <div id="playerbs"></div>
+        <link rel="stylesheet" href="https://player.brasilstream.com.br/1429640374/css.css">
+        <script src="https://player.brasilstream.com.br/1429640374/js.js" crossorigin="anonymous"></script>
+    </div>
+</div><script type="speculationrules">
+{"prefetch":[{"source":"document","where":{"and":[{"href_matches":"/jovempanaju/*"},{"not":{"href_matches":["/jovempanaju/wp-*.php","/jovempanaju/wp-admin/*","/jovempanaju/wp-content/uploads/sites/10/*","/jovempanaju/wp-content/*","/jovempanaju/wp-content/plugins/*","/jovempanaju/wp-content/themes/rededigital/*","/jovempanaju/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}
+</script>
+		<div
+			class="qlwapp"
+			style="--qlwapp-scheme-font-family:inherit;--qlwapp-scheme-font-size:18px;--qlwapp-scheme-icon-size:60px;--qlwapp-scheme-icon-font-size:24px;--qlwapp-scheme-box-max-height:400px;--qlwapp-scheme-brand:#25d366;--qlwapp-scheme-text:#ffffff;--qlwapp-scheme-text-secondary:#303030;--qlwapp-scheme-contact-role-color:inherit;--qlwapp-scheme-contact-name-color:inherit;--qlwapp-scheme-contact-availability-color:inherit;--qlwapp-scheme-box-message-word-break:break-all;--qlwapp-button-notification-bubble-animation:none;"
+			data-contacts="[{&quot;id&quot;:1,&quot;bot_id&quot;:&quot;&quot;,&quot;order&quot;:1,&quot;active&quot;:1,&quot;chat&quot;:1,&quot;avatar&quot;:&quot;https:\/\/www.gravatar.com\/avatar\/00000000000000000000000000000000&quot;,&quot;type&quot;:&quot;phone&quot;,&quot;phone&quot;:&quot;59895761512&quot;,&quot;group&quot;:&quot;https:\/\/chat.whatsapp.com\/EQuPUtcPzEdIZVlT8JyyNw&quot;,&quot;firstname&quot;:&quot;John&quot;,&quot;lastname&quot;:&quot;Doe&quot;,&quot;label&quot;:&quot;Ajuda&quot;,&quot;message&quot;:&quot;Hello! I&#039;m testing the Social Chat plugin https:\/\/quadlayers.com\/landing\/whatsapp-chat\/?utm_source=qlwapp_plugin&amp;utm_medium=whatsapp&quot;,&quot;timefrom&quot;:&quot;00:00&quot;,&quot;timeto&quot;:&quot;00:00&quot;,&quot;timezone&quot;:&quot;America\/Sao_Paulo&quot;,&quot;visibility&quot;:&quot;readonly&quot;,&quot;timedays&quot;:[],&quot;whatsapp_link_type&quot;:&quot;web&quot;,&quot;display&quot;:{&quot;entries&quot;:{&quot;post&quot;:{&quot;include&quot;:1,&quot;ids&quot;:[]},&quot;page&quot;:{&quot;include&quot;:1,&quot;ids&quot;:[]},&quot;banners&quot;:{&quot;include&quot;:1,&quot;ids&quot;:[]},&quot;inscricoes&quot;:{&quot;include&quot;:1,&quot;ids&quot;:[]},&quot;newsletters&quot;:{&quot;include&quot;:1,&quot;ids&quot;:[]},&quot;promocoes&quot;:{&quot;include&quot;:1,&quot;ids&quot;:[]},&quot;programacao&quot;:{&quot;include&quot;:1,&quot;ids&quot;:[]},&quot;podcasts&quot;:{&quot;include&quot;:1,&quot;ids&quot;:[]},&quot;galeria&quot;:{&quot;include&quot;:1,&quot;ids&quot;:[]}},&quot;taxonomies&quot;:{&quot;category&quot;:{&quot;include&quot;:1,&quot;ids&quot;:[]},&quot;dia&quot;:{&quot;include&quot;:1,&quot;ids&quot;:[]},&quot;categoria-banners&quot;:{&quot;include&quot;:1,&quot;ids&quot;:[]}},&quot;target&quot;:{&quot;include&quot;:1,&quot;ids&quot;:[]},&quot;devices&quot;:&quot;all&quot;}}]"
+			data-primary-contact="{&quot;id&quot;:1,&quot;bot_id&quot;:&quot;&quot;,&quot;order&quot;:1,&quot;active&quot;:1,&quot;chat&quot;:1,&quot;avatar&quot;:&quot;https:\/\/www.gravatar.com\/avatar\/00000000000000000000000000000000&quot;,&quot;type&quot;:&quot;phone&quot;,&quot;phone&quot;:&quot;59895761512&quot;,&quot;group&quot;:&quot;https:\/\/chat.whatsapp.com\/EQuPUtcPzEdIZVlT8JyyNw&quot;,&quot;firstname&quot;:&quot;John&quot;,&quot;lastname&quot;:&quot;Doe&quot;,&quot;label&quot;:&quot;Ajuda&quot;,&quot;message&quot;:&quot;Hello! I&#039;m testing the Social Chat plugin https:\/\/quadlayers.com\/landing\/whatsapp-chat\/?utm_source=qlwapp_plugin&amp;utm_medium=whatsapp&quot;,&quot;timefrom&quot;:&quot;00:00&quot;,&quot;timeto&quot;:&quot;00:00&quot;,&quot;timezone&quot;:&quot;America\/Sao_Paulo&quot;,&quot;visibility&quot;:&quot;readonly&quot;,&quot;timedays&quot;:[],&quot;whatsapp_link_type&quot;:&quot;web&quot;,&quot;display&quot;:{&quot;entries&quot;:{&quot;post&quot;:{&quot;include&quot;:1,&quot;ids&quot;:[]},&quot;page&quot;:{&quot;include&quot;:1,&quot;ids&quot;:[]},&quot;banners&quot;:{&quot;include&quot;:1,&quot;ids&quot;:[]},&quot;inscricoes&quot;:{&quot;include&quot;:1,&quot;ids&quot;:[]},&quot;newsletters&quot;:{&quot;include&quot;:1,&quot;ids&quot;:[]},&quot;promocoes&quot;:{&quot;include&quot;:1,&quot;ids&quot;:[]},&quot;programacao&quot;:{&quot;include&quot;:1,&quot;ids&quot;:[]},&quot;podcasts&quot;:{&quot;include&quot;:1,&quot;ids&quot;:[]},&quot;galeria&quot;:{&quot;include&quot;:1,&quot;ids&quot;:[]}},&quot;taxonomies&quot;:{&quot;category&quot;:{&quot;include&quot;:1,&quot;ids&quot;:[]},&quot;dia&quot;:{&quot;include&quot;:1,&quot;ids&quot;:[]},&quot;categoria-banners&quot;:{&quot;include&quot;:1,&quot;ids&quot;:[]}},&quot;target&quot;:{&quot;include&quot;:1,&quot;ids&quot;:[]},&quot;devices&quot;:&quot;all&quot;}}"
+			data-display="{&quot;devices&quot;:&quot;hide&quot;,&quot;entries&quot;:{&quot;post&quot;:{&quot;include&quot;:1,&quot;ids&quot;:[]},&quot;page&quot;:{&quot;include&quot;:1,&quot;ids&quot;:[]},&quot;banners&quot;:{&quot;include&quot;:1,&quot;ids&quot;:[]},&quot;inscricoes&quot;:{&quot;include&quot;:1,&quot;ids&quot;:[]},&quot;newsletters&quot;:{&quot;include&quot;:1,&quot;ids&quot;:[]},&quot;promocoes&quot;:{&quot;include&quot;:1,&quot;ids&quot;:[]},&quot;programacao&quot;:{&quot;include&quot;:1,&quot;ids&quot;:[]},&quot;podcasts&quot;:{&quot;include&quot;:1,&quot;ids&quot;:[]},&quot;galeria&quot;:{&quot;include&quot;:1,&quot;ids&quot;:[]}},&quot;taxonomies&quot;:{&quot;category&quot;:{&quot;include&quot;:1,&quot;ids&quot;:[]},&quot;dia&quot;:{&quot;include&quot;:1,&quot;ids&quot;:[]},&quot;categoria-banners&quot;:{&quot;include&quot;:1,&quot;ids&quot;:[]}},&quot;target&quot;:{&quot;include&quot;:1,&quot;ids&quot;:[]}}"
+			data-button="{&quot;layout&quot;:&quot;button&quot;,&quot;box&quot;:&quot;no&quot;,&quot;position&quot;:&quot;bottom-right&quot;,&quot;text&quot;:&quot;Como posso te ajudar?&quot;,&quot;icon&quot;:&quot;qlwapp-whatsapp-icon&quot;,&quot;developer&quot;:&quot;no&quot;,&quot;rounded&quot;:&quot;yes&quot;,&quot;animation_name&quot;:&quot;&quot;,&quot;animation_delay&quot;:&quot;&quot;,&quot;notification_bubble&quot;:&quot;none&quot;,&quot;notification_bubble_animation&quot;:&quot;none&quot;,&quot;timefrom&quot;:&quot;00:00&quot;,&quot;timeto&quot;:&quot;00:00&quot;,&quot;timedays&quot;:[],&quot;timezone&quot;:&quot;America\/Sao_Paulo&quot;,&quot;visibility&quot;:&quot;readonly&quot;}"
+			data-box="{&quot;enable&quot;:&quot;yes&quot;,&quot;auto_open&quot;:&quot;no&quot;,&quot;auto_delay_open&quot;:1000,&quot;lazy_load&quot;:&quot;no&quot;,&quot;allow_outside_close&quot;:&quot;no&quot;,&quot;header&quot;:&quot;\n\t\t\t\t\t\t\t\t&lt;p style=\&quot;line-height: 1;text-align: start\&quot;&gt;&lt;span style=\&quot;font-size: 12px;vertical-align: bottom;letter-spacing: -0.2px;opacity: 0.8;margin: 5px 0 0 1px\&quot;&gt;Powered by&lt;\/span&gt;&lt;\/p&gt;\n\t\t\t\t\t\t\t\t&lt;p style=\&quot;line-height: 1;text-align: start\&quot;&gt;&lt;a style=\&quot;font-size: 24px;line-height: 34px;font-weight: bold;text-decoration: none;color: white\&quot; href=\&quot;https:\/\/quadlayers.com\/products\/whatsapp-chat\/?utm_source=qlwapp_plugin&amp;utm_medium=header&amp;utm_campaign=social-chat\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt;Social Chat&lt;\/a&gt;&lt;\/p&gt;&quot;,&quot;footer&quot;:&quot;&lt;p style=\&quot;text-align: start;\&quot;&gt;Need help? Our team is just a message away&lt;\/p&gt;&quot;,&quot;response&quot;:&quot;Escreva sua mensagem&quot;,&quot;consent_message&quot;:&quot;I accept cookies and privacy policy.&quot;,&quot;consent_enabled&quot;:&quot;no&quot;}"
+			data-scheme="{&quot;font_family&quot;:&quot;inherit&quot;,&quot;font_size&quot;:&quot;18&quot;,&quot;icon_size&quot;:&quot;60&quot;,&quot;icon_font_size&quot;:&quot;24&quot;,&quot;box_max_height&quot;:&quot;400&quot;,&quot;brand&quot;:&quot;#25d366&quot;,&quot;text&quot;:&quot;#ffffff&quot;,&quot;text_secondary&quot;:&quot;#303030&quot;,&quot;link&quot;:&quot;&quot;,&quot;message&quot;:&quot;&quot;,&quot;label&quot;:&quot;&quot;,&quot;name&quot;:&quot;&quot;,&quot;contact_role_color&quot;:&quot;inherit&quot;,&quot;contact_name_color&quot;:&quot;inherit&quot;,&quot;contact_availability_color&quot;:&quot;inherit&quot;,&quot;box_message_word_break&quot;:&quot;break-all&quot;}"
+		>
+					</div>
+		<script id="jquery-js" src="https://glomes.com.br/jovempanaju/wp-includes/js/jquery/jquery.min.js"></script>
+<script id="weskit-iwwa-js-extra">
+var theme_url = "https://glomes.com.br/jovempanaju/wp-content/themes/rededigital";
+var theme_url_ajax = "https://glomes.com.br/wp-content/themes/rededigital";
+var admin_ajax_url = "https://glomes.com.br/jovempanaju/wp-admin/admin-ajax.php";
+//# sourceURL=weskit-iwwa-js-extra
+</script>
+<script id="weskit-iwwa-js" src="https://glomes.com.br/jovempanaju/wp-content/themes/rededigital/js/script.js?ver=1.1.10"></script>
+<script id="meks_ap-player-js" src="https://glomes.com.br/jovempanaju/wp-content/plugins/meks-audio-player/assets/js/mediaelement-and-player.js?ver=1.3"></script>
+<script id="meks_ap-player-skip-back-js" src="https://glomes.com.br/jovempanaju/wp-content/plugins/meks-audio-player/assets/js/mediaelement-skip-back.js?ver=1.3"></script>
+<script id="meks_ap-player-jump-forward-js" src="https://glomes.com.br/jovempanaju/wp-content/plugins/meks-audio-player/assets/js/mediaelement-jump-forward.js?ver=1.3"></script>
+<script id="meks_ap-player-speed-js" src="https://glomes.com.br/jovempanaju/wp-content/plugins/meks-audio-player/assets/js/mediaelement-speed.js?ver=1.3"></script>
+<script id="meks_ap-main-js-extra">
+var meks_ap_settings = {"selectors":{".wp-block-audio":{"element":"audio","type":"audio"},".wp-audio-shortcode":{"element":"self","type":"audio"},".powerpress_player":{"element":"audio","type":"audio"},".powerpress_links":{"element":"audio","type":"audio"}},"player":{"controls":["skipback","playpause","jumpforward","progress","current","duration","volume","speed"],"volume":0.5}};
+//# sourceURL=meks_ap-main-js-extra
+</script>
+<script id="meks_ap-main-js" src="https://glomes.com.br/jovempanaju/wp-content/plugins/meks-audio-player/assets/js/main.js?ver=1.3"></script>
+<script id="qlwapp-frontend-js" src="https://glomes.com.br/jovempanaju/wp-content/plugins/wp-whatsapp-chat/build/frontend/js/index.js?ver=8a54b2647867739f4a54"></script>
+</body>
+</html>
+
+<!-- Page supported by LiteSpeed Cache 7.9 on 2026-11-05 09:52:06 -->
