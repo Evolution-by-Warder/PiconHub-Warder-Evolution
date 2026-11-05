@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Air Connect Radio - Rien que les meilleurs hits !</title>
+<meta name="description" content="Air Connect Radio, radio digitale pop, dance &amp; hits. Écoutez en direct les meilleurs hits du moment.">
+<meta name="keywords" content="Air Connect Radio, radio en ligne, radio digitale, webradio, hits, pop, dance">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Air Connect Radio">
+<meta property="og:title" content="Air Connect Radio - Rien que les meilleurs hits !">
+<meta property="og:description" content="Radio digitale pop, dance &amp; hits. Écoutez en direct les meilleurs hits du moment.">
+<meta property="og:url" content="https://airconnectradio.com/">
+<meta property="og:image" content="https://airconnectradio.com/assets/og-air-connect-radio-1200x630.jpg">
+
+<meta name="theme-color" content="#e10613">
+
+<link rel="canonical" href="https://airconnectradio.com/">
+<link rel="icon" href="/favicon.ico">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="stylesheet" href="/styles.css?v=9">
+</head>
+
+<body>
+
+<div class="site">
+
+<header class="topbar">
+    <div class="topbar__brand">
+        <a href="/" class="brand brand--logo" aria-label="Accueil Air Connect Radio">
+            <img src="/img/ac-grand-rouge.png" alt="Air Connect Radio" class="brand__logo">
+        </a>
+    </div>
+
+    <div class="topbar__play">
+        <button id="headerPlayBtn" class="header-play" type="button" aria-label="Lire le direct">
+            <span class="header-play__triangle"></span>
+        </button>
+    </div>
+
+    <div class="topbar__socials">
+        <div class="socials" aria-label="Réseaux sociaux">
+            <a href="https://www.facebook.com/airconnectradio" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                <i class="fa-brands fa-facebook-f"></i>
+            </a>
+            <a href="https://www.instagram.com/airconnectradio" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                <i class="fa-brands fa-instagram"></i>
+            </a>
+            <a href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+                <i class="fa-brands fa-youtube"></i>
+            </a>
+            <a href="https://play.google.com/store/apps/details?id=com.mobiroller.mobi3183923920800&hl=fr" target="_blank" rel="noopener noreferrer" aria-label="Google Play">
+                <i class="fa-brands fa-google-play"></i>
+            </a>
+            <a href="https://apps.apple.com/ie/app/air-connect-radio/id6738903713" target="_blank" rel="noopener noreferrer" aria-label="App Store">
+                <i class="fa-brands fa-apple"></i>
+            </a>
+        </div>
+    </div>
+
+    <div class="topbar__menu">
+        <button id="menuBtn" class="menu-btn" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menuOverlay">
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+</header>
+
+<main id="app-content">
+            
+<section class="hero">
+    <div class="hero__inner">
+        <div class="hero-tag">
+            Radio digitale • Dance • Pop • Hits
+        </div>
+
+        <h1 class="hero-title">
+            AIR CONNECT RADIO
+        </h1>
+
+        <p class="hero-text">
+            La radio digitale qui diffuse rien que les meilleurs hits.
+        </p>
+
+        <div class="hero-buttons">
+            <button id="heroPlayBtn" class="btn-primary" type="button">
+                Écouter le live
+            </button>
+
+            <a href="/ecouter" class="btn-secondary">
+                Comment écouter
+            </a>
+        </div>
+
+        <div class="now-card now-card--wide">
+            <div class="now-card__grid">
+                <div class="now-card__block">
+                    <span class="now-card__label">Titre en cours</span>
+                    <div class="now-card__title" id="heroCurrentSong">Chargement...</div>
+                </div>
+
+                <div class="now-card__block">
+                    <span class="now-card__label">Programme en cours</span>
+                    <div class="now-card__title" id="currentProgramName">Chargement...</div>
+                </div>
+
+                <div class="now-card__block">
+                    <span class="now-card__label">Titre le plus liké</span>
+                    <div class="now-card__title">
+                        Shakira, Burna Boy - Dai Dai                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="cards">
+    <div class="card">
+        <h3>Écoute en direct</h3>
+        <p>Lance le flux audio directement depuis le site avec notre lecteur intégré.</p>
+    </div>
+
+    <div class="card">
+        <h3>Vote pour les titres</h3>
+        <p>Influence le classement des titres dans la playlist.</p>
+    </div>
+
+    <div class="card">
+        <h3>Disponible partout</h3>
+        <p>Air Connect Radio est accessible sur smartphone, ordinateur et logiciels audio.</p>
+    </div>
+</section>
+
+<section class="section section--compact">
+    <div class="section-head section-head--compact">
+        <h2 class="page-title page-title--compact">Grille des programmes</h2>
+        <p class="page-intro">
+            Les rendez-vous de la journée et de la semaine.
+        </p>
+    </div>
+
+    <div class="programs-home">
+        <article class="card programs-home__current">
+            <div class="programs-home__current-top">
+                <span class="program-badge">En ce moment</span>
+                <span class="programs-home__day" id="programTodayLabel">Aujourd’hui</span>
+            </div>
+
+            <div class="programs-home__current-title" id="currentProgramNameCard">
+                Chargement...
+            </div>
+
+            <div class="programs-home__current-time" id="currentProgramTime">
+                --
+            </div>
+        </article>
+
+        <article class="card programs-home__schedule">
+            <div id="programScheduleCompact" class="program-schedule-compact">
+                <div class="recent-track-loading">Chargement...</div>
+            </div>
+        </article>
+    </div>
+</section>
+
+<section class="section">
+    <div class="section-head">
+        <h2 class="page-title">Les 5 derniers titres diffusés</h2>
+        <p class="page-intro">
+            Retrouve les derniers morceaux passés à l’antenne.
+        </p>
+    </div>
+
+    <div class="cards cards--single">
+        <article class="card recent-tracks-card">
+            <div class="recent-tracks-widget recent-tracks-widget--full">
+                <div id="recentTracksList" class="recent-tracks-list-api">
+                    <div class="recent-track-loading">Chargement...</div>
+                </div>
+            </div>
+        </article>
+    </div>
+</section>    </main>
+
+</div>
+
+<div id="menuOverlay" class="menu-overlay" aria-hidden="true">
+    <div class="menu-overlay__inner">
+        <nav class="menu-overlay__nav" aria-label="Menu principal">
+            <a href="/">Accueil</a>
+            <a href="/playlist">Playlist</a>
+            <a href="/jeux">Jeux</a>
+            <a href="/ecouter">Écouter</a>
+            <a href="/tv">TV</a>
+            <a href="/contact">Contact</a>
+        </nav>
+
+        <div class="menu-overlay__footer-left">
+            <a href="/">Air Connect Radio</a>
+            <a href="/playlist">Playlist</a>
+            <a href="/jeux">Jeux</a>
+            <a href="/ecouter">Live</a>
+        </div>
+
+        <div class="menu-overlay__footer-right">
+            Rien que les meilleurs hits
+        </div>
+    </div>
+</div>
+
+<audio id="radio" preload="auto"></audio>
+
+<div class="player-bar">
+    <div class="player-bar__left">
+        <button id="playBtn" class="player-play" type="button" aria-label="Lire ou mettre en pause le direct">
+            ▶
+        </button>
+
+        <div class="player-meta">
+            <div class="live-pill">
+                <span class="live-dot"></span>
+                <span id="liveStatusText">LIVE</span>
+            </div>
+
+            <div id="nowPlaying" class="player-title">Chargement...</div>
+        </div>
+    </div>
+
+    <div class="player-controls">
+        <div class="vote-wrap">
+            <button id="voteUp" class="vote-btn" type="button" aria-label="Top">👍</button>
+            <button id="voteDown" class="vote-btn" type="button" aria-label="Flop">👎</button>
+        </div>
+
+        <button id="muteBtn" class="icon-btn" type="button" aria-label="Couper le son">🔊</button>
+
+        <input type="range" id="volumeRange" min="0" max="1" step="0.01" value="0.85" aria-label="Volume">
+    </div>
+</div>
+
+<div id="toast" class="toast" aria-live="polite"></div>
+
+<script src="/app.js?v=8"></script>
+
+</body>
+</html>
