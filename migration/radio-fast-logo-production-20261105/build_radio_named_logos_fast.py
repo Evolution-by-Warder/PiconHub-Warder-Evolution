@@ -73,6 +73,17 @@ class Images(HTMLParser):
     if tag=='img' and priority==0:self.logo_names[u]=' '.join(str(a.get(k,'')) for k in ['alt','title','aria-label'])
 def titles(body):return [html.unescape(re.sub('<[^>]+>',' ',s)) for s in re.findall(r'<(?:title|h1)\b[^>]*>(.*?)</(?:title|h1)>',body,flags=re.I|re.S)]
 
+def push_checkpoint():
+ command=['git','push','origin','HEAD:research/warder-world-radio-logo-alias-scan-20261104']
+ for attempt in range(4):
+  result=subprocess.run(command,capture_output=True,text=True)
+  if result.returncode==0:return
+  message=(result.stdout+' '+result.stderr).lower()
+  transient=any(x in message for x in ['internal server error','service unavailable','bad gateway','gateway timeout','connection reset','timed out','http 500','http 502','http 503','http 504'])
+  refused=any(x in message for x in ['non-fast-forward','fetch first','protected branch','permission denied','authentication failed','push protection'])
+  if not transient or refused or attempt==3:raise subprocess.CalledProcessError(result.returncode,command,output=result.stdout,stderr=result.stderr)
+  print('Temporary Git server error; retrying the same normal push.',flush=True);time.sleep(2**attempt)
+
 def main():
  ap=argparse.ArgumentParser();ap.add_argument('--catalogue',type=Path,required=True);ap.add_argument('--masters',type=Path,required=True);ap.add_argument('--output',type=Path,required=True);ap.add_argument('--commit',action='store_true');ap.add_argument('--workers',type=int,default=32);ap.add_argument('--checkpoint-size',type=int,default=100);args=ap.parse_args();assert 1<=args.workers<=64 and 1<=args.checkpoint_size<=250;root=args.output;root.mkdir(parents=True,exist_ok=True)
  receiver=json.load(gzip.open(args.catalogue/'world-radio.receiver.json.gz'));world=json.load(gzip.open(args.catalogue/'world-radio.json.gz'));ready=set(json.loads((root/'ready-references-seed.json').read_text()))
@@ -116,7 +127,7 @@ def main():
   if args.commit:
    subprocess.run(['git','add','--',str(root)],check=True)
    if subprocess.run(['git','diff','--cached','--quiet']).returncode:
-    subprocess.run(['git','commit','-m','Save completed Radio logos: '+event],check=True);subprocess.run(['git','push','origin','HEAD:research/warder-world-radio-logo-alias-scan-20261104'],check=True)
+    subprocess.run(['git','commit','--quiet','-m','Save completed Radio logos: '+event],check=True);push_checkpoint()
  def render_uncached(original):
   mark=original.copy();mark.thumbnail((192,104),Image.Resampling.LANCZOS);pos=((220-mark.width)//2,(132-mark.height)//2);box=(*pos,pos[0]+mark.width,pos[1]+mark.height);variants={}
   for style,background in masters.items():

@@ -44,8 +44,13 @@ jobs:
           git add migration/radio-fast-logo-production-20261105
           if ! git diff --cached --quiet; then
             git commit -m "Preserve completed Radio picons and progress"
-            git push origin HEAD:research/warder-world-radio-logo-alias-scan-20261104
           fi
+          python - <<'PY_PUSH'
+          import importlib.util
+          spec=importlib.util.spec_from_file_location("radio_worker","migration/radio-fast-logo-production-20261105/build_radio_named_logos_fast.py")
+          worker=importlib.util.module_from_spec(spec);spec.loader.exec_module(worker)
+          worker.push_checkpoint()
+          PY_PUSH
       - uses: actions/upload-artifact@v4
         if: always()
         with:
