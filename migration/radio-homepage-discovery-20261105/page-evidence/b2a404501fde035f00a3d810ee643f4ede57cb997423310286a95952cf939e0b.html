@@ -1,0 +1,3806 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>POPOV RADIO</title>
+<meta name="description" content="POPOV RADIO — radio web rétro 24/7 : chiptune, demoscene, mods Amiga, SID &amp; Paula.">
+<meta name="theme-color" content="#00ff41">
+<link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAcklEQVR4nO2XMQrAIAxFf4odeicX7947ZXBIV+kYrUnhv0kEycdnAgqsGQIpAHBed0jxrhVHSOWBfAG6VnSt02t3gN0IrFmqRzhzpZ6zVEAF/1HAQfQFy7vAQ7iC8t4YdexQQwVUQAVUkE/BbhhAor/nD5SOnV80LLO3AAAAAElFTkSuQmCC">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&display=swap">
+<meta property="og:type" content="website">
+<meta property="og:title" content="POPOV RADIO">
+<meta property="og:description" content="Radio web rétro 24/7 — chiptune, demoscene, mods Amiga, SID &amp; Paula.">
+<meta property="og:url" content="https://popovradio.fr/">
+<meta property="og:image" content="https://popovradio.fr/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+:root{--g:#00ff41;--a:#ffb000;--r:#ff2200;--c:#00ffff}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;height:100%;background:#000;color:var(--g);font-family:'Share Tech Mono',monospace;overflow:hidden;user-select:none}
+body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradient(to bottom,transparent 0px,transparent 2px,rgba(0,0,0,0.15)2px,rgba(0,0,0,0.15)4px);pointer-events:none;z-index:9999}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at center,transparent 55%,rgba(0,0,0,.75)100%);pointer-events:none;z-index:9998}
+#app{display:grid;grid-template-rows:auto auto auto 1fr auto;min-height:100vh;padding:8px 12px;gap:8px}
+#hdr{position:relative;display:flex;align-items:center;gap:16px;padding:6px 10px;border:1px solid var(--g);background:#0a0a0a;box-shadow:0 0 14px rgba(0,255,65,.3)}
+
+/* ── FOND CIRCUIT IMPRIME ──────────────────────────────────────────────
+   Canvas decoratif qui occupe tout le header, sous tous les autres
+   elements. Genere une seule fois par taille (voir genPCB) : la boucle
+   d'animation ne fait que le recopier et animer les impulsions. */
+#pcb{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+/* Les elements du header repassent au-dessus du circuit. #hbar porte deja
+   z-index:2 ; #bnr et #hright sont statiques, donc il leur faut une
+   position pour que le z-index prenne effet. */
+#bnr,#hright{position:relative;z-index:1}
+
+/* ── BANDEAU NEON ──────────────────────────────────────────────────────
+   Remplace l'ancien canvas "PR" et le titre texte. L'image est detouree
+   (fond noir converti en alpha), elle se pose donc sur le fond du header
+   sans rectangle visible. Hauteur fluide, largeur libre : le ratio 7,6:1
+   est porte par l'image elle-meme, aucun calage en dur.
+   margin-bottom reserve la bande basse ou flotte #hbar. */
+#bnr{display:block;height:clamp(42px,7vw,92px);width:auto;max-width:100%;
+     flex:0 1 auto;min-width:0;object-fit:contain;object-position:left center;
+     margin-bottom:24px;-webkit-user-select:none;user-select:none;pointer-events:none;
+     animation:fl 8s infinite}
+/* Scintillement de tube neon. L'opacite fait varier la lettre ET son halo
+   ensemble, puisque le halo est cuit dans l'image : c'est exactement le
+   comportement d'un vrai tube qui faiblit. Rythme volontairement irregulier,
+   avec deux salves rapprochees puis une longue accalmie. */
+@keyframes fl{0%,19%,21%,23%,25%,54%,56%,100%{opacity:1}20%,22%,24%,55%{opacity:.82}}
+
+/* Titre hors ecran : lisible par les lecteurs d'ecran, invisible a l'oeil. */
+#sname{position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+       overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+/* Barre basse en surimpression sur le bandeau : boutons + accroche. */
+#hbar{position:absolute;left:10px;bottom:7px;z-index:2;
+      display:flex;align-items:center;gap:14px;max-width:calc(100% - 20px)}
+
+/* ── BLOC LOGO ─────────────────────────────────────────────────────────
+   Le carré du logo héberge les liens externes (M3U, Twitch, Discord).
+   align-self:stretch + justify-content:space-between collent le canvas en
+   haut et la rangée de boutons en bas du header. Comme #fmtleds est le
+   dernier élément de #hright, les deux rangées se retrouvent sur la même
+   ligne de base, sans calage en pixels qui casserait au moindre
+   changement de police.
+
+   Ils flottent en surimpression sur le bas du bandeau via #hbar. */
+#logolinks{display:flex;gap:6px;align-items:center;width:max-content}
+#logolinks .btn{display:inline-flex;align-items:center;gap:5px;text-decoration:none;white-space:nowrap}
+.btn.discord{border-color:#5865F2;color:#5865F2;text-shadow:0 0 6px #5865F2}
+.btn.discord:hover{background:#5865F2;color:#fff;box-shadow:0 0 12px #5865F2;text-shadow:none}
+.btn.discord svg{width:12px;height:12px;fill:currentColor;flex:none}
+#ssub{font-size:11px;color:var(--a);letter-spacing:.3em;text-shadow:0 0 6px var(--a);white-space:nowrap}
+#hright{margin-left:auto;text-align:right;font-size:11px;color:#555;line-height:1.9}
+#clk{font-family:'Orbitron',monospace;font-size:20px;color:var(--c);text-shadow:0 0 8px var(--c)}
+#fmtleds{display:flex;gap:6px;justify-content:flex-end;margin-top:4px}
+.fmtled{font-family:'Share Tech Mono',monospace;font-size:10px;padding:2px 7px;border:1px solid #333;color:#333;letter-spacing:.1em;border-radius:2px;transition:all .2s}
+.fmtled.on {
+  border-color: var(--g); color: #000; background: var(--g);
+  box-shadow: 0 0 16px var(--g), 0 0 6px #fff;
+  text-shadow: none; filter: brightness(1.3);
+}
+.fmtled.on.mod {
+  border-color: var(--a); background: var(--a);
+  box-shadow: 0 0 16px var(--a), 0 0 6px #fff;
+  filter: brightness(1.3);
+}
+.fmtled.on.xm {
+  border-color: #00aaff; background: #00aaff; color: #000;
+  box-shadow: 0 0 16px #00aaff, 0 0 6px #fff;
+  filter: brightness(1.3);
+}
+.fmtled.on.s3m {
+  border-color: #b044ff; background: #b044ff; color: #000;
+  box-shadow: 0 0 16px #b044ff, 0 0 6px #fff;
+  filter: brightness(1.3);
+}
+#viz{display:grid;grid-template-columns:1fr 200px;gap:8px;min-height:0;max-height:280px}
+#eqp{border:1px solid #1a1a1a;background:#000;position:relative;overflow:hidden}
+#eqc{width:100%;height:100%;display:block}
+#side{display:flex;flex-direction:column;gap:6px}
+#vup{border:1px solid #1a1a1a;background:#000;padding:8px;flex:1}
+#vut{font-size:9px;color:#333;letter-spacing:.2em;margin-bottom:6px}
+#vum{display:flex;gap:3px;height:calc(100% - 20px);align-items:flex-end}
+.vc{flex:1;display:flex;flex-direction:column-reverse;gap:2px}
+.vl{height:8px;border-radius:1px}
+#spi{border:1px solid #1a1a1a;background:#000;padding:8px;font-size:10px;color:#333;line-height:2}
+#spi span{color:var(--g)}
+#ctrl{display:flex;align-items:center;gap:8px;padding:6px 10px;border:1px solid #1a1a1a;background:#0a0a0a}
+.btn{background:#000;border:1px solid var(--g);color:var(--g);font-family:'Share Tech Mono',monospace;font-size:12px;padding:5px 14px;cursor:pointer;letter-spacing:.1em;text-shadow:0 0 6px var(--g);transition:all .1s;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.btn:hover,.btn.on{background:var(--g);color:#000;box-shadow:0 0 12px var(--g);text-shadow:none}
+.btn.twitch{border-color:#9146FF;color:#9146FF;text-shadow:0 0 6px #9146FF;text-decoration:none;display:inline-flex;align-items:center;gap:5px}
+.btn.twitch:hover{background:#9146FF;color:#fff;box-shadow:0 0 12px #9146FF;text-shadow:none}
+.btn.twitch svg{width:12px;height:12px;fill:currentColor;flex:none}
+.stp{border-color:#444!important;color:#444!important;text-shadow:none!important}
+.btn:disabled{cursor:not-allowed;pointer-events:none}
+.btn-cooling{opacity:.35!important;pointer-events:none!important;cursor:not-allowed!important;filter:grayscale(60%)}
+.btn.connecting{border-color:var(--a)!important;color:var(--a)!important;background:#000!important;text-shadow:0 0 6px var(--a)!important;animation:pulseConn .9s ease-in-out infinite}
+.btn.connecting:hover{background:#000!important;color:var(--a)!important}
+.btn .tspin{display:inline-block;width:1.2em;text-align:center}
+.btn .tdots{display:inline-block;width:3ch;text-align:left}
+@keyframes pulseConn{0%,100%{box-shadow:0 0 4px rgba(255,176,0,.3),inset 0 0 6px rgba(255,176,0,.1)}50%{box-shadow:0 0 14px rgba(255,176,0,.7),inset 0 0 12px rgba(255,176,0,.25)}}
+#vsl{width:80px;accent-color:var(--a);cursor:pointer}
+
+/* ── OSD VOLUME (molette) ──────────────────────────────────────────────
+   Bulle transitoire au centre de l'écran. Indispensable en mode LITE, où
+   le curseur #vsl est masqué : sans elle, la molette agirait à l'aveugle. */
+#volosd{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);
+        z-index:10001;pointer-events:none;opacity:0;transition:opacity .25s;
+        background:rgba(0,0,0,.85);border:1px solid var(--a);padding:10px 16px;
+        box-shadow:0 0 20px rgba(255,176,0,.4);text-align:center}
+#volosd.show{opacity:1;transition:opacity .05s}
+#volosdv{font-family:'Orbitron',monospace;font-size:22px;color:var(--a);
+         text-shadow:0 0 10px var(--a);letter-spacing:.08em}
+#volosdb{width:140px;height:6px;background:#1a1a1a;margin-top:7px;overflow:hidden}
+#volosdf{height:100%;width:0;background:var(--a);box-shadow:0 0 8px var(--a);transition:width .05s}
+#volosd.muted #volosdv,#volosd.muted #volosdf{color:var(--r);background:var(--r);
+         text-shadow:0 0 10px var(--r);box-shadow:0 0 8px var(--r)}
+#volosd.muted{border-color:var(--r);box-shadow:0 0 20px rgba(255,34,0,.4)}
+#volosd.muted #volosdv{background:none}
+#np{flex:1;min-width:0;display:flex;align-items:center;font-size:11px;color:var(--a);white-space:nowrap;overflow:hidden;text-shadow:0 0 6px var(--a)}
+#nptxt{flex:1 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#ice{font-size:10px;color:#444;white-space:nowrap}
+#ice span{color:var(--g)}
+
+@media(max-width:640px){
+  html,body{overflow:auto}
+  /* Coupe les overlays plein écran qui pompent la GPU sur mobile */
+  body::before,body::after{display:none!important}
+  #app{display:flex;flex-direction:column;min-height:100vh;padding:0;gap:0}
+
+  /* HEADER compact */
+  #hdr{padding:6px 10px;gap:8px;border-left:none;border-right:none;border-top:none}
+  #ssub{font-size:9px;letter-spacing:.15em}
+  #clk{font-size:15px}
+  #hright{font-size:9px;line-height:1.6}
+
+  /* Sous 640px, le bandeau ne tient plus à côté de l'horloge : il prend sa
+     propre ligne pleine largeur, et la barre basse repasse dans le flux au
+     lieu d'être en surimpression — sinon boutons et sous-titre viendraient
+     recouvrir les lettres au lieu de flotter sur le halo. */
+  #hdr{flex-wrap:wrap;align-items:center;gap:8px}
+  /* Le bandeau reste sur la meme ligne que l'horloge : lui donner toute la
+     largeur ferait descendre le bloc horloge/auditeurs et couterait 75px de
+     hauteur, ce qui repousserait l'analyseur de spectre hors de l'ecran. */
+  /* flex-basis 0 : le bandeau ne reclame pas sa largeur native (805px), il
+     prend simplement ce qui reste apres le bloc horloge. Aucun calc() a
+     reajuster si le contenu de droite change de largeur. */
+  #bnr{order:1;flex:1 1 0;min-width:0;width:auto;height:auto;max-width:none;margin-bottom:0}
+  #hright{order:2;flex:0 0 auto}
+  /* LED resserrees : elles fixaient la largeur du bloc droit a 159px et
+     ne laissaient presque rien au bandeau. */
+  #fmtleds{gap:4px;margin-top:3px}
+  .fmtled{font-size:8px;padding:2px 4px;letter-spacing:.05em}
+  #hbar{order:3;position:static;width:100%;gap:8px;margin-top:0;flex-wrap:wrap}
+  #ssub{order:4}
+  #logolinks{gap:5px}
+  #logolinks .lbl{display:none}
+  #logolinks .btn{padding:5px 10px;font-size:11px;gap:0}
+
+  /* SCROLLTEXT */
+  #scw{height:28px;border-left:none;border-right:none}
+
+  /* EQ prend tout l'espace restant */
+  #viz{display:flex;flex-direction:column;flex:1;min-height:0;gap:0}
+  #eqp{flex:1;min-height:200px;border-left:none;border-right:none;border-top:none}
+  #side{display:none}
+
+  /* BARRE DE CONTROLE FIXE EN BAS
+     iOS réserve le bas de l'écran pour la barre d'outils Safari et
+     l'indicateur d'accueil. Sans padding-bottom, la DERNIÈRE ligne de cette
+     barre (les votes) se retrouve dessous et devient invisible sur iPhone,
+     alors qu'elle s'affiche normalement sur desktop et sur Android.
+     env() nécessite viewport-fit=cover dans le meta viewport, sinon il vaut 0.
+     La valeur de repli couvre le cas où env() n'est pas supporté. */
+  #ctrl{position:fixed;bottom:0;left:0;right:0;z-index:1000;
+        display:grid;grid-template-columns:1fr 1fr;grid-template-rows:auto auto;
+        gap:0;padding:0;border:none;border-top:2px solid var(--g);
+        padding-bottom:env(safe-area-inset-bottom, 0px);
+        background:#000;box-shadow:0 -4px 20px rgba(0,255,65,.3)}
+  #btnp{grid-column:1;font-size:20px;padding:18px 10px;border:none;border-right:1px solid #1a1a1a;border-radius:0}
+  #btnstop{grid-column:2;font-size:20px;padding:18px 10px;border:none;border-radius:0}
+  #np{grid-column:1/-1;font-size:11px;padding:5px 12px;border-top:1px solid #1a1a1a;white-space:nowrap;overflow:hidden}
+  #ctrvol{grid-column:1/-1;display:flex;align-items:center;gap:8px;padding:6px 12px;border-top:1px solid #111}
+  #vsl{flex:1;height:28px}
+  #ice{display:none}
+
+  /* Espace en bas pour la barre fixe */
+  #stb{display:none}
+  body{padding-bottom:130px}
+}
+#scw{border:1px solid #1a1a1a;background:#000;overflow:hidden;height:34px}
+#scc{display:block;width:100%;height:100%}
+#stb{display:flex;justify-content:space-between;font-size:9px;color:#222;padding:2px 4px;letter-spacing:.12em}
+
+/* ─── BOUTON TOGGLE LITE (ambré, dans la barre de contrôle) ─── */
+#btnlite{border-color:var(--a)!important;color:var(--a)!important;text-shadow:0 0 6px var(--a)!important}
+#btnlite:hover{background:var(--a)!important;color:#000!important;text-shadow:none!important;box-shadow:0 0 12px var(--a)!important}
+
+/* ─── POPUPS (Historique des morceaux + Contact mail) ─── */
+#hist-modal,#mail-modal{display:none;position:fixed;inset:0;z-index:10000;background:rgba(0,0,0,.9);padding:30px;overflow-y:auto;backdrop-filter:blur(2px)}
+.hist-box,.mail-box{max-width:760px;margin:0 auto;background:#0a0a0a;border:1px solid var(--g);padding:20px;box-shadow:0 0 30px rgba(0,255,65,.25);position:relative}
+.mail-box{max-width:480px;text-align:center;padding:30px 25px}
+.hist-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px}
+.hist-title{font-size:1.1em;color:var(--g);text-shadow:0 0 8px var(--g);letter-spacing:.1em}
+.hist-close{position:absolute;top:10px;right:10px;background:#000;border:1px solid #444;color:#aaa;font-size:14px;padding:4px 10px;cursor:pointer;font-family:inherit}
+.hist-close:hover{border-color:var(--g);color:var(--g)}
+.hist-info{font-size:11px;color:#888;margin:6px 0 14px;line-height:1.5}
+.hist-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:10px 0}
+.hist-row label{flex:0 0 auto;color:#aaa;font-size:12px}
+.hist-row input[type=datetime-local]{background:#000;color:#ddd;border:1px solid #333;padding:6px 8px;font-family:inherit;font-size:12px}
+#hist-count{margin-left:auto;color:#888;font-size:11px}
+#hist-list{max-height:420px;overflow-y:auto;border:1px solid #222;background:#000;padding:6px;margin-top:8px}
+.hist-placeholder{color:#666;text-align:center;padding:20px;font-size:12px}
+.hist-item{display:flex;gap:10px;padding:5px 6px;border-bottom:1px solid #1a1a1a;font-size:12px}
+.hist-item:hover{background:#111}
+.hist-item .ts{flex:0 0 130px;color:#666;font-family:'Share Tech Mono',monospace;font-size:11px}
+.hist-item .name{flex:1;color:#bbb;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mail-icon{font-size:48px;color:var(--a);text-shadow:0 0 12px var(--a);margin-bottom:10px}
+.mail-label{color:#888;font-size:12px;margin-bottom:8px;letter-spacing:.1em}
+.mail-address{display:block;font-size:1.4em;color:var(--g);text-shadow:0 0 8px var(--g);text-decoration:none;padding:12px;border:1px solid var(--g);background:#000;margin:10px 0 16px;font-family:inherit;letter-spacing:.05em;word-break:break-all}
+.mail-address:hover{background:var(--g);color:#000;text-shadow:none}
+.mail-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+/* En mode lite : on cache aussi HIST et MAIL pour rester minimaliste.
+   M3U/Twitch/Discord vivent dans #hbar, à l'intérieur de #hdr, lui-même
+   masqué plus bas : inutile de les cibler séparément. */
+body.lite #btnhist,body.lite #btnmail{display:none!important}
+
+/* ─── MODE LITE : play/pause + nom du morceau + auditeurs ─── */
+body.lite #hdr,
+body.lite #scw,
+body.lite #viz,
+body.lite #stb,
+body.lite #btnstop,
+body.lite #ctrvol{display:none!important}
+body.lite #ice{
+  font-size:11px;color:var(--a);
+  padding:0!important;border:none!important;
+  white-space:nowrap;flex:0 0 auto;
+  text-shadow:0 0 4px var(--a)
+}
+body.lite #ice span{color:var(--g);text-shadow:0 0 4px var(--g)}
+body.lite{padding-bottom:0!important;overflow:hidden}
+body.lite #app{
+  display:flex!important;flex-direction:column!important;
+  align-items:center;justify-content:center;
+  min-height:100vh!important;height:100vh;
+  padding:20px!important;gap:0!important
+}
+body.lite #ctrl{
+  position:static!important;
+  display:flex!important;flex-direction:row!important;
+  align-items:center;gap:18px;
+  width:auto;max-width:92vw;
+  padding:16px 22px!important;
+  border:2px solid var(--g)!important;
+  background:#0a0a0a!important;
+  box-shadow:0 0 32px rgba(0,255,65,.35)!important;
+  grid-template-columns:none!important;
+  grid-template-rows:none!important
+}
+body.lite #btnp{
+  grid-column:auto!important;
+  font-size:16px!important;padding:10px 20px!important;
+  border:1px solid var(--g)!important;
+  flex:0 0 auto;border-radius:0
+}
+body.lite #np{
+  grid-column:auto!important;
+  font-size:14px;padding:0!important;
+  border:none!important;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  max-width:55vw;flex:1 1 auto
+}
+/* Lite sur mobile : titre du morceau sur sa propre ligne pour pleine lisibilité,
+   compteur auditeurs visible, contrôles centrés */
+@media(max-width:640px){
+  body.lite #ctrl{
+    flex-wrap:wrap!important;
+    justify-content:center;
+    gap:10px 14px!important;
+    padding:14px 18px!important;
+    max-width:96vw
+  }
+  body.lite #np{
+    flex:1 1 100%!important;
+    max-width:none!important;
+    order:10;
+    text-align:center;
+    font-size:13px;
+    white-space:normal
+  }
+  body.lite #ice{font-size:10px}
+  body.lite #btnp{font-size:14px!important;padding:8px 14px!important}
+  body.lite #btnlite{font-size:11px!important;padding:5px 10px!important}
+}
+
+/* ─── VOTES AUDITEURS (pouce haut / pouce bas) ─────────────────────
+   #votebox est masqué par défaut : il ne s'affiche que si le backend
+   répond. Tant que la règle de proxy inverse n'existe pas côté NAS,
+   l'auditeur ne voit donc aucun bouton mort. */
+#votebox{display:none;align-items:center;gap:8px;flex:0 0 auto;
+  margin-left:22px;padding-left:22px;border-left:1px solid #1a1a1a}
+#votebox.on{display:inline-flex}
+.votebtn{background:#000;border:1px solid var(--g);color:var(--g);
+  font-family:'Share Tech Mono',monospace;font-size:15px;line-height:1;
+  padding:5px 11px;cursor:pointer;transition:all .1s;
+  touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.votebtn:hover{background:var(--g);color:#000;box-shadow:0 0 12px var(--g)}
+#btndown{border-color:#ff3b3b;color:#ff3b3b}
+#btndown:hover{background:#ff3b3b;color:#000;box-shadow:0 0 12px #ff3b3b}
+.votebtn.chosen{background:var(--g);color:#000;box-shadow:0 0 14px var(--g)}
+#btndown.chosen{background:#ff3b3b;color:#000;box-shadow:0 0 14px #ff3b3b}
+.votebtn.done{opacity:.4;pointer-events:none;cursor:default}
+#votescore{font-size:12px;letter-spacing:.06em;white-space:nowrap;
+  font-variant-numeric:tabular-nums}
+#votescore .vup{color:var(--g);text-shadow:0 0 6px var(--g)}
+#votescore .vdn{color:#ff3b3b;text-shadow:0 0 6px #ff3b3b;margin-left:7px}
+
+/* ─── CHRONO DU MORCEAU (temps écoulé / durée) ─────────────────────
+   Placé en fin de feuille pour passer après les règles mobiles et lite.
+   Sur petit écran le bandeau passe en flex-wrap : le compteur descend
+   sur sa propre ligne au lieu d'être rogné par l'overflow:hidden du
+   conteneur, ce qui le faisait disparaître sur iPhone. */
+#nptime{
+  margin-left:22px;padding-left:22px;border-left:1px solid #1a1a1a;
+  font-size:13px;
+  color:var(--g);
+  text-shadow:0 0 8px var(--g);
+  letter-spacing:.06em;
+  font-variant-numeric:tabular-nums;
+  white-space:nowrap;
+  flex:0 0 auto
+}
+#nptime.hidden{display:none}
+@media(max-width:640px){
+  #np{flex-wrap:wrap;row-gap:3px;overflow:visible;white-space:normal;padding-bottom:7px}
+  #nptxt{flex:1 1 100%}
+  #nptime{grid-column:1/-1;margin-left:0;padding:6px 12px 0;border-left:none;
+          text-align:center;font-size:15px;letter-spacing:.1em}
+  #ctrspacer{display:none}
+
+  /* ORDRE DES LIGNES EN MOBILE
+     Le bas de l'écran est la zone la plus exposée : barre d'outils Safari,
+     indicateur d'accueil, gestes système. Les votes y étaient en DERNIÈRE
+     ligne et disparaissaient dessous sur iPhone. On remonte donc les
+     éléments d'information et de vote en HAUT de la barre, et on laisse en
+     bas le volume, sans gravité s'il est un peu rogné. La grille respecte
+     `order`, l'ordre du HTML est donc inchangé pour les autres affichages. */
+  #np      {order:1}
+  #nptime  {order:2}
+  #votebox {order:3}
+  #btnp    {order:4}
+  #btnstop {order:5}
+  #btnm3u  {order:6}
+  #btnhist {order:7}
+  #btnmail {order:8}
+  #btntwitch{order:9}
+  #btnlite {order:10}
+  #btnsleep{order:11}
+  #ctrvol  {order:12}
+
+  /* Ligne propre pour les votes : cibles tactiles confortables, centrées */
+  /* En mobile le chrono et les pouces sont sur deux lignes distinctes :
+     pas de séparateur latéral, mais un filet horizontal et de la marge. */
+  #votebox{grid-column:1/-1;justify-content:center;gap:18px;
+           margin-left:0;padding:11px 12px 12px;
+           padding-left:12px;border-left:none;
+           border-top:1px solid #1a1a1a;border-bottom:1px solid #1a1a1a}
+  #votebox.on{display:flex}
+  .votebtn{font-size:22px;padding:10px 26px}
+  #votescore{font-size:15px}
+  #np{padding-bottom:9px}
+  body{padding-bottom:225px}
+}
+</style>
+<style id="visual-variant">
+/* Habillage uniquement : DOM, scripts et URLs originaux conservés. */
+body::before{display:none} body::after{opacity:.24}
+html,body{background:var(--page);color:var(--g)}
+#app{padding:24px;gap:12px;max-width:1600px;margin:0 auto;grid-template-rows:auto auto auto 1fr auto}
+#hdr{padding:18px 20px 16px;border-color:var(--edge);background:var(--panel);box-shadow:var(--shadow);border-radius:var(--radius)}
+#pcb{opacity:.48;border-radius:inherit} #bnr{height:84px;margin-bottom:35px;animation:fl 8s infinite}
+#hbar{left:20px;bottom:16px;gap:20px} #ssub{letter-spacing:.14em;color:var(--a);font-size:10px}
+#hright{line-height:1.8;color:#99a7a3} #clk{font-size:23px} #dstr{color:#93a09c}
+#fmtleds{gap:6px;margin-top:8px}.fmtled{color:#8c9a95;border-color:var(--edge);padding:4px 9px}
+#ctrl{padding:14px;gap:9px;background:var(--panel);border-color:var(--edge);border-radius:var(--radius);box-shadow:var(--shadow);flex-wrap:wrap}
+.btn{padding:9px 12px;border-radius:var(--btnradius);text-shadow:none;background:var(--button);font-size:12px;letter-spacing:.05em}
+#btnp{background:var(--g);color:#06100a;font-weight:bold;box-shadow:0 0 18px color-mix(in srgb,var(--g) 18%,transparent);padding-inline:24px}
+#btnp.on{background:var(--button);color:var(--g)} #btnstop{color:#96a29c!important;border-color:#46524c!important}
+#np{font-size:13px;min-width:180px;padding:0 10px;text-shadow:none} #ice{color:#94a49c} #ctrvol>span{color:#94a49c!important}
+#nptime{font-size:12px} #votebox{margin-left:4px;padding-left:12px;border-color:var(--edge)}.votebtn{border-radius:var(--btnradius)}
+#scw{height:40px;border-color:var(--edge);border-radius:var(--radius)}
+#viz{max-height:none;grid-template-columns:minmax(0,1fr) 210px;gap:12px;min-height:320px}
+#eqp,#vup,#spi{border-color:var(--edge);border-radius:var(--radius);box-shadow:var(--shadow)}
+#side{gap:12px} #vup{padding:16px}#vut{color:#92a49a;font-size:10px;margin-bottom:12px}#vum{height:calc(100% - 28px)}
+#spi{padding:16px;color:#92a49a;line-height:2.1;font-size:11px;background:var(--panel)}
+#stb{color:#84948c;font-size:10px;padding:4px;letter-spacing:.08em}
+.hist-box,.mail-box{border-radius:var(--radius);background:var(--panel);border-color:var(--edge)}
+.btn:focus-visible,.votebtn:focus-visible,input:focus-visible{outline:2px solid var(--a);outline-offset:4px}
+@media(max-width:1000px) and (min-width:641px){#ssub{display:none}#np{flex-basis:45%}#app{padding:16px}}
+@media(max-width:640px){
+html,body{overflow:auto}body{padding-bottom:0}#app{padding:10px;gap:10px;min-height:100svh}
+#hdr{padding:12px;gap:10px;border:1px solid var(--edge)}#bnr{height:auto;margin-bottom:0}#hright{font-size:9px}#clk{font-size:16px}
+#hbar{position:static;gap:8px}#ssub{font-size:8px;letter-spacing:.08em;white-space:normal}#fmtleds{gap:3px}.fmtled{font-size:8px;padding:3px 4px}
+#ctrl{position:static;display:flex;flex-wrap:wrap;padding:12px;gap:8px;border:1px solid var(--edge);box-shadow:var(--shadow)}
+#btnp,#btnstop{font-size:14px;padding:12px;flex:1 1 40%;border:1px solid var(--g);border-radius:var(--btnradius)}
+#btnhist,#btnmail,#btnlite,#btnsleep{font-size:11px;padding:9px;flex:1 1 auto}
+#ctrvol{flex:1 1 100%!important;padding:2px 0;border:none}#vsl{width:100%;height:28px}
+#np{flex:1 1 100%;padding:8px 0;border-top:1px solid var(--edge);font-size:12px;min-width:0}#nptime{font-size:11px}
+#votebox{margin:0;padding:4px 0;border:0}#ice{display:block;font-size:10px;margin-left:auto}
+#scw{height:32px;border:1px solid var(--edge)}#viz{min-height:240px;max-height:none;flex:none;height:280px}#eqp{min-height:240px;border:1px solid var(--edge)}#stb{display:flex;flex-wrap:wrap;gap:8px;font-size:8px}
+#hist-modal,#mail-modal{padding:16px}.hist-row input[type=datetime-local]{max-width:100%}
+}
+
+:root{--g:#48ff83;--a:#ffd074;--c:#6cf4df;--page:#030906;--panel:#08130d;--button:#08150c;--edge:#21472e;--radius:6px;--btnradius:3px;--shadow:0 8px 24px #0005}#hdr{border-top:2px solid var(--g)}#eqp{border-bottom:2px solid #265435}</style><style id="lower-circuit-style">
+body:not(.lite) #app{grid-template-rows:auto auto auto 280px minmax(160px,1fr) auto}
+body:not(.lite) #viz{height:280px;min-height:0;max-height:280px}
+body:not(.lite) #viz{grid-template-rows:minmax(0,1fr)} body:not(.lite) #eqp{min-height:0} #side{min-height:0;display:grid;grid-template-rows:minmax(0,1fr) auto} #vup{min-height:0;overflow:hidden} #vum{min-height:0} .vl{height:5px} @media(max-width:640px){#side{display:none}} #lower-circuit{position:relative;min-height:160px;overflow:hidden;background:#061009;border:1px solid var(--edge);border-radius:var(--radius);box-shadow:var(--shadow)}
+#lower-pcb{display:block;position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+body.lite #lower-circuit{display:none!important}
+@media(max-width:640px){#lower-circuit{height:210px;min-height:210px;flex:none}body:not(.lite) #viz{height:280px;min-height:280px}}
+</style><style id="height-rebalance">
+@media(min-width:641px){
+body:not(.lite) #app{grid-template-rows:auto auto auto minmax(340px,1fr) 140px auto}
+#hdr{padding:10px 20px}#bnr{height:60px;margin-bottom:32px}
+#hright{line-height:1.4}#clk{font-size:20px}#fmtleds{margin-top:5px}
+#hbar{bottom:10px}
+body:not(.lite) #viz{height:100%;min-height:0;max-height:none}
+#lower-circuit{height:140px;min-height:0}
+}
+@media(max-width:640px){
+#hdr{padding:8px 12px}#hright{line-height:1.4}#clk{font-size:14px}#fmtleds{margin-top:3px}
+#lower-circuit{height:130px;min-height:130px}
+body:not(.lite) #viz{height:330px;min-height:330px;max-height:none}
+}
+</style><style id="track-title-scroll-style">#np{max-width:100%}#nptxt{width:0;flex:1 1 0%;text-overflow:clip;overflow:hidden;white-space:nowrap}#nptxt .track-title-inner{display:inline-block;white-space:nowrap;will-change:transform}#nptxt:not(.title-overflow) .track-title-inner{will-change:auto}</style><style id="original-palette-and-chips">
+:root{--g:#00ff41;--a:#ffb000;--c:#00ffff}
+.fmtled{border-color:#333;color:#333}
+.fmtled.on{border-color:#00ff41;color:#000;background:#00ff41;box-shadow:0 0 16px #00ff41,0 0 6px #fff;filter:brightness(1.3)}
+.fmtled.on.mod{border-color:#ffb000;background:#ffb000;box-shadow:0 0 16px #ffb000,0 0 6px #fff}
+.fmtled.on.xm{border-color:#00aaff;background:#00aaff;box-shadow:0 0 16px #00aaff,0 0 6px #fff}
+.fmtled.on.s3m{border-color:#b044ff;background:#b044ff;box-shadow:0 0 16px #b044ff,0 0 6px #fff}
+#sound-chips{position:absolute;inset:0;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));align-items:center;gap:32px;padding:0 38px;pointer-events:none}
+.sound-chip{position:relative;min-width:0;height:54px;padding:8px 4px;background:linear-gradient(155deg,#252a26,#101511 65%);border:1px solid #47574a;border-radius:3px;box-shadow:0 3px 6px #000,0 1px 0 #657365 inset;text-align:center;line-height:1.35;font-family:'Share Tech Mono',monospace}
+.sound-chip::before,.sound-chip::after{content:'';position:absolute;left:9px;right:9px;height:7px;background:repeating-linear-gradient(90deg,#617566 0 3px,#29382d 3px 4px,transparent 4px 9px)}
+.sound-chip::before{top:-8px}.sound-chip::after{bottom:-8px}
+.chip-id{display:block;font-size:14px;color:#b7c8b9;letter-spacing:.09em;text-shadow:0 0 3px #81ff9c22}
+.chip-system{display:block;font-size:9px;color:#748d79;letter-spacing:.07em}
+.chip-notch{position:absolute;left:-1px;top:20px;width:6px;height:12px;border:1px solid #47574a;border-left:0;border-radius:0 8px 8px 0;background:#061009}
+@media(max-width:1000px){#sound-chips{gap:20px;padding:0 20px}.chip-id{font-size:12px}.chip-system{font-size:8px}}
+@media(max-width:640px){#sound-chips{grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:1fr 1fr;gap:13px 18px;padding:14px 18px}.sound-chip{height:36px;padding:3px 2px}.chip-id{font-size:11px}.chip-system{font-size:7px}.sound-chip::before,.sound-chip::after{height:5px}.sound-chip::before{top:-6px}.sound-chip::after{bottom:-6px}.chip-notch{top:12px;height:9px}}
+</style><style id="correct-chip-proportions">
+#sound-chips{display:flex;justify-content:space-around;align-items:center;gap:16px;padding:12px 30px}
+.package-chip{display:block;width:var(--package-width);height:auto;flex:0 1 auto;max-width:18%;filter:drop-shadow(0 3px 3px #000)}
+@media(max-width:640px){#sound-chips{display:flex;flex-wrap:wrap;justify-content:space-around;align-content:space-around;gap:8px 18px;padding:10px 14px}.package-chip{width:calc(var(--package-width)*.57);max-width:31%;}}
+</style><style id="chip-photo-style">
+#sound-chips{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:24px;padding:10px 28px 18px;pointer-events:auto}
+.chip-photo{margin:0;min-width:0;display:flex;flex-direction:column;align-items:center;gap:4px}
+.chip-photo img{display:block;max-width:100%;width:auto;height:74px;object-fit:contain;border:1px solid #354a3b;box-shadow:0 3px 8px #0009}
+.chip-photo figcaption{font:10px 'Share Tech Mono',monospace;letter-spacing:.08em;color:#a8c5b0;text-align:center;line-height:1.3}
+.chip-photo small{display:block;font-size:8px;color:#678c71}
+#photo-credits-link{position:absolute;bottom:3px;right:8px;color:#75917d;font:8px monospace;text-decoration:none;z-index:2}
+@media(max-width:640px){#sound-chips{grid-template-columns:repeat(3,minmax(0,1fr));gap:4px 14px;padding:7px 14px 15px}.chip-photo{gap:1px}.chip-photo img{height:32px;max-width:100%}.chip-photo figcaption{font-size:8px}.chip-photo small{font-size:6px}}
+</style><style id="transparent-chip-photos">.chip-photo img{border:0;box-shadow:none;background:transparent;filter:drop-shadow(0 3px 3px #0009);height:64px;max-width:100%;object-fit:contain}.chip-photo{gap:8px}@media(max-width:640px){.chip-photo img{height:30px}.chip-photo{gap:1px}}</style><style id="wide-player-compact-vu">
+body:not(.lite) #app{width:100%;max-width:none;margin:0;padding:8px 12px}
+@media(min-width:641px){#viz{grid-template-columns:minmax(0,1fr) 170px}}
+#vup{display:flex;flex-direction:column;padding:10px}
+#vut{flex:none;margin-bottom:8px}
+#vum{height:auto;flex:1;min-height:0;align-items:stretch}
+#vum .vc{height:100%;min-height:0}
+#vum .vl{height:auto;flex:1;min-height:2px}
+@media(max-width:640px){body:not(.lite) #app{padding:8px}}
+</style><style id="short-screen-fix">
+/* Écrans d'ordinateur peu hauts (portables 1366×768, 1280×720…) : l'EQ
+   gardait 340 px minimum et la page interdisait le défilement, donc les
+   puces et la barre du bas sortaient de l'écran sans moyen de les voir.
+   On réduit l'EQ et les puces ; le défilement (barre de défilement,
+   clavier) reste autorisé en dernier recours. */
+@media(min-width:641px) and (max-height:820px){
+  body:not(.lite) #app{grid-template-rows:auto auto auto minmax(160px,1fr) 104px auto}
+  #lower-circuit{height:104px}
+  .chip-photo img{height:46px}
+  .chip-photo{gap:4px}
+  #spi{line-height:1.7;padding:10px 14px}
+}
+/* Très peu haut (≤ 700 px, ex. 1366×650 fenêtré) : bandeau et puces plus
+   compacts. La molette règle le volume sur toute la page, on ne peut donc
+   pas compter sur le défilement : tout doit tenir à l'écran. */
+@media(min-width:641px) and (max-height:700px){
+  body:not(.lite) #app{grid-template-rows:auto auto auto minmax(150px,1fr) 84px auto;gap:8px}
+  #hdr{padding:6px 16px}#bnr{height:44px;margin-bottom:26px}
+  #lower-circuit{height:84px}
+  .chip-photo img{height:36px}
+  .chip-photo figcaption{font-size:9px}.chip-photo small{font-size:7px}
+  #sound-chips{padding:6px 28px 12px}
+  #spi{line-height:1.45;padding:8px 12px;font-size:10px}
+  #vup{padding:8px}
+}
+@media(min-width:641px){html,body{overflow-x:hidden;overflow-y:auto}}
+</style></head>
+<body>
+<div id="volosd" aria-hidden="true">
+  <div id="volosdv">80%</div>
+  <div id="volosdb"><div id="volosdf"></div></div>
+</div>
+<div id="app">
+  <div id="hdr">
+    <canvas id="pcb" aria-hidden="true"></canvas>
+    <!-- Titre conserve hors ecran : le bandeau est une image, le texte reste
+         donc necessaire pour les lecteurs d'ecran et l'indexation. -->
+    <h1 id="sname">POPOV RADIO</h1>
+    <img id="bnr" alt="" src="banniere.webp">
+    <div id="hbar">
+      <div id="logolinks">
+        <a class="btn" id="btnm3u" href="#" onclick="downloadM3U();return false;"
+           title="T&eacute;l&eacute;charger le flux .m3u" aria-label="T&eacute;l&eacute;charger le flux M3U">&#128229;<span class="lbl">M3U</span></a>
+        <a class="btn twitch" id="btntwitch" href="https://www.twitch.tv/popovradio" target="_blank"
+           rel="noopener" title="Cha&icirc;ne Twitch PopovRadio" aria-label="Cha&icirc;ne Twitch PopovRadio"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714z"/></svg><span class="lbl">TWITCH</span></a>
+        <a class="btn discord" id="btndiscord" href="https://discord.gg/uVDHAUM5V" target="_blank"
+           rel="noopener" title="Serveur Discord PopovRadio" aria-label="Serveur Discord PopovRadio"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20.317 4.37a19.79 19.79 0 0 0-4.885-1.515a.074.074 0 0 0-.079.037c-.21.375-.444.865-.608 1.25a18.27 18.27 0 0 0-5.487 0a12.6 12.6 0 0 0-.617-1.25a.077.077 0 0 0-.079-.037A19.74 19.74 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.08.08 0 0 0 .031.057a19.9 19.9 0 0 0 5.993 3.03a.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106a13.1 13.1 0 0 1-1.872-.892a.077.077 0 0 1-.008-.128a10 10 0 0 0 .372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.099.246.198.373.292a.077.077 0 0 1-.006.127a12.3 12.3 0 0 1-1.873.892a.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028a19.8 19.8 0 0 0 6.002-3.03a.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.06.06 0 0 0-.031-.028M8.02 15.331c-1.183 0-2.157-1.085-2.157-2.419s.955-2.419 2.157-2.419c1.211 0 2.176 1.095 2.157 2.419c0 1.334-.955 2.419-2.157 2.419m7.975 0c-1.183 0-2.157-1.085-2.157-2.419s.955-2.419 2.157-2.419c1.211 0 2.176 1.095 2.157 2.419c0 1.334-.946 2.419-2.157 2.419"/></svg><span class="lbl">DISCORD</span></a>
+    <button class="btn" id="btnmail" onclick="openMail()" title="Contact" aria-label="Contact par email">&#9993;</button>
+      </div>
+      <div id="ssub">&#9654; STREAMING NOW &#9654; EST.2026 &#9654; BY POPOV &#9654;</div>
+    </div>
+    <div id="hright">
+      <div id="clk">--:--:--</div>
+      <div id="dstr">---</div>
+      <div id="sdot">&#9679; PR&Ecirc;T</div>
+      <div id="lcount" style="font-size:10px;color:#ffb000;text-shadow:0 0 6px #ffb000">&#128065; -- AUDITEURS</div>
+      <div id="fmtleds">
+         <span class="fmtled" id="led_mp3">MP3</span>
+         <span class="fmtled mod" id="led_mod">MOD</span>
+         <span class="fmtled xm" id="led_xm">XM</span>
+         <span class="fmtled s3m" id="led_s3m">S3M</span>
+       </div>
+    </div>
+  </div>
+  <div id="ctrl">
+    <button class="btn" id="btnp" onclick="doPlay()" title="Lecture / pause &mdash; Espace ou clic molette">&#9654; PLAY</button>
+    <button class="btn stp" id="btnstop" onclick="doStop()">&#9632; STOP</button>
+    <button class="btn" id="btnhist" onclick="openHistory()" title="Morceaux passés">&#128220; HIST</button>
+    <button class="btn" id="btnlite" onclick="toggleLite()" title="Mode allégé / complet">&#8863; LITE</button>
+    <button class="btn" id="btnsleep" onclick="cycleSleep()" title="Minuteur d'arrêt (30/60/90 min)" aria-label="Minuteur d'arrêt">&#9202; SLEEP</button>
+    <div id="ctrvol" style="display:flex;align-items:center;gap:6px;flex:0 0 auto">
+      <span style="font-size:10px;color:#444">VOL</span>
+      <input id="vsl" type="range" min="0" max="100" value="80" oninput="doVol(this.value)">
+    </div>
+    <div id="np" aria-live="polite"><span id="nptxt">&#9679; APPUYEZ PLAY</span></div>
+    <!-- Espaceur neutralisé : #np porte déjà flex:1 et absorbe tout l'espace
+         disponible, ce qui repousse les votes et le compteur à l'extrême
+         droite. Avec flex:1 ici, le titre n'obtenait que la moitié de la
+         barre et se faisait couper. -->
+    <div id="ctrspacer" style="flex:0 0 auto"></div>
+    <!-- Chrono sorti de #np : en tant qu'enfant du bloc titre, il en amputait
+         la largeur et poussait le nom du morceau vers l'ellipse. Ici il est
+         adossé aux votes, et #np dispose de toute la place restante. -->
+    <span id="nptime" class="hidden"></span>
+    <div id="votebox">
+      <button class="votebtn" id="btnup" onclick="sendVote('up')" title="J'aime ce morceau" aria-label="J'aime ce morceau">&#128077;</button>
+      <span id="votescore"><span class="vup">+0</span><span class="vdn">-0</span></span>
+      <button class="votebtn" id="btndown" onclick="sendVote('down')" title="Je n'aime pas ce morceau" aria-label="Je n'aime pas ce morceau">&#128078;</button>
+    </div>
+    <div id="ice">&#128065; <span id="ic">--</span> / PK <span id="ipk">--</span></div>
+  </div>
+
+  <!-- ════════════════════════════════════════════════════════════════════════ -->
+  <!-- POPUP HISTORIQUE DES MORCEAUX PASSÉS                                       -->
+  <!-- Va chercher l'index RAM côté Pi (web_config.py /played_tracks), affiche    -->
+  <!-- les titres pour une plage horaire donnée, permet de copier la liste.       -->
+  <!-- ════════════════════════════════════════════════════════════════════════ -->
+  <div id="hist-modal">
+    <div class="hist-box">
+      <div class="hist-header">
+        <span class="hist-title">&#128220; Morceaux passés</span>
+        <button class="hist-close" onclick="closeHistory()">&#10005;</button>
+      </div>
+      <p class="hist-info">
+        Liste des morceaux musicaux joués sur Popov Radio depuis l'heure que tu choisis.
+        L'index est gardé en mémoire vive du serveur (perdu au reboot, environ 5000 derniers titres).
+      </p>
+      <div class="hist-row">
+        <label>Depuis :</label>
+        <input type="datetime-local" id="hist-since">
+        <button class="btn" id="btnloadhist" onclick="loadHistoryClick()">&#128269; Charger</button>
+        <span id="hist-count"></span>
+      </div>
+      <div class="hist-row" style="margin-bottom:8px">
+        <button class="btn" id="btncopyhist" onclick="copyHistory()">&#128203; Copier la liste</button>
+        <span id="hist-copy-feedback" style="font-size:11px;color:var(--g);opacity:0;transition:opacity .3s">Copié !</span>
+      </div>
+      <div id="hist-list">
+        <p class="hist-placeholder">Choisis une date/heure et clique "Charger"</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════════════════════════════════ -->
+  <!-- POPUP MAIL (enveloppe cliquable)                                            -->
+  <!-- ════════════════════════════════════════════════════════════════════════ -->
+  <div id="mail-modal">
+    <div class="mail-box">
+      <button class="hist-close" onclick="closeMail()">&#10005;</button>
+      <div class="mail-icon">&#9993;</div>
+      <div class="mail-label">Pour nous contacter :</div>
+      <a href="/cdn-cgi/l/email-protection#b1d2dedfc5d0d2c5f1c1dec1dec7c3d0d5d8de9fd7c3" class="mail-address"><span class="__cf_email__" data-cfemail="51323e3f2530322511213e213e27233035383e7f3723">[email&#160;protected]</span></a>
+      <div class="mail-actions">
+        <button class="btn" id="btncopymail" onclick="copyMail()">&#128203; Copier l'adresse</button>
+        <a class="btn" href="/cdn-cgi/l/email-protection#54373b3a2035372014243b243b222635303d3b7a3226" style="text-decoration:none">&#9993; Ouvrir dans mon app mail</a>
+      </div>
+      <span id="mail-copy-feedback" style="font-size:11px;color:var(--g);opacity:0;transition:opacity .3s;text-align:center;display:block;margin-top:8px">Copié !</span>
+    </div>
+  </div>
+  <div id="scw"><canvas id="scc"></canvas></div>
+  <div id="viz">
+    <div id="eqp"><canvas id="eqc"></canvas></div>
+    <div id="side">
+      <div id="vup"><div id="vut">VU METERS</div><div id="vum"></div></div>
+      <div id="spi">
+        FREQ&nbsp;&nbsp;<span id="sf">---</span> Hz<br>
+        PEAK&nbsp;&nbsp;<span id="sp">--</span> dB<br>
+        RMS&nbsp;&nbsp;&nbsp;<span id="sr">--</span> dB<br>
+        LISTEN <span id="sl">-</span>/<span id="slp">-</span><br>
+        BITRATE <span id="sb2">---</span>
+      </div>
+    </div>
+  </div>
+  <div id="lower-circuit" aria-hidden="true"><canvas id="lower-pcb"></canvas><div id="sound-chips"><figure class="chip-photo"><img src="chip-photos/ym2612.webp" alt="Photographie de la puce YM2612" title="YM2612 — MEGA DRIVE"><figcaption>YM2612<small>MEGA DRIVE</small></figcaption></figure><figure class="chip-photo"><img src="chip-photos/ym2149.webp" alt="Photographie de la puce YM2149" title="YM2149 — ATARI ST"><figcaption>YM2149<small>ATARI ST</small></figcaption></figure><figure class="chip-photo"><img src="chip-photos/paula.webp" alt="Photographie de la puce PAULA 8364" title="PAULA 8364 — AMIGA"><figcaption>PAULA 8364<small>AMIGA</small></figcaption></figure><figure class="chip-photo"><img src="chip-photos/sid.webp" alt="Photographie de la puce SID 6581" title="SID 6581 — COMMODORE 64"><figcaption>SID 6581<small>COMMODORE 64</small></figcaption></figure><figure class="chip-photo"><img src="chip-photos/pokey.webp" alt="Photographie de la puce POKEY" title="POKEY — ATARI 8-BIT"><figcaption>POKEY<small>ATARI 8-BIT</small></figcaption></figure><figure class="chip-photo"><img src="chip-photos/ym3812.webp" alt="Photographie de la puce YM3812" title="YM3812 — OPL2 / ADLIB"><figcaption>YM3812<small>OPL2 / ADLIB</small></figcaption></figure></div><a id="photo-credits-link" href="photo-credits.html" target="_blank" rel="noopener">PHOTO CREDITS</a></div>
+  <div id="stb">
+    <span>POPOV RADIO v3.4 &copy;2026</span>
+    <span id="codec">CODEC: ---</span>
+    <span id="buf">BUF: ---</span>
+    <span>DEMOSCENE ENGINE</span>
+  </div>
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+
+// === ATLAS SPRITES (WebP lossless 512x64 ou 512x128, fond transparent) ===
+// mario : 8 frames horizontales (saut Super Mario World, cape rouge)
+// sonic : rangee 0 = course (8 frames), rangee 1 = boule spin (8 frames)
+// kirby : 8 frames de marche
+// zelda : 8 frames Young Link de profil
+var SPRITE_ATLAS = {
+  mario: 'sprites/mario.webp',
+  mario_walk: 'sprites/mario_walk.webp',
+  luigi: 'sprites/luigi.webp',
+  samus: 'sprites/samus.webp',
+  pikadash: 'sprites/pikadash.webp',
+  pika_walk: 'sprites/pika_walk.webp',
+  ryu: 'sprites/ryu.webp',
+  ken: 'sprites/ken.webp',
+  sonic: 'sprites/sonic.webp',
+  kirby: 'sprites/kirby.webp',
+  zelda: 'sprites/zelda.webp'
+};
+var ATLAS_IMG = {}, ATLAS_READY = {};
+Object.keys(SPRITE_ATLAS).forEach(function(name){
+  var img = new Image();
+  ATLAS_READY[name] = false;
+  img.onload  = function(){ ATLAS_READY[name] = true; };
+  img.onerror = function(){ console.warn('[ATLAS] echec chargement: '+name); };
+  img.src = SPRITE_ATLAS[name];
+  ATLAS_IMG[name] = img;
+});
+var ATLAS_CELL = 64;
+
+// Dessine une frame depuis un atlas. row=0 par defaut, scale ajuste la taille finale.
+// Retourne true si dessine, false si pas encore charge (=> fallback pixel-art)
+function drawAtlas(name, row, frame, x, y, scale, flip, cellSize){
+  if(!ATLAS_READY[name]) return false;
+  var img = ATLAS_IMG[name];
+  scale = scale || 1;
+  row = row || 0;
+  var C = cellSize || ATLAS_CELL;
+  var sx = (frame|0) * C;
+  var sy = row * C;
+  var dw = C * scale, dh = C * scale;
+  eqx.save();
+  eqx.imageSmoothingEnabled = false;
+  if(flip){
+    eqx.translate(x + dw, y);
+    eqx.scale(-1, 1);
+    eqx.drawImage(img, sx, sy, C, C, 0, 0, dw, dh);
+  } else {
+    eqx.drawImage(img, sx, sy, C, C, x, y, dw, dh);
+  }
+  eqx.restore();
+  return true;
+}
+
+
+'use strict';
+
+// ═══ DÉTECTION MOBILE — allège l'interface pour la batterie ════════
+// Sur mobile : 30 FPS (au lieu de 60), spawn d'acteurs plus rare,
+// modes spéciaux désactivés (Pacman/MarioJump/SonicDash), pas de scanlines
+// CSS, particules réduites, DPR canvas plafonné à 1
+var IS_MOBILE = window.matchMedia('(max-width:640px)').matches
+             || /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+var ACTOR_SPAWN_INTERVAL = IS_MOBILE ? 320 : 150;
+var ACTOR_MAX            = IS_MOBILE ? 4   : 12;
+var ALLOW_SPECIAL_MODES  = !IS_MOBILE;
+var PARTICLE_SKIP        = IS_MOBILE ? 2   : 1;  // ne spawn que 1/2 particules sur mobile
+
+var STREAM = 'https://radio.mascarade.cc/radio.mp3';
+// ─── Détection iOS : Safari hache le stream live (coupures 0.5s) si on branche le Web Audio
+// API (createMediaElementSource) dessus. On adapte donc le player sur iOS. ───
+var IS_IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+             (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+var ICECAST = 'https://radio.mascarade.cc/icecast_stats';
+// Sidecar optionnel (np_state.py + route nginx). Laissé à '' : la durée
+// transite par le titre Icecast, aucune requête supplémentaire n'est
+// émise. Renseigner l'URL ici pour réactiver le mode sidecar, qui seul
+// permet un chrono exact quand l'auditeur arrive en cours de morceau.
+var NP_JSON = '';
+
+// ═══════════════════════════════════════════════════════════════════
+// MASQUAGE DES TITRES (jingles / annonces IA) + CHRONO DU MORCEAU
+// ───────────────────────────────────────────────────────────────────
+// MASK_WORDS : tout titre contenant un de ces mots (insensible à la
+// casse ET aux accents) n'est ni affiché, ni scrollé, ni envoyé à la
+// Media Session, ni mémorisé dans l'historique. Pendant ce temps, le
+// bandeau garde le dernier vrai morceau à l'écran.
+// ═══════════════════════════════════════════════════════════════════
+var MASK_WORDS = ['popov', 'annonce'];
+
+function _noAccent(s){
+  s = String(s || '').toLowerCase();
+  try { s = s.normalize('NFD').replace(/[\u0300-\u036f]/g, ''); } catch(e){}
+  return s;
+}
+function isMaskedTitle(t){
+  var s = _noAccent(t);
+  if(!s) return false;
+  for(var i = 0; i < MASK_WORDS.length; i++){
+    if(s.indexOf(_noAccent(MASK_WORDS[i])) !== -1) return true;
+  }
+  return false;
+}
+
+// --- Chrono : horodatage local du début du morceau affiché -----------
+var trackStartTs   = 0;    // Date.now() au changement de titre réel
+var trackDuration  = 0;    // durée totale en secondes (0 = inconnue)
+var npTimer        = null;
+
+function fmtDur(sec){
+  sec = Math.max(0, Math.floor(sec));
+  var m = Math.floor(sec / 60), s = sec % 60;
+  if(m >= 60){
+    var h = Math.floor(m / 60); m = m % 60;
+    return h + ':' + String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
+  }
+  return m + ':' + String(s).padStart(2,'0');
+}
+
+// Écrit le libellé du bandeau sans détruire le compteur (span séparé).
+function setNP(txt){
+  var el = document.getElementById('nptxt');
+  if(el) el.textContent = txt;
+}
+
+// Cherche une durée de morceau dans la réponse stats, si le backend la
+// fournit un jour (Icecast seul ne l'expose pas). Tolérant sur le nom
+// du champ et sur le format ("225", 225, "3:45").
+function pickDuration(m, j){
+  var cand = [
+    m && m.duration, m && m.track_duration, m && m.length,
+    m && m.song_duration, m && m['track-duration'],
+    j && j.duration, j && j.now_playing && j.now_playing.duration
+  ];
+  for(var i = 0; i < cand.length; i++){
+    var v = cand[i];
+    if(v === undefined || v === null || v === '') continue;
+    if(typeof v === 'number' && isFinite(v) && v > 0) return v;
+    var s = String(v).trim();
+    if(/^\d+(\.\d+)?$/.test(s)) return parseFloat(s);
+    var mm = s.match(/^(?:(\d+):)?(\d+):(\d+)$/);   // [H:]M:S
+    if(mm) return (parseInt(mm[1]||0,10)*3600) + (parseInt(mm[2],10)*60) + parseInt(mm[3],10);
+  }
+  return 0;
+}
+
+// Le titre publié par np.json et celui remonté par Icecast peuvent
+// différer : la métadonnée ICY est tronquée en route (~64 car. observés).
+// On considère donc qu'il y a correspondance si l'un est le préfixe de
+// l'autre, à la casse et aux espaces près.
+function npMatches(a, b){
+  a = _noAccent(a).replace(/\s+/g, ' ').trim();
+  b = _noAccent(b).replace(/\s+/g, ' ').trim();
+  if(!a || !b) return false;
+  if(a === b) return true;
+  var shortest = Math.min(a.length, b.length);
+  if(shortest < 8) return false;   // trop court pour conclure
+  return a.slice(0, shortest) === b.slice(0, shortest);
+}
+
+// Choisit l'horodatage de départ. On privilégie celui du serveur (exact
+// même si l'auditeur arrive en cours de morceau), mais on le rejette si
+// l'horloge du client est trop décalée pour donner un résultat crédible.
+function resolveStart(npx, dur){
+  var local = Date.now();
+  if(!npx || !npx.started) return local;
+  var srvElapsed = (local / 1000) - npx.started;
+  var limit = dur > 0 ? dur + 30 : 3600;
+  if(srvElapsed >= -5 && srvElapsed < limit) return npx.started * 1000;
+  console.warn('[np] horodatage serveur écarté (écart ' + Math.round(srvElapsed) + 's)');
+  return local;
+}
+
+// Extraction du jeton de durée embarqué dans le titre Icecast par le Pi.
+// Format STRICT : le tag de format puis, COLLÉ à lui sans le moindre
+// espace, un crochet purement numérique (secondes). C'est exactement ce
+// que produit radio.py : f"[{ext}][{dur}] {titre}".
+//    "[MP3][225] Artiste - Titre"  ->  { dur: 225, title: "[MP3] Artiste - Titre" }
+// L'adjacence n'est pas un détail : un module nommé "[232] m.mod" arrive
+// ici sous la forme "[MOD] [232] m", avec une espace. Tolérer cette espace
+// faisait passer un bout de NOM DE FICHIER pour une durée. Le tag de format
+// est conservé tel quel, pour ne pas casser les LED MP3/MOD/XM/S3M.
+function stripDurTag(raw){
+  var out = { dur: 0, title: raw };
+  if(!raw) return out;
+  var m = raw.match(/^(\[[^\]\[]{1,10}\])\[(\d{1,4})\]\s*/);
+  if(!m) return out;
+  var secs = parseInt(m[2], 10);
+  if(!isFinite(secs) || secs <= 0 || secs > 7200) return out;  // garde-fou
+  out.dur = secs;
+  out.title = (m[1] + ' ' + raw.slice(m[0].length)).trim();
+  return out;
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// VOTES AUDITEURS (pouce en l'air / pouce en bas)
+// ───────────────────────────────────────────────────────────────────
+// VOTE_API : base du backend Flask (web_config.py sur le Pi), atteinte
+// via le proxy inverse du NAS. Laisser '' pour désactiver la fonction :
+// le bloc de vote reste alors invisible. Il s'affiche uniquement si le
+// serveur répond, donc aucun bouton mort si la règle proxy manque.
+// ═══════════════════════════════════════════════════════════════════
+var VOTE_API = 'https://vote.mascarade.cc';
+
+// ─── DIAGNOSTIC ────────────────────────────────────────────────────
+// PLAYER_VERSION : sert à savoir si le navigateur a reçu le fichier déployé
+// ou une version en cache — Safari iOS et Cloudflare gardent les pages
+// longtemps, et on perd beaucoup de temps à corriger un fichier qui n'est
+// pas celui affiché.
+//   ?diag=1      affiche un bandeau avec la version et la position réelle
+//                du bloc de vote (pas de console accessible sur iPhone).
+//   ?votes=force affiche les pouces SANS attendre le backend, ce qui sépare
+//                un problème d'affichage d'un problème de liaison serveur.
+var PLAYER_VERSION = '2026-08-16-ios4';
+var _qs = (function(){
+  try { return new URLSearchParams(location.search); }
+  catch(e){ return { get: function(){ return null; } }; }
+})();
+try { console.log('[POPOV] player version ' + PLAYER_VERSION); } catch(e){}
+
+function forcerVotes(){
+  var box = document.getElementById('votebox');
+  if(box){ box.className = 'on'; voteAvailable = true; }
+}
+
+function afficherDiag(){
+  forcerVotes();
+  var box = document.getElementById('votebox');
+  var r = box ? box.getBoundingClientRect() : null;
+  var d = document.createElement('div');
+  d.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:99999;background:#000;'
+    + 'color:#0f0;font:11px/1.5 monospace;padding:8px;border-bottom:2px solid #0f0;'
+    + 'white-space:pre-wrap';
+  d.textContent =
+      'VERSION ' + PLAYER_VERSION
+    + '\necran ' + window.innerWidth + 'x' + window.innerHeight
+    + '\nvotebox : ' + (box ? getComputedStyle(box).display : 'ABSENT')
+    + (r ? '  haut=' + Math.round(r.top) + '  bas=' + Math.round(r.bottom) : '')
+    + '\nmarge sous les votes : ' + (r ? Math.round(window.innerHeight - r.bottom) : '?') + 'px'
+    + '\nAPI  : ' + VOTE_API
+    + '\ntest : en cours...'
+    + '\n(toucher pour fermer)';
+  d.onclick = function(){ d.parentNode && d.parentNode.removeChild(d); };
+  document.body.appendChild(d);
+
+  // Test réel de la liaison au serveur de votes. C'est LUI qui conditionne
+  // l'affichage des pouces en usage normal : le bloc reste masqué tant que
+  // le serveur n'a pas répondu, pour ne pas montrer des boutons inertes.
+  // On distingue trois issues, qui appellent des corrections différentes :
+  //   OK       le serveur répond, le problème est ailleurs
+  //   HTTP nnn le serveur répond mais refuse (route absente, erreur)
+  //   ECHEC    rien ne passe : DNS, certificat, CORS ou réseau mobile
+  var t0 = Date.now();
+  fetch(VOTE_API + '/votes?title=diagnostic', {cache:'no-store'})
+    .then(function(rep){
+      if(!rep.ok) throw new Error('HTTP ' + rep.status);
+      return rep.json();
+    })
+    .then(function(j){
+      d.textContent = d.textContent.replace('test : en cours...',
+        'test : OK en ' + (Date.now()-t0) + ' ms (+' + j.up + ' -' + j.down + ')');
+    })
+    .catch(function(e){
+      d.textContent = d.textContent.replace('test : en cours...',
+        'test : ECHEC -> ' + String(e).slice(0,110));
+    });
+}
+
+var voteAvailable = false;   // passe à true au premier échange réussi
+var voteCurKey    = '';      // titre normalisé du morceau affiché
+
+// Identifiant de votant : tiré une fois, gardé dans ce navigateur. Sert
+// au serveur à n'accepter qu'un vote par morceau et par personne.
+function getVoterId(){
+  var id = '';
+  try { id = localStorage.getItem('popov_voter') || ''; } catch(e){}
+  if(!id){
+    id = 'v' + Date.now().toString(36) + Math.random().toString(36).slice(2, 10);
+    try { localStorage.setItem('popov_voter', id); } catch(e){}
+  }
+  return id;
+}
+
+// Doit produire EXACTEMENT la même clé que norm_vote_title() côté Python,
+// sinon le player et le serveur ne parleraient pas du même morceau.
+function normVoteTitle(t){
+  t = String(t || '').trim().replace(/^\[[^\]\[]{1,10}\](?:\[\d{1,4}\])?\s*/, '');
+  return t.replace(/\s+/g, ' ').trim();
+}
+
+// Mémoire locale des morceaux déjà notés : évite de reproposer le vote
+// après un simple rechargement de page (le serveur refuse de toute façon).
+function getVotedMap(){
+  try { return JSON.parse(localStorage.getItem('popov_voted') || '{}') || {}; }
+  catch(e){ return {}; }
+}
+function rememberVote(key, val){
+  var m = getVotedMap();
+  m[key] = val;
+  var keys = Object.keys(m);
+  if(keys.length > 400){                 // purge : on garde les 300 derniers
+    var trimmed = {};
+    keys.slice(-300).forEach(function(k){ trimmed[k] = m[k]; });
+    m = trimmed;
+  }
+  try { localStorage.setItem('popov_voted', JSON.stringify(m)); } catch(e){}
+}
+function forgetVote(key){
+  var m = getVotedMap();
+  if(!(key in m)) return;
+  delete m[key];
+  try { localStorage.setItem('popov_voted', JSON.stringify(m)); } catch(e){}
+}
+
+function renderVotes(up, down, mine){
+  var sc = document.getElementById('votescore');
+  if(sc){
+    sc.innerHTML = '<span class="vup">+' + (up || 0) + '</span>'
+                 + '<span class="vdn">-' + (down || 0) + '</span>';
+  }
+  var bu = document.getElementById('btnup'), bd = document.getElementById('btndown');
+  if(!bu || !bd) return;
+  bu.className = 'votebtn' + (mine ? ' done' : '') + (mine === 'up'   ? ' chosen' : '');
+  bd.className = 'votebtn' + (mine ? ' done' : '') + (mine === 'down' ? ' chosen' : '');
+}
+
+// Appelée à chaque changement de morceau : récupère le score en cours.
+function refreshVotes(){
+  if(!VOTE_API || !curTrack) return;
+  var key = normVoteTitle(curTrack);
+  voteCurKey = key;
+  if(!key) return;
+  fetch(VOTE_API + '/votes?title=' + encodeURIComponent(key), {cache:'no-store'})
+    .then(function(r){ return r.ok ? r.json() : null; })
+    .then(function(d){
+      if(!d || key !== voteCurKey) return;   // réponse arrivée trop tard
+      voteAvailable = true;
+      var box = document.getElementById('votebox');
+      if(box) box.className = 'on';
+      renderVotes(d.up, d.down, getVotedMap()[key] || '');
+    })
+    .catch(function(){
+      // Backend injoignable (règle proxy absente, Pi éteint) : on n'affiche
+      // simplement rien plutôt que des boutons qui ne feraient rien.
+      var box = document.getElementById('votebox');
+      if(box && !voteAvailable) box.className = '';
+    });
+}
+
+function sendVote(v){
+  if(!VOTE_API || !curTrack) return;
+  if(!guardAction('vote', v === 'up' ? 'btnup' : 'btndown')) return;
+  var key = normVoteTitle(curTrack);
+  if(!key) return;
+  if(getVotedMap()[key]) return;           // déjà voté sur ce morceau
+
+  // Retour visuel immédiat : le serveur confirmera (ou corrigera) juste après.
+  rememberVote(key, v);
+  renderVotes(
+    parseInt((document.querySelector('#votescore .vup') || {}).textContent || 0, 10) + (v === 'up' ? 1 : 0),
+    parseInt(((document.querySelector('#votescore .vdn') || {}).textContent || '0').replace('-', ''), 10) + (v === 'down' ? 1 : 0),
+    v
+  );
+
+  var body = 'title=' + encodeURIComponent(key)
+           + '&vote=' + encodeURIComponent(v)
+           + '&voter=' + encodeURIComponent(getVoterId());
+  fetch(VOTE_API + '/vote', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+    body: body
+  })
+  .then(function(r){ return r.ok ? r.json() : null; })
+  .then(function(d){
+    if(!d || !d.ok) throw new Error(d && d.error ? d.error : 'refusé par le serveur');
+    if(key !== voteCurKey) return;
+    renderVotes(d.up, d.down, v);          // décompte réel du serveur
+  })
+  .catch(function(e){
+    // Vote NON enregistré (réseau, serveur, refus) : on annule le retour
+    // visuel immédiat, sinon le pouce restait « compté » avec un score
+    // faux et l'auditeur ne pouvait plus jamais voter pour ce morceau.
+    console.warn('[vote] envoi KO, vote annulé', e);
+    forgetVote(key);
+    if(key === voteCurKey) refreshVotes();
+  });
+}
+
+function tickNP(){
+  var el = document.getElementById('nptime');
+  if(!el) return;
+  if(!trackStartTs || !curTrack){ el.className = 'hidden'; el.textContent = ''; return; }
+  var elapsed = (Date.now() - trackStartTs) / 1000;
+  var txt = fmtDur(elapsed);
+  if(trackDuration > 0){
+    // Garde-fou : si le morceau déborde de sa durée annoncée, on plafonne
+    // l'affichage pour ne pas montrer 4:12 / 3:45.
+    if(elapsed > trackDuration + 5) txt = fmtDur(trackDuration);
+    txt += ' / ' + fmtDur(trackDuration);
+  }
+  el.textContent = '\u23F1 ' + txt;
+  el.className = '';
+}
+
+function startNPTimer(){
+  if(npTimer) return;
+  npTimer = setInterval(tickNP, 1000);
+  tickNP();
+}
+function stopNPTimer(){
+  if(npTimer){ clearInterval(npTimer); npTimer = null; }
+  var el = document.getElementById('nptime');
+  if(el){ el.className = 'hidden'; el.textContent = ''; }
+}
+
+function tick(){
+  var n=new Date(),p=function(v){return('0'+v).slice(-2)};
+  document.getElementById('clk').textContent=p(n.getHours())+':'+p(n.getMinutes())+':'+p(n.getSeconds());
+  var D=['SUN','MON','TUE','WED','THU','FRI','SAT'];
+  document.getElementById('dstr').textContent=D[n.getDay()]+' '+p(n.getDate())+'/'+p(n.getMonth()+1)+'/'+n.getFullYear();
+}
+setInterval(tick,1000); tick();
+
+// Modes de diagnostic pilotés par l'URL, sans effet en usage normal.
+setTimeout(function(){
+  try {
+    if(_qs.get('votes') === 'force') forcerVotes();
+    if(_qs.get('diag') === '1') afficherDiag();
+  } catch(e){}
+}, 600);
+
+var aud = new Audio();
+if (IS_IOS) {
+  // iOS : pas de crossOrigin (inutile sans Web Audio) + preload none pour empêcher le
+  // préchargement par range-requests qui hache le flux live en CarPlay/Safari.
+  aud.preload = 'none';
+} else {
+  aud.crossOrigin = 'anonymous';  // requis pour alimenter le visualizer via Web Audio API
+}
+var going = false;
+var iceTimer = null;
+
+// ═══════════════════════════════════════════════════════════════════
+// GARDE-FOU ANTI-SPAM (côté client)
+// ───────────────────────────────────────────────────────────────────
+// Objectif : empêcher qu'un visiteur matraque les boutons (PLAY/STOP,
+// M3U, MAIL, etc.) et sature soit le navigateur, soit le serveur Icecast.
+//
+// 3 niveaux de protection, tous purement client (dissuasif, pas
+// inviolable — un attaquant qui édite le JS peut contourner ; le vrai
+// blindage serait un rate-limit côté serveur Flask) :
+//   1. COOLDOWN  : délai minimum entre 2 déclenchements d'une même action.
+//   2. ANTI-RAFALE : si trop de clics dans une courte fenêtre, on bascule
+//                    l'action en "lockout" temporaire (gel plus long).
+//   3. FEEDBACK UI : le bouton est visuellement désactivé pendant le gel.
+//
+// Réglage par action via ACTION_LIMITS. Tout est exprimé en millisecondes.
+// ═══════════════════════════════════════════════════════════════════
+var ACTION_LIMITS = {
+  // action      cooldown  rafale: max clics / fenêtre  -> lockout
+  play:    { cooldown: 400,  burstMax: 8,  burstWindow: 5000,  lockout: 3000  },
+  stop:    { cooldown: 400,  burstMax: 8,  burstWindow: 5000,  lockout: 3000  },
+  m3u:     { cooldown: 3000, burstMax: 3,  burstWindow: 10000, lockout: 15000 },
+  mail:    { cooldown: 2000, burstMax: 3,  burstWindow: 8000,  lockout: 12000 },
+  hist:    { cooldown: 600,  burstMax: 8,  burstWindow: 4000,  lockout: 5000  },
+  loadhist:{ cooldown: 800,  burstMax: 8,  burstWindow: 5000,  lockout: 5000  },
+  copy:    { cooldown: 1500, burstMax: 4,  burstWindow: 6000,  lockout: 8000  },
+  lite:    { cooldown: 600,  burstMax: 8,  burstWindow: 4000,  lockout: 4000  },
+  vote:    { cooldown: 800,  burstMax: 6,  burstWindow: 10000, lockout: 15000 }
+};
+
+// État interne par action : dernier déclenchement, timestamps récents,
+// fin de lockout éventuelle.
+var _actionState = {};
+function _state(action){
+  if(!_actionState[action]) _actionState[action] = { last: 0, hits: [], lockUntil: 0 };
+  return _actionState[action];
+}
+
+// Indique si une action peut s'exécuter MAINTENANT. Met à jour l'état.
+// Retourne { ok: true } ou { ok:false, reason:'cooldown'|'lockout', wait: ms }.
+function canDoAction(action){
+  var lim = ACTION_LIMITS[action];
+  if(!lim) return { ok: true };           // action non régulée
+  var now = Date.now();
+  var st = _state(action);
+
+  // 1) Lockout en cours ?
+  if(now < st.lockUntil){
+    return { ok: false, reason: 'lockout', wait: st.lockUntil - now };
+  }
+  // 2) Cooldown simple ?
+  if(now - st.last < lim.cooldown){
+    return { ok: false, reason: 'cooldown', wait: lim.cooldown - (now - st.last) };
+  }
+  // 3) Anti-rafale : purge les hits hors fenêtre puis compte
+  st.hits = st.hits.filter(function(t){ return now - t < lim.burstWindow; });
+  if(st.hits.length >= lim.burstMax){
+    // Trop de clics rapprochés -> on gèle l'action
+    st.lockUntil = now + lim.lockout;
+    st.hits = [];
+    return { ok: false, reason: 'lockout', wait: lim.lockout };
+  }
+
+  // OK : on enregistre le déclenchement
+  st.last = now;
+  st.hits.push(now);
+  return { ok: true };
+}
+
+// Désactive visuellement un bouton pendant `ms`, puis le réactive.
+// `btnId` : id de l'élément (bouton ou lien). Tolère l'absence d'élément.
+var _btnTimers = {};
+function freezeButton(btnId, ms){
+  var el = document.getElementById(btnId);
+  if(!el) return;
+  el.classList.add('btn-cooling');
+  el.setAttribute('aria-disabled', 'true');
+  // Pour les liens <a>, on neutralise pointer-events via la classe CSS.
+  if(_btnTimers[btnId]) clearTimeout(_btnTimers[btnId]);
+  _btnTimers[btnId] = setTimeout(function(){
+    el.classList.remove('btn-cooling');
+    el.removeAttribute('aria-disabled');
+  }, ms);
+}
+
+// Wrapper unique : à appeler en tête de chaque handler d'action.
+// - action : clé dans ACTION_LIMITS
+// - btnId  : id du bouton à geler visuellement (optionnel)
+// Retourne true si l'action est autorisée (et l'enregistre), false sinon.
+function guardAction(action, btnId){
+  var verdict = canDoAction(action);
+  if(verdict.ok){
+    // Gel "doux" du bouton pendant le cooldown pour éviter le double-clic.
+    var lim = ACTION_LIMITS[action];
+    if(btnId && lim) freezeButton(btnId, lim.cooldown);
+    return true;
+  }
+  // Refusé : on gèle le bouton le temps qu'il faut et on informe discrètement.
+  if(btnId) freezeButton(btnId, verdict.wait);
+  return false;
+}
+
+function downloadM3U(){
+  // Anti-spam : un téléchargement M3U à la fois, cooldown long.
+  if(!guardAction('m3u', 'btnm3u')) return;
+  var content = '#EXTM3U\n#EXTINF:-1,Popov Radio\n' + STREAM + '\n';
+  var blob = new Blob([content], {type:'audio/x-mpegurl'});
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url; a.download = 'popov_radio.m3u';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  setTimeout(function(){ URL.revokeObjectURL(url); }, 100);
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// HISTORIQUE DES MORCEAUX PASSÉS — 100% LOCAL (localStorage)
+// Aucune dépendance au backend Flask : chaque navigateur tient sa propre
+// liste des titres entendus pendant ses sessions d'écoute. La liste
+// persiste entre rechargements et reboot machine (jusqu'à 1000 entrées).
+// pollIce() détecte déjà chaque changement de titre via curTrack ; on
+// se branche dessus via addToHistory() ci-dessous.
+// ═══════════════════════════════════════════════════════════════════
+var playedHistory = [];
+var MAX_HISTORY = 1000;
+var LS_HISTORY_KEY = 'popov_history';
+
+// Restauration au chargement
+try {
+  var rawHist = localStorage.getItem(LS_HISTORY_KEY);
+  if (rawHist) playedHistory = JSON.parse(rawHist) || [];
+} catch(e){ playedHistory = []; }
+
+function addToHistory(title){
+  if (!title) return;
+  var clean = String(title).trim();
+  if (!clean) return;
+  // Double sécurité : jingles / annonces jamais mémorisés
+  if (typeof isMaskedTitle === 'function' && isMaskedTitle(clean)) return;
+  // Si identique au dernier titre mémorisé, on ne dédouble pas
+  if (playedHistory.length && playedHistory[playedHistory.length-1].title === clean) return;
+  // Format ISO local YYYY-MM-DDTHH:MM:SS (sans ms ni TZ pour rester lisible)
+  var d = new Date();
+  var pad = function(n){ return String(n).padStart(2,'0'); };
+  var iso = d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())+'T'
+          + pad(d.getHours())+':'+pad(d.getMinutes())+':'+pad(d.getSeconds());
+  playedHistory.push({ ts: iso, title: clean });
+  // Rotation : si trop d'entrées, on garde les 80% les plus récentes
+  if (playedHistory.length > MAX_HISTORY) {
+    playedHistory = playedHistory.slice(-Math.floor(MAX_HISTORY * 0.8));
+  }
+  // Sauvegarde — si localStorage est plein on tronque agressivement
+  try {
+    localStorage.setItem(LS_HISTORY_KEY, JSON.stringify(playedHistory));
+  } catch(e) {
+    console.warn('[history] localStorage saturé, troncature à 200 entrées', e);
+    playedHistory = playedHistory.slice(-200);
+    try { localStorage.setItem(LS_HISTORY_KEY, JSON.stringify(playedHistory)); } catch(e2){}
+  }
+}
+
+function clearHistory(){
+  if (!confirm('Effacer tout l\'historique mémorisé sur ce navigateur ?')) return;
+  playedHistory = [];
+  try { localStorage.removeItem(LS_HISTORY_KEY); } catch(e){}
+  loadHistory();
+}
+
+function openHistory(){
+  if(!guardAction('hist', 'btnhist')) return;
+  var input = document.getElementById('hist-since');
+  if (!input.value) {
+    // Pré-remplir avec "aujourd'hui à 00:00"
+    var d = new Date(); d.setHours(0, 0, 0, 0);
+    var pad = function(n){ return String(n).padStart(2,'0'); };
+    input.value = d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())+'T'+pad(d.getHours())+':'+pad(d.getMinutes());
+  }
+  document.getElementById('hist-modal').style.display = 'block';
+  loadHistory();
+}
+function closeHistory(){ document.getElementById('hist-modal').style.display = 'none'; }
+
+// Wrapper appelé par le BOUTON "Charger" uniquement (les appels internes
+// depuis openHistory() passent directement par loadHistory(), sans garde).
+function loadHistoryClick(){
+  if(!guardAction('loadhist', 'btnloadhist')) return;
+  loadHistory();
+}
+function loadHistory(){
+  var since = document.getElementById('hist-since').value;
+  var list = document.getElementById('hist-list');
+  var count = document.getElementById('hist-count');
+  // Comparaison lexicographique sur ISO format : on normalise since à YYYY-MM-DDTHH:MM
+  var sinceNorm = since ? since.slice(0,16) : '';
+  var filtered = playedHistory.filter(function(it){
+    // Les entrées masquées (jingles/annonces) déjà présentes dans le
+    // localStorage d'anciennes sessions sont filtrées à l'affichage.
+    if (isMaskedTitle(it.title)) return false;
+    return !sinceNorm || it.ts.slice(0,16) >= sinceNorm;
+  });
+  var totalVisible = playedHistory.filter(function(it){ return !isMaskedTitle(it.title); }).length;
+  count.textContent = filtered.length + ' / ' + totalVisible + ' titre(s) mémorisé(s)';
+  if (!filtered.length) {
+    if (!playedHistory.length) {
+      list.innerHTML = '<p class="hist-placeholder">Aucun morceau mémorisé pour le moment.<br>'
+        + 'L\'historique se construit pendant que tu écoutes la radio.</p>';
+    } else {
+      list.innerHTML = '<p class="hist-placeholder">Aucun morceau mémorisé depuis cette date.<br>'
+        + '(' + totalVisible + ' titres au total dans l\'historique)</p>';
+    }
+    return;
+  }
+  // Plus récent en haut
+  var sorted = filtered.slice().reverse();
+  var html = sorted.map(function(t){
+    var title = String(t.title || '').replace(/[<>&"]/g, function(c){
+      return {'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c];
+    });
+    var ts = t.ts.replace('T', ' ');
+    return '<div class="hist-item"><span class="ts">' + ts + '</span><span class="name">' + title + '</span></div>';
+  }).join('');
+  list.innerHTML = html;
+}
+
+function copyHistory(){
+  if(!guardAction('copy', 'btncopyhist')) return;
+  var items = document.querySelectorAll('#hist-list .hist-item');
+  if (!items.length) return;
+  var lines = [];
+  items.forEach(function(it){
+    var ts = it.querySelector('.ts').textContent;
+    var name = it.querySelector('.name').textContent;
+    lines.push(ts + '  -  ' + name);
+  });
+  var txt = 'Popov Radio - Morceaux passés\n' + lines.join('\n');
+  var done = function(){
+    var fb = document.getElementById('hist-copy-feedback');
+    fb.style.opacity = 1;
+    setTimeout(function(){ fb.style.opacity = 0; }, 1500);
+  };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(txt).then(done).catch(function(){ fallbackCopy(txt); done(); });
+  } else {
+    fallbackCopy(txt); done();
+  }
+}
+
+function fallbackCopy(txt){
+  var ta = document.createElement('textarea');
+  ta.value = txt; ta.style.position = 'fixed'; ta.style.opacity = 0;
+  document.body.appendChild(ta); ta.select();
+  try { document.execCommand('copy'); } catch(e){}
+  document.body.removeChild(ta);
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// MAIL DE CONTACT — popup avec l'adresse et bouton copie
+// ═══════════════════════════════════════════════════════════════════
+function openMail(){ if(!guardAction('mail', 'btnmail')) return; document.getElementById('mail-modal').style.display = 'block'; }
+function closeMail(){ document.getElementById('mail-modal').style.display = 'none'; }
+function copyMail(){
+  if(!guardAction('copy', 'btncopymail')) return;
+  var mail = 'contact@popovradio.fr';
+  var done = function(){
+    var fb = document.getElementById('mail-copy-feedback');
+    fb.style.opacity = 1;
+    setTimeout(function(){ fb.style.opacity = 0; }, 1500);
+  };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(mail).then(done).catch(function(){ fallbackCopy(mail); done(); });
+  } else {
+    fallbackCopy(mail); done();
+  }
+}
+
+// Fermeture popups : clic en dehors + touche Escape
+['hist-modal','mail-modal'].forEach(function(id){
+  var el = document.getElementById(id);
+  if(el) el.addEventListener('click', function(e){ if(e.target === this) this.style.display = 'none'; });
+});
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Escape'){
+    var h = document.getElementById('hist-modal'); if(h && h.style.display === 'block') h.style.display = 'none';
+    var m = document.getElementById('mail-modal'); if(m && m.style.display === 'block') m.style.display = 'none';
+  }
+});
+
+var audioCtx = null, analyser = null, srcNode = null, freqData = null, REAL_AUDIO_OK = false;
+
+// ═══════════════════════════════════════════════════════════════════
+// MEDIA SESSION API — métadonnées écran de verrouillage / touches média
+// (Bluetooth, écouteurs, CarPlay/Android Auto, clavier multimédia)
+// ═══════════════════════════════════════════════════════════════════
+function updateMediaSession(title){
+  if(!('mediaSession' in navigator)) return;
+  try {
+    navigator.mediaSession.metadata = new MediaMetadata({
+      title: title || 'POPOV RADIO',
+      artist: 'POPOV RADIO',
+      album: '24/7 chiptune \u2014 demoscene \u2014 retro',
+      artwork: [
+        { src: 'icon-192.png', sizes: '192x192', type: 'image/png' },
+        { src: 'icon-512.png', sizes: '512x512', type: 'image/png' }
+      ]
+    });
+  } catch(e) { /* MediaMetadata indisponible : tant pis, non bloquant */ }
+}
+function setupMediaSessionHandlers(){
+  if(!('mediaSession' in navigator)) return;
+  try {
+    navigator.mediaSession.setActionHandler('play',  function(){ doPlay(); });
+    navigator.mediaSession.setActionHandler('pause', function(){ doStop(); });
+    navigator.mediaSession.setActionHandler('stop',  function(){ doStop(); });
+    // Flux live : pas de seek — handlers null pour masquer les contrôles inutiles
+    navigator.mediaSession.setActionHandler('seekbackward', null);
+    navigator.mediaSession.setActionHandler('seekforward', null);
+  } catch(e) { /* certains handlers non supportés selon navigateur */ }
+}
+setupMediaSessionHandlers();
+updateMediaSession(null);
+
+// ═══════════════════════════════════════════════════════════════════
+// VOLUME PERSISTÉ (localStorage, comme le mode LITE)
+// ═══════════════════════════════════════════════════════════════════
+(function restoreVolume(){
+  var v = 80;                                   // défaut = valeur du curseur
+  try {
+    var s = localStorage.getItem('popov_vol');
+    if(s !== null) v = Math.max(0, Math.min(100, parseInt(s, 10) || 80));
+  } catch(e){}
+  var sl = document.getElementById('vsl');
+  if(sl){ sl.value = v; }
+  // Appliqué même sans valeur stockée : sinon aud.volume restait à 1.0 alors
+  // que le curseur affichait 80, jusqu'à ce que le PLAY resynchronise.
+  aud.volume = v/100;
+})();
+
+// ═══════════════════════════════════════════════════════════════════
+// RACCOURCIS CLAVIER — Espace: play/pause, ↑↓: volume, M: mute
+// ═══════════════════════════════════════════════════════════════════
+var _volBeforeMute = null;
+document.addEventListener('keydown', function(e){
+  // Ne pas intercepter la saisie dans les champs (range inclus pour les flèches natives ? non : on gère nous-mêmes)
+  var t = e.target;
+  if(t && (t.tagName === 'INPUT' && t.type === 'text' || t.tagName === 'TEXTAREA')) return;
+  var sl = document.getElementById('vsl');
+  if(e.code === 'Space'){
+    e.preventDefault();
+    if(going) doStop(); else doPlay();
+  } else if(e.key === 'ArrowUp'){
+    e.preventDefault();
+    setVolume(parseInt(sl.value,10) + 5, true);
+    _volBeforeMute = null;
+  } else if(e.key === 'ArrowDown'){
+    e.preventDefault();
+    setVolume(parseInt(sl.value,10) - 5, true);
+    _volBeforeMute = null;
+  } else if(e.key === 'm' || e.key === 'M'){
+    if(_volBeforeMute === null){
+      _volBeforeMute = parseInt(sl.value,10);
+      setVolume(0, true);
+    } else {
+      setVolume(_volBeforeMute, true);
+      _volBeforeMute = null;
+    }
+  }
+});
+
+// ═══════════════════════════════════════════════════════════════════
+// RÉGLAGE CENTRALISÉ DU VOLUME + OSD
+// Point de passage unique pour la molette, les flèches et le mute, afin
+// que curseur, audio, localStorage et affichage ne divergent jamais.
+// ═══════════════════════════════════════════════════════════════════
+var _volOsdTimer = null;
+
+function showVolOsd(v, muted, blocked){
+  var box = document.getElementById('volosd');
+  if(!box) return;
+  var val = document.getElementById('volosdv');
+  var fil = document.getElementById('volosdf');
+  document.getElementById('volosdb').style.display = '';   // barre réaffichée
+  // Sur iOS, aud.volume est en lecture seule : le volume est piloté par les
+  // boutons matériels. On le détecte en relisant la valeur après écriture
+  // plutôt qu'en sniffant l'UA, plus fiable et sans faux positif.
+  if(blocked){
+    val.textContent = 'VOL SYST.';
+    val.style.fontSize = '15px';
+    fil.style.width = '100%';
+  } else {
+    val.textContent = muted ? 'MUET' : (v + '%');
+    val.style.fontSize = '';
+    fil.style.width = v + '%';
+  }
+  box.classList.toggle('muted', !!muted || !!blocked);
+  box.classList.add('show');
+  if(_volOsdTimer) clearTimeout(_volOsdTimer);
+  _volOsdTimer = setTimeout(function(){ box.classList.remove('show'); }, 1100);
+}
+
+// Même bulle, sans jauge : sert au retour visuel du clic molette. Utile quand
+// le curseur est loin du bouton PLAY, et en mode LITE où la barre est réduite.
+function showOsdText(txt){
+  var box = document.getElementById('volosd');
+  if(!box) return;
+  var val = document.getElementById('volosdv');
+  val.textContent = txt;
+  val.style.fontSize = '15px';
+  document.getElementById('volosdb').style.display = 'none';
+  box.classList.remove('muted');
+  box.classList.add('show');
+  if(_volOsdTimer) clearTimeout(_volOsdTimer);
+  _volOsdTimer = setTimeout(function(){ box.classList.remove('show'); }, 1100);
+}
+
+// v : 0-100. osd : afficher la bulle. Retourne la valeur réellement appliquée.
+function setVolume(v, osd){
+  v = Math.max(0, Math.min(100, Math.round(v)));
+  var sl = document.getElementById('vsl');
+  if(sl) sl.value = v;
+  doVol(v);
+  // Vérifie que le navigateur a bien pris le réglage (iOS le refuse).
+  var blocked = Math.abs(aud.volume * 100 - v) > 1;
+  if(osd) showVolOsd(v, v === 0, blocked);
+  return v;
+}
+
+// Molette : pas de 5 %, aligné sur les flèches du clavier.
+// preventDefault évite que la page défile sous le curseur (mobile/tablette,
+// où html,body repassent en overflow:auto).
+document.addEventListener('wheel', function(e){
+  // Les modales sont scrollables : on leur laisse la molette.
+  if(e.target && e.target.closest && e.target.closest('#hist-modal,#mail-modal')) return;
+  if(e.ctrlKey) return;                       // zoom navigateur
+  var sl = document.getElementById('vsl');
+  if(!sl) return;
+  e.preventDefault();
+  var pas = e.deltaY < 0 ? 5 : -5;
+  setVolume(parseInt(sl.value, 10) + pas, true);
+  _volBeforeMute = null;                      // un réglage manuel annule le mute
+}, {passive: false});
+
+// ═══════════════════════════════════════════════════════════════════
+// CLIC MOLETTE — pause / reprise
+// ═══════════════════════════════════════════════════════════════════
+
+// Le bouton du milieu garde son rôle natif là où il en a un : ouvrir un
+// lien dans un nouvel onglet, coller la sélection X11 dans un champ,
+// faire défiler une modale. Ailleurs, il pilote la lecture.
+function midClickZoneOk(t){
+  if(!t || !t.closest) return true;
+  if(t.closest('a,input,textarea,select')) return false;
+  if(t.closest('#hist-modal,#mail-modal')) return false;
+  return true;
+}
+
+// mousedown est indispensable : sans preventDefault ici, Chrome sous
+// Windows arme le défilement automatique (curseur en rose des vents) dès
+// l'enfoncement, bien avant que auxclick ne parte.
+document.addEventListener('mousedown', function(e){
+  if(e.button !== 1 || !midClickZoneOk(e.target)) return;
+  e.preventDefault();
+}, {passive: false});
+
+document.addEventListener('auxclick', function(e){
+  if(e.button !== 1 || !midClickZoneOk(e.target)) return;
+  e.preventDefault();
+  var avant = going;
+  doPlay();
+  // doPlay() peut refuser (garde-fou anti-spam, état CONNECTING) : on
+  // n'annonce que si l'état a réellement basculé, pour ne pas afficher
+  // « PAUSE » alors que rien ne s'est passé.
+  if(going !== avant) showOsdText(going ? '\u25B6 LECTURE' : '\u23F8 PAUSE');
+});
+
+// ═══════════════════════════════════════════════════════════════════
+// SLEEP TIMER — arrêt automatique après 30/60/90 min (cycle OFF→30→60→90)
+// ═══════════════════════════════════════════════════════════════════
+var sleepEndAt = 0, sleepInterval = null;
+var SLEEP_STEPS = [0, 30, 60, 90];
+var sleepStepIdx = 0;
+function cycleSleep(){
+  sleepStepIdx = (sleepStepIdx + 1) % SLEEP_STEPS.length;
+  var mins = SLEEP_STEPS[sleepStepIdx];
+  clearInterval(sleepInterval); sleepInterval = null;
+  var btn = document.getElementById('btnsleep');
+  if(mins === 0){
+    sleepEndAt = 0;
+    btn.innerHTML = '\u23F2 SLEEP';
+    btn.classList.remove('on');
+    return;
+  }
+  sleepEndAt = Date.now() + mins*60000;
+  btn.classList.add('on');
+  var render = function(){
+    var left = sleepEndAt - Date.now();
+    if(left <= 0){
+      clearInterval(sleepInterval); sleepInterval = null;
+      sleepStepIdx = 0; sleepEndAt = 0;
+      btn.innerHTML = '\u23F2 SLEEP'; btn.classList.remove('on');
+      if(going) doStop();
+      return;
+    }
+    var mm = Math.floor(left/60000), ss = Math.floor((left%60000)/1000);
+    btn.innerHTML = '\u23F2 ' + mm + ':' + (ss<10?'0':'') + ss;
+  };
+  render();
+  sleepInterval = setInterval(render, 1000);
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// KONAMI CODE — ↑↑↓↓←→←→BA : pluie de sprites (cadeau pour les sceners)
+// ═══════════════════════════════════════════════════════════════════
+var _konami = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+var _konamiPos = 0;
+document.addEventListener('keydown', function(e){
+  var k = (e.key.length === 1) ? e.key.toLowerCase() : e.key;
+  if(k === _konami[_konamiPos]){
+    _konamiPos++;
+    if(_konamiPos === _konami.length){
+      _konamiPos = 0;
+      konamiBurst();
+    }
+  } else {
+    _konamiPos = (k === _konami[0]) ? 1 : 0;
+  }
+});
+function konamiBurst(){
+  // 30 sprites d'un coup + feu d'artifice — bypass temporaire d'ACTOR_MAX
+  var W = eqc.width || 800;
+  for(var i=0;i<30;i++){
+    (function(delay){
+      setTimeout(function(){
+        if(actors.length < 60) spawnActor();
+      }, delay);
+    })(i*90);
+  }
+  for(var j=0;j<8;j++){
+    spawnExplosion(Math.random()*W, 30+Math.random()*120,
+      ['#00ff41','#ffb000','#00ffff','#ff2200'][j%4], 14);
+  }
+  scrollDyn = '   \u2605\u2605  KONAMI CODE ACTIVATED \u2014 GREETINGS, SCENER !  \u2605\u2605   ';
+}
+function ensureAudioGraph(){
+  if (audioCtx) return;
+  if (IS_IOS) return;  // iOS : NE PAS brancher Web Audio sur le stream live (createMediaElementSource
+                       // déclenche des range-requests qui hachent le flux 0.5s en CarPlay/Safari).
+                       // Le visualizer passe en mode synthétique (synthAnalyze).
+  try {
+    var Ctx = window.AudioContext || window.webkitAudioContext; if (!Ctx) return;
+    audioCtx = new Ctx();
+    analyser = audioCtx.createAnalyser();
+    analyser.fftSize = 2048; analyser.smoothingTimeConstant = 0.75;
+    analyser.minDecibels = -85; analyser.maxDecibels = -15;
+    freqData = new Uint8Array(analyser.frequencyBinCount);
+    srcNode = audioCtx.createMediaElementSource(aud);
+    srcNode.connect(analyser); analyser.connect(audioCtx.destination);
+    REAL_AUDIO_OK = true; console.log('[AUDIO] connecté @ '+audioCtx.sampleRate+'Hz');
+  } catch(e){ console.warn('[AUDIO] init failed:', e); }
+}
+function realAnalyze(){
+  if (!analyser) return false;
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+  analyser.getByteFrequencyData(freqData);
+  var anyData = false;
+  for (var k=0; k<freqData.length && !anyData; k++) if (freqData[k] > 2) anyData = true;
+  if (!anyData) {
+    // Pas de données ce frame (silence dans la musique, CORS bloqué, buffer pas prêt).
+    // On NE désactive PLUS définitivement : on retourne juste false. Comme ça dès qu'un
+    // sample non nul arrive (fin de silence, ou après reload), on reprend automatiquement.
+    // Cas CORS : freqData reste à 0 pour toujours, getByteFrequencyData reste cheap,
+    // on tente à chaque frame, c'est négligeable côté CPU.
+    realAnalyze.zeroFrames = (realAnalyze.zeroFrames||0)+1;
+    // Log unique (pour info console), mais REAL_AUDIO_OK reste true
+    if (realAnalyze.zeroFrames === 300 && !realAnalyze.warned) {
+      console.warn('[AUDIO] 5s sans données — possible blocage CORS ou silence prolongé');
+      realAnalyze.warned = true;
+    }
+    return false;
+  }
+  // Données présentes : on réinitialise le compteur et le flag de warning
+  realAnalyze.zeroFrames = 0;
+  realAnalyze.warned = false;
+  if (!REAL_AUDIO_OK) REAL_AUDIO_OK = true;  // récupération automatique
+  var SR=audioCtx.sampleRate, BC=analyser.frequencyBinCount;
+  var minF=30, maxF=Math.min(16000, SR/2), logMin=Math.log(minF), logMax=Math.log(maxF);
+  var peakVal=0, peakBin=0, sumSq=0;
+  for (var i=0; i<BAR; i++) {
+    var fLo=Math.exp(logMin+(logMax-logMin)*i/BAR), fHi=Math.exp(logMin+(logMax-logMin)*(i+1)/BAR);
+    var binLo=Math.max(1, Math.floor(fLo*2*BC/SR));
+    var binHi=Math.max(binLo+1, Math.floor(fHi*2*BC/SR));
+    binHi=Math.min(BC, binHi);
+    var sum=0, count=binHi-binLo, lm=0;
+    for (var j=binLo; j<binHi; j++){
+      var v=freqData[j]; sum+=v;
+      if (v>lm) lm=v; if (v>peakVal){peakVal=v; peakBin=j;}
+    }
+    var avg=sum/count, mix=(lm*0.6+avg*0.4)/255;
+    var boost=1+Math.max(0, (i/BAR-0.5))*0.25;
+    var norm=Math.min(0.85, mix*boost*0.75);
+    bars[i] = norm > bars[i] ? bars[i]*0.35+norm*0.65 : Math.max(0, bars[i]-0.045);
+  }
+  for (var k=0; k<BC; k++){ var f=freqData[k]/255; sumSq+=f*f; }
+  var rms=Math.sqrt(sumSq/BC);
+  var peakDb=20*Math.log10(Math.max(1e-6, peakVal/255));
+  var rmsDb =20*Math.log10(Math.max(1e-6, rms));
+  var freq=Math.round(peakBin*SR/(2*BC));
+  var sf=document.getElementById('sf'); if(sf) sf.textContent=freq;
+  var sp=document.getElementById('sp'); if(sp) sp.textContent=(peakDb>=0?'+':'')+peakDb.toFixed(1);
+  var sr=document.getElementById('sr'); if(sr) sr.textContent=(rmsDb>=0?'+':'')+rmsDb.toFixed(1);
+  return true;
+}
+
+// iOS : spectre synthétique animé (le vrai n'est pas accessible sans casser le stream live).
+function synthAnalyze(){
+  var t = Date.now()/1000;
+  for(var i=0;i<BAR;i++){
+    var base = Math.sin(t*2.1 + i*0.55)*0.5 + 0.5;
+    var wob  = Math.sin(t*5.3 + i*1.7)*0.18 + Math.sin(t*9.1 + i*0.9)*0.10;
+    var fall = 1 - (i/BAR)*0.55;
+    // Amplitude plafonnée plus bas (0.55) : le conteneur EQ mobile est haut, on évite
+    // que les barres montent jusqu'en haut et paraissent disproportionnées.
+    var target = Math.max(0, Math.min(0.55, (base*0.40 + wob + 0.12) * fall));
+    bars[i] = bars[i]*0.6 + target*0.4;
+  }
+  var sf=document.getElementById('sf'); if(sf) sf.textContent='~';
+  var sp=document.getElementById('sp'); if(sp) sp.textContent='--';
+  var sr=document.getElementById('sr'); if(sr) sr.textContent='--';
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// MACHINE A ETATS LECTURE : IDLE / CONNECTING / PLAYING
+// audioActuallyPlaying = true UNIQUEMENT quand 'playing' a fired
+// (pas quand on a juste cliqué PLAY) — utilisé par la boucle d'anim
+// pour ne pas simuler de spectre quand y'a pas de son
+// ═══════════════════════════════════════════════════════════════════
+var playState = 'IDLE';
+var audioActuallyPlaying = false;
+var connectingAnim = null;
+var connectTimeout = null;
+
+function setPlayState(newState){
+  playState = newState;
+  // Etat media session (écran de verrouillage / contrôles OS)
+  if('mediaSession' in navigator){
+    try { navigator.mediaSession.playbackState = (newState === 'PLAYING') ? 'playing' : 'paused'; } catch(e){}
+  }
+  var btn = document.getElementById('btnp');
+  if(connectingAnim){clearInterval(connectingAnim); connectingAnim=null;}
+  if(connectTimeout){clearTimeout(connectTimeout); connectTimeout=null;}
+  btn.disabled = false;
+  btn.classList.remove('connecting','on');
+
+  if(newState === 'IDLE'){
+    btn.textContent = '\u25B6 PLAY';
+    document.getElementById('sdot').textContent = '\u25CF PR\u00CAT';
+    document.getElementById('sdot').style.color = '#555';
+    audioActuallyPlaying = false;
+  } else if(newState === 'CONNECTING'){
+    btn.disabled = true;
+    btn.classList.add('connecting');
+    // Largeur FIXE pendant l'animation : seuls le symbole et les points
+    // changent, dans des cases de taille constante. Avant, le texte passait
+    // de « IN. » à « IN... » (les espaces de fin étant ignorés) : le bouton
+    // grandissait et rétrécissait 4 fois par seconde et décalait toute la
+    // barre, en boucle tant que le flux restait introuvable.
+    var frames = ['\u25D0','\u25D3','\u25D1','\u25D2'];
+    var i = 0;
+    btn.innerHTML = '<span class="tspin">' + frames[0] + '</span> TUNING IN<span class="tdots">.</span>';
+    var spin = btn.querySelector('.tspin'), dots = btn.querySelector('.tdots');
+    connectingAnim = setInterval(function(){
+      i++;
+      spin.textContent = frames[i % frames.length];
+      dots.textContent = ['.', '..', '...', '.'][i % 4];
+    }, 220);
+    document.getElementById('sdot').textContent = '\u25CF TUNING';
+    document.getElementById('sdot').style.color = '#ffb000';
+    setNP('\u25CF CONNEXION AU FLUX...'); stopNPTimer();
+    audioActuallyPlaying = false;
+    // Le retry à 6 s et le failsafe à 15 s ont été SUPPRIMÉS : ils tuaient la
+    // connexion en cours d'établissement, ce qui relançait le cycle. Une
+    // connexion lente finit par aboutir toute seule ; si elle échoue vraiment,
+    // l'événement 'error' se déclenche et planifierReconnexion() prend le
+    // relais, une seule fois, sans se superposer à une tentative en cours.
+    connectTimeout = setTimeout(function(){
+      if(playState === 'CONNECTING' && going && reconnectEssai < 2){
+        setNP('\u25CF CONNEXION LENTE...');
+      }
+    }, 15000);
+  } else if(newState === 'PLAYING'){
+    btn.classList.add('on');
+    btn.textContent = '\u23F8 PAUSE';
+    document.getElementById('sdot').textContent = '\u25CF LIVE';
+    document.getElementById('sdot').style.color = '#00ff41';
+    document.getElementById('codec').textContent = 'CODEC: MP3';
+    document.getElementById('buf').textContent = 'BUF: OK';
+    audioActuallyPlaying = true;
+  }
+}
+
+aud.addEventListener('playing', function(){
+  setPlayState('PLAYING');
+  // ensureAudioGraph() est appelé ICI (sur le 'playing' event) et NON dans le .then(play())
+  // Raison : 'playing' se déclenche au moment EXACT où le son commence à sortir des speakers.
+  // Si on créait l'AnalyserNode au .then(play()) plus tôt, l'EQ se mettait à bouger avant
+  // que le son sorte → sensation de désynchro EQ/musique.
+  // ensureAudioGraph est idempotent (vérifie if(audioCtx) return en début), donc safe à
+  // rappeler à chaque 'playing' (en cas de reconnexion auto par exemple).
+  ensureAudioGraph();
+  if(audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+  // Lecture stable retrouvée : on remet à zéro le compteur de tentatives auto
+  stopReconnect();
+});
+
+// AUTO-RECONNECT (durci — correctif "je me fais jeter de la radio")
+// Anciens défauts :
+//   - max 3 tentatives → après 9s d'échec, le player abandonnait définitivement
+//   - cooldown de 3s avant la 1ère tentative → 3s de silence visibles avant reco
+//   - SEUL l'event 'error' déclenchait reco. Stalled/waiting/ended étaient ignorés
+//   - aucun watchdog sur currentTime → Chrome qui throttle l'onglet en background
+//     pouvait figer la lecture sans dispatcher d'event → reconnexion jamais lancée
+//   - aucune gestion de visibilitychange → buffer périmé au retour sur l'onglet
+// ═══════════════════════════════════════════════════════════════════════════
+//  LECTURE DU FLUX — VERSION MINIMALE
+// ═══════════════════════════════════════════════════════════════════════════
+// POURQUOI CETTE RÉÉCRITURE
+//   L'ancienne version empilait SIX mécanismes de reconnexion : connectRetry
+//   (6 s), connectTimeout (15 s), watchdog currentTime, handlers 'stalled' et
+//   'waiting', reconnexion au retour d'onglet, le tout avec backoff exponentiel
+//   et antibounce. Ces mécanismes se déclenchaient MUTUELLEMENT :
+//   autoReconnect() fait pause() + removeAttribute('src') + load(), ce qui tue
+//   la connexion en cours (NS_BINDING_ABORTED / NS_ERROR_NET_PARTIAL_TRANSFER),
+//   provoque un nouvel événement, qui relance une reconnexion, etc.
+//   Le lecteur se coupait lui-même en essayant de se réparer.
+//
+//   Preuve par l'usage : la MÊME URL ouverte dans un onglet nu n'a jamais
+//   coupé, une seule fois, en direct comme à travers le proxy. Le flux est
+//   sain ; c'était la surveillance qui le cassait.
+//
+// CE QUI RESTE
+//   Un <audio> auquel on donne une source, et UNE reconnexion sur erreur
+//   réelle, après un délai fixe. Rien d'autre.
+//   · pas de cache-buster « ?t= » : un flux Icecast n'est pas cacheable, et ce
+//     paramètre interdisait toute réutilisation de connexion
+//   · 'stalled' et 'waiting' ne sont PAS des pannes sur un flux infini : ils
+//     signalent un tampon en cours de remplissage. On les ignore.
+//   · pas de watchdog : le navigateur sait gérer un flux continu tout seul
+//
+// Le reste de la page (égaliseur, titre, votes, sleep timer) est inchangé.
+
+var reconnectTimer = null;
+// Essais successifs quand le flux est introuvable : 3 s, 10 s, 30 s puis
+// toutes les 60 s. Avant : toutes les 3 s à l'infini, pour chaque auditeur,
+// et l'écran restait sur « CONNEXION LENTE ».
+var RECONNECT_DELAIS = [3, 10, 30, 60];
+var reconnectEssai = 0;
+var reconnectDecompte = null;
+
+function stopReconnect(){
+  if(reconnectTimer){ clearTimeout(reconnectTimer); reconnectTimer = null; }
+  if(reconnectDecompte){ clearInterval(reconnectDecompte); reconnectDecompte = null; }
+}
+
+// Reconnexion UNIQUE, différée, et seulement si l'utilisateur écoute encore.
+function planifierReconnexion(raison){
+  if(!going) return;                 // l'utilisateur a appuyé sur pause
+  if(reconnectTimer) return;         // une reconnexion est déjà programmée
+  var delai = RECONNECT_DELAIS[Math.min(reconnectEssai, RECONNECT_DELAIS.length - 1)];
+  reconnectEssai++;
+  console.warn('[STREAM] ' + raison + ' → nouvelle tentative dans ' + delai + ' s (essai ' + reconnectEssai + ')');
+  // Dès le 2e échec, on le dit clairement, avec le temps avant le prochain essai.
+  if(reconnectEssai >= 2){
+    var reste = delai;
+    var afficher = function(){
+      setNP('\u25CF RADIO MOMENTAN\u00C9MENT HORS LIGNE \u2014 nouvel essai dans ' + reste + ' s');
+      reste--;
+    };
+    stopNPTimer();
+    afficher();
+    reconnectDecompte = setInterval(function(){
+      if(reste <= 0){ clearInterval(reconnectDecompte); reconnectDecompte = null; return; }
+      afficher();
+    }, 1000);
+    var sd = document.getElementById('sdot');
+    sd.textContent = '\u25CF HORS LIGNE'; sd.style.color = '#ff4d4d';
+  }
+  reconnectTimer = setTimeout(function(){
+    reconnectTimer = null;
+    if(reconnectDecompte){ clearInterval(reconnectDecompte); reconnectDecompte = null; }
+    if(!going) return;
+    if(reconnectEssai >= 2) setNP('\u25CF NOUVEL ESSAI DE CONNEXION...');
+    try {
+      aud.src = STREAM;
+      aud.load();
+      var p = aud.play();
+      if(p && p.catch) p.catch(function(){ /* géré par 'error' */ });
+    } catch(e){}
+  }, delai * 1000);
+}
+
+// SEULE vraie panne : le navigateur signale une erreur sur l'élément audio.
+aud.addEventListener('error', function(){
+  audioActuallyPlaying = false;
+  planifierReconnexion('erreur media');
+});
+
+// Un flux live ne se termine jamais : si 'ended' arrive, la source a lâché.
+aud.addEventListener('ended', function(){
+  audioActuallyPlaying = false;
+  planifierReconnexion('flux terminé');
+});
+
+// 'stalled' et 'waiting' : le tampon se remplit. Comportement NORMAL sur un
+// flux Icecast, et fréquent. On met seulement à jour l'état de l'égaliseur.
+aud.addEventListener('stalled', function(){ audioActuallyPlaying = false; });
+aud.addEventListener('waiting', function(){ audioActuallyPlaying = false; });
+
+aud.addEventListener('playing', function(){
+  stopReconnect();                   // le son sort : plus rien en attente
+  reconnectEssai = 0;
+  audioActuallyPlaying = true;
+  // Le titre a pu être lu avant PLAY (affichage hors écoute) : on le
+  // remet à la place de « CONNEXION AU FLUX... », avec son chrono.
+  if(curTrack){
+    setNP('\u266A ' + curTrack); startNPTimer();
+    if (typeof addToHistory === 'function') addToHistory(curTrack);
+    if (typeof refreshVotes === 'function') refreshVotes();
+  }
+});
+
+aud.addEventListener('pause', function(){ audioActuallyPlaying = false; });
+
+function doPlay(){
+  if(playState === 'CONNECTING') return; // bouton verrouillé pendant la connexion
+  // Garde-fou anti-spam : refuse si cooldown/lockout actif.
+  if(!guardAction('play', 'btnp')) return;
+  if(going){ // PLAYING -> IDLE (toggle pause)
+    aud.pause(); going=false; stopReconnect(); reconnectEssai = 0;
+    setPlayState('IDLE');
+    planifierStats(ICE_IDLE_INTERVAL);
+  } else { // IDLE -> CONNECTING -> (PLAYING via event 'playing')
+    going = true;
+    // Pas de cache-buster : un flux Icecast n'est pas cacheable (ni
+    // Content-Length, ni ETag). Le « ?t= » ne faisait qu'interdire la
+    // réutilisation de connexion et repartir sans tampon à chaque tentative.
+    aud.src = STREAM;
+    aud.volume = document.getElementById('vsl').value/100;
+    setPlayState('CONNECTING');
+    var p = aud.play();
+    // NOTE : ensureAudioGraph() n'est PLUS appelé ici. C'est l'event 'playing'
+    // (au moment EXACT où le son commence à sortir) qui s'en charge maintenant.
+    // Évite la sensation de désynchro EQ/musique au démarrage.
+    if(p && p.then) {
+      p.catch(function(err){
+        console.warn('[AUDIO] play() rejected:', err);
+        if(err && err.name === 'NotAllowedError'){
+          // Autoplay bloqué par le navigateur : un geste utilisateur est requis,
+          // réessayer automatiquement ne servirait à rien.
+          going = false;
+          setNP('\u25B6 CLIQUEZ SUR PLAY POUR LANCER LE SON'); stopNPTimer();
+          setPlayState('IDLE');
+        } else if(going){
+          // Rejet transitoire (AbortError, erreur réseau...) : une seule
+          // tentative différée, via le même chemin que les vraies erreurs.
+          planifierReconnexion('play() rejeté');
+        }
+      });
+    }
+    pollIce();
+  }
+}
+function doStop(){
+  if(!guardAction('stop', 'btnstop')) return;
+  going=false; clearTimeout(iceTimer); stopReconnect(); reconnectEssai = 0;
+  // Le chrono n'a plus de sens hors lecture : on l'arrête et on repart
+  // de zéro au prochain PLAY (le titre courant aura pu changer entretemps).
+  stopNPTimer(); trackStartTs = 0; trackDuration = 0; lastRawTitle = '';
+  try { aud.pause(); aud.removeAttribute('src'); aud.load(); } catch(e){}
+  setPlayState('IDLE');
+  planifierStats(ICE_MIN_INTERVAL);
+}
+function doVol(v){ aud.volume=v/100; try{ localStorage.setItem('popov_vol', String(v)); }catch(e){} }
+
+// ─── MODE LITE ─────────────────────────────────────────────────
+function toggleLite(){
+  if(!guardAction('lite', 'btnlite')) return;
+  document.body.classList.toggle('lite');
+  var isLite = document.body.classList.contains('lite');
+  var bl = document.getElementById('btnlite');
+  if(bl) bl.textContent = isLite ? '\u229E FULL' : '\u229F LITE';
+  try { localStorage.setItem('popov_lite', isLite ? '1':'0'); } catch(e){}
+  // Sortie de lite => les canvas étaient cachés (clientWidth=0), on resize
+  if(!isLite) setTimeout(function(){ if(typeof onResize==='function') onResize(); }, 50);
+}
+// Restauration au chargement
+try {
+  if(localStorage.getItem('popov_lite')==='1'){
+    document.body.classList.add('lite');
+    var bl0 = document.getElementById('btnlite');
+    if(bl0) bl0.textContent = '\u229E FULL';
+  }
+} catch(e){}
+
+var curTrack='', scrollDyn='', lastRawTitle='';
+// Protection du SEUL appel réseau de la page (stats Icecast) :
+//  - _icePending : empêche 2 fetch simultanés (si on matraque PLAY).
+//  - _iceLastFetch + ICE_MIN_INTERVAL : intervalle plancher entre 2 appels
+//    réels, même si pollIce() est invoqué plus souvent (clics répétés).
+var _icePending = false;
+var _iceLastFetch = 0;
+var ICE_MIN_INTERVAL = 4000; // jamais plus d'1 requête stats / 4 s
+// Hors écoute, on lit aussi les stats (toutes les 30 s, et pas quand
+// l'onglet est caché) : le visiteur voit le morceau en cours et le nombre
+// d'auditeurs avant même d'appuyer sur PLAY.
+var ICE_IDLE_INTERVAL = 30000;
+function planifierStats(delai){
+  clearTimeout(iceTimer);
+  iceTimer = setTimeout(pollIce, delai);
+}
+// Format du morceau : étiquette « [MOD] » ou extension « .mod » en fin de
+// nom de fichier (suivie de la fin, d'un espace ou d'une parenthèse).
+// Avant, « .it » cherché n'importe où allumait MOD pour « Wait...it's over ».
+function isFormat(title, exts){
+  var t = String(title || '');
+  return exts.some(function(x){
+    return new RegExp('\\[' + x + '\\]', 'i').test(t)
+        || new RegExp('(^|[^.\\s])\\.' + x + '(?=$|[\\s\\])\\[(,;-])', 'i').test(t);
+  });
+}
+
+// « À SUIVRE » : radio.py choisit ses morceaux deux crans à l'avance et
+// publie le suivant (vote_server.py /a_suivre). Lu à chaque changement de
+// titre seulement : une requête par morceau. Ajouté au bandeau défilant ;
+// rien n'est affiché si le service ne répond pas.
+var aSuivre = '';
+function chargerASuivre(titreActuel){
+  if(!VOTE_API) return;
+  fetch(VOTE_API + '/a_suivre', {cache:'no-store'})
+    .then(function(r){ return r.ok ? r.json() : null; })
+    .then(function(d){
+      var t = normVoteTitle(d && d.titre);
+      if(!t || isMaskedTitle(t) || t === normVoteTitle(titreActuel) || titreActuel !== curTrack) return;
+      aSuivre = t;
+      scrollDyn = '   \u266A\u266A  NOW PLAYING: ' + titreActuel.toUpperCase()
+                + '  \u266A\u266A   \u23ED  \u00C0 SUIVRE : ' + t.toUpperCase() + '   ';
+      var np = document.getElementById('nptxt');
+      if(np) np.title = '\u00C0 suivre : ' + t;
+    })
+    .catch(function(){ /* service absent : pas de « À suivre », rien d'autre ne change */ });
+}
+
+function pollIce(){
+  var now = Date.now();
+  // Si une requête est déjà en vol, on ne la double pas : on se contente de
+  // (re)programmer le prochain passage normal.
+  if(_icePending){
+    planifierStats(going ? 8000 : ICE_IDLE_INTERVAL);
+    return;
+  }
+  if(!going && document.hidden){ planifierStats(ICE_IDLE_INTERVAL); return; }
+  // Intervalle plancher : si on vient d'interroger le serveur, on diffère.
+  if(now - _iceLastFetch < ICE_MIN_INTERVAL){
+    planifierStats(ICE_MIN_INTERVAL - (now - _iceLastFetch));
+    return;
+  }
+  _icePending = true;
+  _iceLastFetch = now;
+  // Utilisation de l'URL exacte demandée
+  // Les deux sources sont interrogées en parallèle. np.json est optionnel :
+  // s'il est absent (404) ou en erreur, on continue avec les seules stats
+  // Icecast et le chrono retombe sur une mesure locale.
+  Promise.all([
+    fetch(ICECAST, {cache:'no-store'}).then(function(r){ return r.json(); }),
+    NP_JSON
+      ? fetch(NP_JSON, {cache:'no-store'})
+          .then(function(r){ return r.ok ? r.json() : null; })
+          .catch(function(){ return null; })
+      : Promise.resolve(null)
+  ])
+  .then(function(_res){
+    var j = _res[0], npx = _res[1];
+    var m = j && j.icestats && j.icestats.source;
+    if(Array.isArray(m)) m = m[0];
+    
+    if(m){
+      // Extraction des données
+      var cur = m.listeners !== undefined ? m.listeners : 0;
+      var pk = m.listener_peak !== undefined ? m.listener_peak : (m['listener-peak'] || 0);
+      var title = m.title || m.artist || '';
+      var br = m.bitrate || '128';
+
+      // Mise à jour de la zone SPI (à droite de l'EQ dans index2.html)
+      if(document.getElementById('sl')) document.getElementById('sl').textContent = cur;
+      if(document.getElementById('slp')) document.getElementById('slp').textContent = pk;
+
+      // Mise à jour de la zone CTRL (à côté de l'icône oeil)
+      if(document.getElementById('ic')) document.getElementById('ic').textContent = cur;
+      if(document.getElementById('ipk')) document.getElementById('ipk').textContent = pk;
+
+      // Mise à jour du compteur LCOUNT (haut droite)
+      var lc = document.getElementById('lcount');
+      if(lc) lc.innerHTML = '&#128065; ' + cur + ' AUDITEUR' + (cur > 1 ? 'S' : '');
+      
+      if(document.getElementById('sb2')) document.getElementById('sb2').textContent = br + 'k';
+
+      // Gestion du titre et du défilement
+      // On compare sur le titre BRUT (lastRawTitle) et non sur curTrack :
+      // ainsi un enchaînement "morceau A → annonce → morceau A" est bien
+      // redétecté comme un nouveau départ, et le chrono repart de zéro.
+      if(title && title !== lastRawTitle){
+        lastRawTitle = title;
+        // Le jeton de durée est retiré AVANT tout : ni le bandeau, ni
+        // l'onglet, ni le scrolltext, ni la Media Session, ni l'historique
+        // ne doivent voir passer le "[225]".
+        var _d = stripDurTag(title);
+        title = _d.title;
+        // Jingle / annonce IA : on ne touche à rien, le bandeau garde le
+        // dernier vrai morceau affiché.
+        if(isMaskedTitle(title)){ return; }
+        curTrack = title;
+        // Durée : jeton du titre en priorité, puis np.json si le sidecar
+        // est activé, puis un éventuel champ custom des stats Icecast.
+        // Sinon inconnue : le chrono n'affiche que le temps écoulé.
+        var npOk = npx && npMatches(npx.title, title);
+        trackDuration = _d.dur > 0 ? _d.dur
+                      : ((npOk && npx.duration > 0) ? npx.duration : pickDuration(m, j));
+        trackStartTs  = resolveStart(npOk ? npx : null, trackDuration);
+        // « HORS LIGNE » (flux injoignable) reste affiché tant qu'il est vrai.
+        var horsLigne = going && playState === 'CONNECTING' && reconnectEssai >= 2;
+        if(!horsLigne){ startNPTimer(); setNP('\u266A ' + title); }
+        // Votes : seulement pour qui écoute (repris à l'event 'playing').
+        if (going && typeof refreshVotes === 'function') refreshVotes();
+        document.title = '\u266A ' + title + ' \u2014 POPOV RADIO';
+        updateMediaSession(title);
+        scrollDyn = '   \u266A\u266A  NOW PLAYING: ' + title.toUpperCase() + '  \u266A\u266A   ';
+        chargerASuivre(title);
+        // Mémoriser le morceau dans l'historique localStorage (popup HIST).
+        // Idempotent : ne ré-ajoute pas si même titre que la précédente entrée.
+        // Hors écoute, le morceau n'a pas été entendu : pas d'historique
+        // (il y entre à l'event 'playing' si l'auditeur lance la lecture).
+        if (going && typeof addToHistory === 'function') addToHistory(title);
+        // Détection du format selon le titre
+        var isXm = isFormat(title, ['xm']);
+        var isS3m = isFormat(title, ['s3m']);
+        var isMod = isFormat(title, ['mod', 'it']);
+        var isMp3 = !isMod && !isXm && !isS3m;
+        document.getElementById('led_mp3').className = 'fmtled' + (isMp3 ? ' on' : '');
+        document.getElementById('led_mod').className = 'fmtled mod' + (isMod ? ' on' : '');
+        document.getElementById('led_xm').className = 'fmtled xm' + (isXm ? ' on' : '');
+        document.getElementById('led_s3m').className = 'fmtled s3m' + (isS3m ? ' on' : '');
+      }
+      // Rattrapage : np_state.publish() écrit dans un thread détaché, le
+      // sidecar peut donc arriver un ou deux polls après la métadonnée
+      // Icecast. Si la durée manquait au moment du changement de titre,
+      // on la récupère dès qu'elle est disponible.
+      else if(trackDuration <= 0 && npx && npx.duration > 0 && npMatches(npx.title, curTrack)){
+        trackDuration = npx.duration;
+        trackStartTs  = resolveStart(npx, trackDuration);
+        tickNP();
+      }
+    }
+  }).catch(function(e){ console.log("Erreur Stats:", e); })
+  .then(function(){
+    // finally : on libère le verrou quel que soit le résultat, puis on
+    // replanifie le prochain passage si la lecture est toujours active.
+    _icePending = false;
+    planifierStats(going ? 8000 : ICE_IDLE_INTERVAL);
+  });
+}
+setTimeout(pollIce, 500);   // titre et auditeurs dès l'ouverture de la page
+var BAR = IS_MOBILE ? 24 : 64; var bars=new Float32Array(BAR), pkH=new Float32Array(BAR), pkT=new Uint16Array(BAR);  // mobile : 24 barres plus larges (sinon aiguilles sur écran étroit)
+var barsDamage=new Float32Array(BAR);
+function damageBar(bi, amount){ if(bi<0||bi>=BAR) return; barsDamage[bi]=Math.min(0.75, barsDamage[bi]+amount); }
+
+// ─── IMPACT DE ZONE ────────────────────────────────────────────────
+// Creuse un cratère arrondi centré sur la barre touchée au lieu d'entamer
+// une seule barre. Le profil suit un demi-cercle (sqrt(1-(d/R)²)) : plein
+// au centre, nul au bord, ce qui donne un vrai rond et non un escalier.
+//
+// Le rayon est exprimé en NOMBRE DE BARRES et calé sur BAR, qui vaut 64 en
+// desktop et 24 en mobile. Le proportionner (et non le figer) fait que le
+// cratère couvre la même largeur À L'ÉCRAN dans les deux cas ; un rayon fixe
+// de 6 mangerait la moitié de l'analyseur sur téléphone.
+var BLAST_R = Math.max(2, Math.round(BAR*0.09));   // 6 en desktop, 2 en mobile
+function damageBlast(bi, amount, radius){
+  var R = radius || BLAST_R;
+  for(var d=-R; d<=R; d++){
+    var k = bi+d; if(k<0||k>=BAR) continue;
+    var f = Math.sqrt(Math.max(0, 1 - (d/R)*(d/R)));
+    if(f>0) damageBar(k, amount*f);
+  }
+}
+
+// ─── ONDE DE CHOC ──────────────────────────────────────────────────
+// Anneau qui s'ouvre au point d'impact. Dessiné APRÈS les barres pour
+// passer par-dessus : derrière elles, il serait presque invisible.
+var shocks=[];
+function spawnShock(x,y,rmax,col){
+  if(shocks.length>10) return;                 // garde-fou : pas d'accumulation
+  shocks.push({x:x,y:y,r:3,max:rmax,life:1,col:col||'#ff6622'});
+}
+function drawShocks(){
+  for(var i=shocks.length-1;i>=0;i--){
+    var s=shocks[i];
+    s.r += (s.max-s.r)*0.22;                   // ouverture qui décélère
+    s.life -= 0.055;
+    if(s.life<=0){shocks.splice(i,1);continue;}
+    eqx.globalAlpha = s.life*s.life;
+    eqx.strokeStyle = s.col;
+    eqx.lineWidth = 1+2.5*s.life;
+    eqx.shadowBlur = 10; eqx.shadowColor = s.col;
+    eqx.beginPath(); eqx.arc(s.x,s.y,s.r,0,Math.PI*2); eqx.stroke();
+    eqx.shadowBlur = 0; eqx.globalAlpha = 1;
+  }
+}
+// (simStep retiré : pas d'EQ fake, seul l'analyseur audio réel pilote les barres)
+
+
+// ═══════════════════════════════════════════════════════════════════
+// MOTEUR SPRITE — pixel art dessiné directement sur canvas
+// px(col, x, y, w, h) : pose un bloc de w×h pixels sprite à (x,y)
+// S = PXSC = nb pixels canvas par pixel sprite
+// ═══════════════════════════════════════════════════════════════════
+var PXSC = 3;
+var eqc, eqx; // initialisés plus bas
+function p(col,x,y,w,h){ eqx.fillStyle=col; eqx.fillRect(x*PXSC,y*PXSC,(w||1)*PXSC,(h||1)*PXSC); }
+function glow(col,n){ eqx.shadowBlur=n||8; eqx.shadowColor=col; }
+function noglow(){ eqx.shadowBlur=0; }
+
+// ─── SPACE INVADER TYPE A — Crab 11×8 ───────────────────────────
+function drawInvA(x,y,fr,col){
+  var c=col||'#00ff41'; glow(c);
+  p(c,x+2,y+0); p(c,x+8,y+0);
+  p(c,x+3,y+1); p(c,x+7,y+1);
+  p(c,x+2,y+2,7); p(c,x+1,y+3,2); p(c,x+4,y+3,3); p(c,x+8,y+3,2);
+  p(c,x,y+4,11); p(c,x,y+5,2); p(c,x+3,y+5,5); p(c,x+9,y+5,2);
+  p(c,x+2,y+6,2); p(c,x+7,y+6,2);
+  if(fr===0){ p(c,x+1,y+7); p(c,x+3,y+7); p(c,x+7,y+7); p(c,x+9,y+7); }
+  else       { p(c,x,y+7);   p(c,x+2,y+7); p(c,x+8,y+7); p(c,x+10,y+7); }
+  noglow();
+}
+// ─── SPACE INVADER TYPE B — Squid 8×8 ──────────────────────────
+function drawInvB(x,y,fr,col){
+  var c=col||'#ff88ff'; glow(c);
+  p(c,x+3,y,2); p(c,x+2,y+1,4); p(c,x+1,y+2,6);
+  p(c,x,y+3,2); p(c,x+3,y+3,2); p(c,x+6,y+3,2);
+  p(c,x,y+4,8); p(c,x,y+5,8);
+  if(fr===0){ p(c,x+1,y+6,2); p(c,x+5,y+6,2); }
+  else       { p(c,x,y+6,2);   p(c,x+6,y+6,2); }
+  noglow();
+}
+// ─── SPACE INVADER TYPE C — Octopus 11×8 ───────────────────────
+function drawInvC(x,y,fr,col){
+  var c=col||'#ff4444'; glow(c);
+  p(c,x+3,y,5); p(c,x+2,y+1,7); p(c,x+1,y+2,9);
+  p(c,x,y+3,3); p(c,x+4,y+3,3); p(c,x+8,y+3,3);
+  p(c,x,y+4,11); p(c,x+1,y+5,9);
+  if(fr===0){ p(c,x,y+6,2); p(c,x+4,y+6,3); p(c,x+9,y+6,2); }
+  else       { p(c,x+2,y+6,2); p(c,x+4,y+6,3); p(c,x+7,y+6,2); }
+  noglow();
+}
+// ─── UFO SAUCER 9×4 ────────────────────────────────────────────
+function drawSaucer(x,y){
+  var c='#ff0000'; glow(c,12);
+  p(c,x+3,y,3); p(c,x+1,y+1,7); p(c,x,y+2,9); p(c,x+2,y+3,5);
+  p('#ffaaaa',x+1,y+2,2); p('#ffaaaa',x+6,y+2,2); // hublots
+  noglow();
+}
+
+// ─── MARIO 12×16 4fr ───────────────────────────────────────────
+function drawMario(x,y,fr){
+  // Atlas WebP walk cycle (7 frames) — vraie marche, plus figé sur une pose
+  if (drawAtlas('mario_walk', 0, fr % 7, 0, 0, 0.75)) return;
+  // Fallback pixel-art si l'image n'est pas encore chargee
+  var R='#e84040',S='#ffcc99',B='#3355ee',Br='#884400';
+  glow(R);
+  // chapeau
+  p(R,x+3,y,5); p(R,x+2,y+1,7);
+  // visage
+  p(Br,x+2,y+2,3); p(S,x+5,y+2,2); p(Br,x+7,y+2,2);
+  p(S,x+1,y+3,9); p(S,x+1,y+4,9); p(S,x+1,y+5,9);
+  p('#000',x+3,y+4,1,1); p('#000',x+6,y+4);
+  // corps
+  p(B,x+2,y+6,8); p(B,x+1,y+7,10); p(B,x+1,y+8,10); p(B,x+2,y+9,7);
+  // jambes 4 frames
+  var legs=[
+    function(){ p(Br,x+2,y+10,3); p(Br,x+7,y+10,3); p(Br,x+2,y+11,3); p(Br,x+7,y+11,3); p(B,x+1,y+12,4); p(B,x+7,y+12,4); p(B,x+1,y+13,4); p(B,x+7,y+13,4); p(S,x+1,y+14,5); p(S,x+6,y+14,5); },
+    function(){ p(Br,x+2,y+10,3); p(Br,x+6,y+10,3); p(Br,x+2,y+11,3); p(Br,x+7,y+11,2); p(B,x+1,y+12,4); p(B,x+8,y+12,3); p(B,x+0,y+13,4); p(B,x+9,y+13,2); p(S,x+0,y+14,4); p(S,x+9,y+14,3); },
+    function(){ p(Br,x+3,y+10,2); p(Br,x+7,y+10,2); p(Br,x+3,y+11,2); p(Br,x+7,y+11,2); p(B,x+2,y+12,3); p(B,x+7,y+12,3); p(B,x+2,y+13,3); p(B,x+7,y+13,3); p(S,x+2,y+14,4); p(S,x+7,y+14,4); },
+    function(){ p(Br,x+3,y+10,3); p(Br,x+7,y+10,2); p(Br,x+2,y+11,3); p(Br,x+7,y+11,3); p(B,x+1,y+12,3); p(B,x+7,y+12,4); p(B,x+0,y+13,3); p(B,x+8,y+13,3); p(S,x+0,y+14,3); p(S,x+8,y+14,3); }
+  ]; legs[fr%4](); noglow();
+}
+
+// ─── LUIGI 12×17 4fr ─────────────────────────────────────────────
+function drawLuigi(x,y,fr){
+  // Atlas WebP walk cycle (7 frames)
+  if (drawAtlas('luigi', 0, fr % 7, 0, 0, 0.75)) return;
+  // Fallback pixel-art si l'image n'est pas encore chargee
+  var G='#2a9d3f',S='#ffcc99',B='#2244cc',Br='#5a3a1a';
+  glow(G);
+  // casquette
+  p(G,x+3,y,5); p(G,x+2,y+1,7);
+  // visage
+  p(Br,x+2,y+2,3); p(S,x+5,y+2,2); p(Br,x+7,y+2,2);
+  p(S,x+1,y+3,9); p(S,x+1,y+4,9); p(S,x+1,y+5,9);
+  p('#000',x+3,y+4,1,1); p('#000',x+6,y+4);
+  // corps (Luigi plus fin/grand que Mario)
+  p(G,x+2,y+6,8); p(G,x+1,y+7,10); p(B,x+1,y+8,10); p(B,x+2,y+9,7);
+  // jambes 4 frames
+  var legs=[
+    function(){ p(Br,x+2,y+10,3); p(Br,x+7,y+10,3); p(Br,x+2,y+11,3); p(Br,x+7,y+11,3); p(B,x+1,y+12,4); p(B,x+7,y+12,4); p(B,x+1,y+13,4); p(B,x+7,y+13,4); p(S,x+1,y+14,5); p(S,x+6,y+14,5); },
+    function(){ p(Br,x+2,y+10,3); p(Br,x+6,y+10,3); p(Br,x+2,y+11,3); p(Br,x+7,y+11,2); p(B,x+1,y+12,4); p(B,x+8,y+12,3); p(B,x+0,y+13,4); p(B,x+9,y+13,2); p(S,x+0,y+14,4); p(S,x+9,y+14,3); },
+    function(){ p(Br,x+3,y+10,2); p(Br,x+7,y+10,2); p(Br,x+3,y+11,2); p(Br,x+7,y+11,2); p(B,x+2,y+12,3); p(B,x+7,y+12,3); p(B,x+2,y+13,3); p(B,x+7,y+13,3); p(S,x+2,y+14,4); p(S,x+7,y+14,4); },
+    function(){ p(Br,x+3,y+10,3); p(Br,x+7,y+10,2); p(Br,x+2,y+11,3); p(Br,x+7,y+11,3); p(B,x+1,y+12,3); p(B,x+7,y+12,4); p(B,x+0,y+13,3); p(B,x+8,y+13,3); p(S,x+0,y+14,3); p(S,x+8,y+14,3); }
+  ]; legs[fr%4](); noglow();
+}
+
+// ─── LINK (ZELDA) 13×17 4fr ────────────────────────────────────
+function drawLink(x,y,fr){
+  // Atlas WebP Young Link (8 frames de profil)
+  if (drawAtlas('zelda', 0, fr % 7, 0, 0, 0.84)) return;
+  // Fallback pixel-art
+  var G='#44bb44',S='#ffcc99',Br='#884400',Bl='#8888ff',Rd='#cc2222';
+  glow(G);
+  // bonnet pointu
+  p(G,x+5,y); p(G,x+4,y+1,2); p(G,x+3,y+2,4); p(G,x+2,y+3,7); p(G,x+2,y+4,7);
+  // visage
+  p(S,x+3,y+5,5); p(S,x+2,y+6,7); p(S,x+2,y+7,7);
+  p('#000',x+3,y+6,2); p('#000',x+7,y+6,2);
+  p('#000',x+4,y+8,4); // bouche
+  // habit + bouclier
+  p(G,x+2,y+9,9); p(G,x+2,y+10,9); p(G,x+2,y+11,9);
+  p(Rd,x+0,y+9,2,3); // bouclier rouge
+  p('#888',x+0,y+10); // détail bouclier
+  // épée (frames 2-3)
+  if(fr>=2){ p('#ddd',x+11,y+6,3); p('#888',x+13,y+5,1,3); }
+  // jambes 4fr
+  var legs=[
+    function(){ p(Br,x+3,y+12,3); p(Br,x+7,y+12,3); p(Br,x+3,y+13,3); p(Br,x+7,y+13,3); p(Bl,x+2,y+14,4); p(Bl,x+7,y+14,4); p(Bl,x+2,y+15,4); p(Bl,x+7,y+15,4); p(Bl,x+1,y+16,5); p(Bl,x+7,y+16,5); },
+    function(){ p(Br,x+2,y+12,4); p(Br,x+7,y+12,3); p(Br,x+2,y+13,3); p(Br,x+8,y+13,2); p(Bl,x+1,y+14,4); p(Bl,x+8,y+14,4); p(Bl,x+0,y+15,4); p(Bl,x+9,y+15,3); p(Bl,x+0,y+16,5); p(Bl,x+9,y+16,4); },
+    function(){ p(Br,x+3,y+12,3); p(Br,x+7,y+12,3); p(Br,x+3,y+13,3); p(Br,x+7,y+13,3); p(Bl,x+2,y+14,4); p(Bl,x+7,y+14,4); p(Bl,x+2,y+15,4); p(Bl,x+7,y+15,4); p(Bl,x+1,y+16,5); p(Bl,x+7,y+16,5); },
+    function(){ p(Br,x+4,y+12,2); p(Br,x+7,y+12,4); p(Br,x+3,y+13,2); p(Br,x+7,y+13,3); p(Bl,x+1,y+14,4); p(Bl,x+8,y+14,4); p(Bl,x+0,y+15,4); p(Bl,x+9,y+15,4); p(Bl,x+0,y+16,5); p(Bl,x+9,y+16,4); }
+  ]; legs[fr%4](); noglow();
+}
+
+// ─── SONIC 14×14 4fr ────────────────────────────────────────────
+function drawSonic(x,y,fr){
+  // Atlas WebP en priorite (rangee 0 = course, 8 frames)
+  if (drawAtlas('sonic', 0, fr % 8, 0, 0, 0.84)) return;
+  // Fallback pixel-art
+  var B='#2255ee',S='#ffffff',Sk='#ffcc99',Rd='#cc2200';
+  glow(B);
+  // piquants
+  p(B,x+5,y,4); p(B,x+3,y+1,7); p(B,x+1,y+2,10);
+  // tête
+  p(B,x,y+3,8); p(Sk,x+8,y+3,4);
+  p(B,x,y+4,7); p('#000',x+7,y+4); p(Sk,x+8,y+4,4);
+  p(B,x,y+5,5); p(S,x+3,y+5); p(B,x+4,y+5,2); p(Sk,x+6,y+5,5);
+  p(B,x+1,y+6,6); p(Sk,x+7,y+6,4);
+  p(B,x+2,y+7,12); p(B,x+4,y+8,6);
+  // chaussures + jambes
+  var legs=[
+    function(){ p(B,x+4,y+9,6); p(B,x+3,y+10,3); p(B,x+8,y+10,3); p(Rd,x+2,y+11,4); p(Rd,x+8,y+11,4); p(Rd,x+2,y+12,4); p(Rd,x+8,y+12,4); p(S,x+1,y+13,5); p(S,x+8,y+13,5); },
+    function(){ p(B,x+3,y+9,8); p(B,x+2,y+10,5); p(B,x+8,y+10,3); p(Rd,x+1,y+11,5); p(Rd,x+9,y+11,4); p(Rd,x,y+12,5); p(Rd,x+10,y+12,3); p(S,x,y+13,6); p(S,x+10,y+13,4); },
+    function(){ p(B,x+4,y+9,6); p(B,x+3,y+10,3); p(B,x+8,y+10,3); p(Rd,x+2,y+11,4); p(Rd,x+8,y+11,4); p(Rd,x+2,y+12,4); p(Rd,x+8,y+12,4); p(S,x+1,y+13,5); p(S,x+8,y+13,5); },
+    function(){ p(B,x+3,y+9,8); p(B,x+5,y+10,3); p(B,x+7,y+10,4); p(Rd,x+5,y+11,3); p(Rd,x+8,y+11,4); p(Rd,x+5,y+12,4); p(Rd,x+9,y+12,4); p(S,x+5,y+13,4); p(S,x+9,y+13,5); }
+  ]; legs[fr%4](); noglow();
+}
+
+// ─── MEGAMAN 11×16 2fr ──────────────────────────────────────────
+// ─── MEGAMAN 13×16 4fr ──────────────────────────────────────────
+function drawMega(x,y,fr){
+  var C='#3d8bfd',D='#1a3a8f',Sk='#ffcc99',R='#ff3333',W='#eef4ff';
+  glow(C);
+  // casque avec ailerons lateraux (signature Mega Man)
+  p(D,x+1,y+1,2,2); p(D,x+10,y+1,2,2);
+  p(C,x+3,y,5); p(C,x+2,y+1,7);
+  p(C,x+2,y+2,2); p(D,x+4,y+2,1); p(D,x+5,y+2,1); p(C,x+6,y+2,3);
+  // visage + visiere rouge
+  p(Sk,x+2,y+3,7); p(Sk,x+2,y+4,7);
+  p(R,x+3,y+4,2); p(R,x+6,y+4,2);
+  p(D,x+2,y+5,7); // bord du casque
+  // corps (plastron clair au milieu)
+  p(C,x+2,y+6,7); p(C,x+1,y+7,9); p(W,x+3,y+7,5); p(C,x+2,y+8,7); p(C,x+2,y+9,7); p(C,x+3,y+10,5);
+  // canon (bras droit, bien detache du corps)
+  p(D,x+9,y+7,3); p(C,x+10,y+8,4); p(D,x+13,y+8,1,2);
+  // bras gauche normal
+  p(C,x,y+7,2,4);
+  var legs=[
+    function(){ p(D,x+3,y+11,2); p(D,x+6,y+11,3); p(D,x+2,y+12,3); p(D,x+6,y+12,3); p(C,x+1,y+13,4); p(C,x+6,y+13,4); p(C,x+1,y+14,4); p(C,x+6,y+14,4); p(D,x,y+15,5); p(D,x+6,y+15,4); },
+    function(){ p(D,x+2,y+11,3); p(D,x+6,y+11,2); p(D,x+1,y+12,4); p(D,x+7,y+12,3); p(C,x,y+13,5); p(C,x+7,y+13,3); p(C,x,y+14,4); p(C,x+8,y+14,3); p(D,x,y+15,4); p(D,x+8,y+15,3); },
+    function(){ p(D,x+3,y+11,2); p(D,x+6,y+11,3); p(D,x+2,y+12,3); p(D,x+6,y+12,3); p(C,x+1,y+13,4); p(C,x+6,y+13,4); p(C,x+1,y+14,4); p(C,x+6,y+14,4); p(D,x,y+15,5); p(D,x+6,y+15,4); },
+    function(){ p(D,x+3,y+11,3); p(D,x+7,y+11,2); p(D,x+2,y+12,3); p(D,x+7,y+12,4); p(C,x+1,y+13,4); p(C,x+7,y+13,4); p(C,x,y+14,3); p(C,x+8,y+14,4); p(D,x,y+15,4); p(D,x+8,y+15,4); }
+  ]; legs[fr%4]();
+  noglow();
+}
+
+// ─── SAMUS 13×17 2fr ────────────────────────────────────────────
+function drawSamus(x,y,fr){
+  // Atlas WebP walk cycle (7 frames)
+  if (drawAtlas('samus', 0, fr % 7, 0, 0, 0.75)) return;
+  // Fallback pixel-art si l'image n'est pas encore chargee
+  var O='#ffaa00',Y='#ffee44',R='#ff3300';
+  glow(O);
+  p(Y,x+4,y,4); p(O,x+3,y+1,6);
+  p(O,x+2,y+2,2); p(R,x+4,y+2,4); p(O,x+8,y+2,2);
+  p(O,x+1,y+3,10,4);
+  p(O,x+2,y+7,8); p(Y,x+3,y+8,6);
+  p(O,x+2,y+9,8,3);
+  p(O,x+10,y+5,3); p(Y,x+11,y+6,3); p(Y,x+12,y+7,2); // canon droit
+  p(O,x+2,y+12,4); p(O,x+6,y+12,4);
+  if(fr===0){
+    p(O,x+2,y+13,3); p(O,x+7,y+13,3); p(Y,x+2,y+14,3); p(Y,x+7,y+14,3);
+    p(O,x+1,y+15,4); p(O,x+7,y+15,4); p(O,x+1,y+16,4); p(O,x+7,y+16,4);
+  } else {
+    p(O,x+3,y+13,2); p(O,x+7,y+13,3); p(Y,x+3,y+14,2); p(Y,x+8,y+14,2);
+    p(O,x+2,y+15,3); p(O,x+9,y+15,3); p(O,x+1,y+16,4); p(O,x+9,y+16,3);
+  }
+  noglow();
+}
+
+// ─── DONKEY KONG 14×16 4fr ──────────────────────────────────────
+function drawDK(x,y,fr){
+  var Br='#6b3a15',Br2='#8b4a1a',Sk='#e8b483',R='#dd2222',Bl='#111';
+  glow(Br);
+  p(Br,x,y,2,2); p(Br,x+12,y,2,2); // oreilles
+  p(Br,x+2,y,10); p(Br2,x+2,y+1,10,3); // tête (fourrure)
+  p(Sk,x+3,y+4,8); p(Sk,x+3,y+5,8); // museau
+  p(Bl,x+4,y+4,2); p(Bl,x+8,y+4,2); // yeux
+  p(Sk,x+4,y+6,6); p(Bl,x+6,y+6,2); // bouche/nez
+  p(Br,x+3,y+6,1); p(Br,x+10,y+6,1);
+  p(Br2,x,y+7,14,5); // torse
+  p(R,x+4,y+7,6,2); // cravate rouge (signature DK)
+  p(Sk,x+3,y+9,8,2); // poitrine
+  var arms=[
+    function(){ p(Br,x,y+8,3,4); p(Br,x+11,y+8,3,4); },
+    function(){ p(Br,x-1,y+7,3,5); p(Br,x+12,y+9,3,4); },
+    function(){ p(Br,x,y+8,3,4); p(Br,x+11,y+8,3,4); },
+    function(){ p(Br,x+1,y+9,3,4); p(Br,x+10,y+7,3,5); }
+  ]; arms[fr%4]();
+  var legs=[
+    function(){ p(Br,x+2,y+12,4); p(Br,x+8,y+12,4); p(Br,x+2,y+13,4,3); p(Br,x+8,y+13,4,3); },
+    function(){ p(Br,x+1,y+12,5); p(Br,x+9,y+12,4); p(Br,x+1,y+13,4,3); p(Br,x+9,y+13,4,3); },
+    function(){ p(Br,x+2,y+12,4); p(Br,x+8,y+12,4); p(Br,x+2,y+13,4,3); p(Br,x+8,y+13,4,3); },
+    function(){ p(Br,x+3,y+12,4); p(Br,x+7,y+12,5); p(Br,x+3,y+13,4,3); p(Br,x+7,y+13,4,3); }
+  ]; legs[fr%4]();
+  noglow();
+}
+
+// ─── PIKACHU 13×15 4fr ──────────────────────────────────────────
+function drawPika(x,y,fr){
+  // Atlas WebP walk cycle (7 frames, sprite extrait)
+  if (drawAtlas('pika_walk', 0, fr % 7, 0, 0, 0.75)) return;
+  // Fallback pixel-art si l'image n'est pas encore chargee
+  var Y='#ffee00',Br='#cc6600',R='#ff2200',Bl='#111';
+  glow(Y,10);
+  // oreilles + pointe noire
+  p(Y,x+1,y,2,5); p(Y,x+10,y,2,5);
+  p(Bl,x+1,y,2,2); p(Bl,x+10,y,2,2);
+  // tête
+  p(Y,x+2,y+3,9); p(Y,x+1,y+4,11,5);
+  // yeux
+  p(Bl,x+3,y+5,2,2); p(Bl,x+8,y+5,2,2);
+  p('#fff',x+4,y+5); p('#fff',x+9,y+5);
+  // joues rouges
+  p(R,x+2,y+7,2); p(R,x+9,y+7,2);
+  // nez+bouche
+  p(Bl,x+5,y+7,3); p(Bl,x+5,y+8,3);
+  // corps
+  p(Y,x+2,y+9,9,3);
+  // queue zigzag (bouge selon la frame)
+  var tailY = (fr%4===1||fr%4===3) ? -1 : 0;
+  p(Y,x+12,y+8+tailY,2); p(Y,x+13,y+7+tailY,2); p(Br,x+13,y+8+tailY,2);
+  // pattes 4 frames
+  var legs=[
+    function(){ p(Y,x+3,y+12,3); p(Y,x+7,y+12,4); p(Br,x+3,y+13,3); p(Br,x+7,y+13,4); p(Br,x+3,y+14,3); p(Br,x+7,y+14,4); },
+    function(){ p(Y,x+2,y+12,4); p(Y,x+8,y+12,3); p(Br,x+2,y+13,4); p(Br,x+8,y+13,3); p(Br,x+1,y+14,4); p(Br,x+8,y+14,3); },
+    function(){ p(Y,x+2,y+12,4); p(Y,x+8,y+12,3); p(Br,x+2,y+13,4); p(Br,x+8,y+13,3); p(Br,x+2,y+14,4); p(Br,x+8,y+14,3); },
+    function(){ p(Y,x+3,y+12,3); p(Y,x+6,y+12,4); p(Br,x+3,y+13,3); p(Br,x+6,y+13,4); p(Br,x+4,y+14,3); p(Br,x+6,y+14,4); }
+  ]; legs[fr%4](); noglow();
+}
+
+// ─── FROGGER 10×10 2fr ──────────────────────────────────────────
+function drawFrog(x,y,fr){
+  var G='#22bb22',Lg='#aaffaa',R='#ff4444';
+  glow(G);
+  p(Lg,x+1,y,2,2); p(Lg,x+7,y,2,2); p('#000',x+1,y,1); p('#000',x+8,y,1);
+  p(G,x+3,y,4); p(G,x,y+2,10,3);
+  p(Lg,x+2,y+3,6,2); p(R,x+2,y+5,2); p(R,x+6,y+5,2);
+  p(G,x+2,y+6,6,2);
+  if(fr===0){ p(G,x,y+8,4,2); p(G,x+6,y+8,4,2); p(Lg,x,y+9); p(Lg,x+9,y+9); }
+  else       { p(G,x,y+7,5,3); p(G,x+5,y+7,5,3); p(Lg,x,y+9); p(Lg,x+9,y+9); }
+  noglow();
+}
+
+// ─── BOMBERMAN 10×14 2fr ────────────────────────────────────────
+function drawBomber(x,y,fr){
+  var W='#fff',Bl='#111',B='#3366ff',R='#ff3300';
+  glow(B);
+  p(Bl,x+2,y,6); p(Bl,x+2,y+1,6,2);
+  p(Bl,x,y+2,2); p(Bl,x+8,y+2,2);
+  p(W,x+1,y+3,8); p(W,x+1,y+4,8); p(W,x+1,y+5,8);
+  p(Bl,x+2,y+4,2); p(Bl,x+6,y+4,2); p(R,x+3,y+5,4);
+  p(B,x+1,y+6,8,3); p(B,x,y+6,1,3); p(B,x+9,y+6,1,3);
+  p(Bl,x+9,y+6,2,2); // bombe
+  if(fr===0){
+    p(B,x+2,y+9,3); p(B,x+6,y+9,3); p(B,x+2,y+10,3,2); p(B,x+6,y+10,3,2); p(Bl,x+1,y+12,4); p(Bl,x+6,y+12,4);
+  } else {
+    p(B,x+3,y+9,2); p(B,x+6,y+9,3); p(B,x+2,y+10,3,2); p(B,x+7,y+10,2,2); p(Bl,x+1,y+12,4); p(Bl,x+7,y+12,3);
+  }
+  noglow();
+}
+
+// ─── KIRBY 12×12 4fr ────────────────────────────────────────────
+function drawKirby(x,y,fr){
+  // Atlas WebP en priorite (8 frames de marche)
+  if (drawAtlas('kirby', 0, fr % 8, 0, 0, 0.84)) return;
+  // Fallback pixel-art
+  var P='#ffaacc',R='#ff4499',Bl='#111';
+  glow(P,10);
+  p(P,x+2,y,8); p(P,x+1,y+1,10); p(P,x,y+2,12,4); p(P,x+1,y+6,10,2); p(P,x+2,y+8,8);
+  p(Bl,x+3,y+3,2,2); p(Bl,x+7,y+3,2,2); p('#fff',x+4,y+3); p('#fff',x+8,y+3);
+  p(R,x+2,y+5,2); p(R,x+8,y+5,2); p(Bl,x+5,y+6,2);
+  var legs=[
+    function(){ p(R,x+1,y+9,4,2); p(R,x+7,y+9,4,2); p(R,x,y+11,5); p(R,x+7,y+11,5); },
+    function(){ p(R,x,y+9,5,2); p(R,x+7,y+9,4,2); p(R,x,y+11,6); p(R,x+7,y+11,4); },
+    function(){ p(R,x+1,y+9,4,2); p(R,x+7,y+9,4,2); p(R,x,y+11,5); p(R,x+7,y+11,5); },
+    function(){ p(R,x+1,y+9,4,2); p(R,x+8,y+9,5,2); p(R,x+1,y+11,4); p(R,x+7,y+11,6); }
+  ]; legs[fr%4](); noglow();
+}
+
+// ─── VAISSEAU R-TYPE 13×8 2fr ────────────────────────────────────
+function drawShip(x,y,fr){
+  var C='#aaddff',R='#ff4400',Y='#ffcc00';
+  glow(C,10);
+  p(C,x+8,y+2,5); p(C,x+6,y+3,7); p(C,x+4,y+4,9); p(C,x+5,y+5,8); p(C,x+7,y+6,3);
+  p('#88eeff',x+9,y+3,2); // cockpit brillant
+  p(C,x,y+4,5); p(C,x,y+5,4); p(C,x,y+3,3); p(C,x,y+6,3);
+  if(fr===0){ p(R,x,y+4,1,2); }
+  else       { p(R,x,y+4,1); p(Y,x,y+5,1); p(R,x-1,y+4,1,2); }
+  noglow();
+}
+
+// ─── CONTRA SOLDAT 10×16 4fr ────────────────────────────────────
+function drawContra(x,y,fr){
+  var Sk='#ffcc99',Kh='#886633',G='#44aa44',R='#cc0000';
+  glow(G);
+  p(R,x+2,y,6,2); // bandana
+  p(Sk,x+2,y+2,6,2); p('#000',x+3,y+3,2); p('#000',x+5,y+3,2);
+  p(Kh,x+1,y+4,8,3); p('#553300',x+2,y+5,6); // torse
+  p(G,x+8,y+4,4); p(G,x+9,y+5,3); // fusil
+  p(Sk,x,y+4,1,3); p(Sk,x+9,y+4,1,2);
+  var legs=[
+    function(){ p(Kh,x+2,y+7,3); p(Kh,x+6,y+7,3); p(Kh,x+2,y+8,3,3); p(Kh,x+6,y+8,3,3); p(G,x+1,y+11,4,2); p(G,x+6,y+11,4,2); p('#333',x+1,y+13,4,2); p('#333',x+6,y+13,4,2); },
+    function(){ p(Kh,x+1,y+7,4); p(Kh,x+6,y+7,3); p(Kh,x+1,y+8,3,3); p(Kh,x+7,y+8,2,3); p(G,x,y+11,4,2); p(G,x+7,y+11,3,2); p('#333',x,y+13,4,2); p('#333',x+8,y+13,3,2); },
+    function(){ p(Kh,x+2,y+7,3); p(Kh,x+6,y+7,3); p(Kh,x+2,y+8,3,3); p(Kh,x+6,y+8,3,3); p(G,x+1,y+11,4,2); p(G,x+6,y+11,4,2); p('#333',x+1,y+13,4,2); p('#333',x+6,y+13,4,2); },
+    function(){ p(Kh,x+3,y+7,2); p(Kh,x+6,y+7,3); p(Kh,x+3,y+8,2,3); p(Kh,x+7,y+8,2,3); p(G,x+2,y+11,3,2); p(G,x+7,y+11,3,2); p('#333',x+2,y+13,4,2); p('#333',x+7,y+13,4,2); }
+  ]; legs[fr%4](); noglow();
+}
+
+// ─── VAISSEAU ASTEROIDS 10×10 2fr ────────────────────────────────
+function drawAsteroid(x,y,fr){
+  var W='#ffffff'; glow(W,10);
+  p(W,x+4,y,2); p(W,x+3,y+1,4); p(W,x+2,y+2,6); p(W,x+1,y+3,8);
+  p(W,x,y+4,4); p(W,x+6,y+4,4); p(W,x,y+5,3); p(W,x+7,y+5,3);
+  if(fr===0){ p('#ff8800',x+4,y+5,2); p('#ff4400',x+4,y+6,2,2); }
+  else       { p('#ffcc00',x+3,y+5,4); p('#ff8800',x+3,y+6,4,3); p('#ff2200',x+4,y+8,2); }
+  noglow();
+}
+
+// ─── TOAD 10×12 2fr ──────────────────────────────────────────────
+function drawToad(x,y,fr){
+  var W='#fff',R='#ff3333',Sk='#ffcc99',B='#3355ee';
+  glow(W);
+  p(W,x+1,y,8); p(W,x,y+1,10,3); p(R,x+2,y+1,2,2); p(R,x+6,y+1,2,2); p(R,x+4,y+3,2);
+  p(Sk,x+1,y+4,8,2); p('#000',x+2,y+5,2); p('#000',x+6,y+5,2); p('#000',x+3,y+6,4);
+  p(B,x+2,y+7,6,3); p(Sk,x+1,y+7,1,3); p(Sk,x+8,y+7,1,3);
+  if(fr===0){ p(Sk,x+2,y+10,3,2); p(Sk,x+6,y+10,3,2); p(B,x+1,y+11,4); p(B,x+6,y+11,4); }
+  else       { p(Sk,x+1,y+10,4,2); p(Sk,x+6,y+10,4,2); p(B,x,y+11,5); p(B,x+6,y+11,5); }
+  noglow();
+}
+
+// ─── RYU STREET FIGHTER 12×18 4fr ───────────────────────────────
+function drawRyu(x,y,fr){
+  // Atlas WebP (4 frames de marche, sprite SF2 reel extrait)
+  if (drawAtlas('ryu', 0, fr % 4, 0, 0, 0.84)) return;
+  // Fallback pixel-art si l'image n'est pas encore chargee
+  var W='#f2f2f2',Sk='#e8a978',R='#cc2222',Bl='#2a2a2a',Sh='#d8d8d8';
+  glow(W);
+  // bandeau (hachimaki) + pan qui flotte selon la frame
+  p(Bl,x+3,y,6); p(Bl,x+2,y+1,8);
+  p(R,x+1,y+1,1,3); p(R,x+10,y+1,1,3);
+  p(R, (fr%2===0? x-1 : x-2), y+2, 2, 1);
+  // cheveux
+  p(Bl,x+2,y+2,8); p(Bl,x+1,y+1,2); p(Bl,x+9,y+1,2);
+  // visage
+  p(Sk,x+2,y+3,8,4);
+  p(Bl,x+3,y+4,2); p(Bl,x+7,y+4,2);
+  p(Bl,x+4,y+6,4);
+  // gi avec plis + ceinture noire/rouge
+  p(W,x+1,y+7,10,2); p(Sh,x+1,y+8,10,1);
+  p(Bl,x+1,y+9,10); p(R,x+3,y+9,6);
+  p(W,x+2,y+10,8,2);
+  // epaules + poings visibles
+  p(Sk,x,y+7,2,2); p(Sk,x+10,y+7,2,2);
+  p(Sk,x-1,y+9,2,2); p(Sk,x+11,y+9,2,2);
+  var legs=[
+    function(){ p(W,x+2,y+12,4); p(W,x+7,y+12,4); p(W,x+2,y+13,4,4); p(W,x+7,y+13,4,4); p(Sk,x+1,y+17,5); p(Sk,x+7,y+17,5); },
+    function(){ p(W,x+1,y+12,5); p(W,x+7,y+12,4); p(W,x+1,y+13,4,4); p(W,x+8,y+13,4,4); p(Sk,x,y+17,5); p(Sk,x+8,y+17,4); },
+    function(){ p(W,x+2,y+12,4); p(W,x+6,y+12,5); p(W,x+2,y+13,4,2); p(W,x+5,y+13,6,2); p(Sk,x+1,y+15,5); p(Sk,x+10,y+14,4); p(Sk,x+11,y+13,3); },
+    function(){ p(W,x+3,y+12,3); p(W,x+7,y+12,4); p(W,x+3,y+13,3,4); p(W,x+7,y+13,4,4); p(Sk,x+2,y+17,4); p(Sk,x+7,y+17,5); }
+  ]; legs[fr%4](); noglow();
+}
+
+// ─── KEN STREET FIGHTER 12×18 4fr ───────────────────────────────
+function drawKen(x,y,fr){
+  // Atlas WebP (4 frames de marche, sprite SF2 reel extrait)
+  if (drawAtlas('ken', 0, fr % 4, 0, 0, 0.84)) return;
+  // Fallback pixel-art si l'image n'est pas encore chargee (Ryu recolore : gi orange, cheveux blonds)
+  var G='#dd6622',Sk='#e8a978',R='#cc2222',Bl='#eecc44',Sh='#ff8844';
+  glow(G);
+  p(Bl,x+3,y,6); p(Bl,x+2,y+1,8);
+  p(R,x+1,y+1,1,3); p(R,x+10,y+1,1,3);
+  p(R, (fr%2===0? x-1 : x-2), y+2, 2, 1);
+  p(Bl,x+2,y+2,8); p(Bl,x+1,y+1,2); p(Bl,x+9,y+1,2);
+  p(Sk,x+2,y+3,8,4);
+  p('#222',x+3,y+4,2); p('#222',x+7,y+4,2);
+  p('#222',x+4,y+6,4);
+  p(G,x+1,y+7,10,2); p(Sh,x+1,y+8,10,1);
+  p('#222',x+1,y+9,10); p(R,x+3,y+9,6);
+  p(G,x+2,y+10,8,2);
+  p(Sk,x,y+7,2,2); p(Sk,x+10,y+7,2,2);
+  p(Sk,x-1,y+9,2,2); p(Sk,x+11,y+9,2,2);
+  var legs=[
+    function(){ p(G,x+2,y+12,4); p(G,x+7,y+12,4); p(G,x+2,y+13,4,4); p(G,x+7,y+13,4,4); p(Sk,x+1,y+17,5); p(Sk,x+7,y+17,5); },
+    function(){ p(G,x+1,y+12,5); p(G,x+7,y+12,4); p(G,x+1,y+13,4,4); p(G,x+8,y+13,4,4); p(Sk,x,y+17,5); p(Sk,x+8,y+17,4); },
+    function(){ p(G,x+2,y+12,4); p(G,x+6,y+12,5); p(G,x+2,y+13,4,2); p(G,x+5,y+13,6,2); p(Sk,x+1,y+15,5); p(Sk,x+10,y+14,4); p(Sk,x+11,y+13,3); },
+    function(){ p(G,x+3,y+12,3); p(G,x+7,y+12,4); p(G,x+3,y+13,3,4); p(G,x+7,y+13,4,4); p(Sk,x+2,y+17,4); p(Sk,x+7,y+17,5); }
+  ]; legs[fr%4](); noglow();
+}
+var _PAC=[
+ [0,0,0,1,1,1,1,1,1,1,0,0,0,0, 0,0,1,1,1,1,1,1,1,1,1,0,0,0, 0,1,1,1,1,1,1,1,1,1,1,1,0,0, 1,1,1,1,1,2,1,1,1,1,1,1,1,0, 1,1,1,1,1,1,1,1,1,1,1,1,1,0, 1,1,1,1,1,1,1,1,1,1,1,1,1,1, 1,1,1,1,1,1,1,1,1,1,1,1,1,1, 1,1,1,1,1,1,1,1,1,1,1,1,1,2, 1,1,1,1,1,1,1,1,1,1,1,1,1,1, 1,1,1,1,1,1,1,1,1,1,1,1,1,0, 0,1,1,1,1,1,1,1,1,1,1,1,0,0, 0,0,1,1,1,1,1,1,1,1,1,0,0,0, 0,0,0,1,1,1,1,1,1,1,0,0,0,0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+ [0,0,0,1,1,1,1,1,1,1,0,0,0,0, 0,0,1,1,1,1,1,1,1,1,1,0,0,0, 0,1,1,1,1,1,1,1,1,1,1,1,0,0, 1,1,1,1,1,2,1,1,1,1,1,1,1,0, 1,1,1,1,1,1,1,1,1,1,1,1,1,0, 1,1,1,1,1,1,1,1,1,1,1,1,2,2, 1,1,1,1,1,1,1,1,1,1,1,1,0,0, 1,1,1,1,1,1,1,1,1,1,1,1,2,2, 1,1,1,1,1,1,1,1,1,1,1,1,1,0, 1,1,1,1,1,1,1,1,1,1,1,1,1,0, 0,1,1,1,1,1,1,1,1,1,1,1,0,0, 0,0,1,1,1,1,1,1,1,1,1,0,0,0, 0,0,0,1,1,1,1,1,1,1,0,0,0,0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+ [0,0,0,1,1,1,1,1,1,1,0,0,0,0, 0,0,1,1,1,1,1,1,1,1,1,0,0,0, 0,1,1,1,1,1,1,1,1,1,1,1,0,0, 1,1,1,1,1,2,1,1,1,1,1,1,0,0, 1,1,1,1,1,1,1,1,1,1,1,0,0,0, 1,1,1,1,1,1,1,1,1,1,0,0,0,0, 1,1,1,1,1,1,1,1,1,0,0,0,0,0, 1,1,1,1,1,1,1,1,1,0,0,0,0,0, 1,1,1,1,1,1,1,1,1,1,0,0,0,0, 1,1,1,1,1,1,1,1,1,1,1,0,0,0, 0,1,1,1,1,1,1,1,1,1,1,1,0,0, 0,0,1,1,1,1,1,1,1,1,1,0,0,0, 0,0,0,1,1,1,1,1,1,1,0,0,0,0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+ [0,0,0,1,1,1,1,1,1,1,0,0,0,0, 0,0,1,1,1,1,1,1,1,1,1,0,0,0, 0,1,1,1,1,1,1,1,1,1,1,1,0,0, 1,1,1,1,1,2,1,1,1,1,1,1,1,0, 1,1,1,1,1,1,1,1,1,1,1,1,1,0, 1,1,1,1,1,1,1,1,1,1,1,1,2,2, 1,1,1,1,1,1,1,1,1,1,1,1,0,0, 1,1,1,1,1,1,1,1,1,1,1,1,2,2, 1,1,1,1,1,1,1,1,1,1,1,1,1,0, 1,1,1,1,1,1,1,1,1,1,1,1,1,0, 0,1,1,1,1,1,1,1,1,1,1,1,0,0, 0,0,1,1,1,1,1,1,1,1,1,0,0,0, 0,0,0,1,1,1,1,1,1,1,0,0,0,0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+];
+function drawPacman(x,y,fr,flip){
+  var W=14,g=_PAC[fr%4]; glow('#ffdd00',12);
+  for(var r=0;r<14;r++) for(var c=0;c<W;c++){
+    var v=g[r*W+c]; if(!v) continue;
+    eqx.fillStyle=v===1?'#ffdd00':'#000';
+    eqx.fillRect((x+(flip?W-1-c:c))*PXSC,( y+r)*PXSC,PXSC,PXSC);
+  }
+  noglow();
+}
+
+// ─── FANTOME PAC-MAN vectoriel ────────────────────────────────────
+function drawGhost(cx,cy,fr,col){
+  var R=7*PXSC;
+  glow(col,8); eqx.fillStyle=col;
+  eqx.beginPath(); eqx.arc(cx,cy-R*0.25,R,Math.PI,0);
+  var bY=cy+R*0.75,w=R*2,nb=3,sw=w/nb;
+  eqx.lineTo(cx+R,bY);
+  for(var t=0;t<nb;t++){
+    var tx=cx+R-t*sw;
+    eqx.lineTo(tx,bY+(fr===0?PXSC*2:0));
+    eqx.lineTo(tx-sw*.5,bY-(fr===0?0:PXSC*2));
+    eqx.lineTo(tx-sw,bY+(fr===0?PXSC*2:0));
+  }
+  eqx.closePath(); eqx.fill();
+  eqx.fillStyle='#fff';
+  eqx.beginPath(); eqx.ellipse(cx-R*.35,cy-R*.1,PXSC*1.2,PXSC*1.5,0,0,Math.PI*2); eqx.fill();
+  eqx.beginPath(); eqx.ellipse(cx+R*.35,cy-R*.1,PXSC*1.2,PXSC*1.5,0,0,Math.PI*2); eqx.fill();
+  eqx.fillStyle='#00c';
+  eqx.beginPath(); eqx.arc(cx-R*.32+PXSC*.3,cy-R*.1,PXSC*.6,0,Math.PI*2); eqx.fill();
+  eqx.beginPath(); eqx.arc(cx+R*.38+PXSC*.3,cy-R*.1,PXSC*.6,0,Math.PI*2); eqx.fill();
+  noglow();
+}
+
+// ─── BLOC ? Mario ─────────────────────────────────────────────────
+// state : 0=intact "?", 1=frappé "vide" (le bloc devient sombre apres le hit)
+function drawQuestionBlock(x, y, size, state){
+  var bounce = state.bounceY || 0;
+  y -= bounce;
+  // bordure foncee
+  var dark  = state.hit ? '#553300' : '#cc6600';
+  var light = state.hit ? '#774400' : '#ee9900';
+  eqx.shadowBlur = 8; eqx.shadowColor = state.hit ? '#553300' : '#ffaa00';
+  eqx.fillStyle = light;
+  eqx.fillRect(x, y, size, size);
+  // cadre
+  eqx.fillStyle = dark;
+  eqx.fillRect(x, y, size, 3);
+  eqx.fillRect(x, y+size-3, size, 3);
+  eqx.fillRect(x, y, 3, size);
+  eqx.fillRect(x+size-3, y, 3, size);
+  // rivets aux 4 coins
+  eqx.fillStyle = light;
+  eqx.fillRect(x+3, y+3, 3, 3);
+  eqx.fillRect(x+size-6, y+3, 3, 3);
+  eqx.fillRect(x+3, y+size-6, 3, 3);
+  eqx.fillRect(x+size-6, y+size-6, 3, 3);
+  eqx.shadowBlur = 0;
+  // Symbole "?" (pixel art) ou ligne plate si frappé
+  eqx.fillStyle = state.hit ? '#332200' : '#ffffff';
+  if(state.hit){
+    // trait horizontal (bloc vide)
+    eqx.fillRect(x+size*0.3, y+size*0.5-1, size*0.4, 3);
+  } else {
+    // dessin pixelise du "?"
+    var u = size/12;  // unite pixel
+    var cx = x + size*0.5 - u*1.5;
+    var cy = y + size*0.25;
+    // courbe haute du ?
+    eqx.fillRect(cx,        cy,        u*3, u);
+    eqx.fillRect(cx-u,      cy+u,      u,   u);
+    eqx.fillRect(cx+u*3,    cy+u,      u,   u);
+    eqx.fillRect(cx+u*2,    cy+u*2,    u*2, u);
+    eqx.fillRect(cx+u*2,    cy+u*3,    u,   u);
+    // tige
+    eqx.fillRect(cx+u,      cy+u*4,    u,   u);
+    // point
+    eqx.fillRect(cx+u,      cy+u*6,    u,   u);
+  }
+}
+
+// ─── PIECE Mario qui sort du bloc frappe ──────────────────────────
+function drawCoin(x, y, t){
+  // t = temps depuis emission (0..1)
+  var alpha = t < 0.85 ? 1 : (1-t)/0.15;
+  eqx.globalAlpha = Math.max(0, alpha);
+  // Pulse de largeur (rotation simulee)
+  var w = 4 + Math.abs(Math.sin(t*15)) * 8;
+  eqx.shadowBlur = 8; eqx.shadowColor = '#ffdd00';
+  eqx.fillStyle = '#ffdd00';
+  eqx.fillRect(x - w/2, y - 8, w, 16);
+  eqx.fillStyle = '#ffaa00';
+  eqx.fillRect(x - w/2, y - 8, w, 2);
+  eqx.fillRect(x - w/2, y + 6, w, 2);
+  eqx.shadowBlur = 0;
+  eqx.globalAlpha = 1;
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// FORMATION SPACE INVADERS
+// ═══════════════════════════════════════════════════════════════════
+var INV_FORM=null;
+function spawnFormation(W,H){
+  if(INV_FORM) return;
+  var cols=8,rows=4,spW=12*PXSC,spH=9*PXSC;
+  var grid=[];
+  for(var r=0;r<rows;r++) for(var c=0;c<cols;c++) grid.push({r:r,c:c,alive:true});
+  INV_FORM={x:W*.1,y:H*.06,dir:1,spW:spW,spH:spH,cols:cols,rows:rows,grid:grid,
+    fr:0,ft:0,moveTimer:0,moveSpeed:25,lasers:[],shootTimer:0,saucer:null};
+}
+function drawFormation(W,H){
+  var f=INV_FORM; if(!f) return;
+  f.ft++; if(f.ft>14){f.ft=0;f.fr=1-f.fr;}
+  f.moveTimer++;
+  if(f.moveTimer>=f.moveSpeed){
+    f.moveTimer=0; f.x+=f.dir*7;
+    var maxX=0,minX=W;
+    for(var i=0;i<f.grid.length;i++) if(f.grid[i].alive){
+      var gx=f.x+f.grid[i].c*f.spW;
+      if(gx+f.spW>maxX) maxX=gx+f.spW;
+      if(gx<minX) minX=gx;
+    }
+    if(maxX>W-10||minX<10){f.dir*=-1;f.y+=7;}
+  }
+  // saucer UFO
+  if(!f.saucer&&Math.random()<0.001){
+    f.saucer={x:-40,y:H*.04,spd:1.2+(Math.random()*.8),pts:Math.floor(Math.random()*4+1)*50};
+  }
+  if(f.saucer){
+    f.saucer.x+=f.saucer.spd;
+    eqx.save(); eqx.translate(f.saucer.x,f.saucer.y);
+    drawSaucer(0,0);
+    eqx.restore();
+    if(f.saucer.x>W+60) f.saucer=null;
+  }
+  // tir
+  f.shootTimer--;
+  if(f.shootTimer<=0){
+    f.shootTimer=50+Math.floor(Math.random()*70);
+    var alive=f.grid.filter(function(g){return g.alive;});
+    if(alive.length){
+      var ch=alive[Math.floor(Math.random()*alive.length)];
+      f.lasers.push({x:f.x+ch.c*f.spW+5*PXSC,y:f.y+ch.r*f.spH+8*PXSC,vy:3.5});
+    }
+  }
+  // lasers formation
+  for(var li=f.lasers.length-1;li>=0;li--){
+    var l=f.lasers[li]; l.y+=l.vy;
+    if(l.y>H+20){f.lasers.splice(li,1);continue;}
+    var bi=Math.floor(l.x/(W/BAR)); bi=Math.max(0,Math.min(BAR-1,bi));
+    if(l.y>=(H-bars[bi]*H)){
+      var iy=H-bars[bi]*H;
+      // Impact de zone : cratère arrondi + anneau + gerbe plus fournie.
+      damageBlast(bi, .55);
+      spawnExplosion(l.x, iy, '#ff4400', 16);
+      spawnExplosion(l.x, iy, '#ffcc00', 8);
+      spawnShock(l.x, iy, BLAST_R*(W/BAR), '#ff6622');
+      // Les crêtes voisines sont soulevées elles aussi : sans ça le trait
+      // blanc de peak restait bien au-dessus d'un cratère devenu vide.
+      for(var pd=-BLAST_R; pd<=BLAST_R; pd++){
+        var pk=bi+pd; if(pk<0||pk>=BAR) continue;
+        pkH[pk]=Math.min(1, pkH[pk]+.2*Math.sqrt(Math.max(0,1-(pd/BLAST_R)*(pd/BLAST_R))));
+      }
+      f.lasers.splice(li,1); continue;
+    }
+    eqx.shadowBlur=6; eqx.shadowColor='#ff4400'; eqx.fillStyle='#ff4400';
+    eqx.fillRect(l.x-1,l.y,3,7); eqx.fillStyle='#ffaa00'; eqx.fillRect(l.x,l.y,1,3); eqx.shadowBlur=0;
+  }
+  // dessiner invaders
+  var drawFns=[[drawInvC,drawInvC],[drawInvB,drawInvB],[drawInvA,drawInvA],[drawInvA,drawInvA]];
+  var invcols=['#ff4444','#ff4444','#ff88ff','#ff88ff','#00ff41','#00ff41','#00ccff','#00ccff'];
+  for(var i=0;i<f.grid.length;i++){
+    var g=f.grid[i]; if(!g.alive) continue;
+    var gx=f.x+g.c*f.spW,gy=f.y+g.r*f.spH;
+    if(gy>H*.88){INV_FORM=null;return;}
+    var fn=drawFns[g.r%4][0];
+    var col=invcols[g.c%8];
+    if(g.r===0||g.r===1) fn=drawInvC;
+    else if(g.r===2||g.r===3) fn=drawInvB;
+    fn(gx/PXSC,gy/PXSC,f.fr,col);
+  }
+  if(f.grid.filter(function(g){return g.alive;}).length===0) INV_FORM=null;
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// TETRIMINOS TOMBANTS
+// ═══════════════════════════════════════════════════════════════════
+var _TETS=[
+  {fn:function(x,y,c){p(c,x,y,4);},w:4,h:1,col:'#00ffff'},
+  {fn:function(x,y,c){p(c,x,y,3);p(c,x+2,y+1);},w:3,h:2,col:'#ff8800'},
+  {fn:function(x,y,c){p(c,x,y,3);p(c,x+1,y+1);},w:3,h:2,col:'#aa00ff'},
+  {fn:function(x,y,c){p(c,x+1,y,2);p(c,x,y+1,2);},w:3,h:2,col:'#00ff44'},
+  {fn:function(x,y,c){p(c,x,y,2);p(c,x+1,y+1,2);},w:3,h:2,col:'#ff2244'},
+  {fn:function(x,y,c){p(c,x,y,2,2);},w:2,h:2,col:'#ffee00'}
+];
+var tetPieces=[];
+function spawnTet(W){
+  var t=_TETS[Math.floor(Math.random()*_TETS.length)];
+  tetPieces.push({t:t,x:Math.random()*(W/PXSC-t.w-2)+1,y:-t.h-1,vy:.4+Math.random()*.6});
+}
+function drawTets(W,H){
+  for(var i=tetPieces.length-1;i>=0;i--){
+    var t=tetPieces[i]; t.y+=t.vy;
+    if(t.y*PXSC>H+20){tetPieces.splice(i,1);continue;}
+    var bi=Math.floor((t.x*PXSC)/(W/BAR)); bi=Math.max(0,Math.min(BAR-1,bi));
+    if(t.y*PXSC>=(H-bars[bi]*H-t.t.h*PXSC)&&t.vy>0){
+      spawnExplosion(t.x*PXSC,H-bars[bi]*H,t.t.col,6); tetPieces.splice(i,1); continue;
+    }
+    eqx.save(); eqx.translate(0,0);
+    t.t.fn(Math.round(t.x),Math.round(t.y),t.t.col);
+    eqx.restore();
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// DOTS PAC-MAN
+// ═══════════════════════════════════════════════════════════════════
+var dots=[],dotsW=0,dotsH=0;
+function initDots(W,H){
+  if(dotsW===W&&dotsH===H) return;
+  dotsW=W; dotsH=H; dots=[];
+  var sp=18,n=Math.floor(W/sp),rowY=H*.42;
+  for(var c=0;c<n;c++){
+    var big=(c===0||c===Math.floor(n/2)||c===n-1);
+    dots.push({x:sp/2+c*sp,y:rowY,eaten:false,big:big,ph:Math.random()*Math.PI*2});
+  }
+}
+function drawDots(){
+  var t=Date.now()*.004;
+  for(var d=0;d<dots.length;d++){
+    if(dots[d].eaten) continue;
+    var dot=dots[d];
+    if(dot.big){
+      var sc=.7+.3*Math.sin(t*2+dot.ph),s=Math.round(PXSC*2.2*sc);
+      eqx.shadowBlur=12+6*sc; eqx.shadowColor='#fff'; eqx.fillStyle='#fff';
+      eqx.fillRect(dot.x-s/2,dot.y-s/2,s,s); eqx.shadowBlur=0;
+    } else {
+      var s2=PXSC*.9;
+      eqx.shadowBlur=3; eqx.shadowColor='#bbbbff'; eqx.fillStyle='#ccccff';
+      eqx.fillRect(dot.x-s2/2,dot.y-s2/2,s2,s2); eqx.shadowBlur=0;
+    }
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// TABLE DES ACTEURS
+// ═══════════════════════════════════════════════════════════════════
+var ACTOR_TYPES=[
+  {key:'mario',   draw:drawMario,   w:16,h:16, col:'#e84040', nf:7, sp:[0.8,1.6], wt:2},
+  {key:'luigi',   draw:drawLuigi,   w:16,h:17, col:'#2a9d3f', nf:7, sp:[0.8,1.6], wt:2},
+  {key:'link',    draw:drawLink,    w:18,h:18, col:'#44bb44', nf:7, sp:[0.7,1.3], wt:2},
+  {key:'sonic',   draw:drawSonic,   w:18,h:18, col:'#2255ee', nf:8, sp:[1.6,2.8], wt:2},
+  {key:'mega',    draw:drawMega,    w:13,h:16, col:'#3d8bfd', nf:4, sp:[0.8,1.5]},
+  {key:'samus',   draw:drawSamus,   w:16,h:16, col:'#ffaa00', nf:7, sp:[0.7,1.3], wt:2},
+  {key:'dk',      draw:drawDK,      w:14,h:16, col:'#663300', nf:4, sp:[0.5,1.0]},
+  {key:'pika',    draw:drawPika,    w:16,h:16, col:'#ffee00', nf:7, sp:[0.9,1.6], wt:2},
+  {key:'frog',    draw:drawFrog,    w:10,h:10, col:'#22bb22', nf:2, sp:[0.8,1.4]},
+  {key:'ship',    draw:drawShip,    w:14,h:8,  col:'#aaddff', nf:2, sp:[1.4,2.2]},
+  {key:'bomber',  draw:drawBomber,  w:11,h:14, col:'#3366ff', nf:2, sp:[0.7,1.3]},
+  {key:'kirby',   draw:drawKirby,   w:18,h:18, col:'#ffaacc', nf:8, sp:[0.9,1.6], wt:2},
+  {key:'ryu',     draw:drawRyu,     w:18,h:18, col:'#ffffff', nf:4, sp:[0.6,1.2], wt:2},
+  {key:'ken',     draw:drawKen,     w:18,h:18, col:'#dd6622', nf:4, sp:[0.6,1.2], wt:2},
+  {key:'contra',  draw:drawContra,  w:12,h:16, col:'#44aa44', nf:4, sp:[0.8,1.5]},
+  {key:'aster',   draw:drawAsteroid,w:10,h:10, col:'#ffffff', nf:2, sp:[1.5,2.8]},
+  {key:'toad',    draw:drawToad,    w:10,h:12, col:'#ffffff', nf:2, sp:[0.8,1.4]},
+  // modes spéciaux — doivent être en dernier
+  {key:'pac',       draw:null, w:14,h:14, col:'#ffdd00', nf:4, sp:[1.6,2.2], mode:'pac'},
+  {key:'mariojump', draw:null, w:18,h:18, col:'#e84040', nf:8, sp:[1.4,1.8], mode:'mariojump'},
+  {key:'sonicdash', draw:null, w:18,h:18, col:'#2255ee', nf:8, sp:[2.5,3.5], mode:'sonicdash'},
+  {key:'pikadash',  draw:null, w:16,h:12, col:'#ffee00', nf:4, sp:[1.8,1.8], mode:'pikadash'},
+];
+var GHOST_COLS=['#ff2222','#ff88ff','#00ccff','#ffaa00','#ff88aa'];
+var PAC_IDX=17, MARIO_JUMP_IDX=18, SONIC_DASH_IDX=19, PIKA_DASH_IDX=20, NORMAL_COUNT=17;
+// Pool de spawn pondéré : wt=2 pour les persos avec vrai artwork (atlas), 1 sinon
+var SPAWN_POOL=[];
+(function(){ for(var i=0;i<NORMAL_COUNT;i++){ var w=ACTOR_TYPES[i].wt||1; for(var k=0;k<w;k++) SPAWN_POOL.push(i); } })();
+
+// ═══════════════════════════════════════════════════════════════════
+// PARTICULES + LASERS
+// ═══════════════════════════════════════════════════════════════════
+var particles=[];
+function spawnExplosion(x,y,col,n){
+  var count = Math.ceil((n||10) / PARTICLE_SKIP);
+  for(var i=0;i<count;i++){
+    var a=Math.random()*Math.PI*2,spd=1+Math.random()*3.5;
+    particles.push({x:x,y:y,vx:Math.cos(a)*spd,vy:Math.sin(a)*spd-1,life:1,col:col||'#ffff00',sz:1+Math.random()*2});
+  }
+}
+function updateParticles(){
+  for(var i=particles.length-1;i>=0;i--){
+    var p2=particles[i];
+    p2.x+=p2.vx; p2.y+=p2.vy; p2.vy+=.12; p2.life-=.035;
+    if(p2.life<=0){particles.splice(i,1);continue;}
+    eqx.globalAlpha=p2.life*p2.life;
+    eqx.shadowBlur=4; eqx.shadowColor=p2.col; eqx.fillStyle=p2.col;
+    var s=p2.sz*p2.life; eqx.fillRect(p2.x-s/2,p2.y-s/2,s,s); eqx.shadowBlur=0;
+  }
+  eqx.globalAlpha=1;
+}
+var lasers=[];
+function spawnLaser(x,y,col){
+  lasers.push({x:x,y:y,vy:-(6+Math.random()*3),col:col||'#ff2200'});
+}
+function updateLasers(H){
+  for(var i=lasers.length-1;i>=0;i--){
+    var l=lasers[i]; l.y+=l.vy;
+    if(l.y<0){lasers.splice(i,1);continue;}
+    var bi=Math.floor(l.x/(eqc.width/BAR)); bi=Math.max(0,Math.min(BAR-1,bi));
+    if(l.y>=(H-bars[bi]*H)-4){
+      spawnExplosion(l.x,H-bars[bi]*H,l.col,6); pkH[bi]=Math.min(1,pkH[bi]+.25); damageBar(bi,.32);
+      lasers.splice(i,1); continue;
+    }
+    eqx.shadowBlur=8; eqx.shadowColor=l.col; eqx.fillStyle=l.col;
+    eqx.fillRect(l.x-1,l.y,3,10); eqx.fillStyle='#fff'; eqx.fillRect(l.x,l.y,1,4); eqx.shadowBlur=0;
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// ACTEURS
+// ═══════════════════════════════════════════════════════════════════
+var actors=[],actTick=0,formTimer=0;
+function spawnActor(){
+  var r=Math.random(), type;
+  if(ALLOW_SPECIAL_MODES){
+    if(r<.04)        type=ACTOR_TYPES[PAC_IDX];          // Pacman + ghosts
+    else if(r<.08)   type=ACTOR_TYPES[MARIO_JUMP_IDX];   // Mario saute sur bloc ?
+    else if(r<.12)   type=ACTOR_TYPES[SONIC_DASH_IDX];   // Sonic course -> boule
+    else if(r<.16)   type=ACTOR_TYPES[PIKA_DASH_IDX];    // Pikachu charge -> dash electrique
+    else             type=ACTOR_TYPES[SPAWN_POOL[Math.floor(Math.random()*SPAWN_POOL.length)]];
+  } else {
+    // Mobile : que des acteurs normaux, pas de modes spéciaux gourmands
+    type=ACTOR_TYPES[SPAWN_POOL[Math.floor(Math.random()*SPAWN_POOL.length)]];
+  }
+  var spd=type.sp[0]+Math.random()*(type.sp[1]-type.sp[0]);
+  var dir=(type.mode==='ghost'&&Math.random()<.4)?-1:1;
+  actors.push({
+    type:type, fr:0, ft:0,
+    x:dir>0?-type.w*PXSC-10:eqc.width+type.w*PXSC+10,
+    yb:Math.random()*Math.PI*2, spd:spd*dir,
+    lane:Math.floor(Math.random()*3),
+    falling:false, vy:0, ay:0, dead:false, bounces:0, rot:0, rotSpd:0,
+    gcol:GHOST_COLS[Math.floor(Math.random()*GHOST_COLS.length)]
+  });
+}
+
+function drawSprites(W,H,maxBar){
+  var zone=Math.max(60,H-maxBar*H-30);
+  actTick++;
+  if(actTick%ACTOR_SPAWN_INTERVAL===0&&actors.length<ACTOR_MAX) spawnActor();
+  formTimer++;
+  if(formTimer>1400&&!INV_FORM){spawnFormation(W,H);formTimer=0;}
+  if(formTimer%280===0&&tetPieces.length<5) spawnTet(W);
+
+  initDots(W,H); drawDots();
+  if(INV_FORM) drawFormation(W,H);
+  drawTets(W,H);
+  updateLasers(H);
+  updateParticles();
+
+  for(var a=actors.length-1;a>=0;a--){
+    var ac=actors[a],type=ac.type;
+    var sw=type.w*PXSC,sh=type.h*PXSC;
+    if(ac.dead){spawnExplosion(ac.x+sw/2,ac.ay+sh/2,type.col,14);actors.splice(a,1);continue;}
+
+    // PAC-MAN CHASE — Pacman poursuit les fantômes (jeu original)
+    if(type.mode==='pac'){
+      // Init la 1ère fois : 4 ghosts qui tentent de fuir
+      if(!ac.ghosts){
+        ac.ghosts = [];
+        var gcols = ['#ff2222','#ff88ff','#00ccff','#ffaa00'];
+        for(var gi=0; gi<4; gi++){
+          ac.ghosts.push({
+            x: W*0.5 + (gi-1.5)*40,
+            y: zone*0.3 + (gi%2)*zone*0.25,
+            vx: (Math.random()<0.5?-1:1) * (0.7+Math.random()*0.6),
+            vy: (Math.random()-0.5) * 0.8,
+            col: gcols[gi], fr: 0, ft: 0, dead: false
+          });
+        }
+        ac.ay = zone*0.4;
+        ac.spd = 1.7;
+      }
+      // Animation chomp Pacman
+      ac.ft = (ac.ft||0)+1; if(ac.ft>8){ac.ft=0; ac.fr=(ac.fr+1)%4;}
+      // Trouve le ghost vivant le plus proche
+      var nearest=null, nearestDist=99999;
+      for(var gi=0; gi<ac.ghosts.length; gi++){
+        var g = ac.ghosts[gi]; if(g.dead) continue;
+        var dx = g.x - ac.x, dy = g.y - ac.ay, d = Math.hypot(dx, dy);
+        if(d < nearestDist){ nearestDist = d; nearest = g; }
+      }
+      // Pacman fonce vers la cible
+      var pacFlip = false;
+      if(nearest){
+        var dx = nearest.x - ac.x, dy = nearest.y - ac.ay;
+        var dn = Math.max(1, Math.hypot(dx, dy));
+        ac.x += (dx/dn) * ac.spd; ac.ay += (dy/dn) * ac.spd;
+        pacFlip = dx < 0;
+        if(nearestDist < 22){
+          nearest.dead = true;
+          spawnExplosion(nearest.x+sw/2, nearest.y+sh/2, nearest.col, 16);
+        }
+      } else {
+        ac.x += 2.2;
+        if(ac.x > W + sw + 20){ actors.splice(a,1); continue; }
+      }
+      // Update + dessin des ghosts vivants
+      for(var gi=0; gi<ac.ghosts.length; gi++){
+        var g = ac.ghosts[gi]; if(g.dead) continue;
+        var pdx = g.x - ac.x, pdy = g.y - ac.ay, pd = Math.max(1, Math.hypot(pdx, pdy));
+        if(pd < 90){ g.vx += (pdx/pd) * 0.08; g.vy += (pdy/pd) * 0.06; }
+        g.vx *= 0.985; g.vy *= 0.985;
+        g.vx = Math.max(-2.5, Math.min(2.5, g.vx));
+        g.vy = Math.max(-1.8, Math.min(1.8, g.vy));
+        g.x += g.vx; g.y += g.vy;
+        if(g.x < 4){g.x=4; g.vx=-g.vx;} if(g.x > W-sw-4){g.x=W-sw-4; g.vx=-g.vx;}
+        if(g.y < 4){g.y=4; g.vy=-g.vy;} if(g.y > zone-sh-4){g.y=zone-sh-4; g.vy=-g.vy;}
+        g.ft = (g.ft||0)+1; if(g.ft > 18){g.ft=0; g.fr=(g.fr+1)%2;}
+        eqx.save(); eqx.translate(g.x+sw/2, g.y+sh/2);
+        drawGhost(0, 0, g.fr, g.col);
+        eqx.restore();
+      }
+      // Pacman par dessus
+      eqx.save(); eqx.translate(ac.x, ac.ay); drawPacman(0, 0, ac.fr, pacFlip); eqx.restore();
+      continue;
+    }
+
+    // ═══ MARIO JUMP CHASE ═══
+    // Mario arrive en courant, saute pour frapper un bloc ?, une piece sort,
+    // il retombe et continue sa course
+    if(type.mode === 'mariojump'){
+      if(!ac.phase){
+        ac.phase   = 'run';
+        ac.x       = -sw - 10;
+        ac.groundY = zone - sh - 6;          // niveau du sol
+        ac.ay      = ac.groundY;
+        ac.spd     = 1.6;
+        ac.blockX  = W*0.4 + Math.random()*W*0.2;
+        ac.blockY  = ac.groundY - sh - 8;    // bloc au-dessus de la tête
+        ac.blockState = {hit:false, bounceY:0};
+        ac.coinT   = -1;
+        ac.fr      = 0;
+        ac.runT    = 0;
+      }
+      // Bloc ?
+      if(ac.blockState.bounceY > 0) ac.blockState.bounceY -= 0.6;
+      drawQuestionBlock(ac.blockX, ac.blockY, sw, ac.blockState);
+      // Piece (apres hit)
+      if(ac.coinT >= 0){
+        ac.coinT += 0.025;
+        var coinY = ac.blockY - ac.coinT * 80;
+        drawCoin(ac.blockX + sw/2, coinY, ac.coinT);
+        if(ac.coinT >= 1) ac.coinT = -2;  // fini
+      }
+      // Phases
+      if(ac.phase === 'run'){
+        ac.x += ac.spd;
+        ac.runT++;
+        ac.fr = Math.floor(ac.runT / 4) % 7;  // vrai cycle de marche (7 frames, mario_walk)
+        // declenche le saut quand assez proche du bloc
+        if(ac.x >= ac.blockX - sw*0.6){
+          ac.phase = 'jump';
+          ac.vy    = -8.5;
+          ac.jumpT = 0;
+        }
+      } else if(ac.phase === 'jump'){
+        ac.ay   += ac.vy;
+        ac.vy   += 0.42;
+        ac.x    += ac.spd * 0.4;
+        ac.jumpT++;
+        // Frames de saut (atlas) : 0..3 pendant la montee
+        ac.fr = Math.min(3, (ac.jumpT * 0.18) | 0);
+        // Detection contact bloc
+        if(!ac.blockState.hit && ac.ay <= ac.blockY + sh*0.6 && ac.vy < 0){
+          ac.blockState.hit = true;
+          ac.blockState.bounceY = 8;
+          ac.coinT = 0;
+          spawnExplosion(ac.blockX + sw/2, ac.blockY, '#ffdd00', 10);
+          // mini rebond Mario vers le bas
+          ac.vy = Math.max(ac.vy, -1);
+        }
+        if(ac.vy >= 0){
+          ac.phase = 'fall';
+          ac.fallT = 0;
+        }
+      } else if(ac.phase === 'fall'){
+        ac.ay += ac.vy;
+        ac.vy += 0.42;
+        ac.x  += ac.spd * 0.4;
+        ac.fallT++;
+        ac.fr = 4 + Math.min(2, (ac.fallT * 0.18) | 0);
+        if(ac.ay >= ac.groundY){
+          ac.ay = ac.groundY;
+          ac.phase = 'leave';
+          ac.leaveT = 0;
+        }
+      } else { // leave
+        ac.x += ac.spd;
+        ac.leaveT++;
+        ac.fr = Math.floor(ac.leaveT / 4) % 7;  // vrai cycle de marche (7 frames, mario_walk)
+        if(ac.x > W + sw + 30 && ac.coinT === -2){
+          actors.splice(a, 1);
+          continue;
+        }
+      }
+      // Dessine Mario — marche (mario_walk, 7 frames) au sol, saut/chute (mario, cape) en l'air
+      var marioAtlas = (ac.phase === 'run' || ac.phase === 'leave') ? 'mario_walk' : 'mario';
+      eqx.save();
+      eqx.translate(Math.round(ac.x), Math.round(ac.ay));
+      if(!drawAtlas(marioAtlas, 0, ac.fr, 0, 0, sw/ATLAS_CELL)){
+        eqx.fillStyle = type.col;
+        eqx.fillRect(0, 0, sw, sh);
+      }
+      eqx.restore();
+      continue;
+    }
+
+    // ═══ SONIC DASH ═══
+    // Sonic arrive en courant, se met en boule en plein milieu, fonce comme un boulet
+    if(type.mode === 'sonicdash'){
+      if(!ac.phase){
+        ac.phase = 'run';
+        ac.x     = -sw - 10;
+        ac.ay    = zone * 0.55;
+        ac.spd   = 2.2;
+        ac.runFr = 0;
+        ac.ballFr= 0;
+        ac.transformT = 0;
+      }
+      if(ac.phase === 'run'){
+        ac.x += ac.spd;
+        ac.runFr += 0.4;
+        var f = (ac.runFr | 0) % 8;
+        eqx.save(); eqx.translate(ac.x, ac.ay);
+        drawAtlas('sonic', 0, f, 0, 0, sw/ATLAS_CELL);
+        eqx.restore();
+        if(ac.x > W * 0.4){
+          ac.phase = 'transform';
+          ac.transformT = 0;
+        }
+      } else if(ac.phase === 'transform'){
+        // mini freeze + flash pour annoncer la transformation
+        ac.x += 0.4;
+        ac.transformT++;
+        eqx.save(); eqx.translate(ac.x, ac.ay);
+        drawAtlas('sonic', 0, 0, 0, 0, sw/ATLAS_CELL);
+        eqx.restore();
+        if(ac.transformT > 12){
+          ac.phase = 'ball';
+          ac.spd   = 4.8;  // dash !
+          spawnExplosion(ac.x + sw/2, ac.ay + sh/2, '#88aaff', 14);
+          spawnExplosion(ac.x + sw/2, ac.ay + sh/2, '#2255ee', 8);
+        }
+      } else { // ball
+        ac.x += ac.spd;
+        ac.ballFr += 0.7;
+        var bf = (ac.ballFr | 0) % 8;
+        eqx.save(); eqx.translate(ac.x, ac.ay);
+        drawAtlas('sonic', 1, bf, 0, 0, sw/ATLAS_CELL);
+        eqx.restore();
+        // Trainee bleue
+        if(actTick % 2 === 0){
+          particles.push({
+            x: ac.x + sw*0.3, y: ac.ay + sh*0.5,
+            vx: -1.5, vy: (Math.random()-0.5)*0.5,
+            life: 0.7, col: '#88aaff', sz: 3
+          });
+        }
+        if(ac.x > W + sw + 30){
+          actors.splice(a, 1);
+          continue;
+        }
+      }
+      continue;
+    }
+
+    // ═══ PIKACHU DASH ═══
+    // Pikachu approche en courant, charge (etincelles), puis fonce — 4 frames de course reelles
+    if(type.mode === 'pikadash'){
+      if(!ac.phase){
+        ac.phase   = 'approach';
+        ac.x       = -sw - 10;
+        ac.ay      = zone * (0.3 + Math.random()*0.35);
+        ac.spd     = 1.8;
+        ac.chargeT = 0;
+        ac.runT    = 0;
+      }
+      if(ac.phase === 'approach'){
+        ac.x += ac.spd;
+        ac.runT++;
+        eqx.save(); eqx.translate(ac.x, ac.ay);
+        drawAtlas('pikadash', 0, Math.floor(ac.runT/5) % 4, 0, 0, sw/64);
+        eqx.restore();
+        if(ac.x > W * 0.35){ ac.phase = 'charge'; ac.chargeT = 0; }
+      } else if(ac.phase === 'charge'){
+        ac.chargeT++;
+        eqx.save(); eqx.translate(ac.x, ac.ay);
+        // sur place : alterne 2 frames lentement (piaffe avant le depart)
+        drawAtlas('pikadash', 0, (ac.chargeT % 10 < 5) ? 0 : 1, 0, 0, sw/64);
+        eqx.restore();
+        if(ac.chargeT % 3 === 0){
+          particles.push({x:ac.x+sw*0.5+(Math.random()-0.5)*sw, y:ac.ay+sh*0.5+(Math.random()-0.5)*sh, vx:(Math.random()-0.5)*1.5, vy:(Math.random()-0.5)*1.5, life:0.6, col:'#ffee00', sz:2});
+        }
+        if(ac.chargeT > 14){
+          ac.phase = 'dash';
+          ac.spd   = 5.2;
+          ac.runT  = 0;
+          spawnExplosion(ac.x+sw/2, ac.ay+sh/2, '#ffee00', 12);
+          spawnExplosion(ac.x+sw/2, ac.ay+sh/2, '#00ccff', 8);
+        }
+      } else { // dash
+        ac.x += ac.spd;
+        ac.runT++;
+        eqx.save(); eqx.translate(ac.x, ac.ay);
+        // cycle rapide des 4 frames de course
+        drawAtlas('pikadash', 0, Math.floor(ac.runT/2) % 4, 0, 0, sw/64);
+        eqx.restore();
+        if(actTick % 2 === 0){
+          particles.push({x:ac.x+sw*0.2, y:ac.ay+sh*0.5, vx:-2, vy:(Math.random()-0.5)*0.8, life:0.6, col:(Math.random()<0.5?'#ffee00':'#00ccff'), sz:3});
+        }
+        if(ac.x > W + sw + 30){
+          actors.splice(a, 1);
+          continue;
+        }
+      }
+      continue;
+    }
+
+    // NORMAL
+    if(!ac.falling&&ac.x>(W+sw+10)&&ac.spd>0){actors.splice(a,1);continue;}
+    if(!ac.falling&&ac.x<(-sw-10)&&ac.spd<0){actors.splice(a,1);continue;}
+    if(!ac.falling){
+      ac.yb+=.022;
+      var yc=zone*(.15+ac.lane*.28)+Math.sin(ac.yb)*zone*.09;
+      ac.ay=Math.max(2,Math.min(zone-sh-2,yc));
+      ac.x+=ac.spd;
+      ac.ft++; if(ac.ft>10){ac.ft=0;ac.fr=(ac.fr+1)%type.nf;}
+      var bi=Math.floor((ac.x+sw*.5)/(W/BAR)); bi=Math.max(0,Math.min(BAR-1,bi));
+      if((ac.ay+sh)>=(H-bars[bi]*H)-2&&bars[bi]>.06){
+        ac.falling=true; ac.vy=-3; ac.rotSpd=(Math.random()-.5)*.22; ac.spd*=.25;
+        pkH[bi]=Math.min(1,pkH[bi]+.35); damageBar(bi,.40); spawnExplosion(ac.x+sw/2,H-bars[bi]*H,type.col,8);
+      }
+    } else {
+      ac.vy+=.38; ac.ay+=ac.vy; ac.x+=ac.spd; ac.rot+=ac.rotSpd;
+      var bi2=Math.floor((ac.x+sw*.5)/(W/BAR)); bi2=Math.max(0,Math.min(BAR-1,bi2));
+      if(ac.ay+sh>=H-bars[bi2]*H&&ac.vy>0&&ac.bounces<3){
+        ac.vy*=-.45; ac.ay=H-bars[bi2]*H-sh; ac.bounces++; spawnExplosion(ac.x+sw/2,H-bars[bi2]*H,type.col,4);
+      }
+      if(ac.ay>H+sh+20){ac.dead=true;continue;}
+    }
+    eqx.save();
+    eqx.translate(Math.round(ac.x)+sw/2,Math.round(ac.ay)+sh/2);
+    if(ac.falling) eqx.rotate(ac.rot);
+    if(ac.spd<0) eqx.scale(-1,1);
+    eqx.translate(-sw/2,-sh/2);
+    type.draw(0,0,ac.fr);
+    eqx.restore();
+  }
+}
+
+
+// ═══════════════════════════════════════════════════════════════════
+// FOND DE SCENE (derriere les sprites)
+// Le canvas est efface a chaque frame : un fond doit donc etre soit tres
+// bon marche, soit pre-rendu hors ecran puis recopie. Contrainte de
+// lisibilite : les sprites sont du pixel art colore et les barres montent
+// depuis le bas, le fond doit donc rester sombre et peu contraste.
+// BACKDROP : 'copper' | 'parallax' | 'plasma' | 'none'
+// ═══════════════════════════════════════════════════════════════════
+var BACKDROP='copper';
+
+// ─── A. COPPER BARS (Amiga) ────────────────────────────────────────
+// Bandes horizontales qui glissent. Geometrie ORTHOGONALE aux barres
+// verticales de l'analyseur : c'est ce qui les empeche de se confondre.
+var _cop=0;
+function bdCopper(W,H,bass){
+  _cop+=0.6;
+  var n=9, bh=H/n*1.35;
+  for(var i=0;i<n;i++){
+    var y=((i*H/n)+Math.sin(_cop*0.012+i*0.7)*H*0.06+_cop*0.35)%(H+bh)-bh/2;
+    var hue=(i*26+_cop*0.5)%360;
+    var g=eqx.createLinearGradient(0,y,0,y+bh);
+    var a=0.10+bass*0.13;
+    g.addColorStop(0,'hsla('+hue+',85%,50%,0)');
+    g.addColorStop(.5,'hsla('+hue+',85%,52%,'+a.toFixed(3)+')');
+    g.addColorStop(1,'hsla('+hue+',85%,50%,0)');
+    eqx.fillStyle=g; eqx.fillRect(0,y,W,bh);
+  }
+}
+
+// ─── B. PARALLAXE SILHOUETTES ──────────────────────────────────────
+// Deux plans de collines/immeubles pre-rendus une fois, recopies avec un
+// decalage : deux drawImage par plan suffisent a boucler sans couture.
+var _plx=null, _plxW=0, _plxH=0, _plxT=0;
+function bdBuildParallax(W,H){
+  _plxW=W; _plxH=H; _plx=[];
+  var specs=[{h:.30,col:'#0a1420',step:46,jag:.45},{h:.19,col:'#0d1e2e',step:28,jag:.7}];
+  for(var s=0;s<specs.length;s++){
+    var sp=specs[s], cv=document.createElement('canvas');
+    cv.width=W; cv.height=H; var c=cv.getContext('2d');
+    c.fillStyle=sp.col; c.beginPath(); c.moveTo(0,H);
+    var y=H-H*sp.h;
+    for(var x=0;x<=W+sp.step;x+=sp.step){
+      y+=(Math.random()-.5)*H*sp.h*sp.jag;
+      y=Math.max(H-H*sp.h*1.6, Math.min(H-H*sp.h*0.25, y));
+      c.lineTo(x,y); c.lineTo(x+sp.step,y);
+    }
+    c.lineTo(W,H); c.closePath(); c.fill();
+    _plx.push(cv);
+  }
+}
+function bdParallax(W,H,bass){
+  if(!_plx||_plxW!==W||_plxH!==H) bdBuildParallax(W,H);
+  _plxT+=0.35;
+  var g=eqx.createLinearGradient(0,0,0,H);
+  g.addColorStop(0,'#050a12'); g.addColorStop(1,'#0a1524');
+  eqx.fillStyle=g; eqx.fillRect(0,0,W,H);
+  for(var i=0;i<_plx.length;i++){
+    var off=(_plxT*(0.25+i*0.5))%W;
+    eqx.globalAlpha=0.85;
+    eqx.drawImage(_plx[i],-off,0); eqx.drawImage(_plx[i],W-off,0);
+  }
+  eqx.globalAlpha=1;
+}
+
+// ─── C. PLASMA BASSE RESOLUTION ────────────────────────────────────
+// Calcule 64x36 pixels puis etire : le classique demoscene, et le seul
+// moyen de tenir un plasma plein ecran dans le budget d'une frame.
+var _plCv=null,_plX=null,_plImg=null,_plT=0,_SIN=null;
+function bdPlasma(W,H,bass){
+  if(!_plCv){
+    _plCv=document.createElement('canvas'); _plCv.width=64; _plCv.height=36;
+    _plX=_plCv.getContext('2d'); _plImg=_plX.createImageData(64,36);
+    _SIN=new Float32Array(1024);
+    for(var i=0;i<1024;i++) _SIN[i]=Math.sin(i/1024*Math.PI*2);
+  }
+  _plT+=0.9+bass*1.5;
+  var d=_plImg.data, S=_SIN;
+  function sn(v){ return S[((v|0)&1023)]; }
+  for(var y=0;y<36;y++) for(var x=0;x<64;x++){
+    var v=sn(x*14+_plT)+sn(y*22-_plT*.7)+sn((x+y)*11+_plT*.4);
+    var t=(v+3)/6, o=(y*64+x)*4;
+    d[o]=20+t*40; d[o+1]=30+t*95; d[o+2]=40+t*70; d[o+3]=190;
+  }
+  _plX.putImageData(_plImg,0,0);
+  eqx.save(); eqx.imageSmoothingEnabled=true; eqx.globalAlpha=0.5;
+  eqx.drawImage(_plCv,0,0,W,H); eqx.restore();
+}
+
+function drawBackdrop(W,H){
+  eqx.fillStyle='#000'; eqx.fillRect(0,0,W,H);
+  if(BACKDROP==='none') return;
+  // Reactivite : moyenne des barres graves, pour que le fond respire avec
+  // la musique au lieu d'etre une simple tapisserie.
+  var bass=0, nb=Math.max(1,Math.floor(BAR*0.18));
+  for(var i=0;i<nb;i++) bass+=bars[i];
+  bass=Math.min(1,bass/nb);
+  if(BACKDROP==='copper') bdCopper(W,H,bass);
+  else if(BACKDROP==='parallax') bdParallax(W,H,bass);
+  else if(BACKDROP==='plasma') bdPlasma(W,H,bass);
+}
+
+var eqc=document.getElementById('eqc'), eqx=eqc.getContext('2d');
+function hsl(r){return 'hsl('+Math.round(52-r*52)+',100%,'+(32+r*28)+'%)';}
+function hslg(r){return 'hsl('+Math.round(45-r*45)+',100%,62%)';}
+function drawEQ(){
+  var W=eqc.width,H=eqc.height; drawBackdrop(W,H);
+  for(var k=0;k<BAR;k++) barsDamage[k]=Math.max(0, barsDamage[k]-0.012);
+  var maxBar=0;for(var ii=0;ii<BAR;ii++)if(bars[ii]>maxBar)maxBar=bars[ii];
+  drawSprites(W,H,maxBar);
+  var bw=W/BAR-1;
+  for(var i=0;i<BAR;i++){
+    var eff=Math.max(0, bars[i]-barsDamage[i]);
+    var bh=eff*H, x=i*(bw+1), r=eff; if(bh<1)continue;
+    var g=eqx.createLinearGradient(0,H,0,H-bh); g.addColorStop(0,hsl(0)); g.addColorStop(1,hsl(r));
+    eqx.fillStyle=g; eqx.fillRect(x,H-bh,bw,bh);
+    if(r>0.1){ eqx.shadowBlur=6; eqx.shadowColor=hslg(r); eqx.fillStyle=hslg(r); eqx.fillRect(x,H-bh,bw,Math.max(3,bh*0.14)); eqx.shadowBlur=0; }
+    if(bars[i]>=pkH[i]){pkH[i]=bars[i];pkT[i]=0;} else{pkT[i]++;if(pkT[i]>22)pkH[i]=Math.max(0,pkH[i]-0.007);}
+    if(pkH[i]>0.03){ eqx.fillStyle='#fff'; eqx.fillRect(x,H-pkH[i]*H-2,bw,2); }
+  }
+  drawShocks();
+}
+
+var NV=8,NL=16,vucols=[],vuv=new Float32Array(NV),vup2=new Float32Array(NV),vupt=new Uint16Array(NV);
+(function(){
+  var w=document.getElementById('vum');
+  for(var i=0;i<NV;i++){
+    var col=document.createElement('div'); col.className='vc'; var leds=[];
+    for(var j=0;j<NL;j++){var d=document.createElement('div');d.className='vl';d.style.background='#111';col.appendChild(d);leds.push(d);}
+    w.appendChild(col); vucols.push(leds);
+  }
+})();
+function drawVU(){
+  for(var i=0;i<NV;i++){
+    var lo=Math.floor(i/NV*BAR*0.75), hi=Math.floor((i+1)/NV*BAR*0.75), s=0;
+    for(var j=lo;j<hi;j++) s+=bars[j];
+    var avg=s/(hi-lo); vuv[i]=avg>vuv[i]?avg:Math.max(0,vuv[i]-0.035);
+    if(vuv[i]>vup2[i]){vup2[i]=vuv[i];vupt[i]=0;} else{vupt[i]++;if(vupt[i]>28)vup2[i]=Math.max(0,vup2[i]-0.008);}
+    var lvl=Math.round(vuv[i]*NL), pk=Math.min(NL-1,Math.round(vup2[i]*NL));
+    vucols[i].forEach(function(d,j){d.style.background=j<lvl?'hsl('+(52-j/NL*52)+',100%,40%)':j===pk&&pk>1?'#fff':'#111';});
+  }
+}
+
+var scc=document.getElementById('scc'), scx=scc.getContext('2d'), scOff=0;
+// TEXTE LONG RESTAURÉ ICI :
+var SBASE="          *** POPOV RADIO *** GREETINGS TO ALL AMIGA AND MOD SCENERS  ...  STREAMING THE FINEST ELECTRONIC SOUNDS 24/7  ...  SID CHIPS  PAULA CHIPS  AND BEYOND  ...  CODED WITH LOVE AND COFFEE BY POPOV  ...  NO ADS  NO BULLSH*T  JUST PURE WAVES  ...  STAY SANE  STAY SONIC  STAY POPOV  ...  ...  INSERT COIN? THE MUSIC HERE IS ALWAYS FREE PLAY  ...  PIXELS, SCANLINES AND SLEEPLESS NIGHTS  ...  AMIGA OR ATARI? THE WAR IS OVER, TURN IT UP  ...  64 KB OF RAM, LIMITLESS IDEAS  ...  GREETINGS TO ALL SCENE CODERS, PIXEL ARTISTS AND MUSICIANS  ...  COPPER BARS, RASTERS AND SCROLLTEXT: THE DEMOSCENE LIVES ON  ...  FOUR CHANNELS, ONE PAULA, A WHOLE UNIVERSE  ...  THE SID GROWLS, THE PIXELS DANCE  ...  NO DLC: ALL THE FUN FITS ON A FLOPPY  ...  LOAD \"POPOV\",8,1 ... READY.  ...  FROM TRACKER TO SPEAKERS: RESPECT TO THE COMPOSERS  ...  HIGH SCORE FOR YOUR EARS, GAME OVER FOR SILENCE  ...  GREETINGS TO EVERY DEMOPARTY AND ALL SCENERS WORLDWIDE  ...  THE CRTS ARE WARMING UP, SO IS THE BASS  ...  NO SAVE STATE NEEDED: NOSTALGIA FINDS ITS OWN WAY BACK  ...  KEEP THE SCENE ALIVE ... STAY POPOV          ";
+function drawScroll(){
+  var W=scc.width,H=scc.height; scx.fillStyle='#000'; scx.fillRect(0,0,W,H);
+  scx.font="bold 22px 'Share Tech Mono', monospace";  // monospace : repli si la police Google ne charge pas (le défilement suppose des lettres de largeur égale) scx.textBaseline='middle';
+  var txt=scrollDyn?scrollDyn+'     '+SBASE:SBASE; var CW=13,total=txt.length*CW;
+  scOff=(scOff+2)%total;
+  for(var pass=0;pass<2;pass++){
+    var bx=-scOff+pass*total;
+    for(var i=0;i<txt.length;i++){
+      var cx=bx+i*CW; if(cx>W+CW||cx<-CW)continue;
+      var wave=Math.sin((cx+scOff*0.4)*0.022)*5;
+      var hue=((cx+scOff*0.6)*0.4)%360;
+      scx.shadowBlur=7; scx.shadowColor='hsl('+hue+',90%,60%)';
+      scx.fillStyle='hsl('+hue+',90%,72%)';
+      scx.fillText(txt[i],cx,H/2+wave);
+      scx.shadowBlur=0;
+    }
+  }
+}
+
+function onResize(){
+  var ep=document.getElementById('eqp'); eqc.width=ep.clientWidth; eqc.height=ep.clientHeight;
+  var sw=document.getElementById('scw'); scc.width=sw.clientWidth; scc.height=sw.clientHeight;
+  buildPCB();
+}
+window.addEventListener('resize',onResize); onResize();
+
+// ═══════════════════════════════════════════════════════════════════
+// FOND CIRCUIT IMPRIME
+// Remplit le vide du header. Le trace est genere UNE FOIS par taille
+// dans un canvas hors ecran ; la boucle se contente de le recopier et
+// d'animer quelques impulsions, ce qui evite de re-router 40 pistes a
+// chaque frame.
+// ═══════════════════════════════════════════════════════════════════
+var pcbCv=document.getElementById('pcb'), pcbX=pcbCv?pcbCv.getContext('2d'):null;
+var _pcbStatic=null, _pcbTraces=[], _pcbPulses=[];
+
+// Longueur cumulee d'une polyligne + point a une distance donnee : sert a
+// faire glisser une impulsion le long d'une piste a vitesse constante,
+// segments diagonaux compris.
+function polyLen(pts){
+  var L=0; for(var i=1;i<pts.length;i++){var dx=pts[i].x-pts[i-1].x,dy=pts[i].y-pts[i-1].y;L+=Math.hypot(dx,dy);}
+  return L;
+}
+function polyAt(pts,d){
+  for(var i=1;i<pts.length;i++){
+    var dx=pts[i].x-pts[i-1].x, dy=pts[i].y-pts[i-1].y, sl=Math.hypot(dx,dy);
+    if(d<=sl){var t=sl?d/sl:0;return{x:pts[i-1].x+dx*t,y:pts[i-1].y+dy*t};}
+    d-=sl;
+  }
+  return pts[pts.length-1];
+}
+
+function genPCB(W,H){
+  var cv=document.createElement('canvas'); cv.width=W; cv.height=H;
+  var c=cv.getContext('2d');
+  var G=8;                                   // pas de grille
+  var traces=[];
+
+  // Un vrai routage n'emprunte que 0°, 45° et 90°. C'est cette contrainte,
+  // plus que la couleur, qui fait "circuit imprime" plutot que "toile
+  // d'araignee" : les marches d'escalier a 45° sont la signature.
+  var DIRS=[[1,0],[-1,0],[0,1],[0,-1],[1,1],[1,-1],[-1,1],[-1,-1]];
+  var cols=Math.floor(W/G), rows=Math.floor(H/G);
+  var nT=Math.max(8, Math.round(W*H/4200));
+
+  for(var t=0;t<nT;t++){
+    var cx=Math.floor(Math.random()*cols), cy=Math.floor(Math.random()*rows);
+    var pts=[{x:cx*G,y:cy*G}];
+    var d=DIRS[Math.floor(Math.random()*DIRS.length)];
+    var segs=2+Math.floor(Math.random()*4);
+    for(var sg=0;sg<segs;sg++){
+      var len=2+Math.floor(Math.random()*7);
+      cx+=d[0]*len; cy+=d[1]*len;
+      cx=Math.max(0,Math.min(cols,cx)); cy=Math.max(0,Math.min(rows,cy));
+      pts.push({x:cx*G,y:cy*G});
+      // Virage de +/-45° uniquement : deux directions adjacentes dans DIRS
+      var di=DIRS.indexOf(d);
+      var order=[[1,0],[1,1],[0,1],[-1,1],[-1,0],[-1,-1],[0,-1],[1,-1]];
+      var oi=0; for(var q=0;q<order.length;q++) if(order[q][0]===d[0]&&order[q][1]===d[1]) oi=q;
+      oi=(oi+(Math.random()<0.5?1:7))%8; d=order[oi];
+    }
+    if(polyLen(pts)>G*3) traces.push(pts);
+  }
+
+  // Pistes : deux passes, une large et sombre (cuivre) puis une fine et
+  // plus claire par-dessus, ce qui donne le relief du vernis.
+  c.lineCap='round'; c.lineJoin='round';
+  for(var pass=0;pass<2;pass++){
+    c.lineWidth = pass ? 1 : 2.6;
+    c.strokeStyle = pass ? 'rgba(0,255,65,0.17)' : 'rgba(0,255,65,0.07)';
+    for(var i=0;i<traces.length;i++){
+      var pts=traces[i];
+      c.beginPath(); c.moveTo(pts[0].x,pts[0].y);
+      for(var j=1;j<pts.length;j++) c.lineTo(pts[j].x,pts[j].y);
+      c.stroke();
+    }
+  }
+
+  // Vias aux extremites : anneau clair, centre perce (le fond du header).
+  for(var i2=0;i2<traces.length;i2++){
+    var e=[traces[i2][0], traces[i2][traces[i2].length-1]];
+    for(var k=0;k<2;k++){
+      c.beginPath(); c.arc(e[k].x,e[k].y,2.9,0,Math.PI*2);
+      c.fillStyle='rgba(0,255,65,0.26)'; c.fill();
+      c.beginPath(); c.arc(e[k].x,e[k].y,1.2,0,Math.PI*2);
+      c.fillStyle='#0a0a0a'; c.fill();
+    }
+  }
+
+  // Quelques empreintes de composants (CMS) pour casser la regularite.
+  var nP=Math.max(2, Math.round(W/260));
+  for(var p2=0;p2<nP;p2++){
+    var px=Math.random()*(W-60)+20, py=Math.random()*(H-30)+10;
+    var np=2+Math.floor(Math.random()*3);
+    c.fillStyle='rgba(0,255,65,0.17)';
+    for(var pp=0;pp<np;pp++) c.fillRect(px+pp*7, py, 4, 9);
+    c.strokeStyle='rgba(0,255,65,0.13)'; c.lineWidth=1;
+    c.strokeRect(px-3, py-3, np*7+2, 15);
+  }
+
+  // Le circuit ne doit remplir QUE le vide : partout où il y a du contenu,
+  // on l'efface. Sans ça les pistes passent derrière l'horloge et les
+  // auditeurs, et tout devient illisible. Le flou du masque donne une
+  // transition douce plutôt qu'une découpe rectangulaire visible.
+  var hd=document.getElementById('hdr');
+  if(hd){
+    var rh=hd.getBoundingClientRect();
+    ['bnr','hbar','hright'].forEach(function(id){
+      var el=document.getElementById(id); if(!el) return;
+      var rb=el.getBoundingClientRect(); if(!rb.width) return;
+      var pad=10;
+      c.save();
+      c.globalCompositeOperation='destination-out';
+      try{ c.filter='blur(8px)'; }catch(e){}   // ignore si non supporte
+      c.fillStyle='rgba(0,0,0,0.88)';
+      c.fillRect(rb.left-rh.left-pad, rb.top-rh.top-pad, rb.width+pad*2, rb.height+pad*2);
+      c.restore();
+    });
+  }
+  return {cv:cv, traces:traces};
+}
+
+function buildPCB(){
+  if(!pcbX) return;
+  var hd=document.getElementById('hdr');
+  var W=hd.clientWidth, H=hd.clientHeight;
+  if(W<40||H<20){ _pcbStatic=null; return; }   // header masque (mode lite)
+  pcbCv.width=W; pcbCv.height=H;
+  var r=genPCB(W,H);
+  _pcbStatic=r.cv; _pcbTraces=r.traces; _pcbPulses=[];
+  // Impulsions : peu nombreuses et lentes, c'est un fond, pas un jeu.
+  var n=IS_MOBILE?2:4;
+  for(var i=0;i<n;i++) _pcbPulses.push(newPulse());
+}
+function newPulse(){
+  if(!_pcbTraces.length) return null;
+  var tr=_pcbTraces[Math.floor(Math.random()*_pcbTraces.length)];
+  return {pts:tr, len:polyLen(tr), d:-Math.random()*60, spd:0.5+Math.random()*0.9};
+}
+function drawPCB(){
+  if(!pcbX||!_pcbStatic) return;
+  pcbX.clearRect(0,0,pcbCv.width,pcbCv.height);
+  pcbX.drawImage(_pcbStatic,0,0);
+  for(var i=0;i<_pcbPulses.length;i++){
+    var p=_pcbPulses[i]; if(!p) continue;
+    p.d+=p.spd;
+    if(p.d>p.len+30){ _pcbPulses[i]=newPulse(); continue; }
+    if(p.d<0) continue;
+    // Tete + courte trainee : trois points degressifs suffisent a lire
+    // le sens de circulation sans coûter un gradient par frame.
+    for(var k=0;k<3;k++){
+      var dd=p.d-k*5; if(dd<0) break;
+      var pt=polyAt(p.pts, Math.min(dd,p.len));
+      pcbX.globalAlpha=(1-k*0.3)*0.85;
+      pcbX.fillStyle='#7dffa8';
+      pcbX.shadowBlur=k?0:7; pcbX.shadowColor='#00ff41';
+      pcbX.beginPath(); pcbX.arc(pt.x,pt.y,k?1:1.7,0,Math.PI*2); pcbX.fill();
+      pcbX.shadowBlur=0;
+    }
+    pcbX.globalAlpha=1;
+  }
+}
+
+// onResize() s'execute plus haut dans le fichier, avant que pcbX ne soit
+// affecte : l'appel y sort donc immediatement. C'est ici qu'a lieu la
+// premiere construction reelle.
+buildPCB();
+// Le bandeau est une image : sa boite n'est connue qu'apres decodage, or
+// genPCB s'en sert pour estomper les pistes dessous. On regenere une fois
+// chargee plutot que de figer un estompage mal cale.
+(function(){
+  var bi=document.getElementById('bnr');
+  if(bi && !bi.complete) bi.addEventListener('load', buildPCB, {once:true});
+})();
+
+var _derniereImage = 0;
+function frame(ts){
+  requestAnimationFrame(frame);
+  // Mode lite : tous les canvas sont cachés, inutile de dessiner
+  if(document.body.classList.contains('lite')) return;
+  // Cadence FIXE : 60 images/s (30 sur mobile, pour la batterie), quel que
+  // soit l'écran. Les animations avancent d'un pas par image : sur un écran
+  // 120/144 Hz elles allaient 2× plus vite et coûtaient 2× plus de calcul.
+  // Le reste de la division garde une moyenne exacte (144 Hz → 60 i/s).
+  var _cible = IS_MOBILE ? 1000/30 : 1000/60;
+  var _ecart = ts - _derniereImage;
+  if(_ecart < _cible - 1) return;
+  _derniereImage = ts - (_ecart % _cible);
+  if(audioActuallyPlaying){
+    if(IS_IOS){
+      synthAnalyze();  // iOS : spectre synthétique (vrai spectre inaccessible sans casser le stream)
+    } else if(!realAnalyze()){
+      // Tente le spectre audio réel. S'il échoue (CORS bloqué, pas encore de data),
+      // les barres déclinent vers zéro — on n'invente plus de signal.
+      for(var k=0;k<BAR;k++) bars[k] = Math.max(0, bars[k]-0.02);
+    }
+  } else {
+    // Pas de son réel (idle, pause, buffering, connexion en cours) :
+    // les barres décroissent vers zéro
+    for(var i=0;i<BAR;i++) bars[i] = Math.max(0, bars[i]-0.025);
+    var sfEl=document.getElementById('sf'); if(sfEl) sfEl.textContent='---';
+    var spEl=document.getElementById('sp'); if(spEl) spEl.textContent='--';
+    var srEl=document.getElementById('sr'); if(srEl) srEl.textContent='--';
+  }
+  drawEQ(); drawVU(); drawScroll(); drawPCB();
+}
+requestAnimationFrame(frame);
+</script>
+<script id="lower-circuit-animation">
+(function(){
+function genLowerPCB(W,H){
+  var cv=document.createElement('canvas'); cv.width=W; cv.height=H;
+  var c=cv.getContext('2d');
+  var G=8;                                   // pas de grille
+  var traces=[];
+
+  // Un vrai routage n'emprunte que 0°, 45° et 90°. C'est cette contrainte,
+  // plus que la couleur, qui fait "circuit imprime" plutot que "toile
+  // d'araignee" : les marches d'escalier a 45° sont la signature.
+  var DIRS=[[1,0],[-1,0],[0,1],[0,-1],[1,1],[1,-1],[-1,1],[-1,-1]];
+  var cols=Math.floor(W/G), rows=Math.floor(H/G);
+  var nT=Math.max(8, Math.round(W*H/4200));
+
+  for(var t=0;t<nT;t++){
+    var cx=Math.floor(Math.random()*cols), cy=Math.floor(Math.random()*rows);
+    var pts=[{x:cx*G,y:cy*G}];
+    var d=DIRS[Math.floor(Math.random()*DIRS.length)];
+    var segs=2+Math.floor(Math.random()*4);
+    for(var sg=0;sg<segs;sg++){
+      var len=2+Math.floor(Math.random()*7);
+      cx+=d[0]*len; cy+=d[1]*len;
+      cx=Math.max(0,Math.min(cols,cx)); cy=Math.max(0,Math.min(rows,cy));
+      pts.push({x:cx*G,y:cy*G});
+      // Virage de +/-45° uniquement : deux directions adjacentes dans DIRS
+      var di=DIRS.indexOf(d);
+      var order=[[1,0],[1,1],[0,1],[-1,1],[-1,0],[-1,-1],[0,-1],[1,-1]];
+      var oi=0; for(var q=0;q<order.length;q++) if(order[q][0]===d[0]&&order[q][1]===d[1]) oi=q;
+      oi=(oi+(Math.random()<0.5?1:7))%8; d=order[oi];
+    }
+    if(polyLen(pts)>G*3) traces.push(pts);
+  }
+
+  // Pistes : deux passes, une large et sombre (cuivre) puis une fine et
+  // plus claire par-dessus, ce qui donne le relief du vernis.
+  c.lineCap='round'; c.lineJoin='round';
+  for(var pass=0;pass<2;pass++){
+    c.lineWidth = pass ? 1 : 2.6;
+    c.strokeStyle = pass ? 'rgba(0,255,65,0.17)' : 'rgba(0,255,65,0.07)';
+    for(var i=0;i<traces.length;i++){
+      var pts=traces[i];
+      c.beginPath(); c.moveTo(pts[0].x,pts[0].y);
+      for(var j=1;j<pts.length;j++) c.lineTo(pts[j].x,pts[j].y);
+      c.stroke();
+    }
+  }
+
+  // Vias aux extremites : anneau clair, centre perce (le fond du header).
+  for(var i2=0;i2<traces.length;i2++){
+    var e=[traces[i2][0], traces[i2][traces[i2].length-1]];
+    for(var k=0;k<2;k++){
+      c.beginPath(); c.arc(e[k].x,e[k].y,2.9,0,Math.PI*2);
+      c.fillStyle='rgba(0,255,65,0.26)'; c.fill();
+      c.beginPath(); c.arc(e[k].x,e[k].y,1.2,0,Math.PI*2);
+      c.fillStyle='#0a0a0a'; c.fill();
+    }
+  }
+
+  // Quelques empreintes de composants (CMS) pour casser la regularite.
+  var nP=Math.max(2, Math.round(W/260));
+  for(var p2=0;p2<nP;p2++){
+    var px=Math.random()*(W-60)+20, py=Math.random()*(H-30)+10;
+    var np=2+Math.floor(Math.random()*3);
+    c.fillStyle='rgba(0,255,65,0.17)';
+    for(var pp=0;pp<np;pp++) c.fillRect(px+pp*7, py, 4, 9);
+    c.strokeStyle='rgba(0,255,65,0.13)'; c.lineWidth=1;
+    c.strokeRect(px-3, py-3, np*7+2, 15);
+  }
+
+  // Le circuit ne doit remplir QUE le vide : partout où il y a du contenu,
+  // on l'efface. Sans ça les pistes passent derrière l'horloge et les
+  // auditeurs, et tout devient illisible. Le flou du masque donne une
+  // transition douce plutôt qu'une découpe rectangulaire visible.
+  var hd=document.getElementById('hdr');
+  if(false){
+    var rh=hd.getBoundingClientRect();
+    ['bnr','hbar','hright'].forEach(function(id){
+      var el=document.getElementById(id); if(!el) return;
+      var rb=el.getBoundingClientRect(); if(!rb.width) return;
+      var pad=10;
+      c.save();
+      c.globalCompositeOperation='destination-out';
+      try{ c.filter='blur(8px)'; }catch(e){}   // ignore si non supporte
+      c.fillStyle='rgba(0,0,0,0.88)';
+      c.fillRect(rb.left-rh.left-pad, rb.top-rh.top-pad, rb.width+pad*2, rb.height+pad*2);
+      c.restore();
+    });
+  }
+  return {cv:cv, traces:traces};
+}
+
+var canvas=document.getElementById('lower-pcb'),ctx=canvas.getContext('2d'),panel=document.getElementById('lower-circuit'),staticBoard=null,traces=[],pulses=[],last=0;
+var reduced=matchMedia('(prefers-reduced-motion: reduce)');
+function pulse(){if(!traces.length)return null;var points=traces[Math.floor(Math.random()*traces.length)];return {pts:points,len:polyLen(points),d:Math.random()*polyLen(points),speed:38+Math.random()*20};}
+function rebuild(){var w=panel.clientWidth,h=panel.clientHeight;if(w<1||h<1)return;canvas.width=w;canvas.height=h;var board=genLowerPCB(w,h);staticBoard=board.cv;traces=board.traces;pulses=[];for(var i=0;i<(IS_MOBILE?3:7);i++)pulses.push(pulse());ctx.drawImage(staticBoard,0,0);}
+new ResizeObserver(rebuild).observe(panel);rebuild();
+function frameLower(ts){requestAnimationFrame(frameLower);var dt=Math.min((ts-last)/1000,.06);if(ts-last<33)return;last=ts;if(document.hidden||document.body.classList.contains('lite')||!staticBoard)return;ctx.clearRect(0,0,canvas.width,canvas.height);ctx.drawImage(staticBoard,0,0);for(var i=0;i<pulses.length;i++){var p=pulses[i];if(!p)continue;p.d+=p.speed*dt;if(p.d>p.len+30){pulses[i]=pulse();continue;}for(var k=0;k<3;k++){var d=p.d-k*5;if(d<0)continue;var pt=polyAt(p.pts,Math.min(d,p.len));ctx.globalAlpha=1-k*.28;ctx.fillStyle=k?'#7dffa8':'#d9ffe4';ctx.shadowColor='#00ff41';ctx.shadowBlur=k?3:10;ctx.beginPath();ctx.arc(pt.x,pt.y,k?1.1:2,0,Math.PI*2);ctx.fill();}ctx.shadowBlur=0;ctx.globalAlpha=1;}}
+requestAnimationFrame(frameLower);
+})();
+</script><script id="track-title-scroll">
+(function(){
+var el=document.getElementById('nptxt');if(!el)return;
+var animation=null,scheduled=false;
+var observer=new MutationObserver(schedule);
+function watch(){observer.observe(el,{childList:true,characterData:true,subtree:true});}
+function schedule(){if(scheduled)return;scheduled=true;requestAnimationFrame(update);}
+function update(){scheduled=false;observer.disconnect();if(animation){animation.cancel();animation=null;}
+var text=el.textContent,inner=el.querySelector('.track-title-inner');
+if(!inner||el.childNodes.length!==1){inner=document.createElement('span');inner.className='track-title-inner';inner.textContent=text;el.replaceChildren(inner);}
+el.title=text;inner.style.transform='translateX(0)';
+var distance=Math.ceil(inner.getBoundingClientRect().width-el.clientWidth);
+el.classList.toggle('title-overflow',distance>1);
+if(distance>1&&el.clientWidth>0){var travel=distance/32,total=travel*2+4;animation=inner.animate([
+{transform:'translateX(0)',offset:0},
+{transform:'translateX(0)',offset:2/total},
+{transform:'translateX(-'+distance+'px)',offset:(2+travel)/total},
+{transform:'translateX(-'+distance+'px)',offset:(4+travel)/total},
+{transform:'translateX(0)',offset:1}
+],{duration:total*1000,iterations:Infinity,easing:'linear'});}
+watch();}
+new ResizeObserver(schedule).observe(el);watch();schedule();
+if(document.fonts)document.fonts.ready.then(schedule);
+})();
+</script></body>
+</html>
+
