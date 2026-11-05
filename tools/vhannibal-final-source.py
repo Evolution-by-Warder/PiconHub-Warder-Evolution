@@ -12,7 +12,7 @@ def write_commit(branch,base,updates,message):
  current=git('ls-remote','origin','refs/heads/'+branch).split()[0];assert current==base,('Concurrent branch update',branch,current,base)
  with tempfile.TemporaryDirectory() as t:
   env=os.environ.copy();env['GIT_INDEX_FILE']=str(Path(t)/'index');git('read-tree',base,env=env)
-  lines=''.join('100644 '+h+'\t'+p+'\n' for p,h in sorted(updates.items()));git('update-index','--index-info',input=lines.encode(),env=env);tree=git('write-tree',env=env);commit=git('commit-tree',tree,'-p',base,input=(message+'\n').encode());stage='factory/vhannibal-final-'+('master-stage' if branch=='warder-master-production' else 'source-stage');subprocess.run(['git','push','origin',commit+':refs/heads/'+stage],check=True);return commit
+  lines=''.join('100644 '+h+'\t'+p+'\n' for p,h in sorted(updates.items()));git('update-index','--index-info',input=lines.encode(),env=env);tree=git('write-tree',env=env);commit=git('commit-tree',tree,'-p',base,input=(message+'\n').encode());stage='factory/vhannibal-final-'+('master-stage' if branch=='warder-master-production' else 'source-stage');oldstage=git('ls-remote','origin','refs/heads/'+stage).split();oldstage=oldstage[0] if oldstage else '';subprocess.run(['git','push','--force-with-lease=refs/heads/'+stage+':'+oldstage,'origin',commit+':refs/heads/'+stage],check=True);return commit
 
 def run(data):
  config=json.load(open(data/'config.json'));plans=json.load(open(data/'plans.json'));assets=json.load(open(data/'asset-index.json'));indexed={a['asset_id']:a for a in assets};mastertree=json.load(open(data/'master-tree.json'));paths={x['path']:x['sha'] for x in mastertree};byid=defaultdict(list)
@@ -34,6 +34,7 @@ def run(data):
  for r in plans:
   if r['choice'] not in ('SOURCE_GRAPHIC_PROCESS','EXISTING_MASTER_REUSE','EXISTING_SOURCE_BANK_REUSE') and not r.get('canonical_extension_verified'):continue
   a=indexed[r['asset_id']];existing=byid.get(identity(r['reference']),[]);folders={str(Path(x['path']).parent.parent) for x in existing}
+  if r['choice']=='EXISTING_MASTER_REUSE':folders={str(Path(r['master']['transparent']['path']).parent.parent)}
   if not folders:folders={'picons/'+r['position']+'/'+r['provider_slug']}
   for folder in folders:
    for style in ('transparent','white','black'):
