@@ -1,0 +1,28 @@
+name: Export completed final Radio source evidence
+on:
+  push:
+    branches: [work/radio-final-source-bundle-20261105]
+    paths: [.github/workflows/radio-final-source-export.yml]
+permissions:
+  contents: read
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: 701aadee7e0cb04b955f6162da112254cc482f4f
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /migration/radio-final-pass-20261105/discovery-state.json
+            /migration/radio-final-pass-20261105/verified-ready.json
+            /migration/radio-final-pass-20261105/originals/
+            /migration/radio-final-pass-20261105/rasterized/
+            /migration/radio-final-pass-20261105/page-evidence/
+      - uses: actions/upload-artifact@v4
+        with:
+          name: radio-final-source-evidence
+          path: migration/radio-final-pass-20261105/
+          if-no-files-found: error
+          retention-days: 14
