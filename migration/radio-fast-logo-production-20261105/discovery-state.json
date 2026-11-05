@@ -209048,7 +209048,11 @@
       "homepages": [
         "https://anoriestereo.es.tl/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "Command '['tesseract', '/tmp/radio-logo-ocr-bfx_6x2r/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds",
+        "Command '['tesseract', '/tmp/radio-logo-ocr-2o57u3kc/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds"
+      ]
     },
     "4097:0:2:2E52:572E:ED:0:0:0:0": {
       "name": "Apartadó Stereo 103.3 FM",
@@ -209060,7 +209064,40 @@
       "homepages": [
         "https://apartadostereofm.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://apartadostereofm.com/wp-content/uploads/2024/02/cropped-ICONO-192x192.png",
+        "final_url": "https://apartadostereofm.com/wp-content/uploads/2024/02/cropped-ICONO-192x192.png",
+        "path": "originals/74161516df4653c5f4fc61b6b7705d90f4b048829e0f8381e3e30dec80145b3a.img",
+        "sha256": "74161516df4653c5f4fc61b6b7705d90f4b048829e0f8381e3e30dec80145b3a",
+        "bytes": 10783,
+        "dimensions": [
+          192,
+          192
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://apartadostereofm.com/",
+        "final_url": "https://apartadostereofm.com/",
+        "original_html_sha256": "6d9d6c47a6a3269c5db71b5604bcf652a58ab04f1372d075da0037abba6be6e1",
+        "path": "page-evidence/6d9d6c47a6a3269c5db71b5604bcf652a58ab04f1372d075da0037abba6be6e1.json",
+        "titles": [
+          "Apartado Stereo  – La Emisora de los Urabenses",
+          "Threads",
+          "Kick",
+          "Threads",
+          "Kick",
+          "Joinchat"
+        ],
+        "image_urls": [
+          "https://apartadostereofm.com/wp-content/uploads/2024/02/cropped-ICONO-180x180.png",
+          "https://apartadostereofm.com/wp-content/uploads/2024/02/cropped-ICONO-192x192.png",
+          "https://apartadostereofm.com/wp-content/uploads/2024/02/cropped-ICONO-32x32.png"
+        ],
+        "named_logos": {}
+      },
+      "ocr_text": ""
     },
     "4097:0:2:1007:2A3E:ED:0:0:0:0": {
       "name": "Arauquita Stereo 88.3fm",
@@ -209079,7 +209116,95 @@
       "homepages": [
         "https://areitoradio.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://areitoradio.com/wp-content/uploads/2019/08/Areito-Stereo..png",
+        "final_url": "https://areitoradio.com/wp-content/uploads/2019/08/Areito-Stereo..png",
+        "path": "originals/d7687ecb0e0004196bff591581291309b16d1cf3d544b0a4aab751ebc7b5e441.img",
+        "sha256": "d7687ecb0e0004196bff591581291309b16d1cf3d544b0a4aab751ebc7b5e441",
+        "bytes": 282334,
+        "dimensions": [
+          722,
+          664
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://areitoradio.com/",
+        "final_url": "https://areitoradio.com/",
+        "original_html_sha256": "3378995aabb10a3ea867d00dbab4f640671fd202b8d73c05ee8b1c30c653fc57",
+        "path": "page-evidence/3378995aabb10a3ea867d00dbab4f640671fd202b8d73c05ee8b1c30c653fc57.json",
+        "titles": [
+          "Areito Stereo – El Sonido del Atrato para el Mundo",
+          "AUDIO EN VIVO",
+          ""
+        ],
+        "image_urls": [
+          "https://areitoradio.com/wp-content/uploads/2019/08/Areito-Stereo..png",
+          "https://areitoradio.com/wp-content/uploads/2019/08/cropped-Areito-Stereo-180x180.png",
+          "https://areitoradio.com/wp-content/uploads/2019/08/cropped-Areito-Stereo-192x192.png"
+        ],
+        "named_logos": {
+          "https://areitoradio.com/wp-content/uploads/2019/08/Areito-Stereo..png": "Areito Stereo  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/28259fc3474d66e712336b5468f695745964e3d84d115412361825c7caad6163.png",
+          "sha256": "28259fc3474d66e712336b5468f695745964e3d84d115412361825c7caad6163",
+          "bytes": 2231
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/203dbc050ebcb0c719c6e37624ec7b3dba3ef8671aef221bd93f058820685dd4.png",
+          "sha256": "203dbc050ebcb0c719c6e37624ec7b3dba3ef8671aef221bd93f058820685dd4",
+          "bytes": 23629
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/51e6b4b36d192fa4a38c41a705a456a413088f15b4f547a5866d37d3c327a98c.png",
+          "sha256": "51e6b4b36d192fa4a38c41a705a456a413088f15b4f547a5866d37d3c327a98c",
+          "bytes": 70589
+        },
+        "50x30/white": {
+          "path": "verified-assets/e17d2aa4dc243cf75c468c91de23cf070f5b073bea94269e48d111fb359f610f.png",
+          "sha256": "e17d2aa4dc243cf75c468c91de23cf070f5b073bea94269e48d111fb359f610f",
+          "bytes": 3005
+        },
+        "220x132/white": {
+          "path": "verified-assets/2abe8fd5c7d11860f4d8ae1b35bf32ba60e3d1cef7e8204d161794bde7f6e36e.png",
+          "sha256": "2abe8fd5c7d11860f4d8ae1b35bf32ba60e3d1cef7e8204d161794bde7f6e36e",
+          "bytes": 42728
+        },
+        "400x240/white": {
+          "path": "verified-assets/fcf73b33c515ac5328dda2738b56479ff0e9c75006ce3d08dbeba5d4be20278c.png",
+          "sha256": "fcf73b33c515ac5328dda2738b56479ff0e9c75006ce3d08dbeba5d4be20278c",
+          "bytes": 109386
+        },
+        "50x30/black": {
+          "path": "verified-assets/61e8da3acbfe6b0b06f59cd2c61a88781a85688f30ed4e1a432d16a5db15b47a.png",
+          "sha256": "61e8da3acbfe6b0b06f59cd2c61a88781a85688f30ed4e1a432d16a5db15b47a",
+          "bytes": 3456
+        },
+        "220x132/black": {
+          "path": "verified-assets/64c7c1f40f88c7c4a10ddcca983a4690955e2489f7c71868b23b4c401cd4b06d.png",
+          "sha256": "64c7c1f40f88c7c4a10ddcca983a4690955e2489f7c71868b23b4c401cd4b06d",
+          "bytes": 41956
+        },
+        "400x240/black": {
+          "path": "verified-assets/54cf2c81caa95db17cf30165b7bac5c49ed411c640acd53d65954b07556e3cef.png",
+          "sha256": "54cf2c81caa95db17cf30165b7bac5c49ed411c640acd53d65954b07556e3cef",
+          "bytes": 107498
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Areito Stereo  ",
+        "matched_brand_keys": [
+          "areito"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:7519:358C:ED:0:0:0:0": {
       "name": "Armenia Stereo 89.4 FM",
@@ -209101,7 +209226,8 @@
       "homepages": [
         "https://www.emisoraarmoniasboyacenses.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:C5F3:7D3F:ED:0:0:0:0": {
       "name": "Armonías del Caquetá 970 AM",
@@ -209113,7 +209239,8 @@
       "homepages": [
         "https://www.arquidiocesisdeflorencia.org/A"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:4D29:FF08:ED:0:0:0:0": {
       "name": "Aro Radio",
@@ -209149,7 +209276,37 @@
       "homepages": [
         "https://streaminghd.co/user/astreana"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://streaminghd.co/uploads/logos/astreana_1774011180.png",
+        "final_url": "https://streaminghd.co/uploads/logos/astreana_1774011180.png",
+        "path": "originals/7e5fec770995222e9df2c79b9c53d6653b702c28d18fa31a6e1349e742402fa8.img",
+        "sha256": "7e5fec770995222e9df2c79b9c53d6653b702c28d18fa31a6e1349e742402fa8",
+        "bytes": 233827,
+        "dimensions": [
+          695,
+          359
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://streaminghd.co/user/astreana",
+        "final_url": "https://streaminghd.co/user/astreana",
+        "original_html_sha256": "4ee4ab218eabd668f354453822f1250450a7a19db24cd6d51ffd89ee1f281580",
+        "path": "page-evidence/4ee4ab218eabd668f354453822f1250450a7a19db24cd6d51ffd89ee1f281580.json",
+        "titles": [
+          "Astreana Stereo",
+          "Astreana Stereo"
+        ],
+        "image_urls": [
+          "https://streaminghd.co/uploads/logos/astreana_1774011180.png",
+          "https://streaminghd.co/favicon.ico?favicon.0x3dzn~oxb6tn.ico"
+        ],
+        "named_logos": {
+          "https://streaminghd.co/uploads/logos/astreana_1774011180.png": "  "
+        }
+      },
+      "ocr_text": "\\\n\n\\\\\n\n\\\n\nASTREANA\n\n| STEREO\n\nx\n"
     },
     "4097:0:2:C16D:165C:ED:0:0:0:0": {
       "name": "Radio Auténtica Bogotá 540 AM",
@@ -209175,7 +209332,12 @@
       "homepages": [
         "https://www.autentica.com.co/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "Command '['tesseract', '/tmp/radio-logo-ocr-kgz6rgnh/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds",
+        "Command '['tesseract', '/tmp/radio-logo-ocr-i_ph_4qb/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds",
+        "Command '['tesseract', '/tmp/radio-logo-ocr-xmkx7jo8/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds"
+      ]
     },
     "4097:0:2:C8EF:FD51:ED:0:0:0:0": {
       "name": "Radio Autentica Villavicencio 1080 AM",
@@ -209194,7 +209356,96 @@
       "homepages": [
         "https://avancestereo.godaddysites.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://img1.wsimg.com/isteam/ip/a50afcd7-6aa2-499c-9cbf-03b03798d35f/logo%20avance-4219f76.jpeg/:/rs=h:168,cg:true,m/qt=q:95",
+        "final_url": "https://img1.wsimg.com/isteam/ip/a50afcd7-6aa2-499c-9cbf-03b03798d35f/logo%20avance-4219f76.jpeg/:/rs=h:168,cg:true,m/qt=q:95",
+        "path": "originals/dea81764da8207740047bd7fa9cda23e5c57eb8d1607904651e0d07a9f6070ab.img",
+        "sha256": "dea81764da8207740047bd7fa9cda23e5c57eb8d1607904651e0d07a9f6070ab",
+        "bytes": 12454,
+        "dimensions": [
+          300,
+          168
+        ],
+        "format": "JPEG"
+      },
+      "page": {
+        "url": "https://avancestereo.godaddysites.com/",
+        "final_url": "https://avancestereo.godaddysites.com/",
+        "original_html_sha256": "d3056de6b88106c555d09a20d7cf58fc4baf9f1465b0cc256b133e5c32528f1a",
+        "path": "page-evidence/d3056de6b88106c555d09a20d7cf58fc4baf9f1465b0cc256b133e5c32528f1a.json",
+        "titles": [
+          "Avance Stereo",
+          " Acerca de Avance EStereo "
+        ],
+        "image_urls": [
+          "https://img1.wsimg.com/isteam/ip/a50afcd7-6aa2-499c-9cbf-03b03798d35f/logo%20avance-4219f76.jpeg/:/rs=h:168,cg:true,m/qt=q:95",
+          "https://img1.wsimg.com/isteam/ip/a50afcd7-6aa2-499c-9cbf-03b03798d35f/logo%20avance.jpeg/:/cr=t:5.33%25,l:0%25,w:100%25,h:89.33%25/rs=w:600,h:300,cg:true",
+          "https://img1.wsimg.com/isteam/ip/a50afcd7-6aa2-499c-9cbf-03b03798d35f/logo%20avance-4219f76.jpeg/:/rs=w:114,h:114,m"
+        ],
+        "named_logos": {
+          "https://img1.wsimg.com/isteam/ip/a50afcd7-6aa2-499c-9cbf-03b03798d35f/logo%20avance-4219f76.jpeg/:/rs=h:168,cg:true,m/qt=q:95": "Avance Estereo 99.2 Fm\nEl Avance De La Radio En Maicao  ",
+          "https://img1.wsimg.com/isteam/ip/a50afcd7-6aa2-499c-9cbf-03b03798d35f/logo%20avance.jpeg/:/cr=t:5.33%25,l:0%25,w:100%25,h:89.33%25/rs=w:600,h:300,cg:true": "  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/18e068aa5368fdf1fe3361867baa297638c3fa1be4b90c829d96d1bcbad5bf21.png",
+          "sha256": "18e068aa5368fdf1fe3361867baa297638c3fa1be4b90c829d96d1bcbad5bf21",
+          "bytes": 1649
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/176032b581d40d79845f02029a0336f1d3a5f39a0eba31a6f7b8cb27d06b19d1.png",
+          "sha256": "176032b581d40d79845f02029a0336f1d3a5f39a0eba31a6f7b8cb27d06b19d1",
+          "bytes": 16806
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/8295c54a91a868fb76735fa0e74e3e8f051370e388cfbe2dd32c6a39413f2e99.png",
+          "sha256": "8295c54a91a868fb76735fa0e74e3e8f051370e388cfbe2dd32c6a39413f2e99",
+          "bytes": 46347
+        },
+        "50x30/white": {
+          "path": "verified-assets/7bc96edd919b1ee4e2e9c07f1525f91cd0035c118fa79ce885f58c11328ae260.png",
+          "sha256": "7bc96edd919b1ee4e2e9c07f1525f91cd0035c118fa79ce885f58c11328ae260",
+          "bytes": 2448
+        },
+        "220x132/white": {
+          "path": "verified-assets/282d4654811f36434b10f470d0b64da68e1c299bd8fb5b40d7728cddd788b651.png",
+          "sha256": "282d4654811f36434b10f470d0b64da68e1c299bd8fb5b40d7728cddd788b651",
+          "bytes": 31107
+        },
+        "400x240/white": {
+          "path": "verified-assets/f0b7fa5e729811b01cbd4b47e6125f6de77cbddb0ae80393c6ba0be745633b78.png",
+          "sha256": "f0b7fa5e729811b01cbd4b47e6125f6de77cbddb0ae80393c6ba0be745633b78",
+          "bytes": 82452
+        },
+        "50x30/black": {
+          "path": "verified-assets/5f8b3c4f5da7d4797ecc2e3a86c4c2a256dbb62eb54b52f13b87b646cd31cca9.png",
+          "sha256": "5f8b3c4f5da7d4797ecc2e3a86c4c2a256dbb62eb54b52f13b87b646cd31cca9",
+          "bytes": 2542
+        },
+        "220x132/black": {
+          "path": "verified-assets/d27063a2acd77f9c091a12fe56bd89edcb3eaeaec675b1beb015de664a3ea566.png",
+          "sha256": "d27063a2acd77f9c091a12fe56bd89edcb3eaeaec675b1beb015de664a3ea566",
+          "bytes": 29704
+        },
+        "400x240/black": {
+          "path": "verified-assets/168ad655744ca0b81be7cd50098557b2167f5628565c11539dd66a3d12945ff8.png",
+          "sha256": "168ad655744ca0b81be7cd50098557b2167f5628565c11539dd66a3d12945ff8",
+          "bytes": 78251
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Avance Estereo 99.2 Fm\nEl Avance De La Radio En Maicao  ",
+        "matched_brand_keys": [
+          "avance",
+          "estereo"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:B869:3B95:ED:0:0:0:0": {
       "name": "Aviva2",
@@ -209223,7 +209474,37 @@
       "homepages": [
         "https://bacatastereo.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://bacatastereo.com/wp-content/uploads/2024/05/cropped-favicon-bacata-1-180x180.png",
+        "final_url": "https://bacatastereo.com/wp-content/uploads/2024/05/cropped-favicon-bacata-1-180x180.png",
+        "path": "originals/1b6dca63bb89b4abde99dec0be7c95495db9e9cd66e05c98222d8f2b243db68e.img",
+        "sha256": "1b6dca63bb89b4abde99dec0be7c95495db9e9cd66e05c98222d8f2b243db68e",
+        "bytes": 28831,
+        "dimensions": [
+          180,
+          180
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://bacatastereo.com/",
+        "final_url": "https://bacatastereo.com/",
+        "original_html_sha256": "a4cd8f65c2fa89f1de26f687fd40b4f2bfdbccd688d995957c829bfc67b4f698",
+        "path": "page-evidence/a4cd8f65c2fa89f1de26f687fd40b4f2bfdbccd688d995957c829bfc67b4f698.json",
+        "titles": [
+          "Bacata Stereo - BacataStereo - información y noticias",
+          "         \n             \n             BacataStereo – información y noticias \n         \n    ",
+          " Cundinamarca "
+        ],
+        "image_urls": [
+          "http://bacatastereo.com/wp-content/uploads/2024/05/faviicon.png",
+          "https://bacatastereo.com/wp-content/uploads/2024/05/cropped-favicon-bacata-1-180x180.png",
+          "https://bacatastereo.com/wp-content/uploads/2024/05/cropped-favicon-bacata-1-192x192.png"
+        ],
+        "named_logos": {}
+      },
+      "ocr_text": ""
     },
     "4097:0:2:2AE0:72B6:ED:0:0:0:0": {
       "name": "Baladas Inglés... RDC Radio",
@@ -209235,7 +209516,11 @@
       "homepages": [
         "https://rdc-radio.webnode.com.co/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "Command '['tesseract', '/tmp/radio-logo-ocr-kjgkh6hl/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds",
+        "Command '['tesseract', '/tmp/radio-logo-ocr-alc7mwfg/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds"
+      ]
     },
     "4097:0:2:4694:E670:ED:0:0:0:0": {
       "name": "Baladas Rs",
@@ -209277,7 +209562,53 @@
       "homepages": [
         "https://www.emisorascolombianas.co/ae/bandida"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://cdn.regional-radios.app-mind.com/static/assets/images/flags/co.png",
+        "final_url": "https://cdn.regional-radios.app-mind.com/static/assets/images/flags/co.png",
+        "path": "originals/1c7a8f08341760d63f54851f5951452fb8db871b2ee97e2675bad2738e1e613a.img",
+        "sha256": "1c7a8f08341760d63f54851f5951452fb8db871b2ee97e2675bad2738e1e613a",
+        "bytes": 2865,
+        "dimensions": [
+          130,
+          120
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://www.emisorascolombianas.co/ae/bandida",
+        "final_url": "https://www.emisorascolombianas.co/ae/bandida",
+        "original_html_sha256": "f96072020c56e0e7afa5195e5fed93fb268ecb23e17022db5a3fedea74d2a857",
+        "path": "page-evidence/f96072020c56e0e7afa5195e5fed93fb268ecb23e17022db5a3fedea74d2a857.json",
+        "titles": [
+          "Escuchar Latina Bandida! Colombia en vivo",
+          "Latina Bandida!"
+        ],
+        "image_urls": [
+          "https://cdn.regional-radios.app-mind.com/static/assets/images/flags/co.png",
+          "https://cdn.regional-radios.app-mind.com/static/assets/images/ui/download-android.png",
+          "https://cdn.regional-radios.app-mind.com/static/assets/images/ui/download-ios.png"
+        ],
+        "named_logos": {
+          "https://cdn.regional-radios.app-mind.com/static/assets/images/flags/co.png": "  ",
+          "https://static.mytuner.mobi/media/tvos_radios/673/bandida.9e68a0a7.png": "Latina Bandida!  ",
+          "https://static.mytuner.mobi/media/radios-150px/853/100-reggaeton-radio.8f8d5f6d.png": "100% Reggaeton Radio logo  ",
+          "https://static.mytuner.mobi/media/radios-150px/003/romantic-vibes.e695b56b.png": "Romantic Vibes logo  ",
+          "https://static.mytuner.mobi/media/radios-150px/by9rcegw4mrd.png": "Totally Radio Hits logo  ",
+          "https://static.mytuner.mobi/media/radios-150px/981/gong-fn-best-of-2000.8deb39db.png": "Gong FM Best of 2000 logo  ",
+          "https://static.mytuner.mobi/media/radios-150px/679/classic-rock-station.3a3fd1f7.png": "Classic Rock Station logo  ",
+          "https://static.mytuner.mobi/media/radios-150px/334/cumbias-inmortales-radio.73ce604c.png": "Cumbias Inmortales Radio logo  ",
+          "https://static.mytuner.mobi/media/radios-150px/gtps8dumqq5w.png": "Latina Reggaeton logo  ",
+          "https://static.mytuner.mobi/media/radios-150px/671/the-80s-on-the-80s.72faf0f0.jpg": "The 80s on the 80s logo  ",
+          "https://static.mytuner.mobi/media/radios-150px/pyf7yfvvqh2k.jpg": "Viejitas Pero Bonitas Radio logo  ",
+          "https://static.mytuner.mobi/media/radios-150px/066/house-music-radio-portugal.ab41134c.jpg": "House Music Radio logo  ",
+          "https://static.mytuner.mobi/media/radios-150px/672/love-90s-portugal.6f1135d3.png": "Top 90's logo  ",
+          "https://static.mytuner.mobi/media/radios-150px/249/latina-bachata.f0438d2e.png": "Latina Bachata logo  ",
+          "https://cdn.regional-radios.app-mind.com/static/assets/images/ui/download-android.png": "Obtener en Google Play  ",
+          "https://cdn.regional-radios.app-mind.com/static/assets/images/ui/download-ios.png": "Descargar en la App Store  "
+        }
+      },
+      "ocr_text": ""
     },
     "4097:0:2:B9BF:E682:ED:0:0:0:0": {
       "name": "BBC 80s",
@@ -209311,7 +209642,38 @@
       "homepages": [
         "https://redcomunitariaejecafetero.blogspot.com/2012/07/belen-estereo.html"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://lh3.googleusercontent.com/blogger_img_proxy/AEn0k_v3qiwhm1Ifu9Q_-1XKLb1444Qlan8qC5vhXkQ3gD2SOhf49-P9Qp5G4OtVj7fBT2dgikMjO7W_uqfBJv0TyW-pXX6-xFO7jgUV6WA-dxKgXw=w1200-h630-p-k-no-nu",
+        "final_url": "https://lh3.googleusercontent.com/blogger_img_proxy/AEn0k_v3qiwhm1Ifu9Q_-1XKLb1444Qlan8qC5vhXkQ3gD2SOhf49-P9Qp5G4OtVj7fBT2dgikMjO7W_uqfBJv0TyW-pXX6-xFO7jgUV6WA-dxKgXw=w1200-h630-p-k-no-nu",
+        "path": "originals/5f80a27c1f9d4f493c8fbb2703ec82c24740323d179120e355edd0a7ae1e1d80.img",
+        "sha256": "5f80a27c1f9d4f493c8fbb2703ec82c24740323d179120e355edd0a7ae1e1d80",
+        "bytes": 1037,
+        "dimensions": [
+          425,
+          344
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://redcomunitariaejecafetero.blogspot.com/2012/07/belen-estereo.html",
+        "final_url": "https://redcomunitariaejecafetero.blogspot.com/2012/07/belen-estereo.html",
+        "original_html_sha256": "45cfbeaccf61a887441987afdb8107f39baa68abed8a9ab7610d746c892ba9a9",
+        "path": "page-evidence/45cfbeaccf61a887441987afdb8107f39baa68abed8a9ab7610d746c892ba9a9.json",
+        "titles": [
+          "COMUNITARIAS EJE CAFETERO: BELEN STEREO",
+          "\n \nCOMUNITARIAS EJE CAFETERO\n \n"
+        ],
+        "image_urls": [
+          "https://www.blogger.com/img/blogger_logo_round_35.png",
+          "https://redcomunitariaejecafetero.blogspot.com/favicon.ico",
+          "https://lh3.googleusercontent.com/blogger_img_proxy/AEn0k_v3qiwhm1Ifu9Q_-1XKLb1444Qlan8qC5vhXkQ3gD2SOhf49-P9Qp5G4OtVj7fBT2dgikMjO7W_uqfBJv0TyW-pXX6-xFO7jgUV6WA-dxKgXw=w1200-h630-p-k-no-nu"
+        ],
+        "named_logos": {
+          "https://www.blogger.com/img/blogger_logo_round_35.png": "  "
+        }
+      },
+      "ocr_text": ""
     },
     "4097:0:2:1F4F:2555:ED:0:0:0:0": {
       "name": "Bésame",
@@ -209330,7 +209692,11 @@
       "homepages": [
         "https://www.besame.fm/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "Command '['tesseract', '/tmp/radio-logo-ocr-cyyq4r_8/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds",
+        "Command '['tesseract', '/tmp/radio-logo-ocr-atd8rtzk/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds"
+      ]
     },
     "4097:0:2:F4AF:6862:ED:0:0:0:0": {
       "name": "Bésame 104.7 FM Bucaramanga",
@@ -209342,7 +209708,11 @@
       "homepages": [
         "https://www.besame.fm/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "Command '['tesseract', '/tmp/radio-logo-ocr-6xts_as8/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds",
+        "Command '['tesseract', '/tmp/radio-logo-ocr-hobu3ut4/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds"
+      ]
     },
     "4097:0:2:C0AC:706C:ED:0:0:0:0": {
       "name": "Bésame 106.5 FM Cali",
@@ -209354,7 +209724,11 @@
       "homepages": [
         "https://www.besame.fm/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "Command '['tesseract', '/tmp/radio-logo-ocr-7_fvc950/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds",
+        "Command '['tesseract', '/tmp/radio-logo-ocr-oaiat82_/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds"
+      ]
     },
     "4097:0:2:FFF8:58F6:ED:0:0:0:0": {
       "name": "Bésame 106.9 FM Popayán",
@@ -209366,7 +209740,11 @@
       "homepages": [
         "https://www.besame.fm/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "Command '['tesseract', '/tmp/radio-logo-ocr-rc_bx1vj/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds",
+        "Command '['tesseract', '/tmp/radio-logo-ocr-ryd07vca/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds"
+      ]
     },
     "4097:0:2:C9E2:F83A:ED:0:0:0:0": {
       "name": "Bésame 90.7 FM Armenia",
@@ -209378,7 +209756,11 @@
       "homepages": [
         "https://www.besame.fm/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "Command '['tesseract', '/tmp/radio-logo-ocr-tcbzz5mz/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds",
+        "Command '['tesseract', '/tmp/radio-logo-ocr-s2kd5evm/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds"
+      ]
     },
     "4097:0:2:AC9:BB8F:ED:0:0:0:0": {
       "name": "Bésame 91.7 FM Manizales",
@@ -209390,7 +209772,11 @@
       "homepages": [
         "https://www.besame.fm/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "Command '['tesseract', '/tmp/radio-logo-ocr-b1hop193/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds",
+        "Command '['tesseract', '/tmp/radio-logo-ocr-icpsqzhi/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds"
+      ]
     },
     "4097:0:2:260B:763D:ED:0:0:0:0": {
       "name": "Bésame 93.7 FM Pereira",
@@ -209402,7 +209788,11 @@
       "homepages": [
         "https://www.besame.fm/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "Command '['tesseract', '/tmp/radio-logo-ocr-goaqb477/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds",
+        "Command '['tesseract', '/tmp/radio-logo-ocr-jtlkz34e/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds"
+      ]
     },
     "4097:0:2:8F30:E2D:ED:0:0:0:0": {
       "name": "Bésame Barranquilla",
@@ -209414,7 +209804,40 @@
       "homepages": [
         "https://envivo.besame.fm/emisora/barranquilla/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://www.besame.fm/wp-content/uploads/2020/11/cropped-favicon-besame-180x180.png",
+        "final_url": "https://www.besame.fm/wp-content/uploads/2020/11/cropped-favicon-besame-180x180.png",
+        "path": "originals/bdf0e0a74b710c5e34813194700794c56e064dd96c748054bacb181a3a034de4.img",
+        "sha256": "bdf0e0a74b710c5e34813194700794c56e064dd96c748054bacb181a3a034de4",
+        "bytes": 15838,
+        "dimensions": [
+          180,
+          180
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://envivo.besame.fm/emisora/barranquilla/",
+        "final_url": "https://www.besame.fm/",
+        "original_html_sha256": "e109d3b81c43af12c46c3bc0477a73362357822932d2c2d4d5951780edff035f",
+        "path": "page-evidence/e109d3b81c43af12c46c3bc0477a73362357822932d2c2d4d5951780edff035f.json",
+        "titles": [
+          "Bésame en vivo - La radio apasionada de Colombia",
+          " \n                             \n                                                                     Bésame en vivo - La radio apasionada de Colombia \n                             \n                        ",
+          "Jessi Uribe confesó por qué no fue a la boda de Luisa Fernanda W y Pipe Bueno"
+        ],
+        "image_urls": [
+          "https://www.besame.fm/wp-content/themes/nwp/src/Player/assets/images/player-logo.jpg",
+          "https://www.besame.fm/wp-content/uploads/2024/05/logo-besame.png",
+          "https://www.besame.fm/wp-content/uploads/2020/11/cropped-favicon-besame-180x180.png"
+        ],
+        "named_logos": {
+          "https://www.besame.fm/wp-content/uploads/2024/05/logo-besame.png": "  ",
+          "https://www.besame.fm/wp-content/themes/nwp/src/Player/assets/images/player-logo.jpg": "Image Reproductor  "
+        }
+      },
+      "ocr_text": "Cast\n\nFS\n\neon\n\nena\n\nBOLE\n\nte\n\ni\n\nSot\n\nsii\n\n_—\n\nei\n\na\n\nPesan\n\nval\n\na\n\na\n\nese\n"
     },
     "4097:0:2:F4F3:239B:ED:0:0:0:0": {
       "name": "Bésame FM (Bogotá)",
@@ -209433,7 +209856,11 @@
       "homepages": [
         "https://www.besame.fm/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "Command '['tesseract', '/tmp/radio-logo-ocr-murl_wx2/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds",
+        "Command '['tesseract', '/tmp/radio-logo-ocr-cao_5fz6/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds"
+      ]
     },
     "4097:0:2:418D:AD91:ED:0:0:0:0": {
       "name": "Betuliana Stereo 107.2 FM",
@@ -209445,7 +209872,8 @@
       "homepages": [
         "https://www.betuliana.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:BAE1:677E:ED:0:0:0:0": {
       "name": "Blu Radio Barranquilla / Caribe",
@@ -209457,7 +209885,42 @@
       "homepages": [
         "https://www.bluradio.com/noticias/barranquilla"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://caracoltv.brightspotcdn.com/dims4/default/036530a/2147483647/strip/true/crop/76x76+0+0/resize/110x110!/quality/75/?url=https%3A%2F%2Fcaracol-brightspot.s3.us-west-2.amazonaws.com%2Fb9%2Fa4%2F71d37f034c09a3ac4f2ddbf830c4%2Flogo-bluradio-dk-blanco-38.png",
+        "final_url": "https://caracoltv.brightspotcdn.com/dims4/default/036530a/2147483647/strip/true/crop/76x76+0+0/resize/110x110!/quality/75/?url=https%3A%2F%2Fcaracol-brightspot.s3.us-west-2.amazonaws.com%2Fb9%2Fa4%2F71d37f034c09a3ac4f2ddbf830c4%2Flogo-bluradio-dk-blanco-38.png",
+        "path": "originals/98bd1babb1c5faa0e94262820dbab2f2edb94fd7e6d165cba092cf1cb1c4e01d.img",
+        "sha256": "98bd1babb1c5faa0e94262820dbab2f2edb94fd7e6d165cba092cf1cb1c4e01d",
+        "bytes": 5723,
+        "dimensions": [
+          110,
+          110
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://www.bluradio.com/noticias/barranquilla",
+        "final_url": "https://www.bluradio.com/noticias/barranquilla",
+        "original_html_sha256": "14ae458a6c8bfd2c88ed945bb8d52d31fbfd19d501443aa073743ff8babbc05a",
+        "path": "page-evidence/14ae458a6c8bfd2c88ed945bb8d52d31fbfd19d501443aa073743ff8babbc05a.json",
+        "titles": [
+          "Noticias de Barranquilla: videos, artículos e imágenes - BluRadio",
+          "Barranquilla"
+        ],
+        "image_urls": [
+          "https://caracoltv.brightspotcdn.com/dims4/default/036530a/2147483647/strip/true/crop/76x76+0+0/resize/110x110!/quality/75/?url=https%3A%2F%2Fcaracol-brightspot.s3.us-west-2.amazonaws.com%2Fb9%2Fa4%2F71d37f034c09a3ac4f2ddbf830c4%2Flogo-bluradio-dk-blanco-38.png",
+          "https://caracoltv.brightspotcdn.com/dims4/default/10d2f31/2147483647/strip/true/crop/74x68+0+0/resize/38x35!/quality/75/?url=https%3A%2F%2Fcaracol-brightspot.s3.us-west-2.amazonaws.com%2Fa6%2Ffa%2Fad38144f41e7b34f7db04e6d71bf%2Fasomedios-1.png",
+          "https://caracoltv.brightspotcdn.com/dims4/default/2573020/2147483647/strip/true/crop/470x133+0+0/resize/470x133!/quality/75/?url=https%3A%2F%2Fcaracol-brightspot.s3.us-west-2.amazonaws.com%2Fbe%2F39%2F95a15da24cdcb5220ee75b0095e4%2Flogo-la-kalle-dk.jpg"
+        ],
+        "named_logos": {
+          "https://caracoltv.brightspotcdn.com/dims4/default/af5d05b/2147483647/strip/true/crop/44x44+0+0/resize/44x44!/quality/75/?url=https%3A%2F%2Fcaracol-brightspot.s3.us-west-2.amazonaws.com%2Fd8%2Fba%2F2f4320784bfe8c03586592092f12%2Flogo-bluradio-dk-blanco-44.png": "Logo Blu Radio  ",
+          "https://caracoltv.brightspotcdn.com/dims4/default/2573020/2147483647/strip/true/crop/470x133+0+0/resize/470x133!/quality/75/?url=https%3A%2F%2Fcaracol-brightspot.s3.us-west-2.amazonaws.com%2Fbe%2F39%2F95a15da24cdcb5220ee75b0095e4%2Flogo-la-kalle-dk.jpg": "Logo La Kalle DK.jpg Logo La Kalle DK.jpg ",
+          "https://caracoltv.brightspotcdn.com/dims4/default/036530a/2147483647/strip/true/crop/76x76+0+0/resize/110x110!/quality/75/?url=https%3A%2F%2Fcaracol-brightspot.s3.us-west-2.amazonaws.com%2Fb9%2Fa4%2F71d37f034c09a3ac4f2ddbf830c4%2Flogo-bluradio-dk-blanco-38.png": "Logo_Bluradio_dk_blanco_38.png  ",
+          "https://caracoltv.brightspotcdn.com/dims4/default/10d2f31/2147483647/strip/true/crop/74x68+0+0/resize/38x35!/quality/75/?url=https%3A%2F%2Fcaracol-brightspot.s3.us-west-2.amazonaws.com%2Fa6%2Ffa%2Fad38144f41e7b34f7db04e6d71bf%2Fasomedios-1.png": "asomedios 1.png  ",
+          "https://caracoltv.brightspotcdn.com/dims4/default/a3e6a26/2147483647/strip/true/crop/191x60+0+0/resize/111x35!/quality/75/?url=https%3A%2F%2Fcaracol-brightspot.s3.us-west-2.amazonaws.com%2F42%2F96%2Fd5945de544fb89d2df1699acaddd%2Fiab-1.png": "iab 1.png  "
+        }
+      },
+      "ocr_text": ""
     },
     "4097:0:2:80B5:14A2:ED:0:0:0:0": {
       "name": "BLU Radio Bogotá",
@@ -209469,7 +209932,100 @@
       "homepages": [
         "https://www.bluradio.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://caracoltv.brightspotcdn.com/dims4/default/036530a/2147483647/strip/true/crop/76x76+0+0/resize/110x110!/quality/75/?url=https%3A%2F%2Fcaracol-brightspot.s3.us-west-2.amazonaws.com%2Fb9%2Fa4%2F71d37f034c09a3ac4f2ddbf830c4%2Flogo-bluradio-dk-blanco-38.png",
+        "final_url": "https://caracoltv.brightspotcdn.com/dims4/default/036530a/2147483647/strip/true/crop/76x76+0+0/resize/110x110!/quality/75/?url=https%3A%2F%2Fcaracol-brightspot.s3.us-west-2.amazonaws.com%2Fb9%2Fa4%2F71d37f034c09a3ac4f2ddbf830c4%2Flogo-bluradio-dk-blanco-38.png",
+        "path": "originals/98bd1babb1c5faa0e94262820dbab2f2edb94fd7e6d165cba092cf1cb1c4e01d.img",
+        "sha256": "98bd1babb1c5faa0e94262820dbab2f2edb94fd7e6d165cba092cf1cb1c4e01d",
+        "bytes": 5723,
+        "dimensions": [
+          110,
+          110
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://www.bluradio.com/",
+        "final_url": "https://www.bluradio.com/",
+        "original_html_sha256": "7dfb34648aa0faa27d25814d617a7021a24decdb3ba956f705638b50abf62679",
+        "path": "page-evidence/7dfb34648aa0faa27d25814d617a7021a24decdb3ba956f705638b50abf62679.json",
+        "titles": [
+          "Blu Radio señal en vivo, Noticias de Colombia y el Mundo",
+          "Blu Radio señal en vivo, Noticias de Colombia y el Mundo",
+          "     Corte ordena entrega e inspección en Fiscalía al celular de Deicy Jiménez por caso 'sexocontratos' \n    ",
+          " Mercedes-Benz se rinde con sus electrolineras en Europa: vende red de carga rápida a rival francés \n    "
+        ],
+        "image_urls": [
+          "https://caracoltv.brightspotcdn.com/dims4/default/036530a/2147483647/strip/true/crop/76x76+0+0/resize/110x110!/quality/75/?url=https%3A%2F%2Fcaracol-brightspot.s3.us-west-2.amazonaws.com%2Fb9%2Fa4%2F71d37f034c09a3ac4f2ddbf830c4%2Flogo-bluradio-dk-blanco-38.png",
+          "https://caracoltv.brightspotcdn.com/dims4/default/10d2f31/2147483647/strip/true/crop/74x68+0+0/resize/38x35!/quality/75/?url=https%3A%2F%2Fcaracol-brightspot.s3.us-west-2.amazonaws.com%2Fa6%2Ffa%2Fad38144f41e7b34f7db04e6d71bf%2Fasomedios-1.png",
+          "https://caracoltv.brightspotcdn.com/dims4/default/2573020/2147483647/strip/true/crop/470x133+0+0/resize/470x133!/quality/75/?url=https%3A%2F%2Fcaracol-brightspot.s3.us-west-2.amazonaws.com%2Fbe%2F39%2F95a15da24cdcb5220ee75b0095e4%2Flogo-la-kalle-dk.jpg"
+        ],
+        "named_logos": {
+          "https://caracoltv.brightspotcdn.com/dims4/default/af5d05b/2147483647/strip/true/crop/44x44+0+0/resize/44x44!/quality/75/?url=https%3A%2F%2Fcaracol-brightspot.s3.us-west-2.amazonaws.com%2Fd8%2Fba%2F2f4320784bfe8c03586592092f12%2Flogo-bluradio-dk-blanco-44.png": "Logo Blu Radio  ",
+          "https://caracoltv.brightspotcdn.com/dims4/default/2573020/2147483647/strip/true/crop/470x133+0+0/resize/470x133!/quality/75/?url=https%3A%2F%2Fcaracol-brightspot.s3.us-west-2.amazonaws.com%2Fbe%2F39%2F95a15da24cdcb5220ee75b0095e4%2Flogo-la-kalle-dk.jpg": "Logo La Kalle DK.jpg Logo La Kalle DK.jpg ",
+          "https://caracoltv.brightspotcdn.com/dims4/default/036530a/2147483647/strip/true/crop/76x76+0+0/resize/110x110!/quality/75/?url=https%3A%2F%2Fcaracol-brightspot.s3.us-west-2.amazonaws.com%2Fb9%2Fa4%2F71d37f034c09a3ac4f2ddbf830c4%2Flogo-bluradio-dk-blanco-38.png": "Logo_Bluradio_dk_blanco_38.png  ",
+          "https://caracoltv.brightspotcdn.com/dims4/default/10d2f31/2147483647/strip/true/crop/74x68+0+0/resize/38x35!/quality/75/?url=https%3A%2F%2Fcaracol-brightspot.s3.us-west-2.amazonaws.com%2Fa6%2Ffa%2Fad38144f41e7b34f7db04e6d71bf%2Fasomedios-1.png": "asomedios 1.png  ",
+          "https://caracoltv.brightspotcdn.com/dims4/default/a3e6a26/2147483647/strip/true/crop/191x60+0+0/resize/111x35!/quality/75/?url=https%3A%2F%2Fcaracol-brightspot.s3.us-west-2.amazonaws.com%2F42%2F96%2Fd5945de544fb89d2df1699acaddd%2Fiab-1.png": "iab 1.png  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/8f12eb9d0ea55bf8c624a0dbfcd95d11dac894ee4608a43fe80d5b88ee376576.png",
+          "sha256": "8f12eb9d0ea55bf8c624a0dbfcd95d11dac894ee4608a43fe80d5b88ee376576",
+          "bytes": 1075
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/fe1c18ea39eeef95b77b5014ec8c65818865e6684d5e6837c134380f98f00a5d.png",
+          "sha256": "fe1c18ea39eeef95b77b5014ec8c65818865e6684d5e6837c134380f98f00a5d",
+          "bytes": 8893
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/5770e0759381448af989d96e09c80d0636ffa948d02bb8c828b7472c4abb0409.png",
+          "sha256": "5770e0759381448af989d96e09c80d0636ffa948d02bb8c828b7472c4abb0409",
+          "bytes": 24345
+        },
+        "50x30/white": {
+          "path": "verified-assets/b1cedace6189433c4f4d2afe36178b9c6d565524ff2b9759f7e76a3c1106612c.png",
+          "sha256": "b1cedace6189433c4f4d2afe36178b9c6d565524ff2b9759f7e76a3c1106612c",
+          "bytes": 2811
+        },
+        "220x132/white": {
+          "path": "verified-assets/dc7257c3c7a54224aa8234f31d6316a83a9ab23cf6f3048ac4a130bd20741cf5.png",
+          "sha256": "dc7257c3c7a54224aa8234f31d6316a83a9ab23cf6f3048ac4a130bd20741cf5",
+          "bytes": 35552
+        },
+        "400x240/white": {
+          "path": "verified-assets/e1326ebe30b9970fca3ab407adb9ea6b2cbe64bb7c2fada482e362803a782174.png",
+          "sha256": "e1326ebe30b9970fca3ab407adb9ea6b2cbe64bb7c2fada482e362803a782174",
+          "bytes": 85299
+        },
+        "50x30/black": {
+          "path": "verified-assets/9bb630af787cf3b47f1ff6e663eed8c730ebd6ab990930131d5a4c2d1537c985.png",
+          "sha256": "9bb630af787cf3b47f1ff6e663eed8c730ebd6ab990930131d5a4c2d1537c985",
+          "bytes": 3637
+        },
+        "220x132/black": {
+          "path": "verified-assets/5f0e54edd6d2f8ea0cdafb96f09dc3c74d9e6caa18225e0a467a053a1976f186.png",
+          "sha256": "5f0e54edd6d2f8ea0cdafb96f09dc3c74d9e6caa18225e0a467a053a1976f186",
+          "bytes": 39925
+        },
+        "400x240/black": {
+          "path": "verified-assets/b8d371be9da5f6a0a14f69901eab38835dcca8783eae6e365c9a85b621a4d1a4.png",
+          "sha256": "b8d371be9da5f6a0a14f69901eab38835dcca8783eae6e365c9a85b621a4d1a4",
+          "bytes": 99834
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Logo_Bluradio_dk_blanco_38.png  ",
+        "matched_brand_keys": [
+          "blu"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:1E4C:753A:ED:0:0:0:0": {
       "name": "Blu Radio Bogotá 89.9",
@@ -209481,7 +210037,8 @@
       "homepages": [
         "https://www.bluradio.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:C1A8:FDB9:ED:0:0:0:0": {
       "name": "Blu Radio Cali 91.5 FM",
@@ -581574,14 +582131,14 @@
   },
   "counts": {
     "already_ready_in_saved_checkpoint": 4155,
-    "blocked_no_confirmed_station_page_and_logo": 3440,
+    "blocked_no_confirmed_station_page_and_logo": 3455,
     "blocked_no_independent_station_homepage": 1269,
     "blocked_no_unique_current_station_metadata": 4248,
-    "candidate_assistant_visual_and_identity_check": 1077,
+    "candidate_assistant_visual_and_identity_check": 1084,
     "needs_assistant_identity_research_for_short_or_generic_name": 1328,
-    "pending_homepage_discovery": 24403,
-    "ready_verified_homepage_and_wordmark": 983
+    "pending_homepage_discovery": 24378,
+    "ready_verified_homepage_and_wordmark": 986
   },
-  "last_event": "homepages_5475_of_29878",
-  "updated_utc": "2026-11-05T15:01:54Z"
+  "last_event": "homepages_5500_of_29878",
+  "updated_utc": "2026-11-05T15:02:35Z"
 }
