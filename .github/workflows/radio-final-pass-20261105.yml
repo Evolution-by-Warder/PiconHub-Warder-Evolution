@@ -1,0 +1,32 @@
+name: Final pass through recorded Radio logo sources
+on:
+  push:
+    branches: [work/radio-final-logo-pass-20261105]
+    paths: [migration/radio-final-pass-20261105/final-pass-input.json]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  final-pass:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: work/radio-final-logo-pass-20261105
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /tools/
+            /plugin/artwork/templates/picons/
+            /migration/radio-fast-logo-production-20261105/discovery-state.json
+            /migration/radio-fast-logo-production-20261105/page-evidence/
+            /migration/radio-final-pass-20261105/
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install Pillow==13.0.0 CairoSVG==2.8.2
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq tesseract-ocr
+      - name: Exhaust remaining logo links while preserving ready and claimed references
+        env:
+          OMP_THREAD_LIMIT: '1'
+        run: python tools/final_logo_pass.py --input migration/radio-fast-logo-production-20261105 --output migration/radio-final-pass-20261105 --masters plugin/artwork/templates/picons --branch work/radio-final-logo-pass-20261105 --commit
