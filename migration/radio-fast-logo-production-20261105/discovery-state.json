@@ -140186,7 +140186,10 @@
       "homepages": [
         "https://pt.m.wikipedia.org/wiki/R%C3%A1dio_Terra"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 404\n"
+      ]
     },
     "4097:0:2:145A:4D84:ED:0:0:0:0": {
       "name": "Rádio Terra 98.5 FM",
@@ -140198,7 +140201,11 @@
       "homepages": [
         "https://www.radioterracampestre.com.br/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "Command '['tesseract', '/tmp/radio-logo-ocr-wgafwz_d/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds",
+        "Command '['tesseract', '/tmp/radio-logo-ocr-8ukl4r2t/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds"
+      ]
     },
     "4097:0:2:B13C:B9E0:ED:0:0:0:0": {
       "name": "Rádio Terra FM 100.3",
@@ -140210,7 +140217,40 @@
       "homepages": [
         "http://www.fmterra.com.br/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://fmterra.com.br/wp-content/uploads/2022/05/Youtube_logo.png",
+        "final_url": "https://fmterra.com.br/wp-content/uploads/2022/05/Youtube_logo.png",
+        "path": "originals/f8c3bc3f0ecdc25b6522186854fc58481eb44b932660e9149d8c85c4cf675cb6.img",
+        "sha256": "f8c3bc3f0ecdc25b6522186854fc58481eb44b932660e9149d8c85c4cf675cb6",
+        "bytes": 9898,
+        "dimensions": [
+          640,
+          443
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "http://www.fmterra.com.br/",
+        "final_url": "https://fmterra.com.br/",
+        "original_html_sha256": "90ef03206bae844d7dcb8d5b08ea57159584338fc7c6a665799c31c051d7874d",
+        "path": "page-evidence/90ef03206bae844d7dcb8d5b08ea57159584338fc7c6a665799c31c051d7874d.json",
+        "titles": [
+          "Rádio FM Terra – Primeiro lugar em todo lugar!",
+          "TOP 10"
+        ],
+        "image_urls": [
+          "https://fmterra.com.br/wp-content/uploads/2022/05/Youtube_logo.png",
+          "https://fmterra.com.br/wp-content/uploads/2022/05/logofmterra.png",
+          "https://fmterra.com.br/wp-content/uploads/2023/02/logos_vozdobrasil.jpg"
+        ],
+        "named_logos": {
+          "https://fmterra.com.br/wp-content/uploads/2022/05/logofmterra.png": "  ",
+          "https://fmterra.com.br/wp-content/uploads/2022/05/Youtube_logo.png": "  ",
+          "https://fmterra.com.br/wp-content/uploads/2023/02/logos_vozdobrasil.jpg": "logos_vozdobrasil  "
+        }
+      },
+      "ocr_text": ""
     },
     "4097:0:2:849D:8F18:ED:0:0:0:0": {
       "name": "Terra FM - 947",
@@ -140222,7 +140262,102 @@
       "homepages": [
         "https://terrafm94.com.br/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://terrafm94.com.br/wp-content/themes/terrafm/assets/img/logo-radio-terrafm.png",
+        "final_url": "https://terrafm94.com.br/wp-content/themes/terrafm/assets/img/logo-radio-terrafm.png",
+        "path": "originals/4d9ae67dca14e2efffd43d5c09298cdd244c509de144b16f147b486bd9517c58.img",
+        "sha256": "4d9ae67dca14e2efffd43d5c09298cdd244c509de144b16f147b486bd9517c58",
+        "bytes": 6062,
+        "dimensions": [
+          158,
+          170
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://terrafm94.com.br/",
+        "final_url": "https://terrafm94.com.br/",
+        "original_html_sha256": "e946f51719a6ef4e5476b3ddb10dc837ad8437e3846d61410c4c8693ee90517b",
+        "path": "page-evidence/e946f51719a6ef4e5476b3ddb10dc837ad8437e3846d61410c4c8693ee90517b.json",
+        "titles": [
+          "Início - Terra FM - 94.7",
+          "TOP 10",
+          "Programas  [+] ",
+          "Blog  [+] ",
+          "\n\t\t\t\t\t\t\t\t\t\tBruna Rotta expõe prints de conversas explícitas de Kauã Elias com outras durante gravidez, resultado de DNA e pedido após interação com Virginia\t\t\t\t\t\t\t\t\t",
+          "\n\t\t\t\t\t\t\t\t\t\tA Fazenda 18: Mônica Fonseca volta a chamar Ana Bruna Avila de “porca” após expulsão: “Não escova os dentes”; assista\t\t\t\t\t\t\t\t\t",
+          "\n\t\t\t\t\t\t\t\t\t\tBTS já prepara próximos passos da carreira após turnê “ARIRANG”; saiba o que vem por aí\t\t\t\t\t\t\t\t\t",
+          "Promoções e Eventos  [+] ",
+          "Facebook",
+          "Instagram  @terrafm94 "
+        ],
+        "image_urls": [
+          "https://terrafm94.com.br/wp-content/themes/terrafm/assets/img/logo-radio-terrafm.png",
+          "https://terrafm94.com.br/wp-content/themes/terrafm/assets/img/favicon.png",
+          "https://terrafm94.com.br/wp-content/themes/terrafm/favicon.png"
+        ],
+        "named_logos": {
+          "https://terrafm94.com.br/wp-content/themes/terrafm/assets/img/logo-radio-terrafm.png": "Logo Terra FM – 94.7 - Campo Mourão - Paraná - o importante é você  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/be6f14ba3fb499d4068fbb71be091c116c7af63cd8b75dc09c70565f5d485d39.png",
+          "sha256": "be6f14ba3fb499d4068fbb71be091c116c7af63cd8b75dc09c70565f5d485d39",
+          "bytes": 1668
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/d8348d1a1261d7667dea9af212dcd1025c6f5b34a03f484542ca8a0f573871b6.png",
+          "sha256": "d8348d1a1261d7667dea9af212dcd1025c6f5b34a03f484542ca8a0f573871b6",
+          "bytes": 10397
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/f237a2b43c168987e3b7a127807a8f0a7b696780bab7d6f33f7b21fe6edada79.png",
+          "sha256": "f237a2b43c168987e3b7a127807a8f0a7b696780bab7d6f33f7b21fe6edada79",
+          "bytes": 32398
+        },
+        "50x30/white": {
+          "path": "verified-assets/3b6dab420c84a7cad5e2cf5dd07a72d0e31ecd9012460192531c6c85c9fa4c9e.png",
+          "sha256": "3b6dab420c84a7cad5e2cf5dd07a72d0e31ecd9012460192531c6c85c9fa4c9e",
+          "bytes": 2894
+        },
+        "220x132/white": {
+          "path": "verified-assets/178ea653cd196cd477bc0a9669c30e87eeddc6095040a8f96bc8c002e0f32584.png",
+          "sha256": "178ea653cd196cd477bc0a9669c30e87eeddc6095040a8f96bc8c002e0f32584",
+          "bytes": 35842
+        },
+        "400x240/white": {
+          "path": "verified-assets/b94ff14352de0cfdc8187eea240bff8c7e808d50aa15af26206490fd20bf6691.png",
+          "sha256": "b94ff14352de0cfdc8187eea240bff8c7e808d50aa15af26206490fd20bf6691",
+          "bytes": 90070
+        },
+        "50x30/black": {
+          "path": "verified-assets/1cac7dcdde56696416beaf4d457ef73e63f7a7a1f0bcf0d0e889640b2f014a68.png",
+          "sha256": "1cac7dcdde56696416beaf4d457ef73e63f7a7a1f0bcf0d0e889640b2f014a68",
+          "bytes": 2905
+        },
+        "220x132/black": {
+          "path": "verified-assets/1d106eaa710edcef767707d3b20463ef7578c2cf95e6494c2607d5ab4d4838e1.png",
+          "sha256": "1d106eaa710edcef767707d3b20463ef7578c2cf95e6494c2607d5ab4d4838e1",
+          "bytes": 33263
+        },
+        "400x240/black": {
+          "path": "verified-assets/f635d838e4520e92e9ef79fbdccd4c1631f10344503cd34dcafbf5fef9bbf208.png",
+          "sha256": "f635d838e4520e92e9ef79fbdccd4c1631f10344503cd34dcafbf5fef9bbf208",
+          "bytes": 81251
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Logo Terra FM – 94.7 - Campo Mourão - Paraná - o importante é você  ",
+        "matched_brand_keys": [
+          "terra"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:2CB7:91FB:ED:0:0:0:0": {
       "name": "Rádio The Beatles (MP3)",
@@ -140234,7 +140369,10 @@
       "homepages": [
         "https://www.xn--rdiothebeatles-vgb.br/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (6) Could not resolve host: www.xn--rdiothebeatles-vgb.br\n"
+      ]
     },
     "4097:0:2:DF43:F1B0:ED:0:0:0:0": {
       "name": "The Blue Radio",
@@ -140246,7 +140384,37 @@
       "homepages": [
         "https://theblueradio.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://platform-upload.cdn-brlogic.com/53301/logo/86c816c551401199f1f07d34bfd52f88.png",
+        "final_url": "https://platform-upload.cdn-brlogic.com/53301/logo/86c816c551401199f1f07d34bfd52f88.png",
+        "path": "originals/07fb860a416a4b30d9e4ae06863a7beb65104240e7cd5416171f62e016d6e8f2.img",
+        "sha256": "07fb860a416a4b30d9e4ae06863a7beb65104240e7cd5416171f62e016d6e8f2",
+        "bytes": 70119,
+        "dimensions": [
+          300,
+          300
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://theblueradio.com/",
+        "final_url": "https://theblueradio.com/",
+        "original_html_sha256": "e871c3eb1aa96b81a24d2c42d33ad3ca5048c4d5e299dbbc4e830b7da82bc33a",
+        "path": "page-evidence/e871c3eb1aa96b81a24d2c42d33ad3ca5048c4d5e299dbbc4e830b7da82bc33a.json",
+        "titles": [
+          "The Blue Radio - RnB Station 24h"
+        ],
+        "image_urls": [
+          "https://platform-upload.cdn-brlogic.com/53301/logo/86c816c551401199f1f07d34bfd52f88.png",
+          "https://platform-upload.cdn-brlogic.com/53301/favicon/85653527f9a3903301dfd4f488368eda.png",
+          "https://platform-upload.cdn-brlogic.com/53301/mobileicon/e3331b3d97bb4e253d979d80cfed9edc.png"
+        ],
+        "named_logos": {
+          "https://platform-upload.cdn-brlogic.com/53301/logo/86c816c551401199f1f07d34bfd52f88.png": "  "
+        }
+      },
+      "ocr_text": "Ae\n\nLUE\n\nBL\n\nRallo-2~\n\ncom\n"
     },
     "4097:0:2:9053:C88A:ED:0:0:0:0": {
       "name": "The Brother´s FM",
@@ -140268,7 +140436,38 @@
       "homepages": [
         "https://www.radiotimblesom.suamidia.net/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://www.radiotimblesom.suamidia.net/public/25194-2026-02-15.png",
+        "final_url": "https://www.radiotimblesom.suamidia.net/public/25194-2026-02-15.png",
+        "path": "originals/dbe2a1329a3c1a0e9a6e5b6c2333b9e16af5dc4c46325eff2a5b0147826dc7a9.img",
+        "sha256": "dbe2a1329a3c1a0e9a6e5b6c2333b9e16af5dc4c46325eff2a5b0147826dc7a9",
+        "bytes": 122870,
+        "dimensions": [
+          612,
+          792
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://www.radiotimblesom.suamidia.net/",
+        "final_url": "https://www.radiotimblesom.suamidia.net/",
+        "original_html_sha256": "226e691465f081f42ff2624129f471b8af04a391fa5d57d2a5d4c2a1936d4db5",
+        "path": "page-evidence/226e691465f081f42ff2624129f471b8af04a391fa5d57d2a5d4c2a1936d4db5.json",
+        "titles": [
+          "Rádio Timblesom",
+          "Rádio Timblesom"
+        ],
+        "image_urls": [
+          "https://www.radiotimblesom.suamidia.net/public/25194-2026-02-15.png",
+          "https://www.radiotimblesom.suamidia.net/public/46000-2026-02-15.png",
+          "https://www.radiotimblesom.suamidia.net/public/52306-2026-02-15.png"
+        ],
+        "named_logos": {
+          "https://www.radiotimblesom.suamidia.net/public/25194-2026-02-15.png": "logo  "
+        }
+      },
+      "ocr_text": "lhl 7S\n\nTIMBLESON\n"
     },
     "4097:0:2:A5DF:53E1:ED:0:0:0:0": {
       "name": "Tiradentes (Manaus) 89.7 FM",
@@ -140280,7 +140479,10 @@
       "homepages": [
         "https://www.redetiradentes.com.br/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 403\n"
+      ]
     },
     "4097:0:2:6F46:A23A:ED:0:0:0:0": {
       "name": "Rádio TMC 100.1 FM",
@@ -140292,7 +140494,99 @@
       "homepages": [
         "https://tmc360.com.br/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://tmc.com.br/wp-content/themes/tmc-theme/assets/img/logo-white.svg",
+        "final_url": "https://tmc.com.br/wp-content/themes/tmc-theme/assets/img/logo-white.svg",
+        "path": "originals/0051af544c24730d54d4afbd57aafa53ff7248990e64f2c1ba334cf74346b7e7.img",
+        "sha256": "0051af544c24730d54d4afbd57aafa53ff7248990e64f2c1ba334cf74346b7e7",
+        "bytes": 26951,
+        "dimensions": [
+          640,
+          186
+        ],
+        "format": "SVG",
+        "frozen_svg_raster": {
+          "path": "rasterized/0250986aaab64e928a8df5ce70cf48db7690304977b242db14ca05804959b432.png",
+          "sha256": "0250986aaab64e928a8df5ce70cf48db7690304977b242db14ca05804959b432",
+          "cairosvg_version": "2.8.2"
+        }
+      },
+      "page": {
+        "url": "https://tmc360.com.br/",
+        "final_url": "https://tmc.com.br/",
+        "original_html_sha256": "30c0518f98036640934cbe8654e67f89413ff9948eac2839e6e7094d48ca0fb2",
+        "path": "page-evidence/30c0518f98036640934cbe8654e67f89413ff9948eac2839e6e7094d48ca0fb2.json",
+        "titles": [
+          "TMC | Multiplataforma de Informação, Entretenimento e Esportes - Notícias e Informações | TMC",
+          "TMC"
+        ],
+        "image_urls": [
+          "https://tmc.com.br/wp-content/themes/tmc-theme/assets/img/logo-white.svg",
+          "https://tmc.com.br/favicon.ico",
+          "https://tmc.com.br/wp-content/uploads/2026/03/cropped-logo-tmc-180x180.png"
+        ],
+        "named_logos": {
+          "https://tmc.com.br/wp-content/themes/tmc-theme/assets/img/logo-white.svg": "TMC  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/d23ecafbdde5e1339f6f461e68c35c45c50c1fe04040ec4194fc9f9ac4d5727a.png",
+          "sha256": "d23ecafbdde5e1339f6f461e68c35c45c50c1fe04040ec4194fc9f9ac4d5727a",
+          "bytes": 1836
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/8fad8ff3532393efb81ddeaffab88f92dc95e9af9d7f3998bd3a9c015d795441.png",
+          "sha256": "8fad8ff3532393efb81ddeaffab88f92dc95e9af9d7f3998bd3a9c015d795441",
+          "bytes": 13685
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/7e9b4703c1f642023e7c57284dc4948fbb2cc82cf34f41afdbb0ae944350c503.png",
+          "sha256": "7e9b4703c1f642023e7c57284dc4948fbb2cc82cf34f41afdbb0ae944350c503",
+          "bytes": 49559
+        },
+        "50x30/white": {
+          "path": "verified-assets/6d288d228c7f35c12af75ecc2d155a125b3c209f53496108fda7e16a0c3db79b.png",
+          "sha256": "6d288d228c7f35c12af75ecc2d155a125b3c209f53496108fda7e16a0c3db79b",
+          "bytes": 2589
+        },
+        "220x132/white": {
+          "path": "verified-assets/926dd9ba00498537cef8a4399bbdf62a0ee597449a096be3608673c897cae66e.png",
+          "sha256": "926dd9ba00498537cef8a4399bbdf62a0ee597449a096be3608673c897cae66e",
+          "bytes": 35875
+        },
+        "400x240/white": {
+          "path": "verified-assets/78d7795e16f9d28a4fa48cf49e54c63cc5100ce8da7d8356ecd0aeaa184d301e.png",
+          "sha256": "78d7795e16f9d28a4fa48cf49e54c63cc5100ce8da7d8356ecd0aeaa184d301e",
+          "bytes": 90704
+        },
+        "50x30/black": {
+          "path": "verified-assets/a34499f6b9abe29c7142d37d983a730377150e48daeab15d1338b990b62951a9.png",
+          "sha256": "a34499f6b9abe29c7142d37d983a730377150e48daeab15d1338b990b62951a9",
+          "bytes": 3503
+        },
+        "220x132/black": {
+          "path": "verified-assets/7271180fd69b49416599a721d38af375001440a968e7c4a292708658cd88da5a.png",
+          "sha256": "7271180fd69b49416599a721d38af375001440a968e7c4a292708658cd88da5a",
+          "bytes": 40984
+        },
+        "400x240/black": {
+          "path": "verified-assets/2521513298e0b7c94c1115fba8bccba6b67cb579c2d1d9b693abaf9085bc9050.png",
+          "sha256": "2521513298e0b7c94c1115fba8bccba6b67cb579c2d1d9b693abaf9085bc9050",
+          "bytes": 110242
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "TMC  ",
+        "matched_brand_keys": [
+          "tmc"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:A523:F4FD:ED:0:0:0:0": {
       "name": "TMC Belo Horizonte",
@@ -140304,7 +140598,10 @@
       "homepages": [
         "https://tmc.com.br/belo-horizonte/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 404\n"
+      ]
     },
     "4097:0:2:3E7:524A:ED:0:0:0:0": {
       "name": "TMC Curitiba 100.3 FM",
@@ -140316,7 +140613,99 @@
       "homepages": [
         "https://tmc.com.br/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://tmc.com.br/wp-content/themes/tmc-theme/assets/img/logo-white.svg",
+        "final_url": "https://tmc.com.br/wp-content/themes/tmc-theme/assets/img/logo-white.svg",
+        "path": "originals/0051af544c24730d54d4afbd57aafa53ff7248990e64f2c1ba334cf74346b7e7.img",
+        "sha256": "0051af544c24730d54d4afbd57aafa53ff7248990e64f2c1ba334cf74346b7e7",
+        "bytes": 26951,
+        "dimensions": [
+          640,
+          186
+        ],
+        "format": "SVG",
+        "frozen_svg_raster": {
+          "path": "rasterized/0250986aaab64e928a8df5ce70cf48db7690304977b242db14ca05804959b432.png",
+          "sha256": "0250986aaab64e928a8df5ce70cf48db7690304977b242db14ca05804959b432",
+          "cairosvg_version": "2.8.2"
+        }
+      },
+      "page": {
+        "url": "https://tmc.com.br/",
+        "final_url": "https://tmc.com.br/",
+        "original_html_sha256": "30c0518f98036640934cbe8654e67f89413ff9948eac2839e6e7094d48ca0fb2",
+        "path": "page-evidence/30c0518f98036640934cbe8654e67f89413ff9948eac2839e6e7094d48ca0fb2.json",
+        "titles": [
+          "TMC | Multiplataforma de Informação, Entretenimento e Esportes - Notícias e Informações | TMC",
+          "TMC"
+        ],
+        "image_urls": [
+          "https://tmc.com.br/wp-content/themes/tmc-theme/assets/img/logo-white.svg",
+          "https://tmc.com.br/favicon.ico",
+          "https://tmc.com.br/wp-content/uploads/2026/03/cropped-logo-tmc-180x180.png"
+        ],
+        "named_logos": {
+          "https://tmc.com.br/wp-content/themes/tmc-theme/assets/img/logo-white.svg": "TMC  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/d23ecafbdde5e1339f6f461e68c35c45c50c1fe04040ec4194fc9f9ac4d5727a.png",
+          "sha256": "d23ecafbdde5e1339f6f461e68c35c45c50c1fe04040ec4194fc9f9ac4d5727a",
+          "bytes": 1836
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/8fad8ff3532393efb81ddeaffab88f92dc95e9af9d7f3998bd3a9c015d795441.png",
+          "sha256": "8fad8ff3532393efb81ddeaffab88f92dc95e9af9d7f3998bd3a9c015d795441",
+          "bytes": 13685
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/7e9b4703c1f642023e7c57284dc4948fbb2cc82cf34f41afdbb0ae944350c503.png",
+          "sha256": "7e9b4703c1f642023e7c57284dc4948fbb2cc82cf34f41afdbb0ae944350c503",
+          "bytes": 49559
+        },
+        "50x30/white": {
+          "path": "verified-assets/6d288d228c7f35c12af75ecc2d155a125b3c209f53496108fda7e16a0c3db79b.png",
+          "sha256": "6d288d228c7f35c12af75ecc2d155a125b3c209f53496108fda7e16a0c3db79b",
+          "bytes": 2589
+        },
+        "220x132/white": {
+          "path": "verified-assets/926dd9ba00498537cef8a4399bbdf62a0ee597449a096be3608673c897cae66e.png",
+          "sha256": "926dd9ba00498537cef8a4399bbdf62a0ee597449a096be3608673c897cae66e",
+          "bytes": 35875
+        },
+        "400x240/white": {
+          "path": "verified-assets/78d7795e16f9d28a4fa48cf49e54c63cc5100ce8da7d8356ecd0aeaa184d301e.png",
+          "sha256": "78d7795e16f9d28a4fa48cf49e54c63cc5100ce8da7d8356ecd0aeaa184d301e",
+          "bytes": 90704
+        },
+        "50x30/black": {
+          "path": "verified-assets/a34499f6b9abe29c7142d37d983a730377150e48daeab15d1338b990b62951a9.png",
+          "sha256": "a34499f6b9abe29c7142d37d983a730377150e48daeab15d1338b990b62951a9",
+          "bytes": 3503
+        },
+        "220x132/black": {
+          "path": "verified-assets/7271180fd69b49416599a721d38af375001440a968e7c4a292708658cd88da5a.png",
+          "sha256": "7271180fd69b49416599a721d38af375001440a968e7c4a292708658cd88da5a",
+          "bytes": 40984
+        },
+        "400x240/black": {
+          "path": "verified-assets/2521513298e0b7c94c1115fba8bccba6b67cb579c2d1d9b693abaf9085bc9050.png",
+          "sha256": "2521513298e0b7c94c1115fba8bccba6b67cb579c2d1d9b693abaf9085bc9050",
+          "bytes": 110242
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "TMC  ",
+        "matched_brand_keys": [
+          "tmc"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:EF99:B49E:ED:0:0:0:0": {
       "name": "Toka Web Radio",
@@ -140328,7 +140717,8 @@
       "homepages": [
         "https://tokawebradio.com.br/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:F61:74B9:ED:0:0:0:0": {
       "name": "Rádio Top 104.9 FM",
@@ -140352,7 +140742,8 @@
       "homepages": [
         "https://topfmsp.com.br/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:2B2B:11DF:ED:0:0:0:0": {
       "name": "Top Mais Web Rádio",
@@ -140364,7 +140755,10 @@
       "homepages": [
         "https://www.topmaiswebradio.com.br/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (60) SSL: no alternative certificate subject name matches target host name 'www.topmaiswebradio.com.br'\nMore details here: https://curl.se/docs/sslcerts.html\n\ncurl failed to "
+      ]
     },
     "4097:0:2:D161:7793:ED:0:0:0:0": {
       "name": "TOP POP WEB RÁDIO - A Estação Das Melhores Músicas",
@@ -140376,7 +140770,10 @@
       "homepages": [
         "https://start.me/p/8yYJPB/top-pop-web-rdio"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 403\n"
+      ]
     },
     "4097:0:2:EF4D:B94C:ED:0:0:0:0": {
       "name": "Rádio Torre",
@@ -140388,7 +140785,10 @@
       "homepages": [
         "https://radiotorrebadaromg.com.br/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (6) Could not resolve host: radiotorrebadaromg.com.br\n"
+      ]
     },
     "4097:0:2:2CD9:F4B6:ED:0:0:0:0": {
       "name": "Torres FM 101,1",
@@ -140400,7 +140800,39 @@
       "homepages": [
         "https://www.redepampa.com.br/radios/torres-fm/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://www.redepampa.com.br/wp-content/uploads/2021/11/LOGO-REDE-PAMPA-PNG-1024x288.png",
+        "final_url": "https://www.redepampa.com.br/wp-content/uploads/2021/11/LOGO-REDE-PAMPA-PNG-1024x288.png",
+        "path": "originals/bb89eca0f1cd535bf9145e615934847a891d3d1f24b2a42e41cf341f54bd3be8.img",
+        "sha256": "bb89eca0f1cd535bf9145e615934847a891d3d1f24b2a42e41cf341f54bd3be8",
+        "bytes": 69665,
+        "dimensions": [
+          1024,
+          288
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://www.redepampa.com.br/radios/torres-fm/",
+        "final_url": "https://www.redepampa.com.br/radios/torres-fm/",
+        "original_html_sha256": "444db8808c454561c0dfad0e16edab9cf8d619f78c7c21d1f4b072a143a6e298",
+        "path": "page-evidence/444db8808c454561c0dfad0e16edab9cf8d619f78c7c21d1f4b072a143a6e298.json",
+        "titles": [
+          "Torres FM - Rede Pampa",
+          "Torres FM",
+          "Torres FM"
+        ],
+        "image_urls": [
+          "https://www.redepampa.com.br/wp-content/themes/redepampa/images/logo-footer.png",
+          "https://www.redepampa.com.br/wp-content/uploads/2020/12/favicon.png",
+          "https://www.redepampa.com.br/wp-content/uploads/2021/11/LOGO-REDE-PAMPA-PNG-1024x288.png"
+        ],
+        "named_logos": {
+          "https://www.redepampa.com.br/wp-content/themes/redepampa/images/logo-footer.png": "Jornal O Sul  "
+        }
+      },
+      "ocr_text": "as) rede pampa\n"
     },
     "4097:0:2:C9DB:BE69:ED:0:0:0:0": {
       "name": "Rádio Tradição Católica",
@@ -140412,7 +140844,37 @@
       "homepages": [
         "https://radiotradicaocatolica.com.br/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://platform-upload.cdn-brlogic.com/249876/fbplayer/829c9f39165d6279b117ddaba8cc28dd.jpg",
+        "final_url": "https://platform-upload.cdn-brlogic.com/249876/fbplayer/829c9f39165d6279b117ddaba8cc28dd.jpg",
+        "path": "originals/fa58cd5ef6a66914bfa641a4ee19cc515d137ddea495091fcf01c4b8e5288940.img",
+        "sha256": "fa58cd5ef6a66914bfa641a4ee19cc515d137ddea495091fcf01c4b8e5288940",
+        "bytes": 91324,
+        "dimensions": [
+          600,
+          315
+        ],
+        "format": "JPEG"
+      },
+      "page": {
+        "url": "https://radiotradicaocatolica.com.br/",
+        "final_url": "https://radiotradicaocatolica.com.br/",
+        "original_html_sha256": "cb3c4fcce4e35c7836d7df530073b039097d9674f7b56884c9332ec1de8108ed",
+        "path": "page-evidence/cb3c4fcce4e35c7836d7df530073b039097d9674f7b56884c9332ec1de8108ed.json",
+        "titles": [
+          "Radio Tradicão Católica"
+        ],
+        "image_urls": [
+          "https://platform-upload.cdn-brlogic.com/249876/logo/1a5a8ea6dccf097ac45790fd89678ca7.png",
+          "https://platform-upload.cdn-brlogic.com/249876/favicon/99d807d31e18b20be887f0dac121fb73.png",
+          "https://platform-upload.cdn-brlogic.com/249876/fbplayer/829c9f39165d6279b117ddaba8cc28dd.jpg"
+        ],
+        "named_logos": {
+          "https://platform-upload.cdn-brlogic.com/249876/logo/1a5a8ea6dccf097ac45790fd89678ca7.png": "  "
+        }
+      },
+      "ocr_text": "\\ \\ / CURTA E COMPARTILHE\n\n_\n\nA MELHOR\n\nPROGRAMACAO DA INTERNET\n"
     },
     "4097:0:2:BA1D:F732:ED:0:0:0:0": {
       "name": "Tramandaí FM 96,5",
@@ -140424,7 +140886,39 @@
       "homepages": [
         "https://www.redepampa.com.br/radios/tramandai-fm/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://www.redepampa.com.br/wp-content/uploads/2020/08/TRAMANDAI-1-e1734930665883.png",
+        "final_url": "https://www.redepampa.com.br/wp-content/uploads/2020/08/TRAMANDAI-1-e1734930665883.png",
+        "path": "originals/31ded718e01a52cede1e9f6f07190f4acbc14628579054e9ca029a52dee5f939.img",
+        "sha256": "31ded718e01a52cede1e9f6f07190f4acbc14628579054e9ca029a52dee5f939",
+        "bytes": 22460,
+        "dimensions": [
+          1209,
+          278
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://www.redepampa.com.br/radios/tramandai-fm/",
+        "final_url": "https://www.redepampa.com.br/radios/tramandai-fm/",
+        "original_html_sha256": "71b0546b18929abd32b7d322b1aba31ac15ca101f4012fca289a1c8422879a69",
+        "path": "page-evidence/71b0546b18929abd32b7d322b1aba31ac15ca101f4012fca289a1c8422879a69.json",
+        "titles": [
+          "Tramandaí FM - Rede Pampa",
+          "Tramandaí FM",
+          "Tramandaí FM"
+        ],
+        "image_urls": [
+          "https://www.redepampa.com.br/wp-content/themes/redepampa/images/logo-footer.png",
+          "https://www.redepampa.com.br/wp-content/uploads/2020/12/favicon.png",
+          "https://www.redepampa.com.br/wp-content/uploads/2020/08/TRAMANDAI-1-e1734930665883.png"
+        ],
+        "named_logos": {
+          "https://www.redepampa.com.br/wp-content/themes/redepampa/images/logo-footer.png": "Jornal O Sul  "
+        }
+      },
+      "ocr_text": "¢ Tramandai fm\n"
     },
     "4097:0:2:18A2:32E1:ED:0:0:0:0": {
       "name": "Rádio Transamérica 100.1 FM",
@@ -140436,7 +140930,8 @@
       "homepages": [
         "https://transamericafm.com.br/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:E6DC:62EC:ED:0:0:0:0": {
       "name": "Rádio Transamérica Hits (Barreiras)",
@@ -140448,7 +140943,10 @@
       "homepages": [
         "http://www.radiotransamerica.com.br/hits/barreiras"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 404\n"
+      ]
     },
     "4097:0:2:5E2D:265A:ED:0:0:0:0": {
       "name": "Radio Transdutor - Underground Electronic Music",
@@ -140460,7 +140958,10 @@
       "homepages": [
         "https://transdutor.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "Command '['tesseract', '/tmp/radio-logo-ocr-z7vl5jrl/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds"
+      ]
     },
     "4097:0:2:107:BAED:ED:0:0:0:0": {
       "name": "Rádio Trans Mundial - RTM",
@@ -140473,7 +140974,95 @@
         "https://www.rtmbrasil.org.br/",
         "https://www.transmundial.com.br/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://assets.rtmbrasil.org.br/logo-negativo.png",
+        "final_url": "https://assets.rtmbrasil.org.br/logo-negativo.png",
+        "path": "originals/6c6515cc3453a474b16806b6932c0270fad02faf0bbe76322a75933c2a0a2b92.img",
+        "sha256": "6c6515cc3453a474b16806b6932c0270fad02faf0bbe76322a75933c2a0a2b92",
+        "bytes": 11855,
+        "dimensions": [
+          200,
+          136
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://www.rtmbrasil.org.br/",
+        "final_url": "https://www.rtmbrasil.org.br/",
+        "original_html_sha256": "7773ae6b2394cf56b7ece6f6b0b79e1fe4e13fe945a469f807641dc614ad5abe",
+        "path": "page-evidence/7773ae6b2394cf56b7ece6f6b0b79e1fe4e13fe945a469f807641dc614ad5abe.json",
+        "titles": [
+          "RTM Brasil",
+          "NOTÍCIAS RTM",
+          "EVENTOS DO MÊS"
+        ],
+        "image_urls": [
+          "https://assets.rtmbrasil.org.br/logo-negativo.png",
+          "https://assets.rtmbrasil.org.br/favicon.png",
+          "https://assets.rtmbrasil.org.br/logo-1024x512px.jpg"
+        ],
+        "named_logos": {
+          "https://assets.rtmbrasil.org.br/logo-negativo.png": "Logo da RTM  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/ff2523f1c7e42e8b614c0eabf1cd4e55702d7b91f963a4fa72d869b25891fd4c.png",
+          "sha256": "ff2523f1c7e42e8b614c0eabf1cd4e55702d7b91f963a4fa72d869b25891fd4c",
+          "bytes": 1871
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/bf3de1e13bc4e539b9692e09e36ae32ee3505c05ba34fc3cec37463ea93721ff.png",
+          "sha256": "bf3de1e13bc4e539b9692e09e36ae32ee3505c05ba34fc3cec37463ea93721ff",
+          "bytes": 13293
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/f77ac0d0decc2cc314f3dacb25c55de15fb60d25c7f0c2024c806aadae0158f2.png",
+          "sha256": "f77ac0d0decc2cc314f3dacb25c55de15fb60d25c7f0c2024c806aadae0158f2",
+          "bytes": 41530
+        },
+        "50x30/white": {
+          "path": "verified-assets/021662b4572505efb29fe2923137cd4cf0e84cadce2c14b7b3f762add1bcb9f5.png",
+          "sha256": "021662b4572505efb29fe2923137cd4cf0e84cadce2c14b7b3f762add1bcb9f5",
+          "bytes": 2910
+        },
+        "220x132/white": {
+          "path": "verified-assets/514d9e7a80054ad617c7b7525a738483d58acc5e56f4d51f27abbea154a822c1.png",
+          "sha256": "514d9e7a80054ad617c7b7525a738483d58acc5e56f4d51f27abbea154a822c1",
+          "bytes": 37050
+        },
+        "400x240/white": {
+          "path": "verified-assets/6dff32c3862b96f8a8091c10d835af6622f65b0c470065d8d767b3cfa3c581a8.png",
+          "sha256": "6dff32c3862b96f8a8091c10d835af6622f65b0c470065d8d767b3cfa3c581a8",
+          "bytes": 93545
+        },
+        "50x30/black": {
+          "path": "verified-assets/551931d729710a7a36048019ca539109e66f10e9bd515412c3bb6c414f96199b.png",
+          "sha256": "551931d729710a7a36048019ca539109e66f10e9bd515412c3bb6c414f96199b",
+          "bytes": 3617
+        },
+        "220x132/black": {
+          "path": "verified-assets/d6e86aa353e56315bf7189a763fe630a996187570da204b527e1e233d87ae050.png",
+          "sha256": "d6e86aa353e56315bf7189a763fe630a996187570da204b527e1e233d87ae050",
+          "bytes": 39245
+        },
+        "400x240/black": {
+          "path": "verified-assets/ba1a11caf73a4ceba805791b75ed0631c7cae4aa4ef3648583681cdebb56f4e0.png",
+          "sha256": "ba1a11caf73a4ceba805791b75ed0631c7cae4aa4ef3648583681cdebb56f4e0",
+          "bytes": 102851
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Logo da RTM  ",
+        "matched_brand_keys": [
+          "rtm"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:3DDC:70AD:ED:0:0:0:0": {
       "name": "Rádio Trianon 740 AM",
@@ -140486,7 +141075,44 @@
         "http://www.radiotrianon.com.br/",
         "https://radiotrianon.com.br/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://www.radiotrianon.com.br/imagens/logos-programas/italia_total.jpeg",
+        "final_url": "https://www.radiotrianon.com.br/imagens/logos-programas/italia_total.jpeg",
+        "path": "originals/f5efa6d42c40359fe6dc62f6d5693a7e0963e340e9bf949f4c00703232b544b3.img",
+        "sha256": "f5efa6d42c40359fe6dc62f6d5693a7e0963e340e9bf949f4c00703232b544b3",
+        "bytes": 102404,
+        "dimensions": [
+          1024,
+          1024
+        ],
+        "format": "JPEG"
+      },
+      "page": {
+        "url": "http://www.radiotrianon.com.br/",
+        "final_url": "https://www.radiotrianon.com.br/",
+        "original_html_sha256": "973974bc82d273fb2be6a4e06c0fc055e2760cc3f474fb40359833b17b9c5418",
+        "path": "page-evidence/973974bc82d273fb2be6a4e06c0fc055e2760cc3f474fb40359833b17b9c5418.json",
+        "titles": [
+          "Rádio Trianon - AM 740",
+          "QUEM SOMOS",
+          "CONTATO",
+          "PROGRAMAS"
+        ],
+        "image_urls": [
+          "https://www.radiotrianon.com.br/imagens/logos-programas/enivaldo-do-vale.png",
+          "https://www.radiotrianon.com.br/imagens/logos-programas/herois-do-mar.jpeg",
+          "https://www.radiotrianon.com.br/imagens/logos-programas/italia_total.jpeg"
+        ],
+        "named_logos": {
+          "https://www.radiotrianon.com.br/imagens/logos-programas/miriam.jpeg": "ABRACE UMA CARREIRA  ",
+          "https://www.radiotrianon.com.br/imagens/logos-programas/italia_total.jpeg": "DUAS NA TRI  ",
+          "https://www.radiotrianon.com.br/imagens/logos-programas/enivaldo-do-vale.png": "DUAS NA TRI  ",
+          "https://www.radiotrianon.com.br/imagens/logos-programas/metropoleemfoco.png": "É Hora de Esporte  ",
+          "https://www.radiotrianon.com.br/imagens/logos-programas/herois-do-mar.jpeg": "Heróis do Mar  "
+        }
+      },
+      "ocr_text": "TODOS OS SABADOS DAS 11H30 AS 13H00\n\nNICOLA DI LOCRI\n\n=\n\nTrA\n\nxs 5\n\nTAL\n\noC =A,\n\nG\n\nSa\n\n=a\n\nWY\n\n~~\n\nMusica, Arte, Cultura e Poesia\n\n& RADIO TRIANON AM 740 KHZ\n\n(©) TRANSMISSAO AO VIVO YOU TUBE\n\n|\n\n@ 3289-3580 / 3253-4845\n"
     },
     "4097:0:2:18C1:5023:ED:0:0:0:0": {
       "name": "RADIO TRI FM 105.5 SANTOS SP",
@@ -140498,7 +141124,96 @@
       "homepages": [
         "https://trifm.com.br/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://trifm.com.br/wp-content/uploads/2024/07/logo_512.png",
+        "final_url": "https://trifm.com.br/wp-content/uploads/2024/07/logo_512.png",
+        "path": "originals/e7aed8739d4d3d8d3fa525e51d4f45b2be99b25c7a74197ea6c504d9d4d99225.img",
+        "sha256": "e7aed8739d4d3d8d3fa525e51d4f45b2be99b25c7a74197ea6c504d9d4d99225",
+        "bytes": 40384,
+        "dimensions": [
+          512,
+          512
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://trifm.com.br/",
+        "final_url": "https://trifm.com.br/",
+        "original_html_sha256": "0b73135d5af159ae958466c5425a9b7f6cf567cf5386de8d036c0e34b2e30a5b",
+        "path": "page-evidence/0b73135d5af159ae958466c5425a9b7f6cf567cf5386de8d036c0e34b2e30a5b.json",
+        "titles": [
+          "Rádio Tribuna FM 105.5 – Tá na Tri Tá na Melhor",
+          "TÁ NA TRI TÁ NA MELHOR",
+          "6"
+        ],
+        "image_urls": [
+          "https://trifm.com.br/wp-content/uploads/2024/07/logo_512.png",
+          "https://trifm.com.br/wp-content/uploads/2024/07/logotrifmnovo-1.png",
+          "https://trifm.com.br/wp-content/uploads/2024/07/logo_512_2.png"
+        ],
+        "named_logos": {
+          "https://trifm.com.br/wp-content/uploads/2024/07/logo_512.png": "Logo_TriFM_512  ",
+          "https://trifm.com.br/wp-content/uploads/2024/07/logotrifmnovo-1.png": "  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/9c0e8253f4230262331c043df0485000ed081985784cee8ad938f6af1edac2e6.png",
+          "sha256": "9c0e8253f4230262331c043df0485000ed081985784cee8ad938f6af1edac2e6",
+          "bytes": 1567
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/3ada584f13410c47bd38f3436490fc75a2ade0ae330c29f0f7f566fe87e75dff.png",
+          "sha256": "3ada584f13410c47bd38f3436490fc75a2ade0ae330c29f0f7f566fe87e75dff",
+          "bytes": 10073
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/589ff29bc694c8fd1f90e198ff349b2a237f14bbdb84e18f2e782ba9499f8b14.png",
+          "sha256": "589ff29bc694c8fd1f90e198ff349b2a237f14bbdb84e18f2e782ba9499f8b14",
+          "bytes": 30367
+        },
+        "50x30/white": {
+          "path": "verified-assets/177b7a3a1ed26c545b0a76ccc88d9054cff96fa780b7f79d617feacd6ce6c356.png",
+          "sha256": "177b7a3a1ed26c545b0a76ccc88d9054cff96fa780b7f79d617feacd6ce6c356",
+          "bytes": 2893
+        },
+        "220x132/white": {
+          "path": "verified-assets/6fc5362613b79ed7ac09be9dfd12868c33817045c35b63411634b8384853cf1a.png",
+          "sha256": "6fc5362613b79ed7ac09be9dfd12868c33817045c35b63411634b8384853cf1a",
+          "bytes": 34906
+        },
+        "400x240/white": {
+          "path": "verified-assets/fe61adfc7dd4ca508dca6a0cbd43dfe16ea6689ff3c48b9ac2d790558d1113b7.png",
+          "sha256": "fe61adfc7dd4ca508dca6a0cbd43dfe16ea6689ff3c48b9ac2d790558d1113b7",
+          "bytes": 87953
+        },
+        "50x30/black": {
+          "path": "verified-assets/ab4671f3c2276feb68234f7573cae3191892b7dcb67d965d751b959c32d135a0.png",
+          "sha256": "ab4671f3c2276feb68234f7573cae3191892b7dcb67d965d751b959c32d135a0",
+          "bytes": 3183
+        },
+        "220x132/black": {
+          "path": "verified-assets/6c47db385716b48072ac69bb8f9993bdb341477821933c20407eead9a121f813.png",
+          "sha256": "6c47db385716b48072ac69bb8f9993bdb341477821933c20407eead9a121f813",
+          "bytes": 34163
+        },
+        "400x240/black": {
+          "path": "verified-assets/31b69c12d62979ea491f61d8f6cc760c4b77564bc8adda18b13006663ae3ec74.png",
+          "sha256": "31b69c12d62979ea491f61d8f6cc760c4b77564bc8adda18b13006663ae3ec74",
+          "bytes": 85951
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Logo_TriFM_512  ",
+        "matched_brand_keys": [
+          "tri"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:F77B:1E50:ED:0:0:0:0": {
       "name": "Radio Tropical 103.7 FM",
@@ -543644,14 +544359,14 @@
   },
   "counts": {
     "already_ready_in_saved_checkpoint": 4155,
-    "blocked_no_confirmed_station_page_and_logo": 1682,
+    "blocked_no_confirmed_station_page_and_logo": 1695,
     "blocked_no_independent_station_homepage": 1269,
     "blocked_no_unique_current_station_metadata": 4248,
-    "candidate_assistant_visual_and_identity_check": 737,
+    "candidate_assistant_visual_and_identity_check": 744,
     "needs_assistant_identity_research_for_short_or_generic_name": 1328,
-    "pending_homepage_discovery": 26753,
-    "ready_verified_homepage_and_wordmark": 731
+    "pending_homepage_discovery": 26728,
+    "ready_verified_homepage_and_wordmark": 736
   },
-  "last_event": "homepages_3125_of_29878",
-  "updated_utc": "2026-11-05T14:28:29Z"
+  "last_event": "homepages_3150_of_29878",
+  "updated_utc": "2026-11-05T14:29:10Z"
 }
