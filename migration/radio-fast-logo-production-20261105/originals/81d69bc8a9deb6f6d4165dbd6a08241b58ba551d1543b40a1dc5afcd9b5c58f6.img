@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="One Long Signal">
+  <defs>
+    <filter id="glow" x="-25%" y="-25%" width="150%" height="150%">
+      <feGaussianBlur stdDeviation="9" result="b"/>
+      <feMerge>
+        <feMergeNode in="b"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <rect width="512" height="512" rx="104" fill="#0a0c0f"/>
+  <path d="M56 256 Q 123 96 190 256 T 323 256 T 456 256"
+        fill="none" stroke="#e6a94b" stroke-width="44"
+        stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)"/>
+</svg>
