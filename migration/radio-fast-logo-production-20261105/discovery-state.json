@@ -319113,7 +319113,8 @@
         "http://www.radiopuisaleine.fr/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:476A:FBA2:ED:0:0:0:0": {
       "name": "Puissance Max La Radio",
@@ -319163,7 +319164,10 @@
         "https://www.pulsradio.com/90/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 404\n"
+      ]
     },
     "4097:0:2:1C2F:C57D:ED:0:0:0:0": {
       "name": "PulsRadio Club",
@@ -319239,7 +319243,94 @@
         "http://pyreneesfm.com/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://pyreneesfm.com/brand/pyrenees-fm-logo.webp",
+        "final_url": "https://pyreneesfm.com/brand/pyrenees-fm-logo.webp",
+        "path": "originals/efda81b9ac3a10f59000b66108f437bf8068feb3304aed717ec7c6270d3462ef.img",
+        "sha256": "efda81b9ac3a10f59000b66108f437bf8068feb3304aed717ec7c6270d3462ef",
+        "bytes": 20396,
+        "dimensions": [
+          1191,
+          430
+        ],
+        "format": "WEBP"
+      },
+      "page": {
+        "url": "http://pyreneesfm.com/",
+        "final_url": "https://pyreneesfm.com/",
+        "original_html_sha256": "b873025d0039b0d4cf45d84abed748fe97c261b2a0a1d0f7654d58815658bf95",
+        "path": "page-evidence/b873025d0039b0d4cf45d84abed748fe97c261b2a0a1d0f7654d58815658bf95.json",
+        "titles": [
+          "Pyrénées FM — La radio des Pyrénées"
+        ],
+        "image_urls": [
+          "https://pyreneesfm.com/brand/pyrenees-fm-logo.webp",
+          "https://pyreneesfm.com/img/2023/03/logo-e1748261623964.webp",
+          "https://pyreneesfm.com/favicon.ico"
+        ],
+        "named_logos": {
+          "https://pyreneesfm.com/brand/pyrenees-fm-logo.webp": "Pyrénées FM — La radio  ",
+          "https://pyreneesfm.com/img/2023/03/logo-e1748261623964.webp": "  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/99e59dfc06a425504d2b23705ce2a2a116825f0242d9d926bd90ff7da1e69e2d.png",
+          "sha256": "99e59dfc06a425504d2b23705ce2a2a116825f0242d9d926bd90ff7da1e69e2d",
+          "bytes": 1921
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/3028bd947226d93efe4cba932ef5f359ee3d8b3f11dc83989d6fcd3f769e1769.png",
+          "sha256": "3028bd947226d93efe4cba932ef5f359ee3d8b3f11dc83989d6fcd3f769e1769",
+          "bytes": 15716
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/9bb9a87364401ef82288aa658455f8b9645b7989c192811ef2878bafba0b2ddf.png",
+          "sha256": "9bb9a87364401ef82288aa658455f8b9645b7989c192811ef2878bafba0b2ddf",
+          "bytes": 45443
+        },
+        "50x30/white": {
+          "path": "verified-assets/a05b9f7e84e6ffb765344cb8992bfc0bfc6b20b4f8057a90b7d1aedb2d0a1742.png",
+          "sha256": "a05b9f7e84e6ffb765344cb8992bfc0bfc6b20b4f8057a90b7d1aedb2d0a1742",
+          "bytes": 2961
+        },
+        "220x132/white": {
+          "path": "verified-assets/969e0298f236b50220d30e232a8028a96fa88e8e37410d133d62e0b787ed0604.png",
+          "sha256": "969e0298f236b50220d30e232a8028a96fa88e8e37410d133d62e0b787ed0604",
+          "bytes": 38609
+        },
+        "400x240/white": {
+          "path": "verified-assets/883fadfc9162cec520fb02f7bb0ec29c9639500cb555de0d1f344a76b0d34e4b.png",
+          "sha256": "883fadfc9162cec520fb02f7bb0ec29c9639500cb555de0d1f344a76b0d34e4b",
+          "bytes": 97446
+        },
+        "50x30/black": {
+          "path": "verified-assets/35c728f8ba961b2702248230e1f23cb41b6fc2b3f552936a1457ad9da5d67ab6.png",
+          "sha256": "35c728f8ba961b2702248230e1f23cb41b6fc2b3f552936a1457ad9da5d67ab6",
+          "bytes": 3233
+        },
+        "220x132/black": {
+          "path": "verified-assets/35d9ce5807bf0fd2837746cec41ada5af6200d7f541cf5b0be4648cf8017fe59.png",
+          "sha256": "35d9ce5807bf0fd2837746cec41ada5af6200d7f541cf5b0be4648cf8017fe59",
+          "bytes": 37933
+        },
+        "400x240/black": {
+          "path": "verified-assets/0b492069b4fc07092c3b45219acfc9de236ee9ea34279682ba9efeb0b76afa28.png",
+          "sha256": "0b492069b4fc07092c3b45219acfc9de236ee9ea34279682ba9efeb0b76afa28",
+          "bytes": 94932
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Pyrénées FM — La radio  ",
+        "matched_brand_keys": [
+          "pyrenees"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:807D:5C0E:ED:0:0:0:0": {
       "name": "Radio230",
@@ -319252,7 +319343,34 @@
         "https://radio230.com/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://radio230.com/images/share/radio230-share.png",
+        "final_url": "https://radio230.com/images/share/radio230-share.png",
+        "path": "originals/8ae115f842aed0fb077499de8026e3337688151fd4ef6a063f2e6afb688abf06.img",
+        "sha256": "8ae115f842aed0fb077499de8026e3337688151fd4ef6a063f2e6afb688abf06",
+        "bytes": 601862,
+        "dimensions": [
+          1792,
+          1024
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://radio230.com/",
+        "final_url": "https://radio230.com/",
+        "original_html_sha256": "21353a2651775abac91b1dbe5178f2af634ff0922185523eb99d6bef88dba7b7",
+        "path": "page-evidence/21353a2651775abac91b1dbe5178f2af634ff0922185523eb99d6bef88dba7b7.json",
+        "titles": [
+          "Radio230 - Sa Nou Radio Sa"
+        ],
+        "image_urls": [
+          "https://radio230.com/images/icons/radio230-logo.ico",
+          "https://radio230.com/images/share/radio230-share.png"
+        ],
+        "named_logos": {}
+      },
+      "ocr_text": "4\n"
     },
     "4097:0:2:648E:A7F:ED:0:0:0:0": {
       "name": "Radio 4",
@@ -319278,7 +319396,49 @@
         "https://radio666.com/"
       ],
       "needs_assistant_visual_identity": true,
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://radio666.com/wp-content/uploads/2023/11/LOGO-TOUCAEN-INFOBULLE-3-300x182.png",
+        "final_url": "https://radio666.com/wp-content/uploads/2023/11/LOGO-TOUCAEN-INFOBULLE-3-300x182.png",
+        "path": "originals/41638585d9bd74af5ee0209fc00044d48ef1fb3d505bc1f830b080b8b24fe59b.img",
+        "sha256": "41638585d9bd74af5ee0209fc00044d48ef1fb3d505bc1f830b080b8b24fe59b",
+        "bytes": 17964,
+        "dimensions": [
+          300,
+          182
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://radio666.com/",
+        "final_url": "https://radio666.com/",
+        "original_html_sha256": "bce312d0b2cf6bfde20b8978f4f8c1784ef2681030d97bada81b0f03f83e474d",
+        "path": "page-evidence/bce312d0b2cf6bfde20b8978f4f8c1784ef2681030d97bada81b0f03f83e474d.json",
+        "titles": [
+          "Radio 666 – La Radio Rock à Caen sur 99.1",
+          "Grille Radio 666",
+          "\nDERNIER POST FACEBOOK\n\n",
+          "DERNIER POST INSTAGRAM",
+          "LES RADIOS VOISINES"
+        ],
+        "image_urls": [
+          "https://ferarock.org/sites/all/themes/t_ferarock/img/website-logo-gris.png",
+          "https://radio666.com/wp-content/uploads/2023/11/LOGO-TOUCAEN-INFOBULLE-3-300x182.png",
+          "https://radio666.com/wp-content/uploads/2023/11/Logotype-3-300x300-1-90x90.png"
+        ],
+        "named_logos": {
+          "https://radio666.com/wp-content/uploads/2023/11/cropped-cropped-logo666_horizontal_radio_rock-1-scaled-1.jpg": "Radio 666  ",
+          "https://radio666.com/wp-content/uploads/2023/11/cropped-Logotype-2.png": "Radio 666  ",
+          "https://ferarock.org/sites/all/themes/t_ferarock/img/website-logo-gris.png": "  ",
+          "https://radio666.com/wp-content/uploads/2023/11/fera21_logo_radiopulse-300x169.jpg": "fera21_logo_radiopulse  ",
+          "https://radio666.com/wp-content/uploads/2023/11/logo-radio-phenix-300x120.jpg": "logo radio phenix  ",
+          "https://radio666.com/wp-content/uploads/2023/11/LOGO-TOUCAEN-INFOBULLE-3-300x182.png": "LOGO-TOUCAEN-INFOBULLE-3  ",
+          "https://radio666.com/wp-content/uploads/2023/11/radio-bazarnaom-logo-08-300x300.webp": "radio-bazarnaom-logo-08  ",
+          "https://radio666.com/wp-content/uploads/2023/11/sb-logo-300x135.png": "sb-logo  ",
+          "https://radio666.com/wp-content/uploads/2023/11/Logotype-3-300x300-1-90x90.png": "cover  "
+        }
+      },
+      "ocr_text": "[SAISON 3]\n\n91.9 ™™\n\nwww.radio-toucaen.fr\n\nTOUCAEN\n\nVV\n"
     },
     "4097:0:2:4EC7:EB8:ED:0:0:0:0": {
       "name": "RADIO 74",
@@ -319292,7 +319452,8 @@
         "http://www.radio74.org/p/index.php"
       ],
       "needs_assistant_visual_identity": true,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:1966:2D73:ED:0:0:0:0": {
       "name": "Radio ABF",
@@ -319329,7 +319490,97 @@
         "http://radiobip.fr/site/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "http://radiobip.fr/site/wp-content/uploads/2016/04/logo-2.png",
+        "final_url": "http://radiobip.fr/site/wp-content/uploads/2016/04/logo-2.png",
+        "path": "originals/df0786c7dcba87af926bffdbf18d806293ad7aa362a60c4422a99339319228a0.img",
+        "sha256": "df0786c7dcba87af926bffdbf18d806293ad7aa362a60c4422a99339319228a0",
+        "bytes": 24061,
+        "dimensions": [
+          224,
+          65
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "http://radiobip.fr/site/",
+        "final_url": "http://radiobip.fr/site/",
+        "original_html_sha256": "29a964ee9e13b8824df78a5251f2d48546cc356d1788f80714ecb53712ea6e74",
+        "path": "page-evidence/29a964ee9e13b8824df78a5251f2d48546cc356d1788f80714ecb53712ea6e74.json",
+        "titles": [
+          "Radio BIP 96.9FM | Média Indépendant à Besançon – Bisontine, Independante et Populaire !"
+        ],
+        "image_urls": [
+          "http://radiobip.fr/site/wp-content/uploads/2016/04/logo-2.png",
+          "http://radiobip.fr/site/wp-content/uploads/2016/05/logo_radiobip_wordpress.png",
+          "http://radiobip.fr/site/wp-content/uploads/2025/07/Logo-L214-fond-blanc-contour-orange-carre-800x845-1-367x232_c.png"
+        ],
+        "named_logos": {
+          "http://radiobip.fr/site/wp-content/uploads/2016/05/logo_radiobip_wordpress.png": "Radio BIP 96.9FM | Média Indépendant à Besançon  ",
+          "http://radiobip.fr/site/wp-content/uploads/2025/07/Logo-L214-fond-blanc-contour-orange-carre-800x845-1-367x232_c.png": "44 millions d’animaux tués pour Besançon depuis 2020 : L214 appelle la maire à stopper l’hémorragie  ",
+          "http://radiobip.fr/site/wp-content/uploads/2025/07/Logo-L214-fond-blanc-contour-orange-carre-800x845-1-40x40_c.png": "44 millions d’animaux tués pour Besançon depuis 2020 : L214 appelle la maire à stopper l’hémorragie  ",
+          "https://radiobip.fr/site/wp-content/uploads/2019/12/lip_logo_50_ans.png": "Banner  ",
+          "http://radiobip.fr/site/wp-content/uploads/2016/04/logo-2.png": "Radio BIP  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/8a530b9ff8ad481a6ccd8f700af9139df487af71898ef145fa9dd69a8cd2563e.png",
+          "sha256": "8a530b9ff8ad481a6ccd8f700af9139df487af71898ef145fa9dd69a8cd2563e",
+          "bytes": 2045
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/7d40ee1489c06b5129b7dc1fbc7fba0f486b98d4b113fbd374dea39de6cc20b9.png",
+          "sha256": "7d40ee1489c06b5129b7dc1fbc7fba0f486b98d4b113fbd374dea39de6cc20b9",
+          "bytes": 22353
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/af3f6e3fb76cafb1d6e4671836e4b7385b44f8e11a7cd0802aae7d05041ef669.png",
+          "sha256": "af3f6e3fb76cafb1d6e4671836e4b7385b44f8e11a7cd0802aae7d05041ef669",
+          "bytes": 65689
+        },
+        "50x30/white": {
+          "path": "verified-assets/a5551549a6062ac4b753304cbe4e70da055aca9f667f32f1fa2950a38079ae4c.png",
+          "sha256": "a5551549a6062ac4b753304cbe4e70da055aca9f667f32f1fa2950a38079ae4c",
+          "bytes": 2990
+        },
+        "220x132/white": {
+          "path": "verified-assets/e757409dd87f51cf94d0990b6fab707f8f7641fcf0e3823479c87c98bad20116.png",
+          "sha256": "e757409dd87f51cf94d0990b6fab707f8f7641fcf0e3823479c87c98bad20116",
+          "bytes": 45083
+        },
+        "400x240/white": {
+          "path": "verified-assets/6b7ed52cb2cda7a0f925e0ada6c3727e3201a87bf9e1a14ef91934630a1b35b8.png",
+          "sha256": "6b7ed52cb2cda7a0f925e0ada6c3727e3201a87bf9e1a14ef91934630a1b35b8",
+          "bytes": 113599
+        },
+        "50x30/black": {
+          "path": "verified-assets/c56993481d29e9f120d14be86b847ee752ee4e3c761756e7e06c21f3b9fabdf6.png",
+          "sha256": "c56993481d29e9f120d14be86b847ee752ee4e3c761756e7e06c21f3b9fabdf6",
+          "bytes": 3463
+        },
+        "220x132/black": {
+          "path": "verified-assets/5bfcecc6a62238903ee7ca3140924d837707ba220377a247853f84e7de21f8a9.png",
+          "sha256": "5bfcecc6a62238903ee7ca3140924d837707ba220377a247853f84e7de21f8a9",
+          "bytes": 42883
+        },
+        "400x240/black": {
+          "path": "verified-assets/32432d7f66413e1394eab6bb77e18cf1b71738d6fdbd7c2b9784155c4c57faeb.png",
+          "sha256": "32432d7f66413e1394eab6bb77e18cf1b71738d6fdbd7c2b9784155c4c57faeb",
+          "bytes": 109892
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Radio BIP  ",
+        "matched_brand_keys": [
+          "bip"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:3D51:DE67:ED:0:0:0:0": {
       "name": "RadioDio",
@@ -319356,7 +319607,41 @@
         "https://www.radio-g.fr/internet/index.php"
       ],
       "needs_assistant_visual_identity": true,
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://radio-g.fr/photos/logos-movembre.png",
+        "final_url": "https://radio-g.fr/photos/logos-movembre.png",
+        "path": "originals/c5e9b63254caa5660ee22d6e000e89263798ef0bb047b7b916665c085cd3f896.img",
+        "sha256": "c5e9b63254caa5660ee22d6e000e89263798ef0bb047b7b916665c085cd3f896",
+        "bytes": 142627,
+        "dimensions": [
+          500,
+          252
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://www.radio-g.fr/internet/index.php",
+        "final_url": "https://radio-g.fr/radio-g-1",
+        "original_html_sha256": "be508f765d7a65641964c0e566f0f901dd302616f06b56b9cfdf0447c13db61f",
+        "path": "page-evidence/be508f765d7a65641964c0e566f0f901dd302616f06b56b9cfdf0447c13db61f.json",
+        "titles": [
+          "Bienvenue sur Radio G!"
+        ],
+        "image_urls": [
+          "https://radio-g.fr/photos/logos-movembre.png",
+          "https://radio-g.fr/photos/radio g 2022 web blanc.png",
+          "https://radio-g.fr/photos/rep/replogo__sob.jpg"
+        ],
+        "named_logos": {
+          "https://radio-g.fr/photos/logos-movembre.png": "Radio G!  ",
+          "https://radio-g.fr/photos/radio g 2022 web blanc.png": "Radio G!  ",
+          "https://radio-g.fr/photos/rep/replogotypelesvoiesdelecopublicat.jpg": "Les voies de l'éco04 11 26  ",
+          "https://radio-g.fr/photos/rep/replogo_elles_chantent.jpg": "Elles chantent la francophonie<br/>05 11 26  ",
+          "https://radio-g.fr/photos/rep/replogo__sob.jpg": "Sons of blues<br/>05 11 26  "
+        }
+      },
+      "ocr_text": "5)\n\nas ams\n"
     },
     "4097:0:2:E04F:D7A7:ED:0:0:0:0": {
       "name": "Radio GTJ",
@@ -319369,7 +319654,10 @@
         "https://radiogtj.fr/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (6) Could not resolve host: radiogtj.fr\n"
+      ]
     },
     "4097:0:2:CCBB:980F:ED:0:0:0:0": {
       "name": "Radio ISA",
@@ -319382,7 +319670,46 @@
         "http://www.radioisa.com/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "http://www.radioisa.com/upload/design/602b9e9eddd593.58924864.png",
+        "final_url": "http://www.radioisa.com/upload/design/602b9e9eddd593.58924864.png",
+        "path": "originals/868e782686e9a410719aa3b05f0d48f4dd8951d9bbbce35ac8b4936f681ad44d.img",
+        "sha256": "868e782686e9a410719aa3b05f0d48f4dd8951d9bbbce35ac8b4936f681ad44d",
+        "bytes": 72246,
+        "dimensions": [
+          518,
+          518
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "http://www.radioisa.com/",
+        "final_url": "http://www.radioisa.com/",
+        "original_html_sha256": "e9ae46cfa20ec44dd501b26bcbd02f914687ed20174063c6c802ae6d34467880",
+        "path": "page-evidence/e9ae46cfa20ec44dd501b26bcbd02f914687ed20174063c6c802ae6d34467880.json",
+        "titles": [
+          "Radio ISA - Le Top Des Hits"
+        ],
+        "image_urls": [
+          "http://www.radioisa.com/upload/design/602b9e9eddd593.58924864.png",
+          "http://www.radioisa.com/upload/players/5fec5a4a3008e6.04629384.png",
+          "http://www.radioisa.com/upload/players/5fec5b3e79e991.89697157.png"
+        ],
+        "named_logos": {
+          "http://www.radioisa.com/upload/design/602b9e9eddd593.58924864.png": "logo  ",
+          "http://www.radioisa.com/upload/players/673b27de5808d6.69632311.png": "  ",
+          "http://www.radioisa.com/upload/players/602eaa4ad0d7c5.64314323.png": "  ",
+          "http://www.radioisa.com/upload/players/602eaa683b82e2.60780475.png": "  ",
+          "http://www.radioisa.com/upload/players/602eaa73caf613.82868787.png": "  ",
+          "http://www.radioisa.com/upload/players/602eaa7fe346b0.22169988.png": "  ",
+          "http://www.radioisa.com/upload/players/63061d54a86337.67001382.png": "  ",
+          "http://www.radioisa.com/upload/players/5fec5a4a3008e6.04629384.png": "  ",
+          "http://www.radioisa.com/upload/players/5fec5b3e79e991.89697157.png": "  ",
+          "http://www.radioisa.com/upload/players/6ae9e5c149f602.83813412.jpg": "  "
+        }
+      },
+      "ocr_text": ""
     },
     "4097:0:2:9671:66EA:ED:0:0:0:0": {
       "name": "Radio Lux",
@@ -319395,7 +319722,10 @@
         "http://radiolux.es/"
       ],
       "needs_assistant_visual_identity": true,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Failed to connect to radiolux.es port 80 after 3002 ms: Timeout was reached\n"
+      ]
     },
     "4097:0:2:16DA:44E8:ED:0:0:0:0": {
       "name": "Radio MDM",
@@ -319408,7 +319738,43 @@
         "https://www.radio-mdm.fr/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://www.radio-mdm.fr/wp-content/uploads/2025/08/cropped-mdm-logo_new.png",
+        "final_url": "https://www.radio-mdm.fr/wp-content/uploads/2025/08/cropped-mdm-logo_new.png",
+        "path": "originals/3a885e4b5c8944617b95870c331f0577d94d397e1322dffe94fef23744ae3bbe.img",
+        "sha256": "3a885e4b5c8944617b95870c331f0577d94d397e1322dffe94fef23744ae3bbe",
+        "bytes": 55568,
+        "dimensions": [
+          512,
+          512
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://www.radio-mdm.fr/",
+        "final_url": "https://www.radio-mdm.fr/",
+        "original_html_sha256": "2ee3fce0627564190206d92b045269f3efeb735584c16adbfab1c71f86eabdb4",
+        "path": "page-evidence/2ee3fce0627564190206d92b045269f3efeb735584c16adbfab1c71f86eabdb4.json",
+        "titles": [
+          "Radio MdM – On n'a pas inventé la radio, on l'a juste améliorée",
+          "Radio MdM"
+        ],
+        "image_urls": [
+          "https://www.radio-mdm.fr/wp-content/uploads/2025/08/cropped-mdm-logo_new.png",
+          "https://www.radio-mdm.fr/wp-content/uploads/elementor/thumbs/LOGO-Les-Freres-Limonade-rjo70e1nqbako5ey52uwtsme5rdy2j8uv51q0zxg3g.jpg",
+          "https://www.radio-mdm.fr/wp-content/uploads/elementor/thumbs/Logo-Jazzomania-45-rj1gu4mhxymof5dgcb9b9h449vozq5v9y2w400218c.png"
+        ],
+        "named_logos": {
+          "https://www.radio-mdm.fr/wp-content/uploads/2025/08/cropped-mdm-logo_new.png": "  ",
+          "https://www.radio-mdm.fr/wp-content/uploads/elementor/thumbs/Logo-Tutti-Quanti-rj1h2sowyyhvhos5q25g9ad5hsyupoa5szhbbv7buk.png": "Logo Tutti Quanti Logo Tutti Quanti ",
+          "https://www.radio-mdm.fr/wp-content/uploads/elementor/thumbs/LOGO-Les-Freres-Limonade-rjo70e1nqbako5ey52uwtsme5rdy2j8uv51q0zxg3g.jpg": "LOGO-Les-Freres-Limonade LOGO-Les-Freres-Limonade ",
+          "https://www.radio-mdm.fr/wp-content/uploads/elementor/thumbs/Logo-Jazzomania-45-rj1gu4mhxymof5dgcb9b9h449vozq5v9y2w400218c.png": "Logo Jazzomania 45 Logo Jazzomania 45 ",
+          "https://www.radio-mdm.fr/wp-content/uploads/elementor/thumbs/logo-rock-kitchen-rj1gcamqa47u5h9zh3r4gh4ajplaow2lttbh80hxa4.png": "logo rock kitchen logo rock kitchen ",
+          "https://www.radio-mdm.fr/wp-content/uploads/elementor/thumbs/Logo-Les-Ondes-Americaines-45-rj1gt4wmq99s5ytc4vthmq4lp8l1lnxh563nrhizss.png": "Logo Les Ondes Américaines 45 Logo Les Ondes Américaines 45 "
+        }
+      },
+      "ocr_text": ""
     },
     "4097:0:2:77E4:2626:ED:0:0:0:0": {
       "name": "RADIO-MIX",
@@ -319421,7 +319787,94 @@
         "http://radio-mix.fr/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://radio-mix.fr/wp-content/uploads/2018/08/cropped-logo2.png",
+        "final_url": "https://radio-mix.fr/wp-content/uploads/2018/08/cropped-logo2.png",
+        "path": "originals/0781b0fce4143949d439dd0872fcf43305152859d04a83607dcf0de093e39fbb.img",
+        "sha256": "0781b0fce4143949d439dd0872fcf43305152859d04a83607dcf0de093e39fbb",
+        "bytes": 39402,
+        "dimensions": [
+          250,
+          250
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "http://radio-mix.fr/",
+        "final_url": "http://radio-mix.fr/",
+        "original_html_sha256": "70cd83eb477d931acf8ea03d68849ed8021bec443a6e66b7c8ff8b9a14284d06",
+        "path": "page-evidence/70cd83eb477d931acf8ea03d68849ed8021bec443a6e66b7c8ff8b9a14284d06.json",
+        "titles": [
+          "Radio-Mix",
+          ""
+        ],
+        "image_urls": [
+          "https://radio-mix.fr/wp-content/uploads/2018/08/cropped-logo2.png",
+          "https://radio-mix.fr/wp-content/uploads/2019/11/cropped-logo-google-320-180x180.jpg",
+          "https://radio-mix.fr/wp-content/uploads/2019/11/cropped-logo-google-320-192x192.jpg"
+        ],
+        "named_logos": {
+          "https://radio-mix.fr/wp-content/uploads/2018/08/cropped-logo2.png": "Radio-Mix  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/ded7a31ab94cf7fab79822d1510e824b77de5924f6daf58f5929d03dc1cd2e3f.png",
+          "sha256": "ded7a31ab94cf7fab79822d1510e824b77de5924f6daf58f5929d03dc1cd2e3f",
+          "bytes": 1575
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/7949a4eba23549d86009e752f5dcc67e40f73279906b443201322f4e0a5dccc3.png",
+          "sha256": "7949a4eba23549d86009e752f5dcc67e40f73279906b443201322f4e0a5dccc3",
+          "bytes": 12084
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/c32ae1057efdcdc0d1917b558a66136b257895592a1bc02f234c131e141e4aab.png",
+          "sha256": "c32ae1057efdcdc0d1917b558a66136b257895592a1bc02f234c131e141e4aab",
+          "bytes": 34196
+        },
+        "50x30/white": {
+          "path": "verified-assets/8b30af6bd7a926bfdf59f03b476b9e9a1a21aa5b18fb9bf01dff03e66da4a445.png",
+          "sha256": "8b30af6bd7a926bfdf59f03b476b9e9a1a21aa5b18fb9bf01dff03e66da4a445",
+          "bytes": 2967
+        },
+        "220x132/white": {
+          "path": "verified-assets/5a66d3bd0bb0743b92ba06729d848a4df52a7258a0f17fe18a652b8d9b3b3740.png",
+          "sha256": "5a66d3bd0bb0743b92ba06729d848a4df52a7258a0f17fe18a652b8d9b3b3740",
+          "bytes": 34228
+        },
+        "400x240/white": {
+          "path": "verified-assets/d6a10264f0ec088d54041ebdde9a90f763b3a852745499e067617623de24547d.png",
+          "sha256": "d6a10264f0ec088d54041ebdde9a90f763b3a852745499e067617623de24547d",
+          "bytes": 87387
+        },
+        "50x30/black": {
+          "path": "verified-assets/d72fe66d5713d1f54fba767720f9bf3ac797a6a923510123c129e01316dbb7a8.png",
+          "sha256": "d72fe66d5713d1f54fba767720f9bf3ac797a6a923510123c129e01316dbb7a8",
+          "bytes": 3214
+        },
+        "220x132/black": {
+          "path": "verified-assets/7a691a5fe65e0433f4a1db1aa7d75ae4b2e3a142ea48ed0abdd6d536d6c1d997.png",
+          "sha256": "7a691a5fe65e0433f4a1db1aa7d75ae4b2e3a142ea48ed0abdd6d536d6c1d997",
+          "bytes": 33241
+        },
+        "400x240/black": {
+          "path": "verified-assets/0d2d7cdf2fd5b46bbb0d2baf70b551c25582aa1af04f2e4b2863efc8801f478e.png",
+          "sha256": "0d2d7cdf2fd5b46bbb0d2baf70b551c25582aa1af04f2e4b2863efc8801f478e",
+          "bytes": 84602
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Radio-Mix  ",
+        "matched_brand_keys": [
+          "mix"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:8F0D:536:ED:0:0:0:0": {
       "name": "Radio MNE",
@@ -319434,7 +319887,95 @@
         "https://www.radiomne.com/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://www.radiomne.com/wordpress/wp-content/uploads/2024/03/Logos-MNE-complet_Plan-de-travail-1-scaled.png",
+        "final_url": "https://www.radiomne.com/wordpress/wp-content/uploads/2024/03/Logos-MNE-complet_Plan-de-travail-1-scaled.png",
+        "path": "originals/900295acfd57eba3229abbe5b6b1fa30617c0d0b1695825233b94f8114772a5a.img",
+        "sha256": "900295acfd57eba3229abbe5b6b1fa30617c0d0b1695825233b94f8114772a5a",
+        "bytes": 111838,
+        "dimensions": [
+          2560,
+          1825
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://www.radiomne.com/",
+        "final_url": "https://www.radiomne.com/",
+        "original_html_sha256": "0f0ae3c0f5b1add519fc2340c46ba6c5fb79fcb3cbfec9c866a5c7c15e65936a",
+        "path": "page-evidence/0f0ae3c0f5b1add519fc2340c46ba6c5fb79fcb3cbfec9c866a5c7c15e65936a.json",
+        "titles": [
+          "Accueil - Radio MNE",
+          "RADIO MNE"
+        ],
+        "image_urls": [
+          "https://www.radiomne.com/wordpress/wp-content/uploads/2024/03/Logos-MNE-complet_Plan-de-travail-1-scaled.png",
+          "https://www.radiomne.com/wordpress/wp-content/uploads/2024/03/Logos-MNE-complet_Plan-de-travail-1.png",
+          "https://www.radiomne.com/wordpress/wp-content/uploads/2024/03/cropped-Logos-MNE-complet-02-1-scaled-1-180x180.jpg"
+        ],
+        "named_logos": {
+          "https://www.radiomne.com/wordpress/wp-content/uploads/2024/03/Logos-MNE-complet_Plan-de-travail-1-scaled.png": "Radio MNE  ",
+          "https://www.radiomne.com/wordpress/wp-content/uploads/2024/03/Logos-MNE-complet_Plan-de-travail-1.png": "Radio MNE  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/6f126db572c3a9300145521aa24539e73e83a464f026847a452b8bb2d7513528.png",
+          "sha256": "6f126db572c3a9300145521aa24539e73e83a464f026847a452b8bb2d7513528",
+          "bytes": 2326
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/ba0f5629576e9d1cdf92eb219f62dbb162c42607308acc7c1a058f63dfa0c434.png",
+          "sha256": "ba0f5629576e9d1cdf92eb219f62dbb162c42607308acc7c1a058f63dfa0c434",
+          "bytes": 18920
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/1768778f3e3970b20f5af53c6caea0920fc2563bf775b6b8e9064e7ca3bb1333.png",
+          "sha256": "1768778f3e3970b20f5af53c6caea0920fc2563bf775b6b8e9064e7ca3bb1333",
+          "bytes": 60907
+        },
+        "50x30/white": {
+          "path": "verified-assets/fcdc8ea7263317268a7dc22aa3623948c460f9299fb3250b45e1e5354a344229.png",
+          "sha256": "fcdc8ea7263317268a7dc22aa3623948c460f9299fb3250b45e1e5354a344229",
+          "bytes": 2812
+        },
+        "220x132/white": {
+          "path": "verified-assets/37ab8eb6f7b1f26e66bed41f407b540b166aa535586273e3f6d728121eca347b.png",
+          "sha256": "37ab8eb6f7b1f26e66bed41f407b540b166aa535586273e3f6d728121eca347b",
+          "bytes": 36863
+        },
+        "400x240/white": {
+          "path": "verified-assets/413576e113d0ae5679edada519de6dde8e00b3ffa768ea75353a6a0b81feeb4c.png",
+          "sha256": "413576e113d0ae5679edada519de6dde8e00b3ffa768ea75353a6a0b81feeb4c",
+          "bytes": 92663
+        },
+        "50x30/black": {
+          "path": "verified-assets/b4f2c4e7a1a863e476a48392b3cdffcef620d19aa2515938653d94cd213d8c22.png",
+          "sha256": "b4f2c4e7a1a863e476a48392b3cdffcef620d19aa2515938653d94cd213d8c22",
+          "bytes": 3728
+        },
+        "220x132/black": {
+          "path": "verified-assets/a126e8bb452809a286cd76d7f550035280eaf47fb8d49c65c33baf737689a899.png",
+          "sha256": "a126e8bb452809a286cd76d7f550035280eaf47fb8d49c65c33baf737689a899",
+          "bytes": 40360
+        },
+        "400x240/black": {
+          "path": "verified-assets/80576ddc578544529aa999041d6a66dfa85e0f9541cc6b597f698c5d40d2b012.png",
+          "sha256": "80576ddc578544529aa999041d6a66dfa85e0f9541cc6b597f698c5d40d2b012",
+          "bytes": 108936
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Radio MNE  ",
+        "matched_brand_keys": [
+          "mne"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:126E:C0E2:ED:0:0:0:0": {
       "name": "RADIO N4",
@@ -319454,7 +319995,10 @@
         "http://www.radioneo.org/"
       ],
       "needs_assistant_visual_identity": true,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (52) Empty reply from server\n"
+      ]
     },
     "4097:0:2:3942:7A6D:ED:0:0:0:0": {
       "name": "Radio NTI",
@@ -319479,7 +320023,39 @@
         "http://www.radioone.fr/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "http://www.radioone.fr/upload/design/65041ff1c3f8d7.36185859.png",
+        "final_url": "http://www.radioone.fr/upload/design/65041ff1c3f8d7.36185859.png",
+        "path": "originals/21260419aa7f378f24866048eaf7cb51c5a90d08ae89e50a151de567d4d22ec7.img",
+        "sha256": "21260419aa7f378f24866048eaf7cb51c5a90d08ae89e50a151de567d4d22ec7",
+        "bytes": 392928,
+        "dimensions": [
+          1347,
+          504
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "http://www.radioone.fr/",
+        "final_url": "http://www.radioone.fr/",
+        "original_html_sha256": "461d166b073fb5bc7e714c6fddd9e1c51203a08504f5a4c8caaf6fabb8d76644",
+        "path": "page-evidence/461d166b073fb5bc7e714c6fddd9e1c51203a08504f5a4c8caaf6fabb8d76644.json",
+        "titles": [
+          "Radio ONE"
+        ],
+        "image_urls": [
+          "http://www.radioone.fr/upload/design/65041ff1c3f8d7.36185859.png",
+          "http://www.radioone.fr/upload/players/68f65b4fd231c7.38858226.png",
+          "http://www.radioone.fr/upload/players/68f65bf0edb865.42770167.png"
+        ],
+        "named_logos": {
+          "http://www.radioone.fr/upload/design/65041ff1c3f8d7.36185859.png": "logo  ",
+          "http://www.radioone.fr/upload/players/68f65bf0edb865.42770167.png": "  ",
+          "http://www.radioone.fr/upload/players/68f65b4fd231c7.38858226.png": "  "
+        }
+      },
+      "ocr_text": "FAZIO\n"
     },
     "4097:0:2:C7B4:A650:ED:0:0:0:0": {
       "name": "Radio PFM",
@@ -319517,7 +320093,97 @@
         "http://www.radiormb.com/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "http://www.radiormb.com/public/logos/acknstglirxnvkpdxpfheuudgrywlergivubwiewlogo2.png",
+        "final_url": "http://www.radiormb.com/public/logos/acknstglirxnvkpdxpfheuudgrywlergivubwiewlogo2.png",
+        "path": "originals/64eaf7f9bd3d21a96f8977eefd1d93ca3f5e1de33270a86326fecb5bf2ab6d31.img",
+        "sha256": "64eaf7f9bd3d21a96f8977eefd1d93ca3f5e1de33270a86326fecb5bf2ab6d31",
+        "bytes": 100337,
+        "dimensions": [
+          550,
+          200
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "http://www.radiormb.com/",
+        "final_url": "http://www.radiormb.com/",
+        "original_html_sha256": "5d2b8395452eb2bba7f85175c94148953763fef15de7ce12b8695317813c460a",
+        "path": "page-evidence/5d2b8395452eb2bba7f85175c94148953763fef15de7ce12b8695317813c460a.json",
+        "titles": [
+          "Radio RMB - Ecoutez c'est chez vous"
+        ],
+        "image_urls": [
+          "http://www.radioedition.com/logos/logicielradio.png",
+          "http://www.radiormb.com/public/logos/acknstglirxnvkpdxpfheuudgrywlergivubwiewlogo2.png",
+          "http://www.radiormb.com/public/logos_bas/Infomaniak2156infomaniak.jpg"
+        ],
+        "named_logos": {
+          "http://www.radiormb.com/public/logos/acknstglirxnvkpdxpfheuudgrywlergivubwiewlogo2.png": "Radio RMB Radio RMB ",
+          "http://www.radiormb.com/public/logos_bas/les-Ind-s-Radios2201LOGO-INDE.jpg": "  ",
+          "http://www.radiormb.com/public/logos_bas/TF1-Publicit-2157logo-TF1-PUBLICITE.jpg": "  ",
+          "http://www.radiormb.com/public/logos_bas/Infomaniak2156infomaniak.jpg": "  ",
+          "http://www.radioedition.com/logos/logicielradio.png": "Logiciel radio  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/d94f5af45227cdd1d0ae48169c39253a68b699ba43281e5c3275edc332ea921b.png",
+          "sha256": "d94f5af45227cdd1d0ae48169c39253a68b699ba43281e5c3275edc332ea921b",
+          "bytes": 1238
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/445a9b23565d25e3996163ce7114719b4ea9a5b09a736c41c2343bb1f39de177.png",
+          "sha256": "445a9b23565d25e3996163ce7114719b4ea9a5b09a736c41c2343bb1f39de177",
+          "bytes": 11063
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/0303455a4406dcf902633a3d9b7d9274eec39bb0eb35ddc386504dbc0185942b.png",
+          "sha256": "0303455a4406dcf902633a3d9b7d9274eec39bb0eb35ddc386504dbc0185942b",
+          "bytes": 33755
+        },
+        "50x30/white": {
+          "path": "verified-assets/0cff148463a53eaaaaa8550b1ccd093b15a18e29d0ca8ca3a3d070abc350f544.png",
+          "sha256": "0cff148463a53eaaaaa8550b1ccd093b15a18e29d0ca8ca3a3d070abc350f544",
+          "bytes": 2588
+        },
+        "220x132/white": {
+          "path": "verified-assets/cd76f2ea63e55fb5657fc72c5fe74f9b0368265473585b367e3b27db7907af55.png",
+          "sha256": "cd76f2ea63e55fb5657fc72c5fe74f9b0368265473585b367e3b27db7907af55",
+          "bytes": 38276
+        },
+        "400x240/white": {
+          "path": "verified-assets/f055734b0efaac0bd143a4eba0bde6296cefc7863da144860e0191274d7ec4b3.png",
+          "sha256": "f055734b0efaac0bd143a4eba0bde6296cefc7863da144860e0191274d7ec4b3",
+          "bytes": 95668
+        },
+        "50x30/black": {
+          "path": "verified-assets/9c54784945c7363052beac84ee29893e9c52050483c31eb6bb0f17f2fa0bb070.png",
+          "sha256": "9c54784945c7363052beac84ee29893e9c52050483c31eb6bb0f17f2fa0bb070",
+          "bytes": 2815
+        },
+        "220x132/black": {
+          "path": "verified-assets/c097ab75310a743877246c83fde2e8e2e9e078c22c843594d4e8e7362c156647.png",
+          "sha256": "c097ab75310a743877246c83fde2e8e2e9e078c22c843594d4e8e7362c156647",
+          "bytes": 37077
+        },
+        "400x240/black": {
+          "path": "verified-assets/6bc2e81aa7ac477861699731abebbbe1dd7631b7ab1cc7a871b34faecefdf640.png",
+          "sha256": "6bc2e81aa7ac477861699731abebbbe1dd7631b7ab1cc7a871b34faecefdf640",
+          "bytes": 91094
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Radio RMB Radio RMB ",
+        "matched_brand_keys": [
+          "rmb"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:B658:5A73:ED:0:0:0:0": {
       "name": "Radio RWL",
@@ -319530,7 +320196,94 @@
         "https://radiorwl.fr/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://radiorwl.fr/uploads/img_6a923799180139.69714391.webp",
+        "final_url": "https://radiorwl.fr/uploads/img_6a923799180139.69714391.webp",
+        "path": "originals/562b3fa6d7e86f8e1af99a0f1e31272ceff7df2a2922e9ceb0f932a90b36c95d.img",
+        "sha256": "562b3fa6d7e86f8e1af99a0f1e31272ceff7df2a2922e9ceb0f932a90b36c95d",
+        "bytes": 722234,
+        "dimensions": [
+          1200,
+          1200
+        ],
+        "format": "WEBP"
+      },
+      "page": {
+        "url": "https://radiorwl.fr/",
+        "final_url": "https://radiorwl.fr/",
+        "original_html_sha256": "5b0c46f4568b2a3f3b475d04ca526d08f583908462d41c0cff27646e1ba96f43",
+        "path": "page-evidence/5b0c46f4568b2a3f3b475d04ca526d08f583908462d41c0cff27646e1ba96f43.json",
+        "titles": [
+          "RADIO RWL",
+          "En ce moment : MAXI TUBES",
+          "Octobre Rose"
+        ],
+        "image_urls": [
+          "https://radiorwl.fr/uploads/img_6a923799180139.69714391.webp",
+          "https://radiorwl.fr/uploads/img_6a9237b31a66d9.65200679.webp"
+        ],
+        "named_logos": {
+          "https://radiorwl.fr/uploads/img_6a923799180139.69714391.webp": "RADIO RWL  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/26b20359ebed5308591b0f72800ffc8919ff4afc6303db7007b79281ded0d9d5.png",
+          "sha256": "26b20359ebed5308591b0f72800ffc8919ff4afc6303db7007b79281ded0d9d5",
+          "bytes": 1888
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/6839b7aff286faec9a129f61882ab70aec930755e3ff2d660b23f7f608da65e3.png",
+          "sha256": "6839b7aff286faec9a129f61882ab70aec930755e3ff2d660b23f7f608da65e3",
+          "bytes": 22329
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/099246694e43a0dd4b7d460f6fb29d85b7b30c82662afef7b5e37a8033ae0cd1.png",
+          "sha256": "099246694e43a0dd4b7d460f6fb29d85b7b30c82662afef7b5e37a8033ae0cd1",
+          "bytes": 62131
+        },
+        "50x30/white": {
+          "path": "verified-assets/c2a76f9f4cd196a09891289e343654d7bcbe64a8646d372e90e3cff0bb684a69.png",
+          "sha256": "c2a76f9f4cd196a09891289e343654d7bcbe64a8646d372e90e3cff0bb684a69",
+          "bytes": 3157
+        },
+        "220x132/white": {
+          "path": "verified-assets/d83957954d3d8088e2dedd5a51ae058a249b25901d0e33696c19ff2190e18618.png",
+          "sha256": "d83957954d3d8088e2dedd5a51ae058a249b25901d0e33696c19ff2190e18618",
+          "bytes": 45198
+        },
+        "400x240/white": {
+          "path": "verified-assets/5b13f37f63ff60fb5eedbe4e37f3333b247ce462297645ad67d5ab2c70a19a73.png",
+          "sha256": "5b13f37f63ff60fb5eedbe4e37f3333b247ce462297645ad67d5ab2c70a19a73",
+          "bytes": 116445
+        },
+        "50x30/black": {
+          "path": "verified-assets/795e22a29169100284e61037c3a0542b0ccfce333b98c70fa5153d3f97193052.png",
+          "sha256": "795e22a29169100284e61037c3a0542b0ccfce333b98c70fa5153d3f97193052",
+          "bytes": 3330
+        },
+        "220x132/black": {
+          "path": "verified-assets/4dc156e9c4477ac7dc5a8ad50f7539a4505aac7dcb0daf2c3969d5cd28bbead2.png",
+          "sha256": "4dc156e9c4477ac7dc5a8ad50f7539a4505aac7dcb0daf2c3969d5cd28bbead2",
+          "bytes": 43951
+        },
+        "400x240/black": {
+          "path": "verified-assets/181ca143d522f75924fdfa9652332d8b956a7df86a36034e73c6c4be03a406d4.png",
+          "sha256": "181ca143d522f75924fdfa9652332d8b956a7df86a36034e73c6c4be03a406d4",
+          "bytes": 113376
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "RADIO RWL  ",
+        "matched_brand_keys": [
+          "rwl"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:30DB:5393:ED:0:0:0:0": {
       "name": "Radio TFM",
@@ -319568,7 +320321,38 @@
         "http://www.vfmradio.fr/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://medias.lesindesradios.fr/t:app(web)/t:r(unknown)/filters:format(webp)/filters:quality(100)/radios/radiovfm/images/footerLogo_CdL1OIlXST.webp",
+        "final_url": "https://medias.lesindesradios.fr/t:app(web)/t:r(unknown)/filters:format(webp)/filters:quality(100)/radios/radiovfm/images/footerLogo_CdL1OIlXST.webp",
+        "path": "originals/df5a48746c057ebbfa50d55be5b7f3b0ef0443a8c94cebb47481605dad4d2dbf.img",
+        "sha256": "df5a48746c057ebbfa50d55be5b7f3b0ef0443a8c94cebb47481605dad4d2dbf",
+        "bytes": 29310,
+        "dimensions": [
+          300,
+          226
+        ],
+        "format": "WEBP"
+      },
+      "page": {
+        "url": "http://www.vfmradio.fr/",
+        "final_url": "https://www.vfmradio.fr/",
+        "original_html_sha256": "74363b7af570390a9b3312e8888396ad55f145849bbe8f27876744cf5606b382",
+        "path": "page-evidence/74363b7af570390a9b3312e8888396ad55f145849bbe8f27876744cf5606b382.json",
+        "titles": [
+          "Radio VFM"
+        ],
+        "image_urls": [
+          "https://medias.lesindesradios.fr/t:app(web)/t:r(unknown)/filters:format(webp)/filters:quality(100)/radios/radiovfm/images/footerLogo_CdL1OIlXST.webp",
+          "https://medias.lesindesradios.fr/t:app(web)/t:r(unknown)/fit-in/300x2000/filters:format(webp)/filters:quality(100)/radios/radiovfm/images/logo.png",
+          "https://www.vfmradio.fr/favicon.ico"
+        ],
+        "named_logos": {
+          "https://medias.lesindesradios.fr/t:app(web)/t:r(unknown)/fit-in/300x2000/filters:format(webp)/filters:quality(100)/radios/radiovfm/images/logo.png": "logo  ",
+          "https://medias.lesindesradios.fr/t:app(web)/t:r(unknown)/filters:format(webp)/filters:quality(100)/radios/radiovfm/images/footerLogo_CdL1OIlXST.webp": "logo  "
+        }
+      },
+      "ocr_text": "ed'e\n\nNi\n\nVe\n"
     },
     "4097:0:2:432:AFB3:ED:0:0:0:0": {
       "name": "Radio YAN",
@@ -319612,7 +320396,94 @@
         "https://www.radyoga.fr/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://www.radyoga.fr/wp-content/uploads/2025/11/www_radyoga_fr_logo_1762868604.png",
+        "final_url": "https://www.radyoga.fr/wp-content/uploads/2025/11/www_radyoga_fr_logo_1762868604.png",
+        "path": "originals/e8df2cd51990a17f8f38e409dcb4ab7917b8bd3012bdaac2dfa51a477c725f55.img",
+        "sha256": "e8df2cd51990a17f8f38e409dcb4ab7917b8bd3012bdaac2dfa51a477c725f55",
+        "bytes": 12903,
+        "dimensions": [
+          250,
+          250
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://www.radyoga.fr/",
+        "final_url": "https://www.radyoga.fr/",
+        "original_html_sha256": "65e4aae9d0183a955f1499235ad9de00e09cb22b6f84d35c0718f12159b6ac34",
+        "path": "page-evidence/65e4aae9d0183a955f1499235ad9de00e09cb22b6f84d35c0718f12159b6ac34.json",
+        "titles": [
+          "Radyoga - Équilibrez Corps et Esprit avec le Yoga",
+          "Rayonnez par le Yoga & la Santé Naturelle"
+        ],
+        "image_urls": [
+          "https://www.radyoga.fr/wp-content/uploads/2025/11/www_radyoga_fr_logo_1762868604.png",
+          "https://www.radyoga.fr/wp-content/uploads/2025/11/www_radyoga_fr_apple-touch-icon-150x150.png",
+          "https://www.radyoga.fr/wp-content/uploads/2025/11/www_radyoga_fr_apple-touch-icon.png"
+        ],
+        "named_logos": {
+          "https://www.radyoga.fr/wp-content/uploads/2025/11/www_radyoga_fr_logo_1762868604.png": "Radyoga Radyoga "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/f563547425d2fe01ff5e6aa15fda71e8910d2447948f883cb00f2060f8260b15.png",
+          "sha256": "f563547425d2fe01ff5e6aa15fda71e8910d2447948f883cb00f2060f8260b15",
+          "bytes": 433
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/e270e5ac25894fba89416bcae98cc382228c69995bf2be4106940de584b5c05d.png",
+          "sha256": "e270e5ac25894fba89416bcae98cc382228c69995bf2be4106940de584b5c05d",
+          "bytes": 3718
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/15ac40276bcd1fa70168d1b80708965ddbc979fb54f7fce5fcb718ff9b22fcaf.png",
+          "sha256": "15ac40276bcd1fa70168d1b80708965ddbc979fb54f7fce5fcb718ff9b22fcaf",
+          "bytes": 11129
+        },
+        "50x30/white": {
+          "path": "verified-assets/38a8a8ad15dc3c4f6592a3dede0f72183604bab405229c30f427466cf87cb7a6.png",
+          "sha256": "38a8a8ad15dc3c4f6592a3dede0f72183604bab405229c30f427466cf87cb7a6",
+          "bytes": 2034
+        },
+        "220x132/white": {
+          "path": "verified-assets/42a34110b169cba077eb68325bc592e700324371b18ff1219a71e51ff57db976.png",
+          "sha256": "42a34110b169cba077eb68325bc592e700324371b18ff1219a71e51ff57db976",
+          "bytes": 33182
+        },
+        "400x240/white": {
+          "path": "verified-assets/5c5f55b3e892aaa2f60128d8fafe83f5c58639f7646000a7991cc6a0add30bea.png",
+          "sha256": "5c5f55b3e892aaa2f60128d8fafe83f5c58639f7646000a7991cc6a0add30bea",
+          "bytes": 78837
+        },
+        "50x30/black": {
+          "path": "verified-assets/ce5f8b10afe88811edd647f1d99587031c8981aab0f2f1557539ecbe87bced33.png",
+          "sha256": "ce5f8b10afe88811edd647f1d99587031c8981aab0f2f1557539ecbe87bced33",
+          "bytes": 2365
+        },
+        "220x132/black": {
+          "path": "verified-assets/7e967a8ed76ac4645f7e13226f53bfff1260f5c5aa9cf8a55ac34534f6a153b9.png",
+          "sha256": "7e967a8ed76ac4645f7e13226f53bfff1260f5c5aa9cf8a55ac34534f6a153b9",
+          "bytes": 32860
+        },
+        "400x240/black": {
+          "path": "verified-assets/f1ca56afe7d7df9435397d608a9134cfb47d6810157adb9abac0fcec85782274.png",
+          "sha256": "f1ca56afe7d7df9435397d608a9134cfb47d6810157adb9abac0fcec85782274",
+          "bytes": 77104
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Radyoga Radyoga ",
+        "matched_brand_keys": [
+          "radyoga"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:145C:140B:ED:0:0:0:0": {
       "name": "RAJE",
@@ -319625,7 +320496,98 @@
         "https://www.raje.fr/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://www.raje.fr/img/raje-logo.png",
+        "final_url": "https://www.raje.fr/img/raje-logo.png",
+        "path": "originals/e9c0d97c8e392ef3fc204875bbe5283889994f7a19a58e9258fea45fe2e299b6.img",
+        "sha256": "e9c0d97c8e392ef3fc204875bbe5283889994f7a19a58e9258fea45fe2e299b6",
+        "bytes": 22759,
+        "dimensions": [
+          400,
+          160
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://www.raje.fr/",
+        "final_url": "https://www.raje.fr/",
+        "original_html_sha256": "bfdccd585fee100a5268eae3137f64e43f21f6662bf1ca892d55fe364cfeb3c0",
+        "path": "page-evidence/bfdccd585fee100a5268eae3137f64e43f21f6662bf1ca892d55fe364cfeb3c0.json",
+        "titles": [
+          "RAJE | Émetteur de bonnes ondes"
+        ],
+        "image_urls": [
+          "https://www.raje.fr/img/facebook.png",
+          "https://www.raje.fr/img/instagram.png",
+          "https://www.raje.fr/img/raje-logo.png"
+        ],
+        "named_logos": {
+          "https://www.raje.fr/img/raje-logo.png": "Logo RAJE  ",
+          "https://www.raje.fr/img/facebook.png": "Logo Facebook  ",
+          "https://www.raje.fr/img/twitter.png": "Logo Twitter  ",
+          "https://www.raje.fr/img/youtube.png": "Logo YouTube  ",
+          "https://www.raje.fr/img/instagram.png": "Logo Instagram  ",
+          "https://www.raje.fr/media/cache/thumb_square1/uploads/images/podcasts/6ab10fea87d96_LOGO Step & Sample.png": "  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/b315a132dfa9198d4222496d429450547e21b50d40abdf205ef9505c83b309b7.png",
+          "sha256": "b315a132dfa9198d4222496d429450547e21b50d40abdf205ef9505c83b309b7",
+          "bytes": 1551
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/a4885d20fae62539a5c18a8534b6e022fad58b0fba146a0875672af2a48d571f.png",
+          "sha256": "a4885d20fae62539a5c18a8534b6e022fad58b0fba146a0875672af2a48d571f",
+          "bytes": 11456
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/516f02fa434750c0cee01f514bfb44d23f7f51a232f8f3e3c0aeded91f27c1c9.png",
+          "sha256": "516f02fa434750c0cee01f514bfb44d23f7f51a232f8f3e3c0aeded91f27c1c9",
+          "bytes": 36170
+        },
+        "50x30/white": {
+          "path": "verified-assets/84261789f7057fedd53e4a62cdef94c7b832dbee294b82294e4dc2387b34d4d7.png",
+          "sha256": "84261789f7057fedd53e4a62cdef94c7b832dbee294b82294e4dc2387b34d4d7",
+          "bytes": 2930
+        },
+        "220x132/white": {
+          "path": "verified-assets/4d2ea859f6ccd49bd18bdf77d43e56ee5eb93c134751a657ecc83cf8bc80219e.png",
+          "sha256": "4d2ea859f6ccd49bd18bdf77d43e56ee5eb93c134751a657ecc83cf8bc80219e",
+          "bytes": 36458
+        },
+        "400x240/white": {
+          "path": "verified-assets/048c06489929318bfeeb484dfebff41f10e7b51227ef7683558b0228a63ab305.png",
+          "sha256": "048c06489929318bfeeb484dfebff41f10e7b51227ef7683558b0228a63ab305",
+          "bytes": 92545
+        },
+        "50x30/black": {
+          "path": "verified-assets/7326e8cb90fa770079231d78e114de57c3a075e85b4b07ce34f26089c74ad7a0.png",
+          "sha256": "7326e8cb90fa770079231d78e114de57c3a075e85b4b07ce34f26089c74ad7a0",
+          "bytes": 3442
+        },
+        "220x132/black": {
+          "path": "verified-assets/bf45176335703a2a8253579d7fbf85ecfbcdf3d6fb60d2b445a3fe013389127a.png",
+          "sha256": "bf45176335703a2a8253579d7fbf85ecfbcdf3d6fb60d2b445a3fe013389127a",
+          "bytes": 37711
+        },
+        "400x240/black": {
+          "path": "verified-assets/c864cdb62f9c7c86c335eb3749f7b9ebf65d02f28e891f2978fd75737e6598d2.png",
+          "sha256": "c864cdb62f9c7c86c335eb3749f7b9ebf65d02f28e891f2978fd75737e6598d2",
+          "bytes": 97453
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Logo RAJE  ",
+        "matched_brand_keys": [
+          "raje"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:F41E:4CC9:ED:0:0:0:0": {
       "name": "RapTz",
@@ -319650,7 +320612,53 @@
         "https://www.rayvox.org/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://www.rayvox.org/images/logo-RAYV01.png",
+        "final_url": "https://www.rayvox.org/images/logo-RAYV01.png",
+        "path": "originals/c002d666203ff729218c2fe558d1a756896da5c0644c93d499560b334eac8693.img",
+        "sha256": "c002d666203ff729218c2fe558d1a756896da5c0644c93d499560b334eac8693",
+        "bytes": 6966,
+        "dimensions": [
+          258,
+          100
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://www.rayvox.org/",
+        "final_url": "https://www.rayvox.org/",
+        "original_html_sha256": "54c234d516edbd889986313b8b4e6d60271867b17dad11b31e0b60ae82bb02f5",
+        "path": "page-evidence/54c234d516edbd889986313b8b4e6d60271867b17dad11b31e0b60ae82bb02f5.json",
+        "titles": [
+          "Rayvox"
+        ],
+        "image_urls": [
+          "https://www.rayvox.org/images/logo-RAYV01.png",
+          "https://www.rayvox.org/images/logo-X01.png",
+          "https://www.rayvox.org/images/logo-apple-podcasts.png"
+        ],
+        "named_logos": {
+          "https://www.rayvox.org/images/logo-RAYV01.png": "  ",
+          "https://www.rayvox.org/images/logo-X01.png": "  ",
+          "https://www.rayvox.org/mediasRayvox/podcast/Nîm'Attitude/nim'attitude logo rediff.jpg": "  ",
+          "https://www.rayvox.org/mediasRayvox/podcast/Verrine goût de tripes/Logo VGT.jpg": "  ",
+          "https://www.rayvox.org/mediasRayvox/podcast/Ragoutoutou/Logo-ragoutoutou étoiles 05.jpg": "  ",
+          "https://www.rayvox.org/mediasRayvox/podcast/1-foutoir-2-dingues/logo-1-foutoir-2-dingues.jpg": "  ",
+          "https://www.rayvox.org/mediasRayvox/podcast/Dur.es à Queer/DaQ-logo.jpg": "  ",
+          "https://www.rayvox.org/mediasRayvox/podcast/En marge! (Raje)/LOGO-IG.jpg": "  ",
+          "https://www.rayvox.org/mediasRayvox/podcast/Cockneys-Punk/Logo-cockneys-punk.jpg": "  ",
+          "https://www.rayvox.org/mediasRayvox/podcast/Entendre la photographie/LOGO.jpeg.jpg": "  ",
+          "https://www.rayvox.org/mediasRayvox/podcast/Dingo-Solo/logo-1-foutoir-2-dingues.jpg": "  ",
+          "https://www.rayvox.org/mediasRayvox/podcast/Un-ragout-de-dingues/Logo-Un-ragout-de-dingues.jpg": "  ",
+          "https://www.rayvox.org/mediasRayvox/podcast/MixTape/Logo MixTape.jpg": "  ",
+          "https://www.rayvox.org/images/logo-apple-podcasts.png": "  ",
+          "https://www.rayvox.org/images/logo-tune-in.png": "  ",
+          "https://www.rayvox.org/images/logo-rss.png": "  ",
+          "https://www.rayvox.org/images/logo-deezer.png": "  "
+        }
+      },
+      "ocr_text": "RAYV\n"
     },
     "4097:0:2:EB9E:9E10:ED:0:0:0:0": {
       "name": "RBR 103.4/106.8FM",
@@ -319675,7 +320683,39 @@
         "https://www.rcalaradio.com/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://medias.lesindesradios.fr/t:app(web)/t:r(unknown)/filters:format(webp)/filters:quality(100)/radios/rca/images/footerLogo_ANKuseLNlf.png",
+        "final_url": "https://medias.lesindesradios.fr/t:app(web)/t:r(unknown)/filters:format(webp)/filters:quality(100)/radios/rca/images/footerLogo_ANKuseLNlf.png",
+        "path": "originals/8ec522a83e4b06f74d943c8b2c3319f329925bb70738198b1257ce0f968052e9.img",
+        "sha256": "8ec522a83e4b06f74d943c8b2c3319f329925bb70738198b1257ce0f968052e9",
+        "bytes": 285038,
+        "dimensions": [
+          5000,
+          5000
+        ],
+        "format": "WEBP"
+      },
+      "page": {
+        "url": "https://www.rcalaradio.com/",
+        "final_url": "https://www.rcalaradio.com/",
+        "original_html_sha256": "b03724de997e5655234c9b191be80f7cf7cfaae0c75e8bc4944c50c8c90607ea",
+        "path": "page-evidence/b03724de997e5655234c9b191be80f7cf7cfaae0c75e8bc4944c50c8c90607ea.json",
+        "titles": [
+          "RCA - La Radio de la région",
+          "\n LA RADIO DE LA RÉGION ! \n"
+        ],
+        "image_urls": [
+          "https://medias.lesindesradios.fr/t:app(web)/t:r(unknown)/filters:format(webp)/filters:quality(100)/radios/rca/images/footerLogo_ANKuseLNlf.png",
+          "https://medias.lesindesradios.fr/t:app(web)/t:r(unknown)/fit-in/300x2000/filters:format(webp)/filters:quality(100)/radios/rca/images/logo_LSU89gEPDu.png",
+          "https://www.rcalaradio.com/favicon.ico"
+        ],
+        "named_logos": {
+          "https://medias.lesindesradios.fr/t:app(web)/t:r(unknown)/fit-in/300x2000/filters:format(webp)/filters:quality(100)/radios/rca/images/logo_LSU89gEPDu.png": "logo  ",
+          "https://medias.lesindesradios.fr/t:app(web)/t:r(unknown)/filters:format(webp)/filters:quality(100)/radios/rca/images/footerLogo_ANKuseLNlf.png": "logo  "
+        }
+      },
+      "ocr_text": "D\n\nA\n\nla radio\n"
     },
     "4097:0:2:4523:FD12:ED:0:0:0:0": {
       "name": "RCB",
@@ -319688,7 +320728,8 @@
         "https://www.radiorcb.net/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:2F5F:2185:ED:0:0:0:0": {
       "name": "RCF",
@@ -319701,7 +320742,10 @@
         "https://www.rcf.fr/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 403\n"
+      ]
     },
     "4097:0:2:C390:DFD5:ED:0:0:0:0": {
       "name": "RCF Alpha",
@@ -319714,7 +320758,10 @@
         "https://rcf.fr/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 403\n"
+      ]
     },
     "4097:0:2:F849:2D7A:ED:0:0:0:0": {
       "name": "RCF Bordeaux",
@@ -319727,7 +320774,10 @@
         "https://rcf.fr/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 403\n"
+      ]
     },
     "4097:0:2:2932:4D44:ED:0:0:0:0": {
       "name": "RCF Corrèze",
@@ -319740,7 +320790,10 @@
         "https://rcf.fr/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 403\n"
+      ]
     },
     "4097:0:2:FEA:9798:ED:0:0:0:0": {
       "name": "RCF en Berry",
@@ -319753,7 +320806,10 @@
         "https://rcf.fr/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 403\n"
+      ]
     },
     "4097:0:2:CCA7:D395:ED:0:0:0:0": {
       "name": "RCF Haute-Savoie",
@@ -319766,7 +320822,10 @@
         "https://rcf.fr/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 403\n"
+      ]
     },
     "4097:0:2:57AA:E92A:ED:0:0:0:0": {
       "name": "RCF Limousin",
@@ -319779,7 +320838,10 @@
         "https://rcf.fr/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 403\n"
+      ]
     },
     "4097:0:2:D1FD:36A6:ED:0:0:0:0": {
       "name": "RCF Méditerranée est-Var",
@@ -319792,7 +320854,10 @@
         "https://rcf.fr/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 403\n"
+      ]
     },
     "4097:0:2:3C59:9EF4:ED:0:0:0:0": {
       "name": "RCF Nice Côte d'Azur",
@@ -319805,7 +320870,10 @@
         "https://rcf.fr/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 403\n"
+      ]
     },
     "4097:0:2:B409:BD16:ED:0:0:0:0": {
       "name": "RCF Nord de France",
@@ -319818,7 +320886,10 @@
         "https://rcf.fr/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 403\n"
+      ]
     },
     "4097:0:2:DDC:6101:ED:0:0:0:0": {
       "name": "RCF Occitanie",
@@ -319831,7 +320902,10 @@
         "https://rcf.fr/culture-et-societe/languedoc"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 403\n"
+      ]
     },
     "4097:0:2:4DEA:E7B8:ED:0:0:0:0": {
       "name": "RCF Saint-Étienne",
@@ -319844,7 +320918,10 @@
         "https://rcf.fr/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 403\n"
+      ]
     },
     "4097:0:2:2284:8349:ED:0:0:0:0": {
       "name": "RCI Guadeloupe",
@@ -319928,7 +321005,39 @@
         "https://www.rdwa.fr/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://www.rdwa.fr/wp-content/uploads/2023/05/Rdwa-couleurs.svg",
+        "final_url": "https://www.rdwa.fr/wp-content/uploads/2023/05/Rdwa-couleurs.svg",
+        "path": "originals/689d1ab39e917c42aeb1ec7ccfe4972267905b2a829b61ed93f03f95f64285c6.img",
+        "sha256": "689d1ab39e917c42aeb1ec7ccfe4972267905b2a829b61ed93f03f95f64285c6",
+        "bytes": 8324,
+        "dimensions": [
+          640,
+          524
+        ],
+        "format": "SVG",
+        "frozen_svg_raster": {
+          "path": "rasterized/04e47e8cd6d4c309bc4c0aac3a1b77657c27c9d15c49c03a543530f4019984a3.png",
+          "sha256": "04e47e8cd6d4c309bc4c0aac3a1b77657c27c9d15c49c03a543530f4019984a3",
+          "cairosvg_version": "2.8.2"
+        }
+      },
+      "page": {
+        "url": "https://www.rdwa.fr/",
+        "final_url": "https://www.rdwa.fr/",
+        "original_html_sha256": "562fa16e9c028550034cf0e047f9fae52406aeb1df165d2bff208bfeee4bb573",
+        "path": "page-evidence/562fa16e9c028550034cf0e047f9fae52406aeb1df165d2bff208bfeee4bb573.json",
+        "titles": [
+          "RDWA - Radio Diois - Écouter la radio en direct"
+        ],
+        "image_urls": [
+          "https://www.rdwa.fr/wp-content/uploads/2023/05/Rdwa-couleurs.svg",
+          "https://www.rdwa.fr/wp-content/uploads/2023/05/Bouton-play.png"
+        ],
+        "named_logos": {}
+      },
+      "ocr_text": ""
     },
     "4097:0:2:44BF:5AD9:ED:0:0:0:0": {
       "name": "RDWA Luc",
@@ -319941,7 +321050,39 @@
         "https://www.rdwa.fr/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://www.rdwa.fr/wp-content/uploads/2023/05/Rdwa-couleurs.svg",
+        "final_url": "https://www.rdwa.fr/wp-content/uploads/2023/05/Rdwa-couleurs.svg",
+        "path": "originals/689d1ab39e917c42aeb1ec7ccfe4972267905b2a829b61ed93f03f95f64285c6.img",
+        "sha256": "689d1ab39e917c42aeb1ec7ccfe4972267905b2a829b61ed93f03f95f64285c6",
+        "bytes": 8324,
+        "dimensions": [
+          640,
+          524
+        ],
+        "format": "SVG",
+        "frozen_svg_raster": {
+          "path": "rasterized/04e47e8cd6d4c309bc4c0aac3a1b77657c27c9d15c49c03a543530f4019984a3.png",
+          "sha256": "04e47e8cd6d4c309bc4c0aac3a1b77657c27c9d15c49c03a543530f4019984a3",
+          "cairosvg_version": "2.8.2"
+        }
+      },
+      "page": {
+        "url": "https://www.rdwa.fr/",
+        "final_url": "https://www.rdwa.fr/",
+        "original_html_sha256": "562fa16e9c028550034cf0e047f9fae52406aeb1df165d2bff208bfeee4bb573",
+        "path": "page-evidence/562fa16e9c028550034cf0e047f9fae52406aeb1df165d2bff208bfeee4bb573.json",
+        "titles": [
+          "RDWA - Radio Diois - Écouter la radio en direct"
+        ],
+        "image_urls": [
+          "https://www.rdwa.fr/wp-content/uploads/2023/05/Rdwa-couleurs.svg",
+          "https://www.rdwa.fr/wp-content/uploads/2023/05/Bouton-play.png"
+        ],
+        "named_logos": {}
+      },
+      "ocr_text": ""
     },
     "4097:0:2:1FDC:6F57:ED:0:0:0:0": {
       "name": "📻 Reccord beach",
@@ -319954,7 +321095,10 @@
         "https://radiosweb.karibshebdo.info/radios-web/reccord-beach"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (6) Could not resolve host: radiosweb.karibshebdo.info\n"
+      ]
     },
     "4097:0:2:CE5:DD4F:ED:0:0:0:0": {
       "name": "📻 Reccord Groove/Tribal",
@@ -319967,7 +321111,10 @@
         "https://radiosweb.karibshebdo.info/radios-web/reccord-groovetribal"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (6) Could not resolve host: radiosweb.karibshebdo.info\n"
+      ]
     },
     "4097:0:2:7D84:E41F:ED:0:0:0:0": {
       "name": "📻 Reccord Reggae",
@@ -319980,7 +321127,10 @@
         "https://radiosweb.karibshebdo.info/radios-web/reccord-reggae"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (6) Could not resolve host: radiosweb.karibshebdo.info\n"
+      ]
     },
     "4097:0:2:A1FA:CA06:ED:0:0:0:0": {
       "name": "🕺 Record Goa Psy",
@@ -319994,7 +321144,11 @@
         "https://www.karibshebdo.info/radios-web/record-goa-psy"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 410\n",
+        "curl: (22) The requested URL returned error: 429\n"
+      ]
     },
     "4097:0:2:4723:2BDA:ED:0:0:0:0": {
       "name": "Redzing Radio",
@@ -320019,7 +321173,8 @@
         "https://reflex-radio.fr/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:6C23:FBB7:ED:0:0:0:0": {
       "name": "Reggae Arte radio",
@@ -320032,7 +321187,39 @@
         "https://reggaearte.wixsite.com/accueil/en"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://static.wixstatic.com/media/a98702_02c141f74a7b4874a191baed96183126~mv2.gif",
+        "final_url": "https://static.wixstatic.com/media/a98702_02c141f74a7b4874a191baed96183126~mv2.gif",
+        "path": "originals/05cc3facd5e6ca1fd7ebe434cca62931de7934175afd5ed5510481994904121a.img",
+        "sha256": "05cc3facd5e6ca1fd7ebe434cca62931de7934175afd5ed5510481994904121a",
+        "bytes": 23897,
+        "dimensions": [
+          869,
+          684
+        ],
+        "format": "GIF"
+      },
+      "page": {
+        "url": "https://reggaearte.wixsite.com/accueil/en",
+        "final_url": "https://reggaearte.wixsite.com/accueil/en",
+        "original_html_sha256": "b53dae11063bbc8db9bc5b72b853104ebfb3ea2bc6eccd9d2f4bf24a190b1de5",
+        "path": "page-evidence/b53dae11063bbc8db9bc5b72b853104ebfb3ea2bc6eccd9d2f4bf24a190b1de5.json",
+        "titles": [
+          "Reggae Arte Radio Roots & Dub",
+          "  Reggae Arte Radio  "
+        ],
+        "image_urls": [
+          "https://static.wixstatic.com/media/a98702_02c141f74a7b4874a191baed96183126~mv2.gif",
+          "https://static.wixstatic.com/media/a98702_4dada3b8df87407eb740bdf0f8b53b92~mv2.gif",
+          "https://www.wix.com/favicon.ico"
+        ],
+        "named_logos": {
+          "https://static.wixstatic.com/media/a98702_02c141f74a7b4874a191baed96183126~mv2.gif": "Logo Vidéo.gif  ",
+          "https://static.wixstatic.com/media/a98702_4dada3b8df87407eb740bdf0f8b53b92~mv2.gif": "Bluesky Logo  "
+        }
+      },
+      "ocr_text": ""
     },
     "4097:0:2:3933:269E:ED:0:0:0:0": {
       "name": "Reggae.fr",
@@ -320045,7 +321232,94 @@
         "http://www.reggae.fr/popup-radio.php"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://reggae.fr/public/images/header/logo-reggaefr-1998.png",
+        "final_url": "https://reggae.fr/public/images/header/logo-reggaefr-1998.png",
+        "path": "originals/19425b8c2479bfc010ab7e9596989c7679ec7ff3bc5cc9c4807f67e2de535273.img",
+        "sha256": "19425b8c2479bfc010ab7e9596989c7679ec7ff3bc5cc9c4807f67e2de535273",
+        "bytes": 46510,
+        "dimensions": [
+          709,
+          170
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "http://www.reggae.fr/popup-radio.php",
+        "final_url": "https://reggae.fr/webradio.php",
+        "original_html_sha256": "2bb8eb01ccee188d095a42e22045f08d0840dae5c17a05498c40763da0f3394e",
+        "path": "page-evidence/2bb8eb01ccee188d095a42e22045f08d0840dae5c17a05498c40763da0f3394e.json",
+        "titles": [
+          "La Webradio Reggae.fr"
+        ],
+        "image_urls": [
+          "https://reggae.fr/public/images/footer/logo_footer_1998.png",
+          "https://reggae.fr/public/images/header/logo-reggaefr-1998.png",
+          "https://reggae.fr/apple-touch-icon.png"
+        ],
+        "named_logos": {
+          "https://reggae.fr/public/images/header/logo-reggaefr-1998.png": "Reggae.fr  ",
+          "https://reggae.fr/public/images/footer/logo_footer_1998.png": "  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/d5b7b42a2901447e3aaaccbe88f269c7098aa6450f2f6d10d772b44a758d4941.png",
+          "sha256": "d5b7b42a2901447e3aaaccbe88f269c7098aa6450f2f6d10d772b44a758d4941",
+          "bytes": 1652
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/40de1e38b7dd0b665a71051d37d88d508d80cab7b913b3db70fc5c87a3d79b7e.png",
+          "sha256": "40de1e38b7dd0b665a71051d37d88d508d80cab7b913b3db70fc5c87a3d79b7e",
+          "bytes": 12859
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/b7a6e130d03bf096f2ee65466968263b42ae22110c631c6bcc32a6aa54c89496.png",
+          "sha256": "b7a6e130d03bf096f2ee65466968263b42ae22110c631c6bcc32a6aa54c89496",
+          "bytes": 36666
+        },
+        "50x30/white": {
+          "path": "verified-assets/2f3794cae3015804c0004fd21d6d47a2a93e769fcd3c2ba171ad3a1ba933211d.png",
+          "sha256": "2f3794cae3015804c0004fd21d6d47a2a93e769fcd3c2ba171ad3a1ba933211d",
+          "bytes": 3093
+        },
+        "220x132/white": {
+          "path": "verified-assets/c608d3205aba7d00fc664a19b9676f7b97704796aa683eafd48ae09b2ae38bb3.png",
+          "sha256": "c608d3205aba7d00fc664a19b9676f7b97704796aa683eafd48ae09b2ae38bb3",
+          "bytes": 37206
+        },
+        "400x240/white": {
+          "path": "verified-assets/0bdd53b8b20100077674130f46307fc1c39d0cdbe665580f7c381ec224ff071f.png",
+          "sha256": "0bdd53b8b20100077674130f46307fc1c39d0cdbe665580f7c381ec224ff071f",
+          "bytes": 95963
+        },
+        "50x30/black": {
+          "path": "verified-assets/6566ec4b98bf0a4ba524a4fc7d4ccc7014d34cf138afca6d44fadf87cf3b70f8.png",
+          "sha256": "6566ec4b98bf0a4ba524a4fc7d4ccc7014d34cf138afca6d44fadf87cf3b70f8",
+          "bytes": 3374
+        },
+        "220x132/black": {
+          "path": "verified-assets/850be087c3f197460224fb17e0b221c18dc2e06fad8ae7ef5e76b8eca0db020c.png",
+          "sha256": "850be087c3f197460224fb17e0b221c18dc2e06fad8ae7ef5e76b8eca0db020c",
+          "bytes": 36235
+        },
+        "400x240/black": {
+          "path": "verified-assets/13e52b19081556a13910ca7ee9198ec329c744bdb0e7067eaf9df9d8ccd710bb.png",
+          "sha256": "13e52b19081556a13910ca7ee9198ec329c744bdb0e7067eaf9df9d8ccd710bb",
+          "bytes": 92281
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Reggae.fr  ",
+        "matched_brand_keys": [
+          "reggae"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:1B96:B1BC:ED:0:0:0:0": {
       "name": "Reggae Mix Station",
@@ -320058,7 +321332,94 @@
         "http://www.reggaemixstation.com/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://www.reggaemixstation.com/images/images/logo.jpg",
+        "final_url": "https://www.reggaemixstation.com/images/images/logo.jpg",
+        "path": "originals/b64e0fe096a020eb61badf3a0a4f93df6cbc9b46715ef5528b69e687a403af0f.img",
+        "sha256": "b64e0fe096a020eb61badf3a0a4f93df6cbc9b46715ef5528b69e687a403af0f",
+        "bytes": 31592,
+        "dimensions": [
+          161,
+          220
+        ],
+        "format": "JPEG"
+      },
+      "page": {
+        "url": "http://www.reggaemixstation.com/",
+        "final_url": "https://www.reggaemixstation.com/fr/",
+        "original_html_sha256": "8d28c321b2c1a0171e59c1aa69ccccbc2012289e979064097decebb470575345",
+        "path": "page-evidence/8d28c321b2c1a0171e59c1aa69ccccbc2012289e979064097decebb470575345.json",
+        "titles": [
+          "Reggae MixStation | La Radio Reggae Dub Reggae Digital 24/24h",
+          "ReggaeMixStation : Le Cœur du Reggae Vibre Ici !"
+        ],
+        "image_urls": [
+          "https://www.reggaemixstation.com/images/images/logo.jpg",
+          "https://www.reggaemixstation.com/templates/rsjuno/favicon.ico"
+        ],
+        "named_logos": {
+          "https://www.reggaemixstation.com/images/images/logo.jpg": "ReggaeMixStation ReggaeMixStation "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/eb6ad2ef01257e4286d4041b992168bdfc2cd7965f32df1cf85375e98380474a.png",
+          "sha256": "eb6ad2ef01257e4286d4041b992168bdfc2cd7965f32df1cf85375e98380474a",
+          "bytes": 1586
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/2877f1ec6ecf83fa38eadbd6c1b9c7cec86e0e3ed845d9d3eec238db4e438572.png",
+          "sha256": "2877f1ec6ecf83fa38eadbd6c1b9c7cec86e0e3ed845d9d3eec238db4e438572",
+          "bytes": 15405
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/e60deecbea57976b063d4fb5a9b1d26dd4bbf42f8fd93f51cc102faefc1ab8ef.png",
+          "sha256": "e60deecbea57976b063d4fb5a9b1d26dd4bbf42f8fd93f51cc102faefc1ab8ef",
+          "bytes": 41530
+        },
+        "50x30/white": {
+          "path": "verified-assets/6afb8986acd9fc7f3ebd396d2dbfcb6fa726c40b24437937c6f3bab3eefbb55a.png",
+          "sha256": "6afb8986acd9fc7f3ebd396d2dbfcb6fa726c40b24437937c6f3bab3eefbb55a",
+          "bytes": 2974
+        },
+        "220x132/white": {
+          "path": "verified-assets/80ffcc7943e881523e6441d01869ce13f1dffb35091b55497d4e2108c2fd91c6.png",
+          "sha256": "80ffcc7943e881523e6441d01869ce13f1dffb35091b55497d4e2108c2fd91c6",
+          "bytes": 39835
+        },
+        "400x240/white": {
+          "path": "verified-assets/ec2572102d55ef5f7e9a83bd3c2d06e4ae5bc1552b33cf72dabb7a58ce903ab2.png",
+          "sha256": "ec2572102d55ef5f7e9a83bd3c2d06e4ae5bc1552b33cf72dabb7a58ce903ab2",
+          "bytes": 100703
+        },
+        "50x30/black": {
+          "path": "verified-assets/d8d876422c3bd1299fc3174cc67952663b9453e23e431202b1e14f4ea3034169.png",
+          "sha256": "d8d876422c3bd1299fc3174cc67952663b9453e23e431202b1e14f4ea3034169",
+          "bytes": 3228
+        },
+        "220x132/black": {
+          "path": "verified-assets/abc78d4904252ac1679ec8a0d1b86a1bcbe860f6e9917d38a2eddbe5cc9ad524.png",
+          "sha256": "abc78d4904252ac1679ec8a0d1b86a1bcbe860f6e9917d38a2eddbe5cc9ad524",
+          "bytes": 39066
+        },
+        "400x240/black": {
+          "path": "verified-assets/773d37b49f16e2c3e3ede220b301799aa05e9aa1fda4759ff41611bc85cc5ae1.png",
+          "sha256": "773d37b49f16e2c3e3ede220b301799aa05e9aa1fda4759ff41611bc85cc5ae1",
+          "bytes": 97953
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "ReggaeMixStation ReggaeMixStation ",
+        "matched_brand_keys": [
+          "reggae",
+          "station"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:E728:FD5B:ED:0:0:0:0": {
       "name": "Radio Rempart",
@@ -320083,7 +321444,10 @@
         "http://radio-rencontre.fr/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 503\n"
+      ]
     },
     "4097:0:2:F5D4:E786:ED:0:0:0:0": {
       "name": "Radio Rennes",
@@ -320120,7 +321484,64 @@
         "https://www.replaynews.net/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS%20ECO.png",
+        "final_url": "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS%20ECO.png",
+        "path": "originals/26f8ac63532d4249ae6dc0e8268345ace0e8f7d237f27d6417bc66ad4de4dec1.img",
+        "sha256": "26f8ac63532d4249ae6dc0e8268345ace0e8f7d237f27d6417bc66ad4de4dec1",
+        "bytes": 16090,
+        "dimensions": [
+          315,
+          169
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://www.replaynews.net/",
+        "final_url": "https://www.replaynews.net/",
+        "original_html_sha256": "3dcf1410af6fbcb2c4b8209e8b889e283f24c1ea8af916a9d7a40716ed1c4fe5",
+        "path": "page-evidence/3dcf1410af6fbcb2c4b8209e8b889e283f24c1ea8af916a9d7a40716ed1c4fe5.json",
+        "titles": [
+          "REPLAY NEWS — La radio de l'info toutes les 5 minutes",
+          "Les trente dernières actualités de REPLAY NEWS"
+        ],
+        "image_urls": [
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS%20ECO.png",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS%20SPORT.png",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS%20STORY.png"
+        ],
+        "named_logos": {
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS%20ECO.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS%20STORY.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS%20SPORT.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-EN.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-ES.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-IT.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-PT.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-ZH.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-JA.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-DE.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-AR.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-RU.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-TR.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-NL.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-PL.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-EL.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-HI.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-ID.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-VI.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-RO.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-KO.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-SW.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-SE.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-FI.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-UK.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-HR.png": "  "
+        }
+      },
+      "ocr_text": "REPLAY\n\nIT NEWS\n\nECONOMIE\n"
     },
     "4097:0:2:BD56:4BE6:ED:0:0:0:0": {
       "name": "REPLAY NEWS - Eco (Français)",
@@ -320133,7 +321554,64 @@
         "https://www.replaynews.net/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS%20ECO.png",
+        "final_url": "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS%20ECO.png",
+        "path": "originals/26f8ac63532d4249ae6dc0e8268345ace0e8f7d237f27d6417bc66ad4de4dec1.img",
+        "sha256": "26f8ac63532d4249ae6dc0e8268345ace0e8f7d237f27d6417bc66ad4de4dec1",
+        "bytes": 16090,
+        "dimensions": [
+          315,
+          169
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://www.replaynews.net/",
+        "final_url": "https://www.replaynews.net/",
+        "original_html_sha256": "3dcf1410af6fbcb2c4b8209e8b889e283f24c1ea8af916a9d7a40716ed1c4fe5",
+        "path": "page-evidence/3dcf1410af6fbcb2c4b8209e8b889e283f24c1ea8af916a9d7a40716ed1c4fe5.json",
+        "titles": [
+          "REPLAY NEWS — La radio de l'info toutes les 5 minutes",
+          "Les trente dernières actualités de REPLAY NEWS"
+        ],
+        "image_urls": [
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS%20ECO.png",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS%20SPORT.png",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS%20STORY.png"
+        ],
+        "named_logos": {
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS%20ECO.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS%20STORY.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS%20SPORT.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-EN.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-ES.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-IT.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-PT.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-ZH.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-JA.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-DE.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-AR.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-RU.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-TR.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-NL.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-PL.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-EL.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-HI.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-ID.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-VI.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-RO.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-KO.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-SW.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-SE.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-FI.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-UK.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-HR.png": "  "
+        }
+      },
+      "ocr_text": "REPLAY\n\nIT NEWS\n\nECONOMIE\n"
     },
     "4097:0:2:D122:8DF7:ED:0:0:0:0": {
       "name": "REPLAY NEWS - Sport (Français)",
@@ -320146,7 +321624,64 @@
         "https://www.replaynews.net/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS%20ECO.png",
+        "final_url": "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS%20ECO.png",
+        "path": "originals/26f8ac63532d4249ae6dc0e8268345ace0e8f7d237f27d6417bc66ad4de4dec1.img",
+        "sha256": "26f8ac63532d4249ae6dc0e8268345ace0e8f7d237f27d6417bc66ad4de4dec1",
+        "bytes": 16090,
+        "dimensions": [
+          315,
+          169
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://www.replaynews.net/",
+        "final_url": "https://www.replaynews.net/",
+        "original_html_sha256": "3dcf1410af6fbcb2c4b8209e8b889e283f24c1ea8af916a9d7a40716ed1c4fe5",
+        "path": "page-evidence/3dcf1410af6fbcb2c4b8209e8b889e283f24c1ea8af916a9d7a40716ed1c4fe5.json",
+        "titles": [
+          "REPLAY NEWS — La radio de l'info toutes les 5 minutes",
+          "Les trente dernières actualités de REPLAY NEWS"
+        ],
+        "image_urls": [
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS%20ECO.png",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS%20SPORT.png",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS%20STORY.png"
+        ],
+        "named_logos": {
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS%20ECO.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS%20STORY.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS%20SPORT.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-EN.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-ES.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-IT.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-PT.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-ZH.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-JA.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-DE.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-AR.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-RU.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-TR.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-NL.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-PL.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-EL.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-HI.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-ID.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-VI.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-RO.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-KO.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-SW.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-SE.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-FI.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-UK.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-HR.png": "  "
+        }
+      },
+      "ocr_text": "REPLAY\n\nIT NEWS\n\nECONOMIE\n"
     },
     "4097:0:2:9C4F:D7E2:ED:0:0:0:0": {
       "name": "REPLAY NEWS - Story (Français)",
@@ -320159,7 +321694,64 @@
         "https://www.replaynews.net/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS%20ECO.png",
+        "final_url": "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS%20ECO.png",
+        "path": "originals/26f8ac63532d4249ae6dc0e8268345ace0e8f7d237f27d6417bc66ad4de4dec1.img",
+        "sha256": "26f8ac63532d4249ae6dc0e8268345ace0e8f7d237f27d6417bc66ad4de4dec1",
+        "bytes": 16090,
+        "dimensions": [
+          315,
+          169
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://www.replaynews.net/",
+        "final_url": "https://www.replaynews.net/",
+        "original_html_sha256": "3dcf1410af6fbcb2c4b8209e8b889e283f24c1ea8af916a9d7a40716ed1c4fe5",
+        "path": "page-evidence/3dcf1410af6fbcb2c4b8209e8b889e283f24c1ea8af916a9d7a40716ed1c4fe5.json",
+        "titles": [
+          "REPLAY NEWS — La radio de l'info toutes les 5 minutes",
+          "Les trente dernières actualités de REPLAY NEWS"
+        ],
+        "image_urls": [
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS%20ECO.png",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS%20SPORT.png",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS%20STORY.png"
+        ],
+        "named_logos": {
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS%20ECO.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS%20STORY.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS%20SPORT.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-EN.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-ES.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-IT.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-PT.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-ZH.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-JA.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-DE.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-AR.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-RU.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-TR.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-NL.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-PL.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-EL.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-HI.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-ID.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-VI.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-RO.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-KO.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-SW.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-SE.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-FI.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-UK.png": "  ",
+          "https://www.publicsante.com/BIENVENU/LOGO%20REPLAY%20NEWS-HR.png": "  "
+        }
+      },
+      "ocr_text": "REPLAY\n\nIT NEWS\n\nECONOMIE\n"
     },
     "4097:0:2:D433:2578:ED:0:0:0:0": {
       "name": "Retro Souvenirs Radio",
@@ -320191,7 +321783,8 @@
         "http://fa.rfi.fr/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:87BE:F59F:ED:0:0:0:0": {
       "name": "RFI Portugais",
@@ -320247,7 +321840,98 @@
         "http://www.rfm.fr/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://cdn.rfm.fr/upload/design/6a82de880f57f0.88348923.png",
+        "final_url": "https://cdn.rfm.fr/upload/design/6a82de880f57f0.88348923.png",
+        "path": "originals/6021ea4dde0c8879d7a6fc678ab0f6f2af21cbc95f608aef42be96c59e60cd12.img",
+        "sha256": "6021ea4dde0c8879d7a6fc678ab0f6f2af21cbc95f608aef42be96c59e60cd12",
+        "bytes": 140348,
+        "dimensions": [
+          1351,
+          1176
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "http://www.rfm.fr/",
+        "final_url": "https://www.rfm.fr/",
+        "original_html_sha256": "5f2629ca0d0b5052af9a1588e941f8e78e41b351780d61c6a8af78992660488a",
+        "path": "page-evidence/5f2629ca0d0b5052af9a1588e941f8e78e41b351780d61c6a8af78992660488a.json",
+        "titles": [
+          "RFM"
+        ],
+        "image_urls": [
+          "https://cdn.rfm.fr/upload/design/6a82de880f57f0.88348923.png",
+          "https://cdn.rfm.fr/upload/players/6a82dfaf8c67c1.29969333.png",
+          "https://cdn.rfm.fr/upload/players/6ab56089224897.68246139_carre.png"
+        ],
+        "named_logos": {
+          "https://cdn.rfm.fr/upload/design/6a82de880f57f0.88348923.png": "RFM  ",
+          "https://cdn.rfm.fr/upload/players/6a82dfaf8c67c1.29969333.png": "  ",
+          "https://cdn.rfm.fr/upload/players/6aeb12900d5e96.82070480_carre.png": "RFM Noël  ",
+          "https://cdn.rfm.fr/upload/players/6ab56089224897.68246139_carre.png": "RFM Céline  ",
+          "https://cdn.rfm.fr/upload/players/6ab5614276a0c5.64634802_carre.png": "RFM Party Mix Yann Muller  ",
+          "https://cdn.rfm.fr/upload/players/6ab5611c343d15.00050832_carre.png": "RFM Party 80  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/63ebe03fb3f8fe95f31bd4b98b2253dca60a5cbf85c66d0bb59eee21b77734ea.png",
+          "sha256": "63ebe03fb3f8fe95f31bd4b98b2253dca60a5cbf85c66d0bb59eee21b77734ea",
+          "bytes": 2191
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/49a2acde1c9a572f0220d1595d7c4aa645c970cd78f2259ab7c1eb20ecb0eb44.png",
+          "sha256": "49a2acde1c9a572f0220d1595d7c4aa645c970cd78f2259ab7c1eb20ecb0eb44",
+          "bytes": 16222
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/000fd2600fb3bd37e997c3a3cce14ba8b4b89e665d6698e83c0678e2d3d76b0c.png",
+          "sha256": "000fd2600fb3bd37e997c3a3cce14ba8b4b89e665d6698e83c0678e2d3d76b0c",
+          "bytes": 48725
+        },
+        "50x30/white": {
+          "path": "verified-assets/ccb5b173858909dd001a1a466cb973f16e8914d598763fb9346f30997d58994d.png",
+          "sha256": "ccb5b173858909dd001a1a466cb973f16e8914d598763fb9346f30997d58994d",
+          "bytes": 3434
+        },
+        "220x132/white": {
+          "path": "verified-assets/40b2065731afd7dc06dbd2125ef889290831982aaf0abe471a3d5744ba755f28.png",
+          "sha256": "40b2065731afd7dc06dbd2125ef889290831982aaf0abe471a3d5744ba755f28",
+          "bytes": 39390
+        },
+        "400x240/white": {
+          "path": "verified-assets/b07bcf0986558abf5d55ea600fd874f8119bc96b76e4b4be022e23355b1adc45.png",
+          "sha256": "b07bcf0986558abf5d55ea600fd874f8119bc96b76e4b4be022e23355b1adc45",
+          "bytes": 102644
+        },
+        "50x30/black": {
+          "path": "verified-assets/a88ac99acf29bd0a3509a52c53ddb3494a92891e8a48224293ac2778123b2e83.png",
+          "sha256": "a88ac99acf29bd0a3509a52c53ddb3494a92891e8a48224293ac2778123b2e83",
+          "bytes": 3764
+        },
+        "220x132/black": {
+          "path": "verified-assets/23e5ea627370f3513ec531a1fa03fcd3a7a1cc2ea2c0be81a0307e6cd7134c5a.png",
+          "sha256": "23e5ea627370f3513ec531a1fa03fcd3a7a1cc2ea2c0be81a0307e6cd7134c5a",
+          "bytes": 39548
+        },
+        "400x240/black": {
+          "path": "verified-assets/77bbf555d633b793516d664a56ff3da2608169afa6334356f73c9b8e7c51ab35.png",
+          "sha256": "77bbf555d633b793516d664a56ff3da2608169afa6334356f73c9b8e7c51ab35",
+          "bytes": 104125
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "RFM  ",
+        "matched_brand_keys": [
+          "rfm"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:58A9:645C:ED:0:0:0:0": {
       "name": "RFM - 80s",
@@ -320260,7 +321944,98 @@
         "http://www.rfm.fr/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://cdn.rfm.fr/upload/design/6a82de880f57f0.88348923.png",
+        "final_url": "https://cdn.rfm.fr/upload/design/6a82de880f57f0.88348923.png",
+        "path": "originals/6021ea4dde0c8879d7a6fc678ab0f6f2af21cbc95f608aef42be96c59e60cd12.img",
+        "sha256": "6021ea4dde0c8879d7a6fc678ab0f6f2af21cbc95f608aef42be96c59e60cd12",
+        "bytes": 140348,
+        "dimensions": [
+          1351,
+          1176
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "http://www.rfm.fr/",
+        "final_url": "https://www.rfm.fr/",
+        "original_html_sha256": "5f2629ca0d0b5052af9a1588e941f8e78e41b351780d61c6a8af78992660488a",
+        "path": "page-evidence/5f2629ca0d0b5052af9a1588e941f8e78e41b351780d61c6a8af78992660488a.json",
+        "titles": [
+          "RFM"
+        ],
+        "image_urls": [
+          "https://cdn.rfm.fr/upload/design/6a82de880f57f0.88348923.png",
+          "https://cdn.rfm.fr/upload/players/6a82dfaf8c67c1.29969333.png",
+          "https://cdn.rfm.fr/upload/players/6ab56089224897.68246139_carre.png"
+        ],
+        "named_logos": {
+          "https://cdn.rfm.fr/upload/design/6a82de880f57f0.88348923.png": "RFM  ",
+          "https://cdn.rfm.fr/upload/players/6a82dfaf8c67c1.29969333.png": "  ",
+          "https://cdn.rfm.fr/upload/players/6aeb12900d5e96.82070480_carre.png": "RFM Noël  ",
+          "https://cdn.rfm.fr/upload/players/6ab56089224897.68246139_carre.png": "RFM Céline  ",
+          "https://cdn.rfm.fr/upload/players/6ab5614276a0c5.64634802_carre.png": "RFM Party Mix Yann Muller  ",
+          "https://cdn.rfm.fr/upload/players/6ab5611c343d15.00050832_carre.png": "RFM Party 80  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/63ebe03fb3f8fe95f31bd4b98b2253dca60a5cbf85c66d0bb59eee21b77734ea.png",
+          "sha256": "63ebe03fb3f8fe95f31bd4b98b2253dca60a5cbf85c66d0bb59eee21b77734ea",
+          "bytes": 2191
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/49a2acde1c9a572f0220d1595d7c4aa645c970cd78f2259ab7c1eb20ecb0eb44.png",
+          "sha256": "49a2acde1c9a572f0220d1595d7c4aa645c970cd78f2259ab7c1eb20ecb0eb44",
+          "bytes": 16222
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/000fd2600fb3bd37e997c3a3cce14ba8b4b89e665d6698e83c0678e2d3d76b0c.png",
+          "sha256": "000fd2600fb3bd37e997c3a3cce14ba8b4b89e665d6698e83c0678e2d3d76b0c",
+          "bytes": 48725
+        },
+        "50x30/white": {
+          "path": "verified-assets/ccb5b173858909dd001a1a466cb973f16e8914d598763fb9346f30997d58994d.png",
+          "sha256": "ccb5b173858909dd001a1a466cb973f16e8914d598763fb9346f30997d58994d",
+          "bytes": 3434
+        },
+        "220x132/white": {
+          "path": "verified-assets/40b2065731afd7dc06dbd2125ef889290831982aaf0abe471a3d5744ba755f28.png",
+          "sha256": "40b2065731afd7dc06dbd2125ef889290831982aaf0abe471a3d5744ba755f28",
+          "bytes": 39390
+        },
+        "400x240/white": {
+          "path": "verified-assets/b07bcf0986558abf5d55ea600fd874f8119bc96b76e4b4be022e23355b1adc45.png",
+          "sha256": "b07bcf0986558abf5d55ea600fd874f8119bc96b76e4b4be022e23355b1adc45",
+          "bytes": 102644
+        },
+        "50x30/black": {
+          "path": "verified-assets/a88ac99acf29bd0a3509a52c53ddb3494a92891e8a48224293ac2778123b2e83.png",
+          "sha256": "a88ac99acf29bd0a3509a52c53ddb3494a92891e8a48224293ac2778123b2e83",
+          "bytes": 3764
+        },
+        "220x132/black": {
+          "path": "verified-assets/23e5ea627370f3513ec531a1fa03fcd3a7a1cc2ea2c0be81a0307e6cd7134c5a.png",
+          "sha256": "23e5ea627370f3513ec531a1fa03fcd3a7a1cc2ea2c0be81a0307e6cd7134c5a",
+          "bytes": 39548
+        },
+        "400x240/black": {
+          "path": "verified-assets/77bbf555d633b793516d664a56ff3da2608169afa6334356f73c9b8e7c51ab35.png",
+          "sha256": "77bbf555d633b793516d664a56ff3da2608169afa6334356f73c9b8e7c51ab35",
+          "bytes": 104125
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "RFM  ",
+        "matched_brand_keys": [
+          "rfm"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:51E3:EF92:EC:0:0:0:0": {
       "name": "RFM - Collector",
@@ -320273,7 +322048,10 @@
         "http://www.rfm.fr/programmes/les-webradios"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 404\n"
+      ]
     },
     "4097:0:2:E12D:87B6:ED:0:0:0:0": {
       "name": "RFM - La Radio Couleur",
@@ -320286,7 +322064,98 @@
         "http://www.rfm.fr/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://cdn.rfm.fr/upload/design/6a82de880f57f0.88348923.png",
+        "final_url": "https://cdn.rfm.fr/upload/design/6a82de880f57f0.88348923.png",
+        "path": "originals/6021ea4dde0c8879d7a6fc678ab0f6f2af21cbc95f608aef42be96c59e60cd12.img",
+        "sha256": "6021ea4dde0c8879d7a6fc678ab0f6f2af21cbc95f608aef42be96c59e60cd12",
+        "bytes": 140348,
+        "dimensions": [
+          1351,
+          1176
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "http://www.rfm.fr/",
+        "final_url": "https://www.rfm.fr/",
+        "original_html_sha256": "5f2629ca0d0b5052af9a1588e941f8e78e41b351780d61c6a8af78992660488a",
+        "path": "page-evidence/5f2629ca0d0b5052af9a1588e941f8e78e41b351780d61c6a8af78992660488a.json",
+        "titles": [
+          "RFM"
+        ],
+        "image_urls": [
+          "https://cdn.rfm.fr/upload/design/6a82de880f57f0.88348923.png",
+          "https://cdn.rfm.fr/upload/players/6a82dfaf8c67c1.29969333.png",
+          "https://cdn.rfm.fr/upload/players/6ab56089224897.68246139_carre.png"
+        ],
+        "named_logos": {
+          "https://cdn.rfm.fr/upload/design/6a82de880f57f0.88348923.png": "RFM  ",
+          "https://cdn.rfm.fr/upload/players/6a82dfaf8c67c1.29969333.png": "  ",
+          "https://cdn.rfm.fr/upload/players/6aeb12900d5e96.82070480_carre.png": "RFM Noël  ",
+          "https://cdn.rfm.fr/upload/players/6ab56089224897.68246139_carre.png": "RFM Céline  ",
+          "https://cdn.rfm.fr/upload/players/6ab5614276a0c5.64634802_carre.png": "RFM Party Mix Yann Muller  ",
+          "https://cdn.rfm.fr/upload/players/6ab5611c343d15.00050832_carre.png": "RFM Party 80  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/63ebe03fb3f8fe95f31bd4b98b2253dca60a5cbf85c66d0bb59eee21b77734ea.png",
+          "sha256": "63ebe03fb3f8fe95f31bd4b98b2253dca60a5cbf85c66d0bb59eee21b77734ea",
+          "bytes": 2191
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/49a2acde1c9a572f0220d1595d7c4aa645c970cd78f2259ab7c1eb20ecb0eb44.png",
+          "sha256": "49a2acde1c9a572f0220d1595d7c4aa645c970cd78f2259ab7c1eb20ecb0eb44",
+          "bytes": 16222
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/000fd2600fb3bd37e997c3a3cce14ba8b4b89e665d6698e83c0678e2d3d76b0c.png",
+          "sha256": "000fd2600fb3bd37e997c3a3cce14ba8b4b89e665d6698e83c0678e2d3d76b0c",
+          "bytes": 48725
+        },
+        "50x30/white": {
+          "path": "verified-assets/ccb5b173858909dd001a1a466cb973f16e8914d598763fb9346f30997d58994d.png",
+          "sha256": "ccb5b173858909dd001a1a466cb973f16e8914d598763fb9346f30997d58994d",
+          "bytes": 3434
+        },
+        "220x132/white": {
+          "path": "verified-assets/40b2065731afd7dc06dbd2125ef889290831982aaf0abe471a3d5744ba755f28.png",
+          "sha256": "40b2065731afd7dc06dbd2125ef889290831982aaf0abe471a3d5744ba755f28",
+          "bytes": 39390
+        },
+        "400x240/white": {
+          "path": "verified-assets/b07bcf0986558abf5d55ea600fd874f8119bc96b76e4b4be022e23355b1adc45.png",
+          "sha256": "b07bcf0986558abf5d55ea600fd874f8119bc96b76e4b4be022e23355b1adc45",
+          "bytes": 102644
+        },
+        "50x30/black": {
+          "path": "verified-assets/a88ac99acf29bd0a3509a52c53ddb3494a92891e8a48224293ac2778123b2e83.png",
+          "sha256": "a88ac99acf29bd0a3509a52c53ddb3494a92891e8a48224293ac2778123b2e83",
+          "bytes": 3764
+        },
+        "220x132/black": {
+          "path": "verified-assets/23e5ea627370f3513ec531a1fa03fcd3a7a1cc2ea2c0be81a0307e6cd7134c5a.png",
+          "sha256": "23e5ea627370f3513ec531a1fa03fcd3a7a1cc2ea2c0be81a0307e6cd7134c5a",
+          "bytes": 39548
+        },
+        "400x240/black": {
+          "path": "verified-assets/77bbf555d633b793516d664a56ff3da2608169afa6334356f73c9b8e7c51ab35.png",
+          "sha256": "77bbf555d633b793516d664a56ff3da2608169afa6334356f73c9b8e7c51ab35",
+          "bytes": 104125
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "RFM  ",
+        "matched_brand_keys": [
+          "rfm"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:BF1F:2A7B:ED:0:0:0:0": {
       "name": "RFM - Le HIT RFM",
@@ -320299,7 +322168,98 @@
         "http://www.rfm.fr/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://cdn.rfm.fr/upload/design/6a82de880f57f0.88348923.png",
+        "final_url": "https://cdn.rfm.fr/upload/design/6a82de880f57f0.88348923.png",
+        "path": "originals/6021ea4dde0c8879d7a6fc678ab0f6f2af21cbc95f608aef42be96c59e60cd12.img",
+        "sha256": "6021ea4dde0c8879d7a6fc678ab0f6f2af21cbc95f608aef42be96c59e60cd12",
+        "bytes": 140348,
+        "dimensions": [
+          1351,
+          1176
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "http://www.rfm.fr/",
+        "final_url": "https://www.rfm.fr/",
+        "original_html_sha256": "5f2629ca0d0b5052af9a1588e941f8e78e41b351780d61c6a8af78992660488a",
+        "path": "page-evidence/5f2629ca0d0b5052af9a1588e941f8e78e41b351780d61c6a8af78992660488a.json",
+        "titles": [
+          "RFM"
+        ],
+        "image_urls": [
+          "https://cdn.rfm.fr/upload/design/6a82de880f57f0.88348923.png",
+          "https://cdn.rfm.fr/upload/players/6a82dfaf8c67c1.29969333.png",
+          "https://cdn.rfm.fr/upload/players/6ab56089224897.68246139_carre.png"
+        ],
+        "named_logos": {
+          "https://cdn.rfm.fr/upload/design/6a82de880f57f0.88348923.png": "RFM  ",
+          "https://cdn.rfm.fr/upload/players/6a82dfaf8c67c1.29969333.png": "  ",
+          "https://cdn.rfm.fr/upload/players/6aeb12900d5e96.82070480_carre.png": "RFM Noël  ",
+          "https://cdn.rfm.fr/upload/players/6ab56089224897.68246139_carre.png": "RFM Céline  ",
+          "https://cdn.rfm.fr/upload/players/6ab5614276a0c5.64634802_carre.png": "RFM Party Mix Yann Muller  ",
+          "https://cdn.rfm.fr/upload/players/6ab5611c343d15.00050832_carre.png": "RFM Party 80  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/63ebe03fb3f8fe95f31bd4b98b2253dca60a5cbf85c66d0bb59eee21b77734ea.png",
+          "sha256": "63ebe03fb3f8fe95f31bd4b98b2253dca60a5cbf85c66d0bb59eee21b77734ea",
+          "bytes": 2191
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/49a2acde1c9a572f0220d1595d7c4aa645c970cd78f2259ab7c1eb20ecb0eb44.png",
+          "sha256": "49a2acde1c9a572f0220d1595d7c4aa645c970cd78f2259ab7c1eb20ecb0eb44",
+          "bytes": 16222
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/000fd2600fb3bd37e997c3a3cce14ba8b4b89e665d6698e83c0678e2d3d76b0c.png",
+          "sha256": "000fd2600fb3bd37e997c3a3cce14ba8b4b89e665d6698e83c0678e2d3d76b0c",
+          "bytes": 48725
+        },
+        "50x30/white": {
+          "path": "verified-assets/ccb5b173858909dd001a1a466cb973f16e8914d598763fb9346f30997d58994d.png",
+          "sha256": "ccb5b173858909dd001a1a466cb973f16e8914d598763fb9346f30997d58994d",
+          "bytes": 3434
+        },
+        "220x132/white": {
+          "path": "verified-assets/40b2065731afd7dc06dbd2125ef889290831982aaf0abe471a3d5744ba755f28.png",
+          "sha256": "40b2065731afd7dc06dbd2125ef889290831982aaf0abe471a3d5744ba755f28",
+          "bytes": 39390
+        },
+        "400x240/white": {
+          "path": "verified-assets/b07bcf0986558abf5d55ea600fd874f8119bc96b76e4b4be022e23355b1adc45.png",
+          "sha256": "b07bcf0986558abf5d55ea600fd874f8119bc96b76e4b4be022e23355b1adc45",
+          "bytes": 102644
+        },
+        "50x30/black": {
+          "path": "verified-assets/a88ac99acf29bd0a3509a52c53ddb3494a92891e8a48224293ac2778123b2e83.png",
+          "sha256": "a88ac99acf29bd0a3509a52c53ddb3494a92891e8a48224293ac2778123b2e83",
+          "bytes": 3764
+        },
+        "220x132/black": {
+          "path": "verified-assets/23e5ea627370f3513ec531a1fa03fcd3a7a1cc2ea2c0be81a0307e6cd7134c5a.png",
+          "sha256": "23e5ea627370f3513ec531a1fa03fcd3a7a1cc2ea2c0be81a0307e6cd7134c5a",
+          "bytes": 39548
+        },
+        "400x240/black": {
+          "path": "verified-assets/77bbf555d633b793516d664a56ff3da2608169afa6334356f73c9b8e7c51ab35.png",
+          "sha256": "77bbf555d633b793516d664a56ff3da2608169afa6334356f73c9b8e7c51ab35",
+          "bytes": 104125
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "RFM  ",
+        "matched_brand_keys": [
+          "rfm"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:51E3:F3D5:EC:0:0:0:0": {
       "name": "RFM - Lounge",
@@ -320312,7 +322272,10 @@
         "http://www.rfm.fr/programmes/les-webradios"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 404\n"
+      ]
     },
     "4097:0:2:4A50:254B:ED:0:0:0:0": {
       "name": "RFM PARIS",
@@ -320325,7 +322288,98 @@
         "http://www.rfm.fr/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://cdn.rfm.fr/upload/design/6a82de880f57f0.88348923.png",
+        "final_url": "https://cdn.rfm.fr/upload/design/6a82de880f57f0.88348923.png",
+        "path": "originals/6021ea4dde0c8879d7a6fc678ab0f6f2af21cbc95f608aef42be96c59e60cd12.img",
+        "sha256": "6021ea4dde0c8879d7a6fc678ab0f6f2af21cbc95f608aef42be96c59e60cd12",
+        "bytes": 140348,
+        "dimensions": [
+          1351,
+          1176
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "http://www.rfm.fr/",
+        "final_url": "https://www.rfm.fr/",
+        "original_html_sha256": "5f2629ca0d0b5052af9a1588e941f8e78e41b351780d61c6a8af78992660488a",
+        "path": "page-evidence/5f2629ca0d0b5052af9a1588e941f8e78e41b351780d61c6a8af78992660488a.json",
+        "titles": [
+          "RFM"
+        ],
+        "image_urls": [
+          "https://cdn.rfm.fr/upload/design/6a82de880f57f0.88348923.png",
+          "https://cdn.rfm.fr/upload/players/6a82dfaf8c67c1.29969333.png",
+          "https://cdn.rfm.fr/upload/players/6ab56089224897.68246139_carre.png"
+        ],
+        "named_logos": {
+          "https://cdn.rfm.fr/upload/design/6a82de880f57f0.88348923.png": "RFM  ",
+          "https://cdn.rfm.fr/upload/players/6a82dfaf8c67c1.29969333.png": "  ",
+          "https://cdn.rfm.fr/upload/players/6aeb12900d5e96.82070480_carre.png": "RFM Noël  ",
+          "https://cdn.rfm.fr/upload/players/6ab56089224897.68246139_carre.png": "RFM Céline  ",
+          "https://cdn.rfm.fr/upload/players/6ab5614276a0c5.64634802_carre.png": "RFM Party Mix Yann Muller  ",
+          "https://cdn.rfm.fr/upload/players/6ab5611c343d15.00050832_carre.png": "RFM Party 80  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/63ebe03fb3f8fe95f31bd4b98b2253dca60a5cbf85c66d0bb59eee21b77734ea.png",
+          "sha256": "63ebe03fb3f8fe95f31bd4b98b2253dca60a5cbf85c66d0bb59eee21b77734ea",
+          "bytes": 2191
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/49a2acde1c9a572f0220d1595d7c4aa645c970cd78f2259ab7c1eb20ecb0eb44.png",
+          "sha256": "49a2acde1c9a572f0220d1595d7c4aa645c970cd78f2259ab7c1eb20ecb0eb44",
+          "bytes": 16222
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/000fd2600fb3bd37e997c3a3cce14ba8b4b89e665d6698e83c0678e2d3d76b0c.png",
+          "sha256": "000fd2600fb3bd37e997c3a3cce14ba8b4b89e665d6698e83c0678e2d3d76b0c",
+          "bytes": 48725
+        },
+        "50x30/white": {
+          "path": "verified-assets/ccb5b173858909dd001a1a466cb973f16e8914d598763fb9346f30997d58994d.png",
+          "sha256": "ccb5b173858909dd001a1a466cb973f16e8914d598763fb9346f30997d58994d",
+          "bytes": 3434
+        },
+        "220x132/white": {
+          "path": "verified-assets/40b2065731afd7dc06dbd2125ef889290831982aaf0abe471a3d5744ba755f28.png",
+          "sha256": "40b2065731afd7dc06dbd2125ef889290831982aaf0abe471a3d5744ba755f28",
+          "bytes": 39390
+        },
+        "400x240/white": {
+          "path": "verified-assets/b07bcf0986558abf5d55ea600fd874f8119bc96b76e4b4be022e23355b1adc45.png",
+          "sha256": "b07bcf0986558abf5d55ea600fd874f8119bc96b76e4b4be022e23355b1adc45",
+          "bytes": 102644
+        },
+        "50x30/black": {
+          "path": "verified-assets/a88ac99acf29bd0a3509a52c53ddb3494a92891e8a48224293ac2778123b2e83.png",
+          "sha256": "a88ac99acf29bd0a3509a52c53ddb3494a92891e8a48224293ac2778123b2e83",
+          "bytes": 3764
+        },
+        "220x132/black": {
+          "path": "verified-assets/23e5ea627370f3513ec531a1fa03fcd3a7a1cc2ea2c0be81a0307e6cd7134c5a.png",
+          "sha256": "23e5ea627370f3513ec531a1fa03fcd3a7a1cc2ea2c0be81a0307e6cd7134c5a",
+          "bytes": 39548
+        },
+        "400x240/black": {
+          "path": "verified-assets/77bbf555d633b793516d664a56ff3da2608169afa6334356f73c9b8e7c51ab35.png",
+          "sha256": "77bbf555d633b793516d664a56ff3da2608169afa6334356f73c9b8e7c51ab35",
+          "bytes": 104125
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "RFM  ",
+        "matched_brand_keys": [
+          "rfm"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:3718:FDDE:ED:0:0:0:0": {
       "name": "RFM Party 80-90",
@@ -320338,7 +322392,98 @@
         "http://www.rfm.fr/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://cdn.rfm.fr/upload/design/6a82de880f57f0.88348923.png",
+        "final_url": "https://cdn.rfm.fr/upload/design/6a82de880f57f0.88348923.png",
+        "path": "originals/6021ea4dde0c8879d7a6fc678ab0f6f2af21cbc95f608aef42be96c59e60cd12.img",
+        "sha256": "6021ea4dde0c8879d7a6fc678ab0f6f2af21cbc95f608aef42be96c59e60cd12",
+        "bytes": 140348,
+        "dimensions": [
+          1351,
+          1176
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "http://www.rfm.fr/",
+        "final_url": "https://www.rfm.fr/",
+        "original_html_sha256": "5f2629ca0d0b5052af9a1588e941f8e78e41b351780d61c6a8af78992660488a",
+        "path": "page-evidence/5f2629ca0d0b5052af9a1588e941f8e78e41b351780d61c6a8af78992660488a.json",
+        "titles": [
+          "RFM"
+        ],
+        "image_urls": [
+          "https://cdn.rfm.fr/upload/design/6a82de880f57f0.88348923.png",
+          "https://cdn.rfm.fr/upload/players/6a82dfaf8c67c1.29969333.png",
+          "https://cdn.rfm.fr/upload/players/6ab56089224897.68246139_carre.png"
+        ],
+        "named_logos": {
+          "https://cdn.rfm.fr/upload/design/6a82de880f57f0.88348923.png": "RFM  ",
+          "https://cdn.rfm.fr/upload/players/6a82dfaf8c67c1.29969333.png": "  ",
+          "https://cdn.rfm.fr/upload/players/6aeb12900d5e96.82070480_carre.png": "RFM Noël  ",
+          "https://cdn.rfm.fr/upload/players/6ab56089224897.68246139_carre.png": "RFM Céline  ",
+          "https://cdn.rfm.fr/upload/players/6ab5614276a0c5.64634802_carre.png": "RFM Party Mix Yann Muller  ",
+          "https://cdn.rfm.fr/upload/players/6ab5611c343d15.00050832_carre.png": "RFM Party 80  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/63ebe03fb3f8fe95f31bd4b98b2253dca60a5cbf85c66d0bb59eee21b77734ea.png",
+          "sha256": "63ebe03fb3f8fe95f31bd4b98b2253dca60a5cbf85c66d0bb59eee21b77734ea",
+          "bytes": 2191
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/49a2acde1c9a572f0220d1595d7c4aa645c970cd78f2259ab7c1eb20ecb0eb44.png",
+          "sha256": "49a2acde1c9a572f0220d1595d7c4aa645c970cd78f2259ab7c1eb20ecb0eb44",
+          "bytes": 16222
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/000fd2600fb3bd37e997c3a3cce14ba8b4b89e665d6698e83c0678e2d3d76b0c.png",
+          "sha256": "000fd2600fb3bd37e997c3a3cce14ba8b4b89e665d6698e83c0678e2d3d76b0c",
+          "bytes": 48725
+        },
+        "50x30/white": {
+          "path": "verified-assets/ccb5b173858909dd001a1a466cb973f16e8914d598763fb9346f30997d58994d.png",
+          "sha256": "ccb5b173858909dd001a1a466cb973f16e8914d598763fb9346f30997d58994d",
+          "bytes": 3434
+        },
+        "220x132/white": {
+          "path": "verified-assets/40b2065731afd7dc06dbd2125ef889290831982aaf0abe471a3d5744ba755f28.png",
+          "sha256": "40b2065731afd7dc06dbd2125ef889290831982aaf0abe471a3d5744ba755f28",
+          "bytes": 39390
+        },
+        "400x240/white": {
+          "path": "verified-assets/b07bcf0986558abf5d55ea600fd874f8119bc96b76e4b4be022e23355b1adc45.png",
+          "sha256": "b07bcf0986558abf5d55ea600fd874f8119bc96b76e4b4be022e23355b1adc45",
+          "bytes": 102644
+        },
+        "50x30/black": {
+          "path": "verified-assets/a88ac99acf29bd0a3509a52c53ddb3494a92891e8a48224293ac2778123b2e83.png",
+          "sha256": "a88ac99acf29bd0a3509a52c53ddb3494a92891e8a48224293ac2778123b2e83",
+          "bytes": 3764
+        },
+        "220x132/black": {
+          "path": "verified-assets/23e5ea627370f3513ec531a1fa03fcd3a7a1cc2ea2c0be81a0307e6cd7134c5a.png",
+          "sha256": "23e5ea627370f3513ec531a1fa03fcd3a7a1cc2ea2c0be81a0307e6cd7134c5a",
+          "bytes": 39548
+        },
+        "400x240/black": {
+          "path": "verified-assets/77bbf555d633b793516d664a56ff3da2608169afa6334356f73c9b8e7c51ab35.png",
+          "sha256": "77bbf555d633b793516d664a56ff3da2608169afa6334356f73c9b8e7c51ab35",
+          "bytes": 104125
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "RFM  ",
+        "matched_brand_keys": [
+          "rfm"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:4DDF:7422:ED:0:0:0:0": {
       "name": "RFM PARTY 90",
@@ -320351,7 +322496,98 @@
         "http://www.rfm.fr/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://cdn.rfm.fr/upload/design/6a82de880f57f0.88348923.png",
+        "final_url": "https://cdn.rfm.fr/upload/design/6a82de880f57f0.88348923.png",
+        "path": "originals/6021ea4dde0c8879d7a6fc678ab0f6f2af21cbc95f608aef42be96c59e60cd12.img",
+        "sha256": "6021ea4dde0c8879d7a6fc678ab0f6f2af21cbc95f608aef42be96c59e60cd12",
+        "bytes": 140348,
+        "dimensions": [
+          1351,
+          1176
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "http://www.rfm.fr/",
+        "final_url": "https://www.rfm.fr/",
+        "original_html_sha256": "5f2629ca0d0b5052af9a1588e941f8e78e41b351780d61c6a8af78992660488a",
+        "path": "page-evidence/5f2629ca0d0b5052af9a1588e941f8e78e41b351780d61c6a8af78992660488a.json",
+        "titles": [
+          "RFM"
+        ],
+        "image_urls": [
+          "https://cdn.rfm.fr/upload/design/6a82de880f57f0.88348923.png",
+          "https://cdn.rfm.fr/upload/players/6a82dfaf8c67c1.29969333.png",
+          "https://cdn.rfm.fr/upload/players/6ab56089224897.68246139_carre.png"
+        ],
+        "named_logos": {
+          "https://cdn.rfm.fr/upload/design/6a82de880f57f0.88348923.png": "RFM  ",
+          "https://cdn.rfm.fr/upload/players/6a82dfaf8c67c1.29969333.png": "  ",
+          "https://cdn.rfm.fr/upload/players/6aeb12900d5e96.82070480_carre.png": "RFM Noël  ",
+          "https://cdn.rfm.fr/upload/players/6ab56089224897.68246139_carre.png": "RFM Céline  ",
+          "https://cdn.rfm.fr/upload/players/6ab5614276a0c5.64634802_carre.png": "RFM Party Mix Yann Muller  ",
+          "https://cdn.rfm.fr/upload/players/6ab5611c343d15.00050832_carre.png": "RFM Party 80  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/63ebe03fb3f8fe95f31bd4b98b2253dca60a5cbf85c66d0bb59eee21b77734ea.png",
+          "sha256": "63ebe03fb3f8fe95f31bd4b98b2253dca60a5cbf85c66d0bb59eee21b77734ea",
+          "bytes": 2191
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/49a2acde1c9a572f0220d1595d7c4aa645c970cd78f2259ab7c1eb20ecb0eb44.png",
+          "sha256": "49a2acde1c9a572f0220d1595d7c4aa645c970cd78f2259ab7c1eb20ecb0eb44",
+          "bytes": 16222
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/000fd2600fb3bd37e997c3a3cce14ba8b4b89e665d6698e83c0678e2d3d76b0c.png",
+          "sha256": "000fd2600fb3bd37e997c3a3cce14ba8b4b89e665d6698e83c0678e2d3d76b0c",
+          "bytes": 48725
+        },
+        "50x30/white": {
+          "path": "verified-assets/ccb5b173858909dd001a1a466cb973f16e8914d598763fb9346f30997d58994d.png",
+          "sha256": "ccb5b173858909dd001a1a466cb973f16e8914d598763fb9346f30997d58994d",
+          "bytes": 3434
+        },
+        "220x132/white": {
+          "path": "verified-assets/40b2065731afd7dc06dbd2125ef889290831982aaf0abe471a3d5744ba755f28.png",
+          "sha256": "40b2065731afd7dc06dbd2125ef889290831982aaf0abe471a3d5744ba755f28",
+          "bytes": 39390
+        },
+        "400x240/white": {
+          "path": "verified-assets/b07bcf0986558abf5d55ea600fd874f8119bc96b76e4b4be022e23355b1adc45.png",
+          "sha256": "b07bcf0986558abf5d55ea600fd874f8119bc96b76e4b4be022e23355b1adc45",
+          "bytes": 102644
+        },
+        "50x30/black": {
+          "path": "verified-assets/a88ac99acf29bd0a3509a52c53ddb3494a92891e8a48224293ac2778123b2e83.png",
+          "sha256": "a88ac99acf29bd0a3509a52c53ddb3494a92891e8a48224293ac2778123b2e83",
+          "bytes": 3764
+        },
+        "220x132/black": {
+          "path": "verified-assets/23e5ea627370f3513ec531a1fa03fcd3a7a1cc2ea2c0be81a0307e6cd7134c5a.png",
+          "sha256": "23e5ea627370f3513ec531a1fa03fcd3a7a1cc2ea2c0be81a0307e6cd7134c5a",
+          "bytes": 39548
+        },
+        "400x240/black": {
+          "path": "verified-assets/77bbf555d633b793516d664a56ff3da2608169afa6334356f73c9b8e7c51ab35.png",
+          "sha256": "77bbf555d633b793516d664a56ff3da2608169afa6334356f73c9b8e7c51ab35",
+          "bytes": 104125
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "RFM  ",
+        "matched_brand_keys": [
+          "rfm"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:557:613:EC:0:0:0:0": {
       "name": "RFM - Pop-Rock",
@@ -320364,7 +322600,10 @@
         "http://www.rfm.fr/programmes/les-webradios"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 404\n"
+      ]
     },
     "4097:0:2:C91D:CA55:EC:0:0:0:0": {
       "name": "RFM - Slow",
@@ -320377,7 +322616,10 @@
         "https://stream.rfm.fr/rfm-wr13.aac"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Operation timed out after 8000 milliseconds with 358378 bytes received\n"
+      ]
     },
     "4097:0:2:8EE4:9847:ED:0:0:0:0": {
       "name": "RHT Guadeloupe (Radio Haute Tension)",
@@ -320390,7 +322632,93 @@
         "http://www.rhtguadeloupe.fr/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://rhtguadeloupe.fr/wp-content/uploads/2026/06/cropped-cropped-RHT-LOGO-1920x1080px-Sans-fond-1536x865-1.png",
+        "final_url": "https://rhtguadeloupe.fr/wp-content/uploads/2026/06/cropped-cropped-RHT-LOGO-1920x1080px-Sans-fond-1536x865-1.png",
+        "path": "originals/e736c1269acef7c71521fdcbf585541835bf53eda0324fafb203573535dc752b.img",
+        "sha256": "e736c1269acef7c71521fdcbf585541835bf53eda0324fafb203573535dc752b",
+        "bytes": 236493,
+        "dimensions": [
+          1535,
+          863
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "http://www.rhtguadeloupe.fr/",
+        "final_url": "https://rhtguadeloupe.fr/",
+        "original_html_sha256": "aa9e34934d7a086c9df02e76191253e5a024d1bda34b04445050ed3576b76dc3",
+        "path": "page-evidence/aa9e34934d7a086c9df02e76191253e5a024d1bda34b04445050ed3576b76dc3.json",
+        "titles": [
+          "RHT-RADIO HAUTE TENSION – LA PROXIMITE AU BOUT DU MONDE : Mon territoire"
+        ],
+        "image_urls": [
+          "https://rhtguadeloupe.fr/wp-content/uploads/2026/06/cropped-cropped-RHT-LOGO-1920x1080px-Sans-fond-1536x865-1.png",
+          "https://rhtguadeloupe.fr/wp-content/uploads/2026/06/cropped-icon_rht-180x180.png",
+          "https://rhtguadeloupe.fr/wp-content/uploads/2026/06/cropped-icon_rht-192x192.png"
+        ],
+        "named_logos": {
+          "https://rhtguadeloupe.fr/wp-content/uploads/2026/06/cropped-cropped-RHT-LOGO-1920x1080px-Sans-fond-1536x865-1.png": "RHT-RADIO HAUTE TENSION  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/7dea67f6a05dd94895c3745eeccb7179cd9ffc126b76f88ba8d12d85d1680935.png",
+          "sha256": "7dea67f6a05dd94895c3745eeccb7179cd9ffc126b76f88ba8d12d85d1680935",
+          "bytes": 2647
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/153b88345a179ffdd9a9a36388cb42f3bece11461885142fef1570d051075a54.png",
+          "sha256": "153b88345a179ffdd9a9a36388cb42f3bece11461885142fef1570d051075a54",
+          "bytes": 22314
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/514e587610551f63dd3d55ec33f386e7d23bf0a8d6ff6d32546c048ef46a28d5.png",
+          "sha256": "514e587610551f63dd3d55ec33f386e7d23bf0a8d6ff6d32546c048ef46a28d5",
+          "bytes": 68141
+        },
+        "50x30/white": {
+          "path": "verified-assets/eb9f4fb901eaee1f4340160d893a88d42725659aadbe7fb41a21512a9932b12f.png",
+          "sha256": "eb9f4fb901eaee1f4340160d893a88d42725659aadbe7fb41a21512a9932b12f",
+          "bytes": 3238
+        },
+        "220x132/white": {
+          "path": "verified-assets/23d6a606cdcdb3e7348fee4b4982bd89d0efb65997e3d491e172b810f78a15c2.png",
+          "sha256": "23d6a606cdcdb3e7348fee4b4982bd89d0efb65997e3d491e172b810f78a15c2",
+          "bytes": 40564
+        },
+        "400x240/white": {
+          "path": "verified-assets/af2874a5033225b19eed8afdc6e43c4305d54b07388be7659e0ddea586162d6a.png",
+          "sha256": "af2874a5033225b19eed8afdc6e43c4305d54b07388be7659e0ddea586162d6a",
+          "bytes": 106502
+        },
+        "50x30/black": {
+          "path": "verified-assets/0dbef185d4b0eccb9f2c0be32ca96b73fc6e7829d14c6741944f615f3c0d6a7f.png",
+          "sha256": "0dbef185d4b0eccb9f2c0be32ca96b73fc6e7829d14c6741944f615f3c0d6a7f",
+          "bytes": 3325
+        },
+        "220x132/black": {
+          "path": "verified-assets/b42017d90bd5f5ea47f1b2e6134a68b0056962b056e0edb9f779537b7d59e157.png",
+          "sha256": "b42017d90bd5f5ea47f1b2e6134a68b0056962b056e0edb9f779537b7d59e157",
+          "bytes": 39391
+        },
+        "400x240/black": {
+          "path": "verified-assets/f14412d8611a2984693504b6491b797a284428a8d8722b1fdf3769bca40e526b.png",
+          "sha256": "f14412d8611a2984693504b6491b797a284428a8d8722b1fdf3769bca40e526b",
+          "bytes": 101612
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "RHT-RADIO HAUTE TENSION  ",
+        "matched_brand_keys": [
+          "rht"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:B263:185A:ED:0:0:0:0": {
       "name": "RIG",
@@ -320403,7 +322731,111 @@
         "https://www.rigfm.fr/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://www.rigfm.fr/cdn/images/logo-color.svg",
+        "final_url": "https://www.rigfm.fr/cdn/images/logo-color.svg",
+        "path": "originals/1826923b5632cb07bf50f727186462059a7e45d2c9ef1b209cd15f188d209db3.img",
+        "sha256": "1826923b5632cb07bf50f727186462059a7e45d2c9ef1b209cd15f188d209db3",
+        "bytes": 3381,
+        "dimensions": [
+          640,
+          362
+        ],
+        "format": "SVG",
+        "frozen_svg_raster": {
+          "path": "rasterized/8568c273657d577d9a378c87b00f12504626d69c2720f4dc082d03e864ec9061.png",
+          "sha256": "8568c273657d577d9a378c87b00f12504626d69c2720f4dc082d03e864ec9061",
+          "cairosvg_version": "2.8.2"
+        }
+      },
+      "page": {
+        "url": "https://www.rigfm.fr/",
+        "final_url": "https://www.rigfm.fr/",
+        "original_html_sha256": "90ed26330a2dbea1dd235b0a65768a253b1451c8f56747a8d01e41443db2c98d",
+        "path": "page-evidence/90ed26330a2dbea1dd235b0a65768a253b1451c8f56747a8d01e41443db2c98d.json",
+        "titles": [
+          "RIG - Écouter en direct | R.I.G"
+        ],
+        "image_urls": [
+          "https://www.rigfm.fr/cdn/images/logo-color.svg",
+          "https://www.rigfm.fr/cdn/images/logo.svg",
+          "https://www.rigfm.fr/images/partners/abcs-1791452365.png?w=720&h=400&fit=contain"
+        ],
+        "named_logos": {
+          "https://www.rigfm.fr/cdn/images/logo.svg": "  ",
+          "https://www.rigfm.fr/images/partners/fser-1780234879.png?w=720&h=400&fit=contain": "FSER  ",
+          "https://www.rigfm.fr/images/partners/region-nouvelle-aquitaine-1780234407.png?w=720&h=400&fit=contain": "Région Nouvelle Aquitaine  ",
+          "https://www.rigfm.fr/images/partners/departement-de-la-gironde-1780234423.png?w=720&h=400&fit=contain": "Département de la Gironde  ",
+          "https://www.rigfm.fr/images/partners/ville-de-blanquefort-1780234441.png?w=720&h=400&fit=contain": "Ville de Blanquefort  ",
+          "https://www.rigfm.fr/images/partners/le-mouvement-associatif-nouvelle-aquitaine-1785061629.webp?w=720&h=400&fit=contain": "Le Mouvement associatif Nouvelle-Aquitaine  ",
+          "https://www.rigfm.fr/images/partners/frana-1785061721.png?w=720&h=400&fit=contain": "FRANA  ",
+          "https://www.rigfm.fr/images/partners/le-rim-1785061748.png?w=720&h=400&fit=contain": "Le RIM  ",
+          "https://www.rigfm.fr/images/partners/abcs-1791452365.png?w=720&h=400&fit=contain": "ABCS  ",
+          "https://www.rigfm.fr/images/partners/snrl-1785061814.png?w=720&h=400&fit=contain": "SNRL  ",
+          "https://www.rigfm.fr/images/partners/mission-locale-technowest.png?w=720&h=400&fit=contain": "Mission Locale Technowest  ",
+          "https://www.rigfm.fr/images/partners/agrocampus-bordeaux-gironde.png?w=720&h=400&fit=contain": "AgroCampus Bordeaux Gironde  ",
+          "https://www.rigfm.fr/images/partners/segpa-college-dupaty.jpg?w=720&h=400&fit=contain": "SEGPA du collège Dupaty  ",
+          "https://www.rigfm.fr/cdn/images/logo-color.svg": "R.I.G  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/750e0385fc0d7d2435842777f347542cc69bb38dedfb5c02c42625f68d7ecb19.png",
+          "sha256": "750e0385fc0d7d2435842777f347542cc69bb38dedfb5c02c42625f68d7ecb19",
+          "bytes": 2199
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/a375e43c2714f4b2648d51999586ee2715f57360a45e2ebe3a51c1afba9731d7.png",
+          "sha256": "a375e43c2714f4b2648d51999586ee2715f57360a45e2ebe3a51c1afba9731d7",
+          "bytes": 13323
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/d5070861396933bafc6d3ff9ac30bf11f9b4a36e67ef2e8db85a53b991e980f3.png",
+          "sha256": "d5070861396933bafc6d3ff9ac30bf11f9b4a36e67ef2e8db85a53b991e980f3",
+          "bytes": 45471
+        },
+        "50x30/white": {
+          "path": "verified-assets/bba8ab609bb4f9147de291b160820aebdc863f1c62c0dde55f09b9fc7cee2394.png",
+          "sha256": "bba8ab609bb4f9147de291b160820aebdc863f1c62c0dde55f09b9fc7cee2394",
+          "bytes": 3972
+        },
+        "220x132/white": {
+          "path": "verified-assets/97941c317d7653e43fe3f07430c414fafae83ef72b6ed6ea1aa752e150e55710.png",
+          "sha256": "97941c317d7653e43fe3f07430c414fafae83ef72b6ed6ea1aa752e150e55710",
+          "bytes": 39778
+        },
+        "400x240/white": {
+          "path": "verified-assets/f375be4345590b8d223c51b80de663e5d1830ba38ee558c864eba304c9d8cfd9.png",
+          "sha256": "f375be4345590b8d223c51b80de663e5d1830ba38ee558c864eba304c9d8cfd9",
+          "bytes": 109646
+        },
+        "50x30/black": {
+          "path": "verified-assets/bd4bd90515e7b52699babd4e829436427ee6ef3ae3e16e57d64755516133bdbc.png",
+          "sha256": "bd4bd90515e7b52699babd4e829436427ee6ef3ae3e16e57d64755516133bdbc",
+          "bytes": 3238
+        },
+        "220x132/black": {
+          "path": "verified-assets/8df6ba1a0ea9c10d0b99422579075d4901b23a18ac1e114c11b303eab195e325.png",
+          "sha256": "8df6ba1a0ea9c10d0b99422579075d4901b23a18ac1e114c11b303eab195e325",
+          "bytes": 34363
+        },
+        "400x240/black": {
+          "path": "verified-assets/875842b2056353374edec0e275de063c96efb2031050d7c54ceeaa21516839ae.png",
+          "sha256": "875842b2056353374edec0e275de063c96efb2031050d7c54ceeaa21516839ae",
+          "bytes": 87327
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "R.I.G  ",
+        "matched_brand_keys": [
+          "rig"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:3CC0:5A8B:ED:0:0:0:0": {
       "name": "R.I.L FM",
@@ -320416,7 +322848,8 @@
         "http://www.rilfm.com/"
       ],
       "needs_assistant_visual_identity": true,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:4709:8A3:ED:0:0:0:0": {
       "name": "Ringard Willycat",
@@ -320429,7 +322862,35 @@
         "https://fr.play.radioking.com/radio/ringard-willycat"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://image.radioking.io/radios/441272/logo/ced2dc13-2f19-48a3-b365-5c75084f42c4.jpeg",
+        "final_url": "https://image.radioking.io/radios/441272/logo/ced2dc13-2f19-48a3-b365-5c75084f42c4.jpeg",
+        "path": "originals/9fdae671283a118c41ed53e74495fc9dbec64353d7ab2aa522736710cf1a4814.img",
+        "sha256": "9fdae671283a118c41ed53e74495fc9dbec64353d7ab2aa522736710cf1a4814",
+        "bytes": 68365,
+        "dimensions": [
+          400,
+          400
+        ],
+        "format": "JPEG"
+      },
+      "page": {
+        "url": "https://fr.play.radioking.com/radio/ringard-willycat",
+        "final_url": "https://fr.welove.radio/radio/ringard-willycat/",
+        "original_html_sha256": "326df31f5769954284ce9751dac2a836ca90dafe64b4ae36148a5009f6c1e713",
+        "path": "page-evidence/326df31f5769954284ce9751dac2a836ca90dafe64b4ae36148a5009f6c1e713.json",
+        "titles": [
+          "Écouter Ringard WillyCat : Jeudi en nouveauté : CATRIX pour un LUCKY DAY"
+        ],
+        "image_urls": [
+          "https://fr.welove.radio/apple-icon.png?52db62c159d59448",
+          "https://fr.welove.radio/favicon.ico",
+          "https://image.radioking.io/radios/441272/logo/ced2dc13-2f19-48a3-b365-5c75084f42c4.jpeg"
+        ],
+        "named_logos": {}
+      },
+      "ocr_text": ", OS\n\nVD,\n\n.\n\nin\n\n——\n"
     },
     "4097:0:2:7591:1158:ED:0:0:0:0": {
       "name": "Rinse FR",
@@ -320442,7 +322903,46 @@
         "https://www.rinse.fm/channels/france/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://www.rinse.fm/favicon/apple-touch-icon.png",
+        "final_url": "https://www.rinse.fm/favicon/apple-touch-icon.png",
+        "path": "originals/4fcb0bb53aa1443e06446c60ad4cfe06d14dc5b7b9fa24a16caf657056ff1a90.img",
+        "sha256": "4fcb0bb53aa1443e06446c60ad4cfe06d14dc5b7b9fa24a16caf657056ff1a90",
+        "bytes": 8366,
+        "dimensions": [
+          180,
+          180
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://www.rinse.fm/channels/france/",
+        "final_url": "https://www.rinse.fm/channels/france",
+        "original_html_sha256": "65dfdba52f4712a94e38dba0605411df05c656318089e4422b7e8be26ec45bbf",
+        "path": "page-evidence/65dfdba52f4712a94e38dba0605411df05c656318089e4422b7e8be26ec45bbf.json",
+        "titles": [
+          "France | Rinse FM",
+          "Kiala Ogawa",
+          "Doline",
+          "RONI",
+          "MELANIN",
+          "Shampain",
+          "Baselitz",
+          "LE MOM",
+          "pleasewait.!!!",
+          "Ohjeelo",
+          "POLAAR",
+          " Go home     "
+        ],
+        "image_urls": [
+          "https://www.rinse.fm/favicon/apple-touch-icon.png",
+          "https://www.rinse.fm/favicon/favicon-16x16.png",
+          "https://www.rinse.fm/favicon/favicon-32x32.png"
+        ],
+        "named_logos": {}
+      },
+      "ocr_text": "@\n"
     },
     "4097:0:2:1DE:A3DC:ED:0:0:0:0": {
       "name": "Rire & Chansons 3 Ans de Rire",
@@ -320455,7 +322955,10 @@
         "https://www.rireetchansons.fr/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 403\n"
+      ]
     },
     "4097:0:2:5AAF:B57D:ED:0:0:0:0": {
       "name": "Rire & Chansons All Stars",
@@ -320468,7 +322971,10 @@
         "https://www.rireetchansons.fr/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 403\n"
+      ]
     },
     "4097:0:2:6A2B:7970:ED:0:0:0:0": {
       "name": "Rire & Chansons Blagues",
@@ -320481,7 +322987,10 @@
         "https://www.rireetchansons.fr/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 403\n"
+      ]
     },
     "4097:0:2:C915:BD7F:ED:0:0:0:0": {
       "name": "Rire & Chansons Collectors",
@@ -320494,7 +323003,10 @@
         "https://www.rireetchansons.fr/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 403\n"
+      ]
     },
     "4097:0:2:57CE:5B24:ED:0:0:0:0": {
       "name": "Rire & Chansons Comedy Club",
@@ -320507,7 +323019,10 @@
         "https://www.rireetchansons.fr/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 403\n"
+      ]
     },
     "4097:0:2:14F9:B2C9:ED:0:0:0:0": {
       "name": "Rire & Chansons Duos",
@@ -320520,7 +323035,10 @@
         "https://www.rireetchansons.fr/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 403\n"
+      ]
     },
     "4097:0:2:BD42:C759:ED:0:0:0:0": {
       "name": "Rire & Chansons Florence Foresti",
@@ -320533,7 +323051,10 @@
         "https://www.rireetchansons.fr/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 403\n"
+      ]
     },
     "4097:0:2:A28F:6884:ED:0:0:0:0": {
       "name": "Rire & Chansons Futurs Talents",
@@ -320546,7 +323067,10 @@
         "https://www.rireetchansons.fr/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 403\n"
+      ]
     },
     "4097:0:2:336:FE1E:ED:0:0:0:0": {
       "name": "Rire & Chansons Gad Elmaleh",
@@ -320559,7 +323083,10 @@
         "https://www.rireetchansons.fr/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 403\n"
+      ]
     },
     "4097:0:2:595C:91F9:ED:0:0:0:0": {
       "name": "Rire & Chansons Humour 2000's",
@@ -320572,7 +323099,10 @@
         "https://www.rireetchansons.fr/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 403\n"
+      ]
     },
     "4097:0:2:C96B:FF12:ED:0:0:0:0": {
       "name": "Rire & Chansons Humour 2010's",
@@ -320585,7 +323115,10 @@
         "https://www.rireetchansons.fr/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 403\n"
+      ]
     },
     "4097:0:2:EB56:EB7C:ED:0:0:0:0": {
       "name": "Rire & Chansons Humour 90's",
@@ -320598,7 +323131,10 @@
         "https://www.rireetchansons.fr/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 403\n"
+      ]
     },
     "4097:0:2:2918:47F8:ED:0:0:0:0": {
       "name": "Rire & Chansons Humour Belge",
@@ -320611,7 +323147,10 @@
         "https://www.rireetchansons.fr/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 403\n"
+      ]
     },
     "4097:0:2:F214:9421:ED:0:0:0:0": {
       "name": "Rire & Chansons Les Interdits",
@@ -320624,7 +323163,10 @@
         "https://www.rireetchansons.fr/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 403\n"
+      ]
     },
     "4097:0:2:EB43:11DC:ED:0:0:0:0": {
       "name": "Rire & Chansons Nouveautés",
@@ -320637,7 +323179,10 @@
         "https://www.rireetchansons.fr/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 403\n"
+      ]
     },
     "4097:0:2:4563:2B22:ED:0:0:0:0": {
       "name": "Rire & Chansons Nouvelle Génération",
@@ -320650,7 +323195,10 @@
         "https://www.rireetchansons.fr/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 403\n"
+      ]
     },
     "4097:0:2:75B:69E7:ED:0:0:0:0": {
       "name": "Rire & Chansons One Woman Show",
@@ -320663,7 +323211,10 @@
         "https://www.rireetchansons.fr/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 403\n"
+      ]
     },
     "4097:0:2:3B8:F8A6:ED:0:0:0:0": {
       "name": "Rire & Chansons Paris",
@@ -320676,7 +323227,10 @@
         "https://www.rireetchansons.fr/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 403\n"
+      ]
     },
     "4097:0:2:57FE:3891:ED:0:0:0:0": {
       "name": "Rire & Chansons Rire En ...",
@@ -320689,7 +323243,10 @@
         "https://www.rireetchansons.fr/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 403\n"
+      ]
     },
     "4097:0:2:77A9:A888:ED:0:0:0:0": {
       "name": "Rire & Chansons Stand Up",
@@ -320702,7 +323259,10 @@
         "https://www.rireetchansons.fr/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 403\n"
+      ]
     },
     "4097:0:2:9FD8:C095:ED:0:0:0:0": {
       "name": "Rire et Chansons",
@@ -320715,7 +323275,10 @@
         "https://www.rireetchansons.fr/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 403\n"
+      ]
     },
     "4097:0:2:5E98:F53F:ED:0:0:0:0": {
       "name": "Rire et Chansons Canulars",
@@ -320728,7 +323291,10 @@
         "https://www.rireetchansons.fr/webradios/mur-des-radios/rire-et-chansons-canulars"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 403\n"
+      ]
     },
     "4097:0:2:54B7:C7D6:ED:0:0:0:0": {
       "name": "Rire et Chansons Sketches",
@@ -320741,7 +323307,10 @@
         "https://www.rireetchansons.fr/webradios/mur-des-radios/rire-et-chansons-sketches"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 403\n"
+      ]
     },
     "4097:0:2:C780:8050:ED:0:0:0:0": {
       "name": "rjfm",
@@ -320754,7 +323323,52 @@
         "http://www.rjfm.net/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "http://www.rjfm.net/upload/design/6a4d1748ac38a9.87951481.png",
+        "final_url": "http://www.rjfm.net/upload/design/6a4d1748ac38a9.87951481.png",
+        "path": "originals/3bbad99719a29686fb379ff768b0f33c2a1e42c540a600b94bc5ee4fb157dd32.img",
+        "sha256": "3bbad99719a29686fb379ff768b0f33c2a1e42c540a600b94bc5ee4fb157dd32",
+        "bytes": 49054,
+        "dimensions": [
+          281,
+          284
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "http://www.rjfm.net/",
+        "final_url": "http://www.rjfm.net/",
+        "original_html_sha256": "bd2c6d73c336622d5bbbcd714f009e8f4e09a60005069a7515e3374e140990dc",
+        "path": "page-evidence/bd2c6d73c336622d5bbbcd714f009e8f4e09a60005069a7515e3374e140990dc.json",
+        "titles": [
+          "Accueil - RJFM Hits & News - Montluçon Allier Auvergne - actualités informations radio locale"
+        ],
+        "image_urls": [
+          "http://www.rjfm.net/upload/design/6a4d1748ac38a9.87951481.png",
+          "http://www.rjfm.net/upload/partenaires/LOGO%20AURA.png",
+          "http://www.rjfm.net/upload/partenaires/Logo%20Chamblet.png"
+        ],
+        "named_logos": {
+          "http://www.rjfm.net/upload/design/6a4d1748ac38a9.87951481.png": "logo  ",
+          "http://www.rjfm.net/upload/players/6a4cac18c23138.40400039.png": "  ",
+          "http://www.rjfm.net/upload/players/6a992acc303546.33254695.png": "  ",
+          "http://www.rjfm.net/upload/partenaires/Logo-ANCT.jpg": "Logo-ANCT.jpg (128 KB)  ",
+          "http://www.rjfm.net/upload/partenaires/logo-DILCRA-typo-2017.png": "logo-DILCRA-typo-2017.png (33 KB)  ",
+          "http://www.rjfm.net/upload/partenaires/Logo_PrefetRegionAURA_cmjn.jpg": "Logo_PrefetRegionAURA_cmjn.jpg (6 KB)  ",
+          "http://www.rjfm.net/upload/partenaires/LOGO%20AURA.png": "LOGO AURA.png (6 KB)  ",
+          "http://www.rjfm.net/upload/partenaires/logo%20dom%C3%A9rat.jpg": "logo domérat.jpg (41 KB)  ",
+          "http://www.rjfm.net/upload/partenaires/logo%20huriel%20(7).jpg": "logo huriel (7).jpg (80 KB)  ",
+          "http://www.rjfm.net/upload/partenaires/Logo%20NLB.JPG": "Logo NLB.JPG (25 KB)  ",
+          "http://www.rjfm.net/upload/partenaires/logo%20quinssaines%20.png": "logo quinssaines .png (128 KB)  ",
+          "http://www.rjfm.net/upload/partenaires/logo%20st%20victor.png": "logo st victor.png (5.51 MB)  ",
+          "http://www.rjfm.net/upload/partenaires/Logo%20Chamblet.png": "Logo Chamblet.png (54 KB)  ",
+          "http://www.rjfm.net/upload/partenaires/logo%20COSNE.jpg": "logo COSNE.jpg (72 KB)  ",
+          "http://www.rjfm.net/upload/partenaires/Logo_Lignerolles.JPG": "Logo_Lignerolles.JPG (35 KB)  ",
+          "http://www.rjfm.net/upload/partenaires/logo%20sictom.pdf%20haute%20def.jpg": "logo sictom.pdf haute def.jpg (193 KB)  "
+        }
+      },
+      "ocr_text": "H\n\nibs\n"
     },
     "4097:0:2:561E:65CC:ED:0:0:0:0": {
       "name": "RJL (Radio Judaica Lyon)",
@@ -320767,7 +323381,8 @@
         "http://www.radiorjl.com/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:83FB:7A82:ED:0:0:0:0": {
       "name": "RJR (Radio Jeunes Reims)",
@@ -320780,7 +323395,8 @@
         "https://www.rjrradio.fr/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:D20B:9636:ED:0:0:0:0": {
       "name": "RKB",
@@ -320829,7 +323445,35 @@
         "http://www.radiorls.fr/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://www.radiorls.fr/templates/yoo_symphony/apple_touch_icon.png",
+        "final_url": "https://www.radiorls.fr/templates/yoo_symphony/apple_touch_icon.png",
+        "path": "originals/a3a9c76197c5d1ef2d79a167eb2a7848804ef03963cab3ed99bc598840558ea8.img",
+        "sha256": "a3a9c76197c5d1ef2d79a167eb2a7848804ef03963cab3ed99bc598840558ea8",
+        "bytes": 10269,
+        "dimensions": [
+          129,
+          129
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "http://www.radiorls.fr/",
+        "final_url": "https://www.radiorls.fr/",
+        "original_html_sha256": "edb9e020f1e8e64d52d7887ca7ac97dbe32c86e80d2c77652a51a1099b9db2d3",
+        "path": "page-evidence/edb9e020f1e8e64d52d7887ca7ac97dbe32c86e80d2c77652a51a1099b9db2d3.json",
+        "titles": [
+          "RLS - Radio La Sentinelle",
+          "Podcast Radio"
+        ],
+        "image_urls": [
+          "https://www.radiorls.fr/templates/yoo_symphony/apple_touch_icon.png",
+          "https://www.radiorls.fr/templates/yoo_symphony/favicon.ico"
+        ],
+        "named_logos": {}
+      },
+      "ocr_text": "eo\n\nSA,\n"
     },
     "4097:0:2:5F0E:DA6:ED:0:0:0:0": {
       "name": "RMA ANTILLES - Le Son Des Iles",
@@ -320866,7 +323510,40 @@
         "https://www.rmf-radio.com/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://rmf-radio.com/assets/img/favicon.svg",
+        "final_url": "https://rmf-radio.com/assets/img/favicon.svg",
+        "path": "originals/bf773a8c2730fa307af2d81da8ac211bb49ca2e7777b65ed59fb4bdbcf679e45.img",
+        "sha256": "bf773a8c2730fa307af2d81da8ac211bb49ca2e7777b65ed59fb4bdbcf679e45",
+        "bytes": 287,
+        "dimensions": [
+          640,
+          640
+        ],
+        "format": "SVG",
+        "frozen_svg_raster": {
+          "path": "rasterized/968e7cccd468609b736c4ef5937630b7edaf40bab4b3e0b9fa988e4483074334.png",
+          "sha256": "968e7cccd468609b736c4ef5937630b7edaf40bab4b3e0b9fa988e4483074334",
+          "cairosvg_version": "2.8.2"
+        }
+      },
+      "page": {
+        "url": "https://www.rmf-radio.com/",
+        "final_url": "https://rmf-radio.com/",
+        "original_html_sha256": "4891654e4834f9ef443ebd96239bfe048d6e6ca37549625f07383155acadf841",
+        "path": "page-evidence/4891654e4834f9ef443ebd96239bfe048d6e6ca37549625f07383155acadf841.json",
+        "titles": [
+          "RMF Radio — La radio des Français qui ont choisi le monde",
+          "\n              La radio des  Français  \n              qui ont choisi    le monde .\n            "
+        ],
+        "image_urls": [
+          "https://rmf-radio.com/assets/img/favicon.svg",
+          "https://rmf-radio.com/assets/img/og-image-rmf.jpg"
+        ],
+        "named_logos": {}
+      },
+      "ocr_text": "q\n\nRMF\n"
     },
     "4097:0:2:9C32:47A6:ED:0:0:0:0": {
       "name": "RMN",
@@ -320879,7 +323556,92 @@
         "https://www.rmn.bzh/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://medias.lesindesradios.fr/t:app(web)/t:r(unknown)/filters:format(webp)/filters:quality(100)/radios/rmn/images/footerLogo_FaOzEVX8qi.png",
+        "final_url": "https://medias.lesindesradios.fr/t:app(web)/t:r(unknown)/filters:format(webp)/filters:quality(100)/radios/rmn/images/footerLogo_FaOzEVX8qi.png",
+        "path": "originals/6b20c71ccf049e68876724480c6e69d4a28db733fce5e55cf984fd4a683c5642.img",
+        "sha256": "6b20c71ccf049e68876724480c6e69d4a28db733fce5e55cf984fd4a683c5642",
+        "bytes": 24250,
+        "dimensions": [
+          500,
+          501
+        ],
+        "format": "WEBP"
+      },
+      "page": {
+        "url": "https://www.rmn.bzh/",
+        "final_url": "https://www.rmn.bzh/",
+        "original_html_sha256": "c1045c922d6910e52a333a12d356e8068007465a4fae02785efc7502efe8ff90",
+        "path": "page-evidence/c1045c922d6910e52a333a12d356e8068007465a4fae02785efc7502efe8ff90.json",
+        "titles": [
+          "RMN la Bretagne en musique RMN",
+          "\n LA BRETAGNE EN MUSIQUE ! \n"
+        ],
+        "image_urls": [
+          "https://medias.lesindesradios.fr/t:app(web)/t:r(unknown)/filters:format(webp)/filters:quality(100)/radios/rmn/images/footerLogo_FaOzEVX8qi.png",
+          "https://medias.lesindesradios.fr/t:app(web)/t:r(unknown)/fit-in/300x2000/filters:format(webp)/filters:quality(100)/radios/rmn/images/logo_yms0FlH36F.png",
+          "https://www.rmn.bzh/favicon.ico"
+        ],
+        "named_logos": {
+          "https://medias.lesindesradios.fr/t:app(web)/t:r(unknown)/fit-in/300x2000/filters:format(webp)/filters:quality(100)/radios/rmn/images/logo_yms0FlH36F.png": "logo  ",
+          "https://medias.lesindesradios.fr/t:app(web)/t:r(unknown)/filters:format(webp)/filters:quality(100)/radios/rmn/images/footerLogo_FaOzEVX8qi.png": "logo  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/47c2514660430eff28651a6f8cd291732675f9e29509d1f0b3bef843cc02f967.png",
+          "sha256": "47c2514660430eff28651a6f8cd291732675f9e29509d1f0b3bef843cc02f967",
+          "bytes": 1786
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/60bf074b0d0588b0353b0a7eb907a3e3b6178fcfd480902eeea9b560719ddb6d.png",
+          "sha256": "60bf074b0d0588b0353b0a7eb907a3e3b6178fcfd480902eeea9b560719ddb6d",
+          "bytes": 10866
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/4f0b4c4900a2cda1638784bd28efebca010aee2723536d742e0db72d39dea51e.png",
+          "sha256": "4f0b4c4900a2cda1638784bd28efebca010aee2723536d742e0db72d39dea51e",
+          "bytes": 34760
+        },
+        "50x30/white": {
+          "path": "verified-assets/5754feb95d8c1edb814e1d6834c9511a6dec746584309d88dadeb1dcb59e474b.png",
+          "sha256": "5754feb95d8c1edb814e1d6834c9511a6dec746584309d88dadeb1dcb59e474b",
+          "bytes": 2955
+        },
+        "220x132/white": {
+          "path": "verified-assets/a18d556bbc8fb57057a15e86126d47f86cfd96fcf5dce02425972218a2356c6f.png",
+          "sha256": "a18d556bbc8fb57057a15e86126d47f86cfd96fcf5dce02425972218a2356c6f",
+          "bytes": 33958
+        },
+        "400x240/white": {
+          "path": "verified-assets/adb50ca47b7c748c58fb00985829b15eff6ad9fdbc2e06b6b7d347d8a82c42d0.png",
+          "sha256": "adb50ca47b7c748c58fb00985829b15eff6ad9fdbc2e06b6b7d347d8a82c42d0",
+          "bytes": 88023
+        },
+        "50x30/black": {
+          "path": "verified-assets/89b9de584ea5c0c25306d3e9aafe97cae5dce5ff7919532cfdc52a199710f34e.png",
+          "sha256": "89b9de584ea5c0c25306d3e9aafe97cae5dce5ff7919532cfdc52a199710f34e",
+          "bytes": 3229
+        },
+        "220x132/black": {
+          "path": "verified-assets/97048004d78c956da87ca7d2a1270d9699dd875d99aa9be070e5d8af11cad17a.png",
+          "sha256": "97048004d78c956da87ca7d2a1270d9699dd875d99aa9be070e5d8af11cad17a",
+          "bytes": 32920
+        },
+        "400x240/black": {
+          "path": "verified-assets/9a792574a49d5ecc60f2a9fec918571aeed7169f69b0b64d18c60b804b30a64a.png",
+          "sha256": "9a792574a49d5ecc60f2a9fec918571aeed7169f69b0b64d18c60b804b30a64a",
+          "bytes": 85405
+        }
+      },
+      "verification": {
+        "exact_stream_and_current_page_name": true,
+        "image_link_recorded_in_page": true,
+        "full_distinctive_wordmark": "RMN\n",
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:DF7D:B492:ED:0:0:0:0": {
       "name": "Rock Attack",
@@ -320916,7 +323678,98 @@
         "https://www.rocknfolk.com/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://www.rocknfolk.com/wp-content/uploads/2022/06/logo_rocknfolk_200x42@2x.png",
+        "final_url": "https://www.rocknfolk.com/wp-content/uploads/2022/06/logo_rocknfolk_200x42@2x.png",
+        "path": "originals/113d72da05e2c8be8b6a11b41590b77774146f34fec1d399aa8f442c821cb1f5.img",
+        "sha256": "113d72da05e2c8be8b6a11b41590b77774146f34fec1d399aa8f442c821cb1f5",
+        "bytes": 14720,
+        "dimensions": [
+          400,
+          84
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://www.rocknfolk.com/",
+        "final_url": "https://www.rocknfolk.com/",
+        "original_html_sha256": "576a42ba3e90e007228c4c640abb3c894b52a52a8f8b884835e79152f6d4b73e",
+        "path": "page-evidence/576a42ba3e90e007228c4c640abb3c894b52a52a8f8b884835e79152f6d4b73e.json",
+        "titles": [
+          "Rock&folk - Au service du rock depuis 1966 - Rock&folk",
+          "   ",
+          "   ",
+          "   "
+        ],
+        "image_urls": [
+          "https://www.rocknfolk.com/wp-content/themes/Newspaper-child/images/logo_horizontal_576_192.png",
+          "https://www.rocknfolk.com/wp-content/uploads/2022/06/logo_rocknfolk_200x42.png",
+          "https://www.rocknfolk.com/wp-content/uploads/2022/06/logo_rocknfolk_200x42@2x.png"
+        ],
+        "named_logos": {
+          "https://www.rocknfolk.com/wp-content/themes/Newspaper-child/images/logo_horizontal_576_192.png": "  ",
+          "https://www.rocknfolk.com/wp-content/uploads/2022/06/logo_rocknfolk_200x42.png": "Rock&folk Rock&folk ",
+          "https://www.rocknfolk.com/wp-content/uploads/2022/06/logo_rocknfolk_200x42@2x.png": "Rock&folk Rock&folk "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/f81833e8471c82100249ca09aa019ae2074d5b07ddaf878acae4c99f0a061dd0.png",
+          "sha256": "f81833e8471c82100249ca09aa019ae2074d5b07ddaf878acae4c99f0a061dd0",
+          "bytes": 1544
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/eec13d24ba191a77784cd7859b8225b1d30eeb1bbd5686878397cb01d4b39d91.png",
+          "sha256": "eec13d24ba191a77784cd7859b8225b1d30eeb1bbd5686878397cb01d4b39d91",
+          "bytes": 11063
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/1cb1e311bb4d737304152221825ba5da319fc9d6ad4af086b1c84245a22a74ab.png",
+          "sha256": "1cb1e311bb4d737304152221825ba5da319fc9d6ad4af086b1c84245a22a74ab",
+          "bytes": 36592
+        },
+        "50x30/white": {
+          "path": "verified-assets/39303d543832910a5a288c49410abc3078f4269131f0c2d69917a99ecee9f761.png",
+          "sha256": "39303d543832910a5a288c49410abc3078f4269131f0c2d69917a99ecee9f761",
+          "bytes": 3109
+        },
+        "220x132/white": {
+          "path": "verified-assets/989d5f18b81dc229e46d0dfca2604b13dcd03cefda98c2cda117b2a7412e87dd.png",
+          "sha256": "989d5f18b81dc229e46d0dfca2604b13dcd03cefda98c2cda117b2a7412e87dd",
+          "bytes": 37175
+        },
+        "400x240/white": {
+          "path": "verified-assets/0acbc4a1a30107b7ad8e41badd7c051c56253aed78cc1abe787e2b3031db6429.png",
+          "sha256": "0acbc4a1a30107b7ad8e41badd7c051c56253aed78cc1abe787e2b3031db6429",
+          "bytes": 96829
+        },
+        "50x30/black": {
+          "path": "verified-assets/ff1da834224565e42983ce785c045c3c3975c90e64651e4b2a76468060b4430c.png",
+          "sha256": "ff1da834224565e42983ce785c045c3c3975c90e64651e4b2a76468060b4430c",
+          "bytes": 3044
+        },
+        "220x132/black": {
+          "path": "verified-assets/b27fe00e102e8d59058449c6ff81a7daa7c49895d0634922f76ac59627c1022a.png",
+          "sha256": "b27fe00e102e8d59058449c6ff81a7daa7c49895d0634922f76ac59627c1022a",
+          "bytes": 34953
+        },
+        "400x240/black": {
+          "path": "verified-assets/87c82dd929909c406a83008b9ae9dbb83238a4f7f60a25435f1e843f0f2a4ce4.png",
+          "sha256": "87c82dd929909c406a83008b9ae9dbb83238a4f7f60a25435f1e843f0f2a4ce4",
+          "bytes": 88194
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Rock&folk Rock&folk ",
+        "matched_brand_keys": [
+          "folk"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:4CC4:5AC4:ED:0:0:0:0": {
       "name": "Rock & Folk (rock n folk)",
@@ -320929,7 +323782,98 @@
         "https://www.rocknfolk.com/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://www.rocknfolk.com/wp-content/uploads/2022/06/logo_rocknfolk_200x42@2x.png",
+        "final_url": "https://www.rocknfolk.com/wp-content/uploads/2022/06/logo_rocknfolk_200x42@2x.png",
+        "path": "originals/113d72da05e2c8be8b6a11b41590b77774146f34fec1d399aa8f442c821cb1f5.img",
+        "sha256": "113d72da05e2c8be8b6a11b41590b77774146f34fec1d399aa8f442c821cb1f5",
+        "bytes": 14720,
+        "dimensions": [
+          400,
+          84
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://www.rocknfolk.com/",
+        "final_url": "https://www.rocknfolk.com/",
+        "original_html_sha256": "576a42ba3e90e007228c4c640abb3c894b52a52a8f8b884835e79152f6d4b73e",
+        "path": "page-evidence/576a42ba3e90e007228c4c640abb3c894b52a52a8f8b884835e79152f6d4b73e.json",
+        "titles": [
+          "Rock&folk - Au service du rock depuis 1966 - Rock&folk",
+          "   ",
+          "   ",
+          "   "
+        ],
+        "image_urls": [
+          "https://www.rocknfolk.com/wp-content/themes/Newspaper-child/images/logo_horizontal_576_192.png",
+          "https://www.rocknfolk.com/wp-content/uploads/2022/06/logo_rocknfolk_200x42.png",
+          "https://www.rocknfolk.com/wp-content/uploads/2022/06/logo_rocknfolk_200x42@2x.png"
+        ],
+        "named_logos": {
+          "https://www.rocknfolk.com/wp-content/themes/Newspaper-child/images/logo_horizontal_576_192.png": "  ",
+          "https://www.rocknfolk.com/wp-content/uploads/2022/06/logo_rocknfolk_200x42.png": "Rock&folk Rock&folk ",
+          "https://www.rocknfolk.com/wp-content/uploads/2022/06/logo_rocknfolk_200x42@2x.png": "Rock&folk Rock&folk "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/f81833e8471c82100249ca09aa019ae2074d5b07ddaf878acae4c99f0a061dd0.png",
+          "sha256": "f81833e8471c82100249ca09aa019ae2074d5b07ddaf878acae4c99f0a061dd0",
+          "bytes": 1544
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/eec13d24ba191a77784cd7859b8225b1d30eeb1bbd5686878397cb01d4b39d91.png",
+          "sha256": "eec13d24ba191a77784cd7859b8225b1d30eeb1bbd5686878397cb01d4b39d91",
+          "bytes": 11063
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/1cb1e311bb4d737304152221825ba5da319fc9d6ad4af086b1c84245a22a74ab.png",
+          "sha256": "1cb1e311bb4d737304152221825ba5da319fc9d6ad4af086b1c84245a22a74ab",
+          "bytes": 36592
+        },
+        "50x30/white": {
+          "path": "verified-assets/39303d543832910a5a288c49410abc3078f4269131f0c2d69917a99ecee9f761.png",
+          "sha256": "39303d543832910a5a288c49410abc3078f4269131f0c2d69917a99ecee9f761",
+          "bytes": 3109
+        },
+        "220x132/white": {
+          "path": "verified-assets/989d5f18b81dc229e46d0dfca2604b13dcd03cefda98c2cda117b2a7412e87dd.png",
+          "sha256": "989d5f18b81dc229e46d0dfca2604b13dcd03cefda98c2cda117b2a7412e87dd",
+          "bytes": 37175
+        },
+        "400x240/white": {
+          "path": "verified-assets/0acbc4a1a30107b7ad8e41badd7c051c56253aed78cc1abe787e2b3031db6429.png",
+          "sha256": "0acbc4a1a30107b7ad8e41badd7c051c56253aed78cc1abe787e2b3031db6429",
+          "bytes": 96829
+        },
+        "50x30/black": {
+          "path": "verified-assets/ff1da834224565e42983ce785c045c3c3975c90e64651e4b2a76468060b4430c.png",
+          "sha256": "ff1da834224565e42983ce785c045c3c3975c90e64651e4b2a76468060b4430c",
+          "bytes": 3044
+        },
+        "220x132/black": {
+          "path": "verified-assets/b27fe00e102e8d59058449c6ff81a7daa7c49895d0634922f76ac59627c1022a.png",
+          "sha256": "b27fe00e102e8d59058449c6ff81a7daa7c49895d0634922f76ac59627c1022a",
+          "bytes": 34953
+        },
+        "400x240/black": {
+          "path": "verified-assets/87c82dd929909c406a83008b9ae9dbb83238a4f7f60a25435f1e843f0f2a4ce4.png",
+          "sha256": "87c82dd929909c406a83008b9ae9dbb83238a4f7f60a25435f1e843f0f2a4ce4",
+          "bytes": 88194
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Rock&folk Rock&folk ",
+        "matched_brand_keys": [
+          "folk"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:C96B:C221:ED:0:0:0:0": {
       "name": "Roots Legacy",
@@ -320942,7 +323886,34 @@
         "https://rootslegacy.fr/index.html"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://www.rootslegacy.fr/images/logoF.png",
+        "final_url": "https://www.rootslegacy.fr/images/logoF.png",
+        "path": "originals/e61f882d430aba196856d1faaba82d0841a871ce12413e9ba7b032df715592b3.img",
+        "sha256": "e61f882d430aba196856d1faaba82d0841a871ce12413e9ba7b032df715592b3",
+        "bytes": 97744,
+        "dimensions": [
+          560,
+          385
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://rootslegacy.fr/index.html",
+        "final_url": "https://rootslegacy.fr/index.html",
+        "original_html_sha256": "74cdd214610ded3cc78abd890d67de1d773ef5723585e542c63dffa466b31e82",
+        "path": "page-evidence/74cdd214610ded3cc78abd890d67de1d773ef5723585e542c63dffa466b31e82.json",
+        "titles": [
+          "Roots Legacy Radio - Radio Dub & Radio Reggae 24/7 | Écoutez en direct la Radio, participez à notre chat et suivez-nous sur Facebook",
+          " Dub Radio "
+        ],
+        "image_urls": [
+          "https://www.rootslegacy.fr/images/logoF.png"
+        ],
+        "named_logos": {}
+      },
+      "ocr_text": "ly\n\nWGY\n"
     },
     "4097:0:2:6989:A1DA:ED:0:0:0:0": {
       "name": "Roots Legacy Radio",
@@ -677828,13 +680799,13 @@
   },
   "counts": {
     "already_ready_in_saved_checkpoint": 8913,
-    "blocked_no_confirmed_station_page_and_logo": 4532,
+    "blocked_no_confirmed_station_page_and_logo": 4588,
     "blocked_no_independent_station_homepage": 1165,
     "blocked_no_unique_current_station_metadata": 3847,
-    "candidate_assistant_visual_and_identity_check": 1116,
-    "pending_homepage_discovery": 19846,
-    "ready_verified_homepage_and_wordmark": 1484
+    "candidate_assistant_visual_and_identity_check": 1138,
+    "pending_homepage_discovery": 19746,
+    "ready_verified_homepage_and_wordmark": 1506
   },
-  "last_event": "homepages_1100_of_20946",
-  "updated_utc": "2026-11-05T15:39:20Z"
+  "last_event": "homepages_1200_of_20946",
+  "updated_utc": "2026-11-05T15:39:42Z"
 }
