@@ -21,7 +21,9 @@ def identity(name,text,country="US"):
  w=words(text);forbidden={'paypal','facebook','youtube','tunein','radioking','radiobrowser','shoutcast','icecast'}
  if w&forbidden:return False
  calls=set(re.findall(r'\b[WK][A-Z]{3}\b',name)) if country=='US' else set(re.findall(r'\bC[FIHJK][A-Z]{2}\b',name)) if country=='CA' else set()
- if calls:return all(c.casefold() in w for c in calls)
+ if calls:
+  qualifiers=set(re.findall(r'\b(?:HD[2-9]|Q[2-9])\b',name,re.I))
+  return all(c.casefold() in w for c in calls|qualifiers)
  keys={k for k in words(name) if k not in COMMON and len(k)>=3 and not k.isdigit() and not re.fullmatch(r'\d+s',k)}
  return bool(keys and keys<=w and (any(len(k)>=10 for k in keys) or len(keys)>=2 and sum(map(len,keys))>=10))
 def check(row,base,root,masters):
