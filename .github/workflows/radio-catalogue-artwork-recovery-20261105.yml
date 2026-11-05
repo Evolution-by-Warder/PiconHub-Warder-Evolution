@@ -1,0 +1,51 @@
+name: Recover remaining Radio artwork from exact catalogue image links
+on:
+  push:
+    branches: ['research/warder-world-radio-logo-alias-scan-20261104']
+    paths: ['.github/workflows/radio-catalogue-artwork-recovery-20261105.yml', 'migration/radio-catalogue-artwork-recovery-20261105/recover_radio_catalogue_artwork.py', 'migration/radio-catalogue-artwork-recovery-20261105/radio_source_helpers.py']
+permissions:
+  contents: write
+concurrency:
+  group: radio-catalogue-artwork-recovery-20261105
+  cancel-in-progress: false
+jobs:
+  recover:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 350
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            migration/radio-catalogue-artwork-recovery-20261105
+            .github/workflows
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install --quiet Pillow==13.0.0 CairoSVG==2.8.2
+      - name: Acquire new catalogue artwork and checkpoint every100 references
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          python migration/radio-catalogue-artwork-recovery-20261105/recover_radio_catalogue_artwork.py --seed migration/radio-catalogue-artwork-recovery-20261105/catalogue-artwork-input.b64 --output migration/radio-catalogue-artwork-recovery-20261105 --commit
+      - name: Preserve all completed work
+        if: always()
+        run: |
+          git add migration/radio-catalogue-artwork-recovery-20261105
+          if ! git diff --cached --quiet; then
+            git commit --quiet -m "Preserve catalogue Radio artwork checkpoint"
+          fi
+          python - <<'PY_PUSH'
+          import importlib.util
+          p="migration/radio-catalogue-artwork-recovery-20261105/radio_source_helpers.py"
+          spec=importlib.util.spec_from_file_location("radio_helpers",p)
+          worker=importlib.util.module_from_spec(spec);spec.loader.exec_module(worker)
+          worker.push_checkpoint()
+          PY_PUSH
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: radio-catalogue-artwork-recovery-checkpoint
+          retention-days: 90
+          path: |
+            migration/radio-catalogue-artwork-recovery-20261105/discovery-journal.jsonl
+            migration/radio-catalogue-artwork-recovery-20261105/reuse-ready.json
