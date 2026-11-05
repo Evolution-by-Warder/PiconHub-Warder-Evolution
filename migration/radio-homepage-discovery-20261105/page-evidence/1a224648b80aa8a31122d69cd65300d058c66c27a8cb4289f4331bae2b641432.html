@@ -1,0 +1,1658 @@
+<!DOCTYPE html>
+<html lang="hr">
+
+<head>
+
+	<!-- Basic Page Needs
+	================================================== -->
+	<meta charset="utf-8">
+	<base href="https://radiolabin.hr/">
+	<title>Radio Labin - vječno mlad, najbrže vijesti u Labinu</title>
+	<meta name="description" content="Na Radio Labinu čitajte najbrže lokalne vijesti, pratite zanimljivosti iz Istre i regije, najnovije vijesti iz svijeta glazbe, servisne informacije te najave događanja. ">
+	<meta name="keywords" content="live, stream, Radio, Labin, vijesti, novosti, scena, mali, oglasi, Istra, portal">
+		<meta property="og:type" content="website"/>
+	<meta property="og:url" content="https://radiolabin.hr/"/>
+	<meta property="og:site_name" content="Radio Labin"/>
+	<meta property="og:locale" content="hr_HR"/>
+	<meta property="og:image" content="https://radiolabin.hr/portal/upload/1791755258radiolabin-30.png"/>
+	<meta property="og:title" content="Radio Labin - vječno mlad, najbrže vijesti u Labinu"/>
+	<meta property="og:description" content="Na Radio Labinu čitajte najbrže lokalne vijesti, pratite zanimljivosti iz Istre i regije, najnovije vijesti iz svijeta glazbe, servisne informacije te najave događanja. "/>
+
+	<!-- Mobile Specific Metas
+	================================================== -->
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!--Favicon-->
+	<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="images/favicon.ico" type="image/x-icon">
+
+	<!-- Dark mode -->
+	<script>
+		const storedTheme = localStorage.getItem('theme')
+ 
+		const getPreferredTheme = () => {
+			if (storedTheme) {
+				return storedTheme
+			}
+			return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'light'
+		}
+
+		const setTheme = function (theme) {
+			if (theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+				document.documentElement.setAttribute('data-bs-theme', 'dark')
+			} else {
+				document.documentElement.setAttribute('data-bs-theme', theme)
+			}
+		}
+
+		setTheme(getPreferredTheme())
+
+		window.addEventListener('DOMContentLoaded', () => {
+		    var el = document.querySelector('.theme-icon-active');
+			if(el != 'undefined' && el != null) {
+				const showActiveTheme = theme => {
+				const activeThemeIcon = document.querySelector('.theme-icon-active use')
+				const btnToActive = document.querySelector(`[data-bs-theme-value="${theme}"]`)
+				const svgOfActiveBtn = btnToActive.querySelector('.mode-switch use').getAttribute('href')
+
+				document.querySelectorAll('[data-bs-theme-value]').forEach(element => {
+					element.classList.remove('active')
+				})
+
+				btnToActive.classList.add('active')
+				activeThemeIcon.setAttribute('href', svgOfActiveBtn)
+			}
+
+			window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+				if (storedTheme !== 'light' || storedTheme !== 'dark') {
+					setTheme(getPreferredTheme())
+				}
+			})
+
+			showActiveTheme(getPreferredTheme())
+
+			document.querySelectorAll('[data-bs-theme-value]')
+				.forEach(toggle => {
+					toggle.addEventListener('click', () => {
+						const theme = toggle.getAttribute('data-bs-theme-value')
+						localStorage.setItem('theme', theme)
+						setTheme(theme)
+						showActiveTheme(theme)
+					})
+				})
+
+			}
+		})
+		
+	</script>
+
+	<!-- Google Font -->
+	<link rel="preconnect" href="https://fonts.gstatic.com/">
+	<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&amp;family=Rubik:wght@400;500;700&amp;display=swap" rel="stylesheet">
+
+	
+	<!-- Plugins CSS -->
+	<link rel="stylesheet" type="text/css" href="assets/vendor/font-awesome/css/all.min.css">
+	<link rel="stylesheet" type="text/css" href="assets/vendor/bootstrap-icons/bootstrap-icons.css">
+	<link rel="stylesheet" type="text/css" href="assets/vendor/tiny-slider/tiny-slider.css">
+	<link rel="stylesheet" type="text/css" href="assets/vendor/plyr/plyr.css">
+
+	
+	<!-- Theme CSS -->
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+	
+	<link rel="stylesheet" type="text/css" href="assets/css/custom.css">
+
+	
+	<style>
+		.card > .position-relative > img.card-img {
+			width: 100%;
+			aspect-ratio: 4 / 3;
+			height: auto;
+			object-fit: cover;
+			object-position: center;
+		}
+	</style>
+
+</head>
+
+<body>
+
+<!-- Offcanvas START -->
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasMenu">
+	<div class="offcanvas-header justify-content-end">
+		<button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+	</div>
+	<div class="offcanvas-body d-flex flex-column pt-0">
+		<div>
+			<img class="light-mode-item my-3" src="portal/upload/1791755258radiolabin-30.png" alt="logo">
+			<img class="dark-mode-item my-3" src="portal/upload/1791755258radiolabin-30.png" alt="logo">
+						<p>Na Radio Labinu čitajte najbrže lokalne vijesti, pratite zanimljivosti iz Istre i regije, najnovije vijesti iz svijeta glazbe, servisne informacije te najave događanja. </p>
+						<!-- Nav START -->
+			<ul class="nav d-block flex-column my-4">
+				<li class="nav-item h5">
+					<a class="nav-link" href="index.php">Naslovnica</a>
+				</li>
+
+									<li class="nav-item h5">
+						<a class="nav-link" href="vijesti.php?id=10">Lokalne vijesti</a>
+					</li>
+									<li class="nav-item h5">
+						<a class="nav-link" href="vijesti.php?id=13">Novosti</a>
+					</li>
+									<li class="nav-item h5">
+						<a class="nav-link" href="vijesti.php?id=7">Scena</a>
+					</li>
+				
+									<li class="nav-item h5">
+						<a class="nav-link" href="#">Marketing</a>
+					</li>
+												<li class="nav-item">
+								<a class="nav-link ps-3" href="/stranica/zasto-radio-labin-33">Zašto Radio Labin</a>
+							</li>
+														<li class="nav-item">
+								<a class="nav-link ps-3" href="/stranica/cjenik-20">Cjenik</a>
+							</li>
+														<li class="nav-item">
+								<a class="nav-link ps-3" href="/stranica/pokrivenost-signalom-22">Pokrivenost signalom</a>
+							</li>
+														<li class="nav-item">
+								<a class="nav-link ps-3" href="/stranica/oglas-za-posao-41">Oglas za posao</a>
+							</li>
+														<li class="nav-item">
+								<a class="nav-link ps-3" href="/stranica/produkcija-radio-labina-43">Produkcija Radio Labina</a>
+							</li>
+														<li class="nav-item">
+								<a class="nav-link ps-3" href="/stranica/nagradne-igre-46">Nagradne igre</a>
+							</li>
+												<li class="nav-item h5">
+						<a class="nav-link" href="#">Program</a>
+					</li>
+												<li class="nav-item">
+								<a class="nav-link ps-3" href="/stranica/ponedjeljak-24">Ponedjeljak</a>
+							</li>
+														<li class="nav-item">
+								<a class="nav-link ps-3" href="/stranica/utorak-25">Utorak</a>
+							</li>
+														<li class="nav-item">
+								<a class="nav-link ps-3" href="/stranica/srijeda-26">Srijeda</a>
+							</li>
+														<li class="nav-item">
+								<a class="nav-link ps-3" href="/stranica/cetvrtak-27">Četvrtak</a>
+							</li>
+														<li class="nav-item">
+								<a class="nav-link ps-3" href="/stranica/petak-28">Petak</a>
+							</li>
+														<li class="nav-item">
+								<a class="nav-link ps-3" href="/stranica/subota-29">Subota</a>
+							</li>
+														<li class="nav-item">
+								<a class="nav-link ps-3" href="/stranica/nedjelja-30">Nedjelja</a>
+							</li>
+												<li class="nav-item h5">
+						<a class="nav-link" href="/stranica/emisije-na-zahtjev-12">Emisije na zahtjev</a>
+					</li>
+												<li class="nav-item h5">
+						<a class="nav-link" href="#">O nama</a>
+					</li>
+												<li class="nav-item">
+								<a class="nav-link ps-3" href="/stranica/tko-smo-34">Tko smo?</a>
+							</li>
+														<li class="nav-item">
+								<a class="nav-link ps-3" href="/stranica/impressum-17">Impressum</a>
+							</li>
+														<li class="nav-item">
+								<a class="nav-link ps-3" href="/stranica/oprema-19">Oprema</a>
+							</li>
+																<li class="nav-item">
+										<a class="nav-link ps-5" href="/stranica/odasiljaci-36">Odašiljači</a>
+									</li>
+																	<li class="nav-item">
+										<a class="nav-link ps-5" href="/stranica/studio-1-2-3-38">Studio 1, 2, 3</a>
+									</li>
+															<li class="nav-item">
+								<a class="nav-link ps-3" href="/stranica/izjava-o-privatnosti-42">Izjava o privatnosti</a>
+							</li>
+														<li class="nav-item">
+								<a class="nav-link ps-3" href="/stranica/politika-kolacica-49">Politika kolačića</a>
+							</li>
+							
+								<li class="nav-item h5">
+					<a class="nav-link" href="/player.php" target="_blank" rel="noopener" data-radio-popup>ON AIR</a>
+				</li>
+									<li class="nav-item h5">
+						<a class="nav-link" href="/info/slobodna-radna-mjesta-10">Slobodna radna mjesta</a>
+					</li>
+									<li class="nav-item h5">
+						<a class="nav-link" href="/info/radio-trznica-12">Radio tržnica</a>
+					</li>
+								<li class="nav-item h5">
+					<a class="nav-link" href="kontakt.php">Kontakt</a>
+				</li>
+			</ul>
+			<!-- Nav END -->
+
+			<!-- Dark mode toggle (mobile; same data-bs-theme-value hooks as top bar JS) -->
+			<div class="btn-group mb-4" role="group" aria-label="Izbor teme">
+				<button type="button" class="btn btn-sm btn-outline-primary" data-bs-theme-value="light" title="Svijetla">
+					<i class="bi bi-brightness-high-fill"></i>
+					<svg class="mode-switch d-none" width="16" height="16"><use href="#"></use></svg>
+					<span class="ms-1">Light</span>
+				</button>
+				<button type="button" class="btn btn-sm btn-outline-primary" data-bs-theme-value="dark" title="Tamna">
+					<i class="bi bi-moon-stars-fill"></i>
+					<svg class="mode-switch d-none" width="16" height="16"><use href="#"></use></svg>
+					<span class="ms-1">Dark</span>
+				</button>
+				<button type="button" class="btn btn-sm btn-outline-primary active" data-bs-theme-value="auto" title="Automatski">
+					<i class="bi bi-circle-half"></i>
+					<svg class="mode-switch d-none" width="16" height="16"><use href="#"></use></svg>
+					<span class="ms-1">Auto</span>
+				</button>
+			</div>
+
+			<!-- Social (mobile; $podesavanja, same sources as sidebar/footer/topmeni) -->
+			<ul class="nav mb-4">
+								<li class="nav-item">
+					<a class="nav-link px-2 fs-5" href="https://www.facebook.com/RadioLabin" target="_blank" title="Facebook"><i class="fab fa-facebook-square"></i></a>
+				</li>
+																<li class="nav-item">
+					<a class="nav-link px-2 fs-5" href="https://www.instagram.com/radio_labin/   " target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+				</li>
+												<li class="nav-item">
+					<a class="nav-link px-2 fs-5" href="https://www.mixcloud.com/RadioLabin/" target="_blank" title="Mixcloud"><i class="fab fa-mixcloud"></i></a>
+				</li>
+												<li class="nav-item">
+					<a class="nav-link px-2 fs-5" href="https://www.youtube.com/channel/UCRjWkOGn7mlolFsb5JIEpFQ/videos" target="_blank" title="Youtube"><i class="fab fa-youtube-square"></i></a>
+				</li>
+											</ul>
+		</div>
+		<div class="mt-auto pb-3">
+			<!-- Address -->
+			<p class="text-body mb-2 fw-bold">Radio Labin</p>
+			<address class="mb-0">Rudarska 3b, 52220 Labin</address>
+						<p class="mb-2">Tel: <a href="tel:+385 52 856 510,+385 52 856 146,+385 52 880 409" class="text-body"><u>+385 52 856 510,+385 52 856 146,+385 52 880 409</u></a></p>
+						<a href="mailto:urednik@radiolabin.hr" class="text-body d-block">urednik@radiolabin.hr</a>
+			<a href="mailto:marketing@radiolabin.hr" class="text-body d-block">marketing@radiolabin.hr</a>
+		</div>
+	</div>
+</div>
+<!-- Offcanvas END -->
+
+<!-- =======================
+Header START -->
+<header class="navbar-light header-static">
+
+	
+
+	
+	<div class="navbar-top d-none d-lg-block small">
+		<div class="container-xxl">
+			<div class="d-md-flex justify-content-between align-items-center my-2">
+				<!-- Top bar left -->
+<ul class="nav">
+	<li class="nav-item">
+		<a class="nav-link ps-0" href="/player.php" target="_blank" rel="noopener" data-radio-popup title="ON AIR" aria-label="ON AIR"><img src="images/onair1.png" class="blink-image" alt="On Air"></a>
+	</li>
+	
+			<li class="nav-item">
+			<a class="nav-link" href="/info/slobodna-radna-mjesta-10">Slobodna radna mjesta</a>
+		</li>
+			<li class="nav-item">
+			<a class="nav-link" href="/info/radio-trznica-12">Radio tržnica</a>
+		</li>
+		<li class="nav-item">
+		<a class="nav-link" href="kontakt.php">Kontakt</a>
+	</li>
+</ul>
+<!-- Top bar right -->
+<div class="d-flex align-items-center">
+	<!-- Font size accessibility START -->
+	<div class="btn-group me-3" role="group" aria-label="font size changer">
+		<input type="radio" class="btn-check" name="fntradio" id="font-sm">
+		<label class="btn btn-xs btn-outline-primary mb-0" for="font-sm">A-</label>
+
+		<input type="radio" class="btn-check" name="fntradio" id="font-default" checked>
+		<label class="btn btn-xs btn-outline-primary mb-0" for="font-default">A</label>
+
+		<input type="radio" class="btn-check" name="fntradio" id="font-lg">
+		<label class="btn btn-xs btn-outline-primary mb-0" for="font-lg">A+</label>
+	</div>
+
+	<!-- Dark mode options START -->
+	<div class="nav-item dropdown mx-2">
+		<!-- Switch button -->
+		<button class="modeswitch" id="bd-theme" type="button" aria-expanded="false" data-bs-toggle="dropdown" data-bs-display="static">
+			<svg class="theme-icon-active"><use href="#"></use></svg>
+		</button>
+		<!-- Dropdown items -->
+		<ul class="dropdown-menu min-w-auto dropdown-menu-end" aria-labelledby="bd-theme">
+			<li class="mb-1">
+				<button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light">
+					<svg width="16" height="16" fill="currentColor" class="bi bi-brightness-high-fill fa-fw mode-switch me-1" viewBox="0 0 16 16">
+						<path d="M12 8a4 4 0 1 1-8 0 4 4 0 0 1 8 0zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/>
+						<use href="#"></use>
+					</svg>Light
+				</button>
+			</li>
+			<li class="mb-1">
+				<button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark">
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-moon-stars-fill fa-fw mode-switch me-1" viewBox="0 0 16 16">
+						<path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"/>
+						<path d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.734 1.734 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.734 1.734 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.734 1.734 0 0 0 1.097-1.097l.387-1.162zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L13.863.1z"/>
+						<use href="#"></use>
+					</svg>Dark
+				</button>
+			</li>
+			<li>
+				<button type="button" class="dropdown-item d-flex align-items-center active" data-bs-theme-value="auto">
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-circle-half fa-fw mode-switch me-1" viewBox="0 0 16 16">
+						<path d="M8 15A7 7 0 1 0 8 1v14zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16z"/>
+						<use href="#"></use>
+					</svg>Auto
+				</button>
+			</li>
+		</ul>
+	</div>
+	<!-- Dark mode options END -->
+
+	<ul class="nav">
+                    <li class="nav-item">
+                <a class="nav-link px-2 fs-5" href="https://www.mixcloud.com/RadioLabin/" target="_blank" title="Mixcloud"><i class="fab fa-mixcloud"></i></a>
+            </li>
+                            <li class="nav-item">
+                <a class="nav-link px-2 fs-5" href="https://www.youtube.com/channel/UCRjWkOGn7mlolFsb5JIEpFQ/videos" target="_blank" title="Youtube"><i class="fab fa-youtube-square"></i></a>
+            </li>
+        
+
+					<li class="nav-item">
+				<a class="nav-link px-2 fs-5" href="https://www.instagram.com/radio_labin/   " target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+			</li>
+		
+                    <li class="nav-item">
+                <a class="nav-link px-2 fs-5" href="https://www.facebook.com/RadioLabin" target="_blank" title="Facebook"><i class="fab fa-facebook-square"></i></a>
+            </li>
+        
+		
+	</ul>
+</div>
+<!--/ Topbar end -->
+			</div>
+		</div>
+	</div>
+
+	
+	<!-- =======================
+Header START -->
+<div class="header-main">
+
+	<!-- Logo, banner and divider share one .container-xxl (same box as the menu and hero) -->
+	<div class="container-xxl">
+		<div class="header-logo-row text-center">
+			<a class="navbar-brand d-inline-block header-logo" href="index.php">
+				<img class="navbar-brand-item light-mode-item radiolabin-logo" src="portal/upload/1791755258radiolabin-30.png" alt="logo">
+				<img class="navbar-brand-item dark-mode-item radiolabin-logo" src="portal/upload/1791755258radiolabin-30.png" alt="logo">
+			</a>
+		</div>
+
+				<div class="header-banner">
+						<div class="click-trigger card-img-flash d-block" data-click-id="326" onClick="onClick(this)">
+				<a href="https://radiolabin.hr/turisticka-zajednica-labina-organizira-setnju-putevima-majala-i-bontauli-34252"><img src="https://radiolabin.hr/portal/source/Banneri/banneri_setnje_tri_datuma_870x120.png" alt="" width="100%" height=" " /></a>			</div>
+					</div>
+		
+		<div class="header-divider border-bottom border-2 border-primary opacity-1"></div>
+	</div>
+
+	<!-- Menu row only — CSS sticky + .navbar-sticky-on for ON AIR when stuck -->
+	<div class="header-menubar">
+		<div class="container-xxl header-menubar-inner">
+			<nav class="navbar navbar-expand-lg header-nav p-0">
+				<div class="collapse navbar-collapse" id="navbarCollapse">
+					<ul class="navbar-nav navbar-nav-scroll mx-auto">
+	<li class="nav-item">
+		<a class="nav-link" href="index.php">Naslovnica</a>
+	</li>
+
+			<li class="nav-item">
+			<a class="nav-link" href="vijesti.php?id=10">Lokalne vijesti</a>
+		</li>
+			<li class="nav-item">
+			<a class="nav-link" href="vijesti.php?id=13">Novosti</a>
+		</li>
+			<li class="nav-item">
+			<a class="nav-link" href="vijesti.php?id=7">Scena</a>
+		</li>
+	
+			<li class="nav-item dropdown">
+			<a class="nav-link dropdown-toggle" href="#" id="webMenu5" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Marketing</a>
+							<ul class="dropdown-menu" aria-labelledby="webMenu5">
+
+											<li>
+							<a class="dropdown-item" href="/stranica/zasto-radio-labin-33">Zašto Radio Labin</a>
+						</li>
+												<li>
+							<a class="dropdown-item" href="/stranica/cjenik-20">Cjenik</a>
+						</li>
+												<li>
+							<a class="dropdown-item" href="/stranica/pokrivenost-signalom-22">Pokrivenost signalom</a>
+						</li>
+												<li>
+							<a class="dropdown-item" href="/stranica/oglas-za-posao-41">Oglas za posao</a>
+						</li>
+												<li>
+							<a class="dropdown-item" href="/stranica/produkcija-radio-labina-43">Produkcija Radio Labina</a>
+						</li>
+												<li>
+							<a class="dropdown-item" href="/stranica/nagradne-igre-46">Nagradne igre</a>
+						</li>
+										</ul>
+					</li>
+			<li class="nav-item dropdown">
+			<a class="nav-link dropdown-toggle" href="#" id="webMenu1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Program</a>
+							<ul class="dropdown-menu" aria-labelledby="webMenu1">
+
+											<li>
+							<a class="dropdown-item" href="/stranica/ponedjeljak-24">Ponedjeljak</a>
+						</li>
+												<li>
+							<a class="dropdown-item" href="/stranica/utorak-25">Utorak</a>
+						</li>
+												<li>
+							<a class="dropdown-item" href="/stranica/srijeda-26">Srijeda</a>
+						</li>
+												<li>
+							<a class="dropdown-item" href="/stranica/cetvrtak-27">Četvrtak</a>
+						</li>
+												<li>
+							<a class="dropdown-item" href="/stranica/petak-28">Petak</a>
+						</li>
+												<li>
+							<a class="dropdown-item" href="/stranica/subota-29">Subota</a>
+						</li>
+												<li>
+							<a class="dropdown-item" href="/stranica/nedjelja-30">Nedjelja</a>
+						</li>
+										</ul>
+					</li>
+			<li class="nav-item">
+			<a class="nav-link" href="/stranica/emisije-na-zahtjev-12">Emisije na zahtjev</a>
+		</li>
+						<li class="nav-item dropdown">
+			<a class="nav-link dropdown-toggle" href="#" id="webMenu15" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">O nama</a>
+							<ul class="dropdown-menu" aria-labelledby="webMenu15">
+
+											<li>
+							<a class="dropdown-item" href="/stranica/tko-smo-34">Tko smo?</a>
+						</li>
+												<li>
+							<a class="dropdown-item" href="/stranica/impressum-17">Impressum</a>
+						</li>
+												<li class="dropdown-submenu dropend">
+							<a class="dropdown-item dropdown-submenu-link" href="/stranica/oprema-19">Oprema</a>
+							<a class="dropdown-item dropdown-toggle dropdown-submenu-toggle" href="#" role="button" aria-expanded="false" aria-label="Otvori podmeni: Oprema"></a>
+							<ul class="dropdown-menu dropdown-menu-start" data-bs-popper="none">
+																<li> <a class="dropdown-item" href="/stranica/odasiljaci-36">Odašiljači</a> </li>
+																<li> <a class="dropdown-item" href="/stranica/studio-1-2-3-38">Studio 1, 2, 3</a> </li>
+															</ul>
+						</li>
+												<li>
+							<a class="dropdown-item" href="/stranica/izjava-o-privatnosti-42">Izjava o privatnosti</a>
+						</li>
+												<li>
+							<a class="dropdown-item" href="/stranica/politika-kolacica-49">Politika kolačića</a>
+						</li>
+										</ul>
+					</li>
+	</ul>
+				</div>
+			</nav>
+
+			<div class="header-tools nav flex-nowrap align-items-center">
+				<button class="navbar-toggler d-lg-none order-first me-1" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="text-body h6 d-none d-sm-inline-block">Meni</span>
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<!-- ON AIR — visible only when menu row is sticky (top bar scrolled away) -->
+				<div class="nav-item nav-onair-sticky">
+					<a class="nav-link px-1" href="/player.php" target="_blank" rel="noopener" data-radio-popup title="ON AIR" aria-label="ON AIR">
+						<img src="images/onair1.png" class="blink-image onair-sticky-img" alt="On Air">
+					</a>
+				</div>
+				<div class="nav-item dropdown dropdown-toggle-icon-none nav-search">
+					<a class="nav-link dropdown-toggle" role="button" href="#" id="navSearch" data-bs-toggle="dropdown" aria-expanded="false">
+						<i class="bi bi-search fs-4"> </i>
+					</a>
+					<div class="dropdown-menu dropdown-menu-end shadow rounded p-2" aria-labelledby="navSearch">
+						<form class="input-group" action="search.php" method="get">
+							<input class="form-control border-success" type="search" name="terms" placeholder="Upiši riječ za pretragu i pritisni enter" aria-label="Search">
+							<button class="btn btn-success m-0" type="submit">Search</button>
+						</form>
+					</div>
+				</div>
+				<div class="nav-item">
+					<a class="nav-link p-0" data-bs-toggle="offcanvas" href="#offcanvasMenu" role="button" aria-controls="offcanvasMenu">
+						<i class="bi bi-text-right rtl-flip fs-2" data-bs-target="#offcanvasMenu"> </i>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+<!--/ Header end -->
+	<!--/ Header end -->
+</header>
+<!-- =======================
+Header END -->
+
+<!-- **************** MAIN CONTENT START **************** -->
+<main>
+
+	
+	<!-- =======================
+	Hero START -->
+	<section class="pt-4 pb-0 card-grid">
+		<div class="container-xxl">
+			<div class="row g-4">
+
+				<!-- Left card -->
+				<div class="col-lg-6">
+										<div class="card card-overlay-bottom card-grid-lg card-bg-scale" style="background-image:url(portal/vijesti/1793879693labin-5-medunarodni-kulturno-povijesni-susreti-predstavljen-novi-zbornik.jpg); background-position:center; background-size:cover;">
+						<div class="card-img-overlay d-flex align-items-center p-3 p-sm-4">
+							<div class="w-100 mt-auto">
+								<a href="vijesti.php?id=10" class="badge text-bg-primary mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>Lokalne vijesti</a>
+								<h2 class="text-white h1 hero-slider-title">
+									<a href="/labin-domacin-5-medjunarodnih-kulturno-povijesnih-susreta-predstavljeno-i-novo-izdanje-znanstvenog-zbornika-34292" class="btn-link stretched-link text-reset">
+										Labin domaćin 5. Međunarodnih kulturno-povijesnih susreta: Predstavljeno i novo izdanje znanstvenog zbornika									</a>
+								</h2>
+								<span class="text-white small">05.11.2026.</span>
+							</div>
+						</div>
+					</div>
+									</div><!-- Col end -->
+
+				<!-- Right cards -->
+				<div class="col-lg-6">
+					<div class="row g-4">
+												<div class="col-md-6">
+							<div class="card card-overlay-bottom card-grid-sm card-bg-scale" style="background-image:url(portal/vijesti/1793882324vina-fuhtar-radionica-vaznost-odabira-case-za-vino.jpg); background-position:center; background-size:cover;">
+								<div class="card-img-overlay d-flex align-items-center p-3 p-sm-4">
+									<div class="w-100 mt-auto">
+										<a href="vijesti.php?id=10" class="badge text-bg-primary mb-2">Lokalne vijesti</a>
+										<h4 class="text-white">
+											<a href="/zasto-je-casa-vazna-u-kusaonici-vina-fuhtar-otkrili-kako-oblik-case-mijenja-dozivljaj-vina-34294" class="btn-link stretched-link text-reset">Zašto je čaša važna? U kušaonici Vina Fuhtar otkrili kako oblik čaše mijenja doživljaj vina</a>
+										</h4>
+									</div>
+								</div>
+							</div>
+						</div>
+												<div class="col-md-6">
+							<div class="card card-overlay-bottom card-grid-sm card-bg-scale" style="background-image:url(portal/vijesti/1793879244policija_nesreca.png); background-position:center; background-size:cover;">
+								<div class="card-img-overlay d-flex align-items-center p-3 p-sm-4">
+									<div class="w-100 mt-auto">
+										<a href="vijesti.php?id=10" class="badge text-bg-primary mb-2">Lokalne vijesti</a>
+										<h4 class="text-white">
+											<a href="/labin-vozac-45-vrijedjao-policajca-i-odbio-testiranje-na-alkohol-i-droge-prijeti-mu-kazna-od-5-320-eura-34291" class="btn-link stretched-link text-reset">Labin: Vozač (45) vrijeđao policajca i odbio testiranje na alkohol i droge, prijeti mu kazna od 5.320 eura</a>
+										</h4>
+									</div>
+								</div>
+							</div>
+						</div>
+												<div class="col-md-6">
+							<div class="card card-overlay-bottom card-grid-sm card-bg-scale" style="background-image:url(portal/vijesti/1793822857rukomet-handball.jpg); background-position:center; background-size:cover;">
+								<div class="card-img-overlay d-flex align-items-center p-3 p-sm-4">
+									<div class="w-100 mt-auto">
+										<a href="vijesti.php?id=10" class="badge text-bg-primary mb-2">Lokalne vijesti</a>
+										<h4 class="text-white">
+											<a href="/rukomet-labudice-na-domacem-parketu-porazene-od-bjelovara-slijedi-vazan-susret-s-osijekom-34290" class="btn-link stretched-link text-reset">Rukomet: Labudice na domaćem parketu poražene od Bjelovara, slijedi važan susret s Osijekom</a>
+										</h4>
+									</div>
+								</div>
+							</div>
+						</div>
+												<div class="col-md-6">
+							<div class="card card-overlay-bottom card-grid-sm card-bg-scale" style="background-image:url(portal/vijesti/1793818442prometna-nesreca-a6-prevrnuo-se-kamion-sa-stokom.jpg); background-position:center; background-size:cover;">
+								<div class="card-img-overlay d-flex align-items-center p-3 p-sm-4">
+									<div class="w-100 mt-auto">
+										<a href="vijesti.php?id=13" class="badge text-bg-success mb-2">Novosti</a>
+										<h4 class="text-white">
+											<a href="/teska-nesreca-na-a6-prevrnuo-se-kamion-sa-stokom-promet-izmedju-delnica-i-rijeke-satima-bio-zatvoren-34289" class="btn-link stretched-link text-reset">Teška nesreća na A6: Prevrnuo se kamion sa stokom, promet između Delnica i Rijeke satima bio zatvoren</a>
+										</h4>
+									</div>
+								</div>
+							</div>
+						</div>
+											</div><!-- Row end -->
+				</div><!-- Col end -->
+
+			</div><!-- Row end -->
+		</div><!-- Container end -->
+	</section>
+	<!-- =======================
+	Hero END -->
+
+	
+	<!-- =======================
+Live Streaming START -->
+<section class="live-streaming py-4">
+	<div class="container-xxl">
+		<div class="live-streaming-panel position-relative overflow-hidden rounded-3" data-live-root data-live-context="page">
+	<!-- Background -->
+	<div class="live-streaming-bg" aria-hidden="true">
+		<canvas class="live-streaming-canvas" data-live="canvas"></canvas>
+		<!--
+		<video class="live-streaming-video" autoplay muted loop playsinline>
+			<source src="..." type="video/mp4">
+		</video>
+		-->
+	</div>
+
+	<div class="live-streaming-content position-relative">
+		<div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+			<span class="badge bg-danger live-streaming-badge px-3 py-2">
+				<span class="live-streaming-dot"></span> LIVE
+			</span>
+							<h2 class="h4 mb-0 text-white">Slušaj uživo</h2>
+						<span class="text-white-50 small ms-sm-auto">91.0 | 93.2 | 95.0 | 99.7 MHz</span>
+		</div>
+
+		<div class="row g-3 align-items-center">
+			<div class="col-lg-7">
+				<div class="d-flex align-items-center gap-3 live-now-playing">
+					<div class="live-cover flex-shrink-0">
+						<img src="" alt="" class="live-cover-img d-none" data-live="cover" width="88" height="88">
+						<div class="live-cover-fallback d-flex align-items-center justify-content-center" data-live="cover-fallback">
+							<i class="bi bi-music-note-beamed"></i>
+						</div>
+					</div>
+					<div class="min-w-0">
+						<div class="text-white-50 small text-uppercase mb-1">Now playing</div>
+						<div class="h5 text-white mb-1 text-truncate" data-live="title">Učitavanje…</div>
+						<div class="text-white-50 text-truncate" data-live="artist"> </div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-5">
+				<div class="d-flex flex-wrap align-items-center justify-content-lg-end gap-2">
+					<button type="button" class="btn btn-danger btn-lg rounded-circle live-play-btn" data-live="play" aria-label="Play">
+						<i class="bi bi-play-fill" data-live="play-icon"></i>
+					</button>
+
+					<div class="d-flex align-items-center gap-2 live-volume">
+						<i class="bi bi-volume-down-fill text-white"></i>
+						<input type="range" class="form-range live-volume-range" data-live="volume" min="0" max="1" step="0.05" value="0.85" aria-label="Volume">
+					</div>
+
+										<button type="button" class="btn btn-outline-light" data-live="history">
+						<i class="bi bi-clock-history me-1"></i> Zadnje odsvirano
+					</button>
+									</div>
+							</div>
+		</div>
+	</div>
+</div>
+	</div>
+</section>
+<!-- =======================
+Live Streaming END -->
+	<!--/ Live Streaming end -->
+
+	<!-- =======================
+Instagram Reels START -->
+<section class="instagram-reels-section pt-4 pb-0">
+	<div class="container-xxl">
+		<div class="mb-4">
+			<h2 class="m-0"><i class="fab fa-instagram me-2"></i>Instagram Reels</h2>
+			<p class="m-0 text-body-secondary">Najnoviji video sadržaj s našeg Instagrama</p>
+		</div>
+		<div class="row g-4">
+						<div class="col-6 col-md-3">
+				<div class="card instagram-reel-card h-100 border-0 bg-transparent">
+					<div class="position-relative overflow-hidden rounded">
+						<img class="card-img instagram-reel-thumb" src="portal/instagram_reels/1793800899img-178b0a3424ddb5571c732f0a596b0101-v.jpg" alt="DANI HURINA - Nagrade Radiju Labin" style="width: 100%;aspect-ratio: 4 / 6;height: auto;object-fit: cover;object-position: center;">
+						<div class="card-img-overlay d-flex align-items-start flex-column p-3">
+							<div class="w-100 mt-auto">
+								<span class="badge text-bg-dark mb-0"><i class="fab fa-instagram me-1"></i>Reel</span>
+							</div>
+						</div>
+					</div>
+					<div class="card-body px-0 pt-3">
+						<h5 class="card-title mb-0">
+							<a class="btn-link stretched-link text-reset fw-bold" href="#" role="button" data-bs-toggle="modal" data-bs-target="#instagramReelModal" data-reel-permalink="https://www.instagram.com/reel/DfSsUb6joSH/?utm_source=ig_web_button_share_sheet&amp;dlrf=MzRlODBiNWFlZA==" data-reel-title="DANI HURINA - Nagrade Radiju Labin" title="DANI HURINA - Nagrade Radiju Labin">DANI HURINA - Nagrade Radiju Labin</a>
+						</h5>
+					</div>
+				</div>
+			</div>
+						<div class="col-6 col-md-3">
+				<div class="card instagram-reel-card h-100 border-0 bg-transparent">
+					<div class="position-relative overflow-hidden rounded">
+						<img class="card-img instagram-reel-thumb" src="portal/instagram_reels/1792685465img_4810.jpg" alt="RETROMANIA by Dogma nekretnine" style="width: 100%;aspect-ratio: 4 / 6;height: auto;object-fit: cover;object-position: center;">
+						<div class="card-img-overlay d-flex align-items-start flex-column p-3">
+							<div class="w-100 mt-auto">
+								<span class="badge text-bg-dark mb-0"><i class="fab fa-instagram me-1"></i>Reel</span>
+							</div>
+						</div>
+					</div>
+					<div class="card-body px-0 pt-3">
+						<h5 class="card-title mb-0">
+							<a class="btn-link stretched-link text-reset fw-bold" href="#" role="button" data-bs-toggle="modal" data-bs-target="#instagramReelModal" data-reel-permalink="https://www.instagram.com/reel/DezXuMlFOtC/?xtok=MzRlODBiNWFlZA==&amp;srtk=MzRlODBiNWFlZA==" data-reel-title="RETROMANIA by Dogma nekretnine" title="RETROMANIA by Dogma nekretnine">RETROMANIA by Dogma nekretnine</a>
+						</h5>
+					</div>
+				</div>
+			</div>
+						<div class="col-6 col-md-3">
+				<div class="card instagram-reel-card h-100 border-0 bg-transparent">
+					<div class="position-relative overflow-hidden rounded">
+						<img class="card-img instagram-reel-thumb" src="portal/instagram_reels/1791980258img_4476.jpg" alt="Predaja peticije protiv projekta „KOdeCO net zero“" style="width: 100%;aspect-ratio: 4 / 6;height: auto;object-fit: cover;object-position: center;">
+						<div class="card-img-overlay d-flex align-items-start flex-column p-3">
+							<div class="w-100 mt-auto">
+								<span class="badge text-bg-dark mb-0"><i class="fab fa-instagram me-1"></i>Reel</span>
+							</div>
+						</div>
+					</div>
+					<div class="card-body px-0 pt-3">
+						<h5 class="card-title mb-0">
+							<a class="btn-link stretched-link text-reset fw-bold" href="#" role="button" data-bs-toggle="modal" data-bs-target="#instagramReelModal" data-reel-permalink="https://www.instagram.com/reel/DeeEAEAjzJl/?xtok=MzRlODBiNWFlZA==&amp;srtk=MzRlODBiNWFlZA==" data-reel-title="Predaja peticije protiv projekta „KOdeCO net zero“" title="Predaja peticije protiv projekta „KOdeCO net zero“">Predaja peticije protiv projekta „KOdeCO net zero“</a>
+						</h5>
+					</div>
+				</div>
+			</div>
+						<div class="col-6 col-md-3">
+				<div class="card instagram-reel-card h-100 border-0 bg-transparent">
+					<div class="position-relative overflow-hidden rounded">
+						<img class="card-img instagram-reel-thumb" src="portal/instagram_reels/1791376738img_4251.jpg" alt="[PROMO] La Tavernetta di Draga" style="width: 100%;aspect-ratio: 4 / 6;height: auto;object-fit: cover;object-position: center;">
+						<div class="card-img-overlay d-flex align-items-start flex-column p-3">
+							<div class="w-100 mt-auto">
+								<span class="badge text-bg-dark mb-0"><i class="fab fa-instagram me-1"></i>Reel</span>
+							</div>
+						</div>
+					</div>
+					<div class="card-body px-0 pt-3">
+						<h5 class="card-title mb-0">
+							<a class="btn-link stretched-link text-reset fw-bold" href="#" role="button" data-bs-toggle="modal" data-bs-target="#instagramReelModal" data-reel-permalink="https://www.instagram.com/reel/DeMMeRCjwaC/?utm_source=ig_web_copy_link&amp;stkn=MzRlODBiNWFlZA==" data-reel-title="[PROMO] La Tavernetta di Draga" title="[PROMO] La Tavernetta di Draga">[PROMO] La Tavernetta di Draga</a>
+						</h5>
+					</div>
+				</div>
+			</div>
+					</div>
+	</div>
+</section>
+<!-- =======================
+Instagram Reels END -->
+	<!--/ Instagram Reels end -->
+
+	<!-- =======================
+	Main content START -->
+	<section class="pt-5">
+		<div class="container-xxl">
+			<div class="row g-4">
+
+				<!-- Glavna kolona sadrÅ¾aja -->
+				<div class="col-lg-9">
+
+					<!-- LOKALNE VIJESTI (kat=10) -->
+					<h3 class="mb-4">Lokalne vijesti</h3>
+					<div class="row g-4 mb-4">
+												<div class="col-md-6">
+							<div class="card">
+								<div class="position-relative">
+									<img class="card-img" src="portal/vijesti/1793884480boris-miletic-o-cementari-koromacno-i-projektu-kodeco-net-zero.jpg" alt="Boris Miletić o cementari u Koromačnu: „Ako lokalna zajednica ne želi projekt KOdeCO Net Zero, ne podržavam ga ni ja”" >
+								</div>
+								<div class="card-body px-0 pt-3">
+									<a href="vijesti.php?id=10" class="badge text-bg-primary mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>Lokalne vijesti</a>
+									<h4 class="card-title">
+										<a href="/boris-miletic-o-cementari-u-koromacnu-ako-lokalna-zajednica-ne-zeli-projekt-kodeco-net-zero-ne-podrzavam-ga-ni-ja-34295" class="btn-link text-reset fw-bold">Boris Miletić o cementari u Koromačnu: „Ako lokalna zajednica ne želi projekt KOdeCO Net Zero, ne podržavam ga ni ja”</a>
+									</h4>
+									<div class="small text-body-secondary mt-2">05.11.2026.</div>
+								</div>
+							</div>
+						</div>
+												<div class="col-md-6">
+							<div class="card">
+								<div class="position-relative">
+									<img class="card-img" src="portal/vijesti/1793882324vina-fuhtar-radionica-vaznost-odabira-case-za-vino.jpg" alt="Zašto je čaša važna? U kušaonici Vina Fuhtar otkrili kako oblik čaše mijenja doživljaj vina" >
+								</div>
+								<div class="card-body px-0 pt-3">
+									<a href="vijesti.php?id=10" class="badge text-bg-primary mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>Lokalne vijesti</a>
+									<h4 class="card-title">
+										<a href="/zasto-je-casa-vazna-u-kusaonici-vina-fuhtar-otkrili-kako-oblik-case-mijenja-dozivljaj-vina-34294" class="btn-link text-reset fw-bold">Zašto je čaša važna? U kušaonici Vina Fuhtar otkrili kako oblik čaše mijenja doživljaj vina</a>
+									</h4>
+									<div class="small text-body-secondary mt-2">05.11.2026.</div>
+								</div>
+							</div>
+						</div>
+												<div class="col-md-6">
+							<div class="card">
+								<div class="position-relative">
+									<img class="card-img" src="portal/vijesti/1793879693labin-5-medunarodni-kulturno-povijesni-susreti-predstavljen-novi-zbornik.jpg" alt="Labin domaćin 5. Međunarodnih kulturno-povijesnih susreta: Predstavljeno i novo izdanje znanstvenog zbornika" >
+								</div>
+								<div class="card-body px-0 pt-3">
+									<a href="vijesti.php?id=10" class="badge text-bg-primary mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>Lokalne vijesti</a>
+									<h4 class="card-title">
+										<a href="/labin-domacin-5-medjunarodnih-kulturno-povijesnih-susreta-predstavljeno-i-novo-izdanje-znanstvenog-zbornika-34292" class="btn-link text-reset fw-bold">Labin domaćin 5. Međunarodnih kulturno-povijesnih susreta: Predstavljeno i novo izdanje znanstvenog zbornika</a>
+									</h4>
+									<div class="small text-body-secondary mt-2">05.11.2026.</div>
+								</div>
+							</div>
+						</div>
+												<div class="col-md-6">
+							<div class="card">
+								<div class="position-relative">
+									<img class="card-img" src="portal/vijesti/1793879244policija_nesreca.png" alt="Labin: Vozač (45) vrijeđao policajca i odbio testiranje na alkohol i droge, prijeti mu kazna od 5.320 eura" >
+								</div>
+								<div class="card-body px-0 pt-3">
+									<a href="vijesti.php?id=10" class="badge text-bg-primary mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>Lokalne vijesti</a>
+									<h4 class="card-title">
+										<a href="/labin-vozac-45-vrijedjao-policajca-i-odbio-testiranje-na-alkohol-i-droge-prijeti-mu-kazna-od-5-320-eura-34291" class="btn-link text-reset fw-bold">Labin: Vozač (45) vrijeđao policajca i odbio testiranje na alkohol i droge, prijeti mu kazna od 5.320 eura</a>
+									</h4>
+									<div class="small text-body-secondary mt-2">05.11.2026.</div>
+								</div>
+							</div>
+						</div>
+												<div class="col-md-6">
+							<div class="card">
+								<div class="position-relative">
+									<img class="card-img" src="portal/vijesti/1793822857rukomet-handball.jpg" alt="Rukomet: Labudice na domaćem parketu poražene od Bjelovara, slijedi važan susret s Osijekom" >
+								</div>
+								<div class="card-body px-0 pt-3">
+									<a href="vijesti.php?id=10" class="badge text-bg-primary mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>Lokalne vijesti</a>
+									<h4 class="card-title">
+										<a href="/rukomet-labudice-na-domacem-parketu-porazene-od-bjelovara-slijedi-vazan-susret-s-osijekom-34290" class="btn-link text-reset fw-bold">Rukomet: Labudice na domaćem parketu poražene od Bjelovara, slijedi važan susret s Osijekom</a>
+									</h4>
+									<div class="small text-body-secondary mt-2">04.11.2026.</div>
+								</div>
+							</div>
+						</div>
+												<div class="col-md-6">
+							<div class="card">
+								<div class="position-relative">
+									<img class="card-img" src="portal/vijesti/1793800324labinski-kulturno-povijesni-susreti-5-skup.jpg" alt="Labinski kulturno-povijesni susreti: sutra jubilarni 5. skup" >
+								</div>
+								<div class="card-body px-0 pt-3">
+									<a href="vijesti.php?id=10" class="badge text-bg-primary mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>Lokalne vijesti</a>
+									<h4 class="card-title">
+										<a href="/labinski-kulturno-povijesni-susreti-sutra-jubilarni-5-skup-34288" class="btn-link text-reset fw-bold">Labinski kulturno-povijesni susreti: sutra jubilarni 5. skup</a>
+									</h4>
+									<div class="small text-body-secondary mt-2">04.11.2026.</div>
+								</div>
+							</div>
+						</div>
+												<div class="col-md-6">
+							<div class="card">
+								<div class="position-relative">
+									<img class="card-img" src="portal/vijesti/1793800159putovanje-kavkazom-jana-previc-finderle.jpg" alt="Putovanje Kavkazom: predavanje Jane Prević Finderle u Labinu" >
+								</div>
+								<div class="card-body px-0 pt-3">
+									<a href="vijesti.php?id=10" class="badge text-bg-primary mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>Lokalne vijesti</a>
+									<h4 class="card-title">
+										<a href="/putovanje-kavkazom-predavanje-jane-previc-finderle-u-labinu-34287" class="btn-link text-reset fw-bold">Putovanje Kavkazom: predavanje Jane Prević Finderle u Labinu</a>
+									</h4>
+									<div class="small text-body-secondary mt-2">04.11.2026.</div>
+								</div>
+							</div>
+						</div>
+												<div class="col-md-6">
+							<div class="card">
+								<div class="position-relative">
+									<img class="card-img" src="portal/vijesti/1793799694revitalizacija-pinete-arheolosko-nalaziste.jpg" alt="Revitalizacija Pinete: pitanje arheološkog nalazišta" >
+								</div>
+								<div class="card-body px-0 pt-3">
+									<a href="vijesti.php?id=10" class="badge text-bg-primary mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>Lokalne vijesti</a>
+									<h4 class="card-title">
+										<a href="/revitalizacija-pinete-pitanje-arheoloskog-nalazista-34286" class="btn-link text-reset fw-bold">Revitalizacija Pinete: pitanje arheološkog nalazišta</a>
+									</h4>
+									<div class="small text-body-secondary mt-2">04.11.2026.</div>
+								</div>
+							</div>
+						</div>
+											</div><!-- LOKALNE VIJESTI end -->
+
+
+                    <!-- Banner -->
+                    <div class="row mb-5">
+                        <div class="col-12">
+                                                            <div class="click-trigger text-center" data-click-id="47" style="padding:4px;" onClick="onClick(this)">
+                                    <a href="https://www.radiolabin.hr/stranice.php?id=12"><img src="https://radiolabin.hr/portal/source/Banneri/trznica_oglasi.gif" alt="" width="100%" /></a>                                </div>
+                                                    </div>
+                    </div><!-- Banner end -->
+
+
+                    <!-- NOVOSTI (kat=13) -->
+					<h3 class="mb-4">Novosti</h3>
+					<div class="row g-4 mb-5">
+												<div class="col-md-4">
+							<div class="card">
+								<div class="position-relative">
+									<img class="card-img" src="portal/vijesti/1793881227trazi_posao_radio_labin_velika.jpg" alt="Slobodna radna mjesta u Istri">
+								</div>
+								<div class="card-body px-0 pt-3">
+									<a href="vijesti.php?id=13" class="badge text-bg-success mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>Novosti</a>
+									<h5 class="card-title">
+										<span class="small text-body-secondary fw-normal">05.11. 2026. | </span>
+										<a href="/slobodna-radna-mjesta-u-istri-34293" class="btn-link text-reset fw-bold">Slobodna radna mjesta u Istri</a>
+									</h5>
+								</div>
+							</div>
+						</div>
+												<div class="col-md-4">
+							<div class="card">
+								<div class="position-relative">
+									<img class="card-img" src="portal/vijesti/1793818442prometna-nesreca-a6-prevrnuo-se-kamion-sa-stokom.jpg" alt="Teška nesreća na A6: Prevrnuo se kamion sa stokom, promet između Delnica i Rijeke satima bio zatvoren">
+								</div>
+								<div class="card-body px-0 pt-3">
+									<a href="vijesti.php?id=13" class="badge text-bg-success mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>Novosti</a>
+									<h5 class="card-title">
+										<span class="small text-body-secondary fw-normal">04.11. 2026. | </span>
+										<a href="/teska-nesreca-na-a6-prevrnuo-se-kamion-sa-stokom-promet-izmedju-delnica-i-rijeke-satima-bio-zatvoren-34289" class="btn-link text-reset fw-bold">Teška nesreća na A6: Prevrnuo se kamion sa stokom, promet između Delnica i Rijeke satima bio zatvoren</a>
+									</h5>
+								</div>
+							</div>
+						</div>
+												<div class="col-md-4">
+							<div class="card">
+								<div class="position-relative">
+									<img class="card-img" src="portal/vijesti/1793651683dreamstime_m_146725301.jpg" alt="Kada je dovoljan nadmadrac ili zaštita, a kada je vrijeme za novi madrac">
+								</div>
+								<div class="card-body px-0 pt-3">
+									<a href="vijesti.php?id=13" class="badge text-bg-success mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>Novosti</a>
+									<h5 class="card-title">
+										<span class="small text-body-secondary fw-normal">02.11. 2026. | </span>
+										<a href="/kada-je-dovoljan-nadmadrac-ili-zastita-a-kada-je-vrijeme-za-novi-madrac-34275" class="btn-link text-reset fw-bold">Kada je dovoljan nadmadrac ili zaštita, a kada je vrijeme za novi madrac</a>
+									</h5>
+								</div>
+							</div>
+						</div>
+												<div class="col-md-4">
+							<div class="card">
+								<div class="position-relative">
+									<img class="card-img" src="portal/vijesti/1793402635dani-otvorenih-vrata-agroturizama-istre-2026.jpg" alt="Dani otvorenih vrata agroturizama Istre: U studenome kušajte domaće specijalitete po promotivnoj cijeni">
+								</div>
+								<div class="card-body px-0 pt-3">
+									<a href="vijesti.php?id=13" class="badge text-bg-success mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>Novosti</a>
+									<h5 class="card-title">
+										<span class="small text-body-secondary fw-normal">31.10. 2026. | </span>
+										<a href="/dani-otvorenih-vrata-agroturizama-istre-u-studenome-kusajte-domace-specijalitete-po-promotivnoj-cijeni-34267" class="btn-link text-reset fw-bold">Dani otvorenih vrata agroturizama Istre: U studenome kušajte domaće specijalitete po promotivnoj cijeni</a>
+									</h5>
+								</div>
+							</div>
+						</div>
+												<div class="col-md-4">
+							<div class="card">
+								<div class="position-relative">
+									<img class="card-img" src="portal/vijesti/1793354950od-1-studenoga-obvezna-voznja-s-upaljenim-svjetlima.jpg" alt="Od 1. studenoga obvezna vožnja s upaljenim svjetlima: Kazna za prekršitelje iznosi 30 eura">
+								</div>
+								<div class="card-body px-0 pt-3">
+									<a href="vijesti.php?id=13" class="badge text-bg-success mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>Novosti</a>
+									<h5 class="card-title">
+										<span class="small text-body-secondary fw-normal">30.10. 2026. | </span>
+										<a href="/od-1-studenoga-obvezna-voznja-s-upaljenim-svjetlima-kazna-za-prekrsitelje-iznosi-30-eura-34258" class="btn-link text-reset fw-bold">Od 1. studenoga obvezna vožnja s upaljenim svjetlima: Kazna za prekršitelje iznosi 30 eura</a>
+									</h5>
+								</div>
+							</div>
+						</div>
+												<div class="col-md-4">
+							<div class="card">
+								<div class="position-relative">
+									<img class="card-img" src="portal/vijesti/1793283015valamar-poslovni-rezultati-pical-resort-2026.jpg" alt="Valamar očekuje više od 524 milijuna eura prihoda u 2026. godini">
+								</div>
+								<div class="card-body px-0 pt-3">
+									<a href="vijesti.php?id=13" class="badge text-bg-success mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>Novosti</a>
+									<h5 class="card-title">
+										<span class="small text-body-secondary fw-normal">29.10. 2026. | </span>
+										<a href="/valamar-ocekuje-vise-od-524-milijuna-eura-prihoda-u-2026-godini-34254" class="btn-link text-reset fw-bold">Valamar očekuje više od 524 milijuna eura prihoda u 2026. godini</a>
+									</h5>
+								</div>
+							</div>
+						</div>
+												<div class="col-md-4">
+							<div class="card">
+								<div class="position-relative">
+									<img class="card-img" src="portal/vijesti/1793269345trazi_posao_radio_labin_velika.jpg" alt="Slobodna radna mjesta u Istri">
+								</div>
+								<div class="card-body px-0 pt-3">
+									<a href="vijesti.php?id=13" class="badge text-bg-success mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>Novosti</a>
+									<h5 class="card-title">
+										<span class="small text-body-secondary fw-normal">29.10. 2026. | </span>
+										<a href="/slobodna-radna-mjesta-u-istri-34248" class="btn-link text-reset fw-bold">Slobodna radna mjesta u Istri</a>
+									</h5>
+								</div>
+							</div>
+						</div>
+												<div class="col-md-4">
+							<div class="card">
+								<div class="position-relative">
+									<img class="card-img" src="portal/vijesti/1793194638cesta_radovi_1.png" alt="Zatvara se dio državne ceste DC66 kroz Marčanu: radovi traju do srpnja 2027.">
+								</div>
+								<div class="card-body px-0 pt-3">
+									<a href="vijesti.php?id=13" class="badge text-bg-success mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>Novosti</a>
+									<h5 class="card-title">
+										<span class="small text-body-secondary fw-normal">28.10. 2026. | </span>
+										<a href="/zatvara-se-dio-drzavne-ceste-dc66-kroz-marcanu-radovi-traju-do-srpnja-2027-34242" class="btn-link text-reset fw-bold">Zatvara se dio državne ceste DC66 kroz Marčanu: radovi traju do srpnja 2027.</a>
+									</h5>
+								</div>
+							</div>
+						</div>
+												<div class="col-md-4">
+							<div class="card">
+								<div class="position-relative">
+									<img class="card-img" src="portal/vijesti/1793115677valamarovi-kampovi-medju-najboljima-u-hrvatskoj-2027.jpg" alt="Valamarovi kampovi među najboljima u Hrvatskoj: čak 11 kampova osvojilo priznanja">
+								</div>
+								<div class="card-body px-0 pt-3">
+									<a href="vijesti.php?id=13" class="badge text-bg-success mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>Novosti</a>
+									<h5 class="card-title">
+										<span class="small text-body-secondary fw-normal">27.10. 2026. | </span>
+										<a href="/valamarovi-kampovi-medju-najboljima-u-hrvatskoj-cak-11-kampova-osvojilo-priznanja-34233" class="btn-link text-reset fw-bold">Valamarovi kampovi među najboljima u Hrvatskoj: čak 11 kampova osvojilo priznanja</a>
+									</h5>
+								</div>
+							</div>
+						</div>
+											</div><!-- NOVOSTI end -->
+
+
+					<!-- SCENA (kat=7) — Sponsored news + tiny-slider -->
+					<div class="mb-4">
+						<h3 class="m-0">Scena</h3>
+					</div>
+					<div class="tiny-slider arrow-hover arrow-blur arrow-dark arrow-round">
+						<div class="tiny-slider-inner"
+							data-autoplay="false"
+							data-gutter="24"
+							data-arrow="true"
+							data-dots="false"
+							data-items-xl="3"
+							data-items-lg="3"
+							data-items-md="2"
+							data-items-sm="2"
+							data-items-xs="1">
+														<div class="card">
+								<div class="position-relative">
+									<img class="card-img" src="portal/vijesti/1793620287otvoren-natjecaj-za-mik-2027-nagrada-andreja-base.jpeg" alt="Otvoren natječaj za MIK 2027.: Melodije Istre i Kvarnera traže nove skladbe, uvodi se i nagrada u čast Andreja Baše">
+									<div class="card-img-overlay d-flex align-items-start flex-column p-3">
+										<div class="w-100 mt-auto">
+											<a href="vijesti.php?id=7" class="badge text-bg-pink mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>Scena</a>
+										</div>
+									</div>
+								</div>
+								<div class="card-body px-0 pt-3">
+									<h5 class="card-title">
+										<a href="/otvoren-natjecaj-za-mik-2027-melodije-istre-i-kvarnera-traze-nove-skladbe-uvodi-se-i-nagrada-u-cast-andreja-base-34272" class="btn-link text-reset fw-bold">Otvoren natječaj za MIK 2027.: Melodije Istre i Kvarnera traže nove skladbe, uvodi se i nagrada u čast Andreja Baše</a>
+									</h5>
+									<ul class="nav nav-divider align-items-center">
+										<li class="nav-item">02.11.2026.</li>
+									</ul>
+								</div>
+							</div>
+														<div class="card">
+								<div class="position-relative">
+									<img class="card-img" src="portal/vijesti/1793614199queens-of-the-stone-age-koncert-pulska-arena-2027.jpg" alt="Queens of the Stone Age stižu u pulsku Arenu! Veliki rock spektakl najavljen za lipanj 2027.">
+									<div class="card-img-overlay d-flex align-items-start flex-column p-3">
+										<div class="w-100 mt-auto">
+											<a href="vijesti.php?id=7" class="badge text-bg-pink mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>Scena</a>
+										</div>
+									</div>
+								</div>
+								<div class="card-body px-0 pt-3">
+									<h5 class="card-title">
+										<a href="/queens-of-the-stone-age-stizu-u-pulsku-arenu-veliki-rock-spektakl-najavljen-za-lipanj-2027-34271" class="btn-link text-reset fw-bold">Queens of the Stone Age stižu u pulsku Arenu! Veliki rock spektakl najavljen za lipanj 2027.</a>
+									</h5>
+									<ul class="nav nav-divider align-items-center">
+										<li class="nav-item">02.11.2026.</li>
+									</ul>
+								</div>
+							</div>
+														<div class="card">
+								<div class="position-relative">
+									<img class="card-img" src="portal/vijesti/1793370660elis-lovric-new-york-labinjonska-cakavica-je-ca-je.jpeg" alt="Elis Lovrić osvojila New York labinjonskom cakavicom: U američkom glazbenom klubu publika zapjevala „Je ča je“">
+									<div class="card-img-overlay d-flex align-items-start flex-column p-3">
+										<div class="w-100 mt-auto">
+											<a href="vijesti.php?id=7" class="badge text-bg-pink mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>Scena</a>
+										</div>
+									</div>
+								</div>
+								<div class="card-body px-0 pt-3">
+									<h5 class="card-title">
+										<a href="/elis-lovric-osvojila-new-york-labinjonskom-cakavicom-u-americkom-glazbenom-klubu-publika-zapjevala-je-ca-je-34265" class="btn-link text-reset fw-bold">Elis Lovrić osvojila New York labinjonskom cakavicom: U američkom glazbenom klubu publika zapjevala „Je ča je“</a>
+									</h5>
+									<ul class="nav nav-divider align-items-center">
+										<li class="nav-item">30.10.2026.</li>
+									</ul>
+								</div>
+							</div>
+														<div class="card">
+								<div class="position-relative">
+									<img class="card-img" src="portal/vijesti/1792873616john-legend-objavio-album-muse-pharrell-williams.jpg" alt="John Legend objavio album Muse koji produkcijski potpisuje Pharrell Williams">
+									<div class="card-img-overlay d-flex align-items-start flex-column p-3">
+										<div class="w-100 mt-auto">
+											<a href="vijesti.php?id=7" class="badge text-bg-pink mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>Scena</a>
+										</div>
+									</div>
+								</div>
+								<div class="card-body px-0 pt-3">
+									<h5 class="card-title">
+										<a href="/john-legend-objavio-album-muse-koji-produkcijski-potpisuje-pharrell-williams-34218" class="btn-link text-reset fw-bold">John Legend objavio album Muse koji produkcijski potpisuje Pharrell Williams</a>
+									</h5>
+									<ul class="nav nav-divider align-items-center">
+										<li class="nav-item">24.10.2026.</li>
+									</ul>
+								</div>
+							</div>
+														<div class="card">
+								<div class="position-relative">
+									<img class="card-img" src="portal/vijesti/1792757851lost-frequencies-arena-95-posto-karata-prodano-u-inozemstvu.jpg" alt="Lost Frequencies u Areni: 95 % od kupljenih karata prodano u inozemstvu">
+									<div class="card-img-overlay d-flex align-items-start flex-column p-3">
+										<div class="w-100 mt-auto">
+											<a href="vijesti.php?id=7" class="badge text-bg-pink mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>Scena</a>
+										</div>
+									</div>
+								</div>
+								<div class="card-body px-0 pt-3">
+									<h5 class="card-title">
+										<a href="/lost-frequencies-u-areni-95-od-kupljenih-karata-prodano-u-inozemstvu-34210" class="btn-link text-reset fw-bold">Lost Frequencies u Areni: 95 % od kupljenih karata prodano u inozemstvu</a>
+									</h5>
+									<ul class="nav nav-divider align-items-center">
+										<li class="nav-item">23.10.2026.</li>
+									</ul>
+								</div>
+							</div>
+														<div class="card">
+								<div class="position-relative">
+									<img class="card-img" src="portal/vijesti/1792588291yb_mmsu.jpg" alt="Bijenale mladih: izložba u riječkom MMSU-u od 22. listopada">
+									<div class="card-img-overlay d-flex align-items-start flex-column p-3">
+										<div class="w-100 mt-auto">
+											<a href="vijesti.php?id=7" class="badge text-bg-pink mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>Scena</a>
+										</div>
+									</div>
+								</div>
+								<div class="card-body px-0 pt-3">
+									<h5 class="card-title">
+										<a href="/bijenale-mladih-izlozba-u-rijeckom-mmsu-u-od-22-listopada-34187" class="btn-link text-reset fw-bold">Bijenale mladih: izložba u riječkom MMSU-u od 22. listopada</a>
+									</h5>
+									<ul class="nav nav-divider align-items-center">
+										<li class="nav-item">21.10.2026.</li>
+									</ul>
+								</div>
+							</div>
+														<div class="card">
+								<div class="position-relative">
+									<img class="card-img" src="portal/vijesti/1792526755night-express-obrada-pamtim-samo-sretne-dane.jpg" alt="Night Express obradio hit „Pamtim samo sretne dane”">
+									<div class="card-img-overlay d-flex align-items-start flex-column p-3">
+										<div class="w-100 mt-auto">
+											<a href="vijesti.php?id=7" class="badge text-bg-pink mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>Scena</a>
+										</div>
+									</div>
+								</div>
+								<div class="card-body px-0 pt-3">
+									<h5 class="card-title">
+										<a href="/night-express-obradio-hit-pamtim-samo-sretne-dane-34178" class="btn-link text-reset fw-bold">Night Express obradio hit „Pamtim samo sretne dane”</a>
+									</h5>
+									<ul class="nav nav-divider align-items-center">
+										<li class="nav-item">20.10.2026.</li>
+									</ul>
+								</div>
+							</div>
+														<div class="card">
+								<div class="position-relative">
+									<img class="card-img" src="portal/vijesti/1791994139bruno-krajcar-ricardo-luque-roza-rosa-latino-ritam.png" alt="„Roža” dobila novo ruho: Bruno Krajcar i Ricardo Luque spojili Istru i Kubu">
+									<div class="card-img-overlay d-flex align-items-start flex-column p-3">
+										<div class="w-100 mt-auto">
+											<a href="vijesti.php?id=7" class="badge text-bg-pink mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>Scena</a>
+										</div>
+									</div>
+								</div>
+								<div class="card-body px-0 pt-3">
+									<h5 class="card-title">
+										<a href="/roza-dobila-novo-ruho-bruno-krajcar-i-ricardo-luque-spojili-istru-i-kubu-34145" class="btn-link text-reset fw-bold">„Roža” dobila novo ruho: Bruno Krajcar i Ricardo Luque spojili Istru i Kubu</a>
+									</h5>
+									<ul class="nav nav-divider align-items-center">
+										<li class="nav-item">14.10.2026.</li>
+									</ul>
+								</div>
+							</div>
+													</div>
+					</div><!-- SCENA end -->
+
+				</div><!-- Glavna kolona end -->
+
+				<!-- Sidebar -->
+				<div class="col-lg-3">
+					<div data-sticky data-margin-top="80" data-sticky-for="991">
+						<!-- Social widget START -->
+<div class="row g-2">
+			<div class="col-3">
+			<a href="https://www.facebook.com/RadioLabin" target="_blank" title="Facebook" class="bg-facebook rounded text-center text-white-force d-block" style="padding: 10px 0">
+				<i class="fab fa-facebook-square fs-5 mb-2"></i>
+				<span class="small d-block">Facebook</span>
+			</a>
+		</div>
+					<div class="col-3">
+			<a href="https://www.instagram.com/radio_labin/   " target="_blank" title="Instagram" class="bg-instagram-gradient rounded text-center text-white-force d-block" style="padding: 10px 0">
+				<i class="fab fa-instagram fs-5 mb-2"></i>
+				<span class="small d-block">Instagram</span>
+			</a>
+		</div>
+				<div class="col-3">
+			<a href="https://www.mixcloud.com/RadioLabin/" target="_blank" title="Mixcloud" class="bg-dark rounded text-center text-white-force  d-block" style="padding: 10px 0">
+				<i class="fab fa-mixcloud fs-5 mb-2"></i>
+				<span class="small d-block">Mixcloud</span>
+			</a>
+		</div>
+				<div class="col-3">
+			<a href="https://www.youtube.com/channel/UCRjWkOGn7mlolFsb5JIEpFQ/videos" target="_blank" title="Youtube" class="bg-youtube rounded text-center text-white-force  d-block" style="padding: 10px 0">
+				<i class="fab fa-youtube-square fs-5 mb-2"></i>
+				<span class="small d-block">Youtube</span>
+			</a>
+		</div>
+		</div>
+<!-- Social widget END -->
+
+<!-- Servisne informacije START -->
+<div>
+	<h4 class="mt-4 mb-3">Servisne informacije</h4>
+			<div class="card mb-3 servisna-card">
+			<button class="btn btn-link text-decoration-none text-body w-100 d-flex align-items-center justify-content-between p-3 collapsed servisna-toggle bg-body-tertiary" type="button" data-bs-toggle="collapse" data-bs-target="#servisna-2" aria-expanded="false" aria-controls="servisna-2">
+				<span class="h6 mb-0">HEP</span>
+				<span class="servisna-toggle-icons ms-2 d-inline-flex align-items-center justify-content-center bg-primary bg-opacity-10 text-primary rounded-circle" aria-hidden="true">
+					<i class="bi bi-plus fs-5 icon-plus"></i>
+					<i class="bi bi-dash fs-5 icon-minus"></i>
+				</span>
+			</button>
+			<div class="collapse" id="servisna-2">
+				<div class="px-3 pb-3">
+					<p class="mb-0 small"><p><strong><span style="font-size: medium;">BEZ STRUJE 5. 11. 2026. (četvrtak):</span></strong></p>
+<p><span style="font-size: medium;">&bull;&nbsp;<span>&Scaron;u&scaron;njevica, Nova Vas, Jasenovik, Žuknica, Kontu&scaron;i i Letaj&nbsp;</span>od 8:00 do 14:00</span><br /><br /></p>
+<p><span style="font-size: medium;"><br /></span></p></p>
+				</div>
+			</div>
+		</div>
+				<div class="card mb-3 servisna-card">
+			<button class="btn btn-link text-decoration-none text-body w-100 d-flex align-items-center justify-content-between p-3 collapsed servisna-toggle bg-body-tertiary" type="button" data-bs-toggle="collapse" data-bs-target="#servisna-7" aria-expanded="false" aria-controls="servisna-7">
+				<span class="h6 mb-0">Vodovod Labin</span>
+				<span class="servisna-toggle-icons ms-2 d-inline-flex align-items-center justify-content-center bg-primary bg-opacity-10 text-primary rounded-circle" aria-hidden="true">
+					<i class="bi bi-plus fs-5 icon-plus"></i>
+					<i class="bi bi-dash fs-5 icon-minus"></i>
+				</span>
+			</button>
+			<div class="collapse" id="servisna-7">
+				<div class="px-3 pb-3">
+					<p class="mb-0 small"><p><span style="font-size: medium;"><strong>BEZ VODE 05. 11. 2026. (četvrtak):</strong></span></p>
+<p><span style="font-size: medium;">&bull; dio &Scaron;trmca od 10:00 do 14:00</span></p>
+<p><strong style="font-size: medium;">Nakon radova moguća su zamućenja vode.</strong></p>
+<p><span style="font-size: medium;">U slučaju zamućenja nazvati (dežurni telefon):</span></p>
+<p><span style="font-size: medium;"> 091 1855 163 &ndash; (07:00-22:00)</span></p>
+<p><span style="font-size: medium;">091 1855 164 &ndash; (22:00-07:00)</span></p>
+<p><span style="font-size: medium;">052 874 311 &ndash;&nbsp;&nbsp; (22:00-07:00)</span></p>
+<p>&nbsp;</p>
+<p><span style="font-size: medium;"><br /></span></p>
+<p><span style="font-size: medium;"><em><strong><br /></strong></em></span></p></p>
+				</div>
+			</div>
+		</div>
+		</div>
+<!-- Servisne informacije END -->
+
+<!-- ADV widget START -->
+<div class="row">
+	<div class="col-12 col-sm-6 col-lg-12 my-4">
+					<div class="click-trigger d-block card-img-flash mb-3" data-click-id="319" style="padding: 4px;" onClick="onClick(this)">
+				<a class="weatherwidget-io" href="https://forecast7.com/hr/45d0914d12/labin/" data-label_1="LABIN" data-label_2="VRIJEME" data-theme="original">LABIN VRIJEME</a>
+<script type="text/javascript">// <![CDATA[
+!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
+// ]]></script>			</div>
+					<div class="click-trigger d-block card-img-flash mb-3" data-click-id="325" style="padding: 4px;" onClick="onClick(this)">
+				<a title="Emisije na zahtjev Radio Labin" href="https://radiolabin.hr/emisije.php"><img src="https://radiolabin.hr/portal/source/Banneri/EMISIJE%20NA%20ZAHTJEV%20RL.gif" alt="" width="100%" height=" " /></a>			</div>
+					<div class="click-trigger d-block card-img-flash mb-3" data-click-id="191" style="padding: 4px;" onClick="onClick(this)">
+				<iframe src="https://www.mixcloud.com/widget/iframe/?feed=%2FRadioLabin%2F" frameborder="0" width="100%" height="240"></iframe>			</div>
+					<div class="click-trigger d-block card-img-flash mb-3" data-click-id="30" style="padding: 4px;" onClick="onClick(this)">
+				<div style="height: 407px;"><iframe style="height: 100%;" src="https://alea.blob.core.windows.net/banner/banner.html" frameborder="0" scrolling="no" width="100%" height="340"></iframe></div>			</div>
+					<div class="click-trigger d-block card-img-flash mb-3" data-click-id="3" style="padding: 4px;" onClick="onClick(this)">
+				<a href="http://www.hep.hr" target="_blank"><img src="https://radiolabin.hr/portal/source/Banneri/HEP_banner_predanost_265x201.jpg" alt="" width="100%" height=" " /></a>			</div>
+					<div class="click-trigger d-block card-img-flash mb-3" data-click-id="327" style="padding: 4px;" onClick="onClick(this)">
+				<a href="https://www.facebook.com/p/Pino-Viaggi-100023398373480/?locale=hr_HR" target="_blank"><img title="Pino Viaggi izleti" src="https://radiolabin.hr/portal/source/Banneri/Pino_Viaggi_ponuda_izleta.png" alt="Pino Viaggi izleti" width="100%" height=" " /></a>			</div>
+					<div class="click-trigger d-block card-img-flash mb-3" data-click-id="269" style="padding: 4px;" onClick="onClick(this)">
+				<a href="https://www.jedinstvo-labin.hr/hr/vatreni_hit_tjedna_u_prodavaonicama_jedinstva_od_211__8112026/13140/36" target="_blank"><img title="Vatreni hit - Jedinstvo Labin" src="https://radiolabin.hr/portal/source/Banneri/vatreni0211.jpg" alt="Vatreni hit - Jedinstvo Labin" width="100%" height=" " /></a>			</div>
+					<div class="click-trigger d-block card-img-flash mb-3" data-click-id="315" style="padding: 4px;" onClick="onClick(this)">
+				<div class="row g-mx-0--sm ban-re-2-holder d-block">
+<div style="width: 100%; height: auto;">
+<script type="text/javascript" src="https://istral.blob.core.windows.net/banners/remax/bjqs-1.3.min.js"></script>
+<link rel="Stylesheet" href="https://istral.blob.core.windows.net/banners/remax/bjqs.css" />
+<script type="text/javascript" src="https://istral.blob.core.windows.net/banners/remax/includenf.js"></script>
+<p style="text-align: center;"><a href="http://www.remax-plus.info" target="_blank"><img src="https://istral.blob.core.windows.net/banners/remax/remaxlogo.jpg" alt="Remax Labin" width="100%" /></a></p>
+<div id="banner-fade" style="height: 194.743px; max-width: 292px; position: relative;">
+<ul class="bjqs" style="height: 194.743px; width: 100%; display: block;">
+<li class="bjqs-slide" style="height: 194.743px; width: 100%; display: none;"><a href="https://www.remax-plus.info/listings/more?id_listing=313077" target="_blank"><img title="ISTRA,LABIN,OKOLICA, STAN 50 M2" src="https://istral.blob.core.windows.net/banners/remax/thumb_1.jpg" alt="" width="100%" border="0" /></a>
+<p class="bjqs-caption">ISTRA,LABIN,OKOLICA, STAN 50 M2</p>
+</li>
+<li class="bjqs-slide" style="height: 194.743px; width: 100%; display: none;"><a href="https://www.remax-plus.info/listings/more?id_listing=312148" target="_blank"><img title="ISTRA, LABIN, MODERNA KUĆA S BAZENOM" src="https://istral.blob.core.windows.net/banners/remax/thumb_2.jpg" alt="" width="100%" border="0" /></a>
+<p class="bjqs-caption">ISTRA, LABIN, MODERNA KUĆA S BAZENOM</p>
+</li>
+<li class="bjqs-slide" style="height: 194.743px; width: 100%; display: list-item;"><a href="https://www.remax-plus.info/listings/more?id_listing=312139" target="_blank"><img title="ISTRA,LABIN, ZEMLJI&Scaron;TE S DOZVOLOM ZA 4 STANA, POGLED MORE" src="https://istral.blob.core.windows.net/banners/remax/thumb_3.jpg" alt="" width="100%" border="0" /></a>
+<p class="bjqs-caption">ISTRA,LABIN, ZEMLJI&Scaron;TE S DOZVOLOM ZA 4 STANA, POGLED MORE</p>
+</li>
+<li class="bjqs-slide" style="height: 194.743px; width: 100%; display: none;"><a href="https://www.remax-plus.info/listings/more?id_listing=311010" target="_blank"><img title="ISTRA, VRSAR - OKOLICA, LUKSUZNA VILA S BAZENOM, WELLNESSOM I DJELOMIČNIM POGLEDOM NA MORE" src="https://istral.blob.core.windows.net/banners/remax/thumb_4.jpg" alt="" width="100%" border="0" /></a>
+<p class="bjqs-caption">ISTRA, VRSAR - OKOLICA, LUKSUZNA VILA S BAZENOM, WELLNESSOM I DJELOMIČNIM POGLEDOM NA MORE</p>
+</li>
+<li class="bjqs-slide" style="height: 194.743px; width: 100%; display: none;"><a href="https://www.remax-plus.info/listings/more?id_listing=310995" target="_blank"><img title="ISTRA, LABIN OKOLICA, KUĆA ZA ODMOR I STUDIO APARTMAN" src="https://istral.blob.core.windows.net/banners/remax/thumb_5.jpg" alt="" width="100%" border="0" /></a>
+<p class="bjqs-caption">ISTRA, LABIN OKOLICA, KUĆA ZA ODMOR I STUDIO APARTMAN</p>
+</li>
+<li class="bjqs-slide" style="height: 194.743px; width: 100%; display: none;"><a href="https://www.remax-plus.info/listings/more?id_listing=310288" target="_blank"><img title="ISTRA, LABIN, OBITELJSKA PRIZEMNICA 2.5 KM OD CENTRA" src="https://istral.blob.core.windows.net/banners/remax/thumb_6.jpg" alt="" width="100%" border="0" /></a>
+<p class="bjqs-caption">ISTRA, LABIN, OBITELJSKA PRIZEMNICA 2.5 KM OD CENTRA</p>
+</li>
+</ul>
+<ul class="bjqs-controls v-centered">
+<li class="bjqs-prev"><a style="top: 34.3049%;" href="#" data-direction="previous">&lt;&lt;</a></li>
+<li class="bjqs-next"><a style="top: 34.3049%;" href="#" data-direction="forward">&gt;&gt;</a></li>
+</ul>
+<ol class="bjqs-markers h-centered" style="left: 18.5px;">
+<li><a href="#">1</a></li>
+<li><a href="#">2</a></li>
+<li class="active-marker"><a href="#">3</a></li>
+<li><a href="#">4</a></li>
+<li><a href="#">5</a></li>
+<li><a href="#">6</a></li>
+</ol></div>
+</div>
+</div>			</div>
+					<div class="click-trigger d-block card-img-flash mb-3" data-click-id="329" style="padding: 4px;" onClick="onClick(this)">
+				<a href="https://radiolabin.hr/"><img src="https://radiolabin.hr/portal/source/Banneri/armonikasi-rasa-2026.jpg" alt="" width="100%" height=" " /></a>			</div>
+			</div>
+</div>
+<!-- ADV widget END -->
+						<!-- Sidebar Col end -->
+					</div>
+				</div><!-- Sidebar end -->
+
+			</div><!-- Row end -->
+		</div><!-- Container end -->
+	</section>
+	<!-- =======================
+	Main content END -->
+
+	<!-- =======================
+	Banner START -->
+	<section class="text-center py-4">
+		<div class="container-xxl">
+			<div class="row">
+				<div class="col-12">
+									</div>
+			</div>
+		</div>
+	</section>
+	<!-- =======================
+	Banner END -->
+
+</main>
+<!-- **************** MAIN CONTENT END **************** -->
+
+<!-- =======================
+Footer START -->
+<footer class="bg-dark pt-5">
+	<div class="container-xxl">
+		<!-- About START -->
+		<div class="row pt-3 pb-4">
+			<div class="col-md-3">
+				<img src="images/logo_footer.png" alt="footer logo">
+			</div>
+			<div class="col-md-9">
+				<p class="text-body-secondary mb-2">Rudarska 3b, 52 220 Labin</p>
+				<p class="text-body-secondary mb-0">91.0 | 93.2 | 95.0 | 99.7 MHz</p>
+			</div>
+		</div>
+		<!-- About END -->
+
+		<!-- Divider -->
+		<hr>
+
+		<!-- Widgets START -->
+		<div class="row pt-5">
+			<!-- Footer Widget: VIJESTI -->
+			<div class="col-md-6 col-lg-4 mb-4">
+				<h5 class="mb-4 text-white">VIJESTI</h5>
+				<ul class="nav flex-column text-primary-hover">
+											<li class="nav-item"><a class="nav-link" href="vijesti.php?id=10">Lokalne vijesti</a></li>
+											<li class="nav-item"><a class="nav-link" href="vijesti.php?id=13">Novosti</a></li>
+											<li class="nav-item"><a class="nav-link" href="vijesti.php?id=7">Scena</a></li>
+									</ul>
+			</div>
+
+			<!-- Footer Widget: INFO -->
+			<div class="col-md-6 col-lg-4 mb-4">
+				<h5 class="mb-4 text-white">INFO</h5>
+				<ul class="nav flex-column text-primary-hover">
+											<li class="nav-item"><a class="nav-link" href="/info/naslovnica-1">Naslovnica</a></li>
+											<li class="nav-item"><a class="nav-link" href="/info/kontakt-7">Kontakt</a></li>
+											<li class="nav-item"><a class="nav-link" href="/info/slobodna-radna-mjesta-10">Slobodna radna mjesta</a></li>
+											<li class="nav-item"><a class="nav-link" href="/info/radio-trznica-12">Radio tržnica</a></li>
+									</ul>
+			</div>
+
+			<!-- Footer Widget: social -->
+			<div class="col-md-6 col-lg-4 mb-4">
+				<h5 class="mb-4 text-white">Društvene mreže</h5>
+				<ul class="nav flex-column text-primary-hover">
+											<li class="nav-item"><a class="nav-link" title="Facebook" href="https://www.facebook.com/RadioLabin" target="_blank"><i class="fab fa-facebook fa-fw me-2"></i>Facebook</a></li>
+																<li class="nav-item"><a class="nav-link" title="Instagram" href="https://www.instagram.com/radio_labin/   " target="_blank"><i class="fab fa-instagram fa-fw me-2"></i>Instagram</a></li>
+																<li class="nav-item"><a class="nav-link" title="Mixcloud" href="https://www.mixcloud.com/RadioLabin/" target="_blank"><i class="fab fa-mixcloud fa-fw me-2"></i>Mixcloud</a></li>
+																<li class="nav-item"><a class="nav-link" title="Youtube" href="https://www.youtube.com/channel/UCRjWkOGn7mlolFsb5JIEpFQ/videos" target="_blank"><i class="fab fa-youtube fa-fw me-2"></i>Youtube</a></li>
+														</ul>
+			</div>
+		</div>
+		<!-- Widgets END -->
+	</div>
+
+	<!-- Footer copyright START -->
+	<div class="bg-dark-overlay-3 mt-5">
+		<div class="container-xxl">
+			<div class="row align-items-center justify-content-md-between py-4">
+				<div class="col-md-12">
+					<div class="text-center text-primary-hover text-body-secondary">Copyright © 2026 Radio Labin All Rights Reserved. created by <a href="http://probiz-internet.hr" class="text-reset btn-link" target="_blank">ProBiz</a>
+						
+
+<meta name="rl-ga-id" content="G-N54D6ZKXWJ">
+
+
+<a href="#kolacici" class="rl-cookie-settings" data-cookie-settings>Postavke kolačića</a>
+
+<div id="kolacici" class="rl-cookie-bar" data-cookie-bar data-cookie-version="6" role="dialog" aria-label="Kolačići">
+
+	<button type="button" class="rl-cookie-bar-close" data-cookie-close aria-label="Zatvori">&times;</button>
+
+	<div class="container-xxl">
+
+		<div class="rl-cookie-bar-inner">
+
+			<div class="rl-cookie-bar-copy">
+
+				
+				<div class="rl-cookie-bar-title">Kolačići</div>
+
+				
+				<div class="rl-cookie-bar-text"><div>
+<p><span style="font-size: small;">Va&scaron;a privatnost nam je važna</span></p>
+</div>
+<p><span style="font-size: small;">Ova web stranica koristi nužne kolačiće za svoj ispravan rad. Uz va&scaron;u privolu možemo koristiti i analitičke i marketin&scaron;ke kolačiće kako bismo analizirali posjećenost i pobolj&scaron;ali na&scaron;e usluge.</span></p>
+<p><span style="font-size: small;">Neobvezne kolačiće možete prihvatiti, odbiti ili prilagoditi njihove postavke. Svoj odabir možete naknadno promijeniti.</span></p></div>
+
+				
+				<a class="rl-cookie-bar-link" href="/stranica/izjava-o-privatnosti-42">Izjava o privatnosti</a>
+
+				
+			</div>
+
+			<div class="rl-cookie-bar-actions">
+
+				<button type="button" class="btn btn-light" data-cookie-accept>Prihvaćam</button>
+
+				<button type="button" class="btn btn-light" data-cookie-reject>Odbijam sve</button>
+
+				<button type="button" class="btn btn-light" data-cookie-prefs>Postavke</button>
+
+			</div>
+
+		</div>
+
+		<div class="rl-cookie-panel" data-cookie-panel hidden>
+
+			<ul class="rl-cookie-panel-list">
+
+				<li class="rl-cookie-panel-item">
+
+					<label class="rl-cookie-panel-label">
+
+						<input type="checkbox" class="rl-cookie-panel-check" checked disabled>
+
+						<span>Nužni kolačići</span>
+
+					</label>
+
+				</li>
+
+				<li class="rl-cookie-panel-item">
+
+					<label class="rl-cookie-panel-label">
+
+						<input type="checkbox" class="rl-cookie-panel-check" name="s" value="1">
+
+						<span>Statistika</span>
+
+					</label>
+
+				</li>
+
+				<li class="rl-cookie-panel-item">
+
+					<label class="rl-cookie-panel-label">
+
+						<input type="checkbox" class="rl-cookie-panel-check" name="o" value="1">
+
+						<span>Oglasi</span>
+
+					</label>
+
+				</li>
+
+				<li class="rl-cookie-panel-item">
+
+					<label class="rl-cookie-panel-label">
+
+						<input type="checkbox" class="rl-cookie-panel-check" name="m" value="1">
+
+						<span>Video i društvene mreže</span>
+
+					</label>
+
+				</li>
+
+			</ul>
+
+			<button type="button" class="btn btn-light rl-cookie-panel-save" data-cookie-save>Spremi odabir</button>
+
+		</div>
+
+	</div>
+
+</div>
+
+<script src="assets/js/cookie-consent.js?v=1792650246"></script>
+
+<script src="assets/js/analytics-loader.js?v=1792649867"></script>
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Footer copyright END -->
+</footer>
+<!-- =======================
+Footer END -->
+<!-- Footer end -->
+
+<!-- Back to top -->
+<div class="back-top"><i class="bi bi-arrow-up-short"></i></div>
+
+<!-- Zadnje odsvirano modal START -->
+<div class="modal fade" id="liveHistoryModal" tabindex="-1" aria-labelledby="liveHistoryModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="liveHistoryModalLabel">Zadnje odsvirano</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<ul class="list-group list-group-flush" id="liveHistoryList">
+					<li class="list-group-item text-body-secondary">Učitavanje…</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Zadnje odsvirano modal END -->
+
+<!-- Featured Video / YouTube modal START -->
+<div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="videoModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg modal-dialog-centered">
+		<div class="modal-content bg-dark border-0">
+			<div class="modal-header border-0 pb-0">
+				<h5 class="modal-title text-white" id="videoModalLabel">Video</h5>
+				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Zatvori"></button>
+			</div>
+			<div class="modal-body pt-0">
+				<div class="videoWrapper" id="videoModalEmbed"></div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Featured Video / YouTube modal END -->
+
+<!-- Instagram Reel embed modal START -->
+<div class="modal fade" id="instagramReelModal" tabindex="-1" aria-labelledby="instagramReelModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+		<div class="modal-content bg-dark border-0">
+			<div class="modal-header border-0 pb-0">
+				<h5 class="modal-title text-white" id="instagramReelModalLabel">Instagram Reel</h5>
+				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Zatvori"></button>
+			</div>
+			<div class="modal-body pt-0">
+				<div class="instagram-reel-embed" id="instagramReelModalEmbed"></div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Instagram Reel embed modal END -->
+<script src="assets/js/radio-popup.js?v=1791276447"></script>
+
+<!-- =======================
+JS libraries, plugins and custom scripts -->
+
+<!-- Bootstrap JS -->
+<script src="assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Vendors -->
+<script src="assets/vendor/tiny-slider/tiny-slider.js"></script>
+<script src="assets/vendor/sticky-js/sticky.min.js"></script>
+<script src="assets/vendor/plyr/plyr.js"></script>
+
+<!-- Template Functions -->
+<script src="assets/js/functions.js"></script>
+
+<!-- Banner click tracking -->
+<script src="assets/js/banner-tracking.js"></script>
+
+<!-- Live Streaming -->
+<script src="assets/js/live-streaming.js"></script>
+
+<!-- Instagram Reels modal embed -->
+<script src="assets/js/instagram-reels.js"></script>
+
+<!-- jQuery -->
+<script type="text/javascript" src="js/jquery.js"></script>
+
+<!-- Template custom -->
+<script type="text/javascript" src="js/custom.js"></script>
+
+</body>
+
+</html>
