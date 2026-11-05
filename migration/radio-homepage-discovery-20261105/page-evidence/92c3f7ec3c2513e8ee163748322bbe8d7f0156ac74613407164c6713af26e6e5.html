@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<!--               Radioverkko.fi site design (c) Mikko Larinen (Mikkis.fi) 2014               -->
+<!--               Load of html5, javascript & css added by Mikko Pikarinen (Goblet) 2018      -->
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Radioverkko.FI</title>
+<link rel="stylesheet" href="/style.css" />
+<link rel="stylesheet" href="/rvplayer/rvplayer.css" />
+<link rel="stylesheet" href="/rvp/rvp.css" />
+<meta name="description" content="Radioverkko.FI - Tulevaisuuden nettiradio" />
+<meta property="og:title" content="Radioverkko.FI" />
+<meta property="og:description" content="Tulevaisuuden nettiradio - Rakkaudesta radioon" />
+<meta property="og:image" content="http://www.radioverkko.fi/images/radioverkko_jakologo.png" />
+<meta property="og:url" content="http://www.radioverkko.fi/" />
+<script type="text/javascript" src="/js/radioverkko.js"></script>
+<script type="text/javascript" src="/rvplayer/rvplayer.js"></script>
+<script type="text/javascript" src="/js/huutolaaticko.js"></script>
+
+</head>
+<body>
+<div id="rvplayercontainer">
+<div id="rvplayerplayer">
+
+<svg width="100" height="100" viewBox="11 11 100 100" id="pp" onClick="toggle_play()">
+  <circle cx="50" cy="50" r="35" stroke="none" fill="#FF6600" />
+  <polygon points="40,35 40,65 65,50" stroke="none" fill="white" id="pt" />
+  <polygon points="38,38 38,62 62,62 62,38" stroke="none" fill="white" id="ps" style="visibility: hidden"/>
+</svg>
+<audio id="rvp" preload="none" volume="0.5"></audio>
+</div>
+
+<div id="rvplayerclock">00:00</div>
+<div id="rvplayervolume" onClick="volchview(event);">
+<img src="/images/icons/vol.svg">
+<p id="vol">50%</p>
+</div>
+
+</div>
+
+<div id="rvplayervolchange" onMouseLeave="volchclose();"> 
+<svg width="90" height="30" id="volsvg">
+    <rect x="5"  y="25" width="3" height="5" id="vol0" style="fill: white" />
+    <rect x="9"  y="24" width="3" height="6" id="vol1" style="fill: white" />
+    <rect x="13" y="23" width="3" height="7" id="vol2" style="fill: white" />
+    <rect x="17" y="22" width="3" height="8" id="vol3" style="fill: white" />
+    <rect x="21" y="21" width="3" height="9" id="vol4" style="fill: white" />
+    <rect x="25" y="20" width="3" height="10" id="vol5" style="fill: white" />
+    <rect x="29" y="19" width="3" height="11" id="vol6" style="fill: white" />
+    <rect x="33" y="18" width="3" height="12" id="vol7" style="fill: white" />
+    <rect x="37" y="17" width="3" height="13" id="vol8" style="fill: white" />
+    <rect x="41" y="16" width="3" height="14" id="vol9" style="fill: white" />
+
+    <rect x="45"  y="15" width="3" height="15" id="vol10" style="fill: white" />
+    <rect x="49"  y="14" width="3" height="16" id="vol11" style="fill: white" />
+    <rect x="53" y="13" width="3" height="17" id="vol12" style="fill: white" />
+    <rect x="57" y="12" width="3" height="18" id="vol13" style="fill: white" />
+    <rect x="61" y="11" width="3" height="19" id="vol14" style="fill: white" />
+    <rect x="65" y="10" width="3" height="20" id="vol15" style="fill: white" />
+    <rect x="69" y="9" width="3" height="21" id="vol16" style="fill: white" />
+    <rect x="73" y="8" width="3" height="22" id="vol17" style="fill: white" />
+    <rect x="77" y="7" width="3" height="23" id="vol18" style="fill: white" />
+    <rect x="81" y="6" width="3" height="24" id="vol19" style="fill: white" />
+</svg>
+</div>
+<script type="text/javascript" src="/rvp/rvp.js"></script>
+<div id="messagefade">
+	<div id="messagepopup">
+                <div id="messageform">
+		<form id="huutolaaticko">
+			<p><a id="close" onclick="huutolaaticko_hide()">Sulje lomake</a></p>
+			<h1>Huutolaatikko</h1><p>Nimimerkki</p>
+                        <p><input type="text" name="name" id="name" placeholder="Nimimerkki" /></p>			<p>Roskapostiesto. Minkä värinen on musta?</p>
+                        <p><input type="text" name="xtra" id="xtra" />
+                        <p><input type="hidden" name="email" id="email" value="" />
+			<p>Viestisi studioon</p>
+			<p><textarea name="msg" id="msg" rows="4"></textarea></p>
+			<p><input type="button" value="Lähetä" class="buttoninput" onClick="huuda();" /></p>
+		</form>
+                </div>
+                <div id="messagetnx">
+                    <h1>Kiitos!</h1>
+                </div>
+	</div>
+</div>
+<div id="wrapper">
+<header>
+<a href="/" id="logo"></a>
+</header>
+<nav>
+<ul id="navbar">
+	<li><a onclick="content('etusivu')" class="home">Etusivu</a></li>
+	<!-- li><a onclick="content('info')" class="info">Mikä Radioverkko?</a></li -->
+	<li><a onclick="content('ohjelma')" class="calendar">Ohjelma</a></li>
+	<li><a onclick="content('esittelyt')" class="bcinfo">Ohjelmaesittelyt</a></li>
+	<li><a onclick="content('rekry')" class="recruitment">Tule tekijäksi</a></li>
+	<li><a onclick="content('tue')" class="support">Tue toimintaa</a></li>
+	<li><a onclick="content('tallenteet')" class="audio">Tallenteet</a></li>
+</ul>
+<div class="clear"></div>
+</nav>
+<div id="content">
+<div id="left"><h1>Tervetuloa, tämä on Radioverkko.FI</h1>
+
+<p>
+Radioverkko on vuonna 2013 perustettu harrastevoimin toimiva nettiradio, joka yhdistää monta radiopersoonaa
+ja tuottaa yleisölle monipuolista viihdettä. Tarkempaa tietoa ohjelmista löydät
+<a onclick="content('esittelyt')">ohjelmaesittelyistä</a>.
+</p>
+
+<h1>Kuuntele ja nauti</h1>
+<p>
+Pääset kuuntelemaan lähetyksiä oikean yläkulman soittimella. Jos se ei toimi, päivitä selaimesi
+tälle vuosikymmenelle tai avaa flash-soitin erilliseen pikkuikkunaan oikeassa sivupalkissa
+olevasta linkistä.
+</p>
+
+<p>Omalla soittimellasi voit kuunnella osoitteesta
+<a target="_blank" href="http://kuuntele.radioverkko.fi:8000/live">http://kuuntele.radioverkko.fi:8000/live</a>
+tai <a target="_blank" href="http://kuuntele.radioverkko.fi:8000/live.m3u">M3U-tiedostolla</a>.
+</p>
+
+<h1>Haluatko tehdä nettiradiota muutenkin kuin piraattina?</h1>
+
+<p> Mikäli olet itse tehnyt nettiradiota tai tekeminen kiinnostaisi, se on mahdollista sillä uusia ohjelmia
+mahtuu edelleen kalenteriimme. Toimittajiksi pyrkiviltä toivoisimme sitoutumista viikottaiseen
+ohjelmatuotantoon. Ihanteellista on muutama tunti viikoittain. Koska kyseessä on kuitenkin
+harrastetoiminta, ymmärrämme, että se ei välttämättä ole käytännössä mahdollista. Ohjelmaa voi
+lähettää esimerkiksi joka toinen viikko tai jopa kuukausittain. Esteen tullessa juontajien kesken on myös
+mahdollista sopia uusinnasta tai tuuraajasta. Ollaan joustavia!</p>
+
+<p> Tarjoamme tekijöille nettisivut, streamit ja vakiintuneen kuuntelijakunnan. Tarvitset vain kotistudion
+ja nettiyhteyden. Kaikki tekevät omat ohjelmansa itse ja streamaavat sen palvelimellemme.</p>
+
+<p>Jos kiinnostuit, <a onclick="content('rekry')">ota rohkeasti yhteyttä!</a></p>
+
+<h1>Tervetuloa mukaan!</h1>
+<p>
+Toivotamme kaikki sitoutuneet tekijät ja tukijat, sekä tietenkin kuuntelijat tervetulleiksi tekemään radiota yhdessä!
+</p>
+<p>
+Mikäli sinulla on kysyttävää tai esimerkiksi ehdotus yhteistyöstä (olemme avoimia kaikelle!) voit ottaa yhteyttä sähköpostilla palaute[a]radioverkko.fi, 
+tai <a onclick="content('tue')">yhteistyölomakkeella</a>.</p>
+
+	</div>
+	<div id="right"><div id="rvpoa"><div id="offair" class="offair">
+OFF AIR
+</div>
+</div><div id="message" onclick="huutolaaticko_show();"><p><span class="message1">Huutolaatikko</span><span class="message2">Lähetä<br />viesti<br />studioon!</span></p></div>
+        <iframe src="https://discordapp.com/widget?id=421594461076717569&theme=dark" width="250" height="220" allowtransparency="true" frameborder="0"></iframe>
+	<div class="rightbox">
+	<h2>Meidät löydät myös</h2>
+	<p>
+	<a href="http://webchat.quakenet.org/?channels=#radioverkko" target="_blank">IRC (Quakenet): #radioverkko</a><br />
+	<a href="https://twitter.com/radioverkko" target="_blank">Twitter: @radioverkko</a><br />
+	<a href="http://instagram.com/radioverkko" target="_blank">Instagram: @radioverkko</a>
+	</p>
+	</div>
+	</div>
+	<div class="clear"></div></div>
+<footer>
+Radioverkko.fi - Rakkaudesta radioon
+</footer>
+</div>
+<div style="height: 20px;"></div>
+</body>
+</html>
