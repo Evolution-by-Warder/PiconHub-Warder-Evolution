@@ -153342,7 +153342,12 @@
         "https://lesonunique.com/mysun/parcourir/sun-cine-series",
         "https://lesonunique.com/mysun/parcourir/sun-cine-serieshttps://lesonunique.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "Command '['tesseract', '/tmp/radio-logo-ocr-6983xfeg/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds",
+        "Command '['tesseract', '/tmp/radio-logo-ocr-0lseq3ow/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds",
+        "curl: (22) The requested URL returned error: 404\n"
+      ]
     },
     "4097:0:2:AE67:4657:ED:0:0:0:0": {
       "name": "SUN Classique",
@@ -153369,7 +153374,11 @@
       "homepages": [
         "https://lesonunique.com/mysun/parcourir/sun-electro"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "Command '['tesseract', '/tmp/radio-logo-ocr-n3agfdic/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds",
+        "Command '['tesseract', '/tmp/radio-logo-ocr-knxxjw6q/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds"
+      ]
     },
     "4097:0:2:42A2:51C5:ED:0:0:0:0": {
       "name": "SUN Hip Hop",
@@ -153432,7 +153441,8 @@
       "homepages": [
         "http://www.lesonunique.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:4A86:62D1:ED:0:0:0:0": {
       "name": "SUN Metal",
@@ -153493,7 +153503,8 @@
       "homepages": [
         "https://www.vip-radios.fm/station/sun-radio-cafe/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:4EB4:438A:ED:0:0:0:0": {
       "name": "SUN Rock",
@@ -153518,7 +153529,8 @@
       "homepages": [
         "http://www.sunset-jazz-radio.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:EED3:EB75:ED:0:0:0:0": {
       "name": "Sunshine Radio",
@@ -153555,7 +153567,10 @@
       "homepages": [
         "https://sunyfunradio.fr/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (6) Could not resolve host: sunyfunradio.fr\n"
+      ]
     },
     "4097:0:2:2F03:5169:ED:0:0:0:0": {
       "name": "Radio Superlarsen",
@@ -153579,7 +153594,41 @@
       "homepages": [
         "https://www.superloustic.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://superloustic.com/img/amazon-music-logo.svg",
+        "final_url": "https://www.superloustic.com/img/amazon-music-logo.svg",
+        "path": "originals/e4ef5174f6a3e6e5c0b93df187ebc40d933f06a619f21c8b96cf193e08591a8f.img",
+        "sha256": "e4ef5174f6a3e6e5c0b93df187ebc40d933f06a619f21c8b96cf193e08591a8f",
+        "bytes": 7264,
+        "dimensions": [
+          640,
+          123
+        ],
+        "format": "SVG",
+        "frozen_svg_raster": {
+          "path": "rasterized/0fc46cd512b0a15f502b1edc56c4dcc75e3460220c632e5f9d4984457db249d8.png",
+          "sha256": "0fc46cd512b0a15f502b1edc56c4dcc75e3460220c632e5f9d4984457db249d8",
+          "cairosvg_version": "2.8.2"
+        }
+      },
+      "page": {
+        "url": "https://www.superloustic.com/",
+        "final_url": "https://www.superloustic.com/",
+        "sha256": "40fb10711265fd9cb0f6d97ce170914a8f291e98d5cf6c369670bedde69c2e0d",
+        "path": "page-evidence/40fb10711265fd9cb0f6d97ce170914a8f291e98d5cf6c369670bedde69c2e0d.html",
+        "titles": [
+          "SUPERLOUSTIC ▷ La radio FM des loustics dans les années 80/90 ! ▷ SUPERLOUSTIC.COM",
+          "\t\t\t\t  🚀 La radio FM des loustics dans les années 80/90 ! \r\n\t\t\t\t",
+          "\t\t\t\t  🚀 La radio  des loustics ! \r\n\t\t\t\t"
+        ],
+        "image_urls": [
+          "https://superloustic.com/img/amazon-music-logo.svg",
+          "https://superloustic.com/img/spotify-logo.svg",
+          "https://superloustic.com/img/tunein-logo.svg"
+        ]
+      },
+      "ocr_text": ""
     },
     "4097:0:2:710F:1DD1:ED:0:0:0:0": {
       "name": "Supernana",
@@ -153591,7 +153640,10 @@
       "homepages": [
         "https://www.show-supernana.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (63) Maximum file size exceeded\n"
+      ]
     },
     "4097:0:2:1C53:E1FF:ED:0:0:0:0": {
       "name": "Swing FM",
@@ -153651,7 +153703,10 @@
       "homepages": [
         "https://www.teenagekicksradio.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 429\n"
+      ]
     },
     "4097:0:2:8833:9473:ED:0:0:0:0": {
       "name": "TEKNO1",
@@ -153675,7 +153730,34 @@
       "homepages": [
         "https://radiotempete.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://radiotempete.com/player/images/noCover.jpg",
+        "final_url": "https://radiotempete.com/player/images/noCover.jpg",
+        "path": "originals/7e7704c78bfc94cfedf85bd11e4ebb9e14553407183a9a0deffe1d41fdb3dbdc.img",
+        "sha256": "7e7704c78bfc94cfedf85bd11e4ebb9e14553407183a9a0deffe1d41fdb3dbdc",
+        "bytes": 6644,
+        "dimensions": [
+          140,
+          140
+        ],
+        "format": "JPEG"
+      },
+      "page": {
+        "url": "https://radiotempete.com/",
+        "final_url": "https://radiotempete.com/",
+        "sha256": "d528bea82baac851e51d15afa91d58be2aa0a4665dfbb9221a8d69c60847f444",
+        "path": "page-evidence/d528bea82baac851e51d15afa91d58be2aa0a4665dfbb9221a8d69c60847f444.html",
+        "titles": [
+          "Accueil - Radio Tempête"
+        ],
+        "image_urls": [
+          "https://radiotempete.com/player/images/noCover.jpg",
+          "https://radiotempete.com/upload/design/5ff865c8b7b701.54834101.png",
+          "https://radiotempete.com/upload/51bf0534b8eaa1.96289316.ico"
+        ]
+      },
+      "ocr_text": ""
     },
     "4097:0:2:4341:5867:ED:0:0:0:0": {
       "name": "Radio Temps Rodez",
@@ -153735,7 +153817,34 @@
       "homepages": [
         "https://www.terremarinefm.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://terremarinefm.com/Partenaire/2.png",
+        "final_url": "https://terremarinefm.com/Partenaire/2.png",
+        "path": "originals/f01d875139748dd24a334f00245ff292d3e44564ddd15ca5ebf7472cad718c6a.img",
+        "sha256": "f01d875139748dd24a334f00245ff292d3e44564ddd15ca5ebf7472cad718c6a",
+        "bytes": 31447,
+        "dimensions": [
+          380,
+          215
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://www.terremarinefm.com/",
+        "final_url": "https://terremarinefm.com/",
+        "sha256": "b31b897215c3e523522cd21f0095b5d69b0b6c98879dda1b41b1a0041e418aaf",
+        "path": "page-evidence/b31b897215c3e523522cd21f0095b5d69b0b6c98879dda1b41b1a0041e418aaf.html",
+        "titles": [
+          "Terre Marine FM Hits & Infos"
+        ],
+        "image_urls": [
+          "https://terremarinefm.com/Partenaire/1.webp",
+          "https://terremarinefm.com/Partenaire/2.png",
+          "https://terremarinefm.com/Partenaire/3.jpeg"
+        ]
+      },
+      "ocr_text": "m\\%\n\nCharente\n\nMaritime\n"
     },
     "4097:0:2:B62:44C6:ED:0:0:0:0": {
       "name": "The Lounge Channel",
@@ -153757,7 +153866,8 @@
       "homepages": [
         "https://theloungehour.netlify.app/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:274E:D5D7:ED:0:0:0:0": {
       "name": "Radio ThurTàl",
@@ -153769,7 +153879,58 @@
       "homepages": [
         "https://radiothurtal.fr/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://radiothurtal.fr/wp-content/uploads/2025/09/Logo-Radio-Thur-Tal-FR-2025-07-OK.jpg",
+        "final_url": "https://radiothurtal.fr/wp-content/uploads/2025/09/Logo-Radio-Thur-Tal-FR-2025-07-OK.jpg",
+        "path": "originals/0e71957e1d18c4dd908914968a15ef6c8be7e8f61f024cd1ea1c0a83f9948778.img",
+        "sha256": "0e71957e1d18c4dd908914968a15ef6c8be7e8f61f024cd1ea1c0a83f9948778",
+        "bytes": 37338,
+        "dimensions": [
+          1055,
+          391
+        ],
+        "format": "JPEG"
+      },
+      "page": {
+        "url": "https://radiothurtal.fr/",
+        "final_url": "https://radiothurtal.fr/",
+        "sha256": "50adcb53ec3c640f9c03be578168edbc992b319564e39fae31ab797c95501d94",
+        "path": "page-evidence/50adcb53ec3c640f9c03be578168edbc992b319564e39fae31ab797c95501d94.html",
+        "titles": [
+          "Radio ThurTàl | Le meilleur des chansons des Années Bonheur à nos jours !",
+          "bienvenue sur  radio   thurtàl ",
+          "Claude François",
+          "Kendji Girac",
+          "Abba",
+          "Helene Fischer",
+          "Frédéric François",
+          "Michel Sardou",
+          "Tony Christie",
+          "G.G. Anderson",
+          "Frank Michael",
+          "Andrea Berg",
+          "Patrick Bruel",
+          "Claudio Capéo",
+          "Alain Morisod & Sweet People",
+          "Die Flippers",
+          "Johnny Hallyday",
+          "Leonardo",
+          "Andy Borg",
+          "Denis Simon",
+          "Rino Lombardi",
+          "Jean-François Valence",
+          "Philipp'Savana",
+          "Bruno Broglé",
+          "Andy Collin's"
+        ],
+        "image_urls": [
+          "https://radiothurtal.fr/wp-content/uploads/2025/09/Logo-Radio-Thur-Tal-FR-2025-07-OK.jpg",
+          "https://radiothurtal.fr/wp-content/uploads/2026/03/cropped-Favicon-Radio-Thur-Tal-2026-03-512px-180x180.png",
+          "https://radiothurtal.fr/wp-content/uploads/2026/03/cropped-Favicon-Radio-Thur-Tal-2026-03-512px-192x192.png"
+        ]
+      },
+      "ocr_text": "thurqal.tr\n"
     },
     "4097:0:2:BB73:322F:ED:0:0:0:0": {
       "name": "Timbre FM",
@@ -153793,7 +153954,37 @@
       "homepages": [
         "http://radiotitine.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://static.wixstatic.com/media/578136_4948b34968784194a994de77c25c19e2~mv2.jpg/v1/crop/x_0,y_38,w_658,h_504/fill/w_149,h_114,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/bonne%20femme_alone.jpg",
+        "final_url": "https://static.wixstatic.com/media/578136_4948b34968784194a994de77c25c19e2~mv2.jpg/v1/crop/x_0,y_38,w_658,h_504/fill/w_149,h_114,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/bonne%20femme_alone.jpg",
+        "path": "originals/c0c8c68d6dab6479b64b360a178757affc3499e8b90c7635eca5726a096c598a.img",
+        "sha256": "c0c8c68d6dab6479b64b360a178757affc3499e8b90c7635eca5726a096c598a",
+        "bytes": 9224,
+        "dimensions": [
+          149,
+          114
+        ],
+        "format": "JPEG"
+      },
+      "page": {
+        "url": "http://radiotitine.com/",
+        "final_url": "https://radiotitine.wixsite.com/radio",
+        "sha256": "0591c1d65872d524ebc0a81b955fcf85e86fb77fede6d53c6d942ae1d1458431",
+        "path": "page-evidence/0591c1d65872d524ebc0a81b955fcf85e86fb77fede6d53c6d942ae1d1458431.html",
+        "titles": [
+          ". | Radio Titine !",
+          "      RADIO TITINE      ",
+          " MERCI pour votre soutien ! ",
+          "    (c) Titine 2026 - Anquetierville City - Contact : titine (at) radiotitine.com    "
+        ],
+        "image_urls": [
+          "https://static.wixstatic.com/media/578136_4948b34968784194a994de77c25c19e2~mv2.jpg/v1/crop/x_0,y_38,w_658,h_504/fill/w_149,h_114,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/bonne%20femme_alone.jpg",
+          "https://static.wixstatic.com/media/578136_c371e5eeda484bde9b1e405b4ef110fe~mv2.png/v1/fill/w_105,h_46,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Logo_Sacem_-_2020_svg.png",
+          "https://www.wix.com/favicon.ico"
+        ]
+      },
+      "ocr_text": ""
     },
     "4097:0:2:C45B:E243:ED:0:0:0:0": {
       "name": "Token FM",
@@ -153817,7 +154008,8 @@
       "homepages": [
         "http://www.tonicradio.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:BBDF:8909:ED:0:0:0:0": {
       "name": "Tonic Radio Bourgoin",
@@ -153829,7 +154021,10 @@
       "homepages": [
         "http://www.tonicradio.fr/index-bourgoin.html"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 404\n"
+      ]
     },
     "4097:0:2:AF8F:199C:ED:0:0:0:0": {
       "name": "Tonic Radio Villefranche",
@@ -153841,7 +154036,10 @@
       "homepages": [
         "http://www.tonicradio.fr/index-villefranche.html"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 404\n"
+      ]
     },
     "4097:0:2:3578:A4A8:ED:0:0:0:0": {
       "name": "TOP80 Radio",
@@ -153889,7 +154087,10 @@
       "homepages": [
         "http://www.topitalia.fr/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 429\n"
+      ]
     },
     "4097:0:2:4A46:64AF:ED:0:0:0:0": {
       "name": "TOP ITALIA 2",
@@ -153901,7 +154102,8 @@
       "homepages": [
         "https://topitalia.fr/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:66FC:D6F5:ED:0:0:0:0": {
       "name": "Top music",
@@ -153925,7 +154127,8 @@
       "homepages": [
         "https://www.topmusic.fr/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:F0D3:7CC:ED:0:0:0:0": {
       "name": "Radio Top Side",
@@ -153949,7 +154152,10 @@
       "homepages": [
         "http://www.radiototem.fr/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 403\n"
+      ]
     },
     "4097:0:2:C41B:A34D:ED:0:0:0:0": {
       "name": "Totem Cantal Haute-Loire Puy-de-Dôme",
@@ -153961,7 +154167,10 @@
       "homepages": [
         "http://www.radiototem.fr/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 403\n"
+      ]
     },
     "4097:0:2:3989:49D8:ED:0:0:0:0": {
       "name": "Totem Gard",
@@ -153973,7 +154182,10 @@
       "homepages": [
         "http://www.radiototem.fr/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 403\n"
+      ]
     },
     "4097:0:2:F01C:2700:ED:0:0:0:0": {
       "name": "Totem Lozère",
@@ -154009,7 +154221,34 @@
       "homepages": [
         "https://toulousefm.fr/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://medias.lesindesradios.fr/t:app(web)/t:r(unknown)/filters:format(webp)/filters:quality(100)/radios/toulousefm/images/footerLogo_z7QNtD4xbZ.png",
+        "final_url": "https://medias.lesindesradios.fr/t:app(web)/t:r(unknown)/filters:format(webp)/filters:quality(100)/radios/toulousefm/images/footerLogo_z7QNtD4xbZ.png",
+        "path": "originals/ad109f5e38e29c7933a90ca46bc1d1a96792b6274a21156fede6974d74e37694.img",
+        "sha256": "ad109f5e38e29c7933a90ca46bc1d1a96792b6274a21156fede6974d74e37694",
+        "bytes": 26478,
+        "dimensions": [
+          2147,
+          803
+        ],
+        "format": "WEBP"
+      },
+      "page": {
+        "url": "https://toulousefm.fr/",
+        "final_url": "https://www.toulousefm.fr/",
+        "sha256": "0007272efe1524835b8f91798fd5721ea40bb480c07df56ca24605b0d1008a0e",
+        "path": "page-evidence/0007272efe1524835b8f91798fd5721ea40bb480c07df56ca24605b0d1008a0e.html",
+        "titles": [
+          "Toulouse FM | 1ère radio locale à Toulouse et en Haute-Garonne"
+        ],
+        "image_urls": [
+          "https://medias.lesindesradios.fr/t:app(web)/t:r(unknown)/filters:format(webp)/filters:quality(100)/radios/toulousefm/images/footerLogo_z7QNtD4xbZ.png",
+          "https://medias.preprod.bocir.fr/t:app(web)/t:r(unknown)/fit-in/300x2000/filters:format(webp)/filters:quality(100)/radios/toulousefm/images/logo_kQmQJ1D8OB.png",
+          "https://www.toulousefm.fr/favicon.ico"
+        ]
+      },
+      "ocr_text": ""
     },
     "4097:0:2:F7C7:3A76:ED:0:0:0:0": {
       "name": "Toutes les couleurs du trad",
@@ -154021,7 +154260,10 @@
       "homepages": [
         "http://couleursdutrad.dx.am/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 530\n"
+      ]
     },
     "4097:0:2:9AA3:4AC:ED:0:0:0:0": {
       "name": "Radio Transparence",
@@ -496081,15 +496323,15 @@
   },
   "counts": {
     "already_ready_in_saved_checkpoint": 1747,
-    "blocked_no_confirmed_station_page_and_logo": 3781,
+    "blocked_no_confirmed_station_page_and_logo": 3800,
     "blocked_no_independent_station_homepage": 872,
     "blocked_no_unique_current_station_metadata": 4248,
-    "candidate_assistant_visual_and_identity_check": 782,
+    "candidate_assistant_visual_and_identity_check": 788,
     "covered_by_primary_image_acquisition_worker": 12942,
     "needs_assistant_identity_research_for_short_or_generic_name": 4215,
-    "pending_homepage_discovery": 12254,
+    "pending_homepage_discovery": 12229,
     "ready_verified_homepage_and_wordmark": 62
   },
-  "last_event": "homepages_4625_of_16879",
-  "updated_utc": "2026-11-05T13:31:31Z"
+  "last_event": "homepages_4650_of_16879",
+  "updated_utc": "2026-11-05T13:32:00Z"
 }

@@ -1,0 +1,908 @@
+<!doctype html>
+<html lang="fr">
+    
+    <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="csrf-token" content="mk2HUOUUkZ9W7KO9KgS9CP8ULiPz2d1YLx2v7BzP">
+    <link rel="shortcut icon" href="/favicon.ico?id=524e048de2695ef625db6ec5593ae996" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico?id=524e048de2695ef625db6ec5593ae996" type="image/x-icon">
+    <link rel="alternate" type="application/rss+xml" href="https://lesonunique.com/rss/news" title="Flux RSS des actualités">
+    <link rel="alternate" type="application/rss+xml" href="https://lesonunique.com/rss/events" title="Flux RSS des évènements">
+    <link rel="alternate" type="application/rss+xml" href="https://lesonunique.com/rss/podcasts" title="Flux RSS des podcasts">
+        
+    <link href="/css/front-app.css?id=21c526beea19c625f41aab1cfba0de96" rel="stylesheet"/>
+    <!-- Livewire Styles --><style >[wire\:loading][wire\:loading], [wire\:loading\.delay][wire\:loading\.delay], [wire\:loading\.list-item][wire\:loading\.list-item], [wire\:loading\.inline-block][wire\:loading\.inline-block], [wire\:loading\.inline][wire\:loading\.inline], [wire\:loading\.block][wire\:loading\.block], [wire\:loading\.flex][wire\:loading\.flex], [wire\:loading\.table][wire\:loading\.table], [wire\:loading\.grid][wire\:loading\.grid], [wire\:loading\.inline-flex][wire\:loading\.inline-flex] {display: none;}[wire\:loading\.delay\.none][wire\:loading\.delay\.none], [wire\:loading\.delay\.shortest][wire\:loading\.delay\.shortest], [wire\:loading\.delay\.shorter][wire\:loading\.delay\.shorter], [wire\:loading\.delay\.short][wire\:loading\.delay\.short], [wire\:loading\.delay\.default][wire\:loading\.delay\.default], [wire\:loading\.delay\.long][wire\:loading\.delay\.long], [wire\:loading\.delay\.longer][wire\:loading\.delay\.longer], [wire\:loading\.delay\.longest][wire\:loading\.delay\.longest] {display: none;}[wire\:offline][wire\:offline] {display: none;}[wire\:dirty]:not(textarea):not(input):not(select) {display: none;}:root {--livewire-progress-bar-color: #2299dd;}[x-cloak="x-cloak"],[x-cloak=""] {display: none !important;}[wire\:cloak="wire:cloak"],[wire\:cloak=""] {display: none !important;}dialog#livewire-error::backdrop {background-color: rgba(0, 0, 0, .6);}</style>
+    <!-- Web Application Manifest -->
+<link rel="manifest" href="https://lesonunique.com/manifest.json">
+
+<!-- Chrome for Android theme color -->
+<meta name="theme-color" content="#ffcd00">
+
+<!-- Add to homescreen for Chrome on Android -->
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="application-name" content="mySUN">
+<link rel="icon" sizes="512x512" href="/images/pwa/icon-512x512.png">
+
+<!-- Add to homescreen for Safari on iOS -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="mySUN">
+<link rel="apple-touch-icon" href="/images/pwa/icon-512x512.png">
+
+<!-- Tile for Win8 -->
+<meta name="msapplication-TileColor" content="#ffcd00">
+<meta name="msapplication-TileImage" content="/images/pwa/icon-512x512.png">
+
+<script>
+    // Initialize the service worker
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/serviceworker.js', {
+            scope: '/',
+            updateViaCache: 'none'
+        }).then(function (registration) {
+            // Registration was successful
+            console.log('Laravel PWA: ServiceWorker registration successful with scope: ', registration.scope);
+        }, function (err) {
+            // Registration failed :(
+            console.log('Laravel PWA: ServiceWorker registration failed: ', err);
+        });
+    }
+</script>
+    <!-- Google tag (gtag.js) -->
+    <script type="text/plain"
+            data-type="application/javascript"
+            data-src="https://www.googletagmanager.com/gtag/js?id=G-TTX6JD0KL3"
+            data-name="google_analytics"></script>
+    <script type="text/plain"
+            data-type="application/javascript"
+            data-name="google_analytics">
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-TTX6JD0KL3');
+    </script>
+    <title>SUN Ciné & Séries - Page officielle - Webradio - SUN | Le Son Unique</title><meta name="description" content="Webradio SUN Ciné &amp; Séries. Le Son Ciné &amp; Séries, des découvertes et des BO inoubliables."><link rel="canonical" href="https://lesonunique.com/mysun/parcourir/sun-cine-series"><meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large"><meta property="og:locale" content="fr_FR"><meta property="og:title" content="SUN Ciné &amp; Séries - Page officielle - Webradio"><meta property="og:description" content="Webradio SUN Ciné &amp; Séries. Le Son Ciné &amp; Séries, des découvertes et des BO inoubliables."><meta property="og:type" content="music.radio_station"><meta property="og:url" content="https://lesonunique.com/mysun/parcourir/sun-cine-series"><meta property="og:image" content="https://lesonunique.com/images/pwa/icon-512x512.png"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@LeSonUnique"><meta name="twitter:title" content="SUN Ciné &amp; Séries - Page officielle - Webradio"><meta name="twitter:description" content="Webradio SUN Ciné &amp; Séries. Le Son Ciné &amp; Séries, des découvertes et des BO inoubliables."><meta name="twitter:image0" content="https://lesonunique.com/images/pwa/icon-512x512.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"RadioStation","name":"SUN Ciné & Séries - Page officielle - Webradio","description":"Webradio SUN Ciné & Séries. Le Son Ciné & Séries, des découvertes et des BO inoubliables.","url":"https://lesonunique.com/mysun/parcourir/sun-cine-series","image":["https://lesonunique.com/images/pwa/icon-512x512.png","https://lesonunique.com/images/pwa/icon-512x512.png"]}</script>
+</head>
+
+    <body id="front" data-bs-theme="">
+
+        <div wire:key="router" wire:snapshot="{&quot;data&quot;:{&quot;initialUrl&quot;:&quot;\/mysun\/parcourir\/sun-cine-series&quot;},&quot;memo&quot;:{&quot;id&quot;:&quot;z0dHoMVDAgXMfmnIuzeA&quot;,&quot;name&quot;:&quot;router&quot;,&quot;path&quot;:&quot;mysun\/parcourir\/sun-cine-series&quot;,&quot;method&quot;:&quot;GET&quot;,&quot;release&quot;:&quot;a-a-a&quot;,&quot;children&quot;:[],&quot;scripts&quot;:[],&quot;assets&quot;:[],&quot;errors&quot;:[],&quot;locale&quot;:&quot;fr&quot;,&quot;islands&quot;:[]},&quot;checksum&quot;:&quot;595695fc9387f3b4bf6d00e954807e48546d5c96a3ad0cee9198d1a281450490&quot;}" wire:effects="{&quot;listeners&quot;:[&quot;nav:back&quot;,&quot;nav:to&quot;,&quot;nav:browser:route:updated&quot;]}" wire:id="z0dHoMVDAgXMfmnIuzeA" wire:name="router" wire:init="init" class="d-none"></div>
+        <noscript class="d-flex justify-content-center bg-danger text-white p-4">
+    <div>
+        <h3>
+            <i class="fa fa-exclamation-triangle fa-fw"></i>
+            Attention
+        </h3>
+        Javascript is currently disabled in your browser and you are currently browsing in a degraded version. Thank you for reactivating your Javascript to benefit from all the features offered by our web platform.
+    </div>
+</noscript>
+
+        <div id="layout" class="position-relative d-flex flex-column">
+                            <div class="d-flex flex-grow-1">
+                    <nav id="nav-desktop" class="navbar align-items-start p-0">
+    <div class="d-flex flex-column flex-grow-1 mw-100 h-100 px-3">
+        <div wire:key="nav-desktop-logo" wire:snapshot="{&quot;data&quot;:[],&quot;memo&quot;:{&quot;id&quot;:&quot;YXqNA631QvlrpqnRWmZd&quot;,&quot;name&quot;:&quot;nav.logo&quot;,&quot;path&quot;:&quot;mysun\/parcourir\/sun-cine-series&quot;,&quot;method&quot;:&quot;GET&quot;,&quot;release&quot;:&quot;a-a-a&quot;,&quot;children&quot;:[],&quot;scripts&quot;:[],&quot;assets&quot;:[],&quot;errors&quot;:[],&quot;locale&quot;:&quot;fr&quot;,&quot;islands&quot;:[]},&quot;checksum&quot;:&quot;aca946e9830a80e446f2588c8039f61bacafa2df49c346818de33309544a3f25&quot;}" wire:effects="[]" wire:id="YXqNA631QvlrpqnRWmZd" wire:name="nav.logo" id="app-nav-logo">
+    <!--[if BLOCK]><![endif]-->        <a wire:click.prevent="$dispatchTo('router', 'nav:to', {routeKey: 'browse'})"
+            class="d-flex justify-content-center mt-3 mb-3"
+            href="https://lesonunique.com/mysun/parcourir"
+            title="Parcourir mySUN">
+            <span class="icon d-flex" data-icon="sun-secondary-md">
+    <svg width="56" height="56" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path fill-rule="evenodd" clip-rule="evenodd"
+          d="M19.6496 35.2032C20.3025 35.2032 20.832 35.7098 20.832 36.3632C20.832 36.6563 20.7215 36.9209 20.5462 37.1217L20.7963 37.3991L20.4681 37.6667L20.2117 37.383C20.0458 37.4721 19.8542 37.5232 19.6496 37.5232C18.9966 37.5232 18.4704 37.0133 18.4704 36.3632C18.4704 35.7098 18.9966 35.2032 19.6496 35.2032ZM13.0337 35.2478V36.7615C13.0337 36.9688 13.1505 37.093 13.4139 37.093C13.6803 37.093 13.7972 36.9688 13.7972 36.7615V35.2478H14.2422V36.7966C14.2422 37.2682 13.8719 37.5233 13.4139 37.5233C12.9559 37.5233 12.5854 37.2682 12.5854 36.7966V35.2478H13.0337ZM21.8886 35.2478V36.7615C21.8886 36.9688 22.0055 37.093 22.2688 37.093C22.5349 37.093 22.6521 36.9688 22.6521 36.7615V35.2478H23.0971V36.7966C23.0971 37.2682 22.7269 37.5233 22.2688 37.5233C21.8108 37.5233 21.4403 37.2682 21.4403 36.7966V35.2478H21.8886ZM15.2986 35.2477L16.1856 36.6246V35.2477H16.6306V37.4787H16.2897L15.406 36.0986V37.4787H14.9577V35.2477H15.2986ZM25.1443 35.2478V35.6684H24.261V36.1465H25.0632V36.5575H24.261V37.0579H25.1607V37.4788H23.8127V35.2478H25.1443ZM17.8267 35.2476V37.4786H17.3783V35.2476H17.8267ZM19.6496 35.6303C19.2403 35.6303 18.9151 35.9329 18.9151 36.3632C18.9151 36.7903 19.2403 37.0929 19.6496 37.0929C19.7437 37.0929 19.8312 37.0804 19.9126 37.0483L19.6529 36.7582L19.9807 36.4939L20.2505 36.7935C20.3349 36.6756 20.3837 36.5289 20.3837 36.3632C20.3837 35.9329 20.0588 35.6303 19.6496 35.6303ZM16.2372 8.40822V25.1497C16.2372 26.6958 17.1992 27.5588 18.9998 27.5588C20.8007 27.5588 21.7628 26.6958 21.7628 25.1497V8.40822H24.1161V25.2902C24.1161 28.2214 21.8445 29.8076 18.9998 29.8076C16.1757 29.8076 13.8838 28.2214 13.8838 25.2902V8.40822H16.2372ZM5.18356 11.6896C7.65954 11.6896 9.91059 13.1151 9.91059 16.046H7.55722C7.55722 14.641 6.61605 13.9381 5.18356 13.9381C3.89427 13.9381 2.99366 14.6006 2.99366 15.6246C2.99366 16.8491 4.13977 17.3712 5.59254 17.893C7.7004 18.6562 10.3202 19.4189 10.3202 22.2497C10.3202 24.8394 8.06882 26.2652 5.49052 26.2652C2.70729 26.2652 0.333334 24.7794 0.333334 21.7478H2.6867C2.6867 23.2535 3.75108 24.0164 5.49052 24.0164C7.04561 24.0164 7.9665 23.2936 7.9665 22.2497C7.9665 21.0852 6.69779 20.5634 5.22443 20.0416C5.17038 20.0226 5.11609 20.0035 5.06161 19.9844L4.89762 19.9269C4.8428 19.9076 4.78783 19.8883 4.73276 19.8688L4.5673 19.8101C4.42926 19.7608 4.2909 19.7104 4.15297 19.6586L3.98771 19.5956C2.25573 18.9257 0.640295 17.9758 0.640295 15.6246C0.640295 13.0548 2.85048 11.6896 5.18356 11.6896ZM30.3256 11.9505L35.3133 20.6013V11.9505H37.6667V26.004H35.8249L30.8372 17.3535V26.004H28.4839V11.9505H30.3256ZM18.6584 0.333362C19.0547 0.333362 19.4252 0.559663 19.4252 1.05354H18.9802C18.9802 0.859318 18.8634 0.760423 18.6584 0.760423C18.4735 0.760423 18.3663 0.852784 18.3663 0.983456C18.3663 1.14591 18.5219 1.21926 18.7332 1.29588C19.0614 1.41052 19.49 1.52842 19.49 2.00003C19.49 2.42709 19.1328 2.65339 18.7105 2.65339C18.2622 2.65339 17.8789 2.42412 17.8789 1.92044H18.3273C18.3273 2.12446 18.4571 2.22336 18.7105 2.22336C18.9378 2.22336 19.045 2.12743 19.045 2.00003C19.045 1.84084 18.8634 1.77046 18.6454 1.6974C18.3206 1.58277 17.9213 1.45536 17.9213 0.983456C17.9213 0.556396 18.2815 0.333362 18.6584 0.333362ZM21.1669 0.333333C21.8235 0.333333 22.3496 0.839984 22.3496 1.49334C22.3496 2.14344 21.8235 2.65336 21.1669 2.65336C20.5109 2.65336 19.9881 2.14344 19.9881 1.49334C19.9881 0.839984 20.5109 0.333333 21.1669 0.333333ZM23.3313 0.37794L24.2183 1.75475V0.37794H24.6633V2.60887H24.3224L23.4388 1.22879V2.60887H22.9904V0.37794H23.3313ZM13.4593 0.378029V2.18813H14.3039V2.60896H13.011V0.378029H13.4593ZM16.2113 0.378029V0.798555H15.328V1.2767H16.1302V1.68772H15.328V2.18813H16.2277V2.60896H14.8796V0.378029H16.2113ZM21.1669 0.760393C20.7546 0.760393 20.4331 1.06302 20.4331 1.49334C20.4331 1.92041 20.7546 2.22333 21.1669 2.22333C21.5798 2.22333 21.9013 1.92041 21.9013 1.49334C21.9013 1.06302 21.5798 0.760393 21.1669 0.760393Z"
+          fill="#004266"/>
+</svg>
+
+</span>
+        </a>
+    <!--[if ENDBLOCK]><![endif]--></div>
+        <div class="flex-column">
+
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+
+            <div class="mb-4">
+                <div wire:key="nav-desktop-radio-station-universe-selector" wire:snapshot="{&quot;data&quot;:{&quot;selectedRadioStation&quot;:null,&quot;radioStations&quot;:null},&quot;memo&quot;:{&quot;id&quot;:&quot;zZJx27c4hRglJ3rp0lpT&quot;,&quot;name&quot;:&quot;nav.radio-station-universe-selector&quot;,&quot;path&quot;:&quot;mysun\/parcourir\/sun-cine-series&quot;,&quot;method&quot;:&quot;GET&quot;,&quot;release&quot;:&quot;a-a-a&quot;,&quot;children&quot;:[],&quot;scripts&quot;:[],&quot;assets&quot;:[],&quot;errors&quot;:[],&quot;locale&quot;:&quot;fr&quot;,&quot;islands&quot;:[]},&quot;checksum&quot;:&quot;3bfefea0562e8e3a7d5cd52c1da93a2031815c6f4aae8cd4d50671db03302c32&quot;}" wire:effects="{&quot;listeners&quot;:[&quot;profil:params:apply&quot;,&quot;player:radio:station:updated&quot;,&quot;geolocation:position:found:refresh&quot;]}" wire:id="zZJx27c4hRglJ3rp0lpT" wire:name="nav.radio-station-universe-selector" wire:init="init" id="nav-radio-universe-selector-dropdown" class="dropdown">
+    <a id="nav-dropdown-radio-selector"
+       class="dropdown-toggle ps-1"
+       href=""
+       role="button"
+       title=""
+       data-bs-toggle="dropdown"
+       aria-expanded="false">
+        <span class="d-flex align-items-center mw-100">
+            <!--[if BLOCK]><![endif]-->                <div class="d-flex justify-content-center align-items-center me-2">
+                    <div class="d-flex justify-content-center align-items-center illustration-placeholder me-2">
+                        <div class="spinner-border spinner-border-sm" role="status">
+                            <span class="visually-hidden">Chargement...</span>
+                        </div>
+                    </div>
+                    <span class="text-truncate">
+                        Chargement...
+                    </span>
+                </div>
+            <!--[if ENDBLOCK]><![endif]-->        </span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end mt-1" aria-labelledby="nav-dropdown-radio-selector">
+        <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->    </ul>
+</div>
+            </div>
+            <div class="mb-4">
+                <div wire:key="nav-desktop-tabs" wire:snapshot="{&quot;data&quot;:{&quot;currentRouteKey&quot;:null},&quot;memo&quot;:{&quot;id&quot;:&quot;PAhXwpuerT7sNryzKo4K&quot;,&quot;name&quot;:&quot;nav.tabs&quot;,&quot;path&quot;:&quot;mysun\/parcourir\/sun-cine-series&quot;,&quot;method&quot;:&quot;GET&quot;,&quot;release&quot;:&quot;a-a-a&quot;,&quot;children&quot;:[],&quot;scripts&quot;:[],&quot;assets&quot;:[],&quot;errors&quot;:[],&quot;locale&quot;:&quot;fr&quot;,&quot;islands&quot;:[]},&quot;checksum&quot;:&quot;f001cafe5c574d2bbb9210ec069d96c4db1f5194e6430e8828a36f705b984c85&quot;}" wire:effects="{&quot;listeners&quot;:[&quot;nav:route:loaded&quot;]}" wire:id="PAhXwpuerT7sNryzKo4K" wire:name="nav.tabs" id="app-nav-tabs" class="">
+    <div class="d-block my-n2">
+        <!--[if BLOCK]><![endif]-->                        <a wire:click.prevent="navToTab('browse')"
+            class="btn btn-nav w-100 text-start my-2"
+            href="https://lesonunique.com/mysun/parcourir"
+            title="Parcourir"
+            >
+                <span class="icon d-flex text-secondary d-inline-block" data-icon="headphone">
+    <svg width="20" height="20" viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path
+        d="M5.99951 19.5C4.6188 19.5 3.49951 18.3807 3.49951 17V13C3.49951 11.6193 4.6188 10.5 5.99951 10.5C7.38022 10.5 8.49951 11.6193 8.49951 13V17C8.49951 18.3807 7.38022 19.5 5.99951 19.5ZM5.99951 11.5C5.17108 11.5 4.49951 12.1716 4.49951 13V17C4.49951 17.8284 5.17108 18.5 5.99951 18.5C6.82794 18.5 7.49951 17.8284 7.49951 17V13C7.49951 12.1716 6.82794 11.5 5.99951 11.5Z"
+        fill="currentColor"/>
+    <path
+        d="M15.9995 19.5C14.6188 19.5 13.4995 18.3807 13.4995 17V13C13.4995 11.6193 14.6188 10.5 15.9995 10.5C17.3802 10.5 18.4995 11.6193 18.4995 13V17C18.4995 18.3807 17.3802 19.5 15.9995 19.5ZM15.9995 11.5C15.1711 11.5 14.4995 12.1716 14.4995 13V17C14.4995 17.8284 15.1711 18.5 15.9995 18.5C16.8279 18.5 17.4995 17.8284 17.4995 17V13C17.4995 12.1716 16.8279 11.5 15.9995 11.5Z"
+        fill="currentColor"/>
+    <path
+        d="M20.9995 15.5C20.7234 15.5 20.4995 15.2761 20.4995 15V11C20.4995 5.75329 16.2462 1.5 10.9995 1.5C5.75281 1.5 1.49951 5.75329 1.49951 11V15C1.49951 15.2761 1.27565 15.5 0.999512 15.5C0.723369 15.5 0.499512 15.2761 0.499512 15V11C0.499512 5.20101 5.20052 0.5 10.9995 0.5C16.7985 0.5 21.4995 5.20101 21.4995 11V15C21.4995 15.2761 21.2757 15.5 20.9995 15.5Z"
+        fill="currentColor"/>
+</svg>
+
+</span>
+                <span class="ms-3">
+                    Parcourir
+                </span>
+            </a>
+                                <a wire:click.prevent="navToTab('map')"
+            class="btn btn-nav w-100 text-start my-2"
+            href="https://lesonunique.com/mysun/se-balader"
+            title="Se balader"
+            >
+                <span class="icon d-flex text-secondary d-inline-block" data-icon="compass">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path
+        d="M9.82951 19.66C4.40055 19.66 -0.000488281 15.259 -0.000488281 9.83C-0.000488281 4.40104 4.40055 0 9.82951 0C15.2585 0 19.6595 4.40104 19.6595 9.83C19.654 15.2567 15.2562 19.6545 9.82951 19.66ZM9.82951 1C4.95284 1 0.999512 4.95333 0.999512 9.83C0.999512 14.7067 4.95284 18.66 9.82951 18.66C14.7062 18.66 18.6595 14.7067 18.6595 9.83C18.654 4.95561 14.7039 1.00551 9.82951 1Z"
+        fill="currentColor"/>
+    <path
+        d="M5.20954 14.95C5.07159 14.9657 4.93348 14.922 4.82953 14.83C4.69654 14.6963 4.65014 14.499 4.70954 14.32L6.70954 8.38002C6.75019 8.2503 6.84501 8.14453 6.96953 8.09002L14.2295 4.79002C14.4186 4.70597 14.6399 4.74705 14.7862 4.89335C14.9325 5.03965 14.9736 5.26095 14.8895 5.45002L11.5895 12.71C11.535 12.8345 11.4293 12.9294 11.2995 12.97L5.35954 14.97C5.30873 14.9727 5.25786 14.9659 5.20954 14.95ZM7.59953 8.88002L5.99953 13.66L10.8295 12.06L13.4895 6.22002L7.59953 8.88002Z"
+        fill="currentColor"/>
+    <path
+        d="M9.35941 10.83C9.22775 10.8271 9.10233 10.7733 9.00941 10.68C8.91427 10.5883 8.86018 10.4621 8.85941 10.33C8.84537 10.2641 8.84537 10.1959 8.85941 10.13C8.88308 10.0688 8.92075 10.014 8.96941 9.97001C9.01488 9.9255 9.06947 9.89138 9.12941 9.87001C9.31293 9.78986 9.52676 9.82946 9.66941 9.97001C9.71807 10.014 9.75574 10.0688 9.77941 10.13C9.79345 10.1959 9.79345 10.2641 9.77941 10.33C9.78103 10.4626 9.72655 10.5897 9.62941 10.68C9.55708 10.7567 9.46275 10.8091 9.35941 10.83Z"
+        fill="currentColor"/>
+</svg>
+
+</span>
+                <span class="ms-3">
+                    Se balader
+                </span>
+            </a>
+                                <a wire:click.prevent="navToTab('podcasts')"
+            class="btn btn-nav w-100 text-start my-2"
+            href="https://lesonunique.com/mysun/podcasts"
+            title="Podcasts"
+            >
+                <span class="icon d-flex text-secondary d-inline-block" data-icon="mic-light">
+    <svg width="20" height="20" viewBox="0 0 14 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M6.9,1.2c-1.3,0-2.5,1.1-2.5,2.5v4c0,1.3,1.1,2.5,2.5,2.5S9.3,9,9.3,7.7v-4C9.3,2.3,8.2,1.2,6.9,1.2z M6.9,9.3
+	C6,9.3,5.2,8.6,5.2,7.7v-4c0-1,0.8-1.8,1.7-1.8c1,0,1.7,0.8,1.7,1.7v0.1H7.3C7.1,3.7,7,3.8,7,4s0.1,0.3,0.3,0.3h1.2v1H7.3
+	C7.1,5.3,7,5.4,7,5.7S7.1,6,7.3,6h1.2v0.9H7.3c-0.1,0-0.1,0-0.2,0.1c0,0,0,0-0.1,0.1c0,0,0,0.1,0,0.1l0,0l0,0c0,0.2,0.1,0.3,0.3,0.3
+	h1.2C8.7,8.6,7.9,9.3,6.9,9.3z"
+    fill="currentColor"/>
+<path d="M10.7,6.3c-0.2,0-0.3,0.1-0.3,0.3V7v0.6C10.3,9.5,8.8,11,7,11c-1.9,0-3.3-1.6-3.3-3.5V7V6.7c0-0.2-0.1-0.3-0.3-0.3
+	c-0.2,0-0.6,0.1-0.6,0.3V7v0.7c0,2.2,1.7,4,3.9,4.1v1.3H5c-0.2,0-0.3,0.1-0.3,0.3s0.1,0.3,0.3,0.3h1.6h0.2h2.1
+	c0.2,0,0.3-0.1,0.3-0.3s-0.1-0.3-0.3-0.3H7.3v-1.3c2.2-0.1,3.9-1.9,3.9-4.1V7V6.7C11.2,6.4,10.9,6.3,10.7,6.3z"
+    fill="currentColor"/>
+</svg>
+
+</span>
+                <span class="ms-3">
+                    Podcasts
+                </span>
+            </a>
+                                <a wire:click.prevent="navToTab('playlists')"
+            class="btn btn-nav w-100 text-start my-2"
+            href="https://lesonunique.com/mysun/playlists"
+            title="Playlists"
+            >
+                <span class="icon d-flex text-secondary d-inline-block" data-icon="library">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path fill-rule="evenodd" clip-rule="evenodd"
+          d="M6.13896 3.5L3.29999 3.5L3.29999 20.8559L6.13896 20.8559L6.13896 3.5ZM3.29999 2.5C2.7477 2.5 2.29999 2.94771 2.29999 3.5V20.8559C2.29999 21.4082 2.7477 21.8559 3.29999 21.8559H6.13896C6.69124 21.8559 7.13896 21.4082 7.13896 20.8559V3.5C7.13896 2.94772 6.69124 2.5 6.13896 2.5H3.29999ZM12.1877 3.5L9.3487 3.5L9.3487 20.8559L12.1877 20.8559L12.1877 3.5ZM9.3487 2.5C8.79641 2.5 8.3487 2.94771 8.3487 3.5V20.8559C8.3487 21.4082 8.79641 21.8559 9.3487 21.8559H12.1877C12.74 21.8559 13.1877 21.4082 13.1877 20.8559V3.5C13.1877 2.94772 12.74 2.5 12.1877 2.5H9.3487ZM15.5698 8.37172L18.3566 7.83002L20.7799 20.2967L17.9931 20.8384L15.5698 8.37172ZM14.5882 8.56253C14.4828 8.02039 14.8369 7.49548 15.379 7.3901L18.1658 6.8484C18.708 6.74302 19.2329 7.09708 19.3383 7.63921L21.7615 20.1059C21.8669 20.648 21.5128 21.1729 20.9707 21.2783L18.1839 21.82C17.6418 21.9254 17.1168 21.5713 17.0115 21.0292L14.5882 8.56253Z"
+          fill="currentColor"/>
+</svg>
+
+</span>
+                <span class="ms-3">
+                    Playlists
+                </span>
+            </a>
+                                <a wire:click.prevent="navToTab('events')"
+            class="btn btn-nav w-100 text-start my-2"
+            href="https://lesonunique.com/mysun/agenda"
+            title="Agenda"
+            >
+                <span class="icon d-flex text-secondary d-inline-block" data-icon="calendar">
+    <svg width="20" height="20" viewBox="0 0 19 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path
+        d="M3.49954 19.52C1.57271 19.5145 0.0105116 17.9568 -0.000474128 16.03V7.02999C-0.00311695 6.1 0.364459 5.20719 1.02112 4.54865C1.67779 3.89011 2.56955 3.51999 3.49954 3.51999H4.49954C4.77568 3.51999 4.99954 3.74385 4.99954 4.01999C4.99954 4.29613 4.77568 4.51999 4.49954 4.51999H3.49954C2.83648 4.5162 2.20068 4.78353 1.73954 5.25999C1.27003 5.72912 1.00725 6.36628 1.00954 7.02999V16.03C1.02042 17.4006 2.12888 18.5091 3.49954 18.52H15.4995C16.1716 18.5193 16.8143 18.2449 17.2795 17.76C17.7472 17.2896 18.0096 16.6533 18.0095 15.99V6.98999C18.004 5.60766 16.8819 4.48998 15.4995 4.48999H14.4995C14.2234 4.48999 13.9995 4.26613 13.9995 3.98999C13.9995 3.71385 14.2234 3.48999 14.4995 3.48999H15.4995C17.4264 3.49545 18.9886 5.05318 18.9996 6.97999V15.98C19.0022 16.91 18.6346 17.8028 17.978 18.4613C17.3213 19.1199 16.4295 19.49 15.4995 19.49H3.49954V19.52Z"
+        fill="currentColor"/>
+    <path
+        d="M7.49951 4.51001C7.22337 4.51001 6.99951 4.28615 6.99951 4.01001C6.99951 3.73387 7.22337 3.51001 7.49951 3.51001H11.4995C11.7757 3.51001 11.9995 3.73387 11.9995 4.01001C11.9995 4.28615 11.7757 4.51001 11.4995 4.51001H7.49951Z"
+        fill="currentColor"/>
+    <path
+        d="M5.97949 6.02002C4.87492 6.02002 3.97949 5.12459 3.97949 4.02002V2.02002C3.97949 0.91545 4.87492 0.0200195 5.97949 0.0200195C7.08406 0.0200195 7.97949 0.91545 7.97949 2.02002V4.02002C7.97991 4.54816 7.77141 5.05504 7.39949 5.43002C7.02197 5.79936 6.51755 6.01043 5.98949 6.02002H5.97949ZM5.97949 1.02002C5.42721 1.02002 4.97949 1.46773 4.97949 2.02002V4.02002C4.98325 4.28379 5.09108 4.53539 5.27949 4.72002C5.47062 4.89872 5.71828 5.00486 5.97949 5.02002C6.24107 5.02961 6.49597 4.93627 6.68949 4.76002C6.87668 4.5713 6.98103 4.31582 6.97949 4.05002V2.05002C6.98761 1.77964 6.88584 1.51751 6.69742 1.32344C6.509 1.12936 6.24999 1.0199 5.97949 1.02002Z"
+        fill="currentColor"/>
+    <path
+        d="M12.9795 6C12.4513 6.00042 11.9445 5.79192 11.5695 5.42C11.1915 5.0442 10.9791 4.53304 10.9795 4V2C10.9795 0.89543 11.8749 0 12.9795 0C14.0841 0 14.9795 0.89543 14.9795 2V4C14.9795 5.10457 14.0841 6 12.9795 6ZM12.9795 1C12.4272 1 11.9795 1.44772 11.9795 2V4C11.9795 4.55228 12.4272 5 12.9795 5C13.5318 5 13.9795 4.55228 13.9795 4V2C13.9795 1.44772 13.5318 1 12.9795 1Z"
+        fill="currentColor"/>
+    <path
+        d="M0.499512 9.53003C0.225603 9.52471 0.00483182 9.30394 -0.000488281 9.03003C-0.000488281 8.75389 0.223369 8.53003 0.499512 8.53003H18.4995C18.7757 8.53003 18.9996 8.75389 18.9996 9.03003C19.0022 9.16171 18.9518 9.28893 18.8596 9.38299C18.7674 9.47706 18.6412 9.53006 18.5095 9.53003H0.509512H0.499512Z"
+        fill="currentColor"/>
+</svg>
+
+</span>
+                <span class="ms-3">
+                    Agenda
+                </span>
+            </a>
+                                <a wire:click.prevent="navToTab('programs')"
+            class="btn btn-nav w-100 text-start my-2"
+            href="https://lesonunique.com/mysun/emissions"
+            title="Grille d&#039;antenne"
+            >
+                <span class="icon d-flex text-secondary d-inline-block" data-icon="clock">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path
+        d="M9.84978 19.7003C5.86401 19.7003 2.27108 17.2982 0.74767 13.6151C-0.775743 9.93193 0.0706532 5.69371 2.89188 2.87821C5.71311 0.0627091 9.95305 -0.775071 13.6331 0.755825C17.3131 2.28672 19.7079 5.88452 19.6998 9.87029C19.6833 15.3002 15.2797 19.6948 9.84978 19.7003ZM9.84978 1.00029C4.96467 1.00029 1.00348 4.95852 0.999804 9.84363C0.996135 14.7287 4.95137 18.6929 9.83648 18.7003C14.7216 18.7076 18.6887 14.7554 18.6998 9.87029C18.7024 7.52047 17.7715 5.26584 16.1118 3.60239C14.4521 1.93894 12.1996 1.00294 9.84978 1.00029Z"
+        fill="currentColor"/>
+    <path
+        d="M12.6599 13.1503C12.5267 13.1496 12.3985 13.0998 12.2999 13.0103L9.49985 10.2003C9.40774 10.1148 9.35372 9.99593 9.34985 9.8703V4.2403C9.34985 3.96415 9.57371 3.7403 9.84985 3.7403C10.126 3.7403 10.3499 3.96415 10.3499 4.2403V9.6403L13.0099 12.3003C13.2016 12.4981 13.2016 12.8125 13.0099 13.0103C12.9138 13.0975 12.7896 13.1472 12.6599 13.1503Z"
+        fill="currentColor"/>
+</svg>
+
+</span>
+                <span class="ms-3">
+                    Grille d&#039;antenne
+                </span>
+            </a>
+        <!--[if ENDBLOCK]><![endif]-->    </div>
+</div>
+            </div>
+            <div class="mb-4 px-2">
+                <div wire:key="nav-desktop-playlists" wire:snapshot="{&quot;data&quot;:{&quot;initialized&quot;:false,&quot;selectedTabKey&quot;:null,&quot;selectedPlaylistId&quot;:null},&quot;memo&quot;:{&quot;id&quot;:&quot;5caECjAWSCUJTjnE2QR3&quot;,&quot;name&quot;:&quot;nav.playlists&quot;,&quot;path&quot;:&quot;mysun\/parcourir\/sun-cine-series&quot;,&quot;method&quot;:&quot;GET&quot;,&quot;release&quot;:&quot;a-a-a&quot;,&quot;children&quot;:[],&quot;scripts&quot;:[],&quot;assets&quot;:[],&quot;errors&quot;:[],&quot;locale&quot;:&quot;fr&quot;,&quot;islands&quot;:[]},&quot;checksum&quot;:&quot;dcf0b604d58deabea461eb2792b7d1bd6c20f5c1c8bbe2397b30b6f8ed9495eb&quot;}" wire:effects="{&quot;listeners&quot;:[&quot;user:authenticated&quot;,&quot;user:unauthenticated&quot;,&quot;playlist:created&quot;,&quot;nav:route:loaded&quot;]}" wire:id="5caECjAWSCUJTjnE2QR3" wire:name="nav.playlists" wire:init="init">
+    <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]--></div>
+            </div>
+            <div class="mb-2">
+                <div class="dropup">
+    <a id="dropdown-useful-links"
+       class="dropdown-toggle"
+       role="button"
+       data-bs-toggle="dropdown"
+       aria-expanded="false">
+        Liens utiles
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="dropdown-useful-links">
+        <li class="dropdown-item d-flex flex-wrap">
+            <a class="m-1" href="https://lesonunique.com/contact" title="Nous contacter">
+                <svg width="24"
+                     height="24"
+                     viewBox="0 0 24 24"
+                     fill="none"
+                     xmlns="http://www.w3.org/2000/svg">
+                    <rect width="24" height="24" rx="4" fill="#2D4760"/>
+                    <path d="M8.5 7.91666C8.03587 7.91666 7.59075 8.10103 7.26256 8.42922C6.93437 8.75741 6.75 9.20253 6.75 9.66666V9.84253L12 12.6697L17.25 9.84341V9.66666C17.25 9.20253 17.0656 8.75741 16.7374 8.42922C16.4092 8.10103 15.9641 7.91666 15.5 7.91666H8.5Z"
+                          fill="white"/>
+                    <path d="M17.25 10.8365L12.2074 13.5517C12.1436 13.586 12.0724 13.6039 12 13.6039C11.9276 13.6039 11.8564 13.586 11.7926 13.5517L6.75 10.8365V14.9167C6.75 15.3808 6.93437 15.8259 7.26256 16.1541C7.59075 16.4823 8.03587 16.6667 8.5 16.6667H15.5C15.9641 16.6667 16.4092 16.4823 16.7374 16.1541C17.0656 15.8259 17.25 15.3808 17.25 14.9167V10.8365Z"
+                          fill="white"/>
+                </svg>
+            </a>
+                            <a class="m-1" href="https://www.facebook.com/lesonunique" title="Facebook" target="_blank" rel="noopener">
+                    <svg width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <rect width="24" height="24" rx="4" fill="#435A95"/>
+                        <path d="M10.5724 17.8333V12.359H9.08325V10.388H10.5724V8.70445C10.5724 7.38153 11.452 6.16666 13.4788 6.16666C14.2995 6.16666 14.9063 6.24313 14.9063 6.24313L14.8585 8.08373C14.8585 8.08373 14.2396 8.07788 13.5643 8.07788C12.8334 8.07788 12.7163 8.4053 12.7163 8.94875V10.388H14.9166L14.8208 12.359H12.7163V17.8333H10.5724Z"
+                            fill="white"/>
+                    </svg>
+                </a>
+                                                    <a class="m-1" href="https://bsky.app/profile/lesonunique.com" title="Bluesky" target="_blank" rel="noopener">
+                    <svg width="24"
+                        height="24"
+                        viewBox="0 0 41 41"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <rect y="0.202057" width="40.2021" height="40.2021" rx="6.70034" fill="#0085ff"/>
+                        <path d="M14.1,12.3c2.4,1.8,5,5.5,6,7.5V25c0-0.1,0,0-0.1,0.3c-0.5,1.5-2.4,7.2-6.9,2.6c-2.3-2.4-1.3-4.8,3-5.5
+                            c-2.4,0.4-5.2-0.3-5.9-3c-0.2-0.8-0.6-5.5-0.6-6.2C9.6,9.9,12.4,11,14.1,12.3z M26.1,12.3c-2.4,1.8-5,5.5-6,7.5V25
+                            c0-0.1,0,0,0.1,0.3c0.5,1.5,2.4,7.2,6.9,2.6c2.3-2.4,1.3-4.8-3-5.5c2.4,0.4,5.2-0.3,5.9-3c0.2-0.8,0.6-5.5,0.6-6.2
+                            C30.6,9.9,27.8,11,26.1,12.3L26.1,12.3z" fill="white"/>
+                    </svg>
+                </a>
+                                                    <a class="m-1" href="https://fr.linkedin.com/company/sunlesonunique" title="Linkedin" target="_blank" rel="noopener">
+                    <svg width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <rect x="0.0588379" width="24" height="24" rx="4" fill="#0D70A9"/>
+                        <path d="M6.45139 17.8333H8.70946V9.73957H6.45139V17.8333ZM7.58042 6.16666C6.82774 6.16666 6.22559 6.74999 6.22559 7.47916C6.22559 8.20832 6.82774 8.79166 7.58042 8.79166C8.33311 8.79166 8.93526 8.20832 8.93526 7.47916C8.93526 6.74999 8.33311 6.16666 7.58042 6.16666ZM12.5482 10.9792V9.73957H10.2901V17.8333H12.5482V13.6771C12.5482 11.3437 15.6342 11.1979 15.6342 13.6771V17.8333H17.8923V12.875C17.8923 8.93749 13.6019 9.08332 12.5482 10.9792Z"
+                            fill="white"/>
+                    </svg>
+                </a>
+                                        <a class="m-1" href="https://www.instagram.com/lesonunique" title="Instagram" target="_blank" rel="noopener">
+                    <svg width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <rect width="24" height="24" rx="4" fill="#E02C51"/>
+                        <path d="M11.9986 10.0547C10.9275 10.0547 10.0533 10.9288 10.0533 12C10.0533 13.0711 10.9275 13.9453 11.9986 13.9453C13.0698 13.9453 13.9439 13.0711 13.9439 12C13.9439 10.9288 13.0698 10.0547 11.9986 10.0547ZM17.833 12C17.833 11.1944 17.8403 10.3962 17.795 9.59211C17.7498 8.65815 17.5367 7.82926 16.8538 7.14629C16.1694 6.46187 15.3419 6.25027 14.408 6.20503C13.6024 6.15979 12.8042 6.16709 12.0001 6.16709C11.1945 6.16709 10.3963 6.15979 9.5922 6.20503C8.65824 6.25027 7.82935 6.46333 7.14639 7.14629C6.46196 7.83071 6.25036 8.65815 6.20512 9.59211C6.15989 10.3977 6.16718 11.1959 6.16718 12C6.16718 12.8041 6.15989 13.6038 6.20512 14.4079C6.25036 15.3418 6.46342 16.1707 7.14639 16.8537C7.83081 17.5381 8.65824 17.7497 9.5922 17.7949C10.3977 17.8402 11.196 17.8329 12.0001 17.8329C12.8056 17.8329 13.6039 17.8402 14.408 17.7949C15.3419 17.7497 16.1708 17.5366 16.8538 16.8537C17.5382 16.1693 17.7498 15.3418 17.795 14.4079C17.8417 13.6038 17.833 12.8055 17.833 12ZM11.9986 14.9931C10.3423 14.9931 9.00556 13.6563 9.00556 12C9.00556 10.3437 10.3423 9.00693 11.9986 9.00693C13.6549 9.00693 14.9917 10.3437 14.9917 12C14.9917 13.6563 13.6549 14.9931 11.9986 14.9931ZM15.1143 9.58336C14.7275 9.58336 14.4153 9.27106 14.4153 8.88434C14.4153 8.49762 14.7275 8.18533 15.1143 8.18533C15.501 8.18533 15.8133 8.49762 15.8133 8.88434C15.8134 8.97617 15.7954 9.06712 15.7603 9.15198C15.7252 9.23684 15.6737 9.31395 15.6088 9.37888C15.5439 9.44381 15.4668 9.49529 15.3819 9.53038C15.297 9.56547 15.2061 9.58347 15.1143 9.58336Z"
+                            fill="white"/>
+                    </svg>
+                </a>
+                        <a class="m-1" href="https://lesonunique.com/rss/podcasts" title="Flux RSS" target="_blank">
+                <svg width="24"
+                     height="24"
+                     viewBox="0 0 24 24"
+                     fill="none"
+                     xmlns="http://www.w3.org/2000/svg">
+                    <rect width="24" height="24" rx="4" fill="#F1993D"/>
+                    <path d="M10.3448 13.6552C10.6986 14.0071 10.9791 14.4257 11.17 14.8867C11.361 15.3477 11.4586 15.8421 11.4573 16.3411C11.4573 16.4274 11.423 16.5103 11.3619 16.5713C11.3009 16.6324 11.218 16.6667 11.1317 16.6667C11.0453 16.6667 10.9625 16.6324 10.9015 16.5713C10.8404 16.5103 10.8061 16.4274 10.8061 16.3411C10.8061 15.5064 10.4745 14.7059 9.88429 14.1156C9.29406 13.5254 8.49354 13.1938 7.65883 13.1938C7.57248 13.1938 7.48967 13.1595 7.42861 13.0985C7.36755 13.0374 7.33325 12.9546 7.33325 12.8682C7.33325 12.7819 7.36755 12.6991 7.42861 12.638C7.48967 12.577 7.57248 12.5427 7.65883 12.5427C8.15785 12.5413 8.65219 12.6389 9.11323 12.8299C9.57427 13.0208 9.99285 13.3014 10.3448 13.6552ZM7.65883 9.93802C7.57248 9.93802 7.48967 9.97232 7.42861 10.0334C7.36755 10.0944 7.33325 10.1772 7.33325 10.2636C7.33325 10.3499 7.36755 10.4328 7.42861 10.4938C7.48967 10.5549 7.57248 10.5892 7.65883 10.5892C9.18433 10.5892 10.6473 11.1952 11.726 12.2739C12.8047 13.3526 13.4107 14.8156 13.4107 16.3411C13.4107 16.4274 13.4451 16.5103 13.5061 16.5713C13.5672 16.6324 13.65 16.6667 13.7363 16.6667C13.8227 16.6667 13.9055 16.6324 13.9666 16.5713C14.0276 16.5103 14.0619 16.4274 14.0619 16.3411C14.0619 14.6429 13.3873 13.0143 12.1865 11.8135C10.9857 10.6127 9.35703 9.93805 7.65883 9.93802ZM14.0283 9.97172C13.1938 9.13265 12.2011 8.46742 11.1078 8.01455C10.0145 7.56168 8.84222 7.33016 7.65883 7.33338C7.57248 7.33338 7.48967 7.36768 7.42861 7.42874C7.36755 7.48979 7.33325 7.57261 7.33325 7.65896C7.33325 7.74531 7.36755 7.82812 7.42861 7.88918C7.48967 7.95023 7.57248 7.98454 7.65883 7.98454C8.75668 7.98153 9.84422 8.19631 10.8585 8.61643C11.8728 9.03655 12.7937 9.65368 13.5678 10.4321C14.3463 11.2063 14.9634 12.1271 15.3835 13.1414C15.8036 14.1557 16.0184 15.2432 16.0154 16.3411C16.0154 16.4274 16.0497 16.5103 16.1108 16.5713C16.1718 16.6324 16.2546 16.6667 16.341 16.6667C16.4273 16.6667 16.5101 16.6324 16.5712 16.5713C16.6322 16.5103 16.6666 16.4274 16.6666 16.3411C16.6698 15.1577 16.4383 13.9854 15.9854 12.8921C15.5325 11.7988 14.8673 10.8062 14.0283 9.97172ZM7.87589 15.5814C7.76856 15.5814 7.66365 15.6132 7.57441 15.6729C7.48518 15.7325 7.41563 15.8172 7.37456 15.9164C7.33349 16.0155 7.32274 16.1246 7.34368 16.2299C7.36462 16.3352 7.4163 16.4319 7.49219 16.5077C7.56807 16.5836 7.66476 16.6353 7.77002 16.6562C7.87528 16.6772 7.98439 16.6664 8.08354 16.6254C8.1827 16.5843 8.26744 16.5147 8.32707 16.4255C8.38669 16.3363 8.41852 16.2314 8.41852 16.124C8.41836 15.9802 8.36114 15.8422 8.25941 15.7405C8.15768 15.6388 8.01975 15.5816 7.87589 15.5814Z"
+                          fill="black"/>
+                </svg>
+            </a>
+                            <a class="m-1" href="https://www.youtube.com/@lesonunique" title="Youtube" target="_blank" rel="noopener">
+                    <svg width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <rect width="24" height="24" rx="4" fill="#C40026"/>
+                        <path d="M16.6796 9.13758C16.6223 8.90196 16.5107 8.68865 16.3567 8.52031C16.1983 8.34679 16.0041 8.22267 15.7926 8.15966C15.0008 7.91907 11.8288 7.91907 11.8288 7.91907C10.5064 7.90172 9.18433 7.97801 7.87005 8.14751C7.6585 8.21517 7.46472 8.34207 7.30597 8.5169C7.14998 8.68994 7.03699 8.90331 6.97797 9.1371C6.83619 10.0177 6.7673 10.9118 6.77223 11.8074C6.76717 12.7022 6.83589 13.5961 6.97797 14.4778C7.03573 14.7106 7.14829 14.923 7.3047 15.0946C7.46111 15.2661 7.65589 15.3901 7.87005 15.4557C8.67234 15.6958 11.8288 15.6958 11.8288 15.6958C13.1529 15.7132 14.4766 15.6369 15.7926 15.4674C16.0041 15.4043 16.1983 15.2802 16.3567 15.1067C16.5127 14.9351 16.6235 14.7218 16.6792 14.4894C16.8247 13.6092 16.8954 12.7147 16.8904 11.8186C16.9013 10.9187 16.8307 10.02 16.6796 9.1371V9.13758ZM10.8203 13.4717V10.1437L13.4595 11.8079L10.8203 13.4717Z"
+                            fill="white"/>
+                    </svg>
+                </a>
+                                        <a class="m-1"
+                href="https://play.google.com/store/apps/details?id=fr.frap.sunradio&amp;hl=fr"
+                title="Application Play Store"
+                target="_blank"
+                rel="noopener">
+                    <svg width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <rect width="24" height="24" rx="4" fill="#5E973C"/>
+                        <path fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M8.8234 6.1834L15.5051 9.86459L13.9267 11.3732L8.68903 6.36491C8.59476 6.27428 8.70413 6.11856 8.81924 6.18106L8.8234 6.1834ZM7.75 17.1168V6.88263C7.75007 6.86042 7.75669 6.83874 7.76904 6.82028C7.78138 6.80183 7.7989 6.78743 7.8194 6.77889C7.8399 6.77035 7.86246 6.76805 7.88425 6.77229C7.90605 6.77652 7.92611 6.78709 7.94192 6.80268L13.2707 12L7.94192 17.1968C7.92611 17.2124 7.90605 17.2229 7.88425 17.2272C7.86246 17.2314 7.8399 17.2291 7.8194 17.2206C7.7989 17.212 7.78138 17.1976 7.76904 17.1792C7.75669 17.1607 7.75007 17.139 7.75 17.1168ZM8.68954 17.6351C8.59475 17.7257 8.70412 17.8814 8.81974 17.8189L8.82391 17.8166L15.505 14.1354L13.9267 12.6263L8.68954 17.6351ZM16.3366 10.3213L18.2024 11.3488C18.71 11.6293 18.71 12.3704 18.2024 12.6509L16.3366 13.6777L14.5822 11.9999L16.3366 10.3213Z"
+                            fill="white"/>
+                    </svg>
+                </a>
+                                        <a class="m-1"
+                href="https://itunes.apple.com/fr/app/mysun/id937219562?mt=8"
+                title="Application App Store"
+                target="_blank"
+                rel="noopener">
+                    <svg width="25"
+                        height="24"
+                        viewBox="0 0 25 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <rect x="0.0588379" width="24" height="24" rx="4" fill="black"/>
+                        <path d="M15.2361 12.3321C15.2305 11.3758 15.6638 10.6551 16.5388 10.1236C16.0494 9.42254 15.3091 9.03694 14.3331 8.96262C13.4091 8.88971 12.3981 9.50106 12.0279 9.50106C11.6367 9.50106 10.7421 8.98786 10.0382 8.98786C8.58556 9.0103 7.04175 10.1461 7.04175 12.4569C7.04175 13.1397 7.16654 13.845 7.41613 14.5714C7.74985 15.5277 8.95293 17.8707 10.2079 17.8329C10.8641 17.8174 11.3282 17.3673 12.1822 17.3673C13.0109 17.3673 13.4399 17.8329 14.1719 17.8329C15.4381 17.8146 16.5262 15.6847 16.8431 14.7256C15.145 13.925 15.2361 12.3812 15.2361 12.3321ZM13.7624 8.05541C14.4734 7.21129 14.4089 6.44289 14.3878 6.16666C13.7596 6.20311 13.0333 6.59432 12.6197 7.07528C12.1639 7.59128 11.8961 8.22928 11.9536 8.9486C12.6323 9.00048 13.252 8.65134 13.7624 8.05541Z"
+                            fill="white"/>
+                    </svg>
+                </a>
+                    </li>
+    </ul>
+</div>
+            </div>
+            <div class="mb-4 px-2">
+                <div id="weblinks-container" class="d-flex flex-column">
+                    <a class="d-flex align-items-center my-1 text-truncate"
+                        href="https://lesonunique.com/accueil"
+                        title="Quitter la plateforme mySUN"
+                        >
+                        <span class="icon d-flex pe-1" data-icon="exit">
+    <svg width="14" height="15" viewBox="0 0 14 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path
+        d="M9,10.9c-0.4,0-0.7,0.3-0.7,0.7s0.3,0.7,0.7,0.7h1.4c1.1,0,2-0.9,2-2V4.8c0-1.1-0.9-2-2-2H9 c-0.4,0-0.7,0.3-0.7,0.7S8.7,4.1,9,4.1h1.4c0.4,0,0.7,0.3,0.7,0.7v5.4c0,0.4-0.3,0.7-0.7,0.7H9z M1.8,7.1C1.7,7.2,1.6,7.4,1.6,7.5 s0.1,0.3,0.2,0.4l3,2.9c0.1,0.1,0.4,0.2,0.5,0.1c0.2-0.1,0.3-0.3,0.3-0.5V8.9h2.7C8.7,8.9,9,8.5,9,8.2V6.8c0-0.4-0.3-0.7-0.7-0.7 H5.6V4.6c0-0.2-0.1-0.4-0.3-0.5c-0.2-0.1-0.4,0-0.5,0.1L1.8,7.1z"
+        fill="#1C1B1B"/>
+</svg>
+
+</span>
+                        Quitter la plateforme
+                    </a>
+                    <a class="d-flex align-items-center my-1 text-truncate"
+                        href="https://lesonunique.com/contact"
+                        target="_blank"
+                        title="Nous contacter"
+                        >
+                         Nous contacter
+                    </a>
+                                            <a class="d-flex align-items-center my-1 text-truncate"
+                            href="https://lesonunique.com/page/nous-soutenir"
+                            target="_blank"
+                            title="Nous soutenir"
+                            >
+                            Nous soutenir
+                        </a>
+                                        <a class="d-flex align-items-center my-1 text-truncate"
+                        href="https://lesonunique.com/nous-rejoindre"
+                        target="_blank"
+                        title="Nous rejoindre"
+                        >
+                         Nous rejoindre
+                    </a>
+                                            <a class="d-flex align-items-center my-1 text-truncate"
+                            href="https://lesonunique.com/page/recevoir-nos-infolettres"
+                            target="_blank"
+                            rel="noopener"
+                            title="Recevoir nos infolettres"
+                            >
+                            Recevoir nos infolettres
+                        </a>
+                                        <a class="d-flex align-items-center my-1 text-truncate"
+                        href=""
+                        onclick="window.openCookiePreferences(); return false;"
+                        title="Gérer les cookies"
+                        >
+                         Gérer les cookies
+                    </a>
+                                            <a class="d-flex align-items-center my-1 text-truncate"
+                            href="https://lesonunique.com/page/boutique"
+                            target="_blank"
+                            title="Boutique"
+                            >
+                            Boutique
+                        </a>
+                                                                <a class="d-flex align-items-center my-1 text-truncate"
+                            href="https://lesonunique.com/page/a-propos"
+                            target="_blank"
+                            title="À propos"
+                            >
+                            À propos
+                        </a>
+                                    </div>
+            </div>
+        </div>
+    </div>
+</nav>
+                    <div id="template" class="position-relative d-flex flex-fill web-app">
+                                <div wire:snapshot="{&quot;data&quot;:{&quot;path&quot;:null,&quot;params&quot;:[[],{&quot;s&quot;:&quot;arr&quot;}],&quot;css&quot;:null,&quot;js&quot;:null,&quot;userTheme&quot;:null,&quot;desktopProfileNav&quot;:true,&quot;initialRadioStationWinmediaID&quot;:17},&quot;memo&quot;:{&quot;id&quot;:&quot;e7fPKwqMRTyB6jQE5Gwi&quot;,&quot;name&quot;:&quot;app&quot;,&quot;path&quot;:&quot;mysun\/parcourir\/sun-cine-series&quot;,&quot;method&quot;:&quot;GET&quot;,&quot;release&quot;:&quot;a-a-a&quot;,&quot;children&quot;:{&quot;nav-profile-anon&quot;:[&quot;div&quot;,&quot;O3z5lLnbga54VGt9BjtL&quot;]},&quot;scripts&quot;:[],&quot;assets&quot;:[],&quot;errors&quot;:[],&quot;locale&quot;:&quot;fr&quot;,&quot;islands&quot;:[]},&quot;checksum&quot;:&quot;9c2f052c85e319c4884beb22a689a97c172cf43e8a30895c882f6ff5a8515886&quot;}" wire:effects="{&quot;listeners&quot;:[&quot;template:load&quot;]}" wire:id="e7fPKwqMRTyB6jQE5Gwi" wire:name="app" wire:init="init()" class="d-flex flex-fill w-100" id="app-component">
+    <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->    <!--[if BLOCK]><![endif]-->        <div class="position-absolute top-0 end-0 m-4 nav-profile-wrapper">
+            <div wire:key="nav-profile-anon" wire:snapshot="{&quot;data&quot;:{&quot;active&quot;:false},&quot;memo&quot;:{&quot;id&quot;:&quot;O3z5lLnbga54VGt9BjtL&quot;,&quot;name&quot;:&quot;nav.profile&quot;,&quot;path&quot;:&quot;mysun\/parcourir\/sun-cine-series&quot;,&quot;method&quot;:&quot;GET&quot;,&quot;release&quot;:&quot;a-a-a&quot;,&quot;children&quot;:[],&quot;scripts&quot;:[],&quot;assets&quot;:[],&quot;errors&quot;:[],&quot;locale&quot;:&quot;fr&quot;,&quot;islands&quot;:[]},&quot;checksum&quot;:&quot;495f1f7386f61ef76f09be4668b2a39a7323af92566121f641b6bb194ff8dffa&quot;}" wire:effects="{&quot;listeners&quot;:[&quot;user:authenticated&quot;,&quot;user:unauthenticated&quot;,&quot;nav:route:loaded&quot;]}" wire:id="O3z5lLnbga54VGt9BjtL" wire:name="nav.profile" class="nav-profile">
+    <!--[if BLOCK]><![endif]-->        <a
+            wire:click.prevent="$dispatch('modal:show', {alias: 'login'})"
+            class="btn btn-light rounded-circle p-0"
+            href="#"
+            title="Me connecter"
+            role="button"
+        >
+            <span class="icon d-flex" data-icon="avatar">
+    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="20" cy="20" r="19" fill="white" stroke="white"/>
+    <path d="M20 2C10.064 2 2 10.064 2 20C2 29.936 10.064 38 20 38C29.936 38 38 29.936 38 20C38 10.064 29.936 2 20 2ZM20 7.4C22.988 7.4 25.4 9.812 25.4 12.8C25.4 15.788 22.988 18.2 20 18.2C17.012 18.2 14.6 15.788 14.6 12.8C14.6 9.812 17.012 7.4 20 7.4ZM20 32.96C17.8613 32.96 15.7559 32.4308 13.8715 31.4194C11.9871 30.4081 10.3822 28.9462 9.2 27.164C9.254 23.582 16.4 21.62 20 21.62C23.582 21.62 30.746 23.582 30.8 27.164C29.6178 28.9462 28.0129 30.4081 26.1285 31.4194C24.2441 32.4308 22.1387 32.96 20 32.96Z" fill="#A0ABAE"/>
+</svg>
+
+</span>
+        </a>
+    <!--[if ENDBLOCK]><![endif]--></div>
+        </div>
+    <!--[if ENDBLOCK]><![endif]-->    <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]--></div>
+
+                        </div>
+                </div>
+                <div id="footer-app-desktop" class="container-fluid px-4">
+    <div class="d-flex flex-fill justify-content-between align-items-center h-100">
+        <div id="footer-left-part" class="d-flex flex-shrink-1 align-items-center">
+            <div class="me-3">
+                <div wire:key="footer-desktop-radio-station-stream-selector" wire:snapshot="{&quot;data&quot;:{&quot;selectedRadioStationId&quot;:null,&quot;streamedRadioStationId&quot;:null,&quot;initialRadioStationWinmediaID&quot;:17,&quot;initialRoute&quot;:&quot;app.browse.station&quot;},&quot;memo&quot;:{&quot;id&quot;:&quot;zQqYTfwjjqwxA6Ew4QI2&quot;,&quot;name&quot;:&quot;footer.radio-station-stream-selector&quot;,&quot;path&quot;:&quot;mysun\/parcourir\/sun-cine-series&quot;,&quot;method&quot;:&quot;GET&quot;,&quot;release&quot;:&quot;a-a-a&quot;,&quot;children&quot;:[],&quot;scripts&quot;:[],&quot;assets&quot;:[],&quot;errors&quot;:[],&quot;locale&quot;:&quot;fr&quot;,&quot;islands&quot;:[]},&quot;checksum&quot;:&quot;f0287fac22703db7ac827fe9cfe504dcac96d81e967750f28430fb5e52d12fce&quot;}" wire:effects="{&quot;listeners&quot;:[&quot;geolocation:position:found&quot;,&quot;player:radio:station:updated&quot;]}" wire:id="zQqYTfwjjqwxA6Ew4QI2" wire:name="footer.radio-station-stream-selector" wire:init="init" class="d-flex align-items-center">
+    
+    <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->    <!--[if BLOCK]><![endif]-->        <div class="dropup">
+            <a id="nav-radio-stream-selector-dropdown"
+               class="dropdown-toggle ps-1"
+               href=""
+               title="Sélectionnez une radio pour l'écouter !"
+               role="button"
+               data-bs-toggle="dropdown"
+               aria-expanded="false">
+                <span class="d-flex align-items-center mw-100">
+                    <!--[if BLOCK]><![endif]-->                        <div class="d-flex justify-content-center align-items-center">
+                            <div class="d-flex justify-content-center align-items-center bg-dark illustration-placeholder">
+                                <div class="spinner-border text-white" role="status">
+                                    <span class="visually-hidden">Chargement...</span>
+                                </div>
+                            </div>
+                            <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->                        </div>
+                    <!--[if ENDBLOCK]><![endif]-->                </span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end mt-1" aria-labelledby="nav-radio-stream-selector-dropdown">
+                <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->            </ul>
+        </div>
+    <!--[if ENDBLOCK]><![endif]-->    <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]--></div>
+            </div>
+            <div wire:key="footer-desktop-current-audio-details" wire:snapshot="{&quot;data&quot;:{&quot;initialized&quot;:false,&quot;audioSourceClass&quot;:null,&quot;audioSourceId&quot;:null,&quot;songId&quot;:null,&quot;songFavoriteUsersCount&quot;:null,&quot;songIsInFavorites&quot;:false,&quot;coverMobile&quot;:null,&quot;coverThumb&quot;:null,&quot;dedicationUserCoverThumb&quot;:null,&quot;dedicationUserName&quot;:null,&quot;title&quot;:null,&quot;subtitle&quot;:null,&quot;details&quot;:null,&quot;additionalDetails&quot;:null,&quot;binding&quot;:[[],{&quot;s&quot;:&quot;arr&quot;}],&quot;keepUpdating&quot;:false,&quot;canAddToFavorites&quot;:false,&quot;canAddToPlaylist&quot;:false,&quot;currentSongHasBeenAddedToFavorites&quot;:false,&quot;lastRadioStationsLiveBroadcastIds&quot;:[[],{&quot;s&quot;:&quot;arr&quot;}]},&quot;memo&quot;:{&quot;id&quot;:&quot;0nFrYR6fXAAGgEnwSQP1&quot;,&quot;name&quot;:&quot;footer.current-audio-details&quot;,&quot;path&quot;:&quot;mysun\/parcourir\/sun-cine-series&quot;,&quot;method&quot;:&quot;GET&quot;,&quot;release&quot;:&quot;a-a-a&quot;,&quot;children&quot;:[],&quot;scripts&quot;:[],&quot;assets&quot;:[],&quot;errors&quot;:[],&quot;locale&quot;:&quot;fr&quot;,&quot;islands&quot;:[]},&quot;checksum&quot;:&quot;1bc78d1df00a5c2b00e0804a738979a9e3abfbe226d4631518c4737a9bc5c4f3&quot;}" wire:effects="{&quot;listeners&quot;:[&quot;user:authenticated&quot;,&quot;user:unauthenticated&quot;,&quot;audio:current:details:update&quot;,&quot;songs:favorites:updated&quot;]}" wire:id="0nFrYR6fXAAGgEnwSQP1" wire:name="footer.current-audio-details"     id="current-audio-details-component"
+    class="d-flex align-items-center overflow-hidden">
+    <!--[if BLOCK]><![endif]-->        <div class="d-flex justify-content-center align-items-center bg-dark illustration-placeholder">
+            <div class="spinner-border text-white" role="status">
+                <span class="visually-hidden">Chargement...</span>
+            </div>
+        </div>
+        <div class="ms-2">
+            <div class="fw-bold text-truncate">Chargement</div>
+            <div class="small text-truncate">En cours...</div>
+        </div>
+    <!--[if ENDBLOCK]><![endif]--></div>
+        </div>
+        <div class="d-flex flex-shrink-0 flex-fill align-items-center px-3 px-xl-5">
+            <div wire:key="footer-desktop-audio-player" wire:snapshot="{&quot;data&quot;:{&quot;audioSourceClass&quot;:null,&quot;audioSourceId&quot;:null,&quot;audioSourceParams&quot;:[[],{&quot;s&quot;:&quot;arr&quot;}],&quot;audioStream&quot;:[[],{&quot;s&quot;:&quot;arr&quot;}],&quot;canRandomize&quot;:false,&quot;randomizeMode&quot;:false,&quot;canSeekPrevious&quot;:false,&quot;canSeekNext&quot;:false,&quot;canRepeat&quot;:false,&quot;repeatMode&quot;:false,&quot;alreadyPlayedAudioSourceListIds&quot;:[[],{&quot;s&quot;:&quot;arr&quot;}],&quot;subAudioSourceId&quot;:null},&quot;memo&quot;:{&quot;id&quot;:&quot;q1a5NUw8YU1Wki4AEEod&quot;,&quot;name&quot;:&quot;footer.audio-player&quot;,&quot;path&quot;:&quot;mysun\/parcourir\/sun-cine-series&quot;,&quot;method&quot;:&quot;GET&quot;,&quot;release&quot;:&quot;a-a-a&quot;,&quot;children&quot;:[],&quot;scripts&quot;:[],&quot;assets&quot;:[],&quot;errors&quot;:[],&quot;locale&quot;:&quot;fr&quot;,&quot;islands&quot;:[]},&quot;checksum&quot;:&quot;810ad3a49829785cc6f325ffd2feb1390628913dc070a6015ebfeab1939b5317&quot;}" wire:effects="{&quot;listeners&quot;:[&quot;player:audio:source:update&quot;,&quot;radio:broadcast:updated&quot;,&quot;player:audio:source:ended&quot;,&quot;player:audio:source:seekPrevious&quot;,&quot;player:audio:source:seekNext&quot;]}" wire:id="q1a5NUw8YU1Wki4AEEod" wire:name="footer.audio-player" id="audio-player-component" class="d-flex flex-fill justify-content-center align-items-center">
+    <!--[if BLOCK]><![endif]-->        <div class="d-flex justify-content-center align-items-center">
+            <div class="spinner-border me-3" role="status">
+                <span class="visually-hidden">Chargement...</span>
+            </div>
+            Chargement en cours...
+        </div>
+    <!--[if ENDBLOCK]><![endif]--></div>
+        </div>
+        <div id="footer-right-part" class="d-flex flex-shrink-1 justify-content-end align-items-center">
+            <div wire:key="footer-desktop-audio-player-volume-selector" wire:snapshot="{&quot;data&quot;:[],&quot;memo&quot;:{&quot;id&quot;:&quot;GL8NX829VUw8I7hNU78a&quot;,&quot;name&quot;:&quot;footer.audio-player-volume-selector&quot;,&quot;path&quot;:&quot;mysun\/parcourir\/sun-cine-series&quot;,&quot;method&quot;:&quot;GET&quot;,&quot;release&quot;:&quot;a-a-a&quot;,&quot;children&quot;:[],&quot;scripts&quot;:[],&quot;assets&quot;:[],&quot;errors&quot;:[],&quot;locale&quot;:&quot;fr&quot;,&quot;islands&quot;:[]},&quot;checksum&quot;:&quot;ec661aded61ec2c57e4892b530d255e2449d99c88d67540e19f39237fa65e03b&quot;}" wire:effects="[]" wire:id="GL8NX829VUw8I7hNU78a" wire:name="footer.audio-player-volume-selector" id="audio-player-volume-selector-component">
+    <div class="dropup">
+        <a id="audio-volume-selector-dropdown"
+            href=""
+            title="Volume du lecteur audio"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false">
+            <span id="audio-volume-selector-dropdown-icon">
+                <span class="icon d-flex" data-icon="volume-mute" id="volume-mute">
+    <svg width="25" height="18" viewBox="0 0 25 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M11.7,0.8c0.4,0.2,0.7,0.6,0.7,1.1v14.2c0,0.5-0.3,0.9-0.7,1.1c-0.4,0.2-0.9,0.1-1.3-0.2l-5-4.4H3c-1.3,0-2.4-1.1-2.4-2.4
+        V7.8c0-1.3,1.1-2.4,2.4-2.4h2.5l5-4.4C10.8,0.7,11.3,0.7,11.7,0.8z"
+          fill="currentColor"/>
+    <path d="M16.3,5.5l2.1,2.1l2.1-2.1c0.4-0.4,0.9-0.4,1.3,0c0.3,0.4,0.4,0.9,0,1.3l-2.1,2.1l2.1,2.1c0.4,0.4,0.4,0.9,0,1.3
+        c-0.4,0.3-0.9,0.4-1.3,0l-2.1-2.1l-2.1,2.1c-0.4,0.4-0.9,0.4-1.3,0c-0.3-0.4-0.4-0.9,0-1.3l2.1-2.1L15,6.8c-0.4-0.4-0.4-0.9,0-1.3
+        S16,5.2,16.3,5.5z"
+          fill="currentColor"/>
+</svg>
+
+</span>
+                <span class="icon d-flex" data-icon="volume-low" id="volume-low">
+    <svg width="25" height="18" viewBox="0 0 25 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M15.8,6.3c0.8,0.6,1.3,1.6,1.3,2.7s-0.5,2.1-1.3,2.7c-0.4,0.3-0.9,0.3-1.2-0.1s-0.3-0.9,0.1-1.2c0.4-0.3,0.7-0.8,0.7-1.4
+        s-0.3-1-0.7-1.4c-0.4-0.3-0.4-0.9-0.1-1.2C14.9,6,15.4,5.9,15.8,6.3L15.8,6.3z M11.7,0.8c0.4,0.2,0.7,0.6,0.7,1.1v14.2
+        c0,0.5-0.3,0.9-0.7,1.1c-0.4,0.2-0.9,0.1-1.3-0.2l-5-4.4H3c-1.3,0-2.4-1.1-2.4-2.4V7.8c0-1.3,1.1-2.4,2.4-2.4h2.5l5-4.4
+        C10.8,0.7,11.3,0.7,11.7,0.8z"
+          fill="currentColor"/>
+</svg>
+
+</span>
+                <span class="icon d-flex" data-icon="volume-mid" id="volume-mid">
+    <svg width="25" height="18" viewBox="0 0 25 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18,3.5c1.6,1.3,2.6,3.3,2.6,5.5s-1,4.2-2.6,5.5c-0.4,0.3-0.9,0.3-1.2-0.1c-0.3-0.4-0.3-0.9,0.1-1.2c1.2-1,2-2.5,2-4.1
+        s-0.8-3.1-2-4.1c-0.4-0.3-0.4-0.9-0.1-1.2S17.7,3.2,18,3.5L18,3.5z M15.8,6.3c0.8,0.6,1.3,1.6,1.3,2.7s-0.5,2.1-1.3,2.7
+        c-0.4,0.3-0.9,0.3-1.2-0.1s-0.3-0.9,0.1-1.2c0.4-0.3,0.7-0.8,0.7-1.4s-0.3-1-0.7-1.4c-0.4-0.3-0.4-0.9-0.1-1.2
+        C14.9,6,15.4,5.9,15.8,6.3L15.8,6.3z M11.7,0.8c0.4,0.2,0.7,0.6,0.7,1.1v14.2c0,0.5-0.3,0.9-0.7,1.1c-0.4,0.2-0.9,0.1-1.3-0.2
+        l-5-4.4H3c-1.3,0-2.4-1.1-2.4-2.4V7.8c0-1.3,1.1-2.4,2.4-2.4h2.5l5-4.4C10.8,0.7,11.3,0.7,11.7,0.8z"
+          fill="currentColor"/>
+</svg>
+
+</span>
+                <span class="icon d-flex" data-icon="volume-high" id="volume-high">
+    <svg width="25" height="18" viewBox="0 0 25 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20.3,0.8c2.4,1.9,3.9,4.9,3.9,8.2s-1.5,6.3-3.9,8.2c-0.4,0.3-0.9,0.3-1.2-0.1s-0.3-0.9,0.1-1.2c2-1.6,3.3-4.1,3.3-6.9
+        s-1.3-5.2-3.3-6.9c-0.4-0.3-0.4-0.9-0.1-1.2S19.9,0.5,20.3,0.8L20.3,0.8z M18,3.5c1.6,1.3,2.6,3.3,2.6,5.5s-1,4.2-2.6,5.5
+        c-0.4,0.3-0.9,0.3-1.2-0.1c-0.3-0.4-0.3-0.9,0.1-1.2c1.2-1,2-2.5,2-4.1s-0.8-3.1-2-4.1c-0.4-0.3-0.4-0.9-0.1-1.2S17.7,3.2,18,3.5
+        L18,3.5z M15.8,6.3c0.8,0.6,1.3,1.6,1.3,2.7s-0.5,2.1-1.3,2.7c-0.4,0.3-0.9,0.3-1.2-0.1s-0.3-0.9,0.1-1.2c0.4-0.3,0.7-0.8,0.7-1.4
+        s-0.3-1-0.7-1.4c-0.4-0.3-0.4-0.9-0.1-1.2C14.9,6,15.4,5.9,15.8,6.3L15.8,6.3z M11.7,0.8c0.4,0.2,0.7,0.6,0.7,1.1v14.2
+        c0,0.5-0.3,0.9-0.7,1.1c-0.4,0.2-0.9,0.1-1.3-0.2l-5-4.4H3c-1.3,0-2.4-1.1-2.4-2.4V7.8c0-1.3,1.1-2.4,2.4-2.4h2.5l5-4.4
+        C10.8,0.7,11.3,0.7,11.7,0.8z"
+          fill="currentColor"/>
+</svg>
+
+</span>
+            </span>
+        </a>
+        <div id="audio-player-volume-dropup" class="dropdown-menu dropdown-menu-end mt-1"
+                aria-labelledby="audio-volume-selector-dropdown">
+            <input id="audio-player-volume"
+                           type="range"
+                           min="0"
+                           max="1"
+                           value="0.8"
+                           step="0.05"
+                           aria-label="Volume audio">
+        </div>
+    </div>
+</div>
+            
+            
+                            <div class="ms-4">
+                    <div wire:key="footer-desktop-upcoming-song-selector" wire:snapshot="{&quot;data&quot;:[],&quot;memo&quot;:{&quot;id&quot;:&quot;JgB8AY1gGjmexc0riL7G&quot;,&quot;name&quot;:&quot;footer.upcoming-song-selector&quot;,&quot;path&quot;:&quot;mysun\/parcourir\/sun-cine-series&quot;,&quot;method&quot;:&quot;GET&quot;,&quot;release&quot;:&quot;a-a-a&quot;,&quot;children&quot;:[],&quot;scripts&quot;:[],&quot;assets&quot;:[],&quot;errors&quot;:[],&quot;locale&quot;:&quot;fr&quot;,&quot;islands&quot;:[]},&quot;checksum&quot;:&quot;99f562cff130cff9d28fb2b58871be72f369af40bc63f2a676d293825a27ab22&quot;}" wire:effects="{&quot;listeners&quot;:[&quot;user:authenticated&quot;,&quot;user:unauthenticated&quot;]}" wire:id="JgB8AY1gGjmexc0riL7G" wire:name="footer.upcoming-song-selector">
+    <button
+        wire:click="chooseUpcomingSong" class="btn btn-primary d-flex align-items-center">
+        <!--[if BLOCK]><![endif]-->            <span id="chooseUpcomingSongTexteBrowser" class="me-2 d-flex d-xl-flex">Dédicacer le prochain titre</span>
+        <!--[if ENDBLOCK]><![endif]-->        <span class="icon d-flex" data-icon="mixing-dj-table">
+    
+<svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path
+        d="M11.9648 7.71997C10.6883 7.71997 9.64966 8.75853 9.64966 10.0351C9.64966 11.3117 10.6883 12.3503 11.9648 12.3503C13.2414 12.3503 14.28 11.3117 14.28 10.0351C14.28 8.75853 13.2414 7.71997 11.9648 7.71997ZM11.9648 11.491C11.1621 11.491 10.509 10.8379 10.509 10.0352C10.509 9.23243 11.1621 8.57939 11.9648 8.57939C12.7676 8.57939 13.4206 9.23243 13.4206 10.0352C13.4206 10.8379 12.7676 11.491 11.9648 11.491Z"
+        fill="currentColor"/>
+    <path
+        d="M19.0608 2.93923C17.1653 1.04384 14.6453 0 11.9648 0C7.98609 0 4.40305 2.33441 2.79134 5.96114C2.3522 6.21152 2.05545 6.68413 2.05545 7.22481V8.09265C1.85651 8.00216 1.63754 7.9576 1.41303 7.96366C0.633875 7.98501 0 8.64639 0 9.43796V16.8124C0 18.1405 0.57402 18.8759 1.05553 19.259C1.32056 19.4698 1.58447 19.598 1.78673 19.6742V21.5703C1.78673 21.8076 1.9791 22 2.21641 22H7.71856C7.95588 22 8.14825 21.8076 8.14825 21.5703V19.3189C9.35838 19.8176 10.6405 20.0704 11.9648 20.0704C14.6453 20.0704 17.1653 19.0266 19.0608 17.1312C20.9562 15.2358 22 12.7157 22 10.0352C22 7.35466 20.9562 4.83463 19.0608 2.93923ZM8.24974 18.015C8.21936 18.0635 8.18529 18.109 8.14825 18.1515V17.5059C8.14825 17.2686 7.95588 17.0762 7.71856 17.0762C7.48125 17.0762 7.28888 17.2686 7.28888 17.5059V21.1406H2.6461V19.3535C2.6461 19.1438 2.49803 18.9652 2.29127 18.9304C2.28757 18.9297 1.91834 18.8586 1.56264 18.5638C1.096 18.1771 0.859375 17.5878 0.859375 16.8124V9.43796C0.859375 9.10744 1.1183 8.83141 1.43662 8.82269C1.59754 8.81831 1.75102 8.87756 1.86781 8.98971C1.9864 9.10357 2.05305 9.2568 2.05554 9.42133V13.8279C2.05554 14.0653 2.24791 14.2576 2.48523 14.2576C2.72254 14.2576 2.91491 14.0653 2.91491 13.8279V7.22481C2.91491 6.89717 3.18149 6.63059 3.50913 6.63059C3.83677 6.63059 4.10334 6.89717 4.10334 7.22481C4.10334 7.24397 4.10717 12.7118 4.10717 12.7118C4.10717 12.9491 4.29954 13.1415 4.53686 13.1415C4.77417 13.1415 4.96654 12.9491 4.96654 12.7118C4.96654 12.7118 4.96517 6.88127 4.96272 6.86275C4.96852 6.53383 5.23677 6.26661 5.5623 6.26536C5.56527 6.26545 5.56823 6.26545 5.5712 6.26549C5.89578 6.26905 6.1588 6.53409 6.1588 6.85953V13.828C6.1588 14.0653 6.35117 14.2577 6.58848 14.2577C6.8258 14.2577 7.01817 14.0653 7.01817 13.828V7.98153C7.02333 7.64818 7.28548 7.37013 7.60306 7.36141C7.76463 7.35668 7.91845 7.41662 8.03438 7.52946C8.1504 7.64229 8.21429 7.79359 8.21429 7.95541C8.21429 7.95541 8.22486 13.1219 8.21429 14.5271C8.21249 14.7644 8.40344 14.9582 8.64071 14.96C8.64183 14.96 8.64291 14.96 8.64402 14.96C8.87984 14.96 9.07186 14.7698 9.07362 14.5336C9.07964 13.7314 9.07951 13.2009 9.07741 12.8503C9.30621 12.9354 9.40852 13.112 9.61241 13.5654L9.94065 14.2955C10.136 14.7292 10.1031 15.2288 9.85265 15.6334L8.25752 18.003C8.2549 18.007 8.25228 18.011 8.24974 18.015ZM10.7243 13.9428L10.3962 13.2129C10.1547 12.676 9.90498 12.1209 9.07362 11.9626V7.95541C9.07362 7.55962 8.91735 7.18957 8.63363 6.91354C8.3924 6.67885 8.08491 6.53825 7.7553 6.50805C8.78724 5.28241 10.3262 4.53969 11.9648 4.53969C14.9951 4.53969 17.4604 7.00498 17.4604 10.0352C17.4604 11.2132 17.0915 12.3369 16.3937 13.2852C16.2531 13.4763 16.294 13.7453 16.4851 13.8859C16.5618 13.9424 16.651 13.9695 16.7395 13.9695C16.8714 13.9695 17.0017 13.9089 17.0858 13.7945C17.893 12.6977 18.3197 11.3977 18.3197 10.0352C18.3197 6.53112 15.4689 3.68032 11.9648 3.68032C10.7356 3.68032 9.54194 4.03343 8.51297 4.70151C7.87733 5.11423 7.32428 5.63307 6.87552 6.23266C6.74644 5.9638 6.53718 5.74067 6.27881 5.59423C7.64268 3.84764 9.72752 2.82098 11.9648 2.82098C15.9427 2.82098 19.1791 6.0573 19.1791 10.0353C19.1791 14.0132 15.9428 17.2495 11.9648 17.2495C11.2898 17.2495 10.6263 17.1573 9.98568 16.9748L10.5698 16.107C10.5725 16.103 10.5751 16.099 10.5777 16.0949C10.984 15.4452 11.0387 14.6406 10.7243 13.9428ZM11.9648 19.211C10.8857 19.211 9.83739 19.0276 8.83932 18.6653C8.88766 18.6057 8.93273 18.543 8.9742 18.4773L9.48385 17.7202C10.2829 17.9782 11.1158 18.1088 11.9648 18.1088C16.4166 18.1088 20.0385 14.487 20.0385 10.0352C20.0385 5.58332 16.4166 1.96152 11.9648 1.96152C9.31133 1.96152 6.84969 3.25187 5.33698 5.4239C4.93359 5.48823 4.58287 5.72043 4.35957 6.04661C4.20071 5.93162 4.01771 5.84818 3.81984 5.80491C5.39064 2.77875 8.51499 0.859375 11.9648 0.859375C17.0243 0.859375 21.1406 4.97561 21.1406 10.0352C21.1406 15.0948 17.0243 19.211 11.9648 19.211Z"
+        fill="currentColor"/>
+</svg>
+
+</span>
+    </button>
+</div>
+                </div>
+                    </div>
+    </div>
+</div>
+                        <div wire:key="modal-template" wire:snapshot="{&quot;data&quot;:{&quot;alias&quot;:null,&quot;params&quot;:[[],{&quot;s&quot;:&quot;arr&quot;}]},&quot;memo&quot;:{&quot;id&quot;:&quot;5x32XNLjAAe2R3zBiKmP&quot;,&quot;name&quot;:&quot;modal&quot;,&quot;path&quot;:&quot;mysun\/parcourir\/sun-cine-series&quot;,&quot;method&quot;:&quot;GET&quot;,&quot;release&quot;:&quot;a-a-a&quot;,&quot;children&quot;:[],&quot;scripts&quot;:[],&quot;assets&quot;:[],&quot;errors&quot;:[],&quot;locale&quot;:&quot;fr&quot;,&quot;islands&quot;:[]},&quot;checksum&quot;:&quot;b68ca31a0f65ed3bf953cb2d5c6378bdc3961cbc809f9e9258d8f7f04067663f&quot;}" wire:effects="{&quot;listeners&quot;:[&quot;modal:show&quot;,&quot;modal:close&quot;,&quot;modal:reset&quot;]}" wire:id="5x32XNLjAAe2R3zBiKmP" wire:name="modal" id="livewire-modal"
+     class="modal fade"
+     data-bs-backdrop="static"
+     data-bs-keyboard="false"
+     tabindex="-1"
+     aria-labelledby="livewire-modal-label"
+     aria-hidden="true">
+    <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]--></div>
+        </div>
+        <script>window["app"]={"domain":"lesonunique.com","locale":"fr","notify":{"success":"Succ\u00e8s","error":"Erreur","info":"Information","question":"Question","warning":"Attention","please_wait":"Veuillez patienter","confirm_request":"Demande de confirmation","loading":"Chargement en cours...","invalid":"Des champs invalides ont \u00e9t\u00e9 d\u00e9tect\u00e9s.","unexpected":"Une erreur impr\u00e9vue est survenue.","close":"Fermer","confirm":"Confirmer","cancel":"Annuler"},"gdpr_page_url":"https:\/\/lesonunique.com\/page\/vie-privee-et-rgpd","cookie_categories":[{"id":1,"unique_key":"necessary","title":"N\u00e9cessaire","description":"Ces cookies sont n\u00e9cessaires au fonctionnement de l'application. Ils ne peuvent pas \u00eatre d\u00e9sactiv\u00e9s et ne stockent aucune information d\u2019identification personnelle.","position":1,"created_at":"2022-01-25T09:43:03.000000Z","updated_at":"2022-01-25T09:43:03.000000Z","services":[{"id":1,"unique_key":"session","title":"Session","description":null,"cookies":null,"required":true,"enabled_by_default":true,"active":true,"created_at":"2022-01-25T09:43:03.000000Z","updated_at":"2022-09-05T21:14:46.000000Z","pivot":{"cookie_category_id":1,"cookie_service_id":1,"created_at":"2022-01-25T09:43:03.000000Z","updated_at":"2022-01-25T09:43:03.000000Z"},"categories":[{"id":1,"unique_key":"necessary","title":"N\u00e9cessaire","description":"Ces cookies sont n\u00e9cessaires au fonctionnement de l'application. Ils ne peuvent pas \u00eatre d\u00e9sactiv\u00e9s et ne stockent aucune information d\u2019identification personnelle.","position":1,"created_at":"2022-01-25T09:43:03.000000Z","updated_at":"2022-01-25T09:43:03.000000Z","pivot":{"cookie_service_id":1,"cookie_category_id":1,"created_at":"2022-01-25T09:43:03.000000Z","updated_at":"2022-01-25T09:43:03.000000Z"}}]}]},{"id":2,"unique_key":"security","title":"S\u00e9curit\u00e9","description":"Ces cookies permettent de s\u00e9curiser l'application et de pr\u00e9venir le piratage de la session de l'utilisateur authentifi\u00e9. Ils ne peuvent pas \u00eatre d\u00e9sactiv\u00e9s et ne stockent aucune information d\u2019identification personnelle.","position":2,"created_at":"2022-01-25T09:43:03.000000Z","updated_at":"2022-01-25T09:43:03.000000Z","services":[{"id":2,"unique_key":"csrf_token","title":"Cl\u00e9 CSRF","description":null,"cookies":null,"required":true,"enabled_by_default":true,"active":true,"created_at":"2022-01-25T09:43:03.000000Z","updated_at":"2022-09-05T21:14:54.000000Z","pivot":{"cookie_category_id":2,"cookie_service_id":2,"created_at":"2022-01-25T09:43:03.000000Z","updated_at":"2022-01-25T09:43:03.000000Z"},"categories":[{"id":2,"unique_key":"security","title":"S\u00e9curit\u00e9","description":"Ces cookies permettent de s\u00e9curiser l'application et de pr\u00e9venir le piratage de la session de l'utilisateur authentifi\u00e9. Ils ne peuvent pas \u00eatre d\u00e9sactiv\u00e9s et ne stockent aucune information d\u2019identification personnelle.","position":2,"created_at":"2022-01-25T09:43:03.000000Z","updated_at":"2022-01-25T09:43:03.000000Z","pivot":{"cookie_service_id":2,"cookie_category_id":2,"created_at":"2022-01-25T09:43:03.000000Z","updated_at":"2022-01-25T09:43:03.000000Z"}}]}]},{"id":3,"unique_key":"statistic","title":"Statistique","description":"Ces cookies nous permettent de d\u00e9terminer le nombre de visites et les sources du trafic, afin de mesurer et d\u2019am\u00e9liorer les performances de notre application. Toutes les informations collect\u00e9es par ces cookies sont agr\u00e9g\u00e9es et anonymis\u00e9es. Si vous n'acceptez pas ces cookies, nous ne serons pas inform\u00e9 de votre visite sur notre site.","position":3,"created_at":"2022-01-25T09:43:03.000000Z","updated_at":"2022-01-25T09:43:03.000000Z","services":[{"id":3,"unique_key":"matomo","title":"Matomo","description":null,"cookies":["^_pk_ref.*$","^_pk_cvar.*$","^_pk_id.*$","^_pk_ses.*$","^mtm_consent.*$","^mtm_consent_removed.*$","^mtm_cookie_consent.*$","^matomo_ignore.*$","^matomo_sessid.*$","^_pk_hsr.*$","^_pk_uid.*$"],"required":false,"enabled_by_default":true,"active":true,"created_at":"2022-01-25T09:43:03.000000Z","updated_at":"2022-09-05T21:15:00.000000Z","pivot":{"cookie_category_id":3,"cookie_service_id":3,"created_at":"2022-01-25T09:43:03.000000Z","updated_at":"2022-01-25T09:43:03.000000Z"},"categories":[{"id":3,"unique_key":"statistic","title":"Statistique","description":"Ces cookies nous permettent de d\u00e9terminer le nombre de visites et les sources du trafic, afin de mesurer et d\u2019am\u00e9liorer les performances de notre application. Toutes les informations collect\u00e9es par ces cookies sont agr\u00e9g\u00e9es et anonymis\u00e9es. Si vous n'acceptez pas ces cookies, nous ne serons pas inform\u00e9 de votre visite sur notre site.","position":3,"created_at":"2022-01-25T09:43:03.000000Z","updated_at":"2022-01-25T09:43:03.000000Z","pivot":{"cookie_service_id":3,"cookie_category_id":3,"created_at":"2022-01-25T09:43:03.000000Z","updated_at":"2022-01-25T09:43:03.000000Z"}}]},{"id":6,"unique_key":"google_analytics","title":"Google Analytics","description":null,"cookies":["^_ga(_.*)?","^_gat(_.*)?","^_gid(_.*)?"],"required":false,"enabled_by_default":false,"active":true,"created_at":"2023-11-22T17:29:04.000000Z","updated_at":"2023-11-22T17:29:04.000000Z","pivot":{"cookie_category_id":3,"cookie_service_id":6,"created_at":"2023-11-22T17:29:04.000000Z","updated_at":"2023-11-22T17:29:04.000000Z"},"categories":[{"id":3,"unique_key":"statistic","title":"Statistique","description":"Ces cookies nous permettent de d\u00e9terminer le nombre de visites et les sources du trafic, afin de mesurer et d\u2019am\u00e9liorer les performances de notre application. Toutes les informations collect\u00e9es par ces cookies sont agr\u00e9g\u00e9es et anonymis\u00e9es. Si vous n'acceptez pas ces cookies, nous ne serons pas inform\u00e9 de votre visite sur notre site.","position":3,"created_at":"2022-01-25T09:43:03.000000Z","updated_at":"2022-01-25T09:43:03.000000Z","pivot":{"cookie_service_id":6,"cookie_category_id":3,"created_at":"2023-11-22T17:29:04.000000Z","updated_at":"2023-11-22T17:29:04.000000Z"}}]}]},{"id":5,"unique_key":"third_party_content","title":"Contenu tiers","description":"Ces cookies sont d\u00e9pos\u00e9s par des contenus tiers int\u00e9gr\u00e9s \u00e0 nos pages (vid\u00e9os, cartes...). Ils sont g\u00e9r\u00e9s par l'\u00e9diteur de ce contenu externe et peuvent \u00eatre utilis\u00e9s \u00e0 des fins de mesure d'audience ou de publicit\u00e9 par ce dernier. Si vous n'autorisez pas ces cookies, le contenu correspondant ne sera pas affich\u00e9.","position":5,"created_at":"2026-07-22T09:52:36.000000Z","updated_at":"2026-07-22T09:52:36.000000Z","services":[{"id":5,"unique_key":"youtube_video","title":"Vid\u00e9os Youtube int\u00e9gr\u00e9es","description":null,"cookies":["GEUP","PREF","VISITOR_INFO1_LIVE","YSC"],"required":false,"enabled_by_default":false,"active":true,"created_at":"2022-01-25T09:43:04.000000Z","updated_at":"2026-07-23T09:25:04.000000Z","pivot":{"cookie_category_id":5,"cookie_service_id":5,"created_at":"2026-07-22T09:52:51.000000Z","updated_at":"2026-07-22T09:52:51.000000Z"},"categories":[{"id":5,"unique_key":"third_party_content","title":"Contenu tiers","description":"Ces cookies sont d\u00e9pos\u00e9s par des contenus tiers int\u00e9gr\u00e9s \u00e0 nos pages (vid\u00e9os, cartes...). Ils sont g\u00e9r\u00e9s par l'\u00e9diteur de ce contenu externe et peuvent \u00eatre utilis\u00e9s \u00e0 des fins de mesure d'audience ou de publicit\u00e9 par ce dernier. Si vous n'autorisez pas ces cookies, le contenu correspondant ne sera pas affich\u00e9.","position":5,"created_at":"2026-07-22T09:52:36.000000Z","updated_at":"2026-07-22T09:52:36.000000Z","pivot":{"cookie_service_id":5,"cookie_category_id":5,"created_at":"2026-07-22T09:52:51.000000Z","updated_at":"2026-07-22T09:52:51.000000Z"}}]}]}],"is_desktop":true,"is_mobile":false};window["sharedDataNamespace"]="app";</script><script src="https://lesonunique.com/livewire-bdfe6b95/livewire.min.js?id=a964a3c8"   data-csrf="mk2HUOUUkZ9W7KO9KgS9CP8ULiPz2d1YLx2v7BzP" data-module-url="https://lesonunique.com/livewire-bdfe6b95" data-update-uri="https://lesonunique.com/livewire-bdfe6b95/update" data-navigate-once="true"></script>
+<script src="https://lesonunique.com/vendor/sweetalert/sweetalert.all.js"></script>
+<script type="application/javascript" data-type="application/javascript" data-name="matomo">
+        var _paq = window._paq = window._paq || [];
+        _paq.push(['requireCookieConsent']);
+        _paq.push(['trackPageView']);
+        _paq.push(['enableLinkTracking']);
+        (function() {
+            var u="//matomo.lesonunique.com/";
+            _paq.push(['setTrackerUrl', u+'matomo.php']);
+            _paq.push(['setSiteId', '1']);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.type='text/javascript'; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+        })();
+        Livewire.on('seo:meta:updated', () => {
+            _paq.push(['setReferrerUrl', window.location.href]);
+            _paq.push(['setCustomUrl', window.location.pathname + window.location.search]);
+            _paq.push(['setDocumentTitle', window.document.title]);
+
+            _paq.push(['setCustomDimension', 1, window.location.pathname.split('/')[2]]);
+
+            _paq.push(['trackPageView']);
+
+            var content = document.getElementById('layout');
+            _paq.push(['trackContentImpressionsWithinNode', content]);
+            _paq.push(['enableLinkTracking']);
+        });
+        Livewire.on('media:analytics:scanForMedia', () => {
+            if (document.getElementById('audio-player') && document.getElementById('audio-player').hasAttribute('data-matomo-title')) {
+                var content = document.getElementById('audio-player-component');
+                _paq.push(['MediaAnalytics::scanForMedia', content]);
+            }
+        });
+        Livewire.on('event:track:dedicace', ({typeEvent}) => {
+            _paq.push(['trackEvent', 'Dedicace', typeEvent]);
+        });
+        Livewire.on('event:track:dedicace:search', ({search, results}) => {
+            _paq.push(['trackEvent', 'Dedicace', 'search']);
+            _paq.push(['trackSiteSearch', search, 'Dedicace', results ?? false]);
+        });
+    </script>
+<script src="/js/manifest.js?id=88d16179ac7bede307054f0d8f88a796"></script>
+<script src="/js/vendor.js?id=79194e328b076a47eedeb7af27fff181"></script>
+<script src="/js/front-app.js?id=acddd554618b532900a9d599f777bf01"></script>
+<script src="/js/map/sun-map.js?id=be075efda5b7c0f46b288025ece62e59"></script>
+
+<script>
+    /** Todo Put in a separate js */
+    /*!
+     * Color mode toggler for Bootstrap's docs (https://getbootstrap.com/)
+     * Copyright 2011-2023 The Bootstrap Authors
+     * Licensed under the Creative Commons Attribution 3.0 Unported License.
+     */
+
+    (() => {
+        'use strict'
+
+        const getStoredTheme = () => localStorage.getItem('userTheme')
+        const setStoredTheme = theme => localStorage.setItem('userTheme', theme)
+
+        const getPreferredTheme = () => {
+            const storedTheme = getStoredTheme()
+            if (storedTheme) {
+                return storedTheme
+            }
+
+            return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+        }
+
+        const setTheme = theme => {
+            if (theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                document.documentElement.setAttribute('data-bs-theme', 'dark')
+            } else if (theme === 'auto' && window.matchMedia('(prefers-color-scheme: light)').matches) {
+                document.documentElement.setAttribute('data-bs-theme', 'light')
+            } else {
+                document.documentElement.setAttribute('data-bs-theme', theme)
+            }
+        }
+
+        setTheme(getPreferredTheme())
+
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+            const browserMode = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+            const storedTheme = getStoredTheme()
+
+            if (storedTheme === 'auto') {
+                document.body.setAttribute('data-bs-theme', browserMode)
+                document.documentElement.setAttribute('data-bs-theme', browserMode)
+                document.querySelectorAll('[data-bs-theme-value]')
+                    .forEach(toggle => {
+                        toggle.getAttribute('data-bs-theme-value')
+                        setTheme(browserMode)
+                    })
+            }
+            else if (storedTheme !== 'light' && storedTheme !== 'dark') {
+                setTheme(getPreferredTheme())
+            }
+        })
+
+        window.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('[data-bs-theme-value]')
+                .forEach(toggle => {
+                    toggle.addEventListener('click', () => {
+                        const theme = toggle.getAttribute('data-bs-theme-value')
+                        setStoredTheme(theme)
+                        setTheme(theme)
+                    })
+                })
+        })
+
+        window.addEventListener('themeChanged', (e) => {
+            let selectedTheme = e.detail.userTheme
+            const setStoredTheme = localStorage.setItem('userTheme', selectedTheme)
+
+            if (selectedTheme === 'auto') {
+                selectedTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+                setTheme(selectedTheme)
+            }
+
+            document.body.setAttribute('data-bs-theme', selectedTheme)
+            document.documentElement.setAttribute('data-bs-theme', selectedTheme)
+            document.querySelectorAll('[data-bs-theme-value]')
+                .forEach(toggle => {
+                    toggle.getAttribute('data-bs-theme-value')
+                    setStoredTheme(selectedTheme)
+                    setTheme(selectedTheme)
+                })
+        })
+
+        window.addEventListener('userLogout', (e) => {
+            localStorage.removeItem('userTheme')
+
+            window.location.reload()
+
+            // const browserMode = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+            //
+            // window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+            //
+            // document.body.setAttribute('data-bs-theme', browserMode)
+            // document.documentElement.setAttribute('data-bs-theme', browserMode)
+            // document.querySelectorAll('[data-bs-theme-value]')
+            //     .forEach(toggle => {
+            //         toggle.getAttribute('data-bs-theme-value')
+            //         setTheme(browserMode)
+            //     })
+        })
+
+        window.addEventListener('userLogin', (e) => {
+            const userTheme = e.detail.userTheme
+            localStorage.setItem('userTheme', userTheme)
+
+            if (userTheme === 'auto') {
+                setTheme(window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+            } else {
+                document.body.setAttribute('data-bs-theme', userTheme)
+                document.documentElement.setAttribute('data-bs-theme', userTheme)
+                document.querySelectorAll('[data-bs-theme-value]')
+                    .forEach(toggle => {
+                        toggle.getAttribute('data-bs-theme-value')
+                        setTheme(userTheme)
+                    })
+            }
+        })
+
+    })()
+</script>
+
+<script>
+    function trackScrollTemplate() {
+        const footerAppMobile = document.querySelector("#footer-app-mobile");
+        if (footerAppMobile) {
+            footerAppMobile.classList.add('isScrolled');
+        }
+
+        const template = document.querySelector("#template");
+        template.removeEventListener('scroll', trackScrollTemplate);
+    }
+
+    const template = document.querySelector("#template");
+    template.addEventListener('scroll', trackScrollTemplate);
+</script>
+    </body>
+</html>

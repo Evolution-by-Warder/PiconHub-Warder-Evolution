@@ -1,0 +1,1183 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terre Marine FM Hits &amp; Infos</title>
+    <meta name="description" content="Decouvrez Terre Marine FM, Hits &amp; Infos, a Fouras, Rochefort, Charente-Maritime, ecoutez en direct">
+    <meta name="keywords" content="Terre Marine FM, RTM Radio, Radio locale, Fouras, Rochefort, Saintes, La Rochelle, Ile d&#039;Oléron, Ile de Ré, Charente-Maritime, Charente, direct, radio locale, musique, émissions, podcast, Hits &amp; Infos, actualités, webradio, radio en ligne, frequence FM, FM, DAB+, info, hits, streaming, Numérique, ">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://terremarinefm.com/">
+    <meta property="og:title" content="Terre Marine FM Hits &amp; Infos">
+    <meta property="og:description" content="Decouvrez Terre Marine FM, Hits &amp; Infos, a Fouras, Rochefort, Charente-Maritime, ecoutez en direct">
+    <meta property="og:image" content="https://terremarinefm.com/images/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:site_name" content="Terre Marine FM">
+    <meta property="og:locale" content="fr_FR">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://terremarinefm.com/">
+    <meta name="twitter:title" content="Terre Marine FM Hits &amp; Infos">
+    <meta name="twitter:description" content="Decouvrez Terre Marine FM, Hits &amp; Infos, a Fouras, Rochefort, Charente-Maritime, ecoutez en direct">
+    <meta name="twitter:image" content="https://terremarinefm.com/images/og-image.png">
+    
+    <link rel="icon" href="favicon.ico?v=1781082795" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/main.css?v=1776343131">
+    <link rel="stylesheet" href="style.php">
+    <link rel="stylesheet" href="assets/css/slideshow.css?v=1768050543">
+    <link rel="stylesheet" href="assets/css/slideshow-themes.css?v=1768050442">
+    <link rel="stylesheet" href="assets/css/slideshow-compact.css?v=1768045536">
+<style>
+/* Mode Podcast - couleurs inversees (secondary devient principal) */
+.player-bar.podcast-mode {
+    background: linear-gradient(180deg, #ffffff 0%, #ffffff 100%) !important;
+    box-shadow: 0 -5px 40px #f7963b50 !important;
+    border-top: 2px solid #f7963b60 !important;
+}
+.player-bar.podcast-mode::before {
+    background: linear-gradient(90deg, #f7963b, #ec9822, #f7963b) !important;
+}
+.player-bar.podcast-mode .player-cover-wrapper::before {
+    background: linear-gradient(45deg, #f7963b, #ec9822, #f7963b) !important;
+}
+.player-bar.podcast-mode.playing .player-cover {
+    box-shadow: 0 0 30px #f7963b !important;
+}
+.player-bar.podcast-mode .btn-play-main {
+    background: linear-gradient(135deg, #f7963b, #ec9822) !important;
+}
+
+/* ============================================
+   RGPD - Bandeau Cookies
+   ============================================ */
+.rgpd-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #ffffff;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding: 1rem 1.5rem;
+    z-index: 10000;
+    transform: translateY(100%);
+    transition: transform 0.4s ease, visibility 0s 0.4s;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.3);
+    visibility: hidden;
+}
+.rgpd-banner.show {
+    transform: translateY(0);
+    visibility: visible;
+    transition: transform 0.4s ease, visibility 0s 0s;
+}
+.rgpd-banner.has-player {
+    bottom: 80px;
+}
+.rgpd-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+.rgpd-text {
+    flex: 1;
+    min-width: 280px;
+}
+.rgpd-text h4 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    color: #0f172a;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.rgpd-text p {
+    font-size: 0.85rem;
+    color: #e5931f;
+    line-height: 1.5;
+    margin: 0;
+}
+.rgpd-text a {
+    color: #ec9822;
+    text-decoration: underline;
+}
+.rgpd-buttons {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+.rgpd-btn {
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s ease;
+}
+.rgpd-btn-accept {
+    background: #ec9822;
+    color: #fff;
+}
+.rgpd-btn-accept:hover {
+    background: #f7963b;
+    transform: translateY(-1px);
+}
+.rgpd-btn-refuse {
+    background: transparent;
+    color: #e5931f;
+    border: 1px solid rgba(255,255,255,0.2);
+}
+.rgpd-btn-refuse:hover {
+    background: rgba(255,255,255,0.05);
+    color: #0f172a;
+}
+.rgpd-btn-settings {
+    background: transparent;
+    color: #e5931f;
+    text-decoration: underline;
+    padding: 0.6rem 0.5rem;
+}
+.rgpd-btn-settings:hover {
+    color: #0f172a;
+}
+
+/* Modal Paramètres Cookies */
+.rgpd-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.8);
+    z-index: 10001;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+.rgpd-modal.show {
+    display: flex;
+}
+.rgpd-modal-content {
+    background: #ffffff;
+    border-radius: 12px;
+    max-width: 500px;
+    width: 100%;
+    max-height: 80vh;
+    overflow-y: auto;
+    padding: 1.5rem;
+}
+.rgpd-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.rgpd-modal-header h3 {
+    font-size: 1.1rem;
+    color: #0f172a;
+}
+.rgpd-modal-close {
+    background: none;
+    border: none;
+    color: #e5931f;
+    cursor: pointer;
+    padding: 0.25rem;
+}
+.rgpd-modal-close:hover {
+    color: #0f172a;
+}
+.rgpd-option {
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.rgpd-option:last-child {
+    border-bottom: none;
+}
+.rgpd-option-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+.rgpd-option-title {
+    font-weight: 500;
+    color: #0f172a;
+}
+.rgpd-option-desc {
+    font-size: 0.8rem;
+    color: #e5931f;
+    line-height: 1.4;
+}
+.rgpd-toggle {
+    position: relative;
+    width: 44px;
+    height: 24px;
+}
+.rgpd-toggle input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+.rgpd-toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255,255,255,0.2);
+    border-radius: 24px;
+    transition: 0.3s;
+}
+.rgpd-toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background: white;
+    border-radius: 50%;
+    transition: 0.3s;
+}
+.rgpd-toggle input:checked + .rgpd-toggle-slider {
+    background: #ec9822;
+}
+.rgpd-toggle input:checked + .rgpd-toggle-slider:before {
+    transform: translateX(20px);
+}
+.rgpd-toggle input:disabled + .rgpd-toggle-slider {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+.rgpd-modal-footer {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+}
+
+@media (max-width: 600px) {
+    .rgpd-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    .rgpd-buttons {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* Footer Legal Links */
+.footer-legal {
+    font-size: 0.85rem;
+    margin: 0.5rem 0;
+}
+.footer-legal a {
+    color: #e5931f;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+.footer-legal a:hover {
+    color: #ec9822;
+    text-decoration: underline;
+}
+.footer-sep {
+    margin: 0 0.75rem;
+    color: rgba(255,255,255,0.3);
+}
+</style>
+</head>
+<body class=" ">
+
+        <!-- HEADER PAR DEFAUT -->
+    <header class="header">
+        <div class="header-container">
+            <a href="/" class="logo" data-page="accueil">
+                <div class="logo-glow-wrapper">
+                    <img src="images/logo.png?v=1781082795" alt="Terre Marine FM">
+                    <div class="logo-light-orbit"></div>
+                </div>
+                <div class="logo-text" style="display: none;">
+                    <span class="radio-name">Terre Marine FM</span>
+                </div>
+            </a>
+
+            <!-- App Links Mobile Only -->
+            
+            <!-- Navigation -->
+            <nav class="nav">
+                <button class="nav-toggle" id="navToggle" aria-label="Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <ul class="nav-list" id="navList">
+                    <li><a href="#" data-page="accueil" class="active">Accueil</a></li>
+                    <li><a href="#" data-page="emissions">Émissions</a></li>                    <li><a href="#" data-page="articles">Actu-Radio</a></li>                    <li><a href="#" data-page="podcasts">Podcasts</a></li>                                                            <li><a href="#" data-page="albums">Albums</a></li>                                                            <li class="has-dropdown">
+                        <a href="#" class="dropdown-toggle">INFO <span class="dropdown-arrow">&#9662;</span></a>
+                        <ul class="nav-dropdown">
+                                                        <li><a href="#" data-page="page-radio" data-id="info">INFO DEPARTEMENTALE</a></li>
+                                                        <li><a href="#" data-page="page-radio" data-id="les-sorties">Les sorties</a></li>
+                                                    </ul>
+                    </li>
+                                    </ul>
+            </nav>
+
+            <!-- Réseaux Sociaux -->
+                        <div class="social-links">
+                                <a href="https://www.facebook.com/TERREMARINEFM" target="_blank" rel="noopener" class="social-link social-facebook" title="Facebook">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>                </a>
+                            </div>
+                    </div>
+    </header>
+
+    <!-- BARRE DE MESSAGES DEFILANTS -->
+            <div class="messages-bar">
+        <div class="messages-label" onclick="openMessageModal()" style="cursor: pointer;" title="Envoyer un message">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg>
+            Messages
+        </div>
+        <div class="messages-scroll">
+            <div class="messages-track">
+                                                        <span class="message-item"><strong>thierry</strong>: plein de bisous à ma famille de l&#039;île d&#039;oleron</span>
+                                        <span class="message-item"><strong>Ludo</strong>: Merci de nous donner du courage le matin pour partir au boulot</span>
+                                        <span class="message-item"><strong>Gael</strong>: Bon été et bonnes vacances Terre Marine</span>
+                                        <span class="message-item"><strong>Titi</strong>: Je t’aime ma charlotte 49 ans de mariage bisous</span>
+                                        <span class="message-item"><strong>Nathalie</strong>: Slt Terre Marine, ma m&#039;a fait découvrir la radio. vos infos sont top. Bon été à vous.</span>
+                                        <span class="message-item"><strong>Michel</strong>: On vous adore sur Oléron.</span>
+                                        <span class="message-item"><strong>Estelle à Oleron</strong>: Un bonjour de l&#039;île d&#039;Oléron</span>
+                                        <span class="message-item"><strong>Marie</strong>: Je vous écoute depuis Saintes, et ma fille est fan de vous</span>
+                                        <span class="message-item"><strong>Vincent d&#039;Oléron</strong>: Je me réveille tous les jours avec vous et c&#039;est top</span>
+                                        <span class="message-item"><strong>Caroline</strong>: Top le nouveau logo</span>
+                                                            <span class="message-item"><strong>thierry</strong>: plein de bisous à ma famille de l&#039;île d&#039;oleron</span>
+                                        <span class="message-item"><strong>Ludo</strong>: Merci de nous donner du courage le matin pour partir au boulot</span>
+                                        <span class="message-item"><strong>Gael</strong>: Bon été et bonnes vacances Terre Marine</span>
+                                        <span class="message-item"><strong>Titi</strong>: Je t’aime ma charlotte 49 ans de mariage bisous</span>
+                                        <span class="message-item"><strong>Nathalie</strong>: Slt Terre Marine, ma m&#039;a fait découvrir la radio. vos infos sont top. Bon été à vous.</span>
+                                        <span class="message-item"><strong>Michel</strong>: On vous adore sur Oléron.</span>
+                                        <span class="message-item"><strong>Estelle à Oleron</strong>: Un bonjour de l&#039;île d&#039;Oléron</span>
+                                        <span class="message-item"><strong>Marie</strong>: Je vous écoute depuis Saintes, et ma fille est fan de vous</span>
+                                        <span class="message-item"><strong>Vincent d&#039;Oléron</strong>: Je me réveille tous les jours avec vous et c&#039;est top</span>
+                                        <span class="message-item"><strong>Caroline</strong>: Top le nouveau logo</span>
+                                                </div>
+        </div>
+        <button class="btn-send-message" onclick="openMessageModal()" title="Envoyer un message">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+        </button>
+
+    </div>
+    
+    <!-- SLOGAN BANNER WITH APP LINKS -->
+        <div class="slogan-banner">
+        <div class="slogan-banner-inner">
+                        <span class="slogan-text">Hits &amp; Infos</span>
+                                </div>
+    </div>
+    
+    <!-- MAIN CONTENT (chargé dynamiquement via AJAX) -->
+    <main class="main-content" id="mainContent">
+        <div class="loading-spinner">
+            <div class="spinner"></div>
+            <p>Chargement...</p>
+        </div>
+    </main>
+
+    <!-- PLAYER STICKY PERMANENT PAR DEFAUT -->
+    <div class="player-bar" id="playerBar">
+        <div class="player-container">
+            <!-- Cover & Info -->
+            <div class="player-info">
+                <div class="player-cover-wrapper">
+                    <img src="stream/1.png?v=1781082795" alt="Cover" class="player-cover" id="playerCover">
+                                        <button class="btn-vote-track hidden" id="btnVoteTrack" title="J'aime ce titre">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                    </button>
+                    <div class="player-visualizer hidden" id="visualizer">
+                        <span></span><span></span><span></span><span></span><span></span>
+                    </div>
+                                    </div>
+                <div class="player-track" id="playerTrack">
+                    <div class="player-track-title" id="playerTitle">En direct</div>
+                    <div class="player-track-artist" id="playerArtist">Terre Marine FM</div>
+                </div>
+                <!-- History Panel -->
+                <div class="history-panel" id="historyPanel">
+                    <div class="history-panel-header">
+                        <span>Derniers titres</span>
+                        <button class="history-panel-close" onclick="closeHistoryPanel()">&times;</button>
+                    </div>
+                    <div class="history-panel-list" id="historyPanelList">
+                        <div class="history-panel-empty">Chargement...</div>
+                    </div>
+                </div>
+            </div>
+
+            
+            <!-- Controls -->
+            <div class="player-controls">
+                <button class="btn-ctrl btn-back-radio" id="btnBackToRadio" title="Retour radio en direct">
+                    <svg class="icon-live" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="4"/></svg>
+                    <svg class="icon-arrow" viewBox="0 0 24 24" fill="currentColor"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+                    <span>Retour Live</span>
+                </button>
+                <button class="btn-ctrl btn-skip" id="btnSkipBack" title="-15 secondes">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11 18V6l-8.5 6 8.5 6zm.5-6l8.5 6V6l-8.5 6z"/></svg>
+                    <span>15</span>
+                </button>
+                <button class="btn-play-main" id="btnPlay" title="Play/Pause">
+                    <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                    <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+                </button>
+                <button class="btn-ctrl btn-skip" id="btnSkipFwd" title="+15 secondes">
+                    <span>15</span>
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 18l8.5-6L4 6v12zm9-12v12l8.5-6L13 6z"/></svg>
+                </button>
+            </div>
+
+            <!-- Progress (pour info/animation) -->
+            <div class="player-progress">
+                <span class="radio-name-display" id="radioNameDisplay">Terre Marine FM</span>
+                <span class="time-current" id="timeCurrent">LIVE</span>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                    <div class="progress-pulse"></div>
+                </div>
+                <span class="time-total" id="timeTotal">∞</span>
+            </div>
+
+            <!-- Volume -->
+            <div class="player-volume">
+                <button class="btn-volume" id="btnVolume" title="Mute">
+                    <svg class="icon-volume-high" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+                    <svg class="icon-volume-mute" viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>
+                </button>
+                <input type="range" class="volume-slider" id="volumeSlider" min="0" max="100" value="80">
+            </div>
+                        <!-- Bouton Podcasts -->
+            <button class="btn-podcast" id="btnPodcast" title="Podcasts">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1c-4.97 0-9 4.03-9 9v7c0 1.66 1.34 3 3 3h3v-8H5v-2c0-3.87 3.13-7 7-7s7 3.13 7 7v2h-4v8h3c1.66 0 3-1.34 3-3v-7c0-4.97-4.03-9-9-9z"/></svg>
+                <span>Podcasts</span>
+            </button>
+                    </div>
+    </div>
+
+        <!-- Panel Podcasts -->
+    <div class="podcast-panel" id="podcastPanel">
+        <div class="podcast-panel-header">
+            <h3>Podcasts</h3>
+            <button class="podcast-panel-close" onclick="document.getElementById('podcastPanel').classList.remove('open')">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+            </button>
+        </div>
+        <div class="podcast-panel-list">
+                        <div class="podcast-item" onclick="radioPlayer.playPodcast('Podcast/mp3/mp3/1_MAGLEANDRI.mp3', 'Centre International de la Mer', 'Podcast/mp3/1.png')">
+                <img src="Podcast/mp3/1.png" alt="" onerror="this.src='images/ptlogo.png?v=1781082795'">
+                <div class="podcast-item-info">
+                    <span class="podcast-item-title">Centre International de la Mer</span>
+                                        <span class="podcast-item-date"><svg viewBox="0 0 24 24" width="10" height="10" fill="currentColor"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2z"/></svg> 16/06/2026</span>
+                                    </div>
+            </div>
+                    </div>
+    </div>
+    
+    <!-- PARTENAIRES -->
+        <section class="partenaires-section">
+        <div class="container">
+            <h2 class="partenaires-title">Nos partenaires</h2>
+            <div class="partenaires-grid">
+                                <a href="https://agglo-saintes.fr/" target="_blank" rel="noopener" class="partenaire-item" title="Communauté d&#039;Agglomération Saintes">
+                                        <img src="Partenaire/5.png" alt="Communauté d&#039;Agglomération Saintes" class="partenaire-logo">
+                                    </a>
+                                <a href="https://www.cdc-oleron.com/" target="_blank" rel="noopener" class="partenaire-item" title="Communauté de Commune Oléron">
+                                        <img src="Partenaire/4.png" alt="Communauté de Commune Oléron" class="partenaire-logo">
+                                    </a>
+                                <a href="https://la.charente-maritime.fr/" target="_blank" rel="noopener" class="partenaire-item" title="Le Département de la Charente Maritime">
+                                        <img src="Partenaire/2.png" alt="Le Département de la Charente Maritime" class="partenaire-logo">
+                                    </a>
+                                <a href="" target="_blank" rel="noopener" class="partenaire-item" title="Région Nouvelle Aquitaine">
+                                        <img src="Partenaire/1.webp" alt="Région Nouvelle Aquitaine" class="partenaire-logo">
+                                    </a>
+                                <a href="https://www.ville-saintes.fr/" target="_blank" rel="noopener" class="partenaire-item" title="Ville de Saintes">
+                                        <img src="Partenaire/3.jpeg" alt="Ville de Saintes" class="partenaire-logo">
+                                    </a>
+                            </div>
+        </div>
+    </section>
+    
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <img src="images/ptlogo.png?v=1781082795" alt="Terre Marine FM" class="footer-logo">
+                <p class="footer-description">Terre Marine FM votre station de radio en Charente-Maritime.</p>
+            </div>
+                        <div class="footer-contact">
+                <h4>Contact</h4>
+                <p>Siège social: Espace Gazin, 
+2 Av. du Treuil Bussac, 17450 Fouras.
+
+Mail: radioterremarine2@bbox.fr
+SIRET:353 996 986 00025
+Numéro TVA: FR50353996986 </p>
+                <a href="#" data-page="contact" class="footer-contact-btn">
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                    Contact                </a>
+            </div>
+                        <div class="footer-social">
+                <h4>Suivez-nous</h4>
+                <div class="footer-social-links">
+                                        <a href="https://www.facebook.com/TERREMARINEFM" target="_blank" rel="noopener" class="footer-social-link" title="Facebook">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                    </a>
+                                    </div>
+            </div>
+                    </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Terre Marine FM - Tous droits réservés</p>
+            <p class="footer-legal">
+                <a href="#" onclick="loadPage('mentions-legales');return false;">Mentions légales</a>
+                <span class="footer-sep">|</span>
+                <a href="#" onclick="loadPage('confidentialite');return false;">Politique de confidentialité</a>
+                <span class="footer-sep">|</span>
+                <a href="#" onclick="rgpdShowSettings();return false;">Gérer les cookies</a>
+            </p>
+                    </div>
+    </footer>
+
+<!-- MODAL SUCCES -->    <div class="modal-overlay" id="successModal">        <div class="modal-content success-modal">            <div class="success-icon">                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>            </div>            <h2>Merci !</h2>            <p>Votre message a bien ete envoye !</p>            <p class="success-subtext">Il sera diffuse sur notre antenne apres validation.</p>            <button class="btn btn-primary" onclick="closeSuccessModal()">Super !</button>        </div>    </div>
+    <!-- MODAL ENVOI MESSAGE -->
+    <div class="modal-overlay" id="messageModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeMessageModal()">&times;</button>
+            <h2>Envoyer un message</h2>
+            <p>Votre message sera diffuse sur notre antenne apres validation.</p>
+            <form id="messageForm" onsubmit="submitMessage(event)">
+                <div class="form-group">
+                    <label for="msgNom">Votre prenom</label>
+                    <input type="text" id="msgNom" name="nom" required maxlength="50" placeholder="Votre prenom...">
+                </div>
+                <div class="form-group">
+                    <label for="msgMessage">Votre message</label>
+                    <textarea id="msgMessage" name="message" required maxlength="200" rows="3" placeholder="Votre message..."></textarea>
+                </div>
+                <!-- Honeypot anti-spam (invisible) -->
+                <div style="position:absolute;left:-9999px;"><input type="text" id="msgWebsite" name="website" tabindex="-1" autocomplete="off"></div>
+                <input type="hidden" id="msgToken" value="4ac409feb640aacf6b1b0a89db1487ac">
+                <input type="hidden" id="msgTimestamp" value="">
+                <button type="submit" class="btn btn-primary btn-block">Envoyer</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+function showSuccessModal() {        document.getElementById("successModal").classList.add("active");    }    function closeSuccessModal() {        document.getElementById("successModal").classList.remove("active");        document.body.style.overflow = "";    }
+    function openMessageModal() {
+        document.getElementById('messageModal').classList.add('active');
+        document.body.style.overflow = 'hidden';
+        // Enregistrer le timestamp d'ouverture du formulaire
+        document.getElementById('msgTimestamp').value = Math.floor(Date.now() / 1000);
+    }
+    function closeMessageModal() {
+        document.getElementById('messageModal').classList.remove('active');
+        document.body.style.overflow = '';
+    }
+    function submitMessage(e) {
+        e.preventDefault();
+        const nom = document.getElementById('msgNom').value;
+        const message = document.getElementById('msgMessage').value;
+        const website = document.getElementById('msgWebsite').value; // Honeypot
+        const _token = document.getElementById('msgToken').value;
+        const _ts = parseInt(document.getElementById('msgTimestamp').value) || 0;
+
+        fetch('api/message.php', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            credentials: 'same-origin', // Inclure les cookies de session
+            body: JSON.stringify({nom, message, website, _token, _ts})
+        })
+        .then(r => r.json())
+        .then(data => {
+            if (data.success) {
+                showSuccessModal();
+                closeMessageModal();
+                document.getElementById('messageForm').reset();
+                // Mettre à jour le token pour le prochain envoi
+                if (data._newToken) {
+                    document.getElementById('msgToken').value = data._newToken;
+                }
+            } else {
+                alert(data.error || 'Erreur lors de l envoi');
+            }
+        })
+        .catch(() => alert('Erreur de connexion'));
+    }
+    document.getElementById('messageModal').addEventListener('click', function(e) {
+        if (e.target === this) closeMessageModal();
+    });
+    </script>
+
+    <!-- Audio Element (invisible) -->
+    <audio id="audioPlayer" preload="none">
+        <source src="https://radio3.pro-fhi.net:19045/stream" type="audio/mpeg">
+    </audio>
+
+    <!-- Scripts -->
+        <script>
+        window.RADIO_CONFIG = {
+            name: "Terre Marine FM",
+            siteName: "Terre Marine FM",
+            streamUrl: "https:\/\/radio3.pro-fhi.net:19045\/stream",
+            streamId: 1,
+            defaultCover: "stream\/1.png?v=1781082795",
+            titrageTxtUrl: null,
+            imageUrl: null,
+            streams: [{"id":1,"name":"Terre Marine FM","url":"https:\/\/radio3.pro-fhi.net:19045\/stream","originalUrl":"https:\/\/radio3.pro-fhi.net:19045\/stream","logo":"stream\/1.png","principal":true,"titrageTxtUrl":null,"imageUrl":null,"useProxy":false}],
+            apiBase: 'api/'
+        };
+    </script>
+    <script src="assets/js/player.js?v=1771770464"></script>
+    <script>
+        // Paramètres initiaux passés par PHP (pour URLs SEO)
+        window.initialPage = '';
+        window.initialId = '';
+        window.initialSeo = '';
+    </script>
+    <script src="assets/js/app.js?v=1776343131"></script>
+    <script>var slideDuration = 4000;</script>
+    <script src="assets/js/slideshow.js?v=1775801290"></script>
+    <script>
+    // History Panel
+    (function() {
+        var track = document.getElementById('playerTrack');
+        var panel = document.getElementById('historyPanel');
+        if (!track || !panel) return;
+
+        var historyAvailable = false;
+
+        // Vérifier si l'historique est disponible pour le flux actif
+        function checkHistoryAvailable() {
+            var streamId = window.RADIO_CONFIG ? window.RADIO_CONFIG.streamId : '';
+            if (!streamId) { historyAvailable = false; track.classList.remove('has-history'); return; }
+
+            fetch('api/history-public.php?stream_id=' + encodeURIComponent(streamId) + '&limit=1')
+                .then(function(r) { return r.json(); })
+                .then(function(data) {
+                    if (data.success && data.entries && data.entries.length > 0) {
+                        historyAvailable = true;
+                        track.classList.add('has-history');
+                    } else {
+                        historyAvailable = false;
+                        track.classList.remove('has-history');
+                        closeHistoryPanel();
+                    }
+                })
+                .catch(function() { historyAvailable = false; track.classList.remove('has-history'); });
+        }
+
+        // Vérifier au chargement
+        checkHistoryAvailable();
+
+        // Re-vérifier quand le flux change
+        window.addEventListener('streamChanged', function() {
+            closeHistoryPanel();
+            checkHistoryAvailable();
+        });
+
+        track.addEventListener('click', function(e) {
+            e.stopPropagation();
+            if (!historyAvailable) return;
+            var playerBar = document.getElementById('playerBar');
+            if (playerBar && playerBar.classList.contains('podcast-mode')) return;
+
+            var isVisible = panel.classList.contains('visible');
+            if (isVisible) {
+                closeHistoryPanel();
+            } else {
+                var sm = document.getElementById('streamMenu');
+                if (sm) sm.classList.remove('open');
+                loadHistoryPanel();
+                panel.classList.add('visible');
+            }
+        });
+
+        window.closeHistoryPanel = function() {
+            panel.classList.remove('visible');
+        };
+
+        document.addEventListener('click', function(e) {
+            if (!panel.contains(e.target) && !track.contains(e.target)) {
+                closeHistoryPanel();
+            }
+        });
+
+        function loadHistoryPanel() {
+            var streamId = window.RADIO_CONFIG ? window.RADIO_CONFIG.streamId : '';
+            var list = document.getElementById('historyPanelList');
+            list.innerHTML = '<div class="history-panel-empty">Chargement...</div>';
+
+            fetch('api/history-public.php?stream_id=' + encodeURIComponent(streamId) + '&limit=6')
+                .then(function(r) { return r.json(); })
+                .then(function(data) {
+                    if (!data.success || !data.entries || data.entries.length <= 1) {
+                        list.innerHTML = '<div class="history-panel-empty">Aucun titre enregistré</div>';
+                        return;
+                    }
+                    // Exclure le premier (titre en cours) et inverser (récent en bas)
+                    var entries = data.entries.slice(1).reverse();
+                    var html = '';
+                    for (var i = 0; i < entries.length; i++) {
+                        var e = entries[i];
+                        html += '<div class="history-panel-item">';
+                        if (e.cover_filename) {
+                            html += '<img class="history-panel-cover" src="/assets/covers/' + e.cover_filename + '" alt="" onerror="this.style.display=\'none\'">';
+                        } else {
+                            html += '<div class="history-panel-cover-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div>';
+                        }
+                        html += '<div class="history-panel-meta">';
+                        html += '<div class="history-panel-title">' + escHtml(e.title || 'Sans titre') + '</div>';
+                        html += '<div class="history-panel-artist">' + escHtml(e.artist || '') + '</div>';
+                        html += '</div>';
+                        if (e.played_at) {
+                            html += '<span class="history-panel-time">' + formatTime(e.played_at) + '</span>';
+                        }
+                        html += '</div>';
+                    }
+                    html += '<a href="#" class="history-panel-more" data-page="history">En voir plus</a>';
+                    list.innerHTML = html;
+                    list.querySelector('.history-panel-more').addEventListener('click', function(ev) {
+                        ev.preventDefault();
+                        closeHistoryPanel();
+                        if (window.loadPage) window.loadPage('history');
+                    });
+                })
+                .catch(function() {
+                    list.innerHTML = '<div class="history-panel-empty">Erreur de chargement</div>';
+                });
+        }
+
+        function formatTime(dt) {
+            if (!dt) return '';
+            var d = new Date(dt.replace(' ', 'T'));
+            var h = ('0' + d.getHours()).slice(-2);
+            var m = ('0' + d.getMinutes()).slice(-2);
+            return h + ':' + m;
+        }
+
+        function escHtml(s) {
+            if (!s) return '';
+            var d = document.createElement('div');
+            d.textContent = s;
+            return d.innerHTML;
+        }
+    })();
+    </script>
+
+<script>
+
+// Menu Mobile Toggle
+document.addEventListener('DOMContentLoaded', function() {
+    var navToggle = document.getElementById('navToggle');
+    var navList = document.getElementById('navList');
+    var menuOpen = false;
+    var originalParent = navList ? navList.parentNode : null;
+    
+    if (navToggle && navList) {
+        function closeMenu() {
+            menuOpen = false;
+            navList.style.cssText = '';
+            if (originalParent && navList.parentNode === document.body) {
+                originalParent.appendChild(navList);
+            }
+            navToggle.classList.remove('active');
+        }
+        
+        function openMenu() {
+            menuOpen = true;
+            document.body.appendChild(navList);
+            navList.style.cssText = 'display:flex!important;position:fixed!important;top:70px!important;left:0!important;right:0!important;bottom:0!important;background:#0a0a10!important;flex-direction:column!important;padding:2rem 1.5rem!important;gap:0.5rem!important;z-index:99999!important;overflow-y:auto!important;list-style:none!important;margin:0!important;';
+            // Style les enfants
+            var items = navList.querySelectorAll('li');
+            for(var j=0;j<items.length;j++){items[j].style.cssText='display:block!important;list-style:none!important;opacity:1!important;transform:none!important;visibility:visible!important;';}
+            var links = navList.querySelectorAll('a');
+            for(var k=0;k<links.length;k++){links[k].style.cssText='display:block!important;padding:1rem 1.5rem!important;font-size:1.1rem!important;font-weight:600!important;color:#e2e8f0!important;background:rgba(255,255,255,0.05)!important;border-radius:8px!important;margin-bottom:0.5rem!important;text-decoration:none!important;';}
+            navToggle.classList.add('active');
+        }
+        
+        navToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (menuOpen) {
+                closeMenu();
+            } else {
+                openMenu();
+            }
+        });
+        
+        var navLinks = navList.querySelectorAll('a');
+        for (var i = 0; i < navLinks.length; i++) {
+            navLinks[i].addEventListener('click', function() {
+                closeMenu();
+            });
+        }
+        
+        document.addEventListener('click', function(e) {
+            if (menuOpen && !navList.contains(e.target) && !navToggle.contains(e.target)) {
+                closeMenu();
+            }
+        });
+    }
+});
+
+</script>
+
+
+<script>
+// Sondage voting - delegation pour contenu AJAX
+document.addEventListener('click', function(e) {
+    // Bouton Voter
+    if (e.target.closest('.btn-vote')) {
+        e.preventDefault();
+        var btn = e.target.closest('.btn-vote');
+        var form = btn.closest('.sondage-form');
+        if (!form) return;
+        
+        var isMultiple = form.dataset.multiple === '1';
+        var reponseIds = [];
+
+        if (isMultiple) {
+            var checked = form.querySelectorAll('input[name="reponse[]"]:checked');
+            checked.forEach(function(cb) {
+                reponseIds.push(parseInt(cb.value));
+            });
+            if (reponseIds.length === 0) {
+                alert('Veuillez selectionner au moins une reponse');
+                return;
+            }
+        } else {
+            var selected = form.querySelector('input[name="reponse"]:checked');
+            if (!selected) {
+                alert('Veuillez selectionner une reponse');
+                return;
+            }
+            reponseIds.push(parseInt(selected.value));
+        }
+        
+        var sondageId = form.dataset.sondageId;
+        // reponseId now handled via reponseIds array
+        var sondageCard = form.closest('.sondage-card');
+        
+        btn.disabled = true;
+        btn.textContent = 'Vote en cours...';
+        
+        fetch('/api_vote.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                sondage_id: parseInt(sondageId),
+                reponse_ids: reponseIds
+            })
+        })
+        .then(function(response) { return response.json(); })
+        .then(function(data) {
+            if (data.success) {
+                sondageCard.style.transition = 'opacity 0.5s, transform 0.5s';
+                sondageCard.style.opacity = '0';
+                sondageCard.style.transform = 'scale(0.95)';
+                setTimeout(function() {
+                    sondageCard.remove();
+                }, 500);
+            } else {
+                alert(data.message || 'Erreur lors du vote');
+                btn.disabled = false;
+                btn.textContent = 'Voter';
+            }
+        })
+        .catch(function(error) {
+            console.error('Error:', error);
+            alert('Erreur de connexion');
+            btn.disabled = false;
+            btn.textContent = 'Voter';
+        });
+    }
+});
+</script>
+
+<script>
+// Fonction globale loadPage pour les liens onclick
+window.loadPage = function(page, id) {
+    if (typeof radioApp !== 'undefined' && radioApp && radioApp.loadPage) {
+        radioApp.loadPage(page, id, true);
+    } else {
+        // Fallback: redirection classique
+        window.location.href = '/?page=' + page + (id ? '&id=' + id : '');
+    }
+};
+</script>
+
+<!-- ============================================
+     RGPD - Bandeau Cookies
+     ============================================ -->
+<div id="rgpd-banner" class="rgpd-banner">
+    <div class="rgpd-content">
+        <div class="rgpd-text">
+            <h4>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                    <line x1="12" y1="17" x2="12.01" y2="17"/>
+                </svg>
+                Nous respectons votre vie privée
+            </h4>
+            <p>Ce site utilise des cookies pour améliorer votre expérience, analyser le trafic et personnaliser le contenu.
+               En cliquant sur "Accepter", vous consentez à l'utilisation de tous les cookies.
+               <a href="#" onclick="loadPage('confidentialite');return false;">Politique de confidentialité</a>
+            </p>
+        </div>
+        <div class="rgpd-buttons">
+            <button class="rgpd-btn rgpd-btn-accept" onclick="rgpdAcceptAll()">Accepter tout</button>
+            <button class="rgpd-btn rgpd-btn-refuse" onclick="rgpdRefuseAll()">Refuser</button>
+            <button class="rgpd-btn rgpd-btn-settings" onclick="rgpdShowSettings()">Personnaliser</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Parametres Cookies -->
+<div id="rgpd-modal" class="rgpd-modal">
+    <div class="rgpd-modal-content">
+        <div class="rgpd-modal-header">
+            <h3>Paramètres des cookies</h3>
+            <button class="rgpd-modal-close" onclick="rgpdCloseSettings()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24">
+                    <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+            </button>
+        </div>
+
+        <div class="rgpd-option">
+            <div class="rgpd-option-header">
+                <span class="rgpd-option-title">Cookies essentiels</span>
+                <label class="rgpd-toggle">
+                    <input type="checkbox" checked disabled>
+                    <span class="rgpd-toggle-slider"></span>
+                </label>
+            </div>
+            <p class="rgpd-option-desc">Nécessaires au fonctionnement du site. Ils ne peuvent pas être désactivés.</p>
+        </div>
+
+        <div class="rgpd-option">
+            <div class="rgpd-option-header">
+                <span class="rgpd-option-title">Cookies analytiques</span>
+                <label class="rgpd-toggle">
+                    <input type="checkbox" id="rgpd-analytics">
+                    <span class="rgpd-toggle-slider"></span>
+                </label>
+            </div>
+            <p class="rgpd-option-desc">Nous aident à comprendre comment les visiteurs interagissent avec le site (pages vues, durée de visite).</p>
+        </div>
+
+        <div class="rgpd-option">
+            <div class="rgpd-option-header">
+                <span class="rgpd-option-title">Cookies de personnalisation</span>
+                <label class="rgpd-toggle">
+                    <input type="checkbox" id="rgpd-personalization">
+                    <span class="rgpd-toggle-slider"></span>
+                </label>
+            </div>
+            <p class="rgpd-option-desc">Permettent de mémoriser vos préférences (langue, thème, volume du lecteur).</p>
+        </div>
+
+        <div class="rgpd-modal-footer">
+            <button class="rgpd-btn rgpd-btn-refuse" onclick="rgpdSaveSettings()">Enregistrer mes choix</button>
+            <button class="rgpd-btn rgpd-btn-accept" onclick="rgpdAcceptAll()">Tout accepter</button>
+        </div>
+    </div>
+</div>
+
+<script>
+// ============================================
+// RGPD - Gestion du consentement cookies
+// ============================================
+(function() {
+    var RGPD_KEY = 'rgpd_consent';
+    var RGPD_VERSION = '1.0';
+
+    function getConsent() {
+        try {
+            var data = localStorage.getItem(RGPD_KEY);
+            if (data) {
+                var parsed = JSON.parse(data);
+                if (parsed.version === RGPD_VERSION) {
+                    return parsed;
+                }
+            }
+        } catch(e) {}
+        return null;
+    }
+
+    function setConsent(consent) {
+        var data = {
+            version: RGPD_VERSION,
+            timestamp: new Date().toISOString(),
+            analytics: consent.analytics || false,
+            personalization: consent.personalization || false,
+            accepted: consent.accepted || false
+        };
+        localStorage.setItem(RGPD_KEY, JSON.stringify(data));
+        applyConsent(data);
+    }
+
+    function applyConsent(consent) {
+        // Activer/desactiver le tracker selon le consentement analytics
+        if (consent.analytics) {
+            // Charger le tracker si accepte
+            if (!document.querySelector('script[src="/js/tracker.js"]')) {
+                var s = document.createElement('script');
+                s.src = '/js/tracker.js';
+                document.body.appendChild(s);
+            }
+        }
+        // Les cookies de personnalisation sont geres par le lecteur audio (volume, etc.)
+        window.rgpdConsent = consent;
+    }
+
+    function showBanner() {
+        var banner = document.getElementById('rgpd-banner');
+        if (banner) {
+            // Verifier si le player est visible
+            var player = document.querySelector('.player-bar');
+            if (player) {
+                banner.classList.add('has-player');
+            }
+            setTimeout(function() {
+                banner.classList.add('show');
+            }, 500);
+        }
+    }
+
+    function hideBanner() {
+        var banner = document.getElementById('rgpd-banner');
+        if (banner) {
+            banner.classList.remove('show');
+        }
+    }
+
+    // Fonctions globales
+    window.rgpdAcceptAll = function() {
+        setConsent({ analytics: true, personalization: true, accepted: true });
+        hideBanner();
+        rgpdCloseSettings();
+    };
+
+    window.rgpdRefuseAll = function() {
+        setConsent({ analytics: false, personalization: false, accepted: true });
+        hideBanner();
+    };
+
+    window.rgpdShowSettings = function() {
+        var modal = document.getElementById('rgpd-modal');
+        var consent = getConsent() || {};
+        document.getElementById('rgpd-analytics').checked = consent.analytics || false;
+        document.getElementById('rgpd-personalization').checked = consent.personalization || false;
+        if (modal) modal.classList.add('show');
+    };
+
+    window.rgpdCloseSettings = function() {
+        var modal = document.getElementById('rgpd-modal');
+        if (modal) modal.classList.remove('show');
+    };
+
+    window.rgpdSaveSettings = function() {
+        var analytics = document.getElementById('rgpd-analytics').checked;
+        var personalization = document.getElementById('rgpd-personalization').checked;
+        setConsent({ analytics: analytics, personalization: personalization, accepted: true });
+        hideBanner();
+        rgpdCloseSettings();
+    };
+
+    // Fermer modal au clic exterieur
+    var rgpdModal = document.getElementById('rgpd-modal');
+    if (rgpdModal) {
+        rgpdModal.addEventListener('click', function(e) {
+            if (e.target === this) rgpdCloseSettings();
+        });
+    }
+
+    // Initialisation au chargement du DOM
+    function initRgpd() {
+        var consent = getConsent();
+        if (!consent || !consent.accepted) {
+            showBanner();
+        } else {
+            applyConsent(consent);
+        }
+    }
+
+    // Executer immediatement si DOM deja charge, sinon attendre
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initRgpd);
+    } else {
+        initRgpd();
+    }
+})();
+</script>
+
+<!-- Modal Demo Site (uniquement pour demo.radiosoft.fr) -->
+
+<!-- Protection contre le copier/coller et clic droit -->
+<script>
+(function() {
+    // Désactiver le clic droit
+    document.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+        return false;
+    });
+
+    // Désactiver la sélection de texte
+    document.addEventListener('selectstart', function(e) {
+        if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
+            e.preventDefault();
+            return false;
+        }
+    });
+
+    // Désactiver le copier/coller (sauf dans les champs de formulaire)
+    document.addEventListener('copy', function(e) {
+        if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
+            e.preventDefault();
+            return false;
+        }
+    });
+
+    // Désactiver certains raccourcis clavier
+    document.addEventListener('keydown', function(e) {
+        // Ctrl+U (voir source), Ctrl+S (sauvegarder), Ctrl+Shift+I (devtools)
+        if ((e.ctrlKey && e.key === 'u') ||
+            (e.ctrlKey && e.key === 's') ||
+            (e.ctrlKey && e.shiftKey && e.key === 'I')) {
+            e.preventDefault();
+            return false;
+        }
+    });
+})();
+</script>
+
+
+</body>
+</html>
