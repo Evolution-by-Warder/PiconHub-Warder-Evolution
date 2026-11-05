@@ -1,0 +1,7 @@
+Receiver screenshot fixes — 5 November 2026
+
+FullHDGlass 1.0.67 sorts satellite rows by orbital namespace for display, from west to east. The original SATLIST storage order and row IDs remain unchanged, preserving saved selections and legacy archive identities. Both native position selectors use this order. Providers retain their relative order; IPTV, DAB and DVB-T remain at the top of the download selector.
+
+PiconHub 0.1.44 bundles the original 345W-75.png and 500E-75.png logos from the existing FullHDGlass black satellite archive, without changing their bytes. The exact source commit and image/archive hashes are recorded in images/selectors/sources.json. Both the embedded picker and the choice dialog show these logos. Every selectable source must have a bundled icon; packaging now rejects a missing menu icon.
+
+The shared 492-package channel catalogue and all Transparent, White and Black variants are retained. No picon archive is changed by this client repair. Host checks passed; the corrected versions have not yet been tested on a physical receiver.
