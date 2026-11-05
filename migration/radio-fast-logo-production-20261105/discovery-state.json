@@ -137005,7 +137005,10 @@
       "homepages": [
         "https://www.cxradio.com.br/radio/sao-roque-faxinal-do-soturno"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 403\n"
+      ]
     },
     "4097:0:2:EDD9:395F:ED:0:0:0:0": {
       "name": "Sara Brasil FM 99.7 Brasília",
@@ -137017,7 +137020,10 @@
       "homepages": [
         "https://sarabrasilfm.com/radios/brasilia/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 403\n"
+      ]
     },
     "4097:0:2:6DB2:BCC8:ED:0:0:0:0": {
       "name": "Rádio Saudade FM 99.7",
@@ -137029,7 +137035,11 @@
       "homepages": [
         "https://www.saudadefm.com.br/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 404\n",
+        "Command '['tesseract', '/tmp/radio-logo-ocr-poncm0pt/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds"
+      ]
     },
     "4097:0:2:7A39:110:ED:0:0:0:0": {
       "name": "Saudades FM",
@@ -137041,7 +137051,38 @@
       "homepages": [
         "https://saudadesfm.com.br/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://assets.cadena.com.br/assets/nova_logo_cadena_horizontal-40a94ce6.png",
+        "final_url": "https://assets.cadena.com.br/assets/nova_logo_cadena_horizontal-40a94ce6.png",
+        "path": "originals/1696f4cdc36b8f3fe89dda1b06b1c1f36ecdbab2062dafdb071e53894ac1537f.img",
+        "sha256": "1696f4cdc36b8f3fe89dda1b06b1c1f36ecdbab2062dafdb071e53894ac1537f",
+        "bytes": 19262,
+        "dimensions": [
+          1253,
+          324
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://saudadesfm.com.br/",
+        "final_url": "https://saudadesfm.com.br/",
+        "original_html_sha256": "1604951f7a9b9038b64d3e71cac1c27e2b04dcba92d0d33fa8acf41d609535e4",
+        "path": "page-evidence/1604951f7a9b9038b64d3e71cac1c27e2b04dcba92d0d33fa8acf41d609535e4.json",
+        "titles": [
+          "Saudades FM",
+          "Manhã Mais"
+        ],
+        "image_urls": [
+          "https://assets.cadena.com.br/assets/nova_logo_cadena_horizontal-40a94ce6.png",
+          "https://cadena-high-volume.b-cdn.net/t75nn41zsga8uzsznhwq7zcc9dla",
+          "https://cadena-high-volume.b-cdn.net/uploads/station/vertical_logo/164/iTunesConnect.png"
+        ],
+        "named_logos": {
+          "https://assets.cadena.com.br/assets/nova_logo_cadena_horizontal-40a94ce6.png": "Cadena  "
+        }
+      },
+      "ocr_text": ""
     },
     "4097:0:2:39AA:E5B5:ED:0:0:0:0": {
       "name": "Rádio Scalla Instrumental São Paulo / SP - Brasil",
@@ -137053,7 +137094,10 @@
       "homepages": [
         "https://www.radioscalla.com.br/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (60) SSL certificate problem: unable to get local issuer certificate\nMore details here: https://curl.se/docs/sslcerts.html\n\ncurl failed to verify the legitimacy of the server"
+      ]
     },
     "4097:0:2:3900:2F2A:ED:0:0:0:0": {
       "name": "Rádio Seabra FM 104.9",
@@ -137065,7 +137109,10 @@
       "homepages": [
         "https://www.radios.com.br/aovivo/radio-seabra-1049-fm/14560"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 403\n"
+      ]
     },
     "4097:0:2:5118:F2AA:ED:0:0:0:0": {
       "name": "Rádio Seara 102.7 FM",
@@ -137077,7 +137124,94 @@
       "homepages": [
         "https://radioseara.fm/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://radioseara.fm/marca.webp",
+        "final_url": "https://radioseara.fm/marca.webp",
+        "path": "originals/5b80c828db45128b02d9e198669728bdb17307371bf72c568f31c45334be7de4.img",
+        "sha256": "5b80c828db45128b02d9e198669728bdb17307371bf72c568f31c45334be7de4",
+        "bytes": 27070,
+        "dimensions": [
+          364,
+          200
+        ],
+        "format": "WEBP"
+      },
+      "page": {
+        "url": "https://radioseara.fm/",
+        "final_url": "https://radioseara.fm/",
+        "original_html_sha256": "1069b712c94db0d443ec418acf3543658783019016b6b6c78bf0d7b9e9e0ecf1",
+        "path": "page-evidence/1069b712c94db0d443ec418acf3543658783019016b6b6c78bf0d7b9e9e0ecf1.json",
+        "titles": [
+          "Rádio Seara",
+          "Ao Vivo"
+        ],
+        "image_urls": [
+          "https://radioseara.fm/marca.webp",
+          "https://radioseara.fm/recursos/favicon.png",
+          "https://radioseara.fm/recursos/icons/ios/120.png"
+        ],
+        "named_logos": {
+          "https://radioseara.fm/marca.webp": "Logo da Rádio Seara  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/403f2724e0c7923e9a948d87d9d515bf527f45775a1a0cdd621ef4cb6841c494.png",
+          "sha256": "403f2724e0c7923e9a948d87d9d515bf527f45775a1a0cdd621ef4cb6841c494",
+          "bytes": 2392
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/16b257682573d73a1aca12112c985561f5a9f1f84302f2fc835c717a5e896956.png",
+          "sha256": "16b257682573d73a1aca12112c985561f5a9f1f84302f2fc835c717a5e896956",
+          "bytes": 22970
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/b7e39003a733cbcebdf88f79fe640ca5ce020d36920011d662e3ef57b214a225.png",
+          "sha256": "b7e39003a733cbcebdf88f79fe640ca5ce020d36920011d662e3ef57b214a225",
+          "bytes": 66141
+        },
+        "50x30/white": {
+          "path": "verified-assets/3f981f65b7a6211797574ed5206cf756d3de6f5045588002c94180677ec8f656.png",
+          "sha256": "3f981f65b7a6211797574ed5206cf756d3de6f5045588002c94180677ec8f656",
+          "bytes": 3345
+        },
+        "220x132/white": {
+          "path": "verified-assets/51d243fb270b1c6ce0dbc1a7ca51c613edad528e0cdc95d78121a6ddaaf85c10.png",
+          "sha256": "51d243fb270b1c6ce0dbc1a7ca51c613edad528e0cdc95d78121a6ddaaf85c10",
+          "bytes": 44299
+        },
+        "400x240/white": {
+          "path": "verified-assets/c7e316e18279a55cba3d2a0655bf85f53724b8feb37f0c33dadf3e468c52bda4.png",
+          "sha256": "c7e316e18279a55cba3d2a0655bf85f53724b8feb37f0c33dadf3e468c52bda4",
+          "bytes": 114304
+        },
+        "50x30/black": {
+          "path": "verified-assets/03d63b8b52a238487d4123aa71221eb82186a6304ae9017be2f0cdc8466d6810.png",
+          "sha256": "03d63b8b52a238487d4123aa71221eb82186a6304ae9017be2f0cdc8466d6810",
+          "bytes": 3542
+        },
+        "220x132/black": {
+          "path": "verified-assets/fb465fb96a74eb6fec0a41a61448bd7bc1a324550b8f11450b94b1c2c8c14d4f.png",
+          "sha256": "fb465fb96a74eb6fec0a41a61448bd7bc1a324550b8f11450b94b1c2c8c14d4f",
+          "bytes": 43491
+        },
+        "400x240/black": {
+          "path": "verified-assets/37f0c7628a13bb9b98f10b883fc04a9450dd43bb279e59a323802515b442589c.png",
+          "sha256": "37f0c7628a13bb9b98f10b883fc04a9450dd43bb279e59a323802515b442589c",
+          "bytes": 111218
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Logo da Rádio Seara  ",
+        "matched_brand_keys": [
+          "seara"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:634:9A17:ED:0:0:0:0": {
       "name": "Sensação FM 105.5 Mhz (Rio Pomba - MG) (ZYN228)",
@@ -137089,7 +137223,38 @@
       "homepages": [
         "https://sensacaofm.com.br/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://i0.wp.com/sensacaofm.com.br/wp-content/uploads/2025/01/icone.png?fit=180%2C180&ssl=1",
+        "final_url": "https://i0.wp.com/sensacaofm.com.br/wp-content/uploads/2025/01/icone.png?fit=180%2C180&ssl=1",
+        "path": "originals/cb4ae73cbef17019c62ac0b4800e363a4a8c6a1cc69b80ffcfaa17ca7ccbfa13.img",
+        "sha256": "cb4ae73cbef17019c62ac0b4800e363a4a8c6a1cc69b80ffcfaa17ca7ccbfa13",
+        "bytes": 4547,
+        "dimensions": [
+          180,
+          180
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://sensacaofm.com.br/",
+        "final_url": "https://sensacaofm.com.br/",
+        "original_html_sha256": "5ab76d740225af40e11fb0afaece037b05f2fb1597f22c52d4d3134fefa600ae",
+        "path": "page-evidence/5ab76d740225af40e11fb0afaece037b05f2fb1597f22c52d4d3134fefa600ae.json",
+        "titles": [
+          "Inicio - Sensação FM",
+          "Inicio"
+        ],
+        "image_urls": [
+          "https://i0.wp.com/sensacaofm.com.br/wp-content/uploads/2025/01/logo.png?fit=1000%2C541&ssl=1",
+          "https://i0.wp.com/sensacaofm.com.br/wp-content/uploads/2025/01/icone.png?fit=180%2C180&ssl=1",
+          "https://i0.wp.com/sensacaofm.com.br/wp-content/uploads/2025/01/icone.png?fit=192%2C192&ssl=1"
+        ],
+        "named_logos": {
+          "https://i0.wp.com/sensacaofm.com.br/wp-content/uploads/2025/01/logo.png?fit=1000%2C541&ssl=1": "  "
+        }
+      },
+      "ocr_text": ""
     },
     "4097:0:2:DBB1:F98C:ED:0:0:0:0": {
       "name": "Radio Sepiol",
@@ -137101,7 +137266,109 @@
       "homepages": [
         "https://radiosepiol.com.br/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://radiosepiol.com.br/admin/assets/img/logo.png?November520261127am17",
+        "final_url": "https://radiosepiol.com.br/admin/assets/img/logo.png?November520261127am17",
+        "path": "originals/55ab0f55ab3428806adc7b74afe270cf90cacddc4ba92f5fc4f7f39426f92144.img",
+        "sha256": "55ab0f55ab3428806adc7b74afe270cf90cacddc4ba92f5fc4f7f39426f92144",
+        "bytes": 21458,
+        "dimensions": [
+          186,
+          69
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://radiosepiol.com.br/",
+        "final_url": "https://radiosepiol.com.br/",
+        "original_html_sha256": "666c16e16a98cefb3796c57694f96cd6dae7087885aeb7ad21eb6d5722ce0bba",
+        "path": "page-evidence/666c16e16a98cefb3796c57694f96cd6dae7087885aeb7ad21eb6d5722ce0bba.json",
+        "titles": [
+          "Radio Sepiol",
+          "Locutor no Ar",
+          "Peça Sua Música",
+          "Ouvinte do Mês",
+          "Enquete",
+          "Bate-Papo",
+          "TV SEPIOL  AO VIVO",
+          "Últimas Notícias",
+          "OnlineRadioBox",
+          "Top 10 Mais Tocadas",
+          "Aplicativos",
+          "Ouça no Celular",
+          "Top 5",
+          "Último Recado",
+          "Últimos Vídeos",
+          "Anunciantes"
+        ],
+        "image_urls": [
+          "https://radiosepiol.com.br/admin/assets/img/logo.png?November520261127am17",
+          "https://radiosepiol.com.br/admin/data/img/gallery/Slider/logo 1000x342.jpg",
+          "https://radiosepiol.com.br/admin/assets/img/favicon.jpg"
+        ],
+        "named_logos": {
+          "https://radiosepiol.com.br/admin/assets/img/logo.png?November520261127am17": "Radio Sepiol  ",
+          "https://radiosepiol.com.br/admin/data/img/gallery/Slider/logo 1000x342.jpg": "  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/abed544494134b81c88afde6506a600ebfb4a8788862c522f1a82463b10efb03.png",
+          "sha256": "abed544494134b81c88afde6506a600ebfb4a8788862c522f1a82463b10efb03",
+          "bytes": 1782
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/069a83b411c42a0f7ba225d4db3bb4cc23089c556bee1ca23da4bdf9d6ac3a08.png",
+          "sha256": "069a83b411c42a0f7ba225d4db3bb4cc23089c556bee1ca23da4bdf9d6ac3a08",
+          "bytes": 16378
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/dfcc42d2db58fd75b67cd056440a7314b027d116e44127b212d36572a4692221.png",
+          "sha256": "dfcc42d2db58fd75b67cd056440a7314b027d116e44127b212d36572a4692221",
+          "bytes": 44003
+        },
+        "50x30/white": {
+          "path": "verified-assets/f90354331c6f696eaf88ced1384eb29521910d62a41ed4ccc0721de2ce37df6d.png",
+          "sha256": "f90354331c6f696eaf88ced1384eb29521910d62a41ed4ccc0721de2ce37df6d",
+          "bytes": 2769
+        },
+        "220x132/white": {
+          "path": "verified-assets/31f802198100f5a035126a3bf4cda2a8bfec32018ae1e2b6a74299432d599ca7.png",
+          "sha256": "31f802198100f5a035126a3bf4cda2a8bfec32018ae1e2b6a74299432d599ca7",
+          "bytes": 36852
+        },
+        "400x240/white": {
+          "path": "verified-assets/c9b7b4294865b0de75fdea8c04e77d074da38e384138b8fe91564bc9bc6ca91d.png",
+          "sha256": "c9b7b4294865b0de75fdea8c04e77d074da38e384138b8fe91564bc9bc6ca91d",
+          "bytes": 94431
+        },
+        "50x30/black": {
+          "path": "verified-assets/860603e4866069cef9e738414836e0ea680098103dee056c6737a4f2fc8c18de.png",
+          "sha256": "860603e4866069cef9e738414836e0ea680098103dee056c6737a4f2fc8c18de",
+          "bytes": 2927
+        },
+        "220x132/black": {
+          "path": "verified-assets/9d5aba1b7ca1825bf113492d16c427ae6acb68914b8d7fe6eca2c14520601120.png",
+          "sha256": "9d5aba1b7ca1825bf113492d16c427ae6acb68914b8d7fe6eca2c14520601120",
+          "bytes": 35599
+        },
+        "400x240/black": {
+          "path": "verified-assets/f83022d68607404d61a4071f7fea592ca390df2f7603266ee88bb90be5ae706e.png",
+          "sha256": "f83022d68607404d61a4071f7fea592ca390df2f7603266ee88bb90be5ae706e",
+          "bytes": 90308
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Radio Sepiol  ",
+        "matched_brand_keys": [
+          "sepiol"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:BFDC:BD16:ED:0:0:0:0": {
       "name": "Rádio Sergipe 95.9 FM - Aracaju Sergipe",
@@ -137113,7 +137380,10 @@
       "homepages": [
         "http://www.fmsergipe.com.br/site/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 404\n"
+      ]
     },
     "4097:0:2:757B:610D:ED:0:0:0:0": {
       "name": "Serra Branca FM",
@@ -137125,7 +137395,38 @@
       "homepages": [
         "https://serrabrancafm.com.br/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://serrabrancafm.com.br/wp-content/uploads/2024/12/logo-serra-barnca-fm-1-150x150.png",
+        "final_url": "https://serrabrancafm.com.br/wp-content/uploads/2024/12/logo-serra-barnca-fm-1-150x150.png",
+        "path": "originals/835e0c7dcd85b6347e0e2b18a3bf427fcff9685114f959f8ce68288cbd845b92.img",
+        "sha256": "835e0c7dcd85b6347e0e2b18a3bf427fcff9685114f959f8ce68288cbd845b92",
+        "bytes": 17281,
+        "dimensions": [
+          150,
+          150
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://serrabrancafm.com.br/",
+        "final_url": "https://serrabrancafm.com.br/",
+        "original_html_sha256": "9c2beb30427d2a3959431fb754aa56b0e204f27c1cb79c6d13f49b24e5183dae",
+        "path": "page-evidence/9c2beb30427d2a3959431fb754aa56b0e204f27c1cb79c6d13f49b24e5183dae.json",
+        "titles": [
+          "Serra Branca FM 103.3 - 1° Lugar em Tudo"
+        ],
+        "image_urls": [
+          "https://serrabrancafm.com.br/wp-content/plugins/instagram-feed/img/placeholder.png",
+          "https://serrabrancafm.com.br/wp-content/uploads/2024/12/logo-serra-barnca-fm-1.png",
+          "https://serrabrancafm.com.br/wp-content/uploads/2024/12/logo-serra-barnca-fm-1-150x150.png"
+        ],
+        "named_logos": {
+          "https://serrabrancafm.com.br/wp-content/plugins/instagram-feed/img/placeholder.png": "Amado Batista reúne grande público em noite histórica da primeira edição do Bregari em Parari\n\nA cidade de Parari foi palco de uma noite inesquecível nesta quarta-feira, durante a realização da primeira edição do Bregari. O evento, que celebrou os 32 anos de emancipação política do município, atraiu uma verdadeira multidão e consolidou-se como um grande sucesso logo em sua estreia.\n\nPrincipal atração da noite, Amado Batista levou o público ao delírio com um show repleto de sucessos que marcaram gerações. Em clima de romantismo e nostalgia, o artista fez a multidão cantar em coro, transformando o evento em um espetáculo memorável.\n\nA programação também contou com apresentações de Raquel dos Teclados e Bartô Galeno, que animaram o público e reforçaram a proposta do festival de valorizar o gênero brega, reunindo grandes nomes da música.\n\nSerra Branca FM  ",
+          "https://serrabrancafm.com.br/wp-content/uploads/2024/12/logo-serra-barnca-fm-1.png": "  "
+        }
+      },
+      "ocr_text": "0%,\n\neceRA\n\nl\n\nBRANCA GD)\n"
     },
     "4097:0:2:353E:62A0:ED:0:0:0:0": {
       "name": "Rádio Serra da Capivara 550 AM",
@@ -137137,7 +137438,10 @@
       "homepages": [
         "http://www.radioserradacapivara.com.br/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 500\n"
+      ]
     },
     "4097:0:2:5980:A0DA:ED:0:0:0:0": {
       "name": "Rádio Serrana Mix",
@@ -137149,7 +137453,38 @@
       "homepages": [
         "https://www.radioserranamix.com.br/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://www.radioserranamix.com.br/public/24456-2024-06-25.png",
+        "final_url": "https://www.radioserranamix.com.br/public/24456-2024-06-25.png",
+        "path": "originals/f93733c21108b52dcc7885e345485a7da47068d8e1475b8a794240115fde9da0.img",
+        "sha256": "f93733c21108b52dcc7885e345485a7da47068d8e1475b8a794240115fde9da0",
+        "bytes": 25533,
+        "dimensions": [
+          192,
+          192
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://www.radioserranamix.com.br/",
+        "final_url": "https://www.radioserranamix.com.br/",
+        "original_html_sha256": "3fd4d9324b2892b584e507e484889ba6101e1eff1f7395443feb303300b793f3",
+        "path": "page-evidence/3fd4d9324b2892b584e507e484889ba6101e1eff1f7395443feb303300b793f3.json",
+        "titles": [
+          "RADIO SERRANA MIX",
+          "RADIO SERRANA MIX"
+        ],
+        "image_urls": [
+          "https://www.radioserranamix.com.br/public/55878-2025-01-26.png",
+          "https://www.radioserranamix.com.br/public/24456-2024-06-25.png",
+          "https://www.radioserranamix.com.br/public/09450-2024-06-25.png"
+        ],
+        "named_logos": {
+          "https://www.radioserranamix.com.br/public/55878-2025-01-26.png": "logo  "
+        }
+      },
+      "ocr_text": "Radio\n\nSERR\n\nie LLL\n\nans\n"
     },
     "4097:0:2:DB25:57B0:ED:0:0:0:0": {
       "name": "Rádio Sertaneja",
@@ -137162,7 +137497,10 @@
         "http://toligado.net.br/",
         "https://toligado.net.br/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 429\n"
+      ]
     },
     "4097:0:2:A9E6:3B96:ED:0:0:0:0": {
       "name": "Sertaneja 106.7",
@@ -137174,7 +137512,93 @@
       "homepages": [
         "https://www.106sertaneja.com.br/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://assets.clubefm.com.br/uploads/site/logo/2/106-sertaneja-4fff3e1f118ab621432fa4d74136e042e86b6eedbabf561ded0dfd61123d980e.png",
+        "final_url": "https://assets.clubefm.com.br/uploads/site/logo/2/106-sertaneja-4fff3e1f118ab621432fa4d74136e042e86b6eedbabf561ded0dfd61123d980e.png",
+        "path": "originals/4fff3e1f118ab621432fa4d74136e042e86b6eedbabf561ded0dfd61123d980e.img",
+        "sha256": "4fff3e1f118ab621432fa4d74136e042e86b6eedbabf561ded0dfd61123d980e",
+        "bytes": 129960,
+        "dimensions": [
+          380,
+          296
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://www.106sertaneja.com.br/",
+        "final_url": "https://www.106sertaneja.com.br/",
+        "original_html_sha256": "94e9a17721ae44922f32eed6694b4e3b857c069b03beb0a2f358e6e5a5692cf5",
+        "path": "page-evidence/94e9a17721ae44922f32eed6694b4e3b857c069b03beb0a2f358e6e5a5692cf5.json",
+        "titles": [
+          "106.7 FM - A Sertaneja de Verdade! | Ribeirão Preto/SP"
+        ],
+        "image_urls": [
+          "https://assets.clubefm.com.br/uploads/site/logo/2/106-sertaneja-4fff3e1f118ab621432fa4d74136e042e86b6eedbabf561ded0dfd61123d980e.png",
+          "https://assets.clubefm.com.br/uploads/site/apple_touch_icon/2/OP%C3%87%C3%83O3.png",
+          "https://assets.clubefm.com.br/uploads/site/favicon_big/2/semfundo.png"
+        ],
+        "named_logos": {
+          "https://assets.clubefm.com.br/uploads/site/logo/2/106-sertaneja-4fff3e1f118ab621432fa4d74136e042e86b6eedbabf561ded0dfd61123d980e.png": "106.7 FM - A Sertaneja de Verdade! | Ribeirão Preto/SP  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/73341483ec07429bc246a363da0bc7ea5edc4b6e2ee0793ecab6275679e72a52.png",
+          "sha256": "73341483ec07429bc246a363da0bc7ea5edc4b6e2ee0793ecab6275679e72a52",
+          "bytes": 2602
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/92d6867b3039d5e8ce06e8bab2cf358f3037caff2a04cebba2e2683db5524126.png",
+          "sha256": "92d6867b3039d5e8ce06e8bab2cf358f3037caff2a04cebba2e2683db5524126",
+          "bytes": 27618
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/29bbe989e64f0d83849df29c3298716e3db79198adcf9faa8d8e79ddc8d03ce6.png",
+          "sha256": "29bbe989e64f0d83849df29c3298716e3db79198adcf9faa8d8e79ddc8d03ce6",
+          "bytes": 80526
+        },
+        "50x30/white": {
+          "path": "verified-assets/f500dd0339c37f9aad206b2d73470eaf934b33fb0d7d95e8470bb78bfd1049aa.png",
+          "sha256": "f500dd0339c37f9aad206b2d73470eaf934b33fb0d7d95e8470bb78bfd1049aa",
+          "bytes": 3383
+        },
+        "220x132/white": {
+          "path": "verified-assets/da93ff9c493de1a4aace2b881cd60e311b7e1f43064ebb8a6224e9241f0c826e.png",
+          "sha256": "da93ff9c493de1a4aace2b881cd60e311b7e1f43064ebb8a6224e9241f0c826e",
+          "bytes": 48544
+        },
+        "400x240/white": {
+          "path": "verified-assets/56fa5c14a6afc2af85b5a6cda949975d0bbe1376e9b0d06a40ed87007a317aa1.png",
+          "sha256": "56fa5c14a6afc2af85b5a6cda949975d0bbe1376e9b0d06a40ed87007a317aa1",
+          "bytes": 128753
+        },
+        "50x30/black": {
+          "path": "verified-assets/dc9103f05ec0af6d07e436ebbf5fa954edffc29dbbc7d82ff23cd5bb9c167e62.png",
+          "sha256": "dc9103f05ec0af6d07e436ebbf5fa954edffc29dbbc7d82ff23cd5bb9c167e62",
+          "bytes": 3687
+        },
+        "220x132/black": {
+          "path": "verified-assets/f55c43d884129818d07da329e8b5ae010eb26d6598f309925fa0251a444eeae5.png",
+          "sha256": "f55c43d884129818d07da329e8b5ae010eb26d6598f309925fa0251a444eeae5",
+          "bytes": 47941
+        },
+        "400x240/black": {
+          "path": "verified-assets/7419ad0474de8a597080f2dbb8ad61f57e2223d0716c3ea099782d2c3d123f1a.png",
+          "sha256": "7419ad0474de8a597080f2dbb8ad61f57e2223d0716c3ea099782d2c3d123f1a",
+          "bytes": 128291
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "106.7 FM - A Sertaneja de Verdade! | Ribeirão Preto/SP  ",
+        "matched_brand_keys": [
+          "sertaneja"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:FA77:382E:ED:0:0:0:0": {
       "name": "Rádio Sertaneja Raiz",
@@ -137186,7 +137610,35 @@
       "homepages": [
         "http://www.radiosertanejaraiz.com.br/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://radiosertanejaraiz.com.br/wp-content/uploads/2025/08/cropped-Radio-Sertaneja-Raiz-Logo-2026-para-Aplicativo-192x192.jpg",
+        "final_url": "https://radiosertanejaraiz.com.br/wp-content/uploads/2025/08/cropped-Radio-Sertaneja-Raiz-Logo-2026-para-Aplicativo-192x192.jpg",
+        "path": "originals/39805ffc8e9933d3c79fba932401008da2ff01fc06828c6ea78f5beaf7cdbc58.img",
+        "sha256": "39805ffc8e9933d3c79fba932401008da2ff01fc06828c6ea78f5beaf7cdbc58",
+        "bytes": 23253,
+        "dimensions": [
+          192,
+          192
+        ],
+        "format": "JPEG"
+      },
+      "page": {
+        "url": "http://www.radiosertanejaraiz.com.br/",
+        "final_url": "https://radiosertanejaraiz.com.br/",
+        "original_html_sha256": "2c111afdae338f43c11c64bd6ee7bbf3012a60bf72a96894814c2f7c333a666d",
+        "path": "page-evidence/2c111afdae338f43c11c64bd6ee7bbf3012a60bf72a96894814c2f7c333a666d.json",
+        "titles": [
+          "Rádio Sertaneja Raiz – Música Sertaneja Raiz"
+        ],
+        "image_urls": [
+          "https://radiosertanejaraiz.com.br/wp-content/uploads/2025/08/cropped-Radio-Sertaneja-Raiz-Logo-2026-para-Aplicativo-180x180.jpg",
+          "https://radiosertanejaraiz.com.br/wp-content/uploads/2025/08/cropped-Radio-Sertaneja-Raiz-Logo-2026-para-Aplicativo-192x192.jpg",
+          "https://radiosertanejaraiz.com.br/wp-content/uploads/2025/08/cropped-Radio-Sertaneja-Raiz-Logo-2026-para-Aplicativo-32x32.jpg"
+        ],
+        "named_logos": {}
+      },
+      "ocr_text": ""
     },
     "4097:0:2:965D:4BCB:ED:0:0:0:0": {
       "name": "Radiosertanejatop",
@@ -137205,7 +137657,36 @@
       "homepages": [
         "https://www.sertanejoplay.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://sertanejoplay.com/brand/icon-192.png",
+        "final_url": "https://sertanejoplay.com/brand/icon-192.png",
+        "path": "originals/a4c82fe4aa481d7c491388319414dc4f097298ea382814869653bc00529fc247.img",
+        "sha256": "a4c82fe4aa481d7c491388319414dc4f097298ea382814869653bc00529fc247",
+        "bytes": 32777,
+        "dimensions": [
+          192,
+          192
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://www.sertanejoplay.com/",
+        "final_url": "https://sertanejoplay.com/",
+        "original_html_sha256": "f7dacc82f148032c6253acf98cf0de79b4ce2d8aae0cc32f79b61773d9711d62",
+        "path": "page-evidence/f7dacc82f148032c6253acf98cf0de79b4ce2d8aae0cc32f79b61773d9711d62.json",
+        "titles": [
+          "Sertanejo Play: portal sertanejo, lançamentos, letras e rádio",
+          "Sertanejo Play, o portal sertanejo: notícias, lançamentos, letras, chart e rádio com vídeos oficiais do YouTube"
+        ],
+        "image_urls": [
+          "https://sertanejoplay.com/brand/icon-192.png",
+          "https://sertanejoplay.com/favicon.png",
+          "https://sertanejoplay.com/brand/icon-512.png"
+        ],
+        "named_logos": {}
+      },
+      "ocr_text": ""
     },
     "4097:0:2:4497:AB3C:ED:0:0:0:0": {
       "name": "Sertanejo Rádio",
@@ -137217,7 +137698,10 @@
       "homepages": [
         "https://sertanejoradio.com.br/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "Command '['tesseract', '/tmp/radio-logo-ocr-8xtcnpxg/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds"
+      ]
     },
     "4097:0:2:AA9A:4BB2:ED:0:0:0:0": {
       "name": "Rádio Sete Colinas FM",
@@ -137229,7 +137713,10 @@
       "homepages": [
         "http://www.setecolinasfm.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (6) Could not resolve host: www.setecolinasfm.com\n"
+      ]
     },
     "4097:0:2:D965:9861:ED:0:0:0:0": {
       "name": "Sete Colinas FM 101.7",
@@ -137241,7 +137728,38 @@
       "homepages": [
         "https://www.setecolinas.com.br/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://www.setecolinas.com.br/wa_images/logos-sete-colinas-fm-500x500.png",
+        "final_url": "https://www.setecolinas.com.br/wa_images/logos-sete-colinas-fm-500x500.png",
+        "path": "originals/02396db41a101bfc2656f885bd79eb99b77f2652928de1687521c869ba7918b1.img",
+        "sha256": "02396db41a101bfc2656f885bd79eb99b77f2652928de1687521c869ba7918b1",
+        "bytes": 82920,
+        "dimensions": [
+          500,
+          500
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://www.setecolinas.com.br/",
+        "final_url": "https://www.setecolinas.com.br/",
+        "original_html_sha256": "d39b3eca4577a84994b14633d92927c6777152d96de497056a42e1fc69e7be67",
+        "path": "page-evidence/d39b3eca4577a84994b14633d92927c6777152d96de497056a42e1fc69e7be67.json",
+        "titles": [
+          "Rádio Sete Colinas 101.7 FM"
+        ],
+        "image_urls": [
+          "https://www.setecolinas.com.br/wa_images/logos-sete-colinas-fm-500x500.png",
+          "https://www.setecolinas.com.br/wa_images/logos-sete-colinas-fm-500x500.png?v=1l6f2k2",
+          "https://www.setecolinas.com.br/wa_images/logos-sete-colinas-fm-80x80.png"
+        ],
+        "named_logos": {
+          "https://www.setecolinas.com.br/wa_images/logos-sete-colinas-fm-500x500.png?v=1l6f2k2": "  ",
+          "https://www.setecolinas.com.br/wa_images/logos-sete-colinas-fm-500x500.png": "  "
+        }
+      },
+      "ocr_text": ""
     },
     "4097:0:2:457F:ABD0:ED:0:0:0:0": {
       "name": "Rádio Shekinah Só Louvor",
@@ -137253,7 +137771,8 @@
       "homepages": [
         "http://www.shekinahfm.com.br/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:69B3:EB21:ED:0:0:0:0": {
       "name": "Shivas Rádio Online",
@@ -137265,7 +137784,98 @@
       "homepages": [
         "https://shivasart.com.br/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://shivasart.com.br/wp-content/uploads/2022/10/Shivasart_nome_logo.png",
+        "final_url": "https://shivasart.com.br/wp-content/uploads/2022/10/Shivasart_nome_logo.png",
+        "path": "originals/5d37865abd3a3af1aadb29e8a1e42a48374edbc99772b4795505ccc9a0dfc3e0.img",
+        "sha256": "5d37865abd3a3af1aadb29e8a1e42a48374edbc99772b4795505ccc9a0dfc3e0",
+        "bytes": 11096,
+        "dimensions": [
+          849,
+          153
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://shivasart.com.br/",
+        "final_url": "https://shivasart.com.br/",
+        "original_html_sha256": "a57e259803bd399ff51672104f2a710ba0f393f60a1915a41f1ec0615f8c09ad",
+        "path": "page-evidence/a57e259803bd399ff51672104f2a710ba0f393f60a1915a41f1ec0615f8c09ad.json",
+        "titles": [
+          "Home - ShivasArt",
+          "Web Design,",
+          "Design Gráfico",
+          "e Impressão."
+        ],
+        "image_urls": [
+          "https://shivasart.com.br/wp-content/plugins/instagram-feed/img/placeholder.png",
+          "https://shivasart.com.br/wp-content/uploads/2022/10/Shivasart_nome_logo.png",
+          "https://shivasart.com.br/wp-content/uploads/2026/09/shivasart-logo-2026-site.png"
+        ],
+        "named_logos": {
+          "https://shivasart.com.br/wp-content/uploads/2022/10/Shivasart_nome_logo.png": " Shivasart_nome_logo ",
+          "https://shivasart.com.br/wp-content/uploads/2026/09/shivasart-logo-2026-site.png": "Shivas Art Logo Shivas Art Logo ",
+          "https://shivasart.com.br/wp-content/plugins/instagram-feed/img/placeholder.png": "Desenvolvimento de logo\nCliente: Qualea Aves Exóticas\n\n/\n\nServiços Shiva's Art:\n\n*Estúdio de Design;\n*Criação;\n*Comunicação;\n*Identidade de Marca;\n*Gerenciamento de Mídias;\n*Websites e Lojas Virtuais;\n*Impressão Gráfica;\n*Artes personalizadas. \n\nWhatsApp: (16) 99113-4560\n\n#shivasart #art #design #comunicaçãovisual #serviços #logo #pradopolis #cartaodevisita #impressão #webdesign #artes #artedigital #website #card\n#aves #avesexoticas #guara  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/c3a5df4b13a33f1397f2e2219cca65e7aae804a722e63a9c857ff0e3ffd63dec.png",
+          "sha256": "c3a5df4b13a33f1397f2e2219cca65e7aae804a722e63a9c857ff0e3ffd63dec",
+          "bytes": 978
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/0d3d98a74496ff3276fd13d9a4d65f91afe847fb366a92c61fda8465f45c509a.png",
+          "sha256": "0d3d98a74496ff3276fd13d9a4d65f91afe847fb366a92c61fda8465f45c509a",
+          "bytes": 4677
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/21a1f636212390310f79c773a49467ebc2bd48dc1c9e8a1a8dd3f6d41c465696.png",
+          "sha256": "21a1f636212390310f79c773a49467ebc2bd48dc1c9e8a1a8dd3f6d41c465696",
+          "bytes": 15419
+        },
+        "50x30/white": {
+          "path": "verified-assets/d1ea0b43d4a92015d7ace73aa3128917749556418886751174ef47cbb050b6e2.png",
+          "sha256": "d1ea0b43d4a92015d7ace73aa3128917749556418886751174ef47cbb050b6e2",
+          "bytes": 2474
+        },
+        "220x132/white": {
+          "path": "verified-assets/664232d8f9fadba7c563096835f71835b908fb21b8dd4c788db4ab1d0369f272.png",
+          "sha256": "664232d8f9fadba7c563096835f71835b908fb21b8dd4c788db4ab1d0369f272",
+          "bytes": 32392
+        },
+        "400x240/white": {
+          "path": "verified-assets/8759f72cec9aa3ff3585afd8596cebcd43ac6be0f2d0034f95cab2ec96ed2b92.png",
+          "sha256": "8759f72cec9aa3ff3585afd8596cebcd43ac6be0f2d0034f95cab2ec96ed2b92",
+          "bytes": 78037
+        },
+        "50x30/black": {
+          "path": "verified-assets/8f2632cb4e9e41ede2b6fd95f1b0833596af365562250f12d0989e5d9705b5cc.png",
+          "sha256": "8f2632cb4e9e41ede2b6fd95f1b0833596af365562250f12d0989e5d9705b5cc",
+          "bytes": 3181
+        },
+        "220x132/black": {
+          "path": "verified-assets/4954d5b2b9c555bef718772523936bb774f143dbcdbd28aa6be03d2e9aa8ec95.png",
+          "sha256": "4954d5b2b9c555bef718772523936bb774f143dbcdbd28aa6be03d2e9aa8ec95",
+          "bytes": 33318
+        },
+        "400x240/black": {
+          "path": "verified-assets/3380469ff9baf7efc1f6ab7cbdf8b87cfcd1de6488ff366df5b9335983deadd3.png",
+          "sha256": "3380469ff9baf7efc1f6ab7cbdf8b87cfcd1de6488ff366df5b9335983deadd3",
+          "bytes": 82527
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": " Shivasart_nome_logo ",
+        "matched_brand_keys": [
+          "shivas"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:1BA0:B96C:ED:0:0:0:0": {
       "name": "Sintonia Esportiva",
@@ -137277,7 +137887,99 @@
       "homepages": [
         "https://radiosintoniaesportiva.com.br/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://radiosintoniaesportiva.com.br/wp-content/uploads/2021/01/logo-256.png",
+        "final_url": "https://radiosintoniaesportiva.com.br/wp-content/uploads/2021/01/logo-256.png",
+        "path": "originals/d229e09913521f7136ac25d9ab6c1a4d5aee51746d49d1e10d5b05d345fd48af.img",
+        "sha256": "d229e09913521f7136ac25d9ab6c1a4d5aee51746d49d1e10d5b05d345fd48af",
+        "bytes": 19127,
+        "dimensions": [
+          267,
+          256
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://radiosintoniaesportiva.com.br/",
+        "final_url": "https://radiosintoniaesportiva.com.br/",
+        "original_html_sha256": "13fc0229c6f32f54bd26c54ed1f49d4a0504f45c6df1fba6f9a33acedca460af",
+        "path": "page-evidence/13fc0229c6f32f54bd26c54ed1f49d4a0504f45c6df1fba6f9a33acedca460af.json",
+        "titles": [
+          "Sintonia Esportiva - Jogos ao vivo e notícias de Futebol e Outros Esportes todos os dias!"
+        ],
+        "image_urls": [
+          "https://radiosintoniaesportiva.com.br/wp-content/uploads/2021/01/logo-256.png",
+          "https://radiosintoniaesportiva.com.br/wp-content/uploads/2021/01/sint.png",
+          "https://radiosintoniaesportiva.com.br/wp-content/uploads/2021/02/botao-conversa-dede.jpg"
+        ],
+        "named_logos": {
+          "https://radiosintoniaesportiva.com.br/wp-content/uploads/2021/01/sint.png": "Logo da Web Rádio Sintonia Esportiva  ",
+          "https://radiosintoniaesportiva.com.br/wp-content/uploads/2021/01/logo-256.png": "Logo Sintonia Esportiva  ",
+          "https://radiosintoniaesportiva.com.br/wp-content/uploads/2021/02/botao-the-boas-tv.jpg": "Logo do canal The Boas TV  ",
+          "https://radiosintoniaesportiva.com.br/wp-content/uploads/2021/02/botao-conversa-dede.jpg": "Logo do canal Conversa com Dedé  ",
+          "https://radiosintoniaesportiva.com.br/wp-content/uploads/2021/02/botao-webradio-fluminense.jpg": "Logo da Web Rádio Fluminense  ",
+          "https://radiosintoniaesportiva.com.br/wp-content/uploads/2021/02/botao-montinho-artilheiro.jpg": "Logo do canal Montinho Artilheiro  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/c570f01b74b7f882dd46095ff04298c5d817095a50ab87829b0400581b36e276.png",
+          "sha256": "c570f01b74b7f882dd46095ff04298c5d817095a50ab87829b0400581b36e276",
+          "bytes": 2257
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/6b5dc9a5c22f3b022cd4186ad96d45ad95c9519b9e5f0386265b29bf5b98bb88.png",
+          "sha256": "6b5dc9a5c22f3b022cd4186ad96d45ad95c9519b9e5f0386265b29bf5b98bb88",
+          "bytes": 21563
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/b44d6cc601bf71b8c39dedbac7e7fa28831e73bd91473e66fb5b21f8ab510324.png",
+          "sha256": "b44d6cc601bf71b8c39dedbac7e7fa28831e73bd91473e66fb5b21f8ab510324",
+          "bytes": 63184
+        },
+        "50x30/white": {
+          "path": "verified-assets/d56e46fe06b2a33a96c30037e0f2737300a8776a8e92c901fd95762bdbdfcd84.png",
+          "sha256": "d56e46fe06b2a33a96c30037e0f2737300a8776a8e92c901fd95762bdbdfcd84",
+          "bytes": 3423
+        },
+        "220x132/white": {
+          "path": "verified-assets/09881872d48b83f208a8f7309faa92e8f8f96f1fb2f43fe666507c4643c4de9e.png",
+          "sha256": "09881872d48b83f208a8f7309faa92e8f8f96f1fb2f43fe666507c4643c4de9e",
+          "bytes": 44978
+        },
+        "400x240/white": {
+          "path": "verified-assets/511f2e886274304a55004783dbbd17851903ac5dd3b8ee0c82f194ae37f7d471.png",
+          "sha256": "511f2e886274304a55004783dbbd17851903ac5dd3b8ee0c82f194ae37f7d471",
+          "bytes": 117846
+        },
+        "50x30/black": {
+          "path": "verified-assets/8bacbfef68cdfcb5efd2bee204d4989d9b5511d2db824b8718f3ac5b32bad060.png",
+          "sha256": "8bacbfef68cdfcb5efd2bee204d4989d9b5511d2db824b8718f3ac5b32bad060",
+          "bytes": 3589
+        },
+        "220x132/black": {
+          "path": "verified-assets/c9225454848f607682e533bc2bde2dd958d6b1f481af20dfc9960dc2c39cc50c.png",
+          "sha256": "c9225454848f607682e533bc2bde2dd958d6b1f481af20dfc9960dc2c39cc50c",
+          "bytes": 44015
+        },
+        "400x240/black": {
+          "path": "verified-assets/be78dc530e88c728fdab50e55f58ef1288b443c0031738996a6f8f67d14f6d5c.png",
+          "sha256": "be78dc530e88c728fdab50e55f58ef1288b443c0031738996a6f8f67d14f6d5c",
+          "bytes": 114368
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Logo Sintonia Esportiva  ",
+        "matched_brand_keys": [
+          "esportiva",
+          "sintonia"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:AC9E:20C8:ED:0:0:0:0": {
       "name": "Rádio Sintonia FM Salvador",
@@ -137289,7 +137991,94 @@
       "homepages": [
         "https://sintoniafm.noar.radio.br/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://pa-str.srvsite.com/arquivos/6881/cabecalho-6881-20250627111548.jpeg",
+        "final_url": "https://pa-str.srvsite.com/arquivos/6881/cabecalho-6881-20250627111548.jpeg",
+        "path": "originals/8f22b4962df7a7e0d929ed075ab71baff3957b1094f1228e09fdaa3f41f57578.img",
+        "sha256": "8f22b4962df7a7e0d929ed075ab71baff3957b1094f1228e09fdaa3f41f57578",
+        "bytes": 57187,
+        "dimensions": [
+          1200,
+          200
+        ],
+        "format": "JPEG"
+      },
+      "page": {
+        "url": "https://sintoniafm.noar.radio.br/",
+        "final_url": "https://sintoniafm.noar.radio.br/",
+        "original_html_sha256": "7789b563940c32d035cdf539019498ef39ae67731e2ed54ac1eed82792c5eabe",
+        "path": "page-evidence/7789b563940c32d035cdf539019498ef39ae67731e2ed54ac1eed82792c5eabe.json",
+        "titles": [
+          "R�DIO SINTONIA FM",
+          "Seja bem vindo ao nosso site R�DIO SINTONIA FM Grupo Mais comunica��o Alternativa da Bahia !"
+        ],
+        "image_urls": [
+          "https://pa-str.srvsite.com/arquivos/6881/cabecalho-6881-20250627111548.jpeg",
+          "https://pa-str.srvsite.com/arquivos/6881/favicon-6881-20250331225733.ico",
+          "https://pa-str.srvsite.com/arquivos/6881/logo_face-6881-20241113123425.png"
+        ],
+        "named_logos": {
+          "https://pa-str.srvsite.com/arquivos/6881/cabecalho-6881-20250627111548.jpeg": "R�DIO SINTONIA FM R�DIO SINTONIA FM "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/374e7a98c7bf5dbe0ef4a1d33d9a21fbfb7b1d76c93dc240afcdb6298329cc5d.png",
+          "sha256": "374e7a98c7bf5dbe0ef4a1d33d9a21fbfb7b1d76c93dc240afcdb6298329cc5d",
+          "bytes": 1269
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/630404476f107b9c88caf1816934988cc04bff4b71ad867ecb76b167ca16ddb0.png",
+          "sha256": "630404476f107b9c88caf1816934988cc04bff4b71ad867ecb76b167ca16ddb0",
+          "bytes": 12377
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/db07ab283e9e02bfea3dd943259cd6e938d650026a576905d448ad08f7ef8c47.png",
+          "sha256": "db07ab283e9e02bfea3dd943259cd6e938d650026a576905d448ad08f7ef8c47",
+          "bytes": 36561
+        },
+        "50x30/white": {
+          "path": "verified-assets/d7ffe141dfb7c4d81dc6ce02d15bc9701ee0d8bed8da04fdcfbf6663b6243197.png",
+          "sha256": "d7ffe141dfb7c4d81dc6ce02d15bc9701ee0d8bed8da04fdcfbf6663b6243197",
+          "bytes": 2711
+        },
+        "220x132/white": {
+          "path": "verified-assets/3f181856ef8a2402919fecbd5b5a1caba9ba57a0d7fe9be1df101abb5a53b100.png",
+          "sha256": "3f181856ef8a2402919fecbd5b5a1caba9ba57a0d7fe9be1df101abb5a53b100",
+          "bytes": 39005
+        },
+        "400x240/white": {
+          "path": "verified-assets/d7d21ba1ef58d113d876b5a4959bf5dd91ac30633b79602ff9e78d6b6f7fd41e.png",
+          "sha256": "d7d21ba1ef58d113d876b5a4959bf5dd91ac30633b79602ff9e78d6b6f7fd41e",
+          "bytes": 98993
+        },
+        "50x30/black": {
+          "path": "verified-assets/6d4dae64c8439e6b21dfe94ab81b73dbc0cd895a3f6373b86e95ba7026924a0d.png",
+          "sha256": "6d4dae64c8439e6b21dfe94ab81b73dbc0cd895a3f6373b86e95ba7026924a0d",
+          "bytes": 2930
+        },
+        "220x132/black": {
+          "path": "verified-assets/f1b1f3d738c11167420b495d3def18118bfc5f05a302f22d5dfcf9ba9083beca.png",
+          "sha256": "f1b1f3d738c11167420b495d3def18118bfc5f05a302f22d5dfcf9ba9083beca",
+          "bytes": 38199
+        },
+        "400x240/black": {
+          "path": "verified-assets/4b8c18129be41de31780a8820c73b9fd506d1d082c142bec1ac41b1db4aaee6e.png",
+          "sha256": "4b8c18129be41de31780a8820c73b9fd506d1d082c142bec1ac41b1db4aaee6e",
+          "bytes": 94476
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "R�DIO SINTONIA FM R�DIO SINTONIA FM ",
+        "matched_brand_keys": [
+          "sintonia"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:73FD:16D8:ED:0:0:0:0": {
       "name": "Sintoniza Rock",
@@ -137301,7 +138090,10 @@
       "homepages": [
         "https://sintonizarock.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "Command '['tesseract', '/tmp/radio-logo-ocr-o921e754/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds"
+      ]
     },
     "4097:0:2:EC09:72AD:ED:0:0:0:0": {
       "name": "Radio Skol Sertanejo",
@@ -541465,14 +542257,14 @@
   },
   "counts": {
     "already_ready_in_saved_checkpoint": 4155,
-    "blocked_no_confirmed_station_page_and_logo": 1646,
+    "blocked_no_confirmed_station_page_and_logo": 1658,
     "blocked_no_independent_station_homepage": 1269,
     "blocked_no_unique_current_station_metadata": 4248,
-    "candidate_assistant_visual_and_identity_check": 713,
+    "candidate_assistant_visual_and_identity_check": 720,
     "needs_assistant_identity_research_for_short_or_generic_name": 1328,
-    "pending_homepage_discovery": 26828,
-    "ready_verified_homepage_and_wordmark": 716
+    "pending_homepage_discovery": 26803,
+    "ready_verified_homepage_and_wordmark": 722
   },
-  "last_event": "homepages_3050_of_29878",
-  "updated_utc": "2026-11-05T14:27:09Z"
+  "last_event": "homepages_3075_of_29878",
+  "updated_utc": "2026-11-05T14:27:34Z"
 }
