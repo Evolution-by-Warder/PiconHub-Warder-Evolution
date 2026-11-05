@@ -1,0 +1,286 @@
+<html lang="es-CL">
+    <head>
+        <meta name="orb-verification" content="8d2dac224f794aae"/>
+        <title>Radio La Sabrosita FM</title>     
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="initial-scale=0.8 maximum-scale=1.0, user-scalable=yes" />
+        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+        <meta http-equiv="Pragma" content="no-cache" />
+        <meta http-equiv="Expires" content="1" />
+        <link rel="canonical" href="https://lasabrositafm.cl">
+        <meta name="description" content="Sabrosita FM">
+        <meta property="og:url" content="https://lasabrositafm.cl">
+        <meta property="og:title" content="Sabrosita FM">
+        <meta property="og:site_name" content="Red de emisoras La Sabrosita FM">
+        <meta property="og:description" content="Red de emisoras La Sabrosita FM">
+        <!--Tags para Twitter-->
+        <meta name="twitter:title" content="Sabrosita FM" />
+        <meta name="twitter:url" content="https://lasabrositafm.cl">
+        
+        <meta name="DC.Title" lang="es" content="Sabrosita FM">
+        <meta name="DC.Description" lang="es" content="Sabrosita FM">
+        <meta name="DC.Author" content="Sabrosita FM">
+        <meta name="DC.Creator" content="Sabrosita FM">
+        <meta name="DC.Language" scheme="RFC1766" content="es">
+        <meta name="DC.format" scheme="IMT" content="text/html"> 
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://www.jacklmoore.com/colorbox/example1/colorbox.css" />
+                <style>
+            p { margin:2 }
+            select {
+                appearance: none;
+                outline: none;
+                cursor: pointer;
+
+                color: #fddd00;
+                background-color: #ff1117;
+                border: 2px solid #fddd00;
+
+                border-radius: 5px;
+                padding: 5px 10px;
+                width: 290px;
+                height: 55px;
+
+                font-family: serif;
+                font-size: 20px;
+                font-weight: bold;
+                text-align: center;
+                
+                background-image:
+                    linear-gradient(45deg, transparent 50%, #fddd00 50%),
+                    linear-gradient(135deg, #fddd00 50%, transparent 50%),
+                    linear-gradient(to right, transparent, transparent);
+                background-position:
+                    calc(100% - 20px) calc(1em + 2px),
+                    calc(100% - 15px) calc(1em + 2px),
+                    100% 0;
+                background-size:
+                    5px 5px,
+                    5px 5px,
+                    2.5em 2.5em;
+                background-repeat: no-repeat;                
+            }
+
+            select:focus {
+                outline: 2px dashed blue;
+            }
+            
+            .icon-bar {
+                position: fixed;
+                top: 50%;
+                -webkit-transform: translateY(-50%);
+                -ms-transform: translateY(-50%);
+                transform: translateY(-50%);
+            }
+
+            .icon-bar a {
+                display: block;
+                text-align: center;
+                padding: 16px;
+                transition: all 0.3s ease;
+                color: white;
+                font-size: 20px;
+            }
+
+            .icon-bar a:hover {
+                background-color: #000;
+            }
+
+            .facebook {
+                background: #3B5998;
+                color: white;
+            }
+
+            .instagram {
+                /*background: #883db4;*/
+                background: #f09433; 
+                background: -moz-linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); 
+                background: -webkit-linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); 
+                background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); 
+                filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f09433', endColorstr='#bc1888',GradientType=1 );
+                color: white;
+            }
+
+            .google {
+                background: #dd4b39;
+                color: white;
+            }
+
+            .linkedin {
+                background: #007bb5;
+                color: white;
+            }
+
+            .youtube {
+                background: #bb0000;
+                color: white;
+            }
+            
+            .div-player {
+                border-radius: 25px;
+                border: 2px solid #ff1117;
+                padding: 3px;
+                width: 300px;
+                height: 185px;
+            }            
+        </style>
+    </head>
+    <body>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script src="https://www.jacklmoore.com/colorbox/jquery.colorbox.js"></script>        
+        <div class="icon-bar">
+            <a href="https://www.facebook.com/lasabrositachile" class="facebook" target="_blank"><i class="fa fa-facebook"></i></a> 
+            <a href="https://www.instagram.com/radiolasabrosita_chile/" class="instagram" target="_blank"><i class="fa fa-instagram"></i></a> 
+            <!--<a href="#" class="google"><i class="fa fa-google"></i></a> -->
+            <!--<a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a>-->
+            <!--<a href="#" class="youtube"><i class="fa fa-youtube"></i></a> -->
+        </div>
+
+        <center>
+        <img class="logo" src="img/logo_base.png" />
+        <br>
+        <div class="div-player">
+            <h1 style="font-family:Tahoma;font-size:20px;">Elige tu Señal!</h1>
+            <!--Boton De Play/Stop-->
+            <img src="img/btn_play.png" id="ControlToggle" onclick="toggleControl();" alt="Control Reproductor" style="width:60px;height:60px;"/>
+            <!--Boton de Mute/UnMute-->
+            <img src="img/btn_soundoff.png" id="ControlMute" onclick="toggleMute();" alt="Mute Reproductor" style="width:60px;height:60px;"/>
+            <br>
+            <select id="combo_radios" onchange="change()">
+                <option value="https://audio.streaminghd.cl:9234/stream/2/">Concepción (104.5 FM)</option>
+                <option value="https://audio.streaminghd.cl:9234/stream/12/">Santa Juana (100.3 FM)</option>
+                <option value="https://audio.streaminghd.cl:9234/stream/19/">Cabrero (94.9 FM)</option>
+                <option value="https://audio.streaminghd.cl:9234/stream/3/">Los Angeles (106.7 FM)</option>
+                <option value="https://audio.streaminghd.cl:9234/stream/13/">Mulchen (102.5 FM)</option>
+                <option value="https://audio.streaminghd.cl:9234/stream/18/">Nueva Imperial / Temuco (105.3 FM)</option>
+                <option value="https://audio.streaminghd.cl:9234/stream/20/">Pucón/Villarica (96.1 FM)</option>
+                <option value="https://audio.streaminghd.cl:9234/stream/5/">Lanco (103.1 FM)</option>
+                <option value="https://audio.streaminghd.cl:9234/stream/4/">Los lagos (94.3 FM)</option>
+                <option value="https://audio.streaminghd.cl:9234/stream/17/">Paillaco (100.1 FM)</option>
+                <option value="https://audio.streaminghd.cl:9234/stream/14/">Futrono / Lago Ranco (93.9 FM)</option>                
+                <option value="https://audio.streaminghd.cl:9234/stream/16/">La Union (95.9 FM)</option>       
+                <option selected value="https://audio.streaminghd.cl:9234/stream/1/">Osorno (88.5 FM)</option>
+                <option value="https://audio.streaminghd.cl:9234/stream/7/">Entre Lagos (91.5 FM)</option>
+                <option value="https://audio.streaminghd.cl:9234/stream/1/">Río Negro (102.5 FM)</option>
+                <option value="https://audio.streaminghd.cl:9234/stream/6/">Bahía Mansa (95.7 FM)</option>
+                <option value="https://audio.streaminghd.cl:9234/stream/8/">Los Muermos (97.1 FM)</option>
+                <option value="https://audio.streaminghd.cl:9234/stream/11/">Puerto Montt (99.7 FM)</option>
+                <option value="https://audio.streaminghd.cl:9234/stream/9/">Punta Arenas (89.3 FM)</option>
+            </select>   
+            <br>
+            <audio hidden id="reproductor" name="media" preload="none">
+                <source id="url" src="#">
+                Tu navegador no soporta el player.
+            </audio>        
+        </div>
+        <script>
+            function change() {
+                var audio = document.getElementById("reproductor");
+
+                if (SetUrl()) {
+                    audio.pause();
+                    toggleControl();
+                }
+            }
+            
+            function toggleControl() {
+                var audio = document.getElementById("reproductor");
+
+                var img1 = "btn_play.png";
+                var img2 = "btn_stop.png";
+                const str1 = 'img/';
+           
+                var imgElement = document.getElementById('ControlToggle');
+
+                if (audio.paused) {
+                    imgElement.src = str1.concat(img2);
+                    audio.load();
+                    audio.play();
+                    console.log("Play");
+                } else {
+                    imgElement.src = str1.concat(img1);
+                    audio.pause();
+                    console.log("Pause");
+                }
+            }    
+                
+            function toggleMute() {
+                var audio = document.getElementById("reproductor");
+                var img1 = "btn_soundon.png";
+                var img2 = "btn_soundoff.png";
+                const str1 = 'img/';
+           
+                var imgElement = document.getElementById('ControlMute');
+
+                if (audio.muted) {
+                    imgElement.src = str1.concat(img2);
+                    audio.muted = false;
+                    console.log("Mute");
+                } else {
+                    imgElement.src = str1.concat(img1);
+                    audio.muted = true;
+                    console.log("Un-Mute");
+                }                
+            } 
+            
+            function SetUrl() {
+                var sourceUrl = document.getElementById("combo_radios").value;
+                var source = document.getElementById("url");
+    
+                if (sourceUrl) {
+                    source.src = sourceUrl;
+                    console.log("Cambiado a: " + sourceUrl);
+                    return true;
+                    
+                }
+                return false;
+            }
+            
+            function popupEventos(){
+                $.colorbox({
+                    inline:true, 
+                    href:"#inline_content", 
+                    open:true, 
+                    width:"85%", 
+                    height:"auto",
+                });
+            }
+            
+            window.onload = SetUrl;
+            // Afiche Web
+            //setTimeout(popupEventos, 500);
+            
+        </script>
+        <div>
+            <br>
+            <!--Descargas App-->
+            <a href="https://play.google.com/store/apps/details?id=com.creativoagencia.lasabrositafm" target="_blank"><img class="app" src="img/app_android.png" alt="APP Sabrosita Android" style="width:300px;height:90px;"></a>
+            <br>
+            <br>
+            <a href="https://apps.apple.com/cl/app/radio-la-sabrosita-chile/id6451073290" target="_blank"><img class="app" src="img/app_ios.png" alt="APP Sabrosita IOS" style="width:300px;height:90px;"></a>
+            <br><br>
+        </div>
+        <div>
+            <!--Contacto-->
+            <a href="https://wa.me/56933256102" target="_blank"><img class="app" src="img/wsp_saludos.png" alt="WhatsAPP Saludos" style="width:300px;height:90px;"></a>
+            <br><br>
+            <a href="https://wa.me/56962192999" target="_blank"><img class="app" src="img/wsp_comercial.png" alt="WhatsAPP Comercual" style="width:300px;height:90px;"></a>
+            <br>            
+        </div>
+        <hr>
+        <footer class="pie-sitio">
+            <div class="info-comercial">
+                    <h1 style="font-family:Tahoma;font-size:20px;">Información Comercial</h1>
+                    <p>Whatsapp <a href="https://wa.me/56962192999">+56962192999</a></p>
+                    <p>E-Mail <a href="mailto:ventas@lasabrositafm.cl">ventas@lasabrositafm.cl</a></p>
+                    <p>Sitio ajustado por <a href="https://vypstudios.cl">Victor Flores</a></p>
+            </div>
+        </footer> 
+		<!-- Aca se ubica el contenido del popup -->
+		<div style='display:none'>
+			<div id='inline_content' style='padding:1px; background:#fff;'>
+			<a href="https://www.filacero.cl/eventos/la-segunda-fiesta-sabrosita" target="_blank"><img src="../eventos/img/afiche-conce-8M.jpg" alt="Evento Concepcion" style='width:100%;object-fit:contain'></a>
+		</div>         
+        </center>
+    </body>
+</html>

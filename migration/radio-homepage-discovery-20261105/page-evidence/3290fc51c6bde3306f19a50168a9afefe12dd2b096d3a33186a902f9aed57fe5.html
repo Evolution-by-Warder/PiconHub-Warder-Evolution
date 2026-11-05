@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    
+    <title>Radio La Mega Osorno | Señal Online </title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">    
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="assets/images/favicons/dark/ms-icon-144x144.png?v=4115">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="apple-touch-icon" sizes="57x57" href="assets/images/favicons/dark/apple-icon-57x57.png?v=4115">
+    <link rel="apple-touch-icon" sizes="60x60" href="assets/images/favicons/dark/apple-icon-60x60.png?v=4115">
+    <link rel="apple-touch-icon" sizes="72x72" href="assets/images/favicons/dark/apple-icon-72x72.png?v=4115">
+    <link rel="apple-touch-icon" sizes="76x76" href="assets/images/favicons/dark/apple-icon-76x76.png?v=4115">
+    <link rel="apple-touch-icon" sizes="114x114" href="assets/images/favicons/dark/apple-icon-114x114.png?v=4115">
+    <link rel="apple-touch-icon" sizes="120x120" href="assets/images/favicons/dark/apple-icon-120x120.png?v=4115">
+    <link rel="apple-touch-icon" sizes="144x144" href="assets/images/favicons/dark/apple-icon-144x144.png?v=4115">
+    <link rel="apple-touch-icon" sizes="152x152" href="assets/images/favicons/dark/apple-icon-152x152.png?v=4115">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/images/favicons/dark/apple-icon-180x180.png?v=4115">
+    <link rel="icon" type="image/png" sizes="192x192"  href="assets/images/favicons/dark/android-icon-192x192.png?v=4115">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicons/dark/favicon-32x32.png?v=4115">
+    <link rel="icon" type="image/png" sizes="96x96" href="assets/images/favicons/dark/favicon-96x96.png?v=4115">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicons/dark/favicon-16x16.png?v=4115">
+
+    <link rel="manifest" href="assets/images/favicons/dark/manifest.json?v=4115">
+    <link rel="stylesheet" href="assets/css/repro.css?v=4115">
+    <style>
+        .live-pulse {
+            width: 20px;
+            height: 20px;
+            background-color: rgba(255, 0, 0, 1);
+            border-radius: 50%;
+            font-size: 10px;
+            line-height: 20px;
+            color: #FFF;
+            text-align: center
+            animation: live_animate 3s linear infinite;
+        }
+        .live-pulse>a, .live-pulse > a:visited, .live-pulse > a:link, .live-pulse > a:hover {
+            text-decoration: none;
+            color: #FFF;
+            padding-left: 5px;
+        }
+        #programa{
+            font-size: 12px;
+        }
+        #conduccion{
+            font-size: 10px;
+        }
+        @keyframes live_animate {
+            0% {                
+                box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7), 0 0 0 0 rgba(255, 0, 0, 0.7);
+            }
+            
+            40% {
+                box-shadow: 0 0 0 10px rgba(255, 0, 0, 0.7), 0 0 0 0 rgba(255, 0, 0, 0.7);
+            }
+
+            80% {
+                box-shadow: 0 0 0 10px rgba(255, 0, 0, 0.7), 0 0 0 30px rgba(255, 0, 0, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7), 0 0 0 30px rgba(255, 0, 0, 0); 
+            }
+        }
+    </style>
+</head>
+<body>    
+    <div class="container d-block d-sm-block d-md-none header-mobile">        
+            <div class="row">
+                <div class="col underline">EN VIVO</div>
+                <div class="col text-center"></div>
+                <div class="col">
+                    
+                </div>
+            </div>
+    </div> 
+    <div class="container-fluid">    
+        <div class="row">
+            <div class="col-md-12 background">
+                <div class="player"></div>
+            </div>
+        </div>
+    </div>
+    <script src="jquery-3.0.0.min.js?v=4115"></script>
+    <script src="assets/js/mega-player.js?v=4115"></script>
+    <script>
+        $("#player").megaRadio({
+            server        : "https://sonic.portalfoxmix.cl",
+            port          : 7066,
+            type          : "shoutcast",
+            title         : "Radio La Mega Osorno",
+            logo          : "assets/images/logo.png",
+            urlInfoRadio  : "https://api.lamega.cl/v1/",
+            showListeners : false,
+            showProgram   : false
+        });
+    </script>
+</body>
+</html>

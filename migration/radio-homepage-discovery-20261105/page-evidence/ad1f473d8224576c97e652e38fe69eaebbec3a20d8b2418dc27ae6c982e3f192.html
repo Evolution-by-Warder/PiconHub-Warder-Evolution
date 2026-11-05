@@ -1,0 +1,878 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Radio MDV · Manantial de Vida en vivo</title>
+<meta name="description" content="Radio Manantial de Vida: 107.1 FM Coronel y Lota, 107.5 FM San Pedro de la Paz y online 24/7. Música de adoración, predicación y oración.">
+<meta name="theme-color" content="#0e0d0e">
+<meta property="og:title" content="Radio MDV · Primeros en tu corazón"><meta property="og:description" content="Escucha en vivo música de adoración y predicación. 107.1 y 107.5 FM y online 24/7.">
+<meta property="og:image" content="https://radiomdv.cl/img/musica-logo.jpg">
+<link rel="icon" href="img/icon-192.png" type="image/png">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Radio MDV"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="application-name" content="Radio MDV">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Advent+Pro:wght@600;700;800&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Radio MDV v3 — marca: negro + rojo MDV; display Advent Pro, texto Manrope. Reproductor fijo abajo, vistas por #hash. */
+:root{
+--bg:#f6f2f3;--surface:#ffffff;--surface-2:#f0eaec;--ink:#141214;--ink-2:#3b3639;--muted:#6f676b;--line:#e7dfe2;
+--black:#0e0d0e;--black-2:#1a181a;--black-3:#262326;--red:#d0102f;--red-2:#e30c12;--red-soft:#ffe3e7;--blush:#ffc0b8;--gold:#f2b441;
+--on-dark:#f4eff1;--on-dark-2:#bdb4b8;
+--f-display:"Advent Pro","Arial Narrow",system-ui,sans-serif;--f-body:"Manrope","Segoe UI",system-ui,sans-serif;--f-mono:"JetBrains Mono",ui-monospace,monospace;
+--r-lg:20px;--r-md:14px;--r-sm:10px;--shadow:0 1px 2px rgba(20,18,20,.04),0 8px 24px rgba(20,18,20,.06);
+--player-h:84px;--maxw:1240px;
+}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;padding-bottom:calc(var(--player-h) + env(safe-area-inset-bottom,0px))}
+a{color:inherit}img{max-width:100%;display:block}button{font:inherit;cursor:pointer;color:inherit}
+h1,h2,h3,h4{font-family:var(--f-display);margin:0;line-height:1;letter-spacing:.005em;text-wrap:balance}
+:focus-visible{outline:3px solid var(--red);outline-offset:2px;border-radius:8px}
+[hidden]{display:none!important}
+.wrap{max-width:var(--maxw);margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+.eyebrow{font-family:var(--f-display);font-weight:700;letter-spacing:.16em;text-transform:uppercase;font-size:.9rem;color:var(--red)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;border:0;border-radius:999px;padding:12px 22px;font-weight:700;font-size:.95rem;text-decoration:none;transition:transform .15s,background .15s,border-color .15s;white-space:nowrap}
+.btn:hover{transform:translateY(-1px)}
+.btn-red{background:var(--red);color:#fff}.btn-red:hover{background:#b80d29}
+.btn-white{background:#fff;color:#141214}
+.btn-ghost{background:transparent;border:1.5px solid currentColor}
+.btn-dark{background:var(--ink);color:#fff}
+.sec{padding-block:64px 0}
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:24px}
+.sec-head h2{font-size:clamp(2rem,4vw,3rem);font-weight:800;margin-top:6px}
+.sec-head p{margin:8px 0 0;color:var(--muted);max-width:56ch}
+.link-more{font-weight:700;text-decoration:none;color:var(--red);display:inline-flex;gap:6px;align-items:center}
+.link-more:hover{text-decoration:underline}
+/* ===== Versículo ticker ===== */
+.votd-bar{background:var(--red);color:#fff;font-size:.88rem}
+.votd-bar .wrap{display:flex;align-items:center;gap:14px;min-height:40px;padding-block:8px}
+.votd-bar b{font-family:var(--f-display);letter-spacing:.14em;text-transform:uppercase;font-size:.85rem;white-space:nowrap}
+.votd-bar span{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.votd-bar a{color:#fff;font-weight:700;white-space:nowrap}
+/* ===== Header ===== */
+header.top{position:sticky;top:0;z-index:30;background:rgba(14,13,14,.92);backdrop-filter:saturate(1.4) blur(14px);-webkit-backdrop-filter:saturate(1.4) blur(14px);color:var(--on-dark);border-bottom:1px solid rgba(255,255,255,.06)}
+header.top .wrap{display:flex;align-items:center;gap:28px;height:74px}
+.logo img{height:44px;width:auto;display:block}
+nav.main{display:flex;gap:4px}
+nav.main a{text-decoration:none;font-weight:600;font-size:.95rem;padding:9px 14px;border-radius:999px;color:var(--on-dark-2);transition:color .15s,background .15s}
+nav.main a:hover{color:#fff;background:rgba(255,255,255,.06)}
+nav.main a[aria-current="page"]{color:#fff;background:rgba(255,255,255,.1)}
+.top-actions{margin-left:auto;display:flex;align-items:center;gap:10px}
+.icon-btn{width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,255,255,.18);background:transparent;display:grid;place-items:center;color:#fff}
+.icon-btn svg{width:18px;height:18px}
+.live-btn .eqz{display:inline-flex;gap:2px;align-items:flex-end;height:14px}
+.eqz i{width:3px;height:4px;background:currentColor;border-radius:2px;display:block}
+.playing .eqz i{animation:eq 1s ease-in-out infinite}.eqz i:nth-child(2){animation-delay:-.35s}.eqz i:nth-child(3){animation-delay:-.7s}.eqz i:nth-child(4){animation-delay:-.2s}
+@keyframes eq{0%,100%{height:4px}50%{height:14px}}
+.menu-btn{display:none}
+.live-btn .eqz{display:none}.playing .live-btn .eqz{display:inline-flex}.playing .live-btn .pl{display:none}
+@media (max-width:980px){nav.main{display:none}.menu-btn{display:grid}.top-actions .btn-ghost{display:none}}
+@media (max-width:520px){.live-btn span.lbl{display:none}.live-btn{padding:11px 14px}.logo img{height:36px}header.top .wrap{gap:12px}}
+.drawer{position:fixed;inset:74px 0 auto 0;z-index:29;background:var(--black);border-bottom:1px solid rgba(255,255,255,.08);padding:12px 20px 20px;display:flex;flex-direction:column;gap:4px}
+.drawer a{color:#fff;text-decoration:none;font-family:var(--f-display);font-weight:700;font-size:1.6rem;padding:10px 4px;border-bottom:1px solid rgba(255,255,255,.06)}
+/* ===== Hero ===== */
+.hero{position:relative;background:var(--black);color:var(--on-dark);overflow:hidden;isolation:isolate}
+.hero-bg{position:absolute;inset:-60px;background:#1a181a center/cover no-repeat;filter:blur(60px) saturate(1.3);opacity:.55;z-index:-2;transform:scale(1.1);transition:background-image .6s}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(14,13,14,.35) 0%,rgba(14,13,14,.75) 60%,var(--black) 100%)}
+.hero .wrap{padding-block:48px 56px;display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:40px;align-items:center}
+@media (max-width:960px){.hero .wrap{grid-template-columns:1fr;gap:28px;padding-block:28px 36px}}
+.np{display:grid;grid-template-columns:auto minmax(0,1fr);gap:32px;align-items:center}
+@media (max-width:640px){.np{grid-template-columns:1fr;gap:20px}}
+.np-cover{position:relative;width:clamp(200px,24vw,300px);aspect-ratio:1;border-radius:var(--r-lg);background:#222 center/cover no-repeat;box-shadow:0 30px 80px rgba(0,0,0,.5);overflow:hidden;max-width:100%}
+@media (max-width:640px){.np-cover{width:100%;max-width:340px}}
+.np-cover .ph{position:absolute;inset:0;display:grid;place-items:center;background:radial-gradient(circle at 30% 30%,#2b282b,#141214)}
+.np-cover .ph img{width:62%;height:auto}
+.badge-live{display:inline-flex;align-items:center;gap:8px;background:var(--red-2);color:#fff;border-radius:999px;padding:6px 14px 6px 12px;font-family:var(--f-display);font-weight:800;letter-spacing:.14em;font-size:.85rem;text-transform:uppercase}
+.dot{width:8px;height:8px;border-radius:50%;background:#fff;animation:pulse 1.6s infinite;flex:none}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.np h1{font-size:clamp(2.2rem,4.4vw,3.6rem);font-weight:800;margin-top:16px;overflow-wrap:anywhere;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;padding-bottom:.06em}
+.np .artist{font-size:clamp(1.05rem,1.8vw,1.3rem);color:var(--on-dark-2);margin-top:8px;font-weight:500}
+.np-actions{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:26px}
+.play-xl{display:inline-flex;align-items:center;gap:14px;border:0;background:#fff;color:#141214;border-radius:999px;padding:8px 26px 8px 8px;font-weight:800;font-size:1.02rem}
+.play-xl .ic{width:52px;height:52px;border-radius:50%;background:var(--red-2);color:#fff;display:grid;place-items:center}
+.play-xl .ic svg{width:22px;height:22px}
+.np-meta{display:flex;gap:18px;flex-wrap:wrap;margin-top:18px;color:var(--on-dark-2);font-size:.9rem}
+.np-meta b{color:#fff}
+.np-meta .together{display:inline-flex;align-items:center;gap:8px}
+.ring{position:relative;width:10px;height:10px}.ring::before,.ring::after{content:"";position:absolute;inset:0;border-radius:50%;background:#3ddc84}.ring::after{animation:ringa 2s ease-out infinite}
+@keyframes ringa{to{transform:scale(3);opacity:0}}
+.share-btn{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);color:#fff}
+/* programa al aire */
+.onair{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:var(--r-lg);overflow:hidden;backdrop-filter:blur(10px)}
+.onair-img{aspect-ratio:2/1;background:#222 center/cover no-repeat;position:relative}
+.onair-img .tag{position:absolute;left:14px;top:14px}
+.onair-body{padding:18px 20px 20px}
+.onair-body small{font-family:var(--f-display);letter-spacing:.14em;text-transform:uppercase;color:var(--blush);font-weight:700}
+.onair-body h3{font-size:1.9rem;font-weight:800;margin-top:6px}
+.onair-body p{margin:4px 0 0;color:var(--on-dark-2)}
+.prog-row{display:flex;align-items:center;gap:12px;margin-top:14px;font-family:var(--f-mono);font-size:.8rem;color:var(--on-dark-2)}
+.bar{flex:1;height:4px;border-radius:4px;background:rgba(255,255,255,.15);overflow:hidden}.bar i{display:block;height:100%;background:var(--red-2);width:0}
+.next-list{border-top:1px solid rgba(255,255,255,.08);margin-top:16px;padding-top:12px;display:flex;flex-direction:column;gap:10px}
+.next-list div{display:grid;grid-template-columns:54px 1fr;gap:10px;font-size:.9rem}
+.next-list .t{font-family:var(--f-mono);font-size:.8rem;color:var(--blush);padding-top:2px}
+.next-list b{font-weight:700;color:#fff}.next-list span{color:var(--on-dark-2)}
+/* ===== Accesos rápidos ===== */
+.quick{margin-top:-1px;background:var(--black);padding-bottom:40px}
+.quick-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+@media (max-width:900px){.quick-grid{grid-template-columns:repeat(2,1fr)}}
+.qa{display:flex;gap:14px;align-items:center;padding:18px;border-radius:var(--r-md);background:var(--black-2);border:1px solid rgba(255,255,255,.06);color:#fff;text-decoration:none;transition:background .15s,transform .15s;min-width:0}
+.qa:hover{background:var(--black-3);transform:translateY(-2px)}
+.qa .i{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:rgba(227,12,18,.15);color:#ff6b78;flex:none}
+.qa .i svg{width:22px;height:22px}
+.qa b{display:block;font-weight:700}.qa span{display:block;font-size:.85rem;color:var(--on-dark-2)}
+.qa > div{min-width:0}
+@media (max-width:520px){.qa{flex-direction:column;align-items:flex-start;gap:10px;padding:16px}}
+/* ===== Recién emitidas (carrusel) ===== */
+.rail{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(170px,200px);gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:10px;scrollbar-width:thin}
+.rail::-webkit-scrollbar{height:6px}.rail::-webkit-scrollbar-thumb{background:var(--line);border-radius:6px}
+.song{scroll-snap-align:start;display:flex;flex-direction:column;gap:10px;min-width:0}
+.song .art{aspect-ratio:1;border-radius:var(--r-md);background:radial-gradient(circle at 30% 30%,#2b282b,#141214) center/cover no-repeat;position:relative;overflow:hidden;box-shadow:var(--shadow)}
+.song .time{position:absolute;left:10px;top:10px;background:rgba(14,13,14,.75);color:#fff;font-family:var(--f-mono);font-size:.72rem;padding:3px 8px;border-radius:999px;backdrop-filter:blur(6px)}
+.song .sp{position:absolute;right:10px;bottom:10px;width:36px;height:36px;border-radius:50%;background:#1db954;color:#000;display:grid;place-items:center;opacity:0;transform:translateY(6px);transition:.2s}
+.song .sp svg{width:18px;height:18px}
+.song:hover .sp,.song:focus-within .sp{opacity:1;transform:none}
+@media (hover:none){.song .sp{opacity:1;transform:none}}
+.song b{font-weight:700;line-height:1.25;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.song span{color:var(--muted);font-size:.88rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rail .empty{color:var(--muted)}
+/* ===== Programas ===== */
+.programs{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+@media (max-width:1100px){.programs{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:820px){.programs{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:480px){.programs{grid-template-columns:1fr}}
+.pcard-prog{background:var(--surface);border-radius:var(--r-md);overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;transition:transform .2s}
+.pcard-prog:hover{transform:translateY(-3px)}
+.pcard-prog .img{aspect-ratio:2/1;background:var(--black) center/cover no-repeat;position:relative}
+.pcard-prog .img.logo{background-size:55% auto}
+.pcard-prog .live{position:absolute;left:10px;top:10px}
+.pcard-prog .body{padding:14px 16px 16px}
+.pcard-prog h3{font-size:1.45rem;font-weight:800}
+.pcard-prog p{margin:4px 0 0;color:var(--muted);font-size:.9rem}
+.pcard-prog .when{margin-top:10px;font-family:var(--f-mono);font-size:.78rem;color:var(--red);font-weight:500}
+/* ===== Banda oración ===== */
+.band{background:var(--black);color:var(--on-dark);border-radius:28px;padding:44px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:36px;position:relative;overflow:hidden}
+.band::before{content:"";position:absolute;width:520px;height:520px;right:-160px;top:-200px;background:radial-gradient(circle,rgba(227,12,18,.35),transparent 65%);pointer-events:none}
+@media (max-width:900px){.band{grid-template-columns:1fr;padding:28px;border-radius:22px}}
+.band h2{font-size:clamp(2.2rem,4.4vw,3.4rem);font-weight:800;margin-top:8px}
+.band p{color:var(--on-dark-2);max-width:46ch}
+.band .stats{display:flex;gap:28px;margin:22px 0}
+.band .stats b{display:block;font-family:var(--f-display);font-size:2.6rem;font-weight:800;color:#fff;line-height:1}
+.band .stats span{font-size:.85rem;color:var(--on-dark-2)}
+.band .cta{display:flex;gap:10px;flex-wrap:wrap}
+.pray-list{display:flex;flex-direction:column;gap:12px;min-width:0;position:relative}
+.pcard{background:var(--surface);color:var(--ink);border-radius:var(--r-md);padding:18px;display:flex;flex-direction:column;gap:10px;border:1px solid var(--line)}
+.band .pcard{background:rgba(255,255,255,.06);color:var(--on-dark);border-color:rgba(255,255,255,.08)}
+.pcard .who{display:flex;justify-content:space-between;gap:10px;font-size:.84rem;color:var(--muted)}
+.band .pcard .who{color:var(--on-dark-2)}
+.pcard .who b{color:inherit;font-weight:700}.band .pcard .who b{color:#fff}
+.pcard p{margin:0;font-size:1.02rem;line-height:1.55;overflow-wrap:anywhere}
+.pfoot{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.pbtn{display:inline-flex;align-items:center;gap:10px;border:1.5px solid currentColor;background:none;border-radius:999px;padding:6px 14px 6px 8px;font-weight:700;font-size:.9rem}
+.pbtn svg{width:20px;height:20px}
+.pbtn .n{font-family:var(--f-mono);font-size:.78rem;background:currentColor;border-radius:999px;padding:2px 8px}
+.pbtn .n em{font-style:normal;color:var(--surface)}
+.band .pbtn .n em{color:var(--black)}
+.pbtn.done{color:var(--red)}.band .pbtn.done{color:#ff7a86}
+.report{background:none;border:0;color:var(--muted);font-size:.78rem;text-decoration:underline;padding:4px}
+.band .report{color:var(--on-dark-2)}
+.onair-badge{font-family:var(--f-display);font-weight:700;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:#fff;background:var(--red);border-radius:6px;padding:2px 8px;margin-left:8px}
+.pray-empty{color:var(--muted);padding:22px;border:1px dashed var(--line);border-radius:var(--r-md)}
+.band .pray-empty{border-color:rgba(255,255,255,.15);color:var(--on-dark-2)}
+/* ===== Adorando juntos + versículo ===== */
+.duo{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:20px}
+@media (max-width:900px){.duo{grid-template-columns:1fr}}
+.card{background:var(--surface);border-radius:var(--r-lg);padding:28px;box-shadow:var(--shadow);min-width:0}
+.together-big{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+.together-big b{font-family:var(--f-display);font-size:5rem;font-weight:800;line-height:.9;color:var(--red)}
+.together-big span{font-family:var(--f-display);font-size:1.6rem;font-weight:700;line-height:1.05}
+.cities{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+.city{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-weight:600;font-size:.88rem;background:var(--bg)}
+.city i{width:8px;height:8px;border-radius:50%;background:var(--red);display:block}
+.city b{font-family:var(--f-mono);font-weight:500;color:var(--muted);font-size:.78rem}
+.city.me{border-color:var(--red)}
+.city-pick{display:flex;flex-wrap:wrap;gap:6px;align-items:center;width:100%}
+.city-pick span{color:var(--muted);font-size:.9rem;margin-right:4px;width:100%}
+.city-pick button{border:1px solid var(--line);background:var(--bg);border-radius:999px;padding:6px 12px;font-weight:600;font-size:.88rem}
+.city-pick button:hover{border-color:var(--red);color:var(--red)}
+.city-other{display:flex;gap:6px;width:100%;margin-top:8px}
+.city-other input{flex:1;min-width:0;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:999px;padding:9px 14px;font:inherit;font-size:.9rem}
+.change-city{background:none;border:0;color:var(--muted);text-decoration:underline;font-size:.82rem;padding:6px}
+.verse{background:linear-gradient(140deg,#2a0a10 0%,var(--black) 70%);color:var(--on-dark);position:relative;overflow:hidden}
+.verse::after{content:"\201C";position:absolute;right:18px;top:-30px;font-family:Georgia,serif;font-size:14rem;color:rgba(255,255,255,.06);line-height:1}
+.verse blockquote{margin:14px 0 0;font-family:Georgia,"Times New Roman",serif;font-size:clamp(1.3rem,2.2vw,1.65rem);line-height:1.45;position:relative;z-index:1}
+.verse cite{display:block;margin-top:14px;font-style:normal;font-weight:700;color:var(--blush)}
+.verse .row{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap;position:relative;z-index:1}
+/* ===== Frecuencias ===== */
+.freq{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+@media (max-width:820px){.freq{grid-template-columns:1fr}}
+.fq{background:var(--surface);border-radius:var(--r-lg);padding:26px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:6px}
+.fq .n{font-family:var(--f-display);font-size:4rem;font-weight:800;line-height:.9}
+.fq .n small{font-size:1.3rem;color:var(--red);margin-left:6px}
+.fq p{margin:0;color:var(--muted)}
+/* ===== Programación ===== */
+.days{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;margin-bottom:18px}
+.days button{border:1.5px solid var(--line);background:var(--surface);padding:9px 18px;border-radius:999px;font-weight:700;font-size:.92rem;white-space:nowrap}
+.days button[aria-selected="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.days .today{font-size:.7rem;margin-left:6px;color:var(--red);font-weight:800;text-transform:uppercase}
+.days button[aria-selected="true"] .today{color:var(--blush)}
+.list{background:var(--surface);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow)}
+.row{display:grid;grid-template-columns:130px minmax(0,1fr) auto;gap:18px;align-items:center;padding:16px 22px;border-top:1px solid var(--line)}
+.row:first-child{border-top:0}
+.row .t{font-family:var(--f-mono);font-size:.84rem;color:var(--muted)}
+.rw{display:flex;align-items:center;gap:16px;min-width:0}.rthumb{width:104px;height:52px;object-fit:cover;border-radius:8px;flex:none;background:var(--black)}
+.row b{display:block;font-family:var(--f-display);font-weight:700;font-size:1.35rem;line-height:1.1}
+.row span{color:var(--muted);font-size:.9rem}
+.row .tag{font-size:.75rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:999px;background:var(--surface-2);color:var(--muted);white-space:nowrap}
+.row.is-live{background:linear-gradient(90deg,var(--red-soft),transparent 70%)}
+.row.is-live .tag{background:var(--red);color:#fff}
+.row.is-music b{color:var(--muted);font-weight:600}
+@media (max-width:640px){.row{grid-template-columns:minmax(0,1fr) auto;gap:6px 12px;padding:14px 16px}.row .t{grid-column:1/-1}.rthumb{width:72px;height:36px}}
+/* ===== Oración (página) ===== */
+.wall{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:24px;align-items:start}
+@media (max-width:900px){.wall{grid-template-columns:1fr}}
+.pray-form{background:var(--black);color:var(--on-dark);border-radius:var(--r-lg);padding:26px;display:flex;flex-direction:column;gap:12px;position:sticky;top:96px}
+@media (max-width:900px){.pray-form{position:static}}
+.pray-form h3{font-size:2rem;font-weight:800}
+.pray-form p{margin:0;color:var(--on-dark-2);font-size:.92rem}
+label{font-weight:600;font-size:.88rem;display:flex;flex-direction:column;gap:6px}
+input,textarea{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.pray-form input,.pray-form textarea{background:#1f1d1f;border-color:#333;color:#fff}
+textarea{min-height:120px;resize:vertical}
+.form-msg{font-size:.9rem;font-weight:600;color:#ff8a95}
+/* ===== Contacto ===== */
+.contact{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+@media (max-width:900px){.contact{grid-template-columns:1fr}}
+.contact .card h3{font-size:1.5rem;font-weight:800;margin-bottom:8px}
+.contact .v{font-size:1.15rem;font-weight:700;user-select:all;overflow-wrap:anywhere}
+.contact .card .btn{margin-top:14px}
+section[id]{scroll-margin-top:96px}
+/* ===== Las 10 ===== */
+.top10{display:grid;grid-template-columns:1fr 1fr;gap:12px 28px;background:var(--surface);border-radius:var(--r-lg);padding:22px 26px;box-shadow:var(--shadow);grid-auto-flow:column;grid-template-rows:repeat(5,auto)}
+@media (max-width:760px){.top10{grid-template-columns:1fr;grid-auto-flow:row;grid-template-rows:none;padding:16px}}
+.t10{display:grid;grid-template-columns:44px 60px minmax(0,1fr) auto;gap:14px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line);min-width:0}
+.t10 .pos{font-family:var(--f-display);font-weight:800;font-size:2.2rem;color:var(--red);text-align:center;line-height:1}
+.t10:nth-child(-n+3) .pos{font-size:2.8rem}
+.t10 .art{width:60px;height:60px;border-radius:10px;background:radial-gradient(circle at 30% 30%,#2b282b,#141214) center/cover no-repeat}
+.t10 b{display:block;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.t10 span{display:block;color:var(--muted);font-size:.88rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.t10 .sp{width:34px;height:34px;border-radius:50%;background:var(--surface-2);display:grid;place-items:center;color:#1db954}
+.t10 .sp svg{width:18px;height:18px}
+.t10 > div{min-width:0}
+.top10-empty{background:var(--surface);border-radius:var(--r-lg);padding:26px;color:var(--muted);box-shadow:var(--shadow)}
+.bless{display:inline-flex;align-items:center;gap:7px;border:1.5px solid currentColor;background:transparent;border-radius:999px;padding:6px 12px;font-weight:700;font-size:.82rem;color:var(--red);white-space:nowrap}
+.bless svg{width:15px;height:15px}
+.bless.on{background:var(--red);border-color:var(--red);color:#fff}
+.hero .bless{color:#fff;border-color:rgba(255,255,255,.4);padding:11px 18px;font-size:.92rem}
+.hero .bless.on{background:var(--red-2);border-color:var(--red-2)}
+.song .bless{align-self:flex-start;padding:5px 10px;font-size:.78rem}
+.t10{grid-template-columns:44px 60px minmax(0,1fr) auto!important}
+.t10 .acts{display:flex;align-items:center;gap:8px}
+.t10 .votes{font-family:var(--f-mono);font-size:.72rem;color:var(--muted)}
+@media (max-width:520px){.t10 .bless span{display:none}.t10 .bless{padding:7px}.t10 .sp{display:none}}
+.t10 .chips{display:flex;gap:6px;align-items:center;margin-top:3px;flex-wrap:wrap}
+.chip{font-size:.68rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;border-radius:999px;padding:2px 8px;white-space:nowrap}
+.chip.trend{background:#fff1d6;color:#9a5b00}
+body.night .chip.trend{background:#3a2a0a;color:#ffcf70}
+.chip.up{color:#1f8a4c}.chip.down{color:var(--red)}.chip.new{background:var(--red-soft);color:var(--red)}
+.top10-cta{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+/* ===== Locutores ===== */
+.hosts{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+@media (max-width:1100px){.hosts{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:820px){.hosts{grid-template-columns:repeat(2,1fr)}}
+.host{position:relative;aspect-ratio:4/5;border-radius:var(--r-lg);overflow:hidden;background:var(--black) center/cover no-repeat;color:#fff;display:flex;flex-direction:column;justify-content:flex-end;isolation:isolate;box-shadow:var(--shadow);transition:transform .2s}
+.host:hover{transform:translateY(-3px)}
+.host::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(14,13,14,0) 35%,rgba(14,13,14,.92) 100%)}
+.host .ini{position:absolute;inset:0;z-index:-2;display:grid;place-items:center;background:radial-gradient(circle at 30% 25%,#e30c12,#5b0712 70%);font-family:var(--f-display);font-weight:800;font-size:5rem;color:rgba(255,255,255,.9)}
+.host .body{padding:16px}
+.host h3{font-size:1.55rem;font-weight:800}
+.host p{margin:4px 0 0;color:#e7dfe2;font-size:.9rem}
+.host .when{margin-top:8px;font-family:var(--f-mono);font-size:.74rem;color:var(--blush)}
+.host .live{position:absolute;left:12px;top:12px}
+@media (max-width:520px){.host h3{font-size:1.25rem}.host .body{padding:12px}.host p{font-size:.8rem}}
+/* ===== Footer ===== */
+footer{margin-top:80px;background:var(--black);color:var(--on-dark-2);font-size:.92rem}
+footer .grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:32px;padding-block:52px 32px}
+@media (max-width:900px){footer .grid{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){footer .grid{grid-template-columns:1fr}}
+footer h4{font-family:var(--f-display);color:#fff;font-size:1.05rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:14px}
+footer a{color:var(--on-dark-2);text-decoration:none}footer a:hover{color:#fff}
+footer ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:9px}
+footer .about img{height:42px;margin-bottom:14px}
+footer .social{display:flex;gap:8px;margin-top:16px}
+footer .social a{width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.15);display:grid;place-items:center}
+footer .social svg{width:18px;height:18px}
+footer .legal{border-top:1px solid rgba(255,255,255,.08);padding-block:20px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:.82rem}
+/* ===== Reproductor fijo ===== */
+.player{position:fixed;left:0;right:0;bottom:0;z-index:40;background:rgba(14,13,14,.96);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);color:#fff;border-top:1px solid rgba(255,255,255,.08);padding-bottom:env(safe-area-inset-bottom,0px)}
+.player .progress-live{position:absolute;left:0;right:0;top:-2px;height:2px;background:linear-gradient(90deg,var(--red-2),#ff6b78,var(--red-2));background-size:200% 100%;opacity:0;transition:opacity .3s}
+.player.playing .progress-live{opacity:1;animation:flow 3s linear infinite}
+@keyframes flow{to{background-position:-200% 0}}
+.player .wrap{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:16px;align-items:center;height:var(--player-h)}
+.p-left{display:flex;align-items:center;gap:14px;min-width:0}
+.p-cover{width:56px;height:56px;border-radius:10px;background:#222 center/cover no-repeat;flex:none}
+.p-text{min-width:0}
+.p-text small span{display:inline!important;color:inherit!important;font-size:inherit!important}
+@media (max-width:820px){.p-text small .lv-long{display:none!important}}
+.p-text small{overflow:hidden;text-overflow:ellipsis;display:flex;align-items:center;gap:6px;font-family:var(--f-display);font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:#ff6b78;font-weight:800;white-space:nowrap}
+.p-text small .dot{background:#ff6b78;width:6px;height:6px}
+.p-text b{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:700}
+.p-text span{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:.85rem;color:var(--on-dark-2)}
+.p-center{display:flex;align-items:center;gap:14px}
+.p-play{width:54px;height:54px;border-radius:50%;border:0;background:#fff;color:#141214;display:grid;place-items:center}
+.p-play svg{width:22px;height:22px}
+.p-play.loading{animation:spin 1s linear infinite;background:conic-gradient(var(--red-2) 0 70%,#444 0);color:#fff}
+@keyframes spin{to{transform:rotate(360deg)}}
+.p-clock{font-family:var(--f-mono);font-size:.8rem;color:var(--on-dark-2);min-width:46px}
+.p-right{display:flex;align-items:center;gap:10px;justify-content:flex-end}
+.p-chip{background:none;border:1px solid rgba(255,255,255,.18);color:#fff;border-radius:999px;padding:7px 12px;font-family:var(--f-mono);font-size:.76rem;display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.p-chip.on{border-color:var(--red-2);background:rgba(227,12,18,.25)}
+.p-chip svg{width:15px;height:15px}
+.p-vol{display:flex;align-items:center;gap:6px}
+.p-vol button{background:none;border:0;color:#fff;padding:6px;display:grid;place-items:center}
+.p-vol svg{width:20px;height:20px}
+.p-vol input{width:100px;accent-color:var(--red-2);padding:0;border:0;background:none}
+@media (max-width:820px){.p-text small{font-size:.68rem;letter-spacing:.1em}.player .wrap{grid-template-columns:minmax(0,1fr) auto}.p-center{order:2}.p-clock,.p-vol,.p-right .share-p{display:none}.p-right{display:none}}
+@media (max-width:820px){.p-center .p-chip{display:inline-flex}}
+.p-center .p-chip{display:none}
+@media (max-width:820px){.p-center .p-chip{display:inline-flex}}
+.toast{position:fixed;left:50%;transform:translateX(-50%) translateY(10px);bottom:calc(var(--player-h) + env(safe-area-inset-bottom,0px) + 14px);background:var(--ink);color:#fff;padding:12px 18px;border-radius:12px;font-weight:600;font-size:.9rem;opacity:0;pointer-events:none;transition:.25s;z-index:41;max-width:min(520px,calc(100% - 32px));text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+/* ===== Modo noche ===== */
+body.night{--bg:#09080a;--surface:#141215;--surface-2:#1d1a1e;--ink:#f1ecee;--ink-2:#d6cfd2;--muted:#9a9196;--line:#262228;--red:#ff4d63;--red-soft:#2a0f15;color-scheme:dark}
+body.night .hero::before{content:"";position:absolute;inset:0;z-index:-1;background-image:radial-gradient(1px 1px at 12% 20%,#fff9,transparent),radial-gradient(1px 1px at 72% 12%,#fff7,transparent),radial-gradient(1.5px 1.5px at 40% 60%,#fff6,transparent),radial-gradient(1px 1px at 88% 44%,#fff8,transparent),radial-gradient(1px 1px at 22% 78%,#fff6,transparent),radial-gradient(1px 1px at 60% 30%,#fff7,transparent);animation:tw 6s ease-in-out infinite alternate}
+@keyframes tw{from{opacity:.35}to{opacity:1}}
+body.night .np-cover{box-shadow:0 30px 100px rgba(227,12,18,.35);animation:breathe 8s ease-in-out infinite}
+@keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.02)}}
+body.night .btn-dark{background:#fff;color:#111}
+.night-only{display:none!important}body.night .night-only{display:flex!important}
+.sleep-row{gap:8px;flex-wrap:wrap;align-items:center;margin-top:16px;color:var(--on-dark-2);font-size:.9rem}
+.sleep-row button{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);color:#fff;border-radius:999px;padding:7px 14px;font-weight:700;font-size:.88rem}
+.sleep-row button[aria-pressed="true"]{background:var(--red-2);border-color:var(--red-2)}
+
+/* ===== Ajustes móvil del hero ===== */
+@media (max-width:640px){
+  .hero .wrap{padding-block:18px 26px;gap:22px}
+  .np{grid-template-columns:118px minmax(0,1fr);gap:16px;align-items:center}
+  .np{row-gap:0}
+  .np-cover{grid-column:1;grid-row:1/span 3;align-self:center;width:118px;max-width:118px;border-radius:14px;box-shadow:0 14px 40px rgba(0,0,0,.45)}
+  .np .badge-live{justify-self:start;align-self:end;font-size:.68rem;padding:4px 10px 4px 9px;letter-spacing:.12em}
+  .np h1{font-size:1.65rem;margin-top:10px;-webkit-line-clamp:2}
+  .np .artist{font-size:.92rem;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .np-actions{grid-column:1/-1;margin-top:16px;gap:10px}
+  .np > div:last-child{display:contents}
+  .np > div:last-child > .badge-live,.np > div:last-child > h1,.np > div:last-child > .artist{grid-column:2}
+  .np-actions,.np-meta,.sleep-row{grid-column:1/-1}
+  .play-xl{flex:1 1 auto;justify-content:center;padding:6px 18px 6px 6px}
+  .play-xl .ic{width:44px;height:44px}
+  .hero .bless,.share-btn{padding:10px 14px;font-size:.85rem}
+  .np-meta{margin-top:6px;font-size:.82rem;gap:10px}
+  .sleep-row{margin-top:10px}.sleep-row span{width:100%}
+  .onair-img{aspect-ratio:21/9}
+  .onair-body h3{font-size:1.55rem}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+
+/* Historias de Instagram */
+.story-btn{background:linear-gradient(135deg,#f58529,#dd2a7b 55%,#8134af);color:#fff;border:0}
+.share-btn.story-btn{padding:10px 14px;font-size:.85rem}
+.st-modal{position:fixed;inset:0;z-index:300;background:rgba(8,6,8,.82);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:grid;place-items:center;padding:16px}
+.st-modal[hidden]{display:none}
+.st-card{background:#171517;color:#fff;border:1px solid rgba(255,255,255,.1);border-radius:24px;padding:16px;width:min(380px,100%);max-height:calc(100dvh - 32px);display:flex;flex-direction:column;gap:12px;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.st-head{display:flex;align-items:center;justify-content:space-between;gap:10px}.st-head b{font-family:var(--f-disp);font-size:1.35rem;letter-spacing:.01em}
+.st-x{background:rgba(255,255,255,.1);border:0;border-radius:50%;width:36px;height:36px;color:#fff;font-size:1.2rem;line-height:1}
+.st-prev{position:relative;border-radius:16px;overflow:hidden;background:#0e0c0e;aspect-ratio:9/16;max-height:58dvh;margin:0 auto;width:auto}
+.st-prev img{width:100%;height:100%;object-fit:contain}
+.st-load{position:absolute;inset:0;display:grid;place-items:center;font-size:.9rem;color:rgba(255,255,255,.7)}
+.st-actions{display:flex;gap:10px}.st-actions .btn{flex:1;margin:0}
+.st-dl{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.18)}
+.st-tip{margin:0;font-size:.8rem;color:rgba(255,255,255,.62);text-align:center;line-height:1.45}
+
+/* Contraste: avisos, botones marcados y oscuros legibles en modo día y noche */
+.toast{background:#1d1a1e;color:#fff;border:1px solid rgba(255,255,255,.14)}
+.bless.on,.hero .bless.on,body.night .bless.on{background:#d0102f;border-color:#d0102f;color:#fff}
+.bless.on svg{fill:#fff;color:#fff}
+.bless span,.song .bless span{color:inherit;font-size:inherit}
+body.night .btn-dark{background:#f1ecee;color:#141214}
+body.night .days button[aria-selected="true"]{background:#f1ecee;border-color:#f1ecee;color:#141214}
+
+/* Guía para instalar la radio como app */
+.in-app{display:flex;gap:12px;align-items:center;background:rgba(255,255,255,.06);border-radius:16px;padding:10px 12px}
+.in-app img{border-radius:13px;flex:none}.in-app b{display:block;font-size:1rem}.in-app span{font-size:.8rem;color:rgba(255,255,255,.65)}
+.in-lead{margin:2px 0 0;font-size:.9rem;color:rgba(255,255,255,.8)}
+.in-steps{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.in-steps li{display:flex;gap:12px;align-items:flex-start;font-size:.92rem;line-height:1.45}
+.in-steps .n{flex:none;width:28px;height:28px;border-radius:50%;background:#d0102f;color:#fff;display:grid;place-items:center;font-weight:800;font-size:.85rem}
+.in-ic{width:18px;height:18px;vertical-align:-3px;color:#4da3ff}
+
+/* Recordatorios */
+.remind{margin-top:10px;display:inline-flex;align-items:center;gap:7px;border:1.5px solid rgba(255,255,255,.45);background:rgba(0,0,0,.35);color:#fff;border-radius:999px;padding:6px 12px;font-weight:700;font-size:.8rem;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.remind svg{width:15px;height:15px}
+.remind.on{background:#d0102f;border-color:#d0102f;color:#fff}
+.remind:disabled{opacity:.6}
+.in-note{margin:0 0 4px;padding:10px 12px;border-radius:12px;background:rgba(208,16,47,.18);border:1px solid rgba(208,16,47,.45);font-size:.88rem;line-height:1.45}
+
+/* Adelantos de 30 s */
+.pv{display:inline-flex;align-items:center;gap:6px;border:0;border-radius:999px;padding:7px 12px;font-weight:800;font-size:.78rem;background:#fff;color:#141214;box-shadow:0 4px 14px rgba(0,0,0,.3);cursor:pointer}
+.pv svg{width:14px;height:14px}
+.pv span,.song .pv span,.t10 .pv span{color:inherit;font-size:inherit;display:inline}
+.pv.on{background:#d0102f;color:#fff}
+.pv.loading{opacity:.7}
+.pv.none{display:none}
+.song .art .pv{position:absolute;right:10px;bottom:10px}
+.t10 .acts .pv{padding:7px 10px}
+.pv-note{margin:-6px 0 14px;font-size:.82rem;color:var(--muted,#8a8287)}
+</style></head><body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<symbol id="i-play" viewBox="0 0 24 24"><path fill="currentColor" d="M8 5.5v13a1 1 0 0 0 1.5.86l10.4-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></symbol>
+<symbol id="i-pause" viewBox="0 0 24 24"><rect fill="currentColor" x="6" y="5" width="4.2" height="14" rx="1.2"/><rect fill="currentColor" x="13.8" y="5" width="4.2" height="14" rx="1.2"/></symbol>
+<symbol id="i-vol" viewBox="0 0 24 24"><path fill="currentColor" d="M4 9.5v5h3.5L12 19V5L7.5 9.5H4z"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/></symbol>
+<symbol id="i-mute" viewBox="0 0 24 24"><path fill="currentColor" d="M4 9.5v5h3.5L12 19V5L7.5 9.5H4z"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M16 9.5l5 5M21 9.5l-5 5"/></symbol>
+<symbol id="i-moon" viewBox="0 0 24 24"><path fill="currentColor" d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></symbol>
+<symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></symbol>
+<symbol id="i-hands" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M12 21V9.5L9.2 3.6a1.3 1.3 0 0 0-2.4.9L8.5 11 5 14.5V21M12 21V9.5l2.8-5.9a1.3 1.3 0 0 1 2.4.9L15.5 11l3.5 3.5V21"/></symbol>
+<symbol id="i-timer" viewBox="0 0 24 24"><circle cx="12" cy="13" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 9v4l2.5 2M9 2h6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+<symbol id="i-bell" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M6 8a6 6 0 1 1 12 0c0 7 3 9 3 9H3s3-2 3-9M10.3 21a1.9 1.9 0 0 0 3.4 0"/></symbol> <symbol id="i-story" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="4 2.2"/><path d="M12 8v8M8 12h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol> <symbol id="i-share" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 3v12M7 8l5-5 5 5M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></symbol>
+<symbol id="i-wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.2c0-.1-.2-.2-.5-.3z"/></symbol>
+<symbol id="i-cal" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3 10h18M8 3v4M16 3v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+<symbol id="i-phone" viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M11 18h2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+<symbol id="i-spot" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm4.6 14.4a.6.6 0 0 1-.9.2c-2.4-1.5-5.4-1.8-9-1a.6.6 0 1 1-.3-1.2c3.9-.9 7.2-.5 9.9 1.1.3.2.4.6.3.9zm1.2-2.7a.8.8 0 0 1-1.1.3c-2.7-1.7-6.9-2.2-10.2-1.2a.8.8 0 1 1-.4-1.5c3.7-1.1 8.4-.6 11.5 1.3.4.2.5.7.2 1.1zm.1-2.8C14.7 9 9.3 8.8 6.2 9.7a.9.9 0 1 1-.5-1.8c3.6-1.1 9.5-.9 13.2 1.3a.9.9 0 0 1-1 1.7z"/></symbol>
+<symbol id="i-heart" viewBox="0 0 24 24"><path fill="currentColor" d="M12 21s-7.5-4.6-9.6-9.2C.9 8.3 3 4.5 6.7 4.5c2.1 0 3.6 1.1 4.4 2.5h1.8c.8-1.4 2.3-2.5 4.4-2.5 3.7 0 5.8 3.8 4.3 7.3C19.5 16.4 12 21 12 21z"/></symbol>
+<symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+<symbol id="i-fb" viewBox="0 0 24 24"><path fill="currentColor" d="M14 8V6.5c0-.7.2-1.2 1.2-1.2H17V2.2A23 23 0 0 0 14.6 2C12.3 2 10.8 3.4 10.8 6v2H8v3.4h2.8V22H14V11.4h2.7l.4-3.4z"/></symbol>
+<symbol id="i-ig" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/></symbol>
+<symbol id="i-x" viewBox="0 0 24 24"><path fill="currentColor" d="M17.8 3h3.1l-6.8 7.8L22 21h-6.2l-4.9-6.4L5.3 21H2.2l7.3-8.3L2 3h6.4l4.4 5.8zm-1.1 16.2h1.7L7.4 4.7H5.6z"/></symbol>
+<symbol id="i-wave" viewBox="0 0 64 64"><circle cx="32" cy="32" r="29" fill="none" stroke="#e30c12" stroke-width="3"/><g fill="#e30c12"><rect x="17" y="27" width="3" height="10" rx="1.5"/><rect x="22" y="22" width="3" height="20" rx="1.5"/><rect x="27" y="17" width="3" height="30" rx="1.5"/><rect x="32" y="12" width="3" height="40" rx="1.5"/><rect x="37" y="17" width="3" height="30" rx="1.5"/><rect x="42" y="23" width="3" height="18" rx="1.5"/></g></symbol>
+</svg>
+
+<div class="votd-bar"><div class="wrap"><b>Versículo del día</b><span id="votdBar">…</span><a href="#versiculo" data-goto="versiculo">Leer</a></div></div>
+
+<header class="top"><div class="wrap">
+<a class="logo" href="#inicio" aria-label="Radio MDV, inicio"><img src="img/mdv-logo.svg" width="480" height="139" alt="Radio MDV, Primeros en tu corazón"></a>
+<nav class="main" aria-label="Principal"><a href="#inicio" data-nav="inicio">Inicio</a><a href="#programacion" data-nav="programacion">Programación</a><a href="#top10" data-goto="top10">Las 10</a><a href="#locutores" data-goto="locutores">Locutores</a><a href="#oracion" data-nav="oracion">Oración</a><a href="#contacto" data-nav="contacto">Contacto</a></nav>
+<div class="top-actions">
+<a class="btn btn-ghost" href="#oracion" style="color:#fff;padding:10px 18px">Pedir oración</a>
+<button class="btn btn-red live-btn" type="button" data-toggle><svg class="pl" width="16" height="16" aria-hidden="true"><use href="#i-play"/></svg><span class="eqz" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="lbl" data-toggle-label>Escuchar en vivo</span></button>
+<button class="icon-btn" id="nightBtn" type="button" aria-label="Modo noche" title="Modo noche"><svg><use href="#i-moon"/></svg></button>
+<button class="icon-btn menu-btn" id="menuBtn" type="button" aria-label="Abrir menú" aria-expanded="false"><svg><use href="#i-menu"/></svg></button>
+</div></div></header>
+<div class="drawer" id="drawer" hidden><a href="#inicio">Inicio</a><a href="#programacion">Programación</a><a href="#top10" data-goto="top10">Las 10 de MDV</a><a href="#locutores" data-goto="locutores">Locutores</a><a href="#oracion">Oración</a><a href="#contacto">Contacto</a></div>
+
+<main>
+<!-- ================= INICIO ================= -->
+<div data-view="inicio">
+<section class="hero"><div class="hero-bg" id="heroBg"></div>
+<div class="wrap">
+<div class="np">
+<div class="np-cover" id="cover"><div class="ph" id="coverPh"><img src="img/mdv-icon.svg" alt="" width="512" height="512"></div></div>
+<div style="min-width:0">
+<span class="badge-live"><span class="dot"></span> Sonando ahora</span>
+<h1 id="songTitle">Radio Manantial de Vida</h1>
+<div class="artist" id="songArtist">Primeros en tu corazón</div>
+<div class="np-actions">
+<button class="play-xl" type="button" data-toggle><span class="ic"><svg><use href="#i-play"/></svg></span><span data-toggle-label>Escuchar en vivo</span></button>
+<button class="bless" type="button" id="heroVote" data-vote="" hidden><svg><use href="#i-heart"/></svg><span>Me bendice</span></button>
+<button class="btn share-btn" type="button" id="shareBtn"><svg width="18" height="18"><use href="#i-share"/></svg>Compartir</button>
+<button class="btn share-btn story-btn" type="button" id="storySong"><svg width="18" height="18"><use href="#i-story"/></svg>Historia</button>
+</div>
+<div class="np-meta"><span class="together"><span class="ring" aria-hidden="true"></span><b id="metaListeners">–</b>&nbsp;adorando juntos ahora</span><span>107.1 FM · 107.5 FM · Online</span></div>
+<div class="sleep-row night-only"><span>Dormir escuchando:</span><button type="button" data-sleep="15">15 min</button><button type="button" data-sleep="30">30 min</button><button type="button" data-sleep="60">1 hora</button></div>
+</div>
+</div>
+<aside class="onair">
+<div class="onair-img" id="showImg"><span class="badge-live tag"><span class="dot"></span> Al aire</span></div>
+<div class="onair-body"><small>Programa en vivo</small><h3 id="showTitle">…</h3><p id="showHost"></p>
+<div class="prog-row"><span id="showTime"></span><div class="bar"><i id="showBar"></i></div></div>
+<div class="next-list" id="nextList"></div></div>
+</aside>
+</div></section>
+
+<section class="quick"><div class="wrap"><div class="quick-grid">
+<a class="qa" href="#oracion"><span class="i"><svg><use href="#i-hands"/></svg></span><div><b>Pide oración</b><span>Oramos contigo</span></div></a>
+<a class="qa" href="https://wa.me/56944915019?text=Hola%20Radio%20MDV%2C%20quiero%20enviar%20un%20saludo" target="_blank" rel="noopener"><span class="i"><svg><use href="#i-wa"/></svg></span><div><b>Saluda al aire</b><span>Por WhatsApp</span></div></a>
+<a class="qa" href="#programacion"><span class="i"><svg><use href="#i-cal"/></svg></span><div><b>Programación</b><span>Toda la semana</span></div></a>
+<a class="qa" href="#instalar" id="installQa"><span class="i"><svg><use href="#i-phone"/></svg></span><div><b>Lleva la radio</b><span>Instálala en tu celular</span></div></a>
+</div></div></section>
+
+<section class="sec" id="recientes"><div class="wrap">
+<div class="sec-head"><div><span class="eyebrow">Recién emitidas</span><h2>Lo que sonó en Radio MDV</h2></div></div>
+<div class="rail" id="recentList"><div class="empty">Cargando las últimas canciones…</div></div>
+</div></section>
+<section class="sec" id="top10"><div class="wrap">
+<div class="sec-head"><div><span class="eyebrow">Elegidas por ustedes</span><h2>Las 10 de MDV</h2><p id="top10Upd">El ranking semanal de Radio MDV: las canciones más votadas y escuchadas por nuestra audiencia.</p></div></div>
+<div id="top10List"><div class="top10-empty">Cargando el ranking…</div></div>
+</div></section>
+
+
+<section class="sec" id="locutores"><div class="wrap">
+<div class="sec-head"><div><span class="eyebrow">Locutores y predicadores</span><h2>Las voces de Radio MDV</h2><p>Palabra y adoración toda la semana, con quienes te acompañan cada día.</p></div><a class="link-more" href="#programacion">Ver programación completa →</a></div>
+<div class="hosts" id="hosts"></div>
+</div></section>
+
+<section class="sec"><div class="wrap"><div class="band">
+<div style="position:relative"><span class="eyebrow" style="color:#ff8a95">Muro de oración</span><h2>Oremos unos por otros</h2>
+<p>Deja tu petición y la comunidad de Radio MDV, en Chile y el mundo, orará contigo. El equipo revisa cada petición y los locutores leen algunas al aire.</p>
+<div class="stats"><div><b id="bandPraying">–</b><span>oraciones hechas</span></div><div><b id="bandCount">–</b><span>peticiones en el muro</span></div></div>
+<div class="cta"><a class="btn btn-red" href="#oracion">Dejar mi petición</a><a class="btn btn-ghost" href="#oracion" style="color:#fff">Orar por otros</a></div></div>
+<div class="pray-list" id="prayPreview"></div>
+</div></div></section>
+
+<section class="sec" id="versiculo"><div class="wrap"><div class="duo">
+<div class="card"><span class="eyebrow">Adorando juntos</span>
+<div class="together-big" style="margin-top:10px"><b id="togetherN">–</b><span>personas escuchando<br>en este momento</span></div>
+<div class="cities" id="cities"></div></div>
+<div class="card verse"><span class="eyebrow" style="color:#ff8a95">Versículo del día</span>
+<blockquote id="votdText">…</blockquote><cite id="votdRef"></cite>
+<div class="row"><button class="btn btn-white" type="button" id="votdShare"><svg width="18" height="18"><use href="#i-share"/></svg>Compartir versículo</button><button class="btn story-btn" type="button" id="storyVerse"><svg width="18" height="18"><use href="#i-story"/></svg>Compartir en historias</button></div></div>
+</div></div></section>
+
+<section class="sec"><div class="wrap">
+<div class="sec-head"><div><span class="eyebrow">Nuestra señal</span><h2>Escúchanos en el dial y en todo el mundo</h2></div></div>
+<div class="freq">
+<div class="fq"><div class="n">107.1<small>FM</small></div><p>Coronel y Lota</p></div>
+<div class="fq"><div class="n">107.5<small>FM</small></div><p>San Pedro de la Paz</p></div>
+<div class="fq"><div class="n">24/7<small>Online</small></div><p>radiomdv.cl, desde cualquier lugar del mundo</p></div>
+</div></div></section>
+</div>
+
+<!-- ================= PROGRAMACIÓN ================= -->
+<div data-view="programacion" hidden><section class="sec"><div class="wrap">
+<div class="sec-head"><div><span class="eyebrow">Parrilla semanal</span><h2>Programación</h2><p>Horario de Chile continental. Entre programas, música de adoración las 24 horas.</p></div></div>
+<div class="days" role="tablist" id="dayTabs"></div><div class="list" id="dayList"></div>
+</div></section></div>
+
+<!-- ================= ORACIÓN ================= -->
+<div data-view="oracion" hidden><section class="sec"><div class="wrap">
+<div class="sec-head"><div><span class="eyebrow">Muro de oración</span><h2>Oremos unos por otros</h2><p id="prayTotal"></p></div></div>
+<div class="wall">
+<form class="pray-form" id="prayForm"><h3>Deja tu petición</h3><p>La comunidad de Radio MDV, en Chile y el mundo, orará por ti. El equipo revisa cada petición antes de publicarla.</p>
+<label for="pName">Nombre (opcional)<input id="pName" maxlength="40" placeholder="Puedes dejarlo en blanco"></label>
+<label for="pCity">Ciudad o país<input id="pCity" maxlength="40" placeholder="Ej: Coronel, Santiago, Buenos Aires" list="cityList"></label>
+<label for="pText">Tu petición<textarea id="pText" maxlength="400" required placeholder="Por mi familia, por mi salud, por mi trabajo…"></textarea></label>
+<button class="btn btn-red" type="submit">Publicar petición</button><div class="form-msg" id="prayMsg" hidden></div></form>
+<div class="pray-list" id="prayList"><div class="pray-empty">Cargando peticiones…</div></div>
+</div></div></section></div>
+
+<!-- ================= CONTACTO ================= -->
+<div data-view="contacto" hidden><section class="sec"><div class="wrap">
+<div class="sec-head"><div><span class="eyebrow">Comunícate</span><h2>Estamos para ti</h2><p>Saludos, pedidos musicales, testimonios o una palabra de ánimo. Escríbenos.</p></div></div>
+<div class="contact">
+<div class="card"><h3>WhatsApp</h3><div class="v">+56 9 4491 5019</div><a class="btn btn-red" href="https://wa.me/56944915019" target="_blank" rel="noopener"><svg width="18" height="18"><use href="#i-wa"/></svg>Escribir por WhatsApp</a></div>
+<div class="card"><h3>Correo</h3><div class="v">radiomdv@gmail.com</div><button class="btn btn-dark" type="button" data-copy="radiomdv@gmail.com">Copiar correo</button></div>
+<div class="card"><h3>Redes sociales</h3><p style="margin:0;color:var(--muted)">Síguenos para ver transmisiones, versículos y novedades.</p>
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:14px"><a class="btn btn-ghost" href="https://www.facebook.com/radiomdvoficial" target="_blank" rel="noopener">Facebook</a><a class="btn btn-ghost" href="https://www.instagram.com/radiomdv/" target="_blank" rel="noopener">Instagram</a><a class="btn btn-ghost" href="https://x.com/radiomdv" target="_blank" rel="noopener">X</a></div></div>
+</div></div></section></div>
+</main>
+
+<footer><div class="wrap">
+<div class="grid">
+<div class="about"><img src="img/mdv-logo.svg" width="480" height="139" alt="Radio MDV"><p style="margin:0;max-width:34ch">Radio Manantial de Vida. Música de adoración, predicación y enseñanza bíblica las 24 horas, desde Coronel para el mundo.</p>
+<div class="social"><a href="https://www.facebook.com/radiomdvoficial" target="_blank" rel="noopener" aria-label="Facebook"><svg><use href="#i-fb"/></svg></a><a href="https://www.instagram.com/radiomdv/" target="_blank" rel="noopener" aria-label="Instagram"><svg><use href="#i-ig"/></svg></a><a href="https://x.com/radiomdv" target="_blank" rel="noopener" aria-label="X"><svg><use href="#i-x"/></svg></a></div></div>
+<div><h4>Escuchar</h4><ul><li><a href="#inicio" data-toggle-link>En vivo</a></li><li><a href="#programacion">Programación</a></li><li><a href="#top10" data-goto="top10">Las 10 de MDV</a></li><li><a href="#locutores" data-goto="locutores">Locutores</a></li></ul></div>
+<div><h4>Fe</h4><ul><li><a href="#oracion">Muro de oración</a></li><li><a href="#versiculo" data-goto="versiculo">Versículo del día</a></li><li><a href="https://wa.me/56944915019" target="_blank" rel="noopener">Saludos al aire</a></li></ul></div>
+<div><h4>Señal</h4><ul><li>107.1 FM Coronel y Lota</li><li>107.5 FM San Pedro de la Paz</li><li>Online 24/7</li><li><a href="#contacto">Contacto</a></li></ul></div>
+</div>
+<div class="legal"><span>© <span id="yr">2026</span> Radio Manantial de Vida · Primeros en tu corazón</span><span>Adelantos musicales: Deezer</span><span>Textos bíblicos: Reina-Valera 1960 © Sociedades Bíblicas en América Latina, 1960. Renovado © Sociedades Bíblicas Unidas, 1988. Utilizado con permiso.</span></div>
+</div></footer>
+
+<div class="player" id="player" role="region" aria-label="Reproductor en vivo"><div class="progress-live"></div><div class="wrap">
+<div class="p-left"><div class="p-cover" id="pCover"></div><div class="p-text"><small><span class="dot"></span> <span class="lv-long">Radio MDV&nbsp;</span>en vivo</small><b id="pTitle">Radio Manantial de Vida</b><span id="pArtist">Primeros en tu corazón</span></div></div>
+<div class="p-center"><button class="p-play" id="pPlay" type="button" data-toggle aria-label="Reproducir"><svg><use href="#i-play"/></svg></button><span class="p-clock" id="pClock">EN VIVO</span><button class="p-chip" type="button" data-sleep-cycle aria-label="Temporizador para apagar"><svg><use href="#i-timer"/></svg><span data-sleep-txt>Apagar</span></button></div>
+<div class="p-right"><button class="p-chip" type="button" data-sleep-cycle aria-label="Temporizador para apagar"><svg><use href="#i-timer"/></svg><span data-sleep-txt>Apagar</span></button><div class="p-vol"><button type="button" id="pMute" aria-label="Silenciar"><svg><use href="#i-vol"/></svg></button><input type="range" id="pVol" min="0" max="100" value="85" aria-label="Volumen"></div></div>
+</div></div>
+<div class="st-modal" id="stModal" hidden role="dialog" aria-modal="true" aria-labelledby="stTitle"><div class="st-card"><div class="st-head"><b id="stTitle">Comparte en tus historias</b><button class="st-x" type="button" id="stClose" aria-label="Cerrar">×</button></div><div class="st-prev"><img id="stImg" alt="Vista previa de la historia"><div class="st-load" id="stLoad">Creando tu historia…</div></div><div class="st-actions"><button class="btn story-btn" type="button" id="stShare"><svg width="18" height="18"><use href="#i-story"/></svg>Compartir</button><button class="btn st-dl" type="button" id="stDl">Descargar</button></div><p class="st-tip">En Instagram elige <b>Tu historia</b> y agrega el sticker de enlace con <b>radiomdv.cl</b> para que te escuchen.</p></div></div>
+<div class="st-modal" id="inModal" hidden role="dialog" aria-modal="true" aria-labelledby="inTitle"><div class="st-card"><div class="st-head"><b id="inTitle">Lleva Radio MDV en tu celular</b><button class="st-x" type="button" id="inClose" aria-label="Cerrar">×</button></div><div class="in-app"><img src="img/apple-touch-icon.png" alt="" width="56" height="56"><div><b>Radio MDV</b><span>Ícono en tu pantalla de inicio · se abre directo en vivo</span></div></div><div id="inBody"></div></div></div>
+<div class="toast" id="toast" role="status"></div>
+<datalist id="cityList"><option value="Coronel"><option value="Lota"><option value="San Pedro de la Paz"><option value="Concepción"><option value="Talcahuano"><option value="Hualpén"><option value="Chiguayante"><option value="Penco"><option value="Tomé"><option value="Arauco"><option value="Curanilahue"><option value="Lebu"><option value="Los Ángeles"><option value="Chillán"><option value="Santiago"><option value="Valparaíso"><option value="Viña del Mar"><option value="Rancagua"><option value="Talca"><option value="Linares"><option value="Temuco"><option value="Valdivia"><option value="Osorno"><option value="Puerto Montt"><option value="La Serena"><option value="Antofagasta"><option value="Iquique"><option value="Arica"><option value="Punta Arenas"><option value="Argentina"><option value="Perú"><option value="Bolivia"><option value="Colombia"><option value="México"><option value="Venezuela"><option value="Ecuador"><option value="España"><option value="Estados Unidos"><option value="Canadá"><option value="Suecia"><option value="Australia"></datalist>
+<audio id="audio" preload="none" playsinline></audio>
+<script>
+// ---------- Configuración ----------
+const STREAM_URL="https://audio3.tustreaming.cl/7080/stream";
+const STATS_URL="https://audio3.tustreaming.cl:7080/stats?sid=1&json=1";
+const PLAYED_URL="https://audio3.tustreaming.cl:7080/played?sid=1&type=json";
+const LOGO=new URL("img/mdv-logo.svg",location.href).href;const ICON=new URL("img/mdv-icon.svg",location.href).href;
+// Misma página para el hosting PHP (radiomdv.cl) y la vista previa (higgsfield.app)
+const CF=location.hostname.endsWith("higgsfield.app");
+const EP=CF?{prayers:"/api/prayers",pray:id=>`/api/prayers/${id}/pray`,report:id=>`/api/prayers/${id}/report`,presence:"/api/presence",top10:"/api/top10",vote:"/api/vote",cover:q=>"/api/cover?v=3&q="+encodeURIComponent(q)}
+:{prayers:"api/prayers.php",pray:id=>`api/pray.php?id=${id}`,report:id=>`api/report.php?id=${id}`,presence:"api/presence.php",top10:"api/top10.php",vote:"api/vote.php",cover:q=>"api/cover.php?q="+encodeURIComponent(q),remind:"api/remind.php"};
+const U="https://radiomdv.cl/wp-content/uploads/";
+const IMG={familia:U+"2025/01/ENFOQUE-A-LA-FAMILIA-770x385.png",noches:new URL("img/noches.svg",location.href).href,musica:new URL("img/musica-logo.jpg",location.href).href,corson:U+"2025/01/ANDRES-CORSON-770x385.png",stanley:U+"2025/01/PASTOR-CHARLES-STANLEY-770x385.png",gebel:U+"2025/01/DANTEGEBEL-770x385.png",palau:U+"2025/01/LUIS-PALAU-770x385.png",porras:U+"2025/01/SIXTO-PORRAS-770x385.png",villa:U+"2025/06/NOCHES-DE-ADORACION-2-770x385.webp"};
+const WEEKDAY=[[0,15,"Enfoque a la Familia","Pastor Sixto Porras","Familia",0,IMG.familia],[20,480,"Noches de Adoración","Música de adoración","Música",0,IMG.noches],[510,533,"En Contacto","Pastor Charles Stanley","Predicación",0,IMG.stanley],[570,630,"Una Sola Voz","Juan Ibáñez","Repetición",0,""],[675,690,"Cruzada con Luis Palau","Pastor Luis Palau","Predicación",0,IMG.palau],[720,840,"Tu Presencia es Suficiente","Pastora María Villa","En vivo",0,IMG.villa],[900,945,"Prédica del día","Pastor Andrés Corson","Predicación",0,IMG.corson],[960,1020,"Una Sola Voz","Juan Ibáñez","En vivo",0,""],[1320,1380,"Una Sola Voz","Juan Ibáñez","Repetición",0,""]];
+const SAT=[[45,480,"Noches de Adoración","Música de adoración","Música",0,IMG.noches],[570,630,"Una Sola Voz","Juan Ibáñez","Repetición",0,""],[720,765,"Enfoque a la Familia","Pastor Sixto Porras","Familia",0,IMG.porras]];
+const SUN=[[20,480,"Noches de Adoración","Música de adoración","Música",0,IMG.noches],[720,765,"Enfoque a la Familia","Pastor Sixto Porras","Familia",0,IMG.porras]];
+const PROGRAMS=[["Noches de Adoración","Música de adoración","Todos los días · 00:20 a 08:00",IMG.noches],["Tu Presencia es Suficiente","Pastora María Villa","Lunes a viernes · 12:00 a 14:00",IMG.villa],["Una Sola Voz","Juan Ibáñez","En vivo lun a vie 16:00 · Repetición 22:00 y lun a sáb 09:30",""],["Prédica del día","Pastor Andrés Corson","Lunes a viernes · 15:00",IMG.corson],["En Contacto","Pastor Charles Stanley","Lunes a viernes · 08:30",IMG.stanley],["Cruzada con Luis Palau","Pastor Luis Palau","Lunes a viernes · 11:15",IMG.palau],["Enfoque a la Familia","Pastor Sixto Porras","Lun a vie 00:00 · Sáb y dom 12:00",IMG.familia]];
+const VERSES=[["Jehová es mi pastor; nada me faltará.","Salmos 23:1"],["Porque de tal manera amó Dios al mundo, que ha dado a su Hijo unigénito, para que todo aquel que en él cree, no se pierda, mas tenga vida eterna.","Juan 3:16"],["Todo lo puedo en Cristo que me fortalece.","Filipenses 4:13"],["No temas, que yo soy contigo; no desmayes, que yo soy tu Dios que te esfuerzo: siempre te ayudaré, siempre te sustentaré con la diestra de mi justicia.","Isaías 41:10"],["Venid a mí todos los que estáis trabajados y cargados, que yo os haré descansar.","Mateo 11:28"],["Fíate de Jehová de todo tu corazón, y no estribes en tu prudencia.","Proverbios 3:5"],["Dios es nuestro amparo y fortaleza, nuestro pronto auxilio en las tribulaciones.","Salmos 46:1"],["Y sabemos que a los que a Dios aman, todas las cosas les ayudan a bien.","Romanos 8:28"],["Mi socorro viene de Jehová, que hizo los cielos y la tierra.","Salmos 121:2"],["Mira que te mando que te esfuerces y seas valiente: no temas ni desmayes, porque Jehová tu Dios será contigo en dondequiera que fueres.","Josué 1:9"],["Encomienda a Jehová tu camino, y espera en él; y él hará.","Salmos 37:5"],["La paz os dejo, mi paz os doy: no como el mundo la da, yo os la doy. No se turbe vuestro corazón, ni tenga miedo.","Juan 14:27"],["Echando toda vuestra solicitud en él, porque él tiene cuidado de vosotros.","1 Pedro 5:7"],["Clama a mí, y te responderé, y te enseñaré cosas grandes y dificultosas que tú no sabes.","Jeremías 33:3"]];
+const DAYS=["Lunes","Martes","Miércoles","Jueves","Viernes","Sábado","Domingo"];
+const schedFor=d=>d<5?WEEKDAY:d===5?SAT:SUN;
+function fullDay(d){const out=[];let t=0;for(const p of schedFor(d)){if(p[0]>t)out.push([t,p[0],"Música MDV","Alabanza y adoración","Música",true,""]);out.push(p);t=p[1];}if(t<1440)out.push([t,1440,"Música MDV","Alabanza y adoración","Música",true,""]);return out;}
+const fmt=m=>{m%=1440;return String(Math.floor(m/60)).padStart(2,"0")+":"+String(m%60).padStart(2,"0");};
+function chileNow(){const parts=new Intl.DateTimeFormat("en-GB",{timeZone:"America/Santiago",weekday:"short",hour:"2-digit",minute:"2-digit",hour12:false}).formatToParts(new Date());const g=k=>parts.find(p=>p.type===k).value;const wd=["Mon","Tue","Wed","Thu","Fri","Sat","Sun"].indexOf(g("weekday"));return {day:wd<0?0:wd,min:(parseInt(g("hour"))%24)*60+parseInt(g("minute"))};}
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const store={get(k){try{return JSON.parse(localStorage.getItem(k)||"null")}catch(e){return null}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+function toast(m,ms=2600){const t=$("toast");t.textContent=m;t.classList.add("show");clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove("show"),ms);}
+async function copyText(txt,okMsg){try{if(navigator.share&&matchMedia("(hover:none)").matches){await navigator.share({text:txt});return;}await navigator.clipboard.writeText(txt);toast(okMsg);}catch(e){toast("No se pudo copiar");}}
+
+// ---------- Programa al aire ----------
+let PROG_IMG="",lastCoverOk=false;
+function renderProgram(){const {day,min}=chileNow();const list=fullDay(day);const i=Math.max(0,list.findIndex(p=>min>=p[0]&&min<p[1]));const cur=list[i];
+$("showTitle").textContent=cur[2];$("showHost").textContent=cur[3];$("showTime").textContent=fmt(cur[0])+" – "+fmt(cur[1]);$("showBar").style.width=Math.min(100,(min-cur[0])/(cur[1]-cur[0])*100)+"%";
+const img=cur[6]||(cur[5]?IMG.musica:"");PROG_IMG=img;const si=$("showImg");
+if(img){si.style.backgroundImage=`url("${img}")`;si.style.backgroundSize="cover";}else{si.style.backgroundImage=`url("${LOGO}")`;si.style.backgroundSize="55% auto";si.style.backgroundColor="#141214";}
+if(!lastCoverOk)setCover("");
+const nexts=[];let k=i+1,d=day;while(nexts.length<3&&d<day+2){const L=fullDay(d%7);for(;k<L.length&&nexts.length<3;k++)if(!L[k][5])nexts.push(L[k]);d++;k=0;}
+$("nextList").innerHTML='<small style="font-family:var(--f-display);letter-spacing:.14em;text-transform:uppercase;color:var(--on-dark-2);font-weight:700">A continuación</small>'+nexts.map(p=>`<div><span class="t">${fmt(p[0])}</span><span><b>${esc(p[2])}</b> · <span>${esc(p[3])}</span></span></div>`).join("");}
+let selDay=chileNow().day;
+function renderSchedule(){const {day,min}=chileNow();$("dayTabs").innerHTML=DAYS.map((d,k)=>`<button role="tab" type="button" aria-selected="${k===selDay}" data-day="${k}">${d}${k===day?'<span class="today">Hoy</span>':''}</button>`).join("");
+$("dayList").innerHTML=fullDay(selDay).map(p=>{const live=selDay===day&&min>=p[0]&&min<p[1];return `<div class="row${live?' is-live':''}${p[5]?' is-music':''}"><span class="t">${fmt(p[0])} – ${fmt(p[1])}</span><span class="rw">${p[6]?`<img class="rthumb" src="${p[6]}" alt="" loading="lazy">`:''}<span><b>${p[2]}</b><span>${p[3]}</span></span></span><span class="tag">${live?'Al aire':p[4]}</span></div>`}).join("");}
+$("dayTabs").addEventListener("click",e=>{const b=e.target.closest("[data-day]");if(b){selDay=+b.dataset.day;renderSchedule();}});
+const HOSTS=[["Pastora María Villa","Tu Presencia es Suficiente","Lun a vie · 12:00",IMG.villa,"Tu Presencia es Suficiente"],["Juan Ibáñez","Una Sola Voz","En vivo lun a vie 16:00 · Rep. 22:00 y 09:30","","Una Sola Voz"],["Pastor Andrés Corson","Prédica del día","Lun a vie · 15:00",IMG.corson,"Prédica del día"],["Pastor Charles Stanley","En Contacto","Lun a vie · 08:30",IMG.stanley,"En Contacto"],["Pastor Luis Palau","Cruzada con Luis Palau","Lun a vie · 11:15",IMG.palau,"Cruzada con Luis Palau"],["Pastor Sixto Porras","Enfoque a la Familia","Lun a vie 00:00 · Sáb y dom 12:00",IMG.porras,"Enfoque a la Familia"],["Noches de Adoración","Música de adoración","Todos los días · 00:20 a 08:00",IMG.noches,"Noches de Adoración"]];
+const initials=s=>s.replace(/^(Pastora?|Pastor)\s+/,"").split(/\s+/).map(w=>w[0]).slice(0,2).join("");
+function renderPrograms(){const {day,min}=chileNow();const cur=fullDay(day).find(p=>min>=p[0]&&min<p[1]);
+$("hosts").innerHTML=HOSTS.map(p=>`<article class="host" style="${p[3]?`background-image:url('${p[3]}');background-position:76% center`:""}">${p[3]?"":`<span class="ini">${initials(p[0])}</span>`}${cur&&cur[2]===p[4]?'<span class="badge-live live"><span class="dot"></span> Al aire</span>':''}<div class="body"><h3>${p[0]}</h3><p>${p[1]}</p><div class="when">${p[2]}</div>${remindBtn(p[4])}</div></article>`).join("");}
+let voter=store.get("mdv-voter");if(!voter){try{voter=crypto.randomUUID();}catch(e){voter=String(Date.now())+Math.random().toString(36).slice(2);}store.set("mdv-voter",voter);}
+const vkey=s=>s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]+/g," ").trim();
+let myVotes=store.get("mdv-votes")||{};const WEEK=7*864e5;for(const k in myVotes)if(Date.now()-myVotes[k]>WEEK)delete myVotes[k];
+const hasVoted=s=>!!myVotes[vkey(s)];
+const blessBtn=(song,cls="")=>`<button type="button" class="bless${hasVoted(song)?" on":""} ${cls}" data-vote="${esc(song)}" aria-pressed="${hasVoted(song)}"><svg><use href="#i-heart"/></svg><span>${hasVoted(song)?"Te bendice":"Me bendice"}</span></button>`;
+function paintVotes(){document.querySelectorAll("[data-vote]").forEach(b=>{const s=b.dataset.vote;if(!s)return;const on=hasVoted(s);b.classList.toggle("on",on);b.setAttribute("aria-pressed",String(on));const sp=b.querySelector("span");if(sp)sp.textContent=on?"Te bendice":"Me bendice";});}
+document.addEventListener("click",async e=>{const b=e.target.closest("[data-vote]");if(!b||!b.dataset.vote)return;const song=b.dataset.vote;if(hasVoted(song)){toast("Ya votaste por esta canción esta semana.");return;}
+myVotes[vkey(song)]=Date.now();store.set("mdv-votes",myVotes);paintVotes();toast("¡Gracias! Tu voto suma para Las 10 de MDV.");
+try{const r=await fetch(EP.vote,{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({song,voter})});const d=await r.json();if(!d.ok&&d.error)toast(d.error);}catch(err){}setTimeout(loadTop10,800);});
+let T10_LAST="";async function loadTop10(){try{if(pvBtnEl&&pvBtnEl.closest("#top10List"))return;const r=await fetch(EP.top10,{cache:"no-store"});const d=await r.json();const items=(d.items||[]).filter(x=>x&&x.song);const sig=JSON.stringify([d.mode,items.map(x=>[x.song,x.votes,x.move])]);if(sig===T10_LAST)return;T10_LAST=sig;
+if(!items.length){$("top10List").innerHTML='<div class="top10-empty top10-cta"><span>El ranking se está armando con la música de 2024 a hoy que suena en Radio MDV. Vota por tus favoritas mientras suenan o en <b>Recién emitidas</b>.</span><a class="btn btn-red" href="#recientes" data-goto="recientes">Votar ahora</a></div>';return;}
+const rows=items.map(x=>({...splitTitle(x.song),song:x.song,votes:x.votes||0,trend:!!x.trend,move:x.move??null}));
+if(d.mode==="auto")$("top10Upd").textContent="El ranking semanal de Radio MDV: las canciones más votadas y escuchadas por nuestra audiencia.";
+$("top10List").innerHTML=`<div class="top10" style="grid-template-rows:repeat(${Math.max(1,Math.ceil(rows.length/2))},auto)">`+rows.map((r,i)=>`<div class="t10"><span class="pos">${i+1}</span><span class="art" id="t10a${i}"></span><div><b>${esc(r.title)}</b><span>${esc(r.artist)}</span>${d.mode==="auto"?`<div class="chips">${r.move===null?'<span class="chip new">Nuevo</span>':r.move>0?`<span class="chip up">▲ ${r.move}</span>`:r.move<0?`<span class="chip down">▼ ${-r.move}</span>`:'<span class="chip">=</span>'}${r.trend?'<span class="chip trend">Tendencia</span>':""}<span class="votes">${r.votes} voto${r.votes===1?"":"s"}</span></div>`:""}</div><div class="acts">${blessBtn(r.song)}${pvBtn(r.artist,r.title)}</div></div>`).join("")+'</div>';
+rows.forEach((r,i)=>getCover(r.artist+" "+r.title).then(u=>{const el=$("t10a"+i);if(el&&u)el.style.backgroundImage=`url("${u}")`;}));}catch(e){$("top10List").innerHTML='<div class="top10-empty">No se pudo cargar el ranking.</div>';}}
+
+// ---------- Canción al aire, carátulas e historial ----------
+let n=0;function jsonp(url){return new Promise((res,rej)=>{const cb="__mdv"+(n++);const s=document.createElement("script");const t=setTimeout(()=>{c();rej()},8000);function c(){clearTimeout(t);delete window[cb];s.remove();}window[cb]=d=>{c();res(d)};s.onerror=()=>{c();rej()};s.src=url+(url.includes("?")?"&":"?")+"callback="+cb+"&_="+Date.now();document.head.appendChild(s);});}
+const cache={};
+function getCover(q){if(q in cache)return Promise.resolve(cache[q]);return new Promise(res=>{const src=new URL(EP.cover(q),location.href).href;const im=new Image();im.onload=()=>{cache[q]=src;res(src)};im.onerror=()=>{cache[q]="";res("")};im.src=src;});}
+var CUR_COVER="";function setCover(u){lastCoverOk=!!u;CUR_COVER=u||"";const pos=u?"center":"72% center";const src=u||(PROG_IMG&&PROG_IMG!==IMG.musica?PROG_IMG:"");$("cover").style.backgroundPosition=pos;$("cover").style.backgroundImage=src?`url("${src}")`:"";$("coverPh").hidden=!!src;$("pCover").style.backgroundImage=`url("${src||ICON}")`;$("pCover").style.backgroundSize=src?"cover":"80%";$("pCover").style.backgroundColor="#1a181a";$("heroBg").style.backgroundImage=src?`url("${src}")`:"";}
+// Marcas internas de la emisora (códigos, cortes, cuñas, "OUT EN LA RADIO"...): se muestra el programa al aire
+const progKey=s=>String(s||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]+/g," ").trim();
+const isProgramMark=t=>{const k=" "+progKey(t)+" ";return ["enfoque a la familia","sixto porras","una sola voz","tu presencia es suficiente","en contacto","charles stanley","luis palau","prediCa del dia","andres corson","noches de adoracion","juan ibanez","maria villa"].some(n=>k.includes(" "+progKey(n)+" "));};
+const isInternal=t=>{t=(t||"").trim();if(isProgramMark(t))return true;if(/^[\d\s:_.\/-]+( - [\d\s:_.\/-]+)?$/.test(t))return true;if(/(EN LA RADIO|SPOT|CU[ÑN]A|JINGLE|IDENTIFICADOR|PUBLICIDAD|PREDICACI|BILLY GRAHAM|^OUT\b|^IN\b)/i.test(t))return true;const p=t.split(" - ");return p.length>=2&&p.slice(1).join(" - ").trim().length===0;};
+const isSong=t=>{t=(t||"").trim();const parts=t.split(" - ");if(parts.some(x=>/^[\d\s:_.\/-]+$/.test(x.trim())))return false;return parts.length>=2&&parts[0].trim().length>1&&parts.slice(1).join(" - ").trim().length>1&&!/(EN LA RADIO|SPOT|CU[ÑN]A|JINGLE|IDENTIFICADOR|PUBLICIDAD|^OUT\b|^IN\b)/i.test(t);};
+const hhmm=ts=>new Date(ts*1000).toLocaleTimeString("es-CL",{timeZone:"America/Santiago",hour:"2-digit",minute:"2-digit",hourCycle:"h23"});
+const splitTitle=raw=>{let [artist,...rest]=raw.split(" - ");let title=rest.join(" - ");if(!title){title=artist;artist="Radio MDV";}return {artist:artist.trim(),title:title.trim()};};
+let lastSong="";
+async function loadHistory(){try{const d=await jsonp(PLAYED_URL);if(!Array.isArray(d))return;
+const items=d.filter((x,i)=>x&&isSong(x.title)&&!isProgramMark(x.title)&&!(i===0&&x.title===lastSong)).slice(0,10).map(x=>({...splitTitle(x.title),raw:x.title.trim(),time:hhmm(x.playedat)}));if(!items.length)return;
+$("recentList").innerHTML=items.map((r,i)=>`<div class="song"><div class="art" id="rth${i}"><span class="time">${r.time}</span>${pvBtn(r.artist,r.title)}</div><b>${esc(r.title)}</b><span>${esc(r.artist)}</span>${blessBtn(r.raw)}</div>`).join("");
+items.forEach((r,i)=>getCover(r.artist+" "+r.title).then(u=>{const el=$("rth"+i);if(el&&u)el.style.backgroundImage=`url("${u}")`;}));}catch(e){}}
+async function poll(){try{const d=await jsonp(STATS_URL);const raw=(d.songtitle||"").trim();if(d.currentlisteners!=null){$("metaListeners").textContent=d.currentlisteners;$("togetherN").textContent=d.currentlisteners;}
+if(raw&&raw!==lastSong&&isInternal(raw)){lastSong=raw;$("songTitle").textContent=$("showTitle").textContent;$("songArtist").textContent="Radio MDV en vivo";$("pTitle").textContent=$("showTitle").textContent;$("pArtist").textContent="Radio MDV en vivo";$("heroVote").hidden=true;setCover("");return;}
+if(raw&&raw!==lastSong){lastSong=raw;const {title,artist}=splitTitle(raw);const hv=$("heroVote");if(isSong(raw)){hv.hidden=false;hv.dataset.vote=raw;paintVotes();}else hv.hidden=true;
+$("songTitle").textContent=title;$("songArtist").textContent=artist;$("pTitle").textContent=title;$("pArtist").textContent=artist;
+const cover=await getCover(artist+" "+title);setCover(cover);
+if("mediaSession" in navigator){navigator.mediaSession.metadata=new MediaMetadata({title,artist,album:"Radio MDV en vivo",artwork:(cover||PROG_IMG)?[{src:cover||PROG_IMG,sizes:"600x600",type:"image/jpeg"}]:[]});}
+setTimeout(loadHistory,1500);}}catch(e){}}
+
+// ---------- Versículo del día ----------
+function showVerse(v){CUR_VERSE=v;
+$("votdText").textContent=v[0];$("votdRef").textContent=v[1]+" · RVR1960";$("votdBar").textContent="“"+v[0]+"” — "+v[1];
+$("votdShare").onclick=()=>copyText(`“${v[0]}” — ${v[1]}\nEscucha Radio MDV en vivo: ${location.origin+location.pathname}`,"Versículo copiado. ¡Compártelo!");}
+// Calendario de 366 versículos (uno por fecha, hora de Chile) en data/versiculos.json
+function chileMD(){const p=new Intl.DateTimeFormat("en-GB",{timeZone:"America/Santiago",month:"2-digit",day:"2-digit"}).formatToParts(new Date());const g=k=>p.find(x=>x.type===k).value;return g("month")+"-"+g("day");}
+async function renderVerse(){const idx=Math.floor((Date.now()-new Date("2026-01-01T03:00:00Z").getTime())/86400000)%VERSES.length;showVerse(VERSES[(idx+VERSES.length)%VERSES.length]);
+try{const r=await fetch("data/versiculos.json",{cache:"no-cache"});const list=await r.json();const md=chileMD();const hit=list.find(x=>x[0]===md)||list.find(x=>x[0]==="02-28");if(hit)showVerse([hit[1],hit[2]]);}catch(e){}}
+
+// ---------- Muro de oración ----------
+let prayed=new Set(store.get("mdv-prayed")||[]);let reported=new Set(store.get("mdv-reported")||[]);
+function ago(ts){const m=Math.round((Date.now()-ts)/60000);if(m<1)return "recién";if(m<60)return "hace "+m+" min";const h=Math.round(m/60);if(h<24)return "hace "+h+" h";return "hace "+Math.round(h/24)+" d";}
+function pcard(p){const done=prayed.has(p.id);return `<article class="pcard"><div class="who"><span><b>${esc(p.name||"Anónimo")}</b>${p.city?" · "+esc(p.city):""}</span><span>${ago(p.created_at)}${p.read_on_air?'<span class="onair-badge">Leída al aire</span>':""}</span></div><p>${esc(p.text)}</p><div class="pfoot"><button type="button" class="pbtn${done?" done":""}" data-pray="${p.id}"><svg><use href="#i-hands"/></svg><span class="l">${done?"Orando por ti":"Estoy orando"}</span><span class="n"><em>${p.praying}</em></span></button>${reported.has(p.id)?'<span class="report">Reportada</span>':`<button type="button" class="report" data-report="${p.id}">Reportar</button>`}</div></article>`;}
+async function loadPrayers(){try{const r=await fetch(EP.prayers);const d=await r.json();if(!d.ok)throw 0;const list=d.prayers;
+$("prayList").innerHTML=list.length?list.map(pcard).join(""):'<div class="pray-empty">Aún no hay peticiones publicadas. Sé el primero en compartir la tuya.</div>';
+$("prayPreview").innerHTML=list.length?list.slice(0,3).map(pcard).join(""):'<div class="pray-empty">Sé el primero en dejar una petición. La comunidad orará contigo.</div>';
+$("prayTotal").textContent=d.totalPraying+" oraciones hechas por la comunidad";$("bandPraying").textContent=d.totalPraying;$("bandCount").textContent=list.length;}catch(e){$("prayList").innerHTML='<div class="pray-empty">No se pudieron cargar las peticiones. Recarga la página.</div>';$("prayPreview").innerHTML="";}}
+document.addEventListener("click",async e=>{const b=e.target.closest("[data-pray]");if(b){const id=+b.dataset.pray;if(prayed.has(id))return;prayed.add(id);store.set("mdv-prayed",[...prayed]);
+document.querySelectorAll(`[data-pray="${id}"]`).forEach(x=>{x.classList.add("done");x.querySelector(".l").textContent="Orando por ti";const nn=x.querySelector(".n em");nn.textContent=+nn.textContent+1;});try{await fetch(EP.pray(id),{method:"POST"});}catch(err){}return;}
+const r=e.target.closest("[data-report]");if(r){const id=+r.dataset.report;reported.add(id);store.set("mdv-reported",[...reported]);r.outerHTML='<span class="report">Reportada</span>';toast("Gracias. El equipo de la radio revisará esta petición.");try{await fetch(EP.report(id),{method:"POST"})}catch(err){}}});
+$("prayForm").addEventListener("submit",async e=>{e.preventDefault();const msg=$("prayMsg");msg.hidden=false;msg.textContent="Publicando…";
+try{const r=await fetch(EP.prayers,{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({name:$("pName").value,city:$("pCity").value,text:$("pText").value})});const d=await r.json();
+if(d.ok){msg.textContent=d.pending?"Recibimos tu petición. El equipo la revisará y la publicará pronto. Estamos orando contigo.":"Tu petición fue publicada. Estamos orando contigo.";$("pText").value="";loadPrayers();}else msg.textContent=d.error||"No se pudo publicar.";}catch(err){msg.textContent="No se pudo publicar. Revisa tu conexión.";}});
+
+// ---------- Adorando juntos ----------
+let sid=null;try{sid=sessionStorage.getItem("mdv-sid");if(!sid){sid=crypto.randomUUID();sessionStorage.setItem("mdv-sid",sid);}}catch(e){sid=String(Date.now())+Math.random();}
+const COMUNAS=["Coronel","Lota","San Pedro de la Paz","Concepción","Talcahuano","Santiago"];
+const TZ_GUESS={"America/Argentina":"Argentina","America/Buenos_Aires":"Argentina","America/Lima":"Perú","America/Bogota":"Colombia","America/Mexico_City":"México","America/Caracas":"Venezuela","America/La_Paz":"Bolivia","America/Asuncion":"Paraguay","America/Montevideo":"Uruguay","America/Guayaquil":"Ecuador","America/Sao_Paulo":"Brasil","America/New_York":"Estados Unidos","America/Chicago":"Estados Unidos","America/Denver":"Estados Unidos","America/Los_Angeles":"Estados Unidos","America/Toronto":"Canadá","Europe/Madrid":"España","Europe/London":"Reino Unido","Europe/Paris":"Francia","Europe/Berlin":"Alemania","Europe/Rome":"Italia","Europe/Stockholm":"Suecia","Australia/Sydney":"Australia","Australia/Melbourne":"Australia"};
+function tzGuess(){try{const tz=Intl.DateTimeFormat().resolvedOptions().timeZone||"";if(tz==="America/Santiago"||tz==="America/Punta_Arenas")return null;for(const k in TZ_GUESS)if(tz.startsWith(k))return TZ_GUESS[k];}catch(e){}return null;}
+let myCity=store.get("mdv-city");let lastCities=[];
+const cap=s=>s.trim().replace(/\s+/g," ").split(" ").map(w=>w.length>2?w[0].toUpperCase()+w.slice(1):w).join(" ").slice(0,40);
+function renderCities(){const el=$("cities");if(!myCity){const g=tzGuess();const opts=(g?[g]:[]).concat(COMUNAS);el.innerHTML='<div class="city-pick"><span>¿Desde dónde escuchas?</span>'+opts.map(c=>`<button type="button" data-city="${c}">${c}</button>`).join("")+'</div><form class="city-other" id="cityOther"><input id="cityInput" list="cityList" maxlength="40" placeholder="Otra ciudad o país" aria-label="Otra ciudad o país"><button class="btn btn-dark" type="submit" style="padding:9px 16px">Listo</button></form>';
+$("cityOther").addEventListener("submit",ev=>{ev.preventDefault();const v=cap($("cityInput").value);if(v.length<2)return;myCity=v;store.set("mdv-city",myCity);renderCities();presence();toast("¡Gracias! Ya apareces adorando desde "+myCity);});return;}
+const list=lastCities.length?lastCities:[{city:myCity,n:1}];el.innerHTML=list.map(c=>`<span class="city${c.city===myCity?" me":""}"><i></i>${esc(c.city)} <b>${c.n}</b></span>`).join("")+'<button type="button" class="change-city" data-city-change>Cambiar mi ciudad</button>';}
+document.addEventListener("click",e=>{const b=e.target.closest("[data-city]");if(b){myCity=b.dataset.city;store.set("mdv-city",myCity);renderCities();presence();toast("¡Gracias! Ya apareces adorando desde "+myCity);return;}if(e.target.closest("[data-city-change]")){myCity=null;store.set("mdv-city",null);renderCities();}});
+async function presence(){if(document.hidden)return;try{const r=await fetch(EP.presence,{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({sid,city:myCity||""})});const d=await r.json();if(d.ok){lastCities=d.cities;renderCities();}}catch(e){renderCities();}}
+
+// ---------- Navegación ----------
+const VIEWS=["inicio","programacion","oracion","contacto"];let firstNav=true;
+function route(){let h=location.hash.slice(1);let v=VIEWS.includes(h)?h:"inicio";const goingHome=["versiculo","top10","locutores","recientes"].includes(h);
+document.querySelectorAll("[data-view]").forEach(el=>el.hidden=el.dataset.view!==v);document.querySelectorAll("[data-nav]").forEach(a=>a.dataset.nav===v?a.setAttribute("aria-current","page"):a.removeAttribute("aria-current"));
+$("drawer").hidden=true;$("menuBtn").setAttribute("aria-expanded","false");
+if(v==="programacion")renderSchedule();if(v==="oracion")loadPrayers();
+if(["versiculo","top10","locutores","recientes"].includes(h)){setTimeout(()=>{const el=$(h);if(el)el.scrollIntoView({behavior:"smooth"});},60);}else if(h==="instalar"){showInstall();history.replaceState(null,"","#inicio");}else window.scrollTo({top:0});
+if(playing&&!firstNav)toast("La radio sigue sonando mientras navegas");firstNav=false;}
+addEventListener("hashchange",route);
+$("menuBtn").addEventListener("click",()=>{const d=$("drawer");d.hidden=!d.hidden;$("menuBtn").setAttribute("aria-expanded",String(!d.hidden));});
+const isStandalone=()=>matchMedia("(display-mode: standalone)").matches||navigator.standalone===true;
+function showInstall(){if(isStandalone()){toast("Ya tienes Radio MDV instalada en tu celular. ¡Bendiciones!");return;}
+const ua=navigator.userAgent,ios=/iphone|ipad|ipod/i.test(ua)||(/Macintosh/.test(ua)&&navigator.maxTouchPoints>1),inApp=/FBAN|FBAV|Instagram|Line\/|WhatsApp|TikTok|Snapchat|wv\)/i.test(ua);
+let html;
+if(inApp)html=`<p class="in-lead">Estás dentro de otra app (Instagram, WhatsApp o Facebook). Para instalar la radio, ábrela en ${ios?"Safari":"Chrome"}:</p><ol class="in-steps"><li><span class="n">1</span><div>Toca el menú <b>⋯</b> de esta pantalla.</div></li><li><span class="n">2</span><div>Elige <b>Abrir en ${ios?"Safari":"el navegador"}</b>.</div></li><li><span class="n">3</span><div>Vuelve a tocar <b>Lleva la radio</b>.</div></li></ol>`;
+else if(ios)html=`<p class="in-lead">En iPhone se instala desde Safari en 3 pasos:</p><ol class="in-steps"><li><span class="n">1</span><div>Toca <b>Compartir</b> <svg class="in-ic" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 3v12M7 8l5-5 5 5M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></svg> en la barra de Safari. Si no lo ves, toca <b>⋯</b> abajo a la derecha y luego <b>Compartir</b>.</div></li><li><span class="n">2</span><div>Desliza hacia abajo y toca <b>Agregar a inicio</b> <svg class="in-ic" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 8v8M8 12h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>.</div></li><li><span class="n">3</span><div>Toca <b>Agregar</b>. El ícono de Radio MDV quedará en tu pantalla de inicio.</div></li></ol>`;
+else html=`<p class="in-lead">En Android se instala desde Chrome:</p><ol class="in-steps"><li><span class="n">1</span><div>Toca el menú <b>⋮</b> arriba a la derecha.</div></li><li><span class="n">2</span><div>Elige <b>Instalar app</b> o <b>Agregar a pantalla principal</b>.</div></li><li><span class="n">3</span><div>Confirma con <b>Instalar</b>. El ícono de Radio MDV quedará con tus apps.</div></li></ol>`;
+$("inBody").innerHTML=html;$("inModal").hidden=false;}
+$("inClose").addEventListener("click",()=>{$("inModal").hidden=true;});$("inModal").addEventListener("click",e=>{if(e.target.id==="inModal")$("inModal").hidden=true;});
+if("serviceWorker" in navigator)addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
+let deferredPrompt=null;addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferredPrompt=e;});
+$("installQa").addEventListener("click",async e=>{e.preventDefault();if(deferredPrompt){deferredPrompt.prompt();const c=await deferredPrompt.userChoice.catch(()=>null);deferredPrompt=null;if(c&&c.outcome==="accepted")toast("¡Listo! Radio MDV quedó instalada en tu celular.");return;}showInstall();});
+
+// ---------- Reproductor ----------
+const audio=$("audio");audio.volume=.85;let playing=false,started=0,timer=null;
+function setUI(){const ic=playing?"#i-pause":"#i-play";document.querySelectorAll("[data-toggle] svg use").forEach(u=>u.setAttribute("href",ic));
+document.querySelectorAll("[data-toggle-label]").forEach(l=>l.textContent=playing?(l.closest(".live-btn")?"En vivo":"Escuchando en vivo"):"Escuchar en vivo");
+$("pPlay").setAttribute("aria-label",playing?"Pausar":"Reproducir");document.body.classList.toggle("playing",playing);$("player").classList.toggle("playing",playing);if(!playing)$("pClock").textContent="EN VIVO";}
+function tick(){const s=Math.floor((Date.now()-started)/1000);$("pClock").textContent=(s>=3600?Math.floor(s/3600)+":":"")+String(Math.floor(s/60)%60).padStart(2,"0")+":"+String(s%60).padStart(2,"0");}
+function stop(){audio.pause();audio.removeAttribute("src");audio.load();clearInterval(timer);playing=false;$("pPlay").classList.remove("loading");setUI();}
+function play(){playing=true;setUI();$("pPlay").classList.add("loading");audio.src=STREAM_URL+"?nocache="+Date.now();audio.play().then(()=>{started=Date.now();tick();timer=setInterval(tick,1000);}).catch(()=>{stop();toast("Toca de nuevo para reproducir la radio.",5000);});}
+audio.addEventListener("playing",()=>$("pPlay").classList.remove("loading"));
+audio.addEventListener("error",()=>{if(playing){stop();toast("No se pudo conectar a la señal. Inténtalo de nuevo.",5000);}});
+document.querySelectorAll("[data-toggle]").forEach(b=>b.addEventListener("click",()=>playing?stop():play()));
+$("pVol").addEventListener("input",e=>{audio.volume=e.target.value/100;audio.muted=false;$("pMute").querySelector("use").setAttribute("href","#i-vol");});
+$("pMute").addEventListener("click",()=>{audio.muted=!audio.muted;$("pMute").querySelector("use").setAttribute("href",audio.muted?"#i-mute":"#i-vol");});
+
+
+// ---------- Recordatorios de programas (avisos en el celular) ----------
+let myFavs=store.get("mdv-favs")||[];
+const pushOK=()=>!!EP.remind&&"serviceWorker" in navigator&&"PushManager" in window&&"Notification" in window;
+const isIOS=()=>/iphone|ipad|ipod/i.test(navigator.userAgent)||(/Macintosh/.test(navigator.userAgent)&&navigator.maxTouchPoints>1);
+function remindBtn(prog){if(!EP.remind||!prog)return "";const on=myFavs.includes(prog);return `<button type="button" class="remind${on?" on":""}" data-remind="${esc(prog)}" aria-pressed="${on}"><svg><use href="#i-bell"/></svg><span>${on?"Te avisaremos":"Recordarme"}</span></button>`;}
+function paintRemind(){document.querySelectorAll("[data-remind]").forEach(b=>{const on=myFavs.includes(b.dataset.remind);b.classList.toggle("on",on);b.setAttribute("aria-pressed",String(on));b.querySelector("span").textContent=on?"Te avisaremos":"Recordarme";});}
+const b64ToU8=s=>{const p="=".repeat((4-s.length%4)%4);const r=atob((s+p).replace(/-/g,"+").replace(/_/g,"/"));return Uint8Array.from(r,c=>c.charCodeAt(0));};
+async function toggleRemind(prog,btn){
+  if(isIOS()&&!isStandalone()){showInstall();$("inBody").insertAdjacentHTML("afterbegin",`<p class="in-note"><b>Para recibir el aviso de “${esc(prog)}”</b> en iPhone, primero instala la app con estos pasos. Después ábrela desde el ícono y toca otra vez <b>Recordarme</b>.</p>`);return;}
+  if(!pushOK()){toast("Este navegador no permite avisos. Abre radiomdv.cl en Chrome o Safari e instala la app.");return;}
+  const adding=!myFavs.includes(prog);
+  if(adding&&Notification.permission!=="granted"){const perm=await Notification.requestPermission();if(perm!=="granted"){toast("Para recibir avisos, permite las notificaciones de Radio MDV en los ajustes del celular.",6000);return;}}
+  btn.disabled=true;
+  try{
+    const reg=await navigator.serviceWorker.ready;let sub=await reg.pushManager.getSubscription();
+    if(!sub){const {publicKey}=await fetch(EP.remind).then(r=>r.json());sub=await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:b64ToU8(publicKey)});}
+    const favs=adding?[...new Set([...myFavs,prog])]:myFavs.filter(x=>x!==prog);
+    const r=await fetch(EP.remind,{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({sub:sub.toJSON(),favs,test:adding&&myFavs.length===0})}).then(r=>r.json());
+    if(!r.ok)throw new Error(r.error||"error");
+    myFavs=favs;store.set("mdv-favs",myFavs);paintRemind();
+    toast(adding?`Listo: te avisaremos 5 minutos antes de “${prog}”.`:`Ya no recibirás avisos de “${prog}”.`,5000);
+  }catch(e){console.error(e);toast("No se pudo activar el aviso. Intenta de nuevo.");}
+  btn.disabled=false;}
+document.addEventListener("click",e=>{const b=e.target.closest("[data-remind]");if(b){e.preventDefault();toggleRemind(b.dataset.remind,b);}});
+
+// Las 10 se actualizan solas cada 90 segundos (sin recargar la página)
+setInterval(()=>{if(!document.hidden)loadTop10();},90000);
+document.addEventListener("visibilitychange",()=>{if(!document.hidden)loadTop10();});
+// ---------- Adelantos de 30 s (Deezer) sin salir de la radio ----------
+const pvAudio=new Audio();pvAudio.preload="none";let pvBtnEl=null,pvWasLive=false,pvTimer=null;const pvCache={};
+const pvKey=s=>s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/\(.*?\)|\[.*?\]/g,"").replace(/[^a-z0-9]+/g," ").trim();
+function pvBtn(artist,title){return `<button type="button" class="pv" data-pv-a="${esc(artist)}" data-pv-t="${esc(title)}" aria-label="Escuchar 30 segundos de ${esc(title)}"><svg><use href="#i-play"/></svg><span>30 s</span></button>`;}
+async function pvFind(artist,title){const k=artist+"|"+title;if(k in pvCache)return pvCache[k];
+  let url="";try{const first=artist.split(/,|&| y | x | feat\.? | ft\.? /i)[0].trim();const d=await jsonp("https://api.deezer.com/search?output=jsonp&limit=10&q="+encodeURIComponent(first+" "+title.replace(/\(.*?\)|\[.*?\]/g,"")));
+   const list=(d&&d.data)||[];const tk=pvKey(title),ak=pvKey(first);
+   const hit=list.find(t=>t.preview&&pvKey(t.title)===tk&&(pvKey(t.artist.name).includes(ak)||ak.includes(pvKey(t.artist.name))))||list.find(t=>t.preview&&pvKey(t.title).startsWith(tk)&&pvKey(t.artist.name).includes(ak.split(" ")[0]));
+   url=hit?hit.preview:"";}catch(e){}
+  pvCache[k]=url;return url;}
+function pvPaint(btn,state){if(!btn)return;btn.classList.toggle("on",state==="on");btn.classList.toggle("loading",state==="loading");btn.querySelector("use").setAttribute("href",state==="on"?"#i-pause":"#i-play");btn.querySelector("span").textContent=state==="on"?"Volver al vivo":"30 s";}
+function pvStop(resume=true){clearTimeout(pvTimer);pvAudio.pause();pvAudio.removeAttribute("src");pvPaint(pvBtnEl,"off");pvBtnEl=null;if(resume&&pvWasLive){pvWasLive=false;play();toast("De vuelta a Radio MDV en vivo");}else pvWasLive=false;}
+pvAudio.addEventListener("ended",()=>pvStop(true));
+pvAudio.addEventListener("error",()=>{if(pvBtnEl){toast("No se pudo reproducir el adelanto.");pvStop(true);}});
+document.addEventListener("click",async e=>{const b=e.target.closest(".pv");if(!b)return;e.preventDefault();
+  if(pvBtnEl===b){pvStop(true);return;}
+  if(pvBtnEl)pvStop(false);
+  pvBtnEl=b;pvPaint(b,"loading");
+  const url=await pvFind(b.dataset.pvA,b.dataset.pvT);
+  if(pvBtnEl!==b)return;
+  if(!url){pvPaint(b,"off");pvBtnEl=null;b.classList.add("none");toast("Esta canción no tiene adelanto disponible.");return;}
+  if(playing){pvWasLive=true;stop();}
+  pvAudio.src=url;pvAudio.play().then(()=>{pvPaint(b,"on");pvTimer=setTimeout(()=>pvStop(true),31000);}).catch(()=>{pvStop(true);toast("Toca de nuevo para escuchar el adelanto.");});});
+// Si el oyente vuelve a tocar "Escuchar en vivo" durante un adelanto, se corta el adelanto
+document.addEventListener("click",e=>{if(e.target.closest("[data-toggle]")&&pvBtnEl){pvWasLive=false;pvStop(false);}},true);
+// ---------- Historias de Instagram (imagen vertical 1080x1920) ----------
+var CUR_VERSE=null,ST_FILE=null,ST_URL="";
+const stLoadImg=src=>new Promise(res=>{if(!src)return res(null);const i=new Image();i.crossOrigin="anonymous";i.onload=()=>res(i);i.onerror=()=>res(null);i.src=src;});
+const stClean=img=>{if(!img)return null;try{const t=document.createElement("canvas");t.width=t.height=2;const x=t.getContext("2d");x.drawImage(img,0,0,2,2);x.getImageData(0,0,1,1);return img;}catch(e){return null;}};
+function stRR(x,X,Y,w,h,r){x.beginPath();x.moveTo(X+r,Y);x.arcTo(X+w,Y,X+w,Y+h,r);x.arcTo(X+w,Y+h,X,Y+h,r);x.arcTo(X,Y+h,X,Y,r);x.arcTo(X,Y,X+w,Y,r);x.closePath();}
+function stLines(x,text,maxW,maxLines){const words=String(text).split(/\s+/).filter(Boolean);const lines=[];let line="";for(const w of words){const t=line?line+" "+w:w;if(x.measureText(t).width<=maxW||!line)line=t;else{lines.push(line);line=w;}}if(line)lines.push(line);if(lines.length>maxLines){const out=lines.slice(0,maxLines);let last=out[maxLines-1];while(last&&x.measureText(last+"…").width>maxW)last=last.replace(/\s*\S+$/,"");out[maxLines-1]=last+"…";return out;}return lines;}
+function stCoverDraw(x,img,X,Y,w,h){const r=Math.max(w/img.width,h/img.height);const iw=img.width*r,ih=img.height*r;x.drawImage(img,X+(w-iw)/2,Y+(h-ih)/2,iw,ih);}
+function stPill(x,text,cy,bg,fg){x.font='800 34px "Advent Pro", sans-serif';const t=text.split("").join(String.fromCharCode(8202));const w=x.measureText(t).width+92;stRR(x,540-w/2,cy-38,w,76,38);x.fillStyle=bg;x.fill();x.fillStyle=fg;x.textAlign="center";x.textBaseline="middle";x.fillText(t,540+14,cy+2);x.beginPath();x.arc(540-w/2+34,cy,8,0,7);x.fill();}
+async function makeStory(kind){
+  await Promise.all(['800 90px "Advent Pro"','700 40px "Advent Pro"','800 40px Manrope','600 40px Manrope'].map(f=>document.fonts.load(f).catch(()=>{})));
+  const W=1080,H=1920,c=document.createElement("canvas");c.width=W;c.height=H;const x=c.getContext("2d");
+  x.fillStyle="#0e0c0e";x.fillRect(0,0,W,H);
+  let art=null;
+  if(kind==="song"){const src=CUR_COVER||(PROG_IMG&&PROG_IMG!==IMG.musica?PROG_IMG:"");art=stClean(await stLoadImg(src));}
+  if(art){const t=document.createElement("canvas");t.width=27;t.height=48;const tx=t.getContext("2d");stCoverDraw(tx,art,0,0,27,48);x.imageSmoothingEnabled=true;x.imageSmoothingQuality="high";x.globalAlpha=.9;x.drawImage(t,-60,-60,W+120,H+120);x.globalAlpha=1;
+    const g=x.createLinearGradient(0,0,0,H);g.addColorStop(0,"rgba(14,12,14,.55)");g.addColorStop(.55,"rgba(14,12,14,.72)");g.addColorStop(1,"rgba(14,12,14,.96)");x.fillStyle=g;x.fillRect(0,0,W,H);}
+  else{let g=x.createRadialGradient(540,820,40,540,820,980);g.addColorStop(0,"rgba(226,12,19,.42)");g.addColorStop(1,"rgba(226,12,19,0)");x.fillStyle=g;x.fillRect(0,0,W,H);
+    g=x.createRadialGradient(1000,1900,10,1000,1900,700);g.addColorStop(0,"rgba(226,12,19,.25)");g.addColorStop(1,"rgba(226,12,19,0)");x.fillStyle=g;x.fillRect(0,0,W,H);
+    x.strokeStyle="rgba(255,255,255,.05)";x.lineWidth=2;for(let r=260;r<1500;r+=110){x.beginPath();x.arc(540,820,r,0,7);x.stroke();}}
+  const logo=await stLoadImg(LOGO);if(logo){const lw=600,lh=lw*1482/5120;x.drawImage(logo,(W-lw)/2,120,lw,lh);}
+  x.textAlign="center";
+  if(kind==="song"){
+    const title=$("songTitle").textContent.trim(),artist=$("songArtist").textContent.trim();
+    stPill(x,lastCoverOk?"SONANDO AHORA":"AL AIRE AHORA",420,"#E20C13","#fff");
+    const S=800,X0=(W-S)/2,Y0=500;x.save();x.shadowColor="rgba(0,0,0,.55)";x.shadowBlur=70;x.shadowOffsetY=30;stRR(x,X0,Y0,S,S,44);x.fillStyle="#1a181a";x.fill();x.restore();
+    x.save();stRR(x,X0,Y0,S,S,44);x.clip();if(art)stCoverDraw(x,art,X0,Y0,S,S);else{const ic=await stLoadImg(ICON);const g=x.createRadialGradient(540,Y0+S/2,20,540,Y0+S/2,S*.7);g.addColorStop(0,"#2a1416");g.addColorStop(1,"#141214");x.fillStyle=g;x.fillRect(X0,Y0,S,S);if(ic)x.drawImage(ic,X0+S*.18,Y0+S*.18,S*.64,S*.64);}x.restore();
+    x.fillStyle="#fff";x.textBaseline="alphabetic";x.font='800 92px "Advent Pro", sans-serif';const tl=stLines(x,title,900,2);tl.forEach((l,i)=>x.fillText(l,540,1420+i*94));
+    x.fillStyle="rgba(255,255,255,.74)";x.font='600 44px Manrope, sans-serif';stLines(x,artist,900,1).forEach(l=>x.fillText(l,540,1420+tl.length*94+12));
+  }else{
+    const v=CUR_VERSE||["Jehová es mi pastor; nada me faltará.","Salmos 23:1"];
+    stPill(x,"VERSÍCULO DEL DÍA",440,"#E20C13","#fff");
+    x.fillStyle="#E20C13";x.font='800 300px "Advent Pro", serif';x.textBaseline="alphabetic";x.fillText("“",540,790);
+    let fs=76,lines;x.textBaseline="alphabetic";for(;fs>=40;fs-=2){x.font=`700 ${fs}px Manrope, sans-serif`;lines=stLines(x,v[0],880,99);if(lines.length*fs*1.32<=640)break;}
+    const lh=fs*1.32,top=1130-(lines.length*lh)/2+fs*.8;x.fillStyle="#fff";lines.forEach((l,i)=>x.fillText(l,540,top+i*lh));
+    x.fillStyle="#ff5a63";x.font='800 54px "Advent Pro", sans-serif';x.fillText(v[1].toUpperCase().split("").join(String.fromCharCode(8202)),540,top+lines.length*lh+50);
+  }
+  x.textBaseline="middle";const cw=780,ch=124,cy=1660;stRR(x,(W-cw)/2,cy-ch/2,cw,ch,62);x.fillStyle="#fff";x.fill();
+  x.fillStyle="#E20C13";x.beginPath();x.arc((W-cw)/2+70,cy,22,0,7);x.fill();x.fillStyle="#fff";x.beginPath();x.moveTo((W-cw)/2+63,cy-11);x.lineTo((W-cw)/2+80,cy);x.lineTo((W-cw)/2+63,cy+11);x.closePath();x.fill();
+  x.fillStyle="#141214";x.font='800 48px Manrope, sans-serif';x.fillText("Escúchalo en radiomdv.cl",540+30,cy+2);
+  x.fillStyle="rgba(255,255,255,.62)";x.font='600 34px Manrope, sans-serif';x.fillText("107.1 FM · 107.5 FM · Online 24 horas",540,1790);
+  return await new Promise(r=>c.toBlob(r,"image/jpeg",.92));
+}
+async function openStory(kind){const m=$("stModal");m.hidden=false;$("stLoad").hidden=false;$("stImg").removeAttribute("src");ST_FILE=null;
+  try{const blob=await makeStory(kind);ST_FILE=new File([blob],kind==="song"?"radio-mdv-sonando.jpg":"radio-mdv-versiculo.jpg",{type:"image/jpeg"});if(ST_URL)URL.revokeObjectURL(ST_URL);ST_URL=URL.createObjectURL(blob);$("stImg").src=ST_URL;$("stLoad").hidden=true;}
+  catch(e){console.error(e);$("stLoad").textContent="No se pudo crear la imagen";}}
+function stDownload(){if(!ST_FILE)return;const a=document.createElement("a");a.href=ST_URL;a.download=ST_FILE.name;document.body.appendChild(a);a.click();a.remove();toast("Imagen descargada. Súbela a tu historia.");}
+$("storySong").addEventListener("click",()=>openStory("song"));
+$("storyVerse").addEventListener("click",()=>openStory("verse"));
+$("stClose").addEventListener("click",()=>{$("stModal").hidden=true;});
+$("stModal").addEventListener("click",e=>{if(e.target.id==="stModal")$("stModal").hidden=true;});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")$("stModal").hidden=true;});
+$("stDl").addEventListener("click",stDownload);
+$("stShare").addEventListener("click",async()=>{if(!ST_FILE)return;if(navigator.canShare&&navigator.canShare({files:[ST_FILE]})){try{await navigator.share({files:[ST_FILE]});}catch(e){}}else stDownload();});
+$("shareBtn").addEventListener("click",()=>copyText(`Estoy escuchando ${$("songTitle").textContent} – ${$("songArtist").textContent} en Radio MDV. Escúchala en vivo: ${location.origin+location.pathname}`,"Enlace copiado. ¡Compártelo!"));
+document.querySelectorAll("[data-copy]").forEach(b=>b.addEventListener("click",()=>copyText(b.dataset.copy,"Copiado")));
+document.querySelectorAll("[data-goto]").forEach(a=>a.addEventListener("click",e=>{e.preventDefault();$("drawer").hidden=true;$("menuBtn").setAttribute("aria-expanded","false");if(location.hash!=="#inicio"&&location.hash!=="")location.hash="inicio";setTimeout(()=>$(a.dataset.goto).scrollIntoView({behavior:"smooth"}),60);}));
+if("mediaSession" in navigator){try{navigator.mediaSession.setActionHandler("play",()=>{if(!playing)play();});navigator.mediaSession.setActionHandler("pause",()=>{if(playing)stop();});}catch(e){}}
+
+// ---------- Modo noche y temporizador ----------
+function isNightTime(){const {min}=chileNow();return min>=21*60||min<7*60;}
+function applyNight(){const pref=store.get("mdv-night");const on=pref===null?isNightTime():pref==="on";document.body.classList.toggle("night",on);$("nightBtn").querySelector("use").setAttribute("href",on?"#i-sun":"#i-moon");$("nightBtn").setAttribute("aria-label",on?"Modo día":"Modo noche");}
+$("nightBtn").addEventListener("click",()=>{const on=!document.body.classList.contains("night");store.set("mdv-night",on?"on":"off");applyNight();toast(on?"Modo noche activado":"Modo día activado");});
+let sleepEnd=null,fading=false,sleepIdx=0;const SLEEP_STEPS=[0,15,30,60];
+function setSleep(min){sleepIdx=Math.max(0,SLEEP_STEPS.indexOf(min));sleepEnd=min?Date.now()+min*60000:null;fading=false;audio.volume=$("pVol").value/100;
+document.querySelectorAll("[data-sleep]").forEach(b=>b.setAttribute("aria-pressed",String(+b.dataset.sleep===min)));document.querySelectorAll("[data-sleep-cycle]").forEach(b=>b.classList.toggle("on",!!min));updSleep();
+if(min){if(!playing)play();toast("La radio se apagará en "+(min===60?"1 hora":min+" minutos"));}}
+function updSleep(){let txt="Apagar";if(sleepEnd){const s=Math.max(0,Math.round((sleepEnd-Date.now())/1000));txt=Math.floor(s/60)+":"+String(s%60).padStart(2,"0");
+if(s<=20&&playing&&!fading){fading=true;const v0=audio.volume;let k=0;const f=setInterval(()=>{k++;audio.volume=Math.max(0,v0*(1-k/20));if(k>=20){clearInterval(f);stop();setSleep(0);toast("Buenas noches. Dios te bendiga.",4000);}},1000);}}
+document.querySelectorAll("[data-sleep-txt]").forEach(x=>x.textContent=txt);}
+setInterval(updSleep,1000);
+document.querySelectorAll("[data-sleep-cycle]").forEach(b=>b.addEventListener("click",()=>{sleepIdx=sleepEnd?(sleepIdx+1)%SLEEP_STEPS.length:1;setSleep(SLEEP_STEPS[sleepIdx]);}));
+document.querySelectorAll("[data-sleep]").forEach(b=>b.addEventListener("click",()=>setSleep(+b.dataset.sleep)));
+
+// ---------- Inicio ----------
+$("yr").textContent=new Date().getFullYear();
+applyNight();renderProgram();renderPrograms();renderVerse();loadTop10();route();setUI();renderCities();poll();loadHistory();loadPrayers();presence();
+setInterval(poll,15000);setInterval(presence,60000);setInterval(applyNight,60000);
+setInterval(()=>{renderProgram();renderPrograms();if(!document.querySelector('[data-view="programacion"]').hidden)renderSchedule();},30000);
+setInterval(()=>{if(!document.hidden)loadPrayers();},45000);
+</script>
+</body></html>
