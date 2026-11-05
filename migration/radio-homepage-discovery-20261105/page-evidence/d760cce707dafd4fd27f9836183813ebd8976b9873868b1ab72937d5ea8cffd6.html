@@ -1,0 +1,1196 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+    <!-- Title -->
+    <title>BigTimeFM - Die biggesten Beats im Netz</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+	<meta charset="UTF-8" />
+	
+	<meta name="description" content="Genieße vielfältige Musikrichtungen, interaktive Wunschbox, Live-Sendungen und einem kostenlosen Musikbot für Discord. Jetzt einschalten und abrocken!" />
+
+	<link rel="icon" href="https://bigtimefm.de/assets/img/favicon.png" type="image/png" />
+	<link rel="apple-touch-icon" href="https://bigtimefm.de/assets/img/favicon.png" />
+
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://bigtimefm.de/" />
+	<meta property="og:title" content="BigTimeFM - Die biggesten Beats im Netz" />
+	<meta property="og:description" content="Genieße vielfältige Musikrichtungen, interaktive Wunschbox, Live-Sendungen und einem kostenlosen Musikbot für Discord. Jetzt einschalten und abrocken!" />
+	<meta property="og:image" content="https://bigtimefm.de/assets/img/wallpaper_2.jpg" />
+
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:url" content="https://bigtimefm.de/" />
+	<meta name="twitter:title" content="BigTimeFM - Die biggesten Beats im Netz" />
+	<meta name="twitter:description" content="Genieße vielfältige Musikrichtungen, interaktive Wunschbox, Live-Sendungen und einem kostenlosen Musikbot für Discord. Jetzt einschalten und abrocken!" />
+	<meta name="twitter:image" content="https://bigtimefm.de/assets/img/wallpaper_2.jpg" />
+
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="../assets/default.css?v=1.67">
+    <link rel="stylesheet" href="../assets/css/facelift-shared.css?v=1.2">
+    <link rel="stylesheet" href="../assets/css/header-footer-modern.css?v=2.24">
+    <link rel="stylesheet" href="../assets/css/pages/homepage.css?v=1.01">
+    <link rel="stylesheet" href="../assets/css/pages/karriere.css?v=1.0">
+    <link rel="stylesheet" href="../assets/css/pages/team.css?v=1.0">
+    <link rel="stylesheet" href="../assets/css/pages/sendeplan.css?v=1.0">
+    <link rel="stylesheet" href="../assets/css/pages/wunschbox.css?v=1.0">
+    <link rel="stylesheet" href="../assets/css/pages/trackliste.css?v=1.0">
+    <link rel="stylesheet" href="../assets/css/pages/discordalarm.css?v=1.0">
+    <link rel="stylesheet" href="../assets/css/pages/livecam.css?v=1.0">
+    <link rel="stylesheet" href="../assets/css/pages/datenschutz.css?v=1.0">
+    <link rel="stylesheet" href="../assets/css/pages/impressum.css?v=1.0">
+    <link rel="stylesheet" href="../assets/css/pages/mediadownloads.css?v=1.0">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+	<script src="../assets/js/sweetalert.min.js"></script>
+	<script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="324f1a7f-255e-4fef-b4d6-c9ab96c402d0" data-blockingmode="auto" type="text/javascript"></script>
+	<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/Snowstorm/20131208/snowstorm.js" integrity="sha512-N8H1tAcm2/wJx02Q3FznOerQj4sFIdQJpmntt0/7ufMLh8dH1DFf7Zss+lbL7JwtYJuGVV+cVmWOdTA4x2lOTg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>-->
+</head>
+
+<body>
+    <!-- Preloader
+    <div id="preloader">
+        <div class="loader"></div>
+    </div>
+    <!-- /Preloader -->
+	
+	<div id="btfm_onair_toast-container"></div>
+
+    <!-- Header Area Start -->
+    <header class="header-area site-header-facelift">
+        <div class="classy-nav-container breakpoint-off">
+            <div class="container">
+                <!-- Classy Menu -->
+                <nav class="classy-navbar justify-content-between" id="conferNav">
+
+                    <!-- Logo -->
+                    <a class="nav-brand" href="../"><img class="nav-brand-logo" src="https://backend.bigtimefm.de/api/?output=logo_white" alt="BigTimeFM"></a>
+
+                    <!-- Navbar Toggler -->
+                    <div class="classy-navbar-toggler">
+                        <span class="navbarToggler"><span></span><span></span><span></span></span>
+                    </div>
+
+                    <!-- Menu -->
+                    <div class="classy-menu">
+                        <!-- Menu Close Button -->
+                        <div class="classycloseIcon">
+                            <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                        </div>
+                        <!-- Nav Start -->
+                        <div class="classynav">
+                            <ul id="nav">
+                                <li><a href="../">Startseite</a></li>
+									<li><a href="#">Community</a>
+										<ul class="dropdown">
+											<li><a href='./karriere'>Karriere</a></li>
+											<li><a href='./team'>Team</a></li>
+											<li><a href='./mediadownloads'>Media-Downloads</a></li>
+											<li><a target="_blank" href="https://merch.bigtimefm.de">Merch-Shop</a></li>
+											<li><a target="_blank" href="./app">BigTimeFM App</a></li>
+										</ul>
+									</li>
+									<li><a href="#">Radio</a>
+										<ul class="dropdown">
+											<li><a href="./sendeplan">Sendeplan</a></li>
+											<li><a href="./wunschbox">Wunschbox</a></li>
+											<li><a href='./trackliste'>Tracklist</a></li>
+											<li><a href="./discordalarm">Discordalarm</a></li>
+											<li><a href="./livecam">Livecam</a></li>
+											<li><a target="_blank" href="./junior">Junior-Projekt</a></li>
+										</ul>
+									</li>
+									<li><a target="_blank" href="/mobile"><i class="fas fa-mobile"></i> &nbsp; Mobile</a></li>																	
+                            </ul>
+
+                            <div class="header-actions d-flex align-items-center">
+								<a target="_blank" href="./musikbot" class="btn confer-btn mt-3 mt-lg-0 ml-0 ml-lg-3 header-cta-btn">Kostenloser Musikbot</a>
+							</div>
+                        </div>
+                        <!-- Nav End -->
+                    </div>
+                </nav>
+            </div>
+        </div>
+		    </header>
+    <!-- Header Area End -->
+
+<div id="maincontent">
+	﻿
+
+
+<div class="home-facelift">
+
+<!-- Welcome Area Start -->
+    <section class="welcome-area">
+        <div class="welcome-slides owl-carousel">	
+				
+			<div class="single-welcome-slide bg-img bg-overlay jarallax" style="background-image: url('../assets/img/bg-img/discordalarm_v3.png');">
+                <div class="container h-100">
+                    <div class="row h-100 align-items-center">
+                        <div class="col-12">
+                            <div class="welcome-text text-right">
+								<span class="hero-tag" data-animation="fadeInUp" data-delay="200ms">Verpasse nie wieder eine Sendung</span>
+                                <h2 data-animation="fadeInUp" data-delay="300ms">Discordalarm</h2>
+                                <h6 data-animation="fadeInUp" data-delay="500ms">Abonniere deinen Lieblings-DJ und bleib auf dem Laufenden!</h6>	
+								<div class="hero-btn-group" data-animation="fadeInUp" data-delay="700ms" style="animation-delay: 700ms;">
+									<a href="/discordalarm" class="btn confer-btn">Jetzt abonnieren <i class="zmdi zmdi-long-arrow-right"></i></a>
+								</div>								
+                            </div>						
+                        </div>
+                    </div>
+                </div>
+            </div> 	
+			<div class="single-welcome-slide bg-img bg-overlay jarallax" style="background-image: url('../assets/img/bg-img/musikbot_2025.png');">
+                <div class="container h-100">
+                    <div class="row h-100 align-items-center">
+                        <div class="col-12">
+                            <div class="welcome-text text-right">
+								<span class="hero-tag" data-animation="fadeInUp" data-delay="200ms">Musik für die ganze Community</span>
+                                <h2 data-animation="fadeInUp" data-delay="300ms">Discord Musikbot</h2>
+                                <h6 data-animation="fadeInUp" data-delay="500ms">Hol dir BigTimeFM auf deinem eigenen Discord Server</h6>				
+								<div class="hero-btn-group" data-animation="fadeInUp" data-delay="700ms" style="animation-delay: 700ms;">
+									<a href="/musikbot" class="btn confer-btn">Jetzt einladen <i class="zmdi zmdi-long-arrow-right"></i></a>
+								</div>									
+                            </div>						
+                        </div>
+                    </div>
+                </div>
+            </div> 				
+        </div>       		
+        <!-- Scroll Icon -->
+        <div class="icon-scroll" id="scrollDown"></div>
+    </section>
+
+    <!-- Welcome Area End -->
+
+    <!-- About Us And Countdown Area Start -->
+    <section class="about-us-countdown-area section-padding-100-0" id="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-heading text-center wow fadeInUp" data-wow-delay="300ms">
+                        <p>Was dich erwartet</p>
+                        <h4>Mehr als nur Musik</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="row feature-grid">
+                <!-- Single We Offer Area -->
+                <div class="col-12 col-md-6 col-xl-4">
+                    <div class="single-we-offer-content text-center wow fadeInUp" data-wow-delay="0.3s">
+                        <!-- Icon -->
+                        <div class="offer-icon">
+                            <i class="fas fa-music"></i>
+                        </div>
+                        <h5>Verschiedene Musikrichtungen</h5>
+                        <p>Von Charts über EDM bis Hardstyle ist bei uns alles vertreten - Wir bieten jede Musikrichtung an!</p>
+                    </div>
+                </div>
+
+                <!-- Single We Offer Area -->
+                <div class="col-12 col-md-6 col-xl-4">
+                    <div class="single-we-offer-content text-center wow fadeInUp" data-wow-delay="0.38s">
+                        <!-- Icon -->
+                        <div class="offer-icon">
+                            <i class="fas fa-microphone-alt"></i>
+                        </div>
+                        <h5>Unterhaltung pur</h5>
+                        <p>Unsere Radiomoderatoren sorgen mit ihren Sendungen für ein maßgeschneidetertes Programm. Dank unseren DeeJays sorgen wir auch für das beste Clubfeeling!</p>
+                    </div>
+                </div>
+
+                <!-- Single We Offer Area -->
+                <div class="col-12 col-md-6 col-xl-4">
+                    <div class="single-we-offer-content text-center wow fadeInUp" data-wow-delay="0.46s">
+                        <!-- Icon -->
+                        <div class="offer-icon">
+                            <i class="fas fa-cogs"></i>
+                        </div>
+                        <h5>Technik</h5>
+                        <p>Durch unsere Streamtechnik kannst du dein eigenes Radio basierend auf BigTimeFM sowie deinem eigenen Programm mit wenig Mühe erstellen lassen. </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+	</section>
+
+    <!-- Our Speakings Area Start -->
+    <section class="our-speaker-area bg-img bg-gradient-overlay section-padding-100-60" style="background-image: url(img/bg-img/3.jpg);">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-heading text-center wow fadeInUp" data-wow-delay="300ms">
+                        <p>Abwechslung pur</p>
+                        <h4>Stammsendungen</h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row stamm-row">
+				
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div style="cursor: pointer;" onClick='swal("Hoch die Hände Wochenende mit Robin", "Eine Stunde feiern, mitsingen und abschalten bei Hoch die Hände Wochenende. Jede Sendung bringt die heißesten Party Songs direkt auf die Ohren. Von aktuellen Hits bis zu legendären Feier Klassikern sorgt Robin für den perfekten Soundtrack, um das Wochenende richtig einzuläuten.", "info")'  class="single-speaker-area bg-gradient-overlay-2 wow fadeInUp" data-wow-delay="300ms">
+                        <div class="speaker-single-thumb">
+                            <img src="../assets/img/stammsendungen/robin.png" alt="">
+                        </div>
+                        <div class="social-info">
+                            <p>Jeden Freitag von 20 bis 21 Uhr</p>
+							<p class="show-title">Hoch die Hände Wochenende <span>mit Robin</span></p>
+                        </div>
+                    </div>
+                </div>
+				
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div style="cursor: pointer;" onClick='swal("Drei Songs - Eine Story mit GalaxyFox", "Zwei Stunden, drei Songs, eine gute Story – das ist das Ding von GalaxyFox, immer am zweiten Dienstag. Erst gibt’s drei Songs am Stück auf die Ohren, danach erzählt GalaxyFox die Geschichte, die sie alle verbindet. Mal echt erlebt, mal kreativ gesponnen – aber immer mit Gefühl und viel Liebe zur Musik.", "info")'  class="single-speaker-area bg-gradient-overlay-2 wow fadeInUp" data-wow-delay="300ms">
+                        <div class="speaker-single-thumb">
+                            <img src="../assets/img/stammsendungen/galaxyfox_v3.png" alt="">
+                        </div>
+                        <div class="social-info">
+                            <p>Jeden 2. Dienstag von 18 bis 20 Uhr</p>
+							<p class="show-title">Drei Songs - Eine Story <span>mit GalaxyFox</span></p>
+                        </div>
+                    </div>
+                </div>
+			            </div>
+        </div>
+    </section>
+    <!-- Our Speakings Area End -->
+
+    <!-- Our Schedule Area Start -->
+    <section class="our-schedule-area section-padding-100">
+        <div class="container">
+            <div class="row">
+                <!-- Heading -->
+                <div class="col-12">
+                    <div class="section-heading-2 text-center wow fadeInUp" data-wow-delay="300ms">
+                        <p>Alles auf einem Blick</p>
+                        <h4>Sendeplan</h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="schedule-tab">
+                        <!-- Nav Tabs -->
+	                        <ul class="nav nav-tabs wow fadeInUp" data-wow-delay="300ms" id="conferScheduleTab" role="tablist">
+	                            <li class="nav-item">
+	                                <a class="nav-link active" id="monday-tab" data-toggle="tab" href="#step-one" role="tab" aria-controls="step-one" aria-expanded="true">Donnerstag <br> <span>05. November 2026</span></a>
+	                            </li>
+	                            <!-- Nav Item -->
+	                            <li class="nav-item">
+	                                <a class="nav-link" id="tuesday-tab" data-toggle="tab" href="#step-two" role="tab" aria-controls="step-two" aria-expanded="true">Freitag <br> <span>06. November 2026</span></a>
+	                            </li>
+	                            <!-- Nav Item -->
+	                            <li class="nav-item">
+	                                <a class="nav-link" id="wednesday-tab" data-toggle="tab" href="#step-three" role="tab" aria-controls="step-three" aria-expanded="true">Samstag <br> <span>07. November 2026</span></a>
+	                            </li>
+	                        </ul>
+                    </div>
+
+                    <!-- Tab Content -->
+                    <div class="tab-content" id="conferScheduleTabContent">
+                        <div class="tab-pane fade show active" id="step-one" role="tabpanel">
+                            <!-- Single Tab Content -->
+                            <div class="single-tab-content">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <!-- Single Schedule Area -->
+																				
+													<div class="single-schedule-area d-flex flex-wrap justify-content-between align-items-center">
+														<!-- Single Schedule Thumb and Info -->
+														<div class="single-schedule-tumb-info d-flex align-items-center">
+															<!-- Single Schedule Thumb -->
+															<div class="single-schedule-tumb">
+																<img style="max-width: 80px; max-height: 80px;" src="https://backend.bigtimefm.de/assets/img/avatare/Cooli_PdpSBI3b6pWGiiT7YasjltEoJ.png" alt="">
+															</div>
+															<!-- Single Schedule Info -->
+															<div class="single-schedule-info">
+																<h6>Auf der Zielgeraden ins Wochenende</h6>
+																<p>mit <span>Cooli</span></p>
+															</div>
+														</div>
+														<!-- Single Schedule Info -->
+														<div class="schedule-time-place">
+															<p><i class="zmdi zmdi-time"></i>20:00 bis 21:00 Uhr</p>
+															<p><i class="zmdi zmdi-playlist-audio"></i> Mixed</p>
+														</div>
+													</div>
+											                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="step-two" role="tabpanel">
+                            <!-- Single Tab Content -->
+                            <div class="single-tab-content">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <!-- Single Schedule Area -->
+																				
+													<div class="single-schedule-area d-flex flex-wrap justify-content-between align-items-center">
+														<!-- Single Schedule Thumb and Info -->
+														<div class="single-schedule-tumb-info d-flex align-items-center">
+															<!-- Single Schedule Thumb -->
+															<div class="single-schedule-tumb">
+																<img style="max-width: 80px; max-height: 80px;" src="https://backend.bigtimefm.de/assets/img/avatare/Robin_o2J762oLUEh3vEYjC2nih3HOG.jpg" alt="">
+															</div>
+															<!-- Single Schedule Info -->
+															<div class="single-schedule-info">
+																<h6>Hoch die Hände Wochenende</h6>
+																<p>mit <span>Robin</span></p>
+															</div>
+														</div>
+														<!-- Single Schedule Info -->
+														<div class="schedule-time-place">
+															<p><i class="zmdi zmdi-time"></i>20:00 bis 21:00 Uhr</p>
+															<p><i class="zmdi zmdi-playlist-audio"></i> Mixed</p>
+														</div>
+													</div>
+											                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="step-three" role="tabpanel">
+                            <!-- Single Tab Content -->
+                            <div class="single-tab-content">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <!-- Single Schedule Area -->
+																				
+													<div class="single-schedule-area d-flex flex-wrap justify-content-between align-items-center">
+														<!-- Single Schedule Thumb and Info -->
+														<div class="single-schedule-tumb-info d-flex align-items-center">
+															<!-- Single Schedule Thumb -->
+															<div class="single-schedule-tumb">
+																<img style="max-width: 80px; max-height: 80px;" src="https://backend.bigtimefm.de/assets/img/avatare/AkelaTheWolf_tWG1eBAfUx4XpsknhBnzdmbsq.png" alt="">
+															</div>
+															<!-- Single Schedule Info -->
+															<div class="single-schedule-info">
+																<h6>Night Vibes</h6>
+																<p>mit <span>AkelaTheWolf</span></p>
+															</div>
+														</div>
+														<!-- Single Schedule Info -->
+														<div class="schedule-time-place">
+															<p><i class="zmdi zmdi-time"></i>20:00 bis 21:00 Uhr</p>
+															<p><i class="zmdi zmdi-playlist-audio"></i> Mixed</p>
+														</div>
+													</div>
+											                                    </div>
+                                </div>
+                            </div>
+                        </div>
+						<div class="col-12">
+							<div class="more-schedule-btn text-center mt-50 wow fadeInUp" data-wow-delay="300ms">
+								<a style="color: white;" href="./sendeplan" class="btn confer-gb-btn">Mehr ansehen</a>
+							</div>
+						</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Our Schedule Area End -->
+
+    <section class="our-ticket-pricing-table-area bg-img bg-gradient-overlay section-padding-100-0 jarallax" style="background-image: url(img/bg-img/14.jpg); padding-bottom: 100px;">
+        <div class="container">
+        <div class="container">
+            <div class="row">
+                <!-- Heading -->
+                <div class="col-12">
+                    <div class="section-heading-2 text-center wow fadeInUp" data-wow-delay="300ms">
+                        <p style="color: white;">Kooperation? Kein Fremdwort</p>
+                        <h4>Unsere Partner</h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row align-items-center">
+                <div class="col-12 col-lg-8">
+                    <!-- Our Sponsor area -->
+                    <div class="our-sponsor-area d-flex flex-wrap">
+                        <!-- Single Sponsor -->
+							
+							<div class="single-sponsor wow fadeInUp" data-wow-delay="300ms">
+								<a target="_blank" href="https://bigtimefm.de/alexa"><img style="width: 155px;" src="../assets/img/partner/alexa_v4.png" alt=""></a>
+							</div>
+							
+							<div class="single-sponsor wow fadeInUp" data-wow-delay="300ms">
+								<a target="_blank" href="https://bigtimefm.de/radiode"><img style="width: 155px;" src="../assets/img/partner/radiode_v2.png" alt=""></a>
+							</div>
+							
+							<div class="single-sponsor wow fadeInUp" data-wow-delay="300ms">
+								<a target="_blank" href="https://bigtimefm.de/robloxpartner/"><img style="width: 155px;" src="../assets/img/partner/roblox.png" alt=""></a>
+							</div>
+							
+							<div class="single-sponsor wow fadeInUp" data-wow-delay="300ms">
+								<a target="_blank" href="https://bigtimefm.de/phonostar"><img style="width: 155px;" src="../assets/img/partner/phonostar_v2.png" alt=""></a>
+							</div>
+							
+							<div class="single-sponsor wow fadeInUp" data-wow-delay="300ms">
+								<a target="_blank" href="https://bigtimefm.de/tunein"><img style="width: 155px;" src="../assets/img/partner/tunein.png" alt=""></a>
+							</div>
+							
+							<div class="single-sponsor wow fadeInUp" data-wow-delay="300ms">
+								<a target="_blank" href="https://bigtimefm.de/applemusic"><img style="width: 155px;" src="../assets/img/partner/apple_v2.png" alt=""></a>
+							</div>
+							
+							<div class="single-sponsor wow fadeInUp" data-wow-delay="300ms">
+								<a target="_blank" href="https://www.djsoft.net/de/index.htm"><img style="width: 155px;" src="../assets/img/partner/radioboss.png" alt=""></a>
+							</div>
+							
+							<div class="single-sponsor wow fadeInUp" data-wow-delay="300ms">
+								<a target="_blank" href="https://eurotrucksimulator2.com"><img style="width: 155px;" src="../assets/img/partner/ets2.png" alt=""></a>
+							</div>
+						                    </div>
+                </div>
+                <div class="col-12 col-lg-4 partner-highlight-col wow fadeInUp" data-wow-delay="300ms">
+                    <img class="partner-highlight" src="../assets/img/levy/levy_summer.png" alt="Partner Highlight">
+                </div>				
+            </div>
+        </div>
+    </section>
+
+	<section class="home-faq-area section-padding-100-0">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<div class="section-heading-2 text-center wow fadeInUp" data-wow-delay="300ms">
+						<p>Kurz & Klar</p>
+						<h4>Häufige Fragen</h4>
+					</div>
+				</div>
+			</div>
+			<div class="faq-grid">
+				<details class="faq-item wow fadeInUp" data-wow-delay="300ms" open>
+					<summary>Wie kann ich einen Musikwunsch einsenden?</summary>
+					<div class="faq-answer">
+						<p>Nutze einfach unsere Wunschbox auf der Website. Alternativ kannst du auch jeden Musikbot von uns auf Discord mit !gruss anschreiben.</p>
+					</div>
+				</details>
+				<details class="faq-item wow fadeInUp" data-wow-delay="350ms">
+					<summary>Wieso funktioniert mein Musikbot nicht auf meinem Server?</summary>
+					<div class="faq-answer">
+						<p>Oft liegt es an einem kleinen Fehler bei der Einrichtung, melde dich doch gerne bei uns auf dem Discord - wir helfen dir weiter!</p>
+					</div>
+				</details>
+				<details class="faq-item wow fadeInUp" data-wow-delay="400ms">
+					<summary>Wo finde ich den aktuellen Sendeplan?</summary>
+					<div class="faq-answer">
+						<p>Im Menü unter "Sendeplan" findest du alle kommenden Shows mit Uhrzeit, DJ und Genre auf einen Blick.</p>
+					</div>
+				</details>
+				<details class="faq-item wow fadeInUp" data-wow-delay="450ms">
+					<summary>Wie verpasse ich keine Sendung meines Lieblings-DJs?</summary>
+					<div class="faq-answer">
+						<p>Mit dem Discordalarm kannst du einzelne DJs abonnieren und wirst automatisch benachrichtigt, sobald eine Sendung startet.</p>
+					</div>
+				</details>
+				<details class="faq-item wow fadeInUp" data-wow-delay="500ms">
+					<summary>Gibt es BigTimeFM auch für Discord?</summary>
+					<div class="faq-answer">
+						<p>Ja, über unseren Musikbot kannst du BigTimeFM direkt auf deinem eigenen Discord-Server nutzen.</p>
+					</div>
+				</details>
+				<details class="faq-item wow fadeInUp" data-wow-delay="550ms">
+					<summary>Wie kann ich beim Team mitmachen?</summary>
+					<div class="faq-answer">
+						<p>Am einfachsten geht es direkt über ein Ticket bei uns auf dem Discord, mehr Informationen findest du auch im Menü unter "Karriere".</p>
+					</div>
+				</details>
+			</div>
+		</div>
+	</section>
+
+</div>
+
+
+</div>
+﻿    <!-- Footer Area Start -->
+    <footer class="footer-area bg-img bg-overlay-2 section-padding-100-0 site-footer-facelift">
+        <!-- Main Footer Area -->
+        <div class="main-footer-area">
+            <div class="container">
+                <div class="footer-shell wow fadeInUp" data-wow-delay="200ms">
+                    <div class="row">
+                        <div class="col-12 col-lg-5">
+                            <div class="single-footer-widget footer-block">
+                                <a href="/" class="footer-logo"><img src="../assets/img/logo_white.png" alt="BigTimeFM"></a>
+                                <p class="footer-highlight-text">Mehr als nur Musik. Live-Radio, Community und die biggesten Beats im Netz.</p>
+                                <div class="social-info footer-social-list">
+                                    <a target="_blank" href="https://www.instagram.com/bigtimefm_de/"><i class="fab fa-instagram"></i></a>
+                                    <a target="_blank" href="./discord"><i class="fab fa-discord"></i></a>
+                                    <a target="_blank" href="https://www.tiktok.com/@bigtimefm_de"><i class="fab fa-tiktok"></i></a>
+                                    <a target="_blank" href="https://www.twitch.tv/bigtimefm"><i class="fab fa-twitch"></i></a>
+									<a target="_blank" href="/cdn-cgi/l/email-protection#c3aaada5ac83a1aaa4b7aaaea6a5aeeda7a6"><i class="fas fa-envelope"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6 col-lg-3">
+                            <div class="single-footer-widget footer-block">
+                                <h5 class="widget-title">Kontakt</h5>
+                                <div class="footer-contact-info">
+                                    <p>Wir verwenden zur Kommunikation ausschlie&szlig;lich Discord.</p>
+                                    <p><i class="zmdi zmdi-globe"></i> <a class="footer_link" target="_blank" href="./discord">bigtimefm.de/discord</a></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <div class="single-footer-widget footer-block">
+                                <h5 class="widget-title">Schnellzugriff</h5>
+                                <ul class="footer-nav">
+                                    <li><a href="./sendeplan">Sendeplan</a></li>
+                                    <li><a onClick='loadPage("wunschbox");'>Wunschbox</a></li>
+                                    <li><a onClick='loadPage("trackliste");'>Trackliste</a></li>
+                                    <li><a target="_blank" href="https://www.instagram.com/bigtimefm_de/">Instagram</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Copywrite Area -->
+        <div class="container">
+            <div class="copywrite-content footer-copywrite-modern">
+                <div class="row">
+                    <!-- Copywrite Text -->
+                    <div class="col-12 col-md-6">
+                        <div class="copywrite-text">
+                            <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+&copy; 2021 - 2026 BigTimeFM - Coded by <a href="https://djipgen.de" target="_blank">DJipgen</a> - All rights reserved
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+                        </div>
+                    </div>
+                    <!-- Footer Menu -->
+                    <div class="col-12 col-md-6">
+                        <div class="footer-menu">
+                            <ul class="nav">
+                                <li><a href="./datenschutz"><i class="zmdi zmdi-circle"></i> Datenschutzerklärung</a></li>
+                                <li><a href="./impressum"><i class="zmdi zmdi-circle"></i> Impressum</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer Area End -->
+	
+    <!-- **** All JS Files ***** -->
+    <!-- Popper -->
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="../assets/js/popper.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="../assets/js/bootstrap.min.js"></script>
+    <!-- All Plugins -->
+    <script src="../assets/js/confer.bundle.js?v=1.0"></script>
+    <!-- Active -->
+    <script src="../assets/js/default-assets/active.js?v=1.72"></script>
+
+    <!--<script src="../assets/js/jsbat.js"></script>
+    <script src="../assets/js/jsbat.js"></script>
+    <script src="../assets/js/jsbat.js"></script>
+    <script src="../assets/js/jsbat.js"></script>
+    <script src="../assets/js/jsbat.js"></script>-->
+	
+		<link rel="stylesheet" href="../assets/css/stickyaudioplayerjquery.min.css?v=1.48">
+		<link rel="stylesheet" href="../assets/css/stickyplayer-modern.css?v=2.44">
+		<script src="../assets/js/stickyaudioplayerjquery.min.js?v=1.79"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js" integrity="sha512-57oZ/vW8ANMjR/KQ6Be9v/+/h6bq9/l3f0Oc7vn6qMqyhvPd1cvKBRWWpzu0QoneImqr2SkmO4MSqU+RpHom3Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="../assets/js/wishbox.js?v=1.38"></script>
+	<script type="text/javascript" src="https://backend.bigtimefm.de/assets/js/minify_lastfm-autocomplete.js?v=2.4"></script>
+	<link href="https://backend.bigtimefm.de/assets/css/lastfm-autocomplete.css?v=2.1" media="screen" rel="stylesheet" type="text/css"/>
+		<script>
+
+   function openWishboxShortcut() {
+	   if (typeof window.loadPage === "function") {
+		   window.loadPage("wunschbox");
+		   return;
+	   }
+	   window.location.href = "/wunschbox";
+   }
+
+   function configureStickyDownloadAsWishbox() {
+	   var $btn = $(".stickyAudioPlayerBox .player-download .input-download");
+	   if (!$btn.length) {
+		   return false;
+	   }
+
+	   $btn.addClass("input-wishbox-shortcut");
+	   $btn.attr("title", "Zur Gruß- und Wunschbox");
+	   $btn.attr("aria-label", "Zur Gruß- und Wunschbox");
+
+	   if ($btn.is("input,button")) {
+		   $btn.val("");
+	   } else {
+		   $btn.text("");
+	   }
+
+	   if ($btn.is("a")) {
+		   $btn.attr("href", "#");
+	   }
+
+	   return true;
+   }
+
+   window.__btfmOnAirToastDismissedToken = window.__btfmOnAirToastDismissedToken || "";
+
+   function btfm_toast_plain_text(value) {
+	   return $("<div>").html(String(value || "")).text().replace(/\s+/g, " ").trim();
+   }
+
+   function btfm_escape_html(value) {
+	   return String(value || "")
+		   .replace(/&/g, "&amp;")
+		   .replace(/</g, "&lt;")
+		   .replace(/>/g, "&gt;")
+		   .replace(/"/g, "&quot;")
+		   .replace(/'/g, "&#039;");
+   }
+
+   function btfm_decode_html(value) {
+	   return $("<textarea/>").html(String(value || "")).text();
+   }
+
+   function show_btfm_onair_toast(title, message, imageUrl, token) {
+	   var plainTitle = btfm_toast_plain_text(title);
+	   var messageHtml = String(message || "");
+	   var plainMessage = btfm_toast_plain_text(messageHtml);
+	   var toastToken = String(token || (plainTitle + "|" + plainMessage));
+	   var dismissedToken = String(window.__btfmOnAirToastDismissedToken || "");
+	   var $container = $("#btfm_onair_toast-container");
+	   var $toast = $container.find(".btfm_onair_toast");
+
+	   if (dismissedToken && dismissedToken === toastToken) {
+		   return;
+	   }
+
+	   if ($toast.length) {
+		   var currentToastToken = String($toast.attr("data-toast-token") || "");
+		   if (currentToastToken === toastToken) {
+			   if (!$toast.hasClass("show")) {
+				   setTimeout(function () { $toast.addClass("show"); }, 20);
+			   }
+			   return;
+		   }
+		   $toast.attr("data-toast-token", toastToken);
+		   $toast.find("h4").text(plainTitle);
+		   $toast.find("p").html(messageHtml);
+		   $toast.find("img").attr("src", imageUrl || "");
+		   if (!$toast.hasClass("show")) {
+			   setTimeout(function () { $toast.addClass("show"); }, 20);
+		   }
+		   return;
+	   }
+
+	   $toast = $(
+		   '<div class="btfm_onair_toast" data-toast-token="' + toastToken + '">' +
+			   '<img src="' + (imageUrl || "") + '" alt="ON AIR">' +
+			   '<div class="btfm_onair_toast-content">' +
+				   "<h4></h4>" +
+				   "<p></p>" +
+			   "</div>" +
+			   '<button type="button" class="close-btn" aria-label="Toast schließen">&times;</button>' +
+		   "</div>"
+	   );
+
+	   $toast.find("h4").text(plainTitle);
+	   $toast.find("p").html(messageHtml);
+	   $container.append($toast);
+
+	   setTimeout(function () { $toast.addClass("show"); }, 20);
+
+	   $toast.find(".close-btn").on("click", function () {
+		   var currentToken = String($toast.attr("data-toast-token") || "");
+		   if (currentToken !== "") {
+			   window.__btfmOnAirToastDismissedToken = currentToken;
+		   }
+		   hide_btfm_onair_toast();
+	   });
+   }
+
+   function hide_btfm_onair_toast() {
+	   var $toast = $("#btfm_onair_toast-container .btfm_onair_toast");
+	   if (!$toast.length) {
+		   return;
+	   }
+
+	   $toast.removeClass("show");
+	   setTimeout(function () {
+		   $toast.remove();
+	   }, 340);
+   }
+
+   function btfm_set_text_if_changed(selector, value) {
+	   var $el = $(selector);
+	   var nextValue = String(value || "");
+	   if (!$el.length) {
+		   return;
+	   }
+	   if ($el.text() !== nextValue) {
+		   $el.text(nextValue);
+	   }
+   }
+	
+   function refresh_stats() {
+	   $.getJSON('https://backend.bigtimefm.de/api/index.php?output=radiostatus', function(radiostatus) {
+		var currentDj = btfm_decode_html(radiostatus.currentdj);
+		var songTitle = btfm_decode_html(radiostatus.songtitle);
+		var broadcastTitleDecoded = btfm_decode_html(radiostatus.broadcast_title);
+
+		btfm_set_text_if_changed('#currentDJ', currentDj);
+		btfm_set_text_if_changed('#songtitle', songTitle);
+		btfm_set_text_if_changed('#sendetitle', broadcastTitleDecoded);
+		if(radiostatus.twitch_isLive == 1) {
+			$('#livecam-btn').html("<a href='https://www.twitch.tv/bigtimefm' target='_blank'><div style='margin-left: 20px; margin-top: 20px;' class='livecambtn'><h1><i class='fa-brands fa-twitch'></i> Livecam</h1></div></a>");
+		}
+
+		if (radiostatus.is_live) {
+			$.getJSON("https://backend.bigtimefm.de/api/index.php?output=currentdj_avatar", function (t) {
+				var broadcastTitle = broadcastTitleDecoded || "Jetzt live bei BigTimeFM";
+				var toastToken = String(currentDj || "") + "|" + broadcastTitle;
+				var marqueeMessage = "<marquee>" + btfm_escape_html(broadcastTitle) + "</marquee>";
+				show_btfm_onair_toast(
+					"[🔴 ON AIR] " + String(currentDj || ""),
+					marqueeMessage,
+					"https://backend.bigtimefm.de/assets/img/avatare/" + t.avatar,
+					toastToken
+				);
+			});
+		} else {
+			hide_btfm_onair_toast();
+		}
+	   });
+
+	   refresh_cover();
+   }
+
+   function refresh_cover() {
+	   var $cover = $('#cover');
+	   if (!$cover.length) {
+		   return;
+	   }
+	   $cover.load("https://backend.bigtimefm.de/api/?output=coverimg");
+   }
+
+	var run, inline;
+	$(document).ready(function()
+	 {
+	  run = $('body').stickyAudioPlayer(
+	   {
+		 url:       'https://stream.bigtimefm.de/stream.mp3',
+		 position:  'bottom', //'bottom'|'top'|'inline'
+		 text:      'BigTimeFM Live',
+		 volume:    10,
+		 repeat:    false,
+		}
+	  );
+
+	  configureStickyDownloadAsWishbox();
+	  setTimeout(configureStickyDownloadAsWishbox, 350);
+	  setTimeout(configureStickyDownloadAsWishbox, 1200);
+
+	  refresh_stats();
+	  setTimeout(function () {
+		  if (
+			  $("#songtitle").text().indexOf("Loading") !== -1 ||
+			  $("#currentDJ").text().indexOf("Loading") !== -1 ||
+			  $("#sendetitle").text().indexOf("Loading") !== -1
+		  ) {
+			  refresh_stats();
+		  }
+	  }, 600);
+	  if (window.__btfmStatsIntervalId) {
+		  clearInterval(window.__btfmStatsIntervalId);
+	  }
+	  window.__btfmStatsIntervalId = setInterval(function () {
+		  refresh_stats();
+	  }, 10000);
+	  
+	  	});
+
+	$(document)
+		.off("click.btfmWishboxShortcut", ".stickyAudioPlayerBox .player-download .input-download")
+		.on("click.btfmWishboxShortcut", ".stickyAudioPlayerBox .player-download .input-download", function (event) {
+			event.preventDefault();
+			event.stopImmediatePropagation();
+			openWishboxShortcut();
+			return false;
+		});
+	</script>
+	<script>
+	(function () {
+		var $main = $("#maincontent");
+		if (!$main.length) {
+			return;
+		}
+
+		var allowedPages = {
+			homepage: true,
+			alexa_homepage: true,
+			karriere: true,
+			team: true,
+			mediadownloads: true,
+			partnerschaft: true,
+			sendeplan: true,
+			wunschbox: true,
+			trackliste: true,
+			discordalarm: true,
+			livecam: true,
+			datenschutz: true,
+			impressum: true
+		};
+
+		var routeMap = {
+			"/": "homepage",
+			"/index.php": "homepage",
+			"/karriere": "karriere",
+			"/team": "team",
+			"/mediadownloads": "mediadownloads",
+			"/partnerschaft": "partnerschaft",
+			"/sendeplan": "sendeplan",
+			"/wunschbox": "wunschbox",
+			"/trackliste": "trackliste",
+			"/discordalarm": "discordalarm",
+			"/livecam": "livecam",
+			"/datenschutz": "datenschutz",
+			"/impressum": "impressum"
+		};
+
+		var dynamicIntervals = [];
+		var nativeSetInterval = window.setInterval;
+
+		window.setInterval = function (handler, timeout) {
+			var id = nativeSetInterval(handler, timeout);
+			if (window.__btfmPjaxLoading === true) {
+				dynamicIntervals.push(id);
+			}
+			return id;
+		};
+
+		function hasOwn(obj, key) {
+			return Object.prototype.hasOwnProperty.call(obj, key);
+		}
+
+		function clearDynamicIntervals() {
+			var i;
+			for (i = 0; i < dynamicIntervals.length; i += 1) {
+				clearInterval(dynamicIntervals[i]);
+			}
+			dynamicIntervals = [];
+		}
+
+		function closeMobileMenuIfOpen() {
+			var $navContainer = $(".site-header-facelift .classy-nav-container");
+			var isMobileNav = window.matchMedia("(max-width: 991px)").matches || $navContainer.hasClass("breakpoint-on");
+			var $menu = $(".site-header-facelift .classy-menu");
+			var $toggler = $(".site-header-facelift .classy-navbar-toggler .navbarToggler");
+
+			if (!isMobileNav || !$menu.length || !$menu.hasClass("menu-on")) {
+				return;
+			}
+
+			$menu.removeClass("menu-on");
+			$toggler.removeClass("active");
+			$menu.find(".dropdown, .megamenu").stop(true, true).css("display", "none");
+			$menu.find("li").removeClass("active");
+			$menu.find(".dd-trigger").removeClass("active");
+		}
+
+		function normalizePath(pathname) {
+			var cleaned = pathname || "/";
+			cleaned = cleaned.replace(/\/+$/, "");
+			return cleaned === "" ? "/" : cleaned;
+		}
+
+		function getPageUrl(page) {
+			if (page === "homepage") {
+				return "/";
+			}
+			if (page === "alexa_homepage") {
+				return "/?page=alexa_homepage";
+			}
+			return "/" + page;
+		}
+
+		function resolveRoute(rawUrl) {
+			var urlObj;
+			var params;
+			var queryPage;
+			var pathname;
+			var page;
+			var onlyPageParam;
+
+			try {
+				urlObj = rawUrl instanceof URL ? rawUrl : new URL(rawUrl, window.location.href);
+			} catch (error) {
+				return null;
+			}
+
+			params = new URLSearchParams(urlObj.search);
+			queryPage = params.get("page");
+			if (queryPage && hasOwn(allowedPages, queryPage)) {
+				onlyPageParam = true;
+				params.forEach(function (value, key) {
+					if (key !== "page") {
+						onlyPageParam = false;
+					}
+				});
+				if (!onlyPageParam) {
+					return null;
+				}
+				return { page: queryPage, url: getPageUrl(queryPage) };
+			}
+
+			if (urlObj.search && urlObj.search.length > 0) {
+				return null;
+			}
+
+			pathname = normalizePath(urlObj.pathname);
+			if (!hasOwn(routeMap, pathname)) {
+				return null;
+			}
+
+			page = routeMap[pathname];
+			if (!hasOwn(allowedPages, page)) {
+				return null;
+			}
+
+			if (pathname === "/index.php") {
+				pathname = "/";
+			}
+
+			return { page: page, url: pathname };
+		}
+
+		function findAnchor(el) {
+			var node = el;
+			while (node && node !== document) {
+				if (node.tagName && node.tagName.toLowerCase() === "a") {
+					return node;
+				}
+				node = node.parentNode;
+			}
+			return null;
+		}
+
+		function shouldHandleAnchor(anchor, event) {
+			var href;
+			var target;
+			var urlObj;
+			var route;
+
+			if (!anchor) {
+				return false;
+			}
+
+			if (event.defaultPrevented || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) {
+				return false;
+			}
+
+			href = anchor.getAttribute("href");
+			if (!href || href === "#" || href.indexOf("javascript:") === 0 || href.indexOf("mailto:") === 0 || href.indexOf("tel:") === 0) {
+				return false;
+			}
+
+			target = anchor.getAttribute("target");
+			if (target && target.toLowerCase() !== "_self") {
+				return false;
+			}
+
+			if (anchor.hasAttribute("download")) {
+				return false;
+			}
+
+			try {
+				urlObj = new URL(anchor.href, window.location.href);
+			} catch (error) {
+				return false;
+			}
+
+			if (urlObj.origin !== window.location.origin) {
+				return false;
+			}
+
+			route = resolveRoute(urlObj);
+			return route !== null;
+		}
+
+		function initMainContentFeatures($scope) {
+			var $target = $scope && $scope.length ? $scope : $main;
+
+			if ($.fn.owlCarousel) {
+				$target.find(".welcome-slides").each(function () {
+					var $slider = $(this);
+					var isHomeFaceliftSlider = $slider.closest(".home-facelift").length > 0;
+
+					if ($slider.hasClass("owl-loaded")) {
+						$slider.trigger("destroy.owl.carousel");
+					}
+
+					$slider.off(".btfmPjax");
+					$slider.owlCarousel({
+						items: 1,
+						loop: true,
+						autoplay: true,
+						smartSpeed: isHomeFaceliftSlider ? 1300 : 1000,
+						autoplayTimeout: isHomeFaceliftSlider ? 9000 : 10000,
+						autoplayHoverPause: true,
+						animateOut: isHomeFaceliftSlider ? "fadeOut" : false,
+						animateIn: isHomeFaceliftSlider ? "fadeIn" : false,
+						nav: true,
+						navText: [('<i class="zmdi zmdi-chevron-left"></i>'), ('<i class="zmdi zmdi-chevron-right"></i>')]
+					});
+
+					$slider.on("translate.owl.carousel.btfmPjax", function () {
+						$slider.find("[data-animation]").each(function () {
+							var animName = $(this).data("animation");
+							$(this).removeClass("animated " + animName).css("opacity", "0");
+						});
+					});
+
+					$slider.find("[data-delay]").each(function () {
+						$(this).css("animation-delay", $(this).data("delay"));
+					});
+
+					$slider.find("[data-duration]").each(function () {
+						$(this).css("animation-duration", $(this).data("duration"));
+					});
+
+					$slider.on("translated.owl.carousel.btfmPjax", function () {
+						$slider.find(".owl-item.active").find("[data-animation]").each(function () {
+							var animName = $(this).data("animation");
+							$(this).addClass("animated " + animName).css("opacity", "1");
+						});
+					});
+				});
+			}
+
+			$target.find("#scrollDown").off("click.btfmPjax").on("click.btfmPjax", function () {
+				var $about = $("#about");
+				if ($about.length) {
+					$("html, body").animate({ scrollTop: $about.offset().top - 75 }, 800);
+				}
+			});
+
+			if ($.fn.counterUp) {
+				$target.find(".counter").counterUp({ delay: 10, time: 2000 });
+			}
+
+			if ($.fn.jarallax) {
+				$target.find(".jarallax").not(".welcome-slides .jarallax").jarallax({ speed: 0.5 });
+			}
+
+			if (window.innerWidth > 767 && typeof WOW === "function") {
+				if (!window.__btfmWowInstance) {
+					window.__btfmWowInstance = new WOW();
+					window.__btfmWowInstance.init();
+				} else if (typeof window.__btfmWowInstance.sync === "function") {
+					window.__btfmWowInstance.sync();
+				}
+			}
+
+			$target.find(".wow").css("visibility", "visible");
+		}
+
+		function loadIntoMain(page, url, pushState) {
+			if (!hasOwn(allowedPages, page)) {
+				window.location.href = url || "/";
+				return;
+			}
+
+			var partialUrl = "/index.php?partial=1&page=" + encodeURIComponent(page);
+
+			clearDynamicIntervals();
+			window.__btfmPjaxLoading = true;
+			$main.stop(true, true).fadeTo(120, 0.12);
+
+			$main.load(partialUrl, function (responseText, status) {
+				window.__btfmPjaxLoading = false;
+
+				if (status !== "success") {
+					window.location.href = url || getPageUrl(page);
+					return;
+				}
+
+				initMainContentFeatures($main);
+				if (page === "wunschbox" && typeof window.initWishboxPage === "function") {
+					window.initWishboxPage($main);
+				}
+				$main.fadeTo(180, 1);
+				window.scrollTo(0, 0);
+
+				if (pushState && window.history && window.history.pushState) {
+					window.history.pushState({ btfmPjax: true, page: page }, "", url || getPageUrl(page));
+				}
+
+				if (typeof refresh_stats === "function") {
+					refresh_stats();
+				}
+
+				scrubLegacyMobileMenuArtifacts();
+			});
+		}
+
+		document.addEventListener("click", function (event) {
+			var anchor = findAnchor(event.target);
+			var route;
+
+			if (!shouldHandleAnchor(anchor, event)) {
+				return;
+			}
+
+			route = resolveRoute(anchor.href);
+			if (!route) {
+				return;
+			}
+
+			event.preventDefault();
+			closeMobileMenuIfOpen();
+			loadIntoMain(route.page, route.url, true);
+		});
+
+		window.addEventListener("popstate", function () {
+			var route = resolveRoute(window.location.href);
+			if (!route) {
+				window.location.reload();
+				return;
+			}
+			loadIntoMain(route.page, route.url, false);
+		});
+
+		window.loadPage = function (page) {
+			var safePage = String(page || "").trim();
+			if (!hasOwn(allowedPages, safePage)) {
+				return;
+			}
+			closeMobileMenuIfOpen();
+			loadIntoMain(safePage, getPageUrl(safePage), true);
+		};
+
+		(function bootstrapState() {
+			var initial = resolveRoute(window.location.href);
+			if (!initial) {
+				return;
+			}
+			if (window.history && window.history.replaceState) {
+				window.history.replaceState({ btfmPjax: true, page: initial.page }, "", initial.url);
+			}
+		})();
+	})();
+	</script>
+
+</body>
+</html>
