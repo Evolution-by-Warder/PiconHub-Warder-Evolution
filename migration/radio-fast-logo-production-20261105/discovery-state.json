@@ -95717,7 +95717,8 @@
       "homepages": [
         "https://yujenbriag.be/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:3153:F08E:ED:0:0:0:0": {
       "name": "ZenFm",
@@ -95729,7 +95730,10 @@
       "homepages": [
         "https://zenfm.be/#home"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (35) OpenSSL/3.0.13: error:0A000438:SSL routines::tlsv1 alert internal error\n"
+      ]
     },
     "4097:0:2:7451:9A7F:ED:0:0:0:0": {
       "name": "Zen Garden (myNoise Radio)",
@@ -95741,7 +95745,66 @@
       "homepages": [
         "https://mynoise.net/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://mynoise.net/Pix/logo_256.png",
+        "final_url": "https://mynoise.net/Pix/logo_256.png",
+        "path": "originals/8445b61c7c5cacdfb6f3d1ba9b9dfcb94be71b678b64b8f65a744383002df8fc.img",
+        "sha256": "8445b61c7c5cacdfb6f3d1ba9b9dfcb94be71b678b64b8f65a744383002df8fc",
+        "bytes": 7344,
+        "dimensions": [
+          256,
+          256
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://mynoise.net/",
+        "final_url": "https://mynoise.net/",
+        "original_html_sha256": "a6d2471526064121e94963331f1bb0f01256a2066fa464dd6713890734de85bb",
+        "path": "page-evidence/a6d2471526064121e94963331f1bb0f01256a2066fa464dd6713890734de85bb.json",
+        "titles": [
+          "Custom Soundscapes for Focus, Relaxation & Sleep | myNoise ®",
+          "Focus & Productivity",
+          "Meditation & Relaxation",
+          "Sleep Aid",
+          "White Noise",
+          "Tinnitus Relief",
+          "Stress & Anxiety Relief",
+          "Overly Quiet Rooms",
+          "ADHD",
+          "Open-Space Offices",
+          "At Home",
+          "Baby Sleep",
+          "Relaxing Music",
+          "Brain Hacking",
+          "Daydreaming",
+          "Creative Workspaces",
+          "Enhanced Reading & Writing Experiences",
+          "Background Sounds for Game Masters",
+          "Overcome Depression",
+          "Sound Therapy",
+          "Mask Confidential Conversations",
+          "Pet Comfort",
+          "And you've barely scratched the surface...",
+          "About the Project",
+          "Help me help you"
+        ],
+        "image_urls": [
+          "https://mynoise.net/Pix/logo_256.png",
+          "https://mynoise.net/Pix/logo_atl.png",
+          "https://mynoise.net/Pix/logo_cbs.png"
+        ],
+        "named_logos": {
+          "https://mynoise.net/Pix/logo_256.png": "logo  ",
+          "https://mynoise.net/Pix/logo_wsj.png": "  ",
+          "https://mynoise.net/Pix/logo_atl.png": "  ",
+          "https://mynoise.net/Pix/logo_cnet.png": "  ",
+          "https://mynoise.net/Pix/logo_cbs.png": "  ",
+          "https://mynoise.net/Pix/logo_slate.png": "  "
+        }
+      },
+      "ocr_text": "‘ly\n"
     },
     "4097:0:2:A04F:283D:ED:0:0:0:0": {
       "name": "ZOE.radio",
@@ -95753,7 +95816,101 @@
       "homepages": [
         "https://www.zoe.radio/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://zoe.radio/images/logo-lang.svg",
+        "final_url": "https://zoe.radio/images/logo-lang.svg",
+        "path": "originals/d7ce043c14091ba3f9564b84eb9614e73735f44a83979c5447f314498b42a78b.img",
+        "sha256": "d7ce043c14091ba3f9564b84eb9614e73735f44a83979c5447f314498b42a78b",
+        "bytes": 9943,
+        "dimensions": [
+          640,
+          121
+        ],
+        "format": "SVG",
+        "frozen_svg_raster": {
+          "path": "rasterized/e7176d8ae4f6212e19699a95160252138726e2477d952b54283c2def55e0640a.png",
+          "sha256": "e7176d8ae4f6212e19699a95160252138726e2477d952b54283c2def55e0640a",
+          "cairosvg_version": "2.8.2"
+        }
+      },
+      "page": {
+        "url": "https://www.zoe.radio/",
+        "final_url": "https://zoe.radio/",
+        "original_html_sha256": "62d69ff7f93804f5994cf21201a040a8c810819befbcba26c522e87b7ced46a8",
+        "path": "page-evidence/62d69ff7f93804f5994cf21201a040a8c810819befbcba26c522e87b7ced46a8.json",
+        "titles": [
+          "ZOE.radio - de jaren '60 zijn van ons",
+          "Welkom terug in de jaren  '60 !"
+        ],
+        "image_urls": [
+          "https://zoe.radio/images/logo-lang.svg",
+          "https://zoe.radio/images/logo-vierkant.png?v=2",
+          "https://zoe.radio/images/logo-vierkant.svg"
+        ],
+        "named_logos": {
+          "https://zoe.radio/images/logo-vierkant.svg": "ZOE.radio - de jaren '60 zijn van ons  ",
+          "https://zoe.radio/images/logo-vierkant.png?v=2": "  ",
+          "https://zoe.radio/images/logo-lang.svg": "ZOE.radio  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/6d6f2adb106e15ea3343916d5ef66a25b2e49e7945e2f3edf32832b90c413e60.png",
+          "sha256": "6d6f2adb106e15ea3343916d5ef66a25b2e49e7945e2f3edf32832b90c413e60",
+          "bytes": 1377
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/0c8a4841fa1503180c9d1163f9c1c0e8281b9a081888f417c8d0a8125a2d5526.png",
+          "sha256": "0c8a4841fa1503180c9d1163f9c1c0e8281b9a081888f417c8d0a8125a2d5526",
+          "bytes": 11092
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/5fe57961667accdd181b92ab299168b426f68e744770e75a801989db9a659552.png",
+          "sha256": "5fe57961667accdd181b92ab299168b426f68e744770e75a801989db9a659552",
+          "bytes": 35823
+        },
+        "50x30/white": {
+          "path": "verified-assets/e702b69c2b2ee7ba30cc341664d37017b31274aead4cd64ab7baa2e62dddc67f.png",
+          "sha256": "e702b69c2b2ee7ba30cc341664d37017b31274aead4cd64ab7baa2e62dddc67f",
+          "bytes": 2928
+        },
+        "220x132/white": {
+          "path": "verified-assets/34e89b935848982f2fbdae009a8e287f4e4b39f7fa6d9ea5dbaf360961ce2825.png",
+          "sha256": "34e89b935848982f2fbdae009a8e287f4e4b39f7fa6d9ea5dbaf360961ce2825",
+          "bytes": 38336
+        },
+        "400x240/white": {
+          "path": "verified-assets/f566099fbf27a31c600e040b76de573c80eef497a9ff503a1df85e28ce98a3e4.png",
+          "sha256": "f566099fbf27a31c600e040b76de573c80eef497a9ff503a1df85e28ce98a3e4",
+          "bytes": 98768
+        },
+        "50x30/black": {
+          "path": "verified-assets/3c65a552643d63ae6ad6b55285cea2c27bd591e27d08245167414bb883a0f9a3.png",
+          "sha256": "3c65a552643d63ae6ad6b55285cea2c27bd591e27d08245167414bb883a0f9a3",
+          "bytes": 2890
+        },
+        "220x132/black": {
+          "path": "verified-assets/fe9588560a35b980558cb3b499bb743153c385b5d2ea408a156da6832a6d1a6b.png",
+          "sha256": "fe9588560a35b980558cb3b499bb743153c385b5d2ea408a156da6832a6d1a6b",
+          "bytes": 36004
+        },
+        "400x240/black": {
+          "path": "verified-assets/a7a7e2a1e7dd1f05c8f5ba4dc31f9167e6dee86a2510600cce82caa23b89e82e.png",
+          "sha256": "a7a7e2a1e7dd1f05c8f5ba4dc31f9167e6dee86a2510600cce82caa23b89e82e",
+          "bytes": 88974
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "ZOE.radio  ",
+        "matched_brand_keys": [
+          "zoe"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:5581:2A4C:ED:0:0:0:0": {
       "name": "Radio Zuidrand",
@@ -95765,7 +95922,97 @@
       "homepages": [
         "https://www.radiozuidrand.be/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://i0.wp.com/cdn.onlineradiobox.com/img/logo/2/91292.v1.png?w=800",
+        "final_url": "https://i0.wp.com/cdn.onlineradiobox.com/img/logo/2/91292.v1.png?w=800",
+        "path": "originals/d4eef692cc3bd403c99a75d306903fc385c6fecb936445a53bec9d510f3a86ef.img",
+        "sha256": "d4eef692cc3bd403c99a75d306903fc385c6fecb936445a53bec9d510f3a86ef",
+        "bytes": 2941,
+        "dimensions": [
+          160,
+          85
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://www.radiozuidrand.be/",
+        "final_url": "https://www.radiozuidrand.be/",
+        "original_html_sha256": "63284884af9708556203667cca56afb47223d6e8ccb7b879b43ebf059cd51995",
+        "path": "page-evidence/63284884af9708556203667cca56afb47223d6e8ccb7b879b43ebf059cd51995.json",
+        "titles": [
+          "Radio Zuidrand - Nieuws uit de Antwerpse Zuidrand & Rupelstreek",
+          "\r\n\t\t\t\t\t\t\t\t Radio Zuidrand \r\n\t\t\t\t\t\t\t"
+        ],
+        "image_urls": [
+          "https://i0.wp.com/cdn.onlineradiobox.com/img/logo/2/91292.v1.png?w=800",
+          "https://i0.wp.com/www.radiozuidrand.be/wp-content/uploads/2020/10/new-logo-full.jpg?fit=828%2C307&ssl=1",
+          "https://i0.wp.com/www.radiozuidrand.be/wp-content/uploads/2023/11/radiozuidrand.png?fit=945%2C170&ssl=1"
+        ],
+        "named_logos": {
+          "https://i0.wp.com/www.radiozuidrand.be/wp-content/uploads/2023/11/radiozuidrand.png?fit=945%2C170&ssl=1": "Radio Zuidrand  ",
+          "https://www.radiozuidrand.be/wp-content/uploads/2024/11/radiozuidfmlogo.jpg": "  ",
+          "https://i0.wp.com/cdn.onlineradiobox.com/img/logo/2/91292.v1.png?w=800": "Radio Zuidrand  ",
+          "https://i0.wp.com/www.radiozuidrand.be/wp-content/uploads/2020/10/new-logo-full.jpg?fit=828%2C307&ssl=1": "  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/57fb576b41975951c71798ca1d881351577b6c24af43d52abbbd326bd358006d.png",
+          "sha256": "57fb576b41975951c71798ca1d881351577b6c24af43d52abbbd326bd358006d",
+          "bytes": 962
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/2f56d4bda7f2f2bd8f21ee16a672cde370f9d4f5b73ccdd14a523a610a003984.png",
+          "sha256": "2f56d4bda7f2f2bd8f21ee16a672cde370f9d4f5b73ccdd14a523a610a003984",
+          "bytes": 6557
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/cd0489d22f995f0305af4c177d1442a4cef24b93eb9686dc9c037265211a3255.png",
+          "sha256": "cd0489d22f995f0305af4c177d1442a4cef24b93eb9686dc9c037265211a3255",
+          "bytes": 21320
+        },
+        "50x30/white": {
+          "path": "verified-assets/5489bcaf546e7a7650ae3c11893e1a9e55a13e2e4aa57cfb5e44cd3f3abdfc3e.png",
+          "sha256": "5489bcaf546e7a7650ae3c11893e1a9e55a13e2e4aa57cfb5e44cd3f3abdfc3e",
+          "bytes": 2083
+        },
+        "220x132/white": {
+          "path": "verified-assets/b55d6fc5f2b8596223df42b43f40575dca35369d197aea7fafc2cf787d000cf0.png",
+          "sha256": "b55d6fc5f2b8596223df42b43f40575dca35369d197aea7fafc2cf787d000cf0",
+          "bytes": 26694
+        },
+        "400x240/white": {
+          "path": "verified-assets/96fdf6d12bb1e466b262beba7c61ad039c75bece2a253278483aa1d1ed69d031.png",
+          "sha256": "96fdf6d12bb1e466b262beba7c61ad039c75bece2a253278483aa1d1ed69d031",
+          "bytes": 71304
+        },
+        "50x30/black": {
+          "path": "verified-assets/e96fe0b16c606aac8ecd0a14cb9df7c2009b4e31e0035ba2e05c6db896cceddb.png",
+          "sha256": "e96fe0b16c606aac8ecd0a14cb9df7c2009b4e31e0035ba2e05c6db896cceddb",
+          "bytes": 2309
+        },
+        "220x132/black": {
+          "path": "verified-assets/610c11f9e40e9fa53cc229fc8a09ecfe303f0a50d40a0418272070564305a812.png",
+          "sha256": "610c11f9e40e9fa53cc229fc8a09ecfe303f0a50d40a0418272070564305a812",
+          "bytes": 25460
+        },
+        "400x240/black": {
+          "path": "verified-assets/2096375bf4f60f1266cd31e2215691efa63ed1764e5cd003ce5a87be9fd7df9f.png",
+          "sha256": "2096375bf4f60f1266cd31e2215691efa63ed1764e5cd003ce5a87be9fd7df9f",
+          "bytes": 67534
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Radio Zuidrand  ",
+        "matched_brand_keys": [
+          "zuidrand"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:3831:8559:ED:0:0:0:0": {
       "name": "Radio Zuidrand - Hove, be",
@@ -95777,7 +96024,97 @@
       "homepages": [
         "http://www.radiozuidrand.be/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://i0.wp.com/cdn.onlineradiobox.com/img/logo/2/91292.v1.png?w=800",
+        "final_url": "https://i0.wp.com/cdn.onlineradiobox.com/img/logo/2/91292.v1.png?w=800",
+        "path": "originals/d4eef692cc3bd403c99a75d306903fc385c6fecb936445a53bec9d510f3a86ef.img",
+        "sha256": "d4eef692cc3bd403c99a75d306903fc385c6fecb936445a53bec9d510f3a86ef",
+        "bytes": 2941,
+        "dimensions": [
+          160,
+          85
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "http://www.radiozuidrand.be/",
+        "final_url": "https://www.radiozuidrand.be/",
+        "original_html_sha256": "50069b4f613d80f5eb4eb3e204164a55fa7a51ed0e1c2fd4e116ecbade0eb6f7",
+        "path": "page-evidence/50069b4f613d80f5eb4eb3e204164a55fa7a51ed0e1c2fd4e116ecbade0eb6f7.json",
+        "titles": [
+          "Radio Zuidrand - Nieuws uit de Antwerpse Zuidrand & Rupelstreek",
+          "\r\n\t\t\t\t\t\t\t\t Radio Zuidrand \r\n\t\t\t\t\t\t\t"
+        ],
+        "image_urls": [
+          "https://i0.wp.com/cdn.onlineradiobox.com/img/logo/2/91292.v1.png?w=800",
+          "https://i0.wp.com/www.radiozuidrand.be/wp-content/uploads/2020/10/new-logo-full.jpg?fit=828%2C307&ssl=1",
+          "https://i0.wp.com/www.radiozuidrand.be/wp-content/uploads/2023/11/radiozuidrand.png?fit=945%2C170&ssl=1"
+        ],
+        "named_logos": {
+          "https://i0.wp.com/www.radiozuidrand.be/wp-content/uploads/2023/11/radiozuidrand.png?fit=945%2C170&ssl=1": "Radio Zuidrand  ",
+          "https://www.radiozuidrand.be/wp-content/uploads/2024/11/radiozuidfmlogo.jpg": "  ",
+          "https://i0.wp.com/cdn.onlineradiobox.com/img/logo/2/91292.v1.png?w=800": "Radio Zuidrand  ",
+          "https://i0.wp.com/www.radiozuidrand.be/wp-content/uploads/2020/10/new-logo-full.jpg?fit=828%2C307&ssl=1": "  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/57fb576b41975951c71798ca1d881351577b6c24af43d52abbbd326bd358006d.png",
+          "sha256": "57fb576b41975951c71798ca1d881351577b6c24af43d52abbbd326bd358006d",
+          "bytes": 962
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/2f56d4bda7f2f2bd8f21ee16a672cde370f9d4f5b73ccdd14a523a610a003984.png",
+          "sha256": "2f56d4bda7f2f2bd8f21ee16a672cde370f9d4f5b73ccdd14a523a610a003984",
+          "bytes": 6557
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/cd0489d22f995f0305af4c177d1442a4cef24b93eb9686dc9c037265211a3255.png",
+          "sha256": "cd0489d22f995f0305af4c177d1442a4cef24b93eb9686dc9c037265211a3255",
+          "bytes": 21320
+        },
+        "50x30/white": {
+          "path": "verified-assets/5489bcaf546e7a7650ae3c11893e1a9e55a13e2e4aa57cfb5e44cd3f3abdfc3e.png",
+          "sha256": "5489bcaf546e7a7650ae3c11893e1a9e55a13e2e4aa57cfb5e44cd3f3abdfc3e",
+          "bytes": 2083
+        },
+        "220x132/white": {
+          "path": "verified-assets/b55d6fc5f2b8596223df42b43f40575dca35369d197aea7fafc2cf787d000cf0.png",
+          "sha256": "b55d6fc5f2b8596223df42b43f40575dca35369d197aea7fafc2cf787d000cf0",
+          "bytes": 26694
+        },
+        "400x240/white": {
+          "path": "verified-assets/96fdf6d12bb1e466b262beba7c61ad039c75bece2a253278483aa1d1ed69d031.png",
+          "sha256": "96fdf6d12bb1e466b262beba7c61ad039c75bece2a253278483aa1d1ed69d031",
+          "bytes": 71304
+        },
+        "50x30/black": {
+          "path": "verified-assets/e96fe0b16c606aac8ecd0a14cb9df7c2009b4e31e0035ba2e05c6db896cceddb.png",
+          "sha256": "e96fe0b16c606aac8ecd0a14cb9df7c2009b4e31e0035ba2e05c6db896cceddb",
+          "bytes": 2309
+        },
+        "220x132/black": {
+          "path": "verified-assets/610c11f9e40e9fa53cc229fc8a09ecfe303f0a50d40a0418272070564305a812.png",
+          "sha256": "610c11f9e40e9fa53cc229fc8a09ecfe303f0a50d40a0418272070564305a812",
+          "bytes": 25460
+        },
+        "400x240/black": {
+          "path": "verified-assets/2096375bf4f60f1266cd31e2215691efa63ed1764e5cd003ce5a87be9fd7df9f.png",
+          "sha256": "2096375bf4f60f1266cd31e2215691efa63ed1764e5cd003ce5a87be9fd7df9f",
+          "bytes": 67534
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Radio Zuidrand  ",
+        "matched_brand_keys": [
+          "zuidrand"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:CDCF:3FCC:ED:0:0:0:0": {
       "name": "ZZRock",
@@ -95789,7 +96126,42 @@
       "homepages": [
         "https://www.zzrock.be/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://static.wixstatic.com/media/d12c0e_725a55715daf45b5893c2322b40a8ec1~mv2.png/v1/fill/w_132,h_55,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/502px-Logo_of_YouTube_(2015-2017)_svg.png",
+        "final_url": "https://static.wixstatic.com/media/d12c0e_725a55715daf45b5893c2322b40a8ec1~mv2.png/v1/fill/w_132,h_55,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/502px-Logo_of_YouTube_(2015-2017)_svg.png",
+        "path": "originals/577de913c40cdec4a357cf73ced00774c9c89ff369458e2a7681a317e2e413e7.img",
+        "sha256": "577de913c40cdec4a357cf73ced00774c9c89ff369458e2a7681a317e2e413e7",
+        "bytes": 6460,
+        "dimensions": [
+          132,
+          55
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://www.zzrock.be/",
+        "final_url": "https://www.zzrock.be/",
+        "original_html_sha256": "344485a729afc03153b261b205009a0b7eb1caf60bd9b6eee225162ff384ac10",
+        "path": "page-evidence/344485a729afc03153b261b205009a0b7eb1caf60bd9b6eee225162ff384ac10.json",
+        "titles": [
+          "Rockmusic | Zzrock | België",
+          "Sten Veiths Live @ ZZAcoustics!",
+          "     Iris L'Or     ",
+          "    Zj Sven-V    ",
+          "     Seppe en Koen PA     ",
+          "   Copyrights and legal: Axtran BV, Verboekt 115 bus 26, 2430 Laakdal-Vorst, Belgium. VAT: BE0745379870   "
+        ],
+        "image_urls": [
+          "https://static.wixstatic.com/media/d12c0e_725a55715daf45b5893c2322b40a8ec1~mv2.png/v1/fill/w_132,h_55,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/502px-Logo_of_YouTube_(2015-2017)_svg.png",
+          "https://static.wixstatic.com/media/4e31c3_561a79570eda4b8bb1da82198cd81a06%7Emv2.jpg/v1/fill/w_180%2Ch_180%2Clg_1%2Cusm_0.66_1.00_0.01/4e31c3_561a79570eda4b8bb1da82198cd81a06%7Emv2.jpg",
+          "https://static.wixstatic.com/media/4e31c3_561a79570eda4b8bb1da82198cd81a06%7Emv2.jpg/v1/fill/w_192%2Ch_192%2Clg_1%2Cusm_0.66_1.00_0.01/4e31c3_561a79570eda4b8bb1da82198cd81a06%7Emv2.jpg"
+        ],
+        "named_logos": {
+          "https://static.wixstatic.com/media/d12c0e_725a55715daf45b5893c2322b40a8ec1~mv2.png/v1/fill/w_132,h_55,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/502px-Logo_of_YouTube_(2015-2017)_svg.png": "502px-Logo_of_YouTube_(2015-2017).svg.png  "
+        }
+      },
+      "ocr_text": "You\n"
     },
     "4097:0:2:6134:57E:ED:0:0:0:0": {
       "name": "Krem Radio",
@@ -95801,7 +96173,37 @@
       "homepages": [
         "http://www.krembz.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://i0.wp.com/www.krembz.com/wp-content/uploads/2023/04/cropped-favicon.png?fit=180%2C180&ssl=1",
+        "final_url": "https://i0.wp.com/www.krembz.com/wp-content/uploads/2023/04/cropped-favicon.png?fit=180%2C180&ssl=1",
+        "path": "originals/2b846ec3eb251aa35f67799b8d3b9d9bb4e2ae6e1baa0126d6479525e8f8c86d.img",
+        "sha256": "2b846ec3eb251aa35f67799b8d3b9d9bb4e2ae6e1baa0126d6479525e8f8c86d",
+        "bytes": 4557,
+        "dimensions": [
+          180,
+          180
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "http://www.krembz.com/",
+        "final_url": "https://www.krembz.com/",
+        "original_html_sha256": "b46a0e947c65ed9e89c511c736f833d314669a6618a963f3fd2883b5834efee2",
+        "path": "page-evidence/b46a0e947c65ed9e89c511c736f833d314669a6618a963f3fd2883b5834efee2.json",
+        "titles": [
+          "Krem FM – Belize Radio Station"
+        ],
+        "image_urls": [
+          "https://www.krembz.com/wp-content/uploads/2023/04/Krem-Belize-Logo.png",
+          "https://i0.wp.com/www.krembz.com/wp-content/uploads/2023/04/cropped-favicon.png?fit=180%2C180&ssl=1",
+          "https://i0.wp.com/www.krembz.com/wp-content/uploads/2023/04/cropped-favicon.png?fit=192%2C192&ssl=1"
+        ],
+        "named_logos": {
+          "https://www.krembz.com/wp-content/uploads/2023/04/Krem-Belize-Logo.png": "  "
+        }
+      },
+      "ocr_text": "re\n"
     },
     "4097:0:2:1069:30A6:ED:0:0:0:0": {
       "name": "Riddim Radio",
@@ -95813,7 +96215,92 @@
       "homepages": [
         "https://riddimradio.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://riddimradio.com/uploads/6706d00312d96/site/1777217627_ef6f0bae49c0311848c7.png?v=1.3.186",
+        "final_url": "https://riddimradio.com/uploads/6706d00312d96/site/1777217627_ef6f0bae49c0311848c7.png?v=1.3.186",
+        "path": "originals/c3d62b79b744ec95bddca7a8992b67c4584192ae7736022ace4792f98844a481.img",
+        "sha256": "c3d62b79b744ec95bddca7a8992b67c4584192ae7736022ace4792f98844a481",
+        "bytes": 159461,
+        "dimensions": [
+          300,
+          300
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://riddimradio.com/",
+        "final_url": "https://riddimradio.com/",
+        "original_html_sha256": "5fd6fd093d05052298315134fb3824170f1ff0311460b14c479e886990d20520",
+        "path": "page-evidence/5fd6fd093d05052298315134fb3824170f1ff0311460b14c479e886990d20520.json",
+        "titles": [
+          "RiddimRadio.com - Home",
+          "Your  Radio  Anywhere, Anytime"
+        ],
+        "image_urls": [
+          "https://riddimradio.com/uploads/6706d00312d96/site/1777217627_ef6f0bae49c0311848c7.png?v=1.3.186"
+        ],
+        "named_logos": {
+          "https://riddimradio.com/uploads/6706d00312d96/site/1777217627_ef6f0bae49c0311848c7.png?v=1.3.186": "RiddimRadio.com  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/ecbf8586bbed4b1466c2188846ce9c174559b5ce95fece273170895c7cbcf15b.png",
+          "sha256": "ecbf8586bbed4b1466c2188846ce9c174559b5ce95fece273170895c7cbcf15b",
+          "bytes": 1821
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/b7b9561b633fe7a5c315f6899b0eac31cbf1bdb9d3e167fc2f9d19896e303686.png",
+          "sha256": "b7b9561b633fe7a5c315f6899b0eac31cbf1bdb9d3e167fc2f9d19896e303686",
+          "bytes": 22344
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/80ccd71802f98441750035acad70b27e6923b2cbb673c85c27e146de44618de7.png",
+          "sha256": "80ccd71802f98441750035acad70b27e6923b2cbb673c85c27e146de44618de7",
+          "bytes": 60958
+        },
+        "50x30/white": {
+          "path": "verified-assets/588ddb2043fe66ae350f36e27ba56191ed9240e2f98f8f2be95bde2f844f97f6.png",
+          "sha256": "588ddb2043fe66ae350f36e27ba56191ed9240e2f98f8f2be95bde2f844f97f6",
+          "bytes": 3034
+        },
+        "220x132/white": {
+          "path": "verified-assets/fef745a211be611f3427f9f8688923dee275e66d2acd799adba20582209b3914.png",
+          "sha256": "fef745a211be611f3427f9f8688923dee275e66d2acd799adba20582209b3914",
+          "bytes": 43706
+        },
+        "400x240/white": {
+          "path": "verified-assets/275d0ec1e1e4d5620738283bc2f48ed3a9419c1ef5d14621481c985e2edee079.png",
+          "sha256": "275d0ec1e1e4d5620738283bc2f48ed3a9419c1ef5d14621481c985e2edee079",
+          "bytes": 113276
+        },
+        "50x30/black": {
+          "path": "verified-assets/30bff7ab0521a29c9bad7a84add57f0851714ca2e20529c84aaec0455d3942f0.png",
+          "sha256": "30bff7ab0521a29c9bad7a84add57f0851714ca2e20529c84aaec0455d3942f0",
+          "bytes": 3234
+        },
+        "220x132/black": {
+          "path": "verified-assets/2f357d942e1ba1fa0b350f541ed6de452882cb7660dc095551c892aad5f3e40d.png",
+          "sha256": "2f357d942e1ba1fa0b350f541ed6de452882cb7660dc095551c892aad5f3e40d",
+          "bytes": 42803
+        },
+        "400x240/black": {
+          "path": "verified-assets/f15f3b8fb93d671300ec148970fb792b34776e8479339c57ce4e517709beb657.png",
+          "sha256": "f15f3b8fb93d671300ec148970fb792b34776e8479339c57ce4e517709beb657",
+          "bytes": 110557
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "RiddimRadio.com  ",
+        "matched_brand_keys": [
+          "riddim"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:BEB8:9812:ED:0:0:0:0": {
       "name": "Radio Cotonou 94.3",
@@ -95835,7 +96322,8 @@
       "homepages": [
         "https://srtb.bj/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:8560:82F4:ED:0:0:0:0": {
       "name": "ORTB Radio Parakou",
@@ -95847,7 +96335,10 @@
       "homepages": [
         "https://ortb.bj/radioparakou.html"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Resolving timed out after 3003 milliseconds\n"
+      ]
     },
     "4097:0:2:6D09:9429:ED:0:0:0:0": {
       "name": "dr_dick's dub shack",
@@ -95860,7 +96351,8 @@
         "http://drdicksdubshack.com/",
         "https://drdicksdubshack.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:1B04:B9B:ED:0:0:0:0": {
       "name": "Irie 98 FM",
@@ -95872,7 +96364,38 @@
       "homepages": [
         "https://www.irie98.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://www.irie98.com/wp-content/uploads/2025/04/fav-100x100.png",
+        "final_url": "https://www.irie98.com/wp-content/uploads/2025/04/fav-100x100.png",
+        "path": "originals/85a9b86ac43cb5a9cfd8cb7434323e0c8dfb68b8b4d423abd22ec56e6f5ff15c.img",
+        "sha256": "85a9b86ac43cb5a9cfd8cb7434323e0c8dfb68b8b4d423abd22ec56e6f5ff15c",
+        "bytes": 4462,
+        "dimensions": [
+          100,
+          100
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://www.irie98.com/",
+        "final_url": "https://www.irie98.com/",
+        "original_html_sha256": "2da32facc815c7a1b6adf48e583f664344275a0db24fa2b793d0004ab07604be",
+        "path": "page-evidence/2da32facc815c7a1b6adf48e583f664344275a0db24fa2b793d0004ab07604be.json",
+        "titles": [
+          "IRIE 98 FM – Bermuda's Feel Good Station"
+        ],
+        "image_urls": [
+          "https://www.irie98.com/wp-content/themes/sjdw-theme/assets/images/logo.svg",
+          "https://www.irie98.com/wp-content/uploads/2025/03/logo-footer.png",
+          "https://www.irie98.com/wp-content/uploads/2025/04/fav-100x100.png"
+        ],
+        "named_logos": {
+          "https://www.irie98.com/wp-content/themes/sjdw-theme/assets/images/logo.svg": "IRIE 98 FM  ",
+          "https://www.irie98.com/wp-content/uploads/2025/03/logo-footer.png": "  "
+        }
+      },
+      "ocr_text": ""
     },
     "4097:0:2:5982:BDF8:ED:0:0:0:0": {
       "name": "Bhutan Broadcasting Service",
@@ -95884,7 +96407,37 @@
       "homepages": [
         "https://www.bbs.bt/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://www.bbs.bt/wp-content/uploads/2024/09/logo-without-HD-512-by-512-1-e1726033023845.png",
+        "final_url": "https://www.bbs.bt/wp-content/uploads/2024/09/logo-without-HD-512-by-512-1-e1726033023845.png",
+        "path": "originals/01f88dfe70e2083b9973eab980430709d1a6c2ba30745dd5adf07de6ead7161b.img",
+        "sha256": "01f88dfe70e2083b9973eab980430709d1a6c2ba30745dd5adf07de6ead7161b",
+        "bytes": 10569,
+        "dimensions": [
+          176,
+          109
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://www.bbs.bt/",
+        "final_url": "https://www.bbs.bt/",
+        "original_html_sha256": "53f75cb815ffaca6df8d79962482dcca89c5a0d8269cc7bce95c26556551f562",
+        "path": "page-evidence/53f75cb815ffaca6df8d79962482dcca89c5a0d8269cc7bce95c26556551f562.json",
+        "titles": [
+          "Bhutan Broadcasting Service (BBSCL)"
+        ],
+        "image_urls": [
+          "https://www.bbs.bt/wp-content/uploads/2024/09/logo-without-HD-512-by-512-1-e1726033023845.png",
+          "https://www.bbs.bt/wp-content/uploads/2024/09/weblogo-300x300.webp",
+          "https://www.bbs.bt/wp-content/uploads/2024/09/weblogo-75x75.webp"
+        ],
+        "named_logos": {
+          "https://www.bbs.bt/wp-content/uploads/2024/09/logo-without-HD-512-by-512-1-e1726033023845.png": "BBSCL logo  "
+        }
+      },
+      "ocr_text": "EY,\n"
     },
     "4097:0:2:A2B5:B5A2:ED:0:0:0:0": {
       "name": "RADIO 24 DE JULIO 97.1 FM VILLA MONTES - TRAIJA",
@@ -95907,7 +96460,95 @@
         "https://radioacer.com/",
         "https://www.radioacer.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://radioacer.com/wp-content/uploads/2025/11/acer_logo.png",
+        "final_url": "https://radioacer.com/wp-content/uploads/2025/11/acer_logo.png",
+        "path": "originals/96d0537dfabb5fae08d58bcf64894a39d6a13c4a8ada80070d78d48b55818a02.img",
+        "sha256": "96d0537dfabb5fae08d58bcf64894a39d6a13c4a8ada80070d78d48b55818a02",
+        "bytes": 20173,
+        "dimensions": [
+          435,
+          165
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://radioacer.com/",
+        "final_url": "https://radioacer.com/",
+        "original_html_sha256": "5e4f9fce4dbf1b69026316b6dae6e309f01b7311bbde50fcd321b8f6e911d4ea",
+        "path": "page-evidence/5e4f9fce4dbf1b69026316b6dae6e309f01b7311bbde50fcd321b8f6e911d4ea.json",
+        "titles": [
+          "RADIO ACER I Noticias Local de Bolivia y el mundo | RADIO ACER",
+          "App Store"
+        ],
+        "image_urls": [
+          "https://radioacer.com/wp-content/uploads/2025/11/acer_logo.png",
+          "https://radioacer.com/wp-content/uploads/2026/10/cropped-RADIO-ACER-26-ANOS-PNG-scaled-1.png",
+          "https://radioacer.com/wp-content/uploads/2025/11/cropped-cropped-cropped-no_cover-1-180x180.png"
+        ],
+        "named_logos": {
+          "https://radioacer.com/wp-content/uploads/2026/10/cropped-RADIO-ACER-26-ANOS-PNG-scaled-1.png": "RADIO ACER   ",
+          "https://radioacer.com/wp-content/uploads/2025/11/acer_logo.png": "RADIO ACER   "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/fab9c9afe777b6695dc114dc78c8cc0ec2c6bacedff2dec1c1240e0bacaea601.png",
+          "sha256": "fab9c9afe777b6695dc114dc78c8cc0ec2c6bacedff2dec1c1240e0bacaea601",
+          "bytes": 1108
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/16cb27560e2bb876e71f1713659cd4c9b01d09d2beacccac399c7c9a10355f6c.png",
+          "sha256": "16cb27560e2bb876e71f1713659cd4c9b01d09d2beacccac399c7c9a10355f6c",
+          "bytes": 7706
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/77b261fe5fe0d01414a3a9107e56834ecacd2b2d9aeb9437c38869615edcc82b.png",
+          "sha256": "77b261fe5fe0d01414a3a9107e56834ecacd2b2d9aeb9437c38869615edcc82b",
+          "bytes": 24630
+        },
+        "50x30/white": {
+          "path": "verified-assets/a8a022ec2af2bc0b95ca73ea91b75f23bc7765fb104a2d43ffe06ae0d92bfe16.png",
+          "sha256": "a8a022ec2af2bc0b95ca73ea91b75f23bc7765fb104a2d43ffe06ae0d92bfe16",
+          "bytes": 2639
+        },
+        "220x132/white": {
+          "path": "verified-assets/caf35beb6527cf53f0fd3afe3e6c3e51e5b626d2dde81edefd35f11ed8e532bb.png",
+          "sha256": "caf35beb6527cf53f0fd3afe3e6c3e51e5b626d2dde81edefd35f11ed8e532bb",
+          "bytes": 35717
+        },
+        "400x240/white": {
+          "path": "verified-assets/b81ec8b378a384e6ce44830772c8bf141d3566b2e4256385efc524223a567fbb.png",
+          "sha256": "b81ec8b378a384e6ce44830772c8bf141d3566b2e4256385efc524223a567fbb",
+          "bytes": 89581
+        },
+        "50x30/black": {
+          "path": "verified-assets/ca0355c7f1eb1424d4d38bcc638ad392f3979435364c9accc2389d00daa898bf.png",
+          "sha256": "ca0355c7f1eb1424d4d38bcc638ad392f3979435364c9accc2389d00daa898bf",
+          "bytes": 2712
+        },
+        "220x132/black": {
+          "path": "verified-assets/d8fd87e6f921bd0bd290ba4f2e02bc1d7bfc9e7d0a7ba8d6e1c1f57d611b7e13.png",
+          "sha256": "d8fd87e6f921bd0bd290ba4f2e02bc1d7bfc9e7d0a7ba8d6e1c1f57d611b7e13",
+          "bytes": 34056
+        },
+        "400x240/black": {
+          "path": "verified-assets/8e0df07f7cd4c1e597a445ac02ff3ee7a175b9dd851b5f8f616c8a42a60af530.png",
+          "sha256": "8e0df07f7cd4c1e597a445ac02ff3ee7a175b9dd851b5f8f616c8a42a60af530",
+          "bytes": 81869
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "RADIO ACER   ",
+        "matched_brand_keys": [
+          "acer"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:DC11:6230:ED:0:0:0:0": {
       "name": "Animax Radio",
@@ -95919,7 +96560,93 @@
       "homepages": [
         "https://www.animaxradio.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://www.animaxradio.com/logoweb.png",
+        "final_url": "https://www.animaxradio.com/logoweb.png",
+        "path": "originals/b3175a45b2c43626156921859c28239a959993bf7a812abf8cdbefd6abd4fb18.img",
+        "sha256": "b3175a45b2c43626156921859c28239a959993bf7a812abf8cdbefd6abd4fb18",
+        "bytes": 10845,
+        "dimensions": [
+          300,
+          300
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://www.animaxradio.com/",
+        "final_url": "https://www.animaxradio.com/",
+        "original_html_sha256": "eccb4ad2e308c0622339e93a4d5ea2b8f7a61fd8cd2fc9f8f52efed20a194fdc",
+        "path": "page-evidence/eccb4ad2e308c0622339e93a4d5ea2b8f7a61fd8cd2fc9f8f52efed20a194fdc.json",
+        "titles": [
+          "Animax Radio"
+        ],
+        "image_urls": [
+          "https://www.animaxradio.com/logoweb.png",
+          "https://www.animaxradio.com/apple-touch-icon.png",
+          "https://www.animaxradio.com/favicon-16x16.png"
+        ],
+        "named_logos": {
+          "https://www.animaxradio.com/logoweb.png": "Animax radio logo  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/655d82249a86fa6703c581c5202f3ee1db6ca8eb23df9c056dc52118d0a8a639.png",
+          "sha256": "655d82249a86fa6703c581c5202f3ee1db6ca8eb23df9c056dc52118d0a8a639",
+          "bytes": 938
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/20aa8c7ddf4cc831d2a8be63ebdb10e2cadc44b82645aa08ce1415a0903320a2.png",
+          "sha256": "20aa8c7ddf4cc831d2a8be63ebdb10e2cadc44b82645aa08ce1415a0903320a2",
+          "bytes": 5646
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/6235488f2c1c7b2eca1d1cfb2e7476f3d13e5f9ef224655cbcb48153fa52016d.png",
+          "sha256": "6235488f2c1c7b2eca1d1cfb2e7476f3d13e5f9ef224655cbcb48153fa52016d",
+          "bytes": 17074
+        },
+        "50x30/white": {
+          "path": "verified-assets/646d8636d5c5d542e6f0c76a096a9d03e0b7196823c8bec921e74dd047fbc4ac.png",
+          "sha256": "646d8636d5c5d542e6f0c76a096a9d03e0b7196823c8bec921e74dd047fbc4ac",
+          "bytes": 2291
+        },
+        "220x132/white": {
+          "path": "verified-assets/3b66c3ba15da2ee5fae330ae3e26214b57ecf1885a14142d4a750c3c3ba5227d.png",
+          "sha256": "3b66c3ba15da2ee5fae330ae3e26214b57ecf1885a14142d4a750c3c3ba5227d",
+          "bytes": 27721
+        },
+        "400x240/white": {
+          "path": "verified-assets/bf75f5f38d7287eea7a33fab575a9ec2d9cd4d52f26f23b7d035744531d441ec.png",
+          "sha256": "bf75f5f38d7287eea7a33fab575a9ec2d9cd4d52f26f23b7d035744531d441ec",
+          "bytes": 70018
+        },
+        "50x30/black": {
+          "path": "verified-assets/5eda07a59505947f97217d1e643431878165745305d28c4807cd482fe885955f.png",
+          "sha256": "5eda07a59505947f97217d1e643431878165745305d28c4807cd482fe885955f",
+          "bytes": 2479
+        },
+        "220x132/black": {
+          "path": "verified-assets/48486368bfc9e51324eb7454c1f6feb9fec7edfaa10d315eae4c085bab9da0ba.png",
+          "sha256": "48486368bfc9e51324eb7454c1f6feb9fec7edfaa10d315eae4c085bab9da0ba",
+          "bytes": 26748
+        },
+        "400x240/black": {
+          "path": "verified-assets/103ba6053f7d55419e8d779085e6ae26f22e707c06e333007fc783941085225c.png",
+          "sha256": "103ba6053f7d55419e8d779085e6ae26f22e707c06e333007fc783941085225c",
+          "bytes": 67328
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Animax radio logo  ",
+        "matched_brand_keys": [
+          "animax"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:A80B:754F:ED:0:0:0:0": {
       "name": "ATB Radio",
@@ -95931,7 +96658,10 @@
       "homepages": [
         "https://www.atb.com.bo/atbradio/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 404\n"
+      ]
     },
     "4097:0:2:1179:ABFA:ED:0:0:0:0": {
       "name": "Atlántida FM 903",
@@ -95950,7 +96680,94 @@
       "homepages": [
         "https://www.radioaymara.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://www.radioaymara.com/wp-content/uploads/2020/12/cropped-cropped-LogoA.png",
+        "final_url": "https://www.radioaymara.com/wp-content/uploads/2020/12/cropped-cropped-LogoA.png",
+        "path": "originals/01bfbd5987a3d792511332fa9cb9bf375b3976c05ca62d1952f7f38aea0d1406.img",
+        "sha256": "01bfbd5987a3d792511332fa9cb9bf375b3976c05ca62d1952f7f38aea0d1406",
+        "bytes": 36506,
+        "dimensions": [
+          431,
+          174
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://www.radioaymara.com/",
+        "final_url": "https://www.radioaymara.com/",
+        "original_html_sha256": "bc756e3373a4ff11ebf33922cea42e1ddb71a173d3296da6b9a070d2c1f1a50a",
+        "path": "page-evidence/bc756e3373a4ff11ebf33922cea42e1ddb71a173d3296da6b9a070d2c1f1a50a.json",
+        "titles": [
+          "Radio AYMARA – La Voz de los que No Tienen Voz",
+          "\n                 Radio AYMARA \n              "
+        ],
+        "image_urls": [
+          "https://www.radioaymara.com/wp-content/uploads/2020/12/cropped-cropped-LogoA.png",
+          "https://www.radioaymara.com/wp-content/uploads/2021/01/cropped-AYMARA-180x180.png",
+          "https://www.radioaymara.com/wp-content/uploads/2021/01/cropped-AYMARA-192x192.png"
+        ],
+        "named_logos": {
+          "https://www.radioaymara.com/wp-content/uploads/2020/12/cropped-cropped-LogoA.png": "Radio AYMARA  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/14290aad782b7666b366701973f7b775c4261f61c523e11e83469dda50df2781.png",
+          "sha256": "14290aad782b7666b366701973f7b775c4261f61c523e11e83469dda50df2781",
+          "bytes": 2191
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/526e7d064658e85c77cb9f32f40bee7570302b670dba3e43b81c5c2b77aff42d.png",
+          "sha256": "526e7d064658e85c77cb9f32f40bee7570302b670dba3e43b81c5c2b77aff42d",
+          "bytes": 17339
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/fd7323ba52d24be3c5a3d04e877339a8062b422001634ead6037976c42155f4d.png",
+          "sha256": "fd7323ba52d24be3c5a3d04e877339a8062b422001634ead6037976c42155f4d",
+          "bytes": 55024
+        },
+        "50x30/white": {
+          "path": "verified-assets/b793ffe27b8a95f25054825a89dbb07f3aee570301307d08548160b1689b0a46.png",
+          "sha256": "b793ffe27b8a95f25054825a89dbb07f3aee570301307d08548160b1689b0a46",
+          "bytes": 3111
+        },
+        "220x132/white": {
+          "path": "verified-assets/9573a74399339629d1004946e2481918bdbf84d76692e4848ac19fe966453b6d.png",
+          "sha256": "9573a74399339629d1004946e2481918bdbf84d76692e4848ac19fe966453b6d",
+          "bytes": 42895
+        },
+        "400x240/white": {
+          "path": "verified-assets/aacdf80d176a70b1b21f3da2a1ba1ab841285370484681a0576df71849a13a47.png",
+          "sha256": "aacdf80d176a70b1b21f3da2a1ba1ab841285370484681a0576df71849a13a47",
+          "bytes": 113225
+        },
+        "50x30/black": {
+          "path": "verified-assets/c898be163423798e7c2f56cb4bb543e42463eeb6cc0dce023ed9ececf825685d.png",
+          "sha256": "c898be163423798e7c2f56cb4bb543e42463eeb6cc0dce023ed9ececf825685d",
+          "bytes": 3386
+        },
+        "220x132/black": {
+          "path": "verified-assets/337d4016f3a175c06e2c208eeccb0564499e87f46a9e4a4d0e5cb90cd3c31104.png",
+          "sha256": "337d4016f3a175c06e2c208eeccb0564499e87f46a9e4a4d0e5cb90cd3c31104",
+          "bytes": 42584
+        },
+        "400x240/black": {
+          "path": "verified-assets/c14d546225400deeb40449733266c93d1c84980e5434538ddf371de14a26fd8e.png",
+          "sha256": "c14d546225400deeb40449733266c93d1c84980e5434538ddf371de14a26fd8e",
+          "bytes": 113145
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Radio AYMARA  ",
+        "matched_brand_keys": [
+          "aymara"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:2871:9F97:ED:0:0:0:0": {
       "name": "Big Radio Bolivia",
@@ -95962,7 +96779,8 @@
       "homepages": [
         "https://www.bigradio.top/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:C7D7:4BCF:ED:0:0:0:0": {
       "name": "radio centro cochabamba",
@@ -95974,7 +96792,10 @@
       "homepages": [
         "https://grupocentro.com.bo/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "Command '['tesseract', '/tmp/radio-logo-ocr-5iljtlx7/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds"
+      ]
     },
     "4097:0:2:7A60:F8FC:ED:0:0:0:0": {
       "name": "Radio Chacaltaya",
@@ -95986,7 +96807,39 @@
       "homepages": [
         "https://radiochacaltayafm.com.bo/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://radiochacaltayafm.com.bo/wp-content/uploads/2019/02/cropped-favchaca-180x180.png",
+        "final_url": "https://radiochacaltayafm.com.bo/wp-content/uploads/2019/02/cropped-favchaca-180x180.png",
+        "path": "originals/507c05b4df4f70d907aad8ee72e26c1b0a65cd021870c7ba49c08f273f7339ae.img",
+        "sha256": "507c05b4df4f70d907aad8ee72e26c1b0a65cd021870c7ba49c08f273f7339ae",
+        "bytes": 13899,
+        "dimensions": [
+          180,
+          180
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://radiochacaltayafm.com.bo/",
+        "final_url": "https://radiochacaltayafm.com.bo/",
+        "original_html_sha256": "c0689a2189bdd422a3f6bae87e318c28c939c67f8ca63e655d9f7dbbdd6cc0dd",
+        "path": "page-evidence/c0689a2189bdd422a3f6bae87e318c28c939c67f8ca63e655d9f7dbbdd6cc0dd.json",
+        "titles": [
+          "Radio Chacaltaya 93.7 - En vivo",
+          "EL GRAN EQUIPO"
+        ],
+        "image_urls": [
+          "https://radiochacaltayafm.com.bo/wp-content/plugins/click-to-chat-for-whatsapp/./new/inc/assets/img/whatsapp-logo.svg",
+          "https://radiochacaltayafm.com.bo/wp-content/uploads/2023/03/logo-peli-3.png",
+          "https://radiochacaltayafm.com.bo/wp-content/uploads/2019/02/cropped-favchaca-180x180.png"
+        ],
+        "named_logos": {
+          "https://radiochacaltayafm.com.bo/wp-content/uploads/2023/03/logo-peli-3.png": "Home  ",
+          "https://radiochacaltayafm.com.bo/wp-content/plugins/click-to-chat-for-whatsapp/./new/inc/assets/img/whatsapp-logo.svg": "WhatsApp chat  "
+        }
+      },
+      "ocr_text": "CC tucaltaya\n\nMasica Tropical con Altura\n"
     },
     "4097:0:2:DBDF:F323:ED:0:0:0:0": {
       "name": "Radio Ciudad",
@@ -95998,7 +96851,34 @@
       "homepages": [
         "https://ciudad91.net/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://ciudad91.net/logo192.png",
+        "final_url": "https://ciudad91.net/logo192.png",
+        "path": "originals/6b09569dba8488838dce8726a1bce0bb54244706c57bf8e55e66c9f40cabba09.img",
+        "sha256": "6b09569dba8488838dce8726a1bce0bb54244706c57bf8e55e66c9f40cabba09",
+        "bytes": 19170,
+        "dimensions": [
+          192,
+          192
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://ciudad91.net/",
+        "final_url": "https://ciudad91.net/",
+        "original_html_sha256": "8ea260445cce966e4150c41df0cac2ccf9da1fefacaa8c2af939667fed3bb7ba",
+        "path": "page-evidence/8ea260445cce966e4150c41df0cac2ccf9da1fefacaa8c2af939667fed3bb7ba.json",
+        "titles": [
+          "Radio Ciudad La Paz || 100% musica"
+        ],
+        "image_urls": [
+          "https://ciudad91.net/favicon.ico",
+          "https://ciudad91.net/logo192.png"
+        ],
+        "named_logos": {}
+      },
+      "ocr_text": ""
     },
     "4097:0:2:3F5A:EDB0:ED:0:0:0:0": {
       "name": "Clásica 100.3 Cochabamba",
@@ -96010,7 +96890,8 @@
       "homepages": [
         "http://www.radioclasica100.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:94DE:A8B2:ED:0:0:0:0": {
       "name": "Classica FM",
@@ -96029,7 +96910,37 @@
       "homepages": [
         "https://www.radioconstelacionbolivia.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://www.radioconstelacionbolivia.com/pwa/icons/apple-touch-icon.png",
+        "final_url": "https://www.radioconstelacionbolivia.com/pwa/icons/apple-touch-icon.png",
+        "path": "originals/406039b8c7da3033baddcbee59e02c71ee3e882d771dbc21a09b7b2d65a88554.img",
+        "sha256": "406039b8c7da3033baddcbee59e02c71ee3e882d771dbc21a09b7b2d65a88554",
+        "bytes": 8486,
+        "dimensions": [
+          180,
+          180
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://www.radioconstelacionbolivia.com/",
+        "final_url": "https://www.radioconstelacionbolivia.com/",
+        "original_html_sha256": "94975c284016823a9f633a39f2f0b65e1a23254ff5f9c10da8962b4790a97dbd",
+        "path": "page-evidence/94975c284016823a9f633a39f2f0b65e1a23254ff5f9c10da8962b4790a97dbd.json",
+        "titles": [
+          "Inicio | Radio Constelación"
+        ],
+        "image_urls": [
+          "https://www.radioconstelacionbolivia.com/storage/site/logos/01KXPYRKZQC631G0ZB3VSABWA3.png",
+          "https://www.radioconstelacionbolivia.com/pwa/icons/apple-touch-icon.png",
+          "https://www.radioconstelacionbolivia.com/storage/site/favicon/01KXPYRKZX8A12G3HB59YTQ7JV.png"
+        ],
+        "named_logos": {
+          "https://www.radioconstelacionbolivia.com/storage/site/logos/01KXPYRKZQC631G0ZB3VSABWA3.png": "Radio Constelación  "
+        }
+      },
+      "ocr_text": "Ce)\n"
     },
     "4097:0:2:4932:961E:ED:0:0:0:0": {
       "name": "Cristo Viene La Red",
@@ -96041,7 +96952,53 @@
       "homepages": [
         "https://www.radios-bolivia.com/cristo-viene-la-red"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://cdn.regional-radios.app-mind.com/static/assets/images/flags/bo.png",
+        "final_url": "https://cdn.regional-radios.app-mind.com/static/assets/images/flags/bo.png",
+        "path": "originals/42d022141a79aa4ee1cf44614cd18f515076e44637acb4f3065c2dc858df2d68.img",
+        "sha256": "42d022141a79aa4ee1cf44614cd18f515076e44637acb4f3065c2dc858df2d68",
+        "bytes": 6623,
+        "dimensions": [
+          130,
+          120
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://www.radios-bolivia.com/cristo-viene-la-red",
+        "final_url": "https://www.radios-bolivia.com/cristo-viene-la-red",
+        "original_html_sha256": "564599588bb1cddc20acf8bc77ed4d3be2c6ff84e0aa88eccff45d920bd0b810",
+        "path": "page-evidence/564599588bb1cddc20acf8bc77ed4d3be2c6ff84e0aa88eccff45d920bd0b810.json",
+        "titles": [
+          "Cristo Viene La Red: Radio Cristiana en Vivo",
+          "Cristo Viene La Red en Vivo"
+        ],
+        "image_urls": [
+          "https://cdn.regional-radios.app-mind.com/static/assets/images/flags/bo.png",
+          "https://cdn.regional-radios.app-mind.com/static/assets/images/ui/download-android.png",
+          "https://cdn.regional-radios.app-mind.com/static/assets/images/ui/download-ios.png"
+        ],
+        "named_logos": {
+          "https://cdn.regional-radios.app-mind.com/static/assets/images/flags/bo.png": "  ",
+          "https://static.mytuner.mobi/media/tvos_radios/kjxabnz92vvu.png": "Cristo Viene La Red  ",
+          "https://static.mytuner.mobi/media/radios-150px/877/radio-panamericana.248f5893.png": "Radio Panamericana logo  ",
+          "https://static.mytuner.mobi/media/radios-150px/669/radio-fides.a815eb0e.png": "Radio Fides logo  ",
+          "https://static.mytuner.mobi/media/radios-150px/581/fm-la-paz.6a9f2c27.png": "FM La Paz logo  ",
+          "https://static.mytuner.mobi/media/radios-150px/2a9eyctmp4cm.png": "Radio Mundial Bolivia logo  ",
+          "https://static.mytuner.mobi/media/radios-150px/989/radio-clasica-1003-fm.a5678981.png": "Radio Clásica 100.3 FM logo  ",
+          "https://static.mytuner.mobi/media/radios-150px/329/d-sports.4f470dc8.png": "D SPORTS logo  ",
+          "https://static.mytuner.mobi/media/radios-150px/670/el-deber-radio.016830b0.png": "El Deber Radio logo  ",
+          "https://static.mytuner.mobi/media/radios-150px/123/christmas-radio-united-kingdom.830bcf2d.png": "Christmas Radio logo  ",
+          "https://static.mytuner.mobi/media/radios-150px/282/radio-tropicalida.08fb2d5f.png": "Tropicálida logo  ",
+          "https://static.mytuner.mobi/media/radios-150px/mvv7jzrpcwt6.png": "Radio Chacaltaya logo  ",
+          "https://static.mytuner.mobi/media/radios-150px/678/radio-exito.c82ff97c.jpg": "Radio Éxito logo  ",
+          "https://static.mytuner.mobi/media/radios-150px/574/radio-centro-fm.e939fb1e.png": "Radio Centro FM 96.1 logo  ",
+          "https://cdn.regional-radios.app-mind.com/static/assets/images/ui/download-android.png": "Obtener en Google Play  ",
+          "https://cdn.regional-radios.app-mind.com/static/assets/images/ui/download-ios.png": "Descargar en la App Store  "
+        }
+      },
+      "ocr_text": ""
     },
     "4097:0:2:64D2:E80D:ED:0:0:0:0": {
       "name": "Radio Cumbia 90s",
@@ -512628,14 +513585,14 @@
   },
   "counts": {
     "already_ready_in_saved_checkpoint": 4155,
-    "blocked_no_confirmed_station_page_and_logo": 1202,
+    "blocked_no_confirmed_station_page_and_logo": 1211,
     "blocked_no_independent_station_homepage": 1269,
     "blocked_no_unique_current_station_metadata": 4248,
-    "candidate_assistant_visual_and_identity_check": 444,
+    "candidate_assistant_visual_and_identity_check": 453,
     "needs_assistant_identity_research_for_short_or_generic_name": 1328,
-    "pending_homepage_discovery": 27753,
-    "ready_verified_homepage_and_wordmark": 504
+    "pending_homepage_discovery": 27728,
+    "ready_verified_homepage_and_wordmark": 511
   },
-  "last_event": "homepages_2125_of_29878",
-  "updated_utc": "2026-11-05T14:10:51Z"
+  "last_event": "homepages_2150_of_29878",
+  "updated_utc": "2026-11-05T14:11:17Z"
 }
