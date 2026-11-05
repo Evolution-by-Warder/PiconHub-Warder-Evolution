@@ -1,6 +1,6 @@
 # Vhannibal TV continuation — 5 November 2026
 
-All 157 graphic groups previously presented through Thor batch06, including the Film Europe supplement, now have exact-PNG owner approval. Astra 23.5E batch07 adds 48 groups awaiting owner visual review. Current staged totals: 205 unique graphic groups, 157 owner-approved and 48 pending, with 615 control PNGs. These are staged-batch counts, not global remaining Vhannibal counts. Radio-plugin work remains separate.
+All 157 graphic groups presented through Thor batch06 remain owner-approved. The 48 Astra 23.5E batch07 source proposals are withdrawn from export under the owner's CANAL+ SK/CZ preservation instruction: 39 overlap existing protected station identities and 9 remain held until an independent current-CANAL membership and missing-reference check. Current historical staged total: 205 groups / 615 control PNGs; active pending owner-review groups: 0. No CANAL package or existing 23.5E PNG has been changed by these review batches. Radio-plugin work remains separate.
 
 ## MASTER refresh
 
@@ -75,3 +75,15 @@ Owner message: “vsetko beriem, pokracuj”. All 36 displayed graphics / 108 ex
 WHITE contrast needs review for Barrandov, CT24, Nova Sport 2, Dvojka and other light lettering; BLACK needs review for TV Paprika, RTVS24 and other dark elements. RTVS24 and RTVS SPORT retain the source's original labels and artwork for owner brand-continuity review and are not certified as current on-air branding. Generic SERVICE placeholders, Premium and the unconfirmed Prima Sport feed are held separately. Film+ SK, Disney CZ, CANAL+ and HBO2 HD canonically match existing MASTER pixels and remain recorded as exact-identity/full-triplet reuse candidates rather than duplicate new renders.
 
 This commit changes review evidence and approval records only. MASTER PNGs, live download packages, backgrounds, engine and application code are unchanged. Film Europe's intentional line stays preserved and approved. All 13 blocked mappings remain blocked.
+
+## 23.5E preservation — owner instruction supersedes Vhannibal replacement proposals
+
+Owner instructions: “laska u 23.5 neprepisuj picony ktore su uz spracovane v balickoch canal+ sk a cz !” and “lebo stanice ako jednotka, dvojka , rtvs 24 a dalej su vo vhannibalovy stare !”. The current already-processed CANAL+ SK/CZ artwork is authoritative in this scope. Do not replace it by stale Vhannibal logos, including Jednotka, Dvojka, 24 and Sport, or by an archive that merely has a later date. The earlier general MASTER-refresh permission does not override this specific protection.
+
+The live catalog at FullHDGlass 0a7f09b96cd73091d7ab53ca3976e8f1957b170b identifies CANALPLUS_SK and CANALPLUS_CZ, 18 size/background variants and 273 exact reference filenames. All 18 archive SHA256 values and the 1,451 source-folder PNG blob bindings at PiconHub b498c30b11f47f28bbc7a068d5bd671395ca4e8c are pinned in canal235-protection/baseline.json. The live roster also covers virtual package additions outside those folders.
+
+39 of batch07's 48 graphics overlap existing protected station identities (42 source references have a same SID/TSID/ONID/full-namespace match). Many Vhannibal filenames use service type 19 where CANAL has type 1, so filename-only exclusion is insufficient. This comparison is for protection only and creates no service-type aliases. Protected groups are excluded as replacement candidates; the whole batch has zero exportable groups. The remaining 9 groups are held for a current-CANAL membership/missing-reference check rather than treated automatically as new artwork. Historical review images remain comparison evidence, not installation data or approval candidates.
+
+The fail-closed guard blocks protected package paths/selectors, protected identities even when service types differ, explicit Jednotka/Dvojka/24/Sport families, and any other unverified 23.5E write. Current CANAL graphics must also be retained in full-satellite and MASTER sets. New exact references require independent identity and variant evidence and reuse of the current correct CANAL artwork where applicable. The owner's generic “take all” approval does not revoke this rule.
+
+Validation used the actual Dvojka/RTVS24/RTVS SPORT batch07 references and Jednotka family cases: all were blocked; unverified new 23.5E entries were held; an unrelated 9E entry remained outside this protection. Only protection policies, baseline evidence and review classification are changed. No existing PNG, CANAL archive, live download manifest, MASTER artwork, template or runtime is overwritten.

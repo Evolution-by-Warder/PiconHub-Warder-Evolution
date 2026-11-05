@@ -1,3 +1,10 @@
+VYRADENÉ Z NASADENIA — CHRÁNIŤ AKTUÁLNE CANAL+ SK/CZ PICONY
+
+39 grafík tejto historickej kontrolnej dávky sa prekrýva s už spracovanými stanicami CANAL+ SK/CZ. Ponechať naše aktuálne logá, vrátane Jednotky, Dvojky, 24 a Športu. Vhannibal obsahuje staré varianty. Zvyšných 9 grafík čaká na preverenie členstva a chýbajúcich referencií; exportovateľných grafík je nula.
+
+Dávka ani všeobecné schválenie prehľadov neoprávňujú prepísať existujúce CANAL picony, ich satelitné/Master kópie alebo balíky. Pôvodné PNG a ZIP zostávajú iba historickým porovnávacím podkladom. Aktuálna politika a ochrana sú v ../canal235-protection/.
+
+--- Pôvodný opis historickej kontrolnej dávky ---
 Vhannibal – Astra 23,5°E – kontrolná dávka 07 – 5. 11. 2026
 48 grafík / 53 presných referencií / 144 PNG 220×132.
 Transparent, WHITE MASTER, BLACK MASTER.
