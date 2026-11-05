@@ -1,0 +1,990 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Radio FATX - Historique</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/custom.css">
+
+    <script type="module">
+      import * as Turbo from 'https://esm.sh/@hotwired/turbo';
+    </script>
+    <script>
+      window.I18N = {"app.dashboard": "Tableau de bord", "app.name": "RadioAdmin", "auth.login": "Se connecter", "auth.password": "Mot de passe", "auth.title": "Connexion", "auth.username": "Utilisateur", "common.actions": "Actions", "common.cancel": "Annuler", "common.close": "Fermer", "common.delete": "Supprimer", "common.details": "D\u00e9tail", "common.edit": "\u00c9diter", "common.loading": "Chargement...", "common.name": "Nom", "common.next": "Suivant", "common.off": "OFF", "common.on": "ON", "common.open": "Ouvrir", "common.previous": "Pr\u00e9c\u00e9dent", "common.refresh_auto": "Mise \u00e0 jour automatique", "common.save": "Enregistrer", "common.search": "Rechercher", "common.status": "\u00c9tat", "common.total": "Total", "common.type": "Type", "common.upload": "Uploader", "dashboard.library_desc": "Parcourir et consulter les pistes import\u00e9es depuis la base de donn\u00e9es.", "dashboard.playlists_desc": "G\u00e9rer les playlists statiques et dynamiques utilis\u00e9es par le moteur.", "dashboard.programs_desc": "G\u00e9rer les programmes, leurs playlists et leurs param\u00e8tres.", "dashboard.schedules_desc": "Visualiser et \u00e9diter la grille hebdomadaire des programmes.", "dashboard.subtitle": "Interface d\u0027administration pour la biblioth\u00e8que, les playlists, les programmes et la grille.", "days.friday": "Vendredi", "days.monday": "Lundi", "days.saturday": "Samedi", "days.sunday": "Dimanche", "days.thursday": "Jeudi", "days.tuesday": "Mardi", "days.wednesday": "Mercredi", "events.activate": "Activer cet \u00e9v\u00e9nement", "events.active": "Actif", "events.add": "Ajouter", "events.artist": "Artiste", "events.audio_content": "Contenu audio", "events.back": "Retour", "events.choose_playlist": "Choisir une playlist", "events.content": "Contenu", "events.cycle": "cycle(s)", "events.daily": "Quotidien", "events.daily_full": "Tous les jours", "events.date": "Date", "events.delete_confirm": "Supprimer d\u00e9finitivement cet \u00e9v\u00e9nement ?", "events.description": "Description", "events.edit": "Modifier l\u0027\u00e9v\u00e9nement", "events.end": "Fin", "events.event_name": "Nom de l\u0027\u00e9v\u00e9nement", "events.event_name_placeholder": "Ex: La Matinale, Chronique Cin\u00e9...", "events.every": "Tous les", "events.file_label": "Fichier", "events.first_occurrence": "C\u0027est la date de la premi\u00e8re occurrence.", "events.inactive": "Inactif", "events.info": "Informations", "events.interval": "Intervalle", "events.interval_help": "Ex: \"2\" avec \"Semaines\" = Tous les 15 jours.", "events.last_index": "Dernier index jou\u00e9", "events.last_index_short": "Idx", "events.monthly": "Mensuel", "events.monthly_full": "Tous les mois", "events.name": "Nom", "events.new": "Nouvel \u00e9v\u00e9nement", "events.no_results": "Aucun r\u00e9sultat", "events.no_track_selected": "Aucun titre s\u00e9lectionn\u00e9.", "events.none": "Aucun \u00e9v\u00e9nement programm\u00e9 pour le moment.", "events.once": "Une fois", "events.once_full": "Une seule fois", "events.playback_mode": "Mode de lecture", "events.playlist_random": "Playlist (Rand)", "events.playlist_random_label": "Playlist (Al\u00e9atoire)", "events.playlist_seq": "Playlist (S\u00e9quence)", "events.playlist_sequential_label": "Playlist (S\u00e9rie)", "events.recurrence": "R\u00e9currence", "events.recurrence_type": "Type de r\u00e9p\u00e9tition", "events.save": "Enregistrer", "events.save_schedule": "Enregistrer la programmation", "events.schedule_title": "Programmation sp\u00e9ciale", "events.search_track": "Rechercher un titre", "events.search_track_help": "Tapez un artiste ou un titre...", "events.select": "S\u00e9lectionner", "events.selected": "S\u00e9lectionn\u00e9", "events.single_file": "Fichier unique", "events.start": "D\u00e9but", "events.start_datetime": "Date et heure de d\u00e9marrage", "events.start_time": "D\u00e9but / Heure", "events.status": "Statut", "events.title": "\u00c9v\u00e9nements", "events.title_unknown": "Titre inconnu", "events.track": "Titre", "events.track_selected": "Titre s\u00e9lectionn\u00e9", "events.track_unknown": "Artiste inconnu", "events.weekly": "Hebdo", "events.weekly_full": "Toutes les semaines", "history.empty": "Aucune donn\u00e9e de diffusion pour le moment.", "history.jingle": "Jingle / Habillage", "history.next": "\u00c0 suivre", "history.now": "En ce moment", "history.previous": "Pr\u00e9c\u00e9demment", "history.program": "Programme", "history.program_unknown": "Programme inconnu", "history.starts_at": "D\u00e9but \u00e0", "history.title": "Historique", "lang.en": "EN", "lang.fr": "FR", "nav.events": "\u00c9v\u00e9nements", "nav.full_player": "Lecteur plein \u00e9cran", "nav.history": "Historique", "nav.language": "Langue", "nav.library": "Biblioth\u00e8que", "nav.login": "Connexion", "nav.logout": "D\u00e9connexion", "nav.playlists": "Playlists", "nav.programs": "Programmes", "nav.schedules": "Grille", "nav.settings": "R\u00e9glages", "player.default_artist": "Pr\u00eat", "player.default_title": "Radio Fatx", "player.full_site": "Site complet", "player.program": "Programme", "player.toggle": "Lecture / pause", "playlists.add_genre": "Ajouter un genre...", "playlists.add_style": "Ajouter un style...", "playlists.artist": "Artiste", "playlists.bpm": "BPM", "playlists.bpm_range": "Plage BPM", "playlists.cleanup": "Nettoyer les entr\u00e9es manquantes apr\u00e8s rescan", "playlists.content_preview": "Aper\u00e7u du contenu (Max 250)", "playlists.countries": "Pays (Codes ISO, ex: fr, be)", "playlists.countries_help": "S\u00e9par\u00e9s par des virgules.", "playlists.delete_confirm": "Supprimer ?", "playlists.delete_error": "Erreur suppression", "playlists.detail_path_rules": "D\u00e9tail (Chemin / R\u00e8gles)", "playlists.dynamic": "Dynamique", "playlists.edit": "\u00c9diter playlist", "playlists.enabled": "Activ\u00e9e", "playlists.files": "fichier(s)", "playlists.folder_help": "Tous les fichiers commen\u00e7ant par ce chemin seront inclus.", "playlists.folder_path": "Chemin du dossier (Path Prefix)", "playlists.genres_or": "Genres (OU logique)", "playlists.import_errors": "erreurs", "playlists.import_imported": "import\u00e9s", "playlists.import_log": "log", "playlists.import_media": "Import de m\u00e9dias", "playlists.import_pending": "en attente", "playlists.import_scanned": "scann\u00e9s", "playlists.import_started": "Import lanc\u00e9...", "playlists.import_title": "Playlist", "playlists.load_refresh": "Charger / Rafra\u00eechir", "playlists.max": "Max", "playlists.min": "Min", "playlists.new": "Nouvelle playlist", "playlists.new_modal": "Nouvelle playlist", "playlists.no_log": "Aucun log.", "playlists.preview_click": "Cliquez sur \"Charger\"", "playlists.preview_count": "pistes affich\u00e9es", "playlists.preview_loading": "Chargement...", "playlists.preview_none": "Aucune piste trouv\u00e9e.", "playlists.preview_save": "Sauvegardez la playlist pour voir l\u0027aper\u00e7u.", "playlists.preview_save_first": "Sauvegardez d\u0027abord", "playlists.rule_builder": "Constructeur de r\u00e8gles", "playlists.scan": "Scanner les dossiers", "playlists.scan_done": "Scan termin\u00e9. Ajout\u00e9es: {added}, D\u00e9sactiv\u00e9es: {removed}", "playlists.select_file": "S\u00e9lectionnez au moins un fichier.", "playlists.start_import": "Lancer l\u0027import", "playlists.state": "\u00c9tat", "playlists.static": "Statique", "playlists.status_done": "done", "playlists.status_failed": "failed", "playlists.status_queued": "queued", "playlists.status_running": "running", "playlists.styles_or": "Styles (OU logique)", "playlists.title": "Playlists", "playlists.track_title": "Titre", "playlists.type_dynamic": "Dynamique (Tags)", "playlists.type_static": "Statique (Dossier)", "playlists.upload_audio": "Uploader des fichiers audio", "playlists.upload_done": "Upload termin\u00e9", "playlists.upload_help": "Les fichiers seront d\u00e9pos\u00e9s dans le dossier de la playlist statique.", "playlists.year": "Ann\u00e9e", "playlists.year_range": "Plage d\u0027ann\u00e9es", "programs.actions": "Actions", "programs.add_playlist": "Ajouter une playlist", "programs.assoc_help": "L\u0027ajout ou la suppression recalcule automatiquement les pourcentages pour \u00eatre \u00e9quitable. Vous pouvez ensuite modifier les pourcentages manuellement (Total \u2264 100%).", "programs.back_schedule": "Retour \u00e0 la grille", "programs.color": "Couleur", "programs.day": "Jour", "programs.delete_confirm": "Supprimer ?", "programs.description": "Description", "programs.description_default": "Un programme s\u00e9lectionn\u00e9 avec soin pour vos oreilles.", "programs.duration": "Dur\u00e9e", "programs.edit": "\u00c9diter programme", "programs.general_tab": "G\u00e9n\u00e9ral", "programs.logo": "Logo (PNG transparent)", "programs.logo_help": "S\u00e9lectionnez un fichier PNG pr\u00e9sent sur le serveur.", "programs.logo_none": "Aucun logo", "programs.max_duration": "Dur\u00e9e max d\u0027un titre (secondes)", "programs.max_duration_help": "0 ou vide = illimit\u00e9.", "programs.max_duration_placeholder": "Ex: 1200 (20 min)", "programs.music_preview": "Voici un aper\u00e7u des artistes et titres que vous pourriez entendre lors de ce programme :", "programs.music_selection": "S\u00e9lection musicale", "programs.new": "Nouveau programme", "programs.no_illustration": "Pas encore d\u0027illustration disponible pour ce programme.", "programs.none_associated": "Aucune playlist associ\u00e9e", "programs.playlists_tab": "Playlists associ\u00e9es", "programs.program": "Programme", "programs.public_title": "Pr\u00e9sentation du programme", "programs.save_first": "Sauvegardez d\u0027abord le programme pour activer les associations.", "programs.schedule": "Horaire", "programs.schedule_help": "Une ou deux lignes pour pr\u00e9ciser les cr\u00e9neaux.", "programs.schedule_placeholder": "Ex: du lundi au jeudi \u00e0 19h", "programs.seconds_short": "s", "programs.select_playlist": "Choisir une playlist...", "programs.time": "Heure", "programs.title": "Programmes", "programs.weight": "Poids", "schedules.add": "Ajouter un programme", "schedules.at": "\u00e0", "schedules.clear_confirm": "Voulez-vous vraiment vider ce cr\u00e9neau ?", "schedules.clear_slot": "Vider le cr\u00e9neau", "schedules.delete": "Supprimer le programme", "schedules.edit": "Modifier le programme", "schedules.edit_hint": "Cliquez sur une case pour modifier le cr\u00e9neau.", "schedules.editing": "\u00c9dition", "schedules.hour": "Heure", "schedules.jingle_default": "Par d\u00e9faut (automatique selon l\u0027heure)", "schedules.jingle_default_short": "-- Par d\u00e9faut (Automatique) --", "schedules.jingle_help": "Si d\u00e9fini, ce jingle remplacera le \"fatx-ident-XXh.mp3\" habituel.", "schedules.jingle_specific": "Jingle sp\u00e9cifique (optionnel)", "schedules.jingles_load_error": "Impossible de charger la liste des jingles.", "schedules.program": "Programme", "schedules.select_program": "S\u00e9lectionner un programme", "schedules.select_program_required": "Veuillez s\u00e9lectionner un programme.", "schedules.title": "Grille hebdomadaire", "schedules.title_full": "Grille des programmes", "settings.cancel": "Annuler", "settings.colors_group": "Couleurs", "settings.custom_url": "URL personnalis\u00e9e...", "settings.disabled": "D\u00e9sactiv\u00e9", "settings.enabled": "Activ\u00e9", "settings.header": "Apparence", "settings.header_color": "Couleur principale du header", "settings.header_color_hint": "Ex: #B6B2D9", "settings.header_gradient": "Couleur secondaire du header", "settings.header_gradient_end": "D\u00e9grad\u00e9 (fin)", "settings.images_group": "Images", "settings.info_note": "Certains r\u00e9glages peuvent n\u00e9cessiter un rafra\u00eechissement de la page ou un red\u00e9marrage des services tiers pour \u00eatre pris en compte imm\u00e9diatement.", "settings.logo_help": "URL ou chemin /static/...", "settings.logo_url": "URL du logo", "settings.logo_url_label": "URL logo (gif/png)", "settings.mini_player_color": "Couleur Mini-Player", "settings.mini_player_color_help": "Couleur de fond du lecteur minimis\u00e9 dans la barre de navigation.", "settings.mobile_redirect": "Redirection mobile vers /player", "settings.mobile_redirect_help": "Redirige l\u0027accueil vers /player sur mobile.", "settings.no_image": "Aucune image", "settings.no_preview": "Aper\u00e7u indisponible", "settings.option_disabled": "D\u00e9sactiv\u00e9 / Faux (0)", "settings.option_enabled": "Activ\u00e9 / Vrai (1)", "settings.player_color": "Couleur Player", "settings.player_color_help": "Couleur utilis\u00e9e pour le fond d\u00e9grad\u00e9 du player plein \u00e9cran.", "settings.player_cover": "Pochette par d\u00e9faut du player", "settings.player_cover_help": "URL ou chemin /static/... utilis\u00e9 quand aucun titre ne joue.", "settings.radio_name": "Nom de la radio", "settings.radio_name_help": "Affich\u00e9 dans le titre du site et les m\u00e9tadonn\u00e9es.", "settings.save": "Enregistrer", "settings.theme_logo": "Th\u00e8me \u0026 logo", "settings.title": "R\u00e9glages", "tracks.add_genre": "Ajouter un genre...", "tracks.add_style": "Ajouter un style...", "tracks.artist": "Artiste", "tracks.classification": "Classification (Tags)", "tracks.close": "Fermer", "tracks.country": "Pays", "tracks.country_placeholder": "-- Pays --", "tracks.cover": "Pochette", "tracks.cover_upload": "Upload", "tracks.detail": "D\u00e9tail", "tracks.detail_fallback": "D\u00e9tail de la piste", "tracks.discogs": "Discogs", "tracks.discogs_id_label": "ID Discogs", "tracks.discogs_import": "Importer", "tracks.discogs_search": "Rechercher", "tracks.editable_fields": "Champs \u00e9ditables", "tracks.error_import": "Erreur import", "tracks.error_network": "Erreur r\u00e9seau", "tracks.error_prefix": "Erreur", "tracks.error_tag_add": "Erreur ajout tag", "tracks.error_tag_remove": "Erreur suppression tag", "tracks.error_upload": "Erreur upload", "tracks.extras": "Extras (lecture seule)", "tracks.field_album": "Album", "tracks.field_album_artist": "Artiste de l\u0027album", "tracks.field_artist": "Artiste", "tracks.field_country_code": "Code pays", "tracks.field_cover_path": "Chemin de pochette", "tracks.field_discogs_country": "Pays Discogs", "tracks.field_discogs_id": "ID Discogs", "tracks.field_discogs_track_number": "N\u00b0 de piste Discogs", "tracks.field_discogs_year": "Ann\u00e9e Discogs", "tracks.field_title": "Titre", "tracks.field_track_number": "N\u00b0 de piste", "tracks.field_year": "Ann\u00e9e", "tracks.filter": "Filtrer", "tracks.format_cd": "CD", "tracks.format_file": "File", "tracks.format_optional": "Format (optionnel)", "tracks.format_vinyl": "Vinyl", "tracks.genres": "Genres", "tracks.import_failed": "Import impossible", "tracks.import_from_discogs": "Importer depuis Discogs", "tracks.load_failed": "Impossible de charger", "tracks.loading": "Chargement...", "tracks.loading_track": "Chargement...", "tracks.lock_edit": "Verrouiller", "tracks.missing_discogs_id": "Discogs ID manquant.", "tracks.next": "Suivant", "tracks.no_cover": "Pas de pochette", "tracks.no_results": "Aucun r\u00e9sultat.", "tracks.not_found": "Piste introuvable", "tracks.not_found_detail": "L\u0027identifiant demand\u00e9 ne correspond \u00e0 aucune piste.", "tracks.page_info": "Page", "tracks.play": "\u00c9couter", "tracks.previous": "Pr\u00e9c\u00e9dent", "tracks.save": "Enregistrer", "tracks.search_failed": "Recherche impossible", "tracks.search_in_progress": "Recherche en cours...", "tracks.search_title": "Biblioth\u00e8que \u2013 Recherche", "tracks.select_entry": "S\u00e9lectionnez une entr\u00e9e.", "tracks.select_image": "Choisissez une image.", "tracks.style_placeholder": "-- Style --", "tracks.styles": "Styles", "tracks.styles_label": "Styles", "tracks.title": "Biblioth\u00e8que", "tracks.title_label": "Titre", "tracks.track_detail": "D\u00e9tail de la piste", "tracks.unlock_edit": "D\u00e9verrouiller pour \u00e9diter", "tracks.upload_help": "Upload en jpg/jpeg/png/webp.", "tracks.year": "Ann\u00e9e", "tracks.year_max": "Ann\u00e9e \u2264", "tracks.year_min": "Ann\u00e9e \u2265"};
+      window.RADIO_NAME = "Radio FATX";
+      window.t = function(key, fallback) {
+        if (window.I18N && window.I18N[key]) {
+          return window.I18N[key];
+        }
+        return fallback || key;
+      };
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
+    
+    <script src="/static/js/app.js" defer></script>
+    <script src="/static/js/player.js" defer></script>
+    <script src="/static/js/events.js" defer></script>
+    <script src="/static/js/playlists.js" defer></script>
+    <script src="/static/js/programs.js" defer></script>
+    <script src="/static/js/schedules.js" defer></script>
+
+    <style>
+        /* Style du Player Sexy */
+        .player-card {
+            background: var(--mini-player-bg, rgba(0, 0, 0, 0.4));
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            padding: 4px 15px 4px 5px;
+            transition: all 0.3s ease;
+            max-width: 320px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .player-card:hover {
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 14px rgba(0,0,0,0.25);
+        }
+        .player-cover {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            object-fit: cover;
+            background-color: #222;
+            border: 2px solid rgba(255,255,255,0.2);
+        }
+        .player-info {
+            line-height: 1.2;
+            overflow: hidden;
+            white-space: nowrap;
+            max-width: 140px;
+            margin-left: 8px;
+            margin-right: 8px;
+        }
+        .player-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #fff;
+            display: block;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+        .player-title.player-title-scroll {
+            display: inline-block;
+            max-width: none;
+            white-space: nowrap;
+            text-overflow: clip;
+            overflow: visible;
+            will-change: transform;
+            animation: mini-player-title-scroll var(--title-scroll-duration, 8s) linear infinite alternate;
+        }
+        @keyframes mini-player-title-scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-1 * var(--title-scroll-distance, 0px))); }
+        }
+        .player-artist {
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.8);
+            display: block;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+        .player-vol {
+            width: 60px;
+            height: 3px;
+            cursor: pointer;
+            accent-color: #1cb5e0;
+        }
+    </style>
+  </head>
+  <body class="">
+    
+    <style>
+      :root {
+        --header-gradient-start: #B6B2D9;
+        --header-gradient-end: #000851;
+        --player-card-color: #e83282;
+        --mini-player-bg: #e83282;
+      }
+    </style>
+    
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4 shadow-sm" style="background: linear-gradient(90deg, var(--header-gradient-start) 0%, var(--header-gradient-end) 100%);">
+      <div class="container">
+        <a class="navbar-brand fw-bold" href="/">
+          
+            <img src="/static/logo_fatx_blanc_280x162.png" alt="Logo" style="height: 36px; width: auto;" class="me-2">
+          
+        </a>
+        
+        <div id="persistent-player-container" data-turbo-permanent class="player-card d-flex align-items-center me-3">
+            <audio id="radio-audio" preload="none" data-stream-src="https://radio.fatx.fr/radio_fatx">
+                <source src="https://radio.fatx.fr/radio_fatx" type="audio/mpeg">
+            </audio>
+            <img src="/static/fatx_artwork.png" id="player-cover" class="player-cover" alt="Cover" data-default-cover="/static/fatx_artwork.png">
+            <button id="player-btn" class="btn btn-sm btn-light rounded-circle d-flex align-items-center justify-content-center ms-2" style="width: 32px; height: 32px; padding: 0; flex-shrink: 0; border: none;" title="Lecture / pause" aria-label="Lecture / pause">
+                <i class="fa-solid fa-play" id="player-icon" style="font-size: 12px; margin-left: 2px; color: #333;"></i>
+            </button>
+            <div class="player-logo text-center">
+              
+                <img src="/static/logo_fatx_blanc_280x162.png" alt="Logo" class="player-logo-img">
+              
+            </div>
+            <div class="player-info d-flex flex-column justify-content-center">
+                <span id="player-program" class="player-program text-uppercase small opacity-75 mb-1">Programme</span>
+                <span id="player-title" class="player-title">Radio Fatx</span>
+                <span id="player-artist" class="player-artist">Prêt</span>
+                <span id="player-playlist" class="player-playlist mt-2"></span>
+            </div>
+            <input type="range" id="player-volume" class="form-range player-vol" min="0" max="1" step="0.1">
+            <a href="/player" class="btn btn-light btn-sm rounded-circle d-flex align-items-center justify-content-center player-fullpage-toggle" title="Lecteur plein écran" aria-label="Lecteur plein écran">
+              <i class="fa-solid fa-up-right-and-down-left-from-center"></i>
+            </a>
+            <a href="/history/" class="btn btn-light btn-sm px-3 py-2 align-items-center gap-2 player-fullsite-link" title="Site complet" aria-label="Site complet">
+              <i class="fa-solid fa-desktop"></i>
+              <span>Site complet</span>
+            </a>
+        </div>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+             <li class="nav-item">
+                <a class="nav-link" href="/history/"><i class="fa-solid fa-clock-rotate-left"></i> <span class="nav-label">Historique</span></a>
+             </li>
+             <li class="nav-item">
+                <a class="nav-link" href="/schedules/"><i class="fa-solid fa-table"></i> <span class="nav-label">Grille</span></a>
+             </li>
+
+             
+          </ul>
+
+          <div class="d-flex align-items-center gap-2 ms-auto">
+            <div class="dropdown">
+              <button class="btn btn-sm btn-outline-light dropdown-toggle d-flex align-items-center gap-1" type="button" id="navLangDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                🇫🇷
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navLangDropdown">
+                <li>
+                  <a class="dropdown-item" href="/lang/fr">🇫🇷 Français</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/lang/en">🇬🇧 English</a>
+                </li>
+              </ul>
+            </div>
+            
+                <a href="/login" class="btn btn-sm btn-outline-success">
+                  <i class="fa-solid fa-lock"></i> Connexion
+                </a>
+            
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <main class="container">
+      <div id="flash-messages">
+      
+        
+      
+      </div>
+
+      
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h1><i class="fa-solid fa-clock-rotate-left"></i> Historique</h1>
+  <span class="text-muted small">
+    <i class="fa-solid fa-rotate"></i> Mise à jour automatique
+  </span>
+</div>
+
+
+
+  <div class="row g-4 mb-5">
+    
+    
+    
+    
+    
+    <div class="col-lg-6" id="history-auto-refresh"
+         data-track-title="Je T&#39;Adore"
+         data-track-artist="Montefiori Cocktail">
+      <h5 class="text-uppercase text-danger fw-bold mb-2 d-flex align-items-center gap-2">
+        <i class="fa-solid fa-circle animate-pulse"></i> En ce moment
+      </h5>
+      
+      <div class="card h-100 border-0 shadow-sm overflow-hidden history-accent-card" 
+           style="--accent-color: #6c76f9;">
+        <div class="row g-0 h-100">
+          <div class="col-4 bg-light position-relative history-cover">
+             <div class="ratio ratio-1x1">
+               
+                  <img src="/library/cover/5734" 
+                       class="img-fluid w-100 h-100 object-fit-cover history-cover-img">
+               
+             </div>
+          </div>
+          <div class="col-8">
+            <div class="card-body d-flex flex-column justify-content-start h-100 py-3">
+               
+               <div class="d-flex align-items-center mb-1">
+                   <div class="fw-bold text-uppercase small" style="color: #6c76f9; letter-spacing: 1px;">
+                       FATX MIX
+                   </div>
+                   
+                    <span class="text-muted mx-2">•</span>
+                    <span class="text-muted small fw-semibold">1997</span>
+                   
+               </div>
+
+               
+                 <h3 class="card-title fw-bold mb-0 scrolling-title" title="Je T&#39;Adore">
+                    <span class="scrolling-title-text">Je T&#39;Adore</span>
+                 </h3>
+                 <p class="card-text fs-5 text-muted text-truncate">Montefiori Cocktail</p>
+               
+               
+               <div class="mt-auto pt-2 text-muted small">
+                 <i class="fa-regular fa-clock"></i> Début à 14:19:04
+               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-6">
+      
+      <h5 class="text-uppercase text-muted fw-bold mb-2">
+        <i class="fa-solid fa-forward"></i> À suivre
+      </h5>
+      
+      <div class="card h-100 border-0 shadow-sm overflow-hidden opacity-75 history-accent-card" 
+           style="--accent-color: #6c76f9;">
+        <div class="row g-0 h-100">
+          <div class="col-4 bg-light position-relative history-cover">
+             <div class="ratio ratio-1x1">
+               
+                  <img src="/library/cover/4410" 
+                       class="img-fluid w-100 h-100 object-fit-cover history-cover-img" style="filter: grayscale(20%);">
+               
+             </div>
+          </div>
+          <div class="col-8">
+            <div class="card-body d-flex flex-column justify-content-start h-100 py-3">
+               
+               <div class="d-flex align-items-center mb-1">
+                   <div class="fw-bold text-uppercase small" style="color: #6c76f9; letter-spacing: 1px;">
+                       FATX MIX
+                   </div>
+                   
+                    <span class="text-muted mx-2">•</span>
+                    <span class="text-muted small fw-semibold">1992</span>
+                   
+               </div>
+               
+               
+                 <h4 class="card-title fw-bold mb-0 scrolling-title">
+                   <span class="scrolling-title-text">99.9 F</span>
+                 </h4>
+                 <p class="card-text text-muted text-truncate">Suzanne Vega</p>
+               
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+
+  </div>
+
+  <h5 class="mb-3 text-muted border-bottom pb-2">Précédemment</h5>
+  <div class="list-group shadow-sm mb-5">
+    
+    
+      <div class="list-group-item d-flex align-items-center gap-3 p-2 border-start-0" 
+           style="border-left: 5px solid #6c76f9 !important;">
+        
+        <div class="text-center text-muted" style="min-width: 55px;">
+            <div class="fw-bold">14:16</div>
+        </div>
+
+        <div class="rounded bg-light d-flex align-items-center justify-content-center text-muted border" 
+             style="width: 42px; height: 42px; flex-shrink: 0; overflow: hidden;">
+             
+                <img src="/library/cover/2493" class="w-100 h-100 object-fit-cover">
+             
+        </div>
+
+        <div class="flex-grow-1 overflow-hidden lh-1">
+            <div class="d-flex align-items-center gap-2 mb-1">
+                <span class="badge rounded-1 fw-bold text-uppercase" 
+                      style="background-color: #6c76f9; color: #fff; font-size: 0.65rem;">
+                    FATX MIX
+                </span>
+                
+                    <span class="text-muted small" style="font-size: 0.7em;">
+                        1991
+                    </span>
+                
+            </div>
+
+            
+                <div class="fw-semibold text-truncate">Moldavia</div>
+                <div class="small text-muted text-truncate">Front 242</div>
+            
+        </div>
+
+      </div>
+    
+      <div class="list-group-item d-flex align-items-center gap-3 p-2 border-start-0" 
+           style="border-left: 5px solid #6c76f9 !important;">
+        
+        <div class="text-center text-muted" style="min-width: 55px;">
+            <div class="fw-bold">14:12</div>
+        </div>
+
+        <div class="rounded bg-light d-flex align-items-center justify-content-center text-muted border" 
+             style="width: 42px; height: 42px; flex-shrink: 0; overflow: hidden;">
+             
+                <img src="/library/cover/4683" class="w-100 h-100 object-fit-cover">
+             
+        </div>
+
+        <div class="flex-grow-1 overflow-hidden lh-1">
+            <div class="d-flex align-items-center gap-2 mb-1">
+                <span class="badge rounded-1 fw-bold text-uppercase" 
+                      style="background-color: #6c76f9; color: #fff; font-size: 0.65rem;">
+                    FATX MIX
+                </span>
+                
+                    <span class="text-muted small" style="font-size: 0.7em;">
+                        1984
+                    </span>
+                
+            </div>
+
+            
+                <div class="fw-semibold text-truncate">J&#39;sais plus où j&#39;en suis</div>
+                <div class="small text-muted text-truncate">Sonia </div>
+            
+        </div>
+
+      </div>
+    
+      <div class="list-group-item d-flex align-items-center gap-3 p-2 border-start-0" 
+           style="border-left: 5px solid #6c76f9 !important;">
+        
+        <div class="text-center text-muted" style="min-width: 55px;">
+            <div class="fw-bold">14:08</div>
+        </div>
+
+        <div class="rounded bg-light d-flex align-items-center justify-content-center text-muted border" 
+             style="width: 42px; height: 42px; flex-shrink: 0; overflow: hidden;">
+             
+                <img src="/library/cover/3579" class="w-100 h-100 object-fit-cover">
+             
+        </div>
+
+        <div class="flex-grow-1 overflow-hidden lh-1">
+            <div class="d-flex align-items-center gap-2 mb-1">
+                <span class="badge rounded-1 fw-bold text-uppercase" 
+                      style="background-color: #6c76f9; color: #fff; font-size: 0.65rem;">
+                    FATX MIX
+                </span>
+                
+                    <span class="text-muted small" style="font-size: 0.7em;">
+                        1983
+                    </span>
+                
+            </div>
+
+            
+                <div class="fw-semibold text-truncate">Believe In Yourself</div>
+                <div class="small text-muted text-truncate">The Creatures</div>
+            
+        </div>
+
+      </div>
+    
+      <div class="list-group-item d-flex align-items-center gap-3 p-2 border-start-0" 
+           style="border-left: 5px solid #6c76f9 !important;">
+        
+        <div class="text-center text-muted" style="min-width: 55px;">
+            <div class="fw-bold">14:04</div>
+        </div>
+
+        <div class="rounded bg-light d-flex align-items-center justify-content-center text-muted border" 
+             style="width: 42px; height: 42px; flex-shrink: 0; overflow: hidden;">
+             
+                <img src="/library/cover/681" class="w-100 h-100 object-fit-cover">
+             
+        </div>
+
+        <div class="flex-grow-1 overflow-hidden lh-1">
+            <div class="d-flex align-items-center gap-2 mb-1">
+                <span class="badge rounded-1 fw-bold text-uppercase" 
+                      style="background-color: #6c76f9; color: #fff; font-size: 0.65rem;">
+                    FATX MIX
+                </span>
+                
+                    <span class="text-muted small" style="font-size: 0.7em;">
+                        1984
+                    </span>
+                
+            </div>
+
+            
+                <div class="fw-semibold text-truncate">Défense de pleurer (Disco Mix) (Fatx Edit)</div>
+                <div class="small text-muted text-truncate">Jay Alanski</div>
+            
+        </div>
+
+      </div>
+    
+      <div class="list-group-item d-flex align-items-center gap-3 p-2 border-start-0" 
+           style="border-left: 5px solid #6c76f9 !important;">
+        
+        <div class="text-center text-muted" style="min-width: 55px;">
+            <div class="fw-bold">14:00</div>
+        </div>
+
+        <div class="rounded bg-light d-flex align-items-center justify-content-center text-muted border" 
+             style="width: 42px; height: 42px; flex-shrink: 0; overflow: hidden;">
+             
+                <img src="/library/cover/902" class="w-100 h-100 object-fit-cover">
+             
+        </div>
+
+        <div class="flex-grow-1 overflow-hidden lh-1">
+            <div class="d-flex align-items-center gap-2 mb-1">
+                <span class="badge rounded-1 fw-bold text-uppercase" 
+                      style="background-color: #6c76f9; color: #fff; font-size: 0.65rem;">
+                    FATX MIX
+                </span>
+                
+                    <span class="text-muted small" style="font-size: 0.7em;">
+                        2013
+                    </span>
+                
+            </div>
+
+            
+                <div class="fw-semibold text-truncate">Black Belt</div>
+                <div class="small text-muted text-truncate">John Grant</div>
+            
+        </div>
+
+      </div>
+    
+      <div class="list-group-item d-flex align-items-center gap-3 p-2 border-start-0" 
+           style="border-left: 5px solid #6c76f9 !important;">
+        
+        <div class="text-center text-muted" style="min-width: 55px;">
+            <div class="fw-bold">14:00</div>
+        </div>
+
+        <div class="rounded bg-light d-flex align-items-center justify-content-center text-muted border" 
+             style="width: 42px; height: 42px; flex-shrink: 0; overflow: hidden;">
+             
+                <img src="/library/cover/3215" class="w-100 h-100 object-fit-cover">
+             
+        </div>
+
+        <div class="flex-grow-1 overflow-hidden lh-1">
+            <div class="d-flex align-items-center gap-2 mb-1">
+                <span class="badge rounded-1 fw-bold text-uppercase" 
+                      style="background-color: #6c76f9; color: #fff; font-size: 0.65rem;">
+                    FATX MIX
+                </span>
+                
+                    <span class="text-muted small" style="font-size: 0.7em;">
+                        1992
+                    </span>
+                
+            </div>
+
+            
+                <div class="fw-semibold text-truncate">Je te voudrai quand même</div>
+                <div class="small text-muted text-truncate">Pierre Schott</div>
+            
+        </div>
+
+      </div>
+    
+      <div class="list-group-item d-flex align-items-center gap-3 p-2 border-start-0" 
+           style="border-left: 5px solid #6c76f9 !important;">
+        
+        <div class="text-center text-muted" style="min-width: 55px;">
+            <div class="fw-bold">13:59</div>
+        </div>
+
+        <div class="rounded bg-light d-flex align-items-center justify-content-center text-muted border" 
+             style="width: 42px; height: 42px; flex-shrink: 0; overflow: hidden;">
+             
+                <img src="/library/cover/12350" class="w-100 h-100 object-fit-cover">
+             
+        </div>
+
+        <div class="flex-grow-1 overflow-hidden lh-1">
+            <div class="d-flex align-items-center gap-2 mb-1">
+                <span class="badge rounded-1 fw-bold text-uppercase" 
+                      style="background-color: #6c76f9; color: #fff; font-size: 0.65rem;">
+                    FATX MIX
+                </span>
+                
+            </div>
+
+            
+                <div class="fw-semibold text-truncate">Programme éponyme FATX</div>
+                <div class="small text-muted text-truncate">Tous les jours 19h</div>
+            
+        </div>
+
+      </div>
+    
+      <div class="list-group-item d-flex align-items-center gap-3 p-2 border-start-0" 
+           style="border-left: 5px solid #6c76f9 !important;">
+        
+        <div class="text-center text-muted" style="min-width: 55px;">
+            <div class="fw-bold">13:55</div>
+        </div>
+
+        <div class="rounded bg-light d-flex align-items-center justify-content-center text-muted border" 
+             style="width: 42px; height: 42px; flex-shrink: 0; overflow: hidden;">
+             
+                <img src="/library/cover/8977" class="w-100 h-100 object-fit-cover">
+             
+        </div>
+
+        <div class="flex-grow-1 overflow-hidden lh-1">
+            <div class="d-flex align-items-center gap-2 mb-1">
+                <span class="badge rounded-1 fw-bold text-uppercase" 
+                      style="background-color: #6c76f9; color: #fff; font-size: 0.65rem;">
+                    FATX MIX
+                </span>
+                
+            </div>
+
+            
+                <div class="fw-semibold text-truncate">www.fatx.fr</div>
+                <div class="small text-muted text-truncate">Instagram @radio_fatx</div>
+            
+        </div>
+
+      </div>
+    
+      <div class="list-group-item d-flex align-items-center gap-3 p-2 border-start-0" 
+           style="border-left: 5px solid #6c76f9 !important;">
+        
+        <div class="text-center text-muted" style="min-width: 55px;">
+            <div class="fw-bold">13:51</div>
+        </div>
+
+        <div class="rounded bg-light d-flex align-items-center justify-content-center text-muted border" 
+             style="width: 42px; height: 42px; flex-shrink: 0; overflow: hidden;">
+             
+                <img src="/library/cover/90053" class="w-100 h-100 object-fit-cover">
+             
+        </div>
+
+        <div class="flex-grow-1 overflow-hidden lh-1">
+            <div class="d-flex align-items-center gap-2 mb-1">
+                <span class="badge rounded-1 fw-bold text-uppercase" 
+                      style="background-color: #6c76f9; color: #fff; font-size: 0.65rem;">
+                    FATX MIX
+                </span>
+                
+                    <span class="text-muted small" style="font-size: 0.7em;">
+                        1983
+                    </span>
+                
+            </div>
+
+            
+                <div class="fw-semibold text-truncate">Rien à se dire</div>
+                <div class="small text-muted text-truncate">Jeanne-Marie Sens</div>
+            
+        </div>
+
+      </div>
+    
+      <div class="list-group-item d-flex align-items-center gap-3 p-2 border-start-0" 
+           style="border-left: 5px solid #6c76f9 !important;">
+        
+        <div class="text-center text-muted" style="min-width: 55px;">
+            <div class="fw-bold">13:48</div>
+        </div>
+
+        <div class="rounded bg-light d-flex align-items-center justify-content-center text-muted border" 
+             style="width: 42px; height: 42px; flex-shrink: 0; overflow: hidden;">
+             
+                <img src="/library/cover/3275" class="w-100 h-100 object-fit-cover">
+             
+        </div>
+
+        <div class="flex-grow-1 overflow-hidden lh-1">
+            <div class="d-flex align-items-center gap-2 mb-1">
+                <span class="badge rounded-1 fw-bold text-uppercase" 
+                      style="background-color: #6c76f9; color: #fff; font-size: 0.65rem;">
+                    FATX MIX
+                </span>
+                
+                    <span class="text-muted small" style="font-size: 0.7em;">
+                        1998
+                    </span>
+                
+            </div>
+
+            
+                <div class="fw-semibold text-truncate">Les majorettes (New Single Edit)</div>
+                <div class="small text-muted text-truncate">Alain Chamfort</div>
+            
+        </div>
+
+      </div>
+    
+      <div class="list-group-item d-flex align-items-center gap-3 p-2 border-start-0" 
+           style="border-left: 5px solid #6c76f9 !important;">
+        
+        <div class="text-center text-muted" style="min-width: 55px;">
+            <div class="fw-bold">13:46</div>
+        </div>
+
+        <div class="rounded bg-light d-flex align-items-center justify-content-center text-muted border" 
+             style="width: 42px; height: 42px; flex-shrink: 0; overflow: hidden;">
+             
+                <img src="/library/cover/833" class="w-100 h-100 object-fit-cover">
+             
+        </div>
+
+        <div class="flex-grow-1 overflow-hidden lh-1">
+            <div class="d-flex align-items-center gap-2 mb-1">
+                <span class="badge rounded-1 fw-bold text-uppercase" 
+                      style="background-color: #6c76f9; color: #fff; font-size: 0.65rem;">
+                    FATX MIX
+                </span>
+                
+                    <span class="text-muted small" style="font-size: 0.7em;">
+                        2024
+                    </span>
+                
+            </div>
+
+            
+                <div class="fw-semibold text-truncate">Le code</div>
+                <div class="small text-muted text-truncate">Biche</div>
+            
+        </div>
+
+      </div>
+    
+      <div class="list-group-item d-flex align-items-center gap-3 p-2 border-start-0" 
+           style="border-left: 5px solid #6c76f9 !important;">
+        
+        <div class="text-center text-muted" style="min-width: 55px;">
+            <div class="fw-bold">13:41</div>
+        </div>
+
+        <div class="rounded bg-light d-flex align-items-center justify-content-center text-muted border" 
+             style="width: 42px; height: 42px; flex-shrink: 0; overflow: hidden;">
+             
+                <img src="/library/cover/592" class="w-100 h-100 object-fit-cover">
+             
+        </div>
+
+        <div class="flex-grow-1 overflow-hidden lh-1">
+            <div class="d-flex align-items-center gap-2 mb-1">
+                <span class="badge rounded-1 fw-bold text-uppercase" 
+                      style="background-color: #6c76f9; color: #fff; font-size: 0.65rem;">
+                    FATX MIX
+                </span>
+                
+                    <span class="text-muted small" style="font-size: 0.7em;">
+                        1983
+                    </span>
+                
+            </div>
+
+            
+                <div class="fw-semibold text-truncate">Maman est folle</div>
+                <div class="small text-muted text-truncate">William Sheller</div>
+            
+        </div>
+
+      </div>
+    
+      <div class="list-group-item d-flex align-items-center gap-3 p-2 border-start-0" 
+           style="border-left: 5px solid #6c76f9 !important;">
+        
+        <div class="text-center text-muted" style="min-width: 55px;">
+            <div class="fw-bold">13:37</div>
+        </div>
+
+        <div class="rounded bg-light d-flex align-items-center justify-content-center text-muted border" 
+             style="width: 42px; height: 42px; flex-shrink: 0; overflow: hidden;">
+             
+                <img src="/library/cover/3566" class="w-100 h-100 object-fit-cover">
+             
+        </div>
+
+        <div class="flex-grow-1 overflow-hidden lh-1">
+            <div class="d-flex align-items-center gap-2 mb-1">
+                <span class="badge rounded-1 fw-bold text-uppercase" 
+                      style="background-color: #6c76f9; color: #fff; font-size: 0.65rem;">
+                    FATX MIX
+                </span>
+                
+                    <span class="text-muted small" style="font-size: 0.7em;">
+                        1984
+                    </span>
+                
+            </div>
+
+            
+                <div class="fw-semibold text-truncate">Eyes (Fatx Edit)</div>
+                <div class="small text-muted text-truncate">Clio</div>
+            
+        </div>
+
+      </div>
+    
+      <div class="list-group-item d-flex align-items-center gap-3 p-2 border-start-0" 
+           style="border-left: 5px solid #6c76f9 !important;">
+        
+        <div class="text-center text-muted" style="min-width: 55px;">
+            <div class="fw-bold">13:33</div>
+        </div>
+
+        <div class="rounded bg-light d-flex align-items-center justify-content-center text-muted border" 
+             style="width: 42px; height: 42px; flex-shrink: 0; overflow: hidden;">
+             
+                <img src="/library/cover/5330" class="w-100 h-100 object-fit-cover">
+             
+        </div>
+
+        <div class="flex-grow-1 overflow-hidden lh-1">
+            <div class="d-flex align-items-center gap-2 mb-1">
+                <span class="badge rounded-1 fw-bold text-uppercase" 
+                      style="background-color: #6c76f9; color: #fff; font-size: 0.65rem;">
+                    FATX MIX
+                </span>
+                
+                    <span class="text-muted small" style="font-size: 0.7em;">
+                        1989
+                    </span>
+                
+            </div>
+
+            
+                <div class="fw-semibold text-truncate">Wicked Game (Edit)</div>
+                <div class="small text-muted text-truncate">Chris Isaak</div>
+            
+        </div>
+
+      </div>
+    
+      <div class="list-group-item d-flex align-items-center gap-3 p-2 border-start-0" 
+           style="border-left: 5px solid #6c76f9 !important;">
+        
+        <div class="text-center text-muted" style="min-width: 55px;">
+            <div class="fw-bold">13:30</div>
+        </div>
+
+        <div class="rounded bg-light d-flex align-items-center justify-content-center text-muted border" 
+             style="width: 42px; height: 42px; flex-shrink: 0; overflow: hidden;">
+             
+                <img src="/library/cover/4442" class="w-100 h-100 object-fit-cover">
+             
+        </div>
+
+        <div class="flex-grow-1 overflow-hidden lh-1">
+            <div class="d-flex align-items-center gap-2 mb-1">
+                <span class="badge rounded-1 fw-bold text-uppercase" 
+                      style="background-color: #6c76f9; color: #fff; font-size: 0.65rem;">
+                    FATX MIX
+                </span>
+                
+                    <span class="text-muted small" style="font-size: 0.7em;">
+                        1996
+                    </span>
+                
+            </div>
+
+            
+                <div class="fw-semibold text-truncate">Virtual Insanity (Radio Edit)</div>
+                <div class="small text-muted text-truncate">Jamiroquai</div>
+            
+        </div>
+
+      </div>
+    
+      <div class="list-group-item d-flex align-items-center gap-3 p-2 border-start-0" 
+           style="border-left: 5px solid #6c76f9 !important;">
+        
+        <div class="text-center text-muted" style="min-width: 55px;">
+            <div class="fw-bold">13:26</div>
+        </div>
+
+        <div class="rounded bg-light d-flex align-items-center justify-content-center text-muted border" 
+             style="width: 42px; height: 42px; flex-shrink: 0; overflow: hidden;">
+             
+                <img src="/library/cover/3665" class="w-100 h-100 object-fit-cover">
+             
+        </div>
+
+        <div class="flex-grow-1 overflow-hidden lh-1">
+            <div class="d-flex align-items-center gap-2 mb-1">
+                <span class="badge rounded-1 fw-bold text-uppercase" 
+                      style="background-color: #6c76f9; color: #fff; font-size: 0.65rem;">
+                    FATX MIX
+                </span>
+                
+                    <span class="text-muted small" style="font-size: 0.7em;">
+                        1983
+                    </span>
+                
+            </div>
+
+            
+                <div class="fw-semibold text-truncate">Come On</div>
+                <div class="small text-muted text-truncate">Jules Tropicana</div>
+            
+        </div>
+
+      </div>
+    
+      <div class="list-group-item d-flex align-items-center gap-3 p-2 border-start-0" 
+           style="border-left: 5px solid #6c76f9 !important;">
+        
+        <div class="text-center text-muted" style="min-width: 55px;">
+            <div class="fw-bold">13:24</div>
+        </div>
+
+        <div class="rounded bg-light d-flex align-items-center justify-content-center text-muted border" 
+             style="width: 42px; height: 42px; flex-shrink: 0; overflow: hidden;">
+             
+                <img src="/library/cover/4891" class="w-100 h-100 object-fit-cover">
+             
+        </div>
+
+        <div class="flex-grow-1 overflow-hidden lh-1">
+            <div class="d-flex align-items-center gap-2 mb-1">
+                <span class="badge rounded-1 fw-bold text-uppercase" 
+                      style="background-color: #6c76f9; color: #fff; font-size: 0.65rem;">
+                    FATX MIX
+                </span>
+                
+                    <span class="text-muted small" style="font-size: 0.7em;">
+                        1989
+                    </span>
+                
+            </div>
+
+            
+                <div class="fw-semibold text-truncate">Souviens-toi des mots</div>
+                <div class="small text-muted text-truncate">Patricia Zamler</div>
+            
+        </div>
+
+      </div>
+    
+  </div>
+
+
+
+<style>
+.animate-pulse {
+    animation: pulse 1.5s infinite;
+}
+@keyframes pulse {
+    0% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.9); }
+    100% { opacity: 1; transform: scale(1); }
+}
+.object-fit-cover {
+    object-fit: cover;
+}
+.history-accent-card {
+    position: relative;
+    overflow: hidden;
+}
+.history-accent-card::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 8px;
+    background: var(--accent-color, #6c757d);
+}
+.history-cover .ratio {
+    width: 100%;
+}
+.history-cover-img,
+.history-cover-fallback {
+    width: 100%;
+    height: 100%;
+}
+.scrolling-title {
+    overflow: hidden;
+    white-space: nowrap;
+}
+.scrolling-title-text {
+    display: inline-block;
+    padding-right: 2rem;
+}
+.scrolling-title.is-scrolling .scrolling-title-text {
+    animation: scroll-title 10s linear infinite;
+}
+@keyframes scroll-title {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+}
+</style>
+<script>
+  (function() {
+    const refreshTarget = document.getElementById('history-auto-refresh');
+    if (!refreshTarget || !window.Turbo) return;
+
+    const initialTitle = refreshTarget.dataset.trackTitle || '';
+    const initialArtist = refreshTarget.dataset.trackArtist || '';
+    let lastSignature = `${initialTitle}__${initialArtist}`;
+
+    const pollNowPlaying = () => {
+      fetch('/api/now_playing')
+        .then((res) => res.ok ? res.json() : Promise.reject())
+        .then((data) => {
+          const nextSignature = `${data.track_title || ''}__${data.track_artist || ''}`;
+          if (nextSignature && nextSignature !== lastSignature) {
+            lastSignature = nextSignature;
+            window.Turbo.visit(window.location.href, { action: 'replace' });
+          }
+        })
+        .catch(() => {});
+    };
+
+    pollNowPlaying();
+    setInterval(pollNowPlaying, 10000);
+  })();
+
+  (function() {
+    const titles = document.querySelectorAll('.scrolling-title');
+    titles.forEach((title) => {
+      const text = title.querySelector('.scrolling-title-text');
+      if (!text) return;
+      const shouldScroll = text.scrollWidth > title.clientWidth;
+      title.classList.toggle('is-scrolling', shouldScroll);
+    });
+  })();
+</script>
+
+    </main>
+    
+    </body>
+</html>
