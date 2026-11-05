@@ -1,0 +1,48 @@
+<html>
+<head>
+    <title>WMR - World Music Radio</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+</head>
+<body>
+    <img class="mx-auto d-block" id="logo-img" alt="World Music Radio logo" src="logo.png">
+    <nav class="navbar navbar-dark navbar-expand-lg my-colour">
+        <div class="container mx-auto">
+            <a href="#" onclick="load('start')" class="navbar-brand">World Music Radio</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar2">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse" id="navbar2">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="load('frequencies')">Frequencies</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="load('history')">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="load('soon')">Webshop</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://www.facebook.com/WorldMusicRadioWMR/"  target="_blank">Facebook</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="load('contact')">Contact</a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" id="listen-now" href="#" onclick="load('listennow')">Listen Now</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div id="content-col" class="container pt-4"></div>
+</body>
+</html>

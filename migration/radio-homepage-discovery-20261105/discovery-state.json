@@ -115212,7 +115212,8 @@
         "http://radiolimfjord.dk/",
         "https://limfjordnetradio.dk/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:6864:A809:ED:0:0:0:0": {
       "name": "Limfjord Plus",
@@ -115224,7 +115225,8 @@
       "homepages": [
         "http://www.limfjordplus.dk/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:F30:EB83:ED:0:0:0:0": {
       "name": "Limfjord Plus Slager",
@@ -115236,7 +115238,8 @@
       "homepages": [
         "http://www.limfjordplus.dk/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:E14F:88EB:ED:0:0:0:0": {
       "name": "Limfjord Slager",
@@ -115260,7 +115263,10 @@
       "homepages": [
         "https://www.folketsradio.dk/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 404\n"
+      ]
     },
     "4097:0:2:907A:76DD:ED:0:0:0:0": {
       "name": "Midtfjord Radio",
@@ -115309,7 +115315,8 @@
       "homepages": [
         "https://mjazzradio.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:2D5F:7CA8:ED:0:0:0:0": {
       "name": "Music for Dreams Radio",
@@ -115321,7 +115328,10 @@
       "homepages": [
         "https://www.musicfordreams.dk/radio/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 404\n"
+      ]
     },
     "4097:0:2:1380:AA66:ED:0:0:0:0": {
       "name": "myROCK",
@@ -115346,7 +115356,34 @@
         "http://radiomb.dk/",
         "http://radiomb.dk/eu"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://radiomb.dk/images/euranet-logo.png",
+        "final_url": "https://radiomb.dk/images/euranet-logo.png",
+        "path": "originals/f412ef43455be602178bdc9a11aaea0bc0814e16cca2667dfb44388cd119d422.img",
+        "sha256": "f412ef43455be602178bdc9a11aaea0bc0814e16cca2667dfb44388cd119d422",
+        "bytes": 5567,
+        "dimensions": [
+          207,
+          57
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "http://radiomb.dk/",
+        "final_url": "https://radiomb.dk/",
+        "sha256": "c3990c1afb030f83f60de86bdb57499c6803dd0b733c3326761a1ae759ef6ba9",
+        "path": "page-evidence/c3990c1afb030f83f60de86bdb57499c6803dd0b733c3326761a1ae759ef6ba9.html",
+        "titles": [
+          "Radio Mælkebøtten"
+        ],
+        "image_urls": [
+          "https://radiomb.dk/images/euranet-logo.png",
+          "https://radiomb.dk/images/logo.gif",
+          "https://radiomb.dk/images/logomb.gif"
+        ]
+      },
+      "ocr_text": "\"Sos evuranet\n\n@e @ evropesn radio networx\n"
     },
     "4097:0:2:263D:DC24:ED:0:0:0:0": {
       "name": "NMRadio",
@@ -115407,7 +115444,48 @@
       "homepages": [
         "https://radioplay.dk/nova-100-dansk/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://assets.planetradio.co.uk/img/ConfigWebHeaderLogoSVGImageUrl/202.svg?ver=1490698010",
+        "final_url": "https://assets.planetradio.co.uk/img/ConfigWebHeaderLogoSVGImageUrl/202.svg?ver=1490698010",
+        "path": "originals/cd3c32afdbd331febfcb8b498ca965ab61108c6225312dd1a96a5dae279fe769.img",
+        "sha256": "cd3c32afdbd331febfcb8b498ca965ab61108c6225312dd1a96a5dae279fe769",
+        "bytes": 4917,
+        "dimensions": [
+          640,
+          374
+        ],
+        "format": "SVG",
+        "frozen_svg_raster": {
+          "path": "rasterized/7561508a144b455e53f5d17ea401fa792e14085e7532ebea6e50df5a7d111d04.png",
+          "sha256": "7561508a144b455e53f5d17ea401fa792e14085e7532ebea6e50df5a7d111d04",
+          "cairosvg_version": "2.8.2"
+        }
+      },
+      "page": {
+        "url": "https://radioplay.dk/nova-100-dansk/",
+        "final_url": "https://rayo.dk/nova-100-dansk",
+        "sha256": "9897575ac80b41be2bfb09c3924c8435d3e8ba60bdabedb9cb1905e40d20c652",
+        "path": "page-evidence/9897575ac80b41be2bfb09c3924c8435d3e8ba60bdabedb9cb1905e40d20c652.html",
+        "titles": [
+          "NOVA 100% Dansk - Officiel hjemmeside | De største danske hits lige nu",
+          "De største danske hits lige nu",
+          "Afspil",
+          "Afspil",
+          "Afspil",
+          "Afspil",
+          "Afspil",
+          "Afspil",
+          "Afspil",
+          "Afspil"
+        ],
+        "image_urls": [
+          "https://assets.planetradio.co.uk/img/ConfigWebHeaderLogoSVGImageUrl/202.svg?ver=1490698010",
+          "https://assets.planetradio.co.uk/img/ConfigWebListenBarLogoImageUrl/173.jpg?ver=1490626560",
+          "https://assets.planetradio.co.uk/img/ConfigWebListenBarLogoImageUrl/176.jpg?ver=1490690853"
+        ]
+      },
+      "ocr_text": ""
     },
     "4097:0:2:DCBA:4E26:ED:0:0:0:0": {
       "name": "Nova FM",
@@ -115444,7 +115522,8 @@
       "homepages": [
         "http://www.radioodsherred.dk/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:FD65:E809:ED:0:0:0:0": {
       "name": "Radio Ost FM",
@@ -115492,7 +115571,8 @@
       "homepages": [
         "https://www.partyradio.pro/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:BAAC:9874:ED:0:0:0:0": {
       "name": "Plantland Radio",
@@ -115529,7 +115609,41 @@
       "homepages": [
         "https://radioplay.dk/pop-fm-80er"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://assets.planetradio.co.uk/img/ConfigWebListenBarLogoImageUrl/173.jpg?ver=1490626560",
+        "final_url": "https://assets.planetradio.co.uk/img/ConfigWebListenBarLogoImageUrl/173.jpg?ver=1490626560",
+        "path": "originals/183019b1a8298c6a25b7739fa61f0664c11512271c7a1100f11742b6dbd99d95.img",
+        "sha256": "183019b1a8298c6a25b7739fa61f0664c11512271c7a1100f11742b6dbd99d95",
+        "bytes": 4459,
+        "dimensions": [
+          160,
+          160
+        ],
+        "format": "JPEG"
+      },
+      "page": {
+        "url": "https://radioplay.dk/pop-fm-80er",
+        "final_url": "https://rayo.dk/pop-fm-80er",
+        "sha256": "040fc0c7712228502828494730ff6684a29858f3dcc824d928c23b5a66e43bad",
+        "path": "page-evidence/040fc0c7712228502828494730ff6684a29858f3dcc824d928c23b5a66e43bad.html",
+        "titles": [
+          "Pop FM 80'er - Officiel hjemmeside | Det bedste fra de største.",
+          "Det bedste fra de største.",
+          "Afspil",
+          "Afspil",
+          "Afspil",
+          "Afspil",
+          "Afspil",
+          "Afspil"
+        ],
+        "image_urls": [
+          "https://assets.planetradio.co.uk/img/ConfigWebListenBarLogoImageUrl/173.jpg?ver=1490626560",
+          "https://assets.planetradio.co.uk/img/ConfigWebListenBarLogoImageUrl/176.jpg?ver=1490690853",
+          "https://assets.planetradio.co.uk/img/ConfigWebListenBarLogoImageUrl/212.jpg?ver=1490197142"
+        ]
+      },
+      "ocr_text": ""
     },
     "4097:0:2:A1D6:A955:ED:0:0:0:0": {
       "name": "POP FM DK",
@@ -115553,7 +115667,8 @@
       "homepages": [
         "http://psyradio.fm/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:9DA6:49CB:ED:0:0:0:0": {
       "name": "r8Dio",
@@ -115690,7 +115805,34 @@
         "https://retro-radio.dk/",
         "https://www.retro-radio.dk/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://retro-radio.dk/wp-content/uploads/2023/11/logo-guldkanalen-e1701369748479.png",
+        "final_url": "https://retro-radio.dk/wp-content/uploads/2023/11/logo-guldkanalen-e1701369748479.png",
+        "path": "originals/0cd098248f3ac1791acea870f9c93b0813c64cf49dd96eca429ea45992118c95.img",
+        "sha256": "0cd098248f3ac1791acea870f9c93b0813c64cf49dd96eca429ea45992118c95",
+        "bytes": 25339,
+        "dimensions": [
+          160,
+          119
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "http://www.retro-radio.dk/",
+        "final_url": "https://retro-radio.dk/",
+        "sha256": "553e7533c6d010a7d855e13fa13f46eb7ddf84dc65a5a7c444572b35ed746330",
+        "path": "page-evidence/553e7533c6d010a7d855e13fa13f46eb7ddf84dc65a5a7c444572b35ed746330.html",
+        "titles": [
+          "Retro Radio – – Vi er Danmarks Retro-Radio"
+        ],
+        "image_urls": [
+          "https://retro-radio.dk/wp-content/uploads/2023/11/Jul2.png",
+          "https://retro-radio.dk/wp-content/uploads/2023/11/logo-guldkanalen-e1701369748479.png",
+          "https://retro-radio.dk/wp-content/uploads/2023/11/logo-kanal-plus.png"
+        ]
+      },
+      "ocr_text": ""
     },
     "4097:0:2:671B:1A82:ED:0:0:0:0": {
       "name": "Retro-Radio Jul",
@@ -115702,7 +115844,8 @@
       "homepages": [
         "http://www.retro-radio.dk/netradio/jul.php"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:2343:DF91:ED:0:0:0:0": {
       "name": "Radio Ringkøbing",
@@ -115714,7 +115857,10 @@
       "homepages": [
         "https://fmscan.org/net.php?sid=23590&pxf=Radio+Ringk%F8bing&m=s&r=f&itu=0"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 403\n"
+      ]
     },
     "4097:0:2:5C93:B2AE:ED:0:0:0:0": {
       "name": "Skala FM",
@@ -115739,7 +115885,8 @@
       "homepages": [
         "https://www.knr.dk/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:711B:F0F7:ED:0:0:0:0": {
       "name": "Radio Solo",
@@ -115800,7 +115947,40 @@
       "homepages": [
         "http://www.umlando.dk/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "http://www.umlando.dk/images/Logo-Programmer/OmniaVincitAmor/OmniaVincitAmor-.jpg",
+        "final_url": "http://www.umlando.dk/images/Logo-Programmer/OmniaVincitAmor/OmniaVincitAmor-.jpg",
+        "path": "originals/aaeb2998e37d4b297787d7165ec98782dff129915735f66e8d3feaa3ec709591.img",
+        "sha256": "aaeb2998e37d4b297787d7165ec98782dff129915735f66e8d3feaa3ec709591",
+        "bytes": 56537,
+        "dimensions": [
+          400,
+          300
+        ],
+        "format": "JPEG"
+      },
+      "page": {
+        "url": "http://www.umlando.dk/",
+        "final_url": "http://www.umlando.dk/",
+        "sha256": "bc89336192d44f0f3a920fff05090a5ca36ce41d2664c6f19032c9e2a629e7e8",
+        "path": "page-evidence/bc89336192d44f0f3a920fff05090a5ca36ce41d2664c6f19032c9e2a629e7e8.html",
+        "titles": [
+          "UMLANDO Radio",
+          "\n                                                                       Danmarkshistorie, Verdenshistorie og Lokalhistorie \n                                                                   ",
+          "\n                                                                       Umlando Radio besøger museer og hører om udstillinger \n                                                                   ",
+          "\n                                                                       Lyt til programmer om fund, levn og historie \n                                                                   ",
+          "\n                                                                       Ældre klassisk musik på Umlando Radio \n                                                                   ",
+          "\n                                                                       Lyt til udsendelser fra lokalområdet \n                                                                   ",
+          "\n                                                                       Fordybelse og forståelse på Umlando Radio \n                                                                   ",
+          "\n                                                                       Kærligheden overvinder alt i direkte udsendelser \n                                                                   "
+        ],
+        "image_urls": [
+          "http://www.umlando.dk/images/Logo-Programmer/OmniaVincitAmor/OmniaVincitAmor-.jpg",
+          "http://www.umlando.dk/images/Logo-Umlando/LogoWatch-png.png"
+        ]
+      },
+      "ocr_text": ""
     },
     "4097:0:2:1BC:270E:ED:0:0:0:0": {
       "name": "Radio Varde",
@@ -115812,7 +115992,10 @@
       "homepages": [
         "https://wlmm.dk/varde/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "Command '['tesseract', '/tmp/radio-logo-ocr-tpyiype9/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds"
+      ]
     },
     "4097:0:2:A384:F3E0:ED:0:0:0:0": {
       "name": "Vendsyssel FM",
@@ -115824,7 +116007,8 @@
       "homepages": [
         "https://www.vendsysselfm.dk/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:9E62:3CEA:ED:0:0:0:0": {
       "name": "Radio Viborg",
@@ -115860,7 +116044,34 @@
       "homepages": [
         "https://vinylhits.dk/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://vinylhits.dk/grafik/vinylhits.dk_logo_background.png",
+        "final_url": "https://vinylhits.dk/grafik/vinylhits.dk_logo_background.png",
+        "path": "originals/b3b48472e31c1aaa248fe9927eaf6979d8e51356cb2ba103fc91c68c3737e46f.img",
+        "sha256": "b3b48472e31c1aaa248fe9927eaf6979d8e51356cb2ba103fc91c68c3737e46f",
+        "bytes": 4422,
+        "dimensions": [
+          200,
+          171
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://vinylhits.dk/",
+        "final_url": "https://vinylhits.dk/",
+        "sha256": "2e2615553c174e1d63ee42992e4cb3e8d0187ef6fab3967961ae95f188e71877",
+        "path": "page-evidence/2e2615553c174e1d63ee42992e4cb3e8d0187ef6fab3967961ae95f188e71877.html",
+        "titles": [
+          "vinylhits.dk"
+        ],
+        "image_urls": [
+          "https://vinylhits.dk/grafik/boomerang-logo-377x101.jpg",
+          "https://vinylhits.dk/grafik/kloak_ekpressen_aps_logo.jpg",
+          "https://vinylhits.dk/grafik/vinylhits.dk_logo_background.png"
+        ]
+      },
+      "ocr_text": "~ f\n\npF ON\n"
     },
     "4097:0:2:2292:15A7:ED:0:0:0:0": {
       "name": "Vinylhits.dk",
@@ -115872,7 +116083,34 @@
       "homepages": [
         "https://vinylhits.dk/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://vinylhits.dk/grafik/vinylhits.dk_logo_background.png",
+        "final_url": "https://vinylhits.dk/grafik/vinylhits.dk_logo_background.png",
+        "path": "originals/b3b48472e31c1aaa248fe9927eaf6979d8e51356cb2ba103fc91c68c3737e46f.img",
+        "sha256": "b3b48472e31c1aaa248fe9927eaf6979d8e51356cb2ba103fc91c68c3737e46f",
+        "bytes": 4422,
+        "dimensions": [
+          200,
+          171
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://vinylhits.dk/",
+        "final_url": "https://vinylhits.dk/",
+        "sha256": "2e2615553c174e1d63ee42992e4cb3e8d0187ef6fab3967961ae95f188e71877",
+        "path": "page-evidence/2e2615553c174e1d63ee42992e4cb3e8d0187ef6fab3967961ae95f188e71877.html",
+        "titles": [
+          "vinylhits.dk"
+        ],
+        "image_urls": [
+          "https://vinylhits.dk/grafik/boomerang-logo-377x101.jpg",
+          "https://vinylhits.dk/grafik/kloak_ekpressen_aps_logo.jpg",
+          "https://vinylhits.dk/grafik/vinylhits.dk_logo_background.png"
+        ]
+      },
+      "ocr_text": "~ f\n\npF ON\n"
     },
     "4097:0:2:4964:8892:ED:0:0:0:0": {
       "name": "Radio Viva",
@@ -115920,7 +116158,10 @@
       "homepages": [
         "https://www.wmr.dk/#"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "Command '['tesseract', '/tmp/radio-logo-ocr-cnf8_k35/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds"
+      ]
     },
     "4097:0:2:6E1C:21F8:ED:0:0:0:0": {
       "name": "X FM K",
@@ -115966,7 +116207,34 @@
       "homepages": [
         "https://fabulosafm.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://fabulosafm.com/wp-content/uploads/2021/06/app-store-google-play-logo.png",
+        "final_url": "https://fabulosafm.com/wp-content/uploads/2021/06/app-store-google-play-logo.png",
+        "path": "originals/4492b1dfcede8d856af11455c23cff74648b96cfc35e441ebad43ac78c92e6ce.img",
+        "sha256": "4492b1dfcede8d856af11455c23cff74648b96cfc35e441ebad43ac78c92e6ce",
+        "bytes": 22683,
+        "dimensions": [
+          300,
+          194
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://fabulosafm.com/",
+        "final_url": "https://fabulosafm.com/",
+        "sha256": "4043191251b605b3c7ba36cd6c03fb88ac791ae0fea30eeb4fab09178f034278",
+        "path": "page-evidence/4043191251b605b3c7ba36cd6c03fb88ac791ae0fea30eeb4fab09178f034278.html",
+        "titles": [
+          "Fabulosa 96.7 – La Casa de Conversando"
+        ],
+        "image_urls": [
+          "https://fabulosafm.com/wp-content/uploads/2020/04/cropped-Logo-Fabulosa-96.7-2-75x51.png",
+          "https://fabulosafm.com/wp-content/uploads/2021/06/app-store-google-play-logo.png",
+          "https://fabulosafm.com/wp-content/uploads/2021/07/Fabulosa-Home-logo-151x114.png"
+        ]
+      },
+      "ocr_text": ""
     },
     "4097:0:2:793F:9063:ED:0:0:0:0": {
       "name": "Voice Of Life Radio",
@@ -116003,7 +116271,10 @@
       "homepages": [
         "https://radio.franklinsandoval.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 403\n"
+      ]
     },
     "4097:0:2:379:D358:ED:0:0:0:0": {
       "name": "Radio Activa",
@@ -116015,7 +116286,35 @@
       "homepages": [
         "https://www.radioactiva.ec/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://radioactiva.ec/wp-content/uploads/2026/08/cropped-672629650_2892652797753878_7256136777976928067_n-180x180.jpg",
+        "final_url": "https://radioactiva.ec/wp-content/uploads/2026/08/cropped-672629650_2892652797753878_7256136777976928067_n-180x180.jpg",
+        "path": "originals/fd555524f3306535f5d5ef35df2a00ca685135c85eea4407cf37fad4aadba900.img",
+        "sha256": "fd555524f3306535f5d5ef35df2a00ca685135c85eea4407cf37fad4aadba900",
+        "bytes": 6428,
+        "dimensions": [
+          180,
+          180
+        ],
+        "format": "JPEG"
+      },
+      "page": {
+        "url": "https://www.radioactiva.ec/",
+        "final_url": "https://radioactiva.ec/",
+        "sha256": "311951e684bb8c5b4ab7c29290b27f4f72b7a0bbcf4bb06fa58426a07ee88c6f",
+        "path": "page-evidence/311951e684bb8c5b4ab7c29290b27f4f72b7a0bbcf4bb06fa58426a07ee88c6f.html",
+        "titles": [
+          "Radioactiva Ecuador",
+          "Descarga nuestra APP"
+        ],
+        "image_urls": [
+          "https://radioactiva.ec/wp-content/uploads/2026/08/cropped-672629650_2892652797753878_7256136777976928067_n-180x180.jpg",
+          "https://radioactiva.ec/wp-content/uploads/2026/08/cropped-672629650_2892652797753878_7256136777976928067_n-192x192.jpg",
+          "https://radioactiva.ec/wp-content/uploads/2026/08/cropped-672629650_2892652797753878_7256136777976928067_n-32x32.jpg"
+        ]
+      },
+      "ocr_text": "radio\n\njactiva)\n"
     },
     "4097:0:2:5D46:D4A8:ED:0:0:0:0": {
       "name": "Radio Alegria",
@@ -486974,15 +487273,15 @@
   },
   "counts": {
     "already_ready_in_saved_checkpoint": 1747,
-    "blocked_no_confirmed_station_page_and_logo": 2664,
+    "blocked_no_confirmed_station_page_and_logo": 2680,
     "blocked_no_independent_station_homepage": 872,
     "blocked_no_unique_current_station_metadata": 4248,
-    "candidate_assistant_visual_and_identity_check": 588,
+    "candidate_assistant_visual_and_identity_check": 597,
     "covered_by_primary_image_acquisition_worker": 12942,
     "needs_assistant_identity_research_for_short_or_generic_name": 4215,
-    "pending_homepage_discovery": 13579,
+    "pending_homepage_discovery": 13554,
     "ready_verified_homepage_and_wordmark": 48
   },
-  "last_event": "homepages_3300_of_16879",
-  "updated_utc": "2026-11-05T13:15:47Z"
+  "last_event": "homepages_3325_of_16879",
+  "updated_utc": "2026-11-05T13:16:35Z"
 }
