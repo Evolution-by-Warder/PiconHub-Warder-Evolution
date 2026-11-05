@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" >
+<head>
+	<title>NoLife-radio</title>
+	<meta name="viewport" content="width=700" />
+	<link id="favicon" rel="shortcut icon" type="image/png" href="favicon.png" />
+	<link rel="stylesheet" type="text/css" title="classic" href="css/classic.css" />
+	<link rel="alternate stylesheet" type="text/css" title="carbon" href="css/carbon.css" />
+
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="js/konami.js"></script>
+	<script type="text/javascript" src="js/soundmanager2-jsmin.js"></script>
+	<script type="text/javascript" src="js/jquery.cookie.js"></script>
+	<script type="text/javascript" src="js/jquery.form.js"></script>
+	<script type="text/javascript" src="js/shoutbox.js"></script>
+	<script type="text/javascript" src="js/json2.js"></script>
+	<script type="text/javascript" src="js/main.js"></script>
+
+<!--
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+	<script>
+		(adsbygoogle = window.adsbygoogle || []).push({
+			google_ad_client: "ca-pub-1039626552019317",
+			enable_page_level_ads: true
+		});
+	</script>
+-->
+
+</head>
+<body>
+<div id="body">
+
+<div id="wrapper1"><div id="wrapper2"><div id="main">
+
+<div id="header">
+	<form action="#"><div><select id="style"><option/></select></div></form>
+	<h1 id="title">NOLIFE-RADIO.COM</h1>
+</div>
+
+<div id="content">
+
+<!-- box player -->
+
+	<div class="box collapsed" id="box_player">
+		<div class="header">
+			<h2>Music Players</h2>
+			<div class="minimized">
+				<div id="player">
+					<a href="#" class="play">play</a>
+					<a href="#" class="stop" style="display: none;">stop</a>
+					<div class="volume_bg"><div class="volume"></div></div>
+				</div>
+				<div class="status">
+					<span class="radio_status">initializing...</span>
+					<span class="radio_listeners"></span>
+				</div>
+				<div id="desktop_players">
+					<ul>
+						<li class="winamp"><a href="https://nolife-radio.com/radio/NoLife-radio.m3u">Winamp</a></li>
+						<li class="itunes"><a href="https://nolife-radio.com/radio/NoLife-radio.pls">I-Tunes</a></li>
+						<li class="wmp"><a href="https://nolife-radio.com/radio/NoLife-radio.asx">Windows Media Player</a></li>
+						<!--li class="real"><a href="https://nolife-radio.com/radio/NoLife-radio.ram">Real player</a></li-->
+						<li class="mirc"><a href="https://widget.mibbit.com/?settings=801d13d00a2c33daba97af9553b0648e&server=irc.rizon.net&channel=%23noliferadio" target=_blank>IRC</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="timeout"></div>
+		</div>
+		<div class="content"></div>
+	</div>
+
+<!-- box radio -->
+
+	<div class="box collapsible" id="box_radio">
+		<div id="content_bar_size"></div>
+		<div id="minimized_bar_size"></div>
+		<div class="header">
+			<h2>Radio</h2>
+			<div class="minimized">
+				
+<div class="song song_0">
+	<a class="radio_song" href="https://www.google.fr/search?q=" target="_blank"></a>
+	<div class="poll">
+		<div class="poll_question">
+			<span>like?</span>
+			<ul>
+				<li><a href="#" class="poll_rating poll_yes" rev="1">Yes</a></li>
+				<li><a href="#" class="poll_rating poll_no" rev="0">No</a></li>
+			</ul>
+			<span class="clear"></span>
+		</div>
+		<div class="poll_result" id="poll_result">
+			<span class="poll_total">0 vote</span>
+			<span class="bar"><span class="poll_positive">0%</span><span class="poll_negative">0%</span></span><br />
+		</div>
+	</div>
+	<hr />
+</div>
+
+			</div>
+		</div>
+		<div class="content">
+			<div id="sync">
+				<form method="post" action="php/db/sync.php"><div>
+					<input class="password" type="text" value="Enter your password to merge your votes" name="password" />
+					<input class="submit" type="submit" />
+				</div></form>
+			</div>
+			<div class="tracks">
+
+<div class="song song_0">
+	<a class="radio_song" href="https://www.google.fr/search?q=" target="_blank"></a>
+	<div class="poll">
+		<div class="poll_question">
+			<span>like?</span>
+			<ul>
+				<li><a href="#" class="poll_rating poll_yes" rev="1">Yes</a></li>
+				<li><a href="#" class="poll_rating poll_no" rev="0">No</a></li>
+			</ul>
+			<span class="clear"></span>
+		</div>
+		<div class="poll_result" id="poll_result">
+			<span class="poll_total">0 vote</span>
+			<span class="bar"><span class="poll_positive">0%</span><span class="poll_negative">0%</span></span><br />
+		</div>
+	</div>
+	<hr />
+</div>
+
+
+<div class="song song_1">
+	<a class="radio_song" href="https://www.google.fr/search?q=" target="_blank"></a>
+	<div class="poll">
+		<div class="poll_question">
+			<span>like?</span>
+			<ul>
+				<li><a href="#" class="poll_rating poll_yes" rev="1">Yes</a></li>
+				<li><a href="#" class="poll_rating poll_no" rev="0">No</a></li>
+			</ul>
+			<span class="clear"></span>
+		</div>
+		<div class="poll_result" id="poll_result">
+			<span class="poll_total">0 vote</span>
+			<span class="bar"><span class="poll_positive">0%</span><span class="poll_negative">0%</span></span><br />
+		</div>
+	</div>
+	<hr />
+</div>
+
+
+<div class="song song_2">
+	<a class="radio_song" href="https://www.google.fr/search?q=" target="_blank"></a>
+	<div class="poll">
+		<div class="poll_question">
+			<span>like?</span>
+			<ul>
+				<li><a href="#" class="poll_rating poll_yes" rev="1">Yes</a></li>
+				<li><a href="#" class="poll_rating poll_no" rev="0">No</a></li>
+			</ul>
+			<span class="clear"></span>
+		</div>
+		<div class="poll_result" id="poll_result">
+			<span class="poll_total">0 vote</span>
+			<span class="bar"><span class="poll_positive">0%</span><span class="poll_negative">0%</span></span><br />
+		</div>
+	</div>
+	<hr />
+</div>
+
+
+<div class="song song_3">
+	<a class="radio_song" href="https://www.google.fr/search?q=" target="_blank"></a>
+	<div class="poll">
+		<div class="poll_question">
+			<span>like?</span>
+			<ul>
+				<li><a href="#" class="poll_rating poll_yes" rev="1">Yes</a></li>
+				<li><a href="#" class="poll_rating poll_no" rev="0">No</a></li>
+			</ul>
+			<span class="clear"></span>
+		</div>
+		<div class="poll_result" id="poll_result">
+			<span class="poll_total">0 vote</span>
+			<span class="bar"><span class="poll_positive">0%</span><span class="poll_negative">0%</span></span><br />
+		</div>
+	</div>
+	<hr />
+</div>
+
+			</div>
+		</div>
+	</div>
+
+<!-- box news -->
+
+	<div class="box collapsible" id="box_news">
+		<div class="header">
+			<h2>News</h2>
+			<div class="minimized">
+                                <div class="news">Check out our <a href="https://twitter.com/noliferadio">Twitter</a> for the latest updates.</div>
+				<div class="social">
+					<ul>
+						<li class="facebook"><a href="https://www.facebook.com/pages/Nolife-Radio/22788229142">Facebook</a></li>
+						<li class="twitter"><a href="https://twitter.com/noliferadio">Twitter</a></li>
+						<li class="mirc"><a href="https://widget.mibbit.com/?settings=801d13d00a2c33daba97af9553b0648e&server=irc.rizon.net&channel=%23noliferadio" target=_blank>IRC</a></li>
+						<li class="uservoice"><a href="https://syl.uservoice.com/forums/206390-nolife-radio">Uservoice</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="content">
+			Check out our <a href="https://twitter.com/noliferadio">Twitter</a> for the latest updates.		</div>
+	</div>
+
+<!-- box chat -->
+
+	<div class="box collapsible collapsed" id="box_chat">
+		<div class="header">
+			<h2>Chat</h2>
+			<div class="minimized">
+			</div>
+		</div>
+		<div class="content">
+			<div id="daddy-shoutbox">
+				<form id="daddy-shoutbox-form" action="php/shoutbox/daddy-shoutbox.php?action=add" method="post"><div>
+					Nick: <input class="nick" type="text" name="nickname" /> Say: <input class="message" type="text" name="message" />
+					<input type="submit" value="Submit" />
+				</div></form>
+				<div id="daddy-shoutbox-list"></div>
+			</div>
+		</div>
+	</div>
+
+<!-- box request -->
+
+	<div class="box collapsible collapsed" id="box_request">
+		<div class="header">
+			<h2>Request</h2>
+            <div class="min">
+                <a class="history" href="history" target="_blank">history</a>
+            </div>
+		</div>
+		<div class="content">
+			<form method="post" action="php/get_songs.php"><div>
+				<label for="filter_songs">Search: </label>
+				<input type="text" name="filter_songs" id="filter_songs" class="filter" />
+			</div></form>
+			<div class="container"><ul id="filtered_songs"><li></li></ul></div>
+		</div>
+	</div>
+
+<!-- box about -->
+
+	<div class="box collapsible" id="box_about">
+		<div class="header">
+			<h2>About</h2>
+			<div class="min">
+				<a class="donate" href="https://www.patreon.com/noliferadio" target="_blank">donate</a>
+			</div>
+		</div>
+		<div class="content">
+			<div class="left">
+				<div class="about">
+					<h3>What the hell is NoLife-radio?</h3>
+					<p>An independent web-radio dedicated to all the lovers of videogames music from the early days till now.</p>
+
+					<p>The radio playlist is simply shuffled between single tracks selected by
+					<a href="mailto:info@nolife-radio.com">DJ&nbsp;Cookie</a>,
+					<a href="mailto:info@nolife-radio.com">foukevin</a>,
+					<a href="mailto:info@nolife-radio.com">Dowseman</a>,
+					<a href="mailto:syl@nolife-radio.com">Syl</a> and
+					<a href="mailto:info@nolife-radio.com">perin03</a>.
+					</p>
+
+					<p>Special thanks to <a href="mailto:js@nolife-radio.com">serial</a> for code, tools and admin.
+					Website design by
+					<a href="mailto:info@nolife-radio.com">perin03</a> and
+					<a href="mailto:syl@nolife-radio.com">Syl</a>.</p>
+
+					<p>All the programs are advertising-free.<br />
+					And if you really like what you hear donate using the donation widget! We'd like to add a second server with your donation. More servers = more listeners!<br/></p>
+					<p>And of course, if you already have a server and want to relay the shoutcast, tell us and we'll add your server to our playlist.</p>
+				</div>
+				<div class="legal">
+					<h3>Legal information</h3>
+					<p>All the songs that you can listen on the NoLife-radio are protected by their author's rights. It is forbidden to use these songs except for a private and personal listening. The use of music material out of the family context is strictly prohibited. </p>
+				</div>
+			</div>
+			<div class="chipin">
+				<a href="https://www.patreon.com/bePatron?u=7475548" target="_blank" >
+				    <img src="https://c5.patreon.com/external/logo/become_a_patron_button.png" alt="Become a Patron!" width="50%" />
+				</a>
+			</div>
+		</div>
+	</div>
+
+<!-- box ads -->
+
+	<div class="box" id="box_partners">
+		<div class="header">
+			<h2>Ads</h2>
+			<div class="minimized">
+			</div>
+		</div>
+		<div class="content">
+			<div class="partners">
+				<!-- <a href="http://www.soundcloud.com/oxygenfad" target="_blank"><img src="img/oxygenfad.png" alt="Otakus Store" width="120" height="150" border="0"></a> -->
+                <!-- a href="http://www.otakus-store.com" target="_blank"><img src="img/bannerOtakusStore.gif" alt="Otakus Store" width="120" height="150" border="0"></a-->
+				<!--a href="http://yullaby.com/?page=magnetis" target="_blank"><img src="img/nolife_magnetis.png" alt="Yullaby: Magnetis" width="120" height="150" border="0"></a-->
+				<!--a href="http://etienneperin.com/games/square" target="_blank"><img src="img/square_nolife.png" alt="Etienne Perrin: Square" width="120" height="150" border="0"></a-->
+				<!--a href="http://etienneperin.com/games/kungfu" target="_blank"><img src="img/kungfu_nolife.png" alt="Etienne Perrin: Square" width="120" height="150" border="0"></a-->
+				<!-- <a href="http://itunes.apple.com/us/app/gauge-game/id512206751?ls=1&mt=8" target="_blank"><img src="img/gauge_nolife.png" alt="Etienne Perrin: Gauge" width="120" height="150" border="0"></a> -->
+				<!-- <a href="http://flyinghamster2.com" target="_blank"><img src="img/flyingHamsterBanner.png" alt="Game Atelier: Flying Hamster" width="120" height="150" border="0"></a> -->
+			</div>
+			<div class="google">
+
+<script async
+	src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1936547013233101"
+	crossorigin="anonymous"
+></script>
+<!-- Nolife-Radio -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1936547013233101"
+     data-ad-slot="1809013334"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+	 		</div>
+		</div>
+	</div>
+
+</div> <!-- content -->
+
+<div id="footer"></div>
+
+</div></div></div> <!-- wrappers and main -->
+
+
+</div> <!-- body -->
+
+</body>
+</html>

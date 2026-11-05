@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]> <html class="ie ie6 no-js" lang="en"> <![endif]-->
+<!--[if IE 7 ]>    <html class="ie ie7 no-js" lang="en"> <![endif]-->
+<!--[if IE 8 ]>    <html class="ie ie8 no-js" lang="en"> <![endif]-->
+<!--[if IE 9 ]>    <html class="ie ie9 no-js" lang="en"> <![endif]-->
+<!--[if gt IE 9]><!--><html class="no-js" lang="en"><!--<![endif]-->
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>MyDoom666's Stream</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+
+        <link rel="shortcut icon" href="../favicon.ico">
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
+		<meta property="og:image" content="http://mydoom666.radio.fm/images/og_image.jpg" />
+		<meta property="og:url" content="http://mydoom666.radio.fm/" />
+		<meta property="og:type" content="music.radio_station" />
+		<meta property="og:audio" content="http://mydoom666.radio.fm/md666-128k" />
+		<meta property="og:description" content="In the churches we sing praises, but it's in the churches." />
+		<meta property="og:title" content="MyDoom666's Radio" />
+		<link rel="apple-touch-icon" href="images/mydoom666-ios.png" />
+		<link rel="icon" type="image/png" href="images/favicon.png" />
+		<link href="js/jquery-ui-1.12.1/jquery-ui.css" rel="stylesheet" type="text/css"/>
+		<script src="js/jquery-3.4.1.min.js"></script>
+        	<script src="js/jquery-ui-1.12.1/jquery-ui.min.js"></script>
+    </head>
+    <body id="page">
+        <div class="container">
+            <div class="info">
+                <ul class="cb-slideshow">
+                    <li><span>Image 01</span><div><h3>re·lax·a·tion</h3></div></li>
+                    <li><span>Image 02</span><div><h3>qui·e·tude</h3></div></li>
+                    <li><span>Image 03</span><div><h3>bal·ance</h3></div></li>
+                    <li><span>Image 04</span><div><h3>e·qua·nim·i·ty</h3></div></li>
+                    <li><span>Image 05</span><div><h3>com·po·sure</h3></div></li>
+                    <li><span>Image 06</span><div><h3>se·ren·i·ty</h3></div></li>
+                </ul>
+                <header>
+                    <img id="thumb" width="130px" />
+                    <h1><span></span></h1>
+                    <h2></h2>
+                    <img class="btn ctl" src="images/play-button-icon.png" />
+                    <audio id="stream" src="md666-128k">
+                        We are sorry, but your browser doesn't support this streaming.
+                    </audio>
+                </header>
+                <div class="listen">
+                    <a href="listen.m3u"><img src="images/m3u.png" alt="M3U Playlist"/></a>
+                    <a href="listen.xspf"><img src="images/xspf.png" alt="VLC Playlist"/></a>
+                    <a href="listen.asx"><img src="images/asx.png" alt="Windows Media Player"/></a>
+                    <a href="listen.pls"><img src="images/winamp.png" alt="Winamp Playlist"/></a>
+                    <a href="listen.pls"><img src="images/itunes.png" alt="iTunes Playlist"/></a>
+                    <img id="count1" src="images/nb_0.png" /><img id="count2" src="images/nb_0.png" />
+                </div>
+            </div>
+            <div class="footer">
+                <ul class="partners">
+                    <li><a href="http://www.ecouterradioenligne.com/" target="_blank"><img src="images/WorldRadios.png" alt="ecouterradioenligne.com" height="50px"></a></li>
+                    <li><a href="http://directory.shoutcast.com/Search?query=Mydoom-666" target="_blank"><img src="images/shoutcast.png" alt="MyDoom 666 on ShoutCast.com" height="50px"></a></li>
+                    <li><a href="https://www.radio.fr/s/mydoom666" target="_blank"><img src="images/radionet.png" alt="MyDoom 666 on Radio.fr" height="50px"></a></li>
+                    <li><a href="http://dir.xiph.org/search?search=mydoom-666" target="_blank"><img src="images/Icecast.png" alt="MyDoom 666 on Icecast Directory" height="50px"></a></li>
+                    <li><a href="https://www.internet-radio.com/search/?radio=mydoom-666" target="_blank"><img src="images/internet-radio.png" alt="MyDoom 666 on Internet-Radio.com" height="50px"></a></li>
+                </ul>
+            </div>
+        </div>
+    	<script>
+		    $(document).ready( function () {
+		    	var stream = document.getElementById('stream');
+		    	stream.play();
+		    	if (!stream.paused) $("header .ctl").attr('src', "images/pause-button-icon.png");
+		    	refreshTitle();
+		    	$("header .ctl").click( function () {
+		    		if (stream.paused) {
+		    			stream.play();
+		    			$(this).attr('src', "images/pause-button-icon.png");
+		    		} else {
+		    			stream.pause();
+		    			$(this).attr('src', "images/play-button-icon.png");
+		    		}
+		    	});
+		    });
+		    function refreshTitle() {
+		    	$.ajax( {
+		            type: "GET",
+		            url: "status.xml",
+		            dataType: "xml",
+		            success: function(xml) {
+		            	Title = $(xml).find("CurrentTitle").first().text();
+		            	Artist = $(xml).find("CurrentArtist").first().text();
+		            	AlbumArt = $(xml).find("CurrentAlbumArt").first().text();
+		            	if ($("header #thumb").attr("src") != "images/album_art/"+AlbumArt) {
+			            	$("header h1 span").html(Title);
+			            	$("header h2").html(Artist);
+			            	$("header #thumb").attr("src", "images/album_art/"+AlbumArt);
+					document.title = Artist + ' - ' + Title;
+		            	}
+		            	listeners = $(xml).find("CurrentListeners").first().text();
+		            	if (listeners.length > 1) {
+		            		$("#count1").attr("src", "images/nb_"+listeners.substring(0, 1)+".png");
+		            		$("#count2").attr("src", "images/nb_"+listeners.substring(1, 2)+".png");
+		            	} else {
+							$("#count1").attr("src", "images/nb_0.png");
+							$("#count2").attr("src", "images/nb_"+listeners.substring(0, 1)+".png");
+		            	}
+		            }
+		        }
+		      );
+		      setTimeout(function(){ refreshTitle() }, 10000);
+		    };
+		</script>
+    </body>
+</html>

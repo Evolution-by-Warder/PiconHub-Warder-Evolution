@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Musiquose — La radio urbaine</title>
+    <meta name="description" content="Musiquose est une webradio urbaine française diffusant le meilleur de la pop et du RnB, sans publicité. Découvrez une sélection d’artistes sous licence Creative Commons.">
+    <meta name="keywords" content="Musiquose,webradio,radio urbaine,radio en ligne,radio internet,radio pop,radio RnB,musique urbaine,2D ONLINE,radio gratuite,streaming audio">
+    <meta name="author" content="2D ONLINE - Association loi 1901">
+    <meta name="robots" content="index,follow">
+    <link rel="canonical" href="https://musiquose.fr/">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="fr_FR">
+    <meta property="og:site_name" content="Musiquose">
+    <meta property="og:title" content="Musiquose — La radio urbaine pop and RnB en ligne">
+    <meta property="og:description" content="Webradio urbaine pop and RnB, sans publicité. Écoutez Musiquose en direct et retrouvez les meilleurs titres libres.">
+    <meta property="og:url" content="https://musiquose.fr/">
+    <meta property="og:image" content="https://musiquose.fr/images/image_musiquose.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Musiquose — La radio urbaine pop and RnB en ligne">
+    <meta name="twitter:description" content="Webradio urbaine pop and RnB, sans publicité !">
+    <meta name="twitter:image" content="https://musiquose.fr/images/image_musiquose.png">
+    <meta name="theme-color" content="#000b50">
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/css/musiquose.css" rel="stylesheet">
+    <script src="assets/js/bootstrap.bundle.min.js" defer></script>
+    <link rel="stylesheet" href="assets/bootstrap-icons-1.13.1/bootstrap-icons.css">
+    <link rel="stylesheet" href="/assets/css/fonts.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark navbar-mq fixed-top">
+    <div class="container-lg">
+        <a class="navbar-brand d-flex align-items-center gap-2" href="#top">
+            <img src="https://musiquose.fr/images/logo_mini.png" alt="Logo Musiquose"
+                 width="38" height="38" class="rounded">
+            <div class="d-flex flex-column lh-1">
+                <span class="fw-bold">Musiquose</span>
+                <small class="text-uppercase" style="font-size: 0.7rem;">La radio urbaine</small>
+            </div>
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#mainNav" aria-controls="mainNav"
+                aria-expanded="false" aria-label="Basculer la navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-end" id="mainNav">
+            <ul class="navbar-nav mb-2 mb-lg-0 align-items-lg-center">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#top">Accueil</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#a-propos">À propos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#recent-tracks">Derniers titres</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#tracklist">Les musiques</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#contact">Contact</a>
+                </li>
+                <li class="nav-item ms-lg-3">
+                    <a class="btn btn-sm btn-mq-primary px-3" href="#player-block">
+                        <i class="bi bi-play-fill me-1"></i> Écouter la radio
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<header id="top" class="hero">
+    <div class="container-lg">
+        <div class="row align-items-center g-4 g-xl-5">
+            <div class="col-lg-6">
+                <p class="hero-tagline mb-2">Depuis 2007 — en direct sur le web</p>
+                <h1 class="hero-title mb-2">La radio urbaine qui mixe pop &amp; RnB</h1>
+                <p class="hero-subtitle mb-4">
+                    Musiquose diffuse le meilleur du son urbain, sans publicité !
+                </p>
+
+                <div id="player-block" class="player-card mb-3">
+                    <div class="d-flex align-items-center mb-3 gap-2">
+                        <div class="live-indicator"></div>
+                        <span class="text-uppercase fw-semibold" style="font-size: 0.8rem;">
+                En direct — Musiquose
+              </span>
+                    </div>
+
+                    <div class="d-flex flex-column flex-sm-row align-items-center gap-3">
+                        <button id="playPauseBtn" class="btn-play-pause" type="button" aria-label="Lecture">
+                            <i id="playPauseIcon" class="bi bi-play-fill"></i>
+                        </button>
+
+                        <div class="flex-grow-1">
+                            <p class="mb-1 text-uppercase small text-white-50 fw-semibold">
+                                En ce moment
+                            </p>
+                            <p id="nowPlayingText" class="mb-0 fw-semibold">
+                                Cliquez sur lecture pour lancer le direct.
+                            </p>
+                            <small id="streamStatus" class="text-muted">
+                                Stream : pop / RnB urbain — qualité MP3.
+                            </small>
+                        </div>
+
+                        <div class="player-volume d-none d-sm-flex align-items-center gap-2">
+                            <i class="bi bi-volume-down"></i>
+                            <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.8">
+                        </div>
+                    </div>
+
+                    <audio id="musiquosePlayer" preload="none">
+                        <source src="https://stream.musiquose.fr/proxy/musiquose?mp=/stream" type="audio/mpeg">
+                        Votre navigateur ne supporte pas la lecture audio.
+                    </audio>
+                </div>
+
+                <div class="d-flex flex-wrap align-items-center gap-2">
+                    <a href="#recent-tracks" class="btn btn-sm btn-mq-outline">
+                        <i class="bi bi-music-note-list me-1"></i> Voir les derniers titres
+                    </a>
+                    <span class="text-muted small d-flex align-items-center gap-2">
+              <img src="https://musiquose.fr/images/landing_button_alexa.png"
+                   alt="Disponible sur Amazon Alexa" height="26">
+              <span>« Alexa, lance Musiquose radio »</span>
+            </span>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="hero-img-wrapper">
+                    <div class="hero-img-main">
+                        <img src="https://musiquose.fr/images/home_urban.jpg"
+                             alt="Vue urbaine illustrant Musiquose">
+                    </div>
+                    <div class="hero-floating-card">
+                        <div class="d-flex align-items-center gap-2 mb-1">
+                            <span class="badge rounded-pill text-bg-danger">Pop&Rnb</span>
+                        </div>
+                        <p class="mb-1 fw-semibold">Plus qu’une radio, votre radio.</p>
+                        <small>
+                            Musiquose accompagne vos journées et vos soirées avec une programmation urbaine unique. Découvre de nombreux artistes indépendants sur notre antenne ainsi que nos podcasts inédits.
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<section id="a-propos">
+    <div class="container-lg">
+        <div class="row g-4">
+            <div class="col-lg-6">
+                <div class="bg-panel p-4 p-lg-5 h-100">
+                    <p class="section-eyebrow mb-2">L’histoire</p>
+                    <h2 class="section-title mb-3">Musiquose, une aventure urbaine depuis 2007</h2>
+                    <p class="mb-3">
+                        Musiquose naît en 2007 comme webradio indépendante. Premiers directs,
+                        partenariats, changement de ligne éditoriale… la station s’est transformée
+                        avec le temps, sans jamais perdre son ADN : mettre en avant
+                        la culture urbaine et les créateurs.
+                    </p>
+                    <p class="mb-3">
+                        Aujourd’hui éditée par l’association 2D ONLINE, Musiquose propose une
+                        sélection pop & RnB, des émissions thématiques et des rendez-vous audio
+                        produits avec passion, en France et aux États-Unis.
+                    </p>
+
+                    <div class="timeline mt-4">
+                        <div class="timeline-item">
+                            <h6 class="mb-1">2007</h6>
+                            <p class="mb-0 small text-muted">Création de Musiquose par les frères Anthony et Damien</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h6 class="mb-1">2008</h6>
+                            <p class="mb-0 small text-muted">Premiers directs et soirées mix-live.</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h6 class="mb-1">2010–2015</h6>
+                            <p class="mb-0 small text-muted">
+                                Prise en charge de la diffusion par Radionomy. Intégration de Musiquose aux activités de l'association 2D ONLINE.
+                            </p>
+                        </div>
+                        <div class="timeline-item">
+                            <h6 class="mb-1">2019</h6>
+                            <p class="mb-0 small text-muted">
+                                Reprise en main de la diffusion. Virage urbain plus marqué : pop / RnB, artistes libres au cœur de la playlist.
+                            </p>
+                        </div>
+                        <div class="timeline-item mb-0">
+                            <h6 class="mb-1">2020+</h6>
+                            <p class="mb-0 small text-muted">
+                                Déploiement international, présence aux USA, podcasts & nouveaux formats avec l'intégration de l'IA dans le process créatif.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="bg-panel-soft p-4 p-lg-5 h-100 d-flex flex-column">
+                    <p class="section-eyebrow mb-2">Notre programmation</p>
+                    <h3 class="section-title mb-3">Des programmes exclusifs</h3>
+                    <div class="d-flex flex-column flex-md-row gap-4 align-items-md-center">
+                        <div class="flex-shrink-0">
+                            <img src="https://musiquose.fr/images/cover_mini.jpg"
+                                 alt="Podcast 2D ONLINE Daniel & Charly"
+                                 class="img-fluid rounded-4 shadow"
+                                 style="max-width: 210px;">
+                        </div>
+                        <div class="flex-grow-1">
+                            <p class="section-eyebrow mb-2">Podcast</p>
+                            <h3 class="h4 mb-2">« 2D ONLINE » avec Daniel &amp; Charly</h3>
+                            <p class="mb-3 small text-muted">
+                                Un podcast pédagogique pour parler d’internet, de numérique et
+                                de culture web, avec des voix générées par IA et une réalisation soignée.
+                            </p>
+                            <p class="mb-3 small text-muted">
+                                À retrouver tous les jours à 17h sur l’antenne de Musiquose.
+                            </p>
+                            <a href="https://discover.2donline.net/le-podcast/" target="_blank" class="btn btn-sm btn-mq-outline">
+                                Découvrir le podcast
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex flex-column flex-md-row gap-4 align-items-md-center" style="margin-top:1.5em;">
+                        <div class="flex-shrink-0">
+                            <img src="https://musiquose.fr/images/cover_mini_2.jpg"
+                                 alt="Podcast Les chroniques de l'insolite"
+                                 class="img-fluid rounded-4 shadow"
+                                 style="max-width: 210px;">
+                        </div>
+                        <div class="flex-grow-1">
+                            <p class="section-eyebrow mb-2">Podcast</p>
+                            <h3 class="h4 mb-2">Les chroniques de l'insolite</h3>
+                            <p class="mb-3 small text-muted">
+                                Nicolas vous raconte l'une de ses nombreuses histoires totalement insolite et pourtant bien réelle. Plongez dans un monde d'incertitudes où le réel semble irréel !
+                            </p>
+                            <p class="mb-3 small text-muted">
+                                À retrouver prochainement sur l’antenne de Musiquose.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="d-flex flex-column flex-md-row gap-4 align-items-md-center" style="margin-top:1.5em;">
+                        <h3 class="h5 mb-3">Toute la journée sur Musiquose : 100% Pop & RNB</h3>
+                   </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="recent-tracks">
+    <div class="container-lg">
+        <div class="row g-4 align-items-start">
+            <div class="col-lg-7">
+                <div class="bg-panel p-4 p-lg-5 h-100">
+                    <p class="section-eyebrow mb-2">Playlist antenne</p>
+                    <h2 class="section-title mb-3">Les 5 derniers titres diffusés</h2>
+                    <p class="mb-4">
+                        Musiquose met en avant des talents urbains issus du monde entier, avec une attention particulière pour les créateurs indépendants et les projets originaux. Les informations ci-dessous sont récupérées en temps réel depuis notre flux radio.
+                    </p>
+
+                    <p id="recentTracksStatus" class="small text-muted mb-3">
+                        Chargement des derniers titres...
+                    </p>
+
+                    <ul id="recentTracksList" class="list-group list-group-flush rounded-3 overflow-hidden">
+                    </ul>
+
+                    <p class="mt-3 mb-0 small text-muted">
+                        Les musiques générées avec l'aide d'une intelligence artificielle apparaissent sous l'artiste
+                        <code>Musiquose IA</code>. Pour plus d'informations, rendez-vous sur <a href="https://2dmsweb.fr/#ia" target="_blank">2DMSweb.fr</a>.
+                    </p>
+                    <div class="small text-muted" style="margin-top:15px;">
+                        <i class="bi bi-info-circle me-1"></i>
+                        Pour intégrer Musiquose dans vos applications ou players externes,
+                        utilisez le flux :
+                        <code>https://stream.musiquose.fr/proxy/musiquose?mp=/stream</code>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-5">
+                <div class="bg-panel-soft p-4 p-lg-5 h-100 d-flex flex-column justify-content-between gap-3">
+                    <div>
+                        <p class="section-eyebrow mb-2">Dans le monde</p>
+                        <h3 class="h5 mb-3">Musiquose, aussi aux États-Unis</h3>
+                        <p class="small text-muted mb-3">
+                            Une déclinaison de Musiquose, plus axé RNB est proposée pour le public anglophone depuis 2020. Il s'agit d'une radio à part entière avec sa propre programmation et son propre flux.
+                        </p>
+                        <a href="https://musiquose.com" target="_blank"><img src="https://musiquose.fr/images/button_usa.png"
+                             alt="Musiquose USA" height="40"
+                             class="img-fluid"></a>
+                    </div>
+                </div>
+
+                <div class="bg-panel-soft  d-flex flex-column flex-md-row gap-3 align-items-md-center" style="margin-top:15px;padding-right: 15px;">
+                    <img src="https://musiquose.fr/images/home_music_contact1.png"
+                         class="img-fluid rounded-4 shadow flex-shrink-0"
+                         alt="Auditeurs de Musiquose"
+                         style="max-width: 260px;">
+                    <div>
+                        <h3 class="h5 mb-2">Les artistes à l’antenne</h3>
+                        <p class="mb-0 small text-muted">
+                            Musiquose met en avant des talents issus du monde entier, des artistes libres sous licence Créative Commons. Depuis 2025, nous avons fait le choix
+                            d'ajouter des musiques générées par IA dans l'objectif de proposer une ambiance plus urbaine.
+                        </p>
+                        <p class="mb-0 small text-muted">
+                            Néanmoins, l'IA est limitée à 10% du bac musical global, soit 90% pour les artistes indépendants.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="tracklist">
+    <div class="container-lg">
+        <div class="bg-panel p-4 p-lg-5">
+            <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+                <div>
+                    <p class="section-eyebrow mb-2">Catalogue Musiquose</p>
+                    <h2 class="section-title mb-0">Titres diffusés à l'antenne</h2>
+                </div>
+            </div>
+
+            <p class="mb-4">
+                Cette liste affiche l'ensemble titres présents dans notre base de <code>musiques</code>.
+                Les musiques générées par I.A. sont exclues de la liste.
+            </p>
+
+            <div class="table-responsive">
+                <table class="table table-sm table-dark align-middle mb-3 tracks-table">
+                    <thead>
+                    <tr>
+                        <th style="width:30%;">Artiste</th>
+                        <th style="width:30%;">Titre</th>
+                        <th class="d-none d-md-table-cell" style="width:20%;">Album</th>
+                        <th class="d-none d-md-table-cell" style="width:8%;">Année</th>
+                        <th class="text-center d-none d-md-table-cell" style="width:12%;">Licence</th>
+                    </tr>
+                    </thead>
+                    <tbody id="tracksTableBody">
+                    <tr>
+                        <td colspan="5" class="text-center small text-muted py-4">
+                            Chargement des titres...
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <nav aria-label="Pagination titres Musiquose">
+                <ul class="pagination pagination-sm justify-content-center mb-0" id="tracksPagination"></ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section id="contact">
+    <div class="container-lg">
+        <div class="row g-4">
+            <div class="col-lg-6">
+                <div class="bg-panel p-4 p-lg-5 h-100">
+                    <p class="section-eyebrow mb-2">Notre éditeur</p>
+                    <img src="https://10ans.2donline.org/assets/logo-site.png" alt="Logo association 2D ONLINE">
+                    <p class="small text-muted mb-3">
+                        Le projet Musiquose est porté par 2D ONLINE, association loi 1901 à but non lucratif.
+                        L’association est engagée depuis 2014 dans la promotion de la culture numérique, de la création indépendante
+                        et de l’accès libre à l’information.
+                    </p>
+                    <p class="small text-muted mb-3">
+                        Ce projet fait plus largement partie de 2DMS Radios, l’écosystème radio de 2D ONLINE.
+                        Nous privilégions une approche respectueuse : pas d’annonces commerciales, pas d’interruptions,
+                        et une attention particulière portée à la qualité éditoriale. Chaque flux est programmé à la main,
+                        avec le souci d’offrir une écoute fluide, cohérente et accessible à tous.
+                    </p>
+                    <p class="small text-muted mb-3">
+                        Depuis sa création, Musiquose est intimement liée à son créateur, Damien, qui assure la direction artistique
+                        et antenne de la radio. Il veille à l’identité sonore, au choix des titres, aux habillages et aux rendez-vous
+                        thématiques, afin de proposer une radio chaleureuse, humaine et proche de son public.
+                    </p>
+                    <p class="small text-muted mb-3">
+                        Depuis 2025, 2D ONLINE se distingue en enrichissant ses bibliothèques musicales avec des œuvres et des artistes
+                        créés par intelligence artificielle. Cette approche innovante permet de renouveler ses catalogues et de répondre
+                        aux défis créatifs, notamment pour des thèmes spécifiques. L’association encadre cet usage par une charte claire,
+                         en cherchant un équilibre entre productions indépendantes et expérimentations génératives.
+                    </p>
+                    <a href="https://2donline.org" target="_blank" class="btn btn-sm btn-mq-outline">
+                        Découvrir 2D ONLINE
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="bg-panel-soft p-4 p-lg-5 h-100">
+                    <p class="section-eyebrow mb-2">Nous contacter</p>
+                    <h2 class="section-title mb-3">Une question, une demande ?</h2>
+                    <p class="mb-3">
+                        Une idée d’émission, une proposition de partenariat ou simplement un message
+                        pour l’équipe ? Laissez-nous un mot !
+                    </p>
+                    <form
+                            id="contactForm"
+                            action="contact.php"
+                            method="post"
+                            class="row g-3"
+                    >
+                        <div class="col-12">
+                            <div id="contactAlert" class="alert d-none mb-2" role="alert"></div>
+                        </div>
+
+                        <div class="col-12">
+                            <label for="name" class="form-label">Nom / Pseudo</label>
+                            <input
+                                    type="text"
+                                    id="name"
+                                    name="name"
+                                    class="form-control"
+                                    placeholder="Votre nom ou pseudo"
+                                    required
+                            >
+                        </div>
+
+                        <div class="col-12">
+                            <label for="email" class="form-label">Adresse email</label>
+                            <input
+                                    type="email"
+                                    id="email"
+                                    name="email"
+                                    class="form-control"
+                                    placeholder="vous@example.com"
+                                    required
+                            >
+                        </div>
+
+                        <div class="col-12">
+                            <label for="subject" class="form-label">Objet du message</label>
+                            <input
+                                    type="text"
+                                    id="subject"
+                                    name="subject"
+                                    class="form-control"
+                                    placeholder="Demande de dédicace, partenariat, émission..."
+                            >
+                        </div>
+
+                        <div class="col-12">
+                            <label for="message" class="form-label">Message</label>
+                            <textarea
+                                    id="message"
+                                    name="message"
+                                    rows="4"
+                                    class="form-control"
+                                    placeholder="Écrivez votre message ici"
+                                    required
+                            ></textarea>
+                        </div>
+
+                        <div class="col-12 d-flex justify-content-between align-items-center mt-2">
+                            <button type="submit" class="btn btn-mq-primary me-2 me-md-0">
+                                <i class="bi bi-send-fill me-1"></i> Envoyer le message
+                            </button>
+                            <small class="text-muted">
+                                Réponse par email sous 48h (hors week-end).
+                            </small>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="pt-4 pb-3">
+    <div class="container-lg">
+        <div class="row align-items-center gy-3">
+            <div class="col-md-6">
+                <small>
+                    © 2007-2025 Musiquose — Un service proposé et édité par l’association 2D ONLINE.
+                </small>
+            </div>
+            <div class="col-md-6 text-md-end">
+                <small>
+                    <button
+                            type="button"
+                            class="btn btn-link p-0 text-muted text-decoration-underline"
+                            data-bs-toggle="modal"
+                            data-bs-target="#legalModal"
+                    >
+                        Mentions légales &amp; conditions d’utilisation
+                    </button>
+                </small>
+            </div>
+        </div>
+    </div>
+</footer>
+<script>
+    // --- LECTEUR AUDIO ---
+    (function () {
+        const audio = document.getElementById("musiquosePlayer");
+        const playPauseBtn = document.getElementById("playPauseBtn");
+        const playPauseIcon = document.getElementById("playPauseIcon");
+        const volumeSlider = document.getElementById("volumeSlider");
+        const streamStatus = document.getElementById("streamStatus");
+
+        if (!audio || !playPauseBtn || !playPauseIcon) return;
+
+        let isPlaying = false;
+
+        playPauseBtn.addEventListener("click", async () => {
+            try {
+                if (!isPlaying) {
+                    await audio.play();
+                    isPlaying = true;
+                    playPauseBtn.classList.add("is-playing");
+                    playPauseIcon.classList.remove("bi-play-fill");
+                    playPauseIcon.classList.add("bi-pause-fill");
+                    if (streamStatus) {
+                        streamStatus.textContent = "Vous écoutez Musiquose en direct.";
+                    }
+                } else {
+                    audio.pause();
+                    isPlaying = false;
+                    playPauseBtn.classList.remove("is-playing");
+                    playPauseIcon.classList.remove("bi-pause-fill");
+                    playPauseIcon.classList.add("bi-play-fill");
+                    if (streamStatus) {
+                        streamStatus.textContent = "Lecture en pause.";
+                    }
+                }
+            } catch (err) {
+                console.error("Erreur de lecture du flux :", err);
+                if (streamStatus) {
+                    streamStatus.textContent = "Impossible de démarrer le flux audio.";
+                }
+            }
+        });
+
+        if (volumeSlider) {
+            volumeSlider.addEventListener("input", (e) => {
+                const value = parseFloat(e.target.value);
+                audio.volume = isNaN(value) ? 0.8 : value;
+            });
+        }
+    })();
+
+    // --- NETTOYAGE DES TITRES : suppression des 5 derniers caractères entre crochets [ ] ---
+    function cleanTrackTitle(rawTitle) {
+        if (!rawTitle) return "";
+
+        // Cas typique Centova : "Artiste - Titre [LQ]" => on retire " [LQ]" (5 caractères)
+        if (/\s\[[^\]]{2}\]$/.test(rawTitle)) {
+            return rawTitle.slice(0, -5);
+        }
+
+        // Fallback plus générique : supprimer un suffixe quelconque entre crochets en fin de chaîne
+        return rawTitle.replace(/\s?\[[^\]]+\]$/, "");
+    }
+
+    // --- RÉCUPÉRATION DU FLUX RSS DES 5 DERNIERS TITRES ---
+    async function fetchRecentTracks() {
+        const statusEl = document.getElementById("recentTracksStatus");
+        const listEl = document.getElementById("recentTracksList");
+        const nowPlayingText = document.getElementById("nowPlayingText");
+
+        if (!listEl || !statusEl) return;
+
+        const RSS_URL = "https://stream.musiquose.fr/recentfeed/musiquose/rss/";
+
+        try {
+            const response = await fetch(RSS_URL);
+            if (!response.ok) {
+                throw new Error("HTTP " + response.status);
+            }
+
+            const text = await response.text();
+            const parser = new DOMParser();
+            const xml = parser.parseFromString(text, "application/xml");
+            const items = Array.from(xml.querySelectorAll("item")).slice(0, 5);
+
+            listEl.innerHTML = "";
+
+            if (!items.length) {
+                statusEl.textContent = "Aucun titre récent n’a pu être récupéré.";
+                return;
+            }
+
+            statusEl.classList.add("visually-hidden");
+
+            items.forEach((item, index) => {
+                const rawTitle = item.querySelector("title")?.textContent || "Titre inconnu";
+                const pubDate = item.querySelector("pubDate")?.textContent || "";
+
+                const title = cleanTrackTitle(rawTitle);
+
+                if (index === 0 && nowPlayingText) {
+                    nowPlayingText.textContent = title;
+                }
+
+                const li = document.createElement("li");
+                li.className = "list-group-item d-flex align-items-center justify-content-between";
+
+                const left = document.createElement("div");
+                left.className = "d-flex align-items-center";
+
+                const indexBadge = document.createElement("div");
+                indexBadge.className = "track-index";
+                indexBadge.textContent = index + 1;
+
+                const titleSpan = document.createElement("span");
+                titleSpan.textContent = title;
+
+                left.appendChild(indexBadge);
+                left.appendChild(titleSpan);
+
+                const right = document.createElement("small");
+                right.className = "text-muted text-end";
+
+                if (pubDate) {
+                    const d = new Date(pubDate);
+                    if (!isNaN(d.getTime())) {
+                        right.textContent = d.toLocaleString("fr-FR", {
+                            weekday: "short",
+                            hour: "2-digit",
+                            minute: "2-digit"
+                        });
+                    }
+                }
+
+                li.appendChild(left);
+                li.appendChild(right);
+                listEl.appendChild(li);
+            });
+        } catch (err) {
+            console.error("Erreur lors du chargement du flux RSS :", err);
+            statusEl.textContent =
+                "Impossible de récupérer les derniers titres pour le moment.";
+        }
+    }
+
+    // --- HELPER pour échapper le HTML ---
+    function escapeHtml(str) {
+        if (str == null) return "";
+        return String(str)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
+
+    // --- CHARGEMENT DES TITRES (remplace l'ancien track.php en iframe) ---
+    async function loadTracks(page = 1) {
+        const tbody = document.getElementById("tracksTableBody");
+        const paginationEl = document.getElementById("tracksPagination");
+        if (!tbody || !paginationEl) return;
+
+        // Message de chargement
+        tbody.innerHTML = `
+    <tr>
+      <td colspan="5" class="text-center small text-muted py-4">
+        Chargement des titres...
+      </td>
+    </tr>
+  `;
+        paginationEl.innerHTML = "";
+
+        try {
+            const response = await fetch(`tracks_api.php?page=${page}`);
+            const data = await response.json();
+
+            if (!data.success) {
+                throw new Error(data.error || "Réponse invalide");
+            }
+
+            const tracks = data.tracks || [];
+
+            if (!tracks.length) {
+                tbody.innerHTML = `
+        <tr>
+          <td colspan="5" class="text-center small text-muted py-4">
+            Aucun titre trouvé.
+          </td>
+        </tr>
+      `;
+                return;
+            }
+
+            // Construction du tableau
+            tbody.innerHTML = "";
+            tracks.forEach((track) => {
+                const tr = document.createElement("tr");
+                tr.innerHTML = `
+  <td>${escapeHtml(track.artiste)}</td>
+  <td>${escapeHtml(track.titre)}</td>
+  <td class="d-none d-md-table-cell">${escapeHtml(track.album || "")}</td>
+  <td class="d-none d-md-table-cell">${escapeHtml(track.annee || "")}</td>
+  <td class="text-center d-none d-md-table-cell">
+    ${
+                    track.licenceImg
+                        ? `<a href="${track.licenceUrl}" target="_blank" rel="license noopener">
+             <img src="${track.licenceImg}" alt="Licence ${escapeHtml(track.licenceCode || "")}" style="max-height:24px;">
+           </a>`
+                        : ""
+                }
+  </td>
+`;
+                tbody.appendChild(tr);
+            });
+
+            // Pagination
+            const current     = data.page;
+            const totalPages  = data.total_pages;
+
+            const createPageItem = (p, label, disabled = false, active = false) => {
+                const li = document.createElement("li");
+                li.className = "page-item" + (disabled ? " disabled" : "") + (active ? " active" : "");
+                const btn = document.createElement("button");
+                btn.type = "button";
+                btn.className = "page-link";
+                btn.textContent = label;
+                if (!disabled && !active) {
+                    btn.addEventListener("click", () => loadTracks(p));
+                }
+                li.appendChild(btn);
+                return li;
+            };
+
+            paginationEl.innerHTML = "";
+
+            if (totalPages > 1) {
+                // Précédent
+                paginationEl.appendChild(createPageItem(current - 1, "«", current <= 1));
+
+                // Pages (avec "..." si besoin)
+                for (let p = 1; p <= totalPages; p++) {
+                    const isEdge = (p === 1 || p === 2 || p === totalPages || p === totalPages - 1);
+                    const isNear = Math.abs(p - current) <= 1;
+
+                    if (isEdge || isNear) {
+                        paginationEl.appendChild(createPageItem(p, p, false, p === current));
+                    } else if (
+                        (p === 3 && current > 4) ||
+                        (p === totalPages - 2 && current < totalPages - 3)
+                    ) {
+                        // Ajout d'un "..."
+                        const li = document.createElement("li");
+                        li.className = "page-item disabled";
+                        li.innerHTML = `<span class="page-link">…</span>`;
+                        paginationEl.appendChild(li);
+                    }
+                }
+
+                // Suivant
+                paginationEl.appendChild(createPageItem(current + 1, "»", current >= totalPages));
+            }
+        } catch (err) {
+            console.error("Erreur loadTracks :", err);
+            tbody.innerHTML = `
+      <tr>
+        <td colspan="5" class="text-center text-danger small py-4">
+          Impossible de charger la liste des titres pour le moment.
+        </td>
+      </tr>
+    `;
+        }
+    }
+
+        document.addEventListener("DOMContentLoaded", () => {
+        // Premier chargement immédiat
+        fetchRecentTracks();
+
+        // Actualisation toutes les 20 secondes
+        setInterval(fetchRecentTracks, 20000);
+
+        // Catalogue musiques (ex-track.php)
+        loadTracks(1);
+    });
+
+
+    // --- FORMULAIRE DE CONTACT EN AJAX ---
+    (function () {
+        const form = document.getElementById('contactForm');
+        if (!form) return;
+
+        const alertBox = document.getElementById('contactAlert');
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const defaultBtnHtml = submitBtn ? submitBtn.innerHTML : '';
+
+        function showAlert(type, messages) {
+            if (!alertBox) return;
+
+            alertBox.classList.remove('d-none', 'alert-success', 'alert-danger');
+            alertBox.classList.add(type === 'success' ? 'alert-success' : 'alert-danger');
+
+            if (!Array.isArray(messages)) {
+                messages = [messages];
+            }
+
+            alertBox.innerHTML = messages
+                .map(msg => `<div>${msg}</div>`)
+                .join('');
+        }
+
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            // Validation HTML5
+            if (!form.checkValidity()) {
+                form.classList.add('was-validated');
+                return;
+            }
+
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Envoi...';
+            }
+
+            // On masque l’alerte précédente
+            if (alertBox) {
+                alertBox.classList.add('d-none');
+                alertBox.innerHTML = '';
+            }
+
+            try {
+                const formData = new FormData(form);
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json().catch(() => null);
+
+                if (!response.ok || !data) {
+                    // Erreur HTTP ou JSON invalide
+                    showAlert('danger', "Impossible d’envoyer le message pour le moment. Merci de réessayer plus tard.");
+                } else if (data.success) {
+                    showAlert('success', data.message || "Votre message a bien été envoyé.");
+                    form.reset();
+                    form.classList.remove('was-validated');
+                } else if (data.errors && data.errors.length) {
+                    showAlert('danger', data.errors);
+                } else {
+                    showAlert('danger', "Une erreur inconnue est survenue.");
+                }
+            } catch (e) {
+                console.error(e);
+                showAlert('danger', "Une erreur réseau est survenue. Merci de vérifier votre connexion.");
+            } finally {
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = defaultBtnHtml;
+                }
+            }
+        });
+    })();
+</script>
+<!-- MODAL MENTIONS LÉGALES / CGU / CONFIDENTIALITÉ -->
+<div class="modal fade" id="legalModal" tabindex="-1" aria-labelledby="legalModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg modal-fullscreen-sm-down">
+        <div class="modal-content bg-dark text-light border border-secondary-subtle">
+            <div class="modal-header border-secondary-subtle">
+                <h5 class="modal-title" id="legalModalLabel">Mentions légales &amp; conditions d’utilisation</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fermer"></button>
+            </div>
+            <div class="modal-body">
+                <!-- MENTIONS LÉGALES -->
+                <section class="mb-2">
+                    <h6 class="fw-semibold text-uppercase small text-danger mb-2">Mentions légales</h6>
+
+                    <p class="mb-2">
+                        <strong>Musiquose</strong> est un service édité par l’association loi 1901 <strong>2D ONLINE</strong>, déclarée à la préfecture du Cher.
+                    </p>
+
+                    <p class="mb-2">
+                        SIRET : 809 385 578 00038 – Code APE : 9499Z
+                    </p>
+
+                    <p class="mb-3">
+                        <strong>Adresse de correspondance :</strong><br>
+                        2D ONLINE<br>
+                        78 Allée Primavera, Centre UBIDOCA 21471<br>
+                        74370 ANNECY – France
+                    </p>
+
+                    <p class="mb-3">
+                        <strong>Producteur :</strong> M. Damien DURET<br>
+                        <strong>Responsable de la publication :</strong> M. Patrick PREVOST<br>
+                        <strong>Directeur antenne :</strong> M. Emmanuel LHAUTE<br>
+                        <strong>Directeur antenne adjoint :</strong> M. Julien LLAVE
+                    </p>
+
+                    <p class="mb-3">
+                        <strong>Hébergeur :</strong><br>
+                        Le site <code>musiquose.fr</code> est hébergé sur un serveur situé en France et géré par :<br>
+                        o2Switch SAS – Chemin des Pardiaux – 63000 Clermont-Ferrand – France.
+                    </p>
+                </section>
+
+                <!-- PROPRIÉTÉ INTELLECTUELLE -->
+                <section class="mb-1" style="padding-top: 0.25rem !important;">
+                    <h6 class="fw-semibold text-uppercase small text-danger mb-2">Droits d’auteur &amp; propriété intellectuelle</h6>
+                    <p class="mb-2">
+                        L’ensemble des textes, images, sons, logos, éléments graphiques et animations présents sur ce site
+                        est protégé par la législation française et internationale relative à la propriété intellectuelle.
+                    </p>
+                    <p class="mb-2">
+                        Toute reproduction, représentation, adaptation, diffusion ou utilisation, même partielle, de ces contenus
+                        sans autorisation écrite préalable de l’association 2D ONLINE ou des ayants droit concernés est strictement interdite.
+                    </p>
+                    <p class="mb-2">
+                        <strong>Musiquose</strong> est une web-radio (radio disponible exclusivement sur Internet) qui diffuse
+                        principalement des œuvres musicales dites « libres » sous licences <em>Creative Commons</em>.
+                        Afin de respecter les conditions de chaque licence, les musiques ne sont pas modifiées (montage, coupure ou altération)
+                        au-delà de ce qui est autorisé par l’artiste ou la licence.
+                    </p>
+                    <p class="mb-2">
+                        La liste des artistes diffusés à l’antenne est disponible sur le site
+                        <a href="https://www.musiquose.fr" target="_blank" rel="noopener">www.musiquose.fr</a>.
+                        Musiquose n’a aucune finalité commerciale.
+                    </p>
+                    <p class="mb-2">
+                        Certaines images utilisées pour la communication (visuels, pochettes, illustrations) sont générées
+                        par intelligence artificielle (notamment via Firefly ou services similaires) et restent soumises
+                        aux conditions d’utilisation de ces plateformes.
+                    </p>
+                    <p class="mb-0">
+                        Les différentes émissions, podcasts et contenus produits pour l’antenne restent la propriété de leurs
+                        producteurs respectifs, sauf mention contraire.
+                    </p>
+                </section>
+
+                <!-- PROTECTION DES DONNÉES -->
+                <section class="mb-1" style="padding-top: 0.25rem !important;">
+                    <h6 class="fw-semibold text-uppercase small text-danger mb-2">Protection des données personnelles</h6>
+                    <p class="mb-2">
+                        L’association 2D ONLINE met en œuvre des traitements de données à caractère personnel
+                        dans le cadre de la gestion du site et de la webradio Musiquose. Ces traitements
+                        sont réalisés conformément à la réglementation en vigueur (loi « Informatique et Libertés »
+                        modifiée et Règlement (UE) 2016/679 dit RGPD).
+                    </p>
+                    <p class="mb-2">
+                        Conformément à la délibération n°2010-229 du 10 juin 2010 de la CNIL dispensant de déclaration
+                        certains traitements automatisés mis en œuvre par les organismes à but non lucratif,
+                        2D ONLINE n’est pas tenue à une déclaration préalable spécifique pour les données collectées
+                        dans le cadre de Musiquose.
+                    </p>
+                    <p class="mb-2">
+                        L’association s’engage à ne pas vendre, louer ni céder à des tiers les données personnelles
+                        de ses utilisateurs. Les informations éventuellement collectées (via formulaire de contact,
+                        statistiques anonymisées de fréquentation, etc.) sont utilisées uniquement dans le cadre du
+                        fonctionnement de la radio et de l’amélioration de ses services.
+                    </p>
+                    <p class="mb-2">
+                        Conformément à la loi du 6 janvier 1978 modifiée et au RGPD, vous disposez d’un droit
+                        d’accès, de rectification, d’opposition, de limitation et de suppression des données
+                        personnelles vous concernant. Vous pouvez exercer ces droits en contactant l’association
+                        2D ONLINE via les moyens de contact indiqués sur ce site.
+                    </p>
+                    <p class="mb-0">
+                        Musiquose n’est pas responsable de l’utilisation des données personnelles éventuellement
+                        collectées par ses partenaires ou prestataires externes (hébergeurs, services d’écoute,
+                        réseaux sociaux, etc.) et vous invite à consulter leurs politiques de confidentialité respectives.
+                    </p>
+                </section>
+
+                <!-- CONDITIONS GÉNÉRALES D'UTILISATION -->
+                <section class="mb-1" style="padding-top: 0.25rem !important;">
+                    <h6 class="fw-semibold text-uppercase small text-danger mb-2">Conditions générales d’utilisation</h6>
+
+                    <p class="mb-1 fw-semibold">Article 1 – Votre relation avec Musiquose</p>
+                    <p class="mb-2">
+                        1.1 L’utilisation du site <code>musiquose.fr</code>, ainsi que de l’ensemble des services associés
+                        (écoute de la radio, formulaires, contenus mis à disposition), implique l’acceptation des présentes
+                        conditions générales d’utilisation (CGU) conclues entre l’association 2D ONLINE (« Musiquose »)
+                        et vous, utilisateur, auditeur ou internaute.
+                    </p>
+                    <p class="mb-2">
+                        1.2 Ces conditions constituent un contrat entre vous et Musiquose. Nous vous invitons à les lire attentivement.
+                    </p>
+                    <p class="mb-4">
+                        1.3 Les présentes s’appliquent à toute personne physique ou morale accédant au site
+                        <code>musiquose.fr</code> et à ses services.
+                    </p>
+
+                    <p class="mb-1 fw-semibold">Article 2 – Acceptation des conditions</p>
+                    <p class="mb-2">
+                        2.1 L’utilisation du site est subordonnée à l’acceptation préalable des présentes CGU.
+                        Si vous ne les acceptez pas, vous êtes invité à ne pas utiliser ce site.
+                    </p>
+                    <p class="mb-2">
+                        2.2 Toute navigation ou utilisation du service vaut acceptation pleine et entière des présentes.
+                    </p>
+                    <p class="mb-4">
+                        2.3 Pour contracter avec Musiquose, vous devez avoir la capacité juridique.
+                        Les utilisateurs mineurs doivent disposer de l’autorisation préalable d’un titulaire
+                        de l’autorité parentale.
+                    </p>
+
+                    <p class="mb-1 fw-semibold">Article 3 – Restrictions d’usage</p>
+                    <p class="mb-2">
+                        3.1 Vous vous engagez notamment à :
+                    </p>
+                    <ul class="mb-2">
+                        <li>ne pas reproduire, distribuer ou diffuser tout ou partie du site ou de son contenu sans autorisation ;</li>
+                        <li>ne pas accéder au site par d’autres moyens que les interfaces fournies ;</li>
+                        <li>ne pas modifier, altérer ou tenter de contourner les fonctionnalités du site ;</li>
+                        <li>ne pas porter atteinte au bon fonctionnement du service (tentatives d’attaque, surcharge, etc.) ;</li>
+                        <li>respecter l’ensemble des lois et règlements en vigueur.</li>
+                    </ul>
+                    <p class="mb-4">
+                        3.2 Vous reconnaissez être seul responsable de tout manquement aux présentes conditions
+                        et que Musiquose ne saurait être tenue responsable des conséquences de ces manquements.
+                    </p>
+
+                    <p class="mb-1 fw-semibold">Article 4 – Liens hypertextes</p>
+                    <p class="mb-4">
+                        Le site peut contenir des liens vers des sites tiers qui ne sont ni édités ni contrôlés
+                        par Musiquose. Nous n’exerçons aucun contrôle sur le contenu ou les pratiques de ces sites
+                        et déclinons toute responsabilité à leur égard. L’accès à ces ressources externes se fait
+                        sous votre seule responsabilité.
+                    </p>
+
+                    <p class="mb-1 fw-semibold">Article 5 – Exclusion de garanties</p>
+                    <p class="mb-2">
+                        5.1 Le service est fourni « en l’état », sans garantie d’aucune sorte.
+                    </p>
+                    <p class="mb-2">
+                        5.2 Musiquose ne garantit notamment pas que :
+                    </p>
+                    <ul class="mb-4">
+                        <li>le service répondra en permanence à vos besoins ou attentes spécifiques ;</li>
+                        <li>le site sera disponible sans interruption, exempt d’erreur ou sécurisé à 100% ;</li>
+                        <li>les informations obtenues par l’intermédiaire du service seront exactes, exhaustives ou à jour ;</li>
+                        <li>les éventuels défauts seront systématiquement corrigés.</li>
+                    </ul>
+
+                    <p class="mb-1 fw-semibold">Article 6 – Limitation de responsabilité</p>
+                    <p class="mb-4">
+                        Musiquose ne pourra être tenue responsable des dommages indirects, immatériels ou
+                        consécutifs pouvant survenir lors de l’utilisation du site ou de l’impossibilité
+                        d’y accéder, ni des conséquences de modifications, suspensions ou interruptions
+                        temporaires ou définitives du service.
+                    </p>
+
+                    <p class="mb-1 fw-semibold">Article 7 – Stipulations générales</p>
+                    <p class="mb-2">
+                        7.1 Les présentes conditions constituent l’intégralité de l’accord entre vous et Musiquose
+                        concernant l’utilisation du site et remplacent tout accord antérieur portant sur le même objet.
+                    </p>
+                    <p class="mb-2">
+                        7.2 Musiquose se réserve la possibilité de vous adresser toute information ou notification
+                        concernant le service (y compris des modifications des présentes) par courriel
+                        ou via des messages affichés sur le site.
+                    </p>
+                    <p class="mb-2">
+                        7.3 Si l’une des clauses des présentes était déclarée nulle ou inapplicable par une juridiction compétente,
+                        les autres clauses demeureraient pleinement applicables.
+                    </p>
+                    <p class="mb-2">
+                        7.4 Les présentes conditions et votre relation avec Musiquose sont régies par le droit français.
+                        En cas de litige et à défaut de résolution amiable, les tribunaux français seront seuls compétents.
+                    </p>
+                    <p class="mb-4">
+                        7.5 Musiquose se réserve le droit de modifier à tout moment les présentes conditions,
+                        notamment pour les adapter à l’évolution législative ou au service proposé.
+                        La date de dernière mise à jour est indiquée ci-dessous.
+                    </p>
+
+                    <p class="small text-muted mb-0">
+                        Dernière mise à jour : 13/09/2014 (adaptation rédactionnelle ultérieure sans changement de fond).
+                    </p>
+                </section>
+
+                <!-- POLITIQUE DE CONFIDENTIALITÉ -->
+                <section class="mb-1" style="padding-top: 0.25rem !important;">
+                    <h6 class="fw-semibold text-uppercase small text-danger mb-2">Politique de confidentialité</h6>
+                    <p class="mb-2">
+                        La présente politique décrit la manière dont Musiquose collecte et utilise certaines informations lors
+                        de votre navigation sur le site.
+                    </p>
+                    <p class="mb-2">
+                        <strong>Données susceptibles d’être collectées :</strong>
+                    </p>
+                    <ul class="mb-2">
+                        <li>informations techniques de navigation (type d’appareil, navigateur, système d’exploitation) ;</li>
+                        <li>elements relatifs à votre visite (pages consultées, durée de la visite, origine de la visite :
+                            moteur de recherche, site partenaire, lien direct, etc.) ;</li>
+                        <li>éventuelles informations transmises via les formulaires (nom, email, message…).</li>
+                    </ul>
+                    <p class="mb-2">
+                        Ces données sont utilisées à des fins exclusivement statistiques et de suivi de fréquentation,
+                        afin de mieux comprendre l’audience de Musiquose et d’améliorer les services proposés.
+                        Elles ne sont en aucun cas exploitées à des fins commerciales.
+                    </p>
+                    <p class="mb-2">
+                        Vous disposez à tout moment d’un droit d’accès, de rectification, de limitation et de suppression
+                        des données vous concernant. Pour exercer ces droits, vous pouvez contacter l’association 2D ONLINE
+                        via les coordonnées indiquées dans les mentions légales.
+                    </p>
+                    <p class="mb-2">
+                        Musiquose n’est pas responsable des traitements de données effectués par ses partenaires ou prestataires
+                        (par exemple hébergeur, régies éventuelles, plateformes d’écoute tierces, réseaux sociaux, etc.).
+                        Nous vous invitons à consulter leurs politiques de confidentialité pour plus d’informations.
+                    </p>
+                    <p class="small text-muted mb-0">
+                        La politique de confidentialité peut être modifiée à tout moment pour tenir compte de l’évolution
+                        des services ou de la réglementation. Dernière mise à jour : 22/09/2014 (adaptation rédactionnelle ultérieure).
+                    </p>
+                </section>
+            </div>
+            <div class="modal-footer border-secondary-subtle">
+                <button type="button" class="btn btn-mq-outline" data-bs-dismiss="modal">
+                    Fermer
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
