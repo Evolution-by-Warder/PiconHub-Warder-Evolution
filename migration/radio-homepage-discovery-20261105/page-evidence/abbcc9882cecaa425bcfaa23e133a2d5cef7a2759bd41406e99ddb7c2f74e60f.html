@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="es" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" href="estilorg.css" />
+    <title>Texto-plano.xyz &mdash; Radio de texto-plano</title>
+    <meta
+      name="description"
+      content="Escucha la radio de texto-plano y enterate de como participar"
+    />
+    <link rel="icon" href="https://texto-plano.xyz/img/favicon.ico" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a href="#main-content" class="skip-link">Saltar a contenido principal</a>
+      <nav aria-label="Menú principal" class="nav-container">
+        <button
+          class="menu-toggle"
+          aria-expanded="false"
+          aria-controls="nav-list"
+          aria-label="Abrir menú de navegación"
+        >
+          <span class="hamburger-icon" aria-hidden="true"></span>
+        </button>
+        <!-- aqui termina -->
+        <ul id="nav-list" class="nav-wrapper">
+          <li><a href="https://texto-plano.xyz">Inicio</a></li>
+          <li><a href="https://wiki.texto-plano.xyz">Wiki</a></li>
+          <li><a href="https://texto-plano.xyz/usuarios.html">Usuarios</a></li>
+
+          <li class="has-submenu">
+            <button aria-expanded="false" aria-controls="contenido-menu">
+              Contenido
+              <span class="icon" aria-hidden="true">▾</span>
+            </button>
+            <ul id="contenido-menu" class="submenu">
+              <li><a href="radio.html">Radio</a></li>
+              <li><a href="https://podcast.texto-plano.xyz">Podcast</a></li>
+              <li><a href="https://img.texto-plano.xyz">Img</a></li>
+              <li><a href="https://texto-plano.xyz/revista">Revista</a></li>
+              <li><a href="mumble.html">Mumble</a></li>
+            </ul>
+          </li>
+          <li>
+            <button
+              id="dark-mode-toggle"
+              aria-pressed="false"
+              aria-label="Modo oscuro"
+            >
+              <span class="toggle-track">
+                <span class="toggle-thumb"></span>
+              </span>
+              <span class="toggle-text">Modo Oscuro</span>
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <main id="main-content">
+      <svg
+        viewBox="0 0 120 150"
+        width="120"
+        height="150"
+        role="img"
+        aria-labelledby="logo-title"
+        class="logo"
+      >
+        <title id="logo-title">Logo de Texto Plano</title>
+        <!-- prettier-ignore -->
+        <g fill="currentColor">
+        <text x="10" y="30" >  ,og.  ,</text>
+        <text x="10" y="45" >  "  `6o"</text>
+        <text x="10" y="75" >`7MMpMMMb.</text>
+        <text x="10" y="93" >  MM    MM</text>
+        <text x="10" y="111" >  MM    MM</text>
+        <text x="10" y="129" >  MM    MM</text>
+        <text x="10" y="147" >.JMML  JMML.</text>
+      </g>
+        <!-- prettier-ignore -->
+      </svg>
+
+      <h1>La radio de texto-plano.xyz</h1>
+
+      <div class="card">
+        <h2>Escúchala</h2>
+        <p>
+          <audio controls aria-label="Reproductor de radio en vivo">
+            <source
+              src="http://texto-plano.xyz:8000/live.ogg"
+              type="audio/ogg"
+            />
+            <p>
+              Si no funciona el reproductor, vuelve a entrar sin https. <br />
+              Si la deseas escuchar desde tu propio reproductor agrega la
+              siguiente URL o descarga el archivo.
+              <br />
+              <a href="http://texto-plano.xyz:8000/live.ogg"
+                >http://texto-plano.xyz:8000/live.ogg</a
+              >
+            </p>
+          </audio>
+        </p>
+      </div>
+
+      <div class="card">
+        <h2>Quisiera emitir</h2>
+        <p>
+          Para emitir debes ser parte de texto-plano.xyz, para lo cual debes
+          seguir las instrucciones de la página principal. Luego de eso puedes
+          pedir la información en el bbj.
+        </p>
+      </div>
+    </main>
+    <footer>
+      <div class="card">
+        <hr aria-hidden="true" />
+        <p>Contacto: admin arroba texto-plano.xyz</p>
+        <p>Jabber: general@conference.texto-plano.xyz</p>
+        <p>IRC: irc.tilde.chat:6697/#texto-plano</p>
+        <p>
+          <a href="https://texto-plano.xyz/codigo-de-conducta.html"
+            >Código de conducta</a
+          >
+          <a href="https://texto-plano.xyz/privacidad.html"
+            >Política de Privacidad</a
+          >
+          <a href="https://texto-plano.xyz/mapa.html">Mapa del sitio</a>
+        </p>
+        <p>
+          Clave PGP:
+          <a href="https://texto-plano.xyz/key_tp.asc">0xC41D353321FADA44</a>
+        </p>
+        <p>
+          Huella de clave: 6B85 81F9 F910 1D3A 4F71 CC98 C41D 3533 21FA DA44
+        </p>
+        <p>
+          Dirección bitcoin de pagos:
+          bitcoin:bc1q6296apdmnkmm23tjxnrcd0qq7g552ffwv9jsq3
+        </p>
+        <p>
+          <a href="https://ko-fi.com/G2G114PDT0" target="_blank"
+            >Dona via ko-fi (paypal o tarjeta)</a
+          >
+        </p>
+      </div>
+      <a
+        href="#"
+        id="back-to-top"
+        class="back-to-top"
+        aria-label="Volver arriba"
+      >
+        <span aria-hidden="true">↑</span>
+      </a>
+    </footer>
+    <script src="escrip.js" defer></script>
+  </body>
+</html>
