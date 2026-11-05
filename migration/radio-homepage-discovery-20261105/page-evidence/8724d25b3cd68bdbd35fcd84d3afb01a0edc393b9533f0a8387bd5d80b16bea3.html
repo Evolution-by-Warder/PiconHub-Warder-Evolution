@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TVOETO RADIO - The Best Dance Music From The 90s And Today!</title>
+
+<link rel="manifest" href="euro_manifest.json">
+<link rel="icon" type="image/png" href="euro-icon.png">
+<link rel="apple-touch-icon" href="euro-icon.png">
+<meta name="theme-color" content="#ff0000">
+
+<!-- ============ SEO ============ -->
+<meta name="description" content="TVOETO RADIO - listen live to the best dance music from the 90s and today. Free online radio streaming 24/7. Слушай онлайн най-добрата денс музика от 90-те и днес.">
+<meta name="keywords" content="tvoeto radio, online radio, dance music, 90s music, live radio, internet radio, free radio, онлайн радио, денс музика, радио на живо, слушай радио онлайн">
+<meta name="author" content="TVOETO RADIO">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://tvoetoradio.net/">
+<meta name="language" content="English, Bulgarian">
+
+<!-- ============ Open Graph (Facebook / споделяне) ============ -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="TVOETO RADIO - Best Dance Music 90s & Today">
+<meta property="og:description" content="Listen live to the best dance music from the 90s and today. Free 24/7 online radio.">
+<meta property="og:url" content="https://tvoetoradio.net/">
+<meta property="og:image" content="https://tvoetoradio.net/euro-icon.png">
+<meta property="og:site_name" content="TVOETO RADIO">
+
+<!-- ============ Twitter Card ============ -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="TVOETO RADIO - Best Dance Music 90s & Today">
+<meta name="twitter:description" content="Listen live to the best dance music from the 90s and today. Free 24/7 online radio.">
+<meta name="twitter:image" content="https://tvoetoradio.net/euro-icon.png">
+
+<!-- ============ Schema.org - казва на Google "това е радио станция" ============ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "RadioStation",
+  "name": "TVOETO RADIO",
+  "url": "https://tvoetoradio.net/",
+  "logo": "https://tvoetoradio.net/euro-icon.png",
+  "description": "The best dance music from the 90s and today. Free 24/7 online radio streaming.",
+  "genre": ["Dance", "90s", "Pop Dance", "Retro"],
+  "inLanguage": ["en", "bg"]
+}
+</script>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+:root { --red: #ff0000; --orange: #ff8c00; }
+body, html { margin: 0; padding: 0; height: 100%; width: 100%; font-family: 'Montserrat', sans-serif; background: #000; color: #fff; overflow: hidden; -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; }
+
+#bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-position: center; background-size: cover; background-repeat: no-repeat; transition: background-image 2s ease-in-out; z-index: 1; }
+.content { position: relative; z-index: 3; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; text-align: center; padding: 0 20px; }
+
+/* Превключвател РАДИО / ТВ */
+.mode-switch { display: inline-flex; gap: 4px; padding: 4px; border-radius: 30px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); margin-bottom: 25px; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+.mode-switch a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.65rem; font-weight: 700; letter-spacing: 3px; padding: 8px 22px; border-radius: 25px; transition: 0.3s; display: inline-flex; align-items: center; gap: 8px; }
+.mode-switch a.active { background: var(--red); color: #fff; box-shadow: 0 0 20px var(--red); }
+.mode-switch a:not(.active):hover { color: #fff; box-shadow: 0 0 15px var(--orange); }
+.mode-switch svg { width: 14px; fill: currentColor; }
+
+/* DESKTOP SETTINGS */
+@media (min-width: 769px) {
+.track-art { display: none; }
+.overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(25,0,0,0.75) 0%, rgba(10,0,0,0.45) 100%); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); z-index: 2; }
+.logo { font-size: 3rem; letter-spacing: 5px; }
+.support-link { left: 20px; }
+}
+
+/* MOBILE SETTINGS */
+@media (max-width: 768px) {
+.content { justify-content: flex-start !important; padding-top: 20px; }
+.mode-switch { margin-bottom: 12px; }
+.mode-switch a { padding: 7px 18px; }
+.track-art { display: block; width: 140px; height: 140px; margin-bottom: 10px; }
+#track-cover { width: 100%; height: 100%; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.8); object-fit: cover; border: 2px solid var(--red); }
+.overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); z-index: 2; }
+.logo { font-size: 1.8rem !important; margin-bottom: 5px !important; letter-spacing: 2px; }
+.slogan-text { font-size: 0.6rem !important; margin-top: 0 !important; }
+#song-title { font-size: 1rem !important; margin: 5px 0 15px 0 !important; min-height: 40px !important; }
+.volume-container { margin-top: 15px !important; margin-bottom: 10px !important; transform: scale(0.85); }
+.external-player { margin-top: 10px; }
+.play-btn { width: 95px !important; height: 95px !important; }
+.support-link {
+bottom: 80px !important;
+left: 50% !important;
+transform: translateX(-50%) !important;
+min-width: 160px !important;
+}
+}
+
+/* ОБЩИ ЕЛЕМЕНТИ */
+.logo { font-weight: 800; text-transform: uppercase; margin: 0; text-shadow: 0 0 20px var(--red); }
+.slogan-text { color: #fff; font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; margin-top: 10px; opacity: 0.8; }
+.now-label { color: var(--orange); font-size: 0.8rem; letter-spacing: 4px; text-transform: uppercase; margin-top: 25px; font-weight: 700; }
+#song-title { font-size: 1.4rem; font-weight: 400; margin: 10px 0 20px 0; text-transform: uppercase; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
+
+.play-btn { background: url('euro-icon.png') center/cover no-repeat; border: 3px solid var(--red); width: 100px; height: 100px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.5s; box-shadow: 0 0 20px var(--red); }
+.play-btn svg { fill: var(--orange); width: 35px; filter: drop-shadow(0 0 8px #000); }
+.play-btn.playing { animation: pulseEuro 2s infinite ease-in-out; }
+@keyframes pulseEuro { 0%, 100% { box-shadow: 0 0 20px var(--red); } 50% { box-shadow: 0 0 40px var(--red), 0 0 20px var(--orange); } }
+
+.volume-container { margin-top: 30px; display: flex; align-items: center; gap: 15px; background: rgba(255,255,255,0.1); padding: 8px 25px; border-radius: 40px; border: 1px solid rgba(255,255,255,0.2); width: fit-content; margin-left: auto; margin-right: auto; }
+.vol-icon { fill: #fff; width: 18px; cursor: pointer; opacity: 0.8; }
+#volume { cursor: pointer; width: 110px; accent-color: var(--red); }
+
+/* BUY ME A COFFEE - TRANSPARENT VERSION */
+.support-link {
+position: fixed; bottom: 25px;
+min-width: 130px; height: 45px;
+display: flex; align-items: center; justify-content: center;
+font-size: 0.65rem; font-weight: 700; text-transform: uppercase;
+text-decoration: none; border-radius: 12px;
+z-index: 1000; transition: 0.3s;
+color: #fff;
+background: rgba(255, 255, 255, 0.1);
+backdrop-filter: blur(10px);
+-webkit-backdrop-filter: blur(10px);
+border: 1px solid rgba(255, 255, 255, 0.2);
+box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+.support-link:hover {
+transform: translateY(-3px) scale(1.05);
+background: rgba(255, 255, 255, 0.2);
+border-color: var(--red);
+box-shadow: 0 8px 25px rgba(255, 0, 0, 0.4);
+}
+.revolut-letter {
+color: #0075eb;
+font-weight: 900;
+font-size: 1.1rem;
+margin-right: 10px;
+font-family: sans-serif;
+text-shadow:
+-1px -1px 0 #000,
+1px -1px 0 #000,
+-1px 1px 0 #000,
+1px 1px 0 #000;
+}
+
+.gdpr-footer { position: fixed; bottom: 10px; left: 50%; transform: translateX(-50%); font-size: 0.6rem; color: rgba(255, 255, 255, 0.4); letter-spacing: 1px; text-transform: uppercase; z-index: 4; text-align: center; width: 100%; pointer-events: none; }
+
+/* External player link (VLC / Winamp via .m3u) */
+.external-player { margin-top: 25px; z-index: 10; position: relative; }
+.external-player a { text-decoration: none; color: rgba(255,255,255,0.6); font-size: 0.6rem; font-weight: 700; letter-spacing: 2px; display: inline-flex; align-items: center; gap: 8px; padding: 9px 18px; border: 1px solid rgba(255,140,0,0.3); border-radius: 25px; background: rgba(0,0,0,0.25); transition: 0.3s; }
+.external-player a:hover { color: #fff; border-color: var(--red); box-shadow: 0 0 15px var(--red); background: rgba(255,0,0,0.08); }
+.ext-icon { width: 14px; fill: currentColor; }
+
+/* PWA install banner */
+#pwa-install-banner { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 460px; background: rgba(255, 0, 0, 0.15); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border: 1px solid var(--red); border-radius: 18px; z-index: 9999; padding: 14px; box-shadow: 0 10px 40px rgba(0,0,0,0.8); display: none; }
+.install-content { display: flex; align-items: center; gap: 12px; font-size: 0.8rem; }
+.install-content img { border-radius: 10px; flex-shrink: 0; }
+.install-content span { flex-grow: 1; }
+#btn-install-now { background: var(--orange); border: none; color: #000; padding: 8px 15px; border-radius: 18px; cursor: pointer; font-weight: bold; white-space: nowrap; }
+#btn-close-banner { background: none; border: none; color: white; opacity: 0.5; cursor: pointer; font-size: 1.3rem; line-height: 1; }
+#ios-hint { display:none; font-size: 0.7rem; color: #fff; margin-top: 8px; line-height: 1.4; opacity: 0.85; }
+</style>
+</head>
+<body>
+<div id="pwa-install-banner">
+<div class="install-content">
+<img src="euro-icon.png" width="40" height="40" alt="">
+<span>Инсталирай TVOETO RADIO на телефона си!</span>
+<button id="btn-install-now">ИНСТАЛИРАЙ</button>
+<button id="btn-close-banner">&times;</button>
+</div>
+<div id="ios-hint">На iPhone: натисни бутона <b>Сподели</b> (квадратчето със стрелка нагоре), после <b>„Към начален екран“ / „Add to Home Screen“</b>.</div>
+</div>
+
+<div id="bg"></div>
+<div class="overlay"></div>
+
+<div class="content">
+<nav class="mode-switch">
+<a href="index.html" class="active">
+<svg viewBox="0 0 24 24"><path d="M3.24 6.15C2.51 6.43 2 7.17 2 8v12c0 1.1.89 2 2 2h16c1.11 0 2-.9 2-2V8c0-1.11-.89-2-2-2H8.3l8.26-3.34L15.88 1 3.24 6.15zM7 20c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm13-8h-2v-2h-2v2H4V8h16v4z"/></svg>
+РАДИО
+</a>
+<a href="tv.html">
+<svg viewBox="0 0 24 24"><path d="M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v2h8v-2h5c1.1 0 1.99-.9 1.99-2L23 5c0-1.1-.9-2-2-2zm0 14H3V5h18v12z"/></svg>
+ТВ
+</a>
+</nav>
+<div class="track-art"><img id="track-cover" src="euro-icon.png" alt="Cover"></div>
+<h1 class="logo">TVOETO RADIO</h1>
+<div class="slogan-text">The Best Dance Music From The 90s And Today!</div>
+<div class="now-label">NOW PLAYING</div>
+<a href="#" target="_blank" id="song-link" style="text-decoration: none; color: inherit;">
+<div id="song-title">ЗАРЕЖДАНЕ...</div>
+</a>
+<button class="play-btn" id="pBtn">
+<svg id="p-icon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+<svg id="s-icon" viewBox="0 0 24 24" style="display:none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+</button>
+<div class="volume-container">
+<svg viewBox="0 0 24 24" class="vol-icon" id="volIcon"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
+<input type="range" id="volume" min="0" max="1" step="0.01" value="0.8">
+</div>
+<div class="external-player">
+<a href="https://stream.sweetradio.online:8001/tvoetoradio.m3u" download="tvoetoradio.m3u" id="m3u-download">
+<svg viewBox="0 0 24 24" class="ext-icon"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+<span>LISTEN IN EXTERNAL PLAYER (VLC / WINAMP)</span>
+</a>
+</div>
+</div>
+
+
+<div class="gdpr-footer">
+TVOETO RADIO does not collect personal data. Cookies are used for technical purposes only.
+</div>
+
+<audio id="audio" src="https://stream.sweetradio.online:8001/tvoetoradio"></audio>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+const audio = document.getElementById('audio');
+const volIcon = document.getElementById('volIcon');
+
+// --- NOW PLAYING: директно от Icecast в браузъра (хостингът не стига до порт 8001) ---
+const ICECAST_STATUS = 'https://stream.sweetradio.online:8001/status-json.xsl';
+const MOUNT = '/tvoetoradio';
+const DEFAULT_COVER = 'https://images.unsplash.com/photo-1514451966516-6fa724a62afb?q=80&w=1200';
+const STATIC_TITLE = 'TVOETO RADIO';
+const MAX_FAILS = 3;          // 3 неуспешни опита подред (~30 сек.) -> статична картинка
+let lastSong = '';
+let failCount = 0;
+
+function showStatic() {
+    if (lastSong === STATIC_TITLE) return;
+    lastSong = STATIC_TITLE;
+    setSong(STATIC_TITLE, DEFAULT_COVER);
+}
+
+function setSong(song, cover) {
+    $('#song-title').fadeOut(500, function() { $(this).text(song).fadeIn(500); });
+    $('#song-link').attr('href', 'https://www.youtube.com/results?search_query=' + encodeURIComponent(song + ' official video'));
+    $('#bg').css('background-image', 'url(' + cover + ')');
+    $('#track-cover').attr('src', cover);
+}
+
+function findCover(song, done) {
+    const q = song.replace(/\(.*?\)|\[.*?\]/g, '').replace(/\s+/g, ' ').trim();
+    if (!q || q === 'TVOETO RADIO') return done(DEFAULT_COVER);
+    $.ajax({
+        url: 'https://itunes.apple.com/search',
+        data: { term: q, media: 'music', entity: 'song', limit: 1 },
+        dataType: 'jsonp',
+        timeout: 6000
+    }).done(function(r) {
+        const art = r && r.resultCount > 0 && r.results[0].artworkUrl100;
+        done(art ? art.replace('100x100bb', '600x600bb') : DEFAULT_COVER);
+    }).fail(function() { done(DEFAULT_COVER); });
+}
+
+function updateMetadata() {
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), 6000);
+    fetch(ICECAST_STATUS + '?t=' + Date.now(), { cache: 'no-store', signal: ctrl.signal })
+    .then(r => { clearTimeout(timer); if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then(function(d) {
+        const sources = [].concat((d && d.icestats && d.icestats.source) || []);
+        const src = sources.find(s => (s.listenurl || '').endsWith(MOUNT));
+        let song = (src && (src.title || src.yp_currently_playing)) || '';
+        song = song.replace(/^tvoetoradio\s*-\s*/i, '').trim();
+        failCount = 0;
+        if (!song) { showStatic(); return; }      // Icecast отговаря, но няма заглавие
+        if (song === lastSong) return;
+        lastSong = song;
+        findCover(song, function(cover) { if (lastSong === song) setSong(song, cover); });
+    })
+    .catch(function() {
+        clearTimeout(timer);
+        // Единичен неуспех: оставяме песента. След MAX_FAILS подред: статична картинка.
+        failCount++;
+        if (failCount >= MAX_FAILS || !lastSong) showStatic();
+    });
+}
+
+// Резервен вариант: старият metadata.php на хостинга
+function updateMetadataFallback() {
+$.getJSON('metadata.php?t=' + new Date().getTime(), function(data) {
+if(data.song && $('#song-title').text() !== data.song) {
+$('#song-title').fadeOut(500, function() { $(this).text(data.song).fadeIn(500); });
+if (data.cover) {
+$('#bg').css('background-image', 'url(' + data.cover + ')');
+$('#track-cover').attr('src', data.cover);
+}
+if (data.yt) {
+$('#song-link').attr('href', data.yt);
+} else {
+$('#song-link').attr('href', 'https://www.youtube.com/results?search_query=' + encodeURIComponent(data.song));
+}
+}
+});
+}
+
+$('#pBtn').click(function() {
+if (audio.paused) {
+audio.play(); $('#p-icon').hide(); $('#s-icon').show(); $(this).addClass('playing');
+} else {
+audio.pause(); audio.src = "https://stream.sweetradio.online:8001/tvoetoradio";
+$('#p-icon').show(); $('#s-icon').hide(); $(this).removeClass('playing');
+}
+});
+
+$('#volume').on('input', function() { audio.volume = this.value; audio.muted = false; volIcon.style.fill = "#fff"; });
+
+$('#volIcon').click(function() {
+if (audio.muted) { audio.muted = false; this.style.fill = "#fff"; }
+else { audio.muted = true; this.style.fill = "var(--red)"; }
+});
+
+// --- PWA install prompt ---
+let deferredPrompt = null;
+
+// Android / Desktop Chrome: browser fires this when app is installable
+window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    if (!sessionStorage.getItem('pwa-closed') && !isStandalone()) {
+        $('#btn-install-now').show();
+        $('#ios-hint').hide();
+        $('#pwa-install-banner').fadeIn();
+    }
+});
+
+// Is the app already installed / running standalone?
+function isStandalone() {
+    return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+}
+
+// iOS detection (iPhone/iPad don't support beforeinstallprompt)
+function isIOS() {
+    return /iPhone|iPad|iPod/i.test(navigator.userAgent) && !window.MSStream;
+}
+
+$(document).ready(function() {
+    updateMetadata();
+    setInterval(updateMetadata, 10000);
+    document.addEventListener('contextmenu', e => e.preventDefault());
+    if ('serviceWorker' in navigator) { navigator.serviceWorker.register('sw.js'); }
+
+    // On iOS show the manual "Add to Home Screen" hint instead of a button
+    if (isIOS() && !isStandalone() && !sessionStorage.getItem('pwa-closed')) {
+        $('#btn-install-now').hide();
+        $('#ios-hint').show();
+        $('#pwa-install-banner').fadeIn();
+    }
+
+    // Install button (Android/Desktop)
+    $('#btn-install-now').click(async () => {
+        if (deferredPrompt) {
+            deferredPrompt.prompt();
+            await deferredPrompt.userChoice;
+            deferredPrompt = null;
+            $('#pwa-install-banner').fadeOut();
+        }
+    });
+
+    // Close banner (remember for this session)
+    $('#btn-close-banner').click(() => {
+        sessionStorage.setItem('pwa-closed', 'true');
+        $('#pwa-install-banner').fadeOut();
+    });
+});
+</script>
+</body>
+</html>
