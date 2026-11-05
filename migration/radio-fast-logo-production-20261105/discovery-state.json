@@ -189054,7 +189054,8 @@
       "homepages": [
         "https://www.pagina7.cl/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:5120:C88:ED:0:0:0:0": {
       "name": "Radio Punto Siete Osorno Chile",
@@ -189066,7 +189067,10 @@
       "homepages": [
         "https://redirector.dps.live/p7osorno/mp3/icecast.audio"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Operation timed out after 7953 milliseconds with 480653 bytes received\n"
+      ]
     },
     "4097:0:2:EAE6:1031:ED:0:0:0:0": {
       "name": "Purranque FM",
@@ -189078,7 +189082,37 @@
       "homepages": [
         "https://purranquefm.cl/portal/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://purranquefm.cl/portal/wp-content/uploads/2023/01/cropped-logo-ico-180x180.png",
+        "final_url": "https://purranquefm.cl/portal/wp-content/uploads/2023/01/cropped-logo-ico-180x180.png",
+        "path": "originals/78896a2925df31e36a4a7be797dacd5e20706cf1746625c9c310067f4a85be2b.img",
+        "sha256": "78896a2925df31e36a4a7be797dacd5e20706cf1746625c9c310067f4a85be2b",
+        "bytes": 18684,
+        "dimensions": [
+          180,
+          180
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://purranquefm.cl/portal/",
+        "final_url": "https://purranquefm.cl/portal/",
+        "original_html_sha256": "34e23e7ae98452b4fb6cd99439b7957f7e3f1f13d49141ad2eba77e29f8d49fa",
+        "path": "page-evidence/34e23e7ae98452b4fb6cd99439b7957f7e3f1f13d49141ad2eba77e29f8d49fa.json",
+        "titles": [
+          "Purranque Fm – Portal de Noticias – MIEMBRO DE CLG MULTIMEDIOS",
+          "\n           Purranque Fm \n        ",
+          "WhatsApp"
+        ],
+        "image_urls": [
+          "https://purranquefm.cl/portal/wp-content/uploads/2023/01/cropped-logo-ico-180x180.png",
+          "https://purranquefm.cl/portal/wp-content/uploads/2023/01/cropped-logo-ico-192x192.png",
+          "https://purranquefm.cl/portal/wp-content/uploads/2023/01/cropped-logo-ico-32x32.png"
+        ],
+        "named_logos": {}
+      },
+      "ocr_text": ""
     },
     "4097:0:2:560B:DF5D:ED:0:0:0:0": {
       "name": "Radio 13c",
@@ -189114,7 +189148,8 @@
       "homepages": [
         "https://www.patodj.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:1090:355A:ED:0:0:0:0": {
       "name": "Radio RTL",
@@ -189126,7 +189161,10 @@
       "homepages": [
         "https://radiortl.cl/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 403\n"
+      ]
     },
     "4097:0:2:D279:A3A5:ED:0:0:0:0": {
       "name": "RADIO SOL",
@@ -189139,7 +189177,96 @@
         "https://radiosol.cl/",
         "https://us9.maindigitalstream.com/ssl/7389"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://radiosol.cl/wp-content/uploads/2022/04/Logo-Radio-Sol-color-Horizontal-485.png",
+        "final_url": "https://radiosol.cl/wp-content/uploads/2022/04/Logo-Radio-Sol-color-Horizontal-485.png",
+        "path": "originals/831b5bdab0e934844879f7bb8ea7c881f489bb1f52379eaf9b3ca7cdf74e8e6b.img",
+        "sha256": "831b5bdab0e934844879f7bb8ea7c881f489bb1f52379eaf9b3ca7cdf74e8e6b",
+        "bytes": 66134,
+        "dimensions": [
+          485,
+          200
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://radiosol.cl/",
+        "final_url": "https://radiosol.cl/",
+        "original_html_sha256": "03654f288a67bb36e5532b499f50459f70db968f6e079b51f1ac0241647e6961",
+        "path": "page-evidence/03654f288a67bb36e5532b499f50459f70db968f6e079b51f1ac0241647e6961.json",
+        "titles": [
+          "Radio Sol",
+          "\n\t    \t \n\t    \t     \t    \t \n\t    ",
+          "\n\t    \t \n\t\t         \t\t     \n\t    ",
+          ""
+        ],
+        "image_urls": [
+          "https://radiosol.cl/wp-content/uploads/2022/04/Logo-Radio-Sol-color-Horizontal-485.png",
+          "https://radiosol.cl/wp-content/uploads/2020/04/icon-75x75.png",
+          "https://radiosol.cl/wp-content/uploads/2020/04/icon.png"
+        ],
+        "named_logos": {
+          "https://radiosol.cl/wp-content/uploads/2022/04/Logo-Radio-Sol-color-Horizontal-485.png": "Radio Sol  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/a3189d540a01ed80d59555c9dd176b69a0cb009c9aef7b93e711e11bab305828.png",
+          "sha256": "a3189d540a01ed80d59555c9dd176b69a0cb009c9aef7b93e711e11bab305828",
+          "bytes": 1908
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/1dd322467901d057528e1c8e93320d57385d3378e9a8ccd454ca69949c625fc4.png",
+          "sha256": "1dd322467901d057528e1c8e93320d57385d3378e9a8ccd454ca69949c625fc4",
+          "bytes": 16816
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/7f46fe64223d1e8ac162717572fee3930cc108d17a105ccff917ff2634ab1766.png",
+          "sha256": "7f46fe64223d1e8ac162717572fee3930cc108d17a105ccff917ff2634ab1766",
+          "bytes": 54822
+        },
+        "50x30/white": {
+          "path": "verified-assets/449a1b2ccf1822aa304a23f7107eb4e16aa918f7ba3e0bc0172d26efbcbd4539.png",
+          "sha256": "449a1b2ccf1822aa304a23f7107eb4e16aa918f7ba3e0bc0172d26efbcbd4539",
+          "bytes": 3062
+        },
+        "220x132/white": {
+          "path": "verified-assets/c1fe17c04fc3c2d8d279f06b437e69967099ed180d64ab57003a1106d905811d.png",
+          "sha256": "c1fe17c04fc3c2d8d279f06b437e69967099ed180d64ab57003a1106d905811d",
+          "bytes": 41202
+        },
+        "400x240/white": {
+          "path": "verified-assets/9959d1dfdcc6f5157de74f883cde32d392b20b32fc46fa6944a16a9556bc57ef.png",
+          "sha256": "9959d1dfdcc6f5157de74f883cde32d392b20b32fc46fa6944a16a9556bc57ef",
+          "bytes": 110056
+        },
+        "50x30/black": {
+          "path": "verified-assets/6cd660ccad8376473f509c91ef89ce880c79bc9257e16cd476d5db8e01d80511.png",
+          "sha256": "6cd660ccad8376473f509c91ef89ce880c79bc9257e16cd476d5db8e01d80511",
+          "bytes": 2989
+        },
+        "220x132/black": {
+          "path": "verified-assets/54b281daec94a13907538aec042e6d445fddefef2c4e9afb364489199308b8d0.png",
+          "sha256": "54b281daec94a13907538aec042e6d445fddefef2c4e9afb364489199308b8d0",
+          "bytes": 37958
+        },
+        "400x240/black": {
+          "path": "verified-assets/a0f805996cf17af777a45df5c80fd535ea92b301a5bf32e8cdaf6499bcda1d10.png",
+          "sha256": "a0f805996cf17af777a45df5c80fd535ea92b301a5bf32e8cdaf6499bcda1d10",
+          "bytes": 97927
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Radio Sol  ",
+        "matched_brand_keys": [
+          "sol"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:7E77:8713:ED:0:0:0:0": {
       "name": "Radio USM",
@@ -189151,7 +189278,8 @@
       "homepages": [
         "https://radio.usm.cl/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:E320:C7CB:ED:0:0:0:0": {
       "name": "RADIO UVM",
@@ -189163,7 +189291,10 @@
       "homepages": [
         "https://radio.uvm.cl/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "Command '['tesseract', '/tmp/radio-logo-ocr-9pnfmxhw/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds"
+      ]
     },
     "4097:0:2:799C:384F:ED:0:0:0:0": {
       "name": "Radio Z",
@@ -189188,7 +189319,38 @@
         "https://radiorara.cl/",
         "https://www.radiorara.cl/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://images.builderservices.io/s/cdn/v1.0/i/m?url=https%3A%2F%2Fstorage.googleapis.com%2Fproduction-hostgator_chile-v1-0-1%2F541%2F108541%2FSMKE9NPh%2F06d03b74d9ca4d2e8ef4c0045e8abc4d&methods=resize%2C1000%2C5000",
+        "final_url": "https://images.builderservices.io/s/cdn/v1.0/i/m?url=https%3A%2F%2Fstorage.googleapis.com%2Fproduction-hostgator_chile-v1-0-1%2F541%2F108541%2FSMKE9NPh%2F06d03b74d9ca4d2e8ef4c0045e8abc4d&methods=resize%2C1000%2C5000",
+        "path": "originals/a8c0f3b6bf8d7808268d4f735e4b488b9b711f4b37f9f0a00f98386dc5c73fd2.img",
+        "sha256": "a8c0f3b6bf8d7808268d4f735e4b488b9b711f4b37f9f0a00f98386dc5c73fd2",
+        "bytes": 9146,
+        "dimensions": [
+          1000,
+          979
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://radiorara.cl/",
+        "final_url": "https://radiorara.cl/",
+        "original_html_sha256": "ba5550fe245cad6bbdc517869788901797a2c5ab46ec3e7f81c6a202dadfcbab",
+        "path": "page-evidence/ba5550fe245cad6bbdc517869788901797a2c5ab46ec3e7f81c6a202dadfcbab.json",
+        "titles": [
+          "home - radiorara"
+        ],
+        "image_urls": [
+          "https://images.builderservices.io/s/cdn/v1.0/i/m?url=https%3A%2F%2Fstorage.googleapis.com%2Fproduction-hostgator_chile-v1-0-1%2F541%2F108541%2FSMKE9NPh%2F06d03b74d9ca4d2e8ef4c0045e8abc4d&methods=resize%2C1000%2C5000",
+          "https://images.builderservices.io/s/cdn/v1.0/i/m?url=https%3A%2F%2Fstorage.googleapis.com%2Fproduction-hostgator_chile-v1-0-1%2F541%2F108541%2FSMKE9NPh%2F06d03b74d9ca4d2e8ef4c0045e8abc4d&methods=resize%2C500%2C5000",
+          "https://storage.googleapis.com/production-hostgator_chile-v1-0-1/541/108541/SMKE9NPh/844bece87f834e3882d734d8aeb87e60"
+        ],
+        "named_logos": {
+          "https://images.builderservices.io/s/cdn/v1.0/i/m?url=https%3A%2F%2Fstorage.googleapis.com%2Fproduction-hostgator_chile-v1-0-1%2F541%2F108541%2FSMKE9NPh%2F06d03b74d9ca4d2e8ef4c0045e8abc4d&methods=resize%2C500%2C5000": "  ",
+          "https://images.builderservices.io/s/cdn/v1.0/i/m?url=https%3A%2F%2Fstorage.googleapis.com%2Fproduction-hostgator_chile-v1-0-1%2F541%2F108541%2FSMKE9NPh%2F06d03b74d9ca4d2e8ef4c0045e8abc4d&methods=resize%2C1000%2C5000": "  "
+        }
+      },
+      "ocr_text": "YT\n"
     },
     "4097:0:2:136D:D4BB:ED:0:0:0:0": {
       "name": "Raudal FM97.1",
@@ -189200,7 +189362,49 @@
       "homepages": [
         "https://emisora.cl/raudal-fm/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://cdn.instant.audio/images/brand/logo_250x74.png",
+        "final_url": "https://cdn.instant.audio/images/brand/logo_250x74.png",
+        "path": "originals/af969e82f744d3772ce5a77845f69d3885e9f7e12d9c9e6906a79f106eefac95.img",
+        "sha256": "af969e82f744d3772ce5a77845f69d3885e9f7e12d9c9e6906a79f106eefac95",
+        "bytes": 4545,
+        "dimensions": [
+          250,
+          74
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://emisora.cl/raudal-fm/",
+        "final_url": "https://emisora.cl/raudal-fm/",
+        "original_html_sha256": "1cae5a7cca976a73fa7efcc970b1b66273f2d1a9cf9502605c108b13121b8d69",
+        "path": "page-evidence/1cae5a7cca976a73fa7efcc970b1b66273f2d1a9cf9502605c108b13121b8d69.json",
+        "titles": [
+          "Raudal FM 97.1 Vivo Nogales | Emisora.cl",
+          "Raudal FM"
+        ],
+        "image_urls": [
+          "https://cdn.instant.audio/images/brand/logo_250x74.png",
+          "https://cdn.instant.audio/images/logos/emisora-cl/adn.png",
+          "https://cdn.instant.audio/images/logos/emisora-cl/armonia.png"
+        ],
+        "named_logos": {
+          "https://cdn.instant.audio/images/logos/emisora-cl/raudal-fm.png": "Raudal FM  ",
+          "https://cdn.instant.audio/images/logos/emisora-cl/maria.png": "Radio María  ",
+          "https://cdn.instant.audio/images/logos/emisora-cl/cooperativa.png": "Radio Cooperativa  ",
+          "https://cdn.instant.audio/images/logos/emisora-cl/bio-bio.png": "Radio Bío Bío  ",
+          "https://cdn.instant.audio/images/logos/emisora-cl/digital.png": "Digital FM  ",
+          "https://cdn.instant.audio/images/logos/emisora-cl/armonia.png": "Radio Armonía  ",
+          "https://cdn.instant.audio/images/logos/emisora-cl/beethoven.png": "Beethoven FM  ",
+          "https://cdn.instant.audio/images/logos/emisora-cl/adn.png": "ADN Radio  ",
+          "https://cdn.instant.audio/images/logos/emisora-cl/canal-antofagasta.png": "Radio Canal 95 (Antofagasta)  ",
+          "https://cdn.instant.audio/images/logos/emisora-cl/pudahuel.png": "Pudahuel FM  ",
+          "https://cdn.instant.audio/images/logos/emisora-cl/tiempo.png": "FM Tiempo (Santiago)  ",
+          "https://cdn.instant.audio/images/brand/logo_250x74.png": "InstantAudio  "
+        }
+      },
+      "ocr_text": ""
     },
     "4097:0:2:30A1:AB76:ED:0:0:0:0": {
       "name": "Raxies FM",
@@ -189212,7 +189416,34 @@
       "homepages": [
         "https://raxiesfm.neocities.org/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://raxiesfm.neocities.org/FAVICON.gif",
+        "final_url": "https://raxiesfm.neocities.org/FAVICON.gif",
+        "path": "originals/05346150210560c6da13a8413024c2a2cbac4c1e86875d2a79635ef00cac7a55.img",
+        "sha256": "05346150210560c6da13a8413024c2a2cbac4c1e86875d2a79635ef00cac7a55",
+        "bytes": 165659,
+        "dimensions": [
+          600,
+          600
+        ],
+        "format": "GIF"
+      },
+      "page": {
+        "url": "https://raxiesfm.neocities.org/",
+        "final_url": "https://raxiesfm.neocities.org/",
+        "original_html_sha256": "f01025c49c02bacb9fe489d7d2a5e2093b71b74c2aea663fbb0359caa908034c",
+        "path": "page-evidence/f01025c49c02bacb9fe489d7d2a5e2093b71b74c2aea663fbb0359caa908034c.json",
+        "titles": [
+          "Raxies FM - Online Radio",
+          "Raxies FM"
+        ],
+        "image_urls": [
+          "https://raxiesfm.neocities.org/FAVICON.gif"
+        ],
+        "named_logos": {}
+      },
+      "ocr_text": "|\n"
     },
     "4097:0:2:66F6:33A1:ED:0:0:0:0": {
       "name": "Radio Rebuena 95.7FM",
@@ -189224,7 +189455,8 @@
       "homepages": [
         "https://www.radiorebuena.cl/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:1639:7F33:ED:0:0:0:0": {
       "name": "Radio Recreo",
@@ -189236,7 +189468,53 @@
       "homepages": [
         "https://www.radios-chilenas.com/radio-recreo"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://cdn.regional-radios.app-mind.com/static/assets/images/flags/cl.png",
+        "final_url": "https://cdn.regional-radios.app-mind.com/static/assets/images/flags/cl.png",
+        "path": "originals/c7b380d0b0551f0c7d58f06ef7fbbc256aa50f67eee81a007726f23b9619ab20.img",
+        "sha256": "c7b380d0b0551f0c7d58f06ef7fbbc256aa50f67eee81a007726f23b9619ab20",
+        "bytes": 4206,
+        "dimensions": [
+          130,
+          120
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://www.radios-chilenas.com/radio-recreo",
+        "final_url": "https://www.radios-chilenas.com/radio-recreo",
+        "original_html_sha256": "66d06eada237594dbc8c872f74ed033fb5bf724501028cd5d8257bb62c10dfeb",
+        "path": "page-evidence/66d06eada237594dbc8c872f74ed033fb5bf724501028cd5d8257bb62c10dfeb.json",
+        "titles": [
+          "Escucha Radio Recreo Online: Tu Radio en Vivo",
+          "Radio Recreo en vivo"
+        ],
+        "image_urls": [
+          "https://cdn.regional-radios.app-mind.com/static/assets/images/flags/cl.png",
+          "https://cdn.regional-radios.app-mind.com/static/assets/images/ui/download-android.png",
+          "https://cdn.regional-radios.app-mind.com/static/assets/images/ui/download-ios.png"
+        ],
+        "named_logos": {
+          "https://cdn.regional-radios.app-mind.com/static/assets/images/flags/cl.png": "  ",
+          "https://static.mytuner.mobi/media/tvos_radios/014/radio-recreo.c18478b7.jpg": "Radio Recreo  ",
+          "https://static.mytuner.mobi/media/radios-150px/170/radio-festival.8d55ce30.jpg": "Radio Festival logo  ",
+          "https://static.mytuner.mobi/media/radios-150px/524/fm-de-los-recuerdos-chile.14c47230.png": "FM de Los Recuerdos logo  ",
+          "https://static.mytuner.mobi/media/radios-150px/516/radio-bio-bio-valparaiso.0dbd237a.jpg": "Radio Bio Bio Valparaíso logo  ",
+          "https://static.mytuner.mobi/media/radios-150px/471/radio-corazon-fm.e9f4d53d.jpg": "Radio Corazón FM logo  ",
+          "https://static.mytuner.mobi/media/radios-150px/344/tele-trece-radio.4fb17cdd.jpg": "Tele 13 Radio logo  ",
+          "https://static.mytuner.mobi/media/radios-150px/350/radio-carolina.ad797d7b.jpg": "Radio Carolina logo  ",
+          "https://static.mytuner.mobi/media/radios-150px/010/radio-la-surena-carahue.5e224caf.jpg": "Radio La Sureña Carahue logo  ",
+          "https://static.mytuner.mobi/media/radios-150px/291/radio-pudahuel.ce4befcb.jpg": "Radio Pudahuel logo  ",
+          "https://static.mytuner.mobi/media/radios-150px/606/radio-bio-bio-concepcion.0dbd237a.jpg": "Radio Bio Bio Concepción logo  ",
+          "https://static.mytuner.mobi/media/radios-150px/350/radio-recuerdos-chile.cb6f9a39.png": "Radio Recuerdos logo  ",
+          "https://static.mytuner.mobi/media/radios-150px/330/radio-imagina.5dfe8cf5.jpg": "Radio Imagina logo  ",
+          "https://static.mytuner.mobi/media/radios-150px/327/radio-fm2.de2001c8.png": "FMDOS logo  ",
+          "https://cdn.regional-radios.app-mind.com/static/assets/images/ui/download-android.png": "Obtener en Google Play  ",
+          "https://cdn.regional-radios.app-mind.com/static/assets/images/ui/download-ios.png": "Descargar en la App Store  "
+        }
+      },
+      "ocr_text": ""
     },
     "4097:0:2:70FE:E0A:ED:0:0:0:0": {
       "name": "Radio Recuerdos",
@@ -189248,7 +189526,94 @@
       "homepages": [
         "https://www.radiorecuerdos.cl/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://www.radiorecuerdos.cl/wp-content/uploads/2021/08/Logo-Radio-Recuerdos.png",
+        "final_url": "https://www.radiorecuerdos.cl/wp-content/uploads/2021/08/Logo-Radio-Recuerdos.png",
+        "path": "originals/3dd7db77449420074789d5aa601a42013a3e949525b3c53842ab576dbf98b38b.img",
+        "sha256": "3dd7db77449420074789d5aa601a42013a3e949525b3c53842ab576dbf98b38b",
+        "bytes": 47855,
+        "dimensions": [
+          1887,
+          632
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://www.radiorecuerdos.cl/",
+        "final_url": "https://www.radiorecuerdos.cl/",
+        "original_html_sha256": "a9bd4cb418951ccecb404411be73f6f4763f372a3ec17564517f44188f4a8436",
+        "path": "page-evidence/a9bd4cb418951ccecb404411be73f6f4763f372a3ec17564517f44188f4a8436.json",
+        "titles": [
+          "Radio Recuerdos – Tu Encuentro con el Pasado"
+        ],
+        "image_urls": [
+          "https://www.radiorecuerdos.cl/wp-content/uploads/2021/08/Logo-Radio-Recuerdos.png",
+          "https://www.radiorecuerdos.cl/wp-content/uploads/2021/08/logo_Scd.png",
+          "https://www.radiorecuerdos.cl/wp-content/uploads/2021/08/cropped-Caratula-Player-180x180.png"
+        ],
+        "named_logos": {
+          "https://www.radiorecuerdos.cl/wp-content/uploads/2021/08/Logo-Radio-Recuerdos.png": "Radio Recuerdos  ",
+          "https://www.radiorecuerdos.cl/wp-content/uploads/2021/08/logo_Scd.png": "  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/5addeb11fe22222267f74c12b0f37ceac332531b478d01885f05aba57936059e.png",
+          "sha256": "5addeb11fe22222267f74c12b0f37ceac332531b478d01885f05aba57936059e",
+          "bytes": 1955
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/569adad7d5ed6b32a4f24d2e7f80901113506fb459c4446bdacc3501b0acee0b.png",
+          "sha256": "569adad7d5ed6b32a4f24d2e7f80901113506fb459c4446bdacc3501b0acee0b",
+          "bytes": 16977
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/2ccd78f89cca09d431ebc8c3e068950729e06a6b96f2ab1bc7fd1b1caefadf4d.png",
+          "sha256": "2ccd78f89cca09d431ebc8c3e068950729e06a6b96f2ab1bc7fd1b1caefadf4d",
+          "bytes": 55952
+        },
+        "50x30/white": {
+          "path": "verified-assets/09d5efaa42bb3900f9e446e3b3ed1f6445b01bb8407db582e0ab45220344151c.png",
+          "sha256": "09d5efaa42bb3900f9e446e3b3ed1f6445b01bb8407db582e0ab45220344151c",
+          "bytes": 2742
+        },
+        "220x132/white": {
+          "path": "verified-assets/81c31dec6224edc55a7c2ac2515d182ab5b12bedec8b2e017649e9f90f51a321.png",
+          "sha256": "81c31dec6224edc55a7c2ac2515d182ab5b12bedec8b2e017649e9f90f51a321",
+          "bytes": 39045
+        },
+        "400x240/white": {
+          "path": "verified-assets/40881f3d3c567a8ca1462bc14f299d8b9e635fdefc186e5dc180a4dd817ab172.png",
+          "sha256": "40881f3d3c567a8ca1462bc14f299d8b9e635fdefc186e5dc180a4dd817ab172",
+          "bytes": 98923
+        },
+        "50x30/black": {
+          "path": "verified-assets/eb7f53ba62e27100837104af03ffbe2f1f60f7c90be6751971525ab403c62efe.png",
+          "sha256": "eb7f53ba62e27100837104af03ffbe2f1f60f7c90be6751971525ab403c62efe",
+          "bytes": 3480
+        },
+        "220x132/black": {
+          "path": "verified-assets/f9e4b9dc59b5f8d1be46d2f9bc250296ce0098e56d212e5ea4d4b970f795d198.png",
+          "sha256": "f9e4b9dc59b5f8d1be46d2f9bc250296ce0098e56d212e5ea4d4b970f795d198",
+          "bytes": 41604
+        },
+        "400x240/black": {
+          "path": "verified-assets/cd96992bba1a84f40fb70a94f21e22d25b858d2a57b92e7cf386269823acc2eb.png",
+          "sha256": "cd96992bba1a84f40fb70a94f21e22d25b858d2a57b92e7cf386269823acc2eb",
+          "bytes": 108743
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Radio Recuerdos  ",
+        "matched_brand_keys": [
+          "recuerdos"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:D116:77B5:ED:0:0:0:0": {
       "name": "Recuerdos Retro",
@@ -189260,7 +189625,53 @@
       "homepages": [
         "https://www.radios-chilenas.com/recuerdos-retro"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://cdn.regional-radios.app-mind.com/static/assets/images/flags/cl.png",
+        "final_url": "https://cdn.regional-radios.app-mind.com/static/assets/images/flags/cl.png",
+        "path": "originals/c7b380d0b0551f0c7d58f06ef7fbbc256aa50f67eee81a007726f23b9619ab20.img",
+        "sha256": "c7b380d0b0551f0c7d58f06ef7fbbc256aa50f67eee81a007726f23b9619ab20",
+        "bytes": 4206,
+        "dimensions": [
+          130,
+          120
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://www.radios-chilenas.com/recuerdos-retro",
+        "final_url": "https://www.radios-chilenas.com/recuerdos-retro",
+        "original_html_sha256": "d588d1ebddd28e08d48ed8065b161fb5d659a1e68112a8275f47214fcc728eab",
+        "path": "page-evidence/d588d1ebddd28e08d48ed8065b161fb5d659a1e68112a8275f47214fcc728eab.json",
+        "titles": [
+          "Radio Recuerdos Retro en Vivo: Escucha Online",
+          "Radio Recuerdos Retro en vivo"
+        ],
+        "image_urls": [
+          "https://cdn.regional-radios.app-mind.com/static/assets/images/flags/cl.png",
+          "https://cdn.regional-radios.app-mind.com/static/assets/images/ui/download-android.png",
+          "https://cdn.regional-radios.app-mind.com/static/assets/images/ui/download-ios.png"
+        ],
+        "named_logos": {
+          "https://cdn.regional-radios.app-mind.com/static/assets/images/flags/cl.png": "  ",
+          "https://static.mytuner.mobi/media/tvos_radios/761/recuerdos-retro.2ee859ec.png": "Recuerdos Retro  ",
+          "https://static.mytuner.mobi/media/radios-150px/524/fm-de-los-recuerdos-chile.14c47230.png": "FM de Los Recuerdos logo  ",
+          "https://static.mytuner.mobi/media/radios-150px/350/radio-recuerdos-chile.cb6f9a39.png": "Radio Recuerdos logo  ",
+          "https://static.mytuner.mobi/media/radios-150px/330/radio-imagina.5dfe8cf5.jpg": "Radio Imagina logo  ",
+          "https://static.mytuner.mobi/media/radios-150px/757/la-retro-radio-80s.0288dda9.jpg": "La Retro Radio logo  ",
+          "https://static.mytuner.mobi/media/radios-150px/471/radio-corazon-fm.e9f4d53d.jpg": "Radio Corazón FM logo  ",
+          "https://static.mytuner.mobi/media/radios-150px/814/radio-bio-bio-santiago.0dbd237a.jpg": "Radio Bio Bio Santiago logo  ",
+          "https://static.mytuner.mobi/media/radios-150px/291/radio-pudahuel.ce4befcb.jpg": "Radio Pudahuel logo  ",
+          "https://static.mytuner.mobi/media/radios-150px/845/decada-de-los-90s.4280c6b2.jpg": "Década de los 90s logo  ",
+          "https://static.mytuner.mobi/media/radios-150px/203/stream-latina.3bdd8b22.jpg": "Viejitas Pero Bonitas logo  ",
+          "https://static.mytuner.mobi/media/radios-150px/298/adn.40bce09f.jpg": "ADN Radio logo  ",
+          "https://static.mytuner.mobi/media/radios-150px/046/radio-agricultura.3fbc5dd8.jpg": "Radio Agricultura logo  ",
+          "https://static.mytuner.mobi/media/radios-150px/258/unlimited80s.24c444a0.png": "Unlimited80s logo  ",
+          "https://cdn.regional-radios.app-mind.com/static/assets/images/ui/download-android.png": "Obtener en Google Play  ",
+          "https://cdn.regional-radios.app-mind.com/static/assets/images/ui/download-ios.png": "Descargar en la App Store  "
+        }
+      },
+      "ocr_text": ""
     },
     "4097:0:2:BEA5:1032:ED:0:0:0:0": {
       "name": "Radio Refugio Limache",
@@ -189272,7 +189683,8 @@
       "homepages": [
         "https://www.radiorefugio.org/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:9FF3:2578:ED:0:0:0:0": {
       "name": "Región Circular",
@@ -189284,7 +189696,96 @@
       "homepages": [
         "https://www.regioncircular.cl/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://www.regioncircular.cl/wp-content/uploads/2025/10/cropped-555127138_122101384059039320_7647106933751158830_n.jpg",
+        "final_url": "https://www.regioncircular.cl/wp-content/uploads/2025/10/cropped-555127138_122101384059039320_7647106933751158830_n.jpg",
+        "path": "originals/abee3b3e68205e6e9950f11444743710ce7b6188b747a0639fbce5544550fcf2.img",
+        "sha256": "abee3b3e68205e6e9950f11444743710ce7b6188b747a0639fbce5544550fcf2",
+        "bytes": 43517,
+        "dimensions": [
+          1024,
+          626
+        ],
+        "format": "JPEG"
+      },
+      "page": {
+        "url": "https://www.regioncircular.cl/",
+        "final_url": "https://www.regioncircular.cl/",
+        "original_html_sha256": "917ab25a7447593cce81e1ea4d9d72a1d18fed9dec661a335b586b4d6ed7d18a",
+        "path": "page-evidence/917ab25a7447593cce81e1ea4d9d72a1d18fed9dec661a335b586b4d6ed7d18a.json",
+        "titles": [
+          "Home - Región Circular",
+          "WhatsApp"
+        ],
+        "image_urls": [
+          "https://www.regioncircular.cl/wp-content/uploads/2025/10/cropped-555127138_122101384059039320_7647106933751158830_n.jpg",
+          "https://www.regioncircular.cl/wp-content/uploads/2026/05/Logo-moderno-de-Region-Circular-e1780099172221-58x58.png",
+          "https://www.regioncircular.cl/wp-content/uploads/2025/07/cropped-ChatGPT-Image-13-jul-2025-09_53_01-p.m.png"
+        ],
+        "named_logos": {
+          "https://www.regioncircular.cl/wp-content/uploads/2025/10/cropped-555127138_122101384059039320_7647106933751158830_n.jpg": "Región Circular  ",
+          "https://www.regioncircular.cl/wp-content/uploads/2026/05/Logo-moderno-de-Region-Circular-e1780099172221-58x58.png": "  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/2a170aab184afe33cc779f809b29cdbffc81e5a83b1f121ca4d5078f6525cd2d.png",
+          "sha256": "2a170aab184afe33cc779f809b29cdbffc81e5a83b1f121ca4d5078f6525cd2d",
+          "bytes": 1908
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/8b9c952e2c6a4eb0c383191830e95059fe418e7da6d93d2fd1dff80386344bf2.png",
+          "sha256": "8b9c952e2c6a4eb0c383191830e95059fe418e7da6d93d2fd1dff80386344bf2",
+          "bytes": 17491
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/de186bb75a2f1dcadd0a7980b248c71689042b59017b4994745ec4643fcf4ce8.png",
+          "sha256": "de186bb75a2f1dcadd0a7980b248c71689042b59017b4994745ec4643fcf4ce8",
+          "bytes": 48961
+        },
+        "50x30/white": {
+          "path": "verified-assets/82fc8b5f07687c970960f219cdc34feac2cdbde6fc3e2897544a4a0482931fed.png",
+          "sha256": "82fc8b5f07687c970960f219cdc34feac2cdbde6fc3e2897544a4a0482931fed",
+          "bytes": 2820
+        },
+        "220x132/white": {
+          "path": "verified-assets/6283651c7a3f09f35c0176056a213cf38eb87832b685e14cf0b9faaf1c25996e.png",
+          "sha256": "6283651c7a3f09f35c0176056a213cf38eb87832b685e14cf0b9faaf1c25996e",
+          "bytes": 33435
+        },
+        "400x240/white": {
+          "path": "verified-assets/68cb6146e98d67e6c1f6b88ce32b24621f511ee10454b1cf469ac9ee2606e5d2.png",
+          "sha256": "68cb6146e98d67e6c1f6b88ce32b24621f511ee10454b1cf469ac9ee2606e5d2",
+          "bytes": 88677
+        },
+        "50x30/black": {
+          "path": "verified-assets/2a2d82d600c4bf69e45a90bae74dd536af24b8a534011d1ed6d59fe400b0dcd4.png",
+          "sha256": "2a2d82d600c4bf69e45a90bae74dd536af24b8a534011d1ed6d59fe400b0dcd4",
+          "bytes": 2949
+        },
+        "220x132/black": {
+          "path": "verified-assets/2aa72898964993a56fa8d5a92ee82ba4222193f652baa56e4eb529334a52a65c.png",
+          "sha256": "2aa72898964993a56fa8d5a92ee82ba4222193f652baa56e4eb529334a52a65c",
+          "bytes": 32044
+        },
+        "400x240/black": {
+          "path": "verified-assets/c9fd87c36748e46ff6d0e441868fb12eab5d61ac990445e27f8d7d5dd9bf0a90.png",
+          "sha256": "c9fd87c36748e46ff6d0e441868fb12eab5d61ac990445e27f8d7d5dd9bf0a90",
+          "bytes": 84963
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Región Circular  ",
+        "matched_brand_keys": [
+          "circular",
+          "region"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:54D4:EFBE:ED:0:0:0:0": {
       "name": "RegiónXV",
@@ -189296,7 +189797,96 @@
       "homepages": [
         "https://regionxv.cl/wordpress/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://regionxv.cl/wordpress/wp-content/uploads/2025/08/logo_header2.png",
+        "final_url": "https://regionxv.cl/wordpress/wp-content/uploads/2025/08/logo_header2.png",
+        "path": "originals/35c2128b1594b5c9fb697cd9e5bfca41e13ee3ebb6c38acf1ede2b5e338c8c18.img",
+        "sha256": "35c2128b1594b5c9fb697cd9e5bfca41e13ee3ebb6c38acf1ede2b5e338c8c18",
+        "bytes": 559094,
+        "dimensions": [
+          1400,
+          186
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://regionxv.cl/wordpress/",
+        "final_url": "https://regionxv.cl/wordpress/",
+        "original_html_sha256": "0b5e21ad6bbf92f0d7ebeb528add0584ecafa46bfa26004f7ac1fdf5d98142d9",
+        "path": "page-evidence/0b5e21ad6bbf92f0d7ebeb528add0584ecafa46bfa26004f7ac1fdf5d98142d9.json",
+        "titles": [
+          "Region XV",
+          "\n\n   \t\t\t\t\t\t\t\t Region XV \n\n   \t\t\t\t\t\t\t"
+        ],
+        "image_urls": [
+          "https://regionxv.cl/wordpress/wp-content/uploads/2025/08/logo_core2.jpg",
+          "https://regionxv.cl/wordpress/wp-content/uploads/2025/08/logo_header2.png",
+          "https://regionxv.cl/wordpress/wp-content/uploads/2026/08/LOGO-FONDO-MEDIOS-1_para-documento.png"
+        ],
+        "named_logos": {
+          "https://regionxv.cl/wordpress/wp-content/uploads/2025/08/logo_header2.png": "Region XV  ",
+          "https://regionxv.cl/wordpress/wp-content/uploads/2026/08/LOGO-FONDO-MEDIOS-1_para-documento.png": "  ",
+          "https://regionxv.cl/wordpress/wp-content/uploads/2025/08/logo_core2.jpg": "  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/8c2fbd32e7b5c58a14d16f6383bbc6cb76c412306744c314f0ff0eba601eccf2.png",
+          "sha256": "8c2fbd32e7b5c58a14d16f6383bbc6cb76c412306744c314f0ff0eba601eccf2",
+          "bytes": 1190
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/8ad6febf2426326c4b4314e0b38db6649f441e04f69c002f2fdb75be6cc9a76d.png",
+          "sha256": "8ad6febf2426326c4b4314e0b38db6649f441e04f69c002f2fdb75be6cc9a76d",
+          "bytes": 14672
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/0e6e4931c94a7ffb07ab9dee4e1ee12c3cb85c3647faf515468b48b2c2871cc3.png",
+          "sha256": "0e6e4931c94a7ffb07ab9dee4e1ee12c3cb85c3647faf515468b48b2c2871cc3",
+          "bytes": 43262
+        },
+        "50x30/white": {
+          "path": "verified-assets/613856c3bb3d70f172502079154ff265e301ebe60540a7043ac9225a356952fc.png",
+          "sha256": "613856c3bb3d70f172502079154ff265e301ebe60540a7043ac9225a356952fc",
+          "bytes": 2550
+        },
+        "220x132/white": {
+          "path": "verified-assets/57dc7387099f697d70047688730b210e0d76ebb515c8788fca1c5e86059bab72.png",
+          "sha256": "57dc7387099f697d70047688730b210e0d76ebb515c8788fca1c5e86059bab72",
+          "bytes": 42760
+        },
+        "400x240/white": {
+          "path": "verified-assets/2cebabaa95a25ed5171aaf6e9048733182686b29852f945648561cc9867c2150.png",
+          "sha256": "2cebabaa95a25ed5171aaf6e9048733182686b29852f945648561cc9867c2150",
+          "bytes": 106603
+        },
+        "50x30/black": {
+          "path": "verified-assets/4cbca0dbd3ae5280e7ce34a18bf33f704d8f98e7c450143653c3878ca25572ae.png",
+          "sha256": "4cbca0dbd3ae5280e7ce34a18bf33f704d8f98e7c450143653c3878ca25572ae",
+          "bytes": 2786
+        },
+        "220x132/black": {
+          "path": "verified-assets/aa9c53d237b6d38d57c76343b0307acf487f1523b4c7911637ae837da9284b9b.png",
+          "sha256": "aa9c53d237b6d38d57c76343b0307acf487f1523b4c7911637ae837da9284b9b",
+          "bytes": 41840
+        },
+        "400x240/black": {
+          "path": "verified-assets/349a55f691a42f825d6eab19bf15089c5c3a3feb01913bdb6d38ae668cde6b26.png",
+          "sha256": "349a55f691a42f825d6eab19bf15089c5c3a3feb01913bdb6d38ae668cde6b26",
+          "bytes": 103332
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Region XV  ",
+        "matched_brand_keys": [
+          "regionxv"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:67C4:79D2:ED:0:0:0:0": {
       "name": "Retro Clásicos Radio",
@@ -189308,7 +189898,49 @@
       "homepages": [
         "https://emisora.cl/retroclasicos/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://cdn.instant.audio/images/brand/logo_250x74.png",
+        "final_url": "https://cdn.instant.audio/images/brand/logo_250x74.png",
+        "path": "originals/af969e82f744d3772ce5a77845f69d3885e9f7e12d9c9e6906a79f106eefac95.img",
+        "sha256": "af969e82f744d3772ce5a77845f69d3885e9f7e12d9c9e6906a79f106eefac95",
+        "bytes": 4545,
+        "dimensions": [
+          250,
+          74
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://emisora.cl/retroclasicos/",
+        "final_url": "https://emisora.cl/retroclasicos/",
+        "original_html_sha256": "80c132af19ce894c02e15155e9b4e752fd6c22041735d90172db74db5ecbf9f6",
+        "path": "page-evidence/80c132af19ce894c02e15155e9b4e752fd6c22041735d90172db74db5ecbf9f6.json",
+        "titles": [
+          "Retroclásicos Radio En Vivo | Emisora.cl",
+          "Retroclásicos Radio"
+        ],
+        "image_urls": [
+          "https://cdn.instant.audio/images/brand/logo_250x74.png",
+          "https://cdn.instant.audio/images/logos/emisora-cl/40-principales.png",
+          "https://cdn.instant.audio/images/logos/emisora-cl/agricultura.png"
+        ],
+        "named_logos": {
+          "https://cdn.instant.audio/images/logos/emisora-cl/retroclasicos.png": "Flash & The Pan - Ayla  ",
+          "https://cdn.instant.audio/images/logos/emisora-cl/40-principales.png": "Los 40  ",
+          "https://cdn.instant.audio/images/logos/emisora-cl/duna.png": "Radio Duna  ",
+          "https://cdn.instant.audio/images/logos/emisora-cl/universo.png": "Universo  ",
+          "https://cdn.instant.audio/images/logos/emisora-cl/futuro.png": "Futuro FM  ",
+          "https://cdn.instant.audio/images/logos/emisora-cl/carnaval-vina.png": "Radio Carnaval  ",
+          "https://cdn.instant.audio/images/logos/emisora-cl/agricultura.png": "Radio Agricultura (Santiago)  ",
+          "https://cdn.instant.audio/images/logos/emisora-cl/okey.png": "Radio Okey  ",
+          "https://cdn.instant.audio/images/logos/emisora-cl/radio-atacama.png": "Radio Atacama  ",
+          "https://cdn.instant.audio/images/logos/emisora-cl/austral-valdivia.png": "Radio Austral (Valdivia)  ",
+          "https://cdn.instant.audio/images/logos/emisora-cl/nostalgica-copiapo.png": "Radio Nostálgica  ",
+          "https://cdn.instant.audio/images/brand/logo_250x74.png": "InstantAudio  "
+        }
+      },
+      "ocr_text": ""
     },
     "4097:0:2:D843:E615:ED:0:0:0:0": {
       "name": "Radio Retro Online",
@@ -189320,7 +189952,39 @@
       "homepages": [
         "https://radiofmdance.cl/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://radiofmdance.cl/wp-content/uploads/cropped-1-180x180.png",
+        "final_url": "https://radiofmdance.cl/wp-content/uploads/cropped-1-180x180.png",
+        "path": "originals/5dba457f30764641dc7bd28536197381aa0218f9b08fd9e980d6c7396f97c78d.img",
+        "sha256": "5dba457f30764641dc7bd28536197381aa0218f9b08fd9e980d6c7396f97c78d",
+        "bytes": 3697,
+        "dimensions": [
+          180,
+          180
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://radiofmdance.cl/",
+        "final_url": "https://radiofmdance.cl/",
+        "original_html_sha256": "a15f84ca26879b231e916ef31d7352570b70f82261a0aa0237a989941938ff7c",
+        "path": "page-evidence/a15f84ca26879b231e916ef31d7352570b70f82261a0aa0237a989941938ff7c.json",
+        "titles": [
+          "La Retro Radio | Radio Retro Online | Radio FM Dance",
+          "Radio FM Dance - La Retro Radio y Radio Retro Online | Vintage Radio",
+          " RADIO   FM DANCE  "
+        ],
+        "image_urls": [
+          "https://radiofmdance.cl/wp-content/themes/asap/assets/radio/logo-radiofmdance.webp",
+          "https://radiofmdance.cl/wp-content/uploads/cropped-1-180x180.png",
+          "https://radiofmdance.cl/wp-content/uploads/cropped-1-192x192.png"
+        ],
+        "named_logos": {
+          "https://radiofmdance.cl/wp-content/themes/asap/assets/radio/logo-radiofmdance.webp": "Radio FM Dance - Vintage Radio  "
+        }
+      },
+      "ocr_text": ""
     },
     "4097:0:2:7424:97DB:ED:0:0:0:0": {
       "name": "Retro Radio 80 & 90",
@@ -189332,7 +189996,53 @@
       "homepages": [
         "https://www.radios-chilenas.com/retro-radio-80-90"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://cdn.regional-radios.app-mind.com/static/assets/images/flags/cl.png",
+        "final_url": "https://cdn.regional-radios.app-mind.com/static/assets/images/flags/cl.png",
+        "path": "originals/c7b380d0b0551f0c7d58f06ef7fbbc256aa50f67eee81a007726f23b9619ab20.img",
+        "sha256": "c7b380d0b0551f0c7d58f06ef7fbbc256aa50f67eee81a007726f23b9619ab20",
+        "bytes": 4206,
+        "dimensions": [
+          130,
+          120
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://www.radios-chilenas.com/retro-radio-80-90",
+        "final_url": "https://www.radios-chilenas.com/retro-radio-80-90",
+        "original_html_sha256": "bd4501ee548b99747b856d6b44f17db7ef87a913cbce437b09c80c5e169b03c9",
+        "path": "page-evidence/bd4501ee548b99747b856d6b44f17db7ef87a913cbce437b09c80c5e169b03c9.json",
+        "titles": [
+          "Retro Radio 80 & 90 | Radio en vivo de los 80 y 90",
+          "Escucha Retro Radio 80 & 90 en vivo"
+        ],
+        "image_urls": [
+          "https://cdn.regional-radios.app-mind.com/static/assets/images/flags/cl.png",
+          "https://cdn.regional-radios.app-mind.com/static/assets/images/ui/download-android.png",
+          "https://cdn.regional-radios.app-mind.com/static/assets/images/ui/download-ios.png"
+        ],
+        "named_logos": {
+          "https://cdn.regional-radios.app-mind.com/static/assets/images/flags/cl.png": "  ",
+          "https://static.mytuner.mobi/media/tvos_radios/701/retro-radio-80-90.f09ced7f.png": "Retro Radio 80 & 90  ",
+          "https://static.mytuner.mobi/media/radios-150px/680/wonder-80s.46eec212.jpg": "Wonder 80's logo  ",
+          "https://static.mytuner.mobi/media/radios-150px/aWa7xGKfBh.jpg": "House Nation UK logo  ",
+          "https://static.mytuner.mobi/media/radios-150px/874/heart-80s.82605d89.png": "Heart 80s logo  ",
+          "https://static.mytuner.mobi/media/radios-150px/492/best-of-the-80s.23a7f66a.jpg": "60's 70's Oldies logo  ",
+          "https://static.mytuner.mobi/media/radios-150px/589/80s-90s-hits-radio.3edd1d9b.jpg": "80s 90s Hits Radio logo  ",
+          "https://static.mytuner.mobi/media/radios-150px/905/radio-80s-best-1.4ceb039d.png": "Radio 80's Best 1 logo  ",
+          "https://static.mytuner.mobi/media/radios-150px/390/the-mix-radio-80s.dd4413ea.png": "Mix 80s logo  ",
+          "https://static.mytuner.mobi/media/radios-150px/304/nostalgie-best-of-80s-90s.bc656656.jpg": "NOSTALGIE 80 90 logo  ",
+          "https://static.mytuner.mobi/media/radios-150px/dwwkb5khjr3j.png": "Flashback 80's logo  ",
+          "https://static.mytuner.mobi/media/radios-150px/944/80s-90s-super-pop-hits.a4acb9d6.jpg": "80s 90s Super Pop Hits logo  ",
+          "https://static.mytuner.mobi/media/radios-150px/990/vintage-80-90.99781c81.jpg": "Vintage 80 90 logo  ",
+          "https://static.mytuner.mobi/media/radios-150px/460/radio-nostalgia-fm.aaa68414.png": "Rádio Nostalgia FM - As músicas que deixaram saudade - anos 70, 80 e 90 logo  ",
+          "https://cdn.regional-radios.app-mind.com/static/assets/images/ui/download-android.png": "Obtener en Google Play  ",
+          "https://cdn.regional-radios.app-mind.com/static/assets/images/ui/download-ios.png": "Descargar en la App Store  "
+        }
+      },
+      "ocr_text": ""
     },
     "4097:0:2:1C5C:3547:ED:0:0:0:0": {
       "name": "Retro Top's",
@@ -189344,7 +190054,39 @@
       "homepages": [
         "https://radioretrotops.cl/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://radioretrotops.cl/wp-content/uploads/2023/05/LOGO_RADIOX.png",
+        "final_url": "https://radioretrotops.cl/wp-content/uploads/2023/05/LOGO_RADIOX.png",
+        "path": "originals/b9505d929225dbbecd61746b5b7c7eb174f72444a0dc73caecc4d3e2bc068a23.img",
+        "sha256": "b9505d929225dbbecd61746b5b7c7eb174f72444a0dc73caecc4d3e2bc068a23",
+        "bytes": 15803,
+        "dimensions": [
+          114,
+          105
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://radioretrotops.cl/",
+        "final_url": "https://radioretrotops.cl/",
+        "original_html_sha256": "ec68049bb8a673cb59a859d162625387afa721b4455e3eaebb0a50f4932724c7",
+        "path": "page-evidence/ec68049bb8a673cb59a859d162625387afa721b4455e3eaebb0a50f4932724c7.json",
+        "titles": [
+          "Radio Retro Tops – Radio Online de Musica de los años 50s a los 2000"
+        ],
+        "image_urls": [
+          "https://radioretrotops.cl/wp-content/uploads/2023/05/LOGO_RADIOX.png",
+          "https://radioretrotops.cl/wp-content/uploads/2023/05/RADIOS-ONLINE-LOGO-2.jpg",
+          "https://radioretrotops.cl/wp-content/uploads/2023/05/logomyturner2.png"
+        ],
+        "named_logos": {
+          "https://radioretrotops.cl/wp-content/uploads/2023/05/logomyturner2.png": "  ",
+          "https://radioretrotops.cl/wp-content/uploads/2023/05/RADIOS-ONLINE-LOGO-2.jpg": "  ",
+          "https://radioretrotops.cl/wp-content/uploads/2023/05/LOGO_RADIOX.png": "  "
+        }
+      },
+      "ocr_text": ""
     },
     "4097:0:2:D4AE:1F64:ED:0:0:0:0": {
       "name": "Ritmo en Frecuencia",
@@ -189366,7 +190108,35 @@
       "homepages": [
         "https://www.radioritmo.cl/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://www.radioritmo.cl/wp-content/uploads/2018/01/cropped-img65002219-2-192x192.jpg",
+        "final_url": "https://www.radioritmo.cl/wp-content/uploads/2018/01/cropped-img65002219-2-192x192.jpg",
+        "path": "originals/f457e8a53d8d50bfbb90697c57141ca766a84e81b26cd6dfcfdfeece5523cdbc.img",
+        "sha256": "f457e8a53d8d50bfbb90697c57141ca766a84e81b26cd6dfcfdfeece5523cdbc",
+        "bytes": 8570,
+        "dimensions": [
+          192,
+          192
+        ],
+        "format": "JPEG"
+      },
+      "page": {
+        "url": "https://www.radioritmo.cl/",
+        "final_url": "https://www.radioritmo.cl/",
+        "original_html_sha256": "eedef81a2c152f5b3c0e6b520e9d33740b7b8e4f72dbcecd609b2461c6010a87",
+        "path": "page-evidence/eedef81a2c152f5b3c0e6b520e9d33740b7b8e4f72dbcecd609b2461c6010a87.json",
+        "titles": [
+          "Radio Ritmo FM 98.7 – La de siempre"
+        ],
+        "image_urls": [
+          "https://www.radioritmo.cl/wp-content/uploads/2018/01/cropped-img65002219-2-180x180.jpg",
+          "https://www.radioritmo.cl/wp-content/uploads/2018/01/cropped-img65002219-2-192x192.jpg",
+          "https://www.radioritmo.cl/wp-content/uploads/2018/01/cropped-img65002219-2-32x32.jpg"
+        ],
+        "named_logos": {}
+      },
+      "ocr_text": "Ato 98.7.\n\ni\n\nde siempre\n\nF\n"
     },
     "4097:0:2:B165:485D:ED:0:0:0:0": {
       "name": "Ritmo Urbano CL",
@@ -189378,7 +190148,8 @@
       "homepages": [
         "https://ritmourbano25.usuarios.space/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:AF77:21B0:ED:0:0:0:0": {
       "name": "Ritoque",
@@ -189390,7 +190161,94 @@
       "homepages": [
         "http://www.ritoquefm.cl/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://ritoquefm.cl/wp-content/uploads/2024/10/logo-rfm-color.png",
+        "final_url": "https://ritoquefm.cl/wp-content/uploads/2024/10/logo-rfm-color.png",
+        "path": "originals/edf6a4d183020258763ee007e7d0ed3dc8b8cbc10a7b32f20390fcc769fd275d.img",
+        "sha256": "edf6a4d183020258763ee007e7d0ed3dc8b8cbc10a7b32f20390fcc769fd275d",
+        "bytes": 19951,
+        "dimensions": [
+          600,
+          154
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "http://www.ritoquefm.cl/",
+        "final_url": "https://ritoquefm.cl/",
+        "original_html_sha256": "5717d9d4bf16f8be9046346fce34fd36e8c71db260da177cdf47fbae4b634c0c",
+        "path": "page-evidence/5717d9d4bf16f8be9046346fce34fd36e8c71db260da177cdf47fbae4b634c0c.json",
+        "titles": [
+          "Ritoque FM – 107.9 FM"
+        ],
+        "image_urls": [
+          "https://ritoquefm.cl/wp-content/uploads/2022/12/logo-ritoquefm-300x300-1-150x150.jpg",
+          "https://ritoquefm.cl/wp-content/uploads/2024/10/logo-rfm-color.png",
+          "https://ritoquefm.cl/wp-content/uploads/2021/08/cropped-rfm-t-p669v438e2dsnqdypgfjq42d1f3angyzl1d9x1368s-2-180x180.png"
+        ],
+        "named_logos": {
+          "https://ritoquefm.cl/wp-content/uploads/2022/12/logo-ritoquefm-300x300-1-150x150.jpg": "cover  ",
+          "https://ritoquefm.cl/wp-content/uploads/2024/10/logo-rfm-color.png": "Ritoque FM  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/13bcc3068fb3b07389bfd96e71d3bee4d55b595b3769575c89b951859c89e952.png",
+          "sha256": "13bcc3068fb3b07389bfd96e71d3bee4d55b595b3769575c89b951859c89e952",
+          "bytes": 1002
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/15dbcee30ed8d1e1179d79cef3d0a50223743854f82431d5f8156ac2a8e40884.png",
+          "sha256": "15dbcee30ed8d1e1179d79cef3d0a50223743854f82431d5f8156ac2a8e40884",
+          "bytes": 8665
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/72e147d74d7962e5d4e9ca5a636d3b973dbe60d4f1d72f7ad750ce145b48d22d.png",
+          "sha256": "72e147d74d7962e5d4e9ca5a636d3b973dbe60d4f1d72f7ad750ce145b48d22d",
+          "bytes": 25322
+        },
+        "50x30/white": {
+          "path": "verified-assets/2a77bd372fd637dd4fe73d76a8bfa1b9988235bff79e94f19e4ebbc998968f33.png",
+          "sha256": "2a77bd372fd637dd4fe73d76a8bfa1b9988235bff79e94f19e4ebbc998968f33",
+          "bytes": 2487
+        },
+        "220x132/white": {
+          "path": "verified-assets/69abc2e96802df8a0b666f78b566b009b1ea8d3627c157cc2f496ec968f4719c.png",
+          "sha256": "69abc2e96802df8a0b666f78b566b009b1ea8d3627c157cc2f496ec968f4719c",
+          "bytes": 37036
+        },
+        "400x240/white": {
+          "path": "verified-assets/c4b88ac6fc6b0ee83df088757ba46b448983c52c2a0fbeebd075bdf67ce5fa4d.png",
+          "sha256": "c4b88ac6fc6b0ee83df088757ba46b448983c52c2a0fbeebd075bdf67ce5fa4d",
+          "bytes": 91390
+        },
+        "50x30/black": {
+          "path": "verified-assets/74ef026abfd4ef615df068bf21f2230938c939b7d17a86563e27d38cb57541c9.png",
+          "sha256": "74ef026abfd4ef615df068bf21f2230938c939b7d17a86563e27d38cb57541c9",
+          "bytes": 3086
+        },
+        "220x132/black": {
+          "path": "verified-assets/367fbaca2f1c6d19f3b15e439d2fda60050268ddb81a5e47026e2954f4fe1c4c.png",
+          "sha256": "367fbaca2f1c6d19f3b15e439d2fda60050268ddb81a5e47026e2954f4fe1c4c",
+          "bytes": 38963
+        },
+        "400x240/black": {
+          "path": "verified-assets/de29549e16f7f2e36bdf97e2081ddba7496ada91438b193c375c2586f10a8078.png",
+          "sha256": "de29549e16f7f2e36bdf97e2081ddba7496ada91438b193c375c2586f10a8078",
+          "bytes": 98365
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Ritoque FM  ",
+        "matched_brand_keys": [
+          "ritoque"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:5A2B:D371:ED:0:0:0:0": {
       "name": "Ritoque FM",
@@ -575513,14 +576371,14 @@
   },
   "counts": {
     "already_ready_in_saved_checkpoint": 4155,
-    "blocked_no_confirmed_station_page_and_logo": 2414,
+    "blocked_no_confirmed_station_page_and_logo": 2423,
     "blocked_no_independent_station_homepage": 1269,
     "blocked_no_unique_current_station_metadata": 4248,
-    "candidate_assistant_visual_and_identity_check": 1024,
+    "candidate_assistant_visual_and_identity_check": 1035,
     "needs_assistant_identity_research_for_short_or_generic_name": 1328,
-    "pending_homepage_discovery": 25503,
-    "ready_verified_homepage_and_wordmark": 962
+    "pending_homepage_discovery": 25478,
+    "ready_verified_homepage_and_wordmark": 967
   },
-  "last_event": "homepages_4375_of_29878",
-  "updated_utc": "2026-11-05T14:51:07Z"
+  "last_event": "homepages_4400_of_29878",
+  "updated_utc": "2026-11-05T14:51:40Z"
 }
