@@ -1,0 +1,1655 @@
+<!DOCTYPE HTML>
+<html class="page_sommaire sans_composition ltr fr no-js" lang="fr" dir="ltr">
+	<head>
+		<script type='text/javascript'>/*<![CDATA[*/(function(H){H.className=H.className.replace(/\bno-js\b/,'js')})(document.documentElement);/*]]>*/</script>
+		
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+		<title>Radio Canut - La plus rebelle des radios</title>
+
+<link rel="icon" type="image/x-icon" href="squelettes/favicon.ico" />
+<link rel="shortcut icon" type="image/x-icon" href="squelettes/favicon.ico" /><meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<base href="https://radiocanut.org/">
+
+
+<meta name="generator" content="SPIP 4.4.29 GIT [master: 1600e067]" />
+
+
+<link rel="alternate" type="application/rss+xml" title="Syndiquer tout le site" href="spip.php?page=backend" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel='stylesheet' href='local/cache-css/ca68028fa938d0eabcbc5886b29d0e8d.css?1793800736' type='text/css' />
+
+
+
+
+
+
+
+
+
+
+
+
+<script type='text/javascript'>var var_zajax_content='content';</script><!-- insert_head_css -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script type='text/javascript' src='local/cache-js/4fd7fed537c135eccf9512c55817fa73.js?1793800737'></script>
+
+
+
+
+
+
+
+
+
+
+<!-- insert_head -->
+
+
+
+
+
+
+<style type='text/css'>
+	img[data-photo].photoshow { cursor: zoom-in; }
+	</style>
+	
+
+
+
+<script type="text/javascript">
+// configuration
+photoswipe = {
+  path: "plugins/photoswipe/lib/photoswipe//",
+  selector: "img[data-photo], a[type]",
+  conteneur: ".photoswipe-cont",
+  gallery: true, // galerie
+  errorMsg: "<div class=\"pswp__error-msg\">Image indisponible.<\/div>",
+  debug: false // debug
+};
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+<!--[if lt IE 9]>
+
+
+<![endif]-->
+
+ 
+
+
+
+
+
+
+<script type="text/javascript">
+
+	var radiocanut = {};
+	var spip_url_site_spip = "https://radiocanut.org";
+	var spip_canut_programmes = {
+	"date": "2026-11-05 09:17:37",
+	"programmes": [
+    {
+        "id_article": 15,
+        "titre": "Les bandes continues",
+        "soustitre": "",
+        "lien": "les-bandes-continues\/",
+        "debut": "2026-11-05T08:17:37Z",
+        "fin": "2026-11-05T12:00:00Z",
+        "bandes_continues": "oui"
+    },
+    {
+        "id_article": 98,
+        "titre": "Les petits tas dans le mou",
+        "soustitre": "",
+        "lien": "emissions\/Les-petits-tas-dans-le-mou\/",
+        "debut": "2026-11-05T12:00:00Z",
+        "fin": "2026-11-05T13:00:00Z",
+        "bandes_continues": "non"
+    },
+    {
+        "id_article": 15,
+        "titre": "Les bandes continues",
+        "soustitre": "",
+        "lien": "les-bandes-continues\/",
+        "debut": "2026-11-05T13:00:00Z",
+        "fin": "2026-11-05T18:00:00Z",
+        "bandes_continues": "oui"
+    },
+    {
+        "id_article": 10,
+        "titre": "Les Canut Infos",
+        "soustitre": "Une info libre, ind\u00e9pendante et anti-capitaliste",
+        "lien": "emissions\/canut-infos\/",
+        "debut": "2026-11-05T18:00:00Z",
+        "fin": "2026-11-05T19:00:00Z",
+        "bandes_continues": "non"
+    },
+    {
+        "id_article": 15,
+        "titre": "Les bandes continues",
+        "soustitre": "",
+        "lien": "les-bandes-continues\/",
+        "debut": "2026-11-05T19:00:00Z",
+        "fin": "2026-11-05T20:00:00Z",
+        "bandes_continues": "oui"
+    },
+    {
+        "id_article": 927,
+        "titre": "Le nerf de la game",
+        "soustitre": "",
+        "lien": "emissions\/le-nerf-de-la-game\/",
+        "debut": "2026-11-05T20:00:00Z",
+        "fin": "2026-11-05T21:00:00Z",
+        "bandes_continues": "non"
+    },
+    {
+        "id_article": 15,
+        "titre": "Les bandes continues",
+        "soustitre": "",
+        "lien": "les-bandes-continues\/",
+        "debut": "2026-11-05T21:00:00Z",
+        "fin": "2026-11-06T08:17:37Z",
+        "bandes_continues": "oui"
+    }
+]
+};
+
+	$(document).ready(function() {
+
+		radiocanut.debug = (Cookies.get('canut_debug') ? true : false);
+
+		// recharger les pages en ajax avec history.js,
+		// et ajaxifier les liens chargé via l'ajax de spip
+		init_ajaxify_canut();
+		onAjaxLoad(ajaxify_canut);
+
+		// lecture dans le player global
+		initLectureGlobale();
+		onAjaxLoad(initLectureGlobale);
+
+		function majInterface(){
+			if( $("#canut_player").hasClass("is_live") ){
+				var date_offset = Math.floor(Cookies.get('dateoffset'));
+				var date_now = Math.floor((new Date()).getTime() / 1000) + Math.floor(Cookies.get('dateoffset'));
+				if( radiocanut.debug ) {
+					console.log("date now: "+date_now);
+					console.log("date_offset: "+date_offset);
+				}
+
+				var courant = null;
+				for (var i = 0; i < spip_canut_programmes.programmes.length; i++) {
+					var p = spip_canut_programmes.programmes[i];
+					var date = Math.floor(Date.parse(p.debut)/1000);
+					var age = date_now - date;
+
+					if( radiocanut.debug ) console.log(p.titre+" "+p.debut+" date:"+date+" age:"+age);
+					// si l'age est positif c'est qu'il est dans le passé
+					if(age > 0){
+						courant = p;
+					}
+				}
+				if( radiocanut.debug ) {
+					console.log("courant: "+JSON.stringify(courant, null, 4));
+					console.log("---");
+				}
+				if( courant ) {
+					radiocanut.setPlayerInfos(courant.titre, courant.soustitre, "", courant.lien);
+				}
+			}
+		}
+
+		var majInterfaceInterval;
+		function triggerMajInterfaceInterval() {
+			majInterface();
+			majInterfaceInterval = setInterval(function() {
+				majInterface();
+			}, 10000); // toutes les 10s
+		}
+		triggerMajInterfaceInterval();
+		$(document).on('visibilitychange', function() {
+			if (document.hidden) {
+				clearInterval(majInterfaceInterval);
+			} else {
+				triggerMajInterfaceInterval();
+			}
+		});
+
+		// Formulaires dans menu déroulant (ex: recherche) :
+		// ne pas fermer le menu quand on focus dans le formulaire
+		jQuery('.navbar form').click(function (e) {
+			e.stopPropagation();
+		});
+		// à la soumission du formulaire
+		// charge la page de resultat en ajax et ferme le déroulant
+		jQuery('.navbar form').submit(function (e) {
+			e.preventDefault();
+			e.stopPropagation();
+			var action = $(this).attr("action");
+			var fragment = action.match("#.*$");
+			action = action.replace(fragment, '');
+			var sep = (action.indexOf("?") == -1) ? "?" : "&";
+			var url = action + sep + $(this).serialize()+((fragment)? fragment : '');
+			$(this).closest(".dropdown").removeClass("open");
+			jQuery.spip.chargePageAjax(url, null);
+		});
+
+		// si un menu déroulant contient un formulaire, focus le premier champ
+		jQuery(".navbar li.menu-entree:has(> ul.menu-liste) a").on("click", function(e){
+			$(this).siblings("ul.menu-liste")
+				.find('input[type="text"],input[type="search"],select')
+				.first().focus();
+		});
+
+		// slogan
+		var adjs = ["belle","\u00e9nerv\u00e9e","planante","rock'n roll","sexy","solidaire","urbaine"];
+		var $slogan_adj = $("#slogan_site_spip .slogan-adj")
+		var isOverSlogan = false;
+		var permute_slogan = function(boucle) {
+			if(isOverSlogan){
+				var adj = adjs[Math.floor(Math.random()*adjs.length)]
+				$slogan_adj.html(adj);
+				if (boucle) {
+					setTimeout(permute_slogan, MAth.random()*1000);
+				}
+			}
+		}
+		$("#logo_site_spip").hover(
+			function(){
+				isOverSlogan = true;
+				permute_slogan(false);
+			}, function(){
+				isOverSlogan = false;
+				$slogan_adj.html("rebelle");
+			}
+		);
+
+	});
+
+</script>	</head>
+	<body>
+		<div class="page">
+			<div class="header" id="header">
+				<div class="container">
+    <header class="accueil clearfix row">
+
+        <a rel="start home" href="https://radiocanut.org/" title="Accueil">
+            <h1 id="logo_site_spip"><img src='local/cache-vignettes/L300xH238/siteon0-74aa1.png?1790150414' alt='' class='spip_logo' width='300' height='238' onmouseover='' onmouseout='' /> 
+            </h1>
+        </a>
+        <small id="slogan_site_spip" class="h1-like">
+            La plus <span class="slogan-adj">rebelle</span><br /> des radios
+        </small>
+       <nav class="navbar navbar-expand-lg" >
+        <div class="navbar-inverse" id="nav">
+            <ul class="menu-liste menu-items nav" data-depth="0">
+		<li class="menu-entree item menu-items__item menu-items__item_page-speciale grille">
+		<a href="spip.php?page=grille" class="menu-items__lien">Grille des programmes</a> 
+		</li>
+		<li class="menu-entree item menu-items__item menu-items__item_objet menu-items__item_rubrique">
+		<a href="la-radio/news-de-la-radio/" class="menu-items__lien">News</a>
+				<ul class="menu-liste menu-items nav" data-depth="1">
+		<li class="menu-entree item menu-items__item menu-items__item_objet menu-items__item_rubrique">
+		<a href="la-radio/news-de-la-radio/" class="menu-items__lien">News de la radio</a> 
+		</li>
+		<li class="menu-entree item menu-items__item menu-items__item_page-speciale actus">
+		<a href="spip.php?page=actus" class="menu-items__lien">News des émissions</a> 
+		</li>
+		
+	</ul> 
+		</li>
+		<li class="menu-entree item menu-items__item menu-items__item_objet menu-items__item_rubrique">
+		<a href="emissions/" class="menu-items__lien">Émissions</a>
+				<ul class="menu-liste menu-items nav" data-depth="1">
+		<li class="menu-entree item menu-items__item menu-items__item_objet menu-items__item_rubrique">
+		<a href="emissions/" class="menu-items__lien">Les émissions</a> 
+		</li>
+		<li class="menu-entree item menu-items__item menu-items__item_lien">
+		<a href="/emissions/?afficher_emissions=passe" class="menu-items__lien">Emissions passées</a> 
+		</li>
+		<li class="menu-entree item menu-items__item menu-items__item_objet menu-items__item_rubrique">
+		<a href="emissions/emissions-speciales/" class="menu-items__lien">Emissions spéciales</a> 
+		</li>
+		<li class="menu-entree item menu-items__item menu-items__item_objet menu-items__item_rubrique">
+		<a href="la-radio/news-de-la-radio/covid-diffusion/" class="menu-items__lien">Covid - Diffusion</a> 
+		</li>
+		
+	</ul> 
+		</li>
+		<li class="menu-entree item menu-items__item menu-items__item_objet menu-items__item_rubrique">
+		<a href="les-bandes-continues/" class="menu-items__lien">Bandes continues</a> 
+		</li>
+		<li class="menu-entree item menu-items__item menu-items__item_objet menu-items__item_rubrique">
+		<a href="la-radio/" class="menu-items__lien">La radio</a> 
+		</li>
+		<li class="menu-entree item menu-items__item menu-items__item_objet menu-items__item_rubrique">
+		<a href="ressources-techniques/" class="menu-items__lien">Ressources techniques</a> 
+		</li>
+		<li class="menu-entree item menu-items__item menu-items__item_lien">
+		<a href="#" class="menu-items__lien .bt-recherche"><i class="canut-icones-loupe"></i></a>
+				<ul class="menu-liste menu-items nav" data-depth="1">
+		<li class="menu-entree item menu-items__item menu-items__item_recherche">
+		<div class="formulaire_spip formulaire_recherche form-search" id="formulaire_recherche">
+<form action="spip.php?page=recherche" method="get"><div>
+	<input name="page" value="recherche" type="hidden"
+>
+	
+	<div class="input-append form-inline">
+		<input type="search" class="search text search-query" name="recherche"  placeholder="Recherche" id="recherche" accesskey="4" autocapitalize="off" autocorrect="off" />
+		<button type="submit" class="btn" title="Rechercher" >&gt;&gt;</button>
+	</div>
+</div></form>
+</div> 
+		</li>
+		
+	</ul> 
+		</li>
+		
+	</ul>
+        </div>
+        </nav>
+    </header>
+</div>			</div>
+	
+			<div class="container">
+				<div class="row">
+					<div class="content col" id="content">
+												<section>
+	<header class="cartouche hide">
+		<h1>Radio Canut</h1>
+	</header>
+
+	<div class="main">
+
+		
+
+		<div class="bloc-actu bloc-actu-radio liste long articles">
+		<h2 class="h2">Actualités de la radio</h2>
+	<ul class="liste-items">
+		
+		<li class="item"><article class="entry article hentry">
+  
+	<div class="h3-like entry-title">
+    <a href="la-radio/news-de-la-radio/article/1er-septembre-19h00-c-est-la-rentree-pour-la-prog" rel="bookmark">1er septembre 19h00&nbsp;: C&#8217;est la rentrée pour La Prog&nbsp;!</a>
+    <span>
+      <time pubdate="pubdate" datetime="2026-09-01T06:44:19Z">
+        1er septembre
+      </time>
+    </span>
+  </div>
+   <div class="logo_actu">
+			<img src='local/cache-vignettes/L94xH120/on-air-984f7.jpg?1790150431' alt='' class='img-responsive' onmouseover='' onmouseout='' /> </div>
+	<div class="crayon article-intro-1594 introduction entry-content">
+      <a href="la-radio/news-de-la-radio/article/1er-septembre-19h00-c-est-la-rentree-pour-la-prog" class="liens-noirs">
+      "Ne nous écoutez pas ...Rejoignez nous&nbsp;!" ... vous vous souvenez&nbsp;? 
+<br class='autobr' />
+alors si vous voulez nous rencontrer, nous rejoindre, proposer une émission et faire parti de la grille de programme de Canut on vous acceuille tous les mardis de 19h à 20h 
+<br class='autobr' />
+à ce soir 19h00&nbsp;!
+
+
+        <i class="canut-icones-fleche-droite"></i>
+      </a>
+  </div>
+	<p class="postmeta">
+    <span class="comments">
+    
+    </span>
+	</p>
+</article></li>
+		
+		<li class="item"><article class="entry article hentry">
+  
+	<div class="h3-like entry-title">
+    <a href="la-radio/news-de-la-radio/article/clem-radio-de-retour-sur-radio-canut" rel="bookmark">Clem’radio de retour sur Radio Canut</a>
+    <span>
+      <time pubdate="pubdate" datetime="2026-05-19T07:38:19Z">
+        19 mai
+      </time>
+    </span>
+  </div>
+   <div class="logo_actu">
+			<img src='local/cache-vignettes/L120xH90/clem_radio_2025-2-238a9.jpg?1790150431' alt='' class='img-responsive' onmouseover='' onmouseout='' /> </div>
+	<div class="crayon article-intro-1565 introduction entry-content">
+      <a href="la-radio/news-de-la-radio/article/clem-radio-de-retour-sur-radio-canut" class="liens-noirs">
+      Les élèves du Collège Clémenceau reviennent sur les ondes de Radio Canut, cette année pour faire un tour du quartier de la Guillotière.
+<br class='autobr' />
+C’est aujourd’hui à 14 h&nbsp;!
+
+
+        <i class="canut-icones-fleche-droite"></i>
+      </a>
+  </div>
+	<p class="postmeta">
+    <span class="comments">
+    
+    </span>
+	</p>
+</article></li>
+		
+		<li class="item"><article class="entry article hentry">
+  
+	<div class="h3-like entry-title">
+    <a href="la-radio/news-de-la-radio/article/au-coin-du-micro-avec-microsillons-08-mai-2026-a-10h" rel="bookmark">Au Coin du Micro avec Microsillons - 08 mai 2026 à 10h</a>
+    <span>
+      <time pubdate="pubdate" datetime="2026-05-05T17:47:51Z">
+        5 mai
+      </time>
+    </span>
+  </div>
+   <div class="logo_actu">
+			<img src='local/cache-vignettes/L120xH120/logo-microsillons-acdm-2-210ac.jpg?1790150431' alt='' class='img-responsive' onmouseover='' onmouseout='' /> </div>
+	<div class="crayon article-intro-1558 introduction entry-content">
+      <a href="la-radio/news-de-la-radio/article/au-coin-du-micro-avec-microsillons-08-mai-2026-a-10h" class="liens-noirs">
+      Rendez-vous ce vendredi 08 mai 2026 à 10h pour l’épisode du mois d’Avril du podcast "Au Coin du Micro" 
+<br class='autobr' />
+Microsillons, c’est une association de Toulouse et un GEM (Groupe d’Entraide Mutuelle) où des personnes en difficultés psychiques se regroupent pour se rencontrer, échanger et mettre en place&nbsp;(…)
+
+
+        <i class="canut-icones-fleche-droite"></i>
+      </a>
+  </div>
+	<p class="postmeta">
+    <span class="comments">
+    
+    </span>
+	</p>
+</article></li>
+		
+	</ul>			<a href="la-radio/news-de-la-radio/" class="typo-titre liens-noirs">
+				<i class="canut-icones-fleche-droite"></i>Toutes les actualités de la radio
+			</a>
+		</div>
+
+		
+			<B_grille>
+<div class="liste syndic_articles prog-grille">
+	<ul class="prog-liste-jours">
+	
+		<li class="liste prog-item-jour">
+			<div>
+	<header>
+		<h2 class="h2">
+			Aujourd'hui
+		</h2>
+		<span class="h3-like soustitre-flotant" class="date">
+			 
+				JEUDI
+			
+			5 NOVEMBRE
+		</span>
+	</header>
+
+	<ul class="liste-items grille-jour">
+
+		
+
+
+			
+			
+					<li class="item-programme-liste emission  bandes-continues "
+		
+		>
+
+			<div class="horaires">
+
+				
+
+					<abbr class="debut" title="2026-11-05T07:00:00Z">
+						08h
+					</abbr>
+					<span class="sep"> - </span>
+					<abbr class="fin" title="2026-11-05T12:00:00Z">
+						13h
+					</abbr>
+
+				
+			</div>
+			<div class="description">
+				<a href="les-bandes-continues/Les-bandes-continues-15">
+					<strong class="h3-like summary entry-title">
+						
+						<span itemprop="name">Les bandes continues</span>
+						
+					</strong>
+					<span class="soustitre crayon article-soustitre-15 "></span>
+				</a>
+			</div>
+	</li>			
+
+
+			
+			
+				<li class="item-programme-liste emission  "
+		
+		>
+
+			<div class="horaires">
+
+				
+
+					<abbr class="debut" title="2026-11-05T12:00:00Z">
+						13h
+					</abbr>
+					<span class="sep"> - </span>
+					<abbr class="fin" title="2026-11-05T13:00:00Z">
+						14h
+					</abbr>
+
+				
+			</div>
+			<div class="description">
+				<a href="emissions/Les-petits-tas-dans-le-mou/article/les-petits-tas-dans-le-mou">
+					<strong class="h3-like summary entry-title">
+						
+						<span itemprop="name">Les petits tas dans le mou</span>
+						
+					</strong>
+					<span class="soustitre crayon article-soustitre-98 "></span>
+				</a>
+			</div>
+	</li>			
+
+
+			
+			
+				
+				
+				
+				
+						<li class="item-programme-liste emission  bandes-continues  en-cours"
+		
+		>
+
+			<div class="horaires">
+
+				 
+					<a class="lecture-globale lecture-direct"
+						href="http://live.francra.org:8000/radiocanut?alea=MjAyNi0xMS0wNSAxNDoxOTowNQ=="
+						data-titre="Radio Canut, 102.2FM"
+						data-soustitre="La plus rebelle des radios">
+							<i class="canut-icones-bouton-play bouton-play-pause"></i>
+				
+
+					<abbr class="debut" title="2026-11-05T13:00:00Z">
+						14h
+					</abbr>
+					<span class="sep"> - </span>
+					<abbr class="fin" title="2026-11-05T18:00:00Z">
+						19h
+					</abbr>
+
+				 
+					</a>
+				
+			</div>
+			<div class="description">
+				<a href="les-bandes-continues/Les-bandes-continues-15">
+					<strong class="h3-like summary entry-title">
+						
+						<span itemprop="name">Les bandes continues</span>
+						
+					</strong>
+					<span class="soustitre crayon article-soustitre-15 "></span>
+				</a>
+			</div>
+	</li>				
+			
+
+		
+
+
+			
+			
+
+
+			
+			
+				<li class="item-programme-liste emission  "
+		
+		>
+
+			<div class="horaires">
+
+				
+
+					<abbr class="debut" title="2026-11-05T18:00:00Z">
+						19h
+					</abbr>
+					<span class="sep"> - </span>
+					<abbr class="fin" title="2026-11-05T19:00:00Z">
+						20h
+					</abbr>
+
+				
+			</div>
+			<div class="description">
+				<a href="emissions/canut-infos/Les-Canut-Infos">
+					<strong class="h3-like summary entry-title">
+						
+						<span itemprop="name">Les Canut Infos</span>
+						
+					</strong>
+					<span class="soustitre crayon article-soustitre-10 ">Une info libre, indépendante et anti-capitaliste</span>
+				</a>
+			</div>
+	</li>			
+
+
+			
+			
+				
+				
+				
+				
+						<li class="item-programme-liste emission  bandes-continues "
+		
+		>
+
+			<div class="horaires">
+
+				
+
+					<abbr class="debut" title="2026-11-05T19:00:00Z">
+						20h
+					</abbr>
+					<span class="sep"> - </span>
+					<abbr class="fin" title="2026-11-05T20:00:00Z">
+						21h
+					</abbr>
+
+				
+			</div>
+			<div class="description">
+				<a href="les-bandes-continues/Les-bandes-continues-15">
+					<strong class="h3-like summary entry-title">
+						
+						<span itemprop="name">Les bandes continues</span>
+						
+					</strong>
+					<span class="soustitre crayon article-soustitre-15 "></span>
+				</a>
+			</div>
+	</li>				
+			
+
+		
+
+
+			
+			
+
+
+			
+			
+				<li class="item-programme-liste emission  "
+		
+		>
+
+			<div class="horaires">
+
+				
+
+					<abbr class="debut" title="2026-11-05T20:00:00Z">
+						21h
+					</abbr>
+					<span class="sep"> - </span>
+					<abbr class="fin" title="2026-11-05T21:00:00Z">
+						22h
+					</abbr>
+
+				
+			</div>
+			<div class="description">
+				<a href="emissions/le-nerf-de-la-game/article/le-nerf-de-la-game">
+					<strong class="h3-like summary entry-title">
+						
+						<span itemprop="name">Le nerf de la game</span>
+						
+					</strong>
+					<span class="soustitre crayon article-soustitre-927 "></span>
+				</a>
+			</div>
+	</li>			
+
+
+			
+			
+				
+				 
+					
+				
+				
+						<li class="item-programme-liste emission  bandes-continues "
+		
+		>
+
+			<div class="horaires">
+
+				
+
+					<abbr class="debut" title="2026-11-05T21:00:00Z">
+						22h
+					</abbr>
+					<span class="sep"> - </span>
+					<abbr class="fin" title="2026-11-06T00:00:00Z">
+						01h
+					</abbr>
+
+				
+			</div>
+			<div class="description">
+				<a href="les-bandes-continues/Les-bandes-continues-15">
+					<strong class="h3-like summary entry-title">
+						
+						<span itemprop="name">Les bandes continues</span>
+						
+					</strong>
+					<span class="soustitre crayon article-soustitre-15 "></span>
+				</a>
+			</div>
+	</li>				
+			
+
+		
+	</ul>
+</div>		</li>
+		
+	
+</ul>	<a href="spip.php?page=grille" class="typo-titre liens-noirs">
+		<i class="canut-icones-fleche-droite"></i>Voir le programme de la semaine
+	</a>
+</div>
+</B_grille>		
+
+		<B_syndic>
+	<div class="liste bloc-blanc bloc-podcast">
+		<h2 class="h2">Découvrir</h2>
+		<span class="h3-like soustitre-flotant">séléction aléatoire</span>
+		
+<ul class="liste-items">
+				
+					
+						
+					
+				
+					
+						
+					
+				
+					
+						
+					
+				
+					
+						
+					
+				
+					
+						
+							
+						
+					
+				
+					
+						
+							<li class="syndic_son">
+									<div class="logo">
+			<img src='local/cache-gd2/af/ab0c8e5abaef5b38a3016fe21a1ec6.jpg?1790150856' alt='' class='spip_logo' width='64' height='64' onmouseover='' onmouseout='' />
+		</div>
+		<div class="description">
+			<h3 class="titre">L&#8217;âme son</h3>
+			<a class="lecture-globale liens-noirs"
+				href="http://sons-audioblogs.arte.tv/audioblogs/sons/3048035/3088079_Liba_rason_sexuelle_3.mp3"
+				title="#13 Libérason sexuelle"
+				data-titre="L&#8217;âme son"
+				data-soustitre="#13 Libérason sexuelle"
+				data-lien-info="emissions/l-ame-son/">
+				<i class="canut-icones-bouton-play bouton-play-pause"></i>
+				<p class="sous-titre majuscule-initiale">#13 Libérason sexuelle</p>
+			</a>
+		</div>
+									</li>
+						
+					
+				
+					
+						
+					
+				
+					
+						
+					
+				
+					
+						
+							<li class="syndic_son">
+									<div class="logo">
+			<img src='local/cache-gd2/a8/cf3116f938e28b079536013ab9994a.jpg?1790153533' alt='' class='spip_logo' width='64' height='64' onmouseover='' onmouseout='' />
+		</div>
+		<div class="description">
+			<h3 class="titre">Canut Infos du jeudi</h3>
+			<a class="lecture-globale liens-noirs"
+				href="https://blogs.radiocanut.org/canutinfos-jeudi/files/2026/10/canut_infos_jeudi15oct2026.mp3"
+				title="Canut-infos du jeudi 15 octobre 2026"
+				data-titre="Canut Infos du jeudi"
+				data-soustitre="Canut-infos du jeudi 15 octobre 2026"
+				data-lien-info="emissions/Canut-Infos-du-jeudi/">
+				<i class="canut-icones-bouton-play bouton-play-pause"></i>
+				<p class="sous-titre majuscule-initiale">Canut-infos du jeudi 15 octobre 2026</p>
+			</a>
+		</div>
+									</li>
+						
+					
+				
+					
+						
+							<li class="syndic_son">
+									<div class="logo">
+			<img src='local/cache-gd2/de/569e499c92ac06dbe400a240aa0fce.jpg?1790150589' alt='' class='spip_logo' width='64' height='64' onmouseover='' onmouseout='' />
+		</div>
+		<div class="description">
+			<h3 class="titre">La bande son de nos révoltes</h3>
+			<a class="lecture-globale liens-noirs"
+				href="https://radiocanut.org/plugins/canut/piges/2026-01-21-21h00m00s.mp3"
+				title="La Bande son de nos révoltes n&#176;112 – mercredi 21 janvier 2026"
+				data-titre="La bande son de nos révoltes"
+				data-soustitre="La Bande son de nos révoltes n&#176;112 – mercredi 21 janvier 2026"
+				data-lien-info="emissions/la-bande-son-de-nos-revoltes/">
+				<i class="canut-icones-bouton-play bouton-play-pause"></i>
+				<p class="sous-titre majuscule-initiale">La Bande son de nos révoltes n&#176;112 – mercredi 21 janvier 2026</p>
+			</a>
+		</div>
+									</li>
+						
+					
+				
+					
+						
+					
+				
+					
+						
+							
+						
+					
+				
+					
+						
+					
+				
+					
+						
+					
+				
+					
+						
+					
+				
+					
+						
+					
+				
+					
+						
+							<li class="syndic_son">
+									<div class="logo">
+			<img src='local/cache-gd2/5c/021e7b083defea9f6a88a0e29464cd.png?1790150497' alt='' class='spip_logo' width='64' height='64' onmouseover='' onmouseout='' />
+		</div>
+		<div class="description">
+			<h3 class="titre">Canuses Infos</h3>
+			<a class="lecture-globale liens-noirs"
+				href="https://back-audioblog.arteradio.com/sites/default/files/audios/origin_podcast_282617_zEcH9.mp3"
+				title="Canuses infos du 14 septembre 2026"
+				data-titre="Canuses Infos"
+				data-soustitre="Canuses infos du 14 septembre 2026"
+				data-lien-info="emissions/canuses-infos/">
+				<i class="canut-icones-bouton-play bouton-play-pause"></i>
+				<p class="sous-titre majuscule-initiale">Canuses infos du 14 septembre 2026</p>
+			</a>
+		</div>
+									</li>
+						
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+		</ul>
+		<a href="./" class="ajax nocache">
+			Actualiser
+		</a>		<a href="emissions/" class="typo-titre liens-noirs">
+			<i class="canut-icones-fleche-droite"></i>Découvrir les émissions
+		</a>
+	</div>
+</B_syndic>	</div>
+
+</section>					</div>
+					<div class="aside col" id="aside">
+						<div class="bloc-actu bloc-actu-emissions liste long articles">
+	<h2 class="h2">Actualités des émissions</h2>
+	<ul class="liste-items">
+		
+		<li class="item"><article class="entry article hentry">
+  
+	<div class="h3-like entry-title">
+    <a href="emissions/l-oeil-ecoute/article/l-oeil-ecoute-2-special-polars-et-thrillers-le-8-novembre-a-21h" rel="bookmark">L&#8217;oeil écoute #2&nbsp;: spécial polars et thrillers le 8 novembre à 21h&nbsp;!</a>
+    <span>
+      <time pubdate="pubdate" datetime="2026-11-04T23:33:34Z">
+        5 novembre
+      </time>
+    </span>
+  </div>
+   <div class="logo_actu">
+			<img src='local/cache-vignettes/L120xH120/ne-nous-fachons-pas-2073361633-8ca17.jpg?1793835223' alt='' class='img-responsive' onmouseover='' onmouseout='' /> </div>
+	<div class="crayon article-intro-1626 introduction entry-content">
+      <a href="emissions/l-oeil-ecoute/article/l-oeil-ecoute-2-special-polars-et-thrillers-le-8-novembre-a-21h" class="liens-noirs">
+      De "Ne nous fâchons pas" à "Marathon man" en passant par "la Horse", une petite sélection de bandes originales autour d’un petit noir à savourer (déjà) au coin du feu&nbsp;!!
+
+
+        <i class="canut-icones-fleche-droite"></i>
+      </a>
+  </div>
+	<p class="postmeta">
+    <span class="comments">
+    
+    </span>
+	</p>
+</article></li>
+		
+		<li class="item"><article class="entry article hentry">
+  
+	<div class="h3-like entry-title">
+    <a href="emissions/mayday/article/apres-la-revolution-mercredi-18h" rel="bookmark">Un avenir radieux - une émission de Mayday un an après la révolution / podcast</a>
+    <span>
+      <time pubdate="pubdate" datetime="2026-11-04T09:18:22Z">
+        4 novembre
+      </time>
+    </span>
+  </div>
+   <div class="logo_actu">
+			<img src='local/cache-vignettes/L118xH120/version_carree-b40c6.jpg?1793865381' alt='' class='img-responsive' onmouseover='' onmouseout='' /> </div>
+	<div class="crayon article-intro-1625 introduction entry-content">
+      <a href="emissions/mayday/article/apres-la-revolution-mercredi-18h" class="liens-noirs">
+      Nous sommes en novembre 2027, notre horloge avance pile d’un an et la révolution a déjà tout renversé. Documenter le futur, l’après révolution, pour donner un horizon au présent, c’est ce qu’on essaie de faire pendant une heure pour quitter l’époque contemporaine&nbsp;!
+
+
+        <i class="canut-icones-fleche-droite"></i>
+      </a>
+  </div>
+	<p class="postmeta">
+    <span class="comments">
+    
+    </span>
+	</p>
+</article></li>
+		
+		<li class="item"><article class="entry article hentry">
+  
+	<div class="h3-like entry-title">
+    <a href="emissions/minuit-decousu/article/la-loi-du-plus-faible-minuit-decousu-a-23h" rel="bookmark">La loi du plus faible / Minuit Décousu - Podcast</a>
+    <span>
+      <time pubdate="pubdate" datetime="2026-11-03T12:59:30Z">
+        3 novembre
+      </time>
+    </span>
+  </div>
+   <div class="logo_actu">
+			<img src='local/cache-vignettes/L120xH90/790317908_18104538518609051_6995924470954877048_n-9fbea.jpg?1793710776' alt='' class='img-responsive' onmouseover='' onmouseout='' /> </div>
+	<div class="crayon article-intro-1624 introduction entry-content">
+      <a href="emissions/minuit-decousu/article/la-loi-du-plus-faible-minuit-decousu-a-23h" class="liens-noirs">
+      Comment hiérarchise t-on les corps et justifie t-on le racisme comme le validisme et le sexisme&nbsp;? Une émission où on s&#8217;intéresse avec Harriet de G. aux violences et oppressions que subissent les estropiées et quelles luttes et stratégie iels mettent en œuvre pour leur faire face.
+
+        <i class="canut-icones-fleche-droite"></i>
+      </a>
+  </div>
+	<p class="postmeta">
+    <span class="comments">
+    
+    </span>
+	</p>
+</article></li>
+		
+		<li class="item"><article class="entry article hentry">
+  
+	<div class="h3-like entry-title">
+    <a href="emissions/l-oeil-ecoute/article/la-premiere-de-l-oeil-ecoute-fantastique-et-science-fiction-27-octobre-2026" rel="bookmark">La première de "L&#8217;oeil écoute"&nbsp;: Fantastique et Science-fiction&nbsp;: 27 octobre 2026</a>
+    <span>
+      <time pubdate="pubdate" datetime="2026-10-29T18:52:45Z">
+        29 octobre
+      </time>
+    </span>
+  </div>
+   <div class="logo_actu">
+			<img src='local/cache-vignettes/L120xH120/29799072_datamatics-15114733-fda79.jpg?1793663748' alt='' class='img-responsive' onmouseover='' onmouseout='' /> </div>
+	<div class="crayon article-intro-1623 introduction entry-content">
+      <a href="emissions/l-oeil-ecoute/article/la-premiere-de-l-oeil-ecoute-fantastique-et-science-fiction-27-octobre-2026" class="liens-noirs">
+      On essuie les plâtres avec une première émission axée sur le cinéma fantastique et de SF.
+
+        <i class="canut-icones-fleche-droite"></i>
+      </a>
+  </div>
+	<p class="postmeta">
+    <span class="comments">
+    
+    </span>
+	</p>
+</article></li>
+		
+		<li class="item"><article class="entry article hentry">
+  
+	<div class="h3-like entry-title">
+    <a href="emissions/l-oeil-ecoute/article/l-oeil-ecoute" rel="bookmark">L&#8217;oeil écoute</a>
+    <span>
+      <time pubdate="pubdate" datetime="2026-10-29T16:50:44Z">
+        29 octobre
+      </time>
+    </span>
+  </div>
+   <div class="logo_actu">
+			<img src='local/cache-vignettes/L120xH120/logo_l-oeil_e-coute_radio_canut_1-4-b80d5.jpg?1793292692' alt='' class='img-responsive' onmouseover='' onmouseout='' /> </div>
+	<div class="crayon article-intro-1622 introduction entry-content">
+      <a href="emissions/l-oeil-ecoute/article/l-oeil-ecoute" class="liens-noirs">
+      Chaque 15 jours, on retourne au cinoche ... par la bande originale&nbsp;!
+<br class='autobr' />
+Films d’horreur, polars, comédies populaires, westerns, dessins animés et même films "prise de tête"&nbsp;!
+<br class='autobr' />
+On ferme les yeux et on ouvre grand les oreilles pour une sélection d’une heure de musiques de films à découvrir où&nbsp;(…)
+
+
+        <i class="canut-icones-fleche-droite"></i>
+      </a>
+  </div>
+	<p class="postmeta">
+    <span class="comments">
+    
+    </span>
+	</p>
+</article></li>
+		
+		<li class="item"><article class="entry article hentry">
+  
+	<div class="h3-like entry-title">
+    <a href="emissions/minuit-decousu/article/le-sens-de-l-emeute-minuit-decousu-podcast" rel="bookmark">Le sens de l&#8217;émeute / Minuit Décousu - Podcast</a>
+    <span>
+      <time pubdate="pubdate" datetime="2026-10-21T00:15:18Z">
+        21 octobre
+      </time>
+    </span>
+  </div>
+   <div class="logo_actu">
+			<img src='local/cache-vignettes/L120xH80/signal-2026-10-20-20-01-05-867_003-f57db.jpg?1792541723' alt='' class='img-responsive' onmouseover='' onmouseout='' /> </div>
+	<div class="crayon article-intro-1618 introduction entry-content">
+      <a href="emissions/minuit-decousu/article/le-sens-de-l-emeute-minuit-decousu-podcast" class="liens-noirs">
+      1h de radio pour dépasser un peu le symbolique de l&#8217;émeute et y retrouver un peu de sens. De l&#8217;histoire des crises du capitalisme, le récit de la journée du 17 octobre à Lyon et le raidissement répressif fasciste qui s&#8217;annonce.
+
+        <i class="canut-icones-fleche-droite"></i>
+      </a>
+  </div>
+	<p class="postmeta">
+    <span class="comments">
+    
+    </span>
+	</p>
+</article></li>
+		
+	</ul>	<a href="spip.php?page=actus" class="typo-titre liens-noirs">
+				<i class="canut-icones-fleche-droite"></i>Toutes les actualités
+			</a>
+</div>
+
+<B_syndic>
+	<div class="liste bloc-blanc bloc-podcast">
+		<h2 class="h2">Ré-écouter</h2>
+		<span class="h3-like soustitre-flotant">les derniers podcasts</span>
+		<a id='pagination_podcasts_new' class='pagination_ancre'></a>
+		<ul class="liste-items">
+			
+				<li class="syndic_son">
+						<div class="logo">
+			<img
+	src="local/cache-gd2/11/94d779b63c84963fefdb32265e06dc.jpg?1791623352" class='spip_logo' width='64' height='64'
+	alt="" />
+		</div>
+		<div class="description">
+			<h3 class="titre">Mayday</h3>
+			<a class="lecture-globale liens-noirs"
+				href="https://sons-audioblogs.arte.tv/audioblogs/v2/sons/98875/284871/podcast_284871_4Po6b.mp3"
+				title="#261 Un avenir radieux"
+				data-titre="Mayday"
+				data-soustitre="#261 Un avenir radieux"
+				data-lien-info="emissions/mayday/">
+				<i class="canut-icones-bouton-play bouton-play-pause"></i>
+				<p class="sous-titre majuscule-initiale">#261 Un avenir radieux</p>
+			</a>
+		</div>
+				</li>
+			
+				<li class="syndic_son">
+						<div class="logo">
+			<img src='local/cache-gd2/9b/0f0eeb59a9f8166063a2ee19a1c790.png?1790150439' alt='' class='spip_logo' width='64' height='64' onmouseover='' onmouseout='' />
+		</div>
+		<div class="description">
+			<h3 class="titre">Canut Infos</h3>
+			<a class="lecture-globale liens-noirs"
+				href="https://blogs.radiocanut.org/canutinfos/files/2026/11/mercredi4novembre.mp3"
+				title="Canut info du mercredi 4 novembre 2026"
+				data-titre="Canut Infos"
+				data-soustitre="Canut info du mercredi 4 novembre 2026"
+				data-lien-info="emissions/canut-infos/">
+				<i class="canut-icones-bouton-play bouton-play-pause"></i>
+				<p class="sous-titre majuscule-initiale">Canut info du mercredi 4 novembre 2026</p>
+			</a>
+		</div>
+				</li>
+			
+				<li class="syndic_son">
+						<div class="logo">
+			<img src='local/cache-gd2/26/a2b6b84070e58cf843cbaa32c76409.jpg?1790153533' alt='' class='spip_logo' width='64' height='64' onmouseover='' onmouseout='' />
+		</div>
+		<div class="description">
+			<h3 class="titre">S.A.V.</h3>
+			<a class="lecture-globale liens-noirs"
+				href="https://blogs.radiocanut.org/sav/files/2026/11/SAV-27-octobre-2026.mp3"
+				title="SAV 27 octobre 2026"
+				data-titre="S.A.V."
+				data-soustitre="SAV 27 octobre 2026"
+				data-lien-info="emissions/s-a-v/">
+				<i class="canut-icones-bouton-play bouton-play-pause"></i>
+				<p class="sous-titre majuscule-initiale">SAV 27 octobre 2026</p>
+			</a>
+		</div>
+				</li>
+			
+				<li class="syndic_son">
+						<div class="logo">
+			<img src='local/cache-gd2/13/1542e1a22d68c3c497ca4897983954.jpg?1790150433' alt='' class='spip_logo' width='64' height='64' onmouseover='' onmouseout='' />
+		</div>
+		<div class="description">
+			<h3 class="titre">Musik etc</h3>
+			<a class="lecture-globale liens-noirs"
+				href="https://blogs.radiocanut.org/musik-etc/files/2026/11/doctor-c-4-novembre-2026.mp3"
+				title="Musik-etc du 4 novembre 2026 avec Doctor Cunningham"
+				data-titre="Musik etc"
+				data-soustitre="Musik-etc du 4 novembre 2026 avec Doctor Cunningham"
+				data-lien-info="emissions/musik-etc/">
+				<i class="canut-icones-bouton-play bouton-play-pause"></i>
+				<p class="sous-titre majuscule-initiale">Musik-etc du 4 novembre 2026 avec Doctor Cunningham</p>
+			</a>
+		</div>
+				</li>
+			
+				<li class="syndic_son">
+						<div class="logo">
+			<img src='local/cache-gd2/af/a7963d91213eb3bcba57a5a228d30d.png?1790150439' alt='' class='spip_logo' width='64' height='64' onmouseover='' onmouseout='' />
+		</div>
+		<div class="description">
+			<h3 class="titre">Minuit Décousu</h3>
+			<a class="lecture-globale liens-noirs"
+				href="https://sons-audioblogs.arte.tv/audioblogs/v2/sons/139527/284810/podcast_284810_bOp0p.mp3"
+				title="Émission #267 La loi du plus faible"
+				data-titre="Minuit Décousu"
+				data-soustitre="Émission #267 La loi du plus faible"
+				data-lien-info="emissions/minuit-decousu/">
+				<i class="canut-icones-bouton-play bouton-play-pause"></i>
+				<p class="sous-titre majuscule-initiale">Émission #267 La loi du plus faible</p>
+			</a>
+		</div>
+				</li>
+			
+				<li class="syndic_son">
+						<div class="logo">
+			<img src='local/cache-gd2/9b/0f0eeb59a9f8166063a2ee19a1c790.png?1790150439' alt='' class='spip_logo' width='64' height='64' onmouseover='' onmouseout='' />
+		</div>
+		<div class="description">
+			<h3 class="titre">Canut Infos</h3>
+			<a class="lecture-globale liens-noirs"
+				href="https://blogs.radiocanut.org/canutinfos/files/2026/11/canut-info-02-11-26.mp3"
+				title="Canut-infos du lundi 2 novembre 2026"
+				data-titre="Canut Infos"
+				data-soustitre="Canut-infos du lundi 2 novembre 2026"
+				data-lien-info="emissions/canut-infos/">
+				<i class="canut-icones-bouton-play bouton-play-pause"></i>
+				<p class="sous-titre majuscule-initiale">Canut-infos du lundi 2 novembre 2026</p>
+			</a>
+		</div>
+				</li>
+			
+				<li class="syndic_son">
+						<div class="logo">
+			<img src='local/cache-gd2/e7/4db9d5b0126fd618fdb2edd84c67b0.jpg?1790151587' alt='' class='spip_logo' width='64' height='64' onmouseover='' onmouseout='' />
+		</div>
+		<div class="description">
+			<h3 class="titre">Spectaculaire</h3>
+			<a class="lecture-globale liens-noirs"
+				href="https://blogs.radiocanut.org/spectaculaire/files/2026/11/261104-Spectaculaire-409-ACO_Femmes.mp3"
+				title="émission n&#176;&nbsp;409 (mercredi 4 novembre 2026)"
+				data-titre="Spectaculaire"
+				data-soustitre="émission n&#176;&nbsp;409 (mercredi 4 novembre 2026)"
+				data-lien-info="emissions/spectaculaire/">
+				<i class="canut-icones-bouton-play bouton-play-pause"></i>
+				<p class="sous-titre majuscule-initiale">émission n&#176;&nbsp;409 (mercredi 4 novembre 2026)</p>
+			</a>
+		</div>
+				</li>
+			
+				<li class="syndic_son">
+						<div class="logo">
+			<img src='local/cache-gd2/cf/8529e79cbd33580c2ff75131e28af7.jpg?1790150418' alt='' class='spip_logo' width='64' height='64' onmouseover='' onmouseout='' />
+		</div>
+		<div class="description">
+			<h3 class="titre">Crucial reggae time</h3>
+			<a class="lecture-globale liens-noirs"
+				href="https://feeds.soundcloud.com/stream/2430416952-lu-cos-crucial-reggae-time-451.mp3"
+				title="Crucial Reggae Time #451 01112026 1h Oldies &amp; Nouveautés Focus Dezarie"
+				data-titre="Crucial reggae time"
+				data-soustitre="Crucial Reggae Time #451 01112026 1h Oldies &amp; Nouveautés Focus Dezarie"
+				data-lien-info="emissions/crucial-reggae-time/">
+				<i class="canut-icones-bouton-play bouton-play-pause"></i>
+				<p class="sous-titre majuscule-initiale">Crucial Reggae Time #451 01112026 1h Oldies &amp; Nouveautés Focus Dezarie</p>
+			</a>
+		</div>
+				</li>
+			
+		</ul>
+		<div class="pagination"><ul><li class="page-item active"><span class="page-link on active">0</span></li><li class="page-item"><a href='/index.php/local/cache-vignettes/L300xH239/emissions/la-causerie/article/emissions/Patchworld/la-radio/news-de-la-radio/covid-diffusion/?debut_podcasts_new=8#pagination_podcasts_new' class='page-link lien_pagination' rel='nofollow'>8</a></li><li class="page-item"><a href='/index.php/local/cache-vignettes/L300xH239/emissions/la-causerie/article/emissions/Patchworld/la-radio/news-de-la-radio/covid-diffusion/?debut_podcasts_new=16#pagination_podcasts_new' class='page-link lien_pagination' rel='nofollow'>16</a></li><li class="page-item"><a href='/index.php/local/cache-vignettes/L300xH239/emissions/la-causerie/article/emissions/Patchworld/la-radio/news-de-la-radio/covid-diffusion/?debut_podcasts_new=24#pagination_podcasts_new' class='page-link lien_pagination' rel='nofollow'>24</a></li><li
+
+	class="page-item tbc disabled"><span class="page-link">...</span></li><li class="page-item"><a
+	href='/index.php/local/cache-vignettes/L300xH239/emissions/la-causerie/article/emissions/Patchworld/la-radio/news-de-la-radio/covid-diffusion/?debut_podcasts_new=11024#pagination_podcasts_new'
+	class='page-link lien_pagination'
+	title='1379'
+	rel='nofollow'><i class="icon icon-end bi-icon"><svg width="0" height="0" role="img" aria-labelledby="icon-title-2f98"><title id="icon-title-2f98">1379</title><use xlink:href="plugins/bootstrap4/bootstrap2spip/img/bi-min-symbols.svg?1759231945#bi-skip-end"></use></svg></i> </a></li>
+	</ul></div>		<a href="spip.php?page=podcasts" class="typo-titre liens-noirs">
+			<i class="canut-icones-fleche-droite"></i>Tous les podcasts
+		</a>
+	</div>
+</B_syndic>						<div class="liste syndic_articles">
+	<h2 class="h2">Blogs des émissions</h2>
+	<ul class="liste-items">
+		
+		<li class="item">Mayday, <abbr class="published" title="2026-11-04T22:39:22Z">4 novembre</abbr><span class="sep"> &ndash; </span><a href="https://audioblog.arteradio.com/blog/98875/podcast/284871" title="Mayday" class="spip_out">#261 Un avenir radieux</a></li>
+		
+		<li class="item">Canut Infos, <abbr class="published" title="2026-11-04T18:38:20Z">4 novembre</abbr><span class="sep"> &ndash; </span><a href="https://blogs.radiocanut.org/canutinfos/2026/11/04/canut-info-du-mercredi-4-novembre-2026/" title="Canut Infos" class="spip_out">Canut info du mercredi 4 novembre 2026</a></li>
+		
+		<li class="item">S.A.V., <abbr class="published" title="2026-11-04T11:44:39Z">4 novembre</abbr><span class="sep"> &ndash; </span><a href="https://blogs.radiocanut.org/sav/2026/11/04/sav-27-octobre-2026/" title="S.A.V." class="spip_out">SAV 27 octobre 2026</a></li>
+		
+		<li class="item">Musik, etc, <abbr class="published" title="2026-11-04T11:27:36Z">4 novembre</abbr><span class="sep"> &ndash; </span><a href="https://blogs.radiocanut.org/musik-etc/2026/11/04/musik-etc-du-4-novembre-2026-avec-doctor-cunningham/" title="Musik, etc" class="spip_out">Musik-etc du 4 novembre 2026 avec Doctor Cunningham</a></li>
+		
+		<li class="item">Minuit Décousu, <abbr class="published" title="2026-11-04T00:24:27Z">4 novembre</abbr><span class="sep"> &ndash; </span><a href="https://audioblog.arteradio.com/blog/139527/podcast/284810" title="Minuit Décousu" class="spip_out">Émission #267 La loi du plus faible</a></li>
+		
+		<li class="item">S.A.V., <abbr class="published" title="2026-11-03T19:49:14Z">3 novembre</abbr><span class="sep"> &ndash; </span><a href="https://blogs.radiocanut.org/sav/2026/11/03/sav-20-octobre-2026/" title="S.A.V." class="spip_out">SAV 20 octobre 2026</a></li>
+		
+	</ul>
+</div>					</div>
+				</div>
+	
+	
+			</div>
+			<div class="footer" id="footer">
+					<div class="container">
+	<div class="row">
+		<ul class="col  typo-titre">
+			
+				<li class="">
+					<small>
+					Canut love
+					</small>
+					<a class="spip_out" href="http://rebellyon.info" title="Site d’informations alternatives et anti-autoritaires sur Lyon et sa région, participatif et collaboratif.
+" alt="Site d’informations alternatives et anti-autoritaires sur Lyon et sa région, participatif et collaboratif.
+" target="_blank" rel='nofollow'>
+						Rebellyon.info
+					</a>
+				</li>
+			
+				<li class="">
+					<small>
+					Canut raffole de
+					</small>
+					<a class="spip_out" href="http://radiorageuses.net" title="Bienvenue dans la nébuleuse des émissions radiophoniques de féministes, gouines, trans, femmes... Découvrir, écouter, télécharger, rechercher nos (...)
+" alt="Bienvenue dans la nébuleuse des émissions radiophoniques de féministes, gouines, trans, femmes... Découvrir, écouter, télécharger, rechercher nos (...)
+" target="_blank" rel='nofollow'>
+						RADIORAGEUSES
+					</a>
+				</li>
+			
+		</ul>
+	
+		<ul class="col">
+			<li><a rel="contents" href="spip.php?page=plan" class="first">Plan du site</a></li>
+			 
+				<li><a class="no-ajaxy" href="spip.php?page=login" rel="nofollow" class='login_modal'>Se connecter</a></li>
+			
+			
+			
+			<li><a class="no-ajaxy" href="spip.php?page=backend" rel="alternate" title="Syndiquer tout le site"><img src='squelettes/feed.png?1759231945' alt='Suivre la vie du site' width='16' height='16' />&nbsp;RSS&nbsp;2.0</a></li>
+		</ul>
+	
+		<ul class="col">
+			
+				<li><a href="la-radio/">La radio</a></li>
+			
+				<li><a href="les-bandes-continues/">Les bandes continues</a></li>
+			
+				<li><a href="emissions/">Emissions</a></li>
+			
+				<li><a href="documentation/">Documentation</a></li>
+			
+				<li><a href="liens/">Liens</a></li>
+			
+				<li><a href="ressources-techniques/">Ressources techniques</a></li>
+			
+			<li><a rel="nofollow" href="spip.php?page=contact">Contact</a></li>
+		</ul>
+
+		<p class="col typo-titre h3-like">
+			1978-2026  &mdash; Radio Canut
+		</p>
+
+	</div>
+</div>			</div>
+		</div>
+		<div id="footer_player">
+			<div id="canut_player" class="is_live">
+
+		<div class="container">
+			<div class="row align-items-center">
+				<div class="col-lg-3">
+					<div class="row align-items-center">
+					<div class="canut-icones-bouton-play bouton-play-pause"></div>
+			
+					<div class="infos_son">
+						
+						
+							<a class="liens-blancs" href="les-bandes-continues/" title="En savoir plus">
+								<h3 class="titre">Les bandes continues</h3>
+								<div class="sous-titre">Ecoutez en direct</div>
+							</a>
+						
+					</div>
+				</div>
+				</div>
+				<div class="col-lg-6">
+					<div class="player mejs-audio-wrapper audio-wrapper">
+						<audio class="mejs mejs--1"
+								data-id="27a2ca0ff54499560869d280b489babc"
+								src="https://live.aurafm.org/radiocanut?alea=MjAyNi0xMS0wNSAwOToxNzozNw=="
+								type="audio/mp3"
+								data-mejsoptions='{"alwaysShowControls": true, "enableKeyboard": false, "audioVolume": "vertical","loop":false,"audioWidth":"100%","features":["current","progress","duration","tracks","volume"]}'
+								data-mejsplugins='null'
+								controls="controls"
+								>
+						</audio>
+										
+					</div>
+				</div>
+
+				<div class="col-lg-3">
+					<div class="align-self-center">
+					<ul class="raccourcis">
+						<li>
+							<a class="lecture-globale lecture-direct"
+								href="https://live.aurafm.org/radiocanut?alea=MjAyNi0xMS0wNSAwOToxNzozNw=="
+								data-titre="Radio Canut, 102.2FM"
+								data-soustitre="La plus rebelle des radios">
+								Le direct
+							</a>
+						</li>
+						<li>
+							<a class="lecture-globale lecture-direct"
+								href="spip.php?page=dernier-canut-infos"
+								data-titre="Radio Canut, 102.2FM"
+								data-soustitre="La plus rebelle des radios">
+								Dernier Canut Infos
+							</a>
+						</li>
+					</ul>
+				</div>
+				</div>
+			
+			
+
+				</div>
+			</div>
+		</div>
+
+		
+		<script>/*<![CDATA[*/var mejspath='plugins-dist/medias/lib/mejs/mediaelement-and-player.min.js?1787411538',mejscss='plugins-dist/medias/lib/mejs/mediaelementplayer.min.css?1759231945';
+		var mejsloader,mejsstart;!function(){var e=mejsloader;void 0===e&&(mejsloader=e={gs:null,plug:{},css:{},init:null,c:0,cssload:null}),e.init||(e.cssload=function(s){if(void 0===e.css[s]){e.css[s]=!0;var t=document.createElement("link");t.href=s,t.rel="stylesheet",t.type="text/css",document.getElementsByTagName("head")[0].appendChild(t)}},e.getScript=function(e,s){var t=document.createElement("script"),n=document.getElementsByTagName("script")[0];t.async=1,t.onload=t.onreadystatechange=function(e,n){(n||!t.readyState||/loaded|complete/.test(t.readyState))&&(t.onload=t.onreadystatechange=null,t=void 0,!n&&s&&setTimeout(s,0))},t.src=e,n.parentNode.insertBefore(t,n)},e.init=function(){!0===e.gs&&document.querySelectorAll("audio.mejs,video.mejs").forEach((function(s){if(!s.classList.contains("done")&&!s.classList.contains("mejs__player")){var t;s.classList.add("done"),(t=s.id)||(t="mejs-"+s.dataset.id+"-"+e.c++,s.id=t);var n,a={options:{},plugins:{},css:[],qualities:[],sources:[]};for(n in a){var i;(i=s.dataset["mejs"+n])&&(a[n]=JSON.parse(i))}function o(s){e.getScript(a.plugins[s],(function(){e.plug[s]=!0,d()}))}function d(){var s=!0;for(var n in a.css)e.cssload(a.css[n]);for(var i in a.plugins)void 0===e.plug[i]?(s=!1,e.plug[i]=!1,o(i)):!1===e.plug[i]&&(s=!1);if(s){a.options.success=function(e,s){function t(){var s=e.closest(".mejs__inner");e.paused?(s.classList.add("pausing"),setTimeout((function(){s.classList.contains("pausing")&&(s.classList.remove("playing"),s.classList.remove("pausing"),s.classList.add("paused"))}),100)):(s.classList.remove("paused"),s.classList.remove("pausing"),s.classList.add("playing"))}t(),e.addEventListener("play",t,!1),e.addEventListener("playing",t,!1),e.addEventListener("pause",t,!1),e.addEventListener("paused",t,!1),s.autoplay&&(e.muted=!0)};new MediaElementPlayer(t,a.options)}}d()}}))}),e.gs||("undefined"!=typeof mejscss&&e.cssload(mejscss),e.gs=e.getScript(mejspath,(function(){e.gs=!0,e.init(),"loading"===document.readyState&&document.addEventListener("DOMContentLoaded",e.init),onAjaxLoad(e.init)})))}();
+/*]]>*/</script>
+	</div>
+
+	<div style="clear: both;"></div>		</div>
+	
+	
+	</body></html>
