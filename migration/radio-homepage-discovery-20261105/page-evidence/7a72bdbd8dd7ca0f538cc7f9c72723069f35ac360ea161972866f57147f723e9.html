@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<!--[if lte IE 9]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 9]><!-->
+<html class="no-js">
+<!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<title>Radio Peinard Skyrock, la radio locale</title>
+<!--=================================
+Meta tags
+=================================-->
+<meta name="description" content="Radio Peinard Skyrock, la radio locale à Béziers - FM 100.0"><meta name="keywords" content="Radio peinard"><meta content="yes" name="apple-mobile-web-app-capable" />
+<meta name="viewport" content="minimum-scale=1.0, width=device-width, maximum-scale=1, user-scalable=no"/>
+<!--=================================
+Style Sheets
+=================================-->
+<link href="https://fonts.googleapis.com/css?family=Lato:400,900,700,400italic,300,700italic" rel="stylesheet" type="text/css">
+<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400italic,700' rel='stylesheet' type='text/css'>
+
+<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="assets/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="assets/css/flexslider.css">
+<link rel="stylesheet" type="text/css" href="assets/css/owl.carousel.css">
+<link rel="stylesheet" type="text/css" href="assets/css/animations.css">
+<link rel="stylesheet" type="text/css" href="assets/css/dl-menu.css">
+<link rel="stylesheet" type="text/css" href="assets/css/jquery.datetimepicker.css">
+<link rel="stylesheet" type="text/css" href="assets/css/jquery.bxslider.css">
+<link rel="stylesheet" href="assets/css/main.css?v=1.1">
+<!--=================================
+Place color files here ( right after main.css ) for example
+<link rel="stylesheet" type="text/css" href="assets/css/colors/color-name.css">
+===================================-->
+<script src="assets/js/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+    <LINK REL="SHORTCUT ICON" href="./assets/img/visuels/favicon.ico">
+<link href="./assets/img/visuels/favicon.png" rel="apple-touch-icon" />
+<link href="./assets/img/visuels/favicon-76x76.png" rel="apple-touch-icon" sizes="76x76" />
+<link href="./assets/img/visuels/favicon-120x120.png" rel="apple-touch-icon" sizes="120x120" />
+<link href="./assets/img/visuels/favicon-152x152.png" rel="apple-touch-icon" sizes="152x152" />
+<link href="./assets/img/visuels/favicon-180x180.png" rel="apple-touch-icon" sizes="180x180" />
+<link href="./assets/img/visuels/favicon.png" rel="icon" sizes="192x192" />
+<link href="./assets/img/visuels/favicon.png" rel="icon" sizes="128x128" />
+<style>
+  /* The Modal (background) */
+  .modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    z-index: 99999;
+
+  }
+
+  /* Modal Content/Box */
+  .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+  }
+
+  /* The Close Button */
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  </style>
+</head>
+<body>
+  <div id="myModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content" style="text-align:center">
+      <span class="close" style="color:#000000">Fermer &times;</span>
+<br><br>
+      <h2 style="text-align:center">Téléchargez l'appli gratuite <strong>Radio Peinard</strong> :</h2>
+			<table style="margin:auto">
+				<tr>
+					<td style="text-align:center">
+						<a href="https://play.google.com/store/apps/details?id=com.icreo.radiopeinard&gl=FR" target="_blank"><img src="./popup_asset/googleplay.png"></a>
+						</td>
+						<td style="text-align:center">
+						<a href="https://apps.apple.com/fr/app/radio-peinard/id1184927832" target="_blank"><img src="./popup_asset/itunes.png"></a>
+							</td>
+					</tr>
+				</table>
+        <hr>
+        <h2 style="text-align:center">Téléchargez l'appli gratuite <strong>Club Peinard</strong> :</h2>
+  			<table style="margin:auto">
+  				<tr>
+  					<td style="text-align:center">
+  						<a href="https://play.google.com/store/apps/details?id=fr.clubpeinardnew.app&gl=FR" target="_blank"><img src="./popup_asset/googleplay.png"></a>
+  						</td>
+  						<td style="text-align:center">
+  							<a href="https://apps.apple.com/fr/app/club-peinard-app/id1594839238" target="_blank"><img src="./popup_asset/itunes.png"></a>
+  							</td>
+  					</tr>
+  				</table>
+    </div>
+  </div>
+<!--===============================
+Preloading Splash Screen
+===================================-->
+<div class="pageLoader"></div>
+
+<div class="majorWrap DarkSkin">
+<!--========================================
+Header Content
+===========================================-->
+    <header id="sticktop" class="doc-header">
+  <!--========================================
+        Radio Stream
+        ===========================================-->
+        <div id="audio-player-radio" class="jp-radioPlayer" data-radio-url="https://ice.creacast.com/radio_peinard" data-title="Radio Peinard Skyrock 100.0 FM">
+            <div class="container">
+                <div id="player-instance-radio" class="jp-jplayer"></div>
+                <div class="controls jp-controls-holder">
+                    <div class="play-pause jp-play pc-play" style=" display:none"></div>
+                    <div class="play-pause jp-pause fa pc-pause"></div>
+                </div>
+		<div class="logo-radio-player">
+		<img class="logo-gros" src=./assets/img/visuels/logo-webradio.png>
+		<img class="logo-petit" src=./assets/img/visuels/logo-webradio-petit.png>
+		</div>
+                <div class="jp-volume-controls">
+                    <button class="sound-control pc-volume jp-mute"></button>
+                    <button class="sound-control pc-mute jp-unmute"></button>
+                    <div class="jp-volume-bar" style="display: none;">
+                        <div class="jp-volume-bar-value" style="width: 1.4737%;"></div>
+                    </div>
+                </div>
+
+
+                <div class="music_pseudo_bars">
+                  <div class="music_pseudo_bar"></div>
+                  <div class="music_pseudo_bar"></div>
+                  <div class="music_pseudo_bar"></div>
+                  <div class="music_pseudo_bar"></div>
+                  <div class="music_pseudo_bar"></div>
+                  <div class="music_pseudo_bar"></div>
+                  <div class="music_pseudo_bar"></div>
+                  <div class="music_pseudo_bar"></div>
+                  <div class="music_pseudo_bar"></div>
+                  <div class="music_pseudo_bar"></div>
+                  <div class="music_pseudo_bar"></div>
+                  <div class="music_pseudo_bar"></div>
+                  <div class="music_pseudo_bar"></div>
+                  <div class="music_pseudo_bar"></div>
+                  <div class="music_pseudo_bar"></div>
+                  <div class="music_pseudo_bar"></div>
+                  <div class="music_pseudo_bar"></div>
+                  <div class="music_pseudo_bar"></div>
+                  <div class="music_pseudo_bar"></div>
+                  <div class="music_pseudo_bar"></div>
+                </div>
+    <div id="player-instructions" class="play-pause jp-play">
+      <img src="./assets/img/visuels/instructions.png">
+    </div>
+		<div class="patientez">
+		Patientez
+		</div>
+		<div id="cover_ecoute">
+		</div>
+		<div id="titre_ecoute">
+		</div>
+            </div>
+        </div>
+         <!--========================================
+        Nav
+        ===========================================-->
+                    <div class="site-header">
+		   <div class="site-logo hidden-xs animated fadeInDown go">
+                <a href="index.php">
+                    <img src="assets/img/visuels/logo.png" alt=""/>
+                </a>
+   </div>
+              </div>
+        <nav class="navbar navbar-default">
+            <div class="container">
+
+<div id="dl-menu" class="radio-style xv-menuwrapper responsive-menu">
+                  <button class="menuTrigger"><i class="fa fa-navicon"></i></button>
+                  <div class="clearfix"></div>
+                  <ul class="dl-menu">
+                      <li class="active"><a href="index.php">Accueil</a></li>
+                      <li class="lien-rouge"><a href="radio.php"  >La Radio</a></li>
+                      <li><a href="peinard-dechaine.php" >Peinard Déchainé</a></li>
+                      <li><a href="interviews.php" >Interviews</a></li>
+                      <li><a href="directs.php" >Directs</a></li>
+                      <li class=""><a href="liens-du-100.php" >Liens du 100</a>
+                      <li><a href="messages.php" >Messages</a>
+                      <li><a href="contact.php" >Contact</a>
+                      <li class="lien-rouge"><a href="http://www.clubpeinard.com" target=_blank class=lien-rouge>Le Club Peinard</a>
+                                      </li>
+                  </ul>
+              </div><!-- /dl-menuwrapper -->
+            </div>
+        </nav>
+
+    </header>
+
+
+    <div id="ajaxArea" class="corp DarkSkin">
+
+        <section>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12  col-sm-10 col-md-10" style="padding-top:0px">
+
+		                <div class="col-xs-12  col-sm-7 col-md-7" style="padding-top:0px">
+                      <div style="margin: 0 auto;">
+
+                        <h2 style="text-align:center">Radio Peinard Skyrock en images sur France 3</h2>
+                      <video controls style="height:300px;width:100%">
+
+                          <source src="/video/jt_fr_3.mp4"
+                                  type="video/mp4">
+
+                          Désolé, votre navigateur ne supporte pas la lecture des vidéos...
+                      </video>
+                    </div>
+		                   <!--        <section class="custom-slider">
+          <div id="home-slider" class="xv_slider flexslider">
+            <ul class="slides">
+
+
+
+
+<li class="xv_slide" data-slidebg="url('./visuel_slide/rps.png')" style="width:100%;height:280px">              </li>
+<li class="xv_slide" data-slidebg="url('./visuel_slide/slide40ans.jpg')" style="width:100%;height:280px"><div class="albumAction">
+                    <div class="container animated fadeInRight go">
+                        <a class="btn btn-default text-uppercase text-bold" href="http://30ans.peinard.fr/" target=_blank>
+                            <i class="fa fa-external-link"></i> 40 ans Déjà
+                        </a>
+                    </div>
+                </div>              </li>
+            </ul>
+          </div>
+        </section>
+-->
+		                </div><!-- fin slide -->
+		                <div class="hidden-xs col-sm-5 col-md-5" style="padding-top:30px"><!--Visite virtuelle-->
+					<!--<p style="background:#cc0000;color:#fff;font-weight:bold;background:url(./assets/img/titre_vis.png) repeat-x;font-size:17px;text-align:center">-->
+          <div class=titre><h2>Nos studios&nbsp;&nbsp;&nbsp;</h2></div>
+								<p>
+                  <video width="100%" height="auto" autoplay muted loop>
+                    <source src="/assets/img/studio.mp4" type="video/mp4">
+                    <!--<source src="movie.ogg" type="video/ogg">-->
+                  Your browser does not support the video tag.
+                  </video>
+		                </div><!-- fin evisite -->
+
+
+		                <div class="hidden-xs col-sm-6 col-md-7">
+		                   <a href="https://radiopeinardhistory.fr/" title="Radio Peinard History">
+<img src=./img/visuels/40ans-2-1731695474.jpg  style="width:48%;margin-top:3px;margin-left:30px;margin-right:11px"> 	</a>
+		                   <a href=http://www.clubpeinard.com target=_blank>
+<img src=./img/visuels/jouecasino-1305040926.gif  style="margin-top:3px;width:42%">		</a>
+		                </div><!-- fin visuels 30ans et jouez -->
+		                <div class="col-xs-12 col-sm-6 col-md-5">
+<iframe src="./pub/multibanh.php" marginwidth="0" marginheight="0" frameborder="0" scrolling="no" style="border:0px;width:100%;height:220px;padding:0px;margin:0px;" ></iframe>
+
+		                </div><!-- fin Pub -->
+		                <div class="col-xs-12">
+		                <div class="col-xs-12 col-sm-6 col-md-6">
+<!--<div class=titre><h2>Le Peinard D&eacute;chain&eacute;... Joorge tu exagères...!</h2></div>-->
+<div class=titre><h2>Le Peinard Déchainé... Joorge tu exagères...!</h2></div>
+<div class="col-xs-12 plus-clair text-center"><div class="col-xs-12 col-xs-12 col-sm-12 col-md-4" style="padding-right:0;padding-left:0">
+<img src="./assets/img/jpj1-2.png" width=100% align=center style="padding:4px"></div>
+<div class="col-xs-12 col-sm-12 col-md-8">
+		<!--Titres Joorge tu exagère-->
+
+<ul class="song-list text-bold clearfix">				<!--Titre 1-->
+				    <li id="singleSongPlayer-1" class="song-unit singleSongPlayer clearfix">
+
+				        <div id="singleSong-jplayer-4" class="singleSong-jplayer" data-title="Gag-transfert-d-appels" data-mp3="./file/audio/Gag-transfert-d-appels-1787908851.mp3">
+				        </div>
+
+				        <span class="playit controls jp-controls-holder">
+				            <i class="jp-play pc-play"></i>
+				            <i class="jp-pause pc-pause"></i>
+				        </span>
+				        <span class="song-title jp-title">Gag-transfert-d-appels </span>
+				        <span class="song-time jp-duration""></span>
+
+
+
+				            <div class="audio-progress">
+				                <div class="jp-seek-bar">
+
+				                    <div class="jp-play-bar" style="width:20%;"></div>
+				                </div><!--jp-seek-bar-->
+				            </div><!--audio-progress-->
+				    </li><!--song-->
+				<!--Titre 2-->
+				    <li id="singleSongPlayer-2" class="song-unit singleSongPlayer clearfix">
+
+				        <div id="singleSong-jplayer-5" class="singleSong-jplayer" data-title="Gag-praliny-" data-mp3="./file/audio/Gag-praliny-A-8h40-100223-1787908851.mp3">
+				        </div>
+
+				        <span class="playit controls jp-controls-holder">
+				            <i class="jp-play pc-play"></i>
+				            <i class="jp-pause pc-pause"></i>
+				        </span>
+				        <span class="song-title jp-title">Gag-praliny- </span>
+				        <span class="song-time jp-duration""></span>
+
+
+
+				            <div class="audio-progress">
+				                <div class="jp-seek-bar">
+
+				                    <div class="jp-play-bar" style="width:20%;"></div>
+				                </div><!--jp-seek-bar-->
+				            </div><!--audio-progress-->
+				    </li><!--song-->
+				</ul>
+
+
+</div><!--Fin Cols -->
+
+
+<!--Titres Joorge tu exagère-->
+
+</div>
+<div class=text-center><a class="btn btn-default text-uppercase text-bold" href="peinard-dechaine.php">
+                            <i class="fa fa-external-link"></i> Tout le peinard déchainé
+                        </a>
+</div>
+<p>&nbsp;</p>
+<div class=titre><h2>Les jeux du Club Peinard</h2></div>
+
+<div style="padding-right:10px"><div class="col-xs-6 col-sm-6 col-md-4" style="padding-left:0px;padding-right:0px;padding-top: 0px;">
+<a href=http://www.clubpeinard.com#a6cfc3c8-b1ce-45b2-8b8e-b35a8e10a95b target=_blank class=album-unit><figure><img src=https://clubpeinard.fr/api/public/file?path=2026-04%2F69e77d7fa5cd3_1857775610gusto-170325.jpg width=100%>
+<figcaption><span class=jeux-accueil style="line-height:1.1;font-size:11px;display:block;">GUSTO Brasserie</span></figcaption></figure></a></div><div class="col-xs-6 col-sm-6 col-md-4" style="padding-left:0px;padding-right:0px;padding-top: 0px;">
+<a href=http://www.clubpeinard.com#c86767a4-163f-48bd-b2f4-a5d1a5323e45 target=_blank class=album-unit><figure><img src=https://txzzejfyxflxmjyfdvuu.supabase.co/storage/v1/object/sign/uploads/2026-10/mv0rzuy0-ekyxx671_phantome.png?token=eyJraWQiOiIxMjRmZjI5ZC1iMjM4LTRkMWUtODM2Yi0xNjJkYTJlOGMxNjkiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJ1cGxvYWRzLzIwMjYtMTAvbXYwcnp1eTAtZWt5eHg2NzFfcGhhbnRvbWUucG5nIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc5MTUzODg4NSwiZXhwIjozMzY4MzM4ODg1fQ.Rp1PCjESxQai4hO3xl5044W0SoiQg2xV5yittJ8Ucew width=100%>
+<figcaption><span class=jeux-accueil style="line-height:1.1;font-size:11px;display:block;">Avt-1ere-film "Fantôme de l'opéra"</span></figcaption></figure></a></div><div class="col-xs-6 col-sm-6 col-md-4" style="padding-left:0px;padding-right:0px;padding-top: 0px;">
+<a href=http://www.clubpeinard.com#65893d0a-da9b-488b-a510-3bb3bc28f430 target=_blank class=album-unit><figure><img src=https://txzzejfyxflxmjyfdvuu.supabase.co/storage/v1/object/sign/uploads/2026-10/mvrutn1h-9i8hvsm6_Steeleets_10_.jpg?token=eyJraWQiOiIxMjRmZjI5ZC1iMjM4LTRkMWUtODM2Yi0xNjJkYTJlOGMxNjkiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJ1cGxvYWRzLzIwMjYtMTAvbXZydXRuMWgtOWk4aHZzbTZfU3RlZWxlZXRzXzEwXy5qcGciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzkzMTc2MjIxLCJleHAiOjMzNjk5NzYyMjF9.XAfZixJbUGMBQxdIqU5DhHKFdxAx6AIOpMjg7isV6u4 width=100%>
+<figcaption><span class=jeux-accueil style="line-height:1.1;font-size:11px;display:block;">Boutique Theia</span></figcaption></figure></a></div><div class="col-xs-6 col-sm-6 col-md-4" style="padding-left:0px;padding-right:0px;padding-top: 0px;">
+<a href=http://www.clubpeinard.com#9406a7bf-3aae-41aa-8b97-ca84134ef98d target=_blank class=album-unit><figure><img src=https://txzzejfyxflxmjyfdvuu.supabase.co/storage/v1/object/sign/uploads/2026-10/mvv5xq2u-0kyzqwmm_2.png?token=eyJraWQiOiIxMjRmZjI5ZC1iMjM4LTRkMWUtODM2Yi0xNjJkYTJlOGMxNjkiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJ1cGxvYWRzLzIwMjYtMTAvbXZ2NXhxMnUtMGt5enF3bW1fMi5wbmciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzkzMzc2Mjg2LCJleHAiOjMzNzAxNzYyODZ9.QwCuQSYztgWk5qLZdreK1i99x22eVgFrYdqru7lwNUk width=100%>
+<figcaption><span class=jeux-accueil style="line-height:1.1;font-size:11px;display:block;">Shilton Béziers</span></figcaption></figure></a></div><div class="col-xs-6 col-sm-6 col-md-4" style="padding-left:0px;padding-right:0px;padding-top: 0px;">
+<a href=http://www.clubpeinard.com#7d1fe8e8-f29a-4a78-b7d3-73237d14341b target=_blank class=album-unit><figure><img src=https://txzzejfyxflxmjyfdvuu.supabase.co/storage/v1/object/sign/uploads/2026-08/mt2n7gui-91pej2j9_Kdo.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8xMjRmZjI5ZC1iMjM4LTRkMWUtODM2Yi0xNjJkYTJlOGMxNjkiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJ1cGxvYWRzLzIwMjYtMDgvbXQybjdndWktOTFwZWoyajlfS2RvLnBuZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODcyOTgyMTAsImV4cCI6MzM2NDA5ODIxMH0.9p_VJQn0IJCDnciWJXc3JKYRJeuVrV2fpW25MLXRQuc width=100%>
+<figcaption><span class=jeux-accueil style="line-height:1.1;font-size:11px;display:block;">BEZIERS ANGELS vs Terville-Florange</span></figcaption></figure></a></div><div class="col-xs-6 col-sm-6 col-md-4" style="padding-left:0px;padding-right:0px;padding-top: 0px;">
+<a href=http://www.clubpeinard.com#47822d54-b05c-4381-907c-969a3388f913 target=_blank class=album-unit><figure><img src=https://txzzejfyxflxmjyfdvuu.supabase.co/storage/v1/object/sign/uploads/2026-10/mvjaxy75-ilw9b5h1_Kdo-2_480_x_280_px_.png?token=eyJraWQiOiIxMjRmZjI5ZC1iMjM4LTRkMWUtODM2Yi0xNjJkYTJlOGMxNjkiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJ1cGxvYWRzLzIwMjYtMTAvbXZqYXh5NzUtaWx3OWI1aDFfS2RvLTJfNDgwX3hfMjgwX3B4Xy5wbmciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzkyNjU5MTAwLCJleHAiOjMzNjk0NTkxMDB9.hcc-P7SSGoS8OBfDLWEv2Vr1VWq3BkHvZNJm7C8dgQI width=100%>
+<figcaption><span class=jeux-accueil style="line-height:1.1;font-size:11px;display:block;">"LE 20, C'EST LE VIN" Invitation 2 pers. VIP Tapas/Vin</span></figcaption></figure></a></div><div class=text-center>
+<a class="btn btn-default text-uppercase text-bold" href="http://www.clubpeinard.com" target=_blank>
+                            <i class="fa fa-external-link"></i> Tous les jeux
+                        </a></div>
+</div>
+
+				</div><!-- fin peinard dechainé -->
+		                <div class="col-xs-12 col-sm-6 col-md-6">
+<div class=titre><h2>Interviews...</h2></div>
+<div class="col-xs-12 plus-clair text-center"><div class="col-xs-12 col-sm-12 col-md-12"><span><h3>Aurélien Lopez-Liguori / Maire d'Agde - Présentation des Audits</h3></span><span style="font-size:15px;"> 4 novembre 2026</span></div>
+<div class="col-xs-12 col-sm-12 col-md-4">
+<img src="./file/images/photos-interviews-2-37-1793793402.jpg" width=100% align=center style="padding:0px"></div>
+
+<div class="col-xs-12 col-sm-12 col-md-8">
+		<!--Titres Joorge tu exagère-->
+
+<ul class="song-list text-bold clearfix">				<!--Titre 3-->
+				    <li id="singleSongPlayer-3" class="song-unit singleSongPlayer clearfix">
+
+				        <div id="singleSong-jplayer-6" class="singleSong-jplayer" data-title="Aurélien Lopez-Liguori / Maire d'Agde - Présentation des Audits" data-mp3="./file/audio/Mr-le-maire-aurelien-lopez-v2-okay-mp3-1793793385.mp3">
+				        </div>
+
+				        <span class="playit controls jp-controls-holder">
+				            <i class="jp-play pc-play"></i>
+				            <i class="jp-pause pc-pause"></i>
+				        </span>
+				        <span class="song-title jp-title">Aurélien Lopez-Liguori / Maire d'Agde - Présentation des Audits </span>
+				        <span class="song-time jp-duration""></span>
+
+
+
+				            <div class="audio-progress">
+				                <div class="jp-seek-bar">
+
+				                    <div class="jp-play-bar" style="width:20%;"></div>
+				                </div><!--jp-seek-bar-->
+				            </div><!--audio-progress-->
+				    </li><!--song-->
+				</ul>
+
+
+</div><!--Fin Cols -->
+
+<!--Titres Joorge tu exagère-->
+<div class="col-xs-12 col-sm-12 col-md-12"></div>
+<div class="col-xs-12 col-sm-12 col-md-12"><span><h3>Gilbert Lapiere - Zolpan / Cévennes Couleurs</h3></span><span style="font-size:15px;"> 4 novembre 2026</span></div><div class="col-xs-12 col-sm-12 col-md-4"><img src="./file/images/photos-interviews-2-5-1777316062.jpg" width=99% align=center style="padding:4px"></div>
+
+<div class="col-xs-12 col-sm-12 col-md-8">
+
+		<!--Titres Joorge tu exagère-->
+
+<ul class="song-list text-bold clearfix">				<!--Titre 4-->
+				    <li id="singleSongPlayer-4" class="song-unit singleSongPlayer clearfix">
+
+				        <div id="singleSong-jplayer-7" class="singleSong-jplayer" data-title="Gilbert Lapiere - Zolpan / Cévennes Couleurs" data-mp3="./file/audio/ITW-CEVENNES-COULEURS-DIFF-LE-6-NOVEMBRE-1793867884.mp3">
+				        </div>
+
+				        <span class="playit controls jp-controls-holder">
+				            <i class="jp-play pc-play"></i>
+				            <i class="jp-pause pc-pause"></i>
+				        </span>
+				        <span class="song-title jp-title">Gilbert Lapiere - Zolpan / Cévennes Couleurs </span>
+				        <span class="song-time jp-duration""></span>
+
+
+
+				            <div class="audio-progress">
+				                <div class="jp-seek-bar">
+
+				                    <div class="jp-play-bar" style="width:20%;"></div>
+				                </div><!--jp-seek-bar-->
+				            </div><!--audio-progress-->
+				    </li><!--song-->
+				</ul>
+
+
+</div>
+</div>
+<div class=text-center style="margin-top:5px;">
+<a class="btn btn-default text-uppercase text-bold" style="margin-right:0%;" href="interviews.php">
+                            <i class="fa fa-external-link"></i> Plus d'interviews
+                        </a></div>
+<div class=text-center style="margin-top:5px;">
+<a class="btn btn-default text-uppercase text-bold" style="margin-right:0%;" href="encaustique.php">
+                            <i class="fa fa-external-link"></i> L'encaustique
+                        </a></div>
+<p>&nbsp;</p>
+
+
+</div><!-- fin Jeux Club Peinard -->
+</div>
+                    </div><!-- fin colone 1-->
+                        <div class="hidden-xs col-sm-2 col-md-2" ><!-- colone droite -->
+                          <h3 style="text-align:center;font-size:20px;">Téléchargez l'appli gratuite <strong>Radio Peinard</strong> :</h3>
+                        				<a href="https://play.google.com/store/apps/details?id=com.icreo.radiopeinard&gl=FR" target="_blank"><img style="width:100%;margin-bottom:1px;" src="./popup_asset/googleplay.png"></a>
+
+                        				<a href="https://apps.apple.com/fr/app/radio-peinard/id1184927832" target="_blank"><img  style="width:100%;margin-bottom:3px;"  src="./popup_asset/itunes.png"></a>
+                         <p><a href="https://www.facebook.com/profile.php?id=589886242" target=_blank><img src="./assets/img/facebook.png" width="90%" align=center></a></p>
+			<!--<p><img src="./assets/img/newsletter.png" style="margin-top:9px" width="90%"></p>
+			  <form method="post" onsubmit="newsletter(this.email.value);return false" action="" style="width:122px;background:#cc0000">
+			    <div id="msg_newsletter" style="color:white"></div>
+			<input name="email" value="E-mail" type="text" onfocus="if(this.value=='E-mail')this.value='';" style="text-align:center;width:120px"/><input value="Envoyer" type="submit">
+			  </form>-->
+
+			<img src="./assets/img/meteo.png" style="margin-top:9px" width="90%"><br>
+<div id="cont_badc00214a2a2258c70a21a3b8c2ba08" class="meteo">
+<span id="h_badc00214a2a2258c70a21a3b8c2ba08">Meteo B&eacute;ziers</span><script type="text/javascript" src="http://www.tameteo.com/wid_loader/badc00214a2a2258c70a21a3b8c2ba08"></script>
+</div>
+
+
+
+
+
+                       </div> </div><!-- fin colone droite -->
+
+                </div>
+
+
+
+
+            </div>
+
+        </section>
+
+    </div>
+<!--=================================
+Footer
+=================================-->
+
+    <footer class="doc-footer text-uppercase text-center">
+        <div class="container animated fadeInUp go">
+            <ul class="social-list style2 circular">
+                <li><a href="https://www.facebook.com/Radio-Peinard-Skyrock-1623884504516354" class="fa fa-facebook" target=_blank></a></li>
+<!--                <li><a href="#" class="fa fa-twitter"></a></li>
+                <li><a href="#" class="fa fa-google-plus"></a></li>
+                <li><a href="#" class="fa fa-tumblr"></a></li>
+                <li><a href="#" class="fa fa-instagram"></a></li>
+                <li><a href="#" class="fa fa-dribbble"></a></li>
+                <li><a href="#" class="fa fa-tumblr"></a></li>
+                <li><a href="#" class="fa fa-vimeo"></a></li>-->
+            </ul>
+            <div class="row">
+                <div class="col-xs-12">
+                    <strong>&copy; Copyright  2016  Radio Peinard Skyrock</strong>
+                    <p><a href=mentions-legales.php >Mentions Légales</a></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<!--=================================
+Script Source
+=================================-->
+<script src="assets/js/jquery.js"></script>
+<script src="assets/js/ajaxify.min.js"></script>
+<script src="assets/js/jquery.downCount.js"></script>
+<script src="assets/js/jquery.datetimepicker.full.min.js"></script>
+<script src="assets/js/jplayer/jquery.jplayer.min.js"></script>
+<script src="assets/js/jplayer/jplayer.playlist.min.js"></script>
+<script src="assets/js/jquery.flexslider-min.js"></script>
+<script src="assets/js/jquery.stellar.min.js"></script>
+<script src="assets/js/jquery.sticky.js"></script>
+<script src="assets/js/jquery.waitforimages.js"></script>
+<script src="assets/js/masonry.pkgd.min.js"></script>
+<script src="assets/js/packery.pkgd.min.js"></script>
+<script src="assets/js/tweetie.min.js"></script>
+<script src="assets/js/owl.carousel.min.js"></script>
+<script src="assets/js/jquery.bxslider.min.js"></script>
+<script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAKlD00Q5M-YzuX2xXveTa8OzGKc5s6hBU&v=3.exp&#038;sensor=false&#038;ver=3.0'></script>
+<script src="assets/js/main.js"></script>
+<script>
+  // Get the modal
+    var modal = document.getElementById("myModal");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("myBtn");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    var popUp=sessionStorage.getItem('popupappli');
+    // When the user clicks on the button, open the modal
+    function displayModal() {
+      modal.style.display = "block";
+      sessionStorage.setItem('popupappli', 1);
+    }
+    if (popUp!="1"){
+      displayModal();
+      }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+      modal.style.display = "none";
+    }
+    btn.onclick = function() {
+      modal.style.display = "block";
+    }
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+  </script>
+</body>
+</html>

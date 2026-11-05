@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <title>Radio Platine</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Bienvenue sur la webradio Radio Platine.">
+        <meta name="keywords" content="webradio, Radio Platine, radio en ligne, musique, émission, radio française, écoute en direct, programmation musicale, radio, station de radio, musique française, playlist, streaming musical, Ch'tite Galaxie">
+        <!-- <link rel="stylesheet" href="./nouvelan.css"><script defer src="./nouvelan.js"></script> -->
+        <link rel="stylesheet" href="./styles.css">
+        <link rel="stylesheet" href="./index.css">
+        <link rel="icon" sizes="192x192" href="/icon.ico" type="image/png" />
+        <link rel="preload" href="/fonts/SpaceGrotesk-SemiBold.ttf" as="font" type="font/ttf" crossorigin>
+        <!--<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5629225467233390" crossorigin="anonymous"></script>-->
+        <script defer src="./index.js"></script>
+        <script defer src="./script.js" defer></script>
+        <script defer src="./fond.js"></script>
+    </head>
+    
+    <body>
+        <div id="confettis-container"></div>
+        <div id="content">
+            <header>
+              <centre>
+                <h1>Radio Platine</h1>
+              </centre>
+            </header>
+          <br>
+          <!--<h1 class="sheader">LA Radio Dance, Electro, House !</h1>-->
+          <div class="audio-player">
+              <div class="a">
+                  <center>
+                  <div id="loadingIndicator" style="display: none;margin-left: 35px;">
+                      <svg class="container" viewBox="0 0 40 40" height="40" width="40" style="--uib-size:40px;--uib-color:black;--uib-speed:.8s;--uib-bg-opacity:0.1;height:var(--uib-size);width:var(--uib-size);transform-origin:center;animation:rotate var(--uib-speed) linear infinite;will-change:transform;overflow:visible;">
+                          <style>@keyframes rotate{100%{transform:rotate(360deg)}}.car{fill:none;stroke:var(--uib-color);stroke-dasharray:25,75;stroke-dashoffset:0;stroke-linecap:round;transition:stroke .5s ease}.track{fill:none;stroke:var(--uib-color);opacity:var(--uib-bg-opacity);transition:stroke .5s ease}</style>
+                          <circle class="track" cx="20" cy="20" r="17.5" pathlength="100" stroke-width="5px" fill="none"/>
+                          <circle class="car" cx="20" cy="20" r="17.5" pathlength="100" stroke-width="5px" fill="none"/>
+                      </svg>
+                  </div>
+                      <div id="songTitle" class="song-title">Chargement...</div>
+                      <div id="offlineMessage" class="offline-message" style="display:none;">La radio est hors ligne</div>
+                      <div id="error-message" class="song-title" style="display:none;">erreur de chargement du titre</div>
+                      <div id="artistName" class="artist-name" style="font-style: italic; top: 0px;"></div>
+                  </center>
+                  <!--<img id="likeButton" src="./illustrations/coeur_vide.png" style="position:absolute; top:10px; right:10px; width:30px; cursor:pointer;" alt="Boutton de like de la musique diffusée">-->
+              <div class="audio-controls">
+                  <button id="playPauseBtn" class="control-btn">▶</button>
+                  <button id="muteBtn" class="control-btn">🔊</button>
+              </div>
+              <audio async id="audioElement" crossOrigin="anonymous" controlslist="nodownload">
+                  Votre navigateur ne supporte pas l'élément audio.
+              </audio>
+            </div>
+            <div class="b">
+                <div class="album-container">
+                    <img id="albumArt" class="album-art" draggable="false" style="display:none;" alt="Image de l'album">
+                </div>
+                <input id="volumeSlider" type="range" min="0" max="1" step="0.01" value="0.5" class="volume-slider" aria-label="">
+                <div class="volume-slider-container"></div>
+            </div>
+            <div class="c">
+                <hr style="border-color:white;">
+                <h4 style="color:red;">● En live :</h4>
+                <img id="openTwitch" src="illustrations/twitch_logo_full.png" draggable="false" height="40" width="auto" alt="Twitch">
+            </div>
+            <div class="d"></div>
+          </div>
+          <div class="reseaux-container" draggable="false">
+              <div class="logo-discord"><a href="/discord"><img src="./illustrations/Discord_Logo_sans_texte.svg" height="55" width="55" alt="Rejoindre la communauté de la radio sur Discord" loading="lazy"></a></div>
+              <div class="logo-tiktok"><a href="https://www.tiktok.com/@radio_platine"><img src="./illustrations/tiktok_logo.png" height="50" width="50" alt="Regarder les actualités de la radio sur Tiktok" loading="lazy"></a></div>
+              <div class="logo-twitch"><a href="/twitch"><img src="./illustrations/twitch_logo.png" height="50" width="50" alt="Reagarder les studios de la radio sur Twitch" loading="lazy"></a></div>
+              <div class="logo-deezer"><a href="https://www.deezer.com/search/Radio%20Platine/livestream"><img src="./illustrations/deezer.png" height="50" width="50" alt="Ecouter la radio sur Deezer" loading="lazy"></a></div>
+              <div class="logo-instagram" style="margin-left:5px;"><a href="https://www.instagram.com/radio_platine/"><img src="./illustrations/Instagram_logo_2016.svg.png" alt="Regarder les actualités de la radio sur Instagram" height="50" width="50" loading="lazy"></a></div>
+              <div class="logo-x" style="bottom:5px; position:relative;"><a href="https://x.com/radioplatineoff"><img src="./illustrations/logo_X.webp" alt="Lire les actualités sur X, anciennement Twitter" height="60" width="60" loading="lazy"></a></div>
+              <div class="logo-apple_music"><a href="https://music.apple.com/fr/station/radio-platine/ra.1843168104"><img src="./illustrations/logo_apple_music.svg" alt="Écouter la radio sur Apple Music" height="50" width="50" loading="lazy"></a></div>
+              <div class="logo-tunein"><a href="https://tunein.com/radio/Radio-Platine-s347628/"><img src="./illustrations/logo_tunein.png" alt="Écouter la radio sur TuneIn" height="50" width="auto" loading="lazy"></a></div>
+          </div>
+          <div class="navbar">
+              <div class="navbar-left">
+                  <a href="/annonces" class="annonces">Annonces</a>
+                  <div id="emissions">
+                      <a class="Emissionsbutton" href='/emissions'>Emissions</a>
+                  </div>
+          <a href="/flashinfo" class="ctkoi">Flash info</a>
+          </div>
+          <div class="navbar-center">
+              <img src="https://port.radioplatine.fr:28/logo" onerror="this.src='./illustrations/logo.png'" draggable="false" alt="Logo de Radio Platine" id="elemde" height="170" lenght="auto" loading="eager">
+          </div>
+          <div class="navbar-right">
+              <a href='/emissions' class="baremissions">Emissions</a>
+              <a href="/podcasts" class="podcasts">Podcasts</a>
+              <a href="/contact" class="contact">Contact</a>
+              <a href="/equipe" class="equipe">L'Équipe</a>
+          </div>
+          </div>
+          <div class="bouton_proposer_chanson">
+              <a draggable="false" href="/propositions" target="proposer_chanson" style="z-index:1001; position:absolute; bottom:8%; left:50%; transform: translateX(-50%);" onclick="event.preventDefault();var i=document.getElementById('iframe_proposer'),img=this.querySelector('img');if(i.style.display=='block'){i.style.display='none';i.src='';img.src='https://chtitegalaxie.netlify.app/illustrations/proposer_une_chanson.png';}else{i.style.display='block';i.src=this.href;img.src='https://chtitegalaxie.netlify.app/illustrations/proposer_une_chanson_croix.png';}">
+                  <img src="./illustrations/proposer_une_chanson.png" class="proposer_une_chanson_image" height="auto" width="260" alt="Proposer une musique">
+              </a>
+          </div>
+          <iframe id="iframe_proposer" name="proposer_chanson"></iframe>
+          <a href="/mentions-legales" id="mentions-legales">© 2026 Radio Platine – Tous droits réservés – Mentions légales</a>
+    
+          <div class="navbar-bottom-phone">
+              <a href="/podcasts" class="navbar-bottom-podcasts">Podcasts</a>
+              <a href="/annonces" class="navbar-bottom-annonces">Annonces</a>
+          </div>
+          <!-- <div id="elemcloture"><p><b><u>potentiel message ici</u></b></p></div>-->
+          <div id="twitchOverlay">
+              <div id="twitchPopup">
+                  <button id="closeTwitch">
+                      <img src="./illustrations/croix.png" draggable="false" alt="Fermer">
+                  </button>
+                  <iframe id="twitchFrame" title="Lecteur twitch"></iframe>
+              </div>
+          </div>
+        </div>
+    </body>
+</html>
