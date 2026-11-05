@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RÁDIO CEADEP - Teresina/ PI - Brasil</title>
+    
+    <style>
+        /* * Configuração de Base: Ocupa 100% da viewport e remove margens padrão */
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%; /* Ocupa 100% da altura da janela */
+            overflow: hidden; /* Evita barras de rolagem desnecessárias */
+        }
+
+        body {
+            background: #000;
+            /* Flexbox para organização vertical (Player no topo, Site embaixo) */
+            display: flex; 
+            flex-direction: column; 
+        }
+
+        /* Estilização básica dos iframes */
+        iframe {
+            border: none;
+            width: 100%; /* Garante a largura total, fundamental para responsividade */
+            box-sizing: border-box; 
+        }
+
+        /* Estilo específico para o iframe do player de rádio */
+        .radio-player {
+            height: 80px; /* Altura fixa baseada no seu código */
+            min-height: 80px; 
+        }
+
+        /* Estilo para o iframe do site: Ocupa o espaço restante */
+        .site-content {
+            flex-grow: 1; /* Faz com que ocupe todo o espaço vertical disponível */
+        }
+    </style>
+</head>
+<body>
+
+<iframe name="contenedorPlayer" 
+        class="cuadroBordeado radio-player" 
+        allow="autoplay" 
+        marginwidth="0" 
+        marginheight="0" 
+        hspace="0" 
+        vspace="0" 
+        frameborder="0" 
+        scrolling="no" 
+        src="https://radiosnet.site/AudioPlayer/radioceadep">
+</iframe>
+<iframe src="https://www.pastorbesaleel.com.br/" 
+        class="site-content">
+</iframe>
+
+</body>
+</html>

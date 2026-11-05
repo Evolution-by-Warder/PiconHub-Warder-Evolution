@@ -1,0 +1,896 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+<script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","errorBeacon":"bam.nr-data.net","licenseKey":"a8bffb238e","applicationID":"84250409","transactionName":"cA5YRkVaClhVRR9EBFQERR1eWwJRSA==","queueTime":0,"applicationTime":493,"agent":""}</script>
+<script type="text/javascript">(window.NREUM||(NREUM={})).init={ajax:{deny_list:["bam.nr-data.net"]},feature_flags:["rum_v2"]};(window.NREUM||(NREUM={})).loader_config={licenseKey:"a8bffb238e",applicationID:"84250409",browserID:"84252518"};;/*! For license information please see nr-loader-rum-1.324.1.min.js.LICENSE.txt */
+(()=>{var e={8122(e,t,r){"use strict";r.d(t,{a:()=>i});var n=r(944);function i(e,t){try{if(!e||"object"!=typeof e)return(0,n.R)(3);if(!t||"object"!=typeof t)return(0,n.R)(4);const r=Object.create(Object.getPrototypeOf(t),Object.getOwnPropertyDescriptors(t)),a=0===Object.keys(r).length?e:r;for(let s in a)if(void 0!==e[s])try{if(null===e[s]){r[s]=null;continue}Array.isArray(e[s])&&Array.isArray(t[s])?r[s]=Array.from(new Set([...e[s],...t[s]])):e[s]instanceof Map||e[s]instanceof Set||e[s]instanceof Date||e[s]instanceof RegExp?r[s]=e[s]:"object"==typeof e[s]&&null!==t[s]&&"object"==typeof t[s]?r[s]=i(e[s],t[s]):r[s]=e[s]}catch(e){r[s]||(0,n.R)(1,e)}return r}catch(e){(0,n.R)(2,e)}}},2555(e,t,r){"use strict";r.d(t,{f:()=>s});var n=r(384),i=r(8122);const a={beacon:n.NT.beacon,errorBeacon:n.NT.errorBeacon,licenseKey:void 0,applicationID:void 0,sa:void 0,queueTime:void 0,applicationTime:void 0,ttGuid:void 0,user:void 0,account:void 0,product:void 0,extra:void 0,jsAttributes:{},userAttributes:void 0,atts:void 0,transactionName:void 0,tNamePlain:void 0};function s(e){try{return!!e.licenseKey&&!!e.errorBeacon&&!!e.applicationID}catch(e){return!1}}r.d(t,["D",0,e=>(0,i.a)(e,a)])},7699(e,t,r){"use strict";var n=r(860);const i=1e6,a={[n.K7.logging]:!0,[n.K7.genericEvents]:!0,[n.K7.jserrors]:!0,[n.K7.ajax]:!0};r.d(t,["It",0,i,"KC",0,a,"qh",0,"SESSION_ERROR","zd",0,5e5])},9324(e,t,r){"use strict";r.d(t,["xv",0,"1.324.1"])},981(e,t,r){"use strict";r.d(t,["R",0,{AJAX:"AjaxRequest",PA:"PageAction",UA:"UserAction",BP:"BrowserPerformance",WS:"WebSocket",SPV:"SecurityPolicyViolation",JSE:"JavaScriptError",LOG:"Log",PVE:"PageView",PVT:"PageViewTiming",SR:"SessionReplay",ST:"SessionTrace",BI:"BrowserInteraction"}])},6154(e,t,r){"use strict";var n=r(1863);const i="undefined"!=typeof window&&!!window.document,a="undefined"!=typeof WorkerGlobalScope&&("undefined"!=typeof self&&self instanceof WorkerGlobalScope&&self.navigator instanceof WorkerNavigator||"undefined"!=typeof globalThis&&globalThis instanceof WorkerGlobalScope&&globalThis.navigator instanceof WorkerNavigator),s=i?window:"undefined"!=typeof WorkerGlobalScope&&("undefined"!=typeof self&&self instanceof WorkerGlobalScope&&self||"undefined"!=typeof globalThis&&globalThis instanceof WorkerGlobalScope&&globalThis),o=Boolean("hidden"===s?.document?.visibilityState),c=""+s?.location,u=/iPad|iPhone|iPod/.test(s.navigator?.userAgent),d=u&&"undefined"==typeof SharedWorker,l=((()=>{const e=s.navigator?.userAgent?.match(/Firefox[/\s](\d+\.\d+)/);Array.isArray(e)&&e.length>=2&&e[1]})(),Date.now()-(0,n.t)());r.d(t,["OF",0,u,"RI",0,i,"WN",0,l,"bv",0,a,"gm",0,s,"m",0,c,"mw",0,o,"sb",0,d,"zk",0,()=>{const e=s?.performance?.getEntriesByType?.("navigation")?.[0];if(e&&e.responseStart>0&&e.responseStart<s.performance.now())return e}])},3241(e,t,r){"use strict";r.d(t,{W:()=>i});var n=r(6154);function i(e={}){try{n.gm.dispatchEvent(new CustomEvent("newrelic",{detail:e}))}catch(e){}}},1687(e,t,r){"use strict";r.d(t,{Ak:()=>o,Ze:()=>u,x3:()=>c});var n=r(3241),i=r(3606),a=r(860),s=r(2646);function o(e,t){if(!e)return;const r={staged:!1,priority:a.P3[t]||0};e.runtime.drainRegistry.get(t)||e.runtime.drainRegistry.set(t,r)}function c(e,t){if(!e)return;const r=e.runtime.drainRegistry;r&&(r.get(t)&&r.delete(t),l(e,t,!1),r.size&&d(e))}function u(e,t="feature",r=!1){if(e){if(!e.runtime.drainRegistry.get(t)||r)return l(e,t);e.runtime.drainRegistry.get(t).staged=!0,d(e)}}function d(e){if(!e)return;const t=Array.from(e.runtime.drainRegistry);t.every(([e,t])=>t.staged)&&(t.sort((e,t)=>e[1].priority-t[1].priority),t.forEach(([t])=>{e.runtime.drainRegistry.delete(t),l(e,t)}))}function l(e,t,r=!0){if(!e)return;const a=e.ee,o=i.i.handlers;if(a&&!a.aborted&&a.backlog&&o){if((0,n.W)({type:"lifecycle",name:"drain",feature:t}),r){const e=a.backlog[t],r=o[t];if(r){for(let t=0;e&&t<e.length;++t)f(e[t],r);Object.entries(r).forEach(([e,t])=>{Object.values(t||{}).forEach(t=>{t[0]?.on&&t[0].context()instanceof s.y&&!t[0].listeners(e).includes(t[1])&&t[0].on(e,t[1])})})}}a.isolatedBacklog||delete o[t],a.backlog[t]=null,a.emit("drain-"+t,[])}}function f(e,t){var r=e[1];Object.values(t[r]||{}).forEach(t=>{var r=e[0];if(t[0]===r){var n=t[1],i=e[3],a=e[2];n.apply(i,a)}})}},7836(e,t,r){"use strict";var n=r(384),i=r(8990),a=r(2646),s=r(5607);const o="nr@context:".concat(s.W),c=function e(t,r){var n={},s={},d={},l=!1;try{l=16===r.length&&u.initializedAgents?.[r]?.runtime.isolatedBacklog}catch(e){}var f={on:p,addEventListener:p,removeEventListener:function(e,t){var r=n[e];if(!r)return;for(var i=0;i<r.length;i++)r[i]===t&&r.splice(i,1)},emit:function(e,r,n,i,a){!1!==a&&(a=!0);if(c.aborted&&!i)return;t&&a&&t.emit(e,r,n);var o=g(n);m(e).forEach(e=>{e.apply(o,r)});var u=v()[s[e]];u&&u.push([f,e,r,o]);return o},get:h,listeners:m,context:g,buffer:function(e,t){const r=v();if(t=t||"feature",f.aborted)return;Object.entries(e||{}).forEach(([e,n])=>{s[n]=t,t in r||(r[t]=[])})},abort:function(){f._aborted=!0,Object.keys(f.backlog).forEach(e=>{delete f.backlog[e]})},isBuffering:function(e){return!!v()[s[e]]},debugId:r,backlog:l?{}:t&&"object"==typeof t.backlog?t.backlog:{},isolatedBacklog:l};return Object.defineProperty(f,"aborted",{get:()=>{let e=f._aborted||!1;return e||(t&&(e=t.aborted),e)}}),f;function g(e){return e&&e instanceof a.y?e:e?(0,i.I)(e,o,()=>new a.y(o)):new a.y(o)}function p(e,t){n[e]=m(e).concat(t)}function m(e){return n[e]||[]}function h(t){return d[t]=d[t]||e(f,t)}function v(){return f.backlog}}(void 0,"globalEE"),u=(0,n.Zm)();u.ee||(u.ee=c),r.d(t,["P",0,o,"ee",0,c])},2646(e,t,r){"use strict";r.d(t,{y:()=>n});class n{constructor(e){this.contextId=e}}},9908(e,t,r){"use strict";r.d(t,{d:()=>n,p:()=>i});var n=r(7836).ee.get("handle");function i(e,t,r,i,a){a?(a.buffer([e],i),a.emit(e,t,r)):(n.buffer([e],i),n.emit(e,t,r))}},3606(e,t,r){"use strict";r.d(t,{i:()=>a});var n=r(9908);a.on=s;var i=a.handlers={};function a(e,t,r,a){s(a||n.d,i,e,t,r)}function s(e,t,r,i,a){a||(a="feature"),e||(e=n.d);var s=t[a]=t[a]||{};(s[r]=s[r]||[]).push([e,i])}},3878(e,t,r){"use strict";function n(e,t){return{capture:e,passive:!1,signal:t}}function i(e,t,r=!1,i){window.addEventListener(e,t,n(r,i))}function a(e,t,r=!1,i){document.addEventListener(e,t,n(r,i))}r.d(t,{DD:()=>a,jT:()=>n,sp:()=>i})},5607(e,t,r){"use strict";const n=(0,r(9566).bz)();r.d(t,["W",0,n])},9566(e,t,r){"use strict";r.d(t,{LA:()=>s,bz:()=>a});var n=r(6154);function i(e,t){return e?15&e[t]:16*Math.random()|0}function a(){const e=n.gm?.crypto||n.gm?.msCrypto;let t,r=0;return e&&e.getRandomValues&&(t=e.getRandomValues(new Uint8Array(30))),"xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".split("").map(e=>"x"===e?i(t,r++).toString(16):"y"===e?(3&i()|8).toString(16):e).join("")}function s(e){const t=n.gm?.crypto||n.gm?.msCrypto;let r,a=0;t&&t.getRandomValues&&(r=t.getRandomValues(new Uint8Array(e)));const s=[];for(var o=0;o<e;o++)s.push(i(r,a++).toString(16));return s.join("")}},2614(e,t,r){"use strict";r.d(t,["BB",0,18e5,"Wt",0,"NRBA_SESSION::","iL",0,{SAME_TAB:"same-tab",CROSS_TAB:"cross-tab"},"tS",0,{STARTED:"session-started",PAUSE:"session-pause",RESET:"session-reset",RESUME:"session-resume",UPDATE:"session-update"},"wk",0,144e5])},1863(e,t,r){"use strict";function n(){return Math.floor(performance.now())}r.d(t,{t:()=>n})},944(e,t,r){"use strict";r.d(t,{R:()=>i});var n=r(3241);function i(e,t){"function"==typeof console.debug&&(console.debug("New Relic Warning: https://github.com/newrelic/newrelic-browser-agent/blob/main/docs/warning-codes.md#".concat(e),t),(0,n.W)({drained:null,type:"data",name:"warn",feature:"warn",data:{code:e,secondary:t}}))}},8990(e,t,r){"use strict";r.d(t,{I:()=>i});var n=Object.prototype.hasOwnProperty;function i(e,t,r){if(n.call(e,t))return e[t];var i=r();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(e,t,{value:i,writable:!0,enumerable:!1}),i}catch(e){}return e[t]=i,i}},6389(e,t,r){"use strict";function n(e,t=500,r={}){const n=r?.leading||!1;let i;return(...r)=>{n&&void 0===i&&(e.apply(this,r),i=setTimeout(()=>{i=clearTimeout(i)},t)),n||(clearTimeout(i),i=setTimeout(()=>{e.apply(this,r)},t))}}function i(e){let t=!1;return(...r)=>{t||(t=!0,e.apply(this,r))}}r.d(t,{J:()=>i,s:()=>n})},1910(e,t,r){"use strict";r.d(t,{i:()=>a});var n=r(944);const i=new Map;function a(...e){return e.every(e=>{if(i.has(e))return i.get(e);const t="function"==typeof e?e.toString():"",r=t.includes("[native code]"),a=t.includes("nrWrapper");return r||a||(0,n.R)(64,e?.name||t),i.set(e,r),r})}},5289(e,t,r){"use strict";r.d(t,{GG:()=>s,Qr:()=>c,sB:()=>o});var n=r(3878),i=r(6389);function a(){return"undefined"==typeof document||"complete"===document.readyState}function s(e,t){if(a())return e();const r=(0,i.J)(e),s=setInterval(()=>{a()&&(clearInterval(s),r())},500);(0,n.sp)("load",r,t)}function o(e){if(a())return e();(0,n.DD)("DOMContentLoaded",e)}function c(e){if(a())return e();(0,n.sp)("popstate",e)}},384(e,t,r){"use strict";r.d(t,{Zm:()=>c,bQ:()=>d,dV:()=>u,pV:()=>l});var n=r(6154),i=r(1863),a=r(944),s=r(1910);const o={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net"};function c(){return n.gm.NREUM||(n.gm.NREUM={}),void 0===n.gm.newrelic&&(n.gm.newrelic=n.gm.NREUM),n.gm.NREUM}function u(){let e=c();return e.o||(e.o={ST:n.gm.setTimeout,SI:n.gm.setImmediate||n.gm.setInterval,CT:n.gm.clearTimeout,XHR:n.gm.XMLHttpRequest,REQ:n.gm.Request,EV:n.gm.Event,PR:n.gm.Promise,MO:n.gm.MutationObserver,FETCH:n.gm.fetch,WS:n.gm.WebSocket},(0,s.i)(...Object.values(e.o))),e}function d(e,t){let r=c();r.initializedAgents??={},t.initializedAt={ms:(0,i.t)(),date:new Date},r.initializedAgents[e]=t,2===Object.keys(r.initializedAgents).length&&(0,a.R)(69)}function l(){return function(){let e=c();const t=e.info||{};e.info={beacon:o.beacon,errorBeacon:o.errorBeacon,...t}}(),function(){let e=c();const t=e.init||{};e.init={...t}}(),u(),function(){let e=c();const t=e.loader_config||{};e.loader_config={...t}}(),c()}r.d(t,["NT",0,o])},2843(e,t,r){"use strict";r.d(t,{G:()=>a,u:()=>i});var n=r(3878);function i(e,t=!1,r,i){(0,n.DD)("visibilitychange",function(){if(t)return void("hidden"===document.visibilityState&&e());e(document.visibilityState)},r,i)}function a(e,t,r){(0,n.sp)("pagehide",e,t,r)}},9300(e,t,r){"use strict";r(860).K7.ajax;r.d(t,["mo",0,{NONE:"none",FAILURES:"failures",ALL:"all"}])},3969(e,t,r){"use strict";const n=r(860).K7.metrics;r.d(t,["TZ",0,n,"XG",0,"storeEventMetrics","xV",0,"storeSupportabilityMetrics"])},6630(e,t,r){"use strict";const n=r(860).K7.pageViewEvent;r.d(t,["T",0,n])},782(e,t,r){"use strict";const n=r(860).K7.pageViewTiming;r.d(t,["T",0,n])},4234(e,t,r){"use strict";r.d(t,{W:()=>i});var n=r(1687);class i{constructor(e,t){this.agentRef=e,this.ee=e?.ee,this.featureName=t,this.blocked=!1}deregisterDrain(){(0,n.x3)(this.agentRef,this.featureName)}}},7767(e,t,r){"use strict";var n=r(6154);r.d(t,["V",0,e=>n.RI&&!0===e?.privacy.cookies_enabled])},8362(e,t,r){"use strict";r.d(t,{d:()=>a});var n=r(9566),i=r(1741);class a extends i.W{agentIdentifier=(0,n.LA)(16)}},1741(e,t,r){"use strict";r.d(t,{W:()=>a});var n=r(944),i=r(4261);class a{#e(e,...t){if(this[e]!==a.prototype[e])return this[e](...t);(0,n.R)(35,e)}addPageAction(e,t){return this.#e(i.hG,e,t)}register(e){return this.#e(i.eY,e)}recordCustomEvent(e,t){return this.#e(i.fF,e,t)}setPageViewName(e,t){return this.#e(i.Fw,e,t)}setCustomAttribute(e,t,r){return this.#e(i.cD,e,t,r)}noticeError(e,t){return this.#e(i.o5,e,t)}setUserId(e,t=!1){return this.#e(i.Dl,e,t)}setApplicationVersion(e){return this.#e(i.nb,e)}setErrorHandler(e){return this.#e(i.bt,e)}addRelease(e,t){return this.#e(i.k6,e,t)}log(e,t){return this.#e("log",e,t)}start(){return this.#e("start")}finished(e){return this.#e(i.BL,e)}recordReplay(){return this.#e(i.CH)}pauseReplay(){return this.#e(i.Tb)}addToTrace(e){return this.#e(i.U2,e)}setCurrentRouteName(e){return this.#e(i.PA,e)}interaction(e){return this.#e(i.dT,e)}wrapLogger(e,t,r){return this.#e(i.Wb,e,t,r)}measure(e,t){return this.#e(i.V1,e,t)}consent(e){return this.#e(i.Pv,e)}}},4261(e,t,r){"use strict";r.d(t,["BL",0,"finished","CH",0,"recordReplay","Dl",0,"setUserId","Fw",0,"setPageViewName","PA",0,"setCurrentRouteName","Pv",0,"consent","Tb",0,"pauseReplay","U2",0,"addToTrace","V1",0,"measure","Wb",0,"wrapLogger","bt",0,"setErrorHandler","cD",0,"setCustomAttribute","dT",0,"interaction","eY",0,"register","fF",0,"recordCustomEvent","hG",0,"addPageAction","k6",0,"addRelease","nb",0,"setApplicationVersion","o5",0,"noticeError"])},1738(e,t,r){"use strict";r.d(t,{U:()=>l,Y:()=>d});var n=r(3241),i=r(9908),a=r(1863),s=r(944),o=r(3969),c=r(8362),u=r(860);function d(e,t,r,a){const d=a||r;!d||d[e]&&d[e]!==c.d.prototype[e]||(d[e]=function(){(0,i.p)(o.xV,["API/"+e+"/called"],void 0,u.K7.metrics,r.ee),(0,n.W)({drained:!!r.runtime?.activatedFeatures,type:"data",name:"api",feature:"api-"+e,data:{}});try{return t.apply(this,arguments)}catch(e){(0,s.R)(23,e)}})}function l(e,t,r,n,s){const o=e.info;null===r?delete o.jsAttributes[t]:o.jsAttributes[t]=r,(s||null===r)&&(0,i.p)("api-"+n,[(0,a.t)(),t,r],void 0,"session",e.ee)}},8374(e,t,r){r.nc=(()=>{try{return document?.currentScript?.nonce}catch(e){}return""})()},860(e,t,r){"use strict";const n="events",i="jserrors",a="browser/blobs",s="browser/logs",o={ajax:"ajax",genericEvents:"generic_events",jserrors:i,logging:"logging",metrics:"metrics",pageAction:"page_action",pageViewEvent:"page_view_event",pageViewTiming:"page_view_timing",sessionReplay:"session_replay",sessionTrace:"session_trace",softNav:"soft_navigations"},c={[o.pageViewEvent]:1,[o.pageViewTiming]:2,[o.metrics]:3,[o.jserrors]:4,[o.softNav]:5,[o.ajax]:6,[o.sessionTrace]:7,[o.sessionReplay]:8,[o.logging]:9,[o.genericEvents]:10},u={[o.pageViewEvent]:"rum",[o.pageViewTiming]:n,[o.ajax]:n,[o.softNav]:n,[o.metrics]:i,[o.jserrors]:i,[o.sessionTrace]:a,[o.sessionReplay]:a,[o.logging]:s,[o.genericEvents]:"ins"};r.d(t,["$J",0,u,"K7",0,o,"P3",0,c,"XX",0,i,"Yy",0,s,"df",0,a,"hg",0,"connect"])}};const t={};function r(n){const i=t[n];if(void 0!==i)return i.exports;const a=t[n]={exports:{}};return e[n](a,a.exports,r),a.exports}r.m=e,r.d=(e,t)=>{if(Array.isArray(t))for(var n=0;n<t.length;){var i=t[n++],a=t[n++];r.o(e,i)?0===a&&n++:0===a?Object.defineProperty(e,i,{enumerable:!0,value:t[n++]}):Object.defineProperty(e,i,{enumerable:!0,get:a})}else for(var i in t)r.o(t,i)&&!r.o(e,i)&&Object.defineProperty(e,i,{enumerable:!0,get:t[i]})},r.f={},r.e=e=>Promise.all(Object.keys(r.f).reduce((t,n)=>(r.f[n](e,t),t),[])),r.u=e=>"nr-rum-1.324.1.min.js",r.o=(e,t)=>Object.prototype.hasOwnProperty.call(e,t),(()=>{const e={},t="NRBA-1.324.1.PROD:";r.l=(n,i,a,s)=>{if(e[n])return void e[n].push(i);let o,c;if(void 0!==a){const e=document.getElementsByTagName("script");for(var u=0;u<e.length;u++){const r=e[u];if(r.getAttribute("src")==n||r.getAttribute("data-webpack")==t+a){o=r;break}}}if(!o){c=!0;var d={296:"sha512-zuv39xzZ8AH/HwpVrtkixvcBuOFo2ydcFzMtXjx+3Iwr5g++inX+6YDH7J/8fOCAtBetz8aDyaYCRkGy2nnG/w=="};o=document.createElement("script"),o.charset="utf-8",r.nc&&o.setAttribute("nonce",r.nc),o.setAttribute("data-webpack",t+a),o.src=n,0!==o.src.indexOf(window.location.origin+"/")&&(o.crossOrigin="anonymous"),d[s]&&(o.integrity=d[s])}e[n]=[i];const l=(t,r)=>{o.onerror=o.onload=null,clearTimeout(f);const i=e[n];if(delete e[n],o.parentNode?.removeChild(o),i?.forEach(e=>e(r)),t)return t(r)},f=setTimeout(l.bind(null,void 0,{type:"timeout",target:o}),12e4);o.onerror=l.bind(null,o.onerror),o.onload=l.bind(null,o.onload),c&&document.head.appendChild(o)}})(),r.r=e=>{Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},r.p="https://js-agent.newrelic.com/",(()=>{const e={374:0,840:0};r.f.j=(t,n)=>{let i=r.o(e,t)?e[t]:void 0;if(0!==i)if(i)n.push(i[2]);else{const a=new Promise((r,n)=>i=e[t]=[r,n]);n.push(i[2]=a);const s=r.p+r.u(t),o=new Error,c=n=>{if(r.o(e,t)&&(i=e[t],0!==i&&(e[t]=void 0),i)){const e=n&&("load"===n.type?"missing":n.type),r=n&&n.target&&n.target.src;o.message="Loading chunk "+t+" failed: ("+e+": "+r+")",o.name="ChunkLoadError",o.type=e,o.request=r,i[1](o)}};r.l(s,c,"chunk-"+t,t)}};const t=(t,n)=>{let[i,a,s]=n;var o,c,u=0;if(i.some(t=>0!==e[t])){for(o in a)r.o(a,o)&&(r.m[o]=a[o]);if(s)s(r)}for(t&&t(n);u<i.length;u++)c=i[u],r.o(e,c)&&e[c]&&e[c][0](),e[c]=0},n=self["webpackChunk:NRBA-1.324.1.PROD"]=self["webpackChunk:NRBA-1.324.1.PROD"]||[];n.forEach(t.bind(null,0)),n.push=t.bind(null,n.push.bind(n))})(),(()=>{"use strict";r(8374);var e=r(8362),t=r(860);const n=Object.values(t.K7);var i=r(384),a=r(1741);var s=r(2555),o=r(981);t.K7.genericEvents,o.R.PA,o.R.UA,o.R.BP;const c={RESOURCES:"experimental.resources",REGISTER:"register"};var u=r(9300);const d=e=>{if(!e||"string"!=typeof e)return!1;try{document.createDocumentFragment().querySelector(e)}catch{return!1}return!0};var l=r(2614),f=r(944),g=r(8122);const p="[data-nr-mask]",m=e=>(0,g.a)(e,(()=>{const e={feature_flags:[],experimental:{register:!1,resources:!1,iframe_bridge:!1,iframe_domains:[]},mask_selector:"*",block_selector:"[data-nr-block]",mask_input_options:{color:!1,date:!1,"datetime-local":!1,email:!1,month:!1,number:!1,range:!1,search:!1,tel:!1,text:!1,time:!1,url:!1,week:!1,textarea:!1,select:!1,password:!0}};return{ajax:{deny_list:void 0,block_internal:!0,enabled:!0,autoStart:!0,capture_payloads:u.mo.NONE},api:{register:{get enabled(){return e.feature_flags.includes(c.REGISTER)||e.experimental.register},set enabled(t){e.experimental.register=t},duplicate_data_to_container:!1,get allow_iframe_bridge(){return e.feature_flags.includes(c.IFRAME_BRIDGE)||e.experimental.iframe_bridge},set allow_iframe_bridge(t){e.experimental.iframe_bridge=t},get iframe_domains(){return e.experimental.iframe_domains},set iframe_domains(t){Array.isArray(t)?e.experimental.iframe_domains=t:(0,f.R)(1,t)}}},browser_consent_mode:{enabled:!1},distributed_tracing:{enabled:void 0,exclude_newrelic_header:void 0,cors_use_newrelic_header:void 0,cors_use_tracecontext_headers:void 0,allowed_origins:void 0},get feature_flags(){return e.feature_flags},set feature_flags(t){e.feature_flags=t},generic_events:{enabled:!0,autoStart:!0},harvest:{interval:30},jserrors:{enabled:!0,autoStart:!0},logging:{enabled:!0,autoStart:!0},metrics:{enabled:!0,autoStart:!0},obfuscate:void 0,page_action:{enabled:!0},page_view_event:{enabled:!0,autoStart:!0},page_view_timing:{enabled:!0,autoStart:!0},performance:{capture_marks:!1,capture_measures:!1,capture_detail:!0,resources:{get enabled(){return e.feature_flags.includes(c.RESOURCES)||e.experimental.resources},set enabled(t){e.experimental.resources=t},asset_types:[],first_party_domains:[],ignore_newrelic:!0}},privacy:{cookies_enabled:!0},proxy:{assets:void 0,beacon:void 0},session:{expiresMs:l.wk,inactiveMs:l.BB},session_replay:{autoStart:!0,enabled:!1,preload:!1,collect_fonts:!1,inline_images:!1,fix_stylesheets:!0,mask_all_inputs:!0,get mask_text_selector(){return e.mask_selector},set mask_text_selector(t){d(t)?e.mask_selector="".concat(t,",").concat(p):""===t||null===t?e.mask_selector=p:(0,f.R)(5,t)},get block_class(){return"nr-block"},get ignore_class(){return"nr-ignore"},get mask_text_class(){return"nr-mask"},get block_selector(){return e.block_selector},set block_selector(t){d(t)?e.block_selector+=",".concat(t):""!==t&&(0,f.R)(6,t)},get mask_input_options(){return e.mask_input_options},set mask_input_options(t){t&&"object"==typeof t?e.mask_input_options={...t,password:!0}:(0,f.R)(7,t)}},session_trace:{enabled:!0,autoStart:!0},soft_navigations:{enabled:!0,autoStart:!0},ssl:void 0,user_actions:{enabled:!0,elementAttributes:["id","className","tagName","type"]},web_sockets:{enabled:!1}}})());var h=r(6154),v=r(9324);let b=0;const y={buildEnv:"PROD",distMethod:"CDN",version:v.xv,originTime:h.WN},_={consented:!1},w={activatedFeatures:void 0,appMetadata:{},configured:!1,get consented(){return this.session?.state?.consent||_.consented},set consented(e){_.consented=e},customTransaction:void 0,denyList:[],disabled:!1,drainRegistry:new Map,connector:void 0,harvester:void 0,v2Target:void 0,isolatedBacklog:!1,isRecording:!1,loaderType:void 0,maxBytes:3e4,obfuscator:void 0,onerror:void 0,ptid:void 0,releaseIds:{},session:void 0,timeKeeper:void 0,registeredEntities:[],jsAttributesMetadata:{bytes:0},get harvestCount(){return++b},listeningForIframeMessages:!1},R="BA";var A=r(7836),x=r(3241);const E={accountID:void 0,trustKey:void 0,agentID:void 0,licenseKey:void 0,applicationID:void 0,xpid:void 0};var S=r(9908);const k="newrelic-iframe-";function T(e,t={},n,o){let{init:c,info:u,loader_config:d,runtime:l={},exposed:f=!0}=t;if(!u){const e=(0,i.pV)();c=e.init,u=e.info,d=e.loader_config}var p;e.init=m(c||{}),e.loader_config=(p=d||{},(0,g.a)(p,E)),u.jsAttributes??={},h.bv&&(u.jsAttributes.isWorker=!0),e.info=(0,s.D)(u);const v=e.init;e.runtime??=(e=>{const t=(0,g.a)(e,w),r=Object.keys(y).reduce((e,t)=>(e[t]={value:y[t],writable:!1,configurable:!0,enumerable:!0},e),{});return Object.defineProperties(t,r)})(l),e.runtime.v2Target??={type:R,instance:e.agentIdentifier,get id(){return e.runtime.appMetadata?.agents?.[0]?.entityGuid},get attributes(){return{"entity.guid":this.id,appId:e.info.applicationID}}},v.proxy.assets&&(e=>{const t=e.startsWith("http");e+="/",r.p=t?e:"https://"+e})(v.proxy.assets),e.runtime.configured||(Object.defineProperty(e,"beacons",{get:()=>[e.info.beacon,e.info.errorBeacon,e.init.proxy.assets,e.init.proxy.beacon].filter(Boolean)}),Object.defineProperty(e.runtime,"denyList",{get:()=>[...e.init.ajax.deny_list||[],...e.init.ajax.block_internal?e.beacons:[]]}),e.runtime.ptid=e.agentIdentifier,function(e){const t=(0,i.pV)();Object.getOwnPropertyNames(a.W.prototype).forEach(r=>{const n=a.W.prototype[r];if("function"!=typeof n||"constructor"===n)return;let i=t[r];e[r]&&!1!==e.exposed&&"micro-agent"!==e.runtime?.loaderType&&(t[r]=(...t)=>{const n=e[r](...t);return i?i(...t):n})})}(e),e.runtime.loaderType=n,e.ee=A.ee.get(e.agentIdentifier),e.exposed=f,(0,x.W)({drained:!!e.runtime.activatedFeatures,type:"lifecycle",name:"initialize",feature:void 0,data:e.config}),e.init.api.register.allow_iframe_bridge&&h.gm.addEventListener("message",t=>{"string"==typeof t.data?.type&&t.data.type.startsWith(k)&&(0,S.p)("iframe-message",[t],void 0,"IFRAME",e.ee)}),e.runtime.configured=!0)}var j=r(1863),P=r(4261),N=r(1738);var O=r(1687),M=r(4234),I=r(5289),D=r(7767);function V(e){return!!(0,i.dV)().o.MO&&(0,D.V)(e)&&!0===e?.session_trace.enabled}var W=r(6389),B=r(7699);const C=new WeakSet,K=new WeakMap;class U extends M.W{constructor(e,t){super(e,t),this.abortHandler=void 0,this.featAggregate=void 0,this.loadedSuccessfully=void 0,this.onAggregateImported=new Promise(e=>{this.loadedSuccessfully=e}),this.deferred=Promise.resolve(),!1===e.init[this.featureName].autoStart?this.deferred=new Promise((t,r)=>{this.ee.on("manual-start-all",(0,W.J)(()=>{(0,O.Ak)(e,this.featureName),t()}))}):(0,O.Ak)(e,t)}importAggregator(e,t,n={}){if(this.featAggregate)return;const i=async()=>{if(await this.deferred,this.#t(e),!(0,s.f)(e.info))return(0,f.R)(43),e.ee.abort(),void this.loadedSuccessfully(!1);try{await async function(e,t,n){if(K.has(e))return K.get(e);const i=(async()=>{if((0,D.V)(e.init))try{const{setupAgentSession:t}=await r.e(296).then(r.bind(r,1768));t(e)}catch(e){(0,f.R)(20,e),t.emit("internal-error",[e]),(0,S.p)(B.qh,[e],void 0,n,t)}if(e.init.api.register.allow_iframe_bridge)try{const{setupIframeMFEMessageListener:t}=await Promise.resolve().then(function(){const e=new Error("Cannot find module '../../loaders/configure/iframe-message-handler'");throw e.code="MODULE_NOT_FOUND",e});t(e)}catch(e){(0,f.R)(23,e)}const[{Connector:i},{Harvester:a}]=await Promise.all([r.e(296).then(r.bind(r,6589)),r.e(296).then(r.bind(r,5237))]);e.runtime.connector=new i(e),e.runtime.harvester=new a(e);const s=Object.values(e.features).filter(t=>e.runtime.drainRegistry.has(t.featureName));Promise.all(s.map(e=>e.onAggregateImported)).then(()=>e.runtime.harvester.startTimer())})();K.set(e,i),await i}(e,this.ee,this.featureName)}catch(e){return(0,f.R)(79,e),this.ee.abort(),void this.loadedSuccessfully(!1)}try{if(!this.#r(this.featureName,e.runtime.session,e.init))return this.abortHandler?.(),(0,O.Ze)(this.agentRef,this.featureName),void this.loadedSuccessfully(!1);const{Aggregate:r}=await t();this.featAggregate=new r(e,n),e.runtime.harvester.initializedAggregates.push(this.featAggregate),this.loadedSuccessfully(!0)}catch(e){(0,f.R)(34,e),this.abortHandler?.(),(0,O.Ze)(this.agentRef,this.featureName,!0),this.loadedSuccessfully(!1)}};h.RI?(0,I.GG)(()=>i(),!0):i()}#r(e,r,n){if(this.blocked)return!1;switch(e){case t.K7.sessionReplay:return V(n)&&!!r;case t.K7.sessionTrace:return!!r;default:return!0}}#t(e){if(!C.has(e)&&(C.add(e),!(0,s.f)(e.info))){const t=(0,i.pV)();let r={...t.info?.jsAttributes};try{r={...r,...e.info?.jsAttributes}}catch(e){}T(e,{...t,info:{...t.info,jsAttributes:r},runtime:e.runtime},e.runtime.loaderType)}}}var L=r(6630);class F extends U{static featureName=L.T;constructor(e){var t;super(e,L.T),this.setupInspectionEvents(),t=e,(0,N.Y)(P.Fw,function(e,r){"string"==typeof e&&("/"!==e.charAt(0)&&(e="/"+e),t.runtime.customTransaction=(r||"http://custom.transaction")+e,(0,S.p)("api-"+P.Fw,[(0,j.t)()],void 0,void 0,t.ee))},t),this.importAggregator(e,()=>e.init.feature_flags.includes("rum_v2")?r.e(296).then(r.bind(r,908)):r.e(296).then(r.bind(r,7927)))}setupInspectionEvents(){const e=(e,t)=>{e&&(0,x.W)({timeStamp:e.timeStamp,loaded:"complete"===e.target.readyState,type:"window",name:t,data:e.target.location+""})};(0,I.sB)(t=>{e(t,"DOMContentLoaded")}),(0,I.GG)(t=>{e(t,"load")}),(0,I.Qr)(t=>{e(t,"navigate")}),this.ee.on(l.tS.UPDATE,(e,t)=>{(0,x.W)({type:"lifecycle",name:"session",data:t})})}}class G extends e.d{constructor(e){var t;(super(),h.gm)?(this.features={},(0,i.bQ)(this.agentIdentifier,this),this.desiredFeatures=new Set(e.features||[]),this.desiredFeatures.add(F),T(this,e,e.loaderType||"agent"),t=this,(0,N.Y)(P.cD,function(e,r,n=!1){if("string"==typeof e){if(["string","number","boolean"].includes(typeof r)||null===r)return(0,N.U)(t,e,r,P.cD,n);(0,f.R)(40,typeof r)}else(0,f.R)(39,typeof e)},t),function(e){(0,N.Y)(P.Dl,function(t,r=!1){if("string"!=typeof t&&null!==t)return void(0,f.R)(41,typeof t);const n=e.info.jsAttributes["enduser.id"];r&&null!=n&&n!==t?(0,S.p)("api-setUserIdAndResetSession",[t],void 0,"session",e.ee):(0,N.U)(e,"enduser.id",t,P.Dl,!0)},e)}(this),function(e){(0,N.Y)(P.nb,function(t){if("string"==typeof t||null===t)return(0,N.U)(e,"application.version",t,P.nb,!1);(0,f.R)(42,typeof t)},e)}(this),function(e){(0,N.Y)("start",function(){e.ee.emit("manual-start-all")},e)}(this),function(e){(0,N.Y)(P.Pv,function(t=!0){if("boolean"==typeof t){if((0,S.p)("api-"+P.Pv,[t],void 0,"session",e.ee),e.runtime.consented=t,t){const t=e.features.page_view_event;t.onAggregateImported.then(e=>{const r=t.featAggregate;e&&!r.sentRum&&r.sendRum?.()})}}else(0,f.R)(65,typeof t)},e)}(this),this.run()):(0,f.R)(21)}get config(){return{info:this.info,init:this.init,loader_config:this.loader_config,runtime:this.runtime}}get api(){return this}run(){try{const e=function(e){const t={};return n.forEach(r=>{t[r]=!!e[r]?.enabled}),t}(this.init),r=[...this.desiredFeatures],i=this.init.feature_flags.includes("rum_v2");r.sort((e,r)=>t.P3[e.featureName]-t.P3[r.featureName]),r.forEach(r=>{if(!e[r.featureName]&&(i||r.featureName!==t.K7.pageViewEvent))return;const n=function(e){switch(e){case t.K7.ajax:return[t.K7.jserrors];case t.K7.sessionTrace:return[t.K7.ajax,t.K7.pageViewEvent];case t.K7.sessionReplay:return[t.K7.sessionTrace];case t.K7.pageViewTiming:return[t.K7.pageViewEvent];default:return[]}}(r.featureName).filter(e=>!(e in this.features));n.length>0&&(0,f.R)(36,{targetFeature:r.featureName,missingDependencies:n}),this.features[r.featureName]=new r(this)})}catch(e){(0,f.R)(22,e);for(const e in this.features)this.features[e].abortHandler?.();const t=(0,i.Zm)();delete t.initializedAgents[this.agentIdentifier]?.features,delete this.sharedAggregator;return t.ee.get(this.agentIdentifier).abort(),!1}}}var H=r(2843),z=r(782);class Y extends U{static featureName=z.T;constructor(e){super(e,z.T),h.RI&&((0,H.u)(()=>(0,S.p)("docHidden",[(0,j.t)()],void 0,z.T,this.ee),!0),(0,H.G)(()=>(0,S.p)("winPagehide",[(0,j.t)()],void 0,z.T,this.ee)),this.importAggregator(e,()=>r.e(296).then(r.bind(r,9981))))}}var Z=r(3969);class q extends U{static featureName=Z.TZ;constructor(e){super(e,Z.TZ),this.importAggregator(e,()=>r.e(296).then(r.bind(r,9623)))}}new G({features:[F,Y,q],loaderType:"lite"})})()})();</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Clube FM 100.5 - Tá na Clube, Tá Legal! | Ribeirão Preto/SP</title>
+
+  <meta name="description" content="A rádio mais ouvida em Ribeirão Preto! Ouça e veja o estúdio Ao Vivo, participe de nossas promoções e confira nossa programação. Líder em audiência em Ribeirão">
+  <meta name="keywords" content="clubefm, clube fm, clube fm ribeirão, clube ribeirão, rádio ribeirão preto, rádio clube, rádio clubefm, rádio online, rádio hits, música, ribeirão preto, rádio líder em audiência em ribeirão preto">
+
+  <meta name="ICBM" content="-21.1846347, -47.8144945">
+  <meta name="geo.position" content="-21.1846347;-47.8144945">
+  <meta name="geo.region" content="BR-SP">
+  <meta name="geo.placename" content="Ribeirão Preto">
+
+  <meta property="fb:app_id" content="953577331364410">
+
+  <meta property="og:title" content="Clube FM 100.5 - Tá na Clube, Tá Legal! | Ribeirão Preto/SP">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.clubefm.com.br/">
+  <meta property="og:site_name" content="Clube FM 100.5">
+  <meta property="og:description" content="A rádio mais ouvida em Ribeirão Preto! Ouça e veja o estúdio Ao Vivo, participe de nossas promoções e confira nossa programação. Líder em audiência em Ribeirão">
+  <meta property="og:locale" content="pt_BR">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@clubefm">
+  <meta name="twitter:url" content="https://www.clubefm.com.br/">
+  <meta name="twitter:title" content="Clube FM 100.5 - Tá na Clube, Tá Legal! | Ribeirão Preto/SP">
+  <meta name="twitter:description" content="A rádio mais ouvida em Ribeirão Preto! Ouça e veja o estúdio Ao Vivo, participe de nossas promoções e confira nossa programação. Líder em audiência em Ribeirão">
+
+  <meta property="og:image" content="https://assets.clubefm.com.br/uploads/site/og_image/1/logocompartilha.png">
+  <meta name="twitter:image" content="https://assets.clubefm.com.br/uploads/site/og_image/1/logocompartilha.png">
+
+  <meta itemprop="name" content="Clube FM 100.5 - Tá na Clube, Tá Legal! | Ribeirão Preto/SP">
+  <meta itemprop="description" content="A rádio mais ouvida em Ribeirão Preto! Ouça e veja o estúdio Ao Vivo, participe de nossas promoções e confira nossa programação. Líder em audiência em Ribeirão">
+  <meta itemprop="image" content="https://assets.clubefm.com.br/uploads/site/favicon_big/1/logo-scc196.png">
+
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#00f">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Clube FM 100.5">
+
+  <meta name="application-name" content="Clube FM 100.5">
+  <meta name="msapplication-tooltip" content="A rádio mais ouvida em Ribeirão Preto! Ouça e veja o estúdio Ao Vivo, participe de nossas promoções e confira nossa programação. Líder em audiência em Ribeirão">
+  <meta name="msapplication-starturl" content="https://www.clubefm.com.br/">
+  <meta name="msapplication-navbutton-color" content="#00f">
+  <meta name="msapplication-TileColor" content="#00f">
+  <meta name="msapplication-TileImage" content="https://assets.clubefm.com.br/uploads/site/favicon_big/1/logo-scc196.png">
+
+  <meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="fnV+H9NtthIywTpm49pogieiy1eAWODS5+CUyVguYtBW/YBW2Q/c9kHOpWH48mRfmybI8a2ZkBDk4dH8SZHWAA==" />
+
+  <link rel="shortcut icon" type="image/x-icon" href="https://assets.clubefm.com.br/uploads/site/favicon_big/1/logo-scc196.png" />
+  <link rel="apple-touch-icon" type="image/png" href="https://assets.clubefm.com.br/uploads/site/apple_touch_icon/1/apple-logo.png" />
+
+  <link rel="canonical" href="https://www.clubefm.com.br/">
+
+  <link rel="stylesheet" media="all" href="//assets.clubefm.com.br/assets/clubefm-0f7144e3d8ba8d8deec1695d21e52e65d8f692f3f83b41a29e312bff7bb4b4e1.css" />
+  <link href="https://fonts.googleapis.com/css?family=Nunito:400,400i,800,800i" rel="preload" as="style" onload="this.rel='stylesheet'">
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-5WLDQMPH03"></script>
+
+  <script>
+    window.dataLayer = window.dataLayer || []
+
+    function gtag () {
+      dataLayer.push(arguments)
+    }
+
+    gtag('js', new Date())
+    gtag('config', 'G-5WLDQMPH03')
+  </script>
+
+  <script async data-ad-client="ca-pub-5729882401714401" data-turbolinks-eval="false" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+  <script src="//assets.clubefm.com.br/assets/application-56f1cb9050ee0312b79ab121d852c77f152bb7895b39bb12d67893e7a92be671.js" async="async"></script>
+  <script async src="https://connect.facebook.net/pt_BR/sdk.js"></script>
+  
+  
+</head>
+
+<body class="PagesController PagesController-index" data-route="pages#index">
+<div id="fb-root"></div>
+
+<nav class="NavigationLayout" data-turbolinks-permanent>
+  <div class="u-container">
+    <div class="Owner" data-dropdown="owner-networks">
+      <button type="button" class="Owner-link">
+        <svg class="Owner-brand"><use xlink:href="https://www.clubefm.com.br/assets/icons-15d8139fb5812428e91529c55dd97dfdf2a9ac4f63c8d77777cb58046d34907c.svg#sistema-clube"></use></svg>
+        <strong class="Owner-title">Sistema Clube de Comunicação</strong>
+      </button>
+
+      <div class="Dropdown" id="owner-networks">
+        <ul class="Owner-networks">
+  <li><a class="Owner-network" target="_blank" href="https://www.clubefm.com.br/">Clube FM 100.5</a></li>
+  <li><a class="Owner-network" target="_blank" href="https://www.clubefm.com.br/saocarlos/">Clube FM 104.7</a></li>
+  <li><a class="Owner-network" target="_blank" href="http://www.melodyfm.com.br/">Melody FM</a></li>
+  <li><a class="Owner-network" target="_blank" href="http://www.106sertaneja.com.br/">106.7 FM</a></li>
+  <li><a class="Owner-network" target="_blank" href="https://www.91sertaneja.com.br/">91 FM</a></li>
+  <li><a class="Owner-network" target="_blank" href="http://radioclube1.com.br/">Clube 1 - 96.7FM</a></li>
+  <li><a class="Owner-network" target="_blank" href="http://www.clubehd.com.br/">Geração e Transmissão</a></li>
+  <li><a class="Owner-network" target="_blank" href="http://www.clubetv.com.br/">TV Clube</a></li>
+</ul>
+
+      </div>
+    </div>
+
+    <div class="Menu">
+      <a class="Menu-item Menu-item--leftIcon" href="/programacao">
+        <svg class="Menu-icon"><use xlink:href="https://www.clubefm.com.br/assets/icons-15d8139fb5812428e91529c55dd97dfdf2a9ac4f63c8d77777cb58046d34907c.svg#sliders"></use></svg>
+        Programação
+</a>
+      
+<a class="Menu-item Menu-item--leftIcon" data-menu="noticias" href="/noticias">
+  <svg class="Menu-icon"><use xlink:href="https://www.clubefm.com.br/assets/icons-15d8139fb5812428e91529c55dd97dfdf2a9ac4f63c8d77777cb58046d34907c.svg#file-text"></use></svg>
+  Notícias
+</a>
+<a class="Menu-item Menu-item--leftIcon" data-menu="promocoes" href="/promocoes">
+  <svg class="Menu-icon"><use xlink:href="https://www.clubefm.com.br/assets/icons-15d8139fb5812428e91529c55dd97dfdf2a9ac4f63c8d77777cb58046d34907c.svg#trending-up"></use></svg>
+  Promoções
+</a>
+<a class="Menu-item Menu-item--leftIcon" data-menu="como-ouvir" href="/ouvir">
+  <svg class="Menu-icon"><use xlink:href="https://www.clubefm.com.br/assets/icons-15d8139fb5812428e91529c55dd97dfdf2a9ac4f63c8d77777cb58046d34907c.svg#headphones"></use></svg>
+  Como ouvir
+</a>
+<a class="Menu-item Menu-item--leftIcon" data-menu="equipe" href="/equipe">
+  <svg class="Menu-icon"><use xlink:href="https://www.clubefm.com.br/assets/icons-15d8139fb5812428e91529c55dd97dfdf2a9ac4f63c8d77777cb58046d34907c.svg#users"></use></svg>
+  Equipe
+</a>
+
+      <button class="Menu-item" data-dropdown="menu-extra">
+        <svg class="Menu-icon"><use xlink:href="https://www.clubefm.com.br/assets/icons-15d8139fb5812428e91529c55dd97dfdf2a9ac4f63c8d77777cb58046d34907c.svg#more-horizontal"></use></svg>
+      </button>
+
+      <div class="Menu-extra Dropdown Dropdown--fromRight" id="menu-extra">
+        
+<a class="Menu-item Menu-item--leftIcon" data-menu="noticias" href="/noticias">
+  <svg class="Menu-icon"><use xlink:href="https://www.clubefm.com.br/assets/icons-15d8139fb5812428e91529c55dd97dfdf2a9ac4f63c8d77777cb58046d34907c.svg#file-text"></use></svg>
+  Notícias
+</a>
+<a class="Menu-item Menu-item--leftIcon" data-menu="promocoes" href="/promocoes">
+  <svg class="Menu-icon"><use xlink:href="https://www.clubefm.com.br/assets/icons-15d8139fb5812428e91529c55dd97dfdf2a9ac4f63c8d77777cb58046d34907c.svg#trending-up"></use></svg>
+  Promoções
+</a>
+<a class="Menu-item Menu-item--leftIcon" data-menu="como-ouvir" href="/ouvir">
+  <svg class="Menu-icon"><use xlink:href="https://www.clubefm.com.br/assets/icons-15d8139fb5812428e91529c55dd97dfdf2a9ac4f63c8d77777cb58046d34907c.svg#headphones"></use></svg>
+  Como ouvir
+</a>
+<a class="Menu-item Menu-item--leftIcon" data-menu="equipe" href="/equipe">
+  <svg class="Menu-icon"><use xlink:href="https://www.clubefm.com.br/assets/icons-15d8139fb5812428e91529c55dd97dfdf2a9ac4f63c8d77777cb58046d34907c.svg#users"></use></svg>
+  Equipe
+</a>
+
+        <a class="Menu-item Menu-item--leftIcon" href="/o-que-tocou">
+          <svg class="Menu-icon"><use xlink:href="https://www.clubefm.com.br/assets/icons-15d8139fb5812428e91529c55dd97dfdf2a9ac4f63c8d77777cb58046d34907c.svg#clock"></use></svg>
+          O que tocou
+</a>
+        <a class="Menu-item Menu-item--leftIcon" href="/eventos">
+          <svg class="Menu-icon"><use xlink:href="https://www.clubefm.com.br/assets/icons-15d8139fb5812428e91529c55dd97dfdf2a9ac4f63c8d77777cb58046d34907c.svg#calendar"></use></svg>
+          Eventos
+</a>
+        <a class="Menu-item Menu-item--leftIcon" href="/fotos">
+          <svg class="Menu-icon"><use xlink:href="https://www.clubefm.com.br/assets/icons-15d8139fb5812428e91529c55dd97dfdf2a9ac4f63c8d77777cb58046d34907c.svg#image"></use></svg>
+          Fotos
+</a>
+        <a class="Menu-item Menu-item--leftIcon" href="/musicas">
+          <svg class="Menu-icon"><use xlink:href="https://www.clubefm.com.br/assets/icons-15d8139fb5812428e91529c55dd97dfdf2a9ac4f63c8d77777cb58046d34907c.svg#music"></use></svg>
+          Top Hits
+</a>
+        <a class="Menu-item Menu-item--leftIcon" href="/tour-360">
+          <svg class="Menu-icon"><use xlink:href="https://www.clubefm.com.br/assets/icons-15d8139fb5812428e91529c55dd97dfdf2a9ac4f63c8d77777cb58046d34907c.svg#globe"></use></svg>
+          Tour 360º
+</a>
+        <a class="Menu-item Menu-item--leftIcon" href="/contato">
+          <svg class="Menu-icon"><use xlink:href="https://www.clubefm.com.br/assets/icons-15d8139fb5812428e91529c55dd97dfdf2a9ac4f63c8d77777cb58046d34907c.svg#mail"></use></svg>
+          Contato
+</a>      </div>
+    </div>
+  </div>
+</nav>
+
+<header class="HeaderLayout" data-turbolinks-permanent>
+  <div class="u-container">
+    <a class="HeaderLayout-brand" href="/">
+      <img alt="Clube FM 100.5 - Tá na Clube, Tá Legal! | Ribeirão Preto/SP" src="https://assets.clubefm.com.br/uploads/site/logo/1/logonova-site.png" />
+</a>
+    <div class="HeaderLayout-content">
+      <div class="HeaderStatus">
+        <button type="button" class="HeaderStatus-button" data-play>
+          <img alt="Beto Spigga" class="HeaderStatus-speakerPicture" data-status="speakerPicture" src="https://assets.clubefm.com.br/uploads/staff/image/23/content_55f9193a-0ba3-4234-a204-916b2b112c98.png" />
+
+          <span class="HeaderStatus-live">Ao vivo</span>
+        </button>
+
+        <div class="HeaderStatus-content">
+          <a class="HeaderStatus-speaker" href="/programacao">
+            <h4 class="HeaderStatus-speakerName" data-status="speaker">Beto Spigga</h4>
+            <h5 class="HeaderStatus-speakerProgram" data-status="program">Bom Dia Clube</h5>
+</a>
+          <div class="HeaderStatus-music">
+            <div class="HeaderStatus-musicArtist" data-status="artist">Tá na Clube, Tá Legal!</div>
+            <div class="HeaderStatus-musicTitle" data-status="music">Ouça nossa programação</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="HeaderContacts">
+        <div class="HeaderContacts-phones">
+          <a href="tel:+551639315000" class="HeaderContacts-phone">
+            <span class="HeaderContacts-phoneLabel">Clube Fone</span>
+            <span class="HeaderContacts-phoneNumber">(16) 3931-5000</span>
+          </a>
+
+          <a href="https://api.whatsapp.com/send?phone=551639315000" class="HeaderContacts-phone" target="_blank">
+            <span class="HeaderContacts-phoneLabel">WhatsApp da Clube</span>
+            <span class="HeaderContacts-phoneNumber">(16) 3931-5000</span>
+          </a>
+        </div>
+
+        <div class="HeaderContacts-actions">
+          <a class="HeaderContacts-action" data-popup="player" href="/aovivo">
+            <svg class="HeaderContacts-actionIcon"><use xlink:href="https://www.clubefm.com.br/assets/icons-15d8139fb5812428e91529c55dd97dfdf2a9ac4f63c8d77777cb58046d34907c.svg#play"></use></svg>
+            <span class="HeaderContacts-actionLabel">Ouvir</span>
+</a>
+          <a class="HeaderContacts-action" data-popup="player" href="/aovivo/video">
+            <svg class="HeaderContacts-actionIcon"><use xlink:href="https://www.clubefm.com.br/assets/icons-15d8139fb5812428e91529c55dd97dfdf2a9ac4f63c8d77777cb58046d34907c.svg#video"></use></svg>
+            <span class="HeaderContacts-actionLabel">Vídeo</span>
+</a>        </div>
+
+        <div class="HeaderContacts-buttons">
+          <a class="HeaderContacts-button" target="_blank" href="https://www.facebook.com/clubefm">
+            <svg class="HeaderContacts-buttonIcon"><use xlink:href="https://www.clubefm.com.br/assets/icons-15d8139fb5812428e91529c55dd97dfdf2a9ac4f63c8d77777cb58046d34907c.svg#facebook"></use></svg>
+</a>
+          <a class="HeaderContacts-button" target="_blank" href="https://www.instagram.com/clubefm">
+            <svg class="HeaderContacts-buttonIcon"><use xlink:href="https://www.clubefm.com.br/assets/icons-15d8139fb5812428e91529c55dd97dfdf2a9ac4f63c8d77777cb58046d34907c.svg#instagram"></use></svg>
+</a>
+          <a class="HeaderContacts-button" target="_blank" href="https://www.twitter.com/clubefm">
+            <svg class="HeaderContacts-buttonIcon"><use xlink:href="https://www.clubefm.com.br/assets/icons-15d8139fb5812428e91529c55dd97dfdf2a9ac4f63c8d77777cb58046d34907c.svg#twitter"></use></svg>
+</a>
+          <a class="HeaderContacts-button" target="_blank" href="https://www.youtube.com/clubefm">
+            <svg class="HeaderContacts-buttonIcon"><use xlink:href="https://www.clubefm.com.br/assets/icons-15d8139fb5812428e91529c55dd97dfdf2a9ac4f63c8d77777cb58046d34907c.svg#youtube"></use></svg>
+</a>        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="MainLayout">
+  <section class="Carousel">
+  <a class="Carousel-banner" target="_blank" href="https://embedstore.ingresse.com/tickets/www.ingresse.com/event/90317?passkey=tv">
+    <picture class="Carousel-picture">
+      <source media="(max-width: 480px)" srcset="https://assets.clubefm.com.br/uploads/banner/mobile_image/556/content_c480e43c-c9d1-4da8-b702-d7cd72b62dd9.png">
+      <img data-flickity-lazyload="https://assets.clubefm.com.br/uploads/banner/image/556/show_3eabd320-30d7-4330-8fd4-f3e3fe622932.png" alt="" class="Carousel-image">
+    </picture>
+
+</a>  <a class="Carousel-banner" target="_blank" href="https://embedstore.ingresse.com/tickets/www.ingresse.com/event/103810?passkey=clubefm">
+    <picture class="Carousel-picture">
+      <source media="(max-width: 480px)" srcset="https://assets.clubefm.com.br/uploads/banner/mobile_image/544/content_71625042-2c5a-4276-8932-f6689df9d6b8.png">
+      <img data-flickity-lazyload="https://assets.clubefm.com.br/uploads/banner/image/544/show_4ac4825c-d968-4285-ae72-14d333acf1cd.png" alt="" class="Carousel-image">
+    </picture>
+
+</a>  <a class="Carousel-banner" href="https://clube.com.br/opinando/">
+    <picture class="Carousel-picture">
+      <source media="(max-width: 480px)" srcset="https://assets.clubefm.com.br/uploads/banner/mobile_image/93/content_24bb39b4-5261-40f9-b5dc-7463b28ded20.png">
+      <img data-flickity-lazyload="https://assets.clubefm.com.br/uploads/banner/image/93/show_4c125aa5-bcc6-4e44-ab89-6efbf440cc75.png" alt="" class="Carousel-image">
+    </picture>
+
+</a>  <a class="Carousel-banner" href="https://api.whatsapp.com/send?phone=551639315000">
+    <picture class="Carousel-picture">
+      <source media="(max-width: 480px)" srcset="https://assets.clubefm.com.br/uploads/banner/mobile_image/14/content_9a4a6ef1-9482-4bbf-b22b-4ca530d8eb72.png">
+      <img data-flickity-lazyload="https://assets.clubefm.com.br/uploads/banner/image/14/show_7d95f84a-6bab-4ff9-a57c-cea773e888ae.png" alt="" class="Carousel-image">
+    </picture>
+
+</a>  <a class="Carousel-banner" target="_blank" href="https://instagram.com/clubefm">
+    <picture class="Carousel-picture">
+      <source media="(max-width: 480px)" srcset="https://assets.clubefm.com.br/uploads/banner/mobile_image/13/content_a34744de-104a-45ec-a24d-53ce5b2c1b4f.png">
+      <img data-flickity-lazyload="https://assets.clubefm.com.br/uploads/banner/image/13/show_f443db07-3d93-4a3c-8d47-c10999eba7a1.png" alt="" class="Carousel-image">
+    </picture>
+
+</a>  <a class="Carousel-banner" target="_blank" href="https://www.facebook.com/clubefm">
+    <picture class="Carousel-picture">
+      <source media="(max-width: 480px)" srcset="https://assets.clubefm.com.br/uploads/banner/mobile_image/17/content_4a56104c-c393-4dd8-90bb-681b13cd63d4.png">
+      <img data-flickity-lazyload="https://assets.clubefm.com.br/uploads/banner/image/17/show_22891da5-3ccf-4a32-b7cd-fc07a7f9637d.png" alt="" class="Carousel-image">
+    </picture>
+
+</a></section>
+
+
+<div class="Ad Ad--owner">
+  <a target="_blank" href="/ads/festival-repique">
+    <picture>
+      <source media="(max-width: 620px)" srcset="https://assets.clubefm.com.br/uploads/ad/mobile_image/23/to_ad_8df888e1-6cf2-4ecf-a544-7f68e913fc6e.png">
+      <source media="(min-width: 621px)" srcset="https://assets.clubefm.com.br/uploads/ad/image/23/to_ad_e9b0a5e2-36e1-468b-9f92-07f5554b0968.png">
+      <img alt="Festival Repique" src="https://assets.clubefm.com.br/uploads/ad/image/23/to_ad_e9b0a5e2-36e1-468b-9f92-07f5554b0968.png" />
+    </picture>
+</a></div>
+
+
+<div class="WithSidebar u-container">
+  <div class="WithSidebar-content">
+    <section class="Section Jukebox">
+      <div class="u-container">
+        <header class="Section-header">
+          <h2 class="Section-title">Peça sua Música</h2>
+          <p class="Section-description">Preencha os campos e fique ligado em nossa programação!</p>
+        </header>
+
+        <div class="Section-content">
+          <form class="Form RequestMusic" id="new_request_music" action="/musicas" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="vSBkR5wtWZR4B/ZAaVp4aDGjqVKQIXvP9tHrpsGkrdsswmt0SgtnWkwyv4BAqz+O3Nu6zfEGtpV0ZVaRJDlesA==" />
+            <div class="Form-fields">
+              <div class="Form-field Form-field--textData">
+                <label class="Form-label" for="request_music_name">Qual é o seu nome?</label>
+                <input minlength="3" required="required" type="text" name="request_music[name]" id="request_music_name" />
+              </div>
+
+              <div class="Form-field Form-field--listData">
+                <label class="Form-label" for="request_music_city_id">Qual é a sua cidade?</label>
+                <select autocomplete="off" required="required" data-city="true" name="request_music[city_id]" id="request_music_city_id"><option value=""></option>
+</select>
+              </div>
+
+              <div class="Form-field Form-field--listData">
+                <label class="Form-label" for="request_music_music_autocomplete">Qual música quer pedir?</label>
+                <select autocomplete="off" required="required" data-music="true" name="request_music[music_autocomplete]" id="request_music_music_autocomplete"><option value=""></option>
+</select>
+              </div>
+
+              <div class="Form-actions">
+                <button type="submit" class="Button">Enviar</button>
+              </div>
+            </div>
+</form>        </div>
+      </div>
+    </section>
+
+    <section class="Section">
+      <header class="Section-header Section-header--navy">
+  <h2 class="Section-title">Notícias</h2>
+  <div class="Section-actions">
+    <a class="Section-action Button Button--small Button--navy" href="/noticias">
+      <svg class="Button-icon"><use xlink:href="https://www.clubefm.com.br/assets/icons-15d8139fb5812428e91529c55dd97dfdf2a9ac4f63c8d77777cb58046d34907c.svg#file-text"></use></svg> Veja mais notícias!
+</a>  </div>
+</header>
+
+<div class="Section-content Grid Grid--spaced Grid--equalHeight">
+  <a class="NewsCard NewsCard--boxed" href="/noticias/policia-prende-suspeito-de-matar-ex-namorada-e-crianca-na-grande-sp">
+    <div class="NewsCard-media">
+      <img alt="Polícia prende suspeito de matar ex-namorada e criança na Grande SP" class="NewsCard-image" src="https://assets.clubefm.com.br/uploads/post/image/61733/thumb_4f7fbf89-aef3-4396-8b0b-61c99c75cfff.jpg" />
+    </div>
+    <div class="NewsCard-content">
+      <h3 class="NewsCard-title">Polícia prende suspeito de matar ex-namorada e criança na Grande SP</h3>
+      <span class="NewsCard-description">Homem de 41 anos foi localizado no Jaguaré após ter prisão temporária decretada</span>
+      <span class="NewsCard-readMore Button Button--mini">Continue lendo...</span>
+    </div>
+</a>  
+
+  <a class="NewsCard NewsCard--boxed" href="/noticias/policia-descobre-elo-entre-promotores-da-bolivia-e-lideres-do-pcc-confira">
+    <div class="NewsCard-media">
+      <img alt="Polícia descobre elo entre promotores da Bolívia e líderes do PCC; confira" class="NewsCard-image" src="https://assets.clubefm.com.br/uploads/post/image/61734/thumb_0d5eb677-4d54-4247-9278-6659d93a1028.jpeg" />
+    </div>
+    <div class="NewsCard-content">
+      <h3 class="NewsCard-title">Polícia descobre elo entre promotores da Bolívia e líderes do PCC; confira</h3>
+      <span class="NewsCard-description">Esquema de propina mensal e vazamento de informações para chefes da facção paulista resultou na prisão de procurador</span>
+      <span class="NewsCard-readMore Button Button--mini">Continue lendo...</span>
+    </div>
+</a>  
+  
+<div class="Ad Ad--afterNews">
+  <ins class="adsbygoogle" data-ad-client="ca-pub-5729882401714401" data-ad-slot="8514846628" data-ad-format="fluid" data-ad-layout-key="-f7-1s+c7-k-12z"></ins>
+</div>
+
+
+  <a class="NewsCard " href="/noticias/franciny-ehlke-da-a-luz-primeira-filha-com-empresario-bilionario">
+    <div class="NewsCard-media">
+      <img alt="Franciny Ehlke dá à luz primeira filha com empresário bilionário" class="NewsCard-image" src="https://assets.clubefm.com.br/uploads/post/image/61730/thumb_829dd3a8-a8c2-4fdf-8b10-6a7c0c8089b7.jpg" />
+    </div>
+    <div class="NewsCard-content">
+      <h3 class="NewsCard-title">Franciny Ehlke dá à luz primeira filha com empresário bilionário</h3>
+      <span class="NewsCard-description">Bebê nasceu em maternidade de São Paulo e recebeu nome de origem árabe</span>
+      <span class="NewsCard-readMore Button Button--mini">Continue lendo...</span>
+    </div>
+</a>  
+
+  <a class="NewsCard " href="/noticias/anitta-e-danilo-mesquita-ainda-estao-juntos-veja-o-que-se-sabe">
+    <div class="NewsCard-media">
+      <img alt="Anitta e Danilo Mesquita ainda estão juntos? Veja o que se sabe" class="NewsCard-image" src="https://assets.clubefm.com.br/uploads/post/image/61731/thumb_c5ff724e-a273-4aa4-827f-03995faffe4a.jpg" />
+    </div>
+    <div class="NewsCard-content">
+      <h3 class="NewsCard-title">Anitta e Danilo Mesquita ainda estão juntos? Veja o que se sabe</h3>
+      <span class="NewsCard-description">Ator desvia de pergunta sobre vida amorosa e diz: “A vida é particular e reservada, e tem que ser mantida assim”</span>
+      <span class="NewsCard-readMore Button Button--mini">Continue lendo...</span>
+    </div>
+</a>  
+
+  <a class="NewsCard " href="/noticias/sp-inicia-obras-para-transferir-sede-do-governo-ao-centro-historico">
+    <div class="NewsCard-media">
+      <img alt="SP inicia obras para transferir sede do governo ao centro histórico" class="NewsCard-image" src="https://assets.clubefm.com.br/uploads/post/image/61732/thumb_5071cfd4-b742-4ce5-b5f8-a6091b70cd7e.jpg" />
+    </div>
+    <div class="NewsCard-content">
+      <h3 class="NewsCard-title">SP inicia obras para transferir sede do governo ao centro histórico</h3>
+      <span class="NewsCard-description">Projeto de R$ 6 bi prevê novo terminal na Luz, demolição do Princesa Isabel e reunião de 22 mil servidores</span>
+      <span class="NewsCard-readMore Button Button--mini">Continue lendo...</span>
+    </div>
+</a>  
+
+  <a class="NewsCard " href="/noticias/icms-sobre-gasolina-diesel-e-gas-de-cozinha-subira-em-fevereiro">
+    <div class="NewsCard-media">
+      <img alt="ICMS sobre gasolina, diesel e gás de cozinha subirá em fevereiro" class="NewsCard-image" src="https://assets.clubefm.com.br/uploads/post/image/61728/thumb_bb8d729b-b12d-4613-b6af-db10a8837dec.jpg" />
+    </div>
+    <div class="NewsCard-content">
+      <h3 class="NewsCard-title">ICMS sobre gasolina, diesel e gás de cozinha subirá em fevereiro</h3>
+      <span class="NewsCard-description">Decisão do Confaz atinge São Paulo e demais estados; reajuste do diesel terá a maior alta, chegando a 11,1%</span>
+      <span class="NewsCard-readMore Button Button--mini">Continue lendo...</span>
+    </div>
+</a>  
+
+  <a class="NewsCard " href="/noticias/fenabrave-preve-aumento-de-12-8-na-venda-de-veiculos-novos-em-2026">
+    <div class="NewsCard-media">
+      <img alt="Fenabrave prevê aumento de 12,8% na venda de veículos novos em 2026" class="NewsCard-image" src="https://assets.clubefm.com.br/uploads/post/image/61725/thumb_113bffd7-ea2f-4957-91bb-55016663ec30.jpg" />
+    </div>
+    <div class="NewsCard-content">
+      <h3 class="NewsCard-title">Fenabrave prevê aumento de 12,8% na venda de veículos novos em 2026</h3>
+      <span class="NewsCard-description">A previsão é de que o setor, como um todo, deve vender quase 5,6 milhões de unidades no ano.</span>
+      <span class="NewsCard-readMore Button Button--mini">Continue lendo...</span>
+    </div>
+</a>  
+
+  <a class="NewsCard " href="/noticias/banco-central-surpreende-e-mantem-juros-basicos-em-13-75-ao-ano">
+    <div class="NewsCard-media">
+      <img alt="Banco Central surpreende e mantém juros básicos em 13,75% ao ano" class="NewsCard-image" src="https://assets.clubefm.com.br/uploads/post/image/61726/thumb_bfaaf44a-c23a-4ae3-a231-ea3964ce7907.jpg" />
+    </div>
+    <div class="NewsCard-content">
+      <h3 class="NewsCard-title">Banco Central surpreende e mantém juros básicos em 13,75% ao ano</h3>
+      <span class="NewsCard-description">Decisão surpreendeu o mercado financeiro, que esperava corte de 0,25 ponto percentual. No entanto, uma parte das instituições apostavam na manutenção da taxa.</span>
+      <span class="NewsCard-readMore Button Button--mini">Continue lendo...</span>
+    </div>
+</a>  
+
+  <a class="NewsCard " href="/noticias/master-do-paraguai-entenda-escandalo-bilionario-de-banco-digital">
+    <div class="NewsCard-media">
+      <img alt="&#39;Master do Paraguai&#39;: entenda escândalo bilionário de banco digital" class="NewsCard-image" src="https://assets.clubefm.com.br/uploads/post/image/61727/thumb_1cef3e42-c6a8-4d09-b0e9-7df8094919a4.jpg" />
+    </div>
+    <div class="NewsCard-content">
+      <h3 class="NewsCard-title">&#39;Master do Paraguai&#39;: entenda escândalo bilionário de banco digital</h3>
+      <span class="NewsCard-description">Queda do Banco Ueno bloqueia contas de 3 milhões de pessoas em Assunção, gerando protestos e prisões</span>
+      <span class="NewsCard-readMore Button Button--mini">Continue lendo...</span>
+    </div>
+</a>  
+
+</div>
+
+
+    </section>
+
+    <div class="u-sectionBrick">
+      <section class="Section Section--card Section--pink VideosSection">
+        <header class="Section-header">
+  <h2 class="Section-title">Vídeos</h2>
+</header>
+
+<div class="Secttion-content">
+  <a target="_blank" class="VideoCard" href="https://www.youtube.com/watch?v=SNyE65ETqn8">
+    <img alt="Thiaguinho no #QuintaldaClubeFM" class="VideoCard-thumbnail" src="https://assets.clubefm.com.br/uploads/video/image/23/content_3a9845f1-4a15-4952-9a4d-3746c4410070.png" />
+    <div class="VideoCard-content">
+      <h3 class="VideoCard-title">Thiaguinho no #QuintaldaClubeFM</h3>
+    </div>
+</a>  <a target="_blank" class="VideoCard" href="https://www.youtube.com/watch?v=OQuoQD_G19s">
+    <img alt="Luan Pereira no #QuintaldaClubeFM" class="VideoCard-thumbnail" src="https://assets.clubefm.com.br/uploads/video/image/22/content_ba3a5e25-8ddf-49c6-8caf-4637fea8f648.png" />
+    <div class="VideoCard-content">
+      <h3 class="VideoCard-title">Luan Pereira no #QuintaldaClubeFM</h3>
+    </div>
+</a></div>
+
+      </section>
+
+      <section class="Section Section--card Section--navy AppButtonSection">
+        <header class="Section-header">
+  <h2 class="Section-title">Aplicativos</h2>
+  <p class="Section-description">Escute a nossa programação a qualquer momento e em qualquer lugar. Baixe já no seu smartphone.</p>
+</header>
+
+<div class="Section-content">
+  <a class="AppButton" href="https://play.google.com/store/apps/details?id=br.com.cadena.smartradio.clubefmribeiraopreto&amp;hl=pt_BR">
+    <img alt="Google Play Store" class="AppButton-icon" src="//assets.clubefm.com.br/assets/brands/android-faab49559fa0312883be631aff0f2a153dd5c712d0879cee849495ef2cc8af8a.svg" />
+    <div class="AppButton-content">
+      <h3 class="AppButton-title">Android</h3>
+      <span class="AppButton-description">Google Play Store</span>
+    </div>
+</a>
+  <a class="AppButton" href="https://itunes.apple.com/br/app/clube-100-5-fm/id694263971?mt=8">
+    <img alt="Apple App Store" class="AppButton-icon" src="//assets.clubefm.com.br/assets/brands/apple-0c4b5dda167ca465fcb818ec741c8c259b2f6316a824fb19d9e04bca3d21d53f.svg" />
+    <div class="AppButton-content">
+      <h3 class="AppButton-title">iOS</h3>
+      <span class="AppButton-description">Apple App Store</span>
+    </div>
+</a>
+</div>
+
+      </section>
+
+      <section class="Section Section--card Section--orange GallerySection">
+        <header class="Section-header">
+  <h2 class="Section-title">Fotos</h2>
+  <div class="Section-actions">
+    <a class="Section-action Button Button--small Button--white" href="/fotos">
+      <svg class="Button-icon"><use xlink:href="https://www.clubefm.com.br/assets/icons-15d8139fb5812428e91529c55dd97dfdf2a9ac4f63c8d77777cb58046d34907c.svg#image"></use></svg> Veja mais fotos!
+</a>  </div>
+</header>
+
+<div class="Section-content">
+  <div class="Grid Grid--withGutter Grid--alignCenter">
+    <div class="Grid-cell u-size1of2">
+      <a class="PhotoCard PhotoCard--white" href="/fotos/festival-repique-ribeirao-preto">
+        <img alt="Foto Festival Repique Ribeirão Preto 1" class="PhotoCard-image" src="https://assets.clubefm.com.br/uploads/album_photo/file/15456/thumb_d99dd8a8-b2b0-431a-87f1-980780aa0c93.JPG" />
+        <div class="PhotoCard-content">
+          <h3 class="PhotoCard-title">Festival Repique Ribeirão Preto</h3>
+          <time class="PhotoCard-date" datetime="2025-10-11T00:00:00+00:00">11/10/2025</time>
+        </div>
+</a>    </div>
+    <div class="Grid-cell u-size1of2">
+      <a class="PhotoCard PhotoCard--white" href="/fotos/sorriso-as-antigas-ribeirao-preto">
+        <img alt="Foto Sorriso As Antigas Ribeirão Preto 1" class="PhotoCard-image" src="https://assets.clubefm.com.br/uploads/album_photo/file/15428/thumb_99149aa9-116d-45bf-b8ae-49be4447e2cf.jpeg" />
+        <div class="PhotoCard-content">
+          <h3 class="PhotoCard-title">Sorriso As Antigas Ribeirão Preto</h3>
+          <time class="PhotoCard-date" datetime="2024-08-17T00:00:00+00:00">17/08/2024</time>
+        </div>
+</a>    </div>
+  </div>
+</div>
+
+      </section>
+    </div>
+  </div>
+
+  <aside class="WithSidebar-sidebar">
+    <section class="SidebarSection SidebarSection--outline SidebarSection--terracotta">
+  <header class="SidebarSection-header">
+    <h2 class="SidebarSection-title">Promoções</h2>
+  </header>
+
+  <div class="SidebarSection-content">
+    <a class="PromotionItem" href="/promocoes/partiu-cinema-com-a-clube">
+      <h3 class="PromotionItem-title">Partiu Cinema com a Clube</h3>
+      <div class="PromotionItem-expiration">Promoção válida até <time datetime="2026-11-13T00:00:00+00:00" class="PromotionItem-expirationDate">13/11/2026</time>.</div>
+      <p class="PromotionItem-description">Faça já sua inscrição e concorra</p>
+</a>  </div>
+</section>
+
+
+    <section class="SidebarSection SidebarSection--outline SidebarSection--blue">
+  <header class="SidebarSection-header">
+    <h2 class="SidebarSection-title">Eventos</h2>
+  </header>
+
+  <div class="SidebarSection-content">
+    <a class="EventItem EventItem--simple" href="/eventos/ivete-clareou">
+      <time datetime="2026-11-28T14:00:00-03:00" class="EventItem-date">
+        <span class="EventItem-dateDay">28</span>
+        <span class="EventItem-dateMonth">11</span>
+      </time>
+      <h3 class="EventItem-title">Ivete Clareou</h3>
+      <span class="EventItem-place">Estádio do Comercial</span>
+</a>    <a class="EventItem EventItem--simple" href="/eventos/festival-repique">
+      <time datetime="2026-12-05T15:00:00-03:00" class="EventItem-date">
+        <span class="EventItem-dateDay">05</span>
+        <span class="EventItem-dateMonth">12</span>
+      </time>
+      <h3 class="EventItem-title">Festival Repique</h3>
+      <span class="EventItem-place">Estádio do Comercial</span>
+</a>  </div>
+</section>
+
+
+    <section class="SidebarSection SidebarSection--outline SidebarSection--terracotta">
+  <header class="SidebarSection-header">
+    <h2 class="SidebarSection-title">O que tocou?</h2>
+  </header>
+
+  <div class="SidebarSection-content">
+    <div class="MusicCard MusicCard--small">
+      <div class="MusicCard-flexContent">
+        <div class="MusicCard-content">
+          <div class="MusicCard-link">
+            <h3 class="MusicCard-artist">Sami Rico</h3>
+            <h4 class="MusicCard-music">último Romântico</h4>
+          </div>
+          <div>
+            <div class="MusicCard-actions">
+            </div>
+          </div>
+        </div>
+        <h4 class="MusicCard-music">09:37</h4>
+      </div>
+    </div>
+    <div class="MusicCard MusicCard--small">
+      <div class="MusicCard-flexContent">
+        <div class="MusicCard-content">
+          <div class="MusicCard-link">
+            <h3 class="MusicCard-artist">Henrique e Juliano</h3>
+            <h4 class="MusicCard-music">Seu Perfil</h4>
+          </div>
+          <div>
+            <div class="MusicCard-actions">
+            </div>
+          </div>
+        </div>
+        <h4 class="MusicCard-music">09:34</h4>
+      </div>
+    </div>
+    <div class="MusicCard MusicCard--small">
+      <div class="MusicCard-cover">
+        <img alt="Beijei A Cura" class="MusicCard-coverImage" src="https://assets.clubefm.com.br/uploads/artist/image/2238/content_f6e3d2cd-ae9b-425b-b8b1-cb393aa962a8.jpg" />
+      </div>
+      <div class="MusicCard-flexContent">
+        <div class="MusicCard-content">
+          <div class="MusicCard-link">
+            <h3 class="MusicCard-artist">Diego &amp; Victor Hugo</h3>
+            <h4 class="MusicCard-music">Beijei A Cura</h4>
+          </div>
+          <div>
+            <div class="MusicCard-actions">
+            </div>
+          </div>
+        </div>
+        <h4 class="MusicCard-music">09:31</h4>
+      </div>
+    </div>
+    <div class="SidebarSection-actions">
+      <a class="Button Button--outline Button--mini SidebarSection-button" href="/o-que-tocou">
+        <svg class="Button-icon"><use xlink:href="https://www.clubefm.com.br/assets/icons-15d8139fb5812428e91529c55dd97dfdf2a9ac4f63c8d77777cb58046d34907c.svg#sliders"></use></svg>
+        Veja a lista completa
+</a>    </div>
+  </div>
+</section>
+
+
+    <section class="TopHits SidebarSection SidebarSection--lightGray">
+  <header class="SidebarSection-header">
+    <h2 class="SidebarSection-title SidebarSection-title--red">Top Hits</h2>
+  </header>
+
+  <div class="SidebarSection-content">
+    <div class="MusicCard MusicCard--simple">
+      <a class="MusicCard-cover" href="/musicas/irmao-da-lua-amigo-das-estrelas-zeze-di-camargo">
+        <img alt="Irmão Da Lua, Amigo Das Estrelas" class="MusicCard-coverImage" src="https://assets.clubefm.com.br/uploads/artist/image/48948/content_00cd9890-da0b-4e31-9616-82f3d2e6bdb7.png" />
+</a>
+      <div class="MusicCard-content">
+        <div class="MusicCard-position">1</div>
+
+        <a class="MusicCard-link" href="/musicas/irmao-da-lua-amigo-das-estrelas-zeze-di-camargo">
+          <h3 class="MusicCard-artist">Zezé Di Camargo</h3>
+          <h4 class="MusicCard-music">Irmão Da Lua, Amigo Das Estrelas</h4>
+</a>
+        <div class="MusicCard-actions">
+          <button class="MusicCard-action Button Button--mini" data-source="https://assets.clubefm.com.br/uploads/music/sample/68267/8e484d2d-eb82-4b2a-8d0c-bd826ca1c5c6.mp3">
+            <svg class="Button-icon"><use xlink:href="https://www.clubefm.com.br/assets/icons-15d8139fb5812428e91529c55dd97dfdf2a9ac4f63c8d77777cb58046d34907c.svg#play"></use></svg> Escutar
+          </button>
+          <a class="MusicCard-action Button Button--mini" href="/musicas/irmao-da-lua-amigo-das-estrelas-zeze-di-camargo">
+            <svg class="Button-icon"><use xlink:href="https://www.clubefm.com.br/assets/icons-15d8139fb5812428e91529c55dd97dfdf2a9ac4f63c8d77777cb58046d34907c.svg#file-text"></use></svg> Letra
+</a>        </div>
+      </div>
+    </div>
+    <div class="MusicCard MusicCard--simple">
+      <a class="MusicCard-cover" href="/musicas/brinda-ae-menos-e-mais">
+        <img alt="Brinda Aê" class="MusicCard-coverImage" src="https://assets.clubefm.com.br/uploads/artist/image/48533/content_76423cdb-da0e-491e-bb1b-74e95cb42b12.png" />
+</a>
+      <div class="MusicCard-content">
+        <div class="MusicCard-position">2</div>
+
+        <a class="MusicCard-link" href="/musicas/brinda-ae-menos-e-mais">
+          <h3 class="MusicCard-artist">Menos é Mais</h3>
+          <h4 class="MusicCard-music">Brinda Aê</h4>
+</a>
+        <div class="MusicCard-actions">
+          <button class="MusicCard-action Button Button--mini" data-source="https://assets.clubefm.com.br/uploads/music/sample/68147/409a048b-afbf-4973-905b-b945ae6b0713.mp3">
+            <svg class="Button-icon"><use xlink:href="https://www.clubefm.com.br/assets/icons-15d8139fb5812428e91529c55dd97dfdf2a9ac4f63c8d77777cb58046d34907c.svg#play"></use></svg> Escutar
+          </button>
+          <a class="MusicCard-action Button Button--mini" href="/musicas/brinda-ae-menos-e-mais">
+            <svg class="Button-icon"><use xlink:href="https://www.clubefm.com.br/assets/icons-15d8139fb5812428e91529c55dd97dfdf2a9ac4f63c8d77777cb58046d34907c.svg#file-text"></use></svg> Letra
+</a>        </div>
+      </div>
+    </div>
+    <div class="MusicCard MusicCard--simple">
+      <a class="MusicCard-cover" href="/musicas/cadeira-cativa-ze-neto-cristiano">
+        <img alt="Cadeira Cativa" class="MusicCard-coverImage" src="https://assets.clubefm.com.br/uploads/artist/image/5/content_d25d6e9c-e848-4f30-b600-700225299818.jpg" />
+</a>
+      <div class="MusicCard-content">
+        <div class="MusicCard-position">3</div>
+
+        <a class="MusicCard-link" href="/musicas/cadeira-cativa-ze-neto-cristiano">
+          <h3 class="MusicCard-artist">Zé Neto &amp; Cristiano</h3>
+          <h4 class="MusicCard-music">Cadeira Cativa</h4>
+</a>
+        <div class="MusicCard-actions">
+          <button class="MusicCard-action Button Button--mini" data-source="https://assets.clubefm.com.br/uploads/music/sample/68105/510a52fa-0e21-4b79-9f6f-9eb74f8b720e.mp3">
+            <svg class="Button-icon"><use xlink:href="https://www.clubefm.com.br/assets/icons-15d8139fb5812428e91529c55dd97dfdf2a9ac4f63c8d77777cb58046d34907c.svg#play"></use></svg> Escutar
+          </button>
+          <a class="MusicCard-action Button Button--mini" href="/musicas/cadeira-cativa-ze-neto-cristiano">
+            <svg class="Button-icon"><use xlink:href="https://www.clubefm.com.br/assets/icons-15d8139fb5812428e91529c55dd97dfdf2a9ac4f63c8d77777cb58046d34907c.svg#file-text"></use></svg> Letra
+</a>        </div>
+      </div>
+    </div>
+    <div class="MusicCard MusicCard--simple">
+      <a class="MusicCard-cover" href="/musicas/nao-mexe-nas-minhas-gavetas-danilo-e-davi">
+        <img alt="Não Mexe Nas Minhas Gavetas" class="MusicCard-coverImage" src="https://assets.clubefm.com.br/uploads/artist/image/51874/content_43837bea-e1fe-4aa5-89fe-5fd6147647a9.png" />
+</a>
+      <div class="MusicCard-content">
+        <div class="MusicCard-position">4</div>
+
+        <a class="MusicCard-link" href="/musicas/nao-mexe-nas-minhas-gavetas-danilo-e-davi">
+          <h3 class="MusicCard-artist">Danilo e Davi</h3>
+          <h4 class="MusicCard-music">Não Mexe Nas Minhas Gavetas</h4>
+</a>
+        <div class="MusicCard-actions">
+          <button class="MusicCard-action Button Button--mini" data-source="https://assets.clubefm.com.br/uploads/music/sample/67432/3894f133-0d40-4619-bddb-bcc1e4f7dff2.mp3">
+            <svg class="Button-icon"><use xlink:href="https://www.clubefm.com.br/assets/icons-15d8139fb5812428e91529c55dd97dfdf2a9ac4f63c8d77777cb58046d34907c.svg#play"></use></svg> Escutar
+          </button>
+          <a class="MusicCard-action Button Button--mini" href="/musicas/nao-mexe-nas-minhas-gavetas-danilo-e-davi">
+            <svg class="Button-icon"><use xlink:href="https://www.clubefm.com.br/assets/icons-15d8139fb5812428e91529c55dd97dfdf2a9ac4f63c8d77777cb58046d34907c.svg#file-text"></use></svg> Letra
+</a>        </div>
+      </div>
+    </div>
+    <div class="MusicCard MusicCard--simple">
+      <a class="MusicCard-cover" href="/musicas/direitos-iguais-simone-mendes">
+        <img alt="Direitos Iguais" class="MusicCard-coverImage" src="https://assets.clubefm.com.br/uploads/artist/image/50195/content_e6abfd27-0105-4fa4-9cfc-69d61520ab15.jpg" />
+</a>
+      <div class="MusicCard-content">
+        <div class="MusicCard-position">5</div>
+
+        <a class="MusicCard-link" href="/musicas/direitos-iguais-simone-mendes">
+          <h3 class="MusicCard-artist">Simone Mendes</h3>
+          <h4 class="MusicCard-music">Direitos Iguais</h4>
+</a>
+        <div class="MusicCard-actions">
+          <button class="MusicCard-action Button Button--mini" data-source="https://assets.clubefm.com.br/uploads/music/sample/68692/f07a6160-45f2-47de-9040-977a367bbf43.mp3">
+            <svg class="Button-icon"><use xlink:href="https://www.clubefm.com.br/assets/icons-15d8139fb5812428e91529c55dd97dfdf2a9ac4f63c8d77777cb58046d34907c.svg#play"></use></svg> Escutar
+          </button>
+          <a class="MusicCard-action Button Button--mini" href="/musicas/direitos-iguais-simone-mendes">
+            <svg class="Button-icon"><use xlink:href="https://www.clubefm.com.br/assets/icons-15d8139fb5812428e91529c55dd97dfdf2a9ac4f63c8d77777cb58046d34907c.svg#file-text"></use></svg> Letra
+</a>        </div>
+      </div>
+    </div>
+    <div class="MusicCard MusicCard--simple">
+      <a class="MusicCard-cover" href="/musicas/olho-marrom-luan-santana">
+        <img alt="Olho Marrom" class="MusicCard-coverImage" src="https://assets.clubefm.com.br/uploads/artist/image/49/content_61be86bf-f396-4cd0-9505-42cf5d97fd4a.png" />
+</a>
+      <div class="MusicCard-content">
+        <div class="MusicCard-position">6</div>
+
+        <a class="MusicCard-link" href="/musicas/olho-marrom-luan-santana">
+          <h3 class="MusicCard-artist">Luan Santana</h3>
+          <h4 class="MusicCard-music">Olho Marrom</h4>
+</a>
+        <div class="MusicCard-actions">
+          <button class="MusicCard-action Button Button--mini" data-source="https://assets.clubefm.com.br/uploads/music/sample/65814/604ca766-4536-4db4-b834-06f1099f19d1.mp3">
+            <svg class="Button-icon"><use xlink:href="https://www.clubefm.com.br/assets/icons-15d8139fb5812428e91529c55dd97dfdf2a9ac4f63c8d77777cb58046d34907c.svg#play"></use></svg> Escutar
+          </button>
+          <a class="MusicCard-action Button Button--mini" href="/musicas/olho-marrom-luan-santana">
+            <svg class="Button-icon"><use xlink:href="https://www.clubefm.com.br/assets/icons-15d8139fb5812428e91529c55dd97dfdf2a9ac4f63c8d77777cb58046d34907c.svg#file-text"></use></svg> Letra
+</a>        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+  </aside>
+</div>
+
+<section class="Section Section--navy">
+  <div class="u-container">
+    <header class="Section-header">
+  <h2 class="Section-title">Tá na Clube, Tá Legal!</h2>
+</header>
+
+<div class="Section-content Masonry Masonry--3columns">
+</div>
+
+    
+<div class="Ad Ad--afterSocial">
+  <ins class="adsbygoogle" data-ad-client="ca-pub-5729882401714401" data-ad-slot="6207074020" data-ad-format="auto" data-full-width-responsive="true"></ins>
+</div>
+
+  </div>
+</section>
+
+</main>
+
+<footer class="FooterLayout" data-turbolinks-permanent>
+  <div class="u-container">
+    <div class="FooterLayout-contacts">
+      <a class="FooterLayout-brand" href="/">
+        <img alt="Clube FM 100.5 - Tá na Clube, Tá Legal! | Ribeirão Preto/SP" src="https://assets.clubefm.com.br/uploads/site/logo/1/logonova-site.png" />
+</a>
+      <address class="FooterLayout-address">
+        Av. 9 de julho, 606, Higienópolis<br>
+        14025-000, Ribeirão Preto - SP
+      </address>
+
+      <a href="tel:+551621013500" class="FooterLayout-phone">(16) 2101-3500</a>
+
+      <a class="FooterLayout-development" target="_blank" title="Desenvolvimento de sites em Ribeirão Preto" href="https://www.formaweb.com.br/">
+        <img alt="Desenvolvimento de sites em Ribeirão Preto" src="//assets.clubefm.com.br/assets/formaweb-ec2c1cd11e3fed6efde928ade1afe249d02b4f635f65f885c512a0d3b2237c89.svg" />
+</a>    </div>
+
+    <div class="FooterLayout-utils">
+      <form action="https://clubefm.us16.list-manage.com/subscribe/post?u=f91bbaef433d061aaa1dc5a1b&amp;amp;id=ef6a507034" method="post" target="_blank" novalidate class="Newsletter">
+        <label for="newsletter-email" class="Newsletter-label">Receba as novidades.</label>
+        <input type="email" class="Newsletter-field" name="EMAIL" id="newsletter-email" placeholder="Insira o seu e-mail.">
+        <input type="hidden" class="Newsletter-hidden" name="id" tabindex="-1" value="f91bbaef433d061aaa1dc5a1b">
+        <button type="submit" class="Newsletter-submit">Enviar</button>
+      </form>
+
+      <div class="FooterLayout-applications">
+        <h4 class="FooterLayout-applicationsTitle">Baixe o nosso aplicativo.</h4>
+        <a class="FooterLayout-application" target="_blank" href="https://itunes.apple.com/br/app/clube-100-5-fm/id694263971?mt=8">
+          <img alt="Baixe na App Store" class="FooterLayout-applicationIcon" src="//assets.clubefm.com.br/assets/brands/apple-0c4b5dda167ca465fcb818ec741c8c259b2f6316a824fb19d9e04bca3d21d53f.svg" />
+</a>        <a class="FooterLayout-application" target="_blank" href="https://play.google.com/store/apps/details?id=br.com.cadena.smartradio.clubefmribeiraopreto&amp;hl=pt_BR">
+          <img alt="Baixe no Google Play" class="FooterLayout-applicationIcon" src="//assets.clubefm.com.br/assets/brands/google-play-96416d1acb5c8102c4fb70591cb840c5ede012f09c28e6594ec8059f2ae77024.svg" />
+</a>              </div>
+    </div>
+
+    <div class="FooterLayout-owner">
+      <div class="Owner">
+        <a class="Owner-link" target="_blank" href="http://www.clube.com.br/">
+          <svg class="Owner-brand"><use xlink:href="https://www.clubefm.com.br/assets/icons-15d8139fb5812428e91529c55dd97dfdf2a9ac4f63c8d77777cb58046d34907c.svg#sistema-clube"></use></svg>
+          <strong class="Owner-title">Sistema Clube de Comunicação</strong>
+</a>
+        <ul class="Owner-networks">
+  <li><a class="Owner-network" target="_blank" href="https://www.clubefm.com.br/">Clube FM 100.5</a></li>
+  <li><a class="Owner-network" target="_blank" href="https://www.clubefm.com.br/saocarlos/">Clube FM 104.7</a></li>
+  <li><a class="Owner-network" target="_blank" href="http://www.melodyfm.com.br/">Melody FM</a></li>
+  <li><a class="Owner-network" target="_blank" href="http://www.106sertaneja.com.br/">106.7 FM</a></li>
+  <li><a class="Owner-network" target="_blank" href="https://www.91sertaneja.com.br/">91 FM</a></li>
+  <li><a class="Owner-network" target="_blank" href="http://radioclube1.com.br/">Clube 1 - 96.7FM</a></li>
+  <li><a class="Owner-network" target="_blank" href="http://www.clubehd.com.br/">Geração e Transmissão</a></li>
+  <li><a class="Owner-network" target="_blank" href="http://www.clubetv.com.br/">TV Clube</a></li>
+</ul>
+
+      </div>
+
+      <div class="FooterLayout-copyright">
+        © 2026, <strong>Sistema Clube de Comunicação</strong>.<br>
+        Todos os direitos reservados.<br>
+        <a href="https://clube.com.br/arquivos/privacidade.pdf" target="_blank" class="FooterLayout-policy">Política de Privacidade</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<div class="Player" data-stream="https://sc4s.cdn.upx.com:8069/stream" data-turbolinks-permanent>
+  <div class="u-container">
+    <div class="Player-controls">
+      <button class="Player-button" data-player="play">
+        <svg class="icon"><use xlink:href="https://www.clubefm.com.br/assets/icons-15d8139fb5812428e91529c55dd97dfdf2a9ac4f63c8d77777cb58046d34907c.svg#play"></use></svg>
+      </button>
+
+      <div class="Player-data Player-data--stream" data-player="data-stream">
+        <div class="Player-dataRow Player-dataRow--small"><strong class="Player-program" data-status="program">Bom Dia Clube</strong> com <strong class="Player-speaker" data-status="speaker">Beto Spigga</strong></div>
+        <div class="Player-dataRow" data-status="metadata"><span class="Player-artist" data-status="artist">Tá na Clube, Tá Legal!</span> - <span class="Player-music" data-status="music">Ouça nossa programação</span></div>
+      </div>
+      <div class="Player-data Player-data--file" data-player="data-file">
+        <div class="Player-dataRow"><span class="Player-artist" data-player="artist">Carregando...</span> - <span class="Player-music" data-player="music">Carregando...</span></div>
+        <div class="Player-dataRow"><button class="Button Button--mini" data-player="stream">Clique para escutar ao vivo.</button></div>
+      </div>
+    </div>
+
+    <div class="Player-actions">
+      <div class="Player-volumeControl">
+        <button class="Player-iconButton" data-player="volume-icon">
+          <svg class="icon"><use xlink:href="https://www.clubefm.com.br/assets/icons-15d8139fb5812428e91529c55dd97dfdf2a9ac4f63c8d77777cb58046d34907c.svg#volume-2"></use></svg>
+        </button>
+
+        <input type="range" min="0" max="1" value="1" step="0.1" class="Player-volume" data-player="volume">
+      </div>
+
+      <a class="Player-iconButton" data-player="popup" href="/aovivo/video">
+        <svg class="icon"><use xlink:href="https://www.clubefm.com.br/assets/icons-15d8139fb5812428e91529c55dd97dfdf2a9ac4f63c8d77777cb58046d34907c.svg#video"></use></svg>
+</a>
+      <a class="Player-iconButton" data-player="popup" href="/aovivo">
+        <svg class="icon"><use xlink:href="https://www.clubefm.com.br/assets/icons-15d8139fb5812428e91529c55dd97dfdf2a9ac4f63c8d77777cb58046d34907c.svg#maximize"></use></svg>
+</a>    </div>
+  </div>
+</div>
+
+
+
+</body>
+</html>
