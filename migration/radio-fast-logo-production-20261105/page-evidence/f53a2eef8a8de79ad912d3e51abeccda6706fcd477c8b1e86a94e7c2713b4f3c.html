@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Coast FM | Choose Your Location</title>
+<meta name="description" content="Choose your Coast FM broadcast area: Canary Islands or Northern Ireland.">
+<link rel="canonical" href="https://www.coast.fm/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Coast FM | Choose Your Location">
+<meta property="og:description" content="Local radio for the Canary Islands and Northern Ireland. Playing the music you love.">
+<meta property="og:image" content="https://www.coast.fm/landing-assets/canary-islands.jpg">
+<link rel="icon" type="image/png" href="landing-assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#06194a;--blue:#0b3d91;--blue2:#1157c8;--orange:#f29a0e;--orange-d:#d98200;--ink:#14213d;--mute:#5b6a85;--line:#dbe5f1;--bg:#eef4fb;
+--head:'Montserrat','Open Sans',system-ui,sans-serif;--body:'Open Sans',system-ui,-apple-system,'Segoe UI',sans-serif}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:var(--body);color:var(--ink);line-height:1.55;
+  background:radial-gradient(circle at 50% 30%,rgba(240,251,255,.95) 0,rgba(190,232,252,.55) 28%,rgba(150,210,245,0) 62%),repeating-conic-gradient(from 0deg at 50% 30%,#9fd8f7 0deg 6deg,#86cbf2 6deg 12deg);
+  background-attachment:fixed;background-color:#86cbf2}
+a{color:inherit}
+.shell{max-width:1240px;margin:0 auto;background:#fff;min-height:100vh;display:flex;flex-direction:column;box-shadow:0 0 0 6px rgba(255,255,255,.6),0 0 50px rgba(20,100,160,.28)}
+/* header */
+.top{background:#fff;border-bottom:4px solid var(--orange);padding:26px 24px 20px;text-align:center}
+.top img{height:132px;width:auto;display:block;margin:0 auto}
+.tag{margin:10px 0 0;font:700 .78rem/1 var(--head);letter-spacing:.22em;text-transform:uppercase;color:var(--blue)}
+/* intro */
+.hero{position:relative;overflow:hidden;color:#fff;text-align:center;padding:54px 24px 112px;background:linear-gradient(135deg,#042a62 0%,#0a5aa8 55%,#12b3d6 100%)}
+.hero:before{content:"";position:absolute;left:50%;top:120%;width:1800px;height:1800px;margin-left:-900px;border-radius:50%;background:repeating-conic-gradient(from 0deg,rgba(255,255,255,.07) 0deg 5deg,rgba(255,255,255,0) 5deg 10deg);pointer-events:none}
+.hero>*{position:relative}
+.eyebrow{display:inline-block;font:700 .78rem/1 var(--head);letter-spacing:.2em;text-transform:uppercase;color:#ffd36b;margin-bottom:14px}
+.hero h1{margin:0;font:800 clamp(2.1rem,5vw,3.4rem)/1.08 var(--head);letter-spacing:-.02em}
+.hero p{max-width:640px;margin:16px auto 0;font-size:1.1rem;color:rgba(255,255,255,.9)}
+/* cards */
+.main{padding:0 28px 8px;margin-top:-72px;position:relative}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:28px;max-width:1120px;margin:0 auto}
+.card{background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 2px 4px rgba(6,25,74,.06),0 22px 50px rgba(6,25,74,.22);display:flex;flex-direction:column;border-top:5px solid var(--orange);transition:transform .25s,box-shadow .25s}
+.card:hover,.card:focus-within{transform:translateY(-5px);box-shadow:0 2px 4px rgba(6,25,74,.06),0 30px 60px rgba(6,25,74,.28)}
+.photo{position:relative;aspect-ratio:16/9;overflow:hidden;background:var(--bg)}
+.photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.card:hover .photo img{transform:scale(1.05)}
+.photo:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,25,74,0) 45%,rgba(6,25,74,.7) 100%)}
+.photo .where{position:absolute;left:20px;bottom:16px;z-index:1;color:#fff;font:700 .8rem/1.3 var(--head);letter-spacing:.14em;text-transform:uppercase;text-shadow:0 1px 8px rgba(0,0,0,.4)}
+.body{padding:24px 26px 28px;display:flex;flex-direction:column;gap:14px;flex:1}
+.card h2{margin:0;font:800 1.9rem/1.1 var(--head);color:var(--navy);letter-spacing:-.01em}
+.card p{margin:0;color:var(--mute)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font:700 .78rem/1 var(--head);color:var(--blue);background:var(--bg);border:1px solid var(--line);border-radius:99px;padding:8px 13px}
+.chip.fm{background:#fff3dc;border-color:#f6cf86;color:#8a5200}
+.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:auto;padding-top:6px}
+.btn{display:inline-flex;align-items:center;gap:9px;border-radius:99px;padding:14px 26px;font:800 .95rem/1 var(--head);text-decoration:none;transition:background .2s,color .2s,box-shadow .2s}
+.btn.primary{background:var(--orange);color:var(--navy)}
+.btn.primary:hover{background:var(--orange-d);color:#fff}
+.btn.ghost{color:var(--navy);box-shadow:inset 0 0 0 2px var(--navy)}
+.btn.ghost:hover{background:var(--navy);color:#fff}
+.btn svg{width:16px;height:16px;fill:currentColor}
+a:focus-visible{outline:3px solid var(--orange);outline-offset:3px}
+/* welcome back */
+.back{display:none;max-width:1120px;margin:22px auto 0;padding:14px 20px;background:var(--bg);border:1px solid var(--line);border-radius:12px;font-weight:600;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.back a{color:var(--blue);font-weight:800}
+/* ways */
+.ways{max-width:1120px;margin:34px auto 0;padding:26px 0 8px;border-top:1px solid var(--line);text-align:center}
+.ways h3{margin:0 0 14px;font:700 .78rem/1 var(--head);letter-spacing:.2em;text-transform:uppercase;color:var(--mute)}
+.ways ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.ways li{font:700 .9rem/1 var(--head);color:var(--navy);background:#fff;border:1px solid var(--line);border-radius:99px;padding:11px 20px;box-shadow:0 1px 2px rgba(6,25,74,.05)}
+.note{text-align:center;color:var(--mute);font-size:.92rem;margin:18px 0 36px}
+/* footer */
+footer{margin-top:auto;background:var(--navy);color:rgba(255,255,255,.82);padding:26px 24px;font-size:.9rem}
+.foot{max-width:1120px;margin:0 auto;display:flex;flex-wrap:wrap;gap:10px 28px;justify-content:space-between;align-items:center}
+footer a{color:#ffd36b;text-decoration:none}footer a:hover{text-decoration:underline}
+@media (max-width:820px){
+  .top img{height:96px}.top{padding:18px 16px 14px}
+  .hero{padding:36px 18px 100px}.hero p{font-size:1rem}
+  .main{padding:0 14px;margin-top:-64px}
+  .cards{grid-template-columns:1fr;gap:20px}
+  .card h2{font-size:1.6rem}.body{padding:20px 20px 24px}
+  .btn{padding:13px 22px}.actions .btn{flex:1 1 auto;justify-content:center}
+  .shell{box-shadow:none}.foot{justify-content:center;text-align:center}
+}
+@media (min-width:1800px){.shell{zoom:1.2;min-height:calc(100vh/1.2)}}
+@media (min-width:2200px){.shell{zoom:1.45;min-height:calc(100vh/1.45)}}
+@media (min-width:2800px){.shell{zoom:1.85;min-height:calc(100vh/1.85)}}
+@media (min-width:3400px){.shell{zoom:2.2;min-height:calc(100vh/2.2)}}
+@media (min-width:4000px){.shell{zoom:2.6;min-height:calc(100vh/2.6)}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="shell">
+  <header class="top">
+    <a href="./" aria-label="Coast FM home"><img src="landing-assets/logo.svg" alt="Coast FM"></a>
+    <p class="tag">Playing the music you love</p>
+  </header>
+
+  <section class="hero">
+    <span class="eyebrow">Choose your local station</span>
+    <h1>Welcome to Coast FM</h1>
+    <p>Coast FM broadcasts across the Canary Islands and Northern Ireland on FM, DAB, online and your smart speaker, with the latest local news, information and the music you love.</p>
+  </section>
+
+  <main class="main">
+    <div class="cards">
+      <article class="card" id="ci">
+        <div class="photo"><img src="landing-assets/canary-islands.jpg" alt="Sunshades on a Tenerife beach" width="1200" height="675"><span class="where">Tenerife &middot; Gran Canaria &middot; Lanzarote &middot; Fuerteventura &middot; La Gomera</span></div>
+        <div class="body">
+          <h2>Canary Islands</h2>
+          <p>For Tenerife, Gran Canaria, Lanzarote, Fuerteventura and the wider Canary Islands audience.</p>
+          <div class="chips"><span class="chip fm">FM 102&ndash;103</span><span class="chip">Online</span><span class="chip">Smart speakers</span></div>
+          <div class="actions">
+            <a class="btn primary" href="https://www.coast.fm/canary-islands/index.html" data-site="canary-islands">Enter Canary Islands site <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4l-1.4 1.4 5.6 5.6H4v2h12.2l-5.6 5.6L12 20l8-8z"/></svg></a>
+            <a class="btn ghost" href="https://www.coast.fm/canary-islands/player.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg> Listen live</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="card" id="ni">
+        <div class="photo"><img src="landing-assets/northern-ireland.jpg" alt="Titanic Belfast at sunset" width="1200" height="675"><span class="where">Belfast &middot; Newry &middot; Craigavon &middot; Banbridge &middot; Enniskillen</span></div>
+        <div class="body">
+          <h2>Northern Ireland</h2>
+          <p>A tailored Coast FM experience for listeners, advertisers and partners across Northern Ireland.</p>
+          <div class="chips"><span class="chip fm">DAB+</span><span class="chip">Online</span><span class="chip">Smart speakers</span></div>
+          <div class="actions">
+            <a class="btn primary" href="https://www.coast.fm/northern-ireland/index.html" data-site="northern-ireland">Enter Northern Ireland site <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4l-1.4 1.4 5.6 5.6H4v2h12.2l-5.6 5.6L12 20l8-8z"/></svg></a>
+            <a class="btn ghost" href="https://www.coast.fm/northern-ireland/player.html?station=northern-ireland"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg> Listen live</a>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <div class="back" id="back" role="status"><span>Welcome back. Carry on to <strong id="backName"></strong>?</span><a id="backLink" href="#">Continue &rarr;</a></div>
+
+    <section class="ways" aria-label="Ways to listen">
+      <h3>Listen your way</h3>
+      <ul><li>FM</li><li>DAB+</li><li>Online</li><li>Smart speakers</li></ul>
+    </section>
+    <p class="note">You can bookmark either location directly once selected.</p>
+  </main>
+
+  <footer>
+    <div class="foot">
+      <span>&copy; 2026 Coast FM and <a href="https://www.airwavedesign.ie/" target="_blank" rel="noopener">Airwave Design</a></span>
+      <span><a href="mailto:studio@coast.fm">studio@coast.fm</a></span>
+    </div>
+  </footer>
+</div>
+<script>
+(function(){
+  var names={'canary-islands':'the Canary Islands site','northern-ireland':'the Northern Ireland site'};
+  try{
+    document.querySelectorAll('[data-site]').forEach(function(a){a.addEventListener('click',function(){try{localStorage.setItem('coastfm_site',a.getAttribute('data-site'));}catch(e){}});});
+    var s=localStorage.getItem('coastfm_site');
+    if(s&&names[s]){var b=document.getElementById('back');document.getElementById('backName').textContent=names[s];document.getElementById('backLink').href='https://www.coast.fm/'+s+'/index.html';b.style.display='flex';}
+  }catch(e){}
+})();
+</script>
+</body>
+</html>
