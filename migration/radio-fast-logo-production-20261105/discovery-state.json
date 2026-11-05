@@ -732372,7 +732372,10 @@
         "http://radio.o2promo.ru:8030/radio"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Operation timed out after 8000 milliseconds with 246400 bytes received\n"
+      ]
     },
     "4097:0:2:99E9:471C:ED:0:0:0:0": {
       "name": "Радио Дача Нижний Новгород 104.5 FM",
@@ -732385,7 +732388,10 @@
         "https://top-radio.ru/nizhnij-novgorod/dacha"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 404\n"
+      ]
     },
     "4097:0:2:AA6:306E:ED:0:0:0:0": {
       "name": "радио Дача Новосибирск",
@@ -732398,7 +732404,11 @@
         "http://radiodacha.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Failed to connect to www.radiodacha.ru port 443 after 3001 ms: Timeout was reached\n",
+        "curl: (28) SSL connection timeout\n"
+      ]
     },
     "4097:0:2:91E1:46E:ED:0:0:0:0": {
       "name": "Радио Дача Ростов-на-Дону 103.3 FM",
@@ -732411,7 +732421,10 @@
         "https://top-radio.ru/rostov-na-donu/dacha"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) SSL connection timeout\n"
+      ]
     },
     "4097:0:2:FE10:8C62:ED:0:0:0:0": {
       "name": "Радио Дача Самара 102.1 FM",
@@ -732424,7 +732437,10 @@
         "https://top-radio.ru/samara/dacha"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 404\n"
+      ]
     },
     "4097:0:2:C5A:3CAC:ED:0:0:0:0": {
       "name": "Радио Дача Санкт-Петербург 97.0 FM",
@@ -732437,7 +732453,10 @@
         "https://top-radio.ru/sankt-peterburg/dacha"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 404\n"
+      ]
     },
     "4097:0:2:8581:3E82:ED:0:0:0:0": {
       "name": "Радио Дача Смоленск 89.9 FM",
@@ -732450,7 +732469,10 @@
         "https://top-radio.ru/smolensk/dacha"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) SSL connection timeout\n"
+      ]
     },
     "4097:0:2:16FB:5416:ED:0:0:0:0": {
       "name": "Радио Дача Тверь 107.2 FM",
@@ -732463,7 +732485,10 @@
         "https://top-radio.ru/tver/dacha"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 404\n"
+      ]
     },
     "4097:0:2:B5E5:DF65:ED:0:0:0:0": {
       "name": "Радио Дача Тула 106.9 FM",
@@ -732476,7 +732501,10 @@
         "https://top-radio.ru/tula/dacha"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) SSL connection timeout\n"
+      ]
     },
     "4097:0:2:D1F1:629A:ED:0:0:0:0": {
       "name": "Радио Джаз 89,1FM",
@@ -732501,7 +732529,34 @@
         "http://mintmusic.fm/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://static.tildacdn.com/tild6237-6463-4866-a664-373936303361/Wild_Mint_10801080.png",
+        "final_url": "https://static.tildacdn.com/tild6237-6463-4866-a664-373936303361/Wild_Mint_10801080.png",
+        "path": "originals/d175d554837a00071fd75c12a3ecf94095c10250dd28afbd2f5fee39fc856488.img",
+        "sha256": "d175d554837a00071fd75c12a3ecf94095c10250dd28afbd2f5fee39fc856488",
+        "bytes": 404870,
+        "dimensions": [
+          1080,
+          1080
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "http://mintmusic.fm/",
+        "final_url": "http://mintmusic.fm/",
+        "original_html_sha256": "7397343866bace3d9475c83547a03b1f2e96d334fcf28fee43f742ca3cd35d94",
+        "path": "page-evidence/7397343866bace3d9475c83547a03b1f2e96d334fcf28fee43f742ca3cd35d94.json",
+        "titles": [
+          "Радио «Дикая Мята»"
+        ],
+        "image_urls": [
+          "https://static.tildacdn.com/tild6237-6463-4866-a664-373936303361/Wild_Mint_10801080.png",
+          "https://static.tildacdn.com/tild3565-6461-4336-b230-643164366565/19201080.jpg"
+        ],
+        "named_logos": {}
+      },
+      "ocr_text": "ee\n\nA\n\n>\n\nG\n\nTy\n\nWA we\n\n\\4 YS\n\nUE a\n\n=\n\nfs\n\nNK (Ss f\n\nSa,\n\nss)\n\n(i S=\n\nWis\n\ni-AANO\n\naka\n"
     },
     "4097:0:2:DDE6:F3F1:ED:0:0:0:0": {
       "name": "Радио для двоих",
@@ -732527,7 +732582,10 @@
         "https://top-radio.ru/kostroma/dlya-dvoix"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Failed to connect to top-radio.ru port 443 after 3000 ms: Timeout was reached\n"
+      ]
     },
     "4097:0:2:2ADC:CD4D:ED:0:0:0:0": {
       "name": "Радио Забытая Кассета",
@@ -732540,7 +732598,39 @@
         "https://radio-casseta.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://radio-casseta.ru/apple-touch-icon.png",
+        "final_url": "https://radio-casseta.ru/apple-touch-icon.png",
+        "path": "originals/5c806d97e4d2bbc490010f7087e9eb4c6d116486476f301ef1726c99d078b91a.img",
+        "sha256": "5c806d97e4d2bbc490010f7087e9eb4c6d116486476f301ef1726c99d078b91a",
+        "bytes": 45414,
+        "dimensions": [
+          180,
+          180
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://radio-casseta.ru/",
+        "final_url": "https://radio-casseta.ru/",
+        "original_html_sha256": "6fbb5b9ed13595c4aa0035ad5f51092023f9fb8a54dfd993f7076319ae4a0996",
+        "path": "page-evidence/6fbb5b9ed13595c4aa0035ad5f51092023f9fb8a54dfd993f7076319ae4a0996.json",
+        "titles": [
+          "Радио «Забытая кассета» — музыка 80-х, ретро-хиты и советская эстрада онлайн",
+          "Радио  «Забытая кассета» "
+        ],
+        "image_urls": [
+          "https://radio-casseta.ru/assets/radio-logo%201.png",
+          "https://radio-casseta.ru/assets/radio-logo.png",
+          "https://radio-casseta.ru/apple-touch-icon.png"
+        ],
+        "named_logos": {
+          "https://radio-casseta.ru/assets/radio-logo.png": "  ",
+          "https://radio-casseta.ru/assets/radio-logo%201.png": "  "
+        }
+      },
+      "ocr_text": "(=)\n"
     },
     "4097:0:2:FFEC:7FF7:ED:0:0:0:0": {
       "name": "Радио Завод",
@@ -732553,7 +732643,8 @@
         "https://4m3.ru/radio#zavod"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:4049:70A1:ED:0:0:0:0": {
       "name": "Радио ЗВЕЗДА - Центральная Россия",
@@ -732566,7 +732657,8 @@
         "https://radiozvezda.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:3E65:6CA5:ED:0:0:0:0": {
       "name": "Радиоканал Мелодия",
@@ -732579,7 +732671,10 @@
         "http://melodiafm.spb.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (6) Could not resolve host: melodiafm.spb.ru\n"
+      ]
     },
     "4097:0:2:9A61:CA09:ED:0:0:0:0": {
       "name": "РадиоКанск",
@@ -732592,7 +732687,10 @@
         "https://www.radiokansk.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (92) Invalid HTTP header field was received: frame type: 1, stream: 1, name: [upgrade], value: [h2]\n"
+      ]
     },
     "4097:0:2:7E8D:8BF3:ED:0:0:0:0": {
       "name": "Радио Карл",
@@ -732605,7 +732703,36 @@
         "http://karl.volna.top/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://volna.top/logoradio/karl.webp",
+        "final_url": "https://volna.top/logoradio/karl.webp",
+        "path": "originals/05110c64b6c7bf33dc74b02286eb1f4f3c5ad6cd43bc4568f568209a956c6cb0.img",
+        "sha256": "05110c64b6c7bf33dc74b02286eb1f4f3c5ad6cd43bc4568f568209a956c6cb0",
+        "bytes": 40110,
+        "dimensions": [
+          1300,
+          1300
+        ],
+        "format": "WEBP"
+      },
+      "page": {
+        "url": "http://karl.volna.top/",
+        "final_url": "https://karl.volna.top/",
+        "original_html_sha256": "1d5d3386e0d1c53271810b661254549502e1d4625d3a27c1ae9cd03f20a5bc83",
+        "path": "page-evidence/1d5d3386e0d1c53271810b661254549502e1d4625d3a27c1ae9cd03f20a5bc83.json",
+        "titles": [
+          "Радио КАРЛ — слушать онлайн",
+          "Загрузка..."
+        ],
+        "image_urls": [
+          "https://volna.top/logoradio/karl.webp"
+        ],
+        "named_logos": {
+          "https://volna.top/logoradio/karl.webp": "  "
+        }
+      },
+      "ocr_text": "di\n\nAu\n\n\"KAP r\n"
     },
     "4097:0:2:E83F:48B7:ED:0:0:0:0": {
       "name": "РАДИО КАФЕ - Radio CAFE",
@@ -732618,7 +732745,8 @@
         "https://radiocafe.volna.top/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:F23D:4EF0:ED:0:0:0:0": {
       "name": "Радио Книга",
@@ -732631,7 +732759,8 @@
         "https://radiokniga.com/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:3207:BF32:ED:0:0:0:0": {
       "name": "Радио Комета Донецк 98.6 FM",
@@ -732644,7 +732773,10 @@
         "https://top-radio.pro/doneczk/kometa"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 500\n"
+      ]
     },
     "4097:0:2:3A91:71F4:ED:0:0:0:0": {
       "name": "Радио «Комсомольская Правда» | КП Россия",
@@ -732657,7 +732789,36 @@
         "https://www.kp.ru/radio"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://s01.stc.yc.kpcdn.net/s0/version-2-1-642/adaptive/favicon-128.png",
+        "final_url": "https://s01.stc.yc.kpcdn.net/s0/version-2-1-642/adaptive/favicon-128.png",
+        "path": "originals/745806ff13997d7978f1d4675c72c7141791093df37411b1d23cf52b17fe14e1.img",
+        "sha256": "745806ff13997d7978f1d4675c72c7141791093df37411b1d23cf52b17fe14e1",
+        "bytes": 2778,
+        "dimensions": [
+          128,
+          128
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://www.kp.ru/radio",
+        "final_url": "https://www.kp.ru/radio/",
+        "original_html_sha256": "595ebfd9faf745e609b9abeff8ed8f13639241e9366143040dcfb4c061bc0562",
+        "path": "page-evidence/595ebfd9faf745e609b9abeff8ed8f13639241e9366143040dcfb4c061bc0562.json",
+        "titles": [
+          "Радио «Комсомольская Правда» - KP.RU",
+          "Радио «Комсомольская Правда»"
+        ],
+        "image_urls": [
+          "https://s01.stc.yc.kpcdn.net/s0/version-2-1-642/adaptive/favicon-128.png",
+          "https://s01.stc.yc.kpcdn.net/s0/version-2-1-642/adaptive/favicon-16.png",
+          "https://s01.stc.yc.kpcdn.net/s0/version-2-1-642/adaptive/favicon-32.png"
+        ],
+        "named_logos": {}
+      },
+      "ocr_text": ""
     },
     "4097:0:2:9E00:B6C0:ED:0:0:0:0": {
       "name": "Радио Краснодар",
@@ -732682,7 +732843,36 @@
         "https://cultradio.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://cdn.smotrim.ru/static/front/favicon/android-chrome-192x192.png",
+        "final_url": "https://cdn.smotrim.ru/static/front/favicon/android-chrome-192x192.png",
+        "path": "originals/0d97ee62e00ad4aac46f9914b118ee872504a23b63e370b1ca7bf074f133905a.img",
+        "sha256": "0d97ee62e00ad4aac46f9914b118ee872504a23b63e370b1ca7bf074f133905a",
+        "bytes": 44621,
+        "dimensions": [
+          192,
+          192
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://cultradio.ru/",
+        "final_url": "https://smotrim.ru/channel/200",
+        "original_html_sha256": "e238dddafa6fd6aed8538139eeb8c58f58f302957405f374e246dcff64ad27b1",
+        "path": "page-evidence/e238dddafa6fd6aed8538139eeb8c58f58f302957405f374e246dcff64ad27b1.json",
+        "titles": [
+          "Радио Культура онлайн - слушать эфир радио бесплатно на Смотрим",
+          "Радио Культура онлайн"
+        ],
+        "image_urls": [
+          "https://cdn.smotrim.ru/static/front/favicon/android-chrome-192x192.png",
+          "https://cdn.smotrim.ru/static/front/favicon/android-chrome-512x512.png",
+          "https://cdn.smotrim.ru/static/front/favicon/apple-touch-icon.png"
+        ],
+        "named_logos": {}
+      },
+      "ocr_text": "eMO|DMM\n"
     },
     "4097:0:2:146:4CBE:ED:0:0:0:0": {
       "name": "Радио Культура / Radio Kultura",
@@ -732695,7 +732885,36 @@
         "http://www.cultradio.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://cdn.smotrim.ru/static/front/favicon/android-chrome-192x192.png",
+        "final_url": "https://cdn.smotrim.ru/static/front/favicon/android-chrome-192x192.png",
+        "path": "originals/0d97ee62e00ad4aac46f9914b118ee872504a23b63e370b1ca7bf074f133905a.img",
+        "sha256": "0d97ee62e00ad4aac46f9914b118ee872504a23b63e370b1ca7bf074f133905a",
+        "bytes": 44621,
+        "dimensions": [
+          192,
+          192
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "http://www.cultradio.ru/",
+        "final_url": "https://smotrim.ru/channel/200",
+        "original_html_sha256": "e238dddafa6fd6aed8538139eeb8c58f58f302957405f374e246dcff64ad27b1",
+        "path": "page-evidence/e238dddafa6fd6aed8538139eeb8c58f58f302957405f374e246dcff64ad27b1.json",
+        "titles": [
+          "Радио Культура онлайн - слушать эфир радио бесплатно на Смотрим",
+          "Радио Культура онлайн"
+        ],
+        "image_urls": [
+          "https://cdn.smotrim.ru/static/front/favicon/android-chrome-192x192.png",
+          "https://cdn.smotrim.ru/static/front/favicon/android-chrome-512x512.png",
+          "https://cdn.smotrim.ru/static/front/favicon/apple-touch-icon.png"
+        ],
+        "named_logos": {}
+      },
+      "ocr_text": "eMO|DMM\n"
     },
     "4097:0:2:8412:30E4:ED:0:0:0:0": {
       "name": "РадиоЛАМПА.FM",
@@ -732708,7 +732927,10 @@
         "https://listen9.myradio24.com/180667"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Operation timed out after 8001 milliseconds with 229167 bytes received\n"
+      ]
     },
     "4097:0:2:43B2:F4B3:ED:0:0:0:0": {
       "name": "Радио Лихие Девяностые",
@@ -732721,7 +732943,8 @@
         "https://all-radio.online/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:E6F2:7158:ED:0:0:0:0": {
       "name": "Радио Любимые хиты",
@@ -732734,7 +732957,34 @@
         "http://lyubimyehity.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://static.tildacdn.com/tild3863-6136-4431-a434-663433643732/bdf29aab-e6cd-4a58-9.png",
+        "final_url": "https://static.tildacdn.com/tild3863-6136-4431-a434-663433643732/bdf29aab-e6cd-4a58-9.png",
+        "path": "originals/e0dbeb7d8d6f2605f49fc5e2b0585d829af1c933ec5a1d4df2c95cc2452444c4.img",
+        "sha256": "e0dbeb7d8d6f2605f49fc5e2b0585d829af1c933ec5a1d4df2c95cc2452444c4",
+        "bytes": 503321,
+        "dimensions": [
+          1657,
+          1657
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "http://lyubimyehity.ru/",
+        "final_url": "http://lyubimyehity.ru/",
+        "original_html_sha256": "07a490584a502c9b401c05f71c6f8b3d8f5a28f736b5c51fc6f587855f8b0e99",
+        "path": "page-evidence/07a490584a502c9b401c05f71c6f8b3d8f5a28f736b5c51fc6f587855f8b0e99.json",
+        "titles": [
+          "Радио Любимые хиты | Официальный сайт радиостанции"
+        ],
+        "image_urls": [
+          "https://static.tildacdn.com/tild3863-6136-4431-a434-663433643732/bdf29aab-e6cd-4a58-9.png",
+          "https://static.tildacdn.com/tild6132-3031-4032-a535-333234306464/_FM_6.svg"
+        ],
+        "named_logos": {}
+      },
+      "ocr_text": ""
     },
     "4097:0:2:20FB:49D7:ED:0:0:0:0": {
       "name": "Радио Мария",
@@ -732747,7 +732997,8 @@
         "http://www.radiomaria.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:5E2C:E398:ED:0:0:0:0": {
       "name": "Радио \"Маяк\"",
@@ -732760,7 +733011,36 @@
         "https://smotrim.ru/radiomayak"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://cdn.smotrim.ru/static/front/favicon/android-chrome-192x192.png",
+        "final_url": "https://cdn.smotrim.ru/static/front/favicon/android-chrome-192x192.png",
+        "path": "originals/0d97ee62e00ad4aac46f9914b118ee872504a23b63e370b1ca7bf074f133905a.img",
+        "sha256": "0d97ee62e00ad4aac46f9914b118ee872504a23b63e370b1ca7bf074f133905a",
+        "bytes": 44621,
+        "dimensions": [
+          192,
+          192
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://smotrim.ru/radiomayak",
+        "final_url": "https://smotrim.ru/channel/81",
+        "original_html_sha256": "0d9d01fa611338189b05980c98fa8544e7b8c4a83d16cc87ab48fc5f487fdb7e",
+        "path": "page-evidence/0d9d01fa611338189b05980c98fa8544e7b8c4a83d16cc87ab48fc5f487fdb7e.json",
+        "titles": [
+          "Радио Маяк онлайн - слушать эфир радио бесплатно на Смотрим",
+          "Радио Маяк онлайн"
+        ],
+        "image_urls": [
+          "https://cdn.smotrim.ru/static/front/favicon/android-chrome-192x192.png",
+          "https://cdn.smotrim.ru/static/front/favicon/android-chrome-512x512.png",
+          "https://cdn.smotrim.ru/static/front/favicon/apple-touch-icon.png"
+        ],
+        "named_logos": {}
+      },
+      "ocr_text": "eMO|DMM\n"
     },
     "4097:0:2:AD56:9335:ED:0:0:0:0": {
       "name": "Радио Маяк (Radio Mayak)",
@@ -732773,7 +733053,36 @@
         "http://www.radiomayak.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://cdn.smotrim.ru/static/front/favicon/android-chrome-192x192.png",
+        "final_url": "https://cdn.smotrim.ru/static/front/favicon/android-chrome-192x192.png",
+        "path": "originals/0d97ee62e00ad4aac46f9914b118ee872504a23b63e370b1ca7bf074f133905a.img",
+        "sha256": "0d97ee62e00ad4aac46f9914b118ee872504a23b63e370b1ca7bf074f133905a",
+        "bytes": 44621,
+        "dimensions": [
+          192,
+          192
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "http://www.radiomayak.ru/",
+        "final_url": "https://smotrim.ru/channel/81",
+        "original_html_sha256": "5aa27d990bc8c251bae4fd54432c1210ac0fe8adefbaa1474a281156fc76fdc6",
+        "path": "page-evidence/5aa27d990bc8c251bae4fd54432c1210ac0fe8adefbaa1474a281156fc76fdc6.json",
+        "titles": [
+          "Радио Маяк онлайн - слушать эфир радио бесплатно на Смотрим",
+          "Радио Маяк онлайн"
+        ],
+        "image_urls": [
+          "https://cdn.smotrim.ru/static/front/favicon/android-chrome-192x192.png",
+          "https://cdn.smotrim.ru/static/front/favicon/android-chrome-512x512.png",
+          "https://cdn.smotrim.ru/static/front/favicon/apple-touch-icon.png"
+        ],
+        "named_logos": {}
+      },
+      "ocr_text": "eMO|DMM\n"
     },
     "4097:0:2:542A:AEA7:ED:0:0:0:0": {
       "name": "Радио Маяк Нижний Новгород 92.4 FM",
@@ -732793,7 +733102,37 @@
         "https://www.radio-megapolis.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://www.radio-megapolis.ru/apple-touch-icon-114x114.png",
+        "final_url": "https://www.radio-megapolis.ru/apple-touch-icon-114x114.png",
+        "path": "originals/bd7e22bdbee1649c20fea0a59d4a0dbc78d6526e55a9c2bc074145efc9c0b604.img",
+        "sha256": "bd7e22bdbee1649c20fea0a59d4a0dbc78d6526e55a9c2bc074145efc9c0b604",
+        "bytes": 10059,
+        "dimensions": [
+          114,
+          114
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://www.radio-megapolis.ru/",
+        "final_url": "https://www.radio-megapolis.ru/",
+        "original_html_sha256": "3df0c0188755d271e7553ebbeda977c9190895259788bf1d777a72dddc3c97da",
+        "path": "page-evidence/3df0c0188755d271e7553ebbeda977c9190895259788bf1d777a72dddc3c97da.json",
+        "titles": [
+          "Радио МЕГАПОЛИС"
+        ],
+        "image_urls": [
+          "https://www.radio-megapolis.ru/userupload/vk_logo.png",
+          "https://www.radio-megapolis.ru/apple-touch-icon-114x114.png",
+          "https://www.radio-megapolis.ru/apple-touch-icon-144x144.png"
+        ],
+        "named_logos": {
+          "https://www.radio-megapolis.ru/userupload/vk_logo.png": "  "
+        }
+      },
+      "ocr_text": "103,6 FM\n"
     },
     "4097:0:2:54EE:2CAF:ED:0:0:0:0": {
       "name": "Радио Мегаполис Самара 103.6 FM",
@@ -732806,7 +733145,10 @@
         "https://top-radio.ru/samara/megapolis"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 404\n"
+      ]
     },
     "4097:0:2:F451:9E7C:ED:0:0:0:0": {
       "name": "Радио Мелодия",
@@ -732819,7 +733161,10 @@
         "http://melodiafm.spb.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (6) Could not resolve host: melodiafm.spb.ru\n"
+      ]
     },
     "4097:0:2:A051:6EE7:ED:0:0:0:0": {
       "name": "Радио Мелодия Воронеж 106.8 FM",
@@ -732833,7 +733178,11 @@
         "https://top-radio.ru/voronezh/melodiya"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Failed to connect to radiomelody.ru port 80 after 3002 ms: Timeout was reached\n",
+        "curl: (22) The requested URL returned error: 404\n"
+      ]
     },
     "4097:0:2:D77A:E140:ED:0:0:0:0": {
       "name": "Радио МИР",
@@ -732846,7 +733195,43 @@
         "https://radiomir.fm/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://radiomir.fm/images/weather_forecast/logo_weather_ru_indoor.svg",
+        "final_url": "https://radiomir.fm/images/weather_forecast/logo_weather_ru_indoor.svg",
+        "path": "originals/499cb0a65cb0c46dad55dd9023b0689abd84bb54ceebcdde51c6292a8dad00ec.img",
+        "sha256": "499cb0a65cb0c46dad55dd9023b0689abd84bb54ceebcdde51c6292a8dad00ec",
+        "bytes": 6404,
+        "dimensions": [
+          640,
+          88
+        ],
+        "format": "SVG",
+        "frozen_svg_raster": {
+          "path": "rasterized/cfe4d17e1054ecd9a5a9795fb527fc486ec0e70e38489014dd947cf892ce4932.png",
+          "sha256": "cfe4d17e1054ecd9a5a9795fb527fc486ec0e70e38489014dd947cf892ce4932",
+          "cairosvg_version": "2.8.2"
+        }
+      },
+      "page": {
+        "url": "https://radiomir.fm/",
+        "final_url": "https://radiomir.fm/",
+        "original_html_sha256": "3c9ce28444cd4cc48a9eff7dcc3bffc772c70212c2a57d1cc33601e252a34826",
+        "path": "page-evidence/3c9ce28444cd4cc48a9eff7dcc3bffc772c70212c2a57d1cc33601e252a34826.json",
+        "titles": [
+          "Радио МИР — Когда душа поёт! Слушать онлайн бесплатно"
+        ],
+        "image_urls": [
+          "https://img.radiomir.fm/ZsxXPeEwPaCNUOSzSGFxuxE8SBXrRNLFm_RF3JiWsuA/czM6Ly9yYWRpb21pcmZtLzgyMTIvUmFkaW8tTUlSLUtEUF93aGl0ZS5zdmc.svg",
+          "https://radiomir.fm/images/weather_forecast/logo_weather_ru_indoor.svg",
+          "https://radiomir.fm/favicon/apple-touch-icon.png"
+        ],
+        "named_logos": {
+          "https://radiomir.fm/images/weather_forecast/logo_weather_ru_indoor.svg": "yandex weather icon  ",
+          "https://img.radiomir.fm/ZsxXPeEwPaCNUOSzSGFxuxE8SBXrRNLFm_RF3JiWsuA/czM6Ly9yYWRpb21pcmZtLzgyMTIvUmFkaW8tTUlSLUtEUF93aGl0ZS5zdmc.svg": "Logo Radiomir  "
+        }
+      },
+      "ocr_text": "Slunexc @ foroga\n"
     },
     "4097:0:2:6C2A:5047:ED:0:0:0:0": {
       "name": "Радио Мир (Барнаул)",
@@ -732859,7 +733244,8 @@
         "https://radiomir.fm/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:C035:A2A:ED:0:0:0:0": {
       "name": "Радио Мир Великий Новгород 104.5 FM",
@@ -732872,7 +733258,10 @@
         "https://top-radio.ru/velikij-novgorod/mir"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 404\n"
+      ]
     },
     "4097:0:2:122F:B9F5:ED:0:0:0:0": {
       "name": "Радио Мир Владикавказ 91.6 FM",
@@ -732885,7 +733274,8 @@
         "https://radiomir.fm/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:7022:1694:ED:0:0:0:0": {
       "name": "Радио Мир Ростов-на-Дону 90.6 FM",
@@ -732898,7 +733288,10 @@
         "https://top-radio.ru/rostov-na-donu/mir"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 404\n"
+      ]
     },
     "4097:0:2:8B53:815B:ED:0:0:0:0": {
       "name": "Радио Мир Смоленск 103.1 FM",
@@ -732911,7 +733304,10 @@
         "https://top-radio.ru/smolensk/mir"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 404\n"
+      ]
     },
     "4097:0:2:F2FA:E9D1:ED:0:0:0:0": {
       "name": "Радио Молот",
@@ -732924,7 +733320,8 @@
         "https://molot-fm.duckdns.org/listen/molot/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:82F1:AD3:ED:0:0:0:0": {
       "name": "Радио Монте Карло - Bossa Nova",
@@ -732937,7 +733334,10 @@
         "https://montecarlo.ru/online/monte-carlo-bossa"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 404\n"
+      ]
     },
     "4097:0:2:5DEA:4B2:ED:0:0:0:0": {
       "name": "Радио Монте Карло - Covers",
@@ -732950,7 +733350,10 @@
         "https://montecarlo.ru/online/covers"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 404\n"
+      ]
     },
     "4097:0:2:B63D:8CAC:ED:0:0:0:0": {
       "name": "Радио Монте Карло - Funk Coctail",
@@ -732963,7 +733366,10 @@
         "https://montecarlo.ru/online/%20funk_cocktail"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 404\n"
+      ]
     },
     "4097:0:2:F564:575F:ED:0:0:0:0": {
       "name": "Радио Монте Карло - Meditation",
@@ -732976,7 +733382,10 @@
         "https://montecarlo.ru/online/meditation"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 404\n"
+      ]
     },
     "4097:0:2:8387:E6C2:ED:0:0:0:0": {
       "name": "Радио Монте Карло - Monte Italiano",
@@ -732989,7 +733398,10 @@
         "https://montecarlo.ru/online/%20monte-italiano"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 404\n"
+      ]
     },
     "4097:0:2:F222:ADC6:ED:0:0:0:0": {
       "name": "Радио Монте Карло - Nights",
@@ -733002,7 +733414,10 @@
         "https://montecarlo.ru/online/monte-carlo--nights"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 404\n"
+      ]
     },
     "4097:0:2:9AC8:250E:ED:0:0:0:0": {
       "name": "Радио Монте Карло - Summertime",
@@ -733015,7 +733430,10 @@
         "https://montecarlo.ru/online/summertime"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 404\n"
+      ]
     },
     "4097:0:2:6782:B43F:ED:0:0:0:0": {
       "name": "Радио Монте Карло - The Best of Crossover",
@@ -733028,7 +733446,10 @@
         "https://montecarlo.ru/online/%20the_best_of_crossover"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 404\n"
+      ]
     },
     "4097:0:2:A3F9:19E7:ED:0:0:0:0": {
       "name": "Радио Монте Карло - Wonderful Blues",
@@ -733041,7 +733462,10 @@
         "https://montecarlo.ru/online/%20wonderful_blues"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 404\n"
+      ]
     },
     "4097:0:2:6CFC:9EC4:ED:0:0:0:0": {
       "name": "Радио Монте Карло Владикавказ 107.5 FM",
@@ -733054,7 +733478,10 @@
         "https://top-radio.ru/vladikavkaz/monte-karlo"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 404\n"
+      ]
     },
     "4097:0:2:A054:1280:ED:0:0:0:0": {
       "name": "Радио Монте Карло - Время джаза",
@@ -733067,7 +733494,10 @@
         "https://montecarlo.ru/online/vremia-dzhaza"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 404\n"
+      ]
     },
     "4097:0:2:C9FC:EBF0:ED:0:0:0:0": {
       "name": "Радио Монте-Карло Калуга 96.7 FM",
@@ -733080,7 +733510,10 @@
         "https://top-radio.ru/kaluga/monte-karlo"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 404\n"
+      ]
     },
     "4097:0:2:9251:6DE1:ED:0:0:0:0": {
       "name": "Радио Монте-Карло омск",
@@ -733093,7 +733526,10 @@
         "https://12-kanal.ru/radio/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 403\n"
+      ]
     },
     "4097:0:2:5FA8:35A6:ED:0:0:0:0": {
       "name": "Радио Монте Карло Песни оЛюбви",
@@ -733106,7 +733542,8 @@
         "https://montecarlo.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:BF82:884C:ED:0:0:0:0": {
       "name": "Радио Монте-КарлоРостов-на-Дону 103.7 FM",
@@ -733119,7 +733556,10 @@
         "https://top-radio.ru/rostov-na-donu/monte-karlo"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 404\n"
+      ]
     },
     "4097:0:2:F161:3DCF:ED:0:0:0:0": {
       "name": "Радио Монте-Карло Тула 106.4 FM",
@@ -733132,7 +733572,10 @@
         "https://top-radio.ru/tula/monte-karlo"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 404\n"
+      ]
     },
     "4097:0:2:2D26:3144:ED:0:0:0:0": {
       "name": "Радио Москвы",
@@ -733145,7 +733588,10 @@
         "https://icecast-vgtrk.cdnvideo.ru/moscowtalk128?v=1640610887877"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Operation timed out after 8001 milliseconds with 185148 bytes received\n"
+      ]
     },
     "4097:0:2:81D7:75BC:ED:0:0:0:0": {
       "name": "Радио Москвы 105.3 FM",
@@ -733158,7 +733604,35 @@
         "https://radiomoskvy.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://radiomoskvy.ru/img/favicon/apple-touch-icon.png",
+        "final_url": "https://radiomoskvy.ru/img/favicon/apple-touch-icon.png",
+        "path": "originals/600a8174afc175b9c7c8a1aef3b8970db09bdf100e99ef73a3a745da2231748d.img",
+        "sha256": "600a8174afc175b9c7c8a1aef3b8970db09bdf100e99ef73a3a745da2231748d",
+        "bytes": 14384,
+        "dimensions": [
+          180,
+          180
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://radiomoskvy.ru/",
+        "final_url": "https://radiomoskvy.ru/",
+        "original_html_sha256": "42c10d406d6cbc501022fc88badc2968d3590e04e7854eb39d9da942fbcfc377",
+        "path": "page-evidence/42c10d406d6cbc501022fc88badc2968d3590e04e7854eb39d9da942fbcfc377.json",
+        "titles": [
+          "Радио Москвы"
+        ],
+        "image_urls": [
+          "https://radiomoskvy.ru/img/favicon/apple-touch-icon.png",
+          "https://radiomoskvy.ru/img/favicon/favicon-16x16.png",
+          "https://radiomoskvy.ru/img/favicon/favicon-32x32.png"
+        ],
+        "named_logos": {}
+      },
+      "ocr_text": "MOCKBbI\n"
     },
     "4097:0:2:769E:B258:ED:0:0:0:0": {
       "name": "Радио МСС Владикавказ 104.9 FM",
@@ -733171,7 +733645,12 @@
         "https://topradio.me/vladikavkaz/mss"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 404\n",
+        "curl: (22) The requested URL returned error: 404\n",
+        "cannot identify image file <_io.BytesIO object at 0x7fbcfed14180>"
+      ]
     },
     "4097:0:2:38A3:915D:ED:0:0:0:0": {
       "name": "Радио \"МУЗ-ИИ\"",
@@ -733196,7 +733675,8 @@
         "https://vk.com/radionvda"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:1342:310:ED:0:0:0:0": {
       "name": "Радио Новая Жизнь",
@@ -733245,7 +733725,10 @@
         "https://top-radio.ru/nizhnij-novgorod/obraz"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 404\n"
+      ]
     },
     "4097:0:2:A2EA:F5B:ED:0:0:0:0": {
       "name": "Радио Орфей (Radio Orpheus) 64",
@@ -733259,7 +733742,10 @@
         "https://top-radio.ru/moskva/orfej"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 404\n"
+      ]
     },
     "4097:0:2:174D:B8A2:ED:0:0:0:0": {
       "name": "Радио Орфей - Бельканто 256kbps",
@@ -733272,7 +733758,8 @@
         "https://orpheusradio.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:E73F:4745:ED:0:0:0:0": {
       "name": "Радио Орфей - Зарубежная хоровая 256kbps",
@@ -733285,7 +733772,8 @@
         "https://orpheusradio.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:D8CD:7884:ED:0:0:0:0": {
       "name": "Радио Орфей - Камерата 256kbps",
@@ -733298,7 +733786,8 @@
         "https://orpheusradio.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:C045:7B5A:ED:0:0:0:0": {
       "name": "Радио Орфей - Клавир",
@@ -733312,7 +733801,10 @@
         "https://top-radio.ru/web/orfej-fonotron-klavir"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 404\n"
+      ]
     },
     "4097:0:2:3CB0:AE82:ED:0:0:0:0": {
       "name": "Радио Орфей - Классика джаза",
@@ -733325,7 +733817,8 @@
         "https://orpheusradio.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:3481:F507:ED:0:0:0:0": {
       "name": "Радио Орфей - Классика киномузыки",
@@ -733338,7 +733831,8 @@
         "https://orpheusradio.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:5C4:BBA2:ED:0:0:0:0": {
       "name": "Радио Орфей - Классика крупных форм",
@@ -733351,7 +733845,8 @@
         "https://orpheusradio.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:76F6:284A:ED:0:0:0:0": {
       "name": "Радио Орфей - Классика музыкального кроссовера",
@@ -733364,7 +733859,8 @@
         "https://orpheusradio.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:9375:97A6:ED:0:0:0:0": {
       "name": "Радио Орфей - Классика эстрады",
@@ -733377,7 +733873,8 @@
         "https://orpheusradio.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:24B9:76EF:ED:0:0:0:0": {
       "name": "Радио Орфей - Музыка мюзиклов 256kbps",
@@ -733390,7 +733887,8 @@
         "https://orpheusradio.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:5D6D:3F9:ED:0:0:0:0": {
       "name": "Радио Орфей - Музыка с участием духовых 256kbps",
@@ -733403,7 +733901,8 @@
         "https://orpheusradio.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:80C0:F778:ED:0:0:0:0": {
       "name": "Радио Орфей - Популярная классика 256kbps",
@@ -733416,7 +733915,8 @@
         "https://orpheusradio.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:49B7:52A:ED:0:0:0:0": {
       "name": "Радио Орфей - Русская классика 256kbps",
@@ -733430,7 +733930,10 @@
         "https://top-radio.ru/web/orfej-fonotron-rus-klassika"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 404\n"
+      ]
     },
     "4097:0:2:DC10:D376:ED:0:0:0:0": {
       "name": "Радио Орфей - Русская хоровая 256kbps",
@@ -733443,7 +733946,8 @@
         "https://orpheusradio.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:AC3C:A5F2:ED:0:0:0:0": {
       "name": "Радио Орфей Санкт-Петербург 97.6 FM",
@@ -733457,7 +733961,10 @@
         "https://top-radio.ru/sankt-peterburg/orfej"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 404\n"
+      ]
     },
     "4097:0:2:C4E4:C772:ED:0:0:0:0": {
       "name": "Радио Орфей - Симфоническая музыка 256kbps",
@@ -733470,7 +733977,8 @@
         "https://orpheusradio.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:C377:E303:ED:0:0:0:0": {
       "name": "Радио Орфей - Современная хоровая 256kbps",
@@ -733483,7 +733991,8 @@
         "https://orpheusradio.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:74D9:EDFA:ED:0:0:0:0": {
       "name": "Радио Орфей - Хоры из опер 256kbps",
@@ -733496,7 +734005,8 @@
         "https://orpheusradio.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:4B57:9EB2:ED:0:0:0:0": {
       "name": "Радио Панельных Домов",
@@ -733522,7 +734032,11 @@
         "https://www.mixto.ru/radio/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Operation timed out after 8001 milliseconds with 172200 bytes received\n",
+        "curl: (22) The requested URL returned error: 403\n"
+      ]
     },
     "4097:0:2:FD1F:F945:ED:0:0:0:0": {
       "name": "Радио Пилигрим Библия",
@@ -733535,7 +734049,8 @@
         "https://radiopiligrim.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:1D6E:69F0:ED:0:0:0:0": {
       "name": "Радио Пилигрим Музыка",
@@ -733548,7 +734063,8 @@
         "https://radiopiligrim.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:4903:7DB5:ED:0:0:0:0": {
       "name": "Радио Пилигрим Онлайн Вещание",
@@ -733561,7 +734077,8 @@
         "https://radiopiligrim.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:4169:1EC0:ED:0:0:0:0": {
       "name": "Радио Пилот Екатеринбург",
@@ -733586,7 +734103,10 @@
         "https://top-radio.ru/tula/pi-fm"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 404\n"
+      ]
     },
     "4097:0:2:7FC5:2618:ED:0:0:0:0": {
       "name": "Радио Пи-ФМ Тюмень 101.4 FM",
@@ -733599,7 +734119,10 @@
         "https://top-radio.ru/tyumen/pi-fm"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 404\n"
+      ]
     },
     "4097:0:2:7618:389E:ED:0:0:0:0": {
       "name": "Радиопостановки",
@@ -733621,7 +734144,39 @@
         "https://radonezh.ru/radio"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://radonezh.ru/sites/default/files/logo.png",
+        "final_url": "https://radonezh.ru/sites/default/files/logo.png",
+        "path": "originals/9fc62e855cfdcbf1f0ace67e521695be07ca647e16e1c9558df74d054f9697b1.img",
+        "sha256": "9fc62e855cfdcbf1f0ace67e521695be07ca647e16e1c9558df74d054f9697b1",
+        "bytes": 10486,
+        "dimensions": [
+          600,
+          121
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://radonezh.ru/",
+        "final_url": "https://radonezh.ru/",
+        "original_html_sha256": "5cec062355affab61614857ffbeaa7003ef862251baaafcb98a2be915e9d6047",
+        "path": "page-evidence/5cec062355affab61614857ffbeaa7003ef862251baaafcb98a2be915e9d6047.json",
+        "titles": [
+          "Главная | Радонеж",
+          ""
+        ],
+        "image_urls": [
+          "https://radonezh.ru/sites/default/files/logo.png",
+          "https://radonezh.ru/sites/default/files/partner/LOGO_SPAS.jpg",
+          "https://radonezh.ru/sites/default/files/favicon.png"
+        ],
+        "named_logos": {
+          "https://radonezh.ru/sites/default/files/logo.png": "Главная  ",
+          "https://radonezh.ru/sites/default/files/partner/LOGO_SPAS.jpg": "  "
+        }
+      },
+      "ocr_text": "“4\n\nFAASHEAK\n\n0\n"
     },
     "4097:0:2:38BC:1EC2:ED:0:0:0:0": {
       "name": "Радио Рандеву Нижний Новгород 103.4 FM",
@@ -733634,7 +734189,10 @@
         "https://top-radio.ru/nizhnij-novgorod/randevu"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 404\n"
+      ]
     },
     "4097:0:2:929D:3716:ED:0:0:0:0": {
       "name": "Радио Рансис",
@@ -733647,7 +734205,8 @@
         "https://www.radiopage.ransis.org/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:FBB3:97A2:ED:0:0:0:0": {
       "name": "Радио РБЖ",
@@ -733672,7 +734231,8 @@
         "http://radiorecord.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:628B:6DD7:ED:0:0:0:0": {
       "name": "Радио Рекорд Black Rap",
@@ -733685,7 +734245,8 @@
         "http://radiorecord.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:689D:D770:ED:0:0:0:0": {
       "name": "Радио Рекорд Complextro",
@@ -733698,7 +734259,8 @@
         "http://radiorecord.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:A702:4EF:ED:0:0:0:0": {
       "name": "Радио Рекорд Dancecore",
@@ -733711,7 +734273,8 @@
         "http://radiorecord.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:380:18FF:ED:0:0:0:0": {
       "name": "Радио Рекорд Dream Dance",
@@ -733724,7 +734287,8 @@
         "http://radiorecord.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:48F0:BC92:ED:0:0:0:0": {
       "name": "Радио Рекорд Dubstep",
@@ -733751,7 +734315,8 @@
         "http://radiorecord.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:4F6D:3624:ED:0:0:0:0": {
       "name": "Радио Рекорд Eurodance",
@@ -733799,7 +734364,8 @@
         "http://radiorecord.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:A79C:AA93:ED:0:0:0:0": {
       "name": "Радио Рекорд Hypnotic",
@@ -733812,7 +734378,8 @@
         "http://radiorecord.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:8C7F:6FF5:ED:0:0:0:0": {
       "name": "Радио Рекорд Jungle",
@@ -733833,7 +734400,43 @@
         "https://www.radiorecord.ru/station/organic"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://www.radiorecord.ru/images/record-logo-prod.svg",
+        "final_url": "https://www.radiorecord.ru/images/record-logo-prod.svg",
+        "path": "originals/bebfb59f0ada990ea68f00a90236e1ec5404aa34ad51c397e9cfd7d7453c583a.img",
+        "sha256": "bebfb59f0ada990ea68f00a90236e1ec5404aa34ad51c397e9cfd7d7453c583a",
+        "bytes": 3530,
+        "dimensions": [
+          640,
+          198
+        ],
+        "format": "SVG",
+        "frozen_svg_raster": {
+          "path": "rasterized/b18da3d122403c2f21863328e3e08ff1d0dd9bd205184913305c03f8dd85ec27.png",
+          "sha256": "b18da3d122403c2f21863328e3e08ff1d0dd9bd205184913305c03f8dd85ec27",
+          "cairosvg_version": "2.8.2"
+        }
+      },
+      "page": {
+        "url": "https://www.radiorecord.ru/station/organic",
+        "final_url": "https://www.radiorecord.ru/station/organic",
+        "original_html_sha256": "a31f739be6bdbc872befd40757b77f52e1ff409488b002f35d3770ad65bb35cf",
+        "path": "page-evidence/a31f739be6bdbc872befd40757b77f52e1ff409488b002f35d3770ad65bb35cf.json",
+        "titles": [
+          "Organic",
+          "Organic - слушать онлайн на Radio Record"
+        ],
+        "image_urls": [
+          "https://www.radiorecord.ru/images/record-logo-prod.svg",
+          "https://www.radiorecord.ru/icons/apple-touch-icon.png",
+          "https://www.radiorecord.ru/icons/favicon-16x16.png"
+        ],
+        "named_logos": {
+          "https://www.radiorecord.ru/images/record-logo-prod.svg": "Record  "
+        }
+      },
+      "ocr_text": ""
     },
     "4097:0:2:928B:6862:ED:0:0:0:0": {
       "name": "Радио Рекорд Progressive",
@@ -733853,7 +734456,8 @@
         "http://radiorecord.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:69FA:B834:ED:0:0:0:0": {
       "name": "Радио Рекорд Rave FM",
@@ -733894,7 +734498,8 @@
         "http://radiorecord.ru/"
       ],
       "needs_assistant_visual_identity": false,
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:FD34:9BB1:ED:0:0:0:0": {
       "name": "Радио Рекорд Tropical",
@@ -922762,13 +923367,13 @@
   },
   "counts": {
     "already_ready_in_saved_checkpoint": 9992,
-    "blocked_no_confirmed_station_page_and_logo": 10105,
+    "blocked_no_confirmed_station_page_and_logo": 10191,
     "blocked_no_independent_station_homepage": 1165,
     "blocked_no_unique_current_station_metadata": 3838,
-    "candidate_assistant_visual_and_identity_check": 2818,
-    "pending_homepage_discovery": 9931,
+    "candidate_assistant_visual_and_identity_check": 2832,
+    "pending_homepage_discovery": 9831,
     "ready_verified_homepage_and_wordmark": 3054
   },
-  "last_event": "homepages_4700_of_14631",
-  "updated_utc": "2026-11-05T16:38:51Z"
+  "last_event": "homepages_4800_of_14631",
+  "updated_utc": "2026-11-05T16:39:16Z"
 }
