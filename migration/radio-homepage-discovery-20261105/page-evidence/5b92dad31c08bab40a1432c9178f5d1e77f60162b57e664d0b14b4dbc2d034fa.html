@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="https://votvbroadcast.com/styles/styles.css?v=0.711.13">
+    <link rel="icon" type="image/x-icon" href="https://votvbroadcast.com/images/favicon.png">
+            <link rel="preload" as="style" href="https://votvbroadcast.com/build/assets/app-C2Ye30n8.css" /><link rel="modulepreload" as="script" href="https://votvbroadcast.com/build/assets/app-T1DpEqax.js" /><link rel="stylesheet" href="https://votvbroadcast.com/build/assets/app-C2Ye30n8.css" /><script type="791419a177fe0235d4f84ca5-module" src="https://votvbroadcast.com/build/assets/app-T1DpEqax.js"></script>        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4" type="791419a177fe0235d4f84ca5-text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js" type="791419a177fe0235d4f84ca5-text/javascript"></script>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous" type="791419a177fe0235d4f84ca5-text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jscroll/2.4.1/jquery.jscroll.min.js" type="791419a177fe0235d4f84ca5-text/javascript"></script>
+    <script src="https://votvbroadcast.com/scripts/autoRefreshPanel.js?v=1.0" type="791419a177fe0235d4f84ca5-text/javascript"></script>
+    <script src="https://votvbroadcast.com/scripts/votvDropdown.js?v=0.8" type="791419a177fe0235d4f84ca5-text/javascript"></script>
+    <title>VOTV Community Broadcaster</title>
+            <meta content="VOTV Community Broadcaster" property="og:title"/>
+        <meta content="A fan-made radio station for Voices of the Void!" property="og:description"/>
+        <meta content="https://votvbroadcast.com/" property="og:url"/>
+        <meta content="https://votvbroadcast.com/images/VOTV%20Community%20Radio%20Poster.png?v=1" property="og:image"/>
+        <meta content="#04a96c" data-react-helmet="true" name="theme-color"/>
+    </head>
+<body class="flex flex-col">
+<nav>
+    <div>
+        <div class="flex flex-row h-16 ">
+            <div class="ml-auto flex items-center sm:hidden">
+                <!-- Mobile menu button-->
+                <button type="button"
+                        class=" mr-4 relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:ring-2 focus:ring-white focus:outline-hidden focus:ring-inset"
+                        aria-controls="mobile-menu" aria-expanded="false">
+                    <!--
+                      Icon when menu is closed.
+
+                      Menu open: "hidden", Menu closed: "block"
+                    -->
+                    <svg class="block size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                         aria-hidden="true" data-slot="icon">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                              d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/>
+                    </svg>
+                    <!--
+                      Icon when menu is open.
+
+                      Menu open: "block", Menu closed: "hidden"
+                    -->
+                    <svg class="hidden size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                         aria-hidden="true" data-slot="icon">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="hidden sm:flex flex-row gap-4 mr-4 ml-auto">
+                <a class="mt-auto mb-auto p-2 w-28" href="/">Home</a>
+                <a class="mt-auto mb-auto p-2 w-28" href="https://radio.votvbroadcast.com/votv.mp3">Radio</a>
+                <a class="mt-auto mb-auto p-2 w-28" href="https://tv.votvbroadcast.com/votv.mp4">TV</a>
+                <a class="mt-auto mb-auto p-2  w-28" href="/upload">Upload</a>
+                                    <a class="mt-auto mb-auto p-2  w-28" href="/signin">Login</a>
+                
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile menu, show/hide based on menu state. -->
+    <div class="sm:hidden" id="mobile-menu">
+        <div class="hidden flex-col gap-2 " id="contentToShow">
+            <a class="ml-auto mr-auto p-2 w-36" href="/">Home</a>
+            <a class="ml-auto mr-auto p-2 w-36" href="https://radio.votvbroadcast.com/votv.mp3">Radio</a>
+            <a class="ml-auto mr-auto p-2 w-36" href="https://tv.votvbroadcast.com/votv.mp4">TV</a>
+            <a class="ml-auto mr-auto p-2 w-36" href="/upload">Upload</a>
+                            <a class="ml-auto mr-auto p-2 w-36" href="/signin">Login</a>
+            
+        </div>
+    </div>
+</nav>
+
+<script type="791419a177fe0235d4f84ca5-text/javascript">
+    $(() => {
+
+        const button = $('button');
+        const icones = $('svg');
+        //en jquery, si tu fait juste "icones[0]" tu obtient le dom. Les fonction JQUERY ne seront plus disponible.
+        const burger = $(icones[0]);
+        const x = $(icones[1]);
+        const menu = $('#contentToShow');
+
+        button.click(function () {
+
+            if (burger.css('display') === 'block') {
+                burger.css({'display': 'none',});
+                x.css({'display': 'block',});
+                menu.addClass('rightToLeft')
+                menu.removeClass('leftToRight')
+            } else {
+                burger.css({'display': 'block',});
+                x.css({'display': 'none',});
+                menu.addClass('leftToRight')
+                menu.removeClass('rightToLeft')
+            }
+        });
+
+
+    });
+</script>
+
+<div class="flex flex-col">
+    
+    <h1 class="ml-auto mr-auto title text-2xl sm:text-4xl md:text-5xl lg:text-6xl">VotV Community Broadcaster</h1>
+    <div class="flex flex-row flex-wrap-reverse mt-15 mb-10 ml-0 sm:ml-20 mr-auto">
+        <div class="flex flex-col max-w-150 bg-black/80 p-4 rounded-lg">
+            <div class=" text-xl sm:text-2xl md:text-3xl lg:text-4xl subtitle sm:text-left text-center">Description
+            </div>
+            <div class="flex flex-col gap-2 mt-2 mb-6 items-center sm:items-baseline">
+                <div class="w-[70%]">VotV Community Broadcaster is a fan made website and is not affiliated with
+                    MrDrNose.
+                </div>
+                <div class="w-[70%]">Its purpose is to provide an in-game radio station and tv station that broadcasts
+                    medias shared by the community.
+                </div>
+                <br>
+                <div class="w-[70%]">Don't know how to add the streams to your online.txt? Check out the
+                    <a href="/help" class="subtitle url">Help</a>
+                    page.
+                </div>
+                <div class="flex flex-row gap-4 mt-4">
+
+                </div>
+            </div>
+
+            <div class=" text-xl sm:text-2xl md:text-3xl lg:text-4xl subtitle sm:text-left text-center">Features</div>
+            <div class="flex flex-col gap-2 mt-2 mb-2 items-center sm:items-baseline">
+                <div class="w-[70%]">Access a radio and tv station both available 24/7</div>
+                <div class="w-[70%]">Upload files that will be automatically parsed into these stations</div>
+                <div class="w-[70%]">Adjust file metadata</div>
+                <div class="w-[70%]">Download files uploaded by the community</div>
+            </div>
+        </div>
+        <div class="lg:ml-25 mx-auto max-w-150 p-4 bg-black/80 flex flex-col">
+            <div class="text-xl sm:text-2xl md:text-3xl lg:text-4xl subtitle sm:text-left text-center">Links</div>
+            <div class="flex relative flex-col gap-4 mt-2 mb-6 items-center sm:items-baseline">
+                <a class="p-2 w-90 home" href="/changelog">Changelog</a>
+                <a class="p-2 w-90 home" href="/credits">Credits</a>
+                <a class="p-2 w-90 home" href="/history">History</a>
+                <a class="p-2 w-90 home" href="/help">Help</a>
+                <div class="flex flex-row w-full justify-between">
+                    <a class="p-2 w-40 home" href="https://votvbroadcast.com/txt/radio.txt">Radios Streams</a>
+                    <a class="p-2 w-40 home" href="https://votvbroadcast.com/txt/tv.txt">TV Streams</a>
+                </div>
+                <div class="flex flex-row w-full justify-between">
+                    <a class="p-2 w-40 home" href="/suggestions">Suggestions</a>
+                    <a class="p-2 w-40 home" href="/bugs">Bugs</a>
+                </div>
+
+                <div class="text-lg sm:text-xl md:text-2xl lg:text-3xl subtitle">External</div>
+                <div class="flex flex-row w-full justify-between">
+                    <a class="p-2 w-40 home" href="https://votv.dev">votv.dev</a>
+                    <a class="p-2 w-40 home" href="https://assets.votvbroadcast.com/">Assets Hub</a>
+                </div>
+
+                <a class="p-2 w-90 home"
+                   href="https://github.com/Foxaryse/ArchiveCommunityBranch/tree/main/linux/scripts/onlinevideoworkaround">onlinevideoworkaround
+                    <br> (TV streams on Linux!)</a>
+
+            </div>
+
+<script src="/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="791419a177fe0235d4f84ca5-|49" defer></script></body>
+</html>
