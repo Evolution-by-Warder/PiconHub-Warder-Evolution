@@ -1,0 +1,531 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="Somos una radio que busca la felicidad a través de la música, recordando y cantando solo éxitos. " />
+        <meta name="author" content="" />
+        <title>RADIO URBANA FM.</title>
+        <meta property="og:image" content="https://radiourbanafm.cl/assets/img/20250517012711.jpg" />
+         
+  <link rel="apple-touch-icon" href="https://radiourbanafm.cl/assets/img/20250517012711.jpg">
+  <link rel="apple-touch-startup-image" href="https://radiourbanafm.cl/assets/img/20250517012711.jpg">
+       
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="https://radiourbanafm.cl/assets/img/20250517012711.jpg" />
+        <!-- Bootstrap Icons-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic" rel="stylesheet" type="text/css" />
+        <!-- SimpleLightbox plugin CSS-->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.css" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css?v=1793884177" rel="stylesheet" />
+
+        <div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v14.0&appId=1487386631563220&autoLogAppEvents=1" nonce="aLj9vlLD"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+
+
+
+
+    </head>
+   
+    
+    <body id="page-top">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
+            <div class="container px-4 px-lg-5"><div class="spinner-grow text-danger" role="status">
+  <span class="visually-hidden"></span>
+</div>
+                <a class="navbar-brand" href="#page-top">RADIO URBANA FM.</a>
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ms-auto my-2 my-lg-0">
+                        <li class="nav-item"><a class="nav-link" href="#radio">Multiapp</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#redes">Nuestras Redes</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#videos">Videos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#portfolio">Galeria</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>  
+        <!-- Masthead-->
+        <header class="masthead">
+            <div class="container px-4 px-lg-5 h-100">
+                <div class="row gx-4 gx-lg-5 h-100 align-items-center justify-content-center text-center">
+                    <div class="col-lg-8 align-self-end">
+                        <h1 class="text-white font-weight-bold">RADIO URBANA FM.</h1>
+                        <hr class="divider" />
+                         <div style="max-width: 100%; margin: auto; padding: 10px;">
+
+  <style>
+    #video-container {
+      position: relative;
+      width: 100%;
+      max-width: 720px;
+      margin: auto;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      border: 3px solid #333;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #000;
+    }
+
+    video {
+      width: 100%;
+      height: auto;
+      display: block;
+      background: #000;
+    }
+
+    #overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #000;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 2;
+    }
+
+    #overlay img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+    .portfolio-img-container {
+    width: 100%;
+    aspect-ratio: 16 / 9; /* Proporción panorámica */
+    overflow: hidden;
+}
+
+.portfolio-img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Recorta sin deformar */
+    display: block;
+}
+  </style>
+
+  <div id="video-container">
+    <video id="video" controls autoplay muted playsinline></video>
+    <div id="overlay">
+      <img src="../img/imagen_sin_senal_1747448415.gif" alt="Sin señal">
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+  <script>
+    const video = document.getElementById('video');
+    const overlay = document.getElementById('overlay');
+    const videoSrc = "https://stmvideo6.livecastv.com/urbanacl/urbanacl/playlist.m3u8";
+
+    function showOverlay() {
+      overlay.style.display = 'flex';
+    }
+
+    function hideOverlay() {
+      overlay.style.display = 'none';
+    }
+
+    if (Hls.isSupported()) {
+      const hls = new Hls();
+      hls.loadSource(videoSrc);
+      hls.attachMedia(video);
+
+      hls.on(Hls.Events.MANIFEST_PARSED, function () {
+        video.play();
+      });
+
+      hls.on(Hls.Events.ERROR, function (event, data) {
+        if (data.fatal) {
+          switch (data.type) {
+            case Hls.ErrorTypes.NETWORK_ERROR:
+              showOverlay();
+              break;
+            case Hls.ErrorTypes.MEDIA_ERROR:
+              hls.recoverMediaError();
+              break;
+            default:
+              showOverlay();
+              hls.destroy();
+              break;
+          }
+        }
+      });
+
+    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+      video.src = videoSrc;
+      video.addEventListener('error', showOverlay);
+    } else {
+      showOverlay();
+    }
+
+    video.addEventListener('playing', hideOverlay);
+    video.addEventListener('loadeddata', hideOverlay);
+    video.addEventListener('error', showOverlay);
+  </script>
+</div>
+                    </div>
+                    <div class="col-lg-8 align-self-baseline">
+                        <p class="text-white-75 mb-5">Somos una radio que busca la felicidad a través de la música, recordando y cantando solo éxitos.  !</p>
+                         <div id="anuncio-rotativo" style="text-align:center; margin:20px 0;"></div>
+
+    <script>
+        const anuncios = [{"activo":true,"imagen":"assets\/img\/anuncio_1785558766.png","enlace":"http:\/\/sodecom.cl:8090\/huerere"}];
+        let index = 0;
+
+        function mostrarAnuncio() {
+            const contenedor = document.getElementById('anuncio-rotativo');
+            const anuncio = anuncios[index];
+
+            contenedor.innerHTML = `
+                <a href="${anuncio.enlace}" target="_blank">
+                    <img src="${anuncio.imagen}" alt="Publicidad" style="max-width:100%; height:auto; display:block; margin:auto;">
+                </a>
+            `;
+
+            index = (index + 1) % anuncios.length;
+        }
+
+        mostrarAnuncio(); // mostrar el primero
+        setInterval(mostrarAnuncio, 60000); // cada 60 segundos
+    </script>
+
+
+
+                    </div>
+                    
+                </div>
+            </div>
+        </header>
+        
+         <script src="/contador.js"></script>
+        <!-- About-->
+       
+                    <!-- Call to action-->
+        <section class="page-section bg-dark text-white"  id="radio">
+            <div class="container px-4 px-lg-5 text-center">
+                <h2 class="mb-4">Descarga nuestra Multiapp y Escuchanos de tu Movil!</h2>
+                <a href="https://playerv.livecastv.com/video/urbanacl/1/true/false/WXpOU2RHUnRiR3RhVnpneVRHMTRjR1J0Vm1wWldFNHdaR2sxYW1JeU1EMD0rMw==/16:9//nao" target="_blank"><img src="https://radiio.com.ar/img/img-instalar-app-android.png" width="150" height="48" /></a>
+                <a href="https://playerv.livecastv.com/video/urbanacl/1/true/false/WXpOU2RHUnRiR3RhVnpneVRHMTRjR1J0Vm1wWldFNHdaR2sxYW1JeU1EMD0rMw==/16:9//nao" target="_blank"><img src="https://radiio.com.ar/img/img-instalar-app-iphone.png" width="150" height="48" /></a>
+                <a href="https://playerv.livecastv.com/video/urbanacl/1/true/false/WXpOU2RHUnRiR3RhVnpneVRHMTRjR1J0Vm1wWldFNHdaR2sxYW1JeU1EMD0rMw==/16:9//nao" target="_blank"><img src="https://radiio.com.ar/img/img-instalar-app-windows.png" width="150" height="48" /></a>
+             
+            </div>
+        </section>
+        
+                        <!-- Services-->
+        <section class="page-section" id="redes">
+            <div class="container px-4 px-lg-5">
+                <h2 class="text-center mt-0">Seguinos en nuestras redes</h2>
+                <hr class="divider" />
+                <div class="row gx-4 gx-lg-5">
+                    <div class="col-lg-3 col-md-6 text-center">
+                        <div class="mt-5">
+                            <div class="mb-2"><a href="https://twitter.com/radiourbanaaraucania"><i class="bi-twitter fs-1 text-primary" ></i></a></div>
+                            <h3 class="h4 mb-2">@RADIO URBANA FM.</h3>
+                            <p class="text-muted mb-0">Siguenos en Twitter</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 text-center">
+                        <div class="mt-5">
+                            <div class="mb-2"><a href="https://facebook.com/Radio-Urbana-Araucania/100083005608634/"><i class="bi-facebook fs-1 text-primary"></i></a></div>
+                            <h3 class="h4 mb-2">@RADIO URBANA FM. </h3>
+                            <p class="text-muted mb-0">Seguinos en Facebook</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 text-center">
+                        <div class="mt-5">
+                            <div class="mb-2"><a href="https://instagram.com/radiourbanaaraucania"><i class="bi-instagram fs-1 text-primary"></i></a></div>
+                            <h3 class="h4 mb-2">@RADIO URBANA FM.</h3>
+                            <p class="text-muted mb-0">Seguinos en Instagram!</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 text-center">
+                        <div class="mt-5">
+                            <div class="mb-2"><a href="https://youtube.com/@radiourbanafm8467"><i class="bi-youtube fs-1 text-primary"></i></a></div>
+                            <h3 class="h4 mb-2">@RADIO URBANA FM.</h3>
+                            <p class="text-muted mb-0">Subcribete a nuetro Canal</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="page-section bg-dark" id="videos">
+        
+    <div class="containe-fluid text-white ">
+    <h2 class="text-center text-white mt-0 d-block d-sm-none">Videos</h2>
+    <hr class="divider d-block d-sm-none" />
+    </div> 
+    <!-- vista desde movil-->
+        <div class="container-fluid bg-dark  ">
+            <div class="row  justify-content-center">
+                                        <div class="col mb-5 " category="">
+                             
+                        <div class="card p-1 m-1 d-block d-sm-none" style="width: 100%;">
+                        <iframe width="100%" height="350" src="https://www.youtube.com/embed/QL5HYaVsJnw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  <div class="card-body ">
+    <h5 class="card-title">UN CLÁSICO DE NUESTRA PROGRAMACIÓN</h5>
+    <p class="card-text">DE NUESTRA JUVENTUD </p>
+    
+   
+</div></div>
+                        <div class="col mb-5 " category="">
+                             
+                        <div class="card p-1 m-1 d-block d-sm-none" style="width: 100%;">
+                        <iframe width="100%" height="350" src="https://www.youtube.com/embed/C0I9ywaLdk8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  <div class="card-body ">
+    <h5 class="card-title">ÉXITO RADIO URBANA</h5>
+    <p class="card-text">PARTE DE NUESTRA PROGRAMACIÓN</p>
+    
+   
+</div></div>
+
+
+
+              
+    <div class="containe-fluid text-white ">
+    <h2 class="text-center text-white mt-0 d-none d-sm-none d-md-block">Videos</h2>
+    <hr class="divider d-none d-sm-none d-md-block" />
+    </div> 
+    <!-- vista desde escritorio-->
+        <div class="container-fluid bg-dark ">
+            <div class="row  justify-content-center">
+                                        <div class="col mb-5 " category="">
+                             
+                        <div class="card d-none d-sm-none d-md-block" style="width: 100%;">
+                        <iframe width="100%" height="350" src="https://www.youtube.com/embed/QL5HYaVsJnw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  <div class="card-body ">
+    <h5 class="card-title">UN CLÁSICO DE NUESTRA PROGRAMACIÓN</h5>
+    <p class="card-text">DE NUESTRA JUVENTUD </p>
+    
+   
+</div></div></div>
+                        <div class="col mb-5 " category="">
+                             
+                        <div class="card d-none d-sm-none d-md-block" style="width: 100%;">
+                        <iframe width="100%" height="350" src="https://www.youtube.com/embed/C0I9ywaLdk8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  <div class="card-body ">
+    <h5 class="card-title">ÉXITO RADIO URBANA</h5>
+    <p class="card-text">PARTE DE NUESTRA PROGRAMACIÓN</p>
+    
+   
+</div></div></div>
+ 
+             </div></section>
+        
+        
+                
+        
+        <!-- Portfolio-->
+        <div id="portfolio">
+            <div class="container-fluid p-0">
+                <div class="row g-0">
+                    <div class="col-lg-4 col-sm-6">
+                    
+<a class="portfolio-box portfolio-img-container" href="assets/img/20260731184158.jpg" title="de lunes a viernes desde las 18:00 hrs.">
+                            <img class="img-fluid" src="assets/img/20260731184158.jpg" alt="..." />
+                            <div class="portfolio-box-caption">
+                                <div class="project-category text-white-50">de lunes a viernes desde las 18:00 hrs.</div>
+                                <div class="project-name">.</div>
+                                                        </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                    
+<a class="portfolio-box portfolio-img-container" href="assets/img/20250606211054.jpg" title="https://apps.apple.com/us/app/radio-urbana-fm/id6746158218?platform=iphone">
+                            <img class="img-fluid" src="assets/img/20250606211054.jpg" alt="..." />
+                            <div class="portfolio-box-caption">
+                                <div class="project-category text-white-50">https://apps.apple.com/us/app/radio-urbana-fm/id6746158218?platform=iphone</div>
+                                <div class="project-name">DESCARGA NUESTRA APP PARA TU DISPOSITIVO IOS</div>
+                                                        </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                    
+<a class="portfolio-box portfolio-img-container" href="assets/img/20250606211506.jpg" title="APP ANDROID ">
+                            <img class="img-fluid" src="assets/img/20250606211506.jpg" alt="..." />
+                            <div class="portfolio-box-caption">
+                                <div class="project-category text-white-50">APP ANDROID </div>
+                                <div class="project-name">DESCARGA APP PARA ANDROID </div>
+                                                        </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                    
+<a class="portfolio-box portfolio-img-container" href="assets/img/20250929135946.jpg" title="https://tarifas.servel.cl/visualizar/ed7c3c389ae31da6a4aa206fee6d1e2533c82498">
+                            <img class="img-fluid" src="assets/img/20250929135946.jpg" alt="..." />
+                            <div class="portfolio-box-caption">
+                                <div class="project-category text-white-50">https://tarifas.servel.cl/visualizar/ed7c3c389ae31da6a4aa206fee6d1e2533c82498</div>
+                                <div class="project-name">TARIFAS SERVEL</div>
+                                                        </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                    
+<a class="portfolio-box portfolio-img-container" href="assets/img/20240807134501.jpg" title="Siempre Online">
+                            <img class="img-fluid" src="assets/img/20240807134501.jpg" alt="..." />
+                            <div class="portfolio-box-caption">
+                                <div class="project-category text-white-50">Siempre Online</div>
+                                <div class="project-name">DIOS ESTA A LAS PUERTAS.</div>
+                                                        </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                    
+<a class="portfolio-box portfolio-img-container" href="assets/img/20240807132851.jpg" title="TU RADIO VINTAGE">
+                            <img class="img-fluid" src="assets/img/20240807132851.jpg" alt="..." />
+                            <div class="portfolio-box-caption">
+                                <div class="project-category text-white-50">TU RADIO VINTAGE</div>
+                                <div class="project-name">Lámpara es a mis pies tu palabra,Y lumbrera a mi camino. Salmos 119:105</div>
+                                                        </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+         
+        <!-- Contact-->
+        <section class="page-section" id="contacto">
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-lg-8 col-xl-6 text-center">
+                        <h2 class="mt-0">Nuestros datos de contacto!</h2>
+                        <hr class="divider" />
+                        <p class="text-muted ">Si gustas contactarnos por información comercial puedes enviarnos un email a <a href="mailto:radiourbanafm107.3@gmail.com">radiourbanafm107.3@gmail.com</a> o escríbenos vía whatsapp!</p>
+                    </div>
+                </div>
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-lg-6">
+                       
+                  
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-lg-4 text-center mb-lg-0">
+                    <a href="https://api.whatsapp.com/send/?phone=+56453216938"> <i class="bi-whatsapp fs-2 mb-3 text-muted"></i></a>
+                        <div>+56453216938</div>
+                    </div>
+                </div>
+            </div>
+            
+        </section>
+       <style>
+        
+   .fondo {
+  
+  background: #fb09a2;
+}
+        .radio{
+
+    position: fixed;
+    bottom: 0;
+    z-index: 10;
+}
+
+.bg11{background:rgb(0, 0, 0)}
+
+.masthead {
+  padding-top: 10rem;
+  padding-bottom: calc(10rem - 4.5rem);
+  background: linear-gradient(to bottom, rgba(92, 77, 66, 0.8) 0%, rgba(92, 77, 66, 0.8) 100%), url("/assets/img/20250516205718.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-size: cover;
+}
+</style>
+        
+        <!-- Footer-->
+        <footer class="bg-light py-5 mb-5">
+            <div class="container px-4 px-lg-5 mb-1"><div class="small text-center text-muted">Copyright &copy; 2025 - Radio Urbana Fm</div></div>
+            <div class="container  px-4 px-lg-5 mb-5"><div class="small text-center text-muted"> Hecho con&nbsp;<svg class="bi bi-suit-heart-fill" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="#F95C19" viewBox="0 0 16 16">
+                  <path d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1z"></path>
+                </svg>&nbsp;por&nbsp;<a class="fw-bold text-dark" href="https://questreaming.com/" target="_blank">QueStreaming.com</a></p></div></div>
+        </footer>
+        <div class="mb-5 p-2"></div>
+         
+        
+        <div class="container-fluid  radio fondo p-1 mt-5">
+                <div class="container mb-5">
+                    <div class="row">
+                        <div class="col">
+
+                        
+<!--  questreaming.com html5 player -->
+
+<div id="radioContainer">
+  <div class="controls">
+    <button id="playPauseBtn">▶️</button>
+    <button id="muteBtn">🔊</button>
+    <div id="timerDisplay">00:00</div>
+  </div>
+</div>
+
+<audio id="radioPlayer" preload="auto"></audio>
+
+<script>
+  const streamUrl = "https://sonic-us.arkeo.cl/8574/stream";
+</script>
+<script src="js/radio_player.js?v=1793884177"></script>
+
+
+                            
+
+</div>
+
+<div class="col d-none d-sm-block">
+    
+    	<img src="https://demos.hostradios.com/modelo5/img/vumetros.gif" alt="" class="img-fluid">
+    	</div>
+
+<div class="col d-none d-sm-block">
+    	<h5 class="mt-2 text-light">Estas Escuchando:</h5>    <div class="program-info text-white" id="program-info">
+  Cargando programación...
+</div>
+
+    <div class="program-info text-white">
+  <i class="fas fa-wave-square"></i> <span id="time-slot">Cargando...</span>
+</div>
+ 
+
+
+
+</div>
+</div>
+</div>
+</div>
+<!-- TICKER RSS -->
+<div id="rssTicker" style="display: none;">
+  <span id="tickerContent"></span>
+</div>
+</div>
+<script src="notificaciones.js"></script>
+
+
+
+
+
+
+<script src="admin/script-programas.js"></script>
+  <script src="tipodehorario.js"></script>
+   <script src="js/rss.js"></script>
+
+        
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- SimpleLightbox plugin JS-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+        
+        
+    </body>
+    
+</html>
