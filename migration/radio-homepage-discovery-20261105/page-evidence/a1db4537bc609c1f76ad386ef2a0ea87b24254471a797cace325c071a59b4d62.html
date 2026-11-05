@@ -1,0 +1,607 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>La Radio De Los Lentos</title>
+	<meta property="og:image" content="./icons/icon@512.png?v1">
+	<link rel="icon" type="image/x-icon" href="./icons/icon@192.png?v1">
+	<script type="module" src="pwa-install.bundle.js"></script>
+	<link rel="manifest" href="manifest.json">
+
+<!-- COMPARTIR EN FACEBOOK -->
+<meta property="og:title" content="ESCUCHAR EN VIVO">
+<meta property="og:description" content="Hace click para conectarte">
+<meta property="og:type" content="movie">
+<meta property="og:image" content="https://www.solumedia.com.ar/video/play.jpg">
+<meta property="og:image:secure_url" content="https://www.solumedia.com.ar/video/play.jpg">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- FIN COMPARTIR EN FACEBOOK -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+
+html,
+body {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	font-family: Arial, sans-serif;
+	background: #000;
+}
+
+#lunaradiocoverwrapper {border-radius:15px; pointer-events: auto; pointer-events: none;}
+
+/* BOTON HAMBURGUESA */
+.menu-toggle {
+	position: fixed;
+	top: 28px;
+	left: 18px;
+	z-index: 9999;
+
+	width: 54px;
+	height: 54px;
+
+	border-radius: 18px;
+
+	background: linear-gradient(
+		180deg,
+		rgba(255,255,255,0.14),
+		rgba(255,255,255,0.05)
+	);
+
+	border: 1px solid rgba(255,255,255,0.10);
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	cursor: pointer;
+
+	color: #ffffff;
+	font-size: 22px;
+
+	backdrop-filter: blur(14px);
+	-webkit-backdrop-filter: blur(14px);
+
+	box-shadow:
+		0 10px 30px rgba(0,0,0,0.45),
+		inset 0 1px 0 rgba(255,255,255,0.08);
+
+	transition:
+		transform 0.25s ease,
+		background 0.25s ease,
+		opacity 0.25s ease;
+}
+
+.menu-toggle:hover {
+	transform: scale(1.05);
+	background: linear-gradient(
+		180deg,
+		rgba(255,255,255,0.18),
+		rgba(255,255,255,0.08)
+	);
+}
+
+.menu-toggle.hidden {
+	opacity: 0;
+	pointer-events: none;
+	transform: scale(0.9);
+}
+
+/* OVERLAY */
+.menu-overlay {
+	position: fixed;
+	inset: 0;
+	background: rgba(0,0,0,0.6);
+	z-index: 9997;
+	display: none;
+}
+
+/* MENU */
+.sidebar {
+	position: fixed;
+	top: 0;
+	left: -320px;
+	width: 300px;
+	height: 100%;
+
+	background: rgba(15,15,15,0.92);
+
+	backdrop-filter: blur(18px);
+	-webkit-backdrop-filter: blur(18px);
+
+	color: #fff;
+	z-index: 9998;
+
+	transition: left 0.3s ease;
+
+	overflow-y: auto;
+
+	box-shadow: 4px 0 20px rgba(0,0,0,0.5);
+
+	/* FIREFOX */
+	scrollbar-width: thin;
+	scrollbar-color: rgba(255,255,255,0.25) transparent;
+}
+
+.sidebar.open {
+	left: 0;
+}
+
+.menu-overlay.open {
+	display: block;
+}
+
+/* SCROLLBAR MODERNA */
+
+.sidebar::-webkit-scrollbar {
+	width: 10px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+	background: rgba(255,255,255,0.03);
+	border-radius: 20px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+	background: linear-gradient(
+		180deg,
+		rgba(255,255,255,0.30),
+		rgba(255,255,255,0.12)
+	);
+
+	border-radius: 20px;
+	border: 2px solid transparent;
+	background-clip: padding-box;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+	background: linear-gradient(
+		180deg,
+		rgba(255,255,255,0.45),
+		rgba(255,255,255,0.20)
+	);
+}
+
+.sidebar-content {
+	padding: 20px;
+}
+
+.logo-menu {
+	width: 100%;
+	max-width: 260px;
+	display: block;
+	margin: 0 auto 25px auto;
+	border-radius: 10px;
+}
+
+.menu-section {
+	margin-bottom: 30px;
+}
+
+.menu-title {
+	font-size: 16px;
+	font-weight: bold;
+	margin-bottom: 15px;
+	color: #ffffff;
+	border-bottom: 1px solid rgba(255,255,255,0.1);
+	padding-bottom: 8px;
+}
+
+.social-links,
+.app-links {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+
+.social-links a,
+.app-links a {
+	color: #fff;
+	text-decoration: none;
+	font-size: 15px;
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding: 10px 12px;
+	background: rgba(255,255,255,0.06);
+	border-radius: 12px;
+	transition:
+		background 0.2s ease,
+		transform 0.2s ease;
+}
+
+.social-links a:hover,
+.app-links a:hover {
+	background: rgba(255,255,255,0.12);
+	transform: translateX(3px);
+}
+
+.staff-text {
+	font-size: 14px;
+	line-height: 1.7;
+	color: #ddd;
+}
+
+.staff-text strong {
+	color: #fff;
+}
+
+.staff-text a {
+	color: #ffffff;
+	text-decoration: none;
+}
+
+.top-link {
+	padding: 2px 0px 4px;
+	width: 100%;
+	background: #000000;
+	display: block;
+	color: #ffffff;
+	font-weight: normal;
+	font-size: 11px;
+	font-family: arial;
+	text-decoration: none;
+	text-align: center;
+}
+
+#lunaradio {
+	width: 100%;
+	height: calc(100% - 20px);
+	background: #000000 url(1.jpg) bottom / cover no-repeat;
+}
+
+/* MOBILE */
+@media (max-width: 480px) {
+
+#lunaradiocoverwrapper {margin-left:14px; margin-top:27px;}
+
+	.sidebar {
+		width: 85%;
+		left: -100%;
+	}
+
+	.logo-menu {
+		max-width: 220px;
+	}
+
+	.menu-toggle {
+		width: 48px;
+		height: 48px;
+		font-size: 20px;
+		top: 20px;
+		left: 0px;
+
+	background: transparent !important;
+
+	border: none !important;
+	box-shadow: none !important;
+
+	backdrop-filter: none !important;
+	-webkit-backdrop-filter: none !important;
+	}
+.menu-toggle i {
+	color: #ffffff;
+	text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+}
+}
+
+</style>
+</head>
+
+<body>
+
+    <script type='text/javascript'> // fuerza instalacion a los 5 segundos
+    setTimeout(function() { 
+document.getElementById('instalar').dispatchEvent(new MouseEvent("click"));}, 5000); </script>
+	<script type="text/javascript">
+		if ("serviceWorker" in navigator) {
+			if (navigator.serviceWorker.controller) {
+				console.log("Active service worker found, no need to register");
+			} else {
+				navigator.serviceWorker.register('/service-worker.js', {scope: '/'}).then(function (reg) {
+					console.log("Service worker registered");
+				});
+			}
+		}
+	</script>
+
+	<pwa-install id="pwa-install" manifest-url="manifest.json"></pwa-install>
+
+	<script type="text/javascript">
+		var pwaInstall = document.getElementById("pwa-install");
+
+		document.getElementById('events-area').value = "";
+		const logMessage = (message) => {
+			console.log(message);
+			document.getElementById('events-area').value+=`>: ${message}\r\n`;
+		}
+
+		const getRelated = () => {
+			pwaInstall.getInstalledRelatedApps().then(
+				(result) => {
+					logMessage(result.toString() || 'None');
+				}
+			)
+		}
+
+		const forceApple = (apple = true) => {
+			pwaInstall.isAppleMobilePlatform = apple;
+			pwaInstall.hideDialog();
+			pwaInstall.showDialog();
+		}
+
+		pwaInstall.addEventListener('pwa-install-success-event', (event) => {logMessage(event.detail.message)});
+		pwaInstall.addEventListener('pwa-install-fail-event', (event) => {logMessage(event.detail.message)});
+		pwaInstall.addEventListener('pwa-user-choice-result-event', (event) => {logMessage(event.detail.message)});
+		pwaInstall.addEventListener('pwa-install-available-event', (event) => {logMessage(event.detail.message)});
+	</script>
+
+
+
+
+<script>
+
+// bloquear click derecho
+document.addEventListener('contextmenu', function(e) {
+	e.preventDefault();
+});
+
+// bloquear algunas teclas comunes de inspecci n
+document.addEventListener('keydown', function(e) {
+
+	// F12
+	if (e.key === 'F12') {
+		e.preventDefault();
+	}
+
+	// CTRL + SHIFT + I
+	if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'i') {
+		e.preventDefault();
+	}
+
+	// CTRL + SHIFT + J
+	if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'j') {
+		e.preventDefault();
+	}
+
+	// CTRL + U
+	if (e.ctrlKey && e.key.toLowerCase() === 'u') {
+		e.preventDefault();
+	}
+
+});
+
+</script>
+
+<!-- BOTON MENU -->
+<div class="menu-toggle" onclick="toggleMenu()">
+	<i class="fas fa-bars"></i>
+</div>
+
+<!-- OVERLAY -->
+<div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
+
+<!-- MENU -->
+<div class="sidebar" id="sidebar">
+
+	<div class="sidebar-content">
+
+		<img src="barra.png" class="logo-menu">
+
+		<!-- REDES -->
+		<div class="menu-section">
+
+			<div class="menu-title">
+				Redes Sociales
+			</div>
+
+			<div class="social-links">
+
+				<a href="https://www.facebook.com/LaRadioDeLosLentos/" target="_blank">
+					<i class="fab fa-facebook-f"></i>
+					Facebook
+				</a>
+
+				<a href="https://www.instagram.com/laradiodeloslentos/" target="_blank">
+					<i class="fab fa-instagram"></i>
+					Instagram
+				</a>
+
+				<a href="mailto:contacto@laradiodeloslentos.com">
+					<i class="fas fa-envelope"></i>
+					Contacto
+				</a>
+
+			</div>
+
+		</div>
+
+		<!-- APPS -->
+		<div class="menu-section">
+
+			<div class="menu-title">
+				Instalar App
+			</div>
+
+			<div class="app-links">
+
+				<a href="javascript:pwaInstall.showDialog()">
+					<i class="fab fa-android"></i>
+					Android
+				</a>
+
+				<a href="https://apps.apple.com/us/app/la-radio-de-los-lentos/id1460586984">
+					<i class="fab fa-apple"></i>
+					iPhone
+				</a>
+
+			</div>
+
+		</div>
+
+		<!-- STAFF -->
+		<div class="menu-section">
+
+			<div class="menu-title">
+				Staff
+			</div>
+
+			<div class="staff-text">
+
+				<strong>Art&iacute;stica / musicalizaci&oacute;n / redes:</strong><br>
+				Seba Dominguez
+
+				<br><br>
+
+				<strong>Sistemas:</strong><br>
+				Daniel Florio
+
+				<br><br>
+
+				<strong>Streaming:</strong><br>
+				<a href="https://solumedia.com" target="_blank">
+					Solumedia.com
+				</a>
+
+			</div>
+
+		</div>
+
+	</div>
+
+</div>
+
+<script src="jquery-3.2.1.min.js"></script>
+<script src="lunaradio-sincors.js"></script>
+
+<a href="#"
+   class="top-link">
+	LARADIODELOSLENTOS.COM
+</a>
+
+<div id="lunaradio">
+	Cargando...
+</div>
+
+<script>
+
+function toggleMenu() {
+
+	const sidebar = document.getElementById('sidebar');
+	const overlay = document.getElementById('menuOverlay');
+	const button = document.querySelector('.menu-toggle');
+
+	sidebar.classList.toggle('open');
+	overlay.classList.toggle('open');
+
+	if (sidebar.classList.contains('open')) {
+		button.classList.add('hidden');
+	} else {
+		button.classList.remove('hidden');
+	}
+}
+
+</script>
+
+<script>
+
+$("#lunaradio").lunaradio({
+	userinterface: "big",
+	backgroundcolor: "#333333",
+	fontcolor: "#ffffff",
+	hightlightcolor: "#eeeeee",
+	fontname: "Roboto",
+	googlefont: "Roboto&display=swap",
+	fontratio: "0.5",
+	radioname: "",
+	scroll: "true",
+	coverimage: "logo.jpg",
+	onlycoverimage: "false",
+	coverstyle: "square",
+	usevisualizer: "real",
+	visualizertype: "0",
+	metadatatechnic: "",
+	ownmetadataurl: "",
+	streamurl: "https://01.solumedia.com.ar:7828",
+	streamtype: "icecast2",
+	icecastmountpoint: "/autodj",
+	shoutcastpath: "/stream",
+	shoutcastid: "1",
+	streamsuffix: "",
+	radionomyid: "",
+	radionomyapikey: "",
+	radiojarid: "",
+	radiocoid: "",
+	itunestoken: "1000lIPN",
+	metadatainterval: "5000",
+	volume: "100",
+	debug: "false",
+	autoplay: "true"
+});
+
+</script>
+
+<script>
+
+let ultimoTitulo = "";
+
+function actualizarPlayerInfo() {
+
+	const titleEl = document.querySelector('.lunaradiotexttitlespan');
+	const coverEl = document.querySelector('#lunaradiocoverwrapper2');
+
+	if (!titleEl || !coverEl) return;
+
+	const texto = titleEl.textContent.trim();
+
+	if (!texto || texto === ultimoTitulo) return;
+
+	ultimoTitulo = texto;
+
+	let artista = "";
+	let cancion = texto;
+
+	if (texto.includes(" - ")) {
+		[artista, cancion] = texto.split(" - ");
+	}
+
+	const bg = coverEl.style.backgroundImage;
+	const match = bg.match(/url\(["']?(.*?)["']?\)/);
+
+	const imagen = match ? match[1] : "";
+
+	document.title = texto + " - En Vivo";
+
+	// evitar usar el logo por defecto
+	const usarArtwork =
+		imagen &&
+		!imagen.includes("logo.jpg") &&
+		!imagen.includes("noimage") &&
+		!imagen.includes("default");
+
+	if ('mediaSession' in navigator) {
+
+		navigator.mediaSession.metadata = new MediaMetadata({
+			title: cancion,
+			artist: artista,
+			album: "",
+			artwork: usarArtwork ? [
+				{
+					src: imagen,
+					sizes: '512x512',
+					type: 'image/jpg'
+				}
+			] : []
+		});
+
+	}
+}
+
+setInterval(actualizarPlayerInfo, 2000);
+
+</script>
+
+</body>
+</html>
