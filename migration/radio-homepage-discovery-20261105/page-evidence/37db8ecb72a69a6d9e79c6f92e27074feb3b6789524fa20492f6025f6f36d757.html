@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Radio Club 80 - Hi-Fi Streaming</title>
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <!-- Howler.js para reproducción de audio -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.4/howler.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        main.main-layout {
+            grid-template-columns: 395px 1.2fr 1fr 310px 340px !important; 
+        }
+
+        .card.info-center {
+            min-height: 540px !important; 
+            padding: 16px !important;
+        }
+
+        .art-container {
+            width: 280px !important;
+            max-width: 280px !important;
+            height: 280px !important;
+            min-height: 280px !important;
+        }
+
+        .player-header-pro {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-family: 'Orbitron', system-ui, sans-serif;
+            font-size: 11px;
+            letter-spacing: 1.5px;
+            color: var(--accent);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 8px;
+            margin-bottom: 10px;
+            width: 100%;
+        }
+
+        .player-header-pro .badge-hiress {
+            background: rgba(57, 255, 20, 0.15);
+            border: 1px solid var(--accent);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 8px;
+            color: var(--accent);
+        }
+
+        .traffic-widget-box {
+            width: 100%;
+            height: 310px;
+            background: #0b0b0b;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 6px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="bg-overlay"></div>
+
+    <header class="header">
+        <div class="nav-inner">
+            <div id="st-list" class="stations"></div>
+
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <div class="player-module">
+                    <button id="play-p" title="Reproducir / Pausa"><i class="ph-fill ph-play"></i></button>
+                    <div class="led-wrapper">
+                        <span class="led-green"></span>
+                        <span style="font-size: 11px; font-weight: 700; color: #fff; letter-spacing: 0.5px;">LIVE</span>
+                    </div>
+                </div>
+
+                <div class="volume-wrapper" id="vol-wrap">
+                    <button id="vol-btn" title="Volumen"><i class="ph-fill ph-speaker-high"></i></button>
+                    <div class="vol-slider-container">
+                        <input type="range" id="vol-s" min="0" max="1" step="0.01" value="0.8">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-layout">
+        
+        <section class="card info-center">
+            <div class="player-header-pro">
+                <span>Radio Club 80 Hi-Res</span>
+                <span class="badge-hiress">LOSSLESS 24-BIT</span>
+            </div>
+            
+            <div class="art-container">
+                <img id="main-art" src="./foto.jpg" alt="Carátula" onerror="this.src='./foto.jpg'">
+            </div>
+
+            <div class="artist-title" id="artist-label">Cargando artista...</div>
+            <div class="song-title" id="song-label">Conectando con la estación...</div>
+
+            <div id="source-quality" class="quality-box"></div>
+
+            <div class="metadata-grid">
+                <div class="meta-item"><small>Sello</small><b id="d-label">-</b></div>
+                <div class="meta-item"><small>Año</small><b id="d-year">-</b></div>
+                <div class="meta-item"><small>Género</small><b id="d-genre">-</b></div>
+                <div class="meta-item"><small>Estilo</small><b id="d-style">-</b></div>
+            </div>
+
+            <div class="metadata-grid" style="margin-bottom: 0;">
+                <div class="meta-item"><small>Formato</small><b id="d-format">-</b></div>
+                <div class="meta-item"><small>Pista / Duración</small><div><span id="d-track-num">-</span> | <span id="d-duration">-</span></div></div>
+            </div>
+
+            <div class="social-links">
+                <a id="link-tidal" href="#" target="_blank" class="social-btn" title="Buscar en Tidal"><i class="ph-bold ph-waves"></i></a>
+                <a id="link-discogs" href="#" target="_blank" class="social-btn" title="Buscar en Discogs"><i class="ph-bold ph-disc"></i></a>
+                <a id="link-spotify" href="#" target="_blank" class="social-btn" title="Buscar en Spotify"><i class="ph-bold ph-spotify-logo"></i></a>
+                <a id="link-discolog" href="#" target="_blank" class="social-btn" title="Discolog"><i class="ph-bold ph-globe"></i></a>
+            </div>
+        </section>
+
+        <section class="card">
+            <div style="font-size: 10px; font-weight: 700; color: var(--gold); letter-spacing: 1px; margin-bottom: 8px;">BIOGRAFÍA DEL ARTISTA</div>
+            <img id="artist-art" src="./foto.jpg" alt="Artista" onerror="this.src='./foto.jpg'">
+            <div id="wiki-body" class="lyrics-box">Cargando biografía...</div>
+        </section>
+
+        <section class="card">
+            <div style="font-size: 10px; font-weight: 700; color: var(--gold); letter-spacing: 1px; margin-bottom: 8px;">DISCOGRAFÍA DEL ARTISTA</div>
+            <div id="lyrics-content" class="lyrics-box">
+                <div style="color: #888; font-size: 11px; text-align:center; padding: 15px;">Esperando reproducción...</div>
+            </div>
+        </section>
+
+        <section class="card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <div style="font-size: 10px; font-weight: 700; color: #fff; letter-spacing: 1px;">HISTORIAL RECIENTE</div>
+                <div style="font-size: 10px; color: var(--accent);">Favoritos: <span id="fav-count">0</span></div>
+            </div>
+            <div id="hist-container" class="lyrics-box" style="display: flex; flex-direction: column; gap: 8px;"></div>
+        </section>
+
+        <section class="card">
+            <div style="font-size: 10px; font-weight: 700; color: var(--accent); letter-spacing: 1px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center;">
+                <span>VISITAS EN TIEMPO REAL</span>
+                <span class="led-green" title="Live Traffic Feed Activo"></span>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+                
+                <div style="background: rgba(255,255,255,0.03); padding: 6px; border-radius: 4px; border: 1px solid var(--border-color); font-size: 11px; color: #ccc;">
+                    <div><b>Tu Sistema:</b> <span style="color: var(--accent);">Windows</span></div>
+                    <div><b>Tu Navegador:</b> <span style="color: var(--accent);">Chrome</span></div>
+                    <div><b>Dispositivo:</b> Desktop</div>
+                </div>
+                
+                <!-- Widget Oficial de Live Traffic Feed -->
+                <div class="traffic-widget-box">
+                    <script type="text/javascript" src="//cdn.livetrafficfeed.com/static/widgets/live.js?bc=0b0b0b&amp;tc=dddddd&amp;brd1=1e293b&amp;lnk=38bdf8&amp;hc=0b0b0b&amp;hfc=39FF14&amp;nc=39FF14&amp;vv=100%25&amp;tft=10&amp;ro=0&amp;res=1"></script>
+                    <noscript><a href="https://livetrafficfeed.com">Live Traffic Stats</a></noscript>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>

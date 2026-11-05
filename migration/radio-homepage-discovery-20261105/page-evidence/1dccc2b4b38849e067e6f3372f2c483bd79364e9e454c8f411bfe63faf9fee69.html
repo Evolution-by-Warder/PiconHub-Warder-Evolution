@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Radio Cariñosa 92.1 FM · Ritmo y sabor a tu corazón</title>
+<meta name="description" content="Radio Cariñosa 92.1 FM — Chillán, Ñuble. Ritmo y sabor a tu corazón, las 24 horas.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Fraunces:ital,wght@1,500;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --yellow: #FFCB2D; --yellow-deep: #F5B500;
+    --purple: #7B3FE4; --purple-deep: #5921C4; --purple-soft: #A77FFF;
+    --orange: #FF6A1F; --orange-deep: #E8530A;
+    --pink: #FF7B9C; --pink-soft: #FFC4D4;
+    --teal: #5FD8DA; --teal-soft: #A8EBED;
+    --cream: #FFF8E7; --paper: #FFFBF0;
+    --ink: #1A1208; --ink-soft: #3A2C1E; --line: rgba(26,18,8,.1);
+    --display: 'Caprasimo', serif;
+    --display-italic: 'Fraunces', serif;
+    --body: 'Plus Jakarta Sans', sans-serif;
+    --gutter: clamp(1.25rem, 4vw, 4rem);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--body); background: var(--yellow); color: var(--ink); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; cursor: pointer; border: 0; background: none; color: inherit; }
+  img { max-width: 100%; display: block; }
+
+  .ticker { background: var(--ink); color: var(--yellow); padding: .6rem 0; overflow: hidden; border-bottom: 3px solid var(--purple); position: relative; z-index: 50; }
+  .ticker__track { display: inline-flex; gap: 2.5rem; white-space: nowrap; animation: ticker 30s linear infinite; font-weight: 700; font-size: .78rem; letter-spacing: .15em; text-transform: uppercase; }
+  .ticker__track span:nth-child(even) { color: var(--pink); }
+  @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+  .nav { position: sticky; top: 0; z-index: 40; background: var(--yellow); padding: 1rem var(--gutter); display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; border-bottom: 3px solid var(--ink); }
+  .nav__logo { display: flex; align-items: center; gap: .5rem; flex-shrink: 0; }
+  .nav__logo-script { font-family: var(--display-italic); font-style: italic; font-weight: 600; font-size: 2rem; color: var(--orange); line-height: 1; }
+  .nav__logo-freq { font-weight: 800; font-size: .78rem; background: var(--orange); color: var(--paper); padding: .25rem .55rem; border-radius: 8px; }
+  .nav__menu { display: flex; gap: .5rem; flex-wrap: wrap; }
+  .nav__menu a { padding: .55rem 1.1rem; background: var(--purple); color: var(--paper); border-radius: 100px; font-weight: 700; font-size: .82rem; letter-spacing: .04em; text-transform: uppercase; transition: all .2s; border: 2px solid var(--ink); box-shadow: 3px 3px 0 var(--ink); }
+  .nav__menu a:hover { transform: translate(-2px,-2px); box-shadow: 5px 5px 0 var(--ink); }
+  .nav__menu a.live { background: var(--pink); }
+
+  .hero { position: relative; padding: clamp(2rem,5vw,4rem) var(--gutter) clamp(3rem,6vw,6rem); overflow: hidden; }
+  .hero__blob { position: absolute; border-radius: 50%; pointer-events: none; z-index: 0; }
+  .hero__blob--1 { width: 380px; height: 380px; background: var(--orange); top: -100px; left: -120px; border-radius: 60% 40% 50% 50%; animation: blob 18s ease-in-out infinite; opacity: .85; }
+  .hero__blob--2 { width: 260px; height: 260px; background: var(--teal); top: 60%; right: -80px; border-radius: 40% 60% 70% 30%; animation: blob 22s ease-in-out infinite reverse; opacity: .7; }
+  .hero__blob--3 { width: 180px; height: 180px; background: var(--pink); top: 5%; right: 35%; border-radius: 70% 30% 40% 60%; animation: blob 16s ease-in-out infinite; opacity: .55; }
+  @keyframes blob { 0%,100% { transform: translate(0,0) scale(1) rotate(0); } 33% { transform: translate(30px,-20px) scale(1.05) rotate(8deg); } 66% { transform: translate(-20px,30px) scale(.95) rotate(-5deg); } }
+
+  .hero__grid { position: relative; z-index: 2; max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 1.2fr 1fr; gap: clamp(2rem,4vw,4rem); align-items: center; }
+  .hero__title { font-family: var(--display); font-weight: 400; font-size: clamp(3rem,8vw,6.5rem); line-height: .95; color: var(--paper); -webkit-text-stroke: 2px var(--ink); text-shadow: 6px 6px 0 var(--ink); margin-bottom: 1.5rem; }
+  .hero__lead { font-size: 1.1rem; font-weight: 600; line-height: 1.5; color: var(--ink); max-width: 480px; margin-bottom: 2rem; background: var(--paper); padding: 1rem 1.4rem; border-radius: 16px; border: 2px solid var(--ink); box-shadow: 4px 4px 0 var(--ink); }
+
+  .player { background: var(--paper); border: 3px solid var(--ink); border-radius: 28px; padding: 1.6rem; display: flex; align-items: center; gap: 1.25rem; margin-bottom: 1.5rem; box-shadow: 6px 6px 0 var(--ink); position: relative; overflow: hidden; }
+  .player__btn { width: 70px; height: 70px; border-radius: 50%; background: var(--purple); display: grid; place-items: center; flex-shrink: 0; transition: all .2s; border: 3px solid var(--ink); box-shadow: 4px 4px 0 var(--ink); position: relative; z-index: 1; }
+  .player__btn:hover { transform: translate(-2px,-2px); box-shadow: 6px 6px 0 var(--ink); }
+  .player__btn svg { width: 28px; height: 28px; fill: var(--paper); margin-left: 4px; }
+  .player__btn .icon-pause { display: none; }
+  .player.is-playing .icon-play { display: none; }
+  .player.is-playing .icon-pause { display: block; }
+  .player__info { flex: 1; min-width: 0; position: relative; z-index: 1; }
+  .player__now { display: inline-flex; align-items: center; gap: .4rem; font-weight: 800; font-size: .7rem; letter-spacing: .15em; color: var(--orange); text-transform: uppercase; margin-bottom: .3rem; }
+  .player__now-dot { width: 10px; height: 10px; background: var(--orange); border-radius: 50%; animation: pulse 1.4s infinite; }
+  @keyframes pulse { 0%,100% { box-shadow: 0 0 0 0 rgba(255,106,31,.7); } 50% { box-shadow: 0 0 0 8px rgba(255,106,31,0); } }
+  .player__title { font-family: var(--display); font-weight: 400; font-size: 1.5rem; color: var(--ink); line-height: 1; margin-bottom: .2rem; }
+  .player__artist { font-weight: 600; font-size: .85rem; color: var(--ink-soft); text-transform: uppercase; letter-spacing: .04em; }
+  .player__status { font-size: .78rem; color: var(--ink-soft); margin-top: .3rem; }
+
+  .programs { background: var(--cream); padding: clamp(4rem,7vw,7rem) var(--gutter); border-top: 3px solid var(--ink); border-bottom: 3px solid var(--ink); }
+  .section-head { max-width: 1400px; margin: 0 auto clamp(2rem,4vw,3.5rem); text-align: center; }
+  .section-head__title { font-family: var(--display); font-weight: 400; font-size: clamp(2.6rem,6vw,4.5rem); line-height: .95; color: var(--purple); -webkit-text-stroke: 2px var(--ink); text-shadow: 5px 5px 0 var(--ink); display: inline-block; transform: rotate(-2deg); }
+  .section-head__sub { font-family: var(--display-italic); font-style: italic; font-weight: 500; font-size: 1.2rem; margin-top: 1rem; }
+
+  .programs__grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap: 1.5rem; }
+  .program { background: var(--paper); border: 3px solid var(--ink); border-radius: 24px; overflow: hidden; box-shadow: 5px 5px 0 var(--ink); }
+  .program__photo { aspect-ratio: 1; position: relative; border-bottom: 3px solid var(--ink); overflow: hidden; display: grid; place-items: center; font-size: 4rem; background: var(--orange); }
+  .program__photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .program__body { padding: 1.1rem 1.3rem; text-align: center; }
+  .program__title { font-family: var(--display); font-weight: 400; font-size: 1.3rem; margin-bottom: .35rem; }
+  .program__time { font-weight: 700; font-size: .78rem; color: var(--ink-soft); margin-bottom: .55rem; }
+  .program__host { display: inline-block; background: var(--ink); color: var(--paper); font-weight: 700; font-size: .68rem; padding: .3rem .75rem; border-radius: 100px; letter-spacing: .04em; text-transform: uppercase; }
+
+  .empty-state { max-width: 640px; margin: 0 auto; text-align: center; background: var(--paper); border: 3px dashed var(--ink); border-radius: 20px; padding: 2rem; font-weight: 600; color: var(--ink-soft); }
+
+  .noticias { background: var(--purple); padding: clamp(3rem,6vw,5rem) var(--gutter); color: var(--paper); border-bottom: 3px solid var(--ink); }
+  .noticias__inner { max-width: 1400px; margin: 0 auto; }
+  .noticias__head { text-align: center; margin-bottom: 2rem; }
+  .noticias__title { font-family: var(--display); font-size: clamp(2.2rem,5vw,3.4rem); -webkit-text-stroke: 2px var(--ink); text-shadow: 5px 5px 0 var(--ink); }
+  .noticias__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap: 1.5rem; }
+  .noticia-card { background: var(--paper); color: var(--ink); border: 3px solid var(--ink); border-radius: 20px; padding: 1.4rem; box-shadow: 5px 5px 0 var(--ink); }
+  .noticia-card img { border-radius: 12px; margin-bottom: .8rem; aspect-ratio: 16/9; object-fit: cover; }
+  .noticia-card h3 { font-family: var(--display); font-size: 1.3rem; margin-bottom: .5rem; }
+  .noticia-card p { font-size: .92rem; line-height: 1.5; margin-bottom: .8rem; }
+  .noticia-card a { font-weight: 800; color: var(--orange-deep); text-transform: uppercase; font-size: .8rem; }
+  #twitter-embed { max-width: 560px; margin: 0 auto; }
+  #curator-feed-radio-cari-osa { max-width: 1100px; margin: 2.5rem auto 0; }
+
+  .sponsors { background: var(--orange); padding: clamp(3rem,5vw,5rem) var(--gutter); border-bottom: 3px solid var(--ink); }
+  .sponsors__inner { max-width: 1400px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap; }
+  .sponsors__title { font-family: var(--display); font-size: clamp(1.8rem,4vw,2.6rem); color: var(--paper); -webkit-text-stroke: 2px var(--ink); text-shadow: 4px 4px 0 var(--ink); transform: rotate(-2deg); }
+  .sponsors__brands { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .sponsor-brand { background: var(--paper); border: 3px solid var(--ink); padding: .8rem 1.4rem; border-radius: 14px; font-family: var(--display); font-size: 1.25rem; box-shadow: 4px 4px 0 var(--ink); display: flex; align-items: center; gap: .6rem; }
+  .sponsor-brand img { max-height: 32px; width: auto; }
+
+  .footer { background: var(--ink); color: var(--paper); padding: clamp(3rem,5vw,5rem) var(--gutter) 1.5rem; position: relative; }
+  .footer::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 8px; background: linear-gradient(90deg, var(--orange) 0 25%, var(--pink) 25% 50%, var(--purple) 50% 75%, var(--teal) 75% 100%); }
+  .footer__inner { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 2.5rem; }
+  .footer__brand h3 { font-family: var(--display); font-size: 2rem; color: var(--orange); margin-bottom: .4rem; }
+  .footer__brand-freq { display: inline-block; background: var(--orange); color: var(--ink); padding: .2rem .6rem; border-radius: 6px; font-weight: 800; font-size: .85rem; margin-bottom: 1rem; }
+  .footer__brand p { color: rgba(255,251,240,.65); font-size: .9rem; line-height: 1.55; }
+  .footer__col h4 { font-weight: 800; font-size: .78rem; text-transform: uppercase; letter-spacing: .15em; color: var(--yellow); margin-bottom: 1rem; }
+  .footer__col ul { list-style: none; display: grid; gap: .6rem; }
+  .footer__col a { color: rgba(255,251,240,.75); font-size: .92rem; }
+  .footer__col a:hover { color: var(--orange); }
+  .footer__bottom { max-width: 1400px; margin: 0 auto; padding-top: 1.5rem; border-top: 1px solid rgba(255,251,240,.1); font-size: .78rem; color: rgba(255,251,240,.4); text-align: center; }
+
+  @media (max-width: 1024px) {
+    .hero__grid { grid-template-columns: 1fr; }
+    .footer__inner { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 640px) {
+    .nav__menu { display: none; }
+    .programs__grid { grid-template-columns: 1fr 1fr; }
+    .footer__inner { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="ticker" aria-hidden="true">
+  <div class="ticker__track" id="ticker-track"></div>
+</div>
+
+<header class="nav">
+  <a href="#top" class="nav__logo">
+    <span class="nav__logo-script">Cariñosa</span>
+    <span class="nav__logo-freq" id="nav-freq">92.1FM</span>
+  </a>
+  <nav class="nav__menu" id="nav-menu"></nav>
+</header>
+
+<section class="hero" id="top">
+  <div class="hero__blob hero__blob--1"></div>
+  <div class="hero__blob hero__blob--2"></div>
+  <div class="hero__blob hero__blob--3"></div>
+
+  <div class="hero__grid">
+    <div class="hero__left">
+      <h1 class="hero__title" id="hero-title">Ritmo y sabor a tu corazón</h1>
+      <p class="hero__lead" id="hero-lead">La radio que late con Ñuble. Música, noticias y la mejor compañía las 24 horas, desde Chillán para ti.</p>
+
+      <div class="player" id="player">
+        <button class="player__btn" id="player-btn" aria-label="Reproducir">
+          <svg class="icon-play" viewBox="0 0 24 24"><path d="M7 5l12 7-12 7V5z"/></svg>
+          <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+        </button>
+        <div class="player__info">
+          <div class="player__now"><span class="player__now-dot"></span> <span id="player-boton-texto">SEÑAL ONLINE</span></div>
+          <div class="player__title">Cariñosa 92.1 FM</div>
+          <div class="player__artist">En vivo desde Chillán</div>
+          <div class="player__status" id="player-status">Cargando reproductor…</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero__right">
+      <img id="hero-photo" src="https://www.radiocarinosa.cl/assets/grupal-team.png" alt="Equipo Radio Cariñosa 92.1 FM" style="border-radius:32px;border:3px solid var(--ink);box-shadow:8px 8px 0 var(--ink);">
+    </div>
+  </div>
+</section>
+
+<section class="programs" id="programs">
+  <div class="section-head">
+    <h2 class="section-head__title">Programación</h2>
+    <p class="section-head__sub">Acompañándote todo el día con la mejor onda</p>
+  </div>
+  <div class="programs__grid" id="programs-grid">
+    <p class="empty-state">Muy pronto publicaremos aquí la programación completa.</p>
+  </div>
+</section>
+
+<section class="noticias" id="noticias">
+  <div class="noticias__inner">
+    <div class="noticias__head">
+      <h2 class="noticias__title">Noticias</h2>
+    </div>
+    <div id="noticias-manual" class="noticias__grid" style="display:none;"></div>
+    <div id="noticias-feed">
+      <div id="twitter-embed">
+        <a class="twitter-timeline" data-height="500" href="https://twitter.com/Carinosa921?ref_src=twsrc%5Etfw">Tweets de @Carinosa921</a>
+      </div>
+      <!-- Feed de Instagram vía Curator.io (mismo widget del sitio actual) -->
+      <div id="curator-feed-radio-cari-osa"><a href="https://curator.io" target="_blank" class="crt-logo crt-tag">Powered by Curator.io</a></div>
+    </div>
+  </div>
+</section>
+
+<section class="sponsors" id="sponsors">
+  <div class="sponsors__inner">
+    <h2 class="sponsors__title">Amigos<br>Cariñosa</h2>
+    <div class="sponsors__brands" id="sponsors-brands"></div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__brand">
+      <h3>Cariñosa</h3>
+      <span class="footer__brand-freq" id="footer-freq">92.1 FM</span>
+      <p id="footer-desc">Ritmo y sabor a tu corazón. Desde Chillán para todo Ñuble.</p>
+    </div>
+    <div class="footer__col">
+      <h4>Navega</h4>
+      <ul id="footer-nav"></ul>
+    </div>
+    <div class="footer__col">
+      <h4>Contacto</h4>
+      <ul id="footer-contacto"></ul>
+    </div>
+    <div class="footer__col">
+      <h4>Redes</h4>
+      <ul id="footer-redes"></ul>
+    </div>
+  </div>
+  <div class="footer__bottom" id="footer-copyright">© 2026 Radio Cariñosa · Marva Comunicaciones</div>
+</footer>
+
+<script src="https://platform.twitter.com/widgets.js" async></script>
+<script type="text/javascript">
+/* curator-feed-radio-cari-osa (feed de Instagram del sitio actual) */
+(function(){
+var i,e,d=document,s="script";i=d.createElement(s);i.async=1;i.charset="UTF-8";
+i.src="https://cdn.curator.io/published/298507e3-cc59-4962-b746-ddcdfbd2ba12.js";
+e=d.getElementsByTagName(s)[0];e.parentNode.insertBefore(i, e);
+})();
+</script>
+<script>
+/* =====================================================================
+   Radio Cariñosa — carga de contenido desde Google Sheets (Apps Script)
+   =====================================================================
+   1) Despliega el Apps Script (Code.gs) dentro de la planilla como
+      Aplicación web ("Ejecutar como: Yo", "Acceso: Cualquier usuario").
+   2) Pega abajo la URL que termina en /exec.
+   Instrucciones completas en el documento "Instrucciones planilla y
+   scripts" entregado junto con este archivo.
+------------------------------------------------------------------------ */
+const SHEET_API_URL = "https://script.google.com/macros/s/AKfycbxv5WCEL3XOhBL_f7a3oCbLXkOnGDfxwNEm5mHKBVgyzcXiD8zAr2GvLTx1eKgAIjE/exec";
+
+const FALLBACK = {
+  general: {
+    slogan_principal: "Ritmo y sabor a tu corazón",
+    texto_hero: "La radio que late con Ñuble. Música, noticias y la mejor compañía las 24 horas, desde Chillán para ti.",
+    frecuencia: "92.1 FM",
+    ciudad: "Chillán — Ñuble",
+    imagen_hero_url: "https://www.radiocarinosa.cl/assets/grupal-team.png",
+    stream_url: "https://archi-us.digitalproserver.com/carinosa-fm.aac",
+    texto_boton_vivo: "SEÑAL ONLINE",
+    modo_noticias: "feed_x"
+  },
+  navegacion: [
+    { texto: "HOME", ancla: "#top" },
+    { texto: "NOTICIAS", ancla: "#noticias" },
+    { texto: "PROGRAMACIÓN", ancla: "#programs" },
+    { texto: "AUSPICIADORES", ancla: "#sponsors" },
+    { texto: "SEÑAL ONLINE", ancla: "#top" }
+  ],
+  programacion: [],
+  noticias: [],
+  auspiciadores: [
+    { nombre: "Canal 1", sitioWeb: "", logo: "" },
+    { nombre: "Alborada", sitioWeb: "", logo: "" }
+  ],
+  contacto: {
+    direccion: "Av. Libertad 821, Chillán",
+    telefono: "+56 42 221 6009",
+    email: "secretaria@marva.cl"
+  },
+  redesSociales: [
+    { red: "Instagram", usuario: "@radiocarinosa", url: "https://instagram.com/radiocarinosa" },
+    { red: "X / Twitter", usuario: "@Carinosa921", url: "https://x.com/Carinosa921" }
+  ],
+  footer: {
+    copyright: "© 2026 Radio Cariñosa · Marva Comunicaciones",
+    descripcion: "Ritmo y sabor a tu corazón. Desde Chillán para todo Ñuble."
+  }
+};
+
+function render(data) {
+  const g = data.general || {};
+
+  document.getElementById('hero-title').textContent = g.slogan_principal || FALLBACK.general.slogan_principal;
+  document.getElementById('hero-lead').textContent = g.texto_hero || FALLBACK.general.texto_hero;
+  document.getElementById('nav-freq').textContent = g.frecuencia || FALLBACK.general.frecuencia;
+  document.getElementById('footer-freq').textContent = g.frecuencia || FALLBACK.general.frecuencia;
+  document.getElementById('hero-photo').src = g.imagen_hero_url || FALLBACK.general.imagen_hero_url;
+  document.getElementById('player-boton-texto').textContent = g.texto_boton_vivo || FALLBACK.general.texto_boton_vivo;
+
+  const ticker = document.getElementById('ticker-track');
+  const tickerItems = [
+    '★ EN VIVO ' + (g.frecuencia || '92.1 FM'),
+    '♪ ' + (g.slogan_principal || 'RITMO Y SABOR A TU CORAZÓN').toUpperCase(),
+    '★ ' + (g.ciudad || 'CHILLÁN — ÑUBLE').toUpperCase(),
+    '♪ MÚSICA · NOTICIAS · COMPAÑÍA 24/7'
+  ];
+  ticker.innerHTML = tickerItems.concat(tickerItems).map(t => `<span>${t}</span>`).join('');
+
+  const nav = document.getElementById('nav-menu');
+  const navItems = (data.navegacion && data.navegacion.length) ? data.navegacion : FALLBACK.navegacion;
+  nav.innerHTML = navItems.map((n, i) =>
+    `<a href="${n.ancla}"${i === 0 ? ' class="active"' : ''}${/online/i.test(n.texto) ? ' class="live"' : ''}>${n.texto}</a>`
+  ).join('');
+
+  const footerNav = document.getElementById('footer-nav');
+  footerNav.innerHTML = navItems.map(n => `<li><a href="${n.ancla}">${n.texto}</a></li>`).join('');
+
+  const programsGrid = document.getElementById('programs-grid');
+  const programas = data.programacion || [];
+  if (programas.length) {
+    programsGrid.innerHTML = programas.map(p => `
+      <article class="program">
+        <div class="program__photo">${p.imagen ? `<img src="${p.imagen}" alt="${p.titulo || ''}">` : '📻'}</div>
+        <div class="program__body">
+          <h3 class="program__title">${p.titulo || ''}</h3>
+          <div class="program__time">${[p.dias, p.horario].filter(Boolean).join(' · ')}</div>
+          ${p.locutor ? `<span class="program__host">CON ${p.locutor.toUpperCase()}</span>` : ''}
+        </div>
+      </article>`).join('');
+  }
+
+  const modoNoticias = g.modo_noticias || FALLBACK.general.modo_noticias;
+  const noticiasManual = document.getElementById('noticias-manual');
+  const noticiasFeed = document.getElementById('noticias-feed');
+  const noticias = data.noticias || [];
+  if (modoNoticias === 'manual' && noticias.length) {
+    noticiasFeed.style.display = 'none';
+    noticiasManual.style.display = 'grid';
+    noticiasManual.innerHTML = noticias.map(n => `
+      <article class="noticia-card">
+        ${n.imagen ? `<img src="${n.imagen}" alt="${n.titulo || ''}">` : ''}
+        <h3>${n.titulo || ''}</h3>
+        <p>${n.resumen || ''}</p>
+        ${n.link ? `<a href="${n.link}">Leer más →</a>` : ''}
+      </article>`).join('');
+  } else {
+    noticiasFeed.style.display = 'block';
+    noticiasManual.style.display = 'none';
+  }
+
+  const sponsorsBrands = document.getElementById('sponsors-brands');
+  const auspiciadores = (data.auspiciadores && data.auspiciadores.length) ? data.auspiciadores : FALLBACK.auspiciadores;
+  sponsorsBrands.innerHTML = auspiciadores.map(a => `
+    <div class="sponsor-brand">${a.logo ? `<img src="${a.logo}" alt="${a.nombre}">` : a.nombre}</div>
+  `).join('');
+
+  const contacto = (data.contacto && Object.keys(data.contacto).length) ? data.contacto : FALLBACK.contacto;
+  const footerContacto = document.getElementById('footer-contacto');
+  footerContacto.innerHTML = `
+    ${contacto.direccion ? `<li>${contacto.direccion}</li>` : ''}
+    ${contacto.telefono ? `<li><a href="tel:${contacto.telefono.replace(/\s+/g,'')}">${contacto.telefono}</a></li>` : ''}
+    ${contacto.email ? `<li><a href="mailto:${contacto.email}">${contacto.email}</a></li>` : ''}
+  `;
+
+  const redes = (data.redesSociales && data.redesSociales.length) ? data.redesSociales : FALLBACK.redesSociales;
+  document.getElementById('footer-redes').innerHTML = redes.map(r => `<li><a href="${r.url || '#'}">${r.red}</a></li>`).join('');
+
+  const footer = (data.footer && Object.keys(data.footer).length) ? data.footer : FALLBACK.footer;
+  document.getElementById('footer-copyright').textContent = footer.copyright || FALLBACK.footer.copyright;
+  document.getElementById('footer-desc').textContent = footer.descripcion || FALLBACK.footer.descripcion;
+
+  setupPlayer(g.stream_url);
+}
+
+function setupPlayer(streamUrl) {
+  const btn = document.getElementById('player-btn');
+  const player = document.getElementById('player');
+  const status = document.getElementById('player-status');
+  let audio = null;
+
+  if (!streamUrl) {
+    status.textContent = 'Streaming en configuración';
+    btn.disabled = true;
+    btn.style.opacity = '.5';
+    return;
+  }
+
+  status.textContent = 'Toca play para escuchar en vivo';
+  audio = new Audio(streamUrl);
+  audio.preload = 'none';
+
+  btn.addEventListener('click', () => {
+    if (player.classList.contains('is-playing')) {
+      audio.pause();
+      player.classList.remove('is-playing');
+      status.textContent = 'Pausado';
+    } else {
+      status.textContent = 'Conectando…';
+      audio.play().then(() => {
+        player.classList.add('is-playing');
+        status.textContent = 'En vivo ahora';
+      }).catch(() => {
+        status.textContent = 'No se pudo conectar al stream';
+      });
+    }
+  });
+}
+
+async function cargarContenido() {
+  if (!SHEET_API_URL || SHEET_API_URL.indexOf('PEGAR_AQUI') === 0) {
+    render(FALLBACK);
+    return;
+  }
+  try {
+    const res = await fetch(SHEET_API_URL);
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
+    render(data);
+  } catch (err) {
+    console.warn('No se pudo cargar el contenido desde la planilla, se usa el contenido de respaldo.', err);
+    render(FALLBACK);
+  }
+}
+
+cargarContenido();
+</script>
+</body>
+</html>

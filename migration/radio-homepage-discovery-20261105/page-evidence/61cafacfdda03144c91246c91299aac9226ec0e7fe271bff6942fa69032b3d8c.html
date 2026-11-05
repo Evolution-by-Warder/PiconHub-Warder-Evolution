@@ -1,0 +1,1054 @@
+  <!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Radio Bohemia 2026</title>
+
+<!-- Open Graph (Facebook, WhatsApp, LinkedIn) -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Radio Bohemia 107.1 FM">
+<meta property="og:description" content="Escucha Radio Bohemia en vivo, noticias y programación.">
+<meta property="og:image" content="https://radiobohemia.cl/imagen/banner1600x630.png">
+<meta property="og:image:width" content="1600">
+<meta property="og:image:height" content="630">
+<meta property="og:image:type" content="image/png">
+<meta property="og:url" content="https://radiobohemia.cl/">
+<meta property="og:site_name" content="Radio Bohemia">
+
+<!-- Twitter (X) -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Radio Bohemia 107.1 FM">
+<meta name="twitter:description" content="Escucha Radio Bohemia en vivo, noticias y programación.">
+<meta name="twitter:image" content="https://radiobohemia.cl/imagen/banner1600x630.png">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <link rel="stylesheet" href="css/radio.css">
+<style>
+
+    /* CONTENEDOR */
+.custom-dropdown {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* FLECHA */
+.custom-dropdown .arrow {
+  width: 6px;
+  height: 6px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg); /* ðŸ‘ˆ flecha hacia abajo */
+  transition: transform 0.3s ease;
+}
+
+/* ROTACIÃ“N AL ABRIR (BOOTSTRAP 5) */
+.dropdown-toggle.show .arrow {
+  transform: rotate(-135deg); /* ðŸ‘ˆ gira hacia arriba */
+}
+</style>
+
+
+<link rel="apple-touch-icon" sizes="57x57" href="favicon/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="favicon/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="favicon/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="favicon/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="favicon/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="favicon/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="favicon/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="favicon/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="favicon/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="favicon/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+<link rel="manifest" href="favicon/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="favicon/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+</head>
+
+<body class="light-mode">
+
+<!-- NAV -->
+<nav class="navbar navbar-expand-lg">
+  <div class="container-custom position-relative">
+
+    <!-- LOGO CENTRADO -->
+    <a class="navbar-brand mx-auto position-absolute start-50 translate-middle-x" href="#">
+      <img src="imagen/logoRadioBohemia.png" class="logo-navbar">
+    </a>
+
+    <!-- BOTÃ“N MOBILE -->
+    <button class="navbar-toggler ms-auto" data-bs-toggle="collapse" data-bs-target="#menu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- MENÃš -->
+    <div class="collapse navbar-collapse justify-content-end" id="menu">
+      <ul class="navbar-nav align-items-lg-center ms-auto">
+
+        <li class="nav-item">
+          <a class="nav-link active" href="index.php">
+            <i class="bi bi-house"></i> Inicio
+          </a>
+        </li>
+        
+                <li class="nav-item">
+          <a class="nav-link " href="programacion.php">
+            <i class="bi bi-music-note-list"></i> Programaci&oacute;n
+          </a>
+        </li>
+        
+        <!--li class="nav-item">
+          <a class="nav-link " href="radio.php">
+            <i class="bi bi-broadcast"></i> Radio
+          </a>
+        </li>
+        
+        <li class="nav-item">
+          <a class="nav-link " href="tv.php">
+            <i class="bi bi-tv"></i> TV
+          </a>
+        </li-->
+        
+        <li class="nav-item">
+          <a class="nav-link " href="noticias.php">
+            <i class="bi bi-newspaper"></i> Noticias
+          </a>
+        </li>
+       <li class="nav-item dropdown">
+          
+          <a class="nav-link dropdown-toggle custom-dropdown " href="#" id="proyectosMenu" data-bs-toggle="dropdown">
+              <i class="bi bi-soundwave"></i> Proyectos <span class="arrow"></span>
+          </a>
+
+          <ul class="dropdown-menu">
+             <li><a class="dropdown-item" href="vocesqueemprenden.php">Voces que Emprenden</a></li>
+            <li><a class="dropdown-item" href="proyecto1.php">Ellas Construyen Historia</a></li>
+            <li><a class="dropdown-item" href="proyecto2.php">Voces de la Tierra</a></li>
+            <li><a class="dropdown-item" href="proyecto3.php">Ellas Hicieron Historia</a></li>
+          </ul>
+        </li>
+         <li class="nav-item">
+		  <a class="nav-link" href="#" onclick="abrirPlayerPopup(event)">
+			<i class="fa fa-play"></i> Escuchar
+		  </a>
+		</li> 
+        <li class="nav-item ms-lg-3">
+          <i class="bi bi-moon theme-toggle" id="themeIcon" onclick="toggleTheme()"></i>
+        </li>
+
+      </ul>
+    </div>
+
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+<img src="imagen/bannerBohemia.png" alt="Radio Bohemia" class="hero-img">
+</section>
+<!-- RADIO + SIDEBAR -->
+<div class="container-custom my-5">
+<div class="row">
+
+<div class="col-12 col-lg-9 mb-4 mb-lg-0">
+
+
+<div class="channel-tabs">
+
+  <div class="channel " data-target="radio">
+    <div class="channel-bg radio-bg"></div>
+    <div class="channel-content">
+      <h4>&#128251; Radio Online</h4>
+      <span>Escuchar en vivo</span>
+    </div>
+  </div>
+
+  <div class="channel active" data-target="tv">
+    <div class="channel-bg tv-bg"></div>
+    <div class="channel-content">
+      <h4>&#128250; TV Online</h4>
+      <span>Ver se&ntilde;al en vivo</span>
+    </div>
+  </div>
+
+</div>
+
+<style>
+.player-container{
+    background:#000;
+    border-radius:25px;
+    padding:50px 20px;
+    min-height:600px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+    overflow:hidden;
+}
+
+/* FONDO */
+.hero-live{
+    text-align:center;
+    color:#fff;
+    width:100%;
+}
+
+/* BADGE EN VIVO */
+.live-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-size:14px;
+    margin-bottom:25px;
+    color:#fff;
+    letter-spacing:1px;
+}
+
+.dot-live{
+    width:10px;
+    height:10px;
+    background:#ff2d2d;
+    border-radius:50%;
+    animation:pulse 1s infinite;
+}
+
+@keyframes pulse{
+    0%{opacity:1;}
+    50%{opacity:.3;}
+    100%{opacity:1;}
+}
+
+/* LOGO */
+.logo-radio img{
+    width:120px;
+    margin-bottom:20px;
+    filter:drop-shadow(0 0 15px rgba(255,140,0,.5));
+}
+
+/* ICONO */
+.icon-radio{
+    font-size:45px;
+    margin-bottom:15px;
+    color:#ffb347;
+}
+
+/* TITULOS */
+.hero-live h1{
+    font-size:42px;
+    font-weight:800;
+    margin-bottom:10px;
+    color:#fff;
+}
+
+.hero-live h2{
+    font-size:18px;
+    color:#cfcfcf;
+    margin-bottom:30px;
+}
+
+/* ECUALIZADOR */
+.equalizer{
+    display:flex;
+    justify-content:center;
+    align-items:flex-end;
+    gap:5px;
+    height:40px;
+    margin-bottom:35px;
+}
+
+.equalizer span{
+    width:6px;
+    background:#ffb347;
+    border-radius:10px;
+    animation:eq 1s infinite ease-in-out;
+}
+
+.equalizer span:nth-child(1){animation-delay:0s;}
+.equalizer span:nth-child(2){animation-delay:.2s;}
+.equalizer span:nth-child(3){animation-delay:.4s;}
+.equalizer span:nth-child(4){animation-delay:.6s;}
+.equalizer span:nth-child(5){animation-delay:.8s;}
+
+@keyframes eq{
+    0%{height:10px;}
+    50%{height:35px;}
+    100%{height:10px;}
+}
+
+/* BOTONES */
+.controls-radio{
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+.btn-radio{
+    border:none;
+    background:linear-gradient(45deg,#ff8c00,#ffb347);
+    color:#000;
+    padding:14px 28px;
+    border-radius:50px;
+    font-weight:700;
+    font-size:16px;
+    transition:.3s;
+    box-shadow:0 0 15px rgba(255,140,0,.4);
+}
+
+.btn-radio:hover{
+    transform:scale(1.05);
+}
+
+.btn-radio.stop{
+    background:#2b2b2b;
+    color:#fff;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+
+    .player-container{
+        min-height:450px;
+        padding:40px 15px;
+    }
+
+    .hero-live h1{
+        font-size:30px;
+    }
+
+}
+
+.btn-radio.stop{
+    background:linear-gradient(45deg,#ff2d2d,#ff6b6b);
+    color:#fff;
+	 animation:pulseBtn 1s infinite;
+}
+
+@keyframes pulseBtn{
+    0%{transform:scale(1);}
+    50%{transform:scale(1.03);}
+    100%{transform:scale(1);}
+}
+
+</style>
+<div class="tab-content text-center">
+<div class="tab-pane fade " id="radio">
+    <div class="player-container">
+		<!--iframe width="100%" height="600px" src="https://player.streaminghd.cl/audio/9126/bohemia-memoria-eterna" border="0" style="border: 0;"></iframe-->
+<!-- PLAYER RADIO BOHEMIA -->
+<section class="hero-live">
+
+    <div class="live-badge">
+        <span class="dot-live"></span> EN VIVO
+    </div>
+
+    <div class="logo-radio">
+        <img src="imagen/logoRadioBohemia.png" alt="Radio Bohemia">
+    </div>
+
+    <div class="icon-radio">
+        <i class="fa-solid fa-headphones"></i>
+    </div>
+
+    <!-- ECUALIZADOR -->
+    <div class="equalizer" id="equalizer">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+    <!-- CONTROLES -->
+    <div class="controls-radio">
+
+        <button id="btnPlay" class="btn-radio">
+            ▶ ESCUCHAR
+        </button>
+
+
+    </div>
+
+    <audio id="radioPlayer" playsinline webkit-playsinline preload="none">
+        <source src="https://portalstream.cl:8443/bohemia-mp3" type="audio/mpeg">
+    </audio>
+
+</section>
+
+    </div>    
+</div>
+
+<div class="tab-pane fade show active" id="tv">
+	<div class="player-container">
+  		<video id="video" controls></video>
+    </div>
+
+</div>
+</div>
+
+<div class="mt-3 mb-3">
+  <div class="row">
+    <div class="col-12 text-center">
+     <a href="https://wa.me/56323463418" target="_blank"> <img src="imagen/banner1200Bohemia.png" class="img-fluid" alt="Publicidad Radio Bohemia"></a>
+    </div>
+  </div>
+</div>
+
+</div>
+<div class="col-12 col-lg-3">
+<div class="sidebar mb-4 text-center">
+  <h5>&#128242; Descarga App</h5>
+
+  <div class="qr-container">
+    <img src="imagen/QRBohemia.png" alt="QR Radio Bohemia" class="qr-img">
+  </div>
+
+  <p class="mt-1">
+  Escanea o escucha en tu celular <br>
+  <a href="https://tunein.com/radio/Radio-Bohemia-107-s353511/" class="btn btn-warning btn-sm mt-2">
+    🎧 Escuchar en TuneIn
+  </a>
+</p>
+<p class="mt-1">
+  <a href="https://www.youtube.com/@RadioBohemiaTV" target="_blank" class="btn btn-danger btn-sm mt-2">
+    <i class="fa-brands fa-youtube"></i> Canal de YouTube
+  </a>
+</p>
+</div>
+
+<div class="sidebar mb-4 text-center">
+   <h5>Nuevo Proyecto: Voces que Emprenden</h5>
+  <div class="qr-container">
+   <a href="vocesqueemprenden.php" target="_self"> <img src="imagen/voces2.jpg" alt="Voces que emprenden" class="publica-img"></a>
+  </div>
+</div>
+
+<div class="sidebar mb-4 text-center">
+  <h5>&#127911; Programas</h5>
+
+  <div id="carouselProgramas" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+
+    <div class="carousel-inner">
+
+      <div class="carousel-item active ">
+        <img src="panel_admin/upload_file/69dd5efdb6e16_ArribaBohemiaLE.png" class="d-block w-100 programa-img" alt="Arriba Bohemia">
+      </div>
+      <div class="carousel-item  ">
+        <img src="panel_admin/upload_file/69dd60d6c0a2a_Av80LE.png" class="d-block w-100 programa-img" alt="Avenida 80">
+      </div>
+      <div class="carousel-item  ">
+        <img src="panel_admin/upload_file/69e0fa6589499_LaBohemiadeBolerosLE.png" class="d-block w-100 programa-img" alt="Bohemia de Boleros">
+      </div>
+      <div class="carousel-item  ">
+        <img src="panel_admin/upload_file/69dd61994febd_BohemiaparadosLE.png" class="d-block w-100 programa-img" alt="Bohemia Para 2">
+      </div>
+      <div class="carousel-item  ">
+        <img src="panel_admin/upload_file/69dd61f0ab85e_BohemiaTangoClubLE.png" class="d-block w-100 programa-img" alt="Bohemia Tango Club">
+      </div>
+      <div class="carousel-item  ">
+        <img src="panel_admin/upload_file/69dd623567a34_ChipeLibreLE.png" class="d-block w-100 programa-img" alt="Chipe Libre">
+      </div>
+      <div class="carousel-item  ">
+        <img src="panel_admin/upload_file/69f297c5b2b5e_ClubBohemiaLE.png" class="d-block w-100 programa-img" alt="Club Bohemia">
+      </div>
+      <div class="carousel-item  ">
+        <img src="panel_admin/upload_file/69dd6272d3838_CombinadoBohemioLE.png" class="d-block w-100 programa-img" alt="Combinado Bohemio">
+      </div>
+      <div class="carousel-item  ">
+        <img src="panel_admin/upload_file/69e0fb09b36ec_ConlosmonosLE.png" class="d-block w-100 programa-img" alt="Con los Monos">
+      </div>
+      <div class="carousel-item  ">
+        <img src="panel_admin/upload_file/69e0f9b2df7e3_CumbremundialdelacuecaLE.png" class="d-block w-100 programa-img" alt="Cumbre Mundial de la Cueca">
+      </div>
+      <div class="carousel-item  ">
+        <img src="panel_admin/upload_file/69e0f85e00e53_ElMiradorLE.png" class="d-block w-100 programa-img" alt="El Mirador">
+      </div>
+      <div class="carousel-item  ">
+        <img src="panel_admin/upload_file/69e0f74e0564a_EstacionBohemiaLE.png" class="d-block w-100 programa-img" alt="Estacion Bohemia">
+      </div>
+      <div class="carousel-item  ">
+        <img src="panel_admin/upload_file/69e0f54f5c7e8_JoyitasdelPacificoLE.png" class="d-block w-100 programa-img" alt="Joyitas del Pacífico">
+      </div>
+      <div class="carousel-item  ">
+        <img src="panel_admin/upload_file/69e0fb5e31b54_LatidoAmericanoLE.png" class="d-block w-100 programa-img" alt="Latido Americano">
+      </div>
+      <div class="carousel-item  ">
+        <img src="panel_admin/upload_file/69f2a0050c22e_NiTanBohemiaLE.png" class="d-block w-100 programa-img" alt="Ni tan Bohemia">
+      </div>
+      <div class="carousel-item  ">
+        <img src="panel_admin/upload_file/69e0f78833364_ParaesoestamosLE.png" class="d-block w-100 programa-img" alt="Para Eso Estamos">
+      </div>
+      <div class="carousel-item  ">
+        <img src="panel_admin/upload_file/69e2b9b672022_PorFinesviernesLE.png" class="d-block w-100 programa-img" alt="Por fin es Viernes">
+      </div>
+      <div class="carousel-item  ">
+        <img src="panel_admin/upload_file/69e2b99a06191_PortenisimoLE.png" class="d-block w-100 programa-img" alt="Porteñisimo">
+      </div>
+      <div class="carousel-item  ">
+        <img src="panel_admin/upload_file/69dd62c9b7be4_TardeBohemiaLE.png" class="d-block w-100 programa-img" alt="Tarde Bohemia">
+      </div>
+      <div class="carousel-item  ">
+        <img src="panel_admin/upload_file/69e0fe2a5bba2_TardeDeEstrellasLE.png" class="d-block w-100 programa-img" alt="Tarde de Estrellas">
+      </div>
+      <!--div class="carousel-item">
+        <img src="imagen/programa.png" class="d-block w-100 programa-img" alt="Programa 2">
+      </div>
+
+      <div class="carousel-item">
+        <img src="imagen/programa.png" class="d-block w-100 programa-img" alt="Programa 3">
+      </div-->
+
+    </div>
+
+    <!-- Controles -->
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselProgramas" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon"></span>
+    </button>
+
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselProgramas" data-bs-slide="next">
+      <span class="carousel-control-next-icon"></span>
+    </button>
+
+  </div>
+
+</div>
+</div>
+
+</div>
+</div>
+
+<script>
+const audio = document.getElementById("radioPlayer");
+const btnPlay = document.getElementById("btnPlay");
+const equalizer = document.getElementById("equalizer");
+const videoPlay = document.getElementById("video");
+
+
+let playing = false;
+let playingVideo = false;
+
+/* BOTON PLAY / STOP */
+
+btnPlay.addEventListener("click", () => {
+
+    // ▶ REPRODUCIR
+    if(!playing){
+
+        audio.play();
+
+        playing = true;
+
+        btnPlay.innerHTML = "⏹ DETENER";
+
+        btnPlay.classList.add("stop");
+
+        equalizer.style.opacity = "1";
+		
+		videoPlay.pause();
+
+    }
+
+    // ⏹ DETENER
+    else{
+
+        audio.pause();
+
+        audio.currentTime = 0;
+
+        playing = false;
+
+        btnPlay.innerHTML = "▶ ESCUCHAR";
+
+        btnPlay.classList.remove("stop");
+
+        equalizer.style.opacity = ".4";
+
+    }
+
+});
+
+/* ERROR STREAM */
+
+audio.addEventListener("error", () => {
+
+    btnPlay.innerHTML = "⚠ ERROR";
+
+    playing = false;
+
+});
+
+/* SI COMIENZA */
+
+audio.addEventListener("playing", () => {
+
+    equalizer.style.opacity = "1";
+
+});
+
+
+/* =========================
+   VIDEO: REPRODUCIR / DETENER
+========================= */
+
+/* Funciona también con los controles nativos del video */
+videoPlay.addEventListener("play", () => {
+
+    // Detener radio
+    audio.pause();
+
+    playingVideo = true;
+    playing = false;
+
+    btnPlay.innerHTML = "▶ ESCUCHAR";
+    btnPlay.classList.remove("stop");
+
+    equalizer.style.opacity = ".4";
+
+});
+
+/* Cuando se pausa el video */
+videoPlay.addEventListener("pause", () => {
+
+    playingVideo = false;
+
+});
+
+/* Cuando termina el video */
+videoPlay.addEventListener("ended", () => {
+
+    playingVideo = false;
+    videoPlay.currentTime = 0;
+
+});
+
+</script>
+<!-- NOTICIAS + SIDEBAR -->
+<div class="container-custom my-5">
+<div class="row">
+
+<div class="col-12 col-lg-9 mb-4 mb-lg-0">
+
+<!--h2 class="mb-4 text-center">Noticias</h2-->
+
+<div class="row g-4">
+
+				
+<div class="col-md-4">
+  <div class="card h-100 shadow-sm border-0">
+
+    <!-- IMAGEN -->
+    <div class="card-img-wrapper">
+      <img src="https://www.portalmedios.cl/adjuntos/redimensionados/1793634302_Sinttulo.jpg" class="img-fluid" alt="Imagen noticia" onerror="this.onerror=null;this.src='imagen/logoRadioBohemia.png';">
+    </div>
+
+    <!-- CONTENIDO -->
+    <div class="card-body d-flex flex-column">
+
+      <!-- FECHA -->
+      <small class="text-muted mb-2">
+        <i class="fas fa-calendar-alt me-1"></i>
+        02-11-2026      </small>
+
+      <!-- TITULO -->
+      <h5 class="card-title"
+    data-bs-toggle="tooltip"
+    data-bs-placement="top"
+    title="Grupo Epicentro compra Radio Congreso 105.1 FM de Valparaíso">
+       Grupo Epicentro compra Radio Congreso 105.1 FM de Valparaíso      </h5>
+
+      <!-- DESCRIPCION -->
+      <p class="card-text text-muted">
+        Un importante hito para la radiodifusión regional se concretará en las próximas semanas. Grupo Ep...
+      </p>
+
+      <!-- BOTON -->
+      <a href="ver_noticia.php?id=gHeC" class="btn btn-outline-warning btn-sm mt-auto">
+        Leer más
+      </a>
+
+    </div>
+
+  </div>
+</div>
+				
+<div class="col-md-4">
+  <div class="card h-100 shadow-sm border-0">
+
+    <!-- IMAGEN -->
+    <div class="card-img-wrapper">
+      <img src="https://www.portalmedios.cl/adjuntos/redimensionados/1793133002_5118483990787591409.jpg" class="img-fluid" alt="Imagen noticia" onerror="this.onerror=null;this.src='imagen/logoRadioBohemia.png';">
+    </div>
+
+    <!-- CONTENIDO -->
+    <div class="card-body d-flex flex-column">
+
+      <!-- FECHA -->
+      <small class="text-muted mb-2">
+        <i class="fas fa-calendar-alt me-1"></i>
+        27-10-2026      </small>
+
+      <!-- TITULO -->
+      <h5 class="card-title"
+    data-bs-toggle="tooltip"
+    data-bs-placement="top"
+    title="Valparaíso se incorpora a alianza iberoamericana para fortalecer la cooperación en patrimonio y desarrollo urbano">
+       Valparaíso se incorpora a alianza iberoamericana para fortalecer la cooperación en patrimonio y de      </h5>
+
+      <!-- DESCRIPCION -->
+      <p class="card-text text-muted">
+        Valparaíso se incorpora a alianza
+iberoamericana para fortalecer la cooperación en patrimonio y d...
+      </p>
+
+      <!-- BOTON -->
+      <a href="ver_noticia.php?id=gHeB" class="btn btn-outline-warning btn-sm mt-auto">
+        Leer más
+      </a>
+
+    </div>
+
+  </div>
+</div>
+				
+<div class="col-md-4">
+  <div class="card h-100 shadow-sm border-0">
+
+    <!-- IMAGEN -->
+    <div class="card-img-wrapper">
+      <img src="https://www.portalmedios.cl/adjuntos/redimensionados/1793132402_WhatsAppImage2026-10-27at094231.jpg" class="img-fluid" alt="Imagen noticia" onerror="this.onerror=null;this.src='imagen/logoRadioBohemia.png';">
+    </div>
+
+    <!-- CONTENIDO -->
+    <div class="card-body d-flex flex-column">
+
+      <!-- FECHA -->
+      <small class="text-muted mb-2">
+        <i class="fas fa-calendar-alt me-1"></i>
+        27-10-2026      </small>
+
+      <!-- TITULO -->
+      <h5 class="card-title"
+    data-bs-toggle="tooltip"
+    data-bs-placement="top"
+    title="Gobierno promueve oportunidades en cobre, litio y tierras raras en mayor feria minera de Australia">
+       Gobierno promueve oportunidades en cobre, litio y tierras raras en mayor feria minera de Australia      </h5>
+
+      <!-- DESCRIPCION -->
+      <p class="card-text text-muted">
+        Gobierno promueve oportunidades en cobre, litio y
+tierras raras en mayor feria minera de Australia
+�...
+      </p>
+
+      <!-- BOTON -->
+      <a href="ver_noticia.php?id=gHeA" class="btn btn-outline-warning btn-sm mt-auto">
+        Leer más
+      </a>
+
+    </div>
+
+  </div>
+</div>
+				
+<div class="col-md-4">
+  <div class="card h-100 shadow-sm border-0">
+
+    <!-- IMAGEN -->
+    <div class="card-img-wrapper">
+      <img src="https://www.portalmedios.cl/adjuntos/redimensionados/1792678802_211026GirodeRigo.jpg" class="img-fluid" alt="Imagen noticia" onerror="this.onerror=null;this.src='imagen/logoRadioBohemia.png';">
+    </div>
+
+    <!-- CONTENIDO -->
+    <div class="card-body d-flex flex-column">
+
+      <!-- FECHA -->
+      <small class="text-muted mb-2">
+        <i class="fas fa-calendar-alt me-1"></i>
+        22-10-2026      </small>
+
+      <!-- TITULO -->
+      <h5 class="card-title"
+    data-bs-toggle="tooltip"
+    data-bs-placement="top"
+    title="SERNAC busca que organizadores del evento &quot;Giro de Rigo&quot; restituyan dinero a los participantes">
+       SERNAC busca que organizadores del evento "Giro de Rigo" restituyan dinero a los participantes      </h5>
+
+      <!-- DESCRIPCION -->
+      <p class="card-text text-muted">
+        SERNAC BUSCA QUE ORGANIZADORES DEL CANCELADO EVENTO
+“EL GIRO DE RIGO” RESTITUYAN EL DINERO A LOS...
+      </p>
+
+      <!-- BOTON -->
+      <a href="ver_noticia.php?id=gHd/" class="btn btn-outline-warning btn-sm mt-auto">
+        Leer más
+      </a>
+
+    </div>
+
+  </div>
+</div>
+				
+<div class="col-md-4">
+  <div class="card h-100 shadow-sm border-0">
+
+    <!-- IMAGEN -->
+    <div class="card-img-wrapper">
+      <img src="https://www.portalmedios.cl/adjuntos/redimensionados/1792678502_DSC_3892.jpg" class="img-fluid" alt="Imagen noticia" onerror="this.onerror=null;this.src='imagen/logoRadioBohemia.png';">
+    </div>
+
+    <!-- CONTENIDO -->
+    <div class="card-body d-flex flex-column">
+
+      <!-- FECHA -->
+      <small class="text-muted mb-2">
+        <i class="fas fa-calendar-alt me-1"></i>
+        22-10-2026      </small>
+
+      <!-- TITULO -->
+      <h5 class="card-title"
+    data-bs-toggle="tooltip"
+    data-bs-placement="top"
+    title="Chile consolida su liderazgo en la minería del futuro: Biministro Daniel Mas concluye exitosa gira en Londres con foco en inversiones y minerales críticos">
+       Chile consolida su liderazgo en la minería del futuro: Biministro Daniel Mas concluye exitosa gira       </h5>
+
+      <!-- DESCRIPCION -->
+      <p class="card-text text-muted">
+        Chile consolida su liderazgo en la minería del futuro:
+Biministro Daniel Mas concluye exitosa gira ...
+      </p>
+
+      <!-- BOTON -->
+      <a href="ver_noticia.php?id=gHaI" class="btn btn-outline-warning btn-sm mt-auto">
+        Leer más
+      </a>
+
+    </div>
+
+  </div>
+</div>
+				
+<div class="col-md-4">
+  <div class="card h-100 shadow-sm border-0">
+
+    <!-- IMAGEN -->
+    <div class="card-img-wrapper">
+      <img src="https://www.portalmedios.cl/adjuntos/redimensionados/1792515002_Sinttulo.jpg" class="img-fluid" alt="Imagen noticia" onerror="this.onerror=null;this.src='imagen/logoRadioBohemia.png';">
+    </div>
+
+    <!-- CONTENIDO -->
+    <div class="card-body d-flex flex-column">
+
+      <!-- FECHA -->
+      <small class="text-muted mb-2">
+        <i class="fas fa-calendar-alt me-1"></i>
+        20-10-2026      </small>
+
+      <!-- TITULO -->
+      <h5 class="card-title"
+    data-bs-toggle="tooltip"
+    data-bs-placement="top"
+    title="CONVENIO ENTRE GENDARMERÍA Y MUNICIPALIDAD DE QUILLOTA FORTALECERÁ ATENCIÓN DE SALUD MENTAL DE MUJERES PRIVADAS DE LIBERTAD">
+       CONVENIO ENTRE GENDARMERÍA Y MUNICIPALIDAD DE QUILLOTA FORTALECERÁ ATENCIÓN DE SALUD MENTAL DE MU      </h5>
+
+      <!-- DESCRIPCION -->
+      <p class="card-text text-muted">
+        CONVENIO ENTRE GENDARMERÍA Y MUNICIPALIDAD DE QUILLOTA FORTALECERÁ
+ATENCIÓN DE SALUD MENTAL DE MU...
+      </p>
+
+      <!-- BOTON -->
+      <a href="ver_noticia.php?id=gHaH" class="btn btn-outline-warning btn-sm mt-auto">
+        Leer más
+      </a>
+
+    </div>
+
+  </div>
+</div>
+		
+
+</div>
+
+</div>
+
+<div class="col-12 col-lg-3">
+<div class="sidebar mb-4 text-center">
+<h5>&#128293; Publicidad</h5>
+  <div class="qr-container">
+   <a href="https://wa.me/56323463418" target="_blank"> <img src="imagen/publicaAquiBohemia.png" alt="QR Radio Bohemia" class="publica-img"></a>
+  </div>
+</div>
+
+
+
+<div class="sidebar mb-4 text-center">
+<h5>&#128279; Enlaces Externo</h5>
+    <div class="mt-3">
+      <a href="https://www.instagram.com/juan_iduarte/" target="_blank" class="btn btn-warning btn-sm mt-2">Dj Juan Iduarte</a>
+      <a href="roku-policy.html" target="_blank" class="btn btn-warning btn-sm mt-2">Roku Politicas</a>
+	  
+	  <a href="documentos/Propuesta_Radio_Bohemia.pdf" target="_blank" class="btn btn-warning btn-sm mt-2">Tarifario Servel</a>
+    </div>
+</div>
+
+
+<div class="sidebar mb-4 text-center">
+<h5>&#128250; Estamos en ROKU TV</h5>
+  <div class="qr-container">
+   <img src="imagen/rokubohemia.jpg" alt="QR Radio Bohemia" class="publica-img">
+  </div>
+</div> 
+
+
+
+</div>
+
+</div>
+</div>
+
+<footer class="text-center">
+    <div class="social">
+        <a href="https://web.facebook.com/groups/766215503491423/?locale=es_LA" target="_blank">
+            <i class="bi bi-facebook"></i>
+        </a>
+
+        <a href="https://www.instagram.com/bohemiavalpo/" target="_blank">
+            <i class="bi bi-instagram"></i>
+        </a>
+
+        <a href="https://www.youtube.com/@RadioBohemiaTV" target="_blank">
+            <i class="bi bi-youtube"></i>
+        </a>
+    </div>
+<p class="mt-3">2026 Radio Bohemia - Valpara&iacute;so / <a href="https://www.instagram.com/juan_iduarte/" class="">Desarrollado por Juan Iduarte</a></p>
+</footer>
+
+
+  <div class="bohemia-float">
+
+  <!-- BOTÃ“N VINILO -->
+  <!--div class="vinyl-btn" id="toggleContact"></div-->
+  <!-- TELÃ‰FONO RETRO REAL -->
+  <div class="retro-phone-img" id="toggleContact">
+    <img src="imagen/telefonoretro.png" alt="Tel&eacute;fono retro">
+  </div>
+
+  <!-- POPOVER -->
+  <div class="contact-popover" id="contactBox">
+
+ <a href="https://wa.me/56323436933" target="_blank" class="contact-item">
+  <i class="fab fa-whatsapp"></i>
+  <span>+56323436933</span>
+</a>
+
+<a href="javascript:void(0)" class="contact-item">
+  <i class="fas fa-phone"></i>
+  <span>32 365 00 64</span>
+</a>
+
+  </div>
+
+</div>
+    
+	
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+<script>
+function toggleTheme(){
+  const body = document.body;
+  const icon = document.getElementById('themeIcon');
+
+  body.classList.toggle('light-mode');
+
+  if(body.classList.contains('light-mode')){
+    icon.classList.remove('bi-sun');
+    icon.classList.add('bi-moon');
+      
+  } else {
+icon.classList.remove('bi-moon');
+    icon.classList.add('bi-sun');
+  }
+}
+    
+    var video = document.getElementById('video');
+var videoSrc = 'https://portalstream.cl:8080/bohemia1.m3u8';
+
+if (Hls.isSupported()) {
+  var hls = new Hls();
+  hls.loadSource(videoSrc);
+  hls.attachMedia(video);
+} 
+else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+  video.src = videoSrc;
+}
+    document.querySelectorAll('.channel').forEach(el => {
+  el.addEventListener('click', function(){
+
+    document.querySelectorAll('.channel').forEach(c => c.classList.remove('active'));
+    this.classList.add('active');
+
+    let target = this.getAttribute('data-target');
+
+    document.querySelectorAll('.tab-pane').forEach(t => {
+      t.classList.remove('show','active');
+    });
+
+    document.getElementById(target).classList.add('show','active');
+
+  });
+});
+    
+const btn = document.getElementById("toggleContact");
+const box = document.getElementById("contactBox");
+
+btn.addEventListener("click", () => {
+  box.classList.toggle("active");
+  btn.classList.toggle("active");
+});
+document.addEventListener("DOMContentLoaded", function () {
+  var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+  tooltipTriggerList.map(function (tooltipTriggerEl) {
+    return new bootstrap.Tooltip(tooltipTriggerEl);
+  });
+});
+
+
+let playerWindow = null;
+
+function abrirPlayerPopup(e){
+  e.preventDefault();
+
+  let width = 500;
+  let height = 450;
+
+  let left = (screen.width / 2) - (width / 2);
+  let top = (screen.height / 2) - (height / 2);
+
+  // Si ya está abierta, solo enfocar
+  if(playerWindow && !playerWindow.closed){
+    playerWindow.focus();
+    return;
+  }
+
+  playerWindow = window.open(
+    "player.php",
+    "PlayerFMJoven",
+    `width=${width},height=${height},top=${top},left=${left},resizable=no`
+  );
+}
+
+
+</script>
+
+</body>
+</html>
