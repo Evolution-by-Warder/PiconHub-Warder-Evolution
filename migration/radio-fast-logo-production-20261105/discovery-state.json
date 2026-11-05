@@ -168413,7 +168413,10 @@
       "homepages": [
         "https://heimatbeats.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "Command '['tesseract', '/tmp/radio-logo-ocr-umms5oae/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds"
+      ]
     },
     "4097:0:2:553B:258A:ED:0:0:0:0": {
       "name": "HITS100",
@@ -168425,7 +168428,91 @@
       "homepages": [
         "https://hits100.ca/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://hits100.ca/wp-content/uploads/2026/02/cropped-ChatGPT-Image-Feb-6-2026-08_00_39-PM-e1770426467472.png",
+        "final_url": "https://hits100.ca/wp-content/uploads/2026/02/cropped-ChatGPT-Image-Feb-6-2026-08_00_39-PM-e1770426467472.png",
+        "path": "originals/b13bf893438fac9be8eb443bcc37037b0e4362e251b458cd3a6eca36536bc7d8.img",
+        "sha256": "b13bf893438fac9be8eb443bcc37037b0e4362e251b458cd3a6eca36536bc7d8",
+        "bytes": 45547,
+        "dimensions": [
+          336,
+          98
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://hits100.ca/",
+        "final_url": "https://hits100.ca/",
+        "original_html_sha256": "291d0b7269eee4805ffe18fc02a854258c4330a21791d1d6184892618d6ac375",
+        "path": "page-evidence/291d0b7269eee4805ffe18fc02a854258c4330a21791d1d6184892618d6ac375.json",
+        "titles": [
+          "Hits 100.7 fm – 80s, 90s & EVERYTHING"
+        ],
+        "image_urls": [
+          "https://hits100.ca/wp-content/uploads/2026/02/cropped-ChatGPT-Image-Feb-6-2026-08_00_39-PM-e1770426467472.png"
+        ],
+        "named_logos": {
+          "https://hits100.ca/wp-content/uploads/2026/02/cropped-ChatGPT-Image-Feb-6-2026-08_00_39-PM-e1770426467472.png": "Hits 100.7 fm  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/9851531f34241134c9bfda45b4668440dfb276a3c616a1e45baff7f6acbb981a.png",
+          "sha256": "9851531f34241134c9bfda45b4668440dfb276a3c616a1e45baff7f6acbb981a",
+          "bytes": 1862
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/bd963516811234c363e98a169b419b15992e0e2324d2470936ba94dbb5151d9a.png",
+          "sha256": "bd963516811234c363e98a169b419b15992e0e2324d2470936ba94dbb5151d9a",
+          "bytes": 19274
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/243bdb7bef6c1fb803ce8fa43f44473fd2151eb7aafc6945072aa8eaec828d35.png",
+          "sha256": "243bdb7bef6c1fb803ce8fa43f44473fd2151eb7aafc6945072aa8eaec828d35",
+          "bytes": 54420
+        },
+        "50x30/white": {
+          "path": "verified-assets/3d3838e4008197feadb786190c97aab2d71c0664336790bc981b452906d652d8.png",
+          "sha256": "3d3838e4008197feadb786190c97aab2d71c0664336790bc981b452906d652d8",
+          "bytes": 3075
+        },
+        "220x132/white": {
+          "path": "verified-assets/1b4386bc11a57fb61535a73a04f7af128224082f960c5d13fb22280f05c73608.png",
+          "sha256": "1b4386bc11a57fb61535a73a04f7af128224082f960c5d13fb22280f05c73608",
+          "bytes": 43542
+        },
+        "400x240/white": {
+          "path": "verified-assets/d38e02c04eb7668f5fd2e53be4132bb4545fb8090f805019121d5a098e877a03.png",
+          "sha256": "d38e02c04eb7668f5fd2e53be4132bb4545fb8090f805019121d5a098e877a03",
+          "bytes": 112436
+        },
+        "50x30/black": {
+          "path": "verified-assets/bd38b2a3ba6e2314db9ef6404977b75cc41a0e15223eeb362806383ccebd3c3e.png",
+          "sha256": "bd38b2a3ba6e2314db9ef6404977b75cc41a0e15223eeb362806383ccebd3c3e",
+          "bytes": 3246
+        },
+        "220x132/black": {
+          "path": "verified-assets/c51f6ff129979d26e93876f3f792f36112574c1f5e9a7b13a5f524262d9b9ca3.png",
+          "sha256": "c51f6ff129979d26e93876f3f792f36112574c1f5e9a7b13a5f524262d9b9ca3",
+          "bytes": 42331
+        },
+        "400x240/black": {
+          "path": "verified-assets/3506abceb7b19a6177930d6cbbd28c8e97b430b183e25f2d09cb7da6c6aa7102.png",
+          "sha256": "3506abceb7b19a6177930d6cbbd28c8e97b430b183e25f2d09cb7da6c6aa7102",
+          "bytes": 108676
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Hits 100.7 fm  ",
+        "matched_brand_keys": [
+          "hits100"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:70FE:71BA:ED:0:0:0:0": {
       "name": "Hits 93 Toronto",
@@ -168437,7 +168524,11 @@
       "homepages": [
         "https://hits93toronto.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 404\n",
+        "Command '['tesseract', '/tmp/radio-logo-ocr-xa6e_yvb/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds"
+      ]
     },
     "4097:0:2:D12E:32F7:ED:0:0:0:0": {
       "name": "Holy Bible 24/7",
@@ -168449,7 +168540,94 @@
       "homepages": [
         "https://167-160-184-10.sslip.io/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://167-160-184-10.sslip.io/logo.jpg",
+        "final_url": "https://167-160-184-10.sslip.io/logo.jpg",
+        "path": "originals/49233e26d2081365f936a8a8935f91a7ef2c6633bc8e4e27f77d75c28d0ede7f.img",
+        "sha256": "49233e26d2081365f936a8a8935f91a7ef2c6633bc8e4e27f77d75c28d0ede7f",
+        "bytes": 333646,
+        "dimensions": [
+          1200,
+          1200
+        ],
+        "format": "JPEG"
+      },
+      "page": {
+        "url": "https://167-160-184-10.sslip.io/",
+        "final_url": "https://167-160-184-10.sslip.io/",
+        "original_html_sha256": "03af1054f3ff24689f86e104fc53652fc335c65d477b144de2872bf52e8ff054",
+        "path": "page-evidence/03af1054f3ff24689f86e104fc53652fc335c65d477b144de2872bf52e8ff054.json",
+        "titles": [
+          "Holy Bible 24/7",
+          "Holy Bible 24/7"
+        ],
+        "image_urls": [
+          "https://167-160-184-10.sslip.io/logo.jpg",
+          "https://167-160-184-10.sslip.io/banner.jpg"
+        ],
+        "named_logos": {
+          "https://167-160-184-10.sslip.io/logo.jpg": "Holy Bible 24/7 logo  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/e60d24dcd110edea77a7c61e3b3debc08b0c73a638320e2cd97b5f45ab126b4a.png",
+          "sha256": "e60d24dcd110edea77a7c61e3b3debc08b0c73a638320e2cd97b5f45ab126b4a",
+          "bytes": 1991
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/92752ce7bc93de6c64fb177a73e2c70ca032dd1c94fa0bebdf7fc20b574614b2.png",
+          "sha256": "92752ce7bc93de6c64fb177a73e2c70ca032dd1c94fa0bebdf7fc20b574614b2",
+          "bytes": 24799
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/3e57d6a60293d9fbdcd858dd0a2f96aef4e3fca9cc5cfe27035be9d0e06c85a5.png",
+          "sha256": "3e57d6a60293d9fbdcd858dd0a2f96aef4e3fca9cc5cfe27035be9d0e06c85a5",
+          "bytes": 66345
+        },
+        "50x30/white": {
+          "path": "verified-assets/9ba6b4eabc8bd82c23e0826437e9017bc4e32f8fd53d460df90261837d3fa7c1.png",
+          "sha256": "9ba6b4eabc8bd82c23e0826437e9017bc4e32f8fd53d460df90261837d3fa7c1",
+          "bytes": 3196
+        },
+        "220x132/white": {
+          "path": "verified-assets/6c22dd47760cd7b43687e3125c9edb9e55210b5728e7b766ab06ba472348bd6b.png",
+          "sha256": "6c22dd47760cd7b43687e3125c9edb9e55210b5728e7b766ab06ba472348bd6b",
+          "bytes": 46857
+        },
+        "400x240/white": {
+          "path": "verified-assets/4b5562c143e0634541cc744815f77bd1a4448abac075975be3bba949161ec5a4.png",
+          "sha256": "4b5562c143e0634541cc744815f77bd1a4448abac075975be3bba949161ec5a4",
+          "bytes": 117835
+        },
+        "50x30/black": {
+          "path": "verified-assets/5fd43cca2e82248427556f87ede5999fcb2e2382c0826ee0638b4c94b2bbb9fc.png",
+          "sha256": "5fd43cca2e82248427556f87ede5999fcb2e2382c0826ee0638b4c94b2bbb9fc",
+          "bytes": 3383
+        },
+        "220x132/black": {
+          "path": "verified-assets/2abd2c49b355a0fb1b681eeef7c34839c375d14c1eb421f46e52110c0d485170.png",
+          "sha256": "2abd2c49b355a0fb1b681eeef7c34839c375d14c1eb421f46e52110c0d485170",
+          "bytes": 45738
+        },
+        "400x240/black": {
+          "path": "verified-assets/ad4a385ae66ef3944b2a385eeb79797d745888c2e04b3df67438fc1f0c5a536e.png",
+          "sha256": "ad4a385ae66ef3944b2a385eeb79797d745888c2e04b3df67438fc1f0c5a536e",
+          "bytes": 114757
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Holy Bible 24/7 logo  ",
+        "matched_brand_keys": [
+          "bible",
+          "holy"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:A052:4053:ED:0:0:0:0": {
       "name": "Hunters Bay Radio",
@@ -168461,7 +168639,93 @@
       "homepages": [
         "https://www.muskokaradio.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://mmo.aiircdn.com/1933/67c5cf15aa7db.png",
+        "final_url": "https://mmo.aiircdn.com/1933/67c5cf15aa7db.png",
+        "path": "originals/1106f17b652d4ce6ca94c8a6806d1f62434a2337ddfdecab967b29f9e56a6f4e.img",
+        "sha256": "1106f17b652d4ce6ca94c8a6806d1f62434a2337ddfdecab967b29f9e56a6f4e",
+        "bytes": 34660,
+        "dimensions": [
+          620,
+          620
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://www.muskokaradio.com/",
+        "final_url": "https://www.muskokaradio.com/",
+        "original_html_sha256": "6eae07f742467c9457189afb82326ef348baa12fba1001621c887412b15d2123",
+        "path": "page-evidence/6eae07f742467c9457189afb82326ef348baa12fba1001621c887412b15d2123.json",
+        "titles": [
+          "Hunters Bay Radio",
+          "Hunters Bay Radio"
+        ],
+        "image_urls": [
+          "https://mmo.aiircdn.com/1933/67c5cf15aa7db.png",
+          "https://mmo.aiircdn.com/1933/67b62e0fba9b2.jpg"
+        ],
+        "named_logos": {
+          "https://mmo.aiircdn.com/1933/67c5cf15aa7db.png": "Hunters Bay Radio  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/b0d5b5be478db1d062b0f982c72298c3dd48907ae6a152f6eeb673c8e24322bb.png",
+          "sha256": "b0d5b5be478db1d062b0f982c72298c3dd48907ae6a152f6eeb673c8e24322bb",
+          "bytes": 2182
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/2b40344d893d1288ec8635f0b42a13de7108792ecffe33da843c26eeedae1355.png",
+          "sha256": "2b40344d893d1288ec8635f0b42a13de7108792ecffe33da843c26eeedae1355",
+          "bytes": 22880
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/769aa132674a8cc4cc3778027b63141743a6738394a73536acb35fff9b0ce58d.png",
+          "sha256": "769aa132674a8cc4cc3778027b63141743a6738394a73536acb35fff9b0ce58d",
+          "bytes": 70671
+        },
+        "50x30/white": {
+          "path": "verified-assets/21f75da1cf5db9da8b693c9c3e08d8df8fb1fb5de7a2e334fdd2a6b580e7d104.png",
+          "sha256": "21f75da1cf5db9da8b693c9c3e08d8df8fb1fb5de7a2e334fdd2a6b580e7d104",
+          "bytes": 3378
+        },
+        "220x132/white": {
+          "path": "verified-assets/c7ecf62667d9c9261537c8356e83369c19b16ffd674c43b79132152ca5ba1f4c.png",
+          "sha256": "c7ecf62667d9c9261537c8356e83369c19b16ffd674c43b79132152ca5ba1f4c",
+          "bytes": 46517
+        },
+        "400x240/white": {
+          "path": "verified-assets/20172d4b0ed96b6261aa3d6f89770d03e86f09ee03266e4e9b89532e34a41ee5.png",
+          "sha256": "20172d4b0ed96b6261aa3d6f89770d03e86f09ee03266e4e9b89532e34a41ee5",
+          "bytes": 123682
+        },
+        "50x30/black": {
+          "path": "verified-assets/ac4ae4de4b0577be2a6ba6ee48b9d3919be81536c41446c49a8d11023bb632db.png",
+          "sha256": "ac4ae4de4b0577be2a6ba6ee48b9d3919be81536c41446c49a8d11023bb632db",
+          "bytes": 3554
+        },
+        "220x132/black": {
+          "path": "verified-assets/5101d3a2464429881bb14803fdf150928d45411a85c969ddcc0f8fa516a0a7f4.png",
+          "sha256": "5101d3a2464429881bb14803fdf150928d45411a85c969ddcc0f8fa516a0a7f4",
+          "bytes": 45599
+        },
+        "400x240/black": {
+          "path": "verified-assets/bca55d47139fadf394ffc8c1bd2a5fee6c0413475b3e4d4e90ae9b6591107461.png",
+          "sha256": "bca55d47139fadf394ffc8c1bd2a5fee6c0413475b3e4d4e90ae9b6591107461",
+          "bytes": 120712
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Hunters Bay Radio  ",
+        "matched_brand_keys": [
+          "hunters"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:2304:5A33:ED:0:0:0:0": {
       "name": "Hutton Orbital Radio",
@@ -168473,7 +168737,10 @@
       "homepages": [
         "https://www.forthemug.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 521\n"
+      ]
     },
     "4097:0:2:2E2B:8FCA:ED:0:0:0:0": {
       "name": "Hyperion Radio",
@@ -168485,7 +168752,36 @@
       "homepages": [
         "https://hyperion.fm/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://hyperion.fm/apple-touch-icon.png",
+        "final_url": "https://hyperion.fm/apple-touch-icon.png",
+        "path": "originals/d9d605a794a351a4c8e878952cf0a4776ef3f6de8b2fcf4ce2b269072f960a13.img",
+        "sha256": "d9d605a794a351a4c8e878952cf0a4776ef3f6de8b2fcf4ce2b269072f960a13",
+        "bytes": 16300,
+        "dimensions": [
+          180,
+          180
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://hyperion.fm/",
+        "final_url": "https://hyperion.fm/",
+        "original_html_sha256": "a889fa9cbb0917408ea4fb7d2620b900cc8a1b545a7565015fa800189981d583",
+        "path": "page-evidence/a889fa9cbb0917408ea4fb7d2620b900cc8a1b545a7565015fa800189981d583.json",
+        "titles": [
+          "Hyperion Radio — Free Internet Radio, Broadcasting 24/7",
+          "HYPERION"
+        ],
+        "image_urls": [
+          "https://hyperion.fm/apple-touch-icon.png",
+          "https://hyperion.fm/favicon.ico",
+          "https://hyperion.fm/og-image.png"
+        ],
+        "named_logos": {}
+      },
+      "ocr_text": ""
     },
     "4097:0:2:8683:5FCC:ED:0:0:0:0": {
       "name": "Ice Radio",
@@ -168516,7 +168812,96 @@
       "homepages": [
         "https://www.iheart.com/live/iheart-the-holidays-8451/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://i.iheart.com/v3/re/assets.streams/68f7b0423447d8ae8e8a8991?ops=fit(960%2C960)%2Cresize(0%2C390)",
+        "final_url": "https://i.iheart.com/v3/re/assets.streams/68f7b0423447d8ae8e8a8991?ops=fit(960%2C960)%2Cresize(0%2C390)",
+        "path": "originals/a5895f2a3276571c5e0dc68527d4b0e97c9097bc3b0c567e8ec5926ed4755ee7.img",
+        "sha256": "a5895f2a3276571c5e0dc68527d4b0e97c9097bc3b0c567e8ec5926ed4755ee7",
+        "bytes": 83160,
+        "dimensions": [
+          390,
+          390
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://www.iheart.com/live/iheart-the-holidays-8451/",
+        "final_url": "https://www.iheart.com/live/iheart-the-holidays-8451/",
+        "original_html_sha256": "04db8972f346bd0919b1124893c1bfc0d5569df83ff807f88cdb0debc575e5f2",
+        "path": "page-evidence/04db8972f346bd0919b1124893c1bfc0d5569df83ff807f88cdb0debc575e5f2.json",
+        "titles": [
+          "iHeart The Holidays | iHeart",
+          "iHeart The Holidays"
+        ],
+        "image_urls": [
+          "https://i.iheart.com/v3/re/assets.streams/68f7b0423447d8ae8e8a8991?ops=fit(960%2C960)%2Cresize(0%2C390)",
+          "https://www.iheart.com/static/assets/aclogo.png",
+          "https://www.iheart.com/static/assets/apple-touch-icon.png"
+        ],
+        "named_logos": {
+          "https://i.iheart.com/v3/re/assets.streams/68f7b0423447d8ae8e8a8991?ops=fit(960%2C960)%2Cresize(0%2C390)": "iHeart The Holidays logo  ",
+          "https://www.iheart.com/static/assets/aclogo.png": "Ad Choices  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/2e11b034ca5881113c24e520563f4f962629d0d4e220d40aaa8c22ed915658c5.png",
+          "sha256": "2e11b034ca5881113c24e520563f4f962629d0d4e220d40aaa8c22ed915658c5",
+          "bytes": 1055
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/5a9851c64352086830ca7fce8ac01b1ac8594bd9a707b7a90ffa22d20228edf4.png",
+          "sha256": "5a9851c64352086830ca7fce8ac01b1ac8594bd9a707b7a90ffa22d20228edf4",
+          "bytes": 10874
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/7a1f3d6661180d15e88614090b9f670a6929b097923571fcff5d9c1ba8384ef8.png",
+          "sha256": "7a1f3d6661180d15e88614090b9f670a6929b097923571fcff5d9c1ba8384ef8",
+          "bytes": 32109
+        },
+        "50x30/white": {
+          "path": "verified-assets/56886c83b4e684279902644273edd5f6ab0a26d6e22a344d636564446a16f68d.png",
+          "sha256": "56886c83b4e684279902644273edd5f6ab0a26d6e22a344d636564446a16f68d",
+          "bytes": 2447
+        },
+        "220x132/white": {
+          "path": "verified-assets/88041217b8b8ce97966981b3b46ebfd21cbfe7911ecaa4a3c26ec4a8d334853d.png",
+          "sha256": "88041217b8b8ce97966981b3b46ebfd21cbfe7911ecaa4a3c26ec4a8d334853d",
+          "bytes": 38250
+        },
+        "400x240/white": {
+          "path": "verified-assets/92cc49f476200358be936f0fb75e450c38610d85f558eae7c43cb42bc8687e79.png",
+          "sha256": "92cc49f476200358be936f0fb75e450c38610d85f558eae7c43cb42bc8687e79",
+          "bytes": 95085
+        },
+        "50x30/black": {
+          "path": "verified-assets/80ed94055844ec6709620974d8caa564ee1ee626b3389cbdcdb6cb846b8313ec.png",
+          "sha256": "80ed94055844ec6709620974d8caa564ee1ee626b3389cbdcdb6cb846b8313ec",
+          "bytes": 2685
+        },
+        "220x132/black": {
+          "path": "verified-assets/44ed239e2fb6ba22245986935e29fe228cf1710d59dfc0f7aeb6de2079d92b80.png",
+          "sha256": "44ed239e2fb6ba22245986935e29fe228cf1710d59dfc0f7aeb6de2079d92b80",
+          "bytes": 37344
+        },
+        "400x240/black": {
+          "path": "verified-assets/bdfe4c004989b0750f61336538255caf8512a073f6aacee045f7d88fb99eb78f.png",
+          "sha256": "bdfe4c004989b0750f61336538255caf8512a073f6aacee045f7d88fb99eb78f",
+          "bytes": 91368
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "iHeart The Holidays logo  ",
+        "matched_brand_keys": [
+          "holidays",
+          "iheart"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:E996:73C5:ED:0:0:0:0": {
       "name": "iLive Radio",
@@ -168529,7 +168914,10 @@
         "http://i-liveradio.com/",
         "https://www.ilvetoronto.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (6) Could not resolve host: www.ilvetoronto.com\n"
+      ]
     },
     "4097:0:2:E30F:8A44:ED:0:0:0:0": {
       "name": "INDI 101-5",
@@ -168541,7 +168929,40 @@
       "homepages": [
         "http://www.indi1015.ca/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://indi1015.ca/wp-content/uploads/2021/08/48905_indi-final1-170x170.png",
+        "final_url": "https://indi1015.ca/wp-content/uploads/2021/08/48905_indi-final1-170x170.png",
+        "path": "originals/f140ff4a61651d1ce7848d81bb05ad2bef271cf3660bf62fc04a5677b28de9e2.img",
+        "sha256": "f140ff4a61651d1ce7848d81bb05ad2bef271cf3660bf62fc04a5677b28de9e2",
+        "bytes": 13087,
+        "dimensions": [
+          170,
+          170
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "http://www.indi1015.ca/",
+        "final_url": "https://indi1015.ca/",
+        "original_html_sha256": "ca0fb9b5fc7eb53a7fbc6c9ffd753f9a11d919b49788a758fd029563668646f2",
+        "path": "page-evidence/ca0fb9b5fc7eb53a7fbc6c9ffd753f9a11d919b49788a758fd029563668646f2.json",
+        "titles": [
+          "Home - Indi 101.5",
+          "\n\t\t\t\t\t\t\t\t\t\t\t\t INDI Mix \n\t\t\t\t\t\t\t\t\t\t\t"
+        ],
+        "image_urls": [
+          "https://indi1015.ca/wp-content/uploads/2021/08/48905_indi-final1-170x170.png",
+          "https://indi1015.ca/wp-content/uploads/2021/09/logo_indi-Reverse.png",
+          "https://indi1015.ca/wp-content/uploads/2026/02/street-level-logo-408x302.jpeg"
+        ],
+        "named_logos": {
+          "https://indi1015.ca/wp-content/uploads/2021/09/logo_indi-Reverse.png": "Home  ",
+          "https://indi1015.ca/wp-content/uploads/2021/08/48905_indi-final1-170x170.png": "logo  ",
+          "https://indi1015.ca/wp-content/uploads/2026/02/street-level-logo-408x302.jpeg": "  "
+        }
+      },
+      "ocr_text": "IND)\n"
     },
     "4097:0:2:BEB3:AEA3:ED:0:0:0:0": {
       "name": "Indie 88.1 CIND-FM",
@@ -168553,7 +168974,8 @@
       "homepages": [
         "https://indie88.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:7456:4BFE:ED:0:0:0:0": {
       "name": "Inspire FM \"Inspire Canadian\"",
@@ -168565,7 +168987,96 @@
       "homepages": [
         "http://www.inspire.fm/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://inspire.fm/wp-content/uploads/2024/04/InpireFM_LogoDevelopment_ICON_COL.png",
+        "final_url": "https://inspire.fm/wp-content/uploads/2024/04/InpireFM_LogoDevelopment_ICON_COL.png",
+        "path": "originals/e87845e93ae3cf243f6f4a40c7ceaaac464132cc73e7ab068a9ba5bf4e52ef9e.img",
+        "sha256": "e87845e93ae3cf243f6f4a40c7ceaaac464132cc73e7ab068a9ba5bf4e52ef9e",
+        "bytes": 13627,
+        "dimensions": [
+          360,
+          361
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "http://www.inspire.fm/",
+        "final_url": "https://inspire.fm/",
+        "original_html_sha256": "84db8a635e62b8a2a20ba17d3c32f30adbb6a550e333b4f73ab588f6efeca1d2",
+        "path": "page-evidence/84db8a635e62b8a2a20ba17d3c32f30adbb6a550e333b4f73ab588f6efeca1d2.json",
+        "titles": [
+          "Inspire.FM | Christian Radio Across the Maritimes"
+        ],
+        "image_urls": [
+          "https://inspire.fm/wp-content/uploads/2024/04/InpireFM_LogoDevelopment_ICON_COL.png",
+          "https://inspire.fm/wp-content/uploads/2024/05/Inspire_FM-Logo-full-Color@3x.png",
+          "https://inspire.fm/wp-content/uploads/2025/12/logo-Ignite-prayer-canada-uppercase-500.png"
+        ],
+        "named_logos": {
+          "https://inspire.fm/wp-content/uploads/2024/05/Inspire_FM-Logo-full-Color@3x.png": "Inspire.FM  ",
+          "https://inspire.fm/wp-content/uploads/2026/02/Inspire-News-heartbeat-with-logo.jpg": "Inspire FM Heartbeat news  ",
+          "https://inspire.fm/wp-content/uploads/2024/04/InpireFM_LogoDevelopment_ICON_COL.png": "Inspire FM InpireFM_LogoDevelopment_ICON_COL ",
+          "https://inspire.fm/wp-content/uploads/2025/12/logo-Ignite-prayer-canada-uppercase-500.png": "Ignite Prayer Canada  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/47479553f425c76d2c1e47b9d14dff1b822567f2ab69c692af734067945a38f2.png",
+          "sha256": "47479553f425c76d2c1e47b9d14dff1b822567f2ab69c692af734067945a38f2",
+          "bytes": 1254
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/30d7f5119bfa8829f291366bd8f34ddab296e70e8e83ef81cb884e526d83c673.png",
+          "sha256": "30d7f5119bfa8829f291366bd8f34ddab296e70e8e83ef81cb884e526d83c673",
+          "bytes": 10860
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/92c0b7f897493fde14b677771c94e50a108c606ca0a78a94a2333f50a6aca119.png",
+          "sha256": "92c0b7f897493fde14b677771c94e50a108c606ca0a78a94a2333f50a6aca119",
+          "bytes": 34456
+        },
+        "50x30/white": {
+          "path": "verified-assets/03fd27f6d5cf9bf27c1cea3971a4fbf403ee2b6ad70a07733cad652f67e19c12.png",
+          "sha256": "03fd27f6d5cf9bf27c1cea3971a4fbf403ee2b6ad70a07733cad652f67e19c12",
+          "bytes": 2558
+        },
+        "220x132/white": {
+          "path": "verified-assets/f85bc70dc14898b488f640015db18553b5cddb27635b73b1360bfb1693b2ad42.png",
+          "sha256": "f85bc70dc14898b488f640015db18553b5cddb27635b73b1360bfb1693b2ad42",
+          "bytes": 37559
+        },
+        "400x240/white": {
+          "path": "verified-assets/12659b46b17ff7ad6a7088b26fae7b5c04f8de7ab20cc80132448f7b508a47e4.png",
+          "sha256": "12659b46b17ff7ad6a7088b26fae7b5c04f8de7ab20cc80132448f7b508a47e4",
+          "bytes": 94168
+        },
+        "50x30/black": {
+          "path": "verified-assets/033c045ae1fb26ca7a777a2a36cd2f6d571a2994fdfb443097c31e06050467a0.png",
+          "sha256": "033c045ae1fb26ca7a777a2a36cd2f6d571a2994fdfb443097c31e06050467a0",
+          "bytes": 2897
+        },
+        "220x132/black": {
+          "path": "verified-assets/daa672be2e65c0bced3b7a2cee9ac1dfadbbf06a6981175b36f3f01c3a5d1051.png",
+          "sha256": "daa672be2e65c0bced3b7a2cee9ac1dfadbbf06a6981175b36f3f01c3a5d1051",
+          "bytes": 37318
+        },
+        "400x240/black": {
+          "path": "verified-assets/b0a7f256ba4aaa29b35c5607578086565e796a30f20590ab4b8908c38846c521.png",
+          "sha256": "b0a7f256ba4aaa29b35c5607578086565e796a30f20590ab4b8908c38846c521",
+          "bytes": 93274
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Inspire FM InpireFM_LogoDevelopment_ICON_COL ",
+        "matched_brand_keys": [
+          "inspire"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:E159:E22C:ED:0:0:0:0": {
       "name": "International Pagan Radio",
@@ -168584,7 +169095,36 @@
       "homepages": [
         "https://radiointernet.ca/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://radiointernet.ca/wp-content/uploads/2026/10/cropped-AF3D5F20-6F71-456F-B6B9-6555BD6F6460-192x192.png",
+        "final_url": "https://radiointernet.ca/wp-content/uploads/2026/10/cropped-AF3D5F20-6F71-456F-B6B9-6555BD6F6460-192x192.png",
+        "path": "originals/2a8b0400f04c5949c67a4b21c9fbb8e3663d6b6e07799f5647ea92aaf9795b8f.img",
+        "sha256": "2a8b0400f04c5949c67a4b21c9fbb8e3663d6b6e07799f5647ea92aaf9795b8f",
+        "bytes": 57904,
+        "dimensions": [
+          192,
+          192
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://radiointernet.ca/",
+        "final_url": "https://radiointernet.ca/",
+        "original_html_sha256": "2bb8f48ea3d991fe7d9ee43fbe9a8562e9753a9382a9d496522a422561725c0e",
+        "path": "page-evidence/2bb8f48ea3d991fe7d9ee43fbe9a8562e9753a9382a9d496522a422561725c0e.json",
+        "titles": [
+          "RadioInternet.ca – Votre écosystème webradio",
+          "\n\t\t\tCrée. Produis.\t\t\t Diffuse. \n\t\t"
+        ],
+        "image_urls": [
+          "https://radiointernet.ca/wp-content/uploads/2026/10/cropped-AF3D5F20-6F71-456F-B6B9-6555BD6F6460-180x180.png",
+          "https://radiointernet.ca/wp-content/uploads/2026/10/cropped-AF3D5F20-6F71-456F-B6B9-6555BD6F6460-192x192.png",
+          "https://radiointernet.ca/wp-content/uploads/2026/10/cropped-AF3D5F20-6F71-456F-B6B9-6555BD6F6460-32x32.png"
+        ],
+        "named_logos": {}
+      },
+      "ocr_text": "‘P)\n\n7,\n\nRadio\n\nca\n"
     },
     "4097:0:2:66BC:4A20:ED:0:0:0:0": {
       "name": "iRock24/7",
@@ -168610,7 +169150,8 @@
       "homepages": [
         "https://italodancefm.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:66D7:B1A9:ED:0:0:0:0": {
       "name": "J1 GOLD",
@@ -168622,7 +169163,8 @@
       "homepages": [
         "https://www.j1fm.tokyo/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:37DE:5F37:ED:0:0:0:0": {
       "name": "Jack 94.5 (CKCK)",
@@ -168634,7 +169176,8 @@
       "homepages": [
         "https://www.jack945.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:6455:3115:ED:0:0:0:0": {
       "name": "Jamz 403",
@@ -168646,7 +169189,10 @@
       "homepages": [
         "https://www.jamz403.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (7) Failed to connect to www.jamz403.com port 443 after 181 ms: Couldn't connect to server\n"
+      ]
     },
     "4097:0:2:7508:A2ED:ED:0:0:0:0": {
       "name": "Jaxson Harlan Radio",
@@ -168658,7 +169204,41 @@
       "homepages": [
         "https://jaxsonharlan.com/radio/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://jaxsonharlan.com/wp-content/uploads/2026/10/TuneIn-Logo2.png",
+        "final_url": "https://jaxsonharlan.com/wp-content/uploads/2026/10/TuneIn-Logo2.png",
+        "path": "originals/2444f318330484846c079de2e7bfc54db8d4bce8dfaa2d3a1e743adf2a989ca4.img",
+        "sha256": "2444f318330484846c079de2e7bfc54db8d4bce8dfaa2d3a1e743adf2a989ca4",
+        "bytes": 2742,
+        "dimensions": [
+          151,
+          148
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://jaxsonharlan.com/radio/",
+        "final_url": "https://jaxsonharlan.com/radio/",
+        "original_html_sha256": "8c3de0a1482e6ef7e185de7e616bb00b8cdc0b6d6c10b07b5677512361afecce",
+        "path": "page-evidence/8c3de0a1482e6ef7e185de7e616bb00b8cdc0b6d6c10b07b5677512361afecce.json",
+        "titles": [
+          "The Jaxson Harlan Radio Station – Jaxson Harlan",
+          "The Gravel & Grace Station"
+        ],
+        "image_urls": [
+          "https://jaxsonharlan.com/wp-content/uploads/2026/10/FullDial-Logo-sm.png",
+          "https://jaxsonharlan.com/wp-content/uploads/2026/10/TuneIn-Logo2.png",
+          "https://jaxsonharlan.com/wp-content/uploads/2026/10/mytuner_logo-sm.png"
+        ],
+        "named_logos": {
+          "https://jaxsonharlan.com/wp-content/uploads/2026/10/TuneIn-Logo2.png": "TuneIn-Logo2 TuneIn-Logo2 ",
+          "https://jaxsonharlan.com/wp-content/uploads/2026/10/FullDial-Logo-sm.png": "FullDial-Logo-sm FullDial-Logo-sm ",
+          "https://jaxsonharlan.com/wp-content/uploads/2026/10/mytuner_logo-sm.png": "mytuner_logo-sm mytuner_logo-sm ",
+          "https://jaxsonharlan.com/wp-content/uploads/2026/10/streema-logo.png": "streema-logo streema-logo "
+        }
+      },
+      "ocr_text": ""
     },
     "4097:0:2:2361:E79F:ED:0:0:0:0": {
       "name": "JAZU - Japanese Jazz",
@@ -168680,7 +169260,10 @@
       "homepages": [
         "https://jazz.fm/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 403\n"
+      ]
     },
     "4097:0:2:440E:B9AB:ED:0:0:0:0": {
       "name": "Jazz FM CJRT",
@@ -168692,7 +169275,10 @@
       "homepages": [
         "https://jazz.fm/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 403\n"
+      ]
     },
     "4097:0:2:E764:DBB2:ED:0:0:0:0": {
       "name": "JB Radio",
@@ -168723,7 +169309,8 @@
       "homepages": [
         "https://asiadreamradio.torontocast.stream/stations/en/index.html"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:78CF:D9EA:ED:0:0:0:0": {
       "name": "J-Pop Powerplay (Asia DREAM Radio)",
@@ -168735,7 +169322,10 @@
       "homepages": [
         "https://asiadreamradio.torontocast.stream/stations/en/index.html"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "Command '['tesseract', '/tmp/radio-logo-ocr-4opzh3wq/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds"
+      ]
     },
     "4097:0:2:5D13:5B69:ED:0:0:0:0": {
       "name": "J-Pop Powerplay Kawaii (asia DREAM radio)",
@@ -168747,7 +169337,10 @@
       "homepages": [
         "https://asiadreamradio.torontocast.stream/stations/en/index.html"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "Command '['tesseract', '/tmp/radio-logo-ocr-vdjfa2a6/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds"
+      ]
     },
     "4097:0:2:8C70:2361:ED:0:0:0:0": {
       "name": "J-Pop Powerplay Kawaii (http)",
@@ -168759,7 +169352,8 @@
       "homepages": [
         "https://asiadreamradio.torontocast.stream/stations/en/index.html#"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:3650:497E:ED:0:0:0:0": {
       "name": "J-Rock Powerplay",
@@ -168771,7 +169365,8 @@
       "homepages": [
         "https://asiadreamradio.torontocast.stream/stations/en/index.html"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:EC8C:B1D1:ED:0:0:0:0": {
       "name": "Radio Kalighat fm",
@@ -561327,14 +561922,14 @@
   },
   "counts": {
     "already_ready_in_saved_checkpoint": 4155,
-    "blocked_no_confirmed_station_page_and_logo": 2167,
+    "blocked_no_confirmed_station_page_and_logo": 2183,
     "blocked_no_independent_station_homepage": 1269,
     "blocked_no_unique_current_station_metadata": 4248,
-    "candidate_assistant_visual_and_identity_check": 902,
+    "candidate_assistant_visual_and_identity_check": 906,
     "needs_assistant_identity_research_for_short_or_generic_name": 1328,
-    "pending_homepage_discovery": 25978,
-    "ready_verified_homepage_and_wordmark": 856
+    "pending_homepage_discovery": 25953,
+    "ready_verified_homepage_and_wordmark": 861
   },
-  "last_event": "homepages_3900_of_29878",
-  "updated_utc": "2026-11-05T14:41:09Z"
+  "last_event": "homepages_3925_of_29878",
+  "updated_utc": "2026-11-05T14:41:30Z"
 }
