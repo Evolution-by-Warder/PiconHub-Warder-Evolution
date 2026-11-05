@@ -1,0 +1,36 @@
+name: Research current radio source logos AT HU without publishing
+on:
+  push:
+    branches: [research/radio-source-at-hu-nov05]
+    paths:
+      - '.github/workflows/audit-radio-at-hu-nov05.yml'
+      - 'picons/IPTV-SK-CZ/tools/audit_radio_source_at_hu_nov05.py'
+permissions:
+  contents: write
+jobs:
+  audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          filter: blob:none
+          sparse-checkout: |
+            picons/IPTV-SK-CZ/catalog
+            picons/IPTV-SK-CZ/tools
+            .github/workflows
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python3 -m py_compile picons/IPTV-SK-CZ/tools/audit_radio_source_at_hu_nov05.py
+      - name: Audit only original broadcaster pages and freeze source URL evidence
+        run: python3 picons/IPTV-SK-CZ/tools/audit_radio_source_at_hu_nov05.py
+      - name: Save provenance metadata only, never image files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add picons/IPTV-SK-CZ/catalog/radio-source-at-hu-20261105.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Record official source candidates for Antenne Salzburg and Hungarian radio subchannels"
+            git push origin HEAD:research/radio-source-at-hu-nov05
+          fi
