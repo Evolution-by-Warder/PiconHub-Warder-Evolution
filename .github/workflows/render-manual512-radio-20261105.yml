@@ -1,0 +1,34 @@
+name: Render manually reviewed512 Radio candidates
+on:
+  push:
+    branches: [work/radio-manual512-20261105]
+    paths: [migration/radio-manual512-20261105/review-decisions.json]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: work/radio-manual512-20261105
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install Pillow==13.0.0
+      - run: |
+          mkdir -p /tmp/radio-masters
+          cp plugin/artwork/templates/picons/white-sablona.png /tmp/radio-masters/white.png
+          cp plugin/artwork/templates/picons/black-sablona.png /tmp/radio-masters/black.png
+      - name: Render approved candidates from frozen source state
+        run: python tools/prepare_manual512_radio.py --root migration/radio-fast-logo-production-20261105 --selection migration/radio-manual512-20261105/selected-source-claim.json --decisions migration/radio-manual512-20261105/review-decisions.json --templates /tmp/radio-masters --renderer tools/render_manual512_radio.py
+      - name: Save reviewed source decisions and all nine PNG variants
+        run: |
+          git config user.name 'Warder Radio artwork'
+          git config user.email 'radio-artwork@users.noreply.github.com'
+          git add migration/radio-fast-logo-production-20261105
+          if ! git diff --cached --quiet; then
+            git commit -m 'Save manually reviewed radio candidates and nine PNG variants'
+            python tools/push_manual512_radio.py work/radio-manual512-20261105
+          fi
