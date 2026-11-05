@@ -1,0 +1,50 @@
+{
+  "date": "2026-11-05",
+  "owner_instructions": [
+    "laska u 23.5 neprepisuj picony ktore su uz spracovane v balickoch canal+ sk a cz !",
+    "lebo stanice ako jednotka, dvojka , rtvs 24 a dalej su vo vhannibalovy stare !"
+  ],
+  "scope": "23.5e and all existing CANALPLUS_SK / CANALPLUS_CZ packages",
+  "preserve_existing_png_bytes": true,
+  "protected_selectors": [
+    "CANALPLUS_SK",
+    "CANALPLUS_CZ"
+  ],
+  "protected_provider_paths": [
+    "picons/23.5e/canal-plus-sk",
+    "picons/23.5e/canal-plus-cz"
+  ],
+  "baseline_file": "baseline.json",
+  "block_all_existing_235e_replacements": true,
+  "hold_unverified_new_235e_references": true,
+  "protect_same_station_across_service_types": true,
+  "do_not_create_aliases_from_protection_match": true,
+  "preserve_current_canal_artwork_in_full_satellite_and_master_sets": true,
+  "overrides_general_newer_master_replacement_rule_in_this_scope": true,
+  "explicit_station_families": {
+    "24": [
+      "rtvs24",
+      "stvr24",
+      "stv24"
+    ],
+    "jednotka": [
+      "jednotka",
+      "rtvs1",
+      "stvr1",
+      "1"
+    ],
+    "dvojka": [
+      "dvojka",
+      "rtvs2",
+      "stvr2",
+      "2"
+    ],
+    "sport": [
+      "rtvssport",
+      "stvrsport",
+      "stvsport"
+    ]
+  },
+  "new_reference_policy": "Only add a genuinely missing independently verified reference; first reuse the current protected CANAL artwork of the same station/region/variant. An unverified Vhannibal artwork or a newer archive date is not an override.",
+  "no_live_package_writes_authorized_by_generic_preview_approval": true
+}
