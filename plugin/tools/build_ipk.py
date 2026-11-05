@@ -59,6 +59,10 @@ def build(destination,source_revision=None):
     runpy.run_path(str(RUNTIME/"warder_update.py"))["version_key"](version)
     metadata=json.loads((ROOT/"project.json").read_text())
     if version!=metadata["development_version"]:raise ValueError("Package and runtime version differ")
+    selectors=json.loads((RUNTIME/"data/skin-menu.json").read_text())["selectors"]
+    missing=[row["selector"] for row in selectors
+             if not (RUNTIME/"images/selectors"/(row["selector"]+".png")).is_file()]
+    if missing:raise ValueError("Selector icons missing: "+", ".join(missing))
     control=("Package: %s\nVersion: %s\nArchitecture: all\nSection: extra\nPriority: optional\n"
              "Maintainer: Warder Evolution\n"
              "Depends: enigma2, python3-core, python3-compression, python3-crypt, python3-datetime, python3-fcntl, python3-io, python3-json, python3-netclient, python3-threading, python3-xml\n"

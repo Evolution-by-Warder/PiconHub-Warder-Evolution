@@ -47,13 +47,13 @@ def main():
   feed=dict(version=version,package_url=package_url,sha256=digest,changelog=notes['sk']);item['package_url']=package_url
  else:feed=dict(schema=1,product='PiconHub Warder Evolution',channel='stable',release=item)
  encoded=lambda d:(json.dumps(d,ensure_ascii=False,indent=2)+'\n').encode()
- changes={path:encoded(feed) for path in c['feed_paths']};production_path=c['production_record'];prod=json.loads(read(production_path));prod['previous_release']=prod.get('release');prod.update(status='production-update-active',approved_on='2026-11-04',approval='Owner requested full support for 34.5W and 50E in both clients and three Warder backgrounds for every satellite and provider.',source_branch='main',source_commit=revision,package_source_commit=revision,release=item)
- prod['validation']=dict(ci='passed',workflow_run=int(os.environ['GITHUB_RUN_ID']),public_ipk_verified=True,three_background_catalogue_verified=True,all_profiles_and_other_payload_preserved=True,physical_receiver_tested=False);changes[production_path]=encoded(prod)
+ changes={path:encoded(feed) for path in c['feed_paths']};production_path=c['production_record'];prod=json.loads(read(production_path));prod['previous_release']=prod.get('release');prod.update(status='production-update-active',approved_on=c['release_date'],approval=c['approval'],source_branch='main',source_commit=revision,package_source_commit=revision,release=item)
+ prod['validation']=dict(ci='passed',workflow_run=int(os.environ['GITHUB_RUN_ID']),public_ipk_verified=True,three_background_catalogue_verified=True,selector_presentation_verified=True,all_profiles_and_other_payload_preserved=True,physical_receiver_tested=False);changes[production_path]=encoded(prod)
  if c['product']=='PiconHub':
   project=json.loads(read('plugin/project.json'));project.update(development_version=version,production_version=version,requested_production_version=version,latest_published_version=version,ipk_published=True);changes['plugin/project.json']=encoded(project)
  report=dict(status='PRODUCTION_VERIFIED',product=c['product'],version=version,release=item,source_commit=revision,source_workflow=int(os.environ['GITHUB_RUN_ID']),positions=['34.5w','50.0e'],styles=['transparent','white','black'],resolutions=['50x30','220x132','400x240'],coverage='Every satellite and provider resolution has all three backgrounds',physical_receiver_tested=False)
- changes['reports/satellite-selectors-20261104/production.json']=encoded(report)
- readme=read('README.md').decode();readme+='\n## '+c['product']+' '+version+' — 34,5°W a 50°E\n\n'+notes['sk']+'\n\n[Stiahnuť IPK]('+url+'). Overené všetky tri pozadia satelitov aj providerov, verejné IPK a kontrolné súčty.\n';changes['README.md']=readme.encode()
+ changes[c['report_dir']+'/production.json']=encoded(report)
+ readme=read('README.md').decode();current_end=readme.find('\n## Project status') if c['product']=='FullHDGlass' else readme.find('\n## Plugin data');current_end=current_end if current_end>=0 else len(readme);readme=readme[:current_end].replace(c['previous_version'],version).replace('4. november 2026','5. november 2026').replace('2026-11-04','2026-11-05')+readme[current_end:];readme+='\n## '+c['product']+' '+version+' — oprava poradia a ikon\n\n'+notes['sk']+'\n\n[Stiahnuť IPK]('+url+'). Overené všetky tri pozadia satelitov aj providerov, verejné IPK a kontrolné súčty.\n';changes['README.md']=readme.encode()
  current='# '+c['product']+' '+version+'\n\n'+notes['sk']+'\n\n[Stiahnuť IPK]('+url+')\n\nSHA256: '+digest+'\n\nHostiteľské kontroly oboch inštalačných enginov a zachovania nastavení prešli; fyzický prijímač nebol v tejto relácii testovaný.\n';changes['docs/CURRENT-RELEASE.md']=current.encode()
  main_commit=commit('main',changes,'Activate verified '+c['product']+' '+version+' and record complete satellite/provider background support [skip ci]')
  compatibility={path:encoded(feed) for path in c['feed_paths']}
@@ -67,5 +67,5 @@ def main():
   for path in c['feed_paths']:assert json.loads(read(path,branch))==feed
  assert sha(client.public_package(url,len(raw)))==digest
  client.request('PATCH','/releases/'+str(release['id']),dict(draft=False,prerelease=False,make_latest='true'))
- report.update(main_activation_commit=main_commit,compatibility_activation_commit=compat_commit);out=ROOT/'reports/satellite-selectors-20261104';out.mkdir(parents=True,exist_ok=True);(out/'production.json').write_bytes(encoded(report));print(json.dumps(report),flush=True)
+ report.update(main_activation_commit=main_commit,compatibility_activation_commit=compat_commit);out=ROOT/c['report_dir'];out.mkdir(parents=True,exist_ok=True);(out/'production.json').write_bytes(encoded(report));print(json.dumps(report),flush=True)
 if __name__=='__main__':main()

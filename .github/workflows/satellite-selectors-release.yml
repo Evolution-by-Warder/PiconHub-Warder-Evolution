@@ -1,7 +1,7 @@
-name: PiconHub 0.1.43 satellite selector release
+name: PiconHub 0.1.44 satellite selector release
 on:
   push:
-    branches: [feature/satellite-selectors-20261104, main]
+    branches: [fix/selector-presentation-20261105, main]
     paths: [.github/workflows/satellite-selectors-release.yml, docs/SATELLITE-SELECTORS-RELEASE.json, tools/test_satellite_backgrounds.py]
 permissions:
   contents: read
@@ -33,7 +33,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           repository: Evolution-by-Warder/FullHDGlass-Warder-Evolution
-          ref: 2cf0176d0cb98e726504b06d3d964d8fcb9fabc0
+          ref: acbd5869ba68c06b2692cfc6b77d3dd5cf22bcae
           path: .skin-source
           sparse-checkout-cone-mode: false
           sparse-checkout: |
@@ -51,20 +51,20 @@ jobs:
           from pathlib import Path
           Path('/tmp/satellite-manifest.json').write_bytes(urllib.request.urlopen('https://raw.githubusercontent.com/Evolution-by-Warder/FullHDGlass-Warder-Evolution/main/assets/warder/downloads/picons/channels/manifest.json').read())
           PYFETCH
-          python tools/test_satellite_backgrounds.py --manifest /tmp/satellite-manifest.json --skin-root .skin-source --report reports/satellite-selectors-20261104/installation.json
+          python tools/test_satellite_backgrounds.py --manifest /tmp/satellite-manifest.json --skin-root .skin-source --report reports/selector-presentation-20261105/installation.json
       - name: Build identical complete IPKs twice
         run: |
           python plugin/tools/build_ipk.py --output plugin/build --revision "$GITHUB_SHA"
-          cp plugin/build/enigma2-plugin-extensions-piconhub_0.1.43_all.ipk /tmp/first.ipk
+          cp plugin/build/enigma2-plugin-extensions-piconhub_0.1.44_all.ipk /tmp/first.ipk
           python plugin/tools/build_ipk.py --output plugin/build --revision "$GITHUB_SHA"
-          cmp /tmp/first.ipk plugin/build/enigma2-plugin-extensions-piconhub_0.1.43_all.ipk
+          cmp /tmp/first.ipk plugin/build/enigma2-plugin-extensions-piconhub_0.1.44_all.ipk
       - uses: actions/upload-artifact@v4
         with:
-          name: piconhub-0.1.43-verified
+          name: piconhub-0.1.44-verified
           path: |
             plugin/build/*.ipk
             plugin/build/*.sha256
-            reports/satellite-selectors-20261104/*.json
+            reports/selector-presentation-20261105/*.json
   publish:
     if: github.ref == 'refs/heads/main'
     needs: build
@@ -85,17 +85,17 @@ jobs:
           python-version: '3.9'
       - uses: actions/download-artifact@v4
         with:
-          name: piconhub-0.1.43-verified
+          name: piconhub-0.1.44-verified
           path: .release-artifacts
       - name: Place tested IPK at the configured path
         run: |
           mkdir -p plugin/build
-          find .release-artifacts -name 'enigma2-plugin-extensions-piconhub_0.1.43_all.ipk' -exec cp '{}' plugin/build/ \;
+          find .release-artifacts -name 'enigma2-plugin-extensions-piconhub_0.1.44_all.ipk' -exec cp '{}' plugin/build/ \;
       - name: Publish verified IPK and activate both stable feeds
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: python tools/publish-selector-release.py
       - uses: actions/upload-artifact@v4
         with:
-          name: piconhub-0.1.43-production
-          path: reports/satellite-selectors-20261104/production.json
+          name: piconhub-0.1.44-production
+          path: reports/selector-presentation-20261105/production.json
