@@ -1,0 +1,299 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+		<title>Radio Zinzine</title>
+		<script language="javascript" type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+		<script language="javascript" type="text/javascript" src="js/jquery.corner.js"></script>
+		<script language="javascript" type="text/javascript" src="js/index.js" charset="UTF-8"></script>
+		<link href="radio.css" rel="stylesheet" type="text/css">
+	</head>
+
+<body>
+	<table border=0 align="center" cellpadding=0 cellspacing=0 width="100%" height=81>
+		<tr>
+<td width=188>
+	<img src="img/banner_left.png" width=188 />
+</td>
+<td background="img/banner_background.png">
+	<table cellpadding=0 cellspacing=0 width="100%" height="100%">
+		<tr>
+<td align="right">
+	<a class="menuvertical">RADIO ZINZINE , UNE RADIO LIBRE</a>
+</td>
+		</tr>
+
+		<tr valign="center" height=26>
+<td>
+	&nbsp; &nbsp;<a id = "acceuilLink" class="menuH" href="#" onclick="showPage('acceuil');">ACCUEIL</a>
+	&nbsp; &nbsp;<a class="menuH" href="#" onclick="resetSearch();defaultEmission();">EMISSIONS</a>
+	&nbsp; &nbsp;<a class="menuH" title="Grille hebdomadaire des programmes" href="#" onclick="afficheProgramme();">PROGRAMMES</a>
+	&nbsp; &nbsp;<a class="menuH" title="Consultez ou ajoutez une annonce" href="#" onclick="showPage('annonces');">ANNONCES</a>
+	&nbsp; &nbsp;<a class="menuH" title="Si l'écoute ne marche pas directement en cliquant, faite clic droit sur ce lien/enregistrer le lien sous et ensuite ouvrez le fichier téléchargé avec votre lecteur préféré" href="https://radiozinzine.org/listenaac.m3u">BAS DEBIT</a>
+	&nbsp; &nbsp;<a class="menuH" title="Rediffusion hebdomadaire des informations du soir" href="#" onclick="goInfos()">INFOS</a>
+</td>
+		</tr>
+	</table>
+</td>
+<td width=14>
+	<img src="img/banner_right.png" width=14 />
+</td>
+		</tr>
+	</table>
+	<table border=0 cellpadding=5 cellspacing=5 width="100%">
+		<tr valign="top">
+<td width=220>
+	<table border=0 cellpadding=0 cellspacing=5>
+		<tr>
+<td>
+	<center>
+		<!-- MUSE CODE
+		<div id="museDiv">
+
+<script type="text/javascript" src="https://hosted.muses.org/mrp.js"></script>
+<script type="text/javascript">
+MRP.insert({
+'url':'https://stream.radiozinzine.org:8443/3;',
+'lang':'fr',
+'codec':'mp3',
+'volume':100,
+'autoplay':false,
+'forceHTML5':true,
+'jsevents':true,
+'buffering':0,
+'title':'Radio Zinzine',
+'wmode':'transparent',
+'skin':'oldradio',
+'width':205,
+'height':132
+});
+</script>
+
+		</div> -->
+<!-- 
+<br>
+
+<audio controls="false"><source src="https://stream.radiozinzine.org:8443/3" type="audio/mp3">Votre navigateur ne supporte pas le lecteur en ligne. Il reste le téléchargement !</audio>
+<br>
+ -->
+
+
+<a class="menuvertical" href="https://stream.radiozinzine.org:8443/3" target="_blank">
+
+<svg fill="#000000" height="128px" width="128px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve">
+
+<g id="SVGRepo_bgCarrier" stroke-width="0"/>
+
+<g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+
+<g id="SVGRepo_iconCarrier"> <path d="M256,0C114.615,0,0,114.615,0,256s114.615,256,256,256s256-114.615,256-256S397.385,0,256,0z M280.875,269.313l-96,64 C182.199,335.094,179.102,336,176,336c-2.59,0-5.184-0.625-7.551-1.891C163.246,331.32,160,325.898,160,320V192 c0-5.898,3.246-11.32,8.449-14.109c5.203-2.773,11.516-2.484,16.426,0.797l96,64C285.328,245.656,288,250.648,288,256 S285.328,266.344,280.875,269.313z M368,320c0,8.836-7.164,16-16,16h-16c-8.836,0-16-7.164-16-16V192c0-8.836,7.164-16,16-16h16 c8.836,0,16,7.164,16,16V320z"/> </g>
+
+</svg>
+<br>
+
+<b>LANCER LA LECTURE<B></a><br><br>
+
+	</center>
+</td>
+		</tr>
+		<tr>
+<td>
+	<div id="machinB" class="demoB">
+		<div id="machin" class="demo">
+<div align="center"><a class="menuvertical">RECHERCHE</a></div>
+	&nbsp;<input id = "zsearch" name="zsearch" type=text style="width:90% ;background-color:white;border:solid 1px #A1A1A1;height:19px"/>
+	<br /><a class="atexte" onclick="$('#searchExpand').show();showPage('emissions');$('#emiSearchText').focus();" href="#">Recherche avancée</a><br />
+		</div>
+	</div>
+</td>
+		</tr>
+		<tr>
+<td>
+	<div id="eventsB" class="demoB">
+		<div id="events" class="demo">
+<div align="center"><a class="menuvertical">ÉVÈNEMENTS</a></div><!-- style="background-color: #ffd600;color:#005bbc"  -->
+<div id="eventsLst"><div class="textesousmenu" style="overflow:hidden">Chargement en cours</div><div class="lignehorizontale"></div><br /></div>
+		</div>
+	</div>
+</td>
+		</tr>
+		<tr>
+<td>
+	<div id="trucB" class="demoB">
+		<div id="truc" class="demo">
+<div align="center"><a class="menuvertical">SITES AMIS</a></div>
+<div id="LinksLst">
+
+<div class="textesousmenu" style="overflow:hidden"><a class="atexte" href="http://radiozinzineaix.org/">Zinzine Aix</a></div><div class="lignehorizontale"></div>
+<div class="textesousmenu" style="overflow:hidden"><a class="atexte" href="https://www.aioli-radio.org/">Radio Aïoli</a></div><div class="lignehorizontale"></div>
+<div class="textesousmenu" style="overflow:hidden"><a class="atexte" href="http://rz.jazz.free.fr/">Bulle de jazz</a></div><div class="lignehorizontale"></div>
+<div class="textesousmenu" style="overflow:hidden"><a class="atexte" href="http://commune-oreille.blogspot.com/">Commune Oreille</a></div><div class="lignehorizontale"></div>
+<div class="textesousmenu" style="overflow:hidden"><a class="atexte" href="http://audioblog.arteradio.com/blog/3048014/presse-liberee/">Presse Lib&eacute;r&eacute;e</a></div><div class="lignehorizontale"></div>
+<div class="textesousmenu" style="overflow:hidden"><a  class="atexte2" href="#" onclick="showPage('plusdeliens');">plus de liens</a></div><div class="lignehorizontale"></div>
+
+<br /></div>
+		</div>
+	</div>
+</td>
+		</tr>
+	</table>
+</td>
+<td>
+	<div id="financement" class="frmpage"></div>
+	<div id="programme" class="frmpage"></div>
+	<div id="acceuil" class="frmpage">
+	<div id = "urgence" style="background-image: url('./images/ua.jpg');width:753px;height:305px;">
+		Chargement en cours
+	</div><br>
+
+
+        
+
+
+
+<div style="display: block; text-align: center;width:753px;">
+    <a style="padding: 15px 36px; display: inline-block; font-family: 'Open Sans', 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif; font-size: 20px; font-weight: 600; text-align: center; color: #120899; text-decoration: none; background-color: #fff; border: none; -webkit-border-radius: 4px; border-radius: 4px; -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);" href="https://www.helloasso.com/associations/forum-civique-europeen/formulaires/2/widget" target="_blank">Faire un don</a>
+</div>
+<br>
+
+
+    
+
+		<table width=753>
+<tr valign="top">
+	<td class ="casebas">
+		<div class="borduremenudroit">
+
+<a class="atexte2" href="#" onclick="showPage('contactus');">Contactez-nous</a>
+<br />Envoyer un mail ou appeler directement la radio
+		</div>
+	</td>
+	<td class ="casebas">
+		<div class="borduremenudroit">
+<a  class="atexte2" href="#" onclick="showPage('ecoutezone');">Zone d'écoute</a>
+<br />Principalement dans le 04, 05 (voir la carte pour plus de détails)
+		</div><br /><br />
+		<div class="borduremenudroit">
+<a  class="atexte2" href="#" onclick="showPage('listenus');">Aide à l'écoute</a>
+<br />Pour plus d'informations concernant le stream de la radio
+		</div>
+	</td>
+	<td class ="casebas">
+		Au début il y avait une belle colline provençale en Haute Provence entre
+Limans et Forcalquier (04), où se trouvait le Jas de la Zinzine sur
+laquelle une radio libre éponyme : Radio Zinzine, s'est installée en
+juin 1981. C'est au milieu des chênes pubescents, une radio en pierre
+qui se chauffe au soleil ou au poêle à bois...<br /><br />
+Notre programmation, très musique du monde et chansons rebelles au
+niveau musical, s'accompagne d'infos critiques et d'émissions
+thématiques qui continuent de se diversifier, de la santé à la forêt en
+passant par les luttes émancipatrices sociétales et politiques
+françaises, internationales et migrantes.<br /><br />
+Radio Zinzine est une radio d'opinion, de caractère, qui tient à son
+indépendance financière, refusant toute publicité, s'appuyant sur le
+Fonds de soutien à l'expression radiophonique, des concerts de soutien,
+des collectes auprès des auditrices et auditeurs, etc.
+		<a  class="atexte2" href="#" onclick="showPage('lireplus');">lire plus</a>
+	</td>
+</tr>
+		</table>
+	</div>
+	<div id="bondecommande" class="frmpage">Cette page est temporairement indisponible</div>
+	<div id="viewevent" class="frmpage"></div>
+	<div id="informationsdusoir" class="frmpage"></div>
+	<div id="emissions" class="frmpage textesousmenu">
+	Mots clefs <input id="emiSearchID" value="" type="hidden"><input type="text" id="emiSearchText" style="background-color:white;border:solid 1px #A1A1A1;height:19px"/> <input type="button" value="Rechercher" style="background-color:white;border:solid 1px #A1A1A1;height:19px" onclick="runSearch()"> <a href="#" onclick="$('#searchExpand').is(':visible')?$('#searchExpand').hide():$('#searchExpand').show();" class="atexte">Recherche avancée</a><br /><br />
+	<table class="textesousmenu" id="searchExpand" style="display: none;">
+		<tr>
+			<td>Référence</td>
+			<td><input type="text" id="emiSearchRef" style="background-color:white;border:solid 1px #A1A1A1;height:19px" size="10" /></td>
+		</tr>
+		<tr>
+			<td>Catégories</td>
+			<td><select id="emiSearchCat" style="background-color:white;border:solid 1px #A1A1A1;height:19px"></select></td>
+		</tr>
+		<tr>
+			<td>Trier par</td>
+			<td>
+				<select id="emiSearchSort" style="background-color:white;border:solid 1px #A1A1A1;height:19px">
+					<option value="datepub">date</option>
+					<option value="Score">pertinence</option>
+					<option value="categorie">categorie</option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td>Du</td>
+			<td><input type="text" id="emiSearchBegin" style="background-color:white;border:solid 1px #A1A1A1;height:19px" maxlength="10" size="10" /> (format 311214 31/12/14 31122014 31/12/2014 accepté)</td>
+		</tr>
+		<tr>
+			<td>au</td>
+			<td><input type="text" id="emiSearchEnd" style="background-color:white;border:solid 1px #A1A1A1;height:19px" maxlength="10" size="10" /> (format 311214 31/12/14 31122014 31/12/2014 accepté)</td>
+		</tr>
+	</table>
+	</br>
+	<div id="searchResultList"></div>
+	</div>
+	<div id="ecoutezone" class="frmpage textesousmenu"></div>
+	<div id="urgenceMaterielDivers" class="frmpage textesousmenu"></div>
+	<div id="urgenceMedecineDeVille" class="frmpage textesousmenu"></div>
+	<div id="urgenceMedecineDeGuerre" class="frmpage textesousmenu"></div>
+	<div id="urgenceMaladiesChroniques" class="frmpage textesousmenu"></div>
+
+	<div id="plusdeliens" class="frmpage textesousmenu"></div>
+	<div id="lireplus" class="frmpage textesousmenu"></div>
+	<div id="listenus" class="frmpage textesousmenu"></div>
+	<div id="annonces" class="frmpage"><iframe src="/formqqq.php" width="100%" height="600"></iframe></div>
+	<div id="contactus" class="frmpage textesousmenu"></div>
+	<div id="emmextend"></div>
+</td>
+<td width=220>
+	<table border=0 cellpadding=0 cellspacing=5>
+<!-- collecte -->
+		<tr>
+<td>
+	<div id="eventsB" class="demoB">
+		<div id="events" class="demo">
+<div align="center"><a class="menuvertical">COLLECTE ANNUELLE</a></div>
+<div id="Collect"><div class="textesousmenu" style="overflow:hidden">
+<a class="atexte" onclick="showPage('financement')" href="#">Indépendante, certes, mais pas riche pour autant !</a>
+<div class="lignehorizontale"></div><br />
+
+<iframe id="haWidget" allowtransparency="true" src="https://www.helloasso.com/associations/association-radio-zinzine/formulaires/1/widget-bouton" style="width:100%;height:70px;border:none;"></iframe>
+<!-- 
+<div id="coltotjauge" style="background-image: linear-gradient(rgb(127, 0, 0), rgba(127, 0, 0, 0.1)); width: 220px; height: 16px; border-radius: 3px;">
+    <div id="colcurjauge" style="width: 1px; background-image: linear-gradient(rgb(255, 0, 0), rgba(255, 0, 0, 0.1)); height: 16px; border-radius: 3px;"></div>
+    <div id="coltxtjauge" style="z-index: 1; width: 220px; height: 16px; position: relative; top: -16px; color: rgb(0, 4, 68); text-shadow: 1px 1px 0px rgb(255, 255, 255); text-align: center; opacity: 1;"></div>
+</div>
+-->
+</div></div>
+		</div>
+	</div>
+</td>
+		</tr>
+<!-- /collecte -->
+		<tr>
+<td>
+	<div id="eventsB" class="demoB">
+		<div id="events" class="demo">
+<div align="center"><a class="menuvertical">SUR LES ONDES</a></div>
+<div id="NextLst"><div class="textesousmenu" style="overflow:hidden">Chargement en cours</div><div class="lignehorizontale"></div><br /></div>
+		</div>
+	</div>
+</td>
+		</tr>
+		<tr>
+<td>
+	<div id="eventsB" class="demoB">
+		<div id="events" class="demo">
+<div align="center"><a title="Derniers téléchargements disponibles" class="menuvertical">ÉMISSIONS RÉCENTES</a></div>
+<div id="LastPodcastLst"><div class="textesousmenu" style="overflow:hidden">Chargement en cours</div><div class="lignehorizontale"></div><br /></div>
+		</div>
+	</div>
+</td>
+		</tr>
+	</table>
+</td>
+		</tr>
+	</table>
+</body>
+</html>

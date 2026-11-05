@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+
+
+
+<!-- Tout doit se trouver dans cette balise-->
+<html lang="fr">
+    <!-- Informations générales sur la page, non affichées -->
+    <head><meta charset='utf-8' /><meta name='viewport' content='width=device-width, initial-scale=1'><link rel='stylesheet' type='text/css' href='Style/awesomefonts.css' /><link rel='stylesheet' type='text/css' href='Style/commun.css' /><link rel='stylesheet' type='text/css' href='Style/style-0-600.css' media='all and (max-width: 599px)' /><link rel='stylesheet' type='text/css' href='Style/style-600-800.css' media='all and (min-width: 600px) and (max-width: 800px)' /><link rel='stylesheet' type='text/css' href='Style/style-800.css' media='all and (min-width: 801px)' /><link rel='stylesheet' type='text/css' href='Style/jquery-ui.css' /><title>WFM, le fil musical du web</title><link rel='icon' type='image/png' href='Decoration/logo.png' /><link rel='shortcut' type='image/png' href='Decoration/logo.png' /><link rel='apple-touch-icon' href='Decoration/logo.png' /><script type='application/javascript' src='JavaScript/jquery-3.5.1.min.js'></script></head>
+    <!-- Tout le contenu de la page -->
+    <body>
+        <!-- Chargement de jQuery -->
+        <script type='application/javascript' src='JavaScript/jquery-ui-1.12.1.min.js' charset="UTF-8"></script>
+
+        <!-- Chargement du code maison -->
+        <script type='application/javascript' src='JavaScript/jquery.wfm.js' charset="UTF-8"></script>
+
+        <header>
+            <a href="connexion.php" target="_blank"><div id="BigHeaderLink"></div></a>
+            <div id="BigHeader">
+                <i class="fa fa-heart" title="J'aime cette musique" onclick="voteMusique(true)"></i>
+                <div id="BigHeaderDiv"><div id="HeaderText1">Chargement en cours</div></div>
+                <script>Defilement(["#HeaderText1"], 40);</script>
+                <i class="fa fa-heartbeat" title="Je n'aime pas cette musique" onclick="voteMusique(false)"></i>
+            </div>
+        </header>
+
+        <div id="Complete" class="FlexLigneStretch">
+            <div id="ImageSup600">
+                <img class="Pochette" src="Decoration/defaut.jpg" onerror="this.src='Decoration/defaut.jpg'" alt="Pochette" />
+            </div>
+
+            <div id="Corps" class="FlexColonneStretch BlocStretch OverflowHidden">
+                <div id="LittleHeader">
+                    <div id="SubLittleHeader" class="FlexLigneStretch">
+                        <i class="fa fa-heart" title="J'aime cette musique" onclick="voteMusique(true)"></i>
+                        <div id="LittleHeaderDiv" class="BlocStretch"><div id="HeaderText2">Chargement en cours</div></div>
+                        <script>Defilement(["#HeaderText2"], 40);</script>
+                        <i class="fa fa-heartbeat" title="Je n'aime pas cette musique" onclick="voteMusique(false)"></i>
+                    </div>
+                </div>
+
+                <div id="Image600" class="FlexLigne">
+                    <img class="Pochette" src="Decoration/defaut.jpg" onerror="this.src='Decoration/defaut.jpg'" alt="Pochette" />
+                </div>
+
+                <div class="FlexLigneStretch H30px">
+                    <i id="PlayPause" class="fa fa-play" title="Écouter la radio"></i>
+
+                    <canvas id="vu-metre" class="BlocStretch"></canvas>
+                    <img id="vu-metre-gif" class="BlocStretch OverflowHidden HideMe" src="Decoration/eteint.png" alt="Vu-mètre décoratif" />
+
+                    <i id="MuteUnmute" class="fas fa-volume-mute" title="Couper le son"></i>
+
+                    <audio id="audiotrack" preload="auto" crossorigin="anonymous">
+                        <source src="https://flux-mp3.w-feel-muse.fr" type="audio/mpeg">
+                        <source src="https://flux-aac.w-feel-muse.fr" type="audio/aac">
+                        Votre navigateur ne supporte pas l'élément <code>audio</code>.
+                    </audio>
+                </div>
+
+                <!-- Maxime du site -->
+                <div id="MaximeSection" class="BlocStretch">
+                    <!--<p id="MaximeText">La musique de tous pour chacun, tout en sachant que chacun n'écoute pas la musique de tous...</p>-->
+                </div>
+
+                <footer class="FlexLigneStretch H30px">
+                    <a href="mailto:audinautes@gmail.com"><i class="fa fa-envelope" title="Nous contacter par mail"></i></a>
+                    <div id="FooterDiv" class="BlocStretch"><div id="FooterText"><span style="color:blue">Bonjour la Planète Francophone !!
+</span>
+<span style="color:white">-------------------------------------------------</span>
+
+<span style="color:red">Dimanche 8 novembre à 22h00, concert intégral de Michael Jackson "Live at Wembley" enregistré le 16 juillet 1988 !!</span>
+<span style="color:white">-------------------------------------------------</span>
+
+"Merci beaucoup à vous de m'avoir accepté et accueilli dans ce super groupe !! WFM le fil musical du web fait partie de mes webradios préférées.❤️❤️ !! (Julien d'Amiens)</span>
+<span style="color:white">-------------------------------------------------</span>
+
+"Merci Greg pour toute votre Bonne Humeur ça fait trop du bien ❤️❤️ !! (Anne de Versailles)</span>
+<span style="color:white">-------------------------------------------------</span>
+
+"Merci vous êtes au Top on vous Adore ❤️❤️ !! (Ana de Paris)</span>
+<span style="color:white">-------------------------------------------------</span>
+
+"Je suis bel et bien un fidèle auditeur quotidien et régulier de cette magnifique webradio WFM le fil musical du web !! (Julien d'Amiens)</span>
+<span style="color:white">-------------------------------------------------</span>
+
+"Les années 80, toujours du plaisir à entendre... Et Planète Clubbing, c'est super... Bravo WFM !! (Fabannie)</span>
+<span style="color:white">-------------------------------------------------</span>
+
+"Belle découverte cette superbe Radio ! Merci !! (2 apprentis danseurs de Sainte-Marie)</span>
+<span style="color:white">-------------------------------------------------</span>
+
+"Venez écouter Génération 80 le samedi soir ! Super émission!! Je la conseille à tout le  monde…!!"(Yveline)</span>
+<span style="color:white">-------------------------------------------------</span>
+
+"Merci a tous pour cette chaîne musicale, on adore en Franche-Comté !!"(Michèle)</span>
+<span style="color:white">-------------------------------------------------</span>
+
+"Une WebRadio géniale !! Merci à toute l'équipe pour votre bonne humeur et gentillesse, une superbe programmation musicale  variée et merci pour mon intégration dans la team des Dj de  Planète Clubbing , que du bonheur !!! "(DjFreddeTroyes)</span>
+<span style="color:white">-------------------------------------------------</span>
+
+"Radio très agréable à écouter avec une sélection diversifiée, pas redondante du tout et un son de pure qualité... I love it ❤️❤️ !!
+Dj Marty"</span>
+<span style="color:white">-------------------------------------------------</span>
+
+"Bonjour Bonjour et Bonjour à tous, de la part de Constance la Tchadienne !!" ❤️❤️</span>
+<span style="color:white">-------------------------------------------------</span>
+
+"Je vous écoute très régulièrement, J'adore WFM le fil musical du web !!" ❤️❤️(Julien d'Amiens)</span>
+<span style="color:white">-------------------------------------------------</span>
+
+"Bonjour Entre amis, en soirée, où durant un bon repas... ROCKOLLECTOR c’est extra !!" ❤️ (un nain connu...)</span>
+<span style="color:white">-------------------------------------------------</span>
+
+"Radio top et programme mené par Greg. Toujours à l'écoute et en pleine innovation. ❤️!!" (Evy de Belgique).</span>
+<span style="color:white">-------------------------------------------------</span>
+
+"Super musique, on adore ❤️!!" (Michèle).</span>
+<span style="color:white">-------------------------------------------------</span>
+
+"Un petit coucou pour nos amis ❤️!!" (Nadège).</span>
+<span style="color:white">-------------------------------------------------</span>
+
+"Superbe Radio ❤️! Big Up à l'Ile de La Réunion ❤️!!" (Nadège, Bernard et Anna Maria de Franche-Comté).</span>
+<span style="color:white">-------------------------------------------------</span>
+
+"Alors moi je m'appelle Claude j'habite en Corrèze et j'écoute WFM et j'aime très beaucoup le réveil de Greg Sur WFM !!" (Claude  le Corèzien).</span>
+<span style="color:white">-------------------------------------------------</span>
+
+"Cette Radio est top... Greg est génial... Merci, Bisous ❤️!!" (Sylvie).</span>
+<span style="color:white">-------------------------------------------------</span>
+
+"Bravo !! j'adore quand je peux écouter ❤️ !! On est des Dingues...!! Dj Marty"</span>
+<span style="color:white">-------------------------------------------------</span>
+
+"Jamais vous ne trouverez ailleurs une webradio qui vous apporte autant d’amitié, de bienveillance et de partage !! Tant d’interactivité avec de belles personnes, tous les auditeurs. Merci pour ça ❤️!!" (Claude d’Anthony 92).</span>
+<span style="color:white">-------------------------------------------------</span>
+
+"Une Radio d'excellence, il y a de la bonne humeur, de la bonne musique pour toutes les générations. Une programmation variée, de bons Animateurs, très sympas ❤️!! je recommande..." (Sylvain d’Épernay).</span>
+<span style="color:white">-------------------------------------------------</span>
+
+"Bravo à tous les Animateurs de WFM ! Merci pour votre programmation multigénérationnelle, c’est un plaisir de vous écouter ❤️!!" (Sco Pan). </span>
+<span style="color:white">-------------------------------------------------</span>
+
+"Une Radio exceptionnelle aux couleurs de l'arc en ciel, une équipe au top et surtout humaine, à qui je suis redevable pour leurs soutiens et de leurs intérêts à mon univers musical... Un grand merci, merci d'apporter un peu d'oxygène dans ce monde qui va si mal...❤️!!" (Claire). </span>
+<span style="color:white">-------------------------------------------------</span>
+
+"Une Webradio , remplie de bonne humeur dirigée par des mains de Maître avec Greg :) , des émissions exceptionnelles ! De la bonne humeur et une superbe équipe de Dingues !! Essayer WFM , c'est l'Adopter !! ❤️" (Laurent). </span>
+<span style="color:white">-------------------------------------------------</span>
+
+"Très bonne Radio Web avec une programmation musicale très variée, il y en a pour tout le monde avec d'excellents Animateurs !!" (Patrick). </span>
+<span style="color:white">-------------------------------------------------</span>
+
+"Du bon son et des Animateurs au top ❤️ !!" (Claire). </span>
+<span style="color:white">-------------------------------------------------</span>
+
+"Une bien belle Radio, moderne et vintage à la fois, le son est d'enfer ! Ravi de faire partie de la Team !!" (Dj Marty). </span>
+<span style="color:white">-------------------------------------------------</span>
+
+"Merci à Claude de m'avoir transmis le lien de cette belle radio. Super Rockcollector! Merci Sylvain !!" (Véronique de Belgique). </span>
+<span style="color:white">-------------------------------------------------</span>
+
+"Je viens de découvrir Dj Marty, j'ai passé un super moment. Bravo WFM et Bravo Dj Marty ❤️❤️!!" (Olivier du 03). </span>
+<span style="color:white">-------------------------------------------------</span>
+
+"Petite écoute matinale, y'a rien de mieux que la musique ! C'est mille fois mieux que la télé !!" (Bernard). </span>
+<span style="color:white">-------------------------------------------------</span>
+
+"Quel plaisir de te retrouver @Greg sur w-feel-muse.fr chaque matin ! Merci pour ta gentillesse et ta proximité avec tes fidèles Dingodinautes ❤️ !!" (Claude du 92). </span>
+<span style="color:white">-------------------------------------------------</span>
+
+"Que du bon son sur WFM… Je découvre et quand on n’arrive pas a dormir, on profite des bons sons sur cette belle chaîne…!!" (Bernard du 77).</span>
+<span style="color:white">-------------------------------------------------</span>
+
+"Bon réveil matinal a ma radio, à tous les auditeurs ainsi que personnel de la radio  !!" (Constance la Tchadienne).</span>
+<span style="color:white">-------------------------------------------------</span>
+
+"Grand bonjour et grand merci pour ce plaisir que j’ai à vous écouter depuis quelques semaines ! Coucou amical à Greg pour son immense gentillesse !!" (Claude du 92).</span>
+<span style="color:white">-------------------------------------------------</span>
+
+"Petit bonsoir à toute la Team de WFM ! Bravo et merci à Greg pour ces bons moments !!" (Martine du Doubs).</span>
+<span style="color:white">-------------------------------------------------</span>
+
+"Bonjour la Radio, mes salutations à tout le staff pour ces chants qui adoucissent les mœurs… Bisous Bisous !!" (Constance la Tchadienne).</span>
+<span style="color:white">-------------------------------------------------</span>
+
+"De tout pour tous à toute heure du jour et de la nuit… Une équipe formidable, une programmation superbe et des chansons magnifiques. Rien à ajouter… Ah si : Merci !!" (Claude du 92).</span>
+<span style="color:white">-------------------------------------------------</span>
+
+"Musique superbe, Animateurs au top ! Merci pour ces moments de bonheur ! Il y en a pour tous les âges !!" (Sylvain d'Épernay).</span>
+<span style="color:white">-------------------------------------------------</span>
+
+"Je comprends pourquoi mes potes vont plus en boîte, tous les meilleurs Dj sont partis sur WFM !!" (Claude du 92).</span>
+<span style="color:white">-------------------------------------------------</span>
+
+"J’ai des fourmis dans les jambes avec une si bonne programmation !!" (Laurence).</span>
+<span style="color:white">-------------------------------------------------</span>
+
+"WFM une radio qui ne demande qu’à être écoutée et son animateur Greg est au top ❤️ !!" (Yveline du Doubs).</span>
+<span style="color:white">-------------------------------------------------</span>
+
+"Bonjour et félicitations pour la programmation ❤️!! Petit coucou de Belgique !! Bonne journée à tous !!" (Evy de Begique).</span>
+<span style="color:white">-------------------------------------------------</span>
+
+"Encore une superbe programmation ce dimanche ❤️ !!" (Laurence).</span>
+<span style="color:white">-------------------------------------------------</span>
+
+"Génial ! Superbe Radio ! Bravo à toute l'équipe !!" (franckydjee de Saint-Omer, Hauts de France).</span>
+<span style="color:white">-------------------------------------------------</span>
+
+"Une programmation très variée, avec une équipe super cool et des animateurs au TOP ! Ecouter WFM c'est l'adopter ❤️❤️ !!" (Laurent de Troyes dans l'Aube).</span>
+<span style="color:white">-------------------------------------------------</span>
+
+"Bravo pour ton énergie Greg !! c'est agréable de t'écouter, ainsi que ta prog musicale ❤️ !!" (Eric de Soultz en Alsace).</span>
+<span style="color:white">-------------------------------------------------</span>
+
+"Le concert intégral de Royal Hunt, que du bonheur !! Grandiose !!" (Sylvain).</span>
+<span style="color:white">-------------------------------------------------</span>
+
+"Super, je vais passer de bons moments en écoutant la musique ❤️❤️❤️ !! (Laurence).</span>
+<span style="color:white">-------------------------------------------------</span>
+
+"Salut la famille ! Un grand bravo pour la web, un grand bonjour à l'équipe ! Salut Sylvain et tous les autres, en souvenir du Live Club ! Bon courage, je vous suis et à très vite j'espère !!" (Arnaud du 03).</span>
+
+<span style="color:white">-------------------------------------------------</span>
+
+"ROCKCOLLECTOR c’est vraiment très fort !!" (un nain connu).</span>
+<span style="color:white">-------------------------------------------------</span>
+
+"Belle soirée à toutes et tous ❤️❤️ !!" (Martine).</span>
+<span style="color:white">-------------------------------------------------</span>
+
+"J'écoute WFM au bureau, même à faible niveau sonore, le temps passe beaucoup plus vite… Merci pour votre programmation très hétéroclite !!"</span>
+(Olivier de Montluçon 03).</span>
+<span style="color:white">-------------------------------------------------</span> 
+
+<span style="color:red">Du lundi au jeudi, 20h00-Minuit, retrouvez Sylvain et ROCKCOLLECTOR !! Quatre heures de musique non stop, à vous décrasser les cages à miel !!</span>
+<span style="color:white">-------------------------------------------------</span>
+
+"Coucou Greg !! Merci pour tes musiques cool ❤️❤️❤️ !!" (Catherine en Normandie).</span>
+<span style="color:white">-------------------------------------------------</span>
+
+"Superbe programmation musicale, tous les styles que j’aime, je suis accro et ne m’en lasse pas... Merci WFM !!" (Angelo de Troyes).</span>
+<span style="color:white">-------------------------------------------------</span>
+
+<span style="color:red">Chaque samedi et dimanche dès 14h00, Greg est en direct pour "La Playlist" !! Venez participer à la Programmation Musicale !!</span>
+<span style="color:white">-------------------------------------------------</span>
+
+"J’adooore ❤️❤️❤️ !!" (Martine).</span>
+<span style="color:white">-------------------------------------------------</span>
+
+"Vas-y ma poule, envoie du lourd encore longtemps…!! Vas-y Sylvain… Lâche toi mon poteau...!!" (Jacques de Valentigney).</span>
+<span style="color:white">-------------------------------------------------</span>
+
+"Merci Greg tu régales...!! Vive les 80’s...!!" (Angelo de Troyes).</span>
+<span style="color:white">-------------------------------------------------</span>
+
+"Des Djs qui nous donnent la pêche…!!❤️❤️❤️" (Martine du Doubs).</span>
+<span style="color:white">-------------------------------------------------</span>
+
+"Greg tu me dois 10 glaçons...!!" (Laura).</span>
+<span style="color:white">-------------------------------------------------</span>
+
+"Allez mon Sylvain ! Je t’écoute mon Papa de Radio ♥️ !" (Stéphane).</span>
+<span style="color:white">-------------------------------------------------</span></div></div>
+                        <script>Defilement(["#FooterText"], 40);</script>
+                    <a href="https://m.me/ch/AbZJte3pUR2PnjAg/" target="_blank"><i class="fa fa-comments" title="Ouvrir notre chat" style="margin-right: 10px; color: white;"></i></a>
+                    <a href="https://www.facebook.com/WFM-le-fil-musical-du-web-1394018233992287/" target="_blank"><i class="fab fa-facebook-square" title="Ouvrir notre page Facebook"></i></a>
+                </footer>
+            </div>
+        </div>
+    </body>
+</html>
