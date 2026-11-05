@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+
+
+<head>
+    <meta charset="utf-8">
+    
+    <title>Radio Sepiol</title>
+    <meta name="description" content="Radio Sepiol de Serra/ES/ WhatsApp 55 27 9 99576077">
+    <meta name="keywords" content="Radio Sepiol Serra ES" />
+
+    <link rel="preconnect" href="https://www.googletagmanager.com">
+    <link rel="preconnect" href="https://www.youtube.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Radio Sepiol">
+    <meta property="og:description" content="Radio Sepiol de Serra/ES/ WhatsApp 55 27 9 99576077">
+    <meta property="og:image:width" content="600">
+    <meta property="og:image:height" content="600">
+    <meta property="og:image" content="https://radiosepiol.com.br/admin/assets/img/logo.png">
+    <meta property="og:url" content="https://radiosepiol.com.br/">
+
+
+
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="admin/assets/img/favicon.jpg">
+    <link rel="shortcut icon" href="admin/assets/img/favicon.jpg" />
+    <link href="https://fonts.googleapis.com/css?family=Oswald:400,700,300" rel="preload stylesheet" as="style">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,400italic,700" rel="preload stylesheet" as="style">
+
+
+    <link rel="preload stylesheet" as="style" type="text/css" href="assets/css/bootstrap.min.css?v=4.1.3">
+
+    <link rel="preload" as="font" crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/fonts/fontawesome-webfont.woff2?v=4.7.0">
+
+    <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="preload stylesheet" as="style" href="assets/css/jquery.vegas.css">
+    <link rel="preload stylesheet" as="style" href="assets/css/light.css?v=4.1.3">
+    <link rel="preload stylesheet" as="style" href="assets/css/blue.css?v=4.1.3">
+
+    <style type="text/css">
+        #audio-player {
+            font-size: 10px;
+            position: relative;
+            width: 100%;
+            bottom: 0;
+            z-index: 9999;
+            transition: all .2s ease-in-out;
+            -webkit-transition: all .2s ease-in-out;
+            -moz-transition: all .2s ease-in-out;
+            -o-transition: all .2s ease-in-out;
+            -ms-transition: all .2s ease-in-out;
+        }
+
+        .rock-player .controls {
+            z-index: 100;
+        }
+
+        .link-none {
+            padding-left: 0 !important;
+            margin-bottom: 0 !important;
+        }
+
+        .player-sticky {
+            position: sticky !important;
+            margin-right: 0px !important;
+        }
+    </style>
+
+    <link rel="preload stylesheet" as="style"  href="inc/chat/js/emoji/style.css?v=4.1.3"><link rel="preload stylesheet" as="style"  href="assets/css/flexslider.css?v=4.1.3">
+    <link rel="canonical" href="https://radiosepiol.com.br/">
+</head><body>
+<style type="text/css">
+	#audio-player {height: 65px; background: #0059b8 !important; border-top: none !important;}
+	.audio-title,.audio-timer,.now_playing{color: #ffffff  !important;}
+	.jp-playlist li {
+		margin: 0;
+	}
+</style>
+<div class="navbar-fixed-top player-sticky">
+	<section id="audio-player">
+	    <div class="container">
+	      <div class="rock-player">
+	        <div class="playListTrigger">
+	        </div>
+	        <div class="row">
+	          <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
+	            <div class="row">
+	              <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+	                <div id="player-instance" class="jp-jplayer"></div>
+	                <div class="controls">
+	                  <div class="play-pause jp-play"></div>
+	                  <div class="play-pause jp-pause" style="display:none" title="Play/Pause"></div>
+	                  <div class="jp-volume-controls">
+	                    <button class="jp-mute" role="button" tabindex="0">mute</button>
+	                    <button class="jp-volume-max" role="button" tabindex="0">max volume</button>
+	                    <div class="jp-volume-bar">
+	                      <div class="jp-volume-bar-value"></div>
+	                    </div>
+	                  </div>
+	                </div>
+	              </div>
+	              <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12">
+	                <div class="player-status">
+	                  <h5 class="audio-title"></h5>
+	                  <div class="audio-timer">
+	                    <span class="current-time jp-current-time">00:00</span> / <span class="total-time jp-duration">0:00</span>
+	                  </div>
+	                </div>
+	              </div>
+	              <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12">
+	                <div class="player-social">
+	                  <a class="no-ajaxy" href="https://paineldj.com.br:20087/stream" target="_blank"><img loading="lazy" class="celularimg" src="assets/img/android.png" alt="Android"></a>
+	                  <a class="no-ajaxy" href="https://paineldj.com.br:20087/stream" target="_blank"><img loading="lazy" class="celularimg"  src="assets/img/ios.png" alt="Iphone"></a>
+	                  	                  	                </div>
+	              </div>
+	            </div>
+	          </div>
+	          <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+	            <div class="audio-list">
+	              <div class="jp-playlist"> 
+	                <ul class="hidden playlist-files">
+	                  <li data-title="RADIO  SEPIOL  AO  VIVO" data-artist="<span></span>" data-mp3="https://paineldj.com.br:20087/stream"></li>
+	                </ul>
+	                <h5 class="no-ar">No Ar Agora:</h5>
+	                <div class="audio-track">
+	                  <ul>
+	                    <li></li>
+	                  </ul>
+	                </div>
+	              </div>
+	            </div>
+	          </div>
+	        </div>
+	      </div>
+	    </div>
+	</section>
+</div>
+<script type="text/javascript">
+	setTimeout(function(){ 
+		$.ajax({url: "admin/includes/locutor/no-ar-player.php", success: function(result){
+			$(".jp-artist").html(result);
+		}});
+	}, 2500);
+	setInterval(function(){
+		$.ajax({url: "admin/includes/locutor/no-ar-player.php", success: function(result){
+			$(".jp-artist").html(result);
+		}});
+	}, 120000);
+</script><header>
+  <nav class="navbar yamm navbar-default">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle fa fa-navicon" role="button" aria-label="Menu Navbar"></button>
+        <a class="navbar-brand" href="/">
+            <img loading="lazy" src="admin/assets/img/logo.png?November52026955am55" alt="Radio Sepiol" />
+        </a>
+      </div>
+      <div class="nav_wrapper">
+        <div class="nav_scroll">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="/">Início</a></li>
+            <li ><a href="podcasts">Podcasts</a></li>
+            <li ><a href="news">Notícias</a></li>
+            <li class="dropdown "><a href="#">Galeria <i class="fa fa-caret-right"></i></a>
+              <ul class="dropdown-menu">
+                <li><a href="fotos">Fotos</a></li>
+                <li><a href="videos">Vídeos</a></li>
+              </ul>
+            </li>
+                          <li ><a href='mural'>Recados</a></li>
+                        <li ><a href="programacao">Programação</a></li>
+            <li ><a href="eventos">Eventos</a></li>
+            <li ><a href="equipe">Equipe</a></li>
+            <li ><a href="sobre">Sobre</a></li>
+            <li ><a href="contato">Contato</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<ul class="vegas-slides hidden">
+  <li><img loading="lazy" data-fade="2000"  src="admin/data/img/gallery/Bg/bg3.jpg" alt="" /></li>
+<li><img loading="lazy" data-fade="2000"  src="admin/data/img/gallery/Bg/bg1.jpg" alt="" /></li>
+<li><img loading="lazy" data-fade="2000"  src="admin/data/img/gallery/Bg/bg2.jpg" alt="" /></li>
+<li><img loading="lazy" data-fade="2000"  src="admin/data/img/gallery/Bg/bg4.jpg" alt="" /></li>
+ 
+</ul>
+<div id="ajaxArea">
+    <div class="pageContentArea">
+      <section id="home-slider">
+        <div class="container">
+          <div class="home-inner">
+            <div id="homeSliderNav" class="slider-nav"> 
+              <a id="home-prev" href="#" class="prev fa fa-chevron-left"></a>
+              <a id="home-next" href="#" class="next fa fa-chevron-right"></a>
+            </div>
+            <div id="flex-home" class="flexslider" data-animation="slide" data-animationSpeed="1000" data-autoPlay="true" data-slideshowSpeed="7000">
+              <ul class="slides">
+                
+
+<li><img loading="lazy" src="admin/data/img/gallery/Slider/AWR 1000.jpg" alt="" />
+</li>
+
+<li><img loading="lazy" src="admin/data/img/gallery/Slider/logo 1000x342.jpg" alt="" />
+</li>
+
+<li><img loading="lazy" src="admin/data/img/gallery/Slider/arn.png" alt="" />
+</li>
+
+<li><img loading="lazy" src="admin/data/img/gallery/Slider/Elita 1000x342.jpg" alt="" />
+</li>
+
+<li><img loading="lazy" src="admin/data/img/gallery/Slider/alex 2 banner.jpg" alt="" />
+</li>
+
+<li><img loading="lazy" src="admin/data/img/gallery/Slider/WhatsApp Image 2026-10-17 at 19.07.00.jpeg" alt="" />
+</li>
+
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="rockPlayerHolder"></div>
+      <div class="clearfix"></div>
+
+      <section id="updates">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <h1>Locutor no Ar</h1>
+              <span id="no-ar-home"></span>
+              			<h1>Peça Sua Música</h1>
+			<div class="event-feed">
+				<section id="contact">
+					<form id="pedido-form" action="inc/submit-pedido.php" method="post">
+						
+						<div class="form-group">
+							<input class="" type="text" id="nome" name="nome" maxlength="50" placeholder="Nome" required />
+						</div>
+						<div class="form-group">
+							<input class="" type="text" name="email" id="email" maxlength="100" placeholder="E-mail" required/>
+						</div>
+						<div class="">
+							<textarea class="" name="message" id="message" maxlength="250" required placeholder="Seu Pedido"></textarea>
+						</div>
+						
+						<center>
+							<button id="submit1" type="submit" name="enviar">Enviar</button>
+						</center>
+					</form>
+					<div id="pedido-error" style="display:none;color:#ff002a;">Por favor, forneça informações válidas</div>
+					<div id="pedido-success" style="display:none;">Olá <span id="pedido-name"></span>, seu pedido foi enviado com sucesso, obrigado!</div>
+				</section>
+			</div>
+													              
+                            <h1>Ouvinte do Mês</h1>  
+              <div class="event-feed">
+                <h5>Elita Ferreira Cantora e Compositora</h5>
+              </div>
+              <center>
+                <img loading="lazy" src="admin/assets/img/ouvinte.png?November52026955am55" alt="Elita Ferreira Cantora e Compositora"/>
+              </center>
+              <center>
+                <a class="no-ajaxy" href="https://www.facebook.com/elitaferreiraoficial/" target="_blank"><img loading="lazy" class="ouvinteimg" src="assets/img/fb.png" alt="Facebook"></a>                                              </center>
+              
+                              <h1>Enquete</h1>
+                <style type="text/css">
+                                      .poll-simple .poll-title {color: #000 !important;}
+                    .poll-simple .poll-table td {color: #000 !important;}
+                    .poll-simple .poll-input-cont {background-color: #696969 !important;}
+                    .poll-simple .poll-inner{color: #000 !important;}
+                                    </style>
+                <div class='ajax-poll' tclass='poll-simple' style='width:100%;'></div>
+                          </div>
+
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                              <h1>Bate-Papo</h1>
+                <div class="chat-borda" style="width:100%; height:320px;">
+                  <span id="ChatBS"></span>
+                </div>
+                
+                                            <h1>TV SEPIOL  AO VIVO</h1>
+                <center>
+                   <div style="overflow: hidden; position: relative; width:100%;padding-top: 56.25%; display: block; content: '';"> 	<iframe  style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"  src ="https://player.radiosnaweb.com/clappr/video.php?urlplayer=https://5a57bda70564a.streamlock.net/tvsepiol/tvsepiol.sdp/playlist.m3u8&volume=90&autoplay=true&w=100%&h=100%" width="100%" height="100%" scrolling="no" style="border:none;" sandbox="allow-scripts allow-presentation allow-same-origin" allow="autoplay; xr-spatial-tracking; encrypted-media; transparency"></iframe> </div> 								                </center>
+              
+              <h1>Últimas Notícias</h1>
+              <div class="row"><div class="col-md-12"><div class="news-feed"><a class="link-none" href="news-brasileiros-estao-entre-estrangeiros-presos-no-nepal-acusados-de-atividade-missionaria"><img loading="lazy" src="https://media.guiame.com.br/archives/2026/11/03/1730354214-prisao.jpg" alt="Brasileiros estão entre estrangeiros presos no Nepal acusados de atividade missionária"></a><a href="news-brasileiros-estao-entre-estrangeiros-presos-no-nepal-acusados-de-atividade-missionaria">Brasileiros estão entre estrangeiros presos no Nepal acusados de atividade missionária</a><ul><li><span class="fa fa-calendar"></span>03/11/2026</li></ul><p>Dez estrangeiros foram detidos no Nepal sob suspeita de realizarem atividades mission&aacute;rias, segundo o UCA News.
+O grupo &ndash; formado por tr&...</p></div></div></div><div class="row"><div class="col-md-12"><div class="news-feed"><a class="link-none" href="news-lider-perdoa-filha-de-brasileiros-por-poema-sobre-morte-de-charlie-kirk-oro-por-voce"><img loading="lazy" src="https://media.guiame.com.br/archives/2026/11/03/3625069439-isa-casahuga-reconheceu-seu-erro-e-pediu-desculpas-familia-de-charlie-kirk.jpeg" alt="Líder perdoa filha de brasileiros por poema sobre morte de Charlie Kirk: “Oro por você”"></a><a href="news-lider-perdoa-filha-de-brasileiros-por-poema-sobre-morte-de-charlie-kirk-oro-por-voce">Líder perdoa filha de brasileiros por poema sobre morte de Charlie Kirk: “Oro por você”</a><ul><li><span class="fa fa-calendar"></span>03/11/2026</li></ul><p>O ativista crist&atilde;o Christian Collins respondeu ao pedido de desculpas feito por Isa Casahuga, que ficou conhecida ap&oacute;s ler um poema debo...</p></div></div></div><div class="row"><div class="col-md-12"><div class="news-feed"><a class="link-none" href="news-igreja-evangeliza-em-cemiterios-no-dia-de-finados-e-leva-vidas-a-jesus-em-sc"><img loading="lazy" src="https://media.guiame.com.br/archives/2026/11/03/3758824661-joinville.jpeg" alt="Igreja evangeliza em cemitérios no Dia de Finados e leva vidas a Jesus em SC"></a><a href="news-igreja-evangeliza-em-cemiterios-no-dia-de-finados-e-leva-vidas-a-jesus-em-sc">Igreja evangeliza em cemitérios no Dia de Finados e leva vidas a Jesus em SC</a><ul><li><span class="fa fa-calendar"></span>03/11/2026</li></ul><p>Uma igreja pregou a esperan&ccedil;a em Jesus nos cemit&eacute;rios de Joinville, em Santa Catarina, no Dia de Finados, na segunda-feira (2).
+Crist&at...</p></div></div></div><div class="row"><div class="col-md-12"><div class="news-feed"><a class="link-none" href="news-apos-ter-grafica-destruida-por-temporal-em-maringa-cristao-diz-deus-tem-um-proposito"><img loading="lazy" src="https://media.guiame.com.br/archives/2026/11/03/2139275072-ao-ver-empresa-destruida-jorge-chorou-e-declarou-sua-confianca-em-deus.jpeg" alt="Após ter gráfica destruída por temporal em Maringá, cristão diz: ‘Deus tem um propósito’"></a><a href="news-apos-ter-grafica-destruida-por-temporal-em-maringa-cristao-diz-deus-tem-um-proposito">Após ter gráfica destruída por temporal em Maringá, cristão diz: ‘Deus tem um propósito’</a><ul><li><span class="fa fa-calendar"></span>03/11/2026</li></ul><p>Um empres&aacute;rio crist&atilde;o que teve a empresa destru&iacute;da por um forte temporal em Maring&aacute;, no Paran&aacute;, viralizou ap&oacute...</p></div></div></div>				
+				   <h1>OnlineRadioBox</h1>
+                <center>
+                 <!--OnlineRadioBox Player widget-->
+<div class="orbP" id="orb_player_843e169b779f795" vlm="0.8">
+<style media="screen">
+    /* General */
+  .orbP{position:relative;box-sizing:border-box;overflow:hidden;font-weight:normal;border:1px solid transparent;user-select:none;text-align:left}.orbP br,.orbP>br{display:none!important;}.orbP p,.orbP>p{margin:0!important;padding:0!important;line-height:normal!important;font-size:inherit!important}.orbPh{display:block;position:absolute;z-index:100;top:50%;margin-top:-12px!important;right:10px;width:21px!important;text-decoration:none!important;cursor:pointer}.orbPh>img{margin:0!important;border:none;height:24px!important;-webkit-filter:drop-shadow(2px 2px 0 rgba(47,99,160,.2));filter:drop-shadow(2px 2px 0 rgba(47,99,160,.2))}.orbPt{text-decoration:none!important}.orbPti{float:left;margin:0 10px 0 0!important;vertical-align:top!important;height:48px!important;width:89px!important;border:none!important;border-radius:2px!important;opacity:1!important}.orbPtn{display:block;margin-right:52px;line-height:24px!important;font-size:17px!important;font-weight:bold!important;text-overflow:ellipsis;overflow:hidden;white-space:nowrap}.orbPtt{display:block;margin-right:52px;text-decoration:none!important;line-height:24px!important;font-size:12px!important;opacity:.85;transition:opacity .2s;text-overflow:ellipsis;overflow:hidden;white-space:nowrap}.orbPtt:hover{opacity:1}.orbPp,.orbPs{float:left!important;margin:0 10px 0 0!important;padding:0!important;height:48px!important;width:48px!important;line-height:48px!important;border-radius:2px!important;border:none!important;text-align:center!important;cursor:pointer;-webkit-appearance:none;-moz-appearance:none;appearance:none!important;}.orbPp::before,.orbPs::before{display:inline-block;vertical-align:middle;content:'';width:0;height:0;border-style:solid}.orbPp::before{border-width:16px 0 16px 26px}.orbPs::before{border-width:16px}.orbPp:hover,.orbPs:hover{-webkit-transform:scale(1.087);transform:scale(1.087)}.orbPhc{position:relative!important;box-sizing:border-box!important;padding:10px!important;overflow:hidden}
+    /* Playlist */
+  .orbPpl{position:relative;overflow:auto;overflow-x:hidden;overflow-y:auto;margin:0!important;padding:0!important;list-style:none!important}.orbPpli{box-sizing:border-box;margin:0!important;padding:0 10px!important;list-style:none!important;background-image:none;float:none!important;height: auto!important}.orbPpli>a,.orbPpli>span{display:block!important;padding:0!important;margin:0!important;height:auto!important;font-weight:normal!important;text-decoration:none!important;line-height:32px!important;font-size:14px!important;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;transition:color .125s;border:none !important}.orbPpli>a:hover,.orbPpli>span:hover{background:transparent!important}.orbPpli>a>time,.orbPpli>span>time{display:inline-block;font-size:12px!important;width:3em!important}.orbPpli+li{border-style:solid!important;border-width:1px 0 0!important}
+    /* Volume */
+    .orbV{position:absolute;z-index:1!important;width:24px!important;right:48px!important;top:0!important;bottom:0!important;line-height:1!important;overflow:hidden!important;transition:width .3s}.orbV:hover{width:160px!important}.orbVC{position:absolute!important;height:18px!important;left:24px!important;top:50%!important;margin:-9px 0 0 11px!important}.orbVC::after{display:block;content:'';margin-top:4px;width:0;height:0;border-style:solid;border-width:4px 100px 4px 0;opacity:.33}.orbVCs{position:absolute!important;z-index:2!important;top:0!important;width:18px!important;height:18px!important;border-radius:50%!important;cursor:ew-resize!important;box-shadow:0 6px 8px -2px rgba(0,9,18,0.36)}.orbVb{position:absolute!important;width:24px!important;height:24px!important;top:50%!important;left:0!important;margin-top:-12px;white-space:nowrap!important;cursor:pointer;transition:opacity .3s}.orbVb::before{display:inline-block;content:'';vertical-align:middle;width:7px;height:12px}.orbVb::after{display:inline-block;content:'';vertical-align:middle;border-width:12px 12px 12px 0;border-style:solid;height:0;width:0;margin-left:-6px}.orbV:hover .orbVb{opacity:.33!important;cursor:default}.orbVb>._m{display: block!important;width:7px!important;height:18px!important;position:absolute!important;top:50%;margin-top:-9px!important;right:0; overflow: hidden!important;}.orbVb>._m::before{display:block;content:'';position:absolute;right:0;top:50%;width:28px;height:24px;margin-top:-12px;border:1px solid;border-radius:50%}.orbVb>._m::after{display:block;content:'';position:absolute;right:4px;top:50%;width:14px;height:14px;margin-top:-7px;border:1px solid;border-radius:50%}
+    /* Flags*/
+  .orbF{padding:0 0 10px 10px!important;border-top:1px solid;display:-ms-flexbox;display:-webkit-box;display:flex;-ms-flex-flow:row nowrap!important;flex-flow:row nowrap!important}
+  .orbFl{margin:0!important;padding:0!important;list-style:none!important}
+  .orbFli,.orbFh{display:inline-block!important;vertical-align:top!important;line-height:18px!important;white-space:nowrap!important;margin:10px 7px 0 0!important;padding:0 6px 0 0!important;text-indent:0!important;list-style:none!important;font-size:11px!important;text-align:right}
+  .orbFlif{float:left!important;width:27px!important;height:18px!important;margin-right:5px!important}
+  .orbFhi{position:relative!important;display:inline-block!important;vertical-align:baseline!important;width:8px!important;height:9px!important;margin:0 8px 0 5px!important;border-style:solid!important;border-width:2px 1px 0 1px!important;border-radius:5px 5px 0 0!important;opacity:.5}
+  .orbFhi::before,.orbFhi::after{display:block;content:'';position:absolute;bottom:-2px;width:0;height:3px;border-style:solid;border-width:2px;border-radius:3px}
+  .orbFhi::before{left:-4px}.orbFhi::after{right:-4px}
+    /* Multiselect */
+  .orbPm{margin:0!important;padding:0!important;list-style:none!important}
+  .orbPmi{position:relative;margin:0!important;padding:10px!important;list-style:none!important;border:dotted rgba(204,204,204,0.5);border-width:1px 0 0;font-size:12px!important;overflow:hidden;white-space:nowrap;line-height:1!important;cursor:pointer}
+  .orbPmi::before{display:block;content:'';position:absolute;z-index:1;top:50%;right:10px;margin-top:-8px;width:0;height:0;border-style:solid;border-width:8px 0 8px 13px;opacity:.5;filter:alpha(opacity=50);transition:opacity .2s;}
+  .orbPmi:hover::before{opacity:1;filter:alpha(opacity=100)}
+  .orbPmi::after{display:block;content:'';position:absolute;top:0;bottom:0;right:0;width:36px}
+  .orbPmii{display:inline-block;vertical-align:middle;margin-right:10px;width:30px;height:16px;border:none!important;border-radius:2px!important}
+  .orbPmin{display:inline-block;vertical-align:middle;}
+
+    /* Compact General */
+  .cmpct .orbPti{height:24px!important;width:44px!important}
+  .cmpct .orbPtn{line-height:12px!important;font-size:12px!important}
+  .cmpct .orbPtt{line-height:12px!important;font-size:10px!important}
+  .cmpct .orbPp,.cmpct .orbPs{height:24px!important;width:24px!important;line-height:24px!important}
+  .cmpct .orbPp::before{border-width:8px 0 8px 13px !important}
+  .cmpct .orbPs::before{border-width:8px !important}
+    /* Compact w/Playlist */
+  .cmpct .orbPpli>a,.cmpct .orbPpli>span{line-height:24px!important;font-size:12px!important}
+  .cmpct .orbPpli>a>time,.cmpct .orbPpli>span>time{font-size:11px!important}
+
+</style>
+<style media="screen" id="orb_player_843e169b779f795_settings">
+    /* General */
+  .orbP{border-radius:5px;border-color:#2f63a0 !important;background:#2f63a0 !important}/*common player container border, radius, [width], background*/
+  .orbPtn,.orbPtt,.orbPtt:hover{color:#fff !important}/*station name & track link color*/
+  .orbPp,.orbPs{background:#7094bf !important}/*buttons play/stop bg*/
+  .orbPp::before{border-color:transparent transparent transparent #fff !important} /* play icon color */
+  .orbPp:focus,.orbPs:focus{outline-color:#fff}
+  .orbPs::before{border-color:#fff !important} /* stop color like color@orbPtn */
+    /* Playlist */
+  .orbPpl{height:185px; background:#fff !important}/*playlist user's height, playlist bg */
+  .orbPpli>a,.orbPpli>a:visited,.orbPpli>span,.orbPpli>a:hover>time,.orbPpli.a>a>time,.orbPpli.a>span>time{color:#444 !important} /* playlist item color, hover-item time color, active-item time color */
+  .orbPpli>a:hover,.orbPpli.a>a,.orbPpli.a>span{color:#f07700 !important} /*hover-item color, active-item color */
+  .orbPpli>a>time,.orbPpli>span>time{color:#aeaeae !important} /* item time color */
+  .orbPpli.a{background:#f3f3f3 !important} /* active-item bg */
+  .orbPpli+li{border-color:#eee !important} /* item border color */
+    /* Volume */
+  .orbV{background:#2f63a0 !important;box-shadow:0 0 24px 24px #2f63a0 !important}/*color like background@player */
+  .orbVC::after,.orbVb::after{border-color:transparent #fff transparent transparent !important} /* volume color like border@.orbPp::before */
+  .orbVb::before,.orbVCs{background:#fff !important} /* volume color like border@.orbPp::before */
+  .orbVb>._m::before,.orbVb>._m::after{border-color:#fff !important}/* volume _m, like border@.orbPp::before */
+    /* Flags*/
+  .orbF{background:#fff !important;color:#444 !important;border-color:#2f63a0 !important}/* index bg & color, border-color like common player container border */
+  .orbFli,.orbFlif{box-shadow:0 0 1px 0 #444 inset !important}/* like color@orbF */
+  .orbFhi,.orbFhi::before,.orbFhi::after{border-color:#444 !important}/* like color@orbF */
+    /* Multiselect */
+  .orbPmin{color:#fff}/*station name & track link color*/
+  .orbPmi::after{background:#2f63a0;box-shadow:0 0 24px 24px #2f63a0 !important}/*color like background@player */
+  .orbPmi::before{border-color:transparent transparent transparent #fff !important} /* play icon color */
+</style>
+<div class="orbPhc">
+  <a class="orbPh" href="https://onlineradiobox.com/br/" title="Radio Online" target="_blank"><img src="//ecdn.onlineradiobox.com/img/wl.svg" alt="Radio Online"></a>
+<audio id="orb_player_843e169b779f795_p" crossorigin="true" style="width:1px;height:1px;overflow:hidden;position:absolute;"></audio>
+
+  <button class="orbPp" title="Ascolta" country="br" alias="sepiol" stream="1"></button>
+  <a class="orbPt" href="https://onlineradiobox.com/br/sepiol/" target="_blank">
+    <img class="orbPti" src="//cdn.onlineradiobox.com/img/l/7/102107.v7.png" alt="Radio Sepiol">
+    <span class="orbPtn">Radio Sepiol</span>
+  </a>
+  <span class="orbPtt" loading="caricamento" playing="in esecuzione" error="errore di riproduzione" not_supported="this browser can't play it" external="Ascolta ora (si apre in popup player)" geo_blocked="Non disponibile nel tuo paese"></span>
+  <div class="orbV"><div class="orbVb"><i class="_m"></i></div><div class="orbVC"><div class="orbVCs"></div></div></div>
+</div>
+<ul class="orbPpl"></ul>
+<div class="orbF" style="display:none"></div>
+<script>
+  var orbp_w = orbp_w || { lang: "it-it" };
+orbp_w.cmd = orbp_w.cmd || [];
+  orbp_w.apiUrl = "https://onlineradiobox.com";
+  orbp_w.cmd.push(function() {
+    orbp_w.init("orb_player_843e169b779f795");
+  });
+  var s, t; s = document.createElement('script'); s.type = 'text/javascript';
+s.src = "//ecdn.onlineradiobox.com/js/pwidget2.min.235ca64e.js";
+  t = document.getElementsByTagName('script')[0]; t.parentNode.insertBefore(s, t);
+</script>
+</div>
+<!--OnlineRadioBox Player widget-->
+
+                </center>
+				<p>
+				<h1>Top 10 Mais Tocadas</h1>
+                <center>
+                <!--OnlineRadioBox Top widget-->
+<div class="orbC" id="orb_top_3b927f6ed40a1fa6">
+    <style media="screen">
+    .orbC{position:relative;box-sizing:border-box;overflow:hidden;font-weight:normal;border:1px solid;text-align:left}.orbC br,.orbC>br{display:none!important;}.orbC p,.orbC>p{margin:0!important;padding:0!important;line-height:normal!important;font-size:inherit!important}.orbC br,.orbC>br{display:none!important}.orbCh{display:block;position:absolute;z-index:100;top:22px;right:10px;margin-top:-12px;width:21px;text-decoration:none!important;cursor:pointer}.orbCh>img{margin:0!important;border:none!important;height:24px!important;-webkit-filter:drop-shadow(2px 2px 0 rgba(47,99,160,.2));filter:drop-shadow(2px 2px 0 rgba(47,99,160,.2))}.orbCt{display:block;box-sizing:border-box;overflow:hidden;padding-left:10px!important;font-weight:normal;line-height:44px!important;min-height:44px;text-decoration:none!important}.orbCti{float:left!important;margin:10px 10px 10px 0!important;height:24px!important;width:44px!important;border:none!important;border-radius:2px!important;opacity:1!important}.orbCtn{display:block;margin-right:54px!important;font-size:14px!important;font-weight:bold;text-overflow:ellipsis;overflow:hidden;white-space:nowrap}.orbIC{position:relative;overflow:auto;overflow-x:hidden;overflow-y:auto;margin:0!important;padding:5px 0!important;list-style:none!important;height:auto!important;float:none!important}.orbICi{box-sizing:border-box;margin:0!important;padding:5px 10px!important;list-style:none!important;background-image:none}.orbICi>a,.orbICi>span{display:block!important;font-weight:normal!important;text-decoration:none!important;font-size:16px!important;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;-webkit-transition:color .125s;transition:color .125s;height:auto!important;border:none!important;text-align:left!important;}.orbICin{display:inline-block!important;vertical-align:middle!important;position:relative;height:40px!important;width:40px!important;margin:0 10px 0 0!important;text-align:center!important;line-height:40px!important;font-size:24px!important;border-radius:50%;background:rgba(220,220,220,.25)!important;box-shadow:0 0 0 1px rgba(0,0,0,.035)inset}.orbICin[data-dynamics]::after{display:block;position:absolute;content:'';right:-6px;width:16px;height:16px;border-radius:50%;background-color:rgba(255,255,255,.85);box-shadow:0 0 0 1px rgba(204,204,204,0.4)inset;background-repeat:no-repeat;background-image:url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iNDhweCIgaGVpZ2h0PSIxNnB4IiB2aWV3Qm94PSIwIDAgNDggMTYiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDQ4IDE2IiB4bWw6c3BhY2U9InByZXNlcnZlIj48cGF0aCBmaWxsPSIjRkRCRTEzIiBkPSJNNDQuNyw2LjZsLTIuOS0wLjRsLTEuMy0yLjZsLTEuMywyLjZsLTIuOSwwLjRsMi4xLDJsLTAuNSwyLjlsMi42LTEuNGwyLjYsMS40bC0wLjUtMi45TDQ0LjcsNi42TDQ0LjcsNi42eiIvPjxwYXRoIGZpbGw9IiMzNUFCNjgiIGQ9Ik0xMS45LDcuMkw4LjgsNC4xQzguOCw0LDguNiw0LDguNSw0QzguNCw0LDguMyw0LDguMiw0LjFMNS4xLDcuMkM0LjksNy40LDUsNy42LDUuMiw3LjhzMC41LDAuMiwwLjYsMC4xIEw4LDUuN3Y1LjhDOCwxMS44LDguMiwxMiw4LjUsMTJTOSwxMS44LDksMTEuNVY1LjdsMi4yLDIuMmMwLjEsMC4xLDAuNCwwLjEsMC42LTAuMVMxMi4xLDcuNCwxMS45LDcuMnoiLz48cGF0aCBmaWxsPSIjRDk1MzRGIiBkPSJNMjcuOSw4LjhsLTMuMSwzLjFDMjQuOCwxMiwyNC42LDEyLDI0LjUsMTJjLTAuMSwwLTAuMiwwLTAuMy0wLjFsLTMuMS0zLjFjLTAuMS0wLjEtMC4xLTAuNCwwLjEtMC42IGMwLjItMC4yLDAuNS0wLjIsMC42LTAuMWwyLjIsMi4yVjQuNUMyNCw0LjIsMjQuMiw0LDI0LjUsNFMyNSw0LjIsMjUsNC41djUuOGwyLjItMi4yYzAuMS0wLjEsMC40LTAuMSwwLjYsMC4xIEMyOCw4LjQsMjguMSw4LjYsMjcuOSw4Ljh6Ii8+PC9zdmc+)}.orbICin[data-dynamics="up"]::after{top:0;background-position:0 50%}.orbICin[data-dynamics="down"]::after{bottom:0;background-position:50% 50%}.orbICin[data-dynamics="new"]::after{top:50%;margin-top:-8px;background-position:100% 50%}.orbICii{display:inline-block;vertical-align:middle!important;margin:0 6px 0 0!important;border-radius:4px!important;background:url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9Ii0xNDMgNTU3IDQ4IDQ4IiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IC0xNDMgNTU3IDQ4IDQ4IiB4bWw6c3BhY2U9InByZXNlcnZlIj48cGF0aCBvcGFjaXR5PSIwLjI0IiBmaWxsPSIjQ0NDQ0NDIiBkPSJNLTEwNiw1NjNsLTE5LDUuNHYyMC40Yy0xLjUtMC43LTMuNy0wLjctNS43LDAuMWMtMy4yLDEuMy01LDQuMi00LjEsNi42IGMwLjksMi4zLDQuNCwzLjIsNy42LDEuOWMzLjItMS4zLDQuMS0zLjQsNC4xLTYuNVY1NzZsMTUtNC40djExLjdjLTEuNS0wLjgtMy42LTAuOS01LjcsMGMtMy4yLDEuMy01LDQuMi00LjEsNi42czQuMiwzLjIsNy40LDEuOSBjMi43LTEuMSw0LjMtMi43LDQuMy01LjRoMFY1NjN6Ii8+PC9zdmc+)no-repeat 50% 50%!important;overflow:hidden!important;height:48px!important;width:48px!important;box-shadow:0 0 0 1px rgba(204,204,204,.33)inset}.orbICii>img{vertical-align:top!important;height:100%!important;width:100%!important}.orbICi+li{border-style:solid!important;border-width:1px 0 0!important} /* Compact */
+      .cmpct .orbICi>a,.cmpct .orbICi>span{font-size:12px!important}
+      .cmpct .orbICin{height:24px!important;width:24px!important;margin:0 6px 0 0!important;line-height:24px!important;font-size:16px!important}
+      .cmpct .orbICin[data-dynamics]::after{right:-6px;width:12px;height:12px}
+      .cmpct .orbICin[data-dynamics="up"]::after{top:0;background-position:-2px 50%}
+      .cmpct .orbICin[data-dynamics="down"]::after{bottom:0}
+      .cmpct .orbICin[data-dynamics="new"]::after{top:50%;margin-top:-8px;background-position:95% 50%}
+      .cmpct .orbICii{height:24px!important;width:24px!important;border-radius:3px!important;}
+    </style>
+    <style media="screen" id="orb_top_3b927f6ed40a1fa6_settings">/*user customization*/.orbICii{display:inline-block}.orbC{border-style: solid; border-color:#2f63a0 !important;border-radius:5px;;background:#fff !important;width:auto}/*common list container border, radius, background, width*/.orbCt{background-color:#2f63a0 !important}/*common list title bg*/.orbCtn{color:#ffffff !important}/*common list title color*/.orbIC{height:140px}/*track list height: user height, f.e. 370px - 45px(title) */.orbIC,.orbICin[data-dynamics]::after{background-color:#ffffff !important} /* list bg, dynamic bg*/.orbICi>a,.orbICi>a:visited,.orbICi>span,.orbICi>a:hover>.orbICin{color:#333333 !important} /*item color, hover-item time color */.orbICi>a:hover{color:#f07700 !important} /*hover-item color */.orbICin{color:#aeaeae !important} /*item position color/bg */.orbICi+li{border-color:#eeeeee !important} /* item border color */</style>
+    <a class="orbCh" href="https://onlineradiobox.com/br/" title="Radio Online" target="_blank"><img src="//ecdn.onlineradiobox.com/img/wl.svg" alt="Radio Online"></a>
+    <a class="orbCt" href="https://onlineradiobox.com/br/sepiol/" target="_blank">
+      <img class="orbCti" src="//cdn.onlineradiobox.com/img/l/7/102107.v8.png" alt="Radio Sepiol"><span class="orbCtn">Radio Sepiol</span>
+    </a>
+    <script>
+      var orbtop_w = orbtop_w || { lang: "pt-pt" };
+      orbtop_w.cmd = orbtop_w.cmd || [];
+      orbtop_w.cmd.push(function() {
+        orbtop_w.init("orb_top_3b927f6ed40a1fa6");
+      });
+      var s, t; s = document.createElement('script'); s.type = 'text/javascript';
+      s.src = "//ecdn.onlineradiobox.com/js/topwidget.min.e8fea607.js";
+      t = document.getElementsByTagName('script')[0]; t.parentNode.insertBefore(s, t);
+    </script><ul class='orbIC' top='undefined'></ul></div>
+<!--OnlineRadioBox Top widget-->
+
+                </center>
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <h1>Aplicativos</h1>
+              <div class="banner-app">
+                <center>
+	<a class="no-ajaxy" href="https://play.google.com/store/apps/details?id=br.com.audiobras.sepiol&amp;pcampaignid=web_share" target="_blank"><img loading="lazy" src="assets/img/apk.png" alt="App Android"></a>
+</center>                 <center><a class="no-ajaxy" href="#" target="_blank" width><img loading="lazy" src="assets/img/ios2.png" alt="App Iphone"></a></center>              </div>
+             
+              <h1>Ouça no Celular</h1>
+              <center>
+                <a class="no-ajaxy" href="https://paineldj.com.br:20087/stream" target="_blank"><img loading="lazy" class="celularimg" src="assets/img/android.png" alt="Android"></a>
+                <a class="no-ajaxy" href="https://paineldj.com.br:20087/stream" target="_blank"><img loading="lazy" class="celularimg"  src="assets/img/ios.png" alt="Iphone"></a>
+                                              </center>
+              
+              	      <h1>Top 5</h1>
+    
+
+   <audio id="music_top"></audio>
+   <div id="top_muisc_youtube"></div>
+
+	<div class="recent-post">
+		<div class="top5-back">
+							<img loading="lazy" src="admin/assets/img/artistas/artista1.png" alt="top1" class="top5">
+						<div class="aligButton">
+				<button id="pButton" class="play" audiotop="admin/assets/audios/top5/top1.mp3?" ></button>
+			</div>
+			
+			<h5><strong class="top5-numero">1.</strong> Filho</h5>
+			<p>Cantora Elita</p>
+		</div>
+	</div>
+	<div class="recent-post">
+		<div class="top5-back">
+							<img loading="lazy" src="admin/assets/img/artistas/artista2.png" alt="top2" class="top5">
+						<div class="aligButton">
+				<button id="pButton" class="play" audiotop="admin/assets/audios/top5/top2.mp3?"></button>
+			</div>
+			<h5><strong class="top5-numero">2.</strong> Radio e Tv Sepiol</h5>
+			<p>Radio e Tv Sepiol</p>
+		</div>
+	</div>
+	<div class="recent-post">
+		<div class="top5-back">
+						<img loading="lazy" src="admin/assets/img/artistas/artista3.png" alt="top3" class="top5">
+						<div class="aligButton">
+				<button id="pButton" class="play" audiotop="admin/assets/audios/top5/top3.mp3?"></button>
+			</div>
+			<h5><strong class="top5-numero">3.</strong> </h5>
+			<p></p>
+		</div>
+	</div>
+	<div class="recent-post">
+		<div class="top5-back">
+						<img loading="lazy" src="admin/assets/img/artistas/artista4.png" alt="top4" class="top5">
+						<div class="aligButton">
+				<button id="pButton" class="play" audiotop="admin/assets/audios/top5/top4.mp3?"></button>
+			</div>
+			<h5><strong class="top5-numero">4.</strong> Radio e Tv Sepiol</h5>
+			<p>Radio e Tv Sepiol</p>
+		</div>
+	</div>
+	<div class="recent-post">
+		<div class="top5-back">
+						<img loading="lazy" src="admin/assets/img/artistas/artista5.png" alt="top5" class="top5">
+						<div class="aligButton">
+				<button id="pButton" class="play" audiotop="admin/assets/audios/top5/top5.mp3?"></button>
+			</div>
+			<h5><strong class="top5-numero">5.</strong> Radio e Tv Sepiol</h5>
+			<p>Radio e Tv Sepiol</p>
+		</div>
+	</div>
+
+	              <h1>Último Recado</h1><article class="post-comments">
+
+		
+			<div class="comment-read">
+			<div class="comment-reply">
+				<a style="text-decoration: none;" href="/mural">
+					<b style="font-size:46px;" class="fa fa-user"></b>					<h3>PL Produções A.C.</h3>
+					<h4>02/07/2026</h4>
+					<h5>Curitiba</h5>
+					<p>Deus seja louvado Em Nome de Jesus 🙏</p>
+				</a>
+			</div>
+		</div>
+
+</article>                      </div>
+        </div>
+          <h1>Últimos Vídeos</h1>
+              <div class="text-center">
+                  <div class="col-md-3">
+			<div <div class="video-feed">
+				<img loading="lazy" src="https://img.youtube.com/vi/Yi0x9c_9m4Y/hqdefault.jpg" alt="Arnaldo Pereira">
+				<a class="play-youtube" id="Yi0x9c_9m4Y" title="Arnaldo Pereira" href="#"><span class="fa fa-play"></span></a>
+			</div>
+		</div><div class="col-md-3">
+			<div <div class="video-feed">
+				<img loading="lazy" src="https://img.youtube.com/vi/SlXiynpdnk8/hqdefault.jpg" alt="Alexsandro">
+				<a class="play-youtube" id="SlXiynpdnk8" title="Alexsandro" href="#"><span class="fa fa-play"></span></a>
+			</div>
+		</div><div class="col-md-3">
+			<div <div class="video-feed">
+				<img loading="lazy" src="https://img.youtube.com/vi/EAPcCHcE6lU/hqdefault.jpg" alt="Valvim Silva">
+				<a class="play-youtube" id="EAPcCHcE6lU" title="Valvim Silva" href="#"><span class="fa fa-play"></span></a>
+			</div>
+		</div><div class="col-md-3">
+			<div <div class="video-feed">
+				<img loading="lazy" src="https://img.youtube.com/vi/Pfu2s2nvDzQ/hqdefault.jpg" alt="Silvany Santos">
+				<a class="play-youtube" id="Pfu2s2nvDzQ" title="Silvany Santos" href="#"><span class="fa fa-play"></span></a>
+			</div>
+		</div>              </div>
+      </div>
+    </section>
+    <!-- youtube player modal -->
+    <div class="modal fade" id="youtube-player" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title"><span id="youtube-title"></span></h4>
+                </div>
+                <div class="modal-body">
+                    <div class="embed-container"><div id="youtube-embed"></div></div>
+                </div>
+          </div>
+      </div>
+    </div>
+    </div><!--pageContent-->
+</div><!--ajaxwrap-->
+<section id="albums">
+	<div class="container">
+		<h1>Anunciantes</h1>
+		<div class="albums-carousel">
+			<div id="foo1">
+				<div class="album">
+		<img loading="lazy" src="admin/assets/img/anunciantes/4429-2026-06-29.png" alt="VID KS TV PARCEIRO DA TV SEPIOL"/><div class="hover">
+		<ul>
+			<li><a class='no-ajaxy' href="https://www.vidks.net/vid/tv-sepiol.ks" target="_bank" aria-label="VID KS TV PARCEIRO DA TV SEPIOL"><span class="fa fa-link"></span></a></li>
+		</ul>
+		<h3>VID KS TV PARCEIRO DA TV SEPIOL</h3>
+		</div>
+		</div><div class="album">
+		<img loading="lazy" src="admin/assets/img/anunciantes/4974-2026-06-29.png" alt="PORTAL CX TV PARCEIRO DA TV SEPIOL"/><div class="hover">
+		<ul>
+			<li><a class='no-ajaxy' href="https://www.cxtv.com.br/tv-ao-vivo/tv-sepiol" target="_bank" aria-label="PORTAL CX TV PARCEIRO DA TV SEPIOL"><span class="fa fa-link"></span></a></li>
+		</ul>
+		<h3>PORTAL CX TV PARCEIRO DA TV SEPIOL</h3>
+		</div>
+		</div><div class="album">
+		<img loading="lazy" src="admin/assets/img/anunciantes/7823-2026-06-29.png" alt="TELEVISAO TV PARCEIRO DA TV SEPIOL"/><div class="hover">
+		<ul>
+			<li><a class='no-ajaxy' href="https://televisao.tv/tv-sepiol" target="_bank" aria-label="TELEVISAO TV PARCEIRO DA TV SEPIOL"><span class="fa fa-link"></span></a></li>
+		</ul>
+		<h3>TELEVISAO TV PARCEIRO DA TV SEPIOL</h3>
+		</div>
+		</div><div class="album">
+		<img loading="lazy" src="admin/assets/img/anunciantes/5051-2026-06-29.png" alt="HOSTEC TV STUDIO PARCEIRO DA TV SEPIOL"/><div class="hover">
+		<ul>
+			<li><a class='no-ajaxy' href="https://hosttectvstudio.com.br/channel.php?id=99" target="_bank" aria-label="HOSTEC TV STUDIO PARCEIRO DA TV SEPIOL"><span class="fa fa-link"></span></a></li>
+		</ul>
+		<h3>HOSTEC TV STUDIO PARCEIRO DA TV SEPIOL</h3>
+		</div>
+		</div><div class="album">
+		<img loading="lazy" src="admin/assets/img/anunciantes/6186-2026-06-29.png" alt="CLUBE CANAIS SITE PARCEIRO DA TV SEPIOL"/><div class="hover">
+		<ul>
+			<li><a class='no-ajaxy' href="https://clubecanais.com.br/channel.php?id=48" target="_bank" aria-label="CLUBE CANAIS SITE PARCEIRO DA TV SEPIOL"><span class="fa fa-link"></span></a></li>
+		</ul>
+		<h3>CLUBE CANAIS SITE PARCEIRO DA TV SEPIOL</h3>
+		</div>
+		</div><div class="album">
+		<img loading="lazy" src="admin/assets/img/anunciantes/5392-2026-06-29.png" alt="BLOG PARCEIRO  DA TV SEPIOL"/><div class="hover">
+		<ul>
+			<li><a class='no-ajaxy' href="https://radiosepiol.blogspot.com" target="_bank" aria-label="BLOG PARCEIRO  DA TV SEPIOL"><span class="fa fa-link"></span></a></li>
+		</ul>
+		<h3>BLOG PARCEIRO  DA TV SEPIOL</h3>
+		</div>
+		</div><div class="album">
+		<img loading="lazy" src="admin/assets/img/anunciantes/3632-2026-09-21.jpg" alt="Cantora Elita Ferreira"/><div class="hover">
+		<ul>
+			<li><a class='no-ajaxy' href="https://www.youtube.com/@cantoraelitaferreira/playlists" target="_bank" aria-label="Cantora Elita Ferreira"><span class="fa fa-link"></span></a></li>
+		</ul>
+		<h3>Cantora Elita Ferreira</h3>
+		</div>
+		</div><div class="album">
+		<img loading="lazy" src="admin/assets/img/anunciantes/7874-2026-09-21.jpg" alt="Cantora Elita Ferreira"/><div class="hover">
+		<ul>
+			<li><a class='no-ajaxy' href="https://www.instagram.com/elitaferreiraoficial?stkn=eTVwMGhoMnloNnJn" target="_bank" aria-label="Cantora Elita Ferreira"><span class="fa fa-link"></span></a></li>
+		</ul>
+		<h3>Cantora Elita Ferreira</h3>
+		</div>
+		</div>
+			</div>
+		</div>
+	</div>
+</section><footer>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-3 col-md-3 col-sm-3">
+				<h4><span class="fa fa-sitemap"></span>Menu</h4>
+				<div class="row">
+					
+					<div class="col-lg-6 col-md-6 col-sm-6">
+						<ul class="sitemap">
+							<li><a href="home">Início</a></li>
+							<li><a href="podcasts">Podcasts</a></li>
+							<li><a href="sobre">Sobre</a></li>
+							<li><a href="news">Notícias</a></li>
+					  		<li><a href='mural'>Recados</a></li>					  		<li><a href="programacao">Programação</a></li>
+						</ul>
+					</div>
+
+					<div class="col-lg-6 col-md-6 col-sm-6">
+						<ul class="sitemap">
+							<li><a href="eventos">Eventos</a></li>
+							<li><a href="fotos">Fotos</a></li>
+							<li><a href="videos">Vídeos</a></li>
+							<li><a href="equipe">Equipe</a></li>
+							<li><a href="contato">Contato</a></li>
+						</ul>
+					</div>
+				</div>
+	  		</div>
+	  
+	  		<div class="col-lg-3 col-md-3 col-sm-3">
+				<h4><span class="fa fa-info-circle"></span>Informações</h4>
+				<p>Radio Sepiol</p>
+				<p>Radio Sepiol de Serra/ES/ WhatsApp 55 27 9 99576077</p>
+	 		</div>
+	  
+			<div class="col-lg-3 col-md-3 col-sm-3">
+				<h4><span class="fa fa-umbrella"></span>Previsão do Tempo</h4>
+				<div id="cont_4345d8695ba2e495cda457a3c5e4a368"><script type="text/javascript" async src="https://www.tempo.com/wid_loader/4345d8695ba2e495cda457a3c5e4a368"></script></div>   
+			</div>
+	  
+			<div class="col-lg-3 col-md-3 col-sm-3">
+				<h4><span class="fa fa-envelope"></span>Contato</h4>
+
+				 <i class="fa fa-envelope-o fa-2x"></i> sepiol01@gmail.com				 <br/><br/>
+				 				 <i class="fa fa-whatsapp fa-2x"></i> <a class="no-ajaxy" href="https://api.whatsapp.com/send?phone=5527999576077" target="_blank">WhatsApp</a>
+				 			</div>
+	  	</div>   
+
+		<ul class="social">
+			<hr> 
+			<span class="fa fa-info-circle"> Visitas: 1893597 </span>   |   <span class="fa fa-info-circle"> Online: 23</span>			<br><br>
+
+							<li><a class="no-ajaxy" href="https://www.instagram.com/radioetvsepiol" target="_bank" title="Instagram"><span class="fa fa-instagram"></span></a></li>
+			
+							<li><a class="no-ajaxy" href="https://api.whatsapp.com/send?phone=5527999576077" target="_bank" title="WhatsApp"><span class="fa fa-whatsapp"></span></a></li>
+			
+			
+							<li><a class="no-ajaxy" href="https://www.youtube.com/@TvSepiol" target="_bank" title="Youtube"><span class="fa fa-youtube"></span></a></li>
+			
+							<li><a class="no-ajaxy" href="https://www.facebook.com/sebastiaosepiol/" target="_bank" title="Facebook"><span class="fa fa-facebook"></span></a></li>
+			
+							<li><a class="no-ajaxy" href="#" target="_bank" title="Twitter"><span class="fa fa-twitter"></span></a></li>
+			
+			
+			
+							<li><a class="no-ajaxy" href="#" target="_bank" title="Pinterest"><span class="fa fa-pinterest"></span></a></li>
+
+						
+							<li><a class="no-ajaxy" href="#" target="_bank" title="Linkedin"><span class="fa fa-linkedin"></span></a></li>
+			
+							<li><a class="no-ajaxy" href="#" target="_bank" title="Flickr"><span class="fa fa-flickr"></span></a></li>
+			
+		</ul>
+		<p class="text-center">Radio Sepiol © 2026  - Todos os direitos reservados.</p>
+	</div>
+</footer>
+
+		<!-- <script async src="assets/js/modernizr-2.6.2-respond-1.1.0.min.js"></script> -->
+<script defer src="assets/js/jquery.js"></script>
+<script defer src="assets/js/ajaxify.min.js"></script>
+<script defer src="assets/js/bootstrap.min.js?v=4.1.3"></script>
+<script defer src="assets/js/jquery.carouFredSel-6.2.1-packed.js?v=4.1.3"></script>
+<script defer src="assets/js/jquery.vegas.min.js?v=4.1.3"></script>
+<script defer src="assets/js/jquery.flexslider-min.js?v=4.1.3"></script>
+<script defer src="assets/enquete/ajax-poll.php?v=2"></script>
+<script defer src="assets/jPlayer/jquery.jplayer.min.js"></script>
+<script defer src="assets/jPlayer/add-on/jplayer.playlist.min.js"></script>
+<script src="https://www.youtube.com/player_api"></script>
+<script defer src="assets/js/main.min.js?v=4.1.3"></script>
+<script defer src="admin/includes/tracker.js?uri=/&ref="></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id="></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', '');
+</script><script defer src="inc/chat/jaxinit.js?November52026955am55"></script>
+</body>
+</html>
