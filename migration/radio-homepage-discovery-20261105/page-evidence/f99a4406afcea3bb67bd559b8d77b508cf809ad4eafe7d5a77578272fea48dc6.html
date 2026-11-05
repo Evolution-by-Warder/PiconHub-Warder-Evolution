@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Basic Meta Tags -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- SEO Meta Tags -->
+  <title>SoundStorm Radio - 24/7 Live Electronic Music Stream | EDM, Techno, House</title>
+  <meta name="thumbnail" content="https://soundstorm-radio.com/logo.png" />
+  <meta name="description"
+    content="Relaxed tracks from all areas of music Ambient, House, World, Indie, Pop, Soundtrack, Rock. Plus individual remixes from DJs and the radio staff." />
+  <meta name="keywords"
+    content="electronic music radio, EDM radio, techno radio, house music, online radio, live streaming, dance music, soundstorm" />
+  <meta name="author" content="SoundStorm Radio" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://soundstorm-radio.com/" />
+
+  <!-- Theme Color for Mobile Browsers -->
+  <meta name="theme-color" content="#0a0a1f" />
+  <meta name="msapplication-TileColor" content="#0a0a1f" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" href="/favicon.png" />
+
+  <!-- Open Graph Meta Tags (Facebook, LinkedIn) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://soundstorm-radio.com/" />
+  <meta property="og:title" content="SoundStorm Radio - 24/7 Live Electronic Music Stream" />
+  <meta property="og:description"
+    content="Relaxed tracks from all areas of music Ambient, House, World, Indie, Pop, Soundtrack, Rock. Plus individual remixes from DJs and the radio staff." />
+  <meta property="og:image" content="https://soundstorm-radio.com/og-image.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:site_name" content="SoundStorm Radio" />
+  <meta property="og:locale" content="en_US" />
+
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="https://soundstorm-radio.com/" />
+  <meta name="twitter:title" content="SoundStorm Radio - 24/7 Live Electronic Music Stream" />
+  <meta name="twitter:description"
+    content="Relaxed tracks from all areas of music Ambient, House, World, Indie, Pop, Soundtrack, Rock. Plus individual remixes from DJs and the radio staff." />
+  <meta name="twitter:image" content="https://soundstorm-radio.com/og-image.jpg" />
+  <meta name="twitter:creator" content="@soundstormradio" />
+
+  <!-- Preconnect for Performance -->
+  <link rel="preconnect" href="https://stream.soundstorm-radio.com" crossorigin />
+  <link rel="preconnect" href="https://public.api.bsky.app" crossorigin />
+  <link rel="dns-prefetch" href="https://stream.soundstorm-radio.com" />
+  <link rel="dns-prefetch" href="https://public.api.bsky.app" />
+
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "RadioStation",
+        "@id": "https://soundstorm-radio.com/#radiostation",
+        "name": "SoundStorm Radio",
+        "description": "Relaxed tracks from all areas of music Ambient, House, World, Indie, Pop, Soundtrack, Rock. Plus individual remixes from DJs and the radio staff.",
+        "url": "https://soundstorm-radio.com",
+        "image": "https://soundstorm-radio.com/logo.png",
+        "genre": ["Electronic Music", "EDM", "Techno", "House", "Dance"],
+        "broadcastFrequency": "Online Streaming",
+        "sameAs": [
+          "https://bsky.app/profile/soundstormradio.bsky.social"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://soundstorm-radio.com/#website",
+        "name": "SoundStorm Radio",
+        "description": "Relaxed tracks from all areas of music Ambient, House, World, Indie, Pop, Soundtrack, Rock. Plus individual remixes from DJs and the radio staff.",
+        "url": "https://soundstorm-radio.com",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://soundstorm-radio.com/?s={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://soundstorm-radio.com/#organization",
+        "name": "SoundStorm Radio",
+        "url": "https://soundstorm-radio.com",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://soundstorm-radio.com/logo.png"
+        },
+        "sameAs": [
+          "https://bsky.app/profile/soundstormradio.bsky.social"
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="/manifest.json" />
+  <script type="module" crossorigin src="/assets/index-Dy0X0EyV.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-kRgBLHYS.css">
+</head>
+
+<body>
+  <div id="root"></div>
+
+  <!-- Register Service Worker for PWA -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then(registration => {
+            console.log('SW registered: ', registration);
+          })
+          .catch(registrationError => {
+            console.log('SW registration failed: ', registrationError);
+          });
+      });
+    }
+  </script>
+</body>
+
+</html>

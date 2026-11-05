@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#3d1200">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Smooth Radio">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16.png">
+<meta name="description" content="Winnipeg's Best Slow Mix — Adult Contemporary & Soft Hits, live 24/7">
+<meta property="og:title" content="Smooth Radio Canada">
+<meta property="og:description" content="Winnipeg's Best Slow Mix — Adult Contemporary & Soft Hits, live 24/7">
+<meta property="og:image" content="https://smoothradio.net/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://smoothradio.net">
+<title>Smooth Radio Canada</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --or:#e8380a;--or2:#ff5520;
+  --bg:#3d1200;--bg2:#4a1500;--bg3:#561a00;
+  --border:rgba(255,255,255,.07);
+  --st:env(safe-area-inset-top,0px);
+  --sb:env(safe-area-inset-bottom,0px);
+}
+html{-webkit-tap-highlight-color:transparent;overflow:hidden;}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:#fff;overflow:hidden;height:100dvh;width:100vw;}
+a{text-decoration:none;color:inherit;}
+img{display:block;}
+button{font-family:'Inter',sans-serif;-webkit-tap-highlight-color:transparent;border:none;cursor:pointer;}
+
+/* ══════════════════════════════
+   MOBILE APP SHELL
+══════════════════════════════ */
+.app{
+  display:none; /* hidden on desktop */
+  flex-direction:column;
+  height:100dvh;
+  overflow:hidden;
+  background:var(--bg);
+}
+
+/* Tab screens */
+.screen{
+  display:none;
+  flex:1;
+  overflow-y:auto;
+  overflow-x:hidden;
+  -webkit-overflow-scrolling:touch;
+  overscroll-behavior:none;
+}
+.screen.active{display:block;}
+
+/* Bottom tab bar */
+.tabbar{
+  flex-shrink:0;
+  background:rgba(50,12,0,.97);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border-top:1px solid rgba(255,255,255,.07);
+  display:flex;
+  padding-bottom:var(--sb);
+  height:calc(60px + var(--sb));
+  z-index:100;
+}
+.tab{
+  flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:4px;padding-top:8px;cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+  transition:opacity .15s;
+}
+.tab:active{opacity:.7;}
+.tab-icon{width:22px;height:22px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.35);}.tab.active .tab-icon{color:var(--or);}
+.tab-label{font-size:9px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:rgba(255,255,255,.3);}
+.tab.active .tab-label{color:var(--or);}
+.tab.active .tab-icon{filter:drop-shadow(0 0 6px rgba(232,56,10,.7));}
+
+/* ── SCREEN 1: PLAYER ── */
+.player-screen{
+  position:relative;
+  min-height:100%;
+  display:flex;flex-direction:column;
+  background:var(--bg);
+}
+.ps-bg{
+  position:absolute;inset:0;
+  background-image:url('https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=800&q=80');
+  background-size:cover;background-position:center;
+  filter:brightness(.2);
+  pointer-events:none;
+}
+.ps-ov{
+  position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(55,14,0,.55) 0%,rgba(65,16,0,.98) 65%,#3d1200 100%);
+  pointer-events:none;
+}
+.ps-inner{
+  position:relative;z-index:2;
+  display:flex;flex-direction:column;
+  align-items:center;
+  padding:calc(var(--st) + 20px) 24px 24px;
+  min-height:100%;
+}
+
+/* Logo */
+.ps-logo{height:110px;width:auto;margin-bottom:20px;filter:drop-shadow(0 4px 24px rgba(0,0,0,.6));}
+
+/* Live badge */
+.ps-live{
+  display:inline-flex;align-items:center;gap:7px;
+  background:rgba(232,56,10,.18);border:1px solid rgba(232,56,10,.35);
+  color:#ff8866;font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;
+  padding:7px 18px;border-radius:22px;margin-bottom:18px;
+}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--or);flex-shrink:0;animation:pdot 1.5s ease-in-out infinite;}
+@keyframes pdot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.7)}}
+
+/* Album art — big center piece */
+.ps-art-wrap{
+  width:220px;height:220px;
+  border-radius:24px;overflow:hidden;
+  background:rgba(255,255,255,.08);
+  margin-bottom:28px;
+  box-shadow:0 24px 60px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.08);
+  flex-shrink:0;
+}
+.ps-art{width:100%;height:100%;object-fit:cover;border-radius:24px;}.ps-art-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:rgba(255,80,20,.08);border-radius:24px;border:1px solid rgba(255,80,20,.15);}
+
+/* Track info */
+.ps-track{text-align:center;margin-bottom:28px;width:100%;}
+.ps-title{font-size:22px;font-weight:800;color:#fff;letter-spacing:-.5px;margin-bottom:6px;line-height:1.2;}
+.ps-artist{font-size:15px;color:rgba(255,255,255,.5);font-weight:400;}
+.ps-msg{font-size:11px;color:var(--or);margin-top:8px;letter-spacing:.5px;min-height:18px;}
+
+/* Play button */
+.ps-play-btn{
+  width:76px;height:76px;border-radius:50%;
+  background:#e8380a;
+  display:flex;align-items:center;justify-content:center;
+  font-size:28px;color:#fff;
+  box-shadow:0 8px 32px rgba(232,56,10,.65);
+  margin-bottom:28px;flex-shrink:0;
+  transition:transform .12s;
+  border:none;
+}
+.ps-play-btn:active{transform:scale(.9);background:#e8380a;}
+.ps-play-btn:hover{background:#e8380a;}
+
+/* Live bar */
+
+
+/* Volume */
+.ps-vol-row{display:flex;align-items:center;gap:10px;width:100%;}
+.ps-vol-icon{font-size:14px;color:rgba(255,255,255,.25);}
+.vol-slider{
+  flex:1;-webkit-appearance:none;appearance:none;
+  height:3px;border-radius:2px;background:rgba(255,255,255,.15);outline:none;cursor:pointer;
+}
+.vol-slider::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:#fff;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.4);}
+
+/* Ticker inside player screen */
+100%{transform:translate3d(-50%,0,0)}}
+
+/* ── SCREEN 2: WEATHER ── */
+.weather-screen{padding:calc(var(--st) + 24px) 24px 24px;background:var(--bg);}
+.screen-title{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:24px;display:flex;align-items:center;gap:8px;}
+.screen-title::before{content:'';width:3px;height:14px;background:var(--or);border-radius:1px;}
+.wx-now{
+  background:var(--bg3);border:1px solid var(--border);
+  border-radius:20px;padding:24px;margin-bottom:16px;
+  display:flex;align-items:center;gap:20px;
+}
+.wx-temp{font-size:64px;font-weight:800;color:#fff;line-height:1;}
+.wx-right{}
+.wx-icon{font-size:42px;margin-bottom:4px;}
+.wx-desc{font-size:15px;color:rgba(255,255,255,.5);}
+.wx-city{font-size:12px;color:rgba(255,255,255,.25);margin-top:4px;}
+.wx-days{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}.wx-days .wx-day:last-child:nth-child(odd){grid-column:1/-1;}
+.wx-day{
+  background:var(--bg3);border:1px solid var(--border);
+  border-radius:16px;padding:18px;text-align:center;
+}
+.wx-day-name{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:10px;}
+.wx-day-icon{font-size:28px;margin-bottom:8px;}
+.wx-day-temp{font-size:22px;font-weight:800;color:#fff;}
+.wx-day-desc{font-size:11px;color:rgba(255,255,255,.3);margin-top:4px;}
+.wx-loading{text-align:center;padding:60px 0;color:rgba(255,255,255,.3);font-size:14px;}
+
+/* ── SCREEN 3: SUPPORT ── */
+.support-screen{padding:calc(var(--st) + 24px) 24px calc(24px);background:var(--bg);}
+.donate-banner{
+  position:relative;overflow:hidden;
+  border-radius:22px;margin-bottom:24px;padding:28px 22px 32px;
+  background:linear-gradient(135deg,#c42008 0%,#7a1002 65%,#1a0200 100%);
+}
+.donate-banner::before{content:'';position:absolute;top:-50px;right:-50px;width:220px;height:220px;border-radius:50%;background:rgba(255,255,255,.04);}
+.donate-ey{font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,180,120,.5);margin-bottom:10px;position:relative;z-index:1;}
+.donate-h2{font-size:30px;font-weight:800;color:#fff;line-height:1.05;letter-spacing:-.5px;margin-bottom:10px;position:relative;z-index:1;}
+.donate-h2 em{font-style:normal;color:#ff8855;}
+.donate-p{font-size:13px;color:rgba(255,255,255,.42);line-height:1.7;position:relative;z-index:1;}
+.prog-wrap{margin-bottom:22px;}
+.prog-meta{display:flex;justify-content:space-between;font-size:11px;margin-bottom:8px;}
+.prog-meta .hi{color:#ff9966;font-weight:700;}
+.prog-meta .lo{color:rgba(255,255,255,.3);}
+.prog-track{height:7px;background:rgba(255,255,255,.07);border-radius:4px;overflow:hidden;}
+.prog-fill{height:7px;width:0%;background:linear-gradient(90deg,var(--or),#ff6622);border-radius:4px;transition:width 1s ease;}
+.donate-amounts{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px;}
+.da{border:1.5px solid rgba(255,255,255,.08);border-radius:18px;padding:18px 6px;text-align:center;cursor:pointer;background:var(--bg3);transition:border-color .2s,background .2s,transform .1s;user-select:none;}
+.da:active{transform:scale(.94);}
+.da.on{border-color:var(--or);background:rgba(232,56,10,.13);}
+.da-price{font-size:26px;font-weight:800;color:#fff;line-height:1;}
+.da-cycle{font-size:10px;color:rgba(255,255,255,.22);margin-top:2px;}
+.da-label{font-size:9px;color:#ff9966;margin-top:7px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;}
+.donate-custom{background:var(--bg3);border:1.5px solid rgba(255,255,255,.07);border-radius:14px;padding:14px 16px;margin-bottom:16px;display:flex;align-items:center;gap:8px;transition:border-color .2s;}
+.donate-custom:focus-within{border-color:rgba(232,56,10,.45);}
+.donate-custom .sign{font-size:20px;font-weight:700;color:rgba(255,255,255,.22);}
+.donate-custom input{flex:1;background:none;border:none;outline:none;font-size:20px;font-weight:700;color:#fff;font-family:'Inter',sans-serif;min-width:0;}
+.donate-custom input::placeholder{color:rgba(255,255,255,.15);}
+.donate-custom .lbl{font-size:11px;color:rgba(255,255,255,.2);white-space:nowrap;}
+.d-btn1{display:block;width:100%;padding:19px;background:var(--or);border-radius:16px;color:#fff;font-size:15px;font-weight:700;box-shadow:0 6px 28px rgba(232,56,10,.4);transition:background .2s,transform .1s;margin-bottom:10px;}
+.d-btn1:active{transform:scale(.97);}
+.d-btn1:hover{background:var(--or2);}
+.d-btn2{display:block;width:100%;padding:17px;background:transparent;border:1.5px solid rgba(255,255,255,.1);border-radius:16px;color:rgba(255,255,255,.38);font-size:14px;font-weight:600;transition:border-color .2s,color .2s;}
+.d-btn2:hover{border-color:rgba(255,255,255,.25);color:rgba(255,255,255,.7);}
+
+/* ── SCREEN 4: ABOUT ── */
+.about-screen{padding:calc(var(--st) + 24px) 24px calc(24px + var(--sb));background:var(--bg);min-height:100%;}
+.about-logo{height:80px;width:auto;margin:0 auto 28px;display:block;}
+.about-card{background:var(--bg3);border:1px solid var(--border);border-radius:18px;padding:20px;margin-bottom:14px;}
+.about-card-title{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--or);margin-bottom:10px;}
+.about-card-text{font-size:14px;color:rgba(255,255,255,.55);line-height:1.7;}
+.about-links{display:flex;flex-direction:column;gap:10px;margin-bottom:14px;}
+.about-link{
+  background:var(--bg3);border:1px solid var(--border);border-radius:14px;
+  padding:16px 18px;display:flex;align-items:center;justify-content:space-between;
+  font-size:14px;color:rgba(255,255,255,.6);transition:background .2s;
+}
+.about-link:active{background:rgba(255,255,255,.06);}
+
+.about-social{display:flex;gap:10px;margin-bottom:20px;}
+.about-soc{flex:1;background:var(--bg3);border:1px solid var(--border);border-radius:14px;padding:14px;display:flex;align-items:center;justify-content:center;transition:border-color .2s,color .2s;color:rgba(255,255,255,.4);}
+.about-soc:active{border-color:var(--or);color:var(--or);}
+.about-copy{font-size:11px;color:rgba(255,255,255,.15);text-align:center;line-height:1.6;}
+.al-icon{width:32px;height:32px;background:rgba(255,255,255,.06);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:rgba(255,255,255,.5);}
+.al-arrow{color:rgba(255,255,255,.2);display:flex;align-items:center;}
+.about-link{display:flex;align-items:center;gap:12px;}
+.about-soundcast{font-size:12px;color:rgba(255,255,255,.25);text-align:center;margin-bottom:8px;}
+.about-soundcast a{color:rgba(255,150,80,.5);border-bottom:1px solid rgba(255,150,80,.2);}
+
+/* ══════════════════════════════
+   DESKTOP — full website layout
+══════════════════════════════ */
+.desktop{display:none;min-height:100vh;overflow-y:auto;}
+
+/* ── desktop nav ── */
+.d-nav{
+  background:rgba(20,6,0,.95);backdrop-filter:blur(20px);border-bottom:2px solid var(--or);
+  height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 56px;
+  position:sticky;top:0;z-index:100;
+}
+.d-nav-logo{height:44px;width:auto;}
+.d-nav-links{display:flex;gap:28px;list-style:none;align-items:center;}
+.d-nav-links a{font-size:12px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.4);transition:color .2s;}
+.d-nav-links a:hover{color:#fff;}
+.d-nav-support{background:var(--or);color:#fff!important;padding:9px 22px;border-radius:22px;font-weight:600!important;transition:background .2s!important;}
+.d-nav-support:hover{background:var(--or2)!important;}
+
+/* ── desktop hero ── */
+.d-hero{
+  position:relative;height:calc(100vh - 64px);
+  display:flex;flex-direction:column;overflow:hidden;
+}
+.d-hero-bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=1600&q=80');background-size:cover;background-position:center 35%;filter:brightness(.25);}
+.d-hero-ov{position:absolute;inset:0;background:linear-gradient(180deg,rgba(55,14,0,.65) 0%,rgba(55,14,0,.05) 40%,rgba(65,16,0,1) 100%);}
+.d-hero-ov2{position:absolute;inset:0;background:linear-gradient(to right,rgba(60,14,0,.85) 0%,transparent 60%);}
+.d-hero-inner{position:relative;z-index:2;flex:1;display:flex;align-items:center;padding:48px 56px;gap:60px;}
+.d-hero-left{max-width:480px;flex-shrink:0;}
+.d-hero-live{display:inline-flex;align-items:center;gap:7px;background:rgba(232,56,10,.16);border:1px solid rgba(232,56,10,.32);color:#ff8866;font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;padding:7px 16px;border-radius:22px;margin-bottom:22px;}
+.d-hero-h1{font-size:clamp(52px,5.5vw,78px);font-weight:800;color:#fff;line-height:1.0;letter-spacing:-1.5px;margin-bottom:10px;}
+.d-hero-h1 em{font-style:italic;color:rgba(255,190,140,.85);font-weight:400;display:block;letter-spacing:-.3px;font-size:clamp(34px,3.8vw,52px);}
+.d-hero-sub{font-size:15px;color:rgba(255,255,255,.38);margin-bottom:36px;}
+.d-player{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.13);border-radius:22px;padding:20px 22px;backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);}
+.d-player-top{display:flex;align-items:center;gap:14px;margin-bottom:16px;}
+.d-player-art{width:56px;height:56px;border-radius:10px;object-fit:contain;padding:4px;flex-shrink:0;background:rgba(255,255,255,.08);}
+.d-player-meta{flex:1;min-width:0;}
+.d-player-np{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.28);margin-bottom:4px;}
+.d-player-title{font-size:16px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.d-player-artist{font-size:13px;color:rgba(255,255,255,.42);}
+.d-pbtn{width:52px;height:52px;border-radius:50%;background:var(--or);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:20px;color:#fff;box-shadow:0 4px 22px rgba(232,56,10,.6);transition:transform .12s,background .2s;}
+.d-pbtn:active{transform:scale(.9);}
+.d-pbtn:hover{background:var(--or2);}
+.d-prog-row{display:none;}.d-prog{display:none;}.d-prog-fill{display:none;}
+.d-ptime{font-size:10px;color:rgba(255,255,255,.2);}
+.d-vol-row{display:flex;align-items:center;gap:10px;}
+.d-vol-icon{font-size:13px;color:rgba(255,255,255,.25);}
+.d-player-msg{font-size:11px;color:var(--or);text-align:center;padding:5px 0 0;min-height:20px;}
+.d-hero-right{flex:1;display:flex;justify-content:center;align-items:center;}
+.d-wx{background:rgba(255,80,20,.07);border:1px solid rgba(255,80,20,.18);border-radius:20px;padding:28px;backdrop-filter:blur(20px);width:320px;}
+.d-wx-header{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+.d-wx-header::before{content:'';width:3px;height:12px;background:var(--or);border-radius:1px;}
+.d-wx-now{display:flex;align-items:center;gap:14px;margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,.06);}
+.d-wx-temp{font-size:48px;font-weight:800;color:#fff;line-height:1;}
+.d-wx-icon{font-size:32px;margin-bottom:2px;}
+.d-wx-desc{font-size:12px;color:rgba(255,255,255,.38);}
+.d-wx-city{font-size:10px;color:rgba(255,255,255,.2);margin-top:2px;}
+.d-wx-days{display:grid;grid-template-columns:repeat(auto-fit,minmax(44px,1fr));gap:8px;}
+.d-wx-day{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:10px 8px;text-align:center;}
+.d-wx-dn{font-size:10px;font-weight:700;color:rgba(255,255,255,.3);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;}
+.d-wx-di{font-size:22px;margin-bottom:4px;}
+.d-wx-dt{font-size:16px;font-weight:700;color:#fff;margin-bottom:2px;}
+.d-wx-dd{font-size:10px;color:rgba(255,255,255,.28);}
+
+
+/* desktop sections */
+.d-section{padding:72px 56px;}
+.d-sec-label{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.22);margin-bottom:20px;display:flex;align-items:center;gap:8px;}
+.d-sec-label::before{content:'';width:3px;height:13px;background:var(--or);border-radius:1px;}
+
+/* desktop donate */
+.d-donate{background:#481200;padding:80px 56px;}
+.d-donate-grid{display:grid;grid-template-columns:1fr 420px;gap:80px;align-items:center;max-width:1100px;margin:0 auto;}
+.d-donate-banner{position:relative;overflow:hidden;border-radius:24px;padding:40px;background:linear-gradient(135deg,#c42008 0%,#7a1002 65%,#1a0200 100%);}
+.d-donate-banner::before{content:'';position:absolute;top:-60px;right:-60px;width:260px;height:260px;border-radius:50%;background:rgba(255,255,255,.04);}
+.d-donate-ey{font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,180,120,.5);margin-bottom:12px;position:relative;z-index:1;}
+.d-donate-h2{font-size:44px;font-weight:800;color:#fff;line-height:1;letter-spacing:-1px;margin-bottom:14px;position:relative;z-index:1;}
+.d-donate-h2 em{font-style:normal;color:#ff8855;}
+.d-donate-p{font-size:14px;color:rgba(255,255,255,.42);line-height:1.8;position:relative;z-index:1;}
+.d-donate-widget{}
+
+/* desktop footer */
+.d-footer{background:#3a1000;border-top:1px solid var(--border);padding:28px 56px;display:flex;align-items:center;justify-content:space-between;}
+.d-ft-logo{height:36px;opacity:.6;}
+.d-ft-social{display:flex;gap:8px;}
+.d-ft-soc{width:36px;height:36px;border:1px solid rgba(255,255,255,.1);border-radius:10px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.3);transition:border-color .2s,color .2s;}
+.d-ft-soc:hover{border-color:var(--or);color:var(--or);}
+.d-ft-links{display:flex;gap:20px;}
+.d-ft-links a{font-size:12px;color:rgba(255,255,255,.22);transition:color .2s;}
+.d-ft-links a:hover{color:#fff;}
+.d-ft-soundcast{font-size:11px;color:rgba(255,150,80,.45);border-bottom:1px solid rgba(255,150,80,.2);}
+.d-ft-soundcast:hover{color:rgba(255,150,80,.8);}
+.d-ft-copy{font-size:11px;color:rgba(255,255,255,.12);}
+
+/* ══ RESPONSIVE SWITCH ══ */
+@media(max-width:767px){
+  html{overflow:hidden;}
+  body{overflow:hidden;}
+  .app{display:flex;}
+  .desktop{display:none!important;}
+}
+@media(min-width:768px){
+  html{overflow-x:hidden;overflow-y:auto;}
+  body{overflow-x:hidden;overflow-y:auto;height:auto;}
+  .app{display:none!important;}
+  .desktop{display:block;}
+}
+
+/* ── CONTACT SCREEN ── */
+.contact-screen{padding:calc(var(--st) + 24px) 24px 24px;background:var(--bg);}
+.contact-card{background:var(--bg3);border:1px solid var(--border);border-radius:18px;padding:18px 20px;margin-bottom:20px;}
+.contact-intro{font-size:13px;color:rgba(255,255,255,.45);line-height:1.7;}
+.contact-form{display:flex;flex-direction:column;gap:14px;}
+.cf-field{display:flex;flex-direction:column;gap:6px;}
+.cf-label{font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.3);}
+.cf-input{background:var(--bg3);border:1.5px solid rgba(255,255,255,.08);border-radius:12px;padding:14px 16px;color:#fff;font-size:15px;font-family:'Inter',sans-serif;outline:none;transition:border-color .2s;-webkit-appearance:none;}
+.cf-input:focus{border-color:rgba(232,56,10,.5);}
+.cf-input::placeholder{color:rgba(255,255,255,.2);}
+select.cf-input{color:rgba(255,255,255,.7);}
+.cf-textarea{min-height:120px;resize:none;line-height:1.6;}
+.cf-submit{padding:17px;background:var(--or);border:none;border-radius:14px;color:#fff;font-size:15px;font-weight:700;font-family:'Inter',sans-serif;box-shadow:0 4px 20px rgba(232,56,10,.4);transition:background .2s,transform .1s;}
+.cf-submit:active{transform:scale(.97);}
+.cf-result{font-size:13px;text-align:center;min-height:20px;padding:4px 0;}
+
+.d-contact{background:#3d1200;padding:72px 56px;border-top:1px solid rgba(255,100,30,.12);}
+.d-contact-grid{display:grid;grid-template-columns:1fr 1.6fr;gap:72px;align-items:start;max-width:1100px;margin:0 auto;}
+.d-contact-h3{font-size:32px;font-weight:800;color:#fff;margin-bottom:14px;letter-spacing:-.5px;}
+.d-contact-p{font-size:14px;color:rgba(255,255,255,.42);line-height:1.8;margin-bottom:24px;}
+.d-contact-detail{display:flex;align-items:center;gap:10px;font-size:14px;color:rgba(255,255,255,.5);margin-bottom:12px;}
+.d-contact-detail a{color:rgba(255,150,80,.7);transition:color .2s;}
+.d-contact-detail a:hover{color:#ff9966;}
+.d-contact-detail svg{color:var(--or);flex-shrink:0;}
+.d-contact-form{display:flex;flex-direction:column;gap:14px;}
+.d-cf-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.d-cf-input{width:100%;background:var(--bg3);border:1.5px solid rgba(255,255,255,.08);border-radius:10px;padding:13px 16px;color:#fff;font-size:14px;font-family:'Inter',sans-serif;outline:none;transition:border-color .2s;}
+.d-cf-input:focus{border-color:rgba(232,56,10,.5);}
+.d-cf-input::placeholder{color:rgba(255,255,255,.2);}
+select.d-cf-input{color:rgba(255,255,255,.7);}
+.d-cf-textarea{min-height:130px;resize:vertical;line-height:1.6;}
+.d-cf-submit{padding:15px 32px;background:var(--or);border:none;border-radius:10px;color:#fff;font-size:14px;font-weight:700;font-family:'Inter',sans-serif;cursor:pointer;transition:background .2s;align-self:flex-start;}
+.d-cf-submit:hover{background:var(--or2);}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════
+     MOBILE APP
+══════════════════════════════ -->
+<div class="app" id="app">
+
+  <!-- SCREEN 1: PLAYER -->
+  <div class="screen active" id="screen-player">
+    <div class="player-screen">
+      <div class="ps-bg"></div>
+      <div class="ps-ov"></div>
+      <div class="ps-inner">
+        <img class="ps-logo" src="smooth_logo.png" alt="Smooth Radio Canada">
+        <div class="ps-art-wrap">
+          <img class="ps-art" id="mob-art" src="" alt="Album art" style="display:none;"><div class="ps-art-placeholder" id="mob-art-placeholder"><img src="https://images.unsplash.com/photo-1579454577332-6c8a8f99a23c?w=800&q=80" alt="Winnipeg" style="width:100%;height:100%;object-fit:cover;border-radius:24px;filter:brightness(.85);"></div>
+        </div>
+        <div class="ps-track">
+          <div class="ps-title" id="mob-title">Tap play to listen</div>
+          <div class="ps-artist" id="mob-artist">Smooth Radio Canada</div>
+          <div class="ps-msg" id="mob-msg"></div>
+        </div>
+        <button class="ps-play-btn" id="mob-play-btn" onclick="togglePlay()">▶</button>
+
+        <div class="ps-vol-row">
+          <span class="ps-vol-icon">🔇</span>
+          <input class="vol-slider" type="range" min="0" max="1" step="0.02" value="0.85" id="mob-vol" oninput="setVolume(this.value)" aria-label="Volume">
+          <span class="ps-vol-icon">🔊</span>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 2: WEATHER -->
+  <div class="screen" id="screen-weather">
+    <div class="weather-screen">
+      <div class="screen-title">Winnipeg Weather</div>
+      <div id="mob-wx">
+        <div class="wx-loading">Loading weather...</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 3: SUPPORT -->
+  <div class="screen" id="screen-support">
+    <div class="support-screen">
+      <div class="screen-title">Support Us</div>
+      <div class="donate-banner">
+        <div class="donate-ey">Support Independent Radio</div>
+        <div class="donate-h2">Keep <em>Smooth Radio</em> on the air</div>
+        <div class="donate-p">We're independent, ad-light, and curated by hand. Help us keep the music playing for Winnipeg.</div>
+      </div>
+      <div class="prog-wrap">
+        <div class="prog-meta">
+          <span class="hi" id="mob-sup-count">Loading...</span>
+          <span class="lo" id="mob-sup-goal">Goal: 50</span>
+        </div>
+        <div class="prog-track"><div class="prog-fill" id="mob-prog-fill"></div></div>
+      </div>
+      <div class="donate-amounts">
+        <div class="da" onclick="selectTier(this,'5')"><div class="da-price">$5</div><div class="da-cycle">/month</div><div class="da-label">Listener</div></div>
+        <div class="da on" onclick="selectTier(this,'10')"><div class="da-price">$10</div><div class="da-cycle">/month</div><div class="da-label">Supporter</div></div>
+        <div class="da" onclick="selectTier(this,'15')"><div class="da-price">$15</div><div class="da-cycle">/month</div><div class="da-label">Patron</div></div>
+      </div>
+      <div class="donate-custom">
+        <span class="sign">$</span>
+        <input type="number" placeholder="Custom amount" min="1" id="mob-custom-amt" oninput="clearTiers()">
+        <span class="lbl">/month</span>
+      </div>
+      <button class="d-btn1" onclick="donateMonthly()">Become a Monthly Supporter</button>
+      <button class="d-btn2" onclick="donateOnce()">♥ &nbsp;Make a one-time donation</button>
+    </div>
+  </div>
+
+  <!-- SCREEN 4: ABOUT -->
+  <div class="screen" id="screen-about">
+    <div class="about-screen">
+      <div class="about-card">
+        <div class="about-card-title">About</div>
+        <div class="about-card-text">Smooth Radio Canada is Winnipeg's best slow mix — Adult Contemporary & Soft Hits, streaming live 24/7. Independent, curated by hand, and ad-light.</div>
+      </div>
+      <div class="about-links">
+        <a class="about-link" href="https://smoothradio.net" target="_blank">
+          <span class="al-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span>
+          smoothradio.net
+          <span class="al-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </a>
+        <a class="about-link" href="https://radiofinder.ca" target="_blank">
+          <span class="al-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 8.5c0 3.9-3.58 7.41-9.95 11.06a1 1 0 0 1-1.1 0C4.58 15.91 1 12.4 1 8.5a6.5 6.5 0 0 1 13 0v0"/><circle cx="12" cy="8.5" r="2.5"/></svg></span>
+          RadioFinder.ca
+          <span class="al-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </a>
+        <a class="about-link" href="https://tunein.com" target="_blank">
+          <span class="al-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg></span>
+          TuneIn.com
+          <span class="al-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </a>
+        <a class="about-link" href="https://music.apple.com" target="_blank">
+          <span class="al-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></span>
+          Apple Music
+          <span class="al-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </a>
+      </div>
+      <div class="about-social">
+        <a class="about-soc" href="https://facebook.com" target="_blank">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        </a>
+        <a class="about-soc" href="https://instagram.com" target="_blank">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".5" fill="currentColor"/></svg>
+        </a>
+        <a class="about-soc" href="https://twitter.com" target="_blank">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+      </div>
+      <div class="about-soundcast"><a href="https://soundcast.ca" target="_blank">Powered by SoundCast</a></div>
+      <div class="about-copy">Smooth Radio Canada © 2026 · Winnipeg, Canada</div>
+    </div>
+  </div>
+
+  <!-- SCREEN 5: CONTACT -->
+  <div class="screen" id="screen-contact">
+    <div class="contact-screen">
+      <div class="screen-title">Contact Us</div>
+      <div class="contact-card">
+        <div class="contact-intro">Have a question, request, or want to advertise on Smooth Radio Canada? Get in touch.</div>
+      </div>
+      <form class="contact-form" onsubmit="submitContact(event)">
+        <div class="cf-field">
+          <label class="cf-label">Your Name</label>
+          <input class="cf-input" type="text" id="cf-name" placeholder="John Smith" required>
+        </div>
+        <div class="cf-field">
+          <label class="cf-label">Email Address</label>
+          <input class="cf-input" type="email" id="cf-email" placeholder="you@example.com" required>
+        </div>
+        <div class="cf-field">
+          <label class="cf-label">Subject</label>
+          <select class="cf-input" id="cf-subject">
+            <option value="general">General Inquiry</option>
+            <option value="request">Song Request</option>
+            <option value="advertising">Advertising</option>
+            <option value="support">Technical Support</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="cf-field">
+          <label class="cf-label">Message</label>
+          <textarea class="cf-input cf-textarea" id="cf-message" placeholder="Write your message here..." required></textarea>
+        </div>
+        <button class="cf-submit" type="submit" id="cf-btn">Send Message</button>
+        <div class="cf-result" id="cf-result"></div>
+      </form>
+    </div>
+  </div>
+
+  <!-- TAB BAR -->
+  <div class="tabbar">
+    <div class="tab active" id="tab-player" onclick="switchTab('player')">
+      <div class="tab-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8" fill="currentColor" stroke="none"/></svg></div>
+      <div class="tab-label">Listen</div>
+    </div>
+    <div class="tab" id="tab-weather" onclick="switchTab('weather')">
+      <div class="tab-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg></div>
+      <div class="tab-label">Weather</div>
+    </div>
+    <div class="tab" id="tab-support" onclick="switchTab('support')">
+      <div class="tab-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+      <div class="tab-label">Support</div>
+    </div>
+    <div class="tab" id="tab-about" onclick="switchTab('about')">
+      <div class="tab-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+      <div class="tab-label">About</div>
+    </div>
+    <div class="tab" id="tab-contact" onclick="switchTab('contact')">
+      <div class="tab-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+      <div class="tab-label">Contact</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     DESKTOP WEBSITE
+══════════════════════════════ -->
+<div class="desktop" id="desktop">
+
+  <nav class="d-nav">
+    <img class="d-nav-logo" src="smooth_logo.png" alt="Smooth Radio Canada">
+    <div class="d-nav-links">
+      <a href="#d-hero">Listen Live</a>
+      <a href="#d-footer">About</a>
+      <a href="#d-contact">Contact</a>
+      <a href="#d-support" class="d-nav-support">♥ Support Us</a>
+    </div>
+  </nav>
+
+  <div class="d-hero" id="d-hero">
+    <div class="d-hero-bg"></div>
+    <div class="d-hero-ov"></div>
+    <div class="d-hero-ov2"></div>
+    <div class="d-hero-inner">
+      <div class="d-hero-left">
+        <div class="d-hero-live"><div class="dot"></div>Live Now · Winnipeg, Canada</div>
+        <h1 class="d-hero-h1">Winnipeg's<em>Best Slow Mix</em></h1>
+        <p class="d-hero-sub">Adult Contemporary & Soft Hits · 24/7</p>
+        <div class="d-player">
+          <div class="d-player-top">
+            <img class="d-player-art" id="desk-art" src="smooth_logo.png" alt="">
+            <div class="d-player-meta">
+              <div class="d-player-np">Now Playing</div>
+              <div class="d-player-title" id="desk-title">Tap play to listen</div>
+              <div class="d-player-artist" id="desk-artist">Smooth Radio Canada</div>
+            </div>
+            <button class="d-pbtn" id="desk-play-btn" onclick="togglePlay()">▶</button>
+          </div>
+<span id="desk-bar-fill" style="display:none;"></span><span id="desk-bar-dot" style="display:none;"></span>
+          <div class="d-vol-row">
+            
+            <input class="vol-slider" type="range" min="0" max="1" step="0.02" value="0.85" id="desk-vol" oninput="setVolume(this.value)" aria-label="Volume">
+          </div>
+          <div class="d-player-msg" id="desk-msg"></div>
+        </div>
+      </div>
+      <div class="d-hero-right">
+        <div class="d-wx">
+          <div class="d-wx-header">Winnipeg Weather</div>
+          <div id="desk-wx"><div style="padding:20px;text-align:center;color:rgba(255,255,255,.3);font-size:13px;">Loading...</div></div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+
+  <div class="d-donate" id="d-support">
+    <div class="d-donate-grid">
+      <div class="d-donate-banner">
+        <div class="d-donate-ey">Support Independent Radio</div>
+        <div class="d-donate-h2">Keep <em>Smooth Radio</em><br>on the air</div>
+        <div class="d-donate-p">We're independent, ad-light, and curated by hand. Server costs, licensing, and streaming don't pay themselves. Help us keep the music playing for Winnipeg.</div>
+      </div>
+      <div class="d-donate-widget">
+        <div class="prog-wrap">
+          <div class="prog-meta">
+            <span class="hi" id="desk-sup-count">Loading...</span>
+            <span class="lo" id="desk-sup-goal">Goal: 50</span>
+          </div>
+          <div class="prog-track"><div class="prog-fill" id="desk-prog-fill"></div></div>
+        </div>
+        <div class="donate-amounts" style="margin-top:20px;">
+          <div class="da" onclick="selectTier(this,'5')"><div class="da-price">$5</div><div class="da-cycle">/month</div><div class="da-label">Listener</div></div>
+          <div class="da on" onclick="selectTier(this,'10')"><div class="da-price">$10</div><div class="da-cycle">/month</div><div class="da-label">Supporter</div></div>
+          <div class="da" onclick="selectTier(this,'15')"><div class="da-price">$15</div><div class="da-cycle">/month</div><div class="da-label">Patron</div></div>
+        </div>
+        <div class="donate-custom" style="margin-top:12px;">
+          <span class="sign">$</span>
+          <input type="number" placeholder="Custom amount" min="1" id="desk-custom-amt" oninput="clearTiers()">
+          <span class="lbl">/month</span>
+        </div>
+        <button class="d-btn1" style="margin-top:14px;" onclick="donateMonthly()">Become a Monthly Supporter</button>
+        <button class="d-btn2" onclick="donateOnce()">♥ &nbsp;Make a one-time donation</button>
+      </div>
+    </div>
+  </div>
+
+    <section class="d-contact" id="d-contact">
+    <div class="d-sec-label">Contact Us</div>
+    <div class="d-contact-grid">
+      <div class="d-contact-info">
+        <h3 class="d-contact-h3">Get in touch</h3>
+        <p class="d-contact-p">Have a question, song request, or want to advertise on Smooth Radio Canada? We'd love to hear from you.</p>
+
+        <div class="d-contact-detail">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          <a href="https://smoothradio.net" target="_blank">smoothradio.net</a>
+        </div>
+      </div>
+      <form class="d-contact-form" onsubmit="submitContact(event)">
+        <div class="d-cf-row">
+          <div class="cf-field">
+            <label class="cf-label">Name</label>
+            <input class="d-cf-input" type="text" id="d-cf-name" placeholder="John Smith" required>
+          </div>
+          <div class="cf-field">
+            <label class="cf-label">Email</label>
+            <input class="d-cf-input" type="email" id="d-cf-email" placeholder="you@example.com" required>
+          </div>
+        </div>
+        <div class="cf-field">
+          <label class="cf-label">Subject</label>
+          <select class="d-cf-input" id="d-cf-subject">
+            <option value="general">General Inquiry</option>
+            <option value="request">Song Request</option>
+            <option value="advertising">Advertising</option>
+            <option value="support">Technical Support</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="cf-field">
+          <label class="cf-label">Message</label>
+          <textarea class="d-cf-input d-cf-textarea" id="d-cf-message" placeholder="Write your message here..." required></textarea>
+        </div>
+        <button class="d-cf-submit" type="submit" id="d-cf-btn">Send Message</button>
+        <div class="cf-result" id="d-cf-result"></div>
+      </form>
+    </div>
+  </section>
+
+  <footer class="d-footer" id="d-footer">
+    <img class="d-ft-logo" src="smooth_logo.png" alt="Smooth Radio Canada">
+    <div class="d-ft-social">
+      <a class="d-ft-soc" href="https://facebook.com" target="_blank" aria-label="Facebook">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+      </a>
+      <a class="d-ft-soc" href="https://instagram.com" target="_blank" aria-label="Instagram">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".5" fill="currentColor"/></svg>
+      </a>
+      <a class="d-ft-soc" href="https://twitter.com" target="_blank" aria-label="X / Twitter">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      </a>
+    </div>
+    <a class="d-ft-soundcast" href="https://soundcast.ca" target="_blank" rel="noopener">Powered by SoundCast</a>
+    <div class="d-ft-links">
+      <a href="#">Privacy</a>
+      <a href="#">About</a>
+      <a href="#">Contact</a>
+    </div>
+    <div class="d-ft-copy">Smooth Radio Canada © 2026 · Winnipeg, Canada · 24/7 Live Stream</div>
+  </footer>
+
+</div>
+
+<audio id="audio" preload="none" crossorigin="anonymous"></audio>
+
+<script>
+// ── CONFIG ─────────────────────────────
+const STREAM   = 'https://stream.smoothradio.net/live';
+const META_URL = 'https://stream.smoothradio.net/status-json.xsl';
+const META_INT = 15000;
+const STRIPE   = {
+  '5':  'https://donate.stripe.com/28E4gz1oFa6VaNKfXbeZ200',
+  '10': 'https://donate.stripe.com/3cI7sL8R71Ap4pm3apeZ201',
+  '15': 'https://buy.stripe.com/9B68wP5EVcf3dZWaCReZ202',
+};
+const STRIPE_ONETIME = 'https://donate.stripe.com/7sY28r9Vb5QF4pmeT7eZ204';
+
+// ── STATE ──────────────────────────────
+const audio     = document.getElementById('audio');
+let playing     = false;
+let metaTimer   = null;
+let selectedAmt = '10';
+const recent    = [];
+let imgIdx      = 0;
+const isMobile  = () => window.innerWidth < 768;
+const FALLBACK  = [
+  'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=60&q=80',
+  'https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=60&q=80',
+  'https://images.unsplash.com/photo-1468164016595-6108e4c60c8b?w=60&q=80',
+  'https://images.unsplash.com/photo-1571974599782-87624638275c?w=60&q=80',
+  'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=60&q=80',
+  'https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=60&q=80',
+];
+
+// ── TAB SWITCHING ──────────────────────
+function switchTab(name){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('screen-'+name).classList.add('active');
+  document.getElementById('tab-'+name).classList.add('active');
+}
+
+// ── PLAYER ─────────────────────────────
+function togglePlay(){ playing ? pause() : play(); }
+
+function play(){
+  setMsg('Connecting...');
+  audio.src = STREAM + '?_t=' + Date.now();
+  audio.volume = parseFloat(isMobile()
+    ? document.getElementById('mob-vol').value
+    : document.getElementById('desk-vol').value);
+  audio.play().then(()=>{
+    playing = true;
+    setPlayIcon('⏸');
+    setBarDot(true);
+    setMsg('');
+    animateLive(true);
+    startMeta();
+    updateMediaSession();
+  }).catch(e=>{
+    setMsg('Tap play to retry');
+    console.warn(e);
+  });
+}
+
+function pause(){
+  audio.pause(); audio.src='';
+  playing=false;
+  setPlayIcon('▶');
+  setBarDot(false);
+  setMsg('');
+  animateLive(false);
+  stopMeta();
+}
+
+function setPlayIcon(icon){
+  const mb = document.getElementById('mob-play-btn');
+  const db = document.getElementById('desk-play-btn');
+  if(mb) mb.textContent = icon;
+  if(db) db.textContent = icon;
+}
+function setBarDot(on){
+  ['mob-bar-dot','desk-bar-dot'].forEach(id=>{
+    const el = document.getElementById(id);
+    if(el) el.style.color = on ? '#e8380a' : 'rgba(255,255,255,.2)';
+  });
+}
+function setMsg(t){
+  const mm = document.getElementById('mob-msg');
+  const dm = document.getElementById('desk-msg');
+  if(mm) mm.textContent = t;
+  if(dm) dm.textContent = t;
+}
+function setVolume(v){
+  audio.volume = parseFloat(v);
+  document.querySelectorAll('.vol-slider').forEach(s=>s.value=v);
+}
+
+// Live bar animation
+let liveAnim;
+function animateLive(on){
+  ['mob-bar-fill','desk-bar-fill'].forEach(id=>{
+    const el = document.getElementById(id);
+    if(el){ el.style.transition='width 1.5s ease-in-out'; el.style.width = on ? '0%' : '0%'; }
+  });
+  clearInterval(liveAnim);
+  if(!on) return;
+  let w=20; let dir=1;
+  liveAnim = setInterval(()=>{
+    w += dir * (4 + Math.random()*9);
+    if(w>90) dir=-1; else if(w<15) dir=1;
+    ['mob-bar-fill','desk-bar-fill'].forEach(id=>{
+      const el = document.getElementById(id);
+      if(el) el.style.width = w+'%';
+    });
+  }, 1600);
+}
+
+audio.addEventListener('waiting', ()=>setMsg('Buffering...'));
+audio.addEventListener('playing', ()=>setMsg(''));
+audio.addEventListener('error',   ()=>{ setMsg('Error — tap play to retry'); playing=false; setPlayIcon('▶'); animateLive(false); });
+
+// ── METADATA ───────────────────────────
+function startMeta(){ fetchMeta(); metaTimer=setInterval(fetchMeta,META_INT); }
+function stopMeta(){ clearInterval(metaTimer); }
+
+async function fetchMeta(){
+  try{
+    const r  = await fetch(META_URL+'?_='+Date.now());
+    const js = await r.json();
+    const src = js?.icestats?.source;
+    if(!src) return;
+    const s   = Array.isArray(src)?src[0]:src;
+    const raw = (s?.title||s?.yp_currently_playing||'').trim();
+    if(!raw) return;
+    const sep    = raw.indexOf(' - ');
+    const artist = sep>-1 ? raw.slice(0,sep).trim() : 'Smooth Radio Canada';
+    const title  = sep>-1 ? raw.slice(sep+3).trim() : raw;
+    updateTrackUI(artist, title);
+    const art = await fetchArtwork(artist, title);
+    updateArtUI(art);
+    pushRecent(artist, title, art);
+    updateMediaSession(title, artist, art);
+  } catch(e){}
+}
+
+function updateTrackUI(artist, title){
+  ['mob-title','desk-title'].forEach(id=>{ const el=document.getElementById(id); if(el) el.textContent=title; });
+  ['mob-artist','desk-artist'].forEach(id=>{ const el=document.getElementById(id); if(el) el.textContent=artist; });
+}
+function updateArtUI(art){
+  if(!art) return;
+  const mobArt = document.getElementById('mob-art');
+  const mobPh  = document.getElementById('mob-art-placeholder');
+  if(mobArt){ mobArt.src=art; mobArt.style.display='block'; if(mobPh) mobPh.style.display='none'; }
+  const deskArt = document.getElementById('desk-art');
+  if(deskArt){ deskArt.src=art; deskArt.style.objectFit='cover'; deskArt.style.padding='0'; }
+}
+
+// ── ITUNES ARTWORK ─────────────────────
+async function fetchArtwork(artist, title){
+  try{
+    const q = encodeURIComponent(artist+' '+title);
+    const r = await fetch('https://itunes.apple.com/search?term='+q+'&media=music&limit=1&entity=song');
+    const js= await r.json();
+    if(js.resultCount>0) return js.results[0].artworkUrl100.replace('100x100','300x300');
+  } catch(e){}
+  return null;
+}
+
+// ── TICKER ─────────────────────────────
+function pushRecent(artist, title, art){
+  if(recent.length && recent[0].title===title && recent[0].artist===artist) return;
+  recent.unshift({artist, title, img: art||FALLBACK[imgIdx++%FALLBACK.length]});
+  if(recent.length>10) recent.pop();
+  renderTicker();
+}
+function renderTicker(){
+  const items = recent.length ? recent : [
+    {artist:'Lionel Richie', title:'Easy',             img:FALLBACK[0]},
+    {artist:'Rod Stewart',   title:'Sailing',          img:FALLBACK[1]},
+    {artist:'George Michael',title:'Careless Whisper', img:FALLBACK[2]},
+    {artist:'Adele',         title:'Hello',            img:FALLBACK[3]},
+    {artist:'Toto',          title:'Africa',           img:FALLBACK[4]},
+    {artist:'Phil Collins',  title:'Against All Odds', img:FALLBACK[5]},
+  ];
+  const all = [...items,...items];
+  const html = all.map(i=>`<div class="ticker-item"><img src="${i.img}" alt="" onerror="this.src='smooth_logo.png'"><b>${i.title}</b> · ${i.artist} <span class="tsep">●</span></div>`).join('');
+  [].forEach(id=>{ const el=document.getElementById(id); if(el) el.innerHTML=html; });
+}
+renderTicker();
+
+// ── WEATHER ────────────────────────────
+const WX = {'sunny':'☀️','clear':'🌙','partly':'⛅','cloudy':'☁️','overcast':'☁️','mist':'🌫','fog':'🌫','rain':'🌧','drizzle':'🌦','snow':'❄️','blizzard':'🌨','sleet':'🌧','thunder':'⛈','freezing':'🌧','blowing':'🌨','patchy':'🌦'};
+function wxIcon(d){ const l=d.toLowerCase(); for(let k in WX){ if(l.includes(k)) return WX[k]; } return '🌡'; }
+
+async function loadWeather(){
+  try{
+    const r  = await fetch('https://wttr.in/Winnipeg?format=j1');
+    const js = await r.json();
+    const cur = js.current_condition[0];
+    const days = js.weather.slice(0,5);
+    const DN = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+    const desc = cur.weatherDesc[0].value;
+
+    // Mobile layout
+    const mobDays = days.map((d,i)=>{
+      const dd = d.hourly[4]?.weatherDesc[0]?.value||'';
+      const dayName = i===0 ? 'Today' : DN[new Date(d.date).getDay()];
+      return `<div class="wx-day">
+        <div class="wx-day-name">${dayName}</div>
+        <div class="wx-day-icon">${wxIcon(dd)}</div>
+        <div class="wx-day-temp">${d.maxtempC}°C</div>
+        <div class="wx-day-desc">${dd.split(' ').slice(0,2).join(' ')}</div>
+      </div>`;
+    }).join('');
+    const mobEl = document.getElementById('mob-wx');
+    if(mobEl) mobEl.innerHTML = `
+      <div class="wx-now">
+        <div class="wx-temp">${cur.temp_C}°C</div>
+        <div>
+          <div class="wx-icon">${wxIcon(desc)}</div>
+          <div class="wx-desc">${desc}</div>
+          <div class="wx-city">Winnipeg, MB, Canada</div>
+        </div>
+      </div>
+      <div class="wx-days">${mobDays}</div>`;
+
+    // Desktop layout
+    const deskDays = days.map((d,i)=>{
+      const dd = d.hourly[4]?.weatherDesc[0]?.value||'';
+      const dayName = i===0 ? 'Today' : DN[new Date(d.date).getDay()];
+      return `<div class="d-wx-day">
+        <div class="d-wx-dn">${dayName}</div>
+        <div class="d-wx-di">${wxIcon(dd)}</div>
+        <div class="d-wx-dt">${d.maxtempC}°C</div>
+        <div class="d-wx-dd">${dd.split(' ').slice(0,2).join(' ')}</div>
+      </div>`;
+    }).join('');
+    const deskEl = document.getElementById('desk-wx');
+    if(deskEl) deskEl.innerHTML = `
+      <div class="d-wx-now">
+        <div class="d-wx-temp">${cur.temp_C}°C</div>
+        <div>
+          <div class="d-wx-icon">${wxIcon(desc)}</div>
+          <div class="d-wx-desc">${desc}</div>
+          <div class="d-wx-city">Winnipeg, MB</div>
+        </div>
+      </div>
+      <div class="d-wx-days">${deskDays}</div>`;
+  } catch(e){
+    ['mob-wx','desk-wx'].forEach(id=>{ const el=document.getElementById(id); if(el) el.innerHTML='<div style="padding:20px;text-align:center;color:rgba(255,255,255,.3);">Weather unavailable</div>'; });
+  }
+}
+loadWeather();
+
+// ── SUPPORTERS ─────────────────────────
+async function loadSupporters(){
+  try{
+    const r  = await fetch('supporters.php?_='+Date.now());
+    const js = await r.json();
+    if(js.error) return;
+    const txt = js.count+' supporter'+(js.count!==1?'s':'')+' this month';
+    ['mob-sup-count','desk-sup-count'].forEach(id=>{ const el=document.getElementById(id); if(el) el.textContent=txt; });
+    ['mob-sup-goal','desk-sup-goal'].forEach(id=>{ const el=document.getElementById(id); if(el) el.textContent='Goal: '+js.goal; });
+    ['mob-prog-fill','desk-prog-fill'].forEach(id=>{ const el=document.getElementById(id); if(el) el.style.width=js.pct+'%'; });
+  } catch(e){
+    ['mob-sup-count','desk-sup-count'].forEach(id=>{ const el=document.getElementById(id); if(el) el.textContent='Join our supporters'; });
+  }
+}
+loadSupporters();
+
+// ── DONATION ───────────────────────────
+function selectTier(el, amt){
+  document.querySelectorAll('.da').forEach(d=>d.classList.remove('on'));
+  el.classList.add('on');
+  selectedAmt = amt;
+  ['mob-custom-amt','desk-custom-amt'].forEach(id=>{ const el=document.getElementById(id); if(el) el.value=''; });
+}
+function clearTiers(){
+  document.querySelectorAll('.da').forEach(d=>d.classList.remove('on'));
+  const mobC = document.getElementById('mob-custom-amt');
+  const dskC = document.getElementById('desk-custom-amt');
+  selectedAmt = (mobC&&mobC.value) ? mobC.value : (dskC&&dskC.value) ? dskC.value : selectedAmt;
+}
+async function redirectToCheckout(amount, type){
+  const btn1 = document.querySelectorAll('.d-btn1, .d-btn1');
+  // Show loading state
+  document.querySelectorAll('.d-btn1').forEach(b=>{ b.textContent='Processing...'; b.style.opacity='.7'; });
+  document.querySelectorAll('.d-btn2').forEach(b=>{ b.textContent='Processing...'; b.style.opacity='.7'; });
+  try{
+    const r  = await fetch('donate.php?amount=' + encodeURIComponent(amount) + '&type=' + type);
+    const js = await r.json();
+    if(js.url){
+      window.location.href = js.url;
+    } else {
+      alert('Something went wrong. Please try again.');
+    }
+  } catch(e){
+    alert('Connection error. Please try again.');
+  }
+  document.querySelectorAll('.d-btn1').forEach(b=>{ b.textContent='Become a Monthly Supporter'; b.style.opacity='1'; });
+  document.querySelectorAll('.d-btn2').forEach(b=>{ b.textContent='♥  Make a one-time donation'; b.style.opacity='1'; });
+}
+
+function donateMonthly(){
+  const mobC = document.getElementById('mob-custom-amt')?.value;
+  const dskC = document.getElementById('desk-custom-amt')?.value;
+  const amt  = mobC || dskC || selectedAmt;
+  if(!amt || isNaN(parseFloat(amt))){ alert('Please enter or select an amount.'); return; }
+  redirectToCheckout(parseFloat(amt), 'monthly');
+}
+function donateOnce(){
+  const mobC = document.getElementById('mob-custom-amt')?.value;
+  const dskC = document.getElementById('desk-custom-amt')?.value;
+  const amt  = mobC || dskC || selectedAmt;
+  if(!amt || isNaN(parseFloat(amt))){ alert('Please enter or select an amount.'); return; }
+  redirectToCheckout(parseFloat(amt), 'once');
+}
+
+// ── MEDIA SESSION ──────────────────────
+function updateMediaSession(title, artist, art){
+  if(!('mediaSession' in navigator)) return;
+  navigator.mediaSession.metadata = new MediaMetadata({
+    title:   title||'Smooth Radio Canada',
+    artist:  artist||"Winnipeg's Best Slow Mix",
+    album:   'Live 24/7',
+    artwork: art
+      ? [{src:art,sizes:'300x300',type:'image/jpeg'}]
+      : [{src:'icons/icon-512x512.png',sizes:'512x512',type:'image/png'}]
+  });
+  navigator.mediaSession.setActionHandler('play',  ()=>play());
+  navigator.mediaSession.setActionHandler('pause', ()=>pause());
+  navigator.mediaSession.setActionHandler('stop',  ()=>pause());
+}
+
+// ── SERVICE WORKER ─────────────────────
+if('serviceWorker' in navigator){
+  window.addEventListener('load',()=>{
+    navigator.serviceWorker.register('sw.js').catch(e=>console.log('SW:',e));
+  });
+}
+
+// ── CONTACT FORM ───────────────────────
+async function submitContact(e){
+  e.preventDefault();
+  const isMob = e.target.closest('.contact-form') !== null;
+  const pfx   = isMob ? '' : 'd-';
+  const btn   = document.getElementById(pfx+'cf-btn');
+  const res   = document.getElementById(pfx+'cf-result');
+  const name    = document.getElementById(pfx+'cf-name').value;
+  const email   = document.getElementById(pfx+'cf-email').value;
+  const subject = document.getElementById(pfx+'cf-subject').value;
+  const message = document.getElementById(pfx+'cf-message').value;
+  btn.textContent = 'Sending...';
+  btn.style.opacity = '.7';
+  res.style.color = 'rgba(255,255,255,.4)';
+  res.textContent = '';
+  try{
+    const r = await fetch('contact.php', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({name, email, subject, message})
+    });
+    const js = await r.json();
+    if(js.ok){
+      res.style.color = '#4caf50';
+      res.textContent = '✓ Message sent! We will get back to you soon.';
+      e.target.reset();
+    } else {
+      res.style.color = '#ff6644';
+      res.textContent = 'Error sending message. Please try again.';
+    }
+  } catch(err){
+    res.style.color = '#ff6644';
+    res.textContent = 'Network error. Please try again.';
+  }
+  btn.textContent = 'Send Message';
+  btn.style.opacity = '1';
+}
+</script>
+</body>
+</html>
