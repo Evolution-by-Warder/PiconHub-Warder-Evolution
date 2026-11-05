@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forest Green Radio</title>
+	<meta content="Forest Green Radio presents a pleasing blend of Celtic, Inspiration, Chill, World music " name="description">
+  <meta content="radio, webradio, music, peacefull, 432hz" name="keywords">
+
+  <!-- Favicons -->
+  <link href="images/favicon.png" rel="icon">
+  <link href="images/apple-touch-icon.png" rel="apple-touch-icon">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Google Fonts (Roboto) -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+	<!--Photo by <a href="https://unsplash.com/@xgirma?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Girma Nigusse</a> on <a href="https://unsplash.com/photos/landscape-photography-of-forest-PYpv2SKNjo0?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
+      -->
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            color: #333;
+            margin: 0;
+            background-color: #f0f4f8;
+        }
+        /* Transparent Navigation */
+        .navbar {
+            background-color: rgba(239, 239, 239, .05); /* Light Gray transparent for Hero */
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            transition: background-color 0.3s ease;
+        }
+        .navbar.scrolled {
+            background-color: #139d7e; /* Solid teal for other sections */
+        }
+        .navbar-brand, .nav-link {
+            color: #ecf0f1 !important;
+            font-weight: 100;
+        }
+        .nav-link:hover {
+            color: #34c8a2 !important; /* Lighter blue for hover */
+        }
+        .nav-link.active {
+            color: #34c8a2 !important; /* Lighter teal for active section */
+            font-weight: bold;
+        }
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('images/bg.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #ecf0f1;
+            animation: fadeIn 2s ease-in-out;
+        }
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        .hero-title {
+            font-family: 'Georgia', serif;
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            white-space: nowrap;
+            animation: slideDown 1.5s ease-in-out;
+        }
+        @keyframes slideDown {
+            0% { transform: translateY(-50px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+        .hero-tagline {
+            font-size: clamp(1rem, 2.5vw, 1.5rem);
+            margin: 20px 0;
+            animation: fadeIn 2.5s ease-in-out;
+        }
+        .audio-player {
+			max-height: 100px;
+            max-width: 350px;
+            margin: 15px auto;
+            padding: 15px;
+            background: linear-gradient(135deg, rgba(39, 174, 96, 0.9), rgba(33, 150, 83, 0.9));
+			
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            animation: pulse 2s ease-in-out infinite;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+		
+        .audio-player-content {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .custom-player-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .custom-player-controls button {
+            background: #219653;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .custom-player-controls button:hover {
+            background: #1b7b44;
+            transform: scale(1.1);
+        }
+        .custom-player-controls .bi {
+            font-size: 1.2rem;
+        }
+        .custom-player-controls label {
+            font-family: 'Roboto', sans-serif;
+            font-size: 0.9rem;
+            color: #fff;
+        }
+        .custom-player-controls input[type="range"] {
+            width: 80px;
+            accent-color: #219653;
+            height: 5px;
+            background: #fff;
+            border-radius: 5px;
+        }
+        .custom-player-controls input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 12px;
+            height: 12px;
+            background: #219653;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .custom-player-controls input[type="range"]::-moz-range-thumb {
+            width: 12px;
+            height: 12px;
+            background: #219653;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .song-info {
+            font-family: 'Roboto', sans-serif;
+            font-size: 0.9rem;
+            color: #fff;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            margin-top: 10px;
+            text-align: center;
+            animation: fadeIn 1s ease-in-out;
+        }
+        audio {
+            display: none;
+        }
+        /* Gallery Section */
+        .gallery .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .gallery .gallery-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+        .gallery .gallery-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+        .modal-content {
+            background-color: rgba(0, 0, 0, 0.8);
+            border: none;
+            border-radius: 10px;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        .modal-body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        .modal-body img {
+            max-width: 100%;
+            max-height: 70vh;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+        .modal-body .animal-name {
+            font-family: 'Roboto', sans-serif;
+            font-size: 1.2rem;
+            color: #fff;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            margin-bottom: 15px;
+        }
+        .modal .btn-close {
+            background-color: #27ae60;
+            color: #fff;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 1;
+            transition: background-color 0.3s ease;
+        }
+        .modal .btn-close:hover {
+            background-color: #219653;
+        }
+        /* Section Styling */
+        .section {
+            padding: 60px 20px;
+        }
+        .section h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+            color: #2c3e50;
+        }
+		
+        .about-content .row {
+            margin-bottom: 40px;
+            align-items: center;
+        }
+        .about-content p {
+            text-align: left;
+            line-height: 1.6;
+            animation: fadeIn 1s ease-in-out;
+        }
+        .about-content img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            animation: slideInRight 1s ease-in-out;
+        }
+        @keyframes slideInRight {
+            0% { transform: translateX(50px); opacity: 0; }
+            100% { transform: translateX(0); opacity: 1; }
+        }
+        .ways-to-listen .card {
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        .ways-to-listen .card:hover {
+            transform: translateY(-10px);
+        }
+        .ways-to-listen .bi {
+            font-size: 2.5rem;
+            color: #27ae60;
+            margin-bottom: 15px;
+            transition: transform 0.3s ease;
+        }
+        .ways-to-listen .card:hover .bi {
+            transform: scale(1.2);
+        }
+        .testimonial-card {
+            background: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        .testimonial-card:hover {
+            transform: translateY(-10px);
+        }
+		
+        .testimonial-card img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 15px;
+            display: block;
+            border: 2px solid #27ae60;
+            transition: transform 0.3s ease;
+        }
+        .testimonial-card:hover img {
+            transform: scale(1.1);
+        }
+        .testimonial-card p {
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+        .testimonial-card strong {
+            color: #2c3e50;
+        }
+        /* Footer */
+        .footer {
+		background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('images/footer.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 80vh;
+            display: flex;
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 20px 0;
+            text-align: center;
+        }
+        .btn-custom {
+            background-color: #27ae60;
+            color: #fff;
+            border: none;
+            transition: background-color 0.3s ease;
+        }
+        .btn-custom:hover {
+            background-color: #219653;
+        }
+    </style>
+</head>
+<body>
+    <!-- Transparent Navigation -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="#">www.forestgreenradio.ca</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">about</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#ways-to-listen">streams</a>
+                    </li>
+					<li class="nav-item">
+                        <a class="nav-link" href="#testimonials">testimonials</a>
+                    </li>
+					<li class="nav-item">
+                        <a class="nav-link" href="#gallery">gallery</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="mailto:forestgreenradio.ca">Contact</a>
+                    </li>
+                   
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="container">
+            <h1 class="hero-title"><img class="img-fluid"src="images/logomain.png" alt="banner"></h1>
+          
+            <div class="audio-player">
+               <div class="maple-leaf-circle">
+                    <img src="images/play.png" alt="speaker">
+                </div>
+                <div class="audio-player-content">
+                    
+                    <audio id="radioPlayer">
+                        <source src="http://stream.streamaudio.de:8000/forest-green" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                    <div class="custom-player-controls">
+                        <button id="playPauseBtn" onclick="togglePlay()"><i class="bi bi-play-fill"></i></button>
+                        <label for="volumeControl">Volume:</label>
+                        <input type="range" id="volumeControl" min="0" max="1" step="0.01" value="1">
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+        <div class="container">
+		
+		
+           
+            <div class="about-content">
+                <div class="row">
+                    <div class="col-md-6">
+					<h3 style="color:#139d7e">The Music</h3>
+                        <p>Energy flows where your intention goes and our intention is to bring you an inviting musical mix of Celtic, Cinematic, Chill, Ambient, Inspiration,  World and more, gathered from the four corners of the Earth, and broadcast to you each and every day in phone-friendly digital stereo.</p>
+        </div>
+                    <div class="col-md-6">
+                        <socialblock>
+                            <img src="images/station_music.jpg" alt="Serene Forest">
+                        </socialblock>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+					<h3 style="color:#139d7e">The Station</h3>
+                        <p><strong>Forest Green radio</strong> is an independently owned &amp; operated, Canadian licensed, commercial free, web-only radio station, streaming your way from our cottage garden studio, nestled along the Appalachian trail in Victoria County, New Brunswick, Canada.
+            </p></div>
+                    <div class="col-md-6">
+                        <socialblock>
+                            <img src="images/station_socan.jpg" alt="Appalachian Mountains">
+                        </socialblock>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                       <h3 style="color:#139d7e">The History</h3>
+				<strong>Forest Green radio</strong> was launched in the Spring of 2016 by Robert John, a retired Canadian broadcaster, who decided to continue his passion for radio, by creating a non-legacy style radio station that is low on chatter, pleasing to the ear, and streaming your way 24/7 in phone friendly digital stereo.
+            </div>
+                    <div class="col-md-6">
+                        <socialblock>
+                            <img src="images/station_history.jpg" alt="Vintage Radio">
+                        </socialblock>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ways to Listen Section -->
+    <section id="ways-to-listen" class="section ways-to-listen" style="background-color: #f0f4f8;">
+        <div class="container">
+		<p style="text-align:center;"><img class="img-fluid"src="images/aboutleaf.png" alt="banner"></p>
+            <h2 style="color:#139d7e">More ways to listen</h2>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <i class="bi bi-play-circle-fill"></i>
+                            <h5 class="card-title">Our Studio stream</h5>
+                            <p class="card-text">Listen directly from our website's Studio player.</p>
+                            <a href="#home" class="btn btn-custom">LIVE Now</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <i class="bi bi-speaker"></i>
+                            <h5 class="card-title">Direct IP</h5>
+                            <p class="card-text">Direct studio stream for Internet Radio devices.</p>
+                            <a href="http://stream.streamaudio.de:8000/forest-green" Target="_blank" class="btn btn-custom">Get the IP</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <i class="bi bi-phone"></i>
+                            <h5 class="card-title">TuneIn App</h5>
+                            <p class="card-text">Tune in via TuneIn's App from their website</p>
+                            <a href="http://tunein.com/radio/Forest-Green-Radio-s240651/" Target="_blank" class="btn btn-custom">TuneIn</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <i class="bi bi-display"></i>
+                            <h5 class="card-title">MyRadioTuner</h5>
+                            <p class="card-text">Enjoy Forest Green Radio's music from MyRadioApp's website</p>
+                            <a href="http://www.myradiotuner.com/customStationPreset.php?ID=22724" Target="_blank" class="btn btn-custom">Listen Now</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <i class="bi bi-globe"></i>
+                            <h5 class="card-title">Streema</h5>
+                            <p class="card-text">Listen to Forest Green Radio's live stream on Streema's website</p>
+                            <a href="https://streema.com/radios/Forest_Green_Radio"Target="_blank" class="btn btn-custom">Listen Now</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <i class="bi bi-broadcast"></i>
+                            <h5 class="card-title">Online Radio Box</h5>
+                            <p class="card-text">Listen to Forest Green radio from Online Radio Box website.</p>
+                            <a href="https://onlineradiobox.com/ca/forestgreen/?cs=ca.forestgreen&played=1"Target="_blank" class="btn btn-custom">Listen Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="section" style="background-color: #f0f4f8;">
+        <div class="container">
+		<p style="text-align:center;font-size: 2.5rem;color:#139d7e;"><img class="img-fluid"src="images/aboutleaf.png" alt="banner"></p>
+            <h2 style="color:#139d7e">Testimonials</h2>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="testimonial-card">
+                        <socialblock>
+                            <img src="images/spain.jpg" alt="Listener 1">
+                        </socialblock>
+                        <p>"I spend the day reading and relaxing. I love your music on Forest Green radio and sometimes I dream with it, another I can remember too the people that I love. I elevate to another world with dreams, and the sounds in harmony with nature."</p>
+                        <p><strong>- Manuel P., Listener</strong></p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="testimonial-card">
+                        <socialblock>
+                            <img src="images/florida.jpg" alt="Listener 2">
+                        </socialblock>
+                        <p>"I want to say, Thank You, for your great music format.  Your selections are refreshing and long overdue. Many thanks, and keep putting out the great music.  The world needs to hear the music you are playing.</span>
+                  "</p>
+                        <p><strong>- Bruce, Listener</strong></p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="testimonial-card">
+                        <socialblock>
+                            <img src="images/spain.jpg" alt="Listener 3">
+                        </socialblock>
+                        <p>"This station brings such calm to my day. The nature-inspired tunes are a true escape."</p>
+                        <p><strong>- Maria L., Listener</strong></p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="testimonial-card">
+                        <socialblock>
+                            <img src="images/florida.jpg" alt="Listener 4">
+                        </socialblock>
+                        <p>"Forest Green radio is a treasure. Listening to your station brings calm and clarity to my heart and mind.  I'm truly grateful, and I'm glad to have stumbled upon your station."</p>
+                        <p><strong>- Alex P., Listener</strong></p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="testimonial-card">
+                        <socialblock>
+                            <img src="images/spain.jpg" alt="Listener 5">
+                        </socialblock>
+                        <p>"Listening to this station feels like a walk in the woods. Pure serenity!"</p>
+                        <p><strong>- Pol Leurs., Listener</strong></p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="testimonial-card">
+                        <socialblock>
+                            <img src="images/florida.jpg" alt="Listener 6">
+                        </socialblock>
+                        <p>"Thank you. I'm sitting in my office with my headsets on listening to, you guessed it "Forest Green Radio". You are the best."</p>
+                        <p><strong>- Bob, Listener</strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="section gallery">
+        <div class="container">
+		<p style="text-align:center;font-size: 2.5rem;color:#139d7e"><i class="bi bi-camera2"></i></p>
+            <h2 style="color:#139d7e">Cottage Studio Gallery</h2>
+			<p style="text-align: center"><em>Some of the critters that drop by the Forest Green Cottage Studio</em></p>
+            <div class="row">
+                <div class="col-6 col-md-2-4 mb-4">
+                    <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" data-src="images/gallery/fawn.jpg" data-name="White-Tail Deer with fawn">
+                        <img src="images/gallery/fawn.jpg" alt="White-Tailed Fawn">
+                    </div>
+                </div>
+                <div class="col-6 col-md-2-4 mb-4">
+                    <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" data-src="images/gallery/chicadee.jpg" data-name="Black capped Chicadee">
+                        <img src="images/gallery/chicadee.jpg" alt="Chicadee">
+                    </div>
+                </div>
+                <div class="col-6 col-md-2-4 mb-4">
+                    <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" data-src="images/gallery/hummer.jpg" data-name="Ruby-Throated Hummingbird">
+                        <img src="images/gallery/hummer.jpg" alt="Hummingbird">
+                    </div>
+                </div>
+                <div class="col-6 col-md-2-4 mb-4">
+                    <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" data-src="images/gallery/hawk.jpg" data-name="Coopers Hawk">
+                        <img src="images/gallery/hawk.jpg" alt="Hawk">
+                    </div>
+                </div>
+                <div class="col-6 col-md-2-4 mb-4">
+                    <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" data-src="images/gallery/hummerMoth.jpg" data-name="Hummingbird Moth, Wild I know.">
+                        <img src="images/gallery/hummerMoth.jpg" alt="Moth">
+                    </div>
+                </div>
+                <div class="col-6 col-md-2-4 mb-4">
+                    <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" data-src="images/gallery/red.jpg" data-name="Red Squirrel">
+                        <img src="images/gallery/red.jpg" alt="Squirrel">
+                    </div>
+                </div>
+                <div class="col-6 col-md-2-4 mb-4">
+                    <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" data-src="images/gallery/morningdove.jpg" data-name="Morning Dove">
+                        <img src="images/gallery/morningdove.jpg" alt="Dove">
+                    </div>
+                </div>
+                <div class="col-6 col-md-2-4 mb-4">
+                    <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" data-src="images/gallery/buck.jpg" data-name="White-Tail Buck">
+                        <img src="images/gallery/buck.jpg" alt="Buck">
+                    </div>
+                </div>
+                <div class="col-6 col-md-2-4 mb-4">
+                    <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" data-src="images/gallery/turkey.jpg" data-name="Wild Turkey">
+                        <img src="images/gallery/turkey.jpg" alt="Wild Turkey">
+                    </div>
+                </div>
+                <div class="col-6 col-md-2-4 mb-4">
+                    <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" data-src="images/gallery/waxwing.jpg" data-name="Cedar Waxwing">
+                        <img src="images/gallery/waxwing.jpg" alt="Cedarwax wing">
+                    </div>
+                </div>
+				 <div class="col-6 col-md-2-4 mb-4">
+                    <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" data-src="images/gallery/pylatedwp.jpg" data-name="Pylated Woodpecker">
+                        <img src="images/gallery/pylatedwp.jpg" alt="Woodpecker">
+                    </div>
+                </div>
+				 <div class="col-6 col-md-2-4 mb-4">
+                    <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" data-src="images/gallery/bluejay.jpg" data-name="Bluejay">
+                        <img src="images/gallery/bluejay.jpg" alt="Bluejay">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal for Full-View Image -->
+        <div class="modal fade" id="galleryModal" tabindex="-1" aria-labelledby="galleryModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <img id="modalImage" src="" alt="Full-size animal image">
+                        <div class="animal-name" id="modalAnimalName"></div>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                            <i class="bi bi-Close-lg"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact"class="footer">
+        <div class="container">
+		<img class="img-fluid" src="images/logomain.png" alt="Branding">
+            <p>© 2026 Forest Green Radio. All rights reserved.</p>
+			 <p>Thanks for listening</p>
+			<p><a href="mailto:music@forestgreenradio.ca" class="btn btn-custom">Email</a></p>
+           
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS and Custom Script -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Custom Audio Player Controls
+        const audio = document.getElementById('radioPlayer');
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        const playPauseIcon = playPauseBtn.querySelector('i');
+        const volumeControl = document.getElementById('volumeControl');
+        
+        let isPlaying = false;
+
+        function togglePlay() {
+            if (isPlaying) {
+                audio.pause();
+                playPauseIcon.classList.remove('bi-pause-fill');
+                playPauseIcon.classList.add('bi-play-fill');
+                isPlaying = false;
+            } else {
+                const playPromise = audio.play();
+                if (playPromise !== undefined) {
+                    playPromise
+                        .then(() => {
+                            playPauseIcon.classList.remove('bi-play-fill');
+                            playPauseIcon.classList.add('bi-pause-fill');
+                            isPlaying = true;
+                        })
+                        .catch(error => {
+                            console.error('Playback failed:', error);
+                            playPauseIcon.classList.remove('bi-pause-fill');
+                            playPauseIcon.classList.add('bi-play-fill');
+                            isPlaying = false;
+                        });
+                }
+            }
+        }
+
+        volumeControl.addEventListener('input', () => {
+            audio.volume = volumeControl.value;
+        });
+
+        // Update button icon based on audio state
+        audio.addEventListener('play', () => {
+            playPauseIcon.classList.remove('bi-play-fill');
+            playPauseIcon.classList.add('bi-pause-fill');
+            isPlaying = true;
+        });
+        audio.addEventListener('pause', () => {
+            playPauseIcon.classList.remove('bi-pause-fill');
+            playPauseIcon.classList.add('bi-play-fill');
+            isPlaying = false;
+        });
+
+        // Gallery Modal Handling
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        const modalImage = document.getElementById('modalImage');
+        const modalAnimalName = document.getElementById('modalAnimalName');
+
+        galleryItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const src = item.getAttribute('data-src');
+                const name = item.getAttribute('data-name');
+                modalImage.src = src;
+                modalImage.alt = name;
+                modalAnimalName.textContent = name;
+            });
+        });
+
+        // Navbar collapse and active section highlighting
+        const navbarCollapse = document.getElementById('navbarNav');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const collapse = new bootstrap.Collapse(navbarCollapse, { toggle: false });
+
+        function isElementInViewport(el) {
+            const rect = el.getBoundingClientRect();
+            return (
+                rect.top >= 0 &&
+                rect.top <= (window.innerHeight || document.documentElement.clientHeight) / 2
+            );
+        }
+
+        function updateActiveNavLink() {
+            const sections = ['home', 'about', 'ways-to-listen', 'testimonials', 'gallery'];
+            let activeSection = 'home';
+
+            // Check if in Hero section (top of page)
+            if (window.scrollY <= 50) {
+                activeSection = 'home';
+            } else {
+                // Find the section currently in view
+                sections.forEach(sectionId => {
+                    const section = document.getElementById(sectionId);
+                    if (section && isElementInViewport(section)) {
+                        activeSection = sectionId;
+                    }
+                });
+            }
+
+            // Update active class on nav links
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${activeSection}`) {
+                    link.classList.add('active');
+                }
+            });
+
+            // Update navbar background
+            const navbar = document.querySelector('.navbar');
+            if (activeSection === 'home' && window.scrollY <= 50) {
+                navbar.classList.remove('scrolled');
+            } else {
+                navbar.classList.add('scrolled');
+            }
+        }
+
+        // Handle nav link clicks
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                const targetId = link.getAttribute('href').substring(1);
+                const targetSection = document.getElementById(targetId);
+
+                if (targetSection) {
+                    // Scroll to section smoothly
+                    targetSection.scrollIntoView({ behavior: 'smooth' });
+
+                    // Check if section is in view and collapse navbar
+                    const checkInView = () => {
+                        if (isElementInViewport(targetSection)) {
+                            collapse.hide();
+                            window.removeEventListener('scroll', checkInView);
+                        }
+                    };
+
+                    window.addEventListener('scroll', checkInView);
+                    // Fallback: collapse after 1 second
+                    setTimeout(() => {
+                        collapse.hide();
+                        window.removeEventListener('scroll', checkInView);
+                    }, 1000);
+
+                    // Update active link immediately
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Update active nav link and navbar background on scroll
+        window.addEventListener('scroll', updateActiveNavLink);
+
+        // Initialize on page load
+        window.addEventListener('load', updateActiveNavLink);
+    </script>
+</body>
+</html>
