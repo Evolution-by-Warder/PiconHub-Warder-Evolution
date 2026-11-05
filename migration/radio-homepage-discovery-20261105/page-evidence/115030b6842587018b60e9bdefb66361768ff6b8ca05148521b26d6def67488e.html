@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="es" oncontextmenu="return false" onkeydown="return false">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Escucha la radio del momento acá! ¡Streaming para tu radio!">
+  <meta name="author" content="EstudiosMAX.com">
+  <meta property="og:image" content="https://bandnews895.esenvivo.com.ar/imagenes/fb.jpg"/>
+  <meta property="og:title" content=":: FM BAND NEWS 89.5 ::"/>
+  <meta property="fb:app_id" content="799268223443878" />
+<meta property="fb:admins" content="100007529224026" />
+  <link rel="icon" href="https://bandnews895.esenvivo.com.ar/imagenes/favicon.png" sizes="32x32" />
+	<link rel="icon" href="https://bandnews895.esenvivo.com.ar/imagenes/favicon.png" sizes="192x192" />
+	<link rel="apple-touch-icon-precomposed" href="https://bandnews895.esenvivo.com.ar/imagenes/favicon.png" />
+
+  <title>FM BAND NEWS 89.5</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="https://bandnews895.esenvivo.com.ar/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="https://bandnews895.esenvivo.com.ar/css/flaticon.css" rel="stylesheet">
+  <link href="https://bandnews895.esenvivo.com.ar/css/socialsider-v1.2.1.css" rel="stylesheet">
+  <link href="https://bandnews895.esenvivo.com.ar/css/compartir.css" rel="stylesheet">
+  <link href="https://bandnews895.esenvivo.com.ar/css/full-width-pics.css" rel="stylesheet">
+  <link href="https://bandnews895.esenvivo.com.ar/repro2/css/myCast.min.css" type="text/css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+  <script src="https://bandnews895.esenvivo.com.ar/css/compartir.js"></script>
+	<script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
+	
+	
+<!--	<script id='sonic_js' data-port='8566' src='https://s1.suradioonline.com/cp/widgets.js?r=32'></script> -->
+
+
+</head>
+<style>
+.btn-dark.focus, .btn-dark:focus {
+    color: var(--bkg-color);
+    background-color: var(--text-color);
+    border-color: transparent !important;
+    box-shadow: 0 0 0 0.2rem transparent;
+}
+.btn-dark {
+    color: var(--bkg-color);
+    background-color:  var(--text-color);
+    border-color: transparent !important;
+    box-shadow: 0 0 0 0.2rem transparent;
+}
+.sombra {
+    text-shadow: 4px 2px 7px black;
+    font-weight: bold;
+    font-size: 3.5rem;
+    line-height: 1.2;
+}
+.sombra2 {
+        text-shadow: 4px 2px 7px black;
+        font-weight: bold;
+        font-size: 1.5rem;
+        line-height: 1.2;
+      }
+.card {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff0;
+    background-clip: border-box;
+    border: 0px solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+}
+.bg-pink {
+	background-color: #e91e63!important;
+	
+}
+.bg-oscuro {
+	
+	background-color: var(--text-color);
+	
+}
+.bg-oscuro2 {
+			background-color: #525151 !important;
+			
+		}
+.pb-5, .py-5 {
+    padding-bottom: 0PX !important;
+}
+</style>
+<style>
+body {
+  --text-color: #222;
+  --bkg-color: #fff;
+  --noticias-color: #eee;
+}
+body.dark-theme {
+  --text-color: #fff;
+  --bkg-color: #000000;
+  --text2-color: #d2cfcf;
+  --noticias-color: #525151;
+}
+
+@media (prefers-color-scheme: dark) {
+  /* defaults to dark theme */
+  body {
+    --text-color: #fff;
+    --bkg-color: #000000;
+    --text2-color: #d2cfcf;
+    --noticias-color: #525151;
+  }
+  body.light-theme {
+    --text-color: #222;
+    --bkg-color: #fff;
+    --noticias-color: #eee;
+  }
+}
+
+* {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  background: var(--bkg-color);
+}
+
+h1,h2
+p {
+  color: var(--text-color);
+}
+h4
+{
+  color: var(--text-color);
+}
+h1
+{
+  color: var(--text-color);
+}
+b
+{
+  color: var(--text-color);
+}
+h2
+{
+  color: var(--text-color);
+}
+p
+{
+  color: var(--text2-color);
+}
+hr
+{
+  color: var(--text2-color);
+}
+.noticias
+{
+  margin: 0 0.5em 2em;
+  background-color: var(--noticias-color);
+  padding: 1.5em;
+  font-size: .9em;
+  border-radius: 1.0em;
+  box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 35%) !important;
+  
+}
+.chat {
+    margin: 0 0.5em 2em;
+    background-color: #eee;
+    padding: 1.5em;
+    font-size: .9em;
+    border-radius: 0.5em;
+    box-shadow: 0 0 0 0.2rem #7575758f;
+}
+.badge {
+    
+    padding: 0.55em .6em;
+    font-size: 100%;
+}
+.album-cover {
+    border-radius: 5px;
+    box-shadow: 0 0 0 0.2rem #fff;
+}
+.ocultar-noticias {
+   
+}
+.ir-arriba {
+    display: none;
+    background: var(--text-color);
+    color: var(--bkg-color);
+    position: fixed;
+    bottom: 43px;
+    right: 20px;
+    z-index: 1000;
+    width: 54px;
+    height: 54px;
+    font-size: 25px;
+    line-height: 54px;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 50%;
+    -webkit-transition: all 300ms ease;
+    -o-transition: all 300ms ease;
+    transition: all 300ms ease;
+    -webkit-transform: rotate( 
+354deg);
+    -ms-transform: rotate(-90deg);
+    transform: rotate( 
+360deg);
+}
+.btn-twitter {
+	  background: #00ACEE;
+	  border-radius: 0;
+	  color: #fff;
+	  border-width: 1px;
+	  border-style: solid;
+	  border-color: #0075a2;
+	  border-radius: .25rem;
+	}
+	.btn-twitter:link, .btn-twitter:visited {
+	  color: #fff; 
+	}
+	.btn-twitter:active, .btn-twitter:hover {
+	  background: #5bb6fb;
+	  color: #fff; 
+	}
+.abrir-chat {
+	  margin-top: -70px;
+	  
+	}
+@media (max-width:600px) {.container { width: 100%;padding-right: 18px;padding-left: 18px;margin-right: auto;margin-left: auto;}.noticias { PADDING-LEFT: 15PX;MARGIN-LEFT: 7PX;MARGIN-RIGHT: -12PX;}
+.re-movil { width: 310px;padding-right: 18px;padding-left: 18px;margin-right: auto;margin-left: auto;}.estamos-h1 {padding-right: 18px;padding-left: 25px;margin-right: auto;margin-left: auto;font-size: 29px;}
+.badge { font-size: 100%;display: block;padding: .375rem .75rem;margin-right: 20px;margin-left: 20px;PADDING-LEFT: 15PX;}hr { margin-right: 10px;margin-left: 30px;}.h2, h2 { font-size: 1.5rem;margin-right: 20px;margin-left: 20px;text-align: center;}
+.lead {font-size: 1.30rem;font-weight: 300;text-align: center;}.marquee-movil {margin-left: 30px;margin-right: 30px;}.pt-5, .py-5 { padding-top: 1.5rem!important; }.pb-5, .py-5 { padding-bottom: 2.5rem!important; }#botonOn { margin-top: 1rem !important; }
+}
+
+@media (max-width:500px) {.chat-movil {width: 335px;padding-right: 0px;padding-left: 0px;margin-left: auto;}.estamos-h1 {padding-right: 18px;padding-left: 25px;margin-right: auto;margin-left: auto;font-size: 29px;margin-top: -75px;}
+.sombra {font-size: 2.5rem;padding: 0 2.7rem;}.sombra2 {font-size: 1.2rem;padding: 0 2.7rem;}.ir-arriba {bottom: 85px;right: 6px;font-size: 23px;height: 40px;width: 40px;line-height: 40px;}.h5, h5 {font-size: 1.0rem;}
+.abrir-chat {margin-top: -100px;}.navbar-brand {font-size: 1.1rem;}.btn-group-sm>.btn, .btn-sm { margin-top: 0px!important;}.bg-oscuro { height: 60px;}
+}
+
+@media (max-width:400px) {.chat-movil {width: 291px !important;}.navbar-brand {font-size: .9rem;}
+    
+}
+</style>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-oscuro fixed-top">
+    <div class="container text-white">
+      <a class="navbar-brand text-white" href="https://clientes.estudiosmax.com/store/"><img src="https://bandnews895.esenvivo.com.ar/imagenes/rec.gif" width="15px" height="auto"> <b style="color: var(--bkg-color);">FM BAND NEWS 89.5</b></a>
+     <p align="right" style="margin-bottom:0px">
+	 
+	 
+				
+				<button class="btn btn-danger text-white btn-sm" style="border-radius: 18px; margin-top:4px;"><i class="fa fa-microphone"></i><b style="color: white;"> EN VIVO</b></button>	
+		</p>
+      
+    </div>
+  </nav>
+  
+  
+  <!-- navigation bottom -->
+  <nav class="navbar fixed-bottom navbar-dark bg-oscuro2 d-block d-sm-none" id="mainNav">
+	    <div class="container" style="margin-top:15px;align-items: center;justify-content:center;">
+	     
+	        <ul class="col-md-12">
+			
+			<a href="https://api.whatsapp.com/send/?phone=5493758438253&text=Hola! escuche tu radio en https://bandnews895.esenvivo.com.ar/" class="btn btn-success text-white" style="width: 250px;border-radius: 15px;" target="_blank"><i class="fa fa-whatsapp"></i><b style="COLOR: #FFF;"> WHATSAPPEANOS</b></a>
+			
+			</ul>
+			
+	    </div>
+	</nav>
+	
+	<!-- fin navigation bottom -->
+
+  <!-- Header - set the background image for the header in the line below -->
+  <header class="py-5 bg-image-full" style="background-image: url('https://bandnews895.esenvivo.com.ar/imagenes/2863786.jpg');padding-bottom: 3rem!important;"><br>
+    <img class="img-fluid d-block mx-auto" src="https://bandnews895.esenvivo.com.ar/imagenes/logo.jpg" width="260px" height="auto" alt="" style="background-color: #fff;border-radius: 50%;-moz-box-sizing: border-box;box-sizing: border-box;height: 100%;overflow: hidden;z-index: 1;padding: 10px;margin: 0 auto;max-width: 220px;position: relative;text-align: center;">
+	<center>
+  <h1 class="display-3 text-white sombra">FM BAND NEWS 89.5</h1>
+  <p class="text-white sombra2">EN VIVO LAS 24 HORAS</p>
+  </center>
+  </header>
+
+  <!-- Content section -->
+  <section class="py-5">
+      <!-- Section Inicio Redes -->
+      <div id="redesfijas" class="redesfijas"><div class="socialsider socialsider_left_top socialsider_bgdark_white socialsider_colorize socialsider_radius socialsider_spacer socialsider_opacity socialsider_hidden ">
+			<ul><li><a target="_blank" data-socialsider="facebook" href="https://www.facebook.com/Bandnews895" title="Facebook"></a></li><li><a target="_blank" data-socialsider="whatsapp" href="https://api.whatsapp.com/send?phone=5493758438253" title="WhatsApp"></a></li>							</ul>
+		</div></div>      <!-- Section Finalizo Redes -->
+    <div class="container" style="margin-top: -50px;">
+	<p></p>	<p align="right"><button class="btn-toggle btn btn-dark" id="botonOn" onclick="FbotonOn()">Modo Oscuro </button></p>
+	
+	
+      <h1><center>FM BAND NEWS 89.5</center></h1>
+      
+          <!-- SIN OYENTES INICIO -->
+	<center class="re-movil">
+	
+	<div class="myCast" id="stream3"></div>
+
+	<br>
+	<!-- <p><b>Oyentes en linea: <div id='sonic_listeners' class="btn btn-primary"></div></b></p> -->
+	<p><b class="btn btn-primary">	
+Visitas Actuales: 3061 <i class="fa fa-users" aria-hidden="true"></i><hr></b></p>
+	</center>
+	<!-- SIN OYENTES FIN -->
+	<p></p>	</div></div>
+  </section>
+
+    <!-- Content section
+  <section class="py-5 text-center">
+	<button class="btn btn-twitter accordion-chat abrir-chat" data-toggle="collapse" href="#chat-fb" role="button" aria-expanded="TRUE" aria-controls="chat-fb" style="display:none"><h6><span class="fa fa-comments fa-sm"> CERRAR CHAT ONLINE AQUI </span></h6></button>
+<div class="panel">      
+<div>
+    <BR>
+    <div class="container collapse show" id="chat-fb">
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v12.0&appId=799268223443878&autoLogAppEvents=1" nonce="hxTQGmCK"></script>
+
+<div class="chat chat-movil">
+<br><div id="tab-message" class="tab" style="background: rgb(237, 237, 237); min-height: 450px; display: block; border-radius: 10px;">
+<CENTER><h2><b style="color:#000000 ;font-family:Uni-Sans-Thin; "><i class="fa fa-weixin;"></i> Dejanos tu mensaje</b></h2>
+<div class="fb-comments" data-href="https://bandnews895.esenvivo.com.ar/" data-numposts="5" data-width="100%" data-order-by="reverse_time" ></div></CENTER>	</div>
+		</div></div></div>
+
+
+FIN CHAT MULTIEMISORA
+
+    
+	  <hr> -->
+	  
+	<!-- facebook comments 
+	<br>
+      <a class="btn btn-outline-success d-block d-sm-none" href="https://wa.me/5493758438253" target="_blank"><i class="fa fa-whatsapp"></i> Envianos tu Whatsapp</a>
+    <br>-->
+		
+		<center>
+			<!-- ShareThis BEGIN -->
+<div class="sharethis-inline-share-buttons st-center st-lang-es st-has-labels  st-inline-share-buttons st-animated" id="st-1" style="PADDING-LEFT: 20PX;"><div class="st-total st-hidden">
+  <span class="st-label"></span>
+  <span class="st-shares">
+    Veces compartido
+  </span>
+</div><div class="st-btn st-first" data-network="facebook" style="display: inline-block;margin-bottom: 10px;">
+    <a href="javascript: void(0);" onclick="window.open('https://www.facebook.com/sharer/sharer.php?t=%3A%3A%20FM BAND NEWS 89.5%2089.1%20%3A%3A&u=https%3A%2F%2Fbandnews895.esenvivo.com.ar%2F','ventanafb', 'toolbar=0, status=0, width=650, height=450');" style="color: #fcfcfd;text-decoration: none;">
+  <img alt="facebook sharing button" src="https://platform-cdn.sharethis.com/img/facebook.svg">
+  <span class="st-label">Compartir</span></a>
+</div><div class="st-btn " data-network="twitter" style="display: inline-block;margin-bottom: 10px;">
+    <a href="javascript: void(0);" onclick="window.open('https://twitter.com/intent/tweet?text=%3A%3A%20FM BAND NEWS 89.5%2089.1%20%3A%3A&url=https%3A%2F%2Fbandnews895.esenvivo.com.ar%2F','ventanatw', 'toolbar=0, status=0, width=650, height=450');" style="color: #fcfcfd;text-decoration: none;">
+  <img alt="twitter sharing button" src="https://platform-cdn.sharethis.com/img/twitter.svg">
+  <span class="st-label">Twittear</span></a>
+</div><div class="st-btn " data-network="messenger" style="display: inline-block;margin-bottom: 10px;">
+    <a href="javascript: void(0);" onclick="window.open('https://www.facebook.com/dialog/send?link=https%3A%2F%2Fbandnews895.esenvivo.com.ar%2F&app_id=291494419107518&redirect_uri=https%3A%2F%2Fwww.sharethis.com','ventanams', 'toolbar=0, status=0, width=800, height=450');" style="color: #fcfcfd;text-decoration: none;">
+  <img alt="messenger sharing button" src="https://platform-cdn.sharethis.com/img/messenger.svg">
+  <span class="st-label">Compartir</span></a>
+</div><div class="st-btn " data-network="whatsapp" style="display: inline-block;margin-bottom: 10px;">
+    <a href="javascript: void(0);" onclick="window.open('whatsapp://send?text=FM BAND NEWS 89.5%20%0A%0A%20https%3A%2F%2Fbandnews895.esenvivo.com.ar%2F','ventanams', 'toolbar=0, status=0, width=800, height=450');" rel="noopener nofollow" style="color: #fcfcfd;text-decoration: none;">
+  <img alt="whatsapp sharing button" src="https://platform-cdn.sharethis.com/img/whatsapp.svg">
+  <span class="st-label">Compartir</span></a>
+</div><div class="st-btn " data-network="telegram" style="display: inline-block;margin-bottom: 10px;">
+    <a href="javascript: void(0);" onclick="window.open('https://t.me/share/url?url=https%3A%2F%2Fbandnews895.esenvivo.com.ar%2F&text=%3A%3A%20FM BAND NEWS 89.5%2089.1%20%3A%3A&to=','ventanams', 'toolbar=0, status=0, width=800, height=350');" rel="noopener nofollow" style="color: #fcfcfd;text-decoration: none;">
+  <img alt="telegram sharing button" src="https://platform-cdn.sharethis.com/img/telegram.svg" style="height: 18px;width: auto;">
+  <span class="st-label">Compartir</span></a>
+</div></div>
+<!-- ShareThis END -->
+			<br><br></center>
+		
+	</div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-5 bg-oscuro2">
+    <div class="container">
+      <p class="m-0 text-center text-white">
+	  <a href="https://clientes.estudiosmax.com/store/" target="_blank"><img src="https://bandnews895.esenvivo.com.ar/imagenes/clearpage.png" width="290px" height="auto" style="MARGIN-LEFT: 23PX;"></a><br><br>
+	  </p>
+	  <center>
+	      <a href="https://api.whatsapp.com/send/?phone=5491127607465&text=Hola! escuché a FM BAND NEWS 89.5 y quiero tener mi propia radio por Internet..." class="btn btn-success text-white" style="width: 250px;border-radius: 15px;" target="_blank"><i class="fa fa-cog"></i><b style="COLOR: #FFF;"> CREAR MI RADIO ONLINE</b></a>
+			
+			<br><br></center>
+    <br>
+	</div>
+    <!-- /.container -->
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="https://bandnews895.esenvivo.com.ar/vendor/jquery/jquery.min.js"></script>
+  <script src="https://bandnews895.esenvivo.com.ar/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<script src="https://bandnews895.esenvivo.com.ar/repro2/js/myCast.min.js"></script>
+<script src="https://bandnews895.esenvivo.com.ar/repro1/js/icast.js"></script>
+<!-- REPRO 1 <script> 
+    $("#stream1").icast({
+        URL: "https://streaming0.shockmedia.com.ar:10486",
+		logo: "https://bandnews895.esenvivo.com.ar/imagenes/logo.jpg",
+        version: "2",
+		autoplay: true
+    })
+</script> -->
+<script>
+$("#stream3").myCast({
+    URL: "https://streaming01.shockmedia.com.ar:10486",
+    version: "2",
+    bg: "black",
+	artwork: false,
+	logo: "https://bandnews895.esenvivo.com.ar/imagenes/logo.jpg",
+    accent: "pink",
+	blur: true,
+	autoplay:true,
+	vertical_layout: false
+});
+document.getElementsByClassName("track-title").innerHTML = "Haga click para comenzar a reproducir";
+document.getElementsByClassName("artist-name").innerHTML = "Buena Música las 24 horas!";
+
+</script>
+<script>
+const btn = document.querySelector(".btn-toggle");
+const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)");
+
+const currentTheme = localStorage.getItem("theme");
+if (currentTheme == "dark") {
+  document.body.classList.toggle("dark-theme");
+} else if (currentTheme == "light") {
+  document.body.classList.toggle("light-theme");
+}
+
+btn.addEventListener("click", function () {
+  if (prefersDarkScheme.matches) {
+    document.body.classList.toggle("light-theme");
+    var theme = document.body.classList.contains("light-theme")
+      ? "light"
+      : "dark";
+  } else {
+    document.body.classList.toggle("dark-theme");
+    var theme = document.body.classList.contains("dark-theme")
+      ? "dark"
+      : "light";
+  }
+  localStorage.setItem("theme", theme);
+});
+</script>
+<script>
+	function getCookie(cname) {
+		let name = cname + "=";
+		let decodedCookie = decodeURIComponent(document.cookie);
+		let ca = decodedCookie.split(';');
+		for(let i = 0; i < ca.length; i++) {
+			let c = ca[i];
+			while (c.charAt(0) == ' ') {
+			  	c = c.substring(1);
+			}
+			if (c.indexOf(name) == 0) {
+			  	return c.substring(name.length, c.length);
+			}
+		}
+		return "";
+	}
+	if(getCookie('valor') != 'undefined'){
+		var uno = document.getElementById('botonOn');
+		getCookie('valor')=='false'?uno.innerHTML = "<i class='fa fa-moon-o'></i> Modo Oscuro":uno.innerHTML = "<i class='fa fa-sun-o'></i> Modo Claro";
+	}
+	function FbotonOn() {
+		valor = getCookie('valor') == 'undefined'? 'true':getCookie('valor');
+	  	var uno = document.getElementById('botonOn');
+	  	valor=='true'?uno.innerHTML = "<i class='fa fa-moon-o'></i> Modo Oscuro":uno.innerHTML = "<i class='fa fa-sun-o'></i> Modo Claro";
+	  	valor = valor=='true'? 'false' : 'true';
+	  	document.cookie = "valor=" + valor;
+	}
+	
+	
+	
+</script>
+<script>
+$(document).ready(function(){
+  $("#chat-fb").on("hide.bs.collapse", function(){
+    $(".accordion-chat").html('<h5><span class="fa fa-comments fa-lg "> ABRIR CHAT ONLINE AQUI </span></h5>');
+  });
+  $("#chat-fb").on("show.bs.collapse", function(){
+    $(".accordion-chat").html('<h5><span class="fa fa-comments fa-lg "> CERRAR CHAT ONLINE AQUI </span></h5>');
+  });
+});
+</script>
+<script>
+$(document).ready(function(){
+  $("#collapseExample").on("hide.bs.collapse", function(){
+    $(".ocultar-noticias").html('<i class="fa fa-caret-square-o-down" aria-hidden="true"></i> Click para mostrar noticias');
+  });
+  $("#collapseExample").on("show.bs.collapse", function(){
+    $(".ocultar-noticias").html('<i class="fa fa-caret-square-o-up" aria-hidden="true"></i> Click para ocultar noticias');
+  });
+});
+</script>
+<script>
+			$(document).ready(function() {
+
+				$('.ir-arriba').click(function() {
+					$('body, html').animate({
+						scrollTop : '0px'
+					}, 300);
+				});
+
+				$(window).scroll(function() {
+					if ($(this).scrollTop() > 0) {
+						$('.ir-arriba').slideDown(300);
+					} else {
+						$('.ir-arriba').slideUp(300);
+					}
+				});
+
+			});
+		</script>
+
+<span> <i class="ir-arriba fa fa-arrow-up" aria-hidden="true"></i> </span>
+</body>
+<script type="text/javascript">
+$(document).ready(function () {
+    //Disable cut copy paste
+    $(document).bind('cut copy paste', function (e) {
+        e.preventDefault();
+    });
+     
+    //Disable mouse right click
+    $(document).on("contextmenu",function(e){
+        return false;
+    });
+});
+window.frames["fb-root"].contentDocument.oncontextmenu = function(){
+ return false; 
+};
+</script>
+</html>
