@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Namoro Web Rádio - A trilha sonora para o seu romance</title>
+	
+	<!-- Validação da Plataforma Lomadee -->
+    <meta name="lomadee" content="2324685" />
+    
+    <meta name="description" content="Rádio online de música romântica e flashbacks dos anos 70, 80 e 90. Ouça a Namoro Web Rádio em Itaberaba, Chapada Diamantina e Centro Norte baiano!">
+    <meta name="keywords" content="namoro web rádio, rádio namoro, rádio flashback, rádio de música romântica, ouvir flashbacks anos 70 80 90, músicas românticas antigas, rádio de streaming romântica, rádio online flashback, rádio para casais apaixonados, melhores canções românticas, rádio online itaberaba ba, rádio centro norte baiano, rádio chapada diamantina, piemonte do paraguaçu web rádio, piemonte da diamantina, portal do sertão, bacia do jacuípe, irecê rádio online, emissora de streaming bahia, Namoro Web Rádio no RadiosNet, Namoro no OnlineRadioBox, MyTuner Namoro Web Rádio, agregadores de rádio, aplicativos de rádio online">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://www.namorowebradio.com.br/">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.namorowebradio.com.br/">
+    <meta property="og:title" content="Namoro Web Rádio - A trilha sonora para o seu romance">
+    <meta property="og:description" content="Rádio online de música romântica e flashbacks dos anos 70, 80 e 90. Ouça a Namoro Web Rádio em Itaberaba, Chapada Diamantina e Centro Norte baiano!">
+    <meta property="og:image" content="logo-namoro-web-radio.png">
+
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://www.namorowebradio.com.br/">
+    <meta property="twitter:title" content="Namoro Web Rádio - A trilha sonora para o seu romance">
+    <meta property="twitter:description" content="Rádio online de música romântica e flashbacks dos anos 70, 80 e 90. Ouça a Namoro Web Rádio em Itaberaba, Chapada Diamantina e Centro Norte baiano!">
+    <meta property="twitter:image" content="logo-namoro-web-radio.png">
+
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <style>
+        /* --- CONFIGURAÇÕES GERAIS --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Outfit', sans-serif; color: #F0F0F0; background: url('Namoro Web Rádio - BG.png') center/cover no-repeat fixed; background-color: #5a101d; min-height: 100vh; display: flex; flex-direction: column; align-items: center; overflow-x: hidden; }
+
+        /* --- NOTAS MUSICAIS FLUTUANTES --- */
+        .floating-notes { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; overflow: hidden; }
+        .floating-notes i { position: absolute; bottom: -50px; color: rgba(244, 208, 104, 0.45); filter: drop-shadow(0 0 8px rgba(244, 208, 104, 0.6)); left: var(--x); font-size: calc(1.5rem * var(--s)); animation: floatUp 15s linear infinite; animation-delay: var(--d); }
+        @keyframes floatUp { 0% { transform: translateY(0) rotate(0deg); opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; } }
+
+        /* --- BARRA DE NOTÍCIAS SUPERIOR --- */
+        .top-news-bar { width: 100%; background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255, 255, 255, 0.05); padding: 12px 0; position: sticky; top: 0; z-index: 100; }
+        .news-links { display: flex; justify-content: center; gap: 25px; list-style: none; flex-wrap: wrap; padding: 0 15px; }
+        .news-links a { color: #F0F0F0; text-decoration: none; font-size: 0.9rem; font-weight: 300; display: flex; align-items: center; gap: 6px; transition: all 0.3s ease; }
+        .news-links a i { font-size: 1.2rem; color: #F4D068; transition: all 0.3s ease; }
+        .news-links a:hover { color: #FFF1B8; text-shadow: 0 0 8px rgba(244, 208, 104, 0.5); }
+        .news-links a:hover i { color: #FFF1B8; filter: drop-shadow(0 0 5px #F4D068); }
+
+        /* --- LOGO PULSANTE E SLOGAN --- */
+        .header-section { margin-top: 20px; text-align: center; z-index: 10; position: relative; padding: 0 20px; }
+        .logo { width: 210px; height: auto; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.5)); animation: heartbeat 2s infinite; margin-bottom: -10px; }
+        @keyframes heartbeat { 0% { transform: scale(1); } 10% { transform: scale(1.04); } 20% { transform: scale(1); } 30% { transform: scale(1.04); } 40% { transform: scale(1); } 100% { transform: scale(1); } }
+        .slogan { font-family: 'Great Vibes', cursive; font-size: 2.2rem; color: #F4D068; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); letter-spacing: 1px; margin-bottom: 30px; }
+
+        /* --- CLASSE REUTILIZÁVEL PARA OS MÓDULOS DE VIDRO --- */
+        .glass-module {
+            background: rgba(10, 20, 45, 0.65);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(244, 208, 104, 0.25);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+            width: 100%;
+        }
+
+        /* --- PADRONIZAÇÃO DE TÍTULOS DOS MÓDULOS --- */
+        .module-header { font-size: 1.1rem; font-weight: 600; color: #F4D068; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 8px; width: 100%; }
+
+        /* --- GRID PRINCIPAL (DUAS COLUNAS COM ALTURAS ALINHADAS) --- */
+        .dashboard-container {
+            position: relative; z-index: 10; width: 100%; max-width: 1100px;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 25px; 
+            align-items: stretch;
+            padding: 0 20px 20px 20px;
+        }
+
+        .dashboard-column { display: flex; flex-direction: column; gap: 25px; height: 100%; }
+
+        /* ================= COLUNA ESQUERDA ================= */
+        
+        .unified-control-module { display: flex; flex-direction: column; gap: 20px; }
+
+        .now-playing-content { display: flex; gap: 20px; align-items: center; }
+        
+        /* Adicionado cursor de clique e efeito de hover na imagem da música */
+        .artist-img { width: 110px; height: 110px; border-radius: 12px; object-fit: cover; border: 2px solid #F4D068; box-shadow: 0 5px 15px rgba(0,0,0,0.5); cursor: pointer; transition: transform 0.3s ease; }
+        .artist-img:hover { transform: scale(1.05); }
+        
+        .track-info h3 { font-size: 1.3rem; color: #FFF; margin-bottom: 5px; }
+        .track-info p { font-size: 1.05rem; color: #F4D068; }
+
+        /* PLAYER AZURACAST (NOVO PREENCHIMENTO E BORDA DOURADA) */
+        .player-wrapper { 
+            width: 100%; overflow: hidden; border-radius: 12px; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3); background: #590c14; 
+            border: 2px solid #F4D068;
+            padding: 5px 15px; /* Adiciona respiro embaixo e afasta o play da lateral */
+            display: flex; align-items: center; justify-content: center;
+        }
+        .player-wrapper iframe { 
+            width: 100% !important; 
+            height: 95px !important; border: 0; display: block; 
+        }
+
+        .locutor-card { display: flex; align-items: center; gap: 15px; background: rgba(255, 255, 255, 0.05); padding: 12px 18px; border-radius: 12px; border-left: 4px solid #F4D068; }
+        .locutor-avatar { width: 45px; height: 45px; border-radius: 50%; background: #F4D068; display: flex; align-items: center; justify-content: center; color: #5a101d; font-size: 1.5rem; }
+        .locutor-info strong { color: #F4D068; font-size: 0.95rem; text-transform: uppercase; }
+        .locutor-info p { font-size: 0.85rem; color: #ccc; margin-top: 3px; }
+
+        /* CONTATOS */
+        .contacts-list { display: flex; flex-direction: column; gap: 15px; }
+        .contact-item { display: flex; align-items: center; gap: 12px; color: #F0F0F0; text-decoration: none; transition: all 0.3s ease; }
+        .contact-icon { display: flex; align-items: center; justify-content: center; width: 38px; height: 38px; border-radius: 10px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(244, 208, 104, 0.2); font-size: 1.3rem; color: #F4D068; transition: all 0.3s ease; }
+        .alexa-img-icon { width: 20px; height: 20px; object-fit: contain; filter: brightness(0) saturate(100%) invert(84%) sepia(21%) saturate(962%) hue-rotate(344deg) brightness(101%) contrast(92%); }
+        .contact-text { font-size: 0.9rem; font-weight: 300; }
+        .contact-item:hover .contact-icon { background: #F4D068; color: #5a101d; transform: scale(1.05); }
+        .contact-item:hover .alexa-img-icon { filter: brightness(0) saturate(100%) invert(11%) sepia(50%) saturate(4155%) hue-rotate(338deg) brightness(89%) contrast(96%); }
+        .contact-item:hover .contact-text { color: #F4D068; }
+
+        /* ESPAÇO PARA BANNER QUADRADO NA ESQUERDA */
+        .square-ad { height: 250px; background: rgba(255,255,255,0.03); border: 1px dashed rgba(244, 208, 104, 0.3); border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: rgba(255,255,255,0.5); text-align: center; padding: 20px; }
+        .square-ad i { font-size: 2.5rem; margin-bottom: 10px; color: rgba(244, 208, 104, 0.5); }
+
+        /* ================= COLUNA DIREITA ================= */
+
+        .banner-rotativo { height: 120px; background: rgba(255, 255, 255, 0.05); border-radius: 12px; display: flex; align-items: center; justify-content: center; border: 1px dashed rgba(244, 208, 104, 0.4); color: #F4D068; font-size: 0.9rem; text-align: center; }
+        
+        /* WIDGET DE PEDIDOS */
+        .pedidos-glass-module { flex-grow: 1; display: flex; flex-direction: column; }
+        .iframe-pedidos { width: 100%; height: 100%; min-height: 400px; flex-grow: 1; border: 0; border-radius: 8px; background: rgba(0,0,0,0.2); }
+
+        /* ================= LINHA INFERIOR (AGREGADORES BANNERS) ================= */
+        .aggregators-section {
+            position: relative; z-index: 10; width: 100%; max-width: 1100px;
+            margin-bottom: 40px; padding: 0 20px;
+        }
+        
+        .aggregators-glass { padding: 30px 20px; }
+        
+        .aggregators-container { display: flex; align-items: center; justify-content: space-evenly; flex-wrap: wrap; gap: 20px; margin-top: 20px; }
+        
+        /* Novas Classes Padronizadas para os Banners dos Agregadores */
+        .aggregator-badge {
+            display: inline-flex; align-items: center; justify-content: center;
+            transition: transform 0.3s ease;
+            text-decoration: none;
+            border-radius: 6px;
+        }
+        .aggregator-badge:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+        .aggregator-img {
+            height: 60px; /* Alinha o comprimento de todas as imagens perfeitamente */
+            width: auto;
+            border-radius: 6px;
+            object-fit: contain;
+            display: block;
+            border: 1px solid rgba(244, 208, 104, 0.3);
+        }
+
+        /* --- RODAPÉ --- */
+        footer { position: relative; z-index: 10; width: 100%; text-align: center; padding: 35px 20px; background: rgba(0, 0, 0, 0.45); backdrop-filter: blur(5px); border-top: 1px solid rgba(255, 255, 255, 0.05); margin-top: auto; }
+        .footer-about { max-width: 800px; margin: 0 auto 25px auto; }
+        .footer-about h3 { font-size: 1.1rem; color: #F4D068; margin-bottom: 12px; font-weight: 600; text-transform: uppercase; }
+        .footer-about p { font-size: 0.9rem; line-height: 1.6; color: rgba(255, 255, 255, 0.7); font-weight: 300; text-align: center; }
+        .ouvir-radio-online-badge { font-size: 0.85rem; color: rgba(255, 255, 255, 0.7); margin: 0 auto 25px auto; font-weight: 300; display: block; width: 100%; }
+        .ouvir-radio-online-badge strong { color: #F4D068; }
+        .ouvir-radio-online-badge a { color: #F4D068 !important; font-weight: bold !important; text-decoration: none; border-bottom: 1px solid rgba(244, 208, 104, 0.5) !important; transition: all 0.3s ease; }
+        .copyright { font-size: 0.85rem; color: rgba(255, 255, 255, 0.45); font-weight: 300; border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 15px; display: block; margin: 0 auto; width: 100%; max-width: 400px; }
+
+        /* --- CSS DO POP-UP (MODAL) DO ARTISTA --- */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);
+            display: none; align-items: center; justify-content: center; z-index: 1000;
+            opacity: 0; transition: opacity 0.3s ease;
+        }
+        .modal-overlay.active { display: flex; opacity: 1; }
+        .modal-content {
+            position: relative; width: 90%; max-width: 500px;
+            background: #5a101d; border-radius: 20px; 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5); border: 1px solid rgba(244, 208, 104, 0.3);
+        }
+        .modal-hero {
+            position: absolute; top: 0; left: 0; width: 100%; height: 130px;
+            background-size: cover; background-position: center;
+            filter: blur(8px) brightness(0.5); z-index: 1;
+            border-radius: 20px 20px 0 0;
+            overflow: hidden;
+        }
+        .modal-close {
+            position: absolute; top: 15px; right: 15px; z-index: 10;
+            background: rgba(0,0,0,0.5); border: none; color: #FFF;
+            width: 32px; height: 32px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; font-size: 1.2rem;
+            cursor: pointer; transition: all 0.3s ease;
+        }
+        .modal-close:hover { background: #F4D068; color: #5a101d; transform: scale(1.1); }
+        .modal-body {
+            position: relative; z-index: 2; padding: 30px 25px 25px;
+            display: flex; flex-direction: column; align-items: center; text-align: center;
+            margin-top: 50px;
+        }
+        .modal-body img {
+            width: 120px; height: 120px; border-radius: 50%; object-fit: cover;
+            border: 3px solid #F4D068; box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            margin-top: -90px; margin-bottom: 15px; background: #5a101d;
+        }
+        .modal-body h2 { color: #F4D068; font-size: 1.6rem; margin-bottom: 15px; }
+        .modal-body p { 
+            color: #F0F0F0; font-size: 0.95rem; line-height: 1.6; font-weight: 300; 
+            max-height: 220px; overflow-y: auto; padding-right: 5px;
+        }
+        /* Customizando a barra de rolagem do modal */
+        .modal-body p::-webkit-scrollbar { width: 6px; }
+        .modal-body p::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); border-radius: 10px; }
+        .modal-body p::-webkit-scrollbar-thumb { background: #F4D068; border-radius: 10px; }
+
+        /* --- RESPONSIVIDADE (MOBILE) --- */
+        @media (max-width: 900px) {
+            .dashboard-container { grid-template-columns: 1fr; }
+            .logo { width: 210px; }
+            .slogan { font-size: 1.8rem; }
+            .iframe-pedidos { min-height: 600px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="floating-notes">
+        <i class="ph ph-music-notes" style="--x: 10%; --d: 0s; --s: 1.2;"></i>
+        <i class="ph ph-music-note" style="--x: 45%; --d: 4s; --s: 0.8;"></i>
+        <i class="ph ph-music-notes" style="--x: 85%; --d: 2s; --s: 1.5;"></i>
+    </div>
+
+    <header class="top-news-bar">
+        <ul class="news-links">
+            <li><a href="https://news.google.com/search?q=música" target="_blank"><i class="ph ph-music-notes"></i><span>Música</span></a></li>
+            <li><a href="https://news.google.com/search?q=celebridades%20famosos" target="_blank"><i class="ph ph-star"></i><span>Celebridades</span></a></li>
+            <li><a href="https://news.google.com/search?q=televisão%20novelas" target="_blank"><i class="ph ph-television"></i><span>TV</span></a></li>
+            <li><a href="https://news.google.com/search?q=cinema%20filmes" target="_blank"><i class="ph ph-film-strip"></i><span>Filmes</span></a></li>
+            <li><a href="https://news.google.com/search?q=Itaberaba%20Bahia" target="_blank"><i class="ph ph-map-pin"></i><span>Itaberaba</span></a></li>
+            <li><a href="https://news.google.com/search?q=esportes" target="_blank"><i class="ph ph-soccer-ball"></i><span>Esportes</span></a></li>
+        </ul>
+    </header>
+
+    <section class="header-section">
+        <img src="logo-namoro-web-radio.png" alt="Namoro Web Rádio" class="logo">
+        <h2 class="slogan">A trilha sonora para o seu romance</h2>
+    </section>
+
+    <main class="dashboard-container">
+        
+        <!-- ================= COLUNA ESQUERDA ================= -->
+        <div class="dashboard-column">
+            
+            <div class="glass-module unified-control-module">
+                <div class="now-playing-content">
+                    <img id="api-artist-img" src="logo-namoro-web-radio.png" class="artist-img" alt="Capa do Artista" title="Clique para saber mais sobre o artista" onclick="abrirModalArtista()">
+                    <div class="track-info">
+                        <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: #aaa;">Tocando Agora</span>
+                        <h3 id="api-song-title">Aguardando Conexão...</h3>
+                        <p id="api-artist-name">Namoro Web Rádio</p>
+                    </div>
+                </div>
+
+                <div class="player-wrapper">
+                    <iframe src="https://stream.namorowebradio.com.br/public/namoro_webradio/embed?primary_color=ce322e&bg_color=590c14&text_color=f6dba2&hide_progress=1&volume=70" frameborder="0" allowtransparency="true"></iframe>
+                </div>
+
+                <div class="locutor-card">
+                    <div class="locutor-avatar"><i class="ph ph-microphone-stage"></i></div>
+                    <div class="locutor-info">
+                        <strong id="locutor-nome">NO AR: CARREGANDO...</strong>
+                        <p id="locutor-desc">Aguarde...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ESPAÇO PARA ANUNCIANTE -->
+            <div class="glass-module">
+                <a href="https://mais.app/K5gWqM" target="_blank" style="text-decoration: none;">
+                    <img src="banners/todovino-banner.png" alt="Anunciante Namoro Web Rádio" style="width: 100%; height: 250px; object-fit: cover; border-radius: 12px; transition: transform 0.3s ease;">
+                </a>
+            </div>
+
+            <!-- CONTATOS -->
+            <div class="glass-module contacts-module">
+                <div class="module-header">
+                    <i class="ph ph-share-network"></i> Conecte-se conosco
+                </div>
+                <div class="contacts-list">
+                    <a href="https://www.instagram.com/namorowebradio/" target="_blank" class="contact-item">
+                        <div class="contact-icon"><i class="ph ph-instagram-logo"></i></div>
+                        <span class="contact-text">Siga <strong>@namorowebradio</strong></span>
+                    </a>
+                    <a href="https://www.amazon.com.br/dp/B0H2MDMB2X" target="_blank" class="contact-item">
+                        <div class="contact-icon"><img src="alexa-icon.png" alt="Alexa Icon" class="alexa-img-icon"></div>
+                        <span class="contact-text">"<i>Alexa, abra Namoro Web Rádio</i>"</span>
+                    </a>
+                    <a href="mailto:contato@namorowebradio.com.br" class="contact-item">
+                        <div class="contact-icon"><i class="ph ph-envelope-simple"></i></div>
+                        <span class="contact-text"><strong>contato@namorowebradio.com.br</strong></span>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ================= COLUNA DIREITA ================= -->
+        <div class="dashboard-column">
+            
+            <div class="glass-module">
+                <a href="https://compre.vc/fzvRuwLZ1Nrd" id="link-banner-rotativo" target="_blank" style="display: block; width: 100%; height: 120px;">
+                    <img id="img-banner-rotativo" src="banners/cacaushow-benditocacau-namorowebradio.png" alt="Patrocinador" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px; transition: opacity 0.5s ease;">
+                </a>
+            </div>
+
+            <div class="glass-module pedidos-glass-module">
+                <div class="module-header">
+                    <i class="ph ph-music-notes-plus"></i> Interaja com o Acervo
+                </div>
+                <iframe class="iframe-pedidos" src="https://stream.namorowebradio.com.br/public/namoro_webradio/embed-requests" frameborder="0" allowtransparency="true"></iframe>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- ================= MÓDULO INFERIOR DE AGREGADORES ================= -->
+    <section class="aggregators-section">
+        <div class="glass-module aggregators-glass">
+            <div class="module-header">
+                <i class="ph ph-devices"></i> Ouça a Namoro Web Rádio também nos maiores aplicativos:
+            </div>
+            
+            <div class="aggregators-container">
+                
+                <a href="https://l.radios.com.br/r/273270" target="_blank" class="aggregator-badge">
+                    <img src="banner-radiosnet-234x60.png" alt="Ouça no RadiosNet" class="aggregator-img">
+                </a>
+
+                <a id="bVxmcFlfX0DDl8Kww5snPcKiwqp5esO1w7PDpzvDtg==" class="aggregator-badge" title="Escute-nos em MyTuner!" href="http://mytuner-radio.com/radio/namoro-web-radio-514979/?utm_source=widget&amp;utm_medium=banner&amp;utm_campaign=180x63" rel="noopener" target="_blank" style="background: rgb(249, 240, 240); height: 60px; display: flex; align-items: center; padding: 0 10px; margin: 0; box-sizing: border-box; cursor: pointer; border: 1px solid rgba(244, 208, 104, 0.3); border-radius: 6px; text-decoration: none;">
+                    <img src="https://static2.mytuner.mobi/static/widgets/mytuner-radio.png" alt="Escute-nos em MyTuner!" style="margin: 0; display: inline-block; width: 45px; height: auto;">
+                    <img src="https://static2.mytuner.mobi/static/widgets/mytuner-logo-90.png" alt="Listen of myTuner Radio!" style="width: 95px; height: auto; margin: 0 0 0 5px; display: inline-block;">
+                </a>
+
+                <a href="http://www.internet-radio.com" title="Internet Radio" target="_blank" class="aggregator-badge">
+                    <img src="http://www.internet-radio.com/images/ad-header.png" alt="Internet Radio" class="aggregator-img">
+                </a>
+
+                <a href="https://onlineradiobox.com/br/antena1/" title="Radio Online" target="_blank" class="aggregator-badge">
+                    <img src="//cdn.onlineradiobox.com/img/b/240x84.png" alt="Radio Online" class="aggregator-img">
+                </a>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- --- RODAPÉ --- -->
+    <footer>
+        <div class="footer-about">
+            <h3>Sobre a Namoro Web Rádio</h3>
+            <p>A Namoro Web Rádio é uma emissora de streaming sediada em Itaberaba/BA, sendo a principal rádio online com cobertura de público no Centro Norte baiano (Piemonte do Paraguaçu, Piemonte da Diamantina, Piemonte do Itapicuru, Portal do Sertão, Bacia do Jacuípe e Irecê) e Chapada Diamantina. Trazemos uma programação especializada em flashbacks dos anos 70, 80 e 90 para embalar os casais em seus momentos de cumplicidade. Se você procura uma rádio de música romântica enquanto sonha encontrar a sua alma gêmea - ou se simplesmente quer ouvir as melhores músicas românticas que marcaram época -, a Namoro é o seu lugar. Sintonize na nossa rádio flashback e emocione o seu coração apaixonado.</p>
+        </div>
+        <div class="ouvir-radio-online-badge">
+            🎧 Ouça <strong>Namoro Web Rádio</strong> também no <a href="https://ouvirradioonline.com.br/parceiros_track.php?r=75702" target="_blank" rel="noopener">OuvirRadioOnline</a>
+        </div>
+        <p class="copyright">&copy; 2026 Namoro Web Rádio. Todos os direitos reservados. Itaberaba-Bahia.</p>
+    </footer>
+
+    <!-- ================= MODAL DO ARTISTA (POP-UP) ================= -->
+    <div id="artist-modal" class="modal-overlay">
+        <div class="modal-content">
+            <!-- Fundo Hero que recebe a capa desfocada -->
+            <div id="modal-hero-bg" class="modal-hero"></div>
+            
+            <button class="modal-close" onclick="fecharModal()"><i class="ph ph-x"></i></button>
+            
+            <div class="modal-body">
+                <img id="modal-artist-img" src="" alt="Artista">
+                <h2 id="modal-artist-name">Nome do Artista</h2>
+                <p id="modal-artist-bio">Carregando biografia...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPT DA API MUSICAL E DOS LOCUTORES E POP UP ARTISTA-->
+    <script>
+        // --- 1. LÓGICA DO MODAL (POP-UP DO ARTISTA) COM GEMINI ---
+        async function abrirModalArtista() {
+            const artistName = document.getElementById('api-artist-name').innerText;
+            const artistImgSrc = document.getElementById('api-artist-img').src;
+
+            document.getElementById('modal-hero-bg').style.backgroundImage = `url('${artistImgSrc}')`;
+            document.getElementById('modal-artist-img').src = artistImgSrc;
+            document.getElementById('modal-artist-name').innerText = artistName;
+            document.getElementById('modal-artist-bio').innerHTML = `<i class="ph ph-spinner ph-spin"></i> Consultando acervo de inteligência artificial...`;
+
+            const modal = document.getElementById('artist-modal');
+            modal.style.display = 'flex';
+            setTimeout(() => modal.classList.add('active'), 10);
+
+            if(artistName.toLowerCase().includes("namoro") || artistName.toLowerCase().includes("rádio")) {
+                document.getElementById('modal-artist-bio').innerText = "A Namoro Web Rádio é a trilha sonora perfeita para embalar os seus momentos a dois!";
+                return;
+            }
+
+            const GEMINI_API_KEY = "AIzaSyC2f1C6ntca1o51P7uhSZ_Slc8tBlxqr9Y"; 
+            
+            const prompt = `Escreva um resumo biográfico em português de no máximo 500 caracteres sobre o artista ou banda musical '${artistName}'. Foco no estilo musical, carreira e maiores sucessos. Seja direto, crie um texto em parágrafo único e NÃO use formatações markdown como asteriscos ou negritos.`;
+
+            try {
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent?key=${GEMINI_API_KEY}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: prompt }] }]
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                
+                if (data.candidates && data.candidates.length > 0 && data.candidates[0].content && data.candidates[0].content.parts.length > 0) {
+                    const textoGemini = data.candidates[0].content.parts[0].text;
+                    document.getElementById('modal-artist-bio').innerHTML = textoGemini + "<br><br><small><i>Redação: IA da Namoro Web Rádio</i></small>";
+                } else {
+                    document.getElementById('modal-artist-bio').innerText = "Não foi possível gerar a biografia deste artista no momento.";
+                }
+            } catch (error) {
+                console.error("Erro na consulta da API:", error);
+                document.getElementById('modal-artist-bio').innerText = "Resumo biográfico indisponível no momento. Verifique a chave da API.";
+            }
+        }
+
+        function fecharModal() {
+            const modal = document.getElementById('artist-modal');
+            modal.classList.remove('active');
+            setTimeout(() => modal.style.display = 'none', 300);
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('artist-modal');
+            if (event.target == modal) {
+                fecharModal();
+            }
+        }
+
+
+        // --- 2. INTEGRAÇÃO COM AZURACAST E iTUNES ---
+        async function buscarMusicaAtual() {
+            try {
+                const response = await fetch('https://stream.namorowebradio.com.br/api/nowplaying');
+                const data = await response.json();
+                
+                const currentStation = data[0]; 
+                const title = currentStation.now_playing.song.title;
+                const artist = currentStation.now_playing.song.artist;
+                const artUrl = currentStation.now_playing.song.art; 
+
+                document.getElementById('api-song-title').innerText = title || "Ouça a Namoro";
+                document.getElementById('api-artist-name').innerText = artist || "Web Rádio";
+
+                if (artist && title) {
+                    const termoBusca = encodeURIComponent(artist + ' ' + title);
+                    const itunesResponse = await fetch(`https://itunes.apple.com/search?term=${termoBusca}&media=music&limit=1`);
+                    const itunesData = await itunesResponse.json();
+
+                    if (itunesData.results.length > 0) {
+                        let imgAltaResolucao = itunesData.results[0].artworkUrl100.replace('100x100bb', '600x600bb');
+                        document.getElementById('api-artist-img').src = imgAltaResolucao;
+                    } else {
+                        document.getElementById('api-artist-img').src = artUrl;
+                    }
+                } else {
+                    document.getElementById('api-artist-img').src = artUrl;
+                }
+            } catch (error) {
+                console.log('Aguardando conexão com AzuraCast...', error);
+            }
+        }
+        
+        buscarMusicaAtual();
+        setInterval(buscarMusicaAtual, 10000);
+
+        // --- 3. LÓGICA DE ESCALA DOS LOCUTORES ---
+        function atualizarLocutor() {
+            const dataAtual = new Date();
+            const diaSemana = dataAtual.getDay(); 
+            const hora = dataAtual.getHours();
+            
+            let locutorNome = "";
+            let locutorDesc = "";
+
+            if (diaSemana >= 1 && diaSemana <= 3) { 
+                if (hora >= 0 && hora < 6) { locutorNome = "DANTON"; locutorDesc = "Eu e Você Na Madrugada • 00h às 06h"; }
+                else if (hora >= 6 && hora < 8) { locutorNome = "DANTON"; locutorDesc = "Romance Pela Manhã • 06h às 12h"; }
+                else if (hora >= 8 && hora < 12) { locutorNome = "DEYSE"; locutorDesc = "Romance Pela Manhã • 06h às 12h"; }
+                else if (hora >= 12 && hora < 16) { locutorNome = "DEYSE"; locutorDesc = "Tarde Nostálgica • 12h às 18h"; }
+                else if (hora >= 16 && hora < 18) { locutorNome = "MAX"; locutorDesc = "Tarde Nostálgica • 12h às 18h"; }
+                else { locutorNome = "MAX"; locutorDesc = "Cúmplices Da Noite • 18h à 00h"; }
+            } 
+            else if (diaSemana === 4 || diaSemana === 5) { 
+                if (hora >= 0 && hora < 6) { locutorNome = "DANTON"; locutorDesc = "Eu e Você Na Madrugada • 00h às 06h"; }
+                else if (hora >= 6 && hora < 8) { locutorNome = "DANTON"; locutorDesc = "Romance Pela Manhã • 06h às 12h"; }
+                else if (hora >= 8 && hora < 12) { locutorNome = "DEYSE"; locutorDesc = "Romance Pela Manhã • 06h às 12h"; }
+                else if (hora >= 12 && hora < 16) { locutorNome = "DEYSE"; locutorDesc = "Tarde Nostálgica • 12h às 18h"; }
+                else if (hora >= 16 && hora < 18) { locutorNome = "MAX"; locutorDesc = "Tarde Nostálgica • 12h às 18h"; }
+                else if (hora >= 18 && hora < 21) { locutorNome = "MAX"; locutorDesc = "Cúmplices da Noite • 18h à 00h"; }
+                else { locutorNome = "PETIT"; locutorDesc = "Cúmplices Da Noite • 18h à 00h"; }
+            }
+            else if (diaSemana === 6) { 
+                if (hora >= 0 && hora < 6) { locutorNome = "DANTON"; locutorDesc = "Eu e Você Na Madrugada • 00h às 06h"; }
+                else if (hora >= 6 && hora < 8) { locutorNome = "DANTON"; locutorDesc = "Romance Pela Manhã • 06h às 12h"; }
+                else if (hora >= 8 && hora < 12) { locutorNome = "DEYSE"; locutorDesc = "Romance Pela Manhã • 06h às 12h"; }
+                else if (hora >= 12 && hora < 16) { locutorNome = "DEYSE"; locutorDesc = "Tarde Nostálgica • 12h às 18h"; }
+                else if (hora >= 16 && hora < 18) { locutorNome = "PETIT"; locutorDesc = "Tarde Nostálgica • 12h às 18h"; }
+                else { locutorNome = "PETIT"; locutorDesc = "Cúmplices Da Noite • 18h à 00h"; }
+            }
+            else if (diaSemana === 0) { 
+                if (hora >= 0 && hora < 2) { locutorNome = "PETIT"; locutorDesc = "Eu e Você Na Madrugada • 00h às 06h"; }
+                else if (hora >= 2 && hora < 6) { locutorNome = "DANTON"; locutorDesc = "Eu e Você Na Madrugada • 00h às 06h"; }
+                else if (hora >= 6 && hora < 9) { locutorNome = "DANTON"; locutorDesc = "Romance Pela Manhã • 06h às 12h"; }
+                else if (hora >= 9 && hora < 12) { locutorNome = "MAX"; locutorDesc = "Romance Pela Manhã • 06h às 12h"; }
+                else if (hora >= 12 && hora < 16) { locutorNome = "MAX"; locutorDesc = "Tarde Nostálgica • 12h às 18h"; }
+                else if (hora >= 16 && hora < 18) { locutorNome = "PETIT"; locutorDesc = "Tarde Nostálgica • 12h às 18h"; }
+                else { locutorNome = "PETIT"; locutorDesc = "Cúmplices Da Noite • 18h à 00h"; }
+            }
+
+            document.getElementById('locutor-nome').innerText = "NO AR: " + locutorNome;
+            document.getElementById('locutor-desc').innerText = locutorDesc;
+        }
+        
+        atualizarLocutor();
+        setInterval(atualizarLocutor, 60000); 
+
+        // --- 4. LÓGICA DO BANNER ROTATIVO ---
+        const anunciantes = [
+            { imagem: "banners/cacaushow-benditocacau-namorowebradio.png", link: "https://compre.vc/fzvRuwLZ1Nrd" },
+            { imagem: "banners/casadasaliancas-namorowebradio.png", link: "https://compre.vc/XEksihHle6WW" }
+        ];
+
+        let anuncioAtual = 0;
+        const imgBanner = document.getElementById('img-banner-rotativo');
+        const linkBanner = document.getElementById('link-banner-rotativo');
+
+        function alternarBanner() {
+            imgBanner.style.opacity = 0; 
+            
+            setTimeout(() => {
+                anuncioAtual = (anuncioAtual + 1) % anunciantes.length;
+                imgBanner.src = anunciantes[anuncioAtual].imagem;
+                linkBanner.href = anunciantes[anuncioAtual].link;
+                imgBanner.style.opacity = 1; 
+            }, 500); 
+        }
+
+        setInterval(alternarBanner, 10000);
+    </script>
+</body>
+</html>
