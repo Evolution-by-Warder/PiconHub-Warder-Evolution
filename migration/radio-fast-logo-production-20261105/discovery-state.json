@@ -18317,7 +18317,10 @@
       "homepages": [
         "https://radioalfa971.com.ar/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (28) Operation timed out after 8002 milliseconds with 0 bytes received\n"
+      ]
     },
     "4097:0:2:6359:4854:ED:0:0:0:0": {
       "name": "Digital FM 102.1",
@@ -18329,7 +18332,35 @@
       "homepages": [
         "https://www.fmdigitalcorrientes.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://fmdigitalcorrientes.com/img/180.webp",
+        "final_url": "https://fmdigitalcorrientes.com/img/180.webp",
+        "path": "originals/5e872938f9f5fb54288483afecd1dd09d886445cca67555aa67dc32f5a3a2ce1.img",
+        "sha256": "5e872938f9f5fb54288483afecd1dd09d886445cca67555aa67dc32f5a3a2ce1",
+        "bytes": 4364,
+        "dimensions": [
+          180,
+          180
+        ],
+        "format": "WEBP"
+      },
+      "page": {
+        "url": "https://www.fmdigitalcorrientes.com/",
+        "final_url": "https://www.fmdigitalcorrientes.com/",
+        "original_html_sha256": "bfdb05216cb3561a8221efab7502f5a1cba076b8954dcfd263cdb5800c6c810c",
+        "path": "page-evidence/bfdb05216cb3561a8221efab7502f5a1cba076b8954dcfd263cdb5800c6c810c.json",
+        "titles": [
+          "Digital 102.1"
+        ],
+        "image_urls": [
+          "https://fmdigitalcorrientes.com/img/180.webp",
+          "https://fmdigitalcorrientes.com/img/192ico.webp",
+          "https://fmdigitalcorrientes.com/img/32ico.webp"
+        ],
+        "named_logos": {}
+      },
+      "ocr_text": "DIGITAL\n\n102.1\n"
     },
     "4097:0:2:2625:B7FE:ED:0:0:0:0": {
       "name": "DIGITAL FM 104.9",
@@ -18351,7 +18382,96 @@
       "homepages": [
         "https://radioarg.net/digital-san-luis"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://radioarg.net/storage/radios/8015/10137/conversions/digital-san-luis-lg.webp",
+        "final_url": "https://radioarg.net/storage/radios/8015/10137/conversions/digital-san-luis-lg.webp",
+        "path": "originals/7ff33a40e44fad0c10ca7fd114410f81ded28344ac118ef5f21aa62a4378c926.img",
+        "sha256": "7ff33a40e44fad0c10ca7fd114410f81ded28344ac118ef5f21aa62a4378c926",
+        "bytes": 3484,
+        "dimensions": [
+          144,
+          144
+        ],
+        "format": "WEBP"
+      },
+      "page": {
+        "url": "https://radioarg.net/digital-san-luis",
+        "final_url": "https://radioarg.net/digital-san-luis",
+        "original_html_sha256": "b64a091d43d040b2ce847f931a4b90912c7ca1ebc49beede878a37195a225fd3",
+        "path": "page-evidence/b64a091d43d040b2ce847f931a4b90912c7ca1ebc49beede878a37195a225fd3.json",
+        "titles": [
+          "Radio Digital San Luis en vivo",
+          "Radio Digital San Luis"
+        ],
+        "image_urls": [
+          "https://radioarg.net/logo.webp",
+          "https://radioarg.net/storage/radios/8015/10137/conversions/digital-san-luis-lg.webp",
+          "https://radioarg.net/favicon.ico"
+        ],
+        "named_logos": {
+          "https://radioarg.net/logo.webp": "Radioarg.net  ",
+          "https://radioarg.net/storage/radios/8015/10137/conversions/digital-san-luis-lg.webp": "Logo Radio Digital San Luis  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/e7797e96d24d8aa2e2b0f39f09226b02c6fb2bcec3d0cd2daf76c4a5d0613de0.png",
+          "sha256": "e7797e96d24d8aa2e2b0f39f09226b02c6fb2bcec3d0cd2daf76c4a5d0613de0",
+          "bytes": 1627
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/7076d7e1ba04daf46f65cc235d78af34284fa1480738dedf6baab3c11138df74.png",
+          "sha256": "7076d7e1ba04daf46f65cc235d78af34284fa1480738dedf6baab3c11138df74",
+          "bytes": 11912
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/b63a346da0f49596c274f4fc8d4030bce31c5a8fcaf340ed4b801808872cab35.png",
+          "sha256": "b63a346da0f49596c274f4fc8d4030bce31c5a8fcaf340ed4b801808872cab35",
+          "bytes": 31744
+        },
+        "50x30/white": {
+          "path": "verified-assets/d950da881d57a5eb3cb9081e059b57034a8641e06c2e1b708689a39676ce1216.png",
+          "sha256": "d950da881d57a5eb3cb9081e059b57034a8641e06c2e1b708689a39676ce1216",
+          "bytes": 2861
+        },
+        "220x132/white": {
+          "path": "verified-assets/8988d58ae43046b9ead3df2f82b788ae5862235d026af230eef57519ae564492.png",
+          "sha256": "8988d58ae43046b9ead3df2f82b788ae5862235d026af230eef57519ae564492",
+          "bytes": 33832
+        },
+        "400x240/white": {
+          "path": "verified-assets/3955d0d792fcda3b8c72db935a1a91fdf5a151c650576bb99fc18cf0ff8dae8e.png",
+          "sha256": "3955d0d792fcda3b8c72db935a1a91fdf5a151c650576bb99fc18cf0ff8dae8e",
+          "bytes": 84282
+        },
+        "50x30/black": {
+          "path": "verified-assets/73754568238e5d609a1feb04ee3bf42582f9fb0802cde20e4da511e422e65800.png",
+          "sha256": "73754568238e5d609a1feb04ee3bf42582f9fb0802cde20e4da511e422e65800",
+          "bytes": 3135
+        },
+        "220x132/black": {
+          "path": "verified-assets/15347995928a9446ba783fbc2df2113cd55abd07a78c7f25ed40d522e608d88a.png",
+          "sha256": "15347995928a9446ba783fbc2df2113cd55abd07a78c7f25ed40d522e608d88a",
+          "bytes": 32841
+        },
+        "400x240/black": {
+          "path": "verified-assets/78af84c3259bf41dabc68529d744bd46db07601a80e1369dd783556a7f39ec0d.png",
+          "sha256": "78af84c3259bf41dabc68529d744bd46db07601a80e1369dd783556a7f39ec0d",
+          "bytes": 81432
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Logo Radio Digital San Luis  ",
+        "matched_brand_keys": [
+          "digital",
+          "luis"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:6640:F2E3:ED:0:0:0:0": {
       "name": "Radio Digital San Luis 101.1 FM",
@@ -18363,7 +18483,108 @@
       "homepages": [
         "https://www.digitalsanluis.com.ar/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://digitalsanluis.com.ar/wp-content/themes/digital-san-luis-theme/assets/img/logo-blanco.svg",
+        "final_url": "https://digitalsanluis.com.ar/wp-content/themes/digital-san-luis-theme/assets/img/logo-blanco.svg",
+        "path": "originals/d24b8e35ef745bb75b681fe70114b2ec92b2831a2795faf5ce362d5d8301891c.img",
+        "sha256": "d24b8e35ef745bb75b681fe70114b2ec92b2831a2795faf5ce362d5d8301891c",
+        "bytes": 15585,
+        "dimensions": [
+          640,
+          360
+        ],
+        "format": "SVG",
+        "frozen_svg_raster": {
+          "path": "rasterized/19996ccfbe7d54813ae27122613048c0c1b3616a205665e2ff2c8ac5829dced6.png",
+          "sha256": "19996ccfbe7d54813ae27122613048c0c1b3616a205665e2ff2c8ac5829dced6",
+          "cairosvg_version": "2.8.2"
+        }
+      },
+      "page": {
+        "url": "https://www.digitalsanluis.com.ar/",
+        "final_url": "https://digitalsanluis.com.ar/",
+        "original_html_sha256": "27835a11709fd829e396788db220d6ad0562216ff5143d742e9fb510e2b4fb98",
+        "path": "page-evidence/27835a11709fd829e396788db220d6ad0562216ff5143d742e9fb510e2b4fb98.json",
+        "titles": [
+          "Digital San Luis | Noticias de San Luis, radio y streaming",
+          "\n                 \n                     \n                 \n            "
+        ],
+        "image_urls": [
+          "https://digitalsanluis.com.ar/wp-content/themes/digital-san-luis-theme/assets/img/logo-blanco.svg",
+          "https://digitalsanluis.com.ar/wp-content/themes/digital-san-luis-theme/assets/img/logo-dark.svg",
+          "https://digitalsanluis.com.ar/wp-content/themes/digital-san-luis-theme/assets/img/logos-cat/agro.png"
+        ],
+        "named_logos": {
+          "https://digitalsanluis.com.ar/wp-content/themes/digital-san-luis-theme/assets/img/logo-dark.svg": "Digital San Luis  ",
+          "https://digitalsanluis.com.ar/wp-content/themes/digital-san-luis-theme/assets/img/logos-cat/politica.png": "Política  ",
+          "https://digitalsanluis.com.ar/wp-content/themes/digital-san-luis-theme/assets/img/logos-cat/agro.png": "Agro  ",
+          "https://digitalsanluis.com.ar/wp-content/themes/digital-san-luis-theme/assets/img/logos-cat/economia.png": "Economía  ",
+          "https://digitalsanluis.com.ar/wp-content/themes/digital-san-luis-theme/assets/img/logos-cat/sports.png": "Deportes  ",
+          "https://digitalsanluis.com.ar/wp-content/themes/digital-san-luis-theme/assets/img/logos-cat/autos.png": "Autos  ",
+          "https://digitalsanluis.com.ar/wp-content/themes/digital-san-luis-theme/assets/img/logos-cat/bienes.png": "Bienes  ",
+          "https://digitalsanluis.com.ar/wp-content/themes/digital-san-luis-theme/assets/img/logos-cat/educacion.png": "Educación  ",
+          "https://digitalsanluis.com.ar/wp-content/themes/digital-san-luis-theme/assets/img/logo-blanco.svg": "Digital San Luis  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/548bfdfdcb76397216f1cec5819545dc080a8e4ed5ade709ec498f717374bfa4.png",
+          "sha256": "548bfdfdcb76397216f1cec5819545dc080a8e4ed5ade709ec498f717374bfa4",
+          "bytes": 1092
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/86231b9b20e4d1350f5325f200adc017e3cedc909e8cd19c8014a11e08eeeae4.png",
+          "sha256": "86231b9b20e4d1350f5325f200adc017e3cedc909e8cd19c8014a11e08eeeae4",
+          "bytes": 7050
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/fc59b3bef81bbf9b963610e56b9de9a646bf032c58493aa26910106be9915b3a.png",
+          "sha256": "fc59b3bef81bbf9b963610e56b9de9a646bf032c58493aa26910106be9915b3a",
+          "bytes": 21099
+        },
+        "50x30/white": {
+          "path": "verified-assets/23f9953c1a95e4e53fb788450cb814cb6277df2ddfa06374b1be6193b0e14a8f.png",
+          "sha256": "23f9953c1a95e4e53fb788450cb814cb6277df2ddfa06374b1be6193b0e14a8f",
+          "bytes": 2664
+        },
+        "220x132/white": {
+          "path": "verified-assets/d57833b2a5a2bb050f1ec22e31c7faeaa86cad77f9b2eba3cdd8d7f851bfcdd7.png",
+          "sha256": "d57833b2a5a2bb050f1ec22e31c7faeaa86cad77f9b2eba3cdd8d7f851bfcdd7",
+          "bytes": 34932
+        },
+        "400x240/white": {
+          "path": "verified-assets/c4a981b6c31edef6e33d6c5ac9914f47093159fae62857fe9bb8825cf7a1bb97.png",
+          "sha256": "c4a981b6c31edef6e33d6c5ac9914f47093159fae62857fe9bb8825cf7a1bb97",
+          "bytes": 86210
+        },
+        "50x30/black": {
+          "path": "verified-assets/091922c727ad5af016079ba17014bd2c27488324bfa8a66be17355cfcab1e816.png",
+          "sha256": "091922c727ad5af016079ba17014bd2c27488324bfa8a66be17355cfcab1e816",
+          "bytes": 3489
+        },
+        "220x132/black": {
+          "path": "verified-assets/120af2cc46dd280b7283f355bf9766cad279faa803b308551d4e34de0219da48.png",
+          "sha256": "120af2cc46dd280b7283f355bf9766cad279faa803b308551d4e34de0219da48",
+          "bytes": 37583
+        },
+        "400x240/black": {
+          "path": "verified-assets/035ac84c3615e6aa3b4324925f067cdec5af3d59304c6197acd5dc90a057f092.png",
+          "sha256": "035ac84c3615e6aa3b4324925f067cdec5af3d59304c6197acd5dc90a057f092",
+          "bytes": 96966
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Digital San Luis  ",
+        "matched_brand_keys": [
+          "digital",
+          "luis"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:839E:BD3A:ED:0:0:0:0": {
       "name": "DINAMICA FM 88.3",
@@ -18385,7 +18606,43 @@
       "homepages": [
         "http://www.radiodinamo.com.ar/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://radiodinamo.com/wp-content/uploads/2023/04/cropped-logo1998-scaled-1.jpg",
+        "final_url": "https://radiodinamo.com/wp-content/uploads/2023/04/cropped-logo1998-scaled-1.jpg",
+        "path": "originals/afb68b683256fea3a4cee5425e4c1273dd064fb48c985443150f7434e56565c6.img",
+        "sha256": "afb68b683256fea3a4cee5425e4c1273dd064fb48c985443150f7434e56565c6",
+        "bytes": 19374,
+        "dimensions": [
+          512,
+          512
+        ],
+        "format": "JPEG"
+      },
+      "page": {
+        "url": "http://www.radiodinamo.com.ar/",
+        "final_url": "https://radiodinamo.com/",
+        "original_html_sha256": "e8bcbd65dae5c18e4fa752d4a12050cccfe9b479cf5b032c4797a05eb4a05e18",
+        "path": "page-evidence/e8bcbd65dae5c18e4fa752d4a12050cccfe9b479cf5b032c4797a05eb4a05e18.json",
+        "titles": [
+          "Radio Dinamo 100.9Mhz | Radio Dinamo 100.9Mhz",
+          "   ",
+          "   ",
+          "   ",
+          "     City  ",
+          "   "
+        ],
+        "image_urls": [
+          "https://radiodinamo.com/wp-content/uploads/2023/04/cropped-logo1998-scaled-1.jpg",
+          "https://radiodinamo.com/wp-content/uploads/2024/02/logo-radio-amarillo-youtube-300x277.jpg",
+          "https://radiodinamo.com/wp-content/uploads/2020/03/cropped-logo-radio-puro-amor-3d-fondo-amarillo-scaled-1-192x192.jpg"
+        ],
+        "named_logos": {
+          "https://radiodinamo.com/wp-content/uploads/2023/04/cropped-logo1998-scaled-1.jpg": "Logo  ",
+          "https://radiodinamo.com/wp-content/uploads/2024/02/logo-radio-amarillo-youtube-300x277.jpg": "  "
+        }
+      },
+      "ocr_text": "NY\n\n10 /\n\nSINCE1998\n"
     },
     "4097:0:2:8C01:AC52:ED:0:0:0:0": {
       "name": "Radio Disney Argentina 94.3. Ciudad de Buenos Aires",
@@ -18397,7 +18654,95 @@
       "homepages": [
         "http://radiodisney.disneylatino.com/argentina"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://lumiere-a.akamaihd.net/v1/images/nav_logo_2x-25d10ad375dd_13be4150_49e241c4.png?region=0%2C0%2C160%2C66",
+        "final_url": "https://lumiere-a.akamaihd.net/v1/images/nav_logo_2x-25d10ad375dd_13be4150_49e241c4.png?region=0%2C0%2C160%2C66",
+        "path": "originals/5cab288d0b2c34069cd39fc326bad38b88f5ba73762fb6380a59ccf16b452c68.img",
+        "sha256": "5cab288d0b2c34069cd39fc326bad38b88f5ba73762fb6380a59ccf16b452c68",
+        "bytes": 3125,
+        "dimensions": [
+          160,
+          66
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "http://radiodisney.disneylatino.com/argentina",
+        "final_url": "https://radio.disney.com/",
+        "original_html_sha256": "2500b104eab6f6a3b16f30786bf247d5c20c5d382ba8fb98345a8743137b0b1f",
+        "path": "page-evidence/2500b104eab6f6a3b16f30786bf247d5c20c5d382ba8fb98345a8743137b0b1f.json",
+        "titles": [
+          "Radio Disney | Your Music. Your Way."
+        ],
+        "image_urls": [
+          "https://lumiere-a.akamaihd.net/v1/images/logo_disney_com_black_10761e1c.png?region=0%2C0%2C400%2C172",
+          "https://lumiere-a.akamaihd.net/v1/images/nav_logo_2x-25d10ad375dd_13be4150_49e241c4.png?region=0%2C0%2C160%2C66",
+          "https://lumiere-a.akamaihd.net/v1/images/radiodisney_c16b46de.png?region=0%2C0%2C368%2C125"
+        ],
+        "named_logos": {
+          "https://lumiere-a.akamaihd.net/v1/images/logo_disney_com_black_10761e1c.png?region=0%2C0%2C400%2C172": "Disney Logo  ",
+          "https://lumiere-a.akamaihd.net/v1/images/radiodisney_c16b46de.png?region=0%2C0%2C368%2C125": "Radio Disney Logo  ",
+          "https://lumiere-a.akamaihd.net/v1/images/nav_logo_2x-25d10ad375dd_13be4150_49e241c4.png?region=0%2C0%2C160%2C66": "Disney logo  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/320edcd7dfee9b748c97c7efb849a44522ebbe6b163fa2f1134eb7173eba748d.png",
+          "sha256": "320edcd7dfee9b748c97c7efb849a44522ebbe6b163fa2f1134eb7173eba748d",
+          "bytes": 944
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/a6570c7d2ce7f15fbefae6c39710361da7c610f6cd0cd67b9dd77f0e60f1d024.png",
+          "sha256": "a6570c7d2ce7f15fbefae6c39710361da7c610f6cd0cd67b9dd77f0e60f1d024",
+          "bytes": 4227
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/f6228e7dab86c9790f3e101a61dfed6b7a1ce273b6759d81c4e59a0494bd7140.png",
+          "sha256": "f6228e7dab86c9790f3e101a61dfed6b7a1ce273b6759d81c4e59a0494bd7140",
+          "bytes": 20071
+        },
+        "50x30/white": {
+          "path": "verified-assets/e4979cd9b9471e14984775c63d706544f08009a34dc03c1bdc322455acebb844.png",
+          "sha256": "e4979cd9b9471e14984775c63d706544f08009a34dc03c1bdc322455acebb844",
+          "bytes": 2684
+        },
+        "220x132/white": {
+          "path": "verified-assets/6cab58cd2454c7c47b0ef7371f94a402af0408639aa02543ec520c916c9135da.png",
+          "sha256": "6cab58cd2454c7c47b0ef7371f94a402af0408639aa02543ec520c916c9135da",
+          "bytes": 34855
+        },
+        "400x240/white": {
+          "path": "verified-assets/18b565b9cae458c5aadefc12af863af2b5b4fbd91390484dff138fc592f622e8.png",
+          "sha256": "18b565b9cae458c5aadefc12af863af2b5b4fbd91390484dff138fc592f622e8",
+          "bytes": 86994
+        },
+        "50x30/black": {
+          "path": "verified-assets/97dd92b920ca8a21747f318337fd9dfd993181f7737b30174ccb2cff736cf5ba.png",
+          "sha256": "97dd92b920ca8a21747f318337fd9dfd993181f7737b30174ccb2cff736cf5ba",
+          "bytes": 3451
+        },
+        "220x132/black": {
+          "path": "verified-assets/f50d739d16d2a49f538a24881cbeb5e77c8f39a25230424bab764040855cd44a.png",
+          "sha256": "f50d739d16d2a49f538a24881cbeb5e77c8f39a25230424bab764040855cd44a",
+          "bytes": 36378
+        },
+        "400x240/black": {
+          "path": "verified-assets/28cf55f73f80988380a93832217d27c8f78d16811384a63b1063cb5fc2e197c8.png",
+          "sha256": "28cf55f73f80988380a93832217d27c8f78d16811384a63b1063cb5fc2e197c8",
+          "bytes": 97137
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Disney logo  ",
+        "matched_brand_keys": [
+          "disney"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:8BD1:A1EA:ED:0:0:0:0": {
       "name": "Radio Disney (Argentina) - 94.3 FM - LRL301 - Ciudad de Buenos Aires, Argentina",
@@ -18416,7 +18761,97 @@
       "homepages": [
         "https://radioarg.net/disney-republica-dominicana"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://radioarg.net/storage/radios/19434/84088/conversions/p4DN8jIsjZYzlalclSRrVXaj8YjO6q-metaZGlzbmV5LXJlcHVibGljYS1kb21pbmljYW5hLndlYnA=--lg.webp",
+        "final_url": "https://radioarg.net/storage/radios/19434/84088/conversions/p4DN8jIsjZYzlalclSRrVXaj8YjO6q-metaZGlzbmV5LXJlcHVibGljYS1kb21pbmljYW5hLndlYnA=--lg.webp",
+        "path": "originals/5dbd79b1ebbd3defbea50ce03456c8bdc80f4575b8c39f3a17ab2450bb64c343.img",
+        "sha256": "5dbd79b1ebbd3defbea50ce03456c8bdc80f4575b8c39f3a17ab2450bb64c343",
+        "bytes": 4760,
+        "dimensions": [
+          144,
+          144
+        ],
+        "format": "WEBP"
+      },
+      "page": {
+        "url": "https://radioarg.net/disney-republica-dominicana",
+        "final_url": "https://radioarg.net/disney-republica-dominicana",
+        "original_html_sha256": "e8e60ef37c822b664b437ba4b81961b8500f53fcfa9aef362f008b077da7a90a",
+        "path": "page-evidence/e8e60ef37c822b664b437ba4b81961b8500f53fcfa9aef362f008b077da7a90a.json",
+        "titles": [
+          "Escuchar Radio Disney República Dominicana en vivo - 97.3 FM Santo Domingo",
+          "Radio Disney República Dominicana"
+        ],
+        "image_urls": [
+          "https://radioarg.net/logo.webp",
+          "https://radioarg.net/storage/radios/19434/84088/conversions/p4DN8jIsjZYzlalclSRrVXaj8YjO6q-metaZGlzbmV5LXJlcHVibGljYS1kb21pbmljYW5hLndlYnA=--lg.webp",
+          "https://radioarg.net/favicon.ico"
+        ],
+        "named_logos": {
+          "https://radioarg.net/logo.webp": "Radioarg.net  ",
+          "https://radioarg.net/storage/radios/19434/84088/conversions/p4DN8jIsjZYzlalclSRrVXaj8YjO6q-metaZGlzbmV5LXJlcHVibGljYS1kb21pbmljYW5hLndlYnA=--lg.webp": "Logo Radio Disney República Dominicana  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/47d5bf688b5f491b035f39af1e7b1caf9754a732a043f6f55eb24f51fb5095e4.png",
+          "sha256": "47d5bf688b5f491b035f39af1e7b1caf9754a732a043f6f55eb24f51fb5095e4",
+          "bytes": 1687
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/e4688c19cbd171e18da690c4e517ac9b3cdbaa82c5977c5c77f622bb5a671112.png",
+          "sha256": "e4688c19cbd171e18da690c4e517ac9b3cdbaa82c5977c5c77f622bb5a671112",
+          "bytes": 12619
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/0f3ba148bef3c7ca43282a730abb9651836f3c54a0d6192c469d1a137dcf453b.png",
+          "sha256": "0f3ba148bef3c7ca43282a730abb9651836f3c54a0d6192c469d1a137dcf453b",
+          "bytes": 35647
+        },
+        "50x30/white": {
+          "path": "verified-assets/6abb27850b5cc031bd62daf0f01e81aafdba1220917bdd5a9e4361c8e7d077bf.png",
+          "sha256": "6abb27850b5cc031bd62daf0f01e81aafdba1220917bdd5a9e4361c8e7d077bf",
+          "bytes": 3197
+        },
+        "220x132/white": {
+          "path": "verified-assets/8c0555795ff9bf89f3df550da43eddf3f0d7a93bdb292531100d308aea02d199.png",
+          "sha256": "8c0555795ff9bf89f3df550da43eddf3f0d7a93bdb292531100d308aea02d199",
+          "bytes": 35793
+        },
+        "400x240/white": {
+          "path": "verified-assets/536c3105a64f5a6d1329a4622ee9851900e41cc4ce4beb3add139835eb88c319.png",
+          "sha256": "536c3105a64f5a6d1329a4622ee9851900e41cc4ce4beb3add139835eb88c319",
+          "bytes": 89580
+        },
+        "50x30/black": {
+          "path": "verified-assets/4885dfa5185bd7a8d655c677823e8fe3bebd5fcfa2a01087ade9ad7777d6cd34.png",
+          "sha256": "4885dfa5185bd7a8d655c677823e8fe3bebd5fcfa2a01087ade9ad7777d6cd34",
+          "bytes": 3457
+        },
+        "220x132/black": {
+          "path": "verified-assets/5217620c75c725b3ddde710d2fab910ee7ff90ba10902429caeeb32f35626f01.png",
+          "sha256": "5217620c75c725b3ddde710d2fab910ee7ff90ba10902429caeeb32f35626f01",
+          "bytes": 34900
+        },
+        "400x240/black": {
+          "path": "verified-assets/3e2d6c1d09814c54a4d8f60afc5f7ee17ba75ad426b12ce8cb0a2d467c956f87.png",
+          "sha256": "3e2d6c1d09814c54a4d8f60afc5f7ee17ba75ad426b12ce8cb0a2d467c956f87",
+          "bytes": 86898
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Logo Radio Disney República Dominicana  ",
+        "matched_brand_keys": [
+          "disney",
+          "dominicana",
+          "republica"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:DB:5C3E:ED:0:0:0:0": {
       "name": "DNA radio FM",
@@ -18435,7 +18870,8 @@
       "homepages": [
         "https://www.fracturaexpuesta.com.ar/tango/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:3592:9FCB:ED:0:0:0:0": {
       "name": "Radio Dos Corrientes FM 99.3. Ciudad de Corrientes",
@@ -18447,7 +18883,10 @@
       "homepages": [
         "https://www.radiodos.com.ar/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 403\n"
+      ]
     },
     "4097:0:2:E991:6D7:ED:0:0:0:0": {
       "name": "DS Radio Horizonte 94.5 FM",
@@ -18459,7 +18898,8 @@
       "homepages": [
         "https://dsradio.com.ar/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:C4AE:96F7:ED:0:0:0:0": {
       "name": "Eclipse FM 101.5 MHz",
@@ -18478,7 +18918,95 @@
       "homepages": [
         "https://radioarg.net/eclipse-fm-937"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://radioarg.net/storage/radios/24211/66584/conversions/nuZtKjpgRLpnHbfAC1jvjfuxlSfP93-metaZWNsaXBzZS1mbS05MzcucG5n--lg.webp",
+        "final_url": "https://radioarg.net/storage/radios/24211/66584/conversions/nuZtKjpgRLpnHbfAC1jvjfuxlSfP93-metaZWNsaXBzZS1mbS05MzcucG5n--lg.webp",
+        "path": "originals/ccdb64e2773c68f8f6335bb4707aa118f35ce387124cb5288397f7d0a2fdd789.img",
+        "sha256": "ccdb64e2773c68f8f6335bb4707aa118f35ce387124cb5288397f7d0a2fdd789",
+        "bytes": 3546,
+        "dimensions": [
+          144,
+          144
+        ],
+        "format": "WEBP"
+      },
+      "page": {
+        "url": "https://radioarg.net/eclipse-fm-937",
+        "final_url": "https://radioarg.net/eclipse-fm-937",
+        "original_html_sha256": "00588bcc47fff5ec3dd5d0d03de3b6c95c96a1ef34fc08a8c71ddb6b55c03712",
+        "path": "page-evidence/00588bcc47fff5ec3dd5d0d03de3b6c95c96a1ef34fc08a8c71ddb6b55c03712.json",
+        "titles": [
+          "Eclipse FM 93.7 en vivo",
+          "Eclipse FM 93.7"
+        ],
+        "image_urls": [
+          "https://radioarg.net/logo.webp",
+          "https://radioarg.net/storage/radios/24211/66584/conversions/nuZtKjpgRLpnHbfAC1jvjfuxlSfP93-metaZWNsaXBzZS1mbS05MzcucG5n--lg.webp",
+          "https://radioarg.net/favicon.ico"
+        ],
+        "named_logos": {
+          "https://radioarg.net/logo.webp": "Radioarg.net  ",
+          "https://radioarg.net/storage/radios/24211/66584/conversions/nuZtKjpgRLpnHbfAC1jvjfuxlSfP93-metaZWNsaXBzZS1mbS05MzcucG5n--lg.webp": "Logo Eclipse FM 93.7  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/a8707661795857458622ef66cf0451b4224de0943abde961c453783191e32989.png",
+          "sha256": "a8707661795857458622ef66cf0451b4224de0943abde961c453783191e32989",
+          "bytes": 1390
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/a3c5a671533592eff2d99a61a8e2f1f4cdf83fbf57b85a5736487dd8ad24489b.png",
+          "sha256": "a3c5a671533592eff2d99a61a8e2f1f4cdf83fbf57b85a5736487dd8ad24489b",
+          "bytes": 12088
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/ad0437871dfff4de401bafa3a10bbd8359facf9838cf3b96e27fa1e8a0dcaecd.png",
+          "sha256": "ad0437871dfff4de401bafa3a10bbd8359facf9838cf3b96e27fa1e8a0dcaecd",
+          "bytes": 33583
+        },
+        "50x30/white": {
+          "path": "verified-assets/2fe40315dbf65c364c7bb9740866265e049d3f77cd209e659b636c486ec77b4a.png",
+          "sha256": "2fe40315dbf65c364c7bb9740866265e049d3f77cd209e659b636c486ec77b4a",
+          "bytes": 2746
+        },
+        "220x132/white": {
+          "path": "verified-assets/3da9f3205cf607b5ae932a4d505e29e32171c8ce11f2afe68ae8ab2b782ec9e9.png",
+          "sha256": "3da9f3205cf607b5ae932a4d505e29e32171c8ce11f2afe68ae8ab2b782ec9e9",
+          "bytes": 34265
+        },
+        "400x240/white": {
+          "path": "verified-assets/da74cfb2f12a0d0aae33c2cb75c5b720a926104cd7d9d0cae12907eaa4f4e7ed.png",
+          "sha256": "da74cfb2f12a0d0aae33c2cb75c5b720a926104cd7d9d0cae12907eaa4f4e7ed",
+          "bytes": 86969
+        },
+        "50x30/black": {
+          "path": "verified-assets/584c3d45fc27a6d85ca3d8d55c2e05b8dac3b4164d84ecb3c6b8a6eeecee3886.png",
+          "sha256": "584c3d45fc27a6d85ca3d8d55c2e05b8dac3b4164d84ecb3c6b8a6eeecee3886",
+          "bytes": 2891
+        },
+        "220x132/black": {
+          "path": "verified-assets/4be0f18faf2a057cf18a014fa0f131cfeb16d78120e5271a51b2f879f7e04f95.png",
+          "sha256": "4be0f18faf2a057cf18a014fa0f131cfeb16d78120e5271a51b2f879f7e04f95",
+          "bytes": 33186
+        },
+        "400x240/black": {
+          "path": "verified-assets/0e40e8895583c4ec330f0c2ed479599aadf592feea67a1ec20f623bfa0771466.png",
+          "sha256": "0e40e8895583c4ec330f0c2ed479599aadf592feea67a1ec20f623bfa0771466",
+          "bytes": 84087
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Logo Eclipse FM 93.7  ",
+        "matched_brand_keys": [
+          "eclipse"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:B852:CB85:ED:0:0:0:0": {
       "name": "Eco Medios 1220 AM",
@@ -18497,7 +19025,95 @@
       "homepages": [
         "https://radioarg.net/eco-1220-am"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://radioarg.net/storage/radios/8019/10141/conversions/eco-medios-am-1220-lg.webp",
+        "final_url": "https://radioarg.net/storage/radios/8019/10141/conversions/eco-medios-am-1220-lg.webp",
+        "path": "originals/95ec1152c42631147a65093fc33e0970a96dbe0ead780f317a6ec6f54f2ac749.img",
+        "sha256": "95ec1152c42631147a65093fc33e0970a96dbe0ead780f317a6ec6f54f2ac749",
+        "bytes": 3046,
+        "dimensions": [
+          144,
+          144
+        ],
+        "format": "WEBP"
+      },
+      "page": {
+        "url": "https://radioarg.net/eco-1220-am",
+        "final_url": "https://radioarg.net/eco-1220-am",
+        "original_html_sha256": "a5bc35fd530dd483fcd5a3b303442cab9e4dc2b6163123be1fb6c9bd4d1b47ce",
+        "path": "page-evidence/a5bc35fd530dd483fcd5a3b303442cab9e4dc2b6163123be1fb6c9bd4d1b47ce.json",
+        "titles": [
+          "ECO Medios AM 1220 en vivo",
+          "Eco Medios AM 1220"
+        ],
+        "image_urls": [
+          "https://radioarg.net/logo.webp",
+          "https://radioarg.net/storage/radios/8019/10141/conversions/eco-medios-am-1220-lg.webp",
+          "https://radioarg.net/favicon.ico"
+        ],
+        "named_logos": {
+          "https://radioarg.net/logo.webp": "Radioarg.net  ",
+          "https://radioarg.net/storage/radios/8019/10141/conversions/eco-medios-am-1220-lg.webp": "Logo Eco Medios  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/ad50a84fff5d45b2297850863510e1c73ecaeec5cfba81c3fb282d53851d34e5.png",
+          "sha256": "ad50a84fff5d45b2297850863510e1c73ecaeec5cfba81c3fb282d53851d34e5",
+          "bytes": 1257
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/3f881ab32bda1cdd6d0bb4c09c8fa7ff8021068736aa5c83104d642355bdd578.png",
+          "sha256": "3f881ab32bda1cdd6d0bb4c09c8fa7ff8021068736aa5c83104d642355bdd578",
+          "bytes": 11158
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/04fb48791d5466925899e85a8b70a59c4e77bd7c146d7bc8aeb9e913e618ae77.png",
+          "sha256": "04fb48791d5466925899e85a8b70a59c4e77bd7c146d7bc8aeb9e913e618ae77",
+          "bytes": 29931
+        },
+        "50x30/white": {
+          "path": "verified-assets/59fa3d95e407d4e5efd1f338bcc5b77cc138d18097569322a4902f8a711cfe4b.png",
+          "sha256": "59fa3d95e407d4e5efd1f338bcc5b77cc138d18097569322a4902f8a711cfe4b",
+          "bytes": 2559
+        },
+        "220x132/white": {
+          "path": "verified-assets/9de370783f16029fe233631fb3999d1c5a52ff684e69e8f107fd19a2d6fef4ee.png",
+          "sha256": "9de370783f16029fe233631fb3999d1c5a52ff684e69e8f107fd19a2d6fef4ee",
+          "bytes": 33180
+        },
+        "400x240/white": {
+          "path": "verified-assets/2d5521413f2281e7b0a4ce915af8c367db2d67b17c3ac372c42d4392b1cf4d8a.png",
+          "sha256": "2d5521413f2281e7b0a4ce915af8c367db2d67b17c3ac372c42d4392b1cf4d8a",
+          "bytes": 82887
+        },
+        "50x30/black": {
+          "path": "verified-assets/82d82827d6ebd74760f9968826b81814a81b87ad5813d18770853cbde27cf864.png",
+          "sha256": "82d82827d6ebd74760f9968826b81814a81b87ad5813d18770853cbde27cf864",
+          "bytes": 2803
+        },
+        "220x132/black": {
+          "path": "verified-assets/c54aee86b74abc194c6ac74aebad5cfd3ce0bc0a07719d4ef0a648112a49f51b.png",
+          "sha256": "c54aee86b74abc194c6ac74aebad5cfd3ce0bc0a07719d4ef0a648112a49f51b",
+          "bytes": 32166
+        },
+        "400x240/black": {
+          "path": "verified-assets/49e6fae046cfea954222a26406f237284c91a5a81425f78690ea9fd13bdb211b.png",
+          "sha256": "49e6fae046cfea954222a26406f237284c91a5a81425f78690ea9fd13bdb211b",
+          "bytes": 80136
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Logo Eco Medios  ",
+        "matched_brand_keys": [
+          "eco"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:8D47:A707:ED:0:0:0:0": {
       "name": "Eco Radio 92.3 FM",
@@ -18521,7 +19137,83 @@
       "homepages": [
         "https://ecosdemiscerros.com.ar/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://ecosdemiscerros.com.ar/admin/img/img_85df43079a665585038f.webp",
+        "final_url": "https://ecosdemiscerros.com.ar/admin/img/img_85df43079a665585038f.webp",
+        "path": "originals/df48d5826a64ef840f2262a11c4d7ae0505cda1d2378038bd7c855dab7d46edd.img",
+        "sha256": "df48d5826a64ef840f2262a11c4d7ae0505cda1d2378038bd7c855dab7d46edd",
+        "bytes": 38878,
+        "dimensions": [
+          980,
+          250
+        ],
+        "format": "WEBP"
+      },
+      "page": {
+        "url": "https://ecosdemiscerros.com.ar/",
+        "final_url": "https://ecosdemiscerros.com.ar/",
+        "original_html_sha256": "bee1ffbf3f508ef28a63990fead745400cef1268cb6b303278c4ab1931e69e9f",
+        "path": "page-evidence/bee1ffbf3f508ef28a63990fead745400cef1268cb6b303278c4ab1931e69e9f.json",
+        "titles": [
+          "Ecos de mis Cerros",
+          "Jornadas concretadas en el marco de normas nacionales y municipales",
+          "Por su aporte a la promoción de la inclusión y la construcción de comunidades respetuosas de la diversidad",
+          "Convocaron a funcionarios municipales a fin de conocer detalles en relación al Plan Hídrico Salta 2040",
+          "El hospital Materno Infantil incorpora una propuesta artística en uno de sus espacios de encuentro",
+          "Estudiantes de Guachipas ganadores de la Copa Internacional en Paraguay fueron reconocidos en Casa de Gobierno",
+          "Cosecha récord para Salta en Mar del Plata: 13 nuevas medallas y dos finalistas en tenis de mesa",
+          "Sáenz puso en marcha la formación en Inteligencia Artificial para docentes salteños",
+          "La Municipalidad intervino a raíz de 37 incidentes ocasionados por el viento",
+          "¡Un domingo para comer rico! Llega el concurso al mejor sándwich salteño",
+          "El Móvil de Licencias atendió a 120 personas en UCASAL y continuará su recorrido",
+          "Salta vivirá la llegada del Papa al país con un gran encuentro en plaza España",
+          "Hecho en Salta: se seleccionarán 60 nuevos emprendedores para el espacio comercial",
+          "Por la visita del Papa León XIV, se diagramaron controles viales en rutas nacionales y provinciales",
+          "Aguas del Norte: comenzó la ejecución del Pozo Tavella 1 que beneficiará a más de 4000 vecinos",
+          "Orán: continuará detenido y será llevado a juicio por robo con arma",
+          "Firme compromiso con la educación: hoy se inaugurará el nuevo tinglado de la Escuela Luis María Preti",
+          "Jóvenes de la ciudad tomarán juramento como concejales estudiantiles",
+          "En el marco de la Comisión de Salud y Deportes",
+          "Más seguridad: la avenida Contreras tendrá luminarias con tecnología LED",
+          "Salta, Jujuy y Catamarca trabajan con organismos internacionales para fortalecer la gestión minera",
+          "En General Güemes colectarán sangre este jueves",
+          "Lo denunció un vecino por vender drogas en barrio Siglo XXI: hoy lo imputaron y le dictaron la prisión preventiva",
+          "Orán: condenado a prisión efectiva por amenazas a su madre y desobediencia judicial",
+          "Continúan las obras de infraestructura urbana en Tartagal",
+          "Tartagal renueva su consagra como Ciudad de María",
+          "La formación estuvo a cargo de la Dirección de Emergencias del DEM",
+          "Asesorará en lo relacionado a situaciones de violencia de género y discriminación",
+          "Del 10 al 13 de noviembre los móviles de castración recorrerán distintos barrios",
+          "Salta emprende con estilo: la formación en peluquería y barbería convocó a 600 personas",
+          "El Gobierno garantiza el transporte público y las cirugías programadas y avanza con un Presupuesto 2027 participativo",
+          "El hospital de Cachi suma rayos X digital y se incorpora a la red de Hospital Digital",
+          "Seis medallas para Salta en el primer día de competencia de los Juegos Evita",
+          "Atletismo de gran nivel: Salta sumó siete medallas en el certamen nacional U20",
+          "Este viernes habrá un operativo de atención sanitaria en Coronel Mollinedo",
+          "Más de 600 personas se capacitaron en IA en Aguaray y Salvador Mazza",
+          "Los sabores de Salta se ponen a prueba en un concurso de productos regionales",
+          "La Oficina de Empleo acercó herramientas para la búsqueda laboral a jóvenes",
+          "La mejor hamburguesa del país está en Salta: el municipio reconoció a «Burgerteca»",
+          "El viernes se realizará una jornada sobre producción agropecuaria regenerativa",
+          "Sáenz reclamó una distribución federal y equitativa de los subsidios al transporte",
+          "Acuerdo judicial: anestesistas se comprometen a restablecer el servicio de forma inmediata",
+          "Emprendedoras se capacitan en marketing, finanzas y gestión",
+          "La Escuela de Emprendedores brinda formación en reparación y armado de techos",
+          "Ecos de mis Cerros",
+          "Seguinos en..."
+        ],
+        "image_urls": [
+          "https://ecosdemiscerros.com.ar/admin/img/img_85df43079a665585038f.webp",
+          "https://ecosdemiscerros.com.ar/img/logocdhosting.png",
+          "https://ecosdemiscerros.com.ar/img/favicon.ico"
+        ],
+        "named_logos": {
+          "https://ecosdemiscerros.com.ar/admin/img/img_85df43079a665585038f.webp": "Logo de cabecera_logo  ",
+          "https://ecosdemiscerros.com.ar/img/logocdhosting.png": "CDHosting  "
+        }
+      },
+      "ocr_text": "<=\n\n~\n\nBradigl\n\nECOS aemis CErrOS am\n\n=\n"
     },
     "4097:0:2:8AC8:57EA:ED:0:0:0:0": {
       "name": "EDI RADIO",
@@ -18533,7 +19225,8 @@
       "homepages": [
         "https://elderechoinformatico.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:51D0:FB8:ED:0:0:0:0": {
       "name": "Radio el buen samaritano 101.7 FM",
@@ -18545,7 +19238,98 @@
       "homepages": [
         "https://www.iglesiaelbuensamaritano.com.ar/radio-online/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://www.iglesiaelbuensamaritano.com.ar/wp-content/uploads/2022/02/logo-menu.png",
+        "final_url": "https://www.iglesiaelbuensamaritano.com.ar/wp-content/uploads/2022/02/logo-menu.png",
+        "path": "originals/405f6329845c3d36b200e0eb3a4fa0d42fca754a3362e4650df3cf0c339f71f5.img",
+        "sha256": "405f6329845c3d36b200e0eb3a4fa0d42fca754a3362e4650df3cf0c339f71f5",
+        "bytes": 1773,
+        "dimensions": [
+          158,
+          64
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://www.iglesiaelbuensamaritano.com.ar/radio-online/",
+        "final_url": "https://www.iglesiaelbuensamaritano.com.ar/radio-online/",
+        "original_html_sha256": "bd639f1f5cab161db69a5eb32657c8709ec67d2a03ab2815a0ad4274c5101778",
+        "path": "page-evidence/bd639f1f5cab161db69a5eb32657c8709ec67d2a03ab2815a0ad4274c5101778.json",
+        "titles": [
+          "RADIO ONLINE | El buen samaritano",
+          "Radio El Buen Samaritano",
+          "CONTACTO",
+          "REDES SOCIALES"
+        ],
+        "image_urls": [
+          "https://www.iglesiaelbuensamaritano.com.ar/wp-content/uploads/2022/02/logo-footer.png",
+          "https://www.iglesiaelbuensamaritano.com.ar/wp-content/uploads/2022/02/logo-menu.png",
+          "https://www.iglesiaelbuensamaritano.com.ar/wp-content/uploads/2022/05/cropped-Logo-Min-192x192.png"
+        ],
+        "named_logos": {
+          "https://www.iglesiaelbuensamaritano.com.ar/wp-content/uploads/2022/02/logo-menu.png": "El buen samaritano  ",
+          "https://www.iglesiaelbuensamaritano.com.ar/wp-content/uploads/2022/02/logo-footer.png": " logo-footer "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/c20d6db29381bd86a22da0eedaa62ce839c961b09325c3db7a259dccf02e065f.png",
+          "sha256": "c20d6db29381bd86a22da0eedaa62ce839c961b09325c3db7a259dccf02e065f",
+          "bytes": 839
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/a3d1358bf557e783904d82261705a1c445b154ee756926fc51664b8fb61990d5.png",
+          "sha256": "a3d1358bf557e783904d82261705a1c445b154ee756926fc51664b8fb61990d5",
+          "bytes": 4443
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/3d01327864e08aaef7b072e3bf7ed20cfb0b119a721dfd1a230045b325ed52e7.png",
+          "sha256": "3d01327864e08aaef7b072e3bf7ed20cfb0b119a721dfd1a230045b325ed52e7",
+          "bytes": 18453
+        },
+        "50x30/white": {
+          "path": "verified-assets/1f1ac75a19c778b01a79e84f77556f73dc836345b4f20e41dc289be3e1d40f11.png",
+          "sha256": "1f1ac75a19c778b01a79e84f77556f73dc836345b4f20e41dc289be3e1d40f11",
+          "bytes": 2463
+        },
+        "220x132/white": {
+          "path": "verified-assets/3dd96ea714c7627a8f9bde05fb32a29c1f36220683f9f23a6c3796619522073a.png",
+          "sha256": "3dd96ea714c7627a8f9bde05fb32a29c1f36220683f9f23a6c3796619522073a",
+          "bytes": 34903
+        },
+        "400x240/white": {
+          "path": "verified-assets/ced42c6700cad21e2b06cb9597996d4552fe2238d5cd177e350463299b3f48a0.png",
+          "sha256": "ced42c6700cad21e2b06cb9597996d4552fe2238d5cd177e350463299b3f48a0",
+          "bytes": 86725
+        },
+        "50x30/black": {
+          "path": "verified-assets/b1e9aab5d975b5f0c60ea345a6a1b9e7e51e8583bc824ab13e267830c90fa246.png",
+          "sha256": "b1e9aab5d975b5f0c60ea345a6a1b9e7e51e8583bc824ab13e267830c90fa246",
+          "bytes": 3240
+        },
+        "220x132/black": {
+          "path": "verified-assets/65d5c2410a97afbe5ecce4bb2c326682815d87dc48d75d3f502330d17e4a39da.png",
+          "sha256": "65d5c2410a97afbe5ecce4bb2c326682815d87dc48d75d3f502330d17e4a39da",
+          "bytes": 36206
+        },
+        "400x240/black": {
+          "path": "verified-assets/3efe9db69fc7d9a136754857d5faf2308e2072eb9340fabd78f452fcfff9babc.png",
+          "sha256": "3efe9db69fc7d9a136754857d5faf2308e2072eb9340fabd78f452fcfff9babc",
+          "bytes": 95627
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "El buen samaritano  ",
+        "matched_brand_keys": [
+          "buen",
+          "samaritano"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:6044:B819:ED:0:0:0:0": {
       "name": "El Chubut 90.1 FM",
@@ -18557,7 +19341,95 @@
       "homepages": [
         "https://radioarg.net/el-chubut-901-fm"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://radioarg.net/storage/radios/7844/9966/conversions/el-chubut-901-fm-lg.webp",
+        "final_url": "https://radioarg.net/storage/radios/7844/9966/conversions/el-chubut-901-fm-lg.webp",
+        "path": "originals/8f7460ae694cbf69d5e56ea09ef45c6561b036fb4a6921bbbdb08a3a17fb9823.img",
+        "sha256": "8f7460ae694cbf69d5e56ea09ef45c6561b036fb4a6921bbbdb08a3a17fb9823",
+        "bytes": 4252,
+        "dimensions": [
+          144,
+          144
+        ],
+        "format": "WEBP"
+      },
+      "page": {
+        "url": "https://radioarg.net/el-chubut-901-fm",
+        "final_url": "https://radioarg.net/el-chubut-901-fm",
+        "original_html_sha256": "bc17fcb88276008f0ef76d734d728ff3fc97865676d4f72fb5f756ef850462d8",
+        "path": "page-evidence/bc17fcb88276008f0ef76d734d728ff3fc97865676d4f72fb5f756ef850462d8.json",
+        "titles": [
+          "Escucha El Chubut 90.1 FM en vivo",
+          "El Chubut 90.1 FM"
+        ],
+        "image_urls": [
+          "https://radioarg.net/logo.webp",
+          "https://radioarg.net/storage/radios/7844/9966/conversions/el-chubut-901-fm-lg.webp",
+          "https://radioarg.net/favicon.ico"
+        ],
+        "named_logos": {
+          "https://radioarg.net/logo.webp": "Radioarg.net  ",
+          "https://radioarg.net/storage/radios/7844/9966/conversions/el-chubut-901-fm-lg.webp": "Logo El Chubut 90.1 FM  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/72075270b56426d4c5e12de9f650b8621c213f468941bc4791e2ed7c056c1cfd.png",
+          "sha256": "72075270b56426d4c5e12de9f650b8621c213f468941bc4791e2ed7c056c1cfd",
+          "bytes": 1372
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/b160b0243a34bd919bd18b0e6e96e2e451b1134f1ed9eec1308eb0c219e60d5a.png",
+          "sha256": "b160b0243a34bd919bd18b0e6e96e2e451b1134f1ed9eec1308eb0c219e60d5a",
+          "bytes": 13154
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/6ed37a38f6c8361c994f0bd5cb520531fa7288466cdbc37baa89f61870fc1914.png",
+          "sha256": "6ed37a38f6c8361c994f0bd5cb520531fa7288466cdbc37baa89f61870fc1914",
+          "bytes": 35689
+        },
+        "50x30/white": {
+          "path": "verified-assets/4b74c84c9b88e319334c32bbfc5272696ace6aa9da919244ee7928812760ca28.png",
+          "sha256": "4b74c84c9b88e319334c32bbfc5272696ace6aa9da919244ee7928812760ca28",
+          "bytes": 2659
+        },
+        "220x132/white": {
+          "path": "verified-assets/2085b1a40a535f01198bc5c87ab6693f17238dcc148661d246ae7cb8909be739.png",
+          "sha256": "2085b1a40a535f01198bc5c87ab6693f17238dcc148661d246ae7cb8909be739",
+          "bytes": 35516
+        },
+        "400x240/white": {
+          "path": "verified-assets/7ddab16ff5621f8d7e29597943719c3588c9681404ded98aad051f4e8be07d4f.png",
+          "sha256": "7ddab16ff5621f8d7e29597943719c3588c9681404ded98aad051f4e8be07d4f",
+          "bytes": 88910
+        },
+        "50x30/black": {
+          "path": "verified-assets/858a6aea0c99a2bf7c2e39c1abefa5ad1393f24664e4c4ee4a412eb3bc993c9b.png",
+          "sha256": "858a6aea0c99a2bf7c2e39c1abefa5ad1393f24664e4c4ee4a412eb3bc993c9b",
+          "bytes": 2915
+        },
+        "220x132/black": {
+          "path": "verified-assets/bb6d4c6d05b4020fecdbf8f1ece733b3527d95a22cb3ad40ea9d6a07ecf25c2d.png",
+          "sha256": "bb6d4c6d05b4020fecdbf8f1ece733b3527d95a22cb3ad40ea9d6a07ecf25c2d",
+          "bytes": 34388
+        },
+        "400x240/black": {
+          "path": "verified-assets/b936a79e66d31d0949d0ffae52ef1bdaf77fd550734998b522ff5fd91dacd139.png",
+          "sha256": "b936a79e66d31d0949d0ffae52ef1bdaf77fd550734998b522ff5fd91dacd139",
+          "bytes": 85896
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Logo El Chubut 90.1 FM  ",
+        "matched_brand_keys": [
+          "chubut"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:1550:75AF:ED:0:0:0:0": {
       "name": "EL CLUB DE LA PLUMA",
@@ -18583,7 +19455,94 @@
       "homepages": [
         "https://www.eldestapeweb.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://static.eldestapeweb.com/img/estructura/logo.png",
+        "final_url": "https://static.eldestapeweb.com/img/estructura/logo.png",
+        "path": "originals/aff9b80817072ce714cd0db89488a20270df8a26b808f112c511376dbc53d7c2.img",
+        "sha256": "aff9b80817072ce714cd0db89488a20270df8a26b808f112c511376dbc53d7c2",
+        "bytes": 7793,
+        "dimensions": [
+          540,
+          154
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://www.eldestapeweb.com/",
+        "final_url": "https://www.eldestapeweb.com/",
+        "original_html_sha256": "2bd16abd906a180494675497ca9a411b4c8989193bcc9527f22b49bd3d5871cd",
+        "path": "page-evidence/2bd16abd906a180494675497ca9a411b4c8989193bcc9527f22b49bd3d5871cd.json",
+        "titles": [
+          "El Destape - Sigamos Haciendo Historia",
+          "El Destape - Sigamos Haciendo Historia"
+        ],
+        "image_urls": [
+          "https://static.eldestapeweb.com/img/estructura/logo.png",
+          "https://static.eldestapeweb.com/img/favicons/android-icon-192x192.png",
+          "https://static.eldestapeweb.com/img/favicons/apple-icon-114x114.png"
+        ],
+        "named_logos": {
+          "https://static.eldestapeweb.com/img/estructura/logo.png": "El Destape Web  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/3a3517c3370aa21eb8d18e230052eba48edc2f1263f1962c3f127bfd0606f592.png",
+          "sha256": "3a3517c3370aa21eb8d18e230052eba48edc2f1263f1962c3f127bfd0606f592",
+          "bytes": 1387
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/d05e585d90eb870dce50512fa86a6ac289cee5fa02555a7e9445c99bb22ab1a1.png",
+          "sha256": "d05e585d90eb870dce50512fa86a6ac289cee5fa02555a7e9445c99bb22ab1a1",
+          "bytes": 9844
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/5b33f4590f7527baf3b3c5dc8385b81de57e9671d18e2625ae59505a1257245e.png",
+          "sha256": "5b33f4590f7527baf3b3c5dc8385b81de57e9671d18e2625ae59505a1257245e",
+          "bytes": 32494
+        },
+        "50x30/white": {
+          "path": "verified-assets/d1e0c9013484238c391de5903a3f35a5682fc03da4d40edcead247915a46a59c.png",
+          "sha256": "d1e0c9013484238c391de5903a3f35a5682fc03da4d40edcead247915a46a59c",
+          "bytes": 3025
+        },
+        "220x132/white": {
+          "path": "verified-assets/86620f21b944d6475871b35a2377a72397de9df7603cf9fa70eb288a2ea249b3.png",
+          "sha256": "86620f21b944d6475871b35a2377a72397de9df7603cf9fa70eb288a2ea249b3",
+          "bytes": 37717
+        },
+        "400x240/white": {
+          "path": "verified-assets/35d96caa8d31ff371f47c2ffa597265f4b1725073d703189cf99d2d8335d2861.png",
+          "sha256": "35d96caa8d31ff371f47c2ffa597265f4b1725073d703189cf99d2d8335d2861",
+          "bytes": 97153
+        },
+        "50x30/black": {
+          "path": "verified-assets/b12053de72ba4e11b0413946c448f1761ecc9194057d77494b2c0577f3eba97c.png",
+          "sha256": "b12053de72ba4e11b0413946c448f1761ecc9194057d77494b2c0577f3eba97c",
+          "bytes": 2917
+        },
+        "220x132/black": {
+          "path": "verified-assets/140d800553d23d4b4f336f0fa279e00d61d6a78d15e44d7de33a3165706b9e98.png",
+          "sha256": "140d800553d23d4b4f336f0fa279e00d61d6a78d15e44d7de33a3165706b9e98",
+          "bytes": 34929
+        },
+        "400x240/black": {
+          "path": "verified-assets/2c90e820993fd55bcb8f914e39dab323e8574e5f79884be9b47796370df74534.png",
+          "sha256": "2c90e820993fd55bcb8f914e39dab323e8574e5f79884be9b47796370df74534",
+          "bytes": 85315
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "El Destape Web  ",
+        "matched_brand_keys": [
+          "eldestape"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:A1B1:BA4A:ED:0:0:0:0": {
       "name": "Elevate 102.1 FM Rosario",
@@ -18602,7 +19561,10 @@
       "homepages": [
         "https://www.radioelfaro.org/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (22) The requested URL returned error: 404\n"
+      ]
     },
     "4097:0:2:73B4:D0BB:ED:0:0:0:0": {
       "name": "Elite FM 101.5",
@@ -18614,7 +19576,112 @@
       "homepages": [
         "https://www.elitefm.com.ar/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://i.argentino.com.ar/config_argentino_www/boton.svg",
+        "final_url": "https://i.argentino.com.ar/config_argentino_www/boton.svg",
+        "path": "originals/224d57b45a588e017d834ba3256ca7f1108da5020f50b6336b79250ab52eb38c.img",
+        "sha256": "224d57b45a588e017d834ba3256ca7f1108da5020f50b6336b79250ab52eb38c",
+        "bytes": 1193,
+        "dimensions": [
+          640,
+          640
+        ],
+        "format": "SVG",
+        "frozen_svg_raster": {
+          "path": "rasterized/724754b4f44e8d4f250221b5f26ca3f3af3e2e94cb0a24efc5e7a9fb46abf7e8.png",
+          "sha256": "724754b4f44e8d4f250221b5f26ca3f3af3e2e94cb0a24efc5e7a9fb46abf7e8",
+          "cairosvg_version": "2.8.2"
+        }
+      },
+      "page": {
+        "url": "https://www.elitefm.com.ar/",
+        "final_url": "https://www.elitefm.com.ar/",
+        "original_html_sha256": "f55d34c60d87f63e6f4e8e870a43854ed5683fa8f860bda34d4734b8da3ecfa7",
+        "path": "page-evidence/f55d34c60d87f63e6f4e8e870a43854ed5683fa8f860bda34d4734b8da3ecfa7.json",
+        "titles": [
+          "LRT809 Elite FM 101.5 | 🌍 La Radio Mundial de General Cabrera 🌍",
+          "Radio Elite FM 101.5: La Radio Mundial de General Cabrera"
+        ],
+        "image_urls": [
+          "https://i.argentino.com.ar/config_argentino_www/boton.svg",
+          "https://myradioenvivo.ar/public/img/launcher/logo_72.png",
+          "https://www.elitefm.com.ar/img/ausp/aeh_peru.webp"
+        ],
+        "named_logos": {
+          "https://www.elitefm.com.ar/img/logo-18.webp": "Elite FM 18 años  ",
+          "https://i.argentino.com.ar/config_argentino_www/boton.svg": "Logo de Argentino.com.ar - Enlace a Elite FM la radio mundial de General Cabrera Córdoba  ",
+          "https://www.elitefm.com.ar/img/ausp/aeh_peru.webp": "Logo de la Asociación Educativa Hispanoamericana (AEH Perú) - Alianza estratégica con Elite FM 101.5 para la difusión de cultura en General Cabrera y el mundo  ",
+          "https://www.elitefm.com.ar/img/ausp/logo_copesp.webp": "COPESP  ",
+          "https://www.elitefm.com.ar/img/ausp/logo_servitec_gd.webp": "Servitec GD  ",
+          "https://www.elitefm.com.ar/img/ausp/logo_potenza.webp": "Potenza Soluciones Informaticas - General Deheza  ",
+          "https://www.elitefm.com.ar/img/ausp/logo_el_ceibo.webp": "Carpinteria de obra 'El Ceibo' - General Cabrera  ",
+          "https://www.elitefm.com.ar/img/directorios/logo_tunein.webp": "Escuchar Elite FM 101.5 en TuneIn  ",
+          "https://myradioenvivo.ar/public/img/launcher/logo_72.png": "Sintonizar Elite FM en MyRadioEnVivo  ",
+          "https://www.elitefm.com.ar/img/directorios/logo%20raddios.webp": "Raddios  ",
+          "https://www.elitefm.com.ar/img/directorios/logo%20uRadios.webp": "uRadios  ",
+          "https://www.elitefm.com.ar/img/directorios/logo_my-uner_light.webp": "My Tuner Radio  ",
+          "https://www.elitefm.com.ar/img/directorios/logo-radioq.webp": "Radio Q  ",
+          "https://www.elitefm.com.ar/img/directorios/logo-raddio.webp": "Raddio  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/d862fc6de93dcfbc6705c1b9055298b467197dac76b478bf5603812182d2c9ec.png",
+          "sha256": "d862fc6de93dcfbc6705c1b9055298b467197dac76b478bf5603812182d2c9ec",
+          "bytes": 1518
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/53ebd752263576d8aafbbd508060c1cd2d80b99b30603a9bd486b6e46847ca4f.png",
+          "sha256": "53ebd752263576d8aafbbd508060c1cd2d80b99b30603a9bd486b6e46847ca4f",
+          "bytes": 7763
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/b90693b20bf09748392f0a3810ccd755211f9a79976c7a25740d68945b727617.png",
+          "sha256": "b90693b20bf09748392f0a3810ccd755211f9a79976c7a25740d68945b727617",
+          "bytes": 24773
+        },
+        "50x30/white": {
+          "path": "verified-assets/12ceb00e9602ab26b33544fcedbcfc67820429c08496623e0d7912e889847f39.png",
+          "sha256": "12ceb00e9602ab26b33544fcedbcfc67820429c08496623e0d7912e889847f39",
+          "bytes": 2908
+        },
+        "220x132/white": {
+          "path": "verified-assets/3d402d626e1854c4f4fb1c36e8726c9b81d164bf4a320511925aaeb98d90ac1a.png",
+          "sha256": "3d402d626e1854c4f4fb1c36e8726c9b81d164bf4a320511925aaeb98d90ac1a",
+          "bytes": 33336
+        },
+        "400x240/white": {
+          "path": "verified-assets/cc33209689efa42a3c382d2acc6350900cce77950fe7a577e38980032a99c901.png",
+          "sha256": "cc33209689efa42a3c382d2acc6350900cce77950fe7a577e38980032a99c901",
+          "bytes": 85205
+        },
+        "50x30/black": {
+          "path": "verified-assets/33347cd9cee2a159bf689bf408f89e7b5b5be0a7f6a616e1c0c43f5542ade4cf.png",
+          "sha256": "33347cd9cee2a159bf689bf408f89e7b5b5be0a7f6a616e1c0c43f5542ade4cf",
+          "bytes": 2929
+        },
+        "220x132/black": {
+          "path": "verified-assets/ff33e7e1adf59a8bdb7ad091a0be2d594b1b93b223285c36d8fc24bc4eb4d832.png",
+          "sha256": "ff33e7e1adf59a8bdb7ad091a0be2d594b1b93b223285c36d8fc24bc4eb4d832",
+          "bytes": 31815
+        },
+        "400x240/black": {
+          "path": "verified-assets/311cf50bc37a0dfd13734e66288400f1ea708daefd97cb94fcf54dd39e346d49.png",
+          "sha256": "311cf50bc37a0dfd13734e66288400f1ea708daefd97cb94fcf54dd39e346d49",
+          "bytes": 78174
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Logo de Argentino.com.ar - Enlace a Elite FM la radio mundial de General Cabrera Córdoba  ",
+        "matched_brand_keys": [
+          "elite"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:7007:E32B:ED:0:0:0:0": {
       "name": "Radio El Signo 106.5 FM",
@@ -18626,7 +19693,95 @@
       "homepages": [
         "https://radioarg.net/el-signo-1065-fm"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://radioarg.net/storage/radios/8021/10143/conversions/el-signo-1065-fm-lg.webp",
+        "final_url": "https://radioarg.net/storage/radios/8021/10143/conversions/el-signo-1065-fm-lg.webp",
+        "path": "originals/2bc0684910892c71c3ddd50b377942e1f2748d535afcd9e2de7f52ab06d73657.img",
+        "sha256": "2bc0684910892c71c3ddd50b377942e1f2748d535afcd9e2de7f52ab06d73657",
+        "bytes": 4066,
+        "dimensions": [
+          144,
+          144
+        ],
+        "format": "WEBP"
+      },
+      "page": {
+        "url": "https://radioarg.net/el-signo-1065-fm",
+        "final_url": "https://radioarg.net/el-signo-1065-fm",
+        "original_html_sha256": "c0ad12ec9b978eaf8d9a847857d82d6160b89879050b4266ca12e18263e446cb",
+        "path": "page-evidence/c0ad12ec9b978eaf8d9a847857d82d6160b89879050b4266ca12e18263e446cb.json",
+        "titles": [
+          "Escuchar Radio El Signo 106.5 FM - en vivo",
+          "Radio El Signo 106.5 FM"
+        ],
+        "image_urls": [
+          "https://radioarg.net/logo.webp",
+          "https://radioarg.net/storage/radios/8021/10143/conversions/el-signo-1065-fm-lg.webp",
+          "https://radioarg.net/favicon.ico"
+        ],
+        "named_logos": {
+          "https://radioarg.net/logo.webp": "Radioarg.net  ",
+          "https://radioarg.net/storage/radios/8021/10143/conversions/el-signo-1065-fm-lg.webp": "Logo Radio El Signo 106.5 FM  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/9daec73c4a2bdc6e66646165a67a298ef6026aeb3c5a28f1e6296290f010c0ea.png",
+          "sha256": "9daec73c4a2bdc6e66646165a67a298ef6026aeb3c5a28f1e6296290f010c0ea",
+          "bytes": 1454
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/bdd7c9ff3e1ee2f2a9651c3d240a038571acb35bfdbb99514156a337cd6ea716.png",
+          "sha256": "bdd7c9ff3e1ee2f2a9651c3d240a038571acb35bfdbb99514156a337cd6ea716",
+          "bytes": 13419
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/af10c962998a64c1c4734cd014ed0a47fd3fd33bc79083da59c6f0d1999e78fb.png",
+          "sha256": "af10c962998a64c1c4734cd014ed0a47fd3fd33bc79083da59c6f0d1999e78fb",
+          "bytes": 36474
+        },
+        "50x30/white": {
+          "path": "verified-assets/3d9273f387e42bac65cd762308118945ca3184db74955f8e9abc7687062dbf22.png",
+          "sha256": "3d9273f387e42bac65cd762308118945ca3184db74955f8e9abc7687062dbf22",
+          "bytes": 2730
+        },
+        "220x132/white": {
+          "path": "verified-assets/5760d654342f281e10eb472e907a987acdac3cd30cba7a40ccc3628cc52cca2f.png",
+          "sha256": "5760d654342f281e10eb472e907a987acdac3cd30cba7a40ccc3628cc52cca2f",
+          "bytes": 35764
+        },
+        "400x240/white": {
+          "path": "verified-assets/736486af115b53620299d189dab5ee24fefdc5e53abc2886d92ed4961b3fe9c2.png",
+          "sha256": "736486af115b53620299d189dab5ee24fefdc5e53abc2886d92ed4961b3fe9c2",
+          "bytes": 89426
+        },
+        "50x30/black": {
+          "path": "verified-assets/d15103faef4cc20971235ae37ddf5b9b5880317bc708ab4920104ba8c17cd1dc.png",
+          "sha256": "d15103faef4cc20971235ae37ddf5b9b5880317bc708ab4920104ba8c17cd1dc",
+          "bytes": 3037
+        },
+        "220x132/black": {
+          "path": "verified-assets/097876193d34b67c4e36b5b8de80881e53b8612a47ee18ad22aed699b15d673e.png",
+          "sha256": "097876193d34b67c4e36b5b8de80881e53b8612a47ee18ad22aed699b15d673e",
+          "bytes": 34627
+        },
+        "400x240/black": {
+          "path": "verified-assets/c12fc4c7f908efbe1a9abb9339a7ebdd567f29659c4c350a7809e99a7150b4dc.png",
+          "sha256": "c12fc4c7f908efbe1a9abb9339a7ebdd567f29659c4c350a7809e99a7150b4dc",
+          "bytes": 86575
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Logo Radio El Signo 106.5 FM  ",
+        "matched_brand_keys": [
+          "signo"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:BB62:FFBC:ED:0:0:0:0": {
       "name": "El Sol Sale Para Todos",
@@ -18648,7 +19803,10 @@
       "homepages": [
         "https://elkyrios.net/radio/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (60) SSL: no alternative certificate subject name matches target host name 'elkyrios.net'\nMore details here: https://curl.se/docs/sslcerts.html\n\ncurl failed to verify the leg"
+      ]
     },
     "4097:0:2:DC09:E60C:ED:0:0:0:0": {
       "name": "Emanuel Jireh",
@@ -18660,7 +19818,34 @@
       "homepages": [
         "https://emanueljireh.wixsite.com/my-site-1"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://www.wix.com/favicon.ico",
+        "final_url": "https://www.wix.com/favicon.ico",
+        "path": "originals/295a1f6f927fd11a3842a4c9f508b4152eca150cb4c54d6cfb64736fad659b80.img",
+        "sha256": "295a1f6f927fd11a3842a4c9f508b4152eca150cb4c54d6cfb64736fad659b80",
+        "bytes": 3477,
+        "dimensions": [
+          192,
+          192
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://emanueljireh.wixsite.com/my-site-1",
+        "final_url": "https://emanueljireh.wixsite.com/my-site-1",
+        "original_html_sha256": "9526efa624a474ef74081bfe655f8b3c8e112cd842c1d0c4a7a5470510c63adc",
+        "path": "page-evidence/9526efa624a474ef74081bfe655f8b3c8e112cd842c1d0c4a7a5470510c63adc.json",
+        "titles": [
+          "SITIO OFICIAL EMANUEL JIREH | radio en vivo, televisión en vivo, podcast, predicaciones, videos, canciones y contenidos relacionados con el ministerio"
+        ],
+        "image_urls": [
+          "https://www.wix.com/favicon.ico",
+          "https://static.wixstatic.com/media/5e6292_450f71bccc674a2993a4286b05c78bd0%7Emv2.jpg/v1/fit/w_2500,h_1330,al_c/5e6292_450f71bccc674a2993a4286b05c78bd0%7Emv2.jpg"
+        ],
+        "named_logos": {}
+      },
+      "ocr_text": "WIX\n"
     },
     "4097:0:2:EA85:B73C:ED:0:0:0:0": {
       "name": "Emisora del Este 98.9 FM y 98.1 FM",
@@ -18672,7 +19857,34 @@
       "homepages": [
         "https://www.emisoradelestefm.com.ar/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://play-lh.googleusercontent.com/P_K9fzMJA0-vkOhC4_1DEa75SXyDfV6GVTl6W5Ey6MHnzcXf_2Shi7s7lIhyARsBrQ=w240-h480-rw",
+        "final_url": "https://play-lh.googleusercontent.com/P_K9fzMJA0-vkOhC4_1DEa75SXyDfV6GVTl6W5Ey6MHnzcXf_2Shi7s7lIhyARsBrQ=w240-h480-rw",
+        "path": "originals/1379a304b90abfb64c56a16aa5c7d0811eb68f83281eff8a0563d92a100e7abd.img",
+        "sha256": "1379a304b90abfb64c56a16aa5c7d0811eb68f83281eff8a0563d92a100e7abd",
+        "bytes": 25624,
+        "dimensions": [
+          240,
+          240
+        ],
+        "format": "WEBP"
+      },
+      "page": {
+        "url": "https://www.emisoradelestefm.com.ar/",
+        "final_url": "https://www.emisoradelestefm.com.ar/",
+        "original_html_sha256": "1eb21b7573c86b41c9cfeea1cfb1678900323f56ee29a9b3712055a884637341",
+        "path": "page-evidence/1eb21b7573c86b41c9cfeea1cfb1678900323f56ee29a9b3712055a884637341.json",
+        "titles": [
+          "FM DEL ESTE 98.1- SAN SALVADOR "
+        ],
+        "image_urls": [
+          "https://play-lh.googleusercontent.com/P_K9fzMJA0-vkOhC4_1DEa75SXyDfV6GVTl6W5Ey6MHnzcXf_2Shi7s7lIhyARsBrQ=w240-h480-rw",
+          "https://i.pinimg.com/originals/52/6c/52/526c521b31982f2abe45ca554d794c38.jpg"
+        ],
+        "named_logos": {}
+      },
+      "ocr_text": "oO\"\n"
     },
     "4097:0:2:A09D:8EBE:ED:0:0:0:0": {
       "name": "Emociones 102.5 FM",
@@ -18684,7 +19896,95 @@
       "homepages": [
         "https://radioarg.net/emociones-1025-fm"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://radioarg.net/storage/radios/25311/69942/conversions/wc7jVuqDX6f10Va6efhvg55J4NzkO2-metaZW1vY2lvbmVzLTEwMjUtZm0ucG5n--lg.webp",
+        "final_url": "https://radioarg.net/storage/radios/25311/69942/conversions/wc7jVuqDX6f10Va6efhvg55J4NzkO2-metaZW1vY2lvbmVzLTEwMjUtZm0ucG5n--lg.webp",
+        "path": "originals/63151cb2b06d07e4a47eb26d84431464de9ea07976cfab45a202c7c2470871dc.img",
+        "sha256": "63151cb2b06d07e4a47eb26d84431464de9ea07976cfab45a202c7c2470871dc",
+        "bytes": 3138,
+        "dimensions": [
+          144,
+          144
+        ],
+        "format": "WEBP"
+      },
+      "page": {
+        "url": "https://radioarg.net/emociones-1025-fm",
+        "final_url": "https://radioarg.net/emociones-1025-fm",
+        "original_html_sha256": "906c8f320170ef5690f8e55adbcb096cbaad4c15c20e3084f2127835a22bda49",
+        "path": "page-evidence/906c8f320170ef5690f8e55adbcb096cbaad4c15c20e3084f2127835a22bda49.json",
+        "titles": [
+          "Emociones 102.5 FM en vivo - General Roca, Río Negro",
+          "Emociones 102.5 FM"
+        ],
+        "image_urls": [
+          "https://radioarg.net/logo.webp",
+          "https://radioarg.net/storage/radios/25311/69942/conversions/wc7jVuqDX6f10Va6efhvg55J4NzkO2-metaZW1vY2lvbmVzLTEwMjUtZm0ucG5n--lg.webp",
+          "https://radioarg.net/favicon.ico"
+        ],
+        "named_logos": {
+          "https://radioarg.net/logo.webp": "Radioarg.net  ",
+          "https://radioarg.net/storage/radios/25311/69942/conversions/wc7jVuqDX6f10Va6efhvg55J4NzkO2-metaZW1vY2lvbmVzLTEwMjUtZm0ucG5n--lg.webp": "Logo Emociones 102.5 FM  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/700e8d786ec39cfa4d1cfa4748a5742ba2837e4f7360b4a0fe30c8c64fd9c4e3.png",
+          "sha256": "700e8d786ec39cfa4d1cfa4748a5742ba2837e4f7360b4a0fe30c8c64fd9c4e3",
+          "bytes": 1032
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/bc7c7d5a059deb4ef7986499b5e862b7787a5227a93aef243c17d192c7947984.png",
+          "sha256": "bc7c7d5a059deb4ef7986499b5e862b7787a5227a93aef243c17d192c7947984",
+          "bytes": 9448
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/1187cf40c6b84628e8c14e97143ae3b5b4944b3fba451c299825b4cfcff138b8.png",
+          "sha256": "1187cf40c6b84628e8c14e97143ae3b5b4944b3fba451c299825b4cfcff138b8",
+          "bytes": 26077
+        },
+        "50x30/white": {
+          "path": "verified-assets/1da9d1b89be6c3ceea9f390d24463e929faa465fcba1e8d5a8af8aaf63fe3073.png",
+          "sha256": "1da9d1b89be6c3ceea9f390d24463e929faa465fcba1e8d5a8af8aaf63fe3073",
+          "bytes": 2332
+        },
+        "220x132/white": {
+          "path": "verified-assets/1a08bf604573ac3c723540c627f891af3bef4109094bd708e2b8cfebb327f1cc.png",
+          "sha256": "1a08bf604573ac3c723540c627f891af3bef4109094bd708e2b8cfebb327f1cc",
+          "bytes": 31755
+        },
+        "400x240/white": {
+          "path": "verified-assets/0cbd699919afa35150a9f3f330a89d9a91e1b083eab6a776c68d9671bb18dfee.png",
+          "sha256": "0cbd699919afa35150a9f3f330a89d9a91e1b083eab6a776c68d9671bb18dfee",
+          "bytes": 79460
+        },
+        "50x30/black": {
+          "path": "verified-assets/6e8b37feb88cc9f683cf93726104e8cd589fea2a987bd8c61cb70dba39228535.png",
+          "sha256": "6e8b37feb88cc9f683cf93726104e8cd589fea2a987bd8c61cb70dba39228535",
+          "bytes": 2608
+        },
+        "220x132/black": {
+          "path": "verified-assets/2741b694e667fb5510e43a4fe7e2ac985176dcde95a489526097ad12495029d9.png",
+          "sha256": "2741b694e667fb5510e43a4fe7e2ac985176dcde95a489526097ad12495029d9",
+          "bytes": 30744
+        },
+        "400x240/black": {
+          "path": "verified-assets/f3b4875435f8d68157ecf7f9267653ac893d7dfa03e5d2e316960d1843c62310.png",
+          "sha256": "f3b4875435f8d68157ecf7f9267653ac893d7dfa03e5d2e316960d1843c62310",
+          "bytes": 76827
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Logo Emociones 102.5 FM  ",
+        "matched_brand_keys": [
+          "emociones"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:B332:F025:ED:0:0:0:0": {
       "name": "Enjoy Radio",
@@ -18696,7 +19996,10 @@
       "homepages": [
         "http://enjoyradio.com.ar/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "curl: (6) Could not resolve host: enjoyradio.com.ar\n"
+      ]
     },
     "4097:0:2:6414:31A5:ED:0:0:0:0": {
       "name": "En Vivo Radio 70",
@@ -460392,14 +461695,14 @@
   },
   "counts": {
     "already_ready_in_saved_checkpoint": 4155,
-    "blocked_no_confirmed_station_page_and_logo": 166,
+    "blocked_no_confirmed_station_page_and_logo": 174,
     "blocked_no_independent_station_homepage": 1269,
     "blocked_no_unique_current_station_metadata": 4248,
-    "candidate_assistant_visual_and_identity_check": 62,
+    "candidate_assistant_visual_and_identity_check": 67,
     "needs_assistant_identity_research_for_short_or_generic_name": 1328,
-    "pending_homepage_discovery": 29578,
-    "ready_verified_homepage_and_wordmark": 97
+    "pending_homepage_discovery": 29553,
+    "ready_verified_homepage_and_wordmark": 109
   },
-  "last_event": "homepages_300_of_29878",
-  "updated_utc": "2026-11-05T13:46:09Z"
+  "last_event": "homepages_325_of_29878",
+  "updated_utc": "2026-11-05T13:46:22Z"
 }
