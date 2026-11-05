@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#c7192f">
+    <meta name="description" content="Radio Colo Colo, la emisora con más corazón de Chile. Escúchanos en vivo las 24 horas.">
+    <title>Radio Colo Colo | La Campeona de Chile</title>
+    <link rel="icon" type="image/png" href="https://radiocolocolofm.cl/icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        :root {
+            --red: #c7192f;
+            --red-dark: #9e1024;
+            --red-pale: #fff1f3;
+            --ink: #17212b;
+            --muted: #68727e;
+            --line: #e7e9ec;
+            --paper: #ffffff;
+            --canvas: #f6f7f8;
+            --green: #22b961;
+            --shadow: 0 18px 50px rgba(22, 33, 43, .09);
+        }
+
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            margin: 0;
+            color: var(--ink);
+            background: var(--canvas);
+            font-family: "DM Sans", sans-serif;
+            line-height: 1.6;
+        }
+        a { color: inherit; text-decoration: none; }
+        img { display: block; max-width: 100%; }
+
+        .container { width: min(1160px, calc(100% - 40px)); margin: 0 auto; }
+        .site-header {
+            position: sticky; top: 0; z-index: 20;
+            background: rgba(255, 255, 255, .92);
+            border-bottom: 1px solid rgba(23, 33, 43, .08);
+            backdrop-filter: blur(14px);
+        }
+        .nav { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 18px; }
+        .brand img { width: auto; height: 44px; }
+        .nav-actions { display: flex; align-items: center; gap: 10px; }
+        .nav-link, .nav-contact {
+            min-height: 40px; padding: 0 15px; border-radius: 10px;
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+            font-size: .88rem; font-weight: 700; transition: .2s ease;
+        }
+        .nav-link { border: 1px solid var(--line); color: var(--ink); }
+        .nav-link:hover { border-color: #b9bec4; background: #fafafa; transform: translateY(-1px); }
+        .nav-contact { background: var(--red); color: #fff; box-shadow: 0 7px 15px rgba(199, 25, 47, .18); }
+        .nav-contact:hover { background: var(--red-dark); transform: translateY(-1px); }
+
+        .hero { overflow: hidden; position: relative; padding: 72px 0 62px; background: var(--paper); }
+        .hero::before {
+            content: ""; position: absolute; width: 660px; height: 660px; right: -230px; top: -390px;
+            border-radius: 50%; background: radial-gradient(circle, #ffe4e8 0, rgba(255, 228, 232, 0) 68%);
+        }
+        .hero-grid { position: relative; display: grid; grid-template-columns: .9fr 1.1fr; gap: 64px; align-items: center; }
+        .eyebrow {
+            display: inline-flex; align-items: center; gap: 8px; margin: 0 0 17px;
+            padding: 6px 11px; border: 1px solid #f3c5cc; border-radius: 999px;
+            color: var(--red); background: var(--red-pale); font-size: .74rem; font-weight: 700;
+            letter-spacing: .09em; text-transform: uppercase;
+        }
+        .live-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--red); box-shadow: 0 0 0 4px rgba(199, 25, 47, .13); }
+        h1, h2, h3 { font-family: Outfit, sans-serif; line-height: 1.08; }
+        h1 { max-width: 570px; margin: 0; font-size: clamp(2.8rem, 5vw, 4.7rem); font-weight: 800; letter-spacing: -.045em; }
+        h1 span { color: var(--red); }
+        .hero-copy { max-width: 510px; margin: 23px 0 29px; color: var(--muted); font-size: 1.09rem; }
+        .listen-button {
+            display: inline-flex; align-items: center; gap: 11px; padding: 14px 19px;
+            border-radius: 12px; background: var(--red); color: #fff; font-weight: 700;
+            box-shadow: 0 12px 25px rgba(199, 25, 47, .23); transition: .2s ease;
+        }
+        .listen-button:hover { background: var(--red-dark); transform: translateY(-2px); }
+        .listen-button i { font-size: .9rem; }
+        .frequency-note { margin: 22px 0 0; color: #7d858e; font-size: .85rem; }
+        .frequency-note strong { color: var(--ink); }
+
+        .player-card { position: relative; padding: 11px; border-radius: 22px; background: #17212b; box-shadow: 0 24px 55px rgba(23, 33, 43, .18); }
+        .player-topline { height: 38px; padding: 0 9px 0 13px; display: flex; align-items: center; justify-content: space-between; color: #dce2e7; font-size: .75rem; font-weight: 700; letter-spacing: .055em; text-transform: uppercase; }
+        .player-topline span:last-child { color: #ff8c9a; }
+        .player-container { width: 100%; height: 390px; overflow: hidden; border-radius: 13px; background: #0b1116; }
+        .player-container iframe { width: 100%; height: 100%; border: 0; }
+
+        .quick-links { position: relative; z-index: 2; margin-top: -1px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: #fff; }
+        .quick-grid { display: grid; grid-template-columns: repeat(2, 1fr); }
+        .quick-link { min-height: 112px; padding: 23px 31px; display: flex; align-items: center; gap: 16px; transition: .2s ease; }
+        .quick-link + .quick-link { border-left: 1px solid var(--line); }
+        .quick-link:hover { background: #fafafa; }
+        .quick-icon { width: 44px; height: 44px; flex: 0 0 44px; display: grid; place-items: center; border-radius: 12px; color: #fff; font-size: 1.35rem; }
+        .whatsapp .quick-icon { background: var(--green); }
+        .tiktok .quick-icon { background: #111; }
+        .quick-text small { display: block; margin-bottom: 1px; color: var(--muted); font-size: .77rem; font-weight: 600; }
+        .quick-text strong { font-size: 1rem; }
+        .quick-arrow { margin-left: auto; color: #a4abb2; transition: transform .2s ease; }
+        .quick-link:hover .quick-arrow { color: var(--red); transform: translateX(3px); }
+
+        .about { padding: 94px 0; }
+        .about-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 78px; align-items: center; }
+        .section-label { margin: 0 0 12px; color: var(--red); font-size: .78rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+        h2 { margin: 0; font-size: clamp(2.15rem, 3.6vw, 3.35rem); letter-spacing: -.04em; }
+        .about-text { margin-top: 27px; color: var(--muted); font-size: 1rem; }
+        .about-text p { margin: 0 0 17px; }
+        .about-text p:first-child { color: var(--ink); font-size: 1.12rem; font-weight: 700; }
+        .about-text .closing { color: var(--red); font-weight: 700; }
+        .profile-card { max-width: 385px; margin-left: auto; padding: 10px; background: #fff; border: 1px solid var(--line); border-radius: 20px; box-shadow: var(--shadow); }
+        .profile-image { overflow: hidden; border-radius: 13px; aspect-ratio: 1 / .88; background: #e6e9ec; }
+        .profile-image img { width: 100%; height: 100%; object-fit: cover; object-position: top; transition: transform .5s ease; }
+        .profile-card:hover .profile-image img { transform: scale(1.035); }
+        .profile-meta { padding: 18px 10px 11px; }
+        .profile-meta h3 { margin: 0; font-size: 1.27rem; }
+        .profile-meta p { margin: 4px 0 0; color: var(--red); font-size: .73rem; font-weight: 800; letter-spacing: .095em; text-transform: uppercase; }
+
+        .site-footer { padding: 30px 0; border-top: 1px solid var(--line); background: #fff; color: var(--muted); font-size: .83rem; }
+        .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+        .footer-brand { color: var(--ink); font-weight: 700; }
+
+        .floating-whatsapp {
+            position: fixed; right: 24px; bottom: 24px; z-index: 30; width: 56px; height: 56px;
+            display: grid; place-items: center; border: 3px solid #fff; border-radius: 50%;
+            background: var(--green); color: #fff; font-size: 1.7rem; box-shadow: 0 10px 28px rgba(34, 185, 97, .34); transition: .2s ease;
+        }
+        .floating-whatsapp:hover { background: #17a34d; transform: translateY(-3px) scale(1.03); }
+        .floating-whatsapp::after { content: ""; position: absolute; inset: -7px; z-index: -1; border: 1px solid rgba(34, 185, 97, .36); border-radius: 50%; animation: ring 2s infinite; }
+        @keyframes ring { 0%, 100% { transform: scale(.93); opacity: .8; } 50% { transform: scale(1.1); opacity: 0; } }
+
+        @media (max-width: 860px) {
+            .hero { padding: 55px 0 52px; }
+            .hero-grid, .about-grid { grid-template-columns: 1fr; gap: 40px; }
+            .hero-content { text-align: center; }
+            .hero-copy { margin-inline: auto; }
+            .profile-card { margin: 0 auto; }
+            .player-container { height: 370px; }
+            .about { padding: 68px 0; }
+        }
+        @media (max-width: 560px) {
+            .container { width: min(100% - 28px, 1160px); }
+            .nav { min-height: 66px; }
+            .brand img { height: 35px; }
+            .nav-actions { gap: 7px; }
+            .nav-link, .nav-contact { min-height: 36px; padding: 0 11px; font-size: .78rem; }
+            .nav-link span, .nav-contact span { display: none; }
+            .hero { padding: 45px 0; }
+            h1 { font-size: 2.75rem; }
+            .hero-copy { margin-top: 18px; font-size: 1rem; }
+            .player-card { padding: 7px; border-radius: 17px; }
+            .player-topline { height: 34px; font-size: .65rem; }
+            .player-container { height: 365px; border-radius: 11px; }
+            .quick-grid { grid-template-columns: 1fr; }
+            .quick-link { min-height: 87px; padding: 17px 5px; }
+            .quick-link + .quick-link { border-top: 1px solid var(--line); border-left: 0; }
+            .quick-icon { width: 40px; height: 40px; flex-basis: 40px; font-size: 1.18rem; }
+            .quick-text strong { font-size: .9rem; }
+            .about { padding: 56px 0; }
+            .about-grid { gap: 33px; }
+            .about-text { margin-top: 21px; }
+            .footer-inner { flex-direction: column; align-items: flex-start; gap: 5px; }
+            .floating-whatsapp { width: 52px; height: 52px; right: 16px; bottom: 16px; }
+        }
+        @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; } }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <nav class="container nav" aria-label="Navegación principal">
+            <a class="brand" href="#inicio" aria-label="Radio Colo Colo, inicio">
+                <img src="https://radiocolocolofm.cl/logo.svg" alt="Radio Colo Colo">
+            </a>
+            <div class="nav-actions">
+                <a class="nav-link" href="https://www.tiktok.com/@radiocolocolo" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-tiktok"></i><span>TikTok</span></a>
+                <a class="nav-contact" href="mailto:garateomar90@gmail.com"><i class="fa-regular fa-envelope"></i><span>Contacto</span></a>
+            </div>
+        </nav>
+    </header>
+
+    <main id="inicio">
+        <section class="hero">
+            <div class="container hero-grid">
+                <div class="hero-content">
+                    <p class="eyebrow"><span class="live-dot"></span> En vivo · 24 horas</p>
+                    <h1>La <span>Campeona</span><br>de Chile.</h1>
+                    <p class="hero-copy">La emisora con más corazón de Chile. Acompañándote con música, entretención, información y toda la pasión del fútbol.</p>
+                    <a class="listen-button" href="#senal"><i class="fa-solid fa-play"></i> Escuchar señal en vivo</a>
+                    <p class="frequency-note"><strong>También en tu radio:</strong> 880 AM · 104.9 FM · 90.1 FM</p>
+                </div>
+
+                <div class="player-card" id="senal">
+                    <div class="player-topline"><span>Radio Colo Colo</span><span>● Al aire</span></div>
+                    <div class="player-container">
+                        <iframe src="https://play.tustreaming.cl/player.php?id=radiocolocolo" title="Reproductor en vivo de Radio Colo Colo" scrolling="no" allow="autoplay"></iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="quick-links" aria-label="Canales de contacto">
+            <div class="container quick-grid">
+                <a class="quick-link whatsapp" href="https://wa.me/56953608086" target="_blank" rel="noopener noreferrer">
+                    <span class="quick-icon"><i class="fa-brands fa-whatsapp"></i></span>
+                    <span class="quick-text"><small>Contáctanos por WhatsApp</small><strong>+56 9 5360 8086</strong></span>
+                    <i class="fa-solid fa-arrow-right quick-arrow" aria-hidden="true"></i>
+                </a>
+                <a class="quick-link tiktok" href="https://www.tiktok.com/@radiocolocolo" target="_blank" rel="noopener noreferrer">
+                    <span class="quick-icon"><i class="fa-brands fa-tiktok"></i></span>
+                    <span class="quick-text"><small>Comunidad Radio Colo Colo</small><strong>Síguenos en @radiocolocolo</strong></span>
+                    <i class="fa-solid fa-arrow-right quick-arrow" aria-hidden="true"></i>
+                </a>
+            </div>
+        </section>
+
+        <section class="about" id="nosotros">
+            <div class="container about-grid">
+                <div>
+                    <p class="section-label">Desde 1974</p>
+                    <h2>Una radio que acompaña a Chile.</h2>
+                    <div class="about-text">
+                        <p>¡Bienvenidos a Radio Colo Colo, la emisora con más corazón de Chile!</p>
+                        <p>Fundada en octubre de 1974 y conocida históricamente como “la campeona de Chile”, nuestra misión es acompañar, entretener e informar a las familias del país con una programación alegre, música popular, servicios comunitarios y la máxima pasión por el fútbol en vivo.</p>
+                        <p>Hoy combinamos nuestra tradición radial en Santiago y regiones —Melipilla, Rancagua, Constitución y el Litoral Central— con la modernidad digital. Nos puedes escuchar en todo el mundo las 24 horas a través de nuestra señal online y aplicación móvil oficial.</p>
+                        <p class="closing">Más que una emisora, somos una gran familia unida por la música y el cariño mutuo. ¡Gracias por ser parte de nuestra historia!</p>
+                    </div>
+                </div>
+
+                <article class="profile-card">
+                    <div class="profile-image">
+                        <img src="https://radiocolocolofm.cl/omarcito.jpeg" alt="Omarcito Gárate">
+                    </div>
+                    <div class="profile-meta">
+                        <h3>Omarcito Gárate</h3>
+                        <p>Dueño y Gerente</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-inner">
+            <span class="footer-brand">Radio Colo Colo © 2026</span>
+            <span>Desarrollo y transmisión profesional de radios online.</span>
+        </div>
+    </footer>
+
+    <a class="floating-whatsapp" href="https://wa.me/56953608086" target="_blank" rel="noopener noreferrer" aria-label="Escribir a Radio Colo Colo por WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+</body>
+</html>

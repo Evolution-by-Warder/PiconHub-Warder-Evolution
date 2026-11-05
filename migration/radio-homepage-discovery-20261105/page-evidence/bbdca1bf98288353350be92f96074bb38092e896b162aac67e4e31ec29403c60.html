@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>C&oacute;digo Metal Radio - Estaci&oacute;n de Radio Metal Chilena</title>
+	
+	<!-- Etiquetas Open Graph para Redes Sociales (Facebook, WhatsApp, X, etc.) -->
+	<meta property="og:title" content="Código Metal Radio" />
+	<meta property="og:description" content="Tu radio de metal en Chile." />
+	<meta property="og:image" content="https://www.codigometal.cl/logo_redes.jpg" />
+	<meta property="og:image:width" content="1200" />
+	<meta property="og:image:height" content="630" />
+	<!-- Fin Etiquetas Open Graph -->
+
+	<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#c92929',
+                        secondary: '#333333'
+                    },
+                    borderRadius: {
+                        'none': '0px',
+                        'sm': '4px',
+                        DEFAULT: '8px',
+                        'md': '12px',
+                        'lg': '16px',
+                        'xl': '20px',
+                        '2xl': '24px',
+                        '3xl': '32px',
+                        'full': '9999px',
+                        'button': '8px'
+                    }
+                }
+            }
+        }
+    </script>
+	<link href="https://fonts.googleapis.com" rel="preconnect" />
+	<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+	<link href="https://fonts.googleapis.com/css2?family=Pacifico&amp;display=swap" rel="stylesheet" />
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&amp;display=swap" rel="stylesheet" />
+	<link href="https://fonts.googleapis.com/css2?family=Metal+Mania&amp;display=swap" rel="stylesheet" />
+	<link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+	<style type="text/css">
+        :where([class^="ri-"])::before {
+            content: "\f3c2";
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+
+        .metal-text {
+            font-family: 'Metal Mania', cursive;
+        }
+
+        .player-container {
+            background: linear-gradient(145deg, #1a1a1a, #272727);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            border: 1px solid #333;
+        }
+
+        .metal-gradient {
+            background: linear-gradient(to bottom, #333333, #121212);
+        }
+
+        .metal-button {
+            background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .metal-button:hover {
+            background: linear-gradient(145deg, #333333, #2a2a2a);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+        }
+
+        .social-icon {
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            transform: translateY(-3px);
+            filter: drop-shadow(0 0 8px rgba(201, 41, 41, 0.7));
+        }
+
+        input:focus,
+        button:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(201, 41, 41, 0.5);
+        }
+
+        .app-button {
+            transition: all 0.3s ease;
+        }
+
+        .app-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+        }
+
+        .hero-section {
+            background-image: url('https://readdy.ai/api/search-image?query=dark%20atmospheric%20metal%20concert%20stage%20with%20dramatic%20lighting%2C%20smoke%20effects%2C%20and%20a%20subtle%20Chilean%20flag%20element%20in%20the%20background.%20The%20stage%20has%20professional%20lighting%20rigs%20and%20a%20metallic%20texture.%20The%20image%20should%20have%20dark%20tones%20with%20red%20accents%2C%20creating%20a%20powerful%20and%20intense%20atmosphere%20suitable%20for%20a%20metal%20radio%20station%20website&width=1600&height=800&seq=1&orientation=landscape');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: #c92929;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .custom-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+
+        .custom-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #333;
+            transition: .4s;
+            border-radius: 24px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked+.slider {
+            background-color: #c92929;
+        }
+
+        input:checked+.slider:before {
+            transform: translateX(26px);
+        }
+
+        /* Custom scrollbar styling */
+        .overflow-x-auto::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .overflow-x-auto::-webkit-scrollbar-track {
+            background: #000;
+        }
+
+        .overflow-x-auto::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 4px;
+        }
+
+        .overflow-x-auto::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+	</style>
+</head>
+<body class="min-h-screen">
+<header class="bg-black bg-opacity-90 border-b border-gray-800">
+    <div class="container mx-auto px-4 py-3">
+        <div class="flex justify-between items-center">
+            <div class="flex items-center">
+                <img alt="C&oacute;digo Metal Logo" class="h-12" src="https://static.readdy.ai/image/5c49177ec794ff3b86871d1dad977066/bd83a129b2ca2467c5969e4b063e130f.png" />
+                <h2 class="metal-text text-xl text-white hidden sm:block ml-3">C&Oacute;DIGO METAL RADIO</h2>
+            </div>
+
+            <nav class="hidden md:flex items-center space-x-6">
+                <a class="nav-link text-gray-300 hover:text-white" href="#">Inicio</a> 
+                <a class="nav-link text-gray-300 hover:text-white" href="#">Nosotros</a> 
+                <a class="nav-link text-gray-300 hover:text-white" href="#">Contacto</a>
+            </nav>
+
+            <div class="flex items-center space-x-4">
+                <div class="hidden sm:flex items-center">
+                    <label class="custom-switch mr-2">
+                        <input checked="checked" type="checkbox" /> 
+                        <span class="slider"></span>
+                    </label> 
+                    <span class="text-sm text-gray-400">En Vivo</span>
+                </div>
+
+                <div class="md:hidden w-8 h-8 flex items-center justify-center text-white cursor-pointer">
+                    <i class="ri-menu-line text-2xl"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<section class="hero-section relative">
+    <div class="absolute inset-0 bg-black bg-opacity-60"></div>
+
+    <div class="container mx-auto px-4 py-16 md:py-24 relative z-10">
+        <div class="max-w-2xl">
+            <h1 class="metal-text text-4xl md:text-6xl text-white mb-4">DESATA EL PODER DEL METAL CHILENO</h1>
+
+            <p class="text-lg text-gray-300 mb-8">Experimenta la energ&iacute;a pura y la pasi&oacute;n de lo mejor de la escena metal de Chile. Transmitiendo 24/7 promoviendo el metal chileno al mundo.</p>
+
+            <div class="flex flex-wrap gap-4">
+                <button class="bg-gray-800 hover:bg-gray-700 text-white px-6 py-3 !rounded-button font-bold transition duration-300 whitespace-nowrap">PROGRAMACI&Oacute;N</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-10 bg-gray-900">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <div class="player-container !rounded-md p-4 flex flex-col items-center">
+                <h2 class="text-xl font-bold mb-4 text-center">ESCUCHA EN VIVO</h2>
+
+                <div class="w-full flex justify-center">
+                    <iframe src="https://streaming.viphosting.cl/cp/widgets/player/single/?p=8012" height="110" width="100%" scrolling="no" style="border:none;"></iframe>
+                </div>
+
+                <div class="w-full mt-4 relative overflow-hidden !rounded-md">
+                    <img alt="Disponible para publicidad" class="w-full h-24 object-cover" src="https://static.readdy.ai/image/5c49177ec794ff3b86871d1dad977066/6a562d5af85994bbd1b87f5c669d55a6.jpeg" />
+                    <button class="absolute bottom-2 right-2 metal-button px-6 py-3 text-white !rounded-button whitespace-nowrap flex items-center bg-black bg-opacity-70 hover:bg-opacity-90 text-sm" onclick="window.location.href='mailto:info@codigometal.cl'">CONTACTAR</button>
+                </div>
+            </div>
+
+            <div class="bg-gray-900 !rounded-md p-4">
+                <h2 class="text-xl font-bold mb-4">ENV&Iacute;A TU M&Uacute;SICA</h2>
+
+                <p class="text-gray-400 mb-4">Las bandas chilenas interesadas en sonar por C&oacute;digo Metal Radio deben completar el siguiente formulario:</p>
+                <a class="flex items-center justify-center bg-primary hover:bg-red-700 text-white py-3 !rounded-button transition duration-300 whitespace-nowrap" href="https://goo.gl/forms/Nhz7F1tv4qQ0CxJ22" target="_blank">ENVIAR MATERIAL </a>
+
+                <h3 class="text-xl font-bold mt-6 mb-4 flex items-center">Consulta sobre Bandas y Eventos en nuestro Chatbot:</h3>
+                <a class="flex items-center justify-center bg-gray-800 hover:bg-gray-700 text-white py-3 !rounded-button transition duration-300 whitespace-nowrap" href="https://chatgpt.com/g/g-67a3d7329dd08191aa110a634dd244ba-codigometal-cl" target="_blank"> CHATEAR AHORA </a>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="metal-gradient !rounded-md p-6">
+                <h2 class="text-2xl font-bold mb-6 flex items-center">APLICACIONES M&Oacute;VILES</h2>
+
+                <p class="mb-6 text-gray-400">Lleva C&oacute;digo Metal Radio contigo a todas partes. Descarga nuestras aplicaciones oficiales para la mejor experiencia m&oacute;vil.</p>
+
+                <div class="flex flex-wrap gap-4">
+                    <div class="w-10 h-10 flex items-center justify-center mr-3">
+                        <i class="ri-android-fill text-3xl text-gray-400"></i>
+                    </div>
+
+                    <div>
+                        <div class="text-xs text-gray-400">
+                            <a class="app-button bg-gray-800 !rounded-button p-3 flex items-center" href="https://codigometal.cl/radio/" target="_blank">DISPONIBLE EN</a>
+                        </div>
+
+                        <div class="font-bold">
+                            <a class="app-button bg-gray-800 !rounded-button p-3 flex items-center" href="https://codigometal.cl/radio/" target="_blank">Google Play</a>
+                        </div>
+                    </div>
+
+                    <div class="w-10 h-10 flex items-center justify-center mr-3">
+                        <i class="ri-apple-fill text-3xl text-gray-400"></i>
+                    </div>
+
+                    <div>
+                        <div class="text-xs text-gray-400">
+                            <a class="app-button bg-gray-800 !rounded-button p-3 flex items-center" href="https://geo.itunes.apple.com/us/app/id1101437391?referrer=utm_source%3Dradiobox%26utm_medium%3Dreferral%26utm_campaign%3Dhomepage" target="_blank">DESCARGA EN</a>
+                        </div>
+
+                        <div class="font-bold">
+                            <a class="app-button bg-gray-800 !rounded-button p-3 flex items-center" href="https://geo.itunes.apple.com/us/app/id1101437391?referrer=utm_source%3Dradiobox%26utm_medium%3Dreferral%26utm_campaign%3Dhomepage" target="_blank">App Store</a>
+                        </div>
+                    </div>
+
+                    <div class="w-10 h-10 flex items-center justify-center mr-3">
+                        <i class="ri-radio-2-fill text-3xl text-gray-400"></i>
+                    </div>
+
+                    <div>
+                        <div class="text-xs text-gray-400">
+                            <a class="app-button bg-gray-800 !rounded-button p-3 flex items-center" href="https://tunein.com/radio/Codigo-Metal-Radio-s119887/" target="_blank">ESCUCHAR EN</a>
+                        </div>
+
+                        <div class="font-bold">
+                            <a class="app-button bg-gray-800 !rounded-button p-3 flex items-center" href="https://tunein.com/radio/Codigo-Metal-Radio-s119887/" target="_blank">TuneIn</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="metal-gradient !rounded-md p-6">
+                <h2 class="text-2xl font-bold mb-6 flex items-center">CON&Eacute;CTATE CON NOSOTROS</h2>
+
+                <p class="mb-6 text-gray-400">&Uacute;nete a nuestra comunidad de metaleros. S&iacute;guenos en redes sociales para las &uacute;ltimas actualizaciones, contenido exclusivo y eventos en vivo.</p>
+
+                <div class="flex flex-nowrap gap-4 overflow-x-auto">
+                    <a class="social-icon bg-gray-800 !rounded-md p-4 flex flex-col items-center text-center w-24 shrink-0" href="https://www.instagram.com/codigometal/" target="_blank">
+                        <i class="ri-instagram-line text-2xl mb-2 text-primary"></i>
+                        <span class="text-sm">Instagram</span>
+                    </a> 
+                    <a class="social-icon bg-gray-800 !rounded-md p-4 flex flex-col items-center text-center w-24 shrink-0" href="http://twitter.com/codigometal" target="_blank"> 
+                        <i class="ri-twitter-x-line text-2xl mb-2 text-primary"></i>
+                        <span class="text-sm">Twitter</span>
+                    </a> 
+                    <a class="social-icon bg-gray-800 !rounded-md p-4 flex flex-col items-center text-center w-24 shrink-0" href="http://www.facebook.com/codigometal/" target="_blank"> 
+                        <i class="ri-facebook-circle-fill text-2xl mb-2 text-primary"></i>
+                        <span class="text-sm">Facebook</span> 
+                    </a> 
+                    <a class="social-icon bg-gray-800 !rounded-md p-4 flex flex-col items-center text-center w-24 shrink-0" href="https://tunein.com/radio/Codigo-Metal-Radio-s119887/" target="_blank"> 
+                        <i class="ri-radio-line text-2xl mb-2 text-primary"></i>
+                        <span class="text-sm">TuneIn</span> 
+                    </a> 
+                    <a class="social-icon bg-gray-800 !rounded-md p-4 flex flex-col items-center text-center w-24 shrink-0" href="https://www.mixcloud.com/codigometal" target="_blank"> 
+                        <i class="ri-sound-module-line text-2xl mb-2 text-primary"></i>
+                        <span class="text-sm">MixCloud</span> 
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Section hidden as per request -->
+<section class="py-12 bg-black hidden">
+    <div class="container mx-auto px-4">
+        <div class="w-full h-48 mb-12 overflow-hidden !rounded-md relative">
+            <img alt="Disponible para publicidad" class="w-full h-full object-cover" src="https://static.readdy.ai/image/5c49177ec794ff3b86871d1dad977066/6a562d5af85994bbd1b87f5c669d55a6.jpeg" />
+            <button class="absolute bottom-4 right-4 metal-button px-6 py-3 text-white !rounded-button whitespace-nowrap flex items-center bg-black bg-opacity-70 hover:bg-opacity-90" onclick="window.location.href='mailto:info@codigometal.cl'">CONTACTAR</button>
+        </div>
+
+        <h2 class="text-3xl font-bold mb-8 text-center metal-text">PR&Oacute;XIMOS EVENTOS</h2>
+
+        <div class="flex flex-nowrap gap-6 overflow-x-auto pb-4">
+            <div class="bg-gray-900 !rounded-md overflow-hidden w-full sm:w-1/2 md:w-1/3 lg:w-1/4 shrink-0">
+                <div class="h-96 bg-cover bg-top" style="background-image: url('https://i.postimg.cc/bN7gk1jK/Whats-App-Image-2025-07-09-at-7-09-02-PM.jpg')"></div>
+
+                <div class="p-4">
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="bg-primary text-white text-xs px-2 py-1 !rounded-sm">Viernes 1 de Agosto</span> 
+                        <span class="text-gray-400 text-sm">Santiago</span>
+                    </div>
+
+                    <h3 class="text-lg font-bold mb-2">Nuclear + Mayhemic</h3>
+
+                    <p class="text-gray-400 text-sm mb-4">MiBar</p>
+                    <a class="block w-full bg-gray-800 hover:bg-gray-700 text-white py-2 !rounded-button whitespace-nowrap text-center" href="https://www.portaldisc.com/evento/codigos-del-caos" target="_blank">DETALLES</a>
+                </div>
+            </div>
+
+            <div class="bg-gray-900 !rounded-md overflow-hidden w-full sm:w-1/2 md:w-1/3 lg:w-1/4 shrink-0">
+                <div class="h-96 bg-cover bg-top" style="background-image: url('https://static.readdy.ai/image/5c49177ec794ff3b86871d1dad977066/650bf8e31107e90fc515bf68f2950531.webp')"></div>
+
+                <div class="p-4">
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="bg-primary text-white text-xs px-2 py-1 !rounded-sm">16 de Septiembre</span> 
+                        <span class="text-gray-400 text-sm">Santiago</span>
+                    </div>
+
+                    <h3 class="text-lg font-bold mb-2">Epica - Latin America Tour 2025</h3>
+
+                    <p class="text-gray-400 text-sm mb-4">Teatro Caupolic&aacute;n</p>
+                    <a class="block w-full bg-gray-800 hover:bg-gray-700 text-white py-2 !rounded-button whitespace-nowrap text-center" href="https://www.puntoticket.com/epica" target="_blank">DETALLES</a>
+                </div>
+            </div>
+
+            <div class="bg-gray-900 !rounded-md overflow-hidden w-full sm:w-1/2 md:w-1/3 lg:w-1/4 shrink-0">
+                <div class="h-96 bg-cover bg-top" style="background-image: url('https://i.postimg.cc/ZKdgGbYz/Whats-App-Image-2025-06-02-at-12-46-28-PM.jpg')"></div>
+
+                <div class="p-4">
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="bg-primary text-white text-xs px-2 py-1 !rounded-sm">12 de julio</span> 
+                        <span class="text-gray-400 text-sm">Santiago</span>
+                    </div>
+
+                    <h3 class="text-lg font-bold mb-2">Arbol de la Horca + Meridion</h3>
+
+                    <p class="text-gray-400 text-sm mb-4">Lanzamiento del &aacute;lbum debut "Abismo Inevitable" + los brutales Meridion.</p>
+                    <a class="block w-full bg-gray-800 hover:bg-gray-700 text-white py-2 !rounded-button whitespace-nowrap text-center" href="https://portaldisc.com/evento/occultcongregation12julio2025" target="_blank">DETALLES</a>
+                </div>
+            </div>
+
+            <div class="bg-gray-900 !rounded-md overflow-hidden w-full sm:w-1/2 md:w-1/3 lg:w-1/4 shrink-0">
+                <div class="h-96 bg-cover bg-top" style="background-image: url('https://i.postimg.cc/rwFnVskq/Whats-App-Image-2025-05-16-at-5-12-18-PM.jpg')"></div>
+
+                <div class="p-4">
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="bg-primary text-white text-xs px-2 py-1 !rounded-sm">27 de septiembre</span> 
+                        <span class="text-gray-400 text-sm">Santiago</span>
+                    </div>
+
+                    <h3 class="text-lg font-bold mb-2">AD FINEM OMNIA+GORJEO SEGLAR</h3>
+
+                    <p class="text-gray-400 text-sm mb-4">Fecha: 27 de septiembre de 2025. Hora: 21:00 horas. Lugar: MiBAR.</p>
+                    <a class="block w-full bg-gray-800 hover:bg-gray-700 text-white py-2 !rounded-button whitespace-nowrap text-center" href="mailto:adfinemomnia@gmail.com" target="_blank">DETALLES</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="bg-black pt-12 pb-6 border-t border-gray-800 relative">
+    <div class="absolute inset-0 opacity-5 pointer-events-none">
+        <img alt="Background Logo" class="w-full h-full object-contain" src="https://static.readdy.ai/image/5c49177ec794ff3b86871d1dad977066/bd83a129b2ca2467c5969e4b063e130f.png" />
+    </div>
+
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+            <div>
+                <div class="flex items-center mb-4">
+                    <img alt="C&oacute;digo Metal Logo" class="h-10" src="https://static.readdy.ai/image/5c49177ec794ff3b86871d1dad977066/bd83a129b2ca2467c5969e4b063e130f.png" />
+                    <h2 class="metal-text text-xl text-white ml-3">C&Oacute;DIGO METAL</h2>
+                </div>
+
+                <p class="text-gray-400 mb-4">Chile&#39;s premier metal radio station, broadcasting the heaviest sounds 24/7 since 2010.</p>
+                
+                <iframe src="https://embeds.beehiiv.com/cd76aa24-e8ab-4d1e-b641-92f0db754f6b" data-test-id="beehiiv-embed" width="100%" height="320" frameborder="0" scrolling="no" style="border-radius: 4px; border: 2px solid #e5e7eb; margin: 0; background-color: transparent;"></iframe>
+            </div>
+
+            <div>
+                <h3 class="text-lg font-bold mb-4">NAVEGACI&Oacute;N</h3>
+
+                <ul class="space-y-2 text-gray-400">
+                    <li><a class="hover:text-primary transition duration-300" href="#">Home</a></li>
+                    <li><a class="hover:text-primary transition duration-300" href="#">Shows</a></li>
+                    <li><a class="hover:text-primary transition duration-300" href="#">Schedule</a></li>
+                    <li><a class="hover:text-primary transition duration-300" href="#">News</a></li>
+                    <li><a class="hover:text-primary transition duration-300" href="#">Events</a></li>
+                    <li><a class="hover:text-primary transition duration-300" href="#">About Us</a></li>
+                    <li><a class="hover:text-primary transition duration-300" href="#">Contact</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 class="text-lg font-bold mb-4">ESCUCHAR EN</h3>
+
+                <ul class="space-y-3 text-gray-400">
+                    <li>
+                        <div class="w-6 h-6 flex items-center justify-center mr-2"><i class="ri-radio-2-line"></i></div>
+                        <a class="flex items-center hover:text-primary transition duration-300" href="https://tunein.com/radio/Codigo-Metal-Radio-s119887/" target="_blank">TuneIn Radio </a>
+                    </li>
+                    <li>
+                        <div class="w-6 h-6 flex items-center justify-center mr-2"><i class="ri-google-play-line"></i></div>
+                        <a class="flex items-center hover:text-primary transition duration-300" href="http://codigometal.cl/radio" target="_blank">Google Play </a>
+                    </li>
+                    <li>
+                        <div class="w-6 h-6 flex items-center justify-center mr-2"><i class="ri-app-store-line"></i></div>
+                        <a class="flex items-center hover:text-primary transition duration-300" href="https://geo.itunes.apple.com/us/app/id1101437391?referrer=utm_source%3Dradiobox%26utm_medium%3Dreferral%26utm_campaign%3Dhomepage" target="_blank">App Store </a>
+                    </li>
+                    <li>
+                        <div class="w-6 h-6 flex items-center justify-center mr-2"><i class="ri-broadcast-line"></i></div>
+                        <a class="flex items-center hover:text-primary transition duration-300" href="https://tunein.com/radio/Codigo-Metal-Radio-s119887/" target="_blank">TuneIn </a>
+                    </li>
+                    <li>
+                        <div class="w-6 h-6 flex items-center justify-center mr-2"><i class="ri-rss-line"></i></div>
+                        <a class="flex items-center hover:text-primary transition duration-300" href="#">RSS Feed </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 class="text-lg font-bold mb-4">CONT&Aacute;CTANOS</h3>
+
+                <ul class="space-y-3 text-gray-400">
+                    <li class="flex items-start">
+                        <div class="w-6 h-6 flex items-center justify-center mr-2 mt-1"><i class="ri-map-pin-line"></i></div>
+                        <span>Santiago, Chile</span>
+                    </li>
+                    <li class="flex items-center">
+                        <div class="w-6 h-6 flex items-center justify-center mr-2"><i class="ri-mail-line"></i></div>
+                        <span>info@codigometal.cl</span>
+                    </li>
+                    <li class="flex items-center">
+                        <div class="w-6 h-6 flex items-center justify-center mr-2"><i class="ri-phone-line"></i></div>
+                        <span>+56 666 666 667</span>
+                    </li>
+                </ul>
+
+                <div class="mt-6">
+                    <h3 class="text-lg font-bold mb-4">COLABORA</h3>
+                </div>
+
+                <div class="mt-6">
+                    <a href="https://www.viphosting.cl" target="_blank">
+                        <img alt="VipHosting Logo" class="h-16" src="https://viphosting.cl/templates/ColoNode/html/img/logo.png" />
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="border-t border-gray-800 pt-6 flex flex-col md:flex-row justify-between items-center">
+            <p class="text-gray-500 text-sm mb-4 md:mb-0">&copy; 2025 C&oacute;digo Metal Radio. All rights reserved.</p>
+
+            <div class="flex items-center">
+                <div class="flex space-x-4 text-gray-500 text-sm">
+                    <a class="hover:text-gray-300" href="#">Privacy Policy</a> 
+                    <a class="hover:text-gray-300" href="#">Terms of Service</a> 
+                    <a class="hover:text-gray-300" href="#">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>
+    console.log("C車digo Metal Radio Loaded");
+</script>
+</body>
+</html>

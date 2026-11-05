@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Radio Cristo Vive En Mi | Santiago de Chile</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hls.js/1.4.10/hls.min.js"></script>
+<style>
+:root {
+  --azul: #0a1628;
+  --azul-med: #132040;
+  --azul-claro: #1e3a6e;
+  --dorado: #c9a14a;
+  --dorado-claro: #e8c06a;
+  --blanco: #f5f5f5;
+  --gris: #a0aec0;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{font-family:'Lato',sans-serif;background:var(--azul);color:var(--blanco);overflow-x:hidden}
+
+/* ── INTRO ── */
+#intro{position:fixed;inset:0;z-index:9999;background:var(--azul);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px}
+#intro img{width:140px;animation:pulse 1.5s infinite}
+#intro h1{font-family:'Cinzel',serif;font-size:clamp(1.2rem,4vw,2.2rem);color:var(--dorado);text-align:center;letter-spacing:2px}
+#intro p{color:var(--gris);font-size:.9rem}
+#intro-bar{width:260px;height:4px;background:#1e3a6e;border-radius:4px;overflow:hidden;margin-top:8px}
+#intro-fill{height:100%;width:0%;background:var(--dorado);transition:width .1s linear}
+#intro-count{font-family:'Cinzel',serif;font-size:2.5rem;color:var(--dorado-claro)}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+
+/* ── MODO MÓVIL ── */
+body.mobile-mode #wrapper{max-width:390px;margin:0 auto;box-shadow:0 0 40px #000}
+body.mobile-mode #nav-desktop{display:none!important}
+body.mobile-mode #nav-mobile{display:flex!important}
+body.mobile-mode #mode-bar span{display:none}
+body.mobile-mode .prog-grid{grid-template-columns:1fr 1fr!important}
+body.mobile-mode .prod-grid{grid-template-columns:1fr 1fr!important}
+body.mobile-mode .hero-title{font-size:1.8rem!important}
+body.mobile-mode .redes-grid{grid-template-columns:1fr 1fr!important}
+
+/* ── MODE BAR ── */
+#mode-bar{background:#05101f;padding:8px 20px;display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:.8rem;color:var(--gris)}
+#mode-bar .btns{display:flex;gap:8px}
+.btn-mode{padding:5px 14px;border:1px solid var(--dorado);background:transparent;color:var(--dorado);border-radius:20px;cursor:pointer;font-size:.75rem;font-family:'Lato',sans-serif;transition:.2s}
+.btn-mode.active{background:var(--dorado);color:#000}
+.btn-mode:hover{background:var(--dorado);color:#000}
+
+/* ── NAV DESKTOP ── */
+#nav-desktop{background:rgba(10,22,40,.97);backdrop-filter:blur(10px);position:sticky;top:0;z-index:100;padding:0 40px;display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid var(--dorado)}
+#nav-desktop .logo{display:flex;align-items:center;gap:12px;padding:10px 0}
+#nav-desktop .logo img{width:52px;height:52px;object-fit:contain;border-radius:50%;border:2px solid var(--dorado)}
+#nav-desktop .logo span{font-family:'Cinzel',serif;font-size:1rem;color:var(--dorado);letter-spacing:1px;line-height:1.3}
+#nav-desktop nav a{color:var(--blanco);text-decoration:none;font-weight:600;font-size:.85rem;letter-spacing:1px;padding:22px 18px;display:inline-block;text-transform:uppercase;transition:.2s;position:relative}
+#nav-desktop nav a::after{content:'';position:absolute;bottom:0;left:18px;right:18px;height:3px;background:var(--dorado);transform:scaleX(0);transition:.2s}
+#nav-desktop nav a:hover{color:var(--dorado)}
+#nav-desktop nav a:hover::after{transform:scaleX(1)}
+
+/* ── NAV MOBILE ── */
+#nav-mobile{display:none;background:var(--azul-med);padding:12px 20px;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;border-bottom:2px solid var(--dorado)}
+#nav-mobile .logo img{width:40px;height:40px;border-radius:50%;border:2px solid var(--dorado)}
+#nav-mobile .logo span{font-family:'Cinzel',serif;font-size:.8rem;color:var(--dorado);margin-left:8px}
+#hamburger{background:none;border:none;color:var(--dorado);font-size:1.4rem;cursor:pointer}
+#mobile-menu{display:none;background:var(--azul-med);padding:10px 0;border-bottom:2px solid var(--dorado)}
+#mobile-menu a{display:block;padding:12px 24px;color:var(--blanco);text-decoration:none;font-weight:600;font-size:.9rem;letter-spacing:1px;text-transform:uppercase;border-bottom:1px solid #1e3a6e;transition:.2s}
+#mobile-menu a:hover{color:var(--dorado);background:#0d1f3c}
+
+/* ── BANNER / HERO ── */
+#hero{position:relative;height:520px;overflow:hidden}
+.slide{position:absolute;inset:0;opacity:0;transition:opacity 1.2s}
+.slide.active{opacity:1}
+.slide img{width:100%;height:100%;object-fit:cover;object-position:center}
+.slide-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(10,22,40,.55) 0%,rgba(10,22,40,.75) 100%)}
+.hero-content{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px}
+.hero-tag{background:var(--dorado);color:#000;font-size:.7rem;font-weight:700;letter-spacing:3px;padding:5px 16px;border-radius:20px;margin-bottom:18px;text-transform:uppercase}
+.hero-title{font-family:'Cinzel',serif;font-size:clamp(2rem,5vw,3.8rem);color:#fff;text-shadow:0 2px 20px rgba(0,0,0,.7);line-height:1.2;margin-bottom:12px}
+.hero-sub{color:rgba(255,255,255,.85);font-size:1rem;letter-spacing:2px}
+.btn-playstore{display:inline-block;margin-top:22px;transition:.2s;filter:drop-shadow(0 4px 12px rgba(0,0,0,.5))}
+.btn-playstore img{height:52px;width:auto;display:block}
+.btn-playstore:hover{transform:scale(1.06);filter:drop-shadow(0 6px 18px rgba(201,161,74,.4))}
+.slide-dots{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);display:flex;gap:8px}
+.dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.4);cursor:pointer;transition:.3s}
+.dot.active{background:var(--dorado);transform:scale(1.3)}
+
+/* ── PLAYER (dentro del hero) ── */
+#player-section{position:absolute;top:24px;left:24px;z-index:20;max-width:480px;width:calc(100% - 48px)}
+.player-box{background:rgba(9,22,42,.88);backdrop-filter:blur(8px);border:1px solid var(--dorado);border-radius:16px;padding:14px 20px;display:flex;align-items:center;gap:16px;box-shadow:0 0 30px rgba(0,0,0,.5)}
+.player-logo img{width:48px;height:48px;border-radius:50%;border:2px solid var(--dorado);object-fit:contain}
+.player-info{flex:1;min-width:0}
+.player-info .pname{font-family:'Cinzel',serif;font-size:.85rem;color:var(--dorado);margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.player-info .ploc{font-size:.7rem;color:var(--gris)}
+.player-controls{display:flex;align-items:center;gap:10px}
+#play-btn{width:44px;height:44px;border-radius:50%;background:var(--dorado);border:none;color:#000;font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.2s;box-shadow:0 4px 16px rgba(201,161,74,.4)}
+#play-btn:hover{background:var(--dorado-claro);transform:scale(1.08)}
+.vol-wrap{display:flex;align-items:center;gap:8px;color:var(--gris)}
+#vol-slider{-webkit-appearance:none;width:70px;height:4px;border-radius:4px;background:#1e3a6e;outline:none}
+#vol-slider::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:var(--dorado);cursor:pointer}
+.live-badge{background:#e53e3e;color:#fff;font-size:.6rem;font-weight:700;padding:3px 8px;border-radius:10px;letter-spacing:2px;animation:blink 1.4s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.5}}
+
+/* ── SECCIONES ── */
+.section{padding:72px 40px}
+.section-alt{background:var(--azul-med)}
+.sec-tag{text-align:center;margin-bottom:10px}
+.sec-tag span{background:var(--dorado);color:#000;font-size:.7rem;font-weight:700;letter-spacing:3px;padding:4px 14px;border-radius:20px;text-transform:uppercase}
+.sec-title{font-family:'Cinzel',serif;font-size:clamp(1.6rem,3vw,2.4rem);color:var(--dorado);text-align:center;margin-bottom:12px}
+.sec-line{width:60px;height:3px;background:var(--dorado);margin:0 auto 40px}
+
+/* ── QUIÉNES SOMOS ── */
+.qs-grid{display:grid;grid-template-columns:1fr 1fr;gap:30px;max-width:1000px;margin:0 auto}
+.qs-card{background:#09162a;border:1px solid #1e3a6e;border-left:4px solid var(--dorado);border-radius:10px;padding:24px;transition:.3s}
+.qs-card:hover{border-left-color:var(--dorado-claro);transform:translateY(-4px)}
+.qs-card i{font-size:1.6rem;color:var(--dorado);margin-bottom:10px}
+.qs-card h3{font-family:'Cinzel',serif;font-size:1rem;color:var(--dorado);margin-bottom:8px}
+.qs-card p{font-size:.88rem;color:var(--gris);line-height:1.7}
+.qs-texto{max-width:760px;margin:0 auto 36px;text-align:center;color:var(--gris);line-height:1.8;font-size:.95rem}
+
+/* ── PROGRAMACIÓN ── */
+.prog-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;max-width:1100px;margin:0 auto}
+.prog-card{background:#09162a;border:1px solid #1e3a6e;border-radius:12px;overflow:hidden;transition:.3s;text-align:center}
+.prog-card:hover{transform:translateY(-6px);box-shadow:0 10px 30px rgba(201,161,74,.15)}
+.prog-img{width:100%;height:200px;object-fit:contain;background:#05101f;filter:brightness(.9)}
+.prog-body{padding:14px}
+.prog-body h3{font-family:'Cinzel',serif;font-size:.9rem;color:var(--dorado);margin-bottom:6px}
+.prog-body p{font-size:.8rem;color:var(--gris)}
+.prog-badge{display:inline-block;margin-top:8px;background:#1e3a6e;color:var(--dorado);font-size:.65rem;padding:3px 10px;border-radius:10px;letter-spacing:1px}
+
+/* ── PRODUCTOS ── */
+.prod-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;max-width:1100px;margin:0 auto}
+.prod-card{background:#09162a;border:2px dashed #1e3a6e;border-radius:12px;padding:40px 20px;text-align:center;transition:.3s}
+.prod-card.prod-card-img{padding:0;border:1px solid #1e3a6e;overflow:hidden}
+.prod-img{width:100%;height:240px;object-fit:contain;background:#05101f;display:block}
+.prod-body{padding:14px}
+.prod-body h3{font-family:'Cinzel',serif;font-size:.95rem;color:var(--dorado);margin-bottom:6px}
+.prod-body p{font-size:.8rem;color:var(--gris)}
+.prod-card:hover{border-color:var(--dorado);transform:translateY(-4px)}
+.prod-card i{font-size:2rem;color:var(--dorado);margin-bottom:14px}
+.prod-card h3{font-family:'Cinzel',serif;font-size:.95rem;color:var(--dorado);margin-bottom:8px}
+.prod-card p{font-size:.8rem;color:var(--gris)}
+
+/* ── REDES ── */
+.redes-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;max-width:900px;margin:0 auto}
+.red-card{background:#09162a;border:1px solid #1e3a6e;border-radius:14px;padding:30px 20px;text-align:center;transition:.3s;text-decoration:none;color:var(--blanco)}
+.red-card:hover{border-color:var(--dorado);transform:translateY(-6px);box-shadow:0 8px 24px rgba(201,161,74,.2)}
+.red-card i{font-size:2rem;margin-bottom:12px}
+.red-card .rname{font-family:'Cinzel',serif;font-size:.9rem;color:var(--dorado)}
+.red-card .rlink{font-size:.75rem;color:var(--gris);margin-top:4px}
+.fb{color:#1877f2}.ig{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);-webkit-background-clip:text;-webkit-text-fill-color:transparent}.tt{color:#fff}.yt{color:#ff0000}
+
+/* ── CONTACTO ── */
+.contact-box{max-width:600px;margin:0 auto;background:#09162a;border:1px solid var(--dorado);border-radius:16px;padding:40px;text-align:center}
+.contact-box p{color:var(--gris);margin-bottom:24px;line-height:1.8}
+.contact-box .wa-btn{display:inline-flex;align-items:center;gap:10px;background:#25d366;color:#fff;text-decoration:none;padding:14px 30px;border-radius:30px;font-weight:700;font-size:1rem;transition:.2s}
+.contact-box .wa-btn:hover{background:#1db954;transform:scale(1.04)}
+.contact-box .phone{font-family:'Cinzel',serif;font-size:1.3rem;color:var(--dorado);margin:16px 0}
+
+/* ── FOOTER ── */
+footer{background:#05101f;border-top:2px solid var(--dorado);padding:30px 40px;text-align:center}
+footer img{width:48px;margin-bottom:10px;border-radius:50%;border:2px solid var(--dorado)}
+footer p{color:var(--gris);font-size:.8rem}
+footer .foot-brand{font-family:'Cinzel',serif;color:var(--dorado);font-size:.85rem;margin-bottom:4px}
+
+/* ── WHATSAPP FLOAT ── */
+#wa-float{position:fixed;bottom:24px;right:24px;z-index:500}
+#wa-fab{width:56px;height:56px;background:#25d366;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 20px rgba(37,211,102,.4);font-size:1.5rem;color:#fff;border:none;animation:wapulse 2s infinite}
+@keyframes wapulse{0%,100%{box-shadow:0 4px 20px rgba(37,211,102,.4)}50%{box-shadow:0 4px 30px rgba(37,211,102,.7)}}
+#wa-popup{display:none;position:absolute;bottom:66px;right:0;width:290px;background:#fff;border-radius:16px;box-shadow:0 10px 40px rgba(0,0,0,.3);overflow:hidden}
+#wa-popup.open{display:block;animation:fadeup .3s}
+@keyframes fadeup{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.wa-head{background:#075e54;padding:16px;display:flex;align-items:center;gap:10px}
+.wa-head img{width:38px;height:38px;border-radius:50%;border:2px solid #25d366}
+.wa-head .wname{color:#fff;font-weight:700;font-size:.9rem}
+.wa-head .wstatus{color:#a8d5b0;font-size:.75rem}
+.wa-body{padding:14px}
+.wa-bubble{background:#dcf8c6;border-radius:12px 12px 12px 0;padding:10px 14px;font-size:.85rem;color:#111;margin-bottom:12px;max-width:220px}
+.wa-oracion{background:#fff3cd;border-left:3px solid #f0a500}
+.wa-time{font-size:.65rem;color:#999;text-align:right}
+.wa-inp{display:flex;gap:8px;padding:10px 14px;border-top:1px solid #eee}
+.wa-inp input{flex:1;border:1px solid #ddd;border-radius:20px;padding:8px 14px;font-size:.8rem;outline:none}
+.wa-inp button{background:#25d366;border:none;color:#fff;border-radius:50%;width:34px;height:34px;cursor:pointer;font-size:.9rem}
+
+/* ── LIGHTBOX ── */
+#lightbox{display:none;position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.92);align-items:center;justify-content:center;padding:20px}
+#lightbox.open{display:flex;animation:lbfade .25s}
+@keyframes lbfade{from{opacity:0}to{opacity:1}}
+#lightbox img{max-width:90vw;max-height:85vh;object-fit:contain;border-radius:12px;border:2px solid var(--dorado);box-shadow:0 0 60px rgba(0,0,0,.8)}
+#lb-close{position:fixed;top:18px;right:22px;background:var(--dorado);color:#000;border:none;width:42px;height:42px;border-radius:50%;font-size:1.3rem;cursor:pointer;font-weight:700;display:flex;align-items:center;justify-content:center;z-index:2001;transition:.2s;line-height:1}
+#lb-close:hover{background:var(--dorado-claro);transform:scale(1.1)}
+#lb-caption{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);font-family:'Cinzel',serif;color:var(--dorado);font-size:1rem;letter-spacing:2px;text-align:center;background:rgba(0,0,0,.6);padding:8px 22px;border-radius:20px}
+.clickable-img{cursor:zoom-in;transition:.2s}
+.clickable-img:hover{opacity:.88;transform:scale(1.02)}
+
+/* ── DIRECTOR ── */
+.director-wrap{max-width:1000px;margin:52px auto 0}
+.director-card{display:grid;grid-template-columns:300px 1fr;gap:36px;background:#09162a;border:1px solid var(--dorado);border-radius:18px;overflow:hidden;box-shadow:0 0 40px rgba(201,161,74,.12)}
+.director-img-wrap{position:relative;background:#05101f}
+.director-img{width:100%;height:100%;object-fit:cover;object-position:top;min-height:340px;display:block;transition:.2s}
+.director-img:hover{opacity:.9;cursor:zoom-in}
+.director-badge{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);background:var(--dorado);color:#000;font-size:.7rem;font-weight:700;padding:5px 16px;border-radius:20px;letter-spacing:2px;white-space:nowrap}
+.director-info{padding:32px 28px 32px 0;display:flex;flex-direction:column;justify-content:center}
+.director-tag{font-size:.7rem;font-weight:700;letter-spacing:3px;color:var(--dorado);text-transform:uppercase;margin-bottom:8px}
+.director-name{font-family:'Cinzel',serif;font-size:1.6rem;color:#fff;margin-bottom:4px}
+.director-station{font-family:'Cinzel',serif;font-size:.95rem;color:var(--dorado);margin-bottom:14px}
+.director-line{width:50px;height:3px;background:var(--dorado);margin-bottom:16px;border-radius:2px}
+.director-bio{font-size:.88rem;color:var(--gris);line-height:1.8}
+.director-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.director-chips span{background:#132040;border:1px solid #1e3a6e;color:var(--gris);font-size:.72rem;padding:5px 12px;border-radius:20px}
+.director-chips span i{color:var(--dorado);margin-right:5px}
+@media(max-width:768px){
+  .director-card{grid-template-columns:1fr}
+  .director-img{min-height:260px;object-position:top}
+  .director-info{padding:24px}
+}
+
+/* ── INFO ADICIONAL ── */
+.info-adicional-wrap{display:grid;grid-template-columns:1fr 1fr;gap:40px;max-width:1000px;margin:0 auto;align-items:center}
+.info-adicional-img-wrap{border-radius:16px;overflow:hidden;border:2px solid var(--dorado);box-shadow:0 0 30px rgba(201,161,74,.15)}
+.info-adicional-img{width:100%;display:block;object-fit:cover;transition:.2s;cursor:zoom-in}
+.info-adicional-img:hover{opacity:.9;transform:scale(1.02)}
+.info-adicional-texto{padding:10px 0}
+@media(max-width:768px){
+  .info-adicional-wrap{grid-template-columns:1fr}
+}
+
+/* ── GALERÍA FOTOS ── */
+.gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;max-width:1100px;margin:0 auto}
+.gallery-card{background:#09162a;border:1px solid #1e3a6e;border-radius:10px;overflow:hidden;aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;transition:.3s;cursor:pointer;position:relative}
+.gallery-card:hover{border-color:var(--dorado);transform:scale(1.03);box-shadow:0 8px 24px rgba(201,161,74,.2)}
+.gallery-card i{font-size:2rem;color:#1e3a6e}
+.gallery-card .coming{font-size:.75rem;color:var(--gris);position:absolute;bottom:10px;text-align:center}
+
+/* ── GALERÍA VIDEOS ── */
+.videos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1100px;margin:0 auto}
+.video-card{background:#09162a;border:1px solid #1e3a6e;border-radius:12px;overflow:hidden;transition:.3s}
+.video-card:hover{border-color:var(--dorado);box-shadow:0 8px 24px rgba(201,161,74,.15)}
+.video-card iframe{width:100%;height:200px;display:block;border:none}
+.video-card .vtitle{padding:10px 14px;font-size:.8rem;color:var(--gris)}
+
+/* ── CANAL TV ── */
+#tv-section{background:linear-gradient(135deg,#05101f,#0d1a2e);padding:60px 40px}
+.tv-wrap{max-width:960px;margin:0 auto}
+.tv-player{background:#000;border:2px solid var(--dorado);border-radius:16px;overflow:hidden;position:relative;box-shadow:0 0 40px rgba(201,161,74,.25)}
+.tv-player video{width:100%;display:block;max-height:540px}
+.tv-badge{position:absolute;top:14px;left:14px;background:rgba(229,62,62,.9);color:#fff;font-size:.65rem;font-weight:700;padding:4px 10px;border-radius:10px;letter-spacing:2px;animation:blink 1.4s infinite}
+.tv-info{display:flex;align-items:center;gap:16px;margin-top:16px;padding:14px 20px;background:#09162a;border:1px solid #1e3a6e;border-radius:12px}
+.tv-info img{width:48px;height:48px;border-radius:50%;border:2px solid var(--dorado);object-fit:contain}
+.tv-info .tname{font-family:'Cinzel',serif;font-size:.95rem;color:var(--dorado)}
+.tv-info .tsub{font-size:.75rem;color:var(--gris)}
+
+@media(max-width:768px){
+  .gallery-grid{grid-template-columns:repeat(2,1fr)}
+  .videos-grid{grid-template-columns:1fr}
+  #tv-section{padding:40px 16px}
+}
+@media(max-width:480px){
+  .gallery-grid{grid-template-columns:repeat(2,1fr)}
+  .videos-grid{grid-template-columns:1fr}
+}
+
+@media(max-width:768px){
+  .section{padding:50px 20px}
+  .qs-grid{grid-template-columns:1fr}
+  .prog-grid{grid-template-columns:1fr 1fr}
+  .prod-grid{grid-template-columns:1fr 1fr}
+  .redes-grid{grid-template-columns:1fr 1fr}
+  .player-box{flex-wrap:wrap;justify-content:center;text-align:center}
+  #player-section{left:12px;top:12px;width:calc(100% - 24px)}
+  #nav-desktop{display:none}
+  #nav-mobile{display:flex}
+}
+@media(max-width:480px){
+  .prog-grid{grid-template-columns:1fr}
+  .prod-grid{grid-template-columns:1fr}
+  .redes-grid{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ══ INTRO ══ -->
+<div id="intro">
+  <img src="https://i.ibb.co/TxhV6znG/Whats-App-Image-2026-06-16-at-19-18-47-removebg-preview.png" alt="Logo">
+  <div id="intro-count">0</div>
+  <h1>Sea muy bienvenido a<br>Radio Cristo Vive En Mi</h1>
+  <p>Santiago de Chile</p>
+  <div id="intro-bar"><div id="intro-fill"></div></div>
+</div>
+
+<div id="wrapper">
+
+<!-- ══ MODE BAR ══ -->
+<div id="mode-bar">
+  <span><i class="fas fa-broadcast-tower" style="color:var(--dorado);margin-right:6px"></i> Radio Cristo Vive En Mi — Santiago de Chile</span>
+  <div class="btns">
+    <button class="btn-mode active" onclick="setMode('pc')"><i class="fas fa-desktop"></i> Ver como PC</button>
+    <button class="btn-mode" onclick="setMode('mobile')"><i class="fas fa-mobile-alt"></i> Ver como Móvil</button>
+  </div>
+</div>
+
+<!-- ══ NAV DESKTOP ══ -->
+<header id="nav-desktop">
+  <div class="logo">
+    <img src="https://i.ibb.co/TxhV6znG/Whats-App-Image-2026-06-16-at-19-18-47-removebg-preview.png" alt="Logo">
+    <span>Radio Cristo<br>Vive En Mi</span>
+  </div>
+  <nav>
+    <a href="#inicio">Inicio</a>
+    <a href="#quienes">Quiénes Somos</a>
+    <a href="#programacion">Programación</a>
+    <a href="#contacto">Contacto</a>
+  </nav>
+</header>
+
+<!-- ══ NAV MOBILE ══ -->
+<header id="nav-mobile">
+  <div class="logo" style="display:flex;align-items:center">
+    <img src="https://i.ibb.co/TxhV6znG/Whats-App-Image-2026-06-16-at-19-18-47-removebg-preview.png" alt="Logo">
+    <span>Radio Cristo Vive En Mi</span>
+  </div>
+  <button id="hamburger" onclick="toggleMenu()"><i class="fas fa-bars"></i></button>
+</header>
+<div id="mobile-menu">
+  <a href="#inicio" onclick="toggleMenu()">Inicio</a>
+  <a href="#quienes" onclick="toggleMenu()">Quiénes Somos</a>
+  <a href="#programacion" onclick="toggleMenu()">Programación</a>
+  <a href="#contacto" onclick="toggleMenu()">Contacto</a>
+</div>
+
+<!-- ══ HERO / BANNER ══ -->
+<section id="inicio">
+  <div id="hero">
+    <div class="slide active">
+      <img src="https://i.ibb.co/BdDSXWb/wondermar-father-79456-1920.jpg" alt="Banner 1">
+      <div class="slide-overlay"></div>
+    </div>
+    <div class="slide">
+      <img src="https://i.ibb.co/DfXqsPwQ/4144132-father-and-son-2258681-1920.jpg" alt="Banner 2">
+      <div class="slide-overlay"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-tag">En Vivo desde Santiago de Chile</div>
+      <h1 class="hero-title">Radio Cristo<br>Vive En Mi</h1>
+      <p class="hero-sub">Fe · Esperanza · Amor</p>
+      <a href="https://play.google.com/store/apps/details?id=com.comunikados.radicristviveenm" target="_blank" class="btn-playstore">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Disponible en Google Play">
+      </a>
+    </div>
+    <!-- ══ PLAYER (dentro del hero, arriba izquierda) ══ -->
+    <div id="player-section">
+      <div class="player-box">
+        <div class="player-logo">
+          <img src="https://i.ibb.co/TxhV6znG/Whats-App-Image-2026-06-16-at-19-18-47-removebg-preview.png" alt="Logo Radio">
+        </div>
+        <div class="player-info">
+          <div class="pname">Radio Cristo Vive En Mi</div>
+          <div class="ploc"><i class="fas fa-map-marker-alt" style="color:var(--dorado);margin-right:4px"></i>Santiago de Chile</div>
+        </div>
+        <div class="player-controls">
+          <span class="live-badge">EN VIVO</span>
+          <button id="play-btn" onclick="togglePlay()"><i class="fas fa-play" id="play-icon"></i></button>
+          <div class="vol-wrap">
+            <i class="fas fa-volume-up" style="font-size:.85rem"></i>
+            <input type="range" id="vol-slider" min="0" max="1" step="0.01" value="0.8">
+          </div>
+        </div>
+        <audio id="radio-audio" preload="none"></audio>
+      </div>
+    </div>
+    <div class="slide-dots">
+      <div class="dot active" onclick="goSlide(0)"></div>
+      <div class="dot" onclick="goSlide(1)"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ QUIÉNES SOMOS ══ -->
+<section id="quienes" class="section section-alt">
+  <div class="sec-tag"><span>Nuestra Historia</span></div>
+  <h2 class="sec-title">¿Quiénes Somos?</h2>
+  <div class="sec-line"></div>
+  <p class="qs-texto">
+    Radio Cristo Vive En Mi es una emisora cristiana nacida en el corazón de Santiago de Chile, con el firme propósito de llevar el mensaje de salvación, esperanza y amor a cada hogar. Somos parte de la comunidad de la <strong style="color:var(--dorado)">Iglesia Misionera Cristo Vive En Mi</strong>, comprometidos a transformar vidas a través de la Palabra de Dios, la música de alabanza y la intercesión.
+  </p>
+  <div class="qs-grid">
+    <div class="qs-card">
+      <i class="fas fa-bullseye"></i>
+      <h3>Nuestra Misión</h3>
+      <p>Proclamar el evangelio de Jesucristo con excelencia radial, alcanzando a toda persona que necesite escuchar la Palabra de vida, brindando contenido edificante las 24 horas del día.</p>
+    </div>
+    <div class="qs-card">
+      <i class="fas fa-eye"></i>
+      <h3>Nuestra Visión</h3>
+      <p>Ser un referente radial cristiano en Chile y Latinoamérica, expandiendo el Reino de Dios a través de la tecnología, la música y programas de impacto espiritual y social.</p>
+    </div>
+    <div class="qs-card">
+      <i class="fas fa-heart"></i>
+      <h3>Nuestros Valores</h3>
+      <p>Fe, amor, integridad y servicio son los pilares que guían cada transmisión. Creemos en el poder transformador de la oración y la comunión con Dios.</p>
+    </div>
+    <div class="qs-card">
+      <i class="fas fa-users"></i>
+      <h3>Nuestra Comunidad</h3>
+      <p>Somos una familia de creyentes unidos por la fe en Cristo. Cada oyente es parte de esta comunidad y tiene un lugar especial en nuestra cobertura de oración.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PROGRAMACIÓN ══ -->
+<section id="programacion" class="section">
+  <div class="sec-tag"><span>Parrilla</span></div>
+  <h2 class="sec-title">Nuestra Programación</h2>
+  <div class="sec-line"></div>
+  <div class="prog-grid">
+    <div class="prog-card">
+      <img class="prog-img clickable-img" src="https://i.ibb.co/Zzm1rVDv/prog2.jpg" alt="Programa 1" onclick="openLB(this)">
+      <div class="prog-body">
+        <h3>Programa 1</h3>
+        <p class="prog-badge">Pronto más información aquí</p>
+      </div>
+    </div>
+    <div class="prog-card">
+      <img class="prog-img clickable-img" src="https://i.ibb.co/rfL0dGzk/fila.jpg" alt="Fila" onclick="openLB(this)">
+      <div class="prog-body">
+        <h3>Fila</h3>
+        <p class="prog-badge">Pronto más información aquí</p>
+      </div>
+    </div>
+    <div class="prog-card">
+      <img class="prog-img clickable-img" src="https://i.ibb.co/MKjQ8sD/latidos.jpg" alt="Latidos" onclick="openLB(this)">
+      <div class="prog-body">
+        <h3>Latidos</h3>
+        <p class="prog-badge">Pronto más información aquí</p>
+      </div>
+    </div>
+    <div class="prog-card">
+      <img class="prog-img clickable-img" src="https://i.ibb.co/jZwRGvfs/vasijas.jpg" alt="Vasijas" onclick="openLB(this)">
+      <div class="prog-body">
+        <h3>Vasijas</h3>
+        <p class="prog-badge">Pronto más información aquí</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Director -->
+  <div class="director-wrap">
+    <div class="director-card">
+      <div class="director-img-wrap">
+        <img src="https://i.ibb.co/39MScYB1/director.jpg" alt="Director de Radio Cristo Vive En Mi" class="director-img clickable-img" onclick="openLB(this)">
+        <span class="director-badge"><i class="fas fa-microphone"></i> Director</span>
+      </div>
+      <div class="director-info">
+        <div class="director-tag">Liderazgo &amp; Visión</div>
+        <h3 class="director-name">Director General</h3>
+        <h4 class="director-station">Radio Cristo Vive En Mi</h4>
+        <div class="director-line"></div>
+        <p class="director-bio">
+          Con una profunda vocación de servicio y una fe inquebrantable, nuestro Director lidera Radio Cristo Vive En Mi con el firme propósito de llevar el mensaje de salvación a cada hogar de Chile y Latinoamérica. Su visión ha sido el motor que impulsa cada transmisión, cada programa y cada palabra proclamada en nuestra señal.
+        </p>
+        <p class="director-bio" style="margin-top:10px">
+          Bajo su conducción, la radio ha crecido como un espacio de encuentro espiritual, intercesión y edificación cristiana, fiel a los valores del evangelio y comprometida con la comunidad de la <strong style="color:var(--dorado)">Iglesia Misionera Cristo Vive En Mi</strong>.
+        </p>
+        <div class="director-chips">
+          <span><i class="fas fa-broadcast-tower"></i> Dirección Radial</span>
+          <span><i class="fas fa-pray"></i> Intercesión</span>
+          <span><i class="fas fa-bible"></i> Ministerio</span>
+          <span><i class="fas fa-map-marker-alt"></i> Santiago, Chile</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ INFORMACIÓN ADICIONAL ══ -->
+<section class="section section-alt">
+  <div class="sec-tag"><span>Información</span></div>
+  <h2 class="sec-title">Información Adicional</h2>
+  <div class="sec-line"></div>
+  <div class="info-adicional-wrap">
+    <div class="info-adicional-img-wrap">
+      <img src="https://i.ibb.co/zhDt3BwL/coci.jpg" alt="Información adicional" class="info-adicional-img clickable-img" onclick="openLB(this)">
+    </div>
+    <div class="info-adicional-texto">
+      <div class="director-tag">Comunidad &amp; Ministerio</div>
+      <h3 style="font-family:'Cinzel',serif;font-size:1.4rem;color:#fff;margin-bottom:12px">Comprometidos con tu Familia</h3>
+      <div style="width:50px;height:3px;background:var(--dorado);margin-bottom:18px;border-radius:2px"></div>
+      <p style="font-size:.9rem;color:var(--gris);line-height:1.85;margin-bottom:14px">
+        En Radio Cristo Vive En Mi creemos que el hogar es el primer lugar donde la fe se vive y se transmite. Por eso, cada uno de nuestros espacios está pensado para edificar, fortalecer e inspirar a las familias de Chile y Latinoamérica.
+      </p>
+      <p style="font-size:.9rem;color:var(--gris);line-height:1.85">
+        Somos un ministerio en constante crecimiento, abierto a la comunidad, donde la Palabra de Dios es el centro de todo lo que hacemos. Te invitamos a ser parte de esta gran familia radial.
+      </p>
+      <div class="director-chips" style="margin-top:22px">
+        <span><i class="fas fa-heart"></i> Familia</span>
+        <span><i class="fas fa-users"></i> Comunidad</span>
+        <span><i class="fas fa-star"></i> Fe Cristiana</span>
+        <span><i class="fas fa-globe-americas"></i> Latinoamérica</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PRODUCTOS ══ -->
+<section class="section section-alt">
+  <div class="sec-tag"><span>Servicios</span></div>
+  <h2 class="sec-title">Nuestros Productos</h2>
+  <div class="sec-line"></div>
+  <div class="prod-grid">
+    <div class="prod-card prod-card-img">
+      <img class="prod-img clickable-img" src="https://i.ibb.co/YFBGLvQ7/publicidad1.jpg" alt="Marvic" onclick="openLB(this)">
+      <div class="prod-body">
+        <h3>Marvic</h3>
+      </div>
+    </div>
+    <div class="prod-card prod-card-img">
+      <img class="prod-img clickable-img" src="https://i.ibb.co/jkW18GcY/publicidad2.jpg" alt="Biblias Marvic" onclick="openLB(this)">
+      <div class="prod-body">
+        <h3>Biblias Marvic</h3>
+      </div>
+    </div>
+    <div class="prod-card prod-card-img">
+      <img class="prod-img clickable-img" src="https://i.ibb.co/N2xrNWH5/publicidad3.jpg" alt="Impresiones MarVic" onclick="openLB(this)">
+      <div class="prod-body">
+        <h3>Impresiones MarVic</h3>
+      </div>
+    </div>
+    <div class="prod-card prod-card-img">
+      <img class="prod-img clickable-img" src="https://i.ibb.co/6ckvv831/publicidad4.jpg" alt="Marvic Arriendo De Audio" onclick="openLB(this)">
+      <div class="prod-body">
+        <h3>Marvic Arriendo De Audio</h3>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ REDES SOCIALES ══ -->
+<section class="section">
+  <div class="sec-tag"><span>Síguenos</span></div>
+  <h2 class="sec-title">Redes Sociales</h2>
+  <div class="sec-line"></div>
+  <div class="redes-grid">
+    <a href="https://www.facebook.com/iglesiamisioneracristoviveenmi" target="_blank" class="red-card">
+      <i class="fab fa-facebook fb"></i>
+      <div class="rname">Facebook</div>
+      <div class="rlink">@iglesiamisioneracristoviveenmi</div>
+    </a>
+    <a href="https://www.instagram.com/radio_cristoviveenmi?utm_source=qr&igsh=MXh4NjQzNWphbGQ2eA==" target="_blank" class="red-card">
+      <i class="fab fa-instagram ig"></i>
+      <div class="rname">Instagram</div>
+      <div class="rlink">@radio_cristoviveenmi</div>
+    </a>
+    <a href="https://www.tiktok.com/@marcelasaavedra91" target="_blank" class="red-card">
+      <i class="fab fa-tiktok tt"></i>
+      <div class="rname">TikTok</div>
+      <div class="rlink">@marcelasaavedra91</div>
+    </a>
+    <a href="https://www.youtube.com/@marcelasaavedra.3165" target="_blank" class="red-card">
+      <i class="fab fa-youtube yt"></i>
+      <div class="rname">YouTube</div>
+      <div class="rlink">@marcelasaavedra.3165</div>
+    </a>
+  </div>
+</section>
+
+<!-- ══ CONTACTO ══ -->
+<section id="contacto" class="section section-alt">
+  <div class="sec-tag"><span>Contáctanos</span></div>
+  <h2 class="sec-title">Contacto Oficial</h2>
+  <div class="sec-line"></div>
+  <div class="contact-box">
+    <p>¿Tienes dudas, sugerencias o peticiones de oración?<br>Comunícate directamente con nosotros.</p>
+    <div class="phone"><i class="fab fa-whatsapp" style="margin-right:8px"></i>+56 9 5038 3092</div>
+    <a href="https://wa.me/56950383092?text=Hola%20Radio%20Cristo%20Vive%20En%20Mi" target="_blank" class="wa-btn">
+      <i class="fab fa-whatsapp"></i> Escribir por WhatsApp
+    </a>
+  </div>
+</section>
+
+<!-- ══ GALERÍA DE FOTOS ══ -->
+<section class="section section-alt">
+  <div class="sec-tag"><span>Galería</span></div>
+  <h2 class="sec-title">Nuestra Galería de Fotos</h2>
+  <div class="sec-line"></div>
+  <div class="gallery-grid">
+    <div class="gallery-card"><i class="fas fa-image"></i><span class="coming">Próximamente</span></div>
+    <div class="gallery-card"><i class="fas fa-image"></i><span class="coming">Próximamente</span></div>
+    <div class="gallery-card"><i class="fas fa-image"></i><span class="coming">Próximamente</span></div>
+    <div class="gallery-card"><i class="fas fa-image"></i><span class="coming">Próximamente</span></div>
+    <div class="gallery-card"><i class="fas fa-image"></i><span class="coming">Próximamente</span></div>
+    <div class="gallery-card"><i class="fas fa-image"></i><span class="coming">Próximamente</span></div>
+    <div class="gallery-card"><i class="fas fa-image"></i><span class="coming">Próximamente</span></div>
+    <div class="gallery-card"><i class="fas fa-image"></i><span class="coming">Próximamente</span></div>
+  </div>
+</section>
+
+<!-- ══ GALERÍA DE VIDEOS ══ -->
+<section class="section">
+  <div class="sec-tag"><span>Contenido</span></div>
+  <h2 class="sec-title">Galería de Videos</h2>
+  <div class="sec-line"></div>
+  <div class="videos-grid">
+    <div class="video-card">
+      <iframe src="https://www.youtube.com/embed/ZWjgKnsIGKg" allowfullscreen loading="lazy" title="Video 1"></iframe>
+      <div class="vtitle"><i class="fab fa-youtube" style="color:#ff0000;margin-right:6px"></i>Video destacado</div>
+    </div>
+    <div class="video-card">
+      <iframe src="https://www.youtube.com/embed/l9T_u5qIQ-c" allowfullscreen loading="lazy" title="Video 2"></iframe>
+      <div class="vtitle"><i class="fab fa-youtube" style="color:#ff0000;margin-right:6px"></i>Video destacado</div>
+    </div>
+    <div class="video-card">
+      <iframe src="https://www.youtube.com/embed/fb_lS5y2IOg" allowfullscreen loading="lazy" title="Video 3"></iframe>
+      <div class="vtitle"><i class="fab fa-youtube" style="color:#ff0000;margin-right:6px"></i>Video destacado</div>
+    </div>
+    <div class="video-card">
+      <iframe src="https://www.youtube.com/embed/jGaU6EJGB_A" allowfullscreen loading="lazy" title="Video 4"></iframe>
+      <div class="vtitle"><i class="fab fa-youtube" style="color:#ff0000;margin-right:6px"></i>Video destacado</div>
+    </div>
+    <div class="video-card">
+      <iframe src="https://www.youtube.com/embed/K-GsXnSa-BU" allowfullscreen loading="lazy" title="Video 5"></iframe>
+      <div class="vtitle"><i class="fab fa-youtube" style="color:#ff0000;margin-right:6px"></i>Video destacado</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CANAL DE TELEVISIÓN ══ -->
+<section id="tv-section">
+  <div class="sec-tag"><span>En Vivo</span></div>
+  <h2 class="sec-title">Canal de Televisión</h2>
+  <div class="sec-line"></div>
+  <div class="tv-wrap">
+    <div class="tv-player">
+      <span class="tv-badge">📺 EN VIVO</span>
+      <video id="tv-video" controls autoplay muted playsinline></video>
+    </div>
+    <div class="tv-info">
+      <img src="https://i.ibb.co/TxhV6znG/Whats-App-Image-2026-06-16-at-19-18-47-removebg-preview.png" alt="Logo">
+      <div>
+        <div class="tname">Cristo Vive En Mi TV</div>
+        <div class="tsub">Señal en vivo · Santiago de Chile</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <img src="https://i.ibb.co/TxhV6znG/Whats-App-Image-2026-06-16-at-19-18-47-removebg-preview.png" alt="Logo">
+  <div class="foot-brand">Radio Cristo Vive En Mi</div>
+  <p>Santiago de Chile &nbsp;|&nbsp; <a href="https://www.facebook.com/iglesiamisioneracristoviveenmi" target="_blank" style="color:var(--dorado);text-decoration:none">Iglesia Misionera Cristo Vive En Mi</a></p>
+  <p style="margin-top:8px">Diseño Grup Comunikados</p>
+</footer>
+
+</div><!-- #wrapper -->
+
+<!-- ══ WHATSAPP FLOTANTE ══ -->
+<div id="wa-float">
+  <div id="wa-popup">
+    <div class="wa-head">
+      <img src="https://i.ibb.co/TxhV6znG/Whats-App-Image-2026-06-16-at-19-18-47-removebg-preview.png" alt="Logo">
+      <div>
+        <div class="wname">Radio Cristo Vive En Mi</div>
+        <div class="wstatus">● En línea</div>
+      </div>
+    </div>
+    <div class="wa-body">
+      <div class="wa-bubble">¡Hola! ¿En qué podemos ayudarte hoy? Escríbenos, con gusto te atendemos.<div class="wa-time">ahora</div></div>
+      <div class="wa-bubble wa-oracion">🙏 También recibimos tus <strong>peticiones de oración</strong>. Escríbenos y oramos por ti.<div class="wa-time">ahora</div></div>
+      <div class="wa-inp">
+        <input type="text" placeholder="Escribe un mensaje..." id="wa-msg">
+        <button onclick="sendWA()"><i class="fas fa-paper-plane"></i></button>
+      </div>
+    </div>
+  </div>
+  <button id="wa-fab" onclick="toggleWA()"><i class="fab fa-whatsapp"></i></button>
+</div>
+
+<script>
+// ── INTRO ──
+(function(){
+  const fill=document.getElementById('intro-fill');
+  const count=document.getElementById('intro-count');
+  const intro=document.getElementById('intro');
+  let n=0;
+  const iv=setInterval(()=>{
+    n++;
+    count.textContent=n;
+    fill.style.width=n+'%';
+    if(n>=100){clearInterval(iv);setTimeout(()=>{intro.style.transition='opacity .6s';intro.style.opacity='0';setTimeout(()=>intro.remove(),600)},300)}
+  },40);
+})();
+
+// ── SLIDER ──
+let cur=0;
+const slides=document.querySelectorAll('.slide');
+const dots=document.querySelectorAll('.dot');
+function goSlide(i){slides[cur].classList.remove('active');dots[cur].classList.remove('active');cur=i;slides[cur].classList.add('active');dots[cur].classList.add('active')}
+setInterval(()=>goSlide((cur+1)%slides.length),5000);
+
+// ── PLAYER ──
+const audio=document.getElementById('radio-audio');
+const playBtn=document.getElementById('play-icon');
+const vol=document.getElementById('vol-slider');
+let playing=false;
+audio.src='https://comunikadostreaming.us:10960/stream';
+audio.volume=0.8;
+function togglePlay(){
+  if(!playing){audio.play().catch(()=>{});playBtn.className='fas fa-pause';playing=true}
+  else{audio.pause();playBtn.className='fas fa-play';playing=false}
+}
+vol.addEventListener('input',()=>audio.volume=vol.value);
+
+// ── HAMBURGER ──
+function toggleMenu(){
+  const m=document.getElementById('mobile-menu');
+  m.style.display=m.style.display==='block'?'none':'block';
+}
+
+// ── MODE ──
+function setMode(m){
+  document.querySelectorAll('.btn-mode').forEach(b=>b.classList.remove('active'));
+  if(m==='mobile'){document.body.classList.add('mobile-mode');document.querySelectorAll('.btn-mode')[1].classList.add('active')}
+  else{document.body.classList.remove('mobile-mode');document.querySelectorAll('.btn-mode')[0].classList.add('active')}
+}
+
+// ── WA ──
+function toggleWA(){
+  const p=document.getElementById('wa-popup');
+  p.classList.toggle('open');
+}
+function sendWA(){
+  const msg=document.getElementById('wa-msg').value.trim();
+  if(!msg)return;
+  window.open('https://wa.me/56950383092?text='+encodeURIComponent(msg),'_blank');
+  document.getElementById('wa-msg').value='';
+}
+document.getElementById('wa-msg').addEventListener('keydown',e=>{if(e.key==='Enter')sendWA()});
+
+// ── CANAL TV HLS ──
+(function(){
+  const v=document.getElementById('tv-video');
+  const src='https://live.tvcontrolcp.com:8081/viveenmitv/index.m3u8';
+  if(Hls.isSupported()){
+    const hls=new Hls({autoStartLoad:true});
+    hls.loadSource(src);
+    hls.attachMedia(v);
+    hls.on(Hls.Events.MANIFEST_PARSED,()=>{v.play().catch(()=>{})});
+  } else if(v.canPlayType('application/vnd.apple.mpegurl')){
+    v.src=src;
+    v.addEventListener('loadedmetadata',()=>v.play().catch(()=>{}));
+  }
+})();
+
+document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{
+  const t=document.querySelector(a.getAttribute('href'));
+  if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'})}
+}));
+</script>
+<!-- ══ LIGHTBOX ══ -->
+<div id="lightbox" onclick="closeLB(event)">
+  <button id="lb-close" onclick="closeLB()">✕</button>
+  <img id="lb-img" src="" alt="">
+  <div id="lb-caption"></div>
+</div>
+
+<script>
+// ── LIGHTBOX ──
+function openLB(el){
+  document.getElementById('lb-img').src=el.src;
+  document.getElementById('lb-caption').textContent=el.alt;
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeLB(e){
+  if(!e||e.target===document.getElementById('lightbox')||e.currentTarget===document.getElementById('lb-close')){
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow='';
+  }
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLB({target:document.getElementById('lightbox')})});
+</script>
+
+</body>
+</html>
