@@ -1,0 +1,1380 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Radio Margen</title>
+<style>body{background-color:#f5f2eb !important;color:#2c2a29 !important;font-family:"Georgia",serif !important;margin:0;padding:30px 20px;display:flex;flex-direction:column;align-items:center;justify-content:space-between;min-height:100vh;box-sizing:border-box;}.card{background:#faf8f5 !important;border:1px solid #dcd6cd !important;padding:35px 25px;border-radius:12px;text-align:center;max-width:420px;width:100%;box-shadow:0 10px 30px rgba(44,42,41,0.05);box-sizing:border-box;}h1{color:#2c2a29;font-size:2.2rem;margin:0 0 5px 0;letter-spacing:3px;font-weight:normal;}.player-wrapper{position:relative;overflow:hidden;background:linear-gradient(135deg,#3a342f 0%,#4a4138 52%,#66523c 100%);border:0;border-radius:18px;padding:18px;margin:15px 0 16px;box-shadow:0 14px 30px rgba(44,42,41,.15);color:#f8f4ed;}.player-wrapper::before,.player-wrapper::after{content:"";position:absolute;border-radius:50%;filter:blur(2px);pointer-events:none;}.player-wrapper::before{width:130px;height:130px;right:-55px;top:-60px;background:rgba(184,151,104,.30);}.player-wrapper::after{width:110px;height:110px;left:-60px;bottom:-65px;background:rgba(216,199,174,.18);}.radio-player{position:relative;z-index:2;width:100%;display:flex;flex-direction:column;gap:13px;}.radio-player-top{display:flex;align-items:center;justify-content:space-between;gap:10px;}.radio-brand{text-align:left;line-height:1.05;}.radio-brand strong{display:block;font-family:Georgia,serif;font-size:1.15rem;font-weight:normal;letter-spacing:1px;color:#f8f4ed;}.radio-brand span{display:block;margin-top:5px;font-family:Arial,sans-serif;font-size:.60rem;letter-spacing:1.5px;text-transform:uppercase;color:#d8c7ae;}.live-badge{flex-shrink:0;display:inline-flex;align-items:center;gap:6px;padding:6px 9px;border:1px solid rgba(255,255,255,.25);border-radius:999px;font-family:Arial,sans-serif;font-size:.58rem;letter-spacing:1px;text-transform:uppercase;color:#fff;background:rgba(255,255,255,.10);backdrop-filter:blur(6px);}.live-dot{width:7px;height:7px;border-radius:50%;background:#b89768;box-shadow:0 0 0 4px rgba(255,117,102,.13);animation:livepulse 1.5s infinite;}@keyframes livepulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(.72);opacity:.55}}.player-display{display:flex;align-items:center;gap:13px;padding:12px 12px 12px 10px;border-radius:14px;background:rgba(0,0,0,.16);border:1px solid rgba(255,255,255,.10);}.play-button{position:relative;width:62px;height:62px;flex:0 0 62px;border:0;border-radius:50%;background:#b89768;color:white;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;font-family:Arial,sans-serif;font-size:1.25rem;box-shadow:0 7px 18px rgba(0,0,0,.22);transition:transform .16s ease,box-shadow .16s ease;-webkit-tap-highlight-color:transparent;}.play-button:hover{transform:translateY(-2px) scale(1.04);box-shadow:0 10px 22px rgba(0,0,0,.27);}.play-button:active{transform:scale(.96);}.play-button:focus-visible{outline:2px solid #d8c7ae;outline-offset:3px;}.visualizer{flex:1 1 0;min-width:72px;display:flex;align-items:center;justify-content:center;}.visualizer svg{width:100%;max-width:112px;height:auto;display:block;filter:brightness(.82) saturate(.85);transition:filter .8s ease;}.radio-player.is-playing .visualizer svg{filter:none;}.onair-copy{text-align:right;min-width:0;font-family:Arial,sans-serif;}.onair-copy strong{display:block;font-size:.66rem;letter-spacing:1.2px;text-transform:uppercase;color:#fff;}.onair-copy span{display:block;margin-top:4px;font-size:.58rem;color:#d8c7ae;}.volume-area{display:flex;align-items:center;gap:9px;padding:0 3px;}.volume-icon{font-size:.9rem;opacity:.85;}.volume-range{width:100%;margin:0;accent-color:#b89768;cursor:pointer;}.volume-value{font-family:Arial,sans-serif;font-size:.58rem;color:#d8c7ae;min-width:31px;text-align:right;}.player-status{min-height:14px;font-family:Arial,sans-serif;font-size:.63rem;color:#d8c7ae;text-align:center;}.player-status.error{color:#ffb0a6;}.player-status.live{color:#9ff0e1;}.player-reconnect{display:none;align-self:center;border:1px solid rgba(255,255,255,.25);border-radius:999px;background:rgba(255,255,255,.08);padding:6px 12px;color:#fff;font-family:Arial,sans-serif;font-size:.62rem;cursor:pointer;}.player-reconnect.visible{display:inline-block;}.ahora-suena{width:100%;box-sizing:border-box;background:#f5f2eb;border:1px solid #dcd6cd;border-left:4px solid #b89768;border-radius:7px;padding:13px 14px;margin-bottom:10px;text-align:left;}.ahora-titulo{font-family:Arial,sans-serif;font-size:0.68rem;letter-spacing:1.5px;text-transform:uppercase;color:#876a45;margin-bottom:7px;font-weight:bold;}.punto-vivo{display:inline-block;width:7px;height:7px;background:#b89768;border-radius:50%;margin-right:6px;vertical-align:1px;animation:pulso 1.8s infinite;}@keyframes pulso{0%,100%{opacity:1;}50%{opacity:0.35;}}.ahora-programa{font-size:1rem;color:#2c2a29;margin-bottom:4px;line-height:1.35;}.ahora-descripcion{color:#706860;font-family:Arial,sans-serif;font-size:0.78rem;line-height:1.4;margin-bottom:7px;}.ahora-horario{color:#8c837b;font-family:Arial,sans-serif;font-size:0.72rem;}.barra-progreso{width:100%;height:5px;background:#d9d4cc;border-radius:10px;overflow:hidden;margin-top:7px;}.barra-progreso-interna{height:100%;width:0%;background:linear-gradient(90deg,#b89768,#d8c7ae);border-radius:10px;transition:width 0.8s linear;}.progreso-info{display:flex;justify-content:space-between;gap:10px;margin-top:6px;font-family:Arial,sans-serif;font-size:0.65rem;color:#8c837b;}.cuenta-regresiva{margin-top:8px;padding-top:8px;border-top:1px solid #ddd6cc;color:#876a45;font-family:Arial,sans-serif;font-size:0.75rem;font-weight:bold;}.siguiente{width:100%;box-sizing:border-box;background:#faf8f5;border:1px solid #dcd6cd;border-radius:7px;padding:11px 14px;margin-bottom:18px;text-align:left;}.siguiente-titulo{font-family:Arial,sans-serif;font-size:0.65rem;letter-spacing:1.4px;text-transform:uppercase;color:#8c837b;margin-bottom:5px;font-weight:bold;}.siguiente-programa{font-size:0.9rem;color:#2c2a29;line-height:1.35;}.siguiente-horario{color:#9a7548;font-family:Arial,sans-serif;font-size:0.7rem;margin-top:3px;}.player-pie{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:0 2px}.player-pie .player-status{text-align:left}.programacion-link{flex:none;display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border:1px solid rgba(216,199,174,.45);border-radius:999px;background:rgba(255,255,255,.07);color:#e9dcc6;font-family:Arial,sans-serif;font-size:.6rem;letter-spacing:1px;text-transform:uppercase;transition:background .25s ease,color .25s ease}.programacion-link:hover{background:rgba(255,255,255,.16);color:#fff}.programacion-link{position:relative;overflow:hidden;animation:brilla 7s ease-in-out infinite}.programacion-link::after{content:"";position:absolute;top:0;bottom:0;left:-70%;width:45%;background:linear-gradient(100deg,transparent,rgba(255,238,205,.5),transparent);transform:skewX(-20deg);animation:destello 7s ease-in-out infinite;pointer-events:none}@keyframes destello{0%,68%{left:-70%}92%,100%{left:130%}}@keyframes brilla{0%,60%,100%{box-shadow:0 0 0 0 rgba(233,214,170,0)}78%{box-shadow:0 0 9px 1px rgba(233,214,170,.40);border-color:rgba(233,214,170,.75)}}@media(prefers-reduced-motion:reduce){.programacion-link,.programacion-link::after{animation:none}}.programacion-icon{font-size:.75rem}.programacion-icon{font-size:1.05rem;line-height:1;}.social-links{display:flex;justify-content:center;align-items:center;gap:10px;margin:16px 0 12px;flex-wrap:wrap;}.social-link{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:38px;padding:0 13px;box-sizing:border-box;border:1px solid #dcd6cd;border-radius:999px;background:#faf8f5;color:#5f5750;text-decoration:none;font-family:Arial,sans-serif;font-size:0.72rem;letter-spacing:0.2px;transition:background-color .22s ease,color .22s ease,border-color .22s ease,transform .22s ease,box-shadow .22s ease;}.social-link:hover{background:#f5f2eb;color:#2c2a29;border-color:#b89768;transform:translateY(-2px);box-shadow:0 5px 12px rgba(44,42,41,.09);}.social-link:focus-visible{outline:2px solid #b89768;outline-offset:2px;}.social-icon{width:18px;height:18px;flex:0 0 18px;display:block;}.social-label{line-height:1;}@media (max-width:390px){.social-link{padding:0 11px;font-size:0.68rem;}}#vista-programacion{--fondo:#f5f2eb;--tarjeta:#faf8f5;--texto:#2c2a29;--suave:#6b635b;--borde:#dcd6cd;--acento:#b89768;--acento-suave:#eee7dc;}#vista-programacion *{box-sizing:border-box;}#vista-programacion{background:var(--fondo);color:var(--texto);font-family:Georgia,"Times New Roman",serif;line-height:1.6;width:100%;padding:0 0 20px;}#vista-programacion a{color:inherit;}#vista-programacion .contenedor{width:min(1080px,calc(100% - 32px));margin:0 auto;}#vista-programacion header{text-align:center;padding:42px 0 28px;}#vista-programacion h1{margin:0;font-size:clamp(28px,5vw,42px);font-weight:normal;letter-spacing:2px;}#vista-programacion .subtitulo{margin:8px auto 0;color:var(--suave);font-size:16px;}#vista-programacion .separador{width:70px;height:1px;margin:24px auto 0;background:var(--acento);}#vista-programacion .intro{max-width:760px;margin:0 auto 42px;text-align:center;color:var(--suave);font-size:16px;}#vista-programacion .seccion-titulo{text-align:center;margin:55px 0 25px;}#vista-programacion .seccion-titulo h2{margin:0;font-size:28px;font-weight:normal;letter-spacing:1px;}#vista-programacion .seccion-titulo p{margin:7px 0 0;color:var(--suave);font-size:14px;}#vista-programacion .podcasts{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}#vista-programacion .podcast{overflow:hidden;background:var(--tarjeta);border:1px solid var(--borde);border-radius:8px;transition:transform .2s ease,box-shadow .2s ease;}#vista-programacion .podcast:hover{transform:translateY(-3px);box-shadow:0 8px 22px rgba(44,42,41,.07);}#vista-programacion .portada{display:block;width:100%;aspect-ratio:1 / 1;object-fit:cover;background:var(--acento-suave);}#vista-programacion .podcast-contenido{padding:20px 20px 22px;}#vista-programacion .podcast h3{margin:0 0 9px;font-size:22px;font-weight:normal;line-height:1.25;}#vista-programacion .podcast p{margin:0;color:var(--suave);font-size:14px;line-height:1.65;}#vista-programacion .podcast-link{display:inline-block;margin-top:16px;color:var(--acento);text-decoration:none;font-size:13px;letter-spacing:.5px;border-bottom:1px solid transparent;}#vista-programacion .podcast-link:hover{border-bottom-color:var(--acento);}#vista-programacion .dia{margin-bottom:38px;}#vista-programacion .dia-titulo{margin-bottom:13px;padding-bottom:8px;border-bottom:1px solid var(--borde);}#vista-programacion .dia-titulo h3{margin:0;font-size:21px;font-weight:normal;}#vista-programacion .dia-titulo span{display:block;margin-top:3px;color:var(--suave);font-size:13px;font-style:italic;}#vista-programacion .programa{display:grid;grid-template-columns:90px 1fr;gap:18px;padding:13px 12px;border-bottom:1px solid var(--borde);}#vista-programacion .programa:last-child{border-bottom:none;}#vista-programacion .hora{color:var(--acento);font-size:15px;white-space:nowrap;padding-top:1px;}#vista-programacion .programa-nombre{margin:0;font-size:16px;}#vista-programacion .programa-detalle{margin:3px 0 0;color:var(--suave);font-size:13px;}#vista-programacion .podcast-tag{display:inline-block;margin-left:8px;padding:2px 7px;border:1px solid var(--acento);border-radius:20px;color:var(--acento);font-size:10px;letter-spacing:.5px;vertical-align:middle;}#vista-programacion .volver{text-align:center;margin:48px 0 60px;}#vista-programacion .boton{display:inline-block;padding:11px 22px;border:1px solid var(--acento);border-radius:5px;color:var(--texto);text-decoration:none;font-size:14px;transition:background .2s ease,color .2s ease;}#vista-programacion .boton:hover{background:var(--acento);color:white;}#vista-programacion footer{border-top:1px solid var(--borde);padding:24px 0 30px;text-align:center;color:var(--suave);font-size:12px;}@media (max-width:850px){#vista-programacion .podcasts{grid-template-columns:repeat(2,1fr);}}@media (max-width:560px){#vista-programacion .contenedor{width:min(100% - 22px,1080px);}#vista-programacion header{padding-top:30px;}#vista-programacion .podcasts{grid-template-columns:1fr;gap:18px;}#vista-programacion .podcast{display:grid;grid-template-columns:120px 1fr;}#vista-programacion .portada{width:120px;height:120px;}#vista-programacion .podcast-contenido{padding:14px;}#vista-programacion .podcast h3{font-size:18px;}#vista-programacion .podcast p{font-size:13px;line-height:1.5;}#vista-programacion .podcast-link{margin-top:9px;}#vista-programacion .programa{grid-template-columns:68px 1fr;gap:10px;padding:12px 5px;}#vista-programacion .hora{font-size:13px;}#vista-programacion .programa-nombre{font-size:15px;}#vista-programacion .programa-detalle{font-size:12px;}#vista-programacion .podcast-tag{display:none;}}#vista-programacion{display:none;width:100%;}#vista-programacion.activa{display:block;}#vista-player{width:100%;display:flex;flex-direction:column;align-items:center;}#vista-player.oculta{display:none;}button.programacion-link,button.boton{cursor:pointer;-webkit-tap-highlight-color:transparent;}button.boton{background:transparent;font-family:Georgia,serif;}</style>
+<meta name="color-scheme" content="light dark">
+<script>try{var t=localStorage.getItem("rm-tema");if(t==="claro"||t==="oscuro")document.documentElement.setAttribute("data-tema",t);}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;1,9..144,400&family=Cormorant+Garamond:ital,wght@1,500&family=Montserrat:wght@500;600&display=swap" rel="stylesheet">
+<style id="capa-vida">:root{--serif-vida:"Fraunces",Georgia,serif;}body{background-image:radial-gradient(900px 520px at 12% -8%,rgba(184,151,104,.30),transparent 62%),radial-gradient(800px 480px at 105% 30%,rgba(135,106,69,.16),transparent 60%),radial-gradient(700px 420px at 0% 100%,rgba(184,151,104,.18),transparent 60%);background-attachment:fixed;}body::before{content:"";position:fixed;inset:0;z-index:60;pointer-events:none;opacity:.5;mix-blend-mode:multiply;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .35  0 0 0 0 .28  0 0 0 0 .2  0 0 0 .09 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");}@keyframes entra{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:none;}}#vista-programacion.activa,#vista-player:not(.oculta){animation:entra .6s cubic-bezier(.2,.7,.2,1);}.card{background:rgba(250,248,245,.80) !important;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);transition:box-shadow .8s ease;}@keyframes respira{0%,100%{box-shadow:0 0 0 1px rgba(184,151,104,.45),0 18px 50px rgba(184,151,104,.28);}50%{box-shadow:0 0 0 1px rgba(184,151,104,.75),0 24px 70px rgba(184,151,104,.50);}}body.sonando .card{animation:respira 4.5s ease-in-out infinite;}@keyframes flota{from{transform:translate(0,0) scale(1);}to{transform:translate(-18px,14px) scale(1.25);}}.player-wrapper::before{animation:flota 9s ease-in-out infinite alternate;}.player-wrapper::after{animation:flota 12s ease-in-out infinite alternate-reverse;}body.sonando .player-wrapper::before{background:rgba(214,174,112,.48);}.radio-brand strong{font-family:"Montserrat","Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-style:normal;font-weight:600;font-size:1.12rem;letter-spacing:.04em;}.ahora-programa{font-family:var(--serif-vida);font-size:1.15rem;}#vista-programacion header{padding-top:44px;}#vista-programacion h1{font-family:var(--serif-vida);font-weight:500;font-size:clamp(1.7rem,7vw,2.2rem);letter-spacing:0;line-height:1.15;color:var(--texto);}#vista-programacion .subtitulo{letter-spacing:2px;text-transform:uppercase;font-size:11px;margin-top:10px}#vista-programacion .separador,#vista-programacion .sep-cab{height:1px;width:min(280px,70%);margin:20px auto;background:linear-gradient(90deg,transparent,var(--acento),transparent);}#vista-programacion .intro{font-size:1.12rem;line-height:1.8;}#vista-programacion .intro::first-letter{float:left;font-family:var(--serif-vida);font-size:3.6em;line-height:.78;padding:6px 10px 0 0;color:var(--acento);}#vista-programacion .seccion-titulo h2{font-family:var(--serif-vida);font-weight:500;font-size:clamp(1.7rem,6vw,2.3rem);}#vista-programacion .podcast{box-shadow:0 2px 10px rgba(44,42,41,.04);}#vista-programacion .portada{transition:transform .8s cubic-bezier(.2,.7,.2,1);}#vista-programacion .podcast:hover .portada{transform:scale(1.07);}#vista-programacion .podcast h3{font-family:var(--serif-vida);}@keyframes sube{from{opacity:0;transform:translateY(22px);}}.js-anim #vista-programacion .podcast:not(.visto){opacity:0;}#vista-programacion .podcast.visto{animation:sube .8s cubic-bezier(.2,.7,.2,1) var(--d,0s) backwards;}#vista-programacion .dia-titulo{position:sticky;top:0;z-index:5;padding-top:12px;background:rgba(245,242,235,.90);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);}#vista-programacion .dia-titulo h3{font-family:var(--serif-vida);font-weight:500;font-size:24px;}#vista-programacion .programa{transition:background .25s ease;border-radius:6px;}#vista-programacion .programa:hover{background:rgba(184,151,104,.08);}#vista-programacion .programa.en-aire{background:linear-gradient(90deg,rgba(184,151,104,.26),rgba(184,151,104,.04));box-shadow:inset 3px 0 0 var(--acento);}#vista-programacion .programa.en-aire .programa-nombre::after{content:"● AL AIRE";display:inline-block;margin-left:8px;padding:2px 8px;border-radius:20px;background:var(--acento);color:#fff;font-family:Arial,sans-serif;font-size:9px;letter-spacing:1px;vertical-align:middle;animation:pulso 1.8s infinite;}@media (prefers-reduced-motion:reduce){body.sonando .card,.player-wrapper::before,.player-wrapper::after,#vista-programacion .podcast.visto{animation:none !important;}}.frase-literaria{width:100%;box-sizing:border-box;text-align:center;min-height:62px;padding:0 14px;margin:10px 0 0;display:flex;flex-direction:column;align-items:center;justify-content:center;}.frase-texto{margin:0 0 5px;font-family:var(--serif-vida);font-style:italic;font-size:.94rem;line-height:1.42;color:#3a342f;}.frase-autor{font-family:Arial,sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#876a45;}.frase-texto,.frase-autor{transition:opacity .8s ease;}.frase-literaria.cambia .frase-texto,.frase-literaria.cambia .frase-autor{opacity:0;}@media (prefers-reduced-motion:reduce){.frase-texto,.frase-autor{transition:none;}}:root{color-scheme:light dark;}@media (prefers-color-scheme:dark){html:not([data-tema="claro"]) body{background-color:#1a1715 !important;color:#ece6dc !important;background-image:radial-gradient(900px 520px at 12% -8%,rgba(184,151,104,.16),transparent 62%),radial-gradient(800px 480px at 105% 30%,rgba(135,106,69,.12),transparent 60%),radial-gradient(700px 420px at 0% 100%,rgba(184,151,104,.08),transparent 60%);}html:not([data-tema="claro"]) body::before{opacity:.28;mix-blend-mode:screen;}html:not([data-tema="claro"]) .card{background:rgba(33,29,26,.84) !important;border-color:#3a332d !important;box-shadow:0 10px 30px rgba(0,0,0,.35);}html:not([data-tema="claro"]) .player-wrapper{box-shadow:0 14px 30px rgba(0,0,0,.40),0 0 0 1px rgba(201,169,119,.18);}html:not([data-tema="claro"]) body.sonando .card{animation-name:respira-oscuro;}html:not([data-tema="claro"]) .ahora-suena{background:#26211e;border-color:#3a332d;border-left-color:#c9a977;}html:not([data-tema="claro"]) .siguiente{background:#211d1a;border-color:#3a332d;}html:not([data-tema="claro"]) .ahora-titulo,html:not([data-tema="claro"]) .siguiente-horario,html:not([data-tema="claro"]) .cuenta-regresiva{color:#c9a977;}html:not([data-tema="claro"]) .ahora-programa,html:not([data-tema="claro"]) .siguiente-programa{color:#f1ebe1;}html:not([data-tema="claro"]) .ahora-descripcion{color:#b5aba0;}html:not([data-tema="claro"]) .ahora-horario,html:not([data-tema="claro"]) .progreso-info,html:not([data-tema="claro"]) .siguiente-titulo{color:#9a9086;}html:not([data-tema="claro"]) .barra-progreso{background:#3a332d;}html:not([data-tema="claro"]) .cuenta-regresiva{border-top-color:#3a332d;}html:not([data-tema="claro"]) .social-link{background:#26211e;border-color:#3a332d;color:#b5aba0;}html:not([data-tema="claro"]) .social-link:hover{background:#2f2924;color:#f1ebe1;border-color:#c9a977;box-shadow:0 5px 12px rgba(0,0,0,.35);}html:not([data-tema="claro"]) .frase-texto{color:#e3dccf;}html:not([data-tema="claro"]) .frase-autor{color:#c9a977;}html:not([data-tema="claro"]) #vista-programacion{--fondo:#1a1715;--texto:#ece6dc;--suave:#b5aba0;--tarjeta:#231f1c;--borde:#3a332d;--acento:#c9a977;--acento-suave:#2e2822;}html:not([data-tema="claro"]) #vista-programacion .dia-titulo{background:rgba(26,23,21,.92);}html:not([data-tema="claro"]) #vista-programacion .podcast{box-shadow:none;}html:not([data-tema="claro"]) #vista-programacion .podcast:hover{box-shadow:0 8px 22px rgba(0,0,0,.40);}html:not([data-tema="claro"]) #vista-programacion .boton:hover{color:#1a1715;}html:not([data-tema="claro"]) #vista-programacion .programa:hover{background:rgba(201,169,119,.08);}html:not([data-tema="claro"]) #vista-programacion .programa.en-aire{background:linear-gradient(90deg,rgba(201,169,119,.22),rgba(201,169,119,.03));}html:not([data-tema="claro"]) #vista-programacion .programa.en-aire .programa-nombre::after{color:#1a1715;}html:not([data-tema="claro"]) .btn-tema{background:rgba(38,33,30,.82);color:#c9a977;border-color:rgba(201,169,119,.45);}}html[data-tema="oscuro"] body{background-color:#1a1715 !important;color:#ece6dc !important;background-image:radial-gradient(900px 520px at 12% -8%,rgba(184,151,104,.16),transparent 62%),radial-gradient(800px 480px at 105% 30%,rgba(135,106,69,.12),transparent 60%),radial-gradient(700px 420px at 0% 100%,rgba(184,151,104,.08),transparent 60%);}html[data-tema="oscuro"] body::before{opacity:.28;mix-blend-mode:screen;}html[data-tema="oscuro"] .card{background:rgba(33,29,26,.84) !important;border-color:#3a332d !important;box-shadow:0 10px 30px rgba(0,0,0,.35);}html[data-tema="oscuro"] .player-wrapper{box-shadow:0 14px 30px rgba(0,0,0,.40),0 0 0 1px rgba(201,169,119,.18);}html[data-tema="oscuro"] body.sonando .card{animation-name:respira-oscuro;}html[data-tema="oscuro"] .ahora-suena{background:#26211e;border-color:#3a332d;border-left-color:#c9a977;}html[data-tema="oscuro"] .siguiente{background:#211d1a;border-color:#3a332d;}html[data-tema="oscuro"] .ahora-titulo,html[data-tema="oscuro"] .siguiente-horario,html[data-tema="oscuro"] .cuenta-regresiva{color:#c9a977;}html[data-tema="oscuro"] .ahora-programa,html[data-tema="oscuro"] .siguiente-programa{color:#f1ebe1;}html[data-tema="oscuro"] .ahora-descripcion{color:#b5aba0;}html[data-tema="oscuro"] .ahora-horario,html[data-tema="oscuro"] .progreso-info,html[data-tema="oscuro"] .siguiente-titulo{color:#9a9086;}html[data-tema="oscuro"] .barra-progreso{background:#3a332d;}html[data-tema="oscuro"] .cuenta-regresiva{border-top-color:#3a332d;}html[data-tema="oscuro"] .social-link{background:#26211e;border-color:#3a332d;color:#b5aba0;}html[data-tema="oscuro"] .social-link:hover{background:#2f2924;color:#f1ebe1;border-color:#c9a977;box-shadow:0 5px 12px rgba(0,0,0,.35);}html[data-tema="oscuro"] .frase-texto{color:#e3dccf;}html[data-tema="oscuro"] .frase-autor{color:#c9a977;}html[data-tema="oscuro"] #vista-programacion{--fondo:#1a1715;--texto:#ece6dc;--suave:#b5aba0;--tarjeta:#231f1c;--borde:#3a332d;--acento:#c9a977;--acento-suave:#2e2822;}html[data-tema="oscuro"] #vista-programacion .dia-titulo{background:rgba(26,23,21,.92);}html[data-tema="oscuro"] #vista-programacion .podcast{box-shadow:none;}html[data-tema="oscuro"] #vista-programacion .podcast:hover{box-shadow:0 8px 22px rgba(0,0,0,.40);}html[data-tema="oscuro"] #vista-programacion .boton:hover{color:#1a1715;}html[data-tema="oscuro"] #vista-programacion .programa:hover{background:rgba(201,169,119,.08);}html[data-tema="oscuro"] #vista-programacion .programa.en-aire{background:linear-gradient(90deg,rgba(201,169,119,.22),rgba(201,169,119,.03));}html[data-tema="oscuro"] #vista-programacion .programa.en-aire .programa-nombre::after{color:#1a1715;}html[data-tema="oscuro"] .btn-tema{background:rgba(38,33,30,.82);color:#c9a977;border-color:rgba(201,169,119,.45);}html[data-tema="oscuro"]{color-scheme:dark;}html[data-tema="claro"]{color-scheme:light;}.btn-tema{position:fixed;right:14px;bottom:calc(env(safe-area-inset-bottom,0px) + 14px);z-index:80;width:40px;height:40px;padding:0;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;border:1px solid rgba(184,151,104,.55);background:rgba(250,248,245,.80);color:#876a45;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);box-shadow:0 4px 14px rgba(44,42,41,.14);-webkit-tap-highlight-color:transparent;transition:transform .3s ease,background .3s ease;}.btn-tema:active{transform:scale(.9) rotate(-14deg);}.btn-tema svg{width:19px;height:19px;}@keyframes respira-oscuro{0%,100%{box-shadow:0 0 0 1px rgba(201,169,119,.35),0 18px 50px rgba(201,169,119,.14);}50%{box-shadow:0 0 0 1px rgba(201,169,119,.65),0 24px 70px rgba(201,169,119,.28);}}.btn-cerrar{display:none;position:fixed;left:14px;bottom:calc(env(safe-area-inset-bottom,0px) + 14px);z-index:80;height:40px;padding:0 18px;border-radius:20px;align-items:center;justify-content:center;gap:8px;font-family:Arial,sans-serif;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;border:1px solid rgba(184,151,104,.55);background:rgba(250,248,245,.88);color:#876a45;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);box-shadow:0 4px 14px rgba(44,42,41,.14);cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .3s ease,background .3s ease;}#vista-programacion.activa ~ #btn-cerrar-prog{display:flex;}.btn-cerrar:active{transform:scale(.94);}@media (prefers-color-scheme:dark){html:not([data-tema="claro"]) .btn-cerrar{background:rgba(38,33,30,.88);color:#c9a977;border-color:rgba(201,169,119,.45);}}html[data-tema="oscuro"] .btn-cerrar{background:rgba(38,33,30,.88);color:#c9a977;border-color:rgba(201,169,119,.45);}.ahora-portada{flex:none;width:88px;height:88px;margin:0;border-radius:10px;object-fit:cover;background:rgba(184,151,104,.18);box-shadow:0 3px 10px rgba(44,42,41,.18);opacity:0;transition:opacity .6s ease;}.ahora-portada.lista{opacity:1;}.ahora-suena .barra-progreso{clear:both;}@media (prefers-reduced-motion:reduce){.ahora-portada{transition:none;}}.top-der{display:flex;flex-direction:column;align-items:flex-end;gap:5px;flex-shrink:0;}.clima{display:inline-flex;align-items:center;gap:5px;font-family:Arial,sans-serif;font-size:.74rem;letter-spacing:.4px;color:#d8c7ae;opacity:0;transition:opacity .8s ease;}.clima[hidden]{display:none;}.clima.lista{opacity:1;}.clima svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;}.ahora-lema{margin:1px 0 7px;font-family:"Cormorant Garamond",Georgia,serif;font-style:italic;font-weight:500;font-size:1.1rem;line-height:1.3;color:#876a45;opacity:0;transition:opacity .7s ease;}.ahora-lema[hidden]{display:none;}.ahora-lema.lista{opacity:1;}@media (prefers-color-scheme:dark){html:not([data-tema="claro"]) .ahora-lema{color:#c9a977;}}html[data-tema="oscuro"] .ahora-lema{color:#c9a977;}@media (prefers-reduced-motion:reduce){.ahora-lema{transition:none;}} @keyframes led{0%,100%{opacity:1;box-shadow:0 0 0 1px rgba(255,60,40,.35),0 0 8px 2px rgba(255,45,30,.75);}50%{opacity:.45;box-shadow:0 0 0 1px rgba(255,60,40,.12),0 0 3px 0 rgba(255,45,30,.30);}}.live-dot,.punto-vivo{width:8px;height:8px;background:radial-gradient(circle at 35% 30%,#ff9d8f 0%,#ff2d1e 45%,#c4160b 100%);box-shadow:0 0 0 1px rgba(255,60,40,.35),0 0 8px 2px rgba(255,45,30,.75);animation:led 1.6s ease-in-out infinite;}@media (prefers-reduced-motion:reduce){.live-dot,.punto-vivo{animation:none;}}@media (max-width:399px){.onair-copy strong{font-size:.6rem;letter-spacing:.8px;}.onair-copy span{font-size:.54rem;}}@media (max-width:339px){.onair-copy{display:none;}}.fila-tema{display:flex;gap:14px;align-items:center;margin:10px 0 9px;padding-top:12px;border-top:1px solid #ddd6cc}.fila-tema[hidden],.tema[hidden],.tema.vacio{display:none}.tema{flex:1;min-width:0;display:flex;gap:8px;align-items:flex-start;text-align:left}.tema.cambia{opacity:0}.tema-nota{flex:none;color:#b89768;font-size:1.05rem;line-height:1.3}.tema-ventana{flex:1;min-width:0;overflow:hidden}.tema-info{flex:none;margin-top:1px;padding:2px 8px;border:1px solid currentColor;border-radius:999px;font:600 .56rem Arial,sans-serif;letter-spacing:1px;text-transform:uppercase;text-decoration:none;color:var(--c1,#876a45);opacity:.8;-webkit-tap-highlight-color:transparent}.tema-info:hover{opacity:1;background:rgba(184,151,104,.18)}.tema-info[hidden]{display:none}#tema-texto small,#tema-texto b{white-space:nowrap}.mq{display:inline-block;animation:mq var(--d) ease-in-out infinite alternate}@keyframes mq{0%,15%{transform:translateX(0)}85%,100%{transform:translateX(var(--x))}}@media(prefers-reduced-motion:reduce){.mq{animation:none}}#tema-texto small{display:block;font-family:Arial,sans-serif;font-weight:600;font-size:.66rem;letter-spacing:1.4px;text-transform:uppercase;color:#876a45}#tema-texto b{display:block;margin-top:2px;font-family:var(--serif-vida);font-style:italic;font-weight:500;font-size:1.1rem;line-height:1.25;color:#2c2a29}html[data-tema="oscuro"] .fila-tema{border-top-color:#3a332d}html[data-tema="oscuro"] .tema-nota,html[data-tema="oscuro"] #tema-texto small{color:#c9a977}html[data-tema="oscuro"] #tema-texto b{color:#f1ebe1}@media (prefers-color-scheme:dark){html:not([data-tema="claro"]) .fila-tema{border-top-color:#3a332d}html:not([data-tema="claro"]) .tema-nota,html:not([data-tema="claro"]) #tema-texto small{color:#c9a977}html:not([data-tema="claro"]) #tema-texto b{color:#f1ebe1}}.app-aviso{position:fixed;left:12px;right:12px;bottom:calc(env(safe-area-inset-bottom,0px) + 62px);max-width:420px;margin:0 auto;z-index:90;display:flex;align-items:center;gap:12px;padding:11px 12px 11px 13px;border-radius:14px;background:rgba(33,29,26,.96);border:1px solid rgba(201,169,119,.5);color:#ece6dc;font-family:Arial,sans-serif;box-shadow:0 14px 34px rgba(0,0,0,.35);opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}.app-aviso[hidden]{display:none}.app-aviso.on{opacity:1;transform:none}.app-aviso .m{flex:none;width:36px;height:36px;border-radius:50%;background:#fff;color:#5a4330;display:flex;align-items:center;justify-content:center;font:1.35rem Georgia,serif}.app-aviso p{margin:0;flex:1;font-size:.74rem;line-height:1.35;color:#d8c7ae}.app-aviso p b{display:block;font-size:.8rem;color:#f4ead5}.app-aviso a{flex:none;padding:8px 13px;border-radius:999px;background:#c9a977;color:#1a1715;font-weight:600;font-size:.7rem;text-decoration:none;letter-spacing:.4px}.app-aviso button{flex:none;border:0;background:none;color:#ece6dc;opacity:.6;font-size:1.1rem;padding:2px 4px;cursor:pointer}@media(prefers-reduced-motion:reduce){.app-aviso{transition:none}}#vista-programacion .icono-cab{width:84px;height:84px;margin:0 auto 14px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(44,42,41,.16);font:3rem var(--serif-vida);color:#5a4330;line-height:1}#vista-programacion .marca{font:600 1.25rem/1.3 Montserrat,"Segoe UI",Arial,sans-serif;letter-spacing:.04em;margin:0}#vista-programacion .lema{margin:4px 0 0;font:600 .62rem Arial,sans-serif;letter-spacing:2px;text-transform:uppercase;color:#876a45}@media (prefers-color-scheme:dark){html:not([data-tema="claro"]) #vista-programacion .lema{color:#c9a977}}html[data-tema="oscuro"] #vista-programacion .lema{color:#c9a977}</style>
+</head>
+<body>
+<audio id="radio-audio" preload="none" playsinline></audio>
+<div id="vista-player">
+<div class="card">
+<div class="player-wrapper">
+<div class="radio-player" id="radio-player-box">
+<div class="radio-player-top">
+<div class="radio-brand">
+<strong>Radio Margen</strong>
+<span>RADIO PARA LEER · SEÑAL EN VIVO</span>
+</div>
+<div class="top-der"><div class="live-badge"><span class="live-dot"></span> En vivo</div><div class="clima" id="clima" hidden></div></div>
+</div>
+<div class="player-display">
+<button class="play-button" id="radio-play" type="button" aria-label="Reproducir Radio Margen" title="Reproducir">▶</button>
+<div class="visualizer" aria-hidden="true"><svg viewBox="0 0 110 60" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="vuf" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f4ead5"/><stop offset="1" stop-color="#d8c5a0"/></linearGradient></defs><rect x=".5" y=".5" width="109" height="59" rx="7" fill="url(#vuf)" stroke="#876a45" stroke-opacity=".7"/><path d="M25.9 31.6A38 38 0 0 1 84.1 31.6" fill="none" stroke="#5c4a33" stroke-width="1.1"/><path d="M68 20.3A38 38 0 0 1 84.1 31.6" fill="none" stroke="#c4301c" stroke-width="3"/><path d="M24.4 30.3L29 34.1M29.3 25.4L31.9 28.4M35 21.4L38 26.6M41.3 18.4L42.7 22.2M48.1 16.6L49.1 22.5M55 16L55 20M61.9 16.6L60.9 22.5M68.7 18.4L67.3 22.2M75 21.4L72 26.6M80.7 25.4L78.1 28.4M85.6 30.3L81 34.1" stroke="#5c4a33" stroke-width="1" fill="none"/><text x="55" y="41" text-anchor="middle" font-family="Georgia,serif" font-size="7" letter-spacing="1.5" fill="#6b5638">VU</text><g id="vu-aguja" transform="rotate(-48 55 56)"><path d="M55 56V19" stroke="#2c2a29" stroke-width="1.3" stroke-linecap="round"/></g><path d="M44 60A11 11 0 0 1 66 60Z" fill="#3a342f"/><path d="M1 15Q1 1 15 1H95Q109 1 109 15V22Q55 31 1 22Z" fill="#fff" opacity=".15"/></svg></div>
+<div class="onair-copy"><strong>ON AIR</strong><span>Solumedia</span></div>
+</div>
+<div class="volume-area">
+<span class="volume-icon">◖</span>
+<input class="volume-range" id="radio-volume" type="range" min="0" max="1" step="0.01" value="0.8" aria-label="Volumen">
+<span class="volume-value" id="volume-value">80%</span>
+</div>
+<div class="player-pie"><div class="player-status" id="radio-status" aria-live="polite">Listo para escuchar</div><button class="programacion-link" type="button" onclick="mostrarVista('programacion')"><span class="programacion-icon">▦</span><span>Programación</span></button></div>
+<button class="player-reconnect" id="radio-reconnect" type="button">Volver a conectar</button>
+</div>
+</div>
+<div class="ahora-suena">
+<div class="ahora-titulo">
+<span class="punto-vivo"></span>
+Ahora suena
+</div>
+<div class="ahora-programa" id="ahora-programa">
+Cargando programación...
+</div>
+<div class="ahora-lema" id="ahora-lema" hidden></div>
+<div class="fila-tema" id="fila-tema" hidden>
+<img class="ahora-portada" id="ahora-portada" alt="" width="88" height="88" decoding="async" hidden>
+<div class="tema" id="tema" hidden><span class="tema-nota" aria-hidden="true">♪</span><span class="tema-ventana"><span id="tema-texto"></span></span><a class="tema-info" id="tema-info" href="#" target="_blank" rel="noopener noreferrer" hidden>+info</a></div>
+</div>
+<div class="ahora-descripcion" id="ahora-descripcion">
+</div>
+<div class="ahora-horario" id="ahora-horario">
+</div>
+<div class="barra-progreso">
+<div class="barra-progreso-interna" id="barra-progreso"></div>
+</div>
+<div class="progreso-info">
+<span id="tiempo-transcurrido">00:00:00 transcurrido</span>
+<span id="tiempo-restante">00:00:00 restantes</span>
+</div>
+<div class="cuenta-regresiva" id="cuenta-regresiva">
+</div>
+</div>
+<div class="siguiente">
+<div class="siguiente-titulo">
+A continuación
+</div>
+<div class="siguiente-programa" id="siguiente-programa">
+Cargando...
+</div>
+<div class="siguiente-horario" id="siguiente-horario">
+</div>
+</div>
+<div class="frase-literaria" id="frase-literaria">
+<p class="frase-texto" id="frase-texto">“Caminante, no hay camino, se hace camino al andar.”</p>
+<span class="frase-autor" id="frase-autor">Antonio Machado</span>
+</div>
+<div class="social-links" aria-label="Redes y contacto de Radio Margen">
+<a class="social-link" href="https://www.instagram.com/radiomargen/" target="_blank" rel="noopener noreferrer" aria-label="Instagram de Radio Margen: @radiomargen">
+<svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+<rect x="3.2" y="3.2" width="17.6" height="17.6" rx="5" fill="none" stroke="currentColor" stroke-width="1.9"/>
+<circle cx="12" cy="12" r="4.1" fill="none" stroke="currentColor" stroke-width="1.9"/>
+<circle cx="17.55" cy="6.55" r="1.15" fill="currentColor"/>
+</svg>
+<span class="social-label">Instagram</span>
+</a>
+<a class="social-link" href="https://www.facebook.com/share/18PhZPxvi9/" target="_blank" rel="noopener noreferrer" aria-label="Facebook de Radio Margen">
+<svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+<path fill="currentColor" d="M13.5 21v-8h2.7l.4-3h-3.1V8.08c0-.87.24-1.46 1.5-1.46h1.7V3.94c-.29-.04-1.28-.13-2.43-.13-2.4 0-4.05 1.46-4.05 4.14V10H7.5v3h2.72v8h3.28Z"/>
+</svg>
+<span class="social-label">Facebook</span>
+</a>
+<a class="social-link" href="mailto:radiomargen@gmail.com" aria-label="Enviar un mail a Radio Margen: radiomargen@gmail.com">
+<svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+<rect x="3" y="5" width="18" height="14" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/>
+<path d="M4.5 7l7.5 6 7.5-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+<span class="social-label">Correo</span>
+</a>
+</div>
+</div>
+</div>
+<div id="vista-programacion">
+<header>
+<div class="contenedor">
+<div class="icono-cab" aria-hidden="true">M</div>
+<p class="marca">Radio Margen</p>
+<p class="lema">Radio para leer · Señal en vivo</p>
+<div class="sep-cab"></div>
+<h1>Programación</h1>
+<p class="subtitulo">
+Radio para leer · Pulso Cultural, Letras y Alta Fusión
+</p>
+<div class="separador"></div>
+</div>
+</header>
+<main class="contenedor">
+<p class="intro">
+Una frecuencia atravesada por la literatura en todas sus variables, la música, el cine, la historia y el podcast.
+Un espacio para escuchar con tiempo.
+</p>
+<section>
+<div class="seccion-titulo">
+<h2>Lo que suena en Radio Margen</h2>
+<p>
+Las voces, historias y obsesiones que forman parte de nuestra radio.
+</p>
+</div>
+<div class="podcasts">
+<article class="podcast">
+<img class="portada" src="https://cdn-profiles.tunein.com/p568532/images/logod.png" alt="Reload Radio Metal" loading="lazy">
+<div class="podcast-contenido">
+<h3>Reload Radio Metal</h3>
+<p>
+Reload Radio Metal es un podcast argentino dedicado al
+heavy metal, con aproximadamente dos horas de música,
+actualidad y pasión por el género. Un espacio nacido en
+Pérez, Santa Fe, Argentina, para quienes llevan el metal
+a todas partes.
+</p>
+</div>
+</article>
+<article class="podcast">
+<img class="portada" src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts116/v4/53/05/ab/5305ab6f-04fa-a77b-f2e1-651f4f4c6e5c/mza_9232644075018351927.jpg/400x400bb.webp" alt="Dokusho Kurabu" loading="lazy">
+<div class="podcast-contenido">
+<h3>Dokusho Kurabu</h3>
+<p>
+Dokusho Kurabu es un club de lectura dedicado a las
+historias ilustradas y la narrativa asiática.
+Manga, manhua, webtoon, manhwa, light novels y mucho más.
+Un espacio donde hay lugar para todos los lectores.
+</p>
+</div>
+</article>
+<article class="podcast">
+<img class="portada" src="https://podcastaddict.com/cache/artwork/thumb/3779786?v=1790335705" alt="Habemus Charla" loading="lazy">
+<div class="podcast-contenido">
+<h3>Habemus Charla</h3>
+<p>
+Habemus Charla es el espacio donde Chuleta y Quattro
+reseñan todo lo que van engullendo durante la semana:
+libros, historias, ideas y mucho más. Y si querés seguir
+la charla, encontralos en Telegram.
+</p>
+</div>
+</article>
+<article class="podcast">
+<img class="portada" src="https://s3-us-west-2.amazonaws.com/anchor-generated-image-bank/production/podcast_uploaded_nologo400/10449095/10449095-1647387332843-0d26312b8c53c.jpg" alt="Cinema Parásito" loading="lazy">
+<div class="podcast-contenido">
+<h3>Cinema Parásito</h3>
+<p>
+Cinema Parásito nació como un programa de radio dedicado
+al cine y mutó en un podcast de investigación sobre cultura
+pop. Pequeños informes, trabajados a fondo, que recorren
+cine, series, cómics y animación, desde el terror y los
+superhéroes hasta el cine nacional, festivales y recomendaciones.
+</p>
+</div>
+</article>
+<article class="podcast">
+<img class="portada" src="data:image/jpeg;base64,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" alt="La Nerdoteka" loading="lazy">
+<div class="podcast-contenido">
+<h3>La Nerdoteka</h3>
+<p>
+La Nerdoteka es un club de lectura de cómics donde el
+equipo elige una obra, la lee y la discute junto a la
+audiencia. Nació como spin-off de Perdidos en el Éter,
+programa de Montevideo dedicado desde 2003 a los cómics,
+la ciencia ficción, los juegos de rol y la cultura nerd.
+</p>
+</div>
+</article>
+<article class="podcast">
+<img class="portada" src="https://img-static.ivoox.com/index.php?url=https%3A%2F%2Fstatic-1.ivoox.com%2Fcanales%2F9%2F9%2F3%2F7%2F351787657399_XXL.jpg&w=175" alt="Mandíbula Lectora" loading="lazy">
+<div class="podcast-contenido">
+<h3>Mandíbula Lectora</h3>
+<p>
+Mandíbula Lectora es el podcast para quienes nunca tienen
+suficiente. Una necesidad casi biológica de mantener varios
+libros abiertos a la vez, alimentando la curiosidad y las
+ganas de descubrir nuevas historias. Reseñamos, recomendamos
+y, sobre todo, celebramos la literatura sin demasiado protocolo.
+</p>
+</div>
+</article>
+<article class="podcast">
+<img class="portada" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRbWpHnWbVvVIr1o-4Y-Pmen3Zh8012LjSZgBf0AlSbA&s" alt="101Bluesllegar" loading="lazy">
+<div class="podcast-contenido">
+<h3>101Bluesllegar</h3>
+<p>
+101Bluesllegar es un podcast argentino conducido por Juancho
+Farías, emitido desde Lomas de Zamora, Provincia de Buenos Aires.
+Un recorrido por la historia del blues, desde sus raíces hasta
+el blues de Chicago, con historias, anécdotas y grabaciones de
+sus protagonistas. Blues genuino y auténtico.
+</p>
+</div>
+</article>
+<article class="podcast">
+<img class="portada" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRT8RqDLt6UjtIwWaJsO0cwT0feTCgV3GWyYn3ix5o3Or-p7BS0rSCeoyRP&s=10" alt="Las Tierras Raras" loading="lazy">
+<div class="podcast-contenido">
+<h3>Las Tierras Raras</h3>
+<p>
+Las Tierras Raras es un podcast de horror cósmico creado,
+escrito e interpretado por Claudio García Fanlo. Una secuela
+moderna de El color que cayó del cielo, de H. P. Lovecraft,
+que sigue a Emilio Rímini, un geólogo que investiga un extraño
+fenómeno de origen cósmico en una localidad bonaerense.
+</p>
+</div>
+</article>
+<article class="podcast">
+<img class="portada" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVB2Cbc8lGJdxTaSpPOTrdxPbech7p6IvDOD1nDF6va-8VumXZ2Yeegza7&s=10" alt="Discos & Libros de Jazz" loading="lazy">
+<div class="podcast-contenido">
+<h3>Discos &amp; Libros de Jazz</h3>
+<p>
+Discos &amp; Libros de Jazz propone un cruce entre música
+y literatura jazzística, recorriendo discos, libros y
+protagonistas del género. Un espacio para descubrir y
+redescubrir artistas y grabaciones, desde los clásicos
+hasta nuevas miradas.
+</p>
+</div>
+</article>
+<article class="podcast">
+<img class="portada" src="https://is2-ssl.mzstatic.com/image/thumb/Podcasts116/v4/b4/c7/1c/b4c71cd1-5ea0-361f-7930-b013d23b3df4/mza_13204753224314022225.jpg/1000x1000bb.jpg" alt="El sonido y la furia" loading="lazy">
+<div class="podcast-contenido">
+<h3>El sonido y la furia</h3>
+<p>
+Literatura en podcast. Entrevistas, reseñas y especiales sobre
+libros, autores y todo lo que rodea al mundo de las letras,
+con una mirada curiosa sobre la literatura local y universal.
+</p>
+</div>
+</article>
+<article class="podcast">
+<img class="portada" src="https://www.historiaenpodcast.com.ar/assets/fotopodcast.ab2c57a3.webp" alt="Historia en Podcast" loading="lazy">
+<div class="podcast-contenido">
+<h3>Historia en Podcast</h3>
+<p>
+Divulgación histórica de la mano de Lucas Botta. Un recorrido
+por hechos, procesos y personajes de la historia de la humanidad,
+desde la Antigüedad hasta nuestros días.
+</p>
+</div>
+</article>
+</div>
+</section>
+<section>
+<div class="seccion-titulo">
+<h2>Programación semanal</h2>
+<p>Lunes a viernes · Sábados y domingos</p>
+</div>
+<div class="dia">
+<div class="dia-titulo"><h3>Lunes</h3><span>Pulso Cultural, Letras y Alta Fusión</span></div>
+<div class="programa"><div class="hora">00:00–07:00</div><div><p class="programa-nombre">Alto voltaje!</p></div></div>
+<div class="programa"><div class="hora">07:00–09:00</div><div><p class="programa-nombre">Despertar Urbano</p><p class="programa-detalle">Tangos clásicos y modernos</p></div></div>
+<div class="programa"><div class="hora">09:00–10:00</div><div><p class="programa-nombre">Mañanas Clásicas</p></div></div>
+<div class="programa"><div class="hora">10:00–11:00</div><div><p class="programa-nombre">Dokusho Kurabu <span class="podcast-tag">PODCAST</span></p></div></div>
+<div class="programa"><div class="hora">11:00–13:00</div><div><p class="programa-nombre">Bloque Instrumental</p></div></div>
+<div class="programa"><div class="hora">13:00–15:00</div><div><p class="programa-nombre">Alta Fusión</p></div></div>
+<div class="programa"><div class="hora">15:00–17:00</div><div><p class="programa-nombre">Groove &amp; Soul</p></div></div>
+<div class="programa"><div class="hora">17:00–19:00</div><div><p class="programa-nombre">Club de Jazz</p></div></div>
+<div class="programa"><div class="hora">19:00–20:00</div><div><p class="programa-nombre">En vivo!</p></div></div>
+<div class="programa"><div class="hora">20:00–22:00</div><div><p class="programa-nombre">Discos &amp; Libros de Jazz <span class="podcast-tag">PODCAST</span></p></div></div>
+<div class="programa"><div class="hora">22:00–00:00</div><div><p class="programa-nombre">Stoner rock!</p></div></div>
+</div>
+<div class="dia">
+<div class="dia-titulo"><h3>Martes</h3><span>Pulso Cultural, Letras y Alta Fusión</span></div>
+<div class="programa"><div class="hora">00:00–07:00</div><div><p class="programa-nombre">Alto voltaje!</p></div></div>
+<div class="programa"><div class="hora">07:00–09:00</div><div><p class="programa-nombre">Despertar Urbano</p><p class="programa-detalle">Tangos clásicos y modernos</p></div></div>
+<div class="programa"><div class="hora">09:00–10:00</div><div><p class="programa-nombre">Mañanas Clásicas</p></div></div>
+<div class="programa"><div class="hora">10:00–11:00</div><div><p class="programa-nombre">Habemus Charla <span class="podcast-tag">PODCAST</span></p></div></div>
+<div class="programa"><div class="hora">11:00–13:00</div><div><p class="programa-nombre">Bloque Instrumental</p></div></div>
+<div class="programa"><div class="hora">13:00–15:00</div><div><p class="programa-nombre">Alta Fusión</p></div></div>
+<div class="programa"><div class="hora">15:00–17:00</div><div><p class="programa-nombre">101Bluesllegar <span class="podcast-tag">PODCAST</span></p></div></div>
+<div class="programa"><div class="hora">17:00–19:00</div><div><p class="programa-nombre">Rock Progresivo</p></div></div>
+<div class="programa"><div class="hora">19:00–20:00</div><div><p class="programa-nombre">En vivo!</p></div></div>
+<div class="programa"><div class="hora">20:00–22:00</div><div><p class="programa-nombre">Las Tierras Raras <span class="podcast-tag">PODCAST</span></p></div></div>
+<div class="programa"><div class="hora">22:00–00:00</div><div><p class="programa-nombre">Stoner rock!</p></div></div>
+</div>
+<div class="dia">
+<div class="dia-titulo"><h3>Miércoles</h3><span>Pulso Cultural, Letras y Alta Fusión</span></div>
+<div class="programa"><div class="hora">00:00–07:00</div><div><p class="programa-nombre">Alto voltaje!</p></div></div>
+<div class="programa"><div class="hora">07:00–09:00</div><div><p class="programa-nombre">Despertar Urbano</p><p class="programa-detalle">Tangos clásicos y modernos</p></div></div>
+<div class="programa"><div class="hora">09:00–10:00</div><div><p class="programa-nombre">Mañanas Clásicas</p></div></div>
+<div class="programa"><div class="hora">10:00–11:00</div><div><p class="programa-nombre">La Nerdoteka <span class="podcast-tag">PODCAST</span></p></div></div>
+<div class="programa"><div class="hora">11:00–13:00</div><div><p class="programa-nombre">Bloque Instrumental</p></div></div>
+<div class="programa"><div class="hora">13:00–15:00</div><div><p class="programa-nombre">Alta Fusión</p></div></div>
+<div class="programa"><div class="hora">15:00–17:00</div><div><p class="programa-nombre">Historia en Podcast <span class="podcast-tag">PODCAST</span></p></div></div>
+<div class="programa"><div class="hora">17:00–19:00</div><div><p class="programa-nombre">Groove &amp; Soul</p></div></div>
+<div class="programa"><div class="hora">19:00–20:00</div><div><p class="programa-nombre">En vivo!</p></div></div>
+<div class="programa"><div class="hora">20:00–22:00</div><div><p class="programa-nombre">Cinema Parásito <span class="podcast-tag">PODCAST</span></p></div></div>
+<div class="programa"><div class="hora">22:00–00:00</div><div><p class="programa-nombre">Stoner rock!</p></div></div>
+</div>
+<div class="dia">
+<div class="dia-titulo"><h3>Jueves</h3><span>Pulso Cultural, Letras y Alta Fusión</span></div>
+<div class="programa"><div class="hora">00:00–07:00</div><div><p class="programa-nombre">Alto voltaje!</p></div></div>
+<div class="programa"><div class="hora">07:00–09:00</div><div><p class="programa-nombre">Despertar Urbano</p><p class="programa-detalle">Tangos clásicos y modernos</p></div></div>
+<div class="programa"><div class="hora">09:00–10:00</div><div><p class="programa-nombre">Mañanas Clásicas</p></div></div>
+<div class="programa"><div class="hora">10:00–11:00</div><div><p class="programa-nombre">El sonido y la furia <span class="podcast-tag">PODCAST</span></p></div></div>
+<div class="programa"><div class="hora">11:00–13:00</div><div><p class="programa-nombre">Bloque Instrumental</p></div></div>
+<div class="programa"><div class="hora">13:00–15:00</div><div><p class="programa-nombre">Alta Fusión</p></div></div>
+<div class="programa"><div class="hora">15:00–17:00</div><div><p class="programa-nombre">101Bluesllegar <span class="podcast-tag">PODCAST</span></p></div></div>
+<div class="programa"><div class="hora">17:00–19:00</div><div><p class="programa-nombre">Rock Progresivo</p></div></div>
+<div class="programa"><div class="hora">19:00–20:00</div><div><p class="programa-nombre">En vivo!</p></div></div>
+<div class="programa"><div class="hora">20:00–22:00</div><div><p class="programa-nombre">Discos &amp; Libros de Jazz <span class="podcast-tag">PODCAST</span></p></div></div>
+<div class="programa"><div class="hora">22:00–00:00</div><div><p class="programa-nombre">Stoner rock!</p></div></div>
+</div>
+<div class="dia">
+<div class="dia-titulo"><h3>Viernes</h3><span>Pulso Cultural, Letras y Alta Fusión</span></div>
+<div class="programa"><div class="hora">00:00–07:00</div><div><p class="programa-nombre">Alto voltaje!</p></div></div>
+<div class="programa"><div class="hora">07:00–09:00</div><div><p class="programa-nombre">Despertar Urbano</p><p class="programa-detalle">Tangos clásicos y modernos</p></div></div>
+<div class="programa"><div class="hora">09:00–10:00</div><div><p class="programa-nombre">Mañanas Clásicas</p></div></div>
+<div class="programa"><div class="hora">10:00–11:00</div><div><p class="programa-nombre">Mandíbula Lectora <span class="podcast-tag">PODCAST</span></p></div></div>
+<div class="programa"><div class="hora">11:00–13:00</div><div><p class="programa-nombre">Bloque Instrumental</p></div></div>
+<div class="programa"><div class="hora">13:00–15:00</div><div><p class="programa-nombre">Alta Fusión</p></div></div>
+<div class="programa"><div class="hora">15:00–17:00</div><div><p class="programa-nombre">Groove &amp; Soul</p></div></div>
+<div class="programa"><div class="hora">17:00–19:00</div><div><p class="programa-nombre">Reload Radio Metal <span class="podcast-tag">PODCAST</span></p></div></div>
+<div class="programa"><div class="hora">19:00–20:00</div><div><p class="programa-nombre">En vivo!</p></div></div>
+<div class="programa"><div class="hora">20:00–22:00</div><div><p class="programa-nombre">Las Tierras Raras <span class="podcast-tag">PODCAST</span></p></div></div>
+<div class="programa"><div class="hora">22:00–00:00</div><div><p class="programa-nombre">Stoner rock!</p></div></div>
+</div>
+<div class="dia">
+<div class="dia-titulo"><h3>Sábado</h3><span>Fin de Semana, Maratones y Letras</span></div>
+<div class="programa"><div class="hora">00:00–08:00</div><div><p class="programa-nombre">Alto voltaje!</p></div></div>
+<div class="programa"><div class="hora">08:00–10:00</div><div><p class="programa-nombre">Mañanas de Tangos y Clásicos</p></div></div>
+<div class="programa"><div class="hora">10:00–12:00</div><div><p class="programa-nombre">Mañanas Clásicas del Fin de Semana</p></div></div>
+<div class="programa"><div class="hora">12:00–14:00</div><div><p class="programa-nombre">Mediodía de Maestros</p></div></div>
+<div class="programa"><div class="hora">14:00–17:00</div><div><p class="programa-nombre">Rock progresivo</p></div></div>
+<div class="programa"><div class="hora">17:00–19:00</div><div><p class="programa-nombre">Café Literario</p></div></div>
+<div class="programa"><div class="hora">19:00–20:00</div><div><p class="programa-nombre">En vivo!</p></div></div>
+<div class="programa"><div class="hora">20:00–22:00</div><div><p class="programa-nombre">Cinema Parásito <span class="podcast-tag">PODCAST</span></p></div></div>
+<div class="programa"><div class="hora">22:00–00:00</div><div><p class="programa-nombre">Stoner rock!</p></div></div>
+</div>
+<div class="dia">
+<div class="dia-titulo"><h3>Domingo</h3><span>Fin de Semana, Maratones y Letras</span></div>
+<div class="programa"><div class="hora">00:00–08:00</div><div><p class="programa-nombre">Alto voltaje!</p></div></div>
+<div class="programa"><div class="hora">08:00–10:00</div><div><p class="programa-nombre">Mañanas de Tangos y Clásicos</p></div></div>
+<div class="programa"><div class="hora">10:00–12:00</div><div><p class="programa-nombre">Mañanas Clásicas del Fin de Semana</p></div></div>
+<div class="programa"><div class="hora">12:00–14:00</div><div><p class="programa-nombre">Mediodía de Maestros</p></div></div>
+<div class="programa"><div class="hora">14:00–17:00</div><div><p class="programa-nombre">Rock progresivo</p></div></div>
+<div class="programa"><div class="hora">17:00–19:00</div><div><p class="programa-nombre">Café Literario</p></div></div>
+<div class="programa"><div class="hora">19:00–20:00</div><div><p class="programa-nombre">En vivo!</p></div></div>
+<div class="programa"><div class="hora">20:00–22:00</div><div><p class="programa-nombre">Historia en Podcast <span class="podcast-tag">PODCAST</span></p></div></div>
+<div class="programa"><div class="hora">22:00–00:00</div><div><p class="programa-nombre">El sonido y la furia <span class="podcast-tag">PODCAST</span></p></div></div>
+</div>
+</section>
+<div class="volver">
+<button class="boton" type="button" onclick="mostrarVista('player')">← Volver a Radio Margen</button>
+</div>
+</main>
+<footer>
+Radio Margen · Radio para leer
+</footer>
+</div>
+<script>
+function mostrarVista(nombre) {
+var p = document.getElementById("vista-player");
+var g = document.getElementById("vista-programacion");
+if (nombre === "programacion") {
+p.classList.add("oculta");
+g.classList.add("activa");
+} else {
+g.classList.remove("activa");
+p.classList.remove("oculta");
+}
+window.scrollTo(0, 0);
+}
+</script>
+<script>
+const STREAM_URL = "https://radios.solumedia.com:6292/stream";
+const radioAudio = document.getElementById("radio-audio");
+const radioPlay = document.getElementById("radio-play");
+const radioVolume = document.getElementById("radio-volume");
+const volumeValue = document.getElementById("volume-value");
+const radioStatus = document.getElementById("radio-status");
+const radioReconnect = document.getElementById("radio-reconnect");
+const radioPlayerBox = document.getElementById("radio-player-box");
+radioAudio.src = STREAM_URL;
+radioAudio.volume = 0.8;
+function actualizarVolumen() {
+const valor = Math.round(Number(radioVolume.value) * 100);
+radioAudio.volume = Number(radioVolume.value);
+volumeValue.textContent = valor + "%";
+}
+function mostrarEstado(texto, tipo = "") {
+radioStatus.textContent = texto;
+radioStatus.className = "player-status" + (tipo ? " " + tipo : "");
+}
+function actualizarBoton() {
+if (radioAudio.paused) {
+radioPlay.textContent = "▶";
+radioPlay.setAttribute("aria-label", "Reproducir Radio Margen");
+radioPlay.title = "Reproducir";
+} else {
+radioPlay.textContent = "Ⅱ";
+radioPlay.setAttribute("aria-label", "Pausar Radio Margen");
+radioPlay.title = "Pausar";
+}
+}
+async function reproducirRadio() {
+try {
+radioReconnect.classList.remove("visible");
+mostrarEstado("Conectando…");
+await radioAudio.play();
+} catch (error) {
+console.error("No se pudo reproducir Radio Margen:", error);
+mostrarEstado("No se pudo iniciar la transmisión.", "error");
+radioReconnect.classList.add("visible");
+}
+}
+radioPlay.addEventListener("click", async function() {
+if (radioAudio.paused) {
+await reproducirRadio();
+} else {
+radioAudio.pause();
+}
+});
+radioReconnect.addEventListener("click", async function() {
+radioAudio.pause();
+radioAudio.load();
+await reproducirRadio();
+});
+radioVolume.addEventListener("input", actualizarVolumen);
+radioAudio.addEventListener("playing", function() {
+radioPlayerBox.classList.add("is-playing");
+radioReconnect.classList.remove("visible");
+mostrarEstado("Transmisión en vivo", "live");
+actualizarBoton();
+});
+radioAudio.addEventListener("waiting", function() {
+mostrarEstado("Conectando con la transmisión…");
+});
+radioAudio.addEventListener("stalled", function() {
+mostrarEstado("La transmisión está tardando en responder…");
+});
+radioAudio.addEventListener("pause", function() {
+radioPlayerBox.classList.remove("is-playing");
+if (!radioAudio.ended) {
+mostrarEstado("Transmisión pausada");
+}
+actualizarBoton();
+});
+radioAudio.addEventListener("error", function() {
+radioPlayerBox.classList.remove("is-playing");
+mostrarEstado("No se pudo conectar con la transmisión.", "error");
+radioReconnect.classList.add("visible");
+actualizarBoton();
+});
+actualizarVolumen();
+actualizarBoton();
+</script>
+<script>
+const URL_PROGRAMACION =
+"/programacion";
+let semana = [];
+let finde = [];
+let programacionCargada = false;
+function minutos(hora) {
+const partes = hora.split(":");
+return (
+parseInt(partes[0], 10) * 60 +
+parseInt(partes[1], 10)
+);
+}
+function obtenerHoraArgentina() {
+const partes = new Intl.DateTimeFormat(
+"en-US",
+{
+timeZone: "America/Argentina/Buenos_Aires",
+weekday: "short",
+hour: "2-digit",
+minute: "2-digit",
+second: "2-digit",
+hourCycle: "h23"
+}
+).formatToParts(new Date());
+const datos = {};
+partes.forEach(parte => {
+datos[parte.type] = parte.value;
+});
+return {
+dia: datos.weekday,
+hora:
+parseInt(datos.hour, 10),
+minuto:
+parseInt(datos.minute, 10),
+segundo:
+parseInt(datos.second, 10)
+};
+}
+function limpiarHora(texto) {
+return texto
+.replace(/\s*hs\.?/gi, "")
+.trim();
+}
+async function cargarProgramacion() {
+try {
+const dias = document.querySelectorAll("#vista-programacion .dia");
+if (!dias.length) throw new Error("No se encontraron bloques .dia");
+const todas = {};
+const nombres = {
+lunes: "Mon", martes: "Tue", miércoles: "Wed", miercoles: "Wed",
+jueves: "Thu", viernes: "Fri", sábado: "Sat", sabado: "Sat",
+domingo: "Sun"
+};
+dias.forEach((dia, indice) => {
+const titulo = dia.querySelector(".dia-titulo h3");
+const textoDia = titulo ? titulo.textContent.trim().toLowerCase() : "";
+const porNombre = nombres[textoDia];
+const porIndice = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"][indice];
+const clave = porNombre || porIndice;
+if (clave) {
+const programas = extraerProgramas(dia);
+if (programas.length) todas[clave] = programas;
+}
+});
+const diasLaborales = ["Mon","Tue","Wed","Thu","Fri"];
+const diasFinde = ["Sat","Sun"];
+semana = diasLaborales.flatMap(dia => todas[dia] || []);
+finde = diasFinde.flatMap(dia => todas[dia] || []);
+window.radioProgramacionPorDia = todas;
+if (!Object.keys(todas).length) throw new Error("No se pudieron extraer programas");
+programacionCargada = true;
+} catch (error) {
+console.error("Error cargando programación:", error);
+programacionCargada = false;
+const ahora = document.getElementById("ahora-programa");
+const siguiente = document.getElementById("siguiente-programa");
+if (ahora) ahora.textContent = "Programación temporalmente no disponible";
+if (siguiente) siguiente.textContent = "Reintentando…";
+}
+}
+function textoSinEtiqueta(elemento) {
+const copia = elemento.cloneNode(true);
+copia.querySelectorAll(".podcast-tag").forEach(e => e.remove());
+return copia.textContent.replace(/\s+/g, " ").trim();
+}
+function extraerProgramas(seccion) {
+const elementos = Array.from(seccion.querySelectorAll(".programa"));
+const programas = [];
+elementos.forEach((elemento, indice) => {
+const horaElemento = elemento.querySelector(".hora");
+const nombreElemento = elemento.querySelector(".programa-nombre, .nombre");
+const descripcionElemento = elemento.querySelector(".programa-detalle, .descripcion");
+if (!horaElemento || !nombreElemento) return;
+const textoHora = horaElemento.textContent
+.replace(/[–—−]/g, "-")
+.trim();
+const horas = textoHora.match(/(\d{1,2}:\d{2})/g) || [];
+if (!horas.length) return;
+const inicio = limpiarHora(horas[0]);
+let fin = horas[1] ? limpiarHora(horas[1]) : "";
+if (!fin && elementos[indice + 1]) {
+const siguienteHora = elementos[indice + 1].querySelector(".hora");
+const siguienteHoras = siguienteHora
+? siguienteHora.textContent.match(/(\d{1,2}:\d{2})/g)
+: null;
+if (siguienteHoras && siguienteHoras[0]) {
+fin = limpiarHora(siguienteHoras[0]);
+}
+}
+if (!fin) fin = "00:00";
+programas.push({
+inicio,
+fin,
+nombre: textoSinEtiqueta(nombreElemento),
+descripcion: descripcionElemento
+? descripcionElemento.textContent.replace(/\s+/g, " ").trim()
+: ""
+});
+});
+return programas;
+}
+function buscarProgramaActual(
+lista,
+horaActual
+) {
+for (
+const programa of lista
+) {
+const inicio =
+minutos(
+programa.inicio
+);
+const fin =
+minutos(
+programa.fin
+);
+if (fin <= inicio) {
+if (
+horaActual >= inicio ||
+horaActual < fin
+) {
+return programa;
+}
+} else {
+if (
+horaActual >= inicio &&
+horaActual < fin
+) {
+return programa;
+}
+}
+}
+return null;
+}
+function obtenerProgramaAnterior(
+lista,
+horaActual
+) {
+for (
+const programa of lista
+) {
+const inicio =
+minutos(
+programa.inicio
+);
+const fin =
+minutos(
+programa.fin
+);
+if (
+fin <= inicio &&
+horaActual < fin
+) {
+return programa;
+}
+}
+return null;
+}
+function obtenerSiguientePrograma(
+lista,
+programaActual
+) {
+if (!programaActual) {
+return lista[0] || null;
+}
+const indice =
+lista.indexOf(
+programaActual
+);
+if (
+indice !== -1 &&
+indice < lista.length - 1
+) {
+return lista[indice + 1];
+}
+return lista[0] || null;
+}
+function segundosHastaFin(
+programa,
+horaActual
+) {
+const actual =
+horaActual.hora * 3600 +
+horaActual.minuto * 60 +
+horaActual.segundo;
+const inicio =
+minutos(
+programa.inicio
+) * 60;
+let fin =
+minutos(
+programa.fin
+) * 60;
+if (fin <= inicio) {
+if (actual >= inicio) {
+fin +=
+24 * 60 * 60;
+}
+}
+let actualAjustado =
+actual;
+if (
+fin > 24 * 60 * 60 &&
+actual < inicio
+) {
+actualAjustado +=
+24 * 60 * 60;
+}
+return Math.max(
+0,
+fin - actualAjustado
+);
+}
+function calcularProgreso(
+programa,
+horaActual
+) {
+const actual =
+horaActual.hora * 3600 +
+horaActual.minuto * 60 +
+horaActual.segundo;
+const inicio =
+minutos(programa.inicio) * 60;
+let fin =
+minutos(programa.fin) * 60;
+let actualAjustado = actual;
+if (fin <= inicio) {
+fin += 24 * 60 * 60;
+if (actual < inicio) {
+actualAjustado += 24 * 60 * 60;
+}
+}
+const duracion =
+Math.max(1, fin - inicio);
+const transcurrido =
+Math.max(
+0,
+Math.min(
+duracion,
+actualAjustado - inicio
+)
+);
+const porcentaje =
+(transcurrido / duracion) * 100;
+const restante =
+Math.max(
+0,
+duracion - transcurrido
+);
+return {
+porcentaje: porcentaje,
+transcurrido: Math.floor(transcurrido),
+restante: Math.floor(restante)
+};
+}
+function formatoCuentaRegresiva(
+segundos
+) {
+const horas =
+Math.floor(
+segundos / 3600
+);
+const minutosRestantes =
+Math.floor(
+(segundos % 3600) / 60
+);
+const segundosRestantes =
+segundos % 60;
+return (
+String(horas).padStart(2, "0") +
+":" +
+String(minutosRestantes).padStart(2, "0") +
+":" +
+String(segundosRestantes).padStart(2, "0")
+);
+}
+function actualizarRadio() {
+if (!programacionCargada) {
+return;
+}
+const argentina =
+obtenerHoraArgentina();
+const horaActual =
+argentina.hora * 60 +
+argentina.minuto;
+const esFinDeSemana =
+argentina.dia === "Sat" ||
+argentina.dia === "Sun";
+const lista = (window.radioProgramacionPorDia || {})[argentina.dia] ||
+(esFinDeSemana ? finde : semana);
+const programaActual = buscarProgramaActual(lista, horaActual);
+const elementoPrograma =
+document.getElementById(
+"ahora-programa"
+);
+const elementoDescripcion =
+document.getElementById(
+"ahora-descripcion"
+);
+const elementoHorario =
+document.getElementById(
+"ahora-horario"
+);
+const elementoBarra =
+document.getElementById(
+"barra-progreso"
+);
+const elementoTranscurrido =
+document.getElementById(
+"tiempo-transcurrido"
+);
+const elementoRestante =
+document.getElementById(
+"tiempo-restante"
+);
+const elementoCuenta =
+document.getElementById(
+"cuenta-regresiva"
+);
+const elementoSiguiente =
+document.getElementById(
+"siguiente-programa"
+);
+const elementoSiguienteHorario =
+document.getElementById(
+"siguiente-horario"
+);
+if (programaActual) {
+elementoPrograma.textContent =
+programaActual.nombre;
+elementoDescripcion.textContent =
+programaActual.descripcion;
+elementoHorario.textContent =
+programaActual.inicio +
+" a " +
+programaActual.fin +
+" hs";
+const segundos =
+segundosHastaFin(
+programaActual,
+argentina
+);
+elementoCuenta.textContent =
+"Termina en " +
+formatoCuentaRegresiva(
+segundos
+);
+const progreso =
+calcularProgreso(
+programaActual,
+argentina
+);
+elementoBarra.style.width =
+progreso.porcentaje + "%";
+elementoTranscurrido.textContent =
+formatoCuentaRegresiva(
+progreso.transcurrido
+) +
+" transcurrido";
+elementoRestante.textContent =
+formatoCuentaRegresiva(
+progreso.restante
+) +
+" restantes";
+let siguiente =
+obtenerSiguientePrograma(
+lista,
+programaActual
+);
+if (siguiente) {
+elementoSiguiente.textContent =
+siguiente.nombre;
+elementoSiguienteHorario.textContent =
+siguiente.inicio +
+" hs";
+}
+} else {
+elementoPrograma.textContent =
+"Radio Margen";
+elementoDescripcion.textContent =
+"";
+elementoHorario.textContent =
+"Programación en curso";
+elementoCuenta.textContent =
+"";
+elementoBarra.style.width =
+"0%";
+elementoTranscurrido.textContent =
+"00:00:00 transcurrido";
+elementoRestante.textContent =
+"00:00:00 restantes";
+elementoSiguiente.textContent =
+"Próximo programa";
+elementoSiguienteHorario.textContent =
+"";
+}
+}
+async function iniciarRadio() {
+await cargarProgramacion();
+actualizarRadio();
+}
+iniciarRadio();
+setInterval(
+actualizarRadio,
+1000
+);
+setInterval(
+async function() {
+await cargarProgramacion();
+actualizarRadio();
+},
+5 * 60 * 1000
+);
+</script>
+<script>
+(function () {
+document.documentElement.classList.add("js-anim");
+var audio = document.getElementById("radio-audio");
+if (audio) {
+audio.addEventListener("playing", function () { document.body.classList.add("sonando"); });
+["pause", "ended", "emptied", "error"].forEach(function (ev) {
+audio.addEventListener(ev, function () { document.body.classList.remove("sonando"); });
+});
+}
+var pods = [].slice.call(document.querySelectorAll("#vista-programacion .podcast"));
+if ("IntersectionObserver" in window) {
+var io = new IntersectionObserver(function (entradas) {
+entradas.forEach(function (e) {
+if (!e.isIntersecting) return;
+var el = e.target;
+el.style.setProperty("--d", ((pods.indexOf(el) % 3) * 0.09) + "s");
+el.classList.add("visto");
+io.unobserve(el);
+});
+}, { threshold: 0.12 });
+pods.forEach(function (p) { io.observe(p); });
+} else {
+pods.forEach(function (p) { p.classList.add("visto"); });
+}
+var SEMANA = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
+function ahoraAR() {
+var partes = new Intl.DateTimeFormat("en-US", {
+timeZone: "America/Argentina/Buenos_Aires",
+weekday: "long", hour: "2-digit", minute: "2-digit", hour12: false
+}).formatToParts(new Date());
+var o = {};
+partes.forEach(function (p) { o[p.type] = p.value; });
+return { dia: SEMANA.indexOf(o.weekday), min: (parseInt(o.hour, 10) % 24) * 60 + parseInt(o.minute, 10) };
+}
+function marcarAlAire() {
+var dias = document.querySelectorAll("#vista-programacion .dia");
+document.querySelectorAll("#vista-programacion .programa.en-aire").forEach(function (p) { p.classList.remove("en-aire"); });
+var ahora = ahoraAR();
+var dia = dias[ahora.dia];
+if (!dia) return;
+dia.querySelectorAll(".programa").forEach(function (p) {
+var h = p.querySelector(".hora");
+var t = h ? h.textContent.match(/(\d{1,2}):(\d{2})/g) : null;
+if (!t || !t[0]) return;
+var a = t[0].split(":"), ini = parseInt(a[0], 10) * 60 + parseInt(a[1], 10);
+var fin = ini + 60;
+if (t[1]) { var b = t[1].split(":"); fin = parseInt(b[0], 10) * 60 + parseInt(b[1], 10); if (fin <= ini) fin += 1440; }
+if (ahora.min >= ini && ahora.min < fin) p.classList.add("en-aire");
+});
+}
+marcarAlAire();
+setInterval(marcarAlAire, 30000);
+})();
+</script>
+<script id="capa-historial">
+(function () {
+var base = window.mostrarVista;
+function enProg() { return location.hash === "#programacion"; }
+window.mostrarVista = function (nombre) {
+if (nombre === "programacion") {
+if (!enProg()) { try { location.hash = "programacion"; } catch (e) {} }
+base("programacion");
+} else {
+if (enProg()) {
+try { history.back(); } catch (e) {}
+setTimeout(function () {
+if (enProg()) {
+base("player");
+try { history.replaceState(null, "", location.pathname + location.search); } catch (e) {}
+}
+}, 400);
+} else {
+base("player");
+}
+}
+};
+function sincronizar() { base(enProg() ? "programacion" : "player"); }
+window.addEventListener("hashchange", sincronizar);
+window.addEventListener("popstate", sincronizar);
+if (enProg()) sincronizar();
+})();
+</script>
+<script id="capa-frases">
+(function () {
+var FRASES = [
+["Caminante, no hay camino, se hace camino al andar.", "Antonio Machado"],
+["Hoy es siempre todavía.", "Antonio Machado"],
+["Todo pasa y todo queda, pero lo nuestro es pasar.", "Antonio Machado"],
+["El tiempo es la sustancia de que estoy hecho.", "Jorge Luis Borges"],
+["El universo (que otros llaman la Biblioteca)…", "Jorge Luis Borges"],
+["Andábamos sin buscarnos, pero sabiendo que andábamos para encontrarnos.", "Julio Cortázar"],
+["La melancolía de una vida demasiado corta para tantas bibliotecas.", "Julio Cortázar"],
+["El hombre es el animal que pregunta.", "Julio Cortázar"],
+["El que lee mucho y anda mucho, ve mucho y sabe mucho.", "Miguel de Cervantes"],
+["La pluma es la lengua del alma.", "Miguel de Cervantes"],
+["Cada uno es hijo de sus obras.", "Miguel de Cervantes"],
+["Sin música, la vida sería un error.", "Friedrich Nietzsche"],
+["Juventud, divino tesoro, ¡ya te vas para no volver!", "Rubén Darío"],
+["Verde que te quiero verde.", "Federico García Lorca"],
+["Polvo serán, mas polvo enamorado.", "Francisco de Quevedo"],
+["Un libro debe ser el hacha que rompa el mar helado que llevamos dentro.", "Franz Kafka"],
+["La belleza salvará al mundo.", "Fiódor Dostoievski"],
+["La vida imita al arte mucho más que el arte a la vida.", "Oscar Wilde"],
+["El corazón tiene razones que la razón no entiende.", "Blaise Pascal"],
+["Si puedes mirar, ve. Si puedes ver, repara.", "José Saramago"],
+["Para no ser mudos, hay que empezar por no ser sordos.", "Eduardo Galeano"],
+["Al fin y al cabo, somos lo que hacemos para cambiar lo que somos.", "Eduardo Galeano"]
+];
+var caja = document.getElementById("frase-literaria");
+var texto = document.getElementById("frase-texto");
+var autor = document.getElementById("frase-autor");
+if (!caja || !texto || !autor) return;
+var orden = FRASES.slice();
+for (var i = orden.length - 1; i > 0; i--) {
+var j = Math.floor(Math.random() * (i + 1));
+var t = orden[i]; orden[i] = orden[j]; orden[j] = t;
+}
+for (var k = 1; k < orden.length; k++) {
+if (orden[k][1] !== orden[k - 1][1]) continue;
+for (var m = k + 1; m < orden.length; m++) {
+if (orden[m][1] !== orden[k - 1][1]) {
+var x = orden[k]; orden[k] = orden[m]; orden[m] = x;
+break;
+}
+}
+}
+var actual = 0;
+function poner(n) { texto.textContent = "“" + orden[n][0] + "”"; autor.textContent = orden[n][1]; }
+poner(actual);
+setInterval(function () {
+if (document.hidden) return;
+caja.classList.add("cambia");
+setTimeout(function () {
+actual = (actual + 1) % orden.length;
+poner(actual);
+caja.classList.remove("cambia");
+}, 850);
+}, 14000);
+})();
+</script>
+<button id="btn-cerrar-prog" class="btn-cerrar" type="button" aria-label="Cerrar la programación y volver al reproductor" onclick="mostrarVista('player')"><span aria-hidden="true">✕</span><span>Cerrar</span></button>
+<button id="btn-tema" class="btn-tema" type="button" aria-label="Cambiar entre modo claro y oscuro"></button>
+<script id="capa-tema">
+(function () {
+var html = document.documentElement;
+var btn = document.getElementById("btn-tema");
+if (!btn) return;
+var mq = window.matchMedia ? window.matchMedia("(prefers-color-scheme: dark)") : null;
+var LUNA = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+var SOL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>';
+function efectivo() {
+var t = html.getAttribute("data-tema");
+if (t === "claro" || t === "oscuro") return t;
+return (mq && mq.matches) ? "oscuro" : "claro";
+}
+function pintar() {
+var oscuro = efectivo() === "oscuro";
+btn.innerHTML = oscuro ? SOL : LUNA;
+btn.title = oscuro ? "Modo claro" : "Modo oscuro";
+}
+btn.addEventListener("click", function () {
+var nuevo = efectivo() === "oscuro" ? "claro" : "oscuro";
+html.setAttribute("data-tema", nuevo);
+try { localStorage.setItem("rm-tema", nuevo); } catch (e) {}
+pintar();
+});
+if (mq) {
+var cambio = function () { pintar(); };
+if (mq.addEventListener) mq.addEventListener("change", cambio);
+else if (mq.addListener) mq.addListener(cambio);
+}
+pintar();
+})();
+</script>
+<script id="capa-portada">
+(function () {
+var nombre = document.getElementById("ahora-programa");
+var img = document.getElementById("ahora-portada");
+if (!nombre || !img || !window.MutationObserver) return;
+function clave(t) {
+return (t || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+.replace(/[^a-z0-9]+/g, "").replace(/podcast$/, "");
+}
+var mapa = null;
+function armarMapa() {
+mapa = {};
+var fichas = document.querySelectorAll("#vista-programacion .podcast");
+for (var i = 0; i < fichas.length; i++) {
+var t = fichas[i].querySelector("h3"), im = fichas[i].querySelector("img.portada");
+if (t && im && im.getAttribute("src")) mapa[clave(t.textContent)] = im.getAttribute("src");
+}
+}
+function chica(src) {
+return src.replace(/\/(\d+)x(\d+)bb\.(jpg|webp|png)$/, "/200x200bb.$3");
+}
+var ultima = null, original = null;
+function actualizar() {
+var k = clave(nombre.textContent);
+if (k === ultima) return;
+ultima = k;
+if (!mapa) armarMapa();
+var src = mapa[k];
+img.classList.remove("lista");
+if (!src) { img.dataset.prog = ""; img.dataset.tema = ""; img.hidden = true; img.removeAttribute("src"); if (window.RM_aplicarPortada) window.RM_aplicarPortada(); return; }
+original = src;
+img.dataset.prog = "1";
+var usada = chica(src), reintento = false;
+img.onload = function () { img.classList.add("lista"); };
+img.onerror = function () {
+if (!reintento && usada !== original) { reintento = true; img.src = original; return; }
+img.hidden = true;
+};
+img.alt = "Portada de " + nombre.textContent.trim();
+img.hidden = false;
+img.src = usada;
+if (img.complete && img.naturalWidth) img.classList.add("lista");
+}
+new MutationObserver(actualizar).observe(nombre, { childList: true, characterData: true, subtree: true });
+actualizar();
+})();
+</script>
+<script id="capa-clima">
+(function () {
+var chip = document.getElementById("clima");
+if (!chip || !window.fetch) return;
+var URL_CLIMA = "https://api.open-meteo.com/v1/forecast?latitude=-33.0&longitude=-60.77&current=temperature_2m,weather_code,is_day&timezone=America%2FArgentina%2FBuenos_Aires";
+var SOL = '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>';
+var LUNA = '<path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/>';
+var NUBE = '<path d="M7 17h10a4 4 0 0 0 .5-8A6 6 0 0 0 6 10.5 3.3 3.3 0 0 0 7 17z"/>';
+var NUBE_ALTA = '<path d="M7 14h10a4 4 0 0 0 .5-8A6 6 0 0 0 6 7.5 3.3 3.3 0 0 0 7 14z"/>';
+function elegir(c, dia) {
+if (c === 0) return [dia ? SOL : LUNA, "Despejado"];
+if (c === 1 || c === 2) return [(dia ? '<circle cx="8" cy="8" r="3"/><path d="M8 2v1.5M2 8h1.5M3.8 3.8l1 1M12.2 3.8l-1 1"/>' : '<path d="M11 6a4.5 4.5 0 1 1-5.5 5.5A3.5 3.5 0 0 0 11 6z"/>') + '<path d="M9 21h8a3.5 3.5 0 0 0 .4-7A5 5 0 0 0 8 15.5 3 3 0 0 0 9 21z"/>', "Parcialmente nublado"];
+if (c === 3) return [NUBE, "Nublado"];
+if (c === 45 || c === 48) return ['<path d="M4 9h16M6 13h12M4 17h16"/>', "Niebla"];
+if (c >= 95) return [NUBE_ALTA + '<path d="M12 14l-2 4h3l-2 4"/>', "Tormenta"];
+if ((c >= 71 && c <= 77) || c === 85 || c === 86) return [NUBE_ALTA + '<path d="M8 18h.01M12 20h.01M16 18h.01"/>', "Nieve"];
+return [NUBE_ALTA + '<path d="M8 17l-1 3M12 17l-1 3M16 17l-1 3"/>', "Lluvia"];
+}
+function cargar() {
+fetch(URL_CLIMA).then(function (r) { return r.json(); }).then(function (d) {
+var c = d.current;
+if (!c || typeof c.temperature_2m !== "number") return;
+var e = elegir(c.weather_code, c.is_day === 1);
+chip.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true">' + e[0] + '</svg><span>' + Math.round(c.temperature_2m) + '°</span>';
+chip.title = e[1] + " en Pérez (datos: Open-Meteo)";
+chip.hidden = false;
+setTimeout(function () { chip.classList.add("lista"); }, 30);
+}).catch(function () {});
+}
+cargar();
+setInterval(function () { if (!document.hidden) cargar(); }, 1800000);
+})();
+</script>
+<script id="capa-lema">
+(function () {
+var nombre = document.getElementById("ahora-programa");
+var lema = document.getElementById("ahora-lema");
+if (!nombre || !lema || !window.MutationObserver) return;
+var LEMAS = {
+"envivo": "Grandes conciertos del rock",
+"clubdejazz": "El mejor jazz en vivo",
+"mananasclasicas": "Lo mejor de la música clásica",
+"mananasclasicasdelfindesemana": "Música clásica sin apuro, para el fin de semana",
+"mananasdetangosyclasicos": "Tangos y clásicos para arrancar la mañana",
+"rockprogresivo": "Viajes sonoros de teclados y compases imposibles",
+"stonerrock": "Riffs gruesos, ritmo lento y aire de desierto",
+"altovoltaje": "Rock duro y mucha electricidad para la madrugada",
+"mediodiademaestros": "Grandes maestros y música del mundo",
+"despertarurbano": "Lo mejor de la música rioplatense",
+"bloqueinstrumental": "Música sin palabras, ideal para leer",
+"altafusion": "Jazz, rock y ritmos del mundo en mezcla",
+"groovesoul": "Ritmo, alma y mucho groove",
+"cafeliterario": "Letras y música para acompañar el café"
+};
+function clave(t) {
+return (t || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+.replace(/[^a-z0-9]+/g, "").replace(/podcast$/, "");
+}
+var ultima = null, espera = null;
+function actualizar() {
+var k = clave(nombre.textContent);
+if (k === ultima) return;
+ultima = k;
+clearTimeout(espera);
+lema.classList.remove("lista");
+var texto = LEMAS[k];
+if (!texto) { lema.hidden = true; lema.textContent = ""; return; }
+espera = setTimeout(function () {
+lema.textContent = texto;
+lema.hidden = false;
+setTimeout(function () { lema.classList.add("lista"); }, 30);
+}, 350);
+}
+new MutationObserver(actualizar).observe(nombre, { childList: true, characterData: true, subtree: true });
+actualizar();
+})();
+</script>
+<script id="capa-vu">
+(function () {
+var audio = document.getElementById("radio-audio");
+var aguja = document.getElementById("vu-aguja");
+if (!audio || !aguja) return;
+var REPOSO = -48, TOPE = 48, sonando = false, nivel = 0, objetivo = 0, proximo = 0, raf = 0;
+var quieto = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+function pintar() { aguja.setAttribute("transform", "rotate(" + (REPOSO + (TOPE - REPOSO) * nivel).toFixed(1) + " 55 56)"); }
+function paso(t) {
+raf = 0;
+if (sonando && t >= proximo) {
+var base = .55 + .1 * Math.sin(t / 1900) + .07 * Math.sin(t / 430);
+var golpe = Math.random() < .1 ? .15 + Math.random() * .2 : 0;
+objetivo = Math.max(.2, Math.min(1, base + (Math.random() - .5) * .3 + golpe));
+proximo = t + 80 + Math.random() * 150;
+}
+var meta = sonando ? objetivo : 0;
+nivel += (meta - nivel) * (meta > nivel ? .3 : .07);
+pintar();
+if (sonando || nivel > .004) raf = requestAnimationFrame(paso); else { nivel = 0; pintar(); }
+}
+function mover() {
+if (quieto) { nivel = sonando ? .6 : 0; pintar(); }
+else if (!raf && !document.hidden) raf = requestAnimationFrame(paso);
+}
+audio.addEventListener("playing", function () { sonando = true; mover(); });
+["pause", "ended", "emptied", "error", "waiting", "stalled"].forEach(function (e) {
+audio.addEventListener(e, function () { sonando = false; mover(); });
+});
+document.addEventListener("visibilitychange", function () {
+if (document.hidden) { if (raf) { cancelAnimationFrame(raf); raf = 0; } } else mover();
+});
+pintar();
+})();
+</script>
+<script id="capa-tema-actual">
+(function () {
+var BASE = "https://radios.solumedia.com:6292";
+var OCULTAR = ["radio margen", "institucional", "pisador"];
+var RELAY = "https://radiomargen.pages.dev/api/tema";
+var RUTAS = [
+["@", function (t) { if (/^\s*</.test(t)) throw 0; return t; }],
+["/currentsong?sid=1", function (t) { return t; }]
+];
+var caja = document.getElementById("tema");
+var texto = document.getElementById("tema-texto");
+if (!caja || !texto || !window.fetch) return;
+var activa = -1, fallos = 0, hubo = false, actual = "", espera = 0;
+var im = document.getElementById("ahora-portada"), cubiertas = {}, ppal = "", pedida = "";
+function aplicar() {
+if (!im || im.dataset.prog === "1") return;
+if (!ppal) { if (im.dataset.tema === "1") { im.dataset.tema = ""; im.classList.remove("lista"); im.hidden = true; im.removeAttribute("src"); } return; }
+im.dataset.tema = "1"; im.classList.remove("lista"); im.alt = "Portada: " + actual;
+im.onload = function () { im.classList.add("lista"); };
+im.onerror = function () { im.hidden = true; };
+im.hidden = false; im.src = ppal;
+if (im.complete && im.naturalWidth) im.classList.add("lista");
+}
+window.RM_aplicarPortada = aplicar;
+var fila = document.getElementById("fila-tema");
+function filaVisible() { if (fila) fila.hidden = im.hidden && (caja.hidden || caja.classList.contains("vacio")); }
+if (fila && im && window.MutationObserver) {
+var mo = new MutationObserver(filaVisible);
+mo.observe(im, { attributes: true, attributeFilter: ["hidden"] });
+mo.observe(caja, { attributes: true, attributeFilter: ["hidden", "class"] });
+}
+filaVisible();
+function buscar(t) {
+pedida = t; ppal = cubiertas[t] || ""; aplicar();
+if (cubiertas[t] !== undefined) return;
+fetch(RELAY.replace("/tema", "/portada") + "?q=" + encodeURIComponent(t) + "&_=" + Date.now(), { cache: "no-store" }).then(function (r) { return r.json(); }).then(function (j) {
+var u = j && typeof j.img === "string" && j.img.indexOf("https://") === 0 ? j.img : "";
+cubiertas[t] = u;
+if (pedida === t) { ppal = u; aplicar(); }
+}).catch(function () { cubiertas[t] = ""; });
+}
+
+function limpiar(v) {
+if (typeof v !== "string") return "";
+var d = document.createElement("textarea");
+d.innerHTML = v.replace(/<[^>]*>/g, "");
+return d.value.replace(/\.(mp3|aac|ogg|flac|m4a)$/i, "").replace(/\s+/g, " ").trim();
+}
+function pedir(i) {
+var u = RUTAS[i][0] === "@" ? RELAY : BASE + RUTAS[i][0];
+return fetch(u + (u.indexOf("?") > -1 ? "&" : "?") + "_=" + Date.now(), { cache: "no-store" })
+.then(function (r) { if (!r.ok) throw 0; return r.text(); })
+.then(function (t) { var v = RUTAS[i][1](t); if (typeof v !== "string") throw 0; return v; });
+}
+function corre() {
+var w = texto.parentNode.clientWidth;
+if (!w) return;
+Array.prototype.forEach.call(texto.children, function (e) {
+var t = e.title || (e.title = e.textContent), m = document.createElement("span");
+m.textContent = t; e.textContent = ""; e.appendChild(m);
+var x = m.offsetWidth - w;
+if (x > 2) { m.className = "mq"; m.style.setProperty("--x", -(x + 4) + "px"); m.style.setProperty("--d", (x / 22 + 4) + "s"); }
+});
+}
+if (window.ResizeObserver) new ResizeObserver(corre).observe(texto.parentNode);
+var inf = document.getElementById("tema-info"), enlaces = {};
+function enlazar(q) {
+if (enlaces[q] !== undefined) { if (enlaces[q]) inf.href = enlaces[q]; return; }
+fetch(RELAY.replace("/tema", "/artista") + "?q=" + encodeURIComponent(q)).then(function (r) { return r.json(); }).then(function (j) {
+var u = j && typeof j.url === "string" && j.url.indexOf("https://es.wikipedia.org/") === 0 ? j.url : "";
+enlaces[q] = u; if (u && inf.dataset.q === q) inf.href = u;
+}).catch(function () { enlaces[q] = ""; });
+}
+function poner(t) {
+clearTimeout(espera);
+caja.classList.add("cambia");
+espera = setTimeout(function () {
+var i = t.indexOf(" - ");
+texto.textContent = "";
+if (i > 0) { var a = document.createElement("small"); a.textContent = t.slice(0, i); texto.appendChild(a); }
+if (inf) { inf.hidden = i < 1; if (i > 0) { var q = t.slice(0, i).split(/\s+(?:feat\.?|ft\.?|featuring)\s+/i)[0]; inf.href = "https://es.wikipedia.org/w/index.php?go=Go&search=" + encodeURIComponent(q); inf.title = "Más información sobre " + q + " (Wikipedia)"; inf.dataset.q = q; enlazar(q); } }
+var b = document.createElement("b"); b.textContent = i > 0 ? t.slice(i + 3) : t; texto.appendChild(b);
+caja.title = t;
+caja.hidden = false;
+caja.classList.remove("vacio", "cambia");
+corre();
+}, hubo && !caja.hidden ? 450 : 0);
+}
+function mostrar(v) {
+var t = limpiar(v), k = t.toLowerCase();
+var oculto = !t || t === "-" || OCULTAR.some(function (x) { return k.indexOf(x) > -1; });
+if (oculto) { pedida = ppal = ""; aplicar(); if (actual) { actual = ""; caja.classList.add("vacio"); } return; }
+if (t === actual) return;
+actual = t; poner(t); buscar(t);
+}
+function consultar() {
+var orden = activa > -1 ? [activa] : [0, 1];
+(function sig(k) {
+if (k >= orden.length) {
+activa = -1; fallos++;
+if (!hubo && fallos >= 3) caja.hidden = true;
+else if (hubo && fallos >= 6 && actual) { actual = ""; caja.classList.add("vacio"); }
+return;
+}
+pedir(orden[k]).then(function (v) { activa = orden[k]; fallos = 0; mostrar(v); hubo = true; }).catch(function () { sig(k + 1); });
+})(0);
+}
+var audio = document.getElementById("radio-audio");
+if (audio) audio.addEventListener("playing", consultar);
+document.addEventListener("visibilitychange", function () { if (!document.hidden) consultar(); });
+var saltos = 0;
+setInterval(function () {
+if (document.hidden) return;
+if (!hubo && fallos >= 3 && ++saltos % 20) return;
+consultar();
+}, 8000);
+consultar();
+})();
+</script>
+<div class="app-aviso" id="app-aviso" role="status" hidden><span class="m" aria-hidden="true">M</span><p><b>Llevá Radio Margen en tu celular</b>Descargá la app para Android</p><a href="https://radiomargen.pages.dev/descarga.html" target="_blank" rel="noopener noreferrer" id="app-aviso-ir">Descargar</a><button type="button" id="app-aviso-x" aria-label="Cerrar aviso">×</button></div>
+<script>(function(){var u=navigator.userAgent,K="rm-app-aviso",a=document.getElementById("app-aviso"),au=document.getElementById("radio-audio");
+if(!a||!au||!/Android/i.test(u)||/; wv\)|Version\/\d/.test(u))return;
+function g(){try{return +localStorage.getItem(K)||0}catch(e){return 0}}
+function s(v){try{localStorage.setItem(K,v)}catch(e){}}
+if(g()>=3)return;
+var t,v=0;
+function cerrar(f){clearTimeout(t);a.classList.remove("on");setTimeout(function(){a.hidden=true},500);if(f)s(9)}
+document.getElementById("app-aviso-x").onclick=function(){cerrar(1)};
+document.getElementById("app-aviso-ir").onclick=function(){cerrar(1)};
+au.addEventListener("playing",function(){if(v)return;v=1;setTimeout(function(){a.hidden=false;void a.offsetWidth;a.classList.add("on");s(g()+1);t=setTimeout(function(){cerrar(0)},15000)},20000)});
+})()</script>
+</body>
+</html>

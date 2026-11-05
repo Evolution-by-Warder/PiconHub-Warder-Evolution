@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MetalRadio - Emisora de Metal</title>
+  <meta name="description" content="MetalRadio: La mejor selección de metal en streaming. Disfruta de música metal las 24 horas. Página web en construcción.">
+  <meta name="keywords" content="metal, heavy metal, thrash metal, death metal, radio online, música metal, radio metal, streaming metal">
+  <meta name="robots" content="index, follow">
+  <link rel="icon" href="assets/img/logo.png" type="image/x-icon">
+  <meta property="og:title" content="MetalRadio - Emisora de Metal">
+  <meta property="og:description" content="Transmitiendo desde el abismo - Metal sin descanso">
+  
+  <meta property="og:image" content="assets/img/logo-completo.png">
+  <meta property="og:url" content="https://www.metalradio.com.ar">
+  <meta name="twitter:card" content="summary_large_image">
+  <style type="text/css">@font-face {font-family:'Rubik Mono One';font-style:normal;font-weight:400;src:url(/cf-fonts/s/rubik-mono-one/5.2.8/latin/400/normal.woff2);unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-display:swap;}@font-face {font-family:'Rubik Mono One';font-style:normal;font-weight:400;src:url(/cf-fonts/s/rubik-mono-one/5.2.8/latin-ext/400/normal.woff2);unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;font-display:swap;}@font-face {font-family:'Rubik Mono One';font-style:normal;font-weight:400;src:url(/cf-fonts/s/rubik-mono-one/5.2.8/cyrillic/400/normal.woff2);unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;font-display:swap;}</style>
+  <style type="text/css">@font-face {font-family:'Metal Mania';font-style:normal;font-weight:400;src:url(/cf-fonts/s/metal-mania/5.2.7/latin/400/normal.woff2);unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-display:swap;}@font-face {font-family:'Metal Mania';font-style:normal;font-weight:400;src:url(/cf-fonts/s/metal-mania/5.2.7/latin-ext/400/normal.woff2);unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;font-display:swap;}</style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+
+  <header>
+    <div class="navbar-container">
+      <h2>MetalRadio</h2>
+
+      <button class="menu-toggle" aria-label="Abrir menú">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+  
+      <div class="nav-links">
+        <a href="/" class="nav-link">Inicio</a>
+        <a href="/backtothebeginning" target="_blank" class="nav-link">BacktotheBeginning</a>
+        <a href="/recitales" target="_blank" class="nav-link">Recitales</a>
+        <a href="/noticias" target="_blank" class="nav-link">Noticias</a>
+        <a href="/donar" target="_blank" class="nav-link">Donar</a>
+      </div>
+    </div>
+  </header>
+  
+  <section class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1>MetalRadio</h1>
+      <p>Metal sin descanso, desde las sombras hasta tus oídos.</p>
+      <a href="#radio" class="cta-button">Escuchar Ahora</a>
+    </div>
+  </section>
+  
+
+  <section id="radio" class="radio-now-playing">
+    <div class="section-header">
+      <h3>AHORA SUENA</h3>
+      <div class="sub">Transmisión en vivo</div>
+    </div>
+    <div class="player-box">
+      <img id="album-cover" src="assets/img/logo-completo.png" alt="Portada del tema actual" />
+      <div class="track-details">
+        <h3 id="track-title">Cargando...</h3>
+        <p id="track-artist">Esperando canción</p>
+        <audio controls autoplay id="music-player"> <source src="https://api.metalradio.com.ar/listen/metalradio/radio.mp3" type="audio/mpeg">
+          Tu navegador no soporta audio HTML5.
+        </audio>
+      </div>
+    </div>
+  </section>
+
+  <section class="upcoming-tracks">
+    <div class="section-header">
+      <h3>PRÓXIMOS TEMAS</h3>
+      <p class="sub">Lo que se viene... preparate.</p>
+    </div>
+    <div class="loading" id="loadingTracks">
+      <div class="spinner"></div>
+      <p>Cargando la devastación sonora...</p>
+    </div>
+    <ul id="upcoming-list" class="track-list">
+    </ul>
+  </section>
+  
+  <div class="donate-box" id="apoyar">
+    <h2>Tu apoyo alimenta el ritual. Sin vos, el abismo se silencia.</h2>
+    <div class="donate-buttons">
+      <button onclick="if (!window.__cfRLUnblockHandlers) return false; window.open('https://paypal.me/ezequielscarselletta', '_blank')" data-cf-modified-020b3c09fc9d955fbee96964-="">
+        <img src="assets/img/paypal.png" alt="PayPal" />
+        Donar con PayPal
+      </button>
+      <button onclick="if (!window.__cfRLUnblockHandlers) return false; window.open('https://link.mercadopago.com.ar/metalradio', '_blank')" data-cf-modified-020b3c09fc9d955fbee96964-="">
+        <img src="assets/img/mercadopago.png" alt="MercadoPago" />
+        Donar con MercadoPago
+      </button>
+    </div>
+
+    <div class="social-buttons">
+      <a class="social-btn youtube" href="https://www.youtube.com/@metalradio.oficial" target="_blank">
+        <i class="fab fa-youtube"></i> YouTube
+      </a>
+      <a class="social-btn instagram" href="https://www.instagram.com/metalradio.oficial" target="_blank">
+        <i class="fab fa-instagram"></i> Instagram
+      </a>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-columns">
+      <div class="footer-col">
+        <h3>Sobre Nosotros</h3>
+        <p>MetalRadio transmite metal 24/7 desde las profundidades del abismo. Sin pausas. Sin descanso. Solo metal.</p>
+      </div>
+  
+      <div class="footer-col">
+        <h3>Enlaces</h3>
+        <ul>
+          <li><a href="/tos" target="_blank">Términos</a></li>
+          <li><a href="/privacy" target="_blank">Privacidad</a></li>
+          <li><a href="/info" target="_blank">Info</a></li>
+          <li><a href="https://www.metalradio.com.ar" target="_blank">Inicio</a></li>
+        </ul>
+      </div>
+  
+      <div class="footer-col">
+        <h3>Seguinos</h3>
+        <div class="footer-social">
+          <a href="https://www.youtube.com/@metalradio.oficial" target="_blank"><i class="fab fa-youtube"></i></a>
+          <a href="https://www.instagram.com/metalradio.oficial" target="_blank"><i class="fab fa-instagram"></i></a>
+          <a href="https://www.instagram.com/metalradio.oficial" target="_blank"><i class="fab fa-facebook"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; <span id="year"></span> MetalRadio — Transmitiendo desde el abismo.</p>
+    </div>
+  </footer>
+  
+  <button id="scrollTopBtn" title="Volver arriba">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+    
+  <script src="assets/js/main.js" type="020b3c09fc9d955fbee96964-text/javascript"></script>
+  <script src="assets/js/api.js" type="020b3c09fc9d955fbee96964-text/javascript"></script>
+  <!--<script>
+    // Mostrar el popup después de 12 segundos
+    setTimeout(() => {
+      document.getElementById('popup').style.display = 'flex';
+    }, 12000);
+  
+    function closePopup() {
+      document.getElementById('popup').style.display = 'none';
+    }
+  </script>
+  
+  
+  <div id="popup" class="popup-overlay">
+    <div class="popup-content">
+      <button class="close-btn" onclick="closePopup()">&times;</button>
+      <h2>🎸 Veo que te cabe nuestra radio</h2>
+      <p>¿Querés saber más sobre el proyecto, la comunidad o cómo apoyar?</p>
+      <a href="/nosotros.html" class="cta-button">Conocenos Más</a>
+    </div>
+  </div> -->
+  
+<script src="/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="020b3c09fc9d955fbee96964-|49" defer></script></body>
+
+</html>

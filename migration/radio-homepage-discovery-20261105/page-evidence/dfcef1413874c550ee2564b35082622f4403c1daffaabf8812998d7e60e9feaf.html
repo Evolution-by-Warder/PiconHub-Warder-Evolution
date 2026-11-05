@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="Meridiano 107.1">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Radio Meridiano 107.1</title>
+    <meta name="keywords" content="Meridiano,107.1,SÁBADO BLEND,BASE DE DATOS,VAMOS QUE VENIMOS,TOUCH &amp; GO,LA VEREDA DE ENFRENTE">
+    <link rel="apple-touch-icon" sizes="192x192" href="favicon-192.png?v=1.10">
+    <link rel="icon" type="image/x-icon" href="favicon.ico?v=1.10">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=1.10">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/meridiano.css?v=1.10">
+    <script src="scripts/jquery-3.3.1.min.js"></script>
+    <script src="scripts/meridiano.js?v=1.10"></script>
+</head>
+<body>
+
+<div class="page">
+
+    <!-- Área central -->
+    <div class="main">
+
+        <div class="logo-area">
+            <img src="img/01_index_3-logo.png" alt="Radio Meridiano 107.1" class="logo-img">
+        </div>
+
+        <div class="controls-area">
+            <img src="img/01_index_3-1.png" alt="Escuchanos online" class="escuchanos-img">
+            <div class="btn-area">
+                <img id="play" src="img/01_index_3-play-1.png" class="button" alt="Play">
+                <img id="stop" src="img/01_index_3-stop-1.png" class="button hidden" alt="Stop">
+            </div>
+        </div>
+
+        <div class="reproductor-area">
+            <audio class="off" preload="none" controls style="width:100%">
+                <source src="https://media425.digitar.net:8051/fmmeridiano.mp3" type="audio/mpeg">
+            </audio>
+            <div id="volume-control">
+                <i id="vol-icon" class="fa fa-volume-up"></i>
+                <input id="vol-slider" type="range" min="0" max="100" value="100">
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Footer
+         Desktop : [© Meridiano]  [mail  wsp]  [fb  tw]   (3 columnas)
+         Mobile  :  © Meridiano                            (renglón 1)
+                    mail · wsp                             (renglón 2)
+                    fb  tw                                 (renglón 3)
+    -->
+    <footer class="footer">
+
+        <div class="footer-col footer-left">
+            <font color="black">&copy;&nbsp;2018-2025&nbsp;Meridiano</font>
+        </div>
+
+        <div class="footer-col footer-center">
+            <font color="black">radio@meridiano.com.ar</font>&nbsp;&nbsp;<i class="fa fa-whatsapp"></i>&nbsp;<a href="https://wa.me/5493412001071">+54&nbsp;9&nbsp;341&nbsp;2001071</a>
+        </div>
+
+        <div class="footer-col footer-right">
+            <a href="http://facebook.com/meridiano107.1" target="_blank"><i class="fa fa-facebook"></i></a>&nbsp;&nbsp;
+            <a href="http://twitter.com/meridiano1071" target="_blank"><i class="fa fa-twitter"></i></a>
+        </div>
+
+    </footer>
+
+</div>
+
+<!-- Google Analytics -->
+<script>
+    (function(b,o,i,l,e,r){
+        b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});
+        b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+        e.src='https://www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)
+    }(window,document,'script','ga'));
+    ga('create','UA-XXXXX-X');ga('send','pageview');
+</script>
+
+</body>
+</html>
