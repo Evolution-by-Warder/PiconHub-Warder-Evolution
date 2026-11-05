@@ -29,7 +29,7 @@ def distinctive(s):return bool(brand_keys(s))
 def endpoint(u):
  p=urlsplit(u);return urlunsplit((p.scheme.lower(),p.netloc.lower(),p.path,p.query,''))
 def dump(p,d):
- p.parent.mkdir(parents=True,exist_ok=True);tmp=p.with_suffix(p.suffix+'.tmp');tmp.write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n');tmp.replace(p)
+ p.parent.mkdir(parents=True,exist_ok=True);tmp=p.with_suffix(p.suffix+'.tmp');body=json.dumps(d,ensure_ascii=False,indent=2);body=re.sub(r'\b(?:sk|pk)\.[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{8,}','[OMITTED_PAGE_CREDENTIAL]',body);tmp.write_text(body+'\n');tmp.replace(p)
 CACHE=Path(tempfile.mkdtemp(prefix='radio-fast-cache-'));URL_CACHE={};URL_LOCKS={};CACHE_LOCK=threading.Lock();RENDER_CACHE={};RENDER_LOCK=threading.Lock()
 def fetch(url,limit=4*1024*1024):
  with CACHE_LOCK:lock=URL_LOCKS.setdefault(url,threading.Lock())
@@ -128,8 +128,9 @@ def main():
     keys=brand_keys(row['name']);page_keys={key for key in keys if any(key in norm(t) for t in ts)}
     if not page_keys:continue
     parser=Images(final);parser.feed(body);urls=list(dict.fromkeys(u for _,u in sorted(parser.items)))[:3]
-    proof=root/'page-evidence'/(SHA(raw)+'.html');proof.parent.mkdir(exist_ok=True);proof.write_bytes(raw)
-    page=dict(url=url,final_url=final,sha256=SHA(raw),path=str(proof.relative_to(root)),titles=ts,image_urls=urls)
+    proof=root/'page-evidence'/(SHA(raw)+'.json')
+    page=dict(url=url,final_url=final,original_html_sha256=SHA(raw),path=str(proof.relative_to(root)),titles=ts,image_urls=urls,named_logos=parser.logo_names)
+    dump(proof,page)
     for image_url in urls:
      try:
       data,image_final=fetch(image_url);rasterized=None
