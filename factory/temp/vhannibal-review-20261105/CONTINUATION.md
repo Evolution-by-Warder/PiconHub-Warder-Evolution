@@ -1,17 +1,21 @@
 # Vhannibal TV continuation — 5 November 2026
 
-The first 12 graphic triplets retain their existing exact-PNG owner approval. Their identity binding and production publication remain separate work.
+The first 12 graphic triplets and Astra batch03 (24 graphics / 72 PNGs) have exact-PNG owner approval. Astra batch02 and Hot Bird batch04 await owner visual approval. These four staged batches total 84 unique graphic groups: 36 owner-approved and 48 pending. These are staged-batch counts, not the global remaining Vhannibal count. Radio-plugin work is separate.
 
-Astra batch02 was recovered from the persisted 24-graphic review ZIP. Its manifest is retained verbatim; no new owner approval is inferred. Astra batch03 adds 24 distinct graphic triplets at 220×132, preserving the whole original artwork over the frozen WHITE/BLACK MASTERs. This gives 60 staged graphic groups in these three batches, 12 owner-approved and 48 awaiting owner review. These counts do not describe the global remaining Vhannibal source.
+## MASTER refresh
 
-[Batch02 PNG ZIP](https://chatgpt.com/library?file_id=libfile_81e7ab0c7c4081918a81b975be607d65&account_id=personal) · [Batch03 PNG ZIP](https://chatgpt.com/library?file_id=libfile_b83b279320248191b298a5fcba52a415&account_id=personal)
+The owner explicitly instructed replacement of older MASTER artwork when newer and better logos are available. Approved Astra batch03 artwork 19 replaces the older all-blue ShopLC logo with the blue/red approved logo across three existing Shop LC references and all three backgrounds (nine PNGs). No HD marking is added, and filenames, service types and provider directories are retained. Factory source copies are synchronized here; two previously missing source styles are completed. Original bytes and before/after hashes remain in Git history and the refresh report.
 
-[Batch03 sheet 1](https://chatgpt.com/library?file_id=libfile_78514e304170819189cdaa63b702b2f7&account_id=personal) · [Batch03 sheet 2](https://chatgpt.com/library?file_id=libfile_187b05dcdfe08191a2acba96cf411463&account_id=personal) · [Batch03 sheet 3](https://chatgpt.com/library?file_id=libfile_9b0d295932808191943528c3a74d77cf&account_id=personal) · [Batch03 sheet 4](https://chatgpt.com/library?file_id=libfile_03aaad97357c81919ae856fbbbbe78f0&account_id=personal)
+[MASTER commit](https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/commit/49e88265c8c22c55dff52bd661f7ba22ffe75a96) · [ShopLC before/after](https://chatgpt.com/library?file_id=libfile_1af7682b08848191956b1d7fab141b9e&account_id=personal)
 
-Batch03 sources, complete reference evidence, exact output hashes and reproduction helpers are stored beside its manifest. Every selected reference was independently checked against the supplied November lamedb, bouquet and transponder; decimal service types and complete namespaces were preserved. All 72 PNGs were decoded and checked for RGBA, dimensions, byte hashes and unchanged whole-artwork compositions. The ZIP CRC passed. All 36 previous transparent previews were reproduced pixel-exactly by the geometry helpers. The four new sheets were visually inspected against the labels; this does not replace owner approval or establish current on-air branding.
+This updates MASTER reference artwork, not live receiver download packages. Background MASTER templates, engine code and all 13 blocked mappings remain unchanged. M+ Hits and MEZZO size-only alternatives are not treated as clear quality improvements.
 
-The preview deliberately retains the original white brand elements. MEZZO, MEZZO LIVE, Chasse & Pêche, WELT and other light lettering require WHITE contrast review. No altered raw engine proposal is used. The manifest records the fetched frozen helper hashes actually used.
+## Hot Bird batch04
 
-Held examples: ntv Austria requires an existing Master comparison; ASSOCIATION MATERIEL and ARD-Test-1 do not establish named-programme identity; the source labelled Kabel 1 Doku HD Austria visibly lacks Doku; La 2 remains held for source quality. The 13 previously blocked mappings remain blocked.
+24 graphics, 26 exact source references, 72 PNGs at 220×132. Two graphics have two independently verified references: Discovery Italy HD and Novasports2 L HD. No aliases were invented. Every selected source and output hash, dimension and RGBA mode was checked; the ZIP CRC passed. All 26 references matched the supplied November lamedb, bouquets and orbital transponders. Canonical visible-pixel comparisons excluded frozen-MASTER duplicates and all 60 earlier staged graphics. OMAN TV HD was held after an exact existing MASTER pixel match; technical labels and unconfirmed variants remain held for identity comparison.
 
-Production PNGs, source database picons, frozen masters, plugin code and download catalogues are unchanged. Radio plugin batches are separate.
+[Hot Bird batch04 ZIP](https://chatgpt.com/library?file_id=libfile_84951dfed91c819182372ee25460b5c0&account_id=personal)
+
+[Sheet 1](https://chatgpt.com/library?file_id=libfile_757711c61dc08191be1426d72253a47b&account_id=personal) · [Sheet 2](https://chatgpt.com/library?file_id=libfile_d7fc9e80ca2c8191b3b4d46cda116a24&account_id=personal) · [Sheet 3](https://chatgpt.com/library?file_id=libfile_327dc7078fb08191989666264f0f12e5&account_id=personal) · [Sheet 4](https://chatgpt.com/library?file_id=libfile_c7eea4c6a7f881918f2752bcd44f2470&account_id=personal)
+
+Whole original artwork is preserved. Discovery Italy, BBC Persian, wedotv Movies and TV5 Monde Info need WHITE contrast review; Fantazzy, Bahrain TV and eQtv need BLACK review. No altered raw engine proposal was used. This is a 3 November source snapshot and visual review, not current on-air brand or RF certification. Exact source originals, reproduction helpers, hashes, mapping CSV and approval status are stored beside the batch manifest.
