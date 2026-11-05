@@ -29909,7 +29909,7 @@
       "url": "https://sonic.host-live.com:10853/stream?_=1",
       "reference": "4097:0:2:C5BD:BE2E:ED:0:0:0:0",
       "group": "Argentina",
-      "status": "download_failed",
+      "status": "candidate_assistant_identity_and_visual_check",
       "station_id": "4558281c9eaf579c95f0486d",
       "homepages": [
         "http://www.radiolaspalmas.com.ar/"
@@ -29918,7 +29918,19 @@
         "http://www.radiolaspalmas.com.ar/wp-content/uploads/2021/11/1-6%20-logo%20las%20palmas-760x249.png"
       ],
       "source_url": "http://www.radiolaspalmas.com.ar/wp-content/uploads/2021/11/1-6%20-logo%20las%20palmas-760x249.png",
-      "reason": "HTTP acquisition failed: curl: (28) Failed to connect to www.radiolaspalmas.com.ar port 80 after 3002 ms: Timeout was reached\n"
+      "reason": "HTTP acquisition failed: curl: (28) Failed to connect to www.radiolaspalmas.com.ar port 80 after 3002 ms: Timeout was reached\n",
+      "source": {
+        "url": "http://www.radiolaspalmas.com.ar/wp-content/uploads/2021/11/1-6%20-logo%20las%20palmas-760x249.png",
+        "final_url": "http://www.radiolaspalmas.com.ar/wp-content/uploads/2021/11/1-6%20-logo%20las%20palmas-760x249.png",
+        "path": "sources/38a23f163e8bb5ff57d24677aff9449d2ac7e53557e5d51c7e13a39e5d8be56d.img",
+        "sha256": "38a23f163e8bb5ff57d24677aff9449d2ac7e53557e5d51c7e13a39e5d8be56d",
+        "bytes": 103989,
+        "dimensions": [
+          760,
+          249
+        ],
+        "format": "PNG"
+      }
     },
     "4097:0:2:845B:21FC:ED:0:0:0:0": {
       "name": "Radio Latina 100.9 (General Roca)",
@@ -33566,7 +33578,7 @@
       "url": "http://173.255.205.241:8200/",
       "reference": "4097:0:2:5FBC:6638:ED:0:0:0:0",
       "group": "Argentina",
-      "status": "pending_official_homepage_image",
+      "status": "download_failed",
       "station_id": "30e702f151ad9e051da233d3",
       "homepages": [
         "http://www.radiosaintgermain.com/"
@@ -33574,7 +33586,8 @@
       "candidate_image_urls": [
         "http://www.radiosaintgermain.com/favicon.ico"
       ],
-      "source_url": "http://www.radiosaintgermain.com/favicon.ico"
+      "source_url": "http://www.radiosaintgermain.com/favicon.ico",
+      "reason": "image_too_small"
     },
     "4097:0:2:DF33:5570:ED:0:0:0:0": {
       "name": "Radio Saladillo",
@@ -126152,7 +126165,7 @@
         "https://www.google.com/search?q=radio+nord+vendsyssel+logo&sca_esv=daf07b3e4903b956&rlz=1C1GCEA_enDK821DK821&udm=2&biw=1920&bih=957&sxsrf=AHTn8zoY_JcHKXHPGn44U5eR_iAx7SeRug%3A1745569894314&ei=ZkgLaND3Es3GwPAP5J-OoAI&oq=radio+nord+&gs_lp=EgNpbWciC3JhZGlvIG5vcmQgKgIIATIHECMYJxjJAjIHECMYJxjJAjIFEAAYgAQyBRAAGIAEMgUQABiABDIFEAAYgAQyBRAAGIAEMgUQABiABDIFEAAYgAQyBRAAGIAESOVkULouWKdWcAJ4AJABAJgBPqABqAKqAQE1uAEDyAEA-AEBmAIGoAKAAsICBhAAGAgYHsICBBAAGB6YAwCIBgGSBwE2oAfzEbIHATS4B_sB&sclient=img#vhid=teST4f9UGIDA0M&vssid=mosaic"
       ],
       "source_url": "http://www.radionord.dk/favicon.ico",
-      "reason": "cannot identify image file <_io.BytesIO object at 0x7feaac82c130>"
+      "reason": "HTTP acquisition failed: curl: (28) Failed to connect to radionord.dk port 443 after 3002 ms: Timeout was reached\n"
     },
     "4097:0:2:BD7B:8C2A:ED:0:0:0:0": {
       "name": "Norea Radio",
@@ -161582,7 +161595,7 @@
       "url": "http://radio12.pro-fhi.net/listen-itqtlpyj-stream.mp3",
       "reference": "4097:0:2:377B:BB6D:ED:0:0:0:0",
       "group": "France",
-      "status": "pending_official_homepage_image",
+      "status": "ready_verified_official_wordmark",
       "station_id": "a47b1020a57d98d6da4e4287",
       "homepages": [
         "http://www.radiosouvenir.com/"
@@ -161590,7 +161603,80 @@
       "candidate_image_urls": [
         "http://www.radiosouvenir.com/logo.jpg"
       ],
-      "source_url": "http://www.radiosouvenir.com/logo.jpg"
+      "source_url": "http://www.radiosouvenir.com/logo.jpg",
+      "source": {
+        "url": "http://www.radiosouvenir.com/logo.jpg",
+        "final_url": "http://www.radiosouvenir.com/logo.jpg",
+        "path": "sources/0d3911a5ee388940972a4cb3533c43f5781a89c11846e64873048c7db0a13727.img",
+        "sha256": "0d3911a5ee388940972a4cb3533c43f5781a89c11846e64873048c7db0a13727",
+        "bytes": 30407,
+        "dimensions": [
+          512,
+          512
+        ],
+        "format": "JPEG"
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/eeee6f0d449831c944b08e922e598ef65c258670e264df05964238a628af5ce1.png",
+          "sha256": "eeee6f0d449831c944b08e922e598ef65c258670e264df05964238a628af5ce1",
+          "bytes": 1786
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/dd22bb6bf08c5432ca9f166c2e4a526c09de738c7a498c304aa236135546f278.png",
+          "sha256": "dd22bb6bf08c5432ca9f166c2e4a526c09de738c7a498c304aa236135546f278",
+          "bytes": 13542
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/ba522512fe36022d121cc7af7094771132abb200157a68b0ff21bbdb0733f5d2.png",
+          "sha256": "ba522512fe36022d121cc7af7094771132abb200157a68b0ff21bbdb0733f5d2",
+          "bytes": 33149
+        },
+        "50x30/white": {
+          "path": "verified-assets/03f010f75ea9b6620f78cc3d4e656d4184569be6066a37c4e899988632a596c0.png",
+          "sha256": "03f010f75ea9b6620f78cc3d4e656d4184569be6066a37c4e899988632a596c0",
+          "bytes": 3059
+        },
+        "220x132/white": {
+          "path": "verified-assets/a2bff9a1a9fea2e8d524344f3b633d99eb4eead6b9171eccdff1cb49e8134740.png",
+          "sha256": "a2bff9a1a9fea2e8d524344f3b633d99eb4eead6b9171eccdff1cb49e8134740",
+          "bytes": 35572
+        },
+        "400x240/white": {
+          "path": "verified-assets/e0838d1be33672058278e70d44015bd9561d9361dc6f15c933ad3d492c43b9a7.png",
+          "sha256": "e0838d1be33672058278e70d44015bd9561d9361dc6f15c933ad3d492c43b9a7",
+          "bytes": 86309
+        },
+        "50x30/black": {
+          "path": "verified-assets/a351b5250e577b0e6178bdcaecfb5abc3b2c75d12195a28bcc1085772c37390e.png",
+          "sha256": "a351b5250e577b0e6178bdcaecfb5abc3b2c75d12195a28bcc1085772c37390e",
+          "bytes": 3270
+        },
+        "220x132/black": {
+          "path": "verified-assets/eff5f4807fc724e577900c2e36026dd59af4e0eb61cd4d93de8eafb4fb05adfc.png",
+          "sha256": "eff5f4807fc724e577900c2e36026dd59af4e0eb61cd4d93de8eafb4fb05adfc",
+          "bytes": 34775
+        },
+        "400x240/black": {
+          "path": "verified-assets/18f9562ecaa7ec60172e4122e8f0170783bfafc2a6dbd53a28c037eab998c5c4.png",
+          "sha256": "18f9562ecaa7ec60172e4122e8f0170783bfafc2a6dbd53a28c037eab998c5c4",
+          "bytes": 83405
+        }
+      },
+      "verification": {
+        "identity": "unique exact stream in current catalogue",
+        "provenance": "same-origin station image and current matching station title/H1; known directory hosts excluded",
+        "website_title_confirmed": true,
+        "confirmed_homepage": "http://www.radiosouvenir.com/",
+        "website_titles": [
+          "RadioSouvenir.com - Hommage aux artistes disparus de la chanson francophone"
+        ],
+        "wordmark": "complete distinctive catalogue name confirmed in source image",
+        "ocr_text": "RadioSouvenir.com\n\n—.\n",
+        "whole_original_and_master_outside_logo_preserved": true,
+        "png_variants_verified": 9,
+        "physical_receiver_tested": false
+      }
     },
     "4097:0:2:8368:814:ED:0:0:0:0": {
       "name": "Radio Star Est",
@@ -161727,7 +161813,7 @@
       "url": "http://radiostudio1.ice.infomaniak.ch/radiostudio1-128.mp3",
       "reference": "4097:0:2:EC1:6767:ED:0:0:0:0",
       "group": "France",
-      "status": "pending_official_homepage_image",
+      "status": "download_failed",
       "station_id": "56330ce54d76cb32ee1f5aff",
       "homepages": [
         "http://www.radiostudio1.com/"
@@ -161735,7 +161821,8 @@
       "candidate_image_urls": [
         "http://www.radiostudio1.com/upload/5d35dd4b08a612.19909389.ico"
       ],
-      "source_url": "http://www.radiostudio1.com/upload/5d35dd4b08a612.19909389.ico"
+      "source_url": "http://www.radiostudio1.com/upload/5d35dd4b08a612.19909389.ico",
+      "reason": "image_too_small"
     },
     "4097:0:2:CE5C:C5B4:ED:0:0:0:0": {
       "name": "Radio Studio 20",
@@ -215570,7 +215657,7 @@
         "http://www.radiorizites.gr/head10_03.png"
       ],
       "source_url": "http://www.radiorizites.gr/head10_03.png",
-      "reason": "HTTP acquisition failed: curl: (28) Failed to connect to www.radiorizites.gr port 80 after 3001 ms: Timeout was reached\n"
+      "reason": "HTTP acquisition failed: curl: (28) Failed to connect to www.radiorizites.gr port 80 after 3000 ms: Timeout was reached\n"
     },
     "4097:0:2:795E:1B1C:ED:0:0:0:0": {
       "name": "Rock and Blues Athens",
@@ -249183,7 +249270,7 @@
         "http://www.radioitaliaanni60.it/templates/enar/images/favicon/apple-touch-icon-120x120.png"
       ],
       "source_url": "http://www.radioitaliaanni60.it/templates/enar/images/favicon/apple-touch-icon-120x120.png",
-      "reason": "cannot identify image file <_io.BytesIO object at 0x7feaabafeed0>"
+      "reason": "cannot identify image file <_io.BytesIO object at 0x7f911591bc90>"
     },
     "4097:0:2:CC9A:AD11:ED:0:0:0:0": {
       "name": "ITALIA Auditorium",
@@ -256751,7 +256838,7 @@
       "url": "https://vramacciv2-danidi01.radioca.st/stream",
       "reference": "4097:0:2:268F:78E:ED:0:0:0:0",
       "group": "Italy",
-      "status": "pending_official_homepage_image",
+      "status": "candidate_assistant_identity_and_visual_check",
       "station_id": "e44317ee1fc98e083793c8e1",
       "homepages": [
         "http://www.radiostar92e5.it/"
@@ -256759,7 +256846,19 @@
       "candidate_image_urls": [
         "http://www.radiostar92e5.it/favicon.ico"
       ],
-      "source_url": "http://www.radiostar92e5.it/favicon.ico"
+      "source_url": "http://www.radiostar92e5.it/favicon.ico",
+      "source": {
+        "url": "http://www.radiostar92e5.it/favicon.ico",
+        "final_url": "https://www.radiostar92e5.it/wp-includes/images/w-logo-gray-white-bg.png",
+        "path": "sources/c965a500f698483526faf92ac286047cecd825608cd1d83276de392b30a13a83.img",
+        "sha256": "c965a500f698483526faf92ac286047cecd825608cd1d83276de392b30a13a83",
+        "bytes": 3241,
+        "dimensions": [
+          80,
+          80
+        ],
+        "format": "PNG"
+      }
     },
     "4097:0:2:52DB:FD2E:ED:0:0:0:0": {
       "name": "Radio Stars International",
@@ -256781,7 +256880,7 @@
       "url": "http://radio.dyne.org:8000/liveradiostart",
       "reference": "4097:0:2:7A43:ECFB:ED:0:0:0:0",
       "group": "Italy",
-      "status": "pending_official_homepage_image",
+      "status": "candidate_assistant_identity_and_visual_check",
       "station_id": "1cd3940b2ca744d23b3e89ed",
       "homepages": [
         "http://www.radiostart.it/"
@@ -256789,7 +256888,19 @@
       "candidate_image_urls": [
         "http://www.radiostart.it/wp-content/uploads/2019/12/radiostarttransparent.png"
       ],
-      "source_url": "http://www.radiostart.it/wp-content/uploads/2019/12/radiostarttransparent.png"
+      "source_url": "http://www.radiostart.it/wp-content/uploads/2019/12/radiostarttransparent.png",
+      "source": {
+        "url": "http://www.radiostart.it/wp-content/uploads/2019/12/radiostarttransparent.png",
+        "final_url": "https://www.radiostart.it/wp-content/uploads/2019/12/radiostarttransparent.png",
+        "path": "sources/bd7b6abebb604d5b2306d18bc0e38988e3d467574badb34cee9d3a72f068d404.img",
+        "sha256": "bd7b6abebb604d5b2306d18bc0e38988e3d467574badb34cee9d3a72f068d404",
+        "bytes": 127386,
+        "dimensions": [
+          250,
+          244
+        ],
+        "format": "PNG"
+      }
     },
     "4097:0:2:4A74:D348:ED:0:0:0:0": {
       "name": "RADIO STATION ONE",
@@ -257180,7 +257291,7 @@
       "url": "https://nr6.newradio.it/proxy/rgelmett?mp=/stream",
       "reference": "4097:0:2:13F7:9EF3:ED:0:0:0:0",
       "group": "Italy",
-      "status": "pending_official_homepage_image",
+      "status": "download_failed",
       "station_id": "326a6868863cc230d53222d9",
       "homepages": [
         "http://www.radiostudioverona.it/",
@@ -257190,7 +257301,8 @@
         "http://www.radiostudioverona.it/favicon.ico",
         "https://www.radiostudioverona.it/wp-content/uploads/2019/08/Logo-Radio-Studio-Verona-Compact.png"
       ],
-      "source_url": "http://www.radiostudioverona.it/favicon.ico"
+      "source_url": "http://www.radiostudioverona.it/favicon.ico",
+      "reason": "image_too_small"
     },
     "4097:0:2:3C48:7821:ED:0:0:0:0": {
       "name": "Radio Studio X 2",
@@ -309018,7 +309130,7 @@
       "url": "https://stream.rcs.revma.com/5wegfyrra2zuv",
       "reference": "4097:0:2:2996:E033:EC:0:0:0:0",
       "group": "Poland",
-      "status": "pending_official_homepage_image",
+      "status": "download_failed",
       "station_id": "7f46a284bd0890e9583ce28c",
       "homepages": [
         "http://www.radiostarogard.fm/"
@@ -309026,7 +309138,8 @@
       "candidate_image_urls": [
         "http://www.radiostarogard.fm/landingpage.png"
       ],
-      "source_url": "http://www.radiostarogard.fm/landingpage.png"
+      "source_url": "http://www.radiostarogard.fm/landingpage.png",
+      "reason": "HTTP acquisition failed: curl: (22) The requested URL returned error: 404\n"
     },
     "4097:0:2:C8FC:9666:EC:0:0:0:0": {
       "name": "Radio Start",
@@ -312098,7 +312211,7 @@
         "https://www.radionova.fm/wp-content/uploads/2023/05/cropped-favicon-180x180.png"
       ],
       "source_url": "http://www.radionova.fm/favicon.ico",
-      "reason": "cannot identify image file <_io.BytesIO object at 0x7feaacaca340>"
+      "reason": "cannot identify image file <_io.BytesIO object at 0x7f911591b1a0>"
     },
     "4097:0:2:6D8E:7AF2:ED:0:0:0:0": {
       "name": "Rádio Nova 98.9 FM",
@@ -312146,7 +312259,7 @@
         "https://radionovaera.pt/resources/img/favicon/android-icon-192x192.png"
       ],
       "source_url": "http://www.radionovaera.pt/resources/img/favicon/apple-icon-120x120.png",
-      "reason": "cannot identify image file <_io.BytesIO object at 0x7feaacf59a30>"
+      "reason": "cannot identify image file <_io.BytesIO object at 0x7f911590b7e0>"
     },
     "4097:0:2:3609:5BF9:ED:0:0:0:0": {
       "name": "Radio Nova Porto 98.9FM",
@@ -312387,7 +312500,7 @@
         "http://www.radiopico.com/fx/logo_radiopico_2012.png"
       ],
       "source_url": "http://www.radiopico.com/fx/logo_radiopico_2012.png",
-      "reason": "cannot identify image file <_io.BytesIO object at 0x7feaad0dd710>"
+      "reason": "cannot identify image file <_io.BytesIO object at 0x7f9115908270>"
     },
     "4097:0:2:F86A:8288:ED:0:0:0:0": {
       "name": "Rádio Popular Afifense",
@@ -357277,7 +357390,7 @@
       "url": "https://live.radioskay.com/;*.mp3",
       "reference": "4097:0:2:2309:1D2B:ED:0:0:0:0",
       "group": "Serbia",
-      "status": "pending_official_homepage_image",
+      "status": "candidate_assistant_identity_and_visual_check",
       "station_id": "e1b8968d536f3fdf52311241",
       "homepages": [
         "http://www.radioskay.com/",
@@ -357287,7 +357400,19 @@
         "http://play.radiostanica.com/static/images/logos/1913_logo1394399423.png",
         "http://www.radioskay.com/favicon.ico"
       ],
-      "source_url": "http://www.radioskay.com/favicon.ico"
+      "source_url": "http://www.radioskay.com/favicon.ico",
+      "source": {
+        "url": "http://www.radioskay.com/favicon.ico",
+        "final_url": "http://www.radioskay.com/favicon.ico",
+        "path": "sources/3f8d936ab4f624710d965e9e613701be1a24aa586dfa0db84a00e1d0e659b303.img",
+        "sha256": "3f8d936ab4f624710d965e9e613701be1a24aa586dfa0db84a00e1d0e659b303",
+        "bytes": 15086,
+        "dimensions": [
+          48,
+          48
+        ],
+        "format": "ICO"
+      }
     },
     "4097:0:2:FF86:8A13:ED:0:0:0:0": {
       "name": "Radio S Latino",
@@ -359870,7 +359995,7 @@
       "url": "http://84.52.138.44/Salomon",
       "reference": "4097:0:2:88B9:15D8:ED:0:0:0:0",
       "group": "Slovenia",
-      "status": "pending_official_homepage_image",
+      "status": "candidate_assistant_identity_and_visual_check",
       "station_id": "c28549365e37ada08d2f415d",
       "homepages": [
         "http://www.radiosalomon.si/"
@@ -359878,7 +360003,19 @@
       "candidate_image_urls": [
         "http://www.radiosalomon.si/img/favicon.png"
       ],
-      "source_url": "http://www.radiosalomon.si/img/favicon.png"
+      "source_url": "http://www.radiosalomon.si/img/favicon.png",
+      "source": {
+        "url": "http://www.radiosalomon.si/img/favicon.png",
+        "final_url": "https://radiosalomon.svet24.si/img/favicon.png",
+        "path": "sources/09fc73600c1b225345091b53243f52855fe8a6ce1397a4125c96363d579fe4ce.img",
+        "sha256": "09fc73600c1b225345091b53243f52855fe8a6ce1397a4125c96363d579fe4ce",
+        "bytes": 6269,
+        "dimensions": [
+          128,
+          128
+        ],
+        "format": "PNG"
+      }
     },
     "4097:0:2:B3:5757:ED:0:0:0:0": {
       "name": "Radio Sloven'c",
@@ -370380,7 +370517,7 @@
         "http://www.radiomarina.com/favicon.ico"
       ],
       "source_url": "http://www.radiomarina.com/favicon.ico",
-      "reason": "cannot identify image file <_io.BytesIO object at 0x7feaad64cbd0>"
+      "reason": "cannot identify image file <_io.BytesIO object at 0x7f911591bce0>"
     },
     "4097:0:2:3906:2684:ED:0:0:0:0": {
       "name": "Radio Marina Blanes",
@@ -373467,7 +373604,7 @@
       "url": "https://enacast.com/radiosilenci/streams/HD",
       "reference": "4097:0:2:25ED:46D5:ED:0:0:0:0",
       "group": "Spain",
-      "status": "pending_official_homepage_image",
+      "status": "download_failed",
       "station_id": "b2e2eb9eb5642fe5f517b725",
       "homepages": [
         "http://www.radiosilenci.cat/",
@@ -373477,7 +373614,8 @@
         "http://www.radiosilenci.cat/radiosilenci/favicon-128.png",
         "https://ik.imagekit.io/7ftrkrun31/enacast/logos/2015/12/16/endirecte.jpg?tr=h-400,fo-auto"
       ],
-      "source_url": "http://www.radiosilenci.cat/radiosilenci/favicon-128.png"
+      "source_url": "http://www.radiosilenci.cat/radiosilenci/favicon-128.png",
+      "reason": "HTTP acquisition failed: curl: (22) The requested URL returned error: 404\n"
     },
     "4097:0:2:724:3EFC:ED:0:0:0:0": {
       "name": "Radio sin barreras",
@@ -393687,7 +393825,7 @@
       "url": "http://www.rmgoldserver.eu:8963/",
       "reference": "4097:0:2:156D:D2C3:ED:0:0:0:0",
       "group": "The Netherlands",
-      "status": "download_failed",
+      "status": "candidate_assistant_identity_and_visual_check",
       "station_id": "34e980734eef837ee7962154",
       "homepages": [
         "http://www.radiomonique.nl/"
@@ -393696,7 +393834,19 @@
         "http://www.radiomonique.nl/favicon.ico"
       ],
       "source_url": "http://www.radiomonique.nl/favicon.ico",
-      "reason": "HTTP acquisition failed: curl: (28) Failed to connect to www.radiomonique.nl port 80 after 3001 ms: Timeout was reached\n"
+      "reason": "HTTP acquisition failed: curl: (28) Failed to connect to www.radiomonique.nl port 80 after 3001 ms: Timeout was reached\n",
+      "source": {
+        "url": "http://www.radiomonique.nl/favicon.ico",
+        "final_url": "https://www.radiomonique.nl/favicon.ico",
+        "path": "sources/c74214b76bba0af794ed5863be066c6c9bed2eb8a11c284b0af0250e2705b3f0.img",
+        "sha256": "c74214b76bba0af794ed5863be066c6c9bed2eb8a11c284b0af0250e2705b3f0",
+        "bytes": 15406,
+        "dimensions": [
+          48,
+          48
+        ],
+        "format": "ICO"
+      }
     },
     "4097:0:2:93D8:DEE2:ED:0:0:0:0": {
       "name": "Moonlight-Radio",
@@ -414349,7 +414499,7 @@
         "http://www.radiokef.tn/wp-content/themes/mycms.1.0.0/favicon.png"
       ],
       "source_url": "http://www.radiokef.tn/wp-content/themes/mycms.1.0.0/favicon.png",
-      "reason": "cannot identify image file <_io.BytesIO object at 0x7feaac82e430>"
+      "reason": "cannot identify image file <_io.BytesIO object at 0x7f9115918b80>"
     },
     "4097:0:2:8D9E:FA61:EC:0:0:0:0": {
       "name": "RTT Radio Monastir",
@@ -414382,7 +414532,7 @@
       "url": "http://rtstream.tanitweb.com/sfax",
       "reference": "4097:0:2:7802:5E7E:EC:0:0:0:0",
       "group": "Tunisia",
-      "status": "pending_official_homepage_image",
+      "status": "download_failed",
       "station_id": "e1f2e7a30882769c140a4ae4",
       "homepages": [
         "http://www.radiosfax.tn/"
@@ -414390,7 +414540,8 @@
       "candidate_image_urls": [
         "http://www.radiosfax.tn/wp-content/themes/mycms.1.0.0/favicon.png"
       ],
-      "source_url": "http://www.radiosfax.tn/wp-content/themes/mycms.1.0.0/favicon.png"
+      "source_url": "http://www.radiosfax.tn/wp-content/themes/mycms.1.0.0/favicon.png",
+      "reason": "cannot identify image file <_io.BytesIO object at 0x7f9118a46ac0>"
     },
     "4097:0:2:BE0E:2104:EC:0:0:0:0": {
       "name": "RTT Radio Tataouine",
@@ -484363,7 +484514,7 @@
         "http://www.radionarmak.com"
       ],
       "source_url": "http://www.radionarmak.com",
-      "reason": "cannot identify image file <_io.BytesIO object at 0x7feaaafff600>"
+      "reason": "HTTP acquisition failed: curl: (28) Failed to connect to www.radionarmak.com port 80 after 3001 ms: Timeout was reached\n"
     },
     "4097:0:2:63A2:6DBE:ED:0:0:0:0": {
       "name": "Narratus Mythic Computing — Signal City",
@@ -542725,7 +542876,7 @@
       "url": "https://stream.rcs.revma.com/5wegfyrra2zuv",
       "reference": "4097:0:2:BCFC:BE4A:EF:0:0:0:0",
       "group": "HDF Radio zoznam",
-      "status": "pending_official_homepage_image",
+      "status": "download_failed",
       "station_id": "7f46a284bd0890e9583ce28c",
       "homepages": [
         "http://www.radiostarogard.fm/"
@@ -542733,7 +542884,8 @@
       "candidate_image_urls": [
         "http://www.radiostarogard.fm/landingpage.png"
       ],
-      "source_url": "http://www.radiostarogard.fm/landingpage.png"
+      "source_url": "http://www.radiostarogard.fm/landingpage.png",
+      "reason": "HTTP acquisition failed: curl: (22) The requested URL returned error: 404\n"
     },
     "4097:0:2:FA1D:2574:EF:0:0:0:0": {
       "name": "Radio Start",
@@ -562264,7 +562416,7 @@
         "http://www.radiokef.tn/wp-content/themes/mycms.1.0.0/favicon.png"
       ],
       "source_url": "http://www.radiokef.tn/wp-content/themes/mycms.1.0.0/favicon.png",
-      "reason": "cannot identify image file <_io.BytesIO object at 0x7feaac82e430>"
+      "reason": "cannot identify image file <_io.BytesIO object at 0x7f9115918b80>"
     },
     "4097:0:2:D800:C235:EF:0:0:0:0": {
       "name": "RTT Radio Monastir",
@@ -562297,7 +562449,7 @@
       "url": "http://rtstream.tanitweb.com/sfax",
       "reference": "4097:0:2:2ED6:44B9:EF:0:0:0:0",
       "group": "HDF Radio zoznam",
-      "status": "pending_official_homepage_image",
+      "status": "download_failed",
       "station_id": "e1f2e7a30882769c140a4ae4",
       "homepages": [
         "http://www.radiosfax.tn/"
@@ -562305,7 +562457,8 @@
       "candidate_image_urls": [
         "http://www.radiosfax.tn/wp-content/themes/mycms.1.0.0/favicon.png"
       ],
-      "source_url": "http://www.radiosfax.tn/wp-content/themes/mycms.1.0.0/favicon.png"
+      "source_url": "http://www.radiosfax.tn/wp-content/themes/mycms.1.0.0/favicon.png",
+      "reason": "cannot identify image file <_io.BytesIO object at 0x7f9118a46ac0>"
     },
     "4097:0:2:D6:2EF3:EF:0:0:0:0": {
       "name": "RTT Radio Tataouine",
@@ -567516,12 +567669,12 @@
     "already_ready": 1747,
     "blocked_identity_or_original": 136,
     "blocked_no_verified_original": 25871,
-    "candidate_assistant_identity_and_visual_check": 776,
+    "candidate_assistant_identity_and_visual_check": 782,
     "candidate_assistant_visual_check": 240,
-    "download_failed": 1213,
-    "pending_official_homepage_image": 10904,
-    "ready_verified_official_wordmark": 16
+    "download_failed": 1219,
+    "pending_official_homepage_image": 10891,
+    "ready_verified_official_wordmark": 17
   },
-  "updated_utc": "2026-11-05T12:27:11Z",
-  "last_event": "homepage_images_400_of_9109"
+  "updated_utc": "2026-11-05T12:27:28Z",
+  "last_event": "homepage_images_450_of_9109"
 }
