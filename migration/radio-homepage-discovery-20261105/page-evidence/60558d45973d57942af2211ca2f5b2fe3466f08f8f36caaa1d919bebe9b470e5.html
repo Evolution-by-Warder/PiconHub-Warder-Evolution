@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fiesta Stereo 88.1 FM</title>
+    <style>
+        :root {
+            --azul-fiesta: #0054a6; /* Azul exacto de tu logo */
+            --amarillo-fiesta: #ffcc00; /* Amarillo de tu logo */
+        }
+
+        * { margin:0; padding:0; box-sizing:border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background:#f5f5f5; padding-bottom: 100px; }
+
+        /* Encabezado */
+        header { background: var(--azul-fiesta); padding: 30px 20px; text-align: center; }
+        header img { width: 300px; max-width: 90%; }
+
+        /* Navegación */
+        nav { background: var(--amarillo-fiesta); padding: 15px; text-align: center; }
+        nav a { color: var(--azul-fiesta); margin: 0 15px; text-decoration: none; font-weight: bold; cursor: pointer; font-size: 1.1em; }
+
+        /* Contenido (SPA: cambia sin recargar) */
+        .page { display: none; padding: 40px; min-height: 500px; }
+        #inicio { 
+            display: block; 
+            background: url('images/Cabina.jpg') no-repeat center center fixed; /* 'fixed' mantiene la imagen estática al hacer scroll */
+            background-size: cover; /* Esto es lo más importante: fuerza a la imagen a cubrir todo el espacio */
+            min-height: calc(100vh - 250px); /* Ajusta la altura dinámicamente para que no sobre espacio abajo */
+        }
+        #legal { display: none; background: white; }
+
+        /* Reproductor Elegante y Persistente */
+        .player { 
+            position: fixed; bottom: 0; left: 0; width: 100%; height: 90px;
+            background: var(--azul-fiesta); color: white;
+            display: flex; align-items: center; justify-content: space-around;
+            padding: 0 40px; box-shadow: 0 -5px 20px rgba(0,0,0,0.3); z-index: 1000;
+        }
+        .player-info { display: flex; align-items: center; gap: 20px; }
+        
+        /* Círculo del logo perfectamente centrado */
+        .logo-circle { 
+            width: 60px; height: 60px; border-radius: 50%; background: white; 
+            padding: 5px; overflow: hidden; box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            display: flex; align-items: center; justify-content: center;
+        }
+        .logo-circle img { width: 100%; height: 100%; object-fit: contain; }
+        
+        .live-tag { background: #e53935; padding: 2px 8px; border-radius: 4px; font-size: 0.7em; font-weight: bold; text-transform: uppercase; display: inline-block; margin-bottom: 4px; }
+        audio { height: 40px; outline: none; }
+        
+        @media(max-width:768px){ .player { flex-direction: column; height: auto; padding: 15px; gap: 10px; } }
+    </style>
+</head>
+<body>
+
+    <header>
+        <img src="images/Logo Fiesta RGB.png" alt="Fiesta Stereo">
+    </header>
+
+    <nav>
+        <a onclick="irA('inicio')">Inicio</a>
+        <a onclick="irA('legal')">Legal</a>
+    </nav>
+
+    <div id="inicio" class="page">
+        <h1 style="color: white; text-shadow: 2px 2px 4px #000; text-align: center;">¡Bienvenidos a Fiesta Stereo 88.1 FM!</h1>
+    </div>
+
+    <div id="legal" class="page">
+        <h2 style="color: var(--azul-fiesta); margin-bottom: 20px;">Documentos Legales</h2>
+        <p>Consulta nuestra documentación oficial:</p>
+        <ul style="margin: 20px 0 0 20px; line-height: 2;">
+            <li><a href="pdf/ACTA DE ASAMBLEA ORDINARIA MARZO 24 DE 2026.pdf" target="_blank">ACTA ASAMBLEA</a></li>
+            <li><a href="pdf/CERTIFICACIÓN  PARA PERMANECER EN EL REGIMEN TRIBUTARIO ESPECIAL año 2025.pdf" target="_blank">CERTIFICADO REGIMEN ESPECIAL</a></li>
+            <li><a href="pdf/CERTIFICADO DE ANTECEDENTES JUDICIALES Y CADUCIDAD DE CONTRATOS  AÑO 2025.pdf" target="_blank">CERTIFICADO ANTECEDENTES</a></li>
+            <li><a href="pdf/ESTADOS  FINANCIEROS.pdf" target="_blank">ESTADOS FINANCIEROS</a></li>
+            <li><a href="pdf/PERMANENCIA ESAL 2025.pdf" target="_blank">PERMANENCIA ESAL</a></li>            
+        </ul>
+    </div>
+
+    <div class="player">
+        <div class="player-info">
+            <div class="logo-circle"><img src="images/Logo Fiesta RGB.png" alt="Logo"></div>
+            <div>
+                <div class="live-tag">En vivo</div>
+                <div style="font-weight: 600;">Fiesta Stereo 88.1 FM</div>
+            </div>
+        </div>
+        
+        <audio controls autoplay>
+            <source src="https://streaming.radiosenlinea.com.ar/8800/stream" type="audio/mpeg">
+        </audio>
+    </div>
+
+    <script>
+        function irA(id) {
+            document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
+            document.getElementById(id).style.display = 'block';
+        }
+    </script>
+</body>
+</html>
