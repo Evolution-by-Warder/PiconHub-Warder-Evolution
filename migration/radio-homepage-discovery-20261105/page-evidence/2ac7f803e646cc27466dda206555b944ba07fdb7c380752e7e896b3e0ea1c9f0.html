@@ -1,0 +1,666 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Europa Beat — The world's first radio created with AI</title>
+<meta name="description" content="Europa Beat: the first radio created with artificial intelligence. World music, the ¿De qué lado estás? podcast, live broadcasts and more. Music at your level.">
+<meta name="theme-color" content="#0a0a0c">
+<meta property="og:title" content="Europa Beat — The radio of the future, created with AI">
+<meta property="og:description" content="The first radio created with artificial intelligence. Listen live.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://s4.radio.co">
+<link rel="preconnect" href="https://public.radio.co">
+<link rel="icon" href="assets/img/brand/favicon.png">
+<link rel="preload" as="image" href="assets/img/avatars/catrina.jpg" fetchpriority="high">
+<link rel="stylesheet" href="assets/fonts.css">
+<link rel="stylesheet" href="styles.css?v=53">
+</head>
+<body>
+
+<div class="bg-fx" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+
+<!-- ===================== NAV + MINI PLAYER ===================== -->
+<header class="nav" id="nav">
+  <div class="nav-inner">
+    <a class="brand" href="#top" aria-label="Europa Beat — home">
+      <img src="assets/img/brand/eb-logo.png" alt="Europa Beat" class="brand-logo">
+    </a>
+
+    <nav class="nav-links" id="navLinks" aria-label="Main navigation">
+      <a href="#radio" data-es="Radio">Radio</a>
+      <a href="#podcast" data-es="Podcast">Podcast</a>
+      <a href="#estudio" data-es="Estudio">Studio</a>
+      <a href="/valores" data-es="Valores">Valores</a>
+      <a href="#ranking" data-es="Ranking">Ranking</a>
+      <a href="#transmisiones" data-es="Streaming">Streaming</a>
+      <a href="#noticias" data-es="Noticias">News</a>
+      <a href="#socials" data-es="Sociales">Socials</a>
+      <a href="#quienes-somos" data-es="Quiénes somos">About</a>
+      <a href="#auspiciadores" data-es="Auspiciadores">Sponsors</a>
+      <span class="nav-sep" aria-hidden="true"></span>
+      <span class="nav-socials">
+        <a href="https://www.instagram.com/europabeat/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="4.5"/><circle cx="12" cy="12" r="3.8"/><circle cx="17" cy="7" r="1.1" fill="currentColor" stroke="none"/></svg></a>
+        <a href="https://www.youtube.com/@europabeat" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.6 7.2a2.6 2.6 0 0 0-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4A2.6 2.6 0 0 0 2.4 7.2 27 27 0 0 0 2 12a27 27 0 0 0 .4 4.8 2.6 2.6 0 0 0 1.8 1.8C5.8 19 12 19 12 19s6.2 0 7.8-.4a2.6 2.6 0 0 0 1.8-1.8A27 27 0 0 0 22 12a27 27 0 0 0-.4-4.8ZM10 15V9l5 3-5 3Z"/></svg></a>
+        <a href="https://www.tiktok.com/@europabeat" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.5 3c.3 2.1 1.5 3.6 3.5 3.9v2.5c-1.3.1-2.5-.3-3.6-1v5.4a5.7 5.7 0 1 1-5.7-5.7c.3 0 .6 0 .9.1v2.6a3.1 3.1 0 1 0 2.2 3V3h2.7Z"/></svg></a>
+      </span>
+    </nav>
+
+    <div class="lang" id="lang" role="group" aria-label="Language">
+      <button data-lang="en" class="on">EN</button>
+      <button data-lang="es">ES</button>
+    </div>
+
+    <button class="nav-burger" id="navBurger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</header>
+<audio id="audio" preload="none" crossorigin="anonymous"></audio>
+
+<main id="top">
+
+<!-- ===================== PANELS HERO (7 expanding panels) ===================== -->
+<section id="panels" class="panels" aria-label="Europa Beat">
+
+  <!-- 1 · RADIO -->
+  <article class="panel p-radio" data-panel="radio">
+    <div class="panel-bg"><img src="assets/img/avatars/catrina.jpg" alt="" loading="eager" fetchpriority="high"></div>
+    <div class="panel-scrim"></div>
+    <div class="panel-vlabel"><img class="panel-logo-big" src="assets/img/brand/radio-logo.png" alt="Radio Europa Beat"></div>
+    <div class="panel-content">
+      <span class="p-kicker"><span class="p-live"></span><span data-es="En vivo · Creada con IA">Live · Created with AI</span></span>
+      <h3 class="p-title">Radio Europa Beat</h3>
+      <p class="p-desc" data-es="Avatars locutores creados con inteligencia artificial, siempre en tendencia.">AI-created avatar hosts, always on trend.</p>
+      <div class="panel-avatars">
+        <figure><img src="assets/img/avatars/catrina.jpg" alt="Catrina"><figcaption>Catrina</figcaption></figure>
+        <figure><img src="assets/img/avatars/emma.jpg" alt="Emma"><figcaption>Emma</figcaption></figure>
+        <figure><img src="assets/img/avatars/danni.jpg" alt="Danni"><figcaption>Danni</figcaption></figure>
+        <figure><img src="assets/img/avatars/charlie.jpg" alt="Charlie"><figcaption>Charlie</figcaption></figure>
+        <figure><img src="assets/img/avatars/thomas.jpg" alt="Thomas"><figcaption>Thomas</figcaption></figure>
+      </div>
+      <div class="p-actions">
+        <button class="btn btn-primary panel-radio-play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg><span data-es="Escuchar en vivo">Listen live</span></button>
+        <a class="btn btn-ghost" href="#radio"><span data-es="Ver más">Learn more</span></a>
+      </div>
+    </div>
+  </article>
+
+  <!-- 2 · STREAMING -->
+  <article class="panel p-streaming" data-panel="streaming">
+    <div class="panel-bg"><img src="assets/img/trans/seven-broadcast.jpg" alt="" loading="lazy"></div>
+    <div class="panel-scrim"></div>
+    <div class="panel-vlabel"><span class="panel-logo-big is-text">Streaming</span></div>
+    <div class="panel-content">
+      <span class="p-kicker">Streaming</span>
+      <h3 class="p-title" data-es="Streaming">Streaming</h3>
+      <div class="panels-two">
+        <div class="stream-item"><div class="panel-media" data-video="zuoVSSw1LVg"></div><span class="stream-cap" data-es="Lado B del Seven de Reñaca">Seven de Reñaca — Side B</span></div>
+        <div class="stream-item"><div class="panel-media" data-video="eKeSKCglPNE"></div><span class="stream-cap" data-es="Lo mejor del Pádel Europa Beat">Best of Europa Beat Padel</span></div>
+      </div>
+    </div>
+  </article>
+
+  <!-- 3 · IBIZA CHILE -->
+  <article class="panel p-ibiza" data-panel="ibiza">
+    <div class="panel-bg"><img src="assets/img/socials/covers/ibiza.jpg" alt="" loading="lazy"></div>
+    <div class="panel-scrim"></div>
+    <div class="panel-vlabel"><img class="panel-logo-big" src="assets/img/brand/ibiza-logo.png" alt="Ibiza Chile"></div>
+    <div class="panel-content">
+      <img class="p-logo" src="assets/img/brand/ibiza-logo.png" alt="Ibiza Chile">
+      <h3 class="p-title" data-es="Aftermovie oficial">Official aftermovie</h3>
+      <div class="panel-media panel-media-lg" data-video="3CTn8LZ5DkE"></div>
+    </div>
+  </article>
+
+  <!-- 4 · PODCAST -->
+  <article class="panel p-podcast" data-panel="podcast">
+    <div class="panel-bg"><img src="assets/img/podcast/dequelado-cover.jpg" alt="" loading="lazy"></div>
+    <div class="panel-scrim"></div>
+    <div class="panel-vlabel"><img class="panel-logo-big logo-fill" src="assets/img/brand/podcast-logo.png" alt="¿De qué lado estás?"></div>
+    <div class="panel-content">
+      <img class="p-logo" src="assets/img/brand/podcast-logo.png" alt="¿De qué lado estás?">
+      <h3 class="p-title" data-es="Último episodio">Latest episode</h3>
+      <p class="p-desc">Cap. 6 · <span data-es="100 días de Kast">100 days of Kast</span></p>
+      <div class="panel-media" data-video="0LUJtOSyxtQ"></div>
+      <div class="yt-meta">
+        <span class="yt-subs"><svg class="yt-ic" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.6 7.2a2.6 2.6 0 0 0-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4A2.6 2.6 0 0 0 2.4 7.2 27 27 0 0 0 2 12a27 27 0 0 0 .4 4.8 2.6 2.6 0 0 0 1.8 1.8C5.8 19 12 19 12 19s6.2 0 7.8-.4a2.6 2.6 0 0 0 1.8-1.8A27 27 0 0 0 22 12a27 27 0 0 0-.4-4.8ZM10 15V9l5 3-5 3Z"/></svg><b>2.53K</b> <span data-es="suscriptores en YouTube">subscribers on YouTube</span></span>
+        <a class="btn btn-ghost" href="#podcast"><span data-es="Ver más capítulos">More episodes</span></a>
+      </div>
+    </div>
+  </article>
+
+  <!-- 5 · ESTUDIO EUROPA BEAT -->
+  <article class="panel p-estudio" data-panel="estudio">
+    <div class="panel-bg"><img src="assets/img/estudio/cover.jpg" alt="" loading="lazy"></div>
+    <div class="panel-scrim"></div>
+    <div class="panel-vlabel"><img class="panel-logo-big" src="assets/img/brand/estudio-logo.png" alt="Estudio Europa Beat"></div>
+    <div class="panel-content">
+      <img class="p-logo" src="assets/img/brand/estudio-logo.png" alt="Estudio Europa Beat">
+      <h3 class="p-title" data-es="Nuestro estudio por dentro">Inside our studio</h3>
+      <div class="panel-media panel-media-lg" data-local-video="assets/video/estudio.mp4" data-poster="assets/img/estudio/poster.jpg"></div>
+      <div class="p-actions">
+        <a class="btn btn-ghost" href="#estudio"><span data-es="Ver las fotos">See the photos</span></a>
+      </div>
+    </div>
+  </article>
+
+  <!-- 6 · RED SALMONERA (próximamente) -->
+  <article class="panel p-salmonera" data-panel="salmonera">
+    <div class="panel-bg"><img src="assets/img/podcast/red-salmonera-cover.jpg" alt="" loading="lazy"></div>
+    <div class="panel-scrim"></div>
+    <div class="panel-vlabel"><img class="panel-logo-big logo-fill" src="assets/img/podcast/red-salmonera.jpg" alt="Red Salmonera"></div>
+    <div class="panel-content">
+      <img class="p-logo p-logo-round" src="assets/img/podcast/red-salmonera.jpg" alt="Red Salmonera">
+      <span class="p-kicker"><span data-es="Próximamente">Coming soon</span></span>
+      <h3 class="p-title">Red Salmonera</h3>
+      <p class="p-desc" data-es="Nuevo podcast, muy pronto en Europa Beat.">New podcast, coming soon on Europa Beat.</p>
+    </div>
+  </article>
+
+  <!-- 7 · PADEL Y PUNTO -->
+  <article class="panel p-padel" data-panel="padel">
+    <div class="panel-bg"><img src="assets/img/podcast/padel-y-punto-cover.jpg?v=2" alt="" loading="lazy"></div>
+    <div class="panel-scrim"></div>
+    <div class="panel-vlabel"><img class="panel-logo-big on-dark" src="assets/img/podcast/padel-y-punto.svg" alt="Padel y Punto"></div>
+    <div class="panel-content">
+      <img class="p-logo" src="assets/img/podcast/padel-y-punto.svg" alt="Padel y Punto">
+      <h3 class="p-title" data-es="Último episodio">Latest episode</h3>
+      <p class="p-desc">Cap. 5 · Javier Cuadra · FIP Senior World Cup 2026</p>
+      <div class="panel-media" data-video="xbpG_Z-Q8Dc"></div>
+      <div class="yt-meta">
+        <a class="btn btn-ghost" href="#padel-y-punto"><span data-es="Ver más capítulos">More episodes</span></a>
+      </div>
+    </div>
+  </article>
+
+</section>
+
+<!-- ===================== HERO ===================== -->
+<section class="hero" id="hero">
+  <div class="wrap hero-inner">
+    <div class="hero-copy">
+      <h1 class="hero-title reveal" data-es="La primera radio creada <span class='grad'>con inteligencia artificial</span>">The first radio created <span class="grad">with artificial intelligence</span></h1>
+      <p class="hero-sub reveal d2"><span class="slogan">Music at your level.</span></p>
+      <div class="hero-cta reveal d3">
+        <button class="btn btn-primary" id="heroPlay">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg><span data-es="Escuchar en vivo">Listen live</span>
+        </button>
+        <a class="btn btn-ghost" href="#app"><span data-es="Descargar la app">Get the app</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== TICKER ===================== -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span>Radio created with AI</span><span>Music at your level</span><span>The radio of the future</span><span>Trending worldwide · 24/7</span><span>¿De qué lado estás?</span>
+    <span>Radio created with AI</span><span>Music at your level</span><span>The radio of the future</span><span>Trending worldwide · 24/7</span><span>¿De qué lado estás?</span>
+  </div>
+</div>
+
+<!-- ===================== IMPACT BAND ===================== -->
+<section class="impact">
+  <div class="wrap">
+    <div class="stat reveal"><b data-count="3.5" data-prefix="+" data-suffix="M">0</b><span data-es="reproducciones en YouTube">YouTube plays</span></div>
+    <div class="stat reveal"><b data-count="270" data-prefix="+" data-suffix="K">0</b><span data-es="seguidores">followers</span></div>
+    <div class="stat reveal"><b data-count="24" data-suffix="/7">0</b><span data-es="en vivo, siempre">live, always</span></div>
+    <div class="stat reveal"><b data-count="5">0</b><span data-es="países con presencia">countries</span></div>
+  </div>
+</section>
+
+<!-- ===================== LA IA (dos columnas) ===================== -->
+<section class="section" id="radio">
+  <div class="wrap ai-split">
+    <div class="ai-intro reveal">
+      <span class="radio-badge"><img src="assets/img/brand/radio-logo.png" alt="Radio Europa Beat"></span>
+      <span class="kicker" data-es="La radio del futuro">The radio of the future</span>
+      <h2 data-es="No es una radio más. Es <span class='grad'>inteligencia artificial</span> que entiende de música.">It's not just another radio. It's <span class="grad">artificial intelligence</span> that understands music.</h2>
+      <p class="lede" data-es="Europa Beat es una radio impulsada por IA que analiza tendencias mundiales para estar siempre a la vanguardia.">Europa Beat is an AI-powered radio that analyzes global trends to always stay ahead.</p>
+      <div class="ai-tags">
+        <span data-es="Entrenada con rankings mundiales">Trained on global charts</span>
+        <span data-es="100% según tendencias">100% trend-driven</span>
+        <span data-es="Avatars locutores con IA">AI avatar presenters</span>
+        <span data-es="Radio propia">Our own radio</span>
+      </div>
+    </div>
+    <div class="feat-list">
+      <article class="feat reveal spot">
+        <div class="feat-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5a3 3 0 0 0-3 3 3 3 0 0 0-1 5.8V16a2 2 0 0 0 4 0M12 5a3 3 0 0 1 3 3 3 3 0 0 1 1 5.8V16a2 2 0 0 1-4 0M12 5v11"/><path d="M9 8h.01M15 8h.01M8 12h.01M16 12h.01"/></svg></div>
+        <div><h3 data-es="Entrenada con rankings mundiales">Trained on world charts</h3><p data-es="Nuestra IA aprende de los charts globales de música para saber qué está sonando en cada rincón del planeta.">Our AI learns from the global music charts to know what's playing in every corner of the planet.</p></div>
+      </article>
+      <article class="feat reveal spot">
+        <div class="feat-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></div>
+        <div><h3 data-es="Contenido 100% según tendencias">Content 100% driven by trends</h3><p data-es="La programación se ajusta en tiempo real a lo que marca tendencia: hits y artistas mundiales.">The programming adjusts in real time to whatever is trending: worldwide hits and artists.</p></div>
+      </article>
+      <article class="feat reveal spot">
+        <div class="feat-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M19 15l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7z"/></svg></div>
+        <div><h3 data-es="Una radio IA creada por nosotros">An AI radio made by us</h3><p data-es="Diseñamos la experiencia de punta a punta. La primera radio pensada, producida y creada con IA.">We design the experience end to end. The first radio conceived, produced and created with AI.</p></div>
+      </article>
+      <article class="feat reveal spot">
+        <div class="feat-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M6 11a6 6 0 0 0 12 0M12 17v4M9 21h6"/></svg></div>
+        <div><h3 data-es="Avatars locutores creados con IA">Avatar presenters created with AI</h3><p data-es="Todos los locutores de nuestra radio son avatars creados con la inteligencia artificial de Europa Beat.">All of our radio's presenters are avatars created with Europa Beat's artificial intelligence.</p></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== LOCUTORES IA ===================== -->
+<section class="section" id="locutores">
+  <div class="wrap">
+    <div class="sec-head center reveal">
+      <span class="kicker" data-es="Creados con inteligencia artificial">Created with artificial intelligence</span>
+      <h2 data-es="Nuestros Avatars">Our Avatars</h2>
+      <p class="lede" data-es="Las voces de Europa Beat no existen en el mundo físico: nacieron de la IA. Cada una conduce su propio segmento.">The voices of Europa Beat don't exist in the physical world — they were born from AI. Each one hosts its own segment.</p>
+    </div>
+    <div class="dj-grid">
+      <article class="dj reveal"><div class="dj-img"><img src="assets/img/avatars/catrina.jpg" alt="Catrina, AI avatar" loading="lazy"></div><div class="dj-info"><h3>Catrina</h3><span data-es="Estrenos">Premieres</span><p data-es="Siempre con los últimos estrenos.">Always with brand new hits.</p></div></article>
+      <article class="dj reveal"><div class="dj-img"><img src="assets/img/avatars/emma.jpg" alt="Emma, AI avatar" loading="lazy"></div><div class="dj-info"><h3>Emma</h3><span data-es="Ranking Top Beat">Top Beat Ranking</span><p data-es="¿Quién estará en la cima del Ranking Top Beat?">Who will be at the top of the Top Beat Ranking?</p></div></article>
+      <article class="dj reveal"><div class="dj-img"><img src="assets/img/avatars/danni.jpg" alt="Danni, AI avatar" loading="lazy"></div><div class="dj-info"><h3>Danni</h3><span data-es="Hit del Recuerdo">Throwback Hit</span><p data-es="Viajamos en el tiempo con un «Hit del Recuerdo».">Let's travel back in time for a "Hit of Remembrance".</p></div></article>
+      <article class="dj reveal"><div class="dj-img"><img src="assets/img/avatars/charlie.jpg" alt="Charlie, AI avatar" loading="lazy"></div><div class="dj-info"><h3>Charlie</h3><span data-es="Virales">Virals</span><p data-es="A cargo de traerte los hits virales.">In charge of bringing you the viral hits.</p></div></article>
+      <article class="dj reveal"><div class="dj-img"><img src="assets/img/avatars/thomas.jpg" alt="Thomas, AI avatar" loading="lazy"></div><div class="dj-info"><h3>Thomas</h3><span data-es="Hit de la Semana">Hit of the Week</span><p data-es="Te trae el «Hit de la Semana».">Brings you the "Hit of the Week".</p></div></article>
+      <article class="dj reveal dj-bot"><div class="dj-img"><img src="assets/img/avatars/newton.jpg" alt="Newton 1643, AI developer" loading="lazy"></div><div class="dj-info"><h3>Newton 1643</h3><span data-es="Programador IA">AI Developer</span><p data-es="Nuestro programador.">Our programmer.</p></div></article>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== YOUTUBE ===================== -->
+<section class="section yt-sec" id="youtube">
+  <div class="wrap">
+    <div class="sec-head center reveal">
+      <span class="kicker" data-es="Nuestro canal">Our channel</span>
+      <h2 data-es="Suscríbete a nuestro canal">Subscribe to our channel</h2>
+      <p class="lede" data-es="Sumate a nuestra comunidad en YouTube: transmisiones en vivo, podcast y todo el contenido de Europa Beat en un solo lugar.">Join our community on YouTube: live broadcasts, podcast and all of Europa Beat's content in one place.</p>
+    </div>
+    <div class="yt-stats reveal">
+      <div class="yt-stat">
+        <span class="yt-num" data-count="2.53" data-suffix="K" data-decimals="2">0</span>
+        <span class="yt-lbl" data-es="Suscriptores">Subscribers</span>
+      </div>
+      <div class="yt-stat">
+        <span class="yt-num" data-count="3.5" data-prefix="+" data-suffix="M">0</span>
+        <span class="yt-lbl" data-es="Reproducciones totales">Total views</span>
+      </div>
+    </div>
+    <div class="center reveal">
+      <a class="btn btn-yt" href="https://www.youtube.com/@europabeat?sub_confirmation=1" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.6 7.2a2.6 2.6 0 0 0-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4A2.6 2.6 0 0 0 2.4 7.2 27 27 0 0 0 2 12a27 27 0 0 0 .4 4.8 2.6 2.6 0 0 0 1.8 1.8C5.8 19 12 19 12 19s6.2 0 7.8-.4a2.6 2.6 0 0 0 1.8-1.8A27 27 0 0 0 22 12a27 27 0 0 0-.4-4.8ZM10 15V9l5 3-5 3Z"/></svg>
+        <span data-es="Suscribirse">Subscribe</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PODCAST ===================== -->
+<section class="section podcast-sec" id="podcast">
+  <div class="wrap">
+    <div class="sec-head center reveal">
+      <span class="kicker" data-es="Nuestro podcast">Our podcast</span>
+      <img class="podcast-logo" src="assets/img/brand/podcast-logo.png" alt="¿De qué lado estás?">
+      <p class="lede" data-es="Programa que analiza los distintos ámbitos de la sociedad con importantes invitados, una conversación seria, respetuosa y con un enfoque independiente.">A show that analyzes the different spheres of society with notable guests, a serious, respectful conversation with an independent approach.</p>
+    </div>
+    <div class="ep-grid">
+      <a class="ep reveal" href="https://youtu.be/lcK_15-FDII" target="_blank" rel="noopener"><div class="ep-thumb"><img src="assets/img/podcast/cap1.jpg?v=2" alt="" loading="lazy"><span class="ep-play"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></span></div><div class="ep-info"><span class="ep-n"><span data-es="Capítulo">Chapter</span> 1</span><h3>Sergio Jadue</h3></div></a>
+      <a class="ep reveal" href="https://youtu.be/G1XScRRkAiU" target="_blank" rel="noopener"><div class="ep-thumb"><img src="assets/img/podcast/cap2.jpg?v=2" alt="" loading="lazy"><span class="ep-play"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></span></div><div class="ep-info"><span class="ep-n"><span data-es="Capítulo">Chapter</span> 2</span><h3 data-es="El feminismo">Feminism</h3></div></a>
+      <a class="ep reveal" href="https://youtu.be/GSA80j7MoPo" target="_blank" rel="noopener"><div class="ep-thumb"><img src="assets/img/podcast/cap3.jpg?v=2" alt="" loading="lazy"><span class="ep-play"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></span></div><div class="ep-info"><span class="ep-n"><span data-es="Capítulo">Chapter</span> 3</span><h3 data-es="Violencia en la educación">Violence in education</h3></div></a>
+      <a class="ep reveal" href="https://youtu.be/RnLgtAxyJWc" target="_blank" rel="noopener"><div class="ep-thumb"><img src="assets/img/podcast/cap4.jpg?v=2" alt="" loading="lazy"><span class="ep-play"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></span></div><div class="ep-info"><span class="ep-n"><span data-es="Capítulo">Chapter</span> 4</span><h3 data-es="El infierno de las denuncias falsas">The hell of false accusations</h3></div></a>
+      <a class="ep reveal" href="https://youtu.be/aAsMJfAxwqA" target="_blank" rel="noopener"><div class="ep-thumb"><img src="assets/img/podcast/cap5.jpg?v=2" alt="" loading="lazy"><span class="ep-play"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></span></div><div class="ep-info"><span class="ep-n"><span data-es="Capítulo">Chapter</span> 5</span><h3 data-es="La homosexualidad">Homosexuality</h3></div></a>
+      <a class="ep reveal" href="https://youtu.be/0LUJtOSyxtQ" target="_blank" rel="noopener"><div class="ep-thumb"><img src="assets/img/podcast/cap6.jpg?v=2" alt="" loading="lazy"><span class="ep-play"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></span></div><div class="ep-info"><span class="ep-n"><span data-es="Capítulo">Chapter</span> 6</span><h3 data-es="Especial: 100 días de Kast">Special: Kast's first 100 days</h3></div></a>
+    </div>
+    <div class="center reveal"><a class="btn btn-ghost" href="https://www.youtube.com/playlist?list=PLa0PSa2GLMJesHMZk1EAXaACBWeQn4uEv" target="_blank" rel="noopener"><span data-es="Ver todos los capítulos">Watch all episodes</span> <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.6 7.2a2.6 2.6 0 0 0-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4A2.6 2.6 0 0 0 2.4 7.2 27 27 0 0 0 2 12a27 27 0 0 0 .4 4.8 2.6 2.6 0 0 0 1.8 1.8C5.8 19 12 19 12 19s6.2 0 7.8-.4a2.6 2.6 0 0 0 1.8-1.8A27 27 0 0 0 22 12a27 27 0 0 0-.4-4.8ZM10 15V9l5 3-5 3Z"/></svg></a></div>
+
+    <!-- ===================== PADEL Y PUNTO · episodios ===================== -->
+    <div class="sec-head center reveal padel-head" id="padel-y-punto">
+      <span class="kicker" data-es="Nuevo podcast">New podcast</span>
+      <img class="padel-sec-logo" src="assets/img/podcast/padel-y-punto.svg" alt="Padel y Punto">
+      <p class="lede" data-es="El pádel como nunca se contó: los protagonistas, los torneos y el detrás de escena del deporte que está conquistando el mundo.">Padel like it's never been told: the players, the tournaments and the behind-the-scenes of the sport taking over the world.</p>
+    </div>
+    <div class="ep-grid">
+      <a class="ep reveal" href="https://youtu.be/a3UP33ePeCA" target="_blank" rel="noopener"><div class="ep-thumb"><img src="assets/img/podcast/padel-cap1.jpg?v=2" alt="" loading="lazy"><span class="ep-play"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></span></div><div class="ep-info"><span class="ep-n"><span data-es="Capítulo">Chapter</span> 1</span><h3>Fabián Parolin · FIP Castro 2026</h3></div></a>
+      <a class="ep reveal" href="https://youtu.be/bhdXeP1q_sg" target="_blank" rel="noopener"><div class="ep-thumb"><img src="assets/img/podcast/padel-cap2.jpg?v=2" alt="" loading="lazy"><span class="ep-play"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></span></div><div class="ep-info"><span class="ep-n"><span data-es="Capítulo">Chapter</span> 2</span><h3>Máster de Menores · Macarena Lobo</h3></div></a>
+      <a class="ep reveal" href="https://youtu.be/nd4O8n2ybXM" target="_blank" rel="noopener"><div class="ep-thumb"><img src="assets/img/podcast/padel-cap3.jpg?v=2" alt="" loading="lazy"><span class="ep-play"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></span></div><div class="ep-info"><span class="ep-n"><span data-es="Capítulo">Chapter</span> 3</span><h3>Previa Mundial Senior 2026</h3></div></a>
+      <a class="ep reveal" href="https://youtu.be/EslD_-DmIoE" target="_blank" rel="noopener"><div class="ep-thumb"><img src="assets/img/podcast/padel-cap4.jpg?v=2" alt="" loading="lazy"><span class="ep-play"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></span></div><div class="ep-info"><span class="ep-n"><span data-es="Capítulo">Chapter</span> 4</span><h3>Matías Negrete y Daniel Salinas</h3></div></a>
+      <a class="ep reveal" href="https://youtu.be/xbpG_Z-Q8Dc" target="_blank" rel="noopener"><div class="ep-thumb"><img src="assets/img/podcast/padel-cap5.jpg?v=2" alt="" loading="lazy"><span class="ep-play"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></span></div><div class="ep-info"><span class="ep-n"><span data-es="Capítulo">Chapter</span> 5</span><h3>Javier Cuadra · FIP Senior World Cup 2026</h3></div></a>
+    </div>
+
+    <!-- ===================== ESTUDIO EUROPA BEAT ===================== -->
+    <!-- nested inside #podcast: inherits .wrap padding, so no inner .wrap here -->
+    <section class="section" id="estudio">
+      <div class="sec-head center reveal">
+        <span class="kicker" data-es="Tras las cámaras">Behind the cameras</span>
+        <h2 data-es="Estudio Europa Beat">Europa Beat Studio</h2>
+      </div>
+      <div class="social-grid" id="estudioGrid"></div>
+      <div class="center reveal social-actions">
+        <button class="btn btn-ghost" id="estudioMore" type="button" aria-expanded="false" aria-controls="estudioGrid"></button>
+      </div>
+    </section>
+
+    <!-- próximamente: nuevos podcasts -->
+    <div class="coming reveal">
+      <div class="coming-head">
+        <span class="coming-kicker" data-es="Próximamente">Coming soon</span>
+        <h3 data-es="Nuevos podcasts en camino">New podcasts on the way</h3>
+      </div>
+      <div class="coming-grid">
+        <div class="coming-card">
+          <div class="coming-logo coming-logo-salmon"><img src="assets/img/podcast/red-salmonera.jpg" alt="Red Salmonera Podcast" loading="lazy"></div>
+          <span class="coming-badge" data-es="Próximamente">Coming soon</span>
+          <h4>Red Salmonera</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SONANDO AHORA (LIVE) ===================== -->
+<section class="section" id="sonando" hidden>
+  <div class="wrap">
+    <div class="sec-head center reveal">
+      <span class="kicker" data-es="En tiempo real">In real time</span>
+      <h2 data-es="Sonando ahora">Now playing</h2>
+      <p class="lede" data-es="La IA elige la música según las tendencias mundiales. Esto es lo que suena en este preciso momento.">The AI picks the music based on global trends. This is what's playing right now.</p>
+    </div>
+    <div class="np-layout">
+      <article class="glass np-now reveal">
+        <div class="np-art" id="npArt">
+          <img id="npArtImg" src="assets/img/brand/favicon.png" alt="">
+          <span class="np-badge"><span class="dot"></span>LIVE</span>
+        </div>
+        <div class="np-txt">
+          <span class="np-station" data-es="Conexión Europa Beat">Europa Beat connection</span>
+          <h3 id="npTitle" data-es="Cargando la señal…">Loading the signal…</h3>
+          <p id="npArtist"></p>
+          <button class="btn btn-primary sm" id="npPlay"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg><span data-es="Escuchar">Listen</span></button>
+        </div>
+      </article>
+      <div class="np-history reveal">
+        <h4 data-es="Reproducido recientemente">Recently played</h4>
+        <ol id="npList" class="np-list"><li class="np-skel"></li><li class="np-skel"></li><li class="np-skel"></li><li class="np-skel"></li><li class="np-skel"></li></ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== RANKING TOP 20 ===================== -->
+<section class="section" id="ranking">
+  <div class="wrap">
+    <div class="sec-head center reveal">
+      <span class="kicker" data-es="La cuenta oficial">The official countdown</span>
+      <h2 data-es="Ranking Top Beat">Top Beat Ranking</h2>
+      <p class="lede" data-es="Las 20 canciones más potentes de la semana, según las tendencias mundiales que sigue nuestra IA.">The 20 biggest songs of the week, based on the global trends our AI tracks.</p>
+      <div class="rank-meta"><span data-es="Semana">Week</span> <b>11/02 → 11/08</b></div>
+    </div>
+    <div class="rank-grid" id="rankGrid" aria-live="off"></div>
+  </div>
+</section>
+
+<!-- ===================== STREAMING ===================== -->
+<section class="section" id="transmisiones">
+  <div class="wrap">
+    <div class="sec-head center reveal">
+      <span class="kicker" data-es="En terreno">On the ground</span>
+      <h2 data-es="Streaming">Streaming</h2>
+      <p class="lede" data-es="Realizamos transmisiones en vivo y en directo de cualquier tipo de evento; contamos con la tecnología y la producción para que tu evento se dé a conocer en el mundo entero.">We produce live broadcasts of any kind of event; we have the technology and production to make your event known all over the world.</p>
+    </div>
+    <div class="tx-grid tx-two">
+      <a class="tx reveal" href="https://youtu.be/zuoVSSw1LVg" target="_blank" rel="noopener">
+        <div class="tx-img"><img src="assets/img/trans/seven-broadcast.jpg" alt="Live broadcast from Seven de Reñaca with Martín Cárcamo" loading="lazy"></div>
+        <span class="tx-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg></span>
+        <div class="tx-body"><span class="tx-tag">Seven de Reñaca</span><h3 data-es="En vivo en el Rugby Seven de Reñaca">Live at the Rugby Seven de Reñaca</h3><p data-es="Lo mejor del lado B del Rugby Seven de Reñaca: transmisión en directo junto a Martín Cárcamo, con entrevistas e invitados.">The best of the B-side of the Rugby Seven de Reñaca: live broadcast alongside Martín Cárcamo, with interviews and guests.</p></div>
+      </a>
+      <a class="tx reveal" href="https://youtu.be/kIOBo0BPmNk" target="_blank" rel="noopener">
+        <div class="tx-img"><img src="assets/img/trans/padel-final.jpg" alt="Europa Beat Padel Championship by Alto Los Pinos" loading="lazy"></div>
+        <span class="tx-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg></span>
+        <div class="tx-body"><span class="tx-tag" data-es="Pádel">Padel</span><h3 data-es="Campeonato de Pádel Europa Beat by Alto Los Pinos">Europa Beat Padel Championship by Alto Los Pinos</h3><p data-es="Lo mejor del torneo de pádel: cobertura y transmisión en vivo de nuestro campeonato, con la gran final y las mejores duplas.">The best of the padel tournament: coverage and live broadcast of our championship, featuring the grand final and the best pairs.</p></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== APP ===================== -->
+<section class="section app-sec" id="app">
+  <div class="wrap app-inner">
+    <div class="app-copy reveal">
+      <span class="kicker" data-es="Llévala contigo">Take it with you</span>
+      <h2 data-es="La radio del futuro, al alcance de tu mano">The radio of the future, within your reach</h2>
+      <p class="lede" data-es="La radio del futuro en la palma de tu mano.">The radio of the future in the palm of your hand.</p>
+      <div class="store-row">
+        <a class="store" href="https://apps.apple.com/cl/app/europa-beat/id1602531364" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.37 1.43c0 1.14-.42 2.2-1.13 2.99-.85.94-2.24 1.67-3.4 1.58-.14-1.12.44-2.29 1.09-3.02.73-.82 2.06-1.44 3.44-1.55zM20.9 17.36c-.55 1.28-.82 1.85-1.53 2.98-.99 1.58-2.39 3.55-4.12 3.56-1.54.02-1.93-1-4.02-.99-2.09.01-2.52 1.01-4.06.99-1.73-.02-3.06-1.8-4.05-3.38-2.77-4.42-3.06-9.6-1.35-12.36 1.21-1.96 3.13-3.11 4.93-3.11 1.84 0 3 1.01 4.52 1.01 1.48 0 2.38-1.01 4.51-1.01 1.6 0 3.3.87 4.51 2.38-3.96 2.17-3.32 7.83.23 9.34z"/></svg><span><span data-es="Descárgala en la">Download on the</span> <b>App Store</b></span></a>
+        <a class="store" href="https://play.google.com/store/apps/details?id=com.dd7ca573e31a.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg><span><span data-es="Disponible en">Get it on</span> <b>Google Play</b></span></a>
+      </div>
+    </div>
+    <div class="app-phones reveal">
+      <div class="phone phone-ios"><span class="notch"></span><img src="assets/img/app/app-ios.jpg" alt="Europa Beat app on iPhone" loading="lazy"></div>
+      <div class="phone phone-android"><span class="punch"></span><img src="assets/img/app/app-android.jpg" alt="Europa Beat app on Android" loading="lazy"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== NOTICIAS ===================== -->
+<section class="section" id="noticias">
+  <div class="wrap">
+    <div class="sec-head center reveal">
+      <span class="kicker" data-es="Actualidad musical">Music today</span>
+      <h2 data-es="Noticias">News</h2>
+      <p class="lede" data-es="Conoce todo lo que pasa en el mundo de la música y el espectáculo.">Discover everything happening in the world of music and entertainment.</p>
+    </div>
+    <div class="news-grid" id="newsGrid">
+      <a class="news reveal" href="#noticia=vmas-2026-ganadores" data-slug="vmas-2026-ganadores">
+        <div class="news-img"><img src="assets/img/news/14.jpg" alt="" loading="lazy"><span class="news-tag">VMAs</span></div>
+        <div class="news-body"><span class="news-card-date" data-es="28 de septiembre de 2026">September 28, 2026</span><h3 data-es="VMAs 2026: Madonna arrasó con siete premios, Taylor Swift hizo historia con su sexto Video del Año y Sienna Spiro se llevó Artista Nuevo">VMAs 2026: Madonna swept seven awards, Taylor Swift made history with her sixth Video of the Year and Sienna Spiro took Best New Artist</h3><span class="news-more"><span data-es="Leer">Read</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></div>
+      </a>
+      <a class="news reveal" href="#noticia=tini-stoessel-habla" data-slug="tini-stoessel-habla">
+        <div class="news-img"><img src="assets/img/news/13.jpg" alt="" loading="lazy"><span class="news-tag" data-es="Espectáculos">Showbiz</span></div>
+        <div class="news-body"><span class="news-card-date" data-es="4 de septiembre de 2026">September 4, 2026</span><h3 data-es="Tini Stoessel rompió el silencio sobre el conflicto con sus padres: &quot;No estoy loca, a mis papás los tengo bloqueados&quot;">Tini Stoessel breaks her silence on the conflict with her parents: &quot;I&#x27;m not crazy, I have my parents blocked&quot;</h3><span class="news-more"><span data-es="Leer">Read</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></div>
+      </a>
+      <a class="news reveal" href="#noticia=tini-stoessel-patrimonio" data-slug="tini-stoessel-patrimonio">
+        <div class="news-img"><img src="assets/img/news/12.jpg" alt="" loading="lazy"><span class="news-tag" data-es="Espectáculos">Showbiz</span></div>
+        <div class="news-body"><span class="news-card-date" data-es="26 de agosto de 2026">August 26, 2026</span><h3 data-es="Tini Stoessel auditó su patrimonio y estalló el conflicto con su padre: no controlaría una fortuna de más de 70 millones de dólares">Tini Stoessel audited her finances and the conflict with her father blew up: she reportedly does not control a fortune of over 70 million dollars</h3><span class="news-more"><span data-es="Leer">Read</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></div>
+      </a>
+      <a class="news reveal" href="#noticia=vmas-2026-nominados" data-slug="vmas-2026-nominados">
+        <div class="news-img"><img src="assets/img/news/11.jpg" alt="" loading="lazy"><span class="news-tag">VMAs</span></div>
+        <div class="news-body"><span class="news-card-date" data-es="19 de agosto de 2026">August 19, 2026</span><h3 data-es="MTV VMAs 2026: Madonna lidera las nominaciones con 11 y Taylor Swift la sigue con 9 — la gran noche es el 27 de septiembre">2026 MTV VMAs: Madonna leads the nominations with 11 and Taylor Swift follows with 9 — the big night is September 27</h3><span class="news-more"><span data-es="Leer">Read</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></div>
+      </a>
+      <a class="news reveal" href="#noticia=hayden-panettiere" data-slug="hayden-panettiere">
+        <div class="news-img"><img src="assets/img/news/10.jpg" alt="" loading="lazy"><span class="news-tag">TV</span></div>
+        <div class="news-body"><span class="news-card-date" data-es="17 de agosto de 2026">August 17, 2026</span><h3 data-es="Muere a los 36 años Hayden Panettiere, la inolvidable porrista de &#x27;Héroes&#x27; y estrella de &#x27;Nashville&#x27;">Hayden Panettiere, the unforgettable cheerleader of &#x27;Heroes&#x27; and star of &#x27;Nashville&#x27;, dies at 36</h3><span class="news-more"><span data-es="Leer">Read</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></div>
+      </a>
+      <a class="news reveal" href="#noticia=ariana-retiro" data-slug="ariana-retiro">
+        <div class="news-img"><img src="assets/img/news/09.jpg" alt="" loading="lazy"><span class="news-tag">Pop</span></div>
+        <div class="news-body"><span class="news-card-date" data-es="3 de agosto de 2026">August 3, 2026</span><h3 data-es="Ariana Grande se alejará temporalmente de la vida pública al terminar su gira: quiere cerrarla &quot;de manera saludable y positiva&quot;">Ariana Grande will step away from the public eye after her tour: she wants to end it &quot;in a healthy and positive way&quot;</h3><span class="news-more"><span data-es="Leer">Read</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></div>
+      </a>
+      <a class="news news-hidden" href="#noticia=ariana-hackers" data-slug="ariana-hackers">
+        <div class="news-img"><img src="assets/img/news/08.jpg" alt="" loading="lazy"><span class="news-tag">Pop</span></div>
+        <div class="news-body"><span class="news-card-date" data-es="28 de julio de 2026">July 28, 2026</span><h3 data-es="Ariana Grande demanda a los hackers que filtraron sus canciones inéditas: &quot;Nos vemos en la cárcel&quot;">Ariana Grande sues the hackers who leaked her unreleased songs: &quot;See you in jail&quot;</h3><span class="news-more"><span data-es="Leer">Read</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></div>
+      </a>
+      <a class="news news-hidden" href="#noticia=world-cup-halftime-show" data-slug="world-cup-halftime-show">
+        <div class="news-img"><img src="assets/img/news/07.jpg" alt="" loading="lazy"><span class="news-tag" data-es="Eventos">Events</span></div>
+        <div class="news-body"><span class="news-card-date" data-es="20 de julio de 2026">July 20, 2026</span><h3 data-es="Madonna, BTS, Bieber y Shakira encendieron el primer show de medio tiempo de una final del Mundial">Madonna, BTS, Bieber and Shakira light up the first-ever World Cup Final halftime show</h3><span class="news-more"><span data-es="Leer">Read</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></div>
+      </a>
+      <a class="news news-hidden" href="#noticia=bieber-world-cup" data-slug="bieber-world-cup">
+        <div class="news-img"><img src="assets/img/news/01.jpg" alt="" loading="lazy"><span class="news-tag" data-es="Eventos">Events</span></div>
+        <div class="news-body"><span class="news-card-date" data-es="9 de julio de 2026">July 9, 2026</span><h3 data-es="Justin Bieber se suma a Madonna, Shakira y BTS en el histórico primer show de medio tiempo de una final del Mundial">Justin Bieber joins Madonna, Shakira &amp; BTS for the historic first-ever World Cup Final halftime show</h3><span class="news-more"><span data-es="Leer">Read</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></div>
+      </a>
+      <a class="news news-hidden" href="#noticia=olivia-lego" data-slug="olivia-lego">
+        <div class="news-img"><img src="assets/img/news/02.jpg" alt="" loading="lazy"><span class="news-tag">Pop</span></div>
+        <div class="news-body"><span class="news-card-date" data-es="1 de julio de 2026">July 1, 2026</span><h3 data-es="Olivia Rodrigo hace historia con su propia colección de sets de LEGO">Olivia Rodrigo makes LEGO history with her own collection of sets</h3><span class="news-more"><span data-es="Leer">Read</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></div>
+      </a>
+      <a class="news news-hidden" href="#noticia=olivia-sabrina-collab" data-slug="olivia-sabrina-collab">
+        <div class="news-img"><img src="assets/img/news/03.jpg" alt="" loading="lazy"><span class="news-tag" data-es="Cultura">Culture</span></div>
+        <div class="news-body"><span class="news-card-date" data-es="4 de junio de 2026">June 4, 2026</span><h3 data-es="De rivales a íconos: Olivia Rodrigo abre la puerta a la colaboración que el pop venía pidiendo">From rivals to icons: Olivia Rodrigo opens the door to the collab pop has been begging for</h3><span class="news-more"><span data-es="Leer">Read</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></div>
+      </a>
+      <a class="news news-hidden" href="#noticia=ariana-teaser" data-slug="ariana-teaser">
+        <div class="news-img"><img src="assets/img/news/04.jpg" alt="" loading="lazy"><span class="news-tag" data-es="Estrenos">Releases</span></div>
+        <div class="news-body"><span class="news-card-date" data-es="19 de mayo de 2026">May 19, 2026</span><h3 data-es="Ariana Grande revela un misterioso teaser de &quot;Hate That I Made You Love Me&quot;">Ariana Grande unveils a mysterious teaser for &quot;Hate That I Made You Love Me&quot;</h3><span class="news-more"><span data-es="Leer">Read</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></div>
+      </a>
+      <a class="news news-hidden" href="#noticia=niall-horan-tour" data-slug="niall-horan-tour">
+        <div class="news-img"><img src="assets/img/news/05.jpg" alt="" loading="lazy"><span class="news-tag" data-es="Giras">Tours</span></div>
+        <div class="news-body"><span class="news-card-date" data-es="11 de mayo de 2026">May 11, 2026</span><h3 data-es="Niall Horan anuncia las fechas norteamericanas del Dinner Party Live Tour 2027">Niall Horan announces North American dates for the Dinner Party Live Tour 2027</h3><span class="news-more"><span data-es="Leer">Read</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></div>
+      </a>
+      <a class="news news-hidden" href="#noticia=harry-dance-no-more" data-slug="harry-dance-no-more">
+        <div class="news-img"><img src="assets/img/news/06.jpg" alt="" loading="lazy"><span class="news-tag" data-es="Estrenos">Releases</span></div>
+        <div class="news-body"><span class="news-card-date" data-es="6 de mayo de 2026">May 6, 2026</span><h3 data-es="Harry Styles incendia internet con el teaser de &quot;Dance No More&quot;">Harry Styles sets the internet on fire with the &quot;Dance No More&quot; teaser</h3><span class="news-more"><span data-es="Leer">Read</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></div>
+      </a>
+    </div>
+    <div class="center reveal news-actions">
+      <button class="btn btn-ghost" id="newsMore" type="button" aria-expanded="false" aria-controls="newsGrid"><span data-es="Ver más noticias">See more news</span></button>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SOCIALS ===================== -->
+<section class="section socials-sec" id="socials">
+  <div class="wrap">
+    <div class="sec-head center reveal">
+      <span class="kicker" data-es="Eventos y activaciones">Events &amp; activations</span>
+      <h2 data-es="Sociales">Socials</h2>
+      <p class="lede" data-es="Fiestas, eventos y activaciones donde Europa Beat estuvo presente. Toca un evento para ver todas sus fotos.">Parties, events and activations where Europa Beat was present. Tap an event to see all its photos.</p>
+    </div>
+    <div class="ev-grid" id="evGrid"></div>
+    <div class="center reveal social-actions">
+      <a class="btn btn-primary" href="https://www.instagram.com/europabeat/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="4.5"/><circle cx="12" cy="12" r="3.8"/><circle cx="17" cy="7" r="1.1" fill="currentColor" stroke="none"/></svg><span data-es="Seguir en Instagram">Follow on Instagram</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== QUIÉNES SOMOS ===================== -->
+<section class="section" id="quienes-somos">
+  <div class="wrap">
+    <div class="sec-head center reveal">
+      <span class="kicker" data-es="Sobre nosotros">About us</span>
+      <h2 data-es="Quiénes somos">Who we are</h2>
+      <p class="lede" data-es="Somos un medio de comunicación de España <span class='flag flag-es'></span> con presencia en Miami (Estados Unidos <span class='flag flag-us'></span>), Buenos Aires (Argentina <span class='flag flag-ar'></span>), México <span class='flag flag-mx'></span> y Chile <span class='flag flag-cl'></span>. Reunimos tres mundos en una sola marca: radio, agencia de publicidad y productora. Creamos, producimos y difundimos experiencias que conectan a las marcas con su audiencia —dentro y fuera del estudio.">We are a media company from Spain <span class="flag flag-es"></span> with a presence in Miami (USA <span class="flag flag-us"></span>), Buenos Aires (Argentina <span class="flag flag-ar"></span>), Mexico <span class="flag flag-mx"></span> and Chile <span class="flag flag-cl"></span>. We bring three worlds together in one brand: radio, advertising agency and production house. We create, produce and broadcast experiences that connect brands with their audience — inside and outside the studio.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== NUESTRO EQUIPO ===================== -->
+<section class="section" id="equipo">
+  <div class="wrap">
+    <div class="sec-head center reveal">
+      <h2 data-es="Nuestro equipo">Meet our team</h2>
+      <p class="lede" data-es="Detrás de la radio del futuro hay un equipo humano en Chile, España y Estados Unidos que hace que todo suceda.">Behind the radio of the future there's a human team across Chile, Spain and the United States making it all happen.</p>
+    </div>
+    <div class="team-grid">
+      <article class="team-card reveal"><div class="team-photo"><img src="assets/img/team/team-01.jpg" alt="Adrián Almonacid" loading="lazy"></div><div class="team-info"><h3>Adrián Almonacid</h3><span data-es="Fundador y CEO">Founder &amp; CEO</span></div></article>
+      <article class="team-card reveal"><div class="team-photo"><img src="assets/img/team/team-02.jpg" alt="Nicolás Tapia" loading="lazy"></div><div class="team-info"><h3>Nicolás Tapia</h3><span data-es="Director General">General Director</span></div></article>
+      <article class="team-card reveal"><div class="team-photo"><img src="assets/img/team/team-03.jpg" alt="Juan P. Almonacid" loading="lazy"></div><div class="team-info"><h3>Juan P. Almonacid</h3><span data-es="Director EE.UU.">USA Director</span></div></article>
+      <article class="team-card reveal"><div class="team-photo"><img src="assets/img/team/team-04.jpg" alt="Fernando Padrón" loading="lazy"></div><div class="team-info"><h3>Fernando Padrón</h3><span data-es="Director España">Spain Director</span></div></article>
+      <article class="team-card reveal"><div class="team-photo"><img src="assets/img/team/team-05.jpg" alt="Christian Pizarro" loading="lazy"></div><div class="team-info"><h3>Christian Pizarro</h3><span data-es="Director de Logística">Logistics Director</span></div></article>
+      <article class="team-card reveal"><div class="team-photo"><img src="assets/img/team/team-06.jpg" alt="Pilar Domínguez" loading="lazy"></div><div class="team-info"><h3>Pilar Domínguez</h3><span data-es="Directora Artística">Artistic Director</span></div></article>
+      <article class="team-card reveal"><div class="team-photo"><img src="assets/img/team/team-07.jpg" alt="Martin Castagnani" loading="lazy"></div><div class="team-info"><h3>Martin Castagnani</h3><span data-es="Arquitecto Jefe de IA y Web · Director Argentina">Chief AI &amp; Web Architect · Argentina Director</span></div></article>
+      <article class="team-card reveal"><div class="team-photo"><img src="assets/img/team/team-08.jpg" alt="Laura Vejar" loading="lazy"></div><div class="team-info"><h3>Laura Vejar</h3><span data-es="Productora General">General Producer</span></div></article>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== AUSPICIADORES ===================== -->
+<section class="section sponsors-sec" id="auspiciadores">
+  <div class="wrap">
+    <div class="sec-head center reveal"><span class="kicker" data-es="Marcas que confían">Brands that trust us</span><h2 data-es="Auspiciadores">Sponsors</h2></div>
+    <div class="sponsor-wall reveal">
+      <div class="sp sp-salvaje"><img src="assets/img/sponsors/salvaje.png" alt="Salvaje" loading="lazy"></div>
+      <div class="sp sp-coca"><img src="assets/img/sponsors/cocacola.png" alt="Coca-Cola España" loading="lazy"></div>
+      <div class="sp sp-industech"><img src="assets/img/sponsors/industech-w.png" alt="Industech Global" loading="lazy"></div>
+      <div class="sp sp-alto"><img src="assets/img/sponsors/alto-w.png" alt="Complejo Alto Los Pinos" loading="lazy"></div>
+      <div class="sp sp-mahia"><img src="assets/img/sponsors/mahia-w.png" alt="Mahia Beach Hotel" loading="lazy"></div>
+      <div class="sp sp-piemonte"><img src="assets/img/sponsors/piemonte.png" alt="Piemonte" loading="lazy"></div>
+      <div class="sp sp-bluerov"><img src="assets/img/sponsors/bluerovfinal.png" alt="BlueROV" loading="lazy"></div>
+      <div class="sp sp-tell"><img src="assets/img/sponsors/tell.png" alt="Tell Magazine" loading="lazy"></div>
+      <div class="sp sp-riomalleco"><img src="assets/img/sponsors/riomalleco-w.svg" alt="Río Malleco" loading="lazy"></div>
+    </div>
+    <div class="sponsor-cta reveal">
+      <a class="btn btn-primary" href="https://wa.me/56983149798?text=Hola%20Europa%20Beat%2C%20me%20gustar%C3%ADa%20auspiciar%20con%20ustedes." target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.08-.3-.15-1.26-.47-2.4-1.48-.89-.8-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.62-.92-2.22-.24-.57-.48-.5-.67-.5l-.57-.01c-.2 0-.51.07-.78.37-.27.3-1.03 1.01-1.03 2.47 0 1.46 1.06 2.87 1.21 3.07.15.2 2.09 3.2 5.07 4.48.71.3 1.26.49 1.69.63.71.23 1.35.2 1.86.12.57-.08 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.42-.07-.12-.27-.2-.56-.35zM12.04 21.5a9.4 9.4 0 0 1-4.79-1.31l-.34-.2-3.56.93.95-3.47-.22-.36a9.44 9.44 0 1 1 8 4.41zM12.05 2.5a11 11 0 0 0-9.4 16.66L1 23.5l4.47-1.17a11 11 0 1 0 6.58-19.83z"/></svg>
+        <span data-es="Auspíciate con nosotros">Become a sponsor</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="footer" id="contacto">
+  <div class="wrap">
+    <div class="foot-cta reveal">
+      <div><h2 data-es="Escucha la radio del futuro">Tune in to the radio of the future</h2><p data-es="La primera radio creada con inteligencia artificial. En vivo, 24/7.">The first radio created with artificial intelligence. Live, 24/7.</p></div>
+      <button class="btn btn-primary" id="footPlay"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg><span data-es="Escuchar ahora">Listen now</span></button>
+    </div>
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <img src="assets/img/brand/eb-logo.png" alt="Europa Beat" class="foot-logo">
+        <p data-es="Radio · Agencia de publicidad · Productora.<br>Music at your level.">Radio · Advertising agency · Production house.<br>Music at your level.</p>
+        <div class="socials">
+          <a href="https://www.instagram.com/europabeat/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="4.5"/><circle cx="12" cy="12" r="3.8"/><circle cx="17" cy="7" r="1.1" fill="currentColor" stroke="none"/></svg></a>
+          <a href="https://www.youtube.com/@europabeat" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.6 7.2a2.6 2.6 0 0 0-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4A2.6 2.6 0 0 0 2.4 7.2 27 27 0 0 0 2 12a27 27 0 0 0 .4 4.8 2.6 2.6 0 0 0 1.8 1.8C5.8 19 12 19 12 19s6.2 0 7.8-.4a2.6 2.6 0 0 0 1.8-1.8A27 27 0 0 0 22 12a27 27 0 0 0-.4-4.8ZM10 15V9l5 3-5 3Z"/></svg></a>
+          <a href="https://www.tiktok.com/@europabeat" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.5 3c.3 2.1 1.5 3.6 3.5 3.9v2.5c-1.3.1-2.5-.3-3.6-1v5.4a5.7 5.7 0 1 1-5.7-5.7c.3 0 .6 0 .9.1v2.6a3.1 3.1 0 1 0 2.2 3V3h2.7Z"/></svg></a>
+        </div>
+      </div>
+      <div class="foot-col"><h5 data-es="Explorar">Explore</h5><ul><li><a href="#radio" data-es="La radio IA">The AI radio</a></li><li><a href="#estudio" data-es="Estudio">Studio</a></li><li><a href="#ranking">Ranking</a></li><li><a href="#podcast">Podcast</a></li><li><a href="#transmisiones" data-es="Streaming">Streaming</a></li><li><a href="#equipo" data-es="Equipo">Team</a></li></ul></div>
+      <div class="foot-col"><h5 data-es="Contacto">Contact</h5><ul><li><a href="mailto:medios@europabeat.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.2"/><path d="m4 7 8 6 8-6"/></svg> medios@europabeat.com</a></li><li><a href="https://wa.me/56983149798" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.8 4.9-1.3A10 10 0 1 0 12 2Zm0 1.8a8.2 8.2 0 0 1 6.9 12.6 8.2 8.2 0 0 1-10.9 2.8l-.3-.2-2.9.8.8-2.8-.2-.3A8.2 8.2 0 0 1 12 3.8Zm-3 4c-.2 0-.5 0-.7.4-.3.4-.9 1-.9 2.3s1 2.7 1.1 2.9c.1.2 1.9 3 4.7 4.1 2.3.9 2.8.7 3.3.7.5 0 1.6-.7 1.9-1.3.2-.7.2-1.2.2-1.3l-.6-.3c-.3-.1-1.6-.8-1.9-.9-.3-.1-.4-.1-.6.1l-.8 1c-.2.2-.3.2-.5.1-.3-.1-1.1-.4-2-1.3-.8-.7-1.3-1.5-1.4-1.8-.1-.3 0-.4.1-.5l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.1c-.2-.5-.4-.4-.6-.4h-.4Z"/></svg> +56 9 8314 9798</a></li><li><a href="https://europabeat.com/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.5 2.5 2.5 14.5 0 17M12 3.5c-2.5 2.5-2.5 14.5 0 17"/></svg> europabeat.com</a></li></ul></div>
+    </div>
+    <div class="foot-bottom"><span>© 2026 Europa Beat — Music at your level.</span><span data-es="La primera radio creada con IA.">The first radio created with AI.</span></div>
+  </div>
+</footer>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <button class="lb-close" id="lbClose" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  <button class="lb-nav lb-prev" id="lbPrev" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>
+  <img id="lbImg" src="" alt="">
+  <button class="lb-nav lb-next" id="lbNext" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>
+</div>
+
+<!-- Socials · event photo gallery popup -->
+<div class="ev-modal" id="evModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="evModalTitle">
+  <div class="ev-modal-inner">
+    <div class="ev-modal-head">
+      <h3 id="evModalTitle"></h3>
+      <span class="ev-modal-count" id="evModalCount"></span>
+      <button class="ev-modal-close" id="evModalClose" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </div>
+    <div class="ev-modal-grid" id="evModalGrid"></div>
+  </div>
+</div>
+
+<!-- News · in-page article reader (keeps the radio playing) -->
+<div class="news-modal" id="newsModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="nmTitle">
+  <div class="news-modal-inner">
+    <button class="news-modal-close" id="nmClose" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <div class="news-hero"><img id="nmImg" src="" alt=""></div>
+    <article class="news-article">
+      <div class="news-article-meta"><span class="news-tag" id="nmTag"></span><span class="news-date" id="nmDate"></span></div>
+      <h1 id="nmTitle"></h1>
+      <div class="news-article-body" id="nmBody"></div>
+    </article>
+  </div>
+</div>
+
+<!-- ===================== REPRODUCTOR FIJO (barra inferior) ===================== -->
+<div class="player-bar" id="playerBar">
+  <div class="pb-inner">
+    <div class="miniplayer" id="miniplayer" role="group" aria-label="Live radio player">
+      <button class="mp-btn" id="mpBtn" aria-label="Play live radio" aria-pressed="false">
+        <svg class="ic-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>
+        <svg class="ic-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h3.2v14H7zM13.8 5H17v14h-3.2z"/></svg>
+        <span class="mp-eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+      </button>
+      <div class="pb-art"><img id="pbArt" src="assets/img/brand/favicon.png" alt="" onerror="this.src='assets/img/brand/favicon.png'"></div>
+      <div class="pb-meta">
+        <span class="mp-label"><span class="dot"></span><span data-es="Escucha en vivo">Listen live</span></span>
+        <span class="mp-track" id="mpTrack" data-es="Conexión Europa Beat">Europa Beat connection</span>
+      </div>
+    </div>
+    <div class="mp-vol">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16 8.5a4 4 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="1.7"/></svg>
+      <input type="range" id="mpVol" min="0" max="1" step="0.01" value="0.9" aria-label="Volume">
+    </div>
+  </div>
+</div>
+
+<script src="news-data.js?v=54"></script>
+<script src="app.js?v=79"></script>
+</body>
+</html>
