@@ -1,0 +1,1687 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-rendering="full" data-controller="arrival"
+      data-action="turbo:before-render@document->arrival#arrive turbo:before-frame-render@document->arrival#arrive">
+  <head>
+      <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Limeira FM</title>
+  <meta name="description" content="Mais qualidade no seu rádio!">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="Limeira FM">
+  <meta property="og:title" content="Limeira FM">
+  <meta property="og:description" content="Mais qualidade no seu rádio!">
+  <meta property="og:url" content="https://limeirafm.com.br/">
+    <meta property="og:image" content="https://cadena-high-volume.b-cdn.net/nqvuofqhqtlqdn6a972jdkaoxm68">
+  <meta name="twitter:card" content="summary">
+  <meta name="view-transition" content="same-origin">
+  <meta name="turbo-cache-control" content="no-preview">
+  <meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="ziHVlLMPilYXXil_TqyEkrUl3_4vwGj_IsloM06k-QtdhinP6jiGROfyd0QUFIo8kMe0UW3XbFB5xpWFW_UPXA" />
+  <meta name="action-cable-url" content="wss://cable.cadena.com.br/cable" />
+  <link rel="icon" type="image/png" href="https://cadena-high-volume.b-cdn.net/4ylqpbnq9khzk0p9z1fllhtpt56m" />
+
+    <link rel="preload" href="https://assets.cadena.com.br/assets/listener_app/figtree-febf7878.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="https://assets.cadena.com.br/assets/listener_app/unbounded-a7801cb6.woff2" as="font" type="font/woff2" crossorigin>
+
+
+  <link rel="stylesheet" href="https://assets.cadena.com.br/assets/tailwind/listener_app-628ecf03.css" data-turbo-track="reload" />
+<meta name="playback-hls" content="https://assets.cadena.com.br/assets/listener_app_hls/application-750f0a03.js" data-turbo-track="reload">
+<script data-cfasync="false" src="https://assets.cadena.com.br/assets/listener_app/application-7aa88e33.js" data-turbo-track="reload" type="module" nonce="UQwV092y1I6Rvcxgk7ACsQ=="></script>
+
+  <style>:root { --la-brand: #c23336; --la-brand-deep: #78000f; --la-frame: #a01d24; --la-stage: #3a0e0e; --la-stage-raised: #441413; --la-glow: #de4e4d; --la-stage-ink: #fdf2f1; --la-stage-muted: #d1b7b4; --la-background: #fef3f2; --la-ink: #211514; --la-muted: #6b5857; --la-line: #e9dad9; --la-surface: #ffffff; --la-accent: #c23336; --la-on-accent: #ffffff; --la-soft: #ffebe9; --la-highlight: #f6c83e; --la-on-highlight: #191000; }</style>
+
+    <meta name="la-consent" content="">
+<script nonce="UQwV092y1I6Rvcxgk7ACsQ==">
+  (function () {
+    var granted = document.querySelector('meta[name="la-consent"]').content.split(" ");
+    var state = function (purpose) { return granted.indexOf(purpose) >= 0 ? "granted" : "denied"; };
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
+    window.gtag("consent", "default", {
+      analytics_storage: state("analytics"), ad_storage: state("ads"),
+      ad_user_data: state("ads"), ad_personalization: state("ads")
+    });
+    (window.adsbygoogle = window.adsbygoogle || []).requestNonPersonalizedAds = state("ads") === "granted" ? 0 : 1;
+  })();
+</script>
+
+      <meta name="la-google-analytics" content="G-4N8884YKC6">
+
+      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8276298481141286" crossorigin="anonymous" nonce="UQwV092y1I6Rvcxgk7ACsQ=="></script>
+
+
+  </head>
+
+  <body class="min-h-dvh bg-canvas text-ink antialiased"
+        data-controller="live-player live-remote now-playing song-request consent episode-memory"
+        data-action="keydown@window->song-request#shortcut song-request:sent->song-request#sent"
+        data-live-player-source-value="{&quot;kind&quot;:&quot;audio&quot;,&quot;live&quot;:true,&quot;url&quot;:&quot;https://centova.svdns.com.br:20050/stream&quot;,&quot;title&quot;:&quot;Limeira FM&quot;,&quot;artist&quot;:&quot;Mais qualidade no seu rádio!&quot;,&quot;artwork&quot;:&quot;https://cadena-high-volume.b-cdn.net/xnwgqc9a3feui6q5nk84vyfe0fjp&quot;,&quot;stationSlug&quot;:&quot;limeirafm&quot;,&quot;nowPlayingUrl&quot;:&quot;https://nowplaying.cadena.com.br/limeirafm.json&quot;,&quot;nowPlayingFileUrl&quot;:&quot;https://nowplaying.cadena.com.br/limeirafm.json&quot;}"
+        data-now-playing-stream-value="Im5vYXJfY2hhbm5lbF9saW1laXJhZm0i--dad16a992c4c2db7d3cd3e99463bb2dba6adac92fd5239fe3b5e0eff2c7ed129"
+        data-now-playing-now-value="{&quot;audio&quot;:&quot;https://centova.svdns.com.br:20050/stream&quot;,&quot;speaker_name&quot;:&quot;A Melhor Programação Musical&quot;,&quot;speaker_picture&quot;:&quot;https://cadena-high-volume.b-cdn.net/uploads/speaker/picture/908/Limeira_FM_270x270.png&quot;,&quot;program_name&quot;:&quot;Limeira FM&quot;,&quot;program_image&quot;:&quot;https://cadena-high-volume.b-cdn.net/0alr74g10j1qzll2onxu54p0cfi6&quot;,&quot;cover&quot;:&quot;https://cadena-high-volume.b-cdn.net/0alr74g10j1qzll2onxu54p0cfi6&quot;,&quot;artist&quot;:&quot;a-ha&quot;,&quot;song&quot;:&quot;The Sun Always Shines On TV (2016 Remastered)&quot;,&quot;block&quot;:&quot;M&quot;,&quot;advertiser&quot;:null,&quot;artwork&quot;:&quot;https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/86/98/7d/86987d9d-320b-0246-4f4e-343b32056b8d/mzi.qmnpjmnr.jpg/600x600bb.jpg&quot;,&quot;itunes&quot;:&quot;https://music.apple.com/us/album/the-sun-always-shines-on-tv/368555809?i=368555811\u0026uo=4\u0026at=1010l6iS\u0026ct=aplicativo-movel\u0026app=itunes&quot;}"
+        data-now-playing-now-at-value="1793883152"
+        data-now-playing-feed-value="/nowplaying/limeirafm"
+        data-live-state="idle"
+        data-airing="song"
+        data-now-playing-commercial-value="Comercial"
+        data-now-playing-logo-value="https://cadena-high-volume.b-cdn.net/nqvuofqhqtlqdn6a972jdkaoxm68"
+        data-cover-fallback="https://cadena-high-volume.b-cdn.net/xnwgqc9a3feui6q5nk84vyfe0fjp"
+        data-hero-visible="true"
+        data-section="live">
+    
+    <svg class="hidden" aria-hidden="true">
+  <symbol id="la-icon-play" viewBox="0 0 24 24"><path fill="currentColor" d="M7 5.2v13.6a.8.8 0 0 0 1.2.7l10.6-6.8a.8.8 0 0 0 0-1.4L8.2 4.5A.8.8 0 0 0 7 5.2z" /></symbol>
+  <symbol id="la-icon-pause" viewBox="0 0 24 24"><rect fill="currentColor" x="6" y="5" width="4.2" height="14" rx="1.2" /><rect fill="currentColor" x="13.8" y="5" width="4.2" height="14" rx="1.2" /></symbol>
+  <symbol id="la-icon-whatsapp" viewBox="0 0 16 16"><path fill="currentColor" d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232" /></symbol>
+  <symbol id="la-icon-volume" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M4 9.5h3.5L12 5.5v13l-4.5-4H4zM15.5 9a4.2 4.2 0 0 1 0 6M18 6.5a8 8 0 0 1 0 11" /></symbol>
+  <symbol id="la-icon-mute" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M4 9.5h3.5L12 5.5v13l-4.5-4H4zM16 9.5l5 5M21 9.5l-5 5" /></symbol>
+  <symbol id="la-icon-speaker-body" viewBox="0 0 24 24"><path fill="currentColor" d="M11.2 5.1a.8.8 0 0 1 1.3.6v12.6a.8.8 0 0 1-1.3.6l-4.6-3.5H4.5A1.5 1.5 0 0 1 3 13.9v-3.8a1.5 1.5 0 0 1 1.5-1.5h2.1z" /></symbol>
+  <symbol id="la-icon-speaker-wave-near" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" d="M15.6 9.3a3.9 3.9 0 0 1 0 5.4" /></symbol>
+  <symbol id="la-icon-speaker-wave-far" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" d="M18.3 6.8a7.5 7.5 0 0 1 0 10.4" /></symbol>
+  <symbol id="la-icon-speaker-cross" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" d="M16 9.5l5 5M21 9.5l-5 5" /></symbol>
+  <symbol id="la-icon-fold" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M4 14h6v6M20 10h-6V4M10 14l-6 6M14 10l6-6" /></symbol>
+  <symbol id="la-icon-fullscreen" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M4 9V6a2 2 0 0 1 2-2h3M15 4h3a2 2 0 0 1 2 2v3M20 15v3a2 2 0 0 1-2 2h-3M9 20H6a2 2 0 0 1-2-2v-3" /></symbol>
+  <symbol id="la-icon-unfold" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M14 4h6v6M20 4l-6 6M10 20H4v-6M4 20l6-6" /></symbol>
+  <symbol id="la-icon-arrow" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6" /></symbol>
+  <symbol id="la-icon-switch" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M4.5 8.5h14M15 5l3.5 3.5L15 12M19.5 15.5h-14M9 12l-3.5 3.5L9 19" /></symbol>
+  <symbol id="la-icon-chevron" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M9.5 6l6 6-6 6" /></symbol>
+  <symbol id="la-icon-live" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="2.2" /><path d="M8.2 8.2a5.4 5.4 0 0 0 0 7.6M15.8 8.2a5.4 5.4 0 0 1 0 7.6M5.3 5.3a9.5 9.5 0 0 0 0 13.4M18.7 5.3a9.5 9.5 0 0 1 0 13.4" /></g></symbol>
+  <symbol id="la-icon-live-waves" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M8.2 8.2a5.4 5.4 0 0 0 0 7.6M15.8 8.2a5.4 5.4 0 0 1 0 7.6M5.3 5.3a9.5 9.5 0 0 0 0 13.4M18.7 5.3a9.5 9.5 0 0 1 0 13.4" /></symbol>
+  <symbol id="la-icon-podcast" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3" /><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M8.5 21h7" /></g></symbol>
+  <symbol id="la-icon-call" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M8.4 3.6 6.3 3.9A2 2 0 0 0 4.6 6c.3 7.4 6 13.1 13.4 13.4a2 2 0 0 0 2.1-1.7l.3-2.1a1.5 1.5 0 0 0-1-1.6l-2.8-1a1.5 1.5 0 0 0-1.6.4l-1 1.1a10.6 10.6 0 0 1-4.9-4.9l1.1-1a1.5 1.5 0 0 0 .4-1.6l-1-2.8a1.5 1.5 0 0 0-1.6-1z" /></symbol>
+  <symbol id="la-icon-mail" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3" /><path d="m4 7 8 5.5L20 7" /></g></symbol>
+  <symbol id="la-icon-pin" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z" /><circle cx="12" cy="10" r="2.4" /></g></symbol>
+  <symbol id="la-icon-apple" viewBox="0 0 24 24"><path fill="currentColor" d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701" /></symbol>
+  <symbol id="la-icon-google-play" viewBox="0 0 24 24"><path fill="#4285F4" d="M1.337.924a1.486 1.486 0 0 0-.112.568v21.017c0 .217.045.419.124.6l11.155-11.087z" /><path fill="#34A853" d="M13.544 10.989l3.258-3.238L3.45.195a1.466 1.466 0 0 0-.946-.179z" /><path fill="#FBBC04" d="M22.018 13.298l-3.919 2.218-3.515-3.493 3.543-3.521 3.891 2.202a1.49 1.49 0 0 1 0 2.594z" /><path fill="#EA4335" d="M13.544 13.056l-11 10.933c.298.036.612-.016.906-.183l13.324-7.54z" /></symbol>
+  <symbol id="la-icon-music" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 17.5V6l11-2.5v11.5M9 9.5l11-2.5" /><circle cx="6.5" cy="17.5" r="2.5" /><circle cx="17.5" cy="15" r="2.5" /></g></symbol>
+  <symbol id="la-icon-trophy" viewBox="0 0 24 24"><g stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path style="fill: var(--la-icon-fill, none); fill-opacity: var(--la-icon-fill-opacity, 1)" d="M7.5 4h9v5.5a4.5 4.5 0 0 1-9 0z" /><path fill="none" d="M7.5 6.5H5.2a2.8 2.8 0 0 0 2.6 3.9M16.5 6.5h2.3a2.8 2.8 0 0 1-2.6 3.9M12 14v3.5" /><path style="fill: var(--la-icon-fill, none); fill-opacity: var(--la-icon-fill-opacity, 1)" d="M8.5 20.5c0-1.7 1.6-3 3.5-3s3.5 1.3 3.5 3z" /></g></symbol>
+  <symbol id="la-icon-search" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="6.5" /><path d="m20 20-4.8-4.8" /></g></symbol>
+  <symbol id="la-icon-close" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M6 6l12 12M18 6 6 18" /></symbol>
+  <symbol id="la-icon-request" viewBox="0 0 24 24"><g stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect style="fill: var(--la-icon-fill, none); fill-opacity: var(--la-icon-fill-opacity, 1)" x="6" y="3" width="6" height="10.5" rx="3" /><path fill="none" d="M3 10.5a6 6 0 0 0 12 0M9 16.5V20.5M6 20.5h6M19 3.5v5M16.5 6h5" /></g></symbol>
+  <symbol id="la-icon-external" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M14 4h6v6M20 4l-8.5 8.5M18 14v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4" /></symbol>
+  <symbol id="la-icon-link" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M10 14a4 4 0 0 0 5.66 0l3-3a4 4 0 0 0-5.66-5.66l-1 1M14 10a4 4 0 0 0-5.66 0l-3 3a4 4 0 0 0 5.66 5.66l1-1" /></symbol>
+  <symbol id="la-icon-share" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M12 3.5v11M8 7.5l4-4 4 4M8 10.5H6.5a1.5 1.5 0 0 0-1.5 1.5v7a1.5 1.5 0 0 0 1.5 1.5h11a1.5 1.5 0 0 0 1.5-1.5v-7a1.5 1.5 0 0 0-1.5-1.5H16" /></symbol>
+  <symbol id="la-icon-shield" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M12 3.2 5 6v5.4c0 4.3 2.9 8 7 9.4 4.1-1.4 7-5.1 7-9.4V6zM9 12.2l2.1 2.1L15.2 10" /></symbol>
+  <symbol id="la-icon-bell" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M12 3.5a5.5 5.5 0 0 0-5.5 5.5v3.6c0 .9-.3 1.8-.8 2.5L4.8 16.5h14.4l-.9-1.4c-.5-.7-.8-1.6-.8-2.5V9A5.5 5.5 0 0 0 12 3.5zM9.8 19.4a2.4 2.4 0 0 0 4.4 0" /></symbol>
+  <symbol id="la-icon-check" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="m5 12.5 4.5 4.5L19 7.5" /></symbol>
+  <symbol id="la-icon-news" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M16.5 8.5H19a1.5 1.5 0 0 1 1.5 1.5v8a2 2 0 0 1-2 2H6.5A3 3 0 0 1 3.5 17V6A1.5 1.5 0 0 1 5 4.5h10A1.5 1.5 0 0 1 16.5 6v12a2 2 0 0 0 2 2M7 8.5h6M7 12h6M7 15.5h3.5" /></symbol>
+  <symbol id="la-icon-calendar" viewBox="0 0 24 24"><g stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect style="fill: var(--la-icon-fill, none); fill-opacity: var(--la-icon-fill-opacity, 1)" x="3.5" y="5" width="17" height="15.5" rx="3" /><path fill="none" d="M3.5 10h17M8 3v4M16 3v4" /></g><g fill="currentColor"><circle cx="8" cy="14" r="1.1" /><circle cx="12" cy="14" r="1.1" /><circle cx="16" cy="14" r="1.1" /><circle cx="8" cy="17.3" r="1.1" /><circle cx="12" cy="17.3" r="1.1" /></g></symbol>
+  <symbol id="la-icon-gift" viewBox="0 0 24 24"><g stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect style="fill: var(--la-icon-fill, none); fill-opacity: var(--la-icon-fill-opacity, 1)" x="4" y="9" width="16" height="11" rx="1.5" /><path fill="none" d="M3 9h18M12 7v13M12 7c-1-2.5-4.5-3.5-5-1.5S9 7 12 7zm0 0c1-2.5 4.5-3.5 5-1.5S15 7 12 7z" /></g></symbol>
+  <symbol id="la-icon-megaphone" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M4 10.2v3.6a1.4 1.4 0 0 0 1.4 1.4H7.5L15 19.5v-15L7.5 8.8H5.4A1.4 1.4 0 0 0 4 10.2zM7.5 15.2l1.1 3.9a1.3 1.3 0 0 0 1.25.95h.55a1 1 0 0 0 .96-1.27L10.5 16.4M18.2 9.2a4 4 0 0 1 0 5.6" /></symbol>
+  <symbol id="la-icon-album" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="7" y="7" width="13" height="13" rx="3" /><path d="M4 16.5V7a3 3 0 0 1 3-3h9.5" stroke-linecap="round" /></g></symbol>
+  <symbol id="la-icon-reel" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5" /><path d="M3 8.5h18M8.5 3l2.5 5.5M14 3l2.5 5.5" /><path d="m10.5 12 4 2.5-4 2.5z" /></g></symbol>
+  <symbol id="la-icon-thumb-up" viewBox="0 0 24 24"><g stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="fill: var(--la-vote-fill, none)"><path d="M7 10v11" /><path d="M15 5.9 14 10h5.8a2 2 0 0 1 1.9 2.6l-2.3 7.5a2 2 0 0 1-1.9 1.4H4a2 2 0 0 1-2-2v-7.5a2 2 0 0 1 2-2h2.8a2 2 0 0 0 1.8-1.1L12 2a3.1 3.1 0 0 1 3 3.9z" /></g></symbol>
+  <symbol id="la-icon-thumb-down" viewBox="0 0 24 24"><g stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="fill: var(--la-vote-fill, none)"><path d="M17 14V3" /><path d="M9 18.1 10 14H4.2a2 2 0 0 1-1.9-2.6l2.3-7.5A2 2 0 0 1 6.5 2.5H20a2 2 0 0 1 2 2V12a2 2 0 0 1-2 2h-2.8a2 2 0 0 0-1.8 1.1L12 22a3.1 3.1 0 0 1-3-3.9z" /></g></symbol>
+  <symbol id="la-icon-card" viewBox="0 0 24 24"><g stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect style="fill: var(--la-icon-fill, none); fill-opacity: var(--la-icon-fill-opacity, 1)" x="2.5" y="5" width="19" height="14" rx="3" /><circle fill="currentColor" stroke="none" cx="8.5" cy="11" r="2.1" /><path fill="none" d="M5.8 16c.5-1.3 1.6-2 2.7-2s2.2.7 2.7 2M14 10h4.5M14 13.5h3" /></g></symbol>
+  <symbol id="la-icon-tag" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M3.5 12.6V5a1.5 1.5 0 0 1 1.5-1.5h7.6a1.5 1.5 0 0 1 1 .4l7 7a1.5 1.5 0 0 1 0 2.2l-7.5 7.5a1.5 1.5 0 0 1-2.2 0l-7-7a1.5 1.5 0 0 1-.4-1Z" /><circle cx="8.5" cy="8.5" r="1.5" /></g></symbol>
+  <symbol id="la-icon-skip-back" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3" /><path d="M6.5 2.8v4.1h4.1" /></g><text x="12.4" y="15.3" text-anchor="middle" font-size="7" font-weight="800" fill="currentColor" font-family="system-ui, sans-serif">15</text></symbol>
+  <symbol id="la-icon-skip-forward" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19.5 12a7.5 7.5 0 1 1-2.2-5.3" /><path d="M17.5 2.8v4.1h-4.1" /></g><text x="11.6" y="15.3" text-anchor="middle" font-size="7" font-weight="800" fill="currentColor" font-family="system-ui, sans-serif">30</text></symbol>
+  <symbol id="la-icon-video" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3" y="6" width="18" height="12" rx="3.5" /><path d="m10.5 9.5 4 2.5-4 2.5z" /></g></symbol>
+ <symbol id="la-icon-image" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="15" rx="3" /><circle cx="9" cy="10" r="1.8" /><path d="m4 17.5 4.5-4.5 3.5 3.5 2.5-2.5 5.5 5" /></g></symbol>
+  <symbol id="la-icon-upload" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M12 16V5M7 10l5-5 5 5M5 20h14" /></symbol>
+  <symbol id="la-icon-download" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M12 4v11M7 10l5 5 5-5M5 20h14" /></symbol>
+  <symbol id="la-icon-youtube" viewBox="0 0 24 24"><path fill="currentColor" d="M21.6 7.2a2.6 2.6 0 0 0-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4a2.6 2.6 0 0 0-1.8 1.8C2 8.8 2 12 2 12s0 3.2.4 4.8a2.6 2.6 0 0 0 1.8 1.8C5.8 19 12 19 12 19s6.2 0 7.8-.4a2.6 2.6 0 0 0 1.8-1.8c.4-1.6.4-4.8.4-4.8s0-3.2-.4-4.8zM10 15V9l5.2 3z" /></symbol>
+  <symbol id="la-icon-phone" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="6.5" y="2.5" width="11" height="19" rx="2.5" /><path d="M10.5 18.5h3" /></g></symbol>
+  <symbol id="la-icon-tiktok" viewBox="0 0 24 24"><path fill="currentColor" d="M16.6 3h-3.1v12.3a2.8 2.8 0 1 1-2.8-2.8c.3 0 .6 0 .8.1V9.4a6 6 0 1 0 5.1 5.9V9a7.6 7.6 0 0 0 4.4 1.4V7.3a4.4 4.4 0 0 1-4.4-4.3z" /></symbol>
+  <symbol id="la-icon-x" viewBox="0 0 24 24"><path fill="currentColor" d="M17.8 3h3.1l-6.8 7.8 8 10.2h-6.3l-4.9-6.4L5.3 21H2.2l7.3-8.3L1.8 3h6.4l4.5 5.9zm-1.1 16.2h1.7L7.4 4.7H5.6z" /></symbol>
+  <symbol id="la-icon-instagram" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2.2c3.2 0 3.6 0 4.8.1 3.3.2 4.8 1.7 5 5 .1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.2 3.2-1.7 4.8-5 5-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-3.3-.2-4.8-1.7-5-5-.1-1.3-.1-1.6-.1-4.8s0-3.6.1-4.8c.2-3.3 1.7-4.8 5-5 1.2-.1 1.6-.1 4.8-.1zM12 0C8.7 0 8.3 0 7.1.1 2.7.3.3 2.7.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.2 4.4 2.6 6.8 7 7 1.2.1 1.6.1 4.9.1s3.7 0 4.9-.1c4.4-.2 6.8-2.6 7-7 .1-1.2.1-1.6.1-4.9s0-3.7-.1-4.9c-.2-4.4-2.6-6.8-7-7C15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.4-11.8a1.4 1.4 0 1 0 0 2.9 1.4 1.4 0 0 0 0-2.9z" /></symbol>
+  <symbol id="la-icon-facebook" viewBox="-3 -3 30 30"><path fill="currentColor" d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647z" /></symbol>
+  <symbol id="la-icon-home" viewBox="0 0 24 24"><path style="fill: var(--la-icon-fill, none); fill-opacity: var(--la-icon-fill-opacity, 1)" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M4 10.4 12 4l8 6.4V18a2 2 0 0 1-2 2h-3.2v-5.2a1 1 0 0 0-1-1h-3.6a1 1 0 0 0-1 1V20H6a2 2 0 0 1-2-2z" /></symbol>
+  <symbol id="la-icon-home-fill" viewBox="0 0 24 24"><path fill="currentColor" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M4 10.4 12 4l8 6.4V18a2 2 0 0 1-2 2h-3.2v-5.2a1 1 0 0 0-1-1h-3.6a1 1 0 0 0-1 1V20H6a2 2 0 0 1-2-2z" /></symbol>
+  <symbol id="la-icon-back" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M14.5 6l-6 6 6 6" /></symbol>
+  <symbol id="la-icon-down" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M6 9.5l6 6 6-6" /></symbol>
+  <symbol id="la-icon-sections" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="4" y="4" width="6.5" height="6.5" rx="1.8" /><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.8" /><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.8" /><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.8" /></g></symbol>
+  <symbol id="la-icon-more" viewBox="0 0 24 24"><g fill="currentColor"><circle cx="5.5" cy="12" r="1.9" /><circle cx="12" cy="12" r="1.9" /><circle cx="18.5" cy="12" r="1.9" /></g></symbol>
+  <symbol id="la-icon-clock" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5" /><path d="M12 7.5V12l3 2" /></g></symbol>
+  <symbol id="la-icon-user" viewBox="0 0 24 24"><g stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle style="fill: var(--la-icon-fill, none); fill-opacity: var(--la-icon-fill-opacity, 1)" cx="12" cy="8" r="4" /><path style="fill: var(--la-icon-fill, none); fill-opacity: var(--la-icon-fill-opacity, 1)" d="M4.5 20.5a7.5 7.5 0 0 1 15 0z" /></g></symbol>
+</svg>
+
+    <header id="listener-app-topbar" class="pointer-events-none sticky top-0 z-50 flex justify-center px-3 pt-3 sm:pt-4" data-turbo-permanent>
+  <div class="pointer-events-auto flex items-center">
+    <div class="mr-2.5 shrink-0" data-controller="station-picker" data-station-picker-url-value="">
+  <button type="button" popovertarget="listener-app-stations" class="la-pick-button la-nav-glass grid size-9 place-items-center rounded-full"
+          title="Trocar de emissora"
+          data-station-picker-target="button">
+    <svg class="size-[1.05rem]" aria-hidden="true"><use href="#la-icon-switch" /></svg>
+  </button>
+
+  <div id="listener-app-stations" popover class="la-pick-menu la-liquid-panel isolate text-stage-ink"
+       aria-label="Troque de emissora" data-station-picker-target="menu" data-controller="station-filter"
+       data-action="beforetoggle->station-picker#place">
+    <p class="la-eyebrow truncate px-4 pb-2 pt-3.5 text-[0.6rem] text-stage-muted">Grupo Jornal FM</p>
+    
+    <div class="la-scroll-fade max-h-[min(22rem,60dvh)] overflow-y-auto px-1.5 pb-1.5" data-controller="scroll-fade"
+         data-action="scroll->scroll-fade#fade station-filter:filtered@window->scroll-fade#fade">
+      <ul class="grid gap-0.5">
+          <li data-station-filter-target="item" data-text="Jornal FM Limeira · SP">
+  <a class="la-station-tile group/tile flex items-center gap-2.5 rounded-xl px-2 py-1.5" style="--la-tile: #223186" href="https://jornalfm.com.br">
+      <img alt="" loading="lazy" decoding="async" class="size-8 shrink-0 rounded-full ring-1 ring-white/30 shadow-[0_10px_28px_-10px_rgb(0_0_0/0.6)] object-cover" src="https://cadena-high-volume.b-cdn.net/rgo13aoz0l5stzm6qtx7uunzuhuz" />
+
+    <span class="min-w-0 flex-1">
+      <b class="block truncate text-[0.8rem] font-bold leading-tight">Jornal FM</b>
+        <span class="mt-0.5 block truncate text-[0.65rem] text-stage-muted">Limeira · SP</span>
+    </span>
+      <svg class="size-3.5 shrink-0 opacity-0 transition duration-300 -translate-x-1 group-hover/tile:translate-x-0 group-hover/tile:opacity-70 group-focus-visible/tile:opacity-70" aria-hidden="true"><use href="#la-icon-arrow" /></svg>
+</a></li>
+
+          <li data-station-filter-target="item" data-text="Limeira FM Limeira · SP">
+  <div class="la-station-tile group/tile flex items-center gap-2.5 rounded-xl px-2 py-1.5" style="--la-tile: #c23336" aria-current="page">
+      <img alt="" loading="lazy" decoding="async" class="size-8 shrink-0 rounded-full ring-1 ring-white/30 shadow-[0_10px_28px_-10px_rgb(0_0_0/0.6)] object-cover" src="https://cadena-high-volume.b-cdn.net/xnwgqc9a3feui6q5nk84vyfe0fjp" />
+
+    <span class="min-w-0 flex-1">
+      <b class="block truncate text-[0.8rem] font-bold leading-tight">Limeira FM</b>
+        <span class="mt-0.5 block truncate text-[0.65rem] text-stage-muted">Limeira · SP</span>
+    </span>
+      <svg class="size-4 shrink-0 text-highlight" aria-hidden="true"><use href="#la-icon-check" /></svg>
+      <span class="sr-only">Você está aqui</span>
+</div></li>
+
+      </ul>
+      <p class="px-3 py-5 text-center text-xs text-stage-muted" data-station-filter-target="empty" hidden>Nenhuma emissora com esse nome.</p>
+    </div>
+  </div>
+</div>
+
+    <a href="/" class="relative z-10 shrink-0 rounded-full transition duration-300 hover:scale-105">
+        <img alt="" decoding="async" class="size-16 sm:size-[4.5rem] shrink-0 rounded-full ring-1 ring-white/30 shadow-[0_10px_28px_-10px_rgb(0_0_0/0.6)] object-cover" src="https://cadena-high-volume.b-cdn.net/xnwgqc9a3feui6q5nk84vyfe0fjp" />
+
+      <span class="sr-only">Limeira FM</span>
+    </a>
+
+    <nav class="la-nav-glass relative -ml-8 hidden h-14 items-center rounded-full py-1.5 pl-11 pr-1.5 text-stage-ink lg:flex"
+         aria-label="Seções"
+         data-controller="nav-indicator" data-dense="false"
+         data-action="mouseleave->nav-indicator#rest turbo:load@document->nav-indicator#mark">
+      <span class="la-nav-light pointer-events-none absolute inset-y-1.5 left-0 rounded-full" data-nav-indicator-target="light"></span>
+        <a href="/" aria-current="page" data-section="live"
+           class="group/nav relative z-10 inline-flex items-center gap-2 rounded-full px-3.5 py-2 text-[0.95rem] font-bold text-white/85 transition-colors duration-300 hover:text-white aria-[current=page]:text-white"
+           data-nav-indicator-target="link" data-action="mouseenter->nav-indicator#follow focus->nav-indicator#follow">
+            <span class="relative grid size-[1.15rem] shrink-0 place-items-center">
+              <svg class="absolute inset-0 size-full opacity-60 transition-opacity duration-300 group-hover/nav:opacity-100 group-aria-[current=page]/nav:opacity-100" aria-hidden="true"><use href="#la-icon-live-waves" /></svg>
+              <span class="la-pulse relative size-[0.3rem] rounded-full bg-highlight"></span>
+            </span>
+          Ao vivo
+        </a>
+        <a href="/schedule" aria-current="false" data-section="schedule"
+           class="group/nav relative z-10 inline-flex items-center gap-2 rounded-full px-3.5 py-2 text-[0.95rem] font-bold text-white/85 transition-colors duration-300 hover:text-white aria-[current=page]:text-white"
+           data-nav-indicator-target="link" data-action="mouseenter->nav-indicator#follow focus->nav-indicator#follow">
+            <svg class="size-[1.15rem] shrink-0 opacity-60 transition duration-300 group-hover/nav:opacity-100 group-hover/nav:-translate-y-px group-aria-[current=page]/nav:text-highlight group-aria-[current=page]/nav:opacity-100" aria-hidden="true"><use href="#la-icon-calendar" /></svg>
+          Programação
+        </a>
+        <a href="/#anuncie" aria-current="false" data-section="advertise"
+           class="group/nav relative z-10 inline-flex items-center gap-2 rounded-full px-3.5 py-2 text-[0.95rem] font-bold text-white/85 transition-colors duration-300 hover:text-white aria-[current=page]:text-white"
+           data-nav-indicator-target="link" data-action="mouseenter->nav-indicator#follow focus->nav-indicator#follow">
+            <svg class="size-[1.15rem] shrink-0 opacity-60 transition duration-300 group-hover/nav:opacity-100 group-hover/nav:-translate-y-px group-aria-[current=page]/nav:text-highlight group-aria-[current=page]/nav:opacity-100" aria-hidden="true"><use href="#la-icon-megaphone" /></svg>
+          Anuncie
+        </a>
+      <span class="mx-1.5 h-6 w-px shrink-0 bg-white/15" aria-hidden="true"></span><button type="button" class="group/nav relative z-10 inline-flex items-center gap-2 rounded-full px-3.5 py-2 text-[0.95rem] font-bold text-white/85 transition-colors duration-300 hover:text-white" data-nav-indicator-target="link" data-action="song-request#open mouseenter-&gt;nav-indicator#follow focus-&gt;nav-indicator#follow blur-&gt;nav-indicator#rest"><svg class="size-[1.15rem] shrink-0 opacity-60 transition duration-300 group-hover/nav:-translate-y-px group-hover/nav:opacity-100" aria-hidden="true"><use href="#la-icon-request" /></svg>Peça sua música</button>
+    </nav>
+    
+  </div>
+</header>
+
+
+    <main id="conteudo">
+      <turbo-frame class="block" data-now-playing-target="stage" data-url="/stage" id="listener-app-stage">
+    <section id="live" class="group/stage relative isolate -mt-[4.75rem] text-stage-ink sm:-mt-[5.5rem]"
+         data-controller="stage-watch">
+  <div class="la-stage-floor pointer-events-none absolute inset-x-0 bottom-0 -z-20 h-1/2" aria-hidden="true">
+    <div class="la-ambient-dots absolute inset-0"></div>
+  </div>
+  <div class="la-backdrop absolute inset-x-0 top-0 -z-10 h-[88%] overflow-hidden sm:h-[82%] lg:h-[77%]" aria-hidden="true">
+      <img alt="" decoding="async" fetchpriority="high" class="la-studio la-studio-own absolute inset-0 size-full object-cover" src="https://cadena-high-volume.b-cdn.net/zh7mzjqej6h6d9vx0cg8urrru896" />
+    <span class="la-blob la-blob-glow -left-32 top-8 size-[26rem]"></span>
+    <span class="la-blob la-blob-highlight -right-24 -top-24 size-[22rem]"></span>
+    <span class="la-blob la-blob-glow -bottom-40 left-1/2 size-[24rem]"></span>
+    <svg class="absolute inset-x-0 -bottom-px h-10 w-full text-canvas sm:h-16" viewBox="0 0 1440 64" preserveAspectRatio="none">
+      <path fill="currentColor" d="M0 64V44C240 10 480 0 720 0s480 10 720 44v20z" />
+    </svg>
+  </div>
+
+  <div class="mx-auto max-w-page px-3 pb-2 pt-[6rem] transition-[padding] duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] sm:px-6 sm:pt-[7rem] lg:px-10 lg:pt-[7.75rem] sm:live-video:pt-[6.25rem] lg:live-video:pt-[6.5rem]">
+    <div class="la-tilt" data-controller="tilt" data-action="pointerenter->tilt#measure pointermove->tilt#move pointerleave->tilt#reset">
+      <div class="la-edge group/card relative isolate aspect-[4/5] overflow-hidden rounded-[2rem] bg-stage shadow-[0_50px_100px_-40px_rgb(0_0_0/0.75),0_0_48px_-14px_var(--la-highlight)] ring-1 ring-white/10 sm:aspect-[16/10] lg:aspect-auto lg:h-[min(36rem,64vh)] lg:rounded-[2.75rem] transition-[height,aspect-ratio] duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] sm:live-video:aspect-[16/11.5] lg:[--la-card-video-h:min(46rem,80vh)] lg:live-video:aspect-auto lg:live-video:h-(--la-card-video-h)">
+  <div class="absolute inset-0 transition-[visibility] live-video:invisible live-video:delay-700">
+      <div class="la-window absolute inset-0">
+        <div class="la-wall absolute -inset-[25%] flex flex-col justify-center gap-4 sm:gap-5" aria-hidden="true">
+            <div class="la-wall-row flex w-max gap-4 sm:gap-5 ">
+                <img alt="" loading="lazy" decoding="async" class="size-24 shrink-0 rounded-2xl object-cover sm:size-32" src="https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/86/98/7d/86987d9d-320b-0246-4f4e-343b32056b8d/mzi.qmnpjmnr.jpg/200x200bb.jpg" />
+                <img alt="" loading="lazy" decoding="async" class="size-24 shrink-0 rounded-2xl object-cover sm:size-32" src="https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/32/2c/f3/322cf324-9ea1-3962-865a-f4f9bf83764d/888880191069.jpg/200x200bb.jpg" />
+                <img alt="" loading="lazy" decoding="async" class="size-24 shrink-0 rounded-2xl object-cover sm:size-32" src="https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/67/10/6b/67106b63-8edc-ef66-78f2-ad85b275074f/06UMGIM28735.rgb.jpg/200x200bb.jpg" />
+                <img alt="" loading="lazy" decoding="async" class="size-24 shrink-0 rounded-2xl object-cover sm:size-32" src="https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/7d/ed/64/7ded648b-39e1-d245-b219-5eaf5e08955e/00724383115853.rgb.jpg/200x200bb.jpg" />
+                <img alt="" loading="lazy" decoding="async" class="size-24 shrink-0 rounded-2xl object-cover sm:size-32" src="https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/f5/93/8c/f5938c49-964c-31d1-4b33-78b634f71fb7/190295978075.jpg/200x200bb.jpg" />
+                <img alt="" loading="lazy" decoding="async" class="size-24 shrink-0 rounded-2xl object-cover sm:size-32" src="https://is1-ssl.mzstatic.com/image/thumb/Music/y2005/m06/d13/h10/s05.fvdzfulz.jpg/200x200bb.jpg" />
+                <img alt="" loading="lazy" decoding="async" class="size-24 shrink-0 rounded-2xl object-cover sm:size-32" src="https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/15/e6/e8/15e6e8a4-4190-6a8b-86c3-ab4a51b88288/190295851286.jpg/200x200bb.jpg" />
+                <img alt="" loading="lazy" decoding="async" class="size-24 shrink-0 rounded-2xl object-cover sm:size-32" src="https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/38/be/7d/38be7dfb-96f6-0dd1-845b-e0f8f10c3fa0/00602527884615.rgb.jpg/200x200bb.jpg" />
+                <img alt="" loading="lazy" decoding="async" class="size-24 shrink-0 rounded-2xl object-cover sm:size-32" src="https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/86/98/7d/86987d9d-320b-0246-4f4e-343b32056b8d/mzi.qmnpjmnr.jpg/200x200bb.jpg" />
+                <img alt="" loading="lazy" decoding="async" class="size-24 shrink-0 rounded-2xl object-cover sm:size-32" src="https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/32/2c/f3/322cf324-9ea1-3962-865a-f4f9bf83764d/888880191069.jpg/200x200bb.jpg" />
+                <img alt="" loading="lazy" decoding="async" class="size-24 shrink-0 rounded-2xl object-cover sm:size-32" src="https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/86/98/7d/86987d9d-320b-0246-4f4e-343b32056b8d/mzi.qmnpjmnr.jpg/200x200bb.jpg" />
+                <img alt="" loading="lazy" decoding="async" class="size-24 shrink-0 rounded-2xl object-cover sm:size-32" src="https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/32/2c/f3/322cf324-9ea1-3962-865a-f4f9bf83764d/888880191069.jpg/200x200bb.jpg" />
+                <img alt="" loading="lazy" decoding="async" class="size-24 shrink-0 rounded-2xl object-cover sm:size-32" src="https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/67/10/6b/67106b63-8edc-ef66-78f2-ad85b275074f/06UMGIM28735.rgb.jpg/200x200bb.jpg" />
+                <img alt="" loading="lazy" decoding="async" class="size-24 shrink-0 rounded-2xl object-cover sm:size-32" src="https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/7d/ed/64/7ded648b-39e1-d245-b219-5eaf5e08955e/00724383115853.rgb.jpg/200x200bb.jpg" />
+                <img alt="" loading="lazy" decoding="async" class="size-24 shrink-0 rounded-2xl object-cover sm:size-32" src="https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/f5/93/8c/f5938c49-964c-31d1-4b33-78b634f71fb7/190295978075.jpg/200x200bb.jpg" />
+                <img alt="" loading="lazy" decoding="async" class="size-24 shrink-0 rounded-2xl object-cover sm:size-32" src="https://is1-ssl.mzstatic.com/image/thumb/Music/y2005/m06/d13/h10/s05.fvdzfulz.jpg/200x200bb.jpg" />
+                <img alt="" loading="lazy" decoding="async" class="size-24 shrink-0 rounded-2xl object-cover sm:size-32" src="https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/15/e6/e8/15e6e8a4-4190-6a8b-86c3-ab4a51b88288/190295851286.jpg/200x200bb.jpg" />
+                <img alt="" loading="lazy" decoding="async" class="size-24 shrink-0 rounded-2xl object-cover sm:size-32" src="https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/38/be/7d/38be7dfb-96f6-0dd1-845b-e0f8f10c3fa0/00602527884615.rgb.jpg/200x200bb.jpg" />
+                <img alt="" loading="lazy" decoding="async" class="size-24 shrink-0 rounded-2xl object-cover sm:size-32" src="https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/86/98/7d/86987d9d-320b-0246-4f4e-343b32056b8d/mzi.qmnpjmnr.jpg/200x200bb.jpg" />
+                <img alt="" loading="lazy" decoding="async" class="size-24 shrink-0 rounded-2xl object-cover sm:size-32" src="https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/32/2c/f3/322cf324-9ea1-3962-865a-f4f9bf83764d/888880191069.jpg/200x200bb.jpg" />
+            </div>
+            <div class="la-wall-row flex w-max gap-4 sm:gap-5 la-wall-reverse">
+                <img alt="" loading="lazy" decoding="async" class="size-24 shrink-0 rounded-2xl object-cover sm:size-32" src="https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/7d/ed/64/7ded648b-39e1-d245-b219-5eaf5e08955e/00724383115853.rgb.jpg/200x200bb.jpg" />
+                <img alt="" loading="lazy" decoding="async" class="size-24 shrink-0 rounded-2xl object-cover sm:size-32" src="https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/f5/93/8c/f5938c49-964c-31d1-4b33-78b634f71fb7/190295978075.jpg/200x200bb.jpg" />
+                <img alt="" loading="lazy" decoding="async" class="size-24 shrink-0 rounded-2xl object-cover sm:size-32" src="https://is1-ssl.mzstatic.com/image/thumb/Music/y2005/m06/d13/h10/s05.fvdzfulz.jpg/200x200bb.jpg" />
+                <img alt="" loading="lazy" decoding="async" class="size-24 shrink-0 rounded-2xl object-cover sm:size-32" src="https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/15/e6/e8/15e6e8a4-4190-6a8b-86c3-ab4a51b88288/190295851286.jpg/200x200bb.jpg" />
+                <img alt="" loading="lazy" decoding="async" class="size-24 shrink-0 rounded-2xl object-cover sm:size-32" src="https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/38/be/7d/38be7dfb-96f6-0dd1-845b-e0f8f10c3fa0/00602527884615.rgb.jpg/200x200bb.jpg" />
+                <img alt="" loading="lazy" decoding="async" class="size-24 shrink-0 rounded-2xl object-cover sm:size-32" src="https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/86/98/7d/86987d9d-320b-0246-4f4e-343b32056b8d/mzi.qmnpjmnr.jpg/200x200bb.jpg" />
+                <img alt="" loading="lazy" decoding="async" class="size-24 shrink-0 rounded-2xl object-cover sm:size-32" src="https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/32/2c/f3/322cf324-9ea1-3962-865a-f4f9bf83764d/888880191069.jpg/200x200bb.jpg" />
+                <img alt="" loading="lazy" decoding="async" class="size-24 shrink-0 rounded-2xl object-cover sm:size-32" src="https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/67/10/6b/67106b63-8edc-ef66-78f2-ad85b275074f/06UMGIM28735.rgb.jpg/200x200bb.jpg" />
+                <img alt="" loading="lazy" decoding="async" class="size-24 shrink-0 rounded-2xl object-cover sm:size-32" src="https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/7d/ed/64/7ded648b-39e1-d245-b219-5eaf5e08955e/00724383115853.rgb.jpg/200x200bb.jpg" />
+                <img alt="" loading="lazy" decoding="async" class="size-24 shrink-0 rounded-2xl object-cover sm:size-32" src="https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/f5/93/8c/f5938c49-964c-31d1-4b33-78b634f71fb7/190295978075.jpg/200x200bb.jpg" />
+                <img alt="" loading="lazy" decoding="async" class="size-24 shrink-0 rounded-2xl object-cover sm:size-32" src="https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/7d/ed/64/7ded648b-39e1-d245-b219-5eaf5e08955e/00724383115853.rgb.jpg/200x200bb.jpg" />
+                <img alt="" loading="lazy" decoding="async" class="size-24 shrink-0 rounded-2xl object-cover sm:size-32" src="https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/f5/93/8c/f5938c49-964c-31d1-4b33-78b634f71fb7/190295978075.jpg/200x200bb.jpg" />
+                <img alt="" loading="lazy" decoding="async" class="size-24 shrink-0 rounded-2xl object-cover sm:size-32" src="https://is1-ssl.mzstatic.com/image/thumb/Music/y2005/m06/d13/h10/s05.fvdzfulz.jpg/200x200bb.jpg" />
+                <img alt="" loading="lazy" decoding="async" class="size-24 shrink-0 rounded-2xl object-cover sm:size-32" src="https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/15/e6/e8/15e6e8a4-4190-6a8b-86c3-ab4a51b88288/190295851286.jpg/200x200bb.jpg" />
+                <img alt="" loading="lazy" decoding="async" class="size-24 shrink-0 rounded-2xl object-cover sm:size-32" src="https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/38/be/7d/38be7dfb-96f6-0dd1-845b-e0f8f10c3fa0/00602527884615.rgb.jpg/200x200bb.jpg" />
+                <img alt="" loading="lazy" decoding="async" class="size-24 shrink-0 rounded-2xl object-cover sm:size-32" src="https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/86/98/7d/86987d9d-320b-0246-4f4e-343b32056b8d/mzi.qmnpjmnr.jpg/200x200bb.jpg" />
+                <img alt="" loading="lazy" decoding="async" class="size-24 shrink-0 rounded-2xl object-cover sm:size-32" src="https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/32/2c/f3/322cf324-9ea1-3962-865a-f4f9bf83764d/888880191069.jpg/200x200bb.jpg" />
+                <img alt="" loading="lazy" decoding="async" class="size-24 shrink-0 rounded-2xl object-cover sm:size-32" src="https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/67/10/6b/67106b63-8edc-ef66-78f2-ad85b275074f/06UMGIM28735.rgb.jpg/200x200bb.jpg" />
+                <img alt="" loading="lazy" decoding="async" class="size-24 shrink-0 rounded-2xl object-cover sm:size-32" src="https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/7d/ed/64/7ded648b-39e1-d245-b219-5eaf5e08955e/00724383115853.rgb.jpg/200x200bb.jpg" />
+                <img alt="" loading="lazy" decoding="async" class="size-24 shrink-0 rounded-2xl object-cover sm:size-32" src="https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/f5/93/8c/f5938c49-964c-31d1-4b33-78b634f71fb7/190295978075.jpg/200x200bb.jpg" />
+            </div>
+            <div class="la-wall-row flex w-max gap-4 sm:gap-5 ">
+                <img alt="" loading="lazy" decoding="async" class="size-24 shrink-0 rounded-2xl object-cover sm:size-32" src="https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/15/e6/e8/15e6e8a4-4190-6a8b-86c3-ab4a51b88288/190295851286.jpg/200x200bb.jpg" />
+                <img alt="" loading="lazy" decoding="async" class="size-24 shrink-0 rounded-2xl object-cover sm:size-32" src="https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/38/be/7d/38be7dfb-96f6-0dd1-845b-e0f8f10c3fa0/00602527884615.rgb.jpg/200x200bb.jpg" />
+                <img alt="" loading="lazy" decoding="async" class="size-24 shrink-0 rounded-2xl object-cover sm:size-32" src="https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/86/98/7d/86987d9d-320b-0246-4f4e-343b32056b8d/mzi.qmnpjmnr.jpg/200x200bb.jpg" />
+                <img alt="" loading="lazy" decoding="async" class="size-24 shrink-0 rounded-2xl object-cover sm:size-32" src="https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/32/2c/f3/322cf324-9ea1-3962-865a-f4f9bf83764d/888880191069.jpg/200x200bb.jpg" />
+                <img alt="" loading="lazy" decoding="async" class="size-24 shrink-0 rounded-2xl object-cover sm:size-32" src="https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/67/10/6b/67106b63-8edc-ef66-78f2-ad85b275074f/06UMGIM28735.rgb.jpg/200x200bb.jpg" />
+                <img alt="" loading="lazy" decoding="async" class="size-24 shrink-0 rounded-2xl object-cover sm:size-32" src="https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/7d/ed/64/7ded648b-39e1-d245-b219-5eaf5e08955e/00724383115853.rgb.jpg/200x200bb.jpg" />
+                <img alt="" loading="lazy" decoding="async" class="size-24 shrink-0 rounded-2xl object-cover sm:size-32" src="https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/f5/93/8c/f5938c49-964c-31d1-4b33-78b634f71fb7/190295978075.jpg/200x200bb.jpg" />
+                <img alt="" loading="lazy" decoding="async" class="size-24 shrink-0 rounded-2xl object-cover sm:size-32" src="https://is1-ssl.mzstatic.com/image/thumb/Music/y2005/m06/d13/h10/s05.fvdzfulz.jpg/200x200bb.jpg" />
+                <img alt="" loading="lazy" decoding="async" class="size-24 shrink-0 rounded-2xl object-cover sm:size-32" src="https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/15/e6/e8/15e6e8a4-4190-6a8b-86c3-ab4a51b88288/190295851286.jpg/200x200bb.jpg" />
+                <img alt="" loading="lazy" decoding="async" class="size-24 shrink-0 rounded-2xl object-cover sm:size-32" src="https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/38/be/7d/38be7dfb-96f6-0dd1-845b-e0f8f10c3fa0/00602527884615.rgb.jpg/200x200bb.jpg" />
+                <img alt="" loading="lazy" decoding="async" class="size-24 shrink-0 rounded-2xl object-cover sm:size-32" src="https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/15/e6/e8/15e6e8a4-4190-6a8b-86c3-ab4a51b88288/190295851286.jpg/200x200bb.jpg" />
+                <img alt="" loading="lazy" decoding="async" class="size-24 shrink-0 rounded-2xl object-cover sm:size-32" src="https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/38/be/7d/38be7dfb-96f6-0dd1-845b-e0f8f10c3fa0/00602527884615.rgb.jpg/200x200bb.jpg" />
+                <img alt="" loading="lazy" decoding="async" class="size-24 shrink-0 rounded-2xl object-cover sm:size-32" src="https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/86/98/7d/86987d9d-320b-0246-4f4e-343b32056b8d/mzi.qmnpjmnr.jpg/200x200bb.jpg" />
+                <img alt="" loading="lazy" decoding="async" class="size-24 shrink-0 rounded-2xl object-cover sm:size-32" src="https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/32/2c/f3/322cf324-9ea1-3962-865a-f4f9bf83764d/888880191069.jpg/200x200bb.jpg" />
+                <img alt="" loading="lazy" decoding="async" class="size-24 shrink-0 rounded-2xl object-cover sm:size-32" src="https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/67/10/6b/67106b63-8edc-ef66-78f2-ad85b275074f/06UMGIM28735.rgb.jpg/200x200bb.jpg" />
+                <img alt="" loading="lazy" decoding="async" class="size-24 shrink-0 rounded-2xl object-cover sm:size-32" src="https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/7d/ed/64/7ded648b-39e1-d245-b219-5eaf5e08955e/00724383115853.rgb.jpg/200x200bb.jpg" />
+                <img alt="" loading="lazy" decoding="async" class="size-24 shrink-0 rounded-2xl object-cover sm:size-32" src="https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/f5/93/8c/f5938c49-964c-31d1-4b33-78b634f71fb7/190295978075.jpg/200x200bb.jpg" />
+                <img alt="" loading="lazy" decoding="async" class="size-24 shrink-0 rounded-2xl object-cover sm:size-32" src="https://is1-ssl.mzstatic.com/image/thumb/Music/y2005/m06/d13/h10/s05.fvdzfulz.jpg/200x200bb.jpg" />
+                <img alt="" loading="lazy" decoding="async" class="size-24 shrink-0 rounded-2xl object-cover sm:size-32" src="https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/15/e6/e8/15e6e8a4-4190-6a8b-86c3-ab4a51b88288/190295851286.jpg/200x200bb.jpg" />
+                <img alt="" loading="lazy" decoding="async" class="size-24 shrink-0 rounded-2xl object-cover sm:size-32" src="https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/38/be/7d/38be7dfb-96f6-0dd1-845b-e0f8f10c3fa0/00602527884615.rgb.jpg/200x200bb.jpg" />
+            </div>
+        </div>
+      </div>
+    <div class="absolute inset-0 bg-gradient-to-r from-brand-deep via-brand-deep/75 to-brand-deep/35"></div>
+    <div class="absolute inset-0 bg-gradient-to-t from-brand-deep/80 via-transparent to-brand-deep/40"></div>
+
+    <div class="la-record absolute left-1/2 top-[16%] aspect-square w-[40%] -translate-x-[70%] sm:left-auto sm:right-[10%] sm:top-[45%] sm:h-[72%] sm:w-auto sm:translate-x-0 sm:-translate-y-1/2">
+        <div class="la-vinyl absolute inset-[3%] rounded-full" aria-hidden="true">
+          <div class="la-vinyl-disc absolute inset-0 rounded-full">
+            <span class="la-cover relative block overflow-hidden absolute! inset-[31%] rounded-full" style="--la-cover-angle: 90deg" data-controller="cover" data-loading="">
+  
+  <img src="https://cadena-high-volume.b-cdn.net/xnwgqc9a3feui6q5nk84vyfe0fjp" alt="" loading="lazy" class="absolute inset-0 size-full object-cover" data-action="load-&gt;cover#reveal error-&gt;cover#fail" data-cover-target="image">
+</span>
+            <span class="absolute left-1/2 top-1/2 size-[5%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-neutral-950 ring-1 ring-white/20"></span>
+          </div>
+          <span class="la-vinyl-sheen absolute inset-0 rounded-full"></span>
+        </div>
+      <span class="la-cover relative block overflow-hidden absolute! inset-0 rounded-[1.5rem] shadow-[0_30px_60px_-20px_rgb(0_0_0/0.8)] ring-1 ring-white/15 lg:rounded-[2rem]" style="--la-cover-angle: 328deg" data-controller="cover" data-loading="">
+  
+  <img src="https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/86/98/7d/86987d9d-320b-0246-4f4e-343b32056b8d/mzi.qmnpjmnr.jpg/600x600bb.jpg" alt="" loading="lazy" class="absolute inset-0 size-full object-cover" data-action="load-&gt;cover#reveal error-&gt;cover#fail" data-cover-target="image" data-fallback="https://cadena-high-volume.b-cdn.net/9brfwyov8h89jx7ooh7rd3fe8fum" data-now-playing-target="artwork">
+</span>
+    </div>
+  </div>
+
+  
+
+  <div class="la-scrim pointer-events-none absolute inset-0"></div>
+  <div class="la-spot pointer-events-none absolute inset-0 z-10 opacity-0 transition-opacity duration-500 group-hover/card:opacity-100"></div>
+
+  <div class="la-rise pointer-events-none absolute inset-x-4 top-4 z-20 flex items-start justify-between gap-3 sm:inset-x-6 sm:top-6" style="--d: 120ms">
+    <div class="inline-flex h-10 shrink-0 items-center rounded-full bg-black/30 p-1 ring-1 ring-white/12 shadow-[inset_0_1px_0_rgb(255_255_255/0.08),0_10px_24px_-14px_rgb(0_0_0/0.6)]">
+      <span class="inline-flex h-8 items-center gap-2 whitespace-nowrap rounded-full bg-gradient-to-b from-red-500 to-red-600 pl-3 pr-3.5 text-[0.7rem] font-extrabold uppercase tracking-[0.16em] text-white shadow-[inset_0_1px_0_rgb(255_255_255/0.28),0_6px_16px_-6px_rgb(220_38_38/0.9)]">
+        <span class="relative flex size-2">
+          <span class="la-ripple absolute inset-0 rounded-full bg-white"></span>
+          <span class="relative size-2 rounded-full bg-white"></span>
+        </span>Ao vivo
+      </span>
+        <span class="grid grid-cols-[0fr] opacity-0 transition-[grid-template-columns,opacity] duration-500 ease-[cubic-bezier(0.2,0.8,0.2,1)] group-hover/card:grid-cols-[1fr] group-hover/card:opacity-100">
+          <span class="overflow-hidden">
+            <span class="block whitespace-nowrap pl-2.5 pr-3 text-[0.85rem] font-semibold tabular-nums tracking-wide text-white/90">00:00<span class="mx-1.5 text-white/40">–</span>21:00</span>
+          </span>
+        </span>
+    </div>
+  </div>
+
+  <div class="la-stage-info absolute inset-x-0 bottom-0 z-20 px-5 pb-16 sm:px-8 sm:pb-20 lg:px-12 lg:pb-24 sm:live-audio:top-0 sm:live-audio:flex sm:live-audio:max-w-[56%] sm:live-audio:flex-col sm:live-audio:items-start sm:live-audio:justify-center sm:live-audio:pt-20">
+    <p class="la-eyebrow la-rise text-highlight" style="--d: 220ms">No ar agora</p>
+    <h1 style="--d: 300ms" class="la-rise la-display-wide mt-2 max-w-3xl text-[clamp(1.75rem,4.4vw,4.25rem)] font-black leading-[0.95] text-white text-balance live-video:max-w-xl live-video:text-[clamp(1.2rem,2vw,2rem)] live-video:leading-[1.05]"
+        data-now-playing-target="program">Limeira FM</h1>
+      <div style="--d: 360ms" class="la-rise la-peek relative mt-4 hidden w-full max-w-xl text-base leading-relaxed sm:block sm:live-video:hidden lg:text-[1.05rem]"
+           tabindex="0" data-controller="peek">
+        <p class="la-peek-text" data-peek-target="text">Os maiores sucessos de todos os tempos na programação da Limeira FM.</p>
+      </div>
+
+      <span hidden="hidden" data-controller="on-air-clock" data-on-air-clock-starts-at-value="1793847600000" data-on-air-clock-ends-at-value="1793923200000"></span>
+        <div class="la-rise mt-5 inline-flex max-w-full items-center live-video:mt-2" style="--d: 420ms">
+          <span class="la-host-ring relative z-10 shrink-0 rounded-full p-[3px]">
+            <span class="la-cover relative block overflow-hidden size-18 rounded-full ring-2 ring-black/40 max-sm:live-video:size-14" style="--la-cover-angle: 318deg" data-controller="cover" data-loading="">
+  
+              <span class="absolute inset-0 grid place-items-center text-lg font-bold text-white">AM</span>
+
+  <img src="https://cadena-high-volume.b-cdn.net/9vj1hcitjgx7cnw0mfs3mglvru4i" alt="" loading="lazy" class="absolute inset-0 size-full object-cover" data-action="load-&gt;cover#reveal error-&gt;cover#fail" data-cover-target="image" data-fallback="">
+</span>          </span>
+          <span class="la-card-glass -ml-8 flex h-11 min-w-0 items-center rounded-full pl-11 pr-5 max-sm:live-video:-ml-6 max-sm:live-video:h-10 max-sm:live-video:pl-9">
+            <span class="truncate text-[0.95rem] text-white/65">
+              com <b class="font-semibold text-white" data-now-playing-target="speaker">A Melhor Programação Musical</b>
+            </span>
+          </span>
+        </div>
+  </div>
+</div>
+
+      <div style="--d: 520ms" class="la-glass la-rise relative z-30 mx-auto -mt-10 flex w-[calc(100%-1.5rem)] max-w-[50rem] xl:max-w-[53.5rem] items-center gap-4 rounded-full p-1.5 pr-4 text-stage-ink sm:pr-8 lg:-mt-11 la-magnify la-player-bar live-video:max-w-[59rem] xl:live-video:max-w-[63.5rem] live-video:pr-2 sm:live-video:pr-2">
+  <button type="button"
+          class="la-halo relative grid size-16 shrink-0 place-items-center rounded-full bg-highlight text-on-highlight shadow-[0_10px_24px_-10px_rgb(0_0_0/0.7)] transition duration-300 hover:scale-105 active:scale-95 sm:size-[4.25rem]"
+          data-action="live-player#toggle">
+    <span class="la-glyph grid size-9" aria-hidden="true">
+  <svg class="la-glyph-play size-full" aria-hidden="true"><use href="#la-icon-play" /></svg>
+  <svg class="la-glyph-spin size-full" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-dasharray="34 100" /></svg>
+  <svg class="la-glyph-pause size-full" aria-hidden="true"><use href="#la-icon-pause" /></svg>
+</span>
+
+    <span class="sr-only playing:hidden">Ouvir ao vivo</span>
+    <span class="sr-only hidden playing:inline">Pausar</span>
+  </button>
+
+    <span class="la-cover relative block overflow-hidden la-magnify-cover size-12 shrink-0 rounded-xl shadow-[0_8px_18px_-8px_rgb(0_0_0/0.7)] ring-1 ring-white/15 sm:size-[3.25rem]" style="--la-cover-angle: 328deg" data-controller="cover" data-loading="">
+  
+  <img src="https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/86/98/7d/86987d9d-320b-0246-4f4e-343b32056b8d/mzi.qmnpjmnr.jpg/600x600bb.jpg" alt="" loading="lazy" class="absolute inset-0 size-full object-cover" data-action="load-&gt;cover#reveal error-&gt;cover#fail" data-cover-target="image" data-now-playing-target="artwork">
+</span>
+
+    <span class="hidden min-w-0 flex-1 gap-1.5 leading-tight on-ad:grid ">
+  <span class="la-eyebrow inline-flex items-center gap-1.5 text-[0.62rem] text-highlight">
+    <svg class="size-3.5" aria-hidden="true"><use href="#la-icon-megaphone" /></svg>
+    Publicidade
+  </span>
+  <b class="truncate text-[1.05rem] font-bold">
+    Ao vivo em <span class="tabular-nums" data-live-player-target="adLeft">0:00</span>
+  </b>
+  <span class="la-ad-progress block h-1 overflow-hidden rounded-full bg-white/15" aria-hidden="true"><span class="block h-full rounded-full bg-highlight"></span></span>
+</span>
+
+    <span class="min-w-0 flex-1 leading-tight on-ad:hidden">
+      <span class="flex min-w-0 items-center gap-2">
+        <span class="la-eq shrink-0 text-highlight" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
+        <span class="la-marquee min-w-0 flex-1 airing-show:hidden" data-controller="marquee">
+          <span class="text-[1.05rem] font-bold" data-marquee-target="text" data-now-playing-target="song">The Sun Always Shines On TV (2016 Remastered)</span>
+        </span>
+        <span class="la-marquee hidden min-w-0 flex-1 airing-show:block" data-controller="marquee">
+          <span class="text-[1.05rem] font-bold" data-marquee-target="text" data-now-playing-target="program">Limeira FM</span>
+        </span>
+      </span>
+      <span class="la-marquee mt-0.5 block airing-show:hidden" data-controller="marquee">
+        <span class="text-sm text-stage-muted" data-marquee-target="text" data-now-playing-target="artist">a-ha</span>
+      </span>
+      <span class="mt-0.5 hidden truncate text-sm text-stage-muted airing-show:block">
+          com <b class="font-semibold text-stage-ink" data-now-playing-target="speaker">A Melhor Programação Musical</b>
+      </span>
+      <span class="sr-only connecting:hidden">Tocando agora</span>
+      <span class="sr-only hidden connecting:inline">Conectando…</span>
+    </span>
+
+    <span class="la-vote shrink-0 items-center gap-1.5" role="group" aria-label="Você curte esta música?" data-controller="song-vote" data-action="song-vote:changed@window-&gt;song-vote#show" data-song-vote-url-value="/song-likes" data-song-vote-slug-value="limeirafm" data-song-vote-stream-value="Im5vYXJfY2hhbm5lbF9saW1laXJhZm0i--dad16a992c4c2db7d3cd3e99463bb2dba6adac92fd5239fe3b5e0eff2c7ed129" data-song-vote-song-value="The Sun Always Shines On TV (2016 Remastered)" data-song-vote-artist-value="a-ha" data-song-vote-vote-value="">
+    <button type="button" class="la-press la-vote-button relative grid size-11 place-items-center rounded-full" title="Curti" aria-pressed="false" data-song-vote-target="button" data-vote="like" data-action="song-vote#cast animationend-&gt;song-vote#settle">
+      <svg class="size-[1.15rem]" aria-hidden="true"><use href="#la-icon-thumb-up" /></svg>
+      <span class="sr-only">Curti</span>
+</button>    <button type="button" class="la-press la-vote-button relative grid size-11 place-items-center rounded-full" title="Não curti" aria-pressed="false" data-song-vote-target="button" data-vote="dislike" data-action="song-vote#cast animationend-&gt;song-vote#settle">
+      <svg class="size-[1.15rem]" aria-hidden="true"><use href="#la-icon-thumb-down" /></svg>
+      <span class="sr-only">Não curti</span>
+</button></span>
+
+    <button type="button" class="la-press la-glass-clear hidden h-10 shrink-0 items-center gap-2 rounded-full pl-3 pr-4 text-sm font-bold text-stage-ink transition hover:scale-105 on-demand:inline-flex"
+            data-controller="episode-timeline" data-action="episode-timeline#live">
+      <svg class="size-[1.1rem] text-highlight" aria-hidden="true"><use href="#la-icon-live-waves" /></svg>Voltar à rádio
+    </button>
+    <span class="la-bar-heard pointer-events-none absolute inset-x-8 bottom-0 hidden h-[3px] overflow-hidden rounded-full on-demand:block" aria-hidden="true"
+          data-controller="episode-timeline"></span>
+
+    <div class="hidden shrink-0 sm:block">
+      <div class="group/vol la-volume inline-flex items-center gap-0.5"
+     data-controller="volume" data-action="transitionend->volume#settle">
+  <button type="button" class="la-volume-icon grid size-9 shrink-0 place-items-center rounded-full transition duration-200 hover:scale-110" data-action="volume#toggleMute">
+    <span class="grid size-[1.4rem] *:col-start-1 *:row-start-1 *:size-full">
+      <svg class="size-5" aria-hidden="true"><use href="#la-icon-speaker-body" /></svg>
+      <svg class="la-volume-wave" aria-hidden="true"><use href="#la-icon-speaker-wave-near" /></svg>
+      <svg class="la-volume-wave la-volume-wave-far" aria-hidden="true"><use href="#la-icon-speaker-wave-far" /></svg>
+      <svg class="la-volume-cross" aria-hidden="true"><use href="#la-icon-speaker-cross" /></svg>
+    </span>
+    <span class="sr-only">Silenciar ou devolver o som</span>
+  </button>
+
+  <div class="relative flex h-7 items-center w-24 lg:w-28">
+    <span class="la-volume-track relative block h-1.5 w-full overflow-hidden rounded-full group-hover/vol:h-3.5">
+      <span class="la-volume-fill absolute inset-0" data-volume-target="fill"></span>
+    </span>
+    <span class="la-volume-level pointer-events-none absolute inset-y-0 left-2 right-2">
+      <span class="la-volume-knob absolute right-0 top-1/2 size-4 rounded-full bg-white"></span>
+    </span>
+    <label class="sr-only" for="listener-app-stage-volume">Volume</label>
+    <input id="listener-app-stage-volume" type="range" min="0" max="100" step="1" value="100" autocomplete="off"
+           class="absolute inset-0 size-full cursor-pointer opacity-0" data-volume-target="input" data-action="input->volume#change">
+  </div>
+</div>
+
+    </div>
+
+    <span class="invisible grid shrink-0 grid-cols-[0fr] opacity-0 transition-[grid-template-columns,opacity,visibility] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] live-video:visible live-video:grid-cols-[1fr] live-video:opacity-100">
+      <span class="overflow-hidden p-1">
+        <button type="button" class="la-glass-clear grid size-12 place-items-center rounded-full text-stage-ink transition duration-300 hover:scale-105 active:scale-95"
+                data-action="live-remote#fullscreen" title="Tela cheia">
+          <svg class="size-5" aria-hidden="true"><use href="#la-icon-fullscreen" /></svg>
+          <span class="sr-only">Tela cheia</span>
+        </button>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </div>
+</section>
+
+</turbo-frame>
+
+<div class="relative">
+  <div class="la-ambient pointer-events-none absolute inset-0 -z-10 overflow-hidden" aria-hidden="true">
+    <div class="la-ambient-dots absolute inset-0"></div>
+      <svg class="la-ambient-rings absolute size-[46rem] -right-[22rem] top-[12%]" viewBox="0 0 800 800" fill="none">
+          <circle cx="400" cy="400" r="60" stroke="currentColor" stroke-width="1" />
+          <circle cx="400" cy="400" r="120" stroke="currentColor" stroke-width="1" />
+          <circle cx="400" cy="400" r="180" stroke="currentColor" stroke-width="1" />
+          <circle cx="400" cy="400" r="240" stroke="currentColor" stroke-width="1" />
+          <circle cx="400" cy="400" r="300" stroke="currentColor" stroke-width="1" />
+          <circle cx="400" cy="400" r="360" stroke="currentColor" stroke-width="1" />
+      </svg>
+      <svg class="la-ambient-rings absolute size-[46rem] -left-[24rem] top-[60%]" viewBox="0 0 800 800" fill="none">
+          <circle cx="400" cy="400" r="60" stroke="currentColor" stroke-width="1" />
+          <circle cx="400" cy="400" r="120" stroke="currentColor" stroke-width="1" />
+          <circle cx="400" cy="400" r="180" stroke="currentColor" stroke-width="1" />
+          <circle cx="400" cy="400" r="240" stroke="currentColor" stroke-width="1" />
+          <circle cx="400" cy="400" r="300" stroke="currentColor" stroke-width="1" />
+          <circle cx="400" cy="400" r="360" stroke="currentColor" stroke-width="1" />
+      </svg>
+    <div class="la-ambient-rails absolute inset-y-0 left-1/2 hidden w-full max-w-page -translate-x-1/2 lg:block"></div>
+  </div>
+  
+  <div class="mx-auto max-w-page px-4 sm:px-8 lg:px-12">
+        
+
+      <section id="schedule" class="group/rail la-reveal la-reveal-first pt-14 lg:pt-16" aria-labelledby="listener-app-grade"
+         data-controller="rail" data-action="load@window->rail#focusCurrent">
+  <div class="mb-7 flex items-end justify-between gap-4 lg:mb-8">
+  <div class="min-w-0">
+      <p class="la-eyebrow mb-2.5 inline-flex items-center gap-2.5 text-accent">
+          <span class="grid size-7 place-items-center rounded-full bg-accent/10 ring-1 ring-accent/15"><svg class="size-[0.95rem]" aria-hidden="true"><use href="#la-icon-calendar" /></svg></span>
+        Programação
+      </p>
+    <h2 id="listener-app-grade" class="la-display text-[clamp(1.65rem,2.4vw,2.6rem)] font-extrabold leading-[1.05]">Hoje na rádio</h2>
+  </div>
+        <div class="flex shrink-0 items-center gap-3">
+        <button type="button" data-action="rail#recenter"
+                class="la-press la-light-button pointer-events-none inline-flex h-11 translate-x-2 items-center gap-2 rounded-full pl-4 pr-5 text-sm font-bold opacity-0 transition duration-300 group-data-[away]/rail:pointer-events-auto group-data-[away]/rail:translate-x-0 group-data-[away]/rail:opacity-100">
+          <span class="la-pulse size-1.5 rounded-full bg-highlight"></span>Agora
+        </button>
+        <div class="hidden shrink-0 gap-2 sm:flex">
+  <button type="button" class="la-press la-light-button grid size-11 place-items-center rounded-full" data-action="rail#back">
+    <svg class="size-5 rotate-180" aria-hidden="true"><use href="#la-icon-arrow" /></svg>
+    <span class="sr-only">Voltar</span>
+  </button>
+  <button type="button" class="la-press la-light-button grid size-11 place-items-center rounded-full" data-action="rail#forward">
+    <svg class="size-5" aria-hidden="true"><use href="#la-icon-arrow" /></svg>
+    <span class="sr-only">Avançar</span>
+  </button>
+</div>
+
+      </div>
+
+</div>
+
+  <ol class="la-rail la-rail-fade la-grab relative -mx-4 flex overflow-x-auto px-4 pb-10 pt-1 sm:-mx-6 sm:px-6"
+      data-rail-target="track"
+      data-action="pointerdown->rail#grab pointermove->rail#move pointerup->rail#release pointercancel->rail#release scroll->rail#watch">
+      <li class="group/slot la-rise relative flex w-72 shrink-0 flex-col pr-4 xl:w-80" style="--d: 0ms" data-stand="on_air" data-rail-target="current" data-controller="on-air-clock" data-on-air-clock-starts-at-value="1793847600000" data-on-air-clock-ends-at-value="1793923200000">
+  <p class="flex items-baseline gap-2 pl-0.5 tabular-nums">
+    <span class="la-display text-xl font-extrabold tracking-tight text-accent">00:00</span>
+    <span class="text-sm font-medium text-muted">– 21:00</span>
+  </p>
+  <div class="relative my-3 h-4" aria-hidden="true">
+    <span class="absolute -right-4 left-0 top-1/2 h-0.5 -translate-y-1/2 bg-line"></span>
+      <span class="absolute -right-4 left-2.5 top-1/2 h-0.5 -translate-y-1/2">
+        <span class="absolute inset-y-0 left-0 rounded-full bg-accent/60" style="width: 46%" data-on-air-clock-target="bar">
+          <span class="absolute right-0 top-1/2 grid size-4 -translate-y-1/2 translate-x-1/2 place-items-center">
+            <span class="la-ripple absolute inset-0 rounded-full bg-highlight"></span>
+            <span class="relative size-4 rounded-full bg-highlight ring-4 ring-canvas"></span>
+          </span>
+        </span>
+      </span>
+  </div>
+
+  <div class="relative isolate flex flex-1 items-center gap-3.5 rounded-2xl p-3 la-liquid-panel la-liquid-brand text-stage-ink">
+    <span class="la-cover relative block overflow-hidden la-cover-lift size-16 shrink-0 rounded-xl ring-1 shadow-[0_10px_20px_-12px_rgb(0_0_0/0.5)] ring-white/30" style="--la-cover-angle: 90deg" data-controller="cover" data-loading="">
+  
+  <img src="https://cadena-high-volume.b-cdn.net/28uvtpcfl04wb4otyemexg7sn467" alt="" loading="lazy" class="absolute inset-0 size-full object-cover" data-action="load-&gt;cover#reveal error-&gt;cover#fail" data-cover-target="image">
+</span>
+    <div class="min-w-0">
+        <span class="la-eyebrow mb-1 inline-flex items-center gap-1.5 text-[0.6rem] text-highlight">
+          <span class="la-pulse size-1.5 rounded-full bg-current"></span>No ar
+        </span>
+      <b class="la-display line-clamp-2 block text-[0.95rem] font-extrabold leading-tight">Limeira FM</b>
+        <span class="mt-1 block truncate text-sm text-stage-muted">com <b class="font-semibold">A Melhor Programação Musical</b></span>
+    </div>
+  </div>
+</li>
+      <li class="group/slot la-rise relative flex w-72 shrink-0 flex-col pr-4 xl:w-80" style="--d: 60ms" data-stand="waiting">
+  <p class="flex items-baseline gap-2 pl-0.5 tabular-nums">
+    <span class="la-display text-xl font-extrabold tracking-tight text-ink">21:00</span>
+    <span class="text-sm font-medium text-muted">– 22:00</span>
+  </p>
+  <div class="relative my-3 h-4" aria-hidden="true">
+    <span class="absolute -right-4 left-0 top-1/2 h-0.5 -translate-y-1/2 bg-line"></span>
+      <span class="absolute left-0.5 top-1/2 size-4 -translate-y-1/2 rounded-full bg-line ring-4 ring-canvas"></span>
+  </div>
+
+  <div class="relative isolate flex flex-1 items-center gap-3.5 rounded-2xl p-3 transition-colors duration-300 hover:bg-white/55">
+    <span class="la-cover relative block overflow-hidden la-cover-lift size-16 shrink-0 rounded-xl ring-1 shadow-[0_10px_20px_-12px_rgb(0_0_0/0.5)] ring-black/5" style="--la-cover-angle: 9deg" data-controller="cover" data-loading="">
+  
+  <img src="https://cadena-high-volume.b-cdn.net/o9g2uebz3tl7juid1c9dv5fzpgij" alt="" loading="lazy" class="absolute inset-0 size-full object-cover" data-action="load-&gt;cover#reveal error-&gt;cover#fail" data-cover-target="image">
+</span>
+    <div class="min-w-0">
+      <b class="la-display line-clamp-2 block text-[0.95rem] font-extrabold leading-tight">A Voz do Brasil</b>
+        <span class="mt-1 block truncate text-sm text-muted">com <b class="font-semibold">As Notícias do Brasil</b></span>
+    </div>
+  </div>
+</li>
+      <li class="group/slot la-rise relative flex w-72 shrink-0 flex-col pr-4 xl:w-80" style="--d: 120ms" data-stand="waiting">
+  <p class="flex items-baseline gap-2 pl-0.5 tabular-nums">
+    <span class="la-display text-xl font-extrabold tracking-tight text-ink">22:00</span>
+    <span class="text-sm font-medium text-muted">– 00:00</span>
+  </p>
+  <div class="relative my-3 h-4" aria-hidden="true">
+    <span class="absolute -right-4 left-0 top-1/2 h-0.5 -translate-y-1/2 bg-line"></span>
+      <span class="absolute left-0.5 top-1/2 size-4 -translate-y-1/2 rounded-full bg-line ring-4 ring-canvas"></span>
+  </div>
+
+  <div class="relative isolate flex flex-1 items-center gap-3.5 rounded-2xl p-3 transition-colors duration-300 hover:bg-white/55">
+    <span class="la-cover relative block overflow-hidden la-cover-lift size-16 shrink-0 rounded-xl ring-1 shadow-[0_10px_20px_-12px_rgb(0_0_0/0.5)] ring-black/5" style="--la-cover-angle: 150deg" data-controller="cover" data-loading="">
+  
+  <img src="https://cadena-high-volume.b-cdn.net/lnwz5ixi2vvu9rsnktgmso9qmsob" alt="" loading="lazy" class="absolute inset-0 size-full object-cover" data-action="load-&gt;cover#reveal error-&gt;cover#fail" data-cover-target="image">
+</span>
+    <div class="min-w-0">
+      <b class="la-display line-clamp-2 block text-[0.95rem] font-extrabold leading-tight">106,9 MHz - Limeira FM</b>
+        <span class="mt-1 block truncate text-sm text-muted">com <b class="font-semibold">A Melhor Programação Musical</b></span>
+    </div>
+  </div>
+</li>
+  </ol>
+  <div class="-mt-8"><div class="relative mt-12 flex justify-center">
+  <a href="/schedule" class="la-light-button group/more inline-flex h-11 shrink-0 items-center gap-1.5 rounded-full border border-transparent pl-5 pr-4 text-sm font-bold text-accent transition">
+    Programação completa<svg class="size-4 transition-transform duration-300 group-hover/more:translate-x-0.5" aria-hidden="true"><use href="#la-icon-chevron" /></svg>
+  </a>
+</div>
+</div>
+</section>
+
+
+      <turbo-cable-stream-source channel="Turbo::StreamsChannel" signed-stream-name="Imxpc3RlbmVyX2FwcF9wbGF5ZWQ6MTcwIg==--cab7a4b83f6811df5e02bbdd423d4ef73c7fd4205c61c1a5932d712d186aa0d8"></turbo-cable-stream-source>
+<div id="listener-app-played">
+  <section id="played" class="la-reveal pt-16 lg:pt-20" aria-labelledby="listener-app-played" data-controller="rail">
+  <div class="mb-7 flex items-end justify-between gap-4 lg:mb-8">
+  <div class="min-w-0">
+      <p class="la-eyebrow mb-2.5 inline-flex items-center gap-2.5 text-accent">
+          <span class="grid size-7 place-items-center rounded-full bg-accent/10 ring-1 ring-accent/15"><svg class="size-[0.95rem]" aria-hidden="true"><use href="#la-icon-music" /></svg></span>
+        Música
+      </p>
+    <h2 id="listener-app-played" class="la-display text-[clamp(1.65rem,2.4vw,2.6rem)] font-extrabold leading-[1.05]">Tocou agora</h2>
+  </div>
+        <div class="flex shrink-0 items-center gap-3">
+          <div class="hidden shrink-0 gap-2 sm:flex">
+  <button type="button" class="la-press la-light-button grid size-11 place-items-center rounded-full" data-action="rail#back">
+    <svg class="size-5 rotate-180" aria-hidden="true"><use href="#la-icon-arrow" /></svg>
+    <span class="sr-only">Voltar</span>
+  </button>
+  <button type="button" class="la-press la-light-button grid size-11 place-items-center rounded-full" data-action="rail#forward">
+    <svg class="size-5" aria-hidden="true"><use href="#la-icon-arrow" /></svg>
+    <span class="sr-only">Avançar</span>
+  </button>
+</div>
+
+      </div>
+
+</div>
+
+  <ol class="la-rail la-grab la-rail-fade relative -mx-4 flex gap-6 overflow-x-auto px-4 pb-10 pt-1 sm:-mx-8 sm:px-8"
+      style="--la-across: 6" data-rail-target="track"
+      data-action="pointerdown->rail#grab pointermove->rail#move pointerup->rail#release pointercancel->rail#release click->rail#swallow:capture">
+      <li class="group/song la-rise la-played-item relative flex shrink-0 flex-col" style="--d: 0ms">
+        <p class="flex items-center gap-2 text-sm tabular-nums font-bold text-accent">
+            <span class="la-eq la-eq-free text-accent" aria-hidden="true"><span></span><span></span><span></span></span>Tocando agora
+        </p>
+        <div class="relative my-3 h-4" aria-hidden="true">
+          <span class="absolute -right-6 left-0 top-1/2 h-0.5 -translate-y-1/2 bg-gradient-to-r from-accent to-line"></span>
+          <span class="absolute left-0.5 top-1/2 grid size-3.5 -translate-y-1/2 place-items-center">
+              <span class="la-ripple absolute inset-0 rounded-full bg-accent"></span>
+            <span class="relative size-3.5 rounded-full ring-4 ring-canvas bg-accent"></span>
+          </span>
+        </div>
+        <div class="relative isolate flex flex-1 flex-col gap-3">
+          <span class="la-preview la-cover-lift relative block w-full cursor-pointer text-left">
+              <img alt="" class="la-cover-halo pointer-events-none absolute inset-0 -z-10 size-full rounded-[1.2rem] object-cover" src="https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/86/98/7d/86987d9d-320b-0246-4f4e-343b32056b8d/mzi.qmnpjmnr.jpg/300x300bb.jpg" />
+              <span class="la-eyebrow absolute left-2.5 top-2.5 z-10 inline-flex items-center gap-1.5 rounded-full bg-black/45 px-2 py-0.5 text-[0.6rem] text-highlight backdrop-blur-md">
+                <span class="la-pulse size-1.5 rounded-full bg-current"></span>No ar
+              </span>
+            <span class="la-cover relative block overflow-hidden aspect-square rounded-[1.25rem] ring-2 ring-highlight shadow-[0_26px_44px_-24px_var(--la-accent)]" style="--la-cover-angle: 328deg" data-controller="cover" data-loading="">
+  
+  <img src="https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/86/98/7d/86987d9d-320b-0246-4f4e-343b32056b8d/mzi.qmnpjmnr.jpg/300x300bb.jpg" alt="" loading="lazy" class="absolute inset-0 size-full object-cover" data-action="load-&gt;cover#reveal error-&gt;cover#fail" data-cover-target="image">
+</span>
+</span>          <div class="flex items-start gap-2 px-0.5">
+            <span class="min-w-0 flex-1">
+              <b class="block truncate font-bold">The Sun Always Shines On Tv (2016 Remastered)</b>
+              <span class="block truncate text-sm text-muted">A-ha</span>
+            </span>
+              <button type="button" class="la-row-request la-row-request-hover grid size-9 shrink-0 place-items-center rounded-full" data-action="song-request#open" data-song-request-song-id-param="540828922" aria-label="Pedir The Sun Always Shines On Tv (2016 Remastered), de A-ha" title="Pedir">
+                <svg class="size-4" aria-hidden="true"><use href="#la-icon-request" /></svg>
+</button>          </div>
+        </div>
+      </li>
+      <li class="group/song la-rise la-played-item relative flex shrink-0 flex-col" style="--d: 60ms">
+        <p class="flex items-center gap-2 text-sm tabular-nums font-medium text-muted">
+            <time datetime="2026-11-05T09:44:43-03:00">há 8 min</time>
+        </p>
+        <div class="relative my-3 h-4" aria-hidden="true">
+          <span class="absolute -right-6 left-0 top-1/2 h-0.5 -translate-y-1/2 bg-line"></span>
+          <span class="absolute left-0.5 top-1/2 grid size-3.5 -translate-y-1/2 place-items-center">
+            <span class="relative size-3.5 rounded-full ring-4 ring-canvas bg-line"></span>
+          </span>
+        </div>
+        <div class="relative isolate flex flex-1 flex-col gap-3">
+          <button class="la-preview la-cover-lift relative block w-full cursor-pointer text-left" type="button" data-controller="song-preview" data-song-preview-url-value="https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/d5/82/55/d58255cd-4bd1-c339-1584-591e9d1305ee/mzaf_14546367220838781682.plus.aac.p.m4a" data-song-preview-title-value="Complicated" data-song-preview-artist-value="Avril Lavigne" data-song-preview-artwork-value="https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/32/2c/f3/322cf324-9ea1-3962-865a-f4f9bf83764d/888880191069.jpg/600x600bb.jpg" data-action="song-preview#toggle" aria-label="Ouvir a prévia de Complicated, de Avril Lavigne" aria-pressed="false">
+            <span class="la-cover relative block overflow-hidden aspect-square rounded-[1.25rem] shadow-[0_18px_34px_-22px_rgb(0_0_0/0.55)] ring-1 ring-black/5" style="--la-cover-angle: 227deg" data-controller="cover" data-loading="">
+  
+  <img src="https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/32/2c/f3/322cf324-9ea1-3962-865a-f4f9bf83764d/888880191069.jpg/300x300bb.jpg" alt="" loading="lazy" class="absolute inset-0 size-full object-cover" data-action="load-&gt;cover#reveal error-&gt;cover#fail" data-cover-target="image">
+</span>
+              <span class="la-preview-bead pointer-events-none absolute left-1/2 top-1/2 grid -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full size-12" aria-hidden="true"><svg class="la-preview-play size-[45%] translate-x-[6%]" aria-hidden="true"><use href="#la-icon-play" /></svg><svg class="la-preview-pause size-[42%]" aria-hidden="true"><use href="#la-icon-pause" /></svg></span>
+</button>          <div class="flex items-start gap-2 px-0.5">
+            <span class="min-w-0 flex-1">
+              <b class="block truncate font-bold">Complicated</b>
+              <span class="block truncate text-sm text-muted">Avril Lavigne</span>
+            </span>
+              <button type="button" class="la-row-request la-row-request-hover grid size-9 shrink-0 place-items-center rounded-full" data-action="song-request#open" data-song-request-song-id-param="297770647" aria-label="Pedir Complicated, de Avril Lavigne" title="Pedir">
+                <svg class="size-4" aria-hidden="true"><use href="#la-icon-request" /></svg>
+</button>          </div>
+        </div>
+      </li>
+      <li class="group/song la-rise la-played-item relative flex shrink-0 flex-col" style="--d: 120ms">
+        <p class="flex items-center gap-2 text-sm tabular-nums font-medium text-muted">
+            <time datetime="2026-11-05T09:36:01-03:00">há 17 min</time>
+        </p>
+        <div class="relative my-3 h-4" aria-hidden="true">
+          <span class="absolute -right-6 left-0 top-1/2 h-0.5 -translate-y-1/2 bg-line"></span>
+          <span class="absolute left-0.5 top-1/2 grid size-3.5 -translate-y-1/2 place-items-center">
+            <span class="relative size-3.5 rounded-full ring-4 ring-canvas bg-line"></span>
+          </span>
+        </div>
+        <div class="relative isolate flex flex-1 flex-col gap-3">
+          <button class="la-preview la-cover-lift relative block w-full cursor-pointer text-left" type="button" data-controller="song-preview" data-song-preview-url-value="https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/f8/c5/6b/f8c56ba6-b52a-4cce-3234-f225da838e7d/mzaf_3847569261753735800.plus.aac.p.m4a" data-song-preview-title-value="Heaven" data-song-preview-artist-value="Bryan Adams" data-song-preview-artwork-value="https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/67/10/6b/67106b63-8edc-ef66-78f2-ad85b275074f/06UMGIM28735.rgb.jpg/600x600bb.jpg" data-action="song-preview#toggle" aria-label="Ouvir a prévia de Heaven, de Bryan Adams" aria-pressed="false">
+            <span class="la-cover relative block overflow-hidden aspect-square rounded-[1.25rem] shadow-[0_18px_34px_-22px_rgb(0_0_0/0.55)] ring-1 ring-black/5" style="--la-cover-angle: 209deg" data-controller="cover" data-loading="">
+  
+  <img src="https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/67/10/6b/67106b63-8edc-ef66-78f2-ad85b275074f/06UMGIM28735.rgb.jpg/300x300bb.jpg" alt="" loading="lazy" class="absolute inset-0 size-full object-cover" data-action="load-&gt;cover#reveal error-&gt;cover#fail" data-cover-target="image">
+</span>
+              <span class="la-preview-bead pointer-events-none absolute left-1/2 top-1/2 grid -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full size-12" aria-hidden="true"><svg class="la-preview-play size-[45%] translate-x-[6%]" aria-hidden="true"><use href="#la-icon-play" /></svg><svg class="la-preview-pause size-[42%]" aria-hidden="true"><use href="#la-icon-pause" /></svg></span>
+</button>          <div class="flex items-start gap-2 px-0.5">
+            <span class="min-w-0 flex-1">
+              <b class="block truncate font-bold">Heaven</b>
+              <span class="block truncate text-sm text-muted">Bryan Adams</span>
+            </span>
+              <button type="button" class="la-row-request la-row-request-hover grid size-9 shrink-0 place-items-center rounded-full" data-action="song-request#open" data-song-request-song-id-param="704014348" aria-label="Pedir Heaven, de Bryan Adams" title="Pedir">
+                <svg class="size-4" aria-hidden="true"><use href="#la-icon-request" /></svg>
+</button>          </div>
+        </div>
+      </li>
+      <li class="group/song la-rise la-played-item relative flex shrink-0 flex-col" style="--d: 180ms">
+        <p class="flex items-center gap-2 text-sm tabular-nums font-medium text-muted">
+            <time datetime="2026-11-05T09:20:11-03:00">há 32 min</time>
+        </p>
+        <div class="relative my-3 h-4" aria-hidden="true">
+          <span class="absolute -right-6 left-0 top-1/2 h-0.5 -translate-y-1/2 bg-line"></span>
+          <span class="absolute left-0.5 top-1/2 grid size-3.5 -translate-y-1/2 place-items-center">
+            <span class="relative size-3.5 rounded-full ring-4 ring-canvas bg-line"></span>
+          </span>
+        </div>
+        <div class="relative isolate flex flex-1 flex-col gap-3">
+          <span class="la-preview la-cover-lift relative block w-full cursor-pointer text-left">
+            <span class="la-cover relative block overflow-hidden aspect-square rounded-[1.25rem] shadow-[0_18px_34px_-22px_rgb(0_0_0/0.55)] ring-1 ring-black/5" style="--la-cover-angle: 165deg" data-controller="cover" data-loading="">
+  
+  <img src="https://cadena-high-volume.b-cdn.net/xnwgqc9a3feui6q5nk84vyfe0fjp" alt="" loading="lazy" class="absolute inset-0 size-full object-cover" data-action="load-&gt;cover#reveal error-&gt;cover#fail" data-cover-target="image">
+</span>
+</span>          <div class="flex items-start gap-2 px-0.5">
+            <span class="min-w-0 flex-1">
+              <b class="block truncate font-bold">Senza Una Donna</b>
+              <span class="block truncate text-sm text-muted">Zucchero &amp; Paul Young</span>
+            </span>
+              <button type="button" class="la-row-request la-row-request-hover grid size-9 shrink-0 place-items-center rounded-full" data-action="song-request#open" data-song-request-song-id-param="213670957" aria-label="Pedir Senza Una Donna, de Zucchero &amp; Paul Young" title="Pedir">
+                <svg class="size-4" aria-hidden="true"><use href="#la-icon-request" /></svg>
+</button>          </div>
+        </div>
+      </li>
+      <li class="group/song la-rise la-played-item relative flex shrink-0 flex-col" style="--d: 240ms">
+        <p class="flex items-center gap-2 text-sm tabular-nums font-medium text-muted">
+            <time datetime="2026-11-05T09:16:36-03:00">há 36 min</time>
+        </p>
+        <div class="relative my-3 h-4" aria-hidden="true">
+          <span class="absolute -right-6 left-0 top-1/2 h-0.5 -translate-y-1/2 bg-line"></span>
+          <span class="absolute left-0.5 top-1/2 grid size-3.5 -translate-y-1/2 place-items-center">
+            <span class="relative size-3.5 rounded-full ring-4 ring-canvas bg-line"></span>
+          </span>
+        </div>
+        <div class="relative isolate flex flex-1 flex-col gap-3">
+          <button class="la-preview la-cover-lift relative block w-full cursor-pointer text-left" type="button" data-controller="song-preview" data-song-preview-url-value="https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/c4/08/48/c40848d6-cf4a-6ff5-fd58-43cd8c578947/mzaf_8010900637699234504.plus.aac.p.m4a" data-song-preview-title-value="You Needed Me" data-song-preview-artist-value="Anne Murray" data-song-preview-artwork-value="https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/7d/ed/64/7ded648b-39e1-d245-b219-5eaf5e08955e/00724383115853.rgb.jpg/600x600bb.jpg" data-action="song-preview#toggle" aria-label="Ouvir a prévia de You Needed Me, de Anne Murray" aria-pressed="false">
+            <span class="la-cover relative block overflow-hidden aspect-square rounded-[1.25rem] shadow-[0_18px_34px_-22px_rgb(0_0_0/0.55)] ring-1 ring-black/5" style="--la-cover-angle: 322deg" data-controller="cover" data-loading="">
+  
+  <img src="https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/7d/ed/64/7ded648b-39e1-d245-b219-5eaf5e08955e/00724383115853.rgb.jpg/300x300bb.jpg" alt="" loading="lazy" class="absolute inset-0 size-full object-cover" data-action="load-&gt;cover#reveal error-&gt;cover#fail" data-cover-target="image">
+</span>
+              <span class="la-preview-bead pointer-events-none absolute left-1/2 top-1/2 grid -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full size-12" aria-hidden="true"><svg class="la-preview-play size-[45%] translate-x-[6%]" aria-hidden="true"><use href="#la-icon-play" /></svg><svg class="la-preview-pause size-[42%]" aria-hidden="true"><use href="#la-icon-pause" /></svg></span>
+</button>          <div class="flex items-start gap-2 px-0.5">
+            <span class="min-w-0 flex-1">
+              <b class="block truncate font-bold">You Needed Me</b>
+              <span class="block truncate text-sm text-muted">Anne Murray</span>
+            </span>
+              <button type="button" class="la-row-request la-row-request-hover grid size-9 shrink-0 place-items-center rounded-full" data-action="song-request#open" data-song-request-song-id-param="721079218" aria-label="Pedir You Needed Me, de Anne Murray" title="Pedir">
+                <svg class="size-4" aria-hidden="true"><use href="#la-icon-request" /></svg>
+</button>          </div>
+        </div>
+      </li>
+      <li class="group/song la-rise la-played-item relative flex shrink-0 flex-col" style="--d: 300ms">
+        <p class="flex items-center gap-2 text-sm tabular-nums font-medium text-muted">
+            <time datetime="2026-11-05T09:06:35-03:00">há 46 min</time>
+        </p>
+        <div class="relative my-3 h-4" aria-hidden="true">
+          <span class="absolute -right-6 left-0 top-1/2 h-0.5 -translate-y-1/2 bg-line"></span>
+          <span class="absolute left-0.5 top-1/2 grid size-3.5 -translate-y-1/2 place-items-center">
+            <span class="relative size-3.5 rounded-full ring-4 ring-canvas bg-line"></span>
+          </span>
+        </div>
+        <div class="relative isolate flex flex-1 flex-col gap-3">
+          <button class="la-preview la-cover-lift relative block w-full cursor-pointer text-left" type="button" data-controller="song-preview" data-song-preview-url-value="https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/66/f3/1a/66f31a76-a6ed-cb4c-f353-23310a7ae9a8/mzaf_10593596652344378873.plus.aac.p.m4a" data-song-preview-title-value="Yellow" data-song-preview-artist-value="Coldplay" data-song-preview-artwork-value="https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/f5/93/8c/f5938c49-964c-31d1-4b33-78b634f71fb7/190295978075.jpg/600x600bb.jpg" data-action="song-preview#toggle" aria-label="Ouvir a prévia de Yellow, de Coldplay" aria-pressed="false">
+            <span class="la-cover relative block overflow-hidden aspect-square rounded-[1.25rem] shadow-[0_18px_34px_-22px_rgb(0_0_0/0.55)] ring-1 ring-black/5" style="--la-cover-angle: 227deg" data-controller="cover" data-loading="">
+  
+  <img src="https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/f5/93/8c/f5938c49-964c-31d1-4b33-78b634f71fb7/190295978075.jpg/300x300bb.jpg" alt="" loading="lazy" class="absolute inset-0 size-full object-cover" data-action="load-&gt;cover#reveal error-&gt;cover#fail" data-cover-target="image">
+</span>
+              <span class="la-preview-bead pointer-events-none absolute left-1/2 top-1/2 grid -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full size-12" aria-hidden="true"><svg class="la-preview-play size-[45%] translate-x-[6%]" aria-hidden="true"><use href="#la-icon-play" /></svg><svg class="la-preview-pause size-[42%]" aria-hidden="true"><use href="#la-icon-pause" /></svg></span>
+</button>          <div class="flex items-start gap-2 px-0.5">
+            <span class="min-w-0 flex-1">
+              <b class="block truncate font-bold">Yellow</b>
+              <span class="block truncate text-sm text-muted">Coldplay</span>
+            </span>
+              <button type="button" class="la-row-request la-row-request-hover grid size-9 shrink-0 place-items-center rounded-full" data-action="song-request#open" data-song-request-song-id-param="687059819" aria-label="Pedir Yellow, de Coldplay" title="Pedir">
+                <svg class="size-4" aria-hidden="true"><use href="#la-icon-request" /></svg>
+</button>          </div>
+        </div>
+      </li>
+      <li class="group/song la-rise la-played-item relative flex shrink-0 flex-col" style="--d: 360ms">
+        <p class="flex items-center gap-2 text-sm tabular-nums font-medium text-muted">
+            <time datetime="2026-11-05T08:55:20-03:00">há 57 min</time>
+        </p>
+        <div class="relative my-3 h-4" aria-hidden="true">
+          <span class="absolute -right-6 left-0 top-1/2 h-0.5 -translate-y-1/2 bg-line"></span>
+          <span class="absolute left-0.5 top-1/2 grid size-3.5 -translate-y-1/2 place-items-center">
+            <span class="relative size-3.5 rounded-full ring-4 ring-canvas bg-line"></span>
+          </span>
+        </div>
+        <div class="relative isolate flex flex-1 flex-col gap-3">
+          <button class="la-preview la-cover-lift relative block w-full cursor-pointer text-left" type="button" data-controller="song-preview" data-song-preview-url-value="https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/11/ac/81/11ac8178-62f7-fa19-bf9c-2517f9ab6544/mzaf_17324878835283759747.plus.aac.p.m4a" data-song-preview-title-value="The Power" data-song-preview-artist-value="Snap" data-song-preview-artwork-value="https://is1-ssl.mzstatic.com/image/thumb/Music/y2005/m06/d13/h10/s05.fvdzfulz.jpg/600x600bb.jpg" data-action="song-preview#toggle" aria-label="Ouvir a prévia de The Power, de Snap" aria-pressed="false">
+            <span class="la-cover relative block overflow-hidden aspect-square rounded-[1.25rem] shadow-[0_18px_34px_-22px_rgb(0_0_0/0.55)] ring-1 ring-black/5" style="--la-cover-angle: 178deg" data-controller="cover" data-loading="">
+  
+  <img src="https://is1-ssl.mzstatic.com/image/thumb/Music/y2005/m06/d13/h10/s05.fvdzfulz.jpg/300x300bb.jpg" alt="" loading="lazy" class="absolute inset-0 size-full object-cover" data-action="load-&gt;cover#reveal error-&gt;cover#fail" data-cover-target="image">
+</span>
+              <span class="la-preview-bead pointer-events-none absolute left-1/2 top-1/2 grid -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full size-12" aria-hidden="true"><svg class="la-preview-play size-[45%] translate-x-[6%]" aria-hidden="true"><use href="#la-icon-play" /></svg><svg class="la-preview-pause size-[42%]" aria-hidden="true"><use href="#la-icon-pause" /></svg></span>
+</button>          <div class="flex items-start gap-2 px-0.5">
+            <span class="min-w-0 flex-1">
+              <b class="block truncate font-bold">The Power</b>
+              <span class="block truncate text-sm text-muted">Snap</span>
+            </span>
+              <button type="button" class="la-row-request la-row-request-hover grid size-9 shrink-0 place-items-center rounded-full" data-action="song-request#open" data-song-request-song-id-param="58534217" aria-label="Pedir The Power, de Snap" title="Pedir">
+                <svg class="size-4" aria-hidden="true"><use href="#la-icon-request" /></svg>
+</button>          </div>
+        </div>
+      </li>
+      <li class="group/song la-rise la-played-item relative flex shrink-0 flex-col" style="--d: 420ms">
+        <p class="flex items-center gap-2 text-sm tabular-nums font-medium text-muted">
+            <time datetime="2026-11-05T08:51:24-03:00">às 08:51</time>
+        </p>
+        <div class="relative my-3 h-4" aria-hidden="true">
+          <span class="absolute -right-6 left-0 top-1/2 h-0.5 -translate-y-1/2 bg-line"></span>
+          <span class="absolute left-0.5 top-1/2 grid size-3.5 -translate-y-1/2 place-items-center">
+            <span class="relative size-3.5 rounded-full ring-4 ring-canvas bg-line"></span>
+          </span>
+        </div>
+        <div class="relative isolate flex flex-1 flex-col gap-3">
+          <button class="la-preview la-cover-lift relative block w-full cursor-pointer text-left" type="button" data-controller="song-preview" data-song-preview-url-value="https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/00/fe/05/00fe0516-3b65-70f5-2d30-b37397abc523/mzaf_16091944218190160985.plus.aac.p.m4a" data-song-preview-title-value="Save Myself" data-song-preview-artist-value="Ed Sheeran" data-song-preview-artwork-value="https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/15/e6/e8/15e6e8a4-4190-6a8b-86c3-ab4a51b88288/190295851286.jpg/600x600bb.jpg" data-action="song-preview#toggle" aria-label="Ouvir a prévia de Save Myself, de Ed Sheeran" aria-pressed="false">
+            <span class="la-cover relative block overflow-hidden aspect-square rounded-[1.25rem] shadow-[0_18px_34px_-22px_rgb(0_0_0/0.55)] ring-1 ring-black/5" style="--la-cover-angle: 279deg" data-controller="cover" data-loading="">
+  
+  <img src="https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/15/e6/e8/15e6e8a4-4190-6a8b-86c3-ab4a51b88288/190295851286.jpg/300x300bb.jpg" alt="" loading="lazy" class="absolute inset-0 size-full object-cover" data-action="load-&gt;cover#reveal error-&gt;cover#fail" data-cover-target="image">
+</span>
+              <span class="la-preview-bead pointer-events-none absolute left-1/2 top-1/2 grid -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full size-12" aria-hidden="true"><svg class="la-preview-play size-[45%] translate-x-[6%]" aria-hidden="true"><use href="#la-icon-play" /></svg><svg class="la-preview-pause size-[42%]" aria-hidden="true"><use href="#la-icon-pause" /></svg></span>
+</button>          <div class="flex items-start gap-2 px-0.5">
+            <span class="min-w-0 flex-1">
+              <b class="block truncate font-bold">Save Myself</b>
+              <span class="block truncate text-sm text-muted">Ed Sheeran</span>
+            </span>
+              <button type="button" class="la-row-request la-row-request-hover grid size-9 shrink-0 place-items-center rounded-full" data-action="song-request#open" data-song-request-song-id-param="687014382" aria-label="Pedir Save Myself, de Ed Sheeran" title="Pedir">
+                <svg class="size-4" aria-hidden="true"><use href="#la-icon-request" /></svg>
+</button>          </div>
+        </div>
+      </li>
+      <li class="group/song la-rise la-played-item relative flex shrink-0 flex-col" style="--d: 480ms">
+        <p class="flex items-center gap-2 text-sm tabular-nums font-medium text-muted">
+            <time datetime="2026-11-05T08:47:24-03:00">às 08:47</time>
+        </p>
+        <div class="relative my-3 h-4" aria-hidden="true">
+          <span class="absolute -right-6 left-0 top-1/2 h-0.5 -translate-y-1/2 bg-line"></span>
+          <span class="absolute left-0.5 top-1/2 grid size-3.5 -translate-y-1/2 place-items-center">
+            <span class="relative size-3.5 rounded-full ring-4 ring-canvas bg-line"></span>
+          </span>
+        </div>
+        <div class="relative isolate flex flex-1 flex-col gap-3">
+          <button class="la-preview la-cover-lift relative block w-full cursor-pointer text-left" type="button" data-controller="song-preview" data-song-preview-url-value="https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/27/a7/97/27a7972a-e1e3-2ab0-0517-0d4e02f7059a/mzaf_11594901709358611274.plus.aac.p.m4a" data-song-preview-title-value="I Can Dream About You" data-song-preview-artist-value="Dan Hartman" data-song-preview-artwork-value="https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/38/be/7d/38be7dfb-96f6-0dd1-845b-e0f8f10c3fa0/00602527884615.rgb.jpg/600x600bb.jpg" data-action="song-preview#toggle" aria-label="Ouvir a prévia de I Can Dream About You, de Dan Hartman" aria-pressed="false">
+            <span class="la-cover relative block overflow-hidden aspect-square rounded-[1.25rem] shadow-[0_18px_34px_-22px_rgb(0_0_0/0.55)] ring-1 ring-black/5" style="--la-cover-angle: 85deg" data-controller="cover" data-loading="">
+  
+  <img src="https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/38/be/7d/38be7dfb-96f6-0dd1-845b-e0f8f10c3fa0/00602527884615.rgb.jpg/300x300bb.jpg" alt="" loading="lazy" class="absolute inset-0 size-full object-cover" data-action="load-&gt;cover#reveal error-&gt;cover#fail" data-cover-target="image">
+</span>
+              <span class="la-preview-bead pointer-events-none absolute left-1/2 top-1/2 grid -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full size-12" aria-hidden="true"><svg class="la-preview-play size-[45%] translate-x-[6%]" aria-hidden="true"><use href="#la-icon-play" /></svg><svg class="la-preview-pause size-[42%]" aria-hidden="true"><use href="#la-icon-pause" /></svg></span>
+</button>          <div class="flex items-start gap-2 px-0.5">
+            <span class="min-w-0 flex-1">
+              <b class="block truncate font-bold">I Can Dream About You</b>
+              <span class="block truncate text-sm text-muted">Dan Hartman</span>
+            </span>
+              <button type="button" class="la-row-request la-row-request-hover grid size-9 shrink-0 place-items-center rounded-full" data-action="song-request#open" data-song-request-song-id-param="800070543" aria-label="Pedir I Can Dream About You, de Dan Hartman" title="Pedir">
+                <svg class="size-4" aria-hidden="true"><use href="#la-icon-request" /></svg>
+</button>          </div>
+        </div>
+      </li>
+  </ol>
+</section>
+</div>
+
+        
+
+        
+
+        
+
+      
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+      <section id="anuncie" class="la-reveal mt-20 lg:mt-28" aria-labelledby="listener-app-advertise" data-controller="contact" data-action="submit-&gt;contact#stamp turbo:submit-start-&gt;contact#submitting turbo:before-cache@document-&gt;contact#forget">
+  <div class="la-kit-hero relative isolate overflow-hidden rounded-[2rem] text-stage-ink shadow-[0_50px_100px_-50px_rgb(0_0_0/0.7)] ring-1 ring-white/10 lg:rounded-[2.5rem]">
+    <img alt="" loading="lazy" decoding="async" sizes="(min-width: 90rem) 90rem, 100vw" srcset="https://assets.cadena.com.br/assets/listener_app/advertise-mic-small-c91ac09e.webp 800w, https://assets.cadena.com.br/assets/listener_app/advertise-mic-966e0eed.webp 1600w" class="la-kit-mic absolute inset-0 -z-10 size-full object-cover" src="https://assets.cadena.com.br/assets/listener_app/advertise-mic-966e0eed.webp" />
+
+    <div class="flex flex-col gap-9 p-6 sm:p-10 lg:p-12">
+      <div class="max-w-2xl">
+        <p class="la-eyebrow inline-flex items-center gap-2.5 text-highlight">
+          <span class="la-glass-bead grid size-8 place-items-center rounded-full"><svg class="size-4" aria-hidden="true"><use href="#la-icon-megaphone" /></svg></span>Anuncie na Limeira FM
+        </p>
+        <h2 id="listener-app-advertise" class="mt-4 text-balance">
+          <span class="la-display-wide block text-[clamp(1.6rem,2.6vw,2.3rem)] font-black leading-[1.02]">Todo dia, Limeira sintoniza na Limeira FM.</span>
+          <span class="mt-1.5 block font-editorial text-[clamp(1.35rem,2vw,1.75rem)] italic leading-tight text-highlight">Sua marca pode ir junto.</span>
+        </h2>
+        <p class="mt-4 max-w-lg text-stage-muted">Spot na programação, patrocínio de programa, promoção com os ouvintes e presença no site e no app, num plano personalizado para você.</p>
+
+        <div class="mt-6 flex flex-wrap items-center gap-3">
+            <button type="button" data-action="contact#open"
+                    class="group/contact la-press la-glass-button la-glass-button-accent inline-flex h-12 items-center gap-2.5 rounded-full pl-1.5 pr-6 font-bold">
+              <span class="la-glass-bead grid size-9 place-items-center rounded-full">
+                <svg class="size-[1.05rem] transition-transform duration-300 group-hover/contact:translate-x-0.5" aria-hidden="true"><use href="#la-icon-arrow" /></svg>
+              </span>
+              Quero anunciar
+            </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <dialog class="la-contact-dialog" data-contact-target="dialog" data-action="click-&gt;contact#dismiss cancel-&gt;contact#cancel close-&gt;contact#closed" aria-labelledby="listener-app-contact-title">
+  <div class="la-contact-panel la-liquid-panel relative isolate flex flex-col overflow-hidden rounded-[2rem] text-stage-ink lg:flex-row">
+    <button type="button" class="la-press la-glass-button absolute right-4 top-4 z-10 grid size-10 place-items-center rounded-full lg:right-5 lg:top-5"
+            data-action="contact#close" aria-label="Fechar">
+      <svg class="size-[1.1rem]" aria-hidden="true"><use href="#la-icon-close" /></svg>
+    </button>
+
+    <div class="la-kit-hero la-contact-hero relative isolate shrink-0 overflow-hidden px-6 pb-6 pr-16 pt-6 lg:flex lg:w-[21rem] lg:flex-col lg:p-8">
+      <img alt="" decoding="async" class="la-kit-mic pointer-events-none absolute inset-0 -z-10 size-full object-cover" src="https://assets.cadena.com.br/assets/listener_app/advertise-mic-small-c91ac09e.webp" />
+      <p class="la-eyebrow inline-flex items-center gap-2.5 text-highlight">
+        <span class="la-glass-bead grid size-8 place-items-center rounded-full"><svg class="size-4" aria-hidden="true"><use href="#la-icon-megaphone" /></svg></span>Anuncie na Limeira FM
+      </p>
+      <h2 id="listener-app-contact-title" class="mt-4 text-balance">
+        <span class="la-display-wide block text-[clamp(1.4rem,2.2vw,1.85rem)] font-black leading-[1.05]">Sua marca no ar da Limeira FM.</span>
+        <span class="mt-1.5 block font-editorial text-[1.2rem] italic leading-tight text-highlight lg:text-[1.35rem]">A gente monta o plano com você.</span>
+      </h2>
+
+      <ol class="mt-9 hidden gap-6 lg:grid">
+          <li class="la-contact-step relative flex gap-3.5">
+            <span class="la-glass-bead grid size-8 shrink-0 place-items-center rounded-full text-sm font-bold tabular-nums text-highlight">1</span>
+            <span class="min-w-0 pt-1">
+              <b class="block text-[0.95rem] font-semibold leading-snug">Conte o que procura</b>
+              <span class="mt-0.5 block text-sm leading-snug text-stage-muted">Leva menos de um minuto.</span>
+            </span>
+          </li>
+          <li class="la-contact-step relative flex gap-3.5">
+            <span class="la-glass-bead grid size-8 shrink-0 place-items-center rounded-full text-sm font-bold tabular-nums text-highlight">2</span>
+            <span class="min-w-0 pt-1">
+              <b class="block text-[0.95rem] font-semibold leading-snug">O comercial te chama</b>
+              <span class="mt-0.5 block text-sm leading-snug text-stage-muted">Pelo WhatsApp ou por e-mail, como preferir.</span>
+            </span>
+          </li>
+          <li class="la-contact-step relative flex gap-3.5">
+            <span class="la-glass-bead grid size-8 shrink-0 place-items-center rounded-full text-sm font-bold tabular-nums text-highlight">3</span>
+            <span class="min-w-0 pt-1">
+              <b class="block text-[0.95rem] font-semibold leading-snug">Um plano do seu tamanho</b>
+              <span class="mt-0.5 block text-sm leading-snug text-stage-muted">Spot, patrocínio, promoção e digital, do seu jeito.</span>
+            </span>
+          </li>
+      </ol>
+
+    </div>
+
+    <div class="flex min-h-0 flex-1 flex-col">
+      <header class="hidden px-8 pr-20 pt-8 lg:block">
+        <p class="la-display text-xl font-extrabold leading-tight">Fale com o comercial</p>
+        <p class="mt-1 text-sm text-stage-muted">Deixe seu contato e a equipe da Limeira FM fala com você.</p>
+      </header>
+      <div id="listener-app-contact" class="la-contact-region la-scroll-fade min-h-0 flex-1 overflow-y-auto px-6 pb-6 pt-5 lg:px-8 lg:pb-8 lg:pt-6"
+           data-contact-target="region" data-controller="scroll-fade" data-action="scroll->scroll-fade#fade">
+        <form class="la-contact-form grid gap-6" action="/contact" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="P8iPz6R0dx06c_qkAd7D-_ghoyiEE_D34pyEWo-kMbri_2-koOxfJzk4ndZ2K-anKjMIQPy5QazCqeehmMRFCg" />
+  <div class="la-contact-trap" aria-hidden="true">
+    <input type="text" name="la_hp" tabindex="-1" autocomplete="off"
+           data-1p-ignore data-lpignore="true" data-bwignore data-form-type="other">
+  </div>
+  <input type="hidden" name="la_t" data-contact-target="elapsed" />
+
+  <div class="grid gap-3.5 sm:grid-cols-2">
+      <div>
+        <label class="la-contact-field">
+          <input autocomplete="name" maxlength="120" placeholder=" " aria-invalid="false" size="120" type="text" name="contact[name]" id="contact_name" />
+          <span class="la-contact-label">Seu nome</span>
+        </label>
+        
+      </div>
+      <div>
+        <label class="la-contact-field">
+          <input autocomplete="organization" maxlength="120" placeholder=" " aria-invalid="false" size="120" type="text" name="contact[company]" id="contact_company" />
+          <span class="la-contact-label">Empresa</span>
+        </label>
+        
+      </div>
+      <div>
+        <label class="la-contact-field">
+          <input autocomplete="tel-national" maxlength="20" inputmode="tel" placeholder=" " aria-invalid="false" size="20" type="tel" name="contact[whatsapp]" id="contact_whatsapp" />
+          <span class="la-contact-label">WhatsApp com DDD</span>
+        </label>
+        
+      </div>
+      <div>
+        <label class="la-contact-field">
+          <input autocomplete="email" maxlength="160" inputmode="email" placeholder=" " aria-invalid="false" size="160" type="email" name="contact[email]" id="contact_email" />
+          <span class="la-contact-label">E-mail</span>
+        </label>
+        
+      </div>
+  </div>
+
+  <fieldset>
+    <legend class="text-[0.95rem] font-semibold">O que você tem em mente?</legend>
+    <div class="mt-3 flex flex-wrap gap-2">
+        <label class="la-contact-chip la-press inline-flex h-10 cursor-pointer select-none items-center gap-2 rounded-full pl-1 pr-4 text-sm font-semibold">
+          <input type="checkbox" name="contact[interests][]" id="listener-app-contact-spot" value="spot" class="sr-only" />
+          <span class="la-contact-chip-bead relative grid size-8 place-items-center rounded-full">
+            <svg class="la-contact-chip-icon size-4" aria-hidden="true"><use href="#la-icon-live-waves" /></svg>
+            <svg class="la-contact-chip-check absolute size-4" aria-hidden="true"><use href="#la-icon-check" /></svg>
+          </span>
+          Spot na programação
+        </label>
+        <label class="la-contact-chip la-press inline-flex h-10 cursor-pointer select-none items-center gap-2 rounded-full pl-1 pr-4 text-sm font-semibold">
+          <input type="checkbox" name="contact[interests][]" id="listener-app-contact-sponsorship" value="sponsorship" class="sr-only" />
+          <span class="la-contact-chip-bead relative grid size-8 place-items-center rounded-full">
+            <svg class="la-contact-chip-icon size-4" aria-hidden="true"><use href="#la-icon-megaphone" /></svg>
+            <svg class="la-contact-chip-check absolute size-4" aria-hidden="true"><use href="#la-icon-check" /></svg>
+          </span>
+          Patrocínio de programa
+        </label>
+        <label class="la-contact-chip la-press inline-flex h-10 cursor-pointer select-none items-center gap-2 rounded-full pl-1 pr-4 text-sm font-semibold">
+          <input type="checkbox" name="contact[interests][]" id="listener-app-contact-promotion" value="promotion" class="sr-only" />
+          <span class="la-contact-chip-bead relative grid size-8 place-items-center rounded-full">
+            <svg class="la-contact-chip-icon size-4" aria-hidden="true"><use href="#la-icon-gift" /></svg>
+            <svg class="la-contact-chip-check absolute size-4" aria-hidden="true"><use href="#la-icon-check" /></svg>
+          </span>
+          Promoção com ouvintes
+        </label>
+        <label class="la-contact-chip la-press inline-flex h-10 cursor-pointer select-none items-center gap-2 rounded-full pl-1 pr-4 text-sm font-semibold">
+          <input type="checkbox" name="contact[interests][]" id="listener-app-contact-digital" value="digital" class="sr-only" />
+          <span class="la-contact-chip-bead relative grid size-8 place-items-center rounded-full">
+            <svg class="la-contact-chip-icon size-4" aria-hidden="true"><use href="#la-icon-phone" /></svg>
+            <svg class="la-contact-chip-check absolute size-4" aria-hidden="true"><use href="#la-icon-check" /></svg>
+          </span>
+          Site e app
+        </label>
+    </div>
+  </fieldset>
+
+  <div>
+    <label class="la-contact-field la-contact-field-area">
+      <textarea rows="3" maxlength="1000" placeholder=" " aria-invalid="false" name="contact[message]" id="contact_message">
+</textarea>
+      <span class="la-contact-label">Quer contar mais? (opcional)</span>
+    </label>
+    
+  </div>
+
+  <div class="flex flex-col-reverse gap-4 border-t border-white/10 pt-5 sm:flex-row sm:items-center sm:justify-between">
+    <p class="max-w-xs text-xs leading-relaxed text-stage-muted">Seus dados vão só para a equipe comercial da Limeira FM.</p>
+    <button type="submit" class="la-contact-send la-press la-glass-button la-glass-button-accent inline-flex h-12 shrink-0 items-center justify-center gap-2.5 rounded-full pl-1.5 pr-6 font-bold">
+      <span class="la-glass-bead grid size-9 place-items-center overflow-hidden rounded-full"><svg class="la-contact-send-icon size-[1.05rem]" aria-hidden="true"><use href="#la-icon-arrow" /></svg></span>
+      <span class="la-contact-send-idle">Enviar mensagem</span>
+      <span class="la-contact-send-busy">Enviando…</span>
+    </button>
+  </div>
+</form>
+      </div>
+      <template data-contact-target="pristine"><form class="la-contact-form grid gap-6" action="/contact" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="bvVaDtREw4ZOZAIZr1QBhcc1Qb9l_4xNZVjojW3Aewyzwrpl0NzrvE0vZWvYoSTZFSfq1x1VPRZFbYt2eqAPvA" />
+  <div class="la-contact-trap" aria-hidden="true">
+    <input type="text" name="la_hp" tabindex="-1" autocomplete="off"
+           data-1p-ignore data-lpignore="true" data-bwignore data-form-type="other">
+  </div>
+  <input type="hidden" name="la_t" data-contact-target="elapsed" />
+
+  <div class="grid gap-3.5 sm:grid-cols-2">
+      <div>
+        <label class="la-contact-field">
+          <input autocomplete="name" maxlength="120" placeholder=" " aria-invalid="false" size="120" type="text" name="contact[name]" id="contact_name" />
+          <span class="la-contact-label">Seu nome</span>
+        </label>
+        
+      </div>
+      <div>
+        <label class="la-contact-field">
+          <input autocomplete="organization" maxlength="120" placeholder=" " aria-invalid="false" size="120" type="text" name="contact[company]" id="contact_company" />
+          <span class="la-contact-label">Empresa</span>
+        </label>
+        
+      </div>
+      <div>
+        <label class="la-contact-field">
+          <input autocomplete="tel-national" maxlength="20" inputmode="tel" placeholder=" " aria-invalid="false" size="20" type="tel" name="contact[whatsapp]" id="contact_whatsapp" />
+          <span class="la-contact-label">WhatsApp com DDD</span>
+        </label>
+        
+      </div>
+      <div>
+        <label class="la-contact-field">
+          <input autocomplete="email" maxlength="160" inputmode="email" placeholder=" " aria-invalid="false" size="160" type="email" name="contact[email]" id="contact_email" />
+          <span class="la-contact-label">E-mail</span>
+        </label>
+        
+      </div>
+  </div>
+
+  <fieldset>
+    <legend class="text-[0.95rem] font-semibold">O que você tem em mente?</legend>
+    <div class="mt-3 flex flex-wrap gap-2">
+        <label class="la-contact-chip la-press inline-flex h-10 cursor-pointer select-none items-center gap-2 rounded-full pl-1 pr-4 text-sm font-semibold">
+          <input type="checkbox" name="contact[interests][]" id="listener-app-contact-spot" value="spot" class="sr-only" />
+          <span class="la-contact-chip-bead relative grid size-8 place-items-center rounded-full">
+            <svg class="la-contact-chip-icon size-4" aria-hidden="true"><use href="#la-icon-live-waves" /></svg>
+            <svg class="la-contact-chip-check absolute size-4" aria-hidden="true"><use href="#la-icon-check" /></svg>
+          </span>
+          Spot na programação
+        </label>
+        <label class="la-contact-chip la-press inline-flex h-10 cursor-pointer select-none items-center gap-2 rounded-full pl-1 pr-4 text-sm font-semibold">
+          <input type="checkbox" name="contact[interests][]" id="listener-app-contact-sponsorship" value="sponsorship" class="sr-only" />
+          <span class="la-contact-chip-bead relative grid size-8 place-items-center rounded-full">
+            <svg class="la-contact-chip-icon size-4" aria-hidden="true"><use href="#la-icon-megaphone" /></svg>
+            <svg class="la-contact-chip-check absolute size-4" aria-hidden="true"><use href="#la-icon-check" /></svg>
+          </span>
+          Patrocínio de programa
+        </label>
+        <label class="la-contact-chip la-press inline-flex h-10 cursor-pointer select-none items-center gap-2 rounded-full pl-1 pr-4 text-sm font-semibold">
+          <input type="checkbox" name="contact[interests][]" id="listener-app-contact-promotion" value="promotion" class="sr-only" />
+          <span class="la-contact-chip-bead relative grid size-8 place-items-center rounded-full">
+            <svg class="la-contact-chip-icon size-4" aria-hidden="true"><use href="#la-icon-gift" /></svg>
+            <svg class="la-contact-chip-check absolute size-4" aria-hidden="true"><use href="#la-icon-check" /></svg>
+          </span>
+          Promoção com ouvintes
+        </label>
+        <label class="la-contact-chip la-press inline-flex h-10 cursor-pointer select-none items-center gap-2 rounded-full pl-1 pr-4 text-sm font-semibold">
+          <input type="checkbox" name="contact[interests][]" id="listener-app-contact-digital" value="digital" class="sr-only" />
+          <span class="la-contact-chip-bead relative grid size-8 place-items-center rounded-full">
+            <svg class="la-contact-chip-icon size-4" aria-hidden="true"><use href="#la-icon-phone" /></svg>
+            <svg class="la-contact-chip-check absolute size-4" aria-hidden="true"><use href="#la-icon-check" /></svg>
+          </span>
+          Site e app
+        </label>
+    </div>
+  </fieldset>
+
+  <div>
+    <label class="la-contact-field la-contact-field-area">
+      <textarea rows="3" maxlength="1000" placeholder=" " aria-invalid="false" name="contact[message]" id="contact_message">
+</textarea>
+      <span class="la-contact-label">Quer contar mais? (opcional)</span>
+    </label>
+    
+  </div>
+
+  <div class="flex flex-col-reverse gap-4 border-t border-white/10 pt-5 sm:flex-row sm:items-center sm:justify-between">
+    <p class="max-w-xs text-xs leading-relaxed text-stage-muted">Seus dados vão só para a equipe comercial da Limeira FM.</p>
+    <button type="submit" class="la-contact-send la-press la-glass-button la-glass-button-accent inline-flex h-12 shrink-0 items-center justify-center gap-2.5 rounded-full pl-1.5 pr-6 font-bold">
+      <span class="la-glass-bead grid size-9 place-items-center overflow-hidden rounded-full"><svg class="la-contact-send-icon size-[1.05rem]" aria-hidden="true"><use href="#la-icon-arrow" /></svg></span>
+      <span class="la-contact-send-idle">Enviar mensagem</span>
+      <span class="la-contact-send-busy">Enviando…</span>
+    </button>
+  </div>
+</form></template>
+    </div>
+  </div>
+</dialog>
+</section>
+
+  </div>
+
+</div>
+
+    </main>
+
+    <footer class="la-stage-light relative isolate z-40 mt-24 overflow-hidden pb-40 pt-16 text-stage-ink lg:pb-10 lg:pt-20">
+  <img alt="" loading="lazy" decoding="async" sizes="100vw" srcset="https://assets.cadena.com.br/assets/listener_app/footer-art-small-2b447c59.webp 1000w, https://assets.cadena.com.br/assets/listener_app/footer-art-4c43b81e.webp 2000w" class="la-footer-photo pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-[18rem] w-full object-cover sm:h-[22rem] lg:h-[24rem]" src="https://assets.cadena.com.br/assets/listener_app/footer-art-4c43b81e.webp" />
+  <span class="la-footer-ground pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-40" aria-hidden="true"></span>
+
+  <div class="mx-auto max-w-page px-4 sm:px-8 lg:px-12">
+    <div class="grid gap-12 pb-28 sm:grid-cols-2 lg:pb-28 lg:grid-cols-[1.2fr_0.8fr_1.15fr_1.35fr] lg:gap-10">
+      <div>
+        <div class="flex items-center gap-4">
+            <img alt="" decoding="async" class="size-16 shrink-0 rounded-full ring-1 ring-white/30 shadow-[0_10px_28px_-10px_rgb(0_0_0/0.6)] object-cover" src="https://cadena-high-volume.b-cdn.net/xnwgqc9a3feui6q5nk84vyfe0fjp" />
+
+          <div class="min-w-0">
+            <p class="la-display text-2xl font-extrabold leading-tight text-balance">Limeira FM</p>
+              <p class="font-editorial mt-0.5 text-lg italic text-stage-muted">Mais qualidade no seu rádio!</p>
+          </div>
+        </div>
+          <div class="mt-7 flex flex-wrap gap-2.5">
+              <a href="https://www.instagram.com/limeirafm" target="_blank" rel="noopener" aria-label="Instagram" class="la-footer-tile grid size-10 place-items-center rounded-full">
+                <svg class="size-[1.1rem]" aria-hidden="true"><use href="#la-icon-instagram" /></svg>
+              </a>
+              <a href="https://www.facebook.com/limeirafm" target="_blank" rel="noopener" aria-label="Facebook" class="la-footer-tile grid size-10 place-items-center rounded-full">
+                <svg class="size-[1.1rem]" aria-hidden="true"><use href="#la-icon-facebook" /></svg>
+              </a>
+              <a href="https://x.com/limeirafm" target="_blank" rel="noopener" aria-label="X" class="la-footer-tile grid size-10 place-items-center rounded-full">
+                <svg class="size-[1.1rem]" aria-hidden="true"><use href="#la-icon-x" /></svg>
+              </a>
+          </div>
+      </div>
+
+      <div>
+        <h2 class="la-eyebrow mb-5 text-highlight">Navegue</h2>
+        <ul class="grid gap-3">
+            <li>
+              <a href="/schedule" class="group/link inline-flex items-center gap-3 text-[0.95rem] font-medium text-stage-ink/85 transition-colors hover:text-white">
+                <span class="la-footer-tile grid size-10 shrink-0 place-items-center rounded-full"><svg class="size-[1.1rem]" aria-hidden="true"><use href="#la-icon-calendar" /></svg></span>
+                Programação
+              </a>
+            </li>
+            <li>
+              <a href="/#anuncie" class="group/link inline-flex items-center gap-3 text-[0.95rem] font-medium text-stage-ink/85 transition-colors hover:text-white">
+                <span class="la-footer-tile grid size-10 shrink-0 place-items-center rounded-full"><svg class="size-[1.1rem]" aria-hidden="true"><use href="#la-icon-megaphone" /></svg></span>
+                Anuncie
+              </a>
+            </li>
+        </ul>
+      </div>
+
+      <div>
+        <h2 class="la-eyebrow mb-5 text-highlight">Fale com a rádio</h2>
+        <ul class="grid gap-3 text-stage-ink/85">
+            <li>
+              <a class="group/link inline-flex max-w-full items-start gap-3 transition-colors hover:text-white" href="tel:19991728388">
+                <span class="la-footer-tile grid size-10 shrink-0 place-items-center rounded-full"><svg class="size-[1.1rem]" aria-hidden="true"><use href="#la-icon-call" /></svg></span>
+                <span class="min-w-0">
+                  <span class="block text-[0.62rem] font-semibold uppercase tracking-[0.14em] text-stage-muted">Telefone</span>
+                  <span class="mt-0.5 block text-[0.95rem] font-medium leading-snug break-all tabular-nums">(19) 99172-8388</span>
+                </span>
+</a>            </li>
+            <li>
+              <a class="group/link inline-flex max-w-full items-start gap-3 transition-colors hover:text-white" href="mailto:comercial@limeirafm.com.br">
+                <span class="la-footer-tile grid size-10 shrink-0 place-items-center rounded-full"><svg class="size-[1.1rem]" aria-hidden="true"><use href="#la-icon-mail" /></svg></span>
+                <span class="min-w-0">
+                  <span class="block text-[0.62rem] font-semibold uppercase tracking-[0.14em] text-stage-muted">E-mail</span>
+                  <span class="mt-0.5 block text-[0.95rem] font-medium leading-snug break-all tabular-nums">comercial@limeirafm.com.br</span>
+                </span>
+</a>            </li>
+            <li>
+              <a target="_blank" rel="noopener" class="group/link inline-flex max-w-full items-start gap-3 transition-colors hover:text-white" href="https://www.google.com/maps/search/?api=1&amp;query=Rua+Piau%C3%AD%2C+493%2C+Vila+Cl%C3%A1udia%2C+Limeira+-+SP%2C+13480-406">
+                <span class="la-footer-tile grid size-10 shrink-0 place-items-center rounded-full"><svg class="size-[1.1rem]" aria-hidden="true"><use href="#la-icon-pin" /></svg></span>
+                <span class="min-w-0">
+                  <span class="block text-[0.62rem] font-semibold uppercase tracking-[0.14em] text-stage-muted">Endereço</span>
+                  <span class="mt-0.5 block text-[0.95rem] font-medium leading-snug ">Rua Piauí, 493, Vila Cláudia, Limeira - SP, 13480-406</span>
+                </span>
+</a>            </li>
+        </ul>
+      </div>
+
+        <div class="la-liquid-panel relative isolate self-start rounded-[1.75rem] p-5 lg:max-w-[18.5rem] lg:justify-self-end xl:p-6 xl:max-w-[19.5rem]">
+          <h2 class="la-eyebrow text-highlight">Nosso app</h2>
+          <p class="la-display mt-3 text-xl font-extrabold leading-tight text-balance">Leve a <span class="inline-block max-w-full">Limeira FM</span> no bolso.</p>
+          <p class="mt-2 text-sm text-stage-muted">Ao vivo, as promoções e a programação, onde você estiver.</p>
+          <div class="mt-5 flex flex-wrap gap-2">
+              <a href="https://apps.apple.com/br/app/limeira-fm/id675257423" target="_blank" rel="noopener" class="la-store-badge inline-flex h-11 items-center gap-2 rounded-xl pl-2.5 pr-3.5">
+                <svg class="size-[1.3rem] shrink-0" aria-hidden="true"><use href="#la-icon-apple" /></svg>
+                <span class="whitespace-nowrap leading-none">
+                  <span class="block text-[0.55rem] font-medium tracking-wide">Baixar na</span>
+                  <b class="mt-0.5 block text-[0.9rem] font-semibold tracking-tight">App Store</b>
+                </span>
+              </a>
+              <a href="https://play.google.com/store/apps/details?id=br.com.cadena.smartradio.limeirafm&amp;hl=en_US" target="_blank" rel="noopener" class="la-store-badge inline-flex h-11 items-center gap-2 rounded-xl pl-2.5 pr-3.5">
+                <svg class="size-[1.3rem] shrink-0" aria-hidden="true"><use href="#la-icon-google-play" /></svg>
+                <span class="whitespace-nowrap leading-none">
+                  <span class="block text-[0.55rem] font-medium tracking-wide">Disponível no</span>
+                  <b class="mt-0.5 block text-[0.9rem] font-semibold tracking-tight">Google Play</b>
+                </span>
+              </a>
+          </div>
+        </div>
+    </div>
+
+    <div class="flex flex-wrap items-center justify-between gap-4 border-t border-white/10 pt-6 text-sm text-stage-muted">
+      <div class="flex flex-wrap items-center gap-x-6 gap-y-2">
+        <span>© 2026 Limeira FM. Todos os direitos reservados.</span>
+        <nav class="flex flex-wrap items-center gap-x-5 gap-y-2" aria-label="Documentos">
+          <a href="/privacy_policy" class="transition-colors hover:text-white">Política de privacidade</a>
+          <a href="/terms_and_conditions" class="transition-colors hover:text-white">Termos de uso</a>
+          <button type="button" class="la-consent-reopen transition-colors hover:text-white" data-action="consent#open">Cookies</button>
+        </nav>
+      </div>
+      <a href="https://cadena.com.br/" target="_blank" rel="noopener" class="group inline-flex items-center gap-2.5 transition-colors hover:text-white">
+        Desenvolvido por
+          <img alt="Cadena" class="h-5 w-auto opacity-50 transition-opacity group-hover:opacity-90" src="https://assets.cadena.com.br/assets/nova_logo_cadena_horizontal-40a94ce6.png" />
+
+      </a>
+    </div>
+  </div>
+</footer>
+
+    <aside class="la-pip la-edge fixed z-[44] isolate overflow-hidden text-stage-ink"
+       data-controller="pip"
+       data-action="now-playing:song@window->pip#turn live-remote:fold@window->pip#fold pointerdown->pip#grab pointermove->pip#move pointerup->pip#release pointercancel->pip#release"
+       aria-label="Player">
+  <div class="la-pip-field absolute inset-0 -z-10" aria-hidden="true">
+      <img alt="" loading="lazy" decoding="async" class="size-full object-cover" src="https://assets.cadena.com.br/assets/listener_app/player-wave-850e90ea.webp" />
+    <span class="la-pip-haze"></span>
+  </div>
+
+  <button type="button" class="la-pip-bubble absolute inset-0 hidden place-items-center" data-pip-handle data-action="pip#unfold">
+    <span class="la-cover relative block overflow-hidden size-full" style="--la-cover-angle: 328deg" data-controller="cover" data-loading="">
+  
+  <img src="https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/86/98/7d/86987d9d-320b-0246-4f4e-343b32056b8d/mzi.qmnpjmnr.jpg/600x600bb.jpg" alt="" loading="eager" decoding="sync" class="absolute inset-0 size-full object-cover" data-action="load-&gt;cover#reveal error-&gt;cover#fail" data-cover-target="image" data-now-playing-target="artwork">
+</span>
+    <span class="la-eq la-eq-free absolute bottom-2 right-2 rounded-md bg-highlight px-1 py-0.5 text-on-highlight" aria-hidden="true"><span></span><span></span><span></span></span>
+    <span class="la-pip-hint absolute inset-0 grid place-items-center" aria-hidden="true">
+      <svg class="size-6 text-white drop-shadow" aria-hidden="true"><use href="#la-icon-unfold" /></svg>
+    </span>
+    <span class="sr-only">Abrir o player</span>
+  </button>
+
+  <div class="la-pip-body">
+    <div class="la-pip-screen relative hidden aspect-video live-video:block">
+    </div>
+
+    <div class="grid gap-3.5 p-4 pb-4.5 live-video:hidden" data-controller="episode-timeline">
+      <div class="flex items-center gap-4">
+        <span class="la-pip-record relative size-16 shrink-0 live-video:hidden" data-pip-target="record">
+          <span class="la-pip-vinyl absolute inset-[3px] rounded-full" aria-hidden="true">
+            <span class="la-vinyl-disc absolute inset-0 rounded-full">
+              <span class="la-cover relative block overflow-hidden absolute! inset-[31%] rounded-full" style="--la-cover-angle: 90deg" data-controller="cover" data-loading="">
+  
+  <img src="https://cadena-high-volume.b-cdn.net/xnwgqc9a3feui6q5nk84vyfe0fjp" alt="" loading="lazy" class="absolute inset-0 size-full object-cover" data-action="load-&gt;cover#reveal error-&gt;cover#fail" data-cover-target="image">
+</span>
+              <span class="absolute left-1/2 top-1/2 size-[6%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-neutral-950"></span>
+            </span>
+            <span class="la-vinyl-sheen absolute inset-0 rounded-full"></span>
+          </span>
+          <span class="la-cover relative block overflow-hidden la-pip-sleeve absolute! inset-0 rounded-xl shadow-[0_14px_28px_-10px_rgb(0_0_0/0.8)] ring-1 ring-white/20" style="--la-cover-angle: 328deg" data-controller="cover" data-loading="">
+  
+  <img src="https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/86/98/7d/86987d9d-320b-0246-4f4e-343b32056b8d/mzi.qmnpjmnr.jpg/600x600bb.jpg" alt="" loading="lazy" class="absolute inset-0 size-full object-cover" data-action="load-&gt;cover#reveal error-&gt;cover#fail" data-cover-target="image" data-now-playing-target="artwork">
+</span>
+        </span>
+
+        <span class="la-pip-text grid min-w-0 flex-1 gap-0.5 on-ad:hidden" data-pip-target="text" data-action="click->pip#expand">
+          <span class="hidden min-w-0 items-center gap-1.5 text-xs font-semibold text-highlight on-demand:flex">
+            <svg class="size-3.5 shrink-0" aria-hidden="true"><use href="#la-icon-podcast" /></svg>Podcast
+          </span>
+          <span class="la-pip-show flex min-w-0 items-center gap-1.5 text-xs font-semibold text-highlight on-demand:hidden">
+            <span class="relative flex size-1.5 shrink-0" aria-hidden="true">
+              <span class="la-ripple absolute inset-0 rounded-full bg-highlight"></span>
+              <span class="relative size-1.5 rounded-full bg-highlight"></span>
+            </span>
+            <span class="sr-only">Ao vivo: </span>
+            <span class="la-marquee min-w-0 flex-1" data-controller="marquee">
+              <span data-marquee-target="text" data-now-playing-target="program">Limeira FM</span>
+            </span>
+          </span>
+          <span class="la-pip-title la-marquee block text-base font-bold leading-snug live-video:hidden airing-show:hidden" data-controller="marquee">
+            <b data-marquee-target="text" data-now-playing-target="song">The Sun Always Shines On TV (2016 Remastered)</b>
+          </span>
+          <span class="la-pip-artist la-marquee block text-[0.8125rem] leading-snug text-stage-muted live-video:hidden airing-show:hidden" data-controller="marquee">
+            <span data-marquee-target="text" data-now-playing-target="artist">a-ha</span>
+          </span>
+          <span class="la-marquee hidden text-sm leading-snug text-stage-muted live-video:block airing-show:block" data-controller="marquee">
+            <span data-marquee-target="text">
+                com <b class="font-semibold text-stage-ink" data-now-playing-target="speaker">A Melhor Programação Musical</b>
+            </span>
+          </span>
+        </span>
+
+        <span class="hidden min-w-0 flex-1 gap-1.5 leading-tight on-ad:grid la-pip-ad">
+  <span class="la-eyebrow inline-flex items-center gap-1.5 text-[0.62rem] text-highlight">
+    <svg class="size-3.5" aria-hidden="true"><use href="#la-icon-megaphone" /></svg>
+    Publicidade
+  </span>
+  <b class="truncate text-[1.05rem] font-bold">
+    Ao vivo em <span class="tabular-nums" data-live-player-target="adLeft">0:00</span>
+  </b>
+  <span class="la-ad-progress block h-1 overflow-hidden rounded-full bg-white/15" aria-hidden="true"><span class="block h-full rounded-full bg-highlight"></span></span>
+</span>
+
+
+        <span class="la-wave flex items-center h-10 w-16 shrink-0 gap-[3px] text-highlight live-video:hidden on-demand:hidden" aria-hidden="true">
+    <span style="--la-reach: 0.35; --la-beat: 0.7s; --la-delay: -0.0s"></span>
+    <span style="--la-reach: 0.55; --la-beat: 0.94s; --la-delay: -0.23s"></span>
+    <span style="--la-reach: 0.8; --la-beat: 1.18s; --la-delay: -0.46s"></span>
+    <span style="--la-reach: 0.5; --la-beat: 0.82s; --la-delay: -0.69s"></span>
+    <span style="--la-reach: 0.95; --la-beat: 1.06s; --la-delay: -0.92s"></span>
+    <span style="--la-reach: 0.65; --la-beat: 0.7s; --la-delay: -1.15s"></span>
+    <span style="--la-reach: 1.0; --la-beat: 0.94s; --la-delay: -1.38s"></span>
+    <span style="--la-reach: 0.75; --la-beat: 1.18s; --la-delay: -1.61s"></span>
+    <span style="--la-reach: 0.9; --la-beat: 0.82s; --la-delay: -1.84s"></span>
+    <span style="--la-reach: 0.6; --la-beat: 1.06s; --la-delay: -2.07s"></span>
+    <span style="--la-reach: 0.85; --la-beat: 0.7s; --la-delay: -2.3s"></span>
+    <span style="--la-reach: 0.45; --la-beat: 0.94s; --la-delay: -2.53s"></span>
+    <span style="--la-reach: 0.7; --la-beat: 1.18s; --la-delay: -2.76s"></span>
+    <span style="--la-reach: 0.4; --la-beat: 0.82s; --la-delay: -2.99s"></span>
+    <span style="--la-reach: 0.55; --la-beat: 1.06s; --la-delay: -3.22s"></span>
+    <span style="--la-reach: 0.3; --la-beat: 0.7s; --la-delay: -3.45s"></span>
+</span>
+
+
+        <button type="button" class="la-press hidden h-9 shrink-0 items-center gap-1.5 self-start rounded-full bg-black/35 pl-2.5 pr-3 text-[0.75rem] font-bold text-stage-ink shadow-[inset_0_1px_0_rgb(255_255_255/0.12),inset_0_0_0_1px_rgb(255_255_255/0.08)] backdrop-blur-md transition hover:bg-black/50 on-demand:inline-flex"
+                data-action="episode-timeline#live">
+          <svg class="size-4 text-highlight" aria-hidden="true"><use href="#la-icon-live-waves" /></svg>Voltar à rádio
+        </button>
+      </div>
+
+      <div class="hidden items-center gap-2.5 text-[0.7rem] font-semibold tabular-nums text-stage-muted on-demand:flex">
+        <span class="w-11 shrink-0 text-right" data-episode-timeline-target="elapsed">0:00</span>
+        <input type="range" min="0" max="1" step="1" value="0" autocomplete="off" class="la-timeline la-timeline-small min-w-0 flex-1"
+               aria-label="Posição no episódio"
+               data-episode-timeline-target="track" data-action="input->episode-timeline#scrub change->episode-timeline#seek">
+        <span class="w-11 shrink-0" data-episode-timeline-target="left">-0:00</span>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <div class="la-pip-capsule inline-flex items-center gap-2 rounded-full p-1 pr-3 live-video:pl-2 volume-fixed:pr-1 on-demand:gap-1 on-demand:pl-1 on-demand:pr-4">
+          <button type="button" class="la-press hidden size-10 shrink-0 place-items-center rounded-full text-stage-ink transition hover:bg-white/10 on-demand:grid"
+                  data-action="episode-timeline#back" title="Voltar 15 segundos">
+            <svg class="size-6" aria-hidden="true"><use href="#la-icon-skip-back" /></svg><span class="sr-only">Voltar 15 segundos</span>
+          </button>
+          <button type="button" class="la-press la-halo relative grid size-10 shrink-0 place-items-center rounded-full bg-highlight text-on-highlight shadow-[0_8px_20px_-8px_var(--la-highlight)] transition hover:scale-105 live-video:hidden"
+                  data-action="live-player#toggle">
+            <span class="la-glyph grid size-[1.15rem]" aria-hidden="true">
+  <svg class="la-glyph-play size-full" aria-hidden="true"><use href="#la-icon-play" /></svg>
+  <svg class="la-glyph-spin size-full" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-dasharray="34 100" /></svg>
+  <svg class="la-glyph-pause size-full" aria-hidden="true"><use href="#la-icon-pause" /></svg>
+</span>
+
+            <span class="sr-only playing:hidden">Ouvir ao vivo</span>
+            <span class="sr-only hidden playing:inline">Pausar</span>
+          </button>
+          <button type="button" class="la-press hidden size-10 shrink-0 place-items-center rounded-full bg-highlight text-on-highlight shadow-[0_8px_20px_-8px_var(--la-highlight)] transition hover:scale-105 live-video:volume-fixed:grid"
+                  data-action="pip#sound">
+            <span class="grid size-5 *:col-start-1 *:row-start-1 *:size-full">
+              <svg class="size-5" aria-hidden="true"><use href="#la-icon-speaker-body" /></svg>
+              <svg class="live-sound:hidden" aria-hidden="true"><use href="#la-icon-speaker-cross" /></svg>
+              <svg class="hidden live-sound:block" aria-hidden="true"><use href="#la-icon-speaker-wave-near" /></svg>
+            </span>
+            <span class="sr-only">Ligar ou desligar o som do vídeo</span>
+          </button>
+
+          <button type="button" class="la-press hidden size-10 shrink-0 place-items-center rounded-full text-stage-ink transition hover:bg-white/10 on-demand:grid"
+                  data-action="episode-timeline#forward" title="Avançar 30 segundos">
+            <svg class="size-6" aria-hidden="true"><use href="#la-icon-skip-forward" /></svg><span class="sr-only">Avançar 30 segundos</span>
+          </button>
+
+          <span class="flex shrink-0 on-demand:ml-1 on-demand:border-l on-demand:border-white/10 on-demand:pl-3">
+            <div class="group/vol la-volume inline-flex items-center gap-0.5"
+     data-controller="volume" data-action="transitionend->volume#settle">
+  <button type="button" class="la-volume-icon grid size-9 shrink-0 place-items-center rounded-full transition duration-200 hover:scale-110" data-action="volume#toggleMute">
+    <span class="grid size-[1.4rem] *:col-start-1 *:row-start-1 *:size-full">
+      <svg class="size-5" aria-hidden="true"><use href="#la-icon-speaker-body" /></svg>
+      <svg class="la-volume-wave" aria-hidden="true"><use href="#la-icon-speaker-wave-near" /></svg>
+      <svg class="la-volume-wave la-volume-wave-far" aria-hidden="true"><use href="#la-icon-speaker-wave-far" /></svg>
+      <svg class="la-volume-cross" aria-hidden="true"><use href="#la-icon-speaker-cross" /></svg>
+    </span>
+    <span class="sr-only">Silenciar ou devolver o som</span>
+  </button>
+
+  <div class="relative flex h-7 items-center w-20">
+    <span class="la-volume-track relative block h-1.5 w-full overflow-hidden rounded-full group-hover/vol:h-3.5">
+      <span class="la-volume-fill absolute inset-0" data-volume-target="fill"></span>
+    </span>
+    <span class="la-volume-level pointer-events-none absolute inset-y-0 left-2 right-2">
+      <span class="la-volume-knob absolute right-0 top-1/2 size-4 rounded-full bg-white"></span>
+    </span>
+    <label class="sr-only" for="listener-app-pip-volume">Volume</label>
+    <input id="listener-app-pip-volume" type="range" min="0" max="100" step="1" value="100" autocomplete="off"
+           class="absolute inset-0 size-full cursor-pointer opacity-0" data-volume-target="input" data-action="input->volume#change">
+  </div>
+</div>
+
+          </span>
+        </div>
+
+        <button type="button" class="la-press hidden h-10 min-w-12 shrink-0 items-center justify-center rounded-full bg-black/35 px-3 text-[0.8125rem] font-extrabold tabular-nums text-stage-ink shadow-[inset_0_1px_0_rgb(255_255_255/0.12),inset_0_0_0_1px_rgb(255_255_255/0.08)] backdrop-blur-md transition hover:bg-black/50 on-demand:inline-flex"
+                data-action="episode-timeline#rate" title="Velocidade">
+          <span data-episode-timeline-target="rate">1×</span><span class="sr-only">Velocidade</span>
+        </button>
+
+        <span class="la-vote shrink-0 items-center gap-1.5" role="group" aria-label="Você curte esta música?" data-controller="song-vote" data-action="song-vote:changed@window-&gt;song-vote#show" data-song-vote-url-value="/song-likes" data-song-vote-slug-value="limeirafm" data-song-vote-stream-value="Im5vYXJfY2hhbm5lbF9saW1laXJhZm0i--dad16a992c4c2db7d3cd3e99463bb2dba6adac92fd5239fe3b5e0eff2c7ed129" data-song-vote-song-value="The Sun Always Shines On TV (2016 Remastered)" data-song-vote-artist-value="a-ha" data-song-vote-vote-value="">
+    <button type="button" class="la-press la-vote-button relative grid size-10 place-items-center rounded-full" title="Curti" aria-pressed="false" data-song-vote-target="button" data-vote="like" data-action="song-vote#cast animationend-&gt;song-vote#settle">
+      <svg class="size-[1.15rem]" aria-hidden="true"><use href="#la-icon-thumb-up" /></svg>
+      <span class="sr-only">Curti</span>
+</button>    <button type="button" class="la-press la-vote-button relative grid size-10 place-items-center rounded-full" title="Não curti" aria-pressed="false" data-song-vote-target="button" data-vote="dislike" data-action="song-vote#cast animationend-&gt;song-vote#settle">
+      <svg class="size-[1.15rem]" aria-hidden="true"><use href="#la-icon-thumb-down" /></svg>
+      <span class="sr-only">Não curti</span>
+</button></span>
+
+        <button type="button" class="la-press ml-auto hidden size-10 shrink-0 place-items-center rounded-full bg-black/35 text-stage-ink shadow-[inset_0_1px_0_rgb(255_255_255/0.12),inset_0_0_0_1px_rgb(255_255_255/0.08)] backdrop-blur-md transition hover:bg-black/50 live-video:grid"
+                data-action="live-remote#fullscreen" title="Tela cheia">
+          <svg class="size-[1.1rem]" aria-hidden="true"><use href="#la-icon-fullscreen" /></svg>
+          <span class="sr-only">Tela cheia</span>
+        </button>
+
+        <button type="button" class="la-press ml-auto inline-flex h-10 shrink-0 items-center gap-1.5 rounded-full live-video:ml-0 on-demand:ml-0 bg-black/35 pl-3 pr-3.5 text-[0.8125rem] font-semibold text-stage-ink shadow-[inset_0_1px_0_rgb(255_255_255/0.12),inset_0_0_0_1px_rgb(255_255_255/0.08)] backdrop-blur-md transition hover:bg-black/50 on-demand:pr-3"
+                data-action="pip#fold" title="Recolher o player para o canto">
+          <svg class="size-4" aria-hidden="true"><use href="#la-icon-fold" /></svg><span class="on-demand:sr-only">Minimizar</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+</aside>
+
+    <nav class="fixed inset-x-0 bottom-0 z-40 grid auto-cols-fr grid-flow-col border-t border-line bg-surface/95 px-1 pb-[max(0.5rem,env(safe-area-inset-bottom))] pt-1.5 lg:hidden"
+     aria-label="Seções">
+    <a href="/" aria-current="page"
+       class="grid justify-items-center gap-0.5 py-1 text-[0.6875rem] font-semibold text-muted aria-[current=page]:text-accent">
+      <svg class="size-6" aria-hidden="true"><use href="#la-icon-live" /></svg>Ao vivo
+    </a>
+    <a href="/schedule" aria-current="false"
+       class="grid justify-items-center gap-0.5 py-1 text-[0.6875rem] font-semibold text-muted aria-[current=page]:text-accent">
+      <svg class="size-6" aria-hidden="true"><use href="#la-icon-calendar" /></svg>Programação
+    </a>
+    <a href="/#anuncie" aria-current="false"
+       class="grid justify-items-center gap-0.5 py-1 text-[0.6875rem] font-semibold text-muted aria-[current=page]:text-accent">
+      <svg class="size-6" aria-hidden="true"><use href="#la-icon-megaphone" /></svg>Anuncie
+    </a>
+</nav>
+
+    <div class="la-fab fixed right-4 z-50 flex flex-col items-center sm:right-6" data-controller="back-to-top"
+         data-action="scroll@window->back-to-top#watch">
+      <div class="la-back-top grid" data-back-to-top-target="slot"><div class="min-h-0"><button type="button" class="la-glass-orb la-press mb-5 grid size-10 place-items-center rounded-full" data-action="back-to-top#climb" aria-label="Voltar ao topo"><svg class="relative size-[1.1rem] -rotate-90" aria-hidden="true"><use href="#la-icon-chevron" /></svg></button></div></div>
+      
+    </div>
+    <dialog class="la-request-dialog" data-song-request-target="dialog" data-action="click-&gt;song-request#dismiss cancel-&gt;song-request#cancel close-&gt;song-request#closed" data-search-url="/song-requests" data-new-url="/song-requests/new" data-slug="limeirafm" data-stream="Im5vYXJfY2hhbm5lbF9saW1laXJhZm0i--dad16a992c4c2db7d3cd3e99463bb2dba6adac92fd5239fe3b5e0eff2c7ed129" data-waiting="No estúdio" data-played="Tocou às {time}" aria-labelledby="listener-app-request-title">
+  <div class="la-request-panel la-liquid-panel relative isolate flex flex-col overflow-hidden rounded-[2rem] text-stage-ink">
+    <header class="flex items-center gap-3.5 px-6 pt-6">
+      <span class="la-kit-bead grid size-11 shrink-0 place-items-center rounded-full"><svg class="size-5" aria-hidden="true"><use href="#la-icon-request" /></svg></span>
+      <div class="min-w-0 flex-1">
+        <p class="la-eyebrow text-[0.65rem] text-highlight">Pedido musical na Limeira FM</p>
+        <h2 id="listener-app-request-title" class="la-display mt-0.5 text-2xl font-extrabold leading-tight">Peça sua música</h2>
+      </div>
+      <button type="button" class="la-glass-button grid size-10 shrink-0 place-items-center rounded-full" data-action="song-request#close"
+              aria-label="Fechar">
+        <svg class="size-[1.1rem]" aria-hidden="true"><use href="#la-icon-close" /></svg>
+      </button>
+    </header>
+
+    <form action="/song-requests" method="get" class="px-6 pt-5" data-turbo-frame="listener-app-request"
+          data-action="song-request#submit">
+      <label class="la-request-search flex h-14 items-center gap-3 rounded-2xl pl-4 pr-3">
+        <svg class="size-5 shrink-0 text-stage-muted" aria-hidden="true"><use href="#la-icon-search" /></svg>
+        <input type="search" name="q" autocomplete="off" spellcheck="false" enterkeyhint="search"
+               placeholder="Qual música você quer ouvir?" aria-label="Qual música você quer ouvir?"
+               class="min-w-0 flex-1 bg-transparent text-[1.05rem] font-medium text-stage-ink outline-none placeholder:text-stage-muted"
+               data-song-request-target="input" data-action="input->song-request#search">
+        <kbd class="hidden shrink-0 rounded-lg px-2 py-0.5 text-xs font-bold text-stage-muted ring-1 ring-white/15 lg:block" title="Aperte / em qualquer tela para pedir">/</kbd>
+      </label>
+    </form>
+
+    <div class="la-scroll-fade min-h-0 flex-1 overflow-y-auto px-6 pb-6 pt-5" data-controller="scroll-fade"
+         data-action="scroll->scroll-fade#fade turbo:frame-load->scroll-fade#fade touchmove->song-request#lower:passive">
+      <turbo-frame class="la-request-frame block" data-song-request-target="frame" id="listener-app-request"></turbo-frame>
+
+      <section class="mt-7 border-t border-white/10 pt-5" data-song-request-target="mine" hidden>
+        <h3 class="la-eyebrow text-[0.65rem] text-stage-muted">Seus pedidos de hoje</h3>
+        <ol class="mt-3 grid gap-2" data-song-request-target="mineList"></ol>
+        <template data-song-request-target="mineItem">
+          <li class="flex items-center gap-3 text-sm">
+            <img data-part="art" alt="" class="size-10 shrink-0 rounded-lg object-cover">
+            <span class="min-w-0 flex-1">
+              <b data-part="title" class="block truncate font-bold"></b>
+              <span data-part="artist" class="block truncate text-stage-muted"></span>
+            </span>
+            <span data-part="status" class="la-request-status shrink-0 rounded-full px-2.5 py-1 text-xs font-semibold"></span>
+          </li>
+        </template>
+      </section>
+    </div>
+  </div>
+</dialog>
+<div class="la-request-toast la-liquid-panel fixed left-1/2 z-[70] flex items-center gap-3.5 rounded-full py-2 pl-2 pr-6 text-stage-ink"
+     role="status" aria-live="polite" data-song-request-target="toast">
+  <img alt="" class="size-12 shrink-0 rounded-full object-cover" data-song-request-target="toastArt">
+  <span class="min-w-0">
+    <span class="la-eyebrow block text-[0.62rem] text-highlight">Tocou seu pedido!</span>
+    <b class="block truncate text-base font-bold" data-song-request-target="toastSong"></b>
+  </span>
+</div>
+
+      <section class="la-consent la-liquid-panel fixed z-[60] rounded-[1.75rem] text-stage-ink" aria-labelledby="listener-app-consent-title" data-consent-target="panel" data-cookie="la_consent" data-shared-cookie="cookieConsent" data-granted="Você permitiu" data-denied="Você recusou">
+  <div class="p-5">
+    <div class="flex items-center gap-3.5">
+      <span class="la-kit-bead grid size-11 shrink-0 place-items-center rounded-full"><svg class="size-[1.35rem]" aria-hidden="true"><use href="#la-icon-shield" /></svg></span>
+      <h2 id="listener-app-consent-title" class="la-display text-[1.08rem] font-extrabold leading-tight">Sua privacidade, sua escolha</h2>
+    </div>
+    <p class="mt-3 text-[0.88rem] leading-relaxed text-stage-muted">
+      A Limeira FM usa cookies para medir a audiência e para os anúncios que ajudam a manter a rádio no ar. Os essenciais ficam sempre ligados.
+      <a href="/privacy_policy#cookies" class="font-semibold text-stage-ink underline decoration-highlight decoration-2 underline-offset-4 hover:text-white">Política de privacidade</a>
+    </p>
+  </div>
+
+  <div id="listener-app-consent-choices" class="la-consent-choices grid">
+    <div class="min-h-0 overflow-hidden">
+      <div class="mx-5 grid gap-2.5 border-t border-white/10 pb-1 pt-4">
+        <div class="la-consent-purpose rounded-2xl px-4 py-3.5">
+          <span class="flex items-center justify-between gap-3">
+            <b class="text-[0.92rem] font-bold">Essenciais</b>
+            <span class="la-eyebrow text-[0.6rem] text-highlight">Sempre ligados</span>
+          </span>
+          <span class="mt-1 block text-[0.8rem] leading-snug text-stage-muted">Fazem tudo funcionar. Guardam o player, seus pedidos musicais e esta escolha.</span>
+        </div>
+          <label class="la-consent-purpose block cursor-pointer rounded-2xl px-4 py-3.5">
+            <span class="flex items-center justify-between gap-3">
+              <b class="text-[0.92rem] font-bold">Medição de audiência</b>
+              <input type="checkbox" class="la-switch" name="analytics" data-consent-target="purpose" aria-describedby="listener-app-consent-analytics">
+            </span>
+            <span id="listener-app-consent-analytics" class="mt-1 block text-[0.8rem] leading-snug text-stage-muted">
+              Contam visitas e páginas vistas, para a rádio saber o que o público ouve e lê. Não dizem quem você é. <span class="text-stage-ink/60">Google Analytics.</span>
+            </span>
+          </label>
+          <label class="la-consent-purpose block cursor-pointer rounded-2xl px-4 py-3.5">
+            <span class="flex items-center justify-between gap-3">
+              <b class="text-[0.92rem] font-bold">Anúncios personalizados</b>
+              <input type="checkbox" class="la-switch" name="ads" data-consent-target="purpose" aria-describedby="listener-app-consent-ads">
+            </span>
+            <span id="listener-app-consent-ads" class="mt-1 block text-[0.8rem] leading-snug text-stage-muted">
+              Escolhem os anúncios pelo que você gosta. Sem eles, os anúncios continuam, só que iguais para todo mundo. <span class="text-stage-ink/60">Google AdSense.</span>
+            </span>
+          </label>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex flex-wrap items-center gap-2 px-5 pb-5 pt-4">
+    <button type="button" class="la-consent-customize inline-flex h-11 items-center rounded-full pl-1 pr-3 text-sm font-bold text-stage-ink/85 transition-colors hover:text-white"
+            data-consent-target="customize" data-action="consent#customize" aria-expanded="false" aria-controls="listener-app-consent-choices">
+      Personalizar
+      <svg class="la-consent-chevron ml-1 size-4" aria-hidden="true"><use href="#la-icon-chevron" /></svg>
+    </button>
+    <span class="ml-auto flex gap-2">
+      <button type="button" class="la-consent-quick la-glass-button inline-flex h-11 items-center rounded-full px-5 text-sm font-bold" data-action="consent#reject">
+        Recusar
+      </button>
+      <button type="button" class="la-consent-quick la-glass-button la-glass-button-accent inline-flex h-11 items-center rounded-full px-5 text-sm font-bold" data-action="consent#accept">
+        Aceitar tudo
+      </button>
+      <button type="button" class="la-consent-save la-glass-button la-glass-button-accent h-11 items-center rounded-full px-6 text-sm font-bold" data-action="consent#save">
+        Salvar minhas escolhas
+      </button>
+    </span>
+  </div>
+</section>
+      
+      <turbo-frame data-controller="preroll" data-preroll-url-value="/preroll" data-turbo-permanent="true" data-action="turbo:frame-load-&gt;preroll#arrive turbo:before-fetch-response-&gt;preroll#answered turbo:frame-missing-&gt;preroll#missed turbo:fetch-request-error-&gt;preroll#missed" id="listener-app-preroll"></turbo-frame>
+    <div class="la-scroll-thumb" aria-hidden="true" data-controller="scroll-thumb"
+         data-action="scroll@window->scroll-thumb#show resize@window->scroll-thumb#place pointermove@window->scroll-thumb#near pointerdown->scroll-thumb#grab pointermove@window->scroll-thumb#drag pointerup@window->scroll-thumb#release pointercancel@window->scroll-thumb#release"></div>
+      <div class="la-edge-veil la-edge-veil-top" aria-hidden="true"><span></span><span></span><span></span></div>
+      <div class="la-edge-veil la-edge-veil-bottom" aria-hidden="true"><span></span><span></span></div>
+  </body>
+</html>
