@@ -1,0 +1,583 @@
+<!doctype html>
+<html>
+
+<head>
+        <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta http-equiv="CACHE-CONTROL" CONTENT="NO-CACHE">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="keywords" content="country,countrymusic,country-music,country music,music,mp3,mp3pro,downloads,hits,webradio,radio,web,country108,country-108,country 108,internet,web,american,us,usa,top 4,top 40,top 100,top,hot,hottest,live,">
+    <meta name="description" content="Hören Sie die größten Country Musik Hits von heute und die All Time Favorits wie Wynonna Judd, Brad Paisley, Kenny Chesney, Keith Urban, Alabama, Taylor Swift, Garth Brooks und viele mehr.
+Wir spielen den amerikanischen Sound, wo immer Sie uns hören.">
+
+    
+    <title>COUNTRY&#8226;108 - Your Country Music</title>
+
+    <!-- FAVICON AND APPLE TOUCH -->    
+    <link rel="shortcut icon" href="favicon.png.pagespeed.ce.tuEDsXNmeM.png">
+	<link rel="apple-touch-icon-precomposed" sizes="180x180" href="apple-touch-180x180.png">
+    <meta name="msapplication-TileImage" content="mstile.png">
+    
+    <!-- FONTS -->
+    <link rel="stylesheet" href="fonts/poppins-v5-latin/fonts.css">
+
+    <!-- BOOTSTRAP CSS -->
+    <link rel="stylesheet" href="assets/A.bootstrap,,_css,,_bootstrap.min.css+fonts,,_fontawesome,,_css,,_font-awesome.min.css+fonts,,_oslo-icons,,_css,,_oslo-icons.min.css+plugins,,_fancybox,,_jquery.fancybox.css+plugins,,_revolutionslider,,_css,,_settings.css+plugins,,_revolutionslider,,_css,,_layers.css+plugins,,_revolutionslider,,_css,,_navigation.css+plugins,,_owl-carousel,,_owl.carousel.css+plugins,,_owl-carousel,,_owl.transitions.css+plugins,,_ytplayer,,_css,,_jquery.mb.YTPlayer.min.css+plugins,,_animations,,_animate.min.css+css,,_custom.css+css,,_pages-style.css+css,,_alternative-styles,,_unitcom.css,Mcc.HZ5rTaHi-z.css.pagespeed.cf.-V6i9Vz0AQ.css"/> 
+    
+    <!-- FONT AWESOME -->
+    
+
+    <!-- OSLO ICONS -->
+    
+    
+    <!-- FANCYBOX -->
+    
+	
+	<!-- REVOLUTION SLIDER -->
+    
+	
+	
+    
+    <!-- OWL Carousel -->
+    
+	
+	
+	<!-- YOUTUBE PLAYER -->
+    
+    
+    <!-- ANIMATIONS -->
+    
+    
+    <!-- CUSTOM & PAGES STYLE -->
+    
+    
+    
+
+<!-- Titel-Anzeige -->
+ <script type='text/javascript'>//<![CDATA[
+function getTitle() {
+//console.log("Updated");
+$.ajax({
+   type: 'GET',
+    url: 'http://icepool.silvacast.com/onair.xsl?mount=/GOLDFM.mp3',
+    async: true,
+    jsonpCallback: 'onair',
+    contentType: "application/json",
+    dataType: 'jsonp',
+    success: function(json) {
+       //$('#track-title').text(json['now']['title']); 
+	   $('#track-title').html(json['now']['title']+'<a href="/buy.html?search='+encodeURIComponent(json['now']['title'])+'" target="_blank">&nbsp;<i class="fa fa-shopping-cart fa-1x" aria-hidden="true"></i></a>');
+    },
+    error: function(e) {
+       console.log(e.message);
+    }
+});
+ 
+}
+
+var timer = 0;
+var PERIOD_VISIBLE = 20000;
+var PERIOD_NOT_VISIBLE = 600000;
+var vendorHidden, vendorVisibilitychange;
+
+function detectHiddenFeature() 
+{
+   // draft standard implementation
+   if (typeof document.hidden != "undefined") 
+   {
+      vendorHidden = "hidden";
+      vendorVisibilitychange = "visibilitychange";
+      return true;
+   }
+   // IE10 prefixed implementation
+   if (typeof document.msHidden != "undefined") 
+   {
+      vendorHidden = "msHidden";
+      vendorVisibilitychange = "msvisibilitychange";
+      return true;
+   }
+   // Chrome 13 prefixed implementation
+   if (typeof document.webkitHidden != "undefined") 
+   {
+      vendorHidden = "webkitHidden";
+      vendorVisibilitychange = "webkitvisibilitychange";
+      return true;
+   }
+   // feature is not supported
+   return false;
+}
+
+function onLoad() 
+{
+   //console.log("Update started ...");
+   setTimeout(function(){getTitle();}, 2000);
+   // if the document.hidden feature is supported, vary interval based on visibility.
+   // otherwise, just use setInterval with a fixed time.
+   if (detectHiddenFeature()) 
+   {
+      timer = setInterval(function(){getTitle();}, document[vendorHidden] ? PERIOD_NOT_VISIBLE : PERIOD_VISIBLE);
+      document.addEventListener(vendorVisibilitychange, visibilityChanged);
+	  //console.log("Feature detected");
+   }
+   else 
+   {
+      timer = setInterval(function(){getTitle();}, PERIOD_VISIBLE);
+	  //console.log("Feature not detected");
+   }
+}
+
+function visibilityChanged() 
+{
+   clearTimeout(timer);
+   timer = setInterval(function(){getTitle();}, document[vendorHidden] ? PERIOD_NOT_VISIBLE : PERIOD_VISIBLE);
+   //debugMessage("Going " + (document[vendorHidden] ? "not " : "") + "visible at " + new Date().toTimeString());
+   //console.log("visibilityChanged");
+}
+
+function debugMessage(s) 
+{
+   var p = document.createElement("p");
+   p.appendChild(document.createTextNode(s));
+   document.body.appendChild(p);
+}
+//]]> </script>
+
+<script id="usercentrics-cmp" data-settings-id="6JTe9w9qb" src="https://app.usercentrics.eu/browser-ui/latest/bundle_legacy.js" data-tcf-enabled></script>
+<meta data-privacy-proxy-server="https://privacy-proxy-server.usercentrics.eu">
+<script type="application/javascript" src="https://privacy-proxy.usercentrics.eu/latest/uc-block.bundle.js"></script>
+    <script src="/playlist,_playlist.js+assets,_plugins,_jquery,_jquery-2.2.0.min.js.pagespeed.jc.vz8Lgvo7Mn.js"></script><script>eval(mod_pagespeed_Tv_HNPQVsa);</script>
+</head>
+
+<body class="footer-style-2 boxed bg bg_image" onload="window.setTimeout('RequestPlayList(false);', 100);">    
+    
+	<div id="main-container">
+        
+        <!-- HEADER -->
+        <header id="header">
+            
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-3">
+                        
+                        <!-- LOGO -->
+						<div id="logo">
+							<a href="index.php">
+								<img src="assets/images/logo.png.pagespeed.ce.q4TUxKOoPa.png">
+							</a>
+						</div><!-- LOGO -->
+                        
+                    </div><!-- col -->
+                    <div class="col-sm-9">
+						
+						<!-- MENU -->
+
+                        <nav>
+                                            <a id="mobile-menu-button" href="#"><i class="oslo-icon-menu55"></i></a>
+
+                            <ul class="menu clearfix" id="menu">                            
+                                <li>
+                                    <!--<a href="/player" onclick="window.open(this.href,'_blank','location=no,scrollbar=no,menubar=no,resizable=no,status=no,toolbar=no,width=600,height=270'); return false;" >Radio Starten <i class="fa fa-music"></i></a>-->									<a href="https://fility.com/country-108/" onclick="window.open(this.href,'_blank','location=no,scrollbar=no,menubar=no,resizable=no,status=no,toolbar=no,width=780,height=700'); return false;">Radio Starten <i class="fa fa-music"></i></a>
+                                </li>
+                                <li>
+                                    <a href="/#playlist">Playlist</a>
+                                </li>
+                                <li>
+                                    <a href="/#service">Service</a>
+                                </li>
+                                <li>
+                                    <a href="/kontakt-impressum.php">Kontakt</a>
+                                </li>                               
+                                <li class="search">
+                                </li>
+                            </ul>
+                        </nav>
+                    </div><!-- col -->
+                </div><!-- row -->
+            </div><!-- container-fluid -->
+                    
+        </header><!-- HEADER -->
+        
+            
+        <!-- CONTENT -->
+        <div id="page-content">
+
+            <div class="rev_slider_wrapper">
+                <div class="rev_slider" data-version="5.0">
+                    <ul>
+                        <li data-transition="fade">
+
+                            <img src="images/index/revolution-slider/bg.jpg.pagespeed.ce.YRtlD31_eL.jpg" alt="">
+
+                            <div class="tp-caption rs-parallaxlevel-1" data-x="100" data-y="250" data-speed="700" data-start="1200" data-transform_in="sX:0;sY:0;s:700;" data-transform_out="sX:0;sY:0;s:700;">
+                                <img src="images/index/revolution-slider/die-groessten-evergreens.png.pagespeed.ce.5e2cEhG3dN.png" alt="">
+                            </div>
+                            
+                        </li>
+                        
+                        <!-- slide 2 -->
+                        
+<li data-transition="fade">
+
+                            <img src="images/index/revolution-slider/bg-slider-unscharf.jpg.pagespeed.ce.jLTYQXMfJa.jpg" alt="">
+
+                            <div class="tp-caption rs-parallaxlevel-3" data-x="380" data-y="80" data-speed="700" data-start="1200" data-transform_in="sX:0;sY:0;s:700;" data-transform_out="sX:0;sY:0;s:700;">
+                                <img src="images/index/revolution-slider/taylor.png.pagespeed.ce.3bIPnwU5DG.png" alt="">
+                            </div>
+
+                            <div class="tp-caption rs-parallaxlevel-2" data-x="100" data-y="170" data-speed="700" data-start="1200" data-transform_in="sX:0;sY:0;s:700;" data-transform_out="sX:0;sY:0;s:700;">
+                                <img src="images/index/revolution-slider/die-groessten-evergreens.png.pagespeed.ce.5e2cEhG3dN.png" alt="">
+                            </div>
+
+                            <div class="tp-caption rs-parallaxlevel-1" data-x="750" data-y="150" data-hoffset="-100" data-speed="700" data-start="1200" data-transform_in="sX:0;sY:0;s:700;" data-transform_out="sX:0;sY:0;s:700;">
+                                <img src="images/index/revolution-slider/kenny.png.pagespeed.ce.ORHizFKzE9.png" alt="">
+                            </div>
+
+                            <div class="tp-caption rs-parallaxlevel-2" data-x="right" data-y="540" data-hoffset="200" data-speed="700" data-start="1200" data-transform_in="sX:0;sY:0;s:700;" data-transform_out="sX:0;sY:0;s:700;">
+                                <img src="images/index/revolution-slider/uvm.png.pagespeed.ce.zHUijGzmVX.png" alt="">
+                            </div>
+                        
+
+                            <div class="tp-caption rs-parallaxlevel-4" data-x="600" data-y="450" data-voffset="120" data-hoffset="200" data-speed="700" data-start="1200" data-transform_in="sX:0;sY:0;s:700;" data-transform_out="sX:0;sY:0;s:700;">
+                                <img src="images/index/revolution-slider/keith.png.pagespeed.ce.DsEq0QMbiH.png" alt="">
+                            </div>
+
+                            <div class="tp-caption rs-parallaxlevel-2" data-x="center" data-y="120" data-hoffset="280" data-speed="700" data-start="1200" data-transform_in="sX:0;sY:0;s:700;" data-transform_out="sX:0;sY:0;s:700;">
+                            </div>
+
+                            <div class="tp-caption rs-parallaxlevel-4" data-x="0" data-y="120" data-hoffset="180" data-speed="700" data-start="1200" data-transform_in="sX:0;sY:0;s:700;" data-transform_out="sX:0;sY:0;s:700;">
+                                <img src="images/index/revolution-slider/judd.png.pagespeed.ce.-FkEMIWMph.png" alt="">
+                            </div>
+
+                            <div class="tp-caption rs-parallaxlevel-3" data-x="200" data-y="480" data-hoffset="-100" data-voffset="50" data-speed="700" data-start="1200" data-transform_in="sX:0;sY:0;s:700;" data-transform_out="sX:0;sY:0;s:700;">
+                                <img src="images/index/revolution-slider/brad.png.pagespeed.ce.V9JvPVzCsx.png" alt="">
+                            </div>
+
+                            <div class="tp-caption title-white" data-x="center" data-y="550" data-voffset="-70" data-speed="700" data-start="1800" data-transform_in="y:-100;s:700;" data-transform_out="y:-100;sY:0;s:700;">
+                                
+                            </div>
+
+                            <div class="tp-caption big-title-white" data-x="center" data-y="500" data-speed="700" data-start="2300" data-transform_in="y:-100;s:700;" data-transform_out="y:-100;sY:0;s:700;">
+                            </div>
+                        </li>
+                        
+                        <!-- slide 2 end -->
+                        
+                    </ul>
+                </div><!-- rev_slider -->
+            </div><!-- rev_slider_wrapper -->
+            <a name="sender"></a>
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-sm-12">
+                            <div class="container">
+                <div class="row">
+                    <h2 class="h_titel">Welcome Home bei COUNTRY•108, <br>der Station für US-Countrymusik.
+</h2>
+                    <div class="col-sm-8">
+							<div class="bodytext">Hören Sie die größten Country Musik Hits von heute und die All Time Favorites wie <b>Wynonna Judd, Brad Paisley, Kenny Chesney, Keith Urban, Alabama, Taylor Swift, Garth Brooks</b> und viele mehr.<br>
+
+Wir spielen den amerikanischen Sound, wo immer Sie uns hören.<br><br>
+
+<b style="color: #a32127;">Tune In! Get Wild! Listen to COUNTRY•108.</b></div><br><br>
+                    </div><!-- col -->
+                    <div class="col-sm-4">
+<a href="https://fility.com/country-108/" onclick="window.open(this.href,'_blank','location=no,scrollbar=no,menubar=no,resizable=no,status=no,toolbar=no,width=780,height=700'); return false;"><img src="images/services/radio-bnt.gif.pagespeed.ce.Iop84ZoTur.gif"></a>
+                        <br><br>
+                    </div><!-- col -->
+                </div><!-- row -->
+            </div><!-- container -->
+
+                    </div><!-- col -->
+                    <a name="playlist"></a> 
+                </div><!-- row -->
+            </div><!-- container -->
+            
+            <br><br>
+                        <section class="full-section dark-section" style="background-image:url(images/backgrounds/bg-dark.jpg.pagespeed.ce.JUV0nSh8dx.jpg);padding:100px 0 80px 0">
+
+                <div class="full-section-overlay"></div>
+                <div class="full-section-container">
+                    <div id="playliste"></div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-12 text-center">
+
+                                <div class="">
+
+                                    <p></p>
+                                    <h2>PLAYLIST</h2>
+
+                                </div><!-- headline -->
+
+                            </div><!-- col -->
+                        </div><!-- row -->
+                    </div><!-- container -->
+
+                    <div class="container listenpunkte">
+                        <div class="row">
+                            <div class="col-sm-6 text-center">
+
+                                <h3>AKTUELLER TITEL</h3>
+<ul id="listenpunkt">
+<li id="text01" style="margin-bottom: 5px; list-style: none;"> </li>
+</ul><br/><br/>
+
+                            </div><!-- col -->
+                            <div class="col-sm-6 text-center">
+                                <h3>ZULETZT GESPIELT</h3>
+<ul id="listenpunkt">
+<li id="text02" style="margin-bottom: 5px; list-style: none;"> </li>
+<li id="text03" style="margin-bottom: 5px; list-style: none;"> </li>
+<li id="text04" style="margin-bottom: 5px; list-style: none;"> </li>
+<li id="text05" style="margin-bottom: 5px; list-style: none;"> </li>
+<li id="text06" style="margin-bottom: 5px; list-style: none;"> </li>
+<li id="text07" style="margin-bottom: 5px; list-style: none;"> </li>
+<li id="text08" style="margin-bottom: 5px; list-style: none;"> </li>
+<li id="text09" style="margin-bottom: 5px; list-style: none;"> </li>
+<li id="myNewLink1" style="margin-bottom: 5px;visibility: hidden;"> </li>
+<li id="myNewLink2" style="margin-bottom: 5px;visibility: hidden;"> </li>
+
+</ul>
+
+
+                            </div><!-- col -->
+                        </div><!-- row -->
+                    </div><!-- container -->
+
+                </div><!-- full-section-container -->
+
+            </section><!-- full-section -->
+
+    
+            <a name="service"></a>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                            <div class="container alink">
+                <div class="row">
+                    <h2 class="h_titel">Service</h2>
+                    <div class="col-sm-6">
+							<div class="bodytext"><b>Streaming URLs</b>
+Streaming URLs für Internetradio-Empfänger (Internetradios, FRITZ!Fon …) oder Player-Software (VLC, Winamp …):</div><br>
+                    </div><!-- col -->
+                     <div class="col-sm-2">
+<br><br>
+                    </div><!-- col -->
+                    <div class="col-sm-4">
+                       <a href="http://www.country108.com/listen.pls" target="_blank">http://www.country108.com/listen.pls</a><br>
+                       <a href="http://www.country108.com/listen.asx" target="_blank">http://www.country108.com/listen.asx</a><br>
+                       <a href="http://www.country108.com/listen.m3u" target="_blank">http://www.country108.com/listen.m3u</a><br><br><br>
+                    </div><!-- col -->
+                    <h2 class="h_titel">Logo</h2>
+                    <div class="col-sm-6">
+                    Das Country•108 Logo (in verschiedenen Versionen) können Sie sich hier <a href="images/logos/Country-108-LOGO.zip">herunterladen</a> !
+                        <br><br>
+                    </div><!-- col -->
+                    <div class="col-sm-2">
+                        <br><br>
+                    </div><!-- col -->
+                    <div class="col-sm-4">
+                        <br><br>
+                    </div><!-- col -->
+                     
+                </div><!-- row -->
+            </div><!-- container -->
+
+                    </div><!-- col -->
+                </div><!-- row -->
+            </div><!-- container -->
+
+        </div><!-- PAGE CONTENT -->
+        
+            
+       <!-- FOOTER -->
+        <footer id="footer-container">
+
+         <div id="footer">
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-3">
+
+                            <div class="widget widget-text">
+
+                                 <h5 class="widget-title">Sitemap</h5>
+
+                                <br>
+                             <a href="/kontakt-impressum.php">Kontakt</a><br>
+                             <a href="/nutzungsbedingungen.php">Nutzungsbedingungen</a><br>
+							 <a href="/datenschutzerklaerung.php">Datenschutzerklärung</a><br>
+							 <a href="#" onclick="UC_UI.showSecondLayer();return false;" title="Datenschutz-Einstellungen bearbeiten">Datenschutz-Einstellungen</a><br>
+                             <a href="/kontakt-impressum.php">Impressum</a><br>
+
+
+                            </div><!-- widget-text -->
+
+                        </div><!-- col -->
+                        
+                        <div class="col-sm-3">
+
+                            <div class="widget widget-text">
+
+                                 <h5 class="widget-title">Vermarkter</h5>
+
+                                <br><a href="http://www.rms.de/" target="_blank"><img src="images/logos/logo_rms_inverted.png.pagespeed.ce.uXsAf2PYub.png" style="opacity: 0.6;"></a>
+
+                            </div><!-- widget-text -->
+
+                        </div><!-- col -->
+                        
+                       <div class="col-sm-6">                       
+                        <div class="widget widget-text">
+                                <div style="margin-top:40px;">
+                                    <a href="http://www.silvacast.com" target="_blank"><img src="images/footer/footer_silvacast.png.pagespeed.ce.HQZC_aorY5.png" style="opacity: 0.6;"></a>
+
+                                </div>
+
+                            </div><!-- widget-text -->
+                        </div><!-- col -->
+                        
+                        
+                    </div><!-- row -->
+                </div><!-- container -->
+
+            </div><!-- footer -->
+            <div id="footer-bottom">
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12">
+
+                            <div class="widget widget-text">
+
+                                <div>
+
+                                    <p class="copyright">
+                                        © 2026  Country•108 / Silvacast GmbH. Alle Rechte vorbehalten. <br>
+                                    </p>
+
+                                </div>
+
+                            </div><!-- widget-text -->
+
+                        </div><!-- col -->
+                    </div><!-- row -->
+                </div><!-- container -->
+
+            </div><!-- fotter-bottom -->
+
+        </footer><!-- FOOTER CONTAINER -->
+        
+    </div><!-- MAIN CONTAINER -->
+    
+    
+
+    
+    <!-- GO TOP -->
+    <a id="scroll-up"><i class="oslo-icon-up176"></i></a>
+    
+    
+    <!-- jQUERY -->
+    <script>eval(mod_pagespeed_Mla6QqRu53);</script>
+	
+    <!-- BOOTSTRAP JS -->
+    <script src="assets/bootstrap,_js,_bootstrap.min.js+plugins,_viewport,_jquery.viewport.js+plugins,_menu,_hoverIntent.js+plugins,_menu,_superfish.js+plugins,_fancybox,_jquery.fancybox.pack.js.pagespeed.jc.aNBQznthZW.js"></script><script>eval(mod_pagespeed_4mpK3Qo_Wk);</script>
+    
+    <!-- VIEWPORT -->
+    <script>eval(mod_pagespeed_Qcg$q3nYPW);</script>
+    
+    <!-- MENU -->
+	<script>eval(mod_pagespeed_TbEhnOyofJ);</script>
+    <script>eval(mod_pagespeed_98xN6w1wOw);</script>
+    
+    <!-- FANCYBOX -->
+    <script>eval(mod_pagespeed_ob5o_sIo3L);</script>
+	
+	<!-- /// Revolution Slider ////////  -->
+    <script src="assets/plugins/revolutionslider/js/jquery.themepunch.tools.min.js.pagespeed.ce.NvtZ1FfHJk.js"></script>
+    <script src="assets/plugins/revolutionslider/js/jquery.themepunch.revolution.min.js+extensions,_revolution.extension.actions.min.js+extensions,_revolution.extension.carousel.min.js+extensions,_revolution.extension.kenburn.min.js.pagespeed.jc.l2Oen-Iblj.js"></script><script>eval(mod_pagespeed_tm31Kj1687);</script>
+	<script>eval(mod_pagespeed_VvPfYsGl2M);</script>
+	<script>eval(mod_pagespeed_bcwDFKwbpO);</script>
+	<script>eval(mod_pagespeed_lSSV8XdOB1);</script>
+	<script src="assets/plugins/revolutionslider/js/extensions/revolution.extension.layeranimation.min.js+revolution.extension.migration.min.js+revolution.extension.navigation.min.js+revolution.extension.parallax.min.js.pagespeed.jc.E2yM5zAxgb.js"></script><script>eval(mod_pagespeed_wm1cy0KWbe);</script>
+	<script>eval(mod_pagespeed_zXUZJTkZzm);</script>
+	<script>eval(mod_pagespeed_V0b7VYX6hI);</script>
+	<script>eval(mod_pagespeed_X$V4LdAhfQ);</script>
+	<script src="assets/plugins/revolutionslider/js/extensions/revolution.extension.slideanims.min.js.pagespeed.ce.wpKcrIwpsC.js"></script>
+	<script src="assets/plugins/revolutionslider/js/extensions/revolution.extension.video.min.js"></script>
+    
+
+    <!-- DRAG SLIDER -->
+    <script src="assets/plugins/dragslider,_dragdealer.js+parallax,_jquery.stellar.min.js+isotope,_imagesloaded.pkgd.min.js.pagespeed.jc.Mt9s8TNs7A.js"></script><script>eval(mod_pagespeed_vVoXEW5ewM);</script>
+    
+    <!-- PARALLAX -->
+    <script>eval(mod_pagespeed_UZ_lH26CXJ);</script>
+    
+    <!-- ISOTOPE -->
+    <script>eval(mod_pagespeed_bxPMmg3O4Z);</script>
+    <script src="assets/plugins/isotope,_isotope.pkgd.min.js+placeholders,_jquery.placeholder.min.js+validate,_jquery.validate.min.js+submit,_jquery.form.min.js+charts,_jquery.easypiechart.min.js+counter,_jQuerySimpleCounter.js.pagespeed.jc.pn3j1lwHcY.js"></script><script>eval(mod_pagespeed_Lymegr$SbU);</script>
+    
+    <!-- PLACEHOLDER -->
+    <script>eval(mod_pagespeed_wOnPKrSqBj);</script>
+    
+    <!-- CONTACT FORM VALIDATE & SUBMIT -->
+    <script>eval(mod_pagespeed_GE4u_9s_dK);</script>
+    <script>eval(mod_pagespeed_YxPE5mNJ2i);</script>
+
+    
+    <!-- CHARTS -->
+	<script>eval(mod_pagespeed_PlLpMr$fho);</script>
+	
+	<!-- COUNTER -->
+	<script>eval(mod_pagespeed_m7Qug4qhjl);</script>
+	
+	<!-- YOUTUBE PLAYER -->
+    <script src="assets/plugins,_ytplayer,_jquery.mb.YTPlayer.min.js+plugins,_instafeed,_instafeed.min.js+plugins,_animations,_wow.min.js+plugins,_countdown,_jquery.countdown.min.js+js,_custom.js,qa.pagespeed.jc.rBlucPo_h4.js"></script><script>eval(mod_pagespeed_DgI1kHLHow);</script>
+
+    <!-- INSTAFEED -->
+    <script>eval(mod_pagespeed_d_UnihwCKA);</script>
+
+    <!-- ANIMATIONS -->
+    <script>eval(mod_pagespeed_RfvpfaY$_a);</script>
+
+    <!-- COUNTDOWN -->
+    <script>eval(mod_pagespeed_Q$hakPtcie);</script>
+    
+    <!-- CUSTOM JS -->
+    <script>eval(mod_pagespeed_mc1YDGG55R);</script>
+
+<!-- @RMS --> 
+<script type="text/plain" data-usercentrics="RMSi Radio Marketing Service interactive" src='//synchrobox.adswizz.com/register2.php'></script>
+<script type="text/plain" data-usercentrics="RMSi Radio Marketing Service interactive">
+var evaTax = { 
+'tOne' : 'Arts & Entertainment', 
+'tTwo' : 'Music', 
+'tThree' : 'Country', 
+'tFour' : '', 
+'tFive' : '', 
+'tSix' : '' 
+}; 
+var evaPublisherid = "244718"
+!function(e){window.evadata=window.evadata||[]; 
+var a=document.getElementsByTagName("head")[0], d=document.createElement("script"); 
+d.async=!0,d.src="//rmsi-vermarktung.de/js/eva/rms.min.js?id="+e,a.appendChild(d)}(evaPublisherid); 
+</script>
+
+<!-- Google Analytics -->
+<script type="text/plain" data-usercentrics="Google Analytics">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-121329819-8', 'auto');
+ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+</body>
+    
+</html>
