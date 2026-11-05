@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>ReplayHits</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background: #f5f5f5;
+    color: #222;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* ========== HEADER ========== */
+  header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    width: 100%;
+    height: 70px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px;
+    z-index: 1000;
+    border-bottom: 2px solid #e00;
+  }
+
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .logo {
+    height: 45px;
+    width: auto;
+  }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .live-indicator {
+    font-size: 0.85em;
+    color: #555;
+  }
+  .live-indicator strong { color: #e00; }
+
+  .header-listen-btn {
+    background: #e00;
+    color: #fff;
+    padding: 10px 25px;
+    border-radius: 25px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.85em;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .header-listen-btn:hover {
+    background: #c00;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(221, 0, 0, 0.3);
+  }
+  .header-listen-btn.playing {
+    background: #222;
+    animation: pulse-header 2s infinite;
+  }
+  @keyframes pulse-header {
+    0%, 100% { box-shadow: 0 4px 10px rgba(34, 34, 34, 0.3); }
+    50% { box-shadow: 0 4px 15px rgba(34, 34, 34, 0.5); }
+  }
+  .header-listen-btn svg {
+    width: 16px;
+    height: 16px;
+    fill: #fff;
+  }
+
+  /* Mobile Menu Button (Hidden on Desktop) */
+  .mobile-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    margin-left: 5px;
+  }
+  .mobile-menu-btn svg {
+    width: 28px;
+    height: 28px;
+    fill: #222;
+  }
+
+  nav { display: flex; gap: 25px; }
+  nav a {
+    color: #222;
+    text-decoration: none;
+    font-size: 0.85em;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: color 0.2s;
+  }
+  nav a:hover { color: #e00; }
+
+  /* ========== CONTENU ========== */
+  main {
+    margin-top: 70px;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 30px 20px;
+  }
+
+  .banner-container {
+    width: 100%;
+    margin-bottom: 30px;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  }
+  .banner-image {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* ========== SECTIONS COMMUNES ========== */
+  .info-card {
+    background: #fff;
+    padding: 25px;
+    border-radius: 4px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  }
+  .info-card h2 {
+    font-size: 1.1em;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #e00;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+  }
+
+  /* ========== GRILLE ACTUS & M&#201;T&#201;O ========== */
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-bottom: 40px;
+  }
+  .left-column {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  /* M&#233;t&#233;o */
+  .weather-search {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+  .weather-search input {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 0.9em;
+    outline: none;
+  }
+  .weather-search input:focus { border-color: #e00; }
+  .weather-search button {
+    padding: 8px 16px;
+    background: #e00;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 0.85em;
+  }
+  .weather-search button:hover { background: #c00; }
+
+  .weather-result {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  .weather-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .weather-temp {
+    font-size: 3em;
+    font-weight: 800;
+    color: #222;
+    line-height: 1;
+  }
+  .weather-city-name {
+    font-size: 1em;
+    color: #666;
+    margin-top: 5px;
+  }
+  .weather-right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    flex: 1;
+  }
+  .weather-icon {
+    width: 64px;
+    height: 64px;
+    margin-bottom: 8px;
+  }
+  .weather-desc {
+    color: #e00;
+    font-size: 0.95em;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .weather-extras {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+  }
+  .weather-extras div { text-align: center; }
+  .weather-extras strong { display: block; font-size: 1.1em; color: #222; }
+  .weather-extras span { font-size: 0.8em; color: #999; }
+
+  /* ========== R&#201;SEAUX SOCIAUX ========== */
+  .social-intro {
+    text-align: center;
+    color: #666;
+    font-size: 0.95em;
+    margin-bottom: 20px;
+    line-height: 1.4;
+  }
+  .social-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .social-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.9em;
+    transition: all 0.2s;
+    color: #fff;
+    min-width: 150px;
+  }
+  .social-btn.x-btn { background: #000; }
+  .social-btn.x-btn:hover {
+    background: #333;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  }
+  .social-btn.fb-btn { background: #1877F2; }
+  .social-btn.fb-btn:hover {
+    background: #166fe5;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(24, 119, 242, 0.3);
+  }
+  .social-btn svg {
+    width: 18px;
+    height: 18px;
+    fill: #fff;
+  }
+
+  /* News */
+  .news-list { list-style: none; }
+  .news-item {
+    padding: 15px 0;
+    border-bottom: 1px solid #eee;
+  }
+  .news-item:last-child { border-bottom: none; }
+  .news-item h3 {
+    font-size: 0.95em;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: #222;
+    line-height: 1.3;
+  }
+  .news-item .news-source {
+    font-size: 0.75em;
+    color: #e00;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .news-item .news-date {
+    font-size: 0.75em;
+    color: #999;
+    margin-bottom: 6px;
+  }
+  .news-item p {
+    font-size: 0.85em;
+    color: #666;
+    line-height: 1.5;
+    margin-bottom: 8px;
+  }
+  .news-item a {
+    font-size: 0.8em;
+    color: #e00;
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-block;
+  }
+  .news-item a:hover { text-decoration: underline; }
+  .news-item img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+  .news-loading, .news-error {
+    padding: 20px 0;
+    text-align: center;
+  }
+  .news-loading { color: #888; font-style: italic; }
+  .news-error { color: #e00; }
+
+  /* ========== FOOTER ========== */
+  footer {
+    background: #fff;
+    padding: 30px 20px;
+    text-align: center;
+    border-top: 2px solid #e00;
+  }
+  footer h3 {
+    font-size: 0.9em;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #e00;
+    margin-bottom: 12px;
+    letter-spacing: 1px;
+  }
+  footer p {
+    font-size: 0.8em;
+    color: #888;
+    max-width: 700px;
+    margin: 0 auto 8px;
+    line-height: 1.5;
+  }
+  .footer-social {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin: 20px 0;
+  }
+  .footer-social-link {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #888;
+    text-decoration: none;
+    font-size: 0.85em;
+    font-weight: 600;
+    transition: color 0.2s, transform 0.2s;
+  }
+  .footer-social-link:hover {
+    color: #e00;
+    transform: translateY(-2px);
+  }
+  .footer-social-link svg {
+    width: 18px;
+    height: 18px;
+    fill: currentColor;
+  }
+
+  /* ========== PLAYER DROP-UP ========== */
+  .player-panel {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #fff;
+    border-top: 3px solid #e00;
+    padding: 20px 30px;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.15);
+    transform: translateY(100%);
+    transition: transform 0.3s ease-out;
+    z-index: 1000;
+  }
+  .player-panel.active {
+    transform: translateY(0);
+  }
+  .player-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  .player-info { flex: 1; }
+  .player-info h3 { font-size: 1.1em; color: #222; margin-bottom: 4px; }
+  .player-info p { font-size: 0.85em; color: #666; }
+  
+  .player-controls {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .player-volume {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .player-volume svg { width: 20px; height: 20px; fill: #666; }
+  .player-volume input {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 120px;
+    height: 4px;
+    border-radius: 2px;
+    background: linear-gradient(to right, #e00 0%, #e00 var(--vol, 70%), #ddd var(--vol, 70%), #ddd 100%);
+    outline: none;
+    cursor: pointer;
+  }
+  .player-volume input::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    background: #e00;
+    cursor: pointer;
+    border: 2px solid #fff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+  }
+  .player-close {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+  }
+  .player-close svg { width: 24px; height: 24px; fill: #666; transition: fill 0.2s; }
+  .player-close:hover svg { fill: #e00; }
+
+  /* ========== MOBILE RESPONSIVE ========== */
+  @media (max-width: 768px) {
+    header { padding: 0 15px; }
+    
+    /* Show hamburger menu */
+    .mobile-menu-btn { display: block; }
+
+    /* Mobile Navigation Dropdown */
+    nav {
+      display: none;
+      position: absolute;
+      top: 70px;
+      left: 0;
+      right: 0;
+      background: #fff;
+      flex-direction: column;
+      padding: 10px 20px 20px;
+      gap: 0;
+      border-bottom: 2px solid #e00;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      z-index: 1001;
+    }
+    nav.active { display: flex; }
+    nav a {
+      padding: 15px 0;
+      border-bottom: 1px solid #f0f0f0;
+      font-size: 1em;
+      display: block;
+      width: 100%;
+      text-align: left;
+    }
+    nav a:last-child { border-bottom: none; }
+
+    .info-grid { grid-template-columns: 1fr; gap: 20px; }
+    .banner-image { max-height: 200px; object-fit: cover; }
+    
+    /* Player adjustments */
+    .player-panel { padding: 15px 20px; }
+    .player-content { flex-direction: column; gap: 15px; padding-bottom: 10px; }
+    .player-controls { width: 100%; justify-content: space-between; }
+    .player-volume { width: 100%; justify-content: center; margin-top: 5px; }
+    .player-volume input { width: 100%; height: 6px; }
+    .player-volume input::-webkit-slider-thumb { width: 20px; height: 20px; }
+    
+    /* Header listen button becomes a circle */
+    .header-listen-btn span { display: none; }
+    .header-listen-btn { 
+      padding: 0; 
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    /* Weather adjustments */
+    .weather-result { flex-direction: column; text-align: center; }
+    .weather-left { align-items: center; margin-bottom: 15px; }
+    .weather-search { flex-direction: column; }
+    .weather-search input,
+    .weather-search button {
+      width: 100%;
+      font-size: 16px; /* Prevents iOS auto-zoom on focus */
+      padding: 12px;
+    }
+    
+    /* Social buttons full width */
+    .social-buttons { flex-direction: column; }
+    .social-btn { width: 100%; min-width: unset; padding: 15px 24px; }
+
+    /* News links larger touch target */
+    .news-item { padding: 20px 0; }
+    .news-item a { padding: 12px 0; font-size: 0.95em; }
+    
+    /* Footer social links stacked */
+    .footer-social { flex-direction: column; align-items: center; gap: 15px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-left">
+    <img src="/img/logo.png" alt="Logo" class="logo">
+    <!-- Mobile Menu Toggle -->
+    <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Ouvrir le menu">
+      <svg viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+    </button>
+    <nav id="mainNav">
+      <a href="/">Accueil</a>
+      <a href="/#news">Actualit&#233;s</a>
+      <a href="https://replayhitsfrance.free.bg/programmation">Programmation</a>
+      <a href="https://replayhitsfrance.free.bg/contact">Contact</a>
+    </nav>
+  </div>
+  <div class="header-right">
+    <span class="live-indicator">Live<span style="margin:0 4px;">:</span><strong>REPLAY HITS</strong></span>
+    <button class="header-listen-btn" id="headerListenBtn">
+      <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+      <span>&#201;couter</span>
+    </button>
+  </div>
+</header>
+
+<!-- CONTENU -->
+<main>
+
+  <!-- BANNI&#200;RE -->
+  <div class="banner-container">
+    <img src="/img/774512727_1606885791232631_30045923606998319_n.jpg" alt="ReplayHits" class="banner-image">
+  </div>
+
+  <!-- Actus & M&#233;t&#233;o -->
+  <div class="info-grid" id="news">
+    
+    <!-- Colonne de gauche : M&#233;t&#233;o + R&#233;seaux Sociaux -->
+    <div class="left-column">
+      
+      <!-- Widget M&#233;t&#233;o -->
+      <div class="info-card">
+        <h2>&#127757; M&#233;t&#233;o</h2>
+        <div class="weather-search">
+          <input type="text" id="cityInput" placeholder="Ville..." value="Narbonne">
+          <button onclick="loadWeather()">OK</button>
+        </div>
+        <div class="weather-result" id="weatherDisplay">
+          <p style="color:#aaa; text-align:center; width:100%;">Chargement...</p>
+        </div>
+      </div>
+
+      <!-- Widget R&#233;seaux Sociaux -->
+      <div class="info-card">
+        <h2>&#128241; R&#233;seaux Sociaux</h2>
+        <p class="social-intro">Suivez-nous sur les r&#233;seaux sociaux pour ne rien manquer !</p>
+        <div class="social-buttons">
+          <a href="https://x.com/hitfmpoprock" target="_blank" rel="noopener" class="social-btn x-btn" title="X (Twitter)">
+            <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            <span>X / Twitter</span>
+          </a>
+          <a href="https://www.facebook.com/profile.php?id=100075931972984" target="_blank" rel="noopener" class="social-btn fb-btn" title="Facebook">
+            <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            <span>Facebook</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Colonne de droite : Actualit&#233;s -->
+    <div class="info-card">
+      <h2>&#128240; Actualit&#233;s</h2>
+      <ul class="news-list" id="newsList">
+        <li class="news-loading">Chargement des actualit&#233;s...</li>
+      </ul>
+    </div>
+
+  </div>
+
+</main>
+
+<!-- FOOTER -->
+<footer id="privacy">
+  <h3>Politique de confidentialit&#233;</h3>
+  <p>Aucune donn&#233;e personnelle n'est collect&#233;e lors de l'&#233;coute du flux audio en direct.</p>
+  <p>Le widget m&#233;t&#233;o utilise l'API gratuite Open-Meteo. Seule la ville saisie est transmise, sans stockage.</p>
+  <p>Les actualit&#233;s proviennent des flux RSS officiels de France24.</p>
+  
+  <div class="footer-social">
+    <a href="https://x.com/hitfmpoprock" target="_blank" rel="noopener" class="footer-social-link" title="X (Twitter)">
+      <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      <span>X</span>
+    </a>
+    <a href="https://www.facebook.com/profile.php?id=100075931972984" target="_blank" rel="noopener" class="footer-social-link" title="Facebook">
+      <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+      <span>Facebook</span>
+    </a>
+  </div>
+
+  <p style="margin-top:15px; color:#bbb;">&copy; 2026 ReplayHits. Tous droits r&#233;serv&#233;s.</p>
+</footer>
+
+<!-- PLAYER DROP-UP -->
+<div class="player-panel" id="playerPanel">
+  <div class="player-content">
+    <div class="player-info">
+      <h3>&#128308; En direct — ReplayHits</h3>
+      <p>La radio des hits</p>
+    </div>
+    <div class="player-controls">
+      <div class="player-volume">
+        <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
+        <input type="range" id="playerVolume" min="0" max="100" value="70">
+      </div>
+      <button class="player-close" id="playerClose" title="Fermer">
+        <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- AUDIO -->
+<audio id="radioStream" crossorigin="anonymous" preload="none">
+  <source src="https://icey2replayhits.weizkule.xyz/replayhits" type="audio/mpeg">
+</audio>
+
+<script>
+  const audio = document.getElementById('radioStream');
+  const headerListenBtn = document.getElementById('headerListenBtn');
+  const playerPanel = document.getElementById('playerPanel');
+  const playerClose = document.getElementById('playerClose');
+  const playerVolume = document.getElementById('playerVolume');
+  let isFirstPlay = true;
+
+  // Mobile Menu Logic
+  const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+  const mainNav = document.getElementById('mainNav');
+  
+  if (mobileMenuBtn && mainNav) {
+    mobileMenuBtn.addEventListener('click', () => {
+      mainNav.classList.toggle('active');
+    });
+    
+    // Close menu when a link is clicked
+    mainNav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mainNav.classList.remove('active');
+      });
+    });
+  }
+
+  function openPlayerAndPlay() {
+    playerPanel.classList.add('active');
+    headerListenBtn.classList.add('playing');
+    
+    if (isFirstPlay) {
+      audio.play().catch(e => console.error('Erreur lecture:', e));
+      isFirstPlay = false;
+    } else if (audio.paused) {
+      audio.play();
+    }
+  }
+
+  headerListenBtn.addEventListener('click', openPlayerAndPlay);
+
+  playerClose.addEventListener('click', () => {
+    playerPanel.classList.remove('active');
+    headerListenBtn.classList.remove('playing');
+    audio.pause();
+  });
+
+  audio.volume = 0.7;
+  playerVolume.addEventListener('input', e => {
+    const val = e.target.value;
+    audio.volume = val / 100;
+    playerVolume.style.setProperty('--vol', val + '%');
+  });
+  playerVolume.style.setProperty('--vol', '70%');
+
+  // Helper pour les ic&#244;nes m&#233;t&#233;o
+  function getWeatherInfo(code) {
+    const sun = '<svg class="weather-icon" viewBox="0 0 24 24" fill="none" stroke="#f39c12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>';
+    const cloud = '<svg class="weather-icon" viewBox="0 0 24 24" fill="none" stroke="#95a5a6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path></svg>';
+    const rain = '<svg class="weather-icon" viewBox="0 0 24 24" fill="none" stroke="#3498db" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path><line x1="8" y1="19" x2="8" y2="21"></line><line x1="8" y1="13" x2="8" y2="15"></line><line x1="16" y1="19" x2="16" y2="21"></line><line x1="16" y1="13" x2="16" y2="15"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="12" y1="15" x2="12" y2="17"></line></svg>';
+    const snow = '<svg class="weather-icon" viewBox="0 0 24 24" fill="none" stroke="#3498db" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 17.58A5 5 0 0 0 18 8h-1.26A8 8 0 1 0 4 16.25"></path><line x1="8" y1="19" x2="8" y2="21"></line><line x1="8" y1="13" x2="8" y2="15"></line><line x1="16" y1="19" x2="16" y2="21"></line><line x1="16" y1="13" x2="16" y2="15"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="12" y1="15" x2="12" y2="17"></line></svg>';
+    const thunder = '<svg class="weather-icon" viewBox="0 0 24 24" fill="none" stroke="#f1c40f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 16.9A5 5 0 0 0 18 7h-1.26a8 8 0 1 0-11.62 9"></path><polyline points="13 11 9 17 15 17 11 23"></polyline></svg>';
+    const fog = '<svg class="weather-icon" viewBox="0 0 24 24" fill="none" stroke="#bdc3c7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15h16"></path><path d="M4 9h16"></path><path d="M4 19h16"></path></svg>';
+
+    if (code === 0) return { desc: 'Ciel d&#233;gag&#233;', icon: sun };
+    if ([1, 2, 3].includes(code)) return { desc: 'Nuageux', icon: cloud };
+    if ([45, 48].includes(code)) return { desc: 'Brouillard', icon: fog };
+    if ([51, 53, 55, 61, 63, 65, 80, 81, 82].includes(code)) return { desc: 'Pluie', icon: rain };
+    if ([71, 73, 75, 77, 85, 86].includes(code)) return { desc: 'Neige', icon: snow };
+    if ([95, 96, 99].includes(code)) return { desc: 'Orage', icon: thunder };
+    return { desc: 'Variable', icon: cloud };
+  }
+
+  async function loadWeather() {
+    const city = document.getElementById('cityInput').value.trim() || 'Narbonne';
+    const d = document.getElementById('weatherDisplay');
+    d.innerHTML = '<p style="color:#aaa; text-align:center; width:100%;">Chargement...</p>';
+    try {
+      const geo = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}&count=1&language=fr`);
+      const gd = await geo.json();
+      if (!gd.results?.length) { d.innerHTML = '<p style="color:#e00; text-align:center; width:100%;">Ville introuvable</p>'; return; }
+      const { latitude, longitude, name, country } = gd.results[0];
+      const w = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,wind_speed_10m,weather_code&timezone=auto`);
+      const wd = await w.json();
+      const c = wd.current;
+      
+      const weatherInfo = getWeatherInfo(c.weather_code);
+      
+      d.innerHTML = `
+        <div class="weather-result">
+          <div class="weather-left">
+            <div class="weather-temp">${Math.round(c.temperature_2m)}&deg;C</div>
+            <div class="weather-city-name">${name}, ${country}</div>
+          </div>
+          <div class="weather-right">
+            ${weatherInfo.icon}
+            <div class="weather-desc">${weatherInfo.desc}</div>
+          </div>
+        </div>
+        <div class="weather-extras">
+          <div><strong>${c.relative_humidity_2m}%</strong><span>Humidit&#233;</span></div>
+          <div><strong>${Math.round(c.wind_speed_10m)} km/h</strong><span>Vent</span></div>
+        </div>
+      `;
+    } catch(e) { 
+      d.innerHTML = '<p style="color:#e00; text-align:center; width:100%;">Erreur de chargement</p>'; 
+    }
+  }
+  loadWeather();
+
+  async function loadNews() {
+    const newsList = document.getElementById('newsList');
+    newsList.innerHTML = '<li class="news-loading">Chargement des actualit&#233;s...</li>';
+
+    try {
+      const rssUrl = 'https://www.france24.com/fr/rss';
+      const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`;
+      const response = await fetch(apiUrl);
+      const data = await response.json();
+
+      if (data.status === 'ok' && data.items && data.items.length > 0) {
+        newsList.innerHTML = data.items.slice(0, 8).map(item => {
+          const date = new Date(item.pubDate);
+          const formattedDate = date.toLocaleDateString('fr-FR', {
+            day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit'
+          });
+          let imageUrl = '';
+          const imgMatch = item.content?.match(/<img[^>]+src="([^">]+)"/);
+          const enclosureImg = item.enclosure?.type?.startsWith('image/') ? item.enclosure.url : '';
+          imageUrl = imgMatch ? imgMatch[1] : enclosureImg;
+          const cleanDesc = item.description.replace(/<[^>]*>/g, '').substring(0, 150) + '...';
+
+          return `
+            <li class="news-item">
+              ${imageUrl ? `<img src="${imageUrl}" alt="" onerror="this.style.display='none'">` : ''}
+              <div class="news-source">France24</div>
+              <h3>${item.title}</h3>
+              <div class="news-date">${formattedDate}</div>
+              <p>${cleanDesc}</p>
+              <a href="${item.link}" target="_blank" rel="noopener">Lire l'article complet &rarr;</a>
+            </li>
+          `;
+        }).join('');
+      } else {
+        newsList.innerHTML = '<li class="news-error">Aucune actualit&#233; disponible.</li>';
+      }
+    } catch (error) {
+      console.error('Erreur chargement actualit&#233;s:', error);
+      newsList.innerHTML = '<li class="news-error">Impossible de charger les actualit&#233;s.</li>';
+    }
+  }
+  loadNews();
+</script>
+
+</body>
+</html>
