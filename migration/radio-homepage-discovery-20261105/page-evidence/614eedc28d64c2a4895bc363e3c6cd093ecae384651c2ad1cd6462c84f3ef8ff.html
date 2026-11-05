@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <!--
+      /* Portal streaming
+       * Versión inicial
+       * 05/2024
+       *
+       * (c) LocucionAR. Todos los derechos reservados sobre el código fuente de esta web. Prohibida su alteración
+       * o reproducción. Remítase al contrato de servicio para más información.
+       */
+    -->
+    <meta charset="UTF-8" />
+    <base href="https://www.la840.com.ar/radio/">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    
+    
+
+    <link
+      href="https://fonts.googleapis.com/css?family=Bitter:400,700&display=swap&subset=latin-ext"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://meyerweb.com/eric/tools/css/reset/reset.css"
+    />
+
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/main.css" />
+
+
+
+    <link rel="stylesheet" type="text/css" href="vegas/vegas.css">
+
+
+<script src="https://kit.fontawesome.com/79efcf1a7a.js" crossorigin="anonymous"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+    
+	<!--page title-->
+  <title id="title">AM 840 Radio General Belgrano</title>
+  <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+  <meta name="author" content="LocucionAR">
+  <link rel="icon" type="image/png" href="../images/icono.png">
+
+  <meta name="og:title" content="AM 840 Radio General Belgrano" />
+  <meta name="og:description" content="AM 840 Radio General Belgrano - En Vivo!" />
+  <meta name="og:image" content="https://streaminglocucionar.com/portal/images/logos/radiowall1.png" />      
+  <meta name="og:url" content="https://streaminglocucionar.com/radio/?p=8160" />
+    
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+  <!-- Manifest: pasamos el ?p= actual para que el manifest construya bien el start_url -->
+    <link rel="manifest" href="/radio/manifest.php?p=8160&appname=AM+840+Radio+General+Belgrano&usuario=radiowall1">
+
+    <style>
+  :root{
+    --btn-grad: linear-gradient(135deg,#1f8fff,#6a5cff);
+    --btn-grad-hover: linear-gradient(135deg,#187bf0,#5848ff);
+    --btn-text:#fff; --ring: rgba(111,130,255,.35);
+  }
+  .download-grid{display:grid;gap:12px;grid-template-columns:repeat(2,minmax(0,1fr));max-width:560px;margin:16px auto 0}
+  @media (max-width:520px){.download-grid{grid-template-columns:1fr}}
+  .dl-btn{
+    display:flex;align-items:center;gap:.65rem;justify-content:center;
+    padding:.9rem 1.1rem;border-radius:14px;text-decoration:none;
+    font-weight:800;letter-spacing:.2px;color:var(--btn-text);
+    box-shadow:0 8px 20px var(--ring);border:1px solid rgba(255,255,255,.12);
+    user-select:none;transition:transform .15s,box-shadow .2s,background .2s,opacity .2s;
+  }
+  .dl-btn:hover{transform:translateY(-1px);box-shadow:0 10px 24px var(--ring)}
+  .dl-btn:active{transform:translateY(0)}
+  .dl-android,.dl-windows{background:var(--btn-grad)}
+  .dl-android:hover,.dl-windows:hover{background:var(--btn-grad-hover)}
+  .dl-ios{background:linear-gradient(135deg,#0f1013,#2a2b31);border-color:rgba(255,255,255,.18)}
+  .dl-ios:hover{background:linear-gradient(135deg,#16171b,#34363d)}
+  .dl-wa{background:linear-gradient(135deg,#25d366,#128c7e);box-shadow:0 8px 20px rgba(18,140,126,.35);border-color:rgba(255,255,255,.1)}
+  .dl-wa:hover{background:linear-gradient(135deg,#1fc55e,#0f7b70)}
+  .dl-btn[disabled],.dl-btn[aria-disabled="true"]{opacity:.55;cursor:not-allowed;pointer-events:none;box-shadow:none}
+  .dl-ico{display:flex;align-items:center;gap:.45rem}
+  .dl-ico .bi{font-size:20px;line-height:1;display:block}
+
+  .action-btn4 { 
+  position: absolute;
+  min-width: 170px;
+  right: 40px;
+  bottom: 170px; /* lo movés más arriba que Android */
+  text-align: center;
+  text-decoration: none;
+  padding: 15px 25px;
+  border-radius: 4px;
+  box-shadow: 0px 4px 30px -6px rgba(36, 52, 70, 0.65); 
+  background: #24292e;
+  color: #fff;
+  font-weight: bold;
+  letter-spacing: 1px;
+  font-size: 16px;
+  transition: all 0.3s ease-in-out;
+}
+
+@media screen and (min-width: 500px) {
+  .action-btn4:hover {
+    transform: scale(1.1);
+    box-shadow: 0px 17px 20px -6px rgba(36, 52, 70, 0.36);
+    background-color: #3b4148;
+  }
+}
+ 
+@media screen and (max-width: 700px) {
+  .action-btn4 {
+    position: relative;
+    bottom: auto;
+    right: auto;
+    margin-top: 20px;
+  }
+  .action-btn4:active {
+    transform: scale(1.1);
+    box-shadow: 0px 17px 20px -6px rgba(36, 52, 70, 0.36);
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .pwa-buttons-container {
+    float: none !important;
+    text-align: center !important;
+    position: relative !important;
+    margin: 20px auto !important;
+    display: block !important;
+  }
+
+  .pwa-buttons-container a,
+  .action-btn2,
+  .action-btn3,
+  .action-btn4 {
+    position: relative !important;
+    right: auto !important;
+    bottom: auto !important;
+    margin: 10px auto !important;
+    display: block !important;
+  }
+}
+
+/* Forzar que en móvil los botones vayan DESPUÉS del player */
+@media screen and (max-width: 700px) {
+  /* Asegura la columna y centra */
+  .wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* Orden explícito: primero el player, luego los botones */
+  .player {
+    order: 1;
+  }
+  .pwa-buttons-container {
+    order: 2;
+    width: 100%;
+    max-width: 400px;
+    margin: 16px auto 0 !important;
+    float: none !important;
+    text-align: center !important;
+    position: relative !important;
+    display: block !important;
+  }
+
+  /* Botones sin posición absoluta y apilados */
+  .pwa-buttons-container a,
+  .action-btn,
+  .action-btn2,
+  .action-btn3,
+  .action-btn4 {
+    position: relative !important;
+    right: auto !important;
+    bottom: auto !important;
+    display: block !important;
+    margin: 10px auto !important;
+  }
+}
+
+/* ====== Contenedor de botones PWA ====== */
+/* Desktop: flotante a la derecha (un solo punto de posicionamiento) */
+.pwa-stack{
+  position: absolute;
+  right: 40px;
+  bottom: 50px;           /* altura base: iPhone estaba a 50px; ajustá si querés */
+  text-align: right;
+  width: 200px;           /* ancho fijo aprox. como tus botones */
+  z-index: 10;
+}
+
+/* Dentro del contenedor, los botones NO deben ser absolutos */
+.pwa-stack .action-btn,
+.pwa-stack .action-btn2,
+.pwa-stack .action-btn3,
+.pwa-stack .action-btn4{
+  position: static !important;   /* neutraliza las reglas absolutas previas */
+  right: auto !important;
+  bottom: auto !important;
+  display: block;                /* apilados uno debajo del otro */
+  margin-top: 20px;
+}
+
+/* Opcional: separador inicial (para que el 1º no pegue tanto) */
+.pwa-stack .action-btn:first-child,
+.pwa-stack .action-btn2:first-child,
+.pwa-stack .action-btn3:first-child,
+.pwa-stack .action-btn4:first-child{
+  margin-top: 0;
+}
+
+/* ====== Móvil: debajo del reproductor ====== */
+@media (max-width: 700px){
+  .pwa-stack{
+    position: static !important;   /* sale del modo flotante */
+    float: none !important;
+    width: 100%;
+    max-width: 420px;
+    margin: 16px auto 0;
+    text-align: center;
+  }
+
+  .pwa-stack .action-btn,
+  .pwa-stack .action-btn2,
+  .pwa-stack .action-btn3,
+  .pwa-stack .action-btn4{
+    position: static !important;
+    right: auto !important;
+    bottom: auto !important;
+    display: block !important;
+    margin: 10px auto !important;
+    text-align: center !important;
+  }
+}
+
+
+
+</style>
+
+    <script>
+  // ---------- Helpers de UI ----------
+  function setInstallButtons(enabled) {
+  const btns = document.querySelectorAll('#btn-instalar-android, #btn-instalar-windows');
+
+  btns.forEach(btn => {
+    if (!btn) return;
+
+    // Siempre visibles
+    btn.style.removeProperty('display');
+
+    if (enabled) {
+      btn.removeAttribute('disabled');
+      btn.setAttribute('aria-disabled', 'false');
+    } else {
+      btn.setAttribute('disabled', '');
+      btn.setAttribute('aria-disabled', 'true');
+      // NO ocultar:
+      // btn.style.display = 'none';
+    }
+  });
+}
+
+
+  function isPWAInstalledNow() {
+    // Chrome/Edge/Android Desktop:
+    const displayStandalone = window.matchMedia && (
+      window.matchMedia('(display-mode: standalone)').matches ||
+      window.matchMedia('(display-mode: window-controls-overlay)').matches
+    );
+    // iOS Safari instalado a pantalla completa:
+    const iOSStandalone = (typeof navigator.standalone !== 'undefined') && navigator.standalone === true;
+    // Flag local (por si el browser no reporta bien el display-mode)
+    const localFlag = localStorage.getItem('pwa_installed') === '1';
+    return displayStandalone || iOSStandalone || localFlag;
+  }
+
+  // Llamar en arranque y en cambios de visibilidad (iOS a veces actualiza tarde)
+  function refreshInstallStateUI() {
+  if (isPWAInstalledNow()) {
+    setInstallButtons(false); // (pero ojo: ver punto 2)
+    return;
+  }
+
+  // Si ya capturamos el prompt, mantenelos visibles y habilitados
+  if (deferredPrompt) {
+    setInstallButtons(true);
+  } else {
+    // Si no hay prompt, que queden visibles (aunque sea deshabilitados),
+    // así no “desaparecen” al volver a la pestaña.
+    setInstallButtons(false);
+  }
+}
+
+
+  // ---------- Registro SW (mismo origen) ----------
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      const swUrl   = new URL('/radio/service-worker.js', location.origin).href;
+      const swScope = '/radio/';
+      navigator.serviceWorker
+        .register(swUrl, { scope: swScope })
+        .then(r => console.log('[PWA] SW OK:', r.scope))
+        .catch(e => console.error('[PWA] SW ERROR:', e));
+    });
+  } else {
+    console.warn('[PWA] Service Worker no soportado en este navegador.');
+  }
+
+  // ---------- Lógica de instalación ----------
+  let deferredPrompt = null;
+
+  // Botones arrancan deshabilitados hasta que sepamos si puede instalar
+  document.addEventListener('DOMContentLoaded', refreshInstallStateUI);
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') refreshInstallStateUI();
+  });
+
+  window.addEventListener('beforeinstallprompt', (e) => {
+    // Si ya está instalada, ignoramos el prompt y ocultamos botones
+    if (isPWAInstalledNow()) {
+      setInstallButtons(false);
+      return;
+    }
+    e.preventDefault();
+    deferredPrompt = e;
+    setInstallButtons(true);
+  });
+
+  window.addEventListener('appinstalled', () => {
+    console.log('[PWA] appinstalled');
+    deferredPrompt = null;
+    try { localStorage.setItem('pwa_installed', '1'); } catch(_) {}
+    setInstallButtons(false);
+  });
+
+  async function instalarPWA(){
+    try{
+      if (isPWAInstalledNow()) {
+        setInstallButtons(false);
+        return;
+      }
+      if (deferredPrompt){
+        deferredPrompt.prompt();
+        await deferredPrompt.userChoice;
+        deferredPrompt = null;
+      } else if (/iphone|ipad|ipod/i.test(navigator.userAgent)) {
+        alert('En iPhone: compartir → “Agregar a pantalla de inicio”.');
+      } else {
+        alert('Tu app aún no cumple los requisitos de instalación.');
+      }
+    } catch(e){ console.error(e); }
+  }
+</script>
+	
+  </head>
+  <body>
+    <div id="micontainer" style="background: transparent url(vegas/overlays/02.png) center center repeat; width: 100%; height: 100%; position: absolute;">
+    <div class="wrapper" id="app">
+      <div class="player" style="padding-bottom: 10px !important;">
+        <div class="player__top">
+          <div class="player-cover">
+            <transition-group :name="transitionName">
+                <div class="player-cover__item" v-if="$index === currentTrackIndex" :style="{ backgroundImage: `url(${track.cover})` }"  v-for="(track, $index) in tracks" :key="$index"></div>
+            </transition-group>
+          </div>
+          <div class="player-controls">
+            <div class="social-media__item " style="display: " @click="redirectToURL('https://www.facebook.com/profile.php?id=100080642798091')">
+              <i class="bi bi-facebook" ></i>
+            </div>
+            <a :href="currentTrack.url" target="_blank" class="social-media__item" style="display: none">
+              <i class="bi fa-external-link"></i>
+            </a>
+            <div class="social-media__item" style="display: none" @click="redirectToURL('#')">
+             <i class="bi bi-instagram" ></i>
+            </div>
+            <div class="social-media__item" style="display: none" @click="redirectToURL('#')">
+             <i class="bi bi-tiktok" ></i>
+            </div>
+            <div class="social-media__item" style="display: none" @click="redirectToURL('#')">
+              <i class="bi bi-twitter-x" ></i>
+            </div>
+            <div class="social-media__item-sinefecto"></div><div class="social-media__item-sinefecto"></div><div class="social-media__item-sinefecto"></div>            
+            
+            <div class="social-media__item2 -xl js-play" @click="play" style="margin: 20px 0;">
+              <div class="social-media__item2" >
+                <i class="bi bi-pause-circle" style="font-size: 70px;" v-if="isTimerPlaying"></i>
+                <i class="bi bi-play-circle-fill" style="font-size: 70px;" v-else></i>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="progress" ref="progress">
+          <div class="progress__top">
+            <div class="album-info" v-if="currentTrack">
+              <div class="album-info__name">AM 840 Radio General Belgrano</div>
+              <div class="album-info__track">Streaming Online</div>
+            </div>
+            <div class="progress__duration">EN VIVO</div>
+          </div>
+          <div class="progress__bar" @click="clickProgress">
+            <div class="progress__current" :style="{ width : barWidth }"></div>
+          </div>
+          <div class="progress__time">Tiempo {{ currentTime }}</div>
+
+        </div>
+        <div v-cloak></div>
+        <br>
+        <center><small style="color: #999; font-size: 10px; ">Powered by <a href="https://locucionar.com" style="color:#999; text-decoration: none;">LocucionAR</a></small></center>
+
+        <!-- BOTONES PWA: bloque único -->
+<div class="pwa-anchor">
+  <div class="pwa-stack">
+    <!-- WhatsApp -->
+    <a href="https://wa.me/5491128361548" target="_blank" class="action-btn" style="display:">
+      <i class="bi bi-whatsapp" style="font-size: 20px"></i> WhatsApp
+    </a>
+
+    <!-- Android (PWA) -->
+    <a id="btn-instalar-android" href="javascript:void(0)" onclick="instalarPWA()"
+       class="action-btn2" disabled aria-disabled="true">
+      <i class="bi bi-android2" style="font-size: 20px"></i> App Android
+    </a>
+
+    <!-- iOS -->
+    <a href="" target="_blank" class="action-btn3" style="display: ">
+      <i class="bi bi-apple" style="font-size: 20px"></i> App iPhone
+    </a>
+
+    <!-- Windows (PWA) -->
+    <a id="btn-instalar-windows" href="javascript:void(0)" onclick="instalarPWA()"
+       class="action-btn4" disabled aria-disabled="true">
+      <i class="bi bi-windows" style="font-size: 20px"></i> App Windows
+    </a>
+  </div>
+</div>
+
+      </div>
+
+   
+      
+
+
+
+    </div>
+
+
+<style type="text/css">
+
+
+</style>
+    
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <script src="scripts/script.js"></script>
+    <script>
+      new Vue({
+  el: "#app",
+  data() {
+    return {
+      audio: null,
+      circleLeft: null,
+      barWidth: null,
+      duration: null,
+      currentTime: null,
+      isTimerPlaying: false,
+      tracks: [
+        {
+          name: "AM 840 Radio General Belgrano",
+          artist: "Online Live Stream",
+          cover: "https://streaminglocucionar.com/portal/images/logos/radiowall1.png",
+          source: "https://streaming2.locucionar.com/proxy/radiowall1?mp=/stream",
+          url: "",
+          favorited: false
+        }
+      ],
+      currentTrack: null,
+      currentTrackIndex: 0,
+      transitionName: null
+    };
+  },
+  methods: {
+    play() {
+      if (this.audio.paused) {
+        this.audio.play();
+        this.isTimerPlaying = true;
+      } else {
+        this.audio.pause();
+        this.isTimerPlaying = false;
+      }
+    },
+    redirectToURL(url) {
+      window.open(url, '_blank');
+    },
+    generateTime() {
+      let width = (100 / this.audio.duration) * this.audio.currentTime;
+      this.barWidth = width + "%";
+      this.circleLeft = width + "%";
+      let durmin = Math.floor(this.audio.duration / 60);
+      let dursec = Math.floor(this.audio.duration - durmin * 60);
+      let curmin = Math.floor(this.audio.currentTime / 60);
+      let cursec = Math.floor(this.audio.currentTime - curmin * 60);
+      if (durmin < 10) {
+        durmin = "0" + durmin;
+      }
+      if (dursec < 10) {
+        dursec = "0" + dursec;
+      }
+      if (curmin < 10) {
+        curmin = "0" + curmin;
+      }
+      if (cursec < 10) {
+        cursec = "0" + cursec;
+      }
+      this.duration = durmin + ":" + dursec;
+      this.currentTime = curmin + ":" + cursec;
+    },
+    updateBar(x) {
+      let progress = this.$refs.progress;
+      let maxduration = this.audio.duration;
+      let position = x - progress.offsetLeft;
+      let percentage = (100 * position) / progress.offsetWidth;
+      if (percentage > 100) {
+        percentage = 100;
+      }
+      if (percentage < 0) {
+        percentage = 0;
+      }
+      this.barWidth = percentage + "%";
+      this.circleLeft = percentage + "%";
+      this.audio.currentTime = (maxduration * percentage) / 100;
+      this.audio.play();
+    },
+    clickProgress(e) {
+      this.isTimerPlaying = true;
+      this.audio.pause();
+      this.updateBar(e.pageX);
+    },
+    prevTrack() {
+      this.transitionName = "scale-in";
+      this.isShowCover = false;
+      /*if (this.currentTrackIndex > 0) {
+        this.currentTrackIndex--;
+      } else {
+        this.currentTrackIndex = this.tracks.length - 1;
+      }
+      this.currentTrack = this.tracks[this.currentTrackIndex];
+      this.resetPlayer();*/
+       window.open("https://www.instagram.com/cityofgodncl", '_blank').focus();
+    },
+    nextTrack() {
+      this.transitionName = "scale-out";
+      this.isShowCover = false;
+     /* if (this.currentTrackIndex < this.tracks.length - 1) {
+        this.currentTrackIndex++;
+      } else {
+        this.currentTrackIndex = 0;
+      }
+      this.currentTrack = this.tracks[this.currentTrackIndex];
+      this.resetPlayer();*/
+     window.open("https://www.youtube.com/user/cityofgodtv", '_blank').focus();
+      
+    },
+    resetPlayer() {
+      this.barWidth = 0;
+      this.circleLeft = 0;
+      this.audio.currentTime = 0;
+      this.audio.src = this.currentTrack.source;
+      setTimeout(() => {
+        if(this.isTimerPlaying) {
+          this.audio.play();
+        } else {
+          this.audio.pause();
+        }
+      }, 300);
+    },
+    favorite() {
+      /*this.tracks[this.currentTrackIndex].favorited = !this.tracks[
+        this.currentTrackIndex
+      ].favorited;*/
+      window.open("https://web.facebook.com/cityofgodncl", '_blank').focus();
+
+    }
+  },
+  created() {
+    let vm = this;
+    this.currentTrack = this.tracks[0];
+    this.audio = new Audio();
+    this.audio.src = 'https://streaming2.locucionar.com/proxy/radiowall1?mp=/stream';//this.currentTrack.source;
+    this.audio.ontimeupdate = function() {
+      vm.generateTime();
+    };
+    this.audio.onloadedmetadata = function() {
+      vm.generateTime();
+    };
+    this.audio.onended = function() {
+      vm.nextTrack();
+      this.isTimerPlaying = true;
+    };
+
+    // this is optional (for preload covers)
+    for (let index = 0; index < this.tracks.length; index++) {
+      const element = this.tracks[index];
+      let link = document.createElement('link');
+      link.rel = "prefetch";
+      link.href = element.cover;
+      link.as = "image"
+      document.head.appendChild(link)
+    }
+  }
+});
+    </script>
+
+    <!-- jQuery 2.1.3 -->
+    <script src="plugins/jQuery/jQuery-2.1.3.min.js"></script>
+
+    <script type="text/javascript" src="vegas/vegas.min.js"></script>
+
+    <script type="text/javascript">
+      $(function() {
+    $('body').vegas({
+      slides: [
+            { src: '../images/fondos/default/1_default.jpg' },
+            { src: '../images/fondos/default/2_default.jpg' },
+            { src: '../images/fondos/default/3_default.jpg' },
+            { src: '../images/fondos/default/4_default.jpg' },
+            { src: '../images/fondos/default/5_default.jpg' }
+        ]    });
+});
+    </script>
+    
+    </div><!--micontainer--> 
+  </body>
+</html>
