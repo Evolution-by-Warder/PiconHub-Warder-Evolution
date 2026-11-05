@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SOPHIE CAFFE RADIO</title>
+  <meta name="description" content="Sophie Caffe Online Radio — Live." />
+
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+  <link rel="preconnect" href="https://sophie1.skylineserver.com" crossorigin />
+  <link rel="preconnect" href="https://sophie2.skylineserver.com" crossorigin />
+
+  <link rel="dns-prefetch" href="//cdn.jsdelivr.net" />
+  <link rel="dns-prefetch" href="//sophie1.skylineserver.com" />
+  <link rel="dns-prefetch" href="//sophie2.skylineserver.com" />
+
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@1.7.3/dist/hls.min.js"></script>
+
+  <style>
+    :root {
+      --disc-size: clamp(140px, 28vw, 240px);
+      --btn-color: rgba(255, 255, 255, 0.85);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 100%;
+      min-height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #000 url("sophie.jpg") center / cover no-repeat fixed;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    .wrap {
+      min-height: 100vh;
+      min-height: 100svh;
+      backdrop-filter: saturate(1.1) brightness(0.8);
+      background: rgba(0, 0, 0, 0.35);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+
+    .headline-logo {
+      display: block;
+      width: auto;
+      height: auto;
+      max-width: clamp(200px, 70vw, 450px);
+      margin-bottom: clamp(40px, 8vh, 80px);
+      filter: drop-shadow(0 4px 15px rgba(0, 0, 0, 0.7));
+      user-select: none;
+      pointer-events: none;
+    }
+
+    .stage {
+      width: 100%;
+      max-width: 900px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: clamp(30px, 8vw, 100px);
+    }
+
+    .player {
+      position: relative;
+      width: var(--disc-size);
+      height: var(--disc-size);
+      flex: 0 0 var(--disc-size);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .disc {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      border: 4px solid rgba(255, 255, 255, 0.05);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    }
+
+    .player.playing .disc {
+      animation: spin 5s linear infinite;
+    }
+
+    .player.loading .disc {
+      animation: loading-pulse 1.1s ease-in-out infinite;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes loading-pulse {
+      0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+      50% {
+        transform: scale(0.98);
+        opacity: 0.75;
+      }
+    }
+
+    .btn {
+      position: relative;
+      z-index: 10;
+      width: 70px;
+      height: 70px;
+      padding: 0;
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(4px);
+      border: 2px solid var(--btn-color);
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s ease, background 0.2s ease;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .btn:hover {
+      transform: scale(1.1);
+      background: rgba(0, 0, 0, 0.6);
+    }
+
+    .btn:focus-visible {
+      outline: 3px solid #fff;
+      outline-offset: 5px;
+    }
+
+    .player.loading .btn {
+      cursor: progress;
+    }
+
+    .btn img {
+      display: block;
+      width: 28px;
+      height: 28px;
+      object-fit: contain;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+      pointer-events: none;
+    }
+
+    .icon-pause {
+      display: none !important;
+    }
+
+    .player.playing .icon-play,
+    .player.loading .icon-play {
+      display: none !important;
+    }
+
+    .player.playing .icon-pause,
+    .player.loading .icon-pause {
+      display: block !important;
+    }
+
+    audio {
+      display: none;
+    }
+
+    @media (max-width: 650px) {
+      .stage {
+        flex-direction: column;
+        gap: 50px;
+      }
+
+      .wrap {
+        justify-content: flex-start;
+        padding-top: 60px;
+      }
+
+      .headline-logo {
+        margin-bottom: 40px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .player.playing .disc,
+      .player.loading .disc {
+        animation: none;
+      }
+
+      .btn {
+        transition: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="wrap">
+    <img
+      src="sophieradio.png"
+      alt="Sophie Caffe Radio"
+      class="headline-logo"
+    />
+
+    <div class="stage">
+      <div
+        class="player"
+        id="p1"
+        data-stream="https://sophie1.skylineserver.com/hls/stream.m3u8"
+        data-name="Sophie Caffe Radio"
+      >
+        <div class="disc" style="background-image: url('disk1.png')"></div>
+
+        <button
+          class="btn"
+          type="button"
+          aria-label="Luaj Sophie Caffe Radio"
+          aria-pressed="false"
+        >
+          <img class="icon-play" src="play.png" alt="" />
+          <img class="icon-pause" src="pause.png" alt="" />
+        </button>
+
+        <audio playsinline preload="auto"></audio>
+      </div>
+
+      <div
+        class="player"
+        id="p2"
+        data-stream="https://sophie2.skylineserver.com/hls/stream.m3u8"
+        data-name="Sophie Bohemian Radio"
+      >
+        <div class="disc" style="background-image: url('disk2.png')"></div>
+
+        <button
+          class="btn"
+          type="button"
+          aria-label="Luaj Sophie Bohemian Radio"
+          aria-pressed="false"
+        >
+          <img class="icon-play" src="play.png" alt="" />
+          <img class="icon-pause" src="pause.png" alt="" />
+        </button>
+
+        <audio playsinline preload="auto"></audio>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    (() => {
+      "use strict";
+
+      const players = [];
+      const MAX_RECONNECTS = 4;
+
+      function setupPlayer(playerEl) {
+        const audio = playerEl.querySelector("audio");
+        const button = playerEl.querySelector(".btn");
+        const streamUrl = playerEl.dataset.stream;
+        const name = playerEl.dataset.name || "Radio";
+
+        let hls = null;
+        let nativeHls = false;
+        let wantsToPlay = false;
+        let reconnectTimer = null;
+        let reconnectAttempts = 0;
+        let mediaRecoveries = 0;
+
+        function setState(state) {
+          const active = state === "loading" || state === "playing";
+
+          playerEl.classList.toggle("loading", state === "loading");
+          playerEl.classList.toggle("playing", state === "playing");
+
+          button.setAttribute("aria-pressed", String(active));
+          button.setAttribute(
+            "aria-label",
+            active ? `Ndalo ${name}` : `Luaj ${name}`
+          );
+        }
+
+        function clearReconnectTimer() {
+          if (reconnectTimer !== null) {
+            window.clearTimeout(reconnectTimer);
+            reconnectTimer = null;
+          }
+        }
+
+        function destroyTransport() {
+          clearReconnectTimer();
+
+          if (hls) {
+            const oldHls = hls;
+            hls = null;
+            oldHls.destroy();
+          }
+
+          nativeHls = false;
+          audio.pause();
+          audio.removeAttribute("src");
+          audio.load();
+        }
+
+        async function attemptPlay() {
+          if (!wantsToPlay) {
+            return;
+          }
+
+          try {
+            await audio.play();
+          } catch (error) {
+            // Provohet sërish sapo manifesti ose fragmenti të jetë gati.
+          }
+        }
+
+        function stopAfterTooManyErrors() {
+          wantsToPlay = false;
+          reconnectAttempts = 0;
+          mediaRecoveries = 0;
+          destroyTransport();
+          setState("stopped");
+        }
+
+        function scheduleReconnect() {
+          if (reconnectTimer !== null) {
+            return;
+          }
+
+          if (reconnectAttempts >= MAX_RECONNECTS) {
+            stopAfterTooManyErrors();
+            return;
+          }
+
+          const delay = Math.min(
+            1000 * Math.pow(2, reconnectAttempts),
+            8000
+          );
+
+          reconnectAttempts += 1;
+
+          if (wantsToPlay) {
+            setState("loading");
+          }
+
+          reconnectTimer = window.setTimeout(() => {
+            reconnectTimer = null;
+            const resumeAfterReconnect = wantsToPlay;
+
+            destroyTransport();
+            wantsToPlay = resumeAfterReconnect;
+            prepareStream();
+
+            if (wantsToPlay) {
+              setState("loading");
+              void attemptPlay();
+            }
+          }, delay);
+        }
+
+        function prepareWithHlsJs() {
+          const instance = new Hls({
+            enableWorker: true,
+            lowLatencyMode: true,
+
+            // Mban paraprakisht një buffer të vogël që Play të nisë shpejt.
+            maxBufferLength: 12,
+            maxMaxBufferLength: 20,
+            backBufferLength: 6,
+
+            liveSyncDurationCount: 2,
+            liveMaxLatencyDurationCount: 5,
+            startFragPrefetch: true
+          });
+
+          hls = instance;
+
+          instance.on(Hls.Events.MANIFEST_PARSED, () => {
+            if (hls !== instance) {
+              return;
+            }
+
+            reconnectAttempts = 0;
+
+            if (wantsToPlay) {
+              void attemptPlay();
+            }
+          });
+
+          instance.on(Hls.Events.FRAG_LOADED, () => {
+            if (hls !== instance) {
+              return;
+            }
+
+            reconnectAttempts = 0;
+            mediaRecoveries = 0;
+
+            if (wantsToPlay) {
+              void attemptPlay();
+            }
+          });
+
+          instance.on(Hls.Events.ERROR, (event, data) => {
+            if (hls !== instance || !data.fatal) {
+              return;
+            }
+
+            if (data.type === Hls.ErrorTypes.MEDIA_ERROR && mediaRecoveries < 2) {
+              mediaRecoveries += 1;
+
+              try {
+                instance.recoverMediaError();
+              } catch (error) {
+                scheduleReconnect();
+              }
+
+              return;
+            }
+
+            scheduleReconnect();
+          });
+
+          // Si në player-in e vjetër: burimi ngarkohet para klikimit.
+          instance.loadSource(streamUrl);
+          instance.attachMedia(audio);
+        }
+
+        function prepareNativeHls() {
+          nativeHls = true;
+          audio.src = streamUrl;
+          audio.load();
+        }
+
+        function prepareStream() {
+          if (hls || nativeHls) {
+            return;
+          }
+
+          audio.preload = "auto";
+
+          if (window.Hls && Hls.isSupported()) {
+            prepareWithHlsJs();
+            return;
+          }
+
+          if (audio.canPlayType("application/vnd.apple.mpegurl")) {
+            prepareNativeHls();
+            return;
+          }
+
+          console.error("Ky shfletues nuk mbështet HLS.");
+        }
+
+        function pauseOnly() {
+          wantsToPlay = false;
+          audio.pause();
+          setState("stopped");
+
+          // HLS nuk shkatërrohet: buffer-i mbetet gati për klikimin tjetër.
+        }
+
+        function startPlaying() {
+          players.forEach((otherPlayer) => {
+            if (otherPlayer.element !== playerEl) {
+              otherPlayer.pause();
+            }
+          });
+
+          wantsToPlay = true;
+          setState("loading");
+
+          if (!hls && !nativeHls) {
+            reconnectAttempts = 0;
+            mediaRecoveries = 0;
+            prepareStream();
+          }
+
+          // Thirret direkt brenda klikimit të përdoruesit.
+          void attemptPlay();
+        }
+
+        function destroyCompletely() {
+          wantsToPlay = false;
+          destroyTransport();
+          setState("stopped");
+        }
+
+        button.addEventListener("click", () => {
+          if (wantsToPlay) {
+            pauseOnly();
+          } else {
+            startPlaying();
+          }
+        });
+
+        audio.addEventListener("playing", () => {
+          if (!wantsToPlay) {
+            return;
+          }
+
+          reconnectAttempts = 0;
+          mediaRecoveries = 0;
+          setState("playing");
+        });
+
+        audio.addEventListener("canplay", () => {
+          if (wantsToPlay) {
+            void attemptPlay();
+          }
+        });
+
+        audio.addEventListener("waiting", () => {
+          if (wantsToPlay) {
+            setState("loading");
+          }
+        });
+
+        audio.addEventListener("stalled", () => {
+          if (wantsToPlay) {
+            setState("loading");
+          }
+        });
+
+        audio.addEventListener("error", () => {
+          // Gabimet e HLS.js trajtohen te Hls.Events.ERROR.
+          if (nativeHls) {
+            scheduleReconnect();
+          }
+        });
+
+        const api = {
+          element: playerEl,
+          pause: pauseOnly,
+          destroy: destroyCompletely
+        };
+
+        players.push(api);
+        setState("stopped");
+
+        // Ky është ndryshimi që rikthen nisjen e menjëhershme.
+        prepareStream();
+      }
+
+      document.querySelectorAll(".player").forEach(setupPlayer);
+
+      window.addEventListener("pagehide", () => {
+        players.forEach((player) => player.destroy());
+      });
+    })();
+  </script>
+</body>
+</html>
