@@ -54,6 +54,7 @@ def validate_plan(plan, policy=None, baseline=None):
         family=next((families[normalized_name(n)] for n in names if normalized_name(n) in families),None)
         if package:reason='BLOCK_PROTECTED_CANAL_PACKAGE'
         elif write.get('operation')=='CANAL_CANONICAL_REUSE':reason='ALLOW_VERIFIED_CANAL_BYTE_REUSE' if canonical_reuse(write,parts) else 'BLOCK_UNVERIFIED_CANAL_REUSE'
+        elif identity(parts) in approved:reason='BLOCK_REUSED_CANAL_REFERENCE_REQUIRE_CANONICAL_SOURCE'
         elif is235 and identity(parts) in protected:reason='BLOCK_PROTECTED_STATION_REFERENCE'
         elif is235 and family:reason='BLOCK_PROTECTED_STATION_FAMILY'
         elif is235:reason='HOLD_235E_MISSING_REFERENCE_AND_BRAND_CHECK'
