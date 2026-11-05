@@ -3,7 +3,11 @@ import argparse,concurrent.futures,hashlib,io,json,os,re,subprocess,tempfile,thr
 from pathlib import Path
 from urllib.parse import urlsplit
 from PIL import Image,ImageDraw
-from radio_final_logo_utils import brand_keys,norm,fetch,directory,PINS
+from radio_final_logo_utils import brand_keys,norm,fetch,directory as original_directory,PINS
+def directory(url):
+ host=(urlsplit(url).hostname or '').lower()
+ blocked=('wikipedia.org','wikimedia.org','pcradio.ru','pcradio.app','myonlineradio.de','myonlineradio.hu','live24.gr')
+ return original_directory(url) or any(host==d or host.endswith('.'+d) for d in blocked)
 SHA=lambda b:hashlib.sha256(b).hexdigest()
 LOCK=threading.Lock();RENDER_LOCKS={};RENDERED={}
 def save(path,obj):
@@ -104,6 +108,8 @@ def main():
  def checkpoint(event):
   out.update(last_event=event,counts=dict(__import__('collections').Counter(r['status'] for r in out['stations'].values())),updated_utc=time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime()));save(saved,out);save(root/'verified-ready.json',[r for r in out['stations'].values() if r['status']=='ready_verified_exact_brand_and_recorded_page']);print(event,out['counts'],flush=True)
   if a.commit:
+   subprocess.run(['git','config','user.name','Warder Radio artwork automation'],check=True)
+   subprocess.run(['git','config','user.email','41898282+github-actions[bot]@users.noreply.github.com'],check=True)
    subprocess.run(['git','add','--',str(root)],check=True)
    if subprocess.run(['git','diff','--cached','--quiet']).returncode:subprocess.run(['git','commit','-m','Final radio logo pass: '+event],check=True);subprocess.run(['python','tools/push_radio_final.py',a.branch],check=True)
  checkpoint('recorded_page_alternative_logos_started')
