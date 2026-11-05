@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en"  data-season="remembrance" >
+<head>
+    <!-- Google Tag Manager -->
+    <script>(function (w, d, s, l, i) {
+            w[l] = w[l] || [];
+            w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            });
+            var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+            j.async = true;
+            j.src =
+                'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+            f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-PGGR6QLJ');</script>
+    <!-- End Google Tag Manager -->
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="NtztMF91hh7JJzqCRRSwcWtFC1i5aHueaA50MV7F">
+    <link rel="manifest" href="https://simulator.fm/manifest.json">
+
+    <!-- Performance: Resource Hints -->
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+    <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+
+    
+    <title>Simulator FM | </title>
+
+    <meta property="og:site_name" content="Simulator FM">
+    <meta property="og:title" content="Simulator FM | ">
+    <meta property="og:description" content="Listen live to Simulator FM, explore the schedule, meet the presenters, and catch up on the latest community news.">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="en">
+    <meta property="og:url" content="https://simulator.fm">
+    <meta property="og:image" content="https://simulator.fm/img/branding/logo.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Your Music, For Your Simulation">
+
+    <!-- Modern Fonts - Plus Jakarta Sans and Clash Display -->
+    <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
+    <link rel="preload" href="https://fonts.bunny.net/css?family=plus-jakarta-sans:400,500,600,700|clash-display:500,600,700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.bunny.net/css?family=plus-jakarta-sans:400,500,600,700|clash-display:500,600,700&display=swap"></noscript>
+
+    <!-- Preload critical assets -->
+    <link rel="preload" href="https://simulator.fm/img/branding/logo.png" as="image">
+    
+    <link rel="stylesheet" href="https://simulator.fm/vendor/fontawesome-7.2.0/css/all.min.css" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://simulator.fm/vendor/fontawesome-7.2.0/css/all.min.css">
+    </noscript>
+
+    <link rel="stylesheet" type="text/css" href="https://simulator.fm/css/cookie-consent.css">
+
+    <link rel="preload" as="style" href="https://simulator.fm/build/assets/main-DnwQ2bRt.css" /><link rel="preload" as="style" href="https://simulator.fm/build/assets/app-HDGKbNas.css" /><link rel="preload" as="style" href="https://simulator.fm/build/assets/app-CqnFI3lH.css" /><link rel="modulepreload" as="script" href="https://simulator.fm/build/assets/app-XLPhUYWf.js" /><link rel="modulepreload" as="script" href="https://simulator.fm/build/assets/date-DdVlqkWB.js" /><link rel="modulepreload" as="script" href="https://simulator.fm/build/assets/runtime-core.esm-bundler-CCygn_uI.js" /><link rel="modulepreload" as="script" href="https://simulator.fm/build/assets/runtime-dom.esm-bundler-B0lWHz5B.js" /><link rel="stylesheet" href="https://simulator.fm/build/assets/main-DnwQ2bRt.css" data-navigate-track="reload" /><link rel="stylesheet" href="https://simulator.fm/build/assets/app-HDGKbNas.css" data-navigate-track="reload" /><link rel="stylesheet" href="https://simulator.fm/build/assets/app-CqnFI3lH.css" data-navigate-track="reload" /><script type="module" src="https://simulator.fm/build/assets/app-XLPhUYWf.js" data-navigate-track="reload"></script>
+    
+    
+    
+    <style>
+        /* Prevent white flash on initial load */
+        html {
+            background-color: #111827;
+            scroll-behavior: smooth;
+        }
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+        }
+        body {
+            background-color: #111827;
+            overflow-x: hidden;
+        }
+        /* Font display optimization */
+        @font-face {
+            font-family: 'Font Awesome';
+            font-display: swap;
+        }
+        /* Loading screen styles */
+        #app-loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #111827;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.3s ease-out;
+        }
+        #app-loading.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .loading-logo {
+            max-width: 200px;
+            height: auto;
+            display: block;
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .loading-logo { animation: none; }
+        }
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.7;
+            }
+        }
+        /* Hide app content until Vue is ready */
+        #app:not(.vue-ready) {
+            visibility: hidden;
+        }
+    </style>
+
+</head>
+<body class="antialiased h-full bg-gray-900" style="margin-bottom: 0;" data-page-type="spa">
+
+<a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[9999] focus:px-4 focus:py-2 focus:bg-blue-600 focus:text-white focus:rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400">
+    Skip to main content
+</a>
+
+<!-- Google Tag Manager (noscript) -->
+<noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PGGR6QLJ"
+            height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<!-- Loading Screen -->
+<div id="app-loading">
+    <img src="https://simulator.fm/img/branding/logo.png" alt="Simulator FM" class="loading-logo" width="200" height="200">
+</div>
+
+<script type="application/json" id="public-shell-config">{"logo":"https:\/\/simulator.fm\/img\/branding\/remembrance_logo.png","authenticated":false,"loginUrl":"https:\/\/simulator.fm\/login","logoutUrl":"https:\/\/simulator.fm\/logout","staffUrl":null,"profilePhotoUrl":null,"userName":null}</script>
+
+<div id="app" class="flex flex-col min-h-screen dark"></div>
+
+    <script>window.authUser = null;</script>
+
+<script>
+    window.handleLogout = function(event, form) {
+        if (event) event.preventDefault();
+        let logoutForm = form || (event && event.target.closest('form')) || document.querySelector('form[action*="/logout"]');
+        if (!logoutForm) {
+            console.error('Logout form not found');
+            return;
+        }
+        fetch('https://simulator.fm/csrf-token', {
+            method: 'GET',
+            credentials: 'same-origin',
+            headers: { 'X-Requested-With': 'XMLHttpRequest', 'Accept': 'application/json' }
+        })
+        .then(r => r.ok ? r.json() : Promise.reject(new Error('Failed to fetch CSRF token')))
+        .then(function(data) {
+            const tokenInput = logoutForm.querySelector('input[name="_token"]');
+            if (tokenInput) tokenInput.value = data.token;
+            else {
+                const inp = document.createElement('input');
+                inp.type = 'hidden';
+                inp.name = '_token';
+                inp.value = data.token;
+                logoutForm.appendChild(inp);
+            }
+            const meta = document.querySelector('meta[name="csrf-token"]');
+            if (meta) meta.setAttribute('content', data.token);
+            logoutForm.submit();
+        })
+        .catch(function(err) {
+            console.error('Logout failed:', err);
+            logoutForm.submit();
+        });
+    };
+
+    document.addEventListener('DOMContentLoaded', function() {
+        function fetchFreshCsrfToken() {
+            return fetch('https://simulator.fm/csrf-token', {
+                method: 'GET',
+                credentials: 'same-origin',
+                headers: { 'X-Requested-With': 'XMLHttpRequest', 'Accept': 'application/json' }
+            })
+            .then(r => r.ok ? r.json() : Promise.reject(new Error('Failed to fetch CSRF token')))
+            .then(function(data) {
+                const meta = document.querySelector('meta[name="csrf-token"]');
+                if (meta && data.token) meta.setAttribute('content', data.token);
+                document.querySelectorAll('form').forEach(function(form) {
+                    if (form.action && form.action.includes('/logout')) return;
+                    const tokenInput = form.querySelector('input[name="_token"]');
+                    if (tokenInput && data.token) tokenInput.value = data.token;
+                });
+                return data.token;
+            })
+            .catch(err => { console.error('Failed to refresh CSRF token:', err); return null; });
+        }
+
+        document.addEventListener('submit', function(e) {
+            const form = e.target;
+            if (form.action && form.action.includes('/logout') && typeof window.handleLogout === 'function' && !form.onsubmit) {
+                e.preventDefault();
+                window.handleLogout(e, form);
+                return false;
+            }
+            const meta = document.querySelector('meta[name="csrf-token"]');
+            if (meta) {
+                const token = meta.getAttribute('content');
+                const tokenInput = form.querySelector('input[name="_token"]');
+                if (tokenInput && token) tokenInput.value = token;
+            }
+        }, true);
+
+        
+        if (typeof window.Livewire !== 'undefined' && window.Livewire.interceptRequest) {
+            document.addEventListener('livewire:init', function() {
+                let consecutive419 = 0;
+                let last419At = 0;
+                let csrfRetryInFlight = false;
+
+                function showCsrfExpiredToast() {
+                    if (typeof window.portalNotify === 'function') {
+                        window.portalNotify({
+                            title: 'Page Expired',
+                            message: 'Your session has expired. Please refresh the page and try your action again.',
+                            type: 'warning',
+                            delay: 8000
+                        });
+                        return;
+                    }
+                    console.warn('[Livewire] CSRF token expired. Please refresh the page and try again.');
+                }
+
+                function iterableMessages(request) {
+                    if (!request || !request.messages || typeof request.messages[Symbol.iterator] !== 'function') {
+                        return [];
+                    }
+                    return Array.from(request.messages);
+                }
+
+                function actionsForMessage(message) {
+                    if (message.actions && typeof message.actions[Symbol.iterator] === 'function') {
+                        return Array.from(message.actions);
+                    }
+                    return [];
+                }
+
+                function dispatchLivewireCall(wire, method, params) {
+                    var args = Array.isArray(params) ? params : [];
+                    if (method === '$refresh' && typeof wire.$refresh === 'function') {
+                        return wire.$refresh();
+                    }
+                    if (typeof wire.$call === 'function') {
+                        return wire.$call.apply(wire, [method].concat(args));
+                    }
+                    if (typeof wire.call === 'function') {
+                        return wire.call.apply(wire, [method].concat(args));
+                    }
+                    if (typeof wire[method] === 'function') {
+                        return wire[method].apply(wire, args);
+                    }
+                    return null;
+                }
+
+                function retryLivewireRequest(request) {
+                    var retries = [];
+                    iterableMessages(request).forEach(function(message) {
+                        var wire = message.component && message.component.$wire;
+                        if (!wire) return;
+                        var actions = actionsForMessage(message);
+                        if (actions.length === 0) {
+                            var refresh = dispatchLivewireCall(wire, '$refresh', []);
+                            if (refresh != null) retries.push(Promise.resolve(refresh));
+                            return;
+                        }
+                        actions.forEach(function(action) {
+                            var dispatched = dispatchLivewireCall(wire, action.name, action.params || []);
+                            if (dispatched != null) retries.push(Promise.resolve(dispatched));
+                        });
+                    });
+                    if (retries.length === 0) return Promise.resolve(null);
+                    return Promise.all(retries).then(function(results) {
+                        return { appliedViaLivewire: true, results: results };
+                    });
+                }
+
+                window.Livewire.interceptRequest(function(context) {
+                    if (!context || typeof context.onError !== 'function' || typeof context.onSuccess !== 'function') {
+                        return;
+                    }
+                    var request = context.request;
+                    context.onSuccess(function() {
+                        consecutive419 = 0;
+                        csrfRetryInFlight = false;
+                    });
+                    context.onError(function({ response, preventDefault }) {
+                        if (response.status !== 419) return;
+                        preventDefault();
+                        const now = Date.now();
+                        consecutive419 = now - last419At < 60000 ? consecutive419 + 1 : 1;
+                        last419At = now;
+                        if (consecutive419 >= 3) {
+                            window.location.reload();
+                            return;
+                        }
+                        if (csrfRetryInFlight) {
+                            csrfRetryInFlight = false;
+                            showCsrfExpiredToast();
+                            return;
+                        }
+                        csrfRetryInFlight = true;
+                        fetchFreshCsrfToken().then(function(token) {
+                            if (!token) {
+                                csrfRetryInFlight = false;
+                                showCsrfExpiredToast();
+                                return undefined;
+                            }
+                            return retryLivewireRequest(request);
+                        }).then(function(retryResult) {
+                            if (retryResult === undefined) return;
+                            if (retryResult && retryResult.appliedViaLivewire) return;
+                            csrfRetryInFlight = false;
+                            showCsrfExpiredToast();
+                        }).catch(function() {
+                            if (csrfRetryInFlight) {
+                                csrfRetryInFlight = false;
+                                showCsrfExpiredToast();
+                            }
+                        });
+                    });
+                });
+            }, { once: true });
+        }
+    });
+</script>
+<div id="android-app-prompt" class="android-app-prompt" hidden>
+    <div class="android-app-prompt__card" role="dialog" aria-modal="false" aria-labelledby="android-app-prompt-title">
+        <img src="https://simulator.fm/img/branding/logo.png" alt="" width="168" height="28" class="android-app-prompt__logo">
+        <div class="android-app-prompt__copy">
+            <h2 id="android-app-prompt-title" class="android-app-prompt__title">Take Simulator FM with you</h2>
+            <p class="android-app-prompt__text">Live shows, song history, and your favourite presenters, in the Android app.</p>
+        </div>
+        <div class="android-app-prompt__actions">
+            <a
+                class="android-app-prompt__install"
+                data-app-prompt-install
+                href="https://play.google.com/store/apps/details?id=com.simulatorfm.app"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <path fill="currentColor" d="M3.5 2.8c-.3.3-.5.8-.5 1.4v15.6c0 .6.2 1.1.5 1.4l.1.1 8.7-8.7v-.2L3.6 2.7l-.1.1zm10.2 8.8 2.4-2.4-9.8-5.6c-.4-.2-.8-.2-1.1 0l8.5 8zm2.4 1.1 2.7 1.6c.8.4.8 1.1 0 1.6l-2.7 1.5-2.6-2.6 2.6-2.1zm-11 7.7c.3.2.7.2 1.1 0l9.8-5.6-2.4-2.4-8.5 8z"/>
+                </svg>
+                Get the app
+            </a>
+            <button type="button" class="android-app-prompt__dismiss" data-app-prompt-dismiss>
+                Not now
+            </button>
+        </div>
+    </div>
+</div>
+
+<style>
+    .android-app-prompt[hidden] {
+        display: none;
+    }
+
+    .android-app-prompt {
+        position: fixed;
+        z-index: 9000;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        padding: 1rem;
+        padding-bottom: max(1rem, env(safe-area-inset-bottom));
+        pointer-events: none;
+    }
+
+    .android-app-prompt__card {
+        pointer-events: auto;
+        display: grid;
+        gap: 0.85rem;
+        max-width: 28rem;
+        margin: 0 auto;
+        padding: 1rem;
+        border-radius: 1.25rem;
+        background: #111827;
+        color: #f9fafb;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: 0 18px 50px rgba(0, 0, 0, 0.45);
+    }
+
+    .android-app-prompt__logo {
+        height: 1.65rem;
+        width: auto;
+        max-width: 11rem;
+        object-fit: contain;
+        object-position: left center;
+        mix-blend-mode: screen;
+    }
+
+    .android-app-prompt__title {
+        margin: 0;
+        font-size: 1.05rem;
+        line-height: 1.3;
+        font-weight: 700;
+    }
+
+    .android-app-prompt__text {
+        margin: 0.25rem 0 0;
+        color: #d1d5db;
+        font-size: 0.92rem;
+        line-height: 1.45;
+    }
+
+    .android-app-prompt__actions {
+        display: flex;
+        gap: 0.75rem;
+    }
+
+    .android-app-prompt__install,
+    .android-app-prompt__dismiss {
+        appearance: none;
+        border: 0;
+        border-radius: 999px;
+        padding: 0.7rem 1rem;
+        font: inherit;
+        font-size: 0.95rem;
+        font-weight: 600;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .android-app-prompt__install {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.45rem;
+        flex: 1;
+        background: var(--sfm-accent-gradient, linear-gradient(to right, #56009f, #65b4fd));
+        color: #fff;
+    }
+
+    .android-app-prompt__install svg {
+        width: 1.1rem;
+        height: 1.1rem;
+    }
+
+    .android-app-prompt__dismiss {
+        background: transparent;
+        color: #e5e7eb;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+        .android-app-prompt__card {
+            animation: android-app-prompt-in 220ms ease-out;
+        }
+    }
+
+    @keyframes android-app-prompt-in {
+        from {
+            opacity: 0;
+            transform: translateY(12px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+<style>
+    .lcc-modal {
+        max-width: min(90vw, 475px);
+        width: min(475px, calc(100vw - 1.5rem));
+        box-sizing: border-box;
+    }
+    .lcc-modal__content,
+    .lcc-text {
+        overflow-wrap: anywhere;
+        word-wrap: break-word;
+    }
+</style>
+<div role="dialog" aria-labelledby="lcc-modal-alert-label" aria-describedby="lcc-modal-alert-desc" aria-modal="true"
+     tabindex="-1"
+     class="lcc-modal lcc-modal--alert js-lcc-modal js-lcc-modal-alert" style="display: none;"
+     data-cookie-key="__cookie_consent"
+     data-cookie-value-analytics="2"
+     data-cookie-value-marketing="3"
+     data-cookie-value-both="true"
+     data-cookie-value-none="false"
+     data-cookie-expiration-days="365"
+     data-gtm-event="cookie_refresh"
+     data-ignored-paths=""
+>
+    <div class="lcc-modal__content">
+        <h2 id="lcc-modal-alert-label" class="lcc-modal__title">
+            This website uses cookies        </h2>
+        <p id="lcc-modal-alert-desc" class="lcc-text">
+            By choosing "Accept all cookies" you agree to the use of cookies to help us provide you with a better user experience and to analyse website usage. By clicking "Adjust your preferences" you can choose which cookies to allow. Only the essential cookies are necessary for the proper functioning of our website and cannot be refused
+        </p>
+    </div>
+    <div class="lcc-modal__actions">
+        <button type="button" class="lcc-button js-lcc-accept">
+            Accept all cookies        </button>
+        <button type="button" class="lcc-button lcc-button--link js-lcc-essentials">
+            Accept only necessary cookies        </button>
+        <button type="button" class="lcc-button lcc-button--link js-lcc-settings-toggle">
+            Adjust your preferences        </button>
+    </div>
+</div>
+
+<div role="dialog" aria-labelledby="lcc-modal-settings-label" aria-describedby="lcc-modal-settings-desc"
+     aria-modal="true" tabindex="-1" class="lcc-modal lcc-modal--settings js-lcc-modal js-lcc-modal-settings" style="display: none;">
+    <button class="lcc-modal__close js-lcc-settings-toggle" type="button">
+        <span class="lcc-u-sr-only">
+            Close        </span>
+        &times;
+    </button>
+    <div class="lcc-modal__content">
+        <div class="lcc-modal__content">
+            <h2 id="lcc-modal-settings-label" class="lcc-modal__title">
+                Cookie settings            </h2>
+            <p id="lcc-modal-settings-desc" class="lcc-text">
+                Our website stores four types of cookies. At any time you can choose which cookies you accept and which you refuse. You can read more about what cookies are and what types of cookies we store in our  <a href="/privacy-policy" target="_blank" class="underline hover:no-underline">Cookie Policy</a>.
+            </p>
+            <div class="lcc-modal__section lcc-u-text-center">
+                <button type="button" class="lcc-button js-lcc-accept">
+                    Accept all cookies                </button>
+            </div>
+            <div class="lcc-modal__section">
+                <label for="lcc-checkbox-essential" class="lcc-label">
+                    <input type="checkbox" id="lcc-checkbox-essential" disabled="disabled" checked="checked">
+                    <span>Essential cookies</span>
+                </label>
+                <p class="lcc-text">
+                    are necessary for technical reasons. Without them, this website may not function properly.                </p>
+            </div>
+            <div class="lcc-modal__section">
+                <label for="lcc-checkbox-funtcional" class="lcc-label">
+                    <input type="checkbox" id="lcc-checkbox-funtcional" disabled="disabled" checked="checked">
+                    <span>Functional cookies</span>
+                </label>
+                <p class="lcc-text">
+                    are necessary for specific functionality on the website. Without them, some features may be disabled.                </p>
+            </div>
+            <div class="lcc-modal__section">
+                <label for="lcc-checkbox-analytics" class="lcc-label">
+                    <input type="checkbox" id="lcc-checkbox-analytics">
+                    <span>Analytical cookies</span>
+                </label>
+                <p class="lcc-text">
+                    allow us to analyse website use and to improve the visitor's experience.                </p>
+            </div>
+            <div class="lcc-modal__section">
+                <label for="lcc-checkbox-marketing" class="lcc-label">
+                    <input type="checkbox" id="lcc-checkbox-marketing">
+                    <span>Marketing cookies</span>
+                </label>
+                <p class="lcc-text">
+                    allow us to personalise your experience and to send you relevant content and offers, on this website and other websites.                </p>
+            </div>
+        </div>
+    </div>
+    <div class="lcc-modal__actions">
+        <button type="button" class="lcc-button js-lcc-settings-save">
+            Save my selection        </button>
+    </div>
+</div>
+
+<div class="lcc-backdrop js-lcc-backdrop" style="display: none;"></div>
+<script type="text/javascript" src="https://simulator.fm/vendor/cookie-consent/js/cookie-consent.js" defer></script>
+<script type="module">
+const ALERT_SELECTOR = '.js-lcc-modal-alert';
+const SETTINGS_SELECTOR = '.js-lcc-modal-settings';
+const OPEN_FLAG = 'data-sfm-consent-focus';
+const FOCUSABLE_SELECTOR = [
+    'a[href]',
+    'button:not([disabled])',
+    'input:not([disabled]):not([type="hidden"])',
+    'select:not([disabled])',
+    'textarea:not([disabled])',
+    '[tabindex]:not([tabindex="-1"])',
+].join(',');
+
+export function isVisibleConsentDialog(el) {
+    if (!el) {
+        return false;
+    }
+
+    const style = window.getComputedStyle(el);
+
+    return style.display !== 'none' && style.visibility !== 'hidden';
+}
+
+export function getOpenConsentDialog(root = document) {
+    const settings = root.querySelector(SETTINGS_SELECTOR);
+    const alert = root.querySelector(ALERT_SELECTOR);
+
+    if (isVisibleConsentDialog(settings)) {
+        return settings;
+    }
+
+    if (isVisibleConsentDialog(alert)) {
+        return alert;
+    }
+
+    return null;
+}
+
+export function getFocusableControls(root) {
+    return [...root.querySelectorAll(FOCUSABLE_SELECTOR)].filter((el) => {
+        if (el.hasAttribute('disabled') || el.getAttribute('aria-hidden') === 'true') {
+            return false;
+        }
+
+        const style = window.getComputedStyle(el);
+
+        return style.display !== 'none' && style.visibility !== 'hidden';
+    });
+}
+
+export function restoreConsentFocus(previous, root = document) {
+    const app = root.getElementById?.('app') || root.querySelector?.('#app');
+    if (app) {
+        app.inert = false;
+    }
+
+    const usablePrevious = previous
+        && previous !== root.body
+        && root.contains(previous)
+        && !previous.closest('[inert]')
+        && typeof previous.focus === 'function';
+
+    const target = usablePrevious
+        ? previous
+        : root.getElementById?.('main-content') || root.querySelector?.('#main-content') || root.body;
+
+    target?.focus?.();
+
+    return target;
+}
+
+function focusFirstControl(dialog) {
+    const first = getFocusableControls(dialog)[0] || dialog.querySelector('.lcc-modal__title');
+
+    if (first === dialog.querySelector('.lcc-modal__title') && first && !first.hasAttribute('tabindex')) {
+        first.setAttribute('tabindex', '-1');
+    }
+
+    first?.focus?.();
+}
+
+function trapTab(event) {
+    if (event.key !== 'Tab') {
+        return;
+    }
+
+    const dialog = getOpenConsentDialog();
+    if (!dialog) {
+        return;
+    }
+
+    const focusables = getFocusableControls(dialog);
+    if (!focusables.length) {
+        event.preventDefault();
+        dialog.focus();
+        return;
+    }
+
+    const first = focusables[0];
+    const last = focusables[focusables.length - 1];
+    const active = document.activeElement;
+
+    if (event.shiftKey && (active === first || !dialog.contains(active))) {
+        event.preventDefault();
+        last.focus();
+        return;
+    }
+
+    if (!event.shiftKey && (active === last || !dialog.contains(active))) {
+        event.preventDefault();
+        first.focus();
+    }
+}
+
+export function initCookieConsentA11y(root = document) {
+    if (root.__sfmCookieConsentA11y) {
+        return root.__sfmCookieConsentA11y;
+    }
+
+    let lastFocus = root.activeElement || null;
+
+    const sync = () => {
+        const dialog = getOpenConsentDialog(root);
+        const previously = root.querySelector(`[${OPEN_FLAG}]`);
+
+        if (dialog) {
+            if (previously && previously !== dialog) {
+                previously.removeAttribute(OPEN_FLAG);
+            }
+
+            if (!dialog.hasAttribute(OPEN_FLAG)) {
+                if (!previously) {
+                    lastFocus = root.activeElement;
+                }
+                dialog.setAttribute(OPEN_FLAG, '1');
+                if (!dialog.hasAttribute('tabindex')) {
+                    dialog.setAttribute('tabindex', '-1');
+                }
+                focusFirstControl(dialog);
+            }
+
+            return;
+        }
+
+        if (previously) {
+            previously.removeAttribute(OPEN_FLAG);
+            restoreConsentFocus(lastFocus, root);
+        }
+    };
+
+    root.addEventListener('keydown', trapTab, true);
+
+    const observer = new MutationObserver(sync);
+    if (root.body || root.documentElement) {
+        observer.observe(root.body || root.documentElement, {
+            attributes: true,
+            subtree: true,
+            attributeFilter: ['style', 'class', 'inert', 'hidden'],
+        });
+    }
+
+    const start = () => {
+        lastFocus = root.activeElement || lastFocus;
+        sync();
+    };
+
+    if (root.readyState === 'loading') {
+        root.addEventListener('DOMContentLoaded', start, {once: true});
+    } else {
+        start();
+    }
+
+    const api = {sync, disconnect: () => observer.disconnect()};
+    root.__sfmCookieConsentA11y = api;
+
+    return api;
+}
+
+if (typeof document !== 'undefined') {
+    initCookieConsentA11y(document);
+}
+
+</script>
+</body>
+</html>
