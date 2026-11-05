@@ -1,0 +1,2750 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title></title>
+<meta name="description" content="Maxxihit Radio — Les Meilleurs Hits Sur Ta Radio">
+<link rel="icon" href="https://maxxihitradio.com/wp-content/themes/maxxihit-theme/assets/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800;900&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #08080d;
+    --bg-soft: #0e0e17;
+    --surface: #15151f;
+    --surface-2: #1c1c29;
+    --line: rgba(255,255,255,0.08);
+    --text: #f4f3f7;
+    --text-dim: #9b98ab;
+    --purple: #9b5cf6;
+    --cyan: #34d9ff;
+    --gold: #f0b429;
+    --pink: #ff2f9e;
+    --grad-brand: linear-gradient(120deg, var(--purple), var(--cyan));
+    --grad-live: linear-gradient(120deg, var(--pink), var(--purple));
+    --radius: 18px;
+    --container: 1180px;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Manrope', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  ::selection{ background: var(--purple); color: #fff; }
+
+  h1,h2,h3, .display{
+    font-family: 'Unbounded', sans-serif;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    margin: 0;
+  }
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .eyebrow::before{
+    content:'';
+    width:22px; height:2px;
+    background: var(--grad-brand);
+    display:inline-block;
+  }
+
+  a{ color: inherit; text-decoration: none; }
+  img{ max-width:100%; display:block; }
+  .wrap{ max-width: var(--container); margin:0 auto; padding: 0 28px; }
+
+  /* subtle ambient background */
+  .noise-glow{
+    position: fixed; inset:0; pointer-events:none; z-index:0;
+    background:
+      radial-gradient(700px 500px at 12% -5%, rgba(155,92,246,0.22), transparent 60%),
+      radial-gradient(600px 480px at 90% 10%, rgba(52,217,255,0.14), transparent 60%),
+      radial-gradient(800px 600px at 50% 100%, rgba(255,47,158,0.10), transparent 60%);
+  }
+
+  /* ---------- BANDEAU DÉFILANT DES PROGRAMMES ---------- */
+  .show-ticker{
+    position:relative; z-index:40; overflow:hidden;
+    background: linear-gradient(90deg, rgba(255,122,61,0.12), rgba(255,47,158,0.08));
+    border-bottom: 1px solid rgba(255,122,61,0.22);
+  }
+  .ticker-track{
+    display:flex; align-items:center; gap:36px;
+    width:max-content;
+    padding: 9px 0;
+    animation: ticker-scroll linear infinite;
+  }
+  .show-ticker:hover .ticker-track{ animation-play-state: paused; }
+  .ticker-item{
+    display:flex; align-items:center; gap:10px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.76rem; letter-spacing:0.03em;
+    white-space:nowrap;
+  }
+  .ticker-day{ color: var(--accent, #ff7a3d); text-transform:uppercase; font-weight:700; }
+  .ticker-time{ color: var(--text-dim); }
+  .ticker-title{ color: var(--accent, var(--text)); font-weight:700; text-shadow: 0 0 12px color-mix(in srgb, var(--accent, #ff2f9e) 45%, transparent); }
+  .ticker-dot{
+    width:5px; height:5px; border-radius:50%; flex-shrink:0;
+    background: var(--pink);
+    box-shadow: 0 0 8px 1px rgba(255,47,158,0.6);
+  }
+  @keyframes ticker-scroll{
+    from{ transform: translateX(0); }
+    to{ transform: translateX(-50%); }
+  }
+
+  /* ---------- HEADER ---------- */
+  header{
+    position: sticky; top:0; z-index: 50;
+    backdrop-filter: blur(14px);
+    background: rgba(8,8,13,0.65);
+    border-bottom: 1px solid transparent;
+    transition: border-color .3s ease, background .3s ease;
+  }
+  header.scrolled{
+    border-bottom-color: var(--line);
+    background: rgba(8,8,13,0.9);
+  }
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 14px 28px;
+  }
+  .brand{ display:flex; align-items:center; gap:12px; }
+  .brand img{ height:42px; width:auto; }
+  .brand span{
+    font-family:'Unbounded', sans-serif;
+    font-weight:800;
+    font-size: 1rem;
+    letter-spacing: 0.02em;
+  }
+  nav.links{ display:flex; gap: 34px; }
+  nav.links a{
+    font-size:0.86rem; font-weight:600; color: var(--text-dim);
+    letter-spacing:0.02em;
+    position:relative;
+    padding: 6px 0;
+    transition: color .2s ease;
+  }
+  nav.links a:hover{ color: var(--text); }
+  nav.links a::after{
+    content:''; position:absolute; left:0; bottom:0; height:2px; width:0%;
+    background: var(--grad-brand); transition: width .25s ease;
+  }
+  nav.links a:hover::after{ width:100%; }
+
+  .live-pill{
+    display:flex; align-items:center; gap:8px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.72rem; letter-spacing:0.1em;
+    padding: 8px 14px; border-radius: 999px;
+    border: 1px solid var(--line);
+    background: var(--surface);
+  }
+  .dot{
+    width:8px; height:8px; border-radius:50%;
+    background: var(--pink);
+    box-shadow: 0 0 0 0 rgba(255,47,158,0.6);
+    animation: pulse-dot 1.6s infinite;
+  }
+  @keyframes pulse-dot{
+    0%{ box-shadow: 0 0 0 0 rgba(255,47,158,0.55); }
+    70%{ box-shadow: 0 0 0 9px rgba(255,47,158,0); }
+    100%{ box-shadow: 0 0 0 0 rgba(255,47,158,0); }
+  }
+
+  .burger{ display:none; background:none; border:none; color:var(--text); cursor:pointer; }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative; z-index:1;
+    padding: 96px 0 80px;
+    display:grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 48px;
+    align-items:center;
+    background-image: url('https://maxxihitradio.com/wp-content/themes/maxxihit-theme/assets/hero-background.jpg');
+    background-size: cover;
+    background-position: center 35%;
+  }
+  /* voile sombre au-dessus de la photo pour garder le texte bien lisible */
+  .hero::before{
+    content:'';
+    position:absolute; inset:0;
+    background: linear-gradient(180deg, rgba(8,8,13,0.55), rgba(8,8,13,0.88));
+    z-index:-1;
+    pointer-events:none;
+  }
+  .hero-copy .eyebrow{ margin-bottom: 22px; }
+  .hero h1{
+    font-size: clamp(2.6rem, 5.4vw, 4.4rem);
+    font-weight: 900;
+  }
+  .hero h1 .grad{
+    background: var(--grad-brand);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .hero p.lede{
+    margin-top: 22px;
+    font-size: 1.08rem;
+    color: var(--text-dim);
+    max-width: 480px;
+    line-height:1.65;
+  }
+
+  .player-card{
+    margin-top: 40px;
+    display:flex;
+    align-items:center;
+    gap: 22px;
+    background: linear-gradient(135deg, var(--surface), var(--surface-2));
+    border: 1px solid rgba(255,122,61,0.28);
+    border-radius: 22px;
+    padding: 22px 28px;
+    max-width: 520px;
+    box-shadow: 0 0 0 1px rgba(255,47,158,0.08), 0 20px 50px rgba(0,0,0,0.4);
+  }
+  .play-btn{
+    flex-shrink:0;
+    width: 72px; height: 72px; border-radius:50%;
+    background: linear-gradient(120deg, #ff7a3d, #ff2f9e);
+    border:none;
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer;
+    position:relative;
+    box-shadow: 0 10px 34px rgba(255,47,158,0.4);
+    transition: transform .15s ease;
+  }
+  .play-btn:hover{ transform: scale(1.05); }
+  .play-btn:active{ transform: scale(0.97); }
+  .play-btn svg{ width:24px; height:24px; fill:#0a0a10; }
+  .play-btn .icon-pause{ display:none; }
+  .play-btn.playing .icon-play{ display:none; }
+  .play-btn.playing .icon-pause{ display:block; }
+
+  .player-meta{ flex:1; min-width:0; }
+  .player-meta .status{
+    font-family:'JetBrains Mono', monospace;
+    font-size: 0.68rem; letter-spacing:0.12em; text-transform:uppercase;
+    color: var(--pink);
+    margin-bottom: 4px;
+  }
+  .player-meta .track{
+    font-weight:700; font-size:0.98rem;
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  }
+  .player-meta .sub{ font-size:0.82rem; color: var(--text-dim); margin-top:2px; }
+
+  .eq{
+    display:flex; align-items:flex-end; gap:3px; height: 26px; flex-shrink:0;
+  }
+  .eq span{
+    width:4px; border-radius:2px;
+    background: linear-gradient(120deg, #ff7a3d, #ff2f9e);
+    animation: eq-bounce 1s ease-in-out infinite;
+    height: 30%;
+  }
+  .eq span:nth-child(1){ animation-delay: -0.9s; }
+  .eq span:nth-child(2){ animation-delay: -0.6s; }
+  .eq span:nth-child(3){ animation-delay: -1.1s; }
+  .eq span:nth-child(4){ animation-delay: -0.3s; }
+  .eq span:nth-child(5){ animation-delay: -0.7s; }
+  @keyframes eq-bounce{
+    0%,100%{ height: 20%; }
+    50%{ height: 100%; }
+  }
+  .eq.paused span{ animation-play-state: paused; height:18%; }
+
+  .volume-row{
+    display:flex; align-items:center; gap:10px; margin-top:16px; max-width:480px;
+  }
+  .volume-row svg{ width:16px; height:16px; fill: var(--text-dim); flex-shrink:0; }
+  input[type="range"]{
+    -webkit-appearance:none; appearance:none;
+    width:100%; height:4px; border-radius:2px;
+    background: var(--surface-2);
+    outline:none;
+  }
+  input[type="range"]::-webkit-slider-thumb{
+    -webkit-appearance:none; width:14px; height:14px; border-radius:50%;
+    background: var(--cyan); cursor:pointer;
+    box-shadow: 0 0 0 4px rgba(52,217,255,0.15);
+  }
+  input[type="range"]::-moz-range-thumb{
+    width:14px; height:14px; border-radius:50%; border:none;
+    background: var(--cyan); cursor:pointer;
+  }
+
+  .detach-btn{
+    display:inline-flex; align-items:center; gap:8px;
+    margin-top:14px;
+    background:none; border:1px solid var(--line); border-radius:999px;
+    padding:8px 16px; color:var(--text-dim); font-family:'Manrope',sans-serif;
+    font-size:0.8rem; font-weight:600; cursor:pointer;
+    transition: border-color .2s ease, color .2s ease;
+  }
+  .detach-btn:hover{ border-color: var(--cyan); color: var(--text); }
+  .detach-btn svg{ width:15px; height:15px; fill: currentColor; flex-shrink:0; }
+  .detach-btn.is-active{ border-color: var(--cyan); color: var(--cyan); }
+
+  .mini-player .detach-btn{
+    margin-top:0; padding:8px; border:none; flex-shrink:0;
+  }
+  .mini-player .detach-btn span{ display:none; }
+
+  .hero-visual{
+    position:relative;
+    aspect-ratio: 1/1;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .hero-visual .glow-ring{
+    position:absolute; inset:0;
+    border-radius:50%;
+    background: conic-gradient(from 0deg, var(--purple), var(--cyan), var(--pink), var(--purple));
+    filter: blur(60px);
+    opacity:0.35;
+    animation: spin 12s linear infinite;
+  }
+  @keyframes spin{ to{ transform: rotate(360deg); } }
+  .hero-visual img{
+    position:relative;
+    width: 86%;
+    filter: drop-shadow(0 30px 60px rgba(0,0,0,0.6));
+  }
+
+  /* ---------- SECTION SHELL ---------- */
+  section{ position:relative; z-index:1; padding: 100px 0; }
+  .section-head{ margin-bottom: 48px; max-width: 640px; }
+  .section-head h2{
+    font-size: clamp(1.9rem, 3.4vw, 2.6rem);
+    margin-top: 14px;
+    font-weight: 800;
+  }
+  .section-head p{ color: var(--text-dim); margin-top:14px; line-height:1.6; }
+
+  /* ---------- GENRES STRIP ---------- */
+  .genres{
+    display:flex; flex-wrap:wrap; gap:12px;
+    padding: 100px 0 0;
+  }
+  .genres .wrap{ display:flex; flex-wrap:wrap; gap:12px; }
+  .chip{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.78rem; letter-spacing:0.04em;
+    padding: 10px 18px; border-radius:999px;
+    border: 1px solid var(--line);
+    color: var(--text-dim);
+    transition: border-color .2s ease, color .2s ease;
+  }
+  .chip:hover{ border-color: var(--cyan); color: var(--text); }
+
+  /* ---------- PROGRAMMES ---------- */
+  .schedule{
+    display:flex;
+    flex-direction:column;
+    gap: 14px;
+  }
+  .show-row{
+    position:relative;
+    display:grid;
+    grid-template-columns: 128px 1fr auto;
+    gap: 22px;
+    align-items:center;
+    padding: 18px 24px 18px 30px;
+    border-radius: 16px;
+    border: 1px solid var(--line);
+    background: linear-gradient(135deg, var(--surface), var(--surface-2));
+    overflow:hidden;
+    transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+  }
+  .show-row::before{
+    content:''; position:absolute; left:0; top:0; bottom:0; width:4px;
+    background: var(--accent, var(--purple));
+  }
+  .show-row:hover{
+    transform: translateY(-3px);
+    border-color: var(--accent, var(--cyan));
+    box-shadow: 0 16px 34px rgba(0,0,0,0.38);
+  }
+  .show-time{
+    display:flex; align-items:center; gap:8px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.82rem; color: var(--accent, var(--cyan));
+    white-space:nowrap;
+  }
+  .show-time svg{ width:15px; height:15px; fill: var(--accent, var(--cyan)); flex-shrink:0; }
+  .show-name{ font-weight:800; font-size:1.04rem; }
+  .show-desc{ font-size:0.85rem; color: var(--text-dim); margin-top:4px; line-height:1.5; }
+  .show-tag{
+    justify-self:end;
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.66rem; letter-spacing:0.08em; text-transform:uppercase;
+    padding:7px 14px; border-radius:999px;
+    border: 1px solid var(--accent, var(--line));
+    color: var(--accent, var(--text-dim));
+    background: color-mix(in srgb, var(--accent, var(--purple)) 14%, transparent);
+    white-space:nowrap;
+  }
+  .show-row.is-live{
+    background: linear-gradient(120deg, rgba(255,47,158,0.14), var(--surface-2) 55%);
+    border-color: rgba(255,47,158,0.4);
+    box-shadow: 0 0 0 1px rgba(255,47,158,0.15), 0 16px 34px rgba(255,47,158,0.12);
+  }
+  .show-row.is-live::before{
+    background: var(--pink);
+    box-shadow: 0 0 12px 2px rgba(255,47,158,0.6);
+    animation: live-pulse 1.6s ease-in-out infinite;
+  }
+  @keyframes live-pulse{
+    0%,100%{ opacity:1; }
+    50%{ opacity:0.5; }
+  }
+  .show-row.is-live .show-name::after{
+    content:' • EN DIRECT';
+    color:var(--pink); font-family:'JetBrains Mono',monospace;
+    font-size:.62rem; letter-spacing:.06em; margin-left:8px;
+  }
+  .day-label{
+    font-family:'Unbounded', sans-serif;
+    font-weight:700; font-size:0.82rem;
+    letter-spacing:0.04em;
+    color: var(--purple);
+    margin: 40px 0 14px;
+  }
+  .day-label:first-of-type{ margin-top:0; }
+
+  /* ---------- VERSION 1.4: GRILLE EN ONGLETS PAR JOUR ---------- */
+  #programmes{ position:relative; overflow:hidden; }
+  #programmes::before{
+    content:'';
+    position:absolute; inset: -60px -10% auto -10%; height: 480px;
+    z-index:-1; pointer-events:none;
+    background:
+      radial-gradient(520px 320px at 15% 0%, rgba(255,122,61,0.20), transparent 65%),
+      radial-gradient(460px 300px at 85% 10%, rgba(255,47,158,0.16), transparent 65%),
+      radial-gradient(600px 260px at 50% 30%, rgba(240,180,41,0.14), transparent 70%);
+    filter: blur(10px);
+  }
+  .day-tabs{
+    display:flex; flex-wrap:wrap; gap:10px;
+    margin-bottom: 28px;
+  }
+  .day-tab{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.78rem; letter-spacing:0.05em;
+    padding: 10px 18px; border-radius:999px;
+    border: 1px solid var(--line);
+    background: var(--surface);
+    color: var(--text-dim);
+    cursor:pointer;
+    transition: border-color .2s ease, color .2s ease, background .2s ease;
+  }
+  .day-tab:hover{ border-color: #ff7a3d; color: var(--text); }
+  .day-tab.is-active{
+    background: linear-gradient(120deg, #ff7a3d, #f0b429);
+    border-color: transparent;
+    color: #3c1400;
+    font-weight:700;
+  }
+  .day-tab.has-live{ box-shadow: 0 0 0 1px var(--pink) inset; }
+  .day-panel{ display:none; }
+  .day-panel.is-active{ display:block; animation: fade-in .25s ease; }
+  @keyframes fade-in{ from{ opacity:0; transform:translateY(4px);} to{ opacity:1; transform:translateY(0);} }
+
+
+  /* ---------- VERSION 1.4 ---------- */
+  .cover-wrap{
+    width:96px; height:96px; flex:0 0 96px;
+    border-radius:18px; overflow:hidden;
+    background:var(--surface-2);
+    border:1px solid var(--line);
+    transition: box-shadow .3s ease;
+  }
+  .now-playing-cover{
+    width:100%; height:100%; object-fit:cover;
+    opacity:.78; transition:opacity .25s ease, transform .25s ease;
+  }
+  .now-playing-cover.has-cover{ opacity:1; }
+  .player-card:hover .now-playing-cover.has-cover{ transform:scale(1.04); }
+  .player-card:has(.play-btn.playing) .cover-wrap{
+    box-shadow: 0 0 0 3px rgba(255,122,61,0.35), 0 0 34px rgba(255,47,158,0.4);
+  }
+
+  .on-air-panel{
+    display:grid; grid-template-columns:1fr 1fr; gap:12px;
+    max-width:480px; margin-top:18px;
+  }
+  .on-air-card{
+    background:rgba(21,21,31,.72);
+    border:1px solid var(--line);
+    border-radius:14px; padding:15px 16px;
+  }
+  .on-air-card.live{ border-color:rgba(255,47,158,.35); }
+  .on-air-label{
+    font-family:'JetBrains Mono',monospace;
+    font-size:.62rem; letter-spacing:.1em;
+    color:var(--text-dim); margin-bottom:7px;
+  }
+  .on-air-card.live .on-air-label{ color:var(--pink); }
+  .on-air-name{ font-weight:800; font-size:.9rem; line-height:1.35; }
+  .on-air-time{ color:var(--text-dim); font-size:.72rem; margin-top:5px; }
+
+  .news-grid{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:18px;
+  }
+  .news-card,.news-empty{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    overflow:hidden;
+  }
+  .news-card{ transition:transform .2s ease,border-color .2s ease; }
+  .news-card:hover{ transform:translateY(-3px); border-color:rgba(52,217,255,.35); }
+  .news-image{ aspect-ratio:16/9; overflow:hidden; background:var(--surface-2); }
+  .news-image img{ width:100%; height:100%; object-fit:cover; }
+  .news-body{ padding:22px; }
+  .news-tag{
+    display:inline-block; color:var(--cyan);
+    font-family:'JetBrains Mono',monospace; font-size:.62rem;
+    letter-spacing:.1em; text-transform:uppercase; margin-bottom:10px;
+  }
+  .news-card h3,.news-empty h3{ font-size:1rem; line-height:1.35; }
+  .news-excerpt,.news-empty p{
+    color:var(--text-dim); font-size:.84rem; line-height:1.55; margin-top:10px;
+  }
+  .news-date{ color:var(--text-dim); font-family:'JetBrains Mono',monospace; font-size:.62rem; margin-top:16px; }
+  .news-empty{ padding:28px; grid-column:1/-1; }
+
+  /* ---------- CONTACT ---------- */
+  .contact-grid{
+    display:grid; grid-template-columns: 1.1fr 0.9fr; gap: 56px;
+  }
+  .field{ margin-bottom: 18px; }
+  .field label{
+    display:block; font-size:0.78rem; letter-spacing:0.04em;
+    color: var(--text-dim); margin-bottom:8px;
+    font-family:'JetBrains Mono', monospace;
+  }
+  .field input, .field textarea{
+    width:100%; background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 13px 16px;
+    color: var(--text);
+    font-family:'Manrope', sans-serif;
+    font-size:0.95rem;
+    resize: vertical;
+  }
+  .field input:focus, .field textarea:focus{
+    outline:none; border-color: var(--cyan);
+  }
+  .submit-btn{
+    background: var(--grad-brand);
+    border:none; border-radius: 10px;
+    padding: 14px 28px;
+    font-weight:700; font-size:0.92rem;
+    color:#0a0a10;
+    cursor:pointer;
+    transition: transform .15s ease;
+  }
+  .submit-btn:hover{ transform: translateY(-2px); }
+
+  .contact-side .card{
+    background: var(--surface);
+    border:1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 26px;
+    margin-bottom: 18px;
+  }
+  .contact-side .card h3{ font-size:1rem; margin-bottom:8px; }
+  .contact-side .card p, .contact-side .card a{ color: var(--text-dim); font-size:0.9rem; line-height:1.6; }
+  .socials{ display:flex; gap:12px; margin-top:14px; }
+  .socials a{
+    width:38px; height:38px; border-radius:50%;
+    border:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center;
+    transition: border-color .2s ease, color .2s ease;
+    color: var(--text-dim);
+  }
+  .socials a:hover{ border-color: var(--cyan); color: var(--text); }
+  .socials svg{ width:16px; height:16px; fill:currentColor; }
+
+  .listen-badges{ display:flex; flex-wrap:wrap; gap:10px; margin-top:14px; }
+  .listen-badges a{
+    display:inline-flex; align-items:center; gap:7px;
+    padding: 8px 16px; border-radius:999px;
+    background: var(--grad-brand);
+    color:#0a0a10; font-weight:700; font-size:0.82rem;
+    transition: transform .15s ease;
+  }
+  .listen-badges a:hover{ transform: translateY(-2px); }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    border-top: 1px solid var(--line);
+    padding: 32px 0 120px;
+    position:relative; z-index:1;
+  }
+  .foot-row{
+    display:flex; justify-content:space-between; align-items:center;
+    flex-wrap:wrap; gap: 16px;
+  }
+  .foot-row .brand img{ height:30px; }
+  footer p{ color: var(--text-dim); font-size:0.8rem; }
+
+  /* ---------- STICKY MINI PLAYER ---------- */
+  .mini-player{
+    position: fixed; left:50%; bottom: 18px; transform: translateX(-50%);
+    z-index: 60;
+    width: min(600px, calc(100% - 32px));
+    display:flex; align-items:center; gap:14px;
+    background: rgba(21,21,31,0.88);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255,122,61,0.25);
+    border-radius: 999px;
+    padding: 8px 20px 8px 8px;
+    box-shadow: 0 0 0 1px rgba(255,47,158,0.08), 0 20px 50px rgba(0,0,0,0.5);
+  }
+  .mini-player .cover-wrap{ width:48px; height:48px; flex:0 0 48px; border-radius:12px; }
+  .mini-player:has(.play-btn.playing) .cover-wrap{
+    box-shadow: 0 0 0 2px rgba(255,122,61,0.35), 0 0 20px rgba(255,47,158,0.4);
+  }
+  .mini-player .play-btn{ width:48px; height:48px; }
+  .mini-player .play-btn svg{ width:18px; height:18px; }
+  .mini-player .player-meta .track{ font-size:0.84rem; }
+  .mini-player .player-meta .status{ font-size:0.6rem; }
+  .mini-player .eq{ height:18px; }
+
+  @media (max-width: 900px){
+    .hero{ grid-template-columns: 1fr; padding-top: 60px; }
+    .hero-visual{ order:-1; max-width: 280px; margin: 0 auto; }
+    .contact-grid{ grid-template-columns: 1fr; }
+    nav.links{ display:none; }
+    .burger{ display:block; }
+    .show-row{ grid-template-columns: 1fr; row-gap:6px; }
+    .show-tag{ justify-self:start; }
+    .on-air-panel{ grid-template-columns:1fr; }
+    .news-grid{ grid-template-columns:1fr; }
+    .cover-wrap{ width:76px; height:76px; flex:0 0 76px; }
+    .player-card{ padding:18px 20px; gap:16px; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+  }
+
+  :focus-visible{ outline: 2px solid var(--cyan); outline-offset: 3px; }
+</style>
+<title>Maxxihit Radio &#8211; Juste un autre site WordPress</title>
+<meta name='robots' content='max-image-preview:large' />
+<link rel="alternate" title="oEmbed (JSON)" type="application/json+oembed" href="https://maxxihitradio.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fmaxxihitradio.com%2F" />
+<link rel="alternate" title="oEmbed (XML)" type="text/xml+oembed" href="https://maxxihitradio.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fmaxxihitradio.com%2F&#038;format=xml" />
+<style id="wp-img-auto-sizes-contain-inline-css">
+img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
+/*# sourceURL=wp-img-auto-sizes-contain-inline-css */
+</style>
+<style id="wp-emoji-styles-inline-css">
+
+	img.wp-smiley, img.emoji {
+		display: inline !important;
+		border: none !important;
+		box-shadow: none !important;
+		height: 1em !important;
+		width: 1em !important;
+		margin: 0 0.07em !important;
+		vertical-align: -0.1em !important;
+		background: none !important;
+		padding: 0 !important;
+	}
+/*# sourceURL=wp-emoji-styles-inline-css */
+</style>
+<style id="classic-theme-styles-inline-css">
+/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}
+/*# sourceURL=/wp-includes/css/classic-themes.min.css */
+</style>
+<style id="global-styles-inline-css">
+:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgb(6,147,227) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgb(252,185,0) 0%,rgb(255,105,0) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgb(255,105,0) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgb(255, 255, 255), 6px 6px rgb(0, 0, 0);--wp--preset--shadow--crisp: 6px 6px 0px rgb(0, 0, 0);}.wp-block-button{--wp--preset--dimension--25: 25%;--wp--preset--dimension--50: 50%;--wp--preset--dimension--75: 75%;--wp--preset--dimension--100: 100%;}:where(body) { margin: 0; }:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}body{padding-top: 0px;padding-right: 0px;padding-bottom: 0px;padding-left: 0px;}:root :where(.wp-element-button, .wp-block-button__link){background-color: #32373c;border-width: 0;color: #fff;font-family: inherit;font-size: inherit;font-style: inherit;font-weight: inherit;letter-spacing: inherit;line-height: inherit;padding-top: calc(0.667em + 2px);padding-right: calc(1.333em + 2px);padding-bottom: calc(0.667em + 2px);padding-left: calc(1.333em + 2px);text-decoration: none;text-transform: inherit;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+:root :where(.wp-block-icon svg){width: 24px;}
+:where(.wp-block-gallery.is-layout-flex){gap: var( --wp--style--gallery-gap-default, var( --gallery-block--gutter-size, var( --wp--style--block-gap, 0.5em ) ) );}:where(.wp-block-gallery.is-layout-grid){gap: var( --wp--style--gallery-gap-default, var( --gallery-block--gutter-size, var( --wp--style--block-gap, 0.5em ) ) );}
+:where(.wp-block-latest-posts.is-layout-flex){gap: 1.25em;}:where(.wp-block-latest-posts.is-layout-grid){gap: 1.25em;}
+:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}
+:where(.wp-block-term-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-term-template.is-layout-grid){gap: 1.25em;}
+:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}
+:root :where(.wp-block-pullquote){font-size: 1.5em;line-height: 1.6;}
+/*# sourceURL=global-styles-inline-css */
+</style>
+<link rel='stylesheet' id='elementor-frontend-css' href='https://maxxihitradio.com/wp-content/plugins/elementor/assets/css/frontend.min.css?ver=4.3.6' media='all' />
+<style id="elementor-frontend-inline-css">
+.e-heading-base a, .e-paragraph-base a { all: unset; cursor: pointer; }form[data-element_type="e-form"].form-state-success [data-element_type="e-form-success-message"],form[data-element_type="e-form"].form-state-error [data-element_type="e-form-error-message"]{ display: block; }.elementor-edit-mode [data-element_type="e-form-success-message"]:is(.elementor-element-editable, :has(.elementor-element-editable), :has(> .elementor-empty-view)),.elementor-edit-mode [data-element_type="e-form-error-message"]:is(.elementor-element-editable, :has(.elementor-element-editable), :has(> .elementor-empty-view)){ display: block; }.e-background-video { position: relative; overflow: hidden; }.e-background-video__media { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; z-index: 0; }.e-background-video__content { position: relative; z-index: 1; flex: 1 1 auto; }.elementor-edit-mode .e-background-video__content.e-atomic-element:has(> .elementor-empty-view) { display: flex; flex-direction: column; flex: 1 1 auto; min-height: 0; }.elementor-edit-mode .e-background-video__content.e-atomic-element:has(> .elementor-empty-view) > .elementor-empty-view.elementor-empty-view { position: relative; flex: 1 1 auto; min-height: 120px; height: auto; width: 100%; }.elementor-edit-mode .e-background-video__content.e-atomic-element:has(> .elementor-empty-view) > .elementor-empty-view > .elementor-first-add { position: absolute; inset: 0; width: 100%; height: 100%; }.e-background-video__controls { z-index: 2; }.e-background-video__play, .e-background-video__pause { appearance: none; -webkit-appearance: none; }.e-background-video.e-background-video--playing .e-background-video__play { display: none; }.e-background-video.e-background-video--paused .e-background-video__pause { display: none; }.e-background-video:not(.e-background-video--playing):not(.e-background-video--paused) .e-background-video__controls,.e-background-video:not(.e-background-video--playing):not(.e-background-video--paused) .e-background-video__play,.e-background-video:not(.e-background-video--playing):not(.e-background-video--paused) .e-background-video__pause { display: none; }.e-accordion-item-header-base { list-style: none; }.e-accordion-item-header-base::-webkit-details-marker { display: none; }.e-accordion-item-base { interpolate-size: allow-keywords; }.e-accordion-item-base::details-content {block-size: 0; overflow: hidden;transition: block-size .3s ease, content-visibility .3s ease allow-discrete;}.e-accordion-item-base[open]::details-content { block-size: auto; }.e-accordion-item-icon-base.e-accordion-item-icon-base .e-svg-base { width: auto; height: 100%; max-width: 100%; }.e-accordion-item-icon-base.e-accordion-item-icon-base .e-svg-base svg { width: auto !important; }.e-accordion-item-icon-base svg { transition: transform .3s ease; }.e-accordion-item-base[open] > summary .e-accordion-item-icon-base svg { transform: rotate(180deg); }
+/*# sourceURL=elementor-frontend-inline-css */
+</style>
+<link rel='stylesheet' id='elementor-post-19-css' href='https://maxxihitradio.com/wp-content/uploads/elementor/css/post-19.css?ver=1793690631' media='all' />
+<link rel='stylesheet' id='base-desktop-css' href='https://maxxihitradio.com/wp-content/uploads/elementor/css/base-desktop.css?ver=6ae98c073ae85' media='all' />
+<link rel='stylesheet' id='base-mobile-css' href='https://maxxihitradio.com/wp-content/uploads/elementor/css/base-mobile.css?ver=6ae98c073ae85' media='(max-width:767px)' />
+<link rel='stylesheet' id='elementor-gf-roboto-css' href='https://fonts.googleapis.com/css?family=Roboto:100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic&#038;display=swap' media='all' />
+<link rel='stylesheet' id='elementor-gf-robotoslab-css' href='https://fonts.googleapis.com/css?family=Roboto+Slab:100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic&#038;display=swap' media='all' />
+<link rel="https://api.w.org/" href="https://maxxihitradio.com/wp-json/" /><link rel="alternate" title="JSON" type="application/json" href="https://maxxihitradio.com/wp-json/wp/v2/pages/24" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://maxxihitradio.com/xmlrpc.php?rsd" />
+<meta name="generator" content="WordPress 7.1.2" />
+<link rel="canonical" href="https://maxxihitradio.com/" />
+<link rel='shortlink' href='https://maxxihitradio.com/' />
+<meta property="og:title" content="Maxxihit Radio — Les meilleurs hits sur ta radio" />
+<meta property="og:description" content="Maxxihit Radio, le club qui ne ferme jamais. House, dance, remixes et gros sons, en direct 24h/24." />
+<meta property="og:image" content="https://maxxihitradio.com/wp-content/themes/maxxihit-theme/assets/og-image.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="generator" content="Elementor 4.3.6; features: e_font_icon_svg, additional_custom_breakpoints; settings: css_print_method-external, google_font-enabled, font_display-swap">
+			<style>
+				.e-con.e-parent:nth-of-type(n+4):not(.e-lazyloaded):not(.e-no-lazyload),
+				.e-con.e-parent:nth-of-type(n+4):not(.e-lazyloaded):not(.e-no-lazyload) * {
+					background-image: none !important;
+				}
+				@media screen and (max-height: 1024px) {
+					.e-con.e-parent:nth-of-type(n+3):not(.e-lazyloaded):not(.e-no-lazyload),
+					.e-con.e-parent:nth-of-type(n+3):not(.e-lazyloaded):not(.e-no-lazyload) * {
+						background-image: none !important;
+					}
+				}
+				@media screen and (max-height: 640px) {
+					.e-con.e-parent:nth-of-type(n+2):not(.e-lazyloaded):not(.e-no-lazyload),
+					.e-con.e-parent:nth-of-type(n+2):not(.e-lazyloaded):not(.e-no-lazyload) * {
+						background-image: none !important;
+					}
+				}
+			</style>
+			</head>
+<body>
+
+<div class="noise-glow"></div>
+
+<div class="show-ticker">
+  <div class="ticker-track" style="animation-duration: 90s;">
+          <span class="ticker-item" style="--accent: #ff5470;">
+        <span class="ticker-day">Lundi</span>
+        <span class="ticker-time">06H–09H</span>
+        <span class="ticker-title">La Matinale</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff5470;">
+        <span class="ticker-day">Lundi</span>
+        <span class="ticker-time">09H–10H</span>
+        <span class="ticker-title">Bertrand Denis – Rap Folie Funky</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff5470;">
+        <span class="ticker-day">Lundi</span>
+        <span class="ticker-time">10H–11H</span>
+        <span class="ticker-title">Bob Sherer – Groovy Sound</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #f0b429;">
+        <span class="ticker-day">Lundi</span>
+        <span class="ticker-time">11H–14H</span>
+        <span class="ticker-title">La Playlist</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff5470;">
+        <span class="ticker-day">Lundi</span>
+        <span class="ticker-time">14H–18H</span>
+        <span class="ticker-title">Les Hits À La Demande</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff5470;">
+        <span class="ticker-day">Lundi</span>
+        <span class="ticker-time">18H–19H</span>
+        <span class="ticker-title">Seb Blind Sensation – Club Collection</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff7a3d;">
+        <span class="ticker-day">Lundi</span>
+        <span class="ticker-time">19H–20H</span>
+        <span class="ticker-title">Sergio – 60 Minutes In The Mix</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff2f9e;">
+        <span class="ticker-day">Lundi</span>
+        <span class="ticker-time">20H–22H</span>
+        <span class="ticker-title">Euro Club 30</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff7a3d;">
+        <span class="ticker-day">Lundi</span>
+        <span class="ticker-time">22H–06H</span>
+        <span class="ticker-title">Night Club Mix</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff5470;">
+        <span class="ticker-day">Mardi</span>
+        <span class="ticker-time">06H–09H</span>
+        <span class="ticker-title">La Matinale</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff5470;">
+        <span class="ticker-day">Mardi</span>
+        <span class="ticker-time">09H–10H</span>
+        <span class="ticker-title">Gaby – La Dimension 789</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #f0b429;">
+        <span class="ticker-day">Mardi</span>
+        <span class="ticker-time">10H–14H</span>
+        <span class="ticker-title">La Playlist</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff5470;">
+        <span class="ticker-day">Mardi</span>
+        <span class="ticker-time">14H–18H</span>
+        <span class="ticker-title">Les Hits À La Demande</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff7a3d;">
+        <span class="ticker-day">Mardi</span>
+        <span class="ticker-time">18H–20H</span>
+        <span class="ticker-title">Philippe – British Connection</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff7a3d;">
+        <span class="ticker-day">Mardi</span>
+        <span class="ticker-time">20H–21H</span>
+        <span class="ticker-title">Sebastien Kills – Kill’s Mix</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff7a3d;">
+        <span class="ticker-day">Mardi</span>
+        <span class="ticker-time">21H–22H</span>
+        <span class="ticker-title">Greg – Greg In The Mix</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff7a3d;">
+        <span class="ticker-day">Mardi</span>
+        <span class="ticker-time">22H–06H</span>
+        <span class="ticker-title">Night Club Mix</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff5470;">
+        <span class="ticker-day">Mercredi</span>
+        <span class="ticker-time">06H–09H</span>
+        <span class="ticker-title">La Matinale</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff5470;">
+        <span class="ticker-day">Mercredi</span>
+        <span class="ticker-time">09H–11H</span>
+        <span class="ticker-title">Yann Free Lance – 6 7 8 Live And More</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #f0b429;">
+        <span class="ticker-day">Mercredi</span>
+        <span class="ticker-time">11H–14H</span>
+        <span class="ticker-title">La Playlist</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff5470;">
+        <span class="ticker-day">Mercredi</span>
+        <span class="ticker-time">14H–18H</span>
+        <span class="ticker-title">Les Hits À La Demande</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff7a3d;">
+        <span class="ticker-day">Mercredi</span>
+        <span class="ticker-time">18H–20H</span>
+        <span class="ticker-title">Cristobal Backspin – Dance Fever</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff7a3d;">
+        <span class="ticker-day">Mercredi</span>
+        <span class="ticker-time">20H–22H</span>
+        <span class="ticker-title">Cristobal Backspin – Backspin</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff7a3d;">
+        <span class="ticker-day">Mercredi</span>
+        <span class="ticker-time">22H–06H</span>
+        <span class="ticker-title">Night Club Mix</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff5470;">
+        <span class="ticker-day">Jeudi</span>
+        <span class="ticker-time">06H–09H</span>
+        <span class="ticker-title">La Matinale</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff5470;">
+        <span class="ticker-day">Jeudi</span>
+        <span class="ticker-time">09H–11H</span>
+        <span class="ticker-title">Frederic Koster – Solid Gold</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #f0b429;">
+        <span class="ticker-day">Jeudi</span>
+        <span class="ticker-time">11H–14H</span>
+        <span class="ticker-title">La Playlist</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff5470;">
+        <span class="ticker-day">Jeudi</span>
+        <span class="ticker-time">14H–18H</span>
+        <span class="ticker-title">Les Hits À La Demande</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #1fd6c1;">
+        <span class="ticker-day">Jeudi</span>
+        <span class="ticker-time">18H–19H</span>
+        <span class="ticker-title">Mme Gaultier &#8211; In The Mix</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff2f9e;">
+        <span class="ticker-day">Jeudi</span>
+        <span class="ticker-time">19H–20H</span>
+        <span class="ticker-title">Yann – Réservoir Pop</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #1fd6c1;">
+        <span class="ticker-day">Jeudi</span>
+        <span class="ticker-time">20H–21H</span>
+        <span class="ticker-title">Fab – Génération Vinyle 80</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff2f9e;">
+        <span class="ticker-day">Jeudi</span>
+        <span class="ticker-time">21H–22H</span>
+        <span class="ticker-title">Eric Coullet – Seven Eighties</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff7a3d;">
+        <span class="ticker-day">Jeudi</span>
+        <span class="ticker-time">22H–06H</span>
+        <span class="ticker-title">Night Club Mix</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff7a3d;">
+        <span class="ticker-day">Vendredi</span>
+        <span class="ticker-time">00H–06H</span>
+        <span class="ticker-title">Night Club Mix</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff5470;">
+        <span class="ticker-day">Vendredi</span>
+        <span class="ticker-time">06H–09H</span>
+        <span class="ticker-title">La Matinale</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff5470;">
+        <span class="ticker-day">Vendredi</span>
+        <span class="ticker-time">09H–11H</span>
+        <span class="ticker-title">Philippe Detraux – Maxi Tubes</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #f0b429;">
+        <span class="ticker-day">Vendredi</span>
+        <span class="ticker-time">11H–14H</span>
+        <span class="ticker-title">La Playlist</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff5470;">
+        <span class="ticker-day">Vendredi</span>
+        <span class="ticker-time">14H–18H</span>
+        <span class="ticker-title">Les Hits À La Demande</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff2f9e;">
+        <span class="ticker-day">Vendredi</span>
+        <span class="ticker-time">18H–19H</span>
+        <span class="ticker-title">Eric Coullet – Platine Collector</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff2f9e;">
+        <span class="ticker-day">Vendredi</span>
+        <span class="ticker-time">19H–20H</span>
+        <span class="ticker-title">Philippe Detraux – Génération Tubes</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff2f9e;">
+        <span class="ticker-day">Vendredi</span>
+        <span class="ticker-time">20H–22H</span>
+        <span class="ticker-title">Le Hit Des Clubs</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #f0b429;">
+        <span class="ticker-day">Vendredi</span>
+        <span class="ticker-time">22H–00H</span>
+        <span class="ticker-title">Eric Nc – Fan De Funk</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff7a3d;">
+        <span class="ticker-day">Samedi</span>
+        <span class="ticker-time">00H–06H</span>
+        <span class="ticker-title">Night Club Mix</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff5470;">
+        <span class="ticker-day">Samedi</span>
+        <span class="ticker-time">06H–08H</span>
+        <span class="ticker-title">La Matinale</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff7a3d;">
+        <span class="ticker-day">Samedi</span>
+        <span class="ticker-time">08H–10H</span>
+        <span class="ticker-title">Yoan &#8211; Le Bon Réveil</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #f0b429;">
+        <span class="ticker-day">Samedi</span>
+        <span class="ticker-time">10H–12H</span>
+        <span class="ticker-title">La Playlist</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #1fd6c1;">
+        <span class="ticker-day">Samedi</span>
+        <span class="ticker-time">12H–13H</span>
+        <span class="ticker-title">Seb Blind Sensation – Dance Sensation</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff5470;">
+        <span class="ticker-day">Samedi</span>
+        <span class="ticker-time">13H–14H</span>
+        <span class="ticker-title">Sébastien – Le Top 20</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff2f9e;">
+        <span class="ticker-day">Samedi</span>
+        <span class="ticker-time">14H–15H</span>
+        <span class="ticker-title">Gaby – Ibiza Clubbing</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff7a3d;">
+        <span class="ticker-day">Samedi</span>
+        <span class="ticker-time">15H–16H</span>
+        <span class="ticker-title">Quentin – Quentin In The Mix</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff5470;">
+        <span class="ticker-day">Samedi</span>
+        <span class="ticker-time">16H–17H</span>
+        <span class="ticker-title">Max – Le Top Radio</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #1fd6c1;">
+        <span class="ticker-day">Samedi</span>
+        <span class="ticker-time">17H–18H</span>
+        <span class="ticker-title">Thomas Franck – Clubbing Mix</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff2f9e;">
+        <span class="ticker-day">Samedi</span>
+        <span class="ticker-time">18H–19H</span>
+        <span class="ticker-title">Thierry Sorinet – Electro Club</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #1fd6c1;">
+        <span class="ticker-day">Samedi</span>
+        <span class="ticker-time">19H–20H</span>
+        <span class="ticker-title">DJ Kris – Clubbing Party</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff2f9e;">
+        <span class="ticker-day">Samedi</span>
+        <span class="ticker-time">20H–21H</span>
+        <span class="ticker-title">CocoNoze – Extra Club Latino</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff2f9e;">
+        <span class="ticker-day">Samedi</span>
+        <span class="ticker-time">21H–22H</span>
+        <span class="ticker-title">CocoNoze – Extra Club Electro</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff2f9e;">
+        <span class="ticker-day">Samedi</span>
+        <span class="ticker-time">22H–00H</span>
+        <span class="ticker-title">Top 30 – American Dance</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff7a3d;">
+        <span class="ticker-day">Dimanche</span>
+        <span class="ticker-time">00H–06H</span>
+        <span class="ticker-title">Saturday Night Mix</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff5470;">
+        <span class="ticker-day">Dimanche</span>
+        <span class="ticker-time">06H–08H</span>
+        <span class="ticker-title">La Matinale</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff7a3d;">
+        <span class="ticker-day">Dimanche</span>
+        <span class="ticker-time">08H–09H</span>
+        <span class="ticker-title">Olivier &#8211; Le Chateau Des Pépites</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff2f9e;">
+        <span class="ticker-day">Dimanche</span>
+        <span class="ticker-time">09H–10H</span>
+        <span class="ticker-title">Philippe Detraux – Salut Les Sixties</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff7a3d;">
+        <span class="ticker-day">Dimanche</span>
+        <span class="ticker-time">10H–11H</span>
+        <span class="ticker-title">Olivier &#8211; 100% Français</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff7a3d;">
+        <span class="ticker-day">Dimanche</span>
+        <span class="ticker-time">11H–12H</span>
+        <span class="ticker-title">Jean Michel &#038; Maxime &#8211; 2 Chansons Une Voix</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #f0b429;">
+        <span class="ticker-day">Dimanche</span>
+        <span class="ticker-time">12H–14H</span>
+        <span class="ticker-title">La Playlist</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff2f9e;">
+        <span class="ticker-day">Dimanche</span>
+        <span class="ticker-time">14H–16H</span>
+        <span class="ticker-title">Le Top France</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff7a3d;">
+        <span class="ticker-day">Dimanche</span>
+        <span class="ticker-time">16H–18H</span>
+        <span class="ticker-title">Le Top 40 Américain</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff7a3d;">
+        <span class="ticker-day">Dimanche</span>
+        <span class="ticker-time">18H–20H</span>
+        <span class="ticker-title">Le Top Monde</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff2f9e;">
+        <span class="ticker-day">Dimanche</span>
+        <span class="ticker-time">20H–22H</span>
+        <span class="ticker-title">Génération Top 80</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff7a3d;">
+        <span class="ticker-day">Dimanche</span>
+        <span class="ticker-time">22H–00H</span>
+        <span class="ticker-title">Euro Top 40</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff5470;">
+        <span class="ticker-day">Lundi</span>
+        <span class="ticker-time">06H–09H</span>
+        <span class="ticker-title">La Matinale</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff5470;">
+        <span class="ticker-day">Lundi</span>
+        <span class="ticker-time">09H–10H</span>
+        <span class="ticker-title">Bertrand Denis – Rap Folie Funky</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff5470;">
+        <span class="ticker-day">Lundi</span>
+        <span class="ticker-time">10H–11H</span>
+        <span class="ticker-title">Bob Sherer – Groovy Sound</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #f0b429;">
+        <span class="ticker-day">Lundi</span>
+        <span class="ticker-time">11H–14H</span>
+        <span class="ticker-title">La Playlist</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff5470;">
+        <span class="ticker-day">Lundi</span>
+        <span class="ticker-time">14H–18H</span>
+        <span class="ticker-title">Les Hits À La Demande</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff5470;">
+        <span class="ticker-day">Lundi</span>
+        <span class="ticker-time">18H–19H</span>
+        <span class="ticker-title">Seb Blind Sensation – Club Collection</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff7a3d;">
+        <span class="ticker-day">Lundi</span>
+        <span class="ticker-time">19H–20H</span>
+        <span class="ticker-title">Sergio – 60 Minutes In The Mix</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff2f9e;">
+        <span class="ticker-day">Lundi</span>
+        <span class="ticker-time">20H–22H</span>
+        <span class="ticker-title">Euro Club 30</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff7a3d;">
+        <span class="ticker-day">Lundi</span>
+        <span class="ticker-time">22H–06H</span>
+        <span class="ticker-title">Night Club Mix</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff5470;">
+        <span class="ticker-day">Mardi</span>
+        <span class="ticker-time">06H–09H</span>
+        <span class="ticker-title">La Matinale</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff5470;">
+        <span class="ticker-day">Mardi</span>
+        <span class="ticker-time">09H–10H</span>
+        <span class="ticker-title">Gaby – La Dimension 789</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #f0b429;">
+        <span class="ticker-day">Mardi</span>
+        <span class="ticker-time">10H–14H</span>
+        <span class="ticker-title">La Playlist</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff5470;">
+        <span class="ticker-day">Mardi</span>
+        <span class="ticker-time">14H–18H</span>
+        <span class="ticker-title">Les Hits À La Demande</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff7a3d;">
+        <span class="ticker-day">Mardi</span>
+        <span class="ticker-time">18H–20H</span>
+        <span class="ticker-title">Philippe – British Connection</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff7a3d;">
+        <span class="ticker-day">Mardi</span>
+        <span class="ticker-time">20H–21H</span>
+        <span class="ticker-title">Sebastien Kills – Kill’s Mix</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff7a3d;">
+        <span class="ticker-day">Mardi</span>
+        <span class="ticker-time">21H–22H</span>
+        <span class="ticker-title">Greg – Greg In The Mix</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff7a3d;">
+        <span class="ticker-day">Mardi</span>
+        <span class="ticker-time">22H–06H</span>
+        <span class="ticker-title">Night Club Mix</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff5470;">
+        <span class="ticker-day">Mercredi</span>
+        <span class="ticker-time">06H–09H</span>
+        <span class="ticker-title">La Matinale</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff5470;">
+        <span class="ticker-day">Mercredi</span>
+        <span class="ticker-time">09H–11H</span>
+        <span class="ticker-title">Yann Free Lance – 6 7 8 Live And More</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #f0b429;">
+        <span class="ticker-day">Mercredi</span>
+        <span class="ticker-time">11H–14H</span>
+        <span class="ticker-title">La Playlist</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff5470;">
+        <span class="ticker-day">Mercredi</span>
+        <span class="ticker-time">14H–18H</span>
+        <span class="ticker-title">Les Hits À La Demande</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff7a3d;">
+        <span class="ticker-day">Mercredi</span>
+        <span class="ticker-time">18H–20H</span>
+        <span class="ticker-title">Cristobal Backspin – Dance Fever</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff7a3d;">
+        <span class="ticker-day">Mercredi</span>
+        <span class="ticker-time">20H–22H</span>
+        <span class="ticker-title">Cristobal Backspin – Backspin</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff7a3d;">
+        <span class="ticker-day">Mercredi</span>
+        <span class="ticker-time">22H–06H</span>
+        <span class="ticker-title">Night Club Mix</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff5470;">
+        <span class="ticker-day">Jeudi</span>
+        <span class="ticker-time">06H–09H</span>
+        <span class="ticker-title">La Matinale</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff5470;">
+        <span class="ticker-day">Jeudi</span>
+        <span class="ticker-time">09H–11H</span>
+        <span class="ticker-title">Frederic Koster – Solid Gold</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #f0b429;">
+        <span class="ticker-day">Jeudi</span>
+        <span class="ticker-time">11H–14H</span>
+        <span class="ticker-title">La Playlist</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff5470;">
+        <span class="ticker-day">Jeudi</span>
+        <span class="ticker-time">14H–18H</span>
+        <span class="ticker-title">Les Hits À La Demande</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #1fd6c1;">
+        <span class="ticker-day">Jeudi</span>
+        <span class="ticker-time">18H–19H</span>
+        <span class="ticker-title">Mme Gaultier &#8211; In The Mix</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff2f9e;">
+        <span class="ticker-day">Jeudi</span>
+        <span class="ticker-time">19H–20H</span>
+        <span class="ticker-title">Yann – Réservoir Pop</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #1fd6c1;">
+        <span class="ticker-day">Jeudi</span>
+        <span class="ticker-time">20H–21H</span>
+        <span class="ticker-title">Fab – Génération Vinyle 80</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff2f9e;">
+        <span class="ticker-day">Jeudi</span>
+        <span class="ticker-time">21H–22H</span>
+        <span class="ticker-title">Eric Coullet – Seven Eighties</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff7a3d;">
+        <span class="ticker-day">Jeudi</span>
+        <span class="ticker-time">22H–06H</span>
+        <span class="ticker-title">Night Club Mix</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff7a3d;">
+        <span class="ticker-day">Vendredi</span>
+        <span class="ticker-time">00H–06H</span>
+        <span class="ticker-title">Night Club Mix</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff5470;">
+        <span class="ticker-day">Vendredi</span>
+        <span class="ticker-time">06H–09H</span>
+        <span class="ticker-title">La Matinale</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff5470;">
+        <span class="ticker-day">Vendredi</span>
+        <span class="ticker-time">09H–11H</span>
+        <span class="ticker-title">Philippe Detraux – Maxi Tubes</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #f0b429;">
+        <span class="ticker-day">Vendredi</span>
+        <span class="ticker-time">11H–14H</span>
+        <span class="ticker-title">La Playlist</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff5470;">
+        <span class="ticker-day">Vendredi</span>
+        <span class="ticker-time">14H–18H</span>
+        <span class="ticker-title">Les Hits À La Demande</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff2f9e;">
+        <span class="ticker-day">Vendredi</span>
+        <span class="ticker-time">18H–19H</span>
+        <span class="ticker-title">Eric Coullet – Platine Collector</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff2f9e;">
+        <span class="ticker-day">Vendredi</span>
+        <span class="ticker-time">19H–20H</span>
+        <span class="ticker-title">Philippe Detraux – Génération Tubes</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff2f9e;">
+        <span class="ticker-day">Vendredi</span>
+        <span class="ticker-time">20H–22H</span>
+        <span class="ticker-title">Le Hit Des Clubs</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #f0b429;">
+        <span class="ticker-day">Vendredi</span>
+        <span class="ticker-time">22H–00H</span>
+        <span class="ticker-title">Eric Nc – Fan De Funk</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff7a3d;">
+        <span class="ticker-day">Samedi</span>
+        <span class="ticker-time">00H–06H</span>
+        <span class="ticker-title">Night Club Mix</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff5470;">
+        <span class="ticker-day">Samedi</span>
+        <span class="ticker-time">06H–08H</span>
+        <span class="ticker-title">La Matinale</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff7a3d;">
+        <span class="ticker-day">Samedi</span>
+        <span class="ticker-time">08H–10H</span>
+        <span class="ticker-title">Yoan &#8211; Le Bon Réveil</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #f0b429;">
+        <span class="ticker-day">Samedi</span>
+        <span class="ticker-time">10H–12H</span>
+        <span class="ticker-title">La Playlist</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #1fd6c1;">
+        <span class="ticker-day">Samedi</span>
+        <span class="ticker-time">12H–13H</span>
+        <span class="ticker-title">Seb Blind Sensation – Dance Sensation</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff5470;">
+        <span class="ticker-day">Samedi</span>
+        <span class="ticker-time">13H–14H</span>
+        <span class="ticker-title">Sébastien – Le Top 20</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff2f9e;">
+        <span class="ticker-day">Samedi</span>
+        <span class="ticker-time">14H–15H</span>
+        <span class="ticker-title">Gaby – Ibiza Clubbing</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff7a3d;">
+        <span class="ticker-day">Samedi</span>
+        <span class="ticker-time">15H–16H</span>
+        <span class="ticker-title">Quentin – Quentin In The Mix</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff5470;">
+        <span class="ticker-day">Samedi</span>
+        <span class="ticker-time">16H–17H</span>
+        <span class="ticker-title">Max – Le Top Radio</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #1fd6c1;">
+        <span class="ticker-day">Samedi</span>
+        <span class="ticker-time">17H–18H</span>
+        <span class="ticker-title">Thomas Franck – Clubbing Mix</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff2f9e;">
+        <span class="ticker-day">Samedi</span>
+        <span class="ticker-time">18H–19H</span>
+        <span class="ticker-title">Thierry Sorinet – Electro Club</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #1fd6c1;">
+        <span class="ticker-day">Samedi</span>
+        <span class="ticker-time">19H–20H</span>
+        <span class="ticker-title">DJ Kris – Clubbing Party</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff2f9e;">
+        <span class="ticker-day">Samedi</span>
+        <span class="ticker-time">20H–21H</span>
+        <span class="ticker-title">CocoNoze – Extra Club Latino</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff2f9e;">
+        <span class="ticker-day">Samedi</span>
+        <span class="ticker-time">21H–22H</span>
+        <span class="ticker-title">CocoNoze – Extra Club Electro</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff2f9e;">
+        <span class="ticker-day">Samedi</span>
+        <span class="ticker-time">22H–00H</span>
+        <span class="ticker-title">Top 30 – American Dance</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff7a3d;">
+        <span class="ticker-day">Dimanche</span>
+        <span class="ticker-time">00H–06H</span>
+        <span class="ticker-title">Saturday Night Mix</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff5470;">
+        <span class="ticker-day">Dimanche</span>
+        <span class="ticker-time">06H–08H</span>
+        <span class="ticker-title">La Matinale</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff7a3d;">
+        <span class="ticker-day">Dimanche</span>
+        <span class="ticker-time">08H–09H</span>
+        <span class="ticker-title">Olivier &#8211; Le Chateau Des Pépites</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff2f9e;">
+        <span class="ticker-day">Dimanche</span>
+        <span class="ticker-time">09H–10H</span>
+        <span class="ticker-title">Philippe Detraux – Salut Les Sixties</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff7a3d;">
+        <span class="ticker-day">Dimanche</span>
+        <span class="ticker-time">10H–11H</span>
+        <span class="ticker-title">Olivier &#8211; 100% Français</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff7a3d;">
+        <span class="ticker-day">Dimanche</span>
+        <span class="ticker-time">11H–12H</span>
+        <span class="ticker-title">Jean Michel &#038; Maxime &#8211; 2 Chansons Une Voix</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #f0b429;">
+        <span class="ticker-day">Dimanche</span>
+        <span class="ticker-time">12H–14H</span>
+        <span class="ticker-title">La Playlist</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff2f9e;">
+        <span class="ticker-day">Dimanche</span>
+        <span class="ticker-time">14H–16H</span>
+        <span class="ticker-title">Le Top France</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff7a3d;">
+        <span class="ticker-day">Dimanche</span>
+        <span class="ticker-time">16H–18H</span>
+        <span class="ticker-title">Le Top 40 Américain</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff7a3d;">
+        <span class="ticker-day">Dimanche</span>
+        <span class="ticker-time">18H–20H</span>
+        <span class="ticker-title">Le Top Monde</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff2f9e;">
+        <span class="ticker-day">Dimanche</span>
+        <span class="ticker-time">20H–22H</span>
+        <span class="ticker-title">Génération Top 80</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+          <span class="ticker-item" style="--accent: #ff7a3d;">
+        <span class="ticker-day">Dimanche</span>
+        <span class="ticker-time">22H–00H</span>
+        <span class="ticker-title">Euro Top 40</span>
+        <span class="ticker-dot" aria-hidden="true"></span>
+      </span>
+      </div>
+</div>
+
+<header id="site-header">
+  <div class="nav wrap">
+    <a href="https://maxxihitradio.com/" class="brand">
+      <img src="https://maxxihitradio.com/wp-content/themes/maxxihit-theme/assets/logo.png" alt="Maxxihit Radio">
+      <span>MAXXIHIT<br>RADIO</span>
+    </a>
+    <nav class="links">
+      <a href="https://maxxihitradio.com/">Accueil</a>
+      <a href="#programmes">Programmes</a>
+      <a href="#styles">Styles</a>
+      <a href="#actualites">Actualités</a>
+      <a href="https://maxxihitradio.com/dedicaces/">Dédicaces</a>
+      <a href="https://maxxihitradio.com/le-top-20/">Top 20</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="live-pill"><span class="dot"></span> EN DIRECT 24/7</div>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero wrap" id="accueil">
+    <div class="hero-copy">
+      <div class="eyebrow">Webradio clubbing</div>
+      <h1>Les meilleurs hits,<br><span class="grad">sans interruption.</span></h1>
+      <p class="lede">Maxxihit Radio, c'est le club qui ne ferme jamais. House, dance, remixes et gros sons, diffusés en direct 24h/24 pour ton dancefloor, ta voiture ou ton dimanche matin.</p>
+
+      <div class="player-card">
+        <div class="cover-wrap" aria-hidden="true">
+          <img id="nowPlayingCover" class="now-playing-cover" src="https://maxxihitradio.com/wp-content/themes/maxxihit-theme/assets/logo.png" alt="">
+        </div>
+        <button class="play-btn" id="playBtn" aria-label="Lancer la radio">
+          <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+        </button>
+        <div class="player-meta">
+          <div class="status" id="statusText">À l'arrêt</div>
+          <div class="track" id="nowPlayingTrack">Chargement du titre…</div>
+          <div class="sub">Titre en direct</div>
+        </div>
+        <div class="eq paused" id="eq">
+          <span></span><span></span><span></span><span></span><span></span>
+        </div>
+      </div>
+
+      <div class="volume-row">
+        <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1-3.29-2.5-4.03v8.05c1.5-.73 2.5-2.25 2.5-4.02z"/></svg>
+        <input type="range" id="volume" min="0" max="1" step="0.01" value="0.8" aria-label="Volume">
+      </div>
+
+      <button class="detach-btn" id="detachBtn" type="button">
+        <svg viewBox="0 0 24 24"><path d="M19 11h-8v6h8v-6zM21 3H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16.01H3V4.98h18v14.03z"/></svg>
+        <span>Détacher le lecteur</span>
+      </button>
+
+      <div class="on-air-panel">
+        <div class="on-air-card live">
+          <div class="on-air-label">🔴 À L’ANTENNE</div>
+          <div class="on-air-name">Maxxihit Radio</div>
+                  </div>
+        <div class="on-air-card next">
+          <div class="on-air-label">⏭️ PROCHAIN PROGRAMME</div>
+          <div class="on-air-name">À venir</div>
+                  </div>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="glow-ring"></div>
+      <img src="https://maxxihitradio.com/wp-content/themes/maxxihit-theme/assets/logo.png" alt="">
+    </div>
+  </section>
+
+  <!-- GENRES -->
+  <div class="genres" id="styles">
+    <div class="wrap">
+      <span class="chip">House</span>
+      <span class="chip">Dance</span>
+      <span class="chip">Club Remix</span>
+      <span class="chip">Electro Pop</span>
+      <span class="chip">Deep House</span>
+      <span class="chip">Mashups</span>
+      <span class="chip">Guest DJ Sets</span>
+    </div>
+  </div>
+
+  <!-- PROGRAMMES -->
+  <section id="programmes">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">La grille</div>
+        <h2>Les programmes de Maxxihit Radio</h2>
+        <p>Ambiance coucher de soleil à Ibiza, toute la semaine. Retrouvez toute la programmation de Maxxihit Radio, du lundi au dimanche.</p>
+      </div>
+
+            <div class="day-tabs" role="tablist">
+                  <button type="button" class="day-tab" data-day="Lundi" role="tab">
+            Lundi          </button>
+                  <button type="button" class="day-tab" data-day="Mardi" role="tab">
+            Mardi          </button>
+                  <button type="button" class="day-tab" data-day="Mercredi" role="tab">
+            Mercredi          </button>
+                  <button type="button" class="day-tab is-active" data-day="Jeudi" role="tab">
+            Jeudi          </button>
+                  <button type="button" class="day-tab" data-day="Vendredi" role="tab">
+            Vendredi          </button>
+                  <button type="button" class="day-tab" data-day="Samedi" role="tab">
+            Samedi          </button>
+                  <button type="button" class="day-tab" data-day="Dimanche" role="tab">
+            Dimanche          </button>
+              </div>
+
+              <div class="day-panel" data-day-panel="Lundi">
+          <div class="schedule">
+                          <div class="show-row" style="--accent: #ff5470;">
+                <div class="show-time">
+                  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 10.6 4.3 2.5-.75 1.3-5.05-3V7h1.5v5.6z"/></svg>
+                  06H–09H                </div>
+                <div>
+                  <div class="show-name">La Matinale</div>
+                  <div class="show-desc">Infos – Sport – Horoscope – Etc…</div>                </div>
+                <div class="show-tag">Maxxihit</div>
+              </div>
+                          <div class="show-row" style="--accent: #ff5470;">
+                <div class="show-time">
+                  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 10.6 4.3 2.5-.75 1.3-5.05-3V7h1.5v5.6z"/></svg>
+                  09H–10H                </div>
+                <div>
+                  <div class="show-name">Bertrand Denis – Rap Folie Funky</div>
+                                  </div>
+                <div class="show-tag">Émission</div>
+              </div>
+                          <div class="show-row" style="--accent: #ff5470;">
+                <div class="show-time">
+                  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 10.6 4.3 2.5-.75 1.3-5.05-3V7h1.5v5.6z"/></svg>
+                  10H–11H                </div>
+                <div>
+                  <div class="show-name">Bob Sherer – Groovy Sound</div>
+                                  </div>
+                <div class="show-tag">Émission</div>
+              </div>
+                          <div class="show-row" style="--accent: #f0b429;">
+                <div class="show-time">
+                  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 10.6 4.3 2.5-.75 1.3-5.05-3V7h1.5v5.6z"/></svg>
+                  11H–14H                </div>
+                <div>
+                  <div class="show-name">La Playlist</div>
+                  <div class="show-desc">Hits Dance – 80’s – French Non-Stop</div>                </div>
+                <div class="show-tag">Playlist</div>
+              </div>
+                          <div class="show-row" style="--accent: #ff5470;">
+                <div class="show-time">
+                  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 10.6 4.3 2.5-.75 1.3-5.05-3V7h1.5v5.6z"/></svg>
+                  14H–18H                </div>
+                <div>
+                  <div class="show-name">Les Hits À La Demande</div>
+                  <div class="show-desc">C’est vous qui faites la programmation.</div>                </div>
+                <div class="show-tag">Interactif</div>
+              </div>
+                          <div class="show-row" style="--accent: #ff5470;">
+                <div class="show-time">
+                  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 10.6 4.3 2.5-.75 1.3-5.05-3V7h1.5v5.6z"/></svg>
+                  18H–19H                </div>
+                <div>
+                  <div class="show-name">Seb Blind Sensation – Club Collection</div>
+                                  </div>
+                <div class="show-tag">Émission</div>
+              </div>
+                          <div class="show-row" style="--accent: #ff7a3d;">
+                <div class="show-time">
+                  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 10.6 4.3 2.5-.75 1.3-5.05-3V7h1.5v5.6z"/></svg>
+                  19H–20H                </div>
+                <div>
+                  <div class="show-name">Sergio – 60 Minutes In The Mix</div>
+                                  </div>
+                <div class="show-tag">Mix</div>
+              </div>
+                          <div class="show-row" style="--accent: #ff2f9e;">
+                <div class="show-time">
+                  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 10.6 4.3 2.5-.75 1.3-5.05-3V7h1.5v5.6z"/></svg>
+                  20H–22H                </div>
+                <div>
+                  <div class="show-name">Euro Club 30</div>
+                  <div class="show-desc">Les 30 Hits Dance les plus diffusés en Europe.</div>                </div>
+                <div class="show-tag">Top 30</div>
+              </div>
+                          <div class="show-row" style="--accent: #ff7a3d;">
+                <div class="show-time">
+                  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 10.6 4.3 2.5-.75 1.3-5.05-3V7h1.5v5.6z"/></svg>
+                  22H–06H                </div>
+                <div>
+                  <div class="show-name">Night Club Mix</div>
+                  <div class="show-desc">8H de mix avec les meilleurs DJ’s du monde : Alok – Tiesto – Martin Garrix – Sam Feldt – et beaucoup d’autres.</div>                </div>
+                <div class="show-tag">Mix</div>
+              </div>
+                      </div>
+        </div>
+              <div class="day-panel" data-day-panel="Mardi">
+          <div class="schedule">
+                          <div class="show-row" style="--accent: #ff5470;">
+                <div class="show-time">
+                  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 10.6 4.3 2.5-.75 1.3-5.05-3V7h1.5v5.6z"/></svg>
+                  06H–09H                </div>
+                <div>
+                  <div class="show-name">La Matinale</div>
+                  <div class="show-desc">Infos – Sport – Horoscope – Etc…</div>                </div>
+                <div class="show-tag">Maxxihit</div>
+              </div>
+                          <div class="show-row" style="--accent: #ff5470;">
+                <div class="show-time">
+                  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 10.6 4.3 2.5-.75 1.3-5.05-3V7h1.5v5.6z"/></svg>
+                  09H–10H                </div>
+                <div>
+                  <div class="show-name">Gaby – La Dimension 789</div>
+                                  </div>
+                <div class="show-tag">Émission</div>
+              </div>
+                          <div class="show-row" style="--accent: #f0b429;">
+                <div class="show-time">
+                  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 10.6 4.3 2.5-.75 1.3-5.05-3V7h1.5v5.6z"/></svg>
+                  10H–14H                </div>
+                <div>
+                  <div class="show-name">La Playlist</div>
+                  <div class="show-desc">Hits Dance – Latino – Pop Non-Stop</div>                </div>
+                <div class="show-tag">Playlist</div>
+              </div>
+                          <div class="show-row" style="--accent: #ff5470;">
+                <div class="show-time">
+                  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 10.6 4.3 2.5-.75 1.3-5.05-3V7h1.5v5.6z"/></svg>
+                  14H–18H                </div>
+                <div>
+                  <div class="show-name">Les Hits À La Demande</div>
+                  <div class="show-desc">C’est vous qui faites la programmation.</div>                </div>
+                <div class="show-tag">Interactif</div>
+              </div>
+                          <div class="show-row" style="--accent: #ff7a3d;">
+                <div class="show-time">
+                  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 10.6 4.3 2.5-.75 1.3-5.05-3V7h1.5v5.6z"/></svg>
+                  18H–20H                </div>
+                <div>
+                  <div class="show-name">Philippe – British Connection</div>
+                  <div class="show-desc">L’émission Rock de Maxxihit Radio.</div>                </div>
+                <div class="show-tag">Rock</div>
+              </div>
+                          <div class="show-row" style="--accent: #ff7a3d;">
+                <div class="show-time">
+                  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 10.6 4.3 2.5-.75 1.3-5.05-3V7h1.5v5.6z"/></svg>
+                  20H–21H                </div>
+                <div>
+                  <div class="show-name">Sebastien Kills – Kill’s Mix</div>
+                  <div class="show-desc">Les meilleurs sons Electro House et Club du moment.</div>                </div>
+                <div class="show-tag">Mix</div>
+              </div>
+                          <div class="show-row" style="--accent: #ff7a3d;">
+                <div class="show-time">
+                  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 10.6 4.3 2.5-.75 1.3-5.05-3V7h1.5v5.6z"/></svg>
+                  21H–22H                </div>
+                <div>
+                  <div class="show-name">Greg – Greg In The Mix</div>
+                                  </div>
+                <div class="show-tag">Mix</div>
+              </div>
+                          <div class="show-row" style="--accent: #ff7a3d;">
+                <div class="show-time">
+                  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 10.6 4.3 2.5-.75 1.3-5.05-3V7h1.5v5.6z"/></svg>
+                  22H–06H                </div>
+                <div>
+                  <div class="show-name">Night Club Mix</div>
+                  <div class="show-desc">8H de mix avec les meilleurs DJ’s du monde : Afrojack – Armin Van Buuren – R3hab – Robin Schulz et beaucoup d’autres.</div>                </div>
+                <div class="show-tag">Mix</div>
+              </div>
+                      </div>
+        </div>
+              <div class="day-panel" data-day-panel="Mercredi">
+          <div class="schedule">
+                          <div class="show-row" style="--accent: #ff5470;">
+                <div class="show-time">
+                  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 10.6 4.3 2.5-.75 1.3-5.05-3V7h1.5v5.6z"/></svg>
+                  06H–09H                </div>
+                <div>
+                  <div class="show-name">La Matinale</div>
+                  <div class="show-desc">Infos – Sport – Horoscope – Etc…</div>                </div>
+                <div class="show-tag">Maxxihit</div>
+              </div>
+                          <div class="show-row" style="--accent: #ff5470;">
+                <div class="show-time">
+                  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 10.6 4.3 2.5-.75 1.3-5.05-3V7h1.5v5.6z"/></svg>
+                  09H–11H                </div>
+                <div>
+                  <div class="show-name">Yann Free Lance – 6 7 8 Live And More</div>
+                                  </div>
+                <div class="show-tag">Émission</div>
+              </div>
+                          <div class="show-row" style="--accent: #f0b429;">
+                <div class="show-time">
+                  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 10.6 4.3 2.5-.75 1.3-5.05-3V7h1.5v5.6z"/></svg>
+                  11H–14H                </div>
+                <div>
+                  <div class="show-name">La Playlist</div>
+                  <div class="show-desc">Hits Dance – Latino – Pop Non-Stop</div>                </div>
+                <div class="show-tag">Playlist</div>
+              </div>
+                          <div class="show-row" style="--accent: #ff5470;">
+                <div class="show-time">
+                  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 10.6 4.3 2.5-.75 1.3-5.05-3V7h1.5v5.6z"/></svg>
+                  14H–18H                </div>
+                <div>
+                  <div class="show-name">Les Hits À La Demande</div>
+                  <div class="show-desc">C’est vous qui faites la programmation.</div>                </div>
+                <div class="show-tag">Interactif</div>
+              </div>
+                          <div class="show-row" style="--accent: #ff7a3d;">
+                <div class="show-time">
+                  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 10.6 4.3 2.5-.75 1.3-5.05-3V7h1.5v5.6z"/></svg>
+                  18H–20H                </div>
+                <div>
+                  <div class="show-name">Cristobal Backspin – Dance Fever</div>
+                  <div class="show-desc">2H de mix avec les hits des années 70 – 80 – 90.</div>                </div>
+                <div class="show-tag">Mix</div>
+              </div>
+                          <div class="show-row" style="--accent: #ff7a3d;">
+                <div class="show-time">
+                  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 10.6 4.3 2.5-.75 1.3-5.05-3V7h1.5v5.6z"/></svg>
+                  20H–22H                </div>
+                <div>
+                  <div class="show-name">Cristobal Backspin – Backspin</div>
+                  <div class="show-desc">Immersion dans les années 80’s &amp; 90’s.</div>                </div>
+                <div class="show-tag">Années 80/90</div>
+              </div>
+                          <div class="show-row" style="--accent: #ff7a3d;">
+                <div class="show-time">
+                  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 10.6 4.3 2.5-.75 1.3-5.05-3V7h1.5v5.6z"/></svg>
+                  22H–06H                </div>
+                <div>
+                  <div class="show-name">Night Club Mix</div>
+                  <div class="show-desc">8H de mix avec les meilleurs DJ’s du monde : Afrojack – Armin Van Buuren – R3hab – Robin Schulz et beaucoup d’autres.</div>                </div>
+                <div class="show-tag">Mix</div>
+              </div>
+                      </div>
+        </div>
+              <div class="day-panel is-active" data-day-panel="Jeudi">
+          <div class="schedule">
+                          <div class="show-row" style="--accent: #ff5470;">
+                <div class="show-time">
+                  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 10.6 4.3 2.5-.75 1.3-5.05-3V7h1.5v5.6z"/></svg>
+                  06H–09H                </div>
+                <div>
+                  <div class="show-name">La Matinale</div>
+                  <div class="show-desc">Infos – Sport – Horoscope – Etc…</div>                </div>
+                <div class="show-tag">Maxxihit</div>
+              </div>
+                          <div class="show-row" style="--accent: #ff5470;">
+                <div class="show-time">
+                  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 10.6 4.3 2.5-.75 1.3-5.05-3V7h1.5v5.6z"/></svg>
+                  09H–11H                </div>
+                <div>
+                  <div class="show-name">Frederic Koster – Solid Gold</div>
+                  <div class="show-desc">Musique Anglo-Saxonne.</div>                </div>
+                <div class="show-tag">Émission</div>
+              </div>
+                          <div class="show-row" style="--accent: #f0b429;">
+                <div class="show-time">
+                  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 10.6 4.3 2.5-.75 1.3-5.05-3V7h1.5v5.6z"/></svg>
+                  11H–14H                </div>
+                <div>
+                  <div class="show-name">La Playlist</div>
+                  <div class="show-desc">Hits Dance – Latino – Pop Non-Stop</div>                </div>
+                <div class="show-tag">Playlist</div>
+              </div>
+                          <div class="show-row" style="--accent: #ff5470;">
+                <div class="show-time">
+                  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 10.6 4.3 2.5-.75 1.3-5.05-3V7h1.5v5.6z"/></svg>
+                  14H–18H                </div>
+                <div>
+                  <div class="show-name">Les Hits À La Demande</div>
+                  <div class="show-desc">C’est vous qui faites la programmation.</div>                </div>
+                <div class="show-tag">Interactif</div>
+              </div>
+                          <div class="show-row" style="--accent: #1fd6c1;">
+                <div class="show-time">
+                  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 10.6 4.3 2.5-.75 1.3-5.05-3V7h1.5v5.6z"/></svg>
+                  18H–19H                </div>
+                <div>
+                  <div class="show-name">Mme Gaultier &#8211; In The Mix</div>
+                  <div class="show-desc">Bienvenue Dans Le Monde Musical De Mme Gaultier</div>                </div>
+                <div class="show-tag">Clubbing</div>
+              </div>
+                          <div class="show-row" style="--accent: #ff2f9e;">
+                <div class="show-time">
+                  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 10.6 4.3 2.5-.75 1.3-5.05-3V7h1.5v5.6z"/></svg>
+                  19H–20H                </div>
+                <div>
+                  <div class="show-name">Yann – Réservoir Pop</div>
+                  <div class="show-desc">1H Avec Les Derniers Hits Pop-Rock</div>                </div>
+                <div class="show-tag">Pop-Rock</div>
+              </div>
+                          <div class="show-row" style="--accent: #1fd6c1;">
+                <div class="show-time">
+                  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 10.6 4.3 2.5-.75 1.3-5.05-3V7h1.5v5.6z"/></svg>
+                  20H–21H                </div>
+                <div>
+                  <div class="show-name">Fab – Génération Vinyle 80</div>
+                  <div class="show-desc">1H avec les meilleurs vinyles des années 80.</div>                </div>
+                <div class="show-tag">80’s</div>
+              </div>
+                          <div class="show-row" style="--accent: #ff2f9e;">
+                <div class="show-time">
+                  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 10.6 4.3 2.5-.75 1.3-5.05-3V7h1.5v5.6z"/></svg>
+                  21H–22H                </div>
+                <div>
+                  <div class="show-name">Eric Coullet – Seven Eighties</div>
+                  <div class="show-desc">1H de son Pop Rock – Funk des années 70’s &amp; 80’s.</div>                </div>
+                <div class="show-tag">70’s/80’s</div>
+              </div>
+                          <div class="show-row" style="--accent: #ff7a3d;">
+                <div class="show-time">
+                  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 10.6 4.3 2.5-.75 1.3-5.05-3V7h1.5v5.6z"/></svg>
+                  22H–06H                </div>
+                <div>
+                  <div class="show-name">Night Club Mix</div>
+                  <div class="show-desc">8H de mix avec les meilleurs DJ’s du monde : Don Diablo – Fedde Le Grand – Oliver Heldens – et beaucoup d’autres.</div>                </div>
+                <div class="show-tag">Mix</div>
+              </div>
+                      </div>
+        </div>
+              <div class="day-panel" data-day-panel="Vendredi">
+          <div class="schedule">
+                          <div class="show-row" style="--accent: #ff7a3d;">
+                <div class="show-time">
+                  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 10.6 4.3 2.5-.75 1.3-5.05-3V7h1.5v5.6z"/></svg>
+                  00H–06H                </div>
+                <div>
+                  <div class="show-name">Night Club Mix</div>
+                  <div class="show-desc">6H de mix avec les meilleurs DJ’s du monde : Jordi Copz – Joel Corry – Nome etc…</div>                </div>
+                <div class="show-tag">Mix</div>
+              </div>
+                          <div class="show-row" style="--accent: #ff5470;">
+                <div class="show-time">
+                  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 10.6 4.3 2.5-.75 1.3-5.05-3V7h1.5v5.6z"/></svg>
+                  06H–09H                </div>
+                <div>
+                  <div class="show-name">La Matinale</div>
+                  <div class="show-desc">Infos – Sport – Horoscope – Etc…</div>                </div>
+                <div class="show-tag">Maxxihit</div>
+              </div>
+                          <div class="show-row" style="--accent: #ff5470;">
+                <div class="show-time">
+                  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 10.6 4.3 2.5-.75 1.3-5.05-3V7h1.5v5.6z"/></svg>
+                  09H–11H                </div>
+                <div>
+                  <div class="show-name">Philippe Detraux – Maxi Tubes</div>
+                                  </div>
+                <div class="show-tag">Émission</div>
+              </div>
+                          <div class="show-row" style="--accent: #f0b429;">
+                <div class="show-time">
+                  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 10.6 4.3 2.5-.75 1.3-5.05-3V7h1.5v5.6z"/></svg>
+                  11H–14H                </div>
+                <div>
+                  <div class="show-name">La Playlist</div>
+                  <div class="show-desc">Hits Dance – Latino – Pop Non-Stop</div>                </div>
+                <div class="show-tag">Playlist</div>
+              </div>
+                          <div class="show-row" style="--accent: #ff5470;">
+                <div class="show-time">
+                  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 10.6 4.3 2.5-.75 1.3-5.05-3V7h1.5v5.6z"/></svg>
+                  14H–18H                </div>
+                <div>
+                  <div class="show-name">Les Hits À La Demande</div>
+                  <div class="show-desc">C’est vous qui faites la programmation.</div>                </div>
+                <div class="show-tag">Interactif</div>
+              </div>
+                          <div class="show-row" style="--accent: #ff2f9e;">
+                <div class="show-time">
+                  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 10.6 4.3 2.5-.75 1.3-5.05-3V7h1.5v5.6z"/></svg>
+                  18H–19H                </div>
+                <div>
+                  <div class="show-name">Eric Coullet – Platine Collector</div>
+                  <div class="show-desc">1H avec les beaux hits des 50 dernières années.</div>                </div>
+                <div class="show-tag">Collector</div>
+              </div>
+                          <div class="show-row" style="--accent: #ff2f9e;">
+                <div class="show-time">
+                  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 10.6 4.3 2.5-.75 1.3-5.05-3V7h1.5v5.6z"/></svg>
+                  19H–20H                </div>
+                <div>
+                  <div class="show-name">Philippe Detraux – Génération Tubes</div>
+                  <div class="show-desc">1H avec les plus grands hits des générations passées.</div>                </div>
+                <div class="show-tag">Hits</div>
+              </div>
+                          <div class="show-row" style="--accent: #ff2f9e;">
+                <div class="show-time">
+                  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 10.6 4.3 2.5-.75 1.3-5.05-3V7h1.5v5.6z"/></svg>
+                  20H–22H                </div>
+                <div>
+                  <div class="show-name">Le Hit Des Clubs</div>
+                  <div class="show-desc">Les 30 hits les plus joués en club.</div>                </div>
+                <div class="show-tag">Top 30</div>
+              </div>
+                          <div class="show-row" style="--accent: #f0b429;">
+                <div class="show-time">
+                  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 10.6 4.3 2.5-.75 1.3-5.05-3V7h1.5v5.6z"/></svg>
+                  22H–00H                </div>
+                <div>
+                  <div class="show-name">Eric Nc – Fan De Funk</div>
+                  <div class="show-desc">Le meilleur de la Funk.</div>                </div>
+                <div class="show-tag">Funk</div>
+              </div>
+                      </div>
+        </div>
+              <div class="day-panel" data-day-panel="Samedi">
+          <div class="schedule">
+                          <div class="show-row" style="--accent: #ff7a3d;">
+                <div class="show-time">
+                  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 10.6 4.3 2.5-.75 1.3-5.05-3V7h1.5v5.6z"/></svg>
+                  00H–06H                </div>
+                <div>
+                  <div class="show-name">Night Club Mix</div>
+                  <div class="show-desc">6H De Mix Avec Les Meilleurs DJ’s Du Monde</div>                </div>
+                <div class="show-tag"></div>
+              </div>
+                          <div class="show-row" style="--accent: #ff5470;">
+                <div class="show-time">
+                  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 10.6 4.3 2.5-.75 1.3-5.05-3V7h1.5v5.6z"/></svg>
+                  06H–08H                </div>
+                <div>
+                  <div class="show-name">La Matinale</div>
+                  <div class="show-desc">Infos – Sport – Horoscope – Etc…</div>                </div>
+                <div class="show-tag">Maxxihit</div>
+              </div>
+                          <div class="show-row" style="--accent: #ff7a3d;">
+                <div class="show-time">
+                  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 10.6 4.3 2.5-.75 1.3-5.05-3V7h1.5v5.6z"/></svg>
+                  08H–10H                </div>
+                <div>
+                  <div class="show-name">Yoan &#8211; Le Bon Réveil</div>
+                  <div class="show-desc">Bienvenue Dans Le Bon Réveil, Votre Rendez-Vous Matinal Pour Démarrer Le Week End Du Bon Pied Avec Yoan !</div>                </div>
+                <div class="show-tag"></div>
+              </div>
+                          <div class="show-row" style="--accent: #f0b429;">
+                <div class="show-time">
+                  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 10.6 4.3 2.5-.75 1.3-5.05-3V7h1.5v5.6z"/></svg>
+                  10H–12H                </div>
+                <div>
+                  <div class="show-name">La Playlist</div>
+                  <div class="show-desc">Hits Dance – Latino – Pop Non-Stop</div>                </div>
+                <div class="show-tag">Playlist</div>
+              </div>
+                          <div class="show-row" style="--accent: #1fd6c1;">
+                <div class="show-time">
+                  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 10.6 4.3 2.5-.75 1.3-5.05-3V7h1.5v5.6z"/></svg>
+                  12H–13H                </div>
+                <div>
+                  <div class="show-name">Seb Blind Sensation – Dance Sensation</div>
+                                  </div>
+                <div class="show-tag">Dance</div>
+              </div>
+                          <div class="show-row" style="--accent: #ff5470;">
+                <div class="show-time">
+                  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 10.6 4.3 2.5-.75 1.3-5.05-3V7h1.5v5.6z"/></svg>
+                  13H–14H                </div>
+                <div>
+                  <div class="show-name">Sébastien – Le Top 20</div>
+                  <div class="show-desc">Les 20 meilleurs hits les plus diffusés en France.</div>                </div>
+                <div class="show-tag">Top 20</div>
+              </div>
+                          <div class="show-row" style="--accent: #ff2f9e;">
+                <div class="show-time">
+                  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 10.6 4.3 2.5-.75 1.3-5.05-3V7h1.5v5.6z"/></svg>
+                  14H–15H                </div>
+                <div>
+                  <div class="show-name">Gaby – Ibiza Clubbing</div>
+                  <div class="show-desc">Le meilleur du son à Ibiza.</div>                </div>
+                <div class="show-tag">Ibiza</div>
+              </div>
+                          <div class="show-row" style="--accent: #ff7a3d;">
+                <div class="show-time">
+                  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 10.6 4.3 2.5-.75 1.3-5.05-3V7h1.5v5.6z"/></svg>
+                  15H–16H                </div>
+                <div>
+                  <div class="show-name">Quentin – Quentin In The Mix</div>
+                                  </div>
+                <div class="show-tag">Mix</div>
+              </div>
+                          <div class="show-row" style="--accent: #ff5470;">
+                <div class="show-time">
+                  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 10.6 4.3 2.5-.75 1.3-5.05-3V7h1.5v5.6z"/></svg>
+                  16H–17H                </div>
+                <div>
+                  <div class="show-name">Max – Le Top Radio</div>
+                  <div class="show-desc">Les 20 hits les plus diffusés sur les radios françaises.</div>                </div>
+                <div class="show-tag">Top 20</div>
+              </div>
+                          <div class="show-row" style="--accent: #1fd6c1;">
+                <div class="show-time">
+                  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 10.6 4.3 2.5-.75 1.3-5.05-3V7h1.5v5.6z"/></svg>
+                  17H–18H                </div>
+                <div>
+                  <div class="show-name">Thomas Franck – Clubbing Mix</div>
+                                  </div>
+                <div class="show-tag">Clubbing</div>
+              </div>
+                          <div class="show-row" style="--accent: #ff2f9e;">
+                <div class="show-time">
+                  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 10.6 4.3 2.5-.75 1.3-5.05-3V7h1.5v5.6z"/></svg>
+                  18H–19H                </div>
+                <div>
+                  <div class="show-name">Thierry Sorinet – Electro Club</div>
+                                  </div>
+                <div class="show-tag">Electro</div>
+              </div>
+                          <div class="show-row" style="--accent: #1fd6c1;">
+                <div class="show-time">
+                  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 10.6 4.3 2.5-.75 1.3-5.05-3V7h1.5v5.6z"/></svg>
+                  19H–20H                </div>
+                <div>
+                  <div class="show-name">DJ Kris – Clubbing Party</div>
+                                  </div>
+                <div class="show-tag">Clubbing</div>
+              </div>
+                          <div class="show-row" style="--accent: #ff2f9e;">
+                <div class="show-time">
+                  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 10.6 4.3 2.5-.75 1.3-5.05-3V7h1.5v5.6z"/></svg>
+                  20H–21H                </div>
+                <div>
+                  <div class="show-name">CocoNoze – Extra Club Latino</div>
+                  <div class="show-desc">Les meilleurs hits Urban Latino mixés par les deejays.</div>                </div>
+                <div class="show-tag">Latino</div>
+              </div>
+                          <div class="show-row" style="--accent: #ff2f9e;">
+                <div class="show-time">
+                  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 10.6 4.3 2.5-.75 1.3-5.05-3V7h1.5v5.6z"/></svg>
+                  21H–22H                </div>
+                <div>
+                  <div class="show-name">CocoNoze – Extra Club Electro</div>
+                  <div class="show-desc">Les meilleurs hits Electro de la planète mixés par les deejays.</div>                </div>
+                <div class="show-tag">Electro</div>
+              </div>
+                          <div class="show-row" style="--accent: #ff2f9e;">
+                <div class="show-time">
+                  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 10.6 4.3 2.5-.75 1.3-5.05-3V7h1.5v5.6z"/></svg>
+                  22H–00H                </div>
+                <div>
+                  <div class="show-name">Top 30 – American Dance</div>
+                  <div class="show-desc">Les 30 hits Dance les plus diffusés aux States.</div>                </div>
+                <div class="show-tag">Top 30</div>
+              </div>
+                      </div>
+        </div>
+              <div class="day-panel" data-day-panel="Dimanche">
+          <div class="schedule">
+                          <div class="show-row" style="--accent: #ff7a3d;">
+                <div class="show-time">
+                  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 10.6 4.3 2.5-.75 1.3-5.05-3V7h1.5v5.6z"/></svg>
+                  00H–06H                </div>
+                <div>
+                  <div class="show-name">Saturday Night Mix</div>
+                  <div class="show-desc">José Dos Santos prend le contrôle des platines de la radio pour 6H de mix NonStop.</div>                </div>
+                <div class="show-tag">Mix</div>
+              </div>
+                          <div class="show-row" style="--accent: #ff5470;">
+                <div class="show-time">
+                  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 10.6 4.3 2.5-.75 1.3-5.05-3V7h1.5v5.6z"/></svg>
+                  06H–08H                </div>
+                <div>
+                  <div class="show-name">La Matinale</div>
+                  <div class="show-desc">Infos – Sport – Horoscope – Etc…</div>                </div>
+                <div class="show-tag">Maxxihit</div>
+              </div>
+                          <div class="show-row" style="--accent: #ff7a3d;">
+                <div class="show-time">
+                  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 10.6 4.3 2.5-.75 1.3-5.05-3V7h1.5v5.6z"/></svg>
+                  08H–09H                </div>
+                <div>
+                  <div class="show-name">Olivier &#8211; Le Chateau Des Pépites</div>
+                                  </div>
+                <div class="show-tag"></div>
+              </div>
+                          <div class="show-row" style="--accent: #ff2f9e;">
+                <div class="show-time">
+                  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 10.6 4.3 2.5-.75 1.3-5.05-3V7h1.5v5.6z"/></svg>
+                  09H–10H                </div>
+                <div>
+                  <div class="show-name">Philippe Detraux – Salut Les Sixties</div>
+                                  </div>
+                <div class="show-tag">Sixties</div>
+              </div>
+                          <div class="show-row" style="--accent: #ff7a3d;">
+                <div class="show-time">
+                  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 10.6 4.3 2.5-.75 1.3-5.05-3V7h1.5v5.6z"/></svg>
+                  10H–11H                </div>
+                <div>
+                  <div class="show-name">Olivier &#8211; 100% Français</div>
+                                  </div>
+                <div class="show-tag"></div>
+              </div>
+                          <div class="show-row" style="--accent: #ff7a3d;">
+                <div class="show-time">
+                  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 10.6 4.3 2.5-.75 1.3-5.05-3V7h1.5v5.6z"/></svg>
+                  11H–12H                </div>
+                <div>
+                  <div class="show-name">Jean Michel &#038; Maxime &#8211; 2 Chansons Une Voix</div>
+                                  </div>
+                <div class="show-tag"></div>
+              </div>
+                          <div class="show-row" style="--accent: #f0b429;">
+                <div class="show-time">
+                  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 10.6 4.3 2.5-.75 1.3-5.05-3V7h1.5v5.6z"/></svg>
+                  12H–14H                </div>
+                <div>
+                  <div class="show-name">La Playlist</div>
+                  <div class="show-desc">Dance – Rock – Latino – RnB – Etc…</div>                </div>
+                <div class="show-tag">Playlist</div>
+              </div>
+                          <div class="show-row" style="--accent: #ff2f9e;">
+                <div class="show-time">
+                  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 10.6 4.3 2.5-.75 1.3-5.05-3V7h1.5v5.6z"/></svg>
+                  14H–16H                </div>
+                <div>
+                  <div class="show-name">Le Top France</div>
+                  <div class="show-desc">Les 30 hits français les plus diffusés sur les radios en France.</div>                </div>
+                <div class="show-tag">Top 30</div>
+              </div>
+                          <div class="show-row" style="--accent: #ff7a3d;">
+                <div class="show-time">
+                  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 10.6 4.3 2.5-.75 1.3-5.05-3V7h1.5v5.6z"/></svg>
+                  16H–18H                </div>
+                <div>
+                  <div class="show-name">Le Top 40 Américain</div>
+                  <div class="show-desc">Les 40 hits qui cartonnent aux States.</div>                </div>
+                <div class="show-tag">Top 40</div>
+              </div>
+                          <div class="show-row" style="--accent: #ff7a3d;">
+                <div class="show-time">
+                  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 10.6 4.3 2.5-.75 1.3-5.05-3V7h1.5v5.6z"/></svg>
+                  18H–20H                </div>
+                <div>
+                  <div class="show-name">Le Top Monde</div>
+                  <div class="show-desc">Les 40 hits les plus diffusés sur les radios au monde.</div>                </div>
+                <div class="show-tag">Top 40</div>
+              </div>
+                          <div class="show-row" style="--accent: #ff2f9e;">
+                <div class="show-time">
+                  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 10.6 4.3 2.5-.75 1.3-5.05-3V7h1.5v5.6z"/></svg>
+                  20H–22H                </div>
+                <div>
+                  <div class="show-name">Génération Top 80</div>
+                  <div class="show-desc">Les meilleurs hits des années 80’s – 90’s.</div>                </div>
+                <div class="show-tag">80’s/90’s</div>
+              </div>
+                          <div class="show-row" style="--accent: #ff7a3d;">
+                <div class="show-time">
+                  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 10.6 4.3 2.5-.75 1.3-5.05-3V7h1.5v5.6z"/></svg>
+                  22H–00H                </div>
+                <div>
+                  <div class="show-name">Euro Top 40</div>
+                  <div class="show-desc">Les 40 hits qui cartonnent en Europe.</div>                </div>
+                <div class="show-tag">Top 40</div>
+              </div>
+                      </div>
+        </div>
+          </div>
+  </section>
+
+  <!-- ACTUALITÉS -->
+  <section id="actualites">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">Les infos Maxxihit</div>
+        <h2>LES INFOS MAXXIHIT</h2>
+        <p>Actualité musicale, nouveautés, sorties, événements et actualité radio.</p>
+      </div>
+      <div class="news-grid">
+                  <div class="news-empty">
+            <div class="news-tag">À VENIR</div>
+            <h3>Les Infos Maxxihit arrivent bientôt</h3>
+            <p>Les actualités seront ajoutées directement depuis WordPress, dans le menu « Actualités ».</p>
+          </div>
+              </div>
+    </div>
+  </section>
+
+  <!-- DÉDICACES (lien vers la page /dedicaces) -->
+  <section id="dedicaces">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">Disque à la demande</div>
+        <h2>DÉDICACES</h2>
+        <p>Choisis un morceau, ajoute ton message : on le passe sur Maxxihit Radio.</p>
+        <p><a class="detach-btn" href="https://maxxihitradio.com/dedicaces/" style="display:inline-flex;text-decoration:none;">Faire une dédicace</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">Contact</div>
+        <h2>Une question, un partenariat, une démo de mix ?</h2>
+        <p>Écris-nous, on répond vite. Ce formulaire ouvre ton logiciel de messagerie pour l'instant — il pourra être relié à ta boîte mail directement.</p>
+      </div>
+
+      <div class="contact-grid">
+        <form class="contact-form" id="contactForm">
+          <div class="field">
+            <label for="name">Nom</label>
+            <input type="text" id="name" name="name" required>
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          <div class="field">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" required></textarea>
+          </div>
+          <button type="submit" class="submit-btn">Envoyer le message</button>
+        </form>
+
+        <div class="contact-side">
+          <div class="card">
+            <h3>Écrire directement</h3>
+            <p><a href="mailto:poupounet73@gmail.com">poupounet73@gmail.com</a></p>
+          </div>
+          <div class="card">
+            <h3>Suivre Maxxihit Radio</h3>
+            <div class="socials">
+              <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2c2.7 0 3 .01 4.1.06 1.1.05 1.8.22 2.4.46.65.25 1.2.6 1.75 1.14.5.5.85 1.1 1.1 1.75.24.6.4 1.3.46 2.4.05 1.1.06 1.4.06 4.1s-.01 3-.06 4.1c-.05 1.1-.22 1.8-.46 2.4a4.7 4.7 0 0 1-1.14 1.75 4.7 4.7 0 0 1-1.75 1.1c-.6.24-1.3.4-2.4.46-1.1.05-1.4.06-4.1.06s-3-.01-4.1-.06c-1.1-.05-1.8-.22-2.4-.46a4.7 4.7 0 0 1-1.75-1.14 4.7 4.7 0 0 1-1.1-1.75c-.24-.6-.4-1.3-.46-2.4C2.01 15 2 14.7 2 12s.01-3 .06-4.1c.05-1.1.22-1.8.46-2.4.25-.65.6-1.2 1.14-1.75a4.7 4.7 0 0 1 1.75-1.1c.6-.24 1.3-.4 2.4-.46C9 2.01 9.3 2 12 2zm0 5a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 8.2a3.2 3.2 0 1 1 0-6.4 3.2 3.2 0 0 1 0 6.4zm5.2-8.4a1.2 1.2 0 1 1-2.4 0 1.2 1.2 0 0 1 2.4 0z"/></svg></a>
+              <a href="#" aria-label="TikTok"><svg viewBox="0 0 24 24"><path d="M16.5 2c.3 2.4 1.7 4 4.3 4.3v3c-1.6.1-3-.4-4.3-1.3v6.4a5.9 5.9 0 1 1-5.9-5.9c.3 0 .6 0 .9.06v3.1a2.8 2.8 0 1 0 1.9 2.7V2h3.1z"/></svg></a>
+              <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M13.5 21v-8h2.7l.4-3.1h-3.1V8c0-.9.25-1.5 1.55-1.5H16.7V3.7C16.4 3.65 15.4 3.55 14.2 3.55c-2.4 0-4.05 1.47-4.05 4.16V9.9H7.4v3.1h2.75V21h3.35z"/></svg></a>
+            </div>
+            <p style="margin-top:10px;font-size:0.78rem;color:var(--text-dim)">👉 Remplace les liens "#" ci-dessus dès que tes pages sont en ligne.</p>
+          </div>
+          <div class="card">
+            <h3>Écoute-nous aussi sur</h3>
+            <div class="listen-badges">
+              <a href="#" target="_blank" rel="noopener">📻 TuneIn</a>
+              <a href="#" target="_blank" rel="noopener">📡 Radio.fr</a>
+              <a href="#" target="_blank" rel="noopener">🎙️ RadioLine</a>
+              <a href="#" target="_blank" rel="noopener">🗣️ Google Assistant</a>
+            </div>
+            <p style="margin-top:10px;font-size:0.78rem;color:var(--text-dim)">👉 Idem, remplace ces liens par tes vraies pages une fois inscrite sur chaque plateforme.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap foot-row">
+    <a href="https://maxxihitradio.com/" class="brand"><img src="https://maxxihitradio.com/wp-content/themes/maxxihit-theme/assets/logo.png" alt="Maxxihit Radio"></a>
+    <p>© 2026 Maxxihit Radio — Les meilleurs hits sur ta radio.</p>
+  </div>
+</footer>
+
+<!-- STICKY MINI PLAYER -->
+<div class="mini-player" id="miniPlayer">
+  <div class="cover-wrap" aria-hidden="true">
+    <img id="miniNowPlayingCover" class="now-playing-cover" src="https://maxxihitradio.com/wp-content/themes/maxxihit-theme/assets/logo.png" alt="">
+  </div>
+  <button class="play-btn" id="miniPlayBtn" aria-label="Lecture / Pause">
+    <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+    <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+  </button>
+  <div class="player-meta">
+    <div class="status" id="miniStatusText">À l'arrêt</div>
+    <div class="track" id="miniNowPlayingTrack">Chargement du titre…</div>
+  </div>
+  <div class="eq paused" id="miniEq">
+    <span></span><span></span><span></span><span></span><span></span>
+  </div>
+  <button class="detach-btn" id="detachBtnMini" type="button" aria-label="Détacher le lecteur" title="Détacher le lecteur">
+    <svg viewBox="0 0 24 24"><path d="M19 11h-8v6h8v-6zM21 3H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16.01H3V4.98h18v14.03z"/></svg>
+    <span>Détacher le lecteur</span>
+  </button>
+</div>
+
+<audio id="radioStream" preload="none">
+  <source src="https://ec5.yesstreaming.net:1520/stream" type="audio/mpeg">
+</audio>
+
+<script>
+  const audio = document.getElementById('radioStream');
+  const playBtn = document.getElementById('playBtn');
+  const miniPlayBtn = document.getElementById('miniPlayBtn');
+  const statusText = document.getElementById('statusText');
+  const miniStatusText = document.getElementById('miniStatusText');
+  const eq = document.getElementById('eq');
+  const miniEq = document.getElementById('miniEq');
+  const volume = document.getElementById('volume');
+
+  audio.volume = parseFloat(volume.value);
+
+  // Cibles supplémentaires (lecteur détaché) synchronisées en plus du player principal et du mini player.
+  let extraPlayBtns = [];
+  let extraStatusEls = [];
+  let extraEqEls = [];
+
+  function setStatus(label){
+    statusText.textContent = label;
+    miniStatusText.textContent = label;
+    extraStatusEls.forEach(el => { el.textContent = label; });
+  }
+
+  function setPlayingUI(isPlaying){
+    [playBtn, miniPlayBtn, ...extraPlayBtns].forEach(b => b.classList.toggle('playing', isPlaying));
+    [eq, miniEq, ...extraEqEls].forEach(e => e.classList.toggle('paused', !isPlaying));
+    setStatus(isPlaying ? 'En direct' : 'À l\'arrêt');
+  }
+
+  function togglePlay(){
+    if (audio.paused){
+      setStatus('Connexion...');
+      audio.play().catch(() => {
+        setStatus('Flux indisponible');
+      });
+    } else {
+      audio.pause();
+    }
+  }
+
+  playBtn.addEventListener('click', togglePlay);
+  miniPlayBtn.addEventListener('click', togglePlay);
+
+  audio.addEventListener('playing', () => setPlayingUI(true));
+  audio.addEventListener('pause', () => setPlayingUI(false));
+  audio.addEventListener('waiting', () => setStatus('Chargement...'));
+  audio.addEventListener('error', () => {
+    setStatus('Flux indisponible');
+    setPlayingUI(false);
+  });
+
+  volume.addEventListener('input', () => {
+    audio.volume = parseFloat(volume.value);
+  });
+
+  // Now Playing — mise à jour automatique du titre diffusé.
+  const nowPlayingTrack = document.getElementById('nowPlayingTrack');
+  const miniNowPlayingTrack = document.getElementById('miniNowPlayingTrack');
+  const nowPlayingCover = document.getElementById('nowPlayingCover');
+  const miniNowPlayingCover = document.getElementById('miniNowPlayingCover');
+
+  let extraTrackEls = [];
+  let extraCoverEls = [];
+
+  async function updateNowPlaying(){
+    try {
+      const response = await fetch('https://maxxihitradio.com/wp-json/maxxihit/v1/now-playing', { cache: 'no-store' });
+      if (!response.ok) return;
+      const data = await response.json();
+      const title = data && data.title ? data.title : 'Maxxihit Radio';
+      nowPlayingTrack.textContent = title;
+      miniNowPlayingTrack.textContent = title;
+      extraTrackEls.forEach(el => { el.textContent = title; });
+      if (data && data.cover) {
+        if (nowPlayingCover) { nowPlayingCover.src = data.cover; nowPlayingCover.classList.add('has-cover'); }
+        if (miniNowPlayingCover) { miniNowPlayingCover.src = data.cover; miniNowPlayingCover.classList.add('has-cover'); }
+        extraCoverEls.forEach(el => { el.src = data.cover; el.classList.add('has-cover'); });
+      }
+    } catch (e) {
+      // Le player continue de fonctionner même si les métadonnées sont momentanément indisponibles.
+    }
+  }
+
+  updateNowPlaying();
+  setInterval(updateNowPlaying, 10000);
+
+  // ---------- LECTEUR DÉTACHÉ (mini-fenêtre "toujours au-dessus", façon Picture-in-Picture) ----------
+  const detachBtn = document.getElementById('detachBtn');
+  const detachBtnMini = document.getElementById('detachBtnMini');
+
+  async function openFloatingPlayer(){
+    // Chrome / Edge (desktop) : vraie fenêtre "Document Picture-in-Picture", toujours au-dessus des autres apps.
+    if ('documentPictureInPicture' in window) {
+      if (documentPictureInPicture.window) {
+        documentPictureInPicture.window.close();
+        return;
+      }
+      try {
+        const pipWindow = await documentPictureInPicture.requestWindow({ width: 340, height: 128 });
+
+        // On copie les styles de la page (couleurs, police, boutons) dans la fenêtre détachée.
+        [...document.styleSheets].forEach(sheet => {
+          try {
+            const css = [...sheet.cssRules].map(r => r.cssText).join('\n');
+            const style = pipWindow.document.createElement('style');
+            style.textContent = css;
+            pipWindow.document.head.appendChild(style);
+          } catch (e) {
+            if (sheet.href) {
+              const link = pipWindow.document.createElement('link');
+              link.rel = 'stylesheet';
+              link.href = sheet.href;
+              pipWindow.document.head.appendChild(link);
+            }
+          }
+        });
+        pipWindow.document.body.style.margin = '0';
+        pipWindow.document.body.style.background = 'var(--bg)';
+
+        const wrap = pipWindow.document.createElement('div');
+        wrap.className = 'mini-player';
+        wrap.style.cssText = 'position:static;opacity:1;width:100%;box-sizing:border-box;';
+        wrap.innerHTML = `
+          <div class="cover-wrap" aria-hidden="true">
+            <img id="pipCover" class="now-playing-cover${nowPlayingCover.classList.contains('has-cover') ? ' has-cover' : ''}" src="${nowPlayingCover.src}" alt="">
+          </div>
+          <button class="play-btn${playBtn.classList.contains('playing') ? ' playing' : ''}" id="pipPlayBtn" aria-label="Lecture / Pause">
+            <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+          </button>
+          <div class="player-meta">
+            <div class="status" id="pipStatusText">${statusText.textContent}</div>
+            <div class="track" id="pipNowPlayingTrack">${nowPlayingTrack.textContent}</div>
+          </div>
+          <div class="eq${audio.paused ? ' paused' : ''}" id="pipEq">
+            <span></span><span></span><span></span><span></span><span></span>
+          </div>
+        `;
+        pipWindow.document.body.appendChild(wrap);
+
+        const pipPlayBtn = pipWindow.document.getElementById('pipPlayBtn');
+        const pipStatusText = pipWindow.document.getElementById('pipStatusText');
+        const pipNowPlayingTrack = pipWindow.document.getElementById('pipNowPlayingTrack');
+        const pipCover = pipWindow.document.getElementById('pipCover');
+        const pipEq = pipWindow.document.getElementById('pipEq');
+
+        pipPlayBtn.addEventListener('click', togglePlay);
+
+        extraPlayBtns.push(pipPlayBtn);
+        extraStatusEls.push(pipStatusText);
+        extraEqEls.push(pipEq);
+        extraTrackEls.push(pipNowPlayingTrack);
+        extraCoverEls.push(pipCover);
+
+        [detachBtn, detachBtnMini].forEach(b => b && b.classList.add('is-active'));
+
+        pipWindow.addEventListener('pagehide', () => {
+          extraPlayBtns = extraPlayBtns.filter(el => el !== pipPlayBtn);
+          extraStatusEls = extraStatusEls.filter(el => el !== pipStatusText);
+          extraEqEls = extraEqEls.filter(el => el !== pipEq);
+          extraTrackEls = extraTrackEls.filter(el => el !== pipNowPlayingTrack);
+          extraCoverEls = extraCoverEls.filter(el => el !== pipCover);
+          [detachBtn, detachBtnMini].forEach(b => b && b.classList.remove('is-active'));
+        }, { once: true });
+
+      } catch (err) {
+        openFloatingPopupFallback();
+      }
+      return;
+    }
+
+    // Autres navigateurs (Firefox, Safari...) : petite fenêtre popup indépendante, à garder au-dessus.
+    openFloatingPopupFallback();
+  }
+
+  function openFloatingPopupFallback(){
+    const streamSrc = audio.currentSrc || (audio.querySelector('source') && audio.querySelector('source').src);
+    if (!streamSrc) return;
+    const popup = window.open('', 'maxxihitFloatingPlayer', 'width=340,height=140,resizable=yes');
+    if (!popup) {
+      alert("Autorise les fenêtres popup pour ce site afin de détacher le lecteur.");
+      return;
+    }
+    popup.document.title = 'Maxxihit Radio';
+    popup.document.write(
+      '<!DOCTYPE html><html><head><meta charset="utf-8">' +
+      '<style>' +
+      'body{margin:0;background:#0a0a10;color:#f4f3f7;font-family:Arial,sans-serif;' +
+      'display:flex;align-items:center;gap:14px;padding:18px;box-sizing:border-box}' +
+      'button{width:52px;height:52px;flex:0 0 52px;border-radius:50%;border:none;' +
+      'background:#34d9ff;color:#0a0a10;font-size:18px;cursor:pointer}' +
+      '#status{font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:#9b98ab}' +
+      '#track{font-size:14px;margin-top:4px}' +
+      '</style></head><body>' +
+      '<button id="p">&#9654;</button>' +
+      '<div><div id="status">Connexion...</div><div id="track"></div></div>' +
+      '<audio id="a" preload="none"><source src="' + streamSrc + '" type="audio/mpeg"></audio>' +
+      '<script>' +
+      'var a=document.getElementById("a"),p=document.getElementById("p"),s=document.getElementById("status");' +
+      'document.getElementById("track").textContent=' + JSON.stringify(nowPlayingTrack.textContent) + ';' +
+      'p.onclick=function(){ if(a.paused){ s.textContent="Connexion..."; a.play().catch(function(){ s.textContent="Flux indisponible"; }); } else { a.pause(); } };' +
+      'a.onplaying=function(){ p.innerHTML="&#10074;&#10074;"; s.textContent="En direct"; };' +
+      'a.onpause=function(){ p.innerHTML="&#9654;"; s.textContent="En pause"; };' +
+      'a.onerror=function(){ s.textContent="Flux indisponible"; };' +
+      'a.play().catch(function(){ s.textContent="Appuie sur play"; });' +
+      '<' + '/script></body></html>'
+    );
+    popup.document.close();
+  }
+
+  if (detachBtn) detachBtn.addEventListener('click', openFloatingPlayer);
+  if (detachBtnMini) detachBtnMini.addEventListener('click', openFloatingPlayer);
+
+  // onglets de la grille des programmes
+  const dayTabs = document.querySelectorAll('.day-tab');
+  const dayPanels = document.querySelectorAll('.day-panel');
+  dayTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const day = tab.getAttribute('data-day');
+      dayTabs.forEach(t => t.classList.toggle('is-active', t === tab));
+      dayPanels.forEach(p => p.classList.toggle('is-active', p.getAttribute('data-day-panel') === day));
+    });
+  });
+
+  // header scroll state
+  const header = document.getElementById('site-header');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 10);
+  });
+
+  // mini player visibility (hide until hero player scrolled past)
+  const heroPlayer = document.querySelector('.player-card');
+  const miniPlayer = document.getElementById('miniPlayer');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      miniPlayer.style.opacity = entry.isIntersecting ? '0' : '1';
+      miniPlayer.style.pointerEvents = entry.isIntersecting ? 'none' : 'auto';
+    });
+  }, { threshold: 0 });
+  io.observe(heroPlayer);
+  miniPlayer.style.transition = 'opacity .25s ease';
+
+  // contact form -> mailto
+  document.getElementById('contactForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const message = document.getElementById('message').value;
+    const subject = encodeURIComponent('Message depuis maxxihitradio.com');
+    const body = encodeURIComponent(`Nom: ${name}\nEmail: ${email}\n\n${message}`);
+    window.location.href = `mailto:poupounet73@gmail.com?subject=${subject}&body=${body}`;
+  });
+</script>
+
+<script type="speculationrules">
+{"prefetch":[{"source":"document","where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":["/wp-*.php","/wp-admin/*","/wp-content/uploads/*","/wp-content/*","/wp-content/plugins/*","/wp-content/themes/maxxihit-theme/*","/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}
+</script>
+			<script>
+				( () => {
+					const lazyloadRunObserver = () => {
+						const lazyloadBackgrounds = document.querySelectorAll( `.e-con.e-parent:not(.e-lazyloaded)` );
+						const lazyloadBackgroundObserver = new IntersectionObserver( ( entries ) => {
+							entries.forEach( ( entry ) => {
+								if ( entry.isIntersecting ) {
+									let lazyloadBackground = entry.target;
+									if( lazyloadBackground ) {
+										lazyloadBackground.classList.add( 'e-lazyloaded' );
+									}
+									lazyloadBackgroundObserver.unobserve( entry.target );
+								}
+							});
+						}, { rootMargin: '200px 0px 200px 0px' } );
+						lazyloadBackgrounds.forEach( ( lazyloadBackground ) => {
+							lazyloadBackgroundObserver.observe( lazyloadBackground );
+						} );
+					};
+					const events = [
+						'DOMContentLoaded',
+						'elementor/lazyload/observe',
+					];
+					events.forEach( ( event ) => {
+						document.addEventListener( event, lazyloadRunObserver );
+					} );
+				} )();
+			</script>
+			<script id="wp-emoji-settings" type="application/json">
+{"baseUrl":"https://s.w.org/images/core/emoji/17.0.2/72x72/","ext":".png","svgUrl":"https://s.w.org/images/core/emoji/17.0.2/svg/","svgExt":".svg","source":{"concatemoji":"https://maxxihitradio.com/wp-includes/js/wp-emoji-release.min.js?ver=7.1.2"}}
+</script>
+<script type="module">
+/*! This file is auto-generated */
+var e="script#wp-emoji-settings",t=document.querySelector(e);if(!(t instanceof HTMLScriptElement))throw new Error("Element missing: "+e);const r=JSON.parse(t.text),s=(window._wpemojiSettings=r,"wpEmojiSettingsSupports"),o=["flag","emoji"];function i(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(s,JSON.stringify(t))}catch(e){}}function c(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data);e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0);const r=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data);return t.every((e,t)=>e===r[t])}function p(e,t){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var n=e.getImageData(16,16,1,1);for(let e=0;e<n.data.length;e++)if(0!==n.data[e])return!1;return!0}function u(e,t,n,r){switch(t){case"flag":return n(e,"\ud83c\udff3\ufe0f\u200d\u26a7\ufe0f","\ud83c\udff3\ufe0f\u200b\u26a7\ufe0f")?!1:!n(e,"\ud83c\udde8\ud83c\uddf6","\ud83c\udde8\u200b\ud83c\uddf6")&&!n(e,"\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f","\ud83c\udff4\u200b\udb40\udc67\u200b\udb40\udc62\u200b\udb40\udc65\u200b\udb40\udc6e\u200b\udb40\udc67\u200b\udb40\udc7f");case"emoji":return!r(e,"\ud83e\u1fac8")}return!1}function f(e,t,n,r){let a;const s=(a="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):document.createElement("canvas")).getContext("2d",{willReadFrequently:!0}),o=(s.textBaseline="top",s.font="600 32px Arial",{});return e.forEach(e=>{o[e]=t(s,e,n,r)}),o}function a(e){var t=document.createElement("script");t.src=e,t.defer=!0,document.head.appendChild(t)}r.supports={everything:!0,everythingExceptFlag:!0},new Promise(t=>{let n=function(){try{var e=JSON.parse(sessionStorage.getItem(s));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+f.toString()+"("+[JSON.stringify(o),u.toString(),c.toString(),p.toString()].join(",")+"));",r=new Blob([e],{type:"text/javascript"});const a=new Worker(URL.createObjectURL(r),{name:"wpTestEmojiSupports"});return void(a.onmessage=e=>{i(n=e.data),a.terminate(),t(n)})}catch(e){}i(n=f(o,u,c,p))}t(n)}).then(e=>{for(const n in e)r.supports[n]=e[n],r.supports.everything=r.supports.everything&&r.supports[n],"flag"!==n&&(r.supports.everythingExceptFlag=r.supports.everythingExceptFlag&&r.supports[n]);var t;r.supports.everythingExceptFlag=r.supports.everythingExceptFlag&&!r.supports.flag,r.supports.everything||((t=r.source||{}).concatemoji?a(t.concatemoji):t.wpemoji&&t.twemoji&&(a(t.twemoji),a(t.wpemoji)))});
+//# sourceURL=https://maxxihitradio.com/wp-includes/js/wp-emoji-loader.min.js
+</script>
+</body>
+</html>

@@ -1,0 +1,1305 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MARSANARYAS</title>
+<meta name="description" content="Royaume Indépendant du MARSANARYAS">
+<meta name="keywords" content="MARSANARYAS">
+<meta name="author" content="MARSANARYAS">
+<meta name="copyright" content="© MARSANARYAS">
+<meta name="language" content="FR">
+<meta name="robots" content="index, follow">
+<meta name="revisit-after" content="11 days">
+<meta name="identifier-url" content="https://www.marsanaryas.com/">
+<meta name="expires" content="never">
+<meta name="publisher" content="MARSANARYAS">
+<meta name="location" content="Royaume Indépendant du MARSANARYAS">
+<meta name="generator" content="MARSANARYAS">
+<meta name="theme-color" content="#003F87">
+<style>
+:root {
+--bg: #0a0d14;
+--surface: #131824;
+--surface-2: #1a2130;
+--border: #242c3d;
+--text: #e6ebf5;
+--muted: #8792a8;
+--accent: #3b82f6;
+--accent-2: #2563eb;
+--danger: #ff4d6d;
+--radius: 12px;
+}
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+font-family: system-ui,"Segoe UI",Roboto,Arial,sans-serif;
+}
+html,body {
+background: var(--bg);
+color: var(--text);
+min-height: 100vh;
+}
+a {
+color: var(--accent);
+text-decoration: none;
+}
+button {
+font: inherit;
+cursor: pointer;
+border: none;
+background: none;
+color: inherit;
+}
+img {
+display: block;
+}
+.app {
+max-width: 1080px;
+margin: 0 auto;
+padding: 24px 16px 60px;
+}
+header.top {
+padding: 8px 0 20px;
+background: var(--bg);
+border-bottom: 1px solid var(--border);
+margin-bottom: 20px;
+}
+header.top .head-row {
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap: 16px;
+flex-wrap: wrap;
+}
+header.top .royaume {
+display: flex;
+align-items: center;
+gap: 14px;
+min-width: 0;
+}
+header.top .royaume-logo {
+width: 52px;
+height: 52px;
+flex-shrink: 0;
+border-radius: 12px;
+background: var(--surface);
+border: 1px solid var(--border);
+padding: 6px;
+object-fit: contain;
+transition: transform .25s ease, border-color .25s ease;
+}
+header.top .royaume-logo:hover {
+transform: rotate(-6deg) scale(1.05);
+border-color: var(--accent);
+}
+header.top .royaume-text {
+min-width: 0;
+}
+header.top h1 {
+font-size: 1.35rem;
+font-weight: 800;
+letter-spacing: .5px;
+line-height: 1.2;
+}
+header.top h1 span {
+color: var(--accent);
+}
+header.top .tag {
+font-size: .75rem;
+color: var(--muted);
+display: block;
+margin-top: 2px;
+}
+header.top .intro {
+margin-top: 14px;
+font-size: .86rem;
+color: var(--muted);
+line-height: 1.6;
+max-width: 720px;
+border-left: 3px solid var(--accent);
+padding: 6px 0 6px 14px;
+font-style: italic;
+}
+header.top .menu-nav {
+margin-top: 14px;
+display: flex;
+flex-wrap: wrap;
+gap: 8px;
+}
+header.top .menu-link {
+display: inline-flex;
+align-items: center;
+gap: 6px;
+padding: 7px 14px;
+border-radius: 8px;
+background: var(--surface-2);
+border: 1px solid var(--border);
+color: var(--text);
+font-size: .78rem;
+font-weight: 600;
+transition: background .15s,border-color .15s,color .15s,transform .15s;
+}
+header.top .menu-link:hover {
+background: var(--accent);
+color: #ffffff;
+transform: translateY(-1px);
+}
+header.top .menu-link:focus-visible {
+outline: 2px solid var(--accent);
+outline-offset: 2px;
+}
+header.top .derniere-emission {
+margin-top: 14px;
+display: inline-flex;
+align-items: center;
+gap: 12px;
+padding: 10px 16px;
+border-radius: 10px;
+background: linear-gradient(135deg, var(--surface) 0%, var(--surface-2) 100%);
+border: 1px solid var(--border);
+font-size: .82rem;
+line-height: 1.4;
+color: var(--text);
+max-width: 100%;
+cursor: pointer;
+transition: border-color .2s, transform .2s;
+}
+header.top .derniere-emission:hover {
+border-color: var(--accent);
+}
+header.top .derniere-emission:focus-visible {
+outline: 2px solid var(--accent);
+outline-offset: 2px;
+}
+header.top .derniere-emission .de-icon {
+width: 34px;
+height: 34px;
+flex-shrink: 0;
+border-radius: 8px;
+background: var(--accent);
+color: #ffffff;
+display: inline-flex;
+align-items: center;
+justify-content: center;
+font-size: .95rem;
+}
+header.top .derniere-emission .de-body {
+min-width: 0;
+display: flex;
+flex-direction: column;
+gap: 2px;
+}
+header.top .derniere-emission .de-label {
+font-size: .62rem;
+color: var(--accent);
+letter-spacing: 1.1px;
+font-weight: 700;
+text-transform: uppercase;
+}
+header.top .derniere-emission .de-value {
+font-weight: 700;
+font-size: .88rem;
+color: var(--text);
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
+}
+header.top .derniere-emission .de-real {
+color: var(--muted);
+font-size: .74rem;
+font-weight: 500;
+font-style: italic;
+}
+.player-bar {
+background: var(--surface);
+border: 1px solid var(--border);
+border-radius: var(--radius);
+padding: 14px 18px;
+margin-bottom: 18px;
+display: flex;
+flex-wrap: wrap;
+align-items: center;
+gap: 12px 16px;
+position: sticky;
+top: 0;
+z-index: 100;
+box-shadow: 0 6px 18px rgba(0, 0, 0, .45);
+}
+.pb-cover {
+width: 60px;
+height: 60px;
+border-radius: 10px;
+overflow: hidden;
+background: #0b0c0f;
+flex-shrink: 0;
+}
+.pb-cover img {
+width: 100%;
+height: 100%;
+object-fit: cover;
+}
+.pb-info {
+flex: 1 1 220px;
+min-width: 0;
+}
+.pb-artist {
+font-size: .66rem;
+color: var(--accent);
+letter-spacing: 1.2px;
+font-weight: 700;
+text-transform: uppercase;
+}
+.pb-title {
+font-size: .94rem;
+font-weight: 700;
+margin-top: 2px;
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
+}
+.pb-progress {
+height: 4px;
+background: var(--surface-2);
+border-radius: 2px;
+overflow: hidden;
+cursor: pointer;
+margin-top: 8px;
+}
+.pb-fill {
+height: 100%;
+width: 0%;
+background: var(--accent);
+transition: width .08s linear;
+}
+.pb-times {
+font-size: .66rem;
+color: var(--muted);
+margin-top: 3px;
+font-variant-numeric: tabular-nums;
+}
+.pb-controls {
+display: flex;
+align-items: center;
+gap: 8px;
+flex-shrink: 0;
+}
+.pb-play {
+width: 40px;
+height: 40px;
+border-radius: 50%;
+background: var(--accent);
+color: #ffffff;
+font-weight: 700;
+font-size: .9rem;
+display: inline-flex;
+align-items: center;
+justify-content: center;
+transition: background .15s,transform .15s,box-shadow .3s;
+box-shadow: 0 0 0 0 rgba(59,130,246,.5);
+}
+.pb-play:hover {
+background: var(--accent-2);
+transform: scale(1.05);
+box-shadow: 0 0 12px rgba(59,130,246,.55);
+}
+.pb-icon {
+width: 34px;
+height: 34px;
+border-radius: 50%;
+background: var(--surface-2);
+border: 1px solid var(--border);
+display: inline-flex;
+align-items: center;
+justify-content: center;
+font-size: .8rem;
+transition: background .15s,color .15s;
+}
+.pb-icon:hover {
+background: #262a32;
+}
+.pb-icon.active {
+background: var(--accent);
+color: #ffffff;
+}
+.pb-vol {
+display: flex;
+align-items: center;
+gap: 6px;
+}
+.pb-vol input {
+width: 80px;
+height: 20px;
+accent-color: var(--accent);
+cursor: pointer;
+background: transparent;
+}
+.pb-vol span {
+font-size: .68rem;
+color: var(--muted);
+width: 34px;
+text-align: right;
+font-variant-numeric: tabular-nums;
+}
+.pb-actions {
+display: flex;
+flex-wrap: wrap;
+gap: 6px;
+flex-shrink: 0;
+}
+.pb-btn {
+padding: 7px 10px;
+border-radius: 8px;
+background: var(--surface-2);
+border: 1px solid var(--border);
+color: var(--text);
+font-size: .72rem;
+font-weight: 600;
+display: inline-flex;
+align-items: center;
+gap: 5px;
+transition: background .15s;
+}
+.pb-btn:hover {
+background: #262a32;
+}
+.pb-btn.accent {
+background: var(--accent);
+color: #ffffff;
+}
+.pb-btn.accent:hover {
+background: var(--accent-2);
+}
+.pb-btn[disabled] {
+opacity: .35;
+cursor: not-allowed;
+}
+.pb-btn.hidden {
+display: none;
+}
+.pb-meta {
+flex-basis: 100%;
+font-size: .68rem;
+color: var(--muted);
+line-height: 1.6;
+order: 10;
+}
+.pb-meta.hidden {
+display: none;
+}
+.pb-meta b {
+color: var(--text);
+font-weight: 600;
+}
+.pb-meta .sep {
+opacity: .4;
+margin: 0 4px;
+}
+.pb-status {
+flex-basis: 100%;
+font-size: .72rem;
+color: var(--muted);
+order: 11;
+min-height: 1em;
+font-style: italic;
+}
+.pb-status.err {
+color: var(--danger);
+}
+.panel {
+background: var(--surface);
+border: 1px solid var(--border);
+border-radius: var(--radius);
+overflow: hidden;
+}
+.list-head {
+display: flex;
+justify-content: space-between;
+align-items: center;
+gap: 12px;
+flex-wrap: wrap;
+padding: 14px 20px;
+border-bottom: 1px solid var(--border);
+}
+.list-head h2 {
+font-size: 1rem;
+font-weight: 700;
+}
+.list-head .right {
+display: flex;
+align-items: center;
+gap: 10px;
+flex-wrap: wrap;
+}
+.list-head .count {
+font-size: .78rem;
+color: var(--muted);
+}
+.sort-btn {
+padding: 6px 12px;
+border-radius: 8px;
+background: var(--surface-2);
+border: 1px solid var(--border);
+color: var(--text);
+font-size: .74rem;
+font-weight: 600;
+display: inline-flex;
+align-items: center;
+gap: 6px;
+transition: background .15s,color .15s;
+}
+.sort-btn:hover {
+background: #262a32;
+}
+.sort-btn.active {
+background: var(--accent);
+color: #ffffff;
+}
+.sort-btn.active:hover {
+background: var(--accent-2);
+}
+.list {
+list-style: none;
+}
+.list li {
+display: flex;
+align-items: center;
+gap: 14px;
+padding: 12px 20px;
+border-bottom: 1px solid var(--border);
+transition: background .15s;
+}
+.list li:last-child {
+border-bottom: none;
+}
+.list li:hover {
+background: var(--surface-2);
+}
+.list li.active {
+background: rgba(59,130,246,.10);
+}
+.list li .num {
+color: var(--muted);
+font-size: .8rem;
+width: 26px;
+text-align: right;
+font-variant-numeric: tabular-nums;
+flex-shrink: 0;
+}
+.list li .t {
+flex: 1;
+min-width: 0;
+}
+.list li .t .name {
+font-weight: 600;
+font-size: .94rem;
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
+}
+.list li .t .sub {
+color: var(--muted);
+font-size: .75rem;
+margin-top: 2px;
+letter-spacing: .4px;
+}
+.list li .play {
+width: 36px;
+height: 36px;
+border-radius: 50%;
+background: var(--accent);
+color: #ffffff;
+font-weight: 700;
+display: inline-flex;
+align-items: center;
+justify-content: center;
+flex-shrink: 0;
+font-size: .85rem;
+transition: transform .15s,background .15s;
+}
+.list li .play:hover {
+transform: scale(1.08);
+background: var(--accent-2);
+}
+.list li.active .play {
+background: var(--accent-2);
+}
+.list li .buy {
+width: 36px;
+height: 36px;
+border-radius: 50%;
+background: var(--surface-2);
+border: 1px solid var(--border);
+color: var(--accent);
+font-size: .9rem;
+display: inline-flex;
+align-items: center;
+justify-content: center;
+flex-shrink: 0;
+transition: transform .15s,background .15s,color .15s;
+}
+.list li .buy:hover {
+transform: scale(1.08);
+background: var(--accent);
+color: #ffffff;
+}
+.empty {
+padding: 50px 20px;
+text-align: center;
+color: var(--muted);
+font-size: .9rem;
+}
+footer.foot {
+margin-top: 40px;
+padding: 36px 20px 28px;
+border-top: 1px solid var(--border);
+background: linear-gradient(180deg, transparent 0%, rgba(19,24,36,.55) 100%);
+font-size: .72rem;
+color: var(--muted);
+text-align: center;
+display: flex;
+flex-direction: column;
+gap: 18px;
+align-items: center;
+position: relative;
+}
+footer.foot::before {
+content: "";
+position: absolute;
+top: -1px;
+left: 50%;
+transform: translateX(-50%);
+width: 120px;
+height: 2px;
+background: linear-gradient(90deg, transparent, var(--accent), transparent);
+border-radius: 2px;
+}
+footer.foot .foot-presentation {
+font-size: .84rem;
+color: var(--muted);
+font-style: italic;
+line-height: 1.7;
+max-width: 640px;
+padding: 0 8px;
+letter-spacing: .2px;
+}
+footer.foot .foot-sep {
+width: 60px;
+height: 2px;
+background: linear-gradient(90deg, transparent, var(--accent), transparent);
+border-radius: 1px;
+opacity: .8;
+}
+footer.foot .foot-legal {
+display: flex;
+flex-wrap: wrap;
+align-items: center;
+justify-content: center;
+gap: 10px;
+}
+footer.foot .legal-btn {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+padding: 8px 18px;
+border-radius: 999px;
+background: var(--surface-2);
+border: 1px solid var(--border);
+color: var(--text);
+font-size: .72rem;
+font-weight: 600;
+letter-spacing: .4px;
+line-height: 1.2;
+transition: background .2s, color .2s, border-color .2s, transform .2s, box-shadow .2s;
+}
+footer.foot .legal-btn:hover {
+background: var(--accent);
+border-color: transparent;
+color: #ffffff;
+transform: translateY(-2px);
+box-shadow: 0 6px 16px rgba(59, 130, 246, .35);
+}
+footer.foot .legal-btn:focus-visible {
+outline: 2px solid var(--accent);
+outline-offset: 2px;
+}
+footer.foot .foot-copy {
+font-size: .74rem;
+color: var(--muted);
+letter-spacing: .3px;
+padding-top: 4px;
+}
+footer.foot .foot-copy a {
+color: var(--accent);
+font-weight: 600;
+transition: color .15s, text-shadow .15s;
+}
+footer.foot .foot-copy a:hover {
+color: #ffffff;
+text-shadow: 0 0 10px rgba(59, 130, 246, .6);
+}
+footer.foot .back-to-top {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+gap: 8px;
+padding: 10px 22px;
+border-radius: 999px;
+background: linear-gradient(135deg, var(--surface-2) 0%, var(--surface) 100%);
+border: 1px solid var(--border);
+color: var(--text);
+font-size: .78rem;
+font-weight: 700;
+letter-spacing: .5px;
+text-transform: uppercase;
+transition: background .2s, color .2s, border-color .2s, transform .2s, box-shadow .2s;
+box-shadow: 0 4px 14px rgba(0, 0, 0, .3);
+}
+footer.foot .back-to-top:hover {
+background: var(--accent);
+border-color: transparent;
+color: #ffffff;
+transform: translateY(-2px);
+box-shadow: 0 8px 20px rgba(59, 130, 246, .5);
+}
+footer.foot .back-to-top:focus-visible {
+outline: 2px solid var(--accent);
+outline-offset: 3px;
+}
+footer.foot .back-to-top .arrow {
+font-size: .9rem;
+line-height: 1;
+display: inline-block;
+transition: transform .2s;
+}
+footer.foot .back-to-top:hover .arrow {
+transform: translateY(-3px);
+}
+@media(max-width:640px) {
+.app {
+padding: 16px 12px 40px;
+}
+header.top .royaume {
+gap: 10px;
+}
+header.top .royaume-logo {
+width: 42px;
+height: 42px;
+padding: 5px;
+border-radius: 10px;
+}
+header.top h1 {
+font-size: 1.15rem;
+}
+header.top .tag {
+font-size: .7rem;
+}
+header.top .intro {
+font-size: .8rem;
+padding-left: 12px;
+}
+header.top .menu-nav {
+gap: 6px;
+}
+header.top .menu-link {
+padding: 6px 11px;
+font-size: .72rem;
+}
+header.top .derniere-emission {
+padding: 9px 12px;
+gap: 10px;
+font-size: .78rem;
+}
+header.top .derniere-emission .de-icon {
+width: 30px;
+height: 30px;
+font-size: .85rem;
+}
+header.top .derniere-emission .de-value {
+font-size: .82rem;
+}
+header.top .derniere-emission .de-real {
+font-size: .7rem;
+}
+.player-bar {
+padding: 12px;
+gap: 10px 12px;
+top: 0;
+}
+.pb-cover {
+width: 52px;
+height: 52px;
+}
+.pb-info {
+flex: 1 1 calc(100% - 64px);
+min-width: 0;
+}
+.pb-controls {
+flex: 1 1 100%;
+justify-content: center;
+order: 3;
+}
+.pb-actions {
+flex: 1 1 100%;
+justify-content: center;
+order: 4;
+}
+.pb-meta {
+order: 10;
+}
+.pb-status {
+order: 11;
+}
+.pb-vol input {
+width: 100px;
+}
+.list li {
+padding: 10px 14px;
+gap: 10px;
+}
+.list li .num {
+width: 22px;
+font-size: .72rem;
+}
+.list-head {
+padding: 12px 14px;
+}
+.sort-btn {
+font-size: .7rem;
+padding: 5px 9px;
+}
+footer.foot {
+padding: 28px 14px 20px;
+gap: 14px;
+}
+footer.foot .foot-presentation {
+font-size: .78rem;
+line-height: 1.6;
+}
+footer.foot .foot-legal {
+gap: 8px;
+}
+footer.foot .legal-btn {
+padding: 7px 14px;
+font-size: .68rem;
+}
+footer.foot .back-to-top {
+padding: 9px 18px;
+font-size: .72rem;
+}
+footer.foot .foot-copy {
+font-size: .7rem;
+}
+}
+</style>
+<link rel="icon" href="/template/RIM.svg">
+</head>
+<body>
+<div class="app">
+<header class="top">
+<div class="head-row">
+<div class="royaume">
+<img class="royaume-logo" src="/template/RIM.svg" alt="RIM">
+<div class="royaume-text">
+<h1>MARSANARYAS</h1>
+<span class="tag">Royaume Indépendant du MARSANARYAS</span>
+</div>
+</div>
+</div>
+<p class="intro">⚜️ Micronation artistique et souveraine<br>
+<br>
+Pour connaître les dates de diffusion de nos émissions radio ou pour avoir des news sur nos productions en cours, inscrivez-vous à notre newsletter.</p>
+<nav class="menu-nav" aria-label="Liens du royaume">
+<a class="menu-link" href="royaume/" target="_blank">🏛️ À propos</a>
+<a class="menu-link" href="lien.php?lien=microwiki" target="_blank">🔍 Micronations Wiki</a>
+<button class="menu-link" id="btn_derniere_emission" type="button">🎙️ Dernière émission</button>
+<a class="menu-link" href="royaume/galerie_art/" target="_blank">🎭 La Galerie d'art</a>
+<a class="menu-link" href="royaume/newsletter/" target="_blank">✉️ Newsletter</a>
+<a class="menu-link" href="lien.php?lien=petitions" target="_blank">🖊 Pétitions</a>
+<a class="menu-link" href="archives/techno_socialisme/" target="_blank">★ Le techno-socialisme</a>
+<a class="menu-link" href="lien.php?lien=goodies" target="_blank">👚 Goodies</a>
+<a class="menu-link" href="mailto:contact@marsanaryas.com?subject=Contact%20RIM">✉️ Contact</a>
+<a class="menu-link" href="lien.php?lien=medium" target="_blank">📖 Medium</a>
+<a class="menu-link" href="royaume/galerie_art/temple/" target="_blank">🕯️ Le Temple</a>
+</nav>
+<div class="derniere-emission" id="bloc_derniere_emission" role="button" tabindex="0" title="Écouter la dernière émission">
+<span class="de-icon" aria-hidden="true">🎙️</span>
+<div class="de-body">
+<span class="de-label">Dernière émission</span>
+<span class="de-value">Le retour du Monde Libre (p.7)</span>
+<span class="de-real">Réalisation : Le RIM</span>
+</div>
+</div>
+</header>
+<section class="player-bar" aria-label="Lecteur">
+<div class="pb-cover">
+<img src="/archives/ze_giga_playlist/playlist/images/P1.jpg" alt="P1" id="p_cover">
+</div>
+<div class="pb-info">
+<div class="pb-artist" id="p_artist">Le RIM</div>
+<div class="pb-title" id="p_title">Choisissez un titre</div>
+<div class="pb-progress" id="p_progress" title="Cliquez pour naviguer">
+<div class="pb-fill" id="p_fill"></div>
+</div>
+<div class="pb-times"><span id="p_cur">0:00</span> / <span id="p_dur">0:00</span></div>
+</div>
+<div class="pb-controls">
+<button class="pb-play" id="p_play" aria-label="Lecture/Pause">▶</button>
+<button class="pb-icon" id="p_shuffle" aria-label="Lecture aléatoire">🔀</button>
+<button class="pb-icon" id="p_loop" aria-label="Lecture en boucle">🔁</button>
+<div class="pb-vol">
+<input type="range" id="p_volume" min="0" max="1" step="0.01" value="0.9" aria-label="Volume">
+<span id="p_vol_label">90%</span>
+</div>
+</div>
+<div class="pb-actions">
+<button class="pb-btn accent" id="b_buy" disabled title="Acheter ce titre">🛒 Acheter</button>
+<button class="pb-btn" id="b_share" type="button" disabled title="Partager">↪️ Partager</button>
+</div>
+<div class="pb-meta" id="p_meta">—</div>
+<span class="pb-status" id="p_status"></span>
+<audio id="player_artiste" preload="metadata"></audio>
+</section>
+<section class="panel" aria-label="Liste des titres">
+<div class="list-head">
+<h2>Titres</h2>
+<div class="right">
+<span class="count"><span id="count">0</span> titres · <span id="sort_label">ordre d'ajout</span></span>
+<button class="sort-btn" id="btn_sort" type="button">🔤 Ordre alphabétique</button>
+</div>
+</div>
+<ul class="list" id="liste"></ul>
+</section>
+<footer class="foot">
+<button class="back-to-top" id="back_to_top" type="button" aria-label="Revenir en haut de la page">
+<span class="arrow" aria-hidden="true">▲</span> Revenir en haut
+</button>
+<p class="foot-presentation">Le Royaume Indépendant du MARSANARYAS (RIM) est une micronation souveraine, reconnue au niveau international par plusieurs autres micronations. - <a href="archives/diplomacy/" target="_blank">DoD</a></p>
+<span class="foot-sep" aria-hidden="true"></span>
+<div class="foot-legal">
+<a class="legal-btn" href="mentions_legales.html" target="_blank">Mentions légales</a>
+<a class="legal-btn" href="cgv.html" target="_blank">CGV</a>
+</div>
+<span class="foot-copy">
+© MARSANARYAS — <a href="https://www.marsanaryas.com/">www.marsanaryas.com</a>
+</span>
+</footer>
+</div>
+<script>
+const TRACK_TOKEN = "2842b0cedfc8c4ded1955dd005ec7f777a8d9a5ecf147058eaeacd0a772ed036";
+const TITRES_BRUTS = [{"url":"https://www.marsanaryas.com/archives/medias/productions/LE-SON-DE-TRICKTOK.mp3","artiste":"MARSANARYAS","titre":"LE SON DE TRICKTOK"},{"url":"https://www.marsanaryas.com/archives/medias/productions/ASIAN-PATCHWORK.mp3","artiste":"MARSANARYAS","titre":"ASIAN PATCHWORK"},{"url":"https://www.marsanaryas.com/archives/medias/productions/GHOST-HAND.mp3","artiste":"MARSANARYAS","titre":"GHOST HAND"},{"url":"https://www.marsanaryas.com/archives/medias/productions/FROM-FRANCE-WITH-LOVE.mp3","artiste":"MARSANARYAS","titre":"FROM FRANCE WITH LOVE"},{"url":"https://www.marsanaryas.com/archives/medias/productions/LA-SANGRIA-DU-64.mp3","artiste":"MARSANARYAS","titre":"LA SANGRIA DU 64"},{"url":"https://www.marsanaryas.com/archives/medias/productions/EN-FAIRE-TOUT-UN-PLAT.mp3","artiste":"MARSANARYAS","titre":"EN FAIRE TOUT UN PLAT"},{"url":"https://www.marsanaryas.com/archives/medias/productions/MIDNIGHT-IN-BOLLYWOOD_MASHUP.mp3","artiste":"MARSANARYAS","titre":"MIDNIGHT IN BOLLYWOOD (MASHUP)"},{"url":"https://www.marsanaryas.com/archives/medias/productions/DEUX-COMTESSES.mp3","artiste":"MARSANARYAS","titre":"DEUX COMTESSES"},{"url":"https://www.marsanaryas.com/archives/medias/productions/MIDNIGHT-IN-BOLLYWOOD.mp3","artiste":"MARSANARYAS","titre":"MIDNIGHT IN BOLLYWOOD"},{"url":"https://www.marsanaryas.com/archives/medias/productions/TALONS-AIGUILLES.mp3","artiste":"MARSANARYAS","titre":"TALONS AIGUILLES"},{"url":"https://www.marsanaryas.com/archives/medias/productions/DRAGON_ELECTRO.mp3","artiste":"MARSANARYAS","titre":"DRAGON (ELECTRO)"},{"url":"https://www.marsanaryas.com/archives/medias/productions/DRAGON.mp3","artiste":"MARSANARYAS","titre":"DRAGON"},{"url":"https://www.marsanaryas.com/archives/medias/productions/MEDITATION4.mp3","artiste":"MARSANARYAS","titre":"MĖDITATION 4"},{"url":"https://www.marsanaryas.com/archives/medias/productions/AN-INDIAN-GIRL-AT-A-NIGHTCLUB.mp3","artiste":"MARSANARYAS","titre":"AN INDIAN GIRL AT A NIGHTCLUB"},{"url":"https://www.marsanaryas.com/archives/medias/productions/AUTUMN.mp3","artiste":"MARSANARYAS","titre":"AUTUMN"},{"url":"https://www.marsanaryas.com/archives/medias/productions/AN-INDIAN-GIRL-ON-THE-TRAIN.mp3","artiste":"MARSANARYAS","titre":"AN INDIAN GIRL ON THE TRAIN"},{"url":"https://www.marsanaryas.com/archives/medias/productions/MY-DARLING-HAS-LEFT-ME.mp3","artiste":"MARSANARYAS","titre":"MY DARLING HAS LEFT ME"},{"url":"https://www.marsanaryas.com/archives/medias/productions/CHRISTA-PIKE.mp3","artiste":"MARSANARYAS","titre":"CHRISTA PIKE"},{"url":"https://www.marsanaryas.com/archives/medias/productions/QUART-DHEURE-DANONYMAT.mp3","artiste":"MARSANARYAS","titre":"QUART D'HEURE D'ANONYMAT"},{"url":"https://www.marsanaryas.com/archives/medias/productions/INVERTED-WORLD.mp3","artiste":"MARSANARYAS","titre":"INVERTED WORLD"},{"url":"https://www.marsanaryas.com/archives/medias/productions/PROMPT.mp3","artiste":"MARSANARYAS","titre":"PROMPT"},{"url":"https://www.marsanaryas.com/archives/medias/productions/HOPE.mp3","artiste":"MARSANARYAS","titre":"HOPE"},{"url":"https://www.marsanaryas.com/archives/medias/productions/THE-BABIES-OF-THE-REVOLUTIONS_MIX.mp3","artiste":"MARSANARYAS","titre":"THE BABIES OF THE REVOLUTIONS (MIX)"},{"url":"https://www.marsanaryas.com/archives/medias/productions/ROYAL-FAMILY.mp3","artiste":"MARSANARYAS","titre":"ROYAL FAMILY"},{"url":"https://www.marsanaryas.com/archives/medias/productions/FIRST-QUEEN-IN-AFRICA.mp3","artiste":"MARSANARYAS","titre":"FIRST QUEEN IN AFRICA"},{"url":"https://www.marsanaryas.com/archives/medias/productions/FIRST-QUEEN.mp3","artiste":"MARSANARYAS","titre":"FIRST QUEEN"},{"url":"https://www.marsanaryas.com/archives/medias/productions/MIDNIGHT-IN-THE-KINGDOM.mp3","artiste":"MARSANARYAS","titre":"MIDNIGHT IN THE KINGDOM"},{"url":"https://www.marsanaryas.com/archives/medias/productions/MIDNIGHT-IN-PARIS.mp3","artiste":"MARSANARYAS","titre":"MIDNIGHT IN PARIS"},{"url":"https://www.marsanaryas.com/archives/medias/productions/FIRST-LADY.mp3","artiste":"MARSANARYAS","titre":"FIRST LADY"},{"url":"https://www.marsanaryas.com/archives/medias/productions/TOUT-TOURNE-EN-BOUCLE.mp3","artiste":"MARSANARYAS","titre":"TOUT TOURNE EN BOUCLE"},{"url":"https://www.marsanaryas.com/archives/medias/productions/EVERYTHING-SPINS-IN-CIRCLES.mp3","artiste":"MARSANARYAS","titre":"EVERYTHING SPINS IN CIRCLES"},{"url":"https://www.marsanaryas.com/archives/medias/productions/COLOMBIA-SIGUE-VIVA_ELECTRO.mp3","artiste":"MARSANARYAS","titre":"COLOMBIA SIGUE VIVA (ELECTRO)"},{"url":"https://www.marsanaryas.com/archives/medias/productions/COLOMBIA-SIGUE-VIVA.mp3","artiste":"MARSANARYAS","titre":"COLOMBIA SIGUE VIVA"},{"url":"https://www.marsanaryas.com/archives/medias/productions/AMANI.mp3","artiste":"MARSANARYAS","titre":"AMANI"},{"url":"https://www.marsanaryas.com/archives/medias/productions/AURORA.mp3","artiste":"MARSANARYAS","titre":"AURORA"},{"url":"https://www.marsanaryas.com/archives/medias/productions/FOXTROT-ROMEO-ECHO-ECHO_MIX.mp3","artiste":"MARSANARYAS","titre":"FOXTROT ROMEO ECHO ECHO (MIX)"},{"url":"https://www.marsanaryas.com/archives/medias/productions/FOXTROT-ROMEO-ECHO-ECHO.mp3","artiste":"MARSANARYAS","titre":"FOXTROT ROMEO ECHO ECHO"},{"url":"https://www.marsanaryas.com/archives/medias/productions/TOUT-VA-DEGAGER.mp3","artiste":"MARSANARYAS","titre":"TOUT VA DÉGAGER"},{"url":"https://www.marsanaryas.com/archives/medias/productions/LIBERTE-LIBERTAD_MASHUP.mp3","artiste":"MARSANARYAS","titre":"LIBERTÉ LIBERTAD (MASHUP)"},{"url":"https://www.marsanaryas.com/archives/medias/productions/REPRESENTED-BY-NO-ONE_MIX.mp3","artiste":"MARSANARYAS","titre":"REPRESENTED BY NO ONE (MIX)"},{"url":"https://www.marsanaryas.com/archives/medias/productions/REPRESENTED-BY-NO-ONE.mp3","artiste":"MARSANARYAS","titre":"REPRESENTED BY NO ONE"},{"url":"https://www.marsanaryas.com/archives/medias/productions/REPRESENTE-PAR-PERSONNE.mp3","artiste":"MARSANARYAS","titre":"REPRÉSENTÉ PAR PERSONNE"},{"url":"https://www.marsanaryas.com/archives/medias/productions/INDEPENDENCIA.mp3","artiste":"MARSANARYAS","titre":"INDEPENDENCIA"},{"url":"https://www.marsanaryas.com/archives/medias/productions/INDEPENDANCE.mp3","artiste":"MARSANARYAS","titre":"INDÉPENDANCE"},{"url":"https://www.marsanaryas.com/archives/medias/productions/RESTEZ-DANS-VOTRE-MONDE.mp3","artiste":"MARSANARYAS","titre":"RESTEZ DANS VOTRE MONDE"},{"url":"https://www.marsanaryas.com/archives/medias/productions/TES-VIRE.mp3","artiste":"MARSANARYAS","titre":"T'ES VIRÉ"},{"url":"https://www.marsanaryas.com/archives/medias/productions/LA-FILLE-AU-PULL-ROUGE.mp3","artiste":"MARSANARYAS","titre":"LA FILLE AU PULL ROUGE"},{"url":"https://www.marsanaryas.com/archives/medias/productions/LA-MANGOUSTE-ET-LE-COBRA.mp3","artiste":"MARSANARYAS","titre":"LA MANGOUSTE ET LE COBRA"},{"url":"https://www.marsanaryas.com/archives/medias/productions/DROIDE-108.mp3","artiste":"MARSANARYAS","titre":"DROÏDE 108"},{"url":"https://www.marsanaryas.com/archives/medias/productions/DROIDE-143.mp3","artiste":"MARSANARYAS","titre":"DROÏDE 143"},{"url":"https://www.marsanaryas.com/archives/medias/productions/DROIDE-404.mp3","artiste":"MARSANARYAS","titre":"DROÏDE 404"},{"url":"https://www.marsanaryas.com/archives/medias/productions/MEDITATION3.mp3","artiste":"MARSANARYAS","titre":"MĖDITATION 3"},{"url":"https://www.marsanaryas.com/archives/medias/productions/MEDITATION2.mp3","artiste":"MARSANARYAS","titre":"MĖDITATION 2"},{"url":"https://www.marsanaryas.com/archives/medias/productions/MEDITATION.mp3","artiste":"MARSANARYAS","titre":"MĖDITATION"},{"url":"https://www.marsanaryas.com/archives/medias/productions/TOUT-EST-LOINTAIN.mp3","artiste":"MARSANARYAS","titre":"TOUT EST LOINTAIN"},{"url":"https://www.marsanaryas.com/archives/medias/productions/RELIGION.mp3","artiste":"MARSANARYAS","titre":"RELIGION"},{"url":"https://www.marsanaryas.com/archives/medias/productions/HYMNE.mp3","artiste":"MARSANARYAS","titre":"HYMNE"}];
+const SALE_ARTISTS = new Set(["MARSANARYAS"]);
+const URL_VENTE = "https:\/\/www.marsanaryas.com\/archives\/ze_giga_playlist\/store\/";
+const BASE_URL = "\/archives\/ze_giga_playlist";
+const RADIO = {"url":"radio/live/","track_url":"https://www.marsanaryas.com/radio/live/","artiste":"MARSANARYAS","titre":"Le retour du Monde Libre (p.7)","realisation":"Le RIM","cover":"archives/MARSANARYAS.png"};
+const RADIO_TRACK_URL = RADIO.track_url || 'https://www.marsanaryas.com/radio/live/';
+const DEFAULT_ARTIST = RADIO.realisation || RADIO.artiste || 'MARSANARYAS';
+const RADIO_COVER = RADIO.cover || 'archives/MARSANARYAS.png';
+const player = document.getElementById('player_artiste');
+const pCover = document.getElementById('p_cover');
+const pArtist = document.getElementById('p_artist');
+const pTitle = document.getElementById('p_title');
+const pFill = document.getElementById('p_fill');
+const pProgress = document.getElementById('p_progress');
+const pCur = document.getElementById('p_cur');
+const pDur = document.getElementById('p_dur');
+const pPlay = document.getElementById('p_play');
+const pShuffle = document.getElementById('p_shuffle');
+const pLoop = document.getElementById('p_loop');
+const pVolume = document.getElementById('p_volume');
+const pVolLabel = document.getElementById('p_vol_label');
+const pMeta = document.getElementById('p_meta');
+const pStatus = document.getElementById('p_status');
+const bBuy = document.getElementById('b_buy');
+const bShare = document.getElementById('b_share');
+const listeEl = document.getElementById('liste');
+const countEl = document.getElementById('count');
+const sortLabel = document.getElementById('sort_label');
+const btnSort = document.getElementById('btn_sort');
+const backToTop = document.getElementById('back_to_top');
+const btnDerniereEmission = document.getElementById('btn_derniere_emission');
+const blocDerniereEmission = document.getElementById('bloc_derniere_emission');
+let currentTrack = null;
+let activeIndex = -1;
+let alreadyTracked = false;
+let sortAlpha = false;
+let shuffleMode = false;
+let isRadio = false;
+function escapeHtml(s) {
+return String(s).replace(/[&<>"']/g, (c) => ( {
+'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+}[c]));
+}
+function fmtTime(s) {
+if (!s || !isFinite(s)) return '0:00';
+s = Math.floor(s);
+const h = Math.floor(s / 3600);
+const m = Math.floor((s % 3600) / 60);
+const sec = s % 60;
+if (h > 0) {
+return h + ':' + String(m).padStart(2,'0') + ':' + String(sec).padStart(2,'0');
+}
+return m + ':' + String(sec).padStart(2,'0');
+}
+function dateNow() {
+const d = new Date();
+const p = (n) => String(n).padStart(2,'0');
+return p(d.getDate()) + '/' + p(d.getMonth()+1) + '/' + d.getFullYear()
++ ' - ' + p(d.getHours()) + ':' + p(d.getMinutes()) + ':' + p(d.getSeconds());
+}
+function getTitresAffiches() {
+const mapped = TITRES_BRUTS.map((t, i) => ({ item: t, originIndex: i }));
+if (!sortAlpha) return mapped;
+return mapped.sort((a, b) =>
+a.item.titre.localeCompare(b.item.titre, 'fr', { sensitivity: 'base' })
+);
+}
+function ACHETER_TITRE(item) {
+if (!item) return;
+const base = URL_VENTE;
+const valeur = item.artiste + ' - ' + item.titre;
+const sep = base.indexOf('?') === -1 ? '?' : '&';
+window.open(base + sep + 'acheter=' + encodeURIComponent(valeur), '_blank');
+}
+function renderListe() {
+countEl.textContent = TITRES_BRUTS.length;
+listeEl.innerHTML = '';
+if (!TITRES_BRUTS.length) {
+listeEl.innerHTML = '<li class="empty">Aucun titre MARSANARYAS disponible.</li>';
+return;
+}
+const affiches = getTitresAffiches();
+affiches.forEach((entry, position) => {
+const item = entry.item;
+const i = entry.originIndex;
+const li = document.createElement('li');
+li.dataset.index = i;
+const isSale = SALE_ARTISTS.has(item.artiste);
+const buyBtnHtml = isSale
+? '<button class="buy" aria-label="Acheter">🛒</button>'
+: '';
+li.innerHTML =
+'<span class="num">' + String(position + 1).padStart(2,'0') + '</span>' +
+'<div class="t"><div class="name">' + escapeHtml(item.titre) + '</div>' +
+'<div class="sub">MARSANARYAS</div></div>' +
+'<button class="play" aria-label="Écouter">▶</button>' +
+buyBtnHtml;
+li.querySelector('.play').addEventListener('click', () => {
+if (activeIndex === i && !player.paused) {
+player.pause();
+} else if (activeIndex === i && player.paused && player.src) {
+player.play().catch(() => {});
+} else {
+ECOUTER_TITRE(item, i);
+}
+});
+if (isSale) {
+li.querySelector('.buy').addEventListener('click', (e) => {
+e.stopPropagation();
+ACHETER_TITRE(item);
+});
+}
+listeEl.appendChild(li);
+});
+setActive(activeIndex);
+}
+function setActive(idx) {
+activeIndex = idx;
+const items = document.querySelectorAll('#liste li');
+for (let k = 0; k < items.length; k++) {
+const li = items[k];
+const i = parseInt(li.dataset.index, 10);
+const btn = li.querySelector('.play');
+const isActive = (i === idx);
+li.classList.toggle('active', isActive);
+if (btn) {
+btn.textContent = (isActive && !player.paused && player.src) ? '❚❚' : '▶';
+}
+}
+}
+btnSort.addEventListener('click', () => {
+sortAlpha = !sortAlpha;
+btnSort.classList.toggle('active', sortAlpha);
+btnSort.textContent = sortAlpha
+? '📥 Ordre d\'ajout'
+: '🔤 Ordre alphabétique';
+btnSort.title = sortAlpha
+? 'Revenir à l\'ordre d\'ajout dans la playlist'
+: 'Trier par ordre alphabétique';
+sortLabel.textContent = sortAlpha ? 'ordre alphabétique' : 'ordre d\'ajout';
+renderListe();
+});
+pShuffle.addEventListener('click', () => {
+shuffleMode = !shuffleMode;
+pShuffle.classList.toggle('active', shuffleMode);
+pShuffle.title = shuffleMode
+? 'Lecture aléatoire activée (cliquez pour désactiver)'
+: 'Lecture aléatoire désactivée (cliquez pour activer)';
+});
+function PLAY_NEXT() {
+const affiches = getTitresAffiches();
+if (!affiches.length) return;
+if (shuffleMode) {
+if (affiches.length === 1) {
+const only = affiches[0];
+ECOUTER_TITRE(only.item, only.originIndex);
+return;
+}
+let next;
+do {
+next = Math.floor(Math.random() * affiches.length);
+} while (affiches[next].originIndex === activeIndex);
+const entry = affiches[next];
+ECOUTER_TITRE(entry.item, entry.originIndex);
+return;
+}
+const pos = affiches.findIndex(e => e.originIndex === activeIndex);
+const nextPos = (pos === -1) ? 0 : (pos + 1) % affiches.length;
+const entry = affiches[nextPos];
+ECOUTER_TITRE(entry.item, entry.originIndex);
+}
+function AFFICHER_META(url) {
+pMeta.classList.remove('hidden');
+let sourceUrl = 'inconnu';
+let ext = 'inconnu';
+try {
+const u = new URL(url, location.href);
+sourceUrl = u.hostname.replace(/^www\./,'');
+const fname = u.pathname.split('/').pop();
+ext = (fname.split('.').pop() || 'inconnu').toLowerCase();
+} catch(_) {}
+pMeta.innerHTML = 'Source : <b>' + escapeHtml(sourceUrl) + '</b>' +
+'<span class="sep">·</span>Format : <b>.' + escapeHtml(ext) + '</b>' +
+'<span class="sep">·</span>Taille : <b id="m_size">(calcul…)</b>' +
+'<span class="sep">·</span>Bitrate : <b id="m_bitrate">(calcul…)</b>';
+fetchBitrateAndDisplay(player, url);
+}
+function MASQUER_META() {
+pMeta.classList.add('hidden');
+pMeta.innerHTML = '';
+}
+function ECOUTER_TITRE(item, index, autoplay) {
+if (typeof autoplay === 'undefined') autoplay = true;
+currentTrack = item;
+alreadyTracked = false;
+isRadio = false;
+pStatus.textContent = autoplay ? '' : '⏸️ Prêt à lire';
+pStatus.className = 'pb-status';
+player.src = item.url;
+pArtist.textContent = item.artiste || DEFAULT_ARTIST;
+pTitle.textContent = item.titre;
+pCover.src = BASE_URL + '/playlist/images/P1.jpg';
+const isSale = SALE_ARTISTS.has(item.artiste);
+bBuy.classList.toggle('hidden', !isSale);
+bBuy.disabled = !isSale;
+const shareTitle = "J'écoute " + item.artiste + " - " + item.titre;
+bShare.disabled = false;
+bShare.style.opacity = '1';
+bShare.onclick = () => window.open(
+'partager.php?url=' + encodeURIComponent(location.href)
++ '&title=' + encodeURIComponent(shareTitle),
+'_blank', 'noopener'
+);
+AFFICHER_META(item.url);
+if ('mediaSession' in navigator) {
+try {
+navigator.mediaSession.metadata = new MediaMetadata({
+title: item.titre,
+artist: item.artiste || DEFAULT_ARTIST,
+album: '',
+artwork: [{ src: BASE_URL + '/playlist/images/P1.jpg', sizes: '512x512', type: 'image/jpeg' }]
+});
+} catch(_) {}
+}
+setActive(typeof index === 'number' ? index : -1);
+if (autoplay) {
+player.play().catch((e) => console.log('Lecture bloquée :', e));
+}
+}
+function ECOUTER_RADIO() {
+currentTrack = { artiste: RADIO.realisation || RADIO.artiste, titre: RADIO.titre, url: RADIO_TRACK_URL };
+alreadyTracked = false;
+isRadio = true;
+pStatus.textContent = '';
+pStatus.className = 'pb-status';
+player.src = RADIO.url;
+pArtist.textContent = RADIO.realisation || RADIO.artiste;
+pTitle.textContent = RADIO.titre;
+pCover.src = RADIO_COVER;
+bBuy.classList.add('hidden');
+bBuy.disabled = true;
+const shareTitle = "J'écoute " + (RADIO.realisation || RADIO.artiste) + " - " + RADIO.titre;
+bShare.disabled = false;
+bShare.style.opacity = '1';
+bShare.onclick = () => window.open(
+'partager.php?url=' + encodeURIComponent(location.href)
++ '&title=' + encodeURIComponent(shareTitle),
+'_blank', 'noopener'
+);
+MASQUER_META();
+if ('mediaSession' in navigator) {
+try {
+navigator.mediaSession.metadata = new MediaMetadata({
+title: RADIO.titre,
+artist: RADIO.realisation || RADIO.artiste,
+album: '',
+artwork: [{ src: RADIO_COVER, sizes: '512x512', type: 'image/png' }]
+});
+} catch(_) {}
+}
+setActive(-1);
+player.play().catch((e) => console.log('Lecture bloquée :', e));
+}
+function fetchBitrateAndDisplay(audioEl, url) {
+fetch(url, { method:'HEAD' })
+.then((resp) => {
+const size = parseInt(resp.headers.get('content-length') || '0', 10);
+const sizeEl = document.getElementById('m_size');
+const bitEl = document.getElementById('m_bitrate');
+if (!sizeEl || !bitEl) return;
+if (!size) {
+sizeEl.textContent = 'inconnue';
+bitEl.textContent = 'inconnu';
+return;
+}
+sizeEl.textContent = (size/1048576).toFixed(2) + ' Mo';
+const update = () => {
+const d = audioEl.duration;
+if (d && isFinite(d) && d > 0) {
+bitEl.textContent = Math.round((size*8)/d/1000) + ' kbps';
+} else {
+bitEl.textContent = 'inconnu';
+}
+};
+if (audioEl.readyState >= 1) update();
+else audioEl.addEventListener('loadedmetadata', update, { once:true });
+})
+.catch(() => {
+const sizeEl = document.getElementById('m_size');
+const bitEl = document.getElementById('m_bitrate');
+if (sizeEl) sizeEl.textContent = 'inconnue';
+if (bitEl) bitEl.textContent = 'inconnu';
+});
+}
+pPlay.addEventListener('click', () => {
+if (!player.src) return;
+if (player.paused) player.play().catch(() => {});
+else player.pause();
+});
+pLoop.addEventListener('click', () => {
+player.loop = !player.loop;
+pLoop.classList.toggle('active', player.loop);
+});
+pVolume.addEventListener('input', function() {
+const v = parseFloat(this.value);
+player.volume = v;
+pVolLabel.textContent = Math.round(v*100) + '%';
+});
+pProgress.addEventListener('click', (e) => {
+if (!player.duration || !isFinite(player.duration)) return;
+const rect = pProgress.getBoundingClientRect();
+const pct = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+player.currentTime = pct * player.duration;
+});
+player.volume = parseFloat(pVolume.value);
+player.addEventListener('timeupdate', () => {
+if (player.duration && isFinite(player.duration)) {
+const pct = (player.currentTime / player.duration) * 100;
+pFill.style.width = Math.min(pct, 100) + '%';
+pCur.textContent = fmtTime(player.currentTime);
+pDur.textContent = fmtTime(player.duration);
+}
+});
+player.addEventListener('loadedmetadata', () => {
+pDur.textContent = fmtTime(player.duration);
+});
+player.addEventListener('play', () => { pPlay.textContent = '❚❚'; setActive(activeIndex); });
+player.addEventListener('pause', () => { pPlay.textContent = '▶'; setActive(activeIndex); });
+player.addEventListener('ended', () => {
+pPlay.textContent = '▶';
+setActive(activeIndex);
+if (isRadio) {
+pFill.style.width = '0%';
+pCur.textContent = '0:00';
+pDur.textContent = '0:00';
+pStatus.textContent = '⏹️ Émission terminée.';
+pStatus.className = 'pb-status';
+return;
+}
+PLAY_NEXT();
+});
+player.addEventListener('loadstart', () => {
+pStatus.textContent = '⌛ Chargement…';
+pStatus.className = 'pb-status';
+});
+player.addEventListener('canplay', () => {
+if (pStatus.textContent === '⌛ Chargement…') pStatus.textContent = '';
+});
+player.addEventListener('playing', () => {
+pStatus.textContent = '';
+if (currentTrack && !alreadyTracked) {
+TRACK_SUIVI_ARTISTE(currentTrack);
+alreadyTracked = true;
+}
+});
+player.addEventListener('error', () => {
+pStatus.textContent = '⚠️ Titre temporairement indisponible.';
+pStatus.className = 'pb-status err';
+});
+bBuy.addEventListener('click', () => {
+if (!currentTrack) return;
+ACHETER_TITRE(currentTrack);
+});
+if (btnDerniereEmission) {
+btnDerniereEmission.addEventListener('click', (e) => {
+e.preventDefault();
+ECOUTER_RADIO();
+});
+}
+if (blocDerniereEmission) {
+blocDerniereEmission.addEventListener('click', () => {
+ECOUTER_RADIO();
+});
+blocDerniereEmission.addEventListener('keydown', (e) => {
+if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
+e.preventDefault();
+ECOUTER_RADIO();
+}
+});
+}
+function TRACK_SUIVI_ARTISTE(item) {
+let sourceUrl = 'inconnu';
+try { sourceUrl = new URL(item.url, location.href).hostname.replace(/^www\./,''); } catch(_) {}
+const data = {
+artiste: item.artiste,
+titre: item.titre,
+url_complete: item.url,
+source: sourceUrl,
+date: dateNow(),
+token: TRACK_TOKEN
+};
+fetch(BASE_URL + '/track_suivi.php?player_artiste=1', {
+method: 'POST',
+credentials: 'include',
+headers: { 'Content-Type': 'application/json' },
+body: JSON.stringify(data)
+}).catch((e) => console.error('Erreur track:', e));
+}
+if (backToTop) {
+backToTop.addEventListener('click', () => {
+try {
+window.scrollTo({ top: 0, behavior: 'smooth' });
+} catch(_) {
+window.scrollTo(0, 0);
+}
+});
+}
+renderListe();
+if (TITRES_BRUTS.length > 0) {
+ECOUTER_TITRE(TITRES_BRUTS[0], 0, false);
+}
+</script>
+</body>
+</html>
+<!-- MARSANARYAS - www.marsanaryas.com - © MARSANARYAS -->

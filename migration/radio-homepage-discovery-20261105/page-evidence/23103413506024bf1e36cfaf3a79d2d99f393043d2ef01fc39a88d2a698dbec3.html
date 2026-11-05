@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="theme-color" content="#000000">
+<meta name="msapplication-navbutton-color" content="#000000">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<link rel="preconnect" href="https://admin.mawebradio.fr">
+<link rel="dns-prefetch" href="https://admin.mawebradio.fr">
+<link rel="preload" as="image" href="./images/logo.png">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ma Webradio, la musique encore et toujours</title>
+
+<meta name="description" content="Ma Webradio : hits de 1970 à 2020, émissions francophones de 9h à midi, lives 100% chaque soir de 21h à 23h, musique non-stop sans pub.">
+
+<meta name="keywords" content="webradio, musique, hits, pop, streaming radio, Ma Webradio">
+<meta name="author" content="Ma Webradio">
+<meta name="robots" content="index, follow">
+
+<link rel="canonical" href="https://mawebradio.fr">
+
+<!-- Mobile App -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Ma Webradio">
+<meta name="mobile-web-app-capable" content="yes">
+
+<!-- Open Graph (Facebook / Discord / WhatsApp) -->
+<meta property="og:title" content="Ma Webradio – La musique encore et toujours">
+<meta property="og:description" content="Ma Webradio : hits de 1970 à 2020, émissions francophones de 9h à midi, lives 100% chaque soir de 21h à 23h, musique non-stop sans pub.">
+<meta property="og:image" content="https://mawebradio.fr/images/share.jpg">
+<meta property="og:url" content="https://mawebradio.fr">
+<meta property="og:type" content="website">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Ma Webradio – La musique encore et toujours">
+<meta name="twitter:description" content="Ma Webradio : hits de 1970 à 2020, émissions francophones de 9h à midi, lives 100% chaque soir de 21h à 23h, musique non-stop sans pub.">
+<meta name="twitter:image" content="https://mawebradio.fr/images/share.jpg">
+
+<!-- Icons -->
+<link rel="apple-touch-icon" sizes="57x57" href="./icones/57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="./icones/60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="./icones/72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="./icones/76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="./icones/114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="./icones/120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="./icones/144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="./icones/152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="./icones/180x180.png">
+<link rel="apple-touch-icon" sizes="192x192" href="/icones/192x192.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="./icones/192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="./icones/32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="./icones/96x96.png">
+
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#000000">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "RadioStation",
+  "name": "Ma Webradio",
+  "url": "https://mawebradio.fr",
+  "logo": "https://mawebradio.fr/icones/512x512.png",
+  "image": "https://mawebradio.fr/images/share.jpg",
+  "description": "Ma Webradio : hits de 1970 à 2020, émissions francophones de 9h à midi, lives 100% chaque soir de 21h à 23h, musique non-stop sans pub.",
+  "keywords": "webradio, pop, hits, musique, années 70, 80, 90, 2000",
+  "areaServed": {
+    "@type": "Country",
+    "name": "FR"
+  },
+  "sameAs": [
+    "https://www.instagram.com/ma_webradio",
+    "https://x.com/ma_webradio"
+  ],
+  "potentialAction": {
+    "@type": "ListenAction",
+    "target": "https://admin.mawebradio.fr/listen/ma_webradio/radio.mp3"
+  }
+}
+</script>
+
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/urgent.css">
+<link rel="stylesheet" href="assets/css/news.css">
+<link rel="stylesheet" href="assets/css/icones.css?v=1">
+<link rel="stylesheet" href="assets/css/historique.css">
+<link rel="stylesheet" href="assets/css/logo.css">
+<link rel="stylesheet" href="assets/css/infos.css?v=1">
+<link rel="stylesheet" href="assets/css/lightbox.css">
+<link rel="stylesheet" href="assets/css/coeur.css">
+<link rel="stylesheet" href="assets/css/vote.css">
+<link rel="stylesheet" href="assets/css/application.css">
+<link rel="stylesheet" href="assets/css/icones_bas.css?v=1">
+<link rel="stylesheet" href="assets/css/referencement.css">
+<link rel="stylesheet" href="assets/css/popup-news.css">
+<link rel="stylesheet" href="assets/css/consentement.css?v=1">
+<link rel="stylesheet" href="assets/css/player.css">
+<link rel="stylesheet" href="assets/css/visualiseur.css">
+<link rel="stylesheet" href="assets/css/apple.css">
+<link rel="stylesheet" href="assets/css/responsive.css?v=1">
+
+</head>
+
+<body>
+<audio id="clickSound" src="./sons/clic.mp3?t=1793885207" preload="auto"></audio>
+<canvas id="visualizer"></canvas><!-- Affichage du logo --> 
+<div class="logo-container-fixed">
+  <img src="./images/logo.png" class="logo-fixed default">
+  <img src="./images/qr-code-site.png" class="logo-fixed hover clickable-image">
+</div><div id="urgent-banner">
+  <div id="urgent-message"></div>
+</div>
+
+<div id="urgent-vide"></div><div id="playerConsentWrapper" >
+  <!-- Div d'avertissement -->
+  <div id="playerConsentNotice" class="avertissement">
+    <div style="text-align: center; margin: auto;">
+      <h3 style="margin-top: 0px; font-color: #000000;">Avons-nous votre accord ?</h3>
+      <p style="font-size: 0.85em; font-color: #000000; margin-top: -10px;">
+        Pour que le lecteur s'affiche, nous avons besoin de votre accord.
+        Votre adresse IP sera enregistrée uniquement à des fins statistiques.
+        Nous déposerons aussi un cookie sur votre ordinateur pour que cet avertissement
+        ne s'affiche plus pendant une semaine.
+      </p>
+      <div style="margin-top: 10px;">
+		<button id="consentAcceptBtn" class="consent-button">Accepter</button>
+        <button id="consentRefuseBtn" class="consent-button">Refuser</button>
+      </div>
+    </div>
+  </div>
+</div><!-- Début player -->
+
+<script>
+function ouvrirpopup() {
+
+    // Lecture du son
+    if (typeof clickSound !== 'undefined') {
+        clickSound.currentTime = 0;
+        clickSound.play();
+    }
+
+	window.open('./asset/php/popup.php', 
+				'webradio', 
+				'width=470, height=165, resizable=no, toolbar=no, menubar=no, location=no, status=no'
+				);
+	audio.pause();
+    audio.removeAttribute('src');
+    audio.load();
+    hasPlayedOnce = false;
+    showPlayIcon(); // Affiche immédiatement le PLAY
+}
+</script>
+
+<!-- Définition du flux webradio -->
+<audio id="audio" preload="none" crossorigin="anonymous">
+  <source src="https://admin.mawebradio.fr/listen/ma_webradio/radio.mp3?t=1793885207" type="audio/mpeg" />
+  Votre navigateur ne supporte hélas pas l'audio HTML5.
+</audio>
+
+<div id="playerMainDiv" class="player" style="display: none; ">
+<img 
+  id="installStar" 
+  src="./images/etoile.png" 
+  alt="Installer Ma Webradio"
+  style="display:none;"
+>
+  <div class="cover">
+    <img id="cover" class="cover clickable-image" src="./images/logo.png" alt="Pochette du titre" />
+    <img id="heart" class="heart" src="./images/coeur_bleu_contour.png" alt="Voter">
+  </div>
+  <div class="principal" style="height: 100%;">
+    <div class="titre_interprete">
+      <div id="title" class="scroll-container">
+        <div class="scroll-content"></div>
+      </div>
+      <div id="artist" class="scroll-container">
+        <div class="scroll-content"></div>
+      </div>
+    </div>
+    <div class="commandes">
+      <div class="bouton">
+		<!-- BOUTON PLAY/STOP -->
+		<button class="btn" onclick="togglePlayback()" aria-label="Lecture/Stop">
+		  <svg id="icon-play" viewBox="0 0 24 24" aria-hidden="true">
+			<path d="M8 5v14l11-7z"/>
+		  </svg>
+		  <svg id="icon-stop" viewBox="0 0 24 24" aria-hidden="true">
+			<path d="M6 6h12v12H6z"/>
+		  </svg>
+		<svg id="icon-spinner" viewBox="0 0 50 50" width="32" height="32" style="opacity: 0;">
+			<circle cx="25" cy="25" r="20" fill="none" stroke="white" stroke-width="5"
+					stroke-linecap="round"
+					stroke-dasharray="90"
+					stroke-dashoffset="0">
+			  <animateTransform attributeName="transform"
+								type="rotate"
+								from="0 25 25"
+								to="360 25 25"
+								dur="1s"
+								repeatCount="indefinite" />
+			</circle>
+		  </svg>
+		</button> 
+      </div>
+      <div class="mute">
+        <button id="muteBtn" class="btn_mute" aria-label="Couper le son">
+          <svg id="icon-volume-on" viewBox="0 0 24 24" aria-hidden="true" style="width: 35px; height: 35px; fill: #0A345C;">
+            <path d="M3 9v6h4l5 5V4L7 9H3z"/>
+            <path d="M16.5 12c0-1.77-1-3.29-2.5-4.03v8.06c1.5-.74 2.5-2.26 2.5-4.03z"/>
+          </svg>
+          <svg id="icon-volume-off" viewBox="0 0 24 24" aria-hidden="true" style="width: 35px; height: 35px; fill: #0A345C; display:none;">
+            <path d="M16.5 12c0-1.77-1-3.29-2.5-4.03v8.06c1.5-.74 2.5-2.26 2.5-4.03z" opacity=".3"/>
+            <path d="M19 12c0 1.77-1 3.29-2.5 4.03v-8.06C18 8.71 19 10.23 19 12zM3 9v6h4l5 5V4L7 9H3zM21 21l-3.5-3.5-1.41 1.41L19.17 22l1.41-1.41zM3 3l18 18-1.41 1.41L1.59 4.41 3 3z"/>
+          </svg>
+        </button>
+      </div>
+      <div class="controle_son" id="controle_son">
+	  <div class="volume-tooltip" id="volumeTooltip">75%</div>
+        <input
+          class="volume-slider"
+          id="volumeContainer"
+          type="range"
+          min="0"
+          max="1"
+          step="0.01"
+          value="0.75"
+          aria-label="Volume"
+          onchange="setVolume(this.value)"
+        /> 
+      </div>
+    </div>
+  </div>
+	<a href="#" id="bouton-popup"
+	   onclick="ouvrirpopup();"
+	   title="Ouvrir le lecteur dans une fenêtre indépendante">
+		<img src="./images/popup-lecteur.png" alt="Lecteur popup">
+	</a>  
+</div>
+<!-- Fin player -->
+
+<!-- Inclusion de la newsbox -->
+<div id="newsboxContainer" style="display: contents;">
+
+<div class='news-container'><div class='news-box'><div class='news-list' id='scrollList'><div class='news-item' data-ref='mawebradio'><img src='./news/mawebradio.jpg?t=1793885207' class='clickable-image' /><a href='#' class='popup-link' data-title='Bienvenue sur mawebradio.fr ! 📻' data-image='./news/mawebradio.jpg?t=1793885207' data-text='Vous découvrez mawebradio.fr, avec sa programmation entièrement faite de musique, sans pub, et avec des titres des années 70 aux années 2020. Tous les jours de 9h à 12h, la playlist passe en mode francophone et le soir, de 21h à 23h, c&#039;est 100% lives. Bonne écoute ! 🫶🫶🫶' data-links='[{&quot;name&quot;:&quot;Instagram&quot;,&quot;url&quot;:&quot;https:\/\/www.instagram.com\/ma_webradio&quot;},{&quot;name&quot;:&quot;Le Mag&quot;,&quot;url&quot;:&quot;https:\/\/mawebradiomag.fr&quot;}]' data-site='https://www.touslesliens.fr/@mawebradio'>Bienvenue sur mawebradio.fr ! 📻</a></div><div class='news-item' data-ref='6ab8b74dc94020.81524735'><img src='./news/6ab8b74dc94020.81524735.jpg?t=1793885207' class='clickable-image' /><a href='#' class='popup-link' data-title='Nino Lavallée parmi les ombres' data-image='./news/6ab8b74dc94020.81524735.jpg?t=1793885207' data-text='Nino Lavallée construit son univers pop-folk au fil des années. En 2026, L’oiseau marque un nouveau départ et la professionnalisation de son projet. Avec À quoi tu penses et Parmi les ombres, il dévoile les premiers contours d’un EP de cinq titres.' data-links='[{&quot;name&quot;:&quot;Instagram&quot;,&quot;url&quot;:&quot;https:\/\/www.instagram.com\/ninolavallee\/&quot;},{&quot;name&quot;:&quot;YouTube&quot;,&quot;url&quot;:&quot;https:\/\/www.youtube.com\/@ninolavallee&quot;}]' data-site='https://www.touslesliens.fr/@nino'><span class='surlignage' style='color:#000000;'><span class='fond' style='background-color:#BBD2E1;'></span>Nino Lavallée parmi les ombres</span></a></div><div class='news-item' data-ref='69fe01f42b74b6.72752094'><img src='./news/69fe01f42b74b6.72752094.jpg?t=1793885207' class='clickable-image' /><a href='#' class='popup-link' data-title='Elliott ne nous oublie pas🏖️🏝️✈️🌞' data-image='./news/69fe01f42b74b6.72752094.jpg?t=1793885207' data-text='Entrée dans la playlist du nouveau single d&#039;Elliott : On s&#039;oubliera. Après le succès de la reprise de La Camisa Negra, Elliott enchaine avec ce titre inédit qui nous permet de rester en été. Un chanteur charismatique avec une voix unique. Il annonce son titre sur notre antenne. Merci Elliott !' data-links='[{&quot;name&quot;:&quot;Instagram&quot;,&quot;url&quot;:&quot;https:\/\/www.instagram.com\/elliott_officiel&quot;},{&quot;name&quot;:&quot;Facebook&quot;,&quot;url&quot;:&quot;https:\/\/www.facebook.com\/ElliottTheVoiceOfficiel&quot;}]' data-site='https://www.touslesliens.fr/@elliott'>Elliott ne nous oublie pas🏖️🏝️✈️🌞</a></div><div class='news-item' data-ref='61cae67e7087c2.88884257'><img src='./anniversaires/61cae67e7087c2.88884257.jpg?t=1793885207' class='clickable-image' /><div class='non-clickable-title'><span class='surlignage' style='color:#0B3760;'><span class='fond' style='background-color:#FAF9EF;'></span>🎉 Bon anniversaire à Bryan Adams ! 🎉</span></div></div><div class='news-item' data-ref='6ad4f19850fcc4.05761915'><img src='./news/6ad4f19850fcc4.05761915.jpg?t=1793885207' class='clickable-image' /><a href='#' class='popup-link' data-title='Julien Lieb : Naufragé, la suite' data-image='./news/6ad4f19850fcc4.05761915.jpg?t=1793885207' data-text='Voici la réédition de l&#039;album Naufragé de Julien Lieb avec 6 inédits. A l&#039;heure où commence la nouvelle saison de la Star Academy, l&#039;ancien pensionnaire savoure son succès et cette rencontre incroyable qu&#039;il a eue avec son public.' data-links='[{&quot;name&quot;:&quot;Site officiel&quot;,&quot;url&quot;:&quot;https:\/\/julienliebofficiel.fr\/&quot;}]' data-site='https://www.touslesliens.fr/@julienlieb'><span class='surlignage' style='color:#FFFFFF;'><span class='fond' style='background-color:#6C0277;'></span>Julien Lieb : Naufragé, la suite</span></a></div><div class='news-item' data-ref='6a69e55380b4c7.89998473'><img src='./news/6a69e55380b4c7.89998473.jpg?t=1793885207' class='clickable-image' /><a href='#' class='popup-link' data-title='Ma Webradio, le magazine' data-image='./news/6a69e55380b4c7.89998473.jpg?t=1793885207' data-text='Nous vous proposons de retrouver le magazine de Ma Webradio sur mawebradiomag.fr Nouveau site pour retrouver toutes les informations sur les artistes, la musique de notre playlist, les sorties de jingles, d&#039;albums et de clips. Un agenda permet d&#039;annoncer les évènements. Contactez-nous vos annonces.' data-links='[{&quot;name&quot;:&quot;Le magazine&quot;,&quot;url&quot;:&quot;https:\/\/mawebradiomag.fr&quot;}]'>Ma Webradio, le magazine</a></div><div class='news-item' data-ref='6ac1a4451b8cf6.85933846'><img src='./news/6ac1a4451b8cf6.85933846.jpg?t=1793885207' class='clickable-image' /><a href='#' class='popup-link' data-title='Axelle Red retrouve Renaud pour Chanter pour Elles' data-image='./news/6ac1a4451b8cf6.85933846.jpg?t=1793885207' data-text='Vingt-quatre ans après Manhattan-Kaboul, Axelle Red retrouve Renaud pour Chanter pour elles. Un titre engagé en soutien aux femmes privées de leurs libertés, notamment en Afghanistan. Des retrouvailles symboliques et chargées de sens pour un duo resté dans toutes les mémoires.' data-links='[{&quot;name&quot;:&quot;Instagram&quot;,&quot;url&quot;:&quot;https:\/\/www.instagram.com\/axelle_red\/&quot;},{&quot;name&quot;:&quot;Le Mag&quot;,&quot;url&quot;:&quot;https:\/\/www.mawebradiomag.fr\/2026\/10\/04\/axelle-red-et-renaud-chanter-pour-elles-vingt-quatre-ans-apr&quot;}]' data-site='https://www.touslesliens.fr/@axellered'><span class='surlignage' style='color:#000000;'><span class='fond' style='background-color:#FFFF66;'></span>Axelle Red retrouve Renaud</span></a></div><div class='news-item' data-ref='6a1c94819a8fa4.77571808'><img src='./news/6a1c94819a8fa4.77571808.jpg?t=1793885207' class='clickable-image' /><a href='#' class='popup-link' data-title='Julien Lieb, à cœur ouvert encore ❤️❤️‍🩹💓' data-image='./news/6a1c94819a8fa4.77571808.jpg?t=1793885207' data-text='On continue à explorer l&#039;album Naufragé de Julien Lieb avec Cœur à Terre. Encore une chanson intimiste à cœur ouvert interprétée par un artiste qui a fait sa place sur la scène française. Sensibilité, générosité, talent. L&#039;élève de la Star Ac n&#039;a pas fini de surprendre.' data-links='[{&quot;name&quot;:&quot;Site officiel&quot;,&quot;url&quot;:&quot;https:\/\/julienliebofficiel.fr\/&quot;},{&quot;name&quot;:&quot;Instagram&quot;,&quot;url&quot;:&quot;https:\/\/www.instagram.com\/julien__lieb\/&quot;}]' data-site='https://www.touslesliens.fr/@julienlieb'>Julien Lieb, à cœur ouvert encore ❤️❤️‍🩹💓</a></div><div class='news-item' data-ref='6ad89efbc6aec3.13848370'><img src='./news/6ad89efbc6aec3.13848370.jpg?t=1793885207' class='clickable-image' /><a href='#' class='popup-link' data-title='Votez pour vos préférés' data-image='./news/6ad89efbc6aec3.13848370.jpg?t=1793885207' data-text='Sur ce site vous pouvez voter pour tous vos favoris : musique, cinéma, sport... Faites vivre le grand TOP.' data-links='[{&quot;name&quot;:&quot;Le grand TOP&quot;,&quot;url&quot;:&quot;https:\/\/legrandtop.fr&quot;}]'><span class='surlignage' style='color:#FFFFFF;'><span class='fond' style='background-color:#4682B4;'></span>Votez pour vos préférés</span></a></div><div class='news-item' data-ref='620ebbbce79863.33121781'><img src='./anniversaires/620ebbbce79863.33121781.jpg?t=1793885207' class='clickable-image' /><div class='non-clickable-title'><span class='surlignage' style='color:#0B3760;'><span class='fond' style='background-color:#FAF9EF;'></span>🎉 Bon anniversaire à Mickael Winter ! 🎉</span></div></div><div class='news-item' data-ref='6ab8b5dea2b751.40243166'><img src='./news/6ab8b5dea2b751.40243166.jpg?t=1793885207' class='clickable-image' /><a href='#' class='popup-link' data-title='Jeck dévoile Sans Nous' data-image='./news/6ab8b5dea2b751.40243166.jpg?t=1793885207' data-text='Avec Sans nous, sorti le 25 septembre 2026, Jeck explore la fin d’une histoire et ce qu’il reste lorsque le « nous » disparaît. Entre absence, souvenirs et sentiments à fleur de peau, il signe une chanson intime et universelle sur la difficulté d’avancer après l’amour.' data-links='[{&quot;name&quot;:&quot;Instagram&quot;,&quot;url&quot;:&quot;https:\/\/www.instagram.com\/moicestjeck&quot;},{&quot;name&quot;:&quot;Facebook&quot;,&quot;url&quot;:&quot;https:\/\/www.facebook.com\/moicestjeck&quot;}]' data-site='https://www.touslesliens.fr/@jeck'>Jeck dévoile Sans Nous</a></div><div class='news-item' data-ref='6aae5fb69d2d38.54813908'><img src='./news/6aae5fb69d2d38.54813908.jpg?t=1793885207' class='clickable-image' /><a href='#' class='popup-link' data-title='Teeo dévoile son nouveau single' data-image='./news/6aae5fb69d2d38.54813908.jpg?t=1793885207' data-text='Teeo dévoile son nouveau single &#039;Ce qui nous arrive&#039;. Après &#039;The Voice Kids&#039;, le Dalida Institute puis &#039;The Voice&#039; en 2024, le jeune auteur-compositeur-interprète poursuit son chemin avec ce nouveau titre qui affirme un peu plus son univers et son identité artistique.' data-links='[{&quot;name&quot;:&quot;Instagram&quot;,&quot;url&quot;:&quot;https:\/\/www.instagram.com\/teeo.music\/&quot;},{&quot;name&quot;:&quot;TikTok&quot;,&quot;url&quot;:&quot;https:\/\/www.tiktok.com\/@teeomusic&quot;}]' data-site='https://www.touslesliens.fr/@teeo'><span class='surlignage' style='color:#000000;'><span class='fond' style='background-color:#00CCFF;'></span>Teeo dévoile son nouveau single</span></a></div><div class='news-item' data-ref='6a8879315f6541.14095385'><img src='./news/6a8879315f6541.14095385.jpg?t=1793885207' class='clickable-image' /><a href='#' class='popup-link' data-title='Manon Lisa et son Petit Pêcheur 🎣🐟🐠' data-image='./news/6a8879315f6541.14095385.jpg?t=1793885207' data-text='Manon Lisa rentre dans notre playlist avec cette jolie fable devenue un des tubes de cet été : Le Petit Pêcheur. Pourquoi vouloir plus quand on est heureux avec ce que l&#039;on a ? Si ce titre nous a accompagné pendant les vacances, il peut aussi nous accompagner pour la rentrée.' data-links='[{&quot;name&quot;:&quot;Instagram&quot;,&quot;url&quot;:&quot;https:\/\/www.instagram.com\/manonlisaaaa\/&quot;},{&quot;name&quot;:&quot;Clip officiel&quot;,&quot;url&quot;:&quot;https:\/\/www.youtube.com\/watch?v=8jtA-uYv5Aw&quot;}]'>Manon Lisa et son Petit Pêcheur 🎣🐟🐠</a></div><div class='news-item' data-ref='mawebradio'><img src='./news/mawebradio.jpg?t=1793885207' class='clickable-image' /><a href='#' class='popup-link' data-title='Bienvenue sur mawebradio.fr ! 📻' data-image='./news/mawebradio.jpg?t=1793885207' data-text='Vous découvrez mawebradio.fr, avec sa programmation entièrement faite de musique, sans pub, et avec des titres des années 70 aux années 2020. Tous les jours de 9h à 12h, la playlist passe en mode francophone et le soir, de 21h à 23h, c&#039;est 100% lives. Bonne écoute ! 🫶🫶🫶' data-links='[{&quot;name&quot;:&quot;Instagram&quot;,&quot;url&quot;:&quot;https:\/\/www.instagram.com\/ma_webradio&quot;},{&quot;name&quot;:&quot;Le Mag&quot;,&quot;url&quot;:&quot;https:\/\/mawebradiomag.fr&quot;}]' data-site='https://www.touslesliens.fr/@mawebradio'>Bienvenue sur mawebradio.fr ! 📻</a></div><div class='news-item' data-ref='6ab8b74dc94020.81524735'><img src='./news/6ab8b74dc94020.81524735.jpg?t=1793885207' class='clickable-image' /><a href='#' class='popup-link' data-title='Nino Lavallée parmi les ombres' data-image='./news/6ab8b74dc94020.81524735.jpg?t=1793885207' data-text='Nino Lavallée construit son univers pop-folk au fil des années. En 2026, L’oiseau marque un nouveau départ et la professionnalisation de son projet. Avec À quoi tu penses et Parmi les ombres, il dévoile les premiers contours d’un EP de cinq titres.' data-links='[{&quot;name&quot;:&quot;Instagram&quot;,&quot;url&quot;:&quot;https:\/\/www.instagram.com\/ninolavallee\/&quot;},{&quot;name&quot;:&quot;YouTube&quot;,&quot;url&quot;:&quot;https:\/\/www.youtube.com\/@ninolavallee&quot;}]' data-site='https://www.touslesliens.fr/@nino'><span class='surlignage' style='color:#000000;'><span class='fond' style='background-color:#BBD2E1;'></span>Nino Lavallée parmi les ombres</span></a></div><div class='news-item' data-ref='69fe01f42b74b6.72752094'><img src='./news/69fe01f42b74b6.72752094.jpg?t=1793885207' class='clickable-image' /><a href='#' class='popup-link' data-title='Elliott ne nous oublie pas🏖️🏝️✈️🌞' data-image='./news/69fe01f42b74b6.72752094.jpg?t=1793885207' data-text='Entrée dans la playlist du nouveau single d&#039;Elliott : On s&#039;oubliera. Après le succès de la reprise de La Camisa Negra, Elliott enchaine avec ce titre inédit qui nous permet de rester en été. Un chanteur charismatique avec une voix unique. Il annonce son titre sur notre antenne. Merci Elliott !' data-links='[{&quot;name&quot;:&quot;Instagram&quot;,&quot;url&quot;:&quot;https:\/\/www.instagram.com\/elliott_officiel&quot;},{&quot;name&quot;:&quot;Facebook&quot;,&quot;url&quot;:&quot;https:\/\/www.facebook.com\/ElliottTheVoiceOfficiel&quot;}]' data-site='https://www.touslesliens.fr/@elliott'>Elliott ne nous oublie pas🏖️🏝️✈️🌞</a></div><div class='news-item' data-ref='61cae67e7087c2.88884257'><img src='./anniversaires/61cae67e7087c2.88884257.jpg?t=1793885207' class='clickable-image' /><div class='non-clickable-title'><span class='surlignage' style='color:#0B3760;'><span class='fond' style='background-color:#FAF9EF;'></span>🎉 Bon anniversaire à Bryan Adams ! 🎉</span></div></div><div class='news-item' data-ref='6ad4f19850fcc4.05761915'><img src='./news/6ad4f19850fcc4.05761915.jpg?t=1793885207' class='clickable-image' /><a href='#' class='popup-link' data-title='Julien Lieb : Naufragé, la suite' data-image='./news/6ad4f19850fcc4.05761915.jpg?t=1793885207' data-text='Voici la réédition de l&#039;album Naufragé de Julien Lieb avec 6 inédits. A l&#039;heure où commence la nouvelle saison de la Star Academy, l&#039;ancien pensionnaire savoure son succès et cette rencontre incroyable qu&#039;il a eue avec son public.' data-links='[{&quot;name&quot;:&quot;Site officiel&quot;,&quot;url&quot;:&quot;https:\/\/julienliebofficiel.fr\/&quot;}]' data-site='https://www.touslesliens.fr/@julienlieb'><span class='surlignage' style='color:#FFFFFF;'><span class='fond' style='background-color:#6C0277;'></span>Julien Lieb : Naufragé, la suite</span></a></div><div class='news-item' data-ref='6a69e55380b4c7.89998473'><img src='./news/6a69e55380b4c7.89998473.jpg?t=1793885207' class='clickable-image' /><a href='#' class='popup-link' data-title='Ma Webradio, le magazine' data-image='./news/6a69e55380b4c7.89998473.jpg?t=1793885207' data-text='Nous vous proposons de retrouver le magazine de Ma Webradio sur mawebradiomag.fr Nouveau site pour retrouver toutes les informations sur les artistes, la musique de notre playlist, les sorties de jingles, d&#039;albums et de clips. Un agenda permet d&#039;annoncer les évènements. Contactez-nous vos annonces.' data-links='[{&quot;name&quot;:&quot;Le magazine&quot;,&quot;url&quot;:&quot;https:\/\/mawebradiomag.fr&quot;}]'>Ma Webradio, le magazine</a></div><div class='news-item' data-ref='6ac1a4451b8cf6.85933846'><img src='./news/6ac1a4451b8cf6.85933846.jpg?t=1793885207' class='clickable-image' /><a href='#' class='popup-link' data-title='Axelle Red retrouve Renaud pour Chanter pour Elles' data-image='./news/6ac1a4451b8cf6.85933846.jpg?t=1793885207' data-text='Vingt-quatre ans après Manhattan-Kaboul, Axelle Red retrouve Renaud pour Chanter pour elles. Un titre engagé en soutien aux femmes privées de leurs libertés, notamment en Afghanistan. Des retrouvailles symboliques et chargées de sens pour un duo resté dans toutes les mémoires.' data-links='[{&quot;name&quot;:&quot;Instagram&quot;,&quot;url&quot;:&quot;https:\/\/www.instagram.com\/axelle_red\/&quot;},{&quot;name&quot;:&quot;Le Mag&quot;,&quot;url&quot;:&quot;https:\/\/www.mawebradiomag.fr\/2026\/10\/04\/axelle-red-et-renaud-chanter-pour-elles-vingt-quatre-ans-apr&quot;}]' data-site='https://www.touslesliens.fr/@axellered'><span class='surlignage' style='color:#000000;'><span class='fond' style='background-color:#FFFF66;'></span>Axelle Red retrouve Renaud</span></a></div><div class='news-item' data-ref='6a1c94819a8fa4.77571808'><img src='./news/6a1c94819a8fa4.77571808.jpg?t=1793885207' class='clickable-image' /><a href='#' class='popup-link' data-title='Julien Lieb, à cœur ouvert encore ❤️❤️‍🩹💓' data-image='./news/6a1c94819a8fa4.77571808.jpg?t=1793885207' data-text='On continue à explorer l&#039;album Naufragé de Julien Lieb avec Cœur à Terre. Encore une chanson intimiste à cœur ouvert interprétée par un artiste qui a fait sa place sur la scène française. Sensibilité, générosité, talent. L&#039;élève de la Star Ac n&#039;a pas fini de surprendre.' data-links='[{&quot;name&quot;:&quot;Site officiel&quot;,&quot;url&quot;:&quot;https:\/\/julienliebofficiel.fr\/&quot;},{&quot;name&quot;:&quot;Instagram&quot;,&quot;url&quot;:&quot;https:\/\/www.instagram.com\/julien__lieb\/&quot;}]' data-site='https://www.touslesliens.fr/@julienlieb'>Julien Lieb, à cœur ouvert encore ❤️❤️‍🩹💓</a></div><div class='news-item' data-ref='6ad89efbc6aec3.13848370'><img src='./news/6ad89efbc6aec3.13848370.jpg?t=1793885207' class='clickable-image' /><a href='#' class='popup-link' data-title='Votez pour vos préférés' data-image='./news/6ad89efbc6aec3.13848370.jpg?t=1793885207' data-text='Sur ce site vous pouvez voter pour tous vos favoris : musique, cinéma, sport... Faites vivre le grand TOP.' data-links='[{&quot;name&quot;:&quot;Le grand TOP&quot;,&quot;url&quot;:&quot;https:\/\/legrandtop.fr&quot;}]'><span class='surlignage' style='color:#FFFFFF;'><span class='fond' style='background-color:#4682B4;'></span>Votez pour vos préférés</span></a></div><div class='news-item' data-ref='620ebbbce79863.33121781'><img src='./anniversaires/620ebbbce79863.33121781.jpg?t=1793885207' class='clickable-image' /><div class='non-clickable-title'><span class='surlignage' style='color:#0B3760;'><span class='fond' style='background-color:#FAF9EF;'></span>🎉 Bon anniversaire à Mickael Winter ! 🎉</span></div></div><div class='news-item' data-ref='6ab8b5dea2b751.40243166'><img src='./news/6ab8b5dea2b751.40243166.jpg?t=1793885207' class='clickable-image' /><a href='#' class='popup-link' data-title='Jeck dévoile Sans Nous' data-image='./news/6ab8b5dea2b751.40243166.jpg?t=1793885207' data-text='Avec Sans nous, sorti le 25 septembre 2026, Jeck explore la fin d’une histoire et ce qu’il reste lorsque le « nous » disparaît. Entre absence, souvenirs et sentiments à fleur de peau, il signe une chanson intime et universelle sur la difficulté d’avancer après l’amour.' data-links='[{&quot;name&quot;:&quot;Instagram&quot;,&quot;url&quot;:&quot;https:\/\/www.instagram.com\/moicestjeck&quot;},{&quot;name&quot;:&quot;Facebook&quot;,&quot;url&quot;:&quot;https:\/\/www.facebook.com\/moicestjeck&quot;}]' data-site='https://www.touslesliens.fr/@jeck'>Jeck dévoile Sans Nous</a></div><div class='news-item' data-ref='6aae5fb69d2d38.54813908'><img src='./news/6aae5fb69d2d38.54813908.jpg?t=1793885207' class='clickable-image' /><a href='#' class='popup-link' data-title='Teeo dévoile son nouveau single' data-image='./news/6aae5fb69d2d38.54813908.jpg?t=1793885207' data-text='Teeo dévoile son nouveau single &#039;Ce qui nous arrive&#039;. Après &#039;The Voice Kids&#039;, le Dalida Institute puis &#039;The Voice&#039; en 2024, le jeune auteur-compositeur-interprète poursuit son chemin avec ce nouveau titre qui affirme un peu plus son univers et son identité artistique.' data-links='[{&quot;name&quot;:&quot;Instagram&quot;,&quot;url&quot;:&quot;https:\/\/www.instagram.com\/teeo.music\/&quot;},{&quot;name&quot;:&quot;TikTok&quot;,&quot;url&quot;:&quot;https:\/\/www.tiktok.com\/@teeomusic&quot;}]' data-site='https://www.touslesliens.fr/@teeo'><span class='surlignage' style='color:#000000;'><span class='fond' style='background-color:#00CCFF;'></span>Teeo dévoile son nouveau single</span></a></div><div class='news-item' data-ref='6a8879315f6541.14095385'><img src='./news/6a8879315f6541.14095385.jpg?t=1793885207' class='clickable-image' /><a href='#' class='popup-link' data-title='Manon Lisa et son Petit Pêcheur 🎣🐟🐠' data-image='./news/6a8879315f6541.14095385.jpg?t=1793885207' data-text='Manon Lisa rentre dans notre playlist avec cette jolie fable devenue un des tubes de cet été : Le Petit Pêcheur. Pourquoi vouloir plus quand on est heureux avec ce que l&#039;on a ? Si ce titre nous a accompagné pendant les vacances, il peut aussi nous accompagner pour la rentrée.' data-links='[{&quot;name&quot;:&quot;Instagram&quot;,&quot;url&quot;:&quot;https:\/\/www.instagram.com\/manonlisaaaa\/&quot;},{&quot;name&quot;:&quot;Clip officiel&quot;,&quot;url&quot;:&quot;https:\/\/www.youtube.com\/watch?v=8jtA-uYv5Aw&quot;}]'>Manon Lisa et son Petit Pêcheur 🎣🐟🐠</a></div></div></div></div>
+</div>
+
+<!-- Lightbox (doit être en dehors de la newsbox) -->
+<div id="lightbox" class="hidden">
+  <span id="close-btn">&times;</span>
+  <img id="lightbox-img" src="">
+</div>
+
+<!-- Popup (doit être en dehors de la newsbox) -->
+<div id="popup" class="popup">
+  <div class="popup-content">
+    <span class="close-btn-info" onclick="closePopup()">&times;</span>
+    <h2 id="popup-title"></h2>
+    <img id="popup-image" style="width: 150px" src="" alt="">
+    <p id="popup-text"></p>
+    <br>
+    <div id="popup-links" class="popup-links"></div>
+    <div class="touslesliens-btn" id="touslesliens-btn" style="display: none;">Tous les liens</div>
+  </div>
+</div>
+
+<!-- Popup iOS -->
+<!-- Popup iOS responsive -->
+<div id="installPopupOverlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); justify-content:center; align-items:center; z-index:9998;">
+  <div id="installPopup" style="
+      background:white;
+      border-radius:12px;
+      max-width:90%;
+      width: min(400px, 90%);
+      padding:15px 20px;
+      position:relative;
+      box-shadow:0 4px 15px rgba(0,0,0,0.3);
+      font-family:sans-serif;
+      text-align:center;
+      font-size:14px;
+      line-height:1.4;
+  ">
+    <!-- Croix de fermeture -->
+    <button id="closePopupinstall" style="
+        position:absolute;
+        top:0px;
+        right:0px;
+        border:none;
+        background:none;
+		color: #08345B;
+        font-size:22px;
+        cursor:pointer;
+    ">&times;</button>
+
+    <!-- Contenu iOS -->
+    <div id="popupContentIOS" style="display:block; color:#0A345C;">
+      <h2 style="margin-bottom:10px; font-size:18px;">Ajouter Ma Webradio à votre écran d'accueil</h2>
+      <p style="margin-bottom:15px; font-size:14px;">Suivez ces étapes pour accéder à Ma Webradio comme une vraie application :</p>
+
+      <ol style="text-align:left; margin:0; padding-left:20px; font-size:14px; line-height:1.4;">
+        <li style="margin-bottom:8px;">
+          Cherchez le bouton <strong>Partager</strong> (parfois après <strong>...</strong>)
+          <img src="./images/ios-share-icon.png" alt="Icône partager" style="width:30px; max-width:10vw; margin-bottom:-6px;">
+        </li>
+        <li style="margin-bottom:8px;">
+          Sélectionnez <strong>Ajouter à l'écran d'accueil</strong>
+        </li>
+        <li style="margin-bottom:8px;">
+          Validez le nom puis appuyez sur <strong>Ajouter</strong>
+        </li>
+      </ol>
+
+      <p style="margin-top:12px; font-size:12px; color:#555;">Vous pourrez maintenant ouvrir Ma Webradio comme une application, directement depuis votre écran d'accueil !</p>
+    </div>
+
+    <!-- Contenu Android vide car prompt natif -->
+    <div id="popupContentAndroid" style="display:none;"></div>
+  </div>
+</div>
+
+<!-- Début infos site avec icone ? -->
+ <div class="tooltip-wrapper">
+<button class="tooltip-icon" aria-label="Infos sur le site">
+    <img src="./images/info.png" alt="Infos" />
+  </button>
+  <div class="tooltip-bubble">
+    <p style="text-align: center; font-size: 12pt; font-weight: bold;">🎸 Bienvenue sur mawebradio.fr ! 🎧</p>
+	<p style="text-align: left; font-size: 10pt;">Cette webradio propose des titres des années 1970 à 2020, des chansons francophones de 9h à midi et tous les soirs de 21h à 23h c'est 100% lives. La diffusion est assurée sans aucune publicité.</p>
+	<p align="center" style="line-height: 1em"><strong>Contact : </strong>contact(at)mawebradio.fr📫</p>
+  </div>
+</div>
+
+<!-- Pop-up d'historique -->
+<div class="history-popup" id="history-popup">
+  <h3>Historique des titres</h3>
+<table class="track-table" id="track-history">
+  <thead>
+    <tr>
+      <th>Pochette</th>
+      <th>Titre</th>
+      <th>Heure</th>
+    </tr>
+  </thead>
+    <tbody id="history-list">
+      <!-- L'historique des titres sera ajouté ici via JavaScript -->
+    </tbody>
+</table>
+
+</div>
+
+<!-- Icône "Référencement" -->
+
+	<div class='ref-icon-button' id='ref-icon' title='Où écouter ma webradio ?'>
+	  <img src='./images/referencement.png' alt='Référencement'>
+	</div>
+	<div class='ref-popup' id='ref-popup'>
+	<h3>Ils nous référencent !</h3>
+	<table class='ref-table'>
+			<tr>
+			<td><a href='https://tunein.com/radio/Ma-Webradio-s343101/' target='_blank'><img src='./referencement/tunein.jpg?t=1793885207'></a></td>
+			<td><a href='https://toutes-les-radios.fr/?name=Ma+Webradio' target='_blank'><img src='./referencement/touteslesradios.jpg?t=1793885207'></a></td>
+			<td><a href='https://liveonlineradio.net/ma-webradio' target='_blank'><img src='./referencement/liveonlineradio.jpg?t=1793885207'></a></td>
+			</tr>
+			<tr>
+			<td><a href='https://mytuner-radio.com/radio/ma-webradio-512443/' target='_blank'><img src='./referencement/mytuner.jpg?t=1793885207'></a></td>
+			<td><a href='https://www.radioline.co/fr/radios/ma_webradio' target='_blank'><img src='./referencement/6822c5181b3827.51190294.jpg?t=1793885207'></a></td>
+			<td><a href='https://www.airablenow.com/' target='_blank'><img src='./referencement/682327690de5b2.47358850.jpg?t=1793885207'></a></td>
+			</tr>
+			<tr>
+			<td><a href='https://music.apple.com/fr/station/ma-webradio/ra.1813668683' target='_blank'><img src='./referencement/68dbd2e2527e69.75666421.jpg?t=1793885207'></a></td>
+			<td><a href='https://raddio.net/381067-ma-webradio/' target='_blank'><img src='./referencement/6837fbcd5fb4d6.59073156.jpg?t=1793885207'></a></td>
+			<td><a href='https://ecouterradioenligne.com/ma-webradio/' target='_blank'><img src='./referencement/68648974a7e405.76475215.jpg?t=1793885207'></a></td>
+			</tr>
+			<tr>
+			<td><a href='https://www.radioguide.fm/internet-radio-france/ma-webradio' target='_blank'><img src='./referencement/68648a6868c851.74774968.jpg?t=1793885207'></a></td>
+			<td><a href='https://streema.com/radios/Ma_Webradio' target='_blank'><img src='./referencement/682b0ec4647017.96174440.jpg?t=1793885207'></a></td>
+			<td><a href='https://www.deezer.com/search/ma_webradio/livestream' target='_blank'><img src='./referencement/684e93fbd34b83.49460088.jpg?t=1793885207'></a></td>
+			</tr>
+			<tr>
+			<td><a href='https://radio.streamitter.com/station/ma-webradio' target='_blank'><img src='./referencement/69bda359a83cb3.26200648.jpg?t=1793885207'></a></td>
+			<td><a href='https://tuneyou.com/radio/fr/ma-webradio' target='_blank'><img src='./referencement/69beb84cef3e02.19937553.jpg?t=1793885207'></a></td>
+			<td><a href='https://radioreg.net/stations/700' target='_blank'><img src='./referencement/6a135a88b61b87.77867377.jpg?t=1793885207'></a></td>
+			</tr>
+			<tr>
+			<td><a href='https://ecoutelaradio.fr/@mawebradio' target='_blank'><img src='./referencement/6ae085e8719823.47931871.jpg?t=1793885207'></a></td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			</tr>
+	</table>
+	</div>	
+<div id="ranking-popup" class="hidden">
+  <h3>Votre TOP du mois</h3>
+  <table id="ranking-table">
+<!-- Entête du tableau si besoin 
+    <thead>
+      <tr>
+		<th>&nbsp;</th>
+        <th>Titre</th>
+        <th>Artiste</th>
+      </tr>
+    </thead>
+-->
+    <tbody id="ranking-body">
+	<!-- Les lignes seront insérées ici -->
+    </tbody>
+  </table>
+  <div id="no-ranking" class="no-data"><br>Pas encore de TOP 5 pour ce mois !<br><br></div>
+  
+	<div id="ranking-more" style="
+		display:none;
+		text-align:center;
+		margin-top:15px;
+		margin-bottom:5px;
+	">
+		<a href="/assets/php/classement.php" target="_blank"
+			id="ranking-more-link"
+			style="
+			color:#0A345C;
+			font-weight:bold;
+			text-decoration:none;
+			font-size:14px;
+		">
+			Voir le classement complet ›
+		</a>
+	</div>
+	
+</div><!-- Icône de déclenchement hit du mois-->
+<div id="ranking-trigger">
+  <img src="./images/palme.png" title="Votre top 5 du mois" />
+</div>
+
+<!-- Icône historique -->
+<div class="music-icon-button" onclick="toggleHistory()" title="Historique des titres">
+  <img src="./images/note.png" alt="">
+</div>
+
+<!-- Icône Mag -->
+  <div id="icone-mag">
+    <img src="./images/logo_mawebradiomag.png" alt="Ma Webradio Mag" title="Ma Webradio Mag">
+  </div>
+
+<!-- Icône Le player -->
+  <div id="icone-le_player">
+    <img src="./images/le_player.png" alt="Le player" title="Le player">
+  </div>
+  
+<!-- Icône visualiseur -->
+<div id="iconToggle" title="Basculer sur le Vu-mètre">
+  <!-- icône initiale : studio (fond changeant) -->
+  <img src="./images/studio.png" alt="Basculer fond / Vu-mètre" id="iconImg" />
+</div>
+
+<!-- Icône Instagram -->
+  <div id="icone-insta">
+    <img src="./images/instagram.png" alt="Instagram" title="Instagram"> 
+  </div>
+
+<!-- MENU HAMBURGER RÉSEAUX -->
+<div id="social-menu">
+
+  <!-- Bouton hamburger -->
+  <div id="hamburger-button" title="Réseaux sociaux">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <!-- Menu déroulant -->
+  <div id="social-links">
+  
+      <div id="icone_mawebradiomag" class="social-link">
+      <img src="./images/logo_mawebradiomag.png" alt="Ma Webradio Mag" title="Ma Webradio Mag">
+      </div>	
+
+    <div id="icone-instagram" class="social-link">
+      <img src="./images/instagram.png" alt="Instagram" title="Instagram">
+    </div>
+
+    <div id="iconex" class="social-link">
+      <img src="./images/x.png" alt="X" title="X">
+    </div>
+	
+    <div id="icone-spotify" class="social-link">
+      <img src="./images/spotify.png" alt="Spotify" title="Spotify">
+    </div>
+
+    <div id="icone-youtube" class="social-link">
+      <img src="./images/youtube.png" alt="YouTube" title="YouTube">
+    </div>
+	
+    <div id="icone-discord" class="social-link">
+      <img src="./images/discord.png" alt="Discord" title="Discord">
+    </div>
+
+    <div id="icone-bluesky" class="social-link">
+      <img src="./images/bluesky.png" alt="Bluesky" title="Bluesky">
+    </div>
+
+    <div id="icone-mastodon" class="social-link">
+      <img src="./images/mastodon.png" alt="Mastodon" title="Mastodon">
+    </div>
+
+  </div>
+</div>
+
+<script>const repertoireFonds = "";</script>
+<script src="assets/js/app.js" defer></script>
+<script src="assets/js/appli.js" defer></script>
+<script src="assets/js/logo.js" defer></script>
+<script src="assets/js/icones.js" defer></script>
+<script src="assets/js/visualiseur.js" defer></script>
+<script src="assets/js/accord.js" defer></script>
+<script src="assets/js/lecteur.js" defer></script>
+<script src="assets/js/song.js" defer></script>
+<script src="assets/js/vote.js" defer></script>
+<script src="assets/js/hit.js" defer></script>
+<script src="assets/js/historique.js" defer></script>
+<script src="assets/js/lightbox.js" defer></script>
+<script src="assets/js/newsbox.js" defer></script>
+<script src="assets/js/urgent-banner.js" defer></script>
+
+</body>
+
+</html>
