@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<title>FM Sensaciones 95.1 - Escuchá en vivo</title>
+<meta name="description" content="La radio n° 1 de Tucumán. Fm Sensaciones 95.1, escuchá música clásica, romántica, disco y mucho más en vivo, las 24 horas.">
+<meta name="keywords" content="Tucuman, San miguel de Tucuman, Argentina, Fm Sensaciones 95.1, radio tucuman, radio online">
+<meta name="author" content="Matias Pacheco">
+
+<link rel="icon" href="img/favicon.png" type="image/png">
+
+<link rel="stylesheet" href="css/style.css?v=2">
+</head>
+<body>
+
+<audio id="radio-stream" preload="none">
+    <source src="https://chino.republicahosting.com:2318/live" type="audio/mpeg">
+    Tu navegador no soporta audio HTML5.
+</audio>
+
+<header class="site-header" id="site-header">
+    <div class="container header-inner">
+        <a href="#inicio" class="brand">
+            <img src="img/logo.jpg" alt="FM Sensaciones 95.1" class="brand-logo">
+            <span class="brand-text">
+                <span class="brand-text-main">FM Sensaciones 95.1 Mhz</span>
+                <span class="brand-text-sub">Tucumán / Argentina</span>
+            </span>
+        </a>
+
+        <nav class="main-nav" id="main-nav">
+            <a href="#inicio">Inicio</a>
+            <a href="#programacion">Programación</a>
+            <a href="#contacto">Contacto</a>
+            <a href="https://play.google.com/store/search?q=fm+sensaciones+95.1&c=apps&hl=es_AR" target="_blank" rel="noopener">App</a>
+        </nav>
+
+        <div class="header-actions">
+            <a href="https://api.whatsapp.com/send?phone=+5493816301040" target="_blank" rel="noopener" class="social-icon" aria-label="WhatsApp">
+                <img src="img/icon-whatsapp.png" alt="WhatsApp">
+            </a>
+            <a href="https://www.facebook.com/FmSensaciones95.1/" target="_blank" rel="noopener" class="social-icon" aria-label="Facebook">
+                <img src="img/icon-facebook.png" alt="Facebook">
+            </a>
+            <a href="https://www.instagram.com/fmsensaciones95.1/" target="_blank" rel="noopener" class="social-icon" aria-label="Instagram">
+                <img src="img/icon-instagram.png" alt="Instagram">
+            </a>
+            <button type="button" class="nav-toggle" id="nav-toggle" aria-label="Abrir menú" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </div>
+</header>
+
+<main>
+
+    <section id="inicio" class="hero" style="background-image: linear-gradient(180deg, rgba(20,20,20,.55), rgba(20,20,20,.85) 60%, #1b1b1b), url('img/hero.jpg');">
+        <div class="container hero-inner">
+            <div class="player-card" id="player-card">
+                <button type="button" class="play-btn" id="play-btn" aria-label="Reproducir radio">
+                    <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    <svg class="icon-pause" viewBox="0 0 24 24" hidden><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+                </button>
+
+                <div class="player-info">
+                    <div class="player-status">
+                        <span class="live-dot" id="live-dot"></span>
+                        <span id="player-status-text">Presioná play para escuchar</span>
+                    </div>
+                    <div class="player-name">FM Sensaciones 95.1 Mhz</div>
+                    <div class="player-tagline">Las 24 horas del día, 365 días del año.</div>
+                </div>
+
+                <div class="volume-control">
+                    <svg viewBox="0 0 24 24" class="volume-icon"><path d="M3 10v4h4l5 5V5L7 10H3z"/></svg>
+                    <input type="range" id="volume" min="0" max="100" value="80" aria-label="Volumen">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="programacion" class="programacion">
+        <div class="container">
+            <p class="section-eyebrow">Nuestra grilla</p>
+            <h2 class="section-title">Programación 95.1</h2>
+            <p class="section-lead">Un recorrido musical para cada momento del día.</p>
+
+            <div class="programas-grid">
+                <article class="programa-card">
+                    <img src="img/programa-trasnoche.webp" alt="La Trasnoche de Sensaciones" loading="lazy">
+                    <div class="programa-overlay">
+                        <h3>La Trasnoche de Sensaciones</h3>
+                    </div>
+                </article>
+                <article class="programa-card">
+                    <img src="img/programa-vinilos.webp" alt="Vinilos" loading="lazy">
+                    <div class="programa-overlay">
+                        <h3>Vinilos</h3>
+                    </div>
+                </article>
+                <article class="programa-card">
+                    <img src="img/programa-manana.webp" alt="La Mañana de Sensaciones" loading="lazy">
+                    <div class="programa-overlay">
+                        <h3>La Mañana de Sensaciones</h3>
+                    </div>
+                </article>
+                <article class="programa-card">
+                    <img src="img/programa-ayer.webp" alt="Ayer Nomás" loading="lazy">
+                    <div class="programa-overlay">
+                        <h3>Ayer Nomás</h3>
+                    </div>
+                </article>
+                <article class="programa-card">
+                    <img src="img/programa-tarde.webp" alt="La Tarde de Sensaciones" loading="lazy">
+                    <div class="programa-overlay">
+                        <h3>La Tarde de Sensaciones</h3>
+                    </div>
+                </article>
+                <article class="programa-card">
+                    <img src="img/programa-ayer.webp" alt="Ayer Nomás" loading="lazy">
+                    <div class="programa-overlay">
+                        <h3>Ayer Nomás</h3>
+                    </div>
+                </article>
+                <article class="programa-card">
+                    <img src="img/programa-inolvidable.gif" alt="Inolvidable" loading="lazy">
+                    <div class="programa-overlay">
+                        <h3>Inolvidable</h3>
+                    </div>
+                </article>
+                <article class="programa-card">
+                    <img src="img/programa-lafayette.webp" alt="La Hora de Lafayette" loading="lazy">
+                    <div class="programa-overlay">
+                        <h3>La Hora de Lafayette</h3>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section id="contacto" class="contacto">
+        <div class="container contacto-inner">
+            <div class="contacto-texto">
+                <p class="section-eyebrow">Hablemos</p>
+                <h2 class="section-title">¿Alguna duda o sugerencia?</h2>
+                <p class="contacto-email">sensacionescorreo@gmail.com</p>
+                <p>
+                    Podés comunicarte por donde más te guste: Facebook, Instagram, Email o WhatsApp.
+                    Uníte a la gran comunidad de fanáticos de Fm Sensaciones y contanos tu experiencia.
+                </p>
+
+                <div class="social-row">
+                    <a href="https://api.whatsapp.com/send?phone=+5493816301040" target="_blank" rel="noopener" class="social-pill">
+                        <img src="img/icon-whatsapp.png" alt="">WhatsApp
+                    </a>
+                    <a href="https://www.facebook.com/FmSensaciones95.1/" target="_blank" rel="noopener" class="social-pill">
+                        <img src="img/icon-facebook.png" alt="">Facebook
+                    </a>
+                    <a href="https://www.instagram.com/fmsensaciones95.1/" target="_blank" rel="noopener" class="social-pill">
+                        <img src="img/icon-instagram.png" alt="">Instagram
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<footer class="site-footer">
+    <div class="container">
+        <p>Copyright &copy; <span id="year"></span> · Fm Sensaciones 95.1 · Diseño original: <b>Matias Pacheco</b></p>
+    </div>
+</footer>
+
+<script src="js/main.js?v=2"></script>
+</body>
+</html>
