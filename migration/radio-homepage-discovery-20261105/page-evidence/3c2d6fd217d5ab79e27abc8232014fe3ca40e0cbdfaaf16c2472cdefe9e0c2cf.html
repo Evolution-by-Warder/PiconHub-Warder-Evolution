@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    
+    <title>RÁDIO ESPERANÇA</title>
+    <meta name="description" content="A melhor rádio gospel do Brasil, Radio Esperança abençoando vidas com a Palavra de Deus!">
+    <meta name="keywords" content="Rádio online,radio gospel mais ouvida, online, web rádio, notícias, músicas, blog, eventos, vídeo, ao vivo,radio ,esperanca,gospel." />
+
+    <link rel="preconnect" href="https://www.googletagmanager.com">
+    <link rel="preconnect" href="https://www.youtube.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="RÁDIO ESPERANÇA">
+    <meta property="og:description" content="A melhor rádio gospel do Brasil, Radio Esperança abençoando vidas com a Palavra de Deus!">
+    <meta property="og:image:width" content="600">
+    <meta property="og:image:height" content="600">
+    <meta property="og:image" content="https://www.esperancaradio.com.br/admin/assets/img/logo.png">
+    <meta property="og:url" content="https://www.esperancaradio.com.br/">
+
+
+
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="admin/assets/img/favicon.jpg">
+    <link rel="shortcut icon" href="admin/assets/img/favicon.jpg" />
+    <link href="https://fonts.googleapis.com/css?family=Oswald:400,700,300" rel="preload stylesheet" as="style">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,400italic,700" rel="preload stylesheet" as="style">
+
+
+    <link rel="preload stylesheet" as="style" type="text/css" href="assets/css/bootstrap.min.css?v=4.2.3
+">
+
+    <link rel="preload" as="font" crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/fonts/fontawesome-webfont.woff2?v=4.7.0">
+
+    <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="preload stylesheet" as="style" href="assets/css/jquery.vegas.css">
+    <link rel="preload stylesheet" as="style" href="assets/css/main.css?v=4.2.3
+">
+    <link rel="preload stylesheet" as="style" href="assets/css/blue.css?v=4.2.3
+">
+
+    <style type="text/css">
+        #audio-player {
+            font-size: 10px;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            z-index: 9999;
+            transition: all .2s ease-in-out;
+            -webkit-transition: all .2s ease-in-out;
+            -moz-transition: all .2s ease-in-out;
+            -o-transition: all .2s ease-in-out;
+            -ms-transition: all .2s ease-in-out;
+        }
+
+        .rock-player .controls {
+            z-index: 100;
+        }
+
+        .link-none {
+            padding-left: 0 !important;
+            margin-bottom: 0 !important;
+        }
+
+        .player-sticky {
+            position: sticky !important;
+            margin-right: 0px !important;
+        }
+    </style>
+
+    <link rel="preload stylesheet" as="style"  href="inc/chat/js/emoji/style.css?v=4.2.3
+"><link rel="preload stylesheet" as="style"  href="assets/css/flexslider.css?v=4.2.3
+">
+    <link rel="canonical" href="https://www.esperancaradio.com.br/">
+</head>
+
+<body>
+  <style type="text/css">
+	#audio-player {
+		height: 65px;
+		background: #12d9b1 !important;
+		border-bottom: none !important;	}
+
+	.audio-title,
+	.audio-timer,
+	.now_playing {
+		color: #1a1919 !important;
+	}
+
+	.jp-playlist li {
+		margin: 0;
+	}
+</style>
+<div class="navbar-fixed-top player-sticky">
+	<section id="audio-player">
+		<div class="container">
+			<div class="rock-player">
+				<div class="playListTrigger">
+				</div>
+				<div class="row">
+					<div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
+						<div class="row">
+							<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+								<div id="player-instance" class="jp-jplayer"></div>
+								<div class="controls">
+									<div class="play-pause jp-play"></div>
+									<div class="play-pause jp-pause" style="display:none" title="Play/Pause"></div>
+									<div class="jp-volume-controls">
+										<button class="jp-mute" role="button" tabindex="0">mute</button>
+										<button class="jp-volume-max" role="button" tabindex="0">max volume</button>
+										<div class="jp-volume-bar">
+											<div class="jp-volume-bar-value"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-8 col-md-8 col-sm-6 col-xs-12">
+								<div class="player-status">
+									<h5 class="audio-title"></h5>
+									<div class="audio-timer">
+										<span class="current-time jp-current-time">00:00</span> / <span class="total-time jp-duration">0:00</span>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-8 col-md-8 col-sm-6 col-xs-12">
+								<div class="player-social">
+																			<a class="no-ajaxy" href="https://voxhdstore.com.br/radioesperanca" target="_blank">
+											<img loading="lazy" class="celularimg" src="assets/img/android.png" alt="Android">
+										</a>
+									
+																			<a class="no-ajaxy" href="https://voxhdstore.com.br/radioesperanca" target="_blank">
+											<img loading="lazy" class="celularimg" src="assets/img/ios.png" alt="Iphone">
+										</a>
+									
+																			<a class="no-ajaxy" href="https://voxhdstore.com.br/radioesperanca" target="_blank">
+											<img loading="lazy" class="celularimg" src="assets/img/wphone.png" alt="Windows phone">
+										</a>
+									
+																			<a class="no-ajaxy" href="https://voxhdstore.com.br/radioesperanca" target="_blank">
+											<img loading="lazy" class="celularimg" src="assets/img/blackb.png" alt="BlackBerry">
+										</a>
+																	</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+						<div class="audio-list">
+							<div class="jp-playlist">
+								<ul class="hidden playlist-files">
+									<li data-title="RÁDIO ESPERANÇA" data-artist="<span></span>" data-mp3="https://stm10.xcast.com.br:12112/;"></li>
+								</ul>
+								<h5 class="no-ar">No Ar Agora:</h5>
+								<div class="audio-track">
+									<ul>
+										<li></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</div>
+<script type="text/javascript">
+	setTimeout(function() {
+		$.ajax({
+			url: "admin/includes/locutor/no-ar-player.php",
+			success: function(result) {
+				$(".jp-artist").html(result);
+			}
+		});
+	}, 2500);
+	setInterval(function() {
+		$.ajax({
+			url: "admin/includes/locutor/no-ar-player.php",
+			success: function(result) {
+				$(".jp-artist").html(result);
+			}
+		});
+	}, 120000);
+</script>
+  <header>
+  <nav class="navbar yamm navbar-default">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle fa fa-navicon" role="button" aria-label="Menu Navbar"></button>
+        <a class="navbar-brand" href="/">
+            <img loading="lazy" src="admin/assets/img/logo.png?November52026950am16" alt="RÁDIO ESPERANÇA" />
+        </a>
+      </div>
+      <div class="nav_wrapper">
+        <div class="nav_scroll">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="/">Início</a></li>
+            <li ><a href="podcasts">Podcasts</a></li>
+            <li ><a href="news">Notícias</a></li>
+            <li class="dropdown "><a href="#">Galeria <i class="fa fa-caret-right"></i></a>
+              <ul class="dropdown-menu">
+                <li><a href="fotos">Fotos</a></li>
+                <li><a href="videos">Vídeos</a></li>
+              </ul>
+            </li>
+                          <li ><a href='mural'>Recados</a></li>
+                        <li ><a href="programacao">Programação</a></li>
+            <li ><a href="eventos">Eventos</a></li>
+            <li ><a href="equipe">Equipe</a></li>
+            <li ><a href="sobre">Sobre</a></li>
+            <li ><a href="contato">Contato</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<ul class="vegas-slides hidden">
+  <li><img loading="lazy" data-fade="2000"  src="admin/data/img/gallery/Bg/bc9963fdfbf5fd0c57b742c6435215f5.gif" alt="" /></li>
+ 
+</ul>
+  <div id="ajaxArea">
+    <div class="pageContentArea">
+      <section id="home-slider">
+        <div class="container">
+          <div class="home-inner">
+            <div id="homeSliderNav" class="slider-nav">
+              <a id="home-prev" href="#" class="prev fa fa-chevron-left"></a>
+              <a id="home-next" href="#" class="next fa fa-chevron-right"></a>
+            </div>
+            <div id="flex-home" class="flexslider" data-animation="slide" data-animationSpeed="1000" data-autoPlay="true" data-slideshowSpeed="7000">
+              <ul class="slides">
+                
+
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="rockPlayerHolder"></div>
+      <div class="clearfix"></div>
+
+      <section id="updates">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <h1>Locutor no Ar</h1>
+              <span id="no-ar-home"></span>
+              
+              
+                              <h1>Enquete</h1>
+                <style type="text/css">
+                                  </style>
+                <div class='ajax-poll' tclass='poll-simple' style='width:100%;'></div>
+                          </div>
+
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              
+                              <h1>BATE PAPO</h1>
+                <div class="text-center">
+                  <br>
+
+<iframe src="https://www3.cbox.ws/box/?boxid=3548451&boxtag=KGhL4I" width="100%" height="450" allowtransparency="yes" allow="autoplay" frameborder="0" marginheight="0" marginwidth="0" scrolling="auto"></iframe>	                </div>
+              
+              <h1>Últimas Notícias</h1>
+              <div class="row"><div class="col-md-12"><div class="news-feed"><a class="link-none" href="news-ao-vivo-assista-a-programacao-da-nsc-tv"><img loading="lazy" src="assets/img/no_img.gif" alt="AO VIVO: assista à programação da NSC TV"></a><a href="news-ao-vivo-assista-a-programacao-da-nsc-tv">AO VIVO: assista à programação da NSC TV</a><ul><li><span class="fa fa-calendar"></span>05/11/2026</li></ul><p>AO VIVO: assista à programação da NSC TV  Saiba telefones, endereços e sites das reportagens exibidas...</p></div></div></div><div class="row"><div class="col-md-12"><div class="news-feed"><a class="link-none" href="news-aposta-de-sc-bate-na-trave-e-acerta-cinco-dos-seis-numeros-da-megasena"><img loading="lazy" src="https://s2-g1.glbimg.com/XCCivd9HPwgobHid_D9lbHXwcJU=/i.s3.glbimg.com/v1/AUTH_59edd422c0c84a879bd37670ae4f538a/internal_photos/bs/2026/p/4/WFWrCSTH6tKzcGwWxlVg/captura-de-tela-2026-11-04-210323.png" alt="Aposta de SC 'bate na trave' e acerta cinco dos seis números da Mega-Sena"></a><a href="news-aposta-de-sc-bate-na-trave-e-acerta-cinco-dos-seis-numeros-da-megasena">Aposta de SC 'bate na trave' e acerta cinco dos seis números da Mega-Sena</a><ul><li><span class="fa fa-calendar"></span>05/11/2026</li></ul><p>Resultado do concurso 3081 da Mega-Sena.
+Reprodução/Caixa
+Uma aposta de Balneário Camboriú, no litoral norte de Santa Catarina, "bateu na trave" e...</p></div></div></div><div class="row"><div class="col-md-12"><div class="news-feed"><a class="link-none" href="news-previsao-do-tempo-hoje-para-joinville-sc-sol-com-pancadas-de-chuva-de-manha-e-muitas-nuvens-a-tarde-a-noite-tempo-firme"><img loading="lazy" src="https://s2-g1.glbimg.com/VAZyqfCsRM3HpiHoLZHhawwKM70=/i.s3.glbimg.com/v1/AUTH_59edd422c0c84a879bd37670ae4f538a/internal_photos/bs/2026/q/c/PPUSjMQQ6uABcN7dsz4A/previsao-tempo-joinville-20261105-011404.jpeg" alt="Previsão do tempo hoje para Joinville (SC): sol, com pancadas de chuva de manhã e muitas nuvens à tarde; à noite, tempo firme"></a><a href="news-previsao-do-tempo-hoje-para-joinville-sc-sol-com-pancadas-de-chuva-de-manha-e-muitas-nuvens-a-tarde-a-noite-tempo-firme">Previsão do tempo hoje para Joinville (SC): sol, com pancadas de chuva de manhã e muitas nuvens à tarde; à noite, tempo firme</a><ul><li><span class="fa fa-calendar"></span>05/11/2026</li></ul><p>Previsão do tempo hoje em Joinville
+g1
+A previsão do tempo para esta quinta-feira (5) para Joinville (SC) é de sol, com pancadas de chuva de manhã...</p></div></div></div><div class="row"><div class="col-md-12"><div class="news-feed"><a class="link-none" href="news-previsao-do-tempo-hoje-para-florianopolis-sc-sol-com-algumas-nuvens-e-chuva-passageira-durante-o-dia-a-noite-o-tempo-fica-firme"><img loading="lazy" src="https://s2-g1.glbimg.com/y6qC9dSbxA_LeDVipxFJ6pVGgd4=/i.s3.glbimg.com/v1/AUTH_59edd422c0c84a879bd37670ae4f538a/internal_photos/bs/2026/w/K/tWpXZHRv62cQ0djUfmiw/previsao-tempo-florian-polis-20261105-011340.jpeg" alt="Previsão do tempo hoje para Florianópolis (SC): sol com algumas nuvens e chuva passageira durante o dia; à noite o tempo fica firme"></a><a href="news-previsao-do-tempo-hoje-para-florianopolis-sc-sol-com-algumas-nuvens-e-chuva-passageira-durante-o-dia-a-noite-o-tempo-fica-firme">Previsão do tempo hoje para Florianópolis (SC): sol com algumas nuvens e chuva passageira durante o dia; à noite o tempo fica firme</a><ul><li><span class="fa fa-calendar"></span>05/11/2026</li></ul><p>Previsão do tempo hoje em Florianópolis
+g1
+A previsão do tempo para esta quinta-feira (5) para Florianópolis (SC) é de sol com algumas nuvens e c...</p></div></div></div>            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <h1>Aplicativos</h1>
+              <div class="banner-app">
+                                  <div class="text-center">
+                    <a class="no-ajaxy" href="https://voxhdstore.com.br/radioesperanca" target="_blank">
+                      <img loading="lazy" src="assets/img/apk.png" alt="App Android">
+                    </a>
+                  </div> 
+                
+                                  <div class="text-center">
+                    <a class="no-ajaxy" href="https://voxhdstore.com.br/radioesperanca" target="_blank" width>
+                      <img loading="lazy" src="assets/img/ios2.png" alt="App Iphone">
+                    </a>
+                  </div> 
+                              </div>
+
+              <h1>Ouça no Celular</h1>
+              <div class="text-center">
+                                  <a class="no-ajaxy" href="https://voxhdstore.com.br/radioesperanca" target="_blank">
+                    <img loading="lazy" class="celularimg" src="assets/img/android.png" alt="Android">
+                  </a>
+                
+                                  <a class="no-ajaxy" href="https://voxhdstore.com.br/radioesperanca" target="_blank">
+                    <img loading="lazy" class="celularimg" src="assets/img/ios.png" alt="Iphone">
+                  </a>
+                
+                                  <a class="no-ajaxy" href="https://voxhdstore.com.br/radioesperanca" target="_blank">
+                    <img loading="lazy" class="celularimg" src="assets/img/wphone.png" alt="Windows phone">
+                  </a>
+                
+                                  <a class="no-ajaxy" href="https://voxhdstore.com.br/radioesperanca" target="_blank">
+                    <img loading="lazy" class="celularimg" src="assets/img/blackb.png" alt="BlackBerry">
+                  </a>
+                              </div>
+
+                            <h1>Último Recado</h1><article class="post-comments">
+
+</article>                          </div>
+          </div>
+          <h1>Últimos Vídeos</h1>
+          <div class="text-center">
+                      </div>
+        </div>
+      </section>
+      <!-- youtube player modal -->
+      <div class="modal fade" id="youtube-player" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title"><span id="youtube-title"></span></h4>
+            </div>
+            <div class="modal-body">
+              <div class="embed-container">
+                <div id="youtube-embed"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><!--pageContent-->
+  </div><!--ajaxwrap-->
+  <section id="albums">
+	<div class="container">
+		<h1>Anunciantes</h1>
+		<div class="albums-carousel">
+			<div id="foo1">
+				<div class="album">
+		<img loading="lazy" src="admin/assets/img/anunciantes/5875-2026-04-28.png" alt="REDE DE FARMACIAS MARIANO"/><div class="hover">
+		<ul>
+			<li><a class='no-ajaxy' href="https://wa.me/554733531202" target="_bank" aria-label="REDE DE FARMACIAS MARIANO"><span class="fa fa-link"></span></a></li>
+		</ul>
+		<h3>REDE DE FARMACIAS MARIANO</h3>
+		</div>
+		</div><div class="album">
+		<img loading="lazy" src="admin/assets/img/anunciantes/5801-2026-04-30.png" alt="TOTAL TEC INFORMATICA"/><div class="hover">
+		<ul>
+			<li><a class='no-ajaxy' href="https://wa.me/554733530090" target="_bank" aria-label="TOTAL TEC INFORMATICA"><span class="fa fa-link"></span></a></li>
+		</ul>
+		<h3>TOTAL TEC INFORMATICA</h3>
+		</div>
+		</div><div class="album">
+		<img loading="lazy" src="admin/assets/img/anunciantes/2279-2026-04-29.jpeg" alt="OTICA VISTTA MAX"/><div class="hover">
+		<ul>
+			<li><a class='no-ajaxy' href="https://wa.me/554784717202" target="_bank" aria-label="OTICA VISTTA MAX"><span class="fa fa-link"></span></a></li>
+		</ul>
+		<h3>OTICA VISTTA MAX</h3>
+		</div>
+		</div><div class="album">
+		<img loading="lazy" src="admin/assets/img/anunciantes/7299-2026-10-09.png" alt="Rebeca Vendedora Mary Kay"/><div class="hover">
+		<ul>
+			<li><a class='no-ajaxy' href="https://wa.me/5547933820874" target="_bank" aria-label="Rebeca Vendedora Mary Kay"><span class="fa fa-link"></span></a></li>
+		</ul>
+		<h3>Rebeca Vendedora Mary Kay</h3>
+		</div>
+		</div><div class="album">
+		<img loading="lazy" src="admin/assets/img/anunciantes/1129-2026-04-30.png" alt="Restaurante Dois Bernardi"/><div class="hover">
+		<ul>
+			<li><a class='no-ajaxy' href="https://wa.me/5547997071555" target="_bank" aria-label="Restaurante Dois Bernardi"><span class="fa fa-link"></span></a></li>
+		</ul>
+		<h3>Restaurante Dois Bernardi</h3>
+		</div>
+		</div><div class="album">
+		<img loading="lazy" src="admin/assets/img/anunciantes/7256-2026-05-13.png" alt="Farmácia Mariano"/><div class="hover">
+		<ul>
+			<li><a class='no-ajaxy' href="https://wa.me/554722042891" target="_bank" aria-label="Farmácia Mariano"><span class="fa fa-link"></span></a></li>
+		</ul>
+		<h3>Farmácia Mariano</h3>
+		</div>
+		</div><div class="album">
+		<img loading="lazy" src="admin/assets/img/anunciantes/9447-2026-10-06.png" alt="OUÇA NOSSO PROGRAMA"/><div class="hover">
+		<ul>
+			<li><a class='no-ajaxy' href="" target="_bank" aria-label="OUÇA NOSSO PROGRAMA"><span class="fa fa-link"></span></a></li>
+		</ul>
+		<h3>OUÇA NOSSO PROGRAMA</h3>
+		</div>
+		</div><div class="album">
+		<img loading="lazy" src="admin/assets/img/anunciantes/1606-2026-10-13.jpg" alt="Loja Dorcas"/><div class="hover">
+		<ul>
+			<li><a class='no-ajaxy' href="https://wa.me/5547991500105" target="_bank" aria-label="Loja Dorcas"><span class="fa fa-link"></span></a></li>
+		</ul>
+		<h3>Loja Dorcas</h3>
+		</div>
+		</div>
+			</div>
+		</div>
+	</div>
+</section>  <footer>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-4 col-md-4 col-sm-4">
+				<h4><span class="fa fa-sitemap"></span>Menu</h4>
+				<div class="row">
+
+					<div class="col-lg-6 col-md-6 col-sm-6">
+						<ul class="sitemap">
+							<li><a href="home">Início</a></li>
+							<li><a href="podcasts">Podcasts</a></li>
+							<li><a href="sobre">Sobre</a></li>
+							<li><a href="news">Notícias</a></li>
+							<li><a href='mural'>Recados</a></li>							<li><a href="programacao">Programação</a></li>
+						</ul>
+					</div>
+
+					<div class="col-lg-6 col-md-6 col-sm-6">
+						<ul class="sitemap">
+							<li><a href="eventos">Eventos</a></li>
+							<li><a href="fotos">Fotos</a></li>
+							<li><a href="videos">Vídeos</a></li>
+							<li><a href="equipe">Equipe</a></li>
+							<li><a href="contato">Contato</a></li>
+							<li><a href="politica-de-privacidade">Política de Privacidade</a></li>
+						</ul>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="col-lg-2 col-md-2 col-sm-2">
+				<h4><span class="fa fa-info-circle"></span>Informações</h4>
+				<p>RÁDIO ESPERANÇA</p>
+				<p>A melhor rádio gospel do Brasil, Radio Esperança abençoando vidas com a Palavra de Deus!</p>
+			</div>
+
+			<div class="col-lg-3 col-md-3 col-sm-3">
+				<h4><span class="fa fa-umbrella"></span>Previsão do Tempo</h4>
+				<iframe src="https://api.wo-cloud.com/content/widget/?geoObjectKey=16418556&language=pt&region=BR&timeFormat=HH:mm&windUnit=kmh&systemOfMeasurement=metric&temperatureUnit=celsius" name="CW2" scrolling="no" width="290" height="318" frameborder="0" style="border: 1px solid #10658E;border-radius: 10px"></iframe>			</div>
+
+			<div class="col-lg-3 col-md-3 col-sm-3">
+				<h4><span class="fa fa-envelope"></span>Contato</h4>
+
+				<i class="fa fa-envelope-o fa-2x"></i> esperancaradio.com.br@gmail.com				<br /><br />
+									<i class="fa fa-whatsapp fa-2x"></i> <a class="no-ajaxy" href="https://api.whatsapp.com/send?phone=https://wa.me/5547996601439" target="_blank">WhatsApp</a>
+							</div>
+		</div>
+
+		<ul class="social">
+			<hr>
+			<span class="fa fa-info-circle"> Visitas: 2045195 </span>   |   <span class="fa fa-info-circle"> Online: 11</span>			<br><br>
+
+							<li><a class="no-ajaxy" href="https://www.instagram.com/esperancaradio.com.br?igsh=MjU1aHA1N2NleXlu&amp;utm_source=qr" target="_bank" title="Instagram" aria-label="Instagram"><span class="fa fa-instagram"></span></a></li>
+			
+							<li><a class="no-ajaxy" href="https://api.whatsapp.com/send?phone=https://wa.me/5547996601439" target="_bank" title="WhatsApp"><span class="fa fa-whatsapp"></span></a></li>
+			
+			
+							<li><a class="no-ajaxy" href="https://www.youtube.com/@radioesperanca33" target="_bank" title="Youtube" aria-label="Youtube"><span class="fa fa-youtube"></span></a></li>
+			
+							<li><a class="no-ajaxy" href="https://www.facebook.com/radioesperanca.tk/" target="_bank" title="Facebook" aria-label="Facebook"><span class="fa fa-facebook"></span></a></li>
+			
+			
+			
+							<li>
+					<a class="no-ajaxy" href="https://www.tiktok.com/@esperancaradio.com.br?_t=ZM-8yNtaioNgk4&amp;_r=1" target="_bank" title="TikTok" aria-label="TikTok">
+						<svg xmlns="http://www.w3.org/2000/svg" width="16pt" height="16pt" viewBox="0 0 512 512">
+							<path d="m432.734375 112.464844c-53.742187 0-97.464844-43.722656-97.464844-97.464844 0-8.285156-6.714843-15-15-15h-80.335937c-8.28125 0-15 6.714844-15 15v329.367188c0 31.59375-25.707032 57.296874-57.300782 57.296874s-57.296874-25.703124-57.296874-57.296874c0-31.597657 25.703124-57.300782 57.296874-57.300782 8.285157 0 15-6.714844 15-15v-80.335937c0-8.28125-6.714843-15-15-15-92.433593 0-167.632812 75.203125-167.632812 167.636719 0 92.433593 75.199219 167.632812 167.632812 167.632812 92.433594 0 167.636719-75.199219 167.636719-167.632812v-145.792969c29.851563 15.917969 63.074219 24.226562 97.464844 24.226562 8.285156 0 15-6.714843 15-15v-80.335937c0-8.28125-6.714844-15-15-15zm0 0" />
+						</svg>
+					</a>
+				</li>
+			
+			
+			
+			
+		</ul>
+		<p class="text-center">RÁDIO ESPERANÇA © 2026 - Todos os direitos reservados.</p>
+	</div>
+</footer>
+
+  <!-- <script async src="assets/js/modernizr-2.6.2-respond-1.1.0.min.js"></script> -->
+<script defer src="assets/js/jquery.js"></script>
+<script defer src="assets/js/ajaxify.min.js"></script>
+<script defer src="assets/js/bootstrap.min.js?v=4.2.3
+"></script>
+<script defer src="assets/js/jquery.carouFredSel-6.2.1-packed.js?v=4.2.3
+"></script>
+<script defer src="assets/js/jquery.vegas.min.js?v=4.2.3
+"></script>
+<script defer src="assets/js/jquery.flexslider-min.js?v=4.2.3
+"></script>
+<script defer src="assets/enquete/ajax-poll.php?v=2"></script>
+<script defer src="assets/jPlayer/jquery.jplayer.min.js"></script>
+<script defer src="assets/jPlayer/add-on/jplayer.playlist.min.js"></script>
+<script defer src="assets/js/main.min.js?v=4.2.3
+"></script>
+<script defer src="admin/includes/tracker.js?uri=/&ref="></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-41206449-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-41206449-1');
+</script>  </body>
+
+</html>
