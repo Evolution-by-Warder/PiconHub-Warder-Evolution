@@ -1,0 +1,1704 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>📻 Radio Indomables 🎧 Más Y Mejor Música!</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="chat-styles.css" />
+    <link rel="stylesheet" href="mobile-adjustments.css" />
+    <link rel="stylesheet" href="chat-z-index.css" />
+    <link rel="shortcut icon" href="img/logo.jpg" />
+    <script src="share-button.js" defer></script>
+    <link rel="stylesheet" href="chat-button-style.css" />
+    <link rel="stylesheet" href="radio-image-style.css" />
+    <link rel="stylesheet" href="install-popup-style.css" />
+
+    <!-- PWA related meta tags -->
+    <meta name="theme-color" content="#3B82F6" />
+    <meta name="description" content="Radio Indomables - Más Y Mejor Música!" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Radio Indomables" />
+    <link rel="apple-touch-icon" sizes="180x180" href="img/ios-pwa/icon-180.png" />
+    <link rel="manifest" href="manifest.json" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-touch-fullscreen" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+
+    <style>
+        audio { display: none !important; }
+    </style>
+
+    <!-- ESTILOS: CORAZÓN FUNCIONAL -->
+    <style>
+        #likeButton {
+            color: #ef4444 !important;
+            transition: transform 0.2s ease, filter 0.2s ease;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 5px;
+        }
+        #likeButton:hover { transform: scale(1.15); }
+        #likeButton.liked {
+            animation: heartPop 0.4s ease;
+            filter: drop-shadow(0 0 8px rgba(239, 68, 68, 0.9));
+        }
+        @keyframes heartPop {
+            0% { transform: scale(1); }
+            30% { transform: scale(1.35); }
+            60% { transform: scale(0.9); }
+            100% { transform: scale(1); }
+        }
+        body.light-mode #likeButton { color: #ef4444 !important; }
+    </style>
+    
+    <!-- ESTILOS: TÍTULO PRINCIPAL CON EFECTO -->
+    <style>
+        .horizontal-title {
+            font-family: 'Arial Black', 'Impact', sans-serif;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            text-align: center;
+            line-height: 1.1;
+            background:
+                repeating-linear-gradient(100deg, transparent 0px, transparent 4px, rgba(220, 38, 38, 0.7) 5px, transparent 6px, transparent 12px, rgba(0, 0, 0, 0.8) 13px, transparent 14px, transparent 22px, rgba(185, 28, 28, 0.5) 23px, transparent 24px, transparent 30px, rgba(20, 20, 20, 0.6) 31px, transparent 32px, transparent 40px),
+                linear-gradient(180deg, #ffffff 0%, #f8fafc 50%, #f1f5f9 100%);
+            background-size: 28px 38px;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            -webkit-text-stroke: 1.5px rgba(0, 0, 0, 0.85);
+            paint-order: stroke fill;
+            animation: rainFall 0.55s linear infinite, breathe 3s ease-in-out infinite;
+            filter: drop-shadow(0 0 5px rgba(186, 230, 253, 0.3)) drop-shadow(0 0 12px rgba(186, 230, 253, 0.1));
+            will-change: transform;
+        }
+        @keyframes rainFall { 0% { background-position: 0 0, 0 0; } 100% { background-position: 0 38px, 0 0; } }
+        @keyframes breathe { 0%, 100% { transform: scale(1); filter: drop-shadow(0 0 4px rgba(186, 230, 253, 0.25)) drop-shadow(0 0 10px rgba(186, 230, 253, 0.08)); } 50% { transform: scale(1.04); filter: drop-shadow(0 0 8px rgba(186, 230, 253, 0.45)) drop-shadow(0 0 20px rgba(186, 230, 253, 0.18)); } }
+        body.light-mode .horizontal-title {
+            background: repeating-linear-gradient(100deg, transparent 0px, transparent 4px, rgba(185, 28, 28, 0.6) 5px, transparent 6px, transparent 12px, rgba(0, 0, 0, 0.7) 13px, transparent 14px, transparent 22px, rgba(153, 27, 27, 0.45) 23px, transparent 24px, transparent 30px, rgba(15, 15, 15, 0.5) 31px, transparent 32px, transparent 40px), linear-gradient(180deg, #ffffff 0%, #f8fafc 50%, #f1f5f9 100%);
+            background-size: 28px 38px;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+            -webkit-text-stroke: 1.5px rgba(30, 30, 30, 0.6);
+            animation: rainFall 0.55s linear infinite, breatheLight 3s ease-in-out infinite;
+        }
+        @keyframes breatheLight { 0%, 100% { transform: scale(1); filter: drop-shadow(0 0 3px rgba(125, 211, 252, 0.2)) drop-shadow(0 0 8px rgba(125, 211, 252, 0.06)); } 50% { transform: scale(1.04); filter: drop-shadow(0 0 6px rgba(125, 211, 252, 0.35)) drop-shadow(0 0 16px rgba(125, 211, 252, 0.12)); } }
+        @media (min-width: 769px) { .horizontal-title { font-size: 3rem !important; letter-spacing: 6px; } }
+        @media (max-width: 768px) { .horizontal-title { font-size: 2.2rem !important; gap: 0.8rem; padding: 0 15px; margin-bottom: 1.5rem; letter-spacing: 3px; -webkit-text-stroke: 1.2px rgba(0, 0, 0, 0.85); } .horizontal-title span { display: inline-block; } }
+        @media (max-width: 480px) { .horizontal-title { font-size: 1.8rem !important; letter-spacing: 2px; -webkit-text-stroke: 1px rgba(0, 0, 0, 0.85); } }
+    </style>
+    
+    <!-- ESTILOS: BANNER FINO + LETRAS GRANDES -->
+    <style>
+        .modern-banner { width: 100%; background-color: #f3f4f6; border-radius: 6px; overflow: hidden; display: flex; align-items: stretch; margin-bottom: 2rem; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); position: relative; }
+        .banner-geo-shape { position: relative; width: 280px; background-color: #dc2626; display: flex; align-items: center; justify-content: center; clip-path: polygon(0 0, 100% 0, 85% 100%, 0% 100%); flex-shrink: 0; z-index: 2; padding: 0 30px; }
+        .banner-title { color: white; font-size: 1.6rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; margin: 0; text-align: center; text-shadow: 2px 2px 0px rgba(0,0,0,0.2); line-height: 1; white-space: nowrap; }
+        .banner-content { padding: 5px 20px; flex: 1; color: #111827; text-align: left; display: flex; align-items: center; }
+        .banner-subtitle { font-size: 1.3rem; line-height: 1.1; margin: 0; color: #1f2937; font-weight: 700; font-family: system-ui, -apple-system, sans-serif; }
+        @media (max-width: 768px) { .modern-banner { align-items: stretch; } .banner-geo-shape { width: 110px; padding: 0 10px; } .banner-title { font-size: 0.75rem; white-space: normal; line-height: 1.1; } .banner-content { padding: 5px 10px; } .banner-subtitle { font-size: 0.8rem; line-height: 1.2; } }
+        .schedule-section, .video-section, .news-section, .history-section, .weather-section { width: 100%; box-sizing: border-box; }
+    </style>
+
+    <!-- Estilos Noticias -->
+    <style>
+        .news-section { padding: 2rem 0; margin-top: 2rem; }
+        .news-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; width: 100%; }
+        .news-card { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border-radius: 15px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.2); transition: transform 0.3s ease, box-shadow 0.3s ease; display: flex; flex-direction: column; text-decoration: none; color: white; }
+        .news-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(220, 38, 38, 0.3); background: rgba(255, 255, 255, 0.15); }
+        .news-img-container { width: 100%; height: 200px; overflow: hidden; position: relative; background-color: #1e293b; }
+        .news-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+        .news-card:hover .news-img { transform: scale(1.1); }
+        .news-content { padding: 1.2rem; flex: 1; display: flex; flex-direction: column; }
+        .news-headline { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .news-summary { font-size: 0.9rem; color: rgba(255,255,255,0.8); margin-bottom: 1rem; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+        .news-meta { font-size: 0.8rem; color: rgba(255,255,255,0.6); margin-top: auto; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 0.8rem; }
+        .news-source { background: rgba(220, 38, 38, 0.3); padding: 0.2rem 0.6rem; border-radius: 4px; font-weight: bold; text-transform: uppercase; font-size: 0.7rem; }
+        .loading-news { color: white; text-align: center; width: 100%; font-size: 1.2rem; padding: 2rem; }
+        @media (max-width: 480px) { .news-grid { grid-template-columns: 1fr; } }
+    </style>
+
+    <!-- Estilos Historial de Canciones -->
+    <style>
+        .history-section { padding: 2rem 0; margin-top: 2rem; }
+        .history-list { display: flex; flex-direction: column; gap: 0; width: 100%; }
+        .history-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.8rem 1rem;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            transition: background 0.2s ease;
+            position: relative;
+            animation: fadeSlideIn 0.4s ease forwards;
+            opacity: 0;
+        }
+        .history-item:hover { background: rgba(255,255,255,0.05); }
+        .history-item:last-child { border-bottom: none; }
+        @keyframes fadeSlideIn {
+            from { opacity: 0; transform: translateX(-10px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        .history-art {
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            object-fit: cover;
+            flex-shrink: 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+        .history-info { flex: 1; min-width: 0; }
+        .history-song { font-size: 0.95rem; font-weight: 600; color: #f9fafb; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .history-artist { font-size: 0.8rem; color: rgba(255,255,255,0.55); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .history-time { font-size: 0.75rem; color: rgba(255,255,255,0.35); flex-shrink: 0; text-align: right; min-width: 48px; }
+        .history-loading { color: rgba(255,255,255,0.5); text-align: center; width: 100%; padding: 2rem; font-size: 1rem; }
+        .history-header-info { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem; padding: 0 0.5rem; }
+        .history-live-dot { width: 8px; height: 8px; background: #22c55e; border-radius: 50%; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+        .history-live-text { font-size: 0.8rem; color: #22c55e; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+        .history-now-playing { background: rgba(220,38,38,0.15); border-left: 3px solid #dc2626; border-radius: 0 8px 8px 0; }
+        .history-now-playing .history-song { color: #fca5a5; }
+
+        body.light-mode .history-item { border-bottom-color: rgba(0,0,0,0.08); }
+        body.light-mode .history-item:hover { background: rgba(0,0,0,0.04); }
+        body.light-mode .history-song { color: #111827; }
+        body.light-mode .history-artist { color: #6b7280; }
+        body.light-mode .history-time { color: #9ca3af; }
+        body.light-mode .history-loading { color: #6b7280; }
+        body.light-mode .history-now-playing { background: rgba(220,38,38,0.08); }
+        body.light-mode .history-now-playing .history-song { color: #dc2626; }
+
+        @media (max-width: 480px) {
+            .history-art { width: 42px; height: 42px; }
+            .history-song { font-size: 0.85rem; }
+            .history-artist { font-size: 0.75rem; }
+            .history-time { font-size: 0.7rem; min-width: 40px; }
+            .history-item { padding: 0.7rem 0.8rem; gap: 0.8rem; }
+        }
+    </style>
+
+    <!-- NUEVA SECCIÓN DE TIEMPO/CLIMA PARA RADIO INDOMABLES -->
+    <style>
+        .weather-section {
+            padding: 2rem 0;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+        .weather-widget-container {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        body.light-mode .weather-widget-container {
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        .weather-widget-container > div {
+            width: 100%;
+            max-width: 100%;
+            overflow-x: auto;
+        }
+        @media (max-width: 768px) {
+            .weather-widget-container {
+                padding: 1rem;
+                min-height: 150px;
+            }
+        }
+    </style>
+
+    <!-- EFECTO REFLEJO DINÁMICO PARA LA PORTADA -->
+    <style>
+        .radio-image {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+        }
+        .radio-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0) 100%);
+            transform: skewX(-25deg) translateX(-150%);
+            animation: efectoReflejo 4s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 10;
+        }
+        @keyframes efectoReflejo {
+            0% { transform: skewX(-25deg) translateX(-150%); }
+            100% { transform: skewX(-25deg) translateX(200%); }
+        }
+    </style>
+
+    <!-- ========================================== -->
+    <!-- NUEVO: ESTILOS DEL FOOTER/TARJETA FINAL   -->
+    <!-- MEJORADO: LOGO + LETRAS MÁS GRANDES       -->
+    <!-- ========================================== -->
+    <style>
+        .footer-card-section {
+            width: 100%;
+            padding: 2.5rem 0 0.3rem;
+            margin-top: 2.5rem;
+            margin-bottom: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.2rem;
+        }
+
+        .footer-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 22px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            /* Padding aumentado para acomodar elementos más grandes */
+            padding: 2.8rem 2.5rem;
+            max-width: 550px;
+            width: 92%;
+            text-align: center;
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            /* Gap aumentado entre elementos */
+            gap: 1.4rem;
+            position: relative;
+            overflow: visible;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .footer-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #dc2626, #ef4444, #dc2626);
+            background-size: 200% 100%;
+            animation: footerShine 3s linear infinite;
+        }
+
+        @keyframes footerShine {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        .footer-logo-container {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 4px solid rgba(220, 38, 38, 0.6);
+            box-shadow: 
+                0 6px 20px rgba(220, 38, 38, 0.4),
+                0 3px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .footer-logo-container:hover {
+            transform: scale(1.08) rotate(3deg);
+            box-shadow: 
+                0 10px 28px rgba(220, 38, 38, 0.55),
+                0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .footer-logo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .footer-radio-name {
+            font-family: 'Arial Black', 'Impact', sans-serif;
+            font-size: 1.9rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2.5px;
+            color: #ffffff;
+            text-shadow: 
+                0 2px 4px rgba(0, 0, 0, 0.3),
+                0 0 10px rgba(220, 38, 38, 0.2);
+            margin: 0;
+            line-height: 1.3;
+        }
+
+        .footer-copyright {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+            margin: 0;
+            font-family: system-ui, -apple-system, sans-serif;
+            font-weight: 500;
+        }
+
+        .footer-copyright strong {
+            color: #ef4444;
+            font-weight: 800;
+            font-size: 1.05rem;
+        }
+
+        .scroll-to-top-btn-smart {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            
+            width: 56px;
+            height: 56px;
+            min-width: 56px;
+            min-height: 56px;
+            
+            border-radius: 50%;
+            border: none;
+            
+            background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+            color: white;
+            
+            box-shadow: 
+                0 6px 20px rgba(220, 38, 38, 0.5),
+                0 3px 10px rgba(0, 0, 0, 0.3);
+            
+            cursor: pointer;
+            pointer-events: auto;
+            touch-action: manipulation;
+            
+            position: relative;
+            z-index: 50;
+            
+            margin: 0.6rem auto 0;
+            padding: 0;
+            
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            
+            -webkit-tap-highlight-color: transparent;
+            -webkit-user-select: none;
+            user-select: none;
+            outline: none;
+            
+            opacity: 1;
+            visibility: visible;
+            overflow: visible;
+        }
+
+        .scroll-to-top-btn-smart:hover {
+            transform: translateY(-4px) scale(1.08);
+            box-shadow: 
+                0 10px 30px rgba(220, 38, 38, 0.65),
+                0 5px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        .scroll-to-top-btn-smart:active {
+            transform: translateY(-2px) scale(0.95);
+            box-shadow: 
+                0 3px 12px rgba(220, 38, 38, 0.45),
+                0 2px 6px rgba(0, 0, 0, 0.25);
+        }
+
+        .scroll-to-top-btn-smart svg {
+            width: 28px;
+            height: 28px;
+            display: block;
+            pointer-events: none;
+            transition: transform 0.3s ease;
+        }
+
+        .scroll-to-top-btn-smart:hover svg {
+            transform: translateY(-3px);
+        }
+
+        /* Modo Claro */
+        body.light-mode .footer-card {
+            background: rgba(255, 255, 255, 0.92);
+            border: 1px solid rgba(0, 0, 0, 0.12);
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.08),
+                inset 0 1px 0 rgba(255, 255, 255, 0.9);
+        }
+
+        body.light-mode .footer-radio-name {
+            color: #1f2937;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        }
+
+        body.light-mode .footer-copyright {
+            color: rgba(0, 0, 0, 0.65);
+        }
+
+        body.light-mode .footer-copyright strong {
+            color: #dc2626;
+        }
+
+        /* RESPONSIVE: OPTIMIZADO PARA TODOS LOS DISPOSITIVOS */
+        
+        /* Tablet */
+        @media (max-width: 768px) {
+            .footer-card-section {
+                padding: 2rem 0 0.2rem;
+                margin-top: 2rem;
+                margin-bottom: 0;
+                gap: 1rem;
+            }
+
+            .footer-card {
+                padding: 2.2rem 2rem;
+                width: 94%;
+                border-radius: 18px;
+                gap: 1.2rem;
+            }
+
+            .footer-logo-container {
+                width: 95px;
+                height: 95px;
+                border-width: 3.5px;
+            }
+
+            .footer-radio-name {
+                font-size: 1.6rem;
+                letter-spacing: 2px;
+            }
+
+            .footer-copyright {
+                font-size: 0.92rem;
+                line-height: 1.5;
+            }
+
+            .scroll-to-top-btn-smart {
+                width: 52px;
+                height: 52px;
+                min-width: 52px;
+                min-height: 52px;
+                margin-top: 0.5rem;
+            }
+        }
+
+        /* Móvil Grande */
+        @media (max-width: 480px) {
+            .footer-card-section {
+                padding: 1.6rem 0 0.1rem;
+                margin-top: 1.6rem;
+                margin-bottom: 0;
+                gap: 0.9rem;
+            }
+
+            .footer-card {
+                padding: 1.9rem 1.5rem;
+                width: 96%;
+                border-radius: 16px;
+                gap: 1rem;
+            }
+
+            .footer-logo-container {
+                width: 85px;
+                height: 85px;
+                border-width: 3px;
+            }
+
+            .footer-radio-name {
+                font-size: 1.4rem;
+                letter-spacing: 1.8px;
+            }
+
+            .footer-copyright {
+                font-size: 0.85rem;
+                line-height: 1.45;
+            }
+
+            .scroll-to-top-btn-smart {
+                width: 50px;
+                height: 50px;
+                min-width: 50px;
+                min-height: 50px;
+                margin-top: 0.4rem;
+            }
+        }
+
+        /* Móvil Pequeño */
+        @media (max-width: 380px) {
+            .footer-card-section {
+                padding: 1.3rem 0 0;
+                gap: 0.75rem;
+            }
+
+            .footer-card {
+                padding: 1.6rem 1.2rem;
+                gap: 0.85rem;
+            }
+
+            .footer-logo-container {
+                width: 78px;
+                height: 78px;
+                border-width: 2.5px;
+            }
+
+            .footer-radio-name {
+                font-size: 1.25rem;
+                letter-spacing: 1.5px;
+            }
+
+            .footer-copyright {
+                font-size: 0.8rem;
+                line-height: 1.4;
+            }
+
+            .scroll-to-top-btn-smart {
+                width: 47px;
+                height: 47px;
+                min-width: 47px;
+                min-height: 47px;
+            }
+        }
+
+        /* Móvil Muy Pequeño */
+        @media (max-width: 340px) {
+            .footer-card {
+                padding: 1.4rem 1rem;
+                gap: 0.7rem;
+            }
+
+            .footer-logo-container {
+                width: 72px;
+                height: 72px;
+            }
+
+            .footer-radio-name {
+                font-size: 1.15rem;
+                letter-spacing: 1.2px;
+            }
+
+            .footer-copyright {
+                font-size: 0.75rem;
+            }
+        }
+    </style>
+
+    <!-- ============================== -->
+    <!-- ESTILOS: VENTANA FLOTANTE TWITCH -->
+    <!-- ============================== -->
+    <style>
+        #radioContainer { position: fixed; top: 80px; left: 15px; z-index: 99999; cursor: grab; user-select: none; touch-action: none; }
+        #radioContainer:active { cursor: grabbing; }
+        #radioBox { display: none; background: rgba(15, 23, 42, 0.95); padding: 8px; padding-bottom: 14px; border-radius: 10px; box-shadow: 0 8px 25px rgba(0,0,0,0.6); text-align: center; user-select: text; cursor: auto; color: #fff; transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease; position: relative; width: fit-content; border: 1px solid rgba(255,255,255,0.1); }
+        body.light-mode #radioBox { background: rgba(255, 255, 255, 0.98); color: #111827; box-shadow: 0 8px 25px rgba(0,0,0,0.15); border: 1px solid rgba(0,0,0,0.1); }
+        #twitchPlayer { width: 300px; height: 169px; border: none; border-radius: 8px; margin-bottom: 6px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4); display: block; background: #000; pointer-events: auto; }
+        body.light-mode #twitchPlayer { box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); }
+        #resizeHandle { position: absolute; bottom: 2px; right: 2px; width: 18px; height: 18px; cursor: nwse-resize; opacity: 0.6; font-size: 12px; line-height: 18px; z-index: 10; color: #fff; }
+        #resizeHandle:hover { opacity: 1; }
+        body.light-mode #resizeHandle { color: #333; }
+        .twitch-btn { border: none; border-radius: 5px; padding: 4px 8px; font-weight: bold; cursor: pointer; transition: all 0.2s ease; margin-left: 4px; user-select: none; font-size: 0.8rem; line-height: 1; font-family: Arial, sans-serif; }
+        .twitch-btn.actualizar { background-color: #6441a5; color: white; }
+        .twitch-btn.actualizar:hover { background-color: #55389a; transform: scale(1.05); }
+        .twitch-btn.cerrar { background-color: #ef4444; color: #ffffff; font-weight: 900; font-size: 1rem; }
+        .twitch-btn.cerrar:hover { background-color: #dc2626; transform: scale(1.05); }
+        #reabrirBtn { display: block; background-color: #6441a5; padding: 12px; border-radius: 50%; box-shadow: 0 4px 12px rgba(100, 65, 165, 0.6); color: white; font-size: 1.2rem; text-align: center; user-select: none; transition: transform 0.2s ease; }
+        #reabrirBtn:hover { transform: scale(1.1); }
+    </style>
+
+    <script src="https://animatedicons.co/scripts/embed-animated-icons.js"></script>
+</head>
+<body class="dark-mode">
+    <div class="container">
+        <button class="theme-toggle" id="themeToggle">
+            <i data-lucide="moon"></i>
+        </button>
+        <div id="currentDateTime" class="current-date-time current-date-time-left">
+            <span id="currentDate"></span>
+            <span id="currentTime"></span>
+        </div>
+
+        <div class="center-content">
+            <h1 class="horizontal-title">
+                <span>RADIO</span>
+                <span>INDOMABLES</span>
+            </h1>
+            <div class="radio-image">
+                <img id="mainRadioImage" src="img/logo.jpg" alt="Radio Indomables Cover Art" />
+            </div>
+
+            <div id="songTitle" class="song-title">Cargando título...</div>
+
+            <div class="chat-button" id="chatButton">
+                <animated-icons
+                    src="https://animatedicons.co/get-icon?name=chat&style=minimalistic&token=aa724904-12c8-4d99-a7a1-cca76b7ddec0"
+                    trigger="loop"
+                    attributes='{"variationThumbColour":"#536DFE","variationName":"Two Tone","variationNumber":2,"numberOfGroups":2,"backgroundIsGroup":false,"strokeWidth":0.62,"defaultColours":{"group-1":"#000000","group-2":"#536DFE","background":"#FFFFFF"}}'
+                    height="30"
+                    width="30"
+                ></animated-icons>
+                <span>Chat</span>
+            </div>
+
+            <div class="chat-container" id="chatContainer">
+                <div class="chat-header">
+                    <h3>Chat en Vivo</h3>
+                    <button id="closeChatButton">&times;</button>
+                </div>
+                <div class="chat-content">
+                    <iframe
+                        src="https://www3.cbox.ws/box/?boxid=3541370&boxtag=kN3uhK"
+                        width="100%"
+                        height="872"
+                        allowtransparency="yes"
+                        allow="autoplay"
+                        frameborder="0"
+                        marginheight="0"
+                        marginwidth="0"
+                        scrolling="auto"
+                    ></iframe>
+                </div>
+            </div>
+
+            <div class="app-download-buttons">
+                <a href="https://play.google.com/store/youpage" class="download-button play-store">
+                    <i class="bi bi-google-play"></i>
+                    <div class="button-text">
+                        <small>GET IT ON</small>
+                        <span>Google Play</span>
+                    </div>
+                </a>
+                <a href="https://www.apple.com/youpage" class="download-button app-store">
+                    <i class="bi bi-apple"></i>
+                    <div class="button-text">
+                        <small>Download on the</small>
+                        <span>App Store</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- SECCIÓN REDES SOCIALES (ICONOS SVG DIRECTOS) -->
+        <div class="social-links">
+            <a href="https://www.tiktok.com/@radioindomables" class="social-icon" target="_blank" aria-label="TikTok">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 2c0 5 3 7 6 7" /><path d="M9 9v7c0 4 6 6 6 2" /><path d="M15 17v3" />
+                </svg>
+            </a>
+            <a href="https://t.me/tuusuario" class="social-icon" target="_blank" aria-label="Telegram">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M22.54 2.43L1.79 10.53c-.58.22-.55.84-.1 1.07l4.54 1.71 2.16 6.52c.2.6.67.77 1.17.48l1.6-1.18 3.06 2.26c.57.34 1.02.16 1.18-.51l4.49-20.9c.19-.79-.28-1.15-.9-.92zM8.9 15.73l-2.34-2.83 10.03-6.4-7.69 9.23z"/>
+                </svg>
+            </a>
+            <a href="https://www.instagram.com/radioindomables/" class="social-icon" target="_blank" aria-label="Instagram">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                </svg>
+            </a>
+            <a href="#" class="social-icon share-button" aria-label="Compartir">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="18" cy="5" r="3"></circle>
+                    <circle cx="6" cy="12" r="3"></circle>
+                    <circle cx="18" cy="19" r="3"></circle>
+                    <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                    <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                </svg>
+            </a>
+        </div>
+
+        <!-- SECCIÓN DE PROGRAMACIÓN -->
+        <section class="schedule-section">
+            <div class="modern-banner">
+                <div class="banner-geo-shape">
+                    <h2 class="banner-title">Programación</h2>
+                </div>
+                <div class="banner-content">
+                    <p class="banner-subtitle">Descubre la grilla semanal. Encuentra a tus DJs favoritos.</p>
+                </div>
+            </div>
+
+            <div class="schedule-grid">
+                <div class="dj-card">
+                    <div class="dj-time"> Jueves 20:00 - 21:00</div>
+                    <img src="img/dj1.jpg" alt="DJ Nombre 1" class="dj-img">
+                    <div class="dj-info"><h3>Carloco</h3><p>Locos X El Rock</p></div>
+                </div>
+                <div class="dj-card">
+                    <div class="dj-time">20:00 - 22:00</div>
+                    <img src="img/logo.jpg" alt="DJ Nombre 2" class="dj-img">
+                    <div class="dj-info"><h3>DJ Nombre 2</h3><p>Reggaeton & Trap</p></div>
+                </div>
+                <div class="dj-card">
+                    <div class="dj-time">22:00 - 00:00</div>
+                    <img src="img/logo.jpg" alt="DJ Nombre 3" class="dj-img">
+                    <div class="dj-info"><h3>DJ Nombre 3</h3><p>Éxitos del Momento</p></div>
+                </div>
+                 <div class="dj-card">
+                    <div class="dj-time">00:00 - 02:00</div>
+                    <img src="img/logo.jpg" alt="DJ Nombre 4" class="dj-img">
+                    <div class="dj-info"><h3>DJ Nombre 4</h3><p>Electrónica</p></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN: CANCIONES QUE HAN SONADO -->
+        <section class="history-section" id="historySection">
+            <div class="modern-banner">
+                <div class="banner-geo-shape" style="clip-path: polygon(15% 0, 100% 0, 100% 100%, 0% 100%);">
+                    <h2 class="banner-title">Recientes</h2>
+                </div>
+                <div class="banner-content" style="order: -1; text-align: right;">
+                    <p class="banner-subtitle">Canciones que han sonado en la radio.</p>
+                </div>
+            </div>
+            <div class="history-list" id="historyList">
+                <div class="history-loading">Cargando historial...</div>
+            </div>
+        </section>
+
+        <!-- NUEVA SECCIÓN DE TIEMPO/CLIMA CON DETECCIÓN AUTOMÁTICA -->
+        <section class="weather-section" id="weatherSection">
+            <div class="modern-banner">
+                <div class="banner-geo-shape" style="clip-path: polygon(15% 0, 100% 0, 100% 100%, 0% 100%);">
+                    <h2 class="banner-title">Tiempo</h2>
+                </div>
+                <div class="banner-content" style="order: -1; text-align: right;">
+                    <p class="banner-subtitle">El clima actual en tu ubicación.</p>
+                </div>
+            </div>
+            <div class="weather-widget-container">
+                <div id="ww_96a11c67c6550" v='1.3' loc='auto' a='{"t":"responsive","lang":"es","sl_lpl":1,"ids":[],"font":"Arial","sl_ics":"one_a","sl_sot":"celsius","cl_bkg":"image","cl_font":"#FFFFFF","cl_cloud":"#FFFFFF","cl_persp":"#81D4FA","cl_sun":"#FFC107","cl_moon":"#FFC107","cl_thund":"#FF5722"}'>
+                    Más previsiones: <a href="https://tiempolargo.com/buenos_aires_tiempo_25_dias/" id="ww_96a11c67c6550_u" target="_blank">El tiempo en Buenos Aires 25 días</a>
+                </div>
+            </div>
+            <script async src="https://app3.weatherwidget.org/js/?id=ww_96a11c67c6550"></script>
+        </section>
+
+        <!-- SECCIÓN: NOTICIAS MUSICALES -->
+        <section class="news-section" id="newsSection">
+            <div class="modern-banner">
+                <div class="banner-geo-shape" style="clip-path: polygon(15% 0, 100% 0, 100% 100%, 0% 100%);">
+                    <h2 class="banner-title">Noticias</h2>
+                </div>
+                <div class="banner-content" style="order: -1; text-align: right;">
+                    <p class="banner-subtitle">Mantente informado con las últimas novedades.</p>
+                </div>
+            </div>
+
+            <div class="news-grid" id="newsGrid">
+                <div class="loading-news">Cargando noticias...</div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN: VIDEOS DESTACADOS -->
+        <section class="video-section">
+            <div class="modern-banner">
+                <div class="banner-geo-shape">
+                    <h2 class="banner-title">Videos</h2>
+                </div>
+                <div class="banner-content">
+                    <p class="banner-subtitle">Disfruta de los mejores videoclips y sesiones en vivo.</p>
+                </div>
+            </div>
+
+            <div class="video-grid">
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <iframe 
+                            src="https://www.youtube.com/embed/QIbpGOMLD3U?si=ZDdrzGziNdn_Wzqd" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    <h3>Jingle Radio Indomables</h3>
+                </div>
+                
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <iframe 
+                            src="https://www.youtube.com/embed/ylEKaAHKhoo?si=u5VBc7eJj-KHMUz2" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    <h3>Jingle Rock Radio Indomables</h3>
+                </div>
+
+                 <div class="video-card">
+                    <div class="video-wrapper">
+                        <iframe 
+                            src="https://www.youtube.com/embed/L8aezIzTnmU?si=2IQLRyGVheo4LR7T" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    <h3>Indomables Discoteque</h3>
+                </div>
+                
+            </div>
+        </section>
+
+        <!-- ============================================ -->
+        <!-- FOOTER/TARJETA FINAL                     -->
+        <!-- CON LOGO Y LETRAS MÁS GRANDES              -->
+        <!-- ============================================ -->
+        <section class="footer-card-section" id="footerSection">
+            <div class="footer-card">
+                <!-- Logo de la Radio - Tamaño Aumentado -->
+                <div class="footer-logo-container">
+                    <img src="img/logo.jpg" alt="Radio Indomables Logo" class="footer-logo" />
+                </div>
+                
+                <!-- Nombre de la Radio - Letras Más Grandes -->
+                <h3 class="footer-radio-name">Radio Indomables</h3>
+                
+                <!-- Copyright - Texto Más Grande -->
+                <p class="footer-copyright">
+                    © <span id="footerYear"></span> <strong>Radio Indomables</strong><br>
+                    Todos los derechos reservados
+                </p>
+            </div>
+            
+            <!-- Botón Volver Arriba - Inteligente -->
+            <button 
+                type="button"
+                class="scroll-to-top-btn-smart" 
+                id="scrollToTopBtn" 
+                aria-label="Volver arriba"
+                title="Volver al inicio de la página"
+            >
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="18 15 12 9 6 15"></polyline>
+                </svg>
+            </button>
+        </section>
+
+        <!-- REPRODUCTOR - SIEMPRE AL FINAL -->
+        <div class="player-controls">
+            <div class="station-info">
+                <img id="playerStationImage" src="img/logo.jpg" alt="Radio Indomables" />
+                <div>
+                    <div class="station-name" id="stationNameText">Cargando...</div>
+                    <div class="live-indicator alternative">
+                        EN VIVO
+                        <div class="live-dot"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="playback-controls">
+                <button id="prevButton" disabled><i data-lucide="skip-back"></i></button>
+                <button id="playPauseButton"><i data-lucide="play"></i></button>
+                <button id="nextButton" disabled><i data-lucide="skip-forward"></i></button>
+            </div>
+            <div class="extra-controls">
+                <button id="likeButton"><i data-lucide="heart"></i></button>
+                <div class="volume-control">
+                    <i data-lucide="volume-2"></i>
+                    <input type="range" id="volumeSlider" min="0" max="1" step="0.1" value="1" />
+                    <span id="volumePercentage">100%</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="imageModal" class="image-modal">
+        <span class="close-modal">&times;</span>
+        <img class="modal-content-image" id="imgModalContent">
+    </div>
+
+    <audio id="audioPlayer" src="https://myradio.live/listen/indomables/radio.mp3" preload="none" playsinline webkit-playsinline></audio>
+
+    <!-- ========================================== -->
+    <!-- HTML: VENTANA FLOTANTE TWITCH             -->
+    <!-- ========================================== -->
+    <div id="radioContainer" title="Arrastra para mover">
+        <div id="reabrirBtn" title="Abrir Twitch en vivo">📺</div>
+        <div id="radioBox">
+            <div id="radioName" style="font-weight: bold; color: #FFFFFF; margin-bottom: 4px; font-size: 0.85rem; cursor: grab;">🔴 INDOMABLESTV EN VIVO</div>
+            <iframe id="twitchPlayer" allowfullscreen title="Twitch Player"></iframe>
+            <div style="margin-top: 4px; display: flex; justify-content: center; gap: 4px;">
+                <button class="twitch-btn actualizar" onclick="cambiarTwitch()">🔁 RECARGAR</button>
+                <button class="twitch-btn cerrar" onclick="cerrarTwitch()">✕</button>
+            </div>
+            <div id="resizeHandle" title="Arrastra para redimensionar">↘</div>
+        </div>
+    </div>
+
+    <script>
+        if (!localStorage.getItem('theme')) {
+            localStorage.setItem('theme', 'dark');
+        }
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const audioPlayer = document.getElementById('audioPlayer');
+            const playPauseButton = document.getElementById('playPauseButton');
+            const likeButton = document.getElementById('likeButton');
+            const volumeSlider = document.getElementById('volumeSlider');
+            const prevButton = document.getElementById('prevButton');
+            const nextButton = document.getElementById('nextButton');
+            const volumePercentage = document.getElementById('volumePercentage');
+            const volumeIcon = document.querySelector('[data-lucide="volume-2"]');
+            const themeToggle = document.getElementById('themeToggle');
+            const mainRadioImage = document.getElementById('mainRadioImage');
+            const playerStationImage = document.getElementById('playerStationImage');
+            const songTitleElement = document.getElementById('songTitle');
+
+            const requiredElements = [
+                audioPlayer, playPauseButton, likeButton,
+                volumeSlider, prevButton, nextButton, volumePercentage, volumeIcon, themeToggle,
+                mainRadioImage, playerStationImage, songTitleElement
+            ];
+
+            if (requiredElements.some(el => el === null)) {
+                console.error('One or more required elements are missing');
+                return;
+            }
+
+            let isPlaying = false;
+            let isLiked = false;
+            let currentStationIndex = 0;
+            let previousVolume = 1;
+            let currentSongTitle = '';
+
+            const stations = [
+                { name: 'Radio Digital', url: 'https://myradio.live/listen/indomables/radio.mp3', src: 'https://myradio.live/listen/indomables/radio.mp3' }
+            ];
+
+            function autoPlay() {
+                if (!audioPlayer) return;
+                const playAttempt = audioPlayer.play();
+                if (playAttempt !== undefined) {
+                    playAttempt
+                        .then(() => {
+                            isPlaying = true;
+                            updatePlayPauseButton();
+                            updateNavigationButtons();
+                            console.log('Autoplay exitoso (probablemente PC)');
+                        })
+                        .catch(error => {
+                            console.warn('Autoplay bloqueado. Esperando interacción del usuario...');
+                            const unlockAudio = (e) => {
+                                if (isPlaying) return;
+                                audioPlayer.play()
+                                    .then(() => {
+                                        isPlaying = true;
+                                        updatePlayPauseButton();
+                                        updateNavigationButtons();
+                                        console.log('Audio iniciado por interacción del usuario.');
+                                        document.removeEventListener('click', unlockAudio);
+                                        document.removeEventListener('touchstart', unlockAudio);
+                                        document.removeEventListener('touchend', unlockAudio);
+                                        document.body.removeEventListener('touchend', unlockAudio);
+                                    })
+                                    .catch(err => console.warn("Error al intentar desbloquear audio:", err));
+                            };
+                            document.addEventListener('click', unlockAudio);
+                            document.addEventListener('touchend', unlockAudio); 
+                            document.body.addEventListener('touchend', unlockAudio);
+                        });
+                }
+            }
+
+            volumeIcon.addEventListener('click', toggleMute);
+
+            function toggleMute() {
+                if (!audioPlayer) return;
+                if (audioPlayer.volume > 0) {
+                    previousVolume = audioPlayer.volume;
+                    audioPlayer.volume = 0;
+                    volumeSlider.value = 0;
+                    volumePercentage.textContent = '0%';
+                    updateVolumeIcon(true);
+                } else {
+                    audioPlayer.volume = previousVolume;
+                    volumeSlider.value = previousVolume;
+                    volumePercentage.textContent = `${Math.round(previousVolume * 100)}%`;
+                    updateVolumeIcon(false);
+                }
+            }
+
+            function updateVolumeIcon(isMuted) {
+                try {
+                    volumeIcon.setAttribute('data-lucide', isMuted ? 'volume-x' : (audioPlayer.volume > 0.5 ? 'volume-2' : (audioPlayer.volume > 0 ? 'volume-1' : 'volume-x')));
+                    lucide.createIcons();
+                } catch (error) {
+                    console.error('Update volume icon error:', error);
+                }
+            }
+
+            playPauseButton.addEventListener('click', () => {
+                try { togglePlay(); } catch (error) { console.error('Play/Pause error:', error); }
+            });
+
+            likeButton.addEventListener('click', toggleLike);
+            volumeSlider.addEventListener('input', handleVolumeChange);
+            prevButton.addEventListener('click', playPreviousStation);
+            nextButton.addEventListener('click', playNextStation);
+
+            audioPlayer.addEventListener('error', (e) => {
+                console.error('Audio error:', e);
+                isPlaying = false;
+                updatePlayPauseButton();
+                updateNavigationButtons();
+            });
+
+            audioPlayer.addEventListener('play', () => {
+                isPlaying = true;
+                updatePlayPauseButton();
+            });
+
+            audioPlayer.addEventListener('pause', () => {
+                isPlaying = false;
+                updatePlayPauseButton();
+            });
+
+            function togglePlay() {
+                if (!audioPlayer) return;
+                if (isPlaying) {
+                    audioPlayer.pause();
+                } else {
+                    const playPromise = audioPlayer.play();
+                    if (playPromise !== undefined) {
+                        playPromise
+                            .then(() => { isPlaying = true; })
+                            .catch(error => {
+                                console.warn('Playback was prevented:', error);
+                                isPlaying = false;
+                            })
+                            .finally(() => {
+                                updatePlayPauseButton();
+                                updateNavigationButtons();
+                            });
+                    }
+                }
+            }
+
+            function toggleLike() {
+                if (!likeButton) return;
+                isLiked = !isLiked;
+                likeButton.classList.toggle('liked', isLiked);
+            }
+
+            function handleVolumeChange() {
+                if (audioPlayer) {
+                    audioPlayer.volume = volumeSlider.value;
+                    const volumePercent = Math.round(volumeSlider.value * 100);
+                    volumePercentage.textContent = `${volumePercent}%`;
+                    updateVolumeIcon(audioPlayer.volume === 0);
+                    if (audioPlayer.volume > 0) {
+                        previousVolume = audioPlayer.volume;
+                    }
+                }
+            }
+
+            function updatePlayPauseButton() {
+                if (!playPauseButton) return;
+                const iconElement = playPauseButton.querySelector('[data-lucide]') || playPauseButton.querySelector('i');
+                if (iconElement) {
+                    try {
+                        iconElement.setAttribute('data-lucide', isPlaying ? 'pause' : 'play');
+                        lucide.createIcons();
+                    } catch (error) { console.error('Update play/pause button error:', error); }
+                }
+            }
+
+            function updateNavigationButtons() {
+                if (stations.length <= 1) {
+                    prevButton.disabled = true;
+                    nextButton.disabled = true;
+                } else {
+                    prevButton.disabled = currentStationIndex === 0;
+                    nextButton.disabled = currentStationIndex === stations.length - 1;
+                }
+            }
+
+            function playPreviousStation() {
+                if (currentStationIndex > 0) {
+                    currentStationIndex--;
+                    changeStation();
+                }
+            }
+
+            function playNextStation() {
+                if (currentStationIndex < stations.length - 1) {
+                    currentStationIndex++;
+                    changeStation();
+                }
+            }
+
+            function changeStation() {
+                const station = stations[currentStationIndex];
+                if (audioPlayer) {
+                    audioPlayer.pause();
+                    audioPlayer.src = station.src;
+                    audioPlayer.load();
+                    isPlaying = false;
+                    updatePlayPauseButton();
+                    const playPromise = audioPlayer.play();
+                     if (playPromise !== undefined) {
+                        playPromise
+                            .then(() => { isPlaying = true; updatePlayPauseButton(); })
+                            .catch(e => { console.warn('Autoplay prevented for new station:', e); });
+                     }
+                }
+                const stationNameElement = document.querySelector('.station-name');
+                if (stationNameElement) stationNameElement.textContent = station.name;
+                updateNavigationButtons();
+                fetchAlbumArtAndTitle();
+            }
+
+            function toggleTheme() {
+                document.body.classList.toggle('dark-mode');
+                const isDarkMode = document.body.classList.contains('dark-mode');
+                localStorage.setItem('radioDigitalTheme', isDarkMode ? 'dark' : 'light');
+                updateThemeIcon();
+            }
+
+            function updateThemeIcon() {
+                const isDarkMode = document.body.classList.contains('dark-mode');
+                const themeIcon = themeToggle.querySelector('[data-lucide]') || themeToggle.querySelector('i');
+                if (themeIcon) {
+                    try {
+                        themeIcon.setAttribute('data-lucide', isDarkMode ? 'sun' : 'moon');
+                        lucide.createIcons();
+                    } catch (error) { console.error('Theme icon error:', error); }
+                }
+            }
+
+            const savedTheme = localStorage.getItem('radioDigitalTheme');
+            if (savedTheme === 'light') {
+                document.body.classList.remove('dark-mode');
+            } else {
+                document.body.classList.add('dark-mode');
+                if(!savedTheme) localStorage.setItem('radioDigitalTheme', 'dark');
+            }
+            updateThemeIcon();
+            
+            themeToggle.addEventListener('click', toggleTheme);
+
+            // --- FUNCIÓN UNIFICADA: Carátula, Título y DJ/AutoDJ ---
+            const stationInfoUrl = "https://myradio.live/api/nowplaying/indomables";
+            let currentAlbumArt = '';
+            let currentDjName = '';
+
+            function adjustTitleFontSize(titleElement, titleText) {
+                const titleLengthThreshold = 45;
+                if (titleText && titleElement) {
+                    if (titleText.length > titleLengthThreshold) {
+                        titleElement.classList.add('long-title');
+                    } else {
+                        titleElement.classList.remove('long-title');
+                    }
+                }
+            }
+
+            async function fetchAlbumArtAndTitle() {
+                try {
+                    const response = await fetch(stationInfoUrl, { cache: 'no-cache' });
+                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                    const data = await response.json();
+
+                    const song = data.now_playing?.song || {};
+                    const title = song.title || 'Desconocido';
+                    const artist = song.artist || 'Desconocido';
+                    const artwork = song.art || 'img/logo.jpg';
+                    const fullTitle = `${artist} - ${title}`;
+
+                    if (artwork && artwork !== currentAlbumArt) {
+                        mainRadioImage.src = artwork;
+                        if(playerStationImage) playerStationImage.src = artwork;
+                        currentAlbumArt = artwork;
+                    } else if (!artwork && currentAlbumArt !== 'img/logo.jpg') {
+                        mainRadioImage.src = 'img/logo.jpg';
+                        if(playerStationImage) playerStationImage.src = 'img/logo.jpg';
+                        currentAlbumArt = 'img/logo.jpg';
+                    }
+
+                    if (fullTitle !== currentSongTitle) {
+                        songTitleElement.textContent = fullTitle;
+                        currentSongTitle = fullTitle;
+                        adjustTitleFontSize(songTitleElement, fullTitle);
+                        songTitleElement.classList.add('title-update');
+                        setTimeout(() => { songTitleElement.classList.remove('title-update'); }, 500);
+                    }
+
+                    const stationNameElement = document.getElementById('stationNameText');
+                    if (stationNameElement) {
+                        const isLive = data.live?.is_live === true;
+                        const streamerName = data.live?.streamer_name || '';
+                        
+                        let nombreAMostrar = 'AutoDJ';
+                        if (isLive && streamerName.trim() !== '') {
+                            nombreAMostrar = streamerName;
+                        }
+
+                        if (nombreAMostrar !== currentDjName) {
+                            stationNameElement.textContent = nombreAMostrar;
+                            currentDjName = nombreAMostrar;
+                        }
+                    }
+
+                } catch (error) {
+                    console.error('Error fetching station info:', error);
+                    if (currentAlbumArt !== 'img/logo.jpg') {
+                        mainRadioImage.src = 'img/logo.jpg';
+                        if(playerStationImage) playerStationImage.src = 'img/logo.jpg';
+                        currentAlbumArt = 'img/logo.jpg';
+                    }
+                    const errorTitle = 'Error al cargar título';
+                    if (currentSongTitle !== errorTitle) {
+                        songTitleElement.textContent = errorTitle;
+                        currentSongTitle = errorTitle;
+                        adjustTitleFontSize(songTitleElement, errorTitle);
+                    }
+                }
+            }
+
+            fetchAlbumArtAndTitle();
+            setInterval(fetchAlbumArtAndTitle, 15000);
+
+            setTimeout(autoPlay, 100);
+
+            updateNavigationButtons();
+            volumePercentage.textContent = `${Math.round(volumeSlider.value * 100)}%`;
+            updateVolumeIcon(volumeSlider.value === '0');
+
+            function recreateLucideIcons() {
+                 try { lucide.createIcons(); } catch (error) { console.error('Lucide error:', error); }
+            }
+            recreateLucideIcons();
+        });
+    </script>
+
+    <!-- ===================================================== -->
+    <!-- SCRIPT INTELIGENTE DEL BOTÓN VOLVER ARRIBA          -->
+    <!-- ===================================================== -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            // 1. Establecer año dinámico en copyright
+            var yearEl = document.getElementById('footerYear');
+            if (yearEl) {
+                yearEl.textContent = new Date().getFullYear();
+            }
+            
+            // 2. Configurar botón inteligente scroll-to-top
+            var btn = document.getElementById('scrollToTopBtn');
+            
+            if (btn) {
+                console.log('✅ Botón scroll-to-top encontrado');
+                
+                // Función principal: Detecta entorno y scrollea el elemento correcto
+                function smartScrollToTop(event) {
+                    if (event) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    
+                    var isMobile = window.innerWidth <= 768;
+                    
+                    if (isMobile) {
+                        var container = document.querySelector('.container');
+                        if (container) {
+                            container.scrollTo({
+                                top: 0,
+                                left: 0,
+                                behavior: 'smooth'
+                            });
+                            
+                            setTimeout(function() {
+                                container.scrollTop = 0;
+                                container.scrollLeft = 0;
+                            }, 100);
+                        }
+                    } else {
+                        window.scrollTo({
+                            top: 0,
+                            left: 0,
+                            behavior: 'smooth'
+                        });
+                        
+                        setTimeout(function() {
+                            window.scrollTo(0, 0);
+                            document.documentElement.scrollTop = 0;
+                            document.body.scrollTop = 0;
+                        }, 100);
+                    }
+                    
+                    return false;
+                }
+                
+                btn.addEventListener('click', smartScrollToTop);
+                
+                btn.addEventListener('touchend', function(e) {
+                    e.preventDefault();
+                    smartScrollToTop(e);
+                });
+                
+            }
+            
+            // 3. Recrear iconos Lucide
+            setTimeout(function() {
+                try {
+                    if (typeof lucide !== 'undefined' && lucide.createIcons) {
+                        lucide.createIcons();
+                    }
+                } catch (e) {
+                    console.warn('Iconos:', e.message);
+                }
+            }, 100);
+        });
+    </script>
+
+    <script src="current-date-time.js"></script>
+    <script src="chat-button.js"></script>
+    <script src="install-popup.js"></script>
+    <script src="pwa-register.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const modal = document.getElementById("imageModal");
+            const modalImg = document.getElementById("imgModalContent");
+            const closeBtn = document.querySelector(".close-modal");
+
+            const images = document.querySelectorAll('.dj-img');
+            images.forEach(img => {
+                img.addEventListener('click', () => {
+                    modal.style.display = "flex";
+                    modalImg.src = img.src;
+                });
+                img.style.cursor = "pointer";
+            });
+
+            closeBtn.addEventListener('click', () => { modal.style.display = "none"; });
+            modal.addEventListener('click', (e) => { if (e.target === modal) modal.style.display = "none"; });
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const newsGrid = document.getElementById('newsGrid');
+            
+            if (window.location.protocol === 'file:') {
+                newsGrid.innerHTML = '<p style="color:white; text-align:center;">🚨 Abre con Live Server.</p>';
+                return;
+            }
+
+            const rssUrl = 'https://www.20minutos.es/rss/musica/';
+            const apiUrl = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(rssUrl);
+
+            function stripHtml(html) {
+                if (!html) return '';
+                let tmp = document.createElement("DIV");
+                tmp.innerHTML = html;
+                return tmp.textContent || tmp.innerText || "";
+            }
+
+            function getImage(item) {
+                if (item.enclosure && item.enclosure.link) return item.enclosure.link;
+                if (item.thumbnail) return item.thumbnail;
+                if (item.content) {
+                    const match = item.content.match(/<img[^>]+src="([^">]+)"/);
+                    if (match) return match[1];
+                }
+                if (item.description) {
+                     const match = item.description.match(/<img[^>]+src="([^">]+)"/);
+                     if (match) return match[1];
+                }
+                return 'img/logo.jpg';
+            }
+            
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'ok' && data.items && data.items.length > 0) {
+                        newsGrid.innerHTML = ''; 
+                        
+                        const items = data.items.slice(0, 6);
+                        
+                        items.forEach(item => {
+                            const imageUrl = getImage(item);
+                            const summary = stripHtml(item.description).substring(0, 150) + '...';
+                            const pubDate = new Date(item.pubDate);
+                            const dateStr = pubDate.toLocaleDateString('es-ES', { day: 'numeric', month: 'short' });
+                            
+                            const card = document.createElement('a');
+                            card.className = 'news-card';
+                            card.href = item.link;
+                            card.target = '_blank';
+                            
+                            card.innerHTML = `
+                                <div class="news-img-container">
+                                    <img src="${imageUrl}" alt="${item.title}" class="news-img" onerror="this.src='img/logo.jpg'">
+                                </div>
+                                <div class="news-content">
+                                    <div class="news-headline">${item.title}</div>
+                                    <div class="news-summary">${summary}</div>
+                                    <div class="news-meta">
+                                        <span class="news-source">20 Minutos</span>
+                                        <span>${dateStr}</span>
+                                    </div>
+                                </div>
+                            `;
+                            
+                            newsGrid.appendChild(card);
+                        });
+                    } else {
+                        newsGrid.innerHTML = '<p style="color:white; text-align:center;">No hay noticias ahora.</p>';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    newsGrid.innerHTML = '<p style="color:white; text-align:center;">Error de conexión.</p>';
+                });
+        });
+    </script>
+
+    <!-- Script: Historial de Canciones desde AzuraCast -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const historyList = document.getElementById('historyList');
+            const apiUrl = 'https://myradio.live/api/nowplaying/indomables';
+
+            function formatTime(timestamp) {
+                const date = new Date(timestamp * 1000);
+                return date.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
+            }
+
+            function buildHistoryHTML(data) {
+                const nowPlaying = data.now_playing || {};
+                const songHistory = data.song_history || [];
+
+                if (!nowPlaying.song && songHistory.length === 0) {
+                    return '<div class="history-loading">Sin canciones en el historial.</div>';
+                }
+
+                let html = '';
+
+                if (nowPlaying.song) {
+                    const song = nowPlaying.song;
+                    const title = song.title || 'Desconocido';
+                    const artist = song.artist || 'Desconocido';
+                    const art = song.art || 'img/logo.jpg';
+
+                    html += `
+                        <div class="history-header-info">
+                            <div class="history-live-dot"></div>
+                            <span class="history-live-text">Sonando ahora</span>
+                        </div>
+                        <div class="history-item history-now-playing" style="animation-delay: 0s">
+                            <img src="${art}" alt="${title}" class="history-art" onerror="this.src='img/logo.jpg'">
+                            <div class="history-info">
+                                <div class="history-song">${title}</div>
+                                <div class="history-artist">${artist}</div>
+                            </div>
+                            <div class="history-time">AHORA</div>
+                        </div>
+                    `;
+                }
+
+                songHistory.forEach((item, index) => {
+                    const song = item.song || {};
+                    const title = song.title || 'Desconocido';
+                    const artist = song.song || song.artist || 'Desconocido';
+                    const art = song.art || 'img/logo.jpg';
+                    const time = item.played_at ? formatTime(item.played_at) : '';
+
+                    html += `
+                        <div class="history-item" style="animation-delay: ${(index + 1) * 0.05}s">
+                            <img src="${art}" alt="${title}" class="history-art" onerror="this.src='img/logo.jpg'">
+                            <div class="history-info">
+                                <div class="history-song">${title}</div>
+                                <div class="history-artist">${artist}</div>
+                            </div>
+                            <div class="history-time">${time}</div>
+                        </div>
+                    `;
+                });
+
+                return html;
+            }
+
+            async function fetchHistory() {
+                try {
+                    const response = await fetch(apiUrl);
+                    if (!response.ok) throw new Error('Error HTTP');
+                    const data = await response.json();
+                    historyList.innerHTML = buildHistoryHTML(data);
+                } catch (error) {
+                    console.error('Error al obtener historial:', error);
+                    historyList.innerHTML = '<div class="history-loading">Error al cargar historial.</div>';
+                }
+            }
+
+            fetchHistory();
+            setInterval(fetchHistory, 30000);
+        });
+    </script>
+
+    <!-- ========================================== -->
+    <!-- SCRIPT: VENTANA FLOTANTE TWITCH           -->
+    <!-- ========================================== -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById("radioContainer");
+            const reabrirBtn = document.getElementById("reabrirBtn");
+            const radioBox = document.getElementById("radioBox");
+            const twitchPlayer = document.getElementById("twitchPlayer");
+            const resizeHandle = document.getElementById("resizeHandle");
+
+            let domain = window.location.hostname;
+            if (!domain || domain === "localhost" || domain === "127.0.0.1") { domain = "localhost"; }
+            const twitchSrc = `https://player.twitch.tv/?channel=radio_indomables&parent=${domain}&muted=true`;
+
+            let isDragging = false, isResizing = false;
+            let offsetX = 0, offsetY = 0;
+            let moved = false;
+            let resizeStartX = 0, initialWidth = 0;
+            let rafId = null;
+            
+            let dragOverlay = null;
+            function createOverlay() {
+                if (dragOverlay) return;
+                dragOverlay = document.createElement('div');
+                dragOverlay.style.cssText = 'position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:99999999;background:transparent;cursor:grabbing;';
+                document.body.appendChild(dragOverlay);
+            }
+            function destroyOverlay() {
+                if (dragOverlay) {
+                    dragOverlay.remove();
+                    dragOverlay = null;
+                }
+            }
+
+            let touchStartTime = 0;
+            let touchMovedDistance = 0;
+
+            function startDrag(clientX, clientY) {
+                isDragging = true; moved = false;
+                touchStartTime = Date.now(); touchMovedDistance = 0;  
+                const rect = container.getBoundingClientRect();
+                offsetX = clientX - rect.left; offsetY = clientY - rect.top;
+                createOverlay();
+            }
+
+            function moveDrag(clientX, clientY) {
+                if (!isDragging) return;
+                moved = true;
+                const rect = container.getBoundingClientRect();
+                const newX = clientX - offsetX;
+                touchMovedDistance += Math.abs(newX - parseFloat(container.style.left || rect.left));
+                let x = Math.min(Math.max(0, newX), window.innerWidth - container.offsetWidth);
+                let y = Math.min(Math.max(0, clientY - offsetY), window.innerHeight - container.offsetHeight);
+                container.style.top = y + "px"; container.style.left = x + "px"; container.style.transform = "none";
+            }
+
+            container.addEventListener("mousedown", e => {
+                if (e.target.closest(".twitch-btn") || e.target.closest("#resizeHandle")) return;
+                if (e.target.closest("#radioBox") && !e.target.closest("#radioName")) return;
+                startDrag(e.clientX, e.clientY);
+            });
+
+            window.addEventListener("mousemove", e => {
+                moveDrag(e.clientX, e.clientY);
+                if (isResizing) handleResize(e.clientX);
+            });
+
+            window.addEventListener("mouseup", () => {
+                if (isDragging) { isDragging = false; destroyOverlay(); if (!moved) toggleTwitchBox(); }
+                if (isResizing) { isResizing = false; destroyOverlay(); if (rafId) cancelAnimationFrame(rafId); }
+            });
+
+            container.addEventListener("touchstart", e => {
+                if (e.target.closest(".twitch-btn") || e.target.closest("#resizeHandle")) return;
+                if (e.target.closest("#radioBox") && !e.target.closest("#radioName")) return;
+                startDrag(e.touches[0].clientX, e.touches[0].clientY);
+            }); 
+
+            window.addEventListener("touchmove", e => {
+                if (isDragging) { moveDrag(e.touches[0].clientX, e.touches[0].clientY); e.preventDefault(); }
+                if (isResizing) { handleResize(e.touches[0].clientX); e.preventDefault(); }
+            }, {passive: false});
+
+            window.addEventListener("touchend", () => {
+                if (isDragging) {
+                    isDragging = false; destroyOverlay();
+                    const timeDiff = Date.now() - touchStartTime;
+                    if ((timeDiff < 250 && touchMovedDistance < 15) || !moved) { toggleTwitchBox(); }
+                }
+                if (isResizing) { isResizing = false; destroyOverlay(); if (rafId) cancelAnimationFrame(rafId); }
+            });
+
+            document.addEventListener("mousedown", function(e) {
+                if (isDragging && dragOverlay) {
+                    isDragging = false; destroyOverlay();
+                }
+            }, true);
+
+            document.addEventListener("touchstart", function(e) {
+                if (isDragging && dragOverlay) {
+                    isDragging = false; destroyOverlay();
+                }
+            }, true);
+
+            function startResize(clientX, e) {
+                isResizing = true; resizeStartX = clientX; initialWidth = twitchPlayer.offsetWidth;
+                createOverlay();
+                if (e) { e.preventDefault(); e.stopPropagation(); }
+            }
+
+            function handleResize(currentX) {
+                if (!isResizing) return;
+                if (rafId) cancelAnimationFrame(rafId);
+                rafId = requestAnimationFrame(() => {
+                    let diffX = currentX - resizeStartX;
+                    let newWidth = Math.max(200, Math.min(initialWidth + diffX, window.innerWidth - 40));
+                    twitchPlayer.style.width = newWidth + "px"; 
+                    twitchPlayer.style.height = (newWidth * (9 / 16)) + "px";
+                });
+            }
+
+            resizeHandle.addEventListener("mousedown", e => startResize(e.clientX, e));
+            resizeHandle.addEventListener("touchstart", e => startResize(e.touches[0].clientX, e), {passive: false});
+
+            window.toggleTwitchBox = function() {
+                if (radioBox.style.display === "block") {
+                    radioBox.style.display = "none"; reabrirBtn.style.display = "block"; twitchPlayer.src = "";
+                } else {
+                    radioBox.style.display = "block"; reabrirBtn.style.display = "none";
+                    if(twitchPlayer.src === "") twitchPlayer.src = twitchSrc;
+                }
+            }
+            
+            window.cerrarTwitch = function() {
+                radioBox.style.display = "none"; reabrirBtn.style.display = "block"; twitchPlayer.src = "";
+            }
+            
+            reabrirBtn.addEventListener("click", () => {
+                radioBox.style.display = "block"; reabrirBtn.style.display = "none";
+                if(twitchPlayer.src === "") twitchPlayer.src = twitchSrc;
+            });
+            
+            window.cambiarTwitch = function() {
+                twitchPlayer.src = "";
+                setTimeout(() => { twitchPlayer.src = twitchSrc; }, 100);
+            }
+        });
+    </script>
+</body>
+</html>

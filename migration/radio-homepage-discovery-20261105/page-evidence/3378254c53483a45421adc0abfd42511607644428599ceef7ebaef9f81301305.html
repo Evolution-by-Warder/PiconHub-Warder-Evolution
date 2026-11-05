@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+                        
+                        <link rel="preload" as="style" href="//playertop.futuro.cl/psdmedia/resources/js/psd/css/commonmm.css">
+        <link rel="preload" as="style" href="//playertop.futuro.cl/psdmedia/media/top/skins/oneplayer/css/default.css">
+
+        <link rel="preload" as="script" href="//playertop.futuro.cl/psdmedia/media/simple/js/SimpleMediaPlayer.min.js">
+                                                        <link rel="preload" as="script" href="//ak-ads-ns.prisasd.com/slot/cdial/slot.js">
+                                    
+                                    <style id="site-fonts">
+    @import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700|Roboto:300,400,700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+    @font-face {
+        font-family: 'HeadingProWide-Light';
+        src: url('/build/assets/default/fonts/HeadingProWide-Light.eot?#iefix') format('embedded-opentype'),
+        url('/build/assets/default/fonts/HeadingProWide-Light.woff') format('woff'),
+        url('/build/assets/default/fonts/HeadingProWide-Light.ttf') format('truetype'),
+        url('/build/assets/default/fonts/HeadingProWide-Light.eot#HeadingProWide-Light') format('svg');
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+    }
+</style>
+        
+                    
+<title>Escucha Radio Futuro online</title>
+
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+
+<meta name="title" content="Escucha Radio Futuro online"/>
+<meta name="description" content="Escucha en vivo y online Futuro - La Radio del Rock Chile"/>
+
+<meta name="author" content="Radio Futuro"/>
+<meta name="lang" content="es"/>
+<meta name="theme-color" content="#202020">
+
+    <meta name="twitter:url" content="https://envivo.futuro.cl"/>
+    <meta name="twitter:title" content='Escucha Radio Futuro online'/>
+    <meta name="twitter:card" content='summary_large_image'/>
+    <meta name="twitter:site" content='@futurofm'/>
+    <meta name="twitter:description" content='Escucha en vivo y online Futuro - La Radio del Rock Chile'/>
+<meta name="twitter:image" content='https://envivo.futuro.cl/build/assets/futurochile/img/300x300.png'/>
+
+    <meta name="application-name" content="Radio Futuro en directo"/>
+    <meta name="apple-mobile-web-app-title" content="Radio Futuro en directo"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="transparent"/>
+<meta name="mobile-web-app-capable" content="yes"/>
+
+    <meta property='og:url' content="https://envivo.futuro.cl"/>
+    <meta property='og:title' content='Escucha Radio Futuro online'/>
+<meta property='og:locale' content='es_ES'/>
+    <meta property='og:type' content='music.radio_station'/>
+    <meta property='og:description' content='Escucha en vivo y online Futuro - La Radio del Rock Chile'/>
+<meta property='og:site_name' content='Escucha Radio Futuro online'/>
+<meta property="og:image" content="https://envivo.futuro.cl/build/assets/futurochile/img/300x300.png?t=2"/>
+    <meta property='fb:app_id' content='366628256718670'/>
+    <meta property='article:publisher' content='https://www.facebook.com/radiofuturo/'/>
+
+<link rel="apple-touch-icon" sizes="57x57" href="/build/assets/futurochile/img/favicons/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/build/assets/futurochile/img/favicons/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/build/assets/futurochile/img/favicons/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/build/assets/futurochile/img/favicons/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/build/assets/futurochile/img/favicons/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/build/assets/futurochile/img/favicons/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/build/assets/futurochile/img/favicons/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/build/assets/futurochile/img/favicons/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/build/assets/futurochile/img/favicons/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/build/assets/futurochile/img/favicons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/build/assets/futurochile/img/favicons/favicon-96x96.png">
+<link rel="manifest" href="/build/assets/futurochile/img/favicons/manifest.json">
+<link rel="shortcut icon" type="image/png" href="/build/assets/futurochile/img/favicon.png"/>
+<link rel="icon" type="image/png" href="/build/assets/futurochile/img/favicon.png"/>
+
+    <link rel="canonical" href="https://envivo.futuro.cl"/>
+
+        
+                    <link id="new_default_css" rel="stylesheet" type="text/css" href="/build/assets/default/css/new_default_styles.css" media="all">
+<link id="nprogress_css" rel="stylesheet" type="text/css" href="/build/assets/default/css/nprogress.css" media="all">
+<link id="new_site_css" rel="stylesheet" type="text/css" href="/build/assets/futurochile/css/new_site_styles.css" media="all">
+<link id="jquery_ui_css" rel="stylesheet" type="text/css" href="/build/assets/default/css/jquery-ui.css" media="all">
+        
+                                    <script async type="application/javascript" id="dtm_js" src="//assets.adobedtm.com/0681c221600c/233b64f4cce9/launch-497c3904ef12.min.js"></script>
+                    
+        
+        
+        
+        <script id="loader_js" type="application/javascript" src="/build/assets/default/js/loader.js"></script>
+
+        
+                    <script async defer>
+                //si tdIdsync existe, significa que la librería ya estaba cargada, con lo que no se hace nada
+                if(typeof(tdIdsync) != "object"){
+    //si Didomi ya está cargado se cargan los datos del gdpr y el consent directamente
+                    if(typeof Didomi != "undefined"){
+                        window.mm_didomi_cs_t = Didomi.getUserConsentStatusForVendor("239");
+
+                        let consent = window.cmpConsentString;
+                        let gdpr = window.mm_didomi_cs_t||false;
+
+                        let js = document.createElement('script');
+                        js.type = 'text/javascript';
+                        js.src = "https://playerservices.live.streamtheworld.com/api/idsync.js?stationId=" + 246463 + "&gdpr=" + gdpr + "&gdpr_consent=" + consent;
+
+                        js.onload = function(){
+                            if((typeof mm_demo!="undefined")&&(mm_demo))
+                            console.log("%cCookie Sync loaded","font-weight:bold;color:orange")
+                        }
+
+                        let s = document.getElementsByTagName('script')[0];
+                        s.parentNode.insertBefore(js, s);
+                    }else{
+    //si Didomi no está cargado se añade el listener
+                        window.didomiOnReady = window.didomiOnReady || [];
+                        window.didomiOnReady.push(function(Didomi) {
+                            Didomi.getObservableOnUserConsentStatusForVendor('239')
+                                .subscribe(function(consentStatus) {
+                                    if (consentStatus === undefined) {
+                                        window.mm_didomi_cs_t = false;
+                                    } else if (consentStatus === true) {
+                                        window.mm_didomi_cs_t = true;
+                                    } else if (consentStatus === false) {
+                                        window.mm_didomi_cs_t = false;
+                                    }
+
+                                    let consent = window.cmpConsentString;
+                                    let gdpr = window.mm_didomi_cs_t;
+
+                                    let js = document.createElement('script');
+                                    js.type = 'text/javascript';
+                                    js.src = "https://playerservices.live.streamtheworld.com/api/idsync.js?stationId=" + 246463 + "&gdpr=" + gdpr + "&gdpr_consent=" + consent;
+
+                                    js.onload = function(){
+                                        if((typeof mm_demo!="undefined")&&(mm_demo))
+                                        console.log("%cCookie Sync loaded","font-weight:bold;color:orange");
+                                    }
+
+                                    let s = document.getElementsByTagName('script')[0];
+                                    s.parentNode.insertBefore(js, s);
+                                });
+                        });
+                    }
+                }
+            </script>
+        
+                    <link rel="preconnect" href="//sdk.privacy-center.org">
+            <link rel="preconnect" href="//sdk-gcp.privacy-center.org">
+            <link rel="preload" as="script" href="https://cmp.prisa.com/dist/cmp.js">
+        
+    </head>
+
+        <body id="futuro" class="notouch">
+        
+            <script async defer type='text/javascript' src="https://cmp.prisa.com/dist/cmp.js"></script>
+    
+    <div id="home-futuro_gpt-SKIN" class="publiAbsolute"></div>
+    <div id="home-futuro_gpt-INTER" class="publiAbsolute"></div>
+
+<header class="encabezado">
+        <div class="imagen">
+        <div class="inside-wrapper hide-xs" id="home-futuro_gpt-LDB1"></div>
+        <div class="inside-wrapper hide-xl" id="home_mob-futuro_gpt-MLDB1"></div>
+    </div>
+    <div class="wrapper">
+        <div class="sub-header">
+    <div class="top center-logo">
+        <div class="logo">
+                            <a href="https://www.futuro.cl/" target="_blank" rel="noopener noreferrer">
+                                            <img src="/build/assets/futurochile/img/logo.png" id="logo_image" alt="Logo web"/>
+                                    </a>
+                    </div>
+        <div class="menu-mobile">
+            <div class="hamburger">
+                <span>
+                                    </span>
+            </div>
+            <div class="desplegable" id="desplegable">
+                <div class="top">
+                    <div class="logo los40">
+                        <span class="head"></span>
+                    </div>
+                    <div class="hamburger active">
+                        <span></span>                     </div>
+                </div>
+                <div class="titulo">Menú</div>
+                <div>
+                    <ul>
+                                                                                    <li class="bt">
+                                                                                                                        <a href="/" onclick="oPl.events.menuLinkClose()" class="ajax-link menu-link active" data-id-ruta="home" data-href="/" title="En directo">En directo</a>
+                                                                                                            </li>
+                                                                                                                <li class="bt">
+                                                                                                                        <a href="/alacarta/" onclick="oPl.events.menuLinkClose()" class="ajax-link menu-link " data-id-ruta="alacarta" data-href="/alacarta/" title="Podcast">Podcast</a>
+                                                                                                            </li>
+                                                                                                                <li class="bt">
+                                                                                                                        <a href="/programacion/" onclick="oPl.events.menuLinkClose()" class="ajax-link menu-link " data-id-ruta="programacion" data-href="/programacion/" title="Programación">Programación</a>
+                                                                                                            </li>
+                                                                                                                <li class="bt">
+                                                                            <a href="http://www.futuro.cl" title="Ir a la web" target="_blank" data-name="web" rel="noopener noreferrer">Ir a la web</a>
+                                                                    </li>
+                                                                                                                <li class="bt">
+                                                                            <a href="http://tv.futuro.cl" title="Ver webcam" target="_blank" data-name="webcam" rel="noopener noreferrer">Ver webcam</a>
+                                                                    </li>
+                                                                                                    <li class="botones">
+                                                                                                                        <a class="cam" href="http://tv.futuro.cl" title="Ver webcam" target="_blank" rel="noopener noreferrer"></a>
+                                                        <div class="search-wrapper-mob">
+                                <a class="show-search-mob search_textbox search" title="Buscador"></a>
+                            </div>
+                                                                                </li>
+                    </ul>
+                </div>
+                <div class="search-header-mob hidden">
+                    <button aria-label="Botón de cierre de textfield buscador" id="close-searchbox-mob" class="button_close search_textbox">
+                        <span class="icon-close icons"><span class="sr-only">Cerrar</span></span>
+                    </button>
+                    <form id="search-form-mob">
+                        <input type="text" id="search-field-mob" autofocus name="search" placeholder="Buscar"/>
+                        <button aria-label="Botón para iniciar búsqueda" class="boton_buscar" id="boton_buscar_mob">
+                            <span class="icon-magnifier"></span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <script id="mobile_menu_js" type="application/javascript">
+            window.addEventListener('MAIN_SCRIPTS_LOADED', function () {
+                oPl.events.addMenuMobileBehavior([]);
+            }, false);
+        </script>
+    </div>
+                </div>
+
+    </div>
+</header>
+
+<div class="menu">
+    <div class="wrapper">
+        <div class="col-contenido">
+            <nav>
+                <ul>
+                                                                        <li>
+                                                                                                            <a href="/" class="ajax-link menu-link active" data-id-ruta="home" data-href="/" title="En directo">En directo</a>
+                                                                                                </li>
+                                                                                                <li>
+                                                                                                            <a href="/alacarta/" class="ajax-link menu-link " data-id-ruta="alacarta" data-href="/alacarta/" title="Podcast">Podcast</a>
+                                                                                                </li>
+                                                                                                <li>
+                                                                                                            <a href="/programacion/" class="ajax-link menu-link " data-id-ruta="programacion" data-href="/programacion/" title="Programación">Programación</a>
+                                                                                                </li>
+                                                                                                <li>
+                                                                    <a href="http://www.futuro.cl" title="Ir a la web" target="_blank" data-name="web" rel="noopener noreferrer">Ir a la web</a>
+                                                            </li>
+                                                                                                <li>
+                                                            </li>
+                                                            </ul>
+            </nav>
+        </div>
+        <div class="col-publicidad">
+                        <div class="info-utilities">
+                                                                        <a class="cam" href="http://tv.futuro.cl" title="Ver webcam" target="_blank" rel="noopener noreferrer"></a>
+                                <div class="search-wrapper">
+                    <a class="show-search search_textbox search" title="Buscador"><span class="icon-magnifier"><span class="sr-only">Buscador</span></span></a>
+                    <div class="search-header hidden">
+                        <button aria-label="Botón de cierre de textfield buscador" id="close-searchbox" class="button_close search_textbox"><span class="icon-close icons"><span class="sr-only">Cerrar</span></span></button>
+                        <form id="search-form">
+                            <input type="text" id="search-field" autofocus name="search" placeholder="Buscar"/>
+                            <button aria-label="Botón para iniciar búsqueda" class="boton_buscar" id="boton_buscar"><span class="icon-magnifier"></span></button>
+                        </form>
+                    </div>
+                </div>
+                                            </div>
+        </div>
+    </div>
+</div>
+
+
+
+        <div class="wrapper content main home">
+                        <div class="col-contenido">
+                <div id="enDirecto" class="player-big">
+    <div class="data">
+        <div class="ciudad"></div>
+        <div class="titulo">La Ley del Rock</div>
+        <div class="dj">Con Patricio Cuevas</div>        <div class="horario">De 09:30 a 12:00 h</div>
+                                                                                                                                                                                                </div>
+                    <div class="logo-big">
+        <img src="https://recursosweb.prisaradio.com/fotos/original/010002804774.png">
+    </div>
+    <div class="track-player">
+        <div class="progress"></div>
+        <span></span>
+    </div>
+                    <script id="en_directo_js" type="application/javascript">
+        var updateDirecto = function () {
+            var completed = oPl.main.progressBar('09:30', '12:00', 'America/Santiago') + '%';
+            oPl.main.updateEnDirecto('futuro', {"title":"Escucha Radio Futuro en vivo","og_title":"Escucha Radio Futuro en vivo","twitter_title":"Escucha Radio Futuro en vivo","description":"Escucha online Radio Futuro.","og_description":"Escucha online Radio Futuro.","twitter_description":"Escucha online Radio Futuro.","app_id":"366628256718670"});
+            $('.track-player .progress').css("width", completed).attr("title", completed + ' completado');
+            $('.track-player span').css("left", completed).attr("title", completed + ' completado');
+        };
+        if ('undefined' === typeof (oPl) || 'undefined' === typeof (oPl.main)) {
+            window.addEventListener('MAIN_SCRIPTS_LOADED', updateDirecto, false);
+        }
+        else {
+            updateDirecto();
+        }
+    </script>
+</div>
+
+    
+                                <div class="modulo4">
+            <div class="titulo-seccion">No te pierdas</div>
+                                                <div>
+                        <div class="elemento">
+                            <div class="data">
+                                                                                                        <div class="titulo"><a class="ajax-link" title="La Ley del Rock" href="/programa/la_ley_del_rock/">La Ley del Rock</a></div>
+                                                                <div class="contenido">
+                                    <a class="ajax-link" href="/audio/futuro_laleydelrock_20261104_113000_120000/">La Ley del Rock (04/11/2026 - Tramo de 11:30 a 12:00)</a>
+                                </div>
+                                <div class="horario">
+                                    <span>04/11/2026</span>
+                                    <span>30:00</span>
+                                </div>
+                                <div class="data-footer">
+                                    <a class="ajax-link" href="/audio/futuro_laleydelrock_20261104_113000_120000/">Escuchar</a>
+                                </div>
+                            </div>
+                                                    </div>
+                    </div>
+                                                                <div>
+                        <div class="elemento">
+                            <div class="data">
+                                                                                                        <div class="titulo"><a class="ajax-link" title="Mercado Futuro" href="/programa/mercado_futuro/">Mercado Futuro</a></div>
+                                                                <div class="contenido">
+                                    <a class="ajax-link" href="/audio/futuro_mercadofuturo_20261105_090000_093000/">Mercado Futuro (05/11/2026)</a>
+                                </div>
+                                <div class="horario">
+                                    <span>05/11/2026</span>
+                                    <span>30:00</span>
+                                </div>
+                                <div class="data-footer">
+                                    <a class="ajax-link" href="/audio/futuro_mercadofuturo_20261105_090000_093000/">Escuchar</a>
+                                </div>
+                            </div>
+                                                    </div>
+                    </div>
+                                                                <div>
+                        <div class="elemento">
+                            <div class="data">
+                                                                                                        <div class="titulo"><a class="ajax-link" title="Palabra Que Es Noticia" href="/programa/palabra_que_es_noticia/">Palabra Que Es Noticia</a></div>
+                                                                <div class="contenido">
+                                    <a class="ajax-link" href="/audio/futuro_palabraqueesnoticia_20261105_080000_090000/">Palabra Que Es Noticia (05/11/2026 - Tramo de 08:00 a 09:00)</a>
+                                </div>
+                                <div class="horario">
+                                    <span>05/11/2026</span>
+                                    <span>01:00:00</span>
+                                </div>
+                                <div class="data-footer">
+                                    <a class="ajax-link" href="/audio/futuro_palabraqueesnoticia_20261105_080000_090000/">Escuchar</a>
+                                </div>
+                            </div>
+                                                    </div>
+                    </div>
+                                                                <div>
+                        <div class="elemento">
+                            <div class="data">
+                                                                                                        <div class="titulo"><a class="ajax-link" title="Rock and Roll all nite" href="/programa/rock_and_roll_all_nite/">Rock and Roll all nite</a></div>
+                                                                <div class="contenido">
+                                    <a class="ajax-link" href="/audio/futuro_rockandrollallnite_20261105_050000_060000/">Rock and Roll all nite (05/11/2026 - Tramo de 05:00 a 06:00)</a>
+                                </div>
+                                <div class="horario">
+                                    <span>05/11/2026</span>
+                                    <span>01:00:00</span>
+                                </div>
+                                <div class="data-footer">
+                                    <a class="ajax-link" href="/audio/futuro_rockandrollallnite_20261105_050000_060000/">Escuchar</a>
+                                </div>
+                            </div>
+                                                    </div>
+                    </div>
+                                    </div>
+        <script id="module4_js" type="application/javascript">
+            if ('undefined' === typeof (oPl) || 'undefined' === typeof (oPl.main)) {
+                window.addEventListener('MAIN_SCRIPTS_LOADED', function () {
+                    oPl.main.adaptModuleHeight(".modulo4 .elemento");
+                }, false);
+            }
+            else {
+                oPl.main.adaptModuleHeight(".modulo4 .elemento");
+            }
+        </script>
+    
+    
+        <div class="publicidad">
+        <div class="hide-xl" id="home_mob-futuro_gpt-MPU1"></div>
+    </div>
+
+        
+        
+        <div class="publicidad">
+        <div class="hide-xl" id="home_mob-futuro_gpt-MPU2"></div>
+    </div>
+
+                                <div class="modulo2 lomas">
+            <div class="titulo-seccion">Lo más escuchado</div>
+                            <div>
+                    <div class="elemento">
+                        <div class="data">
+                                                            <div class="titulo">31/10/2026</div>
+                                                        <div class="contenido">
+                                <a class="ajax-link" href="/audio/1793482632164/">Bruce Dickinson reflexiona sobre el vínculo de Iron Maiden con Chile: &quot;Llegamos a representar algo más que solo una banda de rock&quot;</a>
+                            </div>
+                            <div class="data-footer">
+                                <div class="horario">
+                                    09:34
+                                </div>
+                                <a class="ajax-link" href="/audio/1793482632164/">Escuchar</a>
+                            </div>
+                        </div>
+                                            </div>
+                </div>
+                            <div>
+                    <div class="elemento">
+                        <div class="data">
+                                                                                            <div class="titulo"><a class="ajax-link" title="La Carpa del Diablo" href="/programa/la_carpa_del_diablo/">La Carpa del Diablo</a> | 22/10/2026</div>
+                                                        <div class="contenido">
+                                <a class="ajax-link" href="/audio/futuro_lacarpadeldiablo_20261021_230000_235959/">La Carpa del Diablo (21/10/2026)</a>
+                            </div>
+                            <div class="data-footer">
+                                <div class="horario">
+                                    59:59
+                                </div>
+                                <a class="ajax-link" href="/audio/futuro_lacarpadeldiablo_20261021_230000_235959/">Escuchar</a>
+                            </div>
+                        </div>
+                                            </div>
+                </div>
+                    </div>
+        <script id="module2_lomas_js" type="application/javascript">
+            if ('undefined' === typeof (oPl) || 'undefined' === typeof (oPl.main)) {
+                window.addEventListener('MAIN_SCRIPTS_LOADED', function () {
+                    oPl.main.adaptModuleHeight(".modulo2.lomas .elemento");
+                }, false);
+            }
+            else {
+                oPl.main.adaptModuleHeight(".modulo2.lomas .elemento");
+            }
+        </script>
+    
+    
+                <div class="redes">
+                                    <div class="desktop"></div>
+            <div class="mobile"></div>
+            <span>Síguenos en:</span>
+            <div class="enlaces">
+                                    <a href="https://www.facebook.com/radiofuturo/" title="Síguenos en Facebook" class="facebook" target="_blank" rel="noopener noreferrer nofollow"></a>
+                                                    <a href="https://www.instagram.com/futurofm/" title="Síguenos en Instagram" class="instagram" target="_blank" rel="noopener noreferrer nofollow"></a>
+                                                    <a href="https://twitter.com/futurofm" title="Síguenos en Twitter" class="twitter" target="_blank" rel="noopener noreferrer nofollow"></a>
+                                                    <a href="http://www.youtube.com/radiofuturotv" title="Síguenos en Youtube" class="youtube" target="_blank" rel="noopener noreferrer nofollow"></a>
+                            </div>
+        </div>
+    
+                                <div class="modulo2 ultimos">
+            <div class="titulo-seccion">Los últimos programas</div>
+                            <div>
+                    <div class="elemento">
+                        <div class="data">
+                                                                                            <div class="titulo"><a class="ajax-link" title="Mercado Futuro" href="/programa/mercado_futuro/">Mercado Futuro</a> | 05/11/2026</div>
+                                                        <div class="contenido">
+                                <a class="ajax-link" href="/audio/futuro_mercadofuturo_20261105_090000_093000/">Mercado Futuro (05/11/2026)</a>
+                            </div>
+                            <div class="data-footer">
+                                <div class="horario">
+                                    30:00
+                                </div>
+                                <a class="ajax-link" href="/audio/futuro_mercadofuturo_20261105_090000_093000/">Escuchar</a>
+                            </div>
+                        </div>
+                                            </div>
+                </div>
+                            <div>
+                    <div class="elemento">
+                        <div class="data">
+                                                                                            <div class="titulo"><a class="ajax-link" title="Palabra Que Es Noticia" href="/programa/palabra_que_es_noticia/">Palabra Que Es Noticia</a> | 05/11/2026</div>
+                                                        <div class="contenido">
+                                <a class="ajax-link" href="/audio/futuro_palabraqueesnoticia_20261105_080000_090000/">Palabra Que Es Noticia (05/11/2026 - Tramo de 08:00 a 09:00)</a>
+                            </div>
+                            <div class="data-footer">
+                                <div class="horario">
+                                    01:00:00
+                                </div>
+                                <a class="ajax-link" href="/audio/futuro_palabraqueesnoticia_20261105_080000_090000/">Escuchar</a>
+                            </div>
+                        </div>
+                                            </div>
+                </div>
+                    </div>
+        <script id="module2_ultimos_js" type="application/javascript">
+            if ('undefined' === typeof (oPl) || 'undefined' === typeof (oPl.main)) {
+                window.addEventListener('MAIN_SCRIPTS_LOADED', function () {
+                    oPl.main.adaptModuleHeight(".modulo2.ultimos .elemento");
+                }, false);
+            }
+            else {
+                oPl.main.adaptModuleHeight(".modulo2.ultimos .elemento");
+            }
+        </script>
+    
+    
+                                <div id="haSonado" class="ha-sonado modulo-final">
+            <div class="titulo-seccion">Ha sonado</div>
+        <div class="cajas">
+                            <div>
+                    <div class="elemento">
+                                                    <img class="haSonado-1 lazyload cover" alt="Synchronicity I" data-src="https://Recursosweb.prisaradio.com/fotos/dest/010000583666.jpg" />
+                                                <div class="data">
+                            <div class="hora">09:48</div>
+                            <div class="titulo">
+                                Synchronicity I
+                            </div>
+                            <div class="artista">
+                                The Police
+                            </div>
+                                                                                                                                                                                                                                                                                                                                                                </div>
+                    </div>
+                </div>
+                            <div>
+                    <div class="elemento">
+                                                    <img class="haSonado-2 lazyload cover" alt="Hacia el ovusol" data-src="https://Recursosweb.prisaradio.com/fotos/dest/490000952441.jpg" />
+                                                <div class="data">
+                            <div class="hora">09:42</div>
+                            <div class="titulo">
+                                Hacia el ovusol
+                            </div>
+                            <div class="artista">
+                                Chancho en Piedra
+                            </div>
+                                                                                                                                                                                                                                                                                                                                                                </div>
+                    </div>
+                </div>
+                            <div>
+                    <div class="elemento">
+                                                    <img class="haSonado-3 lazyload cover" alt="Highway tune" data-src="https://Recursosweb.prisaradio.com/fotos/dest/520005317049.jpg" />
+                                                <div class="data">
+                            <div class="hora">09:39</div>
+                            <div class="titulo">
+                                Highway tune
+                            </div>
+                            <div class="artista">
+                                Greta Van Fleet
+                            </div>
+                                                                                                                                                                                                                                                                                                                                                                </div>
+                    </div>
+                </div>
+                            <div>
+                    <div class="elemento">
+                                                    <img class="haSonado-4 lazyload cover" alt="Runaway" data-src="https://Recursosweb.prisaradio.com/fotos/dest/010001159527.jpg" />
+                                                <div class="data">
+                            <div class="hora">09:36</div>
+                            <div class="titulo">
+                                Runaway
+                            </div>
+                            <div class="artista">
+                                Bon Jovi
+                            </div>
+                                                                                                                                                                                                                                                                                                                                                                </div>
+                    </div>
+                </div>
+                    </div>
+        <script id="hasonado_js" type="application/javascript">
+            var updateHaSonado = function () {
+                $('#haSonado').off('lazyloaded').on('lazyloaded', {numImages: '4'}, oPl.main.resizingHaveSoundImages);
+            };
+
+            if ('undefined' === typeof (oPl) || 'undefined' === typeof (oPl.main)) {
+                window.addEventListener('MAIN_SCRIPTS_LOADED', updateHaSonado, false);
+            }
+            else {
+                updateHaSonado();
+            }
+        </script>
+    </div>
+
+    
+    
+        <div class="publicidad">
+        <div class="inside-wrapper hide-xl" id="home_mob-futuro_gpt-MLDB2"></div>
+    </div>
+</div>
+<div class="col-publicidad">
+        <div class="publi-sticky hide-xs" id="home-futuro_gpt-MPU1"></div>
+</div>
+        </div>
+
+        <div class="wrapper vertical">
+                        <div class="inside-wrapper hide-xs" id="home-futuro_gpt-LDB2"></div>
+        </div>
+
+        <div class="bottom_links">
+    <div class="wrapper">
+                        <nav>
+            <ul class="nav_pie_legal ">
+                <li><a class="ajax-link" title="Mapa Web" href="/sitemap/">Mapa del web</a></li><li>|</li>                                                <li><a class="ajax-link" title="Política de cookies" href="/politica-de-cookies/">Política de cookies</a></li><li>|</li>                                            </ul>
+        </nav>
+                    <div class="sociales">
+                                    <a href="https://www.facebook.com/radiofuturo/" title="Síguenos Facebook" class="facebook" target="_blank" rel="noopener noreferrer nofollow"></a>
+                                                    <a href="https://www.instagram.com/futurofm/" title="Síguenos Instagram" class="instagram" target="_blank" rel="noopener noreferrer nofollow"></a>
+                                                    <a href="https://twitter.com/futurofm" title="Síguenos Twitter" class="twitter" target="_blank" rel="noopener noreferrer nofollow"></a>
+                                                    <a href="http://www.youtube.com/radiofuturotv" title="Síguenos Youtube" class="youtube" target="_blank" rel="noopener noreferrer nofollow"></a>
+                                            </div>
+            </div>
+</div>
+
+                <footer>
+            <div class="container">
+                <div id="top_player"></div>
+                <div class="preRoll hide">
+                    <div class="publi preRollAds">
+                        <div id="preAds"></div>
+                        <div id="instreamAds"></div>
+                    </div>
+                </div>
+                <div id="top_playlist" class="mm_layerPlaylist"></div>
+            </div>
+        </footer>
+        <div id="top_player_float_container">
+            <i class="top_player_float_close"></i>
+            <div id="top_player_float" class="mm_floating_check"></div>
+        </div>
+
+                    <script id="aod_player_js" defer async type="application/javascript">
+    window.addEventListener('MAIN_SCRIPTS_LOADED', function () {
+        oPl.main.isOneplayer = true;
+        oPl.main.setRouteId('home', 'futuro_gpt');
+        oPl.player.initPlayer({"dev":false,"id_container":"top_player","id_cuenta":"futurochile","id_media":"futuro","id_player":302,"id_player_widget":303,"media_type":"audio","overwriteWidth":640,"overwriteHeight":515,"topPlayer":{"ad":{"container":"preAds"},"media":{"autoplay":true,"controllerData":{"container_banner_bigbox":"instreamAds","banner-live_synced_leaderboard":"instreamAds"}}}}, '', false, 'futurochile', {"title":"Escucha Radio Futuro en vivo","og_title":"Escucha Radio Futuro en vivo","twitter_title":"Escucha Radio Futuro en vivo","description":"Escucha online Radio Futuro.","og_description":"Escucha online Radio Futuro.","twitter_description":"Escucha online Radio Futuro.","app_id":"366628256718670"}, {"triton_dist_live":"futuro_cl-web-live_streaming_play","triton_dist_widget_live":"futuro_cl-widget-live_streaming_play","triton_dist_aod":"futuro_cl-web-aod_play","triton_dist_widget_aod":"futuro_cl-widget-aod_play","triton_csegid":"12000"});
+
+                    oPl.omniture.setProgram('futurochile');
+        
+            oPl.omniture.updateDataLayer({"subdomain":"envivo","domain":"futuro.cl","url":"http:\/\/envivo.futuro.cl\/","author":"Radio Futuro","propietaryRights":"Radio Futuro","pageTitleSeo":"Escucha Radio Futuro online","product":"","pageType":"portada","siteStructure":"player"});
+            oPl.omniture.setRadioStation('futuro');
+            oPl.omniture.setSection('player');
+            oPl.omniture.setSubsection('endirecto');
+        }, false);
+
+    window.addEventListener('PLAYER_READY', function(e) {
+        oPl.main.setShowPlayerVideo(false);
+                    oPl.main.startsBlocksInHomeTimer('futuro');
+            oPl.main.updateBlocksInHome('futuro');
+        
+        oPl.omniture.updateDataLayer({"subdomain":"envivo","domain":"futuro.cl","url":"http:\/\/envivo.futuro.cl\/","author":"Radio Futuro","propietaryRights":"Radio Futuro","pageTitleSeo":"Escucha Radio Futuro online","product":"","pageType":"portada","siteStructure":"player"});
+        oPl.omniture.setRadioStation('futuro');
+        oPl.omniture.setSection('player');
+        oPl.omniture.setSubsection('endirecto');
+    }, false);
+
+    window.addEventListener('PUBLICITY_SCRIPT_LOADED', function(e) {
+                    let selectedStationId = 'futuro';
+            oPl.publicity.setPBSAds("futuro_gpt", {"home":"futuro_web\/player_audio\/en_vivo","home_mob":"futuro_mob\/player_audio\/en_vivo","programacion":"futuro_web\/player_audio\/programacion","programacion_mob":"futuro_mob\/player_audio\/programacion","alacarta":"futuro_web\/player_audio\/alacarta","alacarta_mob":"futuro_mob\/player_audio\/alacarta","programa":"futuro_web\/player_audio\/programa","programa_mob":"futuro_mob\/player_audio\/programa","audio":"futuro_web\/player_audio\/audio","audio_mob":"futuro_mob\/player_audio\/audio","buscador":"futuro_web\/player_audio\/buscador","buscador_mob":"futuro_mob\/player_audio\/buscador","emisora":"futuro_web\/player_audio\/emisora","emisora_mob":"futuro_mob\/player_audio\/emisora","playlist":"futuro_web\/player_audio\/playlist","playlist_mob":"futuro_mob\/player_audio\/playlist","tag":"futuro_web\/player_audio\/tag","tag_mob":"futuro_mob\/player_audio\/tag","error404":"futuro_web\/player_audio","error404_mob":"futuro_mob\/player_audio"}, false, 'home');
+            oPl.publicity.updatePublicidad('home', selectedStationId);
+            }, false);
+</script>
+        
+        
+                        <script id="cookie_sync_js" type="application/javascript">
+                var mm_cookiesync = undefined;
+            </script>
+        
+        <script id="config_autoplay_js" type="application/javascript">
+            window.mm_autoplay = true;
+        </script>
+
+
+        <script id="async_loading_js" type="application/javascript">
+            var files = {
+                critical: [
+                    '//playertop.futuro.cl/psdmedia/media/simple/js/SimpleMediaPlayer.min.js',
+                    '/build/assets/default/js/app.js'
+                ],
+                others: []
+            };
+                                                                        files.others.push('//ak-ads-ns.prisasd.com/slot/cdial/slot.js');
+                                                            
+            window.addAsyncLoadFiles(files);
+        </script>
+    </body>
+</html>

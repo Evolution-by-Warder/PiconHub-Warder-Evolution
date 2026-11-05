@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Radio Isla Negra - Streaming hand picked music since 1999. Three channels: Slowbeat, RIN, and Upbeat.">
+
+  <title>Radio Isla Negra - Since 1999</title>
+
+  <meta name="facebook-domain-verification" content="mly82308ocfeuq394968fvb614ppmt" />
+
+  <!-- Meta Pixel Code -->
+  <script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '1462312422044275');
+  fbq('init', '1455987806400271');
+  fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=1462312422044275&ev=PageView&noscript=1"
+  /></noscript>
+  <!-- End Meta Pixel Code -->
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-0SK4SE8LMK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-0SK4SE8LMK');
+  </script>
+  <!-- End Google tag -->
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+
+  <!-- Preconnect to streaming server -->
+  <link rel="preconnect" href="https://radioislanegra.org">
+  <link rel="dns-prefetch" href="https://radioislanegra.org">
+
+  <!-- Styles -->
+  <link rel="stylesheet" crossorigin href="/assets/main-BXCgfBdf.css">
+
+  <!-- Player: Reliable streaming with network recovery -->
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@1/dist/hls.min.js" defer></script>
+  <script src="/player.js?v=31" defer></script>
+  <script src="/stats.js?v=2" defer></script>
+
+  <!-- Header scroll behavior styles -->
+  <style>
+    /* Header scroll behavior - compact on scroll */
+    header .header-inner {
+      transition: padding 0.3s ease;
+    }
+    header .header-logo {
+      transition: height 0.3s ease;
+    }
+    header .header-tagline {
+      transition: opacity 0.3s ease, max-height 0.3s ease;
+      max-height: 50px;
+      overflow: hidden;
+    }
+
+    /* Scrolled state */
+    header.scrolled .header-inner {
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+    }
+    header.scrolled .header-logo {
+      height: 2rem; /* h-8 */
+    }
+    @media (min-width: 768px) {
+      header.scrolled .header-logo {
+        height: 2.5rem; /* h-10 */
+      }
+    }
+    header.scrolled .header-tagline {
+      opacity: 0;
+      max-height: 0;
+      margin: 0;
+    }
+    header.scrolled .header-nav-row {
+      margin-bottom: 0;
+    }
+
+    /* Community / Guestbook "Load More" */
+    .guestbook-load-more {
+      display: none; /* shown when more messages are available */
+      width: 100%;
+      margin-top: 0.5rem;
+      padding: 0.6rem 1rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 8px;
+      color: #00d9ff; /* rin-cyan (solo el texto) */
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+    .guestbook-load-more:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    /* ===== About + Guestbook + Contact modal (rediseño 2026-10-05) =====
+       Medidas del diseño aprobado (design-handoff-20261004). Tipografía Arial solo aquí. */
+    .rin-footer { background: #000; }
+    .rin-community, .rin-copyright, .rin-contact-modal {
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: normal;
+    }
+    .rin-community {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 75px 38px 75px;
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 64px;
+      color: #ededed;
+      background: #000;
+    }
+    .rin-community > * { min-width: 0; }
+    .rin-eyebrow {
+      font-size: 13px; letter-spacing: 2px; text-transform: uppercase;
+      font-weight: 600; color: #8c8c8c; margin: 0 0 25px;
+    }
+    .rin-about-title {
+      font-size: clamp(30px, 3.5vw, 46px); font-weight: 400; line-height: 1.2;
+      letter-spacing: -1.2px; max-width: 620px; margin: 0 0 24px; color: #ededed;
+    }
+    .rin-about-copy { color: #a4a4a4; line-height: 1.8; font-size: 17px; font-weight: 400; max-width: 570px; margin: 0; }
+    .rin-support-copy { color: #84a2a5; font-size: 15px; line-height: 1.7; max-width: 480px; margin: 24px 0 25px; }
+    .rin-about-actions { display: flex; align-items: center; gap: 23px; flex-wrap: wrap; }
+    .rin-donate-primary {
+      background: #00d9ff; color: #001418; border: 1px solid #00d9ff; border-radius: 28px;
+      padding: 13px 28px; font-size: 14px; font-weight: 600; line-height: normal; cursor: pointer;
+    }
+    .rin-donate-primary:hover { background: #66e8ff; border-color: #66e8ff; }
+    .rin-contact-link {
+      background: none; border: 0; border-bottom: 1px solid #454545; border-radius: 0;
+      color: #999; padding: 5px 0; font-size: 13px; line-height: normal; cursor: pointer;
+    }
+    .rin-contact-link:hover { color: #eee; border-color: #aaa; }
+
+    .rin-guestbook-title {
+      margin: 0 0 23px; font-size: 15px; font-weight: 600; letter-spacing: 1.5px;
+      text-transform: uppercase; color: #ededed;
+    }
+    .rin-guestbook .footer-message {
+      display: block; padding: 0 0 15px; margin-bottom: 15px;
+      border-bottom: 1px solid #202020; font-size: 13px; line-height: 1.6;
+    }
+    .rin-guestbook .footer-message:last-child { border-bottom: 1px solid #202020; }
+    .rin-guestbook .footer-message-head { display: flex; justify-content: space-between; gap: 10px; }
+    .rin-guestbook .footer-message-name {
+      color: #00d9ff; font-size: inherit; line-height: inherit; font-weight: 400; min-width: 0; overflow-wrap: anywhere;
+    }
+    .rin-guestbook .footer-message-flag {
+      display: inline-block; width: 16px; height: 12px; margin: 0 5px 0 0;
+      vertical-align: -1px; border-radius: 2px; object-fit: cover;
+    }
+    .rin-guestbook .footer-message-time { color: #666; font-size: 11px; line-height: inherit; margin-left: 0; flex-shrink: 0; white-space: nowrap; }
+    .rin-guestbook .gb-like {
+      display: inline-flex; align-items: center; gap: 4px; margin: 0; padding: 0 2px; min-height: 20px;
+      background: none; border: 0; color: #666; font: inherit; font-size: 11px; line-height: inherit; cursor: pointer;
+    }
+    .rin-guestbook .gb-like svg { fill: none; stroke: currentColor; stroke-width: 2; transition: transform .15s ease; }
+    .rin-guestbook .gb-like:hover { color: #bbb; }
+    .rin-guestbook .gb-like { position: relative; }
+    .rin-guestbook .gb-like.has-likes { color: #d6334f; }
+    .rin-guestbook .gb-like.liked { color: #c8102e; font-weight: 700; }
+    .rin-guestbook .gb-like.liked svg { fill: currentColor; }
+    .rin-guestbook .gb-like.pop svg { animation: gb-like-pop .6s cubic-bezier(.17,.89,.32,1.28); }
+    .rin-guestbook .gb-like-burst {
+      position: absolute; left: 8px; top: 50%; width: 6px; height: 6px; margin: -3px 0 0 -3px;
+      border-radius: 50%; background: var(--c, #c8102e); pointer-events: none;
+      animation: gb-like-burst .7s ease-out forwards;
+    }
+    .rin-guestbook .gb-like-ring {
+      position: absolute; left: 8px; top: 50%; width: 24px; height: 24px; margin: -12px 0 0 -12px;
+      border: 2px solid #c8102e; border-radius: 50%; pointer-events: none;
+      animation: gb-like-ring .5s ease-out forwards;
+    }
+    @keyframes gb-like-pop {
+      0% { transform: scale(1); } 15% { transform: scale(.6); } 45% { transform: scale(1.45) rotate(-8deg); }
+      70% { transform: scale(.92) rotate(4deg); } 100% { transform: scale(1) rotate(0); }
+    }
+    @keyframes gb-like-burst {
+      0% { transform: translate(0, 0) scale(.4); opacity: 1; }
+      60% { opacity: 1; }
+      100% { transform: translate(var(--x), var(--y)) scale(0); opacity: 0; }
+    }
+    @keyframes gb-like-ring {
+      0% { transform: scale(.2); opacity: .9; border-width: 6px; }
+      100% { transform: scale(1.3); opacity: 0; border-width: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .rin-guestbook .gb-like.pop svg { animation: none; }
+      .rin-guestbook .gb-like-burst, .rin-guestbook .gb-like-ring { display: none; }
+    }
+    .rin-guestbook .gb-like:focus-visible { outline: 1px solid #00d9ff; outline-offset: 2px; border-radius: 3px; }
+    .rin-guestbook .gb-like-count:empty { display: none; }
+    .rin-guestbook .footer-message-name .gb-like { margin-left: 8px; min-height: 0; vertical-align: -2px; }
+    .rin-guestbook .footer-message-text { margin: 4px 0 0; color: #b0b0b0; font-size: inherit; line-height: inherit; overflow-wrap: anywhere; }
+    .rin-guestbook .guestbook-form { display: grid; gap: 8px; margin: 0; padding: 0; border: 0; }
+    .rin-guestbook .guestbook-input-message,
+    .rin-guestbook .guestbook-input-name {
+      background: #171717; border: 1px solid #202020; border-radius: 9px; color: #eee;
+      padding: 12px; font-family: inherit; font-size: 12px; line-height: normal;
+      width: 100%; margin: 0; resize: none;
+    }
+    .rin-guestbook .guestbook-input-message::placeholder,
+    .rin-guestbook .guestbook-input-name::placeholder { color: #757575; }
+    .rin-guestbook .guestbook-input-message:focus,
+    .rin-guestbook .guestbook-input-name:focus { border-color: #00d9ff; outline: none; }
+    .rin-guestbook .guestbook-row { display: flex; gap: 8px; }
+    .rin-guestbook .guestbook-input-name { flex: 1 1 0%; min-width: 0; }
+    .rin-guestbook .guestbook-submit {
+      display: block; background: #00d9ff; color: #000; border: 0; border-radius: 8px;
+      padding: 10px 18px; font-size: 13px; font-weight: 400; line-height: normal; white-space: nowrap; cursor: pointer;
+    }
+    .rin-guestbook .guestbook-submit:hover { background: #00d9ff; }
+
+    .rin-copyright {
+      text-align: center; border-top: 1px solid #191919; padding: 27px 20px;
+      color: #626262; font-size: 12px; background: #080808;
+    }
+
+    .rin-contact-modal {
+      background: #111; color: #eee; border: 1px solid #333; border-radius: 18px;
+      padding: 32px; width: min(460px, calc(100% - 32px));
+      max-height: calc(100% - 32px); overflow-y: auto;
+    }
+    .rin-contact-modal::backdrop { background: #000b; backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); }
+    .rin-contact-modal h2 { font-size: 27px; font-weight: 400; margin: 0 0 10px; }
+    .rin-contact-modal .rin-contact-intro { font-size: 14px; color: #999; line-height: 1.6; margin: 14px 0; }
+    .rin-contact-modal form { display: grid; gap: 16px; margin-top: 23px; }
+    .rin-contact-modal label { display: grid; gap: 7px; font-size: 12px; color: #aaa; }
+    .rin-contact-modal input,
+    .rin-contact-modal textarea {
+      width: 100%; background: #1b1b1b; border: 1px solid #333; border-radius: 7px;
+      padding: 12px; color: #eee; font-family: inherit; font-size: inherit; line-height: normal;
+    }
+    .rin-contact-modal input:focus,
+    .rin-contact-modal textarea:focus { border-color: #00d9ff; outline: none; }
+    .rin-contact-modal textarea { min-height: 120px; resize: vertical; }
+    .rin-contact-close {
+      position: absolute; right: 16px; top: 12px; border: 0; background: none;
+      color: #aaa; font-size: 26px; line-height: normal; cursor: pointer;
+    }
+    .rin-contact-submit {
+      background: #00d9ff; color: #000; border: 0; border-radius: 8px;
+      padding: 10px 18px; font-size: 13px; line-height: normal; white-space: nowrap; cursor: pointer;
+    }
+    .rin-contact-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    @media (max-width: 700px) {
+      .rin-community { grid-template-columns: 1fr; gap: 48px; padding: 45px 24px 75px; }
+      .rin-about-title { font-size: 33px; }
+      .rin-about-copy { font-size: 16px; }
+      .rin-donate-arrow { display: none; } /* the arrow wrapped to its own line on phones */
+    }
+    /* Exact mockup typography; override the site's heading font directly. */
+    .rin-about-title, .rin-guestbook-title, .rin-contact-modal h2 {
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    /* Guestbook: desktop keeps the original inner scroll box (all messages, 240px,
+       from the compiled CSS). Mobile: complete messages in the page flow + "Load More". */
+    @media (max-width: 700px) {
+      .rin-guestbook .footer-messages-container { max-height: none; overflow: visible; }
+      .rin-guestbook .footer-message.gb-hidden { display: none; }
+      .rin-guestbook .guestbook-load-more:not(.hidden) { display: block; }
+      .rin-guestbook .guestbook-load-more { margin: 0 0 16px; }
+    }
+
+  </style>
+</head>
+<body>
+  <!-- New Feature Banner - COMMENTED OUT FOR LATER
+  <div id="new-feature-banner" class="new-feature-banner">
+    <div class="banner-content">
+      <span class="banner-icon">&#10024;</span>
+      <span class="banner-text"><strong>New Map !</strong> Interact with listeners</span>
+      <a href="#map" class="banner-cta">Try it</a>
+    </div>
+    <button class="banner-close" onclick="closeBanner()" aria-label="Close">&times;</button>
+  </div>
+
+  <style>
+    /* New Feature Banner */
+    .new-feature-banner {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: linear-gradient(90deg, #0891b2, #06b6d4, #22d3ee);
+      color: #000;
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      font-size: 14px;
+      transform: translateY(0);
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+    .new-feature-banner.hidden {
+      transform: translateY(-100%);
+      opacity: 0;
+      pointer-events: none;
+    }
+    .banner-content {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .banner-icon {
+      font-size: 18px;
+    }
+    .banner-text {
+      text-align: center;
+    }
+    .banner-cta {
+      background: rgba(0,0,0,0.15);
+      color: #000;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+    .banner-cta:hover {
+      background: rgba(0,0,0,0.25);
+    }
+    .banner-close {
+      position: absolute;
+      right: 12px;
+      background: none;
+      border: none;
+      color: #000;
+      font-size: 24px;
+      cursor: pointer;
+      opacity: 0.6;
+      transition: opacity 0.2s;
+      line-height: 1;
+    }
+    .banner-close:hover {
+      opacity: 1;
+    }
+    /* Adjust header when banner is visible */
+    body:has(.new-feature-banner:not(.hidden)) header {
+      top: 44px;
+    }
+    body:has(.new-feature-banner:not(.hidden)) main {
+      padding-top: calc(6rem + 44px);
+    }
+    @media (min-width: 768px) {
+      body:has(.new-feature-banner:not(.hidden)) main {
+        padding-top: calc(8rem + 44px);
+      }
+    }
+
+    /* NEW Badge */
+    .new-badge {
+      position: absolute;
+      top: -8px;
+      right: -24px;
+      background: #f43f5e;
+      color: white;
+      font-size: 9px;
+      font-weight: 700;
+      padding: 2px 5px;
+      border-radius: 4px;
+      letter-spacing: 0.5px;
+      animation: badge-pulse 2s ease-in-out infinite;
+    }
+    @keyframes badge-pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+  </style>
+  END New Feature Banner -->
+
+  <!-- Header -->
+  <header id="main-header" class="fixed top-0 left-0 right-0 z-50 bg-rin-black/90 backdrop-blur-sm">
+    <div class="header-inner max-w-6xl mx-auto px-4 py-4">
+      <div class="header-nav-row flex items-center justify-between mb-2">
+        <a href="/" class="flex items-center gap-3 hover:opacity-80 transition-opacity">
+          <img src="/assets/logo redondo.png" alt="Radio Isla Negra" class="header-logo h-12 md:h-20 w-auto">
+        </a>
+      </div>
+      <p class="header-tagline hidden md:block text-gray-400 italic text-sm ml-2">"Streaming hand picked music<br>since 1999"</p>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="pt-24 md:pt-32">
+
+    <!-- Players Section -->
+    <section id="players" class="pt-0 pb-2 px-4 md:px-4 md:py-24">
+      <div class="max-w-6xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-sm mx-auto md:max-w-none">
+
+          <!-- Slowbeat Player -->
+          <div class="order-2 md:order-1" data-player="slowbeat">
+            <h2 class="text-gray-500 text-xl font-semibold uppercase tracking-widest mb-4 text-center">Slowbeat</h2>
+            <div class="player-card">
+              <div class="album-art-container relative aspect-square overflow-hidden mb-4 bg-gray-700">
+              <img
+                src="/assets/default-slowbeat.jpg"
+                alt="Album Art"
+                class="album-art w-full h-full object-cover"
+                style="opacity:0;transition:opacity .3s"
+                onload="this.style.opacity=1"
+              >
+            </div>
+
+            <div class="mb-4">
+              <p class="song-title text-lg font-semibold text-rin-white truncate">Loading...</p>
+              <p class="song-artist text-sm text-gray-400 truncate">—</p>
+            </div>
+
+            <div class="flex items-center gap-4">
+              <button class="play-btn play-btn-large" data-action="play" data-station="slowbeat" aria-label="Play Slowbeat">
+                <svg class="w-8 h-8 play-icon" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+                <svg class="w-8 h-8 pause-icon hidden" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+                </svg>
+              </button>
+
+              <div class="flex-1 flex items-center gap-3">
+                <button class="volume-btn text-gray-400 hover:text-rin-white transition-colors" data-action="mute" data-station="slowbeat" aria-label="Mute">
+                  <svg class="w-5 h-5 volume-on" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+                  </svg>
+                  <svg class="w-5 h-5 volume-off hidden" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
+                  </svg>
+                </button>
+                <input
+                  type="range"
+                  min="0"
+                  max="100"
+                  value="80"
+                  class="volume-slider flex-1"
+                  data-station="slowbeat"
+                  aria-label="Volume"
+                >
+              </div>
+            </div>
+
+              <div class="error-message hidden mt-3 text-sm text-red-400"></div>
+            </div>
+          </div>
+
+          <!-- RIN Player -->
+          <div class="order-1 md:order-2" data-player="rin">
+            <h2 class="text-gray-500 text-xl font-semibold uppercase tracking-widest mb-4 text-center">Radio Isla Negra</h2>
+            <div class="player-card">
+              <div class="album-art-container relative aspect-square overflow-hidden mb-4 bg-gray-700">
+              <img
+                src="/assets/default-rin.jpg"
+                alt="Album Art"
+                class="album-art w-full h-full object-cover"
+                style="opacity:0;transition:opacity .3s"
+                onload="this.style.opacity=1"
+              >
+              <!-- Video en vivo (reemplaza la caratula cuando hay transmision) -->
+              <video
+                class="live-video absolute inset-0 w-full h-full object-cover"
+                style="display:none"
+                muted playsinline autoplay crossorigin="anonymous"
+              ></video>
+              <span class="live-badge" style="display:none">
+                <span class="live-dot"></span>EN VIVO
+              </span>
+              <button class="live-fs" style="display:none" aria-label="Pantalla completa" title="Pantalla completa">
+                <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
+                  <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>
+                </svg>
+              </button>
+            </div>
+
+            <div class="mb-4">
+              <p class="song-title text-lg font-semibold text-rin-white truncate">Loading...</p>
+              <p class="song-artist text-sm text-gray-400 truncate">—</p>
+            </div>
+
+            <div class="flex items-center gap-4">
+              <button class="play-btn play-btn-large" data-action="play" data-station="rin" aria-label="Play RIN">
+                <svg class="w-8 h-8 play-icon" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+                <svg class="w-8 h-8 pause-icon hidden" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+                </svg>
+              </button>
+
+              <div class="flex-1 flex items-center gap-3">
+                <button class="volume-btn text-gray-400 hover:text-rin-white transition-colors" data-action="mute" data-station="rin" aria-label="Mute">
+                  <svg class="w-5 h-5 volume-on" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+                  </svg>
+                  <svg class="w-5 h-5 volume-off hidden" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
+                  </svg>
+                </button>
+                <input
+                  type="range"
+                  min="0"
+                  max="100"
+                  value="80"
+                  class="volume-slider flex-1"
+                  data-station="rin"
+                  aria-label="Volume"
+                >
+              </div>
+            </div>
+
+              <div class="error-message hidden mt-3 text-sm text-red-400"></div>
+            </div>
+          </div>
+
+          <!-- Upbeat Player -->
+          <div class="order-3" data-player="upbeat">
+            <h2 class="text-gray-500 text-xl font-semibold uppercase tracking-widest mb-4 text-center">Upbeat</h2>
+            <div class="player-card">
+              <div class="album-art-container relative aspect-square overflow-hidden mb-4 bg-gray-700">
+              <img
+                src="/assets/default-upbeat.jpg"
+                alt="Album Art"
+                class="album-art w-full h-full object-cover"
+                style="opacity:0;transition:opacity .3s"
+                onload="this.style.opacity=1"
+              >
+            </div>
+
+            <div class="mb-4">
+              <p class="song-title text-lg font-semibold text-rin-white truncate">Loading...</p>
+              <p class="song-artist text-sm text-gray-400 truncate">—</p>
+            </div>
+
+            <div class="flex items-center gap-4">
+              <button class="play-btn play-btn-large" data-action="play" data-station="upbeat" aria-label="Play Upbeat">
+                <svg class="w-8 h-8 play-icon" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+                <svg class="w-8 h-8 pause-icon hidden" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+                </svg>
+              </button>
+
+              <div class="flex-1 flex items-center gap-3">
+                <button class="volume-btn text-gray-400 hover:text-rin-white transition-colors" data-action="mute" data-station="upbeat" aria-label="Mute">
+                  <svg class="w-5 h-5 volume-on" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+                  </svg>
+                  <svg class="w-5 h-5 volume-off hidden" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
+                  </svg>
+                </button>
+                <input
+                  type="range"
+                  min="0"
+                  max="100"
+                  value="80"
+                  class="volume-slider flex-1"
+                  data-station="upbeat"
+                  aria-label="Volume"
+                >
+              </div>
+            </div>
+
+              <div class="error-message hidden mt-3 text-sm text-red-400"></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Map Section -->
+    <style>
+      .map-iframe { height: 400px; }
+      @media (min-width: 768px) { .map-iframe { height: 700px; } }
+    </style>
+    <section id="map" class="pt-12">
+      <div class="map-container">
+        <iframe
+          src="/mapa.html?v=7"
+          class="map-iframe w-full border-0"
+          title="Listeners Map"
+          loading="lazy"
+        ></iframe>
+      </div>
+
+      <!-- Platforms Section -->
+      <div class="pt-24 pb-8 px-4 bg-rin-black">
+        <div class="max-w-5xl mx-auto">
+          <!-- All Platform Icons in One Row -->
+          <div class="flex justify-center items-center gap-4 gap-y-2 md:gap-10 flex-wrap">
+            <a href="https://tunein.com/radio/Radio-Isla-Negra-s329780/" target="_blank" rel="noopener" class="platform-icon">
+              <img src="/assets/music services icons/tunein-svgrepo-com.svg" alt="TuneIn" class="h-12 md:h-16">
+            </a>
+            <div class="platform-icon">
+              <img src="/assets/music services icons/alexa new icon.webp" alt="Alexa" class="h-12 md:h-16">
+            </div>
+            <div class="platform-icon">
+              <img src="/assets/music services icons/sonos icon.png" alt="Sonos" class="h-14 md:h-20">
+            </div>
+            <a href="https://apps.apple.com/us/app/radio-isla-negra/id1437129392" target="_blank" rel="noopener" class="platform-icon">
+              <img src="/assets/music services icons/download-on-the-app-store-apple-logo-svgrepo-com-1.svg" alt="Download on the App Store" class="h-14 md:h-20">
+            </a>
+            <a href="https://play.google.com/store/apps/details?id=com.listen2myapp.listen2myapp274&hl" target="_blank" rel="noopener" class="platform-icon">
+              <img src="/assets/music services icons/google-play-badge-logo-svgrepo-com.svg" alt="Get it on Google Play" class="h-14 md:h-20">
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- ==================== ABOUT + GUESTBOOK (rediseño 2026-10-05) ==================== -->
+  <footer class="rin-footer">
+    <div class="rin-community">
+      <div class="rin-about">
+        <p class="rin-eyebrow">About Radio Isla Negra</p>
+        <h2 class="rin-about-title">Handpicked music.</h2>
+        <p class="rin-about-copy">For over 25 years, Radio Isla Negra has been an unparalleled source of handpicked music. No additives. No sugar added. Just 100% high-quality songs.</p>
+        <p class="rin-support-copy">Help keep this independent radio playing. Your donation covers server costs and keeps the music flowing.</p>
+        <div class="rin-about-actions">
+          <button type="button" class="rin-donate-primary" onclick="openDonateModal()">Keep the music playing<span class="rin-donate-arrow"> ↗</span></button>
+          <button type="button" class="rin-contact-link" id="contact-open" aria-haspopup="dialog" aria-controls="contact-modal">Contact us</button>
+        </div>
+      </div>
+
+      <div class="rin-guestbook" id="footer-guestbook">
+        <h2 class="rin-guestbook-title">Guestbook</h2>
+
+        <!-- Messages List -->
+        <div id="footer-guestbook-messages" class="footer-messages-container">
+          <div id="footer-guestbook-list">
+            <div class="text-center py-6">
+              <div class="spinner-small mx-auto mb-2"></div>
+              <p class="text-gray-500 text-xs">Loading messages...</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Reveal more complete messages on desktop and mobile -->
+        <button id="footer-guestbook-loadmore" class="guestbook-load-more hidden" type="button">Load More</button>
+
+        <form id="footer-guestbook-form" class="guestbook-form">
+          <textarea
+            name="message"
+            class="guestbook-input-message"
+            aria-label="Your message"
+            placeholder="Say something…"
+            rows="2"
+            maxlength="280"
+            required
+          ></textarea>
+          <div class="guestbook-row">
+            <input
+              type="text"
+              name="name"
+              class="guestbook-input-name"
+              aria-label="Your name"
+              placeholder="Your name"
+              maxlength="50"
+            >
+            <!-- Honeypot -->
+            <input type="text" name="website" class="hidden" tabindex="-1" autocomplete="off">
+            <button type="submit" class="guestbook-submit">Send →</button>
+          </div>
+        </form>
+        <div id="footer-guestbook-status" class="guestbook-status hidden"></div>
+      </div>
+    </div>
+
+    <div class="rin-copyright">Three channels. One destination. Radio Isla Negra © 1999–2026.</div>
+  </footer>
+
+  <!-- Contact modal (the real contact form; submit handled in player.js) -->
+  <dialog id="contact-modal" class="rin-contact-modal" aria-labelledby="contact-modal-title">
+    <button type="button" class="rin-contact-close" aria-label="Close">×</button>
+    <h2 id="contact-modal-title">Get in touch.</h2>
+    <p class="rin-contact-intro">A question, a suggestion, or just a hello.<br>We’d love to hear from you.</p>
+    <form id="contact-form">
+      <label>Your name
+        <input type="text" id="contact-name" name="name" autocomplete="name" maxlength="50">
+      </label>
+      <label>Your email
+        <input type="email" id="contact-email" name="email" autocomplete="email" maxlength="100" required>
+      </label>
+      <label>Your message
+        <textarea id="contact-message" name="message" maxlength="1000" required></textarea>
+      </label>
+      <!-- Honeypot -->
+      <input type="text" name="website" class="hidden" tabindex="-1" autocomplete="off">
+      <button type="submit" class="rin-contact-submit">Send message →</button>
+    </form>
+    <div id="contact-status" class="hidden mt-3 p-2 rounded text-sm"></div>
+  </dialog>
+
+  <!-- Donate Modal Styles -->
+  <style>
+    /* Video en vivo + badge */
+    .live-badge {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: rgba(165, 46, 45, 0.92);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .live-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #fff;
+      animation: live-blink 1.4s ease-in-out infinite;
+    }
+    @keyframes live-blink { 0%,100% { opacity: 1; } 50% { opacity: 0.25; } }
+    .live-fs {
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      padding: 0;
+      border: none;
+      border-radius: 6px;
+      background: rgba(0,0,0,0.5);
+      color: #fff;
+      cursor: pointer;
+      transition: background .2s;
+    }
+    .live-fs:hover { background: rgba(0,0,0,0.75); }
+    /* Destaque del card de RIN cuando esta en vivo */
+    .card-live .player-card {
+      box-shadow: 0 0 0 3px #a52e2d, 0 0 26px 4px rgba(165,46,45,0.55);
+      animation: card-live-pulse 2.2s ease-in-out infinite;
+      transition: box-shadow .3s;
+    }
+    .card-live > h2 { color: #a52e2d !important; }
+    @keyframes card-live-pulse {
+      0%,100% { box-shadow: 0 0 0 3px #a52e2d, 0 0 20px 3px rgba(165,46,45,0.45); }
+      50%     { box-shadow: 0 0 0 3px #a52e2d, 0 0 34px 7px rgba(165,46,45,0.70); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .card-live .player-card { animation: none; }
+      .live-dot { animation: none; }
+    }
+
+    #donate-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 9999;
+    }
+    #donate-modal.active { display: block; }
+    .donate-backdrop {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.8);
+    }
+    .donate-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 1rem;
+    }
+    .donate-box {
+      position: relative;
+      background: linear-gradient(to bottom, #f7f7f7, #e9e9e9);
+      border-radius: 8px;
+      width: 320px;
+      padding: 0 0 24px 0;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+      text-align: center;
+    }
+    .donate-logo {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      margin: -40px auto 16px;
+      border: 3px solid #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      object-fit: cover;
+    }
+    .donate-close {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      background: rgba(0,0,0,0.3);
+      border: none;
+      color: #fff;
+      cursor: pointer;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      line-height: 1;
+      transition: background 0.2s;
+    }
+    .donate-close:hover { background: rgba(0,0,0,0.5); }
+    .donate-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #333;
+      margin: 0 0 4px 0;
+    }
+    .donate-subtitle {
+      font-size: 13px;
+      color: #666;
+      margin: 0 0 20px 0;
+    }
+    .donate-options {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 0 24px;
+    }
+    .donate-option {
+      display: block;
+      background: #4A90D9;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 12px 16px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .donate-option:hover {
+      background: #3A7BC8;
+    }
+    .donate-option span {
+      opacity: 0.85;
+      font-weight: 400;
+    }
+    .donate-secure {
+      font-size: 11px;
+      color: #999;
+      margin: 16px 0 0 0;
+    }
+    /* Tablet y desktop: mismo modal, un poco más grande (mobile sin cambios) */
+    @media (min-width: 768px) {
+      .donate-box {
+        transform: scale(1.2);
+      }
+    }
+  </style>
+
+  <!-- Donate Modal -->
+  <div id="donate-modal">
+    <div class="donate-backdrop" onclick="closeDonateModal()"></div>
+    <div class="donate-container">
+      <div class="donate-box">
+        <button class="donate-close" onclick="closeDonateModal()" aria-label="Close">✕</button>
+        <img src="/assets/logo without text.png" alt="Radio Isla Negra" class="donate-logo">
+        <h2 class="donate-title">Radio Isla Negra</h2>
+        <p class="donate-subtitle">We prefer subscriptions</p>
+        <div class="donate-options">
+          <a href="https://donate.stripe.com/7sY28r7fscDUdfQfF4efC0z" target="_blank" rel="noopener" class="donate-option">
+            $5.99/month
+          </a>
+          <a href="https://donate.stripe.com/dRm6oH8jw9rI0t4eB0efC0w" target="_blank" rel="noopener" class="donate-option">
+            $8.99/month
+          </a>
+          <a href="https://donate.stripe.com/9B614neHU33k2Bc64uefC0y" target="_blank" rel="noopener" class="donate-option">
+            $20/month
+          </a>
+          <a href="https://donate.stripe.com/4gMeVdczMdHYdfQ0KaefC0v" target="_blank" rel="noopener" class="donate-option">
+            Custom Amount
+          </a>
+        </div>
+        <p class="donate-secure" style="margin-bottom:0;">Secure payment via Stripe<br><a href="https://billing.stripe.com/p/login/28ocPk5bAacR19e000" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">Customer Portal</a></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Donate Modal Script -->
+  <script>
+    function openDonateModal() {
+      document.getElementById('donate-modal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+      if (typeof fbq === 'function') {
+        fbq('trackCustom', 'DonateModalOpen');
+      }
+    }
+    function closeDonateModal() {
+      document.getElementById('donate-modal').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    // Meta Pixel: tier clicks (sin preventDefault, el link abre Stripe normal)
+    var donateModal = document.getElementById('donate-modal');
+    if (donateModal) {
+      donateModal.addEventListener('click', function(e) {
+        var option = e.target.closest('.donate-option');
+        if (option && typeof fbq === 'function') {
+          fbq('trackCustom', 'DonateTierClick', { tier: option.textContent.trim() });
+        }
+      });
+    }
+
+    // Contact modal: native <dialog> (Escape, focus trapped); close button, click outside,
+    // focus back to the opener. Closing never clears what was typed.
+    (function() {
+      var dialog = document.getElementById('contact-modal');
+      var opener = document.getElementById('contact-open');
+      if (!dialog || !opener || typeof dialog.showModal !== 'function') return;
+      opener.addEventListener('click', function() {
+        if (!dialog.open) dialog.showModal();
+      });
+      dialog.querySelector('.rin-contact-close').addEventListener('click', function() { dialog.close(); });
+      dialog.addEventListener('click', function(e) {
+        if (e.target !== dialog) return;
+        var r = dialog.getBoundingClientRect();
+        if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) dialog.close();
+      });
+      dialog.addEventListener('close', function() { opener.focus(); });
+    })();
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeDonateModal();
+    });
+
+    // Header scroll behavior - compact on scroll
+    (function() {
+      const header = document.getElementById('main-header');
+      const scrollThreshold = 50;
+      let ticking = false;
+
+      function updateHeader() {
+        if (window.scrollY > scrollThreshold) {
+          header.classList.add('scrolled');
+        } else {
+          header.classList.remove('scrolled');
+        }
+        ticking = false;
+      }
+
+      window.addEventListener('scroll', function() {
+        if (!ticking) {
+          requestAnimationFrame(updateHeader);
+          ticking = true;
+        }
+      }, { passive: true });
+
+      // Check initial state
+      updateHeader();
+    })();
+
+
+    /* New Feature Banner - COMMENTED OUT FOR LATER
+    (function() {
+      const BANNER_KEY = 'rin-map-interact-v1';
+      const banner = document.getElementById('new-feature-banner');
+
+      // Check if banner was previously dismissed
+      if (localStorage.getItem(BANNER_KEY) === 'true') {
+        banner?.classList.add('hidden');
+      }
+
+      // Make closeBanner globally available
+      window.closeBanner = function() {
+        if (banner) {
+          banner.classList.add('hidden');
+          localStorage.setItem(BANNER_KEY, 'true');
+        }
+      };
+    })();
+    */
+
+    // Listen for listener-detected message from map iframe
+    (function() {
+      window.addEventListener('message', function(event) {
+        if (event.data && event.data.type === 'listener-detected') {
+          const mapSection = document.getElementById('map');
+          if (mapSection) {
+            mapSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }
+      });
+    })();
+  </script>
+
+</body>
+</html>
