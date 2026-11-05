@@ -170404,7 +170404,12 @@
       "homepages": [
         "https://mentalhealthradio.ca/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "Command '['tesseract', '/tmp/radio-logo-ocr-2pkad0bw/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds",
+        "Command '['tesseract', '/tmp/radio-logo-ocr-c5s6r9s1/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds",
+        "Command '['tesseract', '/tmp/radio-logo-ocr-hvn7p2dw/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds"
+      ]
     },
     "4097:0:2:A802:C1D1:ED:0:0:0:0": {
       "name": "Merry Christmas Radio (AAC)",
@@ -170416,7 +170421,36 @@
       "homepages": [
         "https://www.merrychristmasradio.net/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://www.happychristmasradio.net/uploads/favicons/1775935630_7336aea5.png",
+        "final_url": "https://www.happychristmasradio.net/uploads/favicons/1775935630_7336aea5.png",
+        "path": "originals/75db3611c2b15a7cc2ad83bb166c7e0cb91b69da4697ccdaeac0e8f9b6d5dae4.img",
+        "sha256": "75db3611c2b15a7cc2ad83bb166c7e0cb91b69da4697ccdaeac0e8f9b6d5dae4",
+        "bytes": 63586,
+        "dimensions": [
+          512,
+          512
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://www.merrychristmasradio.net/",
+        "final_url": "https://www.merrychristmasradio.net/",
+        "original_html_sha256": "6bbb92e640ff2bb6d1b0d14f5b3b6426a1b982a7e7ca0ea518b0dc174cc9dc6e",
+        "path": "page-evidence/6bbb92e640ff2bb6d1b0d14f5b3b6426a1b982a7e7ca0ea518b0dc174cc9dc6e.json",
+        "titles": [
+          "Christmas radio live — five free holiday stations | 🎄 Happychristmasradio.net",
+          "\n                    Christmas radio, all season long                "
+        ],
+        "image_urls": [
+          "https://www.happychristmasradio.net/uploads/favicons/1775935630_0ebd3a60.png",
+          "https://www.happychristmasradio.net/uploads/favicons/1775935630_4a98b41e.png",
+          "https://www.happychristmasradio.net/uploads/favicons/1775935630_7336aea5.png"
+        ],
+        "named_logos": {}
+      },
+      "ocr_text": "2 ©\n"
     },
     "4097:0:2:9214:26F9:ED:0:0:0:0": {
       "name": "Metallica Blacklist - DOPEBEAT",
@@ -170428,7 +170462,94 @@
       "homepages": [
         "https://radio.dopebeat.xyz/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://radio.dopebeat.xyz/logos/dopebeat-title-logo.png?v=3",
+        "final_url": "https://radio.dopebeat.xyz/logos/dopebeat-title-logo.png?v=3",
+        "path": "originals/5dd9691e8664bdfb975f113364c84cba5d842182e1949afbb45c7a3fd077e7cd.img",
+        "sha256": "5dd9691e8664bdfb975f113364c84cba5d842182e1949afbb45c7a3fd077e7cd",
+        "bytes": 1104932,
+        "dimensions": [
+          3009,
+          696
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://radio.dopebeat.xyz/",
+        "final_url": "https://radio.dopebeat.xyz/",
+        "original_html_sha256": "254bd86ddb4d31358adf6d7a23e6c77232d1d84f02fad965926986208a682190",
+        "path": "page-evidence/254bd86ddb4d31358adf6d7a23e6c77232d1d84f02fad965926986208a682190.json",
+        "titles": [
+          "DOPEBEAT",
+          " "
+        ],
+        "image_urls": [
+          "https://radio.dopebeat.xyz/logos/dopebeat-title-logo.png?v=3",
+          "https://radio.dopebeat.xyz/favicon-32.png",
+          "https://radio.dopebeat.xyz/favicon.ico"
+        ],
+        "named_logos": {
+          "https://radio.dopebeat.xyz/logos/dopebeat-title-logo.png?v=3": "DOPEBEAT  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/1193bc42d4098193d08f319229b441ac9db38aa95fac1c1f9932dc7f602f6642.png",
+          "sha256": "1193bc42d4098193d08f319229b441ac9db38aa95fac1c1f9932dc7f602f6642",
+          "bytes": 1587
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/33ce3b0440618fab00862b49ae76594b3cd8431852a7390afa632d9921ca4e30.png",
+          "sha256": "33ce3b0440618fab00862b49ae76594b3cd8431852a7390afa632d9921ca4e30",
+          "bytes": 14574
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/32e694d32644a9cbc72aa734ea5ca4635c73a5f72cc4780abea9dd92a75c915d.png",
+          "sha256": "32e694d32644a9cbc72aa734ea5ca4635c73a5f72cc4780abea9dd92a75c915d",
+          "bytes": 40983
+        },
+        "50x30/white": {
+          "path": "verified-assets/99383c0309af968a0e5ef72e5e2f79a50831c1b7840d833fa5bc84af26e37e93.png",
+          "sha256": "99383c0309af968a0e5ef72e5e2f79a50831c1b7840d833fa5bc84af26e37e93",
+          "bytes": 2954
+        },
+        "220x132/white": {
+          "path": "verified-assets/49a11bb62267d8c461d7bd252f18d77859f4af369af0d2a4edfc9d3e24113853.png",
+          "sha256": "49a11bb62267d8c461d7bd252f18d77859f4af369af0d2a4edfc9d3e24113853",
+          "bytes": 37836
+        },
+        "400x240/white": {
+          "path": "verified-assets/3cd8ed2ac4a9b9007c0bb11bf06bb0c811119d36dd74a6d5583c48c8b574a06c.png",
+          "sha256": "3cd8ed2ac4a9b9007c0bb11bf06bb0c811119d36dd74a6d5583c48c8b574a06c",
+          "bytes": 96628
+        },
+        "50x30/black": {
+          "path": "verified-assets/4445cb57826e4f84a5b1f013f84bfd7d5c82104d45f5edba95f987081792a3f4.png",
+          "sha256": "4445cb57826e4f84a5b1f013f84bfd7d5c82104d45f5edba95f987081792a3f4",
+          "bytes": 3179
+        },
+        "220x132/black": {
+          "path": "verified-assets/7d3fc62976a7d219e2fa401b41e0806216ebb3b3a18a12f3583a5a4fc8ef3135.png",
+          "sha256": "7d3fc62976a7d219e2fa401b41e0806216ebb3b3a18a12f3583a5a4fc8ef3135",
+          "bytes": 36857
+        },
+        "400x240/black": {
+          "path": "verified-assets/f170ef2cb088060eafbdf7b2cf5923b38254c5e400b225aa6cf6f60176a25376.png",
+          "sha256": "f170ef2cb088060eafbdf7b2cf5923b38254c5e400b225aa6cf6f60176a25376",
+          "bytes": 92334
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "DOPEBEAT  ",
+        "matched_brand_keys": [
+          "dopebeat"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:B732:D674:ED:0:0:0:0": {
       "name": "metalrock.fm",
@@ -170440,7 +170561,8 @@
       "homepages": [
         "http://www.metalrock.fm/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:1D4B:FF91:ED:0:0:0:0": {
       "name": "Midnight in the Desert (Art Bell) - DOPEBEAT",
@@ -170452,7 +170574,94 @@
       "homepages": [
         "https://radio.dopebeat.xyz/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://radio.dopebeat.xyz/logos/dopebeat-title-logo.png?v=3",
+        "final_url": "https://radio.dopebeat.xyz/logos/dopebeat-title-logo.png?v=3",
+        "path": "originals/5dd9691e8664bdfb975f113364c84cba5d842182e1949afbb45c7a3fd077e7cd.img",
+        "sha256": "5dd9691e8664bdfb975f113364c84cba5d842182e1949afbb45c7a3fd077e7cd",
+        "bytes": 1104932,
+        "dimensions": [
+          3009,
+          696
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://radio.dopebeat.xyz/",
+        "final_url": "https://radio.dopebeat.xyz/",
+        "original_html_sha256": "254bd86ddb4d31358adf6d7a23e6c77232d1d84f02fad965926986208a682190",
+        "path": "page-evidence/254bd86ddb4d31358adf6d7a23e6c77232d1d84f02fad965926986208a682190.json",
+        "titles": [
+          "DOPEBEAT",
+          " "
+        ],
+        "image_urls": [
+          "https://radio.dopebeat.xyz/logos/dopebeat-title-logo.png?v=3",
+          "https://radio.dopebeat.xyz/favicon-32.png",
+          "https://radio.dopebeat.xyz/favicon.ico"
+        ],
+        "named_logos": {
+          "https://radio.dopebeat.xyz/logos/dopebeat-title-logo.png?v=3": "DOPEBEAT  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/1193bc42d4098193d08f319229b441ac9db38aa95fac1c1f9932dc7f602f6642.png",
+          "sha256": "1193bc42d4098193d08f319229b441ac9db38aa95fac1c1f9932dc7f602f6642",
+          "bytes": 1587
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/33ce3b0440618fab00862b49ae76594b3cd8431852a7390afa632d9921ca4e30.png",
+          "sha256": "33ce3b0440618fab00862b49ae76594b3cd8431852a7390afa632d9921ca4e30",
+          "bytes": 14574
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/32e694d32644a9cbc72aa734ea5ca4635c73a5f72cc4780abea9dd92a75c915d.png",
+          "sha256": "32e694d32644a9cbc72aa734ea5ca4635c73a5f72cc4780abea9dd92a75c915d",
+          "bytes": 40983
+        },
+        "50x30/white": {
+          "path": "verified-assets/99383c0309af968a0e5ef72e5e2f79a50831c1b7840d833fa5bc84af26e37e93.png",
+          "sha256": "99383c0309af968a0e5ef72e5e2f79a50831c1b7840d833fa5bc84af26e37e93",
+          "bytes": 2954
+        },
+        "220x132/white": {
+          "path": "verified-assets/49a11bb62267d8c461d7bd252f18d77859f4af369af0d2a4edfc9d3e24113853.png",
+          "sha256": "49a11bb62267d8c461d7bd252f18d77859f4af369af0d2a4edfc9d3e24113853",
+          "bytes": 37836
+        },
+        "400x240/white": {
+          "path": "verified-assets/3cd8ed2ac4a9b9007c0bb11bf06bb0c811119d36dd74a6d5583c48c8b574a06c.png",
+          "sha256": "3cd8ed2ac4a9b9007c0bb11bf06bb0c811119d36dd74a6d5583c48c8b574a06c",
+          "bytes": 96628
+        },
+        "50x30/black": {
+          "path": "verified-assets/4445cb57826e4f84a5b1f013f84bfd7d5c82104d45f5edba95f987081792a3f4.png",
+          "sha256": "4445cb57826e4f84a5b1f013f84bfd7d5c82104d45f5edba95f987081792a3f4",
+          "bytes": 3179
+        },
+        "220x132/black": {
+          "path": "verified-assets/7d3fc62976a7d219e2fa401b41e0806216ebb3b3a18a12f3583a5a4fc8ef3135.png",
+          "sha256": "7d3fc62976a7d219e2fa401b41e0806216ebb3b3a18a12f3583a5a4fc8ef3135",
+          "bytes": 36857
+        },
+        "400x240/black": {
+          "path": "verified-assets/f170ef2cb088060eafbdf7b2cf5923b38254c5e400b225aa6cf6f60176a25376.png",
+          "sha256": "f170ef2cb088060eafbdf7b2cf5923b38254c5e400b225aa6cf6f60176a25376",
+          "bytes": 92334
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "DOPEBEAT  ",
+        "matched_brand_keys": [
+          "dopebeat"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:3757:7D87:ED:0:0:0:0": {
       "name": "Mix97FM",
@@ -170464,7 +170673,11 @@
       "homepages": [
         "https://www.mix97fm.ca/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "Command '['tesseract', '/tmp/radio-logo-ocr-teqkwmvf/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds",
+        "Command '['tesseract', '/tmp/radio-logo-ocr-smrrmgbs/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds"
+      ]
     },
     "4097:0:2:1C7B:B5D7:ED:0:0:0:0": {
       "name": "MIX ROCK METAL RADIO",
@@ -170476,7 +170689,10 @@
       "homepages": [
         "https://mixrockmetal.net/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "Command '['tesseract', '/tmp/radio-logo-ocr-5zvty6v8/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds"
+      ]
     },
     "4097:0:2:A480:2E3B:ED:0:0:0:0": {
       "name": "Moodhoney Radio",
@@ -170488,7 +170704,34 @@
       "homepages": [
         "https://moodhoney.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://moodhoney.com/icon-192.png",
+        "final_url": "https://moodhoney.com/icon-192.png",
+        "path": "originals/f5d8a82ab9b66918603755c1530e46ce5093b6ec412f29e5942cc356117751d1.img",
+        "sha256": "f5d8a82ab9b66918603755c1530e46ce5093b6ec412f29e5942cc356117751d1",
+        "bytes": 4188,
+        "dimensions": [
+          192,
+          192
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://moodhoney.com/",
+        "final_url": "https://moodhoney.com/home.html",
+        "original_html_sha256": "81d2326e70f2d7382d13418531bc53ffb9b4ab8f40b9e99f7a690d317d9d631f",
+        "path": "page-evidence/81d2326e70f2d7382d13418531bc53ffb9b4ab8f40b9e99f7a690d317d9d631f.json",
+        "titles": [
+          "Moodhoney Radio — Deeply Indie"
+        ],
+        "image_urls": [
+          "https://moodhoney.com/icon-192.png",
+          "https://moodhoney-og.syrros.workers.dev/og.png"
+        ],
+        "named_logos": {}
+      },
+      "ocr_text": ""
     },
     "4097:0:2:810B:2F02:ED:0:0:0:0": {
       "name": "Moose FM 93.5 Haliburton - CFZN",
@@ -170501,7 +170744,8 @@
         "https://www.myhaliburtonnow.com/",
         "https://www.myhaliburtonnow.com/moose-fm/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:9231:DCE6:ED:0:0:0:0": {
       "name": "Mooz FM Radio",
@@ -170513,7 +170757,11 @@
       "homepages": [
         "https://www.moozfm.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "Command '['tesseract', '/tmp/radio-logo-ocr-z9yf_k89/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds",
+        "Command '['tesseract', '/tmp/radio-logo-ocr-3i2drotz/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds"
+      ]
     },
     "4097:0:2:C630:4A87:ED:0:0:0:0": {
       "name": "MTSN - The Mammoth",
@@ -170525,7 +170773,11 @@
       "homepages": [
         "https://mammothradio.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "Command '['tesseract', '/tmp/radio-logo-ocr-wrsdtnsa/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds",
+        "Command '['tesseract', '/tmp/radio-logo-ocr-aquenahp/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds"
+      ]
     },
     "4097:0:2:8725:BFF7:ED:0:0:0:0": {
       "name": "my FM 88.1",
@@ -170550,7 +170802,8 @@
       "homepages": [
         "https://n10.as/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:CED4:5F14:ED:0:0:0:0": {
       "name": "Nature Radio Rain",
@@ -170562,7 +170815,8 @@
       "homepages": [
         "https://radiosuitenetwork.torontocast.stream/nature-radio-rain/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:FD9:740E:ED:0:0:0:0": {
       "name": "New Classical FM",
@@ -170586,7 +170840,37 @@
       "homepages": [
         "https://vowr.ca/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://vowr.ca/wp-content/uploads/2024/08/logo_vowr_cropped-300x300.png",
+        "final_url": "https://vowr.ca/wp-content/uploads/2024/08/logo_vowr_cropped-300x300.png",
+        "path": "originals/d7b394f580df63a772eaa4d726687b5b07ae84834e8dd8088a2129e6dbc6941b.img",
+        "sha256": "d7b394f580df63a772eaa4d726687b5b07ae84834e8dd8088a2129e6dbc6941b",
+        "bytes": 99256,
+        "dimensions": [
+          300,
+          300
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://vowr.ca/",
+        "final_url": "https://vowr.ca/",
+        "original_html_sha256": "4358a8853404607507aca453b505f398ea058caa842896984bf704e4878518f7",
+        "path": "page-evidence/4358a8853404607507aca453b505f398ea058caa842896984bf704e4878518f7.json",
+        "titles": [
+          "VOWR 800 AM – Newfoundland and Labrador's Pioneer Radio Station"
+        ],
+        "image_urls": [
+          "https://vowr.ca/wp-content/uploads/2024/05/logo_vowr-1.png",
+          "https://vowr.ca/wp-content/uploads/2024/08/logo_vowr_cropped-150x150.png",
+          "https://vowr.ca/wp-content/uploads/2024/08/logo_vowr_cropped-300x300.png"
+        ],
+        "named_logos": {
+          "https://vowr.ca/wp-content/uploads/2024/05/logo_vowr-1.png": "VOWR 800 AM  "
+        }
+      },
+      "ocr_text": "|\n\nON\n"
     },
     "4097:0:2:D3F4:961C:ED:0:0:0:0": {
       "name": "Nighthaven Enclave Radio - DJ Starface",
@@ -170598,7 +170882,11 @@
       "homepages": [
         "https://neaura.net/nighthaven"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "Command '['tesseract', '/tmp/radio-logo-ocr-2k5e370u/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds",
+        "Command '['tesseract', '/tmp/radio-logo-ocr-l6vspvz3/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds"
+      ]
     },
     "4097:0:2:E01D:F371:ED:0:0:0:0": {
       "name": "Nitty-Gritty Music Radio",
@@ -170610,7 +170898,10 @@
       "homepages": [
         "https://ocv.torontocast.stream/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "Command '['tesseract', '/tmp/radio-logo-ocr-f_prtac2/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds"
+      ]
     },
     "4097:0:2:C8A6:8935:ED:0:0:0:0": {
       "name": "Northern Dial",
@@ -170622,7 +170913,35 @@
       "homepages": [
         "https://northerndial.ca/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://www.northerndial.ca/images/nd-beaver-180.png?v=20261101",
+        "final_url": "https://www.northerndial.ca/images/nd-beaver-180.png?v=20261101",
+        "path": "originals/e78335ad7711dcaa0f19273d956944584743f2dbd831c8cba06ee87f509b06ea.img",
+        "sha256": "e78335ad7711dcaa0f19273d956944584743f2dbd831c8cba06ee87f509b06ea",
+        "bytes": 13025,
+        "dimensions": [
+          180,
+          180
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://northerndial.ca/",
+        "final_url": "https://www.northerndial.ca/",
+        "original_html_sha256": "34ded0ca404ae96ae2751fc01addf1a6216cb300c71a55512d0e9832e6869584",
+        "path": "page-evidence/34ded0ca404ae96ae2751fc01addf1a6216cb300c71a55512d0e9832e6869584.json",
+        "titles": [
+          "Independent Canadian Music Radio | Northern Dial",
+          "Independent Canadian Music Radio"
+        ],
+        "image_urls": [
+          "https://www.northerndial.ca/images/nd-beaver-180.png?v=20261101",
+          "https://www.northerndial.ca/images/nd-beaver-headphones.svg?v=20261101"
+        ],
+        "named_logos": {}
+      },
+      "ocr_text": ""
     },
     "4097:0:2:DB5A:B539:ED:0:0:0:0": {
       "name": "Nova",
@@ -170634,7 +170953,97 @@
       "homepages": [
         "https://radionovatoronto.ca/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://radionovatoronto.ca/wp-content/themes/radionova/images/logo.png",
+        "final_url": "https://radionovatoronto.ca/wp-content/themes/radionova/images/logo.png",
+        "path": "originals/c51fdbcbf4015fe2700473b0c1e4a1ef804204080825c7bc7f1a09fdce35d8c1.img",
+        "sha256": "c51fdbcbf4015fe2700473b0c1e4a1ef804204080825c7bc7f1a09fdce35d8c1",
+        "bytes": 10393,
+        "dimensions": [
+          183,
+          253
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://radionovatoronto.ca/",
+        "final_url": "https://radionovatoronto.ca/",
+        "original_html_sha256": "d788fbd19df4bcfdc6c287baca5d4e171a068a16dccc4da5a339a02b67b32790",
+        "path": "page-evidence/d788fbd19df4bcfdc6c287baca5d4e171a068a16dccc4da5a339a02b67b32790.json",
+        "titles": [
+          "Radio NOVA Toronto"
+        ],
+        "image_urls": [
+          "https://radionovatoronto.ca/wp-content/themes/radionova/images/ASCAP_Logo.png",
+          "https://radionovatoronto.ca/wp-content/themes/radionova/images/logo.png",
+          "https://radionovatoronto.ca/wp-content/themes/radionova/images/radionova_logo_white.png"
+        ],
+        "named_logos": {
+          "https://radionovatoronto.ca/wp-content/uploads/2024/04/Telegram-logo.png": "  ",
+          "https://radionovatoronto.ca/wp-content/themes/radionova/images/radionova_logo_white.png": "  ",
+          "https://radionovatoronto.ca/wp-content/themes/radionova/images/logo.png": "Radio Nova  ",
+          "https://radionovatoronto.ca/wp-content/uploads/2021/07/vivo_logo_new.no-back34609-1.png": "  ",
+          "https://radionovatoronto.ca/wp-content/themes/radionova/images/ASCAP_Logo.png": "  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/af12d9609a4dbcafb3b56b3e7f90dc462e60e15ef3ab7187c54c5e4861b019c0.png",
+          "sha256": "af12d9609a4dbcafb3b56b3e7f90dc462e60e15ef3ab7187c54c5e4861b019c0",
+          "bytes": 1466
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/7d3c0fb01479e48c567dcd749838ba860b75fb7077491f764122d960b0368e79.png",
+          "sha256": "7d3c0fb01479e48c567dcd749838ba860b75fb7077491f764122d960b0368e79",
+          "bytes": 13401
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/0dbc801fe5906753832d51d38ed5a05771405301bceb1566ca0685fbfaa7c49e.png",
+          "sha256": "0dbc801fe5906753832d51d38ed5a05771405301bceb1566ca0685fbfaa7c49e",
+          "bytes": 41146
+        },
+        "50x30/white": {
+          "path": "verified-assets/80fc388ef7ff3d6f59ae479637c7d80fd364ee632cdf67d91ff2ba074530abef.png",
+          "sha256": "80fc388ef7ff3d6f59ae479637c7d80fd364ee632cdf67d91ff2ba074530abef",
+          "bytes": 2872
+        },
+        "220x132/white": {
+          "path": "verified-assets/8b6935aed766a284af2589c7456d0ac2e6da7ef6eb2d3f7e9ceb8c7350f8fe01.png",
+          "sha256": "8b6935aed766a284af2589c7456d0ac2e6da7ef6eb2d3f7e9ceb8c7350f8fe01",
+          "bytes": 38931
+        },
+        "400x240/white": {
+          "path": "verified-assets/c6530559543949847dd6c8bbd500287b28741a3b993038c9cbbee7919ab6754f.png",
+          "sha256": "c6530559543949847dd6c8bbd500287b28741a3b993038c9cbbee7919ab6754f",
+          "bytes": 100413
+        },
+        "50x30/black": {
+          "path": "verified-assets/9ff238d8cdb2e370a51d73cae148ace975192fa4b96893091f1b2dcb8ba7cfbe.png",
+          "sha256": "9ff238d8cdb2e370a51d73cae148ace975192fa4b96893091f1b2dcb8ba7cfbe",
+          "bytes": 2847
+        },
+        "220x132/black": {
+          "path": "verified-assets/838847bd534975a2db64ed58ac9b5e469d5a6b1c304baf96d686165c21bc6f30.png",
+          "sha256": "838847bd534975a2db64ed58ac9b5e469d5a6b1c304baf96d686165c21bc6f30",
+          "bytes": 36440
+        },
+        "400x240/black": {
+          "path": "verified-assets/dfaf5a78b9d740445d117620ee665aa4eda8763cabd39914946247e7acc030a4.png",
+          "sha256": "dfaf5a78b9d740445d117620ee665aa4eda8763cabd39914946247e7acc030a4",
+          "bytes": 89928
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Radio Nova  ",
+        "matched_brand_keys": [
+          "nova"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:712D:23D2:ED:0:0:0:0": {
       "name": "Nr92",
@@ -170646,7 +171055,42 @@
       "homepages": [
         "https://nr92.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "candidate_assistant_visual_and_identity_check",
+      "source": {
+        "url": "https://nr92.com/wp-content/uploads/logo-1.png",
+        "final_url": "https://nr92.com/wp-content/uploads/logo-1.png",
+        "path": "originals/da276314d76483090753ea85fb2445bcba1ad743b5920ba1a7ec4a1868e5cb7f.img",
+        "sha256": "da276314d76483090753ea85fb2445bcba1ad743b5920ba1a7ec4a1868e5cb7f",
+        "bytes": 32717,
+        "dimensions": [
+          189,
+          138
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://nr92.com/",
+        "final_url": "https://nr92.com/",
+        "original_html_sha256": "6b2aa9c4c8c7244f8a7ac2d010a4b167f0800a15e6286d42efb350d4186b2c8d",
+        "path": "page-evidence/6b2aa9c4c8c7244f8a7ac2d010a4b167f0800a15e6286d42efb350d4186b2c8d.json",
+        "titles": [
+          "NR92 – Campus Radio for the Students"
+        ],
+        "image_urls": [
+          "https://nr92.com/wp-content/uploads/NR92-Logo-Large-e1789364911222.png",
+          "https://nr92.com/wp-content/uploads/OOK_logo-2009.jpg",
+          "https://nr92.com/wp-content/uploads/logo-1.png"
+        ],
+        "named_logos": {
+          "https://nr92.com/wp-content/uploads/NR92-Logo-Large-e1789364911222.png": "  ",
+          "https://nr92.com/wp-content/uploads/north_of_the_scoreboard_logo.png": "  ",
+          "https://nr92.com/wp-content/uploads/OOK_logo-2009.jpg": "  ",
+          "https://nr92.com/wp-content/uploads/rsz_primary_logo_-_1x.png": "  ",
+          "https://nr92.com/wp-content/uploads/logo-1.png": "  ",
+          "https://nr92.com/wp-content/uploads/nait-nugget-online-student-news-logo.png": "  "
+        }
+      },
+      "ocr_text": "N AIT\n\nW\n\nWATCH\n"
     },
     "4097:0:2:6F2C:61F6:ED:0:0:0:0": {
       "name": "One Station",
@@ -170658,7 +171102,10 @@
       "homepages": [
         "https://www.cloudrad.io/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "Command '['tesseract', '/tmp/radio-logo-ocr-jiwt9rey/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds"
+      ]
     },
     "4097:0:2:685:B37D:ED:0:0:0:0": {
       "name": "Ottawa Hot 89.9 (CIHTFM)",
@@ -170670,7 +171117,8 @@
       "homepages": [
         "https://www.hot899.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:A708:421F:ED:0:0:0:0": {
       "name": "Ottawa Live 885 (CLIVFM)",
@@ -170682,7 +171130,96 @@
       "homepages": [
         "https://www.live885.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://media-cdn.socastsrm.com/wordpress/wp-content/blogs.dir/979/files/2026/06/live885logo-white-200x200-1.png",
+        "final_url": "https://media-cdn.socastsrm.com/wordpress/wp-content/blogs.dir/979/files/2026/06/live885logo-white-200x200-1.png",
+        "path": "originals/23a24125f2d5f7a03a41ab670234259857b3e23240de2f9ae06831b61b77728a.img",
+        "sha256": "23a24125f2d5f7a03a41ab670234259857b3e23240de2f9ae06831b61b77728a",
+        "bytes": 3690,
+        "dimensions": [
+          200,
+          200
+        ],
+        "format": "PNG"
+      },
+      "page": {
+        "url": "https://www.live885.com/",
+        "final_url": "https://www.live885.com/",
+        "original_html_sha256": "585b4a191337722cb09d232b173b04929090db2c2344c3f4440cd2829530c72c",
+        "path": "page-evidence/585b4a191337722cb09d232b173b04929090db2c2344c3f4440cd2829530c72c.json",
+        "titles": [
+          "LiVE 88.5 Ottawa's Alternative Rock"
+        ],
+        "image_urls": [
+          "https://media-cdn.socastsrm.com/uploads/contest/40490/cheo_doalt_logo_2020_eng_flat-907x338-1_1200_400_width.jpg",
+          "https://media-cdn.socastsrm.com/wordpress/wp-content/blogs.dir/979/files/2026/06/live885logo-white-200x200-1.png",
+          "https://media-cdn.socastsrm.com/wordpress/wp-content/blogs.dir/979/files/2026/06/live885logo-white-425x425-1.png"
+        ],
+        "named_logos": {
+          "https://media-cdn.socastsrm.com/wordpress/wp-content/blogs.dir/979/files/2026/06/live885logo-white-200x200-1.png": "LiVE 88.5 Ottawa's Alternative Rock  ",
+          "https://media-cdn.socastsrm.com/wordpress/wp-content/blogs.dir/979/files/2026/06/live885logo-white-425x425-1.png": " Live885logo-white-425x425 ",
+          "https://media-cdn.socastsrm.com/uploads/contest/40490/cheo_doalt_logo_2020_eng_flat-907x338-1_1200_400_width.jpg": "  ",
+          "https://media-cdn.socastsrm.com/wordpress/wp-content/blogs.dir/979/files/2026/06/stingray-radio-footer-darkbg-2025.png": "STINGRAY®  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/8265edc2c57a81beebaa972f303a24b5b596a25a59893fa87784f2a529b180ca.png",
+          "sha256": "8265edc2c57a81beebaa972f303a24b5b596a25a59893fa87784f2a529b180ca",
+          "bytes": 760
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/fdfd8fb91217d5824a32e454379f320324affd9c229efab52c5e5a62b5ab79fe.png",
+          "sha256": "fdfd8fb91217d5824a32e454379f320324affd9c229efab52c5e5a62b5ab79fe",
+          "bytes": 4706
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/3b23f3c3f66168ca0b062d8889fee7a3ef95bf7c5c226057f705f55f3d8b3e12.png",
+          "sha256": "3b23f3c3f66168ca0b062d8889fee7a3ef95bf7c5c226057f705f55f3d8b3e12",
+          "bytes": 13904
+        },
+        "50x30/white": {
+          "path": "verified-assets/468b59c2bc9ff96f28d21756a1f4dc06fdf0986ba7c0371339918b0a60a2561e.png",
+          "sha256": "468b59c2bc9ff96f28d21756a1f4dc06fdf0986ba7c0371339918b0a60a2561e",
+          "bytes": 2424
+        },
+        "220x132/white": {
+          "path": "verified-assets/b5e9c96bd0d91cb4910651378de60af48ace7650e0c3d76698d94ae40bbbf6ec.png",
+          "sha256": "b5e9c96bd0d91cb4910651378de60af48ace7650e0c3d76698d94ae40bbbf6ec",
+          "bytes": 33209
+        },
+        "400x240/white": {
+          "path": "verified-assets/6139daa70c77db29443467177cb217ad94384f409c3074e769acda1c841d7594.png",
+          "sha256": "6139daa70c77db29443467177cb217ad94384f409c3074e769acda1c841d7594",
+          "bytes": 80661
+        },
+        "50x30/black": {
+          "path": "verified-assets/8bbe453f03a3d233e1af5708180886cb31671158c7968a7ebec0f5f7d9d47f1c.png",
+          "sha256": "8bbe453f03a3d233e1af5708180886cb31671158c7968a7ebec0f5f7d9d47f1c",
+          "bytes": 3101
+        },
+        "220x132/black": {
+          "path": "verified-assets/0abd79be9b348f85281d06eb4bd95de26cdd1180dfc03b5a0ea0784065024af0.png",
+          "sha256": "0abd79be9b348f85281d06eb4bd95de26cdd1180dfc03b5a0ea0784065024af0",
+          "bytes": 34857
+        },
+        "400x240/black": {
+          "path": "verified-assets/f7d3aeea67aa8ca196832a783a53d21eac30700b50e73bd306dd9ef122c7b721.png",
+          "sha256": "f7d3aeea67aa8ca196832a783a53d21eac30700b50e73bd306dd9ef122c7b721",
+          "bytes": 86956
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "LiVE 88.5 Ottawa's Alternative Rock  ",
+        "matched_brand_keys": [
+          "ottawa"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:7EAF:AB3E:ED:0:0:0:0": {
       "name": "Radio Pacoul",
@@ -170694,7 +171231,10 @@
       "homepages": [
         "https://www.radiopacoul.top/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": [
+        "Command '['tesseract', '/tmp/radio-logo-ocr-amiw3foy/source.png', 'stdout', '--psm', '11', '-l', 'eng']' timed out after 10 seconds"
+      ]
     },
     "4097:0:2:965C:25C4:ED:0:0:0:0": {
       "name": "Radio Pakistan Toronto",
@@ -170706,7 +171246,8 @@
       "homepages": [
         "https://www.radiopakistanfm.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "blocked_no_confirmed_station_page_and_logo",
+      "errors": []
     },
     "4097:0:2:D34D:9CE:ED:0:0:0:0": {
       "name": "Peaceful Currents Radio",
@@ -170718,7 +171259,95 @@
       "homepages": [
         "https://peacefulcurrentsradio.com/"
       ],
-      "status": "pending_homepage_discovery"
+      "status": "ready_verified_homepage_and_wordmark",
+      "source": {
+        "url": "https://i0.wp.com/peacefulcurrentsradio.com/wp-content/uploads/2020/03/cropped-pcr_icon-2.jpg?fit=250%2C250&ssl=1",
+        "final_url": "https://i0.wp.com/peacefulcurrentsradio.com/wp-content/uploads/2020/03/cropped-pcr_icon-2.jpg?fit=250%2C250&ssl=1",
+        "path": "originals/f55fbdd70ca82a8b6c77a167b6f7f32b826b047edba49936ff376bffd77cd05b.img",
+        "sha256": "f55fbdd70ca82a8b6c77a167b6f7f32b826b047edba49936ff376bffd77cd05b",
+        "bytes": 19526,
+        "dimensions": [
+          250,
+          250
+        ],
+        "format": "JPEG"
+      },
+      "page": {
+        "url": "https://peacefulcurrentsradio.com/",
+        "final_url": "https://peacefulcurrentsradio.com/",
+        "original_html_sha256": "13a9653f25ca3946cd892f003eb4f4d0559ada29aa0616260ad283b870803e9c",
+        "path": "page-evidence/13a9653f25ca3946cd892f003eb4f4d0559ada29aa0616260ad283b870803e9c.json",
+        "titles": [
+          "Peaceful Currents Radio – An all-instrumental, all-relaxing soundtrack to your life",
+          " Peaceful Currents Radio "
+        ],
+        "image_urls": [
+          "https://i0.wp.com/peacefulcurrentsradio.com/wp-content/uploads/2020/03/cropped-pcr_icon-2.jpg?fit=250%2C250&ssl=1",
+          "https://i0.wp.com/peacefulcurrentsradio.com/wp-content/uploads/2020/03/cropped-pcr_icon-1.jpg?fit=180%2C180&ssl=1",
+          "https://i0.wp.com/peacefulcurrentsradio.com/wp-content/uploads/2020/03/cropped-pcr_icon-1.jpg?fit=192%2C192&ssl=1"
+        ],
+        "named_logos": {
+          "https://i0.wp.com/peacefulcurrentsradio.com/wp-content/uploads/2020/03/cropped-pcr_icon-2.jpg?fit=250%2C250&ssl=1": "Peaceful Currents Radio  "
+        }
+      },
+      "renders": {
+        "50x30/transparent": {
+          "path": "verified-assets/f9fb910f04d5a3b24104fb983566b3e0d444476a30f1cca6592728ebe743ae30.png",
+          "sha256": "f9fb910f04d5a3b24104fb983566b3e0d444476a30f1cca6592728ebe743ae30",
+          "bytes": 2246
+        },
+        "220x132/transparent": {
+          "path": "verified-assets/2f77f045e0fb2d1045c4fa5fb933504e9b577b62b87bd73515ba74b4457f35d6.png",
+          "sha256": "2f77f045e0fb2d1045c4fa5fb933504e9b577b62b87bd73515ba74b4457f35d6",
+          "bytes": 31236
+        },
+        "400x240/transparent": {
+          "path": "verified-assets/1ba7e9d991cd214f5bd79b388e8796f28a12485de946a9d72e00f3883ac1944b.png",
+          "sha256": "1ba7e9d991cd214f5bd79b388e8796f28a12485de946a9d72e00f3883ac1944b",
+          "bytes": 89284
+        },
+        "50x30/white": {
+          "path": "verified-assets/59768b91fbe91799dc882e5730a4276df69253aa2fece3e499376bc8b0634443.png",
+          "sha256": "59768b91fbe91799dc882e5730a4276df69253aa2fece3e499376bc8b0634443",
+          "bytes": 3476
+        },
+        "220x132/white": {
+          "path": "verified-assets/f8828f4912894fb98da8c125f7e4efa92cad093cd991635572799cc07d0d571c.png",
+          "sha256": "f8828f4912894fb98da8c125f7e4efa92cad093cd991635572799cc07d0d571c",
+          "bytes": 55451
+        },
+        "400x240/white": {
+          "path": "verified-assets/0cd7dce5f19cf8ea6d7450e9eb10a6e9ef5e751c1e3485ab96d4d393e4a71e94.png",
+          "sha256": "0cd7dce5f19cf8ea6d7450e9eb10a6e9ef5e751c1e3485ab96d4d393e4a71e94",
+          "bytes": 145233
+        },
+        "50x30/black": {
+          "path": "verified-assets/63a75b0a1b5daaa68e6efe851b46a065bde28f7633ef44a4b51c37cf263758b2.png",
+          "sha256": "63a75b0a1b5daaa68e6efe851b46a065bde28f7633ef44a4b51c37cf263758b2",
+          "bytes": 3678
+        },
+        "220x132/black": {
+          "path": "verified-assets/8463c9e35d570f17a72b5fd8095b110c5ffd4c228dac3ae4a4c45cd4cab5bf76.png",
+          "sha256": "8463c9e35d570f17a72b5fd8095b110c5ffd4c228dac3ae4a4c45cd4cab5bf76",
+          "bytes": 54191
+        },
+        "400x240/black": {
+          "path": "verified-assets/e8bc7c61329642e87bd66499a38c84baf397371602f86067c6c065b50735bdab.png",
+          "sha256": "e8bc7c61329642e87bd66499a38c84baf397371602f86067c6c065b50735bdab",
+          "bytes": 141345
+        }
+      },
+      "verification": {
+        "identity": "unique catalogue stream and current broadcaster page",
+        "named_header_logo": true,
+        "image_alt": "Peaceful Currents Radio  ",
+        "matched_brand_keys": [
+          "currents",
+          "peaceful"
+        ],
+        "variants_verified": 9,
+        "whole_original_and_master_outside_logo_preserved": true
+      }
     },
     "4097:0:2:A662:C7F8:ED:0:0:0:0": {
       "name": "pinop",
@@ -562545,14 +563174,14 @@
   },
   "counts": {
     "already_ready_in_saved_checkpoint": 4155,
-    "blocked_no_confirmed_station_page_and_logo": 2195,
+    "blocked_no_confirmed_station_page_and_logo": 2210,
     "blocked_no_independent_station_homepage": 1269,
     "blocked_no_unique_current_station_metadata": 4248,
-    "candidate_assistant_visual_and_identity_check": 916,
+    "candidate_assistant_visual_and_identity_check": 921,
     "needs_assistant_identity_research_for_short_or_generic_name": 1328,
-    "pending_homepage_discovery": 25928,
-    "ready_verified_homepage_and_wordmark": 864
+    "pending_homepage_discovery": 25903,
+    "ready_verified_homepage_and_wordmark": 869
   },
-  "last_event": "homepages_3950_of_29878",
-  "updated_utc": "2026-11-05T14:42:06Z"
+  "last_event": "homepages_3975_of_29878",
+  "updated_utc": "2026-11-05T14:42:47Z"
 }
