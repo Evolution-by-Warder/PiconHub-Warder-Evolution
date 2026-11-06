@@ -1,0 +1,128 @@
+name: Radio batch 34 exact approved PNG import from saved GitHub history
+on:
+  push:
+    branches: [work/radio-world-batch34-github-history-20261106]
+    paths:
+      - '.github/workflows/radio-batch34-github-history.yml'
+      - 'picons/radio-world/import_saved_github_history.py'
+      - 'picons/radio-world/staging/batch-34/import-plan.json'
+permissions:
+  contents: write
+jobs:
+  build:
+    if: github.ref == 'refs/heads/work/radio-world-batch34-github-history-20261106'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            picons/radio-world
+            picons/IPTV-SK-CZ/catalog/global
+            picons/IPTV-CA
+            picons/IPTV-CH
+            picons/IPTV-CI
+            picons/IPTV-CL
+            picons/IPTV-CN
+            picons/IPTV-CO
+            picons/IPTV-CR
+            picons/IPTV-CW
+            picons/IPTV-DE
+            picons/IPTV-DK
+            picons/IPTV-DO
+            picons/IPTV-EC
+            picons/IPTV-EE
+            picons/IPTV-ES
+            picons/IPTV-FI
+            picons/IPTV-FR
+            picons/IPTV-GB
+            picons/IPTV-GH
+            picons/IPTV-GP
+            picons/IPTV-GR
+            picons/IPTV-GT
+            picons/IPTV-GY
+            picons/IPTV-HK
+            picons/IPTV-HR
+            picons/IPTV-HT
+            picons/IPTV-HU
+            picons/IPTV-ID
+            picons/IPTV-IE
+            picons/IPTV-IL
+            picons/IPTV-IN
+            picons/IPTV-IS
+            picons/IPTV-IT
+            picons/IPTV-JO
+            picons/IPTV-JP
+            picons/IPTV-KE
+            picons/IPTV-KR
+            picons/IPTV-KW
+            picons/IPTV-LK
+            picons/IPTV-MA
+            picons/IPTV-MK
+            picons/IPTV-MQ
+            picons/IPTV-MW
+            picons/IPTV-MX
+            picons/IPTV-NA
+            picons/IPTV-NL
+            picons/IPTV-NO
+            picons/IPTV-NZ
+            picons/IPTV-PH
+            picons/IPTV-PL
+            picons/IPTV-PS
+            picons/IPTV-PT
+            picons/IPTV-PY
+            picons/IPTV-RO
+            picons/IPTV-RU
+            picons/IPTV-SA
+            picons/IPTV-SD
+            picons/IPTV-SE
+            picons/IPTV-SI
+            picons/IPTV-SV
+            picons/IPTV-TR
+            picons/IPTV-TZ
+            picons/IPTV-UA
+            picons/IPTV-US
+            picons/IPTV-UY
+            picons/IPTV-VC
+            picons/IPTV-VE
+            picons/IPTV-VN
+            picons/IPTV-ZM
+      - uses: actions/checkout@v4
+        with:
+          ref: 90359d45eb71afb2aa077ac1b5097fae328863df
+          path: _approved
+          sparse-checkout: migration/radio-final775-reviewed-20261105/verified-assets
+      - uses: actions/checkout@v4
+        with:
+          repository: Evolution-by-Warder/Radio-Warder-Evolution
+          ref: b7384bfdb55621beaf183ca6d40e9dedacaecdb9
+          path: _radio
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python3 -m pip install Pillow
+      - name: Copy existing approved bytes, verify every SHA256 and preserve existing PNGs
+        run: |
+          python3 picons/radio-world/import_saved_github_history.py payload _approved/migration/radio-final775-reviewed-20261105/verified-assets
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add picons/IPTV-*/packages picons/radio-world/staging/batch-34/candidate.json
+          git commit -m 'Save 200 exact historical Radio references across 68 countries; no rendering'
+          git push origin HEAD:work/radio-world-batch34-github-history-20261106
+          python3 picons/radio-world/import_saved_github_history.py manifests "$(git rev-parse HEAD)"
+          git add picons/IPTV-*/catalog/release.json
+          git commit -m 'Pin batch 34 working country manifests to immutable exact-byte packages'
+          git push origin HEAD:work/radio-world-batch34-github-history-20261106
+      - name: Build proposed 219-country index and replay unchanged stable receiver downloader
+        run: |
+          python3 picons/radio-world/build_country_index.py "$(git rev-parse HEAD)" picons/radio-world/staging/batch-34/countries.proposed.json
+          python3 picons/radio-world/import_saved_github_history.py downloader _radio
+          git add picons/radio-world/staging/batch-34
+          git commit -m 'Save batch 34 working index and three-background downloader verification'
+          git push origin HEAD:work/radio-world-batch34-github-history-20261106
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: radio-batch34-saved-github-history-proof
+          path: |
+            picons/radio-world/staging/batch-34
