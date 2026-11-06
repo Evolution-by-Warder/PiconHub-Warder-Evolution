@@ -1,0 +1,41 @@
+name: Stage Radio country packs through batch 25
+on:
+  push:
+    branches: [work/warder-radio-country-packs-batch25-20261106]
+    paths: [.github/workflows/stage-radio-country-batch25.yml]
+permissions:
+  contents: write
+jobs:
+  stage:
+    if: github.ref == 'refs/heads/work/warder-radio-country-packs-batch25-20261106'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install Pillow==11.3.0
+      - name: Verify old and new Radio PNGs and assemble candidates
+        run: |
+          root="$RUNNER_TEMP/warder-radio"
+          mkdir -p "$root"
+          base=https://raw.githubusercontent.com/Evolution-by-Warder/PiconHub-Warder-Evolution/e90a1fe3a2734b555f48f343284f9103530180fb
+          curl -fsSL --retry 3 "$base/picons/IPTV-SK-CZ/catalog/global/search/2ae88890a953c2f68d3f20352ad56a7390645bd3ce189573dd94e50c8a65abfe.json.gz" -o "$root/world.gz"
+          python picons/radio-world/extend_country_packs.py . "$root/world.gz" "$root/candidate"
+          python picons/radio-world/write_release_candidates.py "$root/candidate" payload
+      - name: Save ZIPs and SHA-pinned manifests to the work branch
+        run: |
+          test "$(git branch --show-current)" = work/warder-radio-country-packs-batch25-20261106
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          for country in AR DE GB US; do
+            git add -- "picons/IPTV-$country/packages"
+          done
+          git commit -m 'Stage updated Radio country ZIPs through batch 25'
+          python picons/radio-world/write_release_candidates.py "$RUNNER_TEMP/warder-radio/candidate" "$(git rev-parse HEAD)"
+          for country in AR DE GB US; do
+            git add -- "picons/IPTV-$country/catalog/release.json"
+          done
+          git rm -- .github/workflows/stage-radio-country-batch25.yml
+          git commit -m 'Stage updated SHA-pinned Radio country manifests through batch 25'
+          git push origin HEAD:refs/heads/work/warder-radio-country-packs-batch25-20261106

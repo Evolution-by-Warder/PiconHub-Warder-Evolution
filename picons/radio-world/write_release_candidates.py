@@ -1,4 +1,4 @@
-"""Place batch 23 ZIPs and their SHA-pinned downloader manifests in a checkout."""
+"""Place verified Radio ZIPs and their SHA-pinned downloader manifests in a checkout."""
 import argparse
 import json
 from pathlib import Path
@@ -7,21 +7,25 @@ import shutil
 
 from verify_batch import require, sha256
 
-COUNTRIES = {'AR', 'DE', 'GB', 'SE', 'UA', 'US'}
+BATCH_COUNTRIES = {
+    23: {'AR', 'DE', 'GB', 'SE', 'UA', 'US'},
+    25: {'AR', 'DE', 'GB', 'US'},
+}
 BASE = 'https://raw.githubusercontent.com/Evolution-by-Warder/PiconHub-Warder-Evolution/'
 
 
 def prepare(candidate, checkout, revision):
     report = json.loads((candidate / 'candidate.json').read_bytes())
-    require(report['schema'] == 1 and report['status'] == 'staging' and report['batch'] == 23
-            and set(report['countries']) == COUNTRIES, 'Not a batch 23 candidate')
+    batch = report['batch']
+    require(report['schema'] == 1 and report['status'] == 'staging'
+            and set(report['countries']) == BATCH_COUNTRIES.get(batch), 'Unexpected Radio candidate')
     require(revision == 'payload' or re.fullmatch(r'[a-f0-9]{40}', revision), 'Expected a payload commit SHA')
     for code, country in sorted(report['countries'].items()):
         collection = f'IPTV-{code}'
         root = Path('picons') / collection
         manifest = {
             'schema': 1, 'status': 'verified', 'collection': collection, 'country': code,
-            'version': '2026.11.06-batch23', 'catalogue_stations': country['catalogue_references'],
+            'version': f'2026.11.06-batch{batch}', 'catalogue_stations': country['catalogue_references'],
             'payload_commit': revision, 'packages': {},
         }
         for size, variants in country['packages'].items():
