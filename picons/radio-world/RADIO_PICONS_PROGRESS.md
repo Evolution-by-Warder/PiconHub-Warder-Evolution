@@ -89,3 +89,14 @@ CRC, RGBA, dimensions and exact-inventory checks, and 220×132 styles were viewe
 The branch-only build records the frozen originals, nine batch ZIPs, country
 inventories and immutable downloader release/index pins. Production publication,
 plugin merge and the IPK release require the owner's explicit approval.
+
+
+## Batch 29 — 6 November 2026, staging only
+
+Production PiconHub PR #65 is merged as `648c52b5cc69038bd1b6a1d7ad5b5514c308458d`; the live online index has 219 countries, 16 available and 491 exact country references. Radio PR #15 is merged as `095e88dbec8a9504931978a6c79b378dd753b5b2`. Receiver candidate `0.1.9-test1` is prepared separately from the production Radio source; no stable release or production feed is changed by this work.
+
+The historical checkpoint through batch 28 has now been recovered: 22,751 exact references and 18,307 checked source hashes. These are historical prepared assets, not live country-package coverage. The manifest is available for exact deduplication; this recovery does not claim that every historical PNG payload has been retrieved. Its identity and SHA-256 are retained in [the batch 29 candidate plan](staging/batch-29/candidate-plan.json).
+
+The independent branch `work/radio-world-batch29-20261106` contains [four new references / 36 PNGs](staging/batch-29/manifest.json): Schwendermarkt (AT), Durisima Radio (CO), 2000er Hits by MineMusic and Radio AENA (DE). No accepted reference overlaps the historical checkpoint or batches 23–27. Twenty current platform candidates were collected; sixteen are held with explicit reasons. Prior checked-image decisions were retained without repeating their review. The four new full publisher originals were visually reviewed, rendered with the unchanged masters, and verified across all nine variants. The real 220×132 staging replay preserved a custom file and made zero ZIP requests on repeat for every background. This uses injected endpoints, not a published country release.
+
+Approval: processing the next batches is authorized. Publication: staging branch only. Live 219-country index, release manifests, existing PNGs, update feeds and all non-radio paths remain unchanged. Next executable step: integrate exact accepted bytes into AT, CO and DE country candidates, verify approved hashes, then prepare the next deduplicated source set. Physical receiver verification remains open.
