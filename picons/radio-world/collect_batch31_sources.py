@@ -40,8 +40,25 @@ if __name__ == '__main__':
     plan = json.loads((ROOT / 'candidate-plan.json').read_text())
     for folder in ('evidence', 'originals'):
         (ROOT / folder).mkdir(exist_ok=True)
+    cached = {}
+    existing = ROOT / 'discovery.json'
+    if existing.exists():
+        for row in json.loads(existing.read_text())['results']:
+            if not row.get('sha256') or not row.get('api_sha256'):
+                continue
+            slug = urlsplit(row['station']['url']).path.strip('/')
+            image = ROOT / 'originals' / (row['sha256'] + '.img')
+            evidence = ROOT / 'evidence' / (slug + '.json')
+            if (image.is_file() and evidence.is_file()
+                    and hashlib.sha256(image.read_bytes()).hexdigest() == row['sha256']
+                    and hashlib.sha256(evidence.read_bytes()).hexdigest() == row['api_sha256']):
+                cached[row['station']['reference']] = row
+    pending = [row for row in plan['candidates'] if row['reference'] not in cached]
     with concurrent.futures.ThreadPoolExecutor(max_workers=6) as pool:
-        results = list(pool.map(collect, plan['candidates']))
+        fetched = list(pool.map(collect, pending))
+    by_reference = dict(cached, **{row['station']['reference']: row for row in fetched})
+    results = [by_reference[row['reference']] for row in plan['candidates']]
+    print('Reused', len(cached), 'frozen sources; fetched', len(pending), 'new candidates')
     (ROOT / 'discovery.json').write_text(json.dumps({'status': 'unreviewed-candidates', 'results': results},
                                                 ensure_ascii=False, indent=2) + '\n')
     print('Collected', sum('sha256' in row for row in results), 'candidate originals; identity review pending')
