@@ -1,0 +1,61 @@
+name: Radio batch 32 exact-byte country candidates (no production publication)
+on:
+  push:
+    branches: [work/radio-world-batch32-20261106]
+    paths:
+      - '.github/workflows/radio-batch32-country-candidates.yml'
+      - 'picons/radio-world/integrate_saved_batches.py'
+permissions:
+  contents: write
+jobs:
+  candidates:
+    if: github.ref == 'refs/heads/work/radio-world-batch32-20261106'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            picons/radio-world
+            picons/IPTV-AT
+            picons/IPTV-CO
+            picons/IPTV-DE
+            picons/IPTV-SK-CZ/catalog/global
+      - uses: actions/checkout@v4
+        with:
+          repository: Evolution-by-Warder/Radio-Warder-Evolution
+          ref: b7384bfdb55621beaf183ca6d40e9dedacaecdb9
+          path: _radio
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python3 -m pip install Pillow
+      - name: Combine approved bytes once and save immutable payload checkpoint
+        run: |
+          python3 picons/radio-world/integrate_saved_batches.py payload
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add picons/IPTV-AT/packages picons/IPTV-CO/packages picons/IPTV-DE/packages picons/radio-world/staging/batch-32/candidate.json
+          git commit -m 'Prepare exact-byte AT CO DE candidate packages from saved batches 29-31'
+          git push origin HEAD:work/radio-world-batch32-20261106
+          payload=$(git rev-parse HEAD)
+          python3 picons/radio-world/integrate_saved_batches.py manifests "$payload"
+          git add picons/IPTV-AT/catalog picons/IPTV-CO/catalog picons/IPTV-DE/catalog
+          git commit -m 'Pin working Radio country candidates to verified payload SHA'
+          git push origin HEAD:work/radio-world-batch32-20261106
+      - name: Prepare all 219-country index and verify real immutable downloads
+        run: |
+          python3 picons/radio-world/build_country_index.py "$(git rev-parse HEAD)" picons/radio-world/staging/batch-32/countries.proposed.json
+          python3 picons/radio-world/integrate_saved_batches.py downloader _radio
+          git add picons/radio-world/staging/batch-32
+          git commit -m 'Record proposed 219-country index and real downloader proof; production unchanged'
+          git push origin HEAD:work/radio-world-batch32-20261106
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: radio-batch32-country-candidates
+          path: |
+            picons/radio-world/staging/batch-32
+            picons/IPTV-AT/packages
+            picons/IPTV-CO/packages
+            picons/IPTV-DE/packages
