@@ -1,0 +1,77 @@
+name: Stage Radio batch 27
+on:
+  push:
+    branches: [work/radio-world-batch27-20261106]
+    paths: [.github/workflows/stage-radio-batch27.yml]
+permissions:
+  contents: write
+jobs:
+  stage:
+    if: github.ref == 'refs/heads/work/radio-world-batch27-20261106'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          filter: blob:none
+          sparse-checkout: |
+            .github/workflows
+            picons/radio-world
+            picons/IPTV-SK-CZ/catalog/global
+            picons/IPTV-AR
+            picons/IPTV-CL
+            picons/IPTV-DE
+            picons/IPTV-GB
+            picons/IPTV-GR
+            picons/IPTV-LK
+            picons/IPTV-LT
+            picons/IPTV-RO
+            picons/IPTV-SE
+            picons/IPTV-UA
+            picons/IPTV-US
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install Pillow==11.3.0
+      - name: Build batch 27 and extend only Germany and the United Kingdom
+        run: |
+          root="$RUNNER_TEMP/radio27"
+          mkdir -p "$root"
+          for style in white black; do
+            git show "e90a1fe3a2734b555f48f343284f9103530180fb:plugin/artwork/templates/picons/$style-sablona.png" > "$root/$style.png"
+          done
+          world=picons/IPTV-SK-CZ/catalog/global/search/2ae88890a953c2f68d3f20352ad56a7390645bd3ce189573dd94e50c8a65abfe.json.gz
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          root = Path('picons/radio-world/staging')
+          old = {row['reference'] for batch in (23, 24, 25, 26)
+                 for row in json.loads((root / f'batch-{batch}/manifest.json').read_bytes())['stations']}
+          new = {row['reference'] for row in json.loads((root / 'batch-27/sources.json').read_bytes())['stations']}
+          assert len(new) == 3 and not old & new
+          PY
+          python picons/radio-world/render_verified_batch.py picons/radio-world/staging/batch-27 "$world" "$root"
+          python picons/radio-world/extend_country_packs.py build . "$world" "$root/candidate" picons/radio-world/staging/batch-27
+          cp -a "$root/candidate/picons/." picons/
+          cp "$root/candidate/candidate.json" picons/radio-world/staging/country-pack-checksums-batch27.json
+      - name: Save validated Radio payload and universal index
+        run: |
+          test "$(git branch --show-current)" = work/radio-world-batch27-20261106
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- picons/radio-world/staging/batch-27 picons/radio-world/staging/country-pack-checksums-batch27.json picons/IPTV-DE/packages picons/IPTV-GB/packages
+          git diff --cached --quiet fe6a52a41b9b359bdf842d8b194830d4c0718e16 -- picons/radio-world/staging/batch-23 picons/radio-world/staging/batch-24 picons/radio-world/staging/batch-25 picons/radio-world/staging/batch-26 picons/IPTV-SK-CZ picons/IPTV-AT picons/IPTV-HU picons/IPTV-PL
+          python picons/radio-world/check_approved_country_pngs.py . fe6a52a41b9b359bdf842d8b194830d4c0718e16 AR CL DE GB GR LK LT RO SE UA US
+          git commit -m 'Stage batch 27 PNGs and two country collections'
+          python picons/radio-world/extend_country_packs.py manifests "$RUNNER_TEMP/radio27/candidate" "$(git rev-parse HEAD)" .
+          git add -- picons/IPTV-DE/catalog/release.json picons/IPTV-GB/catalog/release.json
+          git diff --cached --quiet fe6a52a41b9b359bdf842d8b194830d4c0718e16 -- picons/radio-world/staging/batch-23 picons/radio-world/staging/batch-24 picons/radio-world/staging/batch-25 picons/radio-world/staging/batch-26 picons/IPTV-SK-CZ picons/IPTV-AT picons/IPTV-HU picons/IPTV-PL
+          python picons/radio-world/check_approved_country_pngs.py . fe6a52a41b9b359bdf842d8b194830d4c0718e16 AR CL DE GB GR LK LT RO SE UA US
+          git commit -m 'Pin batch 27 country release manifests'
+          python picons/radio-world/build_country_index.py "$(git rev-parse HEAD)" picons/radio-world/catalog/countries.json
+          git add -- picons/radio-world/catalog/countries.json
+          git rm -- .github/workflows/stage-radio-batch27.yml
+          git diff --cached --quiet fe6a52a41b9b359bdf842d8b194830d4c0718e16 -- picons/radio-world/staging/batch-23 picons/radio-world/staging/batch-24 picons/radio-world/staging/batch-25 picons/radio-world/staging/batch-26 picons/IPTV-SK-CZ picons/IPTV-AT picons/IPTV-HU picons/IPTV-PL
+          python picons/radio-world/check_approved_country_pngs.py . fe6a52a41b9b359bdf842d8b194830d4c0718e16 AR CL DE GB GR LK LT RO SE UA US
+          git commit -m 'Refresh the 219-country Radio index through batch 27'
+          git push origin HEAD:refs/heads/work/radio-world-batch27-20261106

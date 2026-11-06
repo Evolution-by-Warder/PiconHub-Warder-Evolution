@@ -14,7 +14,7 @@ from verify_batch import RESOLUTIONS, STYLES, require, sha256, verify, verify_ar
 
 ROOT = Path(__file__).resolve().parent
 BASE = 'https://raw.githubusercontent.com/Evolution-by-Warder/PiconHub-Warder-Evolution/'
-BASELINE = '1eff65c3698280657fd7ac1b8db4cff40cb80089'
+BASELINE = 'fe6a52a41b9b359bdf842d8b194830d4c0718e16'
 BASE_COUNTRIES = ('AR', 'DE', 'GB', 'SE', 'UA', 'US')
 
 
