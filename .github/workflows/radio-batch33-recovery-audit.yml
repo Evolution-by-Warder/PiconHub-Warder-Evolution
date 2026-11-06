@@ -1,0 +1,31 @@
+name: Radio batch 33 read-only source recovery audit
+on:
+  push:
+    branches: [work/radio-world-batch33-history-20261106]
+    paths:
+      - '.github/workflows/radio-batch33-recovery-audit.yml'
+      - 'picons/radio-world/staging/batch-33/recovery-audit/**'
+permissions:
+  contents: read
+  actions: read
+jobs:
+  audit:
+    if: github.ref == 'refs/heads/work/radio-world-batch33-history-20261106'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: picons/radio-world/staging/batch-33/recovery-audit
+          filter: blob:none
+      - name: Compare historical Git objects and available radio artifacts to original PNG hashes
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GIT_TERMINAL_PROMPT: '0'
+        run: python3 picons/radio-world/staging/batch-33/recovery-audit/audit_remote_inputs.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: radio-batch33-read-only-recovery-audit
+          path: _history33_audit
+          retention-days: 30
