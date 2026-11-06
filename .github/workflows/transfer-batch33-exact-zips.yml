@@ -1,0 +1,84 @@
+name: Transfer exact batch 33 archives
+on:
+  push:
+    branches:
+      - work/radio-batch33-transfer-20261106
+    paths:
+      - .batch33-transfer/manifest.json
+permissions:
+  contents: write
+concurrency:
+  group: radio-batch33-exact-zip-transfer
+  cancel-in-progress: false
+jobs:
+  transfer:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - name: Commit and verify exact archives
+        shell: bash
+        run: |
+          set -euo pipefail
+          input_dir="$(mktemp -d)"
+          cp -R .batch33-transfer/. "$input_dir/"
+          export BATCH33_INPUT="$input_dir"
+          git fetch --no-tags --depth=1 origin refs/heads/work/radio-batch33-country-zips-20261106
+          git switch --detach FETCH_HEAD
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          python3 - <<'PYTHON'
+          import hashlib
+          import json
+          import os
+          import subprocess
+          from pathlib import Path
+
+          branch = "refs/heads/work/radio-batch33-country-zips-20261106"
+          expected = "b97300b2a68e80b4e60997229c00d305314a76bf"
+          transfer = Path(os.environ["BATCH33_INPUT"])
+          manifest = json.loads((transfer / "manifest.json").read_text())
+
+          def git(*args):
+              return subprocess.check_output(["git", *args])
+
+          def sha256(data):
+              return hashlib.sha256(data).hexdigest()
+
+          def verify(commit, files):
+              for entry in files:
+                  assert sha256(git("show", f"{commit}:{entry['path']}")) == entry["sha256"], entry["path"]
+
+          current = git("rev-parse", "HEAD").decode().strip()
+          assert current == expected, f"Unexpected work branch head: {current}"
+          for country in ("CN", "DE"):
+              files = manifest[country]
+              assert len(files) == 9
+              paths = []
+              for entry in files:
+                  path = Path(entry["path"])
+                  assert path.parent == Path("picons") / f"IPTV-{country}" / "packages"
+                  assert path.suffix == ".zip" and not path.exists(), path
+                  payload = b"".join((transfer / part).read_bytes() for part in entry["parts"])
+                  assert sha256(payload) == entry["sha256"], path
+                  path.parent.mkdir(parents=True, exist_ok=True)
+                  with path.open("xb") as archive:
+                      archive.write(payload)
+                  paths.append(str(path))
+
+              git("add", "--", *paths)
+              added = git("diff", "--cached", "--name-status").decode().splitlines()
+              assert set(added) == {f"A\t{path}" for path in paths}, added
+              git("commit", "-m", f"Store nine batch 33 radio ZIPs for {country} [skip ci]")
+              commit = git("rev-parse", "HEAD").decode().strip()
+              verify(commit, files)
+              git("push", f"--force-with-lease={branch}:{expected}", "origin", f"HEAD:{branch}")
+              git("fetch", "--no-tags", "--depth=1", "origin", branch)
+              saved = git("rev-parse", "FETCH_HEAD").decode().strip()
+              assert saved == commit, f"Unexpected saved commit: {saved}"
+              verify(saved, files)
+              print(f"{country} {saved} 9 SHA256", flush=True)
+              expected = saved
+          PYTHON
