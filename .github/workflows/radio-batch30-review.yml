@@ -1,0 +1,19 @@
+name: Batch 30 source review artifact
+on:
+  push:
+    branches: [work/radio-world-batch30-20261106]
+    paths: ['.github/workflows/radio-batch30-review.yml']
+permissions:
+  contents: read
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            picons/radio-world/staging/batch-30
+      - uses: actions/upload-artifact@v4
+        with:
+          name: radio-batch30-publisher-originals
+          path: picons/radio-world/staging/batch-30/
