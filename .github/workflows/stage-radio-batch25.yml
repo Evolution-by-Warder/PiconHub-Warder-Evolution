@@ -27,17 +27,7 @@ jobs:
             curl -fsSL --retry 3 "$base/plugin/artwork/templates/picons/$style-sablona.png" -o "$root/$style.png"
           done
           mkdir -p picons/radio-world/staging/batch-25/originals
-          jq -r '.source_inventory[] | [.sha256, .url] | @tsv' picons/radio-world/staging/batch-25/sources.json | while IFS= picons/radio-world/staging/batch-25 "$root/world.gz" "$root"
-      - name: Save rendered picons to the Radio work branch
-        run: |
-          test "$(git branch --show-current)" = work/warder-radio-world-batch25-20261106
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add -- picons/radio-world/staging/batch-25/
-          git rm -- .github/workflows/stage-radio-batch25.yml
-          git commit -m 'Stage and verify 36 Warder Radio PNGs for batch 25'
-          git push origin HEAD:refs/heads/work/warder-radio-world-batch25-20261106
-\t' read -r digest url; do
+          jq -r '.source_inventory[] | [.sha256, .url] | @tsv' picons/radio-world/staging/batch-25/sources.json | while IFS=$'\t' read -r digest url; do
             [[ "$digest" =~ ^[a-f0-9]{64}$ ]]
             [[ "$url" == https://*'/bot-imgs/radio-stations/'* ]]
             curl -fsSL --retry 3 --max-filesize 5000000 "$url" -o "picons/radio-world/staging/batch-25/originals/$digest.img"
@@ -49,7 +39,7 @@ jobs:
           test "$(git branch --show-current)" = work/warder-radio-world-batch25-20261106
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add -- picons/radio-world/staging/batch-25/*.zip picons/radio-world/staging/batch-25/manifest.json
+          git add -- picons/radio-world/staging/batch-25/
           git rm -- .github/workflows/stage-radio-batch25.yml
           git commit -m 'Stage and verify 36 Warder Radio PNGs for batch 25'
           git push origin HEAD:refs/heads/work/warder-radio-world-batch25-20261106
