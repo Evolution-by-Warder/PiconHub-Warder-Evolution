@@ -1,0 +1,52 @@
+name: Radio batch 30 staging build only
+on:
+  push:
+    branches: [work/radio-world-batch30-20261106]
+    paths:
+      - '.github/workflows/radio-batch30-build.yml'
+      - 'picons/radio-world/staging/batch-30/sources.json'
+      - 'picons/radio-world/staging/batch-30/verify_downloader.py'
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            picons/radio-world
+            picons/IPTV-SK-CZ/catalog/global
+            plugin/artwork/templates/picons
+      - uses: actions/checkout@v4
+        with:
+          repository: Evolution-by-Warder/Radio-Warder-Evolution
+          ref: fe7fa6523e08ac0de466bba4e7ca831c246c6054
+          path: _radio
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python3 -m pip install Pillow
+      - name: Reproduce all nine variants and verify staging downloader
+        run: |
+          mkdir -p /tmp/radio30-masters
+          cp plugin/artwork/templates/picons/white-sablona.png /tmp/radio30-masters/white.png
+          cp plugin/artwork/templates/picons/black-sablona.png /tmp/radio30-masters/black.png
+          batch=picons/radio-world/staging/batch-30
+          world=picons/IPTV-SK-CZ/catalog/global/search/2ae88890a953c2f68d3f20352ad56a7390645bd3ce189573dd94e50c8a65abfe.json.gz
+          python3 picons/radio-world/render_verified_batch.py "$batch" "$world" /tmp/radio30-masters
+          sha256sum "$batch"/*.zip > /tmp/radio30-first.sha256
+          python3 picons/radio-world/render_verified_batch.py "$batch" "$world" /tmp/radio30-masters
+          sha256sum -c /tmp/radio30-first.sha256
+          python3 picons/radio-world/verify_batch.py "$batch"
+          python3 "$batch"/verify_downloader.py _radio "$world"
+      - name: Save verified staging files to the same work branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add picons/radio-world/staging/batch-30
+          if ! git diff --cached --quiet; then
+            git commit -m "Save verified batch 30 staging PNG archives and downloader proof"
+            git push origin HEAD:work/radio-world-batch30-20261106
+          fi
