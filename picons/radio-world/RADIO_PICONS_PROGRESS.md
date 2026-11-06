@@ -51,3 +51,41 @@ python picons/radio-world/prepare_country_packs.py \
 The output contains the package layout expected by the downloader and a local inventory with every PNG hash. The build does not write live release manifests. The checked-in ZIP checksums describe the validation build. Compression library versions may affect ZIP hashes while the member SHA-256 values remain unchanged.
 
 The existing downloader passed its 29 unit tests. A local integration run used the pinned country catalogue snapshots and candidate packages through a test endpoint for all three 220×132 styles. It installed 64 existing German catalogue matches, added nine new matches across six countries, preserved a user override and all previous index entries, then repeated without downloading the ZIPs. The live menu and packages were outside this staging test. The remaining integration step is to expose the additional country collections in the Radio UI alongside a separately approved package publication.
+
+
+## Universal country availability and batch 26, 2026-11-06
+
+The work branch `work/radio-world-batch26-20261106` combines batches 24 and 25 in
+country payload commit `64aff3cd` and pinned release commit
+`c33c3cb33c4fc32682ca5dc1c4ad1933bdb96803`. Both deterministic builds passed. All 99
+previous PNG members per complete nine-variant inventory were preserved, with 20
+incoming references producing 119 files per variant across the six collections.
+
+`build_country_index.py` creates the complete 219-country structure from the live
+catalogue. Availability is computed from exact references common to all three
+220×132 background inventories. Unpublished countries are explicit; the HDF
+source view is separate. The plugin consumes this index without requiring a new
+IPK when another country's packages become available. 50×30 and 400×240 packages
+remain preserved in GitHub, while the receiver downloads only selected 220×132
+backgrounds. The working index must not be described as a live published feed.
+
+Batch 26 revisited 219 raster-source candidates from the unresolved retry and
+stages nine newly evidenced references (Chile, Greece, Lithuania, Romania,
+Sri Lanka, the United Kingdom and three in the United States). The source plan
+records nine originals, exact streams, receiver references, catalogue identities,
+current broadcaster page hashes and 210 held candidates. No overlap was found
+with batches 23–25 or the recovered 11,846-reference historical seed. The complete
+checkpoint-22 union remains unavailable; no global historical total is invented.
+
+The original Gavdos/Skai affiliate banner stays whole. UrbanUP uses the current
+2026 player mark. KVKVI uses the current broadcaster player cover, while its
+unrelated old favicon is rejected. KCRW Eclectic24 is evidenced by the official
+`e24_aac/playlist.m3u8` declaration for the same catalogue stream endpoint.
+Redirected or mismatched CNN Salta, OpenSky, NRW1, MandalayFM, La Q, Fiebre Latina,
+PabloMix and Tailgate candidates remain held. The approved Warder masters and
+192×104 artwork bounds are unchanged. All nine local variants passed SHA-256,
+CRC, RGBA, dimensions and exact-inventory checks, and 220×132 styles were viewed.
+
+The branch-only build records the frozen originals, nine batch ZIPs, country
+inventories and immutable downloader release/index pins. Production publication,
+plugin merge and the IPK release require the owner's explicit approval.

@@ -1,0 +1,93 @@
+name: Stage Radio batch 26 and universal country index
+on:
+  push:
+    branches: [work/radio-world-batch26-20261106]
+    paths: [.github/workflows/stage-radio-batch26.yml]
+permissions:
+  contents: write
+jobs:
+  stage:
+    if: github.ref == 'refs/heads/work/radio-world-batch26-20261106'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          filter: blob:none
+          sparse-checkout: |
+            .github/workflows
+            picons/radio-world
+            picons/IPTV-SK-CZ/catalog/global
+            picons/IPTV-AR
+            picons/IPTV-DE
+            picons/IPTV-GB
+            picons/IPTV-SE
+            picons/IPTV-UA
+            picons/IPTV-US
+            picons/IPTV-CL
+            picons/IPTV-GR
+            picons/IPTV-LT
+            picons/IPTV-RO
+            picons/IPTV-LK
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install Pillow==11.3.0
+      - name: Fetch frozen originals and render only new Radio references
+        run: |
+          root="$RUNNER_TEMP/radio26"
+          mkdir -p "$root" picons/radio-world/staging/batch-26/originals
+          git show e90a1fe3a2734b555f48f343284f9103530180fb:plugin/artwork/templates/picons/white-sablona.png > "$root/white.png"
+          git show e90a1fe3a2734b555f48f343284f9103530180fb:plugin/artwork/templates/picons/black-sablona.png > "$root/black.png"
+          python - <<'PY'
+          import hashlib, json, subprocess
+          from pathlib import Path
+          batch = Path('picons/radio-world/staging/batch-26')
+          plan = json.loads((batch / 'sources.json').read_bytes())
+          old = {row['reference'] for number in (23, 24, 25)
+                 for row in json.loads(Path(f'picons/radio-world/staging/batch-{number}/manifest.json').read_bytes())['stations']}
+          assert not old & {row['reference'] for row in plan['stations']}
+          for digest, item in plan['source_inventory'].items():
+              target = batch / item['path']
+              assert item['path'] == 'originals/' + digest + '.img'
+              assert item['url'].startswith('https://')
+              subprocess.run(['curl', '-fsSL', '--retry', '3', '--max-time', '40',
+                              '--max-filesize', '3000000', item['url'], '-o', str(target)], check=True)
+              raw = target.read_bytes()
+              assert len(raw) == item['bytes'] and hashlib.sha256(raw).hexdigest() == digest
+          PY
+          world=picons/IPTV-SK-CZ/catalog/global/search/2ae88890a953c2f68d3f20352ad56a7390645bd3ce189573dd94e50c8a65abfe.json.gz
+          python picons/radio-world/render_verified_batch.py picons/radio-world/staging/batch-26 "$world" "$root"
+      - name: Assemble country packs twice from the immutable prior baseline
+        run: |
+          root="$RUNNER_TEMP/radio26"
+          git worktree add --detach --no-checkout "$root/baseline" 5829aca2b1809d2945a9acc20d81dae30acfb10f
+          git -C "$root/baseline" sparse-checkout init --cone
+          git -C "$root/baseline" sparse-checkout set picons/IPTV-AR picons/IPTV-DE picons/IPTV-GB picons/IPTV-SE picons/IPTV-UA picons/IPTV-US
+          git -C "$root/baseline" checkout --force 5829aca2b1809d2945a9acc20d81dae30acfb10f
+          world=picons/IPTV-SK-CZ/catalog/global/search/2ae88890a953c2f68d3f20352ad56a7390645bd3ce189573dd94e50c8a65abfe.json.gz
+          python picons/radio-world/extend_country_packs.py build "$root/baseline" "$world" "$root/candidate" picons/radio-world/staging/batch-24 picons/radio-world/staging/batch-25 picons/radio-world/staging/batch-26
+          python picons/radio-world/extend_country_packs.py build "$root/baseline" "$world" "$root/repeat" picons/radio-world/staging/batch-24 picons/radio-world/staging/batch-25 picons/radio-world/staging/batch-26
+          cmp "$root/candidate/candidate.json" "$root/repeat/candidate.json"
+          cp -a "$root/candidate/picons/." picons/
+          cp "$root/candidate/candidate.json" picons/radio-world/staging/country-pack-checksums-batch26.json
+      - name: Save Radio payloads, pinned releases and the 219-country index
+        run: |
+          test "$(git branch --show-current)" = work/radio-world-batch26-20261106
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- picons/radio-world/staging/batch-26 picons/radio-world/staging/country-pack-checksums-batch26.json
+          for country in AR DE GB SE UA US CL GR LT RO LK; do
+            git add -- "picons/IPTV-$country/packages"
+          done
+          git commit -m 'Stage Radio batch 26 and preserve every prior country PNG'
+          python picons/radio-world/extend_country_packs.py manifests "$RUNNER_TEMP/radio26/candidate" "$(git rev-parse HEAD)" .
+          for country in AR DE GB SE UA US CL GR LT RO LK; do
+            git add -- "picons/IPTV-$country/catalog/release.json"
+          done
+          git commit -m 'Pin 11 Radio collection manifests to verified payloads'
+          python picons/radio-world/build_country_index.py "$(git rev-parse HEAD)" picons/radio-world/catalog/countries.json
+          git add -- picons/radio-world/catalog/countries.json
+          git rm -- .github/workflows/stage-radio-batch26.yml
+          git commit -m 'Index all 219 Radio countries with published and staged coverage'
+          git push origin HEAD:refs/heads/work/radio-world-batch26-20261106

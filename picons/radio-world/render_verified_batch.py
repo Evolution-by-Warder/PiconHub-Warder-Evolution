@@ -42,7 +42,8 @@ def render(batch, world_path, masters_path):
         for style in STYLES:
             path = batch / f'radio-batch{plan["batch"]}-{style}-{resolution}.zip'
             member_hashes = {}
-            with zipfile.ZipFile(path, 'w') as package:
+            output = io.BytesIO()
+            with zipfile.ZipFile(output, 'w') as package:
                 for station in plan['stations']:
                     key = station.get('black_source', station['source']) if style == 'black' else station['source']
                     mark = originals[key]
@@ -63,7 +64,8 @@ def render(batch, world_path, masters_path):
                     info.compress_type = zipfile.ZIP_DEFLATED
                     info.external_attr = 0o100644 << 16
                     package.writestr(info, data)
-            body = path.read_bytes()
+            body = output.getvalue()
+            path.write_bytes(body)
             packages[resolution][style] = {
                 'path': path.name, 'bytes': len(body), 'sha256': sha256(body), 'files': member_hashes,
             }
