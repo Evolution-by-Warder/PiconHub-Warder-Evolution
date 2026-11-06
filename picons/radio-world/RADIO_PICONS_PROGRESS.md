@@ -36,3 +36,18 @@ python picons/radio-world/verify_batch.py picons/radio-world/staging/batch-23
 All ten ZIPs passed the staging verifier and the 220×132 variants were visually checked against the selected station sources. The plugin's 29 downloader unit tests passed. A local integration run using pinned country catalogue packages and an injected staging endpoint installed, looked up and skipped on retry all nine references for each of the three 220×132 styles.
 
 The ZIP members use the plugin's exact Enigma2 reference filenames. The current downloader still exposes only SK, CZ, AT, DE, HU and PL at 220×132. Batch 23 is staged across countries. A deployment requires splitting the staged inventory into country packages or adding a catalogue-driven shared package feed in the plugin, preserving all existing country entries and graphics. No production Radio releases or satellite manifests were written.
+
+## Batch 23 country packages, 2026-11-06
+
+The [offline builder](prepare_country_packs.py) builds 54 candidate ZIPs for AR, DE, GB, SE, UA and US from the checked-in staging ZIPs. It verifies the exact country, service reference, station name and stream URL against the pinned Radio catalogue. Germany starts from the verified DE r3 release and preserves all 90 existing PNG members per variant. Two independent builds produced identical output. The [candidate checksums](staging/batch-23/country-pack-checksums.json) record every archive and input pin.
+
+To reproduce, save the pinned [world search snapshot](https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/blob/e90a1fe3a2734b555f48f343284f9103530180fb/picons/IPTV-SK-CZ/catalog/global/search/2ae88890a953c2f68d3f20352ad56a7390645bd3ce189573dd94e50c8a65abfe.json.gz) as `world.json.gz` and the pinned [DE r3 manifest](https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/blob/e90a1fe3a2734b555f48f343284f9103530180fb/picons/IPTV-DE/catalog/release.json) as `de-release.json`. Save the nine ZIPs at the manifest's URLs under `de-packages/` with their original basenames. From the repository root, with Pillow installed:
+
+```sh
+python picons/radio-world/prepare_country_packs.py \
+  picons/radio-world/staging/batch-23 world.json.gz de-release.json de-packages candidate
+```
+
+The output contains the package layout expected by the downloader and a local inventory with every PNG hash. The build does not write live release manifests. The checked-in ZIP checksums describe the validation build. Compression library versions may affect ZIP hashes while the member SHA-256 values remain unchanged.
+
+The existing downloader passed its 29 unit tests. A local integration run used the pinned country catalogue snapshots and candidate packages through a test endpoint for all three 220×132 styles. It installed 64 existing German catalogue matches, added nine new matches across six countries, preserved a user override and all previous index entries, then repeated without downloading the ZIPs. The live menu and packages were outside this staging test. The remaining integration step is to expose the additional country collections in the Radio UI alongside a separately approved package publication.
