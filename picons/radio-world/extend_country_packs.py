@@ -14,7 +14,7 @@ from verify_batch import RESOLUTIONS, STYLES, require, sha256, verify, verify_ar
 
 ROOT = Path(__file__).resolve().parent
 BASE = 'https://raw.githubusercontent.com/Evolution-by-Warder/PiconHub-Warder-Evolution/'
-BASELINE = '5829aca2b1809d2945a9acc20d81dae30acfb10f'
+BASELINE = '1eff65c3698280657fd7ac1b8db4cff40cb80089'
 BASE_COUNTRIES = ('AR', 'DE', 'GB', 'SE', 'UA', 'US')
 
 
@@ -43,7 +43,7 @@ def prepare(checkout, world_path, batches, output):
             stations[ref] = station
             names[code].add(ref.replace(':', '_') + '.png')
     manifests = {}
-    for code in set(BASE_COUNTRIES) | set(names):
+    for code in set(names):
         path = checkout / f'picons/IPTV-{code}/catalog/release.json'
         if path.exists():
             if code in BASE_COUNTRIES:
@@ -56,7 +56,7 @@ def prepare(checkout, world_path, batches, output):
     report = dict(schema=2, status='staging', batches=[p['batch'] for p in plans],
                   baseline_commit=BASELINE, catalogue_commit=plans[0]['catalogue_commit'],
                   catalogue_sha256=sha256(raw), incoming_references=len(stations), countries={})
-    for code in sorted(set(BASE_COUNTRIES) | set(names)):
+    for code in sorted(set(names)):
         require(re.fullmatch('[A-Z]{2}', code) and code in countries, 'Invalid country code')
         report['countries'][code] = dict(collection=f'IPTV-{code}', name=countries[code]['name'],
             new_references=len(names[code]), catalogue_references=countries[code]['catalogue_rows'],
