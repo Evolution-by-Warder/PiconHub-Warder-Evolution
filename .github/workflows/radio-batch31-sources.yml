@@ -1,0 +1,36 @@
+name: Radio batch 31 source collection only
+on:
+  push:
+    branches: [work/radio-world-batch31-20261106]
+    paths:
+      - '.github/workflows/radio-batch31-sources.yml'
+      - 'picons/radio-world/collect_batch31_sources.py'
+      - 'picons/radio-world/staging/batch-31/candidate-plan.json'
+permissions:
+  contents: write
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            picons/radio-world
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python3 picons/radio-world/collect_batch31_sources.py
+      - name: Save evidence to the same work branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add picons/radio-world/staging/batch-31
+          if ! git diff --cached --quiet; then
+            git commit -m "Record unreviewed batch 31 publisher sources"
+            git push origin HEAD:work/radio-world-batch31-20261106
+          fi
+      - uses: actions/upload-artifact@v4
+        with:
+          name: radio-batch31-originals
+          path: picons/radio-world/staging/batch-31
