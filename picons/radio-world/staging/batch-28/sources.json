@@ -1,0 +1,43 @@
+{
+  "schema": 1,
+  "catalogue_commit": "e90a1fe3a2734b555f48f343284f9103530180fb",
+  "catalogue_sha256": "2ae88890a953c2f68d3f20352ad56a7390645bd3ce189573dd94e50c8a65abfe",
+  "master_sha256": {
+    "white": "c6ae4a808a65ffc8e6458336fccbfe4216de1e832ec0a9abf800907f2f783589",
+    "black": "61e69f7fc46e340453bf74ccd7af6ac9d8eba9f8e232884659e1ea99f6abf3fe"
+  },
+  "batch": 28,
+  "source_inventory": {
+    "9193d639f6d938b753ad54957590b0b5d1076df8cb8ddeff3957a53e93536812": {
+      "path": "originals/9193d639f6d938b753ad54957590b0b5d1076df8cb8ddeff3957a53e93536812.img",
+      "sha256": "9193d639f6d938b753ad54957590b0b5d1076df8cb8ddeff3957a53e93536812",
+      "bytes": 243016,
+      "url": "https://radiofmplus.org/wp-content/uploads/2025/09/cropped-logo-fmplus-1-1.png"
+    }
+  },
+  "stations": [
+    {
+      "name": "Radio FM Plus 91Mhz",
+      "url": "http://stream.radios-arra.fr:8000/fmplus",
+      "reference": "4097:0:2:68F5:E76F:ED:0:0:0:0",
+      "group": "France",
+      "country": "FR",
+      "source": "9193d639f6d938b753ad54957590b0b5d1076df8cb8ddeff3957a53e93536812",
+      "evidence_url": "https://radiofmplus.org/",
+      "page_sha256": "1ea7476c3652fe30eb89b85e353c33d125e5cf0eecd0fc7b9b2f602b3fccf46c",
+      "evidence": "The live broadcaster player uses this artwork and the TLS endpoint on the same radios-arra.fr provider and fmplus mount. The legacy HTTP endpoint is independently documented for this station.",
+      "additional_evidence": [
+        "https://radiofmplus.org/la-radio/",
+        "https://fluxradios.blogspot.com/2018/01/flux-url-fm-plus-france.html"
+      ]
+    }
+  ],
+  "held": [
+    {
+      "name": "Omroep Eemsdelta",
+      "country": "NL",
+      "reference": "4097:0:2:78D3:648C:ED:0:0:0:0",
+      "reason": "The official station page was located, but the radio-specific artwork and exact stream mapping could not both be retrieved in this pass."
+    }
+  ]
+}
