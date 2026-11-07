@@ -1,0 +1,28 @@
+name: Recover54 exact frozen source PNGs and preserve all nine QA
+on:
+  push:
+    branches: [work/radio-zeno54-recovered-source-20261107]
+    paths: [.github/workflows/radio-zeno54-recovery.yml]
+permissions:
+  contents: write
+concurrency:
+  group: radio-zeno54-recovery-single-existing-branch
+  cancel-in-progress: false
+jobs:
+  recover:
+    if: github.ref == 'refs/heads/work/radio-zeno54-recovered-source-20261107'
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 1
+          sparse-checkout: picons/radio-world/staging/batch-44-zeno54-recovery
+      - run: python3 -m pip install Pillow==13.0.0
+      - name: Validate publisher shell syntax
+        run: bash -n picons/radio-world/staging/batch-44-zeno54-recovery/publish_recovery54.sh
+      - name: Preserve exact frozen originals,486 physical PNGs and51 eligible references
+        run: bash picons/radio-world/staging/batch-44-zeno54-recovery/publish_recovery54.sh
