@@ -1,0 +1,19 @@
+name: Reproduce exact reviewed primary pending source chunk
+on:
+  push:
+    branches: [work/radio-primary-pending183-source-20261107]
+    paths: [.github/workflows/radio-primary-pending183-source.yml]
+permissions:
+  contents: write
+jobs:
+  reproduce:
+    if: github.ref == 'refs/heads/work/radio-primary-pending183-source-20261107'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: picons/radio-world/staging/primary-pending183-source-20261107
+      - run: python3 -m pip install Pillow==13.0.0
+      - run: bash -n picons/radio-world/staging/primary-pending183-source-20261107/publish_source.sh
+      - run: bash picons/radio-world/staging/primary-pending183-source-20261107/publish_source.sh
