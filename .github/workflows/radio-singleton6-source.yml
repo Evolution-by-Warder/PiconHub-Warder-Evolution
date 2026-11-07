@@ -1,0 +1,19 @@
+name: Reproduce54 reviewed singleton radio PNGs
+on:
+  push:
+    branches: [work/radio-singleton6-source-20261107]
+    paths: [.github/workflows/radio-singleton6-source.yml]
+permissions:
+  contents: write
+jobs:
+  reproduce:
+    if: github.ref == 'refs/heads/work/radio-singleton6-source-20261107'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: picons/radio-world/staging/singleton-completion-20261107
+      - run: python3 -m pip install Pillow==13.0.0
+      - name: Verify staged evidence and reproduce exact54 PNGs then pin immutable pixel commit
+        run: bash picons/radio-world/staging/singleton-completion-20261107/produce.sh
