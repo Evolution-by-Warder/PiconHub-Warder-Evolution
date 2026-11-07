@@ -1,0 +1,17 @@
+name: Radio visual regression gate
+on:
+  push:
+    branches: [work/radio-visual-review34-36-20261107]
+    paths: ['picons/radio-world/tools/*visual*py', 'picons/radio-world/staging/visual-review-34-36/**', '.github/workflows/radio-visual-review.yml']
+permissions:
+  contents: read
+jobs:
+  regression:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            picons/radio-world/tools
+            picons/radio-world/staging/visual-review-34-36
+      - run: python3 -m unittest discover -s picons/radio-world/tools -p test_visual_gate.py -v

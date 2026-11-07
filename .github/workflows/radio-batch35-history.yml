@@ -1,0 +1,50 @@
+name: Radio batch 35 exact approved artwork
+on:
+  push:
+    branches: [work/radio-world-batch35-history-20261106]
+    paths:
+      - .github/workflows/radio-batch35-history.yml
+      - picons/radio-world/staging/batch-35/exact-source-selection.json
+      - picons/radio-world/staging/batch-35/build.py
+permissions:
+  contents: write
+jobs:
+  build:
+    if: github.ref == 'refs/heads/work/radio-world-batch35-history-20261106'
+    runs-on: ubuntu-latest
+    timeout-minutes: 22
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            picons/radio-world/staging/batch-34
+            picons/radio-world/staging/batch-35
+      - name: Verify exact historic PNGs and build country packages
+        run: |
+          set -eu
+          stage=picons/radio-world/staging/batch-35
+          mkdir "$RUNNER_TEMP/batch35"
+          python3 "$stage/build.py" build "$RUNNER_TEMP/batch35" "$RUNNER_TEMP/new-zips"
+      - name: Commit immutable payload and candidate manifests to working refs
+        run: |
+          set -eu
+          stage=picons/radio-world/staging/batch-35
+          scratch="$RUNNER_TEMP/radio35-payload"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git fetch --depth=1 --no-tags origin 59a6f69c69b62ee1f4c1490f3a37ddff50d5bd4b
+          git worktree add --detach "$scratch" FETCH_HEAD
+          git -C "$scratch" sparse-checkout disable
+          cp -R "$RUNNER_TEMP/new-zips/picons" "$scratch/"
+          git -C "$scratch" add picons
+          git -C "$scratch" commit -m 'Save 333 verified batch 35 Radio country ZIPs [skip ci]'
+          payload=$(git -C "$scratch" rev-parse HEAD)
+          python3 "$stage/build.py" manifests "$RUNNER_TEMP/batch35" "$scratch" "$payload"
+          git -C "$scratch" add picons
+          git -C "$scratch" commit -m 'Pin the 37 batch 35 Radio country manifests [skip ci]'
+          manifest=$(git -C "$scratch" rev-parse HEAD)
+          git -C "$scratch" push origin HEAD:refs/heads/work/radio-world-batch35-payload-20261106
+          python3 "$stage/build.py" index "$RUNNER_TEMP/batch35" "$scratch" "$payload" "$manifest"
+          git add "$stage/countries.proposed.json" "$stage/proof.json"
+          git commit -m 'Stage 200 exact saved Radio references and updated candidate index [skip ci]'
+          git push origin HEAD:refs/heads/work/radio-world-batch35-history-20261106

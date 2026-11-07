@@ -1,0 +1,54 @@
+name: Radio batch 34 working country ZIP unions
+on:
+  push:
+    branches: [work/radio-world-batch34-union-20261106]
+    paths:
+      - .github/workflows/radio-batch34-union.yml
+      - picons/radio-world/staging/batch-34/build_country_unions.py
+permissions:
+  contents: write
+jobs:
+  build:
+    if: github.ref == 'refs/heads/work/radio-world-batch34-union-20261106'
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            picons/radio-world/staging/batch-33
+            picons/radio-world/staging/batch-34
+      - name: Validate and combine the existing country ZIPs
+        run: |
+          set -eu
+          stage=picons/radio-world/staging/batch-34
+          python3 "$stage/build_country_unions.py" build "$RUNNER_TEMP/unions.json" "$RUNNER_TEMP/union-zips"
+      - name: Save immutable ZIP and manifest snapshots on a working ref
+        run: |
+          set -eu
+          stage=picons/radio-world/staging/batch-34
+          scratch="$RUNNER_TEMP/radio-payload"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git fetch --depth=1 --no-tags origin 59a6f69c69b62ee1f4c1490f3a37ddff50d5bd4b
+          git worktree add --detach "$scratch" FETCH_HEAD
+          git -C "$scratch" sparse-checkout disable
+          cp -R "$RUNNER_TEMP/union-zips/picons" "$scratch/"
+          git -C "$scratch" add picons
+          git -C "$scratch" commit -m 'Save 117 working Radio ZIP unions preserving all production PNGs [skip ci]'
+          payload=$(git -C "$scratch" rev-parse HEAD)
+          python3 "$stage/build_country_unions.py" pin "$RUNNER_TEMP/unions.json" "$payload"
+          for manifest in "$stage"/union-manifests/*.json; do
+            code=$(basename "$manifest" .json)
+            target="$scratch/picons/IPTV-$code/catalog"
+            mkdir -p "$target"
+            cp "$manifest" "$target/release.json"
+          done
+          git -C "$scratch" add picons
+          git -C "$scratch" commit -m 'Pin working Radio country union manifests [skip ci]'
+          manifest_commit=$(git -C "$scratch" rev-parse HEAD)
+          git -C "$scratch" push origin HEAD:refs/heads/work/radio-world-batch34-union-payload-20261106
+          python3 "$stage/build_country_unions.py" index "$RUNNER_TEMP/unions.json" "$manifest_commit"
+          git add "$stage/countries.full-candidate.json" "$stage/union-proof.json"
+          git commit -m 'Stage all 200 batch 34 references on the live batch 33 baseline [skip ci]'
+          git push origin HEAD:refs/heads/work/radio-world-batch34-union-20261106
