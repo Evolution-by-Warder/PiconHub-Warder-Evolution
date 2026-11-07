@@ -32,6 +32,17 @@ class VisualRegression(unittest.TestCase):
                 index={'countries':[{'id':self.bad['country'],'release':{'url':'fixture'}}]}
                 ledger={'entries':[{'row':self.bad,'decision':'hold'}]}
                 with self.subTest(size=size,style=style),self.assertRaises(ValueError):assert_no_held(index,ledger,lambda e:{'packages':packages})
+    def test_prior_source_rejection_cannot_be_erased_by_picture_only_review(self):
+        for name in ('Vinilo Mix','Schwany 3'):
+            entry=next(e for e in self.ledger['entries'] if e['row']['station']['name']==name)
+            self.assertEqual(entry['decision'],'hold')
+            with self.subTest(name=name),self.assertRaises(ValueError):validate_selection([entry['row']],self.ledger)
+    def test_sponsor_panel_cannot_return_as_wfm(self):
+        row=next(e['row'] for e in self.ledger['entries'] if e['row']['station']['name']=='Radio Wfm 105.4 - Westerlo, be')
+        with self.assertRaises(ValueError):validate_selection([row],self.ledger)
+    def test_ruidos_donation_panel_cannot_return(self):
+        row=next(e['row'] for e in self.ledger['entries'] if e['row']['ref']=='4097:0:2:86EC:DC55:ED:0:0:0:0')
+        with self.assertRaises(ValueError):validate_selection([row],self.ledger)
     def test_unavailable_country_does_not_need_empty_zip(self):
         index={'countries':[{'id':self.bad['country'],'release':None}]};ledger={'entries':[{'row':self.bad,'decision':'hold'}]}
         self.assertEqual(assert_no_held(index,ledger,lambda e:self.fail('Unexpected download')),1)
