@@ -1,0 +1,70 @@
+name: Radio batch 34-35-reviewed-final verified saved artwork
+on:
+  push:
+    branches: [work/radio-world-batch34-35-reviewed-final-history-20261107]
+    paths:
+      - .github/workflows/radio-batch34-35-reviewed-final-history.yml
+      - 'picons/radio-world/staging/batch-34-35-reviewed-final/selection.json*'
+      - picons/radio-world/staging/batch-34-35-reviewed-final/configuration.json
+permissions:
+  contents: write
+jobs:
+  build:
+    if: github.ref == 'refs/heads/work/radio-world-batch34-35-reviewed-final-history-20261107'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            picons/radio-world/tools
+            picons/radio-world/staging/visual-review-34-36
+            picons/radio-world/staging/batch-34-35-reviewed-final
+      - uses: actions/checkout@v4
+        with:
+          repository: Evolution-by-Warder/Radio-Warder-Evolution
+          ref: b7384bfdb55621beaf183ca6d40e9dedacaecdb9
+          path: _radio
+      - run: python3 -m pip install Pillow
+      - run: python3 -m unittest discover -s picons/radio-world/tools -p test_visual_gate.py -v
+      - name: Verify originals and preserve all earlier PNGs
+        run: |
+          set -eu
+          stage=picons/radio-world/staging/batch-34-35-reviewed-final
+          mkdir "$RUNNER_TEMP/batch34-35-reviewed-final"
+          python3 picons/radio-world/tools/remove_held_artwork.py "$stage/configuration.json" build "$RUNNER_TEMP/batch34-35-reviewed-final" "$RUNNER_TEMP/new-zips"
+      - name: Save immutable country ZIPs and manifests on a working ref
+        run: |
+          set -eu
+          stage=picons/radio-world/staging/batch-34-35-reviewed-final
+          scratch="$RUNNER_TEMP/radio34-35-reviewed-final-payload"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git fetch --depth=1 --no-tags origin 59a6f69c69b62ee1f4c1490f3a37ddff50d5bd4b
+          git worktree add --detach "$scratch" FETCH_HEAD
+          git -C "$scratch" sparse-checkout disable
+          cp -R "$RUNNER_TEMP/new-zips/picons" "$scratch/"
+          git -C "$scratch" add picons
+          git -C "$scratch" commit -m 'Save verified batch 34-35-reviewed-final Radio country ZIPs [skip ci]'
+          payload=$(git -C "$scratch" rev-parse HEAD)
+          python3 picons/radio-world/tools/remove_held_artwork.py "$stage/configuration.json" manifests "$RUNNER_TEMP/batch34-35-reviewed-final" "$scratch" "$payload"
+          git -C "$scratch" add picons
+          git -C "$scratch" commit -m 'Pin batch 34-35-reviewed-final Radio country manifests [skip ci]'
+          manifest=$(git -C "$scratch" rev-parse HEAD)
+          git -C "$scratch" push origin HEAD:refs/heads/work/radio-world-batch34-35-reviewed-final-payload-20261107
+          python3 picons/radio-world/tools/remove_held_artwork.py "$stage/configuration.json" index "$RUNNER_TEMP/batch34-35-reviewed-final" "$scratch" "$payload" "$manifest"
+          git add "$stage/countries.proposed.json" "$stage/proof.json"
+          git commit -m 'Save batch 34-35-reviewed-final candidate index and preservation proof [skip ci]'
+          git push origin HEAD:refs/heads/work/radio-world-batch34-35-reviewed-final-history-20261107
+      - name: Replay the unchanged stable downloader on public immutable assets
+        run: |
+          set -eu
+          stage=picons/radio-world/staging/batch-34-35-reviewed-final
+          codes=$(python3 -c 'import json; print(" ".join(r["id"] for r in json.load(open("'$stage'/countries.proposed.json"))["countries"] if r["release"] and r["id"] in json.load(open("'$stage'/proof.json"))["additions"]))')
+          python3 picons/radio-world/tools/replay_downloader.py --index "$stage/countries.proposed.json" --countries all-available --output "$stage/downloader-proof.json" --radio _radio --cache "$RUNNER_TEMP/http-cache"
+          curl --fail --retry 3 --location https://raw.githubusercontent.com/Evolution-by-Warder/PiconHub-Warder-Evolution/8180aa0df6e185efad120338bc53ca04bc5e492a/picons/radio-world/catalog/countries.json -o "$RUNNER_TEMP/production.json"
+          python3 picons/radio-world/tools/audit_production_preservation.py --candidate "$stage/countries.proposed.json" --production "$RUNNER_TEMP/production.json" --output "$stage/production-preservation-proof.json"
+          python3 picons/radio-world/tools/visual_gate.py --ledger picons/radio-world/staging/visual-review-34-36/decisions.json.gz --index "$stage/countries.proposed.json"
+          git add "$stage/downloader-proof.json" "$stage/production-preservation-proof.json"
+          git commit -m 'Verify batch 34-35-reviewed-final against stable Radio downloader [skip ci]'
+          git push origin HEAD:refs/heads/work/radio-world-batch34-35-reviewed-final-history-20261107
