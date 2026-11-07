@@ -1,0 +1,37 @@
+name: Freeze exact1519 public Zeno source identities
+on:
+  push:
+    branches: [work/radio-zeno1519-source-20261107]
+    paths: [.github/workflows/radio-zeno1519-source.yml]
+permissions:
+  contents: write
+concurrency:
+  group: radio-zeno1519-source-global4
+  cancel-in-progress: false
+jobs:
+  freeze:
+    if: github.ref == 'refs/heads/work/radio-zeno1519-source-20261107'
+    runs-on: ubuntu-latest
+    timeout-minutes: 330
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          sparse-checkout: picons/radio-world/staging/zeno-primary-20261107
+      - name: Install pinned raster integrity decoder
+        run: python3 -m pip install Pillow==13.0.0
+      - name: Check source runner shell syntax
+        run: |
+          bash -n picons/radio-world/staging/zeno-primary-20261107/run_ci.sh
+          bash -n picons/radio-world/staging/zeno-primary-20261107/checkpoint_hook.sh
+      - name: Freeze public source evidence only and persist checkpoints
+        run: bash picons/radio-world/staging/zeno-primary-20261107/run_ci.sh
+      - name: Persist final available evidence after interruption
+        if: always()
+        run: |
+          stage=picons/radio-world/staging/zeno-primary-20261107
+          if test -f "$RUNNER_TEMP/zeno-output/progress.json"; then
+            python3 "$stage/publish_checkpoint.py" "$RUNNER_TEMP/zeno-output" final-workflow-checkpoint
+          fi
