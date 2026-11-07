@@ -1,0 +1,100 @@
+{
+  "schema": 1,
+  "batch": "contrast-source-pass1-20261107",
+  "status": "working-only-source-proof-pass-final-nine-QA-required",
+  "catalogue_sha256": "2ae88890a953c2f68d3f20352ad56a7390645bd3ce189573dd94e50c8a65abfe",
+  "master_sha256": {
+    "white": "c6ae4a808a65ffc8e6458336fccbfe4216de1e832ec0a9abf800907f2f783589",
+    "black": "61e69f7fc46e340453bf74ccd7af6ac9d8eba9f8e232884659e1ea99f6abf3fe"
+  },
+  "source_inventory": {
+    "19ed70d25fa5083621ef170688cea0c489f9b300b062ab23f441a8425bcafc99": {
+      "path": "originals/19ed70d25fa5083621ef170688cea0c489f9b300b062ab23f441a8425bcafc99.png",
+      "sha256": "19ed70d25fa5083621ef170688cea0c489f9b300b062ab23f441a8425bcafc99",
+      "bytes": 297879,
+      "url": "https://www.radioitalo4you.net/images/logo.png"
+    },
+    "189923b48594b7e0eb9ad525c809dbd1232a276b113be6fcf159419f6f6c4478": {
+      "path": "originals/189923b48594b7e0eb9ad525c809dbd1232a276b113be6fcf159419f6f6c4478.jpg",
+      "sha256": "189923b48594b7e0eb9ad525c809dbd1232a276b113be6fcf159419f6f6c4478",
+      "bytes": 39261,
+      "url": "https://lahmacun.hu/lahmacun-logo-share.jpg"
+    },
+    "8bdee7116ea484e69ad1ace39ce23e7038ba6ec14169362bcac78b020a8decb5": {
+      "path": "originals/8bdee7116ea484e69ad1ace39ce23e7038ba6ec14169362bcac78b020a8decb5.png",
+      "sha256": "8bdee7116ea484e69ad1ace39ce23e7038ba6ec14169362bcac78b020a8decb5",
+      "bytes": 5094,
+      "url": "https://glr.no/wp-content/uploads/2023/06/glr_logo_sort_ny_1.png"
+    },
+    "ec05836efb649029cf2f2da8efae337e92f67a73e7c16e9e3101ca2872d2fd16": {
+      "path": "originals/ec05836efb649029cf2f2da8efae337e92f67a73e7c16e9e3101ca2872d2fd16.png",
+      "sha256": "ec05836efb649029cf2f2da8efae337e92f67a73e7c16e9e3101ca2872d2fd16",
+      "bytes": 5002,
+      "url": "https://glr.no/wp-content/uploads/2023/06/glr_logo_hvit_ny_1.png"
+    }
+  },
+  "stations": [
+    {
+      "name": "Radio Italo4you 64kbps",
+      "url": "http://s0.radiohost.pl:8018/Italo4you",
+      "group": "Poland",
+      "country": "PL",
+      "reference": "4097:0:2:1C5F:F27:ED:0:0:0:0",
+      "source": "19ed70d25fa5083621ef170688cea0c489f9b300b062ab23f441a8425bcafc99"
+    },
+    {
+      "name": "Lahmacun radio",
+      "url": "https://streaming.lahmacun.hu/listen/lahmacun_radio/radio.mp3",
+      "group": "Hungary",
+      "country": "HU",
+      "reference": "4097:0:2:19E3:4A8E:ED:0:0:0:0",
+      "source": "189923b48594b7e0eb9ad525c809dbd1232a276b113be6fcf159419f6f6c4478"
+    },
+    {
+      "name": "Guovdageainnu Lagasradio",
+      "url": "https://streaming.radio.co/s5b773f8d3/listen",
+      "group": "Norway",
+      "country": "NO",
+      "reference": "4097:0:2:FDD7:F346:ED:0:0:0:0",
+      "source": "8bdee7116ea484e69ad1ace39ce23e7038ba6ec14169362bcac78b020a8decb5",
+      "black_source": "ec05836efb649029cf2f2da8efae337e92f67a73e7c16e9e3101ca2872d2fd16"
+    }
+  ],
+  "resources": {
+    "renderer": {
+      "commit": "8180aa0df6e185efad120338bc53ca04bc5e492a",
+      "path": "picons/radio-world/render_verified_batch.py",
+      "git_blob": "50127796365cb5d8ea1a33c7cafdda878389c8a8",
+      "sha256": "df831ae025cbb7144cd3a343cf3b37033e7cec1e19304ea6bb66016aadb2050d",
+      "bytes": 3987
+    },
+    "verifier": {
+      "commit": "8180aa0df6e185efad120338bc53ca04bc5e492a",
+      "path": "picons/radio-world/verify_batch.py",
+      "git_blob": "55d48e860aacd907cf0aa1c3df47184fdf562950",
+      "sha256": "553802a5e4d2c39c34bd81a560193acac4dbfed90bb91bdf6a3658942a25b0cb",
+      "bytes": 3713
+    },
+    "white": {
+      "commit": "8180aa0df6e185efad120338bc53ca04bc5e492a",
+      "path": "plugin/artwork/templates/picons/white-sablona.png",
+      "git_blob": "dd8d5860a5daec9a9cf0cd6c12b7f7c2c6428bc0",
+      "sha256": "c6ae4a808a65ffc8e6458336fccbfe4216de1e832ec0a9abf800907f2f783589",
+      "bytes": 29645
+    },
+    "black": {
+      "commit": "8180aa0df6e185efad120338bc53ca04bc5e492a",
+      "path": "plugin/artwork/templates/picons/black-sablona.png",
+      "git_blob": "1dd0f479c3f3a2017377eb6bec33e948ffa0dda7",
+      "sha256": "61e69f7fc46e340453bf74ccd7af6ac9d8eba9f8e232884659e1ea99f6abf3fe",
+      "bytes": 29833
+    },
+    "catalogue": {
+      "commit": "8180aa0df6e185efad120338bc53ca04bc5e492a",
+      "path": "picons/IPTV-SK-CZ/catalog/global/search/2ae88890a953c2f68d3f20352ad56a7390645bd3ce189573dd94e50c8a65abfe.json.gz",
+      "git_blob": "c77349eb2eb773b552ddc5e866504224028071dd",
+      "sha256": "2ae88890a953c2f68d3f20352ad56a7390645bd3ce189573dd94e50c8a65abfe",
+      "bytes": 1264142
+    }
+  }
+}
