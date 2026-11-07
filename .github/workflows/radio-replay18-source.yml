@@ -1,0 +1,48 @@
+name: Reproduce18 exact official language logo repairs
+on:
+  push:
+    branches: [work/radio-replay18-source-20261107]
+    paths: [.github/workflows/radio-replay18-source.yml]
+permissions:
+  contents: write
+jobs:
+  reproduce:
+    if: github.ref == 'refs/heads/work/radio-replay18-source-20261107'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: picons/radio-world/staging/batch-40-replay-repair
+      - run: python3 -m pip install Pillow==13.0.0
+      - name: Reproduce exact reviewed PNG bytes from immutable sources and masters
+        run: |
+          set -eu
+          stage=picons/radio-world/staging/batch-40-replay-repair
+          python3 "$stage/reproduce_on_github.py" --plan "$stage/reproduce-plan.json" --output-root .
+      - name: Save new immutable outputs then pin source selection
+        run: |
+          set -eu
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          stage=picons/radio-world/staging/batch-40-replay-repair
+          git add "$stage/verified-assets" "$stage/reproduction-proof.json"
+          git commit -m 'Save162 exact official language repair PNGs without changing prior artwork [skip ci]'
+          git push origin HEAD:refs/heads/work/radio-replay18-source-20261107
+          python3 - <<'PY'
+          import gzip,json,subprocess,hashlib
+          from pathlib import Path
+          stage=Path('picons/radio-world/staging/batch-40-replay-repair')
+          source=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
+          document=json.loads((stage/'rendered-selection.json').read_bytes())
+          for row in document['entries']:
+              row['source_commit']=source
+              row['asset_root']=str(stage)
+              row.pop('variant_paths',None)
+          raw=gzip.compress((json.dumps(dict(entries=document['entries']),separators=(',',':'),ensure_ascii=False)+'\n').encode(),mtime=0)
+          (stage/'selection.json.gz').write_bytes(raw)
+          (stage/'source-proof.json').write_text(json.dumps(dict(source_commit=source,references=18,pngs=162,selection_sha256=hashlib.sha256(raw).hexdigest(),all_output_sha256_match_locally_reviewed_pngs=True),indent=2)+'\n')
+          PY
+          git add "$stage/selection.json.gz" "$stage/source-proof.json"
+          git commit -m 'Pin all18 corrected language references to immutable162PNG source commit [skip ci]'
+          git push origin HEAD:refs/heads/work/radio-replay18-source-20261107
