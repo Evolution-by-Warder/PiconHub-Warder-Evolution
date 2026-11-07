@@ -32,7 +32,7 @@ jobs:
           ref: b7384bfdb55621beaf183ca6d40e9dedacaecdb9
           path: _radio
       - run: python3 -m pip install Pillow
-      - name: Bootstrap approved141 source exports and technical quarantine
+      - name: Bootstrap approved140 source exports and technical quarantine
         env:
           PYTHONPYCACHEPREFIX: ${{ runner.temp }}/pycache43
         run: |
@@ -45,7 +45,7 @@ jobs:
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add "$stage/selection.json.gz" "$stage/visual-ledger.json.gz" "$stage/configuration.json" "$stage/preparation-proof.json" "$stage/bootstrap-proof.json" picons/radio-world/preparation/batch-43/prepare43.py
           if ! git diff --cached --quiet; then
-            git commit -m 'Freeze exact141 source selection and technical quarantine [skip ci]'
+            git commit -m 'Freeze exact140 source selection and technical quarantine [skip ci]'
             git push origin HEAD:refs/heads/work/radio-world-batch43-reviewed-history-20261107
           fi
       - run: python3 -m unittest discover -s picons/radio-world/tools -p test_visual_gate.py -v

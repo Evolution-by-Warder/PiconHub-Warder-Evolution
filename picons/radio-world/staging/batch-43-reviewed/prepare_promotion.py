@@ -12,7 +12,7 @@ def put(name,value,text=False):
 idxraw=(p/'countries.proposed.json').read_bytes();idx=json.loads(idxraw);countries=idx['countries']
 down=json.loads((p/'downloader-proof.json').read_bytes());pres=json.loads((p/'production-preservation-proof.json').read_bytes());adm=json.loads((p/'png-admission-proof.json').read_bytes())
 assert len(countries)==len({r['id']for r in countries})==219
-covered=sum(r['picons']for r in countries);assert covered==3011 and down['index_sha256']==sha(idxraw)
+covered=sum(r['picons']for r in countries);assert covered==3010 and down['index_sha256']==sha(idxraw)
 assert down['radio_version']=='0.1.9.2'and{r['style']for r in down['styles']}=={'transparent','white','black'}
 assert all(s['first']['failed']==s['repeat']['failed']==s['repeat_zip_requests']==0 and s['user_data_preserved']for s in down['styles'])
 assert pres['protected_png_variant_entries']==10332 and pres['candidate_references']==covered
