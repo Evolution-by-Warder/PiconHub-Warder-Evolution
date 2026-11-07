@@ -1,0 +1,55 @@
+name: Radio batch44 verified staged additions
+on:
+  push:
+    branches: [work/radio-world-batch38-contrast-pass1-history-20261107]
+    paths: [.github/workflows/radio-batch44-reviewed.yml]
+permissions:
+  contents: write
+concurrency:
+  group: radio-batch44-existing-working-ref
+  cancel-in-progress: false
+jobs:
+  build:
+    if: github.ref == 'refs/heads/work/radio-world-batch38-contrast-pass1-history-20261107'
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            picons/radio-world/tools
+            picons/radio-world/catalog
+            picons/radio-world/staging
+      - uses: actions/checkout@v4
+        with:
+          repository: Evolution-by-Warder/Radio-Warder-Evolution
+          ref: b7384bfdb55621beaf183ca6d40e9dedacaecdb9
+          path: _radio
+      - run: python3 -m pip install Pillow==13.0.0
+      - name: Verify source authority and previous candidate protection
+        run: |
+          set -euo pipefail
+          stage=picons/radio-world/staging/batch-44-reviewed
+          git fetch --depth=1 --no-tags origin 2db89afad0f414fe7c4b1a6a1a836382d47090d3
+          python3 "$stage/helpers/fetch_resolution_inputs.py" --directory "$RUNNER_TEMP"
+          python3 "$stage/helpers/prepare44.py" verify --snapshot "$RUNNER_TEMP/snapshot.json" --final-snapshot "$RUNNER_TEMP/final.json" --recovery-proof "$stage/recovery-proof.json" --expected-recovery-proof-sha256 20cd5c11bec9cc340456ef7e97afda6554ff0dfc6fa607589a4e9107a3ae653e
+          python3 -m unittest discover -s picons/radio-world/tools -p test_visual_gate.py -v
+          WARDER_SNAPSHOT="$RUNNER_TEMP/snapshot.json" WARDER_FINAL_SNAPSHOT="$RUNNER_TEMP/final.json" python3 -m unittest discover -s "$stage/helpers" -p 'test_*.py' -v
+          python3 picons/radio-world/tools/visual_gate.py --ledger picons/radio-world/staging/source-ledger-reviewed-20261107/visual-ledger.json.gz --ledger picons/radio-world/staging/visual-review-34-36/decisions.json.gz --ledger picons/radio-world/staging/batch-39-reviewed/visual-ledger.json.gz --ledger picons/radio-world/staging/batch-40-reviewed/visual-ledger.json.gz --ledger picons/radio-world/staging/batch-41-reviewed/visual-ledger.json.gz --ledger picons/radio-world/staging/batch-42-reviewed/visual-ledger.json.gz --ledger picons/radio-world/staging/batch-43-reviewed/visual-ledger.json.gz --ledger picons/radio-world/staging/batch-44-reviewed/visual-ledger.json.gz --selection "$stage/selection.json.gz"
+          git diff --exit-code 2db89afad0f414fe7c4b1a6a1a836382d47090d3 -- picons/radio-world/catalog/countries.json 'picons/IPTV-*/catalog/release.json'
+      - name: Build only new country unions on existing payload ref
+        run: python3 picons/radio-world/staging/batch-44-reviewed/helpers/build_existing_payload.py
+      - name: Replay stable downloader and audit every prior approved PNG
+        run: |
+          set -euo pipefail
+          stage=picons/radio-world/staging/batch-44-reviewed
+          python3 picons/radio-world/tools/replay_downloader.py --index "$stage/countries.proposed.json" --countries all-available --output "$stage/downloader-proof.json" --radio _radio --cache "$RUNNER_TEMP/http-cache"
+          curl --fail --retry 2 --location https://raw.githubusercontent.com/Evolution-by-Warder/PiconHub-Warder-Evolution/8180aa0df6e185efad120338bc53ca04bc5e492a/picons/radio-world/catalog/countries.json -o "$RUNNER_TEMP/production.json"
+          python3 picons/radio-world/tools/audit_production_preservation.py --candidate "$stage/countries.proposed.json" --production "$RUNNER_TEMP/production.json" --output "$stage/production-preservation-proof.json"
+          python3 "$stage/helpers/audit_candidate_preservation.py" --baseline "$stage/baseline.previous.json" --candidate "$stage/countries.proposed.json" --baseline-commit 2db89afad0f414fe7c4b1a6a1a836382d47090d3 --baseline-sha256 b2018e346e88cef556b27290ff241d850cb01135855fc643dfe1d92965185d0e --expected-references 3010 --expected-pngs 27666 --output "$stage/candidate-preservation-proof.json"
+          python3 picons/radio-world/tools/visual_gate.py --ledger picons/radio-world/staging/source-ledger-reviewed-20261107/visual-ledger.json.gz --ledger picons/radio-world/staging/visual-review-34-36/decisions.json.gz --ledger picons/radio-world/staging/batch-39-reviewed/visual-ledger.json.gz --ledger picons/radio-world/staging/batch-40-reviewed/visual-ledger.json.gz --ledger picons/radio-world/staging/batch-41-reviewed/visual-ledger.json.gz --ledger picons/radio-world/staging/batch-42-reviewed/visual-ledger.json.gz --ledger picons/radio-world/staging/batch-43-reviewed/visual-ledger.json.gz --ledger picons/radio-world/staging/batch-44-reviewed/visual-ledger.json.gz --index "$stage/countries.proposed.json" --selection "$stage/selection.json.gz"
+          python3 picons/radio-world/tools/audit_png_admission.py --ledger picons/radio-world/staging/source-ledger-reviewed-20261107/visual-ledger.json.gz --ledger picons/radio-world/staging/visual-review-34-36/decisions.json.gz --ledger picons/radio-world/staging/batch-39-reviewed/visual-ledger.json.gz --ledger picons/radio-world/staging/batch-40-reviewed/visual-ledger.json.gz --ledger picons/radio-world/staging/batch-41-reviewed/visual-ledger.json.gz --ledger picons/radio-world/staging/batch-42-reviewed/visual-ledger.json.gz --ledger picons/radio-world/staging/batch-43-reviewed/visual-ledger.json.gz --ledger picons/radio-world/staging/batch-44-reviewed/visual-ledger.json.gz --index "$stage/countries.proposed.json" --production "$RUNNER_TEMP/production.json" --output "$stage/png-admission-proof.json"
+          git diff --exit-code 2db89afad0f414fe7c4b1a6a1a836382d47090d3 -- picons/radio-world/catalog/countries.json 'picons/IPTV-*/catalog/release.json'
+          git add "$stage/downloader-proof.json" "$stage/production-preservation-proof.json" "$stage/candidate-preservation-proof.json" "$stage/png-admission-proof.json"
+          git commit -m 'Verify staged batch44 with stable downloader and all prior PNGs [skip ci]'
+          git push origin HEAD:refs/heads/work/radio-world-batch38-contrast-pass1-history-20261107
