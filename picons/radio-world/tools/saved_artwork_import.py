@@ -135,24 +135,41 @@ def build(temporary, snapshot):
     source=temporary/'sources'
     load_sources(selection,source)
     manifests, tasks, protected={}, [], 0
+    reused={}
+    reuse_rows={row['id']:row for row in json.loads(get(CONFIG['reuse_index']))['countries']} if CONFIG.get('reuse_index') else {}
     for row in json.loads(get(CONFIG['baseline_index']))['countries']:
         code=row['id']
         if code not in by_country:
             continue
         old=json.loads(get(row['release'])) if row['release'] else None
+        reuse_row=reuse_rows.get(code)
+        if reuse_row and reuse_row['release']:
+            candidate=json.loads(get(reuse_row['release']))
+            matches=True
+            for size in SIZES:
+                for style in STYLES:
+                    before=old['packages'][size][style]['files'] if old else {}
+                    expected=dict(before)
+                    expected.update({entry['ref'].replace(':','_')+'.png':entry['variants'][size+'/'+style]['sha256']
+                                     for entry in by_country[code]})
+                    if candidate['packages'][size][style]['files']!=expected:
+                        matches=False
+            if matches:
+                reused[code]=reuse_row['release']
+                continue
         manifests[code]=dict(schema=1,status='verified',collection=row['collection'],country=code,
                              version='2026.11.07-history'+str(CONFIG['batch']),catalogue_stations=row['stations'],packages={})
         for size in SIZES:
             for style in sorted(STYLES):
                 base=old['packages'][size][style] if old else None
                 tasks.append((code,size,style,base,by_country[code],source,snapshot))
-    assert len(tasks)==9*len(by_country)
+    assert len(tasks)==9*(len(by_country)-len(reused))
     with ThreadPoolExecutor(max_workers=8) as pool:
         for code,size,style,entry,count in pool.map(package,tasks):
             manifests[code]['packages'].setdefault(size,{})[style]=entry
             protected+=count
     (temporary/'packages.json').write_bytes(encoded(dict(
-        preserved_pngs=protected, countries=manifests, additions={c:len(v) for c,v in by_country.items()})))
+        preserved_pngs_in_new_archives=protected, countries=manifests, reused=reused, additions={c:len(v) for c,v in by_country.items()})))
 
 def manifests(temporary,snapshot,payload):
     report=json.loads((temporary/'packages.json').read_bytes())
@@ -172,9 +189,14 @@ def index(temporary,snapshot,payload,revision):
         count=report['additions'].get(row['id'])
         if not count:
             continue
+        row['picons']+=count
+        if row['id'] in report['reused']:
+            row['status']='complete' if row['picons']==row['stations'] else 'partial'
+            row['release']=report['reused'][row['id']]
+            get(row['release'])
+            continue
         path=f'picons/{row["collection"]}/catalog/release.json'
         raw=(snapshot/path).read_bytes()
-        row['picons']+=count
         assert row['picons']<=row['stations']
         row['status']='complete' if row['picons']==row['stations'] else 'partial'
         row['release']=dict(commit=revision,url=BASE+revision+'/'+path,bytes=len(raw),sha256=sha(raw))
@@ -184,7 +206,9 @@ def index(temporary,snapshot,payload,revision):
     (STAGE/'countries.proposed.json').write_bytes(encoded(result))
     (STAGE/'proof.json').write_bytes(encoded(dict(
         schema=1,payload_commit=payload,manifest_commit=revision,references=CONFIG['references'],pngs=9*CONFIG['references'],packages=9*len(report['countries']),
-        country_count=len(report['countries']),preserved_pngs=report['preserved_pngs'],additions=report['additions'])))
+        country_count=len(report['additions']),new_archives_countries=len(report['countries']),
+        reused_package_countries=report['reused'],preserved_pngs_in_new_archives=report['preserved_pngs_in_new_archives'],
+        additions=report['additions'])))
 
 if __name__=='__main__':
     parser=argparse.ArgumentParser()
