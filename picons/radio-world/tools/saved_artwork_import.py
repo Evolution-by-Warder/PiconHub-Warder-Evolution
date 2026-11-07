@@ -115,6 +115,9 @@ def build(temporary, snapshot):
         selection_raw=gzip.decompress(selection_raw)
     selection=json.loads(selection_raw)['entries']
     assert len(selection)==len({r['ref'] for r in selection})==CONFIG['references']
+    if CONFIG.get('visual_ledger_filename'):
+        from visual_gate import read,validate_selection
+        validate_selection(selection,read(STAGE/CONFIG['visual_ledger_filename']))
     for row in selection:
         row['variants']={k:dict(sha256=d,bytes=n,git_blob=b,path=f'verified-assets/{d}.png')
                          for k,(d,n,b) in row['variants'].items()}
