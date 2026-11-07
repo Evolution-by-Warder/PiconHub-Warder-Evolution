@@ -98,3 +98,14 @@ jobs:
           git add "$stage/downloader-proof.json" "$stage/production-preservation-proof.json" "$stage/png-admission-proof.json"
           git commit -m 'Verify batch 43-reviewed against stable Radio downloader [skip ci]'
           git push origin HEAD:refs/heads/work/radio-world-batch43-reviewed-history-20261107
+      - name: Prepare promotion metadata after all country gates pass
+        env:
+          PYTHONPYCACHEPREFIX: ${{ runner.temp }}/pycache43
+        run: |
+          set -euo pipefail
+          stage=picons/radio-world/staging/batch-43-reviewed
+          python3 -m py_compile "$stage/prepare_promotion.py"
+          python3 "$stage/prepare_promotion.py"
+          git add "$stage/canonical-manifest-elements.json" "$stage/candidate-package-inventory.json" "$stage/candidate-SHA256SUMS.txt" "$stage/promotion-proof.json"
+          git commit -m 'Save tested batch43 promotion metadata without changing production [skip ci]'
+          git push origin HEAD:refs/heads/work/radio-world-batch43-reviewed-history-20261107
