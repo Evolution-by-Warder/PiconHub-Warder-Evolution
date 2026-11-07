@@ -119,7 +119,14 @@ def main():
         tasks.append((('source', source_sha), resource, resource['url'], args.source_cache, '.img', True))
     print('Loading', len(tasks), 'frozen inputs for chunk', plan['chunk'], flush=True)
     with ThreadPoolExecutor(max_workers=8) as pool:
-        loaded = list(pool.map(lambda task: (task[0], load(*task[1:])), tasks))
+        def fetch_checked(task):
+            try:
+                return (task[0], load(*task[1:]))
+            except Exception as error:
+                print('FROZEN_INPUT_FAILURE ' + json.dumps({'key': task[0], 'url': task[2], 'error': str(error)}), flush=True)
+                return (task[0], None)
+        loaded = list(pool.map(fetch_checked, tasks))
+    require(all(raw is not None for key, raw in loaded), 'Frozen input preflight failed; see every FROZEN_INPUT_FAILURE above; no PNG output was produced')
     loaded = dict(loaded)
     originals = {key: loaded[('source', key)] for key in plan['originals']}
     resources = {key: loaded[('repo', key)] for key in plan['resources']}
