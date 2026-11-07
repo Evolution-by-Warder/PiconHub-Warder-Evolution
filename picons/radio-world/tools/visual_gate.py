@@ -32,6 +32,9 @@ def validate_selection(selection,ledger):
     return len(seen)
 def assert_no_held(index,ledger,load_manifest):
     countries={r['id']:r for r in index['countries']};cache={};checked=0
+    approved={fingerprint(e['row']) for e in ledger['entries'] if e['decision']=='approve'}
+    rejected={fingerprint(e['row']) for e in ledger['entries'] if e['decision']=='hold'}
+    if approved & rejected:raise ValueError('Conflicting exact-render decisions')
     for entry in ledger['entries']:
         if entry['decision']!='hold':continue
         row=entry['row'];country=countries[row['country']];checked+=1
@@ -39,14 +42,17 @@ def assert_no_held(index,ledger,load_manifest):
         url=country['release']['url']
         if url not in cache:cache[url]=load_manifest(country['release'])
         manifest=cache[url];name=row['ref'].replace(':','_')+'.png'
-        for size in SIZES:
-            for style in STYLES:
-                if name in manifest['packages'][size][style]['files']:
-                    raise ValueError('Held reference restored: '+row['country']+' '+row['ref']+' '+size+'/'+style)
+        variants={size+'/'+style:manifest['packages'][size][style]['files'].get(name) for size in SIZES for style in STYLES}
+        if not any(variants.values()):continue
+        # A held identity may only return with a separately reviewed, exact nine-hash replacement.
+        if all(variants.values()):
+            current=dict(country=row['country'],ref=row['ref'],variants={k:{'sha256':v} for k,v in variants.items()})
+            if fingerprint(current) in approved and fingerprint(current) not in rejected:continue
+        raise ValueError('Held or partially corrected reference restored: '+row['country']+' '+row['ref'])
     return checked
 if __name__=='__main__':
-    parser=argparse.ArgumentParser();parser.add_argument('--ledger',required=True);parser.add_argument('--index');parser.add_argument('--selection');args=parser.parse_args()
-    ledger=read(args.ledger)
+    parser=argparse.ArgumentParser();parser.add_argument('--ledger',required=True,action='append');parser.add_argument('--index');parser.add_argument('--selection');args=parser.parse_args()
+    ledger={'entries':[entry for path in args.ledger for entry in read(path)['entries']]}
     if args.selection:print('Exact reviewed selection:',validate_selection(read(args.selection)['entries'],ledger))
     if args.index:
         from saved_artwork_import import get

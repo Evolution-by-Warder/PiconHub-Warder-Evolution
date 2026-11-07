@@ -43,6 +43,25 @@ class VisualRegression(unittest.TestCase):
     def test_ruidos_donation_panel_cannot_return(self):
         row=next(e['row'] for e in self.ledger['entries'] if e['row']['ref']=='4097:0:2:86EC:DC55:ED:0:0:0:0')
         with self.assertRaises(ValueError):validate_selection([row],self.ledger)
+    def replacement_fixture(self):
+        new=copy.deepcopy(self.bad)
+        for k in new['variants']:
+            value=new['variants'][k]
+            if isinstance(value,dict):value['sha256']='1'*64
+            else:value[0]='1'*64
+        ledger={'entries':[{'row':self.bad,'decision':'hold'},{'row':new,'decision':'approve'}]}
+        name=new['ref'].replace(':','_')+'.png'
+        packages={s:{c:{'files':{name:'1'*64}} for c in STYLES} for s in SIZES}
+        return ledger,packages,name
+    def test_exact_separately_reviewed_nine_variant_repair_is_allowed(self):
+        ledger,packages,name=self.replacement_fixture()
+        index={'countries':[{'id':self.bad['country'],'release':{'url':'fixture'}}]}
+        self.assertEqual(assert_no_held(index,ledger,lambda e:{'packages':packages}),1)
+    def test_one_stale_variant_in_otherwise_reviewed_repair_is_rejected(self):
+        ledger,packages,name=self.replacement_fixture()
+        packages['220x132']['white']['files'][name]='0'*64
+        index={'countries':[{'id':self.bad['country'],'release':{'url':'fixture'}}]}
+        with self.assertRaises(ValueError):assert_no_held(index,ledger,lambda e:{'packages':packages})
     def test_unavailable_country_does_not_need_empty_zip(self):
         index={'countries':[{'id':self.bad['country'],'release':None}]};ledger={'entries':[{'row':self.bad,'decision':'hold'}]}
         self.assertEqual(assert_no_held(index,ledger,lambda e:self.fail('Unexpected download')),1)
