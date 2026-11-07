@@ -13,7 +13,7 @@ def main():
  p=argparse.ArgumentParser(description=__doc__)
  p.add_argument('--laut-selection',type=Path,required=True);p.add_argument('--laut-ledger',type=Path,required=True)
  p.add_argument('--singleton-selection',type=Path,required=True);p.add_argument('--singleton-ledger',type=Path,required=True)
- p.add_argument('--parent',default='673062395da2f49cf2c739a16c605eedc9553480')
+ p.add_argument('--parent',default='4bcef661a7a139f27d2f987073b7a902582870cb')
  p.add_argument('--baseline',type=Path,default=Path('continuation/results-41-reviewed/countries.proposed.json'))
  p.add_argument('--expected-baseline-sha256',default='85f17a3022d770a31dd1cd2fcf53ba19a6681d4c7ec0a0133ebe56e59a14fd30')
  p.add_argument('--expected-laut',type=int,default=435);p.add_argument('--expected-singletons',type=int,default=6)
@@ -30,6 +30,7 @@ def main():
  for r in rows:
   assert re.fullmatch('[0-9a-f]{40}',r['source_commit']),('Source not pinned',r['ref'])
   assert r['asset_root'] and 'pending'not in r['asset_root'] and not r['asset_root'].startswith('/')
+  assert not r['asset_root'].rstrip('/').endswith('/verified-assets'),'asset_root must be parent stage; importer appends verified-assets/SHA.png'
   assert set(r['station'])>={'name','url','group'} and len(r['variants'])==9
   assert all(isinstance(v,list)and len(v)==3 and re.fullmatch('[0-9a-f]{64}',v[0])and isinstance(v[1],int)and v[1]>0 and re.fullmatch('[0-9a-f]{40}',v[2])for v in r['variants'].values())
  new_ledger=merge_ledgers([a.laut_ledger,a.singleton_ledger]);assert validate_selection(rows,new_ledger)==len(rows)

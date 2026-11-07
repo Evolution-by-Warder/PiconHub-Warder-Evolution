@@ -10,7 +10,7 @@ python continuation/quality-tools/prepare42.py \
   --singleton-ledger PATH_TO_SINGLETON_VISUAL_LEDGER.json.gz
 ```
 
-The wrapper defaults to parent673062395da2f49cf2c739a16c605eedc9553480, verifies baseline index SHA85f17a3022d770a31dd1cd2fcf53ba19a6681d4c7ec0a0133ebe56e59a14fd30 and actual2429 coverage. It requires435laut+6singleton rows; these are expected producer counts, not completed integration results. `--parent` and `--expected-baseline-sha256` permit an explicitly reviewed canonical successor.
+The wrapper defaults to parent4bcef661a7a139f27d2f987073b7a902582870cb, verifies baseline index SHA85f17a3022d770a31dd1cd2fcf53ba19a6681d4c7ec0a0133ebe56e59a14fd30 and actual2429 coverage. It requires435laut+6singleton rows; these are expected producer counts, not completed integration results. `--parent` and `--expected-baseline-sha256` permit an explicitly reviewed canonical successor.
 
 Outputs are under continuation/output/picons/radio-world/staging/batch-42-reviewed/: deterministic selection.json.gz, combined new visual-ledger.json.gz (including actual v3 metadata-only source_holds), configuration.json and preparation-proof.json. No PNG fingerprint is invented for source-only holds. The wrapper rejects pending source pins, missing9variants, duplicate refs, prior negative exact artwork, unresolved source holds, unexpected counts, and changed baseline bytes. Expected coverage is calculated2429+actual validated rows, never asserted as a completed result.
 
@@ -19,3 +19,7 @@ Use continuation/quality-tools/workflow42-reviewed.yml for the working-branch wo
 Independent DE400WHITE conservative preflight is batch42-de-white400-preflight.json:347newDErefs, existing package26,508,614bytes + new rawPNG32,697,581bytes +1MiB contingency =60,254,771bytes, below67,108,864bytes by6,854,093bytes. No existing ZIP fetched/recreated/recompressed. This estimate does not replace the runtime actual ZIP size assertion.
 
 Validation performed locally: prepare42.py --help/import succeeded; existing15visual_gatev3 regression tests passed using the actual saved898 ledger with its local test data root adjusted in memory. Initial unadjusted scratch-layout test invocation could not locate its staging directory and executed0tests; no implementation change was needed.
+
+Pinned selection asset_root must be the source staging directory, without /verified-assets: the unchanged importer appends verified-assets/SHA.png. Producer destination paths may point directly to that PNG folder; do not copy destination into asset_root.
+
+Freeze status: preparation files are checkpointed on the preparation branch only. No batch42 CI, integration, production merge, PNG rendering or ZIP build has run from this template. Producer exports must pass their own byte gates before running the wrapper.
