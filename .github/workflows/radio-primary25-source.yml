@@ -1,0 +1,21 @@
+name: Reproduce25 exact reviewed primary broadcaster artworks
+on:
+  push:
+    branches: [work/radio-primary25-source-20261107]
+    paths: [.github/workflows/radio-primary25-source.yml]
+permissions:
+  contents: write
+jobs:
+  reproduce:
+    if: github.ref == 'refs/heads/work/radio-primary25-source-20261107'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: picons/radio-world/staging/batch-43-primary-source
+      - run: python3 -m pip install Pillow==13.0.0
+      - name: Validate publisher shell syntax
+        run: bash -n picons/radio-world/staging/batch-43-primary-source/publish_primary_source.sh
+      - name: Reassemble frozen inputs and reproduce225 exact reviewed PNGs
+        run: bash picons/radio-world/staging/batch-43-primary-source/publish_primary_source.sh
