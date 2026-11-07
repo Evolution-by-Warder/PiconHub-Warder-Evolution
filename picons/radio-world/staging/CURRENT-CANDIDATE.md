@@ -1,19 +1,20 @@
-# Pracovný kandidát Warder Radio – dávka 41
+# Warder Radio – overený pracovný kandidát cez dávku 42
 
-Stav: Draft, čaká na výslovné schválenie produkčného merge. Produkcia ostáva bez zmeny.
+Stav: Draft, bez produkčného merge. Testovaný pracovný commit 736c6afef1ae3085153849b73c8bf2b854e55d7c.
+CI: https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/actions/runs/42383316414 (SUCCESS).
+Index SHA-256: 8dfc9b924bc2c144997c1333840364ae12a2c7497baa2bcf02a9e9c5ef633d70.
 
-Overený CI beh: https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/actions/runs/42375761567
-Testovaný pracovný commit: 3356f5d28e2b425dfc93247305942f37227848fb.
-Index SHA-256: 85f17a3022d770a31dd1cd2fcf53ba19a6681d4c7ec0a0133ebe56e59a14fd30.
+219 krajín: 119 dostupných = 12 úplných + 107 čiastočných; 100 nedostupných.
+Pokrytých 2 870 / 35 560 krajinských referencií; zostáva 32 690.
+26 406 PNG položiek vrátane aliasov: všetkých 10 332 pôvodných bez zmeny a 16 074 nových viazaných na presné prijaté deväťvariantové SHA.
+Úplné: SK, CZ, BT, TD, CX, GG, GW, KI, LR, MS, SM, KM.
 
-219 krajín; 109 dostupných, z nich 6 úplných a 103 čiastočných; 110 zatiaľ nedostupných.
-2 429 z 35 560 krajinských referencií, zostáva 33 131.
-22 437 PNG položiek vrátane aliasov: všetkých 10 332 pôvodných zachovaných a 12 105 nových, viazaných na schválené deväťvariantové SHA-256.
+Dávka 42 pridáva 435 laut.fm a 6 samostatných krajinských referencií: 441 referencií / 3 969 PNG položiek / 30 krajín / 270 nových ZIPov. Všetky nové referencie majú skutočnú vizuálnu kontrolu deviatich variantov. Originály a hotové PNG sú pripnuté k overeným nemenným zdrojovým commitom. 14 CDN vstupov s inými bajtmi bolo nahradených výlučne pôvodnými zmrazenými súbormi.
 
-Nezávislá vizuálna revízia 34–36: 898 referencií, 530 prijatých, 368 oddelených. Manuálne kontrolované všetky tri pozadia 220×132; pri všetkých deviatich variantoch overené rozmery, integrita a SHA. Neskoršie opravy REPLAY18 majú samostatný dôkaz identity a úplnú vizuálnu kontrolu deviatich variantov.
+15 regresných testov vizuálnej brány v CI prešlo. Plytká Git cache zdrojového produceru bola opravená a má 6 samostatných skutočných Git regresných testov. Všetkých 349 nových predbežných source holds zostáva mimo balíkov a nemá vymyslené PNG fingerprinty. Staré zmiešané MS varianty sú blokované; prijatá kompozícia je rovnaký oficiálny badge na všetkých pozadiach. Farebné WF sa nepremaľuje a ostáva oddelené.
 
-Downloader 0.1.9.2: replay všetkých 109 dostupných krajín v troch pozadiach 220×132; 324 verejných ZIP URL; 2 428 presných inštalovaných PNG a jeden zachovaný vlastný picon na pozadie, 0 zlyhaní, opakovaný beh 0 ZIP požiadaviek. Používateľské dáta zachované. Hardvérový test neprebehol.
+Downloader 0.1.9.2 je nezmenený: replay všetkých 119 dostupných krajín, tri pozadia 220×132, 354 verejných ZIP URL; na pozadie 2 869 presných inštalovaných PNG + 1 zachovaný vlastný picon, 0 zlyhaní, opakovaný beh 0 ZIP požiadaviek. Nastavenia, história, obľúbené a vlastné picony zachované. Fyzický prijímač nebol testovaný.
 
-972 URL balíkov v deviatich variantoch evidovaných s SHA-256. Manifesty sa preberajú ako existujúce Git objekty; existujúce PNG, ZIP a IPK cesty sa nemenia. Historická vetva work/radio-batch33-legacy-payload-20261106 sa zachováva.
+Inventár 1 062 nemenných URL balíkov všetkých deviatich variantov má uložené SHA-256. Najväčší nový ZIP DE WHITE 400×240 má 59 190 697 bajtov, pod limitom 64 MiB. Existujúce produkčné PNG/ZIP/IPK cesty sa nemenia. Historická vetva work/radio-batch33-legacy-payload-20261106 ostáva zachovaná. PR #67 a #68 sú Draft; žiadne IPK ani produkčné zlúčenie.
 
-Ďalších 435 vizuálne prijatých laut.fm referencií a 6 krajinských singletonov sa ukladajú na samostatných zdrojových vetvách; ešte nie sú súčasťou tohto počtu ani kandidátneho indexu.
+Ďalšie primary25/contrast3/Zeno zdrojové dávky majú oddelené pracovné vetvy a nie sú započítané do tohto indexu. Celosvetové pokrytie ešte nie je dokončené.
