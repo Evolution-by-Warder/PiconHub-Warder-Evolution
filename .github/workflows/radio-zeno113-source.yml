@@ -1,0 +1,33 @@
+name: Reproduce113 exact all-nine-reviewed Zeno source artworks
+on:
+  push:
+    branches: [work/radio-zeno113-source-20261107]
+    paths: [.github/workflows/radio-zeno113-source.yml]
+permissions:
+  contents: write
+concurrency:
+  group: radio-zeno113-reviewed-source
+  cancel-in-progress: false
+jobs:
+  reproduce:
+    if: github.ref == 'refs/heads/work/radio-zeno113-source-20261107'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix:
+        chunk: ['001', '002']
+    env:
+      CHUNK: ${{ matrix.chunk }}
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          sparse-checkout: picons/radio-world/staging/batch-43-44-zeno-source
+      - run: python3 -m pip install Pillow==13.0.0
+      - name: Validate publisher shell syntax
+        run: bash -n picons/radio-world/staging/batch-43-44-zeno-source/publish_source_chunk.sh
+      - name: Reproduce exact reviewed outputs from pinned GitHub cache only
+        run: bash picons/radio-world/staging/batch-43-44-zeno-source/publish_source_chunk.sh
