@@ -95,15 +95,19 @@ def main():
     require(len(rows) == plan['references'] and len({r['ref'] for r in rows}) == len(rows), 'Invalid reference inventory')
     require(not any(r['index']in plan['must_not_admit_indices']for r in rows), 'Held source must never enter output')
     require(all(r['source_commit'] is None and r['asset_root'] == STAGE + '/verified-assets' for r in rows), 'Expected unpinned working selection')
+    quarantined = plan['quarantine_selection']['entries']
+    all_rows = rows + quarantined
+    require(len({r['ref'] for r in all_rows}) == len(all_rows), 'Duplicate accepted/quarantine reference')
+    require(all(r['index'] in plan['must_not_admit_indices'] for r in quarantined), 'Quarantine escaped hold protection')
     expected = {}
-    for row in rows:
+    for row in all_rows:
         require(set(row['variants']) == VARIANTS, 'Each reference must have9expectedvariants')
-        require(set(row['final_visual_approval']['reviewed_variants']) == VARIANTS and row['final_visual_approval']['decision'] == 'approve', 'Final nine-variant visual approval missing')
+        require(set(row['final_visual_approval']['reviewed_variants']) == VARIANTS and row['final_visual_approval']['decision'] == ('hold' if row in quarantined else 'approve'), 'Final nine-variant visual approval missing')
         for key, value in row['variants'].items():
             require(len(value) == 3 and valid_hash(value[0], 64) and valid_hash(value[2], 40), 'Unpinned output hash')
             expected[(row['ref'], key)] = value
-    require(len(expected) == plan['png_instances'] == len(rows) * 9, 'Output instance count mismatch')
-    require(len({v[0] for v in expected.values()}) == plan['unique_pngs'], 'Unique output count mismatch')
+    require(plan['png_instances'] == len(rows)*9 and plan['quarantine_png_instances'] == len(quarantined)*9 and len(expected) == plan['archive_png_instances'] == len(all_rows)*9, 'Accepted/quarantine output count mismatch')
+    require(len({v[0] for v in expected.values()}) == plan['archive_unique_pngs'], 'Archive unique output count mismatch')
     require(set(plan['resources']) == {'renderer', 'verifier', 'white', 'black', 'catalogue'}, 'Invalid immutable repo resources')
     tasks = []
     for name, resource in plan['resources'].items():
@@ -129,7 +133,7 @@ def main():
             member=archive.getmember(resource['object_path']);require(member.isfile(),'Source archive member must be a file');return validated(archive.extractfile(member).read(),resource)
     originals={key:object_bytes(resource)for key,resource in plan['originals'].items()}
     resources={key:loaded[('repo',key)]for key in plan['resources']}
-    by_ref={row['ref']:row for row in rows}
+    by_ref={row['ref']:row for row in all_rows}
     for obs in plan['primary_observations']:
         api=json.loads(object_bytes(obs['api_resource']));fields=obs['primary_fields'];row=by_ref[obs['ref']]
         require(all(api[k]==fields[k]for k in fields),'Primary API exact fields mismatch')
@@ -165,8 +169,8 @@ def main():
             for style in STYLES:
                 package = manifest['packages'][size][style]
                 with zipfile.ZipFile(batch / package['path']) as archive:
-                    require(archive.testzip() is None and len(archive.namelist()) == len(rows), 'Temporary renderer archive inventory mismatch')
-                    for row in rows:
+                    require(archive.testzip() is None and len(archive.namelist()) == len(all_rows), 'Temporary renderer archive inventory mismatch')
+                    for row in all_rows:
                         name = row['ref'].replace(':', '_') + '.png'
                         raw = archive.read(name)
                         sha, count, git_blob = expected[(row['ref'], size + '/' + style)]
@@ -177,15 +181,19 @@ def main():
                         if sha in outputs:
                             require(outputs[sha] == raw, 'Output SHA collision')
                         outputs[sha] = raw
-    require(len(outputs) == plan['unique_pngs'], 'Unexpected deduplicated output count')
+    require(len(outputs) == plan['archive_unique_pngs'], 'Unexpected archive deduplicated output count')
     destination = args.output_root.resolve() / STAGE
-    writes = {destination / 'verified-assets' / (sha + '.png'): raw for sha, raw in outputs.items()}
+    accepted_shas = {v[0] for row in rows for v in row['variants'].values()}
+    quarantine_shas = {v[0] for row in quarantined for v in row['variants'].values()}
+    writes = {destination / 'verified-assets' / (sha + '.png'): outputs[sha] for sha in accepted_shas}
+    writes.update({destination / 'quarantine-assets' / (sha + '.png'): outputs[sha] for sha in quarantine_shas})
+    writes[destination / 'quarantine-selection.json'] = (json.dumps(dict(scope='rendered-source-only-quarantine-never-country-admit', entries=quarantined),indent=2,ensure_ascii=False)+'\n').encode()
     writes.update({destination / 'originals' / (sha + '.img'): raw for sha, raw in originals.items()})
     writes[destination / 'plans' / ('producer-plan-' + str(plan['chunk']).zfill(3) + '.json')] = raw_plan
     selection_raw = (json.dumps(plan['expected_selection'], indent=2, ensure_ascii=False) + '\n').encode()
     writes[destination / ('selection-chunk-' + str(plan['chunk']).zfill(3) + '.json')] = selection_raw
     proof = {'schema': 1, 'status': 'pass', 'chunk': plan['chunk'], 'references': len(rows), 'png_instances': len(expected),
-             'unique_pngs': len(outputs), 'originals': len(originals), 'plan_sha256': digest(raw_plan),
+             'unique_pngs': len(outputs), 'accepted_references':len(rows), 'quarantine_references':len(quarantined), 'quarantine_png_instances':len(quarantined)*9, 'originals': len(originals), 'plan_sha256': digest(raw_plan),
              'runtime': {'pillow': PIL.__version__}, 'all_nine_output_sha256_bytes_gitblob_match_local_approved': True,
              'original_bytes_preserved': True, 'source_commit': None, 'primary_observations': plan['primary_observations'], 'frozen_checkpoint_commit': plan['frozen_checkpoint_commit'], 'final_freeze_reconciliation_required': False, 'must_not_admit_indices': plan['must_not_admit_indices'],
              'resources': plan['resources'], 'original_inventory': plan['originals'],
