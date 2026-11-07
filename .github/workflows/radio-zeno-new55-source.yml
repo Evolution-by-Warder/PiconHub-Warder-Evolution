@@ -1,0 +1,26 @@
+name: Reproduce reviewed new55 source PNGs on existing source branch
+on:
+  push:
+    branches: [work/radio-zeno-new55-source-20261107]
+    paths: [.github/workflows/radio-zeno-new55-source.yml]
+permissions:
+  contents: write
+concurrency:
+  group: radio-zeno-new55-source
+  cancel-in-progress: false
+jobs:
+  reproduce:
+    if: github.ref == 'refs/heads/work/radio-zeno-new55-source-20261107'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          sparse-checkout: picons/radio-world/staging/batch-44-new55-source
+      - run: python3 -m pip install Pillow==13.0.0
+      - run: bash -n picons/radio-world/staging/batch-44-new55-source/publish.sh
+      - name: Reproduce frozen originals and exact nine PNG tuples
+        run: bash picons/radio-world/staging/batch-44-new55-source/publish.sh
