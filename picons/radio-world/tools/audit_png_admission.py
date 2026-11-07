@@ -2,18 +2,19 @@
 import argparse,json,gzip
 from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor
-from visual_gate import read,fingerprint,SIZES,STYLES
+from visual_gate import read,fingerprint,SIZES,STYLES,merge_ledgers,identity_blocks,explicit_source_resolution
 from saved_artwork_import import get
 p=argparse.ArgumentParser();p.add_argument('--index',required=True);p.add_argument('--production',required=True);p.add_argument('--ledger',required=True,action='append');p.add_argument('--output',required=True);a=p.parse_args()
-index=read(a.index);production=read(a.production);ledger={'entries':[entry for path in a.ledger for entry in read(path)['entries']]}
+index=read(a.index);production=read(a.production);ledger=merge_ledgers(a.ledger)
 old={r['id']:r for r in production['countries']};new={r['id']:r for r in index['countries']}
 assert len(old)==len(new)==219 and old.keys()==new.keys()
-approved={};rejected=set()
+approved={};rejected=set();blocked=identity_blocks(ledger)
 for e in ledger['entries']:
  key=fingerprint(e['row'])
  if e['decision']=='hold':rejected.add(key)
  else:
   assert e['decision']=='approve'
+  assert (e['row']['country'],e['row']['ref']) not in blocked or explicit_source_resolution(e)
   approved[key]=e['row']
 assert not approved.keys() & rejected
 byidentity={}

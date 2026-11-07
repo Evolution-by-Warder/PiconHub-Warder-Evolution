@@ -62,6 +62,14 @@ class VisualRegression(unittest.TestCase):
         packages['220x132']['white']['files'][name]='0'*64
         index={'countries':[{'id':self.bad['country'],'release':{'url':'fixture'}}]}
         with self.assertRaises(ValueError):assert_no_held(index,ledger,lambda e:{'packages':packages})
+    def test_unrendered_source_hold_blocks_selection_without_fake_variant_hashes(self):
+        ledger={'entries':[{'row':self.good,'decision':'approve'}],'source_holds':[{'country':self.good['country'],'ref':self.good['ref'],'reason':'Unresolved placeholder source'}]}
+        with self.assertRaises(ValueError):validate_selection([self.good],ledger)
+    def test_unrendered_source_hold_cannot_return_in_country_archive(self):
+        ledger,packages,name=self.replacement_fixture()
+        ledger['source_holds']=[{'country':self.bad['country'],'ref':self.bad['ref'],'reason':'No verified original exists'}]
+        index={'countries':[{'id':self.bad['country'],'release':{'url':'fixture'}}]}
+        with self.assertRaises(ValueError):assert_no_held(index,ledger,lambda e:{'packages':packages})
     def test_unavailable_country_does_not_need_empty_zip(self):
         index={'countries':[{'id':self.bad['country'],'release':None}]};ledger={'entries':[{'row':self.bad,'decision':'hold'}]}
         self.assertEqual(assert_no_held(index,ledger,lambda e:self.fail('Unexpected download')),1)
