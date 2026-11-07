@@ -1,17 +1,26 @@
 """Restore the exact immutable output-branch checkpoint; no station-source refetch."""
-import hashlib,io,json,os,sys,tarfile
+import hashlib,io,json,os,sys,tarfile,time,http.client
 from pathlib import Path
-from urllib.error import HTTPError
+from urllib.error import HTTPError,URLError
 from urllib.request import Request,urlopen
 REPO='Evolution-by-Warder/PiconHub-Warder-Evolution';BRANCH='work/radio-zeno1519-frozen-20261107';STAGE='picons/radio-world/staging/zeno-primary-20261107';root=Path(sys.argv[1]);root.mkdir(parents=True,exist_ok=True)
-try:
- with urlopen(Request('https://api.github.com/repos/'+REPO+'/git/ref/heads/'+BRANCH,headers={'Authorization':'Bearer '+os.environ['GH_TOKEN'],'Accept':'application/vnd.github+json'}),timeout=60)as r:commit=json.load(r)['object']['sha']
-except HTTPError as e:
- if e.code==404:print('No previous output checkpoint; using complete successful seed');sys.exit(0)
- raise
+def read(request,missing=False):
+ for attempt in range(3):
+  try:
+   with urlopen(request,timeout=90)as r:return r.read()
+  except HTTPError as e:
+   if missing and e.code==404:return None
+   if e.code not in(408,425,429,500,502,503,504)or attempt==2:raise
+   time.sleep(float(e.headers.get('Retry-After',2**(attempt+1))))
+  except(URLError,TimeoutError,OSError,http.client.HTTPException):
+   if attempt==2:raise
+   time.sleep(2**(attempt+1))
+b=read(Request('https://api.github.com/repos/'+REPO+'/git/ref/heads/'+BRANCH,headers={'Authorization':'Bearer '+os.environ['GH_TOKEN'],'Accept':'application/vnd.github+json'}),missing=True)
+if b is None:print('No previous output checkpoint; using complete successful seed');sys.exit(0)
+commit=json.loads(b)['object']['sha']
 base='https://raw.githubusercontent.com/'+REPO+'/'+commit+'/'+STAGE+'/'
 def raw(name):
- with urlopen(base+name,timeout=90)as r:return r.read()
+ return read(base+name)
 manifest=json.loads(raw('raw-cache/manifest.json'))
 for shard in manifest['shards']:
  b=raw(shard['path']);assert len(b)==shard['bytes']and hashlib.sha256(b).hexdigest()==shard['sha256']
