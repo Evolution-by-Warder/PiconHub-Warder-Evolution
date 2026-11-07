@@ -1,0 +1,36 @@
+name: Verify integrated Radio batches 34 and 35
+on:
+  push:
+    branches: [verify/radio-batches34-35-20261107]
+    paths:
+      - .github/workflows/verify-radio-batches34-35.yml
+      - tools/verify_radio_batches34_35.py
+permissions:
+  contents: write
+jobs:
+  downloader:
+    if: github.ref == 'refs/heads/verify/radio-batches34-35-20261107'
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            picons/radio-world/catalog
+            tools/verify_radio_batches34_35.py
+      - uses: actions/checkout@v4
+        with:
+          repository: Evolution-by-Warder/Radio-Warder-Evolution
+          ref: b7384bfdb55621beaf183ca6d40e9dedacaecdb9
+          path: _radio
+      - name: Test all 100 available countries in three backgrounds
+        run: |
+          python3 tools/verify_radio_batches34_35.py --index picons/radio-world/catalog/countries.json --countries all-available --output picons/radio-world/staging/batches-34-35/downloader.full-proof.json --radio _radio --cache "$RUNNER_TEMP/radio-http"
+      - name: Save verified result on verification branch
+        run: |
+          set -eu
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add picons/radio-world/staging/batches-34-35/downloader.full-proof.json
+          git commit -m 'Record integrated 100-country stable Radio downloader test [skip ci]'
+          git push origin HEAD:refs/heads/verify/radio-batches34-35-20261107
