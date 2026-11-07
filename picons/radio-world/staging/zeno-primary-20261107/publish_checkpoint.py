@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Write source evidence only to one explicit output ref using the job-scoped GitHub API token."""
-import base64,gzip,hashlib,io,json,os,re,sys,tarfile,time
+import base64,gzip,hashlib,io,json,os,re,sys,tarfile,time,http.client
 from pathlib import Path
 from urllib.request import Request,urlopen
-from urllib.error import HTTPError
+from urllib.error import HTTPError,URLError
 REPO='Evolution-by-Warder/PiconHub-Warder-Evolution';SOURCE='work/radio-zeno1519-source-20261107';OUTPUT='work/radio-zeno1519-frozen-20261107';STAGE='picons/radio-world/staging/zeno-primary-20261107';API='https://api.github.com/repos/'+REPO
 ROOT=Path(sys.argv[1]).resolve();PHASE=sys.argv[2];TOKEN=os.environ['GH_TOKEN'];assert os.environ['GITHUB_REPOSITORY']==REPO and os.environ['GITHUB_REF']=='refs/heads/'+SOURCE
 
@@ -16,6 +16,9 @@ def api(method,path,data=None,missing=False):
    if e.code==404 and missing:return None
    if e.code not in(429,500,502,503,504)or attempt==2:raise RuntimeError('checkpoint API HTTP '+str(e.code)+' '+path)from None
    time.sleep(float(e.headers.get('Retry-After',2**(attempt+1))))
+  except(URLError,TimeoutError,OSError,http.client.HTTPException)as e:
+   if attempt==2:raise RuntimeError('checkpoint API transport pending after3attempts '+path+' '+type(e).__name__)from None
+   time.sleep(2**(attempt+1))
 
 def digest(b):return hashlib.sha256(b).hexdigest()
 def blob(b):return api('POST','/git/blobs',{'content':base64.b64encode(b).decode(),'encoding':'base64'})['sha']
