@@ -65,7 +65,10 @@ def load(resource, url, cache, extension, official):
     with urllib.request.urlopen(request, timeout=60) as response:
         require(urllib.parse.urlsplit(response.url).hostname == expected_host, 'Unexpected input redirect')
         raw = response.read(resource['bytes'] + 1)
-    return validated(raw, resource)
+    try:
+        return validated(raw, resource)
+    except ValueError as error:
+        raise ValueError(str(error) + ': ' + url + '; expected_bytes=' + str(resource['bytes']) + '; actual_bytes=' + str(len(raw)) + '; expected_sha256=' + resource['sha256'] + '; actual_sha256=' + digest(raw) + '; response_content_type=' + str(response.headers.get('Content-Type'))) from error
 
 
 def put_immutable(path, raw):
