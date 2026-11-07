@@ -108,6 +108,8 @@ def package(task):
 
 def build(temporary, snapshot):
     selection_raw=(STAGE/CONFIG.get('selection_filename','selection.json')).read_bytes()
+    if 'selection_sha256' in CONFIG:
+        assert sha(selection_raw)==CONFIG['selection_sha256']
     if CONFIG.get('selection_filename','').endswith('.gz'):
         import gzip
         selection_raw=gzip.decompress(selection_raw)
