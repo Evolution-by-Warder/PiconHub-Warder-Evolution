@@ -1,17 +1,30 @@
-# Primary pending183 continuation
+# Primary pending183 continuation — 2026-11-07
 
-Base candidate2db89afad0f414fe7c4b1a6a1a836382d47090d3;production main untouched. Restored183 source-pending records from immutable7d89aff05454562b415e01c8815d00b58390169f.
+Source-only work branch: `work/radio-primary-pending183-source-20261107`. No new branch, PR, production merge or IPK.
 
-Country eligibility:175 exact canonical country-group/name/ref/stream matches;8 HDF-only references quarantined without invented country aliases. Existing124 immutable release manifests pass SHA256 and byte checks;none of these175 candidate references is already contained in their radio image inventories. Inventory union3074 includes shared-collection members and is not a revised coverage total;baseline country coverage remains3010.
+## Completed immutable artwork
 
-No artwork approvals or new renders yet. Primary stream/player/playlist binding and source visual review remain pending. Earlier25 artwork QA and corrected24 country consumers remain immutable. Full opaque HTML/script archives are not published;only sanitized public factual excerpts,hashes and approved public station images will be exported.
+- Chunk001: nine Jazz programmes, 81 exact approved PNGs; CI42422592769 PASS. Pixels `ba719f98f9d3f88a7ef67423139137e1ad0ed07f`, export `5b1869697415d8c66192798b4ddc6e56c1b9600d`. Independent remote81 audit PASS. Source001 bytes and pixel pins remain unchanged after002.
+- Chunk002: 22 actually visually reviewed rows /198 PNGs. Twelve approve/108 PNG; ten hold/90 PNG in quarantine. CI42425239405 PASS. Pixels `378a1f573e5b52ffe900788a97aa322a1dda56d8`, export `58538bd46c3382e44eeb6f7512d16152b38321b4`. Independent remote198 checks PASS for SHA256/bytes/Gitblob/RGBA/dimensions/PNG integrity and pinned path membership.
+- Admission is exactly21 approved refs (nine +twelve), never the ten rendered holds or four pre-render source exclusions. All198 source002 PNGs physically preserved. Existing production artwork/manifests unchanged.
+- Fixed global metadata aggregation losing source_holds/pending_sources. Regression PASS:21approve/10renderholds/4sourceexclusions with unchanged evidence/pending groups, no old001 regeneration. All22 rendered ledger rows pin actual pixel commit, held rows use quarantine root.
 
-## Preliminary metadata publication safety
+## Source and technical exclusions
 
-Automatic approval review rejected the first preliminary queue tree because canonical catalogue stream URLs included credential-like query parameters. No tree, commit or branch update was made by that rejected action. The safe preliminary queue omits every stream URL and records only SHA256 plus ref/name/canonical country group. HDF quarantine records likewise omit URLs. Credential-like query values will not be copied into source observations;affected inputs stay technical pending while independent stations continue.
+Four pre-render source fingerprint exclusions:19 wrong BRF news mark;56 promotional photograph;59 PartyFM technical SVG preview blocked;136 loading spinner. None is a permanent station identity ban; new valid source evidence and actual QA are required for future admission.
 
-## Completed source chunk001
+Index182 is already visual hold. Automatic approval review rejected publication of its token-like logo URL query metadata. The exact URL was removed from published metadata; only domain and URL SHA remain. No retry of the rejected payload, token URL request, audio request or admission. Its frozen renderer input and allnine existing PNGs remain complete and verified. Producer002 reproduces189 unaffected PNGs and verifies nine pre-existing quarantine PNGs,198 total.
 
-9 new canonical France programme references,81 actual visually approved PNGs,9 official200px WebP source originals. Protocol reconciliation is explicitly documented (official primary→own JS→own public API→same mount and programme-specific public station facts);canonical country/ref/stream remain unchanged. GitHub CI42422592769 passed. Actual PNG commit ba719f98f9d3f88a7ef67423139137e1ad0ed07f, metadata5b1869697415d8c66192798b4ddc6e56c1b9600d. Independent download of all81 remote PNGs verified SHA256,bytes,Gitblob,RGBA,dimensions and PNG integrity. All older2db PNGs/manifests unchanged.
+Frozen renderer inputs22 are complete at `f30553ce463c9cabe62039b95fbf3838a9a94f36`. Native public source images25, readable sourceQA26 and render derivations22 are checkpointed at `8ca4d6f0c409583b0b650f44e4c6cb0f093d8b9b`.
 
-The remaining frozen source35 set has22 independently source-approved items entering actual all-nine rendering,3 explicit wrong-source identities and1 technical SVG pending. None of these pending/local-only outputs is counted as delivered. The existing source branch alone is used;no production or PR changes and no new output branch.
+Native El Adolfo SVG132 (3,753,552B, SHA256 `5c246cf26e1c25be164461389b57a52932afab0db2d8632e482900370b559d5e`) publication is **technically deferred**. Automatic review rejected a large opaque base64 image-part payload as insufficiently verifiable. Upload stopped, no retry or alternate carrier; incomplete native parts are not included in the reachable tree. Its exact frozen raster input and allnine approved PNGs are durable and CI verified; this does not claim that native SVG is published. See `chunks/chunk-002/native-source132-publication-deferred.json`.
+
+Public logo files only; no full HTML/JS/headers/cookies archive, no credential-like URL values. HDF-only8 remain country-ineligible. Other unverified discoveries stay pending in the existing country-gated queue. Country delivery45 is coordinated by root from exact approved immutable PNGs; no production change authorized here.
+
+## Exact remaining queue
+
+The original183 partition is8HDF country-ineligible +21approved +10rendered holds +4pre-render source exclusions +4separate credential-like technical deferrals +136other still pending =183. The35 source-reviewed rows must not be repeated. SVG132 native-publication deferral overlaps an approved row;182 query-metadata deferral overlaps a rendered hold, so neither adds another reference to the partition.
+
+`remaining-source-queue136.json` checkpoints the bounded probe status and safe domain/hash facts for all136. One concrete next candidate is index26 BG Note FM, ref `4097:0:2:6CAE:90EB:ED:0:0:0:0`: exact canonical stream literal and note.svg have frozen containment evidence, but broadcaster ownership of the free-hosting page is unproven. Establish an independent broadcaster-owned crosslink before any render/admission; current evidence does not suffice. No new source processing was started by this final checkpoint.
+
+Independent readback of all25 published native image files also PASS SHA256/bytes/Gitblob. Source132 remains explicitly unpublished as native SVG. Detailed reports: `remote-audit-chunk-002.json` and `chunks/chunk-002/remote-native-audit25.json`.
