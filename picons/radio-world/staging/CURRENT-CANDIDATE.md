@@ -1,20 +1,26 @@
-# Warder Radio – overený pracovný kandidát cez dávku 42
+# Warder Radio – overený pracovný kandidát cez dávku 43
 
-Stav: Draft, bez produkčného merge. Testovaný pracovný commit 736c6afef1ae3085153849b73c8bf2b854e55d7c.
-CI: https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/actions/runs/42383316414 (SUCCESS).
-Index SHA-256: 8dfc9b924bc2c144997c1333840364ae12a2c7497baa2bcf02a9e9c5ef633d70.
+Stav: Draft, bez produkčného merge. Testovaný pracovný commit 8b5d2baf95392483ebb592ae413832dec5b7190a.
+CI: https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/actions/runs/42389598820 (SUCCESS).
+Index SHA-256: b2018e346e88cef556b27290ff241d850cb01135855fc643dfe1d92965185d0e.
 
-219 krajín: 119 dostupných = 12 úplných + 107 čiastočných; 100 nedostupných.
-Pokrytých 2 870 / 35 560 krajinských referencií; zostáva 32 690.
-26 406 PNG položiek vrátane aliasov: všetkých 10 332 pôvodných bez zmeny a 16 074 nových viazaných na presné prijaté deväťvariantové SHA.
+219 krajín: 125 dostupných = 12 úplných + 113 čiastočných; 94 nedostupných.
+Pokrytých 3 010 / 35 560 krajinských referencií; zostáva 32 550.
+27 666 PNG položiek vrátane aliasov = všetkých 10 332 pôvodných bez zmeny + 17 334 prijatých nových.
 Úplné: SK, CZ, BT, TD, CX, GG, GW, KI, LR, MS, SM, KM.
 
-Dávka 42 pridáva 435 laut.fm a 6 samostatných krajinských referencií: 441 referencií / 3 969 PNG položiek / 30 krajín / 270 nových ZIPov. Všetky nové referencie majú skutočnú vizuálnu kontrolu deviatich variantov. Originály a hotové PNG sú pripnuté k overeným nemenným zdrojovým commitom. 14 CDN vstupov s inými bajtmi bolo nahradených výlučne pôvodnými zmrazenými súbormi.
+Dávka 43 pridáva 140 referencií / 1 260 PNG položiek v 47 krajinských unionoch / 423 nových ZIPov: 113 Zeno + 24 primary + 3 doložené kontrastné opravy (Italo4you, Lahmacun, GLR). Nové prijaté položky majú skutočnú vizuálnu kontrolu všetkých deviatich variantov, nemenné originály a PNG commity.
 
-15 regresných testov vizuálnej brány v CI prešlo. Plytká Git cache zdrojového produceru bola opravená a má 6 samostatných skutočných Git regresných testov. Všetkých 349 nových predbežných source holds zostáva mimo balíkov a nemá vymyslené PNG fingerprinty. Staré zmiešané MS varianty sú blokované; prijatá kompozícia je rovnaký oficiálny badge na všetkých pozadiach. Farebné WF sa nepremaľuje a ostáva oddelené.
+Pôvodný source výber primary25 obsahoval HDF-only Stephansdom EF referenciu. Striktný gate ju zastavil pred country ZIP buildom; v aktuálnom katalógu neexistuje krajinský záznam presného ref ani názvu + URL. Krajinská eligibility je opravená na 24; HDF-only prípad aj jeho deväť skutočných source PNG zostali oddelené. Pôvodných 225 source PNG a historický export sa zachovali. Žiadna referenčná ani skupinová normalizácia naslepo.
 
-Downloader 0.1.9.2 je nezmenený: replay všetkých 119 dostupných krajín, tri pozadia 220×132, 354 verejných ZIP URL; na pozadie 2 869 presných inštalovaných PNG + 1 zachovaný vlastný picon, 0 zlyhaní, opakovaný beh 0 ZIP požiadaviek. Nastavenia, história, obľúbené a vlastné picony zachované. Fyzický prijímač nebol testovaný.
+15 regresných testov vizuálnej brány + 2 HDF regresie prešli v CI. HDF-only pôvodný záznam aj jeho kópia s ručne prepísanou skupinou Austria musia zlyhať; všetkých 140 prijatých country/name/URL/ref členstiev prešlo. Nový výber primary24 je presný nezmenený podvýber source25 mínus HDF. Finálny Zeno snapshot bol porovnaný so všetkými 113 prijatými source/API SHA a country/mount dôkazmi.
 
-Inventár 1 062 nemenných URL balíkov všetkých deviatich variantov má uložené SHA-256. Najväčší nový ZIP DE WHITE 400×240 má 59 190 697 bajtov, pod limitom 64 MiB. Existujúce produkčné PNG/ZIP/IPK cesty sa nemenia. Historická vetva work/radio-batch33-legacy-payload-20261106 ostáva zachovaná. PR #67 a #68 sú Draft; žiadne IPK ani produkčné zlúčenie.
+Downloader 0.1.9.2 je nezmenený: replay všetkých 125 dostupných krajín, tri pozadia 220×132, 372 verejných ZIP URL; na pozadie 3 009 presných inštalovaných PNG + 1 zachovaný vlastný picon, 0 zlyhaní, opakovaný beh 0 ZIP požiadaviek. Nastavenia, história, obľúbené a vlastné picony zachované. Fyzický prijímač nebol testovaný.
 
-Ďalšie primary25/contrast3/Zeno zdrojové dávky majú oddelené pracovné vetvy a nie sú započítané do tohto indexu. Celosvetové pokrytie ešte nie je dokončené.
+Inventár 1 116 nemenných URL balíkov všetkých deviatich variantov má presné SHA-256 a zhodný SHA256SUMS. Najväčší balík má 59 271 661 bajtov, pod limitom 64 MiB. V nových country unionoch bolo zachovaných 16 272 predchádzajúcich PNG položiek. Celý kandidát zachováva všetkých 10 332 produkčných PNG položiek vrátane aliasov.
+
+Lokálny runtime prestal fungovať; integrácia 43 bola dokončená cez GitHub/CI. Neobnoviteľné novšie lokálne záznamy sa nezahodili: CI izolovalo presných 102 nových zdrojov (364 frozen mínus 262 publikovaných QA). Aktívnych nových metadata holds je 240 = 121 známych source holds + 102 technická karanténa + 17 primary holds. Technická karanténa nie je odmietnutie identity. Následne zachránené skutočné rozhodnutia sú na source113 vetve v receiptoch; samy nepredstavujú pripravené PNG.
+
+Zeno1519 source freeze úspešne skončil: 419 logo-frozen / 1 096 metadata hold / 4 retrieval pending, final checkpoint 890c9edb644d676f5b33855268f39aefbad65be8. Zdrojové zmrazenie nie je grafické schválenie. Ďalších 54 lokálnych finálnych approve ID má zachránené hlasovanie, ale chýbajú kompletné PNG tuple väzby a nie sú country CI ready; ďalšie 3 sú iba source-pass. Nezapočítavajú sa do indexu.
+
+Produkčný main, existujúce PNG/ZIP/IPK cesty a historická vetva work/radio-batch33-legacy-payload-20261106 ostávajú zachované. PR #67 a #68 sú Draft, žiadne nové IPK ani produkčné zlúčenie. Celosvetové pokrytie ešte nie je dokončené.
