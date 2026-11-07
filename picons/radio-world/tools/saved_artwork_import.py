@@ -5,6 +5,7 @@ import argparse
 import hashlib
 import io
 import json
+import re
 from pathlib import Path
 import struct
 import subprocess
@@ -83,6 +84,11 @@ def package(task):
             assert image.format=='PNG' and image.mode=='RGBA' and image.size==tuple(map(int,size.split('x')))
             image.verify()
         items[name]=data
+    filename=re.compile(r'(?:4097|5001|5002)_0_2_(?:[A-Fa-f0-9]+_){6}[A-Fa-f0-9]+\.png')
+    assert all(filename.fullmatch(name) for name in items)
+    if size=='220x132':
+        assert all(57<=len(body)<=2*1024*1024 for body in items.values())
+        assert sum(map(len,items.values()))<=128*1024*1024
     path=f'picons/IPTV-{code}/packages/iptv-{code.lower()}-{style}-{size}.zip'
     target=dest/path
     target.parent.mkdir(parents=True,exist_ok=True)
@@ -101,7 +107,11 @@ def package(task):
     return code,size,style,dict(resolution=size,path=path,bytes=len(raw),sha256=sha(raw),files=files),len(prior)
 
 def build(temporary, snapshot):
-    selection=json.loads((STAGE/'selection.json').read_bytes())['entries']
+    selection_raw=(STAGE/CONFIG.get('selection_filename','selection.json')).read_bytes()
+    if CONFIG.get('selection_filename','').endswith('.gz'):
+        import gzip
+        selection_raw=gzip.decompress(selection_raw)
+    selection=json.loads(selection_raw)['entries']
     assert len(selection)==len({r['ref'] for r in selection})==CONFIG['references']
     for row in selection:
         row['variants']={k:dict(sha256=d,bytes=n,git_blob=b,path=f'verified-assets/{d}.png')
