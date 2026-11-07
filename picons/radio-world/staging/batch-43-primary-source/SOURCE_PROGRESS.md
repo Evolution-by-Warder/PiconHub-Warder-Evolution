@@ -19,3 +19,11 @@ Production files and ZIPs remain unchanged. This isolated source branch is ready
 ## Technical deferral
 
 Automatic approval review rejected publication of the large opaque26MB full-HTML evidence archive because its contents/sensitivity could not be verified. That transfer stopped. Its incomplete parts were removed from the live branch tree by a regular commit, preserving history. No retry or indirect archive publication is performed. Full anonymous public HTML snapshots remain locally frozen; readable exact primary facts/excerpts and their hashes are durable on GitHub. The PNG producer validates only the explicit public image inputs and readable source/QA records;it does not require the deferred archive.
+
+## Final consumer gate export
+
+Canonical visual-ledger.json.gz contains39 actual nine-variant render rows:25 approve,14 hold. Approved rows pin the actual PNG commit and stage-only asset root;held14 rows explicitly remain local renders and make no false remote publication claim.
+
+Only16 explicit wrong/undifferentiated source-identity rejects populate source_holds. The183 technical,unavailable,HTTP/protocol/encoding,ownership or exactstream-binding uncertainties populate pending_sources and are not permanent identity blocks. No invented nine-variant fingerprints were attached to pre-render source records. The earlier213-item non-approved registry now labels these categories explicitly.
+
+validate_selection:25PASS with the own canonical ledger;25PASS with all historical700+898+732(batch39)+70(batch40)+71(batch41)+558(batch42) entries. No historical exact-render conflicts or source-hold resolutions were required. Consumer descriptor pins the immutable selection/ledger metadata commit and all file SHA256/bytes/Gitblob. This export changed metadata only;no rerender or repeated225-PNG download was performed.
