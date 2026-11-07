@@ -42,12 +42,17 @@ def build(temporary,snapshot):
     revoked=defaultdict(set)
     for row in CONFIG['revoked']:
         revoked[row['country']].add(row['ref'].replace(':','_')+'.png')
-    assert sum(map(len,revoked.values()))==8
-    tasks=[];manifests={}
+    assert sum(map(len,revoked.values()))==CONFIG['revoked_count']
+    tasks=[];manifests={};unavailable=[]
     for code,names in revoked.items():
         current=json.loads(get(rows[code]['release']))
         baseline=json.loads(get(protected[code]['release'])) if protected[code]['release'] else None
-        manifests[code]=dict(current,version='2026.11.07-history36-r2',packages={})
+        reference_names=set(current['packages']['220x132']['black']['files'])
+        becomes_unavailable=reference_names==names
+        if becomes_unavailable:
+            unavailable.append(code)
+        else:
+            manifests[code]=dict(current,version=CONFIG['version'],packages={})
         for size,styles in current['packages'].items():
             for style,entry in styles.items():
                 assert names<=entry['files'].keys()
@@ -55,11 +60,13 @@ def build(temporary,snapshot):
                     old=baseline['packages'][size][style]['files']
                     assert not names & old.keys()
                     assert old.items()<=entry['files'].items()
-                tasks.append((code,size,style,entry,names,snapshot))
+                assert set(entry['files'])==reference_names
+                if not becomes_unavailable:
+                    tasks.append((code,size,style,entry,names,snapshot))
     with ThreadPoolExecutor(max_workers=8) as pool:
         for code,size,style,entry in pool.map(package,tasks):
             manifests[code]['packages'].setdefault(size,{})[style]=entry
-    (temporary/'packages.json').write_bytes(encoded(dict(countries=manifests,additions={c:-len(v) for c,v in revoked.items()})))
+    (temporary/'packages.json').write_bytes(encoded(dict(countries=manifests,unavailable=unavailable,additions={c:-len(v) for c,v in revoked.items()})))
 
 def manifests(temporary,snapshot,payload):
     report=json.loads((temporary/'packages.json').read_bytes())
@@ -76,16 +83,22 @@ def index(temporary,snapshot,payload,revision):
     report=json.loads((temporary/'packages.json').read_bytes())
     for row in result['countries']:
         if row['id'] not in report['additions']:continue
-        path=f'picons/{row["collection"]}/catalog/release.json';raw=(snapshot/path).read_bytes()
         row['picons']+=report['additions'][row['id']]
+        assert row['picons']>=0
+        if row['id'] in report['unavailable']:
+            assert row['picons']==0
+            row['status']='unavailable'
+            row['release']=None
+            continue
+        path=f'picons/{row["collection"]}/catalog/release.json';raw=(snapshot/path).read_bytes()
         assert row['picons']>0
         row['status']='complete' if row['picons']==row['stations'] else 'partial'
         row['release']=dict(commit=revision,url=CONFIG['base_url']+revision+'/'+path,bytes=len(raw),sha256=sha(raw))
         assert get(row['release'])==raw
-    assert sum(r['picons'] for r in result['countries'])==1974
+    assert sum(r['picons'] for r in result['countries'])==CONFIG['expected_coverage']
     (STAGE/'countries.proposed.json').write_bytes(encoded(result))
     (STAGE/'proof.json').write_bytes(encoded(dict(schema=1,payload_commit=payload,manifest_commit=revision,
-        accepted_new_references=490,revoked=CONFIG['revoked'],packages=9*len(report['countries']),additions=report['additions'])))
+        accepted_new_references=CONFIG['accepted_new_references'],revoked=CONFIG['revoked'],packages=9*len(report['countries']),additions=report['additions'])))
 
 if __name__=='__main__':
     parser=argparse.ArgumentParser();parser.add_argument('configuration',type=Path)
