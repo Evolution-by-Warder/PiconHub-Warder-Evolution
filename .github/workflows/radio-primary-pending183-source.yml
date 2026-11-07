@@ -1,4 +1,4 @@
-name: Reproduce exact reviewed primary pending source chunk
+name: Reproduce exact reviewed primary pending source chunk 002
 on:
   push:
     branches: [work/radio-primary-pending183-source-20261107]
@@ -15,5 +15,6 @@ jobs:
         with:
           sparse-checkout: picons/radio-world/staging/primary-pending183-source-20261107
       - run: python3 -m pip install Pillow==13.0.0
+      - run: python3 picons/radio-world/staging/primary-pending183-source-20261107/test_aggregate_source_metadata.py
       - run: bash -n picons/radio-world/staging/primary-pending183-source-20261107/publish_source.sh
       - run: bash picons/radio-world/staging/primary-pending183-source-20261107/publish_source.sh
