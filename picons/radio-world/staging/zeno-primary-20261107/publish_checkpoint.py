@@ -50,7 +50,10 @@ for name,b in raws.items():
  assert blob(b)==gitsha;entries.append(dict(path=STAGE+'/'+name,mode='100644',type='blob',sha=gitsha));state['file_blobs'][name]=gitsha
 if entries:
  tree=api('POST','/git/trees',dict(base_tree=tree,tree=entries))['sha'];commit=api('POST','/git/commits',dict(message='Save Zeno primary source checkpoint: '+PHASE+' [skip ci]',tree=tree,parents=[parent]))['sha']
- if ref:api('PATCH','/git/refs/heads/'+OUTPUT,dict(sha=commit,force=False))
- else:api('POST','/git/refs',dict(ref='refs/heads/'+OUTPUT,sha=commit))
+ latest=api('GET','/git/ref/heads/'+OUTPUT,missing=True)
+ if latest and latest['object']['sha']==commit:pass
+ elif ref and latest and latest['object']['sha']==parent:api('PATCH','/git/refs/heads/'+OUTPUT,dict(sha=commit,force=False))
+ elif not ref and latest is None:api('POST','/git/refs',dict(ref='refs/heads/'+OUTPUT,sha=commit))
+ else:raise RuntimeError('expected output ref lease changed; refusing update')
  state['last_commit']=commit;tmp=state_path.with_suffix('.tmp');tmp.write_text(json.dumps(state,indent=2)+'\n');tmp.replace(state_path);print(json.dumps(dict(checkpoint_commit=commit,output_branch=OUTPUT,raw_objects=len(state['objects']),new_objects=len(new),phase=PHASE)),flush=True)
 else:print('No changed source evidence checkpoint',flush=True)
