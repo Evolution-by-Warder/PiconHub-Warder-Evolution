@@ -61,6 +61,19 @@ def validate_resource(resource):
     require(not path.is_absolute() and '..' not in path.parts and '\\' not in resource['path'], 'Unsafe Git path')
 
 
+def cache_resource_available(repo, resource):
+    """Use cache only when the pinned tree and expected blob both exist locally.
+
+    A shallow checkout may contain an identical blob without the historical pinned
+    commit. That is a cache miss, so the caller uses the strictly checked pinned
+    raw URL. Existing but contradictory path/blob metadata still fails in
+    read_resource rather than falling back.
+    """
+    tree_exists = git(repo, 'cat-file', '-e', resource['commit'] + '^{tree}', check=False).returncode == 0
+    blob_exists = git(repo, 'cat-file', '-e', resource['git_blob'] + '^{blob}', check=False).returncode == 0
+    return tree_exists and blob_exists
+
+
 def read_resource(repo, resource):
     line = git(repo, 'ls-tree', resource['commit'], '--', resource['path']).stdout.decode().strip()
     require(line and line.split()[1:3] == ['blob', resource['git_blob']], 'Pinned path/blob mismatch: ' + resource['path'])
@@ -103,8 +116,7 @@ def main():
         def load(resource):
             if args.object_cache:
                 repo = args.object_cache.resolve()
-                exists = git(repo, 'cat-file', '-e', resource['git_blob'], check=False).returncode == 0
-                if exists:
+                if cache_resource_available(repo, resource):
                     return read_resource(repo, resource)
             require(not args.offline, 'Pinned resource absent from offline cache: ' + resource['path'])
             url = ('https://raw.githubusercontent.com/' + plan['repository'] + '/' +

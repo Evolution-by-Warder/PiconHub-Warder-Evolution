@@ -15,7 +15,9 @@ jobs:
         with:
           sparse-checkout: picons/radio-world/staging/singleton-completion-20261107
       - run: python3 -m pip install Pillow==13.0.0
-      - name: Check publisher shell syntax
-        run: bash -n picons/radio-world/staging/singleton-completion-20261107/produce.sh
+      - name: Check source cache regressions and shell syntax
+        run: |
+          bash -n picons/radio-world/staging/singleton-completion-20261107/produce.sh
+          python3 -m unittest discover -s picons/radio-world/staging/singleton-completion-20261107 -p test_singleton_source_cache.py -v
       - name: Verify staged evidence and reproduce exact54 PNGs then pin immutable pixel commit
         run: bash picons/radio-world/staging/singleton-completion-20261107/produce.sh
