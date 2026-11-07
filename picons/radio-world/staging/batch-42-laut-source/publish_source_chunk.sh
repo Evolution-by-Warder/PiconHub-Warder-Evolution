@@ -13,6 +13,7 @@ if git ls-remote --exit-code origin "refs/heads/$branch" > "$RUNNER_TEMP/existin
     exit 0
   fi
 fi
+python3 "$stage/frozen-cache/seed_originals.py"
 python3 "$stage/reproduce_laut_on_github.py" --plan "$RUNNER_TEMP/laut-plan.json" --output-root . --source-cache "$stage/originals"
 git add "$stage"
 if ! git diff --cached --quiet; then
