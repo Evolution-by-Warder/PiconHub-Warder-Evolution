@@ -1,0 +1,9 @@
+# Zeno113 inspected source production (working branches only)
+
+113 individually verified station references, all1017 rendered PNG variants actually inspected at50×30/220×132/400×240 on transparent/white/black. Another28 rendered references remain held; source-only holds never enter these plans. Exact primary API stream/mount, explicit country and same-station-ID logo association are pinned in readable plan observations. The station title guides discovery and does not replace those gates.
+
+The producer fetches only immutable existing GitHub source shards, verifies every archive/member SHA256/bytes/Gitblob and primary API fields, and extracts only these accepted image originals. It never contacts a live Zeno endpoint or uploads raw API/HTML archives. Inputs use the unchanged8180aa0df6e185efad120338bc53ca04bc5e492a repo renderer/verifier/catalogue/MASTER resources and Pillow13.0.0. Every output must equal the exact previously reviewed nine-variant SHA256/bytes/Gitblob tuple before any image is staged. Existing unequal files are refused. Original approved source image bytes are preserved.
+
+Two isolated output branches (100+13 refs) hold individual `verified-assets/{SHA}.png` Git blobs and immutable pixel commits. The final `selection.json.gz` sets `source_commit` to the first PNG commit and `asset_root` to this STAGE; consumers append `verified-assets/{SHA}.png`. Checkout does not persist credentials. The ephemeral workflow token is used only for guarded pushes to the two explicit new source chunk branches. No production ZIP, main, open integration branch, merge, or IPK is changed.
+
+The wider1519-reference primary freeze is still running. These113 are ready as reviewed working source assets; final reconciliation against the end-of-freeze conflict/hold ledger is required before production integration/approval. This producer does not authorize a production merge.
