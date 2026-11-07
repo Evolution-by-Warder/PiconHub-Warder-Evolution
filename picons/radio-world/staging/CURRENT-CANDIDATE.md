@@ -1,28 +1,32 @@
-# Current Warder Radio working checkpoint · 2026-11-07
+# Current Warder Radio candidate · 2026-11-07
 
-Production remains batch 33 at `8180aa0df6e185efad120338bc53ca04bc5e492a`: 219 countries, 33 available, 1,084 country references. No production merge or new IPK is authorized by this checkpoint.
+Production remains batch33 at `8180aa0df6e185efad120338bc53ca04bc5e492a`. No production merge or IPK release has been performed. PR67 and PR68 remain Draft by explicit instruction.
 
-## Current candidates
+## Tested candidate through40
 
-- PR #67: branch `work/radio-batches34-35-integration-20261107`, tested integration commit `65c47b1486aef1b8a7bcfbfeb721f1cab1f82c4f`. Candidate index `picons/radio-world/catalog/countries.json`: 219 countries / 95 available / 1,458 references. All 26 currently identified holds are removed. Full-country CI 42368878306 passed.
-- PR #68: this branch. Latest tested payload/index commit `9e87b79c63e44d75f88d21350cbfa0614657a9f9`, stage `picons/radio-world/staging/batch-38-contrast-pass1`. Candidate index: 219 countries / 107 available / 2,343 of 35,560 references. Full-country CI 42368874669 passed.
-- New batches 37 and 38 contain 200 + 196 references, 3,564 exact saved PNGs across all nine size/background variants. All 396 new references received actual final 220×132 inspection in transparent, white and black, and all nine source variants passed archive checks.
-- Source ledger `fce1d00625b5508ed4dad05d61961c62bb338c9d`: 700 actual three-background reviews, 396 accepted and 304 held. A separate batch34 pass reviewed 36 rows: 20 passed and 16 held. All 16 are removed in both current candidate indices.
+- Immutable tested checkpoint: `8c6caf04c608f8443969af66d1e39538bccc86f0`.
+- Current working integration: PR68 branch `work/radio-world-batch38-contrast-pass1-history-20261107`; its canonical country index and release manifests reuse the exact tested Git blobs.
+- Staging index: `picons/radio-world/staging/batch-40-reviewed/countries.proposed.json`.
+- Index:219 countries,109 available;6 complete,103 partial,110 unavailable.
+- Complete countries: SK,CZ,TD,GG,KI,LR.
+- Coverage:2389 of35560 country references;33171 remain without an admitted candidate picon.
+- Candidate archive inventory:22077 PNG variant entries including aliases; all10332 production entries preserved exactly.
+- Every11745 additional PNG entry is bound to an exact approved nine-variant review.
+- CI42372903860 passed: all109 available countries,324 public220x132 ZIP URLs,2388 exact installs+1 custom file/style,0 failures,repeat0ZIP,and settings/history/favourites preserved.
+- Thirteen regression tests passed, including rejection of a repair with even one stale held variant. A held artwork can only be replaced by a separately reviewed exact nine-hash replacement.
+- Language repair18:162 PNGs regenerated from exact official language originals and immutable MASTERs; CI42372359825 reproduced all162 local SHA256/bytes/Git blobs. Corrected source PNG commit:`40a534e2f316c3256759f0caef55f1867d2365de`; retain source branch `work/radio-replay18-source-20261107`.
+- Batch39:334 admitted refs/3006PNG after732 actual visual and primary-identity reviews. Batch40:18 exact language repairs+27 vetted CDN reuses=45refs/405PNG.
+- Independent legacy review34–36:all898 complete,530 admitted/368 held before the18 later language replacements. No legacy visual review remains pending.
+- PR67 separately proposes219 admitted refs from34–35 (181 held),index219/81/1303; integration commit`0359575fa65c19c2b2172075ebe4e9c0e37bf0d5`.
+- Exact alias audit across all2389 admitted country donors found0 additional country matches;89 HDF matches and64 historical extra PNG filenames are excluded from station counts.
+- Physical receiver test was not performed.
 
-## Verification scope
+## Continuation
 
-Stable downloader 0.1.9.2 (immutable source `b7384bfdb55621beaf183ca6d40e9dedacaecdb9`) was replayed against every available country in each candidate, all three 220×132 backgrounds. PR67: 1,457 installed + 1 preserved custom file per style; PR68: 2,342 installed + 1 preserved custom file per style. Zero failures, zero repeat ZIP requests, preserved settings/favourites/history. No physical receiver test was performed.
+The next source work is separate from this tested checkpoint:
+- `continuation/world42`:40 accepted saved-artwork refs/21countries;31 held final candidates,2 source tenants excluded. Not yet integrated.
+- `continuation/laut-api-batch`:889 new official laut.fm country station objects frozen from primary API,36countries. Source download, explicit country/default-image exclusions and visual review are in progress. No pending source is admitted by these counts.
 
-Independent production comparisons verified 118 / 133 immutable manifest URLs and preserved all 10,332 production PNG variant entries, including package aliases. Both stages retain `proof.json`, `downloader-proof.json`, and `production-preservation-proof.json`.
+Preserve all pinned working payload/source branches and immutable snapshots. In particular retain `work/radio-batch33-legacy-payload-20261106` at `3bd8ea5659eb4d21c913ab4edb090d890d646a39`. Do not regenerate existing ZIPs or use rejected render outputs as new inputs. New work must preserve all existing production PNG bytes.
 
-The current PR67 canonical index was independently checked byte-for-byte against the tested correction output. Its diff changes no existing PNG, ZIP or IPK path.
-
-## Still open; keep both PRs as drafts
-
-Complete independent final contrast/identity review of the remaining historical batch34–36 artwork. Technical archive checks and old source approvals alone do not certify final visual quality. Do not promote inherited historical candidates to production before this is resolved. Then prepare the final integration and request explicit merge approval. Continue further source batches from saved state, without recreating existing exact ZIP payloads.
-
-Earlier `batch-37`, `batch-35`, `batch-36` and pre-correction indices are historical evidence, superseded by the paths above. Do not restart their builds.
-
-Protected legacy branch `work/radio-batch33-legacy-payload-20261106` remains at `3bd8ea5659eb4d21c913ab4edb090d890d646a39`. HDF disputes remain separate.
-
-Full Slovak journal: [RADIO_PROGRESS.md checkpoint](https://github.com/Evolution-by-Warder/Radio-Warder-Evolution/blob/5241e27dcf45c340132c1b0470c34ef078b64d61/RADIO_PROGRESS.md).
+Detailed Slovak journal: Radio-Warder-Evolution branch `work/radio-batch33-recovery-register-20261106`, `RADIO_PROGRESS.md`. No merge, publishing or new IPK without explicit approval.
