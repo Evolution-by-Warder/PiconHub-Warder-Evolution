@@ -25,7 +25,7 @@ report=json.loads((work/'packages.json').read_bytes());zip_paths=[];zip_evidence
 for m in report['countries'].values():
     for size,styles in m['packages'].items():
         for style,e in styles.items():
-            path=e['path'];assert re.fullmatch(r'picons/IPTV-[A-Z-]+/packages/iptv-[a-z-]+-(black|white|transparent)-(51x30|220x132|400x240)\.zip',path)
+            path=e['path'];assert re.fullmatch(r'picons/IPTV-[A-Z-]+/packages/iptv-[a-z-]+-(black|white|transparent)-(50x30|220x132|400x240)\.zip',path)
             raw=(new/path).read_bytes();assert len(raw)==e['bytes'] and hashlib.sha256(raw).hexdigest()==e['sha256'] and len(raw)<=67108864
             target=scratch/path;target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes(raw)
             prior=git('ls-tree',head,'--',path);prior_sha=prior.split()[2]if prior else None
