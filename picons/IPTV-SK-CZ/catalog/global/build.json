@@ -1,86 +1,82 @@
 {
   "schema": 1,
-  "built_at": "2026-11-04T11:42:00+00:00",
+  "built_at": "2026-11-08T11:33:46+00:00",
   "sources": {
     "radio-browser": {
-      "status": "previous-data-retained",
-      "observations": 63026,
-      "last_success": "2026-11-03T23:19:55+00:00",
-      "error": "Source snapshot unavailable"
+      "status": "live",
+      "observations": 63529,
+      "invalid_records": 16,
+      "server": "de1.api.radio-browser.info",
+      "rows": 63545,
+      "seconds": 8.19
     },
     "laut.fm": {
       "status": "previous-data-retained",
       "observations": 16905,
       "last_success": "2026-11-03T23:19:55+00:00",
-      "error": "Source snapshot unavailable"
+      "error": "HTTP Error 503: Service Unavailable"
     }
   },
   "processing": {
-    "duplicate_observations_merged": 14605,
-    "country_conflicts": 596,
-    "new_unhealthy_clusters_excluded": 577,
-    "total_stations": 35560,
+    "duplicate_observations_merged": 14839,
+    "country_conflicts": 591,
+    "new_unhealthy_clusters_excluded": 694,
+    "total_stations": 36217,
     "countries": 219,
     "unclassified": 0,
     "confirmed_retired_programme": 1,
-    "station_variant_rows_merged": 4097,
-    "missing_station_evidence": 2322,
+    "station_variant_rows_merged": 4107,
+    "missing_station_evidence": 2336,
     "broadcaster_channel_identity_unconfirmed": 17,
-    "unresolved_same_name_identities": 2127,
-    "country_evidence_needs_review": 160,
+    "unresolved_same_name_identities": 2149,
+    "country_evidence_needs_review": 159,
     "placeholder_or_test_entry": 1,
-    "unknown_or_conflicting_country": 20571,
-    "review_rows": 31644,
-    "input_station_rows": 71301,
-    "published_station_rows": 35560,
-    "audit_requested_urls": 44365,
-    "audit_deferred_urls": 134,
+    "unknown_or_conflicting_country": 20564,
+    "review_rows": 31214,
+    "input_station_rows": 71538,
+    "published_station_rows": 36217,
+    "audit_requested_urls": 37178,
+    "audit_deferred_urls": 5247,
     "original_slovak_stations_preserved": 88,
-    "known_stations_retained_during_outage": 43,
-    "audio_confirmed": 35517,
-    "live_audio_not_confirmed": 4095,
-    "confirmed_unavailable_or_non_audio": 2275,
-    "verified_alternative_urls_selected": 186,
-    "redirects_to_another_station": 75,
-    "owner_requested_station_removals": 1
+    "known_stations_retained_during_outage": 5486,
+    "audio_confirmed": 30731,
+    "live_audio_not_confirmed": 4395,
+    "confirmed_unavailable_or_non_audio": 1512,
+    "redirects_to_another_station": 80,
+    "verified_alternative_urls_selected": 106
   },
   "master": {
-    "bytes": 7160227,
-    "decoded_bytes": 42560587,
-    "sha256": "f2663adecd351013c63bf7e2ebb8783469659e64916ed183630c3a08cb75f70a"
+    "bytes": 7210315,
+    "decoded_bytes": 42876549,
+    "sha256": "82b85ea711c293f8cea3e35709b88a294c5b06e9d4c55c24787c50af66be3c02"
   },
   "catalogue": {
-    "bytes": 5520190,
-    "decoded_bytes": 35237755,
-    "sha256": "902d2282d47356bfc9e60e8dccd67da4bbebd909f21dd9ac9c66c5612f0e289a"
+    "bytes": 5642663,
+    "decoded_bytes": 36039690,
+    "sha256": "e317f480d0565230fecf4418688853cffc63a1bdc3515982e4c40423a39eeded"
   },
   "receiver": {
-    "bytes": 1264142,
-    "decoded_bytes": 6372503,
-    "sha256": "2ae88890a953c2f68d3f20352ad56a7390645bd3ce189573dd94e50c8a65abfe"
+    "bytes": 1285174,
+    "decoded_bytes": 6474840,
+    "sha256": "1822415e4cab426acb0a74f74cb5b095679e655ff06a607c697049be688816a0"
   },
   "review": {
-    "bytes": 3943028,
-    "decoded_bytes": 30918056,
-    "sha256": "97aaa5ecdc7782181b10d44f04881fb3d48b11eade872d33c9203440797fefc3"
+    "bytes": 3833642,
+    "decoded_bytes": 30270928,
+    "sha256": "73f2a85a1731ca6e6adc970718c252e9f9c8b773d0ffd1d02551fe3b8bf898d7"
   },
   "station_policy": 6,
-  "last_live_published_stations": 35560,
-  "bouquet_bytes": 5200895,
+  "last_live_published_stations": 36217,
+  "bouquet_bytes": 5284821,
   "owned_sha256": "0fddded55eeee8ebb3f79084c5255108dfec9bc4a95812d2fed9e9ef2a67fb84",
   "validation": "Original Slovak names/URLs/references are retained except explicitly confirmed retirements. Editorial retirements override endpoint audio; verified broadcaster aliases merge. Known working stations survive transient probe failure; retirement requires failures on three dates spanning at least 48h. New additions require audio evidence. No universal receiver playback claim.",
   "source_list": {
     "name": "HDF Radio zoznam",
-    "stations": 5343,
-    "source_sha256": "b7a517519d41856b7aa9cc52e845c19e9e41c14c2906172034242ee4406a0320",
-    "policy": "Original source names, URLs and order, excluding explicit owner removals."
+    "stations": 5344,
+    "source_sha256": "39e83d57bac1053204b1a1234309daf03ab1af74bdd2e12ed10d2bef929d1a98",
+    "policy": "Original source names, URLs and order; separately requested unfiltered view."
   },
-  "receiver_rows": 40903,
-  "source_policy": "Only supported directory exports are imported; other services remain candidates.",
-  "country_packages_revision": "6d93050c41f433599d3b3f83a8d3810610dc51ac5798d504c08f987307c6e1ea",
-  "owner_update": {
-    "date": "2026-11-04",
-    "removed": "Star The Mix",
-    "reason": "Owner reports station does not work and requests removal; no new network availability claim."
-  }
+  "receiver_rows": 41561,
+  "country_packages_revision": "b84c73e28a3f55f8fe12197633fefb829c65288d4f67a86822042a4f273234e2",
+  "source_policy": "Only supported directory exports are imported; other services remain candidates."
 }
