@@ -29,7 +29,7 @@ def main():
         public_rows+=export['entries']
     rows=read(STAGE/'selection.json.gz')['entries'];ledger=read(STAGE/'visual-ledger.json.gz');assert rows==public_rows
     assert len(rows)==len({r['ref']for r in rows})==cfg['references']==8 and cfg['expected_coverage']==3132+len(rows)
-    baseline=read(STAGE/'baseline.previous.json');countries={r['id']:r for r in baseline['countries']};assert len(countries)==89 and sum(r['picons']for r in countries.values())==3132
+    baseline=read(STAGE/'baseline.previous.json');countries={r['id']:r for r in baseline['countries']};assert len(countries)==219 and sum(r['picons']for r in countries.values())==3132
     cache=Path(os.environ.get('WARDER_MANIFEST_CACHE',STAGE/'manifest-cache'))
     negative=[e['row']for e in ledger['entries']if e['decision']=='hold']+ledger.get('source_holds',[]);assert len(negative)==3
     negative_overlap=[]
