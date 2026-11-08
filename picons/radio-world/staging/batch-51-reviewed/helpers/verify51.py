@@ -5,6 +5,8 @@ S=Path(__file__).resolve().parents[1]; R=S.parents[1]
 sys.path.insert(0,str(R/'tools'))
 from visual_gate import read,merge_ledgers,validate_selection
 sys.path.insert(0,str(S.parent/'batch-50-reviewed/helpers'))
+import baseline_admission
+baseline_admission.BASELINE_SHA='167ed7c8f38e9bc3189e953c0704cc16c047f95ceaee81b4e2e5cd9967006a43'
 from baseline_admission import inspect
 old=S.parent/'batch-50-reviewed';cfg=read(S/'configuration.json');rows=read(S/'selection.json.gz')['entries'];base=read(old/'selection.json.gz')['entries'][0]
 facts=read(S/'source-inputs/public-observations.json');observed=read(old/'results/next-source-observations.json.gz')['remaining_name_unmatched']['literal_match_observations']
