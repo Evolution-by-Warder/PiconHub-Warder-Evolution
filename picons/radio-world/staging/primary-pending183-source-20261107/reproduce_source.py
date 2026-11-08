@@ -12,6 +12,16 @@ def checked(b,d):
 def put(p,b):
  if p.exists():assert p.read_bytes()==b,'Refusing unequal existing output'
  else:p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(b)
+def verify_primary_public_query(o,r):
+ st=r['station']
+ api=o['own_public_station'];c=urllib.parse.urlsplit(st['url']);v=urllib.parse.urlsplit(api['advertised_stream_url'])
+ assert c.scheme==v.scheme=='https' and c.netloc==v.netloc and c.path==v.path and not c.query and not c.fragment
+ assert c.hostname.endswith('.1.fm') and urllib.parse.parse_qs(v.query)=={'aw_0_req.gdpr':['true']} and not v.fragment
+ assert api['official_title_matches_catalogue_without_network_prefix'] and api['official_programme_id']==r['provenance']['programme_id']
+ title=re.sub(r'^1[ .-]*fm[ -]*','',st['name'],flags=re.I);norm=lambda s:re.sub('[^a-z0-9]','',s.lower());assert norm(title)==norm(api['title'])
+ heads=o['public_stream_station_facts'];assert len(heads)==2 and all(x['method']=='HEAD'and x['status']==200 for x in heads)
+ assert heads[0]['requested_url']==st['url'] and heads[1]['requested_url']==api['advertised_stream_url'] and heads[0]['public_station_name']==heads[1]['public_station_name']
+ assert norm(heads[0]['public_station_name'])==norm('1.FM '+api['title']) and o['source']['primary_image_URL_observed'] and o['source']['public_query_free_asset']==api['cover']
 def main():
  ap=argparse.ArgumentParser();ap.add_argument('--root',type=Path,default=Path('.'));ap.add_argument('--chunk',required=True);ap.add_argument('--resource-cache',type=Path);a=ap.parse_args();assert re.fullmatch(r'\d{3}',a.chunk);stage=a.root/STAGE;cp=stage/'chunks'/('chunk-'+a.chunk);raw=(cp/'producer-plan.json').read_bytes();p=json.loads(raw);rows=p.get('expected_renders',p['expected_selection'])['entries'];assert p['stage']==STAGE and p['chunk']==a.chunk and len(rows)==p['references'] and p['png_instances']==len(rows)*9;assert PIL.__version__=='13.0.0';resources={}
  for k,d in p['resources'].items():
@@ -31,6 +41,8 @@ def main():
   if o['binding_kind']=='protocol_reconciled':
    assert o['binding_kind']=='protocol_reconciled' and o['exact_primary_literal'] is False;api=o['own_public_API'];assert api['title']==st['name'] and api['route_page_radio_id_matches'];assert o['own_JS']['primary_script_src_observed'] and o['own_JS']['route_literal']=='/ajax/json_player/'
    compare=o['exact_mount_comparison'];assert compare['canonical_stream_URL_and_service_reference_not_rewritten'] and compare['both_canonical_and_advertised_endpoints_status']==200;assert compare['only_transport_scheme_and_generic_public_player_label_differ'];c=urllib.parse.urlsplit(st['url']);x=urllib.parse.urlsplit(api['src']);assert c.hostname==x.hostname and c.path==x.path;assert urllib.parse.parse_qs(x.query)=={'aw_0_1st.playerId':['jazzradio_web']};heads=o['public_stream_station_facts'];assert len(heads)==2 and all(h['request_method']=='HEAD' and h['status_code']==200 for h in heads);assert heads[0]['requested_url']==st['url'] and heads[0]['public_station_name']==heads[1]['public_station_name'];programme_names.append(heads[0]['public_station_name']);assert o['source']['primary_image_URL_observed'] and o['source']['exact_alt_matches_programme']
+  elif o['binding_kind']=='official_primary_generic_public_query':
+   verify_primary_public_query(o,r)
   else:
    assert o['binding_kind']=='exact_primary_or_observed_linked_literal';ex=o['stream_binding']['excerpt'];assert ex['text']==st['url'] and ex['containment_verified'];assert sha(ex['text'].encode())==ex['sha256'] and len(ex['text'].encode())==ex['bytes']
   h=o['source']['sha256'];assert h==r['provenance']['source_sha256'];h=r['provenance'].get('render_input_sha256',h);d=p['originals'][h];path=Path(d['path']);assert path.parts[0]=='originals' and '..' not in path.parts;originals[h]=checked((stage/path).read_bytes(),d)
