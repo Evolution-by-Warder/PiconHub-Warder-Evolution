@@ -34,6 +34,16 @@ def main():
   else:
    assert o['binding_kind']=='exact_primary_or_observed_linked_literal';ex=o['stream_binding']['excerpt'];assert ex['text']==st['url'] and ex['containment_verified'];assert sha(ex['text'].encode())==ex['sha256'] and len(ex['text'].encode())==ex['bytes']
   h=o['source']['sha256'];assert h==r['provenance']['source_sha256'];h=r['provenance'].get('render_input_sha256',h);d=p['originals'][h];path=Path(d['path']);assert path.parts[0]=='originals' and '..' not in path.parts;originals[h]=checked((stage/path).read_bytes(),d)
+ # Optional WHITE companion inputs: prove exact original alpha and white-to-black mask.
+ for h,d in p.get('white_companions',{}).items():
+  assert h in p['originals'] and d['original_sha256'] in originals
+  meta=p['originals'][h];path=Path(meta['path']);assert path.parts[0]=='originals' and '..' not in path.parts
+  b=checked((stage/path).read_bytes(),meta);original=Image.open(io.BytesIO(originals[d['original_sha256']])).convert('RGBA');companion=Image.open(io.BytesIO(b)).convert('RGBA');assert original.size==companion.size
+  assert original.getchannel('A').tobytes()==companion.getchannel('A').tobytes(),'Companion changed alpha'
+  for old,new in zip(original.getdata(),companion.getdata()):
+   assert (old[3]==0 and new==old)or(old[3]>0 and old[:3]==(255,255,255) and new==(0,0,0,old[3])),'Only pure white foreground may become black'
+  assert any(st.get('white_source')==h and st['source']==d['original_sha256'] for st in p['render_sources']['stations'])
+  originals[h]=b
  assert not programme_names or len(set(programme_names))==len(rows),'Station-specific programme identifiers required'
  outputs={};writes={}
  with tempfile.TemporaryDirectory(prefix='warder-primary-safe-') as td:
