@@ -1,4 +1,4 @@
-name: Reproduce exact reviewed primary pending source chunk 004 (strict URI evidence)
+name: Reproduce exact reviewed primary pending source chunk 005 (WHITE companion regression)
 on:
   push:
     branches: [work/radio-primary-pending183-source-20261107]
@@ -16,4 +16,5 @@ jobs:
           sparse-checkout: picons/radio-world/staging/primary-pending183-source-20261107
       - run: python3 -m pip install Pillow==13.0.0
       - run: bash -n picons/radio-world/staging/primary-pending183-source-20261107/publish_source.sh
+      - run: python3 picons/radio-world/staging/primary-pending183-source-20261107/test_white_companion_regression.py
       - run: bash picons/radio-world/staging/primary-pending183-source-20261107/publish_source.sh
