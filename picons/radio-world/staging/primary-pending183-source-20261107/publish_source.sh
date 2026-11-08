@@ -2,7 +2,7 @@
 set -eu
 stage=picons/radio-world/staging/primary-pending183-source-20261107
 branch=work/radio-primary-pending183-source-20261107
-chunk=004
+chunk=005
 if test -f "$stage/chunks/chunk-$chunk/source-proof.json"; then
   python3 -c 'import json,sys; p=json.load(open(sys.argv[1])); assert p["status"]=="pass"; print("Existing exact completed source chunk preserved; regeneration skipped")' "$stage/chunks/chunk-$chunk/source-proof.json"
   exit 0
