@@ -4,7 +4,13 @@ from PIL import Image
 stage=Path(__file__).resolve().parents[1];rows=json.loads(gzip.decompress((stage/'selection.json.gz').read_bytes()))['entries']
 def check(x):
  r,key,(h,n,b)=x;u='https://raw.githubusercontent.com/Evolution-by-Warder/PiconHub-Warder-Evolution/'+r['source_commit']+'/'+r['asset_root']+'/verified-assets/'+h+'.png'
- p=subprocess.run(['curl','-fLsS','--max-time','40',u],capture_output=True);assert p.returncode==0;raw=p.stdout;assert len(raw)==n and hashlib.sha256(raw).hexdigest()==h and hashlib.sha1(b'blob '+str(n).encode()+b'\0'+raw).hexdigest()==b
+ cache=Path('/tmp/radio-source-cache');cache.mkdir(exist_ok=True);target=cache/(h+'.png')
+ if target.exists():raw=target.read_bytes()
+ else:
+  p=subprocess.run(['curl','-fLsS','--max-time','60',u],capture_output=True)
+  assert p.returncode==0,(u,p.returncode,p.stderr.decode())
+  raw=p.stdout;target.write_bytes(raw)
+ assert len(raw)==n and hashlib.sha256(raw).hexdigest()==h and hashlib.sha1(b'blob '+str(n).encode()+b'\0'+raw).hexdigest()==b
  im=Image.open(io.BytesIO(raw));assert im.mode=='RGBA' and im.size==tuple(map(int,key.split('/')[0].split('x')));alpha=im.getchannel('A').getextrema();Image.open(io.BytesIO(raw)).verify()
  return dict(variant=key,url=u,sha256=h,bytes=n,git_blob=b,alpha_extrema=alpha)
 with concurrent.futures.ThreadPoolExecutor(max_workers=4)as p:out=list(p.map(check,[(r,k,v)for r in rows for k,v in r['variants'].items()]))

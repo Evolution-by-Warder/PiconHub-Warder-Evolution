@@ -20,7 +20,8 @@ for r,f,pair in zip(rows,facts['entries'],EXPECTED):
  assert not any(w in a['icy_name'].lower()for w in ['no name','autodj','auto-dj','radiocaster','streammystation','myradio','my radio','securenet','orban','alsolnet','stream name','netcast','unnamed','my station','my server'])
  assert urllib.parse.urlsplit(st['url']).hostname==urllib.parse.urlsplit(old['station']['url']).hostname
  assert r['ref']==st['reference']and r['station']=={k:st[k]for k in ['name','url','group']}and r['ref']not in cfg['held_references']
- assert all(r[k]==old[k]for k in ['source_commit','asset_root','variants'])and r['final_visual_approval']['reviewed_variants']==old['variants']
+ assert all(r[k]==old[k]for k in ['source_commit','variants'])and r['final_visual_approval']['reviewed_variants']==old['variants']
+ assert r['asset_root']==old['asset_root'].removesuffix('/verified-assets')
  assert any(w['reference']==r['ref']and all(w[k]==st[k]for k in ['name','url','group'])for w in world)
 assert validate_selection(rows,merge_ledgers(paths+[S/'visual-ledger.json.gz']))==len(rows)
 baseline_admission.BASELINE_SHA=cfg['baseline_index']['sha256'];raw=(S/'baseline.previous.json').read_bytes();assert hashlib.sha256(raw).hexdigest()==baseline_admission.BASELINE_SHA
