@@ -5,7 +5,7 @@ S=Path(__file__).resolve().parents[1];R=S.parents[1];sys.path.insert(0,str(R/'to
 from visual_gate import read,merge_ledgers,validate_selection,identity_blocks
 from saved_artwork_import import get
 sys.path.insert(0,str(S.parent/'batch-50-reviewed/helpers'));import baseline_admission
-cfg=read(S/'configuration.json');desc=read(S/'source-inputs/recovery-spec.json');facts=read(S/'source-inputs/public-observations.json');rows=read(S/'selection.json.gz')['entries'];assert len(rows)==cfg['references']==3
+cfg=read(S/'configuration.json');desc=read(S/'source-inputs/recovery-spec.json');facts=read(S/'source-inputs/public-observations.json');rows=read(S/'selection.json.gz')['entries'];assert len(rows)==cfg['references']==1
 paths=[R/'staging/source-ledger-reviewed-20261107/visual-ledger.json.gz',R/'staging/visual-review-34-36/decisions.json.gz']+[R/f'staging/batch-{n}-reviewed/visual-ledger.json.gz'for n in range(39,77)];history=merge_ledgers(paths)
 audit=json.loads(gzip.decompress(get(desc['audit'])))['checks'];world=json.loads(gzip.decompress(get(desc['current'])));prod=json.loads(get(desc['production_index']));prod={c['id']:c for c in prod['countries']};cache={}
 
@@ -47,5 +47,5 @@ for r,f,p in zip(rows,facts['entries'],desc['pairs']):
 assert validate_selection(rows,merge_ledgers(paths+[S/'visual-ledger.json.gz']))==len(rows)
 baseline_admission.BASELINE_SHA=cfg['baseline_index']['sha256'];raw=(S/'baseline.previous.json').read_bytes();assert hashlib.sha256(raw).hexdigest()==baseline_admission.BASELINE_SHA
 new,result=baseline_admission.inspect(rows,raw,Path('/tmp/radio-alias-manifests'));assert len(new)==len(rows)and not result['reused']and not result['held']
-proof=dict(status='pass',references=3,png_instances=27,approved_candidate_authority_verified=True,explicit_named_endpoint_pairs=3,source_hold_exceptions=0,new_renders=0,successful_selected_stream_observations=6,exact_compressed_audio_bindings=3)
+proof=dict(status='pass',references=1,png_instances=9,approved_candidate_authority_verified=True,explicit_named_endpoint_pairs=1,source_hold_exceptions=0,new_renders=0,successful_selected_stream_observations=2,exact_compressed_audio_bindings=1)
 (S/'verification-proof.json').write_text(json.dumps(proof,indent=2)+'\n');print(proof)

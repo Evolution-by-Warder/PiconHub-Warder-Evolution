@@ -1,4 +1,4 @@
-name: Radio batch77 Amore and Palmos exact provider aliases and independent readback
+name: Radio batch77 Amore official player alias; Palmos historical hold preserved and independent readback
 on:
   push:
     branches: [work/radio-world-batch38-contrast-pass1-history-20261107]
@@ -42,7 +42,7 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add "$stage"
-          git commit -m 'Save recovered batch77 inputs and verified27 source PNGs [skip ci]'
+          git commit -m 'Save recovered batch77 inputs and verified9 source PNGs [skip ci]'
           git push origin HEAD:refs/heads/work/radio-world-batch38-contrast-pass1-history-20261107
       - name: Build only new country unions on existing payload ref
         run: python3 picons/radio-world/staging/batch-77-reviewed/helpers/build_existing_payload.py

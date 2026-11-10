@@ -45,7 +45,7 @@ for pair in desc['pairs']:
   for style,pkg in styles.items():
    name=old['reference'].replace(':','_')+'.png';assert name in pkg['files'];tasks.append((len(rows),size,style,pkg,name))
  rows.append(r);facts.append(f)
-assert len(rows)==3 and len(tasks)==27
+assert len(rows)==1 and len(tasks)==9
 # Fetch each source archive once; extract only the selected immutable PNGs.
 groups={}
 for task in tasks:groups.setdefault(task[3]['url'],[]).append(task)
@@ -62,17 +62,17 @@ with ThreadPoolExecutor(max_workers=6)as pool:
  for results in pool.map(extract,groups.values()):
   for idx,variant,b in results:
    digest=sha(b);(stage/'verified-assets'/f'{digest}.png').write_bytes(b);rows[idx]['variants'][variant]=[digest,len(b),hashlib.sha1(f'blob {len(b)}\0'.encode()+b).hexdigest()]
-write(stage/'source-inputs/production-authority-proof.json',dict(status='pass',production_index=desc['production_index'],entries=facts,PNG_instances=27,new_renders=0))
+write(stage/'source-inputs/production-authority-proof.json',dict(status='pass',production_index=desc['production_index'],entries=facts,PNG_instances=9,new_renders=0))
 subprocess.run(['git','config','user.name','github-actions[bot]'],check=True);subprocess.run(['git','config','user.email','41898282+github-actions[bot]@users.noreply.github.com'],check=True)
 subprocess.run(['git','add',str(stage/'verified-assets'),str(stage/'source-inputs/production-authority-proof.json')],check=True)
-subprocess.run(['git','commit','-m','Save27 byte-identical approved candidate source PNGs for batch77 [skip ci]'],check=True)
+subprocess.run(['git','commit','-m','Save9 byte-identical approved candidate source PNGs for batch77 [skip ci]'],check=True)
 subprocess.run(['git','push','origin','HEAD:refs/heads/work/radio-world-batch38-contrast-pass1-history-20261107'],check=True)
 commit=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
 for r in rows:
  r['source_commit']=commit;r['final_visual_approval']=dict(decision='approve',reason='Byte-identical reuse of nine owner-approved candidate variants; no new graphic',reviewed_variants=r['variants'])
 write(stage/'selection.json.gz',dict(entries=rows));write(stage/'visual-ledger.json.gz',dict(entries=[dict(row=r,decision='approve',reason=r['final_visual_approval']['reason'],reviewed_variants=r['variants'])for r in rows],source_holds=[],pending_sources=[]))
 write(stage/'source-inputs/public-observations.json',dict(schema=1,stream_audit=desc['audit'],current_world=desc['current'],entries=facts,no_new_endpoint_requests=False,no_new_artwork=True))
-(stage/'baseline.previous.json').write_bytes(raw);cfg.update(batch='77-reviewed',references=3,parent_candidate=desc['parent'],expected_coverage=3429,selection_sha256=sha((stage/'selection.json.gz').read_bytes()),baseline_index=dict(url='https://raw.githubusercontent.com/Evolution-by-Warder/PiconHub-Warder-Evolution/'+desc['parent']+'/picons/radio-world/staging/batch-76-reviewed/countries.proposed.json',bytes=len(raw),sha256=sha(raw)))
+(stage/'baseline.previous.json').write_bytes(raw);cfg.update(batch='77-reviewed',references=1,parent_candidate=desc['parent'],expected_coverage=3427,selection_sha256=sha((stage/'selection.json.gz').read_bytes()),baseline_index=dict(url='https://raw.githubusercontent.com/Evolution-by-Warder/PiconHub-Warder-Evolution/'+desc['parent']+'/picons/radio-world/staging/batch-76-reviewed/countries.proposed.json',bytes=len(raw),sha256=sha(raw)))
 write(stage/'configuration.json',cfg)
 write(stage/'results/next-source-observations.json.gz',dict(schema=1,next_batch=78,previous_frontier='../batch-76-reviewed/results/next-source-observations.json.gz',configuration_holds_unchanged=923,completed_selection_refs=[r['ref']for r in rows],production_comparisons=desc['frontier'],next='Seek publisher mapping for remaining production comparisons; conflicts and generic ICY remain blocked.'))
-print('Prepared3 references /27 byte-identical approved production PNG variants')
+print('Prepared1 reference /9 byte-identical approved production PNG variants')
