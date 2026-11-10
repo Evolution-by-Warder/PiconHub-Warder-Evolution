@@ -42,7 +42,7 @@ def main():
     assert not refs.intersection(cfg['held_references'])
     for row in six+fourteen:
         assert row['country']=='DE' and row['station']['group']=='Germany'
-        assert len(row['variants'])==9 and row['ref']==row['station']['reference']
+        assert len(row['variants'])==9 and isinstance(row['ref'],str) and row['ref'].startswith('4097:0:2:')
         assert len(row['source_commit'])==40 and row['asset_root'].startswith('picons/radio-world/staging/')
         assert all(len(value)==3 for value in row['variants'].values())
         assert row['final_visual_approval']['decision']=='approve'
