@@ -53,5 +53,5 @@ for r,f,p in zip(rows,facts['entries'],desc['pairs']):
 assert validate_selection(rows,merge_ledgers(paths+[S/'visual-ledger.json.gz']))==len(rows)
 baseline_admission.BASELINE_SHA=cfg['baseline_index']['sha256'];raw=(S/'baseline.previous.json').read_bytes();assert hashlib.sha256(raw).hexdigest()==baseline_admission.BASELINE_SHA
 new,result=baseline_admission.inspect(rows,raw,Path('/tmp/radio-alias-manifests'));assert len(new)==len(rows)and not result['reused']and not result['held']
-proof=dict(status='pass',references=3,png_instances=27,approved_candidate_authority_verified=True,explicit_named_endpoint_pairs=3,source_hold_exceptions=0,new_renders=0,new_endpoint_requests=3)
+proof=dict(status='pass',references=3,png_instances=27,approved_candidate_authority_verified=True,explicit_named_endpoint_pairs=3,source_hold_exceptions=0,new_renders=0,successful_selected_stream_observations=5,provider_station_api_responses=2)
 (S/'verification-proof.json').write_text(json.dumps(proof,indent=2)+'\n');print(proof)

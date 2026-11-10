@@ -75,4 +75,4 @@ write(stage/'source-inputs/public-observations.json',dict(schema=1,stream_audit=
 (stage/'baseline.previous.json').write_bytes(raw);cfg.update(batch='73-reviewed',references=3,parent_candidate=desc['parent'],expected_coverage=3421,selection_sha256=sha((stage/'selection.json.gz').read_bytes()),baseline_index=dict(url='https://raw.githubusercontent.com/Evolution-by-Warder/PiconHub-Warder-Evolution/'+desc['parent']+'/picons/radio-world/staging/batch-72-reviewed/countries.proposed.json',bytes=len(raw),sha256=sha(raw)))
 write(stage/'configuration.json',cfg)
 write(stage/'results/next-source-observations.json.gz',dict(schema=1,next_batch=74,previous_frontier='../batch-72-reviewed/results/next-source-observations.json.gz',configuration_holds_unchanged=923,completed_selection_refs=[r['ref']for r in rows],production_comparisons=desc['frontier'],next='Seek publisher mapping for remaining production comparisons; conflicts and generic ICY remain blocked.'))
-print('Prepared9 references /27 byte-identical approved production PNG variants')
+print('Prepared3 references /27 byte-identical approved production PNG variants')

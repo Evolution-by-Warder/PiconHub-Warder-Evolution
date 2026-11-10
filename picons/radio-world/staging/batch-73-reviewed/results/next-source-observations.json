@@ -1,0 +1,105 @@
+{
+  "next_batch": 74,
+  "completed_batches": "57-73 completed and independently audited",
+  "previous_frontier_unchanged": "../batch-71-reviewed/results/next-source-observations.json",
+  "new_source_groups": {
+    "provider_codec_aliases": "Four candidates; one completed72, three in73; no remaining accepted candidate",
+    "exact_endpoint_scan": "Four comparisons / three references; all generic query-routed proxies, deferred",
+    "normalized_name_scan": "OpenSky rebranded Ulia.Radio; six regional Metropol variants and omaneo English not accepted; historical Horeb not rechecked",
+    "codec_path_scan": "22 loose matches rejected:20 compare different ports; one destructive numeric-path normalization collision; historical Horeb not rechecked. No new accepted identity."
+  },
+  "deferred_comparisons": [
+    {
+      "new": {
+        "name": "Radio Cadena Agramonte 105.3 MHz",
+        "url": "https://theonestopradio.com/stream",
+        "reference": "4097:0:2:9BD6:CE21:ED:0:0:0:0",
+        "group": "Cuba"
+      },
+      "old": {
+        "name": "96.7 Radio Rebelde FM",
+        "url": "https://theonestopradio.com/stream",
+        "reference": "4097:0:2:78AF:6E77:ED:0:0:0:0",
+        "group": "Cuba"
+      },
+      "catalog_url_sha256": {
+        "new": "39b02d2a93e19205cc4242648c42cd921e774f56fc2c7b6b1df9597fbd994276",
+        "old": "a696e38fa1c966250d24c90043be7082f8641d78649cfbd45b7500b95c6fa8fe"
+      },
+      "decision": "defer",
+      "reason": "Generic shared proxy endpoint with query-dependent station routing and different station identity. No alias; do not discard significant query parameters."
+    },
+    {
+      "new": {
+        "name": "Radio Caribe 101.7 MHz",
+        "url": "https://theonestopradio.com/stream",
+        "reference": "4097:0:2:F6E2:45BC:ED:0:0:0:0",
+        "group": "Cuba"
+      },
+      "old": {
+        "name": "96.7 Radio Rebelde FM",
+        "url": "https://theonestopradio.com/stream",
+        "reference": "4097:0:2:78AF:6E77:ED:0:0:0:0",
+        "group": "Cuba"
+      },
+      "catalog_url_sha256": {
+        "new": "e232ead9c354846b570f55afcc18784cd69bde2ba8fc6e30bb23248d3f75e7a3",
+        "old": "a696e38fa1c966250d24c90043be7082f8641d78649cfbd45b7500b95c6fa8fe"
+      },
+      "decision": "defer",
+      "reason": "Generic shared proxy endpoint with query-dependent station routing and different station identity. No alias; do not discard significant query parameters."
+    },
+    {
+      "new": {
+        "name": "Radio Reloj Cuba 950 AM",
+        "url": "https://securestreams7.autopo.st/",
+        "reference": "4097:0:2:5DBC:DA:ED:0:0:0:0",
+        "group": "Cuba"
+      },
+      "old": {
+        "name": "Radio Progreso 90.3 FM",
+        "url": "https://securestreams7.autopo.st/",
+        "reference": "4097:0:2:75F8:B944:ED:0:0:0:0",
+        "group": "Cuba"
+      },
+      "catalog_url_sha256": {
+        "new": "32360f4bc0ab0fa9c0838e77662db2daac61a7d6e5f5ca493c9fe7ebaa5e1cf6",
+        "old": "2f52d1f1ead2fa507f10ff0bbc04148ca023ebeba322dbbc2f921ac0b9a28f8a"
+      },
+      "decision": "defer",
+      "reason": "Generic shared proxy endpoint with query-dependent station routing and different station identity. No alias; do not discard significant query parameters."
+    },
+    {
+      "new": {
+        "name": "Radio Reloj Cuba 950 AM",
+        "url": "https://securestreams7.autopo.st/",
+        "reference": "4097:0:2:5DBC:DA:ED:0:0:0:0",
+        "group": "Cuba"
+      },
+      "old": {
+        "name": "Radio Rebelde 1180 AM",
+        "url": "https://securestreams7.autopo.st/",
+        "reference": "4097:0:2:B633:228A:ED:0:0:0:0",
+        "group": "Cuba"
+      },
+      "catalog_url_sha256": {
+        "new": "32360f4bc0ab0fa9c0838e77662db2daac61a7d6e5f5ca493c9fe7ebaa5e1cf6",
+        "old": "18986aed1e6bd413c43fb73ad4ec7bc10a55cf54c98ecddfc416df69eb50b2f6"
+      },
+      "decision": "defer",
+      "reason": "Generic shared proxy endpoint with query-dependent station routing and different station identity. No alias; do not discard significant query parameters."
+    }
+  ],
+  "new_evidence": [
+    {
+      "url": "https://www.opensky.radio/",
+      "sha256": "2708e15125331c350d10ecef4bd2bc400ab25951021fe598bf27e0fbdf69da7a",
+      "finding": "Official canonical Ulia.Radio; explicitly formerly OpenSkyRadio. Changed brand; no old artwork assignment."
+    },
+    {
+      "url": "https://radio.omaneo.de/api/stations",
+      "sha256": "23f5acef301e6599cfbc0ba5000981d71fc274b1217b84db55971f799079ad9a",
+      "finding": "Separate station IDs1 (omaneo_radio) and7 (omaneo_radio_en); no explicit shared approved artwork evidence."
+    }
+  ]
+}
