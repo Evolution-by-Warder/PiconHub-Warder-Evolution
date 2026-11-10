@@ -1,0 +1,53 @@
+name: German batch80 saved-20 split ZIP dry run (no publishing)
+on:
+  push:
+    branches: [feature/radio-multipart-picon-packages-20261110]
+    paths:
+      - '.github/workflows/radio-batch80-dry-run.yml'
+      - 'picons/radio-world/staging/batch-80-reviewed/helpers/**'
+      - 'picons/radio-world/staging/batch-79-reviewed/helpers/import_queryfree.py'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  german_saved20:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          filter: blob:none
+          sparse-checkout: |
+            picons/radio-world/tools
+            picons/radio-world/staging/batch-79-reviewed
+            picons/radio-world/staging/prepared-radio-bob-capacity
+            picons/radio-world/staging/batch-80-reviewed
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python3 -m pip install --quiet Pillow
+      - name: Reuse exactly 20 immutable approved German references
+        run: python3 picons/radio-world/staging/batch-80-reviewed/helpers/prepare_saved20.py
+      - name: Build nine German variants using saved original PNG bytes and <=32MiB ZIP parts
+        run: |
+          mkdir -p /tmp/radio-batch80/work /tmp/radio-batch80/snapshot
+          python3 picons/radio-world/staging/batch-79-reviewed/helpers/import_queryfree.py \
+            picons/radio-world/staging/batch-80-reviewed/configuration.json \
+            build /tmp/radio-batch80/work /tmp/radio-batch80/snapshot
+      - name: Independently audit every ZIP member and unchanged historical PNG
+        run: |
+          python3 picons/radio-world/staging/batch-80-reviewed/helpers/audit_saved20.py \
+            /tmp/radio-batch80/work /tmp/radio-batch80/snapshot
+      - name: Upload only the dry-run audit (never publish packages)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: german-batch80-split-dry-run
+          if-no-files-found: ignore
+          path: |
+            /tmp/radio-batch80/work/packages.json
+            /tmp/radio-batch80/work/independent-batch80-readback.json
+            picons/radio-world/staging/batch-80-reviewed/source-preservation.json
