@@ -35,7 +35,7 @@ Largest final ZIP: DE WHITE400x240,67,009,748 bytes.
 Limit:67,108,864 bytes; only99,116 bytes remain.
 Stable Radio downloader requires fixed filenames, one ZIP descriptor and MAX_PACKAGE64MiB; it does not support multipart archives. Do not raise the limit, change the stable plugin/IPK/feed, replace production packages, or silently introduce another archive format.
 Six already-approved references are parked in this batch's capacity queue.
-Another14 publisher-confirmed references/126 PNG instances are being preserved separately in ../prepared-radio-bob-capacity. They are preparation only, not batch80 completion, no country index or ZIP publication. Check preparation-only.json and source-readback-proof.json there before asserting saved status.
+Another14 publisher-confirmed references/126 PNG instances are saved separately in ../prepared-radio-bob-capacity. They are preparation only, not batch80 completion, with no country index or ZIP publication. Source readback PASS126; original PNG source commit5797074f6825c69fdc34477bd1a8de720e5136d8; preparation checkpoint08db227993fc1f0d67c661765b7bd6a00afc8e3f; CI42843117788. preparation-only.json and source-readback-proof.json were read back from GitHub. Together with the6 parked references from79,20 references/180 PNG instances are preserved but uncounted.
 Keep all20 pending reference sets and reuse their saved original bytes when capacity is resolved; never regenerate them unnecessarily.
 
 ## Preservation and current production
@@ -53,3 +53,5 @@ Batch80 is not completed. Continue with another independent country/provider usi
 - SomaFM official API provides51 channels, but the apparent new catalogue rows are HDF aggregates, outside the frozen country denominator. The11 US country rows consist of8 already covered and3 excluded/held;0 eligible new country candidates. Never expand the denominator or count HDF aggregates.
 - DrGnu-branded RADIO BOB stream aliases, ambiguous genericRadioBOB/ACDC label and unlistedAAC formats remain excluded.
 - All new originals, review hashes, source provenance and capacity recovery are saved in this staging area. New publisher artwork successfully advanced coverage after the previous alias-only pools were exhausted.
+
+Structured continuation: results/next-source-observations.json. Final verification-proof.json reports the34 admitted references; the original40-reference preflight remains in Git history and source-readback-proof.json.
