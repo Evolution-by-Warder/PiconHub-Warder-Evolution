@@ -16,7 +16,7 @@ collections={('IPTV-SK-CZ'if r['country']in('SK','CZ')else'IPTV-'+r['country'])f
 assert all(re.fullmatch('IPTV-[A-Z-]+',c)for c in collections)
 existing=git('ls-tree','-r','--name-only',head)
 assert str(stage/'payload-build-manifest.json') not in existing.splitlines(),'Published batch71 exists; metadata recovery required'
-work.mkdir();execute(['python3','picons/radio-world/tools/saved_artwork_import.py',str(cfg),'build',str(work),str(new)])
+work.mkdir();execute(['python3','picons/radio-world/staging/batch-71-reviewed/helpers/import_queryfree.py',str(cfg),'build',str(work),str(new)])
 git('worktree','add','--no-checkout','--detach',str(scratch),head)
 patterns=['picons/radio-world/staging/batch-71-reviewed']+['picons/'+c+'/catalog'for c in sorted(collections)]
 subprocess.run(['git','-C',str(scratch),'sparse-checkout','set','--cone','--skip-checks','--stdin'],input='\n'.join(patterns)+'\n',text=True,check=True)
@@ -38,13 +38,13 @@ for line in changes:
 (stage/'zip-path-proof.json').write_text(json.dumps(dict(schema=1,status='pass',stable_fixed_filename_schema=True,old_immutable_urls_preserved=True,previous_commit=head,entries=zip_evidence),indent=2)+'\n')
 git('commit','-m','Save new batch71 ZIP paths and recovery manifest [skip ci]',cwd=scratch);payload=git('rev-parse','HEAD',cwd=scratch)
 git('push','origin','HEAD:refs/heads/'+branch,cwd=scratch)
-execute(['python3','picons/radio-world/tools/saved_artwork_import.py',str(cfg),'manifests',str(work),str(scratch),payload])
+execute(['python3','picons/radio-world/staging/batch-71-reviewed/helpers/import_queryfree.py',str(cfg),'manifests',str(work),str(scratch),payload])
 git('add','--',*['picons/'+c+'/catalog/release.json'for c in sorted(collections)],cwd=scratch)
 for line in git('diff','--cached','--name-status',cwd=scratch).splitlines():
     status,path=line.split('\t');assert status in('A','M')and re.fullmatch(r'picons/IPTV-[A-Z-]+/catalog/release.json',path),(status,path)
 git('commit','-m','Pin new immutable batch71 country manifest versions [skip ci]',cwd=scratch);manifest=git('rev-parse','HEAD',cwd=scratch)
 git('push','origin','HEAD:refs/heads/'+branch,cwd=scratch)
-execute(['python3','picons/radio-world/tools/saved_artwork_import.py',str(cfg),'index',str(work),str(scratch),payload,manifest])
+execute(['python3','picons/radio-world/staging/batch-71-reviewed/helpers/import_queryfree.py',str(cfg),'index',str(work),str(scratch),payload,manifest])
 proof=dict(schema=1,status='pass',existing_payload_branch=branch,previous_payload_commit=expected,payload_commit=payload,manifest_commit=manifest,old_zip_and_manifest_versions_unchanged_at_previous_immutable_commits=True,previous_manifest_versions_preserved_by_immutable_commits=True,working_candidate_canonical_index_and_manifests_untouched=True)
 (stage/'payload-preservation-proof.json').write_text(json.dumps(proof,indent=2)+'\n')
 git('add',str(stage/'countries.proposed.json'),str(stage/'proof.json'),str(stage/'zip-path-proof.json'),str(stage/'payload-preservation-proof.json'))
