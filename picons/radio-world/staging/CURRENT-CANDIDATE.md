@@ -1,26 +1,28 @@
-# Warder Radio – overený pracovný kandidát cez dávku 43
+# Warder Radio – overený pracovný kandidát cez dávku 71
 
-Stav: Draft, bez produkčného merge. Testovaný pracovný commit 8b5d2baf95392483ebb592ae413832dec5b7190a.
-CI: https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/actions/runs/42389598820 (SUCCESS).
-Index SHA-256: b2018e346e88cef556b27290ff241d850cb01135855fc643dfe1d92965185d0e.
+10. 11. 2026. Draft PR #68, bez produkčného merge. Posledný balíkový/auditný checkpoint: b80b30129ad573ded8e65e57382e14324d411159.
 
-219 krajín: 125 dostupných = 12 úplných + 113 čiastočných; 94 nedostupných.
-Pokrytých 3 010 / 35 560 krajinských referencií; zostáva 32 550.
-27 666 PNG položiek vrátane aliasov = všetkých 10 332 pôvodných bez zmeny + 17 334 prijatých nových.
-Úplné: SK, CZ, BT, TD, CX, GG, GW, KI, LR, MS, SM, KM.
+**Pokrytie 3417/35560; zostáva32143. Celkom31329 PNG;131/219 krajín (12úplných,119čiastočných,88nedostupných).**
 
-Dávka 43 pridáva 140 referencií / 1 260 PNG položiek v 47 krajinských unionoch / 423 nových ZIPov: 113 Zeno + 24 primary + 3 doložené kontrastné opravy (Italo4you, Lahmacun, GLR). Nové prijaté položky majú skutočnú vizuálnu kontrolu všetkých deviatich variantov, nemenné originály a PNG commity.
+| Dávka | Referencie | PNG | ZIP verzie | Krajiny | Auditný checkpoint | CI |
+|---|---:|---:|---:|---|---|---|
+|68|3|27|9|GR|c57063bb2e973fede6d67f7c2f24adceec9d4538|42787430798|
+|69|2|18|18|DE,US|41d157b34358747286c09860e8cc29e9d37262a3|42788450468|
+|70|2|18|18|MX,US|59380d8ad18b6d97aac79ce4a52892611a95a57e|42789099579|
+|71|5|45|27|GH,GR,ZA|b80b30129ad573ded8e65e57382e14324d411159|42789977608|
 
-Pôvodný source výber primary25 obsahoval HDF-only Stephansdom EF referenciu. Striktný gate ju zastavil pred country ZIP buildom; v aktuálnom katalógu neexistuje krajinský záznam presného ref ani názvu + URL. Krajinská eligibility je opravená na 24; HDF-only prípad aj jeho deväť skutočných source PNG zostali oddelené. Pôvodných 225 source PNG a historický export sa zachovali. Žiadna referenčná ani skupinová normalizácia naslepo.
+Spolu12 referencií,108 PNG,72 immutable ZIP verzií v6krajinách. Každá dávka má jeden úspešný záverečný nezávislý audit skutočných ZIPov: SHA256/CRC/členské hashe/rozmery/RGBA/Gitblob. Každý nový PNG je byte-identická kópia schváleného originálu vrátane alfy;0renderov. Všetkých10332 produkčných a všetky staršie kandidátske PNG zachované.923 konfiguračných aj historické source/render holdy bez výnimky. Downloader dotknutých krajín PASS;fyzický prijímač netestovaný.
 
-15 regresných testov vizuálnej brány + 2 HDF regresie prešli v CI. HDF-only pôvodný záznam aj jeho kópia s ručne prepísanou skupinou Austria musia zlyhať; všetkých 140 prijatých country/name/URL/ref členstiev prešlo. Nový výber primary24 je presný nezmenený podvýber source25 mínus HDF. Finálny Zeno snapshot bol porovnaný so všetkými 113 prijatými source/API SHA a country/mount dôkazmi.
+Index: `batch-71-reviewed/countries.proposed.json`. Payload f43e772dfdda7129ca17ece5b44a081c84c054a9;manifest ae5d198690d2fa671d0c613c8194eace24ca2977. Audit: `batch-71-reviewed/results/independent-postwrite-audit.json`.
 
-Downloader 0.1.9.2 je nezmenený: replay všetkých 125 dostupných krajín, tri pozadia 220×132, 372 verejných ZIP URL; na pozadie 3 009 presných inštalovaných PNG + 1 zachovaný vlastný picon, 0 zlyhaní, opakovaný beh 0 ZIP požiadaviek. Nastavenia, história, obľúbené a vlastné picony zachované. Fyzický prijímač nebol testovaný.
+Identity68:explicitné Live24 player konfigurácie aCNAME;69:presná cesta Hessen aoficiálne aNONradio porty;70:nové explicitné streamové presmerovania Crystal/KZPS;71:presné pomenované endpointy Nhyira/Groot aoficiálne Radiojar player mappingy Voice/Stokokkino. Pri71 sa query hodnoty neukladajú; presná katalógová URL je viazaná SHA256 a referenciou. Generické ICY ani spoločná IP samostatne nestačili.
 
-Inventár 1 116 nemenných URL balíkov všetkých deviatich variantov má presné SHA-256 a zhodný SHA256SUMS. Najväčší balík má 59 271 661 bajtov, pod limitom 64 MiB. V nových country unionoch bolo zachovaných 16 272 predchádzajúcich PNG položiek. Celý kandidát zachováva všetkých 10 332 produkčných PNG položiek vrátane aliasov.
+Prvý návrh69 s tokenizovanými URL odmietla automatická kontrola; použité bezpečné metadáta bez tokenov. Dávka71 mala jedno prebuild zlyhanie na doslovnej URL kontrole, ešte pred vytvorenímZIPov. Opravený iba dávkový importer na kontrolu presného SHA256 pôvodnej URL; pokračovalo sa z uložených a overených45PNG bez opakovania zdrojového kroku. Záverečný nezávislý audit prebehol raz aPASS.
 
-Lokálny runtime prestal fungovať; integrácia 43 bola dokončená cez GitHub/CI. Neobnoviteľné novšie lokálne záznamy sa nezahodili: CI izolovalo presných 102 nových zdrojov (364 frozen mínus 262 publikovaných QA). Aktívnych nových metadata holds je 240 = 121 známych source holds + 102 technická karanténa + 17 primary holds. Technická karanténa nie je odmietnutie identity. Následne zachránené skutočné rozhodnutia sú na source113 vetve v receiptoch; samy nepredstavujú pripravené PNG.
+## Pokračovanie dávkou 72
 
-Zeno1519 source freeze úspešne skončil: 419 logo-frozen / 1 096 metadata hold / 4 retrieval pending, final checkpoint 890c9edb644d676f5b33855268f39aefbad65be8. Zdrojové zmrazenie nie je grafické schválenie. Ďalších 54 lokálnych finálnych approve ID má zachránené hlasovanie, ale chýbajú kompletné PNG tuple väzby a nie sú country CI ready; ďalšie 3 sú iba source-pass. Nezapočítavajú sa do indexu.
+`batch-71-reviewed/results/next-source-observations.json` obsahuje58 neprijatých porovnaní/54jedinečných referencií z nového scan70 aodkaz na36 starších nevyriešených porovnaní. Zoznamy sa môžu prekrývať; nesčítavať ich ako počet chýbajúcich staníc. Nové porovnanie pokrylo pomenované konečné streamové cesty voči schválenému inventáru; nie je to úplné preskúmanie32143 zostávajúcich referencií.
 
-Produkčný main, existujúce PNG/ZIP/IPK cesty a historická vetva work/radio-batch33-legacy-payload-20261106 ostávajú zachované. PR #67 a #68 sú Draft, žiadne nové IPK ani produkčné zlúčenie. Celosvetové pokrytie ešte nie je dokončené.
+V tomto preskúmanom výbere nie je ďalší potvrdený alias pripravený na prijatie. Potrebné sú nové publisher/account väzby, napr.Restauracion mp3_320/mp3_64,Ble port8006/8004,Horeb8100, alebo ďalšia nezávislá skupina z inventára. Neopakovať zaznamenané negatívne požiadavky bez nového dôkazu. Qingting20500112/5009 vracali neočakávané údaje inej stanice,res_id1498; neprijaté.
+
+Dávky57–71 sú uzavreté; neobnovovať ich ani opakovať ich audity. Main,produkcia,stabilný downloader,feedy,IPK,skin aSAT zostávajú nezmenené. História je v RADIO_PROGRESS.md na existujúcej pracovnej vetve Radio-Warder-Evolution. Žiadny merge.
