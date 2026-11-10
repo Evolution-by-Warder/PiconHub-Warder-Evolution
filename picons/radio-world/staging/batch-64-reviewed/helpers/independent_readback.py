@@ -34,6 +34,6 @@ def audit(t):
   result=dict(url=e['url'],sha256=sha(b),bytes=len(b),members=len(expected),preserved=len(old['files']),new=len(added),CRC='pass',PNG_dimensions_RGBA='pass',new_exact_approved_bytes='pass')
  print('PASS',code,size,style,len(b),flush=True);return result
 with concurrent.futures.ThreadPoolExecutor(max_workers=6)as pool:results=list(pool.map(audit,tasks))
-assert len(results)==45 and sum(e['new']for e in results)==45
+assert len(results)==9*len(codes) and sum(e['new']for e in results)==9*len(rows)
 out=dict(schema=1,status='pass',audited_commit=commit,independent_actual_ZIP_readback=True,independent_runner=True,baseline_references=sum(c['picons']for c in prior['countries']),covered_references=sum(c['picons']for c in index['countries']),remaining_references=35560-sum(c['picons']for c in index['countries']),references_added=len(rows),PNG_added=9*len(rows),archives=results,unchanged_country_descriptors=len(index['countries'])-len(codes))
 (stage/'results/independent-postwrite-audit.json').write_text(json.dumps(out,indent=2)+'\n');(stage/'SHA256SUMS.txt').write_text(''.join(e['sha256']+'  '+e['url']+'\n'for e in results));print(json.dumps({k:v for k,v in out.items()if k!='archives'}))
