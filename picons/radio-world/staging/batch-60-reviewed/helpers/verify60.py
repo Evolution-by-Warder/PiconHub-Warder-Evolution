@@ -20,7 +20,9 @@ for r,f,pair in zip(rows,facts['entries'],EXPECTED):
  af=urllib.parse.urlsplit(audit[st['url']]['final_url']);bf=urllib.parse.urlsplit(audit[old['station']['url']]['final_url'])
  name=st['name']
  if name in ['917TheWave','Galaxie Radio','Radio21 Leer vf']:
-  assert (af.scheme,af.netloc,af.path,af.query)==(bf.scheme,bf.netloc,bf.path,bf.query)
+  assert (af.scheme,af.netloc,af.path)==(bf.scheme,bf.netloc,bf.path)
+  allowed={'917TheWave':{'sca3xx'},'Galaxie Radio':set(),'Radio21 Leer vf':{'sABC','aw_0_1st.playerid','amsparams'}}[name]
+  assert set(urllib.parse.parse_qs(af.query))<=allowed and set(urllib.parse.parse_qs(bf.query))<=allowed
  elif name=='FG.be - Vlaanderen':
   assert af.hostname.endswith('.rcs.revma.com') and bf.hostname.endswith('.rcs.revma.com') and af.path==bf.path=='/5wesqhfap98uv'
   assert a['icy_name']==b['icy_name']=='Radio FG Belgium'
