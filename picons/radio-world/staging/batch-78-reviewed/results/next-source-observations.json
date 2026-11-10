@@ -1,0 +1,382 @@
+{
+  "schema": 1,
+  "next_batch": 79,
+  "status": "discovery-only; no further approved alias in inspected groups",
+  "previous_frontier": "../batch-76-reviewed/results/next-source-observations.json",
+  "historical_holds": "../batch-77-reviewed/source-inputs/deferred-palmos.json",
+  "configuration_holds_unchanged": 923,
+  "deferred": [
+    {
+      "comparison": {
+        "new": {
+          "name": "Lemon Radio",
+          "url": "https://s2.e-resellers.gr/proxy/radio888/stream",
+          "reference": "4097:0:2:1FF4:E9A9:ED:0:0:0:0",
+          "group": "Greece"
+        },
+        "old": {
+          "name": "Lemon 88.8",
+          "url": "https://cast.streams.ovh/sc/radio888/stream/",
+          "reference": "4097:0:2:D6C7:996A:ED:0:0:0:0",
+          "group": "Greece"
+        },
+        "catalog_url_sha256": {
+          "new": "bbdb3c6239e13452b7282eb263c636c2ce5885bd0a2b54d29cbc713e09098985",
+          "old": "d91c7453a7685cc7be115b260c9b258483511133b7e018219925a863044609a9"
+        },
+        "in_frozen_catalogue": true,
+        "decision": "unreviewed-discovery-only",
+        "reason": "Name normalization created a comparison only; frequencies/regions/subchannels must remain identity distinctions. No approval inferred."
+      },
+      "reason": "Officiallemon888.gr player selects approvedcast.streams.ovh/sc/radio888/stream/. Candidateidentifies LemonWebRadio and linkslemonradio.in1web.eu whose title is LEMON RADIO THE MUSIC OF THE WORLD. Same account-like stringradio888 on differentproviders is notidentity. Approvedgraphic88.8 cannot beassigned.",
+      "decision": "hold-no-artwork-reuse"
+    },
+    {
+      "comparison": {
+        "new": {
+          "name": "FM Life 105.3",
+          "url": "http://s6.onweb.gr:8044/;",
+          "reference": "4097:0:2:E337:1C26:ED:0:0:0:0",
+          "group": "Greece"
+        },
+        "old": {
+          "name": "Radio Madness",
+          "url": "http://s2.onweb.gr:8044/;",
+          "reference": "4097:0:2:F405:EA91:ED:0:0:0:0",
+          "group": "Greece"
+        }
+      },
+      "decision": "unconfirmed-no-artwork-reuse",
+      "reason": "Different brandsFM Life105.3 andRadioMadness; sharedport8044 on differenthosts is notidentity. No endpoint request repeated."
+    },
+    {
+      "comparison": {
+        "new": {
+          "name": "Radio PRL",
+          "url": "http://distorzi.radioca.st:8144/stream",
+          "reference": "4097:0:2:170:3093:ED:0:0:0:0",
+          "group": "Italy"
+        },
+        "old": {
+          "name": "Radio Antenna Verde",
+          "url": "http://distorzi.radioca.st:8621/stream",
+          "reference": "4097:0:2:13D5:D16F:ED:0:0:0:0",
+          "group": "Italy"
+        }
+      },
+      "decision": "unconfirmed-no-artwork-reuse",
+      "reason": "Distinct providerports8144/8009 versus8621 and stationbrands."
+    },
+    {
+      "comparison": {
+        "new": {
+          "name": "Radio Stereo 5",
+          "url": "http://distorzi.radioca.st:8009/stream",
+          "reference": "4097:0:2:AFB9:98:ED:0:0:0:0",
+          "group": "Italy"
+        },
+        "old": {
+          "name": "Radio Antenna Verde",
+          "url": "http://distorzi.radioca.st:8621/stream",
+          "reference": "4097:0:2:13D5:D16F:ED:0:0:0:0",
+          "group": "Italy"
+        }
+      },
+      "decision": "unconfirmed-no-artwork-reuse",
+      "reason": "Distinct providerports8144/8009 versus8621 and stationbrands."
+    }
+  ],
+  "groups": [
+    {
+      "group": "named streams.ovh Icecast proxy APIs",
+      "references": 9,
+      "successful_API_responses": 9,
+      "approved_matches": 0,
+      "observations": [
+        {
+          "station": {
+            "name": "If Radio",
+            "url": "https://i8.streams.ovh/ic/ifradio/stream",
+            "reference": "4097:0:2:5913:D197:ED:0:0:0:0",
+            "group": "Greece"
+          },
+          "api": "https://i8.streams.ovh/ic/ifradio/status-json.xsl",
+          "checked_at": "2026-11-10T12:39:04.367354+00:00",
+          "status": 200,
+          "sha256": "0944525d35171b130aeacd7737565138e9c28fe02ef2ba70b6b1dd3b097ff65d",
+          "sources": [
+            {
+              "listenurl": "http://i8.streams.ovh:18114/autodj",
+              "server_name": "ifradio",
+              "server_url": "https://www.ifradio.net/",
+              "bitrate": 320
+            },
+            {
+              "listenurl": "http://i8.streams.ovh:18114/live",
+              "dummy": null
+            },
+            {
+              "listenurl": "http://i8.streams.ovh:18114/stream",
+              "dummy": null
+            }
+          ],
+          "matches": [],
+          "decision": "no-approved-source-match",
+          "reason": "ProviderAPI resolved sources, but no exactsourceURL matches approved countryreference. No artwork assigned."
+        },
+        {
+          "station": {
+            "name": "Melodia Kerkyra",
+            "url": "https://i2.streams.ovh/ic/melodiakerkyra/stream",
+            "reference": "4097:0:2:4C0A:F2CB:ED:0:0:0:0",
+            "group": "Greece"
+          },
+          "api": "https://i2.streams.ovh/ic/melodiakerkyra/status-json.xsl",
+          "checked_at": "2026-11-10T12:39:04.367983+00:00",
+          "status": 200,
+          "sha256": "673b9c09b4ae8734a656fb23a0b6a699296c65fac69233b9ac8affb7f5375f44",
+          "sources": [
+            {
+              "listenurl": "http://i2.streams.ovh:7098/autodj",
+              "server_name": "melodiakerkyra",
+              "server_url": "http://localhost/",
+              "bitrate": 320
+            },
+            {
+              "listenurl": "http://i2.streams.ovh:7098/live",
+              "dummy": null
+            },
+            {
+              "listenurl": "http://i2.streams.ovh:7098/stream",
+              "dummy": null
+            }
+          ],
+          "matches": [],
+          "decision": "no-approved-source-match",
+          "reason": "ProviderAPI resolved sources, but no exactsourceURL matches approved countryreference. No artwork assigned."
+        },
+        {
+          "station": {
+            "name": "nJoy GR",
+            "url": "https://i7.streams.ovh/ic/njoyradi/stream",
+            "reference": "4097:0:2:9A18:E5F1:ED:0:0:0:0",
+            "group": "Greece"
+          },
+          "api": "https://i7.streams.ovh/ic/njoyradi/status-json.xsl",
+          "checked_at": "2026-11-10T12:39:04.368392+00:00",
+          "status": 200,
+          "sha256": "0cfdfbb3c3c363daa5cec8ea90bbd448d464460a22a168eb9c26aa2a6dd3899f",
+          "sources": [
+            {
+              "listenurl": "http://i7.streams.ovh:17127/autodj",
+              "server_name": "nJoy radio",
+              "server_url": "http://localhost/",
+              "bitrate": 320
+            },
+            {
+              "listenurl": "http://i7.streams.ovh:17127/live",
+              "dummy": null
+            },
+            {
+              "listenurl": "http://i7.streams.ovh:17127/stream",
+              "dummy": null
+            }
+          ],
+          "matches": [],
+          "decision": "no-approved-source-match",
+          "reason": "ProviderAPI resolved sources, but no exactsourceURL matches approved countryreference. No artwork assigned."
+        },
+        {
+          "station": {
+            "name": "Skylos 69",
+            "url": "https://i6.streams.ovh/ic/skylos69/stream",
+            "reference": "4097:0:2:21BE:22C:ED:0:0:0:0",
+            "group": "Greece"
+          },
+          "api": "https://i6.streams.ovh/ic/skylos69/status-json.xsl",
+          "checked_at": "2026-11-10T12:39:04.369187+00:00",
+          "status": 200,
+          "sha256": "5437bb55351b4c54f717b894fa77079d6f8c85453433ddb247ad129681998bff",
+          "sources": [
+            {
+              "listenurl": "http://i6.streams.ovh:16067/autodj",
+              "server_name": "skylos69",
+              "server_url": "http://localhost/",
+              "bitrate": 320
+            },
+            {
+              "listenurl": "http://i6.streams.ovh:16067/live",
+              "dummy": null
+            },
+            {
+              "listenurl": "http://i6.streams.ovh:16067/stream",
+              "dummy": null
+            }
+          ],
+          "matches": [],
+          "decision": "no-approved-source-match",
+          "reason": "ProviderAPI resolved sources, but no exactsourceURL matches approved countryreference. No artwork assigned."
+        },
+        {
+          "station": {
+            "name": "Syzefxi Web Radio",
+            "url": "https://i5.streams.ovh/ic/syzefxi/stream",
+            "reference": "4097:0:2:F5F3:33C9:ED:0:0:0:0",
+            "group": "Greece"
+          },
+          "api": "https://i5.streams.ovh/ic/syzefxi/status-json.xsl",
+          "checked_at": "2026-11-10T12:39:04.371431+00:00",
+          "status": 200,
+          "sha256": "c902c33b998073d4368101c7576f893f25a44fb8cf522aa1549f79d9eb913df5",
+          "sources": [
+            {
+              "listenurl": "http://i5.streams.ovh:14149/autodj",
+              "server_name": "Syzefxi",
+              "server_url": "http://localhost/",
+              "bitrate": 320
+            },
+            {
+              "listenurl": "http://i5.streams.ovh:14149/live",
+              "dummy": null
+            },
+            {
+              "listenurl": "http://i5.streams.ovh:14149/stream",
+              "dummy": null
+            }
+          ],
+          "matches": [],
+          "decision": "no-approved-source-match",
+          "reason": "ProviderAPI resolved sources, but no exactsourceURL matches approved countryreference. No artwork assigned."
+        },
+        {
+          "station": {
+            "name": "Xilia Diamantia",
+            "url": "https://i8.streams.ovh/ic/xiliadiamantia/stream",
+            "reference": "4097:0:2:FFF0:4B9B:ED:0:0:0:0",
+            "group": "Greece"
+          },
+          "api": "https://i8.streams.ovh/ic/xiliadiamantia/status-json.xsl",
+          "checked_at": "2026-11-10T12:39:04.372418+00:00",
+          "status": 200,
+          "sha256": "8149b3d735acc5de37d7868ce67b9137c4c6a162b834bbb4881f5d594d8240a2",
+          "sources": [
+            {
+              "listenurl": "http://i8.streams.ovh:18062/autodj",
+              "server_name": "xiliadiamantia",
+              "server_url": "http://localhost/",
+              "bitrate": 320
+            },
+            {
+              "listenurl": "http://i8.streams.ovh:18062/live",
+              "dummy": null
+            },
+            {
+              "listenurl": "http://i8.streams.ovh:18062/stream",
+              "dummy": null
+            }
+          ],
+          "matches": [],
+          "decision": "no-approved-source-match",
+          "reason": "ProviderAPI resolved sources, but no exactsourceURL matches approved countryreference. No artwork assigned."
+        },
+        {
+          "station": {
+            "name": "Ιερά Αρχιεπισκοπή Κρήτης",
+            "url": "https://i7.streams.ovh/ic/iakradi1/stream",
+            "reference": "4097:0:2:CBCD:26B0:ED:0:0:0:0",
+            "group": "Greece"
+          },
+          "api": "https://i7.streams.ovh/ic/iakradi1/status-json.xsl",
+          "checked_at": "2026-11-10T12:39:11.242283+00:00",
+          "status": 200,
+          "sha256": "b2971188a3e7995361747caae00e7dfc202df79c03db419c02e502d2e1c67798",
+          "sources": [
+            {
+              "listenurl": "http://i7.streams.ovh:17074/stream",
+              "server_name": "IEPA APX. KPHTHC",
+              "server_url": "https://is.gd/radioiak",
+              "bitrate": 320
+            }
+          ],
+          "matches": [],
+          "decision": "no-approved-source-match",
+          "reason": "ProviderAPI resolved sources, but no exactsourceURL matches approved countryreference. No artwork assigned."
+        },
+        {
+          "station": {
+            "name": "Παλμός 90.5",
+            "url": "https://i3.streams.ovh/ic/palmos/stream",
+            "reference": "4097:0:2:B63:2DB2:ED:0:0:0:0",
+            "group": "Greece"
+          },
+          "api": "https://i3.streams.ovh/ic/palmos/status-json.xsl",
+          "checked_at": "2026-11-10T12:39:11.343140+00:00",
+          "status": 200,
+          "sha256": "9b7b4b244908382e23c8a56951970950a6043c4d6d22ddc4599ce315608d28b7",
+          "sources": [
+            {
+              "listenurl": "http://i3.streams.ovh:12046/live",
+              "server_name": "My Station name",
+              "server_url": "http://www.audiorealm.com",
+              "bitrate": 320
+            },
+            {
+              "listenurl": "http://i3.streams.ovh:12046/stream",
+              "dummy": null
+            }
+          ],
+          "matches": [],
+          "decision": "no-approved-source-match",
+          "reason": "ProviderAPI resolved sources, but no exactsourceURL matches approved countryreference. No artwork assigned."
+        },
+        {
+          "station": {
+            "name": "Ρυθμός Φλώρινας",
+            "url": "https://i7.streams.ovh/ic/rythmos1044/stream",
+            "reference": "4097:0:2:AC0B:6324:ED:0:0:0:0",
+            "group": "Greece"
+          },
+          "api": "https://i7.streams.ovh/ic/rythmos1044/status-json.xsl",
+          "checked_at": "2026-11-10T12:39:11.365605+00:00",
+          "status": 200,
+          "sha256": "9fbf0505b536efaaeae9dd901da8b0843990ec17f4bd09b9242d28ba5fd37c96",
+          "sources": [
+            {
+              "listenurl": "http://i7.streams.ovh:17071/live",
+              "server_name": "no name",
+              "bitrate": 320,
+              "dummy": null
+            },
+            {
+              "listenurl": "http://i7.streams.ovh:17071/stream",
+              "dummy": null
+            }
+          ],
+          "matches": [],
+          "decision": "no-approved-source-match",
+          "reason": "ProviderAPI resolved sources, but no exactsourceURL matches approved countryreference. No artwork assigned."
+        }
+      ]
+    },
+    {
+      "group": "Infomaniak,Triton,RadioFrance codec/mount normalization",
+      "eligible_comparisons": 0
+    },
+    {
+      "group": "MultilingualGreek/Cyrillic/Turkish radio-prefix normalization",
+      "new_confirmed_reference": "4097:0:2:90DA:5BCE:ED:0:0:0:0",
+      "batch": 78,
+      "note": "PreviouslydeferredVibra,Nostalgie,80s80s,Divina,Valentina suggestions excluded withoutnewrequests."
+    },
+    {
+      "group": "Country-scopedunordered nametokens preservingnumbers",
+      "eligible_comparisons": 0
+    },
+    {
+      "group": "Radio.co/Revma/Radiojar/Zeno/Radioking exactaccount ormountIDs",
+      "eligible_comparisons": 0
+    }
+  ],
+  "remaining_unreviewed_name_comparisons": 184,
+  "note": "Backlog notexhausted. Remaining namecomparisons are NOT approvals; do notrepeatdeferredrequests withoutdecisiveevidence. Next79 mustseekanother independentcountry/provider/artworkgroup. Neverrerun01-78."
+}
