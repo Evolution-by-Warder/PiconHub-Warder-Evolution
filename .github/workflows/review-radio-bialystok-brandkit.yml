@@ -1,0 +1,42 @@
+name: Warder radio Białystok broadcaster logo kit audit (non-production)
+on:
+  push:
+    branches: ['review/radio-bialystok-official-brandkit-20261104']
+    paths:
+      - '.github/workflows/review-radio-bialystok-brandkit.yml'
+      - 'picons/IPTV-SK-CZ/tools/review_radio_bialystok_brandkit.py'
+permissions:
+  contents: write
+jobs:
+  official-kit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          filter: blob:none
+          sparse-checkout: |
+            picons/IPTV-PL/catalog
+            picons/IPTV-SK-CZ/catalog
+            picons/IPTV-SK-CZ/tools
+            picons/IPTV-SK-CZ/review
+            .github/workflows
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python3 -m pip install --quiet Pillow==13.0.0
+      - name: Read official broadcaster ZIP and inspect original image inventory safely
+        run: python3 picons/IPTV-SK-CZ/tools/review_radio_bialystok_brandkit.py
+      - name: Commit provenance and source inventory to isolated review branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add picons/IPTV-SK-CZ/review/radio-bialystok-official-brandkit-20261104/
+          if ! git diff --cached --quiet; then
+            git commit -m "Record official broadcaster Polskie Radio Bialystok logo brandkit audit"
+            git push origin HEAD:review/radio-bialystok-official-brandkit-20261104
+          fi
+      - uses: actions/upload-artifact@v4
+        with:
+          name: warder-radio-bialystok-official-brandkit-review
+          path: picons/IPTV-SK-CZ/review/radio-bialystok-official-brandkit-20261104/
