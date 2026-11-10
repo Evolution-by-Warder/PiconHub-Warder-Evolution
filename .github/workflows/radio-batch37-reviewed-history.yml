@@ -1,0 +1,65 @@
+name: Radio batch 37-reviewed verified saved artwork
+on:
+  push:
+    branches: [work/radio-world-batch37-reviewed-history-20261107]
+    paths:
+      - .github/workflows/radio-batch37-reviewed-history.yml
+      - 'picons/radio-world/staging/batch-37-reviewed/selection.json*'
+      - picons/radio-world/staging/batch-37-reviewed/configuration.json
+permissions:
+  contents: write
+jobs:
+  build:
+    if: github.ref == 'refs/heads/work/radio-world-batch37-reviewed-history-20261107'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            picons/radio-world/tools
+            picons/radio-world/staging/batch-37-reviewed
+      - uses: actions/checkout@v4
+        with:
+          repository: Evolution-by-Warder/Radio-Warder-Evolution
+          ref: b7384bfdb55621beaf183ca6d40e9dedacaecdb9
+          path: _radio
+      - run: python3 -m pip install Pillow
+      - name: Verify originals and preserve all earlier PNGs
+        run: |
+          set -eu
+          stage=picons/radio-world/staging/batch-37-reviewed
+          mkdir "$RUNNER_TEMP/batch37-reviewed"
+          python3 picons/radio-world/tools/saved_artwork_import.py "$stage/configuration.json" build "$RUNNER_TEMP/batch37-reviewed" "$RUNNER_TEMP/new-zips"
+      - name: Save immutable country ZIPs and manifests on a working ref
+        run: |
+          set -eu
+          stage=picons/radio-world/staging/batch-37-reviewed
+          scratch="$RUNNER_TEMP/radio37-payload"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git fetch --depth=1 --no-tags origin 59a6f69c69b62ee1f4c1490f3a37ddff50d5bd4b
+          git worktree add --detach "$scratch" FETCH_HEAD
+          git -C "$scratch" sparse-checkout disable
+          cp -R "$RUNNER_TEMP/new-zips/picons" "$scratch/"
+          git -C "$scratch" add picons
+          git -C "$scratch" commit -m 'Save verified batch 37-reviewed Radio country ZIPs [skip ci]'
+          payload=$(git -C "$scratch" rev-parse HEAD)
+          python3 picons/radio-world/tools/saved_artwork_import.py "$stage/configuration.json" manifests "$RUNNER_TEMP/batch37-reviewed" "$scratch" "$payload"
+          git -C "$scratch" add picons
+          git -C "$scratch" commit -m 'Pin batch 37-reviewed Radio country manifests [skip ci]'
+          manifest=$(git -C "$scratch" rev-parse HEAD)
+          git -C "$scratch" push origin HEAD:refs/heads/work/radio-world-batch37-reviewed-payload-20261107
+          python3 picons/radio-world/tools/saved_artwork_import.py "$stage/configuration.json" index "$RUNNER_TEMP/batch37-reviewed" "$scratch" "$payload" "$manifest"
+          git add "$stage/countries.proposed.json" "$stage/proof.json"
+          git commit -m 'Save batch 37-reviewed candidate index and preservation proof [skip ci]'
+          git push origin HEAD:refs/heads/work/radio-world-batch37-reviewed-history-20261107
+      - name: Replay the unchanged stable downloader on public immutable assets
+        run: |
+          set -eu
+          stage=picons/radio-world/staging/batch-37-reviewed
+          codes=$(python3 -c 'import json; print(" ".join(json.load(open("'$stage'/proof.json"))["additions"]))')
+          python3 picons/radio-world/tools/replay_downloader.py --index "$stage/countries.proposed.json" --countries $codes --output "$stage/downloader-proof.json" --radio _radio --cache "$RUNNER_TEMP/http-cache"
+          git add "$stage/downloader-proof.json"
+          git commit -m 'Verify batch 37-reviewed against stable Radio downloader [skip ci]'
+          git push origin HEAD:refs/heads/work/radio-world-batch37-reviewed-history-20261107

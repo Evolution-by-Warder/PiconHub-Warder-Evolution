@@ -1,0 +1,56 @@
+{
+  "pairs": [
+    [
+      "FR",
+      "CLAZZ Radio",
+      "https://stream.rcs.revma.com/xsycwftnfm3vv",
+      "Clazz",
+      "http://stream.rcs.revma.com/w18s9m7mfm3vv"
+    ]
+  ],
+  "current": {
+    "url": "https://raw.githubusercontent.com/Evolution-by-Warder/PiconHub-Warder-Evolution/481e9b9154a510c64c743de72c1a73ed808307bf/picons/IPTV-SK-CZ/catalog/global/world-radio.receiver.json.gz",
+    "bytes": 1285174,
+    "sha256": "1822415e4cab426acb0a74f74cb5b095679e655ff06a607c697049be688816a0"
+  },
+  "audit": {
+    "url": "https://raw.githubusercontent.com/Evolution-by-Warder/PiconHub-Warder-Evolution/481e9b9154a510c64c743de72c1a73ed808307bf/picons/IPTV-SK-CZ/catalog/global/stream-audit.json.gz",
+    "bytes": 3559221,
+    "sha256": "4ba78ebcc6847f9930266dabab9ae7ff5f0d60eee765ad2f08e6d10fe77120e3"
+  },
+  "evidence": {
+    "CLAZZ Radio": {
+      "publisher_page": "https://clazz.ouest-france.fr/",
+      "publisher_page_sha256": "8ad442835d083ca31f694a20ea0b700316f3365cc4b3689caee3f2853fbfada0",
+      "programme_id": "RbB9pLSq9t",
+      "label": "CLAZZ RADIO",
+      "quality_redirects": [
+        {
+          "format": "bd",
+          "method": "GET",
+          "referer": "https://clazz.ouest-france.fr/",
+          "exit": 28,
+          "status": "302",
+          "header_sha256": "03188dacbd2b551496723fc71d87993b875e4b7df848906346f7b18fb36bed08",
+          "revma_endpoints": [
+            "stream.rcs.revma.com/w18s9m7mfm3vv"
+          ],
+          "body_bytes": 0
+        },
+        {
+          "format": "hd",
+          "method": "GET",
+          "referer": "https://clazz.ouest-france.fr/",
+          "exit": 28,
+          "status": "302",
+          "header_sha256": "c67a366ba976af89093820b9d62a220987b7faa998f2d54fc2ef52b7893b4bb0",
+          "revma_endpoints": [
+            "stream.rcs.revma.com/xsycwftnfm3vv"
+          ],
+          "body_bytes": 0
+        }
+      ],
+      "note": "302 Location headers establish explicit quality mapping. Final audio follow timed out; playback status is taken only from pinned stream audit. Signed player URLs are not persisted."
+    }
+  }
+}
