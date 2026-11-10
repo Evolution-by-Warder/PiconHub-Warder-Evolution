@@ -29,15 +29,16 @@ for r,f,p in zip(rows,facts['entries'],desc['pairs']):
  assert r['ref']==st['reference']and r['station']=={k:st[k]for k in ['name','url','group']}and r['ref']not in cfg['held_references']
  for x,ss in [(f['new_audit'],st),(f['approved_audit'],old)]:
   assert x=={k:observation(ss).get(k)for k in x}and x['url']==ss['url'] and x['status']=='audio-confirmed'and x['http_status']==200 and x['content_type'].startswith('audio/')and x['sample_bytes']>0
- api=p['provider'];assert hashlib.sha256(api['body'].encode()).hexdigest()==api['sha256']
- stats=json.loads(api['body'])['icestats'];source=stats['source']
- assert source['listenurl']==old['url'] and source['server_name']=='MILLENIUM'
- assert source['server_url'].strip()=='http://www.radiomillenium.cl'
- assert st['url']=='https://centova.neonetwork.cl:9030/stream.aac' and old['url']=='http://5.9.65.9:8030/stream.aac'
- assert st['url'] in p['publisher']['excerpt']
- assert f['new_audit']['icy_name']==f['approved_audit']['icy_name']=='MILLENIUM'
- assert all(observation(x)['final_url']==x['url'] for x in (st,old))
- assert p['audio_comparison']['matching_audio_chunks']
+ publisher=p['publisher'];assert publisher['homepage']=='https://happyfm.hr/' and publisher['selected_channel']=={'index':0,'name':'Happy Live','stream':'https://audio.social3.hr/listen/happy_aac/stream'}
+ assert st['url']=='http://c5.hostingcentar.com:9543/' and old['url']=='http://c5.hostingcentar.com:8072/'
+ assert f['new_audit']['icy_name']=='HappyFM' and f['approved_audit']['icy_name']=='HAPPY MP3'
+ binding=p['audio_binding'];assert binding['samples']['publisher']['url']==publisher['selected_channel']['stream']
+ for side in ['new','old']:
+  assert binding['samples'][side]['url']==p[side]['url']
+  z=binding['comparisons'][side];assert z['seconds']>=5 and z['pcm_correlation']>=0.97
+  stats=p['provider_statistics'][side];assert hashlib.sha256(stats['body'].encode()).hexdigest()==stats['sha256']
+  parsed=json.loads(stats['body']);assert parsed['streamstatus']==1 and parsed['streampath']=='/stream'
+ assert json.loads(p['provider_statistics']['new']['body'])['songtitle']==json.loads(p['provider_statistics']['old']['body'])['songtitle']
  code=r['country'];rel=prod[code]['release'];assert rel==f['production_release']==r['provenance']['production_release'];cache.setdefault(code,json.loads(get(rel)));manifest=cache[code];oldfile=old['reference'].replace(':','_')+'.png'
  assert (code,old['reference'])not in identity_blocks(history)
  assert not any(e['decision']=='hold'and e['row']['country']==code and e['row']['ref']==old['reference']for e in history['entries'])
@@ -47,5 +48,5 @@ for r,f,p in zip(rows,facts['entries'],desc['pairs']):
 assert validate_selection(rows,merge_ledgers(paths+[S/'visual-ledger.json.gz']))==len(rows)
 baseline_admission.BASELINE_SHA=cfg['baseline_index']['sha256'];raw=(S/'baseline.previous.json').read_bytes();assert hashlib.sha256(raw).hexdigest()==baseline_admission.BASELINE_SHA
 new,result=baseline_admission.inspect(rows,raw,Path('/tmp/radio-alias-manifests'));assert len(new)==len(rows)and not result['reused']and not result['held']
-proof=dict(status='pass',references=1,png_instances=9,approved_candidate_authority_verified=True,explicit_named_endpoint_pairs=1,source_hold_exceptions=0,new_renders=0,successful_selected_stream_observations=2,matched_audio_pairs=1)
+proof=dict(status='pass',references=1,png_instances=9,approved_candidate_authority_verified=True,explicit_named_endpoint_pairs=1,source_hold_exceptions=0,new_renders=0,successful_selected_stream_observations=2,decoded_publisher_audio_bindings=2)
 (S/'verification-proof.json').write_text(json.dumps(proof,indent=2)+'\n');print(proof)

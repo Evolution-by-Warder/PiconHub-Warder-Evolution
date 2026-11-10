@@ -2,72 +2,94 @@
   "pairs": [
     {
       "new": {
-        "name": "Millenium Radio Network",
-        "url": "https://centova.neonetwork.cl:9030/stream.aac",
-        "reference": "4097:0:2:4D55:2339:ED:0:0:0:0",
-        "group": "Chile"
+        "name": "Happy FM - Live",
+        "url": "http://c5.hostingcentar.com:9543/",
+        "reference": "4097:0:2:C326:FCEA:ED:0:0:0:0",
+        "group": "Croatia"
       },
       "old": {
-        "name": "Radio Millenium Network",
-        "url": "http://5.9.65.9:8030/stream.aac",
-        "reference": "4097:0:2:4977:697:ED:0:0:0:0",
-        "group": "Chile"
+        "name": "Happy FM",
+        "url": "http://c5.hostingcentar.com:8072/",
+        "reference": "4097:0:2:CF2E:DD6E:ED:0:0:0:0",
+        "group": "Croatia"
       },
       "catalog_url_sha256": {
-        "new": "7839b39e21d1bc2154c38ab2603d4c44d5441ca7d64384c277448a96fe942458",
-        "old": "7e0a5f0630ad64e0c22812a3d0b8c01ffed68feb4d0e76853c4e08e352f58c9f"
+        "new": "8c9eb774423f7f88adc5c866e5ac85ef88fac95067262e812424d032593e2100",
+        "old": "b76eb722dfed169d139fb41762f0f6242754d322de7adab7fff452370cf1f43a"
       },
       "allowed_query_names": [],
-      "kind": "provider-listenurl",
-      "identity_basis": "Official Radio Millenium player uses new HTTPS endpoint; its provider status JSON explicitly names approved old HTTP endpoint as listenurl and official station website as server_url. Simultaneous matching encoded audio blocks corroborate.",
-      "provider": {
-        "url": "https://centova.neonetwork.cl:9030/status-json.xsl",
-        "sha256": "1d8a4822f7e62022abd8ae2877d707058493b8dfff9cff7f6d1d5af8053294de",
-        "body": "{\"icestats\":{\"admin\":\"icemaster@localhost\",\"host\":\"5.9.65.9\",\"location\":\"Earth\",\"server_id\":\"Icecast 2.4.4\",\"server_start\":\"Wed, 30 Sep 2026 11:30:32 -0300\",\"server_start_iso8601\":\"2026-09-30T11:30:32-0300\",\"source\":{\"audio_info\":\"ice-bitrate=128;ice-samplerate=44100;ice-channels=2\",\"bitrate\":128 ,\"genre\":\"70,80,90¨S\",\"ice-bitrate\":128,\"ice-channels\":2,\"ice-samplerate\":44100,\"listener_peak\":31,\"listeners\":8,\"listenurl\":\"http://5.9.65.9:8030/stream.aac\",\"server_description\":\"LA RADIO DE CLÁSICOS\",\"server_name\":\"MILLENIUM\",\"server_type\":\"audio/aac\",\"server_url\":\"http://www.radiomillenium.cl \",\"stream_start\":\"Mon, 09 Nov 2026 22:08:03 -0300\",\"stream_start_iso8601\":\"2026-11-09T22:08:03-0300\",\"title\":\"MILLENIUM RADIO\",\"dummy\":null}}}"
-      },
+      "kind": "official-main-feed-audio-binding",
+      "identity_basis": "Official Happy FM homepage links main player stream0; player maps it to happy_aac (Happy Live), separate from themed streams. Both catalogue endpoints match the official main feed decoded audio with correlations0.978 and0.989 over5.86 and7.20 seconds, consistent with HappyFM AAC and HAPPY MP3 server identities and synchronized programme metadata. Approved artwork visually confirms main HappyFM logo, not a thematic/regional version.",
       "publisher": {
-        "url": "https://radiomillenium.cl/envivo/index.php",
-        "sha256": "2294a4e956229480ba6815ec98f10bd8ea78d02cdc3f14caa8d3f77c9d267213",
-        "excerpt": "stream=https://centova.neonetwork.cl:9030/stream.aac",
-        "name": "Radio Millenium"
+        "homepage": "https://happyfm.hr/",
+        "homepage_sha256": "85d3f26d9b0ed71e3399759815a4fffb8ff2843434f6bb400392b8863a22c6ba",
+        "player": "http://streaming.happyfm.hr/stream/player.html?stream=0",
+        "player_sha256": "1ccb7c5199d2be40f2ece7e0c2d38a05376b60c6fd475eb05336cd868f5f817c",
+        "configuration": "https://streaming.happyfm.hr/stream/src/player.js",
+        "configuration_sha256": "e881f0ead129c5c241c02b5bc8900359607d00ec45e962ca43f6a795236a0bba",
+        "selected_channel": {
+          "index": 0,
+          "name": "Happy Live",
+          "stream": "https://audio.social3.hr/listen/happy_aac/stream"
+        }
       },
-      "audio_comparison": {
+      "audio_binding": {
         "samples": {
+          "publisher": {
+            "url": "https://audio.social3.hr/listen/happy_aac/stream",
+            "final_url": "https://audio.social3.hr/listen/happy_aac/stream",
+            "sha256": "515a74841d3591e96927209d00f985f10e3351764c800f592d37728cc0065fb5",
+            "bytes": 131072,
+            "pcm_sha256": "ff7297d68ebde2180b4d7b110ae79803963dd76479cfa49c506172a6c9baa0c7",
+            "pcm_samples": 128546,
+            "checked_at": "2026-11-10T11:30:12.980418+00:00"
+          },
           "new": {
-            "url": "https://centova.neonetwork.cl:9030/stream.aac",
-            "final_url": "https://centova.neonetwork.cl:9030/stream.aac",
-            "content_type": "audio/aac",
-            "sha256": "540ceeb03def03fa11ee4f70b9ecf72f6f6cf011df677c8ba4b97bf35b274bfd",
-            "bytes": 65536
+            "url": "http://c5.hostingcentar.com:9543/",
+            "final_url": "http://c5.hostingcentar.com:9543/",
+            "sha256": "43934dc60bab21c4ce32f861292fb2d153ef978d34003e165b565a9df99045ac",
+            "bytes": 131072,
+            "pcm_sha256": "e4dc984e17e6c45c38580ad0f2b8bfb408e64ea0f9fbf64ba2a4f9943da78e17",
+            "pcm_samples": 87040,
+            "checked_at": "2026-11-10T11:30:10.453856+00:00"
           },
           "old": {
-            "url": "http://5.9.65.9:8030/stream.aac",
-            "final_url": "http://5.9.65.9:8030/stream.aac",
-            "content_type": "audio/aac",
-            "sha256": "687a272dc71e3148175ec9fc921bcad7e55aa612f6676b94350a0bb955fb6593",
-            "bytes": 65536
+            "url": "http://c5.hostingcentar.com:8072/",
+            "final_url": "http://c5.hostingcentar.com:8072/",
+            "sha256": "2dfdc874e3a730f3d6daab9ec446ec1bf252cda68a2faf0507c0edccb422730e",
+            "bytes": 262144,
+            "pcm_sha256": "86bf7cffbd134e16bc4fc7c1824753c811d46199cb1be2e8b87f8a2f97a2de1f",
+            "pcm_samples": 65664,
+            "checked_at": "2026-11-10T11:30:11.032100+00:00"
           }
         },
-        "matching_audio_chunks": [
-          {
-            "new_offset": 0,
-            "old_offset": 28000,
-            "bytes": 8192,
-            "sha256": "17aae7a3027204e75a3f3acca1b938fb14ac87f53470538bffcbc7c0e7871220"
+        "comparisons": {
+          "new": {
+            "lag_samples": -40140,
+            "aligned_samples": 46900,
+            "seconds": 5.8625,
+            "pcm_correlation": 0.9780992001145014
           },
-          {
-            "new_offset": 1024,
-            "old_offset": 29024,
-            "bytes": 8192,
-            "sha256": "4bf04ac9dcfb1d6051c19dc76f6f3d765a43dde09bb00de8c5b8e916e31f3a95"
-          },
-          {
-            "new_offset": 2048,
-            "old_offset": 30048,
-            "bytes": 8192,
-            "sha256": "ee53c0f007385614697240823d6c31137acdcf8624d1bc437a19c7e2d966bcaf"
+          "old": {
+            "lag_samples": 70907,
+            "aligned_samples": 57639,
+            "seconds": 7.204875,
+            "pcm_correlation": 0.9894412266392665
           }
-        ]
+        },
+        "publisher_new_exact_chunks": []
+      },
+      "provider_statistics": {
+        "new": {
+          "url": "http://c5.hostingcentar.com:9543/stats?sid=1&json=1",
+          "body": "{\"currentlisteners\":402,\"peaklisteners\":1736,\"maxlisteners\":5000,\"uniquelisteners\":376,\"averagetime\":44889,\"servergenre\":\"happy\",\"servergenre2\":\"\",\"servergenre3\":\"\",\"servergenre4\":\"\",\"servergenre5\":\"\",\"serverurl\":\"N\\/A\",\"servertitle\":\"HappyFM\",\"songtitle\":\"ROZGA JELENA - ROZA BOJA\",\"streamhits\":115329055,\"streamstatus\":1,\"backupstatus\":0,\"streamlisted\":0,\"streamlistederror\":1762266433,\"streampath\":\"\\/stream\",\"streamuptime\":1156152,\"bitrate\":\"96\",\"samplerate\":\"24000\",\"content\":\"audio\\/aacp\",\"version\":\"2.6.1.777 (posix(linux x64))\"}",
+          "sha256": "9d1b0d909e011f12c13ab29b9fc4083ab46b5d345953bbb587e7e49463d541fb"
+        },
+        "old": {
+          "url": "http://c5.hostingcentar.com:8072/stats?sid=1&json=1",
+          "body": "{\"currentlisteners\":13,\"peaklisteners\":38,\"maxlisteners\":100,\"uniquelisteners\":11,\"averagetime\":205927,\"servergenre\":\"Rock\",\"servergenre2\":\"\",\"servergenre3\":\"\",\"servergenre4\":\"\",\"servergenre5\":\"\",\"serverurl\":\"N\\/A\",\"servertitle\":\"HAPPY MP3\",\"songtitle\":\"ROZGA JELENA - ROZA BOJA\",\"streamhits\":560198,\"streamstatus\":1,\"backupstatus\":0,\"streamlisted\":0,\"streamlistederror\":1396457038,\"streampath\":\"\\/stream\",\"streamuptime\":1156154,\"bitrate\":\"256\",\"samplerate\":\"48000\",\"content\":\"audio\\/mpeg\",\"version\":\"2.6.1.777 (posix(linux x64))\"}",
+          "sha256": "b72e45d85366ce7673e360816dfb19d4e7f91bc13433444d7a2dd2de5ccd4025"
+        }
       }
     }
   ],
@@ -90,33 +112,33 @@
   "frontier": [],
   "baseline_sha256": "b1e046492f4095296f3849ee73659fd92e80db0c9d1666826fbb4daaa9a8855f",
   "publisher_evidence": {
-    "method": "Official player plus provider status JSON explicitly binds both exact endpoints"
+    "method": "Official main-player configuration and decoded audio bindings, confirmed main-channel artwork; no generic-name/IP-only admission"
   },
   "previous_completed_primary": "Batches01-74 closed; do not reprocess.",
   "authority_scope": "Current activated production with 31329 PNGs; unchanged original 10332 subset",
   "previous_frontier": "../batch-74-reviewed/results/next-source-observations.json",
   "deferred_tokenized_references": [],
   "live_observations": {
-    "4097:0:2:4D55:2339:ED:0:0:0:0": {
-      "url": "https://centova.neonetwork.cl:9030/stream.aac",
-      "final_url": "https://centova.neonetwork.cl:9030/stream.aac",
+    "4097:0:2:C326:FCEA:ED:0:0:0:0": {
+      "url": "http://c5.hostingcentar.com:9543/",
+      "final_url": "http://c5.hostingcentar.com:9543/",
       "http_status": 200,
-      "content_type": "audio/aac",
-      "icy_name": "MILLENIUM",
+      "content_type": "audio/aacp",
+      "icy_name": "HappyFM",
       "sample_bytes": 1024,
-      "sample_sha256": "e871ccc77b1446d71477abe1fc7d47fb372f77daeea27ace4c8815dc57f032c9",
-      "checked_at": "2026-11-10T11:13:23.417807+00:00",
+      "sample_sha256": "7a991dd57cf8df30d31dd247acf47b4f14915ec7ba9c689e3d8a16527f17fd4c",
+      "checked_at": "2026-11-10T11:26:40.901385+00:00",
       "status": "audio-confirmed"
     },
-    "4097:0:2:4977:697:ED:0:0:0:0": {
-      "url": "http://5.9.65.9:8030/stream.aac",
-      "final_url": "http://5.9.65.9:8030/stream.aac",
+    "4097:0:2:CF2E:DD6E:ED:0:0:0:0": {
+      "url": "http://c5.hostingcentar.com:8072/",
+      "final_url": "http://c5.hostingcentar.com:8072/",
       "http_status": 200,
-      "content_type": "audio/aac",
-      "icy_name": "MILLENIUM",
+      "content_type": "audio/mpeg",
+      "icy_name": "HAPPY MP3",
       "sample_bytes": 1024,
-      "sample_sha256": "c8003a38a0181bd6d88ad31a33b7179ceab095cfcd9bf7ceca952506054bc9b9",
-      "checked_at": "2026-11-10T11:13:24.197715+00:00",
+      "sample_sha256": "a8d7bff9d8437f3ec69bfeb3c1ad597bc4ece6cd90c5feb37d15d4ee13a5ebf4",
+      "checked_at": "2026-11-10T11:26:40.863242+00:00",
       "status": "audio-confirmed"
     }
   }

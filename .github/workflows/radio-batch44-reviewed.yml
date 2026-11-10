@@ -1,4 +1,4 @@
-name: Radio batch75 verified aliases and independent readback
+name: Radio batch75 eligible Happy main-feed alias and independent readback
 on:
   push:
     branches: [work/radio-world-batch38-contrast-pass1-history-20261107]
@@ -50,7 +50,7 @@ jobs:
         run: |
           set -euo pipefail
           stage=picons/radio-world/staging/batch-75-reviewed
-          python3 picons/radio-world/tools/replay_downloader.py --index "$stage/countries.proposed.json" --countries CL --output "$stage/downloader-proof.json" --radio _radio --cache "$RUNNER_TEMP/http-cache"
+          python3 picons/radio-world/tools/replay_downloader.py --index "$stage/countries.proposed.json" --countries HR --output "$stage/downloader-proof.json" --radio _radio --cache "$RUNNER_TEMP/http-cache"
           curl --fail --retry 2 --location https://raw.githubusercontent.com/Evolution-by-Warder/PiconHub-Warder-Evolution/8180aa0df6e185efad120338bc53ca04bc5e492a/picons/radio-world/catalog/countries.json -o "$RUNNER_TEMP/production.json"
           curl --fail --retry 2 --location https://raw.githubusercontent.com/Evolution-by-Warder/PiconHub-Warder-Evolution/59ec70708d4d05a28f17c741742c78451d4fc45b/picons/radio-world/catalog/countries.json -o "$RUNNER_TEMP/current-production.json"
           python3 "$stage/helpers/audit_candidate_preservation.py" --baseline "$RUNNER_TEMP/current-production.json" --candidate "$stage/countries.proposed.json" --baseline-commit 59ec70708d4d05a28f17c741742c78451d4fc45b --baseline-sha256 a70036892456d105ae2844a715f462eac1b87aef16769c57c7a9699b1cfac2b1 --expected-references 3417 --expected-pngs 31329 --output "$stage/production-preservation-proof.json"
