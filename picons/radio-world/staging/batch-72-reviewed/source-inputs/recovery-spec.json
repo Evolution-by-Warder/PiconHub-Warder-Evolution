@@ -1,0 +1,90 @@
+{
+  "pairs": [
+    {
+      "new": {
+        "name": "Emisora Atlántico (Barranquilla)",
+        "url": "https://playerservices.streamtheworld.com/api/livestream-redirect/ATL_BARRANQUILLA_SC",
+        "reference": "4097:0:2:C54D:7A78:ED:0:0:0:0",
+        "group": "Colombia"
+      },
+      "old": {
+        "name": "Emisora Atlantico",
+        "url": "https://playerservices.streamtheworld.com/api/livestream-redirect/ATL_BARRANQUILLA.mp3",
+        "reference": "4097:0:2:28DE:850A:ED:0:0:0:0",
+        "group": "Colombia"
+      },
+      "family": [
+        "streamtheworld",
+        "ATL_BARRANQUILLA"
+      ],
+      "catalog_url_sha256": {
+        "new": "1f88b329a986811ece89696960abb1954a40e31d138a361f06ded48368bb7493",
+        "old": "08cf44791ee9a61b0e7630007d714e1f858c665b8f5b085c258a4df3bd4cf631"
+      },
+      "allowed_query_names": [],
+      "icy_name": "Emisora Atlantico 1070 AM",
+      "kind": "provider-explicit-suffix",
+      "identity_basis": "Provider API explicitly maps ATL_BARRANQUILLA to shoutcast suffix _SC. Both exact redirects deliver identical 1024-byte audio SHA256 in simultaneous fresh observations; regional mount is Barranquilla, and both streams identify Emisora Atlantico 1070 AM.",
+      "provider_api": {
+        "url": "https://playerservices.streamtheworld.com/api/livestream?version=1.5&mount=ATL_BARRANQUILLA&lang=en",
+        "final_url": "https://playerservices.streamtheworld.com/api/livestream",
+        "http_status": 200,
+        "content_type": "text/xml; charset=UTF-8",
+        "icy_name": null,
+        "sample_bytes": 1719,
+        "sample_sha256": "8bce6d7cf86ccca0b3042e33956761910add250ad84b30306a9164ab18ba80a9",
+        "checked_at": "2026-11-10T10:37:39.632153+00:00",
+        "body": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>        \n<live_stream_config version=\"1.5\" xmlns=\"http://provisioning.streamtheworld.com/player/livestream-1.5\">\n\n\n<mountpoints>\n<mountpoint>\n  <status>\n  <status-code>200</status-code>\n  <status-message>OK</status-message>\n  </status>\n    <transports>\n                     <transport>http</transport>\n              </transports>\n    <metadata>\n    <shoutcast-v1 enabled=\"true\" mountSuffix=\"_SC\"/>\n    <shoutcast-v2 enabled=\"false\" mountSuffix=\"_SC\"/>\n    <sse-sideband enabled=\"true\" streamSuffix=\"_SC\" metadataSuffix=\"_SBM\" />\n  </metadata>  \n    <servers>\n     <server sid=\"24403\">\n      <ip>24403.live.streamtheworld.com</ip>\n      <ports>\n        <port type=\"http\">80</port>\n        <port type=\"http\">3690</port>\n       </ports>\n   </server>\n      <server sid=\"26673\">\n      <ip>26673.live.streamtheworld.com</ip>\n      <ports>\n        <port type=\"http\">80</port>\n        <port type=\"http\">3690</port>\n       </ports>\n   </server>\n      <server sid=\"26583\">\n      <ip>26583.live.streamtheworld.com</ip>\n      <ports>\n        <port type=\"http\">80</port>\n        <port type=\"http\">3690</port>\n       </ports>\n   </server>\n      </servers>\n    <metrics>\n   <tag name=\"uuid\"/>\n  </metrics>\n    <mount>ATL_BARRANQUILLA</mount>\n           <format>FLV</format>\n    \n    <bitrate>96000</bitrate>\n    \n         <media-format container=\"flv\" cuepoints=\"stwcue\">\n                      <audio index=\"0\" samplerate=\"44100\" codec=\"mp3\" bitrate=\"96000\" channels=\"2\"/>\n                      </media-format>\n        <authentication>0</authentication>\n    <timeout>0</timeout>\n    <send-page-url>1</send-page-url>\n       \n    </mountpoint>\n</mountpoints>\n</live_stream_config>\n"
+      }
+    }
+  ],
+  "current": {
+    "url": "https://raw.githubusercontent.com/Evolution-by-Warder/PiconHub-Warder-Evolution/481e9b9154a510c64c743de72c1a73ed808307bf/picons/IPTV-SK-CZ/catalog/global/world-radio.receiver.json.gz",
+    "bytes": 1285174,
+    "sha256": "1822415e4cab426acb0a74f74cb5b095679e655ff06a607c697049be688816a0"
+  },
+  "audit": {
+    "url": "https://raw.githubusercontent.com/Evolution-by-Warder/PiconHub-Warder-Evolution/481e9b9154a510c64c743de72c1a73ed808307bf/picons/IPTV-SK-CZ/catalog/global/stream-audit.json.gz",
+    "bytes": 3559221,
+    "sha256": "4ba78ebcc6847f9930266dabab9ae7ff5f0d60eee765ad2f08e6d10fe77120e3"
+  },
+  "production_index": {
+    "url": "https://raw.githubusercontent.com/Evolution-by-Warder/PiconHub-Warder-Evolution/59ec70708d4d05a28f17c741742c78451d4fc45b/picons/radio-world/catalog/countries.json",
+    "bytes": 86077,
+    "sha256": "a70036892456d105ae2844a715f462eac1b87aef16769c57c7a9699b1cfac2b1"
+  },
+  "parent": "4285f89879819b3195a18fe94c69581d4091a38f",
+  "frontier": [],
+  "baseline_sha256": "a70036892456d105ae2844a715f462eac1b87aef16769c57c7a9699b1cfac2b1",
+  "publisher_evidence": {
+    "method": "Fresh provider XML and exact redirects; sample hash equality"
+  },
+  "previous_completed_primary": "Batches57-71 closed; do not reprocess.",
+  "authority_scope": "Current activated production with 31329 PNGs; unchanged original 10332 subset",
+  "previous_frontier": "../batch-71-reviewed/results/next-source-observations.json.gz",
+  "deferred_tokenized_references": [],
+  "live_observations": {
+    "4097:0:2:C54D:7A78:ED:0:0:0:0": {
+      "url": "https://playerservices.streamtheworld.com/api/livestream-redirect/ATL_BARRANQUILLA_SC",
+      "final_url": "https://26583.live.streamtheworld.com:443/ATL_BARRANQUILLA_SC",
+      "http_status": 200,
+      "content_type": "audio/mpeg",
+      "icy_name": "Emisora Atlantico 1070 AM",
+      "sample_bytes": 1024,
+      "sample_sha256": "a80b04e60bc894fde88948159ec250c84b950c977cd1dec117af76739a801caf",
+      "checked_at": "2026-11-10T10:37:44.745784+00:00",
+      "status": "audio-confirmed"
+    },
+    "4097:0:2:28DE:850A:ED:0:0:0:0": {
+      "url": "https://playerservices.streamtheworld.com/api/livestream-redirect/ATL_BARRANQUILLA.mp3",
+      "final_url": "https://26583.live.streamtheworld.com:443/ATL_BARRANQUILLA.mp3",
+      "http_status": 200,
+      "content_type": "audio/mpeg",
+      "icy_name": "Emisora Atlantico 1070 AM",
+      "sample_bytes": 1024,
+      "sample_sha256": "a80b04e60bc894fde88948159ec250c84b950c977cd1dec117af76739a801caf",
+      "checked_at": "2026-11-10T10:37:44.733926+00:00",
+      "status": "audio-confirmed"
+    }
+  }
+}
