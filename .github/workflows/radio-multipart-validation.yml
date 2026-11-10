@@ -1,0 +1,28 @@
+name: Radio multipart country ZIP verification (no publishing)
+on:
+  push:
+    branches: [feature/radio-multipart-picon-packages-20261110]
+    paths:
+      - 'picons/radio-world/staging/batch-79-reviewed/helpers/import_queryfree.py'
+      - 'picons/radio-world/tools/test_split_archives.py'
+      - '.github/workflows/radio-multipart-validation.yml'
+  pull_request:
+    paths:
+      - 'picons/radio-world/staging/batch-79-reviewed/helpers/import_queryfree.py'
+      - 'picons/radio-world/tools/test_split_archives.py'
+permissions:
+  contents: read
+jobs:
+  test_package_split:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python3 -m pip install Pillow
+      - name: Compile package builder and split tests
+        run: python3 -m py_compile picons/radio-world/staging/batch-79-reviewed/helpers/import_queryfree.py picons/radio-world/tools/test_split_archives.py
+      - name: Verify deterministic legacy and multipart packaging, source bytes, SHA256
+        run: python3 -m unittest discover -s picons/radio-world/tools -p test_split_archives.py -v
