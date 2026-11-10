@@ -1,0 +1,82 @@
+{
+  "schema": 1,
+  "method": "Decode bounded public live samples with ffmpeg to signed16-bit mono8kHz; find lag with FFT cross-correlation; compute Pearson correlation over aligned overlap. Evidence corroborates official player, exact provider account and already-approved main branding. Audio matching alone is not a generic permission to share logos across syndicated/regional stations.",
+  "happy": {
+    "samples": {
+      "publisher": {
+        "url": "https://audio.social3.hr/listen/happy_aac/stream",
+        "final_url": "https://audio.social3.hr/listen/happy_aac/stream",
+        "sha256": "515a74841d3591e96927209d00f985f10e3351764c800f592d37728cc0065fb5",
+        "bytes": 131072,
+        "pcm_sha256": "ff7297d68ebde2180b4d7b110ae79803963dd76479cfa49c506172a6c9baa0c7",
+        "pcm_samples": 128546,
+        "checked_at": "2026-11-10T11:30:12.980418+00:00"
+      },
+      "new": {
+        "url": "http://c5.hostingcentar.com:9543/",
+        "final_url": "http://c5.hostingcentar.com:9543/",
+        "sha256": "43934dc60bab21c4ce32f861292fb2d153ef978d34003e165b565a9df99045ac",
+        "bytes": 131072,
+        "pcm_sha256": "e4dc984e17e6c45c38580ad0f2b8bfb408e64ea0f9fbf64ba2a4f9943da78e17",
+        "pcm_samples": 87040,
+        "checked_at": "2026-11-10T11:30:10.453856+00:00"
+      },
+      "old": {
+        "url": "http://c5.hostingcentar.com:8072/",
+        "final_url": "http://c5.hostingcentar.com:8072/",
+        "sha256": "2dfdc874e3a730f3d6daab9ec446ec1bf252cda68a2faf0507c0edccb422730e",
+        "bytes": 262144,
+        "pcm_sha256": "86bf7cffbd134e16bc4fc7c1824753c811d46199cb1be2e8b87f8a2f97a2de1f",
+        "pcm_samples": 65664,
+        "checked_at": "2026-11-10T11:30:11.032100+00:00"
+      }
+    },
+    "comparisons": {
+      "new": {
+        "lag_samples": -40140,
+        "aligned_samples": 46900,
+        "seconds": 5.8625,
+        "pcm_correlation": 0.9780992001145014
+      },
+      "old": {
+        "lag_samples": 70907,
+        "aligned_samples": 57639,
+        "seconds": 7.204875,
+        "pcm_correlation": 0.9894412266392665
+      }
+    },
+    "publisher_new_exact_chunks": []
+  },
+  "le_bon_mix": {
+    "samples": {
+      "publisher": {
+        "url": "https://stream10.xdevel.com/audio13s976748-2017/stream/icecast.audio",
+        "final_url": "https://stream10.xdevel.com/audio13s976748-2017/stream/icecast.audio",
+        "sha256": "1986149fed5d3142f3a7ffcc417a14cc33eff88b9a3ecfb8eba68d93a699e56d",
+        "bytes": 393216,
+        "pcm_sha256": "9743bb282baa23ed72ace2a1bfcd653c31c2b1c3e7b6fea205fec7a9ac65716d",
+        "pcm_samples": 78577,
+        "checked_at": "2026-11-10T11:34:16.668572+00:00"
+      },
+      "new": {
+        "url": "https://stream10.xdevel.com/audio11s976748-2015/stream/icecast.audio",
+        "final_url": "https://stream10.xdevel.com/audio11s976748-2015/stream/icecast.audio",
+        "sha256": "feb5c460a8630725e9c5ebaaa26e1ef2e33b04149a7aef42d09e7ece0aaa2708",
+        "bytes": 196608,
+        "pcm_sha256": "e9dcb5a2c908075e0a7e800bb7a41d3778177b612e29b2222a780938d08e44e1",
+        "pcm_samples": 65388,
+        "checked_at": "2026-11-10T11:34:17.280978+00:00"
+      }
+    },
+    "comparisons": {
+      "new": {
+        "lag_samples": 2872,
+        "aligned_samples": 65388,
+        "seconds": 8.1735,
+        "pcm_correlation": 0.9883413177410547
+      }
+    },
+    "publisher_new_exact_chunks": []
+  },
+  "audio_files_published": false
+}

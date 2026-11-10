@@ -1,0 +1,272 @@
+{
+  "schema": 1,
+  "next_batch": 77,
+  "completed_batches": "01-76 completed and independently audited",
+  "configuration_holds_unchanged": 923,
+  "previous_frontier": "../batch-73-reviewed/results/next-source-observations.json",
+  "discovery": {
+    "normalized_name_comparisons": 206,
+    "normalized_name_unique_refs": 171,
+    "frozen_name_comparisons": 196,
+    "frozen_name_unique_refs": 163,
+    "provider_exact_mount_comparisons": 2,
+    "cross_country_eligible_exact_url_aliases": 0,
+    "aggregate_groups_outside_target": "HDF/EN2 are not countries; never count them"
+  },
+  "reviewed_deferred": [
+    {
+      "new": {
+        "name": "Radio Catalina",
+        "url": "https://streaming.comunicacioneschile.net/8034/stream",
+        "reference": "4097:0:2:AD8A:1EAF:ED:0:0:0:0",
+        "group": "Chile"
+      },
+      "old": {
+        "name": "Radio Catalina 106.3 FM",
+        "url": "https://streaming.comunicacioneschile.net/9398/stream",
+        "reference": "4097:0:2:440A:DDF8:ED:0:0:0:0",
+        "group": "Chile"
+      },
+      "catalog_url_sha256": {
+        "new": "a5783aa5f2946c8e9cd6c0872631885f5865d9ebeec41eb786e6a57c911e87c0",
+        "old": "315354b41fe0470a11e01ee3a0537e3e95be191b020dfb329bbbeea20db274db"
+      },
+      "in_frozen_catalogue": true,
+      "decision": "defer",
+      "reason": "Official Catalina player identifies9398;8034 gives generic RadioCaster; no decisive bridge."
+    },
+    {
+      "new": {
+        "name": "Millenium Radio Network",
+        "url": "https://centova.neonetwork.cl:9030/stream.aac",
+        "reference": "4097:0:2:4D55:2339:ED:0:0:0:0",
+        "group": "Chile"
+      },
+      "old": {
+        "name": "Radio Millenium Network",
+        "url": "http://5.9.65.9:8030/stream.aac",
+        "reference": "4097:0:2:4977:697:ED:0:0:0:0",
+        "group": "Chile"
+      },
+      "catalog_url_sha256": {
+        "new": "7839b39e21d1bc2154c38ab2603d4c44d5441ca7d64384c277448a96fe942458",
+        "old": "7e0a5f0630ad64e0c22812a3d0b8c01ffed68feb4d0e76853c4e08e352f58c9f"
+      },
+      "in_frozen_catalogue": false,
+      "decision": "defer",
+      "reason": "Identity confirmed by publisher and Icecast listenurl, but target reference absent from frozen catalogue; not eligible. See75/source-inputs/deferred-millenium.json."
+    },
+    {
+      "new": {
+        "name": "Vibra (Bogotá)",
+        "url": "https://playerservices.streamtheworld.com/api/livestream-redirect/VIBRA_SC",
+        "reference": "4097:0:2:EAA8:5AE9:ED:0:0:0:0",
+        "group": "Colombia"
+      },
+      "old": {
+        "name": "Vibra Radio",
+        "url": "https://radio35.virtualtronics.com:20152/;",
+        "reference": "4097:0:2:CC40:288D:ED:0:0:0:0",
+        "group": "Colombia"
+      },
+      "catalog_url_sha256": {
+        "new": "3ddd9b3f16ee464b856d5866e0e0811a198ce78e454ae97dd4b8a2784d94f144",
+        "old": "8a5a4eb28fec013225a04398a53fd5e08b88f32a4f09e44a28df2175d935d7bc"
+      },
+      "in_frozen_catalogue": true,
+      "decision": "defer",
+      "reason": "VIBRA provider stream and approved Virtualtronics stream have different endpoints; publisher403, no exact bridge."
+    },
+    {
+      "new": {
+        "name": "Vibra Radio 96.9",
+        "url": "https://sp2.servidorrprivado.com:10859/stream",
+        "reference": "4097:0:2:8FF6:3036:ED:0:0:0:0",
+        "group": "Colombia"
+      },
+      "old": {
+        "name": "Vibra Radio",
+        "url": "https://radio35.virtualtronics.com:20152/;",
+        "reference": "4097:0:2:CC40:288D:ED:0:0:0:0",
+        "group": "Colombia"
+      },
+      "catalog_url_sha256": {
+        "new": "1fd5c5ce5920dc5159a38b4285b6112ee645e858fdb5a2cdb478e6b19df0defe",
+        "old": "8a5a4eb28fec013225a04398a53fd5e08b88f32a4f09e44a28df2175d935d7bc"
+      },
+      "in_frozen_catalogue": true,
+      "decision": "defer",
+      "reason": "Generic No Name stream versus approved Vibra; no identity bridge."
+    },
+    {
+      "new": {
+        "name": "Nostalgie",
+        "url": "https://streaming.nrjaudio.fm/oug7girb92oc",
+        "reference": "4097:0:2:1BD1:DD1C:ED:0:0:0:0",
+        "group": "France"
+      },
+      "old": {
+        "name": "Nostalgie FM",
+        "url": "https://streaming.nrjaudio.fm/ouwgwqsk6j4d",
+        "reference": "4097:0:2:DFD8:125A:ED:0:0:0:0",
+        "group": "France"
+      },
+      "catalog_url_sha256": {
+        "new": "f06d126ac231dadd2bfe74cd749650f1d5677fee5a65d0d973203e7e9eb7e28a",
+        "old": "9c4a4a454e96b855e2e605a38e29dfc09313b8177204cc4bea3881bbab3182a0"
+      },
+      "in_frozen_catalogue": true,
+      "decision": "defer",
+      "reason": "NOSTA SAT MP3/AAC metadata suggests same programme but opaque mounts lack explicit publisher mapping; publisher403 and canonical30601 attempts404."
+    },
+    {
+      "new": {
+        "name": "80s80s Live",
+        "url": "http://regiocast.streamabc.net/regc-80s80slivemusic6529239-mp3-192-4931649",
+        "reference": "4097:0:2:3AAF:A483:ED:0:0:0:0",
+        "group": "Germany"
+      },
+      "old": {
+        "name": "80s 80s",
+        "url": "https://streams.80s80s.de/web/mp3-192/streams.80s80s.de/",
+        "reference": "4097:0:2:E882:EFDB:ED:0:0:0:0",
+        "group": "Germany"
+      },
+      "catalog_url_sha256": {
+        "new": "b0e91a19a9196a1f5877d2a6c847579e6861b91c31cff11b7f74997e5a7f2295",
+        "old": "911ed36aaad721f154db5987701fb06be389fe2b2fd936cff40a16c40c036931"
+      },
+      "in_frozen_catalogue": true,
+      "decision": "defer",
+      "reason": "Both endpoints502. Do not repeat without new evidence."
+    },
+    {
+      "new": {
+        "name": "Divina FM",
+        "url": "https://maurizi1.radioca.st/stream.mp3",
+        "reference": "4097:0:2:5229:A94:ED:0:0:0:0",
+        "group": "Italy"
+      },
+      "old": {
+        "name": "Radio Divina",
+        "url": "http://onair15.xdevel.com:9118/;",
+        "reference": "4097:0:2:2EAA:A2AC:ED:0:0:0:0",
+        "group": "Italy"
+      },
+      "catalog_url_sha256": {
+        "new": "fef9550b7e292cfa702e8027a49e9ec2b782c22c634d377340e6182f9cd91a94",
+        "old": "aa71c9bf208fc313e7fb7d8a6e849a43c16c37459c0208d73fe25f31201d9675"
+      },
+      "in_frozen_catalogue": true,
+      "decision": "defer",
+      "reason": "DivinaFM vs DIVINA endpoints without explicit publisher bridge; not admitted."
+    },
+    {
+      "new": {
+        "name": "Radio Valentina",
+        "url": "http://wma01.fluidstream.net:8300/;stream.mp3",
+        "reference": "4097:0:2:7571:B06A:ED:0:0:0:0",
+        "group": "Italy"
+      },
+      "old": {
+        "name": "Radio Valentina FM",
+        "url": "http://nr5.newradio.it:8587/;stream.mp3",
+        "reference": "4097:0:2:97BD:ECE3:ED:0:0:0:0",
+        "group": "Italy"
+      },
+      "catalog_url_sha256": {
+        "new": "6ed119bae686cb74e5e86a022d0af5d2c3973b46023b05d15515ae2a7dd8754a",
+        "old": "9ecf078ebcdf060ca13b8095e6e3764b44b252dafa2b0e8931bd49f5b58c900c"
+      },
+      "in_frozen_catalogue": true,
+      "decision": "defer",
+      "reason": "RVS RADIO VALENTINA versus Radio Valentina Italia: conflicting branding, no admission."
+    },
+    {
+      "new": {
+        "name": "Radio Trinitas",
+        "url": "http://81.196.25.70:8000/",
+        "reference": "4097:0:2:2EB2:AD91:ED:0:0:0:0",
+        "group": "Romania"
+      },
+      "old": {
+        "name": "Radio Trinitas 88.5",
+        "url": "https://live.radiotrinitas.ro:8003/;stream.nsv",
+        "reference": "4097:0:2:823C:FAF6:ED:0:0:0:0",
+        "group": "Romania"
+      },
+      "catalog_url_sha256": {
+        "new": "4d46046ecf302abe15730add022f0bf1e267d32300f853c805ab82c9aa10380c",
+        "old": "39db55f21cb64d3c034922144465fdc4c1b06ca71cae10eecd9a44e5533d68a3"
+      },
+      "in_frozen_catalogue": true,
+      "decision": "defer",
+      "reason": "Target root serves HTML; no exact audio identity confirmation."
+    },
+    {
+      "new": {
+        "name": "Trinitas Radio (București 88.5 FM)",
+        "url": "http://81.196.25.70:8000/;",
+        "reference": "4097:0:2:5738:56AE:ED:0:0:0:0",
+        "group": "Romania"
+      },
+      "old": {
+        "name": "Radio Trinitas 88.5",
+        "url": "https://live.radiotrinitas.ro:8003/;stream.nsv",
+        "reference": "4097:0:2:823C:FAF6:ED:0:0:0:0",
+        "group": "Romania"
+      },
+      "catalog_url_sha256": {
+        "new": "060183e0da7a306c4fbc7a3ff3b5980d02dac2e7162f1e2033030f39364d6c47",
+        "old": "39db55f21cb64d3c034922144465fdc4c1b06ca71cae10eecd9a44e5533d68a3"
+      },
+      "in_frozen_catalogue": true,
+      "decision": "defer",
+      "reason": "Generic shoutcast metadata and no captured audio overlap; official player403, no decisive mapping."
+    },
+    {
+      "new": {
+        "name": "Arab Mix FM",
+        "url": "https://stream.zeno.fm/na3vpvn10qruv",
+        "reference": "4097:0:2:AF91:6F65:ED:0:0:0:0",
+        "group": "Egypt"
+      },
+      "old": {
+        "name": "87.8Mix FM",
+        "url": "https://stream-29.zeno.fm/na3vpvn10qruv",
+        "reference": "4097:0:2:1D1:306B:ED:0:0:0:0",
+        "group": "Egypt"
+      },
+      "catalog_url_sha256": {
+        "new": "5000ee9d7595e47025379689aa1adbfa63b311b9533eca63e35ca0df4fae8efb",
+        "old": "0f9cf66df428e0b7fc9f71558ae808f84d774c5bafae5300402b7e4e55680d2c"
+      },
+      "decision": "defer",
+      "reason": "Identical redirects/audio resolve to Arab Mix FM, but approved source PNG is branded Mix87.8. Preserve source; no alias."
+    },
+    {
+      "new": {
+        "name": "Merakia",
+        "url": "https://stream-57.zeno.fm/r4k1wdsshkhvv",
+        "reference": "4097:0:2:524C:3A28:ED:0:0:0:0",
+        "group": "Greece"
+      },
+      "old": {
+        "name": "Merakia.Gr",
+        "url": "https://stream.zeno.fm/r4k1wdsshkhvv",
+        "reference": "4097:0:2:5CB8:BB03:ED:0:0:0:0",
+        "group": "Greece"
+      },
+      "catalog_url_sha256": {
+        "new": "2ac5347289e0a4cbeba1f23075c539c14f118ea01fb74e68fc6e00d3c8bf349c",
+        "old": "c4ff7d68a06e84153b705541f3bd26d702ce1a0e2923c7d405acffd77d686a57"
+      },
+      "decision": "defer",
+      "reason": "Both exact-mount endpoints401. No bypass or repeated requests."
+    }
+  ],
+  "unreviewed_count": 188,
+  "unreviewed_pool": "unreviewed-discovery-pool.json",
+  "next": "Use a new independent publisher family or original approved artwork inventory. Preserve all current holds. Do not re-request listed failures absent new decisive evidence. No currently confirmed eligible alias remains in this inspected group.",
+  "alternative_comparisons_excluded_by_reviewed_target": 3
+}
