@@ -1,0 +1,123 @@
+{
+  "pairs": [
+    {
+      "new": {
+        "name": "Millenium Radio Network",
+        "url": "https://centova.neonetwork.cl:9030/stream.aac",
+        "reference": "4097:0:2:4D55:2339:ED:0:0:0:0",
+        "group": "Chile"
+      },
+      "old": {
+        "name": "Radio Millenium Network",
+        "url": "http://5.9.65.9:8030/stream.aac",
+        "reference": "4097:0:2:4977:697:ED:0:0:0:0",
+        "group": "Chile"
+      },
+      "catalog_url_sha256": {
+        "new": "7839b39e21d1bc2154c38ab2603d4c44d5441ca7d64384c277448a96fe942458",
+        "old": "7e0a5f0630ad64e0c22812a3d0b8c01ffed68feb4d0e76853c4e08e352f58c9f"
+      },
+      "allowed_query_names": [],
+      "kind": "provider-listenurl",
+      "identity_basis": "Official Radio Millenium player uses new HTTPS endpoint; its provider status JSON explicitly names approved old HTTP endpoint as listenurl and official station website as server_url. Simultaneous matching encoded audio blocks corroborate.",
+      "provider": {
+        "url": "https://centova.neonetwork.cl:9030/status-json.xsl",
+        "sha256": "1d8a4822f7e62022abd8ae2877d707058493b8dfff9cff7f6d1d5af8053294de",
+        "body": "{\"icestats\":{\"admin\":\"icemaster@localhost\",\"host\":\"5.9.65.9\",\"location\":\"Earth\",\"server_id\":\"Icecast 2.4.4\",\"server_start\":\"Wed, 30 Sep 2026 11:30:32 -0300\",\"server_start_iso8601\":\"2026-09-30T11:30:32-0300\",\"source\":{\"audio_info\":\"ice-bitrate=128;ice-samplerate=44100;ice-channels=2\",\"bitrate\":128 ,\"genre\":\"70,80,90¨S\",\"ice-bitrate\":128,\"ice-channels\":2,\"ice-samplerate\":44100,\"listener_peak\":31,\"listeners\":8,\"listenurl\":\"http://5.9.65.9:8030/stream.aac\",\"server_description\":\"LA RADIO DE CLÁSICOS\",\"server_name\":\"MILLENIUM\",\"server_type\":\"audio/aac\",\"server_url\":\"http://www.radiomillenium.cl \",\"stream_start\":\"Mon, 09 Nov 2026 22:08:03 -0300\",\"stream_start_iso8601\":\"2026-11-09T22:08:03-0300\",\"title\":\"MILLENIUM RADIO\",\"dummy\":null}}}"
+      },
+      "publisher": {
+        "url": "https://radiomillenium.cl/envivo/index.php",
+        "sha256": "2294a4e956229480ba6815ec98f10bd8ea78d02cdc3f14caa8d3f77c9d267213",
+        "excerpt": "stream=https://centova.neonetwork.cl:9030/stream.aac",
+        "name": "Radio Millenium"
+      },
+      "audio_comparison": {
+        "samples": {
+          "new": {
+            "url": "https://centova.neonetwork.cl:9030/stream.aac",
+            "final_url": "https://centova.neonetwork.cl:9030/stream.aac",
+            "content_type": "audio/aac",
+            "sha256": "540ceeb03def03fa11ee4f70b9ecf72f6f6cf011df677c8ba4b97bf35b274bfd",
+            "bytes": 65536
+          },
+          "old": {
+            "url": "http://5.9.65.9:8030/stream.aac",
+            "final_url": "http://5.9.65.9:8030/stream.aac",
+            "content_type": "audio/aac",
+            "sha256": "687a272dc71e3148175ec9fc921bcad7e55aa612f6676b94350a0bb955fb6593",
+            "bytes": 65536
+          }
+        },
+        "matching_audio_chunks": [
+          {
+            "new_offset": 0,
+            "old_offset": 28000,
+            "bytes": 8192,
+            "sha256": "17aae7a3027204e75a3f3acca1b938fb14ac87f53470538bffcbc7c0e7871220"
+          },
+          {
+            "new_offset": 1024,
+            "old_offset": 29024,
+            "bytes": 8192,
+            "sha256": "4bf04ac9dcfb1d6051c19dc76f6f3d765a43dde09bb00de8c5b8e916e31f3a95"
+          },
+          {
+            "new_offset": 2048,
+            "old_offset": 30048,
+            "bytes": 8192,
+            "sha256": "ee53c0f007385614697240823d6c31137acdcf8624d1bc437a19c7e2d966bcaf"
+          }
+        ]
+      }
+    }
+  ],
+  "current": {
+    "url": "https://raw.githubusercontent.com/Evolution-by-Warder/PiconHub-Warder-Evolution/481e9b9154a510c64c743de72c1a73ed808307bf/picons/IPTV-SK-CZ/catalog/global/world-radio.receiver.json.gz",
+    "bytes": 1285174,
+    "sha256": "1822415e4cab426acb0a74f74cb5b095679e655ff06a607c697049be688816a0"
+  },
+  "audit": {
+    "url": "https://raw.githubusercontent.com/Evolution-by-Warder/PiconHub-Warder-Evolution/481e9b9154a510c64c743de72c1a73ed808307bf/picons/IPTV-SK-CZ/catalog/global/stream-audit.json.gz",
+    "bytes": 3559221,
+    "sha256": "4ba78ebcc6847f9930266dabab9ae7ff5f0d60eee765ad2f08e6d10fe77120e3"
+  },
+  "production_index": {
+    "url": "https://raw.githubusercontent.com/Evolution-by-Warder/PiconHub-Warder-Evolution/59ec70708d4d05a28f17c741742c78451d4fc45b/picons/radio-world/catalog/countries.json",
+    "bytes": 86077,
+    "sha256": "a70036892456d105ae2844a715f462eac1b87aef16769c57c7a9699b1cfac2b1"
+  },
+  "parent": "bbdc779f02cc0b75f3595da1c1aceaec4cd0920a",
+  "frontier": [],
+  "baseline_sha256": "b1e046492f4095296f3849ee73659fd92e80db0c9d1666826fbb4daaa9a8855f",
+  "publisher_evidence": {
+    "method": "Official player plus provider status JSON explicitly binds both exact endpoints"
+  },
+  "previous_completed_primary": "Batches01-74 closed; do not reprocess.",
+  "authority_scope": "Current activated production with 31329 PNGs; unchanged original 10332 subset",
+  "previous_frontier": "../batch-74-reviewed/results/next-source-observations.json",
+  "deferred_tokenized_references": [],
+  "live_observations": {
+    "4097:0:2:4D55:2339:ED:0:0:0:0": {
+      "url": "https://centova.neonetwork.cl:9030/stream.aac",
+      "final_url": "https://centova.neonetwork.cl:9030/stream.aac",
+      "http_status": 200,
+      "content_type": "audio/aac",
+      "icy_name": "MILLENIUM",
+      "sample_bytes": 1024,
+      "sample_sha256": "e871ccc77b1446d71477abe1fc7d47fb372f77daeea27ace4c8815dc57f032c9",
+      "checked_at": "2026-11-10T11:13:23.417807+00:00",
+      "status": "audio-confirmed"
+    },
+    "4097:0:2:4977:697:ED:0:0:0:0": {
+      "url": "http://5.9.65.9:8030/stream.aac",
+      "final_url": "http://5.9.65.9:8030/stream.aac",
+      "http_status": 200,
+      "content_type": "audio/aac",
+      "icy_name": "MILLENIUM",
+      "sample_bytes": 1024,
+      "sample_sha256": "c8003a38a0181bd6d88ad31a33b7179ceab095cfcd9bf7ceca952506054bc9b9",
+      "checked_at": "2026-11-10T11:13:24.197715+00:00",
+      "status": "audio-confirmed"
+    }
+  }
+}
