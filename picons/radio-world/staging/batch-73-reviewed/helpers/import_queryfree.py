@@ -171,7 +171,7 @@ def build(temporary, snapshot):
             for style in sorted(STYLES):
                 base=old['packages'][size][style] if old else None
                 tasks.append((code,size,style,base,by_country[code],source,snapshot))
-    assert len(tasks)==27*(len(by_country)-len(reused))
+    assert len(tasks)==9*(len(by_country)-len(reused))
     with ThreadPoolExecutor(max_workers=8) as pool:
         for code,size,style,entry,count in pool.map(package,tasks):
             manifests[code]['packages'].setdefault(size,{})[style]=entry
