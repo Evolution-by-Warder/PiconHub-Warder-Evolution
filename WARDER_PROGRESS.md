@@ -29,6 +29,8 @@ Z 21 kandidátov dávky zostáva **0**. V dôkazoch je evidovaných ďalších 1
 
 Použiť `countries.proposed.json` z dávky 98 a manifestový commit `cae0fa53fb1e0bf13861abe4baab9dbf729d89ac`. Pokračovať oficiálnymi prehrávačmi a zdrojmi s dôkazom presnej adresy streamu. Pri nevyriešených identitách treba nový nezávislý dôkaz vysielateľa.
 
+Dávka 99 je rozpracovaná. [Register zdrojov](picons/radio-world/staging/batch-99-reviewed/official-source-evidence.json) viaže originály a presné streamy City FM 89 a Биринчи Радио. Pri deviatich ďalších zhodách chýba grafika a dva prípady majú rozpor identity. PNG a ZIPy dávky 99 sa ešte nevytvárali.
+
 ---
 
 # Radio batch 97 complete

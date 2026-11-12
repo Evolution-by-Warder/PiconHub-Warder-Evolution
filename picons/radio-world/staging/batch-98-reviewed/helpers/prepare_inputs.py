@@ -8,9 +8,10 @@ import os
 import subprocess
 import sys
 from concurrent.futures import ThreadPoolExecutor
+from http.client import HTTPException
 from pathlib import Path
 from urllib.parse import urlsplit, urlunsplit
-from urllib.error import HTTPError, URLError
+from urllib.error import HTTPError
 from urllib.request import Request, urlopen
 
 from PIL import Image
@@ -181,7 +182,7 @@ def probe_cached_source(url):
     except HTTPError as error:
         attempt.update(http_status=error.code, final_url=diagnostic_url(error.geturl()))
         error.close()
-    except OSError as error:
+    except (OSError, HTTPException) as error:
         attempt["error"] = type(error).__name__
     return attempt
 
@@ -223,7 +224,7 @@ def fetch_original(row, target):
         except HTTPError as error:
             attempt.update(http_status=error.code, final_url=diagnostic_url(error.geturl()))
             error.close()
-        except (URLError, OSError, ValueError, SyntaxError, Image.DecompressionBombError) as error:
+        except (OSError, HTTPException, ValueError, SyntaxError, Image.DecompressionBombError) as error:
             attempt["error"] = type(error).__name__
         else:
             path.write_bytes(body)
