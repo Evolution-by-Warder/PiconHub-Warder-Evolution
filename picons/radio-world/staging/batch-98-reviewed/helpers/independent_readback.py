@@ -55,6 +55,16 @@ def main(batch, checkpoint, cache):
     for code in old.keys() - selected:
         assert old[code] == new[code], code
     by_ref = {r["station"]["reference"]: r for r in spec["stations"]}
+    assert len(rows) == len({row["ref"] for row in rows})
+    for row in rows:
+        reviewed = by_ref[row["ref"]]
+        assert row["country"] == reviewed["country"] and row["variants"] == reviewed["variants"]
+        assert row["provenance"]["original"] == reviewed["original"]
+        original = reviewed["original"]
+        url = BASE + row["source_commit"] + f"/{stage}/originals/{original['sha256']}.img"
+        with Image.open(io.BytesIO(fetch(url, original["bytes"], original["sha256"]))) as source:
+            assert list(source.size) == original["dimensions"]
+            source.verify()
     tasks = []
     for code in sorted(selected):
         manifest = json.loads(get(new[code]["release"]))
@@ -120,6 +130,8 @@ def main(batch, checkpoint, cache):
                   independent_actual_ZIP_readback=True, baseline_references=spec["baseline_references"],
                   covered_references=total, remaining_references=35560-total,
                   references_added=len(rows), PNG_added=9*len(rows), archives=results,
+                  verified_originals=len({by_ref[row["ref"]]["original"]["sha256"] for row in rows}),
+                  deferred_references=sorted(by_ref.keys() - {row["ref"] for row in rows}),
                   part_limit_bytes=LIMIT, unchanged_country_descriptors=len(new)-len(selected))
     (stage / "results").mkdir(exist_ok=True)
     (stage / "results/independent-postwrite-audit.json").write_text(json.dumps(report, indent=2) + "\n")

@@ -4,12 +4,14 @@ import gzip
 import hashlib
 import io
 import json
+import os
 import subprocess
 import sys
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
-from urllib.parse import urlsplit
-from urllib.request import urlopen
+from urllib.parse import urlsplit, urlunsplit
+from urllib.error import HTTPError, URLError
+from urllib.request import Request, urlopen
 
 from PIL import Image
 
@@ -157,12 +159,77 @@ def check_identity(row):
         raise ValueError(f"Unknown source kind: {row['kind']}")
 
 
-def fetch_original(entry, target):
-    with urlopen(entry["url"], timeout=45) as response:
-        body = response.read(entry["bytes"] + 1)
-    assert len(body) == entry["bytes"] and sha(body) == entry["sha256"]
-    (target / (entry["sha256"] + ".img")).write_bytes(body)
-    return entry["sha256"], body
+def verify_original(entry, body):
+    if len(body) != entry["bytes"] or sha(body) != entry["sha256"]:
+        raise ValueError("Original does not match the reviewed byte count and SHA-256")
+    with Image.open(io.BytesIO(body)) as source:
+        if list(source.size) != entry["dimensions"]:
+            raise ValueError("Original dimensions differ from the visual review")
+        source.verify()
+
+
+def diagnostic_url(url):
+    parts = urlsplit(url)
+    return urlunsplit((parts.scheme, parts.netloc.rsplit("@", 1)[-1], parts.path, "", ""))
+
+
+def probe_cached_source(url):
+    attempt = dict(method="default-probe")
+    try:
+        with urlopen(url, timeout=15) as response:
+            attempt.update(http_status=response.status, final_url=diagnostic_url(response.geturl()))
+    except HTTPError as error:
+        attempt.update(http_status=error.code, final_url=diagnostic_url(error.geturl()))
+        error.close()
+    except OSError as error:
+        attempt["error"] = type(error).__name__
+    return attempt
+
+
+def fetch_original(row, target):
+    entry = row["original"]
+    digest = entry["sha256"]
+    url = entry["url"]
+    path = target / (digest + ".img")
+    report = dict(
+        country=row["country"], reference=row["station"]["reference"],
+        station=row["station"]["name"], url=diagnostic_url(url),
+        expected_sha256=digest, attempts=[],
+    )
+    if path.is_file():
+        try:
+            body = path.read_bytes()
+            verify_original(entry, body)
+        except (OSError, ValueError, SyntaxError, Image.DecompressionBombError) as error:
+            report["attempts"].append(dict(method="saved-original", error=type(error).__name__))
+        else:
+            if os.environ.get("GITHUB_ACTIONS") == "true":
+                report["attempts"].append(probe_cached_source(url))
+                print(json.dumps(report, ensure_ascii=False), flush=True)
+            return digest, body, dict(report, status="verified", source="saved-original")
+
+    headers = {
+        "User-Agent": "Mozilla/5.0", "Accept": "image/*",
+        "Referer": diagnostic_url(row["publisher"]["source"]["url"]),
+    }
+    for method, request_headers in (("default", {}), ("publisher-context", headers)):
+        attempt = dict(method=method)
+        report["attempts"].append(attempt)
+        try:
+            with urlopen(Request(url, headers=request_headers), timeout=20) as response:
+                attempt.update(http_status=response.status, final_url=diagnostic_url(response.geturl()))
+                body = response.read(entry["bytes"] + 1)
+            verify_original(entry, body)
+        except HTTPError as error:
+            attempt.update(http_status=error.code, final_url=diagnostic_url(error.geturl()))
+            error.close()
+        except (URLError, OSError, ValueError, SyntaxError, Image.DecompressionBombError) as error:
+            attempt["error"] = type(error).__name__
+        else:
+            path.write_bytes(body)
+            return digest, body, dict(report, status="verified", source="publisher")
+        print(json.dumps(dict(report, status="retry-or-defer"), ensure_ascii=False), flush=True)
+    return digest, None, dict(report, status="deferred")
 
 
 def render(body, masters, target, artwork_format=None):
@@ -226,9 +293,22 @@ def main(batch):
     original_dir, asset_dir = stage / "originals", stage / "verified-assets"
     original_dir.mkdir(exist_ok=True)
     asset_dir.mkdir(exist_ok=True)
-    entries = {row["original"]["sha256"]: row["original"] for row in selected}
+    entries = {row["original"]["sha256"]: row for row in selected}
+
     with ThreadPoolExecutor(max_workers=8) as pool:
-        originals = dict(pool.map(lambda entry: fetch_original(entry, original_dir), entries.values()))
+        results = list(pool.map(lambda row: fetch_original(row, original_dir), entries.values()))
+    originals = {digest: body for digest, body, _ in results if body is not None}
+    recovery = {digest: result for digest, _, result in results}
+    deferred = [
+        dict(recovery[row["original"]["sha256"]], country=row["country"],
+             reference=row["station"]["reference"], station=row["station"]["name"])
+        for row in selected if row["original"]["sha256"] not in originals
+    ]
+    recovery_proof = stage / "source-recovery.json"
+    write(recovery_proof, dict(previous_failed_run=43213850034,
+                               sources=list(recovery.values()), deferred=deferred))
+    print(f"Verified {len(originals)} original files; {len(deferred)} references deferred", flush=True)
+    assert originals, "No reviewed original was available"
     masters = {"transparent": Image.new("RGBA", (220, 132))}
     for style, digest in spec["master_sha256"].items():
         url = BASE + spec["master_commit"] + f"/plugin/artwork/templates/picons/{style}-sablona.png"
@@ -241,6 +321,8 @@ def main(batch):
     rows = []
     for offset, row in enumerate(selected):
         digest = row["original"]["sha256"]
+        if digest not in originals:
+            continue
         if digest not in rendered:
             rendered[digest] = render(originals[digest], masters, asset_dir, row["original"].get("format"))
         assert rendered[digest] == row["variants"], row["station"]["reference"]
@@ -265,7 +347,7 @@ def main(batch):
     write(proof, verification)
     git("config", "user.name", "github-actions[bot]")
     git("config", "user.email", "41898282+github-actions[bot]@users.noreply.github.com")
-    asset_commit = commit(f"Save batch {batch} reviewed originals and PNGs", original_dir, asset_dir, proof)
+    asset_commit = commit(f"Save batch {batch} reviewed originals and PNGs", original_dir, asset_dir, proof, recovery_proof)
     for row in rows:
         row.update(source_commit=asset_commit, final_visual_approval=dict(
             decision="approve", reason="Publisher originals on approved masters, visually inspected",
@@ -278,14 +360,16 @@ def main(batch):
                                      reviewed_variants=row["variants"]) for row in rows],
                        source_holds=[], pending_sources=[]))
     assert validate_selection(rows, merge_ledgers(paths + [ledger])) == len(rows)
-    (stage / "baseline.previous.json").write_bytes(baseline)
+    previous_index = stage / "baseline.previous.json"
+    previous_index.write_bytes(baseline)
     config.update(batch=f"{batch}-reviewed", references=len(rows), parent_candidate=spec["parent"],
                   expected_coverage=spec["baseline_references"] + len(rows),
                   selection_sha256=sha(selection.read_bytes()),
                   baseline_index=dict(url=BASE + spec["parent"] + "/" + str(previous / "countries.proposed.json"),
                                       bytes=len(baseline), sha256=sha(baseline)))
-    write(stage / "configuration.json", config)
-    commit(f"Save batch {batch} selection and identity bindings", stage)
+    configuration = stage / "configuration.json"
+    write(configuration, config)
+    commit(f"Save batch {batch} selection and identity bindings", selection, ledger, previous_index, configuration)
 
 
 if __name__ == "__main__":
