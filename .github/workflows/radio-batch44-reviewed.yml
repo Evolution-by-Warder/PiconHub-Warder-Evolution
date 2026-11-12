@@ -1,4 +1,4 @@
-name: Radio batch 98 - publish draft packages and audit
+name: Radio batch 98 - recover draft packages and audit
 on:
   push:
     branches: [work/radio-world-batch38-contrast-pass1-history-20261107]
@@ -12,7 +12,6 @@ env:
   BATCH: "98"
   STAGE: picons/radio-world/staging/batch-98-reviewed
   PARENT: "3465fbe143564432fdfc8c68ac33df7e11f044b0"
-  COUNTRIES: "CW KG LV"
 jobs:
   build:
     if: github.ref == 'refs/heads/work/radio-world-batch38-contrast-pass1-history-20261107'
@@ -74,7 +73,8 @@ jobs:
         run: |
           set -euo pipefail
           python3 "$STAGE/helpers/independent_readback.py" "$BATCH" "$BUILD_CHECKPOINT" "$RUNNER_TEMP/http-cache"
-          python3 "$STAGE/helpers/replay_downloader.py" --index "$STAGE/countries.proposed.json" --countries $COUNTRIES --radio _radio --cache "$RUNNER_TEMP/http-cache" --output "$STAGE/results/downloader-multipart-proof.json"
+          mapfile -t countries < <(python3 -c 'import json, sys; print("\n".join(sorted({entry["country"] for entry in json.load(open(sys.argv[1]))["archives"]})))' "$STAGE/results/independent-postwrite-audit.json")
+          python3 "$STAGE/helpers/replay_downloader.py" --index "$STAGE/countries.proposed.json" --countries "${countries[@]}" --radio _radio --cache "$RUNNER_TEMP/http-cache" --output "$STAGE/results/downloader-multipart-proof.json"
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add "$STAGE/results" "$STAGE/SHA256SUMS.txt"
