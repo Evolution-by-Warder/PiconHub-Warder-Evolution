@@ -1,0 +1,77 @@
+{
+  "batch": 94,
+  "next_batch": 95,
+  "counts": {
+    "algeria_tda_deferred": 2,
+    "radyo_natin_deferred": 8,
+    "mexico_exact_route_deferred": 5,
+    "absolut_deferred": 3,
+    "iono_deferred": 10,
+    "rnz_deferred": 4,
+    "prior_us_iheart_deferred": 57,
+    "prior_us_iheart_unreviewed": 99
+  },
+  "identity_summary": "The Radio Algérienne locality directory links an individual station page, locality artwork and audio iframe. The linked player names the exact catalogue TDA route. Forty-six local services plus Zaman FM were admitted. Biskra has a mistitled image attribute; the actual logo reads Radio Biskra and matches its official page and player. Tébessa uses the generic Radios Régionales mark and remains open.",
+  "next_action": "Start batch 95 from the official Radio Nacional Argentina player directory. The homepage links 57 player URLs, and the frozen Argentina catalogue contains 48 unresolved Nacional rows on sa.mp3.icecast.magma.edge-access.net. The sampled LRA 10 page binds an exact stream but carries AM870 artwork. Require the correct station-specific graphic before admission. The Philippine local page follow-up had no exact playback bindings for the eight remaining names.",
+  "algeria_tda": {
+    "total": 57,
+    "added_93_94": 55,
+    "deferred": [
+      {
+        "station": {
+          "name": "Tebessa تبسة",
+          "url": "https://webradio2.tda.dz:8001/Tebessa_64K.mp3",
+          "reference": "4097:0:2:7894:772B:ED:0:0:0:0",
+          "group": "Algeria"
+        },
+        "reason": "Exact audio confirmed; station-specific graphic absent from the official group page."
+      },
+      {
+        "station": {
+          "name": "Ifrikya FM",
+          "url": "https://webradio1.tda.dz:8001/ifrikya_64K.mp3",
+          "reference": "4097:0:2:1BE4:51CB:ED:0:0:0:0",
+          "group": "Algeria"
+        },
+        "reason": "Exact publisher-player and matching artwork binding not established in the checked directories."
+      }
+    ]
+  },
+  "argentina_source": {
+    "pages": [
+      {
+        "url": "https://www.radionacional.com.ar/",
+        "final": "https://www.radionacional.com.ar/",
+        "bytes": 220730,
+        "sha256": "46401e3360558cff9b562409ff2e72b5710d1eabf7c41ce4cfb4e344eb01ce6f",
+        "file": "0.source"
+      },
+      {
+        "url": "https://www.radionacional.com.ar/emisoras/",
+        "final": "https://www.radionacional.com.ar/emisoras/",
+        "bytes": 38509,
+        "sha256": "d55fd23fb9157cf605615d438afad94f79726d8876527b96a4509d4f054a7bb4",
+        "file": "1.source"
+      },
+      {
+        "url": "https://www.radionacional.com.ar/radio-nacional-en-vivo/",
+        "error": "HTTP Error 404: Not Found"
+      }
+    ],
+    "linked_players": 57,
+    "unresolved_same_platform_rows": 48,
+    "sample": {
+      "url": "https://www.radionacional.com.ar/reproductor/reproductor_lra10_n.php",
+      "bytes": 1794,
+      "sha256": "3af01ac39f68e6c6d3a651d6795e7e948a61cb200b84b580865a05e95aeebe61",
+      "stream": "https://sa.mp3.icecast.magma.edge-access.net/sc_rad10",
+      "artwork": "images/Logo_AM870_b.png",
+      "status": "identity source found; LRA 10 specific artwork still needed"
+    }
+  },
+  "links_to_prior_holds": [
+    "../../batch-91-reviewed/source-inputs/official-source-evidence.json",
+    "../../batch-92-reviewed/source-inputs/official-source-evidence.json",
+    "../../batch-93-reviewed/results/next-source-observations.json"
+  ]
+}
