@@ -1,0 +1,37 @@
+{
+  "batch": 92,
+  "next_batch": 93,
+  "countries_added": [
+    "NA"
+  ],
+  "counts": {
+    "iono_deferred": 10,
+    "rnz_deferred": 4,
+    "prior_us_iheart_deferred": 57,
+    "prior_us_iheart_unreviewed": 99,
+    "prepared_radyo_natin_exact": 65
+  },
+  "identity_summary": "iono.fm publishes the exact Icecast variants under each named station, with its own artwork. Twenty-one references cover Namibia, South Africa and Zimbabwe. The three RNZ national services use the exact official MP3 addresses and per-service cover from the broadcaster player. Both Jozi FM variants reuse the same set of nine files.",
+  "next_action": "Continue with the official Radyo Natin player in the Philippines. Its embedded station entries bind exact audio routes, municipalities and local artwork. Algeria is a separate official-source lead. Use specific local artwork only where the broadcaster assigns it. The three checked NRK endpoints returned 403 from the execution environment, so preserve them as deferred.",
+  "details": "source-inputs/official-source-evidence.json",
+  "source_checks": {
+    "nrk-list": {
+      "url": "https://lyd.nrk.no/",
+      "error": "HTTP Error 403: Forbidden"
+    },
+    "nrk-guide": {
+      "url": "https://info.nrk.no/radio/",
+      "error": "HTTP Error 403: Forbidden"
+    },
+    "nrk-assets": {
+      "url": "https://radio.nrk.no/direkte",
+      "error": "HTTP Error 403: Forbidden"
+    },
+    "rne-faq": {
+      "url": "https://www.rtve.es/rtve/20260211/preguntas-frecuentes-sobre-rne/16930309.shtml",
+      "final": "https://www.rtve.es/rtve/20260211/preguntas-frecuentes-sobre-rne/16930309.shtml",
+      "bytes": 481772,
+      "sha256": "46a244229c736d307f0ba52014f7c78fa991419e070125a19be8884862e77324"
+    }
+  }
+}
