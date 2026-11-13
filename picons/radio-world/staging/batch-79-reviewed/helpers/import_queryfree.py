@@ -16,7 +16,9 @@ from PIL import Image
 sys.path.insert(0, str(Path.cwd()/'picons/radio-world/tools'))
 
 BASE = 'https://raw.githubusercontent.com/Evolution-by-Warder/PiconHub-Warder-Evolution/'
-LIMIT = 64 * 1024 * 1024
+LIMIT = 64 * 1024 * 1024  # Existing immutable single-ZIP limit.
+PART_LIMIT = 32 * 1024 * 1024
+PART_TARGET = 24 * 1024 * 1024  # Bound part sizes before compression.
 STYLES = ('transparent','white','black')
 SIZES = ('50x30','220x132','400x240')
 STAGE = None
@@ -46,9 +48,20 @@ def get(entry):
             time.sleep(2**attempt)
 
 def unzip(entry):
-    with ZipFile(io.BytesIO(get(entry))) as z:
-        assert len(z.infolist())==len(entry['files']) and set(z.namelist())==entry['files'].keys()
-        images={name:z.read(name) for name in entry['files']}
+    """Read legacy or multipart country packages without changing PNG bytes."""
+    images={}
+    parts=entry.get('parts') or [entry]
+    for part in parts:
+        with ZipFile(io.BytesIO(get(part))) as z:
+            assert len(z.infolist())==len(part['files'])
+            assert len(set(z.namelist()))==len(part['files'])
+            assert set(z.namelist())==set(part['files'])
+            for name,digest in part['files'].items():
+                assert name not in images
+                body=z.read(name)
+                assert sha(body)==digest
+                images[name]=body
+    assert set(images)==set(entry['files'])
     assert all(sha(body)==entry['files'][name] for name,body in images.items())
     return images
 
@@ -68,6 +81,77 @@ def load_sources(selection, root):
         unpack=subprocess.run(['tar','-xf','-','-C',str(checkout)],stdin=arch.stdout)
         arch.stdout.close()
         assert arch.wait()==unpack.returncode==0
+
+def _zip_bytes(images):
+    out=io.BytesIO()
+    with ZipFile(out,'w') as archive:
+        for name,body in images:
+            i=ZipInfo(name,(1980,1,1,0,0,0))
+            i.external_attr=0o100644 << 16
+            archive.writestr(i,body,compress_type=ZIP_DEFLATED,compresslevel=9)
+    raw=out.getvalue()
+    with ZipFile(io.BytesIO(raw)) as z:
+        assert len(z.infolist())==len(images)
+        assert len(set(z.namelist()))==len(images)
+        assert set(z.namelist())==set(n for n,_body in images)
+        assert all(sha(z.read(name))==sha(body) for name,body in images)
+    return raw
+
+
+def write_packages(code,size,style,items,dest,target_bytes=PART_TARGET):
+    """Produce immutable <=32 MiB parts or an old-style single ZIP.
+
+    Part boundaries are deterministic; each file occurs exactly once.  Every
+    published part is independently read back and verified.
+    """
+    assert isinstance(items,dict) and items
+    assert 4096 <= target_bytes <= PART_TARGET
+    ordered=sorted(items.items())
+    filename=f'iptv-{code.lower()}-{style}-{size}'
+    root=f'picons/IPTV-{code}/packages/'
+    inventory={name:sha(body) for name,body in ordered}
+    estimated=sum(len(body)+len(name.encode('utf-8'))+192 for name,body in ordered)
+    if estimated <= target_bytes:
+        raw=_zip_bytes(ordered)
+        if len(raw)<=LIMIT:
+            path=root+filename+'.zip'
+            target=dest/path
+            target.parent.mkdir(parents=True,exist_ok=True)
+            target.write_bytes(raw)
+            assert target.read_bytes()==raw
+            return dict(resolution=size,path=path,bytes=len(raw),sha256=sha(raw),files=inventory)
+    groups=[]
+    current=[]
+    count=0
+    for name,body in ordered:
+        cost=len(body)+len(name.encode('utf-8'))+192
+        assert cost<=target_bytes, 'Oversized single picon for fixed part limit'
+        if current and count+cost>target_bytes:
+            groups.append(current)
+            current=[]
+            count=0
+        current.append((name,body))
+        count+=cost
+    if current:
+        groups.append(current)
+    assert 2<=len(groups)<=128, 'Unexpected multipart count'
+    parts=[]
+    seen=set()
+    for number,group in enumerate(groups,1):
+        path=root+filename+f'-part{number:02d}.zip'
+        raw=_zip_bytes(group)
+        assert 0<len(raw)<=PART_LIMIT, 'Multipart ZIP exceeds safe 32MiB limit'
+        target=dest/path
+        target.parent.mkdir(parents=True,exist_ok=True)
+        target.write_bytes(raw)
+        assert target.read_bytes()==raw
+        files={name:sha(body) for name,body in group}
+        assert not seen.intersection(files)
+        seen.update(files)
+        parts.append(dict(path=path,bytes=len(raw),sha256=sha(raw),files=files))
+    assert seen==set(inventory)
+    return dict(resolution=size,files=inventory,parts=parts)
+
 
 def package(task):
     code,size,style,old,rows,source,dest=task
@@ -91,22 +175,9 @@ def package(task):
     if size=='220x132':
         assert all(57<=len(body)<=2*1024*1024 for body in items.values())
         assert sum(map(len,items.values()))<=128*1024*1024
-    path=f'picons/IPTV-{code}/packages/iptv-{code.lower()}-{style}-{size}.zip'
-    target=dest/path
-    target.parent.mkdir(parents=True,exist_ok=True)
-    with ZipFile(target,'w') as archive:
-        for name,body in sorted(items.items()):
-            i=ZipInfo(name,(1980,1,1,0,0,0))
-            i.external_attr=0o100644 << 16
-            archive.writestr(i,body,compress_type=ZIP_DEFLATED,compresslevel=9)
-    raw=target.read_bytes()
-    assert len(raw)<=LIMIT
-    files={name:sha(body) for name,body in sorted(items.items())}
-    assert prior.items()<=files.items()
-    with ZipFile(io.BytesIO(raw)) as z:
-        assert len(z.infolist())==len(files) and set(z.namelist())==files.keys()
-        assert all(sha(z.read(name))==digest for name,digest in files.items())
-    return code,size,style,dict(resolution=size,path=path,bytes=len(raw),sha256=sha(raw),files=files),len(prior)
+    descriptor=write_packages(code,size,style,items,dest)
+    assert prior.items()<=descriptor['files'].items()
+    return code,size,style,descriptor,len(prior)
 
 def build(temporary, snapshot):
     selection_raw=(STAGE/CONFIG.get('selection_filename','selection.json')).read_bytes()
@@ -185,7 +256,8 @@ def manifests(temporary,snapshot,payload):
         manifest['payload_commit']=payload
         for styles in manifest['packages'].values():
             for e in styles.values():
-                e['url']=BASE+payload+'/'+e.pop('path')
+                for part in e.get('parts') or [e]:
+                    part['url']=BASE+payload+'/'+part.pop('path')
         path=snapshot/'picons'/manifest['collection']/'catalog'/'release.json'
         path.parent.mkdir(parents=True,exist_ok=True)
         path.write_bytes(encoded(manifest))
@@ -213,7 +285,9 @@ def index(temporary,snapshot,payload,revision):
     assert sum(r['picons'] for r in result['countries'])==CONFIG['expected_coverage']
     (STAGE/'countries.proposed.json').write_bytes(encoded(result))
     (STAGE/'proof.json').write_bytes(encoded(dict(
-        schema=1,payload_commit=payload,manifest_commit=revision,references=CONFIG['references'],pngs=9*CONFIG['references'],packages=9*len(report['countries']),
+        schema=1,payload_commit=payload,manifest_commit=revision,references=CONFIG['references'],pngs=9*CONFIG['references'],
+        packages=sum(len(entry.get('parts') or [entry]) for country in report['countries'].values()
+                     for styles in country['packages'].values() for entry in styles.values()),
         country_count=len(report['additions']),new_archives_countries=len(report['countries']),
         reused_package_countries=report['reused'],preserved_pngs_in_new_archives=report['preserved_pngs_in_new_archives'],
         additions=report['additions'])))
