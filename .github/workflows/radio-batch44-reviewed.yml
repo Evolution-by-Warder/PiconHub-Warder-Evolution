@@ -1,4 +1,4 @@
-name: Radio batch 98 - recover draft packages and audit
+name: Radio batch 99 - build draft packages and audit
 on:
   push:
     branches: [work/radio-world-batch38-contrast-pass1-history-20261107]
@@ -9,9 +9,9 @@ concurrency:
   group: radio-reviewed-working-ref
   cancel-in-progress: false
 env:
-  BATCH: "98"
-  STAGE: picons/radio-world/staging/batch-98-reviewed
-  PARENT: "3465fbe143564432fdfc8c68ac33df7e11f044b0"
+  BATCH: "99"
+  STAGE: picons/radio-world/staging/batch-99-reviewed
+  PARENT: "9dae1dcb2ac13326cba9e6e35d8dda1a8191b2bc"
 jobs:
   build:
     if: github.ref == 'refs/heads/work/radio-world-batch38-contrast-pass1-history-20261107'
@@ -37,8 +37,8 @@ jobs:
           url=https://raw.githubusercontent.com/Evolution-by-Warder/PiconHub-Warder-Evolution
           curl --fail --retry 2 "$url/8180aa0df6e185efad120338bc53ca04bc5e492a/picons/radio-world/catalog/countries.json" -o "$RUNNER_TEMP/production.json"
           curl --fail --retry 2 "$url/59ec70708d4d05a28f17c741742c78451d4fc45b/picons/radio-world/catalog/countries.json" -o "$RUNNER_TEMP/current-production.json"
-          python3 "$STAGE/helpers/audit_candidate_preservation.py" --baseline "$RUNNER_TEMP/current-production.json" --candidate "$STAGE/countries.proposed.json" --baseline-commit 59ec70708d4d05a28f17c741742c78451d4fc45b --baseline-sha256 a70036892456d105ae2844a715f462eac1b87aef16769c57c7a9699b1cfac2b1 --expected-references 3417 --expected-pngs 31329 --output "$STAGE/production-preservation-proof.json"
-          python3 "$STAGE/helpers/audit_candidate_preservation.py" --baseline "$STAGE/baseline.previous.json" --candidate "$STAGE/countries.proposed.json" --baseline-commit "$PARENT" --baseline-sha256 "e963ca02a3647bf2188f88447116e8bb757e16ab5fdebe06ef516760801947a2" --expected-references 4056 --expected-pngs 37080 --output "$STAGE/candidate-preservation-proof.json"
+          python3 "picons/radio-world/staging/batch-98-reviewed/helpers/audit_candidate_preservation.py" --baseline "$RUNNER_TEMP/current-production.json" --candidate "$STAGE/countries.proposed.json" --baseline-commit 59ec70708d4d05a28f17c741742c78451d4fc45b --baseline-sha256 a70036892456d105ae2844a715f462eac1b87aef16769c57c7a9699b1cfac2b1 --expected-references 3417 --expected-pngs 31329 --output "$STAGE/production-preservation-proof.json"
+          python3 "picons/radio-world/staging/batch-98-reviewed/helpers/audit_candidate_preservation.py" --baseline "$STAGE/baseline.previous.json" --candidate "$STAGE/countries.proposed.json" --baseline-commit "$PARENT" --baseline-sha256 "d3bedd39f2e840fcb843ca02e320d8a1d0acc1d64a1e7293ad604067c1e96bdd" --expected-references 4077 --expected-pngs 37269 --output "$STAGE/candidate-preservation-proof.json"
           ledgers=(--ledger picons/radio-world/staging/source-ledger-reviewed-20261107/visual-ledger.json.gz --ledger picons/radio-world/staging/visual-review-34-36/decisions.json.gz)
           for ((i=39; i<=BATCH; i++)); do
             ledgers+=(--ledger "picons/radio-world/staging/batch-$i-reviewed/visual-ledger.json.gz")
@@ -60,7 +60,9 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: ${{ needs.build.outputs.checkpoint }}
-          sparse-checkout: picons/radio-world/staging/batch-98-reviewed
+          sparse-checkout: |
+            picons/radio-world/staging/batch-98-reviewed/helpers
+            picons/radio-world/staging/batch-99-reviewed
       - uses: actions/checkout@v4
         with:
           repository: Evolution-by-Warder/Radio-Warder-Evolution
@@ -72,9 +74,9 @@ jobs:
           BUILD_CHECKPOINT: ${{ needs.build.outputs.checkpoint }}
         run: |
           set -euo pipefail
-          python3 "$STAGE/helpers/independent_readback.py" "$BATCH" "$BUILD_CHECKPOINT" "$RUNNER_TEMP/http-cache"
+          python3 "picons/radio-world/staging/batch-98-reviewed/helpers/independent_readback.py" "$BATCH" "$BUILD_CHECKPOINT" "$RUNNER_TEMP/http-cache"
           mapfile -t countries < <(python3 -c 'import json, sys; print("\n".join(sorted({entry["country"] for entry in json.load(open(sys.argv[1]))["archives"]})))' "$STAGE/results/independent-postwrite-audit.json")
-          python3 "$STAGE/helpers/replay_downloader.py" --index "$STAGE/countries.proposed.json" --countries "${countries[@]}" --radio _radio --cache "$RUNNER_TEMP/http-cache" --output "$STAGE/results/downloader-multipart-proof.json"
+          python3 "picons/radio-world/staging/batch-98-reviewed/helpers/replay_downloader.py" --index "$STAGE/countries.proposed.json" --countries "${countries[@]}" --radio _radio --cache "$RUNNER_TEMP/http-cache" --output "$STAGE/results/downloader-multipart-proof.json"
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add "$STAGE/results" "$STAGE/SHA256SUMS.txt"
