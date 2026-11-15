@@ -1,4 +1,4 @@
-name: Radio batch 100 - build draft packages and audit
+name: Radio batch 101 - build draft packages and audit
 on:
   push:
     branches: [work/radio-world-batch38-contrast-pass1-history-20261107]
@@ -9,9 +9,9 @@ concurrency:
   group: radio-reviewed-working-ref
   cancel-in-progress: false
 env:
-  BATCH: "100"
-  STAGE: picons/radio-world/staging/batch-100-reviewed
-  PARENT: "5f5404b08b9f67bc54fb79cf4f25fa6b0725734e"
+  BATCH: "101"
+  STAGE: picons/radio-world/staging/batch-101-reviewed
+  PARENT: "ba91004d6380b6922b1c004b831521473f39afed"
 jobs:
   build:
     if: github.ref == 'refs/heads/work/radio-world-batch38-contrast-pass1-history-20261107'
@@ -38,7 +38,7 @@ jobs:
           curl --fail --retry 2 "$url/8180aa0df6e185efad120338bc53ca04bc5e492a/picons/radio-world/catalog/countries.json" -o "$RUNNER_TEMP/production.json"
           curl --fail --retry 2 "$url/59ec70708d4d05a28f17c741742c78451d4fc45b/picons/radio-world/catalog/countries.json" -o "$RUNNER_TEMP/current-production.json"
           python3 "picons/radio-world/staging/batch-98-reviewed/helpers/audit_candidate_preservation.py" --baseline "$RUNNER_TEMP/current-production.json" --candidate "$STAGE/countries.proposed.json" --baseline-commit 59ec70708d4d05a28f17c741742c78451d4fc45b --baseline-sha256 a70036892456d105ae2844a715f462eac1b87aef16769c57c7a9699b1cfac2b1 --expected-references 3417 --expected-pngs 31329 --output "$STAGE/production-preservation-proof.json"
-          python3 "picons/radio-world/staging/batch-98-reviewed/helpers/audit_candidate_preservation.py" --baseline "$STAGE/baseline.previous.json" --candidate "$STAGE/countries.proposed.json" --baseline-commit "$PARENT" --baseline-sha256 "fd2eedbfb780c4971680958285820ff0450a729d4828727ef2f2cd459b1b182e" --expected-references 4079 --expected-pngs 37287 --output "$STAGE/candidate-preservation-proof.json"
+          python3 "picons/radio-world/staging/batch-98-reviewed/helpers/audit_candidate_preservation.py" --baseline "$STAGE/baseline.previous.json" --candidate "$STAGE/countries.proposed.json" --baseline-commit "$PARENT" --baseline-sha256 "84761f2d517cb79fb2777ee59be506ce6801f24cb0c50fd6b13e1ee88945f181" --expected-references 4084 --expected-pngs 37332 --output "$STAGE/candidate-preservation-proof.json"
           ledgers=(--ledger picons/radio-world/staging/source-ledger-reviewed-20261107/visual-ledger.json.gz --ledger picons/radio-world/staging/visual-review-34-36/decisions.json.gz)
           for ((i=39; i<=BATCH; i++)); do
             ledgers+=(--ledger "picons/radio-world/staging/batch-$i-reviewed/visual-ledger.json.gz")
@@ -62,7 +62,7 @@ jobs:
           ref: ${{ needs.build.outputs.checkpoint }}
           sparse-checkout: |
             picons/radio-world/staging/batch-98-reviewed/helpers
-            picons/radio-world/staging/batch-100-reviewed
+            picons/radio-world/staging/batch-101-reviewed
       - uses: actions/checkout@v4
         with:
           repository: Evolution-by-Warder/Radio-Warder-Evolution
