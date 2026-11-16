@@ -1,95 +1,27 @@
 # PiconHub Warder Evolution
 
-## Spoločné ostré vydanie — 5. november 2026
+Správca piconov Enigma2 pre OpenATV a OpenPLi.
 
-**PiconHub 0.1.44** pre OpenPLi a OpenATV. [Poznámky k vydaniu](docs/CURRENT-RELEASE.md). [Stiahnuť IPK](https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/download/v0.1.44/enigma2-plugin-extensions-piconhub_0.1.44_all.ipk).
+## Aktuálna stabilná verzia
 
-Warder's original futuristic Enigma2 plugin and the shared Warder picon source database.
+**PiconHub 0.1.44** – [oficiálne vydanie](https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/tag/v0.1.44).
 
+PiconHub spravuje schválené picony pre satelitné pozície, poskytovateľov, DAB/DAB+ a DVB-T CZ/SK. Výber profilu, rozmeru, pozadia a cieľového úložiska určuje, čo sa stiahne. Súbory sa inštalujú s kontrolou SHA-256, zachovaním používateľských piconov a obnoviteľným priebehom.
 
-34,5°W a 50°E: všetky tri rozmery a pozadia Transparent, White a Black. Úplnosť troch pozadí sa kontroluje pre všetky satelity aj providery. [Pravidlo pozadí](docs/WARDER-BACKGROUND-POLICY.txt).
+- Satelitné picony a provideri: tri rozmery (50×30, 220×132, 400×240) a pozadia Transparent, White, Black podľa dostupnosti schválených balíkov.
+- DAB/DAB+: vlastný overený katalóg s natívnymi referenciami.
+- DVB-T CZ/SK: samostatné overené balíky.
+- Štyri oddelené profily s vlastnými nastaveniami; používateľ volí aktívne profily.
+- Cieľové úložiská prijímača, HDD/USB a vlastný priečinok, kontrola integrity a aktualizácie.
 
-## Current state — 2026-11-05
+Satelitné a DAB picony zostávajú zachované. Všetky ďalšie dáta sú uložené mimo samotného IPK.
 
-**PiconHub 0.1.44 is the stable release.** Four independent profiles keep their settings; left/right selects a profile and 0 toggles its green processing checkmark. Download processes only the marked subset, and stays inactive with no marks. [Download the public IPK](https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/download/v0.1.44/enigma2-plugin-extensions-piconhub_0.1.44_all.ipk). Supported later versions receive it through the stable update channel; 0.1.32 needs one manual installation over the existing version. Restart the GUI after updating. The runtime remains `/usr/lib/enigma2/python/Plugins/Extensions/WarderPiconHub/`.
+## Projekt a autorstvo
 
-Use the [plugin guide](plugin/README.md), [production record](plugin/PRODUCTION.md), [release manifest](plugin/production.json) and [validation status](plugin/BUILD-STATUS.md). They record the final behavior, automatic plugin updates, package identity, language support and precise receiver-test scope. Earlier rebuild plans are historical and do not override this baseline.
+Pokračovanie Warder Evolution na základe pôvodného PiconHubu a schválených grafických zdrojov. Pôvodné autorstvo zdrojových diel sa zachováva. Zdrojové dáta sa nachádzajú v `picons/`, runtime plugin v `plugin/` a nastavenia vydania v `plugin/PRODUCTION.md`.
 
-## Plugin data
+## Inštalácia
 
-- `picons/`: source PNGs, organized by satellite, provider and transparent/white/black style.
-- `plugin/artwork/templates/`: original frozen V9 BLACK/WHITE MASTER assets.
-- `plugin/artwork/provenance/`: provenance and approval evidence for plugin picons.
-- `plugin/`: current Enigma2 plugin, build tools, production record and preserved recovery inputs.
+[Stiahnuť PiconHub 0.1.44](https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/download/v0.1.44/enigma2-plugin-extensions-piconhub_0.1.44_all.ipk)
 
-The live downloadable ZIP catalog and archive parts used by the skin are in **Evolution-by-Warder/FullHDGlass-Warder-Evolution**, backed up separately in the same set.
-
-Do not redesign approved artwork, renumber identities, invent service mappings or silently replace existing PNGs. Third-party picon artwork retains its original provenance and authorship. Retiring a plugin does not erase credits for reused artwork.
-
-Existing satellite picon data and frozen MASTER assets are preserved.
-
-The repository and Releases are dedicated to the Enigma2 receiver plugin. Plugin picons, approved artwork provenance and templates form its shared picon source data.
-
-The root `picons/` address remains compatible with installed plugin versions that use it for the recent-picons gallery. Current source, artwork references, tests, build and update tools are grouped under `plugin/`. Retired development checkpoints are available in Git history.
-
-## DAB / DAB+ in 0.1.29
-
-Choose **DAB / DAB+** in the source selector. The approved catalog covers **52 labels / 82 exact receiver references** in Transparent, White and Black. Picons install into the configured picon directory; unknown radio picons are retained. See the [DAB guide](picons/DAB/README.md), [live catalog](picons/DAB/catalog/release.json) and [owner authorization](picons/DAB/catalog/publication-approval.json). ASA DE is included using the official vector logo matching the owner-supplied reference. All 80 earlier picons per style remain byte-identical. [ASA source, variants and checks](picons/DAB/asa/approval.json). ASA is included only in standalone DAB and full 23.5E downloads, with provider packages explicitly excluded.
-
-## One Warder ecosystem
-
-FullHDGlass, PiconHub and GSU are applications in one Warder ecosystem. They share approved source data, logo identity rules and consistent controls. DAB radio picons are grouped with their owning satellites and supplied through the same live catalogs used across the ecosystem. In PiconHub 0.1.32 IPTV SK/CZ, DAB and DVB-T lead the source list; standalone DAB uses its own verified catalog and is no longer incorrectly marked unavailable.
-
-The three radio and terrestrial sources have their own shared selector icons. Resolution remains a separate setting. The audited CZ/SK DVB-T collection contains 2,531 receiver-reference PNGs in each 220×132 background. It adds 54 references, updates 148 existing logos and removes 197 obsolete or incorrect filenames. Regional uncertainties and operator-confirmed programmes awaiting exact references are listed explicitly. [Current inventory, cleanup and provenance](picons/DVB-T/README.md).
-
-
-Dátová aktualizácia 29. októbra 2026: spoločný balík DVB-T/T2 SK/CZ bol doplnený a vyčistený. Všetky tri pozadia prešli reálnou inštaláciou cez Warder engine a overením SHA256. Verzia pluginu a IPK sa nemenia.
-
-
-## Regional radio data refresh — 27 October 2026
-
-Fun Radio S/V now use the approved Fun Radio Z artwork; Melody S uses Melody V/Z. Regina BA/BB/KE use the owner-supplied regional originals. All three backgrounds and all three supported sizes are live in nine 23.5E satellite archives after auditing 30 relevant satellite/provider archives. Unrelated PNGs and all existing DAB additions were preserved. [Source and verification](picons/radio-refresh-20261027/publication.json). No IPK version changes.
-
-
-## IPTV SK/CZ radios in 0.1.32
-
-The shared IPTV source leads the list, followed by DAB and DVB-T. Three sizes × three backgrounds, 247 programme picons and 263 exact reference filenames per variant. The refreshed bouquet contains 321 entries (88 SK, 233 CZ); 286 selected streams returned audio during sampling. 74 entries still lack suitable verified artwork. [Bouquets, coverage and provenance](picons/IPTV-SK-CZ/README.md). Archives remain external to the small IPK.
-
-
-Dátové doplnenie 28.10.2026 (r2): 247 položiek s piconmi / 263 referencií v každom z deviatich variantov, 74 zatiaľ bez vhodného overeného piconu. Overené Radia.sk, Radia.cz a MyOnlineRadio.cz aj dodané originály. Všetkých deväť verejných archívov a obrázkov prešlo kontrolou; aktuálne dáta sa stiahnu opätovným výberom IPTV rádiá SK/CZ. Verzie IPK sa nemenia. [Zdroje a zhodovanie](https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/blob/main/picons/IPTV-SK-CZ/catalog/followup-sources.json).
-
-## Weekly world radio list
-
-[Warder Radio Streams](picons/IPTV-SK-CZ/bouquets/userbouquet.warder.radio) keeps the owned Slovak and Czech stations first, followed by a weekly refreshed international list. The Sunday GitHub workflow preserves existing identities, rejects truncated input and leaves the last good list intact on failure. [Processing and source attribution](picons/IPTV-SK-CZ/README.md#týždenné-obnovenie-sveta). The satellite audit automation is unchanged.
-
-
-## Európske picony — 29. október 2026
-
-V spoločnom živom katalógu je aktivovaných 27 schválených grafík, 81 originálov 220×132 a ich pomerné varianty 50×30/400×240 v 63 balíkoch siedmich polôh. Dnešné servisné údaje potvrdili 38 priradení. Všetkých 137 nových verejných častí má overenú veľkosť a SHA256; prešli aj skutočné inštalačné kontroly. [Schválenia a zdrojové PNG](plugin/artwork/provenance/europe-approved-20261029/) · [Záznam ostrej prevádzky](plugin/artwork/provenance/europe-approved-20261029/publication-live.json). PiconHub zostáva 0.1.32; nové dáta získate opätovným stiahnutím v režime nahradenia. Samostatná dávka D1 bola následne schválená a zverejnená 30. októbra; pozri záznam nižšie.
-
-## Magenta Sport League — 30. október 2026
-
-Schválené D1: Magenta Sport League 1–4, 12 presných originálov 220×132 a osem overených referencií na 9°E/13°E. Aktualizovaných je 18 spoločných balíkov v troch veľkostiach a pozadiach; prešlo 7 testov, 18 inštalácií/plánov, SHA256 všetkých 57 nových verejných častí aj oba runtime načítavače katalógu. [Schválenie a overenie](plugin/artwork/provenance/magenta-league-approved-20261030/). Spolu A/B/C/D: 31 grafík, 93 originálov, 46 priradení v 63 živých balíkoch. PiconHub zostáva 0.1.32; nové dáta získate opätovným stiahnutím v režime nahradenia.
-
-## Krátky inštalačný súbor a zaradenie — 30. október 2026
-
-[Stiahnuť enigma2-plugin-extensions-piconhub_0.1.32_all.ipk](https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/download/v0.1.32/enigma2-plugin-extensions-piconhub_0.1.32_all.ipk). Presné pôvodné produkčné bajty a SHA256. Správca pluginov: **Balíčky s rozšíreniami → piconhub-warder-evolution**. Vnútorná identita aj stará URL aktualizátora zostávajú kompatibilné. [Overenie kategórií](docs/PLUGIN-PACKAGE-GROUPS.json).
-
-
-## Picons/picons v štandarde Warder — 30. október 2026
-
-Spoločné dáta FullHDGlass a PiconHub dopĺňajú 70 overených servisných identít / 117 presných PNG referencií. Použitých je 50 našich existujúcich grafík a 13 doplnených log; všetky tri veľkosti a tri pozadia, 135 aktualizovaných archívov. Pôvodné PNG zostávajú bajtovo zachované. Deväť neistých alebo technických položiek je výslovne vylúčených. Zmeny sa získajú aktualizáciou piconových dát; verzia IPK zostáva 0.1.32.
-
-[Zdrojové podklady, štandard a vizuálna kontrola](plugin/artwork/provenance/picons-assimilated-20261030/) · [Záznam aktivácie a kontrol](reports/picons-assimilated-activation-20261030.json).
-
-## PiconHub 0.1.43 — 34,5°W a 50°E
-
-Podpora 34,5°W a 50°E vo všetkých troch rozmeroch a pozadiach Transparent, White a Black. Kontrola kompletných pozadí satelitov aj providerov; uložené profily zostávajú zachované. Po aktualizácii reštartujte GUI.
-
-[Stiahnuť IPK](https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/download/v0.1.43/enigma2-plugin-extensions-piconhub_0.1.43_all.ipk). Overené všetky tri pozadia satelitov aj providerov, verejné IPK a kontrolné súčty.
-
-## PiconHub 0.1.44 — oprava poradia a ikon
-
-Doplnené pôvodné logá 34,5°W a 50°E v oboch výberoch PiconHubu. Všetky položky majú pribalenú ikonu; uložené profily a tri pozadia zostávajú zachované. Po aktualizácii reštartujte GUI.
-
-[Stiahnuť IPK](https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/download/v0.1.44/enigma2-plugin-extensions-piconhub_0.1.44_all.ipk). Overené všetky tri pozadia satelitov aj providerov, verejné IPK a kontrolné súčty.
+Po inštalácii alebo aktualizácii reštartujte GUI.
