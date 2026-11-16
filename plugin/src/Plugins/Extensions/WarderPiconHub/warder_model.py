@@ -52,7 +52,10 @@ class PickerState:
 
 def initial_selectors(profile):
     if getattr(profile, "warder_selectors", None) and profile.warder_selectors.value:
-        return profile.warder_selectors.value.split()
+        # Retired internet-radio collections must not keep profiles invalid
+        # after removal; preserve all satellite, DAB and terrestrial choices.
+        return [item for item in profile.warder_selectors.value.split()
+                if not item.startswith("IPTV-")]
     result = []
     for position in profile.sats.value.split():
         selector = sync.selector_id_for_position(position.lower())
