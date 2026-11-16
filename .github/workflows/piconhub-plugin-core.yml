@@ -19,10 +19,9 @@ jobs:
           sparse-checkout: |
             plugin
             picons/DAB
-            picons/IPTV-SK-CZ
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.9'
+          python-version: '3.11'
       - name: Test package selection and download integrity
         env:
           PYTHONPATH: plugin/src
@@ -54,7 +53,7 @@ jobs:
           sparse-checkout: plugin
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.9'
+          python-version: '3.11'
       - uses: actions/download-artifact@v4
         with:
           name: PiconHub-Warder-Evolution-development

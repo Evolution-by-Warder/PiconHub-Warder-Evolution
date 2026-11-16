@@ -77,7 +77,7 @@ class PackageTests(unittest.TestCase):
                     self.assertIn("./"+builder.INSTALL_ROOT+"/"+name,names)
                 recent=[name for name in names if "/images/recent/" in name and name.endswith(".png")]
                 self.assertEqual(len(recent),6)
-                self.assertEqual(len([n for n in names if "/images/selectors/" in n and n.endswith(".png")]),61)
+                self.assertEqual(len([n for n in names if "/images/selectors/" in n and n.endswith(".png")]),56)
                 provenance=json.loads(payload.extractfile("./"+builder.INSTALL_ROOT+"/images/selectors/sources.json").read())
                 for selector in ("345W","500E"):
                     icon=payload.extractfile("./"+builder.INSTALL_ROOT+"/images/selectors/"+selector+".png").read()
