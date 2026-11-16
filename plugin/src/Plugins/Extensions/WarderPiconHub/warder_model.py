@@ -5,11 +5,10 @@ import json
 import pathlib
 
 from . import warder_skin_sync as sync
-from . import warder_iptv as iptv
 
 ROOT = pathlib.Path(__file__).parent
 MENU = json.loads((ROOT / "data/skin-menu.json").read_text())["selectors"]
-SATELLITES = iptv.COLLECTIONS + (("DAB", "DAB / DAB+"),) + tuple((row["selector"], row["label"]) for row in MENU if row["selector"] == "DVB-T-SK-CZ") + tuple((row["selector"], row["label"]) for row in MENU if row["selector"] != "DVB-T-SK-CZ")
+SATELLITES = (("DAB", "DAB / DAB+"),) + tuple((row["selector"], row["label"]) for row in MENU if row["selector"] == "DVB-T-SK-CZ") + tuple((row["selector"], row["label"]) for row in MENU if row["selector"] != "DVB-T-SK-CZ")
 RESOLUTIONS = tuple((value, label.split(" - ")[0]) for value, label in sync.CHANNEL_RESOLUTION_CHOICES)
 STYLES = (("transparent", "Transparent"), ("white", "Biele"), ("black", "Čierne"))
 METHODS = (("sync_tv", "Podľa TV bouquetov"), ("sync_tv_radio", "Podľa TV a rádia"),
@@ -73,25 +72,17 @@ def profile_preferences(profile):
     if profile.method.value not in METHOD_MAP:
         raise ValueError(_("Vyberte režim aktualizácie."))
     include_dab = "DAB" in selectors
-    iptv_selectors = [value for value in selectors if value in iptv.SELECTORS]
-    include_iptv = bool(iptv_selectors)
     if include_dab and profile.resolution.value != "220x132":
         raise ValueError("DAB / DAB+: 220×132")
     if include_dab and profile.method.value == "sync_tv":
         raise ValueError(_("Vyberte režim aktualizácie.") + " DAB / DAB+: " + _("Podľa TV a rádia"))
-    if include_iptv and profile.method.value == "sync_tv":
-        raise ValueError(_("Vyberte režim aktualizácie.") + " " + _(dict(iptv.COLLECTIONS)[iptv_selectors[0]]) + ": " + _("Podľa TV a rádia"))
-    bindings = [sync.task_binding_for_package_selector(value) for value in selectors if value not in ("DAB",) + iptv.SELECTORS]
+    bindings = [sync.task_binding_for_package_selector(value) for value in selectors if value != "DAB"]
     preferences = sync.set_task_position_bindings(sync.default_preferences(), bindings)
     preferences.update(style=profile.background.value, resolution=profile.resolution.value,
                        update_mode=METHOD_MAP[profile.method.value],
                        destination=(profile.picon_folder_user.value if profile.picon_folder.value == "user_defined"
                                     else profile.picon_folder.value))
-    preferences.update(include_dab=include_dab, include_iptv=include_iptv,
-                       iptv_selectors=iptv_selectors,
-                       dab_only=include_dab and not include_iptv and not bindings,
-                       iptv_only=include_iptv and not include_dab and not bindings,
-                       radio_only=include_iptv and include_dab and not bindings)
+    preferences.update(include_dab=include_dab, dab_only=include_dab and not bindings)
     return preferences
 
 
