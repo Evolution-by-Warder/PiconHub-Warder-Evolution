@@ -212,9 +212,9 @@ class NativeControllerTests(unittest.TestCase):
         self.assertFalse(self.main.closed)
         self.assertEqual(self.calls,[])
 
-    def test_iptv_dab_and_terrestrial_lead_picker_without_false_unavailable_label(self):
+    def test_dab_and_terrestrial_lead_picker_without_false_unavailable_label(self):
         self.main.select_satellites()
-        self.assertEqual(tuple(sid for sid,label in self.main.picker.choices[:7]),("IPTV-SK-CZ","IPTV-AT","IPTV-DE","IPTV-HU","IPTV-PL","DAB","DVB-T-SK-CZ"))
+        self.assertEqual(tuple(sid for sid,label in self.main.picker.choices[:2]),("DAB","DVB-T-SK-CZ"))
         self.assertEqual(dict(self.main.picker.choices)["DAB"],"DAB / DAB+")
         self.assertIn("DAB",self.main.picker_icons)
         self.assertIn("DVB-T-SK-CZ",self.main.picker_icons)
@@ -650,7 +650,7 @@ class NativeControllerTests(unittest.TestCase):
 
     def test_four_profiles_restore_independent_choices_and_active_tab(self):
         expected=[]
-        selectors=(['192E'],['DAB'],['IPTV-SK-CZ'],['FREESAT','DAB'])
+        selectors=(['192E'],['DAB'],['235E'],['FREESAT','DAB'])
         for number in range(1,5):
             self.main.switch_profile(number)
             self.main.satellites_chosen(selectors[number-1])
