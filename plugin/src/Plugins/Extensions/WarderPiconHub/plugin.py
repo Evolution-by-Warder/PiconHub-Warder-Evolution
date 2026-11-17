@@ -56,6 +56,8 @@ from . import _, PLUGIN_PATH            # from . import _, PLUGIN_PATH
 ###########################################################################
 
 PROFILE_COUNT = 4
+# Optional Enigma2 main-menu entry; leave disabled on existing installations.
+config.plugins.warder_piconhub_show_main_menu = ConfigYesNo(default=False)
 config.plugins.chocholousekpicons_id = ConfigSelectionNumber(1,PROFILE_COUNT,1,default=1)
 
 config.plugins.chocholousekpicons = ConfigSubList()
@@ -318,6 +320,7 @@ class mainConfigScreen(Screen, ConfigListScreen):
     def rebuildConfigList(self):
         self.list = []
         self.list.append(getConfigListEntry( _('Configuration profile')       ,  config.plugins.chocholousekpicons_id               ))
+        self.list.append(getConfigListEntry( _('Show in main menu')          ,  config.plugins.warder_piconhub_show_main_menu   ))
         id = config.plugins.chocholousekpicons_id.getValue()
         self.list.append(getConfigListEntry( _('Allow profile processing')    ,  config.plugins.chocholousekpicons[id].allowed      ))
         
@@ -412,6 +415,7 @@ class mainConfigScreen(Screen, ConfigListScreen):
         self.warderUpdateCheck.request(manual=True)
 
     def keyToExit(self):
+        config.plugins.warder_piconhub_show_main_menu.save()
         configfile.save()                   # configfile means '/etc/enigma2/settings' - the configuration file will be saved only when the Enigma is stopped or restarted
         self.close()
     
@@ -1905,6 +1909,12 @@ def pluginMenu(session, **kwargs):              # starts when the plugin is open
     from .warder_gui import WarderMainScreen
     session.open(WarderMainScreen)
 
+def mainMenu(menuid, **kwargs):
+    if menuid != 'mainmenu' or not config.plugins.warder_piconhub_show_main_menu.value:
+        return []
+    return [('PiconHub Warder Evolution', pluginMenu, 'PiconHub_Warder_Evolution', 55)]
+
+
 def Plugins(**kwargs):
     from .warder_i18n import translate
     if desktopX > 1900:
@@ -1917,6 +1927,11 @@ def Plugins(**kwargs):
                 description = translate('Sťahovanie a správa piconov'),
                 icon = plugin_logo,
                 needsRestart = False,
-                fnc = pluginMenu)  ]
+                fnc = pluginMenu),
+             PluginDescriptor(
+                where = PluginDescriptor.WHERE_MENU,
+                name = 'PiconHub Warder Evolution',
+                needsRestart = False,
+                fnc = mainMenu) ]
 
 
