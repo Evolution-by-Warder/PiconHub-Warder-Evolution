@@ -128,6 +128,7 @@ class NativeControllerTests(unittest.TestCase):
                 picon_folder=Setting("/usr/share/enigma2/picon"),picon_folder_user=Setting("/")))
         self.config.plugins.chocholousekpicons=profiles
         self.config.plugins.chocholousekpicons_id=Setting(1)
+        self.config.plugins.warder_piconhub_show_main_menu=Setting(False)
         self.saves.clear();self.calls=[]
         self.session=types.SimpleNamespace(open=lambda *a,**kw:self.calls.append((None,a,kw)),
                                            openWithCallback=lambda cb,*a,**kw:self.calls.append((cb,a,kw)))
@@ -172,16 +173,36 @@ class NativeControllerTests(unittest.TestCase):
         self.main.exit()
         self.assertIsNone(self.main.selection["satellites"])
 
-    def test_footer_actions_open_plugin_update_about_and_close_directly(self):
+    def test_footer_actions_open_plugin_update_settings_and_close_directly(self):
         with patch.object(self.main.warderUpdateCheck,"request") as request:
             self.main["actions"]["yellow"]()
             request.assert_called_once_with(manual=True)
+        self.assertEqual(self.main["key_blue"].text,"Nastavenia")
         self.main["actions"]["blue"]()
-        self.assertEqual(self.main["picker_title"].text,"O projekte")
-        self.assertEqual(self.calls,[])
-        self.main.exit()
+        self.assertEqual(len(self.calls),1)
+        self.assertIs(self.calls[0][1][0],self.gui.PiconHubSettings)
+        self.assertFalse(self.config.plugins.warder_piconhub_show_main_menu.value)
         self.main["actions"]["red"]()
         self.assertTrue(self.main.closed)
+
+    def test_settings_popup_toggles_menu_and_keeps_about(self):
+        popup=self.gui.PiconHubSettings(self.session)
+        self.assertEqual(popup["title"].text,"Nastavenia")
+        self.assertIn("Nie",popup.settings_rows()[0][1])
+        popup["list"].moveToIndex(0)
+        popup.accept()
+        callback,args,kw=self.calls[-1]
+        self.assertIs(args[0],self.gui.ChoiceDialog)
+        callback("yes")
+        self.assertTrue(self.config.plugins.warder_piconhub_show_main_menu.value)
+        self.assertEqual(self.config.plugins.warder_piconhub_show_main_menu.saves,1)
+        self.assertIn("Áno",popup.settings_rows()[0][1])
+        callback("no")
+        self.assertFalse(self.config.plugins.warder_piconhub_show_main_menu.value)
+        popup["list"].moveToIndex(1)
+        popup.accept()
+        self.assertIs(self.calls[-1][1][0],self.gui.TextDialog)
+        self.assertIn("PiconHub",self.calls[-1][1][2])
 
     def test_all_rows_open_a_picker_without_changing_settings(self):
         before=[p.method.value for p in self.config.plugins.chocholousekpicons]
