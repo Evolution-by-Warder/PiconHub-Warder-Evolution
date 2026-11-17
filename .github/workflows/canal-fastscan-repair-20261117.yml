@@ -38,6 +38,8 @@ jobs:
           code=gzip.decompress(base64.b64decode(os.environ['AUDIT_PAYLOAD']))
           if __import__('hashlib').sha256(code).hexdigest()!='3f81d55d4d4e11514389aab2115d9b6b9286b86a9148e4bf4764d7aede56f115':
               raise RuntimeError('Audit source checksum mismatch')
+          # Use the verified production commit; GitHub raw main CDN can lag after data publication.
+          code=code.replace(b'/main/assets/warder/downloads/picons/channels/',b'/a696e1d4c8b2905a2265e3b5e4a80a4c7af84f09/assets/warder/downloads/picons/channels/')
           context={'__name__':'__main__','__file__':'plugin/tools/canal_fastscan_repair_20261117.py'}
           exec(compile(code,'canal-fastscan-repair-20261117.py','exec'), context)
           PY
