@@ -23,6 +23,17 @@ SETTINGS_TRANSLATIONS = {
     'fr': ('Paramètres', 'Afficher dans le menu principal', 'À propos', 'Oui', 'Non'),
     'it': ('Impostazioni', 'Mostra nel menu principale', 'Informazioni', 'Sì', 'No'),
     'es': ('Configuración', 'Mostrar en el menú principal', 'Acerca del programa', 'Sí', 'No'),
+    'pt': ('Definições', 'Mostrar no menu principal', 'Sobre o programa', 'Sim', 'Não'),
+    'nl': ('Instellingen', 'Tonen in het hoofdmenu', 'Over het programma', 'Ja', 'Nee'),
+    'ro': ('Setări', 'Afișare în meniul principal', 'Despre program', 'Da', 'Nu'),
+    'uk': ('Налаштування', 'Показувати в головному меню', 'Про програму', 'Так', 'Ні'),
+    'bg': ('Настройки', 'Показване в главното меню', 'За програмата', 'Да', 'Не'),
+    'hr': ('Postavke', 'Prikaži u glavnom izborniku', 'O programu', 'Da', 'Ne'),
+    'sr': ('Podešavanja', 'Prikaži u glavnom meniju', 'O programu', 'Da', 'Ne'),
+    'sl': ('Nastavitve', 'Prikaži v glavnem meniju', 'O programu', 'Da', 'Ne'),
+    'el': ('Ρυθμίσεις', 'Εμφάνιση στο κύριο μενού', 'Σχετικά με το πρόγραμμα', 'Ναι', 'Όχι'),
+    'tr': ('Ayarlar', 'Ana menüde göster', 'Program hakkında', 'Evet', 'Hayır'),
+    'sv': ('Inställningar', 'Visa i huvudmenyn', 'Om programmet', 'Ja', 'Nej'),
 }
 SETTINGS_KEYS = SETTINGS_TRANSLATIONS['sk']
 
