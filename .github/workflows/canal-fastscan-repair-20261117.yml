@@ -1,0 +1,72 @@
+# One-shot: inspect actual released CANAL+ SK/CZ ZIPs, then repair verified blank TV5MONDE *source* images only.
+# Does not build IPKs or produce redundant ZIP archives. Main is changed only if a correction passes.
+name: FastScan SK CZ production QA and safe source repair
+on:
+  push:
+    branches: [audit/canal-fastscan-repair-20261117]
+    paths:
+      - .github/workflows/canal-fastscan-repair-20261117.yml
+permissions:
+  contents: write
+concurrency:
+  group: warder-canal-fastscan-20261117
+  cancel-in-progress: false
+jobs:
+  verify-and-repair:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+          filter: blob:none
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /picons/23.5e/
+            /.github/workflows/canal-fastscan-repair-20261117.yml
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install --quiet Pillow
+      - name: Verify production ZIPs, FastScan service refs and safely repair blank source
+        env:
+          AUDIT_PAYLOAD: "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"
+        shell: bash
+        run: |
+          python - <<'PY'
+          import os, base64, gzip
+          code=gzip.decompress(base64.b64decode(os.environ['AUDIT_PAYLOAD']))
+          if __import__('hashlib').sha256(code).hexdigest()!='3f81d55d4d4e11514389aab2115d9b6b9286b86a9148e4bf4764d7aede56f115':
+              raise RuntimeError('Audit source checksum mismatch')
+          context={'__name__':'__main__','__file__':'plugin/tools/canal_fastscan_repair_20261117.py'}
+          exec(compile(code,'canal-fastscan-repair-20261117.py','exec'), context)
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: canal-fastscan-20261117-evidence
+          path: reports/canal-fastscan-20261117/verification.json
+          if-no-files-found: warn
+          retention-days: 30
+      - name: Publish verified corrections to source main (no IPK)
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "Warder verified picon repair"
+          git config user.email "warder-picons@users.noreply.github.com"
+          git add picons/23.5e/canal-plus-sk/transparent/1_0_1_1B03_3FE_1_C00000_0_0_0.png
+          git add picons/23.5e/canal-plus-cz/transparent/1_0_1_1B03_3FE_1_C00000_0_0_0.png
+          git add picons/23.5e/skylink/transparent/1_0_1_1B03_3FE_1_C00000_0_0_0.png
+          git add reports/canal-fastscan-20261117/verification.json
+          if git diff --cached --quiet; then
+            echo 'No verified changes; production already covers all FastScan services. No commit and no new ZIP.'
+            exit 0
+          fi
+          git diff --cached --check
+          git commit -m 'Correct blank TV5MONDE source from verified production CANAL+ artwork'
+          PATCH_SHA="$(git rev-parse HEAD)"
+          git fetch origin main
+          git switch -C canal-fastscan-approved origin/main
+          git cherry-pick "$PATCH_SHA"
+          git push origin HEAD:main
+          echo "PUBLISHED_SOURCE_COMMIT=$(git rev-parse HEAD)"
