@@ -154,10 +154,10 @@ class ChoiceDialog(Screen):
 
 def piconhub_about_text():
     version = installed_version()
-    text = _("PiconHub Warder Evolution\\nVerzia ") + version + _("\\n\\nWarder Evolution\\nPlugin vychádza z práce s3n0 a Chocholousek.\\nKatalóg a plánovanie piconov: FullHDGlass Warder Evolution.")
+    text = _("PiconHub Warder Evolution\nVerzia ") + version + _("\n\nWarder Evolution\nPlugin vychádza z práce s3n0 a Chocholousek.\nKatalóg a plánovanie piconov: FullHDGlass Warder Evolution.")
     notes = load_notes(ROOT/"data/release-notes.json", version, language_code())
     if notes:
-        text += "\\n\\n" + notes
+        text += "\n\n" + notes
     return text
 
 
