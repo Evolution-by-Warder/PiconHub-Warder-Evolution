@@ -151,6 +151,51 @@ class ChoiceDialog(Screen):
             self.accept()
 
 
+
+def piconhub_about_text():
+    version = installed_version()
+    text = _("PiconHub Warder Evolution\\nVerzia ") + version + _("\\n\\nWarder Evolution\\nPlugin vychádza z práce s3n0 a Chocholousek.\\nKatalóg a plánovanie piconov: FullHDGlass Warder Evolution.")
+    notes = load_notes(ROOT/"data/release-notes.json", version, language_code())
+    if notes:
+        text += "\\n\\n" + notes
+    return text
+
+
+class PiconHubSettings(ChoiceDialog):
+    """Independent settings popup; does not alter the existing picon profiles."""
+    def __init__(self, session):
+        ChoiceDialog.__init__(self, session, _("Nastavenia"), self.settings_rows())
+
+    def settings_rows(self):
+        enabled = bool(config.plugins.warder_piconhub_show_main_menu.value)
+        return [
+            ("menu", _("Zobraziť v hlavnom menu") + ": " + (_("Áno") if enabled else _("Nie"))),
+            ("about", _("O programe")),
+        ]
+
+    def accept(self):
+        row = self["list"].getCurrent()
+        if row is None:
+            return
+        selected = row[0][0]
+        if selected == "menu":
+            self.session.openWithCallback(
+                self.menu_choice, ChoiceDialog, _("Zobraziť v hlavnom menu"),
+                [("no", _("Nie")), ("yes", _("Áno"))],
+                "yes" if config.plugins.warder_piconhub_show_main_menu.value else "no")
+        elif selected == "about":
+            self.session.open(TextDialog, _("O programe"), piconhub_about_text())
+
+    def menu_choice(self, selection):
+        if selection not in ("yes", "no"):
+            return
+        setting = config.plugins.warder_piconhub_show_main_menu
+        setting.setValue(selection == "yes")
+        setting.save()
+        configfile.save()
+        self["list"].setList(option_entries(self.settings_rows(), (), self.warder_scale))
+        self["list"].moveToIndex(0)
+
 class DirectoryDialog(ChoiceDialog):
     def __init__(self, session, path):
         self.path = pathlib.Path(path)
@@ -382,7 +427,7 @@ class WarderMainScreen(Screen):
         self["list"]=menu_component(self.warder_scale,100,(32,29,23))
         self["actions"]=ActionMap(["OkCancelActions","DirectionActions","ColorActions","NumberActions"],{
             "up":self.move_up,"down":self.move_down,"left":self.page_up,"right":self.page_down,"ok":self.open_row,"0":self.toggle_profile,
-            "cancel":self.exit,"red":self.exit,"green":self.green_action,"yellow":self.check_plugin_update,"blue":self.about},-2)
+            "cancel":self.exit,"red":self.exit,"green":self.green_action,"yellow":self.check_plugin_update,"blue":self.open_settings},-2)
         self.clock_timer=eTimer();self.clock_connection=connect_timer(self.clock_timer,self.tick)
         self.warderUpdateCheck=StartupUpdateCheck(self)
         self.onLayoutFinish.append(self.ready)
@@ -578,7 +623,7 @@ class WarderMainScreen(Screen):
         directory=picking and self.picker_path is not None
         marked=self.marked_profiles()
         download=_("Stiahnuť (%d)")%len(marked)
-        captions=(_("Naspäť"),_("Použiť priečinok") if directory else _("Potvrdiť výber") if multiple else "","","") if picking else (_("Zatvoriť"),download,_("Aktualizácia pluginu"),_("O projekte"))
+        captions=(_("Naspäť"),_("Použiť priečinok") if directory else _("Potvrdiť výber") if multiple else "","","") if picking else (_("Zatvoriť"),download,_("Aktualizácia pluginu"),_("Nastavenia"))
         if self.panel is not None:
             captions=(_("Naspäť") if self.panel["enabled"] else "",self.panel["confirm"] if self.panel["enabled"] else "","","")
         if self.job is not None:
@@ -737,15 +782,22 @@ class WarderMainScreen(Screen):
         if self.picker is not None or self.panel is not None:return
         self.warderUpdateCheck.request(manual=True)
 
-    def about(self):
+    def open_settings(self):
         if self.job is not None:
-            self.job.show_log();return
-        if self.picker is not None or self.panel is not None:return
-        version=installed_version()
-        text=_("PiconHub Warder Evolution\nVerzia ")+version+_("\n\nWarder Evolution\nPlugin vychádza z práce s3n0 a Chocholousek.\nKatalóg a plánovanie piconov: FullHDGlass Warder Evolution.")
-        notes=load_notes(ROOT/"data/release-notes.json",version,language_code())
-        if notes:text+="\n\n"+notes
-        self.show_update_notice(text,title=_("O projekte"))
+            self.job.show_log()
+            return
+        if self.picker is not None or self.panel is not None:
+            return
+        self.session.open(PiconHubSettings)
+
+    def about(self):
+        # Preserve the existing project information for older callers.
+        if self.job is not None:
+            self.job.show_log()
+            return
+        if self.picker is not None or self.panel is not None:
+            return
+        self.show_update_notice(piconhub_about_text(), title=_("O projekte"))
 
     def exit(self):
         if self.job is not None:
