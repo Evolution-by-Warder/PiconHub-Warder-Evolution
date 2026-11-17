@@ -40,7 +40,8 @@ jobs:
           name: piconhub-OpenPLi-${{ matrix.upstream_ref }}
           path: /tmp/openpli-*.json
   regression:
-    runs-on: ubuntu-latest
+    # Python 3.9 is unavailable on Ubuntu 26.04; pin this matrix to 24.04.
+    runs-on: ubuntu-24.04
     strategy:
       fail-fast: false
       matrix:

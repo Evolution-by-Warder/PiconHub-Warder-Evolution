@@ -56,6 +56,8 @@ from . import _, PLUGIN_PATH            # from . import _, PLUGIN_PATH
 ###########################################################################
 
 PROFILE_COUNT = 4
+# Optional main-menu shortcut. Disabled for both new and existing users.
+config.plugins.warder_piconhub_show_main_menu = ConfigYesNo(default=False)
 config.plugins.chocholousekpicons_id = ConfigSelectionNumber(1,PROFILE_COUNT,1,default=1)
 
 config.plugins.chocholousekpicons = ConfigSubList()
@@ -1905,6 +1907,13 @@ def pluginMenu(session, **kwargs):              # starts when the plugin is open
     from .warder_gui import WarderMainScreen
     session.open(WarderMainScreen)
 
+def mainMenu(menuid, **kwargs):
+    if menuid != 'mainmenu' or not config.plugins.warder_piconhub_show_main_menu.value:
+        return []
+    # Exact name of the already approved graphic in menuIconsBig.
+    return [('PiconHub Warder Evolution', pluginMenu, 'PiconHub_Warder_Evolution', 55)]
+
+
 def Plugins(**kwargs):
     from .warder_i18n import translate
     if desktopX > 1900:
@@ -1917,6 +1926,11 @@ def Plugins(**kwargs):
                 description = translate('Sťahovanie a správa piconov'),
                 icon = plugin_logo,
                 needsRestart = False,
-                fnc = pluginMenu)  ]
+                fnc = pluginMenu),
+             PluginDescriptor(
+                where = PluginDescriptor.WHERE_MENU,
+                name = 'PiconHub Warder Evolution',
+                needsRestart = False,
+                fnc = mainMenu) ]
 
 
