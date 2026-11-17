@@ -12,6 +12,20 @@ CATALOGS = json.loads((pathlib.Path(__file__).parent/'data/translations.json').r
 SUPPORTED = tuple(CATALOGS)
 
 
+SETTINGS_TRANSLATIONS = {
+    'sk': ('Nastavenia', 'Zobraziť v hlavnom menu', 'O programe', 'Áno', 'Nie'),
+    'en': ('Settings', 'Show in main menu', 'About', 'Yes', 'No'),
+    'cs': ('Nastavení', 'Zobrazit v hlavním menu', 'O programu', 'Ano', 'Ne'),
+    'de': ('Einstellungen', 'Im Hauptmenü anzeigen', 'Über das Programm', 'Ja', 'Nein'),
+    'pl': ('Ustawienia', 'Pokaż w menu głównym', 'O programie', 'Tak', 'Nie'),
+    'hu': ('Beállítások', 'Megjelenítés a főmenüben', 'A programról', 'Igen', 'Nem'),
+    'ru': ('Настройки', 'Показывать в главном меню', 'О программе', 'Да', 'Нет'),
+    'fr': ('Paramètres', 'Afficher dans le menu principal', 'À propos', 'Oui', 'Non'),
+    'it': ('Impostazioni', 'Mostra nel menu principale', 'Informazioni', 'Sì', 'No'),
+    'es': ('Configuración', 'Mostrar en el menú principal', 'Acerca del programa', 'Sí', 'No'),
+}
+SETTINGS_KEYS = SETTINGS_TRANSLATIONS['sk']
+
 def language_code():
     try:
         from Components.Language import language
@@ -27,6 +41,8 @@ def language_code():
 
 def translate(text, language=None):
     code = str(language or language_code()).replace('-', '_').split('_')[0].lower()
+    if text in SETTINGS_KEYS:
+        return SETTINGS_TRANSLATIONS.get(code, SETTINGS_TRANSLATIONS['en'])[SETTINGS_KEYS.index(text)]
     return CATALOGS.get(code, CATALOGS['en']).get(text, CATALOGS['en'].get(text, text))
 
 
