@@ -70,8 +70,81 @@ def build(destination,source_revision=None):
              "Replaces: enigma2-plugin-extensions-chocholousek-picons\n"
              "Homepage: https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution\n"
              "Description: Download and manage picons.\n") % (PACKAGE,version)
-    preinst='#!/bin/sh\nif [ -z "$D" ]; then\nold=/usr/lib/enigma2/python/Plugins/Extensions/ChocholousekPicons\nnew=/usr/lib/enigma2/python/Plugins/Extensions/WarderPiconHub\nif { [ -f "$old/version.txt" ] || [ -f "$old/plugin.py" ]; } && [ ! -f "$new/version.txt" ]; then\n    mkdir -p /var/lib/warder-piconhub || exit 1\n    touch /var/lib/warder-piconhub/legacy-transition-needed || exit 1\nfi\nfi\nexit 0\n'
-    postinst='#!/bin/sh\nif [ -z "$D" ]; then\n    for log in /tmp/piconhub-picons.log /tmp/chocholousekpicons.log /tmp/chocholousekpicons-cmd.log; do\n        if [ -f "$log" ] && [ ! -L "$log" ]; then rm -f "$log"; fi\n    done\n    python3 /usr/lib/enigma2/python/Plugins/Extensions/WarderPiconHub/warder_migrate.py || exit 1\n    python3 /usr/lib/enigma2/python/Plugins/Extensions/WarderPiconHub/warder_update.py --verify-installed-files || exit 1\nfi\nexit 0\n'
+    # Only print lifecycle banners; preserve legacy migration and integrity checks.
+    preinst='''#!/bin/sh
+if [ -z "${D:-}" ]; then
+    case "${1:-}" in
+        install|upgrade)
+            echo "******************************************************************"
+            echo "                    PiconHub Warder Evolution"
+            echo "******************************************************************"
+            if [ "${1:-}" = upgrade ]; then
+                echo "Preparing PiconHub Warder Evolution upgrade/reinstall..."
+            else
+                echo "Preparing PiconHub Warder Evolution installation/reinstall..."
+            fi
+            echo "Existing PiconHub settings, profiles and picons will be preserved."
+            echo "******************************************************************"
+            ;;
+    esac
+    old=/usr/lib/enigma2/python/Plugins/Extensions/ChocholousekPicons
+    new=/usr/lib/enigma2/python/Plugins/Extensions/WarderPiconHub
+    if { [ -f "$old/version.txt" ] || [ -f "$old/plugin.py" ]; } && [ ! -f "$new/version.txt" ]; then
+        mkdir -p /var/lib/warder-piconhub || exit 1
+        touch /var/lib/warder-piconhub/legacy-transition-needed || exit 1
+    fi
+fi
+exit 0
+'''
+    postinst='''#!/bin/sh
+if [ -z "${D:-}" ]; then
+    for log in /tmp/piconhub-picons.log /tmp/chocholousekpicons.log /tmp/chocholousekpicons-cmd.log; do
+        if [ -f "$log" ] && [ ! -L "$log" ]; then rm -f "$log"; fi
+    done
+    python3 /usr/lib/enigma2/python/Plugins/Extensions/WarderPiconHub/warder_migrate.py || exit 1
+    python3 /usr/lib/enigma2/python/Plugins/Extensions/WarderPiconHub/warder_update.py --verify-installed-files || exit 1
+    echo "******************************************************************"
+    echo "Install/upgrade/reinstall finished: PiconHub Warder Evolution"
+    echo "Existing PiconHub settings, profiles and picons were preserved."
+    echo "Please restart GUI to activate changes."
+    echo "******************************************************************"
+fi
+exit 0
+'''
+    prerm='''#!/bin/sh
+# Upgrade must not report that the plugin has been uninstalled.
+[ -z "${D:-}" ] || exit 0
+case "${1:-}" in
+    remove|purge)
+        echo "******************************************************************"
+        echo "                    PiconHub Warder Evolution"
+        echo "******************************************************************"
+        echo "Removing PiconHub Warder Evolution plugin files..."
+        echo "Existing user settings, profiles and picons will remain untouched."
+        echo "******************************************************************"
+        ;;
+    upgrade|deconfigure)
+        echo "******************************************************************"
+        echo "Preparing PiconHub Warder Evolution upgrade/reinstall..."
+        echo "******************************************************************"
+        ;;
+esac
+exit 0
+'''
+    postrm='''#!/bin/sh
+# Do not announce an uninstall during upgrade or failed upgrade.
+[ -z "${D:-}" ] || exit 0
+case "${1:-}" in
+    remove|purge)
+        echo "******************************************************************"
+        echo "Removal finished: PiconHub Warder Evolution"
+        echo "Saved PiconHub user settings, profiles and picons were left intact."
+        echo "Please restart GUI to activate changes."
+        echo "******************************************************************"
+        ;;
+esac
+exit 0
+'''
     entries=[]
     for path in sorted(RUNTIME.rglob("*")):
         if path.is_file() and not path.is_symlink() and "__pycache__" not in path.parts and path.suffix not in (".pyc",".pyo"):
@@ -91,7 +164,7 @@ def build(destination,source_revision=None):
             mo=pathlib.Path(temporary)/"translation.mo"
             subprocess.run([sys.executable,str(ROOT/"tools/msgfmt.py"),"-o",str(mo),str(po)],check=True,capture_output=True)
             entries.append((INSTALL_ROOT+"/"+po.relative_to(RUNTIME).with_suffix(".mo").as_posix(),mo.read_bytes(),0o644))
-    data=ar((("debian-binary",b"2.0\n"),("control.tar.gz",archive((("control",control.encode(),0o644),("preinst",preinst.encode(),0o755),("postinst",postinst.encode(),0o755)))),
+    data=ar((("debian-binary",b"2.0\n"),("control.tar.gz",archive((("control",control.encode(),0o644),("preinst",preinst.encode(),0o755),("postinst",postinst.encode(),0o755),("prerm",prerm.encode(),0o755),("postrm",postrm.encode(),0o755)))),
              ("data.tar.gz",archive(entries))))
     destination=pathlib.Path(destination);destination.mkdir(parents=True,exist_ok=True)
     path=destination/(DOWNLOAD_PREFIX+"_"+version+"_all.ipk");path.write_bytes(data)
