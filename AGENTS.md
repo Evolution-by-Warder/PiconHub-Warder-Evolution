@@ -1,5 +1,15 @@
 # PiconHub-Warder-Evolution – pravidlá pre prácu
 
+## Povinná nezávislá kontrola výstupov SAT Worku (22. 11. 2026)
+
+- **Rozdelenie zodpovednosti:** SAT Work robí odbornú prácu so satelitnými stanicami, servisnými referenciami, grafickými piconmi, master sadami a produkčnými SAT ZIPmi. Spoločný FullHDGlass/Warder Work jeho prácu **vždy nezávisle skontroluje** a overí, či sú výsledky **naozaj publikované**. Nesmie zameniť kontrolu za vykonávanie SAT Worku ani len slepo potvrdiť jeho správu.
+- **Pri každom odovzdaní SAT Worku** načítaj najnovší skutočný `main` v FullHDGlass aj PiconHub, pracovné PR a commity, kontrolné súčty a manifesty. Porovnaj ich s konkrétnym deklarovaným výsledkom SAT Worku a s posledným schváleným grafickým základom. Starý commit nie je dôkazom aktuálneho produkčného stavu.
+- **Nezávislé overenie správnosti:** skontroluj presné Enigma2 servisné referencie/identitu stanice, skutočnú grafiku (nie iba existenciu súboru), príslušné providery/satelitné pozície, zachovanie schválených Canal+ SK/CZ a ostatných chránených piconov, znovupoužitie správnych originálnych grafík a úplnú maticu **3 rozmerov 50×30, 220×132, 400×240 × 3 pozadia Transparent, WHITE, BLACK** pre každú dotknutú SAT položku a providera. Sezónne či dočasné názvy staníc neprepíš cez trvalú identitu bez potvrdenia.
+- **Nezávislé overenie publikovania:** odlišuj zdrojový commit, pripravené lokálne PNG, otvorený PR, merge, produkčný manifest, súbory ZIP a ich časti, úspešné CI, skutočný release a zmenený produkčný updater. Ak sa tvrdí publikovanie, over ich reálnu prítomnosť na GitHube a príslušné SHA-256; iba existencia položky v manifeste nie je dôkaz, že nový obrázok bol reálne vydaný.
+- **Výstup kontroly:** jasne označ `OVERENÉ A PUBLIKOVANÉ`, `SPRÁVNE, ALE NEPUBLIKOVANÉ`, `CHYBNÉ`, prípadne `NEOVERENÉ`. Uveď konkrétne chyby a miesto v repozitári; neposielaj používateľa iba naspäť na SAT Work bez nezávislého auditu. Pri zistených chybách priprav SAT Worku jednoznačné zadanie na opravu. Grafiku, SAT balíky a ich produkčné vydanie ponechaj SAT Worku, okrem prípadu, keď vlastník výslovne poverí tento Work ich opravou.
+- Zachovaj existujúce bezpečnostné pravidlá a povolený rozsah; **automatické dokončovanie schválenej práce** nenahrádza nezávislé overenie publikovania a neautorizuje prepis cudzích piconov.
+
+
 ## Trvalé pravidlo dokončovania schválenej práce (22. 11. 2026)
 
 Toto pravidlo výslovne požadoval vlastník pre **všetky projekty Evolution-by-Warder**. Je nadradené starším všeobecným formuláciám o opakovanom schvaľovaní každého merge, IPK a produkčného zápisu.
