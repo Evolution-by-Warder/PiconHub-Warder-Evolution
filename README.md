@@ -4,7 +4,7 @@ Správca piconov Enigma2 pre OpenATV a OpenPLi.
 
 ## Aktuálna stabilná verzia
 
-**PiconHub 0.1.44** – [oficiálne vydanie](https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/tag/v0.1.44).
+**PiconHub 0.1.45** – [oficiálne vydanie](https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/tag/v0.1.45).
 
 PiconHub spravuje schválené picony pre satelitné pozície, poskytovateľov, DAB/DAB+, DVB-T CZ/SK a DTT ITALIA. Výber profilu, rozmeru, pozadia a cieľového úložiska určuje, čo sa stiahne. Súbory sa inštalujú s kontrolou SHA-256, zachovaním používateľských piconov a obnoviteľným priebehom.
 
@@ -22,6 +22,6 @@ Pokračovanie Warder Evolution na základe pôvodného PiconHubu a schválených
 
 ## Inštalácia
 
-[Stiahnuť PiconHub 0.1.44](https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/download/v0.1.44/enigma2-plugin-extensions-piconhub_0.1.44_all.ipk)
+[Stiahnuť PiconHub 0.1.45](https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/download/v0.1.45/enigma2-plugin-extensions-piconhub_0.1.45_all.ipk)
 
 Po inštalácii alebo aktualizácii reštartujte GUI.

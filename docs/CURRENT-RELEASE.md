@@ -1,9 +1,9 @@
-# PiconHub 0.1.44
+# PiconHub 0.1.45
 
-Doplnené pôvodné logá 34,5°W a 50°E v oboch výberoch PiconHubu. Všetky položky majú pribalenú ikonu; uložené profily a tri pozadia zostávajú zachované. Po aktualizácii reštartujte GUI.
+Vo výbere piconov pribudla samostatná položka DTT ITALIA s 285 stanicovými referenciami. Aktualizované sú aj talianske feedy na 9°E a 5°W. Vybrať si môžete zo všetkých troch rozmerov a pozadí. Po inštalácii reštartujte Enigma2.
 
-[Stiahnuť IPK](https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/download/v0.1.44/enigma2-plugin-extensions-piconhub_0.1.44_all.ipk)
+[Stiahnuť IPK](https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/releases/download/v0.1.45/enigma2-plugin-extensions-piconhub_0.1.45_all.ipk)
 
-SHA256: ed9866a3ef2b40c47e7f30b733e0fb0f27f99be1b1f07c355edbd5dfcbaf3fbd
+SHA256: 83758c52c4d5d6675183865239b0e38e9cc0e83340c378f5b2ed7e467adc9d45
 
 Hostiteľské kontroly oboch inštalačných enginov a zachovania nastavení prešli; fyzický prijímač nebol v tejto relácii testovaný.
