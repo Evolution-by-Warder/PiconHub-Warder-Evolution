@@ -35,16 +35,30 @@ def validate(config: dict, state: dict) -> None:
     if config.get("schema") != 1 or state.get("schema") != 1:
         raise ValueError("Unexpected schema")
     sources = config.get("sources")
-    if not isinstance(sources, list) or len(sources) != 7:
-        raise ValueError("Expected seven curated sources")
+    if not isinstance(sources, list) or len(sources) != 8:
+        raise ValueError("Expected eight curated sources")
     ids = set()
     for item in sources:
-        sid, repo, branch = item["id"], item["repo"], item["branch"]
-        if sid in ids or not REPO.fullmatch(repo) or not branch:
-            raise ValueError("Duplicate or unsafe source: " + sid)
+        sid = item["id"]
+        if sid in ids:
+            raise ValueError("Duplicate source: " + sid)
         ids.add(sid)
         baseline = state.get("sources", {}).get(sid)
-        if not baseline or not SHA.fullmatch(baseline["head_sha"]):
+        if not isinstance(baseline, dict):
+            raise ValueError("Missing source baseline: " + sid)
+        if item["kind"] == "http-index":
+            from satdigitalne_source_watch import CATALOG_URL
+            if (sid != "satdigitalne-sat-picons" or item.get("url") != CATALOG_URL
+                    or baseline.get("url") != CATALOG_URL):
+                raise ValueError("Untrusted external source URL: " + sid)
+            index_sha = baseline.get("index_sha256")
+            if index_sha is not None and not re.fullmatch(r"[0-9a-f]{64}", index_sha):
+                raise ValueError("Invalid HTML catalogue fingerprint")
+            continue
+        repo, branch = item["repo"], item["branch"]
+        if not REPO.fullmatch(repo) or not branch:
+            raise ValueError("Unsafe source: " + sid)
+        if not SHA.fullmatch(baseline.get("head_sha", "")):
             raise ValueError("Missing verified source baseline: " + sid)
         if baseline["repo"] != repo or baseline["branch"] != branch:
             raise ValueError("Source identity does not match baseline: " + sid)
@@ -102,6 +116,19 @@ def scan(config: dict, state: dict, fetch_head=branch_head, fetch_compare=compar
     }
     for source in config["sources"]:
         sid = source["id"]
+        if source["kind"] == "http-index":
+            from satdigitalne_source_watch import scan_source
+            try:
+                row = scan_source(source, state["sources"][sid])
+            except (ValueError, KeyError, urllib.error.HTTPError, urllib.error.URLError,
+                    TimeoutError, OSError, RuntimeError) as exc:
+                row = {
+                    "id": sid, "url": source["url"], "previous_sha": state["sources"][sid].get("index_sha256"),
+                    "current_sha": None, "status": "SOURCE_ERROR_NO_ADVANCE",
+                    "error": str(exc)[:250], "candidates": [], "changed_path_count": 0,
+                }
+            report["sources"].append(row)
+            continue
         previous = state["sources"][sid]["head_sha"]
         row = {
             "id": sid, "repo": source["repo"], "branch": source["branch"],
@@ -135,14 +162,14 @@ def scan(config: dict, state: dict, fetch_head=branch_head, fetch_compare=compar
             row["status"] = "SOURCE_ERROR_NO_ADVANCE"
             row["error"] = str(exc)[:250]
         report["sources"].append(row)
-    report["changed_sources"] = sum(r["status"] == "CHANGED_REVIEW_REQUIRED" for r in report["sources"])
+    report["changed_sources"] = sum(r["status"] in ("CHANGED_REVIEW_REQUIRED", "INITIAL_BASELINE_REVIEW_REQUIRED") for r in report["sources"])
     report["unchanged_sources"] = sum(r["status"] == "UNCHANGED_SKIP" for r in report["sources"])
     report["needs_manual_review"] = any(
         r["status"] not in ("UNCHANGED_SKIP", "UNRELATED_CHANGES_ONLY")
         for r in report["sources"]
     )
     report["safe_to_advance_after_explicit_review"] = all(
-        r["status"] in ("UNCHANGED_SKIP", "UNRELATED_CHANGES_ONLY", "CHANGED_REVIEW_REQUIRED")
+        r["status"] in ("UNCHANGED_SKIP", "UNRELATED_CHANGES_ONLY", "CHANGED_REVIEW_REQUIRED", "INITIAL_BASELINE_REVIEW_REQUIRED")
         for r in report["sources"]
     )
     return report
@@ -160,7 +187,7 @@ def main() -> int:
     config, state = read_json(args.config), read_json(args.state)
     validate(config, state)
     if args.validate_only:
-        print("PASS: 7 curated source definitions and pinned baseline commits")
+        print("PASS: 7 GitHub sources and 1 allowlisted external SAT picon catalogue")
         return 0
     result = scan(config, state)
     payload = json.dumps(result, indent=2, ensure_ascii=False) + "\n"
@@ -175,10 +202,15 @@ def main() -> int:
             return 2
         changed = [r for r in result["sources"] if r["current_sha"] != r["previous_sha"]]
         if changed:
+            by_id = {s["id"]: s for s in config["sources"]}
             for row in changed:
-                state["sources"][row["id"]]["head_sha"] = row["current_sha"]
+                if by_id[row["id"]]["kind"] == "http-index":
+                    state["sources"][row["id"]]["index_sha256"] = row["current_sha"]
+                    state["sources"][row["id"]]["snapshot"] = row["snapshot"]
+                else:
+                    state["sources"][row["id"]]["head_sha"] = row["current_sha"]
             args.state.write_text(json.dumps(state, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-            print("ACKNOWLEDGED: " + str(len(changed)) + " source head(s); no picons published", file=sys.stderr)
+            print("ACKNOWLEDGED: " + str(len(changed)) + " source checkpoint(s); no picons published", file=sys.stderr)
     return 0 if result["safe_to_advance_after_explicit_review"] else 2
 
 
