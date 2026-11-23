@@ -5,7 +5,7 @@ on:
       - tools/warder_brand_guard.py
       - tools/test_warder_brand_guard.py
       - plugin/artwork/QUALITY.md
-      - .github/workflows/warder-brand-guard.yml
+      - '.github/workflows/**'
   push:
     branches: [main]
     paths:
@@ -20,6 +20,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Read-only safety check for retired PiconHub publisher
+        shell: bash
+        run: |
+          set -euo pipefail
+          test ! -e .github/workflows/piconhub-0.1.41-download-fix.yml
+          test -s .github/workflows/piconhub-plugin-core.yml
+          test -s .github/workflows/warder-approved-scope-auto-merge.yml
+          echo 'PASS: retired 0.1.41 workflow absent, current build and approved-scope protection retained'
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
