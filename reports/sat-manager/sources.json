@@ -1,0 +1,137 @@
+{
+  "schema": 1,
+  "manager": "Warder SAT Picon Manager",
+  "as_of": "2026-11-23",
+  "period": "one existing SAT manager run every 14 days",
+  "policy": {
+    "mode": "read_only_discovery_only",
+    "archive_first": "Exclude existing archived_nonprogram_references 75 before any candidate processing",
+    "no_separate_schedule": true,
+    "no_automatic_external_artwork_import": true,
+    "no_ipk_download": true,
+    "no_overwrite_owner_artwork": true,
+    "changed_sources_only": true,
+    "source_origin_deduplication": true,
+    "one_report_per_cycle": true,
+    "authoritative_production": "FullHDGlass/assets/warder/downloads/picons/channels/manifest.json",
+    "conditions_for_production": "Exact position/provider/Enigma2 reference, current broadcaster identity, approved graphics + all nine variants, independent QC and production publication safeguards."
+  },
+  "sources": [
+    {
+      "id": "openatv-oealliance-picon-feed",
+      "name": "OpenATV / OE-Alliance picon feed",
+      "repo": "oe-alliance/picons-feed",
+      "branch": "gh-pages",
+      "kind": "package-index",
+      "role": "distribution-metadata",
+      "source_group": "picons-upstream",
+      "include_paths": [
+        "Packages"
+      ],
+      "url": "https://github.com/oe-alliance/picons-feed/tree/gh-pages",
+      "notes": "Current OpenATV/OE-Alliance picon IPK package index. Read Packages only; do not download or install IPK. Largely mirrors picons/picons; deduplicate origin."
+    },
+    {
+      "id": "picons-source",
+      "name": "Picons Project SRP / source logos",
+      "repo": "picons/picons",
+      "branch": "master",
+      "kind": "git",
+      "role": "srvref-and-artwork-review",
+      "source_group": "picons-upstream",
+      "include_paths": [
+        "build-source/",
+        "build-input/",
+        "resources/"
+      ],
+      "url": "https://github.com/picons/picons",
+      "notes": "Actively maintained SRP picons and original logos. GPL-3.0; source comparison and license review only."
+    },
+    {
+      "id": "picons-channellists",
+      "name": "Picons Project channel lists",
+      "repo": "picons/channellists",
+      "branch": "master",
+      "kind": "git",
+      "role": "service-reference-evidence",
+      "source_group": "picons-upstream",
+      "include_paths": [
+        "13e.19e.23e.28e/",
+        "ziggo/"
+      ],
+      "url": "https://github.com/picons/channellists",
+      "notes": "Service-reference metadata for picons/picons; not an independent source of artwork."
+    },
+    {
+      "id": "jungla-movistar",
+      "name": "Jungla Team Movistar+ Enigma2",
+      "repo": "jungla-team/Picon-enigma2-Movistar",
+      "branch": "main",
+      "kind": "git",
+      "role": "provider-srp-artwork-review",
+      "source_group": "movistar-es",
+      "include_paths": [
+        "jungle-picon-Movistar-Transparente/",
+        "jungle-picon-Movistar-color-3d/",
+        "jungle-picon-Movistar-color/",
+        "jungle-picon-Movistar-lunar/"
+      ],
+      "url": "https://github.com/jungla-team/Picon-enigma2-Movistar",
+      "notes": "Current Movistar+ Enigma2 PNG collection. Source license GPL-3.0; never copy derived styles over Warder originals."
+    },
+    {
+      "id": "marhycz-czsk",
+      "name": "MarhyCZ TV picons CZ/SK",
+      "repo": "MarhyCZ/picons",
+      "branch": "master",
+      "kind": "git",
+      "role": "czsk-artwork-review",
+      "source_group": "czsk-logos",
+      "include_paths": [
+        "source/",
+        "640/",
+        "1024/"
+      ],
+      "url": "https://github.com/MarhyCZ/picons",
+      "notes": "CZ/SK logo identities; mostly tiles/SVG and not Enigma2 service references. Quality source only; no automatic production."
+    },
+    {
+      "id": "mdobes-czsk",
+      "name": "Dobes TV picons CZ/SK",
+      "repo": "mdobes/tvpicons",
+      "branch": "main",
+      "kind": "git",
+      "role": "czsk-artwork-review",
+      "source_group": "czsk-logos",
+      "include_paths": [
+        "src/"
+      ],
+      "url": "https://github.com/mdobes/tvpicons",
+      "notes": "CZ/SK SVG and 1:1 web/IPTV tiles (NOT Enigma2 SRP). Artwork identity only, deduplicate against MarhyCZ."
+    },
+    {
+      "id": "mplus-spain",
+      "name": "Pelajustrana Movistar+ Spain Enigma2",
+      "repo": "pelajustrana/Enigma2-Picons-Mplus-Spain",
+      "branch": "master",
+      "kind": "git",
+      "role": "secondary-provider-artwork-review",
+      "source_group": "movistar-es",
+      "include_paths": [
+        "picons/"
+      ],
+      "url": "https://github.com/pelajustrana/Enigma2-Picons-Mplus-Spain",
+      "notes": "Secondary Spanish Movistar+ source; last push May 2026. Only independent new evidence; Jungla Team is more recent."
+    }
+  ],
+  "historical_exclusions": [
+    {
+      "repo": "openatv-picons/enigma2-plugin-picons-openatv-black19E",
+      "reason": "Last picon commit February 2015; historical, NOT a current OpenATV picon update source."
+    },
+    {
+      "repo": "dreamboxone/online-picons",
+      "reason": "An installer/downloader plugin, not independently validated original artwork; avoid duplicated source."
+    }
+  ]
+}
