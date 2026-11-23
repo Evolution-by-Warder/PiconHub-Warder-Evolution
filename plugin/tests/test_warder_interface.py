@@ -72,9 +72,9 @@ class MenuTests(unittest.TestCase):
     def test_skin_choices_and_provider_identity(self):
         self.assertEqual(tuple(x for x,label in model.RESOLUTIONS),("50x30","220x132","400x240"))
         self.assertEqual(model.STYLES,(("transparent","Transparent"),("white","Biele"),("black","Čierne")))
-        self.assertEqual(len(model.SATELLITES),56)
-        self.assertEqual(tuple(s for s,label in model.SATELLITES[:2]),("DAB","DVB-T-SK-CZ"))
-        self.assertEqual(len({s for s,label in model.SATELLITES}),56)
+        self.assertEqual(len(model.SATELLITES),57)
+        self.assertEqual(tuple(s for s,label in model.SATELLITES[:3]),("DAB","DVB-T-SK-CZ","DTT_ITALIA"))
+        self.assertEqual(len({s for s,label in model.SATELLITES}),57)
         self.assertNotIn("SKYLINK",dict(model.SATELLITES))
         self.assertIn("CANALPLUS_SK",dict(model.SATELLITES))
         self.assertIn("CANALPLUS_CZ",dict(model.SATELLITES))

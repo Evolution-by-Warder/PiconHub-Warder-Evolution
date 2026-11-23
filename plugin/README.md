@@ -1,10 +1,10 @@
 # PiconHub Warder Evolution – Enigma2 plugin
 
-PiconHub poskytuje sťahovanie a správu satelitných piconov, providerov, DAB/DAB+ a DVB-T CZ/SK.
+PiconHub poskytuje sťahovanie a správu satelitných piconov, providerov, DAB/DAB+, DVB-T CZ/SK a DTT ITALIA.
 
 **Runtime:** `/usr/lib/enigma2/python/Plugins/Extensions/WarderPiconHub/`
 
-**Aktuálna stabilná verzia:** 0.1.44. Overenie verejného vydania a aktualizačných kanálov sa riadi súbormi `plugin/PRODUCTION.md`, `plugin/update/` a `plugin/TESTOVANIE.md`, ak sú v repozitári dostupné.
+**Verzia pluginu:** 0.1.45. Overenie verejného vydania a aktualizačných kanálov sa riadi súbormi `plugin/PRODUCTION.md`, `plugin/update/` a `plugin/TESTOVANIE.md`, ak sú v repozitári dostupné.
 
 ## Ovládanie
 

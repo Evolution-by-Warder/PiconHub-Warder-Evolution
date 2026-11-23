@@ -77,9 +77,9 @@ class PackageTests(unittest.TestCase):
                     self.assertIn("./"+builder.INSTALL_ROOT+"/"+name,names)
                 recent=[name for name in names if "/images/recent/" in name and name.endswith(".png")]
                 self.assertEqual(len(recent),6)
-                self.assertEqual(len([n for n in names if "/images/selectors/" in n and n.endswith(".png")]),56)
+                self.assertEqual(len([n for n in names if "/images/selectors/" in n and n.endswith(".png")]),57)
                 provenance=json.loads(payload.extractfile("./"+builder.INSTALL_ROOT+"/images/selectors/sources.json").read())
-                for selector in ("345W","500E"):
+                for selector in ("345W","500E","DTT_ITALIA"):
                     icon=payload.extractfile("./"+builder.INSTALL_ROOT+"/images/selectors/"+selector+".png").read()
                     self.assertEqual(hashlib.sha256(icon).hexdigest(),provenance["selectors"][selector]["sha256"])
                 self.assertFalse(any("__pycache__" in name or name.endswith(".pyc") for name in names))
@@ -92,7 +92,7 @@ class PackageTests(unittest.TestCase):
                 self.assertEqual(set(notes['notes']),{'sk','cs','en','de','pl','hu','ru','fr','it','es'})
                 self.assertTrue(all(isinstance(text,str) and text.strip() for text in notes['notes'].values()))
                 catalog=json.loads(payload.extractfile(prefix+"data/channel-manifest.json").read())
-                self.assertEqual(len(catalog["packages"]),492)
+                self.assertEqual(len(catalog["packages"]),507)
                 translations=[name for name in names if name.endswith(".mo")]
                 self.assertEqual(len(translations),9)
                 for name in translations:gettext.GNUTranslations(io.BytesIO(payload.extractfile(name).read()))
