@@ -49,6 +49,12 @@ class LinuxSatForumFeedTest(unittest.TestCase):
         self.assertEqual(row["changed_path_count"], 3)
         self.assertTrue(row["no_attachment_download"])
 
+    def test_azzurra_is_tracked_by_thread_id(self):
+        feed = xml(ITEMS + [("Picons DTT ITALIA by Azzurra", "157954", ITEMS[0][2])])
+        report = scan_source(self.source, self.new, lambda: feed)
+        self.assertIn("157954", [row["thread_id"] for row in report["candidates"]])
+        self.assertNotIn("12348", [row["thread_id"] for row in report["candidates"]])
+
     def test_unchanged_feed_skipped(self):
         first = scan_source(self.source, self.new, lambda: xml())
         prior = {"url": RSS_URL, "index_sha256": first["current_sha"],

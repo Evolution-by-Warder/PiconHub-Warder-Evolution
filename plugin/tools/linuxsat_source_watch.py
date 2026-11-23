@@ -18,6 +18,7 @@ BOARD_URL = "https://www.linuxsat-support.com/board/19-enigma2-picons/"
 HOSTS = {"www.linuxsat-support.com", "linuxsat-support.com"}
 MAX_RSS_BYTES = 512 * 1024
 MAX_ITEMS = 150
+AZZURRA_THREAD_ID = "157954"
 USER_AGENT = "Warder-SAT-Picon-Source-Watch/1.1 (public RSS only)"
 THREAD_RE = re.compile(r"^/thread/(\d+)(?:[-/].*)?$", re.I)
 NON_SAT_RE = re.compile(r"\b(?:iptv|rakuten|samsung\s+tv|dtt|dvb-t|terrestrial|tdt)\b", re.I)
@@ -74,7 +75,7 @@ def parse_rss(payload: bytes) -> list[dict[str, str]]:
             "thread_id": thread_id, "title": title[:180],
             "url": f"https://www.linuxsat-support.com/thread/{thread_id}/",
             "updated": updated[:100],
-            "category": "NOT_SAT_IGNORE" if NON_SAT_RE.search(title) else "UNVERIFIED_FORUM_TOPIC",
+            "category": "NOT_SAT_IGNORE" if thread_id != AZZURRA_THREAD_ID and NON_SAT_RE.search(title) else "UNVERIFIED_FORUM_TOPIC",
             "duplicate_of": "gioppygio-sat-snp" if DUPLICATE_GIOPPY.search(title) else "",
         }
         previous = result.get(thread_id)

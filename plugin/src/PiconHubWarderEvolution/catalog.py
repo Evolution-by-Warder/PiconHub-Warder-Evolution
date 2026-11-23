@@ -13,7 +13,7 @@ CATALOG_URL = (
 )
 _PART_BASE = CATALOG_URL.rsplit("/", 1)[0] + "/"
 _SHA256 = re.compile(r"[a-f0-9]{64}\Z")
-_SELECTOR = re.compile(r"[A-Z0-9][A-Z0-9_]*\Z")
+_SELECTOR = re.compile(r"[A-Z0-9][A-Z0-9_-]*\Z")
 RESOLUTIONS = ("50x30", "220x132", "400x240")
 STYLES = ("transparent", "white", "black")
 
