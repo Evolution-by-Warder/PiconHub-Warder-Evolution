@@ -25,6 +25,10 @@ def main():
   previous=json.loads(read(path));offered=previous.get('release',previous);assert offered['version']==c['previous_version'],(path,offered['version'])
  
  if c['product']=='PiconHub':
+  live_url='https://raw.githubusercontent.com/Evolution-by-Warder/FullHDGlass-Warder-Evolution/main/assets/warder/downloads/picons/channels/manifest.json'
+  bundled=(ROOT/'plugin/src/Plugins/Extensions/WarderPiconHub/data/channel-manifest.json').read_bytes()
+  assert sha(bundled)==c['catalog_sha256']
+  assert sha(client.public_package(live_url,len(bundled)))==c['catalog_sha256']
   checked=core.manifest(p,version,notes['sk']);assert checked['release']['sha256']==digest
  release=client.request('GET','/releases/tags/'+tag,allow_missing=True)
  if release is None:release=client.request('POST','/releases',dict(tag_name=tag,target_commitish=revision,name=c['product']+' '+version,body=notes['sk'],draft=True,prerelease=False,make_latest='false'))
@@ -51,9 +55,9 @@ def main():
  prod['validation']=dict(ci='passed',workflow_run=int(os.environ['GITHUB_RUN_ID']),public_ipk_verified=True,three_background_catalogue_verified=True,selector_presentation_verified=True,all_profiles_and_other_payload_preserved=True,physical_receiver_tested=False);changes[production_path]=encoded(prod)
  if c['product']=='PiconHub':
   project=json.loads(read('plugin/project.json'));project.update(development_version=version,production_version=version,requested_production_version=version,latest_published_version=version,ipk_published=True);changes['plugin/project.json']=encoded(project)
- report=dict(status='PRODUCTION_VERIFIED',product=c['product'],version=version,release=item,source_commit=revision,source_workflow=int(os.environ['GITHUB_RUN_ID']),positions=['34.5w','50.0e'],styles=['transparent','white','black'],resolutions=['50x30','220x132','400x240'],coverage='Every satellite and provider resolution has all three backgrounds',physical_receiver_tested=False)
+ report=dict(status='PRODUCTION_VERIFIED',product=c['product'],version=version,release=item,source_commit=revision,source_workflow=int(os.environ['GITHUB_RUN_ID']),positions=c['positions'],styles=['transparent','white','black'],resolutions=['50x30','220x132','400x240'],coverage='Every satellite and provider resolution has all three backgrounds',physical_receiver_tested=False)
  changes[c['report_dir']+'/production.json']=encoded(report)
- readme=read('README.md').decode();current_end=readme.find('\n## Project status') if c['product']=='FullHDGlass' else readme.find('\n## Plugin data');current_end=current_end if current_end>=0 else len(readme);readme=readme[:current_end].replace(c['previous_version'],version).replace('4. november 2026','5. november 2026').replace('2026-11-04','2026-11-05')+readme[current_end:];readme+='\n## '+c['product']+' '+version+' — oprava poradia a ikon\n\n'+notes['sk']+'\n\n[Stiahnuť IPK]('+url+'). Overené všetky tri pozadia satelitov aj providerov, verejné IPK a kontrolné súčty.\n';changes['README.md']=readme.encode()
+ readme=read('README.md').decode();current_end=readme.find('\n## Project status') if c['product']=='FullHDGlass' else readme.find('\n## Plugin data');current_end=current_end if current_end>=0 else len(readme);readme=readme[:current_end].replace(c['previous_version'],version)+readme[current_end:];changes['README.md']=readme.encode()
  current='# '+c['product']+' '+version+'\n\n'+notes['sk']+'\n\n[Stiahnuť IPK]('+url+')\n\nSHA256: '+digest+'\n\nHostiteľské kontroly oboch inštalačných enginov a zachovania nastavení prešli; fyzický prijímač nebol v tejto relácii testovaný.\n';changes['docs/CURRENT-RELEASE.md']=current.encode()
  main_commit=commit('main',changes,'Activate verified '+c['product']+' '+version+' and record complete satellite/provider background support [skip ci]')
  compatibility={path:encoded(feed) for path in c['feed_paths']}
