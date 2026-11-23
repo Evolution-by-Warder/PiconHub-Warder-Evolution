@@ -11,6 +11,18 @@ Stav: 23. november 2026. Jediná aktívna plánovaná úloha SAT piconov je Chat
 5. **Jediné produkčné vydanie dát**: zmeniť iba dotknuté obsahovo adresované ZIPy a ich `.partNN` časti. S novým manifestom a `SHA256SUMS` vykonať jednu relevantnú integračnú kontrolu; skutočne stiahnuť a overiť dotknuté ZIPy, ich CRC, rozmery, SHA, 9 variantov a neporušené chránené balíky. Potom iba so schváleným rozsahom zlúčiť, publikovať a **znovu nezávisle načítať** produkčné objekty z `main`. Nevydávať IPK, nemení sa runtime ani feed verzií skinu.
 6. **Jedna správa**: jediný slovenský súhrn zmenených SAT pozícií, nových/opravených referencií, PNG, skutočne aktualizovaných produkčných ZIPov, commit SHA a otvorených REVIEW. Ak je všetko nezmenené, oznámiť „0 zmien, 0 ZIPov, 0 commitov“ a skončiť.
 
+## Trvalé vyradenie technických a neidentifikovaných položiek z piconovej práce (23. 11. 2026)
+
+Vlastník rozhodol, že technické, testovacie a neidentifikované služby sa nesmú donekonečna prechádzať kvôli grafickým TV piconom. Z pôvodných **81** nezodpovedaných referencií je **75** presunutých do `reports/sat-manager/state.json/archived_nonprogram_references`. Sú **trvalo mimo automatickej SAT piconovej fronty**: žiadne vyhľadávanie nových grafík na tie isté nezmenené referencie, žiadne testovacie ZIPy, žiadne opakovanie predchádzajúcich analýz, žiadny automatický reopen ani na základe náhodného zdrojového refreshu. Opätovná aktivácia iba po **novom výslovnom rozhodnutí vlastníka**, s úplnou overenou identitou TV stanice.
+
+Pozor: vyradenie z *workflowu piconov* **nie je technické potvrdenie, že všetkých 75 je dátových či rádiových**. Napríklad 16 testovacích SID na 23,5°E má A/V a niektoré číselné služby môžu vysielať. Keďže stále nemajú dôveryhodnú, presne pripnutú identitu trvalého TV programu, mimo bežného brandového zadania sú to archívne prípady, nie dôvod vyrábať falošné picony. Auditné záznamy sú úplne zachované a žiadna existujúca grafika, príjem ani produkčný balík sa tým nemení.
+
+**V aktívnej fronte zostáva 6 konkrétne pomenovaných kandidátov:** RADIO CLASSICA TV, Oracle TV, EL JUMHURIA TV, AL-KAFEL TV, StarzPlay-Movies a 1TV IRAQ. Samostatných **7 Anuvu** má naďalej chýbajúcu úplnú Enigma2 identitu; ich stav sa nemení. Všetkých šesť aktívnych aj Anuvu je `BLOCKED`, kým nepribudne presný dôkaz. Historický súčet 81 = 75 archívnych + 6 aktívnych; nikdy neprezentovať 75 ako chýbajúce logá.
+
+**Štyri pôvodné Spare referencie na 7°W** už existujú v produkčných piconoch zo schválenej novembrovej dávky, no ich názvy a účel zostávajú v starom audite nepreukázané. Archivácia **neautorizuje zmazanie ani prepísanie existujúcich piconov**. Takéto sporné identity sa nevyhlasujú za vyriešené iba kvôli prítomnosti súboru.
+
+Pri ďalšom cykle najprv načítaj obe množiny `blocked_references` (6) a `archived_nonprogram_references` (75), ako aj `separate_anuvu_blockers` (7). **Archive filter má prednosť pred všetkým automatickým vyhľadávaním, renderovaním aj prípravou balíka.** Nové značky neoznačuj automaticky starým testovým SID; založ nový dôkazný prípad. Ak sa nemení žiaden iný kandidát, ukonči beh bez zmien a bez ďalších testov.
+
 ## Stop-podmienky a ochrana proti nekonečnému testovaniu
 
 - Nepúšťať znova úspešne uzavreté ani blokované referencie bez **nového konkrétneho dôkazu**; nepridávať ďalšie testovacie cykly iba preto, že test trvá dlho.
@@ -37,6 +49,6 @@ Sky Mockingjay HD na 28,2°E je **dočasné premenovanie** existujúceho Sky Cin
 
 ## Posledný prevzatý historický checkpoint
 
-Dávka 22: 54 dokončených TV referencií, 467 integrovaných PNG, 81 blokovaných prípadov bez nového externého dôkazu + 7 samostatných Anuvu prípadov. TV5MONDE Europe HD na 19,2°E a 0,8°W je už obsiahnuté v produkčnom manifeste cez integrovaný PR #110; **nepublikovať znova**. Zdrojový archív: `FullHDGlass-Warder-Evolution` commit `270e9b0b57ade7ab6e685af7c0877782d0631f15`, audit `reports/vhannibal-followup-20261106/scope-batch-20261116-22/independent-audit.json`. Pred každým behom sa toto historické číslo porovná s novším `main` a aktuálnym zdrojovým registrom; nie je napevno nastaveným limitom.
+Dávka 22: 54 dokončených TV referencií, 467 integrovaných PNG. Pôvodných 81 blokovaných prípadov bolo 23. 11. roztriedených na 75 trvalo archívnych (mimo automatického spracovania) a 6 aktívnych pomenovaných TV kandidátov; ďalších 7 Anuvu je vedených samostatne. TV5MONDE Europe HD na 19,2°E a 0,8°W je už obsiahnuté v produkčnom manifeste cez integrovaný PR #110; **nepublikovať znova**. Zdrojový archív: `FullHDGlass-Warder-Evolution` commit `270e9b0b57ade7ab6e685af7c0877782d0631f15`, audit `reports/vhannibal-followup-20261106/scope-batch-20261116-22/independent-audit.json`. Pred každým behom sa toto historické číslo porovná s novším `main` a aktuálnym zdrojovým registrom; nie je napevno nastaveným limitom.
 
 Vlastník 23.11.2026 schválil zlúčenie pravidelných SAT činností do jedného manažéra a odstránenie nepotrebných samostatných spúšťačov. Žiadna zmena na SAT piconoch alebo zmazanie produkčných balíkov z toho automaticky nevyplýva.
