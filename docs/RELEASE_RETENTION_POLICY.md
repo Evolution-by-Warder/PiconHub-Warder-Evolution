@@ -4,11 +4,12 @@
 
 ## Aktuálne zachované ostré vydania
 
-- `v0.1.44` (aktuálne)
+- `v0.1.45` (aktuálne)
+- `v0.1.44`
 - `v0.1.43`
 - `v0.1.42`
 
-Sú to **všetky tri** aktuálne dostupné ostré GitHub Releases; štvrté historické vydanie sa nevymýšľa. `plugin/update/stable.json` odkazuje na `v0.1.44` a správny SHA-256. V `main` nie sú staré IPK; binárne inštalačné balíky patria pod GitHub Releases. Súbory v `picons/DAB/packages/` sú *dátové picon ZIPy*, nie inštalačné IPK a **nesmú sa zmazať**. Zachovať MASTER V9, WHOLE_COLOURED_LOGO_V2, CANAL+ SK/CZ, SAT manager registre a nespracované review.
+Po vydaní DTT ITALIA sú dostupné štyri ostré vydania. Oba stabilné kanály ponúkajú `v0.1.45` s overeným verejným IPK. V `main` nie sú staré IPK; binárne inštalačné balíky patria pod GitHub Releases. Súbory v `picons/DAB/packages/` sú *dátové picon ZIPy*, nie inštalačné IPK a **nesmú sa zmazať**. Zachovať MASTER V9, WHOLE_COLOURED_LOGO_V2, CANAL+ SK/CZ, SAT manager registre a nespracované review.
 
 ## Trvalé bezpečnostné hranice
 
