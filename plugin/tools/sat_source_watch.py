@@ -35,8 +35,8 @@ def validate(config: dict, state: dict) -> None:
     if config.get("schema") != 1 or state.get("schema") != 1:
         raise ValueError("Unexpected schema")
     sources = config.get("sources")
-    if not isinstance(sources, list) or len(sources) != 8:
-        raise ValueError("Expected eight curated sources")
+    if not isinstance(sources, list) or len(sources) != 9:
+        raise ValueError("Expected nine curated sources")
     ids = set()
     for item in sources:
         sid = item["id"]
@@ -46,6 +46,15 @@ def validate(config: dict, state: dict) -> None:
         baseline = state.get("sources", {}).get(sid)
         if not isinstance(baseline, dict):
             raise ValueError("Missing source baseline: " + sid)
+        if item["kind"] == "site-index":
+            from gioppygio_source_watch import CATALOG_URL as GIOPPY_URL
+            if (sid != "gioppygio-sat-snp" or item.get("url") != GIOPPY_URL
+                    or baseline.get("url") != GIOPPY_URL):
+                raise ValueError("Untrusted GioppyGio source URL: " + sid)
+            index_sha = baseline.get("index_sha256")
+            if index_sha is not None and not re.fullmatch(r"[0-9a-f]{64}", index_sha):
+                raise ValueError("Invalid GioppyGio catalogue hash")
+            continue
         if item["kind"] == "http-index":
             from satdigitalne_source_watch import CATALOG_URL
             if (sid != "satdigitalne-sat-picons" or item.get("url") != CATALOG_URL
@@ -116,8 +125,11 @@ def scan(config: dict, state: dict, fetch_head=branch_head, fetch_compare=compar
     }
     for source in config["sources"]:
         sid = source["id"]
-        if source["kind"] == "http-index":
-            from satdigitalne_source_watch import scan_source
+        if source["kind"] in ("http-index", "site-index"):
+            if source["kind"] == "http-index":
+                from satdigitalne_source_watch import scan_source
+            else:
+                from gioppygio_source_watch import scan_source
             try:
                 row = scan_source(source, state["sources"][sid])
             except (ValueError, KeyError, urllib.error.HTTPError, urllib.error.URLError,
@@ -187,7 +199,7 @@ def main() -> int:
     config, state = read_json(args.config), read_json(args.state)
     validate(config, state)
     if args.validate_only:
-        print("PASS: 7 GitHub sources and 1 allowlisted external SAT picon catalogue")
+        print("PASS: 7 GitHub sources and 2 allowlisted SAT picon catalogues")
         return 0
     result = scan(config, state)
     payload = json.dumps(result, indent=2, ensure_ascii=False) + "\n"
@@ -204,7 +216,7 @@ def main() -> int:
         if changed:
             by_id = {s["id"]: s for s in config["sources"]}
             for row in changed:
-                if by_id[row["id"]]["kind"] == "http-index":
+                if by_id[row["id"]]["kind"] in ("http-index", "site-index"):
                     state["sources"][row["id"]]["index_sha256"] = row["current_sha"]
                     state["sources"][row["id"]]["snapshot"] = row["snapshot"]
                 else:
