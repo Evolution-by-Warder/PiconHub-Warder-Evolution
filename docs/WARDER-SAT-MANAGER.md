@@ -11,6 +11,33 @@ Stav: 23. november 2026. Jediná aktívna plánovaná úloha SAT piconov je Chat
 5. **Jediné produkčné vydanie dát**: zmeniť iba dotknuté obsahovo adresované ZIPy a ich `.partNN` časti. S novým manifestom a `SHA256SUMS` vykonať jednu relevantnú integračnú kontrolu; skutočne stiahnuť a overiť dotknuté ZIPy, ich CRC, rozmery, SHA, 9 variantov a neporušené chránené balíky. Potom iba so schváleným rozsahom zlúčiť, publikovať a **znovu nezávisle načítať** produkčné objekty z `main`. Nevydávať IPK, nemení sa runtime ani feed verzií skinu.
 6. **Jedna správa**: jediný slovenský súhrn zmenených SAT pozícií, nových/opravených referencií, PNG, skutočne aktualizovaných produkčných ZIPov, commit SHA a otvorených REVIEW. Ak je všetko nezmenené, oznámiť „0 zmien, 0 ZIPov, 0 commitov“ a skončiť.
 
+## Ďalšie reálne prehľadávané zdroje SAT piconov — od 23. 11. 2026
+
+Jediná plánovaná automatizácia **Warder SAT Picon Manager** má teraz konkrétny zdrojový register `reports/sat-manager/sources.json`, sedem overených vetiev v `reports/sat-manager/source-watch-state.json` a jeden ľahký inkrementálny skener `plugin/tools/sat_source_watch.py`. **Nepribúda žiadna druhá plánovaná úloha.**
+
+1. **OpenATV / OE-Alliance aktuálny picon feed**: `oe-alliance/picons-feed`, vetva `gh-pages`, iba textový index `Packages`; obsahuje IPK picon balíky (index k 23. 11. obsahuje vydanie 17. 11. 2026). Skontroluj LEN nové názvy/verzie/metadáta. **Žiadne stiahnutie ani spustenie IPK**. Táto distribúcia často pochádza z Picons Project — počítaj ju raz ako jeden pôvod, nie ako ďalšie nové logá.
+2. **Picons Project**: `picons/picons`, `master`, udržiavané originálne predlohy a SRP; zdroj prednostne pre vizuálne porovnanie. GPL-3.0 nie je povolenie bez kontroly meniť naše schválené diela.
+3. **Picons Project Enigma2 zoznamy**: `picons/channellists`, `master`, doplnkové DVB referencie; nie druhá nezávislá zbierka grafík.
+4. **Jungla Team – Movistar+**: `jungla-team/Picon-enigma2-Movistar`, `main`, skutočné Enigma2 picony, hlavne španielske programy.
+5. **MarhyCZ**: `MarhyCZ/picons`, `master`, CZ/SK identity a grafiky pre porovnanie, bez automatického importu webových štvorcových dlaždíc.
+6. **Dobes TV Picons**: `mdobes/tvpicons`, `main`, CZ/SK SVG/tile zdroje; tieto **nie sú priamo Enigma2 servisné picony**. Obidva CZ/SK zdroje sa zlučujú do jednej logickej skupiny.
+7. **Pelajustrana Movistar+**: `pelajustrana/Enigma2-Picons-Mplus-Spain`, `master`, sekundárny španielsky zdroj s menšou aktualitou; nepodvojovať Jungla Team.
+
+Historické `openatv-picons/*` repozitáre s poslednými aktualizáciami z roku 2015 **nepoužívať ako dnešný OpenATV zdroj**. Používame oficiálny aktuálny feed `https://github.com/oe-alliance/picons-feed/tree/gh-pages`. Služba `dreamboxone/online-picons` je najmä sťahovací plugin, nie nezávisle potvrdená originálna kolekcia, preto sa duplicitne nepreberá.
+
+### Inkrementálny automatický postup
+
+Z koreňa PiconHub pri plánovanom/ručnom SAT cykle:
+
+```sh
+python3 plugin/tools/sat_source_watch.py --validate-only
+python3 plugin/tools/sat_source_watch.py --output /tmp/warder-sat-source-watch.json
+```
+
+Skener načíta verejné GitHub HEAD SHA a **len pri zmene** porovná cesty od posledného checkpointu. Neťahá obrazové balíky, IPK ani archívy a **nikdy sám nepublikuje**. V jednom výslednom reporte spája všetky nové referencie, zmeny SVG/PNG a OpenATV `Packages` ako **kandidátov na dôkaz**. `picons/picons` a OE feed deduplikuj podľa pôvodu. Automatické výsledky cudzieho SRP nikdy neprepisujú manuálne schválené grafiky alebo service reference.
+
+Ak GitHub compare vráti neúplný rozsah, chybu či odklon vetvy, zdroj zostáva `NO_ADVANCE`; žiadne donekonečna opakované sťahovanie. Odozva `UNCHANGED_SKIP` znamená nulovú prácu. Pri úspešnom odbornom vyhodnotení/archivovaní zdrojových rozdielov možno explicitne potvrdiť checkpoint cez `--advance`, nikdy automaticky na neoverených kandidátoch. Aktualizovať checkpoint len pri skutočnej zmene vstupného zdroja, nie pri nulovej zmene. Nenarušovať pravidlo trvalo vyradených 75 a zachovať samostatnú ochranu 6 + 7 blokácií.
+
 ## Trvalé vyradenie technických a neidentifikovaných položiek z piconovej práce (23. 11. 2026)
 
 Vlastník rozhodol, že technické, testovacie a neidentifikované služby sa nesmú donekonečna prechádzať kvôli grafickým TV piconom. Z pôvodných **81** nezodpovedaných referencií je **75** presunutých do `reports/sat-manager/state.json/archived_nonprogram_references`. Sú **trvalo mimo automatickej SAT piconovej fronty**: žiadne vyhľadávanie nových grafík na tie isté nezmenené referencie, žiadne testovacie ZIPy, žiadne opakovanie predchádzajúcich analýz, žiadny automatický reopen ani na základe náhodného zdrojového refreshu. Opätovná aktivácia iba po **novom výslovnom rozhodnutí vlastníka**, s úplnou overenou identitou TV stanice.
