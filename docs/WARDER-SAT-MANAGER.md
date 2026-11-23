@@ -13,7 +13,7 @@ Stav: 23. november 2026. Jediná aktívna plánovaná úloha SAT piconov je Chat
 
 ## Ďalšie reálne prehľadávané zdroje SAT piconov — od 23. 11. 2026
 
-Jediná plánovaná automatizácia **Warder SAT Picon Manager** má teraz konkrétny zdrojový register `reports/sat-manager/sources.json`, sedem overených vetiev v `reports/sat-manager/source-watch-state.json` a jeden ľahký inkrementálny skener `plugin/tools/sat_source_watch.py`. **Nepribúda žiadna druhá plánovaná úloha.**
+Jediná plánovaná automatizácia **Warder SAT Picon Manager** má teraz konkrétny zdrojový register `reports/sat-manager/sources.json`, sedem overených vetiev v `reports/sat-manager/source-watch-state.json` a jeden ľahký inkrementálny skener `plugin/tools/sat_source_watch.py`. **Nepribúda žiadna druhá plánovaná úloha.** Ôsmy zdroj SatDigitalne.cz je popísaný nižšie; nejde o GitHub vetvu.
 
 1. **OpenATV / OE-Alliance aktuálny picon feed**: `oe-alliance/picons-feed`, vetva `gh-pages`, iba textový index `Packages`; obsahuje IPK picon balíky (index k 23. 11. obsahuje vydanie 17. 11. 2026). Skontroluj LEN nové názvy/verzie/metadáta. **Žiadne stiahnutie ani spustenie IPK**. Táto distribúcia často pochádza z Picons Project — počítaj ju raz ako jeden pôvod, nie ako ďalšie nové logá.
 2. **Picons Project**: `picons/picons`, `master`, udržiavané originálne predlohy a SRP; zdroj prednostne pre vizuálne porovnanie. GPL-3.0 nie je povolenie bez kontroly meniť naše schválené diela.
@@ -37,6 +37,16 @@ python3 plugin/tools/sat_source_watch.py --output /tmp/warder-sat-source-watch.j
 Skener načíta verejné GitHub HEAD SHA a **len pri zmene** porovná cesty od posledného checkpointu. Neťahá obrazové balíky, IPK ani archívy a **nikdy sám nepublikuje**. V jednom výslednom reporte spája všetky nové referencie, zmeny SVG/PNG a OpenATV `Packages` ako **kandidátov na dôkaz**. `picons/picons` a OE feed deduplikuj podľa pôvodu. Automatické výsledky cudzieho SRP nikdy neprepisujú manuálne schválené grafiky alebo service reference.
 
 Ak GitHub compare vráti neúplný rozsah, chybu či odklon vetvy, zdroj zostáva `NO_ADVANCE`; žiadne donekonečna opakované sťahovanie. Odozva `UNCHANGED_SKIP` znamená nulovú prácu. Pri úspešnom odbornom vyhodnotení/archivovaní zdrojových rozdielov možno explicitne potvrdiť checkpoint cez `--advance`, nikdy automaticky na neoverených kandidátoch. Aktualizovať checkpoint len pri skutočnej zmene vstupného zdroja, nie pri nulovej zmene. Nenarušovať pravidlo trvalo vyradených 75 a zachovať samostatnú ochranu 6 + 7 blokácií.
+
+## Ôsmy SAT zdroj: SatDigitalne.cz / 005jon — 23. november 2026
+
+Vlastník pridal na preverenie `https://feed.satdigitalne.cz/picon/`. Priama kontrola verejného feedu 23. 11. 2026 potvrdila rozličné `srp.*.tar.xz` piconové sady so servisnými referenciami a typickými rozmermi 220×132 / 400×240. Aktuálna stránka obsahuje **CanalPlus (23.10.2026)**, **Multi 13/16/19/23/28E (25.10.2026)**, **AntikSAT a FreeSAT (05.09.2026)**, **DigiSK/TellyCz, Hotbird 13E, Astra 19.2E, Eutelsat 16E, Ciefp Motor 75E–34W (01.07.2026)** a **Turksat 42E (30.08.2026)**. Výpis obsahuje aj archivované CZ/SK a DVB-T SNP sady, OSCam šablóny a plugin PiconCZSK — tie **nie sú vstupom do SAT piconovej automatizácie**.
+
+- Pridaný **ôsmym zdrojom toho istého manažéra**, bez nového časového spúšťača: `reports/sat-manager/sources.json` a `source-watch-state.json`, id `satdigitalne-sat-picons`.
+- `plugin/tools/satdigitalne_source_watch.py` číta iba verejné HTML a výhradne hlavičky **HEAD** maximálne 32 transparentných referenčných SAT archívov, bez sťahovania binárnych `.tar.xz`, `.ipk`, `.deb`, `.7z`. Rozpozná stabilné mená archívov, sleduje etag / last-modified / dĺžku; fail-closed pri chýbajúcom dôkaze zmien, nedostupnom serveri alebo neúplnej stránke.
+- V prvom behu zostáva `index_sha256: null` a stav `INITIAL_BASELINE_REVIEW_REQUIRED`: **nesmie sa vymyslieť ani označiť za už prekontrolovaný obsah**. Ak server poskytne potrebné hlavičky, nový obsah sa najprv porovná s našimi produkčnými piconmi; až po odbornom vyhodnotení sa výslovne posunie zdrojový checkpoint. Nesťahovať celé balíky len kvôli tomu, že sa objaví nový dátum stránky.
+- Autor grafík je označený ako **005jon**; z feed stránky sa nepotvrdila licencia povoľujúca automatické preberanie. Potrebné je overiť licenciu/povolenie a presnú Enigma2 identitu každej služby. **Žiadny bezpodmienečný import cudzieho artworku a najmä žiadne prepísanie schválených CANAL+ SK/CZ alebo MASTER**.
+- Aktualizácia SAT piconov zostáva samostatný neskorší, úplne auditovaný krok. Ak sa nič doložiteľné nezmenilo, nula nových PNG a nula nových ZIPov.
 
 ## Trvalé vyradenie technických a neidentifikovaných položiek z piconovej práce (23. 11. 2026)
 
