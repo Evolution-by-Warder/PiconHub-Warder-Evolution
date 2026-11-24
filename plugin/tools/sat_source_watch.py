@@ -200,6 +200,10 @@ def scan(config: dict, state: dict, fetch_head=branch_head, fetch_compare=compar
 
 def main() -> int:
     parser = argparse.ArgumentParser()
+    parser.add_argument("--azzurra-inbox", type=Path,
+                        help="Run the authenticated LinuxSat step of this cycle")
+    parser.add_argument("--azzurra-baseline", type=Path)
+    parser.add_argument("--azzurra-proof", action="store_true")
     parser.add_argument("--config", type=Path, default=CONFIG)
     parser.add_argument("--state", type=Path, default=STATE)
     parser.add_argument("--output", type=Path, help="Write one JSON report (otherwise stdout)")
@@ -209,6 +213,16 @@ def main() -> int:
     args = parser.parse_args()
     config, state = read_json(args.config), read_json(args.state)
     validate(config, state)
+    if args.azzurra_inbox is not None:
+        if (not args.azzurra_baseline or args.advance or args.validate_only or args.output):
+            parser.error("--azzurra-inbox requires --azzurra-baseline and its own output directory")
+        from linuxsat_attachment_fetch import main as fetch_attachments
+        options = ["--baseline", str(args.azzurra_baseline), "--output", str(args.azzurra_inbox)]
+        if args.azzurra_proof:
+            options.append("--proof")
+        return fetch_attachments(options)
+    if args.azzurra_proof or args.azzurra_baseline:
+        parser.error("Select --azzurra-inbox")
     if args.validate_only:
         print("PASS: 7 GitHub sources, 2 SAT picon catalogues and 1 public forum RSS")
         return 0

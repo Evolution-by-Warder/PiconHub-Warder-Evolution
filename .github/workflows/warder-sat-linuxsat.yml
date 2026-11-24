@@ -1,29 +1,159 @@
 name: Warder SAT Manager - LinuxSat
 on:
   workflow_dispatch:
+    inputs:
+      mode:
+        description: Inkrementálna kontrola alebo živá skúška so známym PNG
+        required: true
+        type: choice
+        default: cycle
+        options: [cycle, proof]
+  pull_request:
+    paths:
+      - plugin/tools/*linuxsat*
+      - plugin/tools/vhannibal_dtt_settings.py
+      - plugin/tools/sat_source_watch.py
+      - plugin/tests/test_linuxsat*.py
+      - .github/workflows/warder-sat-linuxsat.yml
   push:
     branches: [work/linuxsat-authenticated-attachments]
     paths:
-      - .github/workflows/warder-sat-linuxsat.yml
-      - plugin/tools/linuxsat_login.py
+      - reports/sat-manager/linuxsat-proof-request.json
 
 permissions:
   contents: read
 
+concurrency:
+  group: warder-sat-linuxsat
+  cancel-in-progress: false
+
 jobs:
-  proof:
-    if: github.repository == 'Evolution-by-Warder/PiconHub-Warder-Evolution' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/work/linuxsat-authenticated-attachments')
+  regression:
+    if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
-    timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
         with:
-          sparse-checkout: plugin/tools
           persist-credentials: false
-      - name: Pripraviť ovládanie prehliadača Chrome
-        run: python3 -m pip install playwright==1.56.0
-      - name: Overiť členskú reláciu a SHA-256 jednej známej prílohy
+          sparse-checkout: |
+            plugin/tools
+            plugin/tests
+            reports/sat-manager
+      - run: python3 -m pip install 'Pillow>=12.0,<13'
+      - run: python3 -m unittest discover -s plugin/tests -p 'test_*source_watch.py'
+      - run: python3 -m unittest discover -s plugin/tests -p 'test_linuxsat_attachments.py'
+      - run: python3 plugin/tools/sat_source_watch.py --validate-only
+  scan:
+    # Proof runs are read-only. Only a dispatch on main can publish the independent review inbox.
+    if: github.repository == 'Evolution-by-Warder/PiconHub-Warder-Evolution' && (github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main'))
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          sparse-checkout: |
+            plugin/tools
+            reports/sat-manager
+      - uses: actions/checkout@v4
+        with:
+          repository: Evolution-by-Warder/FullHDGlass-Warder-Evolution
+          ref: d6428008e5c388f391fe685406b5462259d2fb1b
+          path: baseline
+          persist-credentials: false
+          sparse-checkout-cone-mode: false
+          sparse-checkout: /reports/dtt-italia-20261123/attachments.json
+      - name: Načítať posledný potvrdený checkpoint
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/inbox"
+          cd "$RUNNER_TEMP/inbox"
+          git init -q
+          git remote add origin "https://github.com/$GITHUB_REPOSITORY.git"
+          gh auth setup-git
+          tip=$(git ls-remote origin refs/heads/data/linuxsat-azzurra)
+          if [[ -n "$tip" ]]; then
+            git fetch --no-tags --depth=1 origin refs/heads/data/linuxsat-azzurra
+            git checkout -q --detach FETCH_HEAD
+            git rev-parse HEAD > "$RUNNER_TEMP/previous"
+          else
+            echo empty > "$RUNNER_TEMP/previous"
+          fi
+      - name: Pripraviť knižnice na živú kontrolu
+        run: python3 -m pip install 'playwright==1.56.0' 'Pillow>=12.0,<13'
+      - name: Skontrolovať fórum a aktuálne referencie
         env:
           LINUXSAT_USERNAME: ${{ secrets.LINUXSAT_USERNAME }}
           LINUXSAT_PASSWORD: ${{ secrets.LINUXSAT_PASSWORD }}
-        run: python3 plugin/tools/linuxsat_login.py
+          PROOF: ${{ github.event_name == 'push' || inputs.mode == 'proof' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          args=()
+          if [[ "$PROOF" == true ]]; then args+=(--azzurra-proof); fi
+          python3 plugin/tools/sat_source_watch.py \
+            --azzurra-baseline baseline/reports/dtt-italia-20261123/attachments.json \
+            --azzurra-inbox "$RUNNER_TEMP/inbox" "${args[@]}"
+      - name: Zapísať overené údaje do dočasného prenosu
+        if: github.event_name == 'workflow_dispatch' && inputs.mode == 'cycle'
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd "$RUNNER_TEMP/inbox"
+          git add -- checkpoint.json objects/
+          if ! git diff --cached --quiet; then
+            git config user.name github-actions
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git commit -qm "Uložiť prírastok príloh Azzurra na kontrolu"
+            git update-ref refs/heads/review HEAD
+            previous=$(cat "$RUNNER_TEMP/previous")
+            exclude=()
+            if [[ "$previous" != empty ]]; then exclude+=("^$previous"); fi
+            git bundle create "$RUNNER_TEMP/review.bundle" refs/heads/review "${exclude[@]}"
+          fi
+      - uses: actions/upload-artifact@v4
+        if: github.event_name == 'workflow_dispatch' && inputs.mode == 'cycle'
+        with:
+          name: validated-review-state
+          path: |
+            ${{ runner.temp }}/review.bundle
+            ${{ runner.temp }}/previous
+          retention-days: 1
+          if-no-files-found: error
+
+  checkpoint:
+    needs: scan
+    if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main' && inputs.mode == 'cycle'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: reports/sat-manager
+      - uses: actions/download-artifact@v4
+        with:
+          name: validated-review-state
+          path: ${{ runner.temp }}/transfer
+      - name: Atómovo uložiť súbory a checkpoint na dátovú vetvu
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd "$RUNNER_TEMP/transfer"
+          [[ -e review.bundle ]] || exit 0
+          previous=$(cat previous)
+          cd "$GITHUB_WORKSPACE"
+          branch=refs/heads/data/linuxsat-azzurra
+          if [[ "$previous" == empty ]]; then
+            previous=''
+          else
+            git fetch --no-tags --depth=1 origin "$branch"
+            [[ $(git rev-parse FETCH_HEAD) == "$previous" ]]
+          fi
+          git fetch "$RUNNER_TEMP/transfer/review.bundle" refs/heads/review
+          next=$(git rev-parse FETCH_HEAD)
+          [[ $(git show -s --format=%P "$next") == "$previous" ]]
+          git push --force-with-lease="$branch:$previous" origin "$next:$branch"

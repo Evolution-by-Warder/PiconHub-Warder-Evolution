@@ -117,3 +117,18 @@ Prebehlo 54 skúšobných inštalácií cez PiconHub v režimoch doplnenia a syn
 
 Opätovné stiahnutie z produkcie overilo 181 dielov a 27 archívov. V 891 väzbách servisná referencia / variant sa všetkých 405 schválených PNG zhodovalo s odtlačkami uloženými pri schválení. Katalóg v PiconHube má rovnaký SHA-256 ako živý katalóg FullHDGlass, `40db67977de066be65fa8f37f5a73041aa1b337b7a5c9cdf40233edaf537094a`.
 
+
+## 24. 11. 2026 – prílohy Azzurra v SAT manažéri
+
+**Živé overenie zastavené na prihlasovacej stránke.** GitHub Actions na commite `4206c46` dostal z adresy `/cms/login/` odpoveď HTTP 403 ešte pred odoslaním formulára. Predchádzajúci test štandardným HTTP formulárom nepotvrdil členskú reláciu. Úspešné prihlásenie a stiahnutie kontrolného PNG s ID 151974 zostávajú neoverené. Produkčné balíky a posledný úspešný checkpoint zodpovedajú predchádzajúcemu vydaniu. Vlastník schválil zlúčenie po úspešnom živom teste. [GitHub Actions](https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/actions/runs/45344778658) · [Implementácia v PiconHube](https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/pull/88)
+
+Východiskom je 483 príloh z registra FullHDGlass, SHA-256 `2ee27e9cab46eab8467a3de9ce790c17d6dd08f385a904a2378a7a68aabdd456`. Živý oficiálny archív Vhannibal Motor DTT Italia má SHA-256 `b44bc9affcc9f9263f8a77fd9391387fa6865f15645fcef12a08462b8dad20de`. Porovnanie bouquetov a lamedb potvrdilo 285 referencií DTT, 439 na 9°E a 260 na 5°W. Pravidelná úloha Warder SAT Picon Manager bola pri kontrole pozastavená. Po obnovení má ďalší termín 3. 12. 2026 o 08:00 Europe/Bratislava a dvojtýždňový interval.
+
+### Spustenie a čítanie výsledku
+
+Po úspešnom akceptačnom teste a zlúčení spúšťa existujúci manažér v každom cykle na `main` GitHub Actions **Warder SAT Manager - LinuxSat** so vstupom `mode=cycle`. Voľba `proof` navyše potvrdí reláciu a úplný SHA-256 jednej starej prílohy. Skúšobný beh má iba čítací prístup. Zmenu implementácie pred zlúčením možno opätovne overiť zápisom požiadavky do `reports/sat-manager/linuxsat-proof-request.json` na pracovnej vetve po vyriešení dostupnosti. Workflow nemá vlastný časovač.
+
+Všetky strany skontroluje skener iba pre autora s ID 234347 vo vlákne 157954. Pre známe súbory porovná HTTP HEAD a validátor WoltLab obsahujúci ID súboru a osem úvodných číslic jeho SHA-256. Pri zmene overí celý SHA-256 stiahnutých bajtov. Zmenu názvu vyhodnotí aj pri rovnakom obsahu. Chýbajúci validátor, strata členskej relácie, neúplné stránkovanie alebo nedostupné aktuálne nastavenia zastavia zápis. Presná servisná referencia sa musí nachádzať v lamedb aj v príslušnom talianskom bouquete. Názvové obrázky a neisté referencie vyžadujú kontrolu identity.
+
+Úspešný cyklus uloží prírastkové metadáta do `checkpoint.json` a nové súbory podľa SHA-256 do `objects/` na dátovej vetve `data/linuxsat-azzurra`. Jeden gitový zápis spája obsah s checkpointom a kontroluje predchádzajúci commit. Zhodný obsah opätovne využije. Zmenu referencií pri novom vydaní Vhannibala prepočíta aj pre staršie kandidáty. Produkčné zaradenie podlieha schválenej identite, ochrane existujúcich piconov a kontrole MASTER V9 pre 50×30, 220×132 a 400×240 s pozadiami Transparent, White a Black.
+

@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "manager": "Warder SAT Picon Manager",
-  "as_of": "2026-11-23",
+  "as_of": "2026-11-24",
   "period": "one existing SAT manager run every 14 days",
   "policy": {
     "mode": "read_only_discovery_only",
@@ -170,7 +170,18 @@
       "include_paths": [
         "/thread/"
       ],
-      "notes": "Public forum RSS category 19 has active 2026 threads: Nephilim, stefanbenno6, ZET 71, Chocholousek, GioppyGio and others. RSS tracks changed topics only, NOT archives, IPK, images, brand identity or licenses. Some boards/attachments are hidden to guests: no login automation, no protected access or binary downloads. GioppyGio forum topic mentions are duplicates of direct GioppyGio origin, never count twice. Exclude IPTV and other DTT topics. Track Azzurra thread 157954 for DTT ITALIA and Italian 9E/5W feeds. Reconcile changes against Vhannibal Motor DTT Italia before updating any package. Forum topics are advisory candidates only and are not production evidence."
+      "notes": "Public forum RSS category 19 has active 2026 threads: Nephilim, stefanbenno6, ZET 71, Chocholousek, GioppyGio and others. RSS tracks changed topics only, NOT archives, IPK, images, brand identity or licenses. Some boards/attachments are hidden to guests: the public RSS adapter reads metadata only. The single explicitly authorized Azzurra thread uses the acquisition settings below. GioppyGio forum topic mentions are duplicates of direct GioppyGio origin, never count twice. Exclude IPTV and other DTT topics. Track Azzurra thread 157954 for DTT ITALIA and Italian 9E/5W feeds. Reconcile changes against Vhannibal Motor DTT Italia before updating any package. Forum topics are advisory candidates only and are not production evidence.",
+      "acquisition": {
+        "thread_id": "157954",
+        "author_id": "234347",
+        "author": "Azzurra",
+        "workflow": "warder-sat-linuxsat.yml",
+        "state_branch": "data/linuxsat-azzurra",
+        "settings": "https://www.vhannibal.net/download_setting.php?id=13&action=download",
+        "historical_register": "Evolution-by-Warder/FullHDGlass-Warder-Evolution@d6428008e5c388f391fe685406b5462259d2fb1b:reports/dtt-italia-20261123/attachments.json",
+        "historical_sha256": "2ee27e9cab46eab8467a3de9ce790c17d6dd08f385a904a2378a7a68aabdd456",
+        "publication": "REVIEW_ONLY"
+      }
     }
   ],
   "historical_exclusions": [

@@ -58,7 +58,7 @@ class Session:
                 cache: 'no-store', signal: AbortSignal.timeout(45000)});
             if (!r.ok) return {status: r.status};
             const headers = Object.fromEntries(['etag', 'last-modified', 'content-length',
-                'content-type'].map(k => [k, r.headers.get(k) || '']));
+                'content-type', 'content-disposition'].map(k => [k, r.headers.get(k) || '']));
             let length = 0, encoded = '';
             if (r.body) {
                 const reader = r.body.getReader();
