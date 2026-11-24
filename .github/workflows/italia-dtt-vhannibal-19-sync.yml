@@ -1,0 +1,37 @@
+name: Sync exact 19 DTT reference manifest
+on:
+  push:
+    branches: [work/italia-dtt-vhannibal-19-sync-20261124]
+    paths: ['.github/workflows/italia-dtt-vhannibal-19-sync.yml']
+permissions:
+  contents: write
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /plugin/src/Plugins/Extensions/WarderPiconHub/data/channel-manifest.json
+      - run: |
+          python3 - <<'PY'
+          import hashlib,json,urllib.request
+          from pathlib import Path
+          p=Path('plugin/src/Plugins/Extensions/WarderPiconHub/data/channel-manifest.json')
+          assert hashlib.sha256(p.read_bytes()).hexdigest()=='4541dea07b011d2cac2981c5b8203ebae7e363c85e481316a4cf6c0b04d9b6a6'
+          url='https://raw.githubusercontent.com/Evolution-by-Warder/FullHDGlass-Warder-Evolution/b87a74220d6821872574ff900399e471826c4e8e/assets/warder/downloads/picons/channels/manifest.json'
+          with urllib.request.urlopen(url,timeout=60) as r:b=r.read()
+          assert hashlib.sha256(b).hexdigest()=='f5dc88ab1ae5664823e94849cd5f90596bc9d56b7207782d45f56efcd08f7d0d'
+          assert hashlib.sha1(b'blob '+str(len(b)).encode()+b'\0'+b).hexdigest()=='fa98965f3d69298e19342b12987b4e63ad1724a1'
+          old=json.loads(p.read_bytes());new=json.loads(b)
+          assert [x for x in old['packages'] if x['selector_id']!='DTT_ITALIA']==[x for x in new['packages'] if x['selector_id']!='DTT_ITALIA']
+          entries=[x for x in new['packages'] if x['selector_id']=='DTT_ITALIA']
+          assert len(entries)==9 and all(x['png_count']==342 for x in entries)
+          p.write_bytes(b)
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add --sparse plugin/src/Plugins/Extensions/WarderPiconHub/data/channel-manifest.json
+          git commit -m 'Synchronize 19 verified DTT reference additions'
+          git push origin HEAD:work/italia-dtt-vhannibal-19-sync-20261124
