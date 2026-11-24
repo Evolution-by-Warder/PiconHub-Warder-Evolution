@@ -35,7 +35,19 @@ SETTINGS_TRANSLATIONS = {
     'tr': ('Ayarlar', 'Ana menüde göster', 'Program hakkında', 'Evet', 'Hayır'),
     'sv': ('Inställningar', 'Visa i huvudmenyn', 'Om programmet', 'Ja', 'Nej'),
 }
+SETTINGS_TRANSLATIONS.update({
+    'al': ('Cilësimet', 'Shfaq në menynë kryesore', 'Rreth programit', 'Po', 'Jo'),
+    'et': ('Seaded', 'Kuva peamenüüs', 'Teave programmi kohta', 'Jah', 'Ei'),
+    'fa': ('تنظیمات', 'نمایش در منوی اصلی', 'درباره برنامه', 'بله', 'خیر'),
+    'lt': ('Nustatymai', 'Rodyti pagrindiniame meniu', 'Apie programą', 'Taip', 'Ne'),
+    'zh': ('设置', '在主菜单中显示', '关于程序', '是', '否'),
+})
 SETTINGS_KEYS = SETTINGS_TRANSLATIONS['sk']
+ALIASES = {'sq': 'al', 'gr': 'el', 'cz': 'cs', 'ua': 'uk', 'cn': 'zh'}
+
+def normalize_language(value):
+    code = str(value or 'en').split('.')[0].replace('-', '_').split('_')[0].lower()
+    return ALIASES.get(code, code)
 
 def language_code():
     try:
@@ -47,11 +59,11 @@ def language_code():
             value = config.osd.language.value
         except (ImportError, AttributeError):
             value = locale.getlocale()[0] or 'en'
-    return str(value).split('.')[0].replace('-', '_').split('_')[0].lower()
+    return normalize_language(value)
 
 
 def translate(text, language=None):
-    code = str(language or language_code()).replace('-', '_').split('_')[0].lower()
+    code = normalize_language(language or language_code())
     if text in SETTINGS_KEYS:
         return SETTINGS_TRANSLATIONS.get(code, SETTINGS_TRANSLATIONS['en'])[SETTINGS_KEYS.index(text)]
     return CATALOGS.get(code, CATALOGS['en']).get(text, CATALOGS['en'].get(text, text))
