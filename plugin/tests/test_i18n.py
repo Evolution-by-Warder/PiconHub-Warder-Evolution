@@ -19,13 +19,25 @@ layout=importlib.import_module(package.__name__+'.warder_layout')
 
 class LocalizationTests(unittest.TestCase):
     def test_complete_catalogs_preserve_interpolation(self):
-        self.assertEqual(set(i18n.SUPPORTED),{'sk','cs','en','de','pl','hu','ru','fr','it','es'})
+        self.assertEqual(set(i18n.SUPPORTED),{'al','cs','de','el','en','es','et','fa','fr','hu','it','lt','nl','pl','pt','ro','ru','sk','tr','uk','zh'})
         source=i18n.CATALOGS['sk']
         for code,messages in i18n.CATALOGS.items():
             self.assertEqual(set(messages),set(source),code)
             for key,text in messages.items():
                 self.assertTrue(text,(code,key))
                 self.assertEqual(re.findall(r'%[sd]',key),re.findall(r'%[sd]',text),(code,key))
+
+    def test_new_languages_and_aliases(self):
+        examples = {'sq_AL':'Shkarko','gr_GR':'Λήψη','et_EE':'Laadi alla',
+                    'fa_IR':'دانلود','lt_LT':'Atsisiųsti','nl_NL':'Downloaden',
+                    'pt_PT':'Transferir','ro_RO':'Descarcă','tr_TR':'İndir',
+                    'ua_UA':'Завантажити','cn_CN':'下载'}
+        for lang, expected in examples.items():
+            self.assertEqual(i18n.translate('Stiahnuť',lang),expected)
+            code=i18n.normalize_language(lang)
+            self.assertIn(code,i18n.SETTINGS_TRANSLATIONS)
+            self.assertNotEqual(model.clock_text(datetime.datetime(2026,10,23),lang)[0],'Friday')
+            self.assertNotEqual(i18n.translate('Nastavenia',lang),'Settings')
 
     def test_system_language_is_read_again_after_change(self):
         setting=types.SimpleNamespace(value='de_DE')
