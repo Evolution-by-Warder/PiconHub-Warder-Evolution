@@ -7,7 +7,7 @@ on:
         required: true
         type: choice
         default: cycle
-        options: [cycle, proof]
+        options: [cycle, proof, public-link]
   pull_request:
     paths:
       - plugin/tools/*linuxsat*
@@ -85,10 +85,10 @@ jobs:
       - name: Pripraviť knižnice na živú kontrolu
         run: python3 -m pip install 'playwright==1.56.0' 'Pillow>=12.0,<13'
       - name: Skontrolovať verejný vstup a pôvodné PNG bez prihlasovacích údajov
-        if: github.event_name == 'push'
+        if: github.event_name == 'workflow_dispatch' && inputs.mode == 'public-link'
         run: python3 plugin/tools/linuxsat_login.py --public-link
       - name: Skontrolovať fórum a aktuálne referencie
-        if: github.event_name == 'workflow_dispatch'
+        if: github.event_name == 'push' || inputs.mode != 'public-link'
         env:
           LINUXSAT_USERNAME: ${{ secrets.LINUXSAT_USERNAME }}
           LINUXSAT_PASSWORD: ${{ secrets.LINUXSAT_PASSWORD }}
