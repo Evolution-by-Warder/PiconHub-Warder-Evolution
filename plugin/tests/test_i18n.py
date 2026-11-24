@@ -15,6 +15,7 @@ sys.modules[package.__name__]=package
 i18n=importlib.import_module(package.__name__+'.warder_i18n')
 model=importlib.import_module(package.__name__+'.warder_model')
 layout=importlib.import_module(package.__name__+'.warder_layout')
+updater=importlib.import_module(package.__name__+'.warderUpdateText')
 
 
 class LocalizationTests(unittest.TestCase):
@@ -38,6 +39,18 @@ class LocalizationTests(unittest.TestCase):
             self.assertIn(code,i18n.SETTINGS_TRANSLATIONS)
             self.assertNotEqual(model.clock_text(datetime.datetime(2026,10,23),lang)[0],'Friday')
             self.assertNotEqual(i18n.translate('Nastavenia',lang),'Settings')
+
+    def test_all_updater_texts_and_aliases(self):
+        self.assertEqual(set(updater.TEXT),set(i18n.SUPPORTED))
+        for code in i18n.SUPPORTED:
+            self.assertEqual(set(updater.TEXT[code]),set(updater.TEXT['en']))
+            for kind in updater.TEXT[code]:
+                self.assertTrue(updater.update_text(kind,'PRODUCT',current='OLD',new='NEW',notes='NOTES',error='ERROR',language=code))
+            offer=updater.update_text('offer','PRODUCT',current='OLD',new='NEW',notes='NOTES',language=code)
+            for value in ('PRODUCT','OLD','NEW','NOTES'):
+                self.assertIn(value,offer)
+        self.assertEqual(updater.update_text('confirm','x',language='sq_AL'),'Konfirmo')
+        self.assertEqual(updater.update_text('confirm','x',language='unknown'),'Confirm')
 
     def test_system_language_is_read_again_after_change(self):
         setting=types.SimpleNamespace(value='de_DE')
