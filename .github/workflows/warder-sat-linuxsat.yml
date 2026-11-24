@@ -20,6 +20,8 @@ jobs:
         with:
           sparse-checkout: plugin/tools
           persist-credentials: false
+      - name: Pripraviť ovládanie prehliadača Chrome
+        run: python3 -m pip install playwright==1.56.0
       - name: Overiť členskú reláciu a SHA-256 jednej známej prílohy
         env:
           LINUXSAT_USERNAME: ${{ secrets.LINUXSAT_USERNAME }}

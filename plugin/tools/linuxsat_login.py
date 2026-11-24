@@ -1,16 +1,16 @@
-"""LinuxSat session and one-file acceptance test. No response bodies enter logs."""
+"""Use the site's normal browser sign-in. Keep the session in memory only."""
+import base64
 import hashlib
 import json
 import os
 import re
+from contextlib import contextmanager
 from html.parser import HTMLParser
-from http.cookiejar import CookieJar
-from urllib.error import HTTPError, URLError
-from urllib.parse import urlencode, urljoin, urlsplit
-from urllib.request import build_opener, HTTPCookieProcessor, HTTPRedirectHandler, Request
+from urllib.parse import urljoin, urlsplit
 
 BASE = "https://www.linuxsat-support.com"
 THREAD = BASE + "/thread/157954-picons-dtt-italia-by-azzurra/"
+LOGIN = BASE + "/cms/login/"
 LIMIT = 8 * 1024 * 1024
 FILE_LIMIT = 16 * 1024 * 1024
 PROOF_ID = "151974"
@@ -18,7 +18,7 @@ PROOF_HASH = "f2c1d4f903b5e29c39fd86d1c0006f239f5a5a5b0dd0a2237deb329a6d6ee70e"
 
 
 class SourceError(Exception):
-    """Only fixed diagnostics and numeric HTTP statuses may be used here."""
+    """Only fixed diagnostics and numeric HTTP statuses may enter this exception."""
 
 
 def trusted(url):
@@ -27,105 +27,64 @@ def trusted(url):
     return url
 
 
-class Redirect(HTTPRedirectHandler):
-    def redirect_request(self, req, fp, code, msg, headers, newurl):
-        trusted(urljoin(req.full_url, newurl))
-        return super().redirect_request(req, fp, code, msg, headers, newurl)
-
-
-class Page(HTMLParser):
-    def __init__(self, html):
-        super().__init__()
-        self.forms = []
-        self.form = None
-        self.member = False
-        self.challenge = False
-        self.links = []
-        self.feed(html)
-
-    def handle_starttag(self, tag, attrs):
-        a = dict(attrs)
-        if (a.get("class", "").split() and set(a["class"].split()) & {"g-recaptcha", "h-captcha", "cf-turnstile"}
-                or tag == "input" and "captcha" in a.get("name", "").lower()):
-            self.challenge = True
-        if tag == "li" and a.get("id") == "userMenu":
-            self.member = True
-        if tag == "form":
-            self.form = {"action": a.get("action", ""), "method": a.get("method", "get").lower(),
-                         "password": [], "user": [], "hidden": {}}
-        if tag == "input" and self.form is not None and a.get("name"):
-            typ = a.get("type", "text").lower()
-            if typ == "hidden":
-                self.form["hidden"][a["name"]] = a.get("value", "")
-            elif typ == "password":
-                self.form["password"].append(a["name"])
-            elif typ in ("email", "text"):
-                self.form["user"].append(a["name"])
-        if tag == "a" and a.get("href"):
-            self.links.append(a["href"])
-            path = urlsplit(urljoin(BASE, a["href"])).path
-            if path.rstrip("/") == "/logout" or "jsLogout" in a.get("class","").split():
-                self.member = True
-        if tag == "body" and re.fullmatch(r"[1-9]\d*", a.get("data-user-id", "")):
-            self.member = True
-
-    def handle_endtag(self, tag):
-        if tag == "form" and self.form is not None:
-            self.forms.append(self.form)
-            self.form = None
-
-
 def file_id(url):
     match = re.fullmatch(r"/cms/file-download/(\d+)/?", urlsplit(url).path)
     return match[1] if match else None
 
 
+class Page(HTMLParser):
+    def __init__(self, html):
+        super().__init__()
+        self.member = False
+        self.links = []
+        self.feed(html)
+
+    def handle_starttag(self, tag, attrs):
+        a = dict(attrs)
+        if tag == "li" and a.get("id") == "userMenu":
+            self.member = True
+        if tag == "a" and a.get("href"):
+            self.links.append(a["href"])
+
+
 class Session:
-    def __init__(self):
-        self.opener = build_opener(Redirect(), HTTPCookieProcessor(CookieJar()))
+    def __init__(self, page):
+        self.page = page
 
-    def request(self, url, stage, *, data=None, limit=LIMIT, method=None):
-        request = Request(trusted(url), data=data, method=method, headers={
-            "User-Agent": "Warder-SAT-Picon-Manager/1.0", "Accept": "*/*"})
-        try:
-            with self.opener.open(request, timeout=40) as response:
-                raw = response.read(limit + 1)
-                if len(raw) > limit:
-                    raise SourceError(stage + "_size_limit")
-                return trusted(response.geturl()), response.headers, raw
-        except HTTPError as exc:
-            raise SourceError(f"{stage}_HTTP_{exc.code}") from None
-        except (URLError, OSError):
-            raise SourceError(stage + "_transport_error") from None
-
-    def login(self):
-        username = os.environ.get("LINUXSAT_USERNAME")
-        password = os.environ.get("LINUXSAT_PASSWORD")
-        if not username or not password:
-            raise SourceError("repository_secrets_unavailable")
-        url, _, raw = self.request(BASE + "/cms/login/", "login_page")
-        page = Page(raw.decode("utf-8", "replace"))
-        if page.challenge:
-            raise SourceError("interactive_verification_required")
-        forms = [f for f in page.forms if f["password"]]
-        if len(forms) != 1:
-            raise SourceError("login_form_unavailable")
-        form = forms[0]
-        action = trusted(urljoin(url, form["action"]))
-        if (urlsplit(action).path.rstrip("/") != "/cms/login" or form["method"] != "post"
-                or len(form["user"]) != 1 or len(form["password"]) != 1):
-            raise SourceError("unsupported_login_form")
-        fields = dict(form["hidden"])
-        fields[form["user"][0]] = username
-        fields[form["password"][0]] = password
-        self.request(action, "login_submit", data=urlencode(fields).encode())
-        _, _, raw = self.request(THREAD, "member_session")
-        if not Page(raw.decode("utf-8", "replace")).member:
-            raise SourceError("authenticated_member_marker_missing")
+    def request(self, url, stage, *, limit=LIMIT, method="GET"):
+        # Browser cookies, redirect policy and bounded streaming stay in the same origin.
+        result = self.page.evaluate("""async ({url, method, limit}) => {
+            const r = await fetch(url, {method, credentials: 'same-origin', redirect: 'error',
+                cache: 'no-store', signal: AbortSignal.timeout(45000)});
+            if (!r.ok) return {status: r.status};
+            const headers = Object.fromEntries(['etag', 'last-modified', 'content-length',
+                'content-type'].map(k => [k, r.headers.get(k) || '']));
+            let length = 0, encoded = '';
+            if (r.body) {
+                const reader = r.body.getReader();
+                for (;;) {
+                    const {done, value} = await reader.read();
+                    if (done) break;
+                    length += value.length;
+                    if (length > limit) { await reader.cancel(); return {tooLarge: true}; }
+                    for (let i = 0; i < value.length; i += 8192)
+                        encoded += String.fromCharCode(...value.subarray(i, i + 8192));
+                }
+            }
+            return {status: r.status, headers, bytes: btoa(encoded)};
+        }""", {"url": trusted(url), "method": method, "limit": limit})
+        if result.get("tooLarge"):
+            raise SourceError(stage + "_size_limit")
+        if result["status"] != 200:
+            raise SourceError(f"{stage}_HTTP_{result['status']}")
+        return url, result["headers"], base64.b64decode(result["bytes"], validate=True)
 
     def proof(self):
-        page_url, _, raw = self.request(THREAD + "?postID=790931", "proof_post")
-        links = [urljoin(page_url, link) for link in Page(raw.decode("utf-8","replace")).links]
+        page_url, _, raw = self.request(THREAD, "proof_post")
+        page = Page(raw.decode("utf-8", "replace"))
+        if not page.member:
+            raise SourceError("download_session_not_authenticated")
+        links = [urljoin(page_url, link) for link in page.links]
         url = next((link for link in links if file_id(link) == PROOF_ID), None)
         if not url:
             raise SourceError("proof_attachment_missing")
@@ -137,14 +96,63 @@ class Session:
                           "bytes": len(blob), "sha256": digest}))
 
 
+def verification_required(page):
+    return page.locator('iframe[src*="captcha" i], iframe[src*="challenges.cloudflare.com"], '
+                        '[class~="g-recaptcha"], [class~="h-captcha"], .cf-turnstile, '
+                        'input[autocomplete="one-time-code"], input[name*="captcha" i]').count() > 0
+
+
+@contextmanager
+def authenticated():
+    from playwright.sync_api import sync_playwright
+
+    username = os.environ.get("LINUXSAT_USERNAME")
+    password = os.environ.get("LINUXSAT_PASSWORD")
+    if not username or not password:
+        raise SourceError("repository_secrets_unavailable")
+    with sync_playwright() as engine:
+        browser = engine.chromium.launch(channel="chrome")
+        context = browser.new_context(service_workers="block", accept_downloads=False)
+        try:
+            # Only the forum may receive requests from a page containing account credentials.
+            context.route("**/*", lambda r: r.continue_() if urlsplit(r.request.url)[:2] ==
+                          ("https", "www.linuxsat-support.com") else r.abort())
+            page = context.new_page()
+            response = page.goto(LOGIN, wait_until="domcontentloaded")
+            if not response or response.status != 200:
+                raise SourceError(f"login_page_HTTP_{response.status if response else 0}")
+            if verification_required(page):
+                raise SourceError("interactive_verification_required")
+            form = page.locator("form").filter(has=page.locator('input[type="password"]'))
+            if form.count() != 1 or (form.get_attribute("method") or "").lower() != "post":
+                raise SourceError("login_form_unavailable")
+            action = trusted(urljoin(page.url, form.get_attribute("action") or page.url))
+            if urlsplit(action).path.rstrip("/") != "/cms/login":
+                raise SourceError("unexpected_login_action")
+            form.locator('input[name="username"]').fill(username)
+            form.locator('input[type="password"]').fill(password)
+            form.locator('button[type="submit"], input[type="submit"]').click()
+            page.wait_for_load_state("domcontentloaded")
+            if verification_required(page) or "multifactor" in urlsplit(page.url).path:
+                raise SourceError("interactive_verification_required")
+            if page.locator('form input[type="password"]').count():
+                raise SourceError("login_form_returned_after_submit")
+            page.goto(THREAD, wait_until="domcontentloaded")
+            if page.locator("#userMenu").count() != 1 or page.locator("#userLogin").count():
+                raise SourceError("authenticated_member_marker_missing")
+            yield Session(page)
+        finally:
+            context.close()
+            browser.close()
+
+
 if __name__ == "__main__":
     try:
-        session = Session()
-        session.login()
-        session.proof()
+        with authenticated() as session:
+            session.proof()
     except SourceError as error:
         print("SOURCE_ERROR_NO_ADVANCE", error)
         raise SystemExit(2)
-    except Exception:
-        print("SOURCE_ERROR_NO_ADVANCE unexpected_response")
+    except Exception as error:
+        print("SOURCE_ERROR_NO_ADVANCE", type(error).__name__)
         raise SystemExit(2)
