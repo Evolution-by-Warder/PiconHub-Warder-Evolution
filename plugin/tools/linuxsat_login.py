@@ -15,6 +15,7 @@ LOGIN = BASE + "/cms/login/"
 LIMIT = 8 * 1024 * 1024
 FILE_LIMIT = 16 * 1024 * 1024
 PROOF_ID = "151974"
+PROOF_BYTES = 21689
 PROOF_HASH = "f2c1d4f903b5e29c39fd86d1c0006f239f5a5a5b0dd0a2237deb329a6d6ee70e"
 
 
@@ -93,8 +94,8 @@ class Session:
             raise SourceError("proof_attachment_missing")
         _, _, blob = self.request(url, "proof_download", limit=FILE_LIMIT)
         digest = hashlib.sha256(blob).hexdigest()
-        if not blob.startswith(b"\x89PNG\r\n\x1a\n") or digest != PROOF_HASH:
-            raise SourceError("proof_png_or_digest_mismatch")
+        if not blob.startswith(b"\x89PNG\r\n\x1a\n") or len(blob) != PROOF_BYTES or digest != PROOF_HASH:
+            raise SourceError("proof_png_size_or_digest_mismatch")
         print(json.dumps({"verified_member_session": not guest, "access": "guest" if guest else "member",
                           "attachment_id": PROOF_ID, "bytes": len(blob), "sha256": digest}))
 
@@ -167,8 +168,9 @@ def authenticated():
                           ("https", "www.linuxsat-support.com") else r.abort())
             page = context.new_page()
             opened(page, LOGIN, "login_page")
+            print("LOGIN_TAB_READY", flush=True)
             if verification_required(page):
-                raise SourceError("interactive_verification_required")
+                raise SourceError("login_tab_interactive_verification")
             form = page.locator("form").filter(has=page.locator('input[type="password"]'))
             if form.count() != 1 or (form.get_attribute("method") or "").lower() != "post":
                 raise SourceError("login_form_unavailable")
@@ -177,15 +179,24 @@ def authenticated():
                 raise SourceError("unexpected_login_action")
             form.locator('input[name="username"]').fill(username)
             form.locator('input[type="password"]').fill(password)
-            form.locator('button[type="submit"], input[type="submit"]').click()
+            with page.expect_response(lambda r: r.request.method == "POST" and
+                                      urlsplit(r.url)[:3] == urlsplit(action)[:3]) as submitted:
+                form.locator('button[type="submit"], input[type="submit"]').click()
+            code = submitted.value.status
+            print("LOGIN_FORM_POST", code, flush=True)
+            if submitted.value.header_value("cf-mitigated") == "challenge":
+                raise SourceError(f"login_form_post_HTTP_{code}_challenge")
+            if code >= 400:
+                raise SourceError(f"login_form_post_HTTP_{code}")
             page.wait_for_load_state("domcontentloaded")
             if verification_required(page) or "multifactor" in urlsplit(page.url).path:
-                raise SourceError("interactive_verification_required")
+                raise SourceError("login_form_post_interactive_verification")
             if page.locator('form input[type="password"]').count():
                 raise SourceError("login_form_returned_after_submit")
-            page.goto(THREAD, wait_until="domcontentloaded")
+            opened(page, THREAD, "member_tab")
             if page.locator("#userMenu").count() != 1 or page.locator("#userLogin").count():
                 raise SourceError("authenticated_member_marker_missing")
+            print("MEMBER_TAB_CONFIRMED", flush=True)
             yield Session(page)
         finally:
             context.close()

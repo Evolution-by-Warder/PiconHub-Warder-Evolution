@@ -240,11 +240,13 @@ def collect(session, baseline, output, settings_sha, settings):
 
 
 def run(args):
+    if args.proof:
+        with authenticated() as session:
+            session.proof()
+        return
     baseline = load_baseline(args.baseline)
     settings_sha, settings = current_settings()
     with authenticated() as session:
-        if args.proof:
-            session.proof()
         result = collect(session, baseline, args.output, settings_sha, settings)
     print(json.dumps(result, sort_keys=True))
 
