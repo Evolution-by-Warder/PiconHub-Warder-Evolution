@@ -39,11 +39,17 @@ class Page(HTMLParser):
         self.forms = []
         self.form = None
         self.member = False
+        self.challenge = False
         self.links = []
         self.feed(html)
 
     def handle_starttag(self, tag, attrs):
         a = dict(attrs)
+        if (a.get("class", "").split() and set(a["class"].split()) & {"g-recaptcha", "h-captcha", "cf-turnstile"}
+                or tag == "input" and "captcha" in a.get("name", "").lower()):
+            self.challenge = True
+        if tag == "li" and a.get("id") == "userMenu":
+            self.member = True
         if tag == "form":
             self.form = {"action": a.get("action", ""), "method": a.get("method", "get").lower(),
                          "password": [], "user": [], "hidden": {}}
@@ -70,7 +76,7 @@ class Page(HTMLParser):
 
 
 def file_id(url):
-    match = re.fullmatch(r"/attachment/(\d+)(?:-[^/]+)?/?", urlsplit(url).path)
+    match = re.fullmatch(r"/cms/file-download/(\d+)/?", urlsplit(url).path)
     return match[1] if match else None
 
 
@@ -97,13 +103,16 @@ class Session:
         password = os.environ.get("LINUXSAT_PASSWORD")
         if not username or not password:
             raise SourceError("repository_secrets_unavailable")
-        url, _, raw = self.request(BASE + "/login/", "login_page")
-        forms = [f for f in Page(raw.decode("utf-8","replace")).forms if f["password"]]
+        url, _, raw = self.request(BASE + "/cms/login/", "login_page")
+        page = Page(raw.decode("utf-8", "replace"))
+        if page.challenge:
+            raise SourceError("interactive_verification_required")
+        forms = [f for f in page.forms if f["password"]]
         if len(forms) != 1:
             raise SourceError("login_form_unavailable")
         form = forms[0]
         action = trusted(urljoin(url, form["action"]))
-        if (urlsplit(action).path.rstrip("/") != "/login" or form["method"] != "post"
+        if (urlsplit(action).path.rstrip("/") != "/cms/login" or form["method"] != "post"
                 or len(form["user"]) != 1 or len(form["password"]) != 1):
             raise SourceError("unsupported_login_form")
         fields = dict(form["hidden"])
