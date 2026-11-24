@@ -1,0 +1,27 @@
+name: Warder SAT Manager - LinuxSat
+on:
+  workflow_dispatch:
+  push:
+    branches: [work/linuxsat-authenticated-attachments]
+    paths:
+      - .github/workflows/warder-sat-linuxsat.yml
+      - plugin/tools/linuxsat_login.py
+
+permissions:
+  contents: read
+
+jobs:
+  proof:
+    if: github.repository == 'Evolution-by-Warder/PiconHub-Warder-Evolution' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/work/linuxsat-authenticated-attachments')
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: plugin/tools
+          persist-credentials: false
+      - name: Overiť členskú reláciu a SHA-256 jednej známej prílohy
+        env:
+          LINUXSAT_USERNAME: ${{ secrets.LINUXSAT_USERNAME }}
+          LINUXSAT_PASSWORD: ${{ secrets.LINUXSAT_PASSWORD }}
+        run: python3 plugin/tools/linuxsat_login.py
