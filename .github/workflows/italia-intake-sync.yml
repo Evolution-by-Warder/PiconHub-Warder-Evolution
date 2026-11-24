@@ -1,0 +1,40 @@
+name: Synchronize verified Italian manifest (branch only)
+on:
+  push:
+    branches: [work/italia-user-source-reconcile-20261124]
+permissions:
+  contents: write
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          filter: blob:none
+          sparse-checkout: plugin
+      - name: Download pinned verified manifest and compare all unchanged entries
+        run: |
+          python3 - <<'PY'
+          import hashlib,json,pathlib,urllib.request
+          p=pathlib.Path("plugin/src/Plugins/Extensions/WarderPiconHub/data/channel-manifest.json")
+          old=p.read_bytes()
+          assert hashlib.sha256(old).hexdigest()=="40db67977de066be65fa8f37f5a73041aa1b337b7a5c9cdf40233edaf537094a"
+          url="https://raw.githubusercontent.com/Evolution-by-Warder/FullHDGlass-Warder-Evolution/a5e0257a4c33a57a728cd7e8c6373b4ac64e124f/assets/warder/downloads/picons/channels/manifest.json"
+          new=urllib.request.urlopen(url,timeout=60).read()
+          assert hashlib.sha256(new).hexdigest()=="06ccbed975eb1ac6a669819fa86e27f160388088c7458bf5b90176a906f8083b"
+          a,b=map(json.loads,(old,new))
+          assert len(a["packages"])==len(b["packages"])==507 and len(a["parts"])==len(b["parts"])==2224
+          assert [x for x in a["packages"] if x["selector_id"]!="DTT_ITALIA"]==[x for x in b["packages"] if x["selector_id"]!="DTT_ITALIA"]
+          assert len([x for x in b["packages"] if x["selector_id"]=="DTT_ITALIA" and x["png_count"]==309])==9
+          p.write_bytes(new)
+          print("Verified synchronized manifest SHA-256",hashlib.sha256(new).hexdigest())
+          PY
+      - name: Commit only manifest on working branch
+        run: |
+          test "$GITHUB_REF_NAME" = work/italia-user-source-reconcile-20261124
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add plugin/src/Plugins/Extensions/WarderPiconHub/data/channel-manifest.json
+          git diff --cached --check
+          git commit -m "Synchronize verified DTT Italia manifest with 309 references"
+          git push origin HEAD:work/italia-user-source-reconcile-20261124
