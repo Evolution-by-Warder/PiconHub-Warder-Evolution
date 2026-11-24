@@ -1,4 +1,5 @@
 """Use the site's normal browser sign-in. Keep the session in memory only."""
+import argparse
 import base64
 import hashlib
 import json
@@ -79,10 +80,12 @@ class Session:
             raise SourceError(f"{stage}_HTTP_{result['status']}")
         return url, result["headers"], base64.b64decode(result["bytes"], validate=True)
 
-    def proof(self):
-        page_url, _, raw = self.request(THREAD, "proof_post")
+    def proof(self, guest=False):
+        page_url, _, raw = self.request(visible_tab_first_page(self.page), "proof_post")
         page = Page(raw.decode("utf-8", "replace"))
-        if not page.member:
+        if guest and (page.member or self.page.locator("#userLogin").count() != 1):
+            raise SourceError("guest_tab_unconfirmed")
+        if not guest and not page.member:
             raise SourceError("download_session_not_authenticated")
         links = [urljoin(page_url, link) for link in page.links]
         url = next((link for link in links if file_id(link) == PROOF_ID), None)
@@ -92,8 +95,53 @@ class Session:
         digest = hashlib.sha256(blob).hexdigest()
         if not blob.startswith(b"\x89PNG\r\n\x1a\n") or digest != PROOF_HASH:
             raise SourceError("proof_png_or_digest_mismatch")
-        print(json.dumps({"verified_member_session": True, "attachment_id": PROOF_ID,
-                          "bytes": len(blob), "sha256": digest}))
+        print(json.dumps({"verified_member_session": not guest, "access": "guest" if guest else "member",
+                          "attachment_id": PROOF_ID, "bytes": len(blob), "sha256": digest}))
+
+
+def visible_tab_first_page(page):
+    if trusted(page.url).split("?")[0] != THREAD:
+        raise SourceError("unexpected_thread_page")
+    return THREAD
+
+
+def opened(tab, address, stage):
+    reply = tab.goto(trusted(address), wait_until="domcontentloaded")
+    status = reply.status if reply else 0
+    # Only fixed indicators from the public response, no headers, cookies or HTML in logs.
+    visible_origin = urlsplit(tab.url)
+    if (visible_origin.scheme, visible_origin.netloc) != ("https", "www.linuxsat-support.com"):
+        raise SourceError(stage + "_unexpected_domain")
+    is_challenge = reply is not None and reply.header_value("cf-mitigated") == "challenge"
+    title = tab.title().strip().lower()
+    if is_challenge or (title in {"just a moment...", "security verification"} and
+                        tab.locator("#challenge-platform, #challenge-running, #challenge-stage, [id^=cf-chl-]").count()):
+        raise SourceError(f"{stage}_HTTP_{status}_challenge")
+    if status != 200:
+        raise SourceError(f"{stage}_HTTP_{status}")
+    return status
+
+
+def test_public_link():
+    from playwright.sync_api import sync_playwright
+    with sync_playwright() as api:
+        browser = api.chromium.launch(channel="chrome")
+        try:
+            tab = browser.new_page()
+            opened(tab, THREAD, "public_thread")
+            old_link = tab.locator("#userLogin a").first
+            login = trusted(urljoin(THREAD, old_link.get_attribute("href") or ""))
+            if urlsplit(login).path != "/cms/login/":
+                raise SourceError("unexpected_login_link")
+            Session(tab).proof(guest=True)
+            # This tab is disposable. No password is supplied or sent to the site.
+            try:
+                opened(tab, login, "public_login_link")
+                print("LOGIN_LINK_HTTP_200", "FORM" if tab.locator("form input[type=password]").count() else "NO_FORM")
+            except SourceError as error:
+                print("HISTORICAL_LOGIN_PROBE", error)
+        finally:
+            browser.close()
 
 
 def verification_required(page):
@@ -118,9 +166,7 @@ def authenticated():
             context.route("**/*", lambda r: r.continue_() if urlsplit(r.request.url)[:2] ==
                           ("https", "www.linuxsat-support.com") else r.abort())
             page = context.new_page()
-            response = page.goto(LOGIN, wait_until="domcontentloaded")
-            if not response or response.status != 200:
-                raise SourceError(f"login_page_HTTP_{response.status if response else 0}")
+            opened(page, LOGIN, "login_page")
             if verification_required(page):
                 raise SourceError("interactive_verification_required")
             form = page.locator("form").filter(has=page.locator('input[type="password"]'))
@@ -148,8 +194,13 @@ def authenticated():
 
 if __name__ == "__main__":
     try:
-        with authenticated() as session:
-            session.proof()
+        cli = argparse.ArgumentParser()
+        cli.add_argument("--public-link", action="store_true")
+        if cli.parse_args().public_link:
+            test_public_link()
+        else:
+            with authenticated() as session:
+                session.proof()
     except SourceError as error:
         print("SOURCE_ERROR_NO_ADVANCE", error)
         raise SystemExit(2)

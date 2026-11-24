@@ -84,7 +84,11 @@ jobs:
           fi
       - name: Pripraviť knižnice na živú kontrolu
         run: python3 -m pip install 'playwright==1.56.0' 'Pillow>=12.0,<13'
+      - name: Skontrolovať verejný vstup a pôvodné PNG bez prihlasovacích údajov
+        if: github.event_name == 'push'
+        run: python3 plugin/tools/linuxsat_login.py --public-link
       - name: Skontrolovať fórum a aktuálne referencie
+        if: github.event_name == 'workflow_dispatch'
         env:
           LINUXSAT_USERNAME: ${{ secrets.LINUXSAT_USERNAME }}
           LINUXSAT_PASSWORD: ${{ secrets.LINUXSAT_PASSWORD }}
