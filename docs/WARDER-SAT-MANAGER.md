@@ -1,6 +1,6 @@
 # Warder SAT Picon Manager — jediný koordinátor
 
-Stav: 23. november 2026. Jediná aktívna plánovaná úloha SAT piconov je ChatGPT automatizácia **Warder SAT Picon Manager** (pôvodne „Európske stanice a picony“), každé dva týždne vo štvrtok 08:00 Europe/Bratislava. Nenahrádza rádio ani DAB workflow. SAT Work nesmie pracovať ako druhý nezávislý publikátor tej istej dávky: jeho už vytvorené checkpointy sú vstupom a výsledky podliehajú nezávislému produkčnému auditu.
+Stav k 24. novembru 2026. Jediná aktívna plánovaná úloha SAT piconov je ChatGPT automatizácia **Warder SAT Picon Manager** (pôvodne „Európske stanice a picony“), každé dva týždne vo štvrtok 08:00 Europe/Bratislava. Nenahrádza rádio ani DAB workflow. SAT Work nesmie pracovať ako druhý nezávislý publikátor tej istej dávky: jeho už vytvorené checkpointy sú vstupom a výsledky podliehajú nezávislému produkčnému auditu.
 
 ## Jeden cyklus, nie množstvo pracovných dávok
 
@@ -127,6 +127,8 @@ Východiskom je 483 príloh z registra FullHDGlass, SHA-256 `2ee27e9cab46eab8467
 ### Spustenie a čítanie výsledku
 
 Po úspešnom akceptačnom teste a zlúčení spúšťa existujúci manažér v každom cykle na `main` GitHub Actions **Warder SAT Manager - LinuxSat** so vstupom `mode=cycle`. Voľba `proof` navyše potvrdí reláciu a úplný SHA-256 jednej starej prílohy. Skúšobný beh má iba čítací prístup. Zmenu implementácie pred zlúčením možno opätovne overiť zápisom požiadavky do `reports/sat-manager/linuxsat-proof-request.json` na pracovnej vetve po vyriešení dostupnosti. Workflow nemá vlastný časovač.
+
+Pri dostupnom serverovom ETag porovnáva skener ID a prvých osem znakov SHA-256 podľa formátu WoltLab. Pri už zaznamenanej veľkosti kontroluje aj dĺžku. Celý SHA-256 vypočíta pri každom stiahnutí. Chýbajúci overiteľný ETag zastaví zápis checkpointu.
 
 Všetky strany skontroluje skener iba pre autora s ID 234347 vo vlákne 157954. Pre známe súbory porovná HTTP HEAD a validátor WoltLab obsahujúci ID súboru a osem úvodných číslic jeho SHA-256. Pri zmene overí celý SHA-256 stiahnutých bajtov. Zmenu názvu vyhodnotí aj pri rovnakom obsahu. Chýbajúci validátor, strata členskej relácie, neúplné stránkovanie alebo nedostupné aktuálne nastavenia zastavia zápis. Presná servisná referencia sa musí nachádzať v lamedb aj v príslušnom talianskom bouquete. Názvové obrázky a neisté referencie vyžadujú kontrolu identity.
 

@@ -186,13 +186,16 @@ def collect(session, baseline, output, settings_sha, settings):
         name = meta["filename"]
         url = BASE + "/cms/file-download/" + aid + "/"
         members = []
+        size = prior.get("bytes") if prior else None
         if prior:
             _, headers, _ = session.request(url, "file_validator", method="HEAD")
             name = name or response_name(headers) or prior["filename"]
             etag = headers.get("etag", "")
             if not re.fullmatch(r'"' + aid + r'-[0-9a-f]{8}"', etag):
                 raise SourceError("file_revision_validator_unavailable")
-            if etag == f'"{aid}-{prior["sha256"][:8]}"':
+            length = headers.get("content-length", "")
+            size_matches = size is None or not length.isdigit() or int(length) == size
+            if size_matches and etag == f'"{aid}-{prior["sha256"][:8]}"':
                 if prior["filename"] == name:
                     continue
                 digest = prior["sha256"]
@@ -205,6 +208,7 @@ def collect(session, baseline, output, settings_sha, settings):
             digest = hashlib.sha256(raw).hexdigest()
             if headers.get("etag") != f'"{aid}-{digest[:8]}"':
                 raise SourceError("download_revision_mismatch")
+            size = len(raw)
             downloads += 1
             dest = objects / digest
             if digest in base_art and not raw.startswith(b"PK\x03\x04"):
@@ -222,7 +226,7 @@ def collect(session, baseline, output, settings_sha, settings):
                     raise SourceError("stored_object_digest_mismatch")
         prior_art[digest] = members
         changes[aid] = {"filename": name, "post": meta["post"], "sha256": digest, "members": members,
-                        "content": "BASELINE" if digest in base_art else "REVIEW_OBJECT"}
+                        "bytes": size, "content": "BASELINE" if digest in base_art else "REVIEW_OBJECT"}
         updated += 1
     for aid, row in changes.items():
         row["listed"] = aid in attachments
