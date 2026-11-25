@@ -1,3 +1,9 @@
+## 25. 11. 2026 — Azzurra: schválenie opravených grafík a prvá publikačná dávka
+
+- Vlastník výslovne schválil všetky centrované návrhy („laska vsetko beriem“). Schválený REVIEW SHA256 e62832ce710f9b98ced8466ed7905b2d8bf968497d38df445e854fc49abd2d73, 348 PNG. Grafické schválenie evidované pre celú dávku; nenahrádza dôkaz aktuálnej servisnej identity.
+- Prvá bezpečne oddelená dávka: ANT1 EUROPE, COSMOTESportSuperleaguePass, Novasports1 League HD, Novasports2 League HD, všetky 9°E a presné referencie potvrdené Vhannibal Motor aj Italia z auditu 45633960848. 36 náhrad (4 × 9), žiadna nová referencia. Ostatných 36 graficky schválených referencií čaká na technické overenie aktuálnosti/identity; 24 HOLD naďalej nezahrnutých. Rai Way aliasy už existujú.
+- Lokálny delta ZIP Warder_Azzurra_9E_verified_36.zip, 1 362 712 B, SHA256 54fb58787a37863468be59aedc0d0492fb74d7077f17e3ba9c4bc2359fce0b52. CRC, presný review SHA, per-PNG SHA a rozmery PASS. Manifest delty obsahuje pôvodné SHA každého nahrádzaného PNG. Workflow na pracovnej vetve pripraví samostatný kandidát po presnom manuálnom nahratí ZIP, overí všetky dotknuté archívy a zachovanie nesúvisiacich položiek; bez priameho zápisu do main. Konektor nepodporuje priamy binárny prenos z kontajnera do GitHubu. Zatiaľ bez uploadu, build-u, merge, produkčnej zmeny alebo vydania IPK.
+
 ## 25. 11. 2026 — Azzurra SAT: korekcia centrovania kandidátov
 
 - Vlastník obsahovo akceptoval kandidátov s požiadavkou na horizontálne aj vertikálne vycentrovanie. Vizuálny audit 40 referencií/348 kandidátskych PNG našiel 14 referencií s izolovaným artefaktom pri pravom dolnom okraji, ktorý skresľoval ohraničenie loga: Welcome In, Canale 163/268/235, Radio Liberta, Museum HD, MyZen TV HD, TeleSirio, Mediaset Italia, Mandarin TV, Alma TV a ANT1 Europe (vrátane aliasov).
