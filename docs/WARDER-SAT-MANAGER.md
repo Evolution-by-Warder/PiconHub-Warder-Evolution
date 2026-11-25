@@ -1,3 +1,10 @@
+## 25. 11. 2026 — Azzurra: prvá overená dávka 9°E publikovaná
+
+- [FullHDGlass #199](https://github.com/Evolution-by-Warder/FullHDGlass-Warder-Evolution/pull/199) zlúčené do main: `d28cf4c62a9deb7af08dfa5ebc435a9d650da497`, 10/10 CI SUCCESS. [PiconHub #105](https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/pull/105) zlúčené do main: `9847027eab92d9744fa24079728bd17f334904d0`, 5/5 relevantných CI SUCCESS, IPK publisher správne preskočený.
+- ANT1 Europe, COSMOTE Sport Superleague Pass, Novasports 1 League HD a Novasports 2 League HD: 36 náhrad PNG (4 referencie × 9 variantov), 18 783 ostatných PNG bajtovo zachovaných v 9 dotknutých archívoch; 498 iných balíkov nezmenených. Počet služieb nezmenený, 61 nových častí; manifest 507 balíkov/2224 častí. [Build 45638041828](https://github.com/Evolution-by-Warder/FullHDGlass-Warder-Evolution/actions/runs/45638041828) SUCCESS; [nezávislý živý audit 45639376808](https://github.com/Evolution-by-Warder/FullHDGlass-Warder-Evolution/actions/runs/45639376808) úspešné overenie 61 častí a 36 presných schválených PNG.
+- Oba produkčné manifesty majú totožný Git blob `19c992819479297ce35139451f4a91e617fac996` a SHA256 `6d0e7268cc3b2cdb30b705a2f89b5ba6310dc4ffa81a84103a007a714016c9ed`. Schválená delta SHA256 `54fb58787a37863468be59aedc0d0492fb74d7077f17e3ba9c4bc2359fce0b52`.
+- Vstupy, grafické schválenie celej dávky a individuálne zistenia sú na [pracovnej vetve FullHDGlass](https://github.com/Evolution-by-Warder/FullHDGlass-Warder-Evolution/blob/work/azzurra-9e-5w-20261125/WARDER_PROGRESS.md). Zostáva 36 graficky schválených referencií na technické overenie aktuálnej identity (312 kandidátskych PNG) a 24 HOLD. Rai Way aliasy už existovali, bez zmeny. Neopakovať hotové kontroly. DTT, 5°W, IPK a časovač bez zmeny.
+
 ## 25. 11. 2026 — Talianska dávka administratívne uzavretá s evidovanými výnimkami
 
 - Rozhodnutie vlastníka: „dokonci co treba a sprav co treba“ (25.11.2026). Stav: **33/41 uzavretých, 6 DVB výnimiek, 2 odložené mimo DVB, 0 otvorených DTT položiek.** Neznamená to, že všetkých 33 položiek sú nové publikované grafiky; zahŕňa aj zdokumentované uzavretia historických prípadov.
