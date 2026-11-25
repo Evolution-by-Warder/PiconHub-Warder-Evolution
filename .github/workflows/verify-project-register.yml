@@ -1,0 +1,43 @@
+name: Verify project register
+on:
+  pull_request:
+    paths:
+      - 'docs/WARDER-SAT-MANAGER.md'
+      - '.github/workflows/verify-project-register.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  register-integrity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /docs/WARDER-SAT-MANAGER.md
+            /.github/workflows/verify-project-register.yml
+      - name: Check dated Italian closure and preserved evidence
+        run: |
+          python3 - <<'PY'
+          import json
+          import re
+          from pathlib import Path
+          text = Path('docs/WARDER-SAT-MANAGER.md').read_text(encoding='utf-8')
+          heading = '## 25. 11. 2026 — Talianska dávka administratívne uzavretá s evidovanými výnimkami'
+          assert text.count(heading) == 1, 'Missing or duplicate dated closure'
+          section = text.split(heading, 1)[1].split('\n## ', 1)[0]
+          dvb = {'BBC WORLD', 'FREE TV', 'MULTIPROGRAM', 'NT', 'SERVICE N', 'TV SYSTEM'}
+          outside = {'1 CENT', 'SHARAVOZ'}
+          assert '33/41 uzavretých, 6 DVB výnimiek, 2 odložené mimo DVB, 0 otvorených DTT položiek' in section
+          assert all(name in section for name in dvb | outside)
+          assert '348 referencií v každom z 9 archívov' in section
+          assert '54 nových schválených PNG' in section
+          assert '45584386040' in section
+          assert '/pull/198' in section and '/pull/104' in section
+          assert '46d6d6124b7e74e96f146eaa014b4aca4d753593' in section
+          assert 'cfc08ab0120731b052cc4849992785e3395e70b2bf20506ad276cb9acf5e7e7f' in section
+          print('Dated project-register closure: PASS')
+          PY
