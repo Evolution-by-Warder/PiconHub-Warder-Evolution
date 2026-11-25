@@ -1,0 +1,72 @@
+name: Verify published Italian DTT and synchronize exact catalogue
+on:
+  push:
+    branches: [work/italia-dtt-verified-20261125-sync]
+    paths: ['.github/workflows/italia-dtt-verified-sync.yml']
+permissions:
+  contents: write
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: 4118fcbb59d3d93e60ed5a99c7a787711e91d7be
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /plugin/src/Plugins/Extensions/WarderPiconHub/data/channel-manifest.json
+      - name: Verify live assets and exact approved payload
+        run: |
+          python3 - <<'PY'
+          import hashlib,io,json,urllib.request,zipfile,concurrent.futures
+          from pathlib import Path
+          root='https://raw.githubusercontent.com/Evolution-by-Warder/FullHDGlass-Warder-Evolution/'
+          path='assets/warder/downloads/picons/channels/'
+          def get(u):
+              with urllib.request.urlopen(u,timeout=60) as r: return r.read()
+          def sha(b): return hashlib.sha256(b).hexdigest()
+          p=Path('plugin/src/Plugins/Extensions/WarderPiconHub/data/channel-manifest.json')
+          old=p.read_bytes()
+          assert sha(old)=='f5dc88ab1ae5664823e94849cd5f90596bc9d56b7207782d45f56efcd08f7d0d'
+          b=get(root+'main/'+path+'manifest.json')
+          assert sha(b)=='cfc08ab0120731b052cc4849992785e3395e70b2bf20506ad276cb9acf5e7e7f'
+          assert b==get(root+'31b0525a48fa6ea0408a4e5ea2a64455c5448d83/'+path+'manifest.json')
+          sums=get(root+'main/'+path+'SHA256SUMS')
+          assert hashlib.sha1(b'blob '+str(len(sums)).encode()+b'\0'+sums).hexdigest()=='a3c93e8c712d4600e02ab3ae4ee43bc8bd85e612'
+          prev=json.loads(old); new=json.loads(b)
+          assert [x for x in prev['packages'] if x['selector_id']!='DTT_ITALIA']==[x for x in new['packages'] if x['selector_id']!='DTT_ITALIA']
+          meta={x['filename']:x for x in new['parts']}
+          entries=[x for x in new['packages'] if x['selector_id']=='DTT_ITALIA']
+          assert len(entries)==9 and len(meta)==2233
+          delta=get(root+'6154ef7f87a76de9b795c9b206d28872caa679e1/reports/italia-final-41-20261124/approved-dtt-delta.zip')
+          assert sha(delta)=='5fb0217df0d7e73c931092e858faa2f37c73aeb01632ece28f3c99e805822846'
+          with zipfile.ZipFile(io.BytesIO(delta)) as z:
+              approved={n:z.read(n) for n in z.namelist() if n.endswith('.png')}
+          assert len(approved)==54
+          def check(x):
+              data=[]
+              for url in x['parts']:
+                  name=url.rsplit('/',1)[-1]; part=get(url); m=meta[name]
+                  assert len(part)==m['bytes'] and sha(part)==m['sha256'],name
+                  data.append(part)
+              raw=b''.join(data)
+              assert sha(raw)==x['sha256'] and len(raw)==x['bytes']
+              res=x['resolution']; style=x['family'][8:]
+              wanted={k.rsplit('/',1)[-1]:v for k,v in approved.items() if k.startswith(res+'/'+style+'/')}
+              assert len(wanted)==6
+              with zipfile.ZipFile(io.BytesIO(raw)) as z:
+                  assert z.testzip() is None and len(z.namelist())==x['png_count']==348
+                  assert all(z.read(k)==v for k,v in wanted.items())
+              return {'resolution':res,'style':style,'parts':len(data),'count':348,'verified_new':len(wanted),'sha256':sha(raw)}
+          with concurrent.futures.ThreadPoolExecutor(max_workers=3) as ex: result=list(ex.map(check,entries))
+          print(json.dumps({'manifest_sha256':sha(b),'packages':result,'verified_png':sum(x['verified_new'] for x in result),'parts':sum(x['parts'] for x in result)}))
+          p.write_bytes(b)
+          PY
+          test "$(git ls-remote origin refs/heads/main | cut -f1)" = 4118fcbb59d3d93e60ed5a99c7a787711e91d7be
+          test -z "$(git ls-remote origin refs/heads/publish/italia-dtt-verified-20261125)"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add --sparse plugin/src/Plugins/Extensions/WarderPiconHub/data/channel-manifest.json
+          git commit -m 'Synchronize verified DTT Italia catalogue with 348 references'
+          git push origin HEAD:refs/heads/publish/italia-dtt-verified-20261125
