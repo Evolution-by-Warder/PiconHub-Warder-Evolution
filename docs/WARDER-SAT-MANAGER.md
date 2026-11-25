@@ -1,3 +1,18 @@
+## 25. 11. 2026 — Vhannibal: deväť ďalších regionálnych databáz
+
+- Zdroj [OE-Alliance settings](https://github.com/oe-alliance/oe-alliance-settings), všetkých 9 lamedb načítaných cez presný Git blob, validná hlavička a ukončenie. 126 536 záznamov vrátane prekryvov (3 500 DTT). Po deduplikácii v tejto dávke podľa referencie + názvu služby + p: providera 28 403 záznamov, 2 399 DTT; nie unikátne voči všetkým predchádzajúcim auditom.
+- campania: [lamedb](https://github.com/oe-alliance/oe-alliance-settings/blob/master/vhannibal.motor.and.dtt.campania/lamedb), `c86b6628c7c7817fbfa1f6fa39dd7bc5f2f97f3e`, 13002 / 323 DTT
+- forli: [lamedb](https://github.com/oe-alliance/oe-alliance-settings/blob/master/vhannibal.motor.and.dtt.forli/lamedb), `53b5909a3b73e3fc625e14eca4634e79980b004f`, 15108 / 483 DTT
+- lazio: [lamedb](https://github.com/oe-alliance/oe-alliance-settings/blob/master/vhannibal.motor.and.dtt.lazio/lamedb), `884230fc8c9c651c9595d214e462ecb0034b299f`, 13000 / 321 DTT
+- lombardia: [lamedb](https://github.com/oe-alliance/oe-alliance-settings/blob/master/vhannibal.motor.and.dtt.lombardia/lamedb), `fd667d03863a473cfeba141bc18f64fb529e0d07`, 13055 / 332 DTT
+- milano: [lamedb](https://github.com/oe-alliance/oe-alliance-settings/blob/master/vhannibal.motor.and.dtt.milano/lamedb), `28bf6a9f760b514c2a20dc1427a614540f9cd5a1`, 14821 / 445 DTT
+- napoli: [lamedb](https://github.com/oe-alliance/oe-alliance-settings/blob/master/vhannibal.motor.and.dtt.napoli/lamedb), `7992535fa7a37dd806c9f60dd1127baf87030e0b`, 14885 / 451 DTT
+- piemonte: [lamedb](https://github.com/oe-alliance/oe-alliance-settings/blob/master/vhannibal.motor.and.dtt.piemonte/lamedb), `4d3b95a9b2a51c3f57a38790d88d9f73762dc156`, 12991 / 312 DTT
+- roma: [lamedb](https://github.com/oe-alliance/oe-alliance-settings/blob/master/vhannibal.motor.and.dtt.roma/lamedb), `fc3333c1163ba04bc31066ef51eab97a5ee3d8a1`, 14828 / 409 DTT
+- torino: [lamedb](https://github.com/oe-alliance/oe-alliance-settings/blob/master/vhannibal.motor.and.dtt.torino/lamedb), `b4cd4d5e6338e3b9899d8ab77d7bf79184f1590f`, 14846 / 424 DTT
+- Nula presných zhôd šiestich otvorených DVB providerov. Free TV `0638:0dca0000:0010:0800:1:0` má provider NILESAT, 7°W; potvrdené v piatich regionálnych súboroch, nejde o taliansky provider FREE TV. [Historický mux Teleacras](https://www.litaliaindigitale.it/sites.google.com/site/litaliaindigitale/siciliaindigitale/muxteleacras.html) TID41543/ONID8572 dokumentuje stanice, nie p:TV SYSTEM. NT a SERVICE N bez nového presného dôkazu. Nepreberať grafiky podľa podobnosti názvu.
+- Stav 33/41; 6 DVB pozastavených, 2 mimo DVB odložené. Nula produkčných PNG. Ďalší široký audit prekrývajúcich sa sád má nízku výťažnosť; obnoviť len pri novom relevantnom SDT alebo dôkaze identity. Žiadna zmena produkcie, IPK ani časovača.
+
 ## 25. 11. 2026 — Ciefp Motor: veľký lamedb načítaný, doplnené rozlíšenie FREE TV
 
 - [Ciefp Motor 75°E–34°W](https://github.com/ciefp/ciefpsettings-enigma2/blob/master/ciefp-E2-motor-75E-34W/lamedb), blob `0e20540e628f372bc6f1c8272b62780f1f089202` (1 243 201 B podľa Git stromu), úspešne načítaný cez Git blob po prázdnej odpovedi contents API. Kompletný eDVB v4, ukončenie `end`, dátum editácie 13.11.2026. 13 950 servisných záznamov, 279 DTT, 0 presných zhôd šiestich providerov; prekryvy s menšími sadami sa nesmú počítať ako unikátne služby. Neopakovať nezmenený blob.
