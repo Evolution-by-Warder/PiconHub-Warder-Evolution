@@ -1,3 +1,7 @@
+## 25. 11. 2026 — CGTN donor audit dokončený
+
+- [Read-only audit 45640569744](https://github.com/Evolution-by-Warder/FullHDGlass-Warder-Evolution/actions/runs/45640569744) SUCCESS, 18 archívov a 36 vybraných PNG overených. Existujúci CGTN Arabic na 13°E obsahuje rovnaký sivý obdĺžnik ako Azzurra kandidát; nepoužiť ako čistý donor. CGTN Russian z 13°E je identitne správny, ale všetkých 9 variantov sa pixelovo líši od schváleného Azzurra návrhu, preto ponechať presne schválené PNG z pripravenej delty. Zatiaľ 9 overených náhrad pripravených, Arabic HOLD do získania čistej grafiky. Nula produkčných zmien.
+
 ## 25. 11. 2026 — Azzurra: kontrola aktuálnych transportných identít po prvej publikácii
 
 - Dokumentačný [PiconHub #106](https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/pull/106) zlúčený `e7eaeee179531ab91a644c4264e2626c3a37d52e`, register-integrity SUCCESS; prvá dávka uzavretá.
