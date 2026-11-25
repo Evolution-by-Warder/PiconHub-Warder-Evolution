@@ -1,3 +1,9 @@
+## 25. 11. 2026 — Azzurra SAT: korekcia centrovania kandidátov
+
+- Vlastník obsahovo akceptoval kandidátov s požiadavkou na horizontálne aj vertikálne vycentrovanie. Vizuálny audit 40 referencií/348 kandidátskych PNG našiel 14 referencií s izolovaným artefaktom pri pravom dolnom okraji, ktorý skresľoval ohraničenie loga: Welcome In, Canale 163/268/235, Radio Liberta, Museum HD, MyZen TV HD, TeleSirio, Mediaset Italia, Mandarin TV, Alma TV a ANT1 Europe (vrátane aliasov).
+- Odstránený iba oddelený artefakt; posunutý neprerezaný originálny foreground v oboch osiach, tolerancia stredu viditeľného bbox 0,5 px pri 220×132. WHITE/BLACK z kanonických šablón (overené SHA), kontúry rekonštruované podľa pôvodného kandidáta; 50×30 a 400×240 odvodené LANCZOS rovnako ako pred korekciou. 126 kandidátskych PNG zmenených, 222 pôvodných kandidátov bajtovo zachovaných; 12 pôvodných produkčných variantov nedotknutých. Bez zmeny identít, referencií a rozhodnutí ADD/REPLACE/HOLD.
+- Nový lokálny REVIEW ZIP `Warder_Azzurra_9E_5W_REVIEW_CENTERED_20261125.zip`, 15 103 912 B, SHA256 `e62832ce710f9b98ced8466ed7905b2d8bf968497d38df445e854fc49abd2d73`; 348 PNG, všetky rozmery, CRC a SHA PASS, register centrovania a 4 aktualizované náhľady. Nahrádza starý REVIEW, nie produkciu. 24 HOLD a overenie aktuálnosti referencií mimo Vhannibala zostávajú. Bez vydania IPK alebo zmeny časovača.
+
 ## 25. 11. 2026 — Azzurra 9°E a 5°W: nový SAT zdroj, grafický kandidát na kontrolu
 
 - Vlastník dodal a požiadal spracovať 9°est.rar (SHA256 `4924e8e6882e3ad0f74039622682fe92dc1faba706f5fef9a8ddf21f8c1bb4c7`), 5°w.rar (`3df301a79608e1ae34343464af6b0a8de60dfba7a6a385d362016133f0885497`) a dva identické Rai Way PNG (`8862acf71924998d8792ad11b1a4468d4966d2c54352e8f142826ff44f9ba2c0`). 1161 čitateľných zdrojových PNG, 773 + 388; jeden neštandardný názov s koncovým + ponechaný HOLD.
