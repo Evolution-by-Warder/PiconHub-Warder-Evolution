@@ -1,3 +1,11 @@
+## 25. 11. 2026 — Talianska dávka administratívne uzavretá s evidovanými výnimkami
+
+- Rozhodnutie vlastníka: „dokonci co treba a sprav co treba“ (25.11.2026). Stav: **33/41 uzavretých, 6 DVB výnimiek, 2 odložené mimo DVB, 0 otvorených DTT položiek.** Neznamená to, že všetkých 33 položiek sú nové publikované grafiky; zahŕňa aj zdokumentované uzavretia historických prípadov.
+- DVB výnimky: BBC WORLD, FREE TV, MULTIPROGRAM, NT, SERVICE N, TV SYSTEM. Nepublikovať neoverené logá. Mimo DVB: 1 CENT, SHARAVOZ. Obnoviť iba pri novom relevantnom dôkaze presnej aktuálnej identity a grafiky, resp. pri samostatnom schválení rozsahu mimo DVB. Neopakovať nezmenené zdrojové blob-y.
+- Produkčné DTT: 348 referencií v každom z 9 archívov, 54 nových schválených PNG, 3 078 pôvodných PNG zachovaných; audit 45584386040 overil 73 častí a bajtovú zhodu. [FullHDGlass #198](https://github.com/Evolution-by-Warder/FullHDGlass-Warder-Evolution/pull/198) a [PiconHub #104](https://github.com/Evolution-by-Warder/PiconHub-Warder-Evolution/pull/104) zlúčené. Oba manifesty na main opätovne overené cez Git blob `46d6d6124b7e74e96f146eaa014b4aca4d753593`. SHA256 `cfc08ab0120731b052cc4849992785e3395e70b2bf20506ad276cb9acf5e7e7f` je doložený publikovaným auditom.
+- Bez ďalšej zmeny produkcie, IPK, grafík alebo harmonogramu SAT Managera. Najbližší pravidelný cyklus 3.12.2026 08:00 Europe/Bratislava podľa existujúceho plánu. Evidované výnimky neblokujú pravidelný SAT cyklus.
+- Dokumentačné PR #197/#103: existujúce CI má filtre len na kód, preto doplniť samostatnú kontrolu registra s read-only oprávnením; bez obchádzania schváleného merge gate.
+
 ## 25. 11. 2026 — Vhannibal: deväť ďalších regionálnych databáz
 
 - Zdroj [OE-Alliance settings](https://github.com/oe-alliance/oe-alliance-settings), všetkých 9 lamedb načítaných cez presný Git blob, validná hlavička a ukončenie. 126 536 záznamov vrátane prekryvov (3 500 DTT). Po deduplikácii v tejto dávke podľa referencie + názvu služby + p: providera 28 403 záznamov, 2 399 DTT; nie unikátne voči všetkým predchádzajúcim auditom.
