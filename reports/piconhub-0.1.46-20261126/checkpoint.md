@@ -1,0 +1,3 @@
+# 26.11.2026 — PiconHub 0.1.46, kandidát ostrého vydania
+
+Vlastník schválil všetky opravy a 21 jazykov. Na vydanom tage v0.1.45 je 10 katalógov; main už obsahuje 21 × 128 kľúčov z PR #93. Pripravené runtime číslo 0.1.46, 21 jazykov release notes, kontrola balenia, produkčná evidencia až po overení, pôvodné testy a aktualizovaný presný katalogový základ. SHA256 katalógu f19668010148a473a79b7414fac41f2d060faa06c76b20d7cfedbf6054c25460 (doložený pre oba repozitáre auditom 45646011975). Žiadna zmena piconov, feedov či verejného IPK. CI, merge, publisher, verejný SHA a web čakajú na dôkaz. Fyzické testovanie neprebehlo.
