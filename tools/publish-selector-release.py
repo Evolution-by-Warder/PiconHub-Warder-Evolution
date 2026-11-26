@@ -52,6 +52,11 @@ def main():
  else:feed=dict(schema=1,product='PiconHub Warder Evolution',channel='stable',release=item)
  encoded=lambda d:(json.dumps(d,ensure_ascii=False,indent=2)+'\n').encode()
  changes={path:encoded(feed) for path in c['feed_paths']};production_path=c['production_record'];prod=json.loads(read(production_path));prod['previous_release']=prod.get('release');prod.update(status='production-update-active',approved_on=c['release_date'],approval=c['approval'],source_branch='main',source_commit=revision,package_source_commit=revision,release=item)
+ if c['product']=='PiconHub':
+  catalog=json.loads((ROOT/'plugin/src/Plugins/Extensions/WarderPiconHub/data/translations.json').read_text(encoding='utf-8'))
+  assert set(catalog)==set(notes)==set({'al','cs','de','el','en','es','et','fa','fr','hu','it','lt','nl','pl','pt','ro','ru','sk','tr','uk','zh'})
+  assert all(set(v)==set(catalog['en']) and all(v.values()) for v in catalog.values())
+  prod['languages']=sorted(catalog)
  prod['validation']=dict(ci='passed',workflow_run=int(os.environ['GITHUB_RUN_ID']),public_ipk_verified=True,three_background_catalogue_verified=True,selector_presentation_verified=True,all_profiles_and_other_payload_preserved=True,physical_receiver_tested=False);changes[production_path]=encoded(prod)
  if c['product']=='PiconHub':
   project=json.loads(read('plugin/project.json'));project.update(development_version=version,production_version=version,requested_production_version=version,latest_published_version=version,ipk_published=True);changes['plugin/project.json']=encoded(project)
