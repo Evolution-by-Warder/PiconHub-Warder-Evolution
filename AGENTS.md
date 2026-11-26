@@ -53,3 +53,9 @@ Vlastník výslovne nariadil pre všetky súčasné aj budúce projekty Evolutio
 Centrálne pokyny: [WEBSITE-RELEASE-POLICY.md](https://github.com/Evolution-by-Warder/YouTube-Warder-Evolution/blob/main/WEBSITE-RELEASE-POLICY.md), [zdroj webu](https://github.com/Evolution-by-Warder/YouTube-Warder-Evolution/tree/main/docs), [dokumentácia animácie](https://github.com/Evolution-by-Warder/YouTube-Warder-Evolution/blob/main/docs/WEBSITE-ORBIT.md).
 
 Pre tento projekt: `docs/piconhub.html` v centrálnom webovom repozitári.
+
+## Migrácie a veľkosť aktívneho repozitára
+
+Pred vydaním over čistú inštaláciu, aktualizáciu zo skutočného podporovaného základu, jej opakovanie, bezpečné správanie pri chybe a návrat na pôvodnú zostavu. Pre každý nahradený súbor urči jeho vlastníctvo a spravované cesty. Zachovaj používateľské nastavenia, samostatné zálohy, údaje ostatných pluginov aj licenčne požadované súbory.
+
+Pri zmene skontroluj nové veľké binárne objekty, archívy a životnosť skúšobných artefaktov. Potrebné verejné balíky, katalógy a migračné adresy eviduj s ich závislosťami. Pred čistením histórie zmeraj Git aj pracovný strom, over nezávislú šifrovanú obnovu a vyžiadaj potvrdenie vlastníka pre zásah do histórie, produkčných referencií alebo viditeľnosti. Výsledok a následnú kontrolu služieb zapíš do registra. Rovnaké pravidlá preberajú nové projekty.
