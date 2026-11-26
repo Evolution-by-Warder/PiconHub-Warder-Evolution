@@ -4,7 +4,7 @@ PiconHub poskytuje sťahovanie a správu satelitných piconov, providerov, DAB/D
 
 **Runtime:** `/usr/lib/enigma2/python/Plugins/Extensions/WarderPiconHub/`
 
-**Verzia pluginu:** 0.1.45. Overenie verejného vydania a aktualizačných kanálov sa riadi súbormi `plugin/PRODUCTION.md`, `plugin/update/` a `plugin/TESTOVANIE.md`, ak sú v repozitári dostupné.
+**Verzia zdrojov:** 0.1.46. Rozhranie, nastavenia, hodiny a aktualizačné dialógy majú 21 jazykov. Overenie verejného vydania a aktualizačných kanálov sa riadi súbormi `plugin/PRODUCTION.md`, `plugin/update/` a `plugin/TESTOVANIE.md`, ak sú v repozitári dostupné.
 
 ## Ovládanie
 

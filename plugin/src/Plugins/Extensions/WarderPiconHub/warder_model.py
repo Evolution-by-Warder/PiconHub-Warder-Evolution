@@ -1,5 +1,5 @@
 """GUI-independent menu, profile and clock rules for the Warder interface."""
-from .warder_i18n import _
+from .warder_i18n import _, normalize_language
 import datetime
 import json
 import pathlib
@@ -128,7 +128,31 @@ def clock_text(now=None, language="sk"):
         "es": (("Lunes","Martes","Miércoles","Jueves","Viernes","Sábado","Domingo"),
                ("enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre")),
     })
-    code = str(language).replace("-","_").split("_")[0]
+    languages.update({
+        "al": (("E hënë","E martë","E mërkurë","E enjte","E premte","E shtunë","E diel"),
+               ("janar","shkurt","mars","prill","maj","qershor","korrik","gusht","shtator","tetor","nëntor","dhjetor")),
+        "el": (("Δευτέρα","Τρίτη","Τετάρτη","Πέμπτη","Παρασκευή","Σάββατο","Κυριακή"),
+               ("Ιανουαρίου","Φεβρουαρίου","Μαρτίου","Απριλίου","Μαΐου","Ιουνίου","Ιουλίου","Αυγούστου","Σεπτεμβρίου","Οκτωβρίου","Νοεμβρίου","Δεκεμβρίου")),
+        "et": (("Esmaspäev","Teisipäev","Kolmapäev","Neljapäev","Reede","Laupäev","Pühapäev"),
+               ("jaanuar","veebruar","märts","aprill","mai","juuni","juuli","august","september","oktoober","november","detsember")),
+        "fa": (("دوشنبه","سه‌شنبه","چهارشنبه","پنجشنبه","جمعه","شنبه","یکشنبه"),
+               ("ژانویه","فوریه","مارس","آوریل","مه","ژوئن","ژوئیه","اوت","سپتامبر","اکتبر","نوامبر","دسامبر")),
+        "lt": (("Pirmadienis","Antradienis","Trečiadienis","Ketvirtadienis","Penktadienis","Šeštadienis","Sekmadienis"),
+               ("sausio","vasario","kovo","balandžio","gegužės","birželio","liepos","rugpjūčio","rugsėjo","spalio","lapkričio","gruodžio")),
+        "nl": (("Maandag","Dinsdag","Woensdag","Donderdag","Vrijdag","Zaterdag","Zondag"),
+               ("januari","februari","maart","april","mei","juni","juli","augustus","september","oktober","november","december")),
+        "pt": (("Segunda-feira","Terça-feira","Quarta-feira","Quinta-feira","Sexta-feira","Sábado","Domingo"),
+               ("janeiro","fevereiro","março","abril","maio","junho","julho","agosto","setembro","outubro","novembro","dezembro")),
+        "ro": (("Luni","Marți","Miercuri","Joi","Vineri","Sâmbătă","Duminică"),
+               ("ianuarie","februarie","martie","aprilie","mai","iunie","iulie","august","septembrie","octombrie","noiembrie","decembrie")),
+        "tr": (("Pazartesi","Salı","Çarşamba","Perşembe","Cuma","Cumartesi","Pazar"),
+               ("Ocak","Şubat","Mart","Nisan","Mayıs","Haziran","Temmuz","Ağustos","Eylül","Ekim","Kasım","Aralık")),
+        "uk": (("Понеділок","Вівторок","Середа","Четвер","П’ятниця","Субота","Неділя"),
+               ("січня","лютого","березня","квітня","травня","червня","липня","серпня","вересня","жовтня","листопада","грудня")),
+        "zh": (("星期一","星期二","星期三","星期四","星期五","星期六","星期日"),
+               ("1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月")),
+    })
+    code = normalize_language(language)
     names = languages.get(code,languages["en"])
     if names:
         day, date = names[0][now.weekday()], "%d. %s %d" % (now.day, names[1][now.month - 1], now.year)
@@ -136,9 +160,13 @@ def clock_text(now=None, language="sk"):
         day, date = now.strftime("%A"), now.strftime("%d. %B %Y")
     if code == "hu":
         date = "%d. %s %d." % (now.year,names[1][now.month-1],now.day)
-    elif code in ("ru","fr","it"):
+    elif code in ("ru","fr","it","al","el","fa","nl","ro","tr","uk"):
         date = "%d %s %d" % (now.day,names[1][now.month-1],now.year)
-    elif code == "es":
+    elif code in ("es", "pt"):
         date = "%d de %s de %d" % (now.day,names[1][now.month-1],now.year)
+    elif code == "zh":
+        date = "%d年%d月%d日" % (now.year, now.month, now.day)
+    elif code == "lt":
+        date = "%d m. %s %d d." % (now.year, names[1][now.month-1], now.day)
     return day, date, now.strftime("%H:%M"), now.strftime("%S")
 

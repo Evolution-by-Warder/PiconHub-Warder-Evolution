@@ -89,7 +89,7 @@ class PackageTests(unittest.TestCase):
                 self.assertEqual(source["source_revision"],"test-source")
                 notes=json.loads(payload.extractfile(prefix+"data/release-notes.json").read())
                 self.assertEqual(notes['version'],source['version'])
-                self.assertEqual(set(notes['notes']),{'sk','cs','en','de','pl','hu','ru','fr','it','es'})
+                self.assertEqual(set(notes['notes']),{'al','cs','de','el','en','es','et','fa','fr','hu','it','lt','nl','pl','pt','ro','ru','sk','tr','uk','zh'})
                 self.assertTrue(all(isinstance(text,str) and text.strip() for text in notes['notes'].values()))
                 catalog=json.loads(payload.extractfile(prefix+"data/channel-manifest.json").read())
                 self.assertEqual(len(catalog["packages"]),507)
